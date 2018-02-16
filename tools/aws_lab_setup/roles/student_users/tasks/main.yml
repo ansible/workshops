@@ -1,0 +1,25 @@
+# create users if not defined, using integer student_total
+- name: Create Users
+  template:
+    src: student_list.j2
+    dest: ./{{ec2_name_prefix}}_generated_student_list.txt
+  register: student_list
+  when: users is undefined
+
+# - name: debug generated_student_list
+#   debug:
+#     var: student_list
+
+# now load the student into variables
+- name: Include dynamically created generated_student_list.txt
+  include_vars:
+    file: "{{ec2_name_prefix}}_generated_student_list.txt"
+  when: users is undefined
+
+- name: Make sure there is users, if this fails you have no users
+  debug:
+    var: "{{users|length}}"
+
+# - name: debug users now
+#   debug:
+#     var: users

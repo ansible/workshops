@@ -1,0 +1,38 @@
+---
+- name: add route on ansible
+  hosts: ansible
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: add route to 172.17.0.0/16 subnet on ansible node
+      lineinfile:
+        path: /etc/sysconfig/network-scripts/route-eth0
+        line: "172.17.0.0/16 via {{hostvars['rtr1']['private_ip']}}"
+        create: yes
+      notify: "restart network"
+
+  handlers:
+    - name: restart network
+      systemd:
+        state: restarted
+        name: network
+
+- name: add route on host1
+  hosts: host1
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: add route to 172.16.0.0/16 subnet on host1 node
+      lineinfile:
+        path: /etc/sysconfig/network-scripts/route-eth0
+        line: "172.16.0.0/16 via {{hostvars['rtr2']['private_ip']}}"
+        create: yes
+      notify: "restart network"
+
+  handlers:
+    - name: restart network
+      systemd:
+        state: restarted
+        name: network

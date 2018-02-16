@@ -1,0 +1,28 @@
+- name: Include Red Hat tasks
+  include: "{{ ansible_os_family }}.yml"
+  static: no
+  when: ansible_os_family == 'RedHat'
+
+- name: Include Ubuntu tasks
+  include: "{{ ansible_distribution }}.yml"
+  static: no
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Configure sshd and sudoers
+  lineinfile:
+    dest: "{{ item.dest }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: "{{ item.state | default('present') }}"
+    validate: "{{ item.validate | default(omit) }}"
+    backup: no
+  with_items: "{{ common_node_config_options }}"
+  notify: restart ssh
+  tags:
+    - ssh
+    - sudo
+    - common
+
+- meta: flush_handlers
+  tags:
+    - common

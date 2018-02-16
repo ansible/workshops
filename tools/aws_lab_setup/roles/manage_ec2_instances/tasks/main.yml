@@ -1,0 +1,5 @@
+- include_tasks: teardown.yml
+  when: teardown
+
+- include_tasks: provision.yml
+  when: not teardown

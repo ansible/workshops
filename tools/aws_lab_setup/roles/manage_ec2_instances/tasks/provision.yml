@@ -1,0 +1,534 @@
+- name: Create AWS VPC {{ ec2_name_prefix }}-vpc
+  ec2_vpc_net:
+    name: "{{ ec2_name_prefix }}-vpc"
+    cidr_block: "{{ec2_subnet}}"
+    region: "{{ ec2_region }}"
+  register: create_vpc
+  when: ec2_vpc_id is undefined
+
+# - name: The VPC-ID for VPC named {{ ec2_name_prefix }}-vpc
+#   debug:
+#     var: create_vpc.vpc.id
+#   when: ec2_vpc_id is undefined
+
+- name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
+  ec2_vpc_net:
+    name: "{{ ec2_name_prefix }}-vpc2"
+    cidr_block: "{{ ec2_subnet2 }}"
+    region: "{{ ec2_region }}"
+  register: create_vpc2
+  when:
+    - ec2_vpc_id2 is undefined
+    - networking
+
+- name: Create EC2 security group for VPC named {{ ec2_name_prefix }}-vpc
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-insecure_all"
+    description: all ports open
+    region: "{{ ec2_region }}"
+    vpc_id: "{{create_vpc.vpc.id}}"
+    rules:
+      - proto: 47
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 443
+        from_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: icmp
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 80
+        from_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 22
+        from_port: 22
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  when: ec2_vpc_id is undefined and ec2_exact_count >= 1
+
+- name: Create EC2 security group 2 for VPC named {{ ec2_name_prefix }}-vpc (NETWORKING MODE)
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-insecure_all2"
+    description: all ports open
+    region: "{{ ec2_region }}"
+    vpc_id: "{{create_vpc2.vpc.id}}"
+    rules:
+      - proto: 47
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 443
+        from_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: icmp
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 80
+        from_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 22
+        from_port: 22
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  when:
+    - networking
+    - ec2_vpc_id2 is undefined
+    - ec2_exact_count >= 1
+
+- name: Create subnet for {{ ec2_name_prefix }}-vpc
+  ec2_vpc_subnet:
+    region: "{{ ec2_region }}"
+    az: "{{ ec2_az }}"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+    cidr: "{{ ec2_subnet }}"
+    resource_tags:
+      Name: "{{ ec2_name_prefix }}-subnet"
+  register: create_subnet
+  when: ec2_vpc_id is undefined
+
+- name: Create subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
+  ec2_vpc_subnet:
+    region: "{{ ec2_region }}"
+    az: "{{ ec2_az }}"
+    vpc_id: "{{create_vpc2.vpc.id}}"
+    cidr: "{{ec2_subnet2}}"
+    resource_tags:
+      Name: "{{ ec2_name_prefix }}-subnet2"
+  register: create_subnet2
+  when:
+    - ec2_vpc_id2 is undefined
+    - networking
+
+# - name: The subnet-id for VPC named {{ ec2_name_prefix }}-vpc
+#   debug:
+#     var: create_subnet.subnet.id
+#   when: ec2_vpc_id is undefined
+
+# - name: The subnet-id for VPC named {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
+#   debug:
+#     var: create_subnet2.subnet.id
+#   when:
+#     - networking
+#     - ec2_vpc_id is undefined
+
+- name: vpc internet gateway is present for {{ create_vpc.vpc.id }}
+  ec2_vpc_igw:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+  register: igw
+  when: ec2_vpc_id is undefined
+
+- name: vpc internet gateway is present for {{ create_vpc2.vpc.id }} (NETWORKING MODE)
+  ec2_vpc_igw:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ create_vpc2.vpc.id }}"
+  register: igw2
+  when:
+    - networking
+    - ec2_vpc_id2 is undefined
+
+- name: vpc public subnet route table is present for {{ create_vpc.vpc.id }}
+  ec2_vpc_route_table:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+    subnets:
+      - "{{ create_subnet.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"
+  when: ec2_vpc_id is undefined
+
+- name: vpc public subnet route table is present for {{ create_vpc2.vpc.id }} (NETWORKING MODE)
+  ec2_vpc_route_table:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ create_vpc2.vpc.id }}"
+    subnets:
+      - "{{ create_subnet2.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw2.gateway_id }}"
+  when:
+    - networking
+    - ec2_vpc_id2 is undefined
+
+- name: set variables for instance creation dynamically since VPC was not supplied by user
+  set_fact:
+    ec2_vpc_id: "{{ create_vpc.vpc.id }}"
+    ec2_security_group: "{{ ec2_name_prefix }}-insecure_all"
+    ec2_vpc_subnet_id: "{{ create_subnet.subnet.id }}"
+  when: ec2_vpc_id is undefined
+
+- name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORKING MODE)
+  set_fact:
+    ec2_vpc_id2: "{{ create_vpc2.vpc.id }}"
+    ec2_vpc_subnet_id2: "{{ create_subnet2.subnet.id }}"
+    ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
+  when:
+    - networking
+    - ec2_vpc_id2 is undefined
+
+- name: start ssh agent
+  raw: "eval `ssh-agent -s`"
+
+- name: Create ssh key pair for workshop {{ ec2_name_prefix }}
+  ec2_key:
+    name: "{{ ec2_name_prefix }}-key"
+    region: "{{ ec2_region }}"
+  register: create_key
+  when: ec2_key_name is undefined
+
+# - name: The key for for workshop {{ ec2_name_prefix }}
+#   debug:
+#     var: create_key
+#   when: ec2_key_name is undefined
+
+- name: save private key
+  copy:
+    content: "{{ create_key.key.private_key }}"
+    dest: "./aws-private.pem"
+    mode: 0400
+  when: create_key.changed
+
+- name: add the private key
+  command: ssh-add ./aws-private.pem
+  ignore_errors: yes
+  when: create_key.changed
+
+- name: add key to user
+  raw: ssh-add ./aws-private.pem
+
+- name: set keys for instance creation dynamically since key was not supplied by user
+  set_fact:
+    ec2_key_name: "{{ ec2_name_prefix }}-key"
+  when: ec2_key_name is undefined
+
+- name: debugging all variables for ec2 instance creation VPC-1
+  debug:
+    msg:
+      - "ec2_name_prefix: {{ec2_name_prefix}}"
+      - "ec2_vpc_id: {{ ec2_vpc_id }}"
+      - "ec2_key_name: {{ ec2_key_name }}"
+      - "ec2_security_group: {{ ec2_security_group }}"
+      - "ec2_vpc_subnet_id: {{ ec2_vpc_subnet_id }}"
+
+- name: debugging all variables for ec2 instance creation VPC-2 (NETWORKING MODE)
+  debug:
+    msg:
+      - "ec2_name_prefix: {{ec2_name_prefix}}"
+      - "ec2_vpc_id2: {{ ec2_vpc_id2 }}"
+      - "ec2_vpc_subnet_id2: {{ ec2_vpc_subnet_id2 }}"
+  when: networking
+
+# The next set_fact module uses a python filter selectattr:
+# {{ (ec2_lab_node_types|selectattr('name', 'equalto', 'ansible')|list)[0].type}}"
+# The selectattr filter searches the dictionary ec2_lab_node_types stored in
+# roles/manage_ec2_instances/defaults/main.yml
+# This grabs the 'type' of image we use to correspond to another dictionary farther on
+# That dictionary is ec2_instance_types is also stored at roles/manage_ec2_instances/defaults/main.yml
+# where we define attributes like ami image, size (e.g. t2.micro), os type (linux) and disk_space
+
+- name: set node types (NETWORKING MODE)
+  set_fact:
+    ansible_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'ansible')|list)[0].type}}"
+    rtr1_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'rtr1')|list)[0].type}}"
+    rtr2_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'rtr2')|list)[0].type}}"
+    host1_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'host1')|list)[0].type}}"
+  when: networking
+
+- name: set node types
+  set_fact:
+    ansible_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'ansible')|list)[0].type}}"
+    node1_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'node1')|list)[0].type}}"
+    node2_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'node2')|list)[0].type}}"
+    node3_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'node3')|list)[0].type}}"
+  when: not networking
+
+- name: Create EC2 instances for ansible node (control node)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_key_name }}"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types[ansible_node].size }}"
+    image: "{{ ec2_instance_types[ansible_node].ami_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ users|length }}"
+    count_tag:
+      Workshop_ansible: "{{ec2_name_prefix}}-ansible"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_instance_types[ansible_node].disk_space }}"
+        delete_on_termination: true
+  register: control_output
+
+- name: Ensure tags are present
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-ansible"
+      Workshop_ansible: "{{ec2_name_prefix}}-ansible"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "{{ users[item.0].username }}"
+  with_indexed_items:
+    - "{{ control_output.instance_ids }}"
+  when: control_output.instance_ids is not none
+
+- name: Create EC2 instances for node1
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_key_name }}"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types[node1_node].size }}"
+    image: "{{ ec2_instance_types[node1_node].ami_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ users|length }}"
+    count_tag:
+      Workshop_node1: "{{ec2_name_prefix}}-node1"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_instance_types[node1_node].disk_space }}"
+        delete_on_termination: true
+  register: node1_output
+  when: not networking
+
+- name: Ensure tags are present for node1
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-node1"
+      Workshop_node1: "{{ec2_name_prefix}}-node1"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "{{ users[item.0].username }}"
+  with_indexed_items:
+    - "{{ node1_output.instance_ids }}"
+  when:
+    - not networking
+    - node1_output.instance_ids is not none
+
+- name: Create EC2 instances for node2
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_key_name }}"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types[node2_node].size }}"
+    image: "{{ ec2_instance_types[node2_node].ami_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ users|length }}"
+    count_tag:
+      Workshop_node2: "{{ec2_name_prefix}}-node2"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_instance_types[node2_node].disk_space }}"
+        delete_on_termination: true
+  register: node2_output
+  when: not networking
+
+- name: Ensure tags are present for node2
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-node2"
+      Workshop_node2: "{{ec2_name_prefix}}-node2"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "{{ users[item.0].username }}"
+  with_indexed_items:
+    - "{{ node2_output.instance_ids }}"
+  when:
+    - not networking
+    - node2_output.instance_ids is not none
+
+- name: Create EC2 instances for node3
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_key_name }}"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types[node3_node].size }}"
+    image: "{{ ec2_instance_types[node3_node].ami_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ users|length }}"
+    count_tag:
+      Workshop_node3: "{{ec2_name_prefix}}-node3"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_instance_types[node3_node].disk_space }}"
+        delete_on_termination: true
+  register: node3_output
+  when: not networking
+
+- name: Ensure tags are present for node3
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-node3"
+      Workshop_node3: "{{ec2_name_prefix}}-node3"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "{{ users[item.0].username }}"
+  with_indexed_items:
+    - "{{ node3_output.instance_ids }}"
+  when:
+    - not networking
+    - node3_output.instance_ids is not none
+
+- name: Create EC2 instances for rtr1 node (NETWORKING MODE)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_key_name }}"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types[rtr1_node].size }}"
+    image: "{{ ec2_instance_types[rtr1_node].ami_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ users|length }}"
+    count_tag:
+      Workshop_rtr1: "{{ec2_name_prefix}}-rtr1"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  when: networking
+  register: rtr1_output
+
+- name: Ensure tags are present for rtr1 node (NETWORKING MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-rtr1"
+      Workshop_rtr1: "{{ec2_name_prefix}}-rtr1"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "{{ users[item.0].username }}"
+  with_indexed_items:
+    - "{{ rtr1_output.instance_ids }}"
+  when:
+    - networking
+    - rtr1_output.instance_ids is not none
+
+- name: Create EC2 instances for rtr2 node in VPC-2 (NETWORKING MODE)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_key_name }}"
+    group: "{{ ec2_security_group2 }}"
+    instance_type: "{{ ec2_instance_types[rtr2_node].size }}"
+    image: "{{ ec2_instance_types[rtr2_node].ami_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ users|length }}"
+    count_tag:
+      Workshop_rtr2: "{{ec2_name_prefix}}-rtr2"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id2 }}"
+  when: networking
+  register: rtr2_output
+
+- name: Ensure tags are present for rtr2 node (NETWORKING MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-rtr2"
+      Workshop_rtr2: "{{ec2_name_prefix}}-rtr2"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "{{ users[item.0].username }}"
+  with_indexed_items:
+    - "{{ rtr2_output.instance_ids }}"
+  when:
+    - networking
+    - rtr2_output.instance_ids is not none
+
+- name: Create EC2 instances for host1 node in VPC-2 (NETWORKING MODE)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_key_name }}"
+    group: "{{ ec2_security_group2 }}"
+    instance_type: "{{ ec2_instance_types[host1_node].size }}"
+    image: "{{ ec2_instance_types[host1_node].ami_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ users|length }}"
+    count_tag:
+      Workshop_host1: "{{ec2_name_prefix}}-host1"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id2 }}"
+  when: networking
+  register: host1_output
+
+- name: Ensure tags are present for host1 node (NETWORKING MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-host1"
+      Workshop_host1: "{{ec2_name_prefix}}-host1"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "{{ users[item.0].username }}"
+  with_indexed_items:
+    - "{{ host1_output.instance_ids }}"
+  when:
+    - networking
+    - host1_output.instance_ids is not none
+
+- name: grab all network interfaces for VPC 1
+  ec2_eni_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ec2_vpc_id}}"
+  register: eni_facts_1
+
+- name: grab all network interfaces for VPC 2 (NETWORKING MODE)
+  ec2_eni_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ec2_vpc_id2}}"
+  register: eni_facts_2
+  when: networking
+
+- name: Disable Source/Dest check on instance {{ec2_vpc_id1}}
+  ec2_eni:
+    eni_id: "{{ item['network_interface_id'] }}"
+    region: "{{ ec2_region }}"
+    source_dest_check: false
+  with_items:
+    - "{{eni_facts_1['network_interfaces']}}"
+    - "{{eni_facts_2['network_interfaces']}}"
+  when: networking
+
+- name: Include tasks only needed when creating instances
+  include_tasks: create.yml
+  when: ec2_exact_count >= 1

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<font face="verdana,sans,arial">
+<style>
+
+/* unvisited link */
+a:link {
+    color: #FF6978;
+}
+
+/* visited link */
+a:visited {
+    color: #FF6978;
+}
+
+/* mouse over link */
+a:hover {
+    color: #3DCCCC;
+}
+
+/* selected link */
+a:active {
+    color: blue;
+}
+Try it Yourself »
+
+</style>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>Ansible Lightbulb -  Networking</h1>
+  </div>
+  <div data-role="main">
+    <h3>CONTACT: ansible-network@redhat.com <br>
+
+
+Github for Ansible Lightbulb - Networking: <a href="https://network-automation.github.io/lightbulb/" target="lightbulb">workshop_github</a><br><br>
+
+</h3>
+
+<h4><a href="https://network-automation.github.io/lightbulb/decks/ansible-networking.html#/" target="new_1">DECK: Ansible Essentials</a><br></h4>
+<h4><a href="https://network-automation.github.io/lightbulb/decks/intro-to-ansible-tower.html#/" target="new_2">DECK:  Intro To Tower</a><br></h4>
+<h4><a href="https://network-automation.github.io/lightbulb/workshops/networking/" target="new_main">LAB GUIDE</a><br><br></h4>
+<h4><b><font color="gray"><a href="https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe" target="new_3">DOWNLOAD: PuTTY for Windows</a></font></b></h4>
+
+<hr>
+
+
+<h3><a href="http://bit.ly/ansibletowerbundle" target="new_main">Tower Download Link</a></h3>
+You may want to run these commands on your control node to download Ansible Tower directly with wget:
+<pre><h3>
+sudo yum -y install wget
+wget http://bit.ly/ansibletowerbundle
+</h3></pre>
+
+<h3><a href="https://www.ansible.com/workshop-license" target="new_gd_license">Lightbulb license is available here</a><br><br></h3>
+
+<hr>
+  </div>
+{% for item in users %}
+  <div data-role="main" class="ui-content">
+    <div data-role="collapsible">
+      <h1>{{item.username}} - Click to see details!</h1>
+{% for host in ansible_node_facts.instances %}
+{% if item.username == host.tags.Student %}
+To login to the <code>ansible</code> control node use the following for SSH access:<br>
+username:   {{item.username}}<br>
+password:   PROVIDED BY INSTRUCTOR<br>
+IP Address: {{ host.public_ip_address }}<br>
+<pre>ssh {{item.username}}@{{ host.public_ip_address }}</pre><br>
+{% endif %}
+{% endfor %}
+</p>
+    </div>
+  </div>
+{% endfor %}
+  <div data-role="footer">
+    <h1>Thanks for participating!</h1>
+  </div>
+</div>
+
+</body>
+</html>

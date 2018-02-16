@@ -1,0 +1,41 @@
+[all:vars]
+ansible_user={{ item.username }}
+ansible_ssh_pass={{ admin_password }}
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+[web]
+{% for vm in node1_node_facts.instances %}
+{% if item.username == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}
+{% for vm in node2_node_facts.instances %}
+{% if item.username == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}
+{% for vm in node3_node_facts.instances %}
+{% if item.username == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}
+
+[control]
+{% for vm in ansible_node_facts.instances %}
+{% if item.username == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}
+
+#{#
+#[haproxy]
+#{% for grouper, list in instances.results|groupby('item') if grouper[0] == item %}
+#{% for vm in list %}
+#{% if vm.skipped is not defined and 'haproxy' in vm.invocation.tags.Name %}
+#{{ vm.invocation.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ #vm.public_ip_address }}
+#{% endif %}
+#{% endfor %}
+#{% endfor %}
+##}

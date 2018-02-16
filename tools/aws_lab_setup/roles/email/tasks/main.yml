@@ -1,0 +1,23 @@
+- name: Send email to students with inventroy attached
+  delegate_to: localhost
+  sendgrid:
+    username: "{{ sendgrid_user | default(omit) }}"
+    password: "{{ sendgrid_pass | default(omit) }}"
+    api_key: "{{ sendgrid_api_key | default(omit) }}"
+    subject: "[Ansible] Important Training Details"
+    body: |
+          Attached is the Ansible inventory to be used for training.<br>
+          Please check your ability to connect to each of the hosts via ssh.<br>
+          <br>
+          The username is '{{ item.username }}' and the password is '{{ admin_password }}'.<br>
+          If you have any issues connecting, please reply to this email to let me know.<br>
+
+    to_addresses: "{{ item.email }}"
+    html_body: yes
+    from_address: "{{ instructor_email }}"
+    attachments:
+      - "{{ item.username }}-instances.txt"
+  with_items: "{{ users }}"
+  when: email
+  tags:
+    - email

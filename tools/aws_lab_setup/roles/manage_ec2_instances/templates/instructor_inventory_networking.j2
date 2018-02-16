@@ -1,0 +1,28 @@
+[all:vars]
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+{% for user in users %}
+[{{ user.username }}]
+{% for host in ansible_node_facts.instances %}
+{% if user.username == host.tags.Student %}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[ansible_node] }}
+{% endif %}
+{% endfor %}
+{% for host in rtr1_node_facts.instances %}
+{% if user.username == host.tags.Student %}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr1_node] }}
+{% endif %}
+{% endfor %}
+{% for host in rtr2_node_facts.instances %}
+{% if user.username == host.tags.Student %}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr2_node] }}
+{% endif %}
+{% endfor %}
+{% for host in host1_node_facts.instances %}
+{% if user.username == host.tags.Student %}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[host1_node] }}
+{% endif %}
+{% endfor %}
+{% endfor %}

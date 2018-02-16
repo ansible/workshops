@@ -1,0 +1,2 @@
+control_node_inventory_path: ~{{ username }}/lightbulb/lessons/lab_inventory/{{ username }}-instances.txt
+control_node_install_ansible: yes

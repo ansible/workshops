@@ -1,0 +1,17 @@
+---
+- name: backup router configurations
+  hosts: routers
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: gather ios_facts
+      ios_facts:
+      register: version
+
+    - debug:
+        msg: "{{version}}"
+
+    - name: Backup configuration
+      ios_config:
+        backup: yes

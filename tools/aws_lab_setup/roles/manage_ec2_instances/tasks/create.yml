@@ -1,0 +1,139 @@
+- name: grab facts for control_nodes
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible"
+  register: ansible_node_facts
+
+- name: add ansible node to control_nodes group (BOTH MODES)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ ec2_login_names[ansible_node] }}"
+    ansible_port: "{{ ssh_port }}"
+    groups:
+      - lab_hosts
+      - control_nodes
+  with_items: "{{ ansible_node_facts.instances }}"
+
+- name: ANSIBLE ESSENTIALS MODE TASKS
+  block:
+    - name: grab facts for node1 node
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
+      register: node1_node_facts
+
+    - name: grab facts for node2 node
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
+      register: node2_node_facts
+
+    - name: grab facts for node3 node
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
+      register: node3_node_facts
+
+    - name: add hosts to groups (ANSIBLE ESSENTIALS MODE)
+      add_host:
+        name: "{{ item.tags.Name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        ansible_user: "{{ ec2_login_names[node1_node] }}"
+        ansible_port: "{{ ssh_port }}"
+        groups: lab_hosts,managed_nodes
+      with_items:
+        - "{{ node1_node_facts.instances }}"
+        - "{{ node2_node_facts.instances }}"
+        - "{{ node3_node_facts.instances }}"
+      changed_when: no
+  when: not networking
+
+- name: ANSIBLE NETWORKING MODE TASKS
+  block:
+    - name: grab facts for host1 node (NETWORKING MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_host1": "{{ec2_name_prefix}}-host1"
+      register: host1_node_facts
+
+    - name: add host1 to groups (NETWORKING MODE)
+      add_host:
+        name: "{{ item.tags.Name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        ansible_user: "{{ ec2_login_names[host1_node] }}"
+        ansible_port: "{{ ssh_port }}"
+        groups: lab_hosts,managed_nodes
+      with_items: "{{ host1_node_facts.instances }}"
+
+    - name: grab facts for rtr1 node (NETWORKING MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
+      register: rtr1_node_facts
+
+    - name: add rtr1 to groups (NETWORKING MODE)
+      add_host:
+        name: "{{ item.tags.Name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        ansible_user: "{{ ec2_login_names[rtr1_node] }}"
+        ansible_port: "{{ ssh_port }}"
+        groups: lab_hosts,routers
+      with_items:
+        - "{{rtr1_node_facts.instances}}"
+
+    - name: grab facts for rtr2 node (NETWORKING MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_rtr2": "{{ec2_name_prefix}}-rtr2"
+      register: rtr2_node_facts
+
+    - name: add rtr2 to groups (NETWORKING MODE)
+      add_host:
+        name: "{{ item.tags.Name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        ansible_user: "{{ ec2_login_names[rtr2_node] }}"
+        ansible_port: "{{ ssh_port }}"
+        groups: lab_hosts,routers
+      with_items:
+        - "{{rtr2_node_facts.instances}}"
+  when: networking
+
+- name: Set local username to create on instances
+  set_fact:
+    username: "{{ item | regex_replace('.*-(\\w*)-\\w*$','\\1') }}"
+  with_items: "{{ groups.lab_hosts }}"
+  delegate_to: "{{ item }}"
+  delegate_facts: yes
+
+- name: Generate student inventories
+  template:
+    src: "{{ networking | ternary( 'networking_instances.txt.j2' , 'instances.txt.j2' ) }}"
+    dest: ./{{ item.username }}-instances.txt
+  with_items: "{{ users }}"
+
+- name: Generate student etchosts
+  template:
+    src: etchosts_networking.j2
+    dest: ./{{ item.username }}-etchosts.txt
+  with_items: "{{ users }}"
+  when: networking
+
+- name: Generate instructor inventory
+  template:
+    src: "{{ networking | ternary( 'instructor_inventory_networking.j2' , 'instructor_inventory.j2' ) }}"
+    dest: ./instructor_inventory.txt

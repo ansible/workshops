@@ -1,0 +1,14 @@
+- block:
+  - name: enable GigabitEthernet1 interface if compliant on r2
+    net_interface:
+      name: GigabitEthernet1
+      description: interface to host1
+      state: present
+
+  - name: dhcp configuration for GigabitEthernet1
+    ios_config:
+      lines:
+        - ip address dhcp
+      parents: interface GigabitEthernet1
+  when:
+    - ansible_net_version == ios_version

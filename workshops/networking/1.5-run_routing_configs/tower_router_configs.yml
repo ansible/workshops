@@ -1,0 +1,61 @@
+---
+- name: Router Configurations
+  hosts: all
+  gather_facts: no
+  vars:
+    ansible_network_os: ios
+    ansible_connection: local
+    dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+    ios_version: "16.06.01"
+    #Variables can be manually set like this:
+    #host1_private_ip: "172.18.2.8"
+    #control_private_ip: "172.17.1.157"
+    #or reference dynamically variables tied to the host directly
+    #in this case, its grabbing this from the inventory under lab_inventory:
+    host1_private_ip: "{{hostvars['host1']['private_ip']}}"
+    control_private_ip: "{{hostvars['control']['private_ip']}}"
+  tasks:
+    - name: gather ios_facts
+      ios_facts:
+
+    ##Configuration for R1
+    - block:
+      - name: Static route from R1 to R2
+        net_static_route:
+          prefix: "{{host1_private_ip}}"
+          mask: 255.255.255.255
+          next_hop: 10.0.0.2
+      - name: configure name servers
+        net_system:
+          name_servers: "{{item}}"
+        with_items: "{{dns_servers}}"
+      when:
+        - ansible_net_version == ios_version
+        - '"rtr1" in inventory_hostname'
+
+    ##Configuration for R2
+    - block:
+      - name: enable GigabitEthernet2 interface if compliant
+        net_interface:
+          name: GigabitEthernet2
+          description: interface to host1
+          state: present
+      - name: dhcp configuration for GigabitEthernet2
+        ios_config:
+          lines:
+            - ip address dhcp
+          parents: interface GigabitEthernet2
+      - name: Static route from R2 to R1
+        net_static_route:
+          prefix: "{{control_private_ip}}"
+          mask: 255.255.255.255
+          next_hop: 10.0.0.1
+      - name: configure name servers
+        net_system:
+          name_servers: "{{item}}"
+        with_items: "{{dns_servers}}"
+      when:
+        - ansible_net_version == ios_version
+        - '"rtr2" in inventory_hostname'

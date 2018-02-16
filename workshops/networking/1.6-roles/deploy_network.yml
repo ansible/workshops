@@ -1,0 +1,8 @@
+---
+- name: Deploy the Router configurations
+  hosts: routers
+  gather_facts: no
+  roles:
+    - system
+    - interface
+    - static_route

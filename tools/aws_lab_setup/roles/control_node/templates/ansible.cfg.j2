@@ -1,0 +1,12 @@
+[defaults]
+connection = smart
+timeout = 60
+{% if networking is defined %}
+inventory = /home/{{ username }}/networking-workshop/lab_inventory/hosts
+{% else %}
+inventory = {{ control_node_inventory_path }}
+{% endif %}
+host_key_checking = False
+{% if networking is defined %}
+private_key_file = ~/.ssh/aws-private.pem
+{% endif %}

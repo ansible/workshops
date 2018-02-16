@@ -1,0 +1,63 @@
+---
+- name: Create an inventory, group, and hosts within Tower for the 'web' group nodes[1:3]
+  hosts: localhost
+  vars:
+    tower_host_password: #Enter your password you setup for 'admin_password' when installing Tower
+    pip_packages:
+      - python-pip
+      - python-devel
+    tower_host_ip: 127.0.0.1 #Since Tower serves on localhost by default, this is sufficient for Lightbulb
+    tower_host_user: admin #Admin is the default user for Lighbulb projects
+    organization: "Default" #Default org setup by Tower Install
+    inventory_name: "Ansible Lightbulb Lab" #Follows inventory_name in docs for Lightbulb
+    group_name:
+      - "web"
+      - "control"
+
+  tasks:
+  - name: Install pip and ansible-tower-cli
+    block:
+      - name: Install pip packages
+        yum:
+          name: "{{ item }}"
+          state: present
+        with_items: "{{ pip_packages }}"
+      - name: Install tower-cli
+        pip:
+          name: ansible-tower-cli
+    become: yes
+
+  - name: Create the Ansible Lightbulb inventory
+    tower_inventory:
+      name: "{{ inventory_name }}"
+      description: "Generic Inventory"
+      organization: "{{ organization }}"
+      tower_host: "{{ tower_host_ip }}"
+      tower_username: "{{ tower_host_user }}"
+      tower_password: "{{ tower_host_password }}"
+      state: present
+
+  - name: Add tower group
+    tower_group:
+      name: "{{ item }}"
+      description: "Generic group"
+      inventory: "{{ inventory_name }}"
+      tower_host: "{{ tower_host_ip }}"
+      tower_username: "{{ tower_host_user }}"
+      tower_password: "{{ tower_host_password }}"
+      state: present
+    with_items: "{{ group_name }}"
+
+  - name: Add tower hosts
+    tower_host:
+      name: "{{item}}"
+      variables: "ansible_host: {{ hostvars[item]['ansible_host'] }}"
+      description: "{{ item }} from your static inventory file"
+      inventory: "{{ inventory_name }}"
+      tower_host: "{{ tower_host_ip }}"
+      tower_username: "{{ tower_host_user }}"
+      tower_password: "{{ tower_host_password }}"
+      state: present
+    with_inventory_hostnames:
+    - web
+    - control

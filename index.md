@@ -12,7 +12,7 @@
 <br><br><br><br>
 
  ---
-![Red Hat Ansible Automation](rh-ansible-automation.png)
+![Red Hat Ansible Automation](images/rh-ansible-automation.png)
 
 Red Hat® Ansible® Automation includes three products:
 

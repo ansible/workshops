@@ -1,4 +1,4 @@
-# Ansible Lightbulb Workshops
+# Ansible Linklight Workshops
 
 # Training Decks
 - [Ansible Essentials](decks/ansible-essentials.html)
@@ -6,8 +6,8 @@
 - [Ansible Networking](decks/ansible-networking.html)
 
 # Workshops
-- [Ansible Engine Workshop](workshops/ansible_engine/README.md)
-- [Ansible Networking Workshop](workshops/networking/README.md)
+- [Ansible Engine Workshop](exercises/ansible_engine/README.md)
+- [Ansible Networking Workshop](exercises/networking/README.md)
 
 <br><br><br><br>
 

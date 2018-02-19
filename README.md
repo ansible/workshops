@@ -7,20 +7,20 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
 ## Table of Contents
 
 * [Presentation Decks](decks):
-   Presentation decks using the [reveal.js framework](http://lab.hakim.se/reveal-js/)
+  Presentation decks using the [reveal.js framework](http://lab.hakim.se/reveal-js/)
 
    - [Ansible Essentials](decks/ansible-essentials.html)
    - [Intro to Ansible Tower](decks/intro-to-ansible-tower.html)
    - [Ansible Networking](decks/ansible-networking.html)
 
 * [Exercises](exercises):
-   Step-by-step exercises provided for learning how to automate with Ansible.
+  Step-by-step exercises provided for learning how to automate with Ansible.
 
-   - [Ansible Engine Exercises](exercises/ansible_engine/README.md)
-   - [Ansible Networking Exercises](exercises/networking/README.md)
+   - [Ansible Engine Workshop Exercises](exercises/ansible_engine/README.md)
+   - [Ansible Networking Workshop Exercises](exercises/networking/README.md)
 
 * [Lab Provisioner](provisioner):
-   AWS playbook for building up a testing environment (in the form of Virtual Machines) for someone to try the exercises provided above.
+  AWS playbook for building up a testing environment (in the form of Virtual Machines) for someone to try the exercises provided above.
 
 ---
 ![Red Hat Ansible Automation](images/rh-ansible-automation.png)

@@ -11,4 +11,4 @@ bak/
 *.pem
 instructor_inventory.txt
 tools/aws_lab_setup/aws-private.pem
-*.html
+./*.html

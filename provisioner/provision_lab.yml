@@ -36,14 +36,6 @@
   roles:
     - control_node
 
-- name: Email inventory to students
-  hosts: localhost
-  connection: local
-  become: no
-  gather_facts: no
-  roles:
-    - email
-
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
   connection: local

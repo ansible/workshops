@@ -29,7 +29,6 @@ Use the samples-vars-networking.yml as an example.  [Quick instructions for netw
 # Table Of Contents
 - [Requirements](#requirements)
 - [AWS Setup](#aws-setup)
-  - [Email Options](#email-options)
   - [Lab Setup](#lab-setup)
     - [One Time Setup](#one-time-setup)
     - [Setup (per workshop)](#setup-per-workshop)
@@ -82,44 +81,12 @@ ec2_az: us-east-1a                    # availability zone
 ec2_name_prefix: TRAINING-LAB         # name prefix for all the VMs
 admin_password: ansible
 ## Optional Variables
-email: no                             # Set this if you wish to disable email
 localsecurity: false                   # skips firewalld installation and SE Linux when turned to false
 ```
 
 For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control.  You can use pre-existing AWS VPCs you already created.
 
-2. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
-
-For a users example, look at [sample-users.yml](sample-users.yml)
-    **email**
-```yml
-users:
-  - name: Bod Barker
-    username: bbarker
-    email: bbarker@acme.com
-
-  - name: Jane Smith
-    username: jsmith
-    email: jsmith@acme.com
-```
-
-**no email**
-```yml
-users:
-  - name: Student01
-    username: student01
-    email: instructor@acme.com
-
-  - name: Student02
-    username: student02
-    email: instructor@acme.com
-```
-- **no email** NOTE:  If using generic users, you can generate the corresponding
-`users.yml` file from the command line by creating a 'STUDENTS' variable
-containing the number of "environments" you want, and then populating the file.
-For example:
-
-3. Run the playbook:
+2. Run the playbook:
 
         ansible-playbook provision_lab.yml -e @extra_vars.yml -e @users.yml
 

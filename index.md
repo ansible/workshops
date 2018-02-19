@@ -1,5 +1,7 @@
 # Ansible Linklight Workshops
 
+![linklight](images/linklight.png)
+
 # Training Decks
 - [Ansible Essentials](decks/ansible-essentials.html)
 - [Intro to Ansible Tower](decks/intro-to-ansible-tower.html)

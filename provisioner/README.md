@@ -17,14 +17,15 @@ This mode builds a four node workshop demonstrating Ansible’s capabilities on 
 * Two network nodes (`rtr1` and `rtr2`).
 * One host node named `host1`
 
-The `ansible` node and `rtr1` are in one VPC.  The `host1` node and `rtr2` are in another VPC.  More details of the setup including a diagram can be found on the [networking workshop page](../../workshops/networking).
+The `ansible` node and `rtr1` are in one VPC.  The `host1` node and `rtr2` are in another VPC.  More details of the setup including a diagram can be found on the [networking workshop page](../exercises/networking).
 
 To enable networking mode edit the vars file and add:
 ```
 networking: true
 ```
 
-Use the samples-vars-networking.yml as an example.  [Quick instructions for networking mode can be found here](network_quick_instructions.md).
+- Use the [samples-vars-networking.yml](samples-vars-networking.yml) as an example.  
+- [Quick instructions for networking mode can be found here](network_quick_instructions.md).
 
 # Table Of Contents
 - [Requirements](#requirements)

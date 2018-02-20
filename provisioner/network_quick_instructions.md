@@ -62,5 +62,5 @@ If you used automatically created students the file name will always be `generat
 Do the tear down like this->
 
 ```bash
-ansible-playbook teardown_lab.yml -e @my_workshop.yml -e @generated_student_list.txt
+ansible-playbook teardown_lab.yml -e @my_workshop.yml
 ```

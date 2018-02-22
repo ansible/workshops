@@ -209,6 +209,7 @@
 
 - name: add key to user
   raw: ssh-add ./aws-private.pem
+  when: create_key.changed
 
 - name: set keys for instance creation dynamically since key was not supplied by user
   set_fact:
@@ -232,29 +233,38 @@
       - "ec2_vpc_subnet_id2: {{ ec2_vpc_subnet_id2 }}"
   when: networking
 
-# The next set_fact module uses a python filter selectattr:
-# {{ (ec2_lab_node_types|selectattr('name', 'equalto', 'ansible')|list)[0].type}}"
-# The selectattr filter searches the dictionary ec2_lab_node_types stored in
-# roles/manage_ec2_instances/defaults/main.yml
-# This grabs the 'type' of image we use to correspond to another dictionary farther on
-# That dictionary is ec2_instance_types is also stored at roles/manage_ec2_instances/defaults/main.yml
-# where we define attributes like ami image, size (e.g. t2.micro), os type (linux) and disk_space
-
 - name: set node types (NETWORKING MODE)
   set_fact:
-    ansible_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'ansible')|list)[0].type}}"
-    rtr1_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'rtr1')|list)[0].type}}"
-    rtr2_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'rtr2')|list)[0].type}}"
-    host1_node: "{{ (ec2_lab_node_types_networking|selectattr('name', 'equalto', 'host1')|list)[0].type}}"
+    ansible_node: "{{ ec2_lab_node_types_networking['ansible'] }}"
+    rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
+    rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
+    host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
   when: networking
 
 - name: set node types
   set_fact:
-    ansible_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'ansible')|list)[0].type}}"
-    node1_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'node1')|list)[0].type}}"
-    node2_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'node2')|list)[0].type}}"
-    node3_node: "{{ (ec2_lab_node_types|selectattr('name', 'equalto', 'node3')|list)[0].type}}"
+    ansible_node: "{{ ec2_lab_node_types['ansible'] }}"
+    node1_node: "{{ ec2_lab_node_types['node1'] }}"
+    node2_node: "{{ ec2_lab_node_types['node2'] }}"
+    node3_node: "{{ ec2_lab_node_types['node3'] }}"
   when: not networking
+
+- name: find ami for ansible control node
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[ansible_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[ansible_node].filter }}"
+      architecture: "{{ ec2_instance_types[ansible_node].architecture }}"
+  register: amis
+
+- debug:
+    var: amis
+
+- name: save ami for ansible control node
+  set_fact:
+    ansible_control_node_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 - name: Create EC2 instances for ansible node (control node)
   ec2:
@@ -262,7 +272,7 @@
     key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[ansible_node].size }}"
-    image: "{{ ec2_instance_types[ansible_node].ami_id }}"
+    image: "{{ ansible_control_node_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ users|length }}"
     count_tag:
@@ -291,13 +301,29 @@
     - "{{ control_output.instance_ids }}"
   when: control_output.instance_ids is not none
 
+- name: find ami for node1
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[node1_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[ansible_node].filter }}"
+      architecture: "{{ ec2_instance_types[node1_node].architecture }}"
+  register: amis
+  when: not networking
+
+- name: save ami for node1
+  set_fact:
+    node1_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+  when: not networking
+
 - name: Create EC2 instances for node1
   ec2:
     assign_public_ip: yes
     key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node1_node].size }}"
-    image: "{{ ec2_instance_types[node1_node].ami_id }}"
+    image: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ users|length }}"
     count_tag:
@@ -329,13 +355,29 @@
     - not networking
     - node1_output.instance_ids is not none
 
+- name: find ami for node2
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[node2_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[ansible_node].filter }}"
+      architecture: "{{ ec2_instance_types[node2_node].architecture }}"
+  register: amis
+  when: not networking
+
+- name: save ami for node2
+  set_fact:
+    node2_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+  when: not networking
+
 - name: Create EC2 instances for node2
   ec2:
     assign_public_ip: yes
     key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node2_node].size }}"
-    image: "{{ ec2_instance_types[node2_node].ami_id }}"
+    image: "{{ node2_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ users|length }}"
     count_tag:
@@ -367,13 +409,29 @@
     - not networking
     - node2_output.instance_ids is not none
 
+- name: find ami for node3
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[node3_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[ansible_node].filter }}"
+      architecture: "{{ ec2_instance_types[node3_node].architecture }}"
+  register: amis
+  when: not networking
+
+- name: save ami for node3
+  set_fact:
+    node3_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+  when: not networking
+
 - name: Create EC2 instances for node3
   ec2:
     assign_public_ip: yes
     key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node3_node].size }}"
-    image: "{{ ec2_instance_types[node3_node].ami_id }}"
+    image: "{{ node3_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ users|length }}"
     count_tag:
@@ -405,13 +463,29 @@
     - not networking
     - node3_output.instance_ids is not none
 
+- name: find ami for rtr1 (NETWORKING MODE)
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[rtr1_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[rtr1_node].filter }}"
+      architecture: "{{ ec2_instance_types[rtr1_node].architecture }}"
+  register: amis
+  when: networking
+
+- name: save ami for rtr (NETWORKING MODE)
+  set_fact:
+    rtr1_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+  when: networking
+
 - name: Create EC2 instances for rtr1 node (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
     key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[rtr1_node].size }}"
-    image: "{{ ec2_instance_types[rtr1_node].ami_id }}"
+    image: "{{ rtr1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ users|length }}"
     count_tag:
@@ -438,13 +512,29 @@
     - networking
     - rtr1_output.instance_ids is not none
 
+- name: find ami for rtr2 (NETWORKING MODE)
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[rtr2_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[rtr2_node].filter }}"
+      architecture: "{{ ec2_instance_types[rtr2_node].architecture }}"
+  register: amis
+  when: networking
+
+- name: save ami for rtr2 (NETWORKING MODE)
+  set_fact:
+    rtr2_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+  when: networking
+
 - name: Create EC2 instances for rtr2 node in VPC-2 (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
     key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_instance_types[rtr2_node].size }}"
-    image: "{{ ec2_instance_types[rtr2_node].ami_id }}"
+    image: "{{ rtr2_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ users|length }}"
     count_tag:
@@ -471,13 +561,29 @@
     - networking
     - rtr2_output.instance_ids is not none
 
+- name: find ami for host1 (NETWORKING MODE)
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[host1_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[host1_node].filter }}"
+      architecture: "{{ ec2_instance_types[host1_node].architecture }}"
+  register: amis
+  when: networking
+
+- name: save ami for rtr2 (NETWORKING MODE)
+  set_fact:
+    host1_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+  when: networking
+
 - name: Create EC2 instances for host1 node in VPC-2 (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
     key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_instance_types[host1_node].size }}"
-    image: "{{ ec2_instance_types[host1_node].ami_id }}"
+    image: "{{ host1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ users|length }}"
     count_tag:

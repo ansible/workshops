@@ -1,3 +1,4 @@
+---
 ec2_name_prefix: TRAINING
 ec2_region: us-east-1
 ec2_exact_count: 1
@@ -8,185 +9,66 @@ networking: false
 ssh_port: 22
 
 ec2_lab_node_types:
-  - name: ansible
-    type: rhel7-tower
-
-  - name: node1
-    type: rhel7
-
-  - name: node2
-    type: rhel7
-
-  - name: node3
-    type: rhel7
-
-#  - name: haproxy
-#    type: rhel7
+  ansible: rhel7-tower
+  node1: rhel7
+  node2: rhel7
+  node3: rhel7
 
 ec2_lab_node_types_networking:
-  - name: ansible
-    type: rhel7-tower
-
-  - name: rtr1
-    type: csr-byol
-
-  - name: rtr2
-    type: csr-byol
-
-  - name: host1
-    type: rhel7
-
-# --- Lookup tables --- #
-# Region specific AMIs, subnets, and VPCs
-
-ec2_regions:
-  us-east-1:
-    vpc: vpc-06c9a463
-    subnet_id: subnet-a2169ed5
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      centos7: ami-61bbf104
-      centos7-tower: ami-877b9e91
-      rhel7: ami-85241def
-      rhel7-tower: ami-85241def
-      ubuntu14: ami-feed08e8
-      ubuntu16: ami-9dcfdb8a
-      csr-byol: ami-bcbfb9c7
-  us-east-2:
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      csr-byol: ami-b61437d3
-      rhel7: ami-cfdafaaa
-      rhel7-tower: ami-cfdafaaa
-      ubuntu14: ami-feed08e8
-      ubuntu16: ami-9dcfdb8a
-      centos7: ami-61bbf104
-      centos7-tower: ami-877b9e91
-  us-west-1:
-    vpc: vpc-ce1f9aab
-    subnet_id: subnet-25b9157c
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      centos7: ami-af4333cf
-      centos7-tower: ami-c04a00a0
-      rhel7: ami-f88fc498
-      rhel7-tower: ami-f88fc498
-      ubuntu14: ami-6ebcec0e
-      ubuntu16: ami-b05203d0
-      csr-byol: ami-99e5d0f9
-  us-west-2:
-    amis:
-      csr-byol: ami-e4d43d9c
-      rhel7:  ami-9fa343e7
-  ca-central-1:
-    amis:
-      csr-byol: ami-6269d706
-      rhel7: ami-9062d0f4
-  eu-west-1:
-    vpc: vpc-48141c2a
-    subnet_id: subnet-70f9f012
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      centos7: ami-af4333cf
-      centos7-tower: ami-c04a00a0
-      rhel7: ami-2b9d6c52
-      rhel7-tower: ami-2b9d6c52
-      ubuntu14: ami-6ebcec0e
-      ubuntu16: ami-b05203d0
-
-  ap-southeast-1:
-    vpc: vpc-xxxxxxxx
-    subnet_id: subnet-xxxxxxxx
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      centos7: ami-7d2eab1e
-      centos7-tower: ami-c7ed91a4
-      rhel7: ami-dccc04bf
-      rhel7-tower: ami-dccc04bf
-      ubuntu14: ami-adb51dce
-      ubuntu16: ami-87b917e4
-
-  ap-southeast-2:
-    vpc: vpc-xxxxxxxxa
-    subnet_id: subnet-xxxxxxxx
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      centos7: ami-34171d57
-      centos7-tower: ami-01b45763
-      rhel7: ami-286e4f4b
-      rhel7-tower: ami-286e4f4b
-      ubuntu14: ami-940e0bf7
-      ubuntu16: ami-e6b58e85
-
-  ap-south-1:
-    vpc: vpc-xxxxxxxx
-    subnet_id: subnet-xxxxxxxx
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      centos7: ami-3c0e7353
-      centos7-tower: ami-5b145434
-      rhel7: ami-cdbdd7a2
-      rhel7-tower: ami-cdbdd7a2
-      ubuntu14: ami-533e4e3c
-      ubuntu16: ami-dd3442b2
-
-  ap-northeast-1:
-    vpc: vpc-xxxxxxxx
-    subnet_id: subnet-xxxxxxxx
-    key_name: "{{ ec2_key_name | default('training') }}"
-    amis:
-      centos7: ami-29d1e34e
-      centos7-tower: ami-0d05d46b
-      rhel7: ami-a05854ce
-      rhel7-tower: ami-a05854ce
-      ubuntu14: ami-3995e55e
-      ubuntu16: ami-18afc47f
+  ansible: rhel7-tower
+  rtr1: csr-byol
+  rtr2: csr-byol
+  host1: rhel7
 
 # Instance types used for lab configurations
 ec2_instance_types:
-  centos7:
-    ami_id: "{{ ec2_regions[ec2_region].amis.centos7 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
-
-  centos7-tower:
-    ami_id: "{{ ec2_regions[ec2_region].amis['centos7-tower'] }}"
-    size: t2.medium
-    os_type: linux
-    disk_space: 20
+  # centos7:
+  #   size: t2.micro
+  #   os_type: linux
+  #   disk_space: 10
+  #
+  # centos7-tower:
+  #   size: t2.medium
+  #   os_type: linux
+  #   disk_space: 20
 
   csr-byol:
-    ami_id: "{{ ec2_regions[ec2_region].amis['csr-byol'] }}"
+    owners: 679593333241
     size: t2.medium
     os_type: linux
     disk_space: 20
+    architecture: x86_64
+    filter: "cisco-CSR*BYOL*"
+
 
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7:
-    ami_id: "{{ ec2_regions[ec2_region].amis.rhel7 }}"
+    owners: 309956199498
     size: t2.micro
     os_type: linux
     disk_space: 10
+    architecture: x86_64
+    filter: '*RHEL*7.4*'
+
 
   rhel7-tower:
-    ami_id: "{{ ec2_regions[ec2_region].amis['rhel7-tower'] }}"
+    owners: 309956199498
     size: t2.medium
     os_type: linux
     disk_space: 20
+    architecture: x86_64
+    filter: '*RHEL*7.4*'
 
   # Look at https://cloud-images.ubuntu.com/locator/ec2/ for Ubuntu AMIs
-  ubuntu14:
-    ami_id: "{{ ec2_regions[ec2_region].amis.ubuntu14 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
-
-  ubuntu16:
-    ami_id: "{{ ec2_regions[ec2_region].amis.ubuntu16 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
+  # ubuntu14:
+  #   size: t2.micro
+  #   os_type: linux
+  #   disk_space: 10
+  #
+  # ubuntu16:
+  #   size: t2.micro
+  #   os_type: linux
+  #   disk_space: 10
 
 # Login names used for SSH connections. These are baked in to the AMIs.
 ec2_login_names:
@@ -197,7 +79,6 @@ ec2_login_names:
   ubuntu14: ubuntu
   ubuntu16: ubuntu
   csr-byol: ec2-user
-
 
 # Backwards compatability
 types: "{{ ec2_lab_node_types }}"

@@ -1,6 +1,0 @@
-users:
-{% for student in range(student_total) %}
-  - name: student{{ loop.index }}
-    username: student{{ loop.index }}
-    email: {{instructor_email | default('no-reply@example.com')}}
-{% endfor %}

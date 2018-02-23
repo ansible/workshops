@@ -2,22 +2,22 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 {% for vm in rtr1_node_facts.instances %}
-{% if item.username in vm.tags.Name %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
 {% endfor %}
 {% for vm in rtr2_node_facts.instances %}
-{% if item.username in vm.tags.Name %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
 {% endfor %}
 {% for vm in host1_node_facts.instances %}
-{% if item.username in vm.tags.Name %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
 {% endfor %}
 {% for vm in ansible_node_facts.instances %}
-{% if item.username in vm.tags.Name %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
 {% endfor %}

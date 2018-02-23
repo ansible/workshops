@@ -35,19 +35,19 @@ Try it Yourself »
 
 <div data-role="page" id="pageone">
   <div data-role="header">
-    <h1>Ansible Lightbulb -  Networking</h1>
+    <h1>Ansible Linklight -  Networking</h1>
   </div>
   <div data-role="main">
     <h3>CONTACT: ansible-network@redhat.com <br>
 
 
-Github for Ansible Lightbulb - Networking: <a href="https://network-automation.github.io/lightbulb/" target="lightbulb">workshop_github</a><br><br>
+Github for Ansible Linklight - Networking: <a href="https://network-automation.github.io/Linklight/" target="Linklight">workshop_github</a><br><br>
 
 </h3>
 
-<h4><a href="https://network-automation.github.io/lightbulb/decks/ansible-networking.html#/" target="new_1">DECK: Ansible Essentials</a><br></h4>
-<h4><a href="https://network-automation.github.io/lightbulb/decks/intro-to-ansible-tower.html#/" target="new_2">DECK:  Intro To Tower</a><br></h4>
-<h4><a href="https://network-automation.github.io/lightbulb/workshops/networking/" target="new_main">LAB GUIDE</a><br><br></h4>
+<h4><a href="https://network-automation.github.io/Linklight/decks/ansible-networking.html#/" target="new_1">DECK: Ansible Essentials</a><br></h4>
+<h4><a href="https://network-automation.github.io/Linklight/decks/intro-to-ansible-tower.html#/" target="new_2">DECK:  Intro To Tower</a><br></h4>
+<h4><a href="https://network-automation.github.io/Linklight/workshops/networking/" target="new_main">LAB GUIDE</a><br><br></h4>
 <h4><b><font color="gray"><a href="https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe" target="new_3">DOWNLOAD: PuTTY for Windows</a></font></b></h4>
 
 <hr>
@@ -60,21 +60,21 @@ sudo yum -y install wget
 wget http://bit.ly/ansibletowerbundle
 </h3></pre>
 
-<h3><a href="https://www.ansible.com/workshop-license" target="new_gd_license">Lightbulb license is available here</a><br><br></h3>
+<h3><a href="https://www.ansible.com/workshop-license" target="new_gd_license">Linklight license is available here</a><br><br></h3>
 
 <hr>
   </div>
-{% for item in users %}
+{% for number in range(1,student_total + 1) %}
   <div data-role="main" class="ui-content">
     <div data-role="collapsible">
-      <h1>{{item.username}} - Click to see details!</h1>
+      <h1>student{{number}} - Click to see details!</h1>
 {% for host in ansible_node_facts.instances %}
-{% if item.username == host.tags.Student %}
+{% if 'student' ~ number == host.tags.Student %}
 To login to the <code>ansible</code> control node use the following for SSH access:<br>
-username:   {{item.username}}<br>
-password:   PROVIDED BY INSTRUCTOR<br>
+username:   student{{number}}<br>
+password:   {{admin_password}}<br>
 IP Address: {{ host.public_ip_address }}<br>
-<pre>ssh {{item.username}}@{{ host.public_ip_address }}</pre><br>
+<pre>ssh student{{number}}@{{ host.public_ip_address }}</pre><br>
 {% endif %}
 {% endfor %}
 </p>

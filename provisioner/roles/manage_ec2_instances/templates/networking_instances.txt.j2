@@ -1,5 +1,5 @@
 [all:vars]
-ansible_user={{ item.username }}
+ansible_user=student{{ item }}
 ansible_ssh_pass={{ admin_password }}
 {% if ssh_port is defined %}
 ansible_port={{ ssh_port }}
@@ -7,24 +7,24 @@ ansible_port={{ ssh_port }}
 
 [routers]
 {% for vm in rtr1_node_facts.instances %}
-{% if item.username == vm.tags.Student %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr1_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 {% for vm in rtr2_node_facts.instances %}
-{% if item.username == vm.tags.Student %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr2_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 [hosts]
 {% for vm in host1_node_facts.instances %}
-{% if item.username == vm.tags.Student %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[host1_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 [control]
 {% for vm in ansible_node_facts.instances %}
-{% if item.username == vm.tags.Student %}
+{% if 'student' + item == vm.tags.Student %}
 {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[ansible_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}

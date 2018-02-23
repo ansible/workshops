@@ -1,10 +1,10 @@
-- name: Create users if not defined
-  hosts: localhost
-  connection: local
-  become: no
-  gather_facts: no
-  roles:
-    - student_users
+# - name: Create users if not defined
+#   hosts: localhost
+#   connection: local
+#   become: no
+#   gather_facts: no
+#   roles:
+#     - student_users
 
 - name: Create lab instances in AWS
   hosts: localhost

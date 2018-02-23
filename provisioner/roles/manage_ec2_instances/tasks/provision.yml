@@ -274,7 +274,7 @@
     instance_type: "{{ ec2_instance_types[ansible_node].size }}"
     image: "{{ ansible_control_node_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ users|length }}"
+    exact_count: "{{ student_total }}"
     count_tag:
       Workshop_ansible: "{{ec2_name_prefix}}-ansible"
     wait: "{{ ec2_wait }}"
@@ -292,11 +292,11 @@
     resource: "{{item.1}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-ansible"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-ansible"
       Workshop_ansible: "{{ec2_name_prefix}}-ansible"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
-      Student: "{{ users[item.0].username }}"
+      Student: "student{{item.0 + 1}}"
   with_indexed_items:
     - "{{ control_output.instance_ids }}"
   when: control_output.instance_ids is not none
@@ -325,7 +325,7 @@
     instance_type: "{{ ec2_instance_types[node1_node].size }}"
     image: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ users|length }}"
+    exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node1: "{{ec2_name_prefix}}-node1"
     wait: "{{ ec2_wait }}"
@@ -344,11 +344,11 @@
     resource: "{{item.1}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-node1"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node1"
       Workshop_node1: "{{ec2_name_prefix}}-node1"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
-      Student: "{{ users[item.0].username }}"
+      Student: "student{{item.0 + 1}}"
   with_indexed_items:
     - "{{ node1_output.instance_ids }}"
   when:
@@ -379,7 +379,7 @@
     instance_type: "{{ ec2_instance_types[node2_node].size }}"
     image: "{{ node2_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ users|length }}"
+    exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node2: "{{ec2_name_prefix}}-node2"
     wait: "{{ ec2_wait }}"
@@ -398,11 +398,11 @@
     resource: "{{item.1}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-node2"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node2"
       Workshop_node2: "{{ec2_name_prefix}}-node2"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
-      Student: "{{ users[item.0].username }}"
+      Student: "student{{item.0 + 1}}"
   with_indexed_items:
     - "{{ node2_output.instance_ids }}"
   when:
@@ -433,7 +433,7 @@
     instance_type: "{{ ec2_instance_types[node3_node].size }}"
     image: "{{ node3_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ users|length }}"
+    exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node3: "{{ec2_name_prefix}}-node3"
     wait: "{{ ec2_wait }}"
@@ -452,11 +452,11 @@
     resource: "{{item.1}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-node3"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node3"
       Workshop_node3: "{{ec2_name_prefix}}-node3"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
-      Student: "{{ users[item.0].username }}"
+      Student: "student{{item.0 + 1}}"
   with_indexed_items:
     - "{{ node3_output.instance_ids }}"
   when:
@@ -487,7 +487,7 @@
     instance_type: "{{ ec2_instance_types[rtr1_node].size }}"
     image: "{{ rtr1_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ users|length }}"
+    exact_count: "{{ student_total }}"
     count_tag:
       Workshop_rtr1: "{{ec2_name_prefix}}-rtr1"
     wait: "{{ ec2_wait }}"
@@ -501,11 +501,11 @@
     resource: "{{item.1}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-rtr1"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-rtr1"
       Workshop_rtr1: "{{ec2_name_prefix}}-rtr1"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
-      Student: "{{ users[item.0].username }}"
+      Student: "student{{item.0 + 1}}"
   with_indexed_items:
     - "{{ rtr1_output.instance_ids }}"
   when:
@@ -536,7 +536,7 @@
     instance_type: "{{ ec2_instance_types[rtr2_node].size }}"
     image: "{{ rtr2_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ users|length }}"
+    exact_count: "{{ student_total }}"
     count_tag:
       Workshop_rtr2: "{{ec2_name_prefix}}-rtr2"
     wait: "{{ ec2_wait }}"
@@ -550,11 +550,11 @@
     resource: "{{item.1}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-rtr2"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-rtr2"
       Workshop_rtr2: "{{ec2_name_prefix}}-rtr2"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
-      Student: "{{ users[item.0].username }}"
+      Student: "student{{item.0 + 1}}"
   with_indexed_items:
     - "{{ rtr2_output.instance_ids }}"
   when:
@@ -585,7 +585,7 @@
     instance_type: "{{ ec2_instance_types[host1_node].size }}"
     image: "{{ host1_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ users|length }}"
+    exact_count: "{{ student_total }}"
     count_tag:
       Workshop_host1: "{{ec2_name_prefix}}-host1"
     wait: "{{ ec2_wait }}"
@@ -599,11 +599,11 @@
     resource: "{{item.1}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-{{ users[item.0].username }}-host1"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-host1"
       Workshop_host1: "{{ec2_name_prefix}}-host1"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
-      Student: "{{ users[item.0].username }}"
+      Student: "student{{item.0 + 1}}"
   with_indexed_items:
     - "{{ host1_output.instance_ids }}"
   when:

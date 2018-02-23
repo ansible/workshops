@@ -3,25 +3,25 @@
 ansible_port={{ ssh_port }}
 {% endif %}
 
-{% for user in users %}
-[{{ user.username }}]
+{% for number in range(1,student_total + 1) %}
+[student{{ number }}]
 {% for host in ansible_node_facts.instances %}
-{% if user.username == host.tags.Student %}
+{% if 'student' ~ number == host.tags.Student %}
 {{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[ansible_node] }}
 {% endif %}
 {% endfor %}
 {% for host in rtr1_node_facts.instances %}
-{% if user.username == host.tags.Student %}
+{% if 'student' ~ number == host.tags.Student %}
 {{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr1_node] }}
 {% endif %}
 {% endfor %}
 {% for host in rtr2_node_facts.instances %}
-{% if user.username == host.tags.Student %}
+{% if 'student' ~ number == host.tags.Student %}
 {{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr2_node] }}
 {% endif %}
 {% endfor %}
 {% for host in host1_node_facts.instances %}
-{% if user.username == host.tags.Student %}
+{% if 'student' ~ number == host.tags.Student %}
 {{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[host1_node] }}
 {% endif %}
 {% endfor %}

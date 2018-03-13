@@ -146,4 +146,4 @@ You have completed exercise 1.4
 To view and run the completed playbook move on to [Exercise 1.5!](../1.5-run_routing_configs)
 
  ---
-[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

@@ -60,7 +60,7 @@ PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
 You have completed exercise 1.5
 
 # Answer Key
-You can [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.5-run_routing_configs/router_configs.yml).
+You can [click here](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.5-run_routing_configs/router_configs.yml).
 
  ---
-[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

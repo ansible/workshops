@@ -89,4 +89,4 @@ The new job will run and use the IP address you chose in the survey.  The survey
 You have now completed this Tower lab.
 
  ---
-[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

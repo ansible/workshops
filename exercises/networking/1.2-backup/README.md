@@ -309,8 +309,8 @@ ansible-playbook host-routes.yml
 You have completed lab exercise 1.2
 
 # Answer Key
-- For backup.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/backup.yml).
-- For host-routes.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/host-routes.yml)
+- For backup.yml [click here](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.2-backup/backup.yml).
+- For host-routes.yml [click here](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.2-backup/host-routes.yml)
 
  ---
-[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

@@ -81,7 +81,7 @@ Click the ![Add](add.png) button
 | **DESCRIPTION**        | Workshop playbooks                                                    |
 | **ORGANIZATION**       | Default                                                               |
 | **SCM TYPE**           | Git                                                                   |
-| **SCM URL**            | https://github.com/network-automation/lightbulb/                       |
+| **SCM URL**            | https://github.com/network-automation/linklight/                      |
 | **SCM UPDATE OPTIONS** | Check Clean, Uncheck Delete on Update, Check Update on Launch         |
 
 ![Figure 4: Defining a Project](project.png)
@@ -129,7 +129,7 @@ You should see output similar to the following:
 ```
 [student2@ip-172-17-3-250 ~]$ sudo tower-manage inventory_import --source=/home/student1/networking-workshop/lab_inventory/hosts --inventory-name="Ansible Workshop Inventory"
     1.676 INFO     Updating inventory 2: Ansible Workshop Inventory
-    1.755 INFO     Reading Ansible inventory source: /home/student2/lightbulb/lessons/lab_inventory/hosts
+    1.755 INFO     Reading Ansible inventory source: /home/student2/linklight/lessons/lab_inventory/hosts
     2.704 ERROR     [WARNING]: Found both group and host with same name: control
     2.704 INFO     Processing JSON output...
     2.704 INFO     Loaded 3 groups, 4 hosts
@@ -157,4 +157,4 @@ Try browsing your inventory in Tower. You should now notice that the inventory h
 At this point, we are doing with our basic configuration of Ansible Tower. In the next exercise, we will be solely focused on creating and running a job template so you can see Tower in action.
 
  ---
-[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

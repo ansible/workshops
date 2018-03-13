@@ -105,7 +105,7 @@ Notice the `when` statement shown above.  This is a conditional.  If the invento
 Now that you’ve completed writing your playbook, let’s go ahead and save it.  Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`  We now have our second playbook. Let’s go ahead and run that awesomeness!
 
 ## Step 6: Running the playbook
-From your lightbulb directory, run the gre.yml playbook
+From your linklight directory, run the gre.yml playbook
 ```bash
 ansible-playbook gre.yml
 ```
@@ -116,7 +116,7 @@ You’ve successfully created a playbook that uses conditionals! Check out the [
 You have completed lab exercise 1.3
 
 # Answer Key
-You can [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.3-gre/gre.yml).
+You can [click here](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.3-gre/gre.yml).
 
  ---
-[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

@@ -7,10 +7,9 @@
 The default mode provisions four nodes per user:
 * One control node from which Ansible will be executed from and where Ansible Tower can be installed (named ansible)
 * Three web nodes that coincide with the three nodes in lightbulb's original design
-* And one node where `haproxy` is installed (via lightbulb lesson)
 
 ## Ansible Networking Mode
-This provisions the [Ansible Lightbulb - Networking Workshop](../exercises/networking).  
+This provisions the [Ansible Linklight - Networking Workshop](../exercises/networking).  
 
 This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS):
 * One control node from which Ansible will be executed from and where Ansible Tower can be installed (named `ansible`)
@@ -63,7 +62,7 @@ To provision the workshop onto AWS use the following directions:
 
         pip install passlib
 
-6. Clone the lightbulb repo:
+6. Clone the linklight repo:
 
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 

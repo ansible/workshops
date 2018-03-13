@@ -182,7 +182,7 @@ $ ansible-playbook deploy_network.yml
 You should now have a completed playbook, deploy_network.yml with a three roles called system, interface and static_route. The advantage of structuring your playbook into roles is that you can now add new roles to the playbook using Ansible Galaxy or simply writing your own. In addition, roles simplify changes to variables, tasks, templates, etc.
 
 ## Answer Key
-Since there is multiple files, its best to [view this on GitHub](https://github.com/network-automation/lightbulb/tree/master/workshops/networking/1.6-roles).
+Since there is multiple files, its best to [view this on GitHub](https://github.com/network-automation/linklight/tree/master/exercises/networking/1.6-roles).
 
  ---
-[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

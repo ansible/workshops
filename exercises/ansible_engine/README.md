@@ -1,10 +1,10 @@
-# Ansible Lightbulb - Ansible Engine
+# Ansible Linklight - Ansible Engine
 
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
 ## Presentation
 Want the Presentation Deck?  Its right here:
-[Ansible Essentials Lightbulb Deck](../../decks/ansible-essentials.html)
+[Ansible Essentials Deck](../../decks/ansible-essentials.html)
 
 ## Ansible Engine Exercises
 

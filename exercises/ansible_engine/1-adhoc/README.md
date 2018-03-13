@@ -97,4 +97,4 @@ We are going to be using the short-form options throughout this workshop.
 
 ---
 
-[Click Here to return to the Ansible Lightbulb - Ansible Engine Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)

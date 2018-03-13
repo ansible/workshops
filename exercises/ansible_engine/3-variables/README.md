@@ -237,4 +237,4 @@ looks the way you intended.  If not, now is the time for us to fix it up. The fi
 
 ---
 
-[Click Here to return to the Ansible Lightbulb - Ansible Engine Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)

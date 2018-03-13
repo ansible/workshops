@@ -10,6 +10,8 @@
     state: "{{ s3_state }}"
     region: "{{ec2_region}}"
     force: yes
+  tags:
+     - s3website
 
 - name: enable web hosting
   s3_website:
@@ -19,6 +21,8 @@
    suffix: "{{ ec2_name_prefix|lower }}-index.html"
   register: s3_site
   when: s3_state == 'present'
+  tags:
+     - s3website
 
 - name: DNS for student webpage
   route53:
@@ -31,6 +35,8 @@
   when:
     - s3_state == 'present'
     - ec2_region == 'us-east-1'
+  tags:
+     - s3website
 
 - name: DNS for student webpage
   route53:
@@ -43,6 +49,8 @@
   when:
     - s3_state == 'present'
     - ec2_region != 'us-east-1'
+  tags:
+     - s3website
 
 - name: PUT student webpage
   s3_sync:
@@ -54,3 +62,5 @@
     permission: public-read
     include: "{{ ec2_name_prefix|lower }}-index.html"
   when: s3_state == 'present'
+  tags:
+     - s3website

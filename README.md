@@ -22,6 +22,9 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
 * [Lab Provisioner](provisioner)  
   AWS playbook for building up a testing environment (in the form of Virtual Machines) for someone to try the exercises provided above.
 
+# Slack
+Do you like Slack?  So do we! [click to join our ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
+
 ---
 ![Red Hat Ansible Automation](images/rh-ansible-automation.png)
 

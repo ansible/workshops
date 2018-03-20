@@ -7,7 +7,7 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
 ## Table of Contents
 
 * [Presentation Decks](decks)  
-  Presentation decks using the [reveal.js framework](http://lab.hakim.se/reveal-js/)
+  Presentation decks use the [reveal.js framework](http://lab.hakim.se/reveal-js/)
 
    - [Ansible Essentials](decks/ansible-essentials.html)
    - [Intro to Ansible Tower](decks/intro-to-ansible-tower.html)

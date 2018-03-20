@@ -56,7 +56,14 @@ To provision the workshop onto AWS use the following directions:
 
         pip install boto boto3
 
-4. Create an [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) (you should be using IAM and [not your AWS account directly](http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html)).  Save the ID and key for later.
+4. Set your Access Key ID and Secret Access Key from Step 2 under ~/.aws/credentials
+
+```
+[root@centos ~]# cat ~/.aws/credentials
+[default]
+aws_access_key_id = ABCDEFGHIJKLMNOP
+aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
+```
 
 5. Install the `passlib` library
 
@@ -74,20 +81,19 @@ If you haven't done so already make sure you have the repo cloned to the machine
 1. Define the following variables in a file passed in using `-e @extra_vars.yml`
 
 ```yml
-ec2_key_name: username                # SSH key in AWS to put in all the instances
 ec2_region: us-east-1                 # region where the nodes will live
 ec2_az: us-east-1a                    # availability zone
-ec2_name_prefix: TRAINING-LAB         # name prefix for all the VMs
+ec2_name_prefix: TRAININGLAB         # name prefix for all the VMs
 admin_password: ansible
 ## Optional Variables
-localsecurity: false                   # skips firewalld installation and SE Linux when turned to false
+localsecurity: false                   # skips firewalld installation and SE Linux when false
 ```
 
 For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control.  You can use pre-existing AWS VPCs you already created.
 
 2. Run the playbook:
 
-        ansible-playbook provision_lab.yml -e @extra_vars.yml -e @users.yml
+        ansible-playbook provision_lab.yml -e @extra_vars.yml
 
 What does the provisioner take care of automatically?
 - AWS VPC creation (Amazon WebServices Virtual Private Cloud)
@@ -100,7 +106,7 @@ What does the provisioner take care of automatically?
 
 4. Check on the EC2 console and you should see instances being created like:
 
-        TRAINING-LAB-<student_username>-node1|2|3|haproxy|tower|control
+        TRAINING-LAB-<student_username>-node1|2|3|tower|control
 
 ## Accessing student documentation and slides
 

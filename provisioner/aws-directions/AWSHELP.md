@@ -1,5 +1,5 @@
 # AWS DIRECTIONS HELP
-These steps will walk you through where to create credentials (Access Key ID and Secret Access Key) on AWS to use for provisioning VMs with Ansible.
+These steps will walk you through where to create credentials (Access Key ID and Secret Access Key) on AWS to use for provisioning VMs with Ansible.  
 
 ## Login
 Login to the AWS Console on [https://aws.amazon.com/](https://aws.amazon.com/)
@@ -28,5 +28,11 @@ You need to create a new access key, only then will the necessary key and key ID
 ![create-key](create-key.png)
 
 You now have your Access Key ID and Secret Access Key!
+
+## AWS References
+
+- [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+- [managing-aws-access-keys.html(http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html).
+
 
 [Return to aws_lab_setup directions](../README.md)

@@ -180,15 +180,14 @@
     - networking
     - ec2_vpc_id2 is undefined
 
-- name: start ssh agent
-  raw: "eval `ssh-agent -s`"
+- name: enable ssh-agent
+  shell: eval $(ssh-agent)
 
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
     name: "{{ ec2_name_prefix }}-key"
     region: "{{ ec2_region }}"
   register: create_key
-  when: ec2_key_name is undefined
 
 # - name: The key for for workshop {{ ec2_name_prefix }}
 #   debug:
@@ -211,17 +210,12 @@
   raw: ssh-add ./aws-private.pem
   when: create_key.changed
 
-- name: set keys for instance creation dynamically since key was not supplied by user
-  set_fact:
-    ec2_key_name: "{{ ec2_name_prefix }}-key"
-  when: ec2_key_name is undefined
-
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:
     msg:
       - "ec2_name_prefix: {{ec2_name_prefix}}"
       - "ec2_vpc_id: {{ ec2_vpc_id }}"
-      - "ec2_key_name: {{ ec2_key_name }}"
+      - "{{ ec2_name_prefix }}-key: {{ ec2_name_prefix }}-key"
       - "ec2_security_group: {{ ec2_security_group }}"
       - "ec2_vpc_subnet_id: {{ ec2_vpc_subnet_id }}"
 
@@ -269,7 +263,7 @@
 - name: Create EC2 instances for ansible node (control node)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_key_name }}"
+    key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[ansible_node].size }}"
     image: "{{ ansible_control_node_ami.image_id }}"
@@ -320,7 +314,7 @@
 - name: Create EC2 instances for node1
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_key_name }}"
+    key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node1_node].size }}"
     image: "{{ node1_ami.image_id }}"
@@ -374,7 +368,7 @@
 - name: Create EC2 instances for node2
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_key_name }}"
+    key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node2_node].size }}"
     image: "{{ node2_ami.image_id }}"
@@ -428,7 +422,7 @@
 - name: Create EC2 instances for node3
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_key_name }}"
+    key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node3_node].size }}"
     image: "{{ node3_ami.image_id }}"
@@ -482,7 +476,7 @@
 - name: Create EC2 instances for rtr1 node (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_key_name }}"
+    key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[rtr1_node].size }}"
     image: "{{ rtr1_ami.image_id }}"
@@ -531,7 +525,7 @@
 - name: Create EC2 instances for rtr2 node in VPC-2 (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_key_name }}"
+    key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_instance_types[rtr2_node].size }}"
     image: "{{ rtr2_ami.image_id }}"
@@ -580,7 +574,7 @@
 - name: Create EC2 instances for host1 node in VPC-2 (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_key_name }}"
+    key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_instance_types[host1_node].size }}"
     image: "{{ host1_ami.image_id }}"

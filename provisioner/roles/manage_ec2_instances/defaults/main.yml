@@ -79,7 +79,3 @@ ec2_login_names:
   ubuntu14: ubuntu
   ubuntu16: ubuntu
   csr-byol: ec2-user
-
-# Backwards compatability
-types: "{{ ec2_lab_node_types }}"
-aws_key_name: "{{ ec2_key_name }}"

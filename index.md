@@ -13,6 +13,10 @@
 
 # Slack
 Do you like Slack?  So do we! [click to join our ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
+
+# Mailing List
+Join our [mailing list](https://www.redhat.com/mailman/listinfo/linklight)
+
 <br><br><br><br>
 
  ---

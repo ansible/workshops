@@ -218,6 +218,7 @@
     path: ~/.ssh/config
     line: 'IdentityFile ~/.ssh/aws-private.pem'
     insertafter: EOF
+    create: yes
   when: '"Could not open" in sshagent_output.stderr'
 
 - copy:

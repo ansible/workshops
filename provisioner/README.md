@@ -33,6 +33,7 @@ networking: true
     - [Setup (per workshop)](#setup-per-workshop)
   - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
 - [AWS Teardown](#aws-teardown)
+- [FAQ](../docs/faq.md)
 
 # Requirements
 
@@ -121,3 +122,6 @@ To destroy all the EC2 instances after training is complete:
 1. Run the playbook:
 
         ansible-playbook teardown_lab.yml -e @extra_vars.yml -e @users.yml
+
+# FAQ
+For frequently asked questions see the [FAQ](../docs/faq.md)

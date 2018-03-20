@@ -180,9 +180,6 @@
     - networking
     - ec2_vpc_id2 is undefined
 
-- name: enable ssh-agent
-  shell: eval $(ssh-agent)
-
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
     name: "{{ ec2_name_prefix }}-key"
@@ -201,9 +198,17 @@
     mode: 0400
   when: create_key.changed
 
+
+### SSH TRICKERY SECTION
+- name: see if ssh-agent is running
+  command: ssh-add -L
+  register: sshagent_output
+
+- name: enable ssh-agent
+  shell: eval $(ssh-agent)
+
 - name: add the private key
   command: ssh-add ./aws-private.pem
-  ignore_errors: yes
   when: create_key.changed
 
 - name: add key to user

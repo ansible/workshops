@@ -1,8 +1,8 @@
-# FAQ
+# FAQ for the Provisioner
 Frequently Asked Questions... or rather common problems that people have hit.
 
 ## Problem: boto3 missing
-
+ 
 ```
 fatal: [localhost]: FAILED! => {"attempts": 1, "changed": false, "msg": "Python modules \"botocore\" or \"boto3\" are missing, please install both"}
 ```
@@ -41,3 +41,14 @@ aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
 An exception occurred during task execution. To see the full traceback, use -vvv. The error was: ClientError: An error occurred (AuthFailure) when calling the DescribeImageAttribute operation: Not authorized for image:ami-26ebbc5c
 ```
+
+Solution:
+Install latest dev of Ansible (will lock down specific version after 2.5 launches)
+
+```
+pip install git+https://github.com/ansible/ansible.git@devel
+```
+
+Refer to direction for Ansible Installation: http://docs.ansible.com/ansible/latest/intro_installation.html
+
+## Problem: TASK [connectivity_test : Wait 400 seconds, but only start checking after 30 seconds] ****************************************************

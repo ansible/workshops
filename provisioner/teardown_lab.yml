@@ -39,8 +39,3 @@
      file:
        path: './aws-private.pem'
        state: absent
-
-   - name: Remove old keys
-     command: ssh-add -D
-     register: removal
-     changed_when: removal.stdout_lines | length > 0

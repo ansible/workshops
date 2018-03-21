@@ -6,11 +6,6 @@
   register: create_vpc
   when: ec2_vpc_id is undefined
 
-# - name: The VPC-ID for VPC named {{ ec2_name_prefix }}-vpc
-#   debug:
-#     var: create_vpc.vpc.id
-#   when: ec2_vpc_id is undefined
-
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc2"
@@ -112,18 +107,6 @@
     - ec2_vpc_id2 is undefined
     - networking
 
-# - name: The subnet-id for VPC named {{ ec2_name_prefix }}-vpc
-#   debug:
-#     var: create_subnet.subnet.id
-#   when: ec2_vpc_id is undefined
-
-# - name: The subnet-id for VPC named {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
-#   debug:
-#     var: create_subnet2.subnet.id
-#   when:
-#     - networking
-#     - ec2_vpc_id is undefined
-
 - name: vpc internet gateway is present for {{ create_vpc.vpc.id }}
   ec2_vpc_igw:
     region: "{{ ec2_region }}"
@@ -186,47 +169,12 @@
     region: "{{ ec2_region }}"
   register: create_key
 
-# - name: The key for for workshop {{ ec2_name_prefix }}
-#   debug:
-#     var: create_key
-#   when: ec2_key_name is undefined
-
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
     dest: "./aws-private.pem"
     mode: 0400
   when: create_key.changed
-
-### SSH TRICKERY SECTION
-- name: see if ssh-agent is running
-  command: ssh-add -L
-  ignore_errors: yes
-  register: sshagent_output
-
-- name: debug sshagent_output
-  debug:
-    var: sshagent_output
-
-- name: add the private key with ssh-add
-  command: ssh-add ./aws-private.pem
-  when:
-    - '"Could not open" not in sshagent_output.stderr'
-    - '"aws-private.pem" not in sshagent_output.stdout'
-
-- lineinfile:
-    path: ~/.ssh/config
-    line: 'IdentityFile ~/.ssh/aws-private.pem'
-    insertafter: EOF
-    create: yes
-  when: '"Could not open" in sshagent_output.stderr'
-
-- copy:
-    src: aws-private.pem
-    dest: ~/.ssh/aws-private.pem
-  when: '"Could not open" in sshagent_output.stderr'
-
-## end of ssh trickery
 
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:

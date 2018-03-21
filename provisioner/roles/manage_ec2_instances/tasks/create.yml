@@ -12,6 +12,7 @@
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
     ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: ./aws-private.pem
     groups:
       - lab_hosts
       - control_nodes
@@ -73,6 +74,7 @@
         ansible_host: "{{ item.public_ip_address }}"
         ansible_user: "{{ ec2_login_names[host1_node] }}"
         ansible_port: "{{ ssh_port }}"
+        ansible_ssh_private_key_file: ./aws-private.pem
         groups: lab_hosts,managed_nodes
       with_items: "{{ host1_node_facts.instances }}"
 
@@ -113,12 +115,12 @@
         - "{{rtr2_node_facts.instances}}"
   when: networking
 
-- name: debug what this next stupid task is doing
-  debug:
-    msg: "{{item}}"
-  with_items: "{{ groups.lab_hosts }}"
-  delegate_to: "{{ item }}"
-  delegate_facts: yes
+# - name: debug what this next task is doing
+#   debug:
+#     msg: "{{item}}"
+#   with_items: "{{ groups.lab_hosts }}"
+#   delegate_to: "{{ item }}"
+#   delegate_facts: yes
 
 - name: Set local username to create on instances
   set_fact:

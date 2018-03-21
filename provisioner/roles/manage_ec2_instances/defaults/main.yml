@@ -48,8 +48,7 @@ ec2_instance_types:
     os_type: linux
     disk_space: 10
     architecture: x86_64
-    filter: '*RHEL*7.4*'
-
+    filter: 'RHEL-7.4*'
 
   rhel7-tower:
     owners: 309956199498
@@ -57,7 +56,7 @@ ec2_instance_types:
     os_type: linux
     disk_space: 20
     architecture: x86_64
-    filter: '*RHEL*7.4*'
+    filter: 'RHEL-7.4*'
 
   # Look at https://cloud-images.ubuntu.com/locator/ec2/ for Ubuntu AMIs
   # ubuntu14:

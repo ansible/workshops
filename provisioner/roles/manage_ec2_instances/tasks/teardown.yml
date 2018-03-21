@@ -64,7 +64,7 @@
   when: vpc_net_facts.vpcs|length > 0
   register: delete_sg
 
-- name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
+- name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
   ec2_group:
     name: "{{ec2_security_group2}}"
     region: "{{ ec2_region }}"

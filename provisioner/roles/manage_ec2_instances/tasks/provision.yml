@@ -270,9 +270,6 @@
       architecture: "{{ ec2_instance_types[ansible_node].architecture }}"
   register: amis
 
-- debug:
-    var: amis
-
 - name: save ami for ansible control node
   set_fact:
     ansible_control_node_ami: >

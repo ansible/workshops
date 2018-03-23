@@ -94,6 +94,8 @@
       Name: "{{ ec2_name_prefix }}-subnet"
   register: create_subnet
   when: ec2_vpc_id is undefined
+  until: not (create_subnet|failed)
+  retries: 10
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_subnet:

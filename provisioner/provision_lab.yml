@@ -17,6 +17,10 @@
         that:
           - ansible_version.minor >= 5
           - ansible_version.major >= 2
+    - name: make sure we are not running with TESTWORKSHOP as the name so no overlap
+      assert:
+        that:
+          - ec2_name_prefix != "TESTWORKSHOP"
 
 - name: Create lab instances in AWS
   hosts: localhost

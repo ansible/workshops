@@ -89,6 +89,7 @@
     az: "{{ ec2_az }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
     cidr: "{{ ec2_subnet }}"
+    wait_timeout: 600
     resource_tags:
       Name: "{{ ec2_name_prefix }}-subnet"
   register: create_subnet

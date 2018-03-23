@@ -17,6 +17,7 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
   Step-by-step exercises provided for learning how to automate with Ansible.
 
    - [Ansible Engine Workshop Exercises](exercises/ansible_engine/README.md)
+   - [Ansible Tower Workshop Exercises](exercises/ansible_tower/README.md)
    - [Ansible Networking Workshop Exercises](exercises/networking/README.md)
 
 * [Lab Provisioner](provisioner)  

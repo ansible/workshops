@@ -5,7 +5,7 @@
 
 ## Ansible Essentials Mode
 The default mode provisions four nodes per user:
-* One control node from which Ansible will be executed from and where Ansible Tower can be installed (named ansible)
+* One control node from which Ansible will be executed from and where Ansible Tower can be installed (named `ansible`)
 * Three web nodes that coincide with the three nodes in lightbulb's original design
 
 ## Ansible Networking Mode
@@ -37,10 +37,10 @@ networking: true
 
 # Requirements
 
-This provisioner  must be run with Ansible Engine v2.4.2 or higher.
+This provisioner  must be run with Ansible Engine v2.5.0 or higher.
 
 # AWS Setup
-The `provision_lab.yml` playbook creates instances, configures them for password authentication, creates an inventory file for each user with their IPs and credentials. An instructor inventory file is also created in the current directory which will let the instructor access the nodes of any student by simply targeting the username as a host group.
+The `provision_lab.yml` playbook creates a work bench for each student, configures them for password authentication, and creates an inventory file for each user with their IPs and credentials. An instructor inventory file is also created in the current directory which will let the instructor access the nodes of any student.  This file will be called `instructor_inventory.txt`
 
 ## Lab Setup
 To provision the workshop onto AWS use the following directions:
@@ -75,7 +75,7 @@ aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 
         git clone https://github.com/network-automation/linklight.git
-        cd linklight/tools/provisioner
+        cd linklight/provisioner
 
 ### Setup (per workshop)
 
@@ -90,7 +90,7 @@ admin_password: ansible
 localsecurity: false                   # skips firewalld installation and SE Linux when false
 ```
 
-For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control.  You can use pre-existing AWS VPCs you already created.
+For an example, look at [sample-vars.yml](sample-vars.yml)
 
 2. Run the playbook:
 
@@ -107,7 +107,7 @@ What does the provisioner take care of automatically?
 
 4. Check on the EC2 console and you should see instances being created like:
 
-        TRAINING-LAB-<student_username>-node1|2|3|tower|control
+        TRAININGLAB-student1-node1|2|3|ansible
 
 ## Accessing student documentation and slides
 

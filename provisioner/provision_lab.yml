@@ -6,6 +6,18 @@
 #   roles:
 #     - student_users
 
+- name: Perform Checks to make sure this Playbook will complete successfully
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  tasks:
+    - name: make sure we are running correct Ansible Version
+      assert:
+        that:
+          - ansible_version.minor >= 5
+          - ansible_version.major >= 2
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local

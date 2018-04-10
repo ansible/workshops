@@ -5,6 +5,8 @@
     region: "{{ ec2_region }}"
   register: create_vpc
   when: ec2_vpc_id is undefined
+  until: not (create_vpc2|failed)
+  retries: 5
 
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_net:
@@ -15,6 +17,8 @@
   when:
     - ec2_vpc_id2 is undefined
     - networking
+  until: not (create_vpc2|failed)
+  retries: 5
 
 - name: Create EC2 security group for VPC named {{ ec2_name_prefix }}-vpc
   ec2_group:
@@ -95,7 +99,7 @@
   register: create_subnet
   when: ec2_vpc_id is undefined
   until: not (create_subnet|failed)
-  retries: 10
+  retries: 15
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_subnet:

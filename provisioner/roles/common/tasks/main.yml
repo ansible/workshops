@@ -1,11 +1,9 @@
 - name: Include Red Hat tasks
-  include: "{{ ansible_os_family }}.yml"
-  static: no
+  include_tasks: "{{ ansible_os_family }}.yml"
   when: ansible_os_family == 'RedHat'
 
 - name: Include Ubuntu tasks
-  include: "{{ ansible_distribution }}.yml"
-  static: no
+  include_tasks: "{{ ansible_distribution }}.yml"
   when: ansible_distribution == 'Ubuntu'
 
 - name: Configure sshd and sudoers

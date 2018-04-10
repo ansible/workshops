@@ -141,6 +141,9 @@
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
+  register: routetable
+  until: routetable is not failed
+  retries: 5
   when: ec2_vpc_id is undefined
 
 - name: vpc public subnet route table is present for {{ create_vpc2.vpc.id }} (NETWORKING MODE)
@@ -152,6 +155,9 @@
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw2.gateway_id }}"
+  register: routetablenetworking
+  until: routetablenetworking is not failed
+  retries: 5
   when:
     - networking
     - ec2_vpc_id2 is undefined

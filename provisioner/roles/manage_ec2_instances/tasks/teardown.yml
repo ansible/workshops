@@ -59,10 +59,10 @@
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id}}"
     state: absent
-  until: not (delete_sg|failed)
+  register: delete_sg
+  until: delete_sg is not failed
   retries: 50
   when: vpc_net_facts.vpcs|length > 0
-  register: delete_sg
 
 - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
   ec2_group:
@@ -70,6 +70,9 @@
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id2}}"
     state: absent
+  register: delete_sgnetworking
+  until: delete_sgnetworking is not failed
+  retries: 50
   when:
     - networking
     - vpc_net_facts2.vpcs|length > 0

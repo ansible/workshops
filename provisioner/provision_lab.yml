@@ -25,7 +25,8 @@
       command: whoami
       register: whoami
     - name: debug whoami
-      debug: whoami
+      debug:
+        var: whoami
 
 - name: Create lab instances in AWS
   hosts: localhost

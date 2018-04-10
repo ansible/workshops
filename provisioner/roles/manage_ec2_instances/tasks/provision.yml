@@ -5,7 +5,7 @@
     region: "{{ ec2_region }}"
   register: create_vpc
   when: ec2_vpc_id is undefined
-  until: not (create_vpc2|failed)
+  until: not (create_vpc|failed)
   retries: 5
 
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)

@@ -24,7 +24,7 @@
   yum:
     name:
       - sshpass
-      - ansible
+      - ansible-2.4.2.0-2.el7.noarch
     state: latest
     enablerepo: rhui-REGION-rhel-server-extras
   tags:

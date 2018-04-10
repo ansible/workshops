@@ -172,10 +172,13 @@
     region: "{{ ec2_region }}"
   register: create_key
 
+# - name: Ensures /tmp dir exists
+#   file: path=/tmp state=directory
+
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "./aws-private.pem"
+    dest: "aws-private.pem"
     mode: '0400'
   when: create_key.changed
 

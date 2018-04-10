@@ -21,12 +21,6 @@
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
-    - name: Who am I?
-      command: whoami
-      register: whoami
-    - name: debug whoami
-      debug:
-        var: whoami
 
 - name: Create lab instances in AWS
   hosts: localhost

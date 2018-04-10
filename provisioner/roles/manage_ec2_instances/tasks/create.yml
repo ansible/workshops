@@ -12,7 +12,7 @@
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
     ansible_port: "{{ ssh_port }}"
-    ansible_ssh_private_key_file: aws-private.pem
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/aws-private.pem"
     groups:
       - lab_hosts
       - control_nodes
@@ -50,7 +50,7 @@
         ansible_host: "{{ item.public_ip_address }}"
         ansible_user: "{{ ec2_login_names[node1_node] }}"
         ansible_port: "{{ ssh_port }}"
-        ansible_ssh_private_key_file: aws-private.pem
+        ansible_ssh_private_key_file: "{{ playbook_dir }}/aws-private.pem"
         groups: lab_hosts,managed_nodes
       with_items:
         - "{{ node1_node_facts.instances }}"
@@ -75,7 +75,7 @@
         ansible_host: "{{ item.public_ip_address }}"
         ansible_user: "{{ ec2_login_names[host1_node] }}"
         ansible_port: "{{ ssh_port }}"
-        ansible_ssh_private_key_file: aws-private.pem
+        ansible_ssh_private_key_file: "{{ playbook_dir }}/aws-private.pem"
         groups: lab_hosts,managed_nodes
       with_items: "{{ host1_node_facts.instances }}"
 

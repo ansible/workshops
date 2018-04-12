@@ -202,3 +202,9 @@
     - control_node
     - control
     - vim
+
+- name: install tower is knob is set
+  include_tasks: "tower.yml"
+  when:
+    - ansible_os_family == 'RedHat'
+    - towerinstall

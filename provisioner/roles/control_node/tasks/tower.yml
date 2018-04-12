@@ -1,0 +1,44 @@
+- name: Download Ansible
+  get_url:
+    url: http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+    dest: /tmp/tower.tar.gz
+
+- name: Create directory
+  file: path=/tmp/tower_install state=directory
+
+- name: Extract tower install
+  unarchive:
+    src: /tmp/tower.tar.gz
+    dest: /tmp/tower_install
+    remote_src: yes
+    extra_opts: ['--strip-components=1', '--show-stored-names']
+
+- name: template inventory file
+  template:
+    src: tower_install.j2
+    dest: /tmp/tower_install/inventory
+
+- name: run the tower installer
+  shell: ./setup.sh chdir=/tmp/tower_install
+
+- name: wait for tower to be up
+  uri:
+    url: https://localhost/api/v2/ping/
+    method: GET
+    user: admin
+    password: {{admin_password}}
+    validate_certs: False
+  register: check2
+  until: check2.json is defined
+  retries: 10
+  delay: 30
+
+- name: Post license key
+  uri:
+    url: https://localhost/api/v2/config/
+    method: POST
+    user: admin
+    password: "{{admin_password}}"
+    body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
+    body_format: json
+    validate_certs: False

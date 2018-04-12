@@ -21,6 +21,11 @@
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
+    - name: Check that the license exists
+      stat:
+        path: "{{playbook_dir}}/tower_install.json"
+      register: stat_result
+      when: autolicense
 
 - name: Create lab instances in AWS
   hosts: localhost

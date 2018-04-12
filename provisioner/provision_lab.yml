@@ -25,7 +25,20 @@
       stat:
         path: "{{playbook_dir}}/tower_install.json"
       register: stat_result
-      when: autolicense
+      when:
+       - autolicense is defined
+       - autolicense
+    - debug:
+        var: stat_result
+      when:
+       - autolicense is defined
+       - autolicense
+    - fail:
+        msg: "autolicense is turned on, but we need a license located at {{playbook_dir}}/tower_install.json"
+      when:
+       - autolicense is defined
+       - autolicense
+       - not stat_result.stat.exists
 
 - name: Create lab instances in AWS
   hosts: localhost

@@ -26,7 +26,7 @@
     url: https://localhost/api/v2/ping/
     method: GET
     user: admin
-    password: {{admin_password}}
+    password: "{{admin_password}}"
     validate_certs: False
   register: check2
   until: check2.json is defined
@@ -42,3 +42,4 @@
     body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
     body_format: json
     validate_certs: False
+  when: autolicense

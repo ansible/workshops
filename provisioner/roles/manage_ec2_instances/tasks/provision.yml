@@ -152,7 +152,7 @@
       Username: "{{ lookup('env','USER') }}"
       Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "Total {{student_total}}"
   register: igw
   when: ec2_vpc_id is undefined
 
@@ -164,7 +164,7 @@
       Username: "{{ lookup('env','USER') }}"
       Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "Total {{student_total}}"
   register: igw2
   when:
     - networking

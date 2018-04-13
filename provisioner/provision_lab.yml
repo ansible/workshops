@@ -75,7 +75,6 @@
 
 - name: Setup Host routes for ansible control node and host1 when in networking mode
   hosts: "managed_nodes:control_nodes"
-  connection: local
   become: yes
   gather_facts: no
   roles:

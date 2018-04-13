@@ -1,7 +1,3 @@
-- fail:
-    msg: "Amazon AWS does not allow underscores _ for s3 websites, please see https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html"
-  when: '"_" in ec2_name_prefix'
-
 - name: create student webpage
   template:
     src: ./templates/index.html.j2

@@ -1,4 +1,4 @@
-- debug: lets look at rtr1_node_facts.instances
+- debug: lets look at rtr1_node_facts instances
     var: rtr1_node_facts.instances
 
 - name: add route to 172.17.0.0/16 subnet on ansible node

@@ -23,7 +23,7 @@
           - ec2_name_prefix != "TESTWORKSHOP"
     - name: Check that the license exists
       stat:
-        path: "{{playbook_dir}}/tower_install.json"
+        path: "{{playbook_dir}}/tower_license.json"
       register: stat_result
       when:
        - autolicense is defined
@@ -34,7 +34,7 @@
        - autolicense is defined
        - autolicense
     - fail:
-        msg: "autolicense is turned on, but we need a license located at {{playbook_dir}}/tower_install.json"
+        msg: "autolicense is turned on, but we need a license located at {{playbook_dir}}/tower_license.json"
       when:
        - autolicense is defined
        - autolicense

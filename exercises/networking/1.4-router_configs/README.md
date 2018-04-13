@@ -53,7 +53,7 @@ The variable can also be called dynamically by calling hostvars as seen below:
 - name: Router Configurations
   hosts: routers
   gather_facts: no
-  connection: local
+  connection: network_cli
   vars:
     ansible_network_os: ios
     dns_servers:

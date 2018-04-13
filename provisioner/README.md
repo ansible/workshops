@@ -84,13 +84,23 @@ If you haven't done so already make sure you have the repo cloned to the machine
 ```yml
 ec2_region: us-east-1                 # region where the nodes will live
 ec2_az: us-east-1a                    # availability zone
-ec2_name_prefix: TRAININGLAB         # name prefix for all the VMs
+ec2_name_prefix: TRAININGLAB          # name prefix for all the VMs
 admin_password: ansible
 ## Optional Variables
 localsecurity: false                   # skips firewalld installation and SE Linux when false
 ```
 
-For an example, look at [sample-vars.yml](sample-vars.yml)
+There is also option to install Ansible Tower to the control node, and an option to license it.  If you want to license it you must copy a license called tower_license.json into this directory.
+
+```
+autolicense: true
+towerinstall: true
+```
+
+For an example, look at the following:
+- [sample-vars.yml](sample-vars.yml)
+- [sample-vars.yml](sample-vars-networking.yml)
+- [sample-vars-auto.yml](sample-vars-auto.yml)
 
 2. Run the playbook:
 

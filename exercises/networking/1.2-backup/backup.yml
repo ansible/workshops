@@ -1,7 +1,7 @@
 ---
 - name: backup router configurations
   hosts: routers
-  connection: local
+  connection: network_cli
   gather_facts: no
 
   tasks:

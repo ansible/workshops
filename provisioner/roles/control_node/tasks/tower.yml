@@ -21,7 +21,7 @@
 - name: run the Ansible Tower installer
   shell: ./setup.sh chdir=/tmp/tower_install
 
-- name: wait for Ansible TOwer to be up
+- name: wait for Ansible Tower to be up
   uri:
     url: https://localhost/api/v2/ping/
     method: GET

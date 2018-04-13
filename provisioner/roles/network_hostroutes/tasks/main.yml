@@ -1,0 +1,20 @@
+- debug: lets look at rtr1_node_facts.instances
+    var: rtr1_node_facts.instances
+
+- name: add route to 172.17.0.0/16 subnet on ansible node
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth0
+    line: "172.17.0.0/16 via {{rtr1_node_facts.instances[0].private_ip_address}}"
+    create: yes
+  notify: "restart network"
+  delegate_to: ansible
+  run_once: true
+
+- name: add route to 172.16.0.0/16 subnet on host1 node
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth0
+    line: "172.16.0.0/16 via {{rtr2_node_facts.instances[0].private_ip_address}}"
+    create: yes
+  notify: "restart network"
+  delegate_to: host1
+  run_once: true

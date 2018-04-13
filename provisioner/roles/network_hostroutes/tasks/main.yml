@@ -1,19 +1,15 @@
-- name: lets look at rtr1_node_facts instances
-  debug:
-    var: private_ip
-
 - name: add route to 172.17.0.0/16 subnet on ansible node
   lineinfile:
     path: /etc/sysconfig/network-scripts/route-eth0
     line: "172.17.0.0/16 via {{private_ip}}"
     create: yes
-  notify: "restart network"
-  when: "'ansible' in inventory_hostname"
+  notify: restart network
+  when: "'control_nodes' in group_names"
 
 - name: add route to 172.16.0.0/16 subnet on host1 node
   lineinfile:
     path: /etc/sysconfig/network-scripts/route-eth0
     line: "172.16.0.0/16 via {{private_ip}}"
     create: yes
-  notify: "restart network"
-  when: "'host1' in inventory_hostname"
+  notify: restart network
+  when: "'managed_nodes' in inventory_hostname"

@@ -3,6 +3,11 @@
     name: "{{ ec2_name_prefix }}-vpc"
     cidr_block: "{{ec2_subnet}}"
     region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: create_vpc
   when: ec2_vpc_id is undefined
   until: create_vpc is not failed
@@ -13,6 +18,11 @@
     name: "{{ ec2_name_prefix }}-vpc2"
     cidr_block: "{{ ec2_subnet2 }}"
     region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: create_vpc2
   when:
     - ec2_vpc_id2 is undefined
@@ -26,6 +36,11 @@
     description: all ports open
     region: "{{ ec2_region }}"
     vpc_id: "{{create_vpc.vpc.id}}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
     rules:
       - proto: 47
         to_port: -1
@@ -58,6 +73,11 @@
     description: all ports open
     region: "{{ ec2_region }}"
     vpc_id: "{{create_vpc2.vpc.id}}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
     rules:
       - proto: 47
         to_port: -1
@@ -96,6 +116,10 @@
     wait_timeout: 600
     resource_tags:
       Name: "{{ ec2_name_prefix }}-subnet"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: create_subnet
   when: ec2_vpc_id is undefined
   until: create_subnet is not failed
@@ -109,6 +133,10 @@
     cidr: "{{ec2_subnet2}}"
     resource_tags:
       Name: "{{ ec2_name_prefix }}-subnet2"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: create_subnet2
   until: create_subnet2 is not failed
   retries: 15
@@ -120,6 +148,11 @@
   ec2_vpc_igw:
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: igw
   when: ec2_vpc_id is undefined
 
@@ -127,6 +160,11 @@
   ec2_vpc_igw:
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc2.vpc.id }}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: igw2
   when:
     - networking
@@ -141,6 +179,11 @@
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: routetable
   until: routetable is not failed
   retries: 5
@@ -155,6 +198,11 @@
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw2.gateway_id }}"
+    tags:
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   register: routetablenetworking
   until: routetablenetworking is not failed
   retries: 5
@@ -272,6 +320,10 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   with_indexed_items:
     - "{{ control_output.instance_ids }}"
   when: control_output.instance_ids is not none
@@ -324,6 +376,10 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   with_indexed_items:
     - "{{ node1_output.instance_ids }}"
   when:
@@ -378,6 +434,10 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   with_indexed_items:
     - "{{ node2_output.instance_ids }}"
   when:
@@ -432,6 +492,10 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   with_indexed_items:
     - "{{ node3_output.instance_ids }}"
   when:
@@ -481,6 +545,10 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   with_indexed_items:
     - "{{ rtr1_output.instance_ids }}"
   when:
@@ -530,6 +598,10 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   with_indexed_items:
     - "{{ rtr2_output.instance_ids }}"
   when:
@@ -579,6 +651,10 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
+      Username: "{{ lookup('env','USER') }}"
+      Info: "Username that provisioned this-> {{ lookup('env','USER') }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
   with_indexed_items:
     - "{{ host1_output.instance_ids }}"
   when:

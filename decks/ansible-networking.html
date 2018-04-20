@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=no">
 
     <title>Ansible Networking Workshop</title>
 
@@ -41,8 +41,10 @@
           <!--p>NAME HERE, TITLE HERE</p>
           <p>COMPANY HERE</p-->
         </section>
+        <section data-background-image="images/30years.png">
+        </section>
         <section>
-          <h2>What You Will Learn</h2>
+          <h1>What You Will Learn</h1>
           <p>Ansible is capable of handling many powerful automation tasks with the flexibility to adapt to many environments and workflows. With Ansible, users can very quickly get up and running to do real work.<br><br></p>
           <ul>
             <li>What is Ansible and The Ansible Way</li>
@@ -56,11 +58,11 @@
             <p>This deck is designed to provide students with direct introductory instruction and guidance to beginning to automate with Ansible. It is the starting point for students intent on becoming more proficient with Ansible through other Linklight modules and their own usage.</p>
             <p>This deck supports lecture and hands-on forms of presenting this material. </p>
             <p>Allow 2 hours to deliver the lecture-based form and 4 hours for stopping to do the workshop assignments. To access the additional slides for delivering the workshops, navigate down when available. </p>
-            <p>See the <a href="../facilitator/README.md">Ansible Lighttbulb facilitator&rsquo;s guide</a> for more details on using this deck and it&rsquo;s associated material.</p>
+            <p>See the <a href="../facilitator/README.md">Ansible Linklight facilitator&rsquo;s guide</a> for more details on using this deck and it&rsquo;s associated material.</p>
           </aside>
         </section>
         <section>
-          <h2>What is Ansible?</h2>
+          <h1>What is Ansible?</h1>
           <p>It&apos;s a <b>simple automation language</b> that can perfectly describe an IT application infrastructure in Ansible Playbooks.</p>
           <p>It&apos;s an <b>automation engine</b> that runs Ansible Playbooks.</p>
           <p>Ansible Tower is an <b>enterprise framework</b> for controlling, securing  and managing your Ansible automation with a <b>UI and RESTful API</b>.</p>
@@ -75,7 +77,7 @@
           </aside>
         </section>
         <section>
-            <h2>Ansible Is...</h2>
+            <h1>Ansible Is...</h1>
             <img src="images/simple-powerful-agentless-diagram.png" />
             <aside class="notes">
               <p>Ansible has a number of qualities that make it the most rapidly growing automation platform in the world. </p>
@@ -90,7 +92,7 @@
             </aisde>
         </section>
         <section>
-            <h2>The Ansible Way</h2>
+            <h1>The Ansible Way</h1>
             <div style="font-size: 0.75em;"><br>
             <p><strong>CROSS PLATFORM</strong> – Linux, Windows, UNIX, Cisco, Juniper, Arista, Cumulus</br>
             Agentless support for all major OS variants, physical, virtual, cloud and network</p>
@@ -108,7 +110,7 @@
             </aside>
         </section>
         <section>
-          <h2>Ansible: The Language of DevOps</h2>
+          <h1>Ansible: The Language of DevOps</h1>
           <div style="font-size: 0.75em; text-align:center;">
           <img src="images/devops-language-diagram.svg" width="60%" height="60%" style="padding-top: 20px;"/>
           <p class="fullwidth"><strong>COMMUNICATION IS THE KEY TO DEVOPS.</strong></p>
@@ -119,7 +121,7 @@
           </aside>
         </section>
         <section>
-          <h2>Batteries Included</h2>
+          <h1>Batteries Included</h1>
           <p>Ansible comes bundled with hundreds of modules for a wide variety of automation tasks</p>
           <div class="columns">
               <div class="col">
@@ -152,7 +154,7 @@
           </aside>
         </section>
         <section>
-          <h2>Community</h2>
+          <h1>Community</h1>
           <div style="font-size: 0.75em;">
             <p><strong>THE MOST POPULAR OPEN-SOURCE AUTOMATION COMMUNITY ON GITHUB<br><br></strong></p>
             <div class="columns">
@@ -181,7 +183,7 @@
         </aside>
         </section>
         <section>
-          <h2>Complete Automation</h2>
+          <h1>Complete Automation</h1>
           <img src="images/ansible-automation-diagram.svg"/>
           <aside class="notes">
             <p>Ansible is complete automation. It&apos;s not just configuration management, It&apos;s provisioning infrastructure, deploying applications, and orchestrating actions against all layers of IT infrastructure in a single tool.</p>
@@ -189,7 +191,7 @@
           </aside>
         </section>
         <section>
-          <h2>Use Cases</h2>
+          <h1>Use Cases</h1>
           <img src="images/ansible-use-case-diagram.svg" />
           <aside class="notes">
             <p>What can you do with Ansible? Nearly anything. Ansible is the Swiss Army knife of DevOps, capable of handling many powerful automation tasks with the flexibility to adapt to many environments and workflows.</p>
@@ -198,7 +200,7 @@
           </aside>
         </section>
         <section>
-          <h2>Installing Ansible</h2>
+          <h1>Installing Ansible</h1>
           <pre><code>
 # the most common and preferred way of
 # installation
@@ -233,14 +235,14 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>How Ansible Works</h2>
+          <h1>How Ansible Works</h1>
           <img src="images/how-ansible-works-diagram-01.svg" />
           <aside class="notes">
             <p>The diagram on this slide shows the relationship between all the key components of Ansible starting with the user who writes an Ansible playbook.</p>
           </aside>
         </section>
         <section>
-          <h2>Plays &amp; Playbooks</h2>
+          <h1>Plays &amp; Playbooks</h1>
           <img src="images/how-ansible-works-diagram-02.svg" />
           <aside class="notes">
             <p>Playbooks are written in YAML and are used to invoke Ansible modules to perform tasks that are executed sequentially i.e top to bottom. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT workflow. Playbooks are like an instruction manual and describe the state of environment.</p>
@@ -248,7 +250,7 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>Modules &amp; Tasks</h2>
+          <h1>Modules &amp; Tasks</h1>
           <img src="images/how-ansible-works-diagram-03.svg" />
           <aside class="notes">
             <p>If playbooks are the instruction manual for setting up and managing your infrastructure, Ansible modules are the tools in your toolkit.</p>
@@ -257,7 +259,7 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>Plugins</h2>
+          <h1>Plugins</h1>
           <img src="images/how-ansible-works-diagram-04.svg" />
           <aside class="notes">
             <p>Continuing our metaphor, plugins are the gears in the engine.</p>
@@ -273,7 +275,7 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>Inventory</h2>
+          <h1>Inventory</h1>
           <img src="images/networking-how-ansible-works-diagram-05.svg" />
           <aside class="notes">
             <p>Your inventory of hosts are your raw material. They are a list of nodes and associated meta data that Ansible can automate.</p>
@@ -284,7 +286,7 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>Inventory</h2>
+          <h1>Inventory</h1>
           <img src="images/how-ansible-works-diagram-06.svg" />
           <aside class="notes">
             <p>In large-scale environment subject to constant change, synchronizing and maintaining inventory statically is tedious and error prone endeavor. That is why Ansible includes support of external sources such as public and private cloud providers and configuration management database (CMDB) systems.</p>
@@ -292,26 +294,25 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>Modules</h2>
-          <p>Modules do the actual work in ansible, they are what gets executed in each playbook task. But you can also run a single one using the ‘ansible’ command.</p>
+          <h1>Modules</h1>
+          <p>Modules do the actual work in ansible, they are what gets executed in each playbook task. But you can also run a module ad-hoc using the <b>ansible</b> command.</p>
           <div class="columns">
             <div class="col">
               <ul>
-                <li>ios_banner</li>
-                <li>ios_command</li>
-                <li>ios_config</li>
-                <li>ios_facts</li>
-                <li>ios_interface</li>
-                <li>ios_logging</li>
-                <li>ios_ping</li>
+                <li>*os_facts</li>
+                <li>*os_command</li>
+                <li>*os_config</li>
+                <li>more modules depending on platform</li>
               </ul>
             </div>
             <div class="col">
               <ul>
-                <li>ios_static_route</li>
-                <li>ios_system</li>
-                <li>ios_user</li>
-                <li>also supported: eos_ (Arista) junos_(Juniper), etc</li>
+                <li>Arista EOS = eos_</li>
+                <li>Cisco IOS/IOS-XE = ios_</li>
+                <li>Cisco NX-OS = nxos_</li>
+                <li>Cisco IOS-XR = iosxr_</li>
+                <li>Juniper Junos = junos_</li>
+                <li>VyOS = vyos_</li>
               </ul>
             </div>
               <div class="col">
@@ -325,7 +326,7 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>Modules Documentation</h2>
+          <h1>Modules Documentation</h1>
             <div class="columns">
               <div class="col">
           <p><strong>http://docs.ansible.com/</strong></p>
@@ -339,7 +340,7 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
-          <h2>Modules Documentation</h2>
+          <h1>Modules Documentation</h1>
           <pre><code>
 # List out all modules installed
 $ ansible-doc -l
@@ -368,13 +369,10 @@ Options (= is mandatory):
           <p>One noteworthy advantage, of ansible-doc is that it can display any custom module with it's own embedded documentation that you may have added to your Ansible environment.</p>
         </aside>
         <section>
-          <h2>Modules: Run Commands</h2>
+          <h1>Modules: Run Commands</h1>
           <p>If Ansible doesn’t have a module that suits your needs there are the “run command” modules:</p><br>
           <ul>
             <li><b>command</b>: Takes the command and executes it on the host. The most secure and predictable.</li>
-            <li><b>shell</b>: Executes through a shell like <code>/bin/sh</code> so you can use pipes etc. Be careful.</li>
-            <li><b>script</b>: Runs a local script on a remote node after transferring it.</li>
-            <li><b>raw</b>: Executes a command  without going through the Ansible module subsystem.</li>
             <li><b>ios_command</b>: Sends arbitrary commands to an ios node and returns the results read from the device.</li>
           </ul>
           <p><br><b>NOTE:</b> Unlike standard modules, run commands have no concept of desired state and should only be used as a last resort.</p>
@@ -384,8 +382,10 @@ Options (= is mandatory):
             <p><b>NOTE:</b> <code>shell</code> allows for IO redirection such as pipes. This is why It&apos;s best practice to use <code>command</code> unless they need to pipe something. It also best practice to <strong>never</strong> pass user input or variables thru a run command.</p>
           </aside>
         </section>
+        <section data-background-image="images/local_execution.svg">
+        </section>
         <section>
-          <h2>Inventory</h2>
+          <h1>Inventory</h1>
           <p>Inventory is a collection of hosts (nodes) with associated data and groupings that Ansible can connect and manage.</p>
           <ul>
             <li>Hosts (nodes)</li>
@@ -401,7 +401,8 @@ Options (= is mandatory):
           </aside>
         </section>
         <section>
-          <h2>Static Inventory Example</h2>
+          <h1>Static Inventory Example</h1>
+This is example of what NOT to do.
           <pre><code>
 10.42.0.2
 10.42.0.6
@@ -416,7 +417,7 @@ host.example.com
           </aside>
         </section>
         <section>
-          <h2>Static Inventory Example</h2>
+          <h1>Static Inventory Example</h1>
           <pre><code>
 [all:vars]
 ansible_user=lcage
@@ -424,12 +425,12 @@ ansible_ssh_pass=ansible
 ansible_port=22
 
 [routers]
-rtr1 ansible_host=54.174.116.49 ansible_ssh_user=ec2-user private_ip=172.16.3.183
-rtr2 ansible_host=54.86.17.101 ansible_ssh_user=ec2-user private_ip=172.17.171.221
+rtr1 ansible_host=54.174.116.49 ansible_user=ec2-user ansible_network_os=ios
+rtr2 ansible_host=54.86.17.101 ansible_user=ec2-user ansible_network_os=ios
 [hosts]
-host1 ansible_host=34.224.57.27 ansible_ssh_user=ec2-user private_ip=172.17.250.242
+host1 ansible_host=34.224.57.27 ansible_user=ec2-user
 [control]
-ansible ansible_host=34.228.79.198 ansible_ssh_user=ec2-user private_ip=172.16.74.150
+ansible ansible_host=34.228.79.198 ansible_user=ec2-user
           </code></pre>
           <aside class="notes">
             <p>The example shown here is a more practical and common example of a static inventory file.</p>
@@ -447,7 +448,7 @@ ansible ansible_host=34.228.79.198 ansible_ssh_user=ec2-user private_ip=172.16.7
           </aside>
         </section>
         <section>
-          <h2>Ad-Hoc Commands</h2>
+          <h1>Ad-Hoc Commands</h1>
           <p>An ad-hoc command is a single Ansible task to perform quickly, but don’t want to save for later.</p>
           <aside class="notes">
             <p>Ansible ad-hoc commands is a good place to start to understand the basics of what Ansible can do before learning how to use playbooks &ndash; ad-hoc commands can also be used to do quick things that you might not necessarily want to write a full playbook for.</p>
@@ -456,7 +457,7 @@ ansible ansible_host=34.228.79.198 ansible_ssh_user=ec2-user private_ip=172.16.7
           </aside>
         </section>
         <section>
-          <h2>Ad-Hoc Commands: Common Options</h2>
+          <h1>Ad-Hoc Commands: Common Options</h1>
           <ul style="font-size: 0.75em;">
             <li><b>-m MODULE_NAME, --module-name=MODULE_NAME</b><br/>Module name to execute the ad-hoc command</li>
             <li><b>-a MODULE_ARGS, --args=MODULE_ARGS</b><br/>Module arguments for the ad-hoc command</li>
@@ -470,7 +471,7 @@ ansible ansible_host=34.228.79.198 ansible_ssh_user=ec2-user private_ip=172.16.7
           </aside>
         </section>
         <section>
-          <h2>Ad-Hoc Commands</h2>
+          <h1>Ad-Hoc Commands</h1>
           <pre><code>
 # check all my inventory hosts are ready to be
 # managed by Ansible
@@ -492,7 +493,7 @@ $ ansible web -m command -a &quot;uptime&quot;
           </aside>
         </section>
         <section>
-          <h2>Sidebar: Discovered Facts</h2>
+          <h1>Sidebar: Discovered Facts</h1>
           <p>Facts are bits of information derived from examining a host systems that are stored as variables for later use in a play.</p>
           <pre><code>
 $ ansible localhost -m setup
@@ -517,7 +518,7 @@ localhost | success >> {
           </aside>
         </section>
         <section>
-          <h2>Sidebar: Network Facts</h2>
+          <h1>Sidebar: Network Facts</h1>
           <p>For non-Linux systems there are vendor specific modules for fact collection.</p>
           <pre><code>
 $ ansible -m ios_facts routers
@@ -556,6 +557,7 @@ $ ansible web -m command -a &quot;uptime&quot;
         </section>
         <section data-state="title alt">
           <h1>Workshop: <br/>Ad-Hoc Commands</h1>
+          <h3>Exercise 1.1 - Running Ad-hoc commands</h3>
           <aside class="notes">
             <p>This brief exercise demonstrates Ansible in-action at it&apos;s most basic and simple level. Thru ad-hoc commands, students are exposed to Ansible modules and usage and will apply to their understanding of tasks and playbooks. This exercise also begins to expose students to the concepts of Ansible facts and inventory.</p>
             <p>This workshop is also a good way to verify their lab environments are properly configured before going forward.</p>
@@ -563,7 +565,7 @@ $ ansible web -m command -a &quot;uptime&quot;
           </aside>
         </section>
         <section>
-          <h2>Variables</h2>
+          <h1>Variables</h1>
           <p>Ansible can work with metadata from various sources and manage their context in the form of variables.</p>
           <ul>
             <li>Command line parameters</li>
@@ -579,7 +581,7 @@ $ ansible web -m command -a &quot;uptime&quot;
           <p>Variables are used to store metadata for each host drawing from numerous sources. For example variable may be for things like facts or file paths or package versions.</p>
         </aside>
         <section>
-          <h2>Variable Precedence</h2>
+          <h1>Variable Precedence</h1>
           <p>The order in which the same variable from different sources will override each other.</p>
           <div class="columns">
             <div class="col">
@@ -615,22 +617,19 @@ $ ansible web -m command -a &quot;uptime&quot;
           </aside>
         </section>
         <section>
-          <h2>Tasks</h2>
+          <h1>Tasks</h1>
           <p>Tasks are the application of a module to perform a specific unit of work.</p>
           <ul>
             <li><b>file</b>: A directory should exist</li>
             <li><b>yum</b>: A package should be installed</li>
-            <li><b>service</b>: A service should be running</li>
-            <li><b>template</b>: Render a configuration file from a template</li>
-            <li><b>get_url</b>: Fetch an archive file from a URL</li>
           </ul>
           <p>There are also tasks for network devices as well</p>
           <ul>
-            <li><b>ios_facts</b>: collect the version of code running</li>
-            <li><b>ios_system</b>: configure DNS server(s)</li>
-            <li><b>nxos_snmp_user</b>: add an SNMP user</li>
-            <li><b>eos_command</b>: turn off a port</li>
-            <li><b>junos_banner</b>: manage the banner</li>
+            <li><b>ios_facts</b>: collect the version of code running on Cisco IOS/IOS-XE</li>
+            <li><b>ios_system</b>: configure DNS server(s) on Cisco IOS/IOS-XE</li>
+            <li><b>nxos_snmp_user</b>: add an SNMP user on Cisco NX-OS</li>
+            <li><b>eos_command</b>: turn off a port on Arista EOS</li>
+            <li><b>junos_banner</b>: manage the banner on Juniper Junos OS</li>
           </ul>
           <aside class="notes">
             <p>We&apos;ve already reviewed modules, the batteries and tools Ansible provides. Tasks are the specific application of a module to perform a unit of automation.</p>
@@ -638,7 +637,7 @@ $ ansible web -m command -a &quot;uptime&quot;
           <aside>
         </section>
         <section>
-          <h2>Example Tasks in a Play</h2>
+          <h1>Example Tasks in a Play</h1>
           <pre><code>
 tasks:
   - name: gather ios_facts
@@ -657,38 +656,7 @@ tasks:
           </aside>
         </section>
         <section>
-          <h2>Handler Tasks</h2>
-          <p>Handlers are special tasks that run at the end of a play if notified by another task when a change occurs.</p>
-          <blockquote>If a switch is running a certain version of code, notify a task to create a backup</blockquote>
-          <aside class="notes">
-            <p>Normal tasks run sequentially; handler tasks run on notification of a change and will only run once at the end of a play.</p>
-            <p>For more information see <a href="http://docs.ansible.com/ansible/playbooks_intro.html#handlers-running-operations-on-change">Handler Tasks</a>.</p>
-          </aside>
-        </section>
-        <section>
-          <h2>Example Handler Task in a Play</h2>
-          <pre><code data-noescape>
-   tasks:
-     - name: add route to 172.17.0.0/16 subnet on ansible node
-       lineinfile:
-         path: /etc/sysconfig/network-scripts/route-eth0
-         line: "172.17.0.0/16 via {{hostvars['rtr1']['private_ip']}}"
-         create: yes
-       <mark>notify: "restart network"</mark>
-
-   handlers:
-     <mark>- name: restart network</mark>
-       systemd:
-         state: restarted
-         name: network
-          </code></pre>
-          <aside class="notes">
-            <p>Here is our previous example with a few slight modifications that have bene highlighted.</p>
-            <p>In this version of our example, we add a <code>notify</code> keyword to the first task to trigger a handler task if it returns &quot;changed&quot; as being true. The third tasks now is under a &quot;handlers&quot; section that signifies that the handler task will run on notification at the end of the play of change occurs during the first task.</p>
-          </aside>
-        </section>
-        <section>
-          <h2>Plays &amp; Playbooks</h2>
+          <h1>Plays &amp; Playbooks</h1>
           <p>Plays are ordered sets of tasks to execute against host selections from your inventory. A playbook is a file containing one or more plays.</p>
           <aside class="notes">
             <p>Playbooks are text files that contain one or more plays that are expressed in YAML. A play defines target hosts and a task list that are executed sequentially (i.e top to bottom) to achieve a certain state on those hosts.</p>
@@ -696,11 +664,12 @@ tasks:
           </aside>
         </section>
         <section>
-          <h2>Playbook Example</h2>
+          <h1>Playbook Example</h1>
           <pre><code data-noescape>
 ---
 - name: backup router configurations
   hosts: routers
+  connection: network_cli
   gather_facts: no
 
   tasks:
@@ -721,11 +690,12 @@ tasks:
         </section>
 
         <section>
-          <h2>Human-Meaningful Naming</h2>
+          <h1>Human-Meaningful Naming</h1>
           <pre><code data-noescape>
 ---
 - <mark>name: backup router configurations</mark>
   hosts: routers
+  connection: network_cli
   gather_facts: no
 
   tasks:
@@ -747,11 +717,12 @@ tasks:
         </section>
 
         <section>
-          <h2>Host Selector</h2>
+          <h1>Host Selector</h1>
           <pre><code data-noescape>
 ---
 - name: backup router configurations
   <mark>hosts: routers</mark>
+  connection: network_cli
   gather_facts: no
 
   tasks:
@@ -773,11 +744,12 @@ tasks:
           </aside>
         </section>
         <section>
-          <h2>Tasks</h2>
+          <h1>Tasks</h1>
           <pre><code data-noescape>
 ---
 - name: backup router configurations
   hosts: routers
+  connection: network_cli
   gather_facts: no
 
   tasks:
@@ -808,6 +780,32 @@ tasks:
             <p>Note: If your time is limited, this is a workshop you can skip. We'll cover this and more topics in the next workshop.</p>
           </aside>
         </section>
+        <section>
+          <h1>Conditionals</h1>
+          <p>Ansible supports the conditional execution of a task based on the run-time evaluation of variable, fact, or previous task result.</p>
+          <pre><code data-noescape>
+- name: gather ios_facts
+ios_facts:
+
+- name: configure interface settings
+ios_config:
+  lines:
+    - description shutdown by Ansible
+    - shutdown
+  parents: interface GigabitEthernet2
+<mark>when: ansible_network_os == "ios"</mark>
+          </code></pre>
+          <aside class="notes">
+            <p>Conditionals are another instance of Jinja2 in action within Ansible plays themselves. In the provided example &quot;ansible_os_family&quot; is a fact variable Ansible will set.</p>
+            <p>There are other forms of conditional clauses, but <code>when</code> is usually all that is needed.</p>
+            <p>NOTE: Conditional clauses are consdered to be raw Jinja2 expression without double curly braces.</p>
+          </aside>
+        </section>
+        <section>
+        <h1>Exercise 1.3 - Network Diagram</h1>
+        <p>As a lab precursor look at the network diagram</p>
+        <img src="images/gre_diagram.png">
+        </section>
         <section data-state="title alt">
           <h1>Demo Time: <br/>Exercise 1.3 - Creating a GRE Tunnel</h1>
           <aside class="notes">
@@ -824,154 +822,129 @@ tasks:
           </aside>
         </section>
         <section>
-          <section>
-            <h2>Doing More with Playbooks</h2>
-            <p>Here are some more essential playbook features that you can apply:</p>
+          <h1>Doing More with Playbooks</h1>
+          <p>Here are some more essential playbook features that you can apply:</p>
+          <ul>
+            <li>Templates</li>
+            <li>Loops</li>
+            <li>Conditionals</li>
+            <li>Tags</li>
+            <li>Blocks</li>
+          </ul>
+          <aside class="notes">
+            <p>We only have covered the most essential capabiltites of what can be done with a playbook so far.</p>
+            <p>Here we list a few more though this is still far from all there is. There&apos;s many other powerful playbook features for handling less common though vital automation workflows. No need to learn everything at once. You can start small and pick up more features over time as you need them.</p>
+          </aside>
+        </section>
+        <section>
+          <h1>Templates</h1>
+          <p>Ansible embeds the <a href="http://jinja.pocoo.org/docs/">Jinja2 templating engine</a> that can be used to dynamically:</p>
+          <ul>
+            <li>Set and modify play variables</li>
+            <li>Conditional logic</li>
+            <li>Generate files such as configurations from variables</li>
+          </ul>
+          <aside class="notes">
+            <p>Templates are a vital feature provided by the Jinja2 template engine, a powerful piece of software independent of Ansible. Ansible makes this usage as seamless and transparent as possible. Most will not realize they are doing templating when they develop plays with Ansible.</p>
+            <p>We don't show any specific template examples at the moment because we'll have plenty of opportunity to see templates in action as we cover other topics.</p>
+            <p>In all actuality, what is covered here only touches upon a few of its most basic features. To go deeper see these docs:</p>
             <ul>
-              <li>Templates</li>
-              <li>Loops</li>
-              <li>Conditionals</li>
-              <li>Tags</li>
-              <li>Blocks</li>
+            <li><a href="http://jinja.pocoo.org/docs/dev/templates/">Jinja2 Template Designer Documentation</a></li>
+            <li><a href="http://docs.ansible.com/ansible/playbooks_filters.html">Ansible Jinja2 Filters</a></li>
+            <li><a href="http://docs.ansible.com/ansible/playbooks_tests.html">Ansible Jinja2 Tests</a></li>
             </ul>
-            <aside class="notes">
-              <p>We only have covered the most essential capabiltites of what can be done with a playbook so far.</p>
-              <p>Here we list a few more though this is still far from all there is. There&apos;s many other powerful playbook features for handling less common though vital automation workflows. No need to learn everything at once. You can start small and pick up more features over time as you need them.</p>
-            </aside>
-          </section>
-          <section>
-            <h2>Templates</h2>
-            <p>Ansible embeds the <a href="http://jinja.pocoo.org/docs/">Jinja2 templating engine</a> that can be used to dynamically:</p>
-            <ul>
-              <li>Set and modify play variables</li>
-              <li>Conditional logic</li>
-              <li>Generate files such as configurations from variables</li>
-            </ul>
-            <aside class="notes">
-              <p>Templates are a vital feature provided by the Jinja2 template engine, a powerful piece of software independent of Ansible. Ansible makes this usage as seamless and transparent as possible. Most will not realize they are doing templating when they develop plays with Ansible.</p>
-              <p>We don't show any specific template examples at the moment because we'll have plenty of opportunity to see templates in action as we cover other topics.</p>
-              <p>In all actuality, what is covered here only touches upon a few of its most basic features. To go deeper see these docs:</p>
-              <ul>
-              <li><a href="http://jinja.pocoo.org/docs/dev/templates/">Jinja2 Template Designer Documentation</a></li>
-              <li><a href="http://docs.ansible.com/ansible/playbooks_filters.html">Ansible Jinja2 Filters</a></li>
-              <li><a href="http://docs.ansible.com/ansible/playbooks_tests.html">Ansible Jinja2 Tests</a></li>
-              </ul>
-            </aside>
-          </section>
-          <section>
-            <h2>Loops</h2>
-            <p>Loops can do one task on multiple things, such as create a lot of users, install a lot of packages, or repeat a polling step until a certain result is reached.</p>
-            <pre><code data-noescape>
+          </aside>
+        </section>
+        <section>
+          <h1>Loops</h1>
+          <p>Loops can do one task on multiple things, such as create a lot of users, install a lot of packages, or repeat a polling step until a certain result is reached.</p>
+          <pre><code data-noescape>
 ---
 - hosts: cisco
-  connection: local
-  tasks:
-    - nxos_snmp_user:
-        user: "{{item.user}}"
-        group: network-admin
-        authentication: sha
-        pwd: "{{item.password}}"
-        provider: "{{login_info}}"
-      <mark>with_items:</mark>
-        <mark>- { user: 'exampleuser', password: 'testPASS123' }</mark>
-        <mark>- { user: 'gerald', password: 'testPASS456' }</mark>
-        <mark>- { user: 'sean', password: 'testPASS789' }</mark>
-        <mark>- { user: 'andrius', password: 'vTECH1234' }</mark>
-            </code></pre>
-            <aside class="notes">
-              <p>This example demonstrates a basic loop with <code>with_items</code>. The loop sets a variable called &quot;item&quot;, a template variable courtesy of the embedded Jinja2 template engine, with the list value that is in context.</p>
-              <p>There are many different and specialized types of task loops to work with. See the <a href="http://docs.ansible.com/ansible/playbooks_loops.html">Loops documentation</a> to go deeper.</p>
-            </aside>
-          </section>
-          <section>
-            <h2>Conditionals</h2>
-            <p>Ansible supports the conditional execution of a task based on the run-time evaluation of variable, fact, or previous task result.</p>
-            <pre><code data-noescape>
+connection: local
+tasks:
+  - nxos_snmp_user:
+      user: "{{item.user}}"
+      group: network-admin
+      authentication: sha
+      pwd: "{{item.password}}"
+      provider: "{{login_info}}"
+    <mark>with_items:</mark>
+      <mark>- { user: 'exampleuser', password: 'testPASS123' }</mark>
+      <mark>- { user: 'gerald', password: 'testPASS456' }</mark>
+      <mark>- { user: 'sean', password: 'testPASS789' }</mark>
+      <mark>- { user: 'andrius', password: 'vTECH1234' }</mark>
+          </code></pre>
+          <aside class="notes">
+            <p>This example demonstrates a basic loop with <code>with_items</code>. The loop sets a variable called &quot;item&quot;, a template variable courtesy of the embedded Jinja2 template engine, with the list value that is in context.</p>
+            <p>There are many different and specialized types of task loops to work with. See the <a href="http://docs.ansible.com/ansible/playbooks_loops.html">Loops documentation</a> to go deeper.</p>
+          </aside>
+        </section>
+        <section>
+          <h1>Tags</h1>
+          <p>Tags are useful to be able to run a subset of a playbook on-demand.</p>
+          <pre><code data-noescape>
+tasks:
 - name: gather ios_facts
   ios_facts:
+  register: version
+  <mark>tags: debug</mark>
 
-- name: configure interface settings
+- debug:
+    msg: "{{version}}"
+  <mark>tags: debug</mark>
+
+- name: Backup configuration
   ios_config:
-    lines:
-      - description shutdown by Ansible
-      - shutdown
-    parents: interface GigabitEthernet2
-  <mark>when: ansible_net_hostname == "ip-172-18-1-54"</mark>
-            </code></pre>
-            <aside class="notes">
-              <p>Conditionals are another instance of Jinja2 in action within Ansible plays themselves. In the provided example &quot;ansible_os_family&quot; is a fact variable Ansible will set.</p>
-              <p>There are other forms of conditional clauses, but <code>when</code> is usually all that is needed.</p>
-              <p>NOTE: Conditional clauses are consdered to be raw Jinja2 expression without double curly braces.</p>
-            </aside>
-          </section>
-          <section>
-            <h2>Tags</h2>
-            <p>Tags are useful to be able to run a subset of a playbook on-demand.</p>
-            <pre><code data-noescape>
-tasks:
-  - name: gather ios_facts
-    ios_facts:
-    register: version
-    <mark>tags: debug</mark>
+    backup: yes
+  <mark>tags: </mark>
+      <mark>- backup</mark>
 
-  - debug:
-      msg: "{{version}}"
-    <mark>tags: debug</mark>
-
-  - name: Backup configuration
-    ios_config:
-      backup: yes
-    <mark>tags: </mark>
-        <mark>- backup</mark>
-
-            </code></pre>
-            <aside class="notes">
-              <p>In the provided example, if the playbook were run with <code>--tags &quot;packages&quot;</code> the yum task would execute and the template task would be skipped. If the playbook were run with <code>--tags &quot;configuration&quot;</code> the opposite would happen. Without a <code>--tags</code> both tasks would execute like normal.</p>
-              <p>Tags can be seen as a simple though specialized form of conditional statement designed to enable the execution of a subset tasks. Tags are a bit more than simple boolean flags though. To dig deeper see the <a href="http://docs.ansible.com/ansible/playbooks_tags.html">playbook Tags documentation</a>.</p>
-            </aside>
-          </section>
-          <section>
-            <h2>Blocks</h2>
-            <p>Blocks cut down on repetitive task directives, allow for logical grouping of tasks and even in play error handling.</p>
-            <pre><code data-noescape>
+          </code></pre>
+          <aside class="notes">
+            <p>In the provided example, if the playbook were run with <code>--tags &quot;packages&quot;</code> the yum task would execute and the template task would be skipped. If the playbook were run with <code>--tags &quot;configuration&quot;</code> the opposite would happen. Without a <code>--tags</code> both tasks would execute like normal.</p>
+            <p>Tags can be seen as a simple though specialized form of conditional statement designed to enable the execution of a subset tasks. Tags are a bit more than simple boolean flags though. To dig deeper see the <a href="http://docs.ansible.com/ansible/playbooks_tags.html">playbook Tags documentation</a>.</p>
+          </aside>
+        </section>
+        <section>
+          <h1>Blocks</h1>
+          <p>Blocks cut down on repetitive task directives, allow for logical grouping of tasks and even in play error handling.</p>
+          <pre><code data-noescape>
 - name: Configure Hostname and DNS
-    <mark>block:</mark>
-    - ios_config:
-        lines: hostname {{ inventory_hostname }}
+  <mark>block:</mark>
+  - ios_config:
+      lines: hostname {{ inventory_hostname }}
 
-    - name: configure name servers
-      ios_system:
-        name_servers:
-          - 8.8.8.8
-          - 8.8.4.4
-    when: '"switch" in ansible_net_hostname'
-            </code></pre>
-            <aside class="notes">
-              <p>In the provided example we use a block to group two tasks that are to be conditional executed if a host is running a Red Hat family linux using one conditional clause. In practice, we could have copied the <code>when</code> clause onto each task and gotten same result. Using a block, there is less clutter thereby less to maintain and nothing to keep in sync. The utility of using a block increases the more tasks and clauses are in use.</p>
-              <p>Blocks have a play in error handling and automating roll backs that we won't get into here given the scope of that topic.</p>
-              <p>See the <a href="http://docs.ansible.com/ansible/playbooks_blocks.html">documentation on blocks</a> to dig deeper.</p>
-          </section>
+  - name: configure name servers
+    ios_system:
+      name_servers:
+        - 8.8.8.8
+        - 8.8.4.4
+  when: '"switch" in ansible_net_hostname'
+          </code></pre>
+          <aside class="notes">
+            <p>In the provided example we use a block to group two tasks that are to be conditional executed if a host is running a Red Hat family linux using one conditional clause. In practice, we could have copied the <code>when</code> clause onto each task and gotten same result. Using a block, there is less clutter thereby less to maintain and nothing to keep in sync. The utility of using a block increases the more tasks and clauses are in use.</p>
+            <p>Blocks have a play in error handling and automating roll backs that we won't get into here given the scope of that topic.</p>
+            <p>See the <a href="http://docs.ansible.com/ansible/playbooks_blocks.html">documentation on blocks</a> to dig deeper.</p>
+        </section>
+        <section data-state="title alt">
+          <h1>Demo Time: <br/>Exercise 1.4 - Additional router configurations</h1>
+          <aside class="notes">
+            <p>The simple playbook we examined gave us a sense of the structure of a playbook and how they work, but in reality was too simlistic to be practical. Here we look at a basic playbook that it more complete to what users will commonly do with Ansible.</p>
+            <p>Walk thru the site.yml playbook in <code>examples/apache-basic-playbook</code> and note the added logic and its function. Then, run the playbook on the control host.</p>
+            <p>Don't forget to reverse what this playbook does before continuing to not interfere with later demos and workshops.</p>
+          </aside>
+        </section>
+        <section data-state="title alt">
+          <h1>Workshop: <br/>Exercise 1.4 - Additional router configurations</h1>
+          <aside class="notes">
+            <p>In this workshop assignment students are tasked with developing their first complete playbook. The assignment approximates the tasks they will typical need to take in order to deploy and configure a single application service using Nginx.</p>
+            <p>See <code>workshops/basic_playbook/</code> in the Ansible Linklight repo.</p>
+            <p>Tip: Don&apos;t rush this workshop. Give students ample time to do this workshop themselves to completion. This workshop covers the essential concepts and features of effectively automation with Ansible and builds up their core skills for further exploration.</p>
+          </aside>
         </section>
         <section>
-          <section data-state="title alt">
-            <h1>Demo Time: <br/>Exercise 1.4 - Additional router configurations</h1>
-            <aside class="notes">
-              <p>The simple playbook we examined gave us a sense of the structure of a playbook and how they work, but in reality was too simlistic to be practical. Here we look at a basic playbook that it more complete to what users will commonly do with Ansible.</p>
-              <p>Walk thru the site.yml playbook in <code>examples/apache-basic-playbook</code> and note the added logic and its function. Then, run the playbook on the control host.</p>
-              <p>Don't forget to reverse what this playbook does before continuing to not interfere with later demos and workshops.</p>
-            </aside>
-          </section>
-          <section data-state="title alt">
-            <h1>Workshop: <br/>Exercise 1.4 - Additional router configurations</h1>
-            <aside class="notes">
-              <p>In this workshop assignment students are tasked with developing their first complete playbook. The assignment approximates the tasks they will typical need to take in order to deploy and configure a single application service using Nginx.</p>
-              <p>See <code>workshops/basic_playbook/</code> in the Ansible Linklight repo.</p>
-              <p>Tip: Don&apos;t rush this workshop. Give students ample time to do this workshop themselves to completion. This workshop covers the essential concepts and features of effectively automation with Ansible and builds up their core skills for further exploration.</p>
-            </aside>
-          </section>
-        </section>
-        <section>
-          <h2>Roles</h2>
+          <h1>Roles</h1>
           <p>Roles are a packages of closely related Ansible content that can be shared more easily than plays alone.</p>
           <ul>
             <li>Improves readability and maintainability of complex plays</li>
@@ -984,7 +957,7 @@ tasks:
           </aside>
         </section>
         <section>
-          <h2>Project with Embedded Roles Example</h2>
+          <h1>Project with Embedded Roles Example</h1>
           <pre><code>
 site.yml
 roles/
@@ -1010,7 +983,7 @@ roles/
           </aside>
         </section>
         <section>
-          <h2>Project with Embedded Roles Example</h2>
+          <h1>Project with Embedded Roles Example</h1>
           <pre><code>
 # site.yml
 ---
@@ -1024,7 +997,7 @@ roles/
           </aside>
         </section>
         <section>
-          <h2>Ansible Galaxy</h2>
+          <h1>Ansible Galaxy</h1>
           <p><strong>http://galaxy.ansible.com</strong></p>
           <p>Ansible Galaxy is a hub for finding, reusing and sharing Ansible content.</p>
           <p>Jump-start your automation project with content contributed and reviewed by the Ansible community.</p>
@@ -1051,7 +1024,7 @@ roles/
             </section>
         </section>
         <section>
-          <h2>Next Steps</h2>
+          <h1>Next Steps</h1>
           <ul>
             <li><strong>It&apos;s easy to get started</strong><br/>ansible.com/get-started</li>
             <li><strong>Join the Ansible community</strong><br/>ansible.com/community</li>

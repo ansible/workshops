@@ -12,4 +12,4 @@
     line: "172.16.0.0/16 via {{private_ip}}"
     create: yes
   notify: restart network
-  when: "'managed_nodes' in inventory_hostname"
+  when: "'managed_nodes' in group_names"

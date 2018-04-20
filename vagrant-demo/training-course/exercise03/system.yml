@@ -1,0 +1,11 @@
+---
+- hosts: network
+  connection: network_cli
+  tasks:
+  - name: configure domain-name and name_server
+    vyos_system:
+      host_name: "{{inventory_hostname}}"
+      domain_name: test.example.com
+      name_server:
+        - 8.8.8.8
+        - 8.8.4.4

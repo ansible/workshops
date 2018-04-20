@@ -1,0 +1,12 @@
+---
+- hosts: spine01
+  connection: network_cli
+  vars:
+    acl_data:
+      spine01:
+          - { name: BLOCK_LOOKBACK, ipv4_network_dest: 10.0.0.1/32, sequence: 10, action: reject, protocol: all, interfaces: ["eth2", "eth3"] }
+  tasks:
+    - name: push config to device
+      vyos_config:
+        src: ./acl.j2
+        save: yes

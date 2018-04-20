@@ -1,0 +1,30 @@
+firewall {
+    group {
+        network-group TOWERRULE
+            network {{ ipv4_dst }}
+        }
+    }
+    name TOWERRULE
+        rule 10 {
+            action reject
+            destination {
+                group {
+                    network-group TOWERRULE
+                }
+            }
+            protocol all
+        }
+    }
+}
+
+interfaces {
+    {% for interface in interfaces -%}
+    ethernet {{ interface }} {
+        firewall {
+            local {
+                name TOWERRULE
+            }
+        }
+    }
+    {% endfor -%}
+}

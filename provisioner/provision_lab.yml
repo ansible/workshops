@@ -34,6 +34,11 @@
         - create_login_page is defined
         - create_login_page
         - '"_" in ec2_name_prefix'
+    - aws_caller_facts:
+      register: whoami
+    - debug: msg="I am {{ whoami.arn }}"
+    - fail:
+        msg: "Fail on purpose"
 
 - name: Create lab instances in AWS
   hosts: localhost

@@ -1,0 +1,34 @@
+protocols {
+    ospf {
+        area 0 {
+            {% for dict in interface_data[inventory_hostname] -%}
+            {% if dict["name"] != "lo" -%}
+            network {{ dict["ipv4"] | ipaddr("network") }}/{{ dict["ipv4"] | ipaddr("prefix") }}
+            {% else -%}
+            network {{ dict["ipv4"] }}
+            {% endif -%}
+            {% endfor -%}
+        }
+        parameters {
+            {% for dict in interface_data[inventory_hostname] -%}
+            {% if dict["name"] == "lo" -%}
+            router-id {{ dict["ipv4"] | ipaddr("address") }}
+            {% endif -%}
+            {% endfor -%}
+        }
+    }
+}
+
+interfaces {
+    {% for dict in interface_data[inventory_hostname] -%}
+    {% if dict["name"] != "lo" -%}
+    ethernet {{ dict["name"] }} {
+        ip {
+            ospf {
+                network point-to-point
+            }
+        }
+    }
+    {% endif -%}
+    {% endfor -%}
+}

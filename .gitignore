@@ -11,3 +11,4 @@ bak/
 *.pem
 instructor_inventory.txt
 *.html
+provisioner/tower_license.json

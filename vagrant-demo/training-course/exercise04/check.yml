@@ -1,0 +1,36 @@
+- hosts: network
+  connection: network_cli
+  tasks:
+    - name: Test reachability spine01 to leafs
+      vyos_command:
+        commands:
+          - "ping 192.168.11.2 count 2"
+          - "ping 192.168.12.2 count 2"
+      register: spine01_result
+      when: 'inventory_hostname == "spine01"'
+
+    - name: assert test results for spine01 to leafs
+      assert:
+        that:
+          - "'192.168.11.2' in spine01_result.stdout[0]"
+          - "'0% packet loss' in spine01_result.stdout[0]"
+          - "'192.168.12.2' in spine01_result.stdout[1]"
+          - "'0% packet loss' in spine01_result.stdout[1]"
+      when: 'inventory_hostname == "spine01"'
+
+    - name: Test reachability spine02 to leafs
+      vyos_command:
+        commands:
+          - "ping 192.168.21.2 count 2"
+          - "ping 192.168.22.2 count 2"
+      register: spine02_result
+      when: 'inventory_hostname == "spine02"'
+
+    - name: assert test results for spine02 to leafs
+      assert:
+        that:
+          - "'192.168.21.2' in spine02_result.stdout[0]"
+          - "'0% packet loss' in spine02_result.stdout[0]"
+          - "'192.168.22.2' in spine02_result.stdout[1]"
+          - "'0% packet loss' in spine02_result.stdout[1]"
+      when: 'inventory_hostname == "spine02"'

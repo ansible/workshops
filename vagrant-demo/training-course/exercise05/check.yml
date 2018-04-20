@@ -1,0 +1,23 @@
+- hosts: network
+  connection: network_cli
+  tasks:
+    - name: Test reachability from all devices to all devices
+      vyos_command:
+        commands:
+          - "ping 10.0.0.1 count 2"
+          - "ping 10.0.0.2 count 2"
+          - "ping 10.0.0.11 count 2"
+          - "ping 10.0.0.12 count 2"
+      register: ping_result
+
+    - name: assert test results
+      assert:
+        that:
+          - "'10.0.0.1' in ping_result.stdout[0]"
+          - "'0% packet loss' in ping_result.stdout[0]"
+          - "'10.0.0.2' in ping_result.stdout[1]"
+          - "'0% packet loss' in ping_result.stdout[1]"
+          - "'10.0.0.11' in ping_result.stdout[2]"
+          - "'0% packet loss' in ping_result.stdout[2]"
+          - "'10.0.0.12' in ping_result.stdout[3]"
+          - "'0% packet loss' in ping_result.stdout[3]"

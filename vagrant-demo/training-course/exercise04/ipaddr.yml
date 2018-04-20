@@ -1,0 +1,25 @@
+---
+- hosts: network
+  connection: network_cli
+  vars:
+    interface_data:
+      spine01:
+          - { name: eth2, ipv4: 192.168.11.1/30 }
+          - { name: eth3, ipv4: 192.168.12.1/30 }
+          - { name: lo, ipv4: 10.0.0.1/32 }
+      spine02:
+          - { name: eth2, ipv4: 192.168.21.1/30 }
+          - { name: eth3, ipv4: 192.168.22.1/30 }
+          - { name: lo, ipv4: 10.0.0.2/32 }
+      leaf01:
+          - { name: eth6, ipv4: 192.168.11.2/30 }
+          - { name: eth7, ipv4: 192.168.21.2/30 }
+          - { name: lo, ipv4: 10.0.0.11/32 }
+      leaf02:
+          - { name: eth6, ipv4: 192.168.12.2/30 }
+          - { name: eth7, ipv4: 192.168.22.2/30 }
+          - { name: lo, ipv4: 10.0.0.12/32 }
+  tasks:
+    - name: Set IP addresses on aggregate
+      vyos_l3_interface:
+        aggregate: "{{interface_data[inventory_hostname]}}"

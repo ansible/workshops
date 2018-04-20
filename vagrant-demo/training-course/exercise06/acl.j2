@@ -1,0 +1,36 @@
+firewall {
+    group {
+        {% for dict in acl_data[inventory_hostname] -%}
+        network-group {{ dict["name"] }}
+            network {{ dict["ipv4_network_dest"] }}
+        {% endfor -%}
+        }
+    }
+    {% for dict in acl_data[inventory_hostname] -%}
+    name {{ dict["name"] }}
+        rule {{ dict["sequence"] }} {
+            action {{ dict["action"] }}
+            destination {
+                group {
+                    network-group {{ dict["name"] }}
+                }
+            }
+            protocol {{ dict["protocol"] }}
+        }
+    }
+    {% endfor -%}
+}
+
+interfaces {
+    {% for dict in acl_data[inventory_hostname] -%}
+    {% for interface in dict["interfaces"] -%}
+    ethernet {{ interface }} {
+        firewall {
+            local {
+                name {{ dict["name"] }}
+            }
+        }
+    }
+    {% endfor -%}
+    {% endfor -%}
+}

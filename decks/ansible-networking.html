@@ -76,9 +76,7 @@
             </p>
           </aside>
         </section>
-        <section>
-            <h1>Ansible Is...</h1>
-            <img src="images/simple-powerful-agentless-diagram.png" />
+        <section data-background-image="images/simple-powerful-agentless-diagram.svg">
             <aside class="notes">
               <p>Ansible has a number of qualities that make it the most rapidly growing automation platform in the world. </p>
               <p><strong>Ansible is simple.</strong> Playbooks are human and machine readable, no special coding skills required &ndash; and even people in your IT organization that don’t know Ansible can read an Ansible playbook and understand what’s happening.</p>
@@ -346,7 +344,8 @@ Options (= is mandatory):
             <p><b>NOTE:</b> <code>shell</code> allows for IO redirection such as pipes. This is why It&apos;s best practice to use <code>command</code> unless they need to pipe something. It also best practice to <strong>never</strong> pass user input or variables thru a run command.</p>
           </aside>
         </section>
-        <section data-background-image="images/local_execution.svg">
+        <section>
+          <img src="images/local_execution.svg">
         </section>
         <section>
           <h1>Inventory</h1>
@@ -425,7 +424,7 @@ ansible ansible_host=34.228.79.198 ansible_user=ec2-user
           <ul style="font-size: 0.75em;">
             <li><b>-m MODULE_NAME, --module-name=MODULE_NAME</b><br/>Module name to execute the ad-hoc command</li>
             <li><b>-a MODULE_ARGS, --args=MODULE_ARGS</b><br/>Module arguments for the ad-hoc command</li>
-            <li><b>-b, --become</b><br/>Run ad-hoc command with elevated rights such as sudo, the default method</li>
+            <li><b>-b, --become</b><br/>Run ad-hoc command with elevated rights such as sudo (Linux) or enable (Networking)</li>
             <li><b>-e EXTRA_VARS, --extra-vars=EXTRA_VARS</b><br/>Set additional variables as key=value or YAML/JSON</li>
             <li><b>--version</b><br/>Display the version of Ansible</li>
             <li><b>--help</b><br/>Display the MAN page for the ansible tool</li>

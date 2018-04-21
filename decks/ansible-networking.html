@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>Ansible Networking Workshop</title>
 
@@ -41,7 +41,7 @@
           <!--p>NAME HERE, TITLE HERE</p>
           <p>COMPANY HERE</p-->
         </section>
-        <section data-background-image="images/30years.png">
+        <section data-background-image="images/30years.svg">
         </section>
         <section>
           <h1>What You Will Learn</h1>
@@ -98,13 +98,8 @@
             Agentless support for all major OS variants, physical, virtual, cloud and network</p>
             <p><strong>HUMAN READABLE</strong> – YAML</br>
             Perfectly describe and document every aspect of your application environment</p>
-            <p><strong>PERFECT DESCRIPTION OF NETWORK STATE</strong></br>
-            Every change can be made by playbooks, ensuring everyone is on the same page</p>
-            <p><strong>VERSION CONTROLLED</strong></br>
-            Playbooks are plain-text. Treat them like code in your existing version control.</p>
             <p><strong>DYNAMIC INVENTORIES</strong></br>
             Capture all the network hosts 100% of the time, regardless of infrastructure, location, etc.</p>
-            <p><strong>ORCHESTRATION THAT PLAYS WELL WITH OTHERS</strong> – HP SA, Puppet, Jenkins, RHNSS, etc. Homogenize existing environments by leveraging current toolsets and update mechanisms.</p>
             </div>
             <aside class="notes">
             </aside>
@@ -115,7 +110,6 @@
           <img src="images/devops-language-diagram.svg" width="60%" height="60%" style="padding-top: 20px;"/>
           <p class="fullwidth"><strong>COMMUNICATION IS THE KEY TO DEVOPS.</strong></p>
           <p class="fullwidth">Ansible is the first <strong>automation language</strong><br/>that can be read and written across IT.</p>
-          <p class="fullwidth">Ansible is the only <strong>automation engine</strong><br/>that can automate the entire <strong>application lifecycle</strong><br/>and <strong>continuous delivery pipeline</strong>.</p>
           </div>
           <aside class="notes">
           </aside>
@@ -146,49 +140,21 @@
                   <li>web infrastructure</li>
                 </ul>
               </div>
-              <div class="col">
-              </div>
           </div>
           <aside notes="notes">
-            <p>Ansible Modules control the things that you’re automating. They can do everything from acting on system files, installing packages, or making API calls to a service framework. Ansible ships with over 900 today -- and this number is always expanding with every release.</p>
+            <p>Ansible Modules control the things that you’re automating. They can do everything from acting on system files, installing packages, or making API calls to a service framework.</p>
           </aside>
         </section>
-        <section>
-          <h1>Community</h1>
-          <div style="font-size: 0.75em;">
-            <p><strong>THE MOST POPULAR OPEN-SOURCE AUTOMATION COMMUNITY ON GITHUB<br><br></strong></p>
-            <div class="columns">
-              <div class="col">
-                <ul>
-                  <li>13,000+ stars &amp; 4,000+ forks on GitHub</li>
-                  <li>2000+ GitHub Contributors</li>
-                  <li>Over 900 modules shipped with Ansible</li>
-                  <li>New contributors added every day</li>
-                  <li>1200+ users on IRC channel</li>
-                  <li>Top 10 open source projects in 2014</li>
-                  <li>World-wide meetups taking place every week</li>
-                  <li>Ansible Galaxy: over 18,000 subscribers</li>
-                  <li>250,000+ downloads a month</li>
-                  <li>AnsibleFests in NYC, SF, London</li>
-                </ul>
-                <p>http://ansible.com/community</p>
-              </div>
-              <div class="col">
-                  <img src="images/ansibe-up-and-running-ebook.png"/>
-              </div>
-          </div>
-        </div>
+        <section data-background-image="images/most_meetups.svg">
         <aside class="notes">
           <p>Ansible is open source. Created with contributions from an active open source community and built for the people who use it every day. At its heart, Ansible was made to help more people experience the power of automation so they could work better and faster together.</p>
         </aside>
         </section>
-        <section>
-          <h1>Complete Automation</h1>
-          <img src="images/ansible-automation-diagram.svg"/>
-          <aside class="notes">
-            <p>Ansible is complete automation. It&apos;s not just configuration management, It&apos;s provisioning infrastructure, deploying applications, and orchestrating actions against all layers of IT infrastructure in a single tool.</p>
-            <p>Ansibles capabilities allow you to orchestrate the entire application and environment lifecycle, regardless of where It&apos;s deployed.</p>
-          </aside>
+        <section data-background-image="images/most_contrib.svg">
+        </section>
+        <section data-background-image="images/most_searched.svg">
+        </section>
+        <section data-background-image="images/network_automation.svg">
         </section>
         <section>
           <h1>Use Cases</h1>
@@ -315,8 +281,6 @@ $ sudo apt-get install ansible
                 <li>VyOS = vyos_</li>
               </ul>
             </div>
-              <div class="col">
-              </div>
           </div>
           <aside class="notes">
             <p>If playbooks are the instruction manual for setting up and managing your infrastructure, Ansible modules are the tools in your toolkit.</p>
@@ -363,11 +327,11 @@ $ ansible-doc ios_command
 Options (= is mandatory):
 ...
           </code></pre>
-        </section>
         <aside class="notes">
           <p>Module documentation is also available from the commandline using the <code>ansible-doc</code>.</p>
           <p>One noteworthy advantage, of ansible-doc is that it can display any custom module with it's own embedded documentation that you may have added to your Ansible environment.</p>
         </aside>
+        </section>
         <section>
           <h1>Modules: Run Commands</h1>
           <p>If Ansible doesn’t have a module that suits your needs there are the “run command” modules:</p><br>
@@ -402,7 +366,7 @@ Options (= is mandatory):
         </section>
         <section>
           <h1>Static Inventory Example</h1>
-This is example of what NOT to do.
+This inventory will work but is not human readable.
           <pre><code>
 10.42.0.2
 10.42.0.6
@@ -575,11 +539,11 @@ $ ansible web -m command -a &quot;uptime&quot;
             <li>Discovered facts</li>
             <li>Roles</li>
           </ul>
-        </section>
         <aside class="notes">
           <p>While automation exists to make it easier to make things repeatable, all of your systems are not exactly alike.</p>
           <p>Variables are used to store metadata for each host drawing from numerous sources. For example variable may be for things like facts or file paths or package versions.</p>
         </aside>
+        </section>
         <section>
           <h1>Variable Precedence</h1>
           <p>The order in which the same variable from different sources will override each other.</p>
@@ -688,7 +652,6 @@ tasks:
             <p>Here we can see an example of a simple but complete Ansible play. The slides that follow will explore each of these parts and what they do.</p>
           </aside>
         </section>
-
         <section>
           <h1>Human-Meaningful Naming</h1>
           <pre><code data-noescape>
@@ -715,7 +678,6 @@ tasks:
             <p>It&apos;s best practice to always name your plays and tasks. Adding name with a human-meaningful description better communicates the intent to users when running a play.</p>
           </aside>
         </section>
-
         <section>
           <h1>Host Selector</h1>
           <pre><code data-noescape>
@@ -784,16 +746,13 @@ tasks:
           <h1>Conditionals</h1>
           <p>Ansible supports the conditional execution of a task based on the run-time evaluation of variable, fact, or previous task result.</p>
           <pre><code data-noescape>
-- name: gather ios_facts
-ios_facts:
-
 - name: configure interface settings
-ios_config:
-  lines:
-    - description shutdown by Ansible
-    - shutdown
-  parents: interface GigabitEthernet2
-<mark>when: ansible_network_os == "ios"</mark>
+  ios_config:
+    lines:
+      - description shutdown by Ansible
+      - shutdown
+    parents: interface GigabitEthernet2
+  <mark>when: ansible_network_os == "ios"</mark>
           </code></pre>
           <aside class="notes">
             <p>Conditionals are another instance of Jinja2 in action within Ansible plays themselves. In the provided example &quot;ansible_os_family&quot; is a fact variable Ansible will set.</p>
@@ -868,7 +827,6 @@ tasks:
       group: network-admin
       authentication: sha
       pwd: "{{item.password}}"
-      provider: "{{login_info}}"
     <mark>with_items:</mark>
       <mark>- { user: 'exampleuser', password: 'testPASS123' }</mark>
       <mark>- { user: 'gerald', password: 'testPASS456' }</mark>
@@ -898,8 +856,7 @@ tasks:
   ios_config:
     backup: yes
   <mark>tags: </mark>
-      <mark>- backup</mark>
-
+    <mark>- backup</mark>
           </code></pre>
           <aside class="notes">
             <p>In the provided example, if the playbook were run with <code>--tags &quot;packages&quot;</code> the yum task would execute and the template task would be skipped. If the playbook were run with <code>--tags &quot;configuration&quot;</code> the opposite would happen. Without a <code>--tags</code> both tasks would execute like normal.</p>
@@ -920,7 +877,7 @@ tasks:
       name_servers:
         - 8.8.8.8
         - 8.8.4.4
-  when: '"switch" in ansible_net_hostname'
+  when: ansible_network_os == "ios"
           </code></pre>
           <aside class="notes">
             <p>In the provided example we use a block to group two tasks that are to be conditional executed if a host is running a Red Hat family linux using one conditional clause. In practice, we could have copied the <code>when</code> clause onto each task and gotten same result. Using a block, there is less clutter thereby less to maintain and nothing to keep in sync. The utility of using a block increases the more tasks and clauses are in use.</p>

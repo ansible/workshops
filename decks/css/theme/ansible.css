@@ -35,7 +35,7 @@ mark span.hljs-string{
 
 .reveal {
   font-family: "Open Sans", sans-serif;
-  font-size: 50px;
+  font-size: 36px;
   font-weight: normal;
   color: #555;
   text-align: left;
@@ -397,7 +397,7 @@ svg .a-mark{
 
 .reveal p,
 .reveal li{
-  width: 80%;
+  width: 100%;
 }
 
 .reveal p.fullwidth,

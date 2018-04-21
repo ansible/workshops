@@ -124,18 +124,16 @@
                  <li>files</li>
                  <li>messaging</li>
                  <li>monitoring</li>
-                 <li>network</li>
                </ul>
               </div>
               <div class="col">
                 <ul>
+                 <li>networking</li>
                   <li>notifications</li>
                   <li>packaging</li>
-                  <li>source control</li>
                   <li>system</li>
                   <li>testing</li>
                   <li>utilities</li>
-                  <li>web infrastructure</li>
                 </ul>
               </div>
           </div>
@@ -154,14 +152,18 @@
         </section>
         <section data-background-image="images/network_automation.svg">
         </section>
-        <section>
-          <h1>Use Cases</h1>
-          <img src="images/ansible-use-case-diagram.svg" />
+        <section data-background-image="images/journey.svg">
           <aside class="notes">
             <p>What can you do with Ansible? Nearly anything. Ansible is the Swiss Army knife of DevOps, capable of handling many powerful automation tasks with the flexibility to adapt to many environments and workflows.</p>
             <p>Many folks like to categorize Ansible as a configuration manager, and although yes, Ansible can do that, it&quot;s just the tip of the iceberg. When you couple configuration management with orchestration, you can start to model complicated multi-tier deployments with ease.</p>
             <p>With Ansible, once someone on your team automates something, everyone on the team now knows how to do it.</p>
           </aside>
+        </section>
+        <section data-background-image="images/build.svg">
+        </section>
+        <section data-background-image="images/manage.svg">
+        </section>
+        <section data-background-image="images/scale.svg">
         </section>
         <section>
           <h1>Installing Ansible</h1>
@@ -190,13 +192,6 @@ $ sudo apt-get install ansible
         <aside class="notes">
           <p>To demonstrate how easy it is to install Ansible, open an SSH session to your control host and install ansible using one of the methods in the previous slide. Once complete do a <code>$ ansible --version</code>.</p>
         </aside>
-        </section>
-        <section data-state="title alt">
-          <h1>Workshop: <br/>Installing Ansible</h1>
-          <aside class="notes">
-            <p>This brief exercise demonstrates how easy it can be to install and configure ansible and begin automating.</p>
-            <p>See <code>workshops/ansible_install</code> in the Ansible Linklight repo for this workshop&apos;s assignment. It's solution and addition details can be found in <code>facilitator/solutions/ansible_install.md</code>.</p>
-          </aside>
         </section>
         <section>
           <h1>How Ansible Works</h1>
@@ -288,6 +283,23 @@ $ sudo apt-get install ansible
           </aside>
         </section>
         <section>
+        <h1>Modules per network platform</h1>
+          <pre><code data-noescape>
+  tasks:
+    - name: configure eos system properties
+      <mark>eos_system:</mark>
+        domain_name: ansible.com
+        vrf: management
+      when: ansible_network_os == 'eos'
+
+    - name: configure nxos system properties
+      <mark>nxos_system:</mark>
+        domain_name: ansible.com
+        vrf: management
+      when: ansible_network_os == 'nxos'
+        </code></pre>
+        </section>
+        <section>
           <h1>Modules Documentation</h1>
             <div class="columns">
               <div class="col">
@@ -345,6 +357,7 @@ Options (= is mandatory):
           </aside>
         </section>
         <section>
+          <h1>How it works</h1>
           <img src="images/local_execution.svg">
         </section>
         <section>
@@ -742,6 +755,80 @@ tasks:
           </aside>
         </section>
         <section>
+        <h1>Variables - Recap</h1>
+        <ul>
+          <li>host vars - variable specific to one host</li>
+          <li>group vars - variables for all hosts within the group</li>
+        </ul>
+        <p>It is possible, but not required, to configure variables in the inventory file.</p>
+        </section>
+        <section>
+        <h1>Inventory ini file</h1>
+<pre><code>
+[junos]
+vsrx01 ansible_host=an-vsrx-01.rhdemo.io private_ip=172.16.1.1
+vsrx02 ansible_host=an-vsrx-02.rhdemo.io private_ip=172.17.1.1
+
+[junos:vars]
+ansible_network_os=junos
+ansible_password=Ansible
+
+[ios]
+ios01 ansible_host=an-ios-01.rhdemo.io
+
+[ios:vars]
+ansible_network_os=ios
+ansible_become=yes
+ansible_become_method=enable
+ansible_become_pass=cisco
+</pre></code>
+
+        </section>
+        <section>
+        <h1>Host Variables - hostvars</h1>
+<pre><code data-noescape>
+[junos]
+vsrx01 ansible_host=an-vsrx-01.rhdemo.io <mark>private_ip=172.16.1.1</mark>
+vsrx02 ansible_host=an-vsrx-02.rhdemo.io <mark>private_ip=172.17.1.1</mark>
+
+[junos:vars]
+ansible_network_os=junos
+ansible_password=Ansible
+
+[ios]
+ios01 ansible_host=an-ios-01.rhdemo.io
+
+[ios:vars]
+ansible_network_os=ios
+ansible_become=yes
+ansible_become_method=enable
+ansible_become_pass=cisco
+</pre></code>
+
+        </section>
+        <section>
+        <h1>Group Variables - groupvars</h1>
+<pre><code data-noescape>
+[junos]
+vsrx01 ansible_host=an-vsrx-01.rhdemo.io private_ip=172.16.1.1
+vsrx02 ansible_host=an-vsrx-02.rhdemo.io private_ip=172.17.1.1
+
+[junos:vars]
+<mark>ansible_network_os=junos
+ansible_password=Ansible</mark>
+
+[ios]
+ios01 ansible_host=an-ios-01.rhdemo.io
+
+[ios:vars]
+<mark>ansible_network_os=ios
+ansible_become=yes
+ansible_become_method=enable
+ansible_become_pass=cisco</mark>
+</pre></code>
+
+        </section>
+        <section>
           <h1>Conditionals</h1>
           <p>Ansible supports the conditional execution of a task based on the run-time evaluation of variable, fact, or previous task result.</p>
           <pre><code data-noescape>
@@ -758,6 +845,47 @@ tasks:
             <p>There are other forms of conditional clauses, but <code>when</code> is usually all that is needed.</p>
             <p>NOTE: Conditional clauses are consdered to be raw Jinja2 expression without double curly braces.</p>
           </aside>
+        </section>
+        <section>
+       <h1>Multi-Platform Playbooks</h1>
+       <pre><code>
+   - name: run on eos
+     include_tasks: tasks/eos.yml
+     when: ansible_network_os == eos
+
+   - name: run on ios
+     include_tasks: tasks/ios.yml
+     when: ansible_network_os == ios
+
+   - name: run on junos
+     include_tasks: tasks/junos.yml
+     when: ansible_network_os == junos
+
+   - name: run on nxos
+     include_tasks: tasks/nxos.yml
+     when: ansible_network_os == iosxr
+        </code></pre>
+        </section>
+        <section>
+        <h1>Using a config module</h1>
+        <p>Manage configuration on a network platform</p>
+        <code><pre>
+- name: configure top level configuration
+  ios_config:
+    lines: hostname {{ inventory_hostname }}
+
+- name: configure interface settings
+  ios_config:
+    lines:
+      - description test interface
+      - ip address 172.31.1.1 255.255.255.0
+    parents: interface Ethernet1
+
+- name: configure from a jinja2 template
+  ios_config:
+    src: config.j2
+        </code></pre>
+
         </section>
         <section>
         <h1>Exercise 1.3 - Network Diagram</h1>

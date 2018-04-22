@@ -28,7 +28,8 @@
       when:
        - autolicense is defined
        - autolicense
-    - fail:
+    - name: check for underscores
+      fail:
         msg: "Amazon AWS does not allow underscores _ for s3 websites, please see https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html"
       when:
         - create_login_page is defined
@@ -36,6 +37,7 @@
         - '"_" in ec2_name_prefix'
     - name: grab information about AWS user
       aws_caller_facts:
+        region: "{{ ec2_region }}"
       register: whoami
     - name: save username of AWS user
       set_fact:

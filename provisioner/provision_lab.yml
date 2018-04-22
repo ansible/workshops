@@ -34,11 +34,13 @@
         - create_login_page is defined
         - create_login_page
         - '"_" in ec2_name_prefix'
-    - aws_caller_facts:
+    - name: grab information about AWS user
+      aws_caller_facts:
       register: whoami
-    - debug: msg="I am {{ whoami.arn }}"
-    - fail:
-        msg: "Fail on purpose"
+    - name: save username of AWS user
+      set_fact:
+         linklight_user: '{{ whoami.arn.split("/")[-1] }}'
+    - debug: msg='{{ whoami.arn.split("/")[-1] }}'
 
 - name: Create lab instances in AWS
   hosts: localhost

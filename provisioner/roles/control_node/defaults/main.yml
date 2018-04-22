@@ -1,1 +1,2 @@
 control_node_inventory_path: ~{{ username }}/lightbulb/lessons/lab_inventory/{{ username }}-instances.txt
+admin_password: ansible

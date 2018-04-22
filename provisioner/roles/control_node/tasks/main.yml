@@ -203,9 +203,24 @@
     - control
     - vim
 
+- name: check to see if ansible tower is already up and running
+  uri:
+    url: https://localhost/api/v2/ping/
+    method: GET
+    user: admin
+    password: "{{admin_password}}"
+    validate_certs: False
+  register: check_tower
+  ignore_errors: yes
+  when:
+    - ansible_os_family == 'RedHat'
+    - towerinstall is defined
+    - towerinstall
+
 - name: install tower if knob is set
   include_tasks: "tower.yml"
   when:
     - ansible_os_family == 'RedHat'
     - towerinstall is defined
     - towerinstall
+    - check_tower is failed

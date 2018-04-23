@@ -1,0 +1,11 @@
+---
+- hosts: network
+  connection: network_cli
+  tasks:
+    - name: gather facts for vyos
+      vyos_facts:
+        gather_subset: all
+      register: vyos_debug
+
+    - name: look at config
+      debug: var=vyos_debug

@@ -23,7 +23,7 @@ curl -O http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-late
 ## Step 4: Untar and unzip the package file
 
 ```bash
-tar xvfz /tmp/ansible-tower-setup-*  (Name of tar file that was downloaded)
+tar xvfz /tmp/ansible-tower-setup-latest.tar.gz
 ```
 
 ## Step 5: Change directories into the ansible tower package

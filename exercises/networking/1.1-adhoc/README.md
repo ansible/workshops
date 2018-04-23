@@ -45,7 +45,7 @@ Ansible documentation page for the [command module](http://docs.ansible.com/ansi
 Let’s switch gears and take a look at our routers. The ios_facts module displays ansible facts (and a lot of them) about an ios device.
 
 ```bash
-ansible routers -m ios_facts -c local
+ansible routers -m ios_facts -c network_cli
 ```
 
 Ansible documentation page for the [ios_facts module](http://docs.ansible.com/ansible/latest/ios_facts_module.html)
@@ -55,20 +55,20 @@ Ansible documentation page for the [ios_facts module](http://docs.ansible.com/an
 Now, let’s get an interface summary using the ios_command module
 
 ```bash
-ansible routers -m ios_command -a 'commands="show ip int br"' -c local
+ansible routers -m ios_command -a 'commands="show ip int br"' -c network_cli
 ```
 Ansible documentation for the [ios_command module](http://docs.ansible.com/ansible/latest/ios_command_module.html)
 ### Step 5: ios_banner
 Let's check the banner on the routers before changing them
 ```bash
-ansible routers -m ios_command -a 'commands="show banner motd"' -c local
+ansible routers -m ios_command -a 'commands="show banner motd"' -c network_cli
 ```
 You'll see that we currently have no motd banners
 
 Let's go ahead and add the motd banner using the ios_banner module!
 
 ```bash
-ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=present' -c local
+ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=present' -c network_cli
 ```
 Now, let's run our test again to see the change!
 ```bash
@@ -81,7 +81,7 @@ Ansible documentation on the [ios_banner module](http://docs.ansible.com/ansible
 Finally, let’s revert back and remove the banner.
 
 ```bash
-ansible routers -m ios_banner -a 'banner=motd state=absent' -c local
+ansible routers -m ios_banner -a 'banner=motd state=absent' -c network_cli
 ```
 Feel free to check again using the ios_command
 

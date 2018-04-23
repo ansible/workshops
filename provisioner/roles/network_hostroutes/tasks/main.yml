@@ -1,0 +1,15 @@
+- name: add route to 172.17.0.0/16 subnet on ansible node
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth0
+    line: "172.17.0.0/16 via {{private_ip}}"
+    create: yes
+  notify: restart network
+  when: "'control_nodes' in group_names"
+
+- name: add route to 172.16.0.0/16 subnet on host1 node
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth0
+    line: "172.16.0.0/16 via {{private_ip}}"
+    create: yes
+  notify: restart network
+  when: "'managed_nodes' in group_names"

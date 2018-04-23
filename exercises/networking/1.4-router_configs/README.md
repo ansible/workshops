@@ -7,7 +7,9 @@ Previous exercises showed you the basics of Ansible. In the exercise, we will bu
  - [Section 1 - Using variables in a playbook](#section-1---using-variables-in-a-playbook)
  - [Section 2 - Create a block for rtr1](#section-2---create-a-block-for-rtr1)
  - [Section 3 - Configuring rtr2](#section-3---configuring-rtr2)
- - [Section 4 - Review](#section-4-review)
+ - [Section 4 - Running your routing_configs playbook](#section-4---running-your-routing_configs-playbook)
+ - [Section 5: Review](#section-5-review)
+ - [Section 6: Test!](#section-6-test)
 
 ## Intro
 
@@ -35,11 +37,10 @@ cd ~/networking-workshop
 vim router_configs.yml
 ```
 We are going to set 4 variables:
-  - **ansible_network_os**: used by the Minimum Viable Platform Agnostic (MVPA) modules (also known as the **_net** modules) to determine the network os type.
+  - **ansible_network_os**: used to determine the network os type.
   - **dns_servers**: a list of multiple DNS servers we want to configure on `rtr1` and `rtr2`
   - **host1_private_ip**: the private 172.17.X.X address that `host1` is using
   - **control_private_ip**: the private 172.16.X.X address that `ansible` is using
-
 
 We need to grab the private_ips of the **host1** node and the **ansible** node:
 
@@ -53,7 +54,7 @@ The variable can also be called dynamically by calling hostvars as seen below:
 - name: Router Configurations
   hosts: routers
   gather_facts: no
-  connection: local
+  connection: network_cli
   vars:
     ansible_network_os: ios
     dns_servers:
@@ -85,7 +86,7 @@ Create a block and add the tasks for rtr1 with conditionals. We’ll also add a 
 ```
 {% endraw %}
 
- What the Helsinki is happening here!?
+ What is happening here!?
   - `vars:` You’ve told Ansible the next thing it sees will be a variable name.
   - `dns_servers` You are defining a list-type variable called dns_servers. What follows is a list of those the name servers.
   - {% raw %}`{‌{ item }}`{% endraw %} You are telling Ansible that this will expand into a list item like 8.8.8.8 and 8.8.4.4.
@@ -135,15 +136,60 @@ There will be 4 tasks in this block
   - [net_system](https://docs.ansible.com/ansible/2.4/net_system_module.html): This module, similar to the net_interface allows us to manage the system attributes on network devices in an agnostic way. We’re utilizing this module along with loops to feed in the name_servers we want the router to have.
   - [net_static_route](https://docs.ansible.com/ansible/2.4/net_static_route_module.html): This module is utilized for managing static IP routes on network devices. It provides declarative management of static IP routes on network devices.
 
-## Section 4 - Review
+## Section 4 - Running your routing_configs playbook
 
-Your playbook is done! But don’t run it just yet, we’ll do that in our next exercise. For now, let’s take a second look to make sure everything looks the way you intended. If not, now is the time for us to fix it up.
+### Step 1: Make sure you are in the right directory.
+
+```bash
+cd ~/networking-workshop
+```
+
+### Step 2: Run your playbook
+
+```bash
+ansible-playbook router_configs.yml
+```
+
+## Section 5: Review
+
+If successful, you should see standard output that looks very similar to the following. If not, just let us know. We’ll help get things fixed up.
+
+![Figure 1: routing_configs stdout](playbookrun.png)
+
+If the output is similar to the above, you have successfully run the playbook.
+
+So, let’s briefly review what we accomplished:
+
+ - We declared variables that lists the name servers we want to apply.
+ - We then registered the values produced by the ios_facts module to use in the subsequent tasks in our playbook.
+ - Next we created a block with a conditionals {using inventory_hostname}
+ - If the conditionals were met, for rtr1, we applied the static route and name server configuration.
+ - For rtr2 we enabled GigabitEthernet2 & configured it to receive an IP address from DHCP + the similar configurations that rtr1 received. {Static route & name servers}
+
+## Section 6: Test!
+
+You should now be able to ping your host that resides in a different VPC! We’ve bridged the two VPC’s via a GRE tunnel and added static routes to allow routing between the two subnets.
+
+```bash
+ping <private IP of host node>
+```
+
+IP of the host node is shown as private_ip=172.16.x.x in your inventory file @ ~/networking-workshop/lab_inventory/student(x).net-ws.hosts
+
+For example:
+```bash
+[ec2-user@ip-172-17-3-27 networking-workshop]$ ping 172.18.4.188
+PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
+64 bytes from 172.18.4.188: icmp_seq=2 ttl=62 time=2.58 ms
+64 bytes from 172.18.4.188: icmp_seq=3 ttl=62 time=3.52 ms
+```
+**Note** your IP will be different than 172.18.4.188!
+
+# Answer Key
+You can [click here](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.4-router_configs/router_configs.yml).
 
 # Complete
 You have completed exercise 1.4
-
-# Answer Key
-To view and run the completed playbook move on to [Exercise 1.5!](../1.5-run_routing_configs)
 
  ---
 [Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

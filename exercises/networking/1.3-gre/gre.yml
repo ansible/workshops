@@ -2,7 +2,7 @@
 - name: Configure GRE Tunnel between rtr1 and rtr2
   hosts: routers
   gather_facts: no
-  connection: local
+  connection: network_cli
   vars:
      #Variables can be manually set like this:
      #rtr1_public_ip: "34.236.147.137"

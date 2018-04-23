@@ -1,6 +1,6 @@
 /**
  * An ANSIBLE theme for reveal.js presentations, similar
- * to the simple theme. 
+ * to the simple theme.
  */
 @import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
@@ -35,7 +35,7 @@ mark span.hljs-string{
 
 .reveal {
   font-family: "Open Sans", sans-serif;
-  font-size: 28px;
+  font-size: 36px;
   font-weight: normal;
   color: #555;
   text-align: left;
@@ -56,8 +56,8 @@ mark span.hljs-string{
   line-height: 1.3;
   font-weight: inherit;
 }
-  
-  
+
+
 .text-center{
   text-align: center;
 }
@@ -136,7 +136,7 @@ mark span.hljs-string{
   /*display: inline-block;*/
   text-align: left;
   margin: 0 0 0 1em; }
-  
+
 .reveal li{
   margin: 0 0 0.3em;
 }
@@ -397,7 +397,7 @@ svg .a-mark{
 
 .reveal p,
 .reveal li{
-  width: 80%;
+  width: 100%;
 }
 
 .reveal p.fullwidth,
@@ -519,13 +519,13 @@ svg .a-mark{
 
 @media print{
   /*@page {size: landscape}*/
-  
+
   .ans-logo{
     padding: 20px !important;
     background: #c00;
     display: inline-block;
   }
-  
+
   .reveal,
   .reveal h1,
   .reveal h2,
@@ -541,36 +541,36 @@ svg .a-mark{
     font-family: "Open Sans", sans-serif !important;
     color: #000 !important;
   }
-  
+
   .reveal blockquote{
     font-size: 20px !important;
     border: none !important;
   }
-  
+
   .reveal p,
   .reveal li{
     font-size: 20px !important;
   }
-  
+
   .reveal img{
     border: none !important;
   }
-  
+
   .reveal .columns .col {
     max-width: 50%;
   }
-  
+
   .reveal pre code{
     max-height: none !important;
   }
-  
+
   .reveal section aside.notes {
     display: block;
     border-top: 1px solid black;
     margin-top: 60px;
     padding-top: 20px;
   }
-  
+
   .reveal section aside.notes *{
     font-size: 14px !important;
     font-family: sans-serif;

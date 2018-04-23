@@ -2,26 +2,32 @@
 
 ![linklight](images/linklight.png)
 
-The Ansible Networking Linklight project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.  There are 3 parts: presentation decks, step-by-step exercises, and finally a provisioner for building up VMs.
+The Ansible Networking Linklight project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.  
 
 ## Table of Contents
 
-* [Presentation Decks](decks)  
-  Presentation decks use the [reveal.js framework](http://lab.hakim.se/reveal-js/)
+### INSTRUCTOR LED WORKSHOP:
 
-   - [Ansible Essentials](decks/ansible-essentials.html)
-   - [Intro to Ansible Tower](decks/intro-to-ansible-tower.html)
-   - [Ansible Networking](decks/ansible-networking.html)
+  * [Presentation Decks](decks)  
+    Presentation decks use the [reveal.js framework](http://lab.hakim.se/reveal-js/)
 
-* [Exercises](exercises)  
-  Step-by-step exercises provided for learning how to automate with Ansible.
+     - [Ansible Essentials](decks/ansible-essentials.html)
+     - [Intro to Ansible Tower](decks/intro-to-ansible-tower.html)
+     - [Ansible Networking](decks/ansible-networking.html)
 
-   - [Ansible Engine Workshop Exercises](exercises/ansible_engine/README.md)
-   - [Ansible Tower Workshop Exercises](exercises/ansible_tower/README.md)
-   - [Ansible Networking Workshop Exercises](exercises/networking/README.md)
+  * [Exercises](exercises)  
+    Step-by-step exercises provided for learning how to automate with Ansible.
 
-* [Lab Provisioner](provisioner)  
-  AWS playbook for building up a testing environment (in the form of Virtual Machines) for someone to try the exercises provided above.
+     - [Ansible Engine Workshop Exercises](exercises/ansible_engine/README.md)
+     - [Ansible Tower Workshop Exercises](exercises/ansible_tower/README.md)
+     - [Ansible Networking Workshop Exercises](exercises/networking/README.md)
+
+  * [Lab Provisioner](provisioner)  
+    AWS playbook for building up a testing environment (in the form of Virtual Machines) for someone to try the exercises provided above.
+
+### SELF-PACED EXERCISES:
+
+  * [Vagrant Demo](vagrant-demo) - Self-paced networking exercises that can be run on your personal laptop
 
 # Slack
 Do you like Slack?  So do we! [click to join our ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)

@@ -1,3 +1,4 @@
+## This is needed for sshpass
 - name: Install EPEL
   yum:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
@@ -14,23 +15,24 @@
       - wget
       - nano
       - tree
+      - sshpass
     state: latest
-    enablerepo: epel-testing
   tags:
     - control_node
     - control
 
+- name: Download Ansible
+  get_url:
+    url: http://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.0-1.el7.ans.noarch.rpm
+    dest: /tmp/ansible.rpm
+
 - name: Install Ansible
   yum:
-    name:
-      - sshpass
-      - ansible-2.4.2.0-2.el7.noarch
-    state: latest
-    enablerepo: rhui-REGION-rhel-server-extras
+    name: /tmp/ansible.rpm
+    state: present
   tags:
     - control_node
     - control
-  when: control_node_install_ansible
 
 - name: Ansible Essentials mode
   block:
@@ -200,3 +202,25 @@
     - control_node
     - control
     - vim
+
+- name: check to see if ansible tower is already up and running
+  uri:
+    url: https://localhost/api/v2/ping/
+    method: GET
+    user: admin
+    password: "{{admin_password}}"
+    validate_certs: False
+  register: check_tower
+  ignore_errors: yes
+  when:
+    - ansible_os_family == 'RedHat'
+    - towerinstall is defined
+    - towerinstall
+
+- name: install tower if knob is set
+  include_tasks: "tower.yml"
+  when:
+    - ansible_os_family == 'RedHat'
+    - towerinstall is defined
+    - towerinstall
+    - check_tower is failed

@@ -7,7 +7,7 @@
     - name: make sure we are running correct Ansible Version
       assert:
         that:
-          - ansible_version.minor >= 5
+          - ansible_version.minor >= 6
           - ansible_version.major >= 2
 
     - name: make sure we are not running with TESTWORKSHOP as the name so no overlap

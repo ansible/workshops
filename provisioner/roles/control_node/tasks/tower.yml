@@ -32,14 +32,3 @@
   until: check2.json is defined
   retries: 10
   delay: 30
-
-- name: Post license key
-  uri:
-    url: https://localhost/api/v2/config/
-    method: POST
-    user: admin
-    password: "{{admin_password}}"
-    body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
-    body_format: json
-    validate_certs: False
-  when: autolicense

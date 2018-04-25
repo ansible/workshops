@@ -224,3 +224,19 @@
     - towerinstall is defined
     - towerinstall
     - check_tower is failed
+
+- name: Post license key
+  uri:
+    url: https://localhost/api/v2/config/
+    method: POST
+    user: admin
+    password: "{{admin_password}}"
+    body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
+    body_format: json
+    validate_certs: False
+  when:
+    - ansible_os_family == 'RedHat'
+    - towerinstall is defined
+    - towerinstall
+    - autolicense is defined
+    - autolicense

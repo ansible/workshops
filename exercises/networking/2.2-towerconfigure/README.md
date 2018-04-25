@@ -57,7 +57,7 @@ Click on ![ADD](add.png) button
 | **ORGANIZATION**     | Default                                                               |
 | **CREDENTIAL TYPE**  | Network                                                               |
 | **USERNAME**         | ec2-user                                                              |
-| **SSH Key**          | Copy paste the ssh private key from the tower node `cat ~/.ssh/aws-private.pem`  |
+| **SSH Key**          | Copy paste the ssh private key from the tower node `cat ~/.ssh/WORKSHOPNAME-private.pem`  |
 
 ![Figure 3: Adding a Credential](credential.png)
 

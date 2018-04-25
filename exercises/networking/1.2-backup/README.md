@@ -52,7 +52,7 @@ The two most important parameters are:
 [Inventories](http://docs.ansible.com/ansible/latest/intro_inventory.html) are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). `cat` the inventory file:
 
 ```bash
-cat ~/networking_workshop/lab_inventory/hosts
+cat ~/networking-workshop/lab_inventory/hosts
 ```
 
 There are a total of 3 groups:

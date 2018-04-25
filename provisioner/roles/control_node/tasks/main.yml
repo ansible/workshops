@@ -92,14 +92,14 @@
       git:
         accept_hostkey: yes
         clone: yes
-        dest: /tmp/lightbulb
-        repo: https://github.com/network-automation/lightbulb.git
+        dest: /tmp/linklight
+        repo: https://github.com/network-automation/linklight.git
         force: yes
       tags:
         - lightbulb
 
     - name: Move networking workshop folder to correct location  (NETWORKING MODE)
-      command: cp -r /tmp/lightbulb/workshops/networking/ /home/{{ username }}/networking-workshop
+      command: cp -r /tmp/linklight/exercises/networking /home/{{ username }}/networking-workshop
       tags:
         - lightbulb
 
@@ -189,15 +189,22 @@
         group: "{{ username }}"
   when: networking is defined
 
-- name: Install ansible.cfg and vimrc in home directory
+- name: Install ansible.cfg in home directory
   template:
-    src: "{{ item }}"
-    dest: ~{{ username }}/.{{ (item | splitext)[0] }}
+    src: ansible.cfg.j2
+    dest: ~{{ username }}/.ansible.cfg
     owner: "{{ username }}"
     group: "{{ username }}"
-  with_items:
-    - ansible.cfg.j2
-    - vimrc.j2
+  tags:
+    - control_node
+    - control
+    - vim
+- name: Install vimrc in home directory
+  template:
+    src: vimrc.j2
+    dest: ~{{ username }}/.vimrc
+    owner: "{{ username }}"
+    group: "{{ username }}"
   tags:
     - control_node
     - control

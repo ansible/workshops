@@ -14,9 +14,8 @@ Want the Presentation Deck?  Its right here:
  - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)
  - [Exercise 1.2 - Backing up Configurations](1.2-backup)
  - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)
- - [Exercise 1.4 - Additional router configurations](1.4-router_configs)
- - [Exercise 1.5 - Executing your playbook and review](1.5-run_routing_configs)                                              
- - [Exercise 1.6 - Roles: Making your playbooks reusable](1.6-roles)
+ - [Exercise 1.4 - Additional router configurations](1.4-router_configs)                                        
+ - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)
 
 ## Ansible Tower Networking Exercises
 

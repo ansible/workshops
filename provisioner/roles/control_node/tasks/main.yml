@@ -83,10 +83,10 @@
 
 - name: Ansible NETWORKING MODE
   block:
-    - name: Clear out lightbulb directory spot (NETWORKING MODE)
+    - name: Clear out linklight directory spot (NETWORKING MODE)
       file:
         state: absent
-        path: /tmp/lightbulb
+        path: /tmp/linklight
 
     - name: Clone lightbulb repo (NETWORKING MODE)
       git:
@@ -95,13 +95,9 @@
         dest: /tmp/linklight
         repo: https://github.com/network-automation/linklight.git
         force: yes
-      tags:
-        - lightbulb
 
     - name: Move networking workshop folder to correct location  (NETWORKING MODE)
       command: cp -r /tmp/linklight/exercises/networking /home/{{ username }}/networking-workshop
-      tags:
-        - lightbulb
 
     - name: fix permissions of networking-workshop  (NETWORKING MODE)
       file:
@@ -116,9 +112,6 @@
         path: /home/{{ username }}/networking-workshop/lab_inventory
         owner: "{{ username }}"
         group: "{{ username }}"
-      tags:
-        - control_node
-        - control
 
     - name: Put student inventory in proper spot (NETWORKING MODE)
       copy:
@@ -127,9 +120,6 @@
         owner: "{{ username }}"
         group: "{{ username }}"
       when: username in inventory_hostname
-      tags:
-        - control_node
-        - control
 
     - name: Put ssh-key in proper spot for student
       copy:
@@ -137,8 +127,6 @@
         dest: "/home/{{username}}/.ssh/"
         owner: "{{ username }}"
         group: "{{ username }}"
-      tags:
-        - testing
 
     - name: Put ssh-key in proper for {{ansible_user}}
       copy:
@@ -192,23 +180,16 @@
 - name: Install ansible.cfg in home directory
   template:
     src: ansible.cfg.j2
-    dest: ~{{ username }}/.ansible.cfg
+    dest: "/home/{{username}}/.ansible.cfg"
     owner: "{{ username }}"
     group: "{{ username }}"
-  tags:
-    - control_node
-    - control
-    - vim
+
 - name: Install vimrc in home directory
   template:
     src: vimrc.j2
-    dest: ~{{ username }}/.vimrc
+    dest: "/home/{{username}}/.vimrc"
     owner: "{{ username }}"
     group: "{{ username }}"
-  tags:
-    - control_node
-    - control
-    - vim
 
 - name: check to see if ansible tower is already up and running
   uri:

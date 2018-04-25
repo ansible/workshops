@@ -19,7 +19,7 @@ Before we run a playbook, lets explore
 ### Step 1: Navigate to the networking_workshop directory
 
 ```bash
-cd ~/networking_workshop
+cd ~/networking-workshop
 ```
 
 ### Step 2: Look at the ansible configuration file

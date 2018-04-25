@@ -80,7 +80,6 @@ playの定義といくつかの変数をPlaybookに追加します。このPlayb
 - `{{ item }}` この記述によって `httpd` や `mod_wsgi` といったリストのアイテムを展開するようAnsibleに伝えています。+
 - `with_items: "{{ httpd_packages }}` Ansibleに `httpd_packages` の `item` 毎にタスクをループ実行するよう Ansible に伝えます
 - `notify: restart apache service` この行は `handler`であり、詳細は Section 3 で触れます
-{% endraw %}
 
 ---
 

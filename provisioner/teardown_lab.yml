@@ -37,5 +37,5 @@
 
    - name: Remove private key file
      file:
-       path: './aws-private.pem'
+       path: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
        state: absent

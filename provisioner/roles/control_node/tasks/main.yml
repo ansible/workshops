@@ -123,26 +123,26 @@
 
     - name: Put ssh-key in proper spot for student
       copy:
-        src: ./aws-private.pem
+        src: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
         dest: "/home/{{username}}/.ssh/"
         owner: "{{ username }}"
         group: "{{ username }}"
 
     - name: Put ssh-key in proper for {{ansible_user}}
       copy:
-        src: ./aws-private.pem
+        src: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
         dest: "/home/{{ansible_user}}/.ssh/"
         owner: "{{ansible_user}}"
         group: "{{ansible_user}}"
 
     - name: change permissions on ssh-key file
       file:
-        path: "/home/{{username}}/.ssh/aws-private.pem"
+        path: "/home/{{username}}/.ssh/{{ec2_name_prefix}}-private.pem"
         mode: 0400
 
     - name: change permissions on ssh-key file
       file:
-        path: "/home/{{ansible_user}}/.ssh/aws-private.pem"
+        path: "/home/{{ansible_user}}/.ssh/{{ec2_name_prefix}}-private.pem"
         mode: 0400
 
     - name: copy over ssh config file for student

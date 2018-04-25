@@ -8,5 +8,5 @@ inventory = {{ control_node_inventory_path }}
 {% endif %}
 host_key_checking = False
 {% if networking is defined %}
-private_key_file = ~/.ssh/aws-private.pem
+private_key_file = ~/.ssh/{{ec2_name_prefix}}-private.pem
 {% endif %}

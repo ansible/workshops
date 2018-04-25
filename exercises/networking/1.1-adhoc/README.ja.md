@@ -45,7 +45,7 @@ Ansible ドキュメントページはこちら [command モジュール](http:/
 今後は、ルーターを見てみることにしましょう。ios_facts モジュールにより ios デバイスの ansible facts を表示します。
 
 ```bash
-ansible routers -m ios_facts -c local
+ansible routers -m ios_facts -c network_cli
 ```
 
 Ansible ドキュメントページはこちら [ios_facts モジュール](http://docs.ansible.com/ansible/latest/ios_facts_module.html)
@@ -55,7 +55,7 @@ Ansible ドキュメントページはこちら [ios_facts モジュール](http
 ios_command モジュールを使い、インターフェースサマリを収集します。
 
 ```bash
-ansible routers -m ios_command -a 'commands="show ip int br"' -c local
+ansible routers -m ios_command -a 'commands="show ip int br"' -c network_cli
 ```
 Ansible ドキュメントページはこちら [ios_command モジュール](http://docs.ansible.com/ansible/latest/ios_command_module.html)
 
@@ -63,18 +63,18 @@ Ansible ドキュメントページはこちら [ios_command モジュール](ht
 
 これらを変更する前にルーターのバナーをチェックします。
 ```bash
-ansible routers -m ios_command -a 'commands="show banner motd"' -c local
+ansible routers -m ios_command -a 'commands="show banner motd"' -c network_cli
 ```
 現在 motd バナーは使用されてないことがわかるでしょう。
 
 では、ios_bannerモジュールを利用し、motd バナーを追加しましょう。
 
 ```bash
-ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=present' -c local
+ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=present' -c network_cli
 ```
 では、今からテストを再実行し、違いを見てみましょう。
 ```bash
-ansible routers -m ios_command -a 'commands="show banner motd"' -c local
+ansible routers -m ios_command -a 'commands="show banner motd"' -c network_cli
 ```
 Ansible ドキュメントページはこちら [ios_banner module](http://docs.ansible.com/ansible/latest/ios_banner_module.html)
 
@@ -83,7 +83,7 @@ Ansible ドキュメントページはこちら [ios_banner module](http://docs.
 最後に、もとに戻すためバナーを削除します。
 
 ```bash
-ansible routers -m ios_banner -a 'banner=motd state=absent' -c local
+ansible routers -m ios_banner -a 'banner=motd state=absent' -c network_cli
 ```
 気軽に ios_command コマンドを使って再びチェックしてみてください。
 

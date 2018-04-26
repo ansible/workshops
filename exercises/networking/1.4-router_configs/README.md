@@ -73,12 +73,12 @@ Create a block and add the tasks for rtr1 with conditionals. We’ll also add a 
     ##Configuration for R1
     - block:
       - name: Static route from R1 to R2
-        net_static_route:
+        ios_static_route:
           prefix: "{{host1_private_ip}}"
           mask: 255.255.255.255
           next_hop: 10.0.0.2
       - name: configure name servers
-        net_system:
+        ios_system:
           name_servers: "{{item}}"
         with_items: "{{dns_servers}}"
       when:
@@ -97,17 +97,17 @@ Create a block and add the tasks for rtr1 with conditionals. We’ll also add a 
 ## Section 3 - Configuring rtr2
 
 There will be 4 tasks in this block
-- net_interface
+- ios_interface
 - ios_config
-- net_static_route
-- net_system
+- ios_static_route
+- ios_system
 
 {% raw %}
 ```yml
 ##Configuration for R2
 - block:
   - name: enable GigabitEthernet1 interface if compliant
-    net_interface:
+    ios_interface:
       name: GigabitEthernet1
       description: interface to host1
       state: present
@@ -117,12 +117,12 @@ There will be 4 tasks in this block
         - ip address dhcp
       parents: interface GigabitEthernet1
   - name: Static route from R2 to R1
-    net_static_route:
+    ios_static_route:
       prefix: "{{control_private_ip}}"
       mask: 255.255.255.255
       next_hop: 10.0.0.1
   - name: configure name servers
-    net_system:
+    ios_system:
       name_servers: "{{item}}"
     with_items: "{{dns_servers}}"
   when:
@@ -131,10 +131,10 @@ There will be 4 tasks in this block
 {% endraw %}
 
 **So…​ what’s going on?**
-  - [net_interface](http://docs.ansible.com/ansible/latest/net_interface_module.html): This module allows us to define the state of the interface (up, admin down, etc.) in an agnostic way. In this case, we are making sure that GigabitEthernet1 is up and has the correct description.
+  - [ios_interface](http://docs.ansible.com/ansible/latest/ios_interface_module.html): This module allows us to define the state of the interface (up, admin down, etc.) in an agnostic way. In this case, we are making sure that GigabitEthernet1 is up and has the correct description.
   - [ios_config](http://docs.ansible.com/ansible/latest/ios_config_module.html): We’ve used this module in previous playbooks. We could technically combine the two tasks (ip addr + static route). However, it’s sometimes preferred to break out the tasks according to what is being accomplished.
-  - [net_system](https://docs.ansible.com/ansible/2.4/net_system_module.html): This module, similar to the net_interface allows us to manage the system attributes on network devices in an agnostic way. We’re utilizing this module along with loops to feed in the name_servers we want the router to have.
-  - [net_static_route](https://docs.ansible.com/ansible/2.4/net_static_route_module.html): This module is utilized for managing static IP routes on network devices. It provides declarative management of static IP routes on network devices.
+  - [ios_system](https://docs.ansible.com/ansible/2.4/ios_system_module.html): This module, similar to the ios_interface allows us to manage the system attributes on network devices in an agnostic way. We’re utilizing this module along with loops to feed in the name_servers we want the router to have.
+  - [ios_static_route](https://docs.ansible.com/ansible/2.4/ios_static_route_module.html): This module is utilized for managing static IP routes on network devices. It provides declarative management of static IP routes on network devices.
 
 ## Section 4 - Running your routing_configs playbook
 

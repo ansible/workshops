@@ -2,3 +2,4 @@
   systemd:
     state: restarted
     name: network
+  become: yes

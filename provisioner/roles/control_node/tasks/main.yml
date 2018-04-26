@@ -40,7 +40,7 @@
       git:
         accept_hostkey: yes
         clone: yes
-        dest: ~{{ username }}/lightbulb
+        dest: /home/{{ username }}/lightbulb
         repo: https://github.com/ansible/lightbulb.git
         force: yes
       become_user: "{{ username }}"
@@ -51,7 +51,7 @@
     - name: Remove things that students don't need
       file:
         state: absent
-        path: ~{{ username }}/lightbulb/{{ item }}
+        path: /home/{{ username }}/lightbulb/{{ item }}
       with_items:
         - aws_lab_setup
         - resources

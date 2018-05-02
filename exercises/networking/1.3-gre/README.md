@@ -57,19 +57,19 @@ vars:
 
 or you can also dynamically reference another host's variable like this:
 
-
+{% raw %}
 ```yml
 vars:
   rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
   rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
 ```
-
+{% endraw %}
 
 hostvars refers to a variables host specific variables, `rtr1` and `rtr2` refer to the specific host, and `ansible_host` refers to the public IP address (which happens to also be the IP address we use to connect with Ansible).  These host variables are gathered from the inventory file `~/networking-workshop/lab_inventory/hosts`
 
 ## Step 4: Adding the tasks for R1
 
-
+{% raw %}
 ```bash
 tasks:
 - name: create tunnel interface to R2
@@ -82,13 +82,13 @@ tasks:
   when:
     - '"rtr1" in inventory_hostname'
 ```    
-
+{% endraw %}
 
 Notice the `when` statement shown above.  This is a conditional.  If the inventory_hostname matches the string `rtr1` we will run this task.  Otherwise we will **skip**.  The only time you will see a **skip** is when a when statement is being used.  For more [information on conditionals click here](http://docs.ansible.com/ansible/latest/playbooks_conditionals.html).
 
 ## Step 5: Setting up the play for R2
 
-
+{% raw %}
 ```bash
 - name: create tunnel interface to R1
   ios_config:
@@ -100,7 +100,7 @@ Notice the `when` statement shown above.  This is a conditional.  If the invento
   when:
     - '"rtr2" in inventory_hostname'
 ```
-
+{% endraw %}
 Now that you’ve completed writing your playbook, let’s go ahead and save it.  Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`  We now have our second playbook. Let’s go ahead and run that awesomeness!
 
 ## Step 6: Running the playbook

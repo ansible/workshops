@@ -36,8 +36,15 @@
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
-    src: "{{ item }}"
-    dest: "/home/{{ username }}/.{{ (item | splitext)[0] }}"
+    src: ansible.cfg.j2
+    dest: "/home/{{ username }}/.ansible.cfg"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Install vimrc in home directory
+  template:
+    src: vimrc.j2
+    dest: "/home/{{ username }}/.vimrc"
     owner: "{{ username }}"
     group: "{{ username }}"
 

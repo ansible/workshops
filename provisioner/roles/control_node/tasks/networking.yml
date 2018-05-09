@@ -1,0 +1,94 @@
+- name: Clear out lightbulb directory spot (NETWORKING MODE)
+  file:
+    state: absent
+    path: /tmp/lightbulb
+
+- name: Clone lightbulb repo (NETWORKING MODE)
+  git:
+    accept_hostkey: yes
+    clone: yes
+    dest: /tmp/lightbulb
+    repo: https://github.com/network-automation/lightbulb.git
+    force: yes
+  tags:
+    - lightbulb
+
+- name: Move networking workshop folder to correct location  (NETWORKING MODE)
+  command: cp -r /tmp/lightbulb/workshops/networking/ /home/{{ username }}/networking-workshop
+  tags:
+    - lightbulb
+
+- name: fix permissions of networking-workshop  (NETWORKING MODE)
+  file:
+    path: /home/{{ username }}/networking-workshop
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
+
+- name: Create lab inventory directory (NETWORKING MODE)
+  file:
+    state: directory
+    path: /home/{{ username }}/networking-workshop/lab_inventory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  tags:
+    - control_node
+    - control
+
+- name: Put student inventory in proper spot (NETWORKING MODE)
+  copy:
+    src: ./{{ username }}-instances.txt
+    dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname
+  tags:
+    - control_node
+    - control
+
+- name: make sure .ssh is created
+  file:
+    path: "/home/{{username}}/.ssh/"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    state: directory
+
+- name: Put ssh-key in proper spot for student
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+    dest: "/home/{{username}}/.ssh/aws-private.pem"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  tags:
+    - testing
+
+- name: Put ssh-key in proper for {{ansible_user}}
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+    dest: "/home/{{ansible_user}}/.ssh/"
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+    mode: 0400
+
+- name: copy over ssh config file for student
+  template:
+    src: sshconfig.j2
+    dest: /home/{{username}}/.ssh/config
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 0700
+
+- name: copy over ssh config file for {{ansible_user}}
+  template:
+    src: sshconfig_ec2.j2
+    dest: /home/{{ansible_user}}/.ssh/config
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+    mode: 0700
+
+- name: setup /etc/hosts file per student
+  copy:
+    src: "{{ playbook_dir }}/{{ username }}-etchosts.txt"
+    dest: "/etc/hosts"
+    owner: "{{ username }}"
+    group: "{{ username }}"

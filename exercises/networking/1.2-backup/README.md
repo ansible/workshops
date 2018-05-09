@@ -42,7 +42,7 @@ connection = smart
 timeout = 60
 inventory = /home/lcage/networking-workshop/lab_inventory/hosts
 host_key_checking = False
-private_key_file = ~/.ssh/WORKSHOPNAME-private.pem
+private_key_file = ~/.ssh/aws-private.pem
 ```
 The two most important parameters are:
  - `inventory`: shows the location of the ansible inventory being used

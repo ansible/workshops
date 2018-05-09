@@ -66,6 +66,9 @@
       - proto: all
         cidr_ip: 0.0.0.0/0
   when: ec2_vpc_id is undefined and ec2_exact_count >= 1
+  register: create_sg
+  until: create_sg is not failed
+  retries: 5
 
 - name: Create EC2 security group 2 for VPC named {{ ec2_name_prefix }}-vpc (NETWORKING MODE)
   ec2_group:
@@ -106,6 +109,9 @@
     - networking
     - ec2_vpc_id2 is undefined
     - ec2_exact_count >= 1
+  register: create_sg2
+  until: create_sg2 is not failed
+  retries: 5
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
@@ -238,7 +244,7 @@
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "{{ playbook_dir }}/aws-private.pem"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
     mode: '0400'
   when: create_key.changed
 

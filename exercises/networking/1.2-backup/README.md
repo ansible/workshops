@@ -16,7 +16,7 @@ Before we run a playbook, lets explore
   - ansible.cfg - the ansible configuration files
   - inventory - hosts and groups configurations
 
-### Step 1: Navigate to the networking_workshop directory
+### Step 1: Navigate to the networking-workshop directory
 
 ```bash
 cd ~/networking-workshop

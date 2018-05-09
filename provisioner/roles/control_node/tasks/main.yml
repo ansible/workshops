@@ -34,162 +34,36 @@
     - control_node
     - control
 
-- name: Ansible Essentials mode
-  block:
-    - name: Clone lightbulb
-      git:
-        accept_hostkey: yes
-        clone: yes
-        dest: /home/{{ username }}/lightbulb
-        repo: https://github.com/ansible/lightbulb.git
-        force: yes
-      become_user: "{{ username }}"
-      tags:
-        - control_node
-        - control
-
-    - name: Remove things that students don't need
-      file:
-        state: absent
-        path: /home/{{ username }}/lightbulb/{{ item }}
-      with_items:
-        - aws_lab_setup
-        - resources
-        - Vagrantfile
-        - README.md
-      tags:
-        - control_node
-        - control
-
-    - name: Create lab inventory directory
-      file:
-        state: directory
-        path: /home/{{ username }}/lightbulb/lessons/lab_inventory
-      tags:
-        - control_node
-        - control
-
-    - name: Put student inventory in proper spot
-      copy:
-        src: ./{{ username }}-instances.txt
-        dest: "{{ control_node_inventory_path }}"
-        owner: "{{ username }}"
-        group: "{{ username }}"
-      when: username in inventory_hostname
-      tags:
-        - control_node
-        - control
-  when: networking is undefined or not networking
-
-- name: Ansible NETWORKING MODE
-  block:
-    - name: Clear out linklight directory spot (NETWORKING MODE)
-      file:
-        state: absent
-        path: /tmp/linklight
-
-    - name: Clone lightbulb repo (NETWORKING MODE)
-      git:
-        accept_hostkey: yes
-        clone: yes
-        dest: /tmp/linklight
-        repo: https://github.com/network-automation/linklight.git
-        force: yes
-
-    - name: Move networking workshop folder to correct location  (NETWORKING MODE)
-      command: cp -r /tmp/linklight/exercises/networking /home/{{ username }}/networking-workshop
-
-    - name: fix permissions of networking-workshop  (NETWORKING MODE)
-      file:
-        path: /home/{{ username }}/networking-workshop
-        owner: "{{ username }}"
-        group: "{{ username }}"
-        recurse: yes
-
-    - name: Create lab inventory directory (NETWORKING MODE)
-      file:
-        state: directory
-        path: /home/{{ username }}/networking-workshop/lab_inventory
-        owner: "{{ username }}"
-        group: "{{ username }}"
-
-    - name: Put student inventory in proper spot (NETWORKING MODE)
-      copy:
-        src: ./{{ username }}-instances.txt
-        dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"
-        owner: "{{ username }}"
-        group: "{{ username }}"
-      when: username in inventory_hostname
-
-    - name: Put ssh-key in proper spot for student
-      copy:
-        src: ./aws-private.pem
-        dest: "/home/{{username}}/.ssh/"
-        owner: "{{ username }}"
-        group: "{{ username }}"
-
-    - name: Put ssh-key in proper for {{ansible_user}}
-      copy:
-        src: ./aws-private.pem
-        dest: "/home/{{ansible_user}}/.ssh/"
-        owner: "{{ansible_user}}"
-        group: "{{ansible_user}}"
-
-    - name: change permissions on ssh-key file
-      file:
-        path: "/home/{{username}}/.ssh/aws-private.pem"
-        mode: 0400
-
-    - name: change permissions on ssh-key file
-      file:
-        path: "/home/{{ansible_user}}/.ssh/aws-private.pem"
-        mode: 0400
-
-    - name: copy over ssh config file for student
-      template:
-        src: sshconfig.j2
-        dest: /home/{{username}}/.ssh/config
-        owner: "{{username}}"
-        group: "{{username}}"
-
-    - name: copy over ssh config file for {{ansible_user}}
-      template:
-        src: sshconfig_ec2.j2
-        dest: /home/{{ansible_user}}/.ssh/config
-        owner: "{{ansible_user}}"
-        group: "{{ansible_user}}"
-
-    - name: change permissions on ssh config file for {{ansible_user}}
-      file:
-        path: "/home/{{ansible_user}}/.ssh/config"
-        mode: 0700
-
-    - name: change permissions on ssh config file for student
-      file:
-        path: "/home/{{username}}/.ssh/config"
-        mode: 0700
-
-    - name: setup /etc/hosts file per student
-      copy:
-        src: ./{{ username }}-etchosts.txt
-        dest: "/etc/hosts"
-        owner: "{{ username }}"
-        group: "{{ username }}"
-  when: networking is defined
-
-- name: Install ansible.cfg in home directory
+- name: Install ansible.cfg and vimrc in home directory
   template:
-    src: ansible.cfg.j2
-    dest: "/home/{{username}}/.ansible.cfg"
+    src: "{{ item }}"
+    dest: "/home/{{ username }}/.{{ (item | splitext)[0] }}"
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Install vimrc in home directory
-  template:
-    src: vimrc.j2
-    dest: "/home/{{username}}/.vimrc"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+- name: networking mode - setup control node
+  include_tasks: "networking.yml"
+  when:
+    - networking is defined
+    - networking
+
+- name: engine (essentials) mode - setup control node
+  include_tasks: "engine.yml"
+  when:
+    - networking is not defined
+    - not networking
+
+- name: networking mode - setup control node
+  include_tasks: "networking.yml"
+  when:
+    - networking is defined
+    - networking
+
+- name: engine (essentials) mode - setup control node
+  include_tasks: "engine.yml"
+  when:
+    - networking is not defined
+    - not networking
 
 - name: check to see if ansible tower is already up and running
   uri:

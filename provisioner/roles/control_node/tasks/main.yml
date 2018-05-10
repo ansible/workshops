@@ -60,18 +60,6 @@
     - networking is not defined
     - not networking
 
-- name: networking mode - setup control node
-  include_tasks: "networking.yml"
-  when:
-    - networking is defined
-    - networking
-
-- name: engine (essentials) mode - setup control node
-  include_tasks: "engine.yml"
-  when:
-    - networking is not defined
-    - not networking
-
 - name: check to see if ansible tower is already up and running
   uri:
     url: https://localhost/api/v2/ping/

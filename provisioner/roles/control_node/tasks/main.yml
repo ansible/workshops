@@ -3,9 +3,6 @@
   yum:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present
-  tags:
-    - control_node
-    - control
 
 - name: Install base packages
   yum:
@@ -17,9 +14,6 @@
       - tree
       - sshpass
     state: latest
-  tags:
-    - control_node
-    - control
 
 - name: Download Ansible
   get_url:
@@ -30,9 +24,6 @@
   yum:
     name: /tmp/ansible.rpm
     state: present
-  tags:
-    - control_node
-    - control
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
@@ -47,18 +38,6 @@
     dest: "/home/{{ username }}/.vimrc"
     owner: "{{ username }}"
     group: "{{ username }}"
-
-- name: networking mode - setup control node
-  include_tasks: "networking.yml"
-  when:
-    - networking is defined
-    - networking
-
-- name: engine (essentials) mode - setup control node
-  include_tasks: "engine.yml"
-  when:
-    - networking is not defined
-    - not networking
 
 - name: networking mode - setup control node
   include_tasks: "networking.yml"

@@ -42,9 +42,6 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   when: username in inventory_hostname
-  tags:
-    - control_node
-    - control
 
 - name: make sure .ssh is created
   file:
@@ -59,8 +56,7 @@
     dest: "/home/{{username}}/.ssh/aws-private.pem"
     owner: "{{ username }}"
     group: "{{ username }}"
-  tags:
-    - testing
+    mode: 0400
 
 - name: Put ssh-key in proper for {{ansible_user}}
   copy:

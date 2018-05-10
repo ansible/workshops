@@ -1,0 +1,56 @@
+- name: grab facts for host1 node (NETWORKING MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_host1": "{{ec2_name_prefix}}-host1"
+  register: host1_node_facts
+
+- name: add host1 to groups (NETWORKING MODE)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ ec2_login_names[host1_node] }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    groups:
+      - lab_hosts
+      - managed_nodes
+  with_items: "{{ host1_node_facts.instances }}"
+
+- name: grab facts for rtr1 node (NETWORKING MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
+  register: rtr1_node_facts
+
+- name: add rtr1 to groups (NETWORKING MODE)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ ec2_login_names[rtr1_node] }}"
+    ansible_port: "{{ ssh_port }}"
+    groups: lab_hosts,routers
+  with_items:
+    - "{{rtr1_node_facts.instances}}"
+
+- name: grab facts for rtr2 node (NETWORKING MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr2": "{{ec2_name_prefix}}-rtr2"
+  register: rtr2_node_facts
+
+- name: add rtr2 to groups (NETWORKING MODE)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ ec2_login_names[rtr2_node] }}"
+    ansible_port: "{{ ssh_port }}"
+    groups: lab_hosts,routers
+  with_items:
+    - "{{rtr2_node_facts.instances}}"

@@ -59,6 +59,7 @@
     dest: "/home/{{username}}/.ssh/aws-private.pem"
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0400
   tags:
     - testing
 

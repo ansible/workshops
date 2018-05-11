@@ -1,3 +1,8 @@
+- name: ensure workshop folder {{ec2_name_prefix}} exists
+  file:
+    path: "{{ playbook_dir }}/{{ec2_name_prefix}}"
+    state: directory
+
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc"
@@ -248,7 +253,7 @@
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     mode: '0400'
   when: create_key.changed
 

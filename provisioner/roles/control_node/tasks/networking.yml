@@ -7,16 +7,12 @@
   git:
     accept_hostkey: yes
     clone: yes
-    dest: /tmp/lightbulb
-    repo: https://github.com/network-automation/lightbulb.git
+    dest: /tmp/linklight
+    repo: https://github.com/network-automation/linklight.git
     force: yes
-  tags:
-    - lightbulb
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)
-  command: cp -r /tmp/lightbulb/workshops/networking/ /home/{{ username }}/networking-workshop
-  tags:
-    - lightbulb
+  command: cp -r /tmp/linklight/exercises/networking/ /home/{{ username }}/networking-workshop
 
 - name: fix permissions of networking-workshop  (NETWORKING MODE)
   file:
@@ -31,13 +27,10 @@
     path: /home/{{ username }}/networking-workshop/lab_inventory
     owner: "{{ username }}"
     group: "{{ username }}"
-  tags:
-    - control_node
-    - control
 
 - name: Put student inventory in proper spot (NETWORKING MODE)
   copy:
-    src: ./{{ username }}-instances.txt
+    src: ./{{ec2_name_prefix}}/{{ username }}-instances.txt
     dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"
     owner: "{{ username }}"
     group: "{{ username }}"
@@ -52,7 +45,7 @@
 
 - name: Put ssh-key in proper spot for student
   copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     dest: "/home/{{username}}/.ssh/aws-private.pem"
     owner: "{{ username }}"
     group: "{{ username }}"
@@ -60,7 +53,7 @@
 
 - name: Put ssh-key in proper for {{ansible_user}}
   copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     dest: "/home/{{ansible_user}}/.ssh/"
     owner: "{{ansible_user}}"
     group: "{{ansible_user}}"
@@ -84,7 +77,7 @@
 
 - name: setup /etc/hosts file per student
   copy:
-    src: "{{ playbook_dir }}/{{ username }}-etchosts.txt"
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
     dest: "/etc/hosts"
     owner: "{{ username }}"
     group: "{{ username }}"

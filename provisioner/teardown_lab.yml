@@ -10,32 +10,12 @@
     s3_state: absent
     state: absent
 
-  pre_tasks:
-  - name: Include dynamically created generated_student_list.txt
-    include_vars:
-      file: '{{ playbook_dir }}/{{ec2_name_prefix}}_generated_student_list.txt'
-    when: (users is undefined or not users) and (student_total is undefined or not student_total)
-
   roles:
     - manage_ec2_instances
     - { role: aws_workshop_login_page, when: create_login_page is defined }
 
   post_tasks:
-   - name: Remove inventory files
+   - name: Remove workshop local files
      file:
-       dest: "{{item}}"
-       state: absent
-     with_fileglob:
-       - "{{ playbook_dir }}/*.txt"
-
-   - name: Remove HTML files
-     file:
-       dest: "{{item}}"
-       state: absent
-     with_fileglob:
-       - "{{ playbook_dir }}/*.html"
-
-   - name: Remove private key file
-     file:
-       path: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+       dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
        state: absent

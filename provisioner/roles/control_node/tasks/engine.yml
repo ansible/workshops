@@ -6,9 +6,6 @@
     repo: https://github.com/ansible/lightbulb.git
     force: yes
   become_user: "{{ username }}"
-  tags:
-    - control_node
-    - control
 
 - name: Remove things that students don't need
   file:
@@ -19,25 +16,16 @@
     - resources
     - Vagrantfile
     - README.md
-  tags:
-    - control_node
-    - control
 
 - name: Create lab inventory directory
   file:
     state: directory
     path: /home/{{ username }}/lightbulb/lessons/lab_inventory
-  tags:
-    - control_node
-    - control
 
 - name: Put student inventory in proper spot
   copy:
-    src: ./{{ username }}-instances.txt
+    src: ./{{ec2_name_prefix}}/{{ username }}-instances.txt
     dest: "{{ control_node_inventory_path }}"
     owner: "{{ username }}"
     group: "{{ username }}"
   when: username in inventory_hostname
-  tags:
-    - control_node
-    - control

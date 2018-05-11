@@ -1,3 +1,8 @@
+- name: ensure workshop folder {{ec2_name_prefix}} exists
+  file:
+    path: "{{ playbook_dir }}/{{ec2_name_prefix}}"
+    state: directory
+
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc"
@@ -160,6 +165,8 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "Total {{student_total}}"
   register: igw
+  until: igw is not failed
+  retries: 15
   when: ec2_vpc_id is undefined
 
 - name: vpc internet gateway is present for {{ create_vpc2.vpc.id }} (NETWORKING MODE)
@@ -172,6 +179,8 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "Total {{student_total}}"
   register: igw2
+  until: igw2 is not failed
+  retries: 15
   when:
     - networking
     - ec2_vpc_id2 is undefined
@@ -244,7 +253,7 @@
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}-private.pem"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     mode: '0400'
   when: create_key.changed
 

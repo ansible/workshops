@@ -2,7 +2,7 @@ secrets.yml
 users.yml
 extra_vars.yml
 *.txt
-.vagrant/*
+*.vagrant
 TODO
 TODO.md
 bak/

@@ -122,4 +122,7 @@
     ansible_node: "{{ ec2_lab_node_types_networking['ansible'] }}"
     rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
     rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
+    rtr3_node: "{{ ec2_lab_node_types_networking['rtr3'] }}"
+    rtr4_node: "{{ ec2_lab_node_types_networking['rtr4'] }}"
     host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
+    # host2_node: "{{ ec2_lab_node_types_networking['host2'] }}"

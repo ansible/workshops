@@ -49,7 +49,6 @@
   include_tasks: "engine.yml"
   when:
     - networking is not defined
-    - not networking
 
 - name: check to see if ansible tower is already up and running
   uri:

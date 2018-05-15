@@ -9,7 +9,7 @@
 - name: provision networking aws resources
   include_tasks: resources_networking.yml
   vars:
-    ec2_lab_node_types_networking: all_cisco
+    ec2_lab_node_types_networking: "{{ all_cisco }}"
   when:
     - networking is defined
     - networking

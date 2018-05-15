@@ -7,7 +7,6 @@ ec2_subnet2: "172.17.0.0/16"
 networking: false
 ssh_port: 22
 admin_password: ansible
-mixed_lab: no
 
 ec2_lab_node_types:
   ansible: rhel7-tower
@@ -15,13 +14,12 @@ ec2_lab_node_types:
   node2: rhel7
   node3: rhel7
 
-# ec2_lab_node_types_networking:
-#   ansible: rhel7-tower
-#   rtr1: csr-byol
-#   rtr2: csr-byol
-#   rtr3: csr-byol
-#   rtr4: csr-byol
-#   host1: rhel7
+ec2_lab_node_types_networking:
+  ansible: rhel7-tower
+  rtr1: csr-byol
+  rtr2: csr-byol
+  host1: rhel7
+
 all_cisco:
   ansible: rhel7-tower
   rtr1: csr-byol
@@ -38,26 +36,8 @@ multivendor:
   rtr4: junos-byol
   host1: rhel7
 
-  # host2: rhel7
-# ec2_lab_node_types_juniper_networking:
-#   ansible: rhel7-tower
-#   rtr1: csr-byol
-#   rtr2: csr-byol
-#   rtr3: csr-byol
-#   rtr4: csr-byol
-
 # Instance types used for lab configurations
 ec2_instance_types:
-  # centos7:
-  #   size: t2.micro
-  #   os_type: linux
-  #   disk_space: 10
-  #
-  # centos7-tower:
-  #   size: t2.medium
-  #   os_type: linux
-  #   disk_space: 20
-
   junos-byol:
     owners: 679593333241
     size: m4.xlarge
@@ -93,17 +73,6 @@ ec2_instance_types:
     disk_space: 20
     architecture: x86_64
     filter: 'RHEL-7.4*GA*'
-
-  # Look at https://cloud-images.ubuntu.com/locator/ec2/ for Ubuntu AMIs
-  # ubuntu14:
-  #   size: t2.micro
-  #   os_type: linux
-  #   disk_space: 10
-  #
-  # ubuntu16:
-  #   size: t2.micro
-  #   os_type: linux
-  #   disk_space: 10
 
 # Login names used for SSH connections. These are baked in to the AMIs.
 ec2_login_names:

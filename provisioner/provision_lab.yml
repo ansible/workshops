@@ -24,6 +24,12 @@
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
 
+    - name: if special lab is defined, make sure its a supported mode
+      assert:
+        that: special is match("all_cisco") or special is match("multivendor")
+      when:
+        - special is defined
+
     - name: auto license feature for Ansible Tower
       block:
         - name: Check that the provided license exists

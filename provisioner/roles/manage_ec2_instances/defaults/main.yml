@@ -18,7 +18,16 @@ ec2_lab_node_types_networking:
   ansible: rhel7-tower
   rtr1: csr-byol
   rtr2: csr-byol
+  rtr3: junos-byol
+  rtr4: junos-byol
   host1: rhel7
+  # host2: rhel7
+# ec2_lab_node_types_juniper_networking:
+#   ansible: rhel7-tower
+#   rtr1: csr-byol
+#   rtr2: csr-byol
+#   rtr3: csr-byol
+#   rtr4: csr-byol
 
 # Instance types used for lab configurations
 ec2_instance_types:
@@ -32,6 +41,15 @@ ec2_instance_types:
   #   os_type: linux
   #   disk_space: 20
 
+  junos-byol:
+    owners: 679593333241
+    size: m4.xlarge
+    os_type: linux
+    disk_space: 32
+    architecture: x86_64
+    filter: "vmx-nested-17.4R1-S2.2-3-ami*"
+    os: junos
+
   csr-byol:
     owners: 679593333241
     size: t2.medium
@@ -39,6 +57,7 @@ ec2_instance_types:
     disk_space: 20
     architecture: x86_64
     filter: "cisco-CSR*BYOL*"
+    os: ios
 
 
   # Look for owner 309956199498 to find official Red Hat AMIs
@@ -78,3 +97,4 @@ ec2_login_names:
   ubuntu14: ubuntu
   ubuntu16: ubuntu
   csr-byol: ec2-user
+  junos-byol: jnpr

@@ -117,6 +117,11 @@
       - "ec2_vpc_id2: {{ ec2_vpc_id2 }}"
       - "ec2_vpc_subnet_id2: {{ ec2_vpc_subnet_id2 }}"
 
+- name: set fact for multivendor lab
+  set_fact:
+    ec2_lab_node_types_networking: "{{ multivendor }}"
+  when: mixed_lab
+
 - name: set node types (NETWORKING MODE)
   set_fact:
     ansible_node: "{{ ec2_lab_node_types_networking['ansible'] }}"
@@ -125,4 +130,3 @@
     rtr3_node: "{{ ec2_lab_node_types_networking['rtr3'] }}"
     rtr4_node: "{{ ec2_lab_node_types_networking['rtr4'] }}"
     host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
-    # host2_node: "{{ ec2_lab_node_types_networking['host2'] }}"

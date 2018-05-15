@@ -4,7 +4,15 @@
   connection: local
 
   vars:
-    ec2_lab_node_types_networking:
+    all_cisco:
+      ansible: rhel7-tower
+      rtr1: csr-byol
+      rtr2: csr-byol
+      rtr3: csr-byol
+      rtr4: csr-byol
+      host1: rhel7
+
+    multivendor:
       ansible: rhel7-tower
       rtr1: csr-byol
       rtr2: csr-byol
@@ -31,15 +39,26 @@
         filter: "cisco-CSR*BYOL*"
         os: ios
 
+    mixed_lab: no    
+    ec2_lab_node_types_networking: "{{all_cisco}}"
+
   tasks:
-    - name: set node types (NETWORKING MODE)
+    - name: set fact for multivendor lab
       set_fact:
-        ansible_node: "{{ ec2_lab_node_types_networking['ansible'] }}"
-        rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
-        rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
-        rtr3_node: "{{ ec2_lab_node_types_networking['rtr3'] }}"
-        rtr4_node: "{{ ec2_lab_node_types_networking['rtr4'] }}"
-        host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
+        ec2_lab_node_types_networking: "{{ multivendor }}"
+      when: mixed_lab
 
     - debug:
-        var: ec2_instance_types[rtr3_node]['os']
+        var: ec2_lab_node_types_networking
+
+    # - name: set node types (NETWORKING MODE)
+    #   set_fact:
+    #     ansible_node: "{{ ec2_lab_node_types_networking['ansible'] }}"
+    #     rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
+    #     rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
+    #     rtr3_node: "{{ ec2_lab_node_types_networking['rtr3'] }}"
+    #     rtr4_node: "{{ ec2_lab_node_types_networking['rtr4'] }}"
+    #     host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
+
+    # - debug:
+    #     var: ec2_instance_types[rtr3_node]['os']

@@ -48,6 +48,7 @@ ec2_instance_types:
     disk_space: 32
     architecture: x86_64
     filter: "vmx-nested-17.4R1-S2.2-3-ami*"
+    os: junos
 
   csr-byol:
     owners: 679593333241
@@ -56,6 +57,7 @@ ec2_instance_types:
     disk_space: 20
     architecture: x86_64
     filter: "cisco-CSR*BYOL*"
+    os: ios
 
 
   # Look for owner 309956199498 to find official Red Hat AMIs
@@ -95,3 +97,4 @@ ec2_login_names:
   ubuntu14: ubuntu
   ubuntu16: ubuntu
   csr-byol: ec2-user
+  junos-byol: jnpr

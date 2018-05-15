@@ -12,24 +12,24 @@ vpc2
 [vpc1]
 {% for vm in rtr1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr1_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os=ios
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr1_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os={{ec2_instance_types[rtr1_node]['os']}}
 {% endif %}
 {% endfor %}
 {% for vm in rtr3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr3_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os=ios
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr3_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os={{ec2_instance_types[rtr3_node]['os']}}
 {% endif %}
 {% endfor %}
 
 [vpc2]
 {% for vm in rtr2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr2_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os=ios
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr2_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os={{ec2_instance_types[rtr2_node]['os']}}
 {% endif %}
 {% endfor %}
 {% for vm in rtr4_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr4_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os=ios
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr4_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os={{ec2_instance_types[rtr4_node]['os']}}
 {% endif %}
 {% endfor %}
 

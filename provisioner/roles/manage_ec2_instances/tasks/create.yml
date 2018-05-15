@@ -22,7 +22,6 @@
 - name: engine (essentials) mode - setup inventory
   include_tasks: "addhost_engine.yml"
   when:
-    - networking is not defined
     - not networking
 
 - name: networking mode - setup inventory

@@ -4,10 +4,10 @@
     state: directory
 
 - name: provision aws resources
-  include_tasks: provision_aws_resources.yml
+  include_tasks: resources.yml
 
 - name: provision networking aws resources
-  include_tasks: provision_networking_aws_resources.yml
+  include_tasks: resources_networking.yml
   when:
     - networking is defined
     - networking
@@ -66,13 +66,13 @@
   when: control_output.instance_ids is not none
 
 - name: provision ansible engine (essentials) instances
-  include_tasks: provision_engine_aws_instances.yml
+  include_tasks: instances_engine.yml
   when:
     - networking is undefined
     - not networking
 
 - name: provision ansible networking instances
-  include_tasks: provision_networking_aws_instances.yml
+  include_tasks: instances_networking.yml
   when:
     - networking is defined
     - networking

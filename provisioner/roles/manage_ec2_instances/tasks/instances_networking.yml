@@ -6,7 +6,6 @@
 
 - name: set node types (NETWORKING MODE)
   set_fact:
-    ansible_node: "{{ ec2_lab_node_types_networking['ansible'] }}"
     rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
     rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
     host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"

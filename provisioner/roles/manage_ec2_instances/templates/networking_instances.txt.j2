@@ -9,7 +9,7 @@ ansible_port={{ ssh_port }}
 site1
 site2
 
-[site1]
+[dc1]
 {% for vm in rtr1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr1_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os={{ec2_instance_types[rtr1_node]['os']}}
@@ -23,7 +23,7 @@ site2
 {% endfor %}
 {% endif %}
 
-[site2]
+[dc2]
 {% for vm in rtr2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr2_node] }} private_ip={{ vm.private_ip_address }} ansible_network_os={{ec2_instance_types[rtr2_node]['os']}}

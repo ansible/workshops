@@ -8,20 +8,20 @@ networking: false
 ssh_port: 22
 admin_password: ansible
 
-ec2_lab_node_types:
+ec2_control_node:
   ansible: rhel7-tower
+
+ec2_lab_node_types:
   node1: rhel7
   node2: rhel7
   node3: rhel7
 
 ec2_lab_node_types_networking:
-  ansible: rhel7-tower
   rtr1: csr-byol
   rtr2: csr-byol
   host1: rhel7
 
 all_cisco:
-  ansible: rhel7-tower
   rtr1: csr-byol
   rtr2: csr-byol
   rtr3: csr-byol
@@ -29,7 +29,6 @@ all_cisco:
   host1: rhel7
 
 multivendor:
-  ansible: rhel7-tower
   rtr1: csr-byol
   rtr2: csr-byol
   rtr3: junos-byol

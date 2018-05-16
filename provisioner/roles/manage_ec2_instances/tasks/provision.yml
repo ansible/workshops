@@ -12,6 +12,10 @@
     - networking is defined
     - networking
 
+- name: set control node type
+  set_fact:
+    ansible_node: "{{ ec2_control_node['ansible'] }}"
+
 - name: find ami for ansible control node
   ec2_ami_facts:
     region: "{{ ec2_region }}"
@@ -67,9 +71,7 @@
 
 - name: provision ansible engine (essentials) instances
   include_tasks: instances_engine.yml
-  when:
-    - networking is undefined
-    - not networking
+  when: not networking
 
 - name: provision ansible networking instances
   include_tasks: instances_networking.yml

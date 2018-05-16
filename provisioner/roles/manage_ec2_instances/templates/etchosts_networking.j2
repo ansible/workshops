@@ -6,12 +6,13 @@
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
 {% endfor %}
-{% for vm in rtr3_node_facts.instances %}
+{% for vm in rtr2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
 {% endfor %}
-{% for vm in rtr2_node_facts.instances %}
+{% if special is defined %}
+{% for vm in rtr3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
@@ -21,6 +22,7 @@
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
 {% endif %}
 {% endfor %}
+{% endif %}
 {% for vm in host1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}

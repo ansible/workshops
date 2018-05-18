@@ -1,7 +1,7 @@
 # Ansible AWS training provisioner
 **aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  There are currently two modes:
- - Ansible Engine mode (default)
- - Ansible Networking mode
+ - Ansible Essentials Mode (default)
+ - Ansible Networking Mode
 
 ## Ansible Essentials Mode
 The default mode provisions four nodes per user:

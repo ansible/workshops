@@ -4,11 +4,13 @@
   become: no
   gather_facts: no
   tasks:
+      # Please read this, if you try to delete this task
+      # https://github.com/network-automation/linklight/issues/21
     - name: make sure we are running correct Ansible Version
       assert:
         that:
-          - ansible_version.minor >= 6
           - ansible_version.major >= 2
+          - ansible_version.minor >= 6
 
     - name: grab boto version
       command: python -c 'import boto3; print(boto3.__version__)'

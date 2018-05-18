@@ -1,21 +1,24 @@
-- name: set fact for multivendor lab
-  set_fact:
-    ec2_lab_node_types_networking: "{{ special }}"
-  when:
-    - special is defined
-
 - name: set node types (NETWORKING MODE)
   set_fact:
     rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
     rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
     host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
 
-- name: set node types (NETWORKING MODE SPECIAL)
+- name: set node types (NETWORKING MODE all_cisco)
   set_fact:
-    rtr3_node: "{{ ec2_lab_node_types_networking['rtr3'] }}"
-    rtr4_node: "{{ ec2_lab_node_types_networking['rtr4'] }}"
+    rtr3_node: "{{ all_cisco['rtr3'] }}"
+    rtr4_node: "{{ all_cisco['rtr4'] }}"
   when:
     - special is defined
+    - special is match("all_cisco")
+
+- name: set node types (NETWORKING MODE SPECIAL)
+  set_fact:
+    rtr3_node: "{{ multivendor['rtr3'] }}"
+    rtr4_node: "{{ multivendor['rtr4'] }}"
+  when:
+    - special is defined
+    - special is match("multivendor")
 
 ##############Router 1##############
 

@@ -22,18 +22,12 @@ ec2_lab_node_types_networking:
   host1: rhel7
 
 all_cisco:
-  rtr1: csr-byol
-  rtr2: csr-byol
   rtr3: csr-byol
   rtr4: csr-byol
-  host1: rhel7
 
 multivendor:
-  rtr1: csr-byol
-  rtr2: csr-byol
   rtr3: junos-byol
   rtr4: junos-byol
-  host1: rhel7
 
 # Instance types used for lab configurations
 ec2_instance_types:

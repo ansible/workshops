@@ -23,7 +23,7 @@ juniper
 {% endif %}
 {% endfor %}
 
-{% if special is defined %}
+{% if special is defined and special == "multivendor" %}
 [juniper]
 {% for vm in rtr3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
@@ -41,9 +41,11 @@ juniper
 ansible_ssh_user=ec2-user
 ansible_network_os=ios
 
+{% if special is defined and special == "multivendor" %}
 [juniper:vars]
 ansible_ssh_user=jnpr
 ansible_network_os=junos
+{% endif %}
 
 [dc1]
 rtr1

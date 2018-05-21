@@ -1,7 +1,6 @@
 ---
 ec2_name_prefix: TRAINING
 ec2_region: us-east-1
-ec2_exact_count: 1
 ec2_wait: yes
 ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
@@ -9,29 +8,37 @@ networking: false
 ssh_port: 22
 admin_password: ansible
 
-ec2_lab_node_types:
+ec2_control_node:
   ansible: rhel7-tower
+
+ec2_lab_node_types:
   node1: rhel7
   node2: rhel7
   node3: rhel7
 
 ec2_lab_node_types_networking:
-  ansible: rhel7-tower
   rtr1: csr-byol
   rtr2: csr-byol
   host1: rhel7
 
+all_cisco:
+  rtr3: csr-byol
+  rtr4: csr-byol
+
+multivendor:
+  rtr3: junos-byol
+  rtr4: junos-byol
+
 # Instance types used for lab configurations
 ec2_instance_types:
-  # centos7:
-  #   size: t2.micro
-  #   os_type: linux
-  #   disk_space: 10
-  #
-  # centos7-tower:
-  #   size: t2.medium
-  #   os_type: linux
-  #   disk_space: 20
+  junos-byol:
+    owners: 679593333241
+    size: m4.xlarge
+    os_type: linux
+    disk_space: 32
+    architecture: x86_64
+    filter: "vmx-nested-17.4R1-S2.2-3-ami*"
+    os: junos
 
   csr-byol:
     owners: 679593333241
@@ -40,6 +47,7 @@ ec2_instance_types:
     disk_space: 20
     architecture: x86_64
     filter: "cisco-CSR*BYOL*"
+    os: ios
 
 
   # Look for owner 309956199498 to find official Red Hat AMIs
@@ -59,17 +67,6 @@ ec2_instance_types:
     architecture: x86_64
     filter: 'RHEL-7.4*GA*'
 
-  # Look at https://cloud-images.ubuntu.com/locator/ec2/ for Ubuntu AMIs
-  # ubuntu14:
-  #   size: t2.micro
-  #   os_type: linux
-  #   disk_space: 10
-  #
-  # ubuntu16:
-  #   size: t2.micro
-  #   os_type: linux
-  #   disk_space: 10
-
 # Login names used for SSH connections. These are baked in to the AMIs.
 ec2_login_names:
   rhel7-tower: ec2-user
@@ -79,3 +76,4 @@ ec2_login_names:
   ubuntu14: ubuntu
   ubuntu16: ubuntu
   csr-byol: ec2-user
+  junos-byol: jnpr

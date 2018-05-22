@@ -16,6 +16,11 @@ ec2_lab_node_types:
   node2: rhel7
   node3: rhel7
 
+ec2_lab_node_types_f5:
+  f5: f5-prelicensed
+  host1: rhel7
+  host2: rhel7
+
 ec2_lab_node_types_networking:
   rtr1: csr-byol
   rtr2: csr-byol
@@ -67,6 +72,14 @@ ec2_instance_types:
     architecture: x86_64
     filter: 'RHEL-7.4*GA*'
 
+  f5-prelicensed:
+    owners: 679593333241
+    size: t2.medium
+    os_type: linux
+    disk_space: 40
+    architecture: x86_64
+    filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
+
 # Login names used for SSH connections. These are baked in to the AMIs.
 ec2_login_names:
   rhel7-tower: ec2-user
@@ -77,3 +90,4 @@ ec2_login_names:
   ubuntu16: ubuntu
   csr-byol: ec2-user
   junos-byol: jnpr
+  f5-prelicensed: admin

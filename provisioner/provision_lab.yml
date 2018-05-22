@@ -12,6 +12,20 @@
           - ansible_version.major >= 2
           - ansible_version.minor >= 6
 
+      # F5workshop and networking workshop are two different workshops
+    - name: make sure f5workshop is not turned on when networking is
+      assert:
+        that:
+          - not f5workshop
+      when: networking
+
+      # F5workshop and networking workshop are two different workshops
+    - name: make sure networking is not turned on when f5workshop is
+      assert:
+        that:
+          - not networking
+      when: f5workshop
+
     - name: grab boto version
       command: python -c 'import boto3; print(boto3.__version__)'
       register: py_cmd

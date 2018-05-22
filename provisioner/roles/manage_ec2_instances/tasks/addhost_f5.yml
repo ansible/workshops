@@ -1,0 +1,18 @@
+- name: grab facts for f5 node (F5 MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_f5": "{{ec2_name_prefix}}-f5"
+  register: f5_node_facts
+
+# - name: Generate student inventories
+#   template:
+#     src: "f5_instances.txt.j2
+#     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
+#   with_sequence: count="{{ student_total }}"
+#
+# - name: Generate instructor inventory
+#   template:
+#     src: instructor_inventory_f5.j2
+#     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

@@ -55,3 +55,20 @@
           "tag:Workshop_rtr4": "{{ec2_name_prefix}}-rtr4"
       register: rtr4_node_facts
   when: special is defined
+
+- name: Generate student inventories
+  template:
+    src: networking_instances.txt.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate student etchosts
+  template:
+    src: etchosts_networking.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate instructor inventory
+  template:
+    src: instructor_inventory_networking.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

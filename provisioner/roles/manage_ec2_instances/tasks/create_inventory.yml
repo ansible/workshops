@@ -23,13 +23,19 @@
   include_tasks: "addhost_engine.yml"
   when:
     - not networking
+    - not f5workshop
 
 - name: networking mode - setup inventory
   include_tasks: "addhost_networking.yml"
   when:
-    - networking is defined
     - networking
+    - not f5workshop
 
+- name: f5 mode - setup inventory
+  include_tasks: "addhost_f5.yml"
+  when:
+    - not networking
+    - f5workshop
 # - name: debug what this next task is doing
 #   debug:
 #     msg: "{{item}}"
@@ -43,21 +49,3 @@
   with_items: "{{ groups.lab_hosts }}"
   delegate_to: "{{ item }}"
   delegate_facts: yes
-
-- name: Generate student inventories
-  template:
-    src: "{{ networking | ternary( 'networking_instances.txt.j2' , 'instances.txt.j2' ) }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
-  with_sequence: count="{{ student_total }}"
-
-- name: Generate student etchosts
-  template:
-    src: etchosts_networking.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
-  with_sequence: count="{{ student_total }}"
-  when: networking
-
-- name: Generate instructor inventory
-  template:
-    src: "{{ networking | ternary( 'instructor_inventory_networking.j2' , 'instructor_inventory.j2' ) }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

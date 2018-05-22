@@ -35,3 +35,14 @@
     - "{{ node2_node_facts.instances }}"
     - "{{ node3_node_facts.instances }}"
   changed_when: no
+
+- name: Generate student inventories
+  template:
+    src: instances.txt.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate instructor inventory
+  template:
+    src: instructor_inventory.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

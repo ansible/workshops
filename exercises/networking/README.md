@@ -1,10 +1,10 @@
-# Ansible Lightbulb - Networking
+# Ansible Linklight - Networking
 
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
 ## Presentation
 Want the Presentation Deck?  Its right here:
-[Ansible Networking Lightbulb Deck](../../decks/ansible-networking.html)
+[Ansible Networking Linklight Deck](../../decks/ansible-networking.html)
 
 ## Diagram
 ![network diagram](diagram.png)

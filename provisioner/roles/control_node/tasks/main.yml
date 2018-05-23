@@ -41,14 +41,11 @@
 
 - name: networking mode - setup control node
   include_tasks: "networking.yml"
-  when:
-    - networking is defined
-    - networking
+  when: networking
 
 - name: engine (essentials) mode - setup control node
   include_tasks: "engine.yml"
-  when:
-    - networking is not defined
+  when: not networking
 
 - name: check to see if ansible tower is already up and running
   uri:

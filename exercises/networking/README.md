@@ -2,6 +2,9 @@
 
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
+**Read this in other languages**: [![uk](../../images/uk.png)English](README.md), [![uk](../../images/uk.png)日本語](README.ja.md).
+
+
 ## Presentation
 Want the Presentation Deck?  Its right here:
 [Ansible Networking Linklight Deck](../../decks/ansible-networking.html)
@@ -11,11 +14,11 @@ Want the Presentation Deck?  Its right here:
 
 ## Ansible Engine Networking Exercises
 
- - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  [![japan](../../images/japan.png)](1.1-adhoc/README.ja.md)
- - [Exercise 1.2 - Backing up Configurations](1.2-backup)  [![japan](../../images/japan.png)](1.2-backup/README.ja.md)
- - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)  [![japan](../../images/japan.png)](1.3-gre/README.ja.md)
- - [Exercise 1.4 - Additional router configurations](1.4-router_configs)  [![japan](../../images/japan.png)](1.4-router_configs/README.ja.md)                                        
- - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)  [![japan](../../images/japan.png)](1.5-roles/README.ja.md)
+ - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  [![uk](../../images/japan.png)](1.1-adhoc/README.md) [![japan](../../images/japan.png)](1.1-adhoc/README.ja.md)
+ - [Exercise 1.2 - Backing up Configurations](1.2-backup)  [![uk](../../images/uk.png)](1.2-adhoc/README.md) [![japan](../../images/japan.png)](1.2-backup/README.ja.md)
+ - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)  [![uk](../../images/uk.png)](1.3-gre/README.md) [![japan](../../images/japan.png)](1.3-gre/README.ja.md)
+ - [Exercise 1.4 - Additional router configurations](1.4-router_configs)  [![uk](../../images/uk.png)](1.4-router_configs/README.md) [![japan](../../images/japan.png)](1.4-router_configs/README.ja.md)                                        
+ - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)  [![uk](../../images/uk.png)](1.5-roles/README.md) [![japan](../../images/japan.png)](1.5-roles/README.ja.md)
 
 ## Ansible Tower Networking Exercises
 

@@ -4,7 +4,7 @@ timeout = 60
 {% if networking is defined %}
 inventory = /home/{{ username }}/networking-workshop/lab_inventory/hosts
 {% else %}
-inventory = {{ control_node_inventory_path }}
+inventory = /home/{{ username }}/lightbulb/lessons/lab_inventory/{{username}}-instances.txt
 {% endif %}
 host_key_checking = False
 {% if networking is defined %}

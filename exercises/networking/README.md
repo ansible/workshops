@@ -12,7 +12,7 @@ Want the Presentation Deck?  Its right here:
 ## Diagram
 ![network diagram](diagram.png)
 
-## Ansible Engine Networking Exercises
+## Ansible Engine Networking Exercises [![uk](../../images/uk.png)](README.md) [![japan](../../images/japan.png)](README.ja.md)
 
  - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  [![uk](../../images/uk.png)](1.1-adhoc/README.md) [![japan](../../images/japan.png)](1.1-adhoc/README.ja.md)
  - [Exercise 1.2 - Backing up Configurations](1.2-backup)  [![uk](../../images/uk.png)](1.2-adhoc/README.md) [![japan](../../images/japan.png)](1.2-backup/README.ja.md)

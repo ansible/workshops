@@ -11,11 +11,11 @@ Want the Presentation Deck?  Its right here:
 
 ## Ansible Engine Networking Exercises
 
- - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)[![japan](../../images/japan.png)](1.1-adhoc/README.ja.md)
- - [Exercise 1.2 - Backing up Configurations](1.2-backup)
- - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)
- - [Exercise 1.4 - Additional router configurations](1.4-router_configs)                                        
- - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)
+ - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  [![japan](../../images/japan.png)](1.1-adhoc/README.ja.md)
+ - [Exercise 1.2 - Backing up Configurations](1.2-backup)  [![japan](../../images/japan.png)](1.2-backup/README.ja.md)
+ - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)  [![japan](../../images/japan.png)](1.3-gre/README.ja.md)
+ - [Exercise 1.4 - Additional router configurations](1.4-router_configs)  [![japan](../../images/japan.png)](1.4-router_configs/README.ja.md)                                        
+ - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)  [![japan](../../images/japan.png)](1.5-roles/README.ja.md)
 
 ## Ansible Tower Networking Exercises
 

@@ -11,7 +11,7 @@
 ## Diagram
 ![network diagram](diagram.png)
 
-## Ansible Engine Networking Exercises  [![uk](../../images/uk.png)](README.md) [![japan](../../images/japan.png)](README.ja.md)
+## Ansible Engine Networking Exercises
 
  - [Exercise 1.1 - アドホックコマンドの実行](1.1-adhoc/README.ja.md)
  - [Exercise 1.2 - コンフィグのバックアップ](1.2-backup/README.ja.md)
@@ -19,7 +19,7 @@
  - [Exercise 1.4 - ルータ設定の追加](1.4-router_configs/README.ja.md)
  - [Exercise 1.5 - Roles: 再利用を想定したPlaybook](1.6-roles/README.ja.md)
 
-## Ansible Tower Networking Exercises  [![uk](../../images/uk.png)](README.md) [![japan](../../images/japan.png)](README.ja.md)
+## Ansible Tower Networking Exercises
 
 - [Exercise 2.1 - Ansible Towerのインストール](2.1-towerinstall/README.ja.md)
 - [Exercise 2.2 - Ansible Towerの設定](2.2-towerconfigure/README.ja.md)

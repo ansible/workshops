@@ -12,7 +12,7 @@ Want the Presentation Deck?  Its right here:
 ## Diagram
 ![network diagram](diagram.png)
 
-## Ansible Engine Networking Exercises [![uk](../../images/uk.png)](README.md) [![japan](../../images/japan.png)](README.ja.md)
+## Ansible Engine Networking Exercises
 
  - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  
  - [Exercise 1.2 - Backing up Configurations](1.2-backup)  
@@ -20,7 +20,7 @@ Want the Presentation Deck?  Its right here:
  - [Exercise 1.4 - Additional router configurations](1.4-router_configs)                                        
  - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)  
 
-## Ansible Tower Networking Exercises [![uk](../../images/uk.png)](README.md) [![japan](../../images/japan.png)](README.ja.md)
+## Ansible Tower Networking Exercises
 
 - [Exercise 2.1 - Installing Ansible Tower](2.1-towerinstall)
 - [Exercise 2.2 - Configuring Ansible Tower](2.2-towerconfigure)

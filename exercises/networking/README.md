@@ -14,13 +14,13 @@ Want the Presentation Deck?  Its right here:
 
 ## Ansible Engine Networking Exercises [![uk](../../images/uk.png)](README.md) [![japan](../../images/japan.png)](README.ja.md)
 
- - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  [![uk](../../images/uk.png)](1.1-adhoc/README.md) [![japan](../../images/japan.png)](1.1-adhoc/README.ja.md)
- - [Exercise 1.2 - Backing up Configurations](1.2-backup)  [![uk](../../images/uk.png)](1.2-adhoc/README.md) [![japan](../../images/japan.png)](1.2-backup/README.ja.md)
- - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)  [![uk](../../images/uk.png)](1.3-gre/README.md) [![japan](../../images/japan.png)](1.3-gre/README.ja.md)
- - [Exercise 1.4 - Additional router configurations](1.4-router_configs)  [![uk](../../images/uk.png)](1.4-router_configs/README.md) [![japan](../../images/japan.png)](1.4-router_configs/README.ja.md)                                        
- - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)  [![uk](../../images/uk.png)](1.5-roles/README.md) [![japan](../../images/japan.png)](1.5-roles/README.ja.md)
+ - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  
+ - [Exercise 1.2 - Backing up Configurations](1.2-backup)  
+ - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)  
+ - [Exercise 1.4 - Additional router configurations](1.4-router_configs)                                        
+ - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)  
 
-## Ansible Tower Networking Exercises
+## Ansible Tower Networking Exercises [![uk](../../images/uk.png)](README.md) [![japan](../../images/japan.png)](README.ja.md)
 
 - [Exercise 2.1 - Installing Ansible Tower](2.1-towerinstall)
 - [Exercise 2.2 - Configuring Ansible Tower](2.2-towerconfigure)

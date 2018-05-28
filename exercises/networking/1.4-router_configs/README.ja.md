@@ -5,9 +5,11 @@
 ## 目次
  - [紹介](#intro)
  - [セクション 1 - playbookに変数を使う](#section-1---using-variables-in-a-playbook)
- - [セクション 2 - rtr1のフロックを作成する](#section-2---create-a-block-for-rtr1)
+ - [セクション 2 - rtr1のブロックを作成する](#section-2---create-a-block-for-rtr1)
  - [セクション 3 - rtr2を設定する](#section-3---configuring-rtr2)
- - [セクション 4 - レビュー](#section-4-review)
+ - [Section 4 - routing_configs playbook を実行する](#section-4---running-your-routing_configs-playbook)
+ - [Section 5: レビュー](#section-5-review)
+ - [Section 6: テスト!](#section-6-test)
 
 ## 紹介
 
@@ -26,7 +28,7 @@ Ansibleはtaskをシンプルに、かつ繰り返し可能になっています
 
 ## セクション 1 - plsybook内の変数の利用
 
-まずは新しいrouter_configs.yml という名のplaybookを作成してみましょう。
+まずは新しい router_configs.yml という名のplaybookを作成してみましょう。
 
 新たなplaybookを作成するため、networking-workshopディレクトリに移動します。
 
@@ -84,6 +86,7 @@ vim router_configs.yml
 ```
 {% endraw %}
 
+ ここで何が起きているか？
   - `vars:` この後に続いて記述されるものが変数名であることをAnsibleに伝えています
   - `dns_servers` dns_serversと命名したリスト型（list-type）の変数を定義しています。その後に続いているのは、DNSサーバのリストです
   - {% raw %}`{‌{ item }}`{% endraw %} この記述によって 8.8.8.8 や 8.8.4.4 といったリストのアイテムを展開するようAnsibleに伝えています。
@@ -127,21 +130,66 @@ vim router_configs.yml
 ```
 {% endraw %}
 
-**で、何が起こった?**
+**そして何が起こった?**
   - [net_interface](http://docs.ansible.com/ansible/latest/net_interface_module.html): このモジュールはインターフェースの状態 (up, admin down, など) を定義することができます。このケースでは GigabitEthernet1 は起動しており、かつ正しい記述であることを確かめています。
   - [ios_config](http://docs.ansible.com/ansible/latest/ios_config_module.html): 前のplaybookでこのmoduleは使用していました。2つのtask(ip addr + static route)は結合できますが、特定の状態に至った場合ににtaskを分解するほうが好ましい場合もあります。  
   - [net_system](https://docs.ansible.com/ansible/2.4/net_system_module.html): このモジュールは net_interface に似ており、ネットワーク装置のシステム属性を管理します。ルータに渡したい name_servers をフィードする際にこのモジュールをループと共に使用します。
   - [net_static_route](https://docs.ansible.com/ansible/2.4/net_static_route_module.html): このモジュールはネットワーク装置のスタティックIPのルートを管理するために利用します。
 
-## セクション 4 - レビュー
+## セクション 4 - routing_configs playbookの実行
 
-playbook は完成ですが、まだ実行しないでください。次の演習で実行します。その前に、全てが意図した通りになっているかもう一度見直してみましょう。もしも間違っていれば修正してください。
+### ステップ 1: 正しいディレクトリにいることを確認
+
+```bash
+cd ~/networking-workshop
+```
+
+### ステップ 2: playbookの実行
+
+```bash
+ansible-playbook router_configs.yml
+```
+
+## セクション 5: レビュー
+
+うまくいけば、以下とよく似た標準出力が見れるはずです。もしうまくいかなかった時は教えてください。直すのをお手伝いします。
+
+![Figure 1: routing_configs stdout](playbookrun.png)
+
+出力が上と似ていれば、Playbookは無事に実行されました。
+
+それでは、簡単にここまでのおさらいをしましょう。
+
+ - 適用したいサーバーの名前を変数として宣言しました
+ - それから、ios_factsモジュールが生成した値をPlaybookの後のタスクで使用できるように登録しました
+ - 次に{inventory_hostname}を使って条件のブロックを作りました
+ - 条件が合った時、すなわちrtr1の時はスタティックルートとネームサーバの設定を適用しました
+ - rtr2の場合はGigabitEthernet1をenable、DHCPアドレスを受け取れるように設定、rtr1と同様のスタティックルートとネームサーバの設定をしました
+
+## セクション 6: テスト!
+
+異なるVPCにあるホストにPingができるはずです。2つのVPCをGREトンネルで繋ぎ、2つのサブネット間でルーティングできるようにスタティックルートを追加しました。
+
+```bash
+ping <private IP of host node>
+```
+
+ホストノードのIPアドレスは、インベントリーファイル ~/networking-workshop/lab_inventory/student(x).net-ws.hosts に private_ip=172.16.x.x として記載されています。
+
+例:
+```bash
+[ec2-user@ip-172-17-3-27 networking-workshop]$ ping 172.18.4.188
+PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
+64 bytes from 172.18.4.188: icmp_seq=2 ttl=62 time=2.58 ms
+64 bytes from 172.18.4.188: icmp_seq=3 ttl=62 time=3.52 ms
+```
+**Note** IPアドレスは172.18.4.188とは違うかもしれません!
+
+# Answer Key
+[ここをクリック](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.4-router_configs/router_configs.yml).
 
 # 完了
-演習 1.4 は完了です。
-
-# 答え
-完成されたplaybookを見たい、または実行してみたい場合はこちら [演習 1.5!](../1.5-run_routing_configs)
+演習1.4が終了しました
 
  ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README_ja.md)

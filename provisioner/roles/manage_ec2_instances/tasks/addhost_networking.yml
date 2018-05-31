@@ -27,6 +27,12 @@
       "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
   register: rtr1_node_facts
 
+
+- debug: var=rtr1_node_facts
+
+- pause:
+    minutes: 5
+
 - name: grab facts for rtr2 node (NETWORKING MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"

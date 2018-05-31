@@ -1,5 +1,5 @@
 - name: ADD ROUTERS TO INVENTORY
-  add_hosts:
+  add_host:
     name: "{{ item.tags.Name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: ec2-user
@@ -9,11 +9,7 @@
     groups:
       - routers
   with_items:
-    - rtr1_node_facts.instances[0]
-    - rtr2_node_facts.instances[0]
-    - rtr3_node_facts.instances[0]
-    - rtr4_node_facts.instances[0]
-
-
-- name: DEBUG
-  debug:
+    - "{{ rtr1_node_facts.instances[0] }}"
+    - "{{ rtr2_node_facts.instances[0] }}"
+    - "{{ rtr3_node_facts.instances[0] }}"
+    - "{{ rtr4_node_facts.instances[0] }}"

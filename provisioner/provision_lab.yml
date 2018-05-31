@@ -112,3 +112,12 @@
   gather_facts: no
   roles:
     - { role: network_hostroutes, when: networking is defined and networking }
+
+
+- name: CONFIGURE ROUTERS
+  hosts: routers
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - debug: var=hostvars[inventory_hostname]

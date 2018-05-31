@@ -2,6 +2,8 @@
 
 このコンテンツが Ansibleの効果的なデモンストレーション、内部ワークショップ、ハンズオン、自己学習など、さまざまな目的用途で利用可能なツールです。
 
+**Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).
+
 ## プレゼンテーション
 
 プレゼンテーション資料はこちら:
@@ -27,7 +29,7 @@ Red Hat® Ansible® Automation は 3つの製品が含まれます:
 
 - [Red Hat® Ansible® ネットワーク アドオン](https://www.ansible.com/ansible-engine): Arista (EOS)、Cisco (IOS、IOS XR、 NX-OS)、Juniper (Junos OS)、 Open vSwitch、 VyOS等サポートが提供されているネットワークモジュール
 
-- [Red Hat® Ansible® Tower](https://www.ansible.com/tower): Ansible を装備した環境に、制御、ナレッジ、委譲機能を追加し、チームが複雑かつ複数層のデプロイメントを管理支援するツール 
+- [Red Hat® Ansible® Tower](https://www.ansible.com/tower): Ansible を装備した環境に、制御、ナレッジ、委譲機能を追加し、チームが複雑かつ複数層のデプロイメントを管理支援するツール
 
 さらなる情報が必要ですか?
 [Ansible Engine、Tower、ネットワークアドオンのさらなる情報はこちら](https://www.ansible.com/blog/red-hat-ansible-automation-engine-vs-tower)

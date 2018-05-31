@@ -2,6 +2,8 @@
 
 このコンテンツは、Ansibleのネットワーク機器向け機能(Arista, Cisco, Cumulus, Juniper etc)の効果的なデモやワークショップトレーニング(講師による講義、ハンズあるいはセルフスタディ)の為の多目的ツールキットです。
 
+**Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).
+
 ## Presentation
 プレゼンテーション用のスライドデッキが必要ですか? それはここにあります:
 [Ansible Networking Lightbulb Deck](../../decks/ansible-networking.html)
@@ -11,18 +13,17 @@
 
 ## Ansible Engine Networking Exercises
 
- - [Exercise 1.1 - アドホックコマンドの実行](1.1-adhoc)
- - [Exercise 1.2 - コンフィグのバックアップ](1.2-backup)
- - [Exercise 1.3 - GREトンネルの作成](1.3-gre)
- - [Exercise 1.4 - ルータ設定の追加](1.4-router_configs)
- - [Exercise 1.5 - Playbookの実行とレビュー](1.5-run_routing_configs)                                              
- - [Exercise 1.6 - Roles: 再利用を想定したPlaybook](1.6-roles)
+ - [Exercise 1.1 - アドホックコマンドの実行](1.1-adhoc/README.ja.md)
+ - [Exercise 1.2 - コンフィグのバックアップ](1.2-backup/README.ja.md)
+ - [Exercise 1.3 - GREトンネルの作成](1.3-gre/README.ja.md)
+ - [Exercise 1.4 - ルータ設定の追加](1.4-router_configs/README.ja.md)
+ - [Exercise 1.5 - Roles: 再利用を想定したPlaybook](1.6-roles/README.ja.md)
 
 ## Ansible Tower Networking Exercises
 
-- [Exercise 2.1 - Ansible Towerのインストール](2.1-towerinstall)
-- [Exercise 2.2 - Ansible Towerの設定](2.2-towerconfigure)
-- [Exercise 2.3 - Job Templateの作成と実行](2.3-towerjob)
+- [Exercise 2.1 - Ansible Towerのインストール](2.1-towerinstall/README.ja.md)
+- [Exercise 2.2 - Ansible Towerの設定](2.2-towerconfigure/README.ja.md)
+- [Exercise 2.3 - Job Templateの作成と実行](2.3-towerjob/README.ja.md)
 
 ## Survey
 対面のワークショップに出席の場合はアンケートにお答えください。

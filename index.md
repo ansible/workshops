@@ -8,8 +8,10 @@
 - [Ansible Networking](decks/ansible-networking.html)
 
 # Workshops
-- [Ansible Engine Workshop](exercises/ansible_engine/README.md)
-- [Ansible Networking Workshop](exercises/networking/README.md)
+
+- [Ansible Engine Workshop](exercises/ansible_engine/README.md)  
+- [Ansible Tower Workshop](exercises/ansible_tower/README.md)  
+- [Ansible Networking Workshop](exercises/networking/README.md)  
 
 # Slack
 Do you like Slack?  So do we! [click to join our ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)

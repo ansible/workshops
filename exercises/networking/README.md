@@ -2,6 +2,9 @@
 
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
+**Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).
+
+
 ## Presentation
 Want the Presentation Deck?  Its right here:
 [Ansible Networking Linklight Deck](../../decks/ansible-networking.html)
@@ -11,11 +14,11 @@ Want the Presentation Deck?  Its right here:
 
 ## Ansible Engine Networking Exercises
 
- - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)
- - [Exercise 1.2 - Backing up Configurations](1.2-backup)
- - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)
+ - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  
+ - [Exercise 1.2 - Backing up Configurations](1.2-backup)  
+ - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)  
  - [Exercise 1.4 - Additional router configurations](1.4-router_configs)                                        
- - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)
+ - [Exercise 1.5 - Roles: Making your playbooks reusable](1.5-roles)  
 
 ## Ansible Tower Networking Exercises
 

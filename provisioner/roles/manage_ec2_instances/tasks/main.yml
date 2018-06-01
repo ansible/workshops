@@ -9,7 +9,3 @@
     - name: create instructor_inventory, and student files
       include_tasks: create_inventory.yml
   when: not teardown
-
-- name: CONFIGURE ROUTERS FOR SPECIAL
-  include_tasks: configure_routers.yml
-  when: special is defined

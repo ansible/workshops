@@ -114,10 +114,30 @@
     - { role: network_hostroutes, when: networking is defined and networking }
 
 
-- name: CONFIGURE ROUTERS
-  hosts: routers
-  connection: local
-  gather_facts: no
+# - name: CONFIGURE ROUTERS
+#   hosts: core
+#   connection: network_cli
+#   gather_facts: no
+#
+#   vars:
+#     type: csr_core
+#     router1_tunnel: 100
+#     router2_tunnel: 101
+#
+#   tasks:
 
-  tasks:
-    - debug: var=hostvars[inventory_hostname]
+- name: CONFIGURE ROUTERS
+  hosts: access
+  connection: network_cli
+  gather_facts: no
+  # vars:
+  #   type: csr_access
+  #   router3_tunnel: 100
+  #   router4_tunnel: 101
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_access
+        router3_tunnel: 100
+        router4_tunnel: 101

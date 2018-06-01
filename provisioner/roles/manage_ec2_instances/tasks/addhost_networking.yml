@@ -56,3 +56,37 @@
           "tag:Workshop_rtr4": "{{ec2_name_prefix}}-rtr4"
       register: rtr4_node_facts
   when: special is defined
+
+- name: ADD ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: ec2-user
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: ios
+    groups:
+      - routers
+      - core
+  with_items:
+    - "{{ rtr1_node_facts.instances[0] }}"
+    - "{{ rtr2_node_facts.instances[0] }}"
+  when: special is defined
+
+- name: ADD ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: ec2-user
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: ios
+    groups:
+      - routers
+      - access
+  with_items:
+    - "{{ rtr3_node_facts.instances[0] }}"
+    - "{{ rtr4_node_facts.instances[0] }}"
+  when: special is defined

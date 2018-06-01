@@ -1,0 +1,13 @@
+- debug:
+    var: hostvars[inventory_hostname]
+
+- debug:
+    var: private_ip
+
+- debug:
+    var: rtr3_node_facts
+    
+- name: Apply router template
+  template:
+    src: templates/{{type}}.j2
+    dest: "{{inventory_hostname}}.config"

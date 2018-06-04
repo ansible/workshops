@@ -1,16 +1,18 @@
 {% set site = inventory_hostname[-1] %}
+{% if site == "3" %}
+{% set tunnel_network = "10." ~ router3_tunnel ~ "." ~ router3_tunnel %}
+{% set tunnel_destination = rtr1_node_facts.instances[0].public_ip_address %}
+{% else %}
+{% set tunnel_network = "10." ~ router4_tunnel ~ "." ~ router4_tunnel %}
+{% set tunnel_destination = rtr2_node_facts.instances[0].public_ip_address %}
+{% endif %}
+
+hostname rtr{{site}}
 
 router ospf 1
  network 10.{{ site }}.{{ site }}.0 0.0.0.255 area 0
-{% if site == 3 %}
-{% set tunnel_network = "10." ~ router3_tunnel ~ "." ~ router3_tunnel %}
-{% set tunnel_destination = rtr4_node_facts.instances[0].public_ip_address %}
-{% else %}
-{% set tunnel_network = "10." ~ router4_tunnel ~ "." ~ router4_tunnel %}
-{% set tunnel_destination = rtr3_node_facts.instances[0].public_ip_address %}
-{% endif %}
  network {{ tunnel_network }}.0 0.0.0.255 area 0
- network {{ private_ip ~ '/16' | ipaddr('network') }} 0.0.255.255 area 0
+ network {{ (private_ip ~ '/16') | ipaddr('network') }} 0.0.255.255 area 0
  network 192.168.{{ site }}.0 0.0.0.255 area 0
 
 interface Loopback0

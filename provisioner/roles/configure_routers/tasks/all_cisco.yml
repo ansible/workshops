@@ -4,10 +4,6 @@
 - debug:
     var: private_ip
 
-- debug:
-    var: rtr3_node_facts
-    
 - name: Apply router template
-  template:
+  ios_config:
     src: templates/{{type}}.j2
-    dest: "{{inventory_hostname}}.config"

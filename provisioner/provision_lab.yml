@@ -114,26 +114,10 @@
     - { role: network_hostroutes, when: networking is defined and networking }
 
 
-# - name: CONFIGURE ROUTERS
-#   hosts: core
-#   connection: network_cli
-#   gather_facts: no
-#
-#   vars:
-#     type: csr_core
-#     router1_tunnel: 100
-#     router2_tunnel: 101
-#
-#   tasks:
-
-- name: CONFIGURE ROUTERS
+- name: CONFIGURE ACCESS ROUTERS
   hosts: access
   connection: network_cli
   gather_facts: no
-  # vars:
-  #   type: csr_access
-  #   router3_tunnel: 100
-  #   router4_tunnel: 101
 
   roles:
     - role: configure_routers
@@ -141,3 +125,16 @@
         type: csr_access
         router3_tunnel: 100
         router4_tunnel: 101
+
+- name: CONFIGURE CORE ROUTERS
+  hosts: core
+  connection: network_cli
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_core
+        router1_tunnel: 100
+        router2_tunnel: 101
+        dci_tunnel: 200

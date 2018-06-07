@@ -185,6 +185,15 @@ PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
 ```
 **Note** your IP will be different than 172.18.4.188!
 
+**Help!** The ping doesn't work?
+Sometimes the host routes (the route from the ansible control node to rtr1, and the host1 node to rtr2 are incorrectly setup, this should have been done by the provisioner, but we can fix it quickly with Ansible!)
+
+Run the `host-routes.yml` playbook!
+
+```bash
+ansible-playbook host-routes.yml
+```
+
 # Answer Key
 You can [click here](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.4-router_configs/router_configs.yml).
 

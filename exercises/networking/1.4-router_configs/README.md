@@ -174,7 +174,7 @@ You should now be able to ping your host that resides in a different VPC! We’v
 ping <private IP of host node>
 ```
 
-IP of the host node is shown as private_ip=172.16.x.x in your inventory file @ ~/networking-workshop/lab_inventory/student(x).net-ws.hosts
+IP of the host node is shown as private_ip=172.16.x.x in your inventory file @ ~/networking-workshop/lab_inventory/hosts
 
 For example:
 ```bash

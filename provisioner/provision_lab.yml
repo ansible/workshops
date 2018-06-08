@@ -98,6 +98,13 @@
   roles:
     - control_node
 
+- name: Setup Host routes for ansible control node and host1 when in networking mode
+  hosts: "managed_nodes:control_nodes"
+  become: no
+  gather_facts: no
+  roles:
+    - { role: network_hostroutes, when: networking is defined and networking }
+
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
   connection: local
@@ -105,10 +112,3 @@
   gather_facts: no
   roles:
     - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
-
-- name: Setup Host routes for ansible control node and host1 when in networking mode
-  hosts: "managed_nodes:control_nodes"
-  become: no
-  gather_facts: no
-  roles:
-    - { role: network_hostroutes, when: networking is defined and networking }

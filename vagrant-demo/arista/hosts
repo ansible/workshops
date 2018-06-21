@@ -12,6 +12,9 @@ spines
 
 [network:vars]
 ansible_network_os=eos
+ansible_connection=network_cli
+ansible_user=admin
+ansible_password=admin
 
 [servers]
 server01 ansible_host=192.168.0.31

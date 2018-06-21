@@ -16,40 +16,29 @@
 
 ## Setup
 
-1. Download Vagrantfile **OR** git clone this repo
-
-    * **Choice 1** Download Vagrantfile
-
-       <a href="https://raw.githubusercontent.com/IPvSean/ansible-networking-vagrant-demo/master/Vagrantfile" download="Vagrantfile">Click here to download</a>
-
-    * **Choice 2** git clone this repo  
+1. git clone this repo
 
        ```bash
-       git clone https://github.com/IPvSean/ansible-networking-vagrant-demo
+       git clone https://github.com/network-automation/linklight
        ```
 
-4. Open up a terminal window in the same directory as the Vagrantfile
-
-   For example if you downloaded the Vagrantfile to your Macbook in your Downloads folder->
-
-    1. Press command ⌘ + spacebar and type `terminal` in the *Spotlight Search* and press the return key
-    2. Switch to the Downloads directory
+2. Open up a terminal window in the same directory as the Vagrantfile
 
        ```bash
-       SEANs-MacBook-Pro:~ sean$ cd Downloads
+       cd ~<LOCATION OF GITHUB REPO>/network-auomation/linklight/vagrant-demo
        ```
 
-5. Turn on the following VMs
+3. Turn on the following VMs
 
    ```bash
    vagrant up leaf01 leaf02 spine01 spine02 ansible
    ```
 
-6. Grab a beer/soda/coffee
+4. Grab a beer/soda/coffee
 
    takes about 5 minutes
 
-7. Begin Exercises
+5. Begin Exercises
 
    Once vagrant finishes provisioning, check out the [training course](training-course) and follow directions there.
 

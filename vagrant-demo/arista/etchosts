@@ -1,0 +1,10 @@
+127.0.0.1	ansible	ansible
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+192.168.0.14 leaf01
+192.168.0.15 leaf02
+192.168.0.10 spine01
+192.168.0.11 spine02
+192.168.0.31 server01
+192.168.0.32 server02

@@ -14,3 +14,4 @@ instructor_inventory.txt
 provisioner/tower_license.json
 network_vars.yml
 ansible/
+*.box

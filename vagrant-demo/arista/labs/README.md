@@ -9,7 +9,7 @@
 2. Change directories into the Lab you want to complete
 
    ```bash
-   cd ansible-networking-vagrant-demo/training-course/Lab01
+   cd linklight/vagrant-demo/arista/labs
    ```
 
 # Labs

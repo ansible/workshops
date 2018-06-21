@@ -38,6 +38,6 @@ Please follow the [../README.md](vagrant setup instructions) before switching to
        ```
 
  ---
-![Red Hat Ansible Automation](../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 
 Red Hat® Ansible® Automation is a fully supported product built on the foundational capabilities of the Ansible project. Read more on [ansible.com](https://www.ansible.com/overview/networking)

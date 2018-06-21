@@ -37,6 +37,10 @@ Please follow the [../README.md](vagrant setup instructions) before switching to
        leaf01>
        ```
 
+5. Open up the Lab exercises
+
+   Open up the [labs](./labs) directory
+
  ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 

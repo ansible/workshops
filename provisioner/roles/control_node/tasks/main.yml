@@ -17,7 +17,7 @@
 
 - name: Download Ansible
   get_url:
-    url: http://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.0-1.el7.ans.noarch.rpm
+    url: http://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.5-1.el7.ans.noarch.rpm
     dest: /tmp/ansible.rpm
 
 - name: Install Ansible

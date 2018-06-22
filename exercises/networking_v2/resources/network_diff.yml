@@ -9,5 +9,5 @@
     - name: CHECK TO SEE IF THERE IS A DIFF
       ios_config:
         diff_against: intended
-        intended_config: "{{ lookup('file', './backup/{{inventory_hostname}}.config')}}"
+        intended_config: "{{ lookup('file', '../backup/{{inventory_hostname}}.config')}}"
       tags: diff

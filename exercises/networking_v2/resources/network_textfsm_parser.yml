@@ -16,7 +16,7 @@
 
   - name: "textfsm_parser test for {{ ansible_network_os }} show_ip_route"
     textfsm_parser:
-      file: "parsers/show_ip_route.template"
+      file: "../parsers/show_ip_route.template"
       content: "{{ output.stdout[0] }}"
       name: route_facts
     register: route

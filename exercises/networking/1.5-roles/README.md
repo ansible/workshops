@@ -131,7 +131,7 @@ For `roles/interface/tasks/main.yml`:
     - '"rtr2" in inventory_hostname'
 ```
 
-For `roles/interfaces/tasks/static_route`:
+For `roles/static_route/tasks/main.yml`:
 ```yml
 ##Configuration for R1
 - name: Static route from R1 to R2

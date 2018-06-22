@@ -152,3 +152,8 @@ total 32
 ```
 
 Notice that the directory now has another backed-up configuration but one that reflects the device's name.
+
+## Complete
+You have completed Exercise 02.
+
+[Return to training-course](../README.md)

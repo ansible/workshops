@@ -1,4 +1,4 @@
-# Ansible Networking Training Course
+# Ansible Network Automation Training Course
 
 1. Connect to the ansible control node
 
@@ -14,10 +14,8 @@
 
 # Labs
 
-- [Lab 01](lab01/): Using Ansible to gather data from network devices
-- [Lab 02](lab02/): Using Ansible to configure, backup and restore
-- [Lab 03](lab03/): Configuring an OSPF IP fabric & Validating Network State
-- [Lab 04](lab04/): 
-
+- [Lab 01](lab01-network-facts/): Using Ansible to gather data from network devices
+- [Lab 02](lab02-config-management/): Using Ansible to configure, backup and restore
+- [Lab 03](lab03-ip-fabric/): Configuring an OSPF IP fabric & Validating Network State
 
 [Return To Top Level](../README.md)

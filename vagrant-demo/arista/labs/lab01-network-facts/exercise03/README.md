@@ -342,3 +342,8 @@ rtr2                       : ok=3    changed=0    unreachable=0    failed=0
 rtr3                       : ok=3    changed=0    unreachable=0    failed=0   
 rtr4                       : ok=3    changed=0    unreachable=0    failed=0   
 ```
+
+## Complete
+You have completed Exercise 03.
+
+[Return to training-course](../README.md)

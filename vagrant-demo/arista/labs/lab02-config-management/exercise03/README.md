@@ -100,3 +100,8 @@ leaf01#sh run int lo101
 ```
 
 You have successfully backed up and restored configurations on your Arista switches!
+
+## Complete
+You have completed Exercise 03.
+
+[Return to training-course](../README.md)

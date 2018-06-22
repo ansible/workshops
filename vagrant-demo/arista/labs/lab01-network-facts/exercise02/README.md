@@ -211,3 +211,8 @@ spine02                    : ok=3    changed=0    unreachable=0    failed=0
 Using less than 20 lines of "code" you have just automated version and serial number collection. Imagine if you were running this against your production network! You have actionable data in hand that does not go out of date.  
 
 **NOTE**: depending on vendor implementation their virtual instance might be blank for serial number
+
+## Complete
+You have completed Exercise 02.
+
+[Return to training-course](../README.md)

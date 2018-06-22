@@ -257,3 +257,8 @@ leaf02                     : ok=2    changed=0    unreachable=0    failed=0
 spine01                    : ok=2    changed=0    unreachable=0    failed=0
 spine02                    : ok=2    changed=0    unreachable=0    failed=0
 ```
+
+## Complete
+You have completed Exercise 01.
+
+[Return to training-course](../README.md)

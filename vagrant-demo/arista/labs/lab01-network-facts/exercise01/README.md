@@ -122,3 +122,8 @@ ansible_password=admin
 - `ansible_connection=network_cli` The connection method can be set in the inventory (or the playbook level).  The `network_cli` plugin is written specifically for network equipment and handles things like ensuring a persistent SSH connection across multiple tasks.
 - `ansible_password` - this is the password that will be used to hosts for this group, for demonstration purposes we are using a plain-text password, this can be encrypted with Ansible vault.
 - `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
+
+## Complete
+You have completed Exercise 01.
+
+[Return to training-course](../README.md)

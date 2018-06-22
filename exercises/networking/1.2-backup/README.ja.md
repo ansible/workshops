@@ -93,7 +93,7 @@ playの定義から始め、各行が何をしているのかを理解しまし�
 ---
 - name: backup router configurations
   hosts: routers
-  connection: local
+  connection: network_cli
   gather_facts: no
 ```  
 
@@ -101,7 +101,7 @@ playの定義から始め、各行が何をしているのかを理解しまし�
  - `hosts:` routers は、playを実行する対象のホスト・グループをInventoryの中で定義しています。
  - `name:` backup router configurations Play は、内容の説明です。
  - `gather_facts: no` setupモジュールで情報を呼び出す必要がないことをAnsibleに伝えます。 setupモジュールはコンピューティングノード(Linux, Windows)をターゲットにする場合に有用ですが、ネットワーク装置をターゲットとする場合はあまり有用ではありません。ターゲットのノードタイプによって、必要な platform_facts モジュールを使いましょう。
- - `connection: local` Ansibleに python モジュールを (Pythonが実行できないターゲットノード) 直接実行するよう伝えます。
+ - `connection: network_cli` Ansibleに python モジュールを (Pythonが実行できないターゲットノード) 直接実行するよう伝えます。
 
 ###  ステップ 2: Play に Task を追加する
 
@@ -163,7 +163,7 @@ playbookを書き終えたら、保存しましょう。`vi` または `vim`に�
 ---
 - name: backup router configurations
   hosts: routers
-  connection: local
+  connection: network_cli
   gather_facts: no
 
   tasks:

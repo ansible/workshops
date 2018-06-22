@@ -16,8 +16,8 @@
 
 - [Lab 01](lab01/): Using Ansible to gather data from network devices
 - [Lab 02](lab02/): Using Ansible to configure, backup and restore
-- [Lab 03](lab03/): Configuring an OSPF IP fabric
-- [Lab 04](lab04/): Validating Network State
+- [Lab 03](lab03/): Configuring an OSPF IP fabric & Validating Network State
+- [Lab 04](lab04/): 
 
 
 [Return To Top Level](../README.md)

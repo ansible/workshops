@@ -14,4 +14,3 @@ instructor_inventory.txt
 provisioner/tower_license.json
 network_vars.yml
 ansible/
-non_network_vars.yml

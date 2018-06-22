@@ -2,6 +2,6 @@
   ios_facts:
 
 - name: configure name servers
-  net_system:
+  ios_system:
     name_servers: "{{item}}"
   with_items: "{{dns_servers}}"

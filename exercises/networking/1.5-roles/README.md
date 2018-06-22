@@ -2,7 +2,7 @@
 
 While it is possible to write a playbook in one file as we’ve done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles is the way we do this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure. This is thoroughly elaborated on in the [best practice guide](http://docs.ansible.com/ansible/playbooks_best_practices.html) mentioned in exercise 1.2. Yep, that one.
+Ansible Roles is the way we do this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure. This is thoroughly elaborated on in the [best practice guide](http://docs.ansible.com/ansible/playbooks_best_practices.html) mentioned in exercise 1.2.
 
 For this exercise, you are going to take the playbook you just wrote and refactor it into a role. In addition, you’ll learn to use Ansible Galaxy.
 
@@ -39,7 +39,7 @@ $ ansible-galaxy init system
 ### Step 4: Remove the files and tests directories
 
 ```bash
-$ cd ~/test/roles/system/
+$ cd ~networking_workshop/test/roles/system/
 $ rm -rf files tests
 ```
 
@@ -47,10 +47,17 @@ $ rm -rf files tests
 
 In this section, we will separate out the major parts of your playbook including `vars:` and `tasks:`
 
-### Step 1: Make a backup copy of router_configs.yml, then create a new deploy_network.yml
+### Step 1: Make a copy of router_configs.yml, and create a new deploy_network.yml
+
+Copy the router_configs from the previous exercise:
+
+```
+$ cp ~/networking_workshop/router_configs.yml ~/networking_workshop/test
+```
+
+Now create a new deploy_network.yml:
 
 ```bash
-$ mv router_configs.yml router_configs.yml.bkup
 $ vim deploy_network.yml
 ```
 
@@ -104,7 +111,7 @@ More information on [variable precedence can be found here](http://docs.ansible.
   ios_facts:
 
 - name: configure name servers
-  net_system:
+  ios_system:
     name_servers: "{{item}}"
   with_items: "{{dns_servers}}"
 ```        
@@ -116,7 +123,7 @@ For `roles/interface/tasks/main.yml`:
 ```yml
 - block:
   - name: enable GigabitEthernet2 interface if compliant on r2
-    net_interface:
+    ios_interface:
       name: GigabitEthernet2
       description: interface to host1
       state: present
@@ -127,7 +134,7 @@ For `roles/interface/tasks/main.yml`:
         - ip address dhcp
       parents: interface GigabitEthernet2
   when:
-    - ansible_net_version == ios_version
+    - ansible_ios_version == ios_version
     - '"rtr2" in inventory_hostname'
 ```
 
@@ -135,22 +142,22 @@ For `roles/static_route/tasks/main.yml`:
 ```yml
 ##Configuration for R1
 - name: Static route from R1 to R2
-  net_static_route:
+  ios_static_route:
     prefix: "{{host1_private_ip}}"
     mask: 255.255.255.255
     next_hop: 10.0.0.2
   when:
-    - ansible_net_version == ios_version
+    - ansible_ios_version == ios_version
     - '"rtr1" in inventory_hostname'
 
 ##Configuration for R2
 - name: Static route from R2 to R1
-  net_static_route:
+  ios_static_route:
     prefix: "{{control_private_ip}}"
     mask: 255.255.255.255
     next_hop: 10.0.0.1
   when:
-    - ansible_net_version == ios_version
+    - ansible_ios_version == ios_version
     - '"rtr2" in inventory_hostname'
 ```
 
@@ -166,7 +173,6 @@ For `roles/static_route/tasks/main.yml`:
     - interface
     - static_route
 ```
-
 
 ## Section 3: Running your new role-based playbook
 Now that you’ve successfully separated your original playbook into a role, let’s run it and see how it works.

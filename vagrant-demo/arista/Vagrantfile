@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
 
 # FOR Arista vEOS
   network_os = "veos"
-  network_memory = 1536
+  network_memory = 2048
 
 #FOR CUMULUS VX
   # network_os = "CumulusCommunity/cumulus-vx"

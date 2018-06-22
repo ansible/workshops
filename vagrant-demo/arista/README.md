@@ -1,6 +1,6 @@
 # Directions
 
-Please follow the [../README.md](vagrant setup instructions) before switching to the Arista lab.
+Please follow the [vagrant setup instructions](../README.md) before switching to the Arista lab.
 
 1. Download Arista Vagrant image
 

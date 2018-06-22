@@ -1,4 +1,4 @@
-# Lab 3 - Using Ansible to restore the backed up configuration
+# Exercise 03 - Using Ansible to restore the backed up configuration
 
 
 In the previous lab you learned how to backup the configuration of the 4 cisco routers. In this lab you will learn how to restore the configuration. The backups had been saved into a local directory called `backup`.

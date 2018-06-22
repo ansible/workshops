@@ -43,7 +43,14 @@ interface Loopback1
     address 172.16.0.1/32
 ```
 
-Jinja2 is very powerful and has lots of features.  The most commonly used ones to template configs are conditionals and loops [which you can read more about here](http://jinja.pocoo.org/docs/2.10/templates/).  With the networking **os_config** modules (i.e. eos_config) the src can set from a jinja template.  This means you don't need two tasks to render, then push config.
+Jinja2 is very powerful and has lots of features.  The most commonly used ones to template configs are conditionals and loops [which you can read more about here](http://jinja.pocoo.org/docs/2.10/templates/).  With the networking **os_config** modules (i.e. eos_config) the src can set from a jinja template.  This means you don't need two tasks to render, then push config.  You can use one task like this:
+
+```
+- name: push config to device
+  eos_config:
+    src: ./ospf.j2
+    save_when: changed
+```
 
 ## Ansible Variables
 
@@ -57,6 +64,7 @@ spine02 eth2 | 172.16.200.17/30 | 172.16.200.18/30 | eth3 leaf01
 spine02 eth3 | 172.16.200.21/30 | 172.16.200.22/30 | eth3 leaf02
 
 In addition the loopbacks are:
+
 Device  | Loopback IP |
 ------------ | ------------- |
 spine01 eth2 | 172.16.0.1/32 |

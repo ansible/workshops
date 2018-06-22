@@ -13,6 +13,11 @@
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)
   command: cp -r /tmp/linklight/exercises/networking/ /home/{{ username }}/networking-workshop
+  when: special is not defined
+
+- name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
+  command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop
+  when: special is defined
 
 - name: fix permissions of networking-workshop  (NETWORKING MODE)
   file:

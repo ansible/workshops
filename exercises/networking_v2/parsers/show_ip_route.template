@@ -1,0 +1,51 @@
+Value Filldown PROTOCOL (\w)
+Value Filldown TYPE (\w{0,2})
+Value Required,Filldown NETWORK (\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})
+Value Filldown MASK (\d{1,2})
+Value DISTANCE (\d+)
+Value METRIC (\d+)
+Value NEXTHOP_IP (\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})
+Value NEXTHOP_IF ([A-Z][\w\-\.:/]+)
+Value UPTIME (\d[\w:\.]+)
+
+Start
+  ^Gateway.* -> Routes
+
+Routes
+  # For "is (variably )subnetted" line, capture mask, clear all values.
+  ^\s+\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}\/${MASK}\sis -> Clear
+  #
+  # Match directly connected route with explicit mask
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK}\/${MASK}\sis\sdirectly\sconnected,\s${NEXTHOP_IF} -> Record
+  #
+  # Match directly connected route (mask is inherited from "is subnetted")
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK}\sis\sdirectly\sconnected,\s${NEXTHOP_IF} -> Record
+  #
+  # Match regular routes, with mask, where all data in same line
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK}\/${MASK}\s\[${DISTANCE}/${METRIC}\]\svia\s${NEXTHOP_IP}(,\s${UPTIME})?(,\s${NEXTHOP_IF})? -> Record
+  #
+  # Match regular route, all one line, where mask is learned from "is subnetted" line
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK}\s\[${DISTANCE}\/${METRIC}\]\svia\s${NEXTHOP_IP}(,\s${UPTIME})?(,\s${NEXTHOP_IF})? -> Record
+  #
+  # Match route with no via statement (Null via protocol)
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK}\/${MASK}\s\[${DISTANCE}/${METRIC}\],\s${UPTIME},\s${NEXTHOP_IF} -> Record
+  #
+  # Match "is a summary" routes (often Null0)
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK}\/${MASK}\sis\sa\ssummary,\s${UPTIME},\s${NEXTHOP_IF} -> Record
+  #
+  # Match regular routes where the network/mask is on the line above the rest of the route
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK}\/${MASK} -> Next
+  #
+  # Match regular routes where the network only (mask from subnetted line) is on the line above the rest of the route
+  ^${PROTOCOL}(\s|\*)${TYPE}\s+${NETWORK} -> Next
+  #
+  # Match the rest of the route information on line below network (and possibly mask)
+  ^\s+\[${DISTANCE}\/${METRIC}\]\svia\s${NEXTHOP_IP}(,\s${UPTIME})?(,\s${NEXTHOP_IF})? -> Record
+  #
+  # Match load-balanced routes
+  ^\s+\[${DISTANCE}\/${METRIC}\]\svia\s${NEXTHOP_IP} -> Record
+  #
+  # Clear all variables on empty lines
+  ^\s* -> Clearall
+
+EOF

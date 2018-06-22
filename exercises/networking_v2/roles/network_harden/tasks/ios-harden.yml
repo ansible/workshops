@@ -1,0 +1,35 @@
+---
+- name: Set timeout on the console
+  ios_config:
+    parents: line con 0
+    lines:
+      - exec-timeout 5 0
+
+- name: Set timeout on the vty 0 4
+  ios_config:
+    parents: line vty 0 4
+    lines:
+      - exec-timeout 5 0
+      - transport input ssh
+
+- name: SSH security settings
+  ios_config:
+    lines:
+      - ip ssh time-out 60
+      - ip ssh authentication-retries 5
+
+- name: Encrypt Passwords
+  ios_config:
+    lines:
+      - service password-encryption
+
+- name: Keepalives for TCP Sessions
+  ios_config:
+    lines:
+      - service tcp-keepalives-in
+      - service tcp-keepalives-out
+
+- name: Make sure the HTTP server is disabled
+  ios_config:
+    lines:
+      - no ip http server

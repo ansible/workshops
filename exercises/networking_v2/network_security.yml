@@ -1,0 +1,15 @@
+---
+- name: ROUTER SECURITY BASELINE
+  hosts: routers
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - include_role:
+        name: network_banner
+      vars:
+        - network_login_banner: "{{ network_banner }}"
+        - network_motd_banner: "{{ network_motd | default('') }}"
+
+    - include_role:
+        name: network_harden

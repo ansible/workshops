@@ -1,0 +1,6 @@
+---
+- include_tasks: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_network_os }}-banner.yml"
+        - net-banner.yml

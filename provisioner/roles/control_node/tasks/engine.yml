@@ -6,17 +6,6 @@
     repo: https://github.com/ansible/lightbulb.git
     force: yes
   become_user: "{{ username }}"
-  when: special is not defined
-
-- name: Clone lightbulb
-  git:
-    accept_hostkey: yes
-    clone: yes
-    dest: /home/{{ username }}/linklight
-    repo: https://github.com/gdykeman/linklight-content
-    force: yes
-  become_user: "{{ username }}"
-  when: special is defined
 
 - name: Remove things that students don't need
   file:

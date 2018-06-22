@@ -1,0 +1,10 @@
+Value Required name (\S+)
+Value type ([\w ]+)
+Value description (.*)
+Value mtu (\d+)
+
+Start
+  ^${name} is up
+  ^\s+Hardware is ${type} -> Continue
+  ^\s+Description: ${description}
+  ^\s+MTU ${mtu} bytes, -> Record

@@ -1,0 +1,3 @@
+---
+- name: ios textfsm_parser test
+  import_tasks: ios.yaml

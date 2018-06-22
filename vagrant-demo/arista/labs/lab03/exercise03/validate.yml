@@ -1,0 +1,24 @@
+---
+- name: VALIDNATE NETWORK CONNECTIVITY
+  hosts: network
+  tasks:
+    - name: Test reachability from all devices to all devices
+      eos_command:
+        commands:
+          - "ping 172.16.0.1"
+          - "ping 172.16.0.2"
+          - "ping 172.16.0.3"
+          - "ping 172.16.0.4"
+      register: ping_result
+
+    - name: assert test results
+      assert:
+        that:
+          - "'172.16.0.1' in ping_result.stdout[0]"
+          - "' 0% packet loss' in ping_result.stdout[0]"
+          - "'172.16.0.2' in ping_result.stdout[1]"
+          - "' 0% packet loss' in ping_result.stdout[1]"
+          - "'172.16.0.3' in ping_result.stdout[2]"
+          - "' 0% packet loss' in ping_result.stdout[2]"
+          - "'172.16.0.4' in ping_result.stdout[3]"
+          - "' 0% packet loss' in ping_result.stdout[3]"

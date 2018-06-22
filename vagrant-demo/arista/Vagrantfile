@@ -73,18 +73,10 @@ Vagrant.configure("2") do |config|
     # NETWORK INTERFACES
       # eth1 mgmt network for ansible tower
       device.vm.network "private_network", virtualbox__intnet: "#{simid}_mgmt", auto_config: false
-      # link for eth2 --> server01:eth1
+      # link for eth2 --> spine01:eth2
       device.vm.network "private_network", virtualbox__intnet: "#{simid}_net2", auto_config: false
-      # link for eth3 --> server02:eth1
+      # link for eth3 --> spine02:eth2
       device.vm.network "private_network", virtualbox__intnet: "#{simid}_net12", auto_config: false
-      # link for eth4 --> leaf02:eth4
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net10", auto_config: false
-      # link for eth5 --> leaf02:eth5
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net1", auto_config: false
-      # link for eth6 --> spine01:eth2
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net52", auto_config: false
-      # link for eth7 --> spine02:eth2
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net23", auto_config: false
 
     device.vm.provider "virtualbox" do |vbox|
       vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
@@ -121,20 +113,13 @@ end
     device.vm.synced_folder ".", "/vagrant", disabled: true
 
     # NETWORK INTERFACES
-      # eth1 mgmt network for ansible tower
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_mgmt", auto_config: false
-     # link for eth2 --> server01:eth2
-     device.vm.network "private_network", virtualbox__intnet: "#{simid}_net13", auto_config: false
-     # link for eth3 --> server02:eth2
-     device.vm.network "private_network", virtualbox__intnet: "#{simid}_net15", auto_config: false
-     # link for eth4 --> leaf01:eth4
-     device.vm.network "private_network", virtualbox__intnet: "#{simid}_net10", auto_config: false
-     # link for eth5 --> leaf01:eth5
-     device.vm.network "private_network", virtualbox__intnet: "#{simid}_net1", auto_config: false
-     # link for eth6 --> spine01:eth3
-     device.vm.network "private_network", virtualbox__intnet: "#{simid}_net25", auto_config: false
-     # link for eth7 --> spine02:eth3
-     device.vm.network "private_network", virtualbox__intnet: "#{simid}_net58", auto_config: false
+    # eth1 mgmt network for ansible tower
+    device.vm.network "private_network", virtualbox__intnet: "#{simid}_mgmt", auto_config: false
+    # link for eth2 --> spine01:eth3
+    device.vm.network "private_network", virtualbox__intnet: "#{simid}_net13", auto_config: false
+    # link for eth3 --> spine02:eth3
+    device.vm.network "private_network", virtualbox__intnet: "#{simid}_net15", auto_config: false
+
 
    device.vm.provider "virtualbox" do |vbox|
      vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
@@ -173,14 +158,11 @@ end
     # NETWORK INTERFACES
       # eth1 mgmt network for ansible tower
       device.vm.network "private_network", virtualbox__intnet: "#{simid}_mgmt", auto_config: false
-      # link for spine01:eth2 --> leaf01:eth6
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net52", auto_config: false
-      # link for spine01:eth3 --> leaf02:eth6
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net25", auto_config: false
-      # link for spine01:eth4 --> spine02:eth4
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net45", auto_config: false
-      # link for spine01:eth5 --> spine02:eth5
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net36", auto_config: false
+      # link for spine01:eth2 --> leaf01:eth2
+      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net2", auto_config: false
+      # link for spine01:eth3 --> leaf02:eth2
+      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net13", auto_config: false
+
 
     device.vm.provider "virtualbox" do |vbox|
       vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
@@ -217,14 +199,10 @@ end
     # NETWORK INTERFACES
       # eth1 mgmt network for ansible tower
       device.vm.network "private_network", virtualbox__intnet: "#{simid}_mgmt", auto_config: false
-      # link for spine02:eth2 --> leaf01:eth6
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net23", auto_config: false
-      # link for spine02:eth3 --> leaf02:eth6
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net58", auto_config: false
-      # link for spine02:eth4 --> spine01:eth4
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net45", auto_config: false
-      # link for spine02:eth5 --> spine01:eth5
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net36", auto_config: false
+      # link for spine02:eth2 --> leaf01:eth3
+      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net12", auto_config: false
+      # link for spine02:eth3 --> leaf02:eth3
+      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net15", auto_config: false
 
     device.vm.provider "virtualbox" do |vbox|
       vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
@@ -234,59 +212,6 @@ end
     end
 end
 
-  ##### DEFINE VM for server01 #####
-  config.vm.define "server01" do |device|
 
-    device.vm.hostname = "server01"
-    device.vm.box = "centos/7"
-    device.vm.provider "virtualbox" do |v|
-      v.name = "#{simid}_server01"
-      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
-    end
-    #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
-    device.vm.synced_folder ".", "/vagrant", disabled: true
-
-    # NETWORK INTERFACES
-      # server01:eth1 mgmt network for ansible tower
-      device.vm.network "private_network", ip: "192.168.0.31", virtualbox__intnet: "#{simid}_mgmt"
-      # link for server01:eth2 --> leaf01:eth2
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net2", auto_config: false
-      # link for server01:eth3 --> leaf02:eth2
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net13", auto_config: false
-
-    device.vm.provider "virtualbox" do |vbox|
-      vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
-      vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-all']
-      vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-all']
-    end
-end
-  ##### DEFINE VM for server02 #####
-  config.vm.define "server02" do |device|
-
-    device.vm.hostname = "server02"
-    device.vm.box = "centos/7"
-    device.vm.provider "virtualbox" do |v|
-      v.name = "#{simid}_server02"
-      v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
-    end
-    #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
-    device.vm.synced_folder ".", "/vagrant", disabled: true
-
-    # NETWORK INTERFACES
-      # server02:eth1 mgmt network for ansible tower
-      device.vm.network "private_network", ip: "192.168.0.32", virtualbox__intnet: "#{simid}_mgmt"
-      # link for server02:eth2 --> leaf01:eth3
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net12", auto_config: false
-      # link for server02:eth3 --> leaf02:eth3
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net15", auto_config: false
-
-    device.vm.provider "virtualbox" do |vbox|
-      vbox.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
-      vbox.customize ['modifyvm', :id, '--nicpromisc3', 'allow-all']
-      vbox.customize ['modifyvm', :id, '--nicpromisc4', 'allow-all']
-    end
-end
 
 end

@@ -79,7 +79,7 @@ dns_servers:
 ```yml
 ---
 ansible_network_os: ios
-ansible_connection: local
+ansible_connection: network_cli
 host1_private_ip: "172.18.2.125"
 control_private_ip: "172.17.1.157"
 ios_version: "16.06.01"

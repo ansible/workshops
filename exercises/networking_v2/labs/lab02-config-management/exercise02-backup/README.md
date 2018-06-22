@@ -252,8 +252,7 @@ Before we run the playbook, we need to add one more task to remove the second li
       lineinfile:
         path: "./backup/{{inventory_hostname}}.config"
         regexp: 'Current configuration.*'
-        state: absent
-~                            
+        state: absent                           
 ```
 
 

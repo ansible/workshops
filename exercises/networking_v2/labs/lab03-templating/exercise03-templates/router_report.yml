@@ -1,0 +1,21 @@
+---
+- name: GATHER INFORMATION FROM ROUTERS
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: GATHER ROUTER FACTS
+      ios_facts:
+
+    - name: RENDER FACTS AS A REPORT
+      template:
+        src: os_report.j2
+        dest: reports/{{ inventory_hostname }}.md
+
+    - name: CONSOLIDATE THE IOS DATA
+      assemble:
+        src: reports/
+        dest: network_os_report.md
+      delegate_to: localhost
+      run_once: yes

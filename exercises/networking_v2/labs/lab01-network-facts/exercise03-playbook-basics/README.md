@@ -319,7 +319,6 @@ Write a new task to display only the hostname using a debug command:
         var: show_output
       tags: show
 
-
     - name: DISPLAY THE HOSTNAME
       debug:
         msg: "The hostname is {{ show_output.stdout[0] }}"

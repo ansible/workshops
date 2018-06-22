@@ -79,7 +79,7 @@ dns_servers:
 ```yml
 ---
 ansible_network_os: ios
-ansible_connection: local
+ansible_connection: network_cli
 host1_private_ip: "172.18.2.125"
 control_private_ip: "172.17.1.157"
 ios_version: "16.06.01"
@@ -131,7 +131,7 @@ For `roles/interface/tasks/main.yml`:
     - '"rtr2" in inventory_hostname'
 ```
 
-For `roles/interfaces/tasks/static_route`:
+For `roles/static_route/tasks/main.yml`:
 ```yml
 ##Configuration for R1
 - name: Static route from R1 to R2
@@ -182,7 +182,7 @@ $ ansible-playbook deploy_network.yml
 You should now have a completed playbook, deploy_network.yml with a three roles called system, interface and static_route. The advantage of structuring your playbook into roles is that you can now add new roles to the playbook using Ansible Galaxy or simply writing your own. In addition, roles simplify changes to variables, tasks, templates, etc.
 
 ## Answer Key
-Since there is multiple files, its best to [view this on GitHub](https://github.com/network-automation/linklight/tree/master/exercises/networking/1.6-roles).
+Since there is multiple files, its best to [view this on GitHub](https://github.com/network-automation/linklight/tree/master/exercises/networking/1.5-roles).
 
  ---
 [Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

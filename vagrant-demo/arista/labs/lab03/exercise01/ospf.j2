@@ -1,0 +1,8 @@
+{% for interface in nodes[inventory_hostname] -%}
+interface {{interface}}
+{% if "Loopback" not in interface %}
+    no switchport
+{% endif %}
+    ip address {{nodes[inventory_hostname][interface]}}
+{% endfor %}
+!

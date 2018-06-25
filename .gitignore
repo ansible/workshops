@@ -14,3 +14,7 @@ instructor_inventory.txt
 provisioner/tower_license.json
 network_vars.yml
 ansible/
+/provisioner/rtr_node_facts.md
+provisioner/*.md
+/provisioner/dns_network_vars.yml
+/provisioner/roles/manage_ec2_instances/templates/debug.j2

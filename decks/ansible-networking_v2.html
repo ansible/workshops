@@ -925,6 +925,24 @@ ansible_become_pass=cisco</mark>
           </aside>
         </section>
         <section>
+        <h1>Networking Template Example</h1>
+        <p>Manage configuration on a network platform</p>
+        <code><pre>
+---
+- name: configure OSPF router-id
+  hosts: network
+  tasks:
+   - name: configure ospf
+     nxos_config:
+      src: template.j2
+        </code></pre>
+        </section>
+        <section>
+        <section data-background-image="config-modules.svg">
+        </section>
+        <section data-background-image="jinja.svg">
+        </section>
+        <section>
           <h1>Loops</h1>
           <p>Loops can do one task on multiple things, such as create a lot of users, install a lot of packages, or repeat a polling step until a certain result is reached.</p>
           <pre><code data-noescape>

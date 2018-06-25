@@ -57,6 +57,8 @@
       register: rtr4_node_facts
   when: special is defined
 
+
+
 - name: ADD ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
@@ -74,8 +76,8 @@
       - routers
       - core
   with_items:
-    - "{{ rtr1_node_facts.instances[0] }}"
-    - "{{ rtr2_node_facts.instances[0] }}"
+    - "{{ rtr1_node_facts.instances }}"
+    - "{{ rtr2_node_facts.instances }}"
   when: special is defined
 
 - name: ADD ROUTERS TO INVENTORY
@@ -95,6 +97,6 @@
       - routers
       - access
   with_items:
-    - "{{ rtr3_node_facts.instances[0] }}"
-    - "{{ rtr4_node_facts.instances[0] }}"
+    - "{{ rtr3_node_facts.instances }}"
+    - "{{ rtr4_node_facts.instances }}"
   when: special is defined

@@ -35,7 +35,7 @@ The `eos_command` module allows you to do that. Go ahead and add another task to
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 
@@ -69,7 +69,7 @@ Before running the playbook, add a `tag` to the last task. Name it "show"
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 
@@ -101,7 +101,7 @@ Selectively run the last task within the playbook using the `--tags` option:
 ```
 [vagrant@ansible linklight]$ ansible-playbook gather_eos_data.yml --tags=show
 
-PLAY [GATHER INFORMATION FROM ROUTERS] *******************************************************************************************************************************************
+PLAY [GATHER INFORMATION FROM SWITCHES] *******************************************************************************************************************************************
 
 TASK [COLLECT OUTPUT OF SHOW COMMANDS] *******************************************************************************************************************************************
 ok: [spine01]
@@ -125,7 +125,7 @@ Note 2 important points here.
 
 #### Step 5
 
-Re-run the playbook using the `-v` verbose flag to see the output coming back from the routers.
+Re-run the playbook using the `-v` verbose flag to see the output coming back from the switches.
 
 ```
 [student1@ip-172-16-101-121 networking-workshop]$ ansible-playbook gather_eos_data.yml --tags=show -v
@@ -139,7 +139,7 @@ With the `eos_facts` module, the output was automatically assigned to the `ansib
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 
@@ -170,7 +170,7 @@ Add a task to use the `debug` module to display the content's of the `show_outpu
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 
@@ -210,7 +210,7 @@ Re-run the playbook to execute only the tasks that have been tagged. This time r
 ```
 [vagrant@ansible linklight]$ ansible-playbook gather_eos_data.yml --tags=show
 
-PLAY [GATHER INFORMATION FROM ROUTERS] *******************************************************************************************************************************************
+PLAY [GATHER INFORMATION FROM SWITCHES] *******************************************************************************************************************************************
 
 TASK [COLLECT OUTPUT OF SHOW COMMANDS] *******************************************************************************************************************************************
 ok: [spine02]
@@ -254,7 +254,7 @@ Write a new task to display only the hostname using a debug command:
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   connection: network_cli
   gather_facts: no
@@ -298,7 +298,7 @@ Re-run the playbook.
 ``` yaml
 [student1@ip-172-16-101-121 networking-workshop]$ ansible-playbook gather_eos_data.yml --tags=show
 
-PLAY [GATHER INFORMATION FROM ROUTERS] **************************************************************************
+PLAY [GATHER INFORMATION FROM SWITCHES] **************************************************************************
 
 TASK [COLLECT OUTPUT OF SHOW COMMANDS] **************************************************************************
 ok: [rtr2]

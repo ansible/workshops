@@ -15,11 +15,11 @@ total 32
 -rw-rw-r-- 1 vagrant vagrant 1297 Jun 22 03:05 spine02_config.2018-06-22@03:05:36
 ```
 
-Our objective is to apply this "last known good configuraion backup" to the routers.
+Our objective is to apply this "last known good configuraion backup" to the switches.
 
 #### Step 1
 
-On one of the routers (`leaf01`) manually make a change. For instance add a new loopback interface.
+On one of the switches (`leaf01`) manually make a change. For instance add a new loopback interface.
 
 Log into `leaf01` and add the following:
 

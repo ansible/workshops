@@ -23,7 +23,7 @@ Enter the following play definition into `gather_eos_data.yml`:
 >Press the letter "i" to enter insert mode*
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 ```
@@ -33,17 +33,17 @@ Enter the following play definition into `gather_eos_data.yml`:
 
 #### Step 3
 
-Next, add the first `task`. This task will use the `ios_facts` module to gather facts about each device in the group `routers`.
+Next, add the first `task`. This task will use the `ios_facts` module to gather facts about each device in the group `network`.
 
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 
   tasks:
-    - name: GATHER ROUTER FACTS
+    - name: GATHER SWITCH FACTS
       eos_facts:
 ```
 
@@ -67,9 +67,9 @@ The output should look as follows.
 ```
 [vagrant@ansible linklight]$ ansible-playbook gather_eos_facts.yml
 
-PLAY [GATHER INFORMATION FROM ROUTERS] *******************************************************************************************************************************************
+PLAY [GATHER INFORMATION FROM SWITCHES] *******************************************************************************************************************************************
 
-TASK [GATHER ROUTER FACTS] *******************************************************************************************************************************************************
+TASK [GATHER SWITCH FACTS] *******************************************************************************************************************************************************
 ok: [leaf01]
 ok: [spine02]
 ok: [spine01]
@@ -86,7 +86,7 @@ spine02                    : ok=1    changed=0    unreachable=0    failed=0
 #### Step 5
 
 
-The play ran successfully and executed against the 4 routers. But where is the output?! Re-run the playbook using the `-v` flag.
+The play ran successfully and executed against the 4 switches. But where is the output?! Re-run the playbook using the `-v` flag.
 
 > Note: Ansible has increasing level of verbosity. You can use up to 4 "v's", -vvvv.
 
@@ -95,9 +95,9 @@ The play ran successfully and executed against the 4 routers. But where is the o
 [vagrant@ansible linklight]$ ansible-playbook gather_eos_facts.yml -v
 Using /home/vagrant/.ansible.cfg as config file
 
-PLAY [GATHER INFORMATION FROM ROUTERS] *******************************************************************************************************************************************
+PLAY [GATHER INFORMATION FROM SWITCHES] *******************************************************************************************************************************************
 
-TASK [GATHER ROUTER FACTS] *******************************************************************************************************************************************************
+TASK [GATHER SWITCH FACTS] *******************************************************************************************************************************************************
 ok: [spine02] => {"ansible_facts": {"ansible_net_all_ipv4_addresses": ["10.0.2.15", "192.168.0.11"], "ansible_net_all_ipv6_addresses": [], "ansible_net_filesystems": ["file:", "flash:", "system:"], "ansible_net_fqdn": "localhost", "ansible_net_gather_subset": ["hardware", "default", "interfaces"], "ansible_net_hostname": "localhost", "ansible_net_image": "flash:/vEOS-lab.swi", "ansible_net_interfaces": {"Ethernet1": {"bandwidth": 0, "description": "", "duplex": "duplexFull", "ipv4": {"address": "192.168.0.11", "masklen": 24}, "lineprotocol": "up", "macaddress": "08:00:27:d4:98:b9", "mtu": 1500, "operstatus": "connected", "type": "routed"}, "Ethernet2": {"bandwidth": 0, "description": "", "duplex": "duplexFull", "ipv4": {}, "lineprotocol": "up", "macaddress": "08:00:27:91:59:ea", "mtu": 9214, "operstatus": "connected", "type": "bridged"}, "Ethernet3": {"bandwidth": 0, "description": "", "duplex": "duplexFull", "ipv4": {}, "lineprotocol": "up", "macaddress": "08:00:27:dc:63:fd", "mtu": 9214, "operstatus": "connected", "type": "bridged"}, "Ethernet4": {"bandwidth": 0, "description": "", "duplex": "duplexFull", "ipv4": {}, "lineprotocol": "up", "macaddress": "08:00:27:bb:e5:26", "mtu": 9214, "operstatus": "connected", "type": "bridged"}, "Ethernet5": {"bandwidth": 0, "description": "", "duplex": "duplexFull", "ipv4": {}, "lineprotocol": "up", "macaddress": "08:00:27:3b:9c:99", "mtu": 9214, "operstatus": "connected", "type": "bridged"}, "Management1": {"bandwidth": 1000000000,
 
 .
@@ -134,22 +134,22 @@ Ansible allows you to limit the playbook execution to a subset of the devices de
 
 Running a playbook in verbose mode is a good option to validate the output from a task. To work with the variables within a playbook you can use the `debug` module.
 
-Write 2 tasks that display the routers' OS version and serial number.
+Write 2 tasks that display the switches' OS version and serial number.
 
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 
   tasks:
-    - name: GATHER ROUTER FACTS
+    - name: GATHER SWITCH FACTS
       eos_facts:
 
     - name: DISPLAY VERSION
       debug:
-        msg: "The IOS version is: {{ ansible_net_version }}"
+        msg: "The EOS version is: {{ ansible_net_version }}"
 
     - name: DISPLAY SERIAL NUMBER
       debug:
@@ -163,9 +163,9 @@ Now re-run the playbook but this time do not use the `verbose` flag and run it a
 ```
 [vagrant@ansible linklight]$ ansible-playbook gather_eos_facts.yml
 
-PLAY [GATHER INFORMATION FROM ROUTERS] *******************************************************************************************************************************************
+PLAY [GATHER INFORMATION FROM SWITCHES] *******************************************************************************************************************************************
 
-TASK [GATHER ROUTER FACTS] *******************************************************************************************************************************************************
+TASK [GATHER SWITCH FACTS] *******************************************************************************************************************************************************
 ok: [leaf01]
 ok: [spine01]
 ok: [spine02]

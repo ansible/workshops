@@ -1,10 +1,10 @@
-# Exercise 1 - Updating the router configurations using Ansible
+# Exercise 1 - Updating the configurations using Ansible
 
-Using Ansible you can update the configuration of routers either by pushing a configuration file to the device or you can push configuration lines directly to the device.
+Using Ansible you can update the configuration of switches either by pushing a configuration file to the device or you can push configuration lines directly to the device.
 
 #### Step 1
 
-Create a new file called `router_configs.yml` (use either `vim` or `nano` on the jumphost to do this or use a local editor on your laptop and copy the contents to the jumphost later). Add the following play definition to it:
+Create a new file called `configs.yml` (use either `vim` or `nano` on the jumphost to do this or use a local editor on your laptop and copy the contents to the jumphost later). Add the following play definition to it:
 
 
 ``` yaml
@@ -16,7 +16,7 @@ Create a new file called `router_configs.yml` (use either `vim` or `nano` on the
 
 #### Step 2
 
-Add a task to ensure that the SNMP strings `ansible-public` and `ansible-private` are present on all the routers. Use the `eos_config` module for this task
+Add a task to ensure that the SNMP strings `ansible-public` and `ansible-private` are present on all the switches. Use the `eos_config` module for this task
 
 > Note: For help on the **eos_config** module, use the **ansible-doc eos_config** command from the command line or check docs.ansible.com. This will list all possible options with usage examples.
 
@@ -39,7 +39,7 @@ Add a task to ensure that the SNMP strings `ansible-public` and `ansible-private
 
 Run the playbook:
 
-```[vagrant@ansible linklight]$ ansible-playbook router_configs.yml
+```[vagrant@ansible linklight]$ ansible-playbook configs.yml
 
 PLAY [SNMP RO/RW STRING CONFIGURATION] *******************************************************************************************************************************************
 
@@ -65,7 +65,7 @@ The `eos_config` module is idempotent. This means, a configuration change is  pu
 
 
 ```
-[vagrant@ansible linklight]$ ansible-playbook router_configs.yml
+[vagrant@ansible linklight]$ ansible-playbook configs.yml
 
 PLAY [SNMP RO/RW STRING CONFIGURATION] *******************************************************************************************************************************************
 
@@ -111,7 +111,7 @@ This time however, instead of running the playbook to push the change to the dev
 
 
 ```
-[vagrant@ansible linklight]$ ansible-playbook router_configs.yml --check -v
+[vagrant@ansible linklight]$ ansible-playbook configs.yml --check -v
 Using /home/vagrant/.ansible.cfg as config file
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] *********************************************************************************************************************************************
@@ -140,7 +140,7 @@ Also note that even though 3 commands are being sent to the device as part of th
 Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
 
 ```
-[vagrant@ansible linklight]$ ansible-playbook router_configs.yml
+[vagrant@ansible linklight]$ ansible-playbook configs.yml
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] *********************************************************************************************************************************************
 
@@ -172,13 +172,13 @@ ntp server time.google.com
 
 #### Step 9
 
-Remember that a playbook contains a list of plays. Add a new play called `CONFIGURE SYSTEM SERVICES` to the `router_config.yml` playbook.
+Remember that a playbook contains a list of plays. Add a new play called `CONFIGURE SYSTEM SERVICES` to the `config.yml` playbook.
 
 ``` yaml
 
 ---
 - name: UPDATE THE SNMP RO/RW STRINGS
-  hosts: cisco
+  hosts: network
   gather_facts: no
 
   tasks:
@@ -192,7 +192,7 @@ Remember that a playbook contains a list of plays. Add a new play called `CONFIG
 
 
 - name: CONFIGURE SYSTEM SERVICES
-  hosts: cisco
+  hosts: network
   gather_facts: no
 ```
 
@@ -233,7 +233,7 @@ Add a task to this new play to push the configurations in the `system.cfg` file 
 
 Go ahead and run the playbook.  Output below is from a subsequent run, instead of OK, your first run will contain CHANGED.
 
-``` [vagrant@ansible linklight]$ ansible-playbook router_configs.yml
+``` [vagrant@ansible linklight]$ ansible-playbook configs.yml
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] *********************************************************************************************************************************************
 

@@ -1,10 +1,10 @@
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GATHER INFORMATION FROM SWITCHES
   hosts: network
   gather_facts: no
 
   tasks:
-    - name: GATHER ROUTER FACTS
+    - name: GATHER SWITCH FACTS
       eos_facts:
 
     - name: DISPLAY VERSION

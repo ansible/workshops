@@ -149,7 +149,7 @@ Write 2 tasks that display the switches' OS version and serial number.
 
     - name: DISPLAY VERSION
       debug:
-        msg: "The IOS version is: {{ ansible_net_version }}"
+        msg: "The EOS version is: {{ ansible_net_version }}"
 
     - name: DISPLAY SERIAL NUMBER
       debug:

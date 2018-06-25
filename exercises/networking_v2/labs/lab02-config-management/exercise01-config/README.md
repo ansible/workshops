@@ -46,7 +46,7 @@ Add a task to ensure that the SNMP strings `ansible-public` and `ansible-private
 Run the playbook:
 
 ``` shell
-[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_config.yml
+[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************
 
@@ -131,7 +131,7 @@ This time however, instead of running the playbook to push the change to the dev
 
 
 ``` shell
-[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_config.yml  --check -v
+[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  --check -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
@@ -165,7 +165,7 @@ Also note that even though 3 commands are being sent to the device as part of th
 Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
 
 ``` shell
-[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_config.yml  
+[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
 
@@ -275,7 +275,7 @@ Add a task to this new play to push the configurations in the `secure_router.cfg
 Go ahead and run the playbook.
 
 ``` shell
-[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_config.yml  
+[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
 

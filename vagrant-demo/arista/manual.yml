@@ -22,24 +22,24 @@
         src: "{{playbook_dir}}/linklight/vagrant-demo/arista/hosts"
         dest: "~/hosts"
 
-    - name: Move hosts file into /etc/hosts
-      copy:
-        src: "{{playbook_dir}}/linklight/vagrant-demo/arista/etchosts"
-        dest: "/etc/hosts"
+    # - name: Move hosts file into /etc/hosts
+    #   copy:
+    #     src: "{{playbook_dir}}/linklight/vagrant-demo/arista/etchosts"
+    #     dest: "/etc/hosts"
 
-    - name: Install EPEL
-      yum:
-        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-        state: present
-
-    - name: install packages
-      yum:
-        name: "{{item}}"
-        state: present
-      with_items:
-        - python-netaddr
-        - ansible
-      state: latest
+    # - name: Install EPEL
+    #   yum:
+    #     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    #     state: present
+    #
+    # - name: install packages
+    #   yum:
+    #     name: "{{item}}"
+    #     state: present
+    #   with_items:
+    #     - python-netaddr
+    #     - ansible
+    #   state: latest
 
     - lineinfile:
         path: ~/.ansible.cfg

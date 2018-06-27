@@ -1,5 +1,4 @@
 ec2_region: us-east-1                 # region where the nodes will live
-ec2_az: us-east-1a                    # availability zone
 ec2_name_prefix: TESTWORKSHOP         # name prefix for all the VMs
 admin_password: ansible               # password used for student account on control node
 student_total: 2                      # amount of work benches to provision

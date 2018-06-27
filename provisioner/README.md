@@ -26,7 +26,7 @@ networking: true
 ### More Info on Networking Mode
 
 - Use the [samples-vars-networking.yml](samples-vars-networking.yml) as an example.  
-- [Quick instructions for networking mode can be found here](network_quick_instructions.md).
+- [Quick instructions for networking mode can be found here](../docs/network_quick_instructions.md).
 
 # Table Of Contents
 - [Requirements](#requirements)
@@ -58,7 +58,7 @@ To provision the workshop onto AWS use the following directions:
 
 2. Create an Access Key ID and Secret Access Key.  Save the ID and key for later.
 
-  - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
+  - New to AWS and not sure what this step means?  [Click here](../docs/aws-directions/AWSHELP.md)
 
 3. Install `boto` and `boto3`.
 
@@ -90,7 +90,6 @@ If you haven't done so already make sure you have the repo cloned to the machine
 
 ```yml
 ec2_region: us-east-1                 # region where the nodes will live
-ec2_az: us-east-1a                    # availability zone
 ec2_name_prefix: TRAININGLAB          # name prefix for all the VMs
 admin_password: ansible
 ## Optional Variables
@@ -99,15 +98,17 @@ localsecurity: false                   # skips firewalld installation and SE Lin
 
 There is also option to install Ansible Tower to the control node, and an option to license it.  If you want to license it you must copy a license called tower_license.json into this directory.
 
+For a list of AWS availability zones please [refer to the documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+
 ```
 autolicense: true
 towerinstall: true
 ```
 
 For an example, look at the following:
-- [sample-vars.yml](sample-vars.yml)
-- [sample-vars.yml](sample-vars-networking.yml)
-- [sample-vars-auto.yml](sample-vars-auto.yml)
+- [sample-vars.yml](sample-vars.yml) - example for the Ansible Engine Workshop
+- [sample-vars.yml](sample-vars-networking.yml) - example for the Ansible Network Workshop
+- [sample-vars-auto.yml](sample-vars-auto.yml) - example for Tower installation and licensing
 
 2. Run the playbook:
 

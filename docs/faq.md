@@ -37,33 +37,3 @@ Set your Access Key ID and Secret Access Key under ~/.aws/credentials
 aws_access_key_id = ABCDEFGHIJKLMNOP
 aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
-
-### Problem: Not authorized for image
-
-```
-An exception occurred during task execution. To see the full traceback, use -vvv. The error was: ClientError: An error occurred (AuthFailure) when calling the DescribeImageAttribute operation: Not authorized for image:ami-26ebbc5c
-```
-
-#### Solution:
-
-Install latest dev of Ansible (will lock down specific version after 2.5 launches)
-
-```
-pip install git+https://github.com/ansible/ansible.git@devel
-```
-
-Refer to direction for Ansible Installation: http://docs.ansible.com/ansible/latest/intro_installation.html
-
-### Problem: no action detected in task
-
-```
-fatal: [localhost]: FAILED! => {"reason": "no action detected in task. This often indicates a misspelled module name, or incorrect module path.\n\nThe error appears to have been in '/home/ec2-user/linklight/provisioner/roles/manage_ec2_instances/tasks/provision.yml': line 264, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: find ami for ansible control node\n  ^ here\n\n\nThe error appears to have been in '/home/ec2-user/linklight/provisioner/roles/manage_ec2_instances/tasks/provision.yml': line 264, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: find ami for ansible control node\n  ^ here\n\nexception type: <class 'ansible.errors.AnsibleParserError'>\nexception: no action detected in task. This often indicates a misspelled module name, or incorrect module path.\n\nThe error appears to have been in '/home/ec2-user/linklight/provisioner/roles/manage_ec2_instances/tasks/provision.yml': line 264, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: find ami for ansible control node\n  ^ here\n"}
-```
-
-#### Solution:
-
-Install latest dev of Ansible (will lock down specific version after 2.5 launches)
-
-```
-pip install git+https://github.com/ansible/ansible.git@devel
-```

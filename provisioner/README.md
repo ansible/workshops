@@ -3,13 +3,15 @@
  - Ansible Essentials Mode (default)
  - Ansible Networking Mode
 
-## Ansible Essentials Mode
+## Ansible Engine Workshop
+This provisions the [Ansible Engine Workshop](../exercises/ansible_engine).
+
 The default mode provisions four nodes per user:
 * One control node from which Ansible will be executed from and where Ansible Tower can be installed (named `ansible`)
 * Three web nodes that coincide with the three nodes in lightbulb's original design
 
-## Ansible Networking Mode
-This provisions the [Ansible Linklight - Networking Workshop](../exercises/networking).  
+## Ansible Networking Workshop
+This provisions the [Ansible Networking Workshop](../exercises/networking).  
 
 This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS):
 * One control node from which Ansible will be executed from and where Ansible Tower can be installed (named `ansible`)
@@ -17,6 +19,7 @@ This mode builds a four node workshop demonstrating Ansible’s capabilities on 
 * One host node named `host1`
 
 To enable networking mode edit the vars file and add:
+
 ```
 networking: true
 ```
@@ -37,12 +40,16 @@ networking: true
 
 # Requirements
 
-This provisioner  must be run with Ansible Engine v2.5.0 or higher.
+This provisioner  must be run with Ansible Engine v2.6.0 or higher.
+
+**NOTE** For more information on this requirement please read: https://github.com/network-automation/linklight/issues/21
 
 # AWS Setup
+
 The `provision_lab.yml` playbook creates a work bench for each student, configures them for password authentication, and creates an inventory file for each user with their IPs and credentials. An instructor inventory file is also created in the current directory which will let the instructor access the nodes of any student.  This file will be called `instructor_inventory.txt`
 
 ## Lab Setup
+
 To provision the workshop onto AWS use the following directions:
 
 ### One Time Setup
@@ -131,7 +138,7 @@ To destroy all the EC2 instances after training is complete:
 
 1. Run the playbook:
 
-        ansible-playbook teardown_lab.yml -e @extra_vars.yml -e @users.yml
+        ansible-playbook teardown_lab.yml -e @extra_vars.yml
 
 # FAQ
 For frequently asked questions see the [FAQ](../docs/faq.md)

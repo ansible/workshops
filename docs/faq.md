@@ -37,3 +37,10 @@ Set your Access Key ID and Secret Access Key under ~/.aws/credentials
 aws_access_key_id = ABCDEFGHIJKLMNOP
 aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
+
+<aside class="warning">
+NOTE: boto3 (the AWS python library) doesn't properly handle AwS environment variables and will generate a fairly opaque parsing error. Stick with the credentials file shown above or something similar. The error is something like:
+</aside>
+```
+caught_exception\nValueError: Invalid header value 'AWS4-HMAC-SHA256 ...
+```

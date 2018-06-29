@@ -8,5 +8,5 @@
   tasks:
   - name: teardown tunnel interface to R2
     ios_interface:
-      name: interface tunnel 0
+      name: Tunnel0
       state: absent

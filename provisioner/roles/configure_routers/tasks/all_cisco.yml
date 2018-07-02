@@ -1,9 +1,3 @@
-- debug:
-    var: hostvars[inventory_hostname]
-
-- debug:
-    var: private_ip
-
 - name: Apply router template
   ios_config:
     src: templates/{{type}}.j2

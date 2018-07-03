@@ -1,7 +1,7 @@
 # Ansible AWS training provisioner
 **aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  There are currently two modes:
- - Ansible Engine Mode (default)
- - Ansible Networking Mode
+ - Ansible Engine Workshop (default)
+ - Ansible Networking Workshop
 
 ## Ansible Engine Workshop
 This provisions the [Ansible Engine Workshop](../exercises/ansible_engine).
@@ -23,6 +23,7 @@ To enable networking mode edit the vars file and add:
 ```
 networking: true
 ```
+
 ### More Info on Networking Mode
 
 - Use the [samples-vars-networking.yml](samples-vars-networking.yml) as an example.  

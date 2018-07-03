@@ -16,7 +16,7 @@ fatal: [localhost]: FAILED! => {"attempts": 1, "changed": false, "msg": "boto is
 ### Solution:
 
 ```
-pip install boto boto3 
+pip install boto boto3
 ```
 
 
@@ -59,7 +59,7 @@ py_cmd.stdout.startswith('1.7')
 
 ### Solution
 
-Install boto3
+Install and/or upgrade boto3
 ```
 pip install boto3 --upgrade
 ```
@@ -68,11 +68,13 @@ Are you using Tower?  Make sure to use umask
 https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html
 
 ```
-source /var/lib/awx/venv/ansible/bin/activate
-umask 0022
-pip install --upgrade pywinrm
-deactivate
+[user@centos ~]$ sudo -i
+[root@centos ~]# source /var/lib/awx/venv/ansible/bin/activate
+[root@centos ~]# umask 0022
+[root@centos ~]# pip install --upgrade boto3
+[root@centos ~]# deactivate
 ```
+
 ## Problem: AWS Signature Failure
 ```
     "error": {
@@ -83,4 +85,4 @@ deactivate
 
 ### Solution
 
-Ensure the time on your Ansile Tower or Ansible Engine Server is correct. 
+Ensure the time on your Ansile Tower or Ansible Engine Server is correct.

@@ -116,8 +116,7 @@ For more examples, look at the following:
 
 What does the AWS provisioner take care of automatically?
 - AWS VPC creation (Amazon WebServices Virtual Private Cloud)
-- Creation of an SSH key pair (stored at ./ansible.pem)
-  - This private key is installed automatically
+- Creation of an SSH key pair (stored at ./WORKSHOPNAME/WORKSHOPNAME-private.pem)
 - Creation of a AWS EC2 security group
 - Creation of a subnet for the VPC
 - Creation of an internet gateway for the VPC

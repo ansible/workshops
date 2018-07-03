@@ -73,3 +73,14 @@ umask 0022
 pip install --upgrade pywinrm
 deactivate
 ```
+## Problem: AWS Signature Failure
+```
+    "error": {
+        "message": "Signature expired: 20180703T083815Z is now earlier than 20180703T152801Z (20180703T154301Z - 15 min.)",
+        "code": "SignatureDoesNotMatch",
+        "type": "Sender"
+```
+
+### Solution
+
+Ensure the time on your Ansile Tower or Ansible Engine Server is correct. 

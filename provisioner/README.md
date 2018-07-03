@@ -24,9 +24,6 @@ To enable networking mode edit the vars file and add:
 networking: true
 ```
 
-### More Info on Networking Mode
-
-- Use the [samples-vars-networking.yml](samples-vars-networking.yml) as an example.  
 - [Quick instructions for networking mode can be found here](../docs/network_quick_instructions.md).
 
 # Table Of Contents

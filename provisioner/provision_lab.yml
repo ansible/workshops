@@ -138,3 +138,13 @@
         router1_tunnel: 100
         router2_tunnel: 101
         dci_tunnel: 200
+
+- name: CONFIGURE CORE ROUTERS
+  hosts: dmvpn
+  connection: network_cli
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_hub

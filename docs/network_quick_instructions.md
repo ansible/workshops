@@ -19,14 +19,17 @@ cp sample-vars-networking.yml my_workshop.yml
 ```
 
 ```yml
-ec2_name_prefix: MY_TEST_WORKSHOP      # name prefix for all the VMs
+---
 ec2_region: us-east-1                  # region where the nodes will live
-ec2_az: us-east-1a                     # availability zone
-admin_password: ansible                # default password for all ansible nodes
+ec2_name_prefix: TESTWORKSHOP          # name prefix for all the VMs
+student_total: 2                       # creates student_total of workbenches for the workshop
+#OPTIONAL VARIABLES
+admin_password: ansible                # password for Ansible control node, defaults to ansible
 networking: true                       # Set this if you want the workshop in networking mode
 localsecurity: false                   # skips firewalld installation and SE Linux when false
-student_total: 2                       # amount of students
-create_login_page: true                # creates s3 website to login
+create_login_page: true
+towerinstall: true                     # automatically installs Tower to control node
+# autolicense: true                    # automatically licenses Tower if license is provided
 ```
 
 The two most important variables above that probably need modifying are

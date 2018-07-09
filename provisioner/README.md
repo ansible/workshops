@@ -1,7 +1,7 @@
 # Ansible AWS training provisioner
 **aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  There are currently two modes:
- - Ansible Essentials Mode (default)
- - Ansible Networking Mode
+ - Ansible Engine Workshop (default)
+ - Ansible Networking Workshop
 
 ## Ansible Engine Workshop
 This provisions the [Ansible Engine Workshop](../exercises/ansible_engine).
@@ -23,9 +23,7 @@ To enable networking mode edit the vars file and add:
 ```
 networking: true
 ```
-### More Info on Networking Mode
 
-- Use the [samples-vars-networking.yml](samples-vars-networking.yml) as an example.  
 - [Quick instructions for networking mode can be found here](../docs/network_quick_instructions.md).
 
 # Table Of Contents
@@ -88,24 +86,26 @@ If you haven't done so already make sure you have the repo cloned to the machine
 
 1. Define the following variables in a file passed in using `-e @extra_vars.yml`
 
-```yml
-ec2_region: us-east-1                 # region where the nodes will live
-ec2_name_prefix: TRAININGLAB          # name prefix for all the VMs
-admin_password: ansible
-## Optional Variables
+```
+---
+ec2_region: us-east-1                  # region where the nodes will live
+ec2_name_prefix: TESTWORKSHOP          # name prefix for all the VMs
+student_total: 2                       # creates student_total of workbenches for the workshop
+#OPTIONAL VARIABLES
+admin_password: ansible                # password for Ansible control node, defaults to ansible
+networking: true                       # Set this if you want the workshop in networking mode
 localsecurity: false                   # skips firewalld installation and SE Linux when false
+create_login_page: true
+towerinstall: true                     # automatically installs Tower to control node
+# autolicense: true                    # automatically licenses Tower if license is provided
 ```
 
-There is also option to install Ansible Tower to the control node, and an option to license it.  If you want to license it you must copy a license called tower_license.json into this directory.
+If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
 
 For a list of AWS availability zones please [refer to the documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
-```
-autolicense: true
-towerinstall: true
-```
 
-For an example, look at the following:
+For more examples, look at the following:
 - [sample-vars.yml](sample-vars.yml) - example for the Ansible Engine Workshop
 - [sample-vars.yml](sample-vars-networking.yml) - example for the Ansible Network Workshop
 - [sample-vars-auto.yml](sample-vars-auto.yml) - example for Tower installation and licensing
@@ -114,18 +114,17 @@ For an example, look at the following:
 
         ansible-playbook provision_lab.yml -e @extra_vars.yml
 
-What does the provisioner take care of automatically?
+What does the AWS provisioner take care of automatically?
 - AWS VPC creation (Amazon WebServices Virtual Private Cloud)
-- Creation of an SSH key pair (stored at ./ansible.pem)
-  - This private key is installed automatically
+- Creation of an SSH key pair (stored at ./WORKSHOPNAME/WORKSHOPNAME-private.pem)
 - Creation of a AWS EC2 security group
 - Creation of a subnet for the VPC
 - Creation of an internet gateway for the VPC
 - Creation of route table for VPC (for reachability from internet)
 
-4. Check on the EC2 console and you should see instances being created like:
+3. Check on the EC2 console and you should see instances being created like:
 
-        TRAININGLAB-student1-node1|2|3|ansible
+        TESTWORKSHOP-student1-node1|2|3|ansible
 
 ## Accessing student documentation and slides
 

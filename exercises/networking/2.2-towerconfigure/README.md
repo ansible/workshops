@@ -1,6 +1,6 @@
 # Exercise 2.2 - Configuring Ansible Tower
 
-In this exercise, we are going to configure Tower so that we can run a playbook.
+In this exercise, we are going to configure Tower so that we can run a playbook.  If you are attending an in person instructor-led workshop it is possible the instructor has already licensed your Tower instance.
 
 # The Tower UI
 
@@ -23,7 +23,7 @@ As soon as you login, you will prompted to request a license or browse for an ex
 ![Figure 2: Uploading a License](license.png)
 
 ## Step 2: Download the License
-In a seperate browser tab, browse to the [Workshop License](https://www.ansible.com/workshop-license ) link to request a workshop license.
+In a separate browser tab, browse to the [Workshop License](https://www.ansible.com/workshop-license ) link to request a workshop license.
 
 ## Step 3: Browse for License
 Back in the Tower UI, choose ![BROWSE](browse.png) and upload your license file that you received via e-mail into Tower.
@@ -38,7 +38,7 @@ Click on ![SUBMIT](submit.png)
 
 Credentials are utilized by Tower for authentication when launching jobs against machines, synchronizing with inventory sources, and importing project content from a version control system.
 
-There are many [types of credentials](http://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types) including machine, network, and various cloud providers. In this workshop, we are using a network credential.
+There are many [types of credentials](http://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types) including machine, and various cloud providers. In this workshop, we are using a machine credential.
 
 ## Step 1: Select the gear icon
 Click on the ![GEAR](gear.png) icon in the top right of the browser window
@@ -55,7 +55,7 @@ Click on ![ADD](add.png) button
 | **NAME**             | Ansible Workshop Credential                                           |
 | **DESCRIPTION**      | Credentials for Ansible Workshop                                      |
 | **ORGANIZATION**     | Default                                                               |
-| **CREDENTIAL TYPE**  | Network                                                               |
+| **CREDENTIAL TYPE**  | machine                                                               |
 | **USERNAME**         | ec2-user                                                              |
 | **SSH Key**          | Copy paste the ssh private key from the tower node `cat ~/.ssh/aws-private.pem`  |
 

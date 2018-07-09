@@ -39,4 +39,4 @@ You now have your Access Key ID and Secret Access Key!
 - [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
 - [managing-aws-access-keys.html](http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html).
 
-[Return to aws_lab_setup directions](../README.md)
+[Return to aws_lab_setup directions](../../provisioner/README.md)

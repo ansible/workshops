@@ -74,8 +74,9 @@ Before running the playbook, add a `tag` to the last task. Name it "show"
 
 
 
-{%raw%}
+
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -102,9 +103,8 @@ Before running the playbook, add a `tag` to the last task. Name it "show"
           - show ip interface brief
       tags: show
 
-
-```
 {%endraw%}
+```
 
 
 #### Step 4

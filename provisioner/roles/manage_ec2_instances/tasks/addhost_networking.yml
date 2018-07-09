@@ -57,21 +57,16 @@
       register: rtr4_node_facts
   when: special is defined
 
-
-
 - name: ADD CORE ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
     ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
     ansible_user: ec2-user
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
     ansible_network_os: ios
-    rtr1_node_facts: "{{rtr1_node_facts}}"
-    rtr2_node_facts: "{{rtr2_node_facts}}"
-    rtr3_node_facts: "{{rtr3_node_facts}}"
-    rtr4_node_facts: "{{rtr4_node_facts}}"
     groups:
       - routers
       - core
@@ -84,15 +79,12 @@
   add_host:
     name: "{{ item.tags.Name }}"
     ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
     ansible_user: ec2-user
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
     ansible_network_os: ios
-    rtr1_node_facts: "{{rtr1_node_facts}}"
-    rtr2_node_facts: "{{rtr2_node_facts}}"
-    rtr3_node_facts: "{{rtr3_node_facts}}"
-    rtr4_node_facts: "{{rtr4_node_facts}}"
     groups:
       - routers
       - access
@@ -105,6 +97,7 @@
   add_host:
     name: "{{ item.tags.Name }}"
     ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
     ansible_user: ec2-user
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"

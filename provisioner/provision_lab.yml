@@ -12,7 +12,7 @@
           - ansible_version.major >= 2
           - ansible_version.minor >= 6
 
-    - name: make sure we are not running with TESTWORKSHOP as the name so no overlap
+    - name: run role to check if local environment setup will work with AWS
       include_role:
         name: aws_check_setup
 
@@ -92,7 +92,7 @@
 
 - name: CONFIGURE ACCESS ROUTERS
   hosts: access
-  connection: network_cli
+  connection: local
   gather_facts: no
 
   roles:

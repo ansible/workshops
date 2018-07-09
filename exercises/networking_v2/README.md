@@ -23,7 +23,7 @@ If you attend an in-person workshop, please fill out the survey!
  - [Network Automation GitHub Repo](https://github.com/network-automation)
 
 ---
-![Red Hat Ansible Automation](images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 
 Red Hat® Ansible® Automation consists of  three products:
 

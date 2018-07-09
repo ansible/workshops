@@ -26,16 +26,7 @@
           - not networking
       when: f5workshop
 
-    - name: grab boto version
-      command: python -c 'import boto3; print(boto3.__version__)'
-      register: py_cmd
-
-    - name: make sure we are running correct boto version
-      assert:
-        that:
-        - py_cmd.stdout.startswith('1.7')
-
-    - name: make sure we are not running with TESTWORKSHOP as the name so no overlap
+    - name: run role to check if local environment setup will work with AWS
       include_role:
         name: aws_check_setup
 

@@ -1,0 +1,16 @@
+---
+- name: Get device facts
+  nxos_facts:
+
+- name: configure the login banner
+  nxos_banner:
+    banner: motd
+    text: "{{ network_login_banner }}"
+    state: present
+  when: network_banner is defined
+
+- name: configure the MOTD
+  nxos_banner:
+    banner: exec
+    text: "{{ lookup('template', 'motd.j2') }}"
+    state: present

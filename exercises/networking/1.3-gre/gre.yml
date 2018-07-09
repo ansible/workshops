@@ -18,7 +18,7 @@
        - 'ip address 10.0.0.1 255.255.255.0'
        - 'tunnel source GigabitEthernet1'
        - 'tunnel destination {{rtr2_public_ip}}'
-      parents: interface Tunnel 0
+      parents: interface Tunnel0
     when:
       - '"rtr1" in inventory_hostname'
 
@@ -28,6 +28,6 @@
        - 'ip address 10.0.0.2 255.255.255.0'
        - 'tunnel source GigabitEthernet1'
        - 'tunnel destination {{rtr1_public_ip}}'
-      parents: interface Tunnel 0
+      parents: interface Tunnel0
     when:
       - '"rtr2" in inventory_hostname'

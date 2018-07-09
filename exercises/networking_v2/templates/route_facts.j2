@@ -1,0 +1,71 @@
+{% if sorted_routes.get('static') %}
+STATIC:
+-------
+  {% for route in sorted_routes.static %}
+
+  Network: {{ route.NETWORK }}
+  Nexthop IP: {{ route.NEXTHOP_IP }}
+  Nexthop Interface: {{ route.NEXTHOP_IF }}
+  Metric: {{ route.METRIC }}
+  {% endfor %}
+{% endif %}
+
+{% if sorted_routes.get('connected') %}
+CONNECTED:
+-------
+  {% for route in sorted_routes.connected %}
+
+  Network: {{ route.NETWORK }}
+  Nexthop IP: {{ route.NEXTHOP_IP }}
+  Nexthop Interface: {{ route.NEXTHOP_IF }}
+  Metric: {{ route.METRIC }}
+  {% endfor %}
+{% endif %}
+
+{% if sorted_routes.get('local') %}
+LOCAL:
+-------
+  {% for route in sorted_routes.local %}
+
+  Network: {{ route.NETWORK }}
+  Nexthop IP: {{ route.NEXTHOP_IP }}
+  Nexthop Interface: {{ route.NEXTHOP_IF }}
+  Metric: {{ route.METRIC }}
+  {% endfor %}
+{% endif %}
+
+{% if sorted_routes.get('bgp') %}
+BGP:
+-------
+  {% for route in sorted_routes.bgp %}
+
+  Network: {{ route.NETWORK }}
+  Nexthop IP: {{ route.NEXTHOP_IP }}
+  Nexthop Interface: {{ route.NEXTHOP_IF }}
+  Metric: {{ route.METRIC }}
+  {% endfor %}
+{% endif %}
+
+{% if sorted_routes.get('ospf') %}
+OSPF:
+-------
+  {% for route in sorted_routes.ospf %}
+
+  Network: {{ route.NETWORK }}
+  Nexthop IP: {{ route.NEXTHOP_IP }}
+  Nexthop Interface: {{ route.NEXTHOP_IF }}
+  Metric: {{ route.METRIC }}
+  {% endfor %}
+{% endif %}
+
+{% if sorted_routes.get('other') %}
+OTHER:
+-------
+  {% for route in sorted_routes.other %}
+
+  Network: {{ route.NETWORK }}
+  Nexthop IP: {{ route.NEXTHOP_IP }}
+  Nexthop Interface: {{ route.NEXTHOP_IF }}
+  Metric: {{ route.METRIC }}
+  {% endfor %}
+{% endif %}

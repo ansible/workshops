@@ -497,8 +497,8 @@ localhost | success >> {
           <h1>Sidebar: Network Facts</h1>
           <p>For non-Linux systems there are vendor specific modules for fact collection.</p>
           <pre><code>
-$ ansible -m ios_facts routers
-student1-rtr1.net-ws.redhatgov.io | SUCCESS => {
+$ ansible -m ios_facts routers -c network_cli
+student1-rtr1 | SUCCESS => {
     "ansible_facts": {
         "ansible_net_all_ipv4_addresses": [
             "172.17.1.238"

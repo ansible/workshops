@@ -1,0 +1,7 @@
+---
+- name: CONFIGURE THE LOGIN BANNER
+  net_banner:
+    banner: login
+    text: "{{ network_banner }}"
+    state: present
+  when: network_banner is defined

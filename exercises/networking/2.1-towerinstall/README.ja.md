@@ -1,44 +1,44 @@
-# Exercise 2.1 - Installing Ansible Tower
+# 演習 2.1 - Ansible Tower のインストール
 
-In this exercise, we are going to get Ansible Tower installed on your control node
+この演習ではコントロールノードにAnsible Towerをインストールします。
 
-## Step 1: ssh into your control node
+## ステップ 1: コントロールノードに ssh します
 
 ```bash
 ssh <username>@<IP of control node>
 ```
 
-## Step 2: Change directories to /tmp
+## ステップ 2: /tmp ディレクトリに移動します
 
 ```bash
 cd /tmp
 ```
 
-## Step 3: Download the latest Ansible Tower package
+## ステップ 3: 最新のAnsible Towerパッケージをダウンロードします
 
 ```bash
 curl -O http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
 ```
 
-## Step 4: Untar and unzip the package file
+## ステップ 4: パッケージファイルを解凍(untar)します
 
 ```bash
 tar xvfz /tmp/ansible-tower-setup-*  (Name of tar file that was downloaded)
 ```
 
-## Step 5: Change directories into the ansible tower package
+## ステップ 5: 解凍したAnsible Towerパッケージのディレクトリに移動します
 
 ```bash
 cd /tmp/ansible-tower-setup-*
 ```
 
-## Step 6: Using an editor of your choice, open the inventory file
+## ステップ 6: 適当なテキストエディタを使ってインベントリーファイルを開きます
 
 ```bash
 vim inventory
 ```
 
-## Step 7: fill a few variables out in an inventory file: `admin_password`, `rabbitmq_password`, `pg_password`
+## ステップ 7: インベントリーファイルのいくつかの変数を設定します: `admin_password`, `rabbitmq_password`, `pg_password`
 
 ```yml
 [tower]
@@ -66,20 +66,20 @@ rabbitmq_cookie=cookiemonster
 rabbitmq_use_long_name=false
 ```
 
-## Step 8: run the Ansible Tower setup script
+## ステップ 8: Ansible Towerセットアップスクリプトを実行します
 
 ```bash
 sudo ./setup.sh
 ```
-Step 8 will take approx. 10-15 minutes to complete. This may be a good time to take a break.
+ステップ 8 は概ね10-15分かかります。休憩するのに丁度良いタイミングです。
 
-## End Result
+## 結果
 
-At this point, your Ansible Tower installation should be complete. You can access Tower at https://<IP-of-your-control-node>;
+Ansible Towerのインストールは終了です。`https://<IP-of-your-control-node>` でTowerにアクセスできます。
 
-You know you were successful if you are able to browse to your Ansible Tower’s url (control node’s IP address) and get something like this
+以下の様にTowerのURL(コントロールノードのIPアドレス)をブラウズできれば成功です。
 
 ![Figure 1: Ansible Tower Login Screen](tower.png)
 
  ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Ansible Linklight - ネットワークワークショップ に戻る](../README.ja.md)

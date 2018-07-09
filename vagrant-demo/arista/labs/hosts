@@ -1,0 +1,20 @@
+[leafs]
+leaf01 ansible_host=172.16.10.11 ansible_network_os=vyos
+leaf02 ansible_host=172.16.10.12 ansible_network_os=vyos
+
+[spines]
+spine01 ansible_host=172.16.10.13 ansible_network_os=vyos
+spine02 ansible_host=172.16.10.14 ansible_network_os=vyos
+
+[network:children]
+leafs
+spines
+
+[servers]
+server01 ansible_host=172.16.10.15
+server02 ansible_host=172.16.10.16
+
+[datacenter:children]
+leafs
+spines
+servers

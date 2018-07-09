@@ -1,0 +1,13 @@
+---
+- name: COMPLIANCE CHECK
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    ## SSH into router and change hostname or create a loopback ###
+    - name: CHECK TO SEE IF THERE IS A DIFF
+      ios_config:
+        diff_against: intended
+        intended_config: "{{ lookup('file', '../backup/{{inventory_hostname}}.config')}}"
+      tags: diff

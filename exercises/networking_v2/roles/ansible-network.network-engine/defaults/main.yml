@@ -1,0 +1,5 @@
+---
+# defaults file for network-engine
+#
+network_engine_path: "{{ role_path }}"
+network_engine_lib_path: "{{ network_engine_path }}/lib"

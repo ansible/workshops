@@ -1,9 +1,8 @@
 ec2_region: us-east-1                 # region where the nodes will live
-ec2_az: us-east-1a                    # availability zone
 ec2_name_prefix: TESTWORKSHOP         # name prefix for all the VMs
-admin_password: ansible
-student_total: 2
+student_total: 2											# amount of work benches to provision
 ## Optional Variables
-localsecurity: false                   # skips firewalld installation and SE Linux when false
-create_login_page: true
-networking: true
+admin_password: ansible								# password used for student account on control node
+localsecurity: false                  # skips firewalld installation and SE Linux when false
+create_login_page: true								# creates HTML website for workshop
+networking: true											# workshop is put into networking mode, uses two Cisco IOS-XE devices

@@ -1,0 +1,31 @@
+---
+- name: Dynamic Reporting Part 2
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
+
+  roles:
+    - ansible-network.network-engine
+
+  tasks:
+  - name: Capture show interfaces
+    ios_command:
+      commands:
+        - show ip route
+    register: output
+
+  - name: "textfsm_parser test for {{ ansible_network_os }} show_ip_route"
+    textfsm_parser:
+      file: "../parsers/show_ip_route.template"
+      content: "{{ output.stdout[0] }}"
+      name: route_facts
+    register: route
+  #
+  # - name: Sort the routes based on protocol
+  #   set_fact:
+  #     sorted_routes: "{{ route_facts | sort_routes }}"
+
+  - name: Generate IP Route Report
+    template:
+      src: templates/ip_route.j2
+      dest: reports/{{inventory_hostname}}-routes.md

@@ -6,7 +6,6 @@
       "tag:Name": "{{ec2_name_prefix}}-{{username}}-rtr1"
   register: rtr1_facts
   delegate_to: localhost
-  run_once: True
 
 - name: grab facts for rtr2
   ec2_instance_facts:
@@ -16,7 +15,6 @@
       "tag:Name": "{{ec2_name_prefix}}-{{username}}-rtr2"
   register: rtr2_facts
   delegate_to: localhost
-  run_once: True
 
 - name: add route to 172.17.0.0/16 subnet on ansible node
   lineinfile:

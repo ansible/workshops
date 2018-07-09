@@ -1,0 +1,16 @@
+---
+- name: TEST CONNECTIVITY TO ALL ROUTERS
+  hosts: routers
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: PING TEST TO PUBLIC IP
+      net_ping:
+        dest: "{{ hostvars[item].ansible_host }}"
+      with_items: "{{ groups.cisco | default([]) }}"
+
+    - name: PING TEST TO PRIVATE IP
+      net_ping:
+        dest: "{{ hostvars[item].private_ip }}"
+      with_items: "{{ groups.cisco | default([]) }}"

@@ -1,0 +1,27 @@
+---
+- name: configure OSPF
+  hosts: network
+  vars:
+    nodes:
+      spine01:
+        Loopback1: "172.16.0.1/32"
+        Ethernet2: "172.16.200.1/30"
+        Ethernet3: "172.16.200.5/30"
+      spine02:
+        Loopback1: "172.16.0.2/32"
+        Ethernet2: "172.16.200.17/30"
+        Ethernet3: "172.16.200.21/30"
+      leaf01:
+        Loopback1: "172.16.0.3/32"
+        Ethernet2: "172.16.200.2/30"
+        Ethernet3: "172.16.200.18/30"
+      leaf02:
+        Loopback1: "172.16.0.4/32"
+        Ethernet2: "172.16.200.6/30"
+        Ethernet3: "172.16.200.22/30"
+
+  tasks:
+    - name: push config to device
+      eos_config:
+        src: ./ospf.j2
+        save_when: changed

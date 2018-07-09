@@ -1,0 +1,2 @@
+---
+- include_tasks: "{{ ansible_network_os }}-harden.yml"

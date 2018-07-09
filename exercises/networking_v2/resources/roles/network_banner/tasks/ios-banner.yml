@@ -1,0 +1,16 @@
+---
+- name: GET DEVICE FACTS
+  ios_facts:
+
+- name: CONFIGURE THE LOGIN BANNER
+  ios_banner:
+    banner: login
+    text: "{{ network_banner }}"
+    state: present
+  when: network_banner is defined
+
+- name: CONFIGURE THE MOTD
+  ios_banner:
+    banner: motd
+    text: "{{ lookup('template', 'motd.j2') }}"
+    state: present

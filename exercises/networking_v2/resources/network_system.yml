@@ -1,0 +1,35 @@
+---
+- name: CONFIGURE SYSTEM CONFIGURATIONS
+  hosts: routers
+  connection: network_cli
+  gather_facts: no
+
+  vars:
+    site_domain_name: 'example.net'
+    network_name_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+    network_domain_search:
+      - example.net
+
+  tasks:
+    - name: CONFIGURE THE HOSTNAME AND DOMAIN NAME
+      net_system:
+        hostname: "{{ inventory_hostname }}"
+        domain_name: "{{ site_domain_name }}"
+        domain_search: "{{ network_domain_search | default(omit) }}"
+        name_servers: "{{ network_name_servers | default(omit) }}"
+
+    - name: CONFIGURE HOST LOGGING
+      net_logging:
+        dest: host
+        name: "{{ site_log_host }}"
+        facility: kernel
+        level: critical
+      when: site_log_host is defined
+
+    - name: CONFIGURE SNMP
+      ios_config:
+        commands:
+          - snmp-server community ansible-public RO
+          - snmp-server community ansible-private RW

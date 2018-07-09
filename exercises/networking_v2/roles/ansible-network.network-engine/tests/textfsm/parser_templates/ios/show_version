@@ -1,0 +1,11 @@
+Value version (\S+)
+Value model (.+)
+Value image (\S+)
+Value uptime (.+)
+
+
+Start
+  ^.*Version ${version},
+  ^.*uptime is ${uptime}
+  ^System image file is ${image}
+  ^Cisco ${model} \(revision -> Record

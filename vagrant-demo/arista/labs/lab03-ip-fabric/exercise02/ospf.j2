@@ -1,0 +1,15 @@
+{% for interface in nodes[inventory_hostname] -%}
+interface {{interface}}
+{% if "Loopback" not in interface %}
+    no switchport
+    ip ospf network point-to-point
+    ip ospf area 0.0.0.0
+{% endif %}
+    ip address {{nodes[inventory_hostname][interface]}}
+{% endfor %}
+!
+ip routing
+!
+router ospf 1
+    router-id {{ nodes[inventory_hostname].Loopback1 | ipaddr("address") }}
+    network {{nodes[inventory_hostname].Loopback1}} area 0.0.0.0

@@ -95,7 +95,7 @@ Let’s begin by defining the play and then understanding what each line accompl
 ---
 - name: backup router configurations
   hosts: routers
-  connection: local
+  connection: network_cli
   gather_facts: no
 ```  
 
@@ -103,7 +103,7 @@ Let’s begin by defining the play and then understanding what each line accompl
  - `hosts:` routers Defines the host group in your inventory on which this play will run against
  - `name:` backup router configurations This describes our play
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
- - `connection: local` tells Ansible to execute this python module locally (target node is not capable of running Python)
+ - `connection: network_cli` tells Ansible to execute this python module on a network device
 
 ###  Step 2: Adding Tasks to Your Play
 
@@ -162,7 +162,7 @@ Now that you’ve completed writing your playbook, it would be a shame not to ke
 ---
 - name: backup router configurations
   hosts: routers
-  connection: local
+  connection: network_cli
   gather_facts: no
 
   tasks:

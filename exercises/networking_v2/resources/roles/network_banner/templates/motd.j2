@@ -1,0 +1,19 @@
+Hostname: {{ inventory_hostname }}
+{% if ansible_net_model is defined %}
+Model: {{ ansible_net_model }}
+{% endif %}
+{% if ansible_net_serialnum is defined %}
+Serial Number: {{ ansible_net_serialnum }}
+{% endif %}
+{% if ansible_net_version is defined %}
+Version: {{ ansible_net_version }}
+{% endif %}
+{% if device_description is defined %}
+Description: {{ device_description }}
+{% endif %}
+{% if device_address is defined %}
+Address: {{ device_address }}
+{% endif %}
+{% if (network_motd_banner is defined) and network_motd_banner %}
+{{ network_motd_banner }}
+{% endif %}

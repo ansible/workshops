@@ -84,12 +84,12 @@ In the previous step we are rendering the generated report into a directory call
 #### Step 5
 
 
-The next step is to create a Jinja2 template. Ansible will look for the template file in the current working directory and within a directory called `templates` automatically. Convention/best-practice is to create the template file within the template directory. 
+The next step is to create a Jinja2 template. Ansible will look for the template file in the current working directory and within a directory called `templates` automatically. Convention/best-practice is to create the template file within the template directory.
 
 Using `vi`, `nano` or another text editor, go ahead and create a new file called `os_report.j2` under the `templates` directory. Add the following into the template file:
 
 
-
+{%raw%}
 ``` python
 
 
@@ -100,7 +100,7 @@ Using `vi`, `nano` or another text editor, go ahead and create a new file called
 
 
 ```
-
+{%endraw%}  
 This file simply contains some of the variables we have been using in our playbooks until now.
 
 > Note: Python inbuilt methods for datatypes are available natively in Jinja2 making it very easy to manipulate the formatting etc.

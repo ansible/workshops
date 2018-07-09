@@ -12,11 +12,16 @@
           - ansible_version.major >= 2
           - ansible_version.minor >= 6
 
-    - name: make sure we are not running with TESTWORKSHOP as the name so no overlap
-      include_role:
-        name: aws_check_setup
+    - name: grab boto version
+      command: python -c 'import boto3; print(boto3.__version__)'
+      register: py_cmd
 
-    - name: make sure workshop name is not TESTWORKSHOP so there is no overlap
+    - name: make sure we are running correct boto version
+      assert:
+        that:
+        - py_cmd.stdout.startswith('1.7')
+
+    - name: make sure we are not running with TESTWORKSHOP as the name so no overlap
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
@@ -42,6 +47,25 @@
       when:
        - autolicense is defined
        - autolicense
+
+    - name: check for underscores
+      fail:
+        msg: "Amazon AWS does not allow underscores _ for s3 websites, please see https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html"
+      when:
+        - create_login_page is defined
+        - create_login_page
+        - "'_' in ec2_name_prefix"
+
+    - name: grab information about AWS user
+      aws_caller_facts:
+        region: "{{ ec2_region }}"
+      register: whoami
+
+    - name: save username of AWS user
+      set_fact:
+         linklight_user: '{{ whoami.arn.split("/")[-1] }}'
+
+    - debug: msg='{{ whoami.arn.split("/")[-1] }}'
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -74,13 +98,6 @@
   roles:
     - control_node
 
-- name: Setup Host routes for ansible control node and host1 when in networking mode
-  hosts: "managed_nodes:control_nodes"
-  become: no
-  gather_facts: no
-  roles:
-    - { role: network_hostroutes, when: networking is defined and networking }
-
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
   connection: local
@@ -88,3 +105,46 @@
   gather_facts: no
   roles:
     - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
+
+- name: Setup Host routes for ansible control node and host1 when in networking mode
+  hosts: "managed_nodes:control_nodes"
+  become: no
+  gather_facts: no
+  roles:
+    - { role: network_hostroutes, when: networking is defined and networking }
+
+
+- name: CONFIGURE ACCESS ROUTERS
+  hosts: access
+  connection: network_cli
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_access
+        router3_tunnel: 100
+        router4_tunnel: 101
+
+- name: CONFIGURE CORE ROUTERS
+  hosts: core
+  connection: network_cli
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_core
+        router1_tunnel: 100
+        router2_tunnel: 101
+        dci_tunnel: 200
+
+- name: CONFIGURE CORE ROUTERS
+  hosts: dmvpn
+  connection: network_cli
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_hub

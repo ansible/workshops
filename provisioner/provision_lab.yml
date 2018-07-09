@@ -92,7 +92,7 @@
 
 - name: CONFIGURE ACCESS ROUTERS
   hosts: access
-  connection: network_cli
+  connection: local
   gather_facts: no
 
   roles:

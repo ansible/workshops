@@ -46,7 +46,7 @@ Add a task that collects the facts using the `ios_facts` module. Recollect that 
 
 Rather than using debug or verbose mode to display the output on the screen, go ahead and add a new task using the template module as follows:
 
-
+{%raw%}
 ``` yaml
 ---
 - name: GATHER INFORMATION FROM ROUTERS
@@ -63,7 +63,7 @@ Rather than using debug or verbose mode to display the output on the screen, go 
         src: os_report.j2
         dest: reports/{{ inventory_hostname }}.md
 ```
-
+{%endraw%}
 
 
 Let's break this task down a bit. The `template` module has a `src` parameter that has a value of `os_report.j2`. In the next few steps, we will create this file. This will be the Jinja2 template,  used to generate the desired report. The `dest` parameter specifies the destination file name to render the report into.

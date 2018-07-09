@@ -74,7 +74,7 @@ Before running the playbook, add a `tag` to the last task. Name it "show"
 
 
 
-
+{%raw%}
 ``` yaml
 ---
 - name: GATHER INFORMATION FROM ROUTERS
@@ -104,6 +104,7 @@ Before running the playbook, add a `tag` to the last task. Name it "show"
 
 
 ```
+{%endraw%}
 
 
 #### Step 4

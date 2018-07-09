@@ -1,0 +1,62 @@
+{% set site = inventory_hostname[-1] %}
+{% set bgp_tunnel = "10." ~ dci_tunnel ~ "." ~ dci_tunnel %}
+{% if site == "1" %}
+{% set tunnel_network = "10." ~ router1_tunnel ~ "." ~ router1_tunnel %}
+{% set tunnel_destination0 = rtr3_node_facts.instances[0].public_ip_address %}
+{% set tunnel_destination1 = rtr2_node_facts.instances[0].public_ip_address %}
+{% set local_as = 65000 %}
+{% set remote_as = 65001 %}
+{% set remote_bgp_neighbor = "10.200.200.2" %}
+{% set remote_ospf_neighbor = "3.3.103" %}
+{% else %}
+{% set tunnel_network = "10." ~ router2_tunnel ~ "." ~ router2_tunnel %}
+{% set tunnel_destination0 = rtr4_node_facts.instances[0].public_ip_address %}
+{% set tunnel_destination1 = rtr1_node_facts.instances[0].public_ip_address %}
+{% set local_as = 65001 %}
+{% set remote_as = 65000 %}
+{% set remote_bgp_neighbor = "10.200.200.1" %}
+{% set remote_ospf_neighbor = "4.4.104" %}
+{% endif %}
+
+hostname rtr{{site}}
+
+router ospf 1
+ redistribute bgp {{ local_as }} subnets
+ network 10.{{ site }}.{{ site }}.0 0.0.0.255 area 0
+ network {{ tunnel_network }}.0 0.0.0.255 area 0
+ network {{ (private_ip ~ '/16') | ipaddr('network') }} 0.0.255.255 area 0
+ network 192.168.{{ site }}.0 0.0.0.255 area 0
+
+interface Loopback0
+ ip address 192.168.{{ site }}.10{{ site }} 255.255.255.0
+
+interface Loopback1
+ ip address 10.{{ site }}.{{ site }}.10{{ site }} 255.255.255.0
+
+interface Tunnel0
+ ip address {{ tunnel_network }}.{{ site }} 255.255.255.0
+ ip mtu 1476
+ ip tcp adjust-mss 1360
+ tunnel source GigabitEthernet1
+ tunnel destination {{ tunnel_destination0 }}
+
+interface Tunnel1
+ ip address 10.200.200.{{ site }} 255.255.255.0
+ tunnel source GigabitEthernet1
+ tunnel destination {{ tunnel_destination1 }}
+
+
+router bgp {{ local_as }}
+ bgp router-id {{ site }}.{{ site }}.{{ site }}.{{ site }}
+ bgp log-neighbor-changes
+ neighbor {{ remote_bgp_neighbor }} remote-as {{ remote_as }}
+
+ address-family ipv4
+  network 10.{{site}}.{{site}}.0 mask 255.255.255.0
+  network 10.{{ remote_ospf_neighbor }} mask 255.255.255.255
+  network {{tunnel_network}}.0 mask 255.255.255.0
+  network {{ bgp_tunnel }}.0 mask 255.255.255.0
+  network {{ (private_ip ~ '/16') | ipaddr('network') }}
+  network 192.168.{{ site }}.0
+  neighbor {{ remote_bgp_neighbor }} activate
+ exit-address-family

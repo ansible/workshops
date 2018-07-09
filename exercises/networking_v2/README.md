@@ -8,8 +8,6 @@ Want the Presentation Deck?  Its right here:
 
 ## Ansible Engine Networking Exercises
 
-# Labs
-
 - [Lab 01](lab01-network-facts/): Using Ansible to gather data from network devices
 - [Lab 02](lab02-config-management/): Using Ansible to configure, backup and restore
 - [Lab 03](lab03-templating/): Using Ansible for templating as well as utilizing parsers

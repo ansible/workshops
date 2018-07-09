@@ -125,8 +125,9 @@ The next task is to send the raw data returned in the previous task to the `comm
 
 Add this to your playbook:
 
-{%raw%}
+
 ``` yaml
+{%raw%}
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -148,9 +149,8 @@ Add this to your playbook:
         file: "parsers/show_interfaces.yml"
         content: "{{ output.stdout[0] }}"
 
-
-```
 {%endraw%}
+```
 
 Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
 

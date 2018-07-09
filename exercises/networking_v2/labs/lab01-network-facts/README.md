@@ -9,6 +9,6 @@ useful information about a test network. You will create a
 
 [Section 1: Exploring the lab environment](./exercise01-explore)
 
-[Section 2: Writing your first playbook](./exercise03-playbook-basics)
+[Section 2: Writing your first playbook](./exercise02-first-playbook)
 
 [Section 3 - Module documentation, Registering output & tags](./exercise03-playbook-basics)

@@ -175,6 +175,7 @@ While it is nice to have the data, it would be even better to consolidate all th
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -196,6 +197,7 @@ While it is nice to have the data, it would be even better to consolidate all th
         dest: network_os_report.md
       delegate_to: localhost
       run_once: yes
+{%endraw%}
 ```
 
 

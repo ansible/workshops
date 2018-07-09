@@ -39,14 +39,12 @@
         filter: "cisco-CSR*BYOL*"
         os: ios
 
-    mixed_lab: no    
     ec2_lab_node_types_networking: "{{all_cisco}}"
 
   tasks:
     - name: set fact for multivendor lab
       set_fact:
         ec2_lab_node_types_networking: "{{ multivendor }}"
-      when: mixed_lab
 
     - debug:
         var: ec2_lab_node_types_networking

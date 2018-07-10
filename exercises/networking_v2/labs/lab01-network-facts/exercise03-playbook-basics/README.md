@@ -35,6 +35,7 @@ In the previous section, you learned how to use the `ios_facts` module to collec
 The `ios_command` module allows you to do that. Go ahead and add another task to the playbook to collect the output of 2 _show_ commands to collect the **hostname** and the output of the `show ip interface brief` commands:
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -59,6 +60,7 @@ The `ios_command` module allows you to do that. Go ahead and add another task to
         commands:
           - show run | i hostname
           - show ip interface brief
+{%endraw%}
 ```
 
 > Note: **commands** is a parameter required by the **ios_module**. The input to this parameter is a "list" of IOS commands.

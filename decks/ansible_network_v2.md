@@ -1,3 +1,24 @@
+# Managing networks hasn't changed in 30 years
+
+- Networks are mission critical
+- Every network is a unique snowflake
+- Ad-hoc changes that proliferate 
+- Vendor specific implementations
+- Testing is expensive/impossible
+
+
+
+
+# IT at the speed of cloud
+
+- Compute is no longer the slowest link in the chain
+- Businesses demand that networks deliver at the speed of cloud 
+
+
+
+
+
+
 # What You Will Learn
 Ansible is capable of handling many powerful automation tasks with the flexibility to adapt to many environments and workflows. With Ansible, users can very quickly get up and running to do real work.
 

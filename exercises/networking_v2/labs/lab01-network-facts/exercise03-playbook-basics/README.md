@@ -156,6 +156,7 @@ With the `ios_facts` module, the output was automatically assigned to the `ansib
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -181,7 +182,7 @@ With the `ios_facts` module, the output was automatically assigned to the `ansib
           - show ip interface brief
       tags: show
       register: show_output
-
+{%endraw%}
 
 ```
 
@@ -193,6 +194,7 @@ Add a task to use the `debug` module to display the content's of the `show_outpu
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -223,8 +225,7 @@ Add a task to use the `debug` module to display the content's of the `show_outpu
       debug:
         var: show_output
       tags: show
-
-
+{%endraw%}
 ```
 
 > Note the use of **var** vs **msg** for the debug module.
@@ -291,6 +292,7 @@ Write a new task to display only the hostname using a debug command:
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -326,6 +328,7 @@ Write a new task to display only the hostname using a debug command:
       debug:
         msg: "The hostname is {{ show_output.stdout[0] }}"
       tags: show
+{%endraw%}
 ```
 
 #### Step 10

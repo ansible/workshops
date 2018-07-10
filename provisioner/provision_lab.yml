@@ -89,6 +89,12 @@
   roles:
     - { role: network_hostroutes, when: networking is defined and networking }
 
+- name: GATHER AWS FACTS FOR ROUTERS
+  hosts: access,core
+  connection: local
+  gather_facts: no
+  roles:
+    - { role: gather_router_facts }
 
 - name: CONFIGURE ACCESS ROUTERS
   hosts: access
@@ -104,7 +110,7 @@
 
 - name: CONFIGURE CORE ROUTERS
   hosts: core
-  connection: network_cli
+  connection: local
   gather_facts: no
 
   roles:
@@ -117,7 +123,7 @@
 
 - name: CONFIGURE CORE ROUTERS
   hosts: dmvpn
-  connection: network_cli
+  connection: local
   gather_facts: no
 
   roles:

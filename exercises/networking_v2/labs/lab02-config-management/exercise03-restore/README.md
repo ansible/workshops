@@ -74,6 +74,7 @@ Create a file called `restore_config.yml` using your favorite text editor and ad
 Write the task to copy over the previously backed up configuration file to the routers.
 
 ``` yaml
+{%raw%}
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -84,7 +85,7 @@ Write the task to copy over the previously backed up configuration file to the r
     - name: COPY RUNNING CONFIG TO ROUTER
       command: scp ./backup/{{inventory_hostname}}.config  {{inventory_hostname}}:/{{inventory_hostname}}.config
 
-
+{%endraw%}
 ```
 
 > Note the use of the **inventory_hostname** variable. For each device in the inventory file under the cisco group, this task will secure copy (scp) over the file that corresponds to the device name onto the bootflash: of the CSR devices.
@@ -170,6 +171,7 @@ Now that the known good configuration is on the destination devices, add a new t
 
 
 ``` yaml
+{%raw%}
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -185,7 +187,7 @@ Now that the known good configuration is on the destination devices, add a new t
         commands:
           - config replace flash:{{inventory_hostname}}.config force
 
-
+{%endraw%}
 ```
 
 

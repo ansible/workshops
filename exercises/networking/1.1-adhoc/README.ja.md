@@ -29,10 +29,10 @@ ansible control -m ping
 ```bash
 ansible control -m ping
 ```
+
 全てのAnsibleモジュールの関連オプションは、各モジュール毎にドキュメントページが存在しています。[Ansible ping モジュールはこちら](http://docs.ansible.com/ansible/latest/ping_module.html)
 
 ### ステップ 2: Command
-
 Linuxコマンド形式で `command` モジュールを実行してみましょう。
 ```bash
 ansible control -m command -a "uptime" -o
@@ -58,9 +58,7 @@ ios_command モジュールを使い、インターフェースサマリを収�
 ansible routers -m ios_command -a 'commands="show ip int br"' -c network_cli
 ```
 Ansible ドキュメントページはこちら [ios_command モジュール](http://docs.ansible.com/ansible/latest/ios_command_module.html)
-
 ### ステップ 5: ios_banner
-
 これらを変更する前にルーターのバナーをチェックします。
 ```bash
 ansible routers -m ios_command -a 'commands="show banner motd"' -c network_cli
@@ -89,7 +87,6 @@ ansible routers -m ios_banner -a 'banner=motd state=absent' -c network_cli
 
 # 完了
 演習 1.1 はこれで完了です。
-You have completed lab exercise 1.1
 
  ---
 [Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

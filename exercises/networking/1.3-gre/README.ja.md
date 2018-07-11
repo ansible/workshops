@@ -4,7 +4,7 @@
 
 playbookを作成する前に、何を作成するかを見ていきましょう。
 - VPC-1、VPC-2と、2つのVPCがあります。rtr1 と rtr2 がそれぞれの VPC に存在します
-  rtr1 と rtr2 間のGREトンネルを利用して、2つのVPCをブリッジさせます
+- rtr1 と rtr2 間のGREトンネルを利用して、2つのVPCをブリッジさせます
 
 ![diagram](../diagram.png)
 
@@ -26,7 +26,7 @@ playbookを作成する前に、何を作成するかを見ていきましょう
 ## ステップ 1: workshop ディレクトリへの移動
 
 ```bash
-cd ~/networking_workshop
+cd ~/networking-workshop
 ```
 
 ## ステップ 2: Lplaybook gre.yml を作ってみよう
@@ -48,41 +48,39 @@ vim gre.yml
 ```
 
 また **2つの変数** が必要です。rtr1 と rtr2 のパブリックIPが必要です。なお、これらのIPアドレスはワークショップ参加者それぞれで異なる状態である必要があります。 Ansibleノード上の `~/networking_workshop/lab_inventory/hosts` にパブリックIPアドレスを見つけることができます。ここではそれらをそれぞれ `rtr1_public_ip` と `rtr2_public_ip` と呼びます。一旦IPアドレスは 1.1.1.1 と 2.2.2.2 としていますが、これらを置き換えてください。または以下のように動的モードを使用してください:
-
 ```yml
-vars:
-   #Variables can be manually set like this:
-   rtr1_public_ip: "1.1.1.1"
-   rtr2_public_ip: "2.2.2.2"
+  vars:
+     #Variables can be manually set like this:
+     rtr1_public_ip: "1.1.1.1"
+     rtr2_public_ip: "2.2.2.2"
 ```
 
 または以下のように他のホスト変数を動的に参照することもできます:
 
 {% raw %}
 ```yml
-vars:
-  rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
-  rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
+  vars:
+    rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
+    rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
 ```
 {% endraw %}
 
-hostvars は、ホスト定義変数を意味します。`rtr1` と `rtr2` は具体的ホストを表しています。`ansible_host`はパブリックIPアドレス(Ansibleで接続する際に使うIPアドレス)を表しています。
-(which happens to also be the IP address we use to connect with Ansible)  これらのホスト変数はインベントリ `~/networking_workshop/lab_inventory/hosts` から収集されます。
+hostvars は、ホスト定義変数を意味します。`rtr1` と `rtr2` は具体的ホストを表しています。`ansible_host`はパブリックIPアドレス(Ansibleで接続する際に使うIPアドレス)を表しています。これらのホスト変数はインベントリ `~/networking_workshop/lab_inventory/hosts` から収集されます。
 
 ## ステップ 4: R1 用 task の追加
 
 {% raw %}
 ```bash
-tasks:
-- name: create tunnel interface to R2
-  ios_config:
-    lines:
-     - 'ip address 10.0.0.1 255.255.255.0'
-     - 'tunnel source GigabitEthernet1'
-     - 'tunnel destination {{rtr2_public_ip}}'
-    parents: interface Tunnel 0
-  when:
-    - '"rtr1" in inventory_hostname'
+  tasks:
+  - name: create tunnel interface to R2
+    ios_config:
+      lines:
+       - 'ip address 10.0.0.1 255.255.255.0'
+       - 'tunnel source GigabitEthernet1'
+       - 'tunnel destination {{rtr2_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr1" in inventory_hostname'
 ```    
 {% endraw %}
 
@@ -92,18 +90,17 @@ tasks:
 
 {% raw %}
 ```bash
-- name: create tunnel interface to R1
-  ios_config:
-    lines:
-     - 'ip address 10.0.0.2 255.255.255.0'
-     - 'tunnel source GigabitEthernet1'
-     - 'tunnel destination {{rtr1_public_ip}}'
-    parents: interface Tunnel 0
-  when:
-    - '"rtr2" in inventory_hostname'
+  - name: create tunnel interface to R1
+    ios_config:
+      lines:
+       - 'ip address 10.0.0.2 255.255.255.0'
+       - 'tunnel source GigabitEthernet1'
+       - 'tunnel destination {{rtr1_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr2" in inventory_hostname'
 ```
 {% endraw %}
-
 playbookを書き終えたら、保存しましょう。`vi` または `vim`にて、`write/quit` を使用(例: Escキー押下後、wq!実行)し、playbookを保存します。2つの playbookができました。では実行してみましょう。
 
 ## ステップ 6: playbook の実行
@@ -118,7 +115,7 @@ conditionals を使用したplaybookは完成です。このモジュールで�
 演習 1.3 のラボは完了です。
 
 # 答え
-[こちらをclick](https://github.com/network-automation/linklight/blob/master/演習s/networking/1.3-gre/gre.yml).
+[こちらをclick](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.3-gre/gre.yml).
 
  ---
 [Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)

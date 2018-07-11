@@ -60,7 +60,7 @@ vim router_configs.yml
     dns_servers:
       - 8.8.8.8
       - 8.8.4.4
-    host1_private_ip: "{{hostva‌rs['host1']['private_ip']}}"
+    host1_private_ip: "{{hostvars['host1']['private_ip']}}"
     control_private_ip: "{{hostvars['ansible']['private_ip']}}"
 ```      
 {% endraw %}
@@ -70,6 +70,7 @@ vim router_configs.yml
 
 {% raw %}
 ```
+  tasks:
     ##Configuration for R1
     - block:
       - name: Static route from R1 to R2
@@ -104,29 +105,29 @@ vim router_configs.yml
 
 {% raw %}
 ```yml
-##Configuration for R2
-- block:
-  - name: enable GigabitEthernet1 interface if compliant
-    net_interface:
-      name: GigabitEthernet1
-      description: interface to host1
-      state: present
-  - name: dhcp configuration for GigabitEthernet1
-    ios_config:
-      lines:
-        - ip address dhcp
-      parents: interface GigabitEthernet1
-  - name: Static route from R2 to R1
-    net_static_route:
-      prefix: "{{control_private_ip}}"
-      mask: 255.255.255.255
-      next_hop: 10.0.0.1
-  - name: configure name servers
-    net_system:
-      name_servers: "{{item}}"
-    with_items: "{{dns_servers}}"
-  when:
-    - '"rtr2" in inventory_hostname'
+    ##Configuration for R2
+    - block:
+      - name: enable GigabitEthernet1 interface if compliant
+        net_interface:
+          name: GigabitEthernet1
+          description: interface to host1
+          state: present
+      - name: dhcp configuration for GigabitEthernet1
+        ios_config:
+          lines:
+            - ip address dhcp
+          parents: interface GigabitEthernet1
+      - name: Static route from R2 to R1
+        net_static_route:
+          prefix: "{{control_private_ip}}"
+          mask: 255.255.255.255
+          next_hop: 10.0.0.1
+      - name: configure name servers
+        net_system:
+          name_servers: "{{item}}"
+        with_items: "{{dns_servers}}"
+      when:
+        - '"rtr2" in inventory_hostname'
 ```
 {% endraw %}
 
@@ -184,6 +185,15 @@ PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
 64 bytes from 172.18.4.188: icmp_seq=3 ttl=62 time=3.52 ms
 ```
 **Note** IPアドレスは172.18.4.188とは違うかもしれません!
+
+**Help!** ping が動かない場合
+まれに host route (Ansible コントローラーノードから rtr1, host1 から rtr2) が正しく設定されてない場合があります, これは本来 provisioner での初期設定時に完了されているべきものです、しかし簡単にAnsibleから修正することが可能です。
+
+`host-routes.yml` playbook を実行してください。
+
+```bash
+ansible-playbook host-routes.yml
+```
 
 # Answer Key
 [ここをクリック](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.4-router_configs/router_configs.yml).

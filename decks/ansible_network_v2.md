@@ -10,6 +10,12 @@ Note: TODO - check on branding/lettering
 
 
 
+# According to Gartner...
+<section data-background-image="images/gartner.svg"></section>
+
+
+
+
 # Automation considerations
 
 - Compute is no longer the slowest link in the chain
@@ -75,9 +81,13 @@ Ansible Tower is an enterprise framework for controlling, securing and managing 
 
 
 
-# Understanding Ansible vocabulary
+# Playbooks
 
 <img src="images/how-ansible-works-diagram-02.svg" />
+
+
+# Inventory
+<img src="images/networking-how-ansible-works-diagram-05.svg" />
 
 
 
@@ -91,9 +101,57 @@ Ansible Tower is an enterprise framework for controlling, securing and managing 
 
 
 
+# Understanding inventory
+<div class="columns">
+    <div class="col">
+<pre>
+```
+10.1.1.2
+192.168.1.2
+core1.nw.com
+core2.nw.com
+access1.nw.com
+access2.nw.com
+```</pre>
 
-# Inventory
-<img src="images/networking-how-ansible-works-diagram-05.svg" />
+</div>
+<div></div>
+
+
+
+
+# Inventory - Groups
+
+<div class="columns">
+    <div class="col">
+<pre>
+```
+[atl]
+10.1.1.2
+192.168.1.2
+    
+[core]
+core1.nw.com
+core2.nw.com
+    
+[access]
+access1.nw.com
+access2.nw.com
+```</pre>
+There is always a group called **all** present
+
+</div>
+
+<div></div>
+
+
+
+# A sample playbook
+
+
+
+>>> Lab 1?
+
 
 
 

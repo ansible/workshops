@@ -10,10 +10,11 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
 
   * [Presentation Decks](decks)  
     Presentation decks use the [reveal.js framework](http://lab.hakim.se/reveal-js/)
+    Press `s` for speaker notes
 
-     - [Ansible Essentials](decks/ansible-essentials.html)
-     - [Intro to Ansible Tower](decks/intro-to-ansible-tower.html)
-     - [Ansible Networking](decks/ansible-networking.html)
+     - [Ansible Essentials](https://network-automation.github.io/linklight/decks/ansible-essentials.html)
+     - [Intro to Ansible Tower](https://network-automation.github.io/linklight/decks/intro-to-ansible-tower.html)
+     - [Ansible Networking](https://network-automation.github.io/linklight/decks/ansible-networking.html#)
 
   * [Exercises](exercises)  
     Step-by-step exercises provided for learning how to automate with Ansible.

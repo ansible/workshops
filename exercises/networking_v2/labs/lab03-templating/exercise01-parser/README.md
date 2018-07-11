@@ -165,6 +165,7 @@ Feel free to view the contents of the parser file. You will notice how it uses r
 Add a new task to view the contents being returned by the `command_parser`
 
 ``` yaml
+{%raw%}
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -189,7 +190,7 @@ Add a new task to view the contents being returned by the `command_parser`
     - name: DISPLAY THE PARSED DATA
       debug:
         var: interface_facts
-
+{%endraw%}
 ```
 
 
@@ -307,6 +308,7 @@ Our next step is to use the template module to generate a report from the above 
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -344,7 +346,7 @@ Our next step is to use the template module to generate a report from the above 
       delegate_to: localhost
       run_once: yes
 
-
+{%endraw%}
 
 ```
 

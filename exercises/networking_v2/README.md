@@ -16,6 +16,9 @@ Want the Presentation Deck?  Its right here:
 If you attend an in-person workshop, please fill out the survey!
 -> [Click for Survey](http://bit.ly/net-lightbulb-survey) <-
 
+## Network Diagram
+![Red Hat Ansible Automation](../../images/network_diagram.png)
+
 ## Additional information
  - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
  - [List of Networking Ansible Modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html)

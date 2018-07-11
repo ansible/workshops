@@ -35,6 +35,7 @@ In the previous section, you learned how to use the `ios_facts` module to collec
 The `ios_command` module allows you to do that. Go ahead and add another task to the playbook to collect the output of 2 _show_ commands to collect the **hostname** and the output of the `show ip interface brief` commands:
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -59,6 +60,7 @@ The `ios_command` module allows you to do that. Go ahead and add another task to
         commands:
           - show run | i hostname
           - show ip interface brief
+{%endraw%}
 ```
 
 > Note: **commands** is a parameter required by the **ios_module**. The input to this parameter is a "list" of IOS commands.
@@ -154,6 +156,7 @@ With the `ios_facts` module, the output was automatically assigned to the `ansib
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -179,7 +182,7 @@ With the `ios_facts` module, the output was automatically assigned to the `ansib
           - show ip interface brief
       tags: show
       register: show_output
-
+{%endraw%}
 
 ```
 
@@ -191,6 +194,7 @@ Add a task to use the `debug` module to display the content's of the `show_outpu
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -221,8 +225,7 @@ Add a task to use the `debug` module to display the content's of the `show_outpu
       debug:
         var: show_output
       tags: show
-
-
+{%endraw%}
 ```
 
 > Note the use of **var** vs **msg** for the debug module.
@@ -289,6 +292,7 @@ Write a new task to display only the hostname using a debug command:
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -324,6 +328,7 @@ Write a new task to display only the hostname using a debug command:
       debug:
         msg: "The hostname is {{ show_output.stdout[0] }}"
       tags: show
+{%endraw%}
 ```
 
 #### Step 10

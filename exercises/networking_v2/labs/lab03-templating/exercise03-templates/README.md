@@ -48,6 +48,7 @@ Rather than using debug or verbose mode to display the output on the screen, go 
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -62,6 +63,7 @@ Rather than using debug or verbose mode to display the output on the screen, go 
       template:
         src: os_report.j2
         dest: reports/{{ inventory_hostname }}.md
+{%endraw%}
 ```
 
 
@@ -176,6 +178,7 @@ While it is nice to have the data, it would be even better to consolidate all th
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -197,6 +200,7 @@ While it is nice to have the data, it would be even better to consolidate all th
         dest: network_os_report.md
       delegate_to: localhost
       run_once: yes
+{%endraw%}
 ```
 
 

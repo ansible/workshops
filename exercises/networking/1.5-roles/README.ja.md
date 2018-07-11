@@ -10,7 +10,6 @@ Ansible ロールがその方法です。ロールはPlaybookを部品に分解�
 
 ![Figure 1: playbook role directory structure](roles.png)
 
-Fortunately, you don’t have to create all of these directories and files by hand. That’s where Ansible Galaxy comes in.
 幸運にもこれらのディレクトリ全てを手で作る必要はありません。それは Ansible Galaxy がやってくれます。
 
 ## セクション 1 - Ansible Galaxy を使って新ロールを初期化
@@ -31,17 +30,43 @@ $ mkdir roles
 $ cd roles
 ```
 
-### ステップ 3: ansible-galaxy コマンドを使って system という新ロールを初期化する
+### ステップ 3: ansible-galaxy コマンドを使って system, interface, static_route という新ロールを初期化する
 
 ```bash
 $ ansible-galaxy init system
+$ ansible-galaxy init interface
+$ ansible-galaxy init static_route
+
+$ ls -l
+.
+├── interface
+│   ├── defaults
+│   │   └── main.yml
+│   ├── files
+│   ├── handlers
+│   │   └── main.yml
+│   ├── meta
+│   │   └── main.yml
+│   ├── README.md
+│   ├── tasks
+│   │   └── main.yml
+│   ├── templates
+│   ├── tests
+│   │   ├── inventory
+│   │   └── test.yml
+│   └── vars
+│       └── main.yml
+├── static_route
+│   ├── defaults
+│   │   └── main.yml
+...
 ```
 
 ### ステップ 4: tests ディレクトリ以下のファイルを削除する
 
 ```bash
-$ cd ~/test/roles/system/
-$ rm -rf files tests
+$ cd ~/test/roles/
+$ rm -rf roles/{system,interface,static_route}/{files,tests}
 ```
 
 ## セクション 2: router_configs.yml playbook を新しく作った system ロールに分解する
@@ -50,8 +75,15 @@ $ rm -rf files tests
 
 ### ステップ 1: router_configs.yml のバックアップコピーを作り、新しく deploy_network.yml を作ります。
 
+前の演習から router_configs をコピーします。
+
+```
+$ cp ~/networking-workshop/router_configs.yml ~/test
+```
+
+deploy_network.yml を新規に作成します。
+
 ```bash
-$ mv router_configs.yml router_configs.yml.bkup
 $ vim deploy_network.yml
 ```
 
@@ -75,7 +107,13 @@ dns_servers:
   - 8.8.4.4
 ```
 
-### ステップ 4: group_vars/all.yml にグローバル変数を追加します
+### ステップ 4: `group_vars/all.yml` にグローバル変数を追加します
+
+```bash
+$ ~/test
+$ mkdir group_vars
+$ vim group_vars/all.yml
+```
 
 ```yml
 ---
@@ -95,11 +133,9 @@ host1_private_ip と control_private_ip を lab_inventory から転記します
  - playbook の `vars:` セクション下
  - どのファイルでもコマンドラインの `--extra_vars` -  オプションで指定できます
 
-どこで変数を定義するか、どの場所が優先されるかについての情報は [変数の優先について](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) を参照してください。
-この演習ではいくつかの変数の定義にdefaultsを使用していますが、これは最も上書きされやすい場所です。その他に `/vars` にもいくつかの変数を定義していますが、こちらはdefaultsより高い優先度もっているのでデフォルト値に上書きされる事はありません。
+どこで変数を定義するか、どの場所が優先されるかについての情報は [変数の優先について](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) を参照してください。この演習ではいくつかの変数の定義にdefaultsを使用していますが、これは最も上書きされやすい場所です。その他に `/vars` にもいくつかの変数を定義していますが、こちらはdefaultsより高い優先度もっているのでデフォルト値に上書きされる事はありません。
 
-
-### ステップ 6: roles/system/tasks/main.yml にタスクを追加
+### ステップ 6: `roles/system/tasks/main.yml` にタスクを追加
 
 ```yml
 ---
@@ -112,7 +148,7 @@ host1_private_ip と control_private_ip を lab_inventory から転記します
   with_items: "{{dns_servers}}"
 ```        
 
-### ステップ 7: もう2つのロールを追加します: 一つ目は interface 、そして2つ目は static_route です
+### ステップ 7: もう2つのロールを編集します: 一つ目は interface 、そして2つ目は static_route です
 
 For `roles/interface/tasks/main.yml`:
 
@@ -134,7 +170,7 @@ For `roles/interface/tasks/main.yml`:
     - '"rtr2" in inventory_hostname'
 ```
 
-For `roles/interfaces/tasks/static_route`:
+For `roles/static_route/tasks/main.yml`:
 ```yml
 ##Configuration for R1
 - name: Static route from R1 to R2
@@ -157,7 +193,7 @@ For `roles/interfaces/tasks/static_route`:
     - '"rtr2" in inventory_hostname'
 ```
 
-### ステップ 8: ロールをマスターplaybookである deploy_network.yml に追加します
+### ステップ 8: ロールをマスターplaybookである `deploy_network.yml` に追加します
 
 ```yml
 ---
@@ -169,7 +205,6 @@ For `roles/interfaces/tasks/static_route`:
     - interface
     - static_route
 ```
-
 
 ## セクション 3: ロールベースのPlaybookを実行する
 元のPlaybookは無事にRoleに分解されました。さっそく実行してみてましょう。

@@ -1,141 +1,82 @@
-# What You Will Learn
-Ansible is capable of handling many powerful automation tasks with the flexibility to adapt to many environments and workflows. With Ansible, users can very quickly get up and running to do real work.
+# Managing networks hasn't changed in 30 years
 
-- What is Ansible and The Ansible Way
-- Installing Ansible
-- How Ansible Works and its Key Components
-- Ad-Hoc Commands
-- Playbook Basics
-- Reuse and Redistribution of Ansible Content with Roles
+- Networks are mission critical
+- Every network is a unique snowflake
+- Ad-hoc changes that proliferate 
+- Vendor specific implementations
+- Testing is expensive/impossible
+
+Note: TODO - check on branding/lettering
+
+
+
+# Automation considerations
+
+- Compute is no longer the slowest link in the chain
+- Businesses demand that networks deliver at the speed of cloud 
+- Automation of repeatable tasks 
+- Bridge silos
+
+Note: TODO - Transition slide from problem to solution.
 
 
 
 # What is Ansible?
-It's a **simple automation language** that can perfectly describe an IT application infrastructure in Ansible Playbooks.
+Red Hat Ansible network automation is enterprise software for automating and managing IT infrastructure.
 
-It's an **automation engine** that runs Ansible Playbooks.
+As a vendor agnostic framework Ansible can automate Arista (EOS), Cisco (IOS, IOS XR, NX-OS), Juniper (JunOS), Open vSwitch and VyOS.
 
 Ansible Tower is an enterprise framework for controlling, securing and managing your Ansible automation with a **UI and RESTful API.**
 
 
 
+    
 
 <section data-background-image="images/simple-powerful-agentless-diagram.svg">
+</section>
 
 
 
-
-# The Ansible Way
-
-**CROSS PLATFORM** – Linux, Windows, UNIX, Cisco, Juniper, Arista, Cumulus
-Agentless support for all major OS variants, physical, virtual, cloud and network
-
-**HUMAN READABLE** – YAML
-Perfectly describe and document every aspect of your application environment
-
-**DYNAMIC INVENTORIE**S
-Capture all the network hosts 100% of the time, regardless of infrastructure, location, etc.
+# Ansible: The universal automation framework
+<section data-background-image="images/language.svg"></section>
 
 
 
-# Ansible: The Language of DevOps
-
-<div style="text-align:center;">
-<img src="images/devops-language-diagram.svg" width="60%" height="60%" style="padding-top: 20px;"/>
-</div>
+<section data-background-image="images/network_automation.svg"></section>
 
 
 
-# Batteries Included
-Ansible comes bundled with hundreds of modules for a wide variety of automation tasks
+# Common use cases 
 
-<div class="columns">
-<div class="col">
-  <ul>
-   <li>cloud</li>
-   <li>containers</li>
-   <li>database</li>
-   <li>files</li>
-   <li>messaging</li>
-   <li>monitoring</li>
- </ul>
-</div>
-<div class="col">
-  <ul>
-   <li>networking</li>
-    <li>notifications</li>
-    <li>packaging</li>
-    <li>system</li>
-    <li>testing</li>
-    <li>utilities</li>
-  </ul>
-</div>
-</div>
-
-Ansible Modules control the things that you’re automating. They can do everything from acting on system files, installing packages, or making API calls to a service framework.
+- Backup and restore device configurations
+- Upgrade network device OS
+- Ensure configuration compliance
+- Generate dynamic documentation
 
 
 
+# Common use cases - automating discrete tasks
+- Ensure VlANs are present/absent
+- Enable/Disable netflow on WAN interfaces
+- Manage firewall access list entries
 
-<section data-background-image="images/most_meetups.svg">
-
-
-
-<section data-background-image="images/most_contrib.svg">
-
-
-
-<section data-background-image="images/most_searched.svg">
-
-
-
-<section data-background-image="images/network_automation.svg">
-
-
-
-<section data-background-image="images/build.svg">
-
-
-
-<section data-background-image="images/manage.svg">
-
-
-
-<section data-background-image="images/scale.svg">
-
-
-
-# Installing Ansible
-
-``` bash
-# the most common and preferred way of
-# installation
-$ sudo pip install ansible
-
-# you will need the EPEL repo configured on
-# CentOS, RHEL, or Scientific Linux
-$ sudo yum install ansible
-
-# you will need the PPA repo configured on
-# Debian or Ubuntu
-$ sudo apt-get install ansible
-
-```
-
-
-
-<section data-state="title alt">
-# Demo Time: 
-# Installing Ansible
 
 
 
 # How Ansible Works
+
+![how it works](images/local_execution.svg)
+
+
+
+
+# Understanding Ansible vocabulary
 <img src="images/how-ansible-works-diagram-01.svg" />
 
 
 
-# Plays & Playbooks
+# Understanding Ansible vocabulary
+
 <img src="images/how-ansible-works-diagram-02.svg" />
 
 

@@ -170,22 +170,21 @@ access2.nw.com
 
 
 # Inventory - variables
+
 <div class="columns">
     <div class="col">
-<pre>
 
+<pre>
 ```
 [all:vars]
 ansible_username=admin
 ansible_password=pa55w0rd
-domain=ansible.com
 snmp_ro=public123
 snmp_rw=private123
 
 [east-coast:vars]
 ntp_server=10.99.99.99
 anycast=169.1.1.1
-
 
 [DC:children]
 core
@@ -204,21 +203,14 @@ core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123
 core2.nw.com
     
 [access]
-access1.nw.com
-access2.nw.com```</pre>
-
+access1.nw.com ansible_username=localadmin
+access2.nw.com 
+```</pre>
 </div>
-<div>
-<p>- Playbook is a list of plays. </p>
-
-<p>- Each play is a list of tasks.</p>
-
-<p>- Tasks invoke modules.</p>
-
-A playbook can contain more than one play
-
-</div>
-
+<div> 
+<p>- Group variables apply for all devices in that group </p>
+<p>- Host variables apply to the host and overrides group vars </p>
+</div> 
 
 
 
@@ -259,8 +251,113 @@ A playbook can contain more than one play
 
 
 
+# Lab Time
+
+#### Lab 1: Section 1
+
+In this lab you will explore the lab environment and build familiarity with the lab inventory.
+
+Approximate time: 20 mins
+
+
+
+# Playbook definition for network automation
+
+- Target play execution using **`hosts`**
+- Define the connection : **`network_cli`**
+- About **`gather_facts`**
+
+
+
+# Running a playbook
+
+``` bash
+[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
+
+PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
+
+TASK [GATHER ROUTER FACTS] ******************************************************************************
+ok: [rtr1]
+ok: [rtr4]
+ok: [rtr3]
+ok: [rtr2]
+
+PLAY RECAP **********************************************************************************************
+rtr1                       : ok=1    changed=0    unreachable=0    failed=0   
+rtr2                       : ok=1    changed=0    unreachable=0    failed=0   
+rtr3                       : ok=1    changed=0    unreachable=0    failed=0   
+rtr4                       : ok=1    changed=0    unreachable=0    failed=0   
+
+[student1@ip-172-16-101-121 networking-workshop]$
+
+```
+
+
+
+
+# Displaying output
+
+Use the optional **verbose** flag during playbook execution 
+
+``` bash
+student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v
+Using /home/student1/.ansible.cfg as config file
+
+PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
+
+TASK [GATHER ROUTER FACTS] ******************************************************************************
+ok: [rtr3] => {"ansible_facts": {"ansible_net_all_ipv4_addresses": ["10.100.100.3", "192.168.3.103", "172.16.235.46", 
+"192.168.35.101", "10.3.3.103"], "ansible_net_all_ipv6_addresses": [], "ansible_net_filesystems": ["bootflash:"],
+"ansible_net_gather_subset": ["hardware", "default", "interfaces"], "ansible_net_hostname": "rtr3", "ansible_net_image": 
+"boot:packages.conf", "ansible_net_interfaces": {"GigabitEthernet1": {"bandwidth": 1000000, "description": null, "duplex":"Full", 
+"ipv4": [{"address": "172.16.235.46", "subnet": "16"}], "lineprotocol": "up ", "macaddress": "0e93.7710.e63c", "mediatype": "Virtual",
+"mtu": 1500, "operstatus": "up", "type": "CSR vNIC"}, "Loopback0": {"bandwidth": 8000000, "description": null, "duplex": null, "ipv4": [{"address": "192.168.3.103", "subnet": "24"}], "lineprotocol": "up ", "macaddress": "192.168.3.103/24", "mediatype": null, 
+"mtu": 1514, "operstatus": "up", "type": null}, "Loopback1": {"bandwidth": 8000000, "description": null, 
+"duplex": null, "ipv4": [{"address": "10.3.3.103", 
+"subnet": "24"}], "lineprotocol": "up ", "macaddress": "10.3.3.103/24", "mediatype": null, "mtu": 1514, "operstatus": "up", "type": null},
+"Tunnel0": {"bandwidth": 100, "description": null, "duplex": null, "ipv4": [{"address": "10.100.100.3", "subnet": "24"}]
+
+.
+.
+.
+.
+.
+<output truncated for readability>
+```
+
+_Increase the level of verbosity by adding more "v's" -vvvv_
+
+
+
+# Limiting playbook execution
+
+Playbook execution can be limited to a subset of devices using the **--limit** flag.
+
+``` bash
+$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
+```
+
+
+
+# A note about special variables
+
+Other than the user defined variables, Ansible supports many **special** inbuilt variables. For example
+
+| Variable           | Explanation                                           |
+|--------------------|-------------------------------------------------------|
+| ansible_*          | Output of fact gathering                              |
+| inventory_hostname | Name of the device the task is executing against      |
+| hostvars           | A dictionary variable whose key is inventory_hostname |
+|                    |                                                       |
+
+
+
 # Modules
-Modules do the actual work in ansible, they are what gets executed in each playbook task. But you can also run a module ad-hoc using the ansible command.
+Modules do the actual work in ansible, they are what gets executed in each playbook task. 
+
+
+# Modules
+Modules do the actual work in ansible, they are what gets executed in each playbook task. 
           <div class="columns">
             <div class="col">
               <ul>
@@ -344,181 +441,6 @@ Options (= is mandatory):
 ```
 
 
-
-# Modules: Run Commands
-
-If Ansible doesn’t have a module that suits your needs there are the “run command” modules:
-
-- **command**: Takes the command and executes it on the host. The most secure and predictable.
-- **ios_command**: Sends arbitrary commands to an ios node and returns the results read from the device.
-
-**NOTE**: Unlike standard modules, run commands have no concept of desired state and should only be used as a last resort.
-
-
-
-
-# How it works
-<img src="images/local_execution.svg">
-
-
-
-
-# Inventory
-Inventory is a collection of hosts (nodes) with associated data and groupings that Ansible can connect and manage.
-
-- Hosts (nodes)
-- Groups
-- Inventory-specific data (variables)
-- Static or dynamic sources
-
-
-
-# Static Inventory Example
-This inventory will work but is not human readable.
-
-``` yaml
-10.42.0.2
-10.42.0.6
-10.42.0.7
-10.42.0.8
-10.42.0.100
-host.example.com
-
-```
-
-
-
-# Static Inventory Example
-
-``` ini
-[all:vars]
-ansible_user=lcage
-ansible_ssh_pass=ansible
-ansible_port=22
-
-[routers]
-rtr1 ansible_host=54.174.116.49 ansible_user=ec2-user ansible_network_os=ios
-rtr2 ansible_host=54.86.17.101 ansible_user=ec2-user ansible_network_os=ios
-[hosts]
-host1 ansible_host=34.224.57.27 ansible_user=ec2-user
-[control]
-ansible ansible_host=34.228.79.198 ansible_user=ec2-user
-```
-
-
-
-
-# Ad-Hoc Commands
-An ad-hoc command is a single Ansible task to perform quickly, but don’t want to save for later.
-
-
-
-
-# Ad-Hoc Commands: Common Options
-- **-m MODULE_NAME, --module-name=MODULE_NAME**
-
-   Module name to execute the ad-hoc command
-- **-a MODULE_ARGS, --args=MODULE_ARGS**
-
-   Module arguments for the ad-hoc command
-- **-b, --become**
-
-   Run ad-hoc command with elevated rights such as sudo (Linux) or enable (Networking)
-- **-e EXTRA_VARS, --extra-vars=EXTRA_VARS**
-
-   Set additional variables as key=value or YAML/JSON
-   
-- **--version**
-
-   Display the version of Ansible
-- **--help**
-
-   Display the MAN page for the ansible tool
-
-
-
-# Ad-Hoc Commands
-
-``` ini
-
-# check all my inventory hosts are ready to be
-# managed by Ansible
-$ ansible all -m ping
-
-# collect and display the discovered facts
-# for the localhost
-$ ansible localhost -m setup
-
-# run the uptime command on all hosts in the
-# web group
-$ ansible web -m command -a "uptime"
-          
-```
-
-
-
-# Sidebar: Discovered Facts
-
-Facts are bits of information derived from examining a host systems that are stored as variables for later use in a play.
-
-```
-$ ansible localhost -m setup
-localhost | success >> {
-  "ansible_facts": {
-      "ansible_default_ipv4": {
-          "address": "192.168.1.37",
-          "alias": "wlan0",
-          "gateway": "192.168.1.1",
-          "interface": "wlan0",
-          "macaddress": "c4:85:08:3b:a9:16",
-          "mtu": 1500,
-          "netmask": "255.255.255.0",
-          "network": "192.168.1.0",
-          "type": "ether"
-      },
-      
-```
-
-
-
-# Sidebar: Network Facts
-For non-Linux systems there are vendor specific modules for fact collection.
-
-``` bash
-
-$ ansible -m ios_facts routers
-student1-rtr1.net-ws.redhatgov.io | SUCCESS => {
-    "ansible_facts": {
-        "ansible_net_all_ipv4_addresses": [
-            "172.17.1.238"
-        ],
-        "ansible_net_all_ipv6_addresses": [],
-        "ansible_net_filesystems": [
-            "bootflash:"
-        ],
-        "ansible_net_gather_subset": [
-            "hardware",
-            "default",
-            "interfaces"
-        ],
-        "ansible_net_hostname": "ip-172-17-1-238",
-        "ansible_net_image": "bootflash:csr1000v-universalk9.16.05.01b.SPA.bin",
-```
-
-
-
-<section data-state="title alt">
-# Demo Time: 
-# Ad-Hoc Commands
-### Exercise 1.1 - Running Ad-hoc commands
-
-
-
-
-<section data-state="title alt">
-# Workshop: 
-# Ad-Hoc Commands
-### Exercise 1.1 - Running Ad-hoc commands
 
 
 

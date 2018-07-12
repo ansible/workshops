@@ -597,374 +597,92 @@ The backup parameter of the **ios_config** module triggers the backup and automa
 
 
 
+# Cleaning up the backed up configuration
+
+The backed up configuration has 2 lines that should be removed:
+
+``` shell
+Building configuration...
+
+Current configuration with default configurations exposed : 393416 bytes
+
+```
+
+The **lineinfile** module is a general purpose module that is used for manipulating file contents. 
 
 
 
-
-
-# Variables
-Ansible can work with metadata from various sources and manage their context in the form of variables.
-
-- Command line parameters
-- Plays and tasks
-- Files
-- Inventory
-- Discovered facts
-- Roles
-
-
-
-# Variable Precedence
-The order in which the same variable from different sources will override each other.
-
-<div class="columns">
-  <div class="col">
-    <ol>
-      <li>extra vars</li>
-      <li>task vars (only for the task)</li>
-      <li>block vars (only for tasks in block)</li>
-      <li>role and include vars</li>
-      <li>play vars_files</li>
-      <li>play vars_prompt</li>
-      <li>play vars</li>
-      <li>set_facts</li>
-    </ol>
-  </div>
-  <div class="col">
-    <ol start="9" class="col">
-      <li>registered vars</li>
-      <li>host facts</li>
-      <li>playbook host_vars</li>
-      <li>playbook group_vars</li>
-      <li><strong>inventory host_vars</strong></li>
-      <li><strong>inventory group_vars</strong></li>
-      <li>inventory vars</li>
-      <li>role defaults</li>
-    </ol>
-  </div>
-</div>
-
-
-
-# Tasks
-Tasks are the application of a module to perform a specific unit of work.
-
-- **file**: A directory should exist
-- **yum**: A package should be installed
-
-There are also tasks for network devices as well
-
-- **ios_facts**: collect the version of code running on Cisco IOS/IOS-XE
-- **ios_system**: configure DNS server(s) on Cisco IOS/IOS-XE
-- **nxos_snmp_user**: add an SNMP user on Cisco NX-OS
-- **eos_command**: turn off a port on Arista EOS
-- **junos_banner**: manage the banner on Juniper Junos OS
-
-
-
-
-# Example Tasks in a Play
+# Clean up (Contd..)
+Cleaning up an exact line match
 
 ``` yaml
-tasks:
-  - name: gather ios_facts
-    ios_facts:
-    register: version
-
-  - debug:
-      msg: "{{version}}"
-
-  - name: Backup configuration
-    ios_config:
-      backup: yes
-      
+    - name: REMOVE NON CONFIG LINES
+      lineinfile:
+        path: "./backup/{{inventory_hostname}}.config"
+        line: "Building configuration..."
+        state: absent
 ```
 
 
 
 
-# Plays & Playbooks
-Plays are ordered sets of tasks to execute against host selections from your inventory. A playbook is a file containing one or more plays.
+# Clean up (Contd..)
+Matching using a regular expression
+
+``` yaml
+    - name: REMOVE NON CONFIG LINES - REGEXP
+      lineinfile:
+        path: "./backup/{{inventory_hostname}}.config"
+        regexp: 'Current configuration.*'
+        state: absent
+```
+
+
+
+# Restoring the configuration
+If any out of band changes were made to the device and it needs to be restored to the last known good configuration, we could take the following approach:
+
+- Copy over the cleaned up configuration to the devices
+- Use vendor provided commands to restore the device configuration
+
+\*In our example we use the Cisco IOS command **config replace**. This allows for applying only the differences between running and the copied configuration
 
 
 
 
-# Playbook Example
+# Restoring (Contd..)
 
 ``` yaml
 ---
-- name: backup router configurations
-  hosts: routers
+- name: RESTORE CONFIGURATION
+  hosts: cisco
   connection: network_cli
   gather_facts: no
 
   tasks:
-    - name: gather ios_facts
-      ios_facts:
-      register: version
+    - name: COPY RUNNING CONFIG TO ROUTER
+      command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
 
-    - debug:
-        msg: "{{version}}"
+    - name: CONFIG REPLACE
+      ios_command:
+        commands:
+          - config replace flash:{{inventory_hostname}}.config force
 
-    - name: Backup configuration
-      ios_config:
-        backup: yes
-                  
+
 ```
 
-
-
-
-# Human-Meaningful Naming
-
- <pre><code data-noescape>
-
-   ---
-   - <mark>name: backup router configurations</mark>
-     hosts: routers
-     connection: network_cli
-     gather_facts: no
-   
-     tasks:
-       - <mark>name: gather ios_facts</mark>
-         ios_facts:
-         register: version
-   
-       - debug:
-           msg: "{{version}}"
-   
-       - <mark>name: Backup configuration</mark>
-         ios_config:
-           backup: yes
-</code></pre>
-
-
-
-
-# Host Selector
-
-<pre><code data-noescape>
-
-   ---
-   - name: backup router configurations
-     <mark>hosts: routers</mark>
-     connection: network_cli
-     gather_facts: no
-   
-     tasks:
-       - name: gather ios_facts
-         ios_facts:
-         register: version
-   
-       - debug:
-           msg: "{{version}}"
-   
-       - name: Backup configuration
-         ios_config:
-            backup: yes
-</code></pre>
-
-
-
-
-# Tasks
- <pre><code data-noescape>
- 
----
-- name: backup router configurations
-  hosts: routers
-  connection: network_cli
-  gather_facts: no
-
-  tasks:
-    - name: gather ios_facts
-      <mark>ios_facts:</mark>
-      <mark>register: version</mark>
-
-    - <mark>debug:</mark>
-        <mark>msg: "{{version}}"</mark>
-
-    - name: Backup configuration
-      <mark>ios_config:</mark>
-        <mark>backup: yes</mark>
-</code></pre>
-
+Note the use of **inventory_hostname** to effect host specific changes.
 
 
 
 <section data-state="title alt">
-# Demo Time:
-# Exercise 1.2 - Backing up Configurations
+# Lab Time
 
+#### Lab 2: Exercises 1 & 2
 
+In this lab you will implement a typical Day 2 Ops scenario of backing up and restoring device configurations. 
 
-
-<section data-state="title alt">
-# Workshop: 
-# Exercise 1.2 - Backing up Configurations
-
-
-
-
-# Variables - Recap
-- **host vars** - variable specific to one host
-- **group vars** - variables for all hosts within the group
-It is possible, but not required, to configure variables in the inventory file.
-
-
-
-
-# Inventory ini file
-
-``` ini
-[junos]
-vsrx01 ansible_host=an-vsrx-01.rhdemo.io private_ip=172.16.1.1
-vsrx02 ansible_host=an-vsrx-02.rhdemo.io private_ip=172.17.1.1
-
-[junos:vars]
-ansible_network_os=junos
-ansible_password=Ansible
-
-[ios]
-ios01 ansible_host=an-ios-01.rhdemo.io
-
-[ios:vars]
-ansible_network_os=ios
-ansible_become=yes
-ansible_become_method=enable
-ansible_become_pass=cisco
-```
-
-
-
-# Host Variables - hostvars
-<pre><code data-noescape>
-[junos]
-vsrx01 ansible_host=an-vsrx-01.rhdemo.io <mark>private_ip=172.16.1.1</mark>
-vsrx02 ansible_host=an-vsrx-02.rhdemo.io <mark>private_ip=172.17.1.1</mark>
-
-[junos:vars]
-ansible_network_os=junos
-ansible_password=Ansible
-
-[ios]
-ios01 ansible_host=an-ios-01.rhdemo.io
-
-[ios:vars]
-ansible_network_os=ios
-ansible_become=yes
-ansible_become_method=enable
-ansible_become_pass=cisco
-</pre></code>
-
-
-
-
-# Group Variables - groupvars
-<pre><code data-noescape>
-[junos]
-vsrx01 ansible_host=an-vsrx-01.rhdemo.io private_ip=172.16.1.1
-vsrx02 ansible_host=an-vsrx-02.rhdemo.io private_ip=172.17.1.1
-
-[junos:vars]
-<mark>ansible_network_os=junos
-ansible_password=Ansible</mark>
-
-[ios]
-ios01 ansible_host=an-ios-01.rhdemo.io
-
-[ios:vars]
-<mark>ansible_network_os=ios
-ansible_become=yes
-ansible_become_method=enable
-ansible_become_pass=cisco</mark>
-</pre></code>
-
-
-
-
-# Conditionals
-Ansible supports the conditional execution of a task based on the run-time evaluation of variable, fact, or previous task result.
-
-<pre><code data-noescape>
-- name: configure interface settings
-  ios_config:
-    lines:
-      - description shutdown by Ansible
-      - shutdown
-    parents: interface GigabitEthernet2
-  <mark>when: ansible_network_os == "ios"</mark>
-</code></pre>
-
-
-
-# Multi-Platform Playbooks
-
-``` yaml
-
-   - name: run on eos
-     include_tasks: tasks/eos.yml
-     when: ansible_network_os == eos
-
-   - name: run on ios
-     include_tasks: tasks/ios.yml
-     when: ansible_network_os == ios
-
-   - name: run on junos
-     include_tasks: tasks/junos.yml
-     when: ansible_network_os == junos
-
-   - name: run on nxos
-     include_tasks: tasks/nxos.yml
-     when: ansible_network_os == iosxr
-     
-```
-
-
-
-
-# Using a config module
-Manage configuration on a network platform
-
-```
-- name: configure top level configuration
-  ios_config:
-    lines: hostname {{ inventory_hostname }}
-
-- name: configure interface settings
-  ios_config:
-    lines:
-      - description test interface
-      - ip address 172.31.1.1 255.255.255.0
-    parents: interface Ethernet1
-
-- name: configure from a jinja2 template
-  ios_config:
-    src: config.j2
-        
-```
-
-
-
-
-# Exercise 1.3 - Network Diagram
-As a lab precursor look at the network diagram
-<img src="images/gre_diagram.png">
-
-
-
-
-<section data-state="title alt">
-# Demo Time: 
-# Exercise 1.3 - Creating a GRE Tunnel
-
-
-
-
-<section data-state="title alt">
-# Workshop: 
-# Exercise 1.3 - Creating a GRE Tunnel
-
+Approximate time: 30 mins
 
 
 

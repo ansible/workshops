@@ -251,6 +251,7 @@ A playbook can contain more than one play
 
 
 
+<section data-state="title alt">
 # Lab Time
 
 #### Lab 1: Section 1
@@ -356,32 +357,48 @@ Other than the user defined variables, Ansible supports many **special** inbuilt
 The **debug** module is used like a "print" statement in most programming languages.
 Variables are accessed using "{{ }}" - quoted curly braces
 
-
 #### Demo of the debug module
 
 
+
+<section data-state="title alt">
+# Lab time
+
+#### Lab 1: Section 2
+
+In this lab you will write your first playbook and run it to gather facts from Cisco routers. You will also practice the use of "verbose" and "limit" flags in addition to working with variables within a playbook.
+
+Approximate time: 20 mins
 
 
 
 # Modules
 Modules do the actual work in ansible, they are what gets executed in each playbook task. 
-          <div class="columns">
+- Typically written in Python (but not limited to it)
+- Modules are idempotent
+- Modules take user input in the form of parameters
+
+
+
+# Network modules
+Ansible modules for network automation typically references the vendor OS followed by the module name.
+    <div class="columns">
             <div class="col">
               <ul>
-                <li>\*os_facts</li>
-                <li>\*os_command</li>
-                <li>\*os\_config</li>
+                <li>\*_facts</li>
+                <li>\*_command</li>
+                <li>\*\_config</li>
                 <li>more modules depending on platform</li>
               </ul>
             </div>
             <div class="col">
               <ul>
-                <li>Arista EOS = eos\_</li>
-                <li>Cisco IOS/IOS-XE = ios\_</li>
-                <li>Cisco NX-OS = nxos\_</li>
-                <li>Cisco IOS-XR = iosxr\_</li>
-                <li>Juniper Junos = junos\_</li>
-                <li>VyOS = vyos\_</li>
+                <li>Arista EOS = eos\_\*</li>
+                <li>Cisco IOS/IOS-XE = ios\_\*</li>
+                <li>Cisco NX-OS = nxos\_\*</li>
+                <li>Cisco IOS-XR = iosxr\_\*</li>
+                <li>Juniper Junos = junos\_\*</li>
+                <li>VyOS = vyos\_\*</li>
               </ul>
             </div>
           </div>
@@ -447,6 +464,56 @@ Options (= is mandatory):
 ...
 ```
 
+
+
+# Limiting tasks within a play
+
+- **Tags** allow the user to selectively execute tasks within a play.
+- Multiple tags can be associated with a given task. 
+- Tags can also be applied to entire plays or roles.
+
+``` yaml
+    - name: DISPLAY THE COMMAND OUTPUT
+      debug:
+        var: show_output
+      tags: show
+```
+
+Tags are invoked using the **--tags** flag while running the playbook
+
+``` bash
+[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml --tags=show
+
+```
+_This is useful while working with large playbooks, when you might want to "jump" to a specific task._
+
+
+
+
+# Registering the output
+
+The **register** parameter is used to collect the output of a task execution. The output of the task is 'registered' in a variable which can then be used for subsequent tasks.
+
+``` yaml
+    - name: COLLECT OUTPUT OF SHOW COMMANDS
+      ios_command:
+        commands:
+          - show run | i hostname
+          - show ip interface brief
+      tags: show
+      register: show_output
+```
+
+
+
+<section data-state="title alt">
+# Lab Time
+
+#### Lab 1: Section 3
+
+In this lab you will learn how to use module documentation. You will also learn how to selectively run tasks using tags and learn how to collect task output into user defined variables within the playbook.
+
+Approximate time: 20 mins
 
 
 

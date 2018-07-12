@@ -518,6 +518,89 @@ Approximate time: 20 mins
 
 
 
+# The *_config module
+
+Vendor specific config modules allow the user to update the configuration on network devices. Different ways to invoke the *_config module:
+
+``` yaml
+  tasks:
+    - name: ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT
+      ios_config:
+        commands:
+          - snmp-server community ansible-public RO
+          - snmp-server community ansible-private RW
+          - snmp-server community ansible-test RO
+```
+
+``` yaml
+  tasks:
+    - name: ENSURE THAT ROUTERS ARE SECURE
+      ios_config:
+        src: secure_router.cfg
+```
+
+
+
+# Validating changes before they are applied
+
+Ansbile lets you validate the impact of the proposed configuration using the **--check** flag. Used together with the **--verbose** flag, it lets you see the actual change being pushed to the device
+``` bash
+[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  --check -v
+Using /home/student1/.ansible.cfg as config file
+
+PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
+
+TASK [ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT] *************************************************************************************************************************************
+changed: [rtr3] => {"banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"],
+"updates": ["snmp-server community ansible-test RO"]}
+
+```
+
+
+
+<section data-state="title alt">
+# Lab Time
+
+#### Lab 2: Exercise 1
+
+In this lab you will learn how to make configuration changes using Ansible. The exercise will demonstrate the idempotency of the module. Additionally you will learn how to validate a change before actually applying it to the devices.
+
+Approximate time: 20 mins
+
+
+
+
+<section data-state="title alt">
+# Scenario: Day2 Ops - Backing up and restoring router configuration
+
+
+
+
+# Backing up router configuration
+
+``` yaml
+---
+- name: BACKUP ROUTER CONFIGURATIONS
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: BACKUP THE CONFIG
+      ios_config:
+        backup: yes
+      register: config_output
+```
+
+The backup parameter of the **ios_config** module triggers the backup and automatically stores device configuration backups within a **backups** directory
+
+
+
+
+
+
+
+
 
 # Variables
 Ansible can work with metadata from various sources and manage their context in the form of variables.

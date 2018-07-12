@@ -124,6 +124,7 @@ access2.nw.com
 
 <div class="columns">
     <div class="col">
+    There is always a group called **"all"** by default
 <pre>
 ```
 [atl]
@@ -138,20 +139,123 @@ core2.nw.com
 access1.nw.com
 access2.nw.com
 ```</pre>
-There is always a group called **all** present
 
 </div>
 
-<div></div>
+<div>
+Groups can be nested
+<pre>
+```
+[DC:children]
+core
+access
+
+[east-coast:children]
+DC
+atl
+
+[atl]
+10.1.1.2
+192.168.1.2
+    
+[core]
+core1.nw.com
+core2.nw.com
+    
+[access]
+access1.nw.com
+access2.nw.com
+```</pre></div>
+
+
+
+# Inventory - variables
+<div class="columns">
+    <div class="col">
+<pre>
+
+```
+[all:vars]
+ansible_username=admin
+ansible_password=pa55w0rd
+domain=ansible.com
+snmp_ro=public123
+snmp_rw=private123
+
+[east-coast:vars]
+ntp_server=10.99.99.99
+anycast=169.1.1.1
+
+
+[DC:children]
+core
+access
+
+[east-coast:children]
+DC
+atl
+
+[atl]
+10.1.1.2 snmp_ro=atl123 
+192.168.1.2
+    
+[core]
+core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123
+core2.nw.com
+    
+[access]
+access1.nw.com
+access2.nw.com```</pre>
+
+</div>
+<div>
+<p>- Playbook is a list of plays. </p>
+
+<p>- Each play is a list of tasks.</p>
+
+<p>- Tasks invoke modules.</p>
+
+A playbook can contain more than one play
+
+</div>
+
 
 
 
 # A sample playbook
 
+<div class="columns">
+    <div class="col">
+<pre>
+```
+---
+- name: DEPLOY VLANS 
+  hosts: access
+  connection: network_cli
+  gather_facts: no
+  
+  
+  tasks:
+    
+    - name: ENSURE VLANS EXIST
+      nxos_vlan:
+        vlan_id: 100
+        admin_state: up
+        name: WEB
+        
+```</pre>
 
+</div>
+<div>
+<p>- Playbook is a list of plays. </p>
 
->>> Lab 1?
+<p>- Each play is a list of tasks.</p>
 
+<p>- Tasks invoke modules.</p>
+
+A playbook can contain more than one play
+
+</div>
 
 
 

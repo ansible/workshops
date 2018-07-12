@@ -352,8 +352,15 @@ Other than the user defined variables, Ansible supports many **special** inbuilt
 
 
 
-# Modules
-Modules do the actual work in ansible, they are what gets executed in each playbook task. 
+# Displaying output - The "debug" module
+The **debug** module is used like a "print" statement in most programming languages.
+Variables are accessed using "{{ }}" - quoted curly braces
+
+
+#### Demo of the debug module
+
+
+
 
 
 # Modules

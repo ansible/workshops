@@ -707,7 +707,11 @@ Jinja2 enables the user to manipulate variables, apply conditional logic and ext
 
 #### Demo
 
-``` yaml
+<div class="columns">
+    <div class="col">
+<pre>
+Data model:
+```
 vlans:
   - id: 10
     name: WEB
@@ -715,13 +719,28 @@ vlans:
     name: APP
   - id: 30
     name: DB
+
+```Jinja2 template
 ```
-``` python
 {% for vlan in vlans %}
 vlan {{ vlan.id }}
   name {{ vlan.name }}
+{% endfor %}
+```</pre>
+
+</div>
+
+<div>
+<pre>
+Tying it all together
+
 ```
-``` bash
+- name: RENDER THE VLAN CONFIGURATION
+  template:
+    src: vlans.j2
+    dest: "vlan_configs/{{ inventory_hostname }}.conf"
+``` leaf1.conf
+```
 vlan 10
   name WEB
 vlan 20
@@ -729,84 +748,117 @@ vlan 20
 vlan 30
   name DB
 
+```</pre></div>
+
+
+
+# Using templates to build dynamic documentation
+<div class="columns">
+    <div class="col">
+<pre>
+```
+{{ inventory_hostname.upper() }}
+---
+{{ ansible_net_serialnum }} : {{ ansible_net_version }}
+```
+```
+RTR1
+---
+9YJXS2VD3Q7 : 16.08.01a
+
+```
+```
+RTR2
+---
+9QHUCH0VZI9 : 16.08.01a
+
+```
+```
+RTR3
+---
+9ZGJ5B1DL14 : 16.08.01a
+
+```
+```
+RTR4
+---
+9TCM27U9TQG : 16.08.01a
+
+```</pre>
+
+</div>
+
+<div>
+<p>- Generate documentation that never goes stale</p>
+<p>- Build troubleshooting reports </p>
+<p>- Same data to generate exec reports and engineering reports using different templates </p>
+</div>
+
+
+
+
+# Assembling the data
+
+The **assemble** module is used to generate a consolidated file by combining fragments. This is a common strategy used to put snippets together into a final document.
+
+``` yaml
+    - name: CONSOLIDATE THE IOS DATA
+      assemble:
+        src: reports/
+        dest: network_os_report.md
+      delegate_to: localhost
+      run_once: yes
+```
+
+``` html
+RTR1
+---
+9YJXS2VD3Q7 : 16.08.01a
+
+RTR2
+---
+9QHUCH0VZI9 : 16.08.01a
+
+RTR3
+---
+9ZGJ5B1DL14 : 16.08.01a
+RTR4
+---
+9TCM27U9TQG : 16.08.01a
 ```
 
 
 
 
-# Tags
-Tags are useful to be able to run a subset of a playbook on-demand.
-
-<pre><code data-noescape>
-
-tasks:
-- name: gather ios_facts
-  ios_facts:
-  register: version
-  <mark>tags: debug</mark>
-
-- debug:
-    msg: "{{version}}"
-  <mark>tags: debug</mark>
-
-- name: Backup configuration
-  ios_config:
-    backup: yes
-  <mark>tags: </mark>
-    <mark>- backup</mark>
-</code></pre>
-
-
-
-
-# Blocks
-Blocks cut down on repetitive task directives, allow for logical grouping of tasks and even in play error handling.
-
-<pre><code data-noescape>
-- name: Configure Hostname and DNS
-  <mark>block:</mark>
-  - ios_config:
-      lines: hostname {{ inventory_hostname }}
-
-  - name: configure name servers
-    ios_system:
-      name_servers:
-        - 8.8.8.8
-        - 8.8.4.4
-  when: ansible_network_os == "ios"
-</code></pre>
-
-
-
-
 <section data-state="title alt">
-# Demo Time: 
-# Exercise 1.4 - Additional router configurations
+# Lab Time
+
+#### Lab 3: Exercise 1
+
+In this lab you will use a basic Jinja2 template to generate a markdown report that contains the device name, serial number and operating system version. You will create a report per device and then use the assemble module to consolidate them. 
+
+Approximate time: 20 mins
 
 
 
+# A quick introduction to roles
+The 2 basic files needed to get started with Ansible are:
 
-<section data-state="title alt">
-# Workshop: 
-# Exercise 1.4 - Additional router configurations
-
+- Inventory 
+- Playbook
 
 
 
 # Roles
-Roles are a packages of closely related Ansible content that can be shared more easily than plays alone.
 
-- Improves readability and maintainability of complex plays
-- Eases sharing, reuse and standardization of automation processes
-- Enables Ansible content to exist independently of playbooks, projects -- even organizations
-- Provides functional conveniences such as file path resolution and default values
+- Roles help simplify playbooks. 
+- Think of them as callable functions for repeated tasks
+- Roles can be distributed/shared; similar to libraries
 
-
-
-
-# Project with Embedded Roles Example
-
-``` bash
+<div class="columns">
+    <div class="col">
+<pre>
+```
 site.yml
 roles/
    common/
@@ -825,21 +877,20 @@ roles/
      vars/
      defaults/
      meta/
+```</pre>
+
+</div>
+
+<div>
+<pre>
 ```
-
-
-
-# Project with Embedded Roles Example
-
-``` yaml
-
 # site.yml
 ---
 - hosts: routers
   roles:
      - common
      - ospf
-```
+```</pre></div>
 
 
 
@@ -847,17 +898,120 @@ roles/
 
 **http://galaxy.ansible.com**
 
-Ansible Galaxy is a hub for finding, reusing and sharing Ansible content.
+Ansible Galaxy is a hub for finding, reusing and sharing Ansible roles.
 
 Jump-start your automation project with content contributed and reviewed by the Ansible community.
+``` yaml
+---
+- name: GENERATE INTERFACE REPORT
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
 
+  roles:
+    - ansible-network.network-engine
+```
+
+_The network-engine role can be installed from Ansible Galaxy_
+
+#### Demo Ansible galaxy
+
+
+
+# Using parsers to generate custom reports
+On most network devices, show command output is "pretty" formatted but not structured.
+The Ansible **network-engine** role provides support for 2 text parsing engines:
+- TextFSM
+- Command Parser
+
+``` yaml
+---
+- name: GENERATE INTERFACE REPORT
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
+
+  roles:
+    - ansible-network.network-engine
+
+  tasks:
+    - name: CAPTURE SHOW INTERFACES
+      ios_command:
+        commands:
+          - show interfaces
+      register: output
+
+    - name: PARSE THE RAW OUTPUT
+      command_parser:
+        file: "parsers/show_interfaces.yml"
+        content: "{{ output.stdout[0] }}"
+```
+
+
+
+# Structured data from show commands
+
+<div class="columns">
+    <div class="col">
+<pre>
+```
+rtr2#show interfaces
+GigabitEthernet1 is up, line protocol is up
+  Hardware is CSR vNIC, address is 0e56.1bf5.5ee2 (bia 0e56.1bf5.5ee2)
+  Internet address is 172.17.16.140/16
+  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive set (10 sec)
+  Full Duplex, 1000Mbps, link type is auto, media type is Virtual
+  output flow-control is unsupported, input flow-control is unsupported
+  ARP type: ARPA, ARP Timeout 04:00:00
+.
+.
+.
+.
+.
+<output omitted for brevity>  
+```</pre>
+
+</div>
+<div>
+<pre>
+```
+TASK [DISPLAY THE PARSED DATA] **************************************************************************************************************************************************************
+ok: [rtr1] => {
+    "interface_facts": [
+        {
+            "GigabitEthernet1": {
+                "config": {
+                    "description": null,
+                    "mtu": 1500,
+                    "name": "GigabitEthernet1",
+                    "type": "CSR"
+                }
+            }
+        },
+        {
+            "Loopback0": {
+                "config": {
+.
+.
+.
+.
+.
+<output omitted for brevity>                
+```</pre></div>
 
 
 
 <section data-state="title alt">
-# Demo Time: 
-# A Playbook Using Roles
+# Lab Time
 
+#### Lab 3: Exercise 2
+
+The objective of this lab is to generate a dynamic documentation from the output of a device **show** command. You will use the **network-engine** role installed from **Ansible Galaxy** to invoke the **command_parser** module to create structured data. You will then use a pre-written Jinja2 template to generate the desired report
+
+Approximate time: 20 mins
 
 
 

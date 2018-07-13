@@ -57,12 +57,16 @@ Ansible Tower is an enterprise framework for controlling, securing and managing 
 - Backup and restore device configurations
 - Upgrade network device OS
 - Ensure configuration compliance
+- Apply patches to address CVE 
 - Generate dynamic documentation
+
+_Basically anything an operator can do manually, Ansible can automate.
+_
 
 
 
 # Common use cases - automating discrete tasks
-- Ensure VlANs are present/absent
+- Ensure VLANs are present/absent
 - Enable/Disable netflow on WAN interfaces
 - Manage firewall access list entries
 
@@ -340,9 +344,9 @@ $ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
 
 
 
-# A note about special variables
+# A note about magic variables
 
-Other than the user defined variables, Ansible supports many **special** inbuilt variables. For example
+Other than the user defined variables, Ansible supports many **magic** inbuilt variables. For example
 
 | Variable           | Explanation                                           |
 |--------------------|-------------------------------------------------------|
@@ -652,7 +656,7 @@ If any out of band changes were made to the device and it needs to be restored t
 
 # Restoring (Contd..)
 
-``` yaml
+``` 
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -668,9 +672,7 @@ If any out of band changes were made to the device and it needs to be restored t
         commands:
           - config replace flash:{{inventory_hostname}}.config force
 
-
 ```
-
 Note the use of **inventory_hostname** to effect host specific changes.
 
 
@@ -678,7 +680,7 @@ Note the use of **inventory_hostname** to effect host specific changes.
 <section data-state="title alt">
 # Lab Time
 
-#### Lab 2: Exercises 1 & 2
+#### Lab 2: Exercises 2 & 3
 
 In this lab you will implement a typical Day 2 Ops scenario of backing up and restoring device configurations. 
 
@@ -686,46 +688,48 @@ Approximate time: 30 mins
 
 
 
-# Doing More with Playbooks
-Here are some more essential playbook features that you can apply:
+<section data-state="title alt">
+# Scenario:Creating living/dynamic documentation
 
-- Templates
-- Loops
-- Conditionals
-- Tags
-- Blocks
 
 
 
 # Templates
-Ansible embeds the [Jinja2 templating engine](http://jinja.pocoo.org/docs/) that can be used to dynamically:
+- Ansible has native integration with the [Jinja2](https://jinja.pocoo.org) templating engine
+- Render data models into device configurations
+- Render device output into dynamic documentation
 
-- Set and modify play variables
-- Conditional logic
-- Generate files such as configurations from variables
+Jinja2 enables the user to manipulate variables, apply conditional logic and extend programmability for network automation.
 
 
 
-# Loops
-Loops can do one task on multiple things, such as create a lot of users, install a lot of packages, or repeat a polling step until a certain result is reached.
-  
- <pre><code data-noescape>
+# Using templates to generate configuration
 
----
-- hosts: cisco
-connection: local
-tasks:
-  - nxos_snmp_user:
-      user: "{{item.user}}"
-      group: network-admin
-      authentication: sha
-      pwd: "{{item.password}}"
-    <mark>with_items:</mark>
-      <mark>- { user: 'exampleuser', password: 'testPASS123' }</mark>
-      <mark>- { user: 'gerald', password: 'testPASS456' }</mark>
-      <mark>- { user: 'sean', password: 'testPASS789' }</mark>
-      <mark>- { user: 'andrius', password: 'vTECH1234' }</mark>
-</code></pre>
+#### Demo
+
+``` yaml
+vlans:
+  - id: 10
+    name: WEB
+  - id: 20
+    name: APP
+  - id: 30
+    name: DB
+```
+``` python
+{% for vlan in vlans %}
+vlan {{ vlan.id }}
+  name {{ vlan.name }}
+```
+``` bash
+vlan 10
+  name WEB
+vlan 20
+  name APP
+vlan 30
+  name DB
+
+```
 
 
 

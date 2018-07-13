@@ -1,0 +1,26 @@
+---
+- name: CONFIGURE VLANS
+  hosts: all
+  connection: local
+  gather_facts : no
+
+  vars:
+    vlans:
+      - id: 10
+        name: WEB
+      - id: 20
+        name: APP
+      - id: 30
+        name: DB
+
+  tasks:
+
+    - name: CREATE THE CONFIGS DIR
+      file:
+        path: vlan_configs
+        state: directory
+
+    - name: RENDER THE VLAN CONFIGURATION
+      template:
+        src: vlans.j2
+        dest: "vlan_configs/{{ inventory_hostname }}.conf"

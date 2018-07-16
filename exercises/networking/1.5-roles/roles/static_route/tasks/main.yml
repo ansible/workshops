@@ -5,4 +5,4 @@
     mask: "{{mask}}"
     next_hop: "{{next_hop}}"
   when:
-    - ansible_ios_version == ios_version
+    - ansible_net_version == ios_version

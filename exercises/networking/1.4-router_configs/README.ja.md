@@ -54,13 +54,13 @@ vim router_configs.yml
 - name: Router Configurations
   hosts: routers
   gather_facts: no
-  connection: local
+  connection: network_cli
   vars:
     ansible_network_os: ios
     dns_servers:
       - 8.8.8.8
       - 8.8.4.4
-    host1_private_ip: "{{hostva‌rs['host1']['private_ip']}}"
+    host1_private_ip: "{{hostvars['host1']['private_ip']}}"
     control_private_ip: "{{hostvars['ansible']['private_ip']}}"
 ```      
 {% endraw %}
@@ -70,15 +70,16 @@ vim router_configs.yml
 
 {% raw %}
 ```
+  tasks:
     ##Configuration for R1
     - block:
       - name: Static route from R1 to R2
-        net_static_route:
+        ios_static_route:
           prefix: "{{host1_private_ip}}"
           mask: 255.255.255.255
           next_hop: 10.0.0.2
       - name: configure name servers
-        net_system:
+        ios_system:
           name_servers: "{{item}}"
         with_items: "{{dns_servers}}"
       when:
@@ -97,44 +98,44 @@ vim router_configs.yml
 ## セクション 3 - rtr2 の設定
 
 このブロック内に4つのtaskがあります
-- net_interface
+- ios_interface
 - ios_config
-- net_static_route
-- net_system
+- ios_static_route
+- ios_system
 
 {% raw %}
 ```yml
-##Configuration for R2
-- block:
-  - name: enable GigabitEthernet1 interface if compliant
-    net_interface:
-      name: GigabitEthernet1
-      description: interface to host1
-      state: present
-  - name: dhcp configuration for GigabitEthernet1
-    ios_config:
-      lines:
-        - ip address dhcp
-      parents: interface GigabitEthernet1
-  - name: Static route from R2 to R1
-    net_static_route:
-      prefix: "{{control_private_ip}}"
-      mask: 255.255.255.255
-      next_hop: 10.0.0.1
-  - name: configure name servers
-    net_system:
-      name_servers: "{{item}}"
-    with_items: "{{dns_servers}}"
-  when:
-    - '"rtr2" in inventory_hostname'
+    ##Configuration for R2
+    - block:
+      - name: enable GigabitEthernet1 interface if compliant
+        ios_interface:
+          name: GigabitEthernet1
+          description: interface to host1
+          state: present
+      - name: dhcp configuration for GigabitEthernet1
+        ios_config:
+          lines:
+            - ip address dhcp
+          parents: interface GigabitEthernet1
+      - name: Static route from R2 to R1
+        ios_static_route:
+          prefix: "{{control_private_ip}}"
+          mask: 255.255.255.255
+          next_hop: 10.0.0.1
+      - name: configure name servers
+        ios_system:
+          name_servers: "{{item}}"
+        with_items: "{{dns_servers}}"
+      when:
+        - '"rtr2" in inventory_hostname'
 ```
 {% endraw %}
 
 **そして何が起こった?**
-  - [net_interface](http://docs.ansible.com/ansible/latest/net_interface_module.html): このモジュールはインターフェースの状態 (up, admin down, など) を定義することができます。このケースでは GigabitEthernet1 は起動しており、かつ正しい記述であることを確かめています。
+  - [ios_interface](https://docs.ansible.com/ansible/latest/modules/ios_interface_module.html): このモジュールはインターフェースの状態 (up, admin down, など) を定義することができます。このケースでは GigabitEthernet1 は起動しており、かつ正しい記述であることを確かめています。
   - [ios_config](http://docs.ansible.com/ansible/latest/ios_config_module.html): 前のplaybookでこのmoduleは使用していました。2つのtask(ip addr + static route)は結合できますが、特定の状態に至った場合ににtaskを分解するほうが好ましい場合もあります。  
-  - [net_system](https://docs.ansible.com/ansible/2.4/net_system_module.html): このモジュールは net_interface に似ており、ネットワーク装置のシステム属性を管理します。ルータに渡したい name_servers をフィードする際にこのモジュールをループと共に使用します。
-  - [net_static_route](https://docs.ansible.com/ansible/2.4/net_static_route_module.html): このモジュールはネットワーク装置のスタティックIPのルートを管理するために利用します。
+  - [ios_system](https://docs.ansible.com/ansible/latest/ios_system_module.html): このモジュールは net_interface に似ており、ネットワーク装置のシステム属性を管理します。ルータに渡したい name_servers をフィードする際にこのモジュールをループと共に使用します。
+  - [ios_static_route](https://docs.ansible.com/ansible/latest/ios_static_route_module.html): このモジュールはネットワーク装置のスタティックIPのルートを管理するために利用します。
 
 ## セクション 4 - routing_configs playbookの実行
 
@@ -174,7 +175,7 @@ ansible-playbook router_configs.yml
 ping <private IP of host node>
 ```
 
-ホストノードのIPアドレスは、インベントリーファイル ~/networking-workshop/lab_inventory/student(x).net-ws.hosts に private_ip=172.16.x.x として記載されています。
+ホストノードのIPアドレスは、インベントリーファイル `~/networking-workshop/lab_inventory/hosts` に private_ip=172.17.x.x として記載されています。
 
 例:
 ```bash
@@ -185,6 +186,16 @@ PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
 ```
 **Note** IPアドレスは172.18.4.188とは違うかもしれません!
 
+**Help!** ping が動かない場合
+まれに host route (Ansible コントローラーノードから rtr1, host1 から rtr2) が正しく設定されてない場合があります, これは本来 provisioner での初期設定時に完了されているべきものです、しかし簡単にAnsibleから修正することが可能です。
+
+`host-routes.yml` playbook を実行してください。
+
+```bash
+cd ~/networking-workshop/1.4-router_configs
+ansible-playbook host-routes.yml
+```
+
 # Answer Key
 [ここをクリック](https://github.com/network-automation/linklight/blob/master/exercises/networking/1.4-router_configs/router_configs.yml).
 
@@ -192,4 +203,4 @@ PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
 演習1.4が終了しました
 
  ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README_ja.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.ja.md)

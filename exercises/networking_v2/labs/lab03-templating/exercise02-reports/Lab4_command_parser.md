@@ -71,7 +71,12 @@ Start by creating a new playbook called `interface_report.yml` and add the follo
 
 #### Step 2
 
-Next add the `ansible-network.network-engine` role into the playbook. Roles are nothing but a higher level playbook abstraction. Think of them as pre-written playbooks that handle repeated, specific tasks.
+Next add the `ansible-network.network-engine` role into the playbook. Roles are nothing but a higher level playbook abstraction. Think of them as pre-written playbooks that handle repeated, specific tasks. For this we will need to first install the role. Execute the following command on the control node to install this role:
+
+``` bash
+[student1@ip-172-16-208-140 networking-workshop]$ansible-galaxy install ansible-network.network-engine 
+
+```
 
 The `ansible-network.network-engine` role specifically makes available the `command_parser` module, among other things, which you can then use in subsequent tasks inside your own playbook.
 

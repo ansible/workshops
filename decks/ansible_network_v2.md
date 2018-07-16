@@ -1,142 +1,97 @@
-# What You Will Learn
-Ansible is capable of handling many powerful automation tasks with the flexibility to adapt to many environments and workflows. With Ansible, users can very quickly get up and running to do real work.
+# Managing networks hasn't changed in 30 years
 
-- What is Ansible and The Ansible Way
-- Installing Ansible
-- How Ansible Works and its Key Components
-- Ad-Hoc Commands
-- Playbook Basics
-- Reuse and Redistribution of Ansible Content with Roles
+- Networks are mission critical
+- Every network is a unique snowflake
+- Ad-hoc changes that proliferate 
+- Vendor specific implementations
+- Testing is expensive/impossible
+
+Note: TODO - check on branding/lettering
+
+
+
+# According to Gartner...
+<section data-background-image="images/gartner.svg"></section>
+
+
+
+
+# Automation considerations
+
+- Compute is no longer the slowest link in the chain
+- Businesses demand that networks deliver at the speed of cloud 
+- Automation of repeatable tasks 
+- Bridge silos
+
+Note: TODO - Transition slide from problem to solution.
 
 
 
 # What is Ansible?
-It's a **simple automation language** that can perfectly describe an IT application infrastructure in Ansible Playbooks.
+Red Hat Ansible network automation is enterprise software for automating and managing IT infrastructure.
 
-It's an **automation engine** that runs Ansible Playbooks.
+As a vendor agnostic framework Ansible can automate Arista (EOS), Cisco (IOS, IOS XR, NX-OS), Juniper (JunOS), Open vSwitch and VyOS.
 
 Ansible Tower is an enterprise framework for controlling, securing and managing your Ansible automation with a **UI and RESTful API.**
 
 
 
+    
 
 <section data-background-image="images/simple-powerful-agentless-diagram.svg">
+</section>
 
 
 
-
-# The Ansible Way
-
-**CROSS PLATFORM** – Linux, Windows, UNIX, Cisco, Juniper, Arista, Cumulus
-Agentless support for all major OS variants, physical, virtual, cloud and network
-
-**HUMAN READABLE** – YAML
-Perfectly describe and document every aspect of your application environment
-
-**DYNAMIC INVENTORIE**S
-Capture all the network hosts 100% of the time, regardless of infrastructure, location, etc.
+# Ansible: The universal automation framework
+<section data-background-image="images/language.svg"></section>
 
 
 
-# Ansible: The Language of DevOps
-
-<div style="text-align:center;">
-<img src="images/devops-language-diagram.svg" width="60%" height="60%" style="padding-top: 20px;"/>
-</div>
+<section data-background-image="images/network_automation.svg"></section>
 
 
 
-# Batteries Included
-Ansible comes bundled with hundreds of modules for a wide variety of automation tasks
+# Common use cases 
 
-<div class="columns">
-<div class="col">
-  <ul>
-   <li>cloud</li>
-   <li>containers</li>
-   <li>database</li>
-   <li>files</li>
-   <li>messaging</li>
-   <li>monitoring</li>
- </ul>
-</div>
-<div class="col">
-  <ul>
-   <li>networking</li>
-    <li>notifications</li>
-    <li>packaging</li>
-    <li>system</li>
-    <li>testing</li>
-    <li>utilities</li>
-  </ul>
-</div>
-</div>
+- Backup and restore device configurations
+- Upgrade network device OS
+- Ensure configuration compliance
+- Apply patches to address CVE 
+- Generate dynamic documentation
 
-Ansible Modules control the things that you’re automating. They can do everything from acting on system files, installing packages, or making API calls to a service framework.
+_Basically anything an operator can do manually, Ansible can automate.
+_
 
 
 
+# Common use cases - automating discrete tasks
+- Ensure VLANs are present/absent
+- Enable/Disable netflow on WAN interfaces
+- Manage firewall access list entries
 
-<section data-background-image="images/most_meetups.svg">
-
-
-
-<section data-background-image="images/most_contrib.svg">
-
-
-
-<section data-background-image="images/most_searched.svg">
-
-
-
-<section data-background-image="images/network_automation.svg">
-
-
-
-<section data-background-image="images/build.svg">
-
-
-
-<section data-background-image="images/manage.svg">
-
-
-
-<section data-background-image="images/scale.svg">
-
-
-
-# Installing Ansible
-
-``` bash
-# the most common and preferred way of
-# installation
-$ sudo pip install ansible
-
-# you will need the EPEL repo configured on
-# CentOS, RHEL, or Scientific Linux
-$ sudo yum install ansible
-
-# you will need the PPA repo configured on
-# Debian or Ubuntu
-$ sudo apt-get install ansible
-
-```
-
-
-
-<section data-state="title alt">
-# Demo Time: 
-# Installing Ansible
 
 
 
 # How Ansible Works
+
+![how it works](images/local_execution.svg)
+
+
+
+
+# Understanding Ansible vocabulary
 <img src="images/how-ansible-works-diagram-01.svg" />
 
 
 
-# Plays & Playbooks
+# Playbooks
+
 <img src="images/how-ansible-works-diagram-02.svg" />
+
+
+# Inventory
+<img src="images/networking-how-ansible-works-diagram-05.svg" />
 
 
 
@@ -150,31 +105,304 @@ $ sudo apt-get install ansible
 
 
 
+# Understanding inventory
+<div class="columns">
+    <div class="col">
+<pre>
+```
+10.1.1.2
+192.168.1.2
+core1.nw.com
+core2.nw.com
+access1.nw.com
+access2.nw.com
+```</pre>
 
-# Inventory
-<img src="images/networking-how-ansible-works-diagram-05.svg" />
+</div>
+<div></div>
+
+
+
+
+# Inventory - Groups
+
+<div class="columns">
+    <div class="col">
+    There is always a group called **"all"** by default
+<pre>
+```
+[atl]
+10.1.1.2
+192.168.1.2
+    
+[core]
+core1.nw.com
+core2.nw.com
+    
+[access]
+access1.nw.com
+access2.nw.com
+```</pre>
+
+</div>
+
+<div>
+Groups can be nested
+<pre>
+```
+[DC:children]
+core
+access
+
+[east-coast:children]
+DC
+atl
+
+[atl]
+10.1.1.2
+192.168.1.2
+    
+[core]
+core1.nw.com
+core2.nw.com
+    
+[access]
+access1.nw.com
+access2.nw.com
+```</pre></div>
+
+
+
+# Inventory - variables
+
+<div class="columns">
+    <div class="col">
+
+<pre>
+```
+[all:vars]
+ansible_username=admin
+ansible_password=pa55w0rd
+snmp_ro=public123
+snmp_rw=private123
+
+[east-coast:vars]
+ntp_server=10.99.99.99
+anycast=169.1.1.1
+
+[DC:children]
+core
+access
+
+[east-coast:children]
+DC
+atl
+
+[atl]
+10.1.1.2 snmp_ro=atl123 
+192.168.1.2
+    
+[core]
+core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123
+core2.nw.com
+    
+[access]
+access1.nw.com ansible_username=localadmin
+access2.nw.com 
+```</pre>
+</div>
+<div> 
+<p>- Group variables apply for all devices in that group </p>
+<p>- Host variables apply to the host and overrides group vars </p>
+</div> 
+
+
+
+# A sample playbook
+
+<div class="columns">
+    <div class="col">
+<pre>
+```
+---
+- name: DEPLOY VLANS 
+  hosts: access
+  connection: network_cli
+  gather_facts: no
+  
+  
+  tasks:
+    
+    - name: ENSURE VLANS EXIST
+      nxos_vlan:
+        vlan_id: 100
+        admin_state: up
+        name: WEB
+        
+```</pre>
+
+</div>
+<div>
+<p>- Playbook is a list of plays. </p>
+
+<p>- Each play is a list of tasks.</p>
+
+<p>- Tasks invoke modules.</p>
+
+A playbook can contain more than one play
+
+</div>
+
+
+
+<section data-state="title alt">
+# Lab Time
+
+#### Lab 1: Section 1
+
+In this lab you will explore the lab environment and build familiarity with the lab inventory.
+
+Approximate time: 20 mins
+
+
+
+# Playbook definition for network automation
+
+- Target play execution using **`hosts`**
+- Define the connection : **`network_cli`**
+- About **`gather_facts`**
+
+
+
+# Running a playbook
+
+``` bash
+[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
+
+PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
+
+TASK [GATHER ROUTER FACTS] ******************************************************************************
+ok: [rtr1]
+ok: [rtr4]
+ok: [rtr3]
+ok: [rtr2]
+
+PLAY RECAP **********************************************************************************************
+rtr1                       : ok=1    changed=0    unreachable=0    failed=0   
+rtr2                       : ok=1    changed=0    unreachable=0    failed=0   
+rtr3                       : ok=1    changed=0    unreachable=0    failed=0   
+rtr4                       : ok=1    changed=0    unreachable=0    failed=0   
+
+[student1@ip-172-16-101-121 networking-workshop]$
+
+```
+
+
+
+
+# Displaying output
+
+Use the optional **verbose** flag during playbook execution 
+
+``` bash
+student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v
+Using /home/student1/.ansible.cfg as config file
+
+PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
+
+TASK [GATHER ROUTER FACTS] ******************************************************************************
+ok: [rtr3] => {"ansible_facts": {"ansible_net_all_ipv4_addresses": ["10.100.100.3", "192.168.3.103", "172.16.235.46", 
+"192.168.35.101", "10.3.3.103"], "ansible_net_all_ipv6_addresses": [], "ansible_net_filesystems": ["bootflash:"],
+"ansible_net_gather_subset": ["hardware", "default", "interfaces"], "ansible_net_hostname": "rtr3", "ansible_net_image": 
+"boot:packages.conf", "ansible_net_interfaces": {"GigabitEthernet1": {"bandwidth": 1000000, "description": null, "duplex":"Full", 
+"ipv4": [{"address": "172.16.235.46", "subnet": "16"}], "lineprotocol": "up ", "macaddress": "0e93.7710.e63c", "mediatype": "Virtual",
+"mtu": 1500, "operstatus": "up", "type": "CSR vNIC"}, "Loopback0": {"bandwidth": 8000000, "description": null, "duplex": null, "ipv4": [{"address": "192.168.3.103", "subnet": "24"}], "lineprotocol": "up ", "macaddress": "192.168.3.103/24", "mediatype": null, 
+"mtu": 1514, "operstatus": "up", "type": null}, "Loopback1": {"bandwidth": 8000000, "description": null, 
+"duplex": null, "ipv4": [{"address": "10.3.3.103", 
+"subnet": "24"}], "lineprotocol": "up ", "macaddress": "10.3.3.103/24", "mediatype": null, "mtu": 1514, "operstatus": "up", "type": null},
+"Tunnel0": {"bandwidth": 100, "description": null, "duplex": null, "ipv4": [{"address": "10.100.100.3", "subnet": "24"}]
+
+.
+.
+.
+.
+.
+<output truncated for readability>
+```
+
+_Increase the level of verbosity by adding more "v's" -vvvv_
+
+
+
+# Limiting playbook execution
+
+Playbook execution can be limited to a subset of devices using the **--limit** flag.
+
+``` bash
+$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
+```
+
+
+
+# A note about magic variables
+
+Other than the user defined variables, Ansible supports many **magic** inbuilt variables. For example
+
+| Variable           | Explanation                                           |
+|--------------------|-------------------------------------------------------|
+| ansible_*          | Output of fact gathering                              |
+| inventory_hostname | Name of the device the task is executing against      |
+| hostvars           | A dictionary variable whose key is inventory_hostname |
+|                    |                                                       |
+
+
+
+# Displaying output - The "debug" module
+The **debug** module is used like a "print" statement in most programming languages.
+Variables are accessed using "{{ }}" - quoted curly braces
+
+#### Demo of the debug module
+
+
+
+<section data-state="title alt">
+# Lab time
+
+#### Lab 1: Section 2
+
+In this lab you will write your first playbook and run it to gather facts from Cisco routers. You will also practice the use of "verbose" and "limit" flags in addition to working with variables within a playbook.
+
+Approximate time: 20 mins
 
 
 
 # Modules
-Modules do the actual work in ansible, they are what gets executed in each playbook task. But you can also run a module ad-hoc using the ansible command.
-          <div class="columns">
+Modules do the actual work in ansible, they are what gets executed in each playbook task. 
+- Typically written in Python (but not limited to it)
+- Modules are idempotent
+- Modules take user input in the form of parameters
+
+
+
+# Network modules
+Ansible modules for network automation typically references the vendor OS followed by the module name.
+    <div class="columns">
             <div class="col">
               <ul>
-                <li>\*os_facts</li>
-                <li>\*os_command</li>
-                <li>\*os\_config</li>
+                <li>\*_facts</li>
+                <li>\*_command</li>
+                <li>\*\_config</li>
                 <li>more modules depending on platform</li>
               </ul>
             </div>
             <div class="col">
               <ul>
-                <li>Arista EOS = eos\_</li>
-                <li>Cisco IOS/IOS-XE = ios\_</li>
-                <li>Cisco NX-OS = nxos\_</li>
-                <li>Cisco IOS-XR = iosxr\_</li>
-                <li>Juniper Junos = junos\_</li>
-                <li>VyOS = vyos\_</li>
+                <li>Arista EOS = eos\_\*</li>
+                <li>Cisco IOS/IOS-XE = ios\_\*</li>
+                <li>Cisco NX-OS = nxos\_\*</li>
+                <li>Cisco IOS-XR = iosxr\_\*</li>
+                <li>Juniper Junos = junos\_\*</li>
+                <li>VyOS = vyos\_\*</li>
               </ul>
             </div>
           </div>
@@ -242,667 +470,395 @@ Options (= is mandatory):
 
 
 
-# Modules: Run Commands
+# Limiting tasks within a play
 
-If Ansible doesn’t have a module that suits your needs there are the “run command” modules:
-
-- **command**: Takes the command and executes it on the host. The most secure and predictable.
-- **ios_command**: Sends arbitrary commands to an ios node and returns the results read from the device.
-
-**NOTE**: Unlike standard modules, run commands have no concept of desired state and should only be used as a last resort.
-
-
-
-
-# How it works
-<img src="images/local_execution.svg">
-
-
-
-
-# Inventory
-Inventory is a collection of hosts (nodes) with associated data and groupings that Ansible can connect and manage.
-
-- Hosts (nodes)
-- Groups
-- Inventory-specific data (variables)
-- Static or dynamic sources
-
-
-
-# Static Inventory Example
-This inventory will work but is not human readable.
+- **Tags** allow the user to selectively execute tasks within a play.
+- Multiple tags can be associated with a given task. 
+- Tags can also be applied to entire plays or roles.
 
 ``` yaml
-10.42.0.2
-10.42.0.6
-10.42.0.7
-10.42.0.8
-10.42.0.100
-host.example.com
-
+    - name: DISPLAY THE COMMAND OUTPUT
+      debug:
+        var: show_output
+      tags: show
 ```
 
-
-
-# Static Inventory Example
-
-``` ini
-[all:vars]
-ansible_user=lcage
-ansible_ssh_pass=ansible
-ansible_port=22
-
-[routers]
-rtr1 ansible_host=54.174.116.49 ansible_user=ec2-user ansible_network_os=ios
-rtr2 ansible_host=54.86.17.101 ansible_user=ec2-user ansible_network_os=ios
-[hosts]
-host1 ansible_host=34.224.57.27 ansible_user=ec2-user
-[control]
-ansible ansible_host=34.228.79.198 ansible_user=ec2-user
-```
-
-
-
-
-# Ad-Hoc Commands
-An ad-hoc command is a single Ansible task to perform quickly, but don’t want to save for later.
-
-
-
-
-# Ad-Hoc Commands: Common Options
-- **-m MODULE_NAME, --module-name=MODULE_NAME**
-
-   Module name to execute the ad-hoc command
-- **-a MODULE_ARGS, --args=MODULE_ARGS**
-
-   Module arguments for the ad-hoc command
-- **-b, --become**
-
-   Run ad-hoc command with elevated rights such as sudo (Linux) or enable (Networking)
-- **-e EXTRA_VARS, --extra-vars=EXTRA_VARS**
-
-   Set additional variables as key=value or YAML/JSON
-   
-- **--version**
-
-   Display the version of Ansible
-- **--help**
-
-   Display the MAN page for the ansible tool
-
-
-
-# Ad-Hoc Commands
-
-``` ini
-
-# check all my inventory hosts are ready to be
-# managed by Ansible
-$ ansible all -m ping
-
-# collect and display the discovered facts
-# for the localhost
-$ ansible localhost -m setup
-
-# run the uptime command on all hosts in the
-# web group
-$ ansible web -m command -a "uptime"
-          
-```
-
-
-
-# Sidebar: Discovered Facts
-
-Facts are bits of information derived from examining a host systems that are stored as variables for later use in a play.
-
-```
-$ ansible localhost -m setup
-localhost | success >> {
-  "ansible_facts": {
-      "ansible_default_ipv4": {
-          "address": "192.168.1.37",
-          "alias": "wlan0",
-          "gateway": "192.168.1.1",
-          "interface": "wlan0",
-          "macaddress": "c4:85:08:3b:a9:16",
-          "mtu": 1500,
-          "netmask": "255.255.255.0",
-          "network": "192.168.1.0",
-          "type": "ether"
-      },
-      
-```
-
-
-
-# Sidebar: Network Facts
-For non-Linux systems there are vendor specific modules for fact collection.
+Tags are invoked using the **--tags** flag while running the playbook
 
 ``` bash
+[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml --tags=show
 
-$ ansible -m ios_facts routers
-student1-rtr1.net-ws.redhatgov.io | SUCCESS => {
-    "ansible_facts": {
-        "ansible_net_all_ipv4_addresses": [
-            "172.17.1.238"
-        ],
-        "ansible_net_all_ipv6_addresses": [],
-        "ansible_net_filesystems": [
-            "bootflash:"
-        ],
-        "ansible_net_gather_subset": [
-            "hardware",
-            "default",
-            "interfaces"
-        ],
-        "ansible_net_hostname": "ip-172-17-1-238",
-        "ansible_net_image": "bootflash:csr1000v-universalk9.16.05.01b.SPA.bin",
 ```
-
-
-
-<section data-state="title alt">
-# Demo Time: 
-# Ad-Hoc Commands
-### Exercise 1.1 - Running Ad-hoc commands
+_This is useful while working with large playbooks, when you might want to "jump" to a specific task._
 
 
 
 
-<section data-state="title alt">
-# Workshop: 
-# Ad-Hoc Commands
-### Exercise 1.1 - Running Ad-hoc commands
+# Registering the output
 
-
-
-
-# Variables
-Ansible can work with metadata from various sources and manage their context in the form of variables.
-
-- Command line parameters
-- Plays and tasks
-- Files
-- Inventory
-- Discovered facts
-- Roles
-
-
-
-# Variable Precedence
-The order in which the same variable from different sources will override each other.
-
-<div class="columns">
-  <div class="col">
-    <ol>
-      <li>extra vars</li>
-      <li>task vars (only for the task)</li>
-      <li>block vars (only for tasks in block)</li>
-      <li>role and include vars</li>
-      <li>play vars_files</li>
-      <li>play vars_prompt</li>
-      <li>play vars</li>
-      <li>set_facts</li>
-    </ol>
-  </div>
-  <div class="col">
-    <ol start="9" class="col">
-      <li>registered vars</li>
-      <li>host facts</li>
-      <li>playbook host_vars</li>
-      <li>playbook group_vars</li>
-      <li><strong>inventory host_vars</strong></li>
-      <li><strong>inventory group_vars</strong></li>
-      <li>inventory vars</li>
-      <li>role defaults</li>
-    </ol>
-  </div>
-</div>
-
-
-
-# Tasks
-Tasks are the application of a module to perform a specific unit of work.
-
-- **file**: A directory should exist
-- **yum**: A package should be installed
-
-There are also tasks for network devices as well
-
-- **ios_facts**: collect the version of code running on Cisco IOS/IOS-XE
-- **ios_system**: configure DNS server(s) on Cisco IOS/IOS-XE
-- **nxos_snmp_user**: add an SNMP user on Cisco NX-OS
-- **eos_command**: turn off a port on Arista EOS
-- **junos_banner**: manage the banner on Juniper Junos OS
-
-
-
-
-# Example Tasks in a Play
+The **register** parameter is used to collect the output of a task execution. The output of the task is 'registered' in a variable which can then be used for subsequent tasks.
 
 ``` yaml
-tasks:
-  - name: gather ios_facts
-    ios_facts:
-    register: version
-
-  - debug:
-      msg: "{{version}}"
-
-  - name: Backup configuration
-    ios_config:
-      backup: yes
-      
+    - name: COLLECT OUTPUT OF SHOW COMMANDS
+      ios_command:
+        commands:
+          - show run | i hostname
+          - show ip interface brief
+      tags: show
+      register: show_output
 ```
 
 
 
+<section data-state="title alt">
+# Lab Time
 
-# Plays & Playbooks
-Plays are ordered sets of tasks to execute against host selections from your inventory. A playbook is a file containing one or more plays.
+#### Lab 1: Section 3
+
+In this lab you will learn how to use module documentation. You will also learn how to selectively run tasks using tags and learn how to collect task output into user defined variables within the playbook.
+
+Approximate time: 20 mins
 
 
 
 
-# Playbook Example
+# The *_config module
+
+Vendor specific config modules allow the user to update the configuration on network devices. Different ways to invoke the *_config module:
+
+``` yaml
+  tasks:
+    - name: ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT
+      ios_config:
+        commands:
+          - snmp-server community ansible-public RO
+          - snmp-server community ansible-private RW
+          - snmp-server community ansible-test RO
+```
+
+``` yaml
+  tasks:
+    - name: ENSURE THAT ROUTERS ARE SECURE
+      ios_config:
+        src: secure_router.cfg
+```
+
+
+
+# Validating changes before they are applied
+
+Ansbile lets you validate the impact of the proposed configuration using the **--check** flag. Used together with the **--verbose** flag, it lets you see the actual change being pushed to the device
+``` bash
+[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  --check -v
+Using /home/student1/.ansible.cfg as config file
+
+PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
+
+TASK [ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT] *************************************************************************************************************************************
+changed: [rtr3] => {"banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"],
+"updates": ["snmp-server community ansible-test RO"]}
+
+```
+
+
+
+<section data-state="title alt">
+# Lab Time
+
+#### Lab 2: Exercise 1
+
+In this lab you will learn how to make configuration changes using Ansible. The exercise will demonstrate the idempotency of the module. Additionally you will learn how to validate a change before actually applying it to the devices.
+
+Approximate time: 20 mins
+
+
+
+
+<section data-state="title alt">
+# Scenario: Day2 Ops - Backing up and restoring router configuration
+
+
+
+
+# Backing up router configuration
 
 ``` yaml
 ---
-- name: backup router configurations
-  hosts: routers
+- name: BACKUP ROUTER CONFIGURATIONS
+  hosts: cisco
   connection: network_cli
   gather_facts: no
 
   tasks:
-    - name: gather ios_facts
-      ios_facts:
-      register: version
-
-    - debug:
-        msg: "{{version}}"
-
-    - name: Backup configuration
+    - name: BACKUP THE CONFIG
       ios_config:
         backup: yes
-                  
+      register: config_output
+```
+
+The backup parameter of the **ios_config** module triggers the backup and automatically stores device configuration backups within a **backups** directory
+
+
+
+
+# Cleaning up the backed up configuration
+
+The backed up configuration has 2 lines that should be removed:
+
+``` shell
+Building configuration...
+
+Current configuration with default configurations exposed : 393416 bytes
+
+```
+
+The **lineinfile** module is a general purpose module that is used for manipulating file contents. 
+
+
+
+# Clean up (Contd..)
+Cleaning up an exact line match
+
+``` yaml
+    - name: REMOVE NON CONFIG LINES
+      lineinfile:
+        path: "./backup/{{inventory_hostname}}.config"
+        line: "Building configuration..."
+        state: absent
 ```
 
 
 
 
-# Human-Meaningful Naming
+# Clean up (Contd..)
+Matching using a regular expression
 
- <pre><code data-noescape>
+``` yaml
+    - name: REMOVE NON CONFIG LINES - REGEXP
+      lineinfile:
+        path: "./backup/{{inventory_hostname}}.config"
+        regexp: 'Current configuration.*'
+        state: absent
+```
 
-   ---
-   - <mark>name: backup router configurations</mark>
-     hosts: routers
-     connection: network_cli
-     gather_facts: no
-   
-     tasks:
-       - <mark>name: gather ios_facts</mark>
-         ios_facts:
-         register: version
-   
-       - debug:
-           msg: "{{version}}"
-   
-       - <mark>name: Backup configuration</mark>
-         ios_config:
-           backup: yes
-</code></pre>
+
+
+# Restoring the configuration
+If any out of band changes were made to the device and it needs to be restored to the last known good configuration, we could take the following approach:
+
+- Copy over the cleaned up configuration to the devices
+- Use vendor provided commands to restore the device configuration
+
+\*In our example we use the Cisco IOS command **config replace**. This allows for applying only the differences between running and the copied configuration
 
 
 
 
-# Host Selector
+# Restoring (Contd..)
 
-<pre><code data-noescape>
-
-   ---
-   - name: backup router configurations
-     <mark>hosts: routers</mark>
-     connection: network_cli
-     gather_facts: no
-   
-     tasks:
-       - name: gather ios_facts
-         ios_facts:
-         register: version
-   
-       - debug:
-           msg: "{{version}}"
-   
-       - name: Backup configuration
-         ios_config:
-            backup: yes
-</code></pre>
-
-
-
-
-# Tasks
- <pre><code data-noescape>
- 
+``` 
 ---
-- name: backup router configurations
-  hosts: routers
+- name: RESTORE CONFIGURATION
+  hosts: cisco
   connection: network_cli
   gather_facts: no
 
   tasks:
-    - name: gather ios_facts
-      <mark>ios_facts:</mark>
-      <mark>register: version</mark>
+    - name: COPY RUNNING CONFIG TO ROUTER
+      command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
 
-    - <mark>debug:</mark>
-        <mark>msg: "{{version}}"</mark>
+    - name: CONFIG REPLACE
+      ios_command:
+        commands:
+          - config replace flash:{{inventory_hostname}}.config force
 
-    - name: Backup configuration
-      <mark>ios_config:</mark>
-        <mark>backup: yes</mark>
-</code></pre>
-
+```
+Note the use of **inventory_hostname** to effect host specific changes.
 
 
 
 <section data-state="title alt">
-# Demo Time:
-# Exercise 1.2 - Backing up Configurations
+# Lab Time
 
+#### Lab 2: Exercises 2 & 3
 
+In this lab you will implement a typical Day 2 Ops scenario of backing up and restoring device configurations. 
 
-
-<section data-state="title alt">
-# Workshop: 
-# Exercise 1.2 - Backing up Configurations
-
-
-
-
-# Variables - Recap
-- **host vars** - variable specific to one host
-- **group vars** - variables for all hosts within the group
-It is possible, but not required, to configure variables in the inventory file.
-
-
-
-
-# Inventory ini file
-
-``` ini
-[junos]
-vsrx01 ansible_host=an-vsrx-01.rhdemo.io private_ip=172.16.1.1
-vsrx02 ansible_host=an-vsrx-02.rhdemo.io private_ip=172.17.1.1
-
-[junos:vars]
-ansible_network_os=junos
-ansible_password=Ansible
-
-[ios]
-ios01 ansible_host=an-ios-01.rhdemo.io
-
-[ios:vars]
-ansible_network_os=ios
-ansible_become=yes
-ansible_become_method=enable
-ansible_become_pass=cisco
-```
-
-
-
-# Host Variables - hostvars
-<pre><code data-noescape>
-[junos]
-vsrx01 ansible_host=an-vsrx-01.rhdemo.io <mark>private_ip=172.16.1.1</mark>
-vsrx02 ansible_host=an-vsrx-02.rhdemo.io <mark>private_ip=172.17.1.1</mark>
-
-[junos:vars]
-ansible_network_os=junos
-ansible_password=Ansible
-
-[ios]
-ios01 ansible_host=an-ios-01.rhdemo.io
-
-[ios:vars]
-ansible_network_os=ios
-ansible_become=yes
-ansible_become_method=enable
-ansible_become_pass=cisco
-</pre></code>
-
-
-
-
-# Group Variables - groupvars
-<pre><code data-noescape>
-[junos]
-vsrx01 ansible_host=an-vsrx-01.rhdemo.io private_ip=172.16.1.1
-vsrx02 ansible_host=an-vsrx-02.rhdemo.io private_ip=172.17.1.1
-
-[junos:vars]
-<mark>ansible_network_os=junos
-ansible_password=Ansible</mark>
-
-[ios]
-ios01 ansible_host=an-ios-01.rhdemo.io
-
-[ios:vars]
-<mark>ansible_network_os=ios
-ansible_become=yes
-ansible_become_method=enable
-ansible_become_pass=cisco</mark>
-</pre></code>
-
-
-
-
-# Conditionals
-Ansible supports the conditional execution of a task based on the run-time evaluation of variable, fact, or previous task result.
-
-<pre><code data-noescape>
-- name: configure interface settings
-  ios_config:
-    lines:
-      - description shutdown by Ansible
-      - shutdown
-    parents: interface GigabitEthernet2
-  <mark>when: ansible_network_os == "ios"</mark>
-</code></pre>
-
-
-
-# Multi-Platform Playbooks
-
-``` yaml
-
-   - name: run on eos
-     include_tasks: tasks/eos.yml
-     when: ansible_network_os == eos
-
-   - name: run on ios
-     include_tasks: tasks/ios.yml
-     when: ansible_network_os == ios
-
-   - name: run on junos
-     include_tasks: tasks/junos.yml
-     when: ansible_network_os == junos
-
-   - name: run on nxos
-     include_tasks: tasks/nxos.yml
-     when: ansible_network_os == iosxr
-     
-```
-
-
-
-
-# Using a config module
-Manage configuration on a network platform
-
-```
-- name: configure top level configuration
-  ios_config:
-    lines: hostname {{ inventory_hostname }}
-
-- name: configure interface settings
-  ios_config:
-    lines:
-      - description test interface
-      - ip address 172.31.1.1 255.255.255.0
-    parents: interface Ethernet1
-
-- name: configure from a jinja2 template
-  ios_config:
-    src: config.j2
-        
-```
-
-
-
-
-# Exercise 1.3 - Network Diagram
-As a lab precursor look at the network diagram
-<img src="images/gre_diagram.png">
-
+Approximate time: 30 mins
 
 
 
 <section data-state="title alt">
-# Demo Time: 
-# Exercise 1.3 - Creating a GRE Tunnel
+# Scenario:Creating living/dynamic documentation
 
-
-
-
-<section data-state="title alt">
-# Workshop: 
-# Exercise 1.3 - Creating a GRE Tunnel
-
-
-
-
-# Doing More with Playbooks
-Here are some more essential playbook features that you can apply:
-
-- Templates
-- Loops
-- Conditionals
-- Tags
-- Blocks
 
 
 
 # Templates
-Ansible embeds the [Jinja2 templating engine](http://jinja.pocoo.org/docs/) that can be used to dynamically:
+- Ansible has native integration with the [Jinja2](https://jinja.pocoo.org) templating engine
+- Render data models into device configurations
+- Render device output into dynamic documentation
 
-- Set and modify play variables
-- Conditional logic
-- Generate files such as configurations from variables
+Jinja2 enables the user to manipulate variables, apply conditional logic and extend programmability for network automation.
 
 
 
-# Loops
-Loops can do one task on multiple things, such as create a lot of users, install a lot of packages, or repeat a polling step until a certain result is reached.
-  
- <pre><code data-noescape>
+# Using templates to generate configuration
 
+#### Demo
+
+<div class="columns">
+    <div class="col">
+<pre>
+Data model:
+```
+vlans:
+  - id: 10
+    name: WEB
+  - id: 20
+    name: APP
+  - id: 30
+    name: DB
+
+```Jinja2 template
+```
+{% for vlan in vlans %}
+vlan {{ vlan.id }}
+  name {{ vlan.name }}
+{% endfor %}
+```</pre>
+
+</div>
+
+<div>
+<pre>
+Tying it all together
+
+```
+- name: RENDER THE VLAN CONFIGURATION
+  template:
+    src: vlans.j2
+    dest: "vlan_configs/{{ inventory_hostname }}.conf"
+``` leaf1.conf
+```
+vlan 10
+  name WEB
+vlan 20
+  name APP
+vlan 30
+  name DB
+
+```</pre></div>
+
+
+
+# Using templates to build dynamic documentation
+<div class="columns">
+    <div class="col">
+<pre>
+```
+{{ inventory_hostname.upper() }}
 ---
-- hosts: cisco
-connection: local
-tasks:
-  - nxos_snmp_user:
-      user: "{{item.user}}"
-      group: network-admin
-      authentication: sha
-      pwd: "{{item.password}}"
-    <mark>with_items:</mark>
-      <mark>- { user: 'exampleuser', password: 'testPASS123' }</mark>
-      <mark>- { user: 'gerald', password: 'testPASS456' }</mark>
-      <mark>- { user: 'sean', password: 'testPASS789' }</mark>
-      <mark>- { user: 'andrius', password: 'vTECH1234' }</mark>
-</code></pre>
+{{ ansible_net_serialnum }} : {{ ansible_net_version }}
+```
+```
+RTR1
+---
+9YJXS2VD3Q7 : 16.08.01a
+
+```
+```
+RTR2
+---
+9QHUCH0VZI9 : 16.08.01a
+
+```
+```
+RTR3
+---
+9ZGJ5B1DL14 : 16.08.01a
+
+```
+```
+RTR4
+---
+9TCM27U9TQG : 16.08.01a
+
+```</pre>
+
+</div>
+
+<div>
+<p>- Generate documentation that never goes stale</p>
+<p>- Build troubleshooting reports </p>
+<p>- Same data to generate exec reports and engineering reports using different templates </p>
+</div>
 
 
 
 
-# Tags
-Tags are useful to be able to run a subset of a playbook on-demand.
+# Assembling the data
 
-<pre><code data-noescape>
+The **assemble** module is used to generate a consolidated file by combining fragments. This is a common strategy used to put snippets together into a final document.
 
-tasks:
-- name: gather ios_facts
-  ios_facts:
-  register: version
-  <mark>tags: debug</mark>
+``` yaml
+    - name: CONSOLIDATE THE IOS DATA
+      assemble:
+        src: reports/
+        dest: network_os_report.md
+      delegate_to: localhost
+      run_once: yes
+```
 
-- debug:
-    msg: "{{version}}"
-  <mark>tags: debug</mark>
+``` html
+RTR1
+---
+9YJXS2VD3Q7 : 16.08.01a
 
-- name: Backup configuration
-  ios_config:
-    backup: yes
-  <mark>tags: </mark>
-    <mark>- backup</mark>
-</code></pre>
+RTR2
+---
+9QHUCH0VZI9 : 16.08.01a
 
-
-
-
-# Blocks
-Blocks cut down on repetitive task directives, allow for logical grouping of tasks and even in play error handling.
-
-<pre><code data-noescape>
-- name: Configure Hostname and DNS
-  <mark>block:</mark>
-  - ios_config:
-      lines: hostname {{ inventory_hostname }}
-
-  - name: configure name servers
-    ios_system:
-      name_servers:
-        - 8.8.8.8
-        - 8.8.4.4
-  when: ansible_network_os == "ios"
-</code></pre>
+RTR3
+---
+9ZGJ5B1DL14 : 16.08.01a
+RTR4
+---
+9TCM27U9TQG : 16.08.01a
+```
 
 
 
 
 <section data-state="title alt">
-# Demo Time: 
-# Exercise 1.4 - Additional router configurations
+# Lab Time
+
+#### Lab 3: Exercise 1
+
+In this lab you will use a basic Jinja2 template to generate a markdown report that contains the device name, serial number and operating system version. You will create a report per device and then use the assemble module to consolidate them. 
+
+Approximate time: 20 mins
 
 
 
+# A quick introduction to roles
+The 2 basic files needed to get started with Ansible are:
 
-<section data-state="title alt">
-# Workshop: 
-# Exercise 1.4 - Additional router configurations
-
+- Inventory 
+- Playbook
 
 
 
 # Roles
-Roles are a packages of closely related Ansible content that can be shared more easily than plays alone.
 
-- Improves readability and maintainability of complex plays
-- Eases sharing, reuse and standardization of automation processes
-- Enables Ansible content to exist independently of playbooks, projects -- even organizations
-- Provides functional conveniences such as file path resolution and default values
+- Roles help simplify playbooks. 
+- Think of them as callable functions for repeated tasks
+- Roles can be distributed/shared; similar to libraries
 
-
-
-
-# Project with Embedded Roles Example
-
-``` bash
+<div class="columns">
+    <div class="col">
+<pre>
+```
 site.yml
 roles/
    common/
@@ -921,21 +877,20 @@ roles/
      vars/
      defaults/
      meta/
+```</pre>
+
+</div>
+
+<div>
+<pre>
 ```
-
-
-
-# Project with Embedded Roles Example
-
-``` yaml
-
 # site.yml
 ---
 - hosts: routers
   roles:
      - common
      - ospf
-```
+```</pre></div>
 
 
 
@@ -943,17 +898,120 @@ roles/
 
 **http://galaxy.ansible.com**
 
-Ansible Galaxy is a hub for finding, reusing and sharing Ansible content.
+Ansible Galaxy is a hub for finding, reusing and sharing Ansible roles.
 
 Jump-start your automation project with content contributed and reviewed by the Ansible community.
+``` yaml
+---
+- name: GENERATE INTERFACE REPORT
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
 
+  roles:
+    - ansible-network.network-engine
+```
+
+_The network-engine role can be installed from Ansible Galaxy_
+
+#### Demo Ansible galaxy
+
+
+
+# Using parsers to generate custom reports
+On most network devices, show command output is "pretty" formatted but not structured.
+The Ansible **network-engine** role provides support for 2 text parsing engines:
+- TextFSM
+- Command Parser
+
+``` yaml
+---
+- name: GENERATE INTERFACE REPORT
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
+
+  roles:
+    - ansible-network.network-engine
+
+  tasks:
+    - name: CAPTURE SHOW INTERFACES
+      ios_command:
+        commands:
+          - show interfaces
+      register: output
+
+    - name: PARSE THE RAW OUTPUT
+      command_parser:
+        file: "parsers/show_interfaces.yml"
+        content: "{{ output.stdout[0] }}"
+```
+
+
+
+# Structured data from show commands
+
+<div class="columns">
+    <div class="col">
+<pre>
+```
+rtr2#show interfaces
+GigabitEthernet1 is up, line protocol is up
+  Hardware is CSR vNIC, address is 0e56.1bf5.5ee2 (bia 0e56.1bf5.5ee2)
+  Internet address is 172.17.16.140/16
+  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive set (10 sec)
+  Full Duplex, 1000Mbps, link type is auto, media type is Virtual
+  output flow-control is unsupported, input flow-control is unsupported
+  ARP type: ARPA, ARP Timeout 04:00:00
+.
+.
+.
+.
+.
+<output omitted for brevity>  
+```</pre>
+
+</div>
+<div>
+<pre>
+```
+TASK [DISPLAY THE PARSED DATA] **************************************************************************************************************************************************************
+ok: [rtr1] => {
+    "interface_facts": [
+        {
+            "GigabitEthernet1": {
+                "config": {
+                    "description": null,
+                    "mtu": 1500,
+                    "name": "GigabitEthernet1",
+                    "type": "CSR"
+                }
+            }
+        },
+        {
+            "Loopback0": {
+                "config": {
+.
+.
+.
+.
+.
+<output omitted for brevity>                
+```</pre></div>
 
 
 
 <section data-state="title alt">
-# Demo Time: 
-# A Playbook Using Roles
+# Lab Time
 
+#### Lab 3: Exercise 2
+
+The objective of this lab is to generate a dynamic documentation from the output of a device **show** command. You will use the **network-engine** role installed from **Ansible Galaxy** to invoke the **command_parser** module to create structured data. You will then use a pre-written Jinja2 template to generate the desired report
+
+Approximate time: 20 mins
 
 
 

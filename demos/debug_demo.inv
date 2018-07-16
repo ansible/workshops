@@ -1,0 +1,29 @@
+[all:vars]
+ansible_username=admin
+ansible_password=pa55w0rd
+snmp_ro=public123
+snmp_rw=private123
+
+[east-coast:vars]
+ntp_server=10.99.99.99
+anycast=169.1.1.1
+
+[DC:children]
+core
+access
+
+[east-coast:children]
+DC
+atl
+
+[atl]
+10.1.1.2 snmp_ro=atl123 
+192.168.1.2
+    
+[core]
+core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123
+core2.nw.com
+    
+[access]
+access1.nw.com ansible_username=localadmin
+access2.nw.com 

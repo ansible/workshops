@@ -16,7 +16,7 @@
 
     - name: PARSE THE RAW OUTPUT
       command_parser:
-        file: "parsers/show_interfaces.yml"
+        file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
     #- name: DISPLAY THE PARSED DATA

@@ -146,13 +146,13 @@ Add this to your playbook:
 
     - name: PARSE THE RAW OUTPUT
       command_parser:
-        file: "parsers/show_interfaces.yml"
+        file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
 {%endraw%}
 ```
 
-Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
+Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yaml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
 
 > More parsers are being made available in the public domain so you will only have to build them if a specific use case has not been handled.
 
@@ -184,7 +184,7 @@ Add a new task to view the contents being returned by the `command_parser`
 
     - name: PARSE THE RAW OUTPUT
       command_parser:
-        file: "parsers/show_interfaces.yml"
+        file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
     - name: DISPLAY THE PARSED DATA
@@ -327,7 +327,7 @@ Our next step is to use the template module to generate a report from the above 
 
     - name: PARSE THE RAW OUTPUT
       command_parser:
-        file: "parsers/show_interfaces.yml"
+        file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
     #- name: DISPLAY THE PARSED DATA

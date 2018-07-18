@@ -73,6 +73,7 @@
   become: yes
   roles:
     - control_node
+  tags: control_node
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

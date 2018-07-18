@@ -79,3 +79,6 @@
     - towerinstall
     - autolicense is defined
     - autolicense
+
+- name: INSTALL VSCODE AND XRDP
+  include_tasks: gui.yml

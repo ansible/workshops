@@ -1,0 +1,31 @@
+- name: ADD THE KEY FOR VSCODE
+  rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: ADD THE VSCODE RPM INFO
+  copy:
+    src: files/vscode_rpminfo
+    dest: /etc/yum.repos.d/vscode.repo
+
+- name: ENSURE XRDP IS INSTALLED
+  yum: name=xrdp
+
+- name: ENSURE XFCE IS INSTALLED
+  yum:
+    name: "@xfce"
+
+- name: ENSURE XCLIENTS IS PRESENT
+  file:
+    path: "/home/{{ username }}/.Xclients"
+    mode: 0755
+    state: touch
+
+- name: ENSURE XFCE IS CONFIGURED
+  shell: "echo xfce4-session > /home/{{ username }}/.Xclients"
+
+- name: ENSURE VSCODE IS INSTALLED
+  yum: name=code
+
+- name: Start xrdp service
+  service: name=xrdp state=started

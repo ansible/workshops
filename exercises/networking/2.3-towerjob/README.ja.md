@@ -9,7 +9,6 @@
 ### ステップ 2: ジョブを追加
 ![ADD](add.png) ボタンをクリックし、 **Job Template** (workflow templateでは無い)を選択
 
-
 ### ステップ 3: 以下の値でフォームを入力して保存(SAVE)
 
 | Field                  | Value                                                                                    |
@@ -19,7 +18,7 @@
 | **JOB TYPE**           | Run                                                                                      |
 | **INVENTORY**          | Ansible Workshop Inventory                                                               |
 | **PROJECT**            | Ansible Workshop Project                                                                 |
-| **PLAYBOOK**           | workshops/networking/1.5-run_routing_configs/router_configs.yml                          |
+| **PLAYBOOK**           | exercises/networking/1.5-roles/deploy_network.yml                                         |
 | **MACHINE CREDENTIAL** | Demo Credential - This is required by default and can contain blank credentials.         |
 | **NETWORK CREDENTIAL** | Ansible Workshop Credential                                                              |
 

@@ -88,6 +88,7 @@ dns_servers:
 ### Step 4: Add some global variables for your roles in group_vars/all.yml
 
 ```bash
+$ mkdir group_vars
 $ vim group_vars/all.yml
 ```
 
@@ -131,9 +132,12 @@ $ vim roles/system/tasks/main.yml
 ### Step 7: Create two more roles: 1 called interface and 1 called static_route
 
 ```bash
-$ mkdir -p roles/interface/tasks/
-$ mkdir -p roles/static_route/tasks/
+$ cd roles
+$ ansible-galaxy init interface
+$ ansible-galaxy init static_route
+$ cd ..
 ```
+
 For `roles/interface/tasks/main.yml`:
 
 ```bash
@@ -154,7 +158,7 @@ $ vim roles/interface/tasks/main.yml
         - ip address dhcp
       parents: interface GigabitEthernet2
   when:
-    - ansible_ios_version == ios_version
+    - ansible_net_version == ios_version
     - '"rtr2" in inventory_hostname'
 ```
 

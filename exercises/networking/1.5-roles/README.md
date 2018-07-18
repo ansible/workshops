@@ -102,6 +102,10 @@ ios_version: "16.06.01"
 ```  
 Fill out host1_private_ip and control_private_ip from the lab_inventory
 
+```bash
+$ cat ~/networking-workshop/lab_inventory/hosts
+```
+
 **Variables in multiple places?**
 Variables can live in quite a few places. Just to name a few:
  - vars directory

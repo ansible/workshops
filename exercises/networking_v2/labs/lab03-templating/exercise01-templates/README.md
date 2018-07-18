@@ -1,4 +1,4 @@
-# Lab 4: Using Ansible to collect and report router information
+# Exercise 1: An introduction to templating with Jinja2
 
 
 Generally speaking, when one talks about network automation the focus is specifically around configuration management of devices. In this lab you will learn how to use Ansible as a tool to generate living, dynamic documentation. 

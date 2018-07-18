@@ -1,4 +1,4 @@
-# Exercise 2: Using the network-engine command parser
+# Exercise 2: Building dynamic documentation using the command parser
 
 Most CLI based network devices support `show` commands. The output of the commands are "pretty" formatted, in the sense that they are very human readable. However, in the context of automation, where the objective is for a machine(code) to interpret this output, it needs to be transformed into "structured" data. In other words data-types that the code/machine can interpret and navigate. Examples would be lists, dictionaries, arrays and so on.
 

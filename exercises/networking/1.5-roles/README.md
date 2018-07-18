@@ -1,4 +1,4 @@
-# Exercise 1.6 - Roles: Making your playbooks reusable
+# Exercise 1.5 - Roles: Making your playbooks reusable
 
 While it is possible to write a playbook in one file as we’ve done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
@@ -19,8 +19,8 @@ Ansible Galaxy is a free site for finding, downloading, and sharing roles. It’
 ### Step 1: Create and Navigate to directory for this project
 
 ```bash
-$ mkdir ~/test
-$ cd ~/test
+$ mkdir ~/networking_workshop/test
+$ cd ~/networking_workshop/test
 ```
 
 ### Step 2: Create a directory called roles and cd into it
@@ -39,7 +39,7 @@ $ ansible-galaxy init system
 ### Step 4: Remove the files and tests directories
 
 ```bash
-$ cd ~networking_workshop/test/roles/system/
+$ cd ~/networking_workshop/test/roles/system/
 $ rm -rf files tests
 ```
 
@@ -74,6 +74,10 @@ $ vim deploy_network.yml
 
 ### Step 3: Add some variables to your role in `roles/system/vars/main.yml`
 
+```bash
+$ vim roles/system/vars/main.yml
+```
+
 ```yml
 ---
 dns_servers:
@@ -83,15 +87,24 @@ dns_servers:
 
 ### Step 4: Add some global variables for your roles in group_vars/all.yml
 
+```bash
+$ mkdir group_vars
+$ vim group_vars/all.yml
+```
+
 ```yml
 ---
 ansible_network_os: ios
 ansible_connection: network_cli
-host1_private_ip: "172.18.2.125"
-control_private_ip: "172.17.1.157"
+host1_private_ip: ""
+control_private_ip: ""
 ios_version: "16.06.01"
 ```  
 Fill out host1_private_ip and control_private_ip from the lab_inventory
+
+```bash
+$ cat ~/networking-workshop/lab_inventory/hosts
+```
 
 **Variables in multiple places?**
 Variables can live in quite a few places. Just to name a few:
@@ -105,6 +118,10 @@ More information on [variable precedence can be found here](http://docs.ansible.
 
 ### Step 6: Add tasks to your role in roles/system/tasks/main.yml
 
+```bash
+$ vim roles/system/tasks/main.yml
+```
+
 ```yml
 ---
 - name: gather ios_facts
@@ -112,13 +129,24 @@ More information on [variable precedence can be found here](http://docs.ansible.
 
 - name: configure name servers
   ios_system:
-    name_servers: "{{item}}"
-  with_items: "{{dns_servers}}"
+    name_servers: "{{ item }}"
+  with_items: "{{ dns_servers }}"
 ```        
 
 ### Step 7: Create two more roles: 1 called interface and 1 called static_route
 
+```bash
+$ cd roles
+$ ansible-galaxy init interface
+$ ansible-galaxy init static_route
+$ cd ..
+```
+
 For `roles/interface/tasks/main.yml`:
+
+```bash
+$ vim roles/interface/tasks/main.yml
+```
 
 ```yml
 - block:
@@ -134,34 +162,43 @@ For `roles/interface/tasks/main.yml`:
         - ip address dhcp
       parents: interface GigabitEthernet2
   when:
-    - ansible_ios_version == ios_version
+    - ansible_net_version == ios_version
     - '"rtr2" in inventory_hostname'
 ```
 
 For `roles/static_route/tasks/main.yml`:
+
+```bash
+$ vim roles/static_route/tasks/main.yml
+```
+
 ```yml
 ##Configuration for R1
 - name: Static route from R1 to R2
   ios_static_route:
-    prefix: "{{host1_private_ip}}"
+    prefix: "{{ host1_private_ip }}"
     mask: 255.255.255.255
     next_hop: 10.0.0.2
   when:
-    - ansible_ios_version == ios_version
+    - ansible_net_version == ios_version
     - '"rtr1" in inventory_hostname'
 
 ##Configuration for R2
 - name: Static route from R2 to R1
   ios_static_route:
-    prefix: "{{control_private_ip}}"
+    prefix: "{{ control_private_ip }}"
     mask: 255.255.255.255
     next_hop: 10.0.0.1
   when:
-    - ansible_ios_version == ios_version
+    - ansible_net_version == ios_version
     - '"rtr2" in inventory_hostname'
 ```
 
 ### Step 8: Add roles to your master playbook deploy_network.yml
+
+```bash
+$ vim deploy_network.yml
+```
 
 ```yml
 ---

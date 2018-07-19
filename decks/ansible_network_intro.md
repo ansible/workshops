@@ -1,4 +1,4 @@
-# Introduction 
+# Introduction
 
 Gerald Grant Dykeman
 
@@ -29,11 +29,10 @@ Ansible is capable of handling many powerful automation tasks with the flexibili
 - How Ansible Works and terminology
 - Inventory, grouping, variables
 - Running Ansible playbooks
-- Network modules 
+- Network modules
 - An introduction to roles
 - An introduction to Ansible Galaxy
 - Scenarios:
     - Executing discrete commands on network devices
     - Backing up and restoring device configuration
     - Generating dynamic/living documentation
-

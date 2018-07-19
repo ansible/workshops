@@ -101,10 +101,10 @@ ORGANIZATION|Default
 SCM TYPE|Git
 SCM URL| https://github.com/ansible/lightbulb
 SCM BRANCH|
-SCM UPDATE OPTIONS
-a| - [x] Clean <br />
-- [x] Delete on Update<br />
-- [x] Update on Launch
+SCM UPDATE OPTIONS| - [x] Clean <br />  - [x] Delete on Update<br />  - [x] Update on Launch
+
+
+
 
 ![Defining a Project](at_project_detail.png)
 

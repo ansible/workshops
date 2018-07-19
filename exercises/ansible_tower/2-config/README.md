@@ -133,7 +133,7 @@ Complete the form using the following entries
 
 NAME |Ansible Workshop Inventory
 -----|--------------------------
-DESCRIPTION|workshop hosts
+DESCRIPTION|Ansible Inventory
 ORGANIZATION|Default
 
 ![Create an Inventory](at_inv_create.png)

@@ -13,7 +13,7 @@ Want the Presentation Deck?  Its right here:
  - [Exercise 1 - Installing Ansible Tower](1-install)
  - [Exercise 2 - Configuring Ansible Tower](2-config)
  - [Exercise 3 - Creating and Running a Job Template](3-create)
- - [Exercise 4 - Using Ansible to Implement Security](4-security)
+<!--- - [Exercise 4 - Using Ansible to Implement Security](4-security) --->
 
 ## Survey
 If you attend an in-person workshop, please fill out the survey!
@@ -24,6 +24,6 @@ If you attend an in-person workshop, please fill out the survey!
  - [Ansible Tower Administration Guide](http://docs.ansible.com/ansible-tower/latest/html/administration/index.html)
 
  ---
- ![Ansible Tower](ansible-tower-logo.png)
+ ![Ansible Tower](ansible_tower_logo.png)
 
 Red Hat® Ansible® Tower is a fully supported product built on the simple, powerful and agentless foundation capabilities derived from the Ansible project.  Please visit [ansible.com](https://www.ansible.com/tower) for more information.

@@ -110,10 +110,10 @@ To the right, you can view standard output; the same way you could if you were r
 
 ### Step 6:
 
-Once your job is sucessful, navigate to your new website, where *workshopname* is the name of your workshop, and *#* is your student number:
+Once your job is sucessful, navigate to your new website
 
 ```bash
-http://workshopname.node.#.redhatgov.io
+http://<IP_of_any_node>
 ```
 
 If all went well, you should see something like this, but with your own custom message:

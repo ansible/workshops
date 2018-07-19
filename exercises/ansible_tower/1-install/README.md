@@ -18,7 +18,7 @@ cd /tmp
 Download the latest Ansible Tower package
 
 ```bash
-curl -O http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
 ```
 
 ### Step 3:
@@ -56,19 +56,19 @@ localhost ansible_connection=local
 [database]
 
 [all:vars]
-admin_password=*'ansibleWS'*
+admin_password='ansibleWS'
 
 pg_host=''
 pg_port=''
 
 pg_database='awx'
 pg_username='awx'
-pg_password=*'ansibleWS'*
+pg_password='ansibleWS'
 
 rabbitmq_port=5672
 rabbitmq_vhost=tower
 rabbitmq_username=tower
-rabbitmq_password=*'ansibleWS'*
+rabbitmq_password='ansibleWS'
 rabbitmq_cookie=cookiemonster
 
 = Needs to be true for fqdns and ip addresses
@@ -86,7 +86,7 @@ sudo ./setup.sh
 
 ---
 **NOTE**
-Step 7 will take approx. 10-15 minutes to complete.  This may be a good time to take a break.
+Step 7 will take approx. 20-25 minutes to complete.  This may be a good time to take a break.
 
 ---
 
@@ -94,11 +94,10 @@ Step 7 will take approx. 10-15 minutes to complete.  This may be a good time to 
 ### End Result
 
 At this point, your Ansible Tower installation should be complete.
-You can access your Tower (not forgetting that *workshopname* is the name of your workshop, and *#* is your student number) at:
-
+You can access your Tower through a browser at your *control node* IP.
 
 ```bash
-https://workshopname.tower.#.redhatgov.io
+https://X.X.X.X
 ```
 
 ### Ensuring Installation Success

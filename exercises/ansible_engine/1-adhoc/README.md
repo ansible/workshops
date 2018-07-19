@@ -13,12 +13,12 @@ ansible_ssh_pass=PASSWORD
 ansible_port=22
 
 [web]
-node1 ansible_host=11.22.33.44 ansible_user=ec2-user
-node2 ansible_host=22.33.44.55 ansible_user=ec2-user
-node3 ansible_host=33.44.55.66 ansible_user=ec2-user
+node1 ansible_host=<X.X.X.X>
+node2 ansible_host=<Y.Y.Y.Y>
+node3 ansible_host=<Z.Z.Z.Z>
 
 [control]
-ansible ansible_host=44.55.66.77 ansible_ssh_user=ec2-user
+ansible ansible_host=44.55.66.77
 ```
 
 ## Step 1.2 - Ping a host

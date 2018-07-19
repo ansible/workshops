@@ -1,4 +1,4 @@
-# Exercise 1.6 - Roles: Making your playbooks reusable
+# Exercise 1.5 - Roles: Making your playbooks reusable
 
 While it is possible to write a playbook in one file as we’ve done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
@@ -30,17 +30,43 @@ $ mkdir roles
 $ cd roles
 ```
 
-### Step 3: Use the ansible-galaxy command to initialize a new role called system
+### Step 3: Use the ansible-galaxy command to initialize a new role called system,  interface and static_route
 
 ```bash
 $ ansible-galaxy init system
+$ ansible-galaxy init interface
+$ ansible-galaxy init static_route
+
+$ ls -l
+.
+├── interface
+│   ├── defaults
+│   │   └── main.yml
+│   ├── files
+│   ├── handlers
+│   │   └── main.yml
+│   ├── meta
+│   │   └── main.yml
+│   ├── README.md
+│   ├── tasks
+│   │   └── main.yml
+│   ├── templates
+│   ├── tests
+│   │   ├── inventory
+│   │   └── test.yml
+│   └── vars
+│       └── main.yml
+├── static_route
+│   ├── defaults
+│   │   └── main.yml
+...
 ```
 
 ### Step 4: Remove the files and tests directories
 
 ```bash
-$ cd ~networking_workshop/test/roles/system/
-$ rm -rf files tests
+$ cd ~/test/roles/
+$ rm -rf roles/{system,interface,static_route}/{files,tests}
 ```
 
 ## Section 2: Breaking your router_configs.yml playbook into the newly created system role
@@ -52,7 +78,7 @@ In this section, we will separate out the major parts of your playbook including
 Copy the router_configs from the previous exercise:
 
 ```
-$ cp ~/networking_workshop/router_configs.yml ~/networking_workshop/test
+$ cp ~/networking_workshop/router_configs.yml ~/test
 ```
 
 Now create a new deploy_network.yml:
@@ -81,7 +107,13 @@ dns_servers:
   - 8.8.4.4
 ```
 
-### Step 4: Add some global variables for your roles in group_vars/all.yml
+### Step 4: Add some global variables for your roles in `group_vars/all.yml`
+
+```bash
+$ ~/test
+$ mkdir group_vars
+$ vim group_vars/all.yml
+```
 
 ```yml
 ---
@@ -89,7 +121,7 @@ ansible_network_os: ios
 ansible_connection: network_cli
 host1_private_ip: "172.18.2.125"
 control_private_ip: "172.17.1.157"
-ios_version: "16.06.01"
+ios_version: "16.08.01a"
 ```  
 Fill out host1_private_ip and control_private_ip from the lab_inventory
 
@@ -103,7 +135,7 @@ Variables can live in quite a few places. Just to name a few:
 
 More information on [variable precedence can be found here](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable). To understand both where to define variables and which locations take precedence. In this exercise, we are using role defaults to define a couple of variables and these are the most malleable. After that, we defined some variables in `/vars` which have a higher precedence than defaults and can’t be overridden as a default variable.
 
-### Step 6: Add tasks to your role in roles/system/tasks/main.yml
+### Step 6: Add tasks to your role in `roles/system/tasks/main.yml`
 
 ```yml
 ---
@@ -116,7 +148,7 @@ More information on [variable precedence can be found here](http://docs.ansible.
   with_items: "{{dns_servers}}"
 ```        
 
-### Step 7: Create two more roles: 1 called interface and 1 called static_route
+### Step 7: Edit two more roles: 1 called interface and 1 called static_route
 
 For `roles/interface/tasks/main.yml`:
 
@@ -161,7 +193,7 @@ For `roles/static_route/tasks/main.yml`:
     - '"rtr2" in inventory_hostname'
 ```
 
-### Step 8: Add roles to your master playbook deploy_network.yml
+### Step 8: Add roles to your master playbook `deploy_network.yml`
 
 ```yml
 ---

@@ -11,4 +11,4 @@
         - ip address dhcp
       parents: interface GigabitEthernet1
   when:
-    - ansible_ios_version == ios_version
+    - ansible_net_version == ios_version

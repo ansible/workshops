@@ -15,15 +15,10 @@
       - sshpass
     state: latest
 
-- name: Download Ansible
-  get_url:
-    url: http://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.5-1.el7.ans.noarch.rpm
-    dest: /tmp/ansible.rpm
 
 - name: Install Ansible
   yum:
-    name: /tmp/ansible.rpm
-    state: present
+    name: ansible
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
@@ -84,3 +79,6 @@
     - towerinstall
     - autolicense is defined
     - autolicense
+
+- name: INSTALL VSCODE AND XRDP
+  include_tasks: gui.yml

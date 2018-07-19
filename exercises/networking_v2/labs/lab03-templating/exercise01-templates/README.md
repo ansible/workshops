@@ -1,4 +1,12 @@
-# Lab 4: Using Ansible to collect and report router information
+# Exercise 1: An introduction to templating with Jinja2
+
+
+Generally speaking, when one talks about network automation the focus is specifically around configuration management of devices. In this lab you will learn how to use Ansible as a tool to generate living, dynamic documentation. 
+
+This allows the ability to generate reports and documents, using the same information and can cater to the needs of a hands-on-keyboard network engineer to a manager who needs to understand the state of the network with a glance of a web-page!
+
+
+[Jinja2](http://jinja.pocoo.org/docs/2.10/) is a powerful templating engine for Python. There is native integration of Jinja2 with Ansible. Jinja2 allows for manipulating variables and implementing logical constructs. In combination with the Ansible `template` module, the automation engineer has a powerful tool at their disposal to generate live or dynamic reports.
 
 
 In this lab you will learn how to use the `template` module to pass collected data from devices to a Jinja2 template. The template module then renders the output as a `markdown` file.
@@ -65,6 +73,7 @@ Rather than using debug or verbose mode to display the output on the screen, go 
         dest: reports/{{ inventory_hostname }}.md
 {%endraw%}
 ```
+
 
 
 Let's break this task down a bit. The `template` module has a `src` parameter that has a value of `os_report.j2`. In the next few steps, we will create this file. This will be the Jinja2 template,  used to generate the desired report. The `dest` parameter specifies the destination file name to render the report into.

@@ -1,4 +1,11 @@
-# Lab 4: Using the network-engine command parser to generate custom reports
+# Exercise 2: Building dynamic documentation using the command parser
+
+Most CLI based network devices support `show` commands. The output of the commands are "pretty" formatted, in the sense that they are very human readable. However, in the context of automation, where the objective is for a machine(code) to interpret this output, it needs to be transformed into "structured" data. In other words data-types that the code/machine can interpret and navigate. Examples would be lists, dictionaries, arrays and so on.
+
+The Ansible [network-engine](https://github.com/ansible-network/network-engine) is a [role](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_reuse_roles.html) that supports 2 such "translators" - `command_parser` and `textfsm_parser`. These are modules built into the `network-engine` role that takes a raw text input (pretty formatted) and converts it into structured data. You will work with each of these to generate dynamic reports in the following sections:
+
+
+# Unstructured command output from network devices
 
 
 Here is how the output of a `show interfaces` command looks like on a Cisco IOS device:
@@ -469,3 +476,5 @@ Loopback1:
 .
 <output omitted for brevity>
 ```
+
+

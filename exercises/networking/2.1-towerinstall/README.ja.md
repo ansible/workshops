@@ -17,13 +17,13 @@ cd /tmp
 ## ステップ 3: 最新のAnsible Towerパッケージをダウンロードします
 
 ```bash
-curl -O http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
 ```
 
 ## ステップ 4: パッケージファイルを解凍(untar)します
 
 ```bash
-tar xvfz /tmp/ansible-tower-setup-*  (Name of tar file that was downloaded)
+tar xvfz /tmp/ansible-tower-setup-latest.tar.gz
 ```
 
 ## ステップ 5: 解凍したAnsible Towerパッケージのディレクトリに移動します

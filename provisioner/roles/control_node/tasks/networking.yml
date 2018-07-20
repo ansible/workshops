@@ -33,8 +33,15 @@
       when: special is defined
   when: networking
 
+# waiting on https://github.com/ansible/ansible/pull/41222
+# - name: Move networking workshop folder to correct location  (F5 MODE)
+#   copy:
+#     src: /tmp/linklight/exercises/ansible_f5/
+#     dest: /home/{{ username }}/networking-workshop
+#     remote_src: yes
+
 - name: Move networking workshop folder to correct location  (F5 MODE)
-  command: cp -r /tmp/linklight/exercises/ansible_f5/ /home/{{ username }}/networking-workshop
+  shell: cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
   when: f5workshop is defined
 
 - name: fix permissions of networking-workshop  (NETWORKING MODE)

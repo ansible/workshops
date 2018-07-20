@@ -13,7 +13,27 @@
       - nano
       - tree
       - sshpass
+      - python-pip
     state: latest
+
+- name: block for f5workshop
+  block:
+    - name: install f5 workshop dependicies
+      become: yes
+      pip:
+        name:
+          - pip
+          - setuptools
+        state: latest
+
+    - name: install f5 workshop dependicies
+      become: yes
+      pip:
+        name:
+          - f5-sdk
+          - bigsuds
+        state: latest
+  when: f5workshop
 
 - name: Download Ansible
   get_url:
@@ -49,7 +69,9 @@
 
 - name: engine (essentials) mode - setup control node
   include_tasks: "engine.yml"
-  when: not networking
+  when:
+    - not networking
+    - not f5workshop
 
 - name: check to see if ansible tower is already up and running
   uri:

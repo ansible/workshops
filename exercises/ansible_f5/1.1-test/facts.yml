@@ -9,7 +9,7 @@
       bigip_facts:
         include: interface,vlan
         provider:
-          server: {{ansible_host}}
+          server: "{{ansible_host}}"
           user: admin
           password: admin
       register: f5_facts

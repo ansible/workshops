@@ -7,11 +7,11 @@
   tasks:
     - name: Collect BIG-IP facts
       bigip_facts:
-        include: interface,vlan
-        provider:
-          server: "{{ansible_host}}"
-          user: admin
-          password: admin
+        include: interface
+        server: "{{ansible_host}}"
+        user: admin
+        password: admin
+        server_port: 8443
       register: f5_facts
 
     - name: debug

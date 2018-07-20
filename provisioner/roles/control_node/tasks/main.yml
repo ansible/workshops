@@ -14,6 +14,7 @@
       - tree
       - sshpass
       - python-pip
+      - ansible
     state: latest
 
 - name: block for f5workshop
@@ -32,18 +33,9 @@
         name:
           - f5-sdk
           - bigsuds
+          - netaddr
         state: latest
   when: f5workshop
-
-- name: Download Ansible
-  get_url:
-    url: http://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.5-1.el7.ans.noarch.rpm
-    dest: /tmp/ansible.rpm
-
-- name: Install Ansible
-  yum:
-    name: /tmp/ansible.rpm
-    state: present
 
 - name: Install ansible.cfg and vimrc in home directory
   template:

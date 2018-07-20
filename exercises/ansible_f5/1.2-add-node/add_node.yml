@@ -1,0 +1,20 @@
+---
+- name: grab f5 facts
+  hosts: f5
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Add node
+      bigip_node:
+        state: present
+        partition: Common
+        host: 10.20.30.40
+        name: 10.20.30.40
+        provider:
+          server: "172.16.41.224"
+          user: admin
+          password: admin
+          transport: rest
+          server_port: 8443
+          validate_certs: no

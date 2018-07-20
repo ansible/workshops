@@ -19,7 +19,6 @@ ec2_lab_node_types:
 ec2_lab_node_types_f5:
   f5: f5-prelicensed
   host1: rhel7
-  host2: rhel7
 
 ec2_lab_node_types_networking:
   rtr1: csr-byol
@@ -91,3 +90,4 @@ ec2_login_names:
   csr-byol: ec2-user
   junos-byol: jnpr
   f5-prelicensed: admin
+  f5_hosts: ec2-user

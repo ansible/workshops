@@ -71,9 +71,15 @@
   hosts: "managed_nodes:control_nodes"
   become: yes
   gather_facts: no
-
   roles:
     - connectivity_test
+
+- name: setup f5 nodes
+  hosts: f5
+  connection: local
+  gather_facts: no
+  roles:
+    - { role: f5_setup, when: f5workshop }
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"

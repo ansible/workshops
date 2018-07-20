@@ -1,0 +1,8 @@
+- name: Change BIG-IP F5 mgmt password
+  bigip_command:
+    provider:
+      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+      transport: cli
+      user: admin
+      server: "{{ ansible_host }}"
+    commands: modify auth user admin password admin

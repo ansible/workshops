@@ -1,23 +1,41 @@
-- name: Clear out lightbulb directory spot (NETWORKING MODE)
+- name: Clear out linklight directory spot (NETWORKING MODE)
   file:
     state: absent
-    path: /tmp/lightbulb
+    path: /tmp/linklight
 
-- name: Clone lightbulb repo (NETWORKING MODE)
+- name: Clone linklight repo (NETWORKING MODE)
   git:
     accept_hostkey: yes
     clone: yes
     dest: /tmp/linklight
     repo: https://github.com/network-automation/linklight.git
     force: yes
+  when: networking
 
-- name: Move networking workshop folder to correct location  (NETWORKING MODE)
-  command: cp -r /tmp/linklight/exercises/networking/ /home/{{ username }}/networking-workshop
-  when: special is not defined
+- name: Clone linklight repo (F5 MODE)
+  git:
+    accept_hostkey: yes
+    clone: yes
+    dest: /tmp/linklight
+    repo: https://github.com/network-automation/linklight.git
+    force: yes
+    version: f5
+  when: f5workshop
 
-- name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
-  command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop
-  when: special is defined
+- name: for networking modes
+  block:
+    - name: Move networking workshop folder to correct location  (NETWORKING MODE)
+      command: cp -r /tmp/linklight/exercises/networking/ /home/{{ username }}/networking-workshop
+      when: special is not defined
+
+    - name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
+      command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop
+      when: special is defined
+  when: networking
+
+- name: Move networking workshop folder to correct location  (F5 MODE)
+  command: cp -r /tmp/linklight/exercises/ansible_f5/ /home/{{ username }}/networking-workshop
+  when: f5workshop is defined
 
 - name: fix permissions of networking-workshop  (NETWORKING MODE)
   file:

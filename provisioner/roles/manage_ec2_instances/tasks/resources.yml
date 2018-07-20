@@ -45,9 +45,6 @@
         to_port: 22
         from_port: 22
         cidr_ip: 0.0.0.0/0
-    rules_egress:
-      - proto: all
-        cidr_ip: 0.0.0.0/0
   when: ec2_vpc_id is undefined
   register: create_sg
   until: create_sg is not failed

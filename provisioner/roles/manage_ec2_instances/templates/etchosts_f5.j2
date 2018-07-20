@@ -3,12 +3,24 @@
 
 {% for vm in f5_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} f5
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in host1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in host1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}

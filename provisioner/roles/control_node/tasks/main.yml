@@ -43,6 +43,10 @@
   include_tasks: "networking.yml"
   when: networking
 
+- name: f5 mode - setup control node
+  include_tasks: "networking.yml"
+  when: f5workshop
+
 - name: engine (essentials) mode - setup control node
   include_tasks: "engine.yml"
   when: not networking

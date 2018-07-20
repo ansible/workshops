@@ -1,0 +1,19 @@
+---
+- name: grab f5 facts
+  hosts: f5
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Collect BIG-IP facts
+      bigip_facts:
+        include: interface,vlan
+        provider:
+          server: {{ansible_host}}
+          user: admin
+          password: admin
+      register: f5_facts
+
+    - name: debug
+      debug:
+        var: f5_facts

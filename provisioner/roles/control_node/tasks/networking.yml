@@ -41,7 +41,7 @@
 #     remote_src: yes
 
 - name: Move networking workshop folder to correct location  (F5 MODE)
-  shell: cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
+  shell: mkdir /home/{{ username }}/networking-workshop; cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
   when: f5workshop is defined
 
 - name: fix permissions of networking-workshop  (NETWORKING MODE)

@@ -74,13 +74,6 @@
   roles:
     - connectivity_test
 
-- name: setup f5 nodes
-  hosts: f5
-  connection: local
-  gather_facts: no
-  roles:
-    - { role: f5_setup, when: f5workshop }
-
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
   become: yes
@@ -107,6 +100,13 @@
   gather_facts: no
   roles:
     - { role: network_hostroutes, when: networking is defined and networking }
+
+- name: setup f5 nodes
+  hosts: f5
+  connection: local
+  gather_facts: no
+  roles:
+    - { role: f5_setup, when: f5workshop }
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

@@ -10,6 +10,17 @@ Email: gdykeman@redhat.com
 
 Github: gdykeman
 
+# Introduction
+
+Sean Cavanaugh
+
+Twitter: [@IPvSean](https://twitter.com/IPvSean)
+
+Linkedin: [/in/seanecavanaugh](https://www.linkedin.com/in/seanecavanaugh/)
+
+Email: [seanc@redhat.com](mailto:seanc@redhat.com)
+
+Github: [IPvSean](https://github.com/IPvSean)
 
 
 # House Keeping

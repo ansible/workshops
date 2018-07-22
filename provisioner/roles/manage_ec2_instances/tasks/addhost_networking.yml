@@ -9,6 +9,7 @@
 - name: add host1 to groups (NETWORKING MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[host1_node] }}"
     ansible_port: "{{ ssh_port }}"
@@ -60,6 +61,7 @@
 - name: ADD CORE ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
     ansible_user: ec2-user
@@ -78,6 +80,7 @@
 - name: ADD ACCESS ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
     ansible_user: ec2-user
@@ -96,6 +99,7 @@
 - name: ADD DMVPN HUB ROUTER TO SEPARATE GROUP
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
     ansible_user: ec2-user

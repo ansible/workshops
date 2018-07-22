@@ -65,6 +65,7 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "ansible"
   with_indexed_items:
     - "{{ control_output.instance_ids }}"
   when: control_output.instance_ids is not none

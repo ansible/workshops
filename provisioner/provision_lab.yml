@@ -1,3 +1,5 @@
+#!/usr/bin/env ansible-playbook
+
 - name: Perform Checks to make sure this Playbook will complete successfully
   hosts: localhost
   connection: local
@@ -95,6 +97,13 @@
   become: yes
   roles:
     - control_node
+
+- name: CONFIGURE TOWER IN CONTROL NODE
+  hosts: control_nodes
+  become: yes
+  roles:
+    - role: victorock.tower_config
+      autorun: true
 
 - name: Setup Host routes for ansible control node and host1 when in networking mode
   hosts: "managed_nodes:control_nodes"

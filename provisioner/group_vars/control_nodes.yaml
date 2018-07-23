@@ -1,0 +1,399 @@
+tower_config:
+  host: "localhost"
+  username: "admin"
+  password: "{{ admin_password }}"
+  verify_ssl: false
+  format: json
+
+  organization:
+    LINKLIGHT:
+      name: "LINKLIGHT"
+      description: "LINKLIGHT"
+      users:
+        - name: "infraops"
+          password: "infraops"
+          email: "infraops@acme.com"
+          first_name: "Infrastructure"
+          last_name: "Operations"
+          superuser: true
+          auditor: false
+
+        - name: "netops"
+          password: "netops"
+          email: "netops@acme.com"
+          first_name: "Network"
+          last_name: "Operations"
+          superuser: false
+          auditor: false
+
+        - name: "devops"
+          password: "devops"
+          email: "devops@acme.com"
+          first_name: "Developer"
+          last_name: "Operations"
+          superuser: false
+          auditor: false
+
+        - name: "sysops"
+          password: "sysops"
+          email: "sysops@acme.com"
+          first_name: "System"
+          last_name: "Operations"
+          superuser: false
+          auditor: false
+
+        - name: "appops"
+          password: "appops"
+          email: "appops@acme.com"
+          first_name: "Application"
+          last_name: "Operations"
+          superuser: false
+          auditor: false
+
+        - name: "secops"
+          password: "secops"
+          email: "secops@acme.com"
+          first_name: "Security"
+          last_name: "Operations"
+          superuser: false
+          auditor: true
+      teams:
+        - name: "infraops"
+          description: "Infrastructure Operations"
+          members:
+            - name: "netops"
+            - name: "devops"
+            - name: "sysops"
+            - name: "secops"
+
+        - name: "netops"
+          description: "Network Operations"
+          members:
+            - name: "netops"
+
+        - name: "devops"
+          description: "Developer Operations"
+          members:
+            - name: "devops"
+
+        - name: "sysops"
+          description: "System Operations"
+          members:
+            - name: "sysops"
+
+        - name: "secops"
+          description: "Security Operations"
+          members:
+            - name: "secops"
+
+        - name: "appops"
+          description: "Application Operations"
+          members:
+            - name: "appops"
+      projects:
+        - name: "network-automation-linklight"
+          description: "network-automation-linklight"
+          scm_credential: "empty-scm"
+          scm_type: "git"
+          scm_branch: "master"
+          scm_clean: true
+          scm_update_on_launch: false
+          scm_url: "https://github.com/network-automation/linklight"
+      permissions:
+        - team: "infraops"
+          role: "admin"
+          target_team: "infraops"
+
+        - team: "netops"
+          role: "admin"
+          target_team: "netops"
+
+        - team: "sysops"
+          role: "admin"
+          target_team: "sysops"
+
+        - team: "devops"
+          role: "admin"
+          target_team: "devops"
+
+        - team: "secops"
+          role: "admin"
+          target_team: "secops"
+
+        - team: "infraops"
+          role: "admin"
+          inventory: "infraops"
+
+        - team: "netops"
+          role: "admin"
+          inventory: "netops"
+
+        - team: "netops"
+          role: "update"
+          inventory: "netops"
+
+        - team: "sysops"
+          role: "admin"
+          inventory: "sysops"
+
+        - team: "sysops"
+          role: "update"
+          inventory: "sysops"
+
+        - team: "devops"
+          role: "admin"
+          inventory: "devops"
+
+        - team: "devops"
+          role: "update"
+          inventory: "devops"
+
+        - team: "secops"
+          role: "admin"
+          inventory: "secops"
+
+        - team: "secops"
+          role: "update"
+          inventory: "secops"
+
+        - team: "secops"
+          role: "admin"
+          credential: "empty-scm"
+
+        - team: "netops"
+          role: "use"
+          credential: "empty-scm"
+
+        - team: "devops"
+          role: "use"
+          credential: "empty-scm"
+
+        - team: "sysops"
+          role: "use"
+          credential: "empty-scm"
+
+        - team: "secops"
+          role: "admin"
+          credential: "empty-ssh"
+
+        - team: "netops"
+          role: "use"
+          credential: "empty-ssh"
+
+        - team: "devops"
+          role: "use"
+          credential: "empty-ssh"
+
+        - team: "sysops"
+          role: "use"
+          credential: "empty-ssh"
+
+        - team: "secops"
+          role: "admin"
+          credential: "cloud-amazon-ec2"
+
+        - team: "secops"
+          role: "admin"
+          credential: "cloud-google-gce"
+
+        - team: "secops"
+          role: "admin"
+          credential: "cloud-microsoft-azure"
+
+        - team: "secops"
+          role: "admin"
+          credential: "cloud-openstack-xyz"
+
+        - team: "secops"
+          role: "admin"
+          credential: "cloud-vmware-xyz"
+
+        - team: "secops"
+          role: "admin"
+          credential: "cloud-cloudforms-xyz"
+
+        - team: "secops"
+          role: "admin"
+          credential: "cloud-tower-xyz"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-nxos-ssh"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-nxos-net"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-ios-ssh"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-ios-net"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-panos-ssh"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-panos-net"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-tmos-ssh"
+
+        - team: "secops"
+          role: "admin"
+          credential: "network-tmos-net"
+
+        - team: "secops"
+          role: "admin"
+          credential: "system-linux-ssh"
+
+        - team: "secops"
+          role: "admin"
+          credential: "system-windows-winrm"
+
+        - team: "netops"
+          role: "admin"
+          project: "network-automation-linklight"
+      inventories:
+        - name: "infraops"
+          description: "infraops"
+
+        - name: "netops"
+          description: "netops"
+
+        - name: "sysops"
+          description: "sysops"
+
+        - name: "devops"
+          description: "devops"
+
+        - name: "secops"
+          description: "secops"
+      credentials:
+        - name: "empty-scm"
+          kind: "scm"
+          description: "Empty credential"
+          username: Null
+          password: Null
+
+        - name: "empty-ssh"
+          kind: "ssh"
+          description: "Empty credential"
+          username: "empty"
+          password: "empty"
+
+        - name: "network-nxos-ssh"
+          kind: "ssh"
+          description: "Credential for nxos"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "network-nxos-net"
+          kind: "net"
+          description: "Credential for nxos"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "network-ios-ssh"
+          kind: "ssh"
+          description: "Credential for ios"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "network-ios-net"
+          kind: "net"
+          description: "Credential for ios"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "network-panos-ssh"
+          kind: "ssh"
+          description: "Credential for panos"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "network-panos-net"
+          kind: "net"
+          description: "Credential for panos"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "network-tmos-ssh"
+          kind: "ssh"
+          description: "Credential for tmos"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "network-tmos-net"
+          kind: "net"
+          description: "Credential for tmos"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "system-linux-ssh"
+          kind: "ssh"
+          description: "Credential for Linux"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "system-windows-winrm"
+          kind: "ssh"
+          description: "Credential for Windows"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "cloud-amazon-ec2"
+          kind: "aws"
+          description: "Credential for AWS"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "cloud-google-gce"
+          kind: "gce"
+          description: "Credential for GCE"
+          username: "changeme"
+          project: "changeme"
+
+        - name: "cloud-microsoft-azure"
+          kind: "azure_rm"
+          description: "Credential for AZR"
+          client: "changeme"
+          subscription: "changeme"
+          tenant: "changeme"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "cloud-openstack-xyz"
+          kind: "openstack"
+          description: "Credential for OSP"
+          host: "changeme"
+          domain: "changeme"
+          project: "changeme"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "cloud-cloudforms-xyz"
+          kind: "cloudforms"
+          description: "Credential for CF"
+          host: "changeme"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "cloud-vmware-xyz"
+          kind: "vmware"
+          description: "Credential for VMW"
+          host: "changeme"
+          username: "changeme"
+          password: "changeme"
+
+        - name: "cloud-tower-xyz"
+          kind: "tower"
+          description: "Credential for TWR"
+          host: "changeme"
+          username: "changeme"
+          password: "changeme"

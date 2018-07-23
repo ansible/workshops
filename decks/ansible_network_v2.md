@@ -36,8 +36,6 @@ Ansible Tower is an enterprise framework for controlling, securing and managing 
 
 
 
-
-
 <section data-background-image="images/simple-powerful-agentless-diagram.svg">
 </section>
 
@@ -229,7 +227,6 @@ access2.nw.com
   hosts: access
   connection: network_cli
   gather_facts: no
-
 
   tasks:
 

@@ -84,6 +84,10 @@ If you haven't done so already make sure you have the repo cloned to the machine
 
 ### Setup (per workshop)
 
+0. Accept the EULA if using Appliances:
+
+  F5: https://aws.amazon.com/marketplace/pp/B079C44MFH/
+
 1. Define the following variables in a file passed in using `-e @extra_vars.yml`
 
 ```

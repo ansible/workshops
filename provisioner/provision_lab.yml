@@ -15,6 +15,7 @@
       # F5workshop and networking workshop are two different workshops
     - name: make sure f5workshop is not turned on when networking is
       assert:
+        msg: "f5workshop and networking are mutually exclusive. Choose only one."
         that:
           - not f5workshop
       when: networking
@@ -22,6 +23,7 @@
       # F5workshop and networking workshop are two different workshops
     - name: make sure networking is not turned on when f5workshop is
       assert:
+        msg: "networking and f5workshop are mutually exclusive. Choose only one."
         that:
           - not networking
       when: f5workshop

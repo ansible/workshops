@@ -277,7 +277,7 @@ Approximate time: 20 mins
 # Running a playbook
 
 ``` bash
-[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
+[student1@control-node networking-workshop]$ ansible-playbook gather_ios_data.yml
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
 
@@ -305,7 +305,7 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 Use the optional **verbose** flag during playbook execution
 
 ``` bash
-student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v
+student1@control-node networking-workshop]$ ansible-playbook gather_ios_data.yml  -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
@@ -339,7 +339,7 @@ _Increase the level of verbosity by adding more "v's" -vvvv_
 Playbook execution can be limited to a subset of devices using the **--limit** flag.
 
 ``` bash
-$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
+$ ansible-playbook gather_ios_data.yml  -v --limit rtr1
 ```
 
 
@@ -486,7 +486,7 @@ Options (= is mandatory):
 Tags are invoked using the **--tags** flag while running the playbook
 
 ``` bash
-[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml --tags=show
+[student1@control-node networking-workshop]$ ansible-playbook gather_ios_data.yml --tags=show
 
 ```
 _This is useful while working with large playbooks, when you might want to "jump" to a specific task._
@@ -549,7 +549,7 @@ Vendor specific config modules allow the user to update the configuration on net
 
 Ansbile lets you validate the impact of the proposed configuration using the **--check** flag. Used together with the **--verbose** flag, it lets you see the actual change being pushed to the device
 ``` bash
-[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  --check -v
+[student1@control-node networking-workshop]$ ansible-playbook router_configs.yml  --check -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************

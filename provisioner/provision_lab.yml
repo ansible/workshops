@@ -116,24 +116,6 @@
   roles:
     - control_node
 
-- name: CONFIGURE TOWER IN CONTROL NODE
-  hosts: control_nodes
-  become: yes
-  tasks:
-    # External roles must be called with include_role:
-    #  1. Ansible validates that roles exists before execution,
-    #     therefore if the role is not already installed it fails, giving
-    #     no opportunity to solve role dependencies in the same playbook.
-    #  2. By calling as include, the check is done dynamically at execution,
-    #     so the galaxy play can solve all dependencies before ansible start
-    #     processing the include_role.
-    - name: "victorock.tower_config"
-      vars:
-        autorun: true
-      include_role:
-        name: victorock.tower_config
-      when: tower_config is defined
-
 - name: Setup Host routes for ansible control node and host1 when in networking mode
   hosts: "managed_nodes:control_nodes"
   become: no

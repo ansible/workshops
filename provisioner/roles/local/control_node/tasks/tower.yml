@@ -32,3 +32,16 @@
   until: check2.json is defined
   retries: 10
   delay: 30
+
+# External roles must be called with include_role:
+#  1. Ansible validates that roles exists before execution,
+#     therefore if the role is not already installed it fails, giving
+#     no opportunity to solve role dependencies in the same playbook.
+#  2. By calling as include, the check is done dynamically at execution,
+#     so the galaxy play can solve all dependencies before ansible start
+#     processing the include_role.
+- name: "victorock.tower_config"
+  vars:
+    autorun: true
+  include_role:
+    name: victorock.tower_config

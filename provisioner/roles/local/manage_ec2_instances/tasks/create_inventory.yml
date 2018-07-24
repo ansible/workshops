@@ -6,7 +6,7 @@
       "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible"
   register: ansible_node_facts
 
-- name: add ansible node to control_nodes group
+- name: add ansible node to control_nodes and managed_nodes groups
   add_host:
     name: "{{ item.tags.Name }}"
     ansible_host: "{{ item.public_ip_address }}"
@@ -16,6 +16,7 @@
     private_ip: "{{item.private_ip_address}}"
     groups:
       - control_nodes
+      - managed_nodes
   with_items: "{{ ansible_node_facts.instances }}"
 
 - name: engine (essentials) mode - setup inventory
@@ -43,9 +44,9 @@
 #   delegate_to: "{{ item }}"
 #   delegate_facts: yes
 
-- name: Set local username to create on instances
+- name: Set local username to create on managed_nodes
   set_fact:
     username: "{{ item | regex_replace('.*-(\\w*)-\\w*$','\\1') }}"
-  with_items: "{{ groups.lab_hosts }}"
+  with_items: "{{ groups.managed_nodes }}"
   delegate_to: "{{ item }}"
   delegate_facts: yes

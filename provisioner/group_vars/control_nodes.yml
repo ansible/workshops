@@ -194,10 +194,6 @@ tower_config:
 
         - team: "secops"
           role: "admin"
-          credential: "cloud-google-gce"
-
-        - team: "secops"
-          role: "admin"
           credential: "cloud-microsoft-azure"
 
         - team: "secops"
@@ -352,12 +348,6 @@ tower_config:
           description: "Credential for AWS"
           username: "changeme"
           password: "changeme"
-
-        - name: "cloud-google-gce"
-          kind: "gce"
-          description: "Credential for GCE"
-          username: "changeme"
-          project: "changeme"
 
         - name: "cloud-microsoft-azure"
           kind: "azure_rm"

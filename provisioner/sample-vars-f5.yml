@@ -5,5 +5,7 @@ student_total: 2                      # amount of work benches to provision
 ## Optional Variables
 admin_password: ansible               # password used for student account on control node
 localsecurity: false                  # skips firewalld installation and SE Linux when false
-create_login_page: true               # creates HTML website for workshop
+create_login_page: false              # creates HTML website for workshop
 f5workshop: true                      # workshp runs in F5 mode
+towerinstall: true                    # automatically installs Tower to control node
+autolicense: true                     # automatically licenses Tower if license is provided

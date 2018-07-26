@@ -82,4 +82,3 @@
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml
-  when: xrdp is defined

@@ -1,0 +1,31 @@
+- name: Clone lightbulb
+  git:
+    accept_hostkey: yes
+    clone: yes
+    dest: /home/{{ username }}/lightbulb
+    repo: https://github.com/ansible/lightbulb.git
+    force: yes
+  become_user: "{{ username }}"
+
+- name: Remove things that students don't need
+  file:
+    state: absent
+    path: /home/{{ username }}/lightbulb/{{ item }}
+  with_items:
+    - aws_lab_setup
+    - resources
+    - Vagrantfile
+    - README.md
+
+- name: Create lab inventory directory
+  file:
+    state: directory
+    path: /home/{{ username }}/lightbulb/lessons/lab_inventory
+
+- name: Put student inventory in proper spot
+  copy:
+    src: ./{{ec2_name_prefix}}/{{ username }}-instances.txt
+    dest: "{{ control_node_inventory_path }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname

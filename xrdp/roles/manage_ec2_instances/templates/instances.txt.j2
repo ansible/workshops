@@ -1,0 +1,30 @@
+[all:vars]
+ansible_user=student{{ item }}
+ansible_ssh_pass={{ admin_password }}
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+[web]
+{% for vm in node1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}
+{% for vm in node2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}
+{% for vm in node3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}
+
+[control]
+{% for vm in ansible_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
+{% endif %}
+{% endfor %}

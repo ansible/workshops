@@ -1,0 +1,62 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars:
+    all_cisco:
+      ansible: rhel7-tower
+      rtr1: csr-byol
+      rtr2: csr-byol
+      rtr3: csr-byol
+      rtr4: csr-byol
+      host1: rhel7
+
+    multivendor:
+      ansible: rhel7-tower
+      rtr1: csr-byol
+      rtr2: csr-byol
+      rtr3: junos-byol
+      rtr4: junos-byol
+      host1: rhel7
+
+    ec2_instance_types:
+      junos-byol:
+        owners: 679593333241
+        size: m4.xlarge
+        os_type: linux
+        disk_space: 32
+        architecture: x86_64
+        filter: "vmx-nested-17.4R1-S2.2-3-ami*"
+        os: junos
+
+      csr-byol:
+        owners: 679593333241
+        size: t2.medium
+        os_type: linux
+        disk_space: 20
+        architecture: x86_64
+        filter: "cisco-CSR*BYOL*"
+        os: ios
+
+    ec2_lab_node_types_networking: "{{all_cisco}}"
+
+  tasks:
+    - name: set fact for multivendor lab
+      set_fact:
+        ec2_lab_node_types_networking: "{{ multivendor }}"
+
+    - debug:
+        var: ec2_lab_node_types_networking
+
+    # - name: set node types (NETWORKING MODE)
+    #   set_fact:
+    #     ansible_node: "{{ ec2_lab_node_types_networking['ansible'] }}"
+    #     rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
+    #     rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
+    #     rtr3_node: "{{ ec2_lab_node_types_networking['rtr3'] }}"
+    #     rtr4_node: "{{ ec2_lab_node_types_networking['rtr4'] }}"
+    #     host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
+
+    # - debug:
+    #     var: ec2_instance_types[rtr3_node]['os']

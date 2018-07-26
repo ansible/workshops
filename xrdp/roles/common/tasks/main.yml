@@ -1,0 +1,21 @@
+- name: Configure sshd and sudoers
+  lineinfile:
+    dest: "{{ item.dest }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: "{{ item.state | default('present') }}"
+    validate: "{{ item.validate | default(omit) }}"
+    backup: no
+  with_items: "{{ common_node_config_options }}"
+  notify: restart ssh
+  tags:
+    - ssh
+    - sudo
+    - common
+
+- hostname:
+    name: "{{short_name}}"
+
+- meta: flush_handlers
+  tags:
+    - common

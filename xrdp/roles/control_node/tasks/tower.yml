@@ -1,0 +1,34 @@
+- name: Download Ansible Tower
+  get_url:
+    url: http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+    dest: /tmp/tower.tar.gz
+
+- name: Create directory for Ansible Tower
+  file: path=/tmp/tower_install state=directory
+
+- name: Extract Ansible Tower install
+  unarchive:
+    src: /tmp/tower.tar.gz
+    dest: /tmp/tower_install
+    remote_src: yes
+    extra_opts: ['--strip-components=1', '--show-stored-names']
+
+- name: template inventory file for Ansible Tower Install
+  template:
+    src: tower_install.j2
+    dest: /tmp/tower_install/inventory
+
+- name: run the Ansible Tower installer
+  shell: ./setup.sh chdir=/tmp/tower_install
+
+- name: wait for Ansible Tower to be up
+  uri:
+    url: https://localhost/api/v2/ping/
+    method: GET
+    user: admin
+    password: "{{admin_password}}"
+    validate_certs: False
+  register: check2
+  until: check2.json is defined
+  retries: 10
+  delay: 30

@@ -25,7 +25,7 @@ As soon as you login, you will prompted to request a license or browse for an ex
 
 ### Step 2:
 
-Open the following link in a new tab [Ansible License](https://www.ansible.com/workshop-license) to request a workshop license.
+In a separate browser tab, browse to [https://www.ansible.com/workshop-license](https://www.ansible.com/workshop-license) to request a workshop license.
 
 ### Step 3:
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env ansible-playbook
 - name: Destroy lab instances in AWS
   hosts: localhost
   connection: local

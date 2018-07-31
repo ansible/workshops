@@ -1,3 +1,5 @@
+#!/usr/bin/env ansible-playbook
+
 - name: Perform Checks to make sure this Playbook will complete successfully
   hosts: localhost
   connection: local
@@ -58,6 +60,24 @@
       when:
        - autolicense is defined
        - autolicense
+
+- name: Solve Galaxy dependencies
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: detect galaxy/requirements.yml
+      stat:
+        path: ./roles/galaxy/requirements.yml
+      register: doesRequirementsExist
+
+    - name: fetch galaxy roles from requirements.yml (forced update)
+      command: ansible-galaxy install -r requirements.yml -p . --force
+      args:
+        chdir: "./roles/galaxy"
+      register: galaxy_result
+      when: doesRequirementsExist.stat.exists
+      changed_when: "'was installed successfully' in galaxy_result.stdout"
 
 - name: Create lab instances in AWS
   hosts: localhost

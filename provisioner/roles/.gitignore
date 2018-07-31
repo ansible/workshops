@@ -1,3 +1,0 @@
-galaxy/*
-!galaxy/requirements.yml
-!.gitignore

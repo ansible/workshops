@@ -1,0 +1,39 @@
+- name: BIG-IP setup
+  hosts: lb
+  connection: local
+  gather_facts: false
+  
+  tasks:
+
+  - name: Delete Virtual Server
+    bigip_virtual_server:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: "8443"
+      name: "vip"
+      state: absent
+      validate_certs: "no"
+
+  - name: Delete pool
+    bigip_pool:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: "8443"
+      name: "http_pool"
+      state: absent
+      validate_certs: "no"
+
+  - name: Delete nodes
+    bigip_node:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: "8443"
+      name: "{{item}}"
+      state: absent
+      validate_certs: "no"
+    loop:
+     - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
+     - "{{ hostvars[groups['webservers'][1]].ansible_host }}"

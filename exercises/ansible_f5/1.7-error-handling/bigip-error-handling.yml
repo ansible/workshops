@@ -1,0 +1,94 @@
+- name: BIG-IP setup
+  hosts: lb
+  connection: local
+  gather_facts: false
+  
+  tasks:
+
+  - name: Setup and graceful rollback BIG-IP configuration
+    block:
+    - name: Create nodes
+      bigip_node:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       host: "{{item}}"
+       name: "{{item}}"
+       validate_certs: "no"
+      loop:
+       - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
+       - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
+    - name: Create pool
+      bigip_pool:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       name: "http_pool"
+       lb_method: "round-robin"
+       monitors: "/Common/http"
+       monitor_type: "and_list"
+       validate_certs: "no"
+    - name: Add Pool members
+      bigip_pool_member:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       state: "present"
+       name: "{{item}}"
+       host: "{{item}}"
+       port: "80"
+       pool: "http_pool"
+       validate_certs: "no"
+      loop:
+       - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
+       - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
+    - name: Add Virtual Server
+      bigip_virtual_server:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       name: "vip"
+       destination: "{{private_ip}}"
+       port: "443"
+       enabled_vlans: "all"
+       all_profiles: ['http','clientssl','oneconnect']
+       pool: "http_pool"
+       snat: "Automap"
+       validate_certs: "no"
+    rescue:
+    - name: Delete Virtual Server
+      bigip_virtual_server:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       name: "vip"
+       state: absent
+       validate_certs: "no"
+    - name: Delete pool
+      bigip_pool:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       name: "http_pool"
+       state: absent
+       validate_certs: "no"
+    - name: Delete nodes
+      bigip_node:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       name: "{{item}}"
+       state: absent
+       validate_certs: "no"
+      loop:
+       - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
+       - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
+    always:
+    - debug: msg="Executed rollback playbook"

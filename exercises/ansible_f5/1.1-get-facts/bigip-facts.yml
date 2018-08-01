@@ -1,0 +1,27 @@
+---
+- name: Grab f5 facts
+  hosts: f5
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Collect BIG-IP facts
+      bigip_facts:
+        include: system_info
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+      register: bigip_facts
+
+    - name: Complete BIG-IP system information
+      debug:
+        var: bigip_facts
+
+    - name: Grabbing only the MAC address
+      debug:
+        var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
+
+    - name: Grabbing only the Version 
+      debug:
+        var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']

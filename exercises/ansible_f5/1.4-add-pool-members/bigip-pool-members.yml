@@ -1,0 +1,22 @@
+- name: BIG-IP setup
+  hosts: lb
+  connection: local
+  gather_facts: false
+  
+  tasks:
+
+  - name: Add Pool members
+    bigip_pool_member:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: "8443"
+      state: "present"
+      name: "{{item}}"
+      host: "{{item}}"
+      port: "80"
+      pool: "http_pool"
+      validate_certs: "no"
+    loop:
+      - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
+      - "{{ hostvars[groups['webservers'][1]].ansible_host }}"

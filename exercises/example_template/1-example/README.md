@@ -2,10 +2,10 @@
 
 ## Table of Contents
 
-- [Objective](#Objective)
-- [Guide](#Guide)
-- [Playbook Output](#Playbook_Output)
-- [Solution](#Solution)
+- [Objective](#objective)
+- [Guide](#guide)
+- [Playbook Output](#playbook-output)
+- [Solution](#solution)
 
 # Objective
 

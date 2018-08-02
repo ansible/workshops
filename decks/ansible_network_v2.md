@@ -130,8 +130,8 @@ _
 <pre>
 ```
 [atl]
-10.1.1.2
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com

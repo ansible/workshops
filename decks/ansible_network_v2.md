@@ -197,8 +197,8 @@ DC
 atl
 
 [atl]
-10.1.1.2 snmp_ro=atl123
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2 snmp_ro=atl123
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123

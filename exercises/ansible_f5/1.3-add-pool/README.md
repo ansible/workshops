@@ -93,15 +93,13 @@ The output will look as follows.
 ```yaml
 [student1@ansible ~]$ ansible-playbook bigip-pool.yml
 
-PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
+PLAY [BIG-IP SETUP] ************************************************************
 
-TASK [DISPLAY TEST_VARIABLE] *******************************************************************************
-ok: [localhost] => {
-    "test_variable": "my test variable"
-}
+TASK [CREATE POOL] *************************************************************
+changed: [f5]
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0
+PLAY RECAP *********************************************************************
+f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
@@ -128,5 +126,12 @@ The finished Ansible Playbook is provided here for an Answer key.
       monitor_type: "and_list"
       validate_certs: "no"
 ```
+
+# Verifying the Solution
+
+Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the lab_inventory/hosts file, and type it in like so: https://X.X.X.X:8443/
+
+The load balancer pool can be found by navigating the menu on the left.  Click on Local Traffic-> then click on Pools.
+![f5pool](pool.png)
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

@@ -59,28 +59,30 @@ Next, add the first `task`. This task will use the `bigip_pool_member` module co
       password: "{{ansible_ssh_pass}}"
       server_port: "8443"
       state: "present"
-      name: "{{item}}"
-      host: "{{item}}"
+      name: "{{hostvars[item].inventory_hostname}}"
+      host: "{{hostvars[item].ansible_host}}"
       port: "80"
       pool: "http_pool"
       validate_certs: "no"
-    loop:
-      - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
-      - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
+    loop: "{{ groups['webservers'] }}"
 ```
 
+Explanation of each line within the task:
 - `name: ADD POOL MEMBERS` is a user defined description that will display in the terminal output.
 - `bigip_pool_member:` tells the task which module to use.
+
+Next we have module parameters
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
-- The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device withg
-- The `name: "http_pool"` parameter tells the module to create a pool named http_pool
-- The `lb_method: "round-robin"` parameter tells the module the load balancing method will be round-robin.  A full list of methods can be found on the documentation page for bigip_pool.
-- The `monitors: "/Common/http"` parameter tells the module the that the http_pool will only look at http traffic.
-- The `monitor_type: "and_list"` ensures that all monitors are checked.
+- The `state: "present"` parameter tells the module we want this to be added rather than deleted.
+- The `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be host1 and host2).
+- The `host: "{{hostvars[item].ansible_host}}"` parameter tells the module to add a web server IP address already defined in our inventory.
+- The `pool: "http_pool"` parameter tells the module to put this node into a pool named http_pool
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
+Finally there is a loop parameter which is at the task level (it is not a module parameter but a task level parameter:
+- `loop:` tells the task to loop over the provided list.  The list in this case is the group webservers which includes two RHEL hosts.
 
 ## Step 4
 
@@ -97,15 +99,14 @@ The output will look as follows.
 ```yaml
 [student1@ansible ~]$ ansible-playbook bigip-pool-members.yml
 
-PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
+PLAY [BIG-IP SETUP] ************************************************************
 
-TASK [DISPLAY TEST_VARIABLE] *******************************************************************************
-ok: [localhost] => {
-    "test_variable": "my test variable"
-}
+TASK [ADD POOL MEMBERS] ********************************************************
+changed: [f5] => (item=host1)
+changed: [f5] => (item=host2)
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0
+PLAY RECAP *********************************************************************
+f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
@@ -127,14 +128,21 @@ The finished Ansible Playbook is provided here for an Answer key.
       password: "{{ansible_ssh_pass}}"
       server_port: "8443"
       state: "present"
-      name: "{{item}}"
-      host: "{{item}}"
+      name: "{{hostvars[item].inventory_hostname}}"
+      host: "{{hostvars[item].ansible_host}}"
       port: "80"
       pool: "http_pool"
       validate_certs: "no"
-    loop:
-      - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
-      - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
+    loop: "{{ groups['webservers'] }}"
+
 ```
+
+# Verifying the Solution
+
+Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the lab_inventory/hosts file, and type it in like so: https://X.X.X.X:8443/
+
+The pool will now show two members (host1 and host2).  Click on Local Traffic-> then click on Pools.  Click on http_pool to get more granular information.  Click on the Members tab in the middle to list all the Members.
+![f5members](poolmembers.png)
+
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

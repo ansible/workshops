@@ -171,17 +171,39 @@ Run the playbook - exit back into the command line of the control host and execu
 The output will look as follows.
 
 ```yaml
-[student1@ansible ~]$ ansible-playbook debug.yml
+[student1@ansible ~]$ ansible-playbook bigip-facts.yml
 
-PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
+PLAY [GRAB F5 FACTS] ***********************************************************
 
-TASK [DISPLAY TEST_VARIABLE] *******************************************************************************
-ok: [localhost] => {
-    "test_variable": "my test variable"
+TASK [COLLECT BIG-IP FACTS] ****************************************************
+ok: [f5]
+
+TASK [COMPLETE BIG-IP SYSTEM INFORMATION] **************************************
+ok: [f5] => {
+    "bigip_facts": {
+        "ansible_facts": {
+            "system_info": {
+                "base_mac_address": "0A:D1:27:C1:84:76",
+                "blade_temperature": [],
+                "chassis_slot_information": [],
+                "globally_unique_identifier": "0A:D1:27:C1:84:76",
+                "group_id": "DefaultGroup",
+                "hardware_information": [
+<<output removed for brevity>>
+
+---
+TASK [GRABBING ONLY THE MAC ADDRESS] *******************************************
+ok: [f5] => {
+    "bigip_facts['ansible_facts']['system_info']['base_mac_address']": "0A:D1:27:C1:84:76"
 }
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0
+TASK [GRABBING ONLY THE VERSION] ***********************************************
+ok: [f5] => {
+    "bigip_facts['ansible_facts']['system_info']['product_information']['product_version']": "13.1.0.2"
+}
+
+PLAY RECAP *********************************************************************
+f5                         : ok=4    changed=0    unreachable=0    failed=0
 ```
 
 # Solution

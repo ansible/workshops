@@ -59,12 +59,10 @@ Next, add the first `task`. This task will use the `bigip_node` module configure
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"
       server_port: "8443"
-      host: "{{item}}"
-      name: "{{item}}"
+      host: "{{hostvars[item].ansible_host}}"
+      name: "{{hostvars[item].inventory_hostname}}"
       validate_certs: "no"
-    loop:
-     - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
-     - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
+    loop: "{{ groups['webservers'] }}"
 ```
 
 >A [loop](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) will repeat a task on a list provided to the task.  In this case it will loop twice, once for each of the two web servers.
@@ -75,10 +73,10 @@ Next, add the first `task`. This task will use the `bigip_node` module configure
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
-- The `host: "{{item}}"` parameter tells the module to add a web server IP address already defined in our inventory.
-- The `name: "{{item}}"` parameter tells the module to also name the device with the IP address.
+- The `host: "{{hostvars[item].ansible_host}}"` parameter tells the module to add a web server IP address already defined in our inventory.
+- The `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be host1 and host2).
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
-- `loop:` tells the task to loop over the provided list.  This list in this case is the `ansible_host` (IP address) of each RHEL web server.
+- `loop:` tells the task to loop over the provided list.  The list in this case is the group webservers which includes two RHEL hosts.
 
 ## Step 4
 
@@ -93,17 +91,16 @@ Run the playbook - exit back into the command line of the control host and execu
 The output will look as follows.
 
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-node.yml
+[student1@ansible]$ ansible-playbook bigip-node.yml
 
-PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
+PLAY [BIG-IP SETUP] ************************************************************
 
-TASK [DISPLAY TEST_VARIABLE] *******************************************************************************
-ok: [localhost] => {
-    "test_variable": "my test variable"
-}
+TASK [CREATE NODES] ************************************************************
+changed: [f5] => (item=host1)
+changed: [f5] => (item=host2)
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0
+PLAY RECAP *********************************************************************
+f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
@@ -124,13 +121,17 @@ The finished Ansible Playbook is provided here for an Answer key.
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"
       server_port: "8443"
-      host: "{{item}}"
-      name: "{{item}}"
+      host: "{{hostvars[item].ansible_host}}"
+      name: "{{hostvars[item].inventory_hostname}}"
       validate_certs: "no"
-    loop:
-     - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
-     - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
-
+    loop: "{{ groups['webservers'] }}"
 ```
+
+# Verifying the Solution
+
+Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the lab_inventory/hosts file, and type it in like so: https://X.X.X.X:8443/
+
+The list of nodes can be found by navigating the menu on the left.  Click on Local Traffic-> then click on Nodes.
+![f5web](nodes.png)
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

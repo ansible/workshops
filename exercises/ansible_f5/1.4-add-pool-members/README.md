@@ -69,12 +69,13 @@ Next, add the first `task`. This task will use the `bigip_pool_member` module co
       - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
 ```
 
-- `name: CREATE POOL` is a user defined description that will display in the terminal output.
-- `bigip_pool:` tells the task which module to use.
+- `name: ADD POOL MEMBERS` is a user defined description that will display in the terminal output.
+- `bigip_pool_member:` tells the task which module to use.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
+- The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device withg
 - The `name: "http_pool"` parameter tells the module to create a pool named http_pool
 - The `lb_method: "round-robin"` parameter tells the module the load balancing method will be round-robin.  A full list of methods can be found on the documentation page for bigip_pool.
 - The `monitors: "/Common/http"` parameter tells the module the that the http_pool will only look at http traffic.

@@ -1,4 +1,4 @@
-# Exercise 1: Adding nodes to F5
+# Exercise 1: Adding nodes to F5 BIG-IP
 
 ## Table of Contents
 

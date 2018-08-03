@@ -1,4 +1,4 @@
-# Exercise 1: Creating a pool on F5
+# Exercise 1: Adding a load balancing pool on F5
 
 ## Table of Contents
 

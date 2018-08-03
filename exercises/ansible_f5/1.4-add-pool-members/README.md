@@ -1,4 +1,4 @@
-# Exercise 1: Using the bigip_facts module
+# Exercise 1: Adding members to a pool on F5
 
 ## Table of Contents
 

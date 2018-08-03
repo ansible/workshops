@@ -22,6 +22,6 @@
       debug:
         var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
 
-    - name: Grabbing only the Version 
+    - name: Grabbing only the Version
       debug:
         var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']

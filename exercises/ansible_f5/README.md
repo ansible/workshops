@@ -1,5 +1,7 @@
 # Ansible Linklight - F5 Networking Workshop
 
+![f5workshop](../../images/ansiblef5.png)
+
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on F5 BIG-IP or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
 ## Presentation

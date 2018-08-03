@@ -1,11 +1,11 @@
-- name: BIG-IP setup
+- name: BIG-IP SETUP
   hosts: lb
   connection: local
   gather_facts: false
-  
+
   tasks:
 
-  - name: Add Virtual Server
+  - name: ADD VIRTUAL SERVER
     bigip_virtual_server:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"

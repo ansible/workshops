@@ -1,11 +1,11 @@
 ---
-- name: Grab f5 facts
+- name: GRAB F5 FACTS
   hosts: f5
   connection: local
   gather_facts: no
 
   tasks:
-    - name: Collect BIG-IP facts
+    - name: COLLECT BIG-IP FACTS
       bigip_facts:
         include: system_info
         server: "{{private_ip}}"
@@ -14,14 +14,14 @@
         server_port: 8443
       register: bigip_facts
 
-    - name: Complete BIG-IP system information
+    - name: COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
         var: bigip_facts
 
-    - name: Grabbing only the MAC address
+    - name: GRABBING ONLY THE MAC ADDRESS
       debug:
         var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
 
-    - name: Grabbing only the Version
+    - name: GRABBING ONLY THE VERSION
       debug:
         var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']

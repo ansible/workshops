@@ -81,7 +81,7 @@ Next, add the first `task`. This task will use the `debug` module to print out t
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
-#### Step 5
+## Step 5
 
 Run the playbook - exit back into the command line of the control host and execute the following:
 

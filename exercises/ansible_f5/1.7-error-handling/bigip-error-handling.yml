@@ -1,11 +1,11 @@
-- name: BIG-IP setup
+- name: BIG-IP SETUP
   hosts: lb
   connection: local
   gather_facts: false
-  
+
   tasks:
 
-  - name: Setup and graceful rollback BIG-IP configuration
+  - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
     block:
     - name: Create nodes
       bigip_node:
@@ -19,7 +19,8 @@
       loop:
        - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
        - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
-    - name: Create pool
+
+    - name: CREATE POOL
       bigip_pool:
        server: "{{private_ip}}"
        user: "{{ansible_user}}"
@@ -30,7 +31,8 @@
        monitors: "/Common/http"
        monitor_type: "and_list"
        validate_certs: "no"
-    - name: Add Pool members
+
+    - name: ADD POOL MEMBERS
       bigip_pool_member:
        server: "{{private_ip}}"
        user: "{{ansible_user}}"
@@ -45,7 +47,8 @@
       loop:
        - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
        - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
-    - name: Add Virtual Server
+
+    - name: ADD VIRTUAL SERVER
       bigip_virtual_server:
        server: "{{private_ip}}"
        user: "{{ansible_user}}"
@@ -59,8 +62,10 @@
        pool: "http_pool"
        snat: "Automap"
        validate_certs: "no"
+
     rescue:
-    - name: Delete Virtual Server
+
+    - name: DELETE VIRTUAL SERVER
       bigip_virtual_server:
        server: "{{private_ip}}"
        user: "{{ansible_user}}"
@@ -69,7 +74,8 @@
        name: "vip"
        state: absent
        validate_certs: "no"
-    - name: Delete pool
+
+    - name: DELETE POOL
       bigip_pool:
        server: "{{private_ip}}"
        user: "{{ansible_user}}"
@@ -78,7 +84,8 @@
        name: "http_pool"
        state: absent
        validate_certs: "no"
-    - name: Delete nodes
+
+    - name: DELETE NODES
       bigip_node:
        server: "{{private_ip}}"
        user: "{{ansible_user}}"

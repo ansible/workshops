@@ -1,11 +1,11 @@
-- name: BIG-IP setup
+- name: BIG-IP TEARDOWN
   hosts: lb
   connection: local
   gather_facts: false
-  
+
   tasks:
 
-  - name: Delete Virtual Server
+  - name: DELETE VIRTUAL SERVER
     bigip_virtual_server:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
@@ -15,7 +15,7 @@
       state: absent
       validate_certs: "no"
 
-  - name: Delete pool
+  - name: DELETE POOL
     bigip_pool:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
@@ -25,7 +25,7 @@
       state: absent
       validate_certs: "no"
 
-  - name: Delete nodes
+  - name: DELETE NODES
     bigip_node:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"

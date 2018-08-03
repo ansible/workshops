@@ -1,11 +1,12 @@
-- name: BIG-IP setup
+---
+- name: BIG-IP SETUP
   hosts: lb
   connection: local
   gather_facts: false
-  
+
   tasks:
 
-  - name: Create pool
+  - name: CREATE POOL
     bigip_pool:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"

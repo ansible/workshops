@@ -1,4 +1,4 @@
-# Exercise 1: Using the debug module
+# Exercise 1: Using the bigip_facts module
 
 ## Table of Contents
 
@@ -9,16 +9,16 @@
 
 # Objective
 
-Demonstrate use of the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) to display a variable to the terminal window.
+Demonstrate use of the [BIG-IP Facts module](https://docs.ansible.com/ansible/latest/modules/bigip_facts_module.html) to grab facts (useful information) from a F5 BIG-IP device and display them to the terminal window using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).  
 
 # Guide
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `debug.yml`.
+Using your text editor of choice create a new file called `bigip-facts.yml`.
 
 ```
-[student1@ansible ~]$ nano debug.yml
+[student1@ansible ~]$ nano bigip-facts.yml
 ```
 
 >`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
@@ -27,39 +27,24 @@ Using your text editor of choice create a new file called `debug.yml`.
 
 Ansible playbooks are **YAML** files. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format).
 
-Enter the following play definition into `debug.yml`:
+Enter the following play definition into `bigip-facts.yml`:
 
 ``` yaml
 ---
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
+- name: GRAB F5 FACTS
+  hosts: f5
   connection: local
   gather_facts: no
 ```
 
 - The `---` at the top of the file indicates that this is a YAML file.
-- The `hosts: localhost`,  indicates the play is run only on the Ansible control node
+- The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
 
-
 ## Step 3
 
-Next, add the variables section `vars`. There will be one variable called `test_variable`.  The variable will have a string `"my test variable"`.
-
-```yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  gather_facts: no
-
-  vars:
-    test_variable: "my test variable"
-```
-
-## Step 4
-
-Next, add the first `task`. This task will use the `debug` module to print out the variable test_variable.
+Next, add the first `task`. This task will use the `bigip_facts` module to grab useful information from the BIG-IP device.
 
 ``` yaml
 ---
@@ -68,24 +53,119 @@ Next, add the first `task`. This task will use the `debug` module to print out t
   connection: local
   gather_facts: no
 
-  vars:
-    test_variable: "my test variable"
 
   tasks:
-    - name: DISPLAY TEST_VARIABLE
-      debug:
-        var: test_variable
+
+    - name: COLLECT BIG-IP FACTS
+      bigip_facts:
+        include: system_info
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+      register: bigip_facts
 ```
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
-#### Step 5
+- `name: COLLECT BIG-IP FACTS` is a user defined description that will display in the terminal output.
+- `bigip_facts:` tells the task which module to use.  Everything except `register` is a module parameter defined on the module documentation page.
+- The `include: system_info` parameter tells the module only to grab system level information.
+- The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
+- The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
+- The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
+- The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
+- `register: bigip_facts` tells the task to save the output to a variable bigip_facts
+
+## Step 4
+
+Next, add the second `task`. This task will use the `debug` module to print the output from bigip_facts variable we registered the facts to.
+
+```yaml
+---
+- name: SIMPLE DEBUG PLAYBOOK
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+
+  tasks:
+
+    - name: COLLECT BIG-IP FACTS
+      bigip_facts:
+        include: system_info
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+      register: bigip_facts
+
+    - name: COMPLETE BIG-IP SYSTEM INFORMATION
+      debug:
+        var: bigip_facts
+```
+
+- The `name: COMPLETE BIG-IP SYSTEM INFORMATION` is a user defined description that will display in the terminal output.
+- `debug:` tells the task to use the debug module.
+- The `var: bigip_facts` parameter tells the module to display the variable bigip_facts.
+
+
+## Step 5
 
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook debug.yml
+[student1@ansible ~]$ ansible-playbook bigip-facts.yml
 ```
+
+## Step 6
+
+Finally lets add two more tasks to get more specific info from facts gathered.
+
+```yaml
+---
+- name: GRAB F5 FACTS
+  hosts: f5
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: COLLECT BIG-IP FACTS
+      bigip_facts:
+        include: system_info
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+      register: bigip_facts
+
+    - name: COMPLETE BIG-IP SYSTEM INFORMATION
+      debug:
+        var: bigip_facts
+
+    - name: GRABBING ONLY THE MAC ADDRESS
+      debug:
+        var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
+
+    - name: GRABBING ONLY THE VERSION
+      debug:
+        var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']
+```
+
+- `var: bigip_facts['ansible_facts']['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
+- `bigip_facts['ansible_facts']['system_info']['product_information']['product_version']` displays the product version BIG-IP device
+
+>Because the bigip_facts module returns useful information in structured data, it is really easy to grab specific information without using regex or filters.  Fact modules are very powerful tools to grab specific device information that can be used in subsequent tasks, or even used to create dynamic documentation (reports, csv files, markdown).
+
+
+## Step 7
+
+Run the playbook - exit back into the command line of the control host and execute the following:
+
+```
+[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+```
+
 # Playbook Output
 
 The output will look as follows.
@@ -109,13 +189,13 @@ The finished Ansible Playbook is provided here for an Answer key.
 
 ```yaml
 ---
-- name: Grab f5 facts
+- name: GRAB F5 FACTS
   hosts: f5
   connection: local
   gather_facts: no
 
   tasks:
-    - name: Collect BIG-IP facts
+    - name: COLLECT BIG-IP FACTS
       bigip_facts:
         include: system_info
         server: "{{private_ip}}"
@@ -124,15 +204,15 @@ The finished Ansible Playbook is provided here for an Answer key.
         server_port: 8443
       register: bigip_facts
 
-    - name: Complete BIG-IP system information
+    - name: COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
         var: bigip_facts
 
-    - name: Grabbing only the MAC address
+    - name: GRABBING ONLY THE MAC ADDRESS
       debug:
         var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
 
-    - name: Grabbing only the Version
+    - name: GRABBING ONLY THE VERSION
       debug:
         var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']
 ```

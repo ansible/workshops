@@ -9,13 +9,15 @@ Want the Presentation Deck?  Its right here:
 ## Diagram
 coming soon
 
-## Ansible Engine Networking Exercises
+## Ansible F5 Exercises
 
- - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)  
-
-## Ansible Tower Networking Exercises
-
-- [Exercise 2.1 - Installing Ansible Tower](2.1-towerinstall)
+ - [Exercise 1.1 - Using Ansible to gather data from F5 BIG-IP](1.1-get-facts)  
+ - [Exercise 1.2 - Adding nodes to F5 BIG-IP](1.2-add-node)  
+ - [Exercise 1.3 - Adding a load balancing pool](1.3-add-pool)  
+ - [Exercise 1.4 - Adding members to a pool](1.4-add-pool-members)  
+ - [Exercise 1.5 - Adding a virtual server](1.5-add-virtual-server)  
+ - [Exercise 1.6 - Deleting F5 BIG-IP Configuration](1.6-delete-configuration)  
+ - [Exercise 1.7 - Advanced: Error Handling](1.7-error-handling)  
 
 ## Additional information
  - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
@@ -24,7 +26,7 @@ coming soon
  - [Network Automation GitHub Repo](https://github.com/network-automation)
 
 ---
-![Red Hat Ansible Automation](images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../images/rh-ansible-automation.png)
 
 Red Hat® Ansible® Automation consists of  three products:
 

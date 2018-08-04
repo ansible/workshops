@@ -9,7 +9,7 @@
 
 # Objective
 
-Demonstrate use of the different modules to perform a rollback of the configuration on the BIG-IP. 
+Demonstrate use of the different modules to perform a rollback of the configuration on the BIG-IP.
 # Guide
 
 ## Step 1:
@@ -132,7 +132,7 @@ Next, add the first `task`. This task will use the different modules to delete c
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
-The above playbook will try and configure the Virtual Server, Pool and Nodes but since the snat value is provided as 'Automap1' the addition of virtual server will fail and the 'rescue' block will be run 
+The above playbook will try and configure the Virtual Server, Pool and Nodes but since the snat value is provided as 'Automap1' the addition of virtual server will fail and the 'rescue' block will be run
 
 ## Step 4
 
@@ -143,10 +143,10 @@ Run the playbook - exit back into the command line of the control host and execu
 ```
 
 # Playbook Output
->*output to be given here
+>output to be given here
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-error-handling.yml](bigip-error-handling.yml) or see below:
 
 ```yaml
 ---

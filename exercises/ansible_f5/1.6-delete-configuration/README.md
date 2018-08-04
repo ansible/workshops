@@ -9,7 +9,7 @@
 
 # Objective
 
-Demonstrate use of the different modules to delete the configuration (Nodes/Pool/Virtual Server) on the BIG-IP. 
+Demonstrate use of the different modules to delete the configuration (Nodes/Pool/Virtual Server) on the BIG-IP.
 # Guide
 
 ## Step 1:
@@ -93,10 +93,10 @@ Run the playbook - exit back into the command line of the control host and execu
 ```
 
 # Playbook Output
->*output to be given here
+>output to be given here
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.
+The finished Ansible Playbook is provided here for an Answer key. Click here: [bigip-delete-configuration.yml](bigip-delete-configuration.yml) or see below:
 
 ```yaml
 ---

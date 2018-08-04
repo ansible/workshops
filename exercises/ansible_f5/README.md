@@ -6,7 +6,7 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
 
 ## Presentation
 Want the Presentation Deck?  Its right here:
-[Ansible Networking Linklight Deck](../../decks/ansible-f5.html)
+[Ansible F5 Workshop Deck](../../decks/ansible-f5.html)
 
 ## Diagram
 coming soon

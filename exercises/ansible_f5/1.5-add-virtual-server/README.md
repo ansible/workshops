@@ -76,7 +76,7 @@ Next, add the first `task`. This task will use the `bigip-virtual-server` to con
 - The `destination"` parameter tells the module which IP address to assign for the virtual server
 - The `port` paramter tells the module which Port the virtual server will be listening on
 - The `enabled_vlans` parameter tells the module which all vlans the virtual server is enbaled for
-- The `all_profiles` paramter tells the module which all profiles are assigned to the virtuals server 
+- The `all_profiles` paramter tells the module which all profiles are assigned to the virtuals server
 - The `pool` parameter tells the module which pool is assigned to the virtual server
 - The `snat` paramter tells the module what the Source network address address should be. In this module we are assigning it to be Automap which means the source address on the request that goes to the backend server will be the self-ip address of the BIG-IP
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
@@ -90,10 +90,10 @@ Run the playbook - exit back into the command line of the control host and execu
 ```
 
 # Playbook Output
->*output to be given here
+>output to be given here
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-virtual-server.yml](bigip-virtual-server.yml) or see below:
 
 ```yaml
 ---

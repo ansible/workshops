@@ -2,7 +2,7 @@
 
 ![f5workshop](../../images/ansiblef5.png)
 
-This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on F5 BIG-IP or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
+This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on F5 BIG-IP by providing  workshop training in various forms -- instructor-led, hands-on or self-paced.
 
 ## Presentation
 Want the Presentation Deck?  Its right here:
@@ -28,7 +28,7 @@ coming soon
  - [Network Automation GitHub Repo](https://github.com/network-automation)
 
 ---
-![Red Hat Ansible Automation](../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 
 Red Hat® Ansible® Automation consists of  three products:
 

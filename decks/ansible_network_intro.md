@@ -1,27 +1,15 @@
 # Introduction
 
-Gerald Grant Dykeman
+Ajay Chenampara
 
-Twitter: @geralddykeman
+Twitter: [@termlen0](https://twitter.com/termlen0)
 
-Linkedin: /in/gdykeman
+Linkedin: [/in/achenampara](https://www.linkedin.com/in/achenampara/)
 
-Email: gdykeman@redhat.com
+Email: [ajay.chenampara@redhat.com](mailto:ajay.chenampara@redhat.com)
 
-Github: gdykeman
+Github: [termlen0](https://github.com/termlen0)
 
-
-# Introduction 2
-
-Sean Cavanaugh
-
-Twitter: [@IPvSean](https://twitter.com/IPvSean)
-
-Linkedin: [/in/seanecavanaugh](https://www.linkedin.com/in/seanecavanaugh/)
-
-Email: [seanc@redhat.com](mailto:seanc@redhat.com)
-
-Github: [IPvSean](https://github.com/IPvSean)
 
 
 # House Keeping

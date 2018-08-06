@@ -110,11 +110,11 @@ _
 <pre>
 ```
 10.1.1.2
+10.1.1.3
+172.16.1.1
+172.16.1.2
 192.168.1.2
-core1.nw.com
-core2.nw.com
-access1.nw.com
-access2.nw.com
+192.168.1.3
 ```</pre>
 
 </div>
@@ -131,8 +131,8 @@ access2.nw.com
 <pre>
 ```
 [atl]
-10.1.1.2
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com
@@ -158,8 +158,8 @@ DC
 atl
 
 [atl]
-10.1.1.2
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com
@@ -198,8 +198,8 @@ DC
 atl
 
 [atl]
-10.1.1.2 snmp_ro=atl123
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2 snmp_ro=atl123
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123

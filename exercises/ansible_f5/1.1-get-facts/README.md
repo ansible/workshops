@@ -2,10 +2,11 @@
 
 ## Table of Contents
 
-- [Objective](#Objective)
-- [Guide](#Guide)
-- [Playbook Output](#Playbook_Output)
-- [Solution](#Solution)
+- [Objective](#objective)
+- [Guide](#guide)
+- [Playbook Output](#playbook-output)
+- [Solution](#solution)
+- [Going Further](#going-further)
 
 # Objective
 
@@ -238,5 +239,24 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here fo
       debug:
         var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']
 ```
+
+# Going Further
+
+For this bonus exercise add the `tags: debug` paramteter (at the task level) to the exiting debug task.
+
+```yaml
+- name: COMPLETE BIG-IP SYSTEM INFORMATION
+  debug:
+    var: bigip_facts
+  tags: debug
+```
+
+Now re-run the playbook with the `--skip-tags-debug` command line option.
+
+```
+ansible-playbook bigip-facts.yml --skip-tags=debug
+```
+
+The Ansible Playbook will only run three tasks, skipping the `COMPLETE BIG-IP SYSTEM INFORMATION` task.
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

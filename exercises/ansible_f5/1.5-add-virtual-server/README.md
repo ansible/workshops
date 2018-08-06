@@ -2,10 +2,10 @@
 
 ## Table of Contents
 
-- [Objective](#Objective)
-- [Guide](#Guide)
-- [Playbook Output](#Playbook_Output)
-- [Solution](#Solution)
+- [Objective](#objective)
+- [Guide](#guide)
+- [Playbook Output](#playbook-output)
+- [Solution](#solution)
 
 # Objective
 
@@ -90,7 +90,18 @@ Run the playbook - exit back into the command line of the control host and execu
 ```
 
 # Playbook Output
->output to be given here
+
+```yaml
+[student1@ansible]$ ansible-playbook bigip-virtual-server.yml
+
+PLAY [BIG-IP SETUP]*************************************************************
+
+TASK [ADD VIRTUAL SERVER] ******************************************************
+changed: [f5]
+
+PLAY RECAP *********************************************************************
+f5                         : ok=1    changed=1    unreachable=0    failed=0
+```
 
 # Solution
 The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-virtual-server.yml](bigip-virtual-server.yml) or see below:
@@ -122,9 +133,26 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here: [
 
 # Verifying the Solution
 
-Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the lab_inventory/hosts file, and type it in like so: https://X.X.X.X:8443/
+Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the `/home/studentX/networking_workshop/lab_inventory/hosts` file, and type it in like so: https://X.X.X.X:8443/
 
-The load balancer virtual server can be found by navigating the menu on the left.  Click on Local Traffic-> then click on Virtual Server.
->*Image to be inserted
+The load balancer virtual server can be found by navigating the menu on the left.  Click on **Local Traffic**. then click on **Virtual Server**.
+![f5 vip image](f5vip.png)
+
+Each RHEL web server actually already has apache running.  You can open up the public IP (ansible_host) from your `/home/studentX/networking_workshop/lab_inventory/hosts` file in your web URL:
+
+![web server interface](webserver.png)
+
+From the Ansible control node you can actually load balance from the command line->
+
+
+```
+[studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
+    <p>F5TEST-studentX-host1</p>
+[studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
+    <p>F5TEST-studentX-host2</p>
+[studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
+    <p>F5TEST-studentX-host1</p>
+```
+
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

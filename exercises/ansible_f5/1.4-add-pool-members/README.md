@@ -134,7 +134,6 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here: [
       pool: "http_pool"
       validate_certs: "no"
     loop: "{{ groups['webservers'] }}"
-
 ```
 
 # Verifying the Solution

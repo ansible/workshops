@@ -44,11 +44,18 @@ Enter the following play definition into `bigip-virtual-server.yml`:
 
 ## Step 3
 
-Next, add the first `task`. This task will use the `bigip-virtual-server` to configure a virtual server on the BIG-IP
+Next, add the `task`. This task will use the `bigip-virtual-server` to configure a virtual server on the BIG-IP
 
 ``` yaml
 ---
-- name: ADD VIRTUAL SERVER
+- name: BIG-IP SETUP
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+  - name: ADD VIRTUAL SERVER
     bigip_virtual_server:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"

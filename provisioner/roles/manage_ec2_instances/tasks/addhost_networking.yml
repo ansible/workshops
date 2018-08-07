@@ -9,6 +9,7 @@
 - name: add host1 to groups (NETWORKING MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[host1_node] }}"
     ansible_port: "{{ ssh_port }}"
@@ -26,6 +27,7 @@
       instance-state-name: running
       "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
   register: rtr1_node_facts
+
 
 - name: grab facts for rtr2 node (NETWORKING MODE)
   ec2_instance_facts:
@@ -56,19 +58,57 @@
       register: rtr4_node_facts
   when: special is defined
 
-- name: Generate student inventories
-  template:
-    src: networking_instances.txt.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
-  with_sequence: count="{{ student_total }}"
+- name: ADD CORE ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: ec2-user
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: ios
+    groups:
+      - routers
+      - core
+  with_items:
+    - "{{ rtr1_node_facts.instances }}"
+    - "{{ rtr2_node_facts.instances }}"
+  when: special is defined
 
-- name: Generate student etchosts
-  template:
-    src: etchosts_networking.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
-  with_sequence: count="{{ student_total }}"
+- name: ADD ACCESS ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: ec2-user
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: ios
+    groups:
+      - routers
+      - access
+  with_items:
+    - "{{ rtr3_node_facts.instances }}"
+    - "{{ rtr4_node_facts.instances }}"
+  when: special is defined
 
-- name: Generate instructor inventory
-  template:
-    src: instructor_inventory_networking.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"
+- name: ADD DMVPN HUB ROUTER TO SEPARATE GROUP
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: ec2-user
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    ansible_network_os: ios
+    rtr1_node_facts: "{{rtr1_node_facts}}"
+    groups:
+      - dmvpn
+  with_items:
+    - "{{ rtr1_node_facts.instances }}"
+  when: special is defined

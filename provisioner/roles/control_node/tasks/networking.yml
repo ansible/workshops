@@ -12,16 +12,6 @@
     force: yes
   when: networking
 
-- name: Clone linklight repo (F5 MODE)
-  git:
-    accept_hostkey: yes
-    clone: yes
-    dest: /tmp/linklight
-    repo: https://github.com/network-automation/linklight.git
-    force: yes
-    version: f5
-  when: f5workshop
-
 - name: for networking modes
   block:
     - name: Move networking workshop folder to correct location  (NETWORKING MODE)

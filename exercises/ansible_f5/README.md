@@ -22,12 +22,6 @@ coming soon
  - [Exercise 1.6 - Deleting F5 BIG-IP Configuration](1.6-delete-configuration)  
  - [Exercise 1.7 - Advanced: Error Handling](1.7-error-handling)  
 
-## Additional information
- - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
- - [List of Networking Ansible Modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html)
- - [Module Maintenance & Support](http://docs.ansible.com/ansible/latest/modules_support.html)
- - [Network Automation GitHub Repo](https://github.com/network-automation)
-
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 

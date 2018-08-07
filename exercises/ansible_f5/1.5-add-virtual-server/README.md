@@ -133,17 +133,26 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here: [
 
 # Verifying the Solution
 
-Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the `/home/studentX/networking_workshop/lab_inventory/hosts` file, and type it in like so: https://X.X.X.X:8443/
+To see the configured **Virtual Server**, login to the F5 load balancer with your web browser.  
 
-The load balancer virtual server can be found by navigating the menu on the left.  Click on **Local Traffic**. then click on **Virtual Server**.
+>Grab the IP information for the F5 load balancer from the `/home/studentX/networking_workshop/lab_inventory/hosts` file, and type it in like so: https://X.X.X.X:8443/
+
+The load balancer virtual server can be found by navigating the menu on the left.  Click on **Local Traffic**. then click on **Virtual Server**.  See the screenshot below:
 ![f5 vip image](f5vip.png)
 
-Each RHEL web server actually already has apache running.  You can open up the public IP (ansible_host) from your `/home/studentX/networking_workshop/lab_inventory/hosts` file in your web URL:
+## Verifying the web servers
 
-![web server interface](webserver.png)
+Each RHEL web server actually already has apache running.  Exercise 1.1 through 1.5 have successfully setup the load balancer for the pool of web servers.  Open up the public IP of the F5 load balancer in your web browser:
 
-From the Ansible control node you can actually load balance from the command line->
+>This time use port 443 instead of 8443, e.g. https://X.X.X.X:443/
 
+Each time you refresh the host will change between **host1** and **host2**. Here is animation of the host field changing:
+![animation](animation.gif)
+>the animation might not work on certain browsers
+
+## Alternate Verification Method
+
+Instead of using a browser window it is also possible to use the command line on the Ansible control node. Use the `curl` command on the **ansible_host** public IP address in combination with the `--insecure` and `--silent` command line arguments.  Since the entire website is loaded on the command line it is recommended to `| grep` for the student number assigned to the respective workbench. (e.g. student5 would `| grep student5`)
 
 ```
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX

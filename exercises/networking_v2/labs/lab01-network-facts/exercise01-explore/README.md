@@ -41,7 +41,7 @@ Use the `cat` command to view the contents of the `ansible.cfg` file.
 
 
 ```
-[student1@ip-172-16-101-121 networking-workshop]$ cat /home/student1/.ansible.cfg
+[student1@ip-172-16-101-121 networking-workshop]$ cat ~/.ansible.cfg
 [defaults]
 connection = smart
 timeout = 60
@@ -68,7 +68,7 @@ In this lab you will work with a file based inventory written in the **ini** for
 
 ```
 
-[student1@ip-172-16-101-121 networking-workshop]$ cat /home/student1/networking-workshop/lab_inventory/hosts
+[student1@ip-172-16-101-121 networking-workshop]$ cat ~/networking-workshop/lab_inventory/hosts
 [all:vars]
 ansible_user=student1
 ansible_ssh_pass=ansible

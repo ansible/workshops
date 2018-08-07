@@ -1,4 +1,11 @@
-# Lab 4: Using the network-engine command parser to generate custom reports
+# Exercise 2: Building dynamic documentation using the command parser
+
+Most CLI based network devices support `show` commands. The output of the commands are "pretty" formatted, in the sense that they are very human readable. However, in the context of automation, where the objective is for a machine(code) to interpret this output, it needs to be transformed into "structured" data. In other words data-types that the code/machine can interpret and navigate. Examples would be lists, dictionaries, arrays and so on.
+
+The Ansible [network-engine](https://github.com/ansible-network/network-engine) is a [role](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_reuse_roles.html) that supports 2 such "translators" - `command_parser` and `textfsm_parser`. These are modules built into the `network-engine` role that takes a raw text input (pretty formatted) and converts it into structured data. You will work with each of these to generate dynamic reports in the following sections:
+
+
+# Unstructured command output from network devices
 
 
 Here is how the output of a `show interfaces` command looks like on a Cisco IOS device:
@@ -71,7 +78,12 @@ Start by creating a new playbook called `interface_report.yml` and add the follo
 
 #### Step 2
 
-Next add the `ansible-network.network-engine` role into the playbook. Roles are nothing but a higher level playbook abstraction. Think of them as pre-written playbooks that handle repeated, specific tasks.
+Next add the `ansible-network.network-engine` role into the playbook. Roles are nothing but a higher level playbook abstraction. Think of them as pre-written playbooks that handle repeated, specific tasks. For this we will need to first install the role. Execute the following command on the control node to install this role:
+
+``` bash
+[student1@ip-172-16-208-140 networking-workshop]$ansible-galaxy install ansible-network.network-engine
+
+```
 
 The `ansible-network.network-engine` role specifically makes available the `command_parser` module, among other things, which you can then use in subsequent tasks inside your own playbook.
 
@@ -146,13 +158,18 @@ Add this to your playbook:
 
     - name: PARSE THE RAW OUTPUT
       command_parser:
-        file: "parsers/show_interfaces.yml"
+        file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
 {%endraw%}
 ```
 
+<<<<<<< HEAD:exercises/networking_v2/labs/lab03-templating/exercise01-parser/README.md
 Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
+=======
+
+Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yaml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
+>>>>>>> master:exercises/networking_v2/labs/lab03-templating/exercise02-parser/README.md
 
 > More parsers are being made available in the public domain so you will only have to build them if a specific use case has not been handled.
 
@@ -165,6 +182,7 @@ Feel free to view the contents of the parser file. You will notice how it uses r
 Add a new task to view the contents being returned by the `command_parser`
 
 ``` yaml
+{%raw%}
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -183,13 +201,13 @@ Add a new task to view the contents being returned by the `command_parser`
 
     - name: PARSE THE RAW OUTPUT
       command_parser:
-        file: "parsers/show_interfaces.yml"
+        file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
     - name: DISPLAY THE PARSED DATA
       debug:
         var: interface_facts
-
+{%endraw%}
 ```
 
 
@@ -307,6 +325,7 @@ Our next step is to use the template module to generate a report from the above 
 
 
 ``` yaml
+{%raw%}
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -325,7 +344,7 @@ Our next step is to use the template module to generate a report from the above 
 
     - name: PARSE THE RAW OUTPUT
       command_parser:
-        file: "parsers/show_interfaces.yml"
+        file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
     #- name: DISPLAY THE PARSED DATA
@@ -343,9 +362,14 @@ Our next step is to use the template module to generate a report from the above 
         dest: interfaces_report.md
       delegate_to: localhost
       run_once: yes
+<<<<<<< HEAD:exercises/networking_v2/labs/lab03-templating/exercise01-parser/README.md
 
 
+=======
+>>>>>>> master:exercises/networking_v2/labs/lab03-templating/exercise02-parser/README.md
 
+
+{%endraw%}
 ```
 
 > Note: For this lab the  Jinja2 template has been pre-populated for you. Feel free to look at the file **interface_facts.j2** in the **templates** directory.

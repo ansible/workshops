@@ -1,0 +1,15 @@
+---
+- name: DEMO THE DEBUG MODULE
+  hosts: all
+  gather_facts: no
+  connection: local
+
+  tasks:
+
+    - name: DISPLAY THE SNMP RO STRING
+      debug:
+        msg: "The snmp read-only string is {{ snmp_ro }}"
+
+    - name: DISPLAY THE INVENTORY HOSTNAME
+      debug:
+        msg: "Current task executing on {{ inventory_hostname }}"

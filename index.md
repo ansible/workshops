@@ -6,7 +6,7 @@
 - [Ansible Essentials](decks/ansible-essentials.html)
 - [Intro to Ansible Tower](decks/intro-to-ansible-tower.html)
 - [Ansible Networking](decks/ansible-networking.html)
-- [Ansible Networking_v2](decks/ansible-networking_v2.html)
+- [Ansible Networking_v2](decks/ansible_network_v2.html)
 
 # Workshops
 

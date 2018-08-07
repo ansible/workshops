@@ -1,4 +1,12 @@
-# Lab 4: Using Ansible to collect and report router information
+# Exercise 1: An introduction to templating with Jinja2
+
+
+Generally speaking, when one talks about network automation the focus is specifically around configuration management of devices. In this lab you will learn how to use Ansible as a tool to generate living, dynamic documentation.
+
+This allows the ability to generate reports and documents, using the same information and can cater to the needs of a hands-on-keyboard network engineer to a manager who needs to understand the state of the network with a glance of a web-page!
+
+
+[Jinja2](http://jinja.pocoo.org/docs/2.10/) is a powerful templating engine for Python. There is native integration of Jinja2 with Ansible. Jinja2 allows for manipulating variables and implementing logical constructs. In combination with the Ansible `template` module, the automation engineer has a powerful tool at their disposal to generate live or dynamic reports.
 
 
 In this lab you will learn how to use the `template` module to pass collected data from devices to a Jinja2 template. The template module then renders the output as a `markdown` file.
@@ -26,7 +34,7 @@ Add a task that collects the facts using the `ios_facts` module. Recollect that 
 
 ``` yaml
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
   connection: network_cli
   gather_facts: no
@@ -48,8 +56,9 @@ Rather than using debug or verbose mode to display the output on the screen, go 
 
 
 ``` yaml
+{%raw%}
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
   connection: network_cli
   gather_facts: no
@@ -62,6 +71,7 @@ Rather than using debug or verbose mode to display the output on the screen, go 
       template:
         src: os_report.j2
         dest: reports/{{ inventory_hostname }}.md
+{%endraw%}
 ```
 
 
@@ -113,7 +123,7 @@ With this in place, go ahead and run the playbook:
 ``` shell
 [student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_report.yml
 
-PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************************************************************************************************
+PLAY [GENERATE OS REPORT FROM ROUTERS] ******************************************************************************************************************************************************
 
 TASK [GATHER ROUTER FACTS] ******************************************************************************************************************************************************************
 ok: [rtr4]
@@ -176,8 +186,9 @@ While it is nice to have the data, it would be even better to consolidate all th
 
 
 ``` yaml
+{%raw%}
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
   connection: network_cli
   gather_facts: no
@@ -197,6 +208,7 @@ While it is nice to have the data, it would be even better to consolidate all th
         dest: network_os_report.md
       delegate_to: localhost
       run_once: yes
+{%endraw%}
 ```
 
 
@@ -214,7 +226,7 @@ Go ahead and run the playbook.
 ``` shell
 [student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_report.yml
 
-PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************************************************************************************************
+PLAY [GENERATE OS REPORT FROM ROUTERS] ******************************************************************************************************************************************************
 
 TASK [GATHER ROUTER FACTS] ******************************************************************************************************************************************************************
 ok: [rtr2]

@@ -25,33 +25,7 @@ As soon as you login, you will prompted to request a license or browse for an ex
 
 ### Step 2:
 
-At the commandline in your Tower instance download the encrypted license file via the curl command.
-
-```bash
-curl -O https://s3.amazonaws.com/ansible-tower-workshop-license/license
-```
-
-Then Decrypt the license file via Ansible Vault.
-**The instructor should provide the password**
-
-```bash
-ansible-vault decrypt license --ask-vault-pass
-
-...
-
-Vault password:
-```
-
-Now use curl to POST the license to the Tower API endpoint.
-
-```bash
-curl -k https://localhost/api/v1/config/ \
-     -H 'Content-Type: application/json' \
-     -X POST \
-     --data @license \
-     --user admin:ansibleWS
-
-```
+In a separate browser tab, browse to [https://www.ansible.com/workshop-license](https://www.ansible.com/workshop-license) to request a workshop license.
 
 ### Step 3:
 
@@ -86,20 +60,17 @@ Click on ADD ![Add button](at_add.png)
 
 ### Step 4:
 
-Complete the form using the following entries, by printing out your private SSH key to place into Tower.  When you paste the key in, in the `PRIVATE KEY` field, make sure to include the ````-BEGIN RSA PRIVATE KEY```-` and ````-BEGIN RSA PRIVATE KEY```-` lines.
-
-```bash
-cat ~/.ssh/workshop-tower
-```
+Complete the credential form using the following entries:
 
 NAME |Ansible Workshop Credential
 -----|---------------------------
-DESCRIPTION|Machine credential for run job templates during workshop
+DESCRIPTION|Credentials for Ansible Workshop
 ORGANIZATION|Default
 TYPE|Machine
-USERNAME| ec2-user
-PRIVILEGE ESCALATION|Sudo
-PRIVATE KEY|paste in secret key
+USERNAME| Your Workshop Username - Student(x)
+PASSWORD| Your Workshop Password
+PRIVILEGE ESCALATION|Sudo (This is the default)
+
 
 ![Adding a Credential](at_cred_detail.png)
 
@@ -129,11 +100,11 @@ DESCRIPTION|workshop playbooks
 ORGANIZATION|Default
 SCM TYPE|Git
 SCM URL| https://github.com/ansible/lightbulb
-SCM BRANCH| 
-SCM UPDATE OPTIONS
-a| - [x] Clean <br />
-- [x] Delete on Update<br />
-- [x] Update on Launch
+SCM BRANCH|
+SCM UPDATE OPTIONS| [x] Clean <br />  [x] Delete on Update<br />  [x] Update on Launch
+
+
+
 
 ![Defining a Project](at_project_detail.png)
 
@@ -154,7 +125,7 @@ Click on INVENTORIES
 
 ### Step 2:
 
-Select ADD ![Add button](at_add,png)
+Select ADD ![Add button](at_add.png)
 
 ### Step 3:
 
@@ -162,7 +133,7 @@ Complete the form using the following entries
 
 NAME |Ansible Workshop Inventory
 -----|--------------------------
-DESCRIPTION|workshop hosts
+DESCRIPTION|Ansible Inventory
 ORGANIZATION|Default
 
 ![Create an Inventory](at_inv_create.png)
@@ -173,17 +144,9 @@ Select SAVE ![Save button](at_save.png)
 
 ### Step 5:
 
-Using ssh, login to your control node, if by any chance you closed the wetty browser window.  Remember to replace *workshopname* with your workshop name, and *#* with your student number.
-
-```bash
-https://workshopname.tower.#.redhatgov.io:8888/wetty/ssh/ec2-user
-```
-
-### Step 6:
-
 Use the `tower-manage` command to import an existing inventory.  (_Be sure to replace <username> with your actual username_)
 ```
-sudo tower-manage inventory_import --source=/home/ec2-user/hosts --inventory-name="Ansible Workshop Inventory"
+sudo tower-manage inventory_import --source=/home/student(X)/lightbulb/lessons/lab_inventory/student(x)-inventory.txt --inventory-name="Ansible Workshop Inventory"
 ```
 
 You should see output similar to the following:

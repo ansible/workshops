@@ -25,13 +25,11 @@ Our objective is to apply this "last known good configuraion backup" to the rout
 
 On one of the routers (`rtr1`) manually make a change. For instance add a new loopback interface.
 
-Log into `rtr1` and add the following:
+Log into `rtr1` using the `ssh rtr1` command and add the following:
 
 ```
-rtr1#conf t
+rtr1#config terminal
 Enter configuration commands, one per line.  End with CNTL/Z.
-rtr1(config)#inter
-rtr1(config)#interface loo
 rtr1(config)#interface loopback 101
 rtr1(config-if)#ip address 169.1.1.1 255.255.255.255
 rtr1(config-if)#end
@@ -74,6 +72,7 @@ Create a file called `restore_config.yml` using your favorite text editor and ad
 Write the task to copy over the previously backed up configuration file to the routers.
 
 ``` yaml
+{%raw%}
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -84,7 +83,7 @@ Write the task to copy over the previously backed up configuration file to the r
     - name: COPY RUNNING CONFIG TO ROUTER
       command: scp ./backup/{{inventory_hostname}}.config  {{inventory_hostname}}:/{{inventory_hostname}}.config
 
-
+{%endraw%}
 ```
 
 > Note the use of the **inventory_hostname** variable. For each device in the inventory file under the cisco group, this task will secure copy (scp) over the file that corresponds to the device name onto the bootflash: of the CSR devices.
@@ -95,7 +94,7 @@ Write the task to copy over the previously backed up configuration file to the r
 Go ahead and run the playbook.
 
 ```
-[student1@ip-172-16-101-121 networking-workshop]$ ansible-playbook -i lab_inventory/hosts restore.yml
+[student1@ip-172-16-101-121 networking-workshop]$ ansible-playbook -i lab_inventory/hosts restore_config.yml
 
 PLAY [RESTORE CONFIGURATION] *********************************************************
 
@@ -170,6 +169,7 @@ Now that the known good configuration is on the destination devices, add a new t
 
 
 ``` yaml
+{%raw%}
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -185,7 +185,7 @@ Now that the known good configuration is on the destination devices, add a new t
         commands:
           - config replace flash:{{inventory_hostname}}.config force
 
-
+{%endraw%}
 ```
 
 
@@ -198,7 +198,7 @@ Let's run the updated playbook:
 
 ```
 
-[student1@ip-172-16-101-121 networking-workshop]$ ansible-playbook -i lab_inventory/hosts restore.yml
+[student1@ip-172-16-101-121 networking-workshop]$ ansible-playbook -i lab_inventory/hosts restore_config.yml
 
 PLAY [RESTORE CONFIGURATION] *********************************************************
 

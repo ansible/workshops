@@ -1,11 +1,3 @@
-- name: Include Red Hat tasks
-  include_tasks: "{{ ansible_os_family }}.yml"
-  when: ansible_os_family == 'RedHat'
-
-- name: Include Ubuntu tasks
-  include_tasks: "{{ ansible_distribution }}.yml"
-  when: ansible_distribution == 'Ubuntu'
-
 - name: Configure sshd and sudoers
   lineinfile:
     dest: "{{ item.dest }}"
@@ -20,6 +12,9 @@
     - ssh
     - sudo
     - common
+
+- hostname:
+    name: "{{short_name}}"
 
 - meta: flush_handlers
   tags:

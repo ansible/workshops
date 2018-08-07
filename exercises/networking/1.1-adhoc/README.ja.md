@@ -14,13 +14,15 @@ ansible control -m ping
 ```
 当ワークショップでは以降、コマンドを省略した形で使用していきます。
 
+ansible コマンドの後に指定されている `control` はインベントリで定義される自動化の対象ノード（複数または単体）を表します。ここではインベントがどのような定義になっているかは気にする必要はありません。
+
 ## Table of Contents
- - [ステップ 1: Ping](#step-1-ping)
- - [ステップ 2: Command](#step-2-command)
- - [ステップ 3: ios_facts](#step-3-ios_facts)
- - [ステップ 4: ios_command](#step-4-ios_command)
- - [ステップ 5: ios_banner](#step-5-ios_banner)
- - [ステップ 6: ios_banner の削除](#step-6-ios_banner-removal)
+ - [ステップ 1: Ping](#ステップ-1-ホストへのping実行)
+ - [ステップ 2: Command](#ステップ-2-command)
+ - [ステップ 3: ios_facts](#ステップ-3-ios_facts)
+ - [ステップ 4: ios_command](#ステップ-4-ios_command)
+ - [ステップ 5: ios_banner](#ステップ-5-ios_banner)
+ - [ステップ 6: ios_banner の削除](#ステップ-6-ios_banner-の削除)
 
 ### ステップ 1: ホストへのping実行
 
@@ -29,10 +31,10 @@ ansible control -m ping
 ```bash
 ansible control -m ping
 ```
+
 全てのAnsibleモジュールの関連オプションは、各モジュール毎にドキュメントページが存在しています。[Ansible ping モジュールはこちら](http://docs.ansible.com/ansible/latest/ping_module.html)
 
 ### ステップ 2: Command
-
 Linuxコマンド形式で `command` モジュールを実行してみましょう。
 ```bash
 ansible control -m command -a "uptime" -o
@@ -58,9 +60,7 @@ ios_command モジュールを使い、インターフェースサマリを収�
 ansible routers -m ios_command -a 'commands="show ip int br"' -c network_cli
 ```
 Ansible ドキュメントページはこちら [ios_command モジュール](http://docs.ansible.com/ansible/latest/ios_command_module.html)
-
 ### ステップ 5: ios_banner
-
 これらを変更する前にルーターのバナーをチェックします。
 ```bash
 ansible routers -m ios_command -a 'commands="show banner motd"' -c network_cli
@@ -89,7 +89,6 @@ ansible routers -m ios_banner -a 'banner=motd state=absent' -c network_cli
 
 # 完了
 演習 1.1 はこれで完了です。
-You have completed lab exercise 1.1
 
  ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../README.ja.md)

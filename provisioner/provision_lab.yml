@@ -32,7 +32,7 @@
       include_role:
         name: aws_check_setup
 
-    - name: make sure workshop name is not TESTWORKSHOP so there is no overlap
+    - name: make sure we are not running with TESTWORKSHOP as the name so no overlap
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
@@ -95,6 +95,15 @@
   become: yes
   roles:
     - control_node
+  tags: control_node
+
+- name: Setup Amazon S3 Website for Student Login
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  roles:
+    - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
 
 - name: Setup Host routes for ansible control node and host1 when in networking mode
   hosts: "managed_nodes:control_nodes"
@@ -110,10 +119,44 @@
   roles:
     - { role: f5_setup, when: f5workshop }
 
-- name: Setup Amazon S3 Website for Student Login
+- name: GATHER AWS FACTS FOR ROUTERS
   hosts: localhost
   connection: local
-  become: no
   gather_facts: no
   roles:
-    - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
+    - { role: gather_router_facts }
+
+- name: CONFIGURE ACCESS ROUTERS
+  hosts: access
+  connection: local
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_access
+        router3_tunnel: 100
+        router4_tunnel: 101
+
+- name: CONFIGURE CORE ROUTERS
+  hosts: core
+  connection: local
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_core
+        router1_tunnel: 100
+        router2_tunnel: 101
+        dci_tunnel: 200
+
+- name: CONFIGURE CORE ROUTERS
+  hosts: dmvpn
+  connection: local
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: csr_hub

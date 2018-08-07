@@ -1,5 +1,5 @@
 ---
-- name: GATHER INFORMATION FROM ROUTERS
+- name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
   connection: network_cli
   gather_facts: no

@@ -1,0 +1,4 @@
+- name: Apply router template
+  connection: network_cli
+  ios_config:
+    src: templates/{{type}}.j2

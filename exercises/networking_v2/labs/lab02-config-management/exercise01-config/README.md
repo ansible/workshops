@@ -75,7 +75,7 @@ The `ios_config` module is idempotent. This means, a configuration change is  pu
 
 
 ``` shell
-[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_config.yml  
+[student1@ip-172-16-208-140 networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
 
@@ -206,7 +206,7 @@ service tcp-keepalives-out
 
 #### Step 9
 
-Remember that a playbook contains a list of plays. Add a new play called `HARDEN IOS ROUTERS` to the `router_config.yml` playbook.
+Remember that a playbook contains a list of plays. Add a new play called `HARDEN IOS ROUTERS` to the `router_configs.yml` playbook.
 
 ``` yaml
 

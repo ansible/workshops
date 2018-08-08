@@ -93,51 +93,27 @@ Run the playbook - exit back into the command line of the control host and execu
 ```
 
 # Playbook Output
->output to be given here
 
-# Solution
-The finished Ansible Playbook is provided here for an Answer key. Click here: [bigip-delete-configuration.yml](bigip-delete-configuration.yml) or see below:
-
-```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-  tasks:
-
-  - name: Delete Virtual Server
-    bigip_virtual_server:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      name: "vip"
-      state: absent
-      validate_certs: "no"
-
-  - name: Delete pool
-    bigip_pool:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      name: "http_pool"
-      state: absent
-      validate_certs: "no"
-
-  - name: Delete nodes
-    bigip_node:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      name: "{{hostvars[item].inventory_hostname}}"
-      state: absent
-      validate_certs: "no"
-    loop: "{{ groups['webservers'] }}"
 ```
+[student1@ansible]$ ansible-playbook bigip-delete-configuration.yml
+
+PLAY [BIG-IP TEARDOWN] *********************************************************
+
+TASK [DELETE VIRTUAL SERVER] ***************************************************
+changed: [f5]
+
+TASK [DELETE POOL] ********************************************************************************
+changed: [f5]
+
+TASK [DELETE NODES] ************************************************************
+ok: [f5] => (item=107.23.182.171)
+ok: [f5] => (item=34.224.38.246)
+
+PLAY RECAP ********************************************************************************
+f5                         : ok=3    changed=2    unreachable=0    failed=0
+```
+# Solution
+The finished Ansible Playbook is provided here for an Answer key. Click here: [bigip-delete-configuration.yml](bigip-delete-configuration.yml).
 
 # Verifying the Solution
 

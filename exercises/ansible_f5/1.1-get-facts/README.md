@@ -208,37 +208,8 @@ f5                         : ok=4    changed=0    unreachable=0    failed=0
 ```
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.  Click here for [bigip-facts.yml](bigip-facts.yml), or read below:
+The finished Ansible Playbook is provided here for an Answer key.  Click here for [bigip-facts.yml](bigip-facts.yml).
 
-```yaml
----
-- name: GRAB F5 FACTS
-  hosts: f5
-  connection: local
-  gather_facts: no
-
-  tasks:
-    - name: COLLECT BIG-IP FACTS
-      bigip_facts:
-        include: system_info
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-      register: bigip_facts
-
-    - name: COMPLETE BIG-IP SYSTEM INFORMATION
-      debug:
-        var: bigip_facts
-
-    - name: DISPLAY ONLY THE MAC ADDRESS
-      debug:
-        var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
-
-    - name: DISPLAY ONLY THE VERSION
-      debug:
-        var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']
-```
 
 # Going Further
 

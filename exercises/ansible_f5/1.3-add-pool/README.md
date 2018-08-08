@@ -103,29 +103,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-pool.yml](bigip-pool.yml) or see below:
-
-```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-  tasks:
-
-  - name: CREATE POOL
-    bigip_pool:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      name: "http_pool"
-      lb_method: "round-robin"
-      monitors: "/Common/http"
-      monitor_type: "and_list"
-      validate_certs: "no"
-```
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-pool.yml](bigip-pool.yml).
 
 # Verifying the Solution
 

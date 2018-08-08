@@ -104,28 +104,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-node.yml](bigip-node.yml) or see below:
-
-```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-  tasks:
-
-  - name: CREATE NODES
-    bigip_node:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      host: "{{hostvars[item].ansible_host}}"
-      name: "{{hostvars[item].inventory_hostname}}"
-      validate_certs: "no"
-    loop: "{{ groups['webservers'] }}"
-```
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-node.yml](bigip-node.yml).
 
 # Verifying the Solution
 

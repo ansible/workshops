@@ -110,31 +110,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-pool-members.yml](bigip-pool-members.yml) or see below:
-
-```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-  tasks:
-
-  - name: ADD POOL MEMBERS
-    bigip_pool_member:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      state: "present"
-      name: "{{hostvars[item].inventory_hostname}}"
-      host: "{{hostvars[item].ansible_host}}"
-      port: "80"
-      pool: "http_pool"
-      validate_certs: "no"
-    loop: "{{ groups['webservers'] }}"
-```
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-pool-members.yml](bigip-pool-members.yml).
 
 # Verifying the Solution
 

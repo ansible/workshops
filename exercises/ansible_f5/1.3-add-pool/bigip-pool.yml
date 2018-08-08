@@ -1,0 +1,19 @@
+---
+- name: BIG-IP SETUP
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+  - name: CREATE POOL
+    bigip_pool:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: "8443"
+      name: "http_pool"
+      lb_method: "round-robin"
+      monitors: "/Common/http"
+      monitor_type: "and_list"
+      validate_certs: "no"

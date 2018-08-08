@@ -16,6 +16,17 @@
     - create_login_page
     - "'_' in ec2_name_prefix"
 
+- name: FIND AZ ZONE FOR REGION {{ec2_region}}
+  aws_az_facts:
+    region: "{{ec2_region}}"
+  register: az_names
+
+# - debug:
+#     var: az_names
+
+- name: SET AZ ZONE TO FIRST AVAILABLE
+  set_fact: ec2_az={{az_names.availability_zones[0].zone_name}}
+
 - name: grab information about AWS user
   aws_caller_facts:
     region: "{{ ec2_region }}"

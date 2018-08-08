@@ -164,8 +164,8 @@ Add this to your playbook:
 {%endraw%}
 ```
 
-
 Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yaml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
+
 
 > More parsers are being made available in the public domain so you will only have to build them if a specific use case has not been handled.
 
@@ -359,7 +359,6 @@ Our next step is to use the template module to generate a report from the above 
       delegate_to: localhost
       run_once: yes
 
-
 {%endraw%}
 ```
 
@@ -476,5 +475,3 @@ Loopback1:
 .
 <output omitted for brevity>
 ```
-
-

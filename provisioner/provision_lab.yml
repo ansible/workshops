@@ -12,6 +12,22 @@
           - ansible_version.major >= 2
           - ansible_version.minor >= 6
 
+      # F5workshop and networking workshop are two different workshops
+    - name: make sure f5workshop is not turned on when networking is
+      assert:
+        msg: "f5workshop and networking are mutually exclusive. Choose only one."
+        that:
+          - not f5workshop
+      when: networking
+
+      # F5workshop and networking workshop are two different workshops
+    - name: make sure networking is not turned on when f5workshop is
+      assert:
+        msg: "networking and f5workshop are mutually exclusive. Choose only one."
+        that:
+          - not networking
+      when: f5workshop
+
     - name: run role to check if local environment setup will work with AWS
       include_role:
         name: aws_check_setup
@@ -57,7 +73,6 @@
   hosts: "managed_nodes:control_nodes"
   become: yes
   gather_facts: no
-
   roles:
     - connectivity_test
 
@@ -68,7 +83,14 @@
     - user_accounts
     - common
 
-- name: Configure control node
+- name: CONFIGURE F5 WORKSHOP WEBSERVERS host1 and host2
+  hosts: lab_hosts
+  become: yes
+  gather_facts: no
+  roles:
+    - { role: webservers, when: f5workshop }
+
+- name: CONFIGURE CONTROL NODE
   hosts: control_nodes
   become: yes
   roles:
@@ -88,7 +110,14 @@
   become: no
   gather_facts: no
   roles:
-    - { role: network_hostroutes, when: networking is defined and networking }
+    - { role: network_hostroutes, when: networking }
+
+- name: setup f5 nodes
+  hosts: f5
+  connection: local
+  gather_facts: no
+  roles:
+    - { role: f5_setup, when: f5workshop }
 
 - name: GATHER AWS FACTS FOR ROUTERS
   hosts: access,core

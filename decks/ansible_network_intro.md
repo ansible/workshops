@@ -2,6 +2,8 @@
 
 Gerald Dykeman
 
+CCIE# 36354
+
 Twitter: [@geralddykeman](https://twitter.com/geralddykeman)
 
 Linkedin: [/in/gdykeman](https://www.linkedin.com/in/gdykeman/)

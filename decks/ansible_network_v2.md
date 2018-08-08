@@ -11,7 +11,7 @@ Note: TODO - check on branding/lettering
 
 
 # According to Gartner...
-<section data-background-image="images/gartner.svg"></section>
+<img src="images/gartner.png"/>
 
 
 
@@ -261,6 +261,13 @@ A playbook can contain more than one play
 In this lab you will explore the lab environment and build familiarity with the lab inventory.
 
 Approximate time: 20 mins
+
+
+
+# Lab URLs:
+
+- http://michigan.redhatgov.io
+- http://ansible.com/linklight
 
 
 

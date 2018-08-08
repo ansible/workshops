@@ -10,7 +10,6 @@
     dest: /tmp/linklight
     repo: https://github.com/network-automation/linklight.git
     force: yes
-  when: networking
 
 - name: for networking modes
   block:
@@ -34,10 +33,6 @@
   shell: mkdir /home/{{ username }}/networking-workshop; cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
   when: f5workshop
 
-- name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
-  command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop
-  when: special is defined
-  
 - name: fix permissions of networking-workshop  (NETWORKING MODE)
   file:
     path: /home/{{ username }}/networking-workshop

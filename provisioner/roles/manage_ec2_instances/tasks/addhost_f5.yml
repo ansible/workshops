@@ -9,6 +9,7 @@
 - name: add f5 to groups (F5 MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: admin
     ansible_port: "{{ ssh_port }}"
@@ -29,6 +30,7 @@
 - name: add host1 to groups (NETWORKING MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
     ansible_port: "{{ ssh_port }}"
@@ -50,6 +52,7 @@
 - name: add host2 to groups (NETWORKING MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
     ansible_port: "{{ ssh_port }}"

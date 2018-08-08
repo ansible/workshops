@@ -1,14 +1,14 @@
 # Introduction
 
-Ajay Chenampara
+Gerald Dykeman
 
-Twitter: [@termlen0](https://twitter.com/termlen0)
+Twitter: [@geralddykeman](https://twitter.com/geralddykeman)
 
-Linkedin: [/in/achenampara](https://www.linkedin.com/in/achenampara/)
+Linkedin: [/in/gdykeman](https://www.linkedin.com/in/gdykeman/)
 
-Email: [ajay.chenampara@redhat.com](mailto:ajay.chenampara@redhat.com)
+Email: [gdykeman@redhat.com](mailto:gdykeman@redhat.com)
 
-Github: [termlen0](https://github.com/termlen0)
+Github: [gdykeman](https://github.com/gdykeman)
 
 
 

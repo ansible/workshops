@@ -144,11 +144,11 @@ Finally lets add two more tasks to get more specific info from facts gathered.
       debug:
         var: bigip_facts
 
-    - name: GRABBING ONLY THE MAC ADDRESS
+    - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
         var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
 
-    - name: GRABBING ONLY THE VERSION
+    - name: DISPLAY ONLY THE VERSION
       debug:
         var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']
 ```
@@ -193,12 +193,12 @@ ok: [f5] => {
 <<output removed for brevity>>
 
 ---
-TASK [GRABBING ONLY THE MAC ADDRESS] *******************************************
+TASK [DISPLAY ONLY THE MAC ADDRESS] *******************************************
 ok: [f5] => {
     "bigip_facts['ansible_facts']['system_info']['base_mac_address']": "0A:D1:27:C1:84:76"
 }
 
-TASK [GRABBING ONLY THE VERSION] ***********************************************
+TASK [DISPLAY ONLY THE VERSION] ***********************************************
 ok: [f5] => {
     "bigip_facts['ansible_facts']['system_info']['product_information']['product_version']": "13.1.0.2"
 }
@@ -231,11 +231,11 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here fo
       debug:
         var: bigip_facts
 
-    - name: GRABBING ONLY THE MAC ADDRESS
+    - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
         var: bigip_facts['ansible_facts']['system_info']['base_mac_address']
 
-    - name: GRABBING ONLY THE VERSION
+    - name: DISPLAY ONLY THE VERSION
       debug:
         var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']
 ```

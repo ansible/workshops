@@ -34,9 +34,7 @@
 
 - name: f5 mode - setup inventory
   include_tasks: "addhost_f5.yml"
-  when:
-    - not networking
-    - f5workshop
+  when: f5workshop
 
 # - name: debug what this next task is doing
 #   debug:

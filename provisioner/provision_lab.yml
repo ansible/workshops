@@ -110,7 +110,7 @@
   become: no
   gather_facts: no
   roles:
-    - { role: network_hostroutes, when: networking is defined and networking }
+    - { role: network_hostroutes, when: networking }
 
 - name: setup f5 nodes
   hosts: f5
@@ -120,7 +120,7 @@
     - { role: f5_setup, when: f5workshop }
 
 - name: GATHER AWS FACTS FOR ROUTERS
-  hosts: localhost
+  hosts: access,core
   connection: local
   gather_facts: no
   roles:

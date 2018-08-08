@@ -164,12 +164,8 @@ Add this to your playbook:
 {%endraw%}
 ```
 
-<<<<<<< HEAD:exercises/networking_v2/labs/lab03-templating/exercise01-parser/README.md
-Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
-=======
-
 Let's understand this task in a little more depth. The `command_parser` is referencing a file called `show_interfaces.yaml` within the `parsers` directory. For this lab, the parser has been pre-populated for you. The parsers are written to handle the output from standard show commands on various network platforms.
->>>>>>> master:exercises/networking_v2/labs/lab03-templating/exercise02-parser/README.md
+
 
 > More parsers are being made available in the public domain so you will only have to build them if a specific use case has not been handled.
 
@@ -362,12 +358,6 @@ Our next step is to use the template module to generate a report from the above 
         dest: interfaces_report.md
       delegate_to: localhost
       run_once: yes
-<<<<<<< HEAD:exercises/networking_v2/labs/lab03-templating/exercise01-parser/README.md
-
-
-=======
->>>>>>> master:exercises/networking_v2/labs/lab03-templating/exercise02-parser/README.md
-
 
 {%endraw%}
 ```

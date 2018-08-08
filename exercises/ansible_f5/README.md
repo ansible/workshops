@@ -9,7 +9,7 @@ Want the Presentation Deck?  Its right here:
 [Ansible F5 Workshop Deck](https://docs.google.com/a/redhat.com/presentation/d/e/2PACX-1vSbXpZAk6sSV-cwnMborNNy9YIpCY2QVqC4BVvzhHcO_A91bJs6_jUkfAfBAJLnak6RLA2-Mpv5yUcj/pub?start=false&loop=false&delayms=3000)
 
 ## Diagram
-![f5 diagram](../../iamges/f5topology.png)
+![f5 diagram](../../images/f5topology.png)
 
 ## Ansible F5 Exercises
 

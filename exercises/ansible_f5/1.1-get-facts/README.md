@@ -47,6 +47,8 @@ Enter the following play definition into `bigip-facts.yml`:
 
 Next, add the first `task`. This task will use the `bigip_facts` module to grab useful information from the BIG-IP device.
 
+{% raw %}
+
 ``` yaml
 ---
 - name: SIMPLE DEBUG PLAYBOOK
@@ -67,6 +69,10 @@ Next, add the first `task`. This task will use the `bigip_facts` module to grab 
       register: bigip_facts
 ```
 
+{% endraw %}
+
+
+
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
 - `name: COLLECT BIG-IP FACTS` is a user defined description that will display in the terminal output.
@@ -81,6 +87,8 @@ Next, add the first `task`. This task will use the `bigip_facts` module to grab 
 ## Step 4
 
 Next, add the second `task`. This task will use the `debug` module to print the output from bigip_facts variable we registered the facts to.
+
+{% raw %}
 
 ```yaml
 ---
@@ -106,6 +114,9 @@ Next, add the second `task`. This task will use the `debug` module to print the 
         var: bigip_facts
 ```
 
+{% endraw %}
+
+
 - The `name: COMPLETE BIG-IP SYSTEM INFORMATION` is a user defined description that will display in the terminal output.
 - `debug:` tells the task to use the debug module.
 - The `var: bigip_facts` parameter tells the module to display the variable bigip_facts.
@@ -122,6 +133,8 @@ Run the playbook - exit back into the command line of the control host and execu
 ## Step 6
 
 Finally lets add two more tasks to get more specific info from facts gathered.
+
+{% raw %}
 
 ```yaml
 ---
@@ -152,6 +165,9 @@ Finally lets add two more tasks to get more specific info from facts gathered.
       debug:
         var: bigip_facts['ansible_facts']['system_info']['product_information']['product_version']
 ```
+
+{% endraw %}
+
 
 - `var: bigip_facts['ansible_facts']['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
 - `bigip_facts['ansible_facts']['system_info']['product_information']['product_version']` displays the product version BIG-IP device

@@ -31,9 +31,7 @@
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"
       server_port: "8443"
-      name: "{{item}}"
+      name: "{{hostvars[item].inventory_hostname}}"
       state: absent
       validate_certs: "no"
-    loop:
-     - "{{ hostvars[groups['webservers'][0]].ansible_host }}"
-     - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
+    loop: "{{ groups['webservers'] }}"

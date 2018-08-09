@@ -266,7 +266,7 @@ Approximate time: 20 mins
 
 # Lab URLs:
 
-- http://michigan.redhatgov.io
+- http://austin.redhatgov.io
 - http://ansible.com/linklight
 
 

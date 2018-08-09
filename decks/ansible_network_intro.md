@@ -1,27 +1,17 @@
 # Introduction
 
-Gerald Grant Dykeman
+Gerald Dykeman
 
-Twitter: @geralddykeman
+CCIE# 36354
 
-Linkedin: /in/gdykeman
+Twitter: [@geralddykeman](https://twitter.com/geralddykeman)
 
-Email: gdykeman@redhat.com
+Linkedin: [/in/gdykeman](https://www.linkedin.com/in/gdykeman/)
 
-Github: gdykeman
+Email: [gdykeman@redhat.com](mailto:gdykeman@redhat.com)
 
+Github: [gdykeman](https://github.com/gdykeman)
 
-# Introduction 2
-
-Sean Cavanaugh
-
-Twitter: [@IPvSean](https://twitter.com/IPvSean)
-
-Linkedin: [/in/seanecavanaugh](https://www.linkedin.com/in/seanecavanaugh/)
-
-Email: [seanc@redhat.com](mailto:seanc@redhat.com)
-
-Github: [IPvSean](https://github.com/IPvSean)
 
 
 # House Keeping

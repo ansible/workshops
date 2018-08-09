@@ -102,17 +102,6 @@ Next, add the second `task` using the [bigip_pool](https://docs.ansible.com/ansi
       name: "http_pool"
       state: absent
       validate_certs: "no"
-
-  - name: DELETE NODES
-    bigip_node:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      name: "{{hostvars[item].inventory_hostname}}"
-      state: absent
-      validate_certs: "no"
-    loop: "{{ groups['webservers'] }}"
 ```
 {% endraw %}
 

@@ -19,7 +19,7 @@ Run the `ansible` command with the `--version` command to look at what is config
 
 ```
 [student1@ip-172-16-101-121 networking-workshop]$ ansible --version
-ansible 2.5.0
+ansible 2.6.2
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python2.7/site-packages/ansible

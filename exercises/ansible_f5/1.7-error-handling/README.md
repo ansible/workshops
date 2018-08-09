@@ -43,6 +43,8 @@ Enter the following play definition into `bigip-error-handling.yml`:
 
 Next, add the `block` stanza and the first `task`. The first task will be the bigip_node as performed in exercise 1.2.
 
+{% raw %}
+
 ``` yaml
 ---
   - name: Setup and graceful rollback BIG-IP configuration
@@ -59,9 +61,14 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
       loop: "{{ groups['webservers'] }}"
 ```
 
+{% endraw %}
+
+
 ## Step 4
 
 Next, add the second task for bigip_pool as demonstrated in [exercise 1.3](../1.3-add-pool/README.md).
+
+{% raw %}
 
 ```yaml
  - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
@@ -92,9 +99,14 @@ Next, add the second task for bigip_pool as demonstrated in [exercise 1.3](../1.
       validate_certs: "no"
 ```
 
+{% endraw %}
+
+
 ## Step 5
 
 Next, add the third task.  For the third task use the bigip_pool_member as demonstrated in [exercise 1.4](../1.4-add-pool-members/README.md).
+
+{% raw %}
 
 ```yaml
  - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
@@ -141,10 +153,14 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
        - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
 ```
 
+{% endraw %}
+
+
 ## Step 6
 
 Next, add the fourth task.  For the fourth task use the bigip_virtual_server as demonstrated in [exercise 1.5](../1.5-add-virtual-server/README.md).
 
+{% raw %}
 
 ```yaml
  - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
@@ -206,10 +222,13 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
        validate_certs: "no"
 ```
 
+{% endraw %}
+
 ## Step 7
 
 Next, add the **rescue** stanza.  Re-enter all the bigip_node, bigip_pool and bigip_virtual_server tasks in reverse order.  The bigip_pool_member task does not need to re-enterered since by deleting the nodes and pool will remove all configuration.  For each task within the **rescue** stanza, use the paramter `state: absent`.  If any task within the **block** fails, the **rescue** stanza will execute in order.  The VIP, pool, and nodes will be removed gracefully.
 
+{% raw %}
 
 ```yaml
  - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
@@ -306,10 +325,13 @@ Next, add the **rescue** stanza.  Re-enter all the bigip_node, bigip_pool and bi
        - "{{ hostvars[groups['webservers'][1]].ansible_host }}"
 ```
 
+{% endraw %}
+
 ## Step 8
 
 Finally add the **always** to print out a debug message.
 
+{% raw %}
 
 ```yaml
  - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
@@ -407,6 +429,9 @@ Finally add the **always** to print out a debug message.
     always:
     - debug: msg="Executed rollback playbook"
 ```
+
+{% endraw %}
+
 The above playbook will try and configure the Virtual Server, Pool and Nodes but since the snat value is provided as 'Automap1' the addition of virtual server will fail and the 'rescue' block will be run
 
 ## Step 9
@@ -446,6 +471,7 @@ ok: [f5] => {
 PLAY RECAP *********************************************************************
 f5                         : ok=4    changed=0    unreachable=0    failed=1
 ```
+
 # Solution
 The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-error-handling.yml](bigip-error-handling.yml).
 

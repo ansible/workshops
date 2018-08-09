@@ -44,6 +44,8 @@ Enter the following play definition into `bigip-pool-members.yml`:
 
 Next, add the first `task`. This task will use the `bigip_pool_member` module configure the two RHEL web servers as nodes on the BIG-IP F5 load balancer.
 
+{% raw %}
+
 ``` yaml
 - name: BIG-IP SETUP
   hosts: lb
@@ -66,6 +68,8 @@ Next, add the first `task`. This task will use the `bigip_pool_member` module co
       validate_certs: "no"
     loop: "{{ groups['webservers'] }}"
 ```
+
+{% endraw %}
 
 Explanation of each line within the task:
 - `name: ADD POOL MEMBERS` is a user defined description that will display in the terminal output.

@@ -44,6 +44,8 @@ Enter the following play definition into `bigip-pool.yml`:
 
 Next, add the first `task`. This task will use the `bigip_pool` module configure the two RHEL web servers as nodes on the BIG-IP F5 load balancer.
 
+{% raw %}
+
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -65,6 +67,8 @@ Next, add the first `task`. This task will use the `bigip_pool` module configure
       monitor_type: "and_list"
       validate_certs: "no"
 ```
+
+{% endraw %}
 
 - `name: CREATE POOL` is a user defined description that will display in the terminal output.
 - `bigip_pool:` tells the task which module to use.

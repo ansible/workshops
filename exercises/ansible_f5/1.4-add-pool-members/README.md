@@ -114,7 +114,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-pool-members.yml](bigip-pool-members.yml).
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-pool-members.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.4-add-pool-members/bigip-pool-members.yml).
 
 # Verifying the Solution
 

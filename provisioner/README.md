@@ -99,7 +99,6 @@ student_total: 2                       # creates student_total of workbenches fo
 #OPTIONAL VARIABLES
 admin_password: ansible                # password for Ansible control node, defaults to ansible
 networking: true                       # Set this if you want the workshop in networking mode
-localsecurity: false                   # skips firewalld installation and SE Linux when false
 create_login_page: true
 towerinstall: true                     # automatically installs Tower to control node
 # autolicense: true                    # automatically licenses Tower if license is provided

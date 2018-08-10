@@ -239,7 +239,7 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
            enabled_vlans: "all"
            all_profiles: ['http','clientssl','oneconnect']
            pool: "http_pool"
-           snat: "Automap"
+           snat: "Automap1"
            validate_certs: "no"
 ```
 
@@ -311,7 +311,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             enabled_vlans: "all"
             all_profiles: ['http','clientssl','oneconnect']
             pool: "http_pool"
-            snat: "Automap"
+            snat: "Automap1"
             validate_certs: "no"
 
       rescue:
@@ -508,6 +508,7 @@ f5                         : ok=7    changed=3    unreachable=0    failed=1
 ```
 
 # Solution
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-error-handling.yml](bigip-error-handling.yml).
+
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-error-handling.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.7-error-handling/bigip-error-handling.yml).
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

@@ -17,14 +17,19 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
      - [Ansible Networking](https://network-automation.github.io/linklight/decks/ansible-networking.html#)
      - [Ansible F5](https://network-automation.github.io/linklight/decks/ansible_f5.pdf)
 
-  * [Exercises](exercises)  
-    Step-by-step exercises provided for learning how to automate with Ansible.
+  * [Network Automation Exercises](exercises)  
+    These exercises are focused on networking platforms like Arista, Cisco, Juniper and F5.
+.
 
-     - [Ansible Engine Workshop Exercises](exercises/ansible_engine/README.md)
-     - [Ansible Tower Workshop Exercises](exercises/ansible_tower/README.md)
      - [Ansible Networking Workshop Exercises](exercises/networking/README.md)
      - [Ansible Networkingv2 Workshop Exercises](exercises/networking_v2/README.md)
      - [Ansible F5 Workshop Exercises](exercises/ansible_f5/README.md)
+
+  * [Server Automation Exercises](exercises)  
+    These exercises are focused on automating Linux platforms like RHEL (Red Hat Enterprise Linux)
+
+     - [Ansible Engine Workshop Exercises](exercises/ansible_engine/README.md)
+     - [Ansible Tower Workshop Exercises](exercises/ansible_tower/README.md)
 
   * [Lab Provisioner](provisioner)  
     AWS playbook for building up a testing environment (in the form of Virtual Machines) for someone to try the exercises provided above.

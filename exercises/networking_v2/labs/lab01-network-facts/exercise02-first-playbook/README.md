@@ -21,6 +21,7 @@ Using your favorite text editor (`vim` and `nano` are available on the control h
 Enter the following play definition into `gather_ios_data.yml`:
 
 >Press the letter "i" to enter insert mode*
+
 ``` yaml
 ---
 - name: GATHER INFORMATION FROM ROUTERS

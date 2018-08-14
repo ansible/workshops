@@ -1,6 +1,6 @@
 ---
 - name: Deploy the Router configurations
-  hosts: routers
+  hosts: routers:tag_Workshop_rtr*
   connection: network_cli
   gather_facts: no
   roles:

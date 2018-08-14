@@ -128,6 +128,7 @@
     name: "{{ ec2_name_prefix }}-key"
     region: "{{ ec2_region }}"
   register: create_key
+  when: ec2_key_material is undefined
 
 - name: save private key
   copy:
@@ -135,6 +136,13 @@
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     mode: '0400'
   when: create_key.changed
+
+- name create ssh key pair based on key material
+  ec2_key:
+    name: "{{ ec2_name_prefix }}-key"
+    region: "{{ ec2_region }}"
+    key_material: "{{ ec2_key_material }}"
+  hen: ec2_key_material is defined
 
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:

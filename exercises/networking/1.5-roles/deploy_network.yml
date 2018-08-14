@@ -3,6 +3,11 @@
   hosts: routers:tag_Workshop_rtr*
   connection: network_cli
   gather_facts: no
+  pre_tasks:
+    - name: assign private ip address
+      set_fact:
+        private_ip: "{{ ec2_private_ip }}"
+      when: private_ip is undefined
   roles:
     - system
     - interface

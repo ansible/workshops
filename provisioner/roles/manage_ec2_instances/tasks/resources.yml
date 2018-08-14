@@ -137,7 +137,7 @@
     mode: '0400'
   when: create_key.changed
 
-- name create ssh key pair based on key material
+- name: create ssh key pair based on key material
   ec2_key:
     name: "{{ ec2_name_prefix }}-key"
     region: "{{ ec2_region }}"

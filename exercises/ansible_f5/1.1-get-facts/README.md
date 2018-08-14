@@ -51,8 +51,8 @@ Next, add the first `task`. This task will use the `bigip_facts` module to grab 
 
 ``` yaml
 ---
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
+- name: GRAB F5 FACTS
+  hosts: f5
   connection: local
   gather_facts: no
 
@@ -92,8 +92,8 @@ Next, add the second `task`. This task will use the `debug` module to print the 
 
 ```yaml
 ---
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
+- name: GRAB F5 FACTS
+  hosts: f5
   connection: local
   gather_facts: no
 

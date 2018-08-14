@@ -6,8 +6,10 @@
   pre_tasks:
     - name: assign private ip address
       set_fact:
-        private_ip: "{{ ec2_private_ip }}"
-      when: private_ip is undefined
+        private_ip: "{{ ec2_private_ip_address }}"
+      when:
+        - private_ip is undefined
+        - ec2_private_ip_address is defined
   roles:
     - system
     - interface

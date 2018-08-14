@@ -11,7 +11,7 @@ Note: TODO - check on branding/lettering
 
 
 # According to Gartner...
-<section data-background-image="images/gartner.svg"></section>
+<img src="images/gartner.png"/>
 
 
 
@@ -88,6 +88,7 @@ _
 <img src="images/how-ansible-works-diagram-02.svg" />
 
 
+
 # Inventory
 <img src="images/networking-how-ansible-works-diagram-05.svg" />
 
@@ -109,11 +110,11 @@ _
 <pre>
 ```
 10.1.1.2
+10.1.1.3
+172.16.1.1
+172.16.1.2
 192.168.1.2
-core1.nw.com
-core2.nw.com
-access1.nw.com
-access2.nw.com
+192.168.1.3
 ```</pre>
 
 </div>
@@ -130,8 +131,8 @@ access2.nw.com
 <pre>
 ```
 [atl]
-10.1.1.2
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com
@@ -157,8 +158,8 @@ DC
 atl
 
 [atl]
-10.1.1.2
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com
@@ -197,8 +198,8 @@ DC
 atl
 
 [atl]
-10.1.1.2 snmp_ro=atl123
-192.168.1.2
+access1.atl.com ansible_host=10.1.1.2 snmp_ro=atl123
+access2.atl.com ansible_host=192.168.1.2
 
 [core]
 core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123
@@ -263,6 +264,13 @@ Approximate time: 20 mins
 
 
 
+# Lab URLs:
+
+- http://austin.redhatgov.io
+- http://ansible.com/linklight
+
+
+
 # Playbook definition for network automation
 
 - Target play execution using **`hosts`**
@@ -273,7 +281,22 @@ Approximate time: 20 mins
 
 # Running a playbook
 
-``` bash
+<div class="columns">
+    <div class="col">
+<pre>
+```
+---
+- name: GATHER INFORMATION FROM ROUTERS
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: GATHER ROUTER FACTS
+      ios_facts:
+```</pre></div>
+
+<div><pre>```
 [student1@control-node networking-workshop]$ ansible-playbook gather_ios_data.yml
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
@@ -292,7 +315,7 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 
 [student1@ip-172-16-101-121 networking-workshop]$
 
-```
+```</pre></div>
 
 
 
@@ -436,8 +459,6 @@ Ansible modules for network automation typically references the vendor OS follow
 <div class="col">
 <img src="images/modules-doc-screenshots.png" />
 </div>
-
-
 
 
 

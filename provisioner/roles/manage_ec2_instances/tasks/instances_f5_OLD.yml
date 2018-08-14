@@ -1,0 +1,81 @@
+- name: set node types (F5 MODE)
+  set_fact:
+    f5_node: "{{ ec2_lab_node_types_f5['f5'] }}"
+    host1_node: "{{ ec2_lab_node_types_f5['host1'] }}"
+    host2_node: "{{ ec2_lab_node_types_f5['host2'] }}"
+
+##############f5 node##############
+
+- name: find ami for f5 (F5 MODE)
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types[f5_node].owners }}"
+    filters:
+      name: "{{ ec2_instance_types[f5_node].filter }}"
+      architecture: "{{ ec2_instance_types[f5_node].architecture }}"
+  register: amis
+
+- name: save ami for f5 (F5 MODE)
+  set_fact:
+    f5_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: Create EC2 instances for f5 node (F5 MODE)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types[f5_node].size }}"
+    image: "{{ f5_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_f5: "{{ec2_name_prefix}}-f5"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  register: f5_output
+
+- name: Ensure tags are present for f5 node (F5 MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-f5"
+      Workshop_f5: "{{ec2_name_prefix}}-f5"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item.0 + 1}}"
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+  with_indexed_items:
+    - "{{ f5_output.instance_ids }}"
+  when: f5_output.instance_ids is not none
+
+
+############## host1 ##############
+
+#coming soon
+
+############## host2 ##############
+
+#coming soon
+
+############## eni check ##############
+
+- name: grab all network interfaces for VPC 1 (F5 MODE)
+  ec2_eni_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ec2_vpc_id}}"
+  register: eni_facts_1
+
+- name: Disable Source/Dest check on instance {{ec2_vpc_id1}} (F5 MODE)
+  ec2_eni:
+    eni_id: "{{ item['network_interface_id'] }}"
+    region: "{{ ec2_region }}"
+    source_dest_check: false
+  with_items:
+    - "{{eni_facts_1['network_interfaces']}}"

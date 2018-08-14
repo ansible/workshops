@@ -204,7 +204,7 @@ let's run it and see how it works.
 Run the playbook.
 
 ```bash
-ansible-playbook --private-key ~/.ssh/workshopname-tower -i ../hosts site.yml
+ansible-playbook -i ../hosts site.yml
 ```
 
 If successful, your standard output should look similar to the figure below.

@@ -256,7 +256,7 @@ A playbook can contain more than one play
 <section data-state="title alt">
 # Lab Time
 
-#### Lab 1: Section 1
+#### Lab 1: Exercise 1
 
 In this lab you will explore the lab environment and build familiarity with the lab inventory.
 
@@ -388,7 +388,7 @@ Variables are accessed using "{{ }}" - quoted curly braces
 <section data-state="title alt">
 # Lab time
 
-#### Lab 1: Section 2
+#### Lab 1: Exercise 2
 
 In this lab you will write your first playbook and run it to gather facts from Cisco routers. You will also practice the use of "verbose" and "limit" flags in addition to working with variables within a playbook.
 
@@ -531,7 +531,7 @@ The **register** parameter is used to collect the output of a task execution. Th
 <section data-state="title alt">
 # Lab Time
 
-#### Lab 1: Section 3
+#### Lab 1: Exercise 3
 
 In this lab you will learn how to use module documentation. You will also learn how to selectively run tasks using tags and learn how to collect task output into user defined variables within the playbook.
 

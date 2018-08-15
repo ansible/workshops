@@ -7,8 +7,8 @@ useful information about a test network. You will create a
 > A playbook can have multiple plays and a play can have one or more tasks. Tasks are the smallest unit within playbooks. Each task executes using a _module_. Modules typically take parameters as user inputs.
 
 
-[Section 1: Exploring the lab environment](./exercise01-explore)
+[Exercise 1: Exploring the lab environment](./exercise01-explore)
 
-[Section 2: Writing your first playbook](./exercise02-first-playbook)
+[Exercise 2: Writing your first playbook](./exercise02-first-playbook)
 
-[Section 3 - Module documentation, Registering output & tags](./exercise03-playbook-basics)
+[Exercise 3 - Module documentation, Registering output & tags](./exercise03-playbook-basics)

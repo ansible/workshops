@@ -13,6 +13,7 @@
       - nano
       - tree
       - sshpass
+      - tmux
       - python-pip
       - ansible
     state: latest

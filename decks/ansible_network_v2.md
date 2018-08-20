@@ -2,7 +2,7 @@
 
 - Networks are mission critical
 - Every network is a unique snowflake
-- Ad-hoc changes that proliferate 
+- Ad-hoc changes that proliferate
 - Vendor specific implementations
 - Testing is expensive/impossible
 
@@ -11,7 +11,7 @@ Note: TODO - check on branding/lettering
 
 
 # According to Gartner...
-<section data-background-image="images/gartner.svg"></section>
+<img src="images/gartner.png"/>
 
 
 
@@ -19,8 +19,8 @@ Note: TODO - check on branding/lettering
 # Automation considerations
 
 - Compute is no longer the slowest link in the chain
-- Businesses demand that networks deliver at the speed of cloud 
-- Automation of repeatable tasks 
+- Businesses demand that networks deliver at the speed of cloud
+- Automation of repeatable tasks
 - Bridge silos
 
 Note: TODO - Transition slide from problem to solution.
@@ -36,8 +36,6 @@ Ansible Tower is an enterprise framework for controlling, securing and managing 
 
 
 
-    
-
 <section data-background-image="images/simple-powerful-agentless-diagram.svg">
 </section>
 
@@ -52,12 +50,12 @@ Ansible Tower is an enterprise framework for controlling, securing and managing 
 
 
 
-# Common use cases 
+# Common use cases
 
 - Backup and restore device configurations
 - Upgrade network device OS
 - Ensure configuration compliance
-- Apply patches to address CVE 
+- Apply patches to address CVE
 - Generate dynamic documentation
 
 _Basically anything an operator can do manually, Ansible can automate.
@@ -90,6 +88,7 @@ _
 <img src="images/how-ansible-works-diagram-02.svg" />
 
 
+
 # Inventory
 <img src="images/networking-how-ansible-works-diagram-05.svg" />
 
@@ -111,11 +110,11 @@ _
 <pre>
 ```
 10.1.1.2
+10.1.1.3
+172.16.1.1
+172.16.1.2
 192.168.1.2
-core1.nw.com
-core2.nw.com
-access1.nw.com
-access2.nw.com
+192.168.1.3
 ```</pre>
 
 </div>
@@ -132,13 +131,13 @@ access2.nw.com
 <pre>
 ```
 [atl]
-10.1.1.2
-192.168.1.2
-    
+access1.atl.com ansible_host=10.1.1.2
+access2.atl.com ansible_host=192.168.1.2
+
 [core]
 core1.nw.com
 core2.nw.com
-    
+
 [access]
 access1.nw.com
 access2.nw.com
@@ -159,13 +158,13 @@ DC
 atl
 
 [atl]
-10.1.1.2
-192.168.1.2
-    
+access1.atl.com ansible_host=10.1.1.2
+access2.atl.com ansible_host=192.168.1.2
+
 [core]
 core1.nw.com
 core2.nw.com
-    
+
 [access]
 access1.nw.com
 access2.nw.com
@@ -199,22 +198,22 @@ DC
 atl
 
 [atl]
-10.1.1.2 snmp_ro=atl123 
-192.168.1.2
-    
+access1.atl.com ansible_host=10.1.1.2 snmp_ro=atl123
+access2.atl.com ansible_host=192.168.1.2
+
 [core]
 core1.nw.com snmp_ro=corepub123 snmp_rw=corepri123
 core2.nw.com
-    
+
 [access]
 access1.nw.com ansible_username=localadmin
-access2.nw.com 
+access2.nw.com
 ```</pre>
 </div>
-<div> 
+<div>
 <p>- Group variables apply for all devices in that group </p>
 <p>- Host variables apply to the host and overrides group vars </p>
-</div> 
+</div>
 
 
 
@@ -225,20 +224,19 @@ access2.nw.com
 <pre>
 ```
 ---
-- name: DEPLOY VLANS 
+- name: DEPLOY VLANS
   hosts: access
   connection: network_cli
   gather_facts: no
-  
-  
+
   tasks:
-    
+
     - name: ENSURE VLANS EXIST
       nxos_vlan:
         vlan_id: 100
         admin_state: up
         name: WEB
-        
+
 ```</pre>
 
 </div>
@@ -258,11 +256,18 @@ A playbook can contain more than one play
 <section data-state="title alt">
 # Lab Time
 
-#### Lab 1: Section 1
+#### Lab 1: Exercise 1
 
 In this lab you will explore the lab environment and build familiarity with the lab inventory.
 
 Approximate time: 20 mins
+
+
+
+# Lab URLs:
+
+- http://austin.redhatgov.io
+- http://ansible.com/linklight
 
 
 
@@ -276,8 +281,23 @@ Approximate time: 20 mins
 
 # Running a playbook
 
-``` bash
-[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
+<div class="columns">
+    <div class="col">
+<pre>
+```
+---
+- name: GATHER INFORMATION FROM ROUTERS
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: GATHER ROUTER FACTS
+      ios_facts:
+```</pre></div>
+
+<div><pre>```
+[student1@control-node networking-workshop]$ ansible-playbook gather_ios_data.yml
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
 
@@ -295,30 +315,30 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 
 [student1@ip-172-16-101-121 networking-workshop]$
 
-```
+```</pre></div>
 
 
 
 
 # Displaying output
 
-Use the optional **verbose** flag during playbook execution 
+Use the optional **verbose** flag during playbook execution
 
 ``` bash
-student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v
+student1@control-node networking-workshop]$ ansible-playbook gather_ios_data.yml  -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
 
 TASK [GATHER ROUTER FACTS] ******************************************************************************
-ok: [rtr3] => {"ansible_facts": {"ansible_net_all_ipv4_addresses": ["10.100.100.3", "192.168.3.103", "172.16.235.46", 
+ok: [rtr3] => {"ansible_facts": {"ansible_net_all_ipv4_addresses": ["10.100.100.3", "192.168.3.103", "172.16.235.46",
 "192.168.35.101", "10.3.3.103"], "ansible_net_all_ipv6_addresses": [], "ansible_net_filesystems": ["bootflash:"],
-"ansible_net_gather_subset": ["hardware", "default", "interfaces"], "ansible_net_hostname": "rtr3", "ansible_net_image": 
-"boot:packages.conf", "ansible_net_interfaces": {"GigabitEthernet1": {"bandwidth": 1000000, "description": null, "duplex":"Full", 
+"ansible_net_gather_subset": ["hardware", "default", "interfaces"], "ansible_net_hostname": "rtr3", "ansible_net_image":
+"boot:packages.conf", "ansible_net_interfaces": {"GigabitEthernet1": {"bandwidth": 1000000, "description": null, "duplex":"Full",
 "ipv4": [{"address": "172.16.235.46", "subnet": "16"}], "lineprotocol": "up ", "macaddress": "0e93.7710.e63c", "mediatype": "Virtual",
-"mtu": 1500, "operstatus": "up", "type": "CSR vNIC"}, "Loopback0": {"bandwidth": 8000000, "description": null, "duplex": null, "ipv4": [{"address": "192.168.3.103", "subnet": "24"}], "lineprotocol": "up ", "macaddress": "192.168.3.103/24", "mediatype": null, 
-"mtu": 1514, "operstatus": "up", "type": null}, "Loopback1": {"bandwidth": 8000000, "description": null, 
-"duplex": null, "ipv4": [{"address": "10.3.3.103", 
+"mtu": 1500, "operstatus": "up", "type": "CSR vNIC"}, "Loopback0": {"bandwidth": 8000000, "description": null, "duplex": null, "ipv4": [{"address": "192.168.3.103", "subnet": "24"}], "lineprotocol": "up ", "macaddress": "192.168.3.103/24", "mediatype": null,
+"mtu": 1514, "operstatus": "up", "type": null}, "Loopback1": {"bandwidth": 8000000, "description": null,
+"duplex": null, "ipv4": [{"address": "10.3.3.103",
 "subnet": "24"}], "lineprotocol": "up ", "macaddress": "10.3.3.103/24", "mediatype": null, "mtu": 1514, "operstatus": "up", "type": null},
 "Tunnel0": {"bandwidth": 100, "description": null, "duplex": null, "ipv4": [{"address": "10.100.100.3", "subnet": "24"}]
 
@@ -339,7 +359,7 @@ _Increase the level of verbosity by adding more "v's" -vvvv_
 Playbook execution can be limited to a subset of devices using the **--limit** flag.
 
 ``` bash
-$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
+$ ansible-playbook gather_ios_data.yml  -v --limit rtr1
 ```
 
 
@@ -368,7 +388,7 @@ Variables are accessed using "{{ }}" - quoted curly braces
 <section data-state="title alt">
 # Lab time
 
-#### Lab 1: Section 2
+#### Lab 1: Exercise 2
 
 In this lab you will write your first playbook and run it to gather facts from Cisco routers. You will also practice the use of "verbose" and "limit" flags in addition to working with variables within a playbook.
 
@@ -377,7 +397,7 @@ Approximate time: 20 mins
 
 
 # Modules
-Modules do the actual work in ansible, they are what gets executed in each playbook task. 
+Modules do the actual work in ansible, they are what gets executed in each playbook task.
 - Typically written in Python (but not limited to it)
 - Modules are idempotent
 - Modules take user input in the form of parameters
@@ -425,7 +445,7 @@ Ansible modules for network automation typically references the vendor OS follow
         domain_name: ansible.com
         vrf: management
       when: ansible_network_os == 'nxos'
-        
+
 ```
 
 
@@ -439,8 +459,6 @@ Ansible modules for network automation typically references the vendor OS follow
 <div class="col">
 <img src="images/modules-doc-screenshots.png" />
 </div>
-            
-            
 
 
 
@@ -473,7 +491,7 @@ Options (= is mandatory):
 # Limiting tasks within a play
 
 - **Tags** allow the user to selectively execute tasks within a play.
-- Multiple tags can be associated with a given task. 
+- Multiple tags can be associated with a given task.
 - Tags can also be applied to entire plays or roles.
 
 ``` yaml
@@ -486,7 +504,7 @@ Options (= is mandatory):
 Tags are invoked using the **--tags** flag while running the playbook
 
 ``` bash
-[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml --tags=show
+[student1@control-node networking-workshop]$ ansible-playbook gather_ios_data.yml --tags=show
 
 ```
 _This is useful while working with large playbooks, when you might want to "jump" to a specific task._
@@ -513,7 +531,7 @@ The **register** parameter is used to collect the output of a task execution. Th
 <section data-state="title alt">
 # Lab Time
 
-#### Lab 1: Section 3
+#### Lab 1: Exercise 3
 
 In this lab you will learn how to use module documentation. You will also learn how to selectively run tasks using tags and learn how to collect task output into user defined variables within the playbook.
 
@@ -549,7 +567,7 @@ Vendor specific config modules allow the user to update the configuration on net
 
 Ansbile lets you validate the impact of the proposed configuration using the **--check** flag. Used together with the **--verbose** flag, it lets you see the actual change being pushed to the device
 ``` bash
-[student1@control-node networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  --check -v
+[student1@control-node networking-workshop]$ ansible-playbook router_configs.yml  --check -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
@@ -612,7 +630,7 @@ Current configuration with default configurations exposed : 393416 bytes
 
 ```
 
-The **lineinfile** module is a general purpose module that is used for manipulating file contents. 
+The **lineinfile** module is a general purpose module that is used for manipulating file contents.
 
 
 
@@ -656,7 +674,7 @@ If any out of band changes were made to the device and it needs to be restored t
 
 # Restoring (Contd..)
 
-``` 
+```
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -682,7 +700,7 @@ Note the use of **inventory_hostname** to effect host specific changes.
 
 #### Lab 2: Exercises 2 & 3
 
-In this lab you will implement a typical Day 2 Ops scenario of backing up and restoring device configurations. 
+In this lab you will implement a typical Day 2 Ops scenario of backing up and restoring device configurations.
 
 Approximate time: 30 mins
 
@@ -835,7 +853,7 @@ RTR4
 
 #### Lab 3: Exercise 1
 
-In this lab you will use a basic Jinja2 template to generate a markdown report that contains the device name, serial number and operating system version. You will create a report per device and then use the assemble module to consolidate them. 
+In this lab you will use a basic Jinja2 template to generate a markdown report that contains the device name, serial number and operating system version. You will create a report per device and then use the assemble module to consolidate them.
 
 Approximate time: 20 mins
 
@@ -844,14 +862,14 @@ Approximate time: 20 mins
 # A quick introduction to roles
 The 2 basic files needed to get started with Ansible are:
 
-- Inventory 
+- Inventory
 - Playbook
 
 
 
 # Roles
 
-- Roles help simplify playbooks. 
+- Roles help simplify playbooks.
 - Think of them as callable functions for repeated tasks
 - Roles can be distributed/shared; similar to libraries
 

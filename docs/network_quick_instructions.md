@@ -26,7 +26,6 @@ student_total: 2                       # creates student_total of workbenches fo
 #OPTIONAL VARIABLES
 admin_password: ansible                # password for Ansible control node, defaults to ansible
 networking: true                       # Set this if you want the workshop in networking mode
-localsecurity: false                   # skips firewalld installation and SE Linux when false
 create_login_page: true
 towerinstall: true                     # automatically installs Tower to control node
 # autolicense: true                    # automatically licenses Tower if license is provided
@@ -44,13 +43,9 @@ ansible-playbook provision_lab.yml -e @my_workshop.yml
 
 Now get coffee / beer / something, while it provisions.
 
-## Grab Login information
+## Workshop Information
 
-The login information will be stored in the current working directory (`linklight/provisioner`)
-
-```
-cat instructor_inventory.txt
-```
+The provisioner will create a directory under provisioner.  In this example it will literally be called `provisioner/my_workshop`.  Inside this directory is every student inventory file, and a holistic inventory called `instructor_inventory.txt`.  The password will default to `ansible` unless you changed the **admin_pasword** in your .yml file definition.
 
 ## Webpage creation
 
@@ -59,8 +54,9 @@ If you used `create_login_page: true` above you will also get a webpage created 
 The webpage will be generated as {{ec2_name_prefix}}.rhdemo.io
 in the example above this literally means http://my_test_workshop.rhdemo.io
 
+It is possible to change the route53 DNS as well.
+
 ## Lab Teardown
-If you used automatically created students the file name will always be `generated_student_list.txt`
 
 Do the tear down like this->
 

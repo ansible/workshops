@@ -3,15 +3,17 @@
     path: "{{ playbook_dir }}/{{ec2_name_prefix}}"
     state: directory
 
+## These AWS resources are used for every workshop type
+## This includes VPC, subnet, Security Group, Internet Gateway and route table
 - name: provision aws resources
   include_tasks: resources.yml
 
+## This duplicates the above when networking workshop uses 2 VPCs
 - name: provision networking aws resources
   include_tasks: resources_networking.yml
-  when:
-    - networking is defined
-    - networking
+  when: networking
 
+## control node setup ###
 - name: set control node type
   set_fact:
     ansible_node: "{{ ec2_control_node['ansible'] }}"
@@ -65,16 +67,26 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "ansible"
   with_indexed_items:
     - "{{ control_output.instance_ids }}"
   when: control_output.instance_ids is not none
 
+## Instance creation
 - name: provision ansible engine (essentials) instances
   include_tasks: instances_engine.yml
-  when: not networking
+  when:
+    - not networking
+    - not f5workshop
 
-- name: provision ansible networking instances
+- name: provision ansible networking workshop instances
   include_tasks: instances_networking.yml
   when:
-    - networking is defined
     - networking
+    - not f5workshop
+
+- name: provision ansible f5 workshop instances
+  include_tasks: instances_f5.yml
+  when:
+    - f5workshop
+    - not networking

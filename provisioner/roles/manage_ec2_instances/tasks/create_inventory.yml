@@ -6,16 +6,17 @@
       "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible"
   register: ansible_node_facts
 
-- name: add ansible node to control_nodes group
+- name: add ansible node to control_nodes and managed_nodes group
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
     groups:
-      - lab_hosts
+      - managed_nodes
       - control_nodes
   with_items: "{{ ansible_node_facts.instances }}"
 
@@ -23,12 +24,17 @@
   include_tasks: "addhost_engine.yml"
   when:
     - not networking
+    - not f5workshop
 
 - name: networking mode - setup inventory
   include_tasks: "addhost_networking.yml"
   when:
-    - networking is defined
     - networking
+    - not f5workshop
+
+- name: f5 mode - setup inventory
+  include_tasks: "addhost_f5.yml"
+  when: f5workshop
 
 # - name: debug what this next task is doing
 #   debug:
@@ -40,24 +46,6 @@
 - name: Set local username to create on instances
   set_fact:
     username: "{{ item | regex_replace('.*-(\\w*)-\\w*$','\\1') }}"
-  with_items: "{{ groups.lab_hosts }}"
+  with_items: "{{ groups.managed_nodes }}"
   delegate_to: "{{ item }}"
   delegate_facts: yes
-
-- name: Generate student inventories
-  template:
-    src: "{{ networking | ternary( 'networking_instances.txt.j2' , 'instances.txt.j2' ) }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
-  with_sequence: count="{{ student_total }}"
-
-- name: Generate student etchosts
-  template:
-    src: etchosts_networking.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
-  with_sequence: count="{{ student_total }}"
-  when: networking
-
-- name: Generate instructor inventory
-  template:
-    src: "{{ networking | ternary( 'instructor_inventory_networking.j2' , 'instructor_inventory.j2' ) }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

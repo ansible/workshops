@@ -82,6 +82,11 @@ If you haven't done so already make sure you have the repo cloned to the machine
         git clone https://github.com/network-automation/linklight.git
         cd linklight/provisioner
 
+7.  When doing a networking or F5 workshop make sure you have subscribed to the right marketplace AMI (Amazon Machine Image)
+
+  - For Networking you will need the Cisco CSR (Cloud Services Router) [Click here](https://aws.amazon.com/marketplace/pp/B00NF48FI2/)
+  - For F5 you will need the F5 BIG-IP [Click here](https://aws.amazon.com/marketplace/pp/B079C44MFH/)
+
 ### Setup (per workshop)
 
 1. Define the following variables in a file passed in using `-e @extra_vars.yml`
@@ -94,7 +99,6 @@ student_total: 2                       # creates student_total of workbenches fo
 #OPTIONAL VARIABLES
 admin_password: ansible                # password for Ansible control node, defaults to ansible
 networking: true                       # Set this if you want the workshop in networking mode
-localsecurity: false                   # skips firewalld installation and SE Linux when false
 create_login_page: true
 towerinstall: true                     # automatically installs Tower to control node
 # autolicense: true                    # automatically licenses Tower if license is provided

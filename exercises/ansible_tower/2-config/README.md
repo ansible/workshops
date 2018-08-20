@@ -25,7 +25,7 @@ As soon as you login, you will prompted to request a license or browse for an ex
 
 ### Step 2:
 
-In a seperate browser tab, browse to https://www.ansible.com/workshop-license to request a workshop license.
+In a separate browser tab, browse to [https://www.ansible.com/workshop-license](https://www.ansible.com/workshop-license) to request a workshop license.
 
 ### Step 3:
 
@@ -101,10 +101,10 @@ ORGANIZATION|Default
 SCM TYPE|Git
 SCM URL| https://github.com/ansible/lightbulb
 SCM BRANCH|
-SCM UPDATE OPTIONS
-a| - [x] Clean <br />
-- [x] Delete on Update<br />
-- [x] Update on Launch
+SCM UPDATE OPTIONS| [x] Clean <br />  [x] Delete on Update<br />  [x] Update on Launch
+
+
+
 
 ![Defining a Project](at_project_detail.png)
 
@@ -133,7 +133,7 @@ Complete the form using the following entries
 
 NAME |Ansible Workshop Inventory
 -----|--------------------------
-DESCRIPTION|workshop hosts
+DESCRIPTION|Ansible Inventory
 ORGANIZATION|Default
 
 ![Create an Inventory](at_inv_create.png)

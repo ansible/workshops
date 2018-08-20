@@ -54,6 +54,7 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "node1"
   with_indexed_items:
     - "{{ node1_output.instance_ids }}"
   when: node1_output.instance_ids is not none
@@ -107,6 +108,7 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "node2"
   with_indexed_items:
     - "{{ node2_output.instance_ids }}"
   when: node2_output.instance_ids is not none
@@ -160,6 +162,7 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "node3"
   with_indexed_items:
     - "{{ node3_output.instance_ids }}"
   when: node3_output.instance_ids is not none

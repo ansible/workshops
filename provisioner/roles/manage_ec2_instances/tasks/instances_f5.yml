@@ -1,0 +1,129 @@
+- name: Launch BIG-IP CFT (F5 MODE)
+  cloudformation:
+   stack_name: "{{ ec2_name_prefix }}-student{{item}}-f5"
+   state: "present"
+   region: "{{ ec2_region }}"
+   disable_rollback: no
+   template_url: "https://s3.amazonaws.com/f5-cft/f5-existing-stack-hourly-1nic-bigip.template"
+   template_parameters:
+    subnet1Az1: "{{ ec2_vpc_subnet_id }}"
+    Vpc: "{{ec2_vpc_id}}"
+    restrictedSrcAddress: "0.0.0.0/0"
+    restrictedSrcAddressApp: "0.0.0.0/0"
+    sshKey: "{{ ec2_name_prefix }}-key"
+    imageName: "Good25Mbps"
+   validate_certs: "no"
+   tags:
+     Name: "{{ ec2_name_prefix }}-student{{item}}-f5"
+     AnsibleName: "{{ ec2_name_prefix }}-student{{item}}-f5"
+     Workshop_f5: "{{ec2_name_prefix}}-f5"
+     Workshop: "{{ec2_name_prefix}}"
+     Index: "{{ item }}"
+     Student: "student{{item}}"
+     Username: "{{ linklight_user }}"
+     Info: "Username that provisioned this-> {{ linklight_user }}"
+     Linklight: "This was provisioned through the linklight provisioner"
+     Students: "{{student_total}}"
+     short_name: f5
+  register: stack
+  async:
+  loop: "{{ range(1, student_total + 1, 1)|list }}"
+
+- name: find ami for host1 & host2 (F5 MODE)
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_instance_types.rhel7.owners }}"
+    filters:
+      name: "{{ ec2_instance_types.rhel7.filter }}"
+      architecture: "{{ ec2_instance_types.rhel7.architecture }}"
+  register: amis
+
+- name: save ami for host1 & host2 (F5 MODE)
+  set_fact:
+    host1_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: Create EC2 instances for host1 node in VPC (F5 MODE)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types.rhel7.size }}"
+    image: "{{ host1_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_host1: "{{ec2_name_prefix}}-host1"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  register: host1_output
+
+- name: Ensure tags are present for host1 node (F5 MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-host1"
+      Workshop_host1: "{{ec2_name_prefix}}-host1"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item.0 + 1}}"
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
+      Students: "{{student_total}}"
+      short_name: host1
+  with_indexed_items:
+    - "{{ host1_output.instance_ids }}"
+  when: host1_output.instance_ids is not none
+
+- name: Create EC2 instances for host2 node in VPC (F5 MODE)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_instance_types.rhel7.size }}"
+    image: "{{ host1_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_host2: "{{ec2_name_prefix}}-host2"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  register: host2_output
+
+- name: Ensure tags are present for host2 node (F5 MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-host2"
+      Workshop_host2: "{{ec2_name_prefix}}-host2"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item.0 + 1}}"
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
+      Students: "{{student_total}}"
+      short_name: host2
+  with_indexed_items:
+    - "{{ host2_output.instance_ids }}"
+  when: host2_output.instance_ids is not none
+
+- name: grab all network interfaces for VPC 1 (F5 MODE)
+  ec2_eni_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ec2_vpc_id}}"
+  register: eni_facts_1
+
+- name: Disable Source/Dest check on instance {{ec2_vpc_id}} (F5 MODE)
+  ec2_eni:
+    eni_id: "{{ item['network_interface_id'] }}"
+    region: "{{ ec2_region }}"
+    source_dest_check: false
+  with_items:
+    - "{{eni_facts_1['network_interfaces']}}"

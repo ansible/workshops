@@ -25,6 +25,7 @@
 - name: add hosts to groups (ANSIBLE ESSENTIALS MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[node1_node] }}"
     ansible_port: "{{ ssh_port }}"
@@ -35,3 +36,14 @@
     - "{{ node2_node_facts.instances }}"
     - "{{ node3_node_facts.instances }}"
   changed_when: no
+
+- name: Generate student inventories
+  template:
+    src: instances.txt.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate instructor inventory
+  template:
+    src: instructor_inventory.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

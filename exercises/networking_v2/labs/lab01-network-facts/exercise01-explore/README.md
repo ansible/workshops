@@ -19,7 +19,7 @@ Run the `ansible` command with the `--version` command to look at what is config
 
 ```
 [student1@ip-172-16-101-121 networking-workshop]$ ansible --version
-ansible 2.5.0
+ansible 2.6.2
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python2.7/site-packages/ansible
@@ -41,7 +41,7 @@ Use the `cat` command to view the contents of the `ansible.cfg` file.
 
 
 ```
-[student1@ip-172-16-101-121 networking-workshop]$ cat /home/student1/.ansible.cfg
+[student1@ip-172-16-101-121 networking-workshop]$ cat ~/.ansible.cfg
 [defaults]
 connection = smart
 timeout = 60
@@ -68,7 +68,7 @@ In this lab you will work with a file based inventory written in the **ini** for
 
 ```
 
-[student1@ip-172-16-101-121 networking-workshop]$ cat /home/student1/networking-workshop/lab_inventory/hosts
+[student1@ip-172-16-101-121 networking-workshop]$ cat ~/networking-workshop/lab_inventory/hosts
 [all:vars]
 ansible_user=student1
 ansible_ssh_pass=ansible

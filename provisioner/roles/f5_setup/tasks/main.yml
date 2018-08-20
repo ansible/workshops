@@ -1,0 +1,24 @@
+#   not working right now, possible bug or mis-use of module
+# - name: Wait for BIG-IP to boot up completely
+#   bigip_wait:
+#     provider:
+#       ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+#       transport: cli
+#       user: admin
+#       validate_certs: false
+#       server: "{{ ansible_host }}"
+
+- name: Wait for BIG-IP to boot up completely
+  wait_for:
+    host: "{{ ansible_host }}"
+    port: 8443
+    state: present
+
+- name: Change BIG-IP F5 mgmt password
+  bigip_command:
+    provider:
+      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+      transport: cli
+      user: admin
+      server: "{{ ansible_host }}"
+    commands: modify auth user admin password admin

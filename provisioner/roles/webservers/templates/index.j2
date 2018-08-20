@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ansible: Automation for Everyone</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <style>
+body {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 200%;
+}
+footer {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    font-size: 75%;
+}
+img {
+    margin: 0 auto;
+}
+  </style>
+</head>
+<body>
+<div class="container">
+    <img src="https://www.ansible.com/hubfs/2017_Images/BrandPage/Brand-Assets/Ansible_RH_AnsibleAutomation_RGB_RedBlack.svg?t=1531946249182"/>
+    <p>{{ inventory_hostname }}</p>
+</div>
+<footer>Red Hat Ansible Automation</footer>
+</body>
+</html>

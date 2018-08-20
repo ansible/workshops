@@ -66,6 +66,7 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "rtr1"
   with_indexed_items:
     - "{{ rtr1_output.instance_ids }}"
   when: rtr1_output.instance_ids is not none
@@ -118,6 +119,7 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "rtr2"
   with_indexed_items:
     - "{{ rtr2_output.instance_ids }}"
   when: rtr2_output.instance_ids is not none
@@ -169,6 +171,7 @@
         Info: "Username that provisioned this-> {{ linklight_user }}"
         Linklight: "This was provisioned through the linklight provisioner"
         Students: "{{student_total}}"
+        short_name: "rtr3"
     with_indexed_items:
       - "{{ rtr3_output.instance_ids }}"
     when: rtr3_output.instance_ids is not none
@@ -220,6 +223,7 @@
         Info: "Username that provisioned this-> {{ linklight_user }}"
         Linklight: "This was provisioned through the linklight provisioner"
         Students: "{{student_total}}"
+        short_name: "rtr4"
     with_indexed_items:
       - "{{ rtr4_output.instance_ids }}"
     when: rtr4_output.instance_ids is not none
@@ -269,6 +273,7 @@
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      short_name: "host1"
   with_indexed_items:
     - "{{ host1_output.instance_ids }}"
   when: host1_output.instance_ids is not none

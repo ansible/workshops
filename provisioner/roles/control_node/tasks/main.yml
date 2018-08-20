@@ -88,6 +88,16 @@
     - towerinstall
     - check_tower is failed
 
+- name: Ensure eula is accepted if posting license
+  lineinfile:
+    path: "{{playbook_dir}}/tower_license.json"
+    line: '    "eula_accepted": true,'
+    insertbefore: '"company_name"'
+    state: present
+  when:
+    - ansible_os_family == 'RedHat'
+    - autolicense
+    
 - name: Post license key
   uri:
     url: https://localhost/api/v2/config/

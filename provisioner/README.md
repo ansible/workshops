@@ -40,10 +40,10 @@ towerinstall: true                     # automatically installs Tower to control
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
 
 For more extra_vars examples, look at the following:
-- [sample-vars.yml](samples_workshops/sample-vars.yml) - example for the Ansible Engine Workshop
-- [sample-vars-networking.yml](samples_workshops/sample-vars-networking.yml) - example for the **Ansible Network Workshop**
-- [sample-vars-f5.yml](samples_workshops/sample-vars-f5.yml) - example for **Ansible F5 Workshop**
-- [sample-vars-auto.yml](samples_workshops/sample-vars-auto.yml) - example for Tower installation and licensing
+- [sample-vars.yml](sample_workshops/sample-vars.yml) - example for the Ansible Engine Workshop
+- [sample-vars-networking.yml](sample_workshops/sample-vars-networking.yml) - example for the **Ansible Network Workshop**
+- [sample-vars-f5.yml](sample_workshops/sample-vars-f5.yml) - example for **Ansible F5 Workshop**
+- [sample-vars-auto.yml](sample_workshops/sample-vars-auto.yml) - example for Tower installation and licensing
 
 2. Run the playbook:
 

@@ -55,7 +55,10 @@ For more extra_vars examples, look at the following:
 
 ## Accessing student documentation and slides
 
-  * Exercises and instructor slides are already hosted at http://ansible.com/linklight
+  - Exercises and instructor slides are hosted at http://ansible.com/linklight
+  - Workbench information is stored in two places after you provision:
+    - in a local directory named after the workshop (e.g. TESTWORKSHOP/instructor_inventory)
+    - if `create_login_page: true` is enabled, there will be a website ec2_name_prefix.workshop_dns_zone (e.g. TESTWORKSHOP.rhdemo.io)
 
 # Lab Teardown
 

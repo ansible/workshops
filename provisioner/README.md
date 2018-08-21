@@ -1,30 +1,8 @@
 # Ansible AWS training provisioner
 **aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  There are currently three modes:
- - Ansible Engine Workshop (default)
- - Ansible Networking Workshop
- - Ansible F5 Workshop
-
-## Ansible Engine Workshop
-This provisions the [Ansible Engine Workshop](../exercises/ansible_engine) for demonstrating Ansible capabilities on Red Hat Enterprise Linux.
-
-## Ansible Networking Workshop
-This provisions the [Ansible Networking Workshop](../exercises/networking) for demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).
-
-To enable networking mode edit the extra_vars and add:
-
-```
-networking: true
-```
-
-## Ansible F5 Workshop
-This provisions the [Ansible F5 Workshop](../exercises/ansible_f5) for demonstrating Ansible’s capabilities on F5 BIG-IP
-
-To enable networking mode edit the extra_vars and add:
-
-```
-f5workshop: true
-```
-
+ - [Ansible Engine Workshop](../exercises/ansible_engine) for demonstrating Ansible capabilities on Red Hat Enterprise Linux.
+ - [Ansible Networking Workshop](../exercises/networking) for demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).
+ - [Ansible F5 Workshop](../exercises/ansible_f5) for demonstrating Ansible’s capabilities on F5 BIG-IP
 
 # Table Of Contents
 - [Requirements](#requirements)

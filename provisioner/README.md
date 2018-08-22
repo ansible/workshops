@@ -34,7 +34,8 @@ admin_password: ansible                # password for Ansible control node, defa
 networking: true                       # Set this if you want the workshop in networking mode
 create_login_page: true                # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
 towerinstall: true                     # automatically installs Tower to control node
-# autolicense: true                    # automatically licenses Tower if license is provided
+#autolicense: true                    # automatically licenses Tower if license is provided
+#xrdp: true                            # install xrdp with xfce for graphical interface
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).

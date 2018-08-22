@@ -69,3 +69,9 @@ The webpage will be generated as {{ec2_name_prefix}}.rhdemo.io
 in the example above this literally means http://testworkshop.rhdemo.io
 
 It is possible to change the route53 DNS as well.
+
+# Remote Desktop
+
+If you used `xrdp: true` you will the ability to remote desktop to the control node.
+
+The provisioner has the ability to install [xrdp](http://www.xrdp.org/) with [xfce](https://xfce.org/) for graphical interface. The xrdp application is a an open source remote desktop protocol(rdp) server. Xfce is a lightweight desktop environment for UNIX-like operating systems. It aims to be fast and low on system resources, while still being visually appealing and user friendly.

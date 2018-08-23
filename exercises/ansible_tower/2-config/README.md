@@ -144,9 +144,9 @@ Select SAVE ![Save button](at_save.png)
 
 ### Step 5:
 
-Use the `tower-manage` command to import an existing inventory.  (_Be sure to replace <username> with your actual username_)
+Look in your `.ansible.cfg` file to find the path to your inventory file (`cat ~/.ansible.cfg`) .Use the `tower-manage` command to import an existing inventory.
 ```
-sudo tower-manage inventory_import --source=/home/student(X)/lightbulb/lessons/lab_inventory/student(x)-inventory.txt --inventory-name="Ansible Workshop Inventory"
+sudo tower-manage inventory_import --source=<location of you inventory> --inventory-name="Ansible Workshop Inventory"
 ```
 
 You should see output similar to the following:

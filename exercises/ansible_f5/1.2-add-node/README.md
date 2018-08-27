@@ -85,7 +85,7 @@ Next, add the first `task`. This task will use the `bigip_node` module configure
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-playbook bigip-node.yml
 ```
 
 # Playbook Output

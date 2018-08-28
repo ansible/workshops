@@ -160,3 +160,11 @@
     - role: configure_routers
       vars:
         type: csr_hub
+
+- name: Alert the mothership
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  roles:
+    - { role: tower_request, when: student_total > 9 }

@@ -26,6 +26,7 @@
         name:
           - pip
           - setuptools
+          - pysnow
         state: latest
 
     - name: install f5 workshop dependicies

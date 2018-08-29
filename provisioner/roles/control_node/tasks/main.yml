@@ -98,7 +98,6 @@
     body_format: json
     validate_certs: False
   when:
-    - ansible_os_family == 'RedHat'
     - towerinstall is defined
     - towerinstall
     - autolicense is defined

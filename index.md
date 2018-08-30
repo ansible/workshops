@@ -14,8 +14,8 @@ These workshops are focused on networking platforms like Arista, Cisco, Juniper 
 
 ## Ansible Networking Workshops
 
-- [Ansible Networking Workshop](exercises/networking/README.md)
-- [Ansible Networking_v2 Workshop](exercises/networking_v2/README.md)  
+- [Ansible Networking Workshop *Deprecated](exercises/networking/README.md)
+- [Ansible Networking-v2 Workshop](exercises/networking_v2/README.md)  
 - [Ansible F5 Workshop](exercises/ansible_f5/README.md)  
 
 # Server Automation

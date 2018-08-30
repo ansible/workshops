@@ -8,7 +8,7 @@ These workshops are focused on networking platforms like Arista, Cisco, Juniper 
 
 ## Ansible Networking Decks
 
-- [Ansible Networking](decks/ansible-networking.html)
+- [Ansible Networking *Deprecated](decks/ansible-networking.html)
 - [Ansible Networking_v2](decks/ansible_network_v2.html)
 - [Ansible F5 Workshop](decks/ansible_f5.pdf)
 

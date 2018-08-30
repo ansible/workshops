@@ -219,7 +219,7 @@ $("document").ready(function(){
 
                 <a href="https://github.com/network-automation/linklight" class="btn btn-ghost">View on GitHub</a><br><br>
 
-              <h1>Workshop Name: {{ec2_name_prefix}}</h1>
+              <h1>Workshop Name: sean-aug29</h1>
 
             </div>
         </div>
@@ -360,25 +360,19 @@ $("document").ready(function(){
         </div>
 
         <div class="row">
-{% for number in range(1,student_total + 1) %}
   <div class="student_logins">
     <div class="header">
 
-      <p class="studentinfo">student{{number}} - Click to see login details</p>
+      <p class="studentinfo">student1 - Click to see login details</p>
     </div>
     <div class="content">
-{% for host in ansible_node_facts.instances %}
-{% if 'student' ~ number == host.tags.Student %}
 To login to the <code>ansible</code> control node use the following for SSH access:<br>
-username:   student{{number}}<br>
-password:   {{admin_password}}<br>
-IP Address: {{ host.public_ip_address }}<br>
-<pre><code>ssh student{{number}}@{{ host.public_ip_address }}</code></pre><br>
-{% endif %}
-{% endfor %}
+username:   student1<br>
+password:   ansible<br>
+IP Address: 18.212.100.102<br>
+<pre><code>ssh student1@18.212.100.102</code></pre><br>
     </div>
   </div>
-{% endfor %}
 
        </div>
     </div>

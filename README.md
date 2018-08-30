@@ -21,7 +21,7 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
     These exercises are focused on networking platforms like Arista, Cisco, Juniper and F5.
 .
 
-     - [Ansible Networking Workshop Exercises](exercises/networking/README.md)
+     - [Ansible Networking Workshop Exercises *Deprecated](exercises/networking/README.md)
      - [Ansible Networkingv2 Workshop Exercises](exercises/networking_v2/README.md)
      - [Ansible F5 Workshop Exercises](exercises/ansible_f5/README.md)
 

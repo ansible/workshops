@@ -28,10 +28,6 @@ Want the Presentation Deck?  Its right here:
 - [Exercise 2.2 - Configuring Ansible Tower](2.2-towerconfigure)
 - [Exercise 2.3 - Creating and Running a Job Template](2.3-towerjob)
 
-## Survey
-If you attend an in-person workshop, please fill out the survey!
--> [Click for Survey](http://bit.ly/net-lightbulb-survey) <-
-
 ## Additional information
  - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
  - [List of Networking Ansible Modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html)

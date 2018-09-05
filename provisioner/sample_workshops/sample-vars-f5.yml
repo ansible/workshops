@@ -1,0 +1,9 @@
+---
+ec2_region: us-east-1                 # region where the nodes will live
+ec2_name_prefix: TESTWORKSHOP              # name prefix for all the VMs
+student_total: 2                      # amount of work benches to provision
+## Optional Variables
+admin_password: ansible               # password used for student account on control node
+create_login_page: true               # creates HTML website for workshop
+f5workshop: true                      # workshp runs in F5 mode
+xrdp: true                            # install xrdp with xfce for graphical interface

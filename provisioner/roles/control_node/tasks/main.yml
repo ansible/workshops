@@ -26,6 +26,7 @@
         name:
           - pip
           - setuptools
+          - pysnow
         state: latest
 
     - name: install f5 workshop dependicies
@@ -97,7 +98,7 @@
   when:
     - ansible_os_family == 'RedHat'
     - autolicense
-    
+
 - name: Post license key
   uri:
     url: https://localhost/api/v2/config/
@@ -108,7 +109,6 @@
     body_format: json
     validate_certs: False
   when:
-    - ansible_os_family == 'RedHat'
     - towerinstall is defined
     - towerinstall
     - autolicense is defined
@@ -116,4 +116,4 @@
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml
-  when: xrdp is defined
+  when: xrdp

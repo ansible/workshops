@@ -6,7 +6,8 @@
 - name: make sure we are running correct boto version
   assert:
     that:
-    - py_cmd.stdout.startswith('1.7')
+      - py_cmd.stdout is version('1.7', operator='ge')
+    msg: "boto3 >= 1.7 is required."
 
 - name: check for underscores in workshop name
   fail:

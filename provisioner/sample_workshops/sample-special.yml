@@ -1,0 +1,8 @@
+ec2_region: us-east-1                 # region where the nodes will live
+ec2_name_prefix: TESTWORKSHOP         # name prefix for all the VMs
+admin_password: ansible
+student_total: 2
+## Optional Variables
+create_login_page: true
+networking: true
+special: all_cisco                     # possible values all_cisco or multievendor

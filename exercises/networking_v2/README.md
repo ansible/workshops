@@ -12,10 +12,6 @@ Want the Presentation Deck?  Its right here:
 - [Lab 02](labs/lab02-config-management/): Using Ansible to configure, backup and restore
 - [Lab 03](labs/lab03-templating/): Using Ansible for templating as well as utilizing parsers
 
-## Survey
-If you attend an in-person workshop, please fill out the survey!
--> [Click for Survey](http://bit.ly/net-lightbulb-survey) <-
-
 ## Network Diagram
 ![Red Hat Ansible Automation](../../images/network_diagram.png)
 

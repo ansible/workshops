@@ -12,20 +12,20 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
     Presentation decks use the [reveal.js framework](http://lab.hakim.se/reveal-js/)
     Press `s` for speaker notes
 
-     - [Ansible Essentials](https://network-automation.github.io/linklight/decks/ansible-essentials.html)
-     - [Intro to Ansible Tower](https://network-automation.github.io/linklight/decks/intro-to-ansible-tower.html)
-     - [Ansible Networking](https://network-automation.github.io/linklight/decks/ansible-networking.html#)
-     - [Ansible F5](https://network-automation.github.io/linklight/decks/ansible_f5.pdf)
+     - [Ansible Essentials Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)
+     - [Intro to Ansible Tower Deck](https://network-automation.github.io/linklight/decks/intro-to-ansible-tower.html)
+     - [Ansible Networking Deck *Deprecated](https://network-automation.github.io/linklight/decks/ansible-networking.html#)
+     - [Ansible Networking-v2 Deck](https://network-automation.github.io/linklight/decks/ansible_network_v2.html)
+     - [Ansible F5 Deck](https://network-automation.github.io/linklight/decks/ansible_f5.pdf)
 
-  * [Network Automation Exercises](exercises)  
+  * Network Automation Exercises
     These exercises are focused on networking platforms like Arista, Cisco, Juniper and F5.
-.
 
-     - [Ansible Networking Workshop Exercises](exercises/networking/README.md)
-     - [Ansible Networkingv2 Workshop Exercises](exercises/networking_v2/README.md)
+     - [Ansible Networking Workshop Exercises *Deprecated](exercises/networking/README.md)
+     - [Ansible Networking-v2 Workshop Exercises](exercises/networking_v2/README.md)
      - [Ansible F5 Workshop Exercises](exercises/ansible_f5/README.md)
 
-  * [Server Automation Exercises](exercises)  
+  * Server Automation Exercises
     These exercises are focused on automating Linux platforms like RHEL (Red Hat Enterprise Linux)
 
      - [Ansible Engine Workshop Exercises](exercises/ansible_engine/README.md)

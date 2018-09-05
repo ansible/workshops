@@ -1,0 +1,9 @@
+ec2_region: us-east-1                 # region where the nodes will live
+ec2_name_prefix: TESTWORKSHOP         # name prefix for all the VMs
+student_total: 2                      # amount of work benches to provision
+## Optional Variables
+admin_password: ansible               # password used for student account on control node
+create_login_page: true               # creates HTML website for workshop
+networking: true                      # workshop is put into networking mode, uses two Cisco IOS-XE devices
+autolicense: true                     # when towerinstall is on, this will license it with provided license
+towerinstall: true                    # this will install Ansible Tower on all control nodes

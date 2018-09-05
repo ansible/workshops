@@ -97,7 +97,10 @@
     state: present
   when:
     - ansible_os_family == 'RedHat'
+    - autolicense is defined
     - autolicense
+    - towerinstall is defined
+    - towerinstall
 
 - name: Post license key
   uri:

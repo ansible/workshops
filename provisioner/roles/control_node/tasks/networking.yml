@@ -72,6 +72,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0400
+  when: ec2_key_material is undefined
 
 - name: Put ssh-key in proper for {{ansible_user}}
   copy:
@@ -80,6 +81,7 @@
     owner: "{{ansible_user}}"
     group: "{{ansible_user}}"
     mode: 0400
+  when: ec2_key_material is undefined
 
 - name: copy over ssh config file for student
   template:

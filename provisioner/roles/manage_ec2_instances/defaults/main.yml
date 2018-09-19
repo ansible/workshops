@@ -54,7 +54,6 @@ ec2_instance_types:
     filter: "cisco-CSR*BYOL*"
     os: ios
 
-
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7:
     owners: 309956199498
@@ -72,7 +71,7 @@ ec2_instance_types:
     architecture: x86_64
     filter: 'RHEL-7.4*GA*'
 
-  f5-prelicensed:
+  f5node:
     owners: 679593333241
     size: t2.medium
     os_type: linux

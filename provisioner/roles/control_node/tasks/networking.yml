@@ -20,6 +20,9 @@
     - name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
       command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop
       when: special is defined
+
+    - name: Create demos folder with demos
+      command: cp -r /tmp/linklight/demos/ /home/{{ username }}/demos
   when: networking
 
 # waiting on https://github.com/ansible/ansible/pull/41222

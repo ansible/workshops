@@ -26,6 +26,7 @@
         name:
           - pip
           - setuptools
+          - pysnow
         state: latest
 
     - name: install f5 workshop dependicies
@@ -88,6 +89,19 @@
     - towerinstall
     - check_tower is failed
 
+- name: Ensure eula is accepted if posting license
+  lineinfile:
+    path: "{{playbook_dir}}/tower_license.json"
+    line: '    "eula_accepted": true,'
+    insertbefore: '"company_name"'
+    state: present
+  when:
+    - ansible_os_family == 'RedHat'
+    - autolicense is defined
+    - autolicense
+    - towerinstall is defined
+    - towerinstall
+
 - name: Post license key
   uri:
     url: https://localhost/api/v2/config/
@@ -98,7 +112,6 @@
     body_format: json
     validate_certs: False
   when:
-    - ansible_os_family == 'RedHat'
     - towerinstall is defined
     - towerinstall
     - autolicense is defined
@@ -106,4 +119,4 @@
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml
-  when: xrdp is defined
+  when: xrdp

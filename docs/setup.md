@@ -61,6 +61,17 @@ What does the AWS provisioner take care of automatically?
 - Creation of an internet gateway for the VPC
 - Creation of route table for VPC (for reachability from internet)
 
+# After creation, add inventories to Tower
+Once the playbook have been executed, you'll find inventory files in a sub-folder of your playbook folder, for instance: ./WORKSHOPNAME/student1-instances.txt
+If you want to add them to Tower using the new "awx-manage inventory_import" function, first add an empty inventory using the GUI (i.e. named "student1"), then connect via SSH to your Tower instance, and import the content of that inventory (located in the Project's folder) with the following command
+```
+[root@centos ~]# cd /var/lib/awx/_6_linklight/provisioner/WORKSHOPNAME/
+[root@centos ~]# awx-manage inventory_import --inventory-name student1 --source student1-instances.txt 
+```
+Repeat for each student's project, or directly import the Instructor's inventory with the complete list.
+
+Remember to add the SSH key pair to your Tower's credentials file as Machine type (stored at ./WORKSHOPNAME/WORKSHOPNAME-private.pem)
+
 # Webpage creation
 
 If you used `create_login_page: true` above you will also get a webpage created for students.
@@ -68,7 +79,7 @@ If you used `create_login_page: true` above you will also get a webpage created 
 The webpage will be generated as {{ec2_name_prefix}}.rhdemo.io
 in the example above this literally means http://testworkshop.rhdemo.io
 
-It is possible to change the route53 DNS as well.
+It is possible to change the route53 DNS as well by setting the `ec2_name_prefix` to your pre-existing DNS domain in Route 53.
 
 # Remote Desktop
 

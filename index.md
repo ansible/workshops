@@ -8,15 +8,15 @@ These workshops are focused on networking platforms like Arista, Cisco, Juniper 
 
 ## Ansible Networking Decks
 
-- [Ansible Networking *Deprecated](decks/ansible-networking.html)
-- [Ansible Networking-v2](decks/ansible_network_v2.html)
-- [Ansible F5 Workshop](decks/ansible_f5.pdf)
+- [Ansible Networking Deck *Deprecated](decks/ansible-networking.html)
+- [Ansible Networking-v2 Deck](decks/ansible_network_v2.html)
+- [Ansible F5 Deck](decks/ansible_f5.pdf)
 
-## Ansible Networking Workshops
+## Ansible Networking Exercises
 
-- [Ansible Networking Workshop *Deprecated](exercises/networking/README.md)
-- [Ansible Networking-v2 Workshop](exercises/networking_v2/README.md)  
-- [Ansible F5 Workshop](exercises/ansible_f5/README.md)  
+- [Ansible Networking Exercises *Deprecated](exercises/networking/README.md)
+- [Ansible Networking-v2 Exercises](exercises/networking_v2/README.md)  
+- [Ansible F5 Exercises](exercises/ansible_f5/README.md)  
 
 # Server Automation
 These workshops are focused on automating Linux platforms like RHEL (Red Hat Enterprise Linux)
@@ -26,10 +26,10 @@ These workshops are focused on automating Linux platforms like RHEL (Red Hat Ent
 - [Ansible Essentials - Deck](decks/ansible-essentials.html)
 - [Intro to Ansible Tower - Deck](decks/intro-to-ansible-tower.html)
 
-## Ansible Server Workshops
+## Ansible Server Exercises
 
-- [Ansible Engine Workshop](exercises/ansible_engine/README.md)  
-- [Ansible Tower Workshop](exercises/ansible_tower/README.md)  
+- [Ansible Engine Exercises](exercises/ansible_engine/README.md)  
+- [Ansible Tower Exercises](exercises/ansible_tower/README.md)  
 
 # Slack
 Do you like Slack?  So do we! [click to join our ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)

@@ -53,37 +53,56 @@ Next, add a tasks section and create a task for the objective listed above:
 
   - Retrieve Facts from BIG-IP for the pool /Common/http_pool
 
-HINT: Try using the bigip_facts module from [Exercise 1.1](../1.1-get-facts)  
+HINT: <span style="background-color: #000000">Try using the bigip_facts module from [Exercise 1.1](../1.1-get-facts)</span>
 
 ## Step 4
 
-Next, add a tasks section and create a task for the objective listed above:
+Next, add a task for the objective listed above:
 
   - Display pool member status to the terminal window
 
-HINT: <span style="background-color: #FFFFFF">
+HINT: <span style="background-color: #000000">
 Remember to use the `register` keyword and the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html)</span>
 
 ## Step 5
 
-Next, add a tasks section and create a task for the objective listed above:
+Next, add a task for the objective listed above:
 
   - Store the pool members as a fact
 
-
+HINT: <span style="background-color: #000000">
+An easy way to set fact variables within a Playbook dynamically is using the [set_fact module](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html)</span>
 
 ## Step 6
+
+Next, add a task for the objective listed above:
+
+  - Display pool member IP and port information to the terminal window
+
+HINT: <span style="background-color: #000000">
+Remember to use the `register` keyword and the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html)</span>
+
+## Step 7
+
+Next, add a task for the objective listed above:
+
+  - Display pool member IP and port information to the terminal window
+
+HINT: <span style="background-color: #000000">
+Remember the [bigip_pool_member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html), can refer to [Exercise 1.2](../1.2-add-node).  Also remember to look at the state parameter.</span>
+
+## Step 8
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook debug.yml
+[student1@ansible ~]$ disable-pool-member.yml -e pool_member="YOUR MEMBER"
 ```
 # Playbook Output
 
 The output will look as follows.
 
 ```yaml
-[student1@ansible ~]$ ansible-playbook debug.yml
+[student1@ansible ~]$ ansible-playbook disable-pool-member.yml
 
 PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
 

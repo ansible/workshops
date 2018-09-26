@@ -1,0 +1,45 @@
+---
+- name:  Get Status
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+   pool_path: '/Common/http_pool'
+   pool_member: 'we can pass this as an extra var'
+
+  tasks:
+  - name: Query BIG-IP for Pool "{{pool_path}}" facts
+    bigip_facts:
+       server: "{{private_ip}}"
+       user: "{{ansible_user}}"
+       password: "{{ansible_ssh_pass}}"
+       server_port: "8443"
+       validate_certs: False
+       include: pool
+
+  - name: Display pool member status
+    debug:
+      var: ansible_facts.pool[pool_path].monitor_instance
+
+  - name: Get all the members for pool "{{pool_path}}" and store in a variable
+    set_fact:
+      members: "{{ ansible_facts.pool[pool_path].member }}"
+
+  - name: Display pool members ip:port information
+    debug: msg="{{item.address}}"
+    loop: "{{members}}"
+
+  - name: Force pool member offline
+    bigip_pool_member:
+     server: "{{private_ip}}"
+     user: "{{ansible_user}}"
+     password: "{{ansible_ssh_pass}}"
+     server_port: "8443"
+     state: "forced_offline"
+     pool: "{{pool_path.split('/')[2]}}"
+     name: "{{pool_member}}"
+     port: "{{item.port}}"
+     validate_certs: False
+    when: ' pool_member in item.address'
+    loop: "{{members}}"

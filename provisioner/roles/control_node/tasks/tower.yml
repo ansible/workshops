@@ -32,3 +32,29 @@
   until: check2.json is defined
   retries: 10
   delay: 30
+
+- name: Ensure eula is accepted if posting license
+  lineinfile:
+    path: "{{playbook_dir}}/tower_license.json"
+    line: '    "eula_accepted": true,'
+    insertbefore: '"company_name"'
+    state: present
+  delegate_to: localhost
+  run_once: true
+  connection: local
+  when:
+    - autolicense is defined
+    - autolicense
+
+- name: Post license key
+  uri:
+    url: https://localhost/api/v2/config/
+    method: POST
+    user: admin
+    password: "{{admin_password}}"
+    body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
+    body_format: json
+    validate_certs: False
+  when:
+    - autolicense is defined
+    - autolicense

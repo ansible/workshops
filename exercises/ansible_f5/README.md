@@ -22,6 +22,11 @@ Want the Presentation Deck?  Its right here:
  - [Exercise 1.6 - Deleting F5 BIG-IP Configuration](1.6-delete-configuration)  
  - [Exercise 1.7 - Advanced: Error Handling](1.7-error-handling)  
 
+## Ansible F5 Operational Exercises
+
+ - [Exercise 2.0 - Disabling a pool member](2.0-disable-pool-member)  
+
+
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 

@@ -89,34 +89,6 @@
     - towerinstall
     - check_tower is failed
 
-- name: Ensure eula is accepted if posting license
-  lineinfile:
-    path: "{{playbook_dir}}/tower_license.json"
-    line: '    "eula_accepted": true,'
-    insertbefore: '"company_name"'
-    state: present
-  when:
-    - ansible_os_family == 'RedHat'
-    - autolicense is defined
-    - autolicense
-    - towerinstall is defined
-    - towerinstall
-
-- name: Post license key
-  uri:
-    url: https://localhost/api/v2/config/
-    method: POST
-    user: admin
-    password: "{{admin_password}}"
-    body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
-    body_format: json
-    validate_certs: False
-  when:
-    - towerinstall is defined
-    - towerinstall
-    - autolicense is defined
-    - autolicense
-
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml
   when: xrdp

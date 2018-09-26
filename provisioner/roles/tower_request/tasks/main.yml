@@ -19,7 +19,7 @@
 
 - name: execute a command with tower
   uri:
-    url: https://54.144.88.64/api/v2/job_templates/22/launch/
+    url: https://ansible.rhdemo.io/api/v2/job_templates/22/launch/
     validate_certs: no
     method: POST
     user: public

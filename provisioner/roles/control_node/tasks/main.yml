@@ -97,7 +97,8 @@
     state: present
   when:
     - ansible_os_family == 'RedHat'
-    - autolicense
+    - autolicense is defined
+    - autlicense
 
 - name: Post license key
   uri:

@@ -73,7 +73,7 @@ ec2_instance_types:
 
   f5node:
     owners: 679593333241
-    size: t2.medium
+    size: t2.large
     os_type: linux
     disk_space: 40
     architecture: x86_64

@@ -1,4 +1,0 @@
-- project:
-    check:
-      jobs:
-        - noop

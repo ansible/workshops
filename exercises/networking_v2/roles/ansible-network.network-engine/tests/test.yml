@@ -1,8 +1,0 @@
----
-- hosts: localhost
-  remote_user: root
-  roles:
-    - { role: 'text_parser', tags: 'text_parser' }
-    - { role: 'textfsm', tags: 'textfsm' }
-    - { role: 'command_parser', tags: 'command_parser' }
-    - { role: 'textfsm_parser', tags: 'textfsm_parser' }

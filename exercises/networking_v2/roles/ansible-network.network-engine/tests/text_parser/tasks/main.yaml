@@ -1,3 +1,0 @@
----
-- name: ios text_parser test
-  import_tasks: ios.yaml

@@ -1,3 +1,0 @@
----
-- name: ios command_parser test
-  import_tasks: ios.yaml

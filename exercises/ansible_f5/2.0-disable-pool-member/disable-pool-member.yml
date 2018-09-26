@@ -1,6 +1,6 @@
 ---
-- name:  Get Status
-  hosts: localhost
+- name:  Disabling a pool member
+  hosts: f5
   connection: local
   gather_facts: false
 

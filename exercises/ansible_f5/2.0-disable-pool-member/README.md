@@ -37,8 +37,8 @@ Enter the following play definition into `disable-pool-member.yml`:
 ``` yaml
 ---
 
-- name:  Get Status
-  hosts: localhost
+- name:  Disabling a pool member
+  hosts: f5
   connection: local
   gather_facts: false
 
@@ -95,28 +95,76 @@ Remember the [bigip_pool_member module](https://docs.ansible.com/ansible/latest/
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ disable-pool-member.yml -e pool_member="YOUR MEMBER"
+[student1@ansible ~]$ ansible-playbook disable-pool-member.yml -e "pool_member=host1"
 ```
+
 # Playbook Output
 
 The output will look as follows.
 
 ```yaml
-[student1@ansible ~]$ ansible-playbook disable-pool-member.yml
+PLAY [Get Status] **************************************************************
 
-PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
+TASK [Query BIG-IP for Pool "/Common/http_pool" facts] *************************
+ok: [f5]
 
-TASK [DISPLAY TEST_VARIABLE] *******************************************************************************
-ok: [localhost] => {
-    "test_variable": "my test variable"
+TASK [Display pool member status] **********************************************
+ok: [f5] => {
+    "ansible_facts.pool[pool_path].monitor_instance": [
+        {
+            "enabled_state": 1,
+            "instance": {
+                "instance_definition": {
+                    "address_type": "ATYPE_EXPLICIT_ADDRESS_EXPLICIT_PORT",
+                    "ipport": {
+                        "address": "18.208.130.134",
+                        "port": 80
+                    }
+                },
+                "template_name": "/Common/http"
+            },
+            "instance_state": "INSTANCE_STATE_UP"
+        },
+        {
+            "enabled_state": 1,
+            "instance": {
+                "instance_definition": {
+                    "address_type": "ATYPE_EXPLICIT_ADDRESS_EXPLICIT_PORT",
+                    "ipport": {
+                        "address": "34.224.26.74",
+                        "port": 80
+                    }
+                },
+                "template_name": "/Common/http"
+            },
+            "instance_state": "INSTANCE_STATE_UP"
+        }
+    ]
 }
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0
+TASK [Get all the members for pool "/Common/http_pool" and store in a variable]
+ok: [f5]
+
+TASK [Display pool members ip:port information] ********************************
+ok: [f5] => (item={u'port': 80, u'address': u'/Common/host1'}) => {
+    "msg": "/Common/host1"
+}
+ok: [f5] => (item={u'port': 80, u'address': u'/Common/host2'}) => {
+    "msg": "/Common/host2"
+}
+
+TASK [Force pool member offline] ***********************************************
+changed: [f5] => (item={u'port': 80, u'address': u'/Common/host1'})
+skipping: [f5] => (item={u'port': 80, u'address': u'/Common/host2'})
+
+PLAY RECAP *********************************************************************
+f5                         : ok=5    changed=1    unreachable=0    failed=0
 ```
-> Notice that the names you gave the play and task appear in this output. This is especially important when you have longer playbooks that include multiple tasks.
 
 # Solution
-The solution will be provided by the instructor if you are stuck.
+The solution will be provided by the instructor if you are stuck.  The GUI should show something similar to the following with a black diamond indicating the specified node was forced offline.
 
+![f5bigip-gui](f5bigip-gui.png)
+
+--
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

@@ -62,7 +62,7 @@ Next, add a task for the objective listed above:
   - Display pool member status to the terminal window
 
 HINT: <span style="background-color: #000000">
-Remember to use the `register` keyword and the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html)</span>
+Remember to use the `register` keyword and the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug module</a></span>
 
 ## Step 5
 
@@ -71,7 +71,7 @@ Next, add a task for the objective listed above:
   - Store the pool members as a fact
 
 HINT: <span style="background-color: #000000">
-An easy way to set fact variables within a Playbook dynamically is using the [set_fact module](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html)</span>
+An easy way to set fact variables within a Playbook dynamically is using the <a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a></span>
 
 ## Step 6
 
@@ -80,7 +80,7 @@ Next, add a task for the objective listed above:
   - Display pool member IP and port information to the terminal window
 
 HINT: <span style="background-color: #000000">
-Remember to use the `register` keyword and the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html)</span>
+Remember to use the `register` keyword and the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span>
 
 ## Step 7
 
@@ -89,7 +89,7 @@ Next, add a task for the objective listed above:
   - Display pool member IP and port information to the terminal window
 
 HINT: <span style="background-color: #000000">
-Remember the [bigip_pool_member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html), can refer to [Exercise 1.2](../1.2-add-node).  Also remember to look at the state parameter.</span>
+Remember the <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: #000000">bigip_pool_member</a> module, can refer to <a href="../1.2-add-node" style="color: #000000">Exercise 1.2</a>.  Also remember to look at the state parameter.</span>
 
 ## Step 8
 Run the playbook - exit back into the command line of the control host and execute the following:

@@ -53,7 +53,7 @@ Next, add a tasks section and create a task for the objective listed above:
 
   - Retrieve Facts from BIG-IP for the pool /Common/http_pool
 
-HINT: <span style="background-color: #000000">Try using the bigip_facts module from [Exercise 1.1](../1.1-get-facts)</span>
+HINT: <span style="background-color: #000000;a: #000000">Try using the bigip_facts module from <a href="../1.1-get-facts" style="color: #000000">Exercise 1.1</a></span>
 
 ## Step 4
 

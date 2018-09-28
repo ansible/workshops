@@ -64,6 +64,7 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
   - `"WorkshopExample": {` - this is the name of our Tenant.  The AS3 will create a tenant for this particular WebApp.  A WebApp in this case is a virtual server that load balances between our two web servers.
   - `"class": "Tenant",` - this indicates that `WorkshopExample` is a Tenant.
   - `{{ as3_app_body }}` - this is a variable that will point to the second jinja2 template which is the actual WebApp.  
+
 ----
 
 2. `as3_template.j2`

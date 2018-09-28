@@ -63,7 +63,7 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
 
   - `"WorkshopExample": {` - this is the name of our Tenant.  The AS3 will create a tenant for this particular WebApp.  A WebApp in this case is a virtual server that load balances between our two web servers.
   - `"class": "Tenant",` - this indicates that `WorkshopExample` is a Tenant.
-  - `{{ as3_app_body }}` - this is a variable that will point to the second jinja2 template which is the actual WebApp.  
+  - `as3_app_body` - this is a variable that will point to the second jinja2 template which is the actual WebApp.  
 
 ----
 
@@ -112,6 +112,13 @@ This template is a JSON representation of the Web Application.  The important pa
   - The jinja2 template can use a loop to grab all the pool members (which points to our web servers group that will be elaborated on below).
 
 **In Summary** the `tenant_base.j2` and `as3_template.j2` create one single JSON payload that represents a Web Application.  We will build a Playbook that will send this JSON payload to a F5 BIG-IP.
+
+**COPY THESE TEMPLATES TO YOUR WORKING DIRECTORY**
+
+```
+mkdir j2
+cp ~/networking-workshop/3.0-as3-intro/j2/* j2/
+```
 
 ## Step 3:
 

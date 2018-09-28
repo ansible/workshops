@@ -192,15 +192,38 @@ The module [set_fact module](https://docs.ansible.com/ansible/latest/modules/set
 
 
 Explanation of parameters:
-|  parameter | explanation  |
-|---|---|
-| `- name: PUSH AS3` | human description of Playbook task, prints to terminal window |
-|  `uri:` |  this task is calling the [uri module](https://docs.ansible.com/ansible/latest/modules/uri_module.html) |
-| `url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"`  | webURL (API) for AS3 |
-| `method: POST` | HTTP method of the request, must be uppercase.  Module documentation page has list of all options.  This could also be a `DELETE` vs a `POST` |
-| `body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"` | This sends the combined template (the `tenant_base.j2` which contains `as3_template.j2`) and is passed as the body for the API request. |
-| `status_code: 200` | A valid, numeric, [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) that signifies success of the request. Can also be comma separated list of status codes.  200 means OK, which is a standard response for successful HTTP requests |
-| `timeout: 300` | The socket level timeout in seconds |
+
+<table>
+  <tr>
+    <th>parameter</th>
+    <th>explanation</th>
+
+  </tr>
+  <tr>
+    <td><code>- name: PUSH AS3</code></td>
+    <td>human description of Playbook task, prints to terminal window</td>
+  </tr>
+  <tr>
+    <td><code>uri:</code></td>
+    <td>this task is calling the <a href="https://docs.ansible.com/ansible/latest/modules/uri_module.html">uri module</a></td>
+  </tr>
+  <tr>
+    <td><code>url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"</code></td>
+    <td>webURL (API) for AS3</td>
+  </tr>
+  <tr>
+    <td><code>method: POST</code></td>
+    <td>HTTP method of the request, must be uppercase.  Module documentation page has list of all options.  This could also be a <code>DELETE</code> vs a <code>POST</code></td>
+  </tr>
+  <tr>
+    <td><code>body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"</code></td>
+    <td>This sends the combined template (the <code>tenant_base.j2</code> which contains <code>as3_template.j2</code>) and is passed as the body for the API request.</td>
+  </tr>
+  <tr>
+    <td><code>status_code: 200</code></td>
+    <td>A valid, numeric, <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status code</a> that signifies success of the request. Can also be comma separated list of status codes.  200 means OK, which is a standard response for successful HTTP requests</td>
+  </tr>
+</table>
 
 The rest of the parameters are for authentication to the F5 BIG-IP and fairly straight forward (similar to all BIG-IP modules).
 

@@ -68,7 +68,9 @@ If you used `create_login_page: true` above you will also get a webpage created 
 The webpage will be generated as {{ec2_name_prefix}}.rhdemo.io
 in the example above this literally means http://testworkshop.rhdemo.io
 
-It is possible to change the route53 DNS as well.
+It is possible to change the route53 DNS as well using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
+
+This playbook does not create the route53 zone and must exist prior to running the playbook.
 
 # Remote Desktop
 

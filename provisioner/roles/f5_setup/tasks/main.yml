@@ -22,3 +22,14 @@
       user: admin
       server: "{{ ansible_host }}"
     commands: modify auth user admin password admin
+
+# The bigip_iapplx_package requires rpm installed, on macOS use brew rather than pip or it won't work
+- name: Install AS3
+  bigip_iapplx_package:
+    package: "{{playbook_dir}}/roles/f5_setup/files/f5-appsvcs-3.4.0-2.noarch.rpm"
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: admin
+      server_port: "8443"
+      server: "{{ ansible_host }}"

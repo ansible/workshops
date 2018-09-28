@@ -41,7 +41,7 @@
     state: present
   delegate_to: localhost
   run_once: true
-  connection: local
+  become: no
   when:
     - autolicense is defined
     - autolicense

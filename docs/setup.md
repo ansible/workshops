@@ -70,6 +70,8 @@ in the example above this literally means http://testworkshop.rhdemo.io
 
 It is possible to change the route53 DNS as well using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
 
+This playbook does not create the route53 zone and must exist prior to running the playbook.
+
 # Remote Desktop
 
 If you used `xrdp: true` you will the ability to remote desktop to the control node.

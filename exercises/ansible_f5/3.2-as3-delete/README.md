@@ -41,6 +41,8 @@ Enter the following play definition into `as3.yml`:
 
 **Append** the following to the delete.yml Playbook.  
 
+{% raw %}
+
 ```
   tasks:
 
@@ -56,8 +58,10 @@ Enter the following play definition into `as3.yml`:
       password: "{{ ansible_ssh_pass }}"
       validate_certs: no
     delegate_to: localhost
-
 ```
+
+{% endraw %}
+
 There is only three parameters that have changed from the previous exercise.
 - `url` has changed.  Instead of ending with `declare` it now ends with the tenant name, which is `WorkshopExample`.
 - `method` has changed from POST to DELETE.

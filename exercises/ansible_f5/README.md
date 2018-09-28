@@ -11,7 +11,7 @@ Want the Presentation Deck?  Its right here:
 ## Diagram
 ![f5 diagram](../../images/f5topology.png)
 
-## Ansible F5 Exercises
+## Section 1 - Ansible F5 Exercises
 
  - [Exercise 1.0 - Exploring the lab environment](1.0-explore)  
  - [Exercise 1.1 - Using Ansible to gather data from F5 BIG-IP](1.1-get-facts)  
@@ -22,10 +22,15 @@ Want the Presentation Deck?  Its right here:
  - [Exercise 1.6 - Deleting F5 BIG-IP Configuration](1.6-delete-configuration)  
  - [Exercise 1.7 - Advanced: Error Handling](1.7-error-handling)  
 
-## Ansible F5 Operational Exercises
+## Section 2 - Ansible F5 Operational Exercises
 
  - [Exercise 2.0 - Disabling a pool member](2.0-disable-pool-member)  
 
+## Section 3 - Ansible F5 AS3 Exercises
+
+ - [Exercise 3.0 - Intro to AS3](3.0-as3-intro)  
+ - [Exercise 3.1 - Operational Change with AS3](3.1-as3-change)
+ - [Exercise 3.2 - Deleting a Web Application](3.2-as3-delete)
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)

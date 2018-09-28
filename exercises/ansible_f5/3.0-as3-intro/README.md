@@ -1,4 +1,4 @@
-# Exercise 2.0 - Disabling a pool member
+# Exercise 3.0 - Introduction to AS3
 
 ## Table of Contents
 

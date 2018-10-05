@@ -20,6 +20,8 @@
 
 - name: run the Ansible Tower installer
   shell: ./setup.sh chdir=/tmp/tower_install
+  async: 900
+  poll: 10
 
 - name: wait for Ansible Tower to be up
   uri:

@@ -77,17 +77,6 @@
     - networking
     - vpc_net_facts2.vpcs|length > 0
 
-- name: Kill BIG-IP CFT (F5 MODE)
-  cloudformation:
-   stack_name: "{{ ec2_name_prefix }}-student{{item}}-f5"
-   state: absent
-   region: "{{ ec2_region }}"
-   template_url: "https://s3.amazonaws.com/f5-cft/f5-existing-stack-hourly-1nic-bigip.template"
-   validate_certs: "no"
-  async:
-  loop: "{{ range(1, student_total + 1, 1)|list }}"
-  when: f5workshop
-
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"

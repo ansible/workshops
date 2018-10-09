@@ -29,7 +29,6 @@
     overwrite: yes
     value: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
   when:
-    - s3_state == 'present'
     - ec2_region == 'us-east-1'
 
 - name: DNS for student webpage
@@ -41,7 +40,6 @@
     overwrite: yes
     value: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}.s3-website.{{ec2_region}}.amazonaws.com"
   when:
-    - s3_state == 'present'
     - ec2_region != 'us-east-1'
 
 - name: PUT student webpage

@@ -1,0 +1,19 @@
+---
+- name: TOWER CONFIGURATION IN PLAYBOOK FORM
+  hosts: control
+  connection: local
+  gather_facts: no
+  tasks:
+
+    - name: Create tower team
+      tower_team:
+        name: "{{item}}"
+        organization: Default
+        state: present
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost
+      loop:
+        - netop
+        - neteng
+        - netadmin

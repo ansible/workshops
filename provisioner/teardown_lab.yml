@@ -12,7 +12,7 @@
 
   roles:
     - manage_ec2_instances
-    - { role: aws_workshop_login_page, when: create_login_page is defined }
+    - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
 
   post_tasks:
    - name: Remove workshop local files

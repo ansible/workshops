@@ -1,0 +1,43 @@
+---
+- name: TOWER CONFIGURATION IN PLAYBOOK FORM
+  hosts: routers
+  connection: local
+  gather_facts: no
+  tasks:
+
+    - name: ADD HOST INTO TOWER
+      tower_host:
+        name: "{{ inventory_hostname }}"
+        inventory: "Workshop Inventory"
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost
+        variables:
+          ansible_network_os: "{{ansible_network_os}}"
+          ansible_host: "{{ansible_host}}"
+          ansible_user: "{{ansible_ssh_user}}"
+          private_ip: "{{private_ip}}"
+
+    - name: ADD CREDENTIAL INTO TOWER
+      tower_credential:
+        name: Workshop Credential
+        ssh_key_data: "/home/{{ansible_user}}/.ssh/aws-private.pem"
+        kind: ssh
+        organization: Default
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost
+      run_once: true
+      delegate_to: localhost
+
+    - name: ADD LINKLIGHT REPO INTO TOWER
+      tower_project:
+        name: "Workshop Project"
+        organization: "Default"
+        scm_type: git
+        scm_url: "https://github.com/network-automation/linklight"
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost
+      run_once: true
+      delegate_to: localhost

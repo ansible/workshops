@@ -23,6 +23,13 @@
   async: 900
   poll: 10
 
+- name: install ansible-tower-cli
+  become: yes
+  pip:
+    name:
+      - ansible-tower-cli
+    state: latest
+
 - name: wait for Ansible Tower to be up
   uri:
     url: https://localhost/api/v2/ping/

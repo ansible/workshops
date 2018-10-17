@@ -25,6 +25,7 @@
     user: public
     password: public
     status_code: [200, 201]
+    force_basic_auth: yes
     body:
       extra_vars:
         ec2_name_prefix: "{{ ec2_name_prefix }}"

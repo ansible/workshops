@@ -16,6 +16,7 @@
       - tmux
       - python-pip
       - ansible
+      - python-netaddr
     state: latest
 
 - name: block for f5workshop

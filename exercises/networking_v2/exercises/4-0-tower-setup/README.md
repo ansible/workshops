@@ -46,8 +46,19 @@ Instead of manually re-entering existing hosts into our Tower inventory it is po
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: routers
   connection: local
+  become: yes
   gather_facts: no
   tasks:
+
+    - name: CREATE INVENTORY
+      tower_inventory:
+        name: "Workshop Inventory"
+        organization: Default
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost
+      run_once: true
+      delegate_to: localhost
 
     - name:  ADD HOST INTO TOWER INVENTORY
       tower_host:
@@ -59,7 +70,7 @@ Instead of manually re-entering existing hosts into our Tower inventory it is po
         variables:
           ansible_network_os: "{{ansible_network_os}}"
           ansible_host: "{{ansible_host}}"
-          ansible_user: "{{ansible_ssh_user}}"
+          ansible_user: "{{ansible_user}}"
           private_ip: "{{private_ip}}"
 ```
 
@@ -112,17 +123,17 @@ A project is how actually Playbooks are imported into Red Hat Ansible Tower.  Yo
 
 > For more information on Projects in Tower, please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
 
-For this exercise we are going to use the already existing **linklight project** that the networking workshop is hosted on and turn it into a project in Tower.  For this particular task the [tower_project module](https://docs.ansible.com/ansible/latest/modules/tower_project_module.html) will be used. Append the following to the tower_setup.yml playbook.  
+For this exercise we are going to use an already existing Github repository and turn it into a project in Tower.  For this particular task the [tower_project module](https://docs.ansible.com/ansible/latest/modules/tower_project_module.html) will be used. Append the following to the tower_setup.yml playbook.  
 
 > Linklight is hosted on https://github.com/network-automation/linklight.
 
-``` yaml
-    - name: ADD LINKLIGHT REPO INTO TOWER
+```yaml
+    - name: ADD REPO INTO TOWER
       tower_project:
         name: "Workshop Project"
         organization: "Default"
         scm_type: git
-        scm_url: "https://github.com/network-automation/linklight"
+        scm_url: "https://github.com/network-automation/tower_workshop"
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost

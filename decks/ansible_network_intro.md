@@ -1,19 +1,3 @@
-# Introduction
-
-Gerald Dykeman
-
-CCIE# 36354
-
-Twitter: [@geralddykeman](https://twitter.com/geralddykeman)
-
-Linkedin: [/in/gdykeman](https://www.linkedin.com/in/gdykeman/)
-
-Email: [gdykeman@redhat.com](mailto:gdykeman@redhat.com)
-
-Github: [gdykeman](https://github.com/gdykeman)
-
-
-
 # House Keeping
 
 - Timing

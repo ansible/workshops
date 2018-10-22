@@ -10,7 +10,7 @@
     Vpc: "{{ec2_vpc_id}}"
     restrictedSrcAddress: "0.0.0.0/0"
     restrictedSrcAddressApp: "0.0.0.0/0"
-    sshKey: "{{ ec2_name_prefix }}-key"
+    sshKey: "{{ ec2_key_name }}"
     imageName: "Good25Mbps"
    validate_certs: "no"
    tags:
@@ -46,7 +46,7 @@
 - name: Create EC2 instances for host1 node in VPC (F5 MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types.rhel7.size }}"
     image: "{{ host1_ami.image_id }}"
@@ -81,7 +81,7 @@
 - name: Create EC2 instances for host2 node in VPC (F5 MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types.rhel7.size }}"
     image: "{{ host1_ami.image_id }}"

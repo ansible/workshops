@@ -19,6 +19,21 @@
     groups:
       - f5
   with_items: "{{ f5_node_facts.instances }}"
+  when: custom_key is not defined
+
+- name: add f5 to groups (F5 MODE) - custom key
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: admin
+    ansible_password: admin
+    ansible_port: "{{ ssh_port }}"
+    private_ip: "{{item.private_ip_address}}"
+    groups:
+      - f5
+  with_items: "{{ f5_node_facts.instances }}"
+  when: custom_key is defined
 
 - name: grab facts for host1 node (F5 MODE)
   ec2_instance_facts:
@@ -41,6 +56,22 @@
       - lab_hosts
       - managed_nodes
   with_items: "{{ host1_node_facts.instances }}"
+  when: custom_key is not defined
+
+- name: add host1 to groups (NETWORKING MODE) - custom key
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ ec2_login_names[ansible_node] }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    groups:
+      - lab_hosts
+      - managed_nodes
+  with_items: "{{ host1_node_facts.instances }}"
+  when: custom_key is defined
 
 - name: grab facts for host2 node (F5 MODE)
   ec2_instance_facts:
@@ -63,6 +94,22 @@
       - lab_hosts
       - managed_nodes
   with_items: "{{ host2_node_facts.instances }}"
+  when: custom_key is not defined
+
+- name: add host2 to groups (NETWORKING MODE) - custom key
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ ec2_login_names[ansible_node] }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    groups:
+      - lab_hosts
+      - managed_nodes
+  with_items: "{{ host2_node_facts.instances }}"
+  when: custom_key is defined
 
 - name: Generate student inventories
   template:

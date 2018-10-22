@@ -36,6 +36,22 @@
     - "{{ node2_node_facts.instances }}"
     - "{{ node3_node_facts.instances }}"
   changed_when: no
+  when: custom_key is not defined
+
+- name: add hosts to groups (ANSIBLE ESSENTIALS MODE) - custom key
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ ec2_login_names[node1_node] }}"
+    ansible_port: "{{ ssh_port }}"
+    groups: lab_hosts,managed_nodes
+  with_items:
+    - "{{ node1_node_facts.instances }}"
+    - "{{ node2_node_facts.instances }}"
+    - "{{ node3_node_facts.instances }}"
+  changed_when: no
+  when: custom_key is defined
 
 - name: Generate student inventories
   template:

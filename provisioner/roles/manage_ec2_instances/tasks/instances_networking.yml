@@ -39,7 +39,7 @@
 - name: Create EC2 instances for rtr1 node (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[rtr1_node].size }}"
     image: "{{ rtr1_ami.image_id }}"
@@ -92,7 +92,7 @@
 - name: Create EC2 instances for rtr2 node in VPC-2 (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_instance_types[rtr2_node].size }}"
     image: "{{ rtr2_ami.image_id }}"
@@ -144,7 +144,7 @@
   - name: Create EC2 instances for rtr3 node (NETWORKING MODE)
     ec2:
       assign_public_ip: yes
-      key_name: "{{ ec2_name_prefix }}-key"
+      key_name: "{{ ec2_key_name }}"
       group: "{{ ec2_security_group }}"
       instance_type: "{{ ec2_instance_types[rtr3_node].size }}"
       image: "{{ rtr3_ami.image_id }}"
@@ -196,7 +196,7 @@
   - name: Create EC2 instances for rtr4 node in VPC-2 (NETWORKING MODE)
     ec2:
       assign_public_ip: yes
-      key_name: "{{ ec2_name_prefix }}-key"
+      key_name: "{{ ec2_key_name }}"
       group: "{{ ec2_security_group2 }}"
       instance_type: "{{ ec2_instance_types[rtr4_node].size }}"
       image: "{{ rtr4_ami.image_id }}"
@@ -246,7 +246,7 @@
 - name: Create EC2 instances for host1 node in VPC-2 (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_instance_types[host1_node].size }}"
     image: "{{ host1_ami.image_id }}"

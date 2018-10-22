@@ -157,12 +157,14 @@
 - name: set keys for instance creation dynamically since key was not supplied by user
   set_fact:
     ec2_key_name: "{{ ec2_name_prefix }}-key"
+  when: custom_key is not defined
 
 - name: delete ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
     name: "{{ec2_key_name}}"
     region: "{{ ec2_region }}"
     state: absent
+  when: custom_key is not defined
 
 - name: delete AWS VPC {{ ec2_name_prefix }}
   ec2_vpc_net:

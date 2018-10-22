@@ -22,7 +22,7 @@
 - name: Create EC2 instances for node1
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node1_node].size }}"
     image: "{{ node1_ami.image_id }}"
@@ -76,7 +76,7 @@
 - name: Create EC2 instances for node2
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node2_node].size }}"
     image: "{{ node2_ami.image_id }}"
@@ -130,7 +130,7 @@
 - name: Create EC2 instances for node3
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[node3_node].size }}"
     image: "{{ node3_ami.image_id }}"

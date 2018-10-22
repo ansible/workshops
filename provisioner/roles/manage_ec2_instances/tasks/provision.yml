@@ -35,7 +35,7 @@
 - name: Create EC2 instances for ansible node (control node)
   ec2:
     assign_public_ip: yes
-    key_name: "{{ ec2_name_prefix }}-key"
+    key_name: "{{ ec2_key_name }}"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_instance_types[ansible_node].size }}"
     image: "{{ ansible_control_node_ami.image_id }}"

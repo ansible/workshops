@@ -143,7 +143,13 @@
 
 - name: set key name
   set_fact:
-    ec2_key_name: "{{ custom_key | default(create_key.key.name) }}"
+    ec2_key_name: "{{ create_key.key.name }}"
+  when: custom_key is not defined
+
+- name: set custom key name
+  set_fact:
+    ec2_key_name: "{{ custom_key }}"
+  when: custom_key is defined
 
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:

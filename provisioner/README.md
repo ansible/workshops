@@ -38,6 +38,7 @@ towerinstall: true                     # automatically installs Tower to control
 #autolicense: true                     # automatically licenses Tower if license is provided
 #xrdp: true                            # install xrdp with xfce for graphical interface
 #custom_key: <aws keypair name>        # use an existing keypair
+#ansible_ssh_private_key_file          # this variable is required when using custom_key
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).

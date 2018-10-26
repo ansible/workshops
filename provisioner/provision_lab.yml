@@ -120,6 +120,17 @@
   roles:
     - { role: f5_setup, when: f5workshop }
 
+- name: ROUTER COMMON CONFIG
+  hosts: routers
+  become: yes
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+  - include_role:
+      name: configure_routers
+      tasks_from: add_user
+
 - name: GATHER AWS FACTS FOR ROUTERS
   hosts: access,core
   connection: local

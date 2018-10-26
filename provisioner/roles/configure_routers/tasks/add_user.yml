@@ -1,0 +1,5 @@
+---
+- ios_user:
+    name: "{{ username }}"
+    configured_password: "{{ admin_password }}"
+    privilege: 15

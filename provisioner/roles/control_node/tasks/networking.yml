@@ -65,21 +65,21 @@
     group: "{{ username }}"
     state: directory
 
-- name: Put ssh-key in proper spot for student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    dest: "/home/{{username}}/.ssh/aws-private.pem"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0400
-
-- name: Put ssh-key in proper for {{ansible_user}}
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    dest: "/home/{{ansible_user}}/.ssh/aws-private.pem"
-    owner: "{{ansible_user}}"
-    group: "{{ansible_user}}"
-    mode: 0400
+#- name: Put ssh-key in proper spot for student
+#  copy:
+#    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+#    dest: "/home/{{username}}/.ssh/aws-private.pem"
+#    owner: "{{ username }}"
+#    group: "{{ username }}"
+#    mode: 0400
+#
+#- name: Put ssh-key in proper for {{ansible_user}}
+#  copy:
+#    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+#    dest: "/home/{{ansible_user}}/.ssh/aws-private.pem"
+#    owner: "{{ansible_user}}"
+#    group: "{{ansible_user}}"
+#    mode: 0400
 
 - name: copy over ssh config file for student
   template:

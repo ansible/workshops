@@ -16,8 +16,14 @@
       - tmux
       - python-pip
       - ansible
+    state: latest
+
+- name: Install base packages for netaddr
+  yum:
+    name:
       - python-netaddr
     state: latest
+  when: not f5workshop
 
 - name: block for f5workshop
   block:

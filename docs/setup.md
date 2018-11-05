@@ -21,9 +21,9 @@ aws_access_key_id = ABCDEFGHIJKLMNOP
 aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
 
-5. Install the `passlib` library
+5. Install the `passlib` library and `netaddr`
 
-        pip install passlib
+        pip install passlib netaddr
 
 6. Clone the linklight repo:
 

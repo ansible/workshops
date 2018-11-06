@@ -256,8 +256,7 @@ rtr1#
 
 ```
 
-
-You have successfully backed up and restored configurations on your Cisco routers!
+The output above shows that the Loopback 101 interface is no longer present, you have successfully backed up and restored configurations on your Cisco routers!
 
 # Complete
 

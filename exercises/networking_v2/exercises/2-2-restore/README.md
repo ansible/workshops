@@ -264,4 +264,4 @@ You have successfully backed up and restored configurations on your Cisco router
 You have completed lab exercise 2.2
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

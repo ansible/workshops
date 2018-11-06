@@ -392,4 +392,4 @@ rtr4                       : ok=3    changed=0    unreachable=0    failed=0
 You have completed lab exercise 1.2
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

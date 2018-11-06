@@ -479,4 +479,4 @@ Loopback1:
 You have completed lab exercise 3.1
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

@@ -332,4 +332,4 @@ no service nagle
 You have completed lab exercise 2.1
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

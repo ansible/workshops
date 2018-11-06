@@ -230,4 +230,4 @@ Using less than 20 lines of "code" you have just automated version and serial nu
 You have completed lab exercise 1.1
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

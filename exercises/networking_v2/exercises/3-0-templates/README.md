@@ -301,4 +301,4 @@ Ansible provides the tools and methods to extend network automation beyond confi
 You have completed lab exercise 3.0
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

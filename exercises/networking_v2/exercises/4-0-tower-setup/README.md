@@ -194,4 +194,5 @@ The finished Ansible Playbook is provided here for an Answer key.
         var: test_variable
 ```
 
-You have finished this exercise.  [Click here to return to the lab guide](../README.md)
+---
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

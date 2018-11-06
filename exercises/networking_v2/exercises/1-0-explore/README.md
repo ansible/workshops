@@ -135,4 +135,4 @@ rtr1 ansible_host=52.90.196.252 ansible_ssh_user=ec2-user private_ip=172.16.165.
 You have completed lab exercise 1.0
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)

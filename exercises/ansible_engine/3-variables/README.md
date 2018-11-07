@@ -172,7 +172,7 @@ handlers:
 - `handler:` This is telling the *play* that the `tasks:` are over, and now we are defining `handlers:`.
   Everything below that looks the same as any other task, i.e. you give it a name, a module, and the options for that
   module.  This is the definition of a handler.
-- `notify: restart apache service` ...and here is your latter. Finally!  The `nofify` statement is the invocation of a handler by
+- `notify: restart apache service` ...and here is your latter. Finally!  The `notify` statement is the invocation of a handler by
 name.  Quite the reveal, we know.   You already noticed that you've added a `notify` statement to the `copy httpd.conf`
 task, now you know why.
 

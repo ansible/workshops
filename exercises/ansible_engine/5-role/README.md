@@ -204,7 +204,7 @@ let's run it and see how it works.
 Run the playbook.
 
 ```bash
-ansible-playbook -i ~/lightbulb/lessons/lab_inventory/student\#\#-instances.txt site.yml
+ansible-playbook -i ~/lightbulb/lessons/lab_inventory/student##-instances.txt site.yml
 ```
 
 If successful, your standard output should look similar to the figure below.

@@ -44,7 +44,7 @@ In this playbook we need to configure both sides of the GRE tunnel.  The tunnel 
 - name: Configure GRE Tunnel between rtr1 and rtr2
   hosts: routers
   gather_facts: no
-  connection: local
+  connection: network_cli
 ```
 
 We also need **two variables**.  We need the public IP address for rtr1 and rtr2.  These two IP addresses will be different for every student in the workshop.  The public IP address can be found in the `~/networking_workshop/lab_inventory/hosts` on the ansible node.  Just call these `rtr1_public_ip` and `rtr2_public_ip`.  The IP address 1.1.1.1 and 2.2.2.2 are placeholders!  Please replace them, or use the dynamic mode below:

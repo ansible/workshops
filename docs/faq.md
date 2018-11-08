@@ -114,3 +114,16 @@ Ansible Tower stores job templates under the projects folder in the awx home dir
 ```
 
 cd into the relevant project folder and execute the Playbook from the command line to run the playbook exactly how it was run from Ansible Tower.  This will hopefully let you see an error or problem you were not aware of via the Tower GUI.
+
+## Problem: F5 Workshop provisioner fails on mac
+
+```
+TASK [f5_setup : Install AS3] *******************************************************************************
+fatal: [TESTWORKSHOP-student1-f5]: FAILED! => {"changed": false, "cmd": "rpm -qp --queryformat '%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}' <ommited>/linklight/provisioner/roles/f5_setup/files/f5-appsvcs-3.4.0-2.noarch.rpm", "msg": "[Errno 2] No such file or directory", "rc": 2}
+```
+
+### Solution:
+
+```
+$ brew install rpm
+```

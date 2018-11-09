@@ -8,6 +8,12 @@
     - name: GATHER ROUTER FACTS
       ios_facts:
 
+    - name: ENSURE REPORTS FOLDER
+      run_once: true
+      file:
+        name: reports
+        state: directory
+
     - name: RENDER FACTS AS A REPORT
       template:
         src: os_report.j2

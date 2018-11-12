@@ -15,8 +15,8 @@
       - sshpass
       - tmux
       - python-pip
-      - ansible-2.7.0-1.el7.ans
-    state: latest
+      - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
+    state: present
 
 - name: Install base packages for netaddr
   yum:

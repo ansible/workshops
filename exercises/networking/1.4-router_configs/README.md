@@ -70,6 +70,7 @@ Create a block and add the tasks for rtr1 with conditionals. We’ll also add a 
 
 {% raw %}
 ```
+  tasks:
     ##Configuration for R1
     - block:
       - name: Static route from R1 to R2
@@ -125,8 +126,8 @@ There will be 4 tasks in this block
     ios_system:
       name_servers: "{{item}}"
     with_items: "{{dns_servers}}"
-  when:
-    - '"rtr2" in inventory_hostname'
+when:
+  - '"rtr2" in inventory_hostname'
 ```
 {% endraw %}
 

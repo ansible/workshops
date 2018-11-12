@@ -1,8 +1,8 @@
-# Exercise 1.5 - Roles: Making your playbooks reusable
+# Exercise 5 - Roles: Making your playbooks reusable
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles is the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  "Wha??  You mean that seemingly useless [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) you mentioned in exercise 1.2?".  Yep, that one.
+Ansible Roles is the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  "Wha??  You mean that seemingly useless [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) you mentioned in exercise 2?".  Yep, that one.
 
 For this exercise, you are going to take the playbook you just wrote and refactor it into a role.  In addition, you'll learn to use Ansible Galaxy.
 
@@ -204,7 +204,7 @@ let's run it and see how it works.
 Run the playbook.
 
 ```bash
-ansible-playbook -i ../hosts site.yml
+ansible-playbook -i ~/lightbulb/lessons/lab_inventory/student##-instances.txt site.yml
 ```
 
 If successful, your standard output should look similar to the figure below.

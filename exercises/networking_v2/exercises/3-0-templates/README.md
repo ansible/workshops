@@ -67,6 +67,12 @@ Rather than using debug or verbose mode to display the output on the screen, go 
     - name: GATHER ROUTER FACTS
       ios_facts:
 
+    - name: ENSURE REPORTS FOLDER
+      run_once: true
+      file:
+        name: reports
+        state: directory
+
     - name: RENDER FACTS AS A REPORT
       template:
         src: os_report.j2
@@ -80,23 +86,11 @@ Let's break this task down a bit. The `template` module has a `src` parameter th
 
 
 #### Step 4
-In the previous step we are rendering the generated report into a directory called `reports`. Go ahead and create this directory.
 
 
+The next step is to create a Jinja2 template. Ansible will look for the template file in the current working directory and within a directory called `templates` automatically. Convention/best-practice is to create the template file within the templates directory.
 
-``` shell
-[student1@ansible networking-workshop]$ mkdir reports
-[student1@ansible networking-workshop]$
-```
-
-
-
-#### Step 5
-
-
-The next step is to create a Jinja2 template. Ansible will look for the template file in the current working directory and within a directory called `templates` automatically. Convention/best-practice is to create the template file within the template directory.
-
-Using `vi`, `nano` or another text editor, go ahead and create a new file called `os_report.j2` under the `templates` directory. Add the following into the template file:
+Using `vi`, `nano` or another text editor, go ahead and review the file called `os_report.j2` under the `templates` directory. Add the following into the template file:
 
 
 {%raw%}
@@ -116,7 +110,7 @@ This file simply contains some of the variables we have been using in our playbo
 > Note: Python inbuilt methods for datatypes are available natively in Jinja2 making it very easy to manipulate the formatting etc.
 
 
-#### Step 6
+#### Step 5
 
 With this in place, go ahead and run the playbook:
 
@@ -130,6 +124,9 @@ ok: [rtr4]
 ok: [rtr3]
 ok: [rtr2]
 ok: [rtr1]
+
+TASK [ENSURE REPORTS FOLDER] ********************************************************************************
+changed: [rtr1]
 
 TASK [RENDER FACTS AS A REPORT] *************************************************************************************************************************************************************
 changed: [rtr4]
@@ -148,7 +145,7 @@ rtr4                       : ok=2    changed=1    unreachable=0    failed=0
 ```
 
 
-#### Step 7
+#### Step 6
 
 After the playbook run, you should see the following files appear in the reports directory:
 
@@ -178,7 +175,7 @@ RTR4
 ```
 
 
-#### Step 8
+#### Step 7
 
 
 While it is nice to have the data, it would be even better to consolidate all these individual router reports into a single document. Let's add a new task to do that
@@ -196,6 +193,12 @@ While it is nice to have the data, it would be even better to consolidate all th
   tasks:
     - name: GATHER ROUTER FACTS
       ios_facts:
+
+    - name: ENSURE REPORTS FOLDER
+      run_once: true
+      file:
+        name: reports
+        state: directory
 
     - name: RENDER FACTS AS A REPORT
       template:
@@ -219,35 +222,38 @@ Here we are using the `assemble` module. The `src` parameter specifies the direc
 
 
 
-#### Step 9
+#### Step 8
 
 Go ahead and run the playbook.
 
 ``` shell
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_report.yml
 
-PLAY [GENERATE OS REPORT FROM ROUTERS] ******************************************************************************************************************************************************
+PLAY [GENERATE OS REPORT FROM ROUTERS] **********************************************************************
 
-TASK [GATHER ROUTER FACTS] ******************************************************************************************************************************************************************
-ok: [rtr2]
+TASK [GATHER ROUTER FACTS] **********************************************************************************
 ok: [rtr4]
+ok: [rtr3]
 ok: [rtr1]
-ok: [rtr3]
-
-TASK [RENDER FACTS AS A REPORT] *************************************************************************************************************************************************************
-ok: [rtr3]
 ok: [rtr2]
-ok: [rtr1]
-ok: [rtr4]
 
-TASK [CONSOLIDATE THE IOS DATA] *************************************************************************************************************************************************************
+TASK [ENSURE REPORTS FOLDER] ********************************************************************************
+changed: [rtr1]
+
+TASK [RENDER FACTS AS A REPORT] *****************************************************************************
+changed: [rtr2]
+changed: [rtr1]
+changed: [rtr4]
+changed: [rtr3]
+
+TASK [CONSOLIDATE THE IOS DATA] *****************************************************************************
 changed: [rtr1 -> localhost]
 
-PLAY RECAP **********************************************************************************************************************************************************************************
-rtr1                       : ok=3    changed=1    unreachable=0    failed=0   
-rtr2                       : ok=2    changed=0    unreachable=0    failed=0   
-rtr3                       : ok=2    changed=0    unreachable=0    failed=0   
-rtr4                       : ok=2    changed=0    unreachable=0    failed=0   
+PLAY RECAP **************************************************************************************************
+rtr1                       : ok=4    changed=3    unreachable=0    failed=0   
+rtr2                       : ok=2    changed=1    unreachable=0    failed=0   
+rtr3                       : ok=2    changed=1    unreachable=0    failed=0   
+rtr4                       : ok=2    changed=1    unreachable=0    failed=0   
 
 [student1@ansible networking-workshop]$
 
@@ -255,7 +261,7 @@ rtr4                       : ok=2    changed=0    unreachable=0    failed=0
 
 
 
-#### Step 10
+#### Step 9
 
 A new file called `network_os_report.md` will now be available in the playbook root. Use the `cat` command to view it's contents:
 

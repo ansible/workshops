@@ -22,7 +22,7 @@ Since you already did the work of creating a host file in Lession 1.0, feel free
 Run your playbook
 
 ```bash
-ansible-playbook --private-key#~/.ssh/workshopname-tower -i ../hosts site.yml
+ansible-playbook -i ~/lightbulb/lessons/lab_inventory/student##-instances.txt site.yml
 ```
 
 ## Section 2: Review

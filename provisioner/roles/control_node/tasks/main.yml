@@ -15,7 +15,7 @@
       - sshpass
       - tmux
       - python-pip
-      - ansible
+      - ansible-2.7.0-1.el7.ans
     state: latest
 
 - name: Install base packages for netaddr

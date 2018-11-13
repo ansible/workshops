@@ -69,26 +69,29 @@ In this lab you will work with a file based inventory written in the **ini** for
 
 ```
 
-[student1@ansible networking-workshop]$ cat ~/networking-workshop/lab_inventory/hosts
+[student1@ansible ~]$ cat ~/networking-workshop/lab_inventory/hosts
 [all:vars]
-ansible_user=student1
-ansible_ssh_pass=ansible
 ansible_port=22
 
 [routers:children]
 cisco
+juniper
 
 [cisco]
-rtr1 ansible_host=52.90.196.252 ansible_ssh_user=ec2-user private_ip=172.16.165.205 ansible_network_os=ios
-rtr2 ansible_host=52.91.137.149 ansible_ssh_user=ec2-user private_ip=172.17.249.137 ansible_network_os=ios
-rtr3 ansible_host=18.207.193.156 ansible_ssh_user=ec2-user private_ip=172.16.235.46 ansible_network_os=ios
-rtr4 ansible_host=34.229.105.87 ansible_ssh_user=ec2-user private_ip=172.17.231.181 ansible_network_os=ios
+rtr1 ansible_host=35.182.226.163 private_ip=172.16.173.57
+rtr2 ansible_host=35.183.197.179 private_ip=172.17.88.89
 
+[juniper]
+rtr3 ansible_host=35.183.209.131 private_ip=172.16.119.246
+rtr4 ansible_host=35.183.244.146 private_ip=172.17.211.127
 
 [cisco:vars]
-ansible_ssh_user=ec2-user
+ansible_user=ec2-user
 ansible_network_os=ios
 
+[juniper:vars]
+ansible_user=jnpr
+ansible_network_os=junos
 
 [dc1]
 rtr1
@@ -99,11 +102,11 @@ rtr2
 rtr4
 
 [hosts]
-host1 ansible_host=35.153.176.127 ansible_ssh_user=ec2-user private_ip=172.17.65.234
+host1 ansible_host=35.183.19.221 ansible_user=ec2-user private_ip=172.17.179.150
 
 [control]
-ansible ansible_host=34.239.141.34 ansible_ssh_user=ec2-user private_ip=172.16.101.121
-[student1@ansible networking-workshop]$
+ansible ansible_host=35.183.137.160 ansible_user=ec2-user private_ip=172.16.45.102
+[student1@ansible ~]$
 
 ```
 

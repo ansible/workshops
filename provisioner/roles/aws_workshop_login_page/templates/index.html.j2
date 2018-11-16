@@ -231,83 +231,63 @@ $("document").ready(function(){
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
+                {% if networking or f5workshop %}
                 <h2>Network Automation Workshops</h2>
                 <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
+                {% else %}
+                <h2>Server Automation Workshops</h2>
+                <p>These workshops are focused on automating Linux platforms like RHEL (Red Hat Enterprise Linux)</p>
+                {% endif %}
             </div>
         </div>
-
+        {% if networking %}
         <div class="row">
-          <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_f5/">Ansible F5 Exercises</a>
-          </div>
-
           <div class="col-sm-4">
               <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/networking_v2/">Ansible Networking v2 Exercises</a>
           </div>
 
           <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/networking/">Ansible Networking Exercises<br> *Deprecated</a>
+              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/ansible_network_v2.html">Ansible Networking Deck</a>
+          </div>
+          
+          <div class="col-sm-4">
+            <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_tower/">Ansible Tower Exercises</a>
           </div>
         </div>
-<br><br>
+        {% elif f5workshop %}
         <div class="row">
-            <div class="col-sm-8">
-                <h2>Server Automation Workshops</h2>
-                <p>These workshops are focused on automating Linux platforms like RHEL (Red Hat Enterprise Linux)</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_engine/">Ansible Server Exercises</a>
-            </div>
-
-            <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_tower/">Ansible Tower Exercises</a>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<hr>
-
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <h2>Network Training Decks</h2>
-                <p>View the training decks for the workshops right in your browser.</p>
-            </div>
-        </div>
-
-        <div class="row">
-
+          <div class="col-sm-4">
+              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_f5/">Ansible F5 Exercises</a>
+          </div>
+    
           <div class="col-sm-4">
               <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/ansible_f5.pdf">Ansible F5 Deck</a>
           </div>
 
           <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/ansible_network_v2.html">Ansible Networking Deck</a>
+            <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_tower/">Ansible Tower Exercises</a>
           </div>
         </div>
-<br><br>
-        <div class="row">
-            <div class="col-sm-8">
-                <h2>Server Training Decks</h2>
+        {% else %}
+         <div class="row">
+            <div class="col-sm-4">
+                <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_engine/">Ansible Server Exercises</a>
             </div>
-        </div>
+          <div class="col-sm-4">
+              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/ansible-essentials.html#/">Ansible Essentials Deck</a>
+          </div>
+            <div class="col-sm-4">
+                <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_tower/">Ansible Tower Exercises</a>
+            </div>
 
-        <div class="row">
-          <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/ansible-essentials.html#/">Ansible Essentials Workshop</a>
-          </div>
-          <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/intro-to-ansible-tower.html">Intro To Ansible Tower</a>
-          </div>
         </div>
+        {% endif %}
+<br><br>
+       
     </div>
 </section>
+
+<hr>
 
 <section>
     <div class="container">

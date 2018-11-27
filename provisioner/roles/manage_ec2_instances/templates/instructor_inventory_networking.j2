@@ -12,23 +12,23 @@ ansible_port={{ ssh_port }}
 {% endfor %}
 {% for host in rtr1_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr1_node] }}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr1_node] }} ansible_network_os={{ host.tags.ansible_network_os }}
 {% endif %}
 {% endfor %}
 {% for host in rtr2_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr2_node] }}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr2_node] }} ansible_network_os={{ host.tags.ansible_network_os }}
 {% endif %}
 {% endfor %}
 {% if special is defined %}
 {% for host in rtr3_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr3_node] }}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr3_node] }} ansible_network_os={{ host.tags.ansible_network_os }}
 {% endif %}
 {% endfor %}
 {% for host in rtr4_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr4_node] }}
+{{ host.tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[rtr4_node] }} ansible_network_os={{ host.tags.ansible_network_os }}
 {% endif %}
 {% endfor %}
 {% endif %}

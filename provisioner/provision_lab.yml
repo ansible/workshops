@@ -138,6 +138,7 @@
         type: csr_access
         router3_tunnel: 100
         router4_tunnel: 101
+      when: special is match("all_cisco")
 
 - name: CONFIGURE CORE ROUTERS
   hosts: core
@@ -151,6 +152,7 @@
         router1_tunnel: 100
         router2_tunnel: 101
         dci_tunnel: 200
+      when: special is match("all_cisco")
 
 - name: CONFIGURE CORE ROUTERS
   hosts: dmvpn
@@ -161,6 +163,7 @@
     - role: configure_routers
       vars:
         type: csr_hub
+      when: special is match("all_cisco")
 
 - name: Alert the mothership
   hosts: localhost

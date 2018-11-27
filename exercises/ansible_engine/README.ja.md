@@ -1,6 +1,6 @@
 # Ansible Linklight - Ansible エンジン
 
-このコンテンツが Ansibleの効果的なデモンストレーション、内部ワークショップ、ハンズオン、自己学習など、さまざまな目的用途で利用可能なツールです。
+このコンテンツは、Ansibleの効果的なデモンストレーション、ワークショップ、ハンズオン、自己学習など、さまざまな目的や用途で利用可能なツールです。
 
 **Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).
 

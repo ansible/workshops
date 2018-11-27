@@ -23,6 +23,14 @@ playbookを作成する前に、何を作成するかを見ていきましょう
 
  ---
 
+## ステップ 0: pingが到達できないことを確認する
+
+ここからの演習では2つのルーターにトンネルとルーティングの設定をしてホスト間の通信を可能にします。この時点で`host1`の`private_ip`にpingが到達できないことを確認してください。
+
+```bash
+ping 172.16.17.xx
+```
+
 ## ステップ 1: workshop ディレクトリへの移動
 
 ```bash
@@ -47,7 +55,7 @@ vim gre.yml
   connection: network_cli
 ```
 
-また **2つの変数** が必要です。rtr1 と rtr2 のパブリックIPが必要です。なお、これらのIPアドレスはワークショップ参加者それぞれで異なる状態である必要があります。 Ansibleノード上の `~/networking_workshop/lab_inventory/hosts` にパブリックIPアドレスを見つけることができます。ここではそれらをそれぞれ `rtr1_public_ip` と `rtr2_public_ip` と呼びます。一旦IPアドレスは 1.1.1.1 と 2.2.2.2 としていますが、これらを置き換えてください。または以下のように動的モードを使用してください:
+また **2つの変数** が必要です。rtr1 と rtr2 のパブリックIPが必要です。なお、これらのIPアドレスはワークショップ参加者それぞれで異なる状態である必要があります。 Ansibleノード上の `~/networking-workshop/lab_inventory/hosts` にパブリックIPアドレスを見つけることができます。ここではそれらをそれぞれ `rtr1_public_ip` と `rtr2_public_ip` と呼びます。一旦IPアドレスは 1.1.1.1 と 2.2.2.2 としていますが、これらを置き換えてください。または以下のように動的モードを使用してください:
 ```yml
   vars:
      #Variables can be manually set like this:
@@ -108,6 +116,13 @@ gre.yml playbookを実行しましょう。
 ```bash
 ansible-playbook gre.yml
 ```
+
+投入されたコンフィグを確認するには`rtr1`,`rtr2`のIPアドレス`ansible_host`に`ec2-user`で接続します。演習用のコントローラーホストからの接続する際にパスワードは求められません。
+
+```
+ssh -l ec2-user yyy.yyy.yyy.yyy
+```
+
 
 conditionals を使用したplaybookは完成です。このモジュールで利用可能な別のパラメータ情報は[ios_config モジュール](http://docs.ansible.com/ansible/latest/ios_config_module.html) を確認してください。
 

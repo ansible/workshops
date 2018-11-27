@@ -1,4 +1,4 @@
-# 演習 3 - Job Templateの作成と実行
+# Exercise 3 - Job Templateの作成と実行
 
 Job Templateは、Ansibleのjobを実行するための定義と様々なパラメータのセットです。
 同じjobを定義された同一の情報で何度も実行するために、非常に有効です。
@@ -119,12 +119,18 @@ LAUNCH ![Survey launch button](at_survey_launch.png) を選択します。
 
 ### Step 6:
 
-Jobが問題なく完了したなら、JobTemplateの実行によって作成された新しいWebサイトを見てみましょう。
+Jobが問題なく完了したなら、JobTemplateの実行によって作成された新しいWebサイトを見てみましょう。  
+実行対象となったWebサーバのIPアドレスは、AnsibleTowerの`インベントリー/Ansible Workshop Inventory/ホスト` 以下に格納された情報か、先ほどインポートしたAnsibleEngineのinventoryファイル内で確認することができます。  
 
- *workshopname* には、参加しているWorkshop名が、 *#* にはあなたの受講者番号が記載されるはずです。:
-
+コントロールホストで以下を実行して、[web]グループのサーバIPを確認してみましょう。
 ```bash
-http://workshopname.node.#.redhatgov.io
+cat /home/student40/lightbulb/lessons/lab_inventory/studentXX-instances.txt
+```
+
+上記のインベントリで確認ができた3台のWebサーバへHTTPでアクセスが可能なはずです。  
+それぞれのWebサーバはどのように表示されるでしょうか？
+```bash
+http://<webグループのnode1,node2,node3のIPアドレス>
 ```
 
 意図した通りにジョブが実行されていれば、Surveyへ入力したテスト・メッセージと共に以下のような画面が表示されている筈です。
@@ -133,9 +139,9 @@ http://workshopname.node.#.redhatgov.io
 
 
 ## 結果
-ここまででAnsible Towerの基本的な機能を体験することができました。
-そしてもちろん、Ansible Towerはもっと多くのことができます！
-このワークショップでこれまで見てきたことは Ansible CoreとTowerが備えた数多くの機能のほんの入り口だけです。
+ここまででAnsible Towerの基本的な機能を体験することができました。  
+そしてもちろん、Ansible Towerはもっと多くのことができます！  
+このワークショップでこれまで見てきたことは Ansible EngineとTowerが備えた数多くの機能のほんの入り口だけです。  
 このガイドの資料のページを参照して、様々な機能を学び、試してみてください。
 
 ---

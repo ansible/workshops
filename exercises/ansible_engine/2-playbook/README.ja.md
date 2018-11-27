@@ -1,16 +1,18 @@
-# 演習 2 - 初めてのplaybook作成
+# Exercise 2 - 初めてのplaybook作成
 
 
-まずはAnsibleｍの動きを見ていただく上でも、*playbook* を作成してみたいと思います。 playbookは 先程実行した複数の ad-hoc コマンドを、*plays* と *tasks* の複数セットに置き換えたものです。
+この演習では *playbook* を作成してみましょう。  
+playbookは 先程実行した複数の ad-hoc コマンドを、*plays* と *tasks* のセットにし、ファイルへ置き換えたものです。
 
-playbookは1つまたは複数のplayに、1つまたは複数のタスクを持つことができます。*play* の目的はホストのグループをマッピングする事であり、*task* の目的はこれらのホストに対してモジュールを実行する事です。
+playbookは1つまたは複数のplayに、1つまたは複数のタスクを持つことができます。  
+*play* の目的はホストのグループをマッピングする事であり、*task* の目的はこれらのホストに対してモジュールを実行する事です。
 
-初めてのplaybookでは、1つのplayに2つのtaskを書いていきたいと思います。
+この演習のplaybookでは、1つのplayに2つのtaskを書いていきたいと思います。
 
 
-## セクション 1: ディレクトリとplaybookファイルの作成
+## Section 1: ディレクトリとplaybookファイルの作成
 
-推奨するplaybookディレクトリ構成の[ベスト・プラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)があります。Ansibleのスキルを得て熟練される場合は、こちらを読み、理解いただくことを強くお勧めします。本日のplaybookはとても基本なものですが、入り組んだ構造から少し複雑に映るかも知れないからです。
+Ansibleには、playbookディレクトリ構成の[ベスト・プラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)があります。Ansibleのスキルを得て熟練される場合は、こちらを読み、理解いただくことを強くお勧めします。本日のplaybookはとても基本なものですが、入り組んだ構造から少し複雑に映るかも知れないからです。
 
 今回は、とてもシンプルなplaybookディレクトリ構成と、そこに複数ファイルを追加する簡易な形で進めます。
 
@@ -25,7 +27,7 @@ cd ~/apache_basic
 *ステップ 2:* `vi` または `vim` で `install_apache.yml` ファイルを作成編集します。
 
 
-## セクション 2: Play の定義
+## Section 2: Play の定義
 
 現在編集中の  `install_apache.yml` に、Playを定義し、各行の内容を理解しましょう。
 
@@ -37,17 +39,21 @@ cd ~/apache_basic
   become: yes
 ```
 
-- `---` YAML開始の定義
-- `hosts: web` はplayを実行する対象のホスト・グループをInventoryの中で定義しています。
-- `name: Install the apache web service` Play内容の説明です。
-- `become: yes` リモートホストでroot権限を使い実行。デフォルトはsudoですが、su、pbrun、[その他](http://docs.ansible.com/ansible/become.html) もサポート。
+- `---` YAML開始を定義
+- `hosts: web` はこのPlaybookを実行する対象のグループを指定しています。グループ名はInvenotryファイルで定義されています。
+- `name: Install the apache web service` Playに名称を設定しています。任意の名称設定が可能です。名称を付けず、スキップすることもできます。
+- `become: yes` リモートホストでroot権限を使い実行するためのオプションを指定しています。デフォルトはsudoですが、su、pbrun、[その他](http://docs.ansible.com/ansible/become.html) もサポートしています。
 
 
-## セクション 3: Play内のTask追加
+## Section 3: Play内のTask追加
 
-ここまででplayを定義しました。続けて実行する複数のtaskを追加しましょう。`task` の *t* と、`become` の *b* はインデントの位置を合わせ、垂直に揃えてください。
-この記述の仕方がとても重要です。Playbook内の記述は、すべてここで示されている形式に倣う必要があります。
-もしもこのPlaybookの全文を見たい場合は、この演習ページの最下部を参照してください。
+ここまででplayを定義しました。  
+続けて実行する複数のtaskを追加しましょう。  
+このあとに記述する`task` の *t* と、先ほどのplayで記載した`become` の *b* が、インデントで同じ位置に来るように調整してください。  
+この記述の仕方がとても重要です。  
+
+Playbook内の記述は、すべてここで示されている形式に倣う必要があります。
+この演習で作成するPlaybookの全文を確認したい場合は、この演習ページの最下部を参照してください。
 
 
 ```yml
@@ -89,7 +95,7 @@ service:
 service モジュールの全オプションを確認するには[こちらをクリック](http://docs.ansible.com/ansible/service_module.html)
 
 
-## セクション 4: playbookの保存
+## Section 4: playbookの保存
 
 playbookを書き終えたら、保存しましょう。
 

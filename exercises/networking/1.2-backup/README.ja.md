@@ -56,16 +56,16 @@ cat ~/networking-workshop/lab_inventory/hosts
 
 3つのグループ存在します:
  - `[control]` - 現在sshで入っている `ansible` ノード
- - `[routers]` - `rtr1` と `rtr2` の2つのルーター
+ - `[cisco]` - `rtr1` と `rtr2` の2つのルーター。これは`[routers]からの入れ子(children)になっています。`
  - `[hosts]` - `rtr2` に接続している Linuxホスト `host1`
 
-hosts の一つを分析してみましょう:
+ホストの一つを分析してみましょう:
 ```bash
-rtr1 ansible_host=54.174.116.49 ansible_ssh_user=ec2-user private_ip=172.16.3.183
+rtr1 ansible_host=54.174.116.49 ansible_user=ec2-user private_ip=172.16.3.183
 ```
  - `rtr1` - Ansible が使用する名前です。名前をDNSに合わせることが必須ではありません。
  - `ansible_host` - Ansible が使用する IPアドレスです。定義されていない場合、デフォルトでDNSを使用します。
- - `ansible_ssh_user` - Ansibleがホストにログインする際のユーザIDです。定義されていない場合、デフォルトでplaybookを実行する際のユーザIDを使用します。
+ - `ansible_user` - Ansibleがホストにログインする際のユーザIDです。定義されていない場合、デフォルトでplaybookを実行する際のユーザIDを使用します。
  - `private_ip` - プライベートIPを指定します。デフォルト設定は[ホスト変数](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables) となります。変数は playbook より呼び出されるか、または上書きされるかします。
 
 

@@ -37,7 +37,7 @@ $ ansible-galaxy init system
 $ ansible-galaxy init interface
 $ ansible-galaxy init static_route
 
-$ ls -l
+$ tree
 .
 ├── interface
 │   ├── defaults
@@ -117,9 +117,9 @@ ansible_network_os: ios
 ansible_connection: local
 host1_private_ip: "172.18.2.125"
 control_private_ip: "172.17.1.157"
-ios_version: "16.08.01a"
+ios_version: "16.09.01"
 ```  
-host1_private_ip と control_private_ip を lab_inventory から転記します
+host1_private_ip と control_private_ip を lab_inventory から転記します。
 
 **Variables in multiple places?**
 変数は限られた場所でのみ使用できます:

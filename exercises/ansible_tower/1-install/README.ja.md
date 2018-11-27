@@ -1,4 +1,4 @@
-# 演習 1 - Ansible Towerのインストール
+# Exercise 1 - Ansible Towerのインストール
 
 この演習では、あなたのコントロールノードへAnsible Towerのインストールが実行されます。
 
@@ -18,7 +18,7 @@ cd /tmp
 Ansible Tower の最新版packageをダウンロードします。
 
 ```bash
-curl -O http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
 ```
 
 ### Step 3:
@@ -47,7 +47,9 @@ vim inventory
 
 ### Step 6:
 
-inventoryファイル内のいくつかの変数を編集します。: `admin_password, pg_password, rabbitmq_password`
+inventoryファイル内で、AnisbleTowerが必要とするパスワードを変数として追加します。  
+以下の3つへ任意のパスワード情報を記述してください。:  
+`admin_password, pg_password, rabbitmq_password`
 
 ```ini
 [tower]
@@ -56,19 +58,19 @@ localhost ansible_connection=local
 [database]
 
 [all:vars]
-admin_password=*'ansibleWS'*
+admin_password='ansibleWS'
 
 pg_host=''
 pg_port=''
 
 pg_database='awx'
 pg_username='awx'
-pg_password=*'ansibleWS'*
+pg_password='ansibleWS'
 
 rabbitmq_port=5672
 rabbitmq_vhost=tower
 rabbitmq_username=tower
-rabbitmq_password=*'ansibleWS'*
+rabbitmq_password='ansibleWS'
 rabbitmq_cookie=cookiemonster
 
 = Needs to be true for fqdns and ip addresses
@@ -103,7 +105,7 @@ https://コントローラーノードのIPアドレス
 ```
 
 ### インストール結果の確認
-
+ブラウザでの確認では、証明書エラーが表示されるかもしれませんが、本日のWSでは無視してください。
 コントローラーノードのIPアドレスへアクセスし、以下のようなAnsible TowerのGUIが確認できれば、インストレーション結果の確認までが完了しました。
 
 ![Ansible Tower Login Screen](ansible-lab-figure01-logon-screen.png)

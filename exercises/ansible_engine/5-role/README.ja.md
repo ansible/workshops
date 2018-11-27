@@ -1,9 +1,12 @@
-# 演習 1.5 - Roles: Playbookを再利用可能にする
+# Exercise 1.5 - Roles: Playbookを再利用可能にする
 
-このワークショップで行ってきているように、Playbookを1つのファイルに書くことも可能です。しかし最終的には、物事を整理してファイルを再利用したくなってくる筈です。
+このワークショップで行ってきているように、Playbookを1つのファイルに書くことも可能です。  
+しかし実際の運用においては、他の人が作成したPlaybookを再利用したくなってくる筈です。
 
-
-これを実現するのがAnsibleのRolesです。roleを作成する事でPlaybookをパーツとして分解し、構造化されたディレクトリに納めるのです。「え?? それは演習 1.2で触れられていた、ややこしい[ベスト・プラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)のことですか?」って？ はい、まさにその通りです。
+これを実現するのがAnsibleのRolesという考え方です。  
+roleを作成する事でPlaybookをパーツとして分解し、構造化されたディレクトリに格納することができます。  
+「え?? それはExercise 1.2で触れられていた、ややこしい[ベスト・プラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)のことですか?」って？  
+はい、まさにその通りです。
 
 この演習では先に作成したPlaybookをリファクタリングしてroleへと変えます。さらにAnsible Galaxyの使い方も学びます。
 
@@ -13,12 +16,12 @@
 
 幸いにも、これらのディレクトリやファイルの全てを手動で作成する必要はありません。ここで登場するのがAnsible Galaxyです。
 
-## セクション 1: Ansible Galaxyを使って新しいroleを初期化する
+## Section 1: Ansible Galaxyを使って新しいroleを初期化する
 
 Ansible Galaxyは、roleの検索とダウンロード、そして共有を可能にするフリーのサイトです。そしてまた、これを使えば今ここで行おうとしている事も容易に行えます。
 
 
-### ステップ 1:
+### Step 1:
 
  `apache-basic-playbook` プロジェクトへ移動します。
 
@@ -27,29 +30,34 @@ cd ~/apache-basic-playbook
 ```
 
 
-### ステップ 2:
+### Step 2:
 
- `roles` と命名したディレクトリを作成し `cd` でそこへ移動します。
+ `roles` と命名したディレクトリを作成し `cd` で作成したディレクトリへ移動し、ファイルが何もないことを確認します。
 
 ```bash
 mkdir roles
 cd roles
+ls -la
 ```
 
 
-### ステップ 3:
+### Step 3:
 
- `ansible-galaxy` コマンドで `apache-simple` と命名した新しいroleを初期化します。
+ `ansible-galaxy` コマンドで `apache-simple` と命名した新しいroleを用いて、Ansibleのベストプラクティスに則った空のフレームワークを構成します。
 
 ```bash
 ansible-galaxy init apache-simple
 ```
 
-ここまでで作成された構造を確認してください。先の図 1とよく似た構造になっている筈です。しかし、セクション 2へ進む前にあと1つだけ終らせるステップが残っています。それはAnsibleのベスト・プラクティスで、利用しないディレクトリとファイルのクリーンアップです。 このroleでは `files` と `tests` からは何も利用しません。
-Take a look around the structure you just created.  It should look a lot like Figure 1 above.  However, we need to complete one more ステップ before moving onto セクション 2.  It is Ansible best practice to clean out role directories and files you won't be using.  For this role, we won't be using anything from `files`, `tests`.
+ここまでで作成された構造を`tree`コマンドなどで確認してください。  
+先の図 1とよく似た構造になっている筈です。  
+次のセクションへ進む前にあと1つだけ終らせるステップが残っています。  
+
+それはgalaxyコマンドで作成されたからのフレームワークから、利用しないディレクトリとファイルをクリーンアップすることです。   
+今回作成したroleでは `files` と `tests` からは何も利用しません。
 
 
-### ステップ 4:
+### Step 4:
 
 `files` と `tests` ディレクトリを削除します。
 
@@ -59,12 +67,12 @@ rm -rf files tests
 ```
 
 
-## セクション 2: `site.yml` Playbookを新たに作成した`apache-simple` roleへ切り分ける
+## Section 2: `site.yml` Playbookを新たに作成した`apache-simple` roleへ切り分ける
 
 
 このセクションではPlaybookに含まれている`vars:`、 `tasks:`、 `template:`、 そして `handlers:` を主要パーツとして切り分けます。
 
-### ステップ 1:
+### Step 1:
 
 `site.yml` のバックアップ・コピーを作成し、新しい `site.yml` を作成します。
 
@@ -74,7 +82,7 @@ mv site.yml site.yml.bkup
 vim site.yml
 ```
 
-### ステップ 2:
+### Step 2:
 
 play の定義と role の呼び出しを追加します。
 
@@ -88,7 +96,7 @@ play の定義と role の呼び出しを追加します。
     - apache-simple
 ```
 
-### ステップ 3:
+### Step 3:
 
 `roles/apache-simple/defaults/main.yml` のroleにデフォルトの変数を追加します。
 
@@ -99,7 +107,7 @@ apache_test_message: This is a test message
 apache_max_keep_alive_requests: 115
 ```
 
-### ステップ 4:
+### Step 4:
 
 roleに特化した変数を`roles/apache-simple/vars/main.yml` のroleへ追加します。
 
@@ -129,7 +137,7 @@ httpd_packages:
 
 ---
 
-### ステップ 5:
+### Step 5:
 
 `roles/apache-simple/handlers/main.yml` にroleのハンドラを作成します。
 
@@ -144,7 +152,7 @@ httpd_packages:
     enabled: yes
 ```
 
-### ステップ 6:
+### Step 6:
 
 `roles/apache-simple/tasks/main.yml` のroleにtasksを追加します。
 
@@ -183,9 +191,10 @@ httpd_packages:
 {% endraw %}    
 ```
 
-### ステップ 7:
+### Step 7:
 
-`roles/apache-simple/templates/` へいくつかのテンプレートをダウンロードします。その後すぐ、演習 2.1の古いテンプレート・ディレクトリを削除し、クリーンアップを行います。
+`roles/apache-simple/templates/` へいくつかのテンプレートをダウンロードします。  
+その後すぐ、演習 2.1の古いテンプレート・ディレクトリを削除し、クリーンアップを行います。
 
 ```bash
 mkdir -p ~/apache-basic-playbook/roles/apache-simple/templates/
@@ -195,23 +204,23 @@ curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
 rm -rf ~/apache-basic-playbook/templates/
 ```
 
-## セクション 3: ロール・ベースの新しいPlaybookを実行します。
+## Section 3: ロール・ベースの新しいPlaybookを実行します。
 
 これでオリジナルのPlaybookをroleに切り分けることができました。では実際に実行してみましょう。
 
-### ステップ 1:
+### Step 1:
 
-Rplaybookを実行します。
+playbookを実行します。
 
 ```bash
-ansible-playbook --private-key ~/.ssh/workshopname-tower -i ../hosts site.yml
+ansible-playbook site.yml
 ```
 
 もしも問題なく実行されれば、標準出力は以下の図のようになる筈です。
 
 ![ロール・ベースの標準出力](stdout_3.png)
 
-## セクション 4: この演習の最後に
+## Section 4: この演習の最後に
 
 You should now have a completed playbook, `site.yml` with a single role called `apache-simple`.  The advantage of structuring your playbook into roles is that you can now add new roles to the playbook using Ansible Galaxy or simply writing your own.  In addition, roles simplify changes to variables, tasks, templates, etc.
 これで、1つの `apache-simple` roleを持つPlaybook、`site.yml` は完成です。Playbookを構造化されたrolesにすることの利点は、新たなrolesをAnsible Galaxyを使って、または自身の手で記述して追加できることにあります。またrolesを用いれば、容易に変数やtasksやテンプレート等を変更できます。

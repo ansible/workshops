@@ -9,13 +9,10 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
 ### INSTRUCTOR LED WORKSHOP:
 
   * [Presentation Decks](decks)  
-    Presentation decks use the [reveal.js framework](http://lab.hakim.se/reveal-js/)
-    Press `s` for speaker notes
-
      - [Ansible Essentials Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)
      - [Intro to Ansible Tower Deck](https://network-automation.github.io/linklight/decks/intro-to-ansible-tower.html)
      - [Ansible Networking Deck *Deprecated](https://network-automation.github.io/linklight/decks/ansible-networking.html#)
-     - [Ansible Networking-v2 Deck](https://network-automation.github.io/linklight/decks/ansible_network_v2.html)
+     - [Ansible Networking-v2 Deck](https://network-automation.github.io/linklight/decks/ansible_network.pdf)
      - [Ansible F5 Deck](https://network-automation.github.io/linklight/decks/ansible_f5.pdf)
 
   * Network Automation Exercises
@@ -46,11 +43,3 @@ Join our [mailing list](https://www.redhat.com/mailman/listinfo/linklight)
 
 ---
 ![Red Hat Ansible Automation](images/rh-ansible-automation.png)
-
-Red Hat® Ansible® Automation consists of  three products:
-
-- [Red Hat® Ansible® Tower](https://www.ansible.com/tower): Built for operationalizing and scaling automation, managing complex deployments and speeding up productivity. Extend the power of Ansible Tower with Workflows and Surveys to streamline jobs and simple tools to share solutions with your team.
-
-- [Red Hat® Ansible® Engine](https://www.ansible.com/ansible-engine): a fully supported product built on the foundational capabilities of the Ansible project. Also provides support for select modules including Infoblox.
-
-- [Red Hat® Ansible® Network Automation](https://www.ansible.com/networking): provides support for select networking modules from Arista (EOS), Cisco (IOS, IOS XR, NX-OS), Juniper (JunOS), Open vSwitch, and VyOS. Includes Ansible Tower, Ansible Engine, and curated content specifically for network use cases.

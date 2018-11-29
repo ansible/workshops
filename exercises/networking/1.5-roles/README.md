@@ -37,7 +37,7 @@ $ ansible-galaxy init system
 $ ansible-galaxy init interface
 $ ansible-galaxy init static_route
 
-$ ls -l
+$ tree
 .
 ├── interface
 │   ├── defaults
@@ -73,17 +73,12 @@ $ rm -rf roles/{system,interface,static_route}/{files,tests}
 
 In this section, we will separate out the major parts of your playbook including `vars:` and `tasks:`
 
-### Step 1: Make a copy of router_configs.yml, and create a new deploy_network.yml
+### Step 1: Create a new deploy_network.yml
 
-Copy the router_configs from the previous exercise:
-
-```
-$ cp ~/networking_workshop/router_configs.yml ~/test
-```
-
-Now create a new deploy_network.yml:
+Create a new deploy_network.yml:
 
 ```bash
+$ cd ~/test
 $ vim deploy_network.yml
 ```
 
@@ -93,6 +88,7 @@ $ vim deploy_network.yml
 ---
 - name: Deploy the Router configurations
   hosts: routers
+  connection: network_cli
   gather_facts: no
   roles:
     - system
@@ -110,7 +106,7 @@ dns_servers:
 ### Step 4: Add some global variables for your roles in `group_vars/all.yml`
 
 ```bash
-$ ~/test
+$ cd ~/test
 $ mkdir group_vars
 $ vim group_vars/all.yml
 ```
@@ -118,10 +114,10 @@ $ vim group_vars/all.yml
 ```yml
 ---
 ansible_network_os: ios
-ansible_connection: network_cli
+ansible_connection: local
 host1_private_ip: "172.18.2.125"
 control_private_ip: "172.17.1.157"
-ios_version: "16.08.01a"
+ios_version: "16.09.01"
 ```  
 Fill out host1_private_ip and control_private_ip from the lab_inventory
 
@@ -156,17 +152,17 @@ For `roles/interface/tasks/main.yml`:
 - block:
   - name: enable GigabitEthernet2 interface if compliant on r2
     ios_interface:
-      name: GigabitEthernet2
+      name: GigabitEthernet1
       description: interface to host1
       state: present
 
-  - name: dhcp configuration for GigabitEthernet2
+  - name: dhcp configuration for GigabitEthernet1
     ios_config:
       lines:
         - ip address dhcp
-      parents: interface GigabitEthernet2
+      parents: interface GigabitEthernet1
   when:
-    - ansible_ios_version == ios_version
+    - ansible_net_version == ios_version
     - '"rtr2" in inventory_hostname'
 ```
 

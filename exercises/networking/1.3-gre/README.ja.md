@@ -83,9 +83,9 @@ hostvars は、ホスト定義変数を意味します。`rtr1` と `rtr2` は�
   - name: create tunnel interface to R2
     ios_config:
       lines:
-       - 'ip address 10.0.0.1 255.255.255.0'
-       - 'tunnel source GigabitEthernet1'
-       - 'tunnel destination {{rtr2_public_ip}}'
+        - 'ip address 10.0.0.1 255.255.255.0'
+        - 'tunnel source GigabitEthernet1'
+        - 'tunnel destination {{rtr2_public_ip}}'
       parents: interface Tunnel 0
     when:
       - '"rtr1" in inventory_hostname'
@@ -101,9 +101,9 @@ hostvars は、ホスト定義変数を意味します。`rtr1` と `rtr2` は�
   - name: create tunnel interface to R1
     ios_config:
       lines:
-       - 'ip address 10.0.0.2 255.255.255.0'
-       - 'tunnel source GigabitEthernet1'
-       - 'tunnel destination {{rtr1_public_ip}}'
+        - 'ip address 10.0.0.2 255.255.255.0'
+        - 'tunnel source GigabitEthernet1'
+        - 'tunnel destination {{rtr1_public_ip}}'
       parents: interface Tunnel 0
     when:
       - '"rtr2" in inventory_hostname'

@@ -49,19 +49,19 @@ In this playbook we need to configure both sides of the GRE tunnel.  The tunnel 
 
 We also need **two variables**.  We need the public IP address for rtr1 and rtr2.  These two IP addresses will be different for every student in the workshop.  The public IP address can be found in the `~/networking_workshop/lab_inventory/hosts` on the ansible node.  Just call these `rtr1_public_ip` and `rtr2_public_ip`.  The IP address 1.1.1.1 and 2.2.2.2 are placeholders!  Please replace them, or use the dynamic mode below:
 ```yml
-vars:
-   #Variables can be manually set like this:
-   rtr1_public_ip: "1.1.1.1"
-   rtr2_public_ip: "2.2.2.2"
+  vars:
+    #Variables can be manually set like this:
+    rtr1_public_ip: "1.1.1.1"
+    rtr2_public_ip: "2.2.2.2"
 ```
 
 or you can also dynamically reference another host's variable like this:
 
 {% raw %}
 ```yml
-vars:
-  rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
-  rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
+  vars:
+    rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
+    rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
 ```
 {% endraw %}
 
@@ -71,16 +71,16 @@ hostvars refers to a variables host specific variables, `rtr1` and `rtr2` refer 
 
 {% raw %}
 ```bash
-tasks:
-- name: create tunnel interface to R2
-  ios_config:
-    lines:
-     - 'ip address 10.0.0.1 255.255.255.0'
-     - 'tunnel source GigabitEthernet1'
-     - 'tunnel destination {{rtr2_public_ip}}'
-    parents: interface Tunnel 0
-  when:
-    - '"rtr1" in inventory_hostname'
+  tasks:
+  - name: create tunnel interface to R2
+    ios_config:
+      lines:
+        - 'ip address 10.0.0.1 255.255.255.0'
+        - 'tunnel source GigabitEthernet1'
+        - 'tunnel destination {{rtr2_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr1" in inventory_hostname'
 ```    
 {% endraw %}
 
@@ -90,15 +90,15 @@ Notice the `when` statement shown above.  This is a conditional.  If the invento
 
 {% raw %}
 ```bash
-- name: create tunnel interface to R1
-  ios_config:
-    lines:
-     - 'ip address 10.0.0.2 255.255.255.0'
-     - 'tunnel source GigabitEthernet1'
-     - 'tunnel destination {{rtr1_public_ip}}'
-    parents: interface Tunnel 0
-  when:
-    - '"rtr2" in inventory_hostname'
+  - name: create tunnel interface to R1
+    ios_config:
+      lines:
+        - 'ip address 10.0.0.2 255.255.255.0'
+        - 'tunnel source GigabitEthernet1'
+        - 'tunnel destination {{rtr1_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr2" in inventory_hostname'
 ```
 {% endraw %}
 Now that you’ve completed writing your playbook, let’s go ahead and save it.  Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`  We now have our second playbook. Let’s go ahead and run that awesomeness!

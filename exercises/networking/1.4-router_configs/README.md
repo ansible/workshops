@@ -60,7 +60,7 @@ The variable can also be called dynamically by calling hostvars as seen below:
     dns_servers:
       - 8.8.8.8
       - 8.8.4.4
-    host1_private_ip: "{{hostva‌rs['host1']['private_ip']}}"
+    host1_private_ip: "{{hostvars['host1']['private_ip']}}"
     control_private_ip: "{{hostvars['ansible']['private_ip']}}"
 ```      
 {% endraw %}
@@ -90,8 +90,8 @@ Create a block and add the tasks for rtr1 with conditionals. We’ll also add a 
  What is happening here!?
   - `vars:` You’ve told Ansible the next thing it sees will be a variable name.
   - `dns_servers` You are defining a list-type variable called dns_servers. What follows is a list of those the name servers.
-  - {% raw %}`{‌{ item }}`{% endraw %} You are telling Ansible that this will expand into a list item like 8.8.8.8 and 8.8.4.4.
-  - {% raw %}`with_items: "{‌{ dns_servers }}`{% endraw %} This is your loop which is instructing Ansible to perform this task on every `item` in `dns_servers`
+  - {% raw %}`{{ item }}`{% endraw %} You are telling Ansible that this will expand into a list item like 8.8.8.8 and 8.8.4.4.
+  - {% raw %}`with_items: "{{ dns_servers }}`{% endraw %} This is your loop which is instructing Ansible to perform this task on every `item` in `dns_servers`
   - `block:` This block will have a number of tasks associated with it.
   - `when:` the when clause is tied to the block. We’re telling ansible to run all the tasks within the block only when certain conditions are met.
 
@@ -105,29 +105,29 @@ There will be 4 tasks in this block
 
 {% raw %}
 ```yml
-##Configuration for R2
-- block:
-  - name: enable GigabitEthernet1 interface if compliant
-    ios_interface:
-      name: GigabitEthernet1
-      description: interface to host1
-      state: present
-  - name: dhcp configuration for GigabitEthernet1
-    ios_config:
-      lines:
-        - ip address dhcp
-      parents: interface GigabitEthernet1
-  - name: Static route from R2 to R1
-    ios_static_route:
-      prefix: "{{control_private_ip}}"
-      mask: 255.255.255.255
-      next_hop: 10.0.0.1
-  - name: configure name servers
-    ios_system:
-      name_servers: "{{item}}"
-    with_items: "{{dns_servers}}"
-when:
-  - '"rtr2" in inventory_hostname'
+    ##Configuration for R2
+    - block:
+      - name: enable GigabitEthernet1 interface if compliant
+        ios_interface:
+          name: GigabitEthernet1
+          description: interface to host1
+          state: present
+      - name: dhcp configuration for GigabitEthernet1
+        ios_config:
+          lines:
+            - ip address dhcp
+          parents: interface GigabitEthernet1
+      - name: Static route from R2 to R1
+        ios_static_route:
+          prefix: "{{control_private_ip}}"
+          mask: 255.255.255.255
+          next_hop: 10.0.0.1
+      - name: configure name servers
+        ios_system:
+          name_servers: "{{item}}"
+        with_items: "{{dns_servers}}"
+      when:
+        - '"rtr2" in inventory_hostname'
 ```
 {% endraw %}
 

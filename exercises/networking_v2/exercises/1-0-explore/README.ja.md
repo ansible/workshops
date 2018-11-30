@@ -1,4 +1,4 @@
-# Exercise 1.0 - Exploring the lab environment
+# Exercise 1.0 - Anisbleのlab環境を確認してみよう
 
 ラボを開始する前に、ぜひSlackに参加してみましょう!  
 今後のAnsibleの学習に役立つはずです。
@@ -159,4 +159,4 @@ rtr1 ansible_host=52.90.196.252 ansible_ssh_user=ec2-user private_ip=172.16.165.
 lab exercise 1.0 は以上です。
 
 ---
-[ここをクリックして Ansible Linklight - Networking Workshop へ戻ります](../../README.md)
+[ここをクリックすると Ansible Linklight - Networking Workshop へ戻ります](../../README.ja.md)

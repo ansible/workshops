@@ -1,13 +1,14 @@
 # Exercise 1.0 - Exploring the lab environment
 
-ラボを開始する前に、ぜひSlackに参加してください!  
-ここでは２つのSlackチャンネルを紹介します。  
+ラボを開始する前に、ぜひSlackに参加してみましょう!  
+今後のAnsibleの学習に役立つはずです。
+ここでは日本のAnsibleユーザ会と２つのSlackチャンネルを紹介します。  
 
-[日本のAnsibleコミュニティ ansiblejp Slackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E).
 
+[日本のAnsibleコミュニティ](https://ansible-users.connpass.com)  
+[日本のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E)  
+[海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
 
-[Click here to join the ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE).   
-This will allow you to chat with other network automation engineers and get help after the workshops concludes.
 
 ## Step 1
 
@@ -71,9 +72,12 @@ private_key_file = /home/student1/.ssh/aws-private.pem
 
 ## Step 4
 
-The scope of a `play` within a `playbook` is limited to the groups of hosts declared within an Ansible **inventory**. Ansible supports multiple [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) types. An inventory could be a simple flat file with a collection of hosts defined within it or it could be a dynamic script (potentially querying a CMDB backend) that generates a list of devices to run the playbook against.
+`playbook`内の`play`においては、Anisbleの**inventory**ファイル内で定義されているターゲットホストのグループの制限を行うことができます。  
+Ansibleは複数の[inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html)のタイプをサポートしています。
+インベントリは、シンプルに定義されたホストのリストを定義することもできますし、(バックエンドのCMDBなどから)動的に実行されるスクリプトによって生成されるデバイスのリストでも構いません。
 
-In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
+このラボでは、**ini**形式で書かれたファイルベースのインベントリを使用します。   
+実際に登録されているインベントリを確認するには `cat`コマンドを使います：
 
 
 ```
@@ -121,30 +125,38 @@ ansible ansible_host=35.183.137.160 ansible_user=ec2-user private_ip=172.16.45.1
 
 ## Step 5
 
-In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr2`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
+出力結果を確認していきましょう。
+`[ ]` は、グループを定義しています。  
+例えば、`[dc1]`は *dc1グループ* において、 `rtr1` と `rtr3` の２つのホスト(ここではルーターですが)が含まれていることを示しています。  
 
-> Parent groups are declared using the `children` directive. Having nested groups allows the flexibility of assigining more specific values to variables.
+また、グループ定義は、_ネスト構造_ を取ることができます。  
+上記の例では、グループ `[routers]` は、 `[cisco]` と `[juniper]` の２つのグループが所属する親グループとなります。
 
+> 親グループは、 `children` ディレクティブを用いて宣言されます。ネスト構造が可能なことで、構成や変数の割り当てに柔軟性を持たせることができます。
 
-> Note: A group called **all** always exists and contains all groups and hosts defined within an inventroy.
+> 注意: **all** と定義されたグループがあります。このグループはデフォルトで定義されており、インベントリー内の全てのグループと全てのホストが含まれます。
 
-
-We can associate variables to groups and hosts. Host variables are declared/defined on the same line as the host themselves. For example for the host `rtr1`:
+また、グループやホストに変数を割り当てることができます。  
+例えば、ホスト変数はホスト自体と同じ行に宣言/定義されています。  
+`rtr1` での例を見てみましょう:
 
 ```
 rtr1 ansible_host=52.90.196.252 ansible_ssh_user=ec2-user private_ip=172.16.165.205 ansible_network_os=ios
 
 ```
-
- - `rtr1` - The name that Ansible will use.  This can but does not have to rely on DNS
- - `ansible_host` - The IP address that ansible will use, if not configured it will default to DNS
- - `ansible_ssh_user` - The user ansible will use to login to this host, if not configured it will default to the user the playbook is run from
- - `private_ip` - This value is not reserved by ansible so it will default to a [host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables).  This variable can be used by playbooks or ignored completely.
-- `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
+ - `rtr1` - Ansibleが利用するホスト名です。これはDNSにも依存しますが、ローカルで定義することもできます。
+ - `ansible_host` - Ansibleが使用するIPアドレスです。設定されていない場合は、DNSへ名前解決を実行します。
+ - `ansible_ssh_user` - ホストへログインするために利用されるユーザです。設定されていない場合には、Playbookを実行しているユーザがデフォルトでは割当たります。
+ - `private_ip` - Anisbleによって定義はされていない、デフォルトでは利用しない値です。  
+ ホストに対して利用する変数[host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables)としてユーザが名称を含め、任意に定義することができます。  
+定義された値はPlaybookの中で利用されるか、利用されない場合は完全に無視されます。
+ 
+- `ansible_network_os` - この変数は、`network_cli` というコネクションタイプをPlay定義内で使用する際に必要になります。コネクションタイプについては後ほど説明があります。
 
 # Complete
 
-You have completed lab exercise 1.0
+お疲れ様でした。  
+lab exercise 1.0 は以上です。
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)
+[ここをクリックして Ansible Linklight - Networking Workshop へ戻ります](../../README.md)

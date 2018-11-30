@@ -1,18 +1,18 @@
 # Exercise 1.0 - Exploring the lab environment
 
-ラボを開始する前に、ぜひSlackに参加してみましょう!  
-今後のAnsibleの学習に役立つはずです。
-ここでは日本のAnsibleユーザ会と２つのSlackチャンネルを紹介します。  
+ラボを開始する前に、ぜひSlackに参加してみましょう!  
+今後のAnsibleの学習に役立つはずです。
+ここでは日本のAnsibleユーザ会と２つのSlackチャンネルを紹介します。  
 
 
-[日本のAnsibleコミュニティ](https://ansible-users.connpass.com)  
-[日本のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E)  
-[海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
+[日本のAnsibleコミュニティ](https://ansible-users.connpass.com)  
+[日本のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E)  
+[海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
 
 
 ## Step 1
 
-`networking-workshop` ディレクトリへ移動します。
+`networking-workshop` ディレクトリへ移動します。
 
 
 ```
@@ -45,7 +45,7 @@ ansible 2.6.2
 > Note: 表示される ansible version は上記のものと異なる可能性があります。
 
 
-このコマンドは、Ansibleのバージョン、実行ファイルの場所、Pythonのバージョン、利用するモジュールを検索する場所、`ansible configuration file`の場所などが確認できます。
+このコマンドは、Ansibleのバージョン、実行ファイルの場所、Pythonのバージョン、利用するモジュールを検索する場所、`ansible configuration file`の場所などが確認できます。
 
 ## Step 3
 
@@ -65,14 +65,14 @@ private_key_file = /home/student1/.ssh/aws-private.pem
 
 `ansible.cfg` ファイル内の以下のパラメータに注意してください。
 
- - `inventory`: ansible が利用するInventoryファイルの場所を指定しています。
- - `private_key_file`: デバイスにログインするためのprivate keyの場所を指定しています。
+ - `inventory`: ansible が利用するInventoryファイルの場所を指定しています。
+ - `private_key_file`: デバイスにログインするためのprivate keyの場所を指定しています。
 
 
 
 ## Step 4
 
-`playbook`内の`play`においては、Anisbleの**inventory**ファイル内で定義されているターゲットホストのグループの制限を行うことができます。  
+`playbook`内の`play`においては、Anisbleの**inventory**ファイル内で定義されているターゲットホストのグループの制限を行うことができます。  
 Ansibleは複数の[inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html)のタイプをサポートしています。
 インベントリは、シンプルに定義されたホストのリストを定義することもできますし、(バックエンドのCMDBなどから)動的に実行されるスクリプトによって生成されるデバイスのリストでも構いません。
 
@@ -125,7 +125,7 @@ ansible ansible_host=35.183.137.160 ansible_user=ec2-user private_ip=172.16.45.1
 
 ## Step 5
 
-出力結果を確認していきましょう。
+出力結果を確認していきましょう。
 `[ ]` は、グループを定義しています。  
 例えば、`[dc1]`は *dc1グループ* において、 `rtr1` と `rtr3` の２つのホスト(ここではルーターですが)が含まれていることを示しています。  
 
@@ -134,7 +134,7 @@ ansible ansible_host=35.183.137.160 ansible_user=ec2-user private_ip=172.16.45.1
 
 > 親グループは、 `children` ディレクティブを用いて宣言されます。ネスト構造が可能なことで、構成や変数の割り当てに柔軟性を持たせることができます。
 
-> 注意: **all** と定義されたグループがあります。このグループはデフォルトで定義されており、インベントリー内の全てのグループと全てのホストが含まれます。
+> 注意: **all** と定義されたグループがあります。このグループはデフォルトで定義されており、インベントリー内の全てのグループと全てのホストが含まれます。
 
 また、グループやホストに変数を割り当てることができます。  
 例えば、ホスト変数はホスト自体と同じ行に宣言/定義されています。  
@@ -145,13 +145,13 @@ rtr1 ansible_host=52.90.196.252 ansible_ssh_user=ec2-user private_ip=172.16.165.
 
 ```
  - `rtr1` - Ansibleが利用するホスト名です。これはDNSにも依存しますが、ローカルで定義することもできます。
- - `ansible_host` - Ansibleが使用するIPアドレスです。設定されていない場合は、DNSへ名前解決を実行します。
+ - `ansible_host` - Ansibleが使用するIPアドレスです。設定されていない場合は、DNSへ名前解決を実行します。
  - `ansible_ssh_user` - ホストへログインするために利用されるユーザです。設定されていない場合には、Playbookを実行しているユーザがデフォルトでは割当たります。
- - `private_ip` - Anisbleによって定義はされていない、デフォルトでは利用しない値です。  
+ - `private_ip` - Anisbleによって定義はされていない、デフォルトでは利用しない値です。  
  ホストに対して利用する変数[host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables)としてユーザが名称を含め、任意に定義することができます。  
 定義された値はPlaybookの中で利用されるか、利用されない場合は完全に無視されます。
- 
-- `ansible_network_os` - この変数は、`network_cli` というコネクションタイプをPlay定義内で使用する際に必要になります。コネクションタイプについては後ほど説明があります。
+ 
+- `ansible_network_os` - この変数は、`network_cli` というコネクションタイプをPlay定義内で使用する際に必要になります。コネクションタイプについては後ほど説明があります。
 
 # Complete
 
@@ -159,4 +159,4 @@ rtr1 ansible_host=52.90.196.252 ansible_ssh_user=ec2-user private_ip=172.16.165.
 lab exercise 1.0 は以上です。
 
 ---
-[ここをクリックして Ansible Linklight - Networking Workshop へ戻ります](../../README.md)
+[ここをクリックして Ansible Linklight - Networking Workshop へ戻ります](../../README.md)

@@ -1,26 +1,31 @@
-# Exercise 1.1 - Writing your first playbook
+# Exercise 1.1 - 初めてのplaybookを書いてみよう
 
-Now that you have a fundamental grasp of the inventory file and the group/host variables, this section will walk you through building a playbook.
+ここまでで、インベントリファイルとグループ/ホストの変数について把握ができたと思います。
+このセクションでは、playbookの作成について説明をします。
 
-> This section will help you understand the components of a playbook while giving you an immediate baseline for using it within your own production environment!
+> このセクションでは、playbookがどのような構造かを理解し、あなたが本番環境でplaybookを実行できるくらいの初歩的なベースラインを達成することを目指しています。
 
 #### Step 1:
 
-Using your favorite text editor (`vim` and `nano` are available on the control host) create a new file called `gather_ios_data.yml`.
+好みのエディターを利用して、 `gather_ios_data.yml` というファイルを作成して見ましょう。  
+(`vim` と `nano` がコントロールホストでは利用可能です)
 
->Alternately, you can create it using sublimetext or any GUI editor on your laptop and scp it over)
-
-
->Ansible playbooks are **YAML** files. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
-
-#### Step 2:
 ```
 [student1@ansible networking-workshop]$ vim gather_ios_data.yml
 ```
 
+>必要に応じてお好きなGUIエディターをラップトップなどで利用してください。
+
+>Ansible playbookは **YAML** ファイル形式で作成します。  
+>YAML は構造化されたデータを表現するフォーマットであり、人が見ても読みやすいと思える形式だろうです。(JSONのフォーマットとは異なります)
+
+
+#### Step 2:
+
+作成した `gather_ios_data.yml`　へ、次の例を参考にplayを追加してみましょう。
 Enter the following play definition into `gather_ios_data.yml`:
 
->Press the letter "i" to enter insert mode*
+>vimを利用している場合は、"i"を押して編集モードへ入ります。
 
 ``` yaml
 ---
@@ -30,12 +35,19 @@ Enter the following play definition into `gather_ios_data.yml`:
   gather_facts: no
 ```
 
-`---` indicates that this is a YAML file. We are running this playbook against the group `cisco`, that was defined earlier in the inventory file. Playbooks related to network devices should use the connection plugin called `network_cli`. Ansible has different connection plugins that handle different connection interfaces. The `network_cli` plugin is written specifically for network equipment and handles things like ensuring a persistent SSH connection across multiple tasks.
+`---` このファイルが、YAMLファイルであることを示しています。  
+`hosts: cisco` このplaybookを`cisco`グループに対して実行します。  
+グループ名は先の演習で確認をしたインベントリーファイル内で定義されていました。  
+`connection: network_cli` ネットワーク機器に対して実行するplaybookは`netowrk_cli`という接続プラグインを指定してあげる必要があります。  
+
+Ansibleは、`connection`で指定が可能な数種類のコネクションプラグインが用意されています。これにより、操作対象によって異なる接続方式が利用できます。  
+この`network_cli`プラグインはネットワーク機器専用に開発されたコネクションプラグインで、複数のタスク間で永続的なSSH接続が確保されるように構成されています。
 
 
 #### Step 3
 
-Next, add the first `task`. This task will use the `ios_facts` module to gather facts about each device in the group `cisco`.
+次に、最初の`task`を追加しましょう。  
+今回作成するタスクでは、`ios_facts`モジュールを使用して、(`cisco`グループに属する)各デバイスから情報を収集します。
 
 
 ``` yaml
@@ -50,23 +62,23 @@ Next, add the first `task`. This task will use the `ios_facts` module to gather 
       ios_facts:
 ```
 
->A play is a list of tasks. Modules are pre-written code that perform the task.
-
+>playは、タスクのリストになります。
+>モジュールとは、タスクを実行するために事前に用意されているコードです。
 
 
 #### Step 4
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+エディタから実行ホストのCLIに戻り、playbookを実行して見ましょう。 　
+playbookの実行は以下のコマンドを参考にしてください。
 
->Use the write/quit method in vim to save your playbook, i.e. Esc :wq!
-
+>vimで編集した内容を保存してエディタを終了するには、`wq!`と入力しましょう。
 
 ```
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
 
 ```
 
-The output should look as follows.
+出力結果は以下のようになるはずです。
 
 ```
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
@@ -93,10 +105,11 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 
 #### Step 5
 
+playは問題なく成功し、ルーター4台に対する操作が完了しました。
+しかし、実行結果はどこに出力されているのでしょうか？
+playbookを、`-v`オプションをつけてもう一度実行してみましょう。
 
-The play ran successfully and executed against the 4 routers. But where is the output?! Re-run the playbook using the `-v` flag.
-
-> Note: Ansible has increasing level of verbosity. You can use up to 4 "v's", -vvvv.
+> Note: Ansibleは、実行結果の出力ログの詳細度合いを段階的に設定できます。最大四つのv(verbose mode)を設定して実行することができます。`-vvvv`  
 
 
 ```
@@ -116,13 +129,15 @@ ok: [rtr3] => {"ansible_facts": {"ansible_net_all_ipv4_addresses": ["10.100.100.
 <output truncated for readability>
 ```
 
-
-> Note: The output returns key-value pairs that can then be used within the playbook for subsequent tasks. Also note that all variables that start with **ansible_** are automatically available for subsequent tasks within the play.
-
+> Note: 出力結果には、keyとvelueのペアになった情報が含まれています。これらの出力されたkey-velueペアの情報は、以降のplaybook内のtaskで利用することができます。また、 **ansible_**で始まる全ての変数は、anisbleが定義している値であり、後続のplayの中で定義をしなくても自動的に利用な値であるということに注意してください。
 
 #### Step 6
 
-Ansible allows you to limit the playbook execution to a subset of the devices declared in the group, against which the play is running against. This can be done using the `--limit` flag. Rerun the above task, limiting it first to `rtr1` and then to both `rtr1` and `rtr3`
+Ansibleは、操作対象のデバイスを、実行時にオプションをつけることで実行先を限定的(limit)にすることができます。  
+このオプションを実行するためには、インベントリーファイル内でデバイス名やグループ名などがあらかじめ定義されている必要があります。  
+また、実行時には、`--limit`を付与します。  
+先ほど実行したタスクに、`rtr1`をつけてrtr1だけに実行してみましょう。  
+次に、`rtr1` と `rtr3`を２つ同時に実行してみましょう。
 
 
 ```
@@ -141,9 +156,11 @@ Ansible allows you to limit the playbook execution to a subset of the devices de
 
 #### Step 7
 
-Running a playbook in verbose mode is a good option to validate the output from a task. To work with the variables within a playbook you can use the `debug` module.
+playbookをverbose mode(-vオプション)で実行するのは、タスクからどのような出力があるかを検証するのに適していることをStep5で学んだ通りです。   
+playbook内で扱われている変数をコントロールするためには、`debug`モジュールを使ってみましょう。
 
-Write 2 tasks that display the routers' OS version and serial number.
+この演習では、2つのタスクを作成します。
+ルータのOS Versionと、シリアルナンバーを表示させるタスクです。
 
 ``` yaml
 {%raw%}
@@ -170,7 +187,9 @@ Write 2 tasks that display the routers' OS version and serial number.
 
 #### Step 8
 
-Now re-run the playbook but this time do not use the `verbose` flag and run it against all hosts.
+では、playbookを再実行してみましょう。  
+今回の実行では`verbose`オプションは必要ありません。  
+また、全てのホストに対して実行させます。
 
 ```
 
@@ -223,11 +242,16 @@ rtr4                       : ok=3    changed=0    unreachable=0    failed=0
 ```
 
 
-Using less than 20 lines of "code" you have just automated version and serial number collection. Imagine if you were running this against your production network! You have actionable data in hand that does not go out of date.
+
+たった、20行以下の"code"で、バージョンとシリアル番号の収集が自動化されてしまいました。  
+ここで記述したplaybookをあなたの職場の本番環境のネットワーク機器に対して実行したらどうなるでしょうか？  
+誰かが更新していないかもしれないパラメータシートから、なぜ記述が残っているかもわからないすでに存在しない機器の情報を時間をかけて探すようなことは二度と起こらないかもしれません。
+
 
 # Complete
 
-You have completed lab exercise 1.1
+お疲れ様でした。  
+lab exercise 1.1 は以上です。
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)
+[ここをクリックすると Ansible Linklight - Networking Workshop へ戻ります](../../README.ja.md)

@@ -23,7 +23,7 @@
 - [Exercise 3.0 - An introduction to templating with Jinja2](./exercises/3-0-templates)
 - [Exercise 3.1 - Building dynamic documentation using the command parser](./exercises/3-1-parser/)
 
-## Network Diagram ~この演習のNW構成図~
+## Network Diagram この演習のNW構成図
 ![Red Hat Ansible Automation](../../images/network_diagram.png)
 
 ## 追加情報

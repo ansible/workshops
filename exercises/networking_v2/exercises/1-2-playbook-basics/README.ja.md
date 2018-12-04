@@ -1,4 +1,5 @@
-# Exercise 1.2 - Module documentation, Registering output & tags
+# Exercise 1.2 - Moduleのドキュメントの確認方法、 出力結果の登録方法、 tagの使い方
+Module documentation, Registering output & tags
 
 前のセクションでは、`ios_facts` と `debug` の使い方を学びました。  
 `debug` モジュールの使い方では、 `msg` と呼ばれるパラメータを設定しましたが、`ios_facts`モジュールについては特にそのようなものを設定しませんでした。  
@@ -28,15 +29,15 @@
 
 ```
 
-factsの取得を制限したい場合、どうすれば良いでしょうか？
-ドキュメント上で確認してみてください。
+factsの取得を制限したい場合、どうすれば良いでしょうか？  
+答えはドキュメント上で確認してみてください。
 
 
 #### Step 2
 前のセクションでは、`ios_facts`モジュールを用いてデバイスの詳細を取得する方法を学習しました。  
 `ios_facts`モジュールでは取得ができない情報があった場合、`ios_command`モジュールを利用することで、手動オペレーションと同様`show`コマンドの結果から取得することができます。  
 
-この演習を進めることで、_show_ コマンドの実行結果から、**hostname**と`show ip interface brief`の出力結果を自動収集する方法を学びましょう。
+この演習を進めて、_show_ コマンドの実行結果から、**hostname**と`show ip interface brief`の出力結果を自動収集する方法を学びましょう。
 
 
 ``` yaml
@@ -68,18 +69,17 @@ factsの取得を制限したい場合、どうすれば良いでしょうか？
 {%endraw%}
 ```
 
-> Note: **commands** is a parameter required by the **ios_module**. The input to this parameter is a "list" of IOS commands.
-
-
+> Note: **commands** 以下は、**ios_module**が必要とするパラメータを入力します。  
+パラメータとして入力する値は、"list"形式で記述されるIOS コマンドとなります。
 
 #### Step 3
 
-Before running the playbook, add a `tag` to the last task. Name it "show"
+playbookを実行する前に、最後のtaskへ`tag`を追加しましょう。  
+ここでは`show`と名前をつけます。
 
-> Tags can be added to tasks, plays or roles within a playbook. You can assign one or more tags to any given task/play/role. Tags allow you to selectively run parts of the playbook.
-
-
-
+> Tagは、playbookの中でタスク、play、rolesに対して追加することができます。  
+> 1つもしくは複数のtagをtask/play/roleへ追加することができます。  
+> tagを利用すると、playbookの一部だけを選択して実行するようなことができるようになります。
 
 
 ``` yaml
@@ -116,7 +116,8 @@ Before running the playbook, add a `tag` to the last task. Name it "show"
 
 #### Step 4
 
-Selectively run the last task within the playbook using the `--tags` option:
+部分的な実行を試してみましょう。  
+この機能を利用するには、`--tags`オプションをつけてplaybookを実行します。
 
 ```
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml --tags=show
@@ -139,16 +140,16 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 
 ```
 
-Note 2 important points here.
+2つの重要なポイントを記します。
 
-1. Only a single task was executed during the playbook run (You no longer can see the serial number and IOS version being displayed)
+1. playbookの実行中には、1つのタスクだけが実行されたはずです。(シリアル番号と、IOS Versionが表示されなくなったはずです。)
 
-2. The output of the show commands is not being displayed.
-
+2. show commandの実行結果が、表示されていないはずです。
 
 #### Step 5
 
-Re-run the playbook using the `-v` verbose flag to see the output coming back from the routers.
+playbookを `-v`オプション(vervose mode)をつけて再実行してみましょう。  
+ルータに実行されたコマンドの出力結果が確認できます。
 
 ```
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml --tags=show -v
@@ -157,7 +158,9 @@ Re-run the playbook using the `-v` verbose flag to see the output coming back fr
 
 #### Step 6
 
-With the `ios_facts` module, the output was automatically assigned to the `ansible_*` variables. For any of the ad-hoc commands we run against remote devices, the output has to be "registered" to a variable in order to use it within the playbook. Go ahead and add the `register` directive to collect the output of the show commands into a variable called `show_output`:
+`ios_facts`モジュールでは、取得された情報は自動的に`ansible_*`変数へ割り当てされていました。  
+それとは対照的にアドホックなコマンドを実行した際には出力結果が自動的になにがしかの変数に割当たることがないため、playbook内で利用するには任意の変数に登録(register)する必要があります。  
+先ほど作成したplaybookの中へ、`show_output`と定義した変数を追加し、showコマンドの出力結果を登録`register`する構文を追加してみましょう。
 
 
 ``` yaml
@@ -193,9 +196,8 @@ With the `ios_facts` module, the output was automatically assigned to the `ansib
 
 #### Step 7
 
-
-Add a task to use the `debug` module to display the content's of the `show_output` variable. Tag this task as "show" as well.
-
+`debug` モジュールを用いて、先ほど作成した`show_output`変数の内容を表示するタスクを追加してください。
+また、このtaskにも"show"というtagを付与してください。
 
 
 ``` yaml
@@ -233,14 +235,14 @@ Add a task to use the `debug` module to display the content's of the `show_outpu
 {%endraw%}
 ```
 
-> Note the use of **var** vs **msg** for the debug module.
-
+>  debugモジュールにおける、**var** と **msg** の使い方に注意してください。
 
 
 
 #### Step 8
 
-Re-run the playbook to execute only the tasks that have been tagged. This time run the playbook without the `-v` flag.
+playbookを再実行して、タグ付けしたタスクのみを実行します。  
+今回は、`-v`フラグを付けずにplaybookを実行します。
 
 
 ```
@@ -290,10 +292,15 @@ ok: [rtr1] => {
 ```
 #### Step 9
 
-The `show_output` variable can now be parsed just like a `Python` dictionary. It contains a "key" called `stdout`. `stdout` is a list object, and will contain exactly as many elements as were in the input to the `commands` parameter of the `ios_command` task. This means `show_output.stdout[0]` will contain the output of the `show running | i hostname` command and `show_output.stdout[1]` will contain the output of `show ip interface brief`.
+みなさんが作成し定義した`show_output` 変数は、`python dictionary`(辞書)と同じように構文解析を行うことができます。  
+それらは、通常 "key" と呼ばれる `stdout`　(標準出力)を含みます。  
+`stdout`は、リスト型のオブジェクトで、`ios_command`タスクの`command`パラメータへの入力と同じだけの数の構成数になります。　　
 
-Write a new task to display only the hostname using a debug command:
+つまり、  
+`show_output.stdout[0]`は`show running | i hostname`コマンドの結果が格納され、  
+`show_output.stdout[1]`は、 `show ip interface brief`の結果が格納される、ということです。
 
+debug コマンドを用いて hostname だけを表示する新しいtaskを追記してみましょう。
 
 
 ``` yaml
@@ -338,7 +345,7 @@ Write a new task to display only the hostname using a debug command:
 
 #### Step 10
 
-Re-run the playbook.
+playbookを再実行してみましょう。
 
 
 ``` yaml
@@ -394,7 +401,8 @@ rtr4                       : ok=3    changed=0    unreachable=0    failed=0
 
 # Complete
 
-You have completed lab exercise 1.2
+お疲れ様でした。  
+以上でlab exercise 1.2 は終了です。
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)
+[ここをクリックすると Ansible Linklight - Networking Workshop へ戻ります](../../README.ja.md)

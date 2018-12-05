@@ -40,8 +40,8 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
   with_indexed_items:
@@ -88,8 +88,8 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host1
@@ -123,8 +123,8 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host2

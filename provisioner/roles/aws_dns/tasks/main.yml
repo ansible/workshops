@@ -1,0 +1,7 @@
+- name: REMOVE DNS ENTRIES FOR EACH TOWER NODE
+  include_tasks: teardown.yml
+  when: teardown
+
+- name: CREATE DNS ENTRIES FOR EACH TOWER NODE AND SSL CERT
+  include_tasks: create.yml
+  when: not teardown

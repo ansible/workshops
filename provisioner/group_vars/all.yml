@@ -1,3 +1,6 @@
 networking: false
 f5workshop: false
 admin_password: ansible
+workshop_dns_zone: "rhdemo.io"
+s3_state: "present"
+teardown: false

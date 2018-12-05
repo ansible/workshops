@@ -3,10 +3,10 @@ connection = smart
 timeout = 60
 deprecation_warnings = False
 {% if networking %}
-inventory = /home/{{ username }}/networking-workshop/lab_inventory/hosts
+inventory = /home/{{username}}/networking-workshop/lab_inventory/hosts
 {% elif f5workshop %}
-inventory = /home/{{ username }}/networking-workshop/lab_inventory/hosts
+inventory = /home/{{username}}/networking-workshop/lab_inventory/hosts
 {% else %}
-inventory = /home/{{ username }}/lightbulb/lessons/lab_inventory/{{username}}-instances.txt
+inventory = /home/{{username}}/lightbulb/lessons/lab_inventory/{{username}}-instances.txt
 {% endif %}
 host_key_checking = False

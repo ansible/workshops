@@ -1,6 +1,3 @@
-- debug:
-    var: s3_state
-
 - name: CREATE STUDENT WEBPAGE
   template:
     src: ./templates/index.html.j2

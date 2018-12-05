@@ -219,7 +219,7 @@ $("document").ready(function(){
 
                 <a href="https://github.com/network-automation/linklight" class="btn btn-ghost">View on GitHub</a><br><br>
 
-              <h1>Workshop Name: {{ec2_name_prefix}}</h1>
+              <h1>Workshop Name: junostesting</h1>
 
             </div>
         </div>
@@ -231,17 +231,11 @@ $("document").ready(function(){
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                {% if networking or f5workshop %}
-                <h2>Network Automation Workshops</h2>
+                                <h2>Network Automation Workshops</h2>
                 <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
-                {% else %}
-                <h2>Server Automation Workshops</h2>
-                <p>These workshops are focused on automating Linux platforms like RHEL (Red Hat Enterprise Linux)</p>
-                {% endif %}
-            </div>
+                            </div>
         </div>
-        {% if networking %}
-        <div class="row">
+                <div class="row">
           <div class="col-sm-4">
               <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/networking_v2/">Ansible Networking v2 Exercises</a>
           </div>
@@ -254,35 +248,7 @@ $("document").ready(function(){
             <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_tower/">Ansible Tower Exercises</a>
           </div>
         </div>
-        {% elif f5workshop %}
-        <div class="row">
-          <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_f5/">Ansible F5 Exercises</a>
-          </div>
-
-          <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/ansible_f5.pdf">Ansible F5 Deck</a>
-          </div>
-
-          <div class="col-sm-4">
-            <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_tower/">Ansible Tower Exercises</a>
-          </div>
-        </div>
-        {% else %}
-         <div class="row">
-            <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_engine/">Ansible Server Exercises</a>
-            </div>
-          <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/decks/ansible-essentials.html#/">Ansible Essentials Deck</a>
-          </div>
-            <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://network-automation.github.io/linklight/exercises/ansible_tower/">Ansible Tower Exercises</a>
-            </div>
-
-        </div>
-        {% endif %}
-<br><br>
+        <br><br>
 
     </div>
 </section>
@@ -340,28 +306,22 @@ $("document").ready(function(){
         </div>
 
         <div class="row">
-{% for number in range(1,student_total + 1) %}
   <div class="student_logins">
     <div class="header">
 
-      <p class="studentinfo">student{{number}} - Click to see login details</p>
+      <p class="studentinfo">student1 - Click to see login details</p>
     </div>
     <div class="content">
-{% for host in ansible_node_facts.instances %}
-{% if 'student' ~ number == host.tags.Student %}
 To login to the <code>ansible</code> control node use the following for SSH access:<br>
-username:   student{{number}}<br>
-password:   {{admin_password}}<br>
-IP Address: {{ host.public_ip_address }}<br>
-<pre><code>ssh student{{number}}@{{ host.public_ip_address }}</code></pre>
-DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
-<pre><code>ssh student{{number}}@student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
-Tower Link: <a href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a><br>
-{% endif %}
-{% endfor %}
+username:   student1<br>
+password:   ansible<br>
+IP Address: 35.183.32.62<br>
+<pre><code>ssh student1@35.183.32.62</code></pre>
+DNS: student1.junostesting.rhdemo.io<br>
+<pre><code>ssh student1@student1.junostesting.rhdemo.io</code></pre>
+Tower Link: <a href="https://student1.junostesting.rhdemo.io">https://student1.junostesting.rhdemo.io</a><br>
     </div>
   </div>
-{% endfor %}
 
        </div>
     </div>

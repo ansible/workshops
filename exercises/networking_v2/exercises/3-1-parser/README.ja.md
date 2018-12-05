@@ -75,7 +75,7 @@ Loopback0 is up, line protocol is up
 
 #### Step 2
 
-次に Playbook に `ansible-network.network-engine` ロールを加えてみます。ロールは何も行いませんが、より高いレベルで Playbook の抽象化を行います。繰り返し書かれた特定のタスクを扱うために事前に書かれた Playbook と考えてください。最初にロールをインストールする必要があります。control node 上で次のコマンドを実行してロースをインストールします。
+次に Playbook に `ansible-network.network-engine` ロールを加えてみます。ロールは何も行いませんが、より高いレベルで Playbook の抽象化を行います。繰り返し書かれた特定のタスクを扱うために事前に書かれた Playbook と考えてください。最初にロールをインストールする必要があります。control node 上で次のコマンドを実行してロールをインストールします。
 
 ``` bash
 [student1@ansible networking-workshop]$ ansible-galaxy install ansible-network.network-engine

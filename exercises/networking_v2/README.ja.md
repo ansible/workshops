@@ -19,9 +19,9 @@
 - [Exercise 2.1 - Routerのコンフィグをバックアップしてみよう](./exercises/2-1-backup/)
 - [Exercise 2.2 - バックアップしたコンフィグでRouterをリストアしてみよう](./exercises/2-2-restore)
 
-### Section 03 - Using Ansible to parse information for reporting
-- [Exercise 3.0 - An introduction to templating with Jinja2](./exercises/3-0-templates)
-- [Exercise 3.1 - Building dynamic documentation using the command parser](./exercises/3-1-parser/)
+### Section 03 - Ansibleを使ってレポート作成するための情報抽出
+- [Exercise 3.0 - Jinja2 によるテンプレート処理のご紹介](./exercises/3-0-templates)
+- [Exercise 3.1 - コマンドパーザーを使って動的なドキュメントを生成する](./exercises/3-1-parser/)
 
 ## Network Diagram この演習のNW構成図
 ![Red Hat Ansible Automation](../../images/network_diagram.png)

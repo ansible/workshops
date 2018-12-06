@@ -90,7 +90,7 @@ Let's break this task down a bit. The `template` module has a `src` parameter th
 
 The next step is to create a Jinja2 template. Ansible will look for the template file in the current working directory and within a directory called `templates` automatically. Convention/best-practice is to create the template file within the templates directory.
 
-Using `vi`, `nano` or another text editor, go ahead and review the file called `os_report.j2` under the `templates` directory. Add the following into the template file:
+Using `vi`, `nano` or another text editor, go ahead and create the file called `os_report.j2` under the `templates` directory. Add the following into the template file:
 
 
 {%raw%}

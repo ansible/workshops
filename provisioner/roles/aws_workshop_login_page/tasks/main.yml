@@ -52,3 +52,9 @@
     permission: public-read
     include: "{{ ec2_name_prefix|lower }}-index.html"
   when: s3_state == 'present'
+
+- name: set facts for output
+  set_fact:
+    summary_information: |
+      {{summary_information}}
+      - Website created at https://{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}

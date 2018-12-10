@@ -59,6 +59,14 @@
        - autolicense is defined
        - autolicense
 
+    - name: set facts for output
+      set_fact:
+        summary_information: |
+          {{summary_information}}
+          - Workshop name is {{ec2_name_prefix}}
+          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
+          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}.pem
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
@@ -176,6 +184,8 @@
   gather_facts: no
   tasks:
     - { include_role: {name: tower_request}, when: student_total > 9 }
-  #
-  # roles:
-  #   - { role: tower_request, when:  }
+
+  post_tasks:
+    - name: Print Summary Information
+      debug:
+        msg: "{{summary_information}}"

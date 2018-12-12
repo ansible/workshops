@@ -1,14 +1,17 @@
 # Exercise 2.0 - Routerのコンフィグを更新してみよう
 
-Ansibleを用いて、ルータのコンフィグを更新することができます。  
+Ansibleを用いて、ルータのコンフィグを更新することができます。
 コンフィグファイルを機器へPushする方法や、コンフィグレーションを1列ごとにPushすることもできます。
 
 #### Step 1
 
-`router_configs.yml`という名前の新しいファイルを作成します。
-(実行方法はお任せします。`vim` や `nano`がjumphostにはインストールされています。みなさんのラップトップにインストールされているエディタを用いて後ほどコピーをするなどの方法でも構いません。)   
-以下の通りにplayを定義します。
+`router_configs.yml`という名前の新しいファイルを作成します(実行方法はお任せします。`vim` や `nano`がjumphostにはインストールされています。みなさんのラップトップにインストールされているエディタを用いて後ほどコピーをするなどの方法でも構いません)
 
+```
+[student1@ansible networking-workshop]$ vim router_configs.yml
+```
+
+以下の通りにplayを定義します。
 
 ``` yaml
 ---
@@ -16,20 +19,18 @@ Ansibleを用いて、ルータのコンフィグを更新することができ�
   hosts: cisco
   gather_facts: no
   connection: network_cli
-
 ```
 
 #### Step 2
 
-全てのルータに、SNMP strings `ansible-public` と `ansible-private` の両方が存在するようにタスクを追加します。  
+全てのルータに、SNMP strings `ansible-public` と `ansible-private` の両方が存在するようにタスクを追加します。
 このタスクには`ios_config`モジュールを利用します。
 
-> Note: **ios_config** モジュールのヘルプについては、**ansible-doc ios_config** コマンドをCLIから実行するか、docs.ansible.comをチェックしましょう。  
+> Note: **ios_config** モジュールのヘルプについては、**ansible-doc ios_config** コマンドをCLIから実行するか、docs.ansible.comをチェックしましょう。
 > いずれかのヘルプを確認すれば、モジュールの使用例から利用可能な全てのオプションを表示してくれるはずです。
 
 
 ``` yaml
-
 ---
 - name: SNMP RO/RW STRING CONFIGURATION
   hosts: cisco
@@ -43,7 +44,6 @@ Ansibleを用いて、ルータのコンフィグを更新することができ�
         commands:
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
-
 ```
 
 #### Step 3
@@ -67,21 +67,28 @@ rtr2                       : ok=1    changed=1    unreachable=0    failed=0
 rtr3                       : ok=1    changed=1    unreachable=0    failed=0   
 rtr4                       : ok=1    changed=1    unreachable=0    failed=0   
 
-[student1@ansible networking-workshop]$
-
 ```
 
 必要に応じてルータへログインしてコンフィグがUpdateされたか確認してみましょう。
 
+```
+[student1@ansible networking-workshop]$ ssh rtr1
+
+rtr1#show running-config
+```
+>このホストからの接続はユーザー名、パスワードが必要ありません。
+
+
+
 #### Step 4
 
-`ios_config`モジュールは冪等性(べきとうせい。常に同じ状態であろうとする性質)を有しています。  
-これの意味するところは、機器側のコンフィグに変更が必要な場合(差分が認められる場合)にのみ、Ansibleは変更をPushします。  
+`ios_config`モジュールは冪等性(べきとうせい。常に同じ状態であろうとする性質)を有しています。
+これの意味するところは、機器側のコンフィグに変更が必要な場合(差分が認められる場合)にのみ、Ansibleは変更をPushします。
 冪等性を確認するために、playbookを再実行してみましょう。
 
 
 ``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
+[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
 
@@ -97,13 +104,10 @@ rtr2                       : ok=1    changed=0    unreachable=0    failed=0
 rtr3                       : ok=1    changed=0    unreachable=0    failed=0   
 rtr4                       : ok=1    changed=0    unreachable=0    failed=0   
 
-[student1@ansible networking-workshop]$
-
-
-
 ```
 
 > Note: **PLAY RECAP** において、**changed** パラメータが0であることに注目してください。playが実行されたが変更は何もなかったことを示しています。
+
 
 #### Step 5
 
@@ -125,20 +129,18 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
           - snmp-server community ansible-test RO
-
 ```
-
 
 
 #### Step 6
 
 
-今回は、プレイブックを実行して変更を機器にプッシュするのではなく、 `--check`　フラグを使って実行します。  
+今回は、プレイブックを実行して変更を機器にプッシュするのではなく、 `--check`フラグを使って実行します。
 さらに、`-v`(またはverbose mode)フラグと組み合わせて詳細を見てみましょう。
 
 
 ``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  --check -v
+[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml --check -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
@@ -155,14 +157,12 @@ rtr2                       : ok=1    changed=1    unreachable=0    failed=0
 rtr3                       : ok=1    changed=1    unreachable=0    failed=0   
 rtr4                       : ok=1    changed=1    unreachable=0    failed=0   
 
-[student1@ansible networking-workshop]$
-
 ```
 
-この`--check`モードと`-v`オプションの組み合わせは、実際に変更を実施することはなく、実行対象になっている機器側での変更点のみを表示させています。  
+この`--check`モードと`-v`オプションの組み合わせは、実際に変更を実施することはなく、実行対象になっている機器側での変更点のみを表示させています。
 これは、実際には作業を実施する前に変更点のみを確認することができる非常に優れたテクニックです。
 
-> いずれかの機器(複数でも構いません)へログインして、実際に変更が実施されたかどうかを確認してみてください。 
+> いずれかの機器(複数でも構いません)へログインして、実際に変更が実施されたかどうかを確認してみてください。
 
 この後のStep7でplaybook実行時に冪等性の意味が少しわかると思います。
 ポイントとしては、作成されたplaybookの中では3つのコマンドが定義されていますが、まだ実行されていない(機器に設定されていない)コマンド1つだけが実行されるというところです。
@@ -174,7 +174,7 @@ playbookを再実行します。
 今度は`-v`や`--check`などのオプションは付けずに実行し、機器に対して変更をPushしましょう。
 
 ``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
+[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
 
@@ -197,8 +197,12 @@ rtr4                       : ok=1    changed=1    unreachable=0    failed=0
 #### Step 8
 
 
-個々のコンフィグの行における変更をPushするのではなく、コンフィグレーションの塊をデバイスに対してPushすることもできます。  
+個々のコンフィグの行における変更をPushするのではなく、コンフィグレーションの塊をデバイスに対してPushすることもできます。
 playbookと同じディレクトリへ、`secure_router.cfg`というファイルと作成し、次の通りに追記しましょう。
+
+```shell
+[student1@ansible networking-workshop]$ vim secure_router.cfg
+```
 
 ``` shell
 line con 0
@@ -211,7 +215,6 @@ ip ssh authentication-retries 5
 service password-encryption
 service tcp-keepalives-in
 service tcp-keepalives-out
-
 ```
 
 
@@ -221,7 +224,6 @@ playbookには、playのリストが含まれるということを忘れない�
 `HARDEN IOS ROUTERS`という新しいplayを`router_configs.yml` playbookへ追加します。
 
 ``` yaml
-
 ---
 - name: UPDATE THE SNMP RO/RW STRINGS
   hosts: cisco
@@ -242,8 +244,6 @@ playbookには、playのリストが含まれるということを忘れない�
   hosts: cisco
   gather_facts: no
   connection: network_cli
-
-
 
 ```
 
@@ -287,7 +287,7 @@ playbookには、playのリストが含まれるということを忘れない�
 playbookを実行しましょう。
 
 ``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
+[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml
 
 PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
 
@@ -317,7 +317,7 @@ rtr4                       : ok=2    changed=1    unreachable=0    failed=0
 
 # Complete
 
-お疲れ様でした。  
+お疲れ様でした。
 以上でlab exercise 2.0 は終了です。
 
 ---

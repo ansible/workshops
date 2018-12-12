@@ -1,15 +1,15 @@
 # Exercise 2.1 - Routerのコンフィグをバックアップしてみよう
 
 
-このシナリオでは、Ciscoルータの設定をバックアップするためのプレイブックを作成します。 　
+このシナリオでは、Ciscoルータの設定をバックアップするためのプレイブックを作成します。 
 その後の演習で、このバックアップされたコンフィグを利用してデバイスを正常な状態にリストアします。
 
-> Note: おそらく、ほとんどすべてのNetworkチームにおいて、このようなDay 2 オペレーション手順が存在しているのではないでしょうか。  
+> Note: おそらく、ほとんどすべてのNetworkチームにおいて、このようなDay 2 オペレーション手順が存在しているのではないでしょうか。
 > この演習のコンテンツをほとんどそのまま再利用することで、みなさんの環境にも適用できるかもしれません。
 
 #### Step 1
 
-`backup.yml`という新しいファイルを作成し、以下と同じようにplayを定義してください。  
+`backup.yml`という新しいファイルを作成し、以下と同じようにplayを定義してください。
 (これまでの章と同じく好きなエディタを用いてください)
 
 ``` yaml
@@ -23,12 +23,12 @@
 
 #### Step 2
 
-`ios_config`モジュールを用いて、新しいtaskを記述します。  
+`ios_config`モジュールを用いて、新しいtaskを記述します。
 このタスクは`cisco`グループと定義された全ての機器からバックアップを取得するという内容です。
 
 `backup` パラメータは自動的に`backup`というディレクトリをplaybookと同一のフォルダに作成し、バックアップが実行されたタイムスタンプを付けてコンフィグレーションのバックアップを保存します。
 
-> Note: **ansible-doc ios_config**　コマンドを実行するか、**docs.ansible.com**を確認することで、モジュールの利用方法を確認できます。
+> Note: **ansible-doc ios_config** コマンドを実行するか、**docs.ansible.com**を確認することで、モジュールの利用方法を確認できます。
 
 
 ``` yaml
@@ -45,7 +45,8 @@
       register: config_output
 ```
 
-なぜ、このタスクの中で`config_output`という変数を定義しているのでしょうか？  
+なぜ、このタスクの中で`config_output`という変数を定義しているのでしょうか？
+
 **Step 5**にてそれが明らかになります。
 
 
@@ -77,7 +78,7 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 
 #### Step 4
 
-プレイブックは `backup`というディレクトリを作成しました。   次に、このディレクトリの内容をリストします。
+プレイブックは `backup`というディレクトリを作成しました。次にこのディレクトリの内容をリストします。
 
 
 ``` shell
@@ -95,16 +96,16 @@ total 1544
 
 #### Step 5
 
-この先、バックアップしたコンフィグをリストア用途で用いるかもしれません。  
+この先、バックアップしたコンフィグをリストア用途で用いるかもしれません。
 バックアップしたファイルを機器名称でリネームしておきましょう。
 
-**Step 2**において、タスクの出力結果を`config_output`という変数名称に取り込んでいました。  
-この変数には、バックアップしたファイルの名前が含まれています。  
+**Step 2**において、タスクの出力結果を`config_output`という変数名称に取り込んでいました。
+この変数には、バックアップしたファイルの名前が含まれています。
+
 `copy`モジュールを用いて、このファイルのコピーを作成してみましょう。
 
-
-``` yaml
 {%raw%}
+``` yaml
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -121,14 +122,13 @@ total 1544
       copy:
         src: "{{config_output.backup_path}}"
         dest: "./backup/{{inventory_hostname}}.config"
-{%endraw%}
 ```
+{%endraw%}
 
 
 #### Step 6
 
 再度playbookを実行してみます。
-
 
 ``` shell
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts backup.yml
@@ -195,8 +195,8 @@ Current configuration with default configurations exposed : 393416 bytes
 
 Ansibleの`lineinfile` モジュールを利用して新しいタスクを作成することで、最初の行を削除することができます。
 
-``` yaml
 {%raw%}
+``` yaml
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -262,8 +262,8 @@ playbookを実行する前に、もう一つタスクを追加し、２つ目の
         path: "./backup/{{inventory_hostname}}.config"
         regexp: 'Current configuration.*'
         state: absent
-{%endraw%}                          
 ```
+{%endraw%}
 
 
 #### Step 10
@@ -328,7 +328,6 @@ no service log backtrace
 no service config
 no service exec-callback
 no service nagle
-[student1@ansible networking-workshop]$
 
 ```
 
@@ -336,7 +335,7 @@ no service nagle
 
 # Complete
 
-お疲れ様でした。  
+お疲れ様でした。
 以上でlab exercise 2.1 は終了です。
 
 ---

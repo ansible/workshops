@@ -142,9 +142,9 @@ We will need this for our Python app to communicate with the slack app/bot.
 ``` yaml
 slash_cmd: acl   #URI used for the slash command
 slack_interactive: interactive-component #URI used for interactive component
-slack_token: ahSH5n4honXKwBhQpBvVQjgV
-slack_bot_token: xoxb-272971091299-490099164215-wMnlZrM3zfsEbksRLJu8g64S
-slack_webhook: https://hooks.slack.com/services/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
+slack_token: xxxxxxxxxxxxxxxxxxxxx
+slack_bot_token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+slack_webhook: https://hooks.slack.com/services/xxxxxxxxxxxxxxxxxxxxxxx
 tower_hostname: 35.173.203.114
 tower_username: admin  # Update this if different
 tower_password: ansible # Update this if different

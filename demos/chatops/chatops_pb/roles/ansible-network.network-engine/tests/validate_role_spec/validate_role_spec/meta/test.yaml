@@ -1,0 +1,17 @@
+---
+argument_spec:
+  required_arg:
+    required: true
+  int_arg:
+    type: int
+  bool_arg:
+    type: bool
+  default_arg:
+    default: test
+  optional_arg:
+
+mutually_exclusive:
+  - ['int_arg', 'missing_arg']
+
+required_together:
+  - ['default_arg', 'optional_arg']

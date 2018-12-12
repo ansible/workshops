@@ -1,0 +1,1 @@
+template_path: "{{ role_path }}/templates"

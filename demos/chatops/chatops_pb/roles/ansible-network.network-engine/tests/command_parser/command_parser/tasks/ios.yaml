@@ -1,0 +1,78 @@
+- name: "command_parser test for {{ ansible_network_os }} show_interface"
+  command_parser:
+    file: "{{ parser_path }}/show_interfaces.yaml"
+    content: "{{ lookup('file', '{{ output_path }}/show_interfaces.txt') }}"
+  register: result
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'interface_facts' in result.ansible_facts"
+      - "'GigabitEthernet0/0' in result.ansible_facts.interface_facts[0]"
+      - "'GigabitEthernet0/1' in result.ansible_facts.interface_facts[1]"
+      - "result.ansible_facts.interface_facts[0]['GigabitEthernet0/0']['config']['name'] == 'GigabitEthernet0/0'"
+      - "result.ansible_facts.interface_facts[0]['GigabitEthernet0/0']['config']['description'] == 'OOB Management'"
+      - "result.ansible_facts.interface_facts[1]['GigabitEthernet0/1']['config']['name'] == 'GigabitEthernet0/1'"
+      - "result.ansible_facts.interface_facts[1]['GigabitEthernet0/1']['config']['description'] == 'test-interface'"
+
+- name: "command_parser test for {{ ansible_network_os }} show_version"
+  command_parser:
+    file: "{{ parser_path }}/show_version.yaml"
+    content: "{{ lookup('file', '{{ output_path }}/show_version.txt') }}"
+  register: result
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'system_facts' in result.ansible_facts"
+      - "'flash0:/vios-adventerprisek9-m' in result.ansible_facts.system_facts['image_file']"
+      - "'IOSv' in result.ansible_facts.system_facts['model']"
+      - "'15.6(2)T' in result.ansible_facts.system_facts['version']"
+      - "'10 weeks, 6 days, 22 hours, 30 minutes' in result.ansible_facts.system_facts['uptime']"
+      - "'62464K' in result.ansible_facts.system_facts['memory']['free']"
+      - "'460033K' in result.ansible_facts.system_facts['memory']['total']"
+
+- name: "command_parser expansion test for {{ ansible_network_os }} show_version"
+  command_parser:
+    file: "{{ parser_path }}/show_version_expand.yaml"
+    content: "{{ lookup('file', '{{ output_path }}/show_version.txt') }}"
+  register: result
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'system_facts' in result.ansible_facts.test.extension"
+      - "'flash0:/vios-adventerprisek9-m' in result.ansible_facts.test.extension.system_facts['image_file']"
+      - "'IOSv' in result.ansible_facts.test.extension.system_facts['model']"
+      - "'15.6(2)T' in result.ansible_facts.test.extension.system_facts['version']"
+      - "'10 weeks, 6 days, 22 hours, 30 minutes' in result.ansible_facts.test.extension.system_facts['uptime']"
+      - "'62464K' in result.ansible_facts.test.extension.system_facts['memory']['free']"
+      - "'460033K' in result.ansible_facts.test.extension.system_facts['memory']['total']"
+
+- name: "command_parser expansion test for {{ ansible_network_os }} show_interface"
+  command_parser:
+    file: "{{ parser_path }}/show_interfaces_expand.yaml"
+    content: "{{ lookup('file', '{{ output_path }}/show_interfaces.txt') }}"
+  register: result
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'system_facts' in result.ansible_facts.test.extension"
+      - "'flash0:/vios-adventerprisek9-m' in result.ansible_facts.test.extension.system_facts['image_file']"
+      - "'IOSv' in result.ansible_facts.test.extension.system_facts['model']"
+      - "'15.6(2)T' in result.ansible_facts.test.extension.system_facts['version']"
+      - "'10 weeks, 6 days, 22 hours, 30 minutes' in result.ansible_facts.test.extension.system_facts['uptime']"
+      - "'62464K' in result.ansible_facts.test.extension.system_facts['memory']['free']"
+      - "'460033K' in result.ansible_facts.test.extension.system_facts['memory']['total']"
+      - "'interface_facts' in result.ansible_facts.test.extension"
+      - "'GigabitEthernet0/0' in result.ansible_facts.test.extension.interface_facts[0]"
+      - "'GigabitEthernet0/1' in result.ansible_facts.test.extension.interface_facts[1]"
+      - "result.ansible_facts.test.extension.interface_facts[0]['GigabitEthernet0/0']['config']['name'] == 'GigabitEthernet0/0'"
+      - "result.ansible_facts.test.extension.interface_facts[0]['GigabitEthernet0/0']['config']['description'] == 'OOB Management'"
+      - "result.ansible_facts.test.extension.interface_facts[1]['GigabitEthernet0/1']['config']['name'] == 'GigabitEthernet0/1'"
+      - "result.ansible_facts.test.extension.interface_facts[1]['GigabitEthernet0/1']['config']['description'] == 'test-interface'"

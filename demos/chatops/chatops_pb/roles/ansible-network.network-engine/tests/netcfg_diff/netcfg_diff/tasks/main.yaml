@@ -1,0 +1,7 @@
+---
+- name: import dependency role for test
+  import_role:
+    name: "{{ role_path.split('/tests/netcfg_diff/netcfg_diff')[0] }}"
+
+- name: ios config diff
+  import_tasks: ios.yaml

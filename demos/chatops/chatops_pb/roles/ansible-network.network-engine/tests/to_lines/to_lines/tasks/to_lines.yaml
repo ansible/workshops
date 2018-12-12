@@ -1,0 +1,9 @@
+---
+- name: convert string to lines
+  set_fact:
+    test: "{{ 'test\nstring' | to_lines }}"
+
+- assert:
+    that:
+      - test[0] == 'test'
+      - test[1] == 'string'

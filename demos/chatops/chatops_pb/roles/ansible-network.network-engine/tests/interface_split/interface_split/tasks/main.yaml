@@ -1,0 +1,7 @@
+---
+- name: import dependency role for test
+  import_role:
+    name: "{{ role_path.split('/tests/interface_split/interface_split')[0] }}"
+
+- name: interface_split test
+  import_tasks: interface_split.yaml

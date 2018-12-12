@@ -1,0 +1,78 @@
+---
+tower_url: ""
+tower_verify_ssl: False
+tower_secrets: False
+tower_user: ""
+tower_pass: "" #Put in a vault at vars/tower-secrets.yml when tower_secrets: True
+tower_surveys: []
+#some examples:
+# tower_surveys:
+#   - job_template_name: "testing"
+#     #job_template_survey_enabled: can be either True|False
+#     job_template_survey_enabled: True
+#     survey:
+#       #type: can be one of the following
+#       #float|integer|multiselect|multiplechoice|password|textarea|text
+#       #parameters for each type differ, see README.md for details
+#       - variable: "float1"
+#         prompt: "float1"
+#         type: "float"
+#         description: "my float 1"
+#         required: True
+#       - variable: "float2"
+#         type: "float"
+#         prompt: "float2"
+#         default: "5.0"
+#         required: False
+#       - variable: "int1"
+#         prompt: "int1"
+#         type: "integer"
+#         description: "whole number between 1 and 5"
+#         min: "1"
+#         max: "5"
+#         default: "1"
+#         required: True
+#       - variable: "multi1"
+#         prompt: "multi1"
+#         type: "multiselect"
+#         default:
+#           - "item1"
+#           - "item3"
+#         choices:
+#           - "item1"
+#           - "item2"
+#           - "item3"
+#         required: True
+#       - variable: "multi2"
+#         prompt: "multi2"
+#         type: "multiplechoice"
+#         default: "item3"
+#         choices:
+#           - "item1"
+#           - "item2"
+#           - "item3"
+#         required: False
+#       - variable: "area1"
+#         prompt: "area1"
+#         type: "textarea"
+#         description: "test textarea1"
+#         default: |
+#           some multi-line text
+#           to consider as a value
+#         required: True
+#       - variable: "area2"
+#         prompt: "area2"
+#         type: "textarea"
+#         default: "another\nway\nto\nprovide\ntext\nin\na\narea"
+#         required: True
+#       - variable: "text1"
+#         prompt: "text1"
+#         type: "text"
+#         default: "some text"
+#         required: False
+#       - variable: "pass1"
+#         prompt: "pass1"
+#         type: "password"
+#         max: "500"
+#         min: "10"
+#         required: True

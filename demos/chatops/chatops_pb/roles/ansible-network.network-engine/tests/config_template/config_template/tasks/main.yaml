@@ -1,0 +1,7 @@
+---
+- name: import dependency role for test
+  import_role:
+    name: "{{ role_path.split('/tests/config_template/config_template')[0] }}"
+
+- name: config_template test
+  import_tasks: config_template.yaml

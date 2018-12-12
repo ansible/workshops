@@ -1,0 +1,12 @@
+---
+- set_fact:
+    test: string
+
+- set_fact:
+    test_pass: "{{ lookup('config_template', 'pass.j2') }}"
+    test_fail: "{{ lookup('config_template', 'fail.j2') }}"
+
+- assert:
+    that:
+      - "'test string' in test_pass"
+      - "'test string' not in test_fail"

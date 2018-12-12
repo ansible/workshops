@@ -1,0 +1,49 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show version
+    network_os: ios
+
+- name: match version
+  pattern_match:
+    regex: "Version (\\S+),"
+  register: version
+
+- name: match model
+  pattern_match:
+    regex: "^Cisco (.+) \\(revision"
+  register: model
+
+- name: match image
+  pattern_match:
+    regex: "^System image file is (\\S+)"
+  register: image
+
+- name: match uptime
+  pattern_match:
+    regex: "uptime is (.+)"
+  register: uptime
+
+- name: match total memory
+  pattern_match:
+    regex: "with (\\S+)/(\\w*) bytes of memory"
+  register: total_mem
+
+- name: match free memory
+  pattern_match:
+    regex: "with \\w*/(\\S+) bytes of memory"
+  register: free_mem
+
+- name: export system facts to playbook
+  set_vars:
+    model: "{{ model.matches.0 }}"
+    image_file: "{{ image.matches.0 }}"
+    uptime: "{{ uptime.matches.0 }}"
+    version: "{{ version.matches.0 }}"
+    memory:
+      total: "{{ total_mem.matches.0 }}"
+      free: "{{ free_mem.matches.0 }}"
+  export: yes
+  register: system_facts
+  extend: test.extension

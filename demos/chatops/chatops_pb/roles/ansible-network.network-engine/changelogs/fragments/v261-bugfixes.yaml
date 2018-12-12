@@ -1,0 +1,2 @@
+bugfixes:
+- Fixes bug when loading a dir of parsers `network-engine#113 <https://github.com/ansible-network/network-engine/pull/113>`_.

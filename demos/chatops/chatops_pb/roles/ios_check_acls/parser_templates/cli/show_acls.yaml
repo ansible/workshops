@@ -1,0 +1,49 @@
+---
+- name: PARSER META DATA
+  parser_metadata:
+    version: 1.0
+    command: show access-lists
+    network_os: ios
+
+
+- name: MATCH ACL TYPE
+  pattern_match:
+    regex: "Extended IP access list (\\S+)"
+    match_all: yes
+    match_greedy: yes
+  register: acls
+
+# - name: match the section for extended acls
+#   pattern_match:
+#     regex: "\\d+\\s+(?:permit|deny)(.*)"
+#     match_all: yes
+#   register: aces
+
+- name: GATHER THE SOURCE AND DESTINATION
+  pattern_group:
+    - name: MATCH NAME
+      pattern_match:
+        regex: "Extended IP access list (\\S+)"
+        content: "{{ ace }}"
+      register: acl_name
+    - name: MATCH SOURCE DETAILS
+      pattern_match:
+        regex: "^\\s+(?P<ace_num>\\d+)\\s+(?P<action>permit|deny)\\s+(?P<protocol>[a-z]+)\\s+(?P<src_network>host \\S+|any|\\d+\\.\\d+\\.\\d+\\.\\d+\\s+\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+(?P<dst_network>host \\S+|any|\\d+\\.\\d+\\.\\d+\\.\\d+\\s+\\d+\\.\\d+\\.\\d+\\.\\d+)(?:\\s+eq|lt|gt|)(?P<dst_port>\\s\\S+)*"
+        content: "{{ ace }}"
+        match_all: yes
+      register: ace_details
+  loop: "{{ acls }}"
+  loop_control:
+    loop_var: ace
+  register: ace_list
+
+- name: GENERATE A JSON DATASTRUCTURE
+  json_template:
+    template:
+      - key: "{{ item.acl_name.matches[0] }}"
+        object:
+          - key: data
+            value: "{{ item.ace_details }}"
+  register: access_lists
+  export: yes
+  loop: "{{ ace_list }}"

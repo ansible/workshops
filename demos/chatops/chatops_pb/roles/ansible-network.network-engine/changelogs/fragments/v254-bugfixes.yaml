@@ -1,0 +1,3 @@
+bugfixes:
+- Fix cli task parser undefined issue when only command is used `network-engine#103 <https://github.com/ansible-network/network-engine/pull/103>`_.
+- Fix an issue with using the extend directive with a loop `network-engine#105 <https://github.com/ansible-network/network-engine/pull/105>`_.

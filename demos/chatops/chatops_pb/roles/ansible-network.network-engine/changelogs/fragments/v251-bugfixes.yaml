@@ -1,0 +1,4 @@
+bugfixes:
+- Fix ``command_parser`` Absolute path with tilde in src should work `network-engine#58 <https://github.com/ansible-network/network-engine/pull/58>`_
+- Fix content mush only accepts string type `network-engine#72 <https://github.com/ansible-network/network-engine/pull/72>`_
+- Fix StringIO to work with Python3 in addition to Python2 `network-engine#53 <https://github.com/ansible-network/network-engine/pull/53>`_

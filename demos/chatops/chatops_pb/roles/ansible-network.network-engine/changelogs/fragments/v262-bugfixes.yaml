@@ -1,0 +1,2 @@
+bugfixes:
+- Fix role path test dependency `network-engine#121 <https://github.com/ansible-network/network-engine/pull/121>`_.

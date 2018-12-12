@@ -1,0 +1,84 @@
+#TODO: Check if the needed vars are supplied:
+  # protocol
+  # SRC: IP/network
+  # DST: IP/network
+  # DST: port
+
+#TODO: Check that the IOS(provider) role is included
+- name: CLEAR ACL MATCH REPORT DIRECTORY
+  file:
+    path: "{{item}}"
+    state: absent
+  with_fileglob:
+    - "{{ playbook_dir }}/acl_match_report/*"
+  delegate_to: localhost
+  run_once: yes
+
+- name: INVOKE THE ACL CHECKER
+  include_tasks: get_acls.yaml
+
+- name: CHECK WHETHER THE DEVICE ACL MATCHES USER INPUT
+  check_ios_match:
+    protocol: "{{ protocol }}"
+    action: "{{ action }}"
+    src_network: "{{ src_network }}"
+    src_mask: "{{ src_mask }}"
+    dst_network: "{{ dst_network }}"
+    dst_mask: "{{ dst_mask }}"
+    dst_port: "{{ dst_port }}"
+    device_acl : "{{ access_lists }}"
+  register: output
+
+# - name: debug
+#   debug:
+#     msg: "{{ src }}"
+
+- name: DISPLAY MATCH
+  debug:
+    var: output.result
+
+- name: GENERATING REPORTS....
+  block:
+    - name: CREATE A REPORTS DIRECTORY
+      file:
+        path: "{{ playbook_dir }}/acl_match_report"
+        state: directory
+
+    - name: GENERATE THE REPORT
+      template:
+        src: check_match_slack.j2
+        dest: "{{ playbook_dir }}/acl_match_report/{{ inventory_hostname }}_report.md"
+
+    # - name: GENERATE THE REPORT AS JSON
+    #   template:
+    #     src: check_match_json.j2
+    #     dest: "{{ playbook_dir }}/acl_match_report/{{ inventory_hostname }}_report.json"
+
+    # - name: DISPLAY THE REPORT LOCATION
+    #   debug:
+    #     msg: "Match identified. Please view the reports at {{ playbook_dir }}/acl_match_report"
+
+  when:
+    "'No match found' not in output.result"
+
+- name: GENERATING NO MATCH REPORTS....
+  block:
+    - name: CREATE A REPORTS DIRECTORY
+      file:
+        path: "{{ playbook_dir }}/acl_match_report"
+        state: directory
+
+    - name: GENERATE THE NO MATCH REPORT
+      template:
+        src: check_no_match.j2
+        dest: "{{ playbook_dir }}/acl_match_report/{{ inventory_hostname }}_report.md"
+
+  when:
+    "'No match found' in output.result"
+    
+- name: ASSEMBLE FILES
+  assemble:
+    src: "{{ playbook_dir }}/acl_match_report/"
+    dest: "{{ playbook_dir }}/acl_report"
+  run_once: yes
+  delegate_to: localhost

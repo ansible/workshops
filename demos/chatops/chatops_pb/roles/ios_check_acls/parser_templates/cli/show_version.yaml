@@ -1,0 +1,36 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show version
+    network_os: ios
+
+- name: parse softare version
+  pattern_match:
+    regex: ", Version (\\S+),"
+  register: version
+
+- name: parse hostname
+  pattern_match:
+    regex: "^(\\S+) uptime is"
+  register: hostname
+
+- name: parse image file
+  pattern_match:
+    regex: "System image file is \"(\\S+)\""
+  register: image
+
+- name: build ios system state facts
+  json_template:
+    template:
+      - key: version
+        value: "{{ version.matches.0 }}"
+      - key: hostname
+        value: "{{ hostname.matches.0 }}"
+      - key: image_file
+        value: "{{ image.matches.0 }}"
+  register: system
+  extend: cisco_ios
+  export: yes
+
+

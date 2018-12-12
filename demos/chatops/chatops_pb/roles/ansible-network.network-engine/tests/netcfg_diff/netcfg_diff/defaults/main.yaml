@@ -1,0 +1,5 @@
+want_file: "{{ role_path }}/files/{{ ansible_network_os }}/want.txt"
+have_file: "{{ role_path }}/files/{{ ansible_network_os }}/have.txt"
+
+want: "{{ lookup('file', want_file) }}"
+have: "{{ lookup('file', have_file) }}"

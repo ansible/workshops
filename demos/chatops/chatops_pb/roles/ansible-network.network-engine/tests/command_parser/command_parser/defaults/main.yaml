@@ -1,0 +1,3 @@
+parser_path: "{{ role_path }}/parser_templates/{{ ansible_network_os }}"
+output_path: "{{ role_path }}/output/{{ ansible_network_os }}"
+export_type: "list"

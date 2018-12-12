@@ -1,0 +1,13 @@
+- name: generate config
+  debug:
+    msg: "{{ lookup('json_template', '{{ template_path }}/config.json') }}"
+  register: result
+
+- assert:
+    that:
+      - "'GigabitEthernet0/0' in result.msg"
+      - "'config' in result['msg']['GigabitEthernet0/0']"
+      - "'Configured by Ansible' in result['msg']['GigabitEthernet0/0']['config']['description']"
+      - "result['msg']['GigabitEthernet0/0']['config']['mtu'] == 1500"
+      - "'iGbE' in result['msg']['GigabitEthernet0/0']['config']['type']"
+      - "'GigabitEthernet0/0' in result['msg']['GigabitEthernet0/0']['config']['name']"

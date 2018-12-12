@@ -1,0 +1,5 @@
+new_filter_plugins:
+- New filter plugin ``interface_range``
+- New filter plugin ``interface_split``
+- New filter plugin ``vlan_compress``
+- New filter plugin ``vlan_expand``

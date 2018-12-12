@@ -1,0 +1,7 @@
+---
+- name: import dependency role for test
+  import_role:
+    name: "{{ role_path.split('/tests/json_template/json_template')[0] }}"
+
+- name: json_template lookup plugin test
+  import_tasks: json_lookup.yaml

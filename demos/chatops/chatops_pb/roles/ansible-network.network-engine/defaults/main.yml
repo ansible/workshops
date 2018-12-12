@@ -1,0 +1,16 @@
+---
+# defaults file for network-engine
+#
+network_engine_path: "{{ role_path }}"
+network_engine_lib_path: "{{ network_engine_path }}/lib"
+
+# defaults used in tasks/cli.yaml
+#
+# command to run on network device
+network_engine_command: "{{ command | default(None) }}"
+
+# the path to parser file
+network_engine_parser: "{{ parser | default(None) }}"
+
+# engine to use for parsing output to JSON facts
+network_engine_engine: "{{ engine | default('command_parser') }}"

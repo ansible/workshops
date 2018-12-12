@@ -1,0 +1,34 @@
+- name: interface_range Ethernet1-3
+  debug:
+    msg: "{{ 'Ethernet1-3' | interface_range }}"
+  register: result
+
+- assert:
+    that:
+      - "'Ethernet1' in result.msg"
+      - "'Ethernet2' in result.msg"
+      - "'Ethernet3' in result.msg"
+
+- name: interface_range Ethernet1,3-4,5
+  debug:
+    msg: "{{ 'Ethernet1,3-4,5' | interface_range }}"
+  register: result
+
+- assert:
+    that:
+      - "'Ethernet1' in result.msg"
+      - "'Ethernet3' in result.msg"
+      - "'Ethernet4' in result.msg"
+      - "'Ethernet5' in result.msg"
+
+- name: interface_range Ethernet1/3-5,8
+  debug:
+    msg: "{{ 'Ethernet1/3-5,8' | interface_range }}"
+  register: result
+
+- assert:
+    that:
+      - "'Ethernet1/3' in result.msg"
+      - "'Ethernet1/4' in result.msg"
+      - "'Ethernet1/5' in result.msg"
+      - "'Ethernet1/8' in result.msg" 

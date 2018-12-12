@@ -1,0 +1,9 @@
+---
+- set_fact:
+    required_arg: value
+    int_arg: 10
+    bool_arg: true
+    optional_arg: value
+
+- validate_role_spec:
+    spec: test.yaml

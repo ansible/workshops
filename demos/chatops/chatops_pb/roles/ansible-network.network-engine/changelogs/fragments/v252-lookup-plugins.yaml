@@ -1,0 +1,5 @@
+new_lookup_plugins:
+- New lookup plugin ``json_template``
+- New lookup plugin ``network_template``
+- New lookup plugin ``yang2spec``
+- New lookup plugin ``netcfg_diff``

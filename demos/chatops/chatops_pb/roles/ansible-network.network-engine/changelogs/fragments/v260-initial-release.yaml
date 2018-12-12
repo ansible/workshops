@@ -1,0 +1,2 @@
+major_changes:
+- Initial release of 2.6.0 ``network-engine`` Ansible role that is supported with Ansible 2.6.0

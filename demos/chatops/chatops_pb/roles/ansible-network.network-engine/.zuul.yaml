@@ -1,0 +1,5 @@
+- project:
+    check:
+      jobs:
+        - ansible-test-sanity:
+            voting: False

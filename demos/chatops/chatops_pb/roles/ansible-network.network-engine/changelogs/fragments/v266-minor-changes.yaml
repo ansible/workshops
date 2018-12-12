@@ -1,0 +1,2 @@
+minor_changes:
+- Capability to filter AnsibleModule kwargs `network-engine#149 <https://github.com/ansible-network/network-engine/pull/149>`_. 

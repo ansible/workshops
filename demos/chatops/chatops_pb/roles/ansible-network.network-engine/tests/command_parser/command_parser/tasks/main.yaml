@@ -1,0 +1,7 @@
+---
+- name: import dependency role for test
+  import_role:
+    name: "{{ role_path.split('/tests/command_parser/command_parser')[0] }}"
+
+- name: ios command_parser test
+  import_tasks: ios.yaml

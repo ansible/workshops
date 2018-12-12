@@ -1,0 +1,26 @@
+{
+    "object": [
+	{
+	    "object": [
+		{
+		    "value": "GigabitEthernet0/0",
+		    "key": "name"
+		},
+		{
+		    "value": "iGbE",
+		    "key": "type"
+		}, 
+		{
+		    "value": "1500",
+		    "key": "mtu"
+		}, 
+		{
+		    "value": "Configured by Ansible",
+		    "key": "description"
+		}
+	    ],
+	    "key": "config"
+        }
+    ],
+    "key": "GigabitEthernet0/0"
+}

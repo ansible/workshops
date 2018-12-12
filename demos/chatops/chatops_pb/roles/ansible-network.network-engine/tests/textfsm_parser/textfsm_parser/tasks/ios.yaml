@@ -1,0 +1,42 @@
+---
+- name: textfsm_parser test for {{ ansible_network_os }} show_interfaces
+  textfsm_parser:
+    file: "{{ parser_path }}/show_interfaces"
+    content: "{{ lookup('file', '{{ output_path }}/show_interfaces.txt') }}"
+    name: interface_facts
+  register: result
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'interface_facts' in result.ansible_facts"
+      - "result.ansible_facts.interface_facts[0]['name'] == 'GigabitEthernet0/0'"
+      - "result.ansible_facts.interface_facts[0]['mtu'] == '1500'"
+      - "result.ansible_facts.interface_facts[0]['description'] == 'OOB Management'"
+      - "result.ansible_facts.interface_facts[0]['type'] == 'iGbE'"
+      - "result.ansible_facts.interface_facts[1]['name'] == 'GigabitEthernet0/1'"
+      - "result.ansible_facts.interface_facts[1]['mtu'] == '2000'"
+      - "result.ansible_facts.interface_facts[1]['description'] == 'test-interface'"
+      - "result.ansible_facts.interface_facts[1]['type'] == 'iGbE'"
+      - "result.ansible_facts.interface_facts[2]['name'] == 'GigabitEthernet0/2'"
+      - "result.ansible_facts.interface_facts[2]['mtu'] == '2000'"
+      - "result.ansible_facts.interface_facts[2]['description'] == 'test-interface-2'"
+      - "result.ansible_facts.interface_facts[2]['type'] == 'iGbE'"
+
+- name: textfsm_parser test for {{ ansible_network_os }} show_version
+  textfsm_parser:
+    file: "{{ parser_path }}/show_version"
+    content: "{{ lookup('file', '{{ output_path }}/show_version.txt') }}"
+    name: system_facts
+  register: result
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'system_facts' in result.ansible_facts"
+      - "'flash0:/vios-adventerprisek9-m' in result.ansible_facts.system_facts[0]['image']"
+      - "result.ansible_facts.system_facts[0]['model'] == 'IOSv'"
+      - "result.ansible_facts.system_facts[0]['uptime'] == '10 weeks, 6 days, 22 hours, 30 minutes'"
+      - "result.ansible_facts.system_facts[0]['version'] == '15.6(2)T'"

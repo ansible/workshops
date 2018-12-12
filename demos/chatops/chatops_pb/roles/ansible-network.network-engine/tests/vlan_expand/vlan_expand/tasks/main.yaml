@@ -1,0 +1,7 @@
+---
+- name: import dependency role for test
+  import_role:
+    name: "{{ role_path.split('/tests/vlan_expand/vlan_expand')[0] }}"
+
+- name: vlan_expand test
+  import_tasks: vlan_expand.yaml

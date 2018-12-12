@@ -1,0 +1,27 @@
+- name: interface_split Ethernet1
+  debug:
+    msg: "{{ 'Ethernet1' | interface_split }}"
+  register: result
+
+- assert:
+    that:
+      - "'1' in result.msg.index"
+      - "'Ethernet' in result.msg.name"
+
+- name: interface_split Ethernet1 name
+  debug:
+    msg: "{{ 'Ethernet1' | interface_split('name') }}"
+  register: result
+
+- assert:
+    that:
+      - "'Ethernet' in result.msg"
+
+- name: interface_split Ethernet1 index
+  debug:
+    msg: "{{ 'Ethernet1' | interface_split('index') }}"
+  register: result
+
+- assert:
+    that:
+      - "'1' in result.msg"

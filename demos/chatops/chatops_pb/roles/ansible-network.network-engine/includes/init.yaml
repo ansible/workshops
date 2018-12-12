@@ -1,0 +1,15 @@
+---
+- name: read ansible_min_version from meta data
+  include_vars:
+    file: ../meta/main.yml
+    name: ansible_galaxy_meta
+
+- name: validate minimum Ansible version
+  fail:
+    msg: "This role requires Ansible {{ ansible_galaxy_meta.galaxy_info.min_ansible_version }} or higher. You are currently running Ansible {{ ansible_version.full }}."
+  when: 'ansible_version.full is version_compare(ansible_galaxy_meta.galaxy_info.min_ansible_version, "<")'
+
+- name: validate connection is network_cli
+  fail:
+    msg: "expected connection network_cli, got {{ ansible_connection }}"
+  when: ansible_connection != 'network_cli'

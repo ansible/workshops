@@ -1,0 +1,2 @@
+minor_changes:
+- Templating the regex sent to the parser to allow us to use ansible variables in the regex string `network-engine#97 <https://github.com/ansible-network/network-engine/pull/97>`_.

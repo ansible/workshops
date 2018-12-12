@@ -1,0 +1,2 @@
+bugfixes:
+- Fix repeat_for in json_template `network-engine#139 <https://github.com/ansible-network/network-engine/pull/139>`_.

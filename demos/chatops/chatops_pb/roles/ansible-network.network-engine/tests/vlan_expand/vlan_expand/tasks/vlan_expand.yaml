@@ -1,0 +1,34 @@
+- name: vlan_expand single vlan
+  debug:
+    msg: "{{ 'vlan1' | vlan_expand }}"
+  register: result
+
+- assert:
+    that:
+      - "'1' in result.msg"
+
+- name: vlan_expand range of vlans1
+  debug:
+    msg: "{{ 'vlan1-5' | vlan_expand }}"
+  register: result
+
+- assert:
+    that:
+      - "'1' in result.msg"
+      - "'2' in result.msg"
+      - "'3' in result.msg"
+      - "'4' in result.msg"
+      - "'5' in result.msg"
+
+- name: vlan_expand range of vlans2
+  debug:
+    msg: "{{ 'vlan1,3-5,7' | vlan_expand }}"
+  register: result
+
+- assert:
+    that:
+      - "'1' in result.msg"
+      - "'3' in result.msg"
+      - "'4' in result.msg"
+      - "'5' in result.msg"
+      - "'7' in result.msg"

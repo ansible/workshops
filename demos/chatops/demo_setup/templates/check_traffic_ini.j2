@@ -1,0 +1,12 @@
+[uwsgi]
+module = wsgi:app
+master = true
+processes = 5
+uid = {{ ansible_user_id }}
+gid = nginx
+socket = /dev/shm/check_traffic.sock
+chown-socket = {{ ansible_user_id }}:nginx
+chmod-socket = 666
+vacuum = true
+
+die-on-term = true

@@ -1,0 +1,2 @@
+bugfixes:
+- Task to fail if ansible_min_version isn't met `network-engine#130 <https://github.com/ansible-network/network-engine/pull/130>`_.

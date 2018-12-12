@@ -1,0 +1,2 @@
+new_modules:
+  - NEW ``validate_role_spec`` handle validating facts required by the role

@@ -1,0 +1,2 @@
+bugfixes:
+- Remove GenericLinux from supported platforms `network-engine#145 <https://github.com/ansible-network/network-engine/pull/145>`_.

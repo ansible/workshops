@@ -1,0 +1,7 @@
+new_modules:
+- New module ``command_parser`` (renamed from ``text_parser``)
+- New module ``textfsm_parser`` (renamed from ``textfsm``)
+
+deprecated_features:
+- Module ``text_parser`` renamed to ``command_parser``; original name deprecated; legacy use supported; will be removed in 2.6.0.
+- Module ``textfsm`` renamed to ``textfsm_parser``; original name deprecated; legacy use supported; will be removed in 2.6.0.

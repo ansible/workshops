@@ -1,0 +1,37 @@
+---
+galaxy_info:
+  author: ansible-network
+  description: This role provides the foundation for building network roles by providing modules and plugins that are common to all Ansible Network roles.
+  company: Red Hat
+
+  issue_tracker_url: https://github.com/ansible-network/network-engine/issues
+
+  license: GPLv3
+
+  min_ansible_version: 2.6
+
+  # If this a Container Enabled role, provide the minimum Ansible Container version.
+  # min_ansible_container_version:
+
+  # Optionally specify the branch Galaxy will use when accessing the GitHub
+  # repo for this role. During role install, if no tags are available,
+  # Galaxy will use this branch. During import Galaxy will access files on
+  # this branch. If Travis integration is configured, only notifications for this
+  # branch will be accepted. Otherwise, in all cases, the repo's default branch
+  # (usually master) will be used.
+  #github_branch:
+
+  platforms:
+    - name: network
+      versions:
+        - all
+
+  galaxy_tags:
+    - ansible
+    - network
+    - networking
+    - engine
+    - core
+    - cli
+
+dependencies: []

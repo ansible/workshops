@@ -1,0 +1,7 @@
+---
+- name: import dependency role for test
+  import_role:
+    name: "{{ role_path.split('/tests/validate_role_spec/validate_role_spec')[0] }}"
+
+- name: validate_role_spec test
+  import_tasks: validate_role_spec.yaml

@@ -1,0 +1,3 @@
+removed_features:
+- Remove deprecated module ``text_parser``.
+- Remove deprecated module ``textfsm``.

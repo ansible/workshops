@@ -1,0 +1,13 @@
+---
+# main entrypoint
+
+- import_playbook: command_parser/test.yml
+- import_playbook: textfsm_parser/test.yml
+- import_playbook: json_template/test.yml
+- import_playbook: vlan_compress/test.yml
+- import_playbook: vlan_expand/test.yml
+- import_playbook: netcfg_diff/test.yml
+- import_playbook: interface_range/test.yml
+- import_playbook: interface_split/test.yml
+- import_playbook: config_template/test.yml
+- import_playbook: validate_role_spec/test.yml

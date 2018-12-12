@@ -1,0 +1,9 @@
+---
+- name: initialize function
+  include_tasks: includes/init.yaml
+
+- name: run command on remote network node and use engine to parse output into JSON facts
+  cli:
+    command: "{{ network_engine_command }}"
+    parser: "{{ network_engine_parser | default(omit) }}"
+    engine: "{{ network_engine_engine | default(omit) }}"

@@ -1,0 +1,63 @@
+- name: "config diff test for {{ ansible_network_os }} with default"
+  set_fact:
+    diff: "{{ lookup('netcfg_diff', want, have=have) }}"
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'version 15.6' in diff"
+      - "'vrf definition Mgmt-intf\naddress-family ipv4' in diff"
+      - "'crypto pki trustpoint example.com\nrevocation-check none\nrsakeypair example.com' not in diff"
+      - "'no logging console' not in diff"
+
+- name: "config diff test for {{ ansible_network_os }} with strict match"
+  set_fact:
+    diff: "{{ lookup('netcfg_diff', want, have=have, match='strict') }}"
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'crypto pki trustpoint example.com\nrevocation-check none\nrsakeypair example.com' in diff"
+      - "'no logging console' not in diff"
+
+- name: "config diff test for {{ ansible_network_os }} with exact match"
+  set_fact:
+    diff: "{{ lookup('netcfg_diff', want, have=have, match='exact') }}"
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'no logging console' in diff"
+
+- name: "config diff test for {{ ansible_network_os }} with block replace"
+  set_fact:
+    diff: "{{ lookup('netcfg_diff', want, have=have, replace='block') }}"
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'interface GigabitEthernet0/1' in diff"
+      - "'description test-interface' in diff"
+      - "'mtu 2000' in diff"
+      - "'no ip address' in diff"
+      - "'ip ospf cost 1' in diff"
+      - "'shutdown' in diff"
+      - "'duplex full' in diff"
+      - "'speed 1000' in diff"
+      - "'media-type rj45' in diff"
+
+- name: "config diff test for {{ ansible_network_os }} with block line"
+  set_fact:
+    diff: "{{ lookup('netcfg_diff', want, have=have, replace='line') }}"
+  vars:
+    - ansible_network_os: ios
+
+- assert:
+    that:
+      - "'interface GigabitEthernet0/1' in diff"
+      - "'ip ospf cost 1' in diff"
+      - "'shutdown' in diff"

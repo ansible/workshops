@@ -1,0 +1,14 @@
+---
+- name: run command and parse output
+  cli:
+    command: "{{ ios_command }}"
+    parser: "{{ parser }}"
+  with_first_found:
+    - files:
+        - "{{ ios_parser }}"
+      paths:
+        - "{{ playbook_dir }}/parser_templates/ios"
+        - "/etc/ansible/parser_templates/ios"
+        - "{{ role_path }}/parser_templates/cli"
+  loop_control:
+    loop_var: parser

@@ -62,20 +62,23 @@ Loopback0 is up, line protocol is up
 
 新規に `interface_report.yml` というファイル名の Playbook を作成して始めていきましょう。まずは Playbook に次の行を加えてください。
 
-``` yaml
 {% raw %}
+``` yaml
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
   gather_facts: no
   connection: network_cli
 
-{% endraw %}
 ```
+{% endraw %}
+
 
 #### Step 2
 
-次に Playbook に `ansible-network.network-engine` ロールを加えてみます。ロールは何も行いませんが、より高いレベルで Playbook の抽象化を行います。繰り返し書かれた特定のタスクを扱うために事前に書かれた Playbook と考えてください。最初にロールをインストールする必要があります。control node 上で次のコマンドを実行してロールをインストールします。
+次に Playbook に `ansible-network.network-engine` ロールを加えてみます。ロールは何も行いませんが、より高いレベルで Playbook の抽象化を行います。繰り返し書かれた特定のタスクを扱うために部品化された Playbook と考えてください。
+
+最初にロールをインストールする必要があります。control node 上で次のコマンドを実行してロールをインストールします。
 
 ``` bash
 [student1@ansible networking-workshop]$ ansible-galaxy install ansible-network.network-engine
@@ -84,8 +87,8 @@ Loopback0 is up, line protocol is up
 
 `ansible-network.network-engine` ロールは、特に `command_parser` モジュールのために用意されています。これを自身の Playbook 中に記述することで後続のタスクの中で使うことができます。
 
-``` yaml
 {% raw %}
+``` yaml
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -94,15 +97,17 @@ Loopback0 is up, line protocol is up
 
   roles:
     - ansible-network.network-engine
-{% endraw %}
+
 ```
+{% endraw %}
+
 
 #### Step 3
 
 これでタスクが追加できるようなりました。最初のタスクに追加して、次にすべてのルーターに対して `show interfaces` を実行し、その出力結果を変数に格納します。
 
-``` yaml
 {% raw %}
+``` yaml
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -119,9 +124,11 @@ Loopback0 is up, line protocol is up
           - show interfaces
       register: output
 
-{% endraw %}
 ```
+{% endraw %}
+
 > この Playbook を実行する際に `-v` オプションをつけて実行すると、実際にネットワーク装置から出力されたコマンド結果を見ることができます。
+
 
 #### Step 4
 
@@ -131,8 +138,8 @@ Loopback0 is up, line protocol is up
 
 Playbook を次のように追記してください。
 
-``` yaml
 {% raw %}
+``` yaml
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -154,21 +161,21 @@ Playbook を次のように追記してください。
         file: "parsers/show_interfaces.yaml"
         content: "{{ output.stdout[0] }}"
 
-{% endraw %}
 ```
+{% endraw %}
 
 このタスクについて、もう少し深く理解しましょう。`command_parser` は `parsers` ディレクトリの中にある `show_interfaces.yaml` と呼ばれるファイルを参照して処理します。このラボでは、パーザーファイルは受講者の環境に事前設置済みです。パーサーは、さまざまなネットワークプラットフォーム上の標準的な show コマンドの出力を処理するために書かれています。
 
 > 多くのパーザーは Public Domain ライセンスの元に利用可能になっており、特定のユースケースが処理されていない場合にのみビルドする必要があります。
 
-パーザーファイルの中身を見てみましょう。正規表現を使用して `show` コマンドの結果から関連s塗るデータを収録し、それを `interface_facts` と呼ばれる変数に格納していることが分かるでしょう。
+パーザーファイルの中身を見てみましょう。正規表現を使用して `show` コマンドの結果から関連するデータを収録し、それを `interface_facts` と呼ばれる変数に格納していることが分かるでしょう。
 
 #### Step 5
 
 `command_parser` によって返された内容を新しいタスクの中で使ってみます。
 
-``` yaml
 {% raw %}
+``` yaml
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -193,8 +200,9 @@ Playbook を次のように追記してください。
     - name: DISPLAY THE PARSED DATA
       debug:
         var: interface_facts
-{%endraw%}
+
 ```
+{%endraw%}
 
 #### Step 6
 
@@ -286,21 +294,21 @@ rtr1                       : ok=3    changed=0    unreachable=0    failed=0
 
 なんと素晴らしい事でしょう！実行した Playbook の中で実行されたコマンドの生のテキスト出力が構造化データになっていますね。あなたがレポートを作るために必要な要素が辞書型のリストになっているのが分かると思います。
 
+
 #### Step 7
-Next create a directory to hold the per device report:
+
+次にデバイスごとのレポートのためにディレクトリを作成します。
 
 ``` shell
-
 [student1@ansible networking-workshop]$ mkdir intf_reports
-[student1@ansible networking-workshop]$
 
 ```
 
 #### Step 8
 次の Step では template モジュールを使って上記のデータからレポートを生成してみます。前のラボで学習した同じテクニックを使用してネットワーク装置ごとのレポートを生成し、assemble モジュールを使用してレポートを結合します。
 
-``` yaml
 {% raw %}
+``` yaml
 ---
 - name: GENERATE INTERFACE REPORT
   hosts: cisco
@@ -337,8 +345,9 @@ Next create a directory to hold the per device report:
         dest: interfaces_report.md
       delegate_to: localhost
       run_once: yes
-{% endraw %}
+
 ```
+{% endraw %}
 
 > 注記: このラボでは Jinja2 テンプレートが受講者の環境に事前設置済みです。**templates** ディレクトリ の中にある **interface_facts.j2** がテンプレートです。
 
@@ -349,7 +358,6 @@ Next create a directory to hold the per device report:
 Playbook の実行結果は以下のとおりです。
 
 ``` shell
-
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts interface_report.yml
 
 PLAY [GENERATE INTERFACE REPORT] ************************************************************************************************************************************************************
@@ -384,7 +392,6 @@ rtr2                       : ok=4    changed=1    unreachable=0    failed=0
 rtr3                       : ok=4    changed=2    unreachable=0    failed=0   
 rtr4                       : ok=4    changed=1    unreachable=0    failed=0   
 
-[student1@ansible networking-workshop]$
 ```
 
 #### Step 10

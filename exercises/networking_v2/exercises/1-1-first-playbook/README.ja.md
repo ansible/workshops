@@ -16,14 +16,13 @@
 
 >必要に応じてお好きなGUIエディターをラップトップなどで利用してください。
 
->Ansible playbookは **YAML** ファイル形式で作成します。  
->YAML は構造化されたデータを表現するフォーマットであり、人が見ても読みやすいと思える形式だろうです。(JSONのフォーマットとは異なります)
+>Ansible playbookは **YAML** ファイル形式で作成します。
+>YAML は構造化されたデータを表現するフォーマットであり、人が見ても読みやすい形式になります(JSONのフォーマットとは異なります)。
 
 
 #### Step 2:
 
-作成した `gather_ios_data.yml`　へ、次の例を参考にplayを追加してみましょう。
-Enter the following play definition into `gather_ios_data.yml`:
+作成した `gather_ios_data.yml`へ、次の例を参考にplayを追加してみましょう。
 
 >vimを利用している場合は、"i"を押して編集モードへ入ります。
 
@@ -35,18 +34,19 @@ Enter the following play definition into `gather_ios_data.yml`:
   gather_facts: no
 ```
 
-`---` このファイルが、YAMLファイルであることを示しています。  
-`hosts: cisco` このplaybookを`cisco`グループに対して実行します。  
-グループ名は先の演習で確認をしたインベントリーファイル内で定義されていました。  
-`connection: network_cli` ネットワーク機器に対して実行するplaybookは`netowrk_cli`という接続プラグインを指定してあげる必要があります。  
+- `---` このファイルが、YAMLファイルであることを示しています。
+- `hosts: cisco` このplaybookを`cisco`グループに対して実行します。グループ名は先の演習で確認をしたインベントリーファイル内で定義されていました。
+- `connection: network_cli` ネットワーク機器に対して実行するplaybookは`netowrk_cli`という接続プラグインを指定してあげる必要があります。
 
-Ansibleは、`connection`で指定が可能な数種類のコネクションプラグインが用意されています。これにより、操作対象によって異なる接続方式が利用できます。  
+Ansibleは、`connection`で指定が可能な数種類のコネクションプラグインが用意されています。これにより、操作対象によって異なる接続方式が利用できます。
 この`network_cli`プラグインはネットワーク機器専用に開発されたコネクションプラグインで、複数のタスク間で永続的なSSH接続が確保されるように構成されています。
+
+この部分がいわゆるPlaybookのヘッダー部分に相当し`Play`部と呼ばれます。Playbookの動作全体に影響する項目をここに定義します。
 
 
 #### Step 3
 
-次に、最初の`task`を追加しましょう。  
+次に、最初の`task`を追加しましょう。
 今回作成するタスクでは、`ios_facts`モジュールを使用して、(`cisco`グループに属する)各デバイスから情報を収集します。
 
 
@@ -65,10 +65,14 @@ Ansibleは、`connection`で指定が可能な数種類のコネクションプ�
 >playは、タスクのリストになります。
 >モジュールとは、タスクを実行するために事前に用意されているコードです。
 
+このタスク部分に「自分のやりたいこと」を記述していきます。
+自分のやりたいことは「モジュール」にパラメーターを与えて定義していきます。
+モジュールは、「インフラ作業でよくある手順」を部品化したものです。ここでは`ios_facts`というモジュール（部品）をパラメーターなしで呼び出しています。
+
 
 #### Step 4
 
-エディタから実行ホストのCLIに戻り、playbookを実行して見ましょう。 　
+エディタから実行ホストのCLIに戻り、playbookを実行して見ましょう。 
 playbookの実行は以下のコマンドを参考にしてください。
 
 >vimで編集した内容を保存してエディタを終了するには、`wq!`と入力しましょう。
@@ -102,18 +106,17 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 
 ```
 
-
 #### Step 5
 
 playは問題なく成功し、ルーター4台に対する操作が完了しました。
 しかし、実行結果はどこに出力されているのでしょうか？
 playbookを、`-v`オプションをつけてもう一度実行してみましょう。
 
-> Note: Ansibleは、実行結果の出力ログの詳細度合いを段階的に設定できます。最大四つのv(verbose mode)を設定して実行することができます。`-vvvv`  
+> Note: Ansibleは、実行結果の出力ログの詳細度合いを段階的に設定できます。最大四つのv(verbose mode)を設定して実行することができます。`-vvvv`
 
 
 ```
-student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v
+[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
@@ -131,39 +134,37 @@ ok: [rtr3] => {"ansible_facts": {"ansible_net_all_ipv4_addresses": ["10.100.100.
 
 > Note: 出力結果には、keyとvelueのペアになった情報が含まれています。これらの出力されたkey-velueペアの情報は、以降のplaybook内のtaskで利用することができます。また、 **ansible_**で始まる全ての変数は、anisbleが定義している値であり、後続のplayの中で定義をしなくても自動的に利用な値であるということに注意してください。
 
+
 #### Step 6
 
-Ansibleは、操作対象のデバイスを、実行時にオプションをつけることで実行先を限定的(limit)にすることができます。  
-このオプションを実行するためには、インベントリーファイル内でデバイス名やグループ名などがあらかじめ定義されている必要があります。  
-また、実行時には、`--limit`を付与します。  
-先ほど実行したタスクに、`rtr1`をつけてrtr1だけに実行してみましょう。  
-次に、`rtr1` と `rtr3`を２つ同時に実行してみましょう。
+Ansibleは実行時にオプションをつけることで実行先を限定的(limit)にすることができます。
 
+このオプションを実行するためには、インベントリーファイル内でデバイス名やグループ名などがあらかじめ定義されている必要があります。実行時には、`--limit`を付与します。
 
-```
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
-```
-
+先ほど実行したタスクに、`rtr1`をつけてrtr1だけに実行してみましょう。次に、`rtr1` と `rtr3`を２つ同時に実行してみましょう。
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1,rtr3
-
+[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml -v --limit rtr1
 ```
 
-
-
+```
+[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml -v --limit rtr1,rtr3
+```
 
 
 #### Step 7
 
-playbookをverbose mode(-vオプション)で実行するのは、タスクからどのような出力があるかを検証するのに適していることをStep5で学んだ通りです。   
-playbook内で扱われている変数をコントロールするためには、`debug`モジュールを使ってみましょう。
+playbookをverbose mode(-vオプション)で実行するのは、タスクからどのような出力があるかを検証するのに適していることをStep5で学んだ通りです。
+playbook内で扱われている変数をコントロールするためには、`debug`モジュールを使ってみましょう。`debug`はパラメーターで指定された変数の値を出力するモジュールです。
 
-この演習では、2つのタスクを作成します。
-ルータのOS Versionと、シリアルナンバーを表示させるタスクです。
+この演習では、2つのタスクを作成します。ルータのOS Versionと、シリアルナンバーを表示させるタスクです。
 
-``` yaml
+```
+[student1@ansible networking-workshop]$ vim gather_ios_data.yml
+```
+
 {%raw%}
+``` yaml
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -181,18 +182,15 @@ playbook内で扱われている変数をコントロールするためには、
     - name: DISPLAY SERIAL NUMBER
       debug:
         msg: "The serial number is:{{ ansible_net_serialnum }}"
-{%endraw%}        
 ```
+{%endraw%}
 
 
 #### Step 8
 
-では、playbookを再実行してみましょう。  
-今回の実行では`verbose`オプションは必要ありません。  
-また、全てのホストに対して実行させます。
+では、playbookを再実行してみましょう。今回の実行では`verbose`オプションは必要ありません。また、全てのホストに対して実行させます。
 
 ```
-
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
@@ -242,15 +240,14 @@ rtr4                       : ok=3    changed=0    unreachable=0    failed=0
 ```
 
 
-
-たった、20行以下の"code"で、バージョンとシリアル番号の収集が自動化されてしまいました。  
-ここで記述したplaybookをあなたの職場の本番環境のネットワーク機器に対して実行したらどうなるでしょうか？  
-誰かが更新していないかもしれないパラメータシートから、なぜ記述が残っているかもわからないすでに存在しない機器の情報を時間をかけて探すようなことは二度と起こらないかもしれません。
+たった、20行以下の"code"で、ネットワーク機器のバージョンとシリアル番号の収集が自動化されてしまいました。
+ここで記述したplaybookをあなたの職場の本番環境のネットワーク機器に対して実行したらどうなるでしょうか？
+誰かが更新していないかもしれないパラメータシートから、なぜ記述が残っているかもわからないような、すでに存在しない機器の情報を時間をかけて探すようなことは二度と起こらないかもしれません。
 
 
 # Complete
 
-お疲れ様でした。  
+お疲れ様でした。
 以上でlab exercise 1.1 は終了です。
 
 ---

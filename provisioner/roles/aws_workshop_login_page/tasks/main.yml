@@ -1,17 +1,17 @@
-- name: create student webpage
+- name: CREATE STUDENT WEBPAGE
   template:
     src: ./templates/index.html.j2
     dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix|lower }}-index.html"
   when: s3_state == 'present'
 
-- name: create s3 bucket
+- name: CREATE S3 BUCKET
   s3_bucket:
     name: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}"
     state: "{{ s3_state }}"
     region: "{{ec2_region}}"
     force: yes
 
-- name: enable web hosting
+- name: ENABLE WEB HOSTING
   s3_website:
    name: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}"
    state: "{{ s3_state }}"
@@ -20,7 +20,7 @@
   register: s3_site
   when: s3_state == 'present'
 
-- name: DNS for student webpage
+- name: DNS FOR STUDENT WEBPAGE FOR US-EAST-1
   route53:
     state: "{{ s3_state }}"
     zone: "{{workshop_dns_zone}}"
@@ -31,7 +31,7 @@
   when:
     - ec2_region == 'us-east-1'
 
-- name: DNS for student webpage
+- name: DNS FOR WEBPAGE
   route53:
     state: "{{ s3_state }}"
     zone: "{{workshop_dns_zone}}"
@@ -42,7 +42,7 @@
   when:
     - ec2_region != 'us-east-1'
 
-- name: PUT student webpage
+- name: PUT STUDENT WEBPAGE
   s3_sync:
     bucket: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
     region: "{{ec2_region}}"
@@ -52,3 +52,9 @@
     permission: public-read
     include: "{{ ec2_name_prefix|lower }}-index.html"
   when: s3_state == 'present'
+
+- name: set facts for output
+  set_fact:
+    summary_information: |
+      {{summary_information}}
+      - Website created at https://{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}

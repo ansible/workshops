@@ -23,11 +23,12 @@
   async: 900
   poll: 10
 
-- name: install ansible-tower-cli
+- name: install ansible-tower-cli and requests
   become: yes
   pip:
     name:
       - ansible-tower-cli
+      - "requests==2.6.0"
     state: latest
 
 - name: wait for Ansible Tower to be up

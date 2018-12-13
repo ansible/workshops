@@ -6,9 +6,15 @@
       "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible"
   register: ansible_node_facts
 
+- name: DEBUG ansible_node_facts
+  debug:
+    var: ansible_node_facts
+
 - name: add ansible node to control_nodes and managed_nodes group
   add_host:
     name: "{{ item.tags.Name }}"
+    username: "{{ item.tags.Student }}"
+    student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
@@ -35,17 +41,3 @@
 - name: f5 mode - setup inventory
   include_tasks: "addhost_f5.yml"
   when: f5workshop
-
-# - name: debug what this next task is doing
-#   debug:
-#     msg: "{{item}}"
-#   with_items: "{{ groups.lab_hosts }}"
-#   delegate_to: "{{ item }}"
-#   delegate_facts: yes
-
-- name: Set local username to create on instances
-  set_fact:
-    username: "{{ item | regex_replace('.*-(\\w*)-\\w*$','\\1') }}"
-  with_items: "{{ groups.managed_nodes }}"
-  delegate_to: "{{ item }}"
-  delegate_facts: yes

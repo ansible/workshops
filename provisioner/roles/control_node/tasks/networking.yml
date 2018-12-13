@@ -21,13 +21,9 @@
       command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop
       when: special is defined
 
+    - name: Create demos folder with demos
+      command: cp -r /tmp/linklight/demos/ /home/{{ username }}/demos
    
-    - name: COPY THE DEMOS FOLDER TO STUDENT HOME
-      copy:
-        src: /tmp/linklight/demos
-        dest: "/home/{{ username }}/demos"
-        owner: "{{ username }}"
-        group: "{{ username }}"
   when: networking
 
 # waiting on https://github.com/ansible/ansible/pull/41222
@@ -44,6 +40,13 @@
 - name: fix permissions of networking-workshop  (NETWORKING MODE)
   file:
     path: /home/{{ username }}/networking-workshop
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
+    
+- name: fix permissions of demos  (NETWORKING MODE)
+  file:
+    path: /home/{{ username }}/demos
     owner: "{{ username }}"
     group: "{{ username }}"
     recurse: yes

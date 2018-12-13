@@ -127,3 +127,7 @@ fatal: [TESTWORKSHOP-student1-f5]: FAILED! => {"changed": false, "cmd": "rpm -qp
 ```
 $ brew install rpm
 ```
+
+## Problem: Provisioner is stuck at the connectivity test, even though you can ssh manually using the private keys
+
+This is sometimes due to the user having a different Python interpretor and specifying a different `ansible_python_interpreter` location. If you have to use a different version of Python while provisioning, please add a `host_Vars/localhost.yaml` file and include the path to your Python interpreter there.

@@ -1,0 +1,47 @@
+- name: INSTALL CERTBOT
+  yum:
+    name: certbot
+    enablerepo: "rhui-REGION-rhel-server-extras,rhui-REGION-rhel-server-optional"
+
+#https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
+- name: TURN OFF TOWER
+  shell: ansible-tower-service stop
+
+#If this fails check out status of certbot: https://letsencrypt.status.io/
+- name: ISSUE CERT
+  shell: certbot certonly --standalone -d {{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+  register: issue_cert
+  until: issue_cert is not failed
+  retries: 5
+  ignore_errors: yes
+
+- name: set facts for output
+  set_fact:
+    summary_information: |
+      {{summary_information}}
+      - The Lets Encrypt certbot failed, please check https://letsencrypt.status.io/ to make sure the service is running
+  when: issue_cert is failed
+
+- name: MOVE SSL KEY
+  copy:
+    remote_src: True
+    src: "/etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
+    dest: /etc/tower/tower.key
+
+- name: MOVE SSL CERT
+  copy:
+    remote_src: True
+    src: "/etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/cert.pem"
+    dest: /etc/tower/tower.cert
+
+- name: TURN ON TOWER
+  shell: ansible-tower-service start
+
+- name: CHANGE TOWER BASE URL
+  tower_settings:
+    name: TOWER_URL_BASE
+    value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    tower_verify_ssl: no
+    tower_host: localhost
+    tower_username: admin
+    tower_password: "{{admin_password}}"

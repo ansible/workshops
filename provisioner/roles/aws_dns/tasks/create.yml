@@ -11,6 +11,4 @@
 
 - name: CERTBOT FOR TOWER
   include_tasks: "tower.yml"
-  when:
-    - towerinstall is defined
-    - towerinstall
+  when: towerinstall

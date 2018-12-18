@@ -4,13 +4,11 @@
   become: no
   gather_facts: no
   tasks:
-      # Please read this, if you try to delete this task
-      # https://github.com/network-automation/linklight/issues/21
     - name: make sure we are running correct Ansible Version
       assert:
         that:
           - ansible_version.major >= 2
-          - ansible_version.minor >= 6
+          - ansible_version.minor >= 7
 
       # F5workshop and networking workshop are two different workshops
     - name: make sure f5workshop is not turned on when networking is

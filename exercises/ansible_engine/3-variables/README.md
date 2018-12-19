@@ -56,7 +56,7 @@ Add a play definition and some variables to your playbook.  These include addtio
     apache_test_message: This is a test message from {{ ansible_hostname }}
     apache_max_keep_alive_requests: 115
 ```
-Variables and variables! In the above the vars label helps us create a user-defined list of variables that we can use throughout the playbook. There are also global variables that are defined by ansible itself. The example above is ansible_hostname. This will resolve to the current ansible host where the playbook is executing at runtime. The "{{" and "}}" is a variable templating notation used to indicate that we would like the variable replaced with its value. More on this in a minute... 
+Variables and variables! In the above the vars label helps us create a user-defined list of variables that we can use throughout the playbook. There are also global variables that are defined by ansible itself. The example above is `ansible_hostname`. This will resolve to the current ansible host where the playbook is executing at runtime. The `{{` and `}}` is a variable templating notation used to indicate that we would like the variable replaced with its value. More on this in a minute... 
 
 ### Step 3:
 
@@ -75,7 +75,7 @@ Add a new task called *install httpd packages*.
 ---
 
 **NOTE**
-> What the Helsinki is happening here!?
+What the Helsinki is happening here!?
 
 - `vars:` You've told Ansible the next thing it sees will be a variable name +
 - `httpd_packages` You are defining a list-type variable called httpd_packages.  What follows
@@ -130,7 +130,7 @@ Add some file tasks and a service task to your playbook.
     state: started
     enabled: yes
 ```
-Let's also add in a task that will output the URLs for our various webserver instances so that we can see the changes that we made. For this we will use the debug module. The debug model simple outputs messages to the stdout and log so that we can investigate information during the execution of a playbook.
+Let's also add in a task that will output the URLs for our various webserver instances so that we can see the changes that we made. For this we will use the `debug` module. The `debug` module simply writes messages to the stdout and log so that we can investigate information during the execution of a playbook.
 
 ```yml
 - name: Output the target web pages for testing our results
@@ -143,14 +143,14 @@ For each host that the play executes on, the above task will output the base URL
 ---
 **NOTE**
 
-> So... what did I just write?
+So... what did I just write?
 
 - `file:` This module is used to create, modify, delete files, directories, and symlinks.
 - `template:` This module specifies that a jinja2 template is being used and deployed. `template` is part of the `Files`
   module family and we encourage you to check out all of the other [file-management modules here](http://docs.ansible.com/ansible/latest/list_of_files_modules.html).
 - *jinja-who?* - Not to be confused with 2013's blockbuster "Ninja II - Shadow of a Tear", [jinja2](http://docs.ansible.com/ansible/latest/playbooks_templating.html) is
 used in Ansible to transform data inside a template expression, i.e. filters.
-- *service* - The Service module starts/stops/restarts services.
+- `service` - The Service module starts/stops/restarts services.
 
 ---
 
@@ -173,7 +173,7 @@ handlers:
 ---
 **NOTE**
 
-> You can't have a former if you don't mention the latter
+You can't have a former if you don't mention the latter
 
 - `handler:` This is telling the *play* that the `tasks:` are over, and now we are defining `handlers:`.
   Everything below that looks the same as any other task, i.e. you give it a name, a module, and the options for that
@@ -198,7 +198,7 @@ looks the way you intended.  If not, now is the time for us to fix it up. The fi
     httpd_packages:
       - httpd
       - mod_wsgi
-    apache_test_message: This is a test message
+    apache_test_message: This is a test message from {{ ansible_hostname }}
     apache_max_keep_alive_requests: 115
 
   tasks:
@@ -230,7 +230,11 @@ looks the way you intended.  If not, now is the time for us to fix it up. The fi
         name: httpd
         state: started
         enabled: yes
-
+        
+    - name: Output the target web pages for testing our results
+      debug:
+        msg: "http://{{ ansible_host }}"
+        
   handlers:
     - name: restart apache service
       service:

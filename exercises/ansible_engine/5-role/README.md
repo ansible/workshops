@@ -93,7 +93,7 @@ Add some default variables to your role in `roles/apache-simple/defaults/main.ym
 ```yml
 ---
 # defaults file for apache-simple
-apache_test_message: This is a test message
+apache_test_message: This is a test message from {{ ansible_hostname }}
 apache_max_keep_alive_requests: 115
 ```
 
@@ -179,6 +179,10 @@ Add tasks to your role in `roles/apache-simple/tasks/main.yml`.
     name: httpd
     state: started
     enabled: yes
+    
+- name: Output the target web pages for testing our results
+  debug:
+    msg: "http://{{ ansible_host }}"
 {% endraw %}    
 ```
 

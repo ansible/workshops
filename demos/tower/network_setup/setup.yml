@@ -1,0 +1,18 @@
+---
+- name: SETUP NETWORK JOBS IN TOWER
+  hosts: localhost
+  connection: local
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: CREATE BACKUP JOB TEMPLATE
+      tower_job_template:
+        name: "BACKUP NETWORK CONFIG"
+        job_type: "run"
+        inventory: "Workshop Inventory"
+        project: "Workshop Project"
+        playbook: "network_backup.yml"
+        credential: "Workshop Credential"
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost

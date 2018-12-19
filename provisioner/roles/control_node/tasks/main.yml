@@ -15,6 +15,7 @@
       - sshpass
       - tmux
       - python-pip
+      - ncclient
       - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
 

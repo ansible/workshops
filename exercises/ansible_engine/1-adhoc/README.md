@@ -4,7 +4,7 @@ For our first exercise, we are going to run some ad-hoc commands to help you get
 
 ## Step 1.1 - Define your Inventory
 
-Define your inventory.  Inventories are crucial to Ansible as they define remote machines on which you wish to run commands or your playbook(s). In this lab the inventory is provided by your instructor. The inventory is an ini formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
+Define your inventory.  Inventories are crucial to Ansible as they define remote machines on which you wish to run commands or your playbook(s). If you are running this lab as part of a prebuilt environment, the inventory should provided for you in the build (Hint: look at the hidden file `.ansible.cfg` in `/home/studentXX` on your ansible control node). The inventory is an ini formatted file listing your hosts, sorted in groups, additionally providing some variables. It should looks something like:
 
 ```bash
 [all:vars]
@@ -18,7 +18,7 @@ node2 ansible_host=<Y.Y.Y.Y>
 node3 ansible_host=<Z.Z.Z.Z>
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible ansible_host=<A.A.A.A>
 ```
 
 ## Step 1.2 - Ping a host

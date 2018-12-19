@@ -101,8 +101,7 @@ apache_max_keep_alive_requests: 115
 
 Add some role-specific variables to your role in `roles/apache-simple/vars/main.yml`.
 
-[source,bash]
-```
+```yml
 ---
 # vars file for apache-simple
 httpd_packages:
@@ -148,7 +147,6 @@ Create your role handler in `roles/apache-simple/handlers/main.yml`.
 Add tasks to your role in `roles/apache-simple/tasks/main.yml`.
 
 ```yml
-{% raw %}
 ---
 # tasks file for apache-simple
 - name: install httpd packages
@@ -183,7 +181,6 @@ Add tasks to your role in `roles/apache-simple/tasks/main.yml`.
 - name: Output the target web pages for testing our results
   debug:
     msg: "http://{{ ansible_host }}"
-{% endraw %}    
 ```
 
 ### Step 7:

@@ -20,6 +20,8 @@ node3 ansible_host=<Z.Z.Z.Z>
 [control]
 ansible ansible_host=<A.A.A.A>
 ```
+If you can't find your inventory file, please ask your instructor for help.
+
 
 ## Step 1.2 - Ping a host
 

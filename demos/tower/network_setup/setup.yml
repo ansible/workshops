@@ -56,7 +56,7 @@
         playbook: "network_restore.yml"
         credential: "Workshop Credential"
         survey_enabled: true
-        survey_spec: "{{ lookup('file', '{{playbook_dir}}/templates/backup.j2') }}"
+        survey_spec: "{{ lookup('template', '{{playbook_dir}}/templates/backup.j2') }}"
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost

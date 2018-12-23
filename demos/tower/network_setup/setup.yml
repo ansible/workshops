@@ -28,12 +28,6 @@
         tower_password: ansible
         tower_host: https://localhost
 
----
-- name: play
-  hosts: localhost
-  gather_facts: false
-  tasks:
-
     - name: Recursively find /tmp files older than 2 days
       find:
         paths: /tmp/backup

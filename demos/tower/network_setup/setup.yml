@@ -28,6 +28,31 @@
         tower_password: ansible
         tower_host: https://localhost
 
+---
+- name: play
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: Recursively find /tmp files older than 2 days
+      find:
+        paths: /tmp/backup
+      register: backups
+
+    # - name: show files
+    #   debug:
+    #     var: backups.files
+    #
+    # - name: show each file
+    #   debug:
+    #     msg: "{{item.path.split('.')[-1]}}"
+    #   loop: "{{backups.files}}"
+
+    - name: test template
+      template:
+        src: templates/backup.j2
+        dest: ./rendered.txt
+
     - name: CREATE RESTORE JOB TEMPLATE
       tower_job_template:
         name: "RESTORE NETWORK CONFIG"
@@ -42,13 +67,13 @@
         tower_password: ansible
         tower_host: https://localhost
 
-    - name: sean test
-      uri:
-        url: https://localhost/api/v2/job_templates/9/survey_spec/
-        method: POST
-        user: admin
-        password: ansible
-        validate_certs: False
-        body: "{{ lookup('file', '{{playbook_dir}}/templates/backup.j2') }}"
-        body_format: json
-        force_basic_auth: yes
+    # - name: sean test
+    #   uri:
+    #     url: https://localhost/api/v2/job_templates/9/survey_spec/
+    #     method: POST
+    #     user: admin
+    #     password: ansible
+    #     validate_certs: False
+    #     body: "{{ lookup('file', '{{playbook_dir}}/templates/backup.j2') }}"
+    #     body_format: json
+    #     force_basic_auth: yes

@@ -1,0 +1,20 @@
+{
+  "name": "Simple Survey",
+  "description": "Description of the simple survey",
+  "spec": [
+    {
+      "type": "multiplechoice",
+      "question_name": "example question",
+      "question_description": "Rollback to which date?",
+      "variable": "rollback_date",
+      "choices": [
+{% for file in backups.files %}
+        {{item.path.split('.')[-1]}}
+{% endfor %}
+        "two"
+      ],
+      "required": false,
+      "default": "blue"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Simple",
+  "description": "Description",
+  "spec": [
+    {
+      "type": "multiplechoice",
+      "question_name": "achoice",
+      "question_description": "Choose the date of backup snapshot",
+      "variable": "single_choice",
+      "choices": [
+        "one",
+        "two"
+      ],
+      "min": "",
+      "max": "",
+      "required": true,
+      "default": "yes"
+    }
+  ]
+}

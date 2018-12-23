@@ -31,7 +31,6 @@
     - name: Recursively find /tmp files older than 2 days
       find:
         paths: /tmp/backup
-        patterns: "rtr1_config*"
       register: backups
 
     # - name: show files

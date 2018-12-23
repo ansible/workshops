@@ -9,7 +9,7 @@
       "variable": "rollback_date",
       "choices": [
 {% for file in backups.files %}
-        {{file.path.split('.')[-1]}}
+        "{{file.path.split('.')[-1]}}",
 {% endfor %}
         "two"
       ],

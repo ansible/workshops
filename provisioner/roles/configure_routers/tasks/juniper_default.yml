@@ -7,8 +7,10 @@
     answer:
       - "{{admin_password}}1"
       - "{{admin_password}}1"
+    check_all: True
   loop:
     - "configure"
+    - "rollback"
     - "set system root-authentication plain-text-password"
     - "commit"
 

@@ -28,9 +28,10 @@
         tower_password: ansible
         tower_host: https://localhost
 
-    - name: Recursively find /tmp files older than 2 days
+    - name: FIND BACKUPS
       find:
         paths: /tmp/backup
+        file_type: directory
       register: backups
 
     # - name: show files

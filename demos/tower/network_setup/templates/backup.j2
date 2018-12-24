@@ -9,12 +9,12 @@
       "variable": "rollback_date",
       "choices": [
 {% for file in backups.files %}
-{% if loop.first %}
-        "{{file.path.split('.')[-1]}}",
-{% elif loop.last %}
-        "\n{{file.path.split('.')[-1]}}"
+{% if loop.last %}
+        "{{file.path.split('/')[-1]}}",
+{% elif loop.first %}
+        "\n{{file.path.split('/')[-1]}}"
 {% else %}
-        "\n{{file.path.split('.')[-1]}}",
+        "\n{{file.path.split('/')[-1]}}",
 {% endif %}
 {% endfor %}
       ],

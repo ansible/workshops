@@ -34,9 +34,9 @@
         file_type: directory
       register: backups
 
-    # - name: show files
-    #   debug:
-    #     var: backups.files
+    #  - name: show files
+    #    debug:
+    #      var: backups.files
     #
     # - name: show each file
     #   debug:

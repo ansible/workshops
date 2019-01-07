@@ -1,11 +1,7 @@
 ---
 name: 🐛 Bug report
-about: Create a report to help us improve
+about: Create a report to help us quickly resolve your issue
 ---
-<!--- Verify first that your issue is not already reported on GitHub -->
-<!--- Also test if the latest release and devel branch are affected too -->
-<!--- Complete *all* sections as described, this form is processed automatically -->
-
 <!--- Verify first that your issue is not already reported on GitHub -->
 <!--- Also test if the latest release is affected too -->
 <!--- Complete *all* sections as described, this form is processed automatically -->
@@ -16,8 +12,6 @@ about: Create a report to help us improve
 ##### ISSUE TYPE
 <!--- Pick one below and delete the rest -->
  - Bug Report
- - Feature Idea
- - Documentation Report
 
 ##### EXTRA VARS FILE
 <!--- Paste verbatim output of cat vars.yml (the extra vars file used to provision the workshop)  -->

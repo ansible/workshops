@@ -1,13 +1,17 @@
 [defaults]
+stdout_callback = yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False
+host_key_checking = False
+retry_files_enabled = False
 {% if networking %}
 inventory = /home/{{username}}/networking-workshop/lab_inventory/hosts
+[persistent_connection]
+connect_timeout = 60
+command_timeout = 60
 {% elif f5workshop %}
 inventory = /home/{{username}}/networking-workshop/lab_inventory/hosts
 {% else %}
 inventory = /home/{{username}}/lightbulb/lessons/lab_inventory/{{username}}-instances.txt
 {% endif %}
-host_key_checking = False
-retry_files_enabled = False

@@ -14,8 +14,8 @@
 - set_fact:
     workshop_type: "Linux"
   when:
-    - f5workshop is not defined
-    - networking is not defined
+    - workshop_type is not match("F5")
+    - workshop_type is not match("networking")
 
 - name: execute a command with tower
   uri:

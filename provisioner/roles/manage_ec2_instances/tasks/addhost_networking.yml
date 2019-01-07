@@ -84,11 +84,11 @@
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
-    ansible_user: ec2-user
+    ansible_user: "{{ 'ec2-user' if special is match('all_cisco') else 'jnpr' }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
-    ansible_network_os: ios
+    ansible_network_os: "{{ 'ios' if special is match('all_cisco') else 'junos' }}"
     groups:
       - routers
       - access

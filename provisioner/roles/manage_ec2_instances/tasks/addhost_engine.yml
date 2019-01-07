@@ -25,6 +25,7 @@
 - name: add hosts to groups (ANSIBLE ESSENTIALS MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    username: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[node1_node] }}"

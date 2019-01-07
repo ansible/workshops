@@ -175,6 +175,18 @@
         type: csr_hub
       when: special is match("all_cisco")
 
+- name: CHANGE JUNIPER PASSWORD
+  hosts: access
+  gather_facts: no
+  vars:
+    ansible_connection: network_cli
+  tasks:
+    - name: Run tasks/other.yaml instead of 'main'
+      include_role:
+        name: configure_routers
+        tasks_from: juniper_default
+      when: special is match("multivendor")
+
 - name: Alert the mothership
   hosts: localhost
   connection: local

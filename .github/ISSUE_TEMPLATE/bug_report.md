@@ -6,14 +6,36 @@ about: Create a report to help us improve
 <!--- Also test if the latest release and devel branch are affected too -->
 <!--- Complete *all* sections as described, this form is processed automatically -->
 
+<!--- Verify first that your issue is not already reported on GitHub -->
+<!--- Also test if the latest release is affected too -->
+<!--- Complete *all* sections as described, this form is processed automatically -->
+
 ##### SUMMARY
 <!--- Explain the problem briefly below -->
 
 ##### ISSUE TYPE
-- Bug Report
+<!--- Pick one below and delete the rest -->
+ - Bug Report
+ - Feature Idea
+ - Documentation Report
 
-##### COMPONENT NAME
-<!--- Write the short name of the module, plugin, task or feature below, use your best guess if unsure -->
+##### EXTRA VARS FILE
+<!--- Paste verbatim output of cat vars.yml (the extra vars file used to provision the workshop)  -->
+```paste below
+
+```
+
+e.g. here is an example of an extra vars file we are looking for:
+```
+$ cat ~/Github/linklight/provisioner/seans_workshop.yml
+---
+ec2_region: us-east-1
+ec2_name_prefix: seantest
+student_total: 25
+admin_password: ansible
+create_login_page: true
+```
+for more information on the extra vars file please refer to: https://github.com/network-automation/linklight/blob/master/provisioner/README.md
 
 ##### ANSIBLE VERSION
 <!--- Paste verbatim output from "ansible --version" between quotes -->
@@ -28,26 +50,21 @@ about: Create a report to help us improve
 ```
 
 ##### OS / ENVIRONMENT
-<!--- Provide all relevant information below, e.g. target OS versions, network device firmware, etc. -->
+<!---  Are you running from RHEL, Ubuntu, MacOS?  Provide details here. -->
 
-##### STEPS TO REPRODUCE
-<!--- Describe exactly how to reproduce the problem, using a minimal test-case -->
+##### TOWER
+<!---  Is this provisioning happening from Tower or Engine? -->
+<!---  Please attempt from Engine if Tower does not work and provide details here -->
 
-<!--- Paste example playbooks or commands between quotes below -->
-```yaml
+##### PLAYBOOK SHORT OUTPUT
+<!---  Please paste task that is failing -->
+
+```paste below
 
 ```
 
-<!--- HINT: You can paste gist.github.com links for larger files -->
-
-##### EXPECTED RESULTS
-<!--- Describe what you expected to happen when running the steps above -->
-
-
-##### ACTUAL RESULTS
-<!--- Describe what actually happened. If possible run with extra verbosity (-vvvv) -->
-
-<!--- Paste verbatim command output between quotes -->
+##### PLAYBOOK LONG OUTPUT
+<!--- Paste verbatim output from "ansible-playbook provision_lab.yml -e @extra_vars.yml" between quotes -->
 ```paste below
 
 ```

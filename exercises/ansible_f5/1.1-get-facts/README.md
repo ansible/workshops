@@ -66,6 +66,7 @@ Next, add the first `task`. This task will use the `bigip_facts` module to grab 
         user: "{{ansible_user}}"
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
+        validate_certs: no
       register: bigip_facts
 ```
 
@@ -107,6 +108,7 @@ Next, add the second `task`. This task will use the `debug` module to print the 
         user: "{{ansible_user}}"
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
+        validate_certs: no
       register: bigip_facts
 
     - name: COMPLETE BIG-IP SYSTEM INFORMATION
@@ -151,6 +153,7 @@ Finally lets add two more tasks to get more specific info from facts gathered.
         user: "{{ansible_user}}"
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
+        validate_certs: no
       register: bigip_facts
 
     - name: COMPLETE BIG-IP SYSTEM INFORMATION

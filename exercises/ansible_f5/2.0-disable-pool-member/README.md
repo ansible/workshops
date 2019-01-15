@@ -21,6 +21,7 @@ Demonstrate the removal of a node from the pool.  Build a Playbook that:
 # Guide
 
 ## Step 1:
+(Please ensure that you have working pool members by completing exercise 1.2, 1.3, and 1.4)
 
 Using your text editor of choice create a new file called `disable-pool-member.yml`.
 

@@ -115,6 +115,19 @@ Ansible Tower stores job templates under the projects folder in the awx home dir
 
 cd into the relevant project folder and execute the Playbook from the command line to run the playbook exactly how it was run from Ansible Tower.  This will hopefully let you see an error or problem you were not aware of via the Tower GUI.
 
+## Problem: Creating EC2 instances fail with an "OptInRequired" message
+
+```
+TASK [manage_ec2_instances : Create EC2 instances for rtr3 node (NETWORKING MODE)] ***
+fatal: [localhost]: FAILED! => changed=false 
+  msg: 'Instance creation failed => OptInRequired: In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=bw54e0gl17zf0vxq54dttwvow'
+
+```
+### Solution:
+
+This is likely if you are using the device (CSR/F5/vMX) for the first time in AWS. You will need to follow the link in the error output and accept the Terms and Conditions in order to proceed. Once you accept, re-run the provisioner.
+
+
 ## Problem: F5 Workshop provisioner fails on mac
 
 ```

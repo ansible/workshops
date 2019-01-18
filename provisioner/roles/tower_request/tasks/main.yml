@@ -34,3 +34,4 @@
         student_total: "{{ student_total }}"
         workshop_type: "{{ workshop_type }}"
     body_format: json
+  ignore_errors: yes

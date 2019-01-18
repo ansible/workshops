@@ -7,6 +7,7 @@ ansible_port={{ ssh_port }}
 cisco
 {% if special is defined and special == "multivendor" %}
 juniper
+arista
 {% endif %}
 
 [routers:vars]
@@ -15,23 +16,23 @@ ansible_ssh_private_key_file=/home/student{{item}}/.ssh/aws-private.pem
 [cisco]
 {% for vm in rtr1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
-{% endif %}
-{% endfor %}
-{% for vm in rtr2_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 {% if special is defined and special == "all_cisco" %}
+{% for vm in rtr2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
+{% endif %}
+{% endfor %}
 {% for vm in rtr3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 {% for vm in rtr4_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -40,12 +41,19 @@ ansible_ssh_private_key_file=/home/student{{item}}/.ssh/aws-private.pem
 [juniper]
 {% for vm in rtr3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
+{% endif %}
+{% endfor %}
+
+[arista]
+{% for vm in rtr2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 {% for vm in rtr4_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -60,6 +68,11 @@ ansible_connection=network_cli
 ansible_user=jnpr
 ansible_network_os=junos
 ansible_connection=netconf
+
+[arista:vars]
+ansible_user=ec2-user
+ansible_network_os=eos
+ansible_connection=network_cli
 {% endif %}
 
 [dc1]

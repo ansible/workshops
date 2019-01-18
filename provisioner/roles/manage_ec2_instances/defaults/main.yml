@@ -54,6 +54,13 @@ ec2_instance_types:
     filter: "cisco-CSR*BYOL*"
     os: ios
 
+  eos-byol:
+    owners: 679593333241
+    size: c5.xlarge
+    os_type: linux
+    architecture: x86_64
+    filter: "*EOS*"
+    os: eos
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7:
     owners: 309956199498
@@ -83,10 +90,7 @@ ec2_instance_types:
 ec2_login_names:
   rhel7-tower: ec2-user
   rhel7: ec2-user
-  centos7-tower: centos
-  centos7: centos
-  ubuntu14: ubuntu
-  ubuntu16: ubuntu
+  eos-byol: ec2-user
   csr-byol: ec2-user
   junos-byol: jnpr
   f5-prelicensed: admin

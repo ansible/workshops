@@ -59,7 +59,7 @@
       register: rtr4_node_facts
   when: special is defined
 
-- name: ADD CORE ROUTERS TO INVENTORY
+- name: ADD CISCO ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
@@ -70,31 +70,53 @@
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
     ansible_network_os: ios
+    ansible_connection: network_cli
     groups:
+      - cisco
       - routers
-      - core
   with_items:
     - "{{ rtr1_node_facts.instances }}"
-    - "{{ rtr2_node_facts.instances }}"
   when: special is defined
 
-- name: ADD ACCESS ROUTERS TO INVENTORY
+- name: ADD ARISTA ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
-    ansible_user: "{{ 'ec2-user' if special is match('all_cisco') else 'jnpr' }}"
+    ansible_user: ec2-user
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
-    ansible_network_os: "{{ 'ios' if special is match('all_cisco') else 'junos' }}"
+    ansible_connection: network_cli
+    ansible_network_os: eos
+    ansible_become: yes
+    ansible_become_method: enable
     groups:
+      - arista
       - routers
-      - access
+  with_items:
+    - "{{ rtr2_node_facts.instances }}"
+    - "{{ rtr4_node_facts.instances }}"
+  when: special is defined
+
+- name: ADD JUNIPER ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: jnpr
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: junos
+    ansible_connection: netconf
+    groups:
+      - juniper
+      - routers
   with_items:
     - "{{ rtr3_node_facts.instances }}"
-    - "{{ rtr4_node_facts.instances }}"
   when: special is defined
 
 - name: ADD DMVPN HUB ROUTER TO SEPARATE GROUP
@@ -114,19 +136,19 @@
     - "{{ rtr1_node_facts.instances }}"
   when: special is defined
 
-- name: Generate student inventories
+- name: GENERATE STUDENT INVENTORIES
   template:
     src: networking_instances.txt.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
   with_sequence: count="{{ student_total }}"
 
-- name: Generate student etchosts
+- name: GENERATE STUDENT ETC HOSTS
   template:
     src: etchosts_networking.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
   with_sequence: count="{{ student_total }}"
 
-- name: Generate instructor inventory
+- name: GENERATE INSTRUCTOR INVENTORY
   template:
     src: instructor_inventory_networking.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

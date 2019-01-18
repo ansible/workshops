@@ -351,7 +351,7 @@ rtr1                       : ok=3    changed=0    unreachable=0    failed=0
 
 > 注記: このラボでは Jinja2 テンプレートが受講者の環境に事前設置済みです。**templates** ディレクトリ の中にある **interface_facts.j2** がテンプレートです。
 
-> 注記: debug タスクがコメントアウトされ、表示が完結になりました。
+> 注記: debug タスクがコメントアウトされ、表示が簡潔になりました。
 
 #### Step 9
 

@@ -1,0 +1,27 @@
+---
+- name: RUN COMMAND AND PRINT TO TERMINAL WINDOW
+  hosts: arista
+  gather_facts: false
+
+  tasks:
+
+    - name: RUN ARISTA COMMAND
+      eos_command:
+        commands: show interfaces eth1 | json
+      register: command_output
+
+    - name: PRINT TO TERMINAL WINDOW
+      debug:
+        msg: "{{command_output.stdout}}"
+
+    - name: PRINT TO TERMINAL WINDOW
+      debug:
+        msg: "{{command_output.stdout[0].interfaces.Ethernet1}}"
+
+    - name: PRINT TO TERMINAL WINDOW
+      debug:
+        msg: "{{command_output.stdout[0].interfaces.Ethernet1.interfaceAddress}}"
+
+    - name: PRINT TO TERMINAL WINDOW
+      debug:
+        msg: "{{command_output.stdout[0].interfaces.Ethernet1.interfaceAddress[0].primaryIp.address}}"

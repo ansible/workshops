@@ -11,11 +11,11 @@
 
 ## Ansible エンジン演習
 
- - [演習 1 - アドホック・コマンドの実行](1-adhoc)
- - [演習 2 - 初めてのplaybook作成](2-playbook)
- - [演習 3 - 変数、ループ、ハンドラを使う](3-variables)
- - [演習 4 - apache-basic-playbookを実行する](4-runplaybook)
- - [演習 5 - Roles：Playbookを再利用可能にする](5-role)
+ - [演習 1 - アドホック・コマンドの実行](1-adhoc/README.ja.md)
+ - [演習 2 - 初めてのplaybook作成](2-playbook/README.ja.md)
+ - [演習 3 - 変数、ループ、ハンドラを使う](3-variables/README.ja.md)
+ - [演習 4 - apache-basic-playbookを実行する](4-runplaybook/README.ja.md)
+ - [演習 5 - Roles：Playbookを再利用可能にする](5-role/README.ja.md)
 
 ## 追加情報
  - [Ansible - はじめに](http://docs.ansible.com/ansible/latest/intro_getting_started.html)

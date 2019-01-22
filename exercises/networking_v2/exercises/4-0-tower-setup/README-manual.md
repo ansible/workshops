@@ -55,7 +55,7 @@ Next we need to add all of the routers to our inventory.  Click on the green `+`
 
 ![add a host](images/addhost.png)
 
-When all the hosts are added there should be four routers (rtr1 through rtr4) under the hosts button for the `Workshop Inventory`
+When all the hosts are added there should be four routers (rtr1 through rtr4) under the hosts button for the `Workshop Inventory` as well as the control node.
 
 ![Tower Inventory](images/workshop_inventory.png)
 

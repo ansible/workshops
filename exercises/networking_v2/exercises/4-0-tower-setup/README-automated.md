@@ -53,6 +53,19 @@ Instead of manually re-entering existing hosts into our Tower inventory it is po
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+
+    - name: ADD CONTROL HOST INTO TOWER
+      tower_host:
+        name: "{{ inventory_hostname }}"
+        inventory: "Workshop Inventory"
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost
+        variables:
+          ansible_host: "{{ansible_host}}"
+          ansible_user: "ec2-user"
+          private_ip: "{{private_ip}}"
+          ansible_connection: ssh
 ```
 
 Create an Ansible Playbook called `tower_setup.yml`.  Cut and paste the above into the YML file with your text editor of choice.  To run the playbook use the `ansible-playbook` command:

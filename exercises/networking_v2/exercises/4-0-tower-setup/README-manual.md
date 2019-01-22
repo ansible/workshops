@@ -116,5 +116,9 @@ In addition to the default `Demo Credential` a new `Workshop Credential` will ap
 
 ![picture showing workshop credential](images/workshop_credential.png)
 
+## End of Exercise
+
+You have now setup all 3 components required to get started with Ansible Tower.  A credential, an inventory and a Project.  In the next exercise we will create a job template.
+
 ---
 [Click Here to return to the Ansible - Network Automation Workshop](../../README.md)

@@ -100,6 +100,8 @@ ansible_network_os=eos
 ansible_connection=httpapi
 ansible_become=true
 ansible_become_method=enable
+ansible_httpapi_use_ssl=true
+ansible_httpapi_validate_certs=false
 ````
 
 Save the file and return to the Linux CLI.

@@ -1,7 +1,6 @@
 # Exercise 3 - 変数、ループ、ハンドラを使う
 
-前回までは Ansible Core の基礎部分を学習してきました。次の学習は playbook をより柔軟かつパワフルに使用できる、
-Ansible のより高度なスキルを学びたいと思います。
+前回までは Ansible Core の基礎部分を学習してきました。次の学習は playbook をより柔軟かつパワフルに使用できるより高度なスキルを学びたいと思います。
 
 Ansible では task をよりシンプル、かつ再利用可能にできます。私たちは全てのシステムが全く同じではないことはわかっていますし、
 playbookを実行する際、その違いに伴ってしばしば若干の変更が求められる場合があります。その際は変数を使います。
@@ -21,10 +20,8 @@ playbookを実行する際、その違いに伴ってしばしば若干の変更
 
 ## Section 1: Playbook の実行
 
-まずは新しいplaybookを作成します。既に演習 1.2で作成していることもあり、ある程度は慣れた作業かと思います。
+まずは新しいplaybookを作成します。既に先の演習で作成していることもあり慣れた作業かと思います。
 
-
-2つの webノード上で作成した新しいplaybookを実行します。実行の際は `ansible-playbook` コマンドを使用します。  
 
 ### Step 1:
 
@@ -55,13 +52,16 @@ playの定義といくつかの変数をPlaybookに追加します。このPlayb
     apache_max_keep_alive_requests: 115
 ```
 
+- `vars:` この後に続いて記述されるものが変数名であることをAnsibleに伝えています。
+- `httpd_packages` httpd_packagesと命名したリスト型（list-type）の変数を定義しています。その後に続いているのはパッケージのリストです。
+- `apache_test_message`, `apache_max_keep_alive_requests` 変数にはそれぞれ文字列と数字が設定されています。
+
 
 ### Step 3:
 
 *install httpd packages* と命名した新規taskを追加します。
 
 ```yml
-{% raw %}
   tasks:
     - name: install httpd packages
       yum:
@@ -69,19 +69,12 @@ playの定義といくつかの変数をPlaybookに追加します。このPlayb
         state: present
       with_items: "{{ httpd_packages }}"
       notify: restart apache service
-{% endraw %}
 ```
 
----
-**NOTE**
-
-- `vars:` この後に続いて記述されるものが変数名であることをAnsibleに伝えています +
-- `httpd_packages` httpd_packagesと命名したリスト型（list-type）の変数を定義しています。その後に続いているのは、このパッケージのリストです +
-- `{{ item }}` この記述によって `httpd` や `mod_wsgi` といったリストのアイテムを展開するようAnsibleに伝えています。+
 - `with_items: "{{ httpd_packages }}` Ansibleに `httpd_packages` の `item` 毎にタスクをループ実行するよう Ansible に伝えます
+- `{{ item }}` この記述によって `httpd` や `mod_wsgi` といったリストのアイテムを展開するようAnsibleに伝えています。
 - `notify: restart apache service` この行は `handler`であり、詳細は Section 3 で触れます
 
----
 
 ## Section 2: ファイルの実装とサービスの起動
 
@@ -92,6 +85,7 @@ playの定義といくつかの変数をPlaybookに追加します。このPlayb
 
 
 ### Step 1:
+
 プロジェクトディレクトリ内の `templates` ディレクトリの作成と2ファイルのダウンロードを実施します。
 
 ```bash
@@ -99,44 +93,44 @@ mkdir templates
 cd templates
 curl -O http://ansible-workshop.redhatgov.io/workshop-files/httpd.conf.j2
 curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
+
+cd ../
 ```
 
 ### Step 2:
 いくつかの file task と service task をplaybookに追加します。
 
 ```yml
-- name: create site-enabled directory
-  file:
-    name: /etc/httpd/conf/sites-enabled
-    state: directory
-
-- name: copy httpd.conf
-  template:
-    src: templates/httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
-  notify: restart apache service
-
-- name: copy index.html
-  template:
-    src: templates/index.html.j2
-    dest: /var/www/html/index.html
-
-- name: start httpd
-  service:
-    name: httpd
-    state: started
-    enabled: yes
+    - name: create site-enabled directory
+      file:
+        name: /etc/httpd/conf/sites-enabled
+        state: directory
+     
+    - name: copy httpd.conf
+      template:
+        src: templates/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+      notify: restart apache service
+     
+    - name: copy index.html
+      template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html
+     
+    - name: start httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
 ```
-
----
-**NOTE**
 
 - `file:` このモジュールを使ってファイル、ディレクトリ、シンボリックリンクの作成、変更、削除を行います。
 - `template:` このモジュールで、jinja2テンプレートの利用と実装を指定しています。 `template` は `Files` モジュール・ファミリの中に含まれています。その他の file-management modules here](http://docs.ansible.com/ansible/latest/list_of_files_modules.html) についても、一度目を通しておくことをお勧めします。
 - *jinja* - [jinja2](http://docs.ansible.com/ansible/latest/playbooks_templating.html)は、Ansibleでテンプレートの中のfiltersのような式の中のデータを変更する場合に用います。
 - *service* - serviceモジュールはサービスの起動、停止、有効化、無効化を行います。
 
----
+template モジュールでは元となるファイル（今回は`template/{index.html.j2,httpd.conf.j2}`）を予め準備しておき、この中にホストや状況に合わせて書き換えたい部分を変数化しておきます。そして、モジュールがこのファイルを配置する際に、変数化された箇所を値と入れ替えて配置してくれます。今回のように設定ファイルの配布に便利に使える以外にも、レポートを動的に生成して出力するなどとても応用範囲の広いモジュールです。
+
 
 ## Section 3: ハンドラの定義と利用
 
@@ -146,12 +140,12 @@ curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
 ハンドラを定義する。
 
 ```yml
-handlers:
-  - name: restart apache service
-    service:
-      name: httpd
-      state: restarted
-      enabled: yes
+  handlers:
+    - name: restart apache service
+      service:
+        name: httpd
+        state: restarted
+        enabled: yes
 ```
 
 ---
@@ -164,14 +158,14 @@ handlers:
 
 ## Section 4: この演習の最後に
 
-これで洗練されたPlaybookの完成です!  
-でもまだPlaybookを実行しないでください。それはこの後の演習で行います。  
-その前に、全てが意図した通りになっているかもう一度見直してみましょう。  
-もしも間違っていれば修正してください。  
-以下の見本を参考に、スペースとインデントに注意して見てください。
+これで洗練されたPlaybookの完成です!
+でもまだPlaybookを実行しないでください。それはこの後の演習で行います。
+その前に、全てが意図した通りになっているかもう一度見直してみましょう。
+もしも間違っていれば修正してください。
+以下の見本を参考に、スペースとインデントに注意して見てください。`--sytax-check` で構文をチェックするのも良いアイデアです。
+
 
 ```yml
-{% raw %}
 ---
 - hosts: web
   name: This is a play within a playbook
@@ -219,9 +213,8 @@ handlers:
         name: httpd
         state: restarted
         enabled: yes
-{% endraw %}        
 ```
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.ja.md)

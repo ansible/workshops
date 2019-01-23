@@ -73,6 +73,9 @@ ansible_connection=netconf
 ansible_user=ec2-user
 ansible_network_os=eos
 ansible_connection=network_cli
+ansible_become=true
+ansible_become_method=enable
+
 {% endif %}
 
 [dc1]

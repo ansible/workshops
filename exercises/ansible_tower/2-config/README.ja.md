@@ -7,10 +7,10 @@
 
 Anabilities Towerは、RestAPIでの実行、マルチテナント、通知、スケジューリングなどを可能にしますが、今回のワークショップでは以下へリストする、最低限必要な主要コンセプトに焦点を絞って説明します。
 
-* Credentials(クレデンシャル、認証情報)
-* Projects
-* Inventory
-* Job Template
+* `Credentials` 対象ノードへの認証情報を設定します。
+* `Projects` Playbook一覧を登録します。
+* `Inventory` 対象ノードの一覧を登録します。
+* `Job Template` Credential, Playbook(Project), Inventory 情報を組み合わせて実行できるジョブを作成します。
 
 ## Ansible Towerへのログインとライセンスキーのインストール
 
@@ -34,6 +34,8 @@ password:`ansibleWS`(もしくは1-install Step 6でインベントリーファ�
 次のURL [https://www.ansible.com/workshop-license](https://www.ansible.com/workshop-license) で workshop専用のlicenseをリクエストしてください。
 通常はすぐ(1~2分)にメールでライセンスファイルが送られるはずです。
 メールに添付されているライセンスファイルを用いて、AnsibleTowerのライセンスを有効化します。
+
+Note: 講師がワークショップ用のライセンスを準備している場合にはそちらを利用してください。
 
 ### Step 3:
 
@@ -67,8 +69,9 @@ Credentials(認証情報)は、Ansible Towerがジョブなどを実行する際
 
 以下の表の通りに入力し、ワークショップの中で利用する認証情報をコンフィグします。
 
-NAME (名前) |Ansible Workshop Credential
+項目 | 値
 -----|---------------------------
+NAME (名前) |Ansible Workshop Credential
 DESCRIPTION (説明)|Machine credential for run job templates during workshop
 ORGANIZATION (組織)|Default
 CREDENTIAL TYPE(認証情報タイプ)|Machine
@@ -81,7 +84,7 @@ PRIVILEGE ESCALATION METHOD(権限昇格方法)|Sudo
 
 ### Step 4:
 
-SAVE(保存)をクリックします。 ![Save button](at_save.png)
+SAVE(保存)をクリックします。 ![Save button](at_save.png)
 
 ## Projectの作成
 
@@ -100,8 +103,9 @@ PROJECTS(プロジェクト)をクリックします。
 
 以下の値を利用して新規プロジェクトを作成します。
 
-NAME(名前) |Ansible Workshop Project
+項目 | 値
 -----|------------------------
+NAME(名前) |Ansible Workshop Project
 DESCRIPTION(説明)|workshop playbooks
 ORGANIZATION(組織)|Default
 SCM TYPE(SCMタイプ)|Git
@@ -140,8 +144,9 @@ INVENTORIESをクリックします。
 
 以下の値を利用して、新規Inventoryを作成します。
 
-NAME(名前) |Ansible Workshop Inventory
+項目 | 値
 -----|--------------------------
+NAME(名前) |Ansible Workshop Inventory
 DESCRIPTION(説明)|workshop hosts
 ORGANIZATION(組織)|Default
 

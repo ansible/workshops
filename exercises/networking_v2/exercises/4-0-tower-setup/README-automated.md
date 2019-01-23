@@ -166,6 +166,9 @@ Finally we need to add all of the routers to our inventory.  We can make a new P
           ansible_host: "{{ansible_host}}"
           ansible_user: "{{ansible_user}}"
           private_ip: "{{private_ip}}"
+          ansible_connection: network_cli
+          ansible_become: yes
+          ansible_become_method: enable
 ```
 
 ![Tower Inventory](images/workshop_inventory.png)

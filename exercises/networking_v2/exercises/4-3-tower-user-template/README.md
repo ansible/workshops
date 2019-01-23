@@ -45,14 +45,14 @@ Make sure you are on the control node cli. Using your favorite text editor (`vim
 
 ## Step 2:
 
-Copy this [user.json](user.json) file and make sure its in the same folder as your user.yml Ansible Playbook.
+Copy this [user.json](user.json) file and make sure its in the same folder as your userjob.yml Ansible Playbook.
 
 ## Step 3:
 
 Launch the job with the `ansible-playbook` command.
 
 ```
-ansible-playbook user.yml
+ansible-playbook userjob.yml
 ```
 
 ## Playbook Output
@@ -60,7 +60,7 @@ ansible-playbook user.yml
 Here is the Playbook output:
 
 ```
-[student1@ansible ~]$ ansible-playbook user.yml
+[student1@ansible ~]$ ansible-playbook userjob.yml
 
 PLAY [TOWER CONFIGURATION IN PLAYBOOK FORM] ************************************
 
@@ -81,7 +81,7 @@ The Template menu will displays the new **CONFIGURE USER** job template.
 
 ![configure user job template](images/userjob.png)
 
-Click the rocket shit to launch the job.
+Click the rocket button to launch the job.
 
 ![rocket button](images/rocket.png)
 

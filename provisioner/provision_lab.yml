@@ -184,16 +184,6 @@
         type: csr_hub
       when: special is match("all_cisco")
 
-- name: CHANGE HOSTNAME ON ROUTERS
-  hosts: routers
-  gather_facts: no
-  tasks:
-    - name: CHANGE THE HOSTNAME
-      include_role:
-        name: configure_routers
-        tasks_from: hostname
-      when: special is match("multivendor")
-
 - name: CHANGE JUNIPER PASSWORD
   hosts: juniper
   gather_facts: no
@@ -206,8 +196,19 @@
         tasks_from: juniper_default
       when: special is match("multivendor")
 
+- name: CHANGE HOSTNAME ON ROUTERS
+  hosts: routers
+  gather_facts: no
+  tasks:
+    - name: CHANGE THE HOSTNAME
+      include_role:
+        name: configure_routers
+        tasks_from: hostname
+      when: special is match("multivendor")
+
 - name: ALERT THE MOTHERSHIP
   hosts: localhost
+  connection: local
   become: no
   gather_facts: no
   tasks:

@@ -14,6 +14,12 @@ Demonstrate setup for Red Hat Ansible Tower.  To run an Ansible Playbook in Towe
 
 # Guide
 
+Before beginning your Ansible Tower labs please upgrade your Red Hat Ansible Tower control node to the latest version of Ansible.  We will be using a newer feature only available on Ansible 2.8 which has not launched yet:
+
+```
+sudo pip install git+https://github.com/ansible/ansible.git@devel
+```
+
 There are multiple ways we can quickly setup Red Hat Ansible Tower.  For this workshop we are giving you two options.  You can use Ansible Playbooks to help automate the setup, or you can manually use the web user interface (UI) to help better understand the Tower concepts.  Feel free to user either method.
 
  - [Automated Approach](README-automated.md)

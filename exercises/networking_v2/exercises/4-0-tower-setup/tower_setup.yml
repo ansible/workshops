@@ -37,6 +37,7 @@
         tower_password: ansible
         tower_host: https://localhost
 
+## make sure ansible_user corresponds to your student number
     - name: ADD CREDENTIAL INTO TOWER
       tower_credential:
         name: Workshop Credential

@@ -25,5 +25,7 @@ There are multiple ways we can quickly setup Red Hat Ansible Tower.  For this wo
  - [Automated Approach](README-automated.md)
  - [Manual Approach](README-manual.md)
 
+**WARNING** please make sure you set the Junos device to **netconf**  the instructor will walk you through it.
+
 ---
 [Click Here to return to the Ansible - Network Automation Workshop](../../README.md)

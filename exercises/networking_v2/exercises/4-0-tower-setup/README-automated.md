@@ -118,6 +118,8 @@ Credentials are utilized by Tower for authentication when launching Jobs against
 
 We can manually create this through the web UI or in this case, automate it using an Ansible Playbook.  For this task the [tower_credential module](https://docs.ansible.com/ansible/latest/modules/tower_credential_module.html) will be used. Append the following to the tower_setup.yml playbook.  
 
+**PLEASE CHANGE {{ANSIBLE_USER}} to your student number!!!***
+
 ```yaml
     - name: ADD CREDENTIAL INTO TOWER
       tower_credential:
@@ -211,6 +213,7 @@ rtr4                       : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution
+
 The finished Ansible Playbook is provided here for an Answer key.
 [solution](tower_setup.yml)
 

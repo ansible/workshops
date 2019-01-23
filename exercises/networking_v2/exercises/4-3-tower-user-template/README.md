@@ -45,25 +45,78 @@ Make sure you are on the control node cli. Using your favorite text editor (`vim
 
 ## Step 2:
 
+Copy this [user.json](user.json) file and make sure its in the same folder as your user.yml Ansible Playbook.
+
+## Step 3:
+
 Launch the job with the `ansible-playbook` command.
 
-## Step 3
+```
+ansible-playbook user.yml
+```
 
-Click the Jobs button the left menu.
+## Playbook Output
 
-![jobs button](images/jobs.png)
+Here is the Playbook output:
 
-The Jobs link displays a list of jobs and their status–shown as completed successfully or failed, or as an active (running) job. Actions you can take from this screen include viewing the details and standard output of a particular job, relaunch jobs, or remove jobs.
+```
+[student1@ansible ~]$ ansible-playbook user.yml
 
-![jobs link](images/jobslink.png)
+PLAY [TOWER CONFIGURATION IN PLAYBOOK FORM] ************************************
 
-The **BACKUP NETWORK CONFIG** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Tower will save the history of every job launched and it is possible to see down to the task level of what happened on a particular job.
+TASK [CREATE USER JOB TEMPLATE] ************************************************
+changed: [ansible]
+
+PLAY RECAP *********************************************************************
+ansible                    : ok=1    changed=1    unreachable=0    failed=0    skipped=0
+```
+
+## Step 4
+
+Click the Templates button the left menu.
+
+![templates button](images/template.png)
+
+The Template menu will displays the new **CONFIGURE USER** job template.
+
+![configure user job template](images/userjob.png)
+
+Click the rocket shit to launch the job.
+
+![rocket button](images/rocket.png)
+
+## Step 5
+
+Fill out the survey, click the green **NEXT** button, then click the green **LAUNCH** button.
+
+![user survey](images/user-survey.png)
+
+Feel free to use whatever you want!
+
+When the job launches you will go to the **Job Details View** which will look like this:
+
+![job details view](images/running.png)
+
+# Verify
+
+Login to the routers to verify the user was created
+
+```
+[student1@ansible ~]$ ssh rtr1
+```
+
+then look for the user
+
+```
+rtr1#show run | i username ansible
+username ansible secret 5 $1$qroK$DkZ4Z71o/ZSbifb8yRiza.
+```
 
 # Solution
 You have finished this exercise.  
 
 You have
- - created a job template for backing up network configurations
+ - created a job template for creating users on network devices
  - launched the job template from the Ansible Tower UI
  - looked under the covers on the control node to see where the Playbooks are being stored
 

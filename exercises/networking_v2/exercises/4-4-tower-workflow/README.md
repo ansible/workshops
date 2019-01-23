@@ -1,4 +1,4 @@
-# Exercise 4-3: Creating a Workflow
+# Exercise 4-4: Creating a Workflow
 
 ## Table of Contents
 
@@ -56,7 +56,7 @@ A green line should exist between **BACKUP NETWORK CONFIG** and **CONFIGURE BANN
 
 Hover over the **BACKUP NETWORK CONFIG** node (not the **CONFIGURE BANNER** node) and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-This time select the **CONFIGURE USER** job template.  For the **Run** parameter and select **On Success** from the drop down menu.  Just like the previous step fill out the prompt or it will not let you **SELECT** the job.  Once the **SELECT** button appears green click it, then click **SAVE**.
+This time select the **CONFIGURE USER** job template.  For the **Run** parameter and select **On Success** from the drop down menu.  Just like the previous step fill out the prompt or it will not let you **SELECT** the job.  Once the **SELECT** button appears green click it.
 
 ![configure user node](images/configure-user.png)
 
@@ -71,9 +71,11 @@ Select the **RESTORE NETWORK CONFIG** job template.  For the **Run** parameter s
 
 ## Step 6
 
-Hover over the **CONFIGURE USER** node and click the blue **chain** symbol.  Drag this to the existing **RESTORE NETWORK CONFIG**.  A **ADD LINK** window will appear.  For the **RUN** parameter choose **On Failure**.
+Hover over the **CONFIGURE USER** node and click the blue **chain** symbol.  Now click on the existing **RESTORE NETWORK CONFIG**.  A **ADD LINK** window will appear.  For the **RUN** parameter choose **On Failure**.
 
 ![restore node](images/completed-workflow.png)
+
+Click the green **SAVE** button
 
 ## Step 7
 

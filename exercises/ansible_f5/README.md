@@ -32,6 +32,9 @@ Want the Presentation Deck?  Its right here:
  - [Exercise 3.1 - Operational Change with AS3](3.1-as3-change)
  - [Exercise 3.2 - Deleting a Web Application](3.2-as3-delete)
 
+### To start a discussion or to post a question related to the workshop use link:
+  - https://devcentral.f5.com/questions/f5-ansible-automation-discussion-63579
+
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 

@@ -18,6 +18,8 @@ Demonstrate building a virtual server (exactly like the Section 1 Ansible F5 Exe
 
 # Guide
 
+#### Make sure the BIG-IP configuration is clean, run exercise 1.6-delete-configuration before proceeding
+
 ## Step 1:
 
 Make sure the F5 BIG-IP has AS3 enabled.  

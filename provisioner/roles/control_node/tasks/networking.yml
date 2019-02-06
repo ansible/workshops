@@ -14,16 +14,25 @@
 - name: for networking modes
   block:
     - name: Move networking workshop folder to correct location  (NETWORKING MODE)
-      command: cp -r /tmp/linklight/exercises/networking/ /home/{{ username }}/networking-workshop
+      copy:
+        src: /tmp/linklight/exercises/networking/
+        dest: /home/{{ username }}/networking-workshop
+        remote_src: yes
       when: special is not defined
 
     - name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
-      command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop
+      copy:
+        src: /tmp/linklight/exercises/networking_v2/
+        dest: /home/{{ username }}/networking-workshop
+        remote_src: yes
       when: special is defined
 
     - name: Create demos folder with demos
-      command: cp -r /tmp/linklight/demos/ /home/{{ username }}/demos
-   
+      copy:
+        src: /tmp/linklight/demos/
+        dest: /home/{{ username }}/demos
+        remote_src: yes
+
   when: networking
 
 # waiting on https://github.com/ansible/ansible/pull/41222
@@ -43,7 +52,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     recurse: yes
-    
+
 - name: fix permissions of demos  (NETWORKING MODE)
   file:
     path: /home/{{ username }}/demos

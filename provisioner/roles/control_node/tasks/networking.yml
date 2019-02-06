@@ -35,16 +35,11 @@
 
   when: networking
 
-# waiting on https://github.com/ansible/ansible/pull/41222
-# - name: Move networking workshop folder to correct location  (F5 MODE)
-#   copy:
-#     src: /tmp/linklight/exercises/ansible_f5/
-#     dest: /home/{{ username }}/networking-workshop
-#     remote_src: yes
-
 - name: Move networking workshop folder to correct location  (F5 MODE)
-  shell: mkdir /home/{{ username }}/networking-workshop; cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
-  when: f5workshop
+  copy:
+    src: /tmp/linklight/exercises/ansible_f5/
+    dest: /home/{{ username }}/networking-workshop
+    remote_src: yes
 
 - name: fix permissions of networking-workshop  (NETWORKING MODE)
   file:

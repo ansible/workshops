@@ -14,7 +14,7 @@
 - [FAQ](../docs/faq.md)
 
 # Requirements
-- This provisioner must be run with Ansible Engine v2.6.0 or higher.
+- This provisioner must be run with Ansible Engine v2.7.0 or higher.
 - AWS Account (follow directions on one time setup below)
 
 # Lab Setup

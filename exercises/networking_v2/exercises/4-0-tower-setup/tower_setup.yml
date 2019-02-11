@@ -13,6 +13,7 @@
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
 
     - name: ADD CONTROL HOST INTO TOWER
       tower_host:
@@ -21,6 +22,7 @@
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
         variables:
           ansible_host: "{{ansible_host}}"
           ansible_user: "ec2-user"
@@ -36,17 +38,19 @@
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
 
 ## make sure ansible_user corresponds to your student number
     - name: ADD CREDENTIAL INTO TOWER
       tower_credential:
         name: Workshop Credential
-        ssh_key_data: "/home/{{ansible_user}}/.ssh/aws-private.pem"
+        ssh_key_data: "/home/{{ansible_ssh_user}}/.ssh/aws-private.pem"
         kind: ssh
         organization: Default
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
 
 - name: ADD EACH HOST TO INVENTORY
   hosts: routers
@@ -62,6 +66,7 @@
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
         variables:
           ansible_network_os: "{{ansible_network_os}}"
           ansible_host: "{{ansible_host}}"

@@ -41,6 +41,7 @@ Make sure you are on the control node cli. Using your favorite text editor (`vim
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
 ```
 
 ## Step 2:

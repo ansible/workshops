@@ -53,6 +53,7 @@ Instead of manually re-entering existing hosts into our Tower inventory it is po
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
 
     - name: ADD CONTROL HOST INTO TOWER
       tower_host:
@@ -61,6 +62,7 @@ Instead of manually re-entering existing hosts into our Tower inventory it is po
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
         variables:
           ansible_host: "{{ansible_host}}"
           ansible_user: "ec2-user"
@@ -96,6 +98,7 @@ For this exercise we are going to use an already existing Github repository and 
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
       run_once: true
       delegate_to: localhost
 ```
@@ -124,12 +127,13 @@ We can manually create this through the web UI or in this case, automate it usin
     - name: ADD CREDENTIAL INTO TOWER
       tower_credential:
         name: Workshop Credential
-        ssh_key_data: "/home/{{ansible_user}}/.ssh/aws-private.pem"
+        ssh_key_data: "/home/{{ansible_ssh_user}}/.ssh/aws-private.pem"
         kind: ssh
         organization: Default
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
 ```
 
 Re-run the playbook using the `ansible-playbook` command.
@@ -161,6 +165,7 @@ Finally we need to add all of the routers to our inventory.  We can make a new P
         tower_username: admin
         tower_password: ansible
         tower_host: https://localhost
+        tower_verify_ssl: no
         variables:
           ansible_network_os: "{{ansible_network_os}}"
           ansible_host: "{{ansible_host}}"

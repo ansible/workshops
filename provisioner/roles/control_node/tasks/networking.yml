@@ -32,7 +32,6 @@
         src: /tmp/linklight/demos/
         dest: /home/{{ username }}/demos
         remote_src: yes
-
   when: networking
 
 - name: Move networking workshop folder to correct location  (F5 MODE)
@@ -40,6 +39,7 @@
     src: /tmp/linklight/exercises/ansible_f5/
     dest: /home/{{ username }}/networking-workshop
     remote_src: yes
+  when: f5workshop
 
 - name: fix permissions of networking-workshop  (NETWORKING MODE)
   file:

@@ -24,10 +24,6 @@
   delegate_facts: true
   when: issue_cert is failed
 
-- name: debug this for sean
-  debug:
-    msg: "{{dns_information}}"
-
 - name: MOVE SSL KEY
   copy:
     remote_src: True
@@ -35,24 +31,15 @@
     dest: /etc/tower/tower.key
   when: issue_cert is not failed
 
-# - name: MOVE SSL CERT
-#   copy:
-#     remote_src: True
-#     src: "/etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/cert.pem"
-#     dest: /etc/tower/tower.cert
-#   when: issue_cert is not failed
+- name: GRAB SPECIFIC SSL CERT
+  slurp:
+    src: "/etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/cert.pem"
+  register: intermediate_cert
 
-# THIS IS LOCATED HERE
-# https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt
-- name: MOVE INTERMEDIATE CERT
-  copy:
-    src: "lets-encrypt-x3-cross-signed.pem.txt"
-    dest: "/etc/tower/intermediate.cert"
-
-- name: LOAD INTERMEDIATE CERT
-  shell: rm /etc/tower/tower.cert; cat /etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/cert.pem /etc/tower/intermediate.cert >> /etc/tower/tower.cert
-
-# cat /etc/letsencrypt/live/student1.feb14.rhdemo.io/cert.pem /etc/tower/intermediate.cert >> /etc/tower/tower.cert
+- name: COMBINE SPECIFIC AND INTERMEDIATE CERT
+  template:
+    src: combined_cert.j2
+    dest: /etc/tower/tower.cert
 
 - name: TURN ON TOWER
   shell: ansible-tower-service start

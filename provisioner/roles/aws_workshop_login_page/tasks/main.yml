@@ -56,4 +56,4 @@
 - name: SET WEBSITE INFORMATION VARIABLE
   set_fact:
     website_information: |
-      - Website created at https://{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}
+      - Website created at http://{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}

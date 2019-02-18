@@ -18,6 +18,8 @@ Demonstrate building a virtual server (exactly like the Section 1 Ansible F5 Exe
 
 # Guide
 
+#### Make sure the BIG-IP configuration is clean, run exercise 1.6-delete-configuration before proceeding
+
 ## Step 1:
 
 Make sure the F5 BIG-IP has AS3 enabled.  
@@ -128,7 +130,7 @@ Using your text editor of choice create a new file called `as3.yml`:
 
 ## Step 4:
 
-Enter the following play definition into `as3.yml`:
+Enter the following play definition into `as3.yaml`:
 
 {% raw %}
 
@@ -175,7 +177,7 @@ The module [set_fact module](https://docs.ansible.com/ansible/latest/modules/set
 
 ## Step 6
 
-**Append** the following to the as3.yml Playbook.  This task uses the uri module which is used to interact with HTTP and HTTPS web services and supports Digest, Basic and WSSE HTTP authentication mechanisms.  This module is extremely common and very easy to use.  The workshop itself (the Playbooks that provisioned the workbenches) uses the uri module to configure and license Red Hat Ansible Tower.
+**Append** the following to the as3.yaml Playbook.  This task uses the uri module which is used to interact with HTTP and HTTPS web services and supports Digest, Basic and WSSE HTTP authentication mechanisms.  This module is extremely common and very easy to use.  The workshop itself (the Playbooks that provisioned the workbenches) uses the uri module to configure and license Red Hat Ansible Tower.
 
 {% raw %}
 
@@ -239,7 +241,7 @@ The rest of the parameters are for authentication to the F5 BIG-IP and fairly st
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-playbook as3.yaml
 ```
 
 # Playbook Output
@@ -263,7 +265,7 @@ f5                         : ok=2    changed=0    unreachable=0    failed=0
 
 # Solution
 
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [as3.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.0-as3-intro/as3.yml).
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [as3.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.0-as3-intro/as3.yaml).
 
 # Verifying the Solution
 

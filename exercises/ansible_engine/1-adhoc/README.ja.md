@@ -1,52 +1,85 @@
 # Exercise 1 - アドホック・コマンドの実行
 
-最初のExcerciseは、Ansible の動きを確かめる上でいくつかの アドホック・コマンドを実行します。  
-Ansible アドホック・コマンドはplaybookを作成せずに、CLIから様々なタスクをリモードノードで実行する事ができます。  
+最初の演習では、Ansible の動きを確かめる上でいくつかの アドホック・コマンドを実行します。
+Ansible アドホック・コマンドではplaybookの中で利用される`モジュール`を直接CLIから実行します。
+モジュールは「よくあるインフラ作業」を部品化したもので、呼び出すことで様々なタスクをリモードノードで実行する事ができます。
 簡易かつクイックにタスクを複数のリモートノードに実行したい場合にとても有効な利用方法です。
+この後で、実際に皆様が自動化を組み立てる際には、この`モジュール`を`Playbook`に記述していくことになります。
 
 ## Step 1.1 - インベントリの定義
 
-今回のLabでは事前にインベントリファイルが定義されているため、Step1において、設定などは不要です。  
-ここでは、インベントリファイルが存在するということを認識してください。  
-インベントリとは、Anisbleが実行対象とするホスト群を定義するファイルです。  
+今回のLabでは事前にインベントリファイルが定義されているため、Step1において設定などは不要です。
+ここでは、インベントリファイルが存在するということを認識してください。
+インベントリとは、Anisbleが実行対象とするホスト群を定義するファイルです。
 インベントリでは、以下の例のようにホスト名やIPアドレスがリストされ、グループでソートが可能であり、場合によっては変数などが追加されたini形式のファイルです。
+デフォルトのインベントリファイルは Ansible の設定ファイルである `.ansible.cfg` に定義されています。この内容を確認して、インベントリーファイルの中身を確認してみましょう。
 
 ```bash
+cat ~/.ansible.cfg
+
+[defaults]
+connection = smart
+timeout = 60
+deprecation_warnings = False
+inventory = /home/studentX/lightbulb/lessons/lab_inventory/studentX-instances.txt
+host_key_checking = False
+private_key_file = /home/studentX/.ssh/aws-private.pem
+```
+
+`inventory=`で指定されている箇所が、デフォルトのインベントリーファイルを示しています。
+
+```bash
+cat /home/studentX/lightbulb/lessons/lab_inventory/studentX-instances.txt
+
 [all:vars]
 ansible_user=studentX
-ansible_ssh_pass=PASSWORD
+ansible_ssh_pass=ansible
 ansible_port=22
 
 [web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
+node1 ansible_host=13.230.247.75
+node2 ansible_host=3.112.26.239
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible ansible_host=52.68.45.53
 ```
+
+ここでは、3台のホストが定義されており、`[control]`に1台、`[web]`というグループに2台が含まれているということを覚えておいてください。
+
 
 ## Step 1.2 - ホストへのping実行
 
-まずはホストへのping実行から始めましょう。  
+まずはホストへのping実行から始めましょう。
 `ping` モジュールを利用しwebグループのホストがAnsibleに応答可能であることを確認します。
 
 ```bash
 ansible web -m ping
 ```
 
+このpingモジュールは、通常補ICMPのpingではなく「Ansibleとしてのping」になります。このpingが正常終了するということは、対象のノードが「Ansibleで操作可能な状態である」ということを示します。
+
+
 ## Step 2:
 
-Linuxコマンド形式で `command` モジュールを実行してみましょう。
+Linuxコマンド形式で `command` モジュールを実行してみましょう。command モジュールはリモートホスト情報で任意のコマンドを実行して、その結果を回収するモジュールになります。
 
 ```bash
 ansible web -m command -a "uptime" -o
+
+ansible control -m command -a "uptime" -o
+
+ansible all -m command -a "uptime" -o
 ```
+
+`web`, `control`, `all` とすることで、実行対象がどのように変わるのかをインベントリーの定義を見ながら確認してください。
+
+Note: `all` は特別なキーワードで、インベントリーに記載されたすべてのホストを対象します。
+
 
 ## Step 3:
 
-webノードの定義を見てみましょう。  
-`setup` モジュールを利用してエンドポイントの facts の内容を出力します。
+webノードの定義を見てみましょう。
+`setup` モジュールを利用してエンドポイントの facts の内容を出力します。setupモジュールは対象となるノードの設定情報やOS、ハードウェアの情報を取得するためのモジュールです。
 
 ```bash
 ansible web -m setup
@@ -54,24 +87,30 @@ ansible web -m setup
 
 ## Step 4:
 
-`yum` モジュールを利用してApacheをインストールしてみましょう。
+`yum` モジュールを利用してApacheをインストールしてみましょう。yum モジュールは対象のパッケージを操作します。
 
 ```bash
 ansible web -m yum -a "name=httpd state=present" -b
 ```
 
+- `-b` はAnsibleがリモートノードで処理を行う際に、`sudo` で権限昇格をさせるためのオプションです。パッケージのインストールには root 権限が必要となります。
+
+
 ## Step 5:
 
-Apacheのインストールが完了したら、`service` モジュールを利用してサービスを起動してみましょう。
+Apacheのインストールが完了したら、`service` モジュールを利用してサービスを起動してみましょう。serviceモジュールはOSのサービスを操作するモジュールです。同等のモジュルートして`systemd`というモジュールも存在します。
 
 ```bash
 ansible web -m service -a "name=httpd state=started" -b
 ```
 
+このコマンドが正常終了したら、インベントリーで確認した`[web]`のサーバー2台のIPアドレスへブラウザでアクセスしてください。正常に設定が行われていれば、Apacheの初期画面が表示されます。
+
+
 ## Step 6:
 
-最後に設定した情報をクリーンナップしていきます。  
-まずはhttpdサービスの停止を行います。
+最後に設定した情報をクリーンナップしていきます。
+逆の手順でまずはhttpdサービスの停止を行います。
 
 ```bash
 ansible web -m service -a "name=httpd state=stopped" -b
@@ -84,6 +123,9 @@ ansible web -m service -a "name=httpd state=stopped" -b
 ```bash
 ansible web -m yum -a "name=httpd state=absent" -b
 ```
+
+再び、ブラウザで2台のサーバーへアクセスするとHTTPDサービスが停止したためエラーとなるはずです。
+
 
 
 ---
@@ -116,4 +158,4 @@ https://docs.ansible.com/ansible/latest/user_guide/command_line_tools.html
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.ja.md)

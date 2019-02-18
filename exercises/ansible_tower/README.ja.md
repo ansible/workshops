@@ -10,9 +10,9 @@ Lightbulbのプレゼンテーションスライドはこちらです:
 
 ## Ansible Engine Exercises
 
- - [演習 1 - Ansible Towerのインストール](1-install)
- - [演習 2 - Ansible Towerのコンフィグレーション](2-config)
- - [演習 3 - Job Templateの作成と実行](3-create)
+ - [演習 1 - Ansible Towerのインストール](1-install/README.ja.md)
+ - [演習 2 - Ansible Towerのコンフィグレーション](2-config/README.ja.md)
+ - [演習 3 - Job Templateの作成と実行](3-create/README.ja.md)
 
 ## Survey
 アンケートへご協力ください

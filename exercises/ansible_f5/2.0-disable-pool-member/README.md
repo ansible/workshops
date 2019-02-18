@@ -21,7 +21,10 @@ Demonstrate the removal of a node from the pool.  Build a Playbook that:
 # Guide
 
 ## Step 1:
-(Please ensure that you have working pool members by completing exercise 1.2, 1.3, and 1.4)
+#### At this point your BIG-IP will have no configuraton if you sucessfully ran exercises 1.6 and 1.7
+#### Before running this exercise please ensure that you have working pool members by running exercises 1.2, 1.3, and 1.4
+
+Moving to the exercise:
 
 Using your text editor of choice create a new file called `disable-pool-member.yml`.
 

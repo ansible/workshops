@@ -7,6 +7,7 @@ The Network and F5 Automation decks are managed internally at Red Hat Ansible wi
 
 - [Ansible Network Automation](https://docs.google.com/presentation/d/1qBq-9-f5a-XOwZ6gumWu27bj0qU5mhxtF5v1zyZ_hsM/edit?usp=sharing)
 - [Ansible F5 Automation](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84/edit?usp=sharing)
+- [Intro to Ansible Tower](https://docs.google.com/presentation/d/1xxdtxtwfY4IxaIIFtwtkp8eKJBwjnp16s-NOWCbP8Ns/edit?usp=sharing)
 
 **Why change to Google Slides?**
 

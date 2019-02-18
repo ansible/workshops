@@ -1,0 +1,21 @@
+---
+- name: TOWER CONFIGURATION IN PLAYBOOK FORM
+  hosts: ansible
+  connection: local
+  become: yes
+  gather_facts: no
+  tasks:
+
+    - name: CREATE USER JOB TEMPLATE
+      tower_job_template:
+        name: "CONFIGURE USER"
+        job_type: "run"
+        inventory: "Workshop Inventory"
+        project: "Workshop Project"
+        playbook: "network_user.yml"
+        credential: "Workshop Credential"
+        survey_enabled: true
+        survey_spec: "{{ lookup('template', '{{playbook_dir}}/user.json') }}"
+        tower_username: admin
+        tower_password: ansible
+        tower_host: https://localhost

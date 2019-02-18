@@ -47,8 +47,8 @@ vim inventory
 
 ### Step 6:
 
-inventoryファイル内で、AnisbleTowerが必要とするパスワードを変数として追加します。  
-以下の3つへ任意のパスワード情報を記述してください。:  
+inventoryファイル内で、AnisbleTowerが必要とするパスワードを変数として追加します。
+以下の3つへ任意のパスワード情報を記述してください。:
 `admin_password, pg_password, rabbitmq_password`
 
 ```ini
@@ -112,4 +112,4 @@ https://コントローラーノードのIPアドレス
 
 ---
 
-[Ansible Lightbulbのページへ戻ります - Ansible Tower Workshop](../README.md)
+[Ansible Lightbulbのページへ戻ります - Ansible Tower Workshop](../README.ja.md)

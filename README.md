@@ -10,7 +10,7 @@ The Ansible Networking Linklight project is intended for effectively demonstrati
 
   * [Presentation Decks](decks)  
      - [Ansible Essentials Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)
-     - [Intro to Ansible Tower Deck](https://network-automation.github.io/linklight/decks/intro-to-ansible-tower.html)
+     - [Intro to Ansible Tower Deck](https://network-automation.github.io/linklight/decks/tower_intro.pdf)
      - [Ansible Networking Deck *Deprecated](https://network-automation.github.io/linklight/decks/ansible-networking.html#)
      - [Ansible Networking-v2 Deck](https://network-automation.github.io/linklight/decks/ansible_network.pdf)
      - [Ansible F5 Deck](https://network-automation.github.io/linklight/decks/ansible_f5.pdf)

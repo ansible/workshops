@@ -6,7 +6,7 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible To
 
 ## Presentation
 Want the Presentation Deck?  Its right here:
-[Ansible Tower Intro Lightbulb Deck](../../decks/intro-to-ansible-tower.html)
+[Intro to Ansible Tower Deck](https://network-automation.github.io/linklight/decks/tower_intro.pdf)
 
 ## Ansible Engine Exercises
 

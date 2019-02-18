@@ -22,7 +22,7 @@ These workshops are focused on automating Linux platforms like RHEL (Red Hat Ent
 ## Presentation Decks
 
 - [Ansible Essentials - Deck](decks/ansible-essentials.html)
-- [Intro to Ansible Tower - Deck](decks/intro-to-ansible-tower.html)
+- [Intro to Ansible Tower - Deck](decks/tower_intro.pdf)
 
 ## Exercises
 

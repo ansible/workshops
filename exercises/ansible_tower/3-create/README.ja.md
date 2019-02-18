@@ -18,10 +18,11 @@ ADDをクリックし、 ![Add button](at_add.png)  JOB TEMPLATEを選択しま�
 
 下記の値でJob Templateを作成し、保存します。
 
-NAME(名前) |Apache Basic Job Template
+項目 | 値
 -----|-------------------------
+NAME(名前) |Apache Basic Job Template
 DESCRIPTION(説明)|Template for the apache-basic-playbook
-JOB TYPE(ジョブタイプ)|Run
+JOB TYPE(ジョブタイプ)|Run(実行)
 INVENTORY(インベントリー)|Ansible Workshop Inventory
 PROJECT(プロジェクト)|Ansible Workshop Project
 PLAYBOOK|examples/apache-basic-playbook/site.yml
@@ -44,8 +45,9 @@ OPTIONS(オプション)
 
 SURVEY機能を利用することで、Ansible TowerからJobを実行する際に任意の値をユーザが追加することができます。
 
-PROMPT(プロンプト)|Please enter a test message for your new website
+項目 | 値
 ------|------------------------------------------------
+PROMPT(プロンプト)|Please enter a test message for your new website
 DESCRIPTION(説明)|Website test message prompt
 ANSWER VARIABLE NAME(回答の変数名)|apache_test_message
 ANSWER TYPE(回答タイプ)|Text
@@ -119,18 +121,18 @@ LAUNCH ![Survey launch button](at_survey_launch.png) を選択します。
 
 ### Step 6:
 
-Jobが問題なく完了したなら、JobTemplateの実行によって作成された新しいWebサイトを見てみましょう。  
-実行対象となったWebサーバのIPアドレスは、AnsibleTowerの`インベントリー/Ansible Workshop Inventory/ホスト` 以下に格納された情報か、先ほどインポートしたAnsibleEngineのinventoryファイル内で確認することができます。  
+Jobが問題なく完了したなら、JobTemplateの実行によって作成された新しいWebサイトを見てみましょう。
+実行対象となったWebサーバのIPアドレスは、AnsibleTowerの`インベントリー/Ansible Workshop Inventory/ホスト` 以下に格納された情報か、先ほどインポートしたAnsibleEngineのinventoryファイル内で確認することができます。
 
 コントロールホストで以下を実行して、[web]グループのサーバIPを確認してみましょう。
 ```bash
 cat /home/student40/lightbulb/lessons/lab_inventory/studentXX-instances.txt
 ```
 
-上記のインベントリで確認ができた3台のWebサーバへHTTPでアクセスが可能なはずです。  
+上記のインベントリで確認ができた3台のWebサーバへHTTPでアクセスが可能なはずです。
 それぞれのWebサーバはどのように表示されるでしょうか？
 ```bash
-http://<webグループのnode1,node2,node3のIPアドレス>
+http://<webグループのnode1,node2のIPアドレス>
 ```
 
 意図した通りにジョブが実行されていれば、Surveyへ入力したテスト・メッセージと共に以下のような画面が表示されている筈です。
@@ -139,9 +141,9 @@ http://<webグループのnode1,node2,node3のIPアドレス>
 
 
 ## 結果
-ここまででAnsible Towerの基本的な機能を体験することができました。  
-そしてもちろん、Ansible Towerはもっと多くのことができます！  
-このワークショップでこれまで見てきたことは Ansible EngineとTowerが備えた数多くの機能のほんの入り口だけです。  
+ここまででAnsible Towerの基本的な機能を体験することができました。
+そしてもちろん、Ansible Towerはもっと多くのことができます！
+このワークショップでこれまで見てきたことは Ansible EngineとTowerが備えた数多くの機能のほんの入り口だけです。
 このガイドの資料のページを参照して、様々な機能を学び、試してみてください。
 
 ---

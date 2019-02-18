@@ -6,9 +6,9 @@
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
-3. Install `boto` and `boto3`.
+3. Install `boto` and `boto3`as well as `netaddr`
 
-        pip install boto boto3
+        pip install boto boto3 netaddr
 
   **Are you using Tower?**  [Tower Instructions](#tower-instructions)
 

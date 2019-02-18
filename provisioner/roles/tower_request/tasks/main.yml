@@ -1,6 +1,6 @@
 ---
 - set_fact:
-    workshop_type: "Networking"
+    workshop_type: "networking"
   when:
     - networking is defined
     - networking

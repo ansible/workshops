@@ -53,8 +53,7 @@
     include: "{{ ec2_name_prefix|lower }}-index.html"
   when: s3_state == 'present'
 
-- name: set facts for output
+- name: SET WEBSITE INFORMATION VARIABLE
   set_fact:
-    summary_information: |
-      {{summary_information}}
-      - Website created at https://{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}
+    website_information: |
+      - Website created at http://{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}

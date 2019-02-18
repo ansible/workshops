@@ -15,11 +15,13 @@
   retries: 5
   ignore_errors: yes
 
-- name: set facts for output
+- name: APPEND LETS ENCRYPT FAILED
   set_fact:
-    summary_information: |
-      {{summary_information}}
+    dns_information: |
       - The Lets Encrypt certbot failed, please check https://letsencrypt.status.io/ to make sure the service is running
+  run_once: yes
+  delegate_to: localhost
+  delegate_facts: true
   when: issue_cert is failed
 
 - name: MOVE SSL KEY
@@ -27,11 +29,16 @@
     remote_src: True
     src: "/etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
     dest: /etc/tower/tower.key
+  when: issue_cert is not failed
 
-- name: MOVE SSL CERT
-  copy:
-    remote_src: True
+- name: GRAB SPECIFIC SSL CERT
+  slurp:
     src: "/etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/cert.pem"
+  register: intermediate_cert
+
+- name: COMBINE SPECIFIC AND INTERMEDIATE CERT
+  template:
+    src: combined_cert.j2
     dest: /etc/tower/tower.cert
 
 - name: TURN ON TOWER

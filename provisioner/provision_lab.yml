@@ -8,7 +8,7 @@
       assert:
         that:
           - ansible_version.major >= 2
-          - ansible_version.minor >= 8
+          - ansible_version.minor >= 7
 
       # F5workshop and networking workshop are two different workshops
     - name: make sure f5workshop is not turned on when networking is

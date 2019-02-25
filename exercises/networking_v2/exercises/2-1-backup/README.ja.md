@@ -104,7 +104,6 @@ total 1544
 
 `copy`モジュールを用いて、このファイルのコピーを作成してみましょう。
 
-{%raw%}
 ``` yaml
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
@@ -123,7 +122,6 @@ total 1544
         src: "{{config_output.backup_path}}"
         dest: "./backup/{{inventory_hostname}}.config"
 ```
-{%endraw%}
 
 
 #### Step 6
@@ -195,7 +193,6 @@ Current configuration with default configurations exposed : 393416 bytes
 
 Ansibleの`lineinfile` モジュールを利用して新しいタスクを作成することで、最初の行を削除することができます。
 
-{%raw%}
 ``` yaml
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
@@ -219,7 +216,6 @@ Ansibleの`lineinfile` モジュールを利用して新しいタスクを作成
         path: "./backup/{{inventory_hostname}}.config"
         line: "Building configuration..."
         state: absent
-{%endraw%}
 ```
 
 > Note: モジュールのパラメータ **line** は、指定されたファイルにおいて"Building configuration ..."と一致している行があるかを検索し、`absent`(不在/欠けている)状態にします。
@@ -233,7 +229,6 @@ playbookを実行する前に、もう一つタスクを追加し、２つ目の
 
 
 ``` yaml
-{%raw%}
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -263,7 +258,6 @@ playbookを実行する前に、もう一つタスクを追加し、２つ目の
         regexp: 'Current configuration.*'
         state: absent
 ```
-{%endraw%}
 
 
 #### Step 10

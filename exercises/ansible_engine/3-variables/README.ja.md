@@ -125,11 +125,11 @@ cd ../
 ```
 
 - `file:` このモジュールを使ってファイル、ディレクトリ、シンボリックリンクの作成、変更、削除を行います。
-- `template:` このモジュールで、jinja2テンプレートの利用と実装を指定しています。 `template` は `Files` モジュール・ファミリの中に含まれています。その他の file-management modules here](http://docs.ansible.com/ansible/latest/list_of_files_modules.html) についても、一度目を通しておくことをお勧めします。
+- `template:` このモジュールで、jinja2テンプレートの利用と実装を指定しています。 `template` は `Files` モジュール・ファミリの中に含まれています。その他の[ファイル管理モジュール](http://docs.ansible.com/ansible/latest/list_of_files_modules.html) についても、一度目を通しておくことをお勧めします。
 - *jinja* - [jinja2](http://docs.ansible.com/ansible/latest/playbooks_templating.html)は、Ansibleでテンプレートの中のfiltersのような式の中のデータを変更する場合に用います。
 - *service* - serviceモジュールはサービスの起動、停止、有効化、無効化を行います。
 
-template モジュールでは元となるファイル（今回は`template/{index.html.j2,httpd.conf.j2}`）を予め準備しておき、この中にホストや状況に合わせて書き換えたい部分を変数化しておきます。そして、モジュールがこのファイルを配置する際に、変数化された箇所を値と入れ替えて配置してくれます。今回のように設定ファイルの配布に便利に使える以外にも、レポートを動的に生成して出力するなどとても応用範囲の広いモジュールです。
+template モジュールでは元となるファイル（今回は`templates/{index.html.j2,httpd.conf.j2}`）を予め準備しておき、この中にホストや状況に合わせて書き換えたい部分を変数化しておきます。そして、モジュールがこのファイルを配置する際に、変数化された箇所を値と入れ替えて配置してくれます。今回のように設定ファイルの配布に便利に使える以外にも、レポートを動的に生成して出力するなどとても応用範囲の広いモジュールです。
 
 
 ## Section 3: ハンドラの定義と利用

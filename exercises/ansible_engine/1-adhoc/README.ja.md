@@ -56,7 +56,7 @@ ansible ansible_host=52.68.45.53
 ansible web -m ping
 ```
 
-このpingモジュールは、通常補ICMPのpingではなく「Ansibleとしてのping」になります。このpingが正常終了するということは、対象のノードが「Ansibleで操作可能な状態である」ということを示します。
+このpingモジュールは、通常のICMPのpingではなく「Ansibleとしてのping」になります。このpingが正常終了するということは、対象のノードが「Ansibleで操作可能な状態である」ということを示します。
 
 
 ## Step 2:

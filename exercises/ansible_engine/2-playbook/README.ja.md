@@ -145,7 +145,7 @@ ansible-playbook install_apache.yml --syntax-check
 ansible-playbook install_apache.yml
 ```
 
-正常に終了したら、ブラウザで2台のサーバーへサクセスしてください。もしエラーが出る場合には、スペルミスなどが考えられるますので確認・修正して再度`ansible-playbook`コマンドを実行してください。
+正常に終了したら、ブラウザで2台のサーバーへアクセスしてください。もしエラーが出る場合には、スペルミスなどが考えられるますので確認・修正して再度`ansible-playbook`コマンドを実行してください。
 
 
 ## Section 6: 設定を削除するplaybookの作成と実行

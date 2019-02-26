@@ -3,33 +3,33 @@
 
 {% for vm in rtr1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 {% for vm in rtr2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 {% if special is defined %}
 {% for vm in rtr3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 {% for vm in rtr4_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 {% endif %}
 {% for vm in host1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{{ vm.public_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}

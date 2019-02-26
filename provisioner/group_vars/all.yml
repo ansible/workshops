@@ -4,7 +4,6 @@ admin_password: ansible
 workshop_dns_zone: "rhdemo.io"
 s3_state: "present"
 teardown: false
-summary_information: |
-  PROVISIONER SUMMARY
-  *******************
 towerinstall: false
+website_information: ""
+dns_information: "No errors with DNS"

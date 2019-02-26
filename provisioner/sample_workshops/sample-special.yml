@@ -4,5 +4,5 @@ admin_password: ansible
 student_total: 2
 ## Optional Variables
 create_login_page: true
-networking: true
+workshop_type: networking
 special: all_cisco                     # possible values all_cisco or multievendor

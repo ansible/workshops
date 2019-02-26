@@ -31,7 +31,7 @@ ec2_name_prefix: TESTWORKSHOP          # name prefix for all the VMs
 student_total: 2                       # creates student_total of workbenches for the workshop
 #OPTIONAL VARIABLES
 admin_password: ansible                # password for Ansible control node, defaults to ansible
-networking: true                       # Set this if you want the workshop in networking mode
+workshop_type: networking              # Set this if you want the workshop in networking mode
 create_login_page: true                # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
 workshop_dns_zone: rhdemo.io           # Sets the Route53 DNS zone to use for the S3 website
 towerinstall: true                     # automatically installs Tower to control node

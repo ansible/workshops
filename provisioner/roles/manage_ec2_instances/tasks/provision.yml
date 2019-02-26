@@ -10,8 +10,8 @@
 
 ## This duplicates the above when networking workshop uses 2 VPCs
 - name: provision networking aws resources
-  include_tasks: resources_networking.yml
-  when: networking
+  include_tasks: resources_{{workshop_type}}.yml
+  when: workshop_type == 'networking'
 
 ## control node setup ###
 - name: set control node type
@@ -73,20 +73,6 @@
   when: control_output.instance_ids is not none
 
 ## Instance creation
-- name: provision ansible engine (essentials) instances
-  include_tasks: instances_engine.yml
-  when:
-    - not networking
-    - not f5workshop
+- name: provision workshop instances
+  include_tasks: 'instances_{{workshop_type}}.yml'
 
-- name: provision ansible networking workshop instances
-  include_tasks: instances_networking.yml
-  when:
-    - networking
-    - not f5workshop
-
-- name: provision ansible f5 workshop instances
-  include_tasks: instances_f5.yml
-  when:
-    - f5workshop
-    - not networking

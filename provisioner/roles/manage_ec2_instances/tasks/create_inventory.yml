@@ -28,16 +28,12 @@
 
 - name: engine (essentials) mode - setup inventory
   include_tasks: "addhost_engine.yml"
-  when:
-    - not networking
-    - not f5workshop
+  when: workshop_type == 'engine'
 
 - name: networking mode - setup inventory
   include_tasks: "addhost_networking.yml"
-  when:
-    - networking
-    - not f5workshop
+  when: workshop_type == 'networking'
 
 - name: f5 mode - setup inventory
   include_tasks: "addhost_f5.yml"
-  when: f5workshop
+  when: workshop_type == 'f5'

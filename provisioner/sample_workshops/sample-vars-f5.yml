@@ -5,5 +5,5 @@ student_total: 2                      # amount of work benches to provision
 ## Optional Variables
 admin_password: ansible               # password used for student account on control node
 create_login_page: true               # creates HTML website for workshop
-f5workshop: true                      # workshp runs in F5 mode
+workshop_type: f5                     # workshp runs in F5 mode
 xrdp: true                            # install xrdp with xfce for graphical interface

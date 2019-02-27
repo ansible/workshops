@@ -129,7 +129,7 @@ SAVEをクリックします。 ![Save button](at_save.png)
 インベントリはグループごとに分離され、グループ内にJobが実行されるホストが含まれることになります。
 グループはAnsible Towerでホスト名を手動で入力したり、Ansible Towerがサポートしているクラウド・プロバイダーから入手します。
 
-nventoryは`tower-manage`コマンドを使ってAnsible Towerへインポートすることも可能で、今回のワークショップではこの方法でInventoryを追加します。
+Inventoryは`tower-manage`コマンドを使ってAnsible Towerへインポートすることも可能で、今回のワークショップではこの方法でInventoryを追加します。
 
 
 ### Step 1:
@@ -160,7 +160,7 @@ SAVE(保存)をクリックします。 ![Save button](at_save.png)
 
 SSHを利用し、Ansibleコントロールノードへログインします。
 
-`tower-manage`　コマンドを利用して既存のインベントリファイルをAnsible Towerへインポートします。（以下のコマンドの_<location of you inventory>_をAnisbleEngineの演習で利用していたInventoryファイルのパスへ置き換えてください。)
+`tower-manage`　コマンドを利用して既存のインベントリファイルをAnsible Towerへインポートします。（以下のコマンドの_<location of you inventory>_をAnsibleEngineの演習で利用していたInventoryファイルのパスへ置き換えてください。)
 
 ```
 sudo tower-manage inventory_import --source=<location of you inventory> --inventory-name="Ansible Workshop Inventory"

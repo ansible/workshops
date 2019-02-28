@@ -126,7 +126,7 @@ Jobが問題なく完了したなら、JobTemplateの実行によって作成さ
 
 コントロールホストで以下を実行して、[web]グループのサーバIPを確認してみましょう。
 ```bash
-cat /home/student40/lightbulb/lessons/lab_inventory/studentXX-instances.txt
+cat ~/lightbulb/lessons/lab_inventory/"$USER"-instances.txt
 ```
 
 上記のインベントリで確認ができた3台のWebサーバへHTTPでアクセスが可能なはずです。

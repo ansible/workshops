@@ -1,0 +1,11 @@
+- name: CHANGE JUNIPER PASSWORD
+  hosts: student*rtr3
+  gather_facts: no
+  vars:
+    ansible_connection: network_cli
+    admin_password: ansible
+  tasks:
+    - name: CONFIGURE THE JUNIPER PASSWORD
+      include_role:
+        name: ../roles/configure_routers
+        tasks_from: juniper_default

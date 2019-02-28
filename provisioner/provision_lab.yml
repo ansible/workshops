@@ -80,16 +80,6 @@
   tasks:
     - { include_role: {name: connectivity_test}}
 
-- name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
-  hosts: "routers"
-  gather_facts: no
-  tasks:
-    - name: MAKE SURE ROUTERS HAVE SSH REACHABILITY
-      include_role:
-        name: connectivity_test
-        tasks_from: routers
-      when: special is match("multivendor")
-
 - name: CONFIGURE COMMON OPTIONS ON MANAGED NODES AND CONTROL NODES
   hosts: "managed_nodes:control_nodes"
   become: yes
@@ -139,6 +129,16 @@
   gather_facts: no
   roles:
     - { role: f5_setup, when: f5workshop }
+
+- name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
+  hosts: "routers"
+  gather_facts: no
+  tasks:
+    - name: MAKE SURE ROUTERS HAVE SSH REACHABILITY
+      include_role:
+        name: connectivity_test
+        tasks_from: routers
+      when: special is match("multivendor")
 
 - name: GATHER AWS FACTS FOR ROUTERS
   hosts: access,core

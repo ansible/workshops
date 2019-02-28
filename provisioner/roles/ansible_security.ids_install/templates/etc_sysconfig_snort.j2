@@ -1,0 +1,13 @@
+INTERFACE={{ids_install_snort_interface|default("eth0")}}
+CONF={{ids_install_snort_config_path|default("/etc/snort/snort.conf")}}
+
+USER={{ids_install_snort_user|default("snort")}}
+GROUP={{ids_install_snort_group|default("snort")}}
+
+PIDFILEOPTS="--pid-path=/var/run/snort --no-interface-pidfile --nolock-pidfile"
+
+{% if ids_install_snort_promiscuous_interface|default(false) %}
+OPTS="-R 1"
+{% else %}
+OPTS="-p -R 1"
+{% endif %}

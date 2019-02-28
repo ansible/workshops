@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    ids_install_provider: "snort"
+    ids_install_normalize_logs: true
+  tasks:
+    - name: import the ids_install role
+      import_role:
+        name: ids_install
+    - name: import the ids_config role
+      import_role:
+        name: ids_config

@@ -1,0 +1,20 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: geerlingguy
+  description: EPEL repository for RHEL/CentOS.
+  company: "Midwestern Mac, LLC"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.1
+  platforms:
+    - name: EL
+      versions:
+      - 5
+      - 6
+      - 7
+  galaxy_tags:
+    - packaging
+    - epel
+    - repository
+    - repo

@@ -1,0 +1,116 @@
+---
+# defaults file for snort-config
+#
+
+ids_provider: "snort"
+
+ids_provider_list:
+  - snort
+
+ids_config_snort_version: 2.9.12
+
+ids_config_snort_rules_files:
+  - app-detect
+  - attack-responses
+  - backdoor
+  - bad-traffic
+  - blacklist
+  - botnet-cnc
+  - browser-chrome
+  - browser-firefox
+  - browser-ie
+  - browser-other
+  - browser-plugins
+  - browser-webkit
+  - chat
+  - content-replace
+  - ddos
+  - dns
+  - dos
+  - experimental
+  - exploit-kit
+  - exploit
+  - file-executable
+  - file-flash
+  - file-identify
+  - file-image
+  - file-multimedia
+  - file-office
+  - file-other
+  - file-pdf
+  - finger
+  - ftp
+  - icmp-info
+  - icmp
+  - imap
+  - indicator-compromise
+  - indicator-obfuscation
+  - indicator-shellcode
+  - info
+  - malware-backdoor
+  - malware-cnc
+  - malware-other
+  - malware-tools
+  - misc
+  - multimedia
+  - mysql
+  - netbios
+  - nntp
+  - oracle
+  - os-linux
+  - os-other
+  - os-solaris
+  - os-windows
+  - other-ids
+  - p2p
+  - phishing-spam
+  - policy-multimedia
+  - policy-other
+  - policy
+  - policy-social
+  - policy-spam
+  - pop2
+  - pop3
+  - protocol-finger
+  - protocol-ftp
+  - protocol-icmp
+  - protocol-imap
+  - protocol-pop
+  - protocol-services
+  - protocol-voip
+  - pua-adware
+  - pua-other
+  - pua-p2p
+  - pua-toolbars
+  - rpc
+  - rservices
+  - scada
+  - scan
+  - server-apache
+  - server-iis
+  - server-mail
+  - server-mssql
+  - server-mysql
+  - server-oracle
+  - server-other
+  - server-webapp
+  - shellcode
+  - smtp
+  - snmp
+  - specific-threats
+  - spyware-put
+  - sql
+  - telnet
+  - tftp
+  - virus
+  - voip
+  - web-activex
+  - web-attacks
+  - web-cgi
+  - web-client
+  - web-coldfusion
+  - web-frontpage
+  - web-iis
+  - web-misc
+  - web-php
+  - x11

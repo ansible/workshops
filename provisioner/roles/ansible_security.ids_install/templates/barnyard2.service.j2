@@ -1,0 +1,14 @@
+[Unit]
+Description=Barnyard2 snort log normalizer service on interface {{ids_install_snort_interface|default("eth0")}}
+After=syslog.target network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/sysconfig/barnyard2
+PIDFile=/var/run/barnyard2_{{ids_install_snort_interface|default("eth0")}}.pid
+ExecStart=/usr/bin/barnyard2 -c $CONF -d $SNORTDIR -w $SNORTDIR/{{ids_install_snort_interface|default("eth0")}}/barnyard2.waldo -a $SNORTDIR/{{ids_install_snort_interface|default("eth0")}}/archive -f $LOG_FILE -X /var/run/barnyard2_{{ids_install_snort_interface|default("eth0")}}.pid $EXTRA_ARGS
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+

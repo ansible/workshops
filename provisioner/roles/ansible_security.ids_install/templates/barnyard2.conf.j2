@@ -1,0 +1,6 @@
+output alert_syslog
+output alert_fast: /var/log/snort/alerts.fast
+config hostname: {{ansible_hostname|default("snort")}}
+config interface: {{ids_install_snort_interface|default("eth0")}}
+config logdir: {{ids_install_snort_logdir|default("/var/log/snort")}}
+

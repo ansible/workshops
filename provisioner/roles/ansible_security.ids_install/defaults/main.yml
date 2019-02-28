@@ -1,0 +1,31 @@
+---
+ids_provider: "snort"
+
+ids_provider_list:
+  - snort
+
+ids_install_normalize_logs: true
+
+# defaults file for ansible-role-snort
+#
+ids_install_snort_interface: eth0
+
+ids_install_snort_pkgs:
+  - 'https://s3.amazonaws.com/linklight.securityautomation/daq-2.0.6-1.el7.x86_64.rpm'
+  - 'https://s3.amazonaws.com/linklight.securityautomation/snort-2.9.13-1.centos7.x86_64.rpm'
+  - 'libdnet'
+  - 'pulledpork'
+
+# FIXME: This can be found dynamically via a rpm query, but there's little use
+#        since there's no yum repo and we have to install a specific version by
+#        hand anyways.
+#
+#        For good measure, this is the query:
+#
+#           rpm -q snort --queryformat='%{version}' | sed 's/\.//g'
+#
+ids_install_snort_rules: 'https://s3.amazonaws.com/linklight.securityautomation/community-rules.tar.gz'
+
+ids_install_snort_registeredrule_ver: '29130'
+
+ids_install_snort_promiscuous_interface: false

@@ -1,7 +1,7 @@
 # FIXME: This should probably be refactored to use things like the following
 # instead of hard coding
 #
-#   command: cp -r /tmp/linklight/exercises/{{workshop_type}}_v2/ /home/{{ username }}/{{workshop_type}}-workshop/
+#   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
 #
 # That would enable a more generic role/scaffolding
 
@@ -17,13 +17,13 @@
 # which will become available on ansible 2.8
 # - name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
 #   copy:
-#     src: /tmp/linklight/exercises/networking_v2/
+#     src: /tmp/linklight/exercises/ansible_network/
 #     dest: /home/{{ username }}/networking-workshop
 #     remote_src: yes
 #   when: workshop_type == 'networking'
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
-  command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop/
+  command: cp -r /tmp/linklight/exercises/ansible_network/ /home/{{ username }}/networking-workshop/
   when: workshop_type == 'networking'
 
 # This is waiting on https://github.com/ansible/ansible/pull/41222

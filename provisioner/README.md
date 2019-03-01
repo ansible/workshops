@@ -1,10 +1,8 @@
 # Ansible AWS training provisioner
 **aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
 
-
-
 | Workshop   | Deck  | Exercises  | Workshop Type Var   |
-|---|---|---|---|---|
+|---|---|---|---|
 | Ansible Red Hat Enterprise Linux Workshop  | [Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)  | [Exercises](../exercises/ansible_engine) | `workshop_type: engine`  |
 | Ansible Network Automation Workshop  | [Deck](https://network-automation.github.io/linklight/decks/ansible_network.pdf) | [Exercises](../exercises/ansible_network)  | `workshop_type: networking`  |
 | Ansible F5 Workshop | [Deck](https://network-automation.github.io/linklight/decks/ansible_f5.pdf) | [Exercises](../exercises/ansible_f5)   | `workshop_type: f5`   |

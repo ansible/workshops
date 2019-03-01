@@ -13,7 +13,7 @@ These workshops are focused on networking platforms like Arista, Cisco, Juniper 
 
 ## Exercises
 
-- [Ansible Network Exercises](exercises/networking_v2/README.md)  
+- [Ansible Network Exercises](exercises/ansible_network/README.md)  
 - [Ansible F5 Exercises](exercises/ansible_f5/README.md)  
 
 # Server Automation

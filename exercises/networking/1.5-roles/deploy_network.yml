@@ -1,9 +1,0 @@
----
-- name: Deploy the Router configurations
-  hosts: routers
-  connection: network_cli
-  gather_facts: no
-  roles:
-    - system
-    - interface
-    - static_route

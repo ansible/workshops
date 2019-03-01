@@ -2,7 +2,6 @@
 - name: TOWER CONFIGURATION WITH PLAYBOOKS
   hosts: ansible
   connection: local
-  gather_facts: no
   become: no
   tasks:
 
@@ -12,7 +11,7 @@
         organization: Default
         tower_username: admin
         tower_password: ansible
-        tower_host: https://localhost
+        tower_host: "https://{{ansible_fqdn}}"
 
     - name: ADD CONTROL HOST INTO TOWER
       tower_host:
@@ -20,7 +19,7 @@
         inventory: "Workshop Inventory"
         tower_username: admin
         tower_password: ansible
-        tower_host: https://localhost
+        tower_host: "https://{{ansible_fqdn}}"
         variables:
           ansible_host: "{{ansible_host}}"
           ansible_user: "ec2-user"
@@ -35,7 +34,7 @@
         scm_url: "https://github.com/network-automation/tower_workshop"
         tower_username: admin
         tower_password: ansible
-        tower_host: https://localhost
+        tower_host: "https://{{ansible_fqdn}}"
 
 ## make sure ansible_user corresponds to your student number
     - name: ADD CREDENTIAL INTO TOWER
@@ -46,7 +45,7 @@
         organization: Default
         tower_username: admin
         tower_password: ansible
-        tower_host: https://localhost
+        tower_host: "https://{{ansible_fqdn}}"
 
 - name: ADD EACH HOST TO INVENTORY
   hosts: routers
@@ -61,7 +60,7 @@
         inventory: "Workshop Inventory"
         tower_username: admin
         tower_password: ansible
-        tower_host: https://localhost
+        tower_host: "https://{{hostvars.ansible.ansible_fqdn}}"
         variables:
           ansible_network_os: "{{ansible_network_os}}"
           ansible_host: "{{ansible_host}}"

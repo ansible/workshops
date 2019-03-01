@@ -1,8 +1,0 @@
-ansible_network_os: ios
-ansible_connection: local
-#Variables can be manually set like this:
-#host1_private_ip: "172.18.2.8"
-#control_private_ip: "172.17.1.157"
-#or reference dynamically variables tied to the host directly
-#in this case, its grabbing this from the inventory under lab_inventory:
-ios_version: "16.08.01a"

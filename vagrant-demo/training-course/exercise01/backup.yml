@@ -1,7 +1,0 @@
----
-- hosts: network
-  connection: network_cli
-  gather_facts: False
-  tasks:
-    - vyos_config:
-        backup: yes

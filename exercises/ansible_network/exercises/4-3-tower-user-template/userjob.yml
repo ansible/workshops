@@ -18,4 +18,4 @@
         survey_spec: "{{ lookup('template', '{{playbook_dir}}/user.json') }}"
         tower_username: admin
         tower_password: ansible
-        tower_host: https://localhost
+        tower_host: "https://{{ansible_fqdn}}"

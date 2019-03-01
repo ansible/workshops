@@ -1,7 +1,0 @@
-- name: gather ios_facts
-  ios_facts:
-
-- name: configure name servers
-  ios_system:
-    name_servers: "{{item}}"
-  with_items: "{{dns_servers}}"

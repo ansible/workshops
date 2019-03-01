@@ -6,7 +6,6 @@ ec2_wait: yes
 ec2_az: "{{ec2_region}}a"
 ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
-networking: false
 ssh_port: 22
 
 ec2_control_node:

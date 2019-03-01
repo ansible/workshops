@@ -1,5 +1,4 @@
-networking: false
-f5workshop: false
+workshop_type: ""
 admin_password: ansible
 workshop_dns_zone: "rhdemo.io"
 s3_state: "present"
@@ -7,3 +6,7 @@ teardown: false
 towerinstall: false
 website_information: ""
 dns_information: "No errors with DNS"
+valid_workshop_types:
+  - networking
+  - f5
+  - engine

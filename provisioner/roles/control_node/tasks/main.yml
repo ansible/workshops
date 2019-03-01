@@ -25,7 +25,7 @@
     name:
       - python-netaddr
     state: latest
-  when: not f5workshop
+  when: workshop_type != 'f5'
 
 - name: install ncclient for juniper devices (NETWORK AUTOMATION MODE)
   become: yes
@@ -33,9 +33,9 @@
     name:
       - ncclient
     state: latest
-  when: networking
+  when: workshop_type == 'networking'
 
-- name: block for f5workshop
+- name: block for f5 workshop
   block:
     - name: install f5 workshop dependicies
       become: yes
@@ -54,7 +54,7 @@
           - bigsuds
           - netaddr
         state: latest
-  when: f5workshop
+  when: workshop_type == "f5"
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
@@ -70,19 +70,13 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: networking mode - setup control node
+- name: setup control node networking
   include_tasks: "networking.yml"
-  when: networking
-
-- name: f5 mode - setup control node
-  include_tasks: "networking.yml"
-  when: f5workshop
+  when: workshop_type in ['networking', 'f5']
 
 - name: engine (essentials) mode - setup control node
   include_tasks: "engine.yml"
-  when:
-    - not networking
-    - not f5workshop
+  when: workshop_type == 'engine'
 
 - name: check to see if ansible tower is already up and running
   uri:

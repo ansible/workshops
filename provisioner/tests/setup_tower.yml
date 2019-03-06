@@ -1,0 +1,52 @@
+- name: TOWER CONFIGURATION IN PLAYBOOK FORM
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: CREATE INVENTORY
+      tower_inventory:
+        name: "LINKLIGHT_TEST_INVENTORY"
+        organization: Default
+        tower_config_file: "~/tower_cli.cfg"
+
+    - name: ADD CONTROL HOST INTO TOWER
+      tower_host:
+        name: "localhost"
+        inventory: "LINKLIGHT_TEST_INVENTORY"
+        tower_config_file: "~/tower_cli.cfg"
+
+    - name: ADD TOWER AWS CREDENTIAL
+      tower_credential:
+        name: "{{ansible_user}}_AWS"
+        description: "{{ansible_user}}'s AWS credentials"
+        organization: Default
+        state: present
+        tower_config_file: "~/tower_cli.cfg"
+        kind: aws
+        #access key for aws
+        username: "{{ lookup('ini', 'aws_access_key_id section=default file=~/.aws/credentials') }}"
+        #secret key for aws
+        password: "{{ lookup('ini', 'aws_secret_access_key section=default file=~/.aws/credentials') }}"
+
+    - name: ADD LINKLIGHT INTO TOWER
+      tower_project:
+        name: "LINKLIGHT TESTING"
+        organization: "Default"
+        scm_branch: "devel"
+        scm_type: git
+        scm_url: "https://github.com/network-automation/linklight"
+        tower_config_file: "~/tower_cli.cfg"
+
+    - name: CREATE NETWORK JOB TEMPLATE
+      tower_job_template:
+        name: "WORKSHOP TEST RUN NETWORK"
+        job_type: "run"
+        inventory: "LINKLIGHT_TEST_INVENTORY"
+        project: "LINKLIGHT TESTING"
+        playbook: "provisioner/provision_lab.yml"
+        # credential: "{{ansible_user}}_AWS"
+        tower_config_file: "~/tower_cli.cfg"
+        extra_vars_path: "./network.yml"
+      # register: create_first_job
+      # until: create_first_job is not failed
+      # retries: 5

@@ -27,6 +27,7 @@
         username: "{{ lookup('ini', 'aws_access_key_id section=default file=~/.aws/credentials') }}"
         #secret key for aws
         password: "{{ lookup('ini', 'aws_secret_access_key section=default file=~/.aws/credentials') }}"
+      register: credential
 
     - name: ADD LINKLIGHT INTO TOWER
       tower_project:
@@ -39,14 +40,62 @@
 
     - name: CREATE NETWORK JOB TEMPLATE
       tower_job_template:
-        name: "WORKSHOP TEST RUN NETWORK"
+        name: "LINKLIGHT TEST RUN NETWORK"
         job_type: "run"
         inventory: "LINKLIGHT_TEST_INVENTORY"
         project: "LINKLIGHT TESTING"
         playbook: "provisioner/provision_lab.yml"
-        # credential: "{{ansible_user}}_AWS"
         tower_config_file: "~/tower_cli.cfg"
         extra_vars_path: "./network.yml"
-      # register: create_first_job
-      # until: create_first_job is not failed
-      # retries: 5
+      register: network_job
+
+    - name: CREATE TEARDOWN NETWORK JOB TEMPLATE
+      tower_job_template:
+        name: "LINKLIGHT TEST TEARDOWN NETWORK"
+        job_type: "run"
+        inventory: "LINKLIGHT_TEST_INVENTORY"
+        project: "LINKLIGHT TESTING"
+        playbook: "provisioner/teardown_lab.yml"
+        tower_config_file: "~/tower_cli.cfg"
+        extra_vars_path: "./network.yml"
+      register: network_teardown_job
+
+    - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
+      include_vars:
+        file: ~/tower_cli.cfg
+
+    - name: ASSOCIATE AWS CREDENTIAL TO JOB TEMPLATE
+      uri:
+        url: "https://{{host}}/api/v2/job_templates/{{network_job.id}}/credentials/"
+        user: "{{username}}"
+        password: "{{password}}"
+        method: POST
+        validate_certs: False
+        force_basic_auth: yes
+        body_format: json
+        body: ' {"id": {{credential.id}}}'
+        status_code:
+          - 200
+          - 204
+      register: result_uri
+      ignore_errors: yes
+
+    - name: ASSOCIATE AWS CREDENTIAL TO JOB TEMPLATE
+      uri:
+        url: "https://{{host}}/api/v2/job_templates/{{network_teardown_job.id}}/credentials/"
+        user: "{{username}}"
+        password: "{{password}}"
+        method: POST
+        validate_certs: False
+        force_basic_auth: yes
+        body_format: json
+        body: ' {"id": {{credential.id}}}'
+        status_code:
+          - 200
+          - 204
+      register: result_uri
+      ignore_errors: yes
+
+    - name: CREDENTIAL OUTPUT
+      debug:
+        msg: "{{result_uri}}"

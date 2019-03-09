@@ -53,7 +53,7 @@ Enter the following play definition into `disable-pool-member.yml`:
 
 ## Step 3
 
-Next, add a tasks section and create a task for the objective listed above:
+Next, add a tasks section and create a task for the objective listed below:
 
   - Retrieve Facts from BIG-IP for the pool /Common/http_pool
 
@@ -61,7 +61,7 @@ HINT: <span style="background-color: #000000;a: #000000">Try using the bigip_fac
 
 ## Step 4
 
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Display pool member status to the terminal window
 
@@ -70,7 +70,7 @@ Remember to use the `register` keyword and the <a href="https://docs.ansible.com
 
 ## Step 5
 
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Store the pool members as a fact
 
@@ -79,7 +79,7 @@ An easy way to set fact variables within a Playbook dynamically is using the <a 
 
 ## Step 6
 
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Display pool member IP and port information to the terminal window
 
@@ -90,7 +90,7 @@ Remember to use the `register` keyword and the <a href="https://docs.ansible.com
 
 Next, add a task for the objective listed above:
 
-  - Display pool member IP and port information to the terminal window
+  - Disable pool-member 
 
 HINT: <span style="background-color: #000000">
 Remember the <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: #000000">bigip_pool_member</a> module, can refer to <a href="../1.2-add-node" style="color: #000000">Exercise 1.2</a>.  Also remember to look at the state parameter.</span>

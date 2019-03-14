@@ -1,0 +1,12 @@
+---
+- name: validate required connection is configured
+  fail:
+    msg: "expected connection value to be set to network_cli, got {{ ansible_connection }}"
+  when: ansible_connection != 'network_cli'
+
+
+- name: run command and parse output
+  include_tasks: run_cli.yaml
+  vars:
+    ios_command: show access-lists
+    ios_parser: show_acls.yaml

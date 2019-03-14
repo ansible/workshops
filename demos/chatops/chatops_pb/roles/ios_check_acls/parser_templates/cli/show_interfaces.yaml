@@ -1,0 +1,119 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show interfaces
+    network_os: ios
+
+- name: match sections
+  pattern_match:
+    regex: "^\\S+ is up,"
+    match_all: yes
+    match_greedy: yes
+  register: context
+
+- name: match interface values
+  pattern_group:
+    - name: match name
+      pattern_match:
+        regex: "^(\\S+)"
+        content: "{{ item }}"
+      register: name
+
+    - name: match hardware
+      pattern_match:
+        regex: "Hardware is (\\S+)"
+        content: "{{ item }}"
+      register: type
+
+    - name: match mtu
+      pattern_match:
+        regex: "MTU (\\d+)"
+        content: "{{ item }}"
+      register: mtu
+
+    - name: match interface description
+      pattern_match:
+        regex: "Description: (.+)"
+        content: "{{ item }}"
+      register: description
+
+    - name: match administrative state
+      pattern_match:
+        regex: "(administratively down)"
+        content: "{{ item }}"
+      register: enabled
+
+    - name: match line protocol
+      pattern_match:
+        regex: "line protocol is (\\S+)"
+        content: "{{ item }}"
+      register: operstatus
+
+    - name: match in packets
+      pattern_match:
+        regex: "(\\d+) packets input, (\\d+)"
+        content: "{{ item }}"
+      register: in_pkts_octets
+
+    - name: match input broadcast
+      pattern_match:
+        regex: "Received (\\d+) broadcasts \\(\\d+"
+        content: "{{ item }}"
+      register: in_bcast_mcast
+
+    - name: match out packets
+      pattern_match:
+        regex: "(\\d+) packets output, (\\d+) bytes"
+        content: "{{ item }}"
+      register: out_pkts_octets
+
+    - name: match out errors
+      pattern_match:
+        regex: "(\\d+) output errors"
+        content: "{{ item }}"
+      register: out_errors
+
+  loop: "{{ context }}"
+  register: values
+
+- name: template interface values
+  loop: "{{ values }}"
+  register: interfaces
+  extend: cisco_ios
+  export: yes
+  export_as: dict
+  json_template:
+    template:
+      - key: "{{ item.name.matches.0 }}"
+        object:
+          - key: name
+            value: "{{ item.name.matches.0 }}"
+          - key: type
+            value: "{{ item.type.matches.0 }}"
+          - key: mtu
+            value: "{{ item.mtu.matches.0 }}"
+          - key: description
+            value: "{{ item.description.matches.0 }}"
+          - key: enabled
+            value: "{{ item.enabled.matches.0 is undefined }}"
+          - key: admin-status
+            value: "{{ item.enabled.matches.0 is undefined | ternary ('enabled', 'disabled') }}"
+          - key: oper-status
+            value: "{{ item.operstatus.matches.0 }}"
+          - key: counters
+            object:
+              - key: in-octets
+                value: "{{ item.in_pkts_octets.matches.0 }}"
+              - key: in-unicast-pkts
+                value: "{{ item.in_pkts_octets.matches.1 }}"
+              - key: in-broadcast-pkts
+                value: "{{ item.in_bcast_mcast.matches.0 }}"
+              - key: in-multicast-pkts
+                value: "{{ item.in_bcast_mcast.matches.1 }}"
+              - key: out-octets
+                value: "{{ item.out_pkts_octets.matches.0 }}"
+              - key: out-unicast-pkts
+                value: "{{ item.out_pkts_octets.matches.1 }}"
+              - key: out-errors
+                value: "{{ item.out_errors.matches.0 }}"

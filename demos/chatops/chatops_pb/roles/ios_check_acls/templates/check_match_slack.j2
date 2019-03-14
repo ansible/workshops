@@ -1,0 +1,9 @@
+
+ACL MATCH FOR {{inventory_hostname.upper()}}:
+
+{% for ace in output.result %}
+  ACL NAME: {{ ace.ace_name }}
+  ACL NUM: {{ ace.ace_number }}
+  ACTION: {{ ace.ace_action }}
+  RULE: {{ ace.rule_match }}
+{% endfor %}

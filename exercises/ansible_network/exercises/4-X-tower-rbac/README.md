@@ -1,4 +1,4 @@
-# Exercise 1: Using the debug module
+# Exercise 1: Understanding RBAC in Ansible Tower
 
 ## Table of Contents
 
@@ -9,144 +9,134 @@
 
 # Objective
 
-Demonstrate use of the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) to display a variable to the terminal window.
+One of the key benefits of using Ansible Tower is the control of users that use the system. The objective of this exercise is to understand Role Based Access Controls([RBACs](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#role-based-access-controls)) with which Tower admins can define tenancies, teams, roles and associate users to those roles. This gives organizations the ability to secure the automation system and satisfy compliance goals and requirements.
 
 # Guide
 
+While the [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#role-based-access-controls) goes into depth, for purposes of this exercise it is necessary to understand a few key terms with respect to Ansible Tower:
+
+- **Organizations:** Defines a tenancy for example *Network-org*, *Compute-org*. This might be reflective of internal organizational structure of the customer's organization.
+- **Teams:** Within each organization, there may be more than one team. For instance *tier1-helpdesk*, *tier2-support*, *tier3-support*, *build-team* etc.
+- **Users:** Users typically belong to teams. What the user can do within Tower is controlled/defined using **roles**
+- **Roles:** Roles define what actions a user may perform. This can map very nicely to typical network organizations that have restricted access based on whether the user is a Level-1 helpdesk person, Level-2 or senior admin. Tower [documentation ](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#built-in-roles)defines a set of built-in roles.
+
+
 ## Step 1:
+
+Confirm that you are logged in as the *network-admin* user. This user has administrator privileges to the " RED HAT NETWORK ORGANIZATION" organization.
+
+![](images/RBAC_1.png)
+
 
 ## Step 2
 
-For this step the goal is to create some custom teams.  A Team is a subdivision of an organization with associated users, projects, credentials, and permissions. Teams provide a means to implement role-based access control schemes and delegate responsibilities across organizations.
+Log out of Tower and log back in as the admin user.
+> Please check with your instructor to find the login credentials.
 
->More info on teams can be found in the [documentation here](https://docs.ansible.com/ansible-tower/latest/html/userguide/teams.html#teams).
+Under the *ACCESS* section, click on **Organizations**
 
-Instead of manually creating the teams in the Web UI, an Ansible Playbook will be used to automate it.  This Playbook will use the [tower_team module](https://docs.ansible.com/ansible/latest/modules/tower_team_module.html).
+![](images/RBAC_2.png)
 
-For this exercise there will be three teams created
-- netop - Network Operator
-- neteng - Network Engineer
-- netadmin - Network Administrator
+As the *admin* user, you should be able to view all organizations configured for this Tower:
 
-```
----
-- name: TOWER CONFIGURATION IN PLAYBOOK FORM
-  hosts: control
-  connection: local
-  gather_facts: no
-  tasks:
+>Note: The orgs, teams and users were auto-populated for this workshop 
 
-    - name: Create tower team
-      tower_team:
-        name: "{{item}}"
-        organization: Default
-        state: present
-        tower_username: admin
-        tower_password: ansible
-        tower_host: https://localhost
-      loop:
-        - netop
-        - neteng
-        - netadmin
-```
+![](images/RBAC_3.png)
 
-## Step 2:
+You will see that there are 2 organizations(other than Default) pre-configured for you:
 
-Ansible playbooks are **YAML** files. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format).
+1. **RED HAT COMPUTE ORGANIZATION**
+2. **RED HAT NETWORK ORGANIZATION**
 
-Enter the following play definition into `debug.yml`:
-
-``` yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  connection: local
-  gather_facts: no
-```
-
-- The `---` at the top of the file indicates that this is a YAML file.
-- The `hosts: localhost`,  indicates the play is run only on the Ansible control node
-- `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
-- `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
-
+>Observe that this page gives you a summary of all the teams, users, inventories, projects and job templates associated with it. If a Organization level admin is configure you will see that as well.
 
 ## Step 3
 
-Next, add the variables section `vars`. There will be one variable called `test_variable`.  The variable will have a string `"my test variable"`.
+Go ahead and click on the **RED HAT NETWORK ORGANIZATION**. This brings up a section that displays the details of the organization. Feel free to click through *Users*, *Permissions* etc.
 
-```yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  gather_facts: no
+![](images/RBAC_4.png ) 
 
-  vars:
-    test_variable: "my test variable"
-```
 
 ## Step 4
 
-Next, add the first `task`. This task will use the `debug` module to print out the variable test_variable.
+Now, click on *TEAMS* in the sidebar
+![](images/RBAC_5.png ) 
 
-``` yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  connection: local
-  gather_facts: no
+As the tower admin you will now be able to see all available teams
+![](images/RBAC_6.png ) 
 
-  vars:
-    test_variable: "my test variable"
+>Note: The orgs, teams and users were auto-populated for this workshop 
 
-  tasks:
-    - name: DISPLAY TEST_VARIABLE
-      debug:
-        var: test_variable
-```
 
->A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
+## Step 5
 
-#### Step 5
+Click on the *Netops* team and then click on *Users*
+![](images/RBAC_7.png ) 
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+You will see auto-populated users for this team with different roles. Pay attention to 2 particular users:
 
-```
-[student1@ansible ~]$ ansible-playbook debug.yml
-```
-# Playbook Output
+1. network-admin
+2. network-operator
 
-The output will look as follows.
+The *network-admin* user has Administrative privileges for the **RED HAT NETWORK ORGANIZATION** organization.
 
-```yaml
-[student1@ansible ~]$ ansible-playbook debug.yml
+The *network-operator* is simply a member of the Netops team. We will log in as each of these users to understand the roles
 
-PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
 
-TASK [DISPLAY TEST_VARIABLE] *******************************************************************************
-ok: [localhost] => {
-    "test_variable": "my test variable"
-}
+## Step 6
 
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0
-```
+Log out as the *admin* and log back in as the *network-admin*. Now when you click on the *Organizations* link on the sidebar, you will notice that you only have visibility to the organization you are an admin of. 
 
-# Solution
-The finished Ansible Playbook is provided here for an Answer key.
 
-```yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  gather_facts: no
+> Bonus step: Try this as the network-operator user. What is the difference? As the network operator are you able to view other users? Are you able to add a new user or edit user credentials?
 
-  vars:
-    test_variable: "my test variable"
 
-  tasks:
-    - name: DISPLAY TEST_VARIABLE
-      debug:
-        var: test_variable
-```
+## Step 7
+
+To understand how different roles and therefore RBACs may be applied, log out and log back in as the "admin" user. Then, navigate to *Inventories* >> *Workshop Inventory* >> *Permissions*
+![](images/RBAC_8.png ) 
+
+Note the *Team Roles* assigned for the *network-admin* and *network-operator* users. By assigning the **Use** Role, these users have been granted permission to use this particular inventory:
+![](images/RBAC_9.png ) 
+
+
+## Step 8
+
+No, continuing as admin, click on the *Templates* >> *Network-Commands* >> *Permissions*
+
+![](images/RBAC_10.png ) 
+
+Note how the same users have different roles for the job template. This highlights the granularity operators can introduce with Ansible Tower in controlling "Who gets access to what". In this example, the network-admin can update(administer) the *Network-Commands* job template, whereas the network-operator can only *execute* it.
+
+
+## Step 9
+
+Finally, to see the RBAC in action, log out at admin and log back in as the *network-operator* user.
+
+Navigate to *Templates* and click on the *Network-Commands* template.
+
+![](images/RBAC_11.png ) 
+
+Note that, as the *network-operator* user, you will have no ability to change any of the fields.
+
+
+## Step 10
+
+As the network-operator user, click on *Templates* on the sidebar again and this time launch the *Network-Commands* template by clicking on the little "rocket" icon:
+
+![](images/RBAC_12.png ) 
+
+You will be prompted by a dialog-box that lets you choose one of the pre-configured show commands. Using Ansible Tower's powerful RBAC feature, you can see it is easy to restrict access to operators to run prescribed commands on production systems without requiring them to have access to the systems themselves. 
+
+![](images/RBAC_13.png ) 
+
+Go ahead and choose a command and click *Next* >> *Launch* to see the playbook being executed and the results being displayed
+
+
+## Bonus Step
+
+If time permits, log back in as the network-admin and add another show command you would like the operator to run. This will also help you see how the *Admin* Role of the network-admin user allows you to edit/update the job template.
+
+
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

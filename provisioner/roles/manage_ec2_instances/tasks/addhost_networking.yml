@@ -119,6 +119,25 @@
     - "{{ rtr3_node_facts.instances }}"
   when: special is defined
 
+# - name: debug here for sean
+#   debug:
+#     msg: "{{rtr3_node_facts.instances[0]}}"
+
+# - name: TAGGING VSRX MGMT INTERFACE RESOURCE
+#   ec2_tag:
+#     region: "{{ ec2_region }}"
+#     resource: "{{ item.network_interfaces[0].network_interface_id }}"
+#     tags:
+#       Name: "BootTime_fxp0"
+#   with_items:
+#     - "{{ rtr3_node_facts.instances }}"
+#
+# - name: REBOOT ALL VSRX
+#   ec2:
+#     region: "{{ ec2_region }}"
+#     instance_ids: "{{ rtr3_node_facts.instances | map(attribute='instance_id') | list }}"
+#     state: "restarted"
+
 - name: ADD DMVPN HUB ROUTER TO SEPARATE GROUP
   add_host:
     name: "{{ item.tags.Name }}"

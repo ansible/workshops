@@ -153,6 +153,11 @@
       image: "{{ rtr3_ami.image_id }}"
       region: "{{ ec2_region }}"
       exact_count: "{{ student_total }}"
+      volumes:
+        - device_name: /dev/sda1
+          device_type: gp2
+          volume_size: 20
+          delete_on_termination: true
       count_tag:
         Workshop_rtr3: "{{ec2_name_prefix}}-rtr3"
       wait: "{{ ec2_wait }}"

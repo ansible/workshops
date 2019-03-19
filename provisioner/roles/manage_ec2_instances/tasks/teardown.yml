@@ -2,7 +2,6 @@
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
-      instance-state-name: running
       "tag:Workshop": "{{ec2_name_prefix}}"
   register: all_workshop_nodes
 

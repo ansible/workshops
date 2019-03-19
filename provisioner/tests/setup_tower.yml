@@ -3,6 +3,20 @@
   connection: local
   gather_facts: no
   tasks:
+    - name: ADD LINKLIGHT INTO TOWER
+      tower_project:
+        name: "LINKLIGHT TESTING"
+        organization: "Default"
+        scm_branch: "sean/march6"
+        scm_type: git
+        scm_url: "https://github.com/IPvSean/linklight"
+        tower_config_file: "~/tower_cli.cfg"
+      register: project_output
+
+    - name: print out project_output
+      debug:
+        msg: "{{project_output}}"
+
     - name: CREATE INVENTORY
       tower_inventory:
         name: "LINKLIGHT_TEST_INVENTORY"
@@ -29,73 +43,14 @@
         password: "{{ lookup('ini', 'aws_secret_access_key section=default file=~/.aws/credentials') }}"
       register: credential
 
-    - name: ADD LINKLIGHT INTO TOWER
-      tower_project:
-        name: "LINKLIGHT TESTING"
-        organization: "Default"
-        scm_branch: "devel"
-        scm_type: git
-        scm_url: "https://github.com/network-automation/linklight"
-        tower_config_file: "~/tower_cli.cfg"
-
-    - name: CREATE NETWORK JOB TEMPLATE
-      tower_job_template:
-        name: "LINKLIGHT TEST RUN NETWORK"
-        job_type: "run"
-        inventory: "LINKLIGHT_TEST_INVENTORY"
-        project: "LINKLIGHT TESTING"
-        playbook: "provisioner/provision_lab.yml"
-        tower_config_file: "~/tower_cli.cfg"
-        extra_vars_path: "./network.yml"
-      register: network_job
-
-    - name: CREATE TEARDOWN NETWORK JOB TEMPLATE
-      tower_job_template:
-        name: "LINKLIGHT TEST TEARDOWN NETWORK"
-        job_type: "run"
-        inventory: "LINKLIGHT_TEST_INVENTORY"
-        project: "LINKLIGHT TESTING"
-        playbook: "provisioner/teardown_lab.yml"
-        tower_config_file: "~/tower_cli.cfg"
-        extra_vars_path: "./network.yml"
-      register: network_teardown_job
-
-    - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
+    - name: THIS LOADS USERNAME AND PASSWORD FROM tower_cli.cfg FOR FOLLOWING URI TASKS
       include_vars:
         file: ~/tower_cli.cfg
 
-    - name: ASSOCIATE AWS CREDENTIAL TO JOB TEMPLATE
-      uri:
-        url: "https://{{host}}/api/v2/job_templates/{{network_job.id}}/credentials/"
-        user: "{{username}}"
-        password: "{{password}}"
-        method: POST
-        validate_certs: False
-        force_basic_auth: yes
-        body_format: json
-        body: ' {"id": {{credential.id}}}'
-        status_code:
-          - 200
-          - 204
-      register: result_uri
-      ignore_errors: yes
+    - name: SETUP NETWORK
+      import_role:
+        name: setup_network
 
-    - name: ASSOCIATE AWS CREDENTIAL TO JOB TEMPLATE
-      uri:
-        url: "https://{{host}}/api/v2/job_templates/{{network_teardown_job.id}}/credentials/"
-        user: "{{username}}"
-        password: "{{password}}"
-        method: POST
-        validate_certs: False
-        force_basic_auth: yes
-        body_format: json
-        body: ' {"id": {{credential.id}}}'
-        status_code:
-          - 200
-          - 204
-      register: result_uri
-      ignore_errors: yes
-
-    - name: CREDENTIAL OUTPUT
-      debug:
-        msg: "{{result_uri}}"
+    - name: SETUP F5
+      import_role:
+        name: setup_f5

@@ -1,7 +1,7 @@
 # region where the nodes will live
 ec2_region: us-east-2
  # name prefix for all the VMs
-ec2_name_prefix: TOWER-LINKLIGHT-TESTING
+ec2_name_prefix: TOWER-LINKLIGHT-NETWORK-TESTING
 # amount of work benches to provision
 student_total: 2
 ## Optional Variables
@@ -12,6 +12,6 @@ create_login_page: true
 # workshop is put into networking mode, uses two Cisco IOS-XE devices
 workshop_type: networking
 # when towerinstall is on, this will license it with provided license
-# autolicense: true
+autolicense: true
 # this will install Ansible Tower on all control nodes
 towerinstall: true                    #

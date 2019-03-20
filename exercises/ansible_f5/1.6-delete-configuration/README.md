@@ -193,6 +193,10 @@ The finished Ansible Playbook is provided here for an Answer key. Click here: [b
 
 Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the lab_inventory/hosts file, and type it in like so: https://X.X.X.X:8443/
 
+Login information for the BIG-IP:
+- username: admin
+- password: admin
+
 Navigate the menu on the left and view that the configuration has been deleted
 * Local Traffic Manager -> Virtual Server
 * Local Traffic Manager -> Pool

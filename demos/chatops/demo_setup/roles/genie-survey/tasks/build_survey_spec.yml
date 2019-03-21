@@ -37,7 +37,7 @@
 
 - name: "Add survey field | text"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "{{ survey_field.default | default('') }}", max: "{{ survey_field.max | default('1024') }}", required: "{{ survey_field.required }}", choices: "", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "text"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: 0, default: "{{ survey_field.default | default('') }}", max: 1024 , required: "{{ survey_field.required }}", choices: "", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "text"}]
   when: 'survey_field.type == "text"'
 
 - name: "Add survey field | {{ survey_field.variable }}"

@@ -11,6 +11,10 @@ Want the Presentation Deck?  Its right here:
 ## Diagram
 ![f5 diagram](../../images/f5topology.png)
 
+Login information for the BIG-IP:
+- username: admin
+- password: admin
+
 ## Section 1 - Ansible F5 Exercises
 
  - [Exercise 1.0 - Exploring the lab environment](1.0-explore)  

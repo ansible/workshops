@@ -114,6 +114,10 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here: [
 
 Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the lab_inventory/hosts file, and type it in like so: https://X.X.X.X:8443/
 
+Login information for the BIG-IP:
+- username: admin
+- password: admin
+
 The load balancer pool can be found by navigating the menu on the left.  Click on Local Traffic-> then click on Pools.
 ![f5pool](pool.png)
 

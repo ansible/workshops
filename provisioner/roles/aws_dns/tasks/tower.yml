@@ -1,3 +1,12 @@
+- name: CHANGE TOWER BASE URL
+  tower_settings:
+    name: TOWER_URL_BASE
+    value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    tower_verify_ssl: no
+    tower_host: localhost
+    tower_username: admin
+    tower_password: "{{admin_password}}"
+
 - name: INSTALL CERTBOT
   yum:
     name: certbot
@@ -43,12 +52,3 @@
 
 - name: TURN ON TOWER
   shell: ansible-tower-service start
-
-- name: CHANGE TOWER BASE URL
-  tower_settings:
-    name: TOWER_URL_BASE
-    value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-    tower_verify_ssl: no
-    tower_host: localhost
-    tower_username: admin
-    tower_password: "{{admin_password}}"

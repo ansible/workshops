@@ -8,17 +8,13 @@
   set_fact:
     rtr3_node: "{{ all_cisco['rtr3'] }}"
     rtr4_node: "{{ all_cisco['rtr4'] }}"
-  when:
-    - special is defined
-    - special is match("all_cisco")
+  when: special is match("all_cisco")
 
 - name: set node types (NETWORKING MODE SPECIAL)
   set_fact:
     rtr3_node: "{{ multivendor['rtr3'] }}"
     rtr4_node: "{{ multivendor['rtr4'] }}"
-  when:
-    - special is defined
-    - special is match("multivendor")
+  when: special is match("multivendor")
 
 ##############Router 1##############
 
@@ -83,7 +79,6 @@
       name: "{{ ec2_instance_types[rtr2_node].filter }}"
       architecture: "{{ ec2_instance_types[rtr2_node].architecture }}"
   register: amis
-  when: networking
 
 - name: save ami for rtr2 (NETWORKING MODE)
   set_fact:
@@ -189,7 +184,6 @@
         name: "{{ ec2_instance_types[rtr4_node].filter }}"
         architecture: "{{ ec2_instance_types[rtr4_node].architecture }}"
     register: amis
-    when: networking
 
   - name: save ami for rtr4 (NETWORKING MODE)
     set_fact:

@@ -58,7 +58,7 @@ Give the app a meaningful name and add it to the slack team/workspace you have a
 3. On clicking create you will be presented with the options
 ![](./images/create_slashcmd3.png)
 
-Again, use a meaningful command that makes sense to you. The "Request URL" is the application to which slack will route the command. For this demo, our app will be configured to listen on port `8888`. So enter the request url with the public IP address or DNS name of your tower instance that was provisioned as per pre-requisite 2. For example: **http://34.207.200.42:8888/acl_checker"** or **http://student11.mydemo.rhdemo.io:8888/validate_acls**
+Use a meaningful command that makes sense to you. The "Request URL" is the application URI endpoint, to which slack will route the command. For this demo, our app will be configured to listen on port `8888`. So enter the request url with the public IP address or DNS name of your tower instance that was provisioned as per pre-requisite 2. For example: **http://34.207.200.42:8888/acls"** or **http://student11.mydemo.rhdemo.io:8888/acls**
 
 >Note 1: The app has been written to listen on port 8888 so it is important to make sure that this step is configured correctly with the right port.
 

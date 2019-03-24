@@ -463,22 +463,6 @@
     - name: IMPORT INVENTORY
       shell: 'tower-manage inventory_import --source=/home/{{ username }}/networking-workshop/lab_inventory/hosts --inventory-name="Workshop Inventory"'
 
-    # - name: REMOVE HARD CODED SSH KEY IN INVENTORY
-    #   uri:
-    #     url: "https://{{host}}/api/v2/job_templates/{{network_job.id}}/credentials/"
-    #     user: "admin"
-    #     password: "{{admin_password}}"
-    #     method: PATCH
-    #     validate_certs: False
-    #     # force_basic_auth: yes
-    #     body_format: json
-    #     body: ' {"variables": ""}'
-    #     status_code:
-    #       - 200
-    #       - 204
-    #   register: result_uri
-    #   ignore_errors: yes
-    
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
   become: yes
@@ -486,6 +470,23 @@
   gather_facts: no
 
   tasks:
+#REMOVE HARD CODED SSH_KEY VAR
+    - name: REMOVE HARD CODED SSH KEY VAR IN INVENTORY
+      uri:
+        url: "https://{{ansible_host}}/api/v2/inventories/2"
+        user: "admin"
+        password: "{{admin_password}}"
+        method: PATCH
+        validate_certs: False
+        # force_basic_auth: yes
+        body_format: json
+        body: ' {"variables": ""}'
+        status_code:
+          - 200
+          - 204
+      register: result_uri
+      ignore_errors: yes
+
 #JOB TEMPLATES
     - name: CREATE BACKUP JOB IN TOWER
       tower_job_template:
@@ -519,19 +520,19 @@
     #     tower_verify_ssl: no
 
 #JOB TEMPLATE PERMISSIONS
-    - name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
-      tower_role:
-        user: network-operator
-        role: execute
-        job_template: "{{ item }}"
-        state: present
-        tower_username: admin
-        tower_password: "{{ admin_password }}"
-        tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
-      loop:
-        - "Network-Backup"
-        - "Network-Commands"
+    # - name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
+    #   tower_role:
+    #     user: network-operator
+    #     role: execute
+    #     job_template: "{{ item }}"
+    #     state: present
+    #     tower_username: admin
+    #     tower_password: "{{ admin_password }}"
+    #     tower_host: "{{ ansible_host }}"
+    #     tower_verify_ssl: no
+    #   loop:
+    #     - "Network-Backup"
+    #     - "Network-Commands"
 
     - name: ENSURE THAT NW ORG CAN USE THE WS INV
       tower_role:

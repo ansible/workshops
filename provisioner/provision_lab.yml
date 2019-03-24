@@ -197,7 +197,7 @@
     - name: Print Summary Information
       debug:
         msg: "{{summary_information}}"
-        
+
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: control_nodes
   connection: local
@@ -439,6 +439,53 @@
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
 
+
+- name: TOWER CONFIGURATION IN PLAYBOOK FORM (FOR REMOTE EXECUTION)
+  hosts: control_nodes
+  become: yes
+  gather_facts: no
+
+#CREDENTIAL
+
+  tasks:
+    - name: ADD CREDENTIAL INTO TOWER
+      tower_credential:
+        username: ec2-user
+        name: "Workshop Credential"
+        ssh_key_data: "/home/{{ username }}/.ssh/aws-private.pem"
+        kind: ssh
+        organization: REDHAT NETWORK ORGANIZATION
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no
+
+    - name: IMPORT INVENTORY
+      shell: 'tower-manage inventory_import --source=/home/{{ username }}/networking-workshop/lab_inventory/hosts --inventory-name="Workshop Inventory"'
+
+    # - name: REMOVE HARD CODED SSH KEY IN INVENTORY
+    #   uri:
+    #     url: "https://{{host}}/api/v2/job_templates/{{network_job.id}}/credentials/"
+    #     user: "admin"
+    #     password: "{{admin_password}}"
+    #     method: PATCH
+    #     validate_certs: False
+    #     # force_basic_auth: yes
+    #     body_format: json
+    #     body: ' {"variables": ""}'
+    #     status_code:
+    #       - 200
+    #       - 204
+    #   register: result_uri
+    #   ignore_errors: yes
+    
+- name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
+  hosts: control_nodes
+  become: yes
+  connection: local
+  gather_facts: no
+
+  tasks:
 #JOB TEMPLATES
     - name: CREATE BACKUP JOB IN TOWER
       tower_job_template:
@@ -501,41 +548,3 @@
       loop:
         - Netops
         - Netadmin
-
-- name: TOWER CONFIGURATION IN PLAYBOOK FORM (FOR REMOTE EXECUTION)
-  hosts: control_nodes
-  become: yes
-  gather_facts: no
-#CREDENTIAL
-
-  tasks:
-    - name: ADD CREDENTIAL INTO TOWER
-      tower_credential:
-        username: ec2-user
-        name: "Workshop Credential"
-        ssh_key_data: "/home/{{ username }}/.ssh/aws-private.pem"
-        kind: ssh
-        organization: REDHAT NETWORK ORGANIZATION
-        tower_username: admin
-        tower_password: "{{ admin_password }}"
-        tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
-
-    - name: IMPORT INVENTORY
-      shell: 'tower-manage inventory_import --source=/home/{{ username }}/networking-workshop/lab_inventory/hosts --inventory-name="Workshop Inventory"'
-
-    # - name: REMOVE HARD CODED SSH KEY IN INVENTORY
-    #   uri:
-    #     url: "https://{{host}}/api/v2/job_templates/{{network_job.id}}/credentials/"
-    #     user: "admin"
-    #     password: "{{admin_password}}"
-    #     method: PATCH
-    #     validate_certs: False
-    #     # force_basic_auth: yes
-    #     body_format: json
-    #     body: ' {"variables": ""}'
-    #     status_code:
-    #       - 200
-    #       - 204
-    #   register: result_uri
-    #   ignore_errors: yes

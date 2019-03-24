@@ -502,6 +502,7 @@
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
+        
     # - name: CREATE SHOW COMMAND JOB IN TOWER
     #   tower_job_template:
     #     name: "Network-Commands"

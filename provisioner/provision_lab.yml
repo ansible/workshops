@@ -473,7 +473,7 @@
 #REMOVE HARD CODED SSH_KEY VAR
     - name: REMOVE HARD CODED SSH KEY VAR IN INVENTORY
       uri:
-        url: "https://{{ansible_host}}/api/v2/inventories/2"
+        url: "https://{{ansible_host}}/api/v2/inventories/2/"
         user: "admin"
         password: "{{admin_password}}"
         method: PATCH

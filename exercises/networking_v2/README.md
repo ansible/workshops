@@ -4,7 +4,7 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
 
 ## Presentation
 Want the Presentation Deck?  Its right here:
-[Ansible Networking Linklight Deck](../../decks/ansible-networking_v2.html)
+[Ansible Networking Linklight Deck](../../decks/ansible_network.pdf)
 
 ## Ansible Network Automation Exercises
 

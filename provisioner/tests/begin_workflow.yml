@@ -1,0 +1,9 @@
+- name: TOWER CONFIGURATION IN PLAYBOOK FORM
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  tasks:
+    - name: CREATE TIME STAMP FOR LINKLIGHT TESTING
+      set_stats:
+        data:
+          workshop_timestamp: "{{ansible_date_time.date}}-{{ansible_date_time.hour}}-{{ansible_date_time.minute}}"

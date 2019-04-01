@@ -1,7 +1,7 @@
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: ADD LINKLIGHT INTO TOWER
       tower_project:
@@ -43,14 +43,28 @@
         password: "{{ lookup('ini', 'aws_secret_access_key section=default file=~/.aws/credentials') }}"
       register: credential
 
+    - name: CREATE RHEL JOB TEMPLATE
+      tower_job_template:
+        name: "LINKLIGHT BEGIN WORKFLOW"
+        job_type: "run"
+        inventory: "LINKLIGHT_TEST_INVENTORY"
+        project: "LINKLIGHT TESTING"
+        playbook: "provisioner/tests/begin_workflow.yml"
+        tower_config_file: "~/tower_cli.cfg"
+      register: rhel_job
+
     - name: THIS LOADS USERNAME AND PASSWORD FROM tower_cli.cfg FOR FOLLOWING URI TASKS
       include_vars:
         file: ~/tower_cli.cfg
 
-    - name: SETUP NETWORK
+    - name: SETUP NETWORK WORKSHOP
       import_role:
         name: setup_network
 
-    - name: SETUP F5
+    - name: SETUP F5 WORKSHOP
       import_role:
         name: setup_f5
+
+    - name: SETUP RHEL WORKSHOP
+      import_role:
+        name: setup_rhel

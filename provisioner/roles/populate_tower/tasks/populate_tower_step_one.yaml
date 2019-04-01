@@ -184,3 +184,48 @@
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
+        
+#PERMISSIONS
+    - name: ENSURE THAT NWADMIN BELONGS TO THE NW ORG
+      tower_role:
+        user: network-admin
+        organization: "REDHAT NETWORK ORGANIZATION"
+        role: member
+        state: present
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no
+
+    - name: ENSURE THAT NWADMIN IS AN ORG ADMIN
+      tower_role:
+        user: network-admin
+        organization: "REDHAT NETWORK ORGANIZATION"
+        role: admin
+        state: present
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no
+
+    - name: ENSURE THAT NWOP BELONGS TO THE NW ORG
+      tower_role:
+        user: network-operator
+        organization: "REDHAT NETWORK ORGANIZATION"
+        role: member
+        state: present
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no
+
+    - name: ENSURE THAT NWOP CAN ONLY EXECUTE TEMPLATES
+      tower_role:
+        user: network-operator
+        target_team: "Netops"
+        role: member
+        state: present
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no

@@ -206,6 +206,8 @@
 
   tasks:
 #INITAL SETUP
+    - debug:
+        msg: "{{ workshop_type }}"
     - name: RUN POPULATE TOWER STEP ONE
       include_role:
         name: populate_tower

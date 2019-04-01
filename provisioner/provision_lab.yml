@@ -213,7 +213,7 @@
         name: populate_tower
         tasks_from: populate_tower_step_one
       when:
-        - workshop_type is networking
+        - workshop_type == "networking"
         # - towerinstall is defined
         # - towerinstall
 

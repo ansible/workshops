@@ -7,7 +7,7 @@
       tower_project:
         name: "LINKLIGHT TESTING"
         organization: "Default"
-        scm_branch: "sean/march6"
+        scm_branch: "ipvsean/april1"
         scm_type: git
         scm_url: "https://github.com/IPvSean/linklight"
         tower_config_file: "~/tower_cli.cfg"

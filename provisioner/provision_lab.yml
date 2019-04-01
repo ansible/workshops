@@ -223,6 +223,8 @@
 
   tasks:
 #CREDENTIAL AND INVENTORY
+    - debug:
+        msg: "{{ workshop_type }}"
     - name: RUN POPULATE TOWER STEP TWO
       include_role:
         name: populate_tower

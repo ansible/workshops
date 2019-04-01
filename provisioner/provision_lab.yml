@@ -228,7 +228,7 @@
         name: populate_tower
         tasks_from: populate_tower_step_two
       when:
-        - workshop_type == networking
+        - workshop_type == "networking"
         # - towerinstall is defined
         # - towerinstall
 
@@ -245,6 +245,6 @@
         name: populate_tower
         tasks_from: populate_tower_step_three
       when:
-        - workshop_type == networking
+        - workshop_type == "networking"
         # - towerinstall is defined
         # - towerinstall

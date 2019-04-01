@@ -503,37 +503,37 @@
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
 
-    # - name: CREATE SHOW COMMAND JOB IN TOWER
-    #   tower_job_template:
-    #     name: "Network-Commands"
-    #     job_type: "run"
-    #     inventory: "Workshop Inventory"
-    #     project: "Workshop Project"
-    #     playbook: "network_commands.yml"
-    #     credential: "Workshop Credential"
-    #     state: "present"
-    #     limit: "cisco"
-    #     survey_enabled: yes
-    #     survey_spec: "{{ lookup('template', './templates/survey_spec.json') }}"
-    #     tower_username: admin
-    #     tower_password: "{{ admin_password }}"
-    #     tower_host: "{{ ansible_host }}"
-    #     tower_verify_ssl: no
+    - name: CREATE SHOW COMMAND JOB IN TOWER
+      tower_job_template:
+        name: "Network-Commands"
+        job_type: "run"
+        inventory: "Workshop Inventory"
+        project: "Workshop Project"
+        playbook: "network_commands.yml"
+        credential: "Workshop Credential"
+        state: "present"
+        limit: "cisco"
+        survey_enabled: yes
+        survey_spec: "{{ lookup('template', './templates/survey_spec.json') }}"
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no
 
 #JOB TEMPLATE PERMISSIONS
-    # - name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
-    #   tower_role:
-    #     user: network-operator
-    #     role: execute
-    #     job_template: "{{ item }}"
-    #     state: present
-    #     tower_username: admin
-    #     tower_password: "{{ admin_password }}"
-    #     tower_host: "{{ ansible_host }}"
-    #     tower_verify_ssl: no
-    #   loop:
-    #     - "Network-Backup"
-    #     - "Network-Commands"
+    - name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
+      tower_role:
+        user: network-operator
+        role: execute
+        job_template: "{{ item }}"
+        state: present
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no
+      loop:
+        - "Network-Backup"
+        - "Network-Commands"
 
     - name: ENSURE THAT NW ORG CAN USE THE WS INV
       tower_role:

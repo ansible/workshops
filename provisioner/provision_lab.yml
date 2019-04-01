@@ -206,16 +206,14 @@
 
   tasks:
 #INITAL SETUP
-    - debug:
-        msg: "{{ workshop_type }}"
     - name: RUN POPULATE TOWER STEP ONE
       include_role:
         name: populate_tower
         tasks_from: populate_tower_step_one
       when:
         - workshop_type == "networking"
-        # - towerinstall is defined
-        # - towerinstall
+        - towerinstall is defined
+        - towerinstall
 
 
 - name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
@@ -225,16 +223,14 @@
 
   tasks:
 #CREDENTIAL AND INVENTORY
-    - debug:
-        msg: "{{ workshop_type }}"
     - name: RUN POPULATE TOWER STEP TWO
       include_role:
         name: populate_tower
         tasks_from: populate_tower_step_two
       when:
-        - 'workshop_type == "networking"'
-        # - towerinstall is defined
-        # - towerinstall
+        - workshop_type == "networking"
+        - towerinstall is defined
+        - towerinstall
 
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
@@ -249,6 +245,6 @@
         name: populate_tower
         tasks_from: populate_tower_step_three
       when:
-        - 'workshop_type == "networking"'
-        # - towerinstall is defined
-        # - towerinstall
+        - workshop_type == "networking"
+        - towerinstall is defined
+        - towerinstall

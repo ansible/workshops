@@ -197,3 +197,54 @@
     - name: Print Summary Information
       debug:
         msg: "{{summary_information}}"
+
+- name: POPULATE TOWER STEP ONE
+  hosts: control_nodes
+  connection: local
+  become: yes
+  gather_facts: no
+
+  tasks:
+#INITAL SETUP
+    - name: RUN POPULATE TOWER STEP ONE
+      include_role:
+        name: populate_tower
+        tasks_from: populate_tower_step_one
+      when:
+        - workshop_type == "networking"
+        - towerinstall is defined
+        - towerinstall
+
+
+- name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
+  hosts: control_nodes
+  become: yes
+  gather_facts: no
+
+  tasks:
+#CREDENTIAL AND INVENTORY
+    - name: RUN POPULATE TOWER STEP TWO
+      include_role:
+        name: populate_tower
+        tasks_from: populate_tower_step_two
+      when:
+        - workshop_type == "networking"
+        - towerinstall is defined
+        - towerinstall
+
+- name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
+  hosts: control_nodes
+  become: yes
+  connection: local
+  gather_facts: no
+
+  tasks:
+#PERMISSIONS
+    - name: RUN POPULATE TOWER STEP THREE
+      include_role:
+        name: populate_tower
+        tasks_from: populate_tower_step_three
+      when:
+        - workshop_type == "networking"
+        - towerinstall is defined
+        - towerinstall

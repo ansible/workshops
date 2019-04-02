@@ -184,7 +184,7 @@
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
-        
+
 #PERMISSIONS
     - name: ENSURE THAT NWADMIN BELONGS TO THE NW ORG
       tower_role:
@@ -195,7 +195,7 @@
         tower_username: admin
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
+        validate_certs: no
 
     - name: ENSURE THAT NWADMIN IS AN ORG ADMIN
       tower_role:

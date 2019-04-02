@@ -90,7 +90,7 @@ Remember to use the `register` keyword and the <a href="https://docs.ansible.com
 
 Next, add a task for the objective listed above:
 
-  - Display pool member IP and port information to the terminal window
+  - Force Pool Member offline
 
 HINT: <span style="background-color: #000000">
 Remember the <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: #000000">bigip_pool_member</a> module, can refer to <a href="../1.2-add-node" style="color: #000000">Exercise 1.2</a>.  Also remember to look at the state parameter.</span>

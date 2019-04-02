@@ -206,7 +206,7 @@
         tower_username: admin
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
+        validate_certs: no
 
     - name: ENSURE THAT NWOP BELONGS TO THE NW ORG
       tower_role:
@@ -217,7 +217,7 @@
         tower_username: admin
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
+        validate_certs: no
 
     - name: ENSURE THAT NWOP CAN ONLY EXECUTE TEMPLATES
       tower_role:
@@ -228,4 +228,4 @@
         tower_username: admin
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
+        validate_certs: no

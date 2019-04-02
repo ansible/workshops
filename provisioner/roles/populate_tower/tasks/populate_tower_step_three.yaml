@@ -107,7 +107,7 @@
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
-        
+
 #JOB TEMPLATE PERMISSIONS
     - name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
       tower_role:
@@ -118,7 +118,7 @@
         tower_username: admin
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
+        validate_certs: no
       loop:
         - "Network-Backup"
         - "Network-Commands"
@@ -132,7 +132,7 @@
         tower_username: admin
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
+        validate_certs: no
       tags:
         - inv
       loop:

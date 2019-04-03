@@ -1,4 +1,4 @@
-# Exercise 4-1: Creating a Tower Job Template
+# Exercise 4-1: Creating the Network Backup Tower Job Template
 
 ## Table of Contents
 

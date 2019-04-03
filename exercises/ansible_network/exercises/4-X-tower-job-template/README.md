@@ -36,6 +36,7 @@ Click on the green `+` button to create a new job template (make sure to select 
 |  Project |  Workshop Project |
 |  Playbook |  network_backup.yml |
 |  Credential |  Workshop Credential |
+|  Limit  | cisco |
 
 Here is a screenshot of the job template parameters filled out.
 

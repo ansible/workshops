@@ -16,20 +16,21 @@
       ignore_errors: yes
 
 #JOB TEMPLATES
-    - name: CREATE BACKUP JOB IN TOWER
-      tower_job_template:
-        name: "Network-Backup"
-        job_type: "run"
-        inventory: "Workshop Inventory"
-        project: "Workshop Project"
-        playbook: "network_backup.yml"
-        credential: "Workshop Credential"
-        state: "present"
-        limit: "cisco"
-        tower_username: admin
-        tower_password: "{{ admin_password }}"
-        tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
+#Commenting out as students will not create this#
+    # - name: CREATE BACKUP JOB IN TOWER
+    #   tower_job_template:
+    #     name: "Network-Backup"
+    #     job_type: "run"
+    #     inventory: "Workshop Inventory"
+    #     project: "Workshop Project"
+    #     playbook: "network_backup.yml"
+    #     credential: "Workshop Credential"
+    #     state: "present"
+    #     limit: "cisco"
+    #     tower_username: admin
+    #     tower_password: "{{ admin_password }}"
+    #     tower_host: "{{ ansible_host }}"
+    #     tower_verify_ssl: no
 
     - name: CREATE SHOW COMMAND JOB IN TOWER
       tower_job_template:
@@ -120,8 +121,9 @@
         tower_host: "{{ ansible_host }}"
         validate_certs: no
       loop:
-        - "Network-Backup"
         - "Network-Commands"
+#Commenting out backup as students will now specify this#
+#        - "Network-Backup"
 
     - name: ENSURE THAT NW ORG CAN USE THE WS INV
       tower_role:

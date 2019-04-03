@@ -61,7 +61,7 @@ The **Standard Out pane** will match the output from the Playbook itself.
 
 ![job details view](images/jobfinish.png)
 
-If there is issues with your **BACKUP NETWORK CONFIG** job completing successfully please make sure you hostvars match what you have in inventory.  It is highly recommended to use the tower_setup.yml playbook from the previous exercise if you hit any problems.  To automate the setup of your inventory, credentials and project so that manual mistakes won't be made.  
+If there is issues with your **Network-Backup** job completing successfully please make sure you hostvars match what you have in inventory.  It is highly recommended to use the tower_setup.yml playbook from the previous exercise if you hit any problems.  To automate the setup of your inventory, credentials and project so that manual mistakes won't be made.  
 
 ## Step 3
 
@@ -73,7 +73,7 @@ The Jobs link displays a list of jobs and their status–shown as completed succ
 
 ![jobs link](images/jobslink.png)
 
-The **BACKUP NETWORK CONFIG** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Tower will save the history of every job launched and it is possible to see down to the task level of what happened on a particular job.
+The **Network-Backup** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Tower will save the history of every job launched and it is possible to see down to the task level of what happened on a particular job.
 
 
 

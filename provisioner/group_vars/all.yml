@@ -11,3 +11,8 @@ valid_workshop_types:
   - networking
   - f5
   - engine
+valid_network_types:
+  - cisco
+  - arista
+  - juniper
+  - multivendor

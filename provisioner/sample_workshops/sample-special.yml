@@ -8,4 +8,4 @@ student_total: 2
 create_login_page: true
 workshop_type: networking
 # possible values all_cisco or multivendor
-special: all_cisco
+network: cisco

@@ -8,16 +8,32 @@ ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
 ssh_port: 22
 
-# Instance types used for lab configurations
-juniper:
-  size: c3.xlarge
+## The default is multivendor, 1 x Cisco, 2 x Arista, 1 x Juniper
+##
+##   VPC1       VPC2
+##  (rtr1)  -   (rtr2)
+##    |           |
+##  (rtr3)  -   (rtr4)
+##
+rtr1_type: "cisco"
+rtr2_type: "arista"
+rtr3_type: "juniper"
+rtr4_type: "arista"
+# additional info needed by AWS ec2 modules
+ec2_info:
+  juniper:
+    size: c3.xlarge
+    ami: "{{juniper_ami}}"
+    os: junos
+  cisco:
+    size: t2.medium
+    ami: "{{cisco_ami}}"
+    os: ios
+  arista:
+    size: t2.medium
+    ami: "{{arista_ami}}"
+    os: eos
 
-cisco:
-  size: t2.medium
-  os: ios
-
-arista:
-  size: t2.medium
 
   # Look for owner 309956199498 to find official Red Hat AMIs
 rhel7:

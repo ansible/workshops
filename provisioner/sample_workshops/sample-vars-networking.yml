@@ -1,3 +1,4 @@
+---
 # region where the nodes will live
 ec2_region: us-east-1
 # name prefix for all the VMs
@@ -9,5 +10,5 @@ student_total: 2
 admin_password: ansible
 # creates HTML website for workshop
 create_login_page: true
-# workshop is put into networking mode, uses two Cisco IOS-XE devices
+# workshop is put into networking mode
 workshop_type: networking

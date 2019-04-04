@@ -21,9 +21,9 @@
       assert:
         that:
           - network_type is defined
-          - network_type is in valid_workshop_types
+          - network_type is in valid_network_types
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
-    when: workshop_type == "networking"
+      when: workshop_type == "networking"
 
     - name: run role to check if local environment setup will work with AWS
       include_role:

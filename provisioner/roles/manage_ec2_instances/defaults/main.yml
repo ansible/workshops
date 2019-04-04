@@ -15,42 +15,41 @@ ssh_port: 22
 ##    |           |
 ##  (rtr3)  -   (rtr4)
 ##
+control_type: "rhel7-tower"
 rtr1_type: "cisco"
 rtr2_type: "arista"
 rtr3_type: "juniper"
 rtr4_type: "arista"
+
 # additional info needed by AWS ec2 modules
 ec2_info:
   juniper:
     size: c3.xlarge
-    ami: "{{juniper_ami}}"
+    ami: "{{juniper_ami | default(omit)}}"
     os: junos
   cisco:
     size: t2.medium
-    ami: "{{cisco_ami}}"
+    ami: "{{cisco_ami | default(omit)}}"
     os: ios
   arista:
     size: t2.medium
-    ami: "{{arista_ami}}"
+    ami: "{{arista_ami | default(omit)}}"
     os: eos
-
-
   # Look for owner 309956199498 to find official Red Hat AMIs
-rhel7:
-  owners: 309956199498
-  size: t2.micro
-  os_type: linux
-  disk_space: 10
-  architecture: x86_64
-  filter: 'RHEL-7.4*GA*'
-
-rhel7-tower:
-  owners: 309956199498
-  size: t2.medium
-  os_type: linux
-  disk_space: 20
-  architecture: x86_64
-  filter: 'RHEL-7.4*GA*'
+  rhel7-tower:
+    owners: 309956199498
+    size: t2.medium
+    os_type: linux
+    disk_space: 20
+    architecture: x86_64
+    filter: 'RHEL-7.4*GA*'
+  rhel7:
+    owners: 309956199498
+    size: t2.micro
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-7.4*GA*'
 
 f5node:
   owners: 679593333241
@@ -61,14 +60,14 @@ f5node:
   filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
 
 # Login names used for SSH connections. These are baked in to the AMIs.
-ec2_login_names:
-  rhel7-tower: ec2-user
-  rhel7: ec2-user
-  centos7-tower: centos
-  centos7: centos
-  ubuntu14: ubuntu
-  ubuntu16: ubuntu
-  csr-byol: ec2-user
-  junos-byol: jnpr
-  f5-prelicensed: admin
-  f5_hosts: ec2-user
+# ec2_login_names:
+#   rhel7-tower: ec2-user
+#   rhel7: ec2-user
+#   centos7-tower: centos
+#   centos7: centos
+#   ubuntu14: ubuntu
+#   ubuntu16: ubuntu
+#   csr-byol: ec2-user
+#   junos-byol: jnpr
+#   f5-prelicensed: admin
+#   f5_hosts: ec2-user

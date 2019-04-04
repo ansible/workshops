@@ -1,5 +1,4 @@
-- name: grab AWS AMI instance ids
-  import_playbook: ami_find_networking.yml
+- import_playbook: ami_find_networking.yml
 
 - name: set router types to network_type
   set_fact:

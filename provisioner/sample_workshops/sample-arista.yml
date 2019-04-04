@@ -1,3 +1,4 @@
+---
 # region where the nodes will live
 ec2_region: us-east-1
 # name prefix for all the VMs
@@ -7,5 +8,5 @@ student_total: 2
 ## Optional Variables
 create_login_page: true
 workshop_type: networking
-# possible values all_cisco or multivendor
-network: cisco
+# possible values cisco, arista, juniper or multivendor
+network_type: arista

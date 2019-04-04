@@ -1,44 +1,40 @@
-- name: set node types (NETWORKING MODE)
-  set_fact:
-    rtr1_node: "{{ ec2_lab_node_types_networking['rtr1'] }}"
-    rtr2_node: "{{ ec2_lab_node_types_networking['rtr2'] }}"
-    host1_node: "{{ ec2_lab_node_types_networking['host1'] }}"
+- name: grab AWS AMI instance ids
+  import_playbook: ami_find_networking.yml
 
-- name: set node types (NETWORKING MODE all_cisco)
-  set_fact:
-    rtr3_node: "{{ all_cisco['rtr3'] }}"
-    rtr4_node: "{{ all_cisco['rtr4'] }}"
-  when: special is match("all_cisco")
+# valid_network_types:
+#   - cisco
+#   - arista
+#   - juniper
+#   - multivendor
 
-- name: set node types (NETWORKING MODE SPECIAL)
+- name: set rtr1 to cisco
   set_fact:
-    rtr3_node: "{{ multivendor['rtr3'] }}"
-    rtr4_node: "{{ multivendor['rtr4'] }}"
-  when: special is match("multivendor")
+    rtr1_type: cisco
+  when: network_type == "cisco"
+
+- name: set rtr1 to arista
+  set_fact:
+    rtr1_type: arista
+  when: network_type == "arista"
+
+- name: set rtr1 to juniper
+  set_fact:
+    rtr1_type: juniper
+  when: network_type == "juniper"
+
+- name: set rtr1 to cisco for multivendor
+  set_fact:
+    rtr1_type: cisco
+  when: network_type == "multivendor"
 
 ##############Router 1##############
-
-- name: find ami for rtr1 (NETWORKING MODE)
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    owners: "{{ ec2_instance_types[rtr1_node].owners }}"
-    filters:
-      name: "{{ ec2_instance_types[rtr1_node].filter }}"
-      architecture: "{{ ec2_instance_types[rtr1_node].architecture }}"
-  register: amis
-
-- name: save ami for rtr1 (NETWORKING MODE)
-  set_fact:
-    rtr1_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
 - name: Create EC2 instances for rtr1 node (NETWORKING MODE)
   ec2:
     assign_public_ip: yes
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_instance_types[rtr1_node].size }}"
-    image: "{{ rtr1_ami.image_id }}"
+    instance_type: "t2.medium"
+    image: "{{ cisco_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:

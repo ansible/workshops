@@ -8,75 +8,41 @@ ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
 ssh_port: 22
 
-ec2_control_node:
-  ansible: rhel7-tower
-
-ec2_lab_node_types:
-  node1: rhel7
-  node2: rhel7
-  node3: rhel7
-
-ec2_lab_node_types_f5:
-  f5: f5-prelicensed
-  host1: rhel7
-
-ec2_lab_node_types_networking:
-  rtr1: csr-byol
-  rtr2: csr-byol
-  host1: rhel7
-
-all_cisco:
-  rtr3: csr-byol
-  rtr4: csr-byol
-
-multivendor:
-  rtr3: junos-byol
-  rtr4: junos-byol
-
 # Instance types used for lab configurations
-ec2_instance_types:
-  junos-byol:
-    owners: 679593333241
-    size: m4.xlarge
-    os_type: linux
-    disk_space: 32
-    architecture: x86_64
-    filter: "vmx-nested-17.4R1-S2.2-3-ami*"
-    os: junos
+juniper:
+  size: c3.xlarge
 
-  csr-byol:
-    owners: 679593333241
-    size: t2.medium
-    os_type: linux
-    disk_space: 20
-    architecture: x86_64
-    filter: "cisco-CSR*BYOL*"
-    os: ios
+cisco:
+  size: t2.medium
+  os: ios
+
+arista:
+  size: t2.medium
 
   # Look for owner 309956199498 to find official Red Hat AMIs
-  rhel7:
-    owners: 309956199498
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
-    architecture: x86_64
-    filter: 'RHEL-7.4*GA*'
+rhel7:
+  owners: 309956199498
+  size: t2.micro
+  os_type: linux
+  disk_space: 10
+  architecture: x86_64
+  filter: 'RHEL-7.4*GA*'
 
-  rhel7-tower:
-    owners: 309956199498
-    size: t2.medium
-    os_type: linux
-    disk_space: 20
-    architecture: x86_64
-    filter: 'RHEL-7.4*GA*'
+rhel7-tower:
+  owners: 309956199498
+  size: t2.medium
+  os_type: linux
+  disk_space: 20
+  architecture: x86_64
+  filter: 'RHEL-7.4*GA*'
 
-  f5node:
-    owners: 679593333241
-    size: t2.large
-    os_type: linux
-    disk_space: 40
-    architecture: x86_64
-    filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
+f5node:
+  owners: 679593333241
+  size: t2.large
+  os_type: linux
+  disk_space: 40
+  architecture: x86_64
+  filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
 
 # Login names used for SSH connections. These are baked in to the AMIs.
 ec2_login_names:

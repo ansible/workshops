@@ -22,19 +22,29 @@ rtr3_type: "juniper"
 rtr4_type: "arista"
 
 # additional info needed by AWS ec2 modules
+
 ec2_info:
   juniper:
-    size: c3.xlarge
+    size: c4.xlarge
     ami: "{{juniper_ami | default(omit)}}"
     os: junos
+    username: ec2-user
+    volume:
+      - device_name: /dev/sda1
+        volume_type: io1
+        iops: 1000
+        volume_size: 40
+        delete_on_termination: true
   cisco:
     size: t2.medium
     ami: "{{cisco_ami | default(omit)}}"
     os: ios
+    username: ec2-user
   arista:
     size: t2.medium
     ami: "{{arista_ami | default(omit)}}"
     os: eos
+    username: ec2-user
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7-tower:
     owners: 309956199498
@@ -43,6 +53,7 @@ ec2_info:
     disk_space: 20
     architecture: x86_64
     filter: 'RHEL-7.4*GA*'
+    username: ec2-user
   rhel7:
     owners: 309956199498
     size: t2.micro
@@ -50,24 +61,12 @@ ec2_info:
     disk_space: 10
     architecture: x86_64
     filter: 'RHEL-7.4*GA*'
-
-f5node:
-  owners: 679593333241
-  size: t2.large
-  os_type: linux
-  disk_space: 40
-  architecture: x86_64
-  filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
-
-# Login names used for SSH connections. These are baked in to the AMIs.
-# ec2_login_names:
-#   rhel7-tower: ec2-user
-#   rhel7: ec2-user
-#   centos7-tower: centos
-#   centos7: centos
-#   ubuntu14: ubuntu
-#   ubuntu16: ubuntu
-#   csr-byol: ec2-user
-#   junos-byol: jnpr
-#   f5-prelicensed: admin
-#   f5_hosts: ec2-user
+    username: ec2-user
+  f5node:
+    owners: 679593333241
+    size: t2.large
+    os_type: linux
+    disk_space: 40
+    architecture: x86_64
+    filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
+    username: admin

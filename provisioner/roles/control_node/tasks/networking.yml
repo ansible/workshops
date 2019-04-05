@@ -15,14 +15,14 @@
 
 # This is waiting on https://github.com/ansible/ansible/pull/41222
 # which will become available on ansible 2.8
-# - name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
+# - name: Move networking workshop folder to correct location  (NETWORKING MODE)
 #   copy:
 #     src: /tmp/linklight/exercises/ansible_network/
 #     dest: /home/{{ username }}/networking-workshop
 #     remote_src: yes
 #   when: workshop_type == 'networking'
 
-- name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
+- name: Move networking workshop folder to correct location  (NETWORKING MODE)
   command: cp -r /tmp/linklight/exercises/ansible_network/ /home/{{ username }}/networking-workshop/
   when: workshop_type == 'networking'
 

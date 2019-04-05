@@ -9,7 +9,7 @@
 2. Change directories into the exercise you want to complete
 
    ```bash
-   cd ansible-networking-vagrant-demo/training-course/exercise01
+   cd linklight/vagrant-demo/training-course/exercise01
    ```
 
 # Exercises

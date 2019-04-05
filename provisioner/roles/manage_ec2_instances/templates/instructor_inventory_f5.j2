@@ -7,7 +7,7 @@ ansible_port={{ ssh_port }}
 [student{{ number }}]
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-ansible ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names[ansible_node] }}
+{{host.tags.Student}}-ansible ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
 {% for host in f5_node_facts.instances %}
@@ -17,12 +17,12 @@ ansible_port={{ ssh_port }}
 {% endfor %}
 {% for host in host1_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-host1 ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names.f5_hosts }}
+{{host.tags.Student}}-host1 ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
 {% for host in host2_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-host2 ansible_host={{ host.public_ip_address }} ansible_user={{ec2_login_names.f5_hosts }}
+{{host.tags.Student}}-host2 ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
 {% endfor %}

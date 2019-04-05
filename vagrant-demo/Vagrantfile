@@ -9,11 +9,13 @@
 Vagrant.require_version ">= 2.0.1"
 
 $script = <<SCRIPT
-git clone https://github.com/IPvSean/ansible-networking-vagrant-demo
-chown -R vagrant:vagrant ansible-networking-vagrant-demo
-cp /home/vagrant/ansible-networking-vagrant-demo/training-course/ansible.cfg /home/vagrant/.ansible.cfg
-cp /home/vagrant/ansible-networking-vagrant-demo/training-course/etchosts /etc/hosts
+git clone https://github.com/network-automation/linklight/
+chown -R vagrant:vagrant linklight
+cp /home/vagrant/linklight/vagrant-demo/training-course/ansible.cfg /home/vagrant/.ansible.cfg
+cp /home/vagrant/linklight/vagrant-demo/training-course/etchosts /etc/hosts
+yum install epel-release -y
 yum install python-pip tree -y
+pip install --upgrade pip
 pip install git+https://github.com/ansible/ansible.git@devel
 pip install netaddr
 SCRIPT

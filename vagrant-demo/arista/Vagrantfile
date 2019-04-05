@@ -13,6 +13,7 @@ git clone https://github.com/network-automation/linklight/
 chown -R vagrant:vagrant linklight
 cp /home/vagrant/linklight/vagrant-demo/arista/ansible.cfg /home/vagrant/.ansible.cfg
 cp /home/vagrant/linklight/vagrant-demo/arista/etchosts /etc/hosts
+yum install epel-release -y
 yum install python-pip tree -y
 pip install --upgrade pip
 pip install git+https://github.com/ansible/ansible.git@devel

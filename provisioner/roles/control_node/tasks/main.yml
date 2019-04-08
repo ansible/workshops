@@ -33,7 +33,9 @@
     name:
       - ncclient
     state: latest
-  when: workshop_type == 'networking'
+  when:
+    - workshop_type == 'networking'
+    - network_type == 'juniper' or network_type == 'multivendor'
 
 - name: block for f5 workshop
   block:

@@ -8,7 +8,7 @@
       assert:
         that:
           - ansible_version.major >= 2
-          - ansible_version.minor >= 7
+          - ansible_version.minor >= 8
 
     - name: make sure workshop_type is set to a correct value
       assert:

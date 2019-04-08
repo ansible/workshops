@@ -1,6 +1,6 @@
 - name: REMOVE DNS ENTRIES FOR EACH TOWER NODE
   include_tasks: teardown.yml
-  when: teardown
+  when: teardown|bool
 
 - name: CHECK TO SEE IF SSL CERT ALREADY APPLIED
   uri:

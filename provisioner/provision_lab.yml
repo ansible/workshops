@@ -219,7 +219,7 @@
       when:
         - workshop_type == "networking"
         - towerinstall is defined
-        - towerinstall
+        - towerinstall|bool
 
 
 - name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
@@ -236,7 +236,7 @@
       when:
         - workshop_type == "networking"
         - towerinstall is defined
-        - towerinstall
+        - towerinstall|bool
 
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
@@ -253,4 +253,4 @@
       when:
         - workshop_type == "networking"
         - towerinstall is defined
-        - towerinstall
+        - towerinstall|bool

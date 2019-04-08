@@ -72,6 +72,7 @@
   roles:
     - user_accounts
     - common
+  tags: control_node
 
 - name: CONFIGURE F5 WORKSHOP WEBSERVERS host1 and host2
   hosts: lab_hosts
@@ -86,6 +87,7 @@
   become: yes
   roles:
     - control_node
+  tags: control_node
 
 - name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
   hosts: control_nodes
@@ -93,6 +95,7 @@
   gather_facts: no
   roles:
     - { role: aws_dns, when: create_login_page is defined and create_login_page }
+  tags: control_node
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
@@ -101,13 +104,14 @@
   gather_facts: no
   roles:
     - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
+  tags: control_node
 
-- name: Setup Host routes for ansible control node and host1 when in networking mode
-  hosts: "managed_nodes:control_nodes"
-  become: no
-  gather_facts: no
-  roles:
-    - { role: network_hostroutes, when: workshop_type == "networking" }
+# - name: Setup Host routes for ansible control node and host1 when in networking mode
+#   hosts: "managed_nodes:control_nodes"
+#   become: no
+#   gather_facts: no
+#   roles:
+#     - { role: network_hostroutes, when: workshop_type == "networking" }
 
 - name: setup f5 nodes
   hosts: f5
@@ -142,12 +146,12 @@
   roles:
     - role: configure_routers
       vars:
-        type: csr_access
+        type: access
         router3_tunnel: 100
         router4_tunnel: 101
       when:
         - workshop_type == "networking"
-        - network_type == "cisco"
+        - ansible_network_os == "ios"
 
 - name: CONFIGURE CORE ROUTERS
   hosts: core
@@ -157,29 +161,13 @@
   roles:
     - role: configure_routers
       vars:
-        type: csr_core
-        router1_tunnel: 100
-        router2_tunnel: 101
-        dci_tunnel: 200
+        type: core
       when:
         - workshop_type == "networking"
-        - network_type == "cisco"
-
-- name: CONFIGURE CORE ROUTERS
-  hosts: dmvpn
-  connection: local
-  gather_facts: no
-
-  roles:
-    - role: configure_routers
-      vars:
-        type: csr_hub
-      when:
-        - workshop_type == "networking"
-        - network_type == "cisco"
+        - ansible_network_os == "ios" or ansible_network_os == "eos"
 
 - name: CHANGE JUNIPER PASSWORD
-  hosts: access
+  hosts: routers
   gather_facts: no
   vars:
     ansible_connection: network_cli
@@ -188,9 +176,7 @@
       include_role:
         name: configure_routers
         tasks_from: juniper_default
-      when:
-        - workshop_type == "networking"
-        - network_type == "juniper" or network_type == "multivendor"
+      when: ansible_network_os == "junos"
 
 - name: Alert the mothership
   hosts: localhost

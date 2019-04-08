@@ -5,6 +5,7 @@
   block:
     - name: provision aws resources and instances
       include_tasks: provision.yml
+      tags: provisioned
 
     - name: create instructor_inventory, and student files
       include_tasks: create_inventory.yml

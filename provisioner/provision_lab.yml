@@ -8,7 +8,7 @@
       assert:
         that:
           - ansible_version.major >= 2
-          - ansible_version.minor >= 7
+          - ansible_version.minor >= 8
 
     - name: make sure workshop_type is set to a correct value
       assert:
@@ -16,6 +16,14 @@
           - workshop_type is defined
           - workshop_type is in valid_workshop_types
         msg: "workshop_type must be defined and be one of: {{valid_workshop_types}}"
+
+    - name: make sure network_type is set to a correct value
+      assert:
+        that:
+          - network_type is defined
+          - network_type is in valid_network_types
+        msg: "network_type must be defined and be one of: {{valid_network_types}}"
+      when: workshop_type == "networking"
 
     - name: run role to check if local environment setup will work with AWS
       include_role:
@@ -25,12 +33,6 @@
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
-
-    - name: if special lab is defined, make sure its a supported mode
-      assert:
-        that: special is match("all_cisco") or special is match("multivendor")
-      when:
-        - special is defined
 
     - name: auto license feature for Ansible Tower
       block:
@@ -70,6 +72,7 @@
   roles:
     - user_accounts
     - common
+  tags: control_node
 
 - name: CONFIGURE F5 WORKSHOP WEBSERVERS host1 and host2
   hosts: lab_hosts
@@ -84,6 +87,7 @@
   become: yes
   roles:
     - control_node
+  tags: control_node
 
 - name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
   hosts: control_nodes
@@ -91,6 +95,7 @@
   gather_facts: no
   roles:
     - { role: aws_dns, when: create_login_page is defined and create_login_page }
+  tags: control_node
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
@@ -99,13 +104,14 @@
   gather_facts: no
   roles:
     - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
+  tags: control_node
 
-- name: Setup Host routes for ansible control node and host1 when in networking mode
-  hosts: "managed_nodes:control_nodes"
-  become: no
-  gather_facts: no
-  roles:
-    - { role: network_hostroutes, when: workshop_type == "networking" }
+# - name: Setup Host routes for ansible control node and host1 when in networking mode
+#   hosts: "managed_nodes:control_nodes"
+#   become: no
+#   gather_facts: no
+#   roles:
+#     - { role: network_hostroutes, when: workshop_type == "networking" }
 
 - name: setup f5 nodes
   hosts: f5
@@ -114,6 +120,16 @@
   gather_facts: no
   roles:
     - { role: f5_setup, when: workshop_type == "f5" }
+
+- name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
+  hosts: "routers"
+  gather_facts: no
+  tasks:
+    - name: MAKE SURE ROUTERS HAVE SSH REACHABILITY
+      include_role:
+        name: connectivity_test
+        tasks_from: routers
+      when: workshop_type == "networking"
 
 - name: GATHER AWS FACTS FOR ROUTERS
   hosts: access,core
@@ -130,10 +146,12 @@
   roles:
     - role: configure_routers
       vars:
-        type: csr_access
+        type: access
         router3_tunnel: 100
         router4_tunnel: 101
-      when: special is match("all_cisco")
+      when:
+        - workshop_type == "networking"
+        - ansible_network_os == "ios"
 
 - name: CONFIGURE CORE ROUTERS
   hosts: core
@@ -143,25 +161,13 @@
   roles:
     - role: configure_routers
       vars:
-        type: csr_core
-        router1_tunnel: 100
-        router2_tunnel: 101
-        dci_tunnel: 200
-      when: special is match("all_cisco")
-
-- name: CONFIGURE CORE ROUTERS
-  hosts: dmvpn
-  connection: local
-  gather_facts: no
-
-  roles:
-    - role: configure_routers
-      vars:
-        type: csr_hub
-      when: special is match("all_cisco")
+        type: core
+      when:
+        - workshop_type == "networking"
+        - ansible_network_os == "ios" or ansible_network_os == "eos"
 
 - name: CHANGE JUNIPER PASSWORD
-  hosts: access
+  hosts: routers
   gather_facts: no
   vars:
     ansible_connection: network_cli
@@ -170,7 +176,7 @@
       include_role:
         name: configure_routers
         tasks_from: juniper_default
-      when: special is match("multivendor")
+      when: ansible_network_os == "junos"
 
 - name: Alert the mothership
   hosts: localhost
@@ -213,7 +219,7 @@
       when:
         - workshop_type == "networking"
         - towerinstall is defined
-        - towerinstall
+        - towerinstall|bool
 
 
 - name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
@@ -230,7 +236,7 @@
       when:
         - workshop_type == "networking"
         - towerinstall is defined
-        - towerinstall
+        - towerinstall|bool
 
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
@@ -247,4 +253,4 @@
       when:
         - workshop_type == "networking"
         - towerinstall is defined
-        - towerinstall
+        - towerinstall|bool

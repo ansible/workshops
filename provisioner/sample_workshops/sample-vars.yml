@@ -1,3 +1,4 @@
+---
 # region where the nodes will live
 ec2_region: us-east-1
 # name prefix for all the VMs

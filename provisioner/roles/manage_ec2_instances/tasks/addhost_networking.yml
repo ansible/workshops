@@ -1,26 +1,3 @@
-- name: grab facts for host1 node (NETWORKING MODE)
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_host1": "{{ec2_name_prefix}}-host1"
-  register: host1_node_facts
-
-- name: add host1 to groups (NETWORKING MODE)
-  add_host:
-    name: "{{ item.tags.Name }}"
-    short_name: "{{ item.tags.short_name }}"
-    ansible_host: "{{ item.public_ip_address }}"
-    username: "{{ item.tags.Student }}"
-    ansible_user: "{{ ec2_login_names[host1_node] }}"
-    ansible_port: "{{ ssh_port }}"
-    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    private_ip: "{{item.private_ip_address}}"
-    groups:
-      - lab_hosts
-      - managed_nodes
-  with_items: "{{ host1_node_facts.instances }}"
-
 - name: grab facts for rtr1 node (NETWORKING MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"
@@ -28,7 +5,6 @@
       instance-state-name: running
       "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
   register: rtr1_node_facts
-
 
 - name: grab facts for rtr2 node (NETWORKING MODE)
   ec2_instance_facts:
@@ -38,81 +14,86 @@
       "tag:Workshop_rtr2": "{{ec2_name_prefix}}-rtr2"
   register: rtr2_node_facts
 
-- name: addhosts for rtr3 and rtr4 in special mode
-  block:
-  ##### Router 3 ####
-    - name: grab facts for rtr3 node (NETWORKING MODE)
-      ec2_instance_facts:
-        region: "{{ ec2_region }}"
-        filters:
-          instance-state-name: running
-          "tag:Workshop_rtr3": "{{ec2_name_prefix}}-rtr3"
-      register: rtr3_node_facts
+- name: grab facts for rtr3 node (NETWORKING MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr3": "{{ec2_name_prefix}}-rtr3"
+  register: rtr3_node_facts
 
-    ##### Router 4 #####
-    - name: grab facts for rtr4 node (NETWORKING MODE)
-      ec2_instance_facts:
-        region: "{{ ec2_region }}"
-        filters:
-          instance-state-name: running
-          "tag:Workshop_rtr4": "{{ec2_name_prefix}}-rtr4"
-      register: rtr4_node_facts
-  when: special is defined
+- name: grab facts for rtr4 node (NETWORKING MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr4": "{{ec2_name_prefix}}-rtr4"
+  register: rtr4_node_facts
 
-- name: ADD CORE ROUTERS TO INVENTORY
+- name: ADD RTR1 ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
-    ansible_user: ec2-user
+    ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
-    ansible_network_os: ios
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
     groups:
       - routers
       - core
-  with_items:
-    - "{{ rtr1_node_facts.instances }}"
-    - "{{ rtr2_node_facts.instances }}"
-  when: special is defined
+      - dmvpn
+  loop: "{{ rtr1_node_facts.instances|flatten(levels=1) }}"
 
-- name: ADD ACCESS ROUTERS TO INVENTORY
+- name: ADD RTR2 ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
-    ansible_user: "{{ 'ec2-user' if special is match('all_cisco') else 'jnpr' }}"
+    ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
-    ansible_network_os: "{{ 'ios' if special is match('all_cisco') else 'junos' }}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
     groups:
       - routers
-      - access
-  with_items:
-    - "{{ rtr3_node_facts.instances }}"
-    - "{{ rtr4_node_facts.instances }}"
-  when: special is defined
+      - core
+  loop: "{{ rtr2_node_facts.instances|flatten(levels=1) }}"
 
-- name: ADD DMVPN HUB ROUTER TO SEPARATE GROUP
+- name: ADD RTR3 ROUTERS TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     username: "{{ item.tags.Student }}"
-    ansible_user: ec2-user
+    ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    ansible_network_os: ios
-    rtr1_node_facts: "{{rtr1_node_facts}}"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
     groups:
-      - dmvpn
-  with_items:
-    - "{{ rtr1_node_facts.instances }}"
-  when: special is defined
+      - routers
+      - access
+  loop: "{{ rtr3_node_facts.instances|flatten(levels=1) }}"
+
+- name: ADD RTR3 ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    groups:
+      - routers
+      - access
+  loop: "{{ rtr4_node_facts.instances|flatten(levels=1) }}"
 
 - name: Generate student inventories
   template:

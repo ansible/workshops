@@ -8,60 +8,44 @@ ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
 ssh_port: 22
 
-ec2_control_node:
-  ansible: rhel7-tower
+## The default is multivendor, 1 x Cisco, 2 x Arista, 1 x Juniper
+##
+##   VPC1       VPC2
+##  (rtr1)  -   (rtr2)
+##    |           |
+##  (rtr3)  -   (rtr4)
+##
+control_type: "rhel7-tower"
+rtr1_type: "cisco"
+rtr2_type: "arista"
+rtr3_type: "juniper"
+rtr4_type: "arista"
 
-ec2_lab_node_types:
-  node1: rhel7
-  node2: rhel7
-  node3: rhel7
+# additional info needed by AWS ec2 modules
 
-ec2_lab_node_types_f5:
-  f5: f5-prelicensed
-  host1: rhel7
-
-ec2_lab_node_types_networking:
-  rtr1: csr-byol
-  rtr2: csr-byol
-  host1: rhel7
-
-all_cisco:
-  rtr3: csr-byol
-  rtr4: csr-byol
-
-multivendor:
-  rtr3: junos-byol
-  rtr4: junos-byol
-
-# Instance types used for lab configurations
-ec2_instance_types:
-  junos-byol:
-    owners: 679593333241
-    size: m4.xlarge
-    os_type: linux
-    disk_space: 32
-    architecture: x86_64
-    filter: "vmx-nested-17.4R1-S2.2-3-ami*"
+ec2_info:
+  juniper:
+    size: c4.xlarge
+    ami: "{{juniper_ami | default(omit)}}"
     os: junos
-
-  csr-byol:
-    owners: 679593333241
+    username: ec2-user
+    volume:
+      - device_name: /dev/sda1
+        volume_type: io1
+        iops: 1000
+        volume_size: 40
+        delete_on_termination: true
+  cisco:
     size: t2.medium
-    os_type: linux
-    disk_space: 20
-    architecture: x86_64
-    filter: "cisco-CSR*BYOL*"
+    ami: "{{cisco_ami | default(omit)}}"
     os: ios
-
+    username: ec2-user
+  arista:
+    size: t2.medium
+    ami: "{{arista_ami | default(omit)}}"
+    os: eos
+    username: ec2-user
   # Look for owner 309956199498 to find official Red Hat AMIs
-  rhel7:
-    owners: 309956199498
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
-    architecture: x86_64
-    filter: 'RHEL-7.4*GA*'
-
   rhel7-tower:
     owners: 309956199498
     size: t2.medium
@@ -69,7 +53,15 @@ ec2_instance_types:
     disk_space: 20
     architecture: x86_64
     filter: 'RHEL-7.4*GA*'
-
+    username: ec2-user
+  rhel7:
+    owners: 309956199498
+    size: t2.micro
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-7.4*GA*'
+    username: ec2-user
   f5node:
     owners: 679593333241
     size: t2.large
@@ -77,16 +69,4 @@ ec2_instance_types:
     disk_space: 40
     architecture: x86_64
     filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
-
-# Login names used for SSH connections. These are baked in to the AMIs.
-ec2_login_names:
-  rhel7-tower: ec2-user
-  rhel7: ec2-user
-  centos7-tower: centos
-  centos7: centos
-  ubuntu14: ubuntu
-  ubuntu16: ubuntu
-  csr-byol: ec2-user
-  junos-byol: jnpr
-  f5-prelicensed: admin
-  f5_hosts: ec2-user
+    username: admin

@@ -48,6 +48,65 @@ Just because you submit a PR, doesn't mean that it will get accepted.  Right now
 
 Being more descriptive is better, and has a higher change of getting merged upstream.  Communication is key!  Just b/c the PR doesn't get accepted right away doesn't mean it is not a good idea.  Linklight has to balance many different types of users.  Thank you for contributing!
 
+# Notes April 3rd, 2019
+
+Load this into your ~/.bashrc or ~/.oh-my-zsh/oh-my-zsh.sh
+
+```
+pullupstream () {
+  if [[ -z "$1" ]]
+  then
+    printf "Error: must specify a branch name (e.g. - master, devel)\n"
+  else
+    pullup_startbranch=$(printf "%s" "$(grep '\*' <(git branch) | sed s/\*.//)")
+    git checkout "$1"
+    git fetch upstream
+    git merge "upstream/$1"
+    git push origin "$1"
+    git checkout "${pullup_startbranch}"
+  fi
+}
+```
+
+Check out your local devel branch from your fork
+```bash
+git checkout devel
+```
+
+Run the pullupstream command
+
+```bash
+pullupstream
+```
+
+Check out your feature branch
+```bash
+git checkout ipvsean/april3
+```
+
+rebase your branch based off your local devel branch after you confirm your devel branch is 1:1 with upstream
+
+```bash
+git pull --rebase origin master
+```
+
+1) Fork
+2) Clone devel
+2a)git remote add upstream https://github.com/network-automation/linklight.git
+origin    https://github.com/gdykeman/linklight (fetch)
+origin    https://github.com/gdykeman/linklight (push)
+upstream    https://github.com/network-automation/linklight.git (fetch)
+upstream    https://github.com/network-automation/linklight.git (push)
+3) git checkout <branch name>
+4) Make changes
+5) push branch into origin
+6) PR to upstream/devel
+7) git fetch upstream
+8) checkout devel
+9) git merge upstream/devel
+10) git push
+
+
 # Going Further
 The following links will be helpful if you want to contribute code to the Linklight project, or any Ansible project:
 - [Ansible Committer Guidelines](http://docs.ansible.com/ansible/latest/committer_guidelines.html)

@@ -207,7 +207,6 @@
 - name: POPULATE TOWER STEP ONE
   hosts: control_nodes
   connection: local
-  become: yes
   gather_facts: no
 
   tasks:

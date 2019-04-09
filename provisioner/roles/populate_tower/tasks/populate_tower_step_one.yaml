@@ -1,7 +1,3 @@
-#ENSURE TOWER CLI INSTALLED
-    - name: INSTALL TOWER-CLI
-      pip:
-        name: ansible-tower-cli
 #ORGS
     - name: CREATE NETWORK ORGANIZATION
       tower_organization:

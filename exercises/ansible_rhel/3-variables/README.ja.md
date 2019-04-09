@@ -105,18 +105,18 @@ cd ../
       file:
         name: /etc/httpd/conf/sites-enabled
         state: directory
-     
+
     - name: copy httpd.conf
       template:
         src: templates/httpd.conf.j2
         dest: /etc/httpd/conf/httpd.conf
       notify: restart apache service
-     
+
     - name: copy index.html
       template:
         src: templates/index.html.j2
         dest: /var/www/html/index.html
-     
+
     - name: start httpd
       service:
         name: httpd
@@ -217,4 +217,4 @@ template モジュールでは元となるファイル（今回は`templates/{in
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.ja.md)
+[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)

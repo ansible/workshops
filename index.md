@@ -26,7 +26,7 @@ These workshops are focused on automating Linux platforms like RHEL (Red Hat Ent
 
 ## Exercises
 
-- [Ansible Engine Exercises](exercises/ansible_engine/README.md)  
+- [Ansible for Red Hat Enterprise Linux Exercises](exercises/ansible_rhel/README.md)  
 - [Ansible Tower Exercises](exercises/ansible_tower/README.md)  
 
 # Slack

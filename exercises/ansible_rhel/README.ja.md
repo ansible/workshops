@@ -22,14 +22,3 @@
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
-
-Red Hat® Ansible® Automation は 3つの製品が含まれます:
-
-- [Red Hat® Ansible® Engine](https://www.ansible.com/ansible-engine): サポートが提供されているAnsibleプロジェクトの基本エンジン機能
-
-- [Red Hat® Ansible® ネットワーク アドオン](https://www.ansible.com/ansible-engine): Arista (EOS)、Cisco (IOS、IOS XR、 NX-OS)、Juniper (Junos OS)、 Open vSwitch、 VyOS等サポートが提供されているネットワークモジュール
-
-- [Red Hat® Ansible® Tower](https://www.ansible.com/tower): Ansible を装備した環境に、制御、ナレッジ、委譲機能を追加し、チームが複雑かつ複数層のデプロイメントを管理支援するツール
-
-さらなる情報が必要ですか?
-[Ansible Engine、Tower、ネットワークアドオンのさらなる情報はこちら](https://www.ansible.com/blog/red-hat-ansible-automation-engine-vs-tower)

@@ -34,4 +34,4 @@ If successful, you should see standard output that looks very similar to the fol
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.md)

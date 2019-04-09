@@ -64,7 +64,7 @@ Playbook内の記述は、すべてここで示されている形式に倣う必
       yum:
         name: httpd
         state: present
-     
+
     - name: start httpd
       service:
         name: httpd
@@ -160,4 +160,4 @@ ansible-playbook install_apache.yml
 ansible-playbook uninstall_apache.yml
 ```
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.ja.md)
+[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)

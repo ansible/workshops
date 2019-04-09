@@ -236,5 +236,4 @@ ansible-playbook site.yml
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.ja.md)
-
+[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)

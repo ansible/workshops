@@ -239,7 +239,6 @@
 
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
-  become: yes
   connection: local
   gather_facts: no
 

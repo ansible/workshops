@@ -17,7 +17,7 @@
     assign_public_ip: yes
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[node1_node].size }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
     image: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"

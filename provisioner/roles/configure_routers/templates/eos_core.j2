@@ -20,7 +20,7 @@ interface Tunnel0
  ip mtu 1476
  tcp mss ceiling ipv4 1360
  tunnel source interface Ethernet1
- tunnel destination {{ device[short_name].ospf_tunnel_desintation }}
+ tunnel destination {{ device[short_name].ospf_tunnel_destination }}
 !
 interface Tunnel1
  ip address {{ device[short_name].bgp_tunnel_source }} 255.255.255.0

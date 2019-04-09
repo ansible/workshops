@@ -22,9 +22,9 @@
       - control_nodes
   with_items: "{{ ansible_node_facts.instances }}"
 
-- name: engine (essentials) mode - setup inventory
-  include_tasks: "addhost_engine.yml"
-  when: workshop_type == 'engine'
+- name: RHEL (essentials) mode - setup inventory
+  include_tasks: "addhost_rhel.yml"
+  when: workshop_type == 'rhel'
 
 - name: networking mode - setup inventory
   include_tasks: "addhost_networking.yml"

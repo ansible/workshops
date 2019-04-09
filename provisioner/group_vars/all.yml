@@ -9,7 +9,7 @@ workshop_type: ""
 valid_workshop_types:
   - networking
   - f5
-  - engine
+  - rhel
 network_type: multivendor
 valid_network_types:
   - cisco

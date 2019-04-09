@@ -9,7 +9,7 @@ The Red Hat Ansible Automation Linklight project is intended for effectively dem
 
 | Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| **Ansible Red Hat Enterprise Linux Workshop** <br>     focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)<br>[Ansible Tower](https://network-automation.github.io/linklight/decks/tower_intro.pdf)  | [Exercises](../exercises/ansible_engine)  | `workshop_type: engine`  |
+| **Ansible Red Hat Enterprise Linux Workshop** <br>     focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)<br>[Ansible Tower](https://network-automation.github.io/linklight/decks/tower_intro.pdf)  | [Exercises](../exercises/ansible_rhel)  | `workshop_type: rhel`  |
 | **Ansible Network Automation Workshop** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [Deck](https://network-automation.github.io/linklight/decks/ansible_network.pdf) | [Exercises](../exercises/ansible_network)  | `workshop_type: networking`  |
 | **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](https://network-automation.github.io/linklight/decks/ansible_f5.pdf) | [Exercises](../exercises/ansible_f5)   | `workshop_type: f5` |
 

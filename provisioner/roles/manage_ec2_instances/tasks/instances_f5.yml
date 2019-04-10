@@ -94,7 +94,7 @@
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host1
-      username: "{{ec2_info.rhel7.username}}"
+      username: "{{ec2_info[rhel].username}}"
   with_indexed_items:
     - "{{ host1_output.instance_ids }}"
   when: host1_output.instance_ids is not none
@@ -130,7 +130,7 @@
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host2
-      username: "{{ec2_info.rhel7.username}}"
+      username: "{{ec2_info[rhel].username}}"
   with_indexed_items:
     - "{{ host2_output.instance_ids }}"
   when: host2_output.instance_ids is not none

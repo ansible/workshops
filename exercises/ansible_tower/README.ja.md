@@ -8,7 +8,7 @@
 Lightbulbのプレゼンテーションスライドはこちらです:
 [Ansible Tower Intro Lightbulb Deck](../../decks/intro-to-ansible-tower.html)
 
-## Ansible Engine Exercises
+## Ansible for Red Hat Enterprise Linux Exercises
 
  - [演習 1 - Ansible Towerのインストール](1-install/README.ja.md)
  - [演習 2 - Ansible Towerのコンフィグレーション](2-config/README.ja.md)

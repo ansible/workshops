@@ -39,9 +39,9 @@
   include_tasks: "networking.yml"
   when: workshop_type in ['networking', 'f5']
 
-- name: engine (essentials) mode - setup control node
-  include_tasks: "engine.yml"
-  when: workshop_type == 'engine'
+- name: RHEL (essentials) mode - setup control node
+  include_tasks: "rhel.yml"
+  when: workshop_type == 'rhel'
 
 - name: check to see if ansible tower is already up and running
   uri:

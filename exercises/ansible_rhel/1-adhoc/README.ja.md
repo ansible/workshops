@@ -158,4 +158,4 @@ https://docs.ansible.com/ansible/latest/user_guide/command_line_tools.html
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.ja.md)
+[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)

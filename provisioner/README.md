@@ -3,7 +3,7 @@
 
 | Workshop   | Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| Ansible Red Hat Enterprise Linux Workshop  | [Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)  | [Exercises](../exercises/ansible_engine) | `workshop_type: engine`  |
+| Ansible Red Hat Enterprise Linux Workshop  | [Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)  | [Exercises](../exercises/ansible_rhel) | `workshop_type: rhel`  |
 | Ansible Network Automation Workshop  | [Deck](https://network-automation.github.io/linklight/decks/ansible_network.pdf) | [Exercises](../exercises/ansible_network)  | `workshop_type: networking`  |
 | Ansible F5 Workshop | [Deck](https://network-automation.github.io/linklight/decks/ansible_f5.pdf) | [Exercises](../exercises/ansible_f5)   | `workshop_type: f5`   |
 
@@ -56,7 +56,7 @@ autolicense: true
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
 
 For more extra_vars examples, look at the following:
-- [sample-vars.yml](sample_workshops/sample-vars.yml) - example for the Ansible Engine Workshop
+- [sample-vars.yml](sample_workshops/sample-vars.yml) - example for the Ansible RHEL Workshop
 - [sample-vars-networking.yml](sample_workshops/sample-vars-networking.yml) - example for the **Ansible Network Workshop**
 - [sample-vars-f5.yml](sample_workshops/sample-vars-f5.yml) - example for **Ansible F5 Workshop**
 - [sample-vars-auto.yml](sample_workshops/sample-vars-auto.yml) - example for Tower installation and licensing

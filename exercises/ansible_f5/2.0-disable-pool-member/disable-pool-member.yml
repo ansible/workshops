@@ -19,11 +19,11 @@
       provider: "{{provider}}"
       gather_subset:
        - ltm-pools
-    register: bigip_facts
+    register: bigip_device_facts
 
   - name: Display Pools available
     debug: "msg={{item.name}}"
-    loop: "{{bigip_facts.ltm_pools}}"
+    loop: "{{bigip_device_facts.ltm_pools}}"
     loop_control:
       label: "{{item.name}}"
 
@@ -34,11 +34,11 @@
   - name: Store pool name in a variable
     set_fact:
      pool_name: "{{item.name}}"
-    loop: "{{bigip_facts.ltm_pools}}"
+    loop: "{{bigip_device_facts.ltm_pools}}"
 
   - name: "Show members belonging to pool {{pool_name}}"
     debug: "msg={{item}}"
-    loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
+    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
     vars:
      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
 
@@ -49,6 +49,6 @@
       name: "{{item.split(':')[0]}}"
       pool: "{{pool_name}}"
       port: "{{item.split(':')[1]}}"
-    loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
+    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
     vars:
      query_string: "[?name=='{{pool_name}}'].members[*].name[]"

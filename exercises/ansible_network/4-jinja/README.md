@@ -1,3 +1,5 @@
+UNDER DEVELOPMENT - APRIL 11th, 2019
+
 # Exercise 01 - Configuring IP Addresses with Jinja Templates
 
 For this exercise we are going to configure all the IP addresses for our IP fabric using the [eos_config](http://docs.ansible.com/ansible/latest/eos_config_module.html) module.
@@ -44,6 +46,12 @@ interface Loopback1
 ```
 
 Jinja2 is very powerful and has lots of features.  The most commonly used ones to template configs are conditionals and loops [which you can read more about here](http://jinja.pocoo.org/docs/2.10/templates/).  With the networking **os_config** modules (i.e. eos_config) the src can set from a jinja template.  This means you don't need two tasks to render, then push config.  You can use one task like this:
+
+```
+- name: configure device with config
+  cli_config:
+    config: "{{ lookup('template', 'basic/config.j2') }}"
+```
 
 ```
 - name: push config to device

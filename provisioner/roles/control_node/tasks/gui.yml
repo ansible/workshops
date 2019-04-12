@@ -15,6 +15,9 @@
   yum:
     name: "@xfce"
 
+- fake:
+    asdf: blah
+
 - name: ENSURE XCLIENTS IS PRESENT
   file:
     path: "/home/{{ username }}/.Xclients"

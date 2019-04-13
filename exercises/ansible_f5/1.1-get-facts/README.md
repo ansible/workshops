@@ -84,8 +84,6 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
 
 Next, add the second `task`. This task will use the `debug` module to print the output from bigip_facts variable we registered the facts to.
 
-{% raw %}
-
 ```yaml
 ---
 - name: GRAB F5 FACTS
@@ -111,8 +109,6 @@ Next, add the second `task`. This task will use the `debug` module to print the 
         var: bigip_device_facts
 ```
 
-{% endraw %}
-
 - The `name: COMPLETE BIG-IP SYSTEM INFORMATION` is a user defined description that will display in the terminal output.
 - `debug:` tells the task to use the debug module.
 - The `var: bigip_device_facts` parameter tells the module to display the variable bigip_facts.
@@ -129,8 +125,6 @@ Run the playbook - exit back into the command line of the control host and execu
 ## Step 6
 
 Finally lets add two more tasks to get more specific info from facts gathered.
-
-{% raw %}
 
 ```yaml
 ---
@@ -163,9 +157,6 @@ Finally lets add two more tasks to get more specific info from facts gathered.
       debug:
         var: bigip_device_facts['system_info']['product_information']['product_version']
 ```
-
-{% endraw %}
-
 
 - `var: bigip_device_facts['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
 - `bigip_device_facts['system_info']['product_information']['product_version']` displays the product version BIG-IP device

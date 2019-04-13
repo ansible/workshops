@@ -53,8 +53,8 @@ when HTTP_REQUEST {
        log local0. "Accessing iRule1"
 }
 
-Save the file
 ```
+Save the file
 
 ```
 [student1@ansible ~]$ nano irule2
@@ -63,8 +63,8 @@ when HTTP_REQUEST {
        log local0. "Accessing iRule2"
 }
     
-Save the file
 ```
+Save the file
 
 ## Step 4
 
@@ -97,7 +97,7 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
-- `A variable 'irules'` is defined with two irules are part of the list 'irule1' and irule2'
+- `A variable 'irules'` is a list defined with two irules => 'irule1' and irule2'
 - `name: ADD iRules` is a user defined description that will display in the terminal output.
 - `bigip_irule:` tells the task which module to use.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
@@ -112,7 +112,7 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
 
 ## Step 5
 
-Next, add the `task`. This task will use the `bigip-virtual_server` to add attach the iRules to a Virtual Server on the BIG-IP.
+Next, add the `task`. This task will use the `bigip_virtual_server` to add attach the iRules to a Virtual Server on the BIG-IP.
 
 ``` yaml
 ---
@@ -157,7 +157,7 @@ Next, add the `task`. This task will use the `bigip-virtual_server` to add attac
 
 - `irules: "{{irules}}` is a list of irules to be attached to the virtual server 'irule1' and 'irule2'
 
-For detials on: [BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html) click here
+Detials of [BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html) 
 or reference [Exercise 1.5](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.5-add-virtual-server/bigip-virtual-server.yml)
 
 ## Step 6
@@ -191,6 +191,7 @@ Login information for the BIG-IP:
 - password: admin
 
 The list of iRules can be found by navigating the menu on the left. Click on Local Traffic-> iRules -> iRules List. 
+
 To view the Virtual Server click on Local Traffic-> Virtual Servers, click on the Virtual Server then click on the 'resoruces' tab and view the iRules attached to the Virtual Server
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

@@ -6,7 +6,7 @@
   tasks:
 
   - name: SAVE RUNNING CONFIG ON BIG-IP
-    bigip_irule:
+    bigip_config:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"

@@ -138,7 +138,7 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
       content: "{{lookup('file','{{item}}')}}"
     loop: "{{irules}}"
     
-  - name: ATTACH iRules TO VIRTUAL SERVER
+  - name: ATTACH iRules TO EXISTING VIRTUAL SERVER
     bigip_virtual_server:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
@@ -146,12 +146,6 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
       server_port: "8443"
       validate_certs: "no"
       name: "vip"
-      destination: "{{private_ip}}"
-      port: "443"
-      enabled_vlans: "all"
-      all_profiles: ['http','clientssl','oneconnect']
-      pool: "http_pool"
-      snat: "Automap"
       irules: "{{irules}}"
 ```
 

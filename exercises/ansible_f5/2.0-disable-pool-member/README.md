@@ -99,8 +99,7 @@ Next, add a task for the objective listed below:
 
   - Store the pool name as a fact
 
-HINT: 
-An easy way to set fact variables within a Playbook dynamically is using the <a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a></span>
+HINT: An easy way to set fact variables within a Playbook dynamically is using the <a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a></span>
 
 ## Step 8
 
@@ -126,7 +125,7 @@ Next, add a task for the objective listed below:
   - Read the prompt information and disable all members or a single member based on the input from the user
   
 HINT: 
-Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html"style="color: #000000"> `when` conditions and `loops` </a></span> 
+Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when conditions and loops </a></span> 
   
 ## Step 10
 Run the playbook - exit back into the command line of the control host and execute the following:

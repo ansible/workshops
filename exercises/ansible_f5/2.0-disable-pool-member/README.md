@@ -72,7 +72,7 @@ Now in the next task you can use provider as follows:
 bigip_device_facts:
   provider: "{{provider}}"
   gather-subset:
-    ltm-pools
+  - ltm-pools
 ```
 You DO NOT need to pass the server_ip/user/password etc. for each module going forward
 

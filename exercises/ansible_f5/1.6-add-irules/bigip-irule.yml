@@ -28,10 +28,4 @@
       server_port: "8443"
       validate_certs: "no"
       name: "vip"
-      destination: "{{private_ip}}"
-      port: "443"
-      enabled_vlans: "all"
-      all_profiles: ['http','clientssl','oneconnect']
-      pool: "http_pool"
-      snat: "Automap"
       irules: "{{irules}}"

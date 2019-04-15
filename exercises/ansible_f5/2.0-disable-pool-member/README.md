@@ -46,7 +46,7 @@ Enter the following play definition into `disable-pool-member.yml`:
 ```
 ## Step 3
 
-Add a task to set a fact for the provider. Once you set the provider you can re-use this key in future tasks instead of giving the server/user/password/server_port and validate_certs info to each task. 
+Add a tasks section and then set a fact for the provider. Once you set the provider you can re-use this key in future tasks instead of giving the server/user/password/server_port and validate_certs info to each task. 
 
 ```
 ---
@@ -78,7 +78,7 @@ You DO NOT need to pass the server_ip/user/password etc. for each module going f
 
 ## Step 5
 
-Next, add a tasks section and create a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Retrieve Facts from BIG-IP for the subset ltm-pools
 
@@ -86,7 +86,7 @@ HINT: Try using the bigip_device_facts module from <a href="../1.1-get-facts" st
 
 ## Step 6
 
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Display the pool information to the terminal window
 
@@ -95,7 +95,7 @@ Remember to use the `register` keyword and the <a href="https://docs.ansible.com
 
 ## Step 7
 
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Store the pool name as a fact
 
@@ -104,7 +104,7 @@ An easy way to set fact variables within a Playbook dynamically is using the <a 
 
 ## Step 8
 
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Display members belonging to the pool
 
@@ -113,7 +113,7 @@ Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/deb
 
 ## Step 9
 
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Prompt the user to enter a Host:Port to disable a particular member or 'all' to disable all members
 
@@ -121,7 +121,7 @@ HINT:
 Use the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: #000000">prompts</a> module</a></span>
 
 ## Step 10
-Next, add a task for the objective listed above:
+Next, add a task for the objective listed below:
 
   - Read the prompt information and disable all members or a single member based on the input from the user
   

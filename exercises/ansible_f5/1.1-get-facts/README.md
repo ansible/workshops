@@ -78,11 +78,11 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
-- `register: bigip_device_facts` tells the task to save the output to a variable bigip_facts
+- `register: bigip_device_facts` tells the task to save the output to a variable bigip_device_facts
 
 ## Step 4
 
-Next, add the second `task`. This task will use the `debug` module to print the output from bigip_facts variable we registered the facts to.
+Next, add the second `task`. This task will use the `debug` module to print the output from bigip_device_facts variable we registered the facts to.
 
 ```yaml
 ---
@@ -102,7 +102,7 @@ Next, add the second `task`. This task will use the `debug` module to print the 
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: no
-      register: bigip_facts
+      register: bigip_device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
@@ -111,7 +111,7 @@ Next, add the second `task`. This task will use the `debug` module to print the 
 
 - The `name: COMPLETE BIG-IP SYSTEM INFORMATION` is a user defined description that will display in the terminal output.
 - `debug:` tells the task to use the debug module.
-- The `var: bigip_device_facts` parameter tells the module to display the variable bigip_facts.
+- The `var: bigip_device_facts` parameter tells the module to display the variable bigip_device_facts.
 
 
 ## Step 5
@@ -179,13 +179,90 @@ The output will look as follows.
 ```yaml
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 
-<<NEED TO UPDATE>>
+PLAY [GRAB F5 FACTS] ****************************************************************************************************************************************
+
+TASK [COLLECT BIG-IP FACTS] *********************************************************************************************************************************
+changed: [f5]
+
+TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] ***********************************************************************************************************
+ok: [f5] => {
+    "bigip_device_facts": {
+        "changed": true,
+        "failed": false,
+        "system_info": {
+            "base_mac_address": "0a:54:53:51:86:fc",
+            "chassis_serial": "685023ec-071e-3fa0-3849dcf70dff",
+            "hardware_information": [
+                {
+                    "model": "Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz",
+                    "name": "cpus",
+                    "type": "base-board",
+                    "versions": [
+                        {
+                            "name": "cpu stepping",
+                            "version": "2"
+                        },
+                        {
+                            "name": "cpu sockets",
+                            "version": "1"
+                        },
+                        {
+                            "name": "cpu MHz",
+                            "version": "2399.981"
+                        },
+                        {
+                            "name": "cores",
+                            "version": "2  (physical:2)"
+                        },
+                        {
+                            "name": "cache size",
+                            "version": "30720 KB"
+                        }
+                    ]
+                }
+            ],
+            "marketing_name": "BIG-IP Virtual Edition",
+            "package_edition": "Point Release 7",
+            "package_version": "Build 0.0.1 - Tue May 15 15:26:30 PDT 2018",
+            "platform": "Z100",
+            "product_build": "0.0.1",
+            "product_build_date": "Tue May 15 15:26:30 PDT 2018",
+            "product_built": 180515152630,
+            "product_changelist": 2557198,
+            "product_code": "BIG-IP",
+            "product_jobid": 1012030,
+            "product_version": "13.1.0.7",
+            "time": {
+                "day": 15,
+                "hour": 23,
+                "minute": 46,
+                "month": 4,
+                "second": 25,
+                "year": 2019
+            },
+            "uptime": 1738.0
+        }
+    }
+}
+
+TASK [DISPLAY ONLY THE MAC ADDRESS] *************************************************************************************************************************
+ok: [f5] => {
+    "bigip_device_facts['system_info']['base_mac_address']": "0a:54:53:51:86:fc"
+}
+
+TASK [DISPLAY ONLY THE VERSION] *****************************************************************************************************************************
+ok: [f5] => {
+    "bigip_device_facts['system_info']['product_information']['product_version']": "VARIABLE IS NOT DEFINED!"
+}
+
+PLAY RECAP **************************************************************************************************************************************************
+f5                         : ok=4    changed=1    unreachable=0    failed=0
+
 ```
 
 # Solution
 
 The finished Ansible Playbook is provided here for an Answer key.  Click here for [bigip-facts.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.1-get-facts/bigip-facts.yml).
-
 
 # Going Further
 

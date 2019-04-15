@@ -20,6 +20,16 @@
   retries: 10
   delay: 5
 
+- name: UPGRADE PIP
+  pip:
+    name: pip
+    state: latest
+
+- name: UPGRADE SETUPTOOLS
+  pip:
+    name: setuptools
+    state: latest
+
 - name: Install base packages for netaddr
   yum:
     name:

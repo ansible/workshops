@@ -73,4 +73,7 @@
             state: absent
           loop: "{{ groups['webservers'] }}"
       always:
-        - debug: msg="Executed rollback playbook"
+        - name: SAVE RUNNING CONFIGURATION
+          bigip_config:
+            provider: "{{provider}}"
+            save: yes

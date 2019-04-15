@@ -167,7 +167,18 @@ Run the playbook - exit back into the command line of the control host and execu
 ```yaml
 [student1@ansible]$ ansible-playbook bigip-irule.yml
 
-<<TO BE ADDED>>
+PLAY [BIG-IP SETUP] *********************************************************************************************************************************
+
+TASK [ADD iRules] *********************************************************************************************************************************
+changed: [f5] => (item=irule1)
+changed: [f5] => (item=irule2)
+
+TASK [ATTACH iRules TO VIRTUAL SERVER] **********************************************************************************************************************
+changed: [f5]
+
+PLAY RECAP *********************************************************************************************************************************
+f5                         : ok=2    changed=2    unreachable=0    failed=0
+
 ```
 
 # Solution

@@ -1,4 +1,4 @@
-# Exercise 5: Using the bigip_virtual_server module
+# Exercise 7: Using the bigip_config module
 
 ## Table of Contents
 
@@ -91,7 +91,13 @@ Run the playbook - exit back into the command line of the control host and execu
 ```yaml
 [student1@ansible]$ ansible-playbook bigip-config.yml
 
-<<TO BE ADDED>>
+PLAY [BIG-IP SETUP] ************************************************************************************************************************
+
+TASK [SAVE RUNNING CONFIG ON BIG-IP] ************************************************************************************************************************
+changed: [f5]
+
+PLAY RECAP *************************************************************************************************************
+f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
 # Solution

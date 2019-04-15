@@ -1,8 +1,8 @@
 ---
-- name:  Disabling a pool member
-  hosts: f5
-  connection: local
+- name: "Disabling a pool member"
+  hosts: lb
   gather_facts: false
+  connection: local
 
   tasks:
   - name: Setup provider
@@ -11,44 +11,55 @@
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
+      server_port: "443"
       validate_certs: "no"
-      
-  - name: Query BIG-IP facts to gather the pools
+
+  - name: Query BIG-IP facts
     bigip_device_facts:
       provider: "{{provider}}"
       gather_subset:
        - ltm-pools
-    register: bigip_device_facts
+    register: bigip_facts
 
   - name: Display Pools available
     debug: "msg={{item.name}}"
-    loop: "{{bigip_device_facts.ltm_pools}}"
+    loop: "{{bigip_facts.ltm_pools}}"
     loop_control:
       label: "{{item.name}}"
 
-  #This will iterate through all the pools on the BIG-IP and store the last pool in the variable
-  #The pool name can be passed as a variable outside of the playbook or the 'prompt' ansible module
-  #can be used to promt the user to enter a pool name - https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html
-  
   - name: Store pool name in a variable
     set_fact:
      pool_name: "{{item.name}}"
-    loop: "{{bigip_device_facts.ltm_pools}}"
+    loop: "{{bigip_facts.ltm_pools}}"
+    no_log: true
 
   - name: "Show members belonging to pool {{pool_name}}"
     debug: "msg={{item}}"
-    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+    loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
     vars:
      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
 
-  - name: "Disable pool member"
+  - pause:
+      prompt: "To disable a particular member enter member with format member_name:port \nTo disable all members of the pool enter 'all'"
+    register: member_name
+
+  - name: Disable ALL pool members
     bigip_pool_member:
       provider: "{{provider}}"
       state: "forced_offline"
       name: "{{item.split(':')[0]}}"
       pool: "{{pool_name}}"
       port: "{{item.split(':')[1]}}"
-    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+    loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
     vars:
      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
+    when: '"all" in member_name.user_input'
+
+  - name: Disable pool member {{member_name.user_input}}
+    bigip_pool_member:
+      provider: "{{provider}}"
+      state: "forced_offline"
+      name: "{{member_name.user_input.split(':')[0]}}"
+      pool: "{{pool_name}}"
+      port: "{{member_name.user_input.split(':')[1]}}"
+    when: '"all" not in member_name.user_input'

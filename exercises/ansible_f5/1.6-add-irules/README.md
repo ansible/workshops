@@ -1,4 +1,4 @@
-# Exercise 6: Using the bigip_irule module
+# Exercise 1.6: Using the bigip_irule module
 
 ## Table of Contents
 

@@ -15,9 +15,9 @@ Demonstrate the removal of a node from the pool.  Build a Playbook that:
   - Retrieve Facts from BIG-IP for the pools present on the BIG-IP (in our example only one pool is present)
   - Display pools available
   - Store the pool name as a fact
-  - Display pool member IP and port information to the terminal window
+  - Display all the pool members that belong to the pool => IP and port information to the terminal window
   - Prompt the user to disable a particular member or disable all members of the pool
-  - Forces the appropriate pool members offline
+  - Force the appropriate pool members offline
 
 # Guide
 
@@ -91,7 +91,7 @@ Next, add a task for the objective listed below:
   - Display the pool information to the terminal window
 
 HINT: 
-Remember to use the `register` keyword and the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug module</a>
+Find a way to `loop` on the output from the above step. Remember to also use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug module</a>
 
 ## Step 7
 

@@ -1,4 +1,4 @@
-# Exercise 7: Using a combination of modules to perform a graceful rollback
+# Exercise 2.2: Using a combination of modules to perform a graceful rollback
 
 ## Table of Contents
 
@@ -75,6 +75,15 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
   gather_facts: false
 
   tasks:
+  - name: Setup provider
+      set_fact:
+       provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
+        
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES
@@ -97,7 +106,15 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
   gather_facts: false
 
   tasks:
-
+    - name: Setup provider
+      set_fact:
+       provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
+        
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
@@ -128,7 +145,15 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
   gather_facts: false
 
   tasks:
-
+    - name: Setup provider
+      set_fact:
+       provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
+        
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
@@ -170,7 +195,15 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
   gather_facts: false
 
   tasks:
-
+    - name: Setup provider
+      set_fact:
+       provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
+        
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
@@ -392,7 +425,43 @@ Run the playbook - exit back into the command line of the control host and execu
 ```
 [student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
 
-<<TO BE ADDED>>
+[student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
+
+PLAY [BIG-IP SETUP] ****************************************************************************************************
+
+TASK [Setup provider] **************************************************************************************************
+ok: [f5]
+
+TASK [CREATE NODES] *****************************************************************************************************
+changed: [f5] => (item=host1)
+changed: [f5] => (item=host2)
+
+TASK [CREATE POOL] *******************************************************************************************************
+changed: [f5]
+
+TASK [ADD POOL MEMBERS] **************************************************************************************************************************
+changed: [f5] => (item=host1)
+changed: [f5] => (item=host2)
+
+TASK [ADD VIRTUAL SERVER] ***************************************************************************************************************************
+fatal: [f5]: FAILED! => {"changed": false, "msg": "0107163f:3: Pool (/Common/Automap1) of type (snatpool) doesn't exist."}
+
+TASK [DELETE VIRTUAL SERVER] **************************************************************************************************************************
+ok: [f5]
+
+TASK [DELETE POOL] **************************************************************************************************************************
+changed: [f5]
+
+TASK [DELETE NODES] **************************************************************************************************************************
+changed: [f5] => (item=host1)
+changed: [f5] => (item=host2)
+
+TASK [SAVE RUNNING CONFIGURATION] ***************************************************************************************************************************
+changed: [f5]
+
+PLAY RECAP *****************************************************************************************************************
+f5                         : ok=8    changed=6    unreachable=0    failed=1
+
 ```
 
 # Solution

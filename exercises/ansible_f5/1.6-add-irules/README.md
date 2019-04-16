@@ -198,5 +198,6 @@ Login information for the BIG-IP:
 The list of iRules can be found by navigating the menu on the left. Click on Local Traffic-> iRules -> iRules List. 
 
 To view the Virtual Server click on Local Traffic-> Virtual Servers, click on the Virtual Server then click on the 'resoruces' tab and view the iRules attached to the Virtual Server
+![irules](bigip-irule.png)
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

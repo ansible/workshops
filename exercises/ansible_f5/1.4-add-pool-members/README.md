@@ -1,4 +1,4 @@
-# Exercise 4: Adding members to a pool on F5
+# Exercise 1.4: Adding members to a pool on F5
 
 ## Table of Contents
 

@@ -1,4 +1,4 @@
-# Exercise 7: Using the bigip_config module
+# Exercise 1.7: Using the bigip_config module
 
 ## Table of Contents
 

@@ -62,7 +62,7 @@ Add a tasks section and then set a fact for the provider. Once you set the provi
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"
-      server_port: "443"
+      server_port: "8443"
       validate_certs: "no"
 ```
 
@@ -108,7 +108,7 @@ Next, add a task for the objective listed below:
   - Display members belonging to the pool
 
 HINT: 
-Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span>
+Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span> and refer <a href="../1.4-add-pool-members">Exercise 1.4<\a>
 
 ## Step 9
 
@@ -125,7 +125,7 @@ Next, add a task for the objective listed below:
   - Read the prompt information and disable all members or a single member based on the input from the user
   
 HINT: 
-Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when conditions and loops </a></span> 
+Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when conditions and loops </a></span> and [BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html)
   
 ## Step 10
 Run the playbook - exit back into the command line of the control host and execute the following:
@@ -139,7 +139,48 @@ Run the playbook - exit back into the command line of the control host and execu
 The output will look as follows.
 
 ```yaml
-<< TO BE ADDED>>
+[student1@ansible ~]$ ansible-playbook disable-pool-member.yml
+
+PLAY [Disabling a pool member] ******************************************************************************************************************************
+
+TASK [Setup provider] *******************************************************************************************************************************
+ok: [f5]
+
+TASK [Query BIG-IP facts] ***********************************************************************************************************************************
+changed: [f5]
+
+TASK [Display Pools available] ******************************************************************************************************************************
+ok: [f5] => (item=http_pool) => {
+    "msg": "http_pool"
+}
+
+TASK [Store pool name in a variable] ************************************************************************************************************************
+ok: [f5] => (item=None)
+ok: [f5]
+
+TASK [Show members belonging to pool http_pool] *************************************************************************************************************
+ok: [f5] => (item=host1:80) => {
+    "msg": "host1:80"
+}
+ok: [f5] => (item=host2:80) => {
+    "msg": "host2:80"
+}
+
+TASK [pause] ************************************************************************************************************
+[pause]
+To disable a particular member enter member with format member_name:port
+To disable all members of the pool enter 'all':
+host1:80^Mok: [f5]
+
+TASK [Disable ALL pool members] ************************************************************************************************************************
+skipping: [f5] => (item=host1:80)
+skipping: [f5] => (item=host2:80)
+
+TASK [Disable pool member host1:80] *************************************************************************************************************************
+changed: [f5]
+
+PLAY RECAP **************************************************************************************************************
+f5                         : ok=7    changed=2    unreachable=0    failed=0
 ```
 
 # Solution

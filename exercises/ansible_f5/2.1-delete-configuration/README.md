@@ -1,4 +1,4 @@
-# Exercise 6: Using a combination of modules to delete configuration on the BIG-IP
+# Exercise 2.1: Using a combination of modules to delete configuration on the BIG-IP
 
 ## Table of Contents
 
@@ -38,6 +38,7 @@ Enter the following play definition into `bigip-delete-configuration.yml`:
 - The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
+
 ## Step 3
 
 Add a tasks section with a set_fact for setting the provider values
@@ -155,7 +156,24 @@ Run the playbook - exit back into the command line of the control host and execu
 ```
 [student1@ansible]$ ansible-playbook bigip-delete-configuration.yml
 
-<<TO BE ADDED>>
+PLAY [BIG-IP TEARDOWN] **************************************************************************************************************************************
+
+TASK [Setup provider] ***************************************************************************************************************************************
+ok: [f5]
+
+TASK [DELETE VIRTUAL SERVER] ********************************************************************************************************************************
+changed: [f5]
+
+TASK [DELETE POOL] *********************************************************************************************************************************
+changed: [f5]
+
+TASK [DELETE NODES] *************************************************************************************************************************************
+changed: [f5] => (item=host1)
+changed: [f5] => (item=host2)
+
+PLAY RECAP **************************************************************************************************************************************
+f5                         : ok=4    changed=3    unreachable=0    failed=0
+
 ```
 # Solution
 

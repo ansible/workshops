@@ -1,0 +1,5 @@
+SN_USERNAME: admin
+SN_PASSWORD: <password>
+SN_INSTANCE: <devXXXX>
+tower_username: admin
+tower_password: ansible

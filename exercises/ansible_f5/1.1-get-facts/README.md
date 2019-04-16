@@ -155,11 +155,11 @@ Finally lets add two more tasks to get more specific info from facts gathered.
 
     - name: DISPLAY ONLY THE VERSION
       debug:
-        var: bigip_device_facts['system_info']['product_information']['product_version']
+        var: bigip_device_facts['system_info']['product_version']
 ```
 
 - `var: bigip_device_facts['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
-- `bigip_device_facts['system_info']['product_information']['product_version']` displays the product version BIG-IP device
+- `bigip_device_facts['system_info']['product_version']` displays the product version BIG-IP device
 
 >Because the bigip_device_facts module returns useful information in structured data, it is really easy to grab specific information without using regex or filters.  Fact modules are very powerful tools to grab specific device information that can be used in subsequent tasks, or even used to create dynamic documentation (reports, csv files, markdown).
 
@@ -252,7 +252,7 @@ ok: [f5] => {
 
 TASK [DISPLAY ONLY THE VERSION] *****************************************************************************************************************************
 ok: [f5] => {
-    "bigip_device_facts['system_info']['product_information']['product_version']": "VARIABLE IS NOT DEFINED!"
+    "bigip_device_facts['system_info']['product_version']": "13.1.0.7"
 }
 
 PLAY RECAP **************************************************************************************************************************************************

@@ -1,4 +1,4 @@
-# Exercise 1: Using the bigip_device_facts module
+# Exercise 1.1: Using the bigip_device_facts module
 
 ## Table of Contents
 

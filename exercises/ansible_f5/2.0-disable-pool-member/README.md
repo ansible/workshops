@@ -170,7 +170,7 @@ TASK [pause] *******************************************************************
 [pause]
 To disable a particular member enter member with format member_name:port
 To disable all members of the pool enter 'all':
-host1:80^Mok: [f5]
+host1:80
 
 TASK [Disable ALL pool members] ************************************************************************************************************************
 skipping: [f5] => (item=host1:80)

@@ -26,4 +26,4 @@
 
     - name: DISPLAY ONLY THE VERSION
       debug:
-        var: bigip_device_facts['system_info']['product_information']['product_version']
+        var: bigip_device_facts['system_info']['product_version']

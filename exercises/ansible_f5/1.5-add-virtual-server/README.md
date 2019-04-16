@@ -1,4 +1,4 @@
-# Exercise 5: Using the bigip_virtual_server module
+# Exercise 1.5: Using the bigip_virtual_server module
 
 ## Table of Contents
 

@@ -21,7 +21,7 @@
 
   - name: DELETE POOL
     bigip_pool:
-     provider: "{{provider}}"
+      provider: "{{provider}}"
       name: "http_pool"
       state: absent
 

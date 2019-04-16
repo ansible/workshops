@@ -108,7 +108,7 @@ Next, add a task for the objective listed below:
   - Display members belonging to the pool
 
 HINT: 
-Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span> and refer <a href="../1.4-add-pool-members">Exercise 1.4<\a>
+Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span> and refer <a href="../1.4-add-pool-members">Exercise 1.4</a>
 
 ## Step 9
 

@@ -14,6 +14,12 @@ Demonstrate use of the [BIG-IP Facts module](https://docs.ansible.com/ansible/la
 
 # Guide
 
+Make sure you are in the home directory
+
+```
+[student1@ansible networking-workshop]$ cd ~
+```
+
 ## Step 1:
 
 Using your text editor of choice create a new file called `bigip-facts.yml`.

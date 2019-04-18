@@ -99,4 +99,10 @@ f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansibl
 
 > Does the password have to be in plain text?  No, Red Hat Ansible Tower can take care of credential management in an easy to use web GUI or a user may use [ansible-vault](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html#protecting-sensitive-variables-with-ansible-vault)
 
+Go back to the home directory
+
+```
+[student1@ansible networking-workshop]$ cd ~
+```
+
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

@@ -1,9 +1,8 @@
+---
 - name: RAISE AN INCIDENT IF NO BANNER
-  hosts: routers
+  hosts: rtr1
   connection: local
   gather_facts: no
-  environment:
-    login_info:
 
   tasks:
 

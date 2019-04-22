@@ -1,15 +1,4 @@
 ---
-- name: UPDATE PLAYBOOKS WITH USER INPUT
-  hosts: localhost
-  connection: local
-  gather_facts: no
-
-
-  tasks:
-
-
-
-
 - name: SETUP TOWER FOR CLOSED LOOP INCIDENT MGMT DEMO
   hosts: cisco
   connection: local
@@ -25,6 +14,8 @@
       become: yes
       become_method: sudo
       become_user: awx
+      run_once: true
+      delegate_to: localhost
 
     - name: CREATE INVENTORY
       tower_inventory:
@@ -34,6 +25,7 @@
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
         tower_verify_ssl: no
+        variables: "{{ lookup('file', './snow_demo2/snow_vars.yaml') }}"
       run_once: true
       delegate_to: localhost
 
@@ -50,6 +42,19 @@
           ansible_host: "{{ansible_host}}"
           ansible_user: "{{ansible_user}}"
           private_ip: "{{private_ip}}"
+
+    - name:  ADD GROUP INTO TOWER INVENTORY
+      tower_group:
+        name: "cisco"
+        inventory: "SNOW_CL Inventory"
+        tower_username: "{{ tower_username }}"
+        tower_password: "{{ tower_password }}"
+        tower_host: https://localhost
+        tower_verify_ssl: no
+        source: manual
+      run_once: true
+      delegate_to: localhost
+
 
     - name: ADD CREDENTIAL INTO TOWER
       tower_credential:
@@ -78,7 +83,7 @@
       delegate_to: localhost
 
 
-    - name: ADD A JOB TEMPLATE
+    - name: ADD A JOB TEMPLATE - COMPLIANCE CHECK
       tower_job_template:
         name: "SNOW-Demo-Compliance-Check"
         job_type: run
@@ -91,5 +96,23 @@
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
         tower_verify_ssl: no
+      run_once: true
+      delegate_to: localhost
+
+    - name: ADD A JOB TEMPLATE - COMPLIANCE FIX
+      tower_job_template:
+        name: "SNOW-Demo-Compliance-Fix"
+        job_type: run
+        inventory: "SNOW_CL Inventory"
+        project: "SNOW_CL"
+        playbook: fix_banner.yaml
+        credential: "SNOW_CL Credential"
+        state: "present"
+        tower_username: "{{ tower_username }}"
+        tower_password: "{{ tower_password }}"
+        tower_host: https://localhost
+        tower_verify_ssl: no
+        ask_extra_vars: True
+        extra_vars_path: ./snow_demo2/extra_vars.yaml
       run_once: true
       delegate_to: localhost

@@ -64,27 +64,25 @@ Thus a BSS system is able to maintain a statement of record while automatically 
 
 Navigate to the demo directory (~/demos/servicenow/close_loop_incident_mgmt) and update the following files with the relevant data:
 
-    1. `input_vars.yaml` : Update this with the tower admin username and password for your tower instance
+1. `input_vars.yaml` : Update this with the tower admin username and password for your tower instance
+*Example data:*
     
-    *Example data:*
-    
-    ```yaml
-    ---
-    tower_username: admin
-    tower_password: ansible
-    ```
+```yaml
+---
+tower_username: admin
+tower_password: ansible
+```
 
     
-    2. `./snow_demo2/snow_vars.yaml`: Update this with the details you recorded while creating the instance 
+2. `./snow_demo2/snow_vars.yaml`: Update this with the details you recorded while creating the instance 
     
-    *Example input:*
-    ```yaml
-    ---
-    SN_USERNAME: admin
-    SN_PASSWORD: ThisIsafakepassword
-    SN_INSTANCE: dev66073
-    
-    ```
+*Example input:*
+```yaml
+---
+SN_USERNAME: admin
+SN_PASSWORD: ThisIsafakepassword
+SN_INSTANCE: dev66073
+```
     
 #### Step 4
 
@@ -110,9 +108,12 @@ Adding a "launch" URI will make this template executable remotely. Record this U
 
 #### Step 5
 Now, in your servicenow instance, navigate to **System Web Services >> Outbound >> REST Message** 
-    > You can also use the search bar at the top left and search for "rest message"
-    ![](../images/restmsg.png)
-    
+
+> You can also use the search bar at the top left and search for "rest message"
+
+![](../images/restmsg.png)
+
+
   - Click on *New* at the top of the page:
     ![](../images/newrest.png)
     
@@ -222,8 +223,9 @@ catch(ex) {
 
 ## Running the Demo
 
-## Animation of the Demo
+### Animation of the Demo
 
+![](../images/closed_loop_snow.gif)
 
 
 #### Step 1

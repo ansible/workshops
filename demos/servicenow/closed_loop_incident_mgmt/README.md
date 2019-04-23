@@ -98,6 +98,8 @@ After this step, log into your tower instance and verify that the 2 "SNOW" job t
 
 #### Step 5
 
+> *Extremely important: Make sure you use FQDNs that have valid SSL certs for the demo to work*
+
 Navigate to the API URI (api/v2/job_templates/) of your tower instance. For example: https://student1.snow-demo.redhatgov.io/api/v2/job_templates/ and identify the API endpoint for the **SNOW-Demo-Compliance-Fix** job template. 
 
 For example, it is https://student1.snow-demo.redhatgov.io/api/v2/job_templates/8 in my instance.

@@ -43,6 +43,10 @@
   include_tasks: "rhel.yml"
   when: workshop_type == 'rhel'
 
+- name: Devops mode - setup control node
+  include_tasks: "devops.yml"
+  when: workshop_type == 'devops'
+
 - name: check to see if ansible tower is already up and running
   uri:
     url: https://localhost/api/v2/ping/

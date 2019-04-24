@@ -33,3 +33,7 @@
 - name: f5 mode - setup inventory
   include_tasks: "addhost_f5.yml"
   when: workshop_type == 'f5'
+
+- name: DevOps mode - setup inventory
+  include_tasks: "addhost_devops.yml"
+  when: workshop_type == 'devops'

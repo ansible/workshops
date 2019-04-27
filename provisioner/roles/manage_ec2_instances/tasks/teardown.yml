@@ -3,7 +3,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop": "{{ec2_name_prefix}}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
   register: all_workshop_nodes
 
 # - name: debug test
@@ -31,7 +31,7 @@
       "tag:Name": "{{ ec2_name_prefix }}-vpc2"
     region: "{{ ec2_region }}"
   register: vpc_net_facts2
-  when: networking
+  when: networking | bool
 
 # - name: debugging vpc id for {{ ec2_name_prefix }}
 #   debug:
@@ -46,112 +46,112 @@
 
 - name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORKING MODE)
   set_fact:
-    ec2_vpc_id2: "{{vpc_net_facts2.vpcs[0].id}}"
+    ec2_vpc_id2: "{{ vpc_net_facts2.vpcs[0].id }}"
     ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
   when:
-    - networking
-    - vpc_net_facts2.vpcs|length > 0
+    - networking | bool
+    - vpc_net_facts2.vpcs | length > 0
     - ec2_security_group2 is undefined
 
 - name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }}
   ec2_group:
-    name: "{{ec2_security_group}}"
+    name: "{{ ec2_security_group }}"
     region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id}}"
+    vpc_id: "{{ ec2_vpc_id }}"
     state: absent
   register: delete_sg
   until: delete_sg is not failed
   retries: 50
-  when: vpc_net_facts.vpcs|length > 0
+  when: vpc_net_facts.vpcs | length > 0
 
 - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
   ec2_group:
-    name: "{{ec2_security_group2}}"
+    name: "{{ ec2_security_group2 }}"
     region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id2}}"
+    vpc_id: "{{ ec2_vpc_id2 }}"
     state: absent
   register: delete_sgnetworking
   until: delete_sgnetworking is not failed
   retries: 50
   when:
-    - networking
-    - vpc_net_facts2.vpcs|length > 0
+    - networking | bool
+    - vpc_net_facts2.vpcs | length > 0
 
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"
-    az: "{{ec2_az}}"
-    vpc_id: "{{ec2_vpc_id}}"
-    cidr: "{{ec2_subnet}}"
+    az: "{{ ec2_az }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    cidr: "{{ ec2_subnet }}"
     state: absent
-  when: vpc_net_facts.vpcs|length > 0
+  when: vpc_net_facts.vpcs | length > 0
 
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"
-    az: "{{ec2_az}}"
-    vpc_id: "{{ec2_vpc_id2}}"
-    cidr: "{{ec2_subnet2}}"
+    az: "{{ ec2_az }}"
+    vpc_id: "{{ ec2_vpc_id2 }}"
+    cidr: "{{ ec2_subnet2 }}"
     state: absent
   when:
-    - networking
-    - vpc_net_facts2.vpcs|length > 0
+    - networking | bool
+    - vpc_net_facts2.vpcs | length > 0
 
 - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
   ec2_vpc_igw:
     region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id}}"
+    vpc_id: "{{ ec2_vpc_id }}"
     state: absent
   when: vpc_net_facts.vpcs|length > 0
 
 - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
   ec2_vpc_igw:
     region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id2}}"
+    vpc_id: "{{ ec2_vpc_id2 }}"
     state: absent
   when:
-    - networking
-    - vpc_net_facts2.vpcs|length > 0
+    - networking | bool
+    - vpc_net_facts2.vpcs | length > 0
 
 - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
   ec2_vpc_route_table_facts:
     region: "{{ ec2_region }}"
     filters:
-      vpc_id: "{{ec2_vpc_id}}"
+      vpc_id: "{{ ec2_vpc_id }}"
   register: route_table_facts
-  when: vpc_net_facts.vpcs|length > 0
+  when: vpc_net_facts.vpcs | length > 0
 
 - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORKING MODE)
   ec2_vpc_route_table_facts:
     region: "{{ ec2_region }}"
     filters:
-      vpc_id: "{{ec2_vpc_id2}}"
+      vpc_id: "{{ ec2_vpc_id2 }}"
   register: route_table_facts2
   when:
-    - networking
-    - vpc_net_facts2.vpcs|length > 0
+    - networking | bool
+    - vpc_net_facts2.vpcs | length > 0
 
 - name: vpc public subnet route table is deleted
   ec2_vpc_route_table:
     region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id}}"
-    route_table_id: "{{item.id}}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    route_table_id: "{{ item.id }}"
     lookup: id
     state: absent
-  with_items: "{{route_table_facts.route_tables}}"
-  when: vpc_net_facts.vpcs|length > 0 and item.associations == []
+  with_items: "{{ route_table_facts.route_tables }}"
+  when: vpc_net_facts.vpcs | length > 0 and item.associations == []
 
 - name: vpc public subnet route table is deleted (VPC2) (NETWORKING MODE)
   ec2_vpc_route_table:
     region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id2}}"
-    route_table_id: "{{item.id}}"
+    vpc_id: "{{ ec2_vpc_id2 }}"
+    route_table_id: "{{ item.id }}"
     lookup: id
     state: absent
-  with_items: "{{route_table_facts2.route_tables}}"
+  with_items: "{{ route_table_facts2.route_tables }}"
   when:
-    - networking
-    - vpc_net_facts2.vpcs|length > 0
+    - networking | bool
+    - vpc_net_facts2.vpcs | length > 0
     - item.associations == []
 
 - name: set keys for instance creation dynamically since key was not supplied by user
@@ -160,7 +160,7 @@
 
 - name: delete ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
-    name: "{{ec2_key_name}}"
+    name: "{{ ec2_key_name }}"
     region: "{{ ec2_region }}"
     state: absent
 
@@ -178,4 +178,4 @@
     region: "{{ ec2_region }}"
     state: absent
   when:
-    - networking
+    - networking | bool

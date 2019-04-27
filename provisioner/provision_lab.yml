@@ -3,7 +3,9 @@
   connection: local
   become: no
   gather_facts: no
+
   tasks:
+
     - name: make sure we are running correct Ansible Version
       assert:
         that:
@@ -11,12 +13,13 @@
           - ansible_version.minor >= 7
 
       # F5workshop and networking workshop are two different workshops
+
     - name: make sure f5workshop is not turned on when networking is
       assert:
         msg: "f5workshop and networking are mutually exclusive. Choose only one."
         that:
           - not f5workshop
-      when: networking
+      when: networking | bool
 
       # F5workshop and networking workshop are two different workshops
     - name: make sure networking is not turned on when f5workshop is
@@ -24,7 +27,7 @@
         msg: "networking and f5workshop are mutually exclusive. Choose only one."
         that:
           - not networking
-      when: f5workshop
+      when: f5workshop | bool
 
     - name: run role to check if local environment setup will work with AWS
       include_role:
@@ -45,7 +48,7 @@
       block:
         - name: Check that the provided license exists
           stat:
-            path: "{{playbook_dir}}/tower_license.json"
+            path: "{{ playbook_dir }}/tower_license.json"
           register: stat_result
         - debug:
             var: stat_result
@@ -55,7 +58,7 @@
            - not stat_result.stat.exists
       when:
        - autolicense is defined
-       - autolicense
+       - autolicense | bool
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -195,14 +198,14 @@
         summary_information: |
           PROVISIONER SUMMARY
           *******************
-          - Workshop name is {{ec2_name_prefix}}
-          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
-          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}.pem
-          {{website_information}}
+          - Workshop name is {{ ec2_name_prefix }}
+          - Instructor inventory is located at  {{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt
+          - Private key is located at {{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}.pem
+          {{ website_information }}
           FAILURES
           *******************
-          {{dns_information}}
+          {{ dns_information }}
 
     - name: Print Summary Information
       debug:
-        msg: "{{summary_information}}"
+        msg: "{{ summary_information }}"

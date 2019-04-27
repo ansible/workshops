@@ -14,19 +14,19 @@
     msg: "Amazon AWS does not allow underscores _ for s3 websites, please see https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html"
   when:
     - create_login_page is defined
-    - create_login_page
+    - create_login_page | bool
     - "'_' in ec2_name_prefix"
 
-- name: FIND AZ ZONE FOR REGION {{ec2_region}}
+- name: FIND AZ ZONE FOR REGION {{ ec2_region }}
   aws_az_facts:
-    region: "{{ec2_region}}"
+    region: "{{ ec2_region }}"
   register: az_names
 
 # - debug:
 #     var: az_names
 
 - name: SET AZ ZONE TO FIRST AVAILABLE
-  set_fact: ec2_az={{az_names.availability_zones[0].zone_name}}
+  set_fact: ec2_az={{ az_names.availability_zones[0].zone_name }}
 
 - name: grab information about AWS user
   aws_caller_facts:

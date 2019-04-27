@@ -1,5 +1,5 @@
 - include_tasks: teardown.yml
-  when: teardown
+  when: teardown | bool
 
 - name: provision workshop in AWS public cloud
   block:
@@ -8,4 +8,4 @@
 
     - name: create instructor_inventory, and student files
       include_tasks: create_inventory.yml
-  when: not teardown
+  when: not teardown | bool

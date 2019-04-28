@@ -22,6 +22,7 @@
       when: networking | bool
 
       # F5workshop and networking workshop are two different workshops
+
     - name: make sure networking is not turned on when f5workshop is
       assert:
         msg: "networking and f5workshop are mutually exclusive. Choose only one."
@@ -53,7 +54,7 @@
         - debug:
             var: stat_result
         - fail:
-            msg: "autolicense is turned on, but we need a license located at {{playbook_dir}}/tower_license.json"
+            msg: "autolicense is turned on, but we need a license located at {{ playbook_dir }}/tower_license.json"
           when:
            - not stat_result.stat.exists
       when:
@@ -88,7 +89,7 @@
   become: yes
   gather_facts: no
   roles:
-    - { role: webservers, when: f5workshop }
+    - { role: webservers, when: f5workshop | bool }
 
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
@@ -102,7 +103,7 @@
   become: yes
   gather_facts: no
   roles:
-    - { role: aws_dns, when: create_login_page is defined and create_login_page }
+    - { role: aws_dns, when: create_login_page is defined and create_login_page | bool }
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
@@ -110,14 +111,14 @@
   become: no
   gather_facts: no
   roles:
-    - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
+    - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page | bool }
 
 - name: Setup Host routes for ansible control node and host1 when in networking mode
   hosts: "managed_nodes:control_nodes"
   become: no
   gather_facts: no
   roles:
-    - { role: network_hostroutes, when: networking }
+    - { role: network_hostroutes, when: networking | bool}
 
 - name: setup f5 nodes
   hosts: f5
@@ -125,7 +126,7 @@
   connection: local
   gather_facts: no
   roles:
-    - { role: f5_setup, when: f5workshop }
+    - { role: f5_setup, when: f5workshop | bool }
 
 - name: GATHER AWS FACTS FOR ROUTERS
   hosts: access,core

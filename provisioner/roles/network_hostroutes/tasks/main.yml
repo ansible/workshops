@@ -3,7 +3,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Name": "{{ec2_name_prefix}}-{{username}}-rtr1"
+      "tag:Name": "{{ ec2_name_prefix }}-{{ username }}-rtr1"
   register: rtr1_facts
   delegate_to: localhost
 
@@ -12,14 +12,14 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Name": "{{ec2_name_prefix}}-{{username}}-rtr2"
+      "tag:Name": "{{ ec2_name_prefix }}-{{ username }}-rtr2"
   register: rtr2_facts
   delegate_to: localhost
 
 - name: add route to 172.17.0.0/16 subnet on ansible node
   lineinfile:
     path: /etc/sysconfig/network-scripts/route-eth0
-    line: "172.17.0.0/16 via {{rtr1_facts.instances[0].private_ip_address}}"
+    line: "172.17.0.0/16 via {{ rtr1_facts.instances[0].private_ip_address }}"
     create: yes
   notify: restart network
   become: yes
@@ -28,7 +28,7 @@
 - name: add route to 172.16.0.0/16 subnet on host1 node
   lineinfile:
     path: /etc/sysconfig/network-scripts/route-eth0
-    line: "172.16.0.0/16 via {{rtr2_facts.instances[0].private_ip_address}}"
+    line: "172.16.0.0/16 via {{ rtr2_facts.instances[0].private_ip_address }}"
     create: yes
   notify: restart network
   become: yes

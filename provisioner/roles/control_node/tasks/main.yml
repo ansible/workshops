@@ -43,7 +43,7 @@
     name:
       - ncclient
     state: latest
-  when: networking
+  when: networking | bool
 
 - name: block for f5workshop
   block:
@@ -64,7 +64,7 @@
           - bigsuds
           - netaddr
         state: latest
-  when: f5workshop
+  when: f5workshop | bool
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
@@ -82,11 +82,11 @@
 
 - name: networking mode - setup control node
   include_tasks: "networking.yml"
-  when: networking
+  when: networking | bool
 
 - name: f5 mode - setup control node
   include_tasks: "networking.yml"
-  when: f5workshop
+  when: f5workshop | bool
 
 - name: engine (essentials) mode - setup control node
   include_tasks: "engine.yml"
@@ -106,13 +106,13 @@
   ignore_errors: yes
   when:
     - towerinstall is defined
-    - towerinstall
+    - towerinstall | bool
 
 - name: install tower if knob is set
   include_tasks: "tower.yml"
   when:
     - towerinstall is defined
-    - towerinstall
+    - towerinstall | bool
     - check_tower is failed
 
 - name: Ensure eula is accepted if posting license
@@ -126,7 +126,7 @@
   become: no
   when:
     - autolicense is defined
-    - autolicense
+    - autolicense | bool
 
 - name: Post license key
   uri:
@@ -140,8 +140,8 @@
     force_basic_auth: yes
   when:
     - autolicense is defined
-    - autolicense
+    - autolicense | bool
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml
-  when: xrdp
+  when: xrdp | bool

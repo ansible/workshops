@@ -11,7 +11,7 @@
 ## This duplicates the above when networking workshop uses 2 VPCs
 - name: provision networking aws resources
   include_tasks: resources_networking.yml
-  when: networking
+  when: networking | bool
 
 ## control node setup ###
 - name: set control node type
@@ -55,14 +55,14 @@
 - name: Ensure tags are present
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1}}"
+    resource: "{{ item.1 }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-ansible"
-      Workshop_ansible: "{{ec2_name_prefix}}-ansible"
-      Workshop: "{{ec2_name_prefix}}"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-ansible"
+      Workshop_ansible: "{{ ec2_name_prefix }}-ansible"
+      Workshop: "{{ ec2_name_prefix }}"
       Index: "{{ item[0] }}"
-      Student: "student{{item.0 + 1}}"
+      Student: "student{{ item.0 + 1 }}"
       Username: "{{ linklight_user }}"
       Info: "Username that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
@@ -82,11 +82,11 @@
 - name: provision ansible networking workshop instances
   include_tasks: instances_networking.yml
   when:
-    - networking
+    - networking | bool
     - not f5workshop
 
 - name: provision ansible f5 workshop instances
   include_tasks: instances_f5.yml
   when:
-    - f5workshop
+    - f5workshop | bool
     - not networking

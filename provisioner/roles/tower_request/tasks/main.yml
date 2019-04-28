@@ -3,13 +3,13 @@
     workshop_type: "networking"
   when:
     - networking is defined
-    - networking
+    - networking | bool
 
 - set_fact:
     workshop_type: "F5"
   when:
     - f5workshop is defined
-    - f5workshop
+    - f5workshop | bool
 
 - set_fact:
     workshop_type: "Linux"

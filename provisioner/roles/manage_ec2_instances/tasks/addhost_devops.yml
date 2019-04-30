@@ -1,33 +1,33 @@
-- name: grab facts for node1 - site1_webA
+- name: grab facts for node1 - dev_web1
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Devops_tag": "site1_webA"
+      "tag:Devops_tag": "dev_web1"
   register: node1_node_facts
 
-- name: grab facts for node2 node - site1_webB
+- name: grab facts for node2 node - dev_web2
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Devops_tag": "site1_webB"
+      "tag:Devops_tag": "dev_web2"
   register: node2_node_facts
 
-- name: grab facts for node3 node - site2_webA
+- name: grab facts for node3 node - prod_web1
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Devops_tag": "site2_webA"
+      "tag:Devops_tag": "prod_web1"
   register: node3_node_facts
 
-- name: grab facts for node4 node - site2_webB
+- name: grab facts for node4 node - prod_web2
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Devops_tag": "site2_webB"
+      "tag:Devops_tag": "prod_web2"
   register: node4_node_facts
 
 - name: add hosts to site1  group

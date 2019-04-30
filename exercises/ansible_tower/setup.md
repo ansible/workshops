@@ -9,10 +9,10 @@ This lab provides a quick tour of the browser based SSH client Wetty. To help yo
 
 ## Accessing Wetty
 
-Use this URL to access the Wetty node, just change the workshopname. Ask your instructor for the workshopname. 
+Use this URL to access the Wetty node, just change the workshopname. Ask your instructor for the workshopname.
 
 ```bash
-https://<workshopname>.master.<student number>.redhatgov.io:8888
+https://<workshopname>.master.<student number>.rhdemo.io:8888
 ```
 
 After logging in, you should see a shell.

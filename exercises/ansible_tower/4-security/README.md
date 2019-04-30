@@ -42,7 +42,7 @@ Note the use of the [register](http://docs.ansible.com/ansible/latest/playbooks_
     scap_reports_dir: /tmp
     scap_profile: stig-rhel7-disa
   roles:
-    - rhtps.800-53 
+    - rhtps.800-53
 
   tasks:
     - name: determine the most recent scap report
@@ -139,7 +139,7 @@ You can watch the scan run against your managed node.  Note that each compliance
 Once the check is complete, you can open a new tab in your web browser, and navigate to the following URL, where `workshopname` is the workshop prefix, and `#` is the number that your instructor gave you:
 
 ```bash
-http://workshopname.node.#.redhatgov.io/scap
+http://workshopname.node.#.rhdemo.io/scap
 ```
 
 Click on the link called `scan-xccdf-report-...` to refiew the SCAP report that was generated.  Note the failures in the report; look at the machines, if you want, via your Wetty ssh session, to see what the problems might be.

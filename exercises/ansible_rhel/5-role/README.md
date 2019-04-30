@@ -189,8 +189,8 @@ Download a couple of templates into `roles/apache-simple/templates/`.  And right
 ```bash
 mkdir -p ~/apache-basic-playbook/roles/apache-simple/templates/
 cd ~/apache-basic-playbook/roles/apache-simple/templates/
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/httpd.conf.j2
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
+curl -O http://ansible-workshop.rhdemo.io/workshop-files/httpd.conf.j2
+curl -O http://ansible-workshop.rhdemo.io/workshop-files/index.html.j2
 rm -rf ~/apache-basic-playbook/templates/
 ```
 

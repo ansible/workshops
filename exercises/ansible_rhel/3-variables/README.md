@@ -103,8 +103,8 @@ Create a `templates` directory in your project directory and download two files.
 ```bash
 mkdir templates
 cd templates
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/httpd.conf.j2
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
+curl -O http://ansible-workshop.rhdemo.io/workshop-files/httpd.conf.j2
+curl -O http://ansible-workshop.rhdemo.io/workshop-files/index.html.j2
 ```
 
 ### Step 2:

@@ -16,3 +16,4 @@ ansible/
 *.box
 *.retry
 demos/servicenow/private.yml
+*.html

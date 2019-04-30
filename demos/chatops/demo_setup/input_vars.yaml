@@ -1,0 +1,8 @@
+slash_cmd: acl
+slack_interactive: interactive-component
+slack_token: axxxxxxxxxxxxxxxxxxxx
+slack_bot_token: xoxb-xxxxxxx-xxxxxxx-xxxxxxxxs
+slack_webhook: https://hooks.slack.com/services/xxxxxxxxxxxxxxx/xxxxxxx
+tower_hostname: x.x.x.x
+tower_username: admin
+tower_password: ansible

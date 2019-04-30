@@ -1,0 +1,124 @@
+---
+- name: "Initialize empty Ansible Tower job template survey specification"
+  set_fact:
+    tower_survey: []
+
+# Build survey spec for job template
+- name: "Build Ansible Tower job template specification | {{ job_template.job_template_name }}"
+  include_tasks: "build_survey_spec.yml"
+  with_items: "{{ job_template.survey }}"
+  loop_control:
+    loop_var: "survey_field"
+    label: "{{ survey_field.variable }}"
+  when: "job_template.survey | length > 0"
+
+#Get job template id
+- name: "Retrieve and set Ansible Tower job template ID"
+  block:
+    - name: "Retrieve Ansible Tower job template ID"
+      uri:
+        url: "{{ tower_url }}/api/v2/job_templates/"
+        user: "{{ tower_user }}"
+        password: "{{ tower_pass }}"
+        force_basic_auth: True
+        method: "GET"
+        status_code: "200"
+        validate_certs: "{{ tower_verify_ssl }}"
+      register: "tower_job_templates"
+      changed_when: False
+      no_log: True
+
+    - name: "Initialize Ansible Tower job template data"
+      set_fact:
+        job_template_id: ""
+        job_template_survey_enabled: ""
+
+    - name: "Set Ansible Tower job template ID"
+      set_fact:
+        job_template_id: "{{ template.id }}"
+        job_template_survey_enabled: "{{ template.survey_enabled }}"
+      with_items: "{{ tower_job_templates.json.results }}"
+      loop_control:
+        loop_var: "template"
+        label: "{{ template.name }}"
+      when: "job_template.job_template_name == template.name"
+
+    - name: "Could not find specified job template name in Ansible Tower"
+      fail:
+        msg:
+          - "Could not find specified job template name {{ job_template.job_template_name }}"
+          - "Please make sure the job template exists."
+      when: 'job_template_id == ""'
+
+# Get current survey
+- name: "Retrieve current Ansible Tower job template survey"
+  uri:
+    url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/survey_spec/"
+    user: "{{ tower_user }}"
+    password: "{{ tower_pass }}"
+    force_basic_auth: True
+    method: "GET"
+    status_code: "200"
+    validate_certs: "{{ tower_verify_ssl }}"
+  register: "tower_job_template_current_survey"
+  changed_when: False
+  no_log: True
+
+# Update survey spec when not in desired state if different than existing
+- name: "Format Ansible Tower Survey"
+  set_fact:
+    tower_survey_formatted: {description: "", name: "", spec: "{{ tower_survey }}"}
+
+- name: "Update job template {{ job_template.job_template_name }}'s survey"
+  uri:
+    url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/survey_spec/"
+    user: "{{ tower_user }}"
+    password: "{{ tower_pass }}"
+    force_basic_auth: True
+    method: "POST"
+    body: "{{ tower_survey_formatted | to_json }}"
+    body_format: "json"
+    status_code: "200"
+    validate_certs: "{{ tower_verify_ssl }}"
+  register: "update_survey"
+  changed_when: 'update_survey.status == 200'
+  no_log: True
+  when: 'tower_survey_formatted != tower_job_template_current_survey.json'
+
+# Ensure survey is enabled
+- name: "Ensure {{ job_template.job_template_name }}'s survey is enabled"
+  uri:
+    url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/"
+    user: "{{ tower_user }}"
+    password: "{{ tower_pass }}"
+    force_basic_auth: True
+    method: "PATCH"
+    body: '{"survey_enabled": true}'
+    body_format: "json"
+    status_code: "200"
+    validate_certs: "{{ tower_verify_ssl }}"
+  register: "enable_job_template_survey"
+  changed_when: 'enable_job_template_survey.status == 200'
+  no_log: True
+  when:
+    - 'job_template.job_template_survey_enabled'
+    - 'not job_template_survey_enabled'
+
+# Ensure survey is not enabled
+- name: "Ensure {{ job_template.job_template_name }}'s survey is not enabled"
+  uri:
+    url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/"
+    user: "{{ tower_user }}"
+    password: "{{ tower_pass }}"
+    force_basic_auth: True
+    method: "PATCH"
+    body: '{"survey_enabled": false}'
+    body_format: "json"
+    status_code: "200"
+    validate_certs: "{{ tower_verify_ssl }}"
+  register: "disable_job_template_survey"
+  changed_when: 'disable_job_template_survey.status == 200'
+  no_log: True
+  when:
+    - 'not job_template.job_template_survey_enabled'
+    - 'job_template_survey_enabled'

@@ -1,0 +1,9 @@
+   server {
+      listen 8888 default_server;
+      server_name _;
+
+      location /{
+          include uwsgi_params;
+          uwsgi_pass unix:/dev/shm/check_traffic.sock;
+       }
+    }

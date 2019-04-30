@@ -15,7 +15,7 @@ There are a number of contructs in the Ansible Tower UI that enable multi-tenanc
 
 ### Step 1:
 
-To log in, use the username `admin` and and the password `ansibleWS`.
+To log in, use the username `admin` and and the password `ansible`.
 
 ![Ansible Tower Login Screen](ansible-lab-figure01-logon-screen.png)
 

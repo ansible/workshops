@@ -69,6 +69,7 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
 
 2. `as3_template.j2`
 
+{% raw %}
 ```
 "web_app": {
     "class": "Application",
@@ -100,6 +101,8 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
     }
 }
 ```
+{% endraw %}
+
 
 This template is a JSON representation of the Web Application.  The important parts to note are:
 

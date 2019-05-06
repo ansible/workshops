@@ -4,34 +4,30 @@
   gather_facts: false
 
   tasks:
-
-  - name: DELETE VIRTUAL SERVER
-    bigip_virtual_server:
+  - name: Setup provider
+    set_fact:
+     provider:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"
       server_port: "8443"
+      validate_certs: "no"
+      
+  - name: DELETE VIRTUAL SERVER
+    bigip_virtual_server:
+      provider: "{{provider}}"
       name: "vip"
       state: absent
-      validate_certs: "no"
 
   - name: DELETE POOL
     bigip_pool:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
+      provider: "{{provider}}"
       name: "http_pool"
       state: absent
-      validate_certs: "no"
 
   - name: DELETE NODES
     bigip_node:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
+      provider: "{{provider}}"
       name: "{{hostvars[item].inventory_hostname}}"
       state: absent
-      validate_certs: "no"
     loop: "{{ groups['webservers'] }}"

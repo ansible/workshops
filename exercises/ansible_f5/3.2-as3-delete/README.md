@@ -21,7 +21,7 @@ Using your text editor of choice create a new file called `delete.yml`:
 
 ## Step 2:
 
-Enter the following play definition into `as3.yml`:
+Enter the following play definition into `delete.yml`:
 
 ``` yaml
 ---
@@ -41,8 +41,6 @@ Enter the following play definition into `as3.yml`:
 
 **Append** the following to the delete.yml Playbook.  
 
-{% raw %}
-
 ```
   tasks:
 
@@ -60,8 +58,6 @@ Enter the following play definition into `as3.yml`:
     delegate_to: localhost
 ```
 
-{% endraw %}
-
 There is only three parameters that have changed from the previous exercise.
 - `url` has changed.  Instead of ending with `declare` it now ends with the tenant name, which is `WorkshopExample`.
 - `method` has changed from POST to DELETE.
@@ -71,7 +67,7 @@ There is only three parameters that have changed from the previous exercise.
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-playbook delete.yml
 ```
 
 # Playbook Output
@@ -92,7 +88,7 @@ f5                         : ok=1    changed=0    unreachable=0    failed=0
 
 # Solution
 
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [as3.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.2-as3-delete/delete.yaml).
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [delete.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.2-as3-delete/delete.yaml).
 
 Login to the web UI and make sure the `Partition` is removed.
 

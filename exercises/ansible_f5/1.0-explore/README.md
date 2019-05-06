@@ -1,4 +1,4 @@
-### Section 1: Exploring the lab environment
+### Exercise 1.0: Exploring the lab environment
 
 Before you get started, please join us on slack! [Click here to join the ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE).  This will allow you to chat with other network automation engineers and get help after the workshops concludes.
 
@@ -98,5 +98,11 @@ f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansibl
 - `ansible_ssh_pass` - The password ansible will use to login to this host, if not configured it will assume the user the playbook ran from has access to this host through SSH keys.  
 
 > Does the password have to be in plain text?  No, Red Hat Ansible Tower can take care of credential management in an easy to use web GUI or a user may use [ansible-vault](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html#protecting-sensitive-variables-with-ansible-vault)
+
+Go back to the home directory
+
+```
+[student1@ansible networking-workshop]$ cd ~
+```
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

@@ -39,7 +39,6 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
 
 1. `tenant_base.j2`
 
-{% raw %}
 
 ```
 {
@@ -59,7 +58,6 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
     }
 }
 ```
-{% endraw %}
 
  `tenant_base` is a standard template that F5 Networks will provide to their customers.  The important parts to understand are:
 
@@ -71,7 +69,6 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
 
 2. `as3_template.j2`
 
-{% raw %}
 ```
 "web_app": {
     "class": "Application",
@@ -103,8 +100,6 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
     }
 }
 ```
-{% endraw %}
-
 
 This template is a JSON representation of the Web Application.  The important parts to note are:
 
@@ -132,8 +127,6 @@ Using your text editor of choice create a new file called `as3.yml`:
 
 Enter the following play definition into `as3.yaml`:
 
-{% raw %}
-
 ``` yaml
 ---
 - name: LINKLIGHT AS3
@@ -144,7 +137,6 @@ Enter the following play definition into `as3.yaml`:
   vars:
     pool_members: "{{ groups['webservers'] }}"
 ```
-{% endraw %}
 
 - The `---` at the top of the file indicates that this is a YAML file.
 - The `hosts: lb`,  indicates the play is run only on the lb group.  Technically there only one F5 device but if there were multiple they would be configured simultaneously.
@@ -179,8 +171,6 @@ The module [set_fact module](https://docs.ansible.com/ansible/latest/modules/set
 
 **Append** the following to the as3.yaml Playbook.  This task uses the uri module which is used to interact with HTTP and HTTPS web services and supports Digest, Basic and WSSE HTTP authentication mechanisms.  This module is extremely common and very easy to use.  The workshop itself (the Playbooks that provisioned the workbenches) uses the uri module to configure and license Red Hat Ansible Tower.
 
-{% raw %}
-
 ```
   - name: PUSH AS3
     uri:
@@ -196,9 +186,6 @@ The module [set_fact module](https://docs.ansible.com/ansible/latest/modules/set
       validate_certs: no
     delegate_to: localhost
 ```
-
-{% endraw %}
-
 
 Explanation of parameters:
 

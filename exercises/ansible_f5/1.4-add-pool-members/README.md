@@ -1,4 +1,4 @@
-# Exercise 1: Adding members to a pool on F5
+# Exercise 1.4: Adding members to a pool on F5
 
 ## Table of Contents
 
@@ -44,8 +44,6 @@ Enter the following play definition into `bigip-pool-members.yml`:
 
 Next, add the first `task`. This task will use the `bigip_pool_member` module configure the two RHEL web servers as nodes on the BIG-IP F5 load balancer.
 
-{% raw %}
-
 ``` yaml
 - name: BIG-IP SETUP
   hosts: lb
@@ -69,7 +67,6 @@ Next, add the first `task`. This task will use the `bigip_pool_member` module co
     loop: "{{ groups['webservers'] }}"
 ```
 
-{% endraw %}
 
 Explanation of each line within the task:
 - `name: ADD POOL MEMBERS` is a user defined description that will display in the terminal output.
@@ -112,6 +109,74 @@ changed: [f5] => (item=host2)
 PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
+# Output parsing
+
+Let's use the bigip_device_facts to collect the pool members on BIG-IP. [JSON query](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter) is a powerful filter that can be used. Please go through before proceeding
+
+```
+[student1@ansible ~]$ nano display-pool-members.yml
+```
+
+Enter the following:
+```
+---
+- name: "List pool members"
+  hosts: lb
+  gather_facts: false
+  connection: local
+
+  tasks:
+
+  - name: Query BIG-IP facts
+    bigip_device_facts:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: "8443"
+      validate_certs: "no"
+      gather_subset:
+       - ltm-pools
+    register: bigip_device_facts
+
+  - name: "View complete output"
+    debug: "msg={{bigip_device_facts}}"
+    
+  - name: "Show members belonging to pool"
+    debug: "msg={{item}}"
+    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+    vars:
+     query_string: "[?name=='http_pool'].members[*].name[]"
+```
+- `vars:` in the module is defining a variable query_string to be used within the module itself
+- `query_String` will have the name of all members from pool name 'http_pool'. query_string is defined to make it easier to read the 
+   entire json string
+
+Execute the playbook
+```
+[student1@ansible ~]$ ansible-playbook display-pool-members.yml
+```
+
+Output
+
+```
+[student1@ansible ~]$ ansible-playbook display-pool-member.yml
+
+PLAY [List pool members] ************************************************************************************************************************************
+
+TASK [Query BIG-IP facts] ***********************************************************************************************************************************
+changed: [f5]
+
+TASK [Show members belonging to pool] ***********************************************************************************************************************
+ok: [f5] => (item=host1:80) => {
+    "msg": "host1:80"
+}
+ok: [f5] => (item=host2:80) => {
+    "msg": "host2:80"
+}
+
+PLAY RECAP **************************************************************************************************************************************************
+f5                         : ok=2    changed=1    unreachable=0    failed=0
+```
 
 # Solution
 The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-pool-members.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.4-add-pool-members/bigip-pool-members.yml).
@@ -119,6 +184,10 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here: [
 # Verifying the Solution
 
 Login to the F5 with your web browser to see what was configured.  Grab the IP information for the F5 load balancer from the lab_inventory/hosts file, and type it in like so: https://X.X.X.X:8443/
+
+Login information for the BIG-IP:
+- username: admin
+- password: admin
 
 The pool will now show two members (host1 and host2).  Click on Local Traffic-> then click on Pools.  Click on http_pool to get more granular information.  Click on the Members tab in the middle to list all the Members.
 ![f5members](poolmembers.png)

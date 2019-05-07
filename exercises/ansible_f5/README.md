@@ -13,7 +13,7 @@ Want the Presentation Deck?  Its right here:
 
 Login information for the BIG-IP:
 - username: admin
-- password: admin
+- password: **provided by instructor** (default is ansible)
 
 ## Section 1 - Ansible F5 Basic Exercises
 
@@ -23,14 +23,14 @@ Login information for the BIG-IP:
  - [Exercise 1.3 - Adding a load balancing pool](1.3-add-pool)  
  - [Exercise 1.4 - Adding members to a pool](1.4-add-pool-members)  
  - [Exercise 1.5 - Adding a virtual server](1.5-add-virtual-server)  
- - [Exercise 1.6 - Adding and attaching an iRule to a virtual server]()
- - [Exercise 1.7 - Save the running configuration]()
- 
+ - [Exercise 1.6 - Adding and attaching an iRule to a virtual server](1.6-add-irules)
+ - [Exercise 1.7 - Save the running configuration](1.7-save-running-config)
+
 ## Section 2 - Ansible F5 Operational/Advanced Exercises
 
- - [Exercise 2.0 - Disabling a pool member](2.0-disable-pool-member) 
- - [Exercise 2.1 - Deleting F5 BIG-IP Configuration](1.6-delete-configuration)  
- - [Exercise 2.2 - Error Handling](1.7-error-handling)  
+ - [Exercise 2.0 - Disabling a pool member](2.0-disable-pool-member)
+ - [Exercise 2.1 - Deleting F5 BIG-IP Configuration](2.1-delete-configuration)  
+ - [Exercise 2.2 - Error Handling](2.2-error-handling)  
 
 ## Section 3 - Ansible F5 AS3 Exercises
 

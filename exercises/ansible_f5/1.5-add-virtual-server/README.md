@@ -47,7 +47,6 @@ Enter the following play definition into `bigip-virtual-server.yml`:
 Next, add the `task`. This task will use the `bigip-virtual-server` to configure a virtual server on the BIG-IP
 
 {% raw %}
-
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -126,7 +125,7 @@ To see the configured **Virtual Server**, login to the F5 load balancer with you
 
 Login information for the BIG-IP:
 - username: admin
-- password: admin
+- password: **provided by instructor** defaults to ansible
 
 The load balancer virtual server can be found by navigating the menu on the left.  Click on **Local Traffic**. then click on **Virtual Server**.  See the screenshot below:
 ![f5 vip image](f5vip.png)

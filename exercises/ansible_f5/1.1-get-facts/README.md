@@ -53,6 +53,7 @@ Enter the following play definition into `bigip-facts.yml`:
 
 Next, add the first `task`. This task will use the `bigip_device_facts` module to grab useful information from the BIG-IP device.
 
+{% raw %}
 ``` yaml
 ---
 - name: GRAB F5 FACTS
@@ -74,6 +75,7 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
         validate_certs: no
       register: bigip_device_facts
 ```
+{% endraw %}
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
@@ -90,6 +92,7 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
 
 Next, add the second `task`. This task will use the `debug` module to print the output from bigip_device_facts variable we registered the facts to.
 
+{% raw %}
 ```yaml
 ---
 - name: GRAB F5 FACTS
@@ -114,6 +117,7 @@ Next, add the second `task`. This task will use the `debug` module to print the 
       debug:
         var: bigip_device_facts
 ```
+{% endraw %}
 
 - The `name: COMPLETE BIG-IP SYSTEM INFORMATION` is a user defined description that will display in the terminal output.
 - `debug:` tells the task to use the debug module.
@@ -132,6 +136,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 Finally lets add two more tasks to get more specific info from facts gathered.
 
+{% raw %}
 ```yaml
 ---
 - name: GRAB F5 FACTS
@@ -163,6 +168,8 @@ Finally lets add two more tasks to get more specific info from facts gathered.
       debug:
         var: bigip_device_facts['system_info']['product_version']
 ```
+{% endraw %}
+
 
 - `var: bigip_device_facts['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
 - `bigip_device_facts['system_info']['product_version']` displays the product version BIG-IP device
@@ -182,6 +189,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 The output will look as follows.
 
+{% raw %}
 ```yaml
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 
@@ -265,6 +273,8 @@ PLAY RECAP *********************************************************************
 f5                         : ok=4    changed=1    unreachable=0    failed=0
 
 ```
+{% endraw %}
+
 
 # Solution
 

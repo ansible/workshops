@@ -104,8 +104,9 @@ Next, add the second `task`. This task will use the `debug` module to print the 
   tasks:
 
     - name: COLLECT BIG-IP FACTS
-      bigip_facts:
-        include: system_info
+      bigip_device_facts:
+        gather_subset:
+         - system-info
         server: "{{private_ip}}"
         user: "{{ansible_user}}"
         password: "{{ansible_ssh_pass}}"

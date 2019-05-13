@@ -14,16 +14,16 @@
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: no
-      register: bigip_device_facts
+      register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
-        var: bigip_device_facts
+        var: device_facts
 
     - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
-        var: bigip_device_facts['system_info']['base_mac_address']
+        var: device_facts['system_info']['base_mac_address']
 
     - name: DISPLAY ONLY THE VERSION
       debug:
-        var: bigip_device_facts['system_info']['product_version']
+        var: device_facts['system_info']['product_version']

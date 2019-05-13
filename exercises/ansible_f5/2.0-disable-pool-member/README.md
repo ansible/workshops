@@ -87,7 +87,7 @@ bigip_device_facts:
 
 You DO NOT need to pass the server_ip/user/password etc. for each module going forward
 
-## Step 5
+## Step 4
 
 Next, add a task for the objective listed below:
 
@@ -95,7 +95,7 @@ Next, add a task for the objective listed below:
 
 HINT: Try using the bigip_device_facts module from <a href="../1.1-get-facts" style="color: #000000">Exercise 1.1</a>
 
-## Step 6
+## Step 5
 
 Next, add a task for the objective listed below:
 
@@ -104,7 +104,7 @@ Next, add a task for the objective listed below:
 HINT: 
 Find a way to `loop` on the output from the above step. Remember to also use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug module</a>
 
-## Step 7
+## Step 6
 
 Next, add a task for the objective listed below:
 
@@ -112,7 +112,7 @@ Next, add a task for the objective listed below:
 
 HINT: An easy way to set fact variables within a Playbook dynamically is using the <a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a></span>
 
-## Step 8
+## Step 7
 
 Next, add a task for the objective listed below:
 
@@ -121,7 +121,7 @@ Next, add a task for the objective listed below:
 HINT: 
 Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span> and refer <a href="../1.4-add-pool-members">Exercise 1.4</a>
 
-## Step 9
+## Step 8
 
 Next, add a task for the objective listed below:
 
@@ -130,7 +130,7 @@ Next, add a task for the objective listed below:
 HINT: 
 Use the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: #000000">prompts</a> module</a></span>
 
-## Step 10
+## Step 9
 Next, add a task for the objective listed below:
 
   - Read the prompt information and disable all members or a single member based on the input from the user

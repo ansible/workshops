@@ -283,7 +283,7 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here fo
 
 # Going Further
 
-For this bonus exercise add the `tags: debug` paramteter (at the task level) to the exiting debug task.
+For this bonus exercise add the `tags: debug` paramteter (at the task level) to the existing debug task.
 
 ```yaml
 - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION

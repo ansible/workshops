@@ -1,6 +1,6 @@
 # Ansible Linklight - Networking
 
-This content has been **Deprecated**.  Please visit [workshop exercises page](../../) for more information.
+This content has been **Deprecated**.  Please refer the latest version of [Ansible Linklight - Networking](../networking_v2/README.md).
 
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 

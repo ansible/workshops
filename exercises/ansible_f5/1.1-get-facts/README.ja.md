@@ -4,7 +4,7 @@
 
 - [目的](#目的)
 - [解説](#解説)
-- [Playbook の出力](#playbook の出力)
+- [Playbookの出力](#playbookの出力)
 - [回答](#回答)
 - [より深く](#より深く)
 
@@ -186,7 +186,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 ```
 
-# Playbook Output
+# Playbookの出力
 
 以下のような出力となるはずです。
 

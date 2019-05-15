@@ -23,6 +23,7 @@ Using your text editor of choice create a new file called `delete.yml`:
 
 Enter the following play definition into `delete.yml`:
 
+{% raw %}
 ``` yaml
 ---
 - name: LINKLIGHT AS3
@@ -31,6 +32,7 @@ Enter the following play definition into `delete.yml`:
   gather_facts: false
 
 ```
+{% endraw %}
 
 - The `---` at the top of the file indicates that this is a YAML file.
 - The `hosts: lb`,  indicates the play is run only on the lb group.  Technically there only one F5 device but if there were multiple they would be configured simultaneously.
@@ -40,7 +42,7 @@ Enter the following play definition into `delete.yml`:
 ## Step 3
 
 **Append** the following to the delete.yml Playbook.  
-
+{% raw %}
 ```
   tasks:
 
@@ -57,6 +59,7 @@ Enter the following play definition into `delete.yml`:
       validate_certs: no
     delegate_to: localhost
 ```
+{% endraw %}
 
 There is only three parameters that have changed from the previous exercise.
 - `url` has changed.  Instead of ending with `declare` it now ends with the tenant name, which is `WorkshopExample`.
@@ -74,6 +77,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 The output will look as follows.
 
+{% raw %}
 ```yaml
 [student1@ansible ~]$ ansible-playbook delete.yml
 
@@ -85,6 +89,7 @@ ok: [f5 -> localhost]
 PLAY RECAP ********************************************************************************
 f5                         : ok=1    changed=0    unreachable=0    failed=0
 ```
+{% endraw %}
 
 # Solution
 

@@ -1,221 +1,275 @@
-# Exercise 5 - Roles: Making your playbooks reusable
+# Exercise 7 - Roles: Making your playbooks reusable
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles is the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  "Wha??  You mean that seemingly useless [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) you mentioned in exercise 2?".  Yep, that one.
+Ansible Roles is the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) already mentioned in exercise 3.
 
-For this exercise, you are going to take the playbook you just wrote and refactor it into a role.  In addition, you'll learn to use Ansible Galaxy.
+## Step 7.1 - Understanding the Ansible Role Structure
 
-Let's begin with seeing how your apache-basic-playbook will break down into a role.
+Roles are basically automation around *include* directives as described above, and really don’t contain much additional magic beyond some improvements to search path handling for referenced files.
 
-![Role directory structure](roledir_1.png)
+Roles follow a defined directory structure, a role is named by the top level directory. Some of the subdirectories contain YAML files, named `main.yml`. The files and templates subdirectories can contain objects referenced by the YAML files.
 
-Fortunately, you don't have to create all of these directories and files by hand.  That's where Ansible Galaxy comes in.
+An example project structure could look like this, the name of the role would be "apache":
 
-## Section 1: Using Ansible Galaxy to initialize a new role
-
-Ansible Galaxy is a free site for finding, downloading, and sharing roles.  It's also pretty handy for creating them which is what we are about to do here.
-
-
-### Step 1:
-
-Navigate to your `apache-basic-playbook` project.
-
-```bash
-cd ~/apache-basic-playbook
+```text
+apache/
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
 ```
 
+The `main.yml` files contain content depending on the corresponding directory:  `vars/main.yml` references variables, `handlers/main.yaml` describes handlers, and so on. Note that in contrast to playbooks, the `main.yml` files only contain the specific content and not additional playbook information like hosts, `become` or other keywords.
 
-### Step 2:
+> **Tip**
+> 
+> There are actually two directories for variables: `vars` and `default`: Default variables have the lowest precedence and usually contain default values set by the role authors and are often used when it is intended that their values will be overridden.. Variables can be set in either `vars/main.yml` or `defaults/main.yml`, but not in both places.
 
-Create a directory called `roles` and `cd` into it.
+Using roles in a Playbook is straight forward:
 
-```bash
-mkdir roles
-cd roles
-```
-
-
-### Step 3:
-
-Use the `ansible-galaxy` command to initialize a new role called `apache-simple`.
-
-```bash
-ansible-galaxy init apache-simple
-```
-
-Take a look around the structure you just created.  It should look a lot like Figure 1 above.  However, we need to complete one more step before moving onto section 2.  It is Ansible best practice to clean out role directories and files you won't be using.  For this role, we won't be using anything from `files`, `tests`.
-
-
-### Step 4:
-
-Remove the `files` and `tests` directories
-
-```bash
-cd ~/apache-basic-playbook/roles/apache-simple/
-rm -rf files tests
-```
-
-
-## Section 2: Breaking Your `site.yml` Playbook into the Newly Created `apache-simple` Role
-
-
-In this section, we will separate out the major parts of your playbook including `vars:`, `tasks:`, `template:`, and `handlers:`.
-
-### Step 1:
-
-Make a backup copy of `site.yml`, then create a new `site.yml`.
-
-```bash
-cd ~/apache-basic-playbook
-mv site.yml site.yml.bkup
-vim site.yml
-```
-
-### Step 2:
-
-Add the play definition and the invocation of a single role.
-
-```yml
+```yaml
 ---
-- hosts: web
-  name: This is my role-based playbook
-  become: yes
-
+- hosts: remote.example.com
   roles:
-    - apache-simple
+    - role1
+    - role2
 ```
 
-### Step 3:
+For each role, the tasks, handlers and variables of that role will be included in the Playbook, in that order. Any copy, script, template, or include tasks in the role can reference the relevant files, templates, or tasks *without absolute or relative path names*. Ansible will look for them in the role's files, templates, or tasks respectively, based on their
+use.
 
-Add some default variables to your role in `roles/apache-simple/defaults/main.yml`.
+## Step 7.2 - Create a Basic Role Directory Structure
 
-```yml
----
-# defaults file for apache-simple
-apache_test_message: This is a test message
-apache_max_keep_alive_requests: 115
+Ansible looks for roles in a subdirectory called `roles` in the project directory. This can be overridden in the Ansible configuration. Each role has its own directory. To ease creation of a new role the tool `ansible-galaxy` can be used.
+
+> **Tip**
+> 
+> Ansible Galaxy is your hub for finding, reusing and sharing the best Ansible content. `ansible-galaxy` helps to interact with Ansible Galaxy. For now we'll just using it as a helper to build the directory structure.
+
+Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
+
+```bash
+[student<X>@ansible ansible-files]$ mkdir roles
+[student<X>@ansible ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
 ```
 
-### Step 4:
+Have a look at the role directories and their content:
 
-Add some role-specific variables to your role in `roles/apache-simple/vars/main.yml`.
-
-[source,bash]
-```
----
-# vars file for apache-simple
-httpd_packages:
-  - httpd
-  - mod_wsgi
+```bash
+[student<X>@ansible ansible-files]$ tree roles
 ```
 
----
-**NOTE**
-####
-> Hey, wait just a minute there buster... did you just have us put variables in two seperate places?
+## Step 7.3 - Create the Tasks File
 
-Yes... yes we did.  Variables can live in quite a few places.  Just to name a few: +
+The `main.yml` file in the tasks subdirectory of the role should do the following:
 
-- vars directory
-- defaults directory
-- group_vars directory
-- In the playbook under the `vars:` section
-- In any file which can be specified on the command line using the `--extra_vars` option
-- On a boat, in a moat, with a goat  _(disclaimer:  this is a complete lie)_
+  - Make sure httpd is installed
 
-Bottom line, you need to read up on [variable precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) to understand both where to define variables and which locations take precedence.  In this exercise, we are using role defaults to define a couple of variables and these are the most malleable.  After that, we defined some variables in `/vars`
-which have a higher precedence than defaults and can't be overridden as a default variable.
+  - Make sure httpd is started and enabled
 
----
+  - Put HTML content into the Apache document root
 
-### Step 5:
+  - Install the template provided to configure the vhost
 
-Create your role handler in `roles/apache-simple/handlers/main.yml`.
+> **WARNING**
+>
+> **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete Playbooks!**
 
-```yml
----
-# handlers file for apache-simple
-- name: restart apache service
-  service:
-    name: httpd
-    state: restarted
-    enabled: yes
-```
+> **Tip**
+> 
+> Some of these tasks have been done in other parts of the lab, don't worry, it's about the learning experience.
 
-### Step 6:
+Edit the `tasks/main.yml` file:
 
-Add tasks to your role in `roles/apache-simple/tasks/main.yml`.
-
-```yml
-{% raw %}
----
-# tasks file for apache-simple
-- name: install httpd packages
+```yaml
+- name: install httpd
   yum:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ httpd_packages }}"
-  notify: restart apache service
+    name: httpd
+    state: latest
 
-- name: create site-enabled directory
-  file:
-    name: /etc/httpd/conf/sites-enabled
-    state: directory
-
-- name: copy httpd.conf
-  template:
-    src: templates/httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
-  notify: restart apache service
-
-- name: copy index.html
-  template:
-    src: templates/index.html.j2
-    dest: /var/www/html/index.html
-
-- name: start httpd
+- name: start and enable httpd service
   service:
     name: httpd
     state: started
-    enabled: yes
-{% endraw %}    
+    enabled: true
 ```
 
-### Step 7:
+Note that here just tasks were added. The details of a playbook are not present.
 
-Download a couple of templates into `roles/apache-simple/templates/`.  And right after that, let's clean up from exercise 2.1 by removing the old templates directory.
+The tasks added so far do:
+
+  - Install the httpd package using the yum module
+
+  - Use the service module to enable and start httpd
+
+Next we add two more tasks to ensure a vhost directory structure and copy html content:
+
+<!-- {% raw %} -->
+```yaml
+- name: ensure vhost directory is present
+  file:
+    path: "/var/www/vhosts/{{ ansible_hostname }}"
+    state: directory
+
+- name: deliver html content
+  copy:
+    src: index.html
+    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+```
+<!-- {% endraw %} -->
+
+Note that the vhost directory is created/ensured using the `file` module.
+
+The last task we add uses the template module to create the vhost configuration file from a j2-template:
+
+```yaml
+- name: template vhost file
+  template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/vhost.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart_httpd
+```
+Note it is using a handler to restart httpd after an configuration update.
+
+The full `tasks/main.yml` file is:
+
+<!-- {% raw %} -->
+```yaml
+---
+- name: install httpd
+  yum:
+    name: httpd
+    state: latest
+
+- name: start and enable httpd service
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: ensure vhost directory is present
+  file:
+    path: "/var/www/vhosts/{{ ansible_hostname }}"
+    state: directory
+
+- name: deliver html content
+  copy:
+    src: index.html
+    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+
+- name: template vhost file
+  template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/vhost.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart_httpd
+```
+<!-- {% endraw %} -->
+
+
+## Step 7.4 - Create the handler
+
+Create the handler in the file `handlers/main.yml` to restart httpd when notified by the template task:
+
+```yaml
+---
+# handlers file for roles/apache_vhost
+- name: restart_httpd
+  service:
+    name: httpd
+    state: restarted
+```
+
+## Step 7.5 - Create the index.html and vhost configuration file template
+
+Create the HTML content that will be served by the webserver.
+
+  - Create an index.html file in the "src" directory:
 
 ```bash
-mkdir -p ~/apache-basic-playbook/roles/apache-simple/templates/
-cd ~/apache-basic-playbook/roles/apache-simple/templates/
-curl -O http://ansible-workshop.rhdemo.io/workshop-files/httpd.conf.j2
-curl -O http://ansible-workshop.rhdemo.io/workshop-files/index.html.j2
-rm -rf ~/apache-basic-playbook/templates/
+[student<X>@ansible ansible-files]$ echo 'simple vhost index' > roles/apache_vhost/files/index.html
 ```
 
-## Section 3: Running your new role-based playbook
+  - Create the `vhost.conf.j2` template file in the role's templates subdirectory.
 
-Now that you've successfully separated your original playbook into a role,
-let's run it and see how it works.
+<!-- {% raw %} -->
+```html
+# {{ ansible_managed }}
 
-### Step 1:
+<VirtualHost *:8080>
+    ServerAdmin webmaster@{{ ansible_fqdn }}
+    ServerName {{ ansible_fqdn }}
+    ErrorLog logs/{{ ansible_hostname }}-error.log
+    CustomLog logs/{{ ansible_hostname }}-common.log common
+    DocumentRoot /var/www/vhosts/{{ ansible_hostname }}/
 
-Run the playbook.
+    <Directory /var/www/vhosts/{{ ansible_hostname }}/>
+	Options +Indexes +FollowSymlinks +Includes
+	Order allow,deny
+	Allow from all
+    </Directory>
+</VirtualHost>
+```
+<!-- {% endraw %} -->
+
+## Step 7.6 - Test the role
+
+You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible-files`:
+
+```yaml
+---
+- name: use apache_vhost role playbook
+  hosts: node2
+  become: yes
+
+  pre_tasks:
+    - debug:
+        msg: 'Beginning web server configuration.'
+
+  roles:
+    - apache_vhost
+
+  post_tasks:
+    - debug:
+        msg: 'Web server has been configured.'
+```
+
+Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles execute before the tasks of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed.
+
+Now you are ready to run your playbook:
 
 ```bash
-ansible-playbook -i ~/lightbulb/lessons/lab_inventory/student##-instances.txt site.yml
+[student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml 
 ```
 
-If successful, your standard output should look similar to the figure below.
+Run ad hoc commands to confirm that the role worked:
 
-![Role based stdout](stdout_3.png)
+```bash
+[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+```
 
-## Section 4: Review
-
-You should now have a completed playbook, `site.yml` with a single role called `apache-simple`.  The advantage of structuring your playbook into roles is that you can now add new roles to the playbook using Ansible Galaxy or simply writing your own.  In addition, roles simplify changes to variables, tasks, templates, etc.
-
+All looking good? Congratulations! You have successfully completed the Ansible Engine Workshop Exercises!
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click Here to return to the Ansible Engine Workshop](../README.md)

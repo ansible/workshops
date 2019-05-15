@@ -1,240 +1,230 @@
-# Exercise 3 - Using Variables, Loops, and Handlers
+# Exercise 4 - Using Variables
 
-Previous exercises showed you the basics of Ansible Core.  In the next few exercises, we are going
+Previous exercises showed you the basics of Ansible Engine.  In the next few exercises, we are going
 to teach some more advanced ansible skills that will add flexibility and power to your playbooks.
 
 Ansible exists to make tasks simple and repeatable.  We also know that not all systems are exactly alike and often require
 some slight change to the way an Ansible playbook is run.  Enter variables.
 
-Variables are how we deal with differences between your systems, allowing you to account for a change in port, IP address
-or directory.
+Ansible supports variables to store values that can be used in Playbooks. Variables can be defined in a variety of places and have a clear precedence. Ansible substitutes the variable with its value when a task is executed.
 
-Loops enable us to repeat the same task over and over again.  For example, lets say you want to install 10 packages.
-By using an ansible loop, you can do that in a single task.
+Variables are referenced in Playbooks by placing the variable name in double curly braces:
 
-Handlers are the way in which we restart services.  Did you just deploy a new config file, install a new package?
-If so, you may need to restart a service for those changes to take effect.  We do that with a handler.
+<!-- {% raw %} -->
+```yaml
+Here comes a variable {{ variable1 }}
+```
+<!-- {% endraw %} -->
 
-For a full understanding of variables, loops, and handlers; check out our Ansible documentation on these subjects.
+Variables and their values can be defined in various places: the inventory, additional files, on the command line, etc.
 
-- [Ansible Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
-- [Ansible Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
-- [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
+The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
 
-## Section 1: Running the Playbook
+  - To e.g. define variables for a group "servers", create a YAML file named `group_vars/servers` with the variable definitions.
 
-To begin, we are going to create a new playbook, but it should look very familiar to the one you created in exercise 1.2
+  - To define variables specifically for a host "host1.example.com", create the file `host_vars/host1.example.com` with the variable definitions.
 
+> **Tip**
+> 
+> Host variables take precedence over group variables (more about precedence can be found in the docs).
 
-We are now going to run you're brand spankin' new playbook on your two web nodes.  To do this, you are going to use the `ansible-playbook` command.
+## Step 4.1 - Create Variable Files
 
-### Step 1:
+For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​" you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
-Navigate to your home directory create a new project and playbook.
+On control.example.com as user ansible create the directories to hold the variable definitions in `~/ansible-files/`:
 
 ```bash
-cd
-mkdir apache-basic-playbook
-cd apache-basic-playbook
-vim site.yml
+[student<X>@ansible ansible-files]$ mkdir host_vars group_vars
 ```
 
+Now create two files containing variable definitions. We’ll define a variable named `stage` which will point to different environments, `dev` or `prod`:
 
-### Step 2:
+  - Create the file `~/ansible-files/group_vars/web` with this content:
 
-Add a play definition and some variables to your playbook.  These include addtional packages your playbook will install on your web servers, plus some web server specific configurations.
-
-```yml
+```yaml
 ---
-- hosts: web
-  name: This is a play within a playbook
+stage: dev
+```
+
+  - Create the file `~/ansible-files/host_vars/node2` with this content:
+
+```yaml
+---
+stage: prod
+```
+
+What is this about?
+
+  - For all servers in the `web` group the variable `stage` with value `dev` is defined. So as default we flag them as members of the dev environment.
+
+  - For server "node2" this is overriden and the host is flagged as a production server.
+
+## Step 4.2 - Create index.html Files
+
+Now create two files in `~/ansible-files/`:
+
+One called `prod_index.html` with the following content:
+
+```html
+<body>
+<h1>This is a production webserver, take care!</h1>
+</body>
+```
+
+And the other called `dev_index.html` with the following content:
+
+```html
+<body>
+<h1>This is a development webserver, have fun!</h1>
+</body>
+```
+
+## Step 4.3 - Create the Playbook
+
+Now you need a Playbook that copies the prod or dev `index.html` file - according to the "stage" variable.
+
+Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` directory.
+
+> **Tip**
+> 
+> Note how the variable "stage" is used in the name of the file to copy.
+
+<!-- {% raw %} -->
+```yaml
+---
+- name: Copy index.html
+  hosts: web
   become: yes
-  vars:
-    httpd_packages:
-      - httpd
-      - mod_wsgi
-    apache_test_message: This is a test message
-    apache_max_keep_alive_requests: 115
-```
-
-
-### Step 3:
-
-Add a new task called *install httpd packages*.
-
-```yml
-{% raw %}
   tasks:
-    - name: install httpd packages
-      yum:
-        name: "{{ item }}"
-        state: present
-      with_items: "{{ httpd_packages }}"
-      notify: restart apache service
-{% endraw %}
+  - name: copy index.html
+    copy:
+      src: ~/ansible-files/{{ stage }}_index.html
+      dest: /var/www/html/index.html
 ```
+<!-- {% endraw %} -->
 
----
-{% raw %}
-**NOTE**
-> What the Helsinki is happening here!?
-
-- `vars:` You've told Ansible the next thing it sees will be a variable name +
-- `httpd_packages` You are defining a list-type variable called httpd_packages.  What follows
-is a list of those packages +
-- `{{ item }}` You are telling Ansible that this will expand into a list item like `httpd` and `mod_wsgi`. +
-- `with_items: "{{ httpd_packages }}` This is your loop which is instructing Ansible to perform this task on
-every `item` in `httpd_packages`
-- `notify: restart apache service` This statement is a `handler`, so we'll come back to it in Section 3.
-{% endraw %}
-
----
-
-## Section 2: Deploying Files and Starting a Service
-
-When you need to do pretty much anything with files and directories, use one of the [Ansible Files](http://docs.ansible.com/ansible/latest/list_of_files_modules.html) modules.  In this case, we'll leverage the `file` and `template` modules.
-
-After that, you will define a task to start the start the apache service.
-
-
-### Step 1:
-Create a `templates` directory in your project directory and download two files.
+  - Run the Playbook:
 
 ```bash
-mkdir templates
-cd templates
-curl -O http://ansible-workshop.rhdemo.io/workshop-files/httpd.conf.j2
-curl -O http://ansible-workshop.rhdemo.io/workshop-files/index.html.j2
+[student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
-### Step 2:
-Add some file tasks and a service task to your playbook.
+## Step 4.4 - Test the Result
 
-```yml
-- name: create site-enabled directory
-  file:
-    name: /etc/httpd/conf/sites-enabled
-    state: directory
+The Playbook should copy different files as index.html to the hosts, use `curl` to test it. Check the inventory again if you forgot the IP addresses of your nodes.
 
-- name: copy httpd.conf
-  template:
-    src: templates/httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
-  notify: restart apache service
-
-- name: copy index.html
-  template:
-    src: templates/index.html.j2
-    dest: /var/www/html/index.html
-
-- name: start httpd
-  service:
-    name: httpd
-    state: started
-    enabled: yes
+```bash
+[student<X>@ansible ansible-files]$ grep node ~/lightbulb/lessons/lab_inventory/student<X>-instances.txt
+node1 ansible_host=11.22.33.44
+node2 ansible_host=22.33.44.55
+node3 ansible_host=33.44.55.66
+[student<X>@ansible ansible-files]$ curl http://11.22.33.44
+<body>
+<h1>This is a development webserver, have fun!</h1>
+</body>
+[student1@ansible ansible-files]$ curl http://22.33.44.55
+<body>
+<h1>This is a production webserver, take care!</h1>
+</body>
+[student1@ansible ansible-files]$ curl http://33.44.55.66
+<body>
+<h1>This is a development webserver, have fun!</h1>
+</body>
 ```
 
----
-**NOTE**
+> **Tip**
+> 
+> If by now you think: There has to be a smarter way to change content in files…​ you are absolutely right. This lab was done to introduce variables, you are about to learn about templates in one of the next chapters.
 
-> So... what did I just write?
+## Step 4.5 - Ansible Facts
 
-- `file:` This module is used to create, modify, delete files, directories, and symlinks.
-- `template:` This module specifies that a jinja2 template is being used and deployed. `template` is part of the `Files`
-  module family and we encourage you to check out all of the other [file-management modules here](http://docs.ansible.com/ansible/latest/list_of_files_modules.html).
-- *jinja-who?* - Not to be confused with 2013's blockbuster "Ninja II - Shadow of a Tear", [jinja2](http://docs.ansible.com/ansible/latest/playbooks_templating.html) is
-used in Ansible to transform data inside a template expression, i.e. filters.
-- *service* - The Service module starts/stops/restarts services.
+Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remeber the "Gathering Facts" task listed in the output of each `ansible-playbook` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
 
----
+To get an idea what facts Ansible collects by default, on your control node as your student user run:
 
-## Section 3: Defining and Using Handlers
-
-There are any number of reasons we often need to restart a service/process including the deployment of a configuration file, installing a new package, etc.  There are really two parts to this Section; adding a handler to the playbook and calling the handler after the a task.  We will start with the former.
-
-### Step 1:
-Define a handler.
-
-```yml
-handlers:
-  - name: restart apache service
-    service:
-      name: httpd
-      state: restarted
-      enabled: yes
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup
 ```
 
+This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard:
+
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
+```
+Or what about only looking for memory related facts:
+
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
+```
+
+## Step 4.6 - Challenge Lab: Facts
+
+  - Try to find and print the distribution (Red Hat) of your managed hosts. On one line, please.
+
+> **Tip**
+> 
+> Use grep to find the fact, then apply a filter to only print this fact.
+
+> **Warning**
+> 
+> **Solution below\!**
+
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep distribution
+[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
+```
+
+## Step 4.7 - Using Facts in Playbooks
+
+Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible-files/` directory:
+
+<!-- {% raw %} -->
+```yaml    
 ---
-**NOTE**
-
-> You can't have a former if you don't mention the latter
-
-- `handler:` This is telling the *play* that the `tasks:` are over, and now we are defining `handlers:`.
-  Everything below that looks the same as any other task, i.e. you give it a name, a module, and the options for that
-  module.  This is the definition of a handler.
-- `notify: restart apache service` ...and here is your latter. Finally!  The `notify` statement is the invocation of a handler by
-name.  Quite the reveal, we know.   You already noticed that you've added a `notify` statement to the `copy httpd.conf`
-task, now you know why.
-
----
-
-## Section 4: Review
-
-Your new, improved playbook is done! But don't run it just yet, we'll do that in our next exercise.  For now, let's take a second look to make sure everything
-looks the way you intended.  If not, now is the time for us to fix it up. The figure below shows line counts and spacing.
-
-```yml
-{% raw %}
----
-- hosts: web
-  name: This is a play within a playbook
-  become: yes
-  vars:
-    httpd_packages:
-      - httpd
-      - mod_wsgi
-    apache_test_message: This is a test message
-    apache_max_keep_alive_requests: 115
-
+- name: Output facts within a playbook
+  hosts: all
   tasks:
-    - name: httpd packages are present
-      yum:
-        name: "{{ item }}"
-        state: present
-      with_items: "{{ httpd_packages }}"
-      notify: restart apache service
+  - name: Prints Ansible facts
+    debug:
+      msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
+```
+<!-- {% endraw %} -->
 
-    - name: site-enabled directory is present
-      file:
-        name: /etc/httpd/conf/sites-enabled
-        state: directory
+> **Tip**
+> 
+> The "debug" module is handy for e.g. debugging variables or expressions.
 
-    - name: latest httpd.conf is present
-      template:
-        src: templates/httpd.conf.j2
-        dest: /etc/httpd/conf/httpd.conf
-      notify: restart apache service
+Execute it to see how the facts are printed:
 
-    - name: latest index.html is present
-      template:
-        src: templates/index.html.j2
-        dest: /var/www/html/index.html
+```bash
+[student<X>@ansible ansible-files]$ ansible-playbook facts.yml 
 
-    - name: httpd is started and enabled
-      service:
-        name: httpd
-        state: started
-        enabled: yes
+PLAY [Output facts within a playbook] ******************************************
 
-  handlers:
-    - name: restart apache service
-      service:
-        name: httpd
-        state: restarted
-        enabled: yes
-{% endraw %}        
+TASK [Gathering Facts] *********************************************************
+ok: [node3]
+ok: [node2]
+ok: [node1]
+ok: [ansible]
+
+TASK [Prints Ansible facts] ****************************************************
+ok: [node1] => 
+  msg: The default IPv4 address of node1 is 172.16.190.143
+ok: [node2] => 
+  msg: The default IPv4 address of node2 is 172.16.30.170
+ok: [node3] => 
+  msg: The default IPv4 address of node3 is 172.16.140.196
+ok: [ansible] => 
+  msg: The default IPv4 address of ansible is 172.16.2.10
+
+PLAY RECAP *********************************************************************
+ansible                    : ok=2    changed=0    unreachable=0    failed=0   
+node1                      : ok=2    changed=0    unreachable=0    failed=0   
+node2                      : ok=2    changed=0    unreachable=0    failed=0   
+node3                      : ok=2    changed=0    unreachable=0    failed=0   
 ```
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)

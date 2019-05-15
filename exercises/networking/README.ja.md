@@ -1,5 +1,8 @@
 # Ansible Lightbulb - Networking
 
+このコンテンツは **廃止予定** です。最新版の [Ansible Linklight - Networking](../networking_v2/README.ja.md) を参照してください。
+
+
 このコンテンツは、Ansibleのネットワーク機器向け機能(Arista, Cisco, Cumulus, Juniper etc)の効果的なデモやワークショップトレーニング(講師による講義、ハンズあるいはセルフスタディ)の為の多目的ツールキットです。
 
 **Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).

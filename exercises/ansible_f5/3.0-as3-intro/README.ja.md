@@ -228,7 +228,7 @@ cp ~/networking-workshop/3.0-as3-intro/j2/* j2/
 Playbook を実行します - コントロールホストのコマンドラインに戻って次のコマンドを実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook as3.yaml
+[student1@ansible ~]$ ansible-playbook as3.yml
 ```
 
 # Playbook Output
@@ -252,7 +252,7 @@ f5                         : ok=2    changed=0    unreachable=0    failed=0
 
 # Solution
 
-Ansible Playbookが完了したら、Answer キーが提供されます。こちらをクリック！ [as3.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.0-as3-intro/as3.yaml).
+Ansible Playbookが完了したら、Answer キーが提供されます。こちらをクリック！ [as3.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.0-as3-intro/as3.yml).
 
 # Verifying the Solution
 

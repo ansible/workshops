@@ -51,7 +51,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 ## Step 3
 
-次に最初の `task` を追加します。 このタスクでは `bigip_device_facts` モジュールを利用して BIG-IP から情報を取得します。
+次に最初の `task` を追加します。 このタスクでは `device_facts` モジュールを利用して BIG-IP から情報を取得します。
 
 {% raw %}
 ``` yaml
@@ -73,7 +73,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: no
-      register: bigip_device_facts
+      register: device_facts
 ```
 {% endraw %}
 
@@ -86,7 +86,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
 - `password: "{{ansible_ssh_pass}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
 - `server_port: 8443` モジュールのパラメーターです。BIP-IPに接続する際のポート番号を指定します。
-- `register: bigip_device_facts` このタスクで取得された情報を変数 `bigip_device_facts` へ格納するように指示しています。
+- `register: device_facts` このタスクで取得された情報を変数 `device_facts` へ格納するように指示しています。
 
 ## Step 4
 
@@ -112,17 +112,17 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: no
-      register: bigip_device_facts
+      register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
-        var: bigip_device_facts
+        var: device_facts
 ```
 {% endraw %}
 
 - `name: COMPLETE BIG-IP SYSTEM INFORMATION` はユーザーが指定するタスクの説明文です。この内容がターミナルへ表示されます。
 - `debug:` タスクで使用するモジュール指定しています。
-- `var: bigip_device_facts` モジュールのパラメーターです。`bigip_device_facts` 変数の値を出力するように指定しています。
+- `var: device_facts` モジュールのパラメーターです。`device_facts` 変数の値を出力するように指定しています。
 
 
 ## Step 5
@@ -155,25 +155,25 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: no
-      register: bigip_device_facts
+      register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
-        var: bigip_device_facts
+        var: device_facts
 
     - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
-        var: bigip_device_facts['system_info']['base_mac_address']
+        var: device_facts['system_info']['base_mac_address']
 
     - name: DISPLAY ONLY THE VERSION
       debug:
-        var: bigip_device_facts['system_info']['product_version']
+        var: device_facts['system_info']['product_version']
 ```
 {% endraw %}
 
 
-- `var: bigip_device_facts['system_info']['base_mac_address']` BIG-IP のMACアドレスを取得します。
-- `var: bigip_device_facts['system_info']['product_version']` BIG-IP のバージョン情報を取得します。
+- `var: device_facts['system_info']['base_mac_address']` BIG-IP のMACアドレスを取得します。
+- `var: device_facts['system_info']['product_version']` BIG-IP のバージョン情報を取得します。
 
 >`bigip_device_facts` モジュールは構造化されたデータを返すため、やっかいな正規表現やフィリたーを使わずに必要な情報へと簡単にアクセスできます。Fact モジュールは後続のタスクに渡すデータを取得したり、動的なドキュメント作成(報告書, csv ファイル, markdown)するためにとても有益です。
 
@@ -201,7 +201,7 @@ changed: [f5]
 
 TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] ***********************************************************************************************************
 ok: [f5] => {
-    "bigip_device_facts": {
+    "device_facts": {
         "changed": true,
         "failed": false,
         "system_info": {
@@ -262,12 +262,12 @@ ok: [f5] => {
 
 TASK [DISPLAY ONLY THE MAC ADDRESS] *************************************************************************************************************************
 ok: [f5] => {
-    "bigip_device_facts['system_info']['base_mac_address']": "0a:54:53:51:86:fc"
+    "device_facts['system_info']['base_mac_address']": "0a:54:53:51:86:fc"
 }
 
 TASK [DISPLAY ONLY THE VERSION] *****************************************************************************************************************************
 ok: [f5] => {
-    "bigip_device_facts['system_info']['product_version']": "13.1.0.7"
+    "device_facts['system_info']['product_version']": "13.1.0.7"
 }
 
 PLAY RECAP **************************************************************************************************************************************************
@@ -288,7 +288,7 @@ f5                         : ok=4    changed=1    unreachable=0    failed=0
 ```yaml
 - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
   debug:
-    var: bigip_device_facts
+    var: device_facts
   tags: debug
 ```
 

@@ -68,7 +68,7 @@ ansible_ssh_pass=ansible
 ansible_port=22
 
 [lb]
-f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=admin
+f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=ansible
 
 [control]
 ansible ansible_host=107.23.192.217 ansible_user=ec2-user private_ip=172.16.207.49
@@ -88,7 +88,7 @@ host2 ansible_host=54.146.162.192 ansible_user=ec2-user private_ip=172.16.160.13
 グループとホストに変数を関連付けることができます。ホスト変数はホストの定義と同じ行に宣言/定義します。ホスト `f5` の例を見てみます:
 
 ```
-f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=admin
+f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=ansible
 ```
 
  - `f5` - Ansible が使う名前。DNS参照できる形式でも良いですが、そうでなくても問題はありません。

@@ -24,9 +24,11 @@
 
 テキストエディタを使用して、`disable-pool-member.yml`という名前の新しいファイルを作成します。
 
+{% raw %}
 ```
 [student1@ansible ~]$ nano disable-pool-member.yml
 ```
+{% endraw %}
 
 >`vim`および`nano`は、コントロール ノードだけでなく、RDPを介してVisual StudioおよびAtomでも使用できます
 
@@ -34,6 +36,7 @@
 
 以下の定義を`disable-pool-member.yml`に Playbook に入力します:
 
+{% raw %}
 ``` yaml
 ---
 
@@ -43,11 +46,14 @@
   gather_facts: false
 
 ```
+{% endraw %}
+
 ## Step 3
 
 次に、タスク セクションを追加して、上記の目的のためのタスクを作成します。
 一度プロバイダーを設定すると、各タスクに対して接続先サーバやユーザ・パスワードといった認証情報を定義する必要はありません。次回以降のタスクについて、本プロバイダー情報を再利用できます。
 
+{% raw %}
 ```
 ---
 - name: "Disabling a pool member"
@@ -65,18 +71,22 @@
       server_port: "8443"
       validate_certs: "no"
 ```
+{% endraw %}
 
 プロバイダーは以下のように利用します:
 
+{% raw %}
 ```
     bigip_device_facts:
       provider: "{{provider}}"
       gather-subset:
       - ltm-pools
 ```
+{% endraw %}
+
 各モジュールで、接続先サーバやUser/passwordといった認証情報を入力する必要はありません。
 
-## Step 5
+## Step 4
 
 次に下記のタスクを追加します。
 
@@ -84,7 +94,7 @@
 
 HINT: <a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1</a>で実施したbigip_device_factsモジュールの利用。
 
-## Step 6
+## Step 5
 
 次に下記のタスクを追加します:
 
@@ -93,7 +103,7 @@ HINT: <a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1<
 ヒント:
 上記 Step 出力内容の Loop 検索、または<a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000"> debug moduleの利用となります</a>
 
-## Step 7
+## Step 6
 
 次に下記のタスクを追加します:
 
@@ -101,7 +111,7 @@ HINT: <a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1<
 
 HINT: Playbook 内で動的に各ファクト情報を簡易設定する方法は<a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a>の利用となります。
 
-## Step 8
+## Step 7
 
 次に下記のタスクを追加します:
 
@@ -110,7 +120,7 @@ HINT: Playbook 内で動的に各ファクト情報を簡易設定する方法�
 ヒント:
 <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a> と <a href="../1.4-add-pool-members/README.ja.md">演習 1.4</a>を参照してください。
 
-## Step 9
+## Step 8
 
 次に下記のタスクを追加します:
 
@@ -119,7 +129,7 @@ HINT: Playbook 内で動的に各ファクト情報を簡易設定する方法�
 ヒント:
 <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: #000000">prompts</a> モジュールを利用してください。
 
-## Step 10
+## Step 9
 
 次に下記のタスクを追加します:
 
@@ -139,6 +149,7 @@ Playbook の実行 - コントロールホストへ戻り、以下のコマン�
 
 以下のような出力となります。
 
+{% raw %}
 ```yaml
 [student1@ansible ~]$ ansible-playbook disable-pool-member.yml
 
@@ -183,6 +194,7 @@ changed: [f5]
 PLAY RECAP **************************************************************************************************************
 f5                         : ok=7    changed=2    unreachable=0    failed=0
 ```
+{% endraw %}
 
 # 回答
 問題がある場合は講師より[解答](./disable-pool-member.yml)が提供されます。GUIにより以下のように表示されます。黒いひし形のマークは、そのノードがオフラインにされたことを示します。

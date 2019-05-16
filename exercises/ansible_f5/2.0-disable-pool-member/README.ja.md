@@ -4,7 +4,7 @@
 
 - [目的](#目的)
 - [解説](#解説)
-- [Playbook の出力](#Playbook の出力)
+- [Playbook の出力](#Playbookの出力)
 - [回答](#回答)
 
 # 目的
@@ -145,7 +145,7 @@ Playbook の実行 - コントロールホストへ戻り、以下のコマン�
 [student1@ansible ~]$ ansible-playbook disable-pool-member.yml
 ```
 
-# Playbook の出力
+# Playbookの出力
 
 以下のような出力となります。
 

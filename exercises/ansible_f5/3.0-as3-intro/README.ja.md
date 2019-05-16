@@ -1,4 +1,4 @@
-# Exercise 3.0 - Introduction to AS3わ
+# Exercise 3.0 - Introduction to AS3
 
 ## Table of Contents
 

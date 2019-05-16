@@ -231,7 +231,7 @@ Playbook を実行します - コントロールホストのコマンドライ�
 [student1@ansible ~]$ ansible-playbook as3.yaml
 ```
 
-# Playbook の出力結果
+# Playbook Output
 
 実行時の出力結果は次のようになります。
 

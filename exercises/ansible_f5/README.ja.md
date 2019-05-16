@@ -13,7 +13,7 @@
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: **講師から指示されます** (default is ansible)
+- password: **講師から指示されます** (default is admin)
 
 ## Section 1 - Ansible x F5 基礎演習
 

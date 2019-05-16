@@ -4,7 +4,7 @@
 
 - [目的](#目的)
 - [解説](#解説)
-- [Playbook の出力](#Playbook の出力)
+- [Playbook の出力](#Playbookの出力)
 - [回答](#回答)
 
 # 目的

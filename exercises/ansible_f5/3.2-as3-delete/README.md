@@ -93,7 +93,7 @@ f5                         : ok=1    changed=0    unreachable=0    failed=0
 
 # Solution
 
-The finished Ansible Playbook is provided here for an Answer key.  Click here: [delete.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.2-as3-delete/delete.yaml).
+The finished Ansible Playbook is provided here for an Answer key.  Click here: [delete.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.2-as3-delete/delete.yml).
 
 Login to the web UI and make sure the `Partition` is removed.
 

@@ -5,7 +5,7 @@
 - [目的](#目的)
 - [解説](#解説)
 - [Playbookの出力](#playbookの出力)
-- [回答](#回答)
+- [解答](#解答)
 
 # 目的
 
@@ -102,8 +102,8 @@ PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
-# Solution
+# 解答
 
-完成したPlaybookのサンプルは [bigip-config.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.7-save-running-config/bigip-config.yml) から参照できます。
+完成したPlaybookのサンプルは [bigip-config.yml](./bigip-config.yml) から参照できます。
 
 本演習は終了です。   [Click here to return to the lab guide](../README.ja.md)

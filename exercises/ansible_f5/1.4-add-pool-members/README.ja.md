@@ -5,7 +5,7 @@
 - [目的](#目的)
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
-- [回答](#回答)
+- [解答](#解答)
 
 # 目的
 
@@ -180,8 +180,8 @@ PLAY RECAP *********************************************************************
 f5                         : ok=2    changed=1    unreachable=0    failed=0
 ```
 
-# 回答
-完成形のAnsible Playbook はこちらから参照可能です。 [bigip-pool-members.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.4-add-pool-members/bigip-pool-members.yml).
+# 解答
+完成形のAnsible Playbook はこちらから参照可能です。 [bigip-pool-members.yml](./bigip-pool-members.yml).
 
 # 確認
 

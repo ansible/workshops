@@ -68,7 +68,7 @@ ansible_ssh_pass=ansible
 ansible_port=22
 
 [lb]
-f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=ansible
+f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=admin
 
 [control]
 ansible ansible_host=107.23.192.217 ansible_user=ec2-user private_ip=172.16.207.49
@@ -88,7 +88,7 @@ In the above output every `[ ]` defines a group. For example `[webservers]` is a
 We can associate variables to groups and hosts. Host variables are declared/defined on the same line as the host themselves. For example for the host `f5`:
 
 ```
-f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=ansible
+f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=admin
 ```
 
  - `f5` - The name that Ansible will use.  This can but does not have to rely on DNS

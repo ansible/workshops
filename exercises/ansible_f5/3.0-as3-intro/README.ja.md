@@ -1,13 +1,13 @@
-# Exercise 3.0 - Introduction to AS3
+# 演習 3.0 - AS3の概要
 
-## Table of Contents
+## 目次
 
-- [Objective](#objective)
-- [Guide](#guide)
-- [Playbook Output](#playbook-output)
-- [Solution](#solution)
+- [目的](#目的)
+- [解説](#解説)
+- [Playbook の出力](#Playbookの出力)
+- [解答](#解答)
 
-# Objective
+# 目的
 
 F5 AS3 を使った virtual server 構築(Section 1 Ansible F5 Exercisesで学んだもの)のデモンストレーション
 
@@ -18,7 +18,7 @@ F5 AS3 を使った virtual server 構築(Section 1 Ansible F5 Exercisesで学�
 
 # Guide
 
-#### BIG-IP の設定がクリーンになっていることを確認し、次に進む前に 演習 1.6-delete-configuration を必ず実行してください。
+#### BIG-IP の設定がクリーンになっていることを確認し、次に進む前に [演習 2.1 - コンフィグの削除](2.1-delete-configuration/README.ja.md)  を必ず実行してください。
 
 ## Step 1:
 
@@ -231,7 +231,7 @@ Playbook を実行します - コントロールホストのコマンドライ�
 [student1@ansible ~]$ ansible-playbook as3.yml
 ```
 
-# Playbook Output
+# Playbookの出力
 
 実行時の出力結果は次のようになります。
 
@@ -250,11 +250,11 @@ PLAY RECAP *********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-# Solution
+# 解答
 
-Ansible Playbookが完了したら、Answer キーが提供されます。こちらをクリック！ [as3.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.0-as3-intro/as3.yml).
+Ansible Playbookが完了したら、Answer キーが提供されます。こちらをクリック！ [as3.yml](./as3.yml).
 
-# Verifying the Solution
+# 解答の確認
 
 Webブラウザーから F5 BIG-IP にログインして、設定が行われている事を確認しましょう。lab_inventory/hosts というインベントリファイルから F5 ロードバランサーのIP情報を取得してください。ブラウザーには「https://X.X.X.X:8443/」のような感じで HTTPS にて 8443 ポートにアクセスします。
 

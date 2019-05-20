@@ -1,11 +1,11 @@
-# 演習 1.6: iRules の追加と Virtual Server へのアタッチ
+# 演習 1.6 - iRules の追加と Virtual Server へのアタッチ
 
-## Table of Contents
+## 目次
 
 - [目的](#目的)
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
-- [回答](#回答)
+- [解答](#解答)
 
 # 目的
 
@@ -157,7 +157,7 @@ when HTTP_REQUEST {
 - `irules: "{{irules}}` ： Virtual ServerにアタッチするiRulesのリストです。 'irule1'と'irule2' となります。
 
 参考：[BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html)
-or [Exercise 1.5](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.5-add-virtual-server/bigip-virtual-server.yml)
+or [演習 1.5](./1.5-add-virtual-server/bigip-virtual-server.yml)
 
 ## Step 6
 
@@ -186,9 +186,9 @@ f5                         : ok=2    changed=2    unreachable=0    failed=0
 
 ```
 
-# 回答
+# 解答
 
-完成形のAnsible Playbook はこちらから参照可能です。  [bigip-irule.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.6-add-irules/bigip-irule.yml).
+完成形のAnsible Playbook はこちらから参照可能です。  [bigip-irule.yml](./bigip-irule.yml).
 
 # 確認
 

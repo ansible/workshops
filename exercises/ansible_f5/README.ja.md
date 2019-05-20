@@ -35,7 +35,7 @@ BIG-IP へのログイン情報:
 ## Section 3 - Ansible F5 AS3 演習
 
  - [演習 3.0 - AS3 の紹介](3.0-as3-intro/README.ja.md)
- - [演習 3.1 - AS3 による運用の変更](3.1-as3-change/README.ja.md)
+ - [演習 3.1 - AS3 による変更運用](3.1-as3-change/README.ja.md)
  - [演習 3.2 - Web アプリケーションの削除](3.2-as3-delete/README.ja.md)
 
 ### 演習に関連した議論や質問を投稿するには以下のリンクを使用してください:

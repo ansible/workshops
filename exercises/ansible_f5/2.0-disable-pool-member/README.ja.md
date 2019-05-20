@@ -5,7 +5,7 @@
 - [目的](#目的)
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
-- [回答](#回答)
+- [解答](#解答)
 
 # 目的
 
@@ -41,7 +41,7 @@
 ---
 
 - name:  Disabling a pool member
-  hosts: f5
+  hosts: lb
   connection: local
   gather_facts: false
 
@@ -196,7 +196,7 @@ f5                         : ok=7    changed=2    unreachable=0    failed=0
 ```
 {% endraw %}
 
-# 回答
+# 解答
 問題がある場合は講師より[解答](./disable-pool-member.yml)が提供されます。GUIにより以下のように表示されます。黒いひし形のマークは、そのノードがオフラインにされたことを示します。
 
 ![f5bigip-gui](f5bigip-gui.png)

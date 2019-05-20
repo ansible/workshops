@@ -1,11 +1,11 @@
-# 演習 1.1: Ansible による F5 BIG-IP の情報収集
+# 演習 1.1 - Ansible による F5 BIG-IP の情報収集
 
 ## 目次
 
 - [目的](#目的)
 - [解説](#解説)
 - [Playbookの出力](#playbookの出力)
-- [回答](#回答)
+- [解答](#解答)
 - [より深く](#より深く)
 
 # 目的
@@ -277,9 +277,9 @@ f5                         : ok=4    changed=1    unreachable=0    failed=0
 {% endraw %}
 
 
-# 回答
+# 解答
 
-完成したPlaybookのサンプルは [bigip-facts.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.1-get-facts/bigip-facts.yml) から参照できます。
+完成したPlaybookのサンプルは [bigip-facts.yml](./bigip-facts.yml) から参照できます。
 
 # より深く
 

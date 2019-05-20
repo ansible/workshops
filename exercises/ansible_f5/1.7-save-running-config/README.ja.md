@@ -1,11 +1,11 @@
-# 演習 1.7: コンフィグの保存
+# 演習 1.7 - コンフィグの保存
 
 ## 目次
 
 - [目的](#目的)
 - [解説](#解説)
 - [Playbookの出力](#playbookの出力)
-- [回答](#回答)
+- [解答](#解答)
 
 # 目的
 
@@ -38,7 +38,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 ```
 
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
-- `hosts: f5` はこの play が F5 BIG-IP 機器のグループに対して実行されることを示します。
+- `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
 - `connection: local` は Playbook がローカル実行されることを示します。
 - `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
 
@@ -102,8 +102,8 @@ PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
-# Solution
+# 解答
 
-完成したPlaybookのサンプルは [bigip-config.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.7-save-running-config/bigip-config.yml) から参照できます。
+完成したPlaybookのサンプルは [bigip-config.yml](./bigip-config.yml) から参照できます。
 
 本演習は終了です。   [Click here to return to the lab guide](../README.ja.md)

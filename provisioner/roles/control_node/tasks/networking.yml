@@ -16,6 +16,7 @@
           - f5-sdk
           - bigsuds
           - netaddr
+          - jmespath
         state: latest
   when: workshop_type == "f5"
 

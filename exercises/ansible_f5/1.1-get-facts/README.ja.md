@@ -279,7 +279,7 @@ f5                         : ok=4    changed=1    unreachable=0    failed=0
 
 # 解答
 
-完成したPlaybookのサンプルは [bigip-facts.yml](./1.1-get-facts/bigip-facts.yml) から参照できます。
+完成したPlaybookのサンプルは [bigip-facts.yml](./bigip-facts.yml) から参照できます。
 
 # より深く
 

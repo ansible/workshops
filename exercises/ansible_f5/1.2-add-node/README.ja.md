@@ -109,7 +109,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 # 解答
 
-完成形のAnsible Playbook はこちらから参照可能です。 [bigip-node.yml](./1.2-add-node/bigip-node.yml).
+完成形のAnsible Playbook はこちらから参照可能です。 [bigip-node.yml](./bigip-node.yml).
 
 
 # 確認

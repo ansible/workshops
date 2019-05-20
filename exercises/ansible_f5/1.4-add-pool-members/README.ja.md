@@ -1,4 +1,4 @@
-# 演習 1.4: メンバーをプールへ追加
+# 演習 1.4 - メンバーをプールへ追加
 
 ## Table of Contents
 
@@ -178,6 +178,20 @@ ok: [f5] => (item=host2:80) => {
 
 PLAY RECAP **************************************************************************************************************************************************
 f5                         : ok=2    changed=1    unreachable=0    failed=0
+```
+
+>Note: もし以下のエラーが出る場合は、ワークアラウンドを実行してください。
+
+```
+TASK [Show members belonging to pool] ***********************************
+fatal: [f5]: FAILED! =>
+  msg: You need to install "jmespath" prior to running json_query filter
+```
+
+>ワークアラウンド
+
+```
+[student1@ansible ~]$ sudo yum install -y python-jmespath
 ```
 
 # 解答

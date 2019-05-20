@@ -1,4 +1,4 @@
-# 演習 1.1: Ansible による F5 BIG-IP の情報収集
+# 演習 1.1 - Ansible による F5 BIG-IP の情報収集
 
 ## 目次
 

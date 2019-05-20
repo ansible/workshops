@@ -1,4 +1,4 @@
-# 演習 1.5: Virtual Server の追加
+# 演習 1.5 - Virtual Server の追加
 
 ## Table of Contents
 

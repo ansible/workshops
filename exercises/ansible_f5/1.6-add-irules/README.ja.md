@@ -1,4 +1,4 @@
-# 演習 1.6: iRules の追加と Virtual Server へのアタッチ
+# 演習 1.6 - iRules の追加と Virtual Server へのアタッチ
 
 ## Table of Contents
 

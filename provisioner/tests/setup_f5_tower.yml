@@ -23,6 +23,7 @@
         organization: Default
         tower_config_file: "~/tower_cli.cfg"
 
+    - name: CREATE F5 ADDNODE JOB TEMPLATE
       tower_job_template:
         name: "F5 add nodes"
         job_type: "run"

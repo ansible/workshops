@@ -10,6 +10,7 @@
 # 目的
 
 既存のWeb Application AS3テンプレートを変更します。既存のテンプレートには問題があり、serviceMainが赤色で表示されています。この問題を修正します。
+
 ![serviceMain-offline.png](serviceMain-offline.png)
 
 
@@ -35,7 +36,7 @@
 
 ## Step 2:
 
-テキストエディタで新規ファイル `as3_template.j2` を作成します:
+テキストエディタで新規ファイル `j2/as3_template.j2` を編集します:
 
 >`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
 

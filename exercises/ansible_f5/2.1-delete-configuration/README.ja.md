@@ -141,7 +141,6 @@
 {% raw %}
 ```yaml
 ---
----
 - name: BIG-IP SETUP
   hosts: lb
   connection: local

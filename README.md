@@ -2,17 +2,17 @@
 
 ![linklight](images/linklight.png)
 
-The Ansible Networking Linklight project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.  
+The Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.  
 
 ## Table of Contents
 
 ### INSTRUCTOR LED WORKSHOP:
 
   * [Presentation Decks](decks)  
-     - [Ansible Essentials Deck](https://network-automation.github.io/linklight/decks/ansible-essentials.html)
-     - [Intro to Ansible Tower Deck](https://network-automation.github.io/linklight/decks/tower_intro.pdf)
-     - [Ansible Networking-v2 Deck](https://network-automation.github.io/linklight/decks/ansible_network.pdf)
-     - [Ansible F5 Deck](https://network-automation.github.io/linklight/decks/ansible_f5.pdf)
+     - [Ansible Essentials Deck](https://ansible.github.io/workshops/decks/ansible-essentials.html)
+     - [Intro to Ansible Tower Deck](https://ansible.github.io/workshops/decks/tower_intro.pdf)
+     - [Ansible Networking-v2 Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf)
+     - [Ansible F5 Deck](https://ansible.github.io/workshops/decks/ansible_f5.pdf)
 
   * Network Automation Exercises
     These exercises are focused on networking platforms like Arista, Cisco, Juniper and F5.

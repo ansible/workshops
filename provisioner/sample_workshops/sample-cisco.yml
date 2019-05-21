@@ -5,8 +5,8 @@ ec2_region: us-east-2
 ec2_name_prefix: CISCO-TEST
 admin_password: ansible
 student_total: 2
-## Optional Variables
-create_login_page: true
 workshop_type: networking
 # possible values cisco, arista, juniper or multivendor
 network_type: cisco
+## Optional Variables
+create_login_page: true

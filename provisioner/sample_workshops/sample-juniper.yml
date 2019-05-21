@@ -5,7 +5,7 @@ ec2_region: us-east-2
 ec2_name_prefix: JUNIPER-TEST
 admin_password: ansible
 student_total: 2
-## Optional Variables
-create_login_page: true
 workshop_type: networking
 network_type: juniper
+## Optional Variables
+create_login_page: true

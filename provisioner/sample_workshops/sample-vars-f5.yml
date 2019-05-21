@@ -5,12 +5,12 @@ ec2_region: us-east-1
 ec2_name_prefix: TESTWORKSHOP
 # amount of work benches to provision
 student_total: 2
+# workshp runs in F5 mode
+workshop_type: f5
 ## Optional Variables
 # password used for student account on control node
 admin_password: ansible
 # creates HTML website for workshop
 create_login_page: true
-# workshp runs in F5 mode
-workshop_type: f5
 # install xrdp with xfce for graphical interface
 xrdp: true

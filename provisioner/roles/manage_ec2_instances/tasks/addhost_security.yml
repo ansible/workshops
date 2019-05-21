@@ -14,13 +14,13 @@
       "tag:Workshop_snort": "{{ec2_name_prefix}}-snort"
   register: snort_node_facts
 
-- name: grab facts for checkpoint node (SECURITY MODE)
+- name: grab facts for Check Point CloudGuard Security Management (SECURITY MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_checkpoint": "{{ec2_name_prefix}}-checkpoint"
-  register: checkpoint_node_facts
+      "tag:Workshop_checkpoint": "{{ec2_name_prefix}}-security"
+  register: secruity_node_facts
 
 - debug:
     var: splunk_node_facts.instances
@@ -58,7 +58,7 @@
       - ids
   loop: "{{ snort_node_facts.instances|flatten(levels=1) }}"
 
-- name: ADD CHECKPOINT NODES TO INVENTORY
+- name: ADD Check Point CloudGuard Security Management TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
@@ -68,10 +68,11 @@
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
     groups:
       - checkpoint
-      - firewalls
-  loop: "{{ checkpoint_node_facts.instances|flatten(levels=1) }}"
+      - firewall
+  loop: "{{ security_node_facts.instances|flatten(levels=1) }}"
 
 - name: Generate student inventories
   template:

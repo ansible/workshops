@@ -94,7 +94,7 @@
     exact_count: "{{ student_total }}"
     user_data: ''
     count_tag:
-      Workshop_security: "{{ec2_name_prefix}}-security"
+      Workshop_checkpoint: "{{ec2_name_prefix}}-checkpoint"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   register: checkpoint_mgmt_output
@@ -106,6 +106,7 @@
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-checkpoint_mgmt"
+      Workshop_checkpoint: "{{ec2_name_prefix}}-checkpoint"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
@@ -131,7 +132,7 @@
     exact_count: "{{ student_total }}"
     user_data: ''
     count_tag:
-      Workshop_security: "{{ec2_name_prefix}}-security"
+      Workshop_checkpoint: "{{ec2_name_prefix}}-checkpoint"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   register: checkpoint_gw_output
@@ -143,6 +144,7 @@
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-checkpoint_gw"
+      Workshop_checkpoint: "{{ec2_name_prefix}}-checkpoint"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"

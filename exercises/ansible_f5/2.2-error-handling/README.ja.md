@@ -197,7 +197,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 ## Step 7
 
-次に[演習 1.5 - Virtual Server の追加](1.5-add-virtual-server/README.ja.md)で使用した `bigip_virtual_server` タスクを追加します。
+次に[演習 1.5 - Virtual Server の追加](../1.5-add-virtual-server/README.ja.md)で使用した `bigip_virtual_server` タスクを追加します。
 
 {% raw %}
 ```yaml

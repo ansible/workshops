@@ -175,7 +175,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 - `var: device_facts['system_info']['base_mac_address']` BIG-IP のMACアドレスを取得します。
 - `var: device_facts['system_info']['product_version']` BIG-IP のバージョン情報を取得します。
 
->`bigip_device_facts` モジュールは構造化されたデータを返すため、やっかいな正規表現やフィリたーを使わずに必要な情報へと簡単にアクセスできます。Fact モジュールは後続のタスクに渡すデータを取得したり、動的なドキュメント作成(報告書, csv ファイル, markdown)するためにとても有益です。
+>`bigip_device_facts` モジュールは構造化されたデータを返すため、やっかいな正規表現やフィルターを使わずに必要な情報へと簡単にアクセスできます。Fact モジュールは後続のタスクに渡すデータを取得したり、動的なドキュメント作成(報告書, csv ファイル, markdown)するためにとても有益です。
 
 
 ## Step 7

@@ -143,6 +143,14 @@
   roles:
     - { role: f5_setup, when: workshop_type == "f5" }
 
+- name: SETUP CHECKPOINT ENVIRONMENT
+  hosts: localhost
+  become: no
+  connection: local
+  gather_facts: no
+  roles:
+    - { role: cp_setup, when: workshop_type == "security" }
+
 - name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
   hosts: "routers"
   gather_facts: no

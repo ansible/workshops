@@ -116,8 +116,6 @@
       Students: "{{student_total}}"
       short_name: "checkpoint_mgmt"
       username: "{{ec2_info.checkpoint_mgmt.username}}"
-      short_name: "checkpoint-mgmt"
-      username: "{{ec2_info.checkpoint_mgmt.username}}"
   with_indexed_items:
     - "{{ checkpoint_mgmt_output.instance_ids }}"
   when: checkpoint_mgmt_output.instance_ids is not none
@@ -139,7 +137,7 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   register: checkpoint_gw_output
 
-- name: Ensure tags are present for Check Point CloudGuard Security Management node (SECURITY MODE)
+- name: Ensure tags are present for Check Point CloudGuard Gateway node (SECURITY MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{item.1}}"
@@ -195,5 +193,3 @@
   with_indexed_items:
     - "{{ checkpoint_gw_output.instance_ids }}"
   when: checkpoint_gw_output.instance_ids is not none
-
-  

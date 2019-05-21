@@ -76,5 +76,3 @@
     set_fact:
       windows_ws_ami: >
         {{ windows_ws_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
-        

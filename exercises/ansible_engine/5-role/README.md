@@ -101,8 +101,7 @@ apache_max_keep_alive_requests: 115
 
 Add some role-specific variables to your role in `roles/apache-simple/vars/main.yml`.
 
-[source,bash]
-```
+```yml
 ---
 # vars file for apache-simple
 httpd_packages:
@@ -112,10 +111,10 @@ httpd_packages:
 
 ---
 **NOTE**
-####
+
 > Hey, wait just a minute there buster... did you just have us put variables in two seperate places?
 
-Yes... yes we did.  Variables can live in quite a few places.  Just to name a few: +
+Yes... yes we did.  Variables can live in quite a few places.  Just to name a few:
 
 - vars directory
 - defaults directory

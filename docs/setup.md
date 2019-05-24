@@ -6,9 +6,9 @@
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
-3. Install `boto` and `boto3`as well as `netaddr`
+3. Install `boto` and `boto3`as well as `netaddr` and `passlib`
 
-        pip install boto boto3 netaddr
+        pip install boto boto3 netaddr passlib
 
   **Are you using Tower?**  [Tower Instructions](#tower-instructions)
 
@@ -20,10 +20,6 @@
 aws_access_key_id = ABCDEFGHIJKLMNOP
 aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
-
-5. Install the `passlib` library and `netaddr`
-
-        pip install passlib netaddr
 
 6. Clone the linklight repo:
 

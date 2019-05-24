@@ -52,7 +52,7 @@ ec2_info:
     os_type: linux
     disk_space: 20
     architecture: x86_64
-    filter: 'RHEL-7.4*GA*'
+    filter: 'RHEL-7.6*GA*x86_64*'
     username: ec2-user
   rhel7:
     owners: 309956199498
@@ -60,7 +60,7 @@ ec2_info:
     os_type: linux
     disk_space: 10
     architecture: x86_64
-    filter: 'RHEL-7.4*GA*'
+    filter: 'RHEL-7.6*GA*x86_64*'
     username: ec2-user
   f5node:
     owners: 679593333241

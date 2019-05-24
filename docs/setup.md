@@ -21,14 +21,14 @@ aws_access_key_id = ABCDEFGHIJKLMNOP
 aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
 
-6. Clone the linklight repo:
+5. Clone the linklight repo:
 
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 
         git clone https://github.com/network-automation/linklight.git
         cd linklight/provisioner
 
-7.  When doing a networking or F5 workshop make sure you have subscribed to the right marketplace AMI (Amazon Machine Image)
+6.  When doing a networking or F5 workshop make sure you have subscribed to the right marketplace AMI (Amazon Machine Image)
 
   - For Networking you will need the Cisco CSR (Cloud Services Router) [Click here](https://aws.amazon.com/marketplace/pp/B00NF48FI2/)
   - For F5 you will need the F5 BIG-IP [Click here](https://aws.amazon.com/marketplace/pp/B079C44MFH/)

@@ -1,6 +1,6 @@
 - name: Download Ansible Tower
   get_url:
-    url: http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+    url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.4.3-1.tar.gz
     dest: /tmp/tower.tar.gz
 
 - name: Create directory for Ansible Tower

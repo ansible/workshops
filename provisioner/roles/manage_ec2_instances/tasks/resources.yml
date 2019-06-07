@@ -81,6 +81,42 @@
         to_port: 179
         from_port: 179
         cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 257
+        from_port: 257
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 18190
+        from_port: 18190
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 18191
+        from_port: 18191
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 18192
+        from_port: 18192
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 18210
+        from_port: 18210
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 18211
+        from_port: 18211
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 18221
+        from_port: 18221
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 18264
+        from_port: 18264
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 19009
+        from_port: 19009
+        cidr_ip: 0.0.0.0/0
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0

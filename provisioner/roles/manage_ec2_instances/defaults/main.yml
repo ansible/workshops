@@ -47,7 +47,7 @@ ec2_info:
   checkpoint:
     size: m5.xlarge
     ami: "{{checkpoint_ami| default(omit)}}"
-    username: root
+    username: admin
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7-tower:
     owners: 309956199498

@@ -71,7 +71,7 @@ ec2_info:
     username: admin
   splunk_enterprise:
     owners: 309956199498
-    size: t2.micro
+    size: c4.4xlarge
     os_type: linux
     disk_space: 10
     architecture: x86_64

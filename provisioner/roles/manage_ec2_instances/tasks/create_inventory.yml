@@ -34,6 +34,6 @@
   include_tasks: "addhost_f5.yml"
   when: workshop_type == 'f5'
 
-- name: Security Automation - setup inventory
-  include_tasks: "addhost_security_automation.yml"
-  when: workshop_type == 'security_automation'
+- name: security mode - setup inventory
+  include_tasks: "addhost_security.yml"
+  when: workshop_type == 'security'

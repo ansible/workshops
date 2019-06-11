@@ -1,4 +1,4 @@
-- name: grab facts for splunknode (SECURITY AUTOMATION MODE)
+- name: grab facts for splunknode (SECURITY MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
@@ -6,7 +6,7 @@
       "tag:Workshop_splunk": "{{ec2_name_prefix}}-splunk"
   register: splunk_node_facts
 
-- name: grab facts for snort node (SECURITY AUTOMATION MODE)
+- name: grab facts for snort node (SECURITY MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
@@ -14,21 +14,13 @@
       "tag:Workshop_snort": "{{ec2_name_prefix}}-snort"
   register: snort_node_facts
 
-- name: grab facts for checkpoint node (SECURITY AUTOMATION MODE)
+- name: grab facts for checkpoint node (SECURITY MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
       "tag:Workshop_checkpoint": "{{ec2_name_prefix}}-checkpoint"
   register: checkpoint_node_facts
-
-- name: grab facts for rtr4 node (SECURITY AUTOMATION MODE)
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_rtr4": "{{ec2_name_prefix}}-rtr4"
-  register: rtr4_node_facts
 
 - debug:
     var: splunk_node_facts.instances
@@ -83,11 +75,11 @@
 
 - name: Generate student inventories
   template:
-    src: security_automation_instances.txt.j2
+    src: security_instances.txt.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
   with_sequence: count="{{ student_total }}"
 
 - name: Generate instructor inventory
   template:
-    src: instructor_inventory_security_automation.j2
+    src: instructor_inventory_security.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

@@ -173,7 +173,7 @@
   roles:
     - role: splunk_enterprise
       when:
-        - workshop_type == "security_automation"
+        - workshop_type == "security"
 
 - name: INSTALL AND CONFIGURE SNORT
   hosts: snort
@@ -196,7 +196,7 @@
         import_role:
           name: "ansible_security.ids_config"
       when:
-        - workshop_type == "security_automation"
+        - workshop_type == "security"
 
 - name: CHANGE JUNIPER PASSWORD
   hosts: routers

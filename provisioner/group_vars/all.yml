@@ -10,7 +10,7 @@ valid_workshop_types:
   - networking
   - f5
   - rhel
-  - security_automation
+  - security
 network_type: multivendor
 valid_network_types:
   - cisco

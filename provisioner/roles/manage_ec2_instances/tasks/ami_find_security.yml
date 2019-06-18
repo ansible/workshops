@@ -1,20 +1,4 @@
 #### CHECK POINT AMI
-- name: BLOCK FOR CHECK POINT AMI
-  block:
-  - name: find ami for check point (SECURITY MODE)
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "679593333241"
-      filters:
-        name: "Check Point CloudGuard IaaS*PAYG-MGMT*R80.20*"
-        architecture: "x86_64"
-    register: checkpoint_ami_list
-
-  - name: save ami for check point (SECURITY MODE)
-    set_fact:
-      checkpoint_ami: >
-        {{ checkpoint_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
 - name: BLOCK FOR SPLUNK AMI
   block:
   - name: find ami for splunk
@@ -46,3 +30,33 @@
     set_fact:
       snort_ami: >
         {{ amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: BLOCK FOR CHECK POINT AMI
+  block:
+  - name: find ami for check point management server (SECURITY MODE)
+    ec2_ami_facts:
+      region: "{{ ec2_region }}"
+      owners: "679593333241"
+      filters:
+        name: "Check Point CloudGuard IaaS*PAYG-MGMT*R80.20*"
+        architecture: "x86_64"
+    register: checkpoint_mgmt_ami_list
+
+  - name: save ami for check point management server (SECURITY MODE)
+    set_fact:
+      checkpoint_mgmt_ami: >
+        {{ checkpoint_mgmt_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+      
+  - name: find ami for check point gateway (SECURITY MODE)
+    ec2_ami_facts:
+      region: "{{ ec2_region }}"
+      owners: "679593333241"
+      filters:
+        name: "Check Point CloudGuard IaaS GW*PAYG-NGTX*R80.20*"
+        architecture: "x86_64"
+    register: checkpoint_gw_ami_list
+
+  - name: save ami for check point gw (SECURITY MODE)
+    set_fact:
+      checkpoint_gw_ami: >
+        {{ checkpoint_gw_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

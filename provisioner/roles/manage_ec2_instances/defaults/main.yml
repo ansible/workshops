@@ -44,9 +44,13 @@ ec2_info:
     ami: "{{arista_ami | default(omit)}}"
     os: eos
     username: ec2-user
-  checkpoint:
+  checkpoint-mgmt:
     size: m5.xlarge
-    ami: "{{checkpoint_ami| default(omit)}}"
+    ami: "{{checkpoint_mgmt_ami| default(omit)}}"
+    username: admin
+  checkpoint-gw:
+    size: c5.large
+    ami: "{{checkpoint_gw_ami| default(omit)}}"
     username: admin
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7-tower:

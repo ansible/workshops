@@ -119,8 +119,8 @@
       short_name: "checkpoint-mgmt"
       username: "{{ec2_info.checkpoint-mgmt.username}}"
   with_indexed_items:
-    - "{{ checkpoint_output.instance_ids }}"
-  when: checkpoint_output.instance_ids is not none
+    - "{{ checkpoint_mgmt_output.instance_ids }}"
+  when: checkpoint_mgmt_output.instance_ids is not none
 
 ##############Check Point CloudGuard IaaS Gateway ##############
 - name: Create EC2 instances for Check Point CloudGuard Gateway
@@ -137,7 +137,7 @@
       Workshop_security: "{{ec2_name_prefix}}-security"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-  register: checkpoint_output
+  register: checkpoint_gw_output
 
 - name: Ensure tags are present for Check Point CloudGuard Security Management node (SECURITY MODE)
   ec2_tag:

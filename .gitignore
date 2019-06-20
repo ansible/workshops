@@ -17,3 +17,5 @@ ansible/
 *.retry
 demos/servicenow/private.yml
 *.html
+demos/servicenow/closed_loop_incident_mgmt/input_vars.yaml
+demos/servicenow/closed_loop_incident_mgmt/snow_demo2/snow_vars.yaml

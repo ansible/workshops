@@ -206,7 +206,6 @@
 
 - name: POPULATE TOWER STEP ONE
   hosts: control_nodes
-  connection: local
   gather_facts: no
 
   tasks:
@@ -239,7 +238,6 @@
 
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
-  connection: local
   gather_facts: no
 
   tasks:

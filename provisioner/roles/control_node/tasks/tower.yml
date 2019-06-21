@@ -42,3 +42,7 @@
   until: check2.json is defined
   retries: 10
   delay: 30
+
+- name: Display /api/v2/ping results
+  debug:
+    msg: '{{ check2.json }}'

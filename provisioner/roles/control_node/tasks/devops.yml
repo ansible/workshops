@@ -21,6 +21,9 @@
   file:
     state: directory
     path: "/home/{{ username }}/devops-workshop/lab_inventory"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
 
 - name: Put student inventory in proper spot
   copy:

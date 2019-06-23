@@ -1,0 +1,18 @@
+---
+- name: REMOVE DNS ENTRIES FOR DEVOPS URLS
+  include_tasks: teardown.yml
+  when: teardown|bool
+
+- name: DNS FOR DEVOPS
+  become: False
+  route53:
+    state: "{{ s3_state }}"
+    zone: "{{ workshop_dns_zone }}"
+    record: "{{ item }}.{{ username }}-{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+    type: A
+    overwrite: no
+    value: "{{ansible_host}}"
+  delegate_to: localhost
+  loop:
+    - dev
+    - prod

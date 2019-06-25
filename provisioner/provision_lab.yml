@@ -63,6 +63,15 @@
        - autolicense is defined
        - autolicense
 
+    - name: Install required roles onto THIS machine
+      shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+      loop:
+        - 'geerlingguy.repo-epel'
+        - 'ansible_security.ids_config'
+        - 'ansible_security.ids_install'
+      when:
+        - workshop_type == "security"
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
@@ -178,6 +187,38 @@
       when:
         - workshop_type == "networking"
         - ansible_network_os == "ios" or ansible_network_os == "eos"
+
+- name: INSTALL AND CONFIGURE SPLUNK ENTERPRISE
+  hosts: splunk
+  become: true
+  gather_facts: no
+  roles:
+    - role: splunk_enterprise
+      when:
+        - workshop_type == "security"
+
+- name: INSTALL AND CONFIGURE SNORT
+  hosts: snort
+  become: true
+  vars:
+    ids_config_snort_version: '2.9.13'
+    ids_install_provider: "snort"
+    ids_install_normalize_logs: True
+    ids_install_snort_user: root
+    ids_install_snort_group: root
+  tasks:
+    - block:
+      - name: setup epel for snort ecosystem rule lifecycling
+        import_role:
+          name: "geerlingguy.repo-epel"
+      - name: import ids_install role
+        import_role:
+          name: "ansible_security.ids_install"
+      - name: import ids_config role
+        import_role:
+          name: "ansible_security.ids_config"
+      when:
+        - workshop_type == "security"
 
 - name: CHANGE JUNIPER PASSWORD
   hosts: routers

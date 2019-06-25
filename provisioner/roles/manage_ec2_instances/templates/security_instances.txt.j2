@@ -1,0 +1,34 @@
+[all:vars]
+ansible_user=student{{ item }}
+ansible_ssh_pass={{ admin_password }}
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+[siem]
+{% for vm in splunk_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+splunk ansible_host={{ vm.public_ip_address }} ansible_user=admin private_ip={{ vm.private_ip_address }} ansible_ssh_pass=admin
+{% endif %}
+{% endfor %}
+
+[control]
+{% for vm in ansible_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+ansible ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
+{% endif %}
+{% endfor %}
+
+[ids]
+{% for vm in snort_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+snort ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
+{% endif %}
+{% endfor %}
+
+[firewalls]
+{% for vm in checkpoint_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+checkpoint ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
+{% endif %}
+{% endfor %}

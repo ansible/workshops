@@ -1,0 +1,9 @@
+workshop_type: 'security'
+ec2_region: us-east-1
+ec2_name_prefix: securitysample
+student_total: 2
+## Optional Variables
+admin_password: ansible
+create_login_page: false
+autolicense: false
+towerinstall: true

@@ -1,6 +1,0 @@
----
-# handlers file for snort-config
-- name: restart snort
-  service:
-    name: snort
-    state: restarted

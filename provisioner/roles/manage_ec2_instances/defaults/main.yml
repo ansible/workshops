@@ -73,7 +73,7 @@ ec2_info:
     owners: 309956199498
     size: c4.4xlarge
     os_type: linux
-    disk_space: 10
+    disk_space: 200
     architecture: x86_64
     filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2'
     username: ec2-user

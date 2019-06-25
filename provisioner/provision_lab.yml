@@ -50,6 +50,15 @@
        - autolicense is defined
        - autolicense
 
+    - name: Install required roles onto THIS machine
+      shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+      loop:
+        - 'geerlingguy.repo-epel'
+        - 'ansible_security.ids_config'
+        - 'ansible_security.ids_install'
+      when:
+        - workshop_type == "security"
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local

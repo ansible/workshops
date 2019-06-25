@@ -1,0 +1,14 @@
+---
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: RWOLTERS-SECURITY
+admin_password: RedHat19
+student_total: 1
+workshop_type: security
+## Optional Variables
+create_login_page: true
+# when towerinstall is on, this will license it with provided license
+autolicense: true
+# this will install Ansible Tower on all control nodes
+towerinstall: true

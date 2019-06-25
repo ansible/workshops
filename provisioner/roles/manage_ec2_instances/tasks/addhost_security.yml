@@ -20,7 +20,7 @@
     filters:
       instance-state-name: running
       "tag:Workshop_checkpoint": "{{ec2_name_prefix}}-security"
-  register: secruity_node_facts
+  register: checkpoint_node_facts
 
 - debug:
     var: splunk_node_facts.instances
@@ -72,7 +72,7 @@
     groups:
       - checkpoint
       - firewall
-  loop: "{{ security_node_facts.instances|flatten(levels=1) }}"
+  loop: "{{ checkpoint_node_facts.instances|flatten(levels=1) }}"
 
 - name: Generate student inventories
   template:

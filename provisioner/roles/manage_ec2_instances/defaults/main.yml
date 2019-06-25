@@ -44,11 +44,11 @@ ec2_info:
     ami: "{{arista_ami | default(omit)}}"
     os: eos
     username: ec2-user
-  checkpoint-mgmt:
+  checkpoint_mgmt:
     size: m5.xlarge
     ami: "{{checkpoint_mgmt_ami| default(omit)}}"
     username: admin
-  checkpoint-gw:
+  checkpoint_gw:
     size: c5.large
     ami: "{{checkpoint_gw_ami| default(omit)}}"
     username: admin

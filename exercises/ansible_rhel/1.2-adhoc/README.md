@@ -76,7 +76,7 @@ timeout = 60
 deprecation_warnings = False
 host_key_checking = False
 retry_files_enabled = False
-inventory = /home/student<X>/lightbulb/lessons/lab_inventory/student1-instances.txt
+inventory = /home/student<X>/lab_inventory/hosts
 ```
 
 There are multiple configuration flags provided. Most of them are not of interest here, but make sure to note the last line: there the location of the inventory is provided. That is the way Ansible knew in the previous commands what machines to connect to.
@@ -84,7 +84,7 @@ There are multiple configuration flags provided. Most of them are not of interes
 Output the content of your dedicated inventory to proof-read 
 
 ```bash
-[student<X>@ansible ~]$ cat /home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt
+[student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
 [all:vars]
 ansible_user=student<X>
 ansible_ssh_pass=ansible
@@ -107,7 +107,7 @@ ansible ansible_host=44.55.66.77
 
 > **Warning**
 > 
-> **Don’t forget to run the commands from the home directory of your student user, `/home/student\<X\>`. THat is where your `.ansible.cfg` file is located, without it Ansible will not know what which inventory to use.**
+> **Don’t forget to run the commands from the home directory of your student user, `/home/student\<X\>`. That is where your `.ansible.cfg` file is located, without it Ansible will not know what which inventory to use.**
 
 Let's start with something really basic - pinging a host. To do that we use the Ansible `ping` module. The `ping` module makes sure our web hosts are responsive. Basically, it connects to the managed host, executes a small script there and collects the results. That way it is ensured that the managed host is reachable and that Ansible is able to execute commands properly on it.
 

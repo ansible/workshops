@@ -129,9 +129,11 @@
     group: "{{ansible_user}}"
     mode: 0700
 
-- name: setup /etc/hosts file per student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
-    dest: "/etc/hosts"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE - IF NEEDED
+#
+#- name: setup /etc/hosts file per student
+#  copy:
+#    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+#    dest: "/etc/hosts"
+#    owner: "{{ username }}"
+#    group: "{{ username }}"

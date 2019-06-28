@@ -146,4 +146,4 @@ ansible_connection=network_cli
 You have completed lab exercise 1.0
 
 ---
-[Click Here to return to the Ansible Network Automation Workshop](../../README.md)
+[Click Here to return to the Ansible Network Automation Workshop](../README.md)

@@ -117,7 +117,7 @@
       short_name: "checkpoint_mgmt"
       username: "{{ec2_info.checkpoint_mgmt.username}}"
       short_name: "checkpoint-mgmt"
-      username: "{{ec2_info.checkpoint-mgmt.username}}"
+      username: "{{ec2_info.checkpoint_mgmt.username}}"
   with_indexed_items:
     - "{{ checkpoint_mgmt_output.instance_ids }}"
   when: checkpoint_mgmt_output.instance_ids is not none

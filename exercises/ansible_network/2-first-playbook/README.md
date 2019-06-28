@@ -4,7 +4,7 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
-- [Playbook Output](#playbook-output)
+- [Takeaways](#Takeaways)
 - [Solution](#solution)
 
 # Objective
@@ -12,7 +12,7 @@
 Use Ansible to update the configuration of routers.
 
 This exercise will cover
-- creation of a simple Ansible Playbook
+- creation of a simple Ansible Playbook using the [ios_config module](https://docs.ansible.com/ansible/latest/modules/ios_config_module.html)
 - executing an Ansible Playbook on the command line using the `ansible-playbook` command
 - check mode (the `--check` parameter)
 - verbose mode (the `--verbose` or `-v` parameter)

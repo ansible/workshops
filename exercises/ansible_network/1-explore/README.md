@@ -9,7 +9,12 @@ Navigate to the `networking-workshop` directory.
 ```
 [student1@ansible ~]$ cd networking-workshop/
 [student1@ansible networking-workshop]$
+[student1@ansible networking-workshop]$ pwd
+/home/student1/networking-workshop
 ```
+
+ - `cd` - Linux command to change directory
+ - `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
 ## Step 2
 

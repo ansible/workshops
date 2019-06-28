@@ -193,9 +193,11 @@ interface {{ key }}
 - Variables are rendered with the curly braces like this: `{{ variable_here }}`  In this case the variable name key and value only exist in the context of the loop.  Outside of the loop those two variables don't exist.  Each iteration will re-assign the variable name to new values based on what we have in our variables.
 
 Finally:
+{% raw %}
 ```
 {% endfor %}
 ```
+{% endraw %}
 
 - In Jinja we need to specify the end of the loop.  You can also use loops within loops, but in general it is best practice to keep your Jinja templates as simple as possible.  Rather than having a single very complex template that covers all use-cases, it usually will make more sense to have multiple Jinja templates.
 
@@ -211,6 +213,7 @@ Create the Ansible Playbook:
 
 Feel free to cut and paste this Ansible Playbook:
 
+{% raw %}
 ```
 ---
 - hosts: cisco
@@ -221,6 +224,7 @@ Feel free to cut and paste this Ansible Playbook:
       cli_config:
         config: "{{ lookup('template', 'template.j2') }}"
 ```
+{% endraw %}
 
 To run the playbook use the `ansible-playbook` command:
 

@@ -1,8 +1,6 @@
-# ANSIBLE LINKLIGHT
+# RED HAT ANSIBLE WORKSHOPS
 
-![linklight](images/linklight.png)
-
-The Red Hat Ansible Automation Linklight project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.  
+The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.  
 
 
 # INSTRUCTOR LED WORKSHOPS:
@@ -19,9 +17,6 @@ The Red Hat Ansible Automation Linklight project is intended for effectively dem
 # SELF-PACED EXERCISES:
 
   * [Vagrant Demo](vagrant-demo) - Self-paced networking exercises that can be run on your personal laptop
-
-# SLACK
-Do you like Slack?  So do we! [click to join our ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
 
 ---
 ![Red Hat Ansible Automation](images/rh-ansible-automation.png)

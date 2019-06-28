@@ -6,12 +6,9 @@ Before you get started, please join us on slack! [Click here to join the ansible
 
 Navigate to the `networking-workshop` directory.
 
-
 ```
 [student1@ansible ~]$ cd networking-workshop/
 [student1@ansible networking-workshop]$
-[student1@ansible networking-workshop]$
-
 ```
 
 ## Step 2
@@ -20,20 +17,15 @@ Run the `ansible` command with the `--version` command to look at what is config
 
 
 ```
-[student1@ansible networking-workshop]$ ansible --version
-ansible 2.6.2
+ansible 2.8.1
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python2.7/site-packages/ansible
   executable location = /usr/bin/ansible
-  python version = 2.7.5 (default, May  3 2017, 07:55:04) [GCC 4.8.5 20150623 (Red Hat 4.8.5-14)]
-[student1@ansible networking-workshop]$
-
-
+  python version = 2.7.5 (default, Jun 11 2019, 12:19:05) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
 ```
 
 > Note: The ansible version you see might differ from the above output
-
 
 This command gives you information about the version of Ansible, location of the executable, version of Python, search path for the modules and location of the `ansible configuration file`.
 
@@ -42,23 +34,24 @@ This command gives you information about the version of Ansible, location of the
 Use the `cat` command to view the contents of the `ansible.cfg` file.
 
 ```
-[student1@ansible networking-workshop]$ cat ~/.ansible.cfg
+[student1@ansible ~]$ cat ~/.ansible.cfg
 [defaults]
+stdout_callback = yaml
 connection = smart
 timeout = 60
-inventory = /home/student1/networking-workshop/lab_inventory/hosts
+deprecation_warnings = False
 host_key_checking = False
-private_key_file = /home/student1/.ssh/aws-private.pem
-[student1@ansible networking-workshop]$
-
+retry_files_enabled = False
+inventory = /home/student1/networking-workshop/lab_inventory/hosts
+[persistent_connection]
+connect_timeout = 60
+command_timeout = 60
 ```
 
 Note the following parameters within the `ansible.cfg` file:
 
  - `inventory`: shows the location of the ansible inventory being used
  - `private_key_file`: this shows the location of the private key used to login to devices
-
-
 
 ## Step 4
 

@@ -167,9 +167,12 @@ Save this Jinja template so we can use it below.
 
 First, lets break down this template line by line:
 
+{% raw %}
 ```yaml
 {% for key,value in nodes[inventory_hostname].iteritems() %}
 ```
+{% endraw %}
+
 
 - Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The `key,value` allows us to break down the dictionary into a key named key and a value named value.  We can use both the key (an interface name, e.g. Loopback500) and the value (an ip address, e.g. 192.168.100.1/32).
 

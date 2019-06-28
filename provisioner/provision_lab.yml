@@ -218,13 +218,13 @@
   tasks:
     - block:
       - name: setup epel for snort ecosystem rule lifecycling
-        import_role:
+        include_role:
           name: "geerlingguy.repo-epel"
       - name: import ids_install role
-        import_role:
+        include_role:
           name: "ansible_security.ids_install"
       - name: import ids_config role
-        import_role:
+        include_role:
           name: "ansible_security.ids_config"
       when:
         - workshop_type == "security"

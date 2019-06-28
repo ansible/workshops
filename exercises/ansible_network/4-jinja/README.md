@@ -173,8 +173,9 @@ First, lets break down this template line by line:
 ```
 {% endraw %}
 
-
+{% raw %}
 - Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The `key,value` allows us to break down the dictionary into a key named key and a value named value.  We can use both the key (an interface name, e.g. Loopback500) and the value (an ip address, e.g. 192.168.100.1/32).
+{% endraw %}
 
 - The `nodes[inventory_hostname]` allows us to do a lookup in our `group_vars/all.yml` file.  As you build Ansible Playbook variables you can make the choice to break up variables into `host_vars` files per host or using larger aggregated `group_vars`.  In practice you will see a mix of both depending on the use-case.  Your instructor can elaborate on storing variables and the data models he or she has seen in practice.  In general the simpler the data model the more consumable it will be by other Ansible Playbook writers.
 

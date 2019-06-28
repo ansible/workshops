@@ -29,15 +29,12 @@
 
 
 ```
-[student1@ansible networking-workshop]$ ansible --version
-ansible 2.6.2
+ansible 2.8.1
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python2.7/site-packages/ansible
   executable location = /usr/bin/ansible
-  python version = 2.7.5 (default, May  3 2017, 07:55:04) [GCC 4.8.5 20150623 (Red Hat 4.8.5-14)]
-
-[student1@ansible networking-workshop]$
+  python version = 2.7.5 (default, Jun 11 2019, 12:19:05) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
 ```
 
 > Note: 表示される ansible version は上記のものと異なる可能性があります。

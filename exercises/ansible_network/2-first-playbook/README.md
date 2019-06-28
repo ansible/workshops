@@ -1,6 +1,23 @@
-# Exercise 2.0 - Updating the router configurations using Ansible
+# Exercise 2 - First Ansible Playbook
 
-Using Ansible you can update the configuration of routers either by pushing a configuration file to the device or you can push configuration lines directly to the device.
+## Table of Contents
+
+- [Objective](#objective)
+- [Guide](#guide)
+- [Playbook Output](#playbook-output)
+- [Solution](#solution)
+
+# Objective
+
+Use Ansible to update the configuration of routers.
+
+This exercise will cover
+- creation of a simple Ansible Playbook
+- executing an Ansible Playbook on the command line using the `ansible-playbook` command
+- check mode (the `--check` parameter)
+- verbose mode (the `--verbose` or `-v` parameter)
+
+# Guide
 
 #### Step 1
 
@@ -9,11 +26,10 @@ Create a new file called `router_configs.yml` (use either `vim` or `nano` on the
 
 ``` yaml
 ---
-- name: SNMP RO/RW STRING CONFIGURATION
+- name: snmp ro/rw string configuration
   hosts: cisco
   gather_facts: no
   connection: network_cli
-
 ```
 
 #### Step 2
@@ -24,288 +40,187 @@ Add a task to ensure that the SNMP strings `ansible-public` and `ansible-private
 
 
 ``` yaml
-
 ---
-- name: SNMP RO/RW STRING CONFIGURATION
+- name: snmp ro/rw string configuration
   hosts: cisco
   gather_facts: no
   connection: network_cli
 
   tasks:
 
-    - name: ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT
+    - name: ensure that the desired snmp strings are present
       ios_config:
         commands:
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
-
 ```
 
 #### Step 3
 
 Run the playbook:
 
-``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml
+```bash
+[student1@ansible networking-workshop]$ ansible-playbook router_configs.yml
 
-PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************
+PLAY [snmp ro/rw string configuration] *****************************************
 
-TASK [ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT] *************************************************
-changed: [rtr4]
+TASK [ensure that the desired snmp strings are present] ************************
 changed: [rtr1]
-changed: [rtr3]
-changed: [rtr2]
 
-PLAY RECAP **********************************************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr2                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr3                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr4                       : ok=1    changed=1    unreachable=0    failed=0   
-
-[student1@ansible networking-workshop]$
-
+PLAY RECAP *********************************************************************
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
-
-Feel free to log in and check the configuration update.
-
 
 #### Step 4
 
-The `ios_config` module is idempotent. This means, a configuration change is  pushed to the device if and only if that configuration does not exist on the end hosts. To validate this, go ahead and re-run the playbook:
+Verify that the Ansible Playbook worked.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
 
+```bash
+[student1@ansible networking-workshop]$ ssh rtr1
 
-``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
-
-PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
-
-TASK [ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT] *************************************************************************************************************************************
-ok: [rtr1]
-ok: [rtr2]
-ok: [rtr4]
-ok: [rtr3]
-
-PLAY RECAP **********************************************************************************************************************************************************************************
-rtr1                       : ok=1    changed=0    unreachable=0    failed=0   
-rtr2                       : ok=1    changed=0    unreachable=0    failed=0   
-rtr3                       : ok=1    changed=0    unreachable=0    failed=0   
-rtr4                       : ok=1    changed=0    unreachable=0    failed=0   
-
-[student1@ansible networking-workshop]$
-
-
-
+rtr1#show run | i snmp
+snmp-server community ansible-public RO
+snmp-server community ansible-private RW
 ```
-
-> Note: See that the **changed** parameter in the **PLAY RECAP** indicates 0 changes.
 
 
 #### Step 5
 
-Now update the task to add one more SNMP RO community string:
+The `ios_config` module is idempotent. This means, a configuration change is pushed to the device if and only if that configuration does not exist on the end hosts.
 
+>Need help with Ansible Automation terminology?  Check out the [glossary here](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) for more information on terms like idempotency.
+
+To validate the concept of idempotency, re-run the playbook:
+
+```bash
+[student1@ansible networking-workshop]$  ansible-playbook router_configs.yml
+
+PLAY [snmp ro/rw string configuration] **************************************************************************************
+
+TASK [ensure that the desired snmp strings are present] *********************************************************************
+ok: [rtr1]
+
+PLAY RECAP ******************************************************************************************************************
+rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[student1@ansible networking-workshop]$
+```
+
+> Note: See that the **changed** parameter in the **PLAY RECAP** indicates 0 changes.
+
+Re-running the Ansible Playbook multiple times will result in the same exact output, with **ok=1** and **change=0**.  Unless another operator or process removes or modifies the existing configuration on rtr1, this Ansible Playbook will just keep reporting **ok=1** indicating that the configuration already exists and is configured correctly on the network device.  
+
+
+#### Step 6
+
+Now update the task to add one more SNMP RO community string named `ansible-test`:
+
+```
+snmp-server community ansible-test RO
+```
+
+The Ansible Playbook will look like this:
 
 ``` yaml
 ---
-- name: UPDATE THE SNMP RO/RW STRINGS
+- name: snmp ro/rw string configuration
   hosts: cisco
   gather_facts: no
   connection: network_cli
 
   tasks:
 
-    - name: ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT
+    - name: ensure that the desired snmp strings are present
       ios_config:
         commands:
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
           - snmp-server community ansible-test RO
-
 ```
 
-
-
-#### Step 6
+#### Step 7
 
 This time however, instead of running the playbook to push the change to the device, execute it using the `--check` flag in combination with the `-v` or verbose mode flag:
 
 
-``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  --check -v
+```bash
+[student1@ansible networking-workshop]$ ansible-playbook router_configs.yml --verbose --check
 Using /home/student1/.ansible.cfg as config file
 
-PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
+PLAY [snmp ro/rw string configuration] *****************************************
 
-TASK [ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT] *************************************************************************************************************************************
-changed: [rtr3] => {"banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"], "updates": ["snmp-server community ansible-test RO"]}
-changed: [rtr1] => {"banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"], "updates": ["snmp-server community ansible-test RO"]}
-changed: [rtr2] => {"banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"], "updates": ["snmp-server community ansible-test RO"]}
-changed: [rtr4] => {"banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"], "updates": ["snmp-server community ansible-test RO"]}
+TASK [ensure that the desired snmp strings are present] ************************
+changed: [rtr1] => changed=true
+  ansible_facts:
+    discovered_interpreter_python: /usr/bin/python
+  banners: {}
+  commands:
+  - snmp-server community ansible-test RO
+  updates:
+  - snmp-server community ansible-test RO
 
-PLAY RECAP **********************************************************************************************************************************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr2                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr3                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr4                       : ok=1    changed=1    unreachable=0    failed=0   
-
-[student1@ansible networking-workshop]$
-
+PLAY RECAP *********************************************************************
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-The `--check` mode in combination with the `-v` flag will display the exact changes that will be deployed to the end device without actually pushing the change. This is a great technique to validate the changes you are about to push to a device before pushing it.
-
-> Go ahead and log into a couple of devices to validate that the change has not been pushed.
-
-
-Also note that even though 3 commands are being sent to the device as part of the task, only the one command that is missing on the devices will be pushed.
-
-
-#### Step 7
-
-Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
-
-``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
-
-PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
-
-TASK [ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT] *************************************************************************************************************************************
-changed: [rtr1]
-changed: [rtr2]
-changed: [rtr4]
-changed: [rtr3]
-
-PLAY RECAP **********************************************************************************************************************************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr2                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr3                       : ok=1    changed=1    unreachable=0    failed=0   
-rtr4                       : ok=1    changed=1    unreachable=0    failed=0   
-
-[student1@ansible networking-workshop]$
-```
-
+The `--check` mode in combination with the `--verbose` flag will display the exact changes that will be deployed to the end device without actually pushing the change. This is a great technique to validate the changes you are about to push to a device before pushing it.
 
 #### Step 8
 
-Rather than push individual lines of configuration, an entire configuration snippet can be pushed to the devices. Create a file called `secure_router.cfg` in the same directory as your playbook and add the following lines of configuration into it:
+Verify that the Ansible Playbook did not apply the `ansible-test` community.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
 
-``` shell
-line con 0
- exec-timeout 5 0
-line vty 0 4
- exec-timeout 5 0
- transport input ssh
-ip ssh time-out 60
-ip ssh authentication-retries 5
-service password-encryption
-service tcp-keepalives-in
-service tcp-keepalives-out
+```bash
+[student1@ansible networking-workshop]$ ssh rtr1
 
+rtr1#show run | i snmp
+snmp-server community ansible-public RO
+snmp-server community ansible-private RW
 ```
 
 
 #### Step 9
 
-Remember that a playbook contains a list of plays. Add a new play called `HARDEN IOS ROUTERS` to the `router_configs.yml` playbook.
+Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
 
-``` yaml
+```bash
+[student1@ansible networking-workshop]$ ansible-playbook router_configs.yml
 
----
-- name: UPDATE THE SNMP RO/RW STRINGS
-  hosts: cisco
-  gather_facts: no
-  connection: network_cli
+PLAY [snmp ro/rw string configuration] *****************************************
 
-  tasks:
+TASK [ensure that the desired snmp strings are present] ************************
+changed: [rtr1]
 
-    - name: ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT
-      ios_config:
-        commands:
-          - snmp-server community ansible-public RO
-          - snmp-server community ansible-private RW
-          - snmp-server community ansible-test RO
-
-
-- name: HARDEN IOS ROUTERS
-  hosts: cisco
-  gather_facts: no
-  connection: network_cli
-
-
-
+PLAY RECAP ******************************************************************************************************************
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 #### Step 10
 
-Add a task to this new play to push the configurations in the `secure_router.cfg` file you created in **STEP 8**
+Verify that the Ansible Playbook applied `ansible-test` community.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
 
+```bash
+[student1@ansible networking-workshop]$ ssh rtr1
 
-``` yaml
----
-- name: UPDATE THE SNMP RO/RW STRINGS
-  hosts: cisco
-  gather_facts: no
-  connection: network_cli
-
-  tasks:
-
-    - name: ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT
-      ios_config:
-        commands:
-          - snmp-server community ansible-public RO
-          - snmp-server community ansible-private RW
-          - snmp-server community ansible-test RO
-
-
-- name: HARDEN IOS ROUTERS
-  hosts: cisco
-  gather_facts: no
-  connection: network_cli
-
-  tasks:
-
-    - name: ENSURE THAT ROUTERS ARE SECURE
-      ios_config:
-        src: secure_router.cfg
+rtr1#sh run | i snmp
+snmp-server community ansible-public RO
+snmp-server community ansible-private RW
+snmp-server community ansible-test RO
 ```
 
+# Takeaways
 
-#### Step 11
+- the **os_config** modules are idempotent, meaning they are stateful
+- **check mode** ensures the Ansible Playbook does not make any changes on the remote systems
+- **verbose mode** allows us to see more output to the terminal window, including which commands would be applied
+- This Ansible Playbook could be scheduled in **Red Hat Ansible Tower** to enforce the configuration.  For example this could mean the Ansible Playbook could be run once a day for a particular network.  In combination with **check mode** this could just be a read only Ansible Playbook that sees and reports if configuration is missing or modified on the network.
 
-Go ahead and run the playbook.
+# Solution
 
-``` shell
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_configs.yml  
-
-PLAY [UPDATE THE SNMP RO/RW STRINGS] ********************************************************************************************************************************************************
-
-TASK [ENSURE THAT THE DESIRED SNMP STRINGS ARE PRESENT] *************************************************************************************************************************************
-ok: [rtr3]
-ok: [rtr2]
-ok: [rtr1]
-ok: [rtr4]
-
-PLAY [HARDEN IOS ROUTERS] *******************************************************************************************************************************************************************
-
-TASK [ENSURE THAT ROUTERS ARE SECURE] *******************************************************************************************************************************************************
-changed: [rtr4]
-changed: [rtr3]
-changed: [rtr2]
-changed: [rtr1]
-
-PLAY RECAP **********************************************************************************************************************************************************************************
-rtr1                       : ok=2    changed=1    unreachable=0    failed=0   
-rtr2                       : ok=2    changed=1    unreachable=0    failed=0   
-rtr3                       : ok=2    changed=1    unreachable=0    failed=0   
-rtr4                       : ok=2    changed=1    unreachable=0    failed=0   
-
-[student1@ansible networking-workshop]$
-
-```
+The finished Ansible Playbook is provided here for an answer key.  Click here: [router_configs.yml](router_configs.yml).
 
 # Complete
 
-You have completed lab exercise 2.0
+You have completed lab exercise 2
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)
+[Click here to return to the Ansible Network Automation Workshop](../README.md)

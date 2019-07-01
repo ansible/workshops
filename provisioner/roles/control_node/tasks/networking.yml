@@ -53,7 +53,7 @@
     accept_hostkey: yes
     clone: yes
     dest: /tmp/linklight
-    repo: https://github.com/network-automation/linklight.git
+    repo: https://github.com/ansible/workshops.git
     force: yes
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)

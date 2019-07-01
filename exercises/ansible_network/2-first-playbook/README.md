@@ -218,9 +218,10 @@ snmp-server community ansible-test RO
 
 The finished Ansible Playbook is provided here for an answer key.  Click here: [router_configs.yml](router_configs.yml).
 
+---
+
 # Complete
 
 You have completed lab exercise 2
 
----
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

@@ -1,6 +1,33 @@
 # Exercise 1 - Exploring the lab environment
 
+## Table of Contents
+
+- [Objective](#objective)
+- [Diagram](#diagram)
+- [Guide](#guide)
+- [Takeaways](#Takeaways)
+
+# Objective
+
+Explore and understand the lab environment
+
+This exercise will cover
+- Determining the Ansible version running on the control node
+- Locating and understanding the Ansible configuration file (`ansible.cfg`)
+- Locating and understanding an `ini` formatted inventory file
+
 Before you get started, please join us on slack! [Click here to join the ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE).  This will allow you to chat with other network automation engineers and get help after the workshops concludes.
+
+# Diagram
+
+![Red Hat Ansible Automation Lab Diagram](../../../images/network_diagram.png)
+
+There are four routers, named rtr1, rtr2, rtr3 and rtr4.  This diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (~/.ssh/config) is already setup so you can easily SSH to any router from the control node.
+
+For example to connect to rtr1 simply type `ssh rtr1`
+This will not require a username or password.
+
+# Guide
 
 ## Step 1
 
@@ -148,7 +175,7 @@ ansible_connection=network_cli
 
 # Complete
 
-You have completed lab exercise 1.0
+You have completed lab exercise 1
 
 ---
 [Click Here to return to the Ansible Network Automation Workshop](../README.md)

@@ -9,10 +9,10 @@
 
 # Objective
 
-Use Ansible to update the configuration of routers.
+Use Ansible to update the configuration of routers.  This exercise will not create an Ansible Playbook, but use an existing provided one.
 
 This exercise will cover
-- creation of a simple Ansible Playbook using the [ios_config module](https://docs.ansible.com/ansible/latest/modules/ios_config_module.html)
+- examining an existing Ansible Playbook
 - executing an Ansible Playbook on the command line using the `ansible-playbook` command
 - check mode (the `--check` parameter)
 - verbose mode (the `--verbose` or `-v` parameter)
@@ -21,25 +21,17 @@ This exercise will cover
 
 #### Step 1
 
-Create a new file called `router_configs.yml` (use either `vim` or `nano` on the jumphost to do this or use a local editor on your laptop and copy the contents to the jumphost later). Add the following play definition to it:
+Navigate to the `networking-workshop` directory if you are not already there.
 
-
-``` yaml
----
-- name: snmp ro/rw string configuration
-  hosts: cisco
-  gather_facts: no
-  connection: network_cli
+```bash
+[student1@ansible networking-workshop]$ pwd
+/home/student1/networking-workshop
 ```
 
-#### Step 2
+Examine the provided Ansible Playbook named `playbook.yml`.  Feel free to use your text editor of choice to open the file.  The sample below will use the Linux `cat` command.
 
-Add a task to ensure that the SNMP strings `ansible-public` and `ansible-private` are present on all the routers. Use the `ios_config` module for this task
-
-> Note: For help on the **ios_config** module, use the **ansible-doc ios_config** command from the command line or check docs.ansible.com. This will list all possible options with usage examples.
-
-
-``` yaml
+```bash
+[student1@ansible networking-workshop]$ cat playbook.yml
 ---
 - name: snmp ro/rw string configuration
   hosts: cisco
@@ -55,12 +47,22 @@ Add a task to ensure that the SNMP strings `ansible-public` and `ansible-private
           - snmp-server community ansible-private RW
 ```
 
+ - `cat` - Linux command allowing us to view file contents
+ - `playbook.yml` - provided Ansible Playbook
+
+We will explore in detail the components of an Ansible Playbook in the next exercise.  It is suffice for now to see that this playbook will run two Cisco IOS-XE commands
+
+```
+snmp-server community ansible-public RO
+snmp-server community ansible-private RW
+```
+
 #### Step 3
 
-Run the playbook:
+Run the playbook using the `ansible-playbook` command:
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook router_configs.yml
+[student1@ansible networking-workshop]$ ansible-playbook playbook.yml
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -93,7 +95,7 @@ The `ios_config` module is idempotent. This means, a configuration change is pus
 To validate the concept of idempotency, re-run the playbook:
 
 ```bash
-[student1@ansible networking-workshop]$  ansible-playbook router_configs.yml
+[student1@ansible networking-workshop]$  ansible-playbook playbook.yml
 
 PLAY [snmp ro/rw string configuration] **************************************************************************************
 
@@ -113,13 +115,19 @@ Re-running the Ansible Playbook multiple times will result in the same exact out
 
 #### Step 6
 
-Now update the task to add one more SNMP RO community string named `ansible-test`:
+Now update the task to add one more SNMP RO community string named `ansible-test`.  
 
 ```
 snmp-server community ansible-test RO
 ```
 
-The Ansible Playbook will look like this:
+Use the text editor of your choice to open the `playbook.yml` file to add the command:
+
+```bash
+[student1@ansible networking-workshop]$ nano playbook.yml
+```
+
+The Ansible Playbook will now look like this:
 
 ``` yaml
 ---
@@ -144,7 +152,7 @@ This time however, instead of running the playbook to push the change to the dev
 
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook router_configs.yml --verbose --check
+[student1@ansible networking-workshop]$ ansible-playbook playbook.yml --verbose --check
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [snmp ro/rw string configuration] *****************************************
@@ -183,7 +191,7 @@ snmp-server community ansible-private RW
 Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook router_configs.yml
+[student1@ansible networking-workshop]$ ansible-playbook playbook.yml
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -216,7 +224,7 @@ snmp-server community ansible-test RO
 
 # Solution
 
-The finished Ansible Playbook is provided here for an answer key.  Click here: [router_configs.yml](router_configs.yml).
+The finished Ansible Playbook is provided here for an answer key.  Click here: [playbook.yml](playbook.yml).
 
 ---
 

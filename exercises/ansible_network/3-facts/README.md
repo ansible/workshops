@@ -1,4 +1,4 @@
-# Exercise 1.2 - Module documentation, Registering output & tags
+# Exercise 3 - Ansible Facts
 
 
 In the previous section you learned to use the `ios_facts` and the `debug` modules. The `debug` module had an input parameter called `msg` whereas the `ios_facts` module had no input parameters. As someone just starting out how would you know what these parameters were for a module?

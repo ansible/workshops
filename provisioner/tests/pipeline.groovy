@@ -33,7 +33,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                     userRemoteConfigs: [
                         [
                             credentialsId: 'd2d4d16b-dc9a-461b-bceb-601f9515c98a',
-                            url: 'git@github.com:Spredzy/workshops.git'
+                            url: 'git@github.com:ansible/workshops.git'
                         ]
                     ]
                 ])

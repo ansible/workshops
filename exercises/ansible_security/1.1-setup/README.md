@@ -4,12 +4,13 @@
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts:
 
-| Role                 | Inventory name |
-| ---------------------| ---------------|
-| Ansible Control Host | ansible        |
-| Managed Host 1       | node1          |
-| Managed Host 2       | node2          |
-| Managed Host 2       | node3          |
+| Role                         | Inventory name |
+| -----------------------------| ---------------|
+| Ansible Control Host         | |
+| Splunk Enterprise Security   | |
+| Snort                        | |
+| Ceck Point Management Server | |
+| Ceck Point Gateway           | |
 
 ## Step 1.1 - Access the Environment
 
@@ -23,7 +24,7 @@ Login to your control host via SSH:
 
 > **Tip**
 > 
-> The password is **ansible**
+> The password is **ansible** if not otherwise noted.
 
 Then become root:
 
@@ -62,15 +63,9 @@ You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
   - Don’t type everything manually, use copy & paste from the browser when appropriate. But don’t stop to think and understand.
 
-  - All labs where prepared using **Vim**, but we understand not everybody loves it. Feel free to use alternative editors, in the lab environment we provide **Midnight Commander** (just run **mc**, function keys can be reached via Esc-\<n\> or simply clicked with the mouse) or **Nano** (run **nano**). Here is a short [editor intro](../0.0-support-docs/editor_intro.md).
-
 > **Tip**
 > 
 > In the lab guide commands you are supposed to run are shown with or without the expected output, whatever makes more sense in the context.
-
-## Step 1.3 - Challenge Labs
-
-You will soon discover that many chapters in this lab guide come with a "Challenge Lab" section. These labs are meant to give you a small task to solve using what you have learned so far. The solution of the task is shown underneath a warning sign.
 
 ----
 

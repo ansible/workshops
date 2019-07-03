@@ -78,4 +78,4 @@ Add a line to the template to list the current kernel of the managed node.
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

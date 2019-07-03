@@ -22,7 +22,7 @@ The recommended practice to provide variables in the inventory is to define them
 
   - To e.g. define variables for a group "servers", create a YAML file named `group_vars/servers` with the variable definitions.
 
-  - To define variables specifically for a host "host1.example.com", create the file `host_vars/host1.example.com` with the variable definitions.
+  - To define variables specifically for a host `node1`, create the file `host_vars/node1` with the variable definitions.
 
 > **Tip**
 > 
@@ -32,7 +32,7 @@ The recommended practice to provide variables in the inventory is to define them
 
 For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​" you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
-On control.example.com as user ansible create the directories to hold the variable definitions in `~/ansible-files/`:
+On the ansible control host, as user ansible create the directories to hold the variable definitions in `~/ansible-files/`:
 
 ```bash
 [student<X>@ansible ansible-files]$ mkdir host_vars group_vars
@@ -227,4 +227,4 @@ node3                      : ok=2    changed=0    unreachable=0    failed=0
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

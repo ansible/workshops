@@ -42,7 +42,8 @@ Using roles in a Playbook is straight forward:
 
 ```yaml
 ---
-- hosts: remote.example.com
+- name: launch roles
+  hosts: web
   roles:
     - role1
     - role2
@@ -272,4 +273,4 @@ All looking good? Congratulations! You have successfully completed the Ansible E
 
 ---
 
-[Click Here to return to the Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

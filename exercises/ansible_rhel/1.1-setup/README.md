@@ -74,5 +74,4 @@ You will soon discover that many chapters in this lab guide come with a "Challen
 
 ----
 
-[Click Here to return to the Ansible Engine Workshop](../README.md)
-
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

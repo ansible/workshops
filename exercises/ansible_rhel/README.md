@@ -1,4 +1,4 @@
-# Ansible Linklight - Ansible for Red Hat Enterprise Linux
+# Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
 Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly. In this lab you will learn to use Ansible Engine for automation from the basics up to some more advanced concepts. After finishing this lab you are ready to start using Ansible for your automation requirements.
 

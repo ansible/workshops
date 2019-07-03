@@ -76,6 +76,18 @@ Add a line to the template to list the current kernel of the managed node.
        "ansible_kernel": "3.10.0-693.el7.x86_64",
 ```
 
+  - Modify the template `motd-facts.j2`:
+
+```bash
+Welcome to {{ ansible_hostname }}.
+{{ ansible_distribution }} {{ ansible_distribution_version}}
+deployed on {{ ansible_architecture }} architecture
+running kernel {{ ansible_kernel }}.
+```
+
+  - Run the playbook.
+  - Verify the new message via SSH login to `node1`.
+
 ---
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

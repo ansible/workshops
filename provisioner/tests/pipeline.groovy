@@ -9,6 +9,11 @@ pipeline {
             choices: ['devel', '3.5.0', '3.4.3']
         )
         string(
+            name: 'WORKSHOP_FORK',
+            description: 'Workshop fork to deploy from',
+            defaultValue: 'ansible'
+        )
+        string(
             name: 'WORKSHOP_BRANCH',
             description: 'Workshop branch to deploy',
             defaultValue: 'devel'
@@ -33,7 +38,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                     userRemoteConfigs: [
                         [
                             credentialsId: 'd2d4d16b-dc9a-461b-bceb-601f9515c98a',
-                            url: 'git@github.com:ansible/workshops.git'
+                            url: "git@github.com:${params.WORKSHOP_FORK}/workshops.git"
                         ]
                     ]
                 ])

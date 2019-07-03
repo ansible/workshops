@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
-- [Objective](#Objective)
-- [Guide](#Guide)
+- [Objective](#objective)
+- [Guide](#guide)
 - [Takeaways](#takeaways)
 
 # Objective
@@ -59,9 +59,11 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 
      Take note of the **VARIABLES** field. The `group_vars` are set here including the `ansible_connection` and `ansible_network_os` variable.
 
-If you prefer a small demonstration video outlining Red Hat Ansible Tower Inventories, please click below:
+Here is a walkthrough:
 
-[![Tower Inventory Video](https://img.youtube.com/vi/4JNbFNSUS9g/0.jpg)](https://youtu.be/4JNbFNSUS9g)
+![animation walkthrough ansible tower](images/inventory.gif)
+Prefer Youtube?  Click below
+https://youtu.be/4JNbFNSUS9g
 
 ## Step 3: Setting up a Project
 

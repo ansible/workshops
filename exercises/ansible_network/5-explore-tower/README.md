@@ -23,7 +23,7 @@ Open up your web browser and type in the Ansible control node's DNS name
 
 >For example if the student was assigned the student1 workbench and the workshop name was `durham-workshop` the link would be:
 
-**https://student1.durham-workshop.rhdemo.io**
+    **https://student1.durham-workshop.rhdemo.io**
 
 >This login information has been provided by the instructor at the beginning of class.
 

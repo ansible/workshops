@@ -21,8 +21,9 @@ Explore and understand the lab environment.  This exercise will cover
 
 Open up your web browser and type in the Ansible control node's DNS name
 
->For example if the student was assigned the student1 workbench and the workshop name was `durham-workshop`
-`https://student1.durham-workshop.rhdemo.io`
+>For example if the student was assigned the student1 workbench and the workshop name was `durham-workshop` the link would be:
+
+**https://student1.durham-workshop.rhdemo.io**
 
 >This login information has been provided by the instructor at the beginning of class.
 

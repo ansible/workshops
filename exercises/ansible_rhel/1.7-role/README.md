@@ -35,7 +35,7 @@ apache/
 The `main.yml` files contain content depending on the corresponding directory:  `vars/main.yml` references variables, `handlers/main.yaml` describes handlers, and so on. Note that in contrast to playbooks, the `main.yml` files only contain the specific content and not additional playbook information like hosts, `become` or other keywords.
 
 > **Tip**
-> 
+>
 > There are actually two directories for variables: `vars` and `default`: Default variables have the lowest precedence and usually contain default values set by the role authors and are often used when it is intended that their values will be overridden.. Variables can be set in either `vars/main.yml` or `defaults/main.yml`, but not in both places.
 
 Using roles in a Playbook is straight forward:
@@ -57,7 +57,7 @@ use.
 Ansible looks for roles in a subdirectory called `roles` in the project directory. This can be overridden in the Ansible configuration. Each role has its own directory. To ease creation of a new role the tool `ansible-galaxy` can be used.
 
 > **Tip**
-> 
+>
 > Ansible Galaxy is your hub for finding, reusing and sharing the best Ansible content. `ansible-galaxy` helps to interact with Ansible Galaxy. For now we'll just using it as a helper to build the directory structure.
 
 Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
@@ -90,12 +90,13 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 > **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete Playbooks!**
 
 > **Tip**
-> 
+>
 > Some of these tasks have been done in other parts of the lab, don't worry, it's about the learning experience.
 
 Edit the `tasks/main.yml` file:
 
 ```yaml
+---
 - name: install httpd
   yum:
     name: httpd
@@ -225,9 +226,9 @@ Create the HTML content that will be served by the webserver.
     DocumentRoot /var/www/vhosts/{{ ansible_hostname }}/
 
     <Directory /var/www/vhosts/{{ ansible_hostname }}/>
-	Options +Indexes +FollowSymlinks +Includes
-	Order allow,deny
-	Allow from all
+  Options +Indexes +FollowSymlinks +Includes
+  Order allow,deny
+  Allow from all
     </Directory>
 </VirtualHost>
 ```
@@ -255,18 +256,19 @@ You are ready to test the role against `node2`. But since a role cannot be assig
         msg: 'Web server has been configured.'
 ```
 
-Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles execute before the tasks of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed.
+Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles execute before the tasks of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.
 
 Now you are ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml 
+[student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml
 ```
 
-Run ad hoc commands to confirm that the role worked:
+Run a curl command against `node2` to confirm that the role worked:
 
 ```bash
 [student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+simple vhost index
 ```
 
 All looking good? Congratulations! You have successfully completed the Ansible Engine Workshop Exercises!

@@ -159,22 +159,30 @@ ${AWX_NIGHTLY_REPO_URL}"""
     }
     post {
         failure {
-            slackSend(
-                botUser: false,
-                color: "#922B21",
-                teamDomain: "ansible",
-                channel: "#workshops-events",
-                message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
-            )
+            script {
+                if (!(env.JOB_NAME.contains('workshops-gating-pipeline'))) {
+                    slackSend(
+                        botUser: false,
+                        color: "#922B21",
+                        teamDomain: "ansible",
+                        channel: "#workshops-events",
+                        message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
+                    )
+                }
+            }
         }
-        fixed {
-            slackSend(
-                botUser: false,
-                color: "good",
-                teamDomain: "ansible",
-                channel: "#workshops-events",
-                message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: Back to OK | <${env.RUN_DISPLAY_URL}|Link>"
-            )
+        success {
+            script {
+                if (!(env.JOB_NAME.contains('workshops-gating-pipeline'))) {
+                    slackSend(
+                        botUser: false,
+                        color: "good",
+                        teamDomain: "ansible",
+                        channel: "#workshops-events",
+                        message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link>"
+                    )
+                }
+            }
         }
     }
 }

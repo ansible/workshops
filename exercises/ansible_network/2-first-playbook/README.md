@@ -224,7 +224,7 @@ snmp-server community ansible-test RO
 
 # Solution
 
-The finished Ansible Playbook is provided here for an answer key.  Click here: [playbook.yml](playbook.yml).
+The finished Ansible Playbook is provided here for an answer key: [playbook.yml](playbook.yml).
 
 ---
 

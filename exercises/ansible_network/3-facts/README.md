@@ -212,7 +212,7 @@ Using less than 20 lines of "code" you have just automated version and serial nu
 
 # Solution
 
-The finished Ansible Playbook is provided here for an answer key.  Click here: [facts.yml](facts.yml).
+The finished Ansible Playbook is provided here for an answer key: [facts.yml](facts.yml).
 
 ---
 

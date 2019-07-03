@@ -1,0 +1,8 @@
+---
+- hosts: cisco
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: configure device with config
+      cli_config:
+        config: "{{ lookup('template', 'template.j2') }}"

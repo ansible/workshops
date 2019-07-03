@@ -4,7 +4,7 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
-- [Takeaways](#Takeaways)
+- [Takeaways](#takeaways)
 - [Solution](#solution)
 
 # Objective

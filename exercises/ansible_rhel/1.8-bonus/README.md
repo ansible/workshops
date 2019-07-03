@@ -127,4 +127,4 @@ First run the playbook itself, then run curl against `node1` with port `8080` an
 
 ---
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

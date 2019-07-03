@@ -54,10 +54,6 @@ Copy the YAML dictionary we created above into the group_vars/all.yml file and s
 
 #### Step 2
 
-The **inventory_hostname** is the name of the hostname as configured in Ansible's inventory host file.  When the playbook is executed against `rtr1` inventory_hostname will be `rtr1`, when the playbook is executed against `rtr2`, the inventory_hostname will be `rtr2` and so forth.  
-
->The inventory_hostname variable is considered a [magic variable](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts) which is automatically provided.  
-
 Create a new template file named `template.j2`:
 
 ```
@@ -91,7 +87,9 @@ This step will explain and elaborate on each part of the newly created template.
 - Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The `interface,ip` breaks down the dictionary into a key named `interface` and a value named `ip`.
 {% endraw %}
 
-- The `nodes[inventory_hostname]` does a dictionary lookup in the `group_vars/all.yml` file.
+- The `nodes[inventory_hostname]` does a dictionary lookup in the `group_vars/all.yml` file.  The **inventory_hostname** is the name of the hostname as configured in Ansible's inventory host file.  When the playbook is executed against `rtr1` inventory_hostname will be `rtr1`, when the playbook is executed against `rtr2`, the inventory_hostname will be `rtr2` and so forth.  
+
+>The inventory_hostname variable is considered a [magic variable](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts) which is automatically provided.  
 
 - The `items()` returns a list of dictionaries.  In this case the dictionary's key is the interface name (e.g. Loopback100) and the value is an IP address (e.g. 192.168.100.1)
 

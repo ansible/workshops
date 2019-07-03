@@ -62,8 +62,8 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 Here is a walkthrough:
 
 ![animation walkthrough ansible tower](images/inventory.gif)
-Prefer Youtube?  Click below
-https://youtu.be/4JNbFNSUS9g
+Prefer Youtube?  [Click Here](https://youtu.be/4JNbFNSUS9g)
+
 
 ## Step 3: Setting up a Project
 

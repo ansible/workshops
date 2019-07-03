@@ -142,7 +142,13 @@ Copy the following Ansible Playbook to the config.yml file:
 
 #### Step 5
 
-To execute the playbook use the `ansible-playbook` command:
+Execute the Ansible Playbook:
+
+```
+[student1@ansible networking-workshop]$ ansible-playbook config.yml
+```
+
+The output should look as follows.
 
 ```
 [student1@ansible ~]$ ansible-playbook config.yml

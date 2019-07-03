@@ -141,11 +141,8 @@ Name        : httpd
 Version     : 2.4.6
 [...]
 ```
-> **Warning**
-> 
-> **Remember to change \<X\> here to your student number!**
 
-Or even better use an Ansible ad hoc command\!
+Log out of `node1` so that you are back on the control host, and verify the installed package with an Ansible ad hoc command\!
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'

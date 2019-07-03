@@ -58,7 +58,7 @@ What is this about?
 
   - For all servers in the `web` group the variable `stage` with value `dev` is defined. So as default we flag them as members of the dev environment.
 
-  - For server "node2" this is overriden and the host is flagged as a production server.
+  - For server `node2` this is overriden and the host is flagged as a production server.
 
 ## Step 4.2 - Create index.html Files
 

@@ -4,10 +4,6 @@ Ansible is a simple yet powerful IT automation engine for application deployment
 
 **Read this in other languages**: [![uk](../../images/uk.png) English](README.md).
 
-## Presentation
-Want the Presentation Deck?  Its right here:
-[Ansible Essentials Deck](../../decks/ansible-essentials.html)
-
 ## Section 1 - Ansible Engine Exercises
 
  - [Exercise 1.1 - Check the Prerequisites](1.1-setup)

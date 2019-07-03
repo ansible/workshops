@@ -62,14 +62,14 @@ Create a new template file named `template.j2`:
 
 Copy the following into the template.j2 file:
 
+```yaml
 {% raw %}
-```
 {% for interface,ip in nodes[inventory_hostname].items() %}
 {{interface}}
   {{ip}} 255.255.255.255
 {% endfor %}
-```
 {% endraw %}
+```
 
 Save the file.
 
@@ -77,11 +77,11 @@ Save the file.
 
 This step will explain and elaborate on each part of the newly created template.j2 file.
 
-{% raw %}
 ```yaml
+{% raw %}
 {% for interface,ip in nodes[inventory_hostname].items() %}
-```
 {% endraw %}
+```
 
 {% raw %}
 - Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The `interface,ip` breaks down the dictionary into a key named `interface` and a value named `ip`.

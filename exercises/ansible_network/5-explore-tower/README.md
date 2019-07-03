@@ -124,9 +124,10 @@ Prefer Youtube?  [Click Here](https://youtu.be/UT0t_hlNw-c)
 
 # Takeaways
 
-- Ansible Tower needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.  This inventory can be imported via a Github project or synced from an existing database.
+- Ansible Tower needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.  
+- Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Ansible Tower.
 - Ansible Tower can sync to existing SCM (source control management) including Github.  
-- Ansible Tower can store and encrypt credentials including SSH private keys and plain-text passwords.  Although not covered here, Ansible Tower can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
+- Ansible Tower can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Tower can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
 
 # End of Exercise
 

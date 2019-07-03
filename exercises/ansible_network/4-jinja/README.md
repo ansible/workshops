@@ -62,14 +62,15 @@ Create a new template file named `template.j2`:
 
 Copy the following into the template.j2 file:
 
-```yaml
 {% raw %}
+```yaml
 {% for interface,ip in nodes[inventory_hostname].items() %}
 {{interface}}
   {{ip}} 255.255.255.255
 {% endfor %}
-{% endraw %}
 ```
+{% endraw %}
+
 
 Save the file.
 
@@ -77,11 +78,11 @@ Save the file.
 
 This step will explain and elaborate on each part of the newly created template.j2 file.
 
-```yaml
 {% raw %}
+```yaml
 {% for interface,ip in nodes[inventory_hostname].items() %}
-{% endraw %}
 ```
+{% endraw %}
 
 {% raw %}
 - Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The `interface,ip` breaks down the dictionary into a key named `interface` and a value named `ip`.
@@ -91,7 +92,7 @@ This step will explain and elaborate on each part of the newly created template.
 
 >The inventory_hostname variable is considered a [magic variable](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts) which is automatically provided.  
 
-- The `items()` returns a list of dictionaries.  In this case the dictionary's key is the interface name (e.g. Loopback100) and the value is an IP address (e.g. 192.168.100.1)
+- The keyword `items()` returns a list of dictionaries.  In this case the dictionary's key is the interface name (e.g. Loopback100) and the value is an IP address (e.g. 192.168.100.1)
 
 {% raw %}
 ```yaml
@@ -133,6 +134,11 @@ Copy the following Ansible Playbook to the config.yml file:
         config: "{{ lookup('template', 'template.j2') }}"
 ```
 {% endraw %}
+
+- This Ansible Playbook has one task named *configure device with config*
+- The **cli_config** module is vendor agnostic.  This module will work identically for an Arista, Cisco and Juniper device.  This module only works with the **network_cli** connection plugin.
+- The cli_config module only requires one parameter, in this case **config** which can point to a flat file, or in this case uses the lookup plugin.  For a list of all available lookup plugins [visit the documentation](https://docs.ansible.com/ansible/latest/plugins/lookup.html)  
+- Using the template lookup plugin requires two parameters, the plugin type *template* and the corresponding template name *template.j2*.
 
 #### Step 5
 

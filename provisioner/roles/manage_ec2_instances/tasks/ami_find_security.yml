@@ -8,12 +8,12 @@
       filters:
         name: "{{ ec2_info['splunk_enterprise']['filter'] }}"
         architecture: "{{ ec2_info['splunk_enterprise']['architecture'] }}"
-    register: amis
+    register: splunk_amis
 
   - name: save ami for splunk
     set_fact:
       splunk_ami: >
-        {{ amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+        {{ splunk_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 - name: BLOCK FOR SNORT AMI
   block:
@@ -29,17 +29,17 @@
   - name: save ami for snort
     set_fact:
       snort_ami: >
-        {{ amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+        {{ snort_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 - name: BLOCK FOR CHECK POINT AMI
   block:
   - name: find ami for check point management server (SECURITY MODE)
     ec2_ami_facts:
       region: "{{ ec2_region }}"
-      owners: "679593333241"
+      owners: "{{ ec2_info['checkpoint_mgmt']['owners'] }}"
       filters:
-        name: "Check Point CloudGuard IaaS*PAYG-MGMT*R80.20*"
-        architecture: "x86_64"
+        name: "{{ ec2_info['checkpoint_mgmt']['filter'] }}"
+        architecture: "{{ ec2_info['checkpoint_mgmt']['architecture'] }}"
     register: checkpoint_mgmt_ami_list
 
   - name: save ami for check point management server (SECURITY MODE)
@@ -50,10 +50,10 @@
   - name: find ami for check point gateway (SECURITY MODE)
     ec2_ami_facts:
       region: "{{ ec2_region }}"
-      owners: "679593333241"
+      owners: "{{ ec2_info['checkpoint_gw']['owners'] }}"
       filters:
-        name: "Check Point CloudGuard IaaS GW*PAYG-NGTX*R80.20*"
-        architecture: "x86_64"
+        name: "{{ ec2_info['checkpoint_gw']['filter'] }}"
+        architecture: "{{ ec2_info['checkpoint_gw']['architecture'] }}"
     register: checkpoint_gw_ami_list
 
   - name: save ami for check point gw (SECURITY MODE)

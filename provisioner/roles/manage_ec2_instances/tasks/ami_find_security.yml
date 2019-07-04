@@ -60,3 +60,21 @@
     set_fact:
       checkpoint_gw_ami: >
         {{ checkpoint_gw_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+
+#### WINDOWS WORKSTATION AMI
+- name: BLOCK FOR WINDOWS WORKSTATION AMI
+  block:
+  - name: find ami for windows workstation
+    ec2_ami_facts:
+      region: "{{ ec2_Region }}"
+      filters:
+        name: "{{ ec2_info['windows_ws']['filter'] }}"
+    register: windows_ws_amis
+
+  - name: save ami for windows
+    set_fact:
+      windows_ws_ami: >
+        {{ windows_ws_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+        

@@ -1,6 +1,8 @@
 # Ansible Workshop - Ansible Security Automation
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly. In this lab you will learn to use Ansible as an automation platform for automating security tools.
+Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly. This workshop shows, step by step, how you can reach this goal using Ansible to orchestrate 3 investigation and response activities involving multiple security tools -  an enterprise firewall (CheckPoint Next Generation Firewall), an intrusion detection system (Snort) and a SIEM (Splunk Enterprise Security).
+
+Learn and practice how Ansible can be used to automate different security platforms. Understand how Ansible Automation can support security teams to create more efficient and streamlined investigation and remediation processes.
 
 **Read this in other languages**: [![uk](../../images/uk.png) English](README.md).
 

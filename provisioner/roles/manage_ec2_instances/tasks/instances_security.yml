@@ -158,3 +158,42 @@
   with_indexed_items:
     - "{{ checkpoint_gw_output.instance_ids }}"
   when: checkpoint_gw_output.instance_ids is not none
+
+############## Windows Workstation ##############
+ 
+- name: Create EC2 instances for Windows Workstation (SECURITY MODE)
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ec2_info.windows_ws.size }}"
+    image: "{{ec2_info.windows_ws.ami.image_id}}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    user_data: ''
+    count_tag:
+      Workshop_security: "{{ec2_name_prefix}}-security"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  register: windows_ws_output
+
+- name: Ensure tags are present for Windows Workstation (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-windows_ws"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item.0 + 1}}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "windows_ws"
+  with_indexed_items:
+    - "{{ checkpoint_gw_output.instance_ids }}"
+  when: checkpoint_gw_output.instance_ids is not none
+
+  

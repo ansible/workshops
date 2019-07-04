@@ -45,13 +45,24 @@ ec2_info:
     os: eos
     username: ec2-user
   checkpoint_mgmt:
+    owners: 679593333241
+    filter: 'Check Point CloudGuard IaaS*PAYG-MGMT*R80.20*'
+    architecture: x86_64
     size: m5.xlarge
-    ami: "{{checkpoint_mgmt_ami| default(omit)}}"
+    ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
     username: admin
   checkpoint_gw:
+    owners: 679593333241
+    filter: 'Check Point CloudGuard IaaS GW*PAYG-NGTX*R80.20*'
+    architecture: x86_64
     size: c5.large
-    ami: "{{checkpoint_gw_ami| default(omit)}}"
+    ami: "{{ checkpoint_gw_ami| default(omit) }}"
     username: admin
+  windows_ws:
+    owners: 679593333241
+    filter: 'Windows_Server-2016-English-Core-Base*'
+    size: t3.medium
+    ami: "{{ windows_ws_ami| default(omit) }}"
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7-tower:
     owners: 309956199498
@@ -84,12 +95,4 @@ ec2_info:
     disk_space: 200
     architecture: x86_64
     filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2'
-    username: ec2-user
-  checkpoint_firewall:
-    owners: 309956199498
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
-    architecture: x86_64
-    filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2' #FIXME - needs to be something checkpoint
     username: ec2-user

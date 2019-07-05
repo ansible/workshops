@@ -51,6 +51,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                     sh 'cp ${TOWER_LICENSE} provisioner/tower_license.json'
                 }
                 sh 'pip install netaddr'
+                sh 'yum -y install sshpass'
                 script {
                     if (params.TOWER_VERSION == 'devel') {
                         tower_installer_url = "${AWX_NIGHTLY_REPO_URL}/${params.TOWER_VERSION}/setup/ansible-tower-setup-latest.tar.gz"
@@ -142,6 +143,14 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                         sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url}"
                                     }
                                 }
+                            }
+                        }
+                        script {
+                            stage('F5-exercises') {
+                                sh "cat provisioner/tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
+                                CONTROL_NODE_HOST = readFile('control_host').trim()
+                                RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ansible-playbook {}"'
+                                sh "sshpass -p 'ansible' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
                             }
                         }
                         script {

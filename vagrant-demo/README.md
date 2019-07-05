@@ -18,15 +18,15 @@
 
 1. git clone this repo
 
-       ```bash
-       git clone https://github.com/network-automation/linklight
-       ```
+   ```bash
+   git clone https://github.com/network-automation/linklight
+   ```
 
 2. Open up a terminal window in the same directory as the Vagrantfile
 
-       ```bash
-       cd ~<LOCATION OF GITHUB REPO>/network-auomation/linklight/vagrant-demo
-       ```
+   ```bash
+   cd ~<LOCATION OF GITHUB REPO>/network-auomation/linklight/vagrant-demo
+   ```
 
 3. Turn on the following VMs
 

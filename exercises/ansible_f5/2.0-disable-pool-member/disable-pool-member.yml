@@ -55,7 +55,7 @@
      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
     when: '"all" in member_name.user_input'
 
-  - name: Disable pool member {{member_name.user_input}}
+  - name: "Disable pool member {{member_name.user_input}}"
     bigip_pool_member:
       provider: "{{provider}}"
       state: "forced_offline"

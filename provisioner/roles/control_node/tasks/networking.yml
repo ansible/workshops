@@ -54,6 +54,7 @@
     clone: yes
     dest: /tmp/workshops
     repo: https://github.com/ansible/workshops.git
+    version: '{{ ansible_workshops_version | default("master") }}'
     force: yes
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)

@@ -148,14 +148,6 @@ As you’ve probably done with Ansible before you can run ad hoc commands from T
 
 Try other modules in ad hoc commands, as well:
 
-> **Tip**
-> 
-> Don’t forget the Credentials\!
-
-> **Tip**
-> 
-> After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
-
   - Find the userid of the executing user using an ad hoc command.
     
       - **MODULE:** command
@@ -164,7 +156,9 @@ Try other modules in ad hoc commands, as well:
 
 > **Tip**
 > 
-> The simple **Ping** module doesn’t need options. For the command module you need to supply the command to run as an argument.
+> After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
+
+The simple **Ping** module doesn’t need options. For the command module you need to supply the command to run as an argument.
 
   - Print out */etc/shadow*.
     
@@ -174,7 +168,7 @@ Try other modules in ad hoc commands, as well:
 
 > **Warning**
 > 
-> Expect an error\!
+> **Expect an error\!**
 
 Oops, the last one didn’t went well, all red.
 
@@ -186,11 +180,7 @@ Oops, the last one didn’t went well, all red.
 
 ## Challenge Lab: Ad Hoc Commands
 
-Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts
-
-> **Tip**
-> 
-> If unsure, consult the documentation either via the web UI as shown above or by running `[ansible@tower ~]$ ansible-doc yum` on Tower.
+Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `[ansible@tower ~]$ ansible-doc yum` on your Tower control host.
 
 > **Warning**
 > 
@@ -208,4 +198,4 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

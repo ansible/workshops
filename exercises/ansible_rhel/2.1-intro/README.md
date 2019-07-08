@@ -20,20 +20,14 @@ Ansible Tower is a web-based UI that provides an enterprise solution for IT auto
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts:
 
-| Role                 | Inventory name |
-| ---------------------| ---------------|
-| Ansible Control Host | ansible        |
-| Managed Host 1       | node1          |
-| Managed Host 2       | node2          |
-| Managed Host 2       | node3          |
+| Role                         | Inventory name |
+| -----------------------------| ---------------|
+| Ansible Control Host & Tower | ansible        |
+| Managed Host 1               | node1          |
+| Managed Host 2               | node2          |
+| Managed Host 2               | node3          |
 
-> **Tip**
-> 
-> You will have an individual Tower to work with. Make sure to access the right machine whenever you work with it.
-
-> **Tip**
-> 
-> Ansible Tower has already been installed and licensed for you, the web UI will be reachable over HTTP/HTTPS.
+The Ansible Tower provided in this lab is individually setup for you. Make sure to access the right machine whenever you work with it. Ansible Tower has already been installed and licensed for you, the web UI will be reachable over HTTP/HTTPS.
 
 ## Dashboard
 
@@ -77,4 +71,4 @@ A job is basically an instance of Tower launching an Ansible playbook against an
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

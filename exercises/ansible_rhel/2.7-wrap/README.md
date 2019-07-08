@@ -12,7 +12,7 @@ Your operations team and your application development team like what they see in
 
   - As the webservers can be used for development purposes or in production, there has to be a way to flag them accordingly as "stage dev" or "stage prod".
     
-      - Currently host1 is used as a development system and host2 is in production.
+      - Currently `host1` is used as a development system and `host2` is in production.
 
   - Of course the content of the world famous application "index.html" will be different between dev and prod stages.
     
@@ -24,77 +24,68 @@ Your operations team and your application development team like what they see in
 
 ## The Git Repository
 
-As a prerequisite you need a Git repo containing the needed files. This has been done for you again, it’s a lab about Tower and not Git, after all. Check out the Github repository at: TODO
+All code is already in place - this is a Tower lab after all. Check out the **Ansible Workshop Examples** git repository at **https://github.com/ansible/workshop-examples**. There you will find the playbook **webcontent.yml**, which calls the role **role_webcontent**.
 
-  - There are three files:
-    
-      - a Playbook
-    
-      - two versions of index.html template files
+Compared to the previous Apache installation role there is a major difference: there are now two versions of an `index.html` template, and a task deploying the template file which has a variable as part of the source file name:
+  
+`dev_index.html.j2`
 
-dev\_index.html.j2
+```html
+<body>
+<h1>This is a development webserver, have fun!</h1>
+{{ dev_content }}
+</body>
+```
 
-    <body>
-    <h1>This is a development webserver, have fun!</h1>
-    {{ dev_content }}
-    </body>
+`prod_index.html.j2`
 
-prod\_index.html.j2
+```html
+<body>
+<h1>This is a production webserver, take care!</h1>
+{{ prod_content }}
+</body>
+```
 
-    <body>
-    <h1>This is a production webserver, take care!</h1>
-    {{ prod_content }}
-    </body>
+`main.yml`
 
-stage\_content.yml
-
-    ---
-    - name: Deploy index.html
-      hosts: all
-      tasks:
-    
-      - name: Creating index.html from template
-        template:
-          src: "{{ stage }}_index.html.j2"
-          dest: /var/www/html/index.html
+```yaml
+[...]    
+- name: Deploy index.html from template
+  template:
+    src: "{{ stage }}_index.html.j2"
+    dest: /var/www/html/index.html
+  notify: apache-restart
+```
 
 ## Prepare Inventory
 
 There is of course more then one way to accomplish this, but here is what you should do:
 
-  - Make sure both hosts are in the inventory group `Webserver` (add `node2`)
+- Make sure all hosts are in the inventory group `Webserver` (add `node2` and `node3`)
 
-  - Define a variable `stage` with the value `dev` for the `Webserver` inventory:
-    
-      - Add `stage: dev` to the inventory `Webserver` by putting it into the **VARIABLES** field beneath the three start-yaml dashes.
+- Define a variable `stage` with the value `dev` for the `Webserver` inventory:
+  
+    - Add `stage: dev` to the inventory `Webserver` by putting it into the **VARIABLES** field beneath the three start-yaml dashes.
 
-  - In the same way add a variable `stage: prod` but this time only for `node2` (by clicking the hostname) so that it overrides the inventory variable.
+- In the same way add a variable `stage: prod` but this time only for `node2` (by clicking the hostname) so that it overrides the inventory variable.
 
 > **Tip**
 > 
 > Make sure to keep the three dashes that mark the YAML start\!
 
-## Create the Project
-
-  - Create a new **Project** named `Webserver` using the new Git repository
-    
-      - **SCM CREDENTIALS**: Gitea Control
-    
-      - **SCM URL**: TODO
-
 ## Create the Template
 
-  - Create a new **Job Template** named `Create Web Content` that
-    
-      - targets the `Webserver` inventory
-    
-      - uses the Playbook `stage_content.yml` from the new `Webserver` Project
-    
-      - Defines two variables: `dev_content: default dev content` and `prod_content: default prod content` in the **EXTRA VARIABLES FIELD**
-    
-      - Uses `Workshop Credentials` and runs with privilege escalation
+- Create a new **Job Template** named `Create Web Content` that
+  
+    - targets the `Webserver` inventory
+  
+    - uses the Playbook `rhel/apache/webcontent.yml` from the new **Ansible Workshop Examples** Project
+  
+    - Defines two variables: `dev_content: default dev content` and `prod_content: default prod content` in the **EXTRA VARIABLES FIELD**
+  
+    - Uses `Workshop Credentials` and runs with privilege escalation
 
-  - Save and run the template
+- Save and run the template
 
 ## Check the results
 
@@ -116,13 +107,13 @@ default prod content
 
 ## Add Survey
 
-  - Add a survey to the Template to allow changing the variables `dev_content` and `prod_content`
+- Add a survey to the Template to allow changing the variables `dev_content` and `prod_content`
 
-  - Add permissions to the Team `Web Content` so the Template **Create Web Content** can be executed by `wweb`.
+- Add permissions to the Team `Web Content` so the Template **Create Web Content** can be executed by `wweb`.
 
-  - Run the survey as user `wweb`
+- Run the survey as user `wweb`
 
-  - Check the results:
+- Check the results:
 
 ```bash
 $ curl http://22.33.44.55

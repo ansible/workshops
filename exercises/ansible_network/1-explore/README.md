@@ -57,6 +57,8 @@ Note the following parameters within the `ansible.cfg` file:
 
  - `inventory`: shows the location of the ansible inventory being used
  - `private_key_file`: this shows the location of the private key used to login to devices
+ 
+> For an exhaustive list of configuration options, you can refer to https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings
 
 
 

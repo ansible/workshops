@@ -2,7 +2,7 @@
 
 # Ansible Tower Workflows
 
-Workflows where introduced as a major new feature in Ansible Tower 3.1. The basic idea of a workflow is to link multiple Job Templates together. They may or may not share inventory, Playbooks or even permissions. The links can be conditional:
+Workflows were introduced as a major new feature in Ansible Tower 3.1. The basic idea of a workflow is to link multiple Job Templates together. They may or may not share inventory, Playbooks or even permissions. The links can be conditional:
 
   - if job template A succeeds, job template B is automatically executed afterwards
 
@@ -10,9 +10,7 @@ Workflows where introduced as a major new feature in Ansible Tower 3.1. The basi
 
 And the workflows are not even limited to Job Templates, but can also include project or inventory updates.
 
-> **Tip**
-> 
-> This enables new applications for Tower: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory.
+This enables new applications for Tower: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory.
 
 In this lab you’ll learn how to setup a workflow.
 
@@ -30,29 +28,33 @@ When there is a new Tomcat server to deploy, two things need to happen:
 
   - The most recent version of the web application needs to be deployed.
 
-> **Tip**
-> 
-> For the sake of this lab everything needed already exists in Git repositories: Playbooks, JSP-files etc. You just need to glue it together.
+To make things somewhat easier for you, everything needed already exists in Git repositories: Playbooks, JSP-files etc. You just need to glue it together.
+
+Also, please note that in fact in this example we assume two different Git repositories, but in reality we will access two different branches of the same repository.
 
 ## Set up Projects
 
-First you have to set up the Git repos as Projects like you normally would. You have done this before, try to do this on your own. Detailed instructions can be found below.
+First you have to set up the Git repo as Projects like you normally would. You have done this before, try to do this on your own. Detailed instructions can be found below.
 
 > **Warning**
 > 
-> If you are still logged in as user **wweb**, log out of and log in as user **admin** again.
+> **If you are still logged in as user **wweb**, log out of and log in as user **admin** again.**
 
 - Create the project for web operations:
 
   - It should be named **Webops Git Repo**
 
-  - The URL to access the repo is **TODO**
+  - The URL to access the repo is **https://github.com/ansible/workshop-examples.git**
+
+  - The **SCM BRANCH/TAG/COMMIT** is **webops**
 
 - Create the project for the application developers:
 
   - It should be named **Webdev Git Repo**
 
-  - The URL to access the repo is **TODO**
+  - The URL to access the repo is **https://github.com/ansible/workshop-examples.git**
+
+  - The **SCM BRANCH/TAG/COMMIT** is **webdev**
 
 > **Warning**
 > 
@@ -66,7 +68,9 @@ First you have to set up the Git repos as Projects like you normally would. You 
   
     - **SCM TYPE:** Git
   
-    - **SCM URL:** TODO
+    - **SCM URL:** https://github.com/ansible/workshop-examples.git
+
+    - **SCM BRANCH/TAG/COMMIT:** webops
   
     - **SCM UPDATE OPTIONS:** Tick all three boxes.
 
@@ -80,8 +84,10 @@ First you have to set up the Git repos as Projects like you normally would. You 
   
     - **SCM TYPE:** Git
   
-    - **SCM URL:** TODO
+    - **SCM URL:** https://github.com/ansible/workshop-examples.git
   
+    - **SCM BRANCH/TAG/COMMIT:** webdev
+
     - **SCM UPDATE OPTIONS:** Tick all three boxes.
 
 - Click **SAVE**
@@ -100,7 +106,7 @@ Now you have to create Job Templates like you would for "normal" Jobs.
     
       - **PROJECT:** Webops Git Repo
     
-      - **PLAYBOOK:** tomcat.yml
+      - **PLAYBOOK:** `rhel/webops/tomcat.yml`
     
       - **CREDENTIAL:** Workshop Credentials
     
@@ -118,7 +124,7 @@ Now you have to create Job Templates like you would for "normal" Jobs.
     
       - **PROJECT:** Webdev Git Repo
     
-      - **PLAYBOOK:** create\_jsp.yml
+      - **PLAYBOOK:** `rhel/webdev/create_jsp.yml`
     
       - **CREDENTIALS:** Workshop Credentials
     
@@ -128,7 +134,7 @@ Now you have to create Job Templates like you would for "normal" Jobs.
 
 > **Tip**
 > 
-> If you want to know what the Playbooks look like, use the **Gitea** web UI\!
+> If you want to know what the Playbooks look like, check out the Github URL and switch to the appropriate branches.
 
 ## Set up the Workflow
 
@@ -180,7 +186,7 @@ Your workflow is ready to go, launch it.
 > 
 > Note how the workflow run is shown in the job view and how you can get more information about the Jobs by clicking "DETAILS".
 
-  - To check everything worked fine, log into `node1` and `node2` from your control host and run:
+  - To check everything worked fine, log into `node1`, `node2` or `node3` from your control host and run:
 
 ```bash
 $ curl http://localhost:8080/coolapp/

@@ -41,7 +41,7 @@ Most prerequisite tasks have already been done for you:
 Check Ansible has been installed correctly
 
     [root@ansible ~]# ansible --version
-    ansible 2.7.0
+    ansible 2.8.1
     [...]
 
 > **Note**
@@ -59,7 +59,7 @@ Log out of the root account again:
 
 ## Step 1.2 - Working the Labs
 
-You might have guessed by now this lab is pretty commandline-centric…​ :-)
+You might have guessed by now this lab is pretty commandline-centric.
 
   - Don’t type everything manually, use copy & paste from the browser when appropriate. But don’t stop to think and understand.
 
@@ -69,5 +69,4 @@ You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
 ----
 
-[Click Here to return to the Ansible Engine Workshop](../README.md)
-
+[Click Here to return to the Ansible Security Automation Workshop](../README.md)

@@ -4,6 +4,10 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
+   - [Step 1: Login to Ansible Tower](#step-1-login-to-ansible-tower)
+   - [Step 2: Examine the Ansible Tower Inventory](#step-2-examine-the-ansible-tower-inventory)
+   - [Step 3: Examine the Ansible Tower Workshop Project](#step-3-examine-the-ansible-tower-workshop-project)
+   - [Step 4: Examine the Ansible Tower Workshop Credential](#step-4-examine-the-ansible-tower-workshop-credential)
 - [Takeaways](#takeaways)
 
 # Objective
@@ -17,7 +21,7 @@ Explore and understand the lab environment.  This exercise will cover
 
 # Guide
 
-#### Step 1: Login to Ansible Tower
+## Step 1: Login to Ansible Tower
 
 Open up your web browser and type in the Ansible control node's DNS name
 
@@ -45,7 +49,7 @@ After logging in the Job Dashboard will be the default view as shown below.
     Take note that both the Ansible Tower version and the Ansible Engine version are provided here.
 
 
-#### Step 2: Examine the Ansible Tower Inventory
+## Step 2: Examine the Ansible Tower Inventory
 
 An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Red Hat Ansible Tower can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
 
@@ -77,7 +81,7 @@ Here is a walkthrough:
 Prefer Youtube?  [Click Here](https://youtu.be/4JNbFNSUS9g)
 
 
-#### Step 3: Examine the Ansible Tower Workshop Project
+## Step 3: Examine the Ansible Tower Workshop Project
 
 A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Ansible Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
 
@@ -100,7 +104,7 @@ A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You
 ![animation walkthrough ansible tower projects](images/projects.gif)
 Prefer Youtube?  [Click Here](https://youtu.be/xRA97XTxMjA)
 
-#### Step 4: Examine the Ansible Tower Workshop Credential
+## Step 4: Examine the Ansible Tower Workshop Credential
 
 Credentials are utilized by Tower for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
 

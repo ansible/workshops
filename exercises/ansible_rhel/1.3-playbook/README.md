@@ -1,4 +1,4 @@
-# Exercise 3 - Writing Your First Playbook
+# Exercise 1.3 - Writing Your First Playbook
 
 While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
 

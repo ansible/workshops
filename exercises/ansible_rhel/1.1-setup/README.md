@@ -1,4 +1,4 @@
-# Exercise 1 - Check the Prerequisites
+# Exercise 1.1 - Check the Prerequisites
 
 ## Your Lab Environment
 

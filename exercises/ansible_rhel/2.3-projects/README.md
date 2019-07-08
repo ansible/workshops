@@ -11,7 +11,7 @@ For this demonstration we will use playbooks stored in a Git repository:
 **https://github.com/ansible/workshop-examples**
 
 
-A Playbook to install the Apache webserver has already been commited to the directory **rhel/apache-playbook**:
+A Playbook to install the Apache webserver has already been commited to the directory **rhel/apache**:
 
 > **Tip**
 > 
@@ -111,7 +111,7 @@ Go to the **Templates** view and click the ![plus](images/green_plus.png) button
 
 - **PROJECT:** Ansible Workshop Examples
 
-- **PLAYBOOK:** rhel/apache-playbooks/apache_install.yml
+- **PLAYBOOK:** rhel/apache/apache_install.yml
 
 - **CREDENTIAL:** Workshop Credentials
 

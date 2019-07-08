@@ -1,4 +1,4 @@
-# Exercise 7 - Roles: Making your playbooks reusable
+# Exercise 1.7 - Roles: Making your playbooks reusable
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 

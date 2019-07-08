@@ -1,4 +1,4 @@
-# Exercise 8 - Bonus Labs
+# Exercise 1.8 - Bonus Labs
 
 You have finished the lab already. But it doesn’t have to end here. We prepared some slightly more advanced bonus labs for you to follow through if you like. So if you are done with the labs and still have some time, here are some more labs for you:
 

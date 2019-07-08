@@ -1,4 +1,4 @@
-# Exercise 5 - Conditionals, Handlers and Loops
+# Exercise 1.5 - Conditionals, Handlers and Loops
 
 ## Step 5.1 - Conditionals
 

@@ -1,4 +1,4 @@
-# Exercise 6 - Templates
+# Exercise 1.6 - Templates
 
 Ansible uses Jinja2 templating to modify files before they are distributed to managed hosts. Jinja2 is one of the most used template engines for Python (<http://jinja.pocoo.org/>).
 

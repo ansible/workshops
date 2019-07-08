@@ -10,32 +10,33 @@ Please follow the [vagrant setup instructions](../README.md) before switching to
 
    Use the `vagrant box add` command on the newly downloaded box image.  Make sure to use the `--name` parameter and name the box image `veos`.
 
-       ```bash
-       ➜  user@rhel7:-$ vagrant box add vEOS-lab-4.20.1F-virtualbox.box --name veos
-       ==> box: Box file was not detected as metadata. Adding it directly...
-       ==> box: Adding box 'veos' (v0) for provider:
-           box: Unpacking necessary files from:        file:///Users/sean/Documents/GitHub/linklight/vagrant-demo/arista/vEOS-lab-4.20.1F-virtualbox.box
-       ==> box: Successfully added box 'veos' (v0) for 'virtualbox'!
-       ➜  user@rhel7:-$
-       ```
+   ```bash
+   ➜  user@rhel7:-$ vagrant box add vEOS-lab-4.20.1F-virtualbox.box --name veos
+   ==> box: Box file was not detected as metadata. Adding it directly...
+   ==> box: Adding box 'veos' (v0) for provider:
+       box: Unpacking necessary files from:        file:///Users/sean/Documents/GitHub/linklight/vagrant-demo/arista/vEOS-lab-4.20.1F-virtualbox.box
+   ==> box: Successfully added box 'veos' (v0) for 'virtualbox'!
+   ➜  user@rhel7:-$
+   ```
 
    NOTE: If you are having trouble, please refer to [Arista's official documentation](https://eos.arista.com/using-veos-with-vagrant-and-virtualbox/).
 
-3.  Vagrant up the topology
+3. Vagrant up the topology
 
-   Use the `vagrant up` command to bring up the topology
+    Use the `vagrant up` command to bring up the topology
 
-       ```
-       ➜  user@rhel7:-$ vagrant up ansible leaf01 leaf02 spine01 spine02
-       ```
+    ```
+    ➜  user@rhel7:-$ vagrant up ansible leaf01 leaf02 spine01 spine02
+    ```
 
 4. Try connecting to an individual switch
 
    From the same directory as the Vagrantfile, use the `vagrant ssh` command to connect to the device.  To connect directly to the Arista CLI use the `-c FastCli` parameter
 
-       ```➜  user@rhel7:-$ vagrant ssh leaf01 -c FastCli
-       leaf01>
-       ```
+   ```
+   ➜  user@rhel7:-$ vagrant ssh leaf01 -c FastCli
+   leaf01>
+   ```
 
 5. Open up the Lab exercises
 

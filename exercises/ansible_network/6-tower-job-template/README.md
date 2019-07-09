@@ -16,8 +16,6 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
  - A **Credential** is used to login to devices.
  - A **Project** which contains Ansible Playbooks
 
-All the requirements in the previous exercise.  Now we will create the simple job template in the web UI.
-
 # Guide
 
 ## Step 1: Create a Job Template
@@ -68,31 +66,43 @@ Prefer Youtube?  [Click Here](https://youtu.be/EQVkFaQYRiE)
 
 On the left side there is a **Details pane** on the right side there is the **Standard Out pane**.
 
+![job details view](images/jobfinish.png)
+
 1.  Examine the **Details pane**    
 
-    The **Details pane** will information such as the timestamp for when the job started and finished, the job type (check or run), who launched the job, which project and playbook were used and more.  
+    The **Details pane** will information such as the timestamp for when the job started and finished, the job type (Check or Run), the user that launched the job, which Project and Ansible Playbook were used and more.
+
+    If the Job has not finished yet, the **Details Pane** will have a cancel button ![cancel button](images/cancel.png) that can be used to stop the Job.
 
 2.  Examine the **Standard Out pane**
 
-    The **Standard Out pane** will match the output from the Playbook itself.
+    The **Standard Out pane** will display the output from the Ansible Playbook.  Every task output will match exactly what would be seen on the command line.
 
-    ![job details view](images/jobfinish.png)
+3.  Click on the **Expand Output** button ![expand image](images/expand.png)
 
-## Step 4
+    This will expand the **Standard Out pane** to take the entirety of the window.
 
-Click the Jobs button the left menu.
+4.  Click on a task in the **Standard Out pane** to open up structured output from that particular task.
 
-![jobs button](images/jobs.png)
+    > Click on any line where there is a **changed** or **ok**
 
-The Jobs link displays a list of jobs and their status–shown as completed successfully or failed, or as an active (running) job. Actions you can take from this screen include viewing the details and standard output of a particular job, relaunch jobs, or remove jobs.
+    ![task details window](images/task_details.png)
 
-![jobs link](images/jobslink.png)
+## Step 4: Examine the Jobs window
 
-The **BACKUP NETWORK CONFIG** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Tower will save the history of every job launched and it is possible to see down to the task level of what happened on a particular job.
+1. Click the Jobs button the left menu.
 
+    ![jobs button](images/jobs.png)
 
+    The Jobs link displays a list of jobs and their status–shown as completed successfully or failed, or as an active (running) job. Actions you can take from this screen include viewing the details and standard output of a particular job, relaunch jobs, or remove jobs.
 
-## Step 4
+2. Click on the **Backup network configurations** Job
+
+    ![jobs link](images/jobslink.png)
+
+    The **Backup network configurations** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
+
+## Step 5
 
 To understand where the Playbooks are that we imported via the Project, return to the command line of the control node.  Switch to the **awx** user.
 

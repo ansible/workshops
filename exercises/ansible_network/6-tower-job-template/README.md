@@ -1,4 +1,4 @@
-# Exercise 4-1: Creating a Tower Job Template
+# Exercise 6: Creating a Tower Job Template
 
 ## Table of Contents
 
@@ -11,59 +11,74 @@
 
 Demonstrate a network backup configuration job template for Red Hat Ansible Tower.  This job template will save the running configuration from all four routers and store them under /tmp/backup on the control node with a timestamp.
 
-To run an Ansible Playbook in Tower we need to create a **Job Template**.  A **Job Template** requires:
+To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**.  A **Job Template** requires:
  - An **Inventory** to run the job against
  - A **Credential** is used to login to devices.
- - A **Project** which contains Playbooks
+ - A **Project** which contains Ansible Playbooks
 
-We have setup all the requirements in the previous exercise.  Now we will create the simple job template in the web UI.
+All the requirements in the previous exercise.  Now we will create the simple job template in the web UI.
 
 # Guide
 
-## Step 1:
+## Step 1: Create a Job Template
 
-Open the web UI and click on the `Templates` link on the left menu.
+1.  Open the web UI and click on the `Templates` link on the left menu.
 
-![templates link](images/templates.png)
+    ![templates link](images/templates.png)
 
-Click on the green `+` button to create a new job template (make sure to select `Job Template` and not `Workflow Template`)
+2. Click on the green ![templates link](images/add.png) button to create a new job template
 
-| Parameter | Value |
-|---|---|
-| Name  | BACKUP NETWORK CONFIG  |
-|  Job Type |  Run |
-|  Inventory |  Workshop Inventory |
-|  Project |  Workshop Project |
-|  Playbook |  network_backup.yml |
-|  Credential |  Workshop Credential |
+    >Make sure to select `Job Template` and not `Workflow Template`)
 
-Here is a screenshot of the job template parameters filled out.
+3. Fill out the job template parameters as follows:
 
-![backup job template](images/backup.png)
+    | Parameter | Value |
+    |---|---|
+    | Name  | Backup network configurations  |
+    |  Job Type |  Run |
+    |  Inventory |  Workshop Inventory |
+    |  Project |  Workshop Project |
+    |  Playbook |  network_backup.yml |
+    |  Credential |  Workshop Credential |
 
-Scroll down and click the green `save` button.
 
-## Step 2:
+    Here is a screenshot of the job template parameters filled out.
 
-Click on the `Templates` link at the top of your screen
+    ![backup job template](images/backup.png)
 
-![templates link top](images/toptemplates.png)
+4. Scroll down and click the green `save` button.
 
-There will now be two jobs, the default `Demo Job Template` (which you can go ahead and delete if you want), and the new `BACKUP NETWORK CONFIG` job template.  Click on the rocket ship button to start the job.
+Here is a walkthrough:
 
-![rocket button](images/rocket.png)
+![animation walkthrough ansible tower](images/job_template.gif)
+Prefer Youtube?  [Click Here](https://youtu.be/EQVkFaQYRiE)
 
-When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) can be found in the documentation.
 
-On the left side there is a **Details pane** on the right side there is the **Standard Out pane**.  The **Details pane** will information such as the timestamp for when the job started and finished, the job type (check or run), who launched the job, which project and playbook were used and more.  
+## Step 2: Launch the Job Template
 
-The **Standard Out pane** will match the output from the Playbook itself.
+1. Navigate back to the `Templates` window, where all Job Templates are listed.
 
-![job details view](images/jobfinish.png)
+2. Launch the `Backup network configurations` Job Template by clicking the Rocket button.
 
-If there is issues with your **BACKUP NETWORK CONFIG** job completing successfully please make sure you hostvars match what you have in inventory.  It is highly recommended to use the tower_setup.yml playbook from the previous exercise if you hit any problems.  To automate the setup of your inventory, credentials and project so that manual mistakes won't be made.  
+    ![rocket button](images/rocket.png)
 
-## Step 3
+    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) can be found in the documentation.
+
+## Step 3: Examine the Job Details View
+
+On the left side there is a **Details pane** on the right side there is the **Standard Out pane**.
+
+1.  Examine the **Details pane**    
+
+    The **Details pane** will information such as the timestamp for when the job started and finished, the job type (check or run), who launched the job, which project and playbook were used and more.  
+
+2.  Examine the **Standard Out pane**
+
+    The **Standard Out pane** will match the output from the Playbook itself.
+
+    ![job details view](images/jobfinish.png)
+
+## Step 4
 
 Click the Jobs button the left menu.
 

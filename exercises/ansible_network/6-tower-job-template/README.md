@@ -8,7 +8,8 @@
    - [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
    - [Step 3: Examine the Job Details View](#step-3-examine-the-job-details-view)
    - [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
-- [Solution](#solution)
+   - [Step 5: Verify the backups were created](#step-5-verify-the-backups-were-created)
+- [Takeaways](#takeaways)
 
 # Objective
 
@@ -140,9 +141,7 @@ Any **Job Template** that has been run or is currently running will show up unde
 
   3. Examine the remaining routers.  Your instructor may have setup multiple vendors for this exercise including Juniper and Arista.  Ansible Playbooks can be written to be vendor agnostic,  in this case we provided the Ansible Playbook via the Github repo: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
 
-
-# Solution
-You have finished this exercise.  
+# Takeaways
 
 You have successfully demonstrated
  - Creating a Job Template for backing up network configurations
@@ -150,4 +149,9 @@ You have successfully demonstrated
  - Verifying the backups are correctly stored
 
 ---
-[Click Here to return to the Ansible - Network Automation Workshop](../../README.md)
+
+# Complete
+
+You have completed lab exercise 6
+
+[Click here to return to the Ansible Network Automation Workshop](../README.md)

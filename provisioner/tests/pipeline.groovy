@@ -192,7 +192,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 botUser: false,
                 color: "#922B21",
                 teamDomain: "ansible",
-                channel: "#ship_it",
+                channel: "#workshops-events",
                 message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
             )
         }
@@ -201,7 +201,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 botUser: false,
                 color: "good",
                 teamDomain: "ansible",
-                channel: "#ship_it",
+                channel: "#workshops-events",
                 message: """
 *Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK <${env.RUN_DISPLAY_URL}|Link> \
 Deprecation Warnings: *${RHEL_DEPRECATED_WARNINGS}* in RHEL lab - *${NETWORKING_DEPRECATED_WARNINGS}* in Networking lab - *${F5_DEPRECATED_WARNINGS}* in F5 lab

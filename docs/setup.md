@@ -25,12 +25,12 @@ aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 
         pip install passlib netaddr
 
-6. Clone the linklight repo:
+6. Clone the workshops repo:
 
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 
-        git clone https://github.com/network-automation/linklight.git
-        cd linklight/provisioner
+        git clone https://github.com/ansible/workshops.git
+        cd workshops/provisioner
 
 7.  When doing a networking or F5 workshop make sure you have subscribed to the right marketplace AMI (Amazon Machine Image)
 

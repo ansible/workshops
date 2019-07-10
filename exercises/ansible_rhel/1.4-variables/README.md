@@ -225,6 +225,6 @@ node2                      : ok=2    changed=0    unreachable=0    failed=0
 node3                      : ok=2    changed=0    unreachable=0    failed=0   
 ```
 
----
+----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -42,9 +42,7 @@ An inventory file can contain a lot more information, it can organize your hosts
 [student<X@>ansible ~]$ ansible all --list-hosts
 ```
 
-> **Tip**
-> 
-> It is ok to put systems in more than one group, for instance a server could be both a web server and a database server.
+AS you see it is ok to put systems in more than one group, for instance a server could be both a web server and a database server. Note that in Ansible the groups are not necessarily hierarchical.
 
 > **Tip**
 > 

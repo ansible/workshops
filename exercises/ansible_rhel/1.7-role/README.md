@@ -273,6 +273,6 @@ simple vhost index
 
 All looking good? Congratulations! You have successfully completed the Ansible Engine Workshop Exercises!
 
----
+----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -4,6 +4,7 @@
 
 - [Objective](#Objective)
 - [Guide](#Guide)
+  - [Step 1: Login as network-admin](#step-1-login-as-network-admin)
 - [Playbook Output](#Playbook_Output)
 - [Solution](#Solution)
 
@@ -13,49 +14,57 @@ One of the key benefits of using Ansible Tower is the control of users that use 
 
 # Guide
 
-While the [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#role-based-access-controls) goes into depth, for purposes of this exercise it is necessary to understand a few key terms with respect to Ansible Tower:
+Lets review some Ansible Tower terminology:
 
 - **Organizations:** Defines a tenancy for example *Network-org*, *Compute-org*. This might be reflective of internal organizational structure of the customer's organization.
 - **Teams:** Within each organization, there may be more than one team. For instance *tier1-helpdesk*, *tier2-support*, *tier3-support*, *build-team* etc.
 - **Users:** Users typically belong to teams. What the user can do within Tower is controlled/defined using **roles**
 - **Roles:** Roles define what actions a user may perform. This can map very nicely to typical network organizations that have restricted access based on whether the user is a Level-1 helpdesk person, Level-2 or senior admin. Tower [documentation ](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#built-in-roles)defines a set of built-in roles.
 
-
-## Step 1:
-
-Confirm that you are logged in as the *network-admin* user. This user has administrator privileges to the " RED HAT NETWORK ORGANIZATION" organization.
-
-![](images/RBAC_1.png)
+For more in depth details on RBAC terminology please refer to the [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#role-based-access-controls)
 
 
-## Step 2
+## Step 1: Opening up Organizations
 
-Log out of Tower and log back in as the admin user.
-> Please check with your instructor to find the login credentials.
+1. Login to Ansible Tower with the **admin** user.
 
-Under the *ACCESS* section, click on **Organizations**
+   | Parameter | Value |
+   |---|---|
+   | username  | `admin`  |
+   |  password|  provided by instructor |
 
-![](images/RBAC_2.png)
+2. Confirm that you are logged in as the **admin** user.
 
-As the *admin* user, you should be able to view all organizations configured for this Tower:
+   ![admin user](images/RBAC_2.png)
 
->Note: The orgs, teams and users were auto-populated for this workshop
+3. Under the **ACCESS** section, click on **Organizations**
 
-![](images/RBAC_3.png)
+   As the *admin* user, you will be able to view all organizations configured for Ansible Tower:
 
-You will see that there are 2 organizations(other than Default) pre-configured for you:
+   >Note: The orgs, teams and users were auto-populated for this workshop
 
-1. **RED HAT COMPUTE ORGANIZATION**
-2. **RED HAT NETWORK ORGANIZATION**
+4. Examine the organizations
 
->Observe that this page gives you a summary of all the teams, users, inventories, projects and job templates associated with it. If a Organization level admin is configure you will see that as well.
+   There are 2 organizations (other than Default):
 
-## Step 3
+   1. **RED HAT COMPUTE ORGANIZATION**
+   2. **RED HAT NETWORK ORGANIZATION**
 
-Go ahead and click on the **RED HAT NETWORK ORGANIZATION**. This brings up a section that displays the details of the organization. Feel free to click through *Users*, *Permissions* etc.
+   ![organizations image](images/RBAC_3.png)
 
-![](images/RBAC_4.png )
+   >Observe that this page gives you a summary of all the teams, users, inventories, projects and job templates associated with it. If a Organization level admin is configure you will see that as well.
 
+## Step 2: Open the NETWORK ORGANIZATION
+
+1. Click on the **RED HAT NETWORK ORGANIZATION**.
+
+   This brings up a section that displays the details of the organization.
+
+   ![network organization image](images/RBAC_4.png)
+
+2. Click on the **USERS** button to see users associated with this organization.
+
+   >Observe that both the **network-admin** and **network-operator** users are associated with this organization.
 
 ## Step 4
 

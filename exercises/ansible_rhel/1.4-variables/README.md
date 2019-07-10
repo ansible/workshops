@@ -20,9 +20,9 @@ Variables and their values can be defined in various places: the inventory, addi
 
 The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
 
-  - To e.g. define variables for a group "servers", create a YAML file named `group_vars/servers` with the variable definitions.
+  - To e.g. define variables for a group "servers", a YAML file named `group_vars/servers` with the variable definitions is created.
 
-  - To define variables specifically for a host `node1`, create the file `host_vars/node1` with the variable definitions.
+  - To define variables specifically for a host `node1`, the file `host_vars/node1` with the variable definitions is created.
 
 > **Tip**
 > 

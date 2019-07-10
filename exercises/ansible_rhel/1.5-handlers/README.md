@@ -15,7 +15,7 @@ To implement a conditional, the `when` statement must be used, followed by the c
 | \<   | true if the left hand side is lower than the right hand side.          |
 | \< = | true if the left hand side is lower or equal to the right hand side.   |
 
-For more on this, please refer to the documentation: <http://jinja.pocoo.org/docs/2.9/templates/>
+For more on this, please refer to the documentation: <http://jinja.pocoo.org/docs/2.10/templates/>
 
 As an example you would like to install an FTP server, but only on hosts that are in the "ftpserver" inventory group.
 

@@ -117,7 +117,17 @@ Ansible needs to know that it should use the `ping` module: The `-m` option defi
 
 ```bash
 [student<X>@ansible ~]$ ansible web -m ping
+node2 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+[...]
 ```
+
+As you see each node reports the successful execution and the actual result - here "pong".
 
 ## Step 2.4 - Listing Modules and Getting Help
 

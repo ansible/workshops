@@ -89,11 +89,7 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 >
 > **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete Playbooks!**
 
-> **Tip**
->
-> Some of these tasks have been done in other parts of the lab, don't worry, it's about the learning experience.
-
-Edit the `tasks/main.yml` file:
+Change into the `roles/apache_vhost` directory. Edit the `tasks/main.yml` file:
 
 ```yaml
 ---
@@ -206,13 +202,13 @@ Create the handler in the file `handlers/main.yml` to restart httpd when notifie
 
 Create the HTML content that will be served by the webserver.
 
-  - Create an index.html file in the "src" directory:
+  - Create an index.html file in the "src" directory of the role, `files`:
 
 ```bash
-[student<X>@ansible ansible-files]$ echo 'simple vhost index' > roles/apache_vhost/files/index.html
+[student<X>@ansible ansible-files]$ echo 'simple vhost index' > files/index.html
 ```
 
-  - Create the `vhost.conf.j2` template file in the role's templates subdirectory.
+  - Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
 
 <!-- {% raw %} -->
 ```html

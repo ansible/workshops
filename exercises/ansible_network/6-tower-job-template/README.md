@@ -4,7 +4,10 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
-- [Playbook Output](#playbook-output)
+   - [Step 1: Create a Job Template](#step-1-create-a-job-template)
+   - [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
+   - [Step 3: Examine the Job Details View](#step-3-examine-the-job-details-view)
+   - [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
 - [Solution](#solution)
 
 # Objective
@@ -90,6 +93,8 @@ On the left side there is a **Details pane** on the right side there is the **St
 
 ## Step 4: Examine the Jobs window
 
+Any **Job Template** that has been run or is currently running will show up under the **Jobs** window.
+
 1. Click the Jobs button the left menu.
 
     ![jobs button](images/jobs.png)
@@ -102,67 +107,47 @@ On the left side there is a **Details pane** on the right side there is the **St
 
     The **Backup network configurations** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
 
-## Step 5
+## Step 5: Verify the backups were created
 
-To understand where the Playbooks are that we imported via the Project, return to the command line of the control node.  Switch to the **awx** user.
+1. On the Ansible control node command line `ls /tmp/backup` to view the time stamped folder (or folders if you created multiple backups)
 
-```
-sudo su - awx
-```
+   ```
+   [student1@ansible ~]$ ls /tmp/backup
+   2019-07-09-18-42  2019-07-09-19-18
+   ```
 
-You have now switched to the awx user, perform an ls to see what files are in here.
+   - `ls` is a command to list computer files in Linux operating systems
 
-```
--bash-4.2$ ls
-beat.db  favicon.ico  job_status  projects  public  uwsgi.stats  venv  wsgi.py
-```
+2. Use the `cat` command to view the contents of one of the time stamped network devices
 
-There is a **projects** folder here that directly corresponds to the Projects link in Ansible Tower.  Move into the projects directory to see what is available.
+   ```
+   [student1@ansible ~]$ cat /tmp/backup/2019-07-09-18-42/rtr1
 
-```
--bash-4.2$ cd projects/
--bash-4.2$ ls
-_10__workshop_project  _10__workshop_project.lock
--bash-4.2$ cd _10__workshop_project
-```
+   Current configuration : 5625 bytes
+   !
+   ! Last configuration change at 02:44:24 UTC Wed Jul 3 2019 by ec2-user
+   !
+   version 16.9
+   service tcp-keepalives-in
+   service tcp-keepalives-out
+   service timestamps debug datetime msec
+   service timestamps log datetime msec
+   service password-encryption
+   !
+   ! [[REST OF OUTPUT REMOVED FOR BREVITY]]
+   !
+   ```
 
-The number might not match exactly here, but the **workshop_project** directly corresponds to our WorkShop Project we created in the previous exercise.
-
-Perform an ls -la to look at one files are available in this directory.
-
-```
--bash-4.2$ ls -la
-total 44
-drwxr-xr-x. 9 awx awx 4096 Jan 22 19:27 .
-drwxr-x---. 3 awx awx   69 Jan 22 19:33 ..
--rw-r--r--. 1 awx awx  652 Jan 22 15:45 ansible.cfg
-drwxr-xr-x. 4 awx awx   33 Jan 22 18:41 eos
-drwxr-xr-x. 8 awx awx  198 Jan 22 19:27 .git
-drwxr-xr-x. 2 awx awx   21 Jan 22 15:45 group_vars
-drwxr-xr-x. 4 awx awx   33 Jan 22 18:37 ios
-drwxr-xr-x. 4 awx awx   33 Jan 22 18:49 junos
--rw-r--r--. 1 awx awx 2535 Jan 22 19:27 network_backup.yml
--rw-r--r--. 1 awx awx  247 Jan 22 15:45 network_banner.yml
--rw-r--r--. 1 awx awx  252 Jan 22 15:45 network_l3_interface.yml
--rw-r--r--. 1 awx awx  250 Jan 22 15:45 network_restore.yml
-drwxr-xr-x. 2 awx awx   96 Jan 22 15:45 network_setup
--rw-r--r--. 1 awx awx  543 Jan 22 15:45 network_system.yml
--rw-r--r--. 1 awx awx  609 Jan 22 15:45 network_time.yml
--rw-r--r--. 1 awx awx  272 Jan 22 15:45 network_user.yml
--rw-r--r--. 1 awx awx  297 Jan 22 15:45 README.md
--rw-r--r--. 1 awx awx  712 Jan 22 15:45 sample-vars-auto.yml
-drwxr-xr-x. 2 awx awx  103 Jan 22 15:45 templates
-```
-
-The Playbooks (shown as .yml files) should directly correspond to the Github repo: https://github.com/network-automation/tower_workshop
+  3. Examine the remaining routers.  Your instructor may have setup multiple vendors for this exercise including Juniper and Arista.  Ansible Playbooks can be written to be vendor agnostic,  in this case we provided the Ansible Playbook via the Github repo: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
 
 
 # Solution
 You have finished this exercise.  
 
-You have
- - created a job template for backing up network configurations
- - launched the job template from the Ansible Tower UI
- - looked under the covers on the control node to see where the Playbooks are being stored
+You have successfully demonstrated
+ - Creating a Job Template for backing up network configurations
+ - Launching a Job Template from the Ansible Tower UI
+ - Verifying the backups are correctly stored
 
-[Click here to return to the lab guide](../README.md)
+---
+[Click Here to return to the Ansible - Network Automation Workshop](../../README.md)

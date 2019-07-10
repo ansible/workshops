@@ -134,9 +134,12 @@ Prefer Youtube?  [Click Here](https://youtu.be/UT0t_hlNw-c)
 - Ansible Tower can sync to existing SCM (source control management) including Github.  
 - Ansible Tower can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Tower can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
 
-# End of Exercise
+---
+
+# Complete
+
+You have completed lab exercise 5
 
 You have now examined all three components required to get started with Ansible Tower.  A credential, an inventory and a project.  In the next exercise we will create a job template.
 
----
-[Click Here to return to the Ansible - Network Automation Workshop](../../README.md)
+[Click here to return to the Ansible Network Automation Workshop](../README.md)

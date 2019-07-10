@@ -1,4 +1,4 @@
-# Exercise 4-4: Creating a Workflow
+# Exercise 9: Creating a Workflow
 
 ## Table of Contents
 

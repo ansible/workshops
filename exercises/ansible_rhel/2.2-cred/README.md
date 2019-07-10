@@ -8,7 +8,7 @@ Let’s get started with: The first thing we need is an inventory of your manage
 
 Create the inventory:
 
-  - In the web UI menu go to **Resources** → **Inventories** and click the ![plus](images/green_plus.png) button and choose **Inventory**.
+  - In the web UI menu on the left side, go to **RESOURCES** → **Inventories**, click the ![plus](images/green_plus.png) button on the right side and choose **Inventory**.
 
   - **NAME:** Workshop Inventory
 
@@ -16,7 +16,7 @@ Create the inventory:
 
   - Click **SAVE**
 
-Now under the Inventories there will be two inventories, the **Demo Inventory** and the **Workshop Inventory**. Under the **Workshop Inventory** click the **Hosts** button, it will be empty since we have not added any hosts there.
+Now there will be two inventories, the **Demo Inventory** and the **Workshop Inventory**. In the **Workshop Inventory** click the **Hosts** button, it will be empty since we have not added any hosts there.
 
 So let's add some hosts. First we need to have the list of all hosts which are accessible to you within this lab. These can be found in an inventory on the ansible control node on which Tower is installed.
 
@@ -61,7 +61,7 @@ Note the names for the nodes and the IP addresses, we will use them to fill the 
 
   - **HOST NAME:** `node1`
 
-  - **Variables:** Under the three dashes `---`, enter `ansible_host: 22.33.44.55` in a new line. Make sure to enter your specific IP address for your `node1` from the inventory looked up above.
+  - **Variables:** Under the three dashes `---`, enter `ansible_host: 22.33.44.55` in a new line. Make sure to enter your specific IP address for your `node1` from the inventory looked up above, and note that the variable definition has a colon **:** and a space between the values, not an equal sign **=** like in the inventory file.
 
   - Click **SAVE**
 
@@ -73,7 +73,7 @@ You have now created an inventory with three managed hosts.
 
 One of the great features of Ansible Tower is to make credentials usable to users without making them visible. To allow Tower to execute jobs on remote hosts, you must configure connection credentials.
 
-> **Warning**
+> **Note**
 > 
 > This is one of the most important features of Tower: **Credential Separation**\! Credentials are defined separately and not with the hosts or inventory settings.
 
@@ -102,7 +102,7 @@ What does this mean?
 
 ## Configure Machine Credentials
 
-Now we will configure the credentials to access our managed hosts from Tower. In the **Resources** menu choose **Credentials**. Now:
+Now we will configure the credentials to access our managed hosts from Tower. In the **RESOURCES** menu choose **Credentials**. Now:
 
 Click the ![plus](images/green_plus.png) button to add new credentials
     
@@ -122,7 +122,7 @@ Click the ![plus](images/green_plus.png) button to add new credentials
 
   - Click **SAVE**
 
-  - Go back to the **Resources** → **Credentials** → **Workshop Credentials** and note that the password is not visible.
+  - Go back to the **RESOURCES** → **Credentials** → **Workshop Credentials** and note that the password is not visible.
 
 > **Tip**
 > 
@@ -134,7 +134,7 @@ You have now setup credentials to use later for your inventory hosts.
 
 As you’ve probably done with Ansible before you can run ad hoc commands from Tower as well.
 
-  - In the web UI go to **Resources → Inventories → Workshop Inventory**
+  - In the web UI go to **RESOURCES → Inventories → Workshop Inventory**
 
   - Click the **HOSTS** button to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
 
@@ -146,25 +146,21 @@ As you’ve probably done with Ansible before you can run ad hoc commands from T
     
       - Click **LAUNCH**, and watch the output.
 
-Try other modules in ad hoc commands, as well:
+The simple **ping** module doesn’t need options. For other modules youneed to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
+  
+- **MODULE:** command
 
-  - Find the userid of the executing user using an ad hoc command.
-    
-      - **MODULE:** command
-    
-      - **ARGUMENTS:** id
+- **ARGUMENTS:** id
 
 > **Tip**
 > 
 > After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
 
-The simple **Ping** module doesn’t need options. For the command module you need to supply the command to run as an argument.
+How about trying to get some secret information from the system? Try to print out */etc/shadow*.
+    
+- **MODULE:** command
 
-  - Print out */etc/shadow*.
-    
-      - **MODULE:** command
-    
-      - **ARGUMENTS:** cat /etc/shadow
+- **ARGUMENTS:** cat /etc/shadow
 
 > **Warning**
 > 
@@ -172,11 +168,9 @@ The simple **Ping** module doesn’t need options. For the command module you ne
 
 Oops, the last one didn’t went well, all red.
 
-  - Re-run the last ad hoc command but this time tick the **ENABLE PRIVILEGE ESCALATION** box.
+Re-run the last ad hoc command but this time tick the **ENABLE PRIVILEGE ESCALATION** box.
 
-> **Tip**
-> 
-> For tasks that have to run as root you need to escalate the privileges. This is the same as the **become: yes** you’ve probably used often in your Ansible Playbooks.
+As you see, this time it worked. For tasks that have to run as root you need to escalate the privileges. This is the same as the **become: yes** you’ve probably used often in your Ansible Playbooks.
 
 ## Challenge Lab: Ad Hoc Commands
 

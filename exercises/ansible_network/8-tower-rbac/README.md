@@ -68,28 +68,31 @@ For more in depth details on RBAC terminology please refer to the [documentation
 
 ## Step 4
 
-Now, click on *TEAMS* in the sidebar
-![](images/RBAC_5.png )
+1. Click on **TEAMS** in the sidebar
 
-As the tower admin you will now be able to see all available teams
-![](images/RBAC_6.png )
+   ![image identifying teams](images/RBAC_5.png )
 
->Note: The orgs, teams and users were auto-populated for this workshop
+2. Examine the teams.  The Ansible Tower admin  will be able to see all available teams.  There are four teams:
 
+     1. Compute T1
+     2. Compute T2
+     3. Netadmin
+     4. Netops   
 
-## Step 5
+   ![teams window image](images/RBAC_6.png )
 
-Click on the *Netops* team and then click on *Users*
-![](images/RBAC_7.png )
+## Step 5: Examine the Netops Team
 
-You will see auto-populated users for this team with different roles. Pay attention to 2 particular users:
+1. Click on the **Netops** Team and then click on the **USERS** button. Pay attention to 2 particular users:
+   1. network-admin
+   2. network-operator
 
-1. network-admin
-2. network-operator
+   ![image showing users](images/RBAC_7.png )
 
-The *network-admin* user has Administrative privileges for the **RED HAT NETWORK ORGANIZATION** organization.
+2. Observe the following two points:
 
-The *network-operator* is simply a member of the Netops team. We will log in as each of these users to understand the roles
+   1. The **network-admin** user has Administrative privileges for the **RED HAT NETWORK ORGANIZATION** organization.
+   2. The **network-operator** is simply a member of the Netops team. We will log in as each of these users to understand the roles
 
 
 ## Step 6

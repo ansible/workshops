@@ -17,7 +17,6 @@ Want the Presentation Deck?  Its right here:
 - [Exercise 7 - Create an Ansible Tower Survey](./7-tower-survey/)
 - [Exercise 8 - Using the Role Based Access Control (RBAC) feature](./8-tower-rbac/)
 - [Exercise 9 - Create an Ansible Tower Workflow](./9-tower-workflow)
-- [Exercise 10 - Working with the Ansible Tower API](./10-tower-api)
 
 There are additional older exercises that are [archived here](archive/).
 

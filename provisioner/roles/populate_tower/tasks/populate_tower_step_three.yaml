@@ -58,7 +58,8 @@
         playbook: "network_user.yml"
         credential: "Workshop Credential"
         state: "present"
-        limit: "cisco"
+        survey_enabled: true
+        survey_spec: "{{ lookup('template', 'user.json') }}"
         tower_username: admin
         tower_password: "{{ admin_password }}"
         tower_host: "{{ ansible_host }}"

@@ -7,6 +7,10 @@
   - [Step 1: Create a Job Template](#step-1-create-a-job-template)
   - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
   - [Step 3: Add the Backup Job Template](#step-3-add-the-backup-job template)
+  - [Step 4: Add the CONFIGURE BANNER Job Template](#Step 4-add-the-configure-banner-job-template)
+  - [Step 5: Add the Restore Job Template](#step-5-add-the-restore-job-template)
+  - [Step 6: Create a converged link](#step-6-create-a-converged-link)
+  - [Step 7: Run the Workflow](#step-7-run-the-workflow)
 - [Takeaways](#takeaways)
 
 # Objective
@@ -51,46 +55,52 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 ## Step 3: Add the Backup Job Template
 
-1. Hover over the Backup node and click the green **+** symbol.  The **ADD A TEMPLATE** window will appear again.  This time select the **CONFIGURE BANNER** job template.  For the **Run** parameter select **On Success** from the drop down menu.
+1. Hover over the *Backup* node and click the green **+** symbol.  The **ADD A TEMPLATE** window will appear again.
 
-You will not be able to click **SELECT** until you pre-populate the prompt.  Just fill out the **PROMPT** with your desired banner.
+2. Select the **CONFIGURE BANNER** Job Template.  For the **Run** parameter select **On Success** from the drop down menu.
 
-![banner node](images/configure-banner.png)
+3. You will not be able to click **SELECT** until you pre-populate the prompt.  Fill out the **PROMPT** with your desired banner.
 
-A green line should exist between **BACKUP NETWORK CONFIG** and **CONFIGURE BANNER**
+4.  A green line should exist between **BACKUP NETWORK CONFIG** and **CONFIGURE BANNER**
 
-## Step 4
+    ![banner node](images/configure-banner.png)
 
-Hover over the **BACKUP NETWORK CONFIG** node (not the **CONFIGURE BANNER** node) and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+## Step 4: Add the CONFIGURE BANNER Job Template
 
-This time select the **CONFIGURE USER** job template.  For the **Run** parameter and select **On Success** from the drop down menu.  Just like the previous step fill out the prompt or it will not let you **SELECT** the job.  Once the **SELECT** button appears green click it.
+1. Hover over the *Backup* node (not the **CONFIGURE BANNER** node) and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-![configure user node](images/configure-user.png)
+2. Select the **Network-User** Job Template.  For the **Run** parameter and select **On Success** from the drop down menu.  Just like the previous step fill out the prompt or it will not let you **SELECT** the job.  Once the **SELECT** button appears green click it.
+
+    ![configure user node](images/configure-user.png)
 
 
-## Step 5
+## Step 5: Add the Restore Job Template
 
-Hover over the **CONFIGURE BANNER** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1.  Hover over the **CONFIGURE BANNER** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-Select the **RESTORE NETWORK CONFIG** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+2. Select the **RESTORE NETWORK CONFIG** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
 
-![configure restore node](images/configure-restore.png)
+   ![configure restore node](images/configure-restore.png)
 
-## Step 6
+## Step 6: Create a converged link
 
-Hover over the **CONFIGURE USER** node and click the blue **chain** symbol.  Now click on the existing **RESTORE NETWORK CONFIG**.  A **ADD LINK** window will appear.  For the **RUN** parameter choose **On Failure**.
+1. Hover over the **Network-User** node and click the blue **chain** symbol.
 
-![restore node](images/completed-workflow.png)
+2. Now, click on the existing **RESTORE NETWORK CONFIG**.  A **ADD LINK** window will appear.  For the **RUN** parameter choose **On Failure**.
 
-Click the green **SAVE** button
+    ![restore node](images/completed-workflow.png)
 
-## Step 7
+3. Click the green **SAVE** button
 
-Return to the **templates** menu and click the rocket ship to launch the **WORKSHOP WORKFLOW** workflow template.
+## Step 7: Run the Workflow
 
-![workflow job launched](images/running-workflow.png)
+1. Return to the **Templates** window
 
-At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
+2. Click the rocket ship to launch the **WORKSHOP WORKFLOW** workflow template.
+
+   ![workflow job launched](images/running-workflow.png)
+
+    At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
 
 # Takeaways
 

@@ -65,8 +65,8 @@ Copy the following into the template.j2 file:
 {% raw %}
 ```yaml
 {% for interface,ip in nodes[inventory_hostname].items() %}
-{{interface}}
-  {{ip}} 255.255.255.255
+interface {{interface}}
+  ip address {{ip}} 255.255.255.255
 {% endfor %}
 ```
 {% endraw %}
@@ -96,8 +96,8 @@ This step will explain and elaborate on each part of the newly created template.
 
 {% raw %}
 ```yaml
-{{interface}}
-  {{ip}} 255.255.255.255
+interface {{interface}}
+  ip address {{ip}} 255.255.255.255
 ```
 {% endraw %}
 

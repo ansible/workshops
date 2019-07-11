@@ -47,13 +47,18 @@
 #   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
 #
 # That would enable a more generic role/scaffolding
+- name: clean out /tmp/linklight
+  file:
+    path: /tmp/linklight
+    state: absent
 
 - name: Clone linklight repo (NETWORKING MODE)
   git:
     accept_hostkey: yes
     clone: yes
     dest: /tmp/linklight
-    repo: https://github.com/ansible/workshops.git
+    repo: https://github.com/ipvsean/linklight.git
+    version: gh-pages
     force: yes
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)

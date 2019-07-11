@@ -47,6 +47,10 @@
 #   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
 #
 # That would enable a more generic role/scaffolding
+- name: clean out /tmp/linklight
+  file:
+    path: /tmp/linklight
+    state: absent
 
 - name: Clone workshops repo (NETWORKING MODE)
   git:

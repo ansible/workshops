@@ -13,6 +13,7 @@
   - [Step 7: Job Template Permissions](#step-7-job-template-permissions)
   - [Step 8: Login as network-operator](#Step-8-login-as-network-operator)
   - [Step 9: Launching a Job Template](#step-9-launching-a-job-template)
+  - [Bonus Step](#bonus-step)
 - [Takeaways](#takeaways)
 
 
@@ -193,8 +194,6 @@ Finally, to see the RBAC in action!
 
 4. You will be prompted by a dialog-box that lets you choose one of the pre-configured show commands.
 
-   Using Ansible Tower's powerful RBAC feature, you can see it is easy to restrict access to operators to run prescribed commands on production systems without requiring them to have access to the systems themselves.
-
    ![pre configured survey image](images/RBAC_13.png )
 
 5. Go ahead and choose a command and click ** Next***Launch* to see the playbook being executed and the results being displayed.
@@ -203,12 +202,16 @@ Finally, to see the RBAC in action!
 
 If time permits, log back in as the network-admin and add another show command you would like the operator to run. This will also help you see how the *Admin* Role of the network-admin user allows you to edit/update the job template.
 
+# Takeaways
 
+ - Using Ansible Tower's powerful RBAC feature, you can see it is easy to restrict access to operators to run prescribed commands on production systems without requiring them to have access to the systems themselves.
+ - Ansible Tower can support multiple Organizations, multiple Teams and users.  Users can even belong to multiple Teams and Organizations if needed.  Something not covered in this exercise is that we do not need to manage users in Ansible Tower, we can use [enterprise authentication](https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html) including Active Directory, LDAP, RADIUS, SAML and TACACS+.
+ - If there needs to be an exception (a user needs access but not his entire team) this is also possible.  The granularity of RBAC can be down to the credential, inventory or Job Template for an individual user.
 
 ---
 
 # Complete
 
-You have completed lab exercise 7
+You have completed lab exercise 8
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

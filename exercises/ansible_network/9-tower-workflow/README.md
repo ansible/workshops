@@ -85,12 +85,17 @@ Return to the **templates** menu and click the rocket ship to launch the **WORKS
 
 At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
 
-# Solution
-You have finished this exercise.  
+# Takeaways
 
 You have
  - created a workflow template that creates a backup, attempts to create a user and banner for all network nodes
  - made the workflow robust, if either job template fails it will restore to the specified backup
  - launched the workflow template and explored the **VISUALIZER**
 
-[Click here to return to the lab guide](../README.md)
+---
+
+# Complete
+
+You have completed lab exercise 9
+
+[Click here to return to the Ansible Network Automation Workshop](../README.md)

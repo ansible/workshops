@@ -23,6 +23,8 @@ Build Tag: ${env.BUILD_TAG}"""
                 sh 'pip install netaddr'
                 sh 'yum -y install sshpass'
                 script {
+                    ANSIBLE_WORKSHOPS_REFSPEC = "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/${env.BRANCH_NAME}"
+
                     if (TOWER_VERSION == 'devel') {
                         tower_installer_url = "${AWX_NIGHTLY_REPO_URL}/${TOWER_VERSION}/setup/ansible-tower-setup-latest.tar.gz"
                         gpgcheck = 0
@@ -48,7 +50,7 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url}"
+                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_version=${env.BRANCH_NAME} -e ansible_workshops_refspec=${ANSIBLE_WORKSHOPS_REFSPEC}"
                                     }
                                 }
                             }
@@ -79,7 +81,7 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url}"
+                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_version=${env.BRANCH_NAME} -e ansible_workshops_refspec=${ANSIBLE_WORKSHOPS_REFSPEC}"
                                     }
                                 }
                             }
@@ -110,7 +112,7 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url}"
+                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_version=${env.BRANCH_NAME} -e ansible_workshops_refspec=${ANSIBLE_WORKSHOPS_REFSPEC}"
                                     }
                                 }
                             }

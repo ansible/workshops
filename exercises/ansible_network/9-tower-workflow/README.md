@@ -4,7 +4,10 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
-- [Solution](#solution)
+  - [Step 1: Create a Job Template](#step-1-create-a-job-template)
+  - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
+  - [Step 3: Add the Backup Job Template](#step-3-add-the-backup-job template)
+- [Takeaways](#takeaways)
 
 # Objective
 
@@ -14,9 +17,13 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 # Guide
 
-## Step 1
+## Step 1: Create a Job Template
 
-Click on the **templates** link on the left menu.  Then click on the green **+** button.  Select the **Workflow Template**.  Fill out the the form as follows:
+1. Click on the **Templates** link on the left menu.  
+
+2. Click on the green **+** button. Select the **Workflow Template**.  
+
+3. Fill out the the form as follows:
 
 | Parameter | Value |
 |---|---|
@@ -24,27 +31,27 @@ Click on the **templates** link on the left menu.  Then click on the green **+**
 |  Organization |  Default |
 |  Inventory |  Workshop Inventory |
 
-Click on the **Save** button
+4. Click on the **Save** button
 
 ![workflow creation](images/workflow_create.gif)
 
-## Step 2
+## Step 2: The Workflow Visualizer
 
-When you click the **SAVE** the **WORKFLOW VISUALIZER** should automatically open.  If not click on the blue **WORKFLOW VISUALIZER** button.  
+1. When you click the **SAVE** the **WORKFLOW VISUALIZER** should automatically open.  If not click on the blue **WORKFLOW VISUALIZER** button.  
 
-By default only a green **START** button will appear.  Click on the **START** button.  
+2. By default only a green **START** button will appear.  Click on the **START** button.  
 
-The **ADD A TEMPLATE** window will appear on the right.  Select the **BACKUP NETWORK CONFIG** job template that was created earlier.  Use the drop down box to select run.  Click the green **SELECT** button.
+3. The **ADD A TEMPLATE** window will appear on the right.  Select the *Backup* Job Template that was created in exercise 6 (whatever you named it!).  Use the drop down box to select run.  Click the green **SELECT** button.
 
-![add a template](images/add-a-template.png)
+   ![add a template](images/add-a-template.png)
 
-The **BACKUP NETWORK CONFIG** job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
+   The `Backup` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
 
-![configure backup node](images/configure-backup.png)
+   ![configure backup node](images/configure-backup.png)
 
-## Step 3
+## Step 3: Add the Backup Job Template
 
-Hover over the **BACKUP NETWORK CONFIG** node and click the green **+** symbol.  The **ADD A TEMPLATE** window will appear again.  This time select the **CONFIGURE BANNER** job template.  For the **Run** parameter select **On Success** from the drop down menu.
+1. Hover over the Backup node and click the green **+** symbol.  The **ADD A TEMPLATE** window will appear again.  This time select the **CONFIGURE BANNER** job template.  For the **Run** parameter select **On Success** from the drop down menu.
 
 You will not be able to click **SELECT** until you pre-populate the prompt.  Just fill out the **PROMPT** with your desired banner.
 

@@ -5,6 +5,10 @@
   gather_facts: no
 
   tasks:
+    - name: Yanis Debug
+      debug:
+        msg: 'Yanis'
+
     - name: COLLECT BIG-IP FACTS
       bigip_device_facts:
         gather_subset:

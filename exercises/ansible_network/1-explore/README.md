@@ -1,18 +1,50 @@
-# Exercise 1.0 - Exploring the lab environment
+# Exercise 1 - Exploring the lab environment
+
+## Table of Contents
+
+- [Objective](#objective)
+- [Diagram](#diagram)
+- [Guide](#guide)
+- [Takeaways](#takeaways)
+
+# Objective
+
+Explore and understand the lab environment.  This exercise will cover
+- Determining the Ansible version running on the control node
+- Locating and understanding the Ansible configuration file (`ansible.cfg`)
+- Locating and understanding an `ini` formatted inventory file
 
 Before you get started, please join us on slack! [Click here to join the ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE).  This will allow you to chat with other network automation engineers and get help after the workshops concludes.
+
+# Diagram
+
+![Red Hat Ansible Automation Lab Diagram](../../../images/network_diagram.png)
+
+There are four routers, named rtr1, rtr2, rtr3 and rtr4.  This diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (~/.ssh/config) is already setup so you can easily SSH to any router from the control node.
+
+For example to connect to rtr1 from the Ansible control node, type:
+
+```bash
+[student1@ansible ~]$ ssh rtr1
+```
+
+This will not require a username or password.
+
+# Guide
 
 ## Step 1
 
 Navigate to the `networking-workshop` directory.
 
-
 ```
 [student1@ansible ~]$ cd networking-workshop/
 [student1@ansible networking-workshop]$
-[student1@ansible networking-workshop]$
-
+[student1@ansible networking-workshop]$ pwd
+/home/student1/networking-workshop
 ```
+
+ - `cd` - Linux command to change directory
+ - `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
 ## Step 2
 
@@ -20,20 +52,15 @@ Run the `ansible` command with the `--version` command to look at what is config
 
 
 ```
-[student1@ansible networking-workshop]$ ansible --version
-ansible 2.6.2
+ansible 2.8.1
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python2.7/site-packages/ansible
   executable location = /usr/bin/ansible
-  python version = 2.7.5 (default, May  3 2017, 07:55:04) [GCC 4.8.5 20150623 (Red Hat 4.8.5-14)]
-[student1@ansible networking-workshop]$
-
-
+  python version = 2.7.5 (default, Jun 11 2019, 12:19:05) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
 ```
 
 > Note: The ansible version you see might differ from the above output
-
 
 This command gives you information about the version of Ansible, location of the executable, version of Python, search path for the modules and location of the `ansible configuration file`.
 
@@ -42,23 +69,23 @@ This command gives you information about the version of Ansible, location of the
 Use the `cat` command to view the contents of the `ansible.cfg` file.
 
 ```
-[student1@ansible networking-workshop]$ cat ~/.ansible.cfg
+[student1@ansible ~]$ cat ~/.ansible.cfg
 [defaults]
+stdout_callback = yaml
 connection = smart
 timeout = 60
-inventory = /home/student1/networking-workshop/lab_inventory/hosts
+deprecation_warnings = False
 host_key_checking = False
-private_key_file = /home/student1/.ssh/aws-private.pem
-[student1@ansible networking-workshop]$
-
+retry_files_enabled = False
+inventory = /home/student1/networking-workshop/lab_inventory/hosts
+[persistent_connection]
+connect_timeout = 60
+command_timeout = 60
 ```
 
 Note the following parameters within the `ansible.cfg` file:
 
  - `inventory`: shows the location of the ansible inventory being used
- - `private_key_file`: this shows the location of the private key used to login to devices
-
-
 
 ## Step 4
 
@@ -68,30 +95,38 @@ In this lab you will work with a file based inventory written in the **ini** for
 
 
 ```
-
-[student1@ansible ~]$ cat ~/networking-workshop/lab_inventory/hosts
 [all:vars]
-ansible_port=22
+ansible_ssh_private_key_file=/home/student1/.ssh/aws-private.pem
 
 [routers:children]
 cisco
 juniper
+arista
 
 [cisco]
-rtr1 ansible_host=35.182.226.163 private_ip=172.16.173.57
-rtr2 ansible_host=35.183.197.179 private_ip=172.17.88.89
-
+rtr1 ansible_host=18.222.121.247 private_ip=172.16.129.86
+[arista]
+rtr2 ansible_host=18.188.194.126 private_ip=172.17.158.197
+rtr4 ansible_host=18.221.5.35 private_ip=172.17.8.111
 [juniper]
-rtr3 ansible_host=35.183.209.131 private_ip=172.16.119.246
-rtr4 ansible_host=35.183.244.146 private_ip=172.17.211.127
+rtr3 ansible_host=3.14.132.20 private_ip=172.16.73.175
 
 [cisco:vars]
 ansible_user=ec2-user
 ansible_network_os=ios
+ansible_connection=network_cli
 
 [juniper:vars]
-ansible_user=jnpr
+ansible_user=ec2-user
 ansible_network_os=junos
+ansible_connection=netconf
+
+[arista:vars]
+ansible_user=ec2-user
+ansible_network_os=eos
+ansible_connection=network_cli
+ansible_become=true
+ansible_become_method=enable
 
 [dc1]
 rtr1
@@ -101,41 +136,49 @@ rtr3
 rtr2
 rtr4
 
-[hosts]
-host1 ansible_host=35.183.19.221 ansible_user=ec2-user private_ip=172.17.179.150
-
 [control]
-ansible ansible_host=35.183.137.160 ansible_user=ec2-user private_ip=172.16.45.102
-[student1@ansible ~]$
-
+ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
 ```
 
 ## Step 5
 
-In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr2`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
+In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
 
 > Parent groups are declared using the `children` directive. Having nested groups allows the flexibility of assigining more specific values to variables.
 
 
-> Note: A group called **all** always exists and contains all groups and hosts defined within an inventroy.
+> Note: A group called **all** always exists and contains all groups and hosts defined within an inventory.
 
 
-We can associate variables to groups and hosts. Host variables are declared/defined on the same line as the host themselves. For example for the host `rtr1`:
+We can associate variables to groups and hosts.
+
+Host variables can be defined on the same line as the host themselves. For example for the host `rtr1`:
 
 ```
-rtr1 ansible_host=52.90.196.252 ansible_ssh_user=ec2-user private_ip=172.16.165.205 ansible_network_os=ios
-
+rtr1 ansible_host=18.222.121.247 private_ip=172.16.129.86
 ```
 
  - `rtr1` - The name that Ansible will use.  This can but does not have to rely on DNS
  - `ansible_host` - The IP address that ansible will use, if not configured it will default to DNS
- - `ansible_ssh_user` - The user ansible will use to login to this host, if not configured it will default to the user the playbook is run from
  - `private_ip` - This value is not reserved by ansible so it will default to a [host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables).  This variable can be used by playbooks or ignored completely.
+
+Group variables groups are declared using the `vars` directive. Having groups allows the flexibility of assigning common variables to multiple hosts. Multiple group variables can be defined under the `[group_name:vars]` section. For example look at the group `cisco`:
+
+```
+[cisco:vars]
+ansible_user=ec2-user
+ansible_network_os=ios
+ansible_connection=network_cli
+```
+
+ - `ansible_user` - The user ansible will be used to login to this host, if not configured it will default to the user the playbook is run from
 - `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
+- `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
+
 
 # Complete
 
-You have completed lab exercise 1.0
+You have completed lab exercise 1
 
 ---
-[Click Here to return to the Ansible Linklight - Networking Workshop](../../README.md)
+[Click Here to return to the Ansible Network Automation Workshop](../README.md)

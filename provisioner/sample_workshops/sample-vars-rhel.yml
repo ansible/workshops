@@ -12,3 +12,7 @@ workshop_type: rhel
 admin_password: ansible
 # creates HTML website for workshop
 create_login_page: true
+# when towerinstall is on, this will license it with provided license
+autolicense: true
+# this will install Ansible Tower on all control nodes
+towerinstall: true

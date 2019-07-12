@@ -1,4 +1,4 @@
-# Exercise 1 - Check the Prerequisites
+# Exercise 1.1 - Check the Prerequisites
 
 ## Your Lab Environment
 
@@ -74,5 +74,4 @@ You will soon discover that many chapters in this lab guide come with a "Challen
 
 ----
 
-[Click Here to return to the Ansible Engine Workshop](../README.md)
-
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

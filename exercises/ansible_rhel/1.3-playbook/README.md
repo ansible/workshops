@@ -1,4 +1,4 @@
-# Exercise 3 - Writing Your First Playbook
+# Exercise 1.3 - Writing Your First Playbook
 
 While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
 
@@ -49,7 +49,7 @@ Enough theory, it’s time to create your first Playbook. In this lab you create
 
   - Third step: Create an index.html file
 
-This Playbook makes sure the package containing the Apache webserver is installed on node1.
+This Playbook makes sure the package containing the Apache webserver is installed on `node1`.
 
 There is a [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills.  That said, our playbook today is very basic and creating a complex structure will just confuse things.
 
@@ -127,7 +127,7 @@ Now you should be ready to run your Playbook:
 ```
 The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an in-built task run automatically at the beginning of each play. It collects information about the managed nodes, a later chapter will discuss this.
 
-Use SSH to make sure Apache has been installed on node1. The necessary IP address is provided in the inventory. Grep for the IP address there and use it to SSH to the node.
+Use SSH to make sure Apache has been installed on `node1`. The necessary IP address is provided in the inventory. Grep for the IP address there and use it to SSH to the node.
 
 ```bash
 [student<X>@ansible ansible-files]$ grep node1 ~/lab_inventory/hosts
@@ -141,11 +141,8 @@ Name        : httpd
 Version     : 2.4.6
 [...]
 ```
-> **Warning**
-> 
-> **Remember to change \<X\> here to your student number!**
 
-Or even better use an Ansible ad hoc command\!
+Log out of `node1` with the command `exit` so that you are back on the control host, and verify the installed package with an Ansible ad hoc command\!
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
@@ -155,7 +152,7 @@ Run the Playbook a second time, and compare the output: The output changed from 
 
 ## Step 3.4 - Extend your Playbook: Start & Enable Apache
 
-The next part of the Playbook makes sure the Apache webserver is enabled and started on node1.
+The next part of the Playbook makes sure the Apache webserver is enabled and started on `node1`.
 
 On the control host, as your student user, edit the file `~/ansible-files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
 
@@ -198,7 +195,7 @@ Note the output now: Some tasks are shown as "ok" in green and one is shown as "
 
 ## Step 3.5 - Extend your Playbook: Create an index.html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the IP with the IP for the node from the inventory.
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the node from the inventory.
 
 > **Warning**
 > 
@@ -259,7 +256,7 @@ Run your extended Playbook:
 
 This was nice but the real power of Ansible is to apply the same set of tasks reliably to many hosts.
 
-  - So what about changing the apache.yml Playbook to run on node1 **and** node2 **and** node3?
+  - So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
 
 
 As you might remember, the inventory lists all nodes as members of the group `web`:
@@ -304,8 +301,8 @@ Now run the Playbook:
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
 
-Finally check if Apache is now running on both servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the node1 above. All output should be green.
+Finally check if Apache is now running on both servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the `node1` above. All output should be green.
 
----
+----
 
-[Click Here to return to the Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -1,4 +1,4 @@
-# Exercise 5 - Conditionals, Handlers and Loops
+# Exercise 1.5 - Conditionals, Handlers and Loops
 
 ## Step 5.1 - Conditionals
 
@@ -15,7 +15,7 @@ To implement a conditional, the `when` statement must be used, followed by the c
 | \<   | true if the left hand side is lower than the right hand side.          |
 | \< = | true if the left hand side is lower or equal to the right hand side.   |
 
-For more on this, please refer to the documentation: <http://jinja.pocoo.org/docs/2.9/templates/>
+For more on this, please refer to the documentation: <http://jinja.pocoo.org/docs/2.10/templates/>
 
 As an example you would like to install an FTP server, but only on hosts that are in the "ftpserver" inventory group.
 
@@ -225,6 +225,6 @@ node1 | CHANGED | rc=0 >>
 uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```
 
----
+----
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

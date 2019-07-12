@@ -48,17 +48,19 @@
 #
 # That would enable a more generic role/scaffolding
 
-- name: Clone linklight repo (NETWORKING MODE)
+- name: Clone workshops repo (NETWORKING MODE)
   git:
     accept_hostkey: yes
     clone: yes
-    dest: /tmp/linklight
-    repo: https://github.com/network-automation/linklight.git
+    dest: /tmp/workshops
+    repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
+    version: '{{ ansible_workshops_version | default("master") }}'
+    refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: yes
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)
   copy:
-    src: /tmp/linklight/exercises/ansible_network/
+    src: /tmp/workshops/exercises/ansible_network/
     dest: /home/{{ username }}/networking-workshop
     remote_src: yes
     owner: "{{ username }}"
@@ -67,7 +69,7 @@
 
 - name: Create demos folder with demos
   copy:
-    src: /tmp/linklight/demos/
+    src: /tmp/workshops/demos/
     dest: /home/{{ username }}/demos
     remote_src: yes
     owner: "{{ username }}"
@@ -76,7 +78,7 @@
 
 - name: Move networking workshop folder to correct location  (F5 MODE)
   copy:
-    src: /tmp/linklight/exercises/ansible_f5/
+    src: /tmp/workshops/exercises/ansible_f5/
     dest: /home/{{ username }}/networking-workshop
     remote_src: yes
     owner: "{{ username }}"

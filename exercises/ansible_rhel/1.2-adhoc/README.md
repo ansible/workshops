@@ -1,4 +1,4 @@
-# Exercise 2 - Running Ad-hoc commands
+# Exercise 1.2 - Running Ad-hoc commands
 
 For our first exercise, we are going to run some ad-hoc commands to help you get a feel for how Ansible works.  Ansible Ad-Hoc commands enable you to perform tasks on remote nodes without having to write a playbook.  They are very useful when you simply need to do one or two things quickly and often, to many remote nodes.
 
@@ -42,9 +42,7 @@ An inventory file can contain a lot more information, it can organize your hosts
 [student<X@>ansible ~]$ ansible all --list-hosts
 ```
 
-> **Tip**
-> 
-> It is ok to put systems in more than one group, for instance a server could be both a web server and a database server.
+AS you see it is ok to put systems in more than one group, for instance a server could be both a web server and a database server. Note that in Ansible the groups are not necessarily hierarchical.
 
 > **Tip**
 > 
@@ -107,7 +105,7 @@ ansible ansible_host=44.55.66.77
 
 > **Warning**
 > 
-> **Don’t forget to run the commands from the home directory of your student user, `/home/student\<X\>`. That is where your `.ansible.cfg` file is located, without it Ansible will not know what which inventory to use.**
+> **Don’t forget to run the commands from the home directory of your student user, `/home/student<X>`. That is where your `.ansible.cfg` file is located, without it Ansible will not know what which inventory to use.**
 
 Let's start with something really basic - pinging a host. To do that we use the Ansible `ping` module. The `ping` module makes sure our web hosts are responsive. Basically, it connects to the managed host, executes a small script there and collects the results. That way it is ensured that the managed host is reachable and that Ansible is able to execute commands properly on it.
 
@@ -119,7 +117,17 @@ Ansible needs to know that it should use the `ping` module: The `-m` option defi
 
 ```bash
 [student<X>@ansible ~]$ ansible web -m ping
+node2 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+[...]
 ```
+
+As you see each node reports the successful execution and the actual result - here "pong".
 
 ## Step 2.4 - Listing Modules and Getting Help
 
@@ -178,7 +186,7 @@ Sometimes it’s desirable to have the output for a host on one line:
 
 ## Step 2.6 - The copy module and permissions
 
-Using the `copy` module, execute an ad hoc command on `node1` to change the contents of the `/etc/motd` file on host1.example.com. **The content is handed to the module through an option in this case**.
+Using the `copy` module, execute an ad hoc command on `node1` to change the contents of the `/etc/motd` file. **The content is handed to the module through an option in this case**.
 
 Run:
 
@@ -209,7 +217,7 @@ Now this is a case for privilege escalation and the reason `sudo` has to be setu
 > 
 > Ansible will connect to the machines using your current user name (student\<X\> in this case), just like SSH would. To override the remote user name, you could use the `-u` parameter.
 
-For us it’s okay to connect as student\<X\> because `sudo` is set up. Change the command to use the `-b` parameter and run again:
+For us it’s okay to connect as `student<X>` because `sudo` is set up. Change the command to use the `-b` parameter and run again:
 
 ```bash
 [student<X>@ansible ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd' -b
@@ -258,9 +266,9 @@ Run the `ansible node1 -m copy …​` command from above again. Note:
     
       - Find a module that uses Yum to manage software packages.
     
-      - Look up the help examples for the module to learn how to install a package in the latest version
+      - Look up the help examples for the module to learn how to install a package in the latest version.
 
-  - Run an Ansible ad hoc command to install the package "screen" in the latest version on host1.example.com
+  - Run an Ansible ad hoc command to install the package "screen" in the latest version on `node1`.
 
 > **Tip**
 > 
@@ -273,9 +281,9 @@ Run the `ansible node1 -m copy …​` command from above again. Note:
 ```bash
 [student<X>@ansible ~]$ ansible-doc -l | grep -i yum
 [student<X>@ansible ~]$ ansible-doc yum
-[student<X>@ansible ~]$ ansible host1.example.com -m yum -a 'name=screen state=latest' -b
+[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=screen state=latest' -b
 ```
 
 ----
 
-[Click Here to return to the Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -1,4 +1,4 @@
-# Exercise 4 - Using Variables
+# Exercise 1.4 - Using Variables
 
 Previous exercises showed you the basics of Ansible Engine.  In the next few exercises, we are going
 to teach some more advanced ansible skills that will add flexibility and power to your playbooks.
@@ -20,9 +20,9 @@ Variables and their values can be defined in various places: the inventory, addi
 
 The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
 
-  - To e.g. define variables for a group "servers", create a YAML file named `group_vars/servers` with the variable definitions.
+  - To e.g. define variables for a group "servers", a YAML file named `group_vars/servers` with the variable definitions is created.
 
-  - To define variables specifically for a host "host1.example.com", create the file `host_vars/host1.example.com` with the variable definitions.
+  - To define variables specifically for a host `node1`, the file `host_vars/node1` with the variable definitions is created.
 
 > **Tip**
 > 
@@ -32,7 +32,7 @@ The recommended practice to provide variables in the inventory is to define them
 
 For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​" you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
-On control.example.com as user ansible create the directories to hold the variable definitions in `~/ansible-files/`:
+On the ansible control host, as user ansible create the directories to hold the variable definitions in `~/ansible-files/`:
 
 ```bash
 [student<X>@ansible ansible-files]$ mkdir host_vars group_vars
@@ -58,7 +58,7 @@ What is this about?
 
   - For all servers in the `web` group the variable `stage` with value `dev` is defined. So as default we flag them as members of the dev environment.
 
-  - For server "node2" this is overriden and the host is flagged as a production server.
+  - For server `node2` this is overriden and the host is flagged as a production server.
 
 ## Step 4.2 - Create index.html Files
 
@@ -225,6 +225,6 @@ node2                      : ok=2    changed=0    unreachable=0    failed=0
 node3                      : ok=2    changed=0    unreachable=0    failed=0   
 ```
 
----
+----
 
-[Click Here to return to the Ansible Linklight - Ansible Engine Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

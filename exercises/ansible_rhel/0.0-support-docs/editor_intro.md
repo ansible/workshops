@@ -105,3 +105,7 @@ Copy and paste external text:
   - **right-click → Copy**
 
   - **right-click** into the Nano terminal window, then click **Paste**
+
+----
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -11,11 +11,7 @@ For this demonstration we will use playbooks stored in a Git repository:
 **https://github.com/ansible/workshop-examples**
 
 
-A Playbook to install the Apache webserver has already been commited to the directory **rhel/apache**:
-
-> **Tip**
-> 
-> Note the difference to other Playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
+A Playbook to install the Apache webserver has already been commited to the directory **rhel/apache**, `apache_install.yml`:
 
 ```yaml
 ---
@@ -53,11 +49,15 @@ A Playbook to install the Apache webserver has already been commited to the dire
       state: started
 ```
 
+> **Tip**
+> 
+> Note the difference to other Playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
+
 To configure and use this repository as a **Source Control Management (SCM)** system in Tower you have to create a **Project** that uses the repository
 
 ## Create the Project
 
-  - Go to **Projects** in the side menu view click the ![plus](images/green_plus.png) button. Fill in the form:
+  - Go to **RESOURCES → Projects** in the side menu view click the ![plus](images/green_plus.png) button. Fill in the form:
 
   - **NAME:** Ansible Workshop Examples
 
@@ -73,7 +73,7 @@ Now you need the URL to access the repo. Go to the Github repository mentioned a
 
  Enter the URL into the Project configuration:
 
-- **SCM URL:** `https://github.com/ansible/workshop-examples.git``
+- **SCM URL:** `https://github.com/ansible/workshop-examples.git`
 
 - **SCM UPDATE OPTIONS:** Tick all three boxes to always get a fresh copy of the repository and to update the repository when launching a job.
 
@@ -81,11 +81,7 @@ Now you need the URL to access the repo. Go to the Github repository mentioned a
 
 The new Project will be synced automatically after creation. But you can also do this automatically: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Get latest SCM revision** icon to the right of the Project.
 
-- After starting the sync job, go to the **Jobs** view, find your job and have a look at the details.
-
-What have you done in this section? You have:
-
-  - Created a **Project** pointing to a Git repository using the new credentials
+After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
 
 ## Create a Job Template and Run a Job
 
@@ -99,9 +95,11 @@ A job template is a definition and set of parameters for running an Ansible job.
 
 - **What** Playbook to use?
 
-Okay, let’s just do that:
+Okay, let’s just do that: Go to the **Templates** view, click the ![plus](images/green_plus.png) button and choose **Job Template**.
 
-Go to the **Templates** view and click the ![plus](images/green_plus.png) button and choose **Job Template**.
+> **Tip**
+> 
+> Remember that you can often click on magnfying glasses to get an overview of options to pick to fill in fields.
 
 - **NAME:** Install Apache
 
@@ -111,7 +109,7 @@ Go to the **Templates** view and click the ![plus](images/green_plus.png) button
 
 - **PROJECT:** Ansible Workshop Examples
 
-- **PLAYBOOK:** rhel/apache/apache_install.yml
+- **PLAYBOOK:** `rhel/apache/apache_install.yml`
 
 - **CREDENTIAL:** Workshop Credentials
 
@@ -119,17 +117,21 @@ Go to the **Templates** view and click the ![plus](images/green_plus.png) button
 
 - Click **SAVE**
 
-Start a Job using this Job Template by going to the **Templates** view and clicking the rocket icon. Have a good look at the information the view provides.
+You can start the job by directly clicking the blue **LAUNCH** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
 
-> **Tip**
-> 
-> This might take some time because you configured the Project to update the SCM on launch.
+![job exection](images/job_overview.png)
 
-After the Job has finished go to the **Jobs** view:
+Since this might take some time, have a closer look at all the details provided:
 
-- All jobs are listed here, you should see directly before the Playbook run an SCM update was started.
+- All details of the job template like inventory, project, credentials and playbook are shown.
 
-- This is the Git update we configured for the **Project** on launch\!
+- Additionally, the actual revision of the playbook is recorded here - this makes it easier to analyse job runs later on.
+
+- Also the time of execution with start and end time is recorded, giving you an idea of how long a job execution actually was.
+
+- On the right side, the output of the playbook run is shown. Click on a node underneath a task and see that detailed information are provided for each task of each node.
+
+After the Job has finished go to the main **Jobs** view: All jobs are listed here, you should see directly before the Playbook run an SCM update was started. This is the Git update we configured for the **Project** on launch\!
 
 ## Challenge Lab: Check the Result
 
@@ -177,7 +179,7 @@ Here is a list of tasks:
 
 - **SAVE**
 
-- Go to the **Templates** view and launch the `Install Apache Ask` template.
+- Llaunch the `Install Apache Ask` template.
 
 - It will now ask for the inventory to use, choose the `Webserver` inventory and click **LAUNCH**
 

@@ -88,6 +88,6 @@ running kernel {{ ansible_kernel }}.
   - Run the playbook.
   - Verify the new message via SSH login to `node1`.
 
----
+----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -142,7 +142,7 @@ Version     : 2.4.6
 [...]
 ```
 
-Log out of `node1` so that you are back on the control host, and verify the installed package with an Ansible ad hoc command\!
+Log out of `node1` with the command `exit` so that you are back on the control host, and verify the installed package with an Ansible ad hoc command\!
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
@@ -195,7 +195,7 @@ Note the output now: Some tasks are shown as "ok" in green and one is shown as "
 
 ## Step 3.5 - Extend your Playbook: Create an index.html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the IP with the IP for the node from the inventory.
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the node from the inventory.
 
 > **Warning**
 > 
@@ -303,6 +303,6 @@ Now run the Playbook:
 
 Finally check if Apache is now running on both servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the `node1` above. All output should be green.
 
----
+----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

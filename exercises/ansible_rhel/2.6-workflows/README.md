@@ -30,7 +30,9 @@ When there is a new Tomcat server to deploy, two things need to happen:
 
 To make things somewhat easier for you, everything needed already exists in Git repositories: Playbooks, JSP-files etc. You just need to glue it together.
 
-Also, please note that in fact in this example we assume two different Git repositories, but in reality we will access two different branches of the same repository.
+> **Note**
+>
+> In this example we assume two different Git repositories, but in reality we will access two different branches of the same repository.
 
 ## Set up Projects
 
@@ -172,21 +174,21 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
 
   - Click **SELECT**
 
-  - Click **SAVE**
+  - Click **SAVE** in the **WORKFLOW VISUALIZER** view
+
+  - Click **SAVE** in the **Workflow Template** view
 
 ## And Action
 
 Your workflow is ready to go, launch it.
 
-  - In the **Templates** view launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
+  - Click the blue **LAUNCH** button directly or go to the the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
 
-  - Wait until the job has finished.
+![jobs view of workflow](images/job_workflow.png)
 
-> **Tip**
-> 
-> Note how the workflow run is shown in the job view and how you can get more information about the Jobs by clicking "DETAILS".
+Note how the workflow run is shown in the job view. In contrast to a normal job template job execution this time there is no playbook output on the right, but a visual representation of the different workflow steps. If you want to look at the actual playbooks behind that, click **DETAILS** in each step. If you want to get back from a details view to the corresponding workflow, click the ![w-button](images/w_button.png) in the **JOB TEMPLATE** line in the **DETAILS** part on the left side of the job overview.
 
-  - To check everything worked fine, log into `node1`, `node2` or `node3` from your control host and run:
+After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
 
 ```bash
 $ curl http://localhost:8080/coolapp/

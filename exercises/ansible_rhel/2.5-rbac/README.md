@@ -14,7 +14,7 @@ There are three types of Tower Users:
 
 Let’s create a user:
 
-- In the Tower menu under **Access** click **Users**
+- In the Tower menu under **ACCESS** click **Users**
 
 - Click the green plus button
 
@@ -42,7 +42,7 @@ A Team is a subdivision of an organization with associated users, projects, cred
 
 Create a Team:
 
-- In the menu go to **Access** → **Teams**
+- In the menu go to **ACCESS → Teams**
 
 - Click the green plus button and create a team named `Web Content`.
 
@@ -52,19 +52,7 @@ Now you can add a user to the Team:
 
 - Switch to the Users view of the `Web Content` Team by clicking the **USERS** button.
 
-- Click the green plus button and select the `wweb` user.
-
-- The dialog now asks for a role to assign, the following permission settings are available:
-  
-    - Admin: This User should have privileges to manage all aspects of the team
-  
-    - Member: This User should be a member of the team
-  
-    - Read: May view settings for the team
-
-- Assign the **Member** role.
-
-- Click **SAVE**
+- Click the green plus button, tick the box next to the `wweb` user and click **SAVE**.
 
 Now click the **PERMISSIONS** button in the **TEAMS** view, you will be greeted with "No Permissions Have Been Granted".
 
@@ -115,9 +103,9 @@ Just recall what you have just done: You enabled a restricted user to run an Ans
 
   - But with the ability to change variables you predefined\!
 
-> **Tip**
-> 
-> This capability is one of the main points of Ansible Tower\!
+Effectively you provided the power to execute automation to another user without handing out your credentials or giving the user the ability to change the automation code. And yet, at the same time the user can still modify things based on the surveys you created.
+
+This capability is one of the main strengths of Ansible Tower\!
 
 ----
 

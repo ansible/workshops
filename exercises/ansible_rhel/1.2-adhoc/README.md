@@ -42,9 +42,7 @@ An inventory file can contain a lot more information, it can organize your hosts
 [student<X@>ansible ~]$ ansible all --list-hosts
 ```
 
-> **Tip**
-> 
-> It is ok to put systems in more than one group, for instance a server could be both a web server and a database server.
+AS you see it is ok to put systems in more than one group, for instance a server could be both a web server and a database server. Note that in Ansible the groups are not necessarily hierarchical.
 
 > **Tip**
 > 
@@ -119,7 +117,17 @@ Ansible needs to know that it should use the `ping` module: The `-m` option defi
 
 ```bash
 [student<X>@ansible ~]$ ansible web -m ping
+node2 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+[...]
 ```
+
+As you see each node reports the successful execution and the actual result - here "pong".
 
 ## Step 2.4 - Listing Modules and Getting Help
 

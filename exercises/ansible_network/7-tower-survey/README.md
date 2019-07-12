@@ -50,7 +50,6 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
   tasks:
 
-
     - name: LOAD BANNER ONTO NETWORK DEVICE
       include_tasks: "{{ ansible_network_os }}_banner.yaml"
       vars:

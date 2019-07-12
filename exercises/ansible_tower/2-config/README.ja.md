@@ -77,7 +77,7 @@ ORGANIZATION (組織)|Default
 CREDENTIAL TYPE(認証情報タイプ)|Machine
 USERNAME (ユーザー名)| studentXX(配布されたユーザ情報)
 PASSWORD| ansible(配布されたパスワード)
-PRIVILEGE ESCALATION METHOD(権限昇格方法)|Sudo
+PRIVILEGE ESCALATION METHOD(権限昇格方法)|sudo
 
 
 ![Adding a Credential](at_cred_detail.png)

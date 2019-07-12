@@ -1,8 +1,8 @@
-# ANSIBLE LINKLIGHT
+# ANSIBLE WORKSHOPS
 
 ![linklight](images/linklight.png)
 
-The Red Hat Ansible Automation Linklight project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.  
+The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops and self-paced exercises.  
 
 
 # INSTRUCTOR LED WORKSHOPS:

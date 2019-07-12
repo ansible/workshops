@@ -1,6 +1,6 @@
-# Ansible Linklight - Networking
+# Ansible Network Automation Workshop
 
-This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
+This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, and Juniper) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
 ## Presentation
 Want the Presentation Deck?  Its right here:
@@ -17,7 +17,6 @@ Want the Presentation Deck?  Its right here:
 - [Exercise 7 - Create an Ansible Tower Survey](./7-tower-survey/)
 - [Exercise 8 - Using the Role Based Access Control (RBAC) feature](./8-tower-rbac/)
 - [Exercise 9 - Create an Ansible Tower Workflow](./9-tower-workflow)
-- [Exercise 10 - Working with the Ansible Tower API](./10-tower-api)
 
 There are additional older exercises that are [archived here](archive/).
 

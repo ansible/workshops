@@ -1,0 +1,14 @@
+{
+  "name": "Banner Survey",
+  "description": "Prompt for banner text",
+  "spec": [
+    {
+      "type": "textarea",
+      "question_name": "Please enter the login banner information",
+      "question_description": "Please type into the text field the desired banner",
+      "variable": "network_banner",
+      "required": true,
+      "default": "THIS DEVICE HAS BEEN CONFIGURED BY ANSIBLE"
+    }
+  ]
+}

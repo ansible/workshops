@@ -3,7 +3,6 @@
 このコンテンツは、Ansibleの効果的なデモンストレーション、ワークショップ、ハンズオン、自己学習など、さまざまな目的や用途で利用可能なツールです。
 
 最初のセクションでは、基本からより高度な概念まで、自動化における Ansible Engine の使い方を学びます。
-2番目のセクションでは、Towerについて説明し、Towerとは何か、その仕組み、およびその利点についての概要を説明します。
 
 このラボを終了すると、自動化の要件に対する Ansible の適応方法を理解することができます。
 
@@ -18,11 +17,14 @@
 
 ## Ansible エンジン演習
 
- - [演習 1 - アドホック・コマンドの実行](1-adhoc/README.ja.md)
- - [演習 2 - 初めてのplaybook作成](2-playbook/README.ja.md)
- - [演習 3 - 変数、ループ、ハンドラを使う](3-variables/README.ja.md)
- - [演習 4 - apache-basic-playbookを実行する](4-runplaybook/README.ja.md)
- - [演習 5 - Roles：Playbookを再利用可能にする](5-role/README.ja.md)
+ - [演習 1.1 - 前提条件の確認](1-adhoc/README.ja.md)
+ - [演習 1.2 - アドホック・コマンドの実行](1-adhoc/README.ja.md)
+ - [演習 1.3 - 初めてのplaybook作成](2-playbook/README.ja.md)
+ - [演習 1.4 - 変数を使ってみる](3-variables/README.ja.md)
+ - [演習 1.5 - 条件式、ハンドラ、ループを使う](3-variables/README.ja.md)
+ - [演習 1.6 - テンプレートを使う](4-runplaybook/README.ja.md)
+ - [演習 1.7 - Roles：Playbookを再利用可能にする](5-role/README.ja.md)
+ - [演習 1.8 - ボーナスラボ](5-role/README.ja.md)
 
 ## 追加情報
  - [Ansible - はじめに](http://docs.ansible.com/ansible/latest/intro_getting_started.html)

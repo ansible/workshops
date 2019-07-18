@@ -2,11 +2,11 @@
 
 このコンテンツは、Ansibleの効果的なデモンストレーション、ワークショップ、ハンズオン、自己学習など、さまざまな目的や用途で利用可能なツールです。
 
-最初のセクションでは、基本からより高度な概念まで、自動化における Ansible Engine の使い方を学びます。
+このラボでは、基本からより高度な概念まで、自動化における Ansible Engine の使い方を学びます。
 
 このラボを終了すると、自動化の要件に対する Ansible の適応方法を理解することができます。
 
-このラボで想定している管理対象はLinux ホストです。
+想定している管理対象はLinux ホストです。
 
 **Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).
 

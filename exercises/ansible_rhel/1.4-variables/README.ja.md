@@ -32,39 +32,40 @@ playbook では、変数名を二重中括弧で囲むことで変数を表現�
 
 早速演習で変数の動きを確かめてみましょう。3台の Web Server を構築してみます。どのホストに接続されているかを示すため、 `index.html` を変更します。
 
-Ansible Control Host で、変数ファイルを作成するディレクトリを `~/ansible-files/`　に作成します。
+まずは、Ansible Control Host で、変数ファイルの置き場所となるディレクトリを `~/ansible-files/`　に作成します。
 
 ```bash
+[student<X>@ansible ansible-files]$ cd ~/ansible-files/
 [student<X>@ansible ansible-files]$ mkdir host_vars group_vars
 ```
 
-Now create two files containing variable definitions. We’ll define a variable named `stage` which will point to different environments, `dev` or `prod`:
+変数の定義を含むファイルを２つ作成しましょう。 `stage` という名前の変数に、`dev` or `prod`という異なる二つの値を定義します。
 
-  - Create the file `~/ansible-files/group_vars/web` with this content:
+  - 以下の内容を含むファイルを `~/ansible-files/group_vars/web` として作成します。
 
 ```yaml
 ---
 stage: dev
 ```
 
-  - Create the file `~/ansible-files/host_vars/node2` with this content:
+  - 同様に、以下の内容を含むファイルを `~/ansible-files/host_vars/node2` として作成します。
 
 ```yaml
 ---
 stage: prod
 ```
 
-What is this about?
+これはどういう意味でしょう？
 
-  - For all servers in the `web` group the variable `stage` with value `dev` is defined. So as default we flag them as members of the dev environment.
+  -  `web` group のすべてのサーバーに対して、変数 `stage` に値 `dev` が定義されます。そして dev （開発）をデフォルト値として定義します。
 
-  - For server `node2` this is overriden and the host is flagged as a production server.
+  -  `node2` に関しては、上記で定義された変数 stage = dev が、prod で上書きされます。本番環境として定義されます。 
 
-## Step 4.2 - Create index.html Files
+## Step 1.4.2 - index.html ファイルの作成
 
-Now create two files in `~/ansible-files/`:
+`~/ansible-files/` 内に、以下の2つのファイルを作成します:
 
-One called `prod_index.html` with the following content:
+まずは本番環境用の `prod_index.html` に以下の内容を記述し、保存します。
 
 ```html
 <body>
@@ -72,7 +73,7 @@ One called `prod_index.html` with the following content:
 </body>
 ```
 
-And the other called `dev_index.html` with the following content:
+同様に、開発環境用の `dev_index.html` に以下の内容を記述し、保存します。
 
 ```html
 <body>
@@ -80,11 +81,11 @@ And the other called `dev_index.html` with the following content:
 </body>
 ```
 
-## Step 4.3 - Create the Playbook
+## Step 1.4.3 - Playbook の作成
 
-Now you need a Playbook that copies the prod or dev `index.html` file - according to the "stage" variable.
+次に、上記手順で作成した本番用、開発用の `index.html` の内いずれかのファイルを "stage" 変数の値に従って Web Server にコピーするための playbook を作成します。
 
-Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` directory.
+ `deploy_index_html.yml` という名前の playbook を `~/ansible-files/` ディレクトリ内に作成します。
 
 > **Tip**
 > 

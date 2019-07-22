@@ -1,6 +1,6 @@
 # 演習1.4 - 変数を使ってみる
 
-前回までは Ansible Core の基礎部分を学習してきました。次の学習は playbook をより柔軟かつパワフルに使用できるより高度なスキルを学びたいと思います。
+前回までは Ansible Core の基礎部分を学習してきました。この演習では playbook をより柔軟かつパワフルに使用できる、より高度なスキルを学びます。
 
 Ansible では task をよりシンプル、かつ再利用可能にできます。システムの設定にはユニークな設定が含まれる場合があり、
 playbookを実行する際、そのユニークな設定を含んだ実行が必要な場合があります。このような場合には変数を使います。
@@ -61,7 +61,7 @@ stage: prod
 
   -  `node2` に関しては、上記で定義された変数 stage = dev が、prod で上書きされます。本番環境として定義されます。 
 
-## Step 1.4.2 - index.html ファイルの作成
+## ステップ 1.4.2 - index.html ファイルの作成
 
 `~/ansible-files/` 内に、以下の2つのファイルを作成します:
 
@@ -81,15 +81,15 @@ stage: prod
 </body>
 ```
 
-## Step 1.4.3 - Playbook の作成
+## ステップ 1.4.3 - Playbook の作成
 
 次に、上記手順で作成した本番用、開発用の `index.html` の内いずれかのファイルを "stage" 変数の値に従って Web Server にコピーするための playbook を作成します。
 
  `deploy_index_html.yml` という名前の playbook を `~/ansible-files/` ディレクトリ内に作成します。
 
-> **Tip**
+> **ヒント**
 > 
-> Note how the variable "stage" is used in the name of the file to copy.
+> コピーするファイル名の中に指定された変数 "stage" がホストごとに取る値に注意してください。
 
 <!-- {% raw %} -->
 ```yaml
@@ -105,18 +105,18 @@ stage: prod
 ```
 <!-- {% endraw %} -->
 
-  - Run the Playbook:
+  - playbook を実行します
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
-## Step 4.4 - Test the Result
+## ステップ 4.4 - 実行結果の確認
 
-The Playbook should copy different files as index.html to the hosts, use `curl` to test it. Check the inventory again if you forgot the IP addresses of your nodes.
+各ホストには、変数 stage の値に従って異なるファイルがコピーされているはずです。デフォルトが dev で、node2 のみ、prod となっているはず。それぞれのweb server に curl コマンド（もしくはブラウザ）で接続して確認してみましょう。
 
 ```bash
-[student<X>@ansible ansible-files]$ grep node ~/lab_inventory/hosts
+[student<X>@ansible ansible-files]$ grep node ~/lab_inventory/student<X>-instances.txt
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
@@ -134,26 +134,26 @@ node3 ansible_host=33.44.55.66
 </body>
 ```
 
-> **Tip**
+> **ヒント**
 > 
-> If by now you think: There has to be a smarter way to change content in files…​ you are absolutely right. This lab was done to introduce variables, you are about to learn about templates in one of the next chapters.
+> 鋭い人はちょっと思うかもしれません、”もっと柔軟にファイルの中身を変更出来たら・・・、と”。こちらについては次の章（template モジュール）で学びます！
 
-## Step 4.5 - Ansible Facts
+## ステップ 1.4.5 - Ansible Facts
 
-Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remeber the "Gathering Facts" task listed in the output of each `ansible-playbook` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
+Ansible ファクトは Ansible によって管理対象ホストから自動的に収集される変数です。"Gathering Facts" が各 ansible-playbook で実行されたことを思い出してください。ファクトは `setup` モジュールからも取得可能です。このファクトには、再利用可能な有用な情報が変数として格納されています。
 
-To get an idea what facts Ansible collects by default, on your control node as your student user run:
+Ansibleがデフォルトでどのような事実を収集しているのか、コントロールノードで次のように入力し確認してみましょう。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup
 ```
 
-This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard:
+結果表示がちょっと長すぎるので、フィルタを使ってみましょう。表現はシェルスタイルのワイルドカードです：
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
 ```
-Or what about only looking for memory related facts:
+メモリ関連の情報が見たい場合は以下の様に実行します。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'

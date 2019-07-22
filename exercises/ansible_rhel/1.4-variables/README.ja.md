@@ -159,17 +159,16 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
 ```
 
-## Step 4.6 - Challenge Lab: Facts
+## ステップ 1.4.6 - チャレンジラボ: ファクト
 
-  - Try to find and print the distribution (Red Hat) of your managed hosts. On one line, please.
+  - 管理対象ホストのディストリビューション（Red Hat）を表示してください。ただし、一行で出力してください。
 
-> **Tip**
+> **ヒント**
 > 
-> Use grep to find the fact, then apply a filter to only print this fact.
+> grep を使ってファクトの中から必要な情報を探してみます。次に、 filter を使ってこのファクトのみの情報を抽出してみましょう。
 
-> **Warning**
-> 
-> **Solution below\!**
+ 
+> **答えは下記の通り\!**
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup|grep distribution

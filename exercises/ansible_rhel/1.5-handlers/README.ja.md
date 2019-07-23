@@ -17,13 +17,16 @@ Ansible は特定の条件が満たされたときにタスクを実行したり
 | \<   | true if the left hand side is lower than the right hand side.          |
 | \< = | true if the left hand side is lower or equal to the right hand side.   |
 
-詳しくは、次のドキュメントを参照してください: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html#the-when-statement>
+詳しくは、次のドキュメントを参照してください。  
+<https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html#the-when-statement>
 
 例として、 "ftpserver"インベントリグループにあるホストにのみ、FTPサーバーをインストールすることを考えてみます。
 
-では早速やってみましょう。まず、デフォルトで指定されたインベントリファイル編集し、`ftpserver` グループに `node2` を入れます。  
-デフォルトのインベントリファイルは、`/home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt` でしたね。♪  
-編集後は以下の様になります。
+では早速やってみましょう。まず、デフォルトで指定されたインベントリファイル編集し、`ftpserver` グループに `node2` を入れます。
+デフォルトのインベントリファイルは、  
+`/home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt` でしたね。♪   
+  
+編集後は以下の様になります。  
 
 ```ini
 [all:vars]

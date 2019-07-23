@@ -175,8 +175,8 @@ ansible_connection=network_cli
 ```
 
  - `ansible_user` - The user ansible will be used to login to this host, if not configured it will default to the user the playbook is run from
-- `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
-- `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
+ - `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
+ - `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
 
 
 # Complete

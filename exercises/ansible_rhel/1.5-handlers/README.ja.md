@@ -148,13 +148,13 @@ httpd.conf ファイルを再度変更し、どうなるか試してみてくだ
 
 > **ヒント**
 > 
-> よく聞かれる質問として、notify セクションが実行されたらすぐにハンドラが呼び出されるのか？ということ。これは違います。今回の場合、notify 直下にハンドラが定義されているのですぐの実行となりますが、notiry とハンドラが離れていた場合は、あくまで上から順に実行され、ハンドラの順番になったところで実行されます。 notify でハンドラ実行のフラグを立てておく感じです。
+> よく聞かれる質問として、notify セクションが実行されたらすぐにハンドラが呼び出されるのか？ということがありますが、これは違います。今回の場合、notify 直下にハンドラが定義されているのですぐの実行となりますが、notiry とハンドラが離れていた場合は、あくまで上から順に実行され、ハンドラの順番になったところで実行されます。 notify でハンドラ実行のフラグを立てておく感じです。
 
-## ステップ 1.5.3 - Simple Loops
+## ステップ 1.5.3 - 単純な繰り返し（ループ）
 
-Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just lists: for example if you have a list of users with their coresponding group, loop can iterate over them as well. Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
+ループを使用すると、同じタスクを繰り返し実行することができます。たとえば、複数のユーザーを作成したいとしましょう。Ansible ループを使用すると、単一のタスクでそれを実行できます。ループは、単なるリスト以外にも反復することができます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらに対しても反復することができます。 詳しくはマニュアルをご確認ください [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
 
-To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible-files` on your control node as your student user. We will use the `user` module to generate the user accounts.
+ループの機能を確認してみましょう。 node1 に3人の新しいユーザーを作成します。 `~/ansible-files` ディレクトリの中に、 `loop_users.yml` という名前の playbook を作成します。使用するのは `user` モジュールで、playbook の中身は以下の通りです。
 
 <!-- {% raw %} -->
 ```yaml
@@ -175,17 +175,17 @@ To show the loops feature we will generate three new users on `node1`. For that,
 ```
 <!-- {% endraw %} -->
 
-Understand the playbook and the output:
+作成出来たら実行してみてください。playbook は以下の内容になっています。
 
-  - The names are not provided to the user module directly. Instead, there is only a variable called `{{ item }}` for the parameter `name`.
+  - 作成するユーザー名は直接 user モジュールには与えられません。代わりに `{{ item }}` パラメータで呼び出される変数が定義されています
 
-  - The `loop` keyword lists the actual user names. Those replace the `{{ item }}` during the actual execution of the playbook.
+  - `loop` 内のキーワードには、実際に作成するユーザー名が3名分列挙されています。この値が、`{{ item }}` 内に順に入力され、 playbook が実行されます。 
 
-  - During execution the task is only listed once, but there are three changes listed underneath it.
+  - 実行中、タスクは一度だけ表示されますが、その下に loop された3つの変更点が表示されます。
 
-## Step 5.4 - Loops over hashes
+## ステップ - ハッシュをループする
 
-As mentioned loops can also be over lists of hashes. Imagine that the users should be assigned to different additional groups:
+ハッシュリストにまたがったループも可能です。例えば、上記の例で、ユーザーを別の追加グループに割り当てる必要があるとします。例えば以下のような感じです。
 
 ```yaml
 - username: dev_user
@@ -196,7 +196,7 @@ As mentioned loops can also be over lists of hashes. Imagine that the users shou
   groups: apache
 ```
 
-The `user` module has the optional parameter `groups` to list additional users. To reference items in a hash, the `{{ item }}` keyword needs to reference the subkey: `{{ item.groups }}` for example.
+`user` モジュールはオプションパラメータとして `groups` を持っています。 ハッシュ内のこの値を取得する場合、 `{{ item }}` 内にサブキーワード、例えば、 `{{ item.groups }}` の様に入力します。
 
 Let's rewrite the playbook to create the users with additional user rights:
 
@@ -221,11 +221,11 @@ Let's rewrite the playbook to create the users with additional user rights:
 ```
 <!-- {% endraw %} -->
 
-Check the output:
+再度 playbook を実行し、出力を確認してみてください。
 
-  - Again the task is listed once, but three changes are listed. Each loop with its content is shown.
+  - 再度タスクが一覧表示されます。ただし、3つの変更が表示されます。その内容を含む各ループが表示されます。
 
-Verify that the user `prod_user` was indeed created on `node1`:
+node1 内に `prod_user` がグループ `ftp` で作成されていることを確認します。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
@@ -235,5 +235,5 @@ uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
 

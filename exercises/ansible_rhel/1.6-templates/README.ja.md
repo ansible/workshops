@@ -9,7 +9,7 @@ Ansibleは、管理対象ホストにファイルをコピーする際、固定�
 早速演習を行ってみましょう！  
 テンプレートを使って、対象ホストの motd ファイルをホスト固有のデータを含むように変更してみます。  
 
-First in the `~/ansible-files/` directory create the template file `motd-facts.j2`:
+まず、 `~/ansible-files/` ディレクトリ内に、テンプレートファイル `motd-facts.j2` を作成します。  
 
 <!-- {% raw %} -->
 ```html+jinja

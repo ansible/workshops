@@ -1,4 +1,4 @@
-# 演習 1.5 - 条件, ハンドラー、繰り返し（ループ）
+# 演習 1.5 - 条件, ハンドラ、繰り返し（ループ）
 
 ## ステップ 1.5.1 - 条件
 
@@ -72,27 +72,27 @@ skipping: [node3]
 changed: [node2]
 ```
 
-## ステップ 1.5.2 - ハンドラー
+## ステップ 1.5.2 - ハンドラ
 
-Sometimes when a task does make a change to the system, a further task may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
+プレイブックを書いていると、特定のタスクが実行された時のみ、さらに追加のタスクを実行したい場合があります。たとえば、サービスの更新や設定ファイルを変更した場合に、変更した設定が有効になるようにサービスの再起動が必要となるケースです。
 
-Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks that only get triggered when explicitly invoked using the "notify" statement. Read more about them in the [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change) documentation.
+このような場合にハンドラを利用します。ハンドラーは、 "notify" ステートメントで定義されたタスクが実行された場合にのみ実行される非アクティブタスクです。詳しくはマニュアルをご確認ください。 [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change) documentation.
 
-As a an example, let’s write a Playbook that:
+早速演習で試してみましょう。以下のような Playbook を作ります。
 
-  - manages Apache’s configuration file `httpd.conf` on all hosts in the `web` group
+  - 全 `web` グループのホストに対して、 Apache の構成ファイル `httpd.conf` をコピーする
 
-  - restarts Apache when the file has changed
+  - ファイルが変更された時のみ Apache のサービスをリスタートする
 
-First we need the file Ansible will deploy, let’s just take the one from node1. Remeber to replace the IP address shown in the listing below with the IP address from your individual `node1`.
+演習を実行するため、コピーするための httpd.conf を node1 から取得します。
 
 ```bash
-[student<X>@ansible ansible-files]$ scp 11.22.33.44:/etc/httpd/conf/httpd.conf ~/ansible-files/.
+[student<X>@ansible ansible-files]$ scp <node1>:/etc/httpd/conf/httpd.conf ~/ansible-files/.
 student<X>@11.22.33.44's password: 
 httpd.conf             
 ```
 
-Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the directory `~/ansible-files`.
+次に、 `~/ansible-files` ディレクトリに、Playbook `httpd_conf.yml` を作成します。 playbook には以下を記述します。
 
 ```yaml
 ---
@@ -115,38 +115,38 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
 
 So what’s new here?
 
-  - The "notify" section calls the handler only when the copy task changed the file. That way the service is only restarted if needed - and not each time the playbook is run.
+  - "notify" セクションは、コピータスクがファイルを変更したときだけハンドラを呼び出します。つまり、サービス再起動は必要な場合にのみ（この例の場合はファイルの更新が行われた場合のみ）行われます。
 
-  - The "handlers" section defines a task that is only run on notification.
+  - "ハンドラ" セクションは、notify から呼び出された時に実際に実行されるタスクを定義します。
 
-Run the Playbook. We didn’t change anything in the file yet so there should not be any `changed` lines in the output and of course the handler shouldn’t have fired.
+まずこのまま playbook を実行してみてください。まだ httpd.conf に何も変更を加えていないので、changed は "0" で、ハンドラも動作していないことが分かると思います。
 
-  - Now change the `Listen 80` line in httpd.conf to:
+  - httpd.conf の中の、 `Listen 80` の行を以下の通り変更します。
 
 
 ```ini
 Listen 8080
 ```
 
-  - Run the Playbook again. Now the Ansible’s output should be a lot more interesting:
+  - Playbookをもう一度実行してください。興味深い結果が得られます。
     
-      - httpd.conf should have been copied over
+      - httpd.conf が上書きコピーされた
     
-      - The handler should have restarted Apache
+      - ハンドラが呼び出され、 Apache サービスをリスタートした
 
-Apache should now listen on port 8080. Easy enough to verify:
+Apacheはポート8080でリッスンしているはずです。試してみてください。
 
 ```bash
-[student1@ansible ansible-files]$ curl http://22.33.44.55
+[student1@ansible ansible-files]$ curl http://<node1>
 curl: (7) Failed connect to 22.33.44.55:80; Connection refused
 [student1@ansible ansible-files]$ curl http://22.33.44.55:8080
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
 ```
-Feel free to change the httpd.conf file again and run the Playbook.
+httpd.conf ファイルを再度変更し、どうなるか試してみてください。
 
-## Step 5.3 - Simple Loops
+## ステップ 1.5.3 - Simple Loops
 
 Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just lists: for example if you have a list of users with their coresponding group, loop can iterate over them as well. Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
 

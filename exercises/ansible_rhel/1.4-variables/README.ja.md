@@ -161,11 +161,11 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
 
 ## ステップ 1.4.6 - チャレンジラボ: ファクト
 
-  - 管理対象ホストのディストリビューション（Red Hat）を表示してください。ただし、一行で出力してください。
+  - 管理対象ホストのディストリビューション（Red Hat）を表示してください。ただし、結果は一行で出力してください。
 
 > **ヒント**
 > 
-> grep を使ってファクトの中から必要な情報を探してみます。次に、 filter を使ってこのファクトのみの情報を抽出してみましょう。
+> grep を使ってファクトの中から必要な情報を探してみます。次に、 filter を使ってこのファクトのみの情報を抽出してみましょう。一行での表示の方法は ansible コマンドの -h (help) を使って調べてみましょう！
 
  
 > **答えは下記の通り\!**
@@ -175,9 +175,9 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
 ```
 
-## Step 4.7 - Using Facts in Playbooks
+## Step 1.4.7 - playbook の中でファクトを使う
 
-Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible-files/` directory:
+取得したファクトの値は playbook の中で変数同様に利用することが可能です。早速 playbook `facts.yml` を `~/ansible-files/` ディレクトリに作成し、試してみましょう！
 
 <!-- {% raw %} -->
 ```yaml    
@@ -191,11 +191,11 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
 ```
 <!-- {% endraw %} -->
 
-> **Tip**
+> **ヒント**
 > 
-> The "debug" module is handy for e.g. debugging variables or expressions.
+> "debug" モジュールは変数や式を確認するのに有用です。
 
-Execute it to see how the facts are printed:
+どんなファクトが表示されるか playbook を実行してみてください。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook facts.yml 

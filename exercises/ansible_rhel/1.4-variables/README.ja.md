@@ -195,7 +195,7 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
 > 
 > "debug" モジュールは変数や式を確認するのに有用です。
 
-どんなファクトが表示されるか playbook を実行してみてください。
+取得されたファクトがどのような形で表示されるか playbook を実行してみてください。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook facts.yml 

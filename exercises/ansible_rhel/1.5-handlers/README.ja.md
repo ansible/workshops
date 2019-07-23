@@ -122,7 +122,7 @@ httpd.conf
         state: restarted
 ```
 
-So what’s new here?
+playbook は以下の様になっています。
 
   - "notify" セクションは、コピータスクがファイルを変更したときだけハンドラを呼び出します。つまり、サービス再起動は必要な場合にのみ（この例の場合はファイルの更新が行われた場合のみ）行われます。  
 
@@ -207,7 +207,6 @@ httpd.conf ファイルを再度変更し、どうなるか試してみてくだ
 
 `user` モジュールはオプションパラメータとして `groups` を持っています。 ハッシュ内のこの値を取得する場合、 `{{ item }}` 内にサブキーワード、例えば、 `{{ item.groups }}` の様に入力します。  
 
-Let's rewrite the playbook to create the users with additional user rights:
 
 <!-- {% raw %} -->
 ```yaml

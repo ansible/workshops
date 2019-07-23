@@ -22,7 +22,7 @@ Ansible は特定の条件が満たされたときにタスクを実行したり
 例として、 "ftpserver"インベントリグループにあるホストにのみ、FTPサーバーをインストールすることを考えてみます。
 
 では早速やってみましょう。まず、デフォルトで指定されたインベントリファイル編集し、`ftpserver` グループに `node2` を入れます。
-デフォルトのインベントリファイルは、`/home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt` でしたね。♪
+デフォルトのインベントリファイルは、`/home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt` でしたね。♪  
 編集後は以下の様になります。
 
 ```ini

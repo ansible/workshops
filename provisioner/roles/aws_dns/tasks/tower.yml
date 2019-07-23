@@ -49,7 +49,7 @@
       template:
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
-  when: issue_cert is failed
+  when: issue_cert is not failed
 
 - name: TURN ON TOWER
   shell: ansible-tower-service start

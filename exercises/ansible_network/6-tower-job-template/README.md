@@ -17,7 +17,7 @@ Demonstrate a network backup configuration job template for Red Hat Ansible Towe
 
 To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**.  A **Job Template** requires:
  - An **Inventory** to run the job against
- - A **Credential** is used to login to devices.
+ - A **Credential** to login to devices.
  - A **Project** which contains Ansible Playbooks
 
 # Guide

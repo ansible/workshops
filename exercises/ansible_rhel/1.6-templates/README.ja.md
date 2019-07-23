@@ -1,12 +1,13 @@
-# Exercise 1.6 - Templates
+# 演習 1.6 - テンプレート
 
-Ansible uses Jinja2 templating to modify files before they are distributed to managed hosts. Jinja2 is one of the most used template engines for Python (<http://jinja.pocoo.org/>).
+Ansibleは、管理対象ホストにファイルをコピーする際、固定の内容ではなく、ファイル内容を変更した上でコピーする事も可能です。例えば対象ホストユニークなホスト名などを含めてコピーすることも可能です。これを実現するのが Jinja2 テンプレートです。 Jinja2 は、Python で最も使用されているテンプレートエンジンの1つです。 (<http://jinja.pocoo.org/>)
 
-## Step 6.1 - Using Templates in Playbooks
+## ステップ 1.6.1 -  playbook 内でテンプレートを使用する
 
-When a template for a file has been created, it can be deployed to the managed hosts using the `template` module, which supports the transfer of a local file from the control node to the managed hosts.
+利用は簡単です。まず、ファイル作成を行うためのテンプレートをファイルを作成し、テンプレートモジュールを使って対象ホストに転送するだけです。
 
-As an example of using templates you will change the motd file to contain host-specific data.
+早速演習を行ってみましょう！  
+テンプレートを使って、対象ホストの motd ファイルをホスト固有のデータを含むように変更してみます。  
 
 First in the `~/ansible-files/` directory create the template file `motd-facts.j2`:
 

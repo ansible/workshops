@@ -29,7 +29,7 @@ rtr2  | 192.168.100.2/32 |
 Variable information can be stored in host_vars and group_vars.  For this exercise create a folder named `group_vars`:
 
 ```bash
-[student1@ansible networking-workshop]$ mkdir group_vars
+[student1@ansible networking-workshop]$ mkdir ~/networking-workshop/group_vars
 ```
 
 Now create a file in this directory name `all.yml` using your text editor of choice.  Both vim and nano are installed on the control node.

@@ -24,6 +24,8 @@ This exercise will cover
 Navigate to the `networking-workshop` directory if you are not already there.
 
 ```bash
+[student1@ansible ~]$ cd ~/networking-workshop/
+[student1@ansible networking-workshop]$
 [student1@ansible networking-workshop]$ pwd
 /home/student1/networking-workshop
 ```

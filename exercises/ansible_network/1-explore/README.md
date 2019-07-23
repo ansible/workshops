@@ -37,12 +37,12 @@ This will not require a username or password.
 Navigate to the `networking-workshop` directory.
 
 ```
-[student1@ansible ~]$ cd networking-workshop/
+[student1@ansible ~]$ cd ~/networking-workshop/
 [student1@ansible networking-workshop]$
 [student1@ansible networking-workshop]$ pwd
 /home/student1/networking-workshop
 ```
-
+ - `~` - the tilde in this context is a shortcut for `/home/student1`
  - `cd` - Linux command to change directory
  - `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
@@ -93,6 +93,9 @@ The scope of a `play` within a `playbook` is limited to the groups of hosts decl
 
 In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
 
+```bash
+[student1@ansible ~]$ cat ~/networking-workshop/lab_inventory/hosts
+```
 
 ```
 [all:vars]

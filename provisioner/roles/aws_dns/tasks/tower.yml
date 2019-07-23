@@ -51,6 +51,5 @@
         dest: /etc/tower/tower.cert
   when: issue_cert is failed
 
-
 - name: TURN ON TOWER
   shell: ansible-tower-service start

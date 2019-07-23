@@ -88,7 +88,12 @@ changed: [node2]
 
   - ファイルが変更された時のみ Apache のサービスをリスタートする  
 
-演習を実行するため、コピーするための httpd.conf を node1 から取得します。  
+まずはコピー元として利用する httpd.conf を node1 から取得します。  
+
+> **ヒント**
+> 
+>このファイルは既に node1 node2 node3 に配置されています。  
+
 
 ```bash
 [student<X>@ansible ansible-files]$ scp <node1>:/etc/httpd/conf/httpd.conf ~/ansible-files/.

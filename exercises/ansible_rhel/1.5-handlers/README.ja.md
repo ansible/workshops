@@ -1,10 +1,12 @@
-# Exercise 1.5 - Conditionals, Handlers and Loops
+# 演習 1.5 - 条件, ハンドラー、繰り返し（ループ）
 
-## Step 5.1 - Conditionals
+## ステップ 1.5.1 - 条件
 
-Ansible can use conditionals to execute tasks or plays when certain conditions are met.
+Ansible は特定の条件が満たされたときにタスクを実行したり再生したりすることができます。
 
-To implement a conditional, the `when` statement must be used, followed by the condition to test. The condition is expressed using one of the available operators like e.g. for comparison:
+特定の条件を指定するには、 `when` ステートメントを利用し、続いて具体的な条件を記述します。 条件は、比較などに使用可能な演算子の1つを使用します。
+
+
 
 |      |                                                                        |
 | ---- | ---------------------------------------------------------------------- |
@@ -15,11 +17,13 @@ To implement a conditional, the `when` statement must be used, followed by the c
 | \<   | true if the left hand side is lower than the right hand side.          |
 | \< = | true if the left hand side is lower or equal to the right hand side.   |
 
-For more on this, please refer to the documentation: <http://jinja.pocoo.org/docs/2.10/templates/>
+詳しくは、次のドキュメントを参照してください: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html#the-when-statement>
 
-As an example you would like to install an FTP server, but only on hosts that are in the "ftpserver" inventory group.
+例として、 "ftpserver"インベントリグループにあるホストにのみ、FTPサーバーをインストールすることを考えてみます。
 
-To do that, first edit the inventory to add another group, and place `node2` in it. Make sure that that IP address of `node2` is always the same when `node2` is listed. Edit the inventory `~/lab_inventory/hosts` to look like the following listing:
+では早速やってみましょう。まず、デフォルトで指定されたインベントリファイル編集し、`ftpserver` グループに `node2` を入れます。
+デフォルトのインベントリファイルは、`/home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt` でしたね。♪
+編集後は以下の様になります。
 
 ```ini
 [all:vars]
@@ -39,7 +43,7 @@ node2 ansible_host=22.33.44.55
 ansible ansible_host=44.55.66.77
 ```
 
-Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:
+次に、`~/ansible-files/` ディレクトリ内に `ftpserver.yml` という名前の Playbook を作成します。ファイルの中身は以下の通りです。
 
 ```yaml
 ---
@@ -54,11 +58,11 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
       when: inventory_hostname in groups["ftpserver"]
 ```
 
-> **Tip**
+> **ヒント**
 > 
-> By now you should know how to run Ansible Playbooks, we’ll start to be less verbose in this guide. Go create and run it. :-)
+> 作成完了したら playbook を実行してみてください。やり方は・・・、もう分ってますね！？ :-)
 
-Run it and examine the output. The expected outcome: The task is skipped on node1, node3 and the ansible host (your control host) because they are not in the ftpserver group in your inventory file.
+実行した結果を確認してみてください。 `ftpserver` グループに記載された node2 以外のホストはタスクがスキップされ、node2 のみタスクの実行が行われていることが確認できます。
 
 ```bash
 TASK [Install FTP server when host in ftpserver group] *******************************************
@@ -68,7 +72,7 @@ skipping: [node3]
 changed: [node2]
 ```
 
-## Step 5.2 - Handlers
+## ステップ 1.5.2 - ハンドラー
 
 Sometimes when a task does make a change to the system, a further task may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
 

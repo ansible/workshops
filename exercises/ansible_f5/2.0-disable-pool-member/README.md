@@ -46,7 +46,7 @@ Enter the following play definition into `disable-pool-member.yml`:
 ```
 ## Step 3
 
-Add a tasks section and then set a fact for the provider. Once you set the provider you can re-use this key in future tasks instead of giving the server/user/password/server_port and validate_certs info to each task. 
+Add a tasks section and then set a fact for the provider. Once you set the provider you can re-use this key in future tasks instead of giving the server/user/password/server_port and validate_certs info to each task.
 
 ```
 ---
@@ -90,7 +90,7 @@ Next, add a task for the objective listed below:
 
   - Display the pool information to the terminal window
 
-HINT: 
+HINT:
 Find a way to `loop` on the output from the above step. Remember to also use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug module</a>
 
 ## Step 7
@@ -107,7 +107,7 @@ Next, add a task for the objective listed below:
 
   - Display members belonging to the pool
 
-HINT: 
+HINT:
 Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span> and refer <a href="../1.4-add-pool-members">Exercise 1.4</a>
 
 ## Step 9
@@ -116,17 +116,17 @@ Next, add a task for the objective listed below:
 
   - Prompt the user to enter a Host:Port to disable a particular member or 'all' to disable all members
 
-HINT: 
+HINT:
 Use the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: #000000">prompts</a> module</a></span>
 
 ## Step 10
 Next, add a task for the objective listed below:
 
   - Read the prompt information and disable all members or a single member based on the input from the user
-  
-HINT: 
+
+HINT:
 Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when conditions and loops </a></span> and [BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html)
-  
+
 ## Step 10
 Run the playbook - exit back into the command line of the control host and execute the following:
 

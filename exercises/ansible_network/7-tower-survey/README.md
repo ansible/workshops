@@ -41,7 +41,7 @@ Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/a
 
 Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: SET ROUTER BANNERS
@@ -56,7 +56,7 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
         - network_banner:  "{{ net_banner | default(None) }}"
         - banner_type: "{{ banner_type | default('login') }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 > Note: You can also view the Ansible Playbook here: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
@@ -65,7 +65,7 @@ The `ansible_network_os` variable is being used to parameterize the network OS a
 
 If you are working with a junos device, this playbook would call for a task file called `junos_banner.yaml`.  If you are using an IOS-XE device, this playbook would call for a task file called `ios_banner.yaml`. This file will in turn contain the platform specific tasks:
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: ADD THE JUNOS BANNER
@@ -73,7 +73,7 @@ If you are working with a junos device, this playbook would call for a task file
     text: "{{ network_banner }}"
     banner: "{{ banner_type }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 > Note: Please observe that there are task files created for ios, nxos, eos and junos for this playbook.
 

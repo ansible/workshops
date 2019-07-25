@@ -49,7 +49,7 @@ Add a tasks section with a set_fact for setting the provider values
   hosts: lb
   connection: local
   gather_facts: false
-  
+
 tasks:
     - name: Setup provider
       set_fact:

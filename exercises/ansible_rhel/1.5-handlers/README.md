@@ -55,7 +55,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
 ```
 
 > **Tip**
-> 
+>
 > By now you should know how to run Ansible Playbooks, we’ll start to be less verbose in this guide. Go create and run it. :-)
 
 Run it and examine the output. The expected outcome: The task is skipped on node1, node3 and the ansible host (your control host) because they are not in the ftpserver group in your inventory file.
@@ -84,7 +84,7 @@ First we need the file Ansible will deploy, let’s just take the one from node1
 
 ```bash
 [student<X>@ansible ansible-files]$ scp 11.22.33.44:/etc/httpd/conf/httpd.conf ~/ansible-files/.
-student<X>@11.22.33.44's password: 
+student<X>@11.22.33.44's password:
 httpd.conf             
 ```
 
@@ -125,9 +125,9 @@ Listen 8080
 ```
 
   - Run the Playbook again. Now the Ansible’s output should be a lot more interesting:
-    
+
       - httpd.conf should have been copied over
-    
+
       - The handler should have restarted Apache
 
 Apache should now listen on port 8080. Easy enough to verify:

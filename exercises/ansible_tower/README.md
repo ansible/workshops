@@ -8,7 +8,7 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible To
 Want the Presentation Deck?  Its right here:
 [Intro to Ansible Tower Deck](https://ansible.github.io/workshops/decks/tower_intro.pdf)
 
-## Ansible Engine Exercises
+## Ansible Tower Exercises
 
  - [Exercise 1 - Installing Ansible Tower](1-install)
  - [Exercise 2 - Configuring Ansible Tower](2-config)

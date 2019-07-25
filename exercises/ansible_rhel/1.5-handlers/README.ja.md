@@ -243,5 +243,5 @@ uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
+[Ansible ワークショップ表紙に戻る](../README.ja.md)
 

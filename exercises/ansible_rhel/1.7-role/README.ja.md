@@ -21,7 +21,7 @@ apache/
 ├── handlers
 │   └── main.yml
 ├── meta
-│   └── main.yml
+│   └── main.yml 
 ├── README.md
 ├── tasks
 │   └── main.yml
@@ -50,17 +50,17 @@ Playbook でロールを呼び出すのは以下の通り簡単です。
     - role2
 ```
 
-タスク、ハンドラ、変数など各々のロールがこの順番で Playbook に組み込まれます。ロールで定義されたディレクトリに、コピー、スクリプト、テンプレート、タスクを入れることで、絶対パスや相対パスを意識することなくそれぞれのロールにアクセスすることができます。  
+タスク、ハンドラ、変数など各々のロールがこの順番で Playbook に組み込まれます。ロールで定義されたディレクトリに、コピー、スクリプト、テンプレート、タスクを入れることで、絶対パスや相対パスを意識することなくそれぞれのロールにアクセスすることができます。    
 
-## ステップ 1.7.2 - 基本的なロールディレクトリ構造を作成する  
+## ステップ 1.7.2 - 基本的なロールディレクトリ構造を作成する    
 
-Ansible は、プロジェクトディレクトリ内の `roles` サブディレクトリで該当するロールを探します。これは　Ansible　のコンフィグファイルで上書きすることも可能です。それぞれのロールは独自のディレクトリ構造を持っています。新規ロールのディレクトリを作成するために `ansible-galaxy` を利用することも可能です。
+Ansible は、プロジェクトディレクトリ内の `roles` サブディレクトリで該当するロールを探します。これは　Ansible　のコンフィグファイルで上書きすることも可能です。それぞれのロールは独自のディレクトリ構造を持っています。新規ロールのディレクトリを作成するために `ansible-galaxy` を利用することも可能です。  
 
 > **ヒント**
 >
-> Ansible Galaxyは、最高の Ansible コンテンツを見つけて利用したり、逆に、共有するためのハブとしての利用が可能です。Ansible Galaxy の利用には、 `ansible-galaxy` コマンドを使います。今回は、ロールディレクトリ構造を作成するために使用します。
+> Ansible Galaxyは、最高の Ansible コンテンツを見つけて利用したり、逆に、共有するためのハブとしての利用が可能です。Ansible Galaxy の利用には、 `ansible-galaxy` コマンドを使います。今回は、ロールディレクトリ構造を作成するために使用します。  
 
-早速ロールを作成してみましょう。Apache をインストールして仮想ホストとして機能するように設定するロールのディレクトリを構築します。このコマンドは、 `~/ansible-files` ディレクトリで実行してください。
+早速ロールを作成してみましょう。Apache をインストールして仮想ホストとして機能するように設定するロールのディレクトリを構築します。このコマンドは、 `~/ansible-files` ディレクトリで実行してください。  
 
 ```bash
 [student<X>@ansible ansible-files]$ mkdir roles
@@ -73,23 +73,23 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
 [student<X>@ansible ansible-files]$ tree roles
 ```
 
-## ステップ 1.7.3 - タスクファイルの作成
+## ステップ 1.7.3 - タスクファイルの作成  
 
-サブディレクトリにある "tasks" の中の `main.yml` ファイルに以下の内容を記述していきます。
+サブディレクトリにある "tasks" の中の `main.yml` ファイルに以下の内容を記述していきます。  
 
-  - httpd をインストールする
+  - httpd をインストールする  
 
-  - httpd を有効化する
+  - httpd を有効化する  
 
-  - HTML コンテンツを Apache のルートディレクトリに配置する
+  - HTML コンテンツを Apache のルートディレクトリに配置する  
 
-  - 仮想ホストを構成するためのテンプレートをインストールする
+  - バーチャルホストを構成するためのテンプレートを作成し読み込ませる  
 
-> **注意**
+> **注意**  
 >
 > ** `main.yml` にはタスクのみを記述します。今まで記述した Playbook 丸ごとではありません！**
 
-`roles/apache_vhost` ディレクトリ内の `tasks/main.yml` ファイルを以下の様に編集します。
+`roles/apache_vhost` ディレクトリ内の `tasks/main.yml` ファイルを以下の様に編集します。  
 
 ```yaml
 ---
@@ -105,13 +105,13 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
     enabled: true
 ```
 
-上記で追加したタスクは以下のとおりです。
+上記で追加したタスクは以下のとおりです。  
 
-  - yum モジュールを使ってhttpdパッケージをインストールする
+  - yum モジュールを使ってhttpdパッケージをインストールする  
 
-  - service モジュールを使って httpd を起動し、有効化します。
+  - service モジュールを使って httpd を起動し、有効化します。  
 
-次に、仮想ホストのディレクトリ構造を確認・作成し、HTMLコンテンツをコピーするためのタスクをさらにそれぞれ追加します。
+次に、仮想ホストのディレクトリ構造を確認・作成し、HTMLコンテンツをコピーするためのタスクをさらにそれぞれ追加します。  
 
 <!-- {% raw %} -->
 ```yaml
@@ -127,9 +127,9 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
 ```
 <!-- {% endraw %} -->
 
-vhost ディレクトリは、 `file` モジュールを使って、無ければ作成、既に存在すればスキップされることに注意ください。
+vhost ディレクトリは、 `file` モジュールを使って、無ければ作成、既に存在すればスキップされることに注意ください。  
 
-そして最後に、テンプレートモジュールを使用してj2-templateから仮想ホストの設定ファイルを作成します。
+そして最後に、テンプレートモジュールを使用してj2-templateから仮想ホストの設定ファイルを作成します。  
 
 ```yaml
 - name: template vhost file
@@ -142,7 +142,7 @@ vhost ディレクトリは、 `file` モジュールを使って、無ければ
   notify:
     - restart_httpd
 ```
-設定の更新が行われた場合、ハンドラを使用して httpd を再起動していることに注意してください。
+設定の更新が行われた場合、ハンドラを使用して httpd を再起動していることに注意してください。  
 
 The full `tasks/main.yml` file is:
 
@@ -183,9 +183,9 @@ The full `tasks/main.yml` file is:
 <!-- {% endraw %} -->
 
 
-## ステップ 1.7.4 - ハンドラの作成
+## ステップ 1.7.4 - ハンドラの作成  
 
-`handlers/main.yml` を以下の通り編集し、テンプレートタスクから呼び出された時に httpd を再起動するハンドラを作成します。
+`handlers/main.yml` を以下の通り編集し、テンプレートタスクから呼び出された時に httpd を再起動するハンドラを作成します。  
 
 ```yaml
 ---
@@ -196,22 +196,22 @@ The full `tasks/main.yml` file is:
     state: restarted
 ```
 
-## Step 7.5 - Create the index.html and vhost configuration file template
+## ステップ 1.7.5 - index.html の作成とバーチャルホスト用テンプレートファイルの作成  
 
-Create the HTML content that will be served by the webserver.
+Webサーバーによって提供されるHTMLコンテンツを作成します。  
 
-  - Create an index.html file in the "src" directory of the role, `files`:
+  - ロール `files` サブディレクトリの中に、 index.html ファイルを作成します。   
 
 ```bash
-[student<X>@ansible ansible-files]$ echo 'simple vhost index' > files/index.html
+[student<X>@ansible ansible-files]$ echo 'simple vhost index' > roles/apache_vhost/files/index.html
 ```
 
-  - Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
+  - ロール `templates` サブディレクトリの中に `vhost.conf.j2` テンプレートを作成します。
 
 <!-- {% raw %} -->
 ```html
 # {{ ansible_managed }}
-
+Listen 8080
 <VirtualHost *:8080>
     ServerAdmin webmaster@{{ ansible_fqdn }}
     ServerName {{ ansible_fqdn }}
@@ -228,9 +228,9 @@ Create the HTML content that will be served by the webserver.
 ```
 <!-- {% endraw %} -->
 
-## Step 7.6 - Test the role
+## ステップ 1.7.6 - ロールのテスト実行
 
-You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible-files`:
+`node2` に対し、ロールをテストする準備が整いました。しかし、ロールはノードに直接割り当てることができないため、まずロールとホストを紐づけるプレイブックを作成します。 `~/ansible-files` ディレクトリの直下に `test_apache_role.yml` ファイルを以下の内容で作成します。
 
 ```yaml
 ---
@@ -250,22 +250,23 @@ You are ready to test the role against `node2`. But since a role cannot be assig
         msg: 'Web server has been configured.'
 ```
 
-Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles execute before the tasks of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.
+`pre_tasks` と `post_tasks` というキーワードに注意してください。通常、ロールのタスクはプレイブックのタスクの前に実行されます。この順番を制御するには、 `pre_tasks` が必要となります。逆に `post_tasks` は、すべてのロールが完了した後に実行されます。ここでは、実際のロールが実行されたときにどういう順番で実行されたかを確認するため、これら二つのタスクをあえて入れています。  
 
-Now you are ready to run your playbook:
+Playbook を実行する準備が整いましたので、実行してみましょう！  
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml
 ```
 
-Run a curl command against `node2` to confirm that the role worked:
+`node2` に対してcurlコマンドを実行して、ロールが機能していることを確認します。バーチャルホストのポートは8080です。  
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://<node2>:8080
 simple vhost index
 ```
 
-All looking good? Congratulations! You have successfully completed the Ansible Engine Workshop Exercises!
+うまくいきましたか？  
+おめでとうございます！ あなたはあなたは Ansible Engine のワークショップは終了です！
 
 ----
 

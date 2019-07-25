@@ -58,30 +58,30 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
 
 > **ヒント**
 >
-> Ansible Galaxy is your hub for finding, reusing and sharing the best Ansible content. `ansible-galaxy` helps to interact with Ansible Galaxy. For now we'll just using it as a helper to build the directory structure.
+> Ansible Galaxyは、最高の Ansible コンテンツを見つけて利用したり、逆に、共有するためのハブとしての利用が可能です。Ansible Galaxy の利用には、 `ansible-galaxy` コマンドを使います。今回は、ロールディレクトリ構造を作成するために使用します。
 
-Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
+早速ロールを作成してみましょう。Apache をインストールして仮想ホストとして機能するように設定するロールのディレクトリを構築します。このコマンドは、 `~/ansible-files` ディレクトリで実行してください。
 
 ```bash
 [student<X>@ansible ansible-files]$ mkdir roles
 [student<X>@ansible ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
 ```
 
-Have a look at the role directories and their content:
+作成されたロールディレクトリとその中身を確認してみてください。
 
 ```bash
 [student<X>@ansible ansible-files]$ tree roles
 ```
 
-## Step 7.3 - Create the Tasks File
+## ステップ 1.7.3 - タスクファイルの作成
 
-The `main.yml` file in the tasks subdirectory of the role should do the following:
+サブディレクトリにある "tasks" の中の `main.yml` ファイルには以下の内容を含める必要があります。
 
-  - Make sure httpd is installed
+  - httpd をインストールする
 
-  - Make sure httpd is started and enabled
+  - httpd を有効化する
 
-  - Put HTML content into the Apache document root
+  - HTML コンテンツを Apache のルートディレクトリに配置する
 
   - Install the template provided to configure the vhost
 

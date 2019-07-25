@@ -97,7 +97,7 @@ changed: [node2]
 
 ```bash
 [student<X>@ansible ansible-files]$ scp <node1>:/etc/httpd/conf/httpd.conf ~/ansible-files/.
-student<X>@11.22.33.44's password: 
+student<X>@<node1>'s password: 
 httpd.conf             
 ```
 
@@ -147,13 +147,18 @@ Apacheはポート8080でリッスンしているはずです。試してみて�
 
 ```bash
 [student1@ansible ansible-files]$ curl http://<node1>
-curl: (7) Failed connect to 22.33.44.55:80; Connection refused
+curl: (7) Failed connect to <node1>:80; Connection refused
 [student1@ansible ansible-files]$ curl http://22.33.44.55:8080
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
 ```
-httpd.conf ファイルを再度変更し、どうなるか試してみてください。
+httpd.conf ファイルを再度 "80" に変更し、どうなるか試してみてください。
+
+> **注意**
+> 
+> 演習1.7で、ポート8080を使います。この時点で 80ポートをリッスンするよう設定を戻しておいてください。
+
 
 > **ヒント**
 > 

@@ -75,7 +75,7 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
 
 ## ステップ 1.7.3 - タスクファイルの作成
 
-サブディレクトリにある "tasks" の中の `main.yml` ファイルには以下の内容を含める必要があります。
+サブディレクトリにある "tasks" の中の `main.yml` ファイルに以下の内容を記述していきます。
 
   - httpd をインストールする
 
@@ -83,13 +83,13 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
 
   - HTML コンテンツを Apache のルートディレクトリに配置する
 
-  - Install the template provided to configure the vhost
+  - 仮想ホストを構成するためのテンプレートをインストールする
 
-> **WARNING**
+> **注意**
 >
-> **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete Playbooks!**
+> ** `main.yml` にはタスクのみを記述します。今まで記述した Playbook 丸ごとではありません！**
 
-Change into the `roles/apache_vhost` directory. Edit the `tasks/main.yml` file:
+`roles/apache_vhost` ディレクトリ内の `tasks/main.yml` ファイルを以下の様に編集します。
 
 ```yaml
 ---
@@ -105,15 +105,13 @@ Change into the `roles/apache_vhost` directory. Edit the `tasks/main.yml` file:
     enabled: true
 ```
 
-Note that here just tasks were added. The details of a playbook are not present.
+上記で追加したタスクは以下のとおりです。
 
-The tasks added so far do:
+  - yum モジュールを使ってhttpdパッケージをインストールする
 
-  - Install the httpd package using the yum module
+  - service モジュールを使って httpd を起動し、有効化します。
 
-  - Use the service module to enable and start httpd
-
-Next we add two more tasks to ensure a vhost directory structure and copy html content:
+次に、仮想ホストのディレクトリ構造を確認・作成し、HTMLコンテンツをコピーするためのタスクをさらにそれぞれ追加します。
 
 <!-- {% raw %} -->
 ```yaml
@@ -129,9 +127,9 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
 ```
 <!-- {% endraw %} -->
 
-Note that the vhost directory is created/ensured using the `file` module.
+vhost ディレクトリは、 `file` モジュールを使って、無ければ作成、既に存在すればスキップされることに注意ください。
 
-The last task we add uses the template module to create the vhost configuration file from a j2-template:
+そして最後に、テンプレートモジュールを使用してj2-templateから仮想ホストの設定ファイルを作成します。
 
 ```yaml
 - name: template vhost file
@@ -144,7 +142,7 @@ The last task we add uses the template module to create the vhost configuration 
   notify:
     - restart_httpd
 ```
-Note it is using a handler to restart httpd after an configuration update.
+設定の更新が行われた場合、ハンドラを使用して httpd を再起動していることに注意してください。
 
 The full `tasks/main.yml` file is:
 
@@ -185,9 +183,9 @@ The full `tasks/main.yml` file is:
 <!-- {% endraw %} -->
 
 
-## Step 7.4 - Create the handler
+## ステップ 1.7.4 - ハンドラの作成
 
-Create the handler in the file `handlers/main.yml` to restart httpd when notified by the template task:
+`handlers/main.yml` を以下の通り編集し、テンプレートタスクから呼び出された時に httpd を再起動するハンドラを作成します。
 
 ```yaml
 ---

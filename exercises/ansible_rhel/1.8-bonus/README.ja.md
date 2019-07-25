@@ -123,5 +123,5 @@ Playbook `apache_config_tpl.yml` を以下の内容で作成します。
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+[Ansible ワークショップ表紙に戻る](../README.ja.md)
 

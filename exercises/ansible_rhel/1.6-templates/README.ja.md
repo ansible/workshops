@@ -92,5 +92,5 @@ running kernel {{ ansible_kernel }}.
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
+[Ansible ワークショップ表紙に戻る](../README.ja.md)
 

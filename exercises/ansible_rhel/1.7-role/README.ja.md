@@ -1,8 +1,9 @@
-# Exercise 1.7 - Roles: Making your playbooks reusable
+# 演習 1.7 - ロール: playbooks を再利用可能にする
 
-While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
+今までのワークショップで学習してきた通り、playbook を1つのファイルに書くことは可能です。しかし、最終的にはファイルを再利用して物事を整理していきたいと思う事でしょう。  
 
-Ansible Roles is the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) already mentioned in exercise 3.
+これを実現するのがAnsibleのRolesです。roleを作成する事でPlaybookをパーツとして分解し、構造化されたディレクトリに納めるのです。  
+This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) already mentioned in exercise 3.
 
 ## Step 7.1 - Understanding the Ansible Role Structure
 

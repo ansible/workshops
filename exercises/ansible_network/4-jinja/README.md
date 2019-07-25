@@ -125,9 +125,9 @@ Copy the following Ansible Playbook to the config.yml file:
 <!-- {% raw %} -->
 ```
 ---
-- hosts: rtr1,rtr2
+- name: configure network devices
+  hosts: rtr1,rtr2
   gather_facts: false
-  connection: network_cli
   tasks:
     - name: configure device with config
       cli_config:

@@ -52,7 +52,6 @@ Enter the following play definition into `facts.yml`:
 ---
 - name: gather information from routers
   hosts: cisco
-  connection: network_cli
   gather_facts: no
 ```
 
@@ -60,7 +59,6 @@ Here is an explanation of each line:
 - The first line, `---` indicates that this is a YAML file.
 - The `- name:` keyword is an optional description for this particular Ansible Playbook.
 - The `hosts:` keyword means this playbook against the group `cisco` defined in the inventory file.
-- The `connection` keyword means the `network_cli` plugin Will be used.  This connection plugin is written specifically for network equipment and handles things like ensuring a persistent SSH connection across multiple tasks.
 - The `gather_facts: no` is required since as of Ansible 2.8 and earlier, this only works on Linux hosts, and not network infrastructure.  We will use a specific module to gather facts for network equipment.
 
 
@@ -73,7 +71,6 @@ Next, add the first `task`. This task will use the `ios_facts` module to gather 
 ---
 - name: gather information from routers
   hosts: cisco
-  connection: network_cli
   gather_facts: no
 
   tasks:
@@ -160,7 +157,6 @@ Write two additional tasks that display the routers' OS version and serial numbe
 ---
 - name: gather information from routers
   hosts: cisco
-  connection: network_cli
   gather_facts: no
 
   tasks:

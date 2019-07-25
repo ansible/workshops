@@ -38,7 +38,6 @@ Examine the provided Ansible Playbook named `playbook.yml`.  Feel free to use yo
 - name: snmp ro/rw string configuration
   hosts: cisco
   gather_facts: no
-  connection: network_cli
 
   tasks:
 
@@ -136,7 +135,6 @@ The Ansible Playbook will now look like this:
 - name: snmp ro/rw string configuration
   hosts: cisco
   gather_facts: no
-  connection: network_cli
 
   tasks:
 

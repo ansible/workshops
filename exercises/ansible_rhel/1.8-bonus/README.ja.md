@@ -1,28 +1,26 @@
-# Exercise 1.8 - Bonus Labs
+# 演習 1.8 - ボーナスラボ
 
-You have finished the lab already. But it doesn’t have to end here. We prepared some slightly more advanced bonus labs for you to follow through if you like. So if you are done with the labs and still have some time, here are some more labs for you:
+あなたは既にラボを完了しています・・・、が、さらに先に進みたい方は是非このボーナスラボにチャレンジしてみてください。
 
-## Step 8.1 - Bonus Lab: Ad Hoc Commands
+## ステップ 1.8.1 - ボーナスラボ: アドホックコマンド
 
-Create a new user "testuser" on `node1` and `node3` with a comment using an ad hoc command, make sure that it is not created on `node2`!
+アドホックコマンドを使って、適当なコメント付きで新しいユーザー "testuser"　を `node1` と `node3` に作成します。`node2` に作成してはいけません。きちんとできたことも確認してください。  
     
-  - Find the parameters for the appropriate module using `ansible-doc user` (leave with `q`)
+  - `ansible-doc user` を使ってモジュールのパラメータを確認します。
 
-  - Use an Ansible ad hoc command to create the user with the comment "Test D User"
+  - アドホックコマンドを使ってコメント "Test D User" 付きのユーザーを作成します。
 
-  - Use the "command" module with the proper invocation to find the userid
+  - "command" モジュールを使ってユーザー ID を見つけます。
 
-  - Delete the user and check it has been deleted
+  - ユーザーを削除し、それが削除されたことを確認します
 
-> **Tip**
+> **ヒント**
 > 
-> Remember privilege escalation…​
+> 権限昇格の記述を忘れないこと！
 
-> **Warning**
-> 
-> **Solution below\!**
+> **答えは以下の通り**
 
-Your commands could look like these:
+コマンドは次のようになります。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-doc -l | grep -i user
@@ -34,23 +32,23 @@ Your commands could look like these:
 [student<X>@ansible ansible-files]$ ansible web -m command -a " id testuser" -b
 ```
 
-## Step 8.2 - Bonus Lab: Templates and Variables
+## ステップ 1.8.2 - ボーナスラボ: テンプレートと変数
 
-You have learned the basics about Ansible templates, variables and handlers. Let’s combine all of these.
+皆さんは今までのラボで、Ansibleのテンプレート、変数、そしてハンドラについての基本を既に学んでいます。これらすべてを組み合わせてみましょう。  
 
-Instead of editing and copying `httpd.conf` why don’t you just define a variable for the listen port and use it in a template? Here is your job:
+`httpd.conf` のリッスンポートを編集してコピーするのではなく、ポートの値を変数としてテンプレートの中で定義し、その変数の値をホストごとに適切に与えるる方法について考えてみます。
 
-  - Define a variable `listen_port` for the `web` group with the value `8080` and another for `node2` with the value `80` using the proper files.
+  - `web` グループのリッスンポートとして "8080" 、 `node2` のリッスンポートとして `80` を取るように変数ファイルを作成します。
 
-  - Copy the `httpd.conf` file into the template `httpd.conf.j2` that uses the `listen_port` variable instead of the hard-coded port number.
+  - `httpd.conf` ファイルを `httpd.conf.j2` テンプレートを使い、かつ、 `listen_port` に上記変数を埋め込んだ上で各 node に送付します。
 
-  - Write a Playbook that deploys the template and restarts Apache on changes using a handler.
+  - テンプレートをデプロイし、ハンドラを使用して変更があった場合にApacheを再起動するPlaybookを作成します。
 
-  - Run the Playbook and test the result using `curl`.
+  - Playbook を実行し、結果を `curl` コマンドで確認します。
 
 > **Tip**
 >
-> Remember the `group_vars` and `host_vars` directories? If not, refer to the chapter "Ansible Variables".
+> `group_vars`と` host_vars` ディレクトリを覚えていますか？ そうでない場合は、「Ansible変数」の章を参照してください。
 
 
 > **Warning**

@@ -19,9 +19,9 @@ deployed on {{ ansible_architecture }} architecture.
 ```
 <!-- {% endraw %} -->
 
-The template file contains the basic text that will later be copied over. It also contains variables which will be replaced on the target machines individually.
+テンプレートファイルには、コピーされる基本テキスト（文頭の Welcome to と文末の architecture ですね♪ ）が含まれています。また、ターゲットマシンのユニークな値に置き換えられる変数がその間に入っています。  
 
-Next we need a playbook to use this template. In the `~/ansible-files/` directory create the Playbook `motd-facts.yml`:
+次に、上記テンプレートを利用するための playbook を以下の通り作成します。場所は、 `~/ansible-files/` ディレクトリ内です。  
 
 ```yaml
 ---
@@ -37,40 +37,38 @@ Next we need a playbook to use this template. In the `~/ansible-files/` director
         mode: 0644
 ```
 
-You have done this a couple of times by now:
 
-  - Understand what the Playbook does.
+  - 上記 playbook の意味を考えてみましょう  
 
-  - Execute the Playbook `motd-facts.yml`
+  - 作成した playbook `motd-facts.yml` を実行してみましょう  
 
-  - Login to node1 via SSH and check the motto of the day message.
+  - SSHで node1 にログインし、出力されるメッセージを確認してみてください  
 
-  - Log out of node1
+  - node1 からログオフします  
 
-You should see how Ansible replaces the variables with the facts it discovered from the system.
+Ansibleが変数をシステムから収取したファクト情報で変数を置き換えた上で、ファイルをコピーしていることがわかります。  
 
-## Step 6.2 - Challenge Lab
+## Step 1.6.2 - チャレンジラボ
 
-Add a line to the template to list the current kernel of the managed node.
+テンプレートに1行追加して、管理対象ノードの現在のカーネルを表示してください。  
 
-  - Find a fact that contains the kernel version using the commands you learned in the "Ansible Facts" chapter.
+  - 「Ansible ファクト」の章で学んだコマンドを使用して、カーネルバージョンを含むファクトを見つけます。  
 
-> **Tip**
+> **ヒント**
 > 
-> Do a `grep -i` for kernel
+> モジュールは `setup` ですね？ `grep` 使って探してみましょう。  
 
-  - Change the template to use the fact you found.
+  - 見つかったらその変数を表示するよう、テンプレートファイルに追記しましょう
 
-  - Run the Playbook again.
+  - 再度 playbook を実行します
 
-  - Check motd by logging in to node1
+  - 再度 node1 にログインし、表示をチェックしてみてください
+  
 
-> **Warning**
-> 
-> **Solution below\!**
+> **答えは以下の通り**
 
 
-  - Find the fact:
+  - kernel 情報を有するファクトを見つけます
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup|grep -i kernel
@@ -86,10 +84,13 @@ deployed on {{ ansible_architecture }} architecture
 running kernel {{ ansible_kernel }}.
 ```
 
-  - Run the playbook.
-  - Verify the new message via SSH login to `node1`.
+  - playbook を実行します
+  - node1 にログインし、表示をチェックします
+
+
+どうです？　うまくいきましたか？
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
 

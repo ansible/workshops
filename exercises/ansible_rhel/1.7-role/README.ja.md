@@ -1,17 +1,17 @@
-# 演習 1.7 - ロール: playbooks を再利用可能にする
+# 演習 1.7 - ロール: Playbook を再利用可能にする
 
-今までのワークショップで学習してきた通り、playbook を1つのファイルに書くことは可能です。しかし、最終的にはファイルを再利用して物事を整理していきたいと思う事でしょう。  
+今までのワークショップで学習してきた通り、Playbook を1つのファイルに書くことは可能です。しかしそのうち、作成した Playbook を再利用したいと考えるようになると思います。  
 
-これを実現するのがAnsibleのRolesです。roleを作成する事でPlaybookをパーツとして分解し、構造化されたディレクトリに納めるのです。  
-This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) already mentioned in exercise 3.
+これを実現するのが Ansible のロールです。ロールという形で Playbook をパーツとして分解し、構造化されたディレクトリに納めるのです。  
+詳しくはこちらの [ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html) をご確認ください。  
 
-## Step 7.1 - Understanding the Ansible Role Structure
+## ステップ 1.7.1 - Ansibleロール構造を理解する
 
-Roles are basically automation around *include* directives as described above, and really don’t contain much additional magic beyond some improvements to search path handling for referenced files.
+ロールは基本的に、ディレクティブを自動化したものであり、実際には参照ファイルの検索パス処理に対するいくつかの改善を超えた追加の魔法的な手段は含まれていません。
 
-Roles follow a defined directory structure, a role is named by the top level directory. Some of the subdirectories contain YAML files, named `main.yml`. The files and templates subdirectories can contain objects referenced by the YAML files.
+ロールは定義されたディレクトリ構造に従い、ロールは最上位ディレクトリ名で定義されます。いくつかのサブディレクトリの中には `main.yml` という名前の YAML ファイルが含まれています。 `files` と `templates` のサブディレクトリには YAML ファイルによって参照されるオブジェクトを入れておくことができます。  
 
-An example project structure could look like this, the name of the role would be "apache":
+ロールの一例を下記します。ロールの名前は "apache" です。  
 
 ```text
 apache/
@@ -33,13 +33,13 @@ apache/
     └── main.yml
 ```
 
-The `main.yml` files contain content depending on the corresponding directory:  `vars/main.yml` references variables, `handlers/main.yaml` describes handlers, and so on. Note that in contrast to playbooks, the `main.yml` files only contain the specific content and not additional playbook information like hosts, `become` or other keywords.
+`main.yml` ファイルは、対応するディレクトリに応じたコンテンツが含まれています。例えば、  `vars/main.yml` では変数が定義され、 `handlers/main.yaml` では、ハンドラが記述される等です。一見 Playbook と似ていますが、これらの `main.yml` ファイルの中には特定のコンテンツのみが含まれるのみで、その他の、例えば、 host の `become` やその他のキーワードなど通常のプレイブックに記載される情報は含まれません。
 
-> **Tip**
+> **ヒント**
 >
-> There are actually two directories for variables: `vars` and `default`: Default variables have the lowest precedence and usually contain default values set by the role authors and are often used when it is intended that their values will be overridden.. Variables can be set in either `vars/main.yml` or `defaults/main.yml`, but not in both places.
+> 変数定義に関しては、 `vars` and `default` という2つのディレクトリがあります。変数定義には優先順位があり、`default` は最も優先順位が低くなっています。Playbook 実行時に、上書きされることも意識した、まさにデフォルトの値を定義する場所です。  
 
-Using roles in a Playbook is straight forward:
+Playbook でロールを呼び出すのは以下の通り簡単です。  
 
 ```yaml
 ---
@@ -50,14 +50,13 @@ Using roles in a Playbook is straight forward:
     - role2
 ```
 
-For each role, the tasks, handlers and variables of that role will be included in the Playbook, in that order. Any copy, script, template, or include tasks in the role can reference the relevant files, templates, or tasks *without absolute or relative path names*. Ansible will look for them in the role's files, templates, or tasks respectively, based on their
-use.
+タスク、ハンドラ、変数など各々のロールがこの順番で Playbook に組み込まれます。ロールで定義されたディレクトリに、コピー、スクリプト、テンプレート、タスクを入れることで、絶対パスや相対パスを意識することなくそれぞれのロールにアクセスすることができます。  
 
-## Step 7.2 - Create a Basic Role Directory Structure
+## ステップ 1.7.2 - 基本的なロールディレクトリ構造を作成する  
 
-Ansible looks for roles in a subdirectory called `roles` in the project directory. This can be overridden in the Ansible configuration. Each role has its own directory. To ease creation of a new role the tool `ansible-galaxy` can be used.
+Ansible は、プロジェクトディレクトリ内の `roles` サブディレクトリで該当するロールを探します。これは　Ansible　のコンフィグファイルで上書きすることも可能です。それぞれのロールは独自のディレクトリ構造を持っています。新規ロールのディレクトリを作成するために `ansible-galaxy` を利用することも可能です。
 
-> **Tip**
+> **ヒント**
 >
 > Ansible Galaxy is your hub for finding, reusing and sharing the best Ansible content. `ansible-galaxy` helps to interact with Ansible Galaxy. For now we'll just using it as a helper to build the directory structure.
 

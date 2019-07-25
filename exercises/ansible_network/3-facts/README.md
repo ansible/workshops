@@ -1,4 +1,4 @@
-# Exercise 3 - Ansible Facts
+# Exercise 3: Ansible Facts
 
 ## Table of Contents
 

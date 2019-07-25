@@ -1,4 +1,4 @@
-# Exercise 04 - Network Configuration with Jinja Templates
+# Exercise 4 - Network Configuration with Jinja Templates
 
 ## Table of Contents
 

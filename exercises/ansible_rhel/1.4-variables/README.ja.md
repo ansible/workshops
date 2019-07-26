@@ -1,220 +1,230 @@
-# Exercise 3 - 変数、ループ、ハンドラを使う
+# 演習1.4 - 変数を使ってみよう
 
-前回までは Ansible Core の基礎部分を学習してきました。次の学習は playbook をより柔軟かつパワフルに使用できるより高度なスキルを学びたいと思います。
+前回までは Ansible Engine の基礎部分を学習してきました。この演習では Playbook をより柔軟かつパワフルに使用できる、より高度なスキルを学びます。
 
-Ansible では task をよりシンプル、かつ再利用可能にできます。私たちは全てのシステムが全く同じではないことはわかっていますし、
-playbookを実行する際、その違いに伴ってしばしば若干の変更が求められる場合があります。その際は変数を使います。
+Ansible では task をよりシンプル、かつ再利用可能にできます。システムの設定にはユニークな設定が含まれる場合があり、
+Playbook を実行する際、そのユニークな設定を含んだ実行が必要な場合があります。このような場合には変数を使います。
 
-変数はシステム毎の違う部分の扱い、例えば port番号、IPアドレス、ディレクトリなどの違いの部分を吸収し扱う事ができます。
+Ansible は、Playbook で使用可能な値を格納するための変数をサポートしています。変数はさまざまな場所で定義でき、明確な優先順位があります。Ansibleは、タスクが実行される際、変数をその値に置き換えます。
 
-ループは task を繰り返し実行する場合に使います。例えば10個のソフトウェアパッケージを導入したい場合、ループを使うことにより1つの task で実現できます。
+Playbook では、変数名を二重中括弧で囲むことで変数を表現します。
 
-ハンドラはサービス再起動が必要な場合に使います。新たに設定ファイルの登録や、新規パッケージの導入が行われてはいませんでしたか?
-その際、有効にするにはサービス再起動が必要かもしれません。その場合にハンドラを使用します。
+<!-- {% raw %} -->
+```yaml
+変数は右の様に表現します　 {{ variable1 }}
+```
+<!-- {% endraw %} -->
 
-変数、ループ、ハンドラの十分な理解のためには; Ansible documentation の以下部分を確認してください。
+変数とその値は、インベントリ、追加ファイル、コマンドラインなどのさまざまな場所で定義できます。
 
-- [Ansible 変数](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
-- [Ansible ループ](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
-- [Ansible ハンドラ](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
+インベントリで変数を提供するための推奨される方法は、host_vars と group_vars という2つのディレクトリにあるファイルにそれらを定義することです。
 
-## Section 1: Playbook の実行
+たとえば、グループ "servers" の変数を定義するために、変数名が付けられたYAMLファイル group_vars/servers を作成します。
 
-まずは新しいplaybookを作成します。既に先の演習で作成していることもあり慣れた作業かと思います。
+また、特定ホスト node1 専用の変数を定義するために、変数定義を含む node1 ファイル host_vars/node1 を作成します。
 
 
-### Step 1:
+> **ヒント**
+> 
+> ホスト変数には優先順位があります。上記 Host 変数は、 Group 変数より優先されます。詳しくは製品マニュアルをご確認ください。
 
-ホームディレクトリにてプロジェクトとplaybookを作成します。
+## ステップ 1.4.1 - 変数ファイルの作成
+
+早速演習で変数の動きを確かめてみましょう。3台の Web Server を構築してみます。どのホストに接続されているかを示すため、 `index.html` を変更します。
+
+まずは、Ansible Control Host で、変数ファイルの置き場所となるディレクトリを `~/ansible-files/`　に作成します。
 
 ```bash
-cd
-mkdir apache-basic-playbook
-cd apache-basic-playbook
-vim site.yml
+[student<X>@ansible ansible-files]$ cd ~/ansible-files/
+[student<X>@ansible ansible-files]$ mkdir host_vars group_vars
 ```
 
+変数の定義を含むファイルを２つ作成しましょう。 `stage` という名前の変数に、`dev` or `prod`という異なる二つの値を定義します。
 
-### Step 2:
+  - 以下の内容を含むファイルを `~/ansible-files/group_vars/web` として作成します。
 
-playの定義といくつかの変数をPlaybookに追加します。このPlaybook中には、利用しているWebサーバへの追加パッケージのインストールと、Webサーバに特化したいくつかの構成が含まれています。
-
-```yml
+```yaml
 ---
-- hosts: web
-  name: This is a play within a playbook
+stage: dev
+```
+
+  - 同様に、以下の内容を含むファイルを `~/ansible-files/host_vars/node2` として作成します。
+
+```yaml
+---
+stage: prod
+```
+
+これはどういう意味でしょう？
+
+  -  `web` group のすべてのサーバーに対して、変数 `stage` に値 `dev` が定義されます。そして dev （開発）をデフォルト値として定義します。
+
+  -  `node2` に関しては、上記で定義された変数 stage = dev が、prod で上書きされます。本番環境として定義されます。 
+
+## ステップ 1.4.2 - index.html ファイルの作成
+
+`~/ansible-files/` 内に、以下の2つのファイルを作成します:
+
+まずは本番環境用の `prod_index.html` に以下の内容を記述し、保存します。
+
+```html
+<body>
+<h1>This is a production webserver, take care!</h1>
+</body>
+```
+
+同様に、開発環境用の `dev_index.html` に以下の内容を記述し、保存します。
+
+```html
+<body>
+<h1>This is a development webserver, have fun!</h1>
+</body>
+```
+
+## ステップ 1.4.3 - Playbook の作成
+
+次に、上記手順で作成した本番用、開発用の `index.html` の内いずれかのファイルを "stage" 変数の値に従って Web Server にコピーするための Playbook を作成します。
+
+ `deploy_index_html.yml` という名前の Playbook を `~/ansible-files/` ディレクトリ内に作成します。
+
+> **ヒント**
+> 
+> コピーするファイル名の中に指定された変数 "stage" がホストごとに取る値に注意してください。
+
+<!-- {% raw %} -->
+```yaml
+---
+- name: Copy index.html
+  hosts: web
   become: yes
-  vars:
-    httpd_packages:
-      - httpd
-      - mod_wsgi
-    apache_test_message: This is a test message
-    apache_max_keep_alive_requests: 115
-```
-
-- `vars:` この後に続いて記述されるものが変数名であることをAnsibleに伝えています。
-- `httpd_packages` httpd_packagesと命名したリスト型（list-type）の変数を定義しています。その後に続いているのはパッケージのリストです。
-- `apache_test_message`, `apache_max_keep_alive_requests` 変数にはそれぞれ文字列と数字が設定されています。
-
-
-### Step 3:
-
-*install httpd packages* と命名した新規taskを追加します。
-
-```yml
   tasks:
-    - name: install httpd packages
-      yum:
-        name: "{{ item }}"
-        state: present
-      with_items: "{{ httpd_packages }}"
-      notify: restart apache service
+  - name: copy index.html
+    copy:
+      src: ~/ansible-files/{{ stage }}_index.html
+      dest: /var/www/html/index.html
 ```
+<!-- {% endraw %} -->
 
-- `with_items: "{{ httpd_packages }}` Ansibleに `httpd_packages` の `item` 毎にタスクをループ実行するよう Ansible に伝えます
-- `{{ item }}` この記述によって `httpd` や `mod_wsgi` といったリストのアイテムを展開するようAnsibleに伝えています。
-- `notify: restart apache service` この行は `handler`であり、詳細は Section 3 で触れます
-
-
-## Section 2: ファイルの実装とサービスの起動
-
-ファイルやディレクトリを扱う必要がある場合には、[Ansible ファイル](http://docs.ansible.com/ansible/latest/list_of_files_modules.html) モジュールを用います。
-今回は `file` や `template` モジュールを利用します。
-
-その後、Apacheのサービスを起動するtaskを定義します。
-
-
-### Step 1:
-
-プロジェクトディレクトリ内の `templates` ディレクトリの作成と2ファイルのダウンロードを実施します。
+  - Playbook を実行します
 
 ```bash
-mkdir templates
-cd templates
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/httpd.conf.j2
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
-
-cd ../
+[student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
-### Step 2:
-いくつかの file task と service task をplaybookに追加します。
+## ステップ 1.4.4 - 実行結果の確認
 
-```yml
-    - name: create site-enabled directory
-      file:
-        name: /etc/httpd/conf/sites-enabled
-        state: directory
+各ホストには、変数 stage の値に従って異なるファイルがコピーされているはずです。デフォルトが dev で、node2 のみ、prod となっているはず。それぞれのweb server に curl コマンド（もしくはブラウザ）で接続して確認してみましょう。
 
-    - name: copy httpd.conf
-      template:
-        src: templates/httpd.conf.j2
-        dest: /etc/httpd/conf/httpd.conf
-      notify: restart apache service
-
-    - name: copy index.html
-      template:
-        src: templates/index.html.j2
-        dest: /var/www/html/index.html
-
-    - name: start httpd
-      service:
-        name: httpd
-        state: started
-        enabled: yes
+```bash
+[student<X>@ansible ansible-files]$ grep node /home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt
+node1 ansible_host=11.22.33.44
+node2 ansible_host=22.33.44.55
+node3 ansible_host=33.44.55.66
+[student<X>@ansible ansible-files]$ curl http://11.22.33.44
+<body>
+<h1>This is a development webserver, have fun!</h1>
+</body>
+[student1@ansible ansible-files]$ curl http://22.33.44.55
+<body>
+<h1>This is a production webserver, take care!</h1>
+</body>
+[student1@ansible ansible-files]$ curl http://33.44.55.66
+<body>
+<h1>This is a development webserver, have fun!</h1>
+</body>
 ```
 
-- `file:` このモジュールを使ってファイル、ディレクトリ、シンボリックリンクの作成、変更、削除を行います。
-- `template:` このモジュールで、jinja2テンプレートの利用と実装を指定しています。 `template` は `Files` モジュール・ファミリの中に含まれています。その他の[ファイル管理モジュール](http://docs.ansible.com/ansible/latest/list_of_files_modules.html) についても、一度目を通しておくことをお勧めします。
-- *jinja* - [jinja2](http://docs.ansible.com/ansible/latest/playbooks_templating.html)は、Ansibleでテンプレートの中のfiltersのような式の中のデータを変更する場合に用います。
-- *service* - serviceモジュールはサービスの起動、停止、有効化、無効化を行います。
+> **ヒント**
+> 
+> 鋭い人はちょっと思うかもしれません、”もっと柔軟にファイルの中身を変更出来たら・・・、と”。こちらについては次の章（template モジュール）で学びます！
 
-template モジュールでは元となるファイル（今回は`templates/{index.html.j2,httpd.conf.j2}`）を予め準備しておき、この中にホストや状況に合わせて書き換えたい部分を変数化しておきます。そして、モジュールがこのファイルを配置する際に、変数化された箇所を値と入れ替えて配置してくれます。今回のように設定ファイルの配布に便利に使える以外にも、レポートを動的に生成して出力するなどとても応用範囲の広いモジュールです。
+## ステップ 1.4.5 - Ansible ファクト
 
+Ansible ファクトは Ansible によって管理対象ホストから自動的に収集される変数です。"Gathering Facts" が各 ansible-playbook で実行されたことを思い出してください。ファクトは `setup` モジュールからも取得可能です。このファクトには、再利用可能な有用な情報が変数として格納されています。
 
-## Section 3: ハンドラの定義と利用
+Ansibleがデフォルトでどのような事実を収集しているのか、コントロールノードで次のように入力し確認してみましょう。
 
-構成ファイルの実装や新しいパッケージのインストールなど、様々な理由でサービスやプロセスを再起動する必要が出てきます。このセクションには、Playbookへのハンドラの追加、そして意図しているtaskの後でこのハンドラを呼び出す、という2つの内容が含まれています。それではPlaybookへのハンドラの追加を見てみましょう。
-
-### Step 1:
-ハンドラを定義する。
-
-```yml
-  handlers:
-    - name: restart apache service
-      service:
-        name: httpd
-        state: restarted
-        enabled: yes
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup
 ```
 
+結果表示がちょっと長すぎるので、フィルタを使ってみましょう。表現はシェルスタイルのワイルドカードです：
+
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
+```
+メモリ関連の情報が見たい場合は以下の様に実行します。
+
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
+```
+
+## ステップ 1.4.6 - チャレンジラボ: ファクト
+
+  - 管理対象ホストのディストリビューション（Red Hat）を表示してください。ただし、結果は一行で出力してください。
+
+> **ヒント**
+> 
+> grep を使ってファクトの中から必要な情報を探してみます。次に、 filter を使ってこのファクトのみの情報を抽出してみましょう。一行での表示の方法は ansible コマンドの -h (help) を使って調べてみましょう！
+
+ 
+> **答えは下記の通り\!**
+
+```bash
+[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep distribution
+[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
+```
+
+## Step 1.4.7 - Playbook の中でファクトを使う
+
+取得したファクトの値は Playbook の中で変数同様に利用することが可能です。早速 Playbook `facts.yml` を `~/ansible-files/` ディレクトリに作成し、試してみましょう！
+
+<!-- {% raw %} -->
+```yaml    
 ---
-**NOTE**
-
-- `handler:` これで *play* に対して `tasks:` の定義が終わり、`handlers:` の定義が開始されたことを伝えています。これに続く箇所は、名前の定義、そしてモジュールやそのモジュールのオプションの指定のように他のtaskと変わらないように見えますが、これがハンドラの定義になります。
-- `notify: restart apache service` そしてついに、この部分でハンドラが呼び出されるのです！ `nofify` 宣言は名前を使ってハンドラを呼び出します。単純明快ですね。先に書いた `copy httpd.conf` task中に `notify` 宣言を追加した理由がこれで理解できたと思います。
-
----
-
-## Section 4: この演習の最後に
-
-これで洗練されたPlaybookの完成です!
-でもまだPlaybookを実行しないでください。それはこの後の演習で行います。
-その前に、全てが意図した通りになっているかもう一度見直してみましょう。
-もしも間違っていれば修正してください。
-以下の見本を参考に、スペースとインデントに注意して見てください。`--syntax-check` で構文をチェックするのも良いアイデアです。
-
-
-```yml
----
-- hosts: web
-  name: This is a play within a playbook
-  become: yes
-  vars:
-    httpd_packages:
-      - httpd
-      - mod_wsgi
-    apache_test_message: This is a test message
-    apache_max_keep_alive_requests: 115
-
+- name: Output facts within a playbook
+  hosts: all
   tasks:
-    - name: httpd packages are present
-      yum:
-        name: "{{ item }}"
-        state: present
-      with_items: "{{ httpd_packages }}"
-      notify: restart apache service
+  - name: Prints Ansible facts
+    debug:
+      msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
+```
+<!-- {% endraw %} -->
 
-    - name: site-enabled directory is present
-      file:
-        name: /etc/httpd/conf/sites-enabled
-        state: directory
+> **ヒント**
+> 
+> "debug" モジュールは変数や式を確認するのに有用です。
 
-    - name: latest httpd.conf is present
-      template:
-        src: templates/httpd.conf.j2
-        dest: /etc/httpd/conf/httpd.conf
-      notify: restart apache service
+取得されたファクトがどのような形で表示されるか Playbook を実行してみてください。
 
-    - name: latest index.html is present
-      template:
-        src: templates/index.html.j2
-        dest: /var/www/html/index.html
+```bash
+[student<X>@ansible ansible-files]$ ansible-playbook facts.yml 
 
-    - name: httpd is started and enabled
-      service:
-        name: httpd
-        state: started
-        enabled: yes
+PLAY [Output facts within a playbook] ******************************************
 
-  handlers:
-    - name: restart apache service
-      service:
-        name: httpd
-        state: restarted
-        enabled: yes
+TASK [Gathering Facts] *********************************************************
+ok: [node3]
+ok: [node2]
+ok: [node1]
+ok: [ansible]
+
+TASK [Prints Ansible facts] ****************************************************
+ok: [node1] => 
+  msg: The default IPv4 address of node1 is 172.16.190.143
+ok: [node2] => 
+  msg: The default IPv4 address of node2 is 172.16.30.170
+ok: [node3] => 
+  msg: The default IPv4 address of node3 is 172.16.140.196
+ok: [ansible] => 
+  msg: The default IPv4 address of ansible is 172.16.2.10
+
+PLAY RECAP *********************************************************************
+ansible                    : ok=2    changed=0    unreachable=0    failed=0   
+node1                      : ok=2    changed=0    unreachable=0    failed=0   
+node2                      : ok=2    changed=0    unreachable=0    failed=0   
+node3                      : ok=2    changed=0    unreachable=0    failed=0   
 ```
 
----
+----
 
-[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
+[Ansible ワークショップ表紙に戻る](../README.ja.md)

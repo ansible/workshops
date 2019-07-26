@@ -1,239 +1,280 @@
-# Exercise 1.5 - Roles: Playbookを再利用可能にする
+# 演習 1.7 - Roles: Playbook を再利用可能にする
 
-このワークショップで行ってきているように、Playbookを1つのファイルに書くことも可能です。
-しかし実際の運用においては、他の人が作成したPlaybookを再利用したくなってくる筈です。
+今までのワークショップで学習してきた通り、Playbook を1つのファイルに書くことは可能です。しかしそのうち、作成した Playbook を再利用したいと考えるようになると思います。  
 
-これを実現するのがAnsibleのRolesという考え方です。
-roleを作成する事でPlaybookをパーツとして分解し、構造化されたディレクトリに格納することができます。
-「え?? それはExercise 1.2で触れられていた、ややこしい[ベスト・プラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)のことですか?」って？
-はい、まさにその通りです。
+これを実現するのが Ansible の Roles です。Role という形で Playbook をパーツとして分解し、構造化されたディレクトリに納めるのです。詳しくはこちらの [ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html) をご確認ください。  
 
-この演習では先に作成したPlaybookをリファクタリングしてroleへと変えます。さらにAnsible Galaxyの使い方も学びます。
+## ステップ 1.7.1 - Ansible Roles 構造を理解する
 
-では apache-basic-playbook をroleへとブレークダウンする方法を見て行きましょう。
+Roles は基本的に、ディレクティブを自動化したものであり、実際には参照ファイルの検索パス処理に対するいくつかの機能を超えた追加の魔法的な手段は含まれていません。
 
-![apache-basic-playbookのroleディレクトリ構造](roledir_1.png)
+Roles は定義されたディレクトリ構造に従い、最上位ディレクトリ名で区別されます。いくつかのサブディレクトリの中には `main.yml` という名前の YAML ファイルが含まれています。 `files` と `templates` のサブディレクトリには YAML ファイルによって参照されるオブジェクトを入れておくことができます。  
 
-幸いにも、これらのディレクトリやファイルの全てを手動で作成する必要はありません。ここで登場するのがAnsible Galaxyです。
+一例を下記します。Roles の名前は "apache" です。  
 
-## Section 1: Ansible Galaxyを使って新しいroleを初期化する
-
-Ansible Galaxyは、roleの検索とダウンロード、そして共有を可能にするフリーのサイトです。そしてまた、これを使えば今ここで行おうとしている事も容易に行えます。
-
-
-### Step 1:
-
- `apache-basic-playbook` プロジェクトへ移動します。
-
-```bash
-cd ~/apache-basic-playbook
+```text
+apache/
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml 
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
 ```
 
+`main.yml` ファイルは、対応するディレクトリに応じたコンテンツが含まれています。例えば、  `vars/main.yml` では変数が定義され、 `handlers/main.yaml` では、ハンドラーが記述される等です。一見 Playbook と似ていますが、これらの `main.yml` ファイルの中には特定のコンテンツが含まれるのみで、その他の例えば host の `become` やその他のキーワードなど通常のプレイブックに記載される情報は含まれません。
 
-### Step 2:
+> **ヒント**
+>
+> 変数定義に関しては、 `vars` and `default` という2つのディレクトリがあります。変数定義には優先順位があり、`default` は最も優先順位が低くなっています。Playbook 実行時に、上書きされることも意識した、まさにデフォルトの値を定義する場所です。  
 
- `roles` と命名したディレクトリを作成し `cd` で作成したディレクトリへ移動し、ファイルが何もないことを確認します。
+Playbook で Roles を呼び出すのは以下の通り簡単です。  
 
-```bash
-mkdir roles
-cd roles
-ls -la
-```
-
-
-### Step 3:
-
- `ansible-galaxy` コマンドで `apache-simple` と命名した新しいroleを用いて、Ansibleのベストプラクティスに則った空のフレームワークを構成します。
-
-```bash
-ansible-galaxy init apache-simple
-
-tree apache-simple
-```
-
-ここまでで作成された構造を`tree`コマンドなどで確認してください。
-先の図 1とよく似た構造になっている筈です。
-次のセクションへ進む前にあと1つだけ終らせるステップが残っています。
-
-それはgalaxyコマンドで作成されたからのフレームワークから、利用しないディレクトリとファイルをクリーンアップすることです。
-今回作成したroleでは `files` と `tests` からは何も利用しません。
-
-
-### Step 4:
-
-`files` と `tests` ディレクトリを削除します。
-
-```bash
-cd ~/apache-basic-playbook/roles/apache-simple/
-rm -rf files tests
-```
-
-
-## Section 2: `site.yml` Playbookを新たに作成した`apache-simple` roleへ切り分ける
-
-
-このセクションではPlaybookに含まれている`vars:`、 `tasks:`、 `template:`、 そして `handlers:` を主要パーツとして切り分けます。
-
-### Step 1:
-
-`site.yml` のバックアップ・コピーを作成し、新しい `site.yml` を作成します。
-
-```bash
-cd ~/apache-basic-playbook
-mv site.yml site.yml.bkup
-vim site.yml
-```
-
-### Step 2:
-
-play の定義と role の呼び出しを追加します。
-
-```yml
+```yaml
 ---
-- hosts: web
-  name: This is my role-based playbook
-  become: yes
-
+- name: launch roles
+  hosts: web
   roles:
-    - apache-simple
+    - role1
+    - role2
 ```
 
-### Step 3:
+タスク、ハンドラー、変数など各々の Roles がこの順番で Playbook に組み込まれます。 Roles で定義されたディレクトリに、コピー、スクリプト、テンプレート、タスクを入れることで、絶対パスや相対パスを意識することなくそれぞれの Role にアクセスすることができます。    
 
-`roles/apache-simple/defaults/main.yml` のroleにデフォルトの変数を追加します。
+## ステップ 1.7.2 - 基本的な Role ディレクトリ構造を作成する    
 
-```yml
----
-# defaults file for apache-simple
-apache_test_message: This is a test message
-apache_max_keep_alive_requests: 115
+Ansible は、プロジェクトディレクトリ内の `roles` サブディレクトリの中から該当する Role を探します。これは　Ansible　の設定ファイルで上書きすることも可能です。それぞれの Role は独自のディレクトリ構造を持っています。新規 Role のディレクトリを作成するために `ansible-galaxy` を利用することも可能です。  
+
+> **ヒント**
+>
+> Ansible Galaxyは、最高の Ansible コンテンツを見つけて利用したり、逆に、共有するためのハブとしての利用が可能です。Ansible Galaxy の利用には、 `ansible-galaxy` コマンドを使います。今回は、 Role ディレクトリ構造を作成するために使用します。  
+
+早速 Role を作成してみましょう。Apache をインストールして仮想ホストとして機能するように設定する Role のディレクトリを構築します。このコマンドは、 `~/ansible-files` ディレクトリで実行してください。  
+
+```bash
+[student<X>@ansible ansible-files]$ mkdir roles
+[student<X>@ansible ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
 ```
 
-### Step 4:
+作成された Role ディレクトリとその中身を確認してみてください。
 
-roleに特化した変数を`roles/apache-simple/vars/main.yml` のroleへ追加します。
-
-```yml
----
-# vars file for apache-simple
-httpd_packages:
-  - httpd
-  - mod_wsgi
+```bash
+[student<X>@ansible ansible-files]$ tree roles
 ```
 
+## ステップ 1.7.3 - タスクファイルの作成  
+
+サブディレクトリにある "tasks" の中の `main.yml` ファイルに以下の内容を記述していきます。  
+
+  - httpd をインストールする  
+
+  - httpd を有効化する  
+
+  - HTML コンテンツを Apache のルートディレクトリに配置する  
+
+  - バーチャルホストを構成するためのテンプレートを作成し読み込ませる  
+
+> **注意**  
+>
+> ** `main.yml` にはタスクのみを記述します。今まで記述した Playbook 丸ごとではありません！**
+
+`roles/apache_vhost` ディレクトリ内の `tasks/main.yml` ファイルを以下の様に編集します。  
+
+```yaml
 ---
-**NOTE**
-####
-> えっと、ちょっと待ってください…​ いま変数を2つの場所に分けて置きませんでしたか？
-
-ええ…​ 実はその通りです。変数は柔軟に配置することができます。例をあげると: +
-
-- vars ディレクトリ
-- defaultsディレクトリ
-- group_varsディレクトリ
-- Playbookの `vars:` セクション配下
-- コマンドラインを使い `--extra_vars` オプションで指定された全てのファイル
-
-結論から言えば、[variable precedence(英語)](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) に目を通し、どこで変数を定義するのか、そしてどのロケーションが優先されるのかを理解する必要があります。融通が利くように、この演習ではrole defaultsを利用していくつかの変数を定義しています。 それに続いて、role defaultsよりも高い優先性を持ち、デフォルトの変数をオーバーライドできる`/vars`にいくつかの変数を定義しています。
-
----
-
-### Step 5:
-
-`roles/apache-simple/handlers/main.yml` にroleのハンドラを作成します。
-
-
-```yml
----
-# handlers file for apache-simple
-- name: restart apache service
-  service:
-    name: httpd
-    state: restarted
-    enabled: yes
-```
-
-### Step 6:
-
-`roles/apache-simple/tasks/main.yml` のroleにtasksを追加します。
-
-```yml
----
-# tasks file for apache-simple
-- name: install httpd packages
+- name: install httpd
   yum:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ httpd_packages }}"
-  notify: restart apache service
+    name: httpd
+    state: latest
 
-- name: create site-enabled directory
-  file:
-    name: /etc/httpd/conf/sites-enabled
-    state: directory
-
-- name: copy httpd.conf
-  template:
-    src: templates/httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
-  notify: restart apache service
-
-- name: copy index.html
-  template:
-    src: templates/index.html.j2
-    dest: /var/www/html/index.html
-
-- name: start httpd
+- name: start and enable httpd service
   service:
     name: httpd
     state: started
-    enabled: yes
+    enabled: true
 ```
 
-### Step 7:
+上記で追加したタスクは以下のとおりです。  
 
-`roles/apache-simple/templates/` へいくつかのテンプレートをダウンロードします。
-その後すぐ、演習 2.1の古いテンプレート・ディレクトリを削除し、クリーンアップを行います。
+  - yum モジュールを使ってhttpdパッケージをインストールする  
 
-```bash
-mkdir -p ~/apache-basic-playbook/roles/apache-simple/templates/
-cd ~/apache-basic-playbook/roles/apache-simple/templates/
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/httpd.conf.j2
-curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
-rm -rf ~/apache-basic-playbook/templates/
+  - service モジュールを使って httpd を起動し、有効化します。  
+
+次に、仮想ホストのディレクトリ構造を確認・作成し、HTMLコンテンツをコピーするためのタスクをさらにそれぞれ追記します。追記するファイルは先ほどの `main.yml`です。  
+
+<!-- {% raw %} -->
+```yaml
+- name: ensure vhost directory is present
+  file:
+    path: "/var/www/vhosts/{{ ansible_hostname }}"
+    state: directory
+
+- name: deliver html content
+  copy:
+    src: index.html
+    dest: "/var/www/vhosts/{{ ansible_hostname }}"
 ```
+<!-- {% endraw %} -->
 
-### Step 8:
+vhost ディレクトリは、 `file` モジュールを使って、無ければ作成、既に存在すればスキップされることに注意ください。  
 
-作成したロールの全体像を確認してみましょう。
+そして最後に、テンプレートモジュールを使用してj2-templateから仮想ホストの設定ファイルを作成するためのタスクを追記します。追記するファイルは同じく `main.yml`です。    
 
-```bash
-cd ~/apache-basic-playbook
-
-tree .
+```yaml
+- name: template vhost file
+  template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/vhost.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart_httpd
 ```
+設定の更新が行われた場合、ハンドラーを使用して httpd を再起動していることに注意してください。  
 
+出来上がった `tasks/main.yml` ファイルは以下の通りです。
 
-## Section 3: ロール・ベースの新しいPlaybookを実行します。
-
-これでオリジナルのPlaybookをroleに切り分けることができました。では実際に実行してみましょう。
-
-### Step 1:
-
-playbookを実行します。
-
-```bash
-ansible-playbook site.yml
-```
-
-もしも問題なく実行されれば、標準出力は以下の図のようになる筈です。
-
-![ロール・ベースの標準出力](stdout_3.png)
-
-## Section 4: この演習の最後に
-
-これで、1つの `apache-simple` roleを持つPlaybook、`site.yml` は完成です。Playbookを構造化されたrolesにすることの利点は、新たなrolesをAnsible Galaxyを使って、または自身の手で記述して追加できることにあります。またrolesを用いれば、容易に変数やtasksやテンプレート等を変更できます。
-
+<!-- {% raw %} -->
+```yaml
 ---
+- name: install httpd
+  yum:
+    name: httpd
+    state: latest
 
-[Click Here to return to the Ansible Linklight - Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
+- name: start and enable httpd service
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: ensure vhost directory is present
+  file:
+    path: "/var/www/vhosts/{{ ansible_hostname }}"
+    state: directory
+
+- name: deliver html content
+  copy:
+    src: index.html
+    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+
+- name: template vhost file
+  template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/vhost.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart_httpd
+```
+<!-- {% endraw %} -->
+
+
+## ステップ 1.7.4 - ハンドラーの作成  
+
+`handlers/main.yml` を以下の通り編集し、テンプレートタスクから呼び出された時に httpd を再起動するハンドラーを作成します。  
+
+```yaml
+---
+# handlers file for roles/apache_vhost
+- name: restart_httpd
+  service:
+    name: httpd
+    state: restarted
+```
+
+## ステップ 1.7.5 - index.html の作成とバーチャルホスト用テンプレートファイルの作成  
+
+Webサーバーによって提供されるHTMLコンテンツを作成します。  
+
+  - `files` サブディレクトリの中に、 index.html ファイルを作成します。   
+
+```bash
+[student<X>@ansible ansible-files]$ echo 'simple vhost index' > roles/apache_vhost/files/index.html
+```
+
+  -  `templates` サブディレクトリの中に `vhost.conf.j2` テンプレートを作成します。
+
+<!-- {% raw %} -->
+```html
+# {{ ansible_managed }}
+Listen 8080
+<VirtualHost *:8080>
+    ServerAdmin webmaster@{{ ansible_fqdn }}
+    ServerName {{ ansible_fqdn }}
+    ErrorLog logs/{{ ansible_hostname }}-error.log
+    CustomLog logs/{{ ansible_hostname }}-common.log common
+    DocumentRoot /var/www/vhosts/{{ ansible_hostname }}/
+
+    <Directory /var/www/vhosts/{{ ansible_hostname }}/>
+  Options +Indexes +FollowSymlinks +Includes
+  Order allow,deny
+  Allow from all
+    </Directory>
+</VirtualHost>
+```
+<!-- {% endraw %} -->
+
+> **ヒント**
+>
+> 上記はバーチャルホストを追加するための httpd 用の設定ファイルで、ここでは深く理解する必要はありません。8080 ポートをリッスンする Webサーバー が立ち上がり、ルートフォルダは "/var/www/vhosts/{{ ansible_hostname }}/"。その中に、'simple vhost index' と記載された index.html がコピーされる・・・、くらいの理解で大丈夫です。  
+
+## ステップ 1.7.6 -  Role のテスト実行
+
+`node2` に対し、 Roles をテストする準備が整いました。しかし、 Roles はノードに直接割り当てることができないため、まず Roles とホストを紐づけるプレイブックを作成します。 `~/ansible-files` ディレクトリの直下に `test_apache_role.yml` ファイルを以下の内容で作成します。
+
+```yaml
+---
+- name: use apache_vhost role playbook
+  hosts: node2
+  become: yes
+
+  pre_tasks:
+    - debug:
+        msg: 'Beginning web server configuration.'
+
+  roles:
+    - apache_vhost
+
+  post_tasks:
+    - debug:
+        msg: 'Web server has been configured.'
+```
+
+`pre_tasks` と `post_tasks` というキーワードに注意してください。通常、 Roles のタスクはプレイブックのタスクの前に実行されます。この順番を制御するには、 `pre_tasks` が必要となります。逆に `post_tasks` は、すべての Roles が完了した後に実行されます。ここでは、実際の Roles が実行されたときにどういう順番で実行されたかを確認するため、これら2つのタスクをあえて入れています。  
+
+Playbook を実行する準備が整いましたので、実行してみましょう！  
+
+```bash
+[student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml
+```
+
+`node2` に対して curl コマンドを実行して、 Roles が機能していることを確認します。バーチャルホストのポートは8080です。  
+
+```bash
+[student<X>@ansible ansible-files]$ curl -s http://<node2>:8080
+simple vhost index
+```
+
+> **ヒント**
+>
+> 8080 →　80 に代えるとどうなりますか？
+
+うまくいきましたか？  
+おめでとうございます！ これで Ansible Engine のワークショップは終了です！！
+
+----
+
+[Ansible ワークショップ表紙に戻る](../README.ja.md)

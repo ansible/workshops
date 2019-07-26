@@ -70,9 +70,9 @@ listen_port: 80
 ```
 ### テンプレートを準備します  
 
-  - node1 から `httpd.conf` を `httpd.conf.j2` としてコピーします。以前の演習でダウンロードしたファイルを利用してもOKです。  
+  - node1 から `httpd.conf` を `httpd.conf.j2` としてコピーします。以前の演習でダウンロードしたファイルを "mv" で再利用してもOKです。  
 
-  - `httpd.conf` の "Listen" の項目を以下の通り変数 `listen_port` として定義しなおします。  
+  - コピーした `httpd.conf.j2` の "Listen" の項目を以下の通り変数 `listen_port` として定義しなおします。  
 
 <!-- {% raw %} -->
 ```ini

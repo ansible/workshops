@@ -75,7 +75,7 @@ Ansibleが変数をシステムから収取したファクト情報で変数を�
        "ansible_kernel": "3.10.0-693.el7.x86_64",
 ```
 
-  - Modify the template `motd-facts.j2`:
+  - `motd-facts.j2` を以下の通り更新します
 
 ```bash
 Welcome to {{ ansible_hostname }}.

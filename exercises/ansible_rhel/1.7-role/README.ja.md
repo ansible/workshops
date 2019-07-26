@@ -270,7 +270,7 @@ simple vhost index
 
 > **ヒント**
 >
-> [student<X>@ansible ansible-files]$ curl -s http://<node2>:80　ではどうなりますか？
+> 8080 →　80 に代えるとどうなりますか？
 
 うまくいきましたか？  
 おめでとうございます！ あなたはあなたは Ansible Engine のワークショップは終了です！

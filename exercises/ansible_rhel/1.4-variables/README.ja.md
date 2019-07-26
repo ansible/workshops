@@ -85,7 +85,7 @@ stage: prod
 
 次に、上記手順で作成した本番用、開発用の `index.html` の内いずれかのファイルを "stage" 変数の値に従って Web Server にコピーするための Playbook を作成します。
 
- `deploy_index_html.yml` という名前の playbook を `~/ansible-files/` ディレクトリ内に作成します。
+ `deploy_index_html.yml` という名前の Playbook を `~/ansible-files/` ディレクトリ内に作成します。
 
 > **ヒント**
 > 
@@ -111,7 +111,7 @@ stage: prod
 [student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
-## ステップ 4.4 - 実行結果の確認
+## ステップ 1.4.4 - 実行結果の確認
 
 各ホストには、変数 stage の値に従って異なるファイルがコピーされているはずです。デフォルトが dev で、node2 のみ、prod となっているはず。それぞれのweb server に curl コマンド（もしくはブラウザ）で接続して確認してみましょう。
 

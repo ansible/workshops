@@ -26,7 +26,7 @@ Ansible は特定の条件が満たされたときにタスクを実行したり
 デフォルトのインベントリファイルは、  
 `/home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt` でしたね。♪   
   
-編集後は以下の様になります。  
+編集後は以下の様になります。node2 のIPアドレスはご自身ものを入力してください！  
 
 ```ini
 [all:vars]

@@ -61,7 +61,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 3. You will not be able to click **SELECT** until you pre-populate the prompt.  Fill out the **PROMPT** with your desired banner.
 
-4.  A green line should exist between **BACKUP NETWORK CONFIG** and **CONFIGURE BANNER**
+4.  A green line should exist between **Backup network configurations** and **CONFIGURE BANNER**
 
     ![banner node](images/configure-banner.png)
 

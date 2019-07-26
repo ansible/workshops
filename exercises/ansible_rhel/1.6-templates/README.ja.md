@@ -21,7 +21,7 @@ deployed on {{ ansible_architecture }} architecture.
 
 テンプレートファイルには、コピーされる基本テキスト（文頭の Welcome to と文末の architecture ですね♪ ）が含まれています。また、ターゲットマシンのユニークな値に置き換えられる変数がその間に入っています。  
 
-次に、上記テンプレートを利用するための playbook を以下の通り作成します。場所は、 `~/ansible-files/` ディレクトリ内です。  
+次に、上記テンプレートを利用するための playbook `motd-facts.yml` を以下の通り作成します。場所は、 `~/ansible-files/` ディレクトリ内です。  
 
 ```yaml
 ---

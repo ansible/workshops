@@ -1,13 +1,13 @@
 # 演習1.4 - 変数を使ってみる
 
-前回までは Ansible Engine の基礎部分を学習してきました。この演習では playbook をより柔軟かつパワフルに使用できる、より高度なスキルを学びます。
+前回までは Ansible Engine の基礎部分を学習してきました。この演習では Playbook をより柔軟かつパワフルに使用できる、より高度なスキルを学びます。
 
-Ansible では task をよりシンプル、かつ再利用可能にできます。システムの設定にはユニークな設定が含まれる場合があり、
-playbookを実行する際、そのユニークな設定を含んだ実行が必要な場合があります。このような場合には変数を使います。
+Ansible では task をよりシンプル、かつ再利用可能にすることができます。システムの設定にはユニークな設定が含まれる場合があり、
+Playbook を実行する際、そのユニークな設定を含んだ実行が必要な場合があります。このような場合には変数を使います。
 
-Ansible は、playbook で使用可能な値を格納するための変数をサポートしています。変数はさまざまな場所で定義でき、明確な優先順位があります。Ansibleは、タスクが実行される際、変数をその値に置き換えます。
+Ansible は、Playbook で使用可能な値を格納するための変数をサポートしています。変数はさまざまな場所で定義でき、明確な優先順位があります。Ansibleは、タスクが実行される際、変数をその値に置き換えます。
 
-playbook では、変数名を二重中括弧で囲むことで変数を表現します。
+Playbook では、変数名を二重中括弧で囲むことで変数を表現します。
 
 <!-- {% raw %} -->
 ```yaml
@@ -83,7 +83,7 @@ stage: prod
 
 ## ステップ 1.4.3 - Playbook の作成
 
-次に、上記手順で作成した本番用、開発用の `index.html` の内いずれかのファイルを "stage" 変数の値に従って Web Server にコピーするための playbook を作成します。
+次に、上記手順で作成した本番用、開発用の `index.html` の内いずれかのファイルを "stage" 変数の値に従って Web Server にコピーするための Playbook を作成します。
 
  `deploy_index_html.yml` という名前の playbook を `~/ansible-files/` ディレクトリ内に作成します。
 
@@ -105,7 +105,7 @@ stage: prod
 ```
 <!-- {% endraw %} -->
 
-  - playbook を実行します
+  - Playbook を実行します
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
@@ -175,9 +175,9 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
 ```
 
-## Step 1.4.7 - playbook の中でファクトを使う
+## Step 1.4.7 - Playbook の中でファクトを使う
 
-取得したファクトの値は playbook の中で変数同様に利用することが可能です。早速 playbook `facts.yml` を `~/ansible-files/` ディレクトリに作成し、試してみましょう！
+取得したファクトの値は Playbook の中で変数同様に利用することが可能です。早速 Playbook `facts.yml` を `~/ansible-files/` ディレクトリに作成し、試してみましょう！
 
 <!-- {% raw %} -->
 ```yaml    
@@ -195,7 +195,7 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
 > 
 > "debug" モジュールは変数や式を確認するのに有用です。
 
-取得されたファクトがどのような形で表示されるか playbook を実行してみてください。
+取得されたファクトがどのような形で表示されるか Playbook を実行してみてください。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook facts.yml 

@@ -268,6 +268,10 @@ Playbook を実行する準備が整いましたので、実行してみまし�
 simple vhost index
 ```
 
+> **ヒント**
+>
+> [student<X>@ansible ansible-files]$ curl -s http://<node2>:80　ではどうなりますか？
+
 うまくいきましたか？  
 おめでとうございます！ あなたはあなたは Ansible Engine のワークショップは終了です！
 

@@ -249,7 +249,7 @@ Listen 8080
         msg: 'Web server has been configured.'
 ```
 
-`pre_tasks` と `post_tasks` というキーワードに注意してください。通常、 Role のタスクはプレイブックのタスクの前に実行されます。この順番を制御するには、 `pre_tasks` が必要となります。逆に `post_tasks` は、すべての Role が完了した後に実行されます。ここでは、実際の Role が実行されたときにどういう順番で実行されたかを確認するため、これら二つのタスクをあえて入れています。  
+`pre_tasks` と `post_tasks` というキーワードに注意してください。通常、 Roles のタスクはプレイブックのタスクの前に実行されます。この順番を制御するには、 `pre_tasks` が必要となります。逆に `post_tasks` は、すべての Roles が完了した後に実行されます。ここでは、実際の Roles が実行されたときにどういう順番で実行されたかを確認するため、これら2つのタスクをあえて入れています。  
 
 Playbook を実行する準備が整いましたので、実行してみましょう！  
 
@@ -257,7 +257,7 @@ Playbook を実行する準備が整いましたので、実行してみまし�
 [student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml
 ```
 
-`node2` に対してcurlコマンドを実行して、 Role が機能していることを確認します。バーチャルホストのポートは8080です。  
+`node2` に対して curl コマンドを実行して、 Roles が機能していることを確認します。バーチャルホストのポートは8080です。  
 
 ```bash
 [student<X>@ansible ansible-files]$ curl -s http://<node2>:8080

@@ -199,13 +199,13 @@ vhost ディレクトリは、 `file` モジュールを使って、無ければ
 
 Webサーバーによって提供されるHTMLコンテンツを作成します。  
 
-  -  Role  `files` サブディレクトリの中に、 index.html ファイルを作成します。   
+  - `files` サブディレクトリの中に、 index.html ファイルを作成します。   
 
 ```bash
 [student<X>@ansible ansible-files]$ echo 'simple vhost index' > roles/apache_vhost/files/index.html
 ```
 
-  -  Role  `templates` サブディレクトリの中に `vhost.conf.j2` テンプレートを作成します。
+  -  `templates` サブディレクトリの中に `vhost.conf.j2` テンプレートを作成します。
 
 <!-- {% raw %} -->
 ```html

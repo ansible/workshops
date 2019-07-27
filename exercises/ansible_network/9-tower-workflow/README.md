@@ -31,7 +31,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 | Parameter | Value |
 |---|---|
-| Name  | WORKSHOP WORKFLOW  |
+| Name  | Workshop Workflow  |
 |  Organization |  Default |
 |  Inventory |  Workshop Inventory |
 

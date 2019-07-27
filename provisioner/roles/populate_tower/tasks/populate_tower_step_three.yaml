@@ -95,21 +95,6 @@
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
 
-    - name: CREATE RESTORE JOB IN TOWER
-      tower_job_template:
-        name: "Network-Restore"
-        job_type: "run"
-        inventory: "Workshop Inventory"
-        project: "Workshop Project"
-        playbook: "network_restore.yml"
-        credential: "Workshop Credential"
-        state: "present"
-        limit: "cisco"
-        tower_username: admin
-        tower_password: "{{ admin_password }}"
-        tower_host: "{{ ansible_host }}"
-        tower_verify_ssl: no
-
 #JOB TEMPLATE PERMISSIONS
     - name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
       tower_role:

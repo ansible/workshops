@@ -33,7 +33,7 @@ The most basic host pattern is the name for a single managed host listed in the 
     node1
 ```
 
-An inventory file can contain a lot more information, it can organize your hosts in groups or define variables. In our example, the current inventory has the groups `web` and `control. Run Ansible with these host patterns and observe the output:
+An inventory file can contain a lot more information, it can organize your hosts in groups or define variables. In our example, the current inventory has the groups `web` and `control`. Run Ansible with these host patterns and observe the output:
 
 ```bash
 [student<X@>ansible ~]$ ansible web  --list-hosts

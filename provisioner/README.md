@@ -3,7 +3,7 @@
 
 | Workshop   | Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| Ansible Red Hat Enterprise Linux Workshop  | [Deck](https://ansible.github.io/workshops/decks/ansible-essentials.html)  | [Exercises](../exercises/ansible_rhel) | `workshop_type: rhel`  |
+| Ansible Red Hat Enterprise Linux Workshop  | [Deck](https://ansible.github.io/workshops/decks/ansible_technical.pdf)  | [Exercises](../exercises/ansible_rhel) | `workshop_type: rhel`  |
 | Ansible Network Automation Workshop  | [Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf) | [Exercises](../exercises/ansible_network)  | `workshop_type: networking`  |
 | Ansible F5 Workshop | [Deck](https://ansible.github.io/workshops/decks/ansible_f5.pdf) | [Exercises](../exercises/ansible_f5)   | `workshop_type: f5`   |
 

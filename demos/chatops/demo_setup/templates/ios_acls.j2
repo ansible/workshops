@@ -1,0 +1,13 @@
+{% for device, rule in acl_100.items() %}
+{% if device == inventory_hostname %}
+{% for ace in rule %}
+{% if ace.get('port') %}
+access-list 100 {{ ace.action }} {{ ace.protocol }} {{ ace.src }} {{ ace.dest }} eq {{ ace.port }}
+{% else %}
+access-list 100 {{ ace.action }} {{ ace.protocol }} {{ ace.src }} {{ ace.dest }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+

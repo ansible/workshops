@@ -1,0 +1,10 @@
+---
+# region where the nodes will live
+ec2_region: us-east-2
+# name prefix for all the VMs
+ec2_name_prefix: TESTWORKSHOP
+admin_password: ansible
+student_total: 2
+workshop_type: networking
+## Optional Variables
+create_login_page: true

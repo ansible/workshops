@@ -215,7 +215,7 @@ $("document").ready(function(){
         <div class="row">
             <div class="col-md-8 mx-auto">
               <h1 class="project-name">Red Hat Ansible Automation <br/><strong class="text-nowrap">Technical Workshops</strong></h1>
-              <h2>The Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.</h2>
+              <h2>The Ansible Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops and self-paced exercises.</h2>
 
                 <a href="https://github.com/ansible/workshops" class="btn btn-ghost">View on GitHub</a><br><br>
 
@@ -231,16 +231,19 @@ $("document").ready(function(){
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                {% if networking or f5workshop %}
+                {% if workshop_type in ['networking', 'f5'] %}
                 <h2>Network Automation Workshops</h2>
                 <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
-                {% else %}
-                <h2>Server Automation Workshops</h2>
-                <p>These workshops are focused on automating Linux platforms like RHEL (Red Hat Enterprise Linux)</p>
+                {% elif workshop_type in ['rhel'] %}
+                <h2>Ansible Automation Workshops</h2>
+                <p>These workshops are focused on getting started with Ansible and Tower in automating Linux platforms like RHEL (Red Hat Enterprise Linux).</p>
+                {% elif workshop_type in ['security'] %}
+                <h2>Security Automation Workshops</h2>
+                <p>These workshops are focused on automating security platforms like Snort, Check Point and Splunk Enterprise Security.</p>
                 {% endif %}
             </div>
         </div>
-        {% if networking %}
+        {% if workshop_type == "networking" %}
         <div class="row">
           <div class="col-sm-4">
               <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
@@ -251,7 +254,7 @@ $("document").ready(function(){
           </div>
 
         </div>
-        {% elif f5workshop %}
+        {% elif workshop_type == "f5" %}
         <div class="row">
           <div class="col-sm-4">
               <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_f5/">Ansible F5 Exercises</a>
@@ -262,18 +265,23 @@ $("document").ready(function(){
           </div>
 
         </div>
-        {% else %}
-         <div class="row">
+        {% elif workshop_type == "rhel" %}
+        <div class="row">
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_engine/">Ansible Server Exercises</a>
+                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
             </div>
-          <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible-essentials.html#/">Ansible Essentials Deck</a>
+            <div class="col-sm-4">
+              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_technical.pdf">Ansible Technical Deck</a>
+            </div>
+        </div>
+        {% elif workshop_type == "security" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_security/">Ansible Security Exercises</a>
+            </div>
+            <div class="col-sm-4">
+              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
           </div>
-            <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_tower/">Ansible Tower Exercises</a>
-            </div>
-
         </div>
         {% endif %}
 <br><br>
@@ -307,6 +315,7 @@ $("document").ready(function(){
         </div>
 <br>
         <div class="row">
+            {% if workshop_type in ['networking', 'f5'] %}
             <div class="col-sm-4">
                 <a class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
             </div>
@@ -314,7 +323,7 @@ $("document").ready(function(){
             <div class="col-sm-4">
                 <a class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html">Ansible Network Modules</a>
             </div>
-
+            {% endif %}
             <div class="col-sm-4">
                 <a class="btn btn-secondary btn-block" href="https://pythex.org/">Real-time regular expression editor</a>
             </div>

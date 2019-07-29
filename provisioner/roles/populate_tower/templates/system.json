@@ -1,0 +1,46 @@
+{
+  "name": "System Survey",
+  "description": "Prompt for system propertires such as hostname",
+  "spec": [
+    {
+      "type": "text",
+      "question_name": "Please enter a hostname",
+      "question_description": "this will set the hostname of the network device",
+      "variable": "network_hostname",
+      "required": false,
+      "default": "{{inventory_hostname}}"
+    },
+    {
+      "type": "text",
+      "question_name": "Domain Name",
+      "question_description": "Set the IP domain name",
+      "variable": "network_domain_name",
+      "required": false,
+      "default": ""
+    },
+    {
+      "type": "text",
+      "question_name": "Please enter a lookup source",
+      "question_description": "e.g. MgmtEth0/0/CPU0/0, source interface for performing DNS lookups",
+      "variable": "network_lookup_source",
+      "required": false,
+      "default": ""
+    },
+    {
+      "type": "text",
+      "question_name": "Please enter the name servers",
+      "question_description": "e.g. 8.8.8.8, List of DNS name servers by IP address to use to perform name resolution lookups",
+      "variable": "network_name_servers",
+      "required": false,
+      "default": "8.8.8.8"
+    },
+    {
+      "type": "text",
+      "question_name": "Please enter the domain search names",
+      "question_description": "e.g. the ip domain list, resolution for unqualified host names",
+      "variable": "network_domain_search",
+      "required": false,
+      "default": ""
+    }
+  ]
+}

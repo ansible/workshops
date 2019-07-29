@@ -8,25 +8,25 @@ ansible_port={{ ssh_port }}
 [lb]
 {% for vm in f5_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-f5 ansible_host={{ vm.public_ip_address }} ansible_user=admin private_ip={{ vm.private_ip_address }} ansible_ssh_pass=admin
+f5 ansible_host={{ vm.public_ip_address }} ansible_user=admin private_ip={{ vm.private_ip_address }} ansible_ssh_pass={{admin_password}}
 {% endif %}
 {% endfor %}
 
 [control]
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-ansible ansible_host={{ vm.public_ip_address }} ansible_user={{ ec2_login_names[ansible_node] }} private_ip={{ vm.private_ip_address }}
+ansible ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 
 [webservers]
 {% for vm in host1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-host1 ansible_host={{ vm.public_ip_address }} ansible_user={{ ec2_login_names[ansible_node] }} private_ip={{ vm.private_ip_address }}
+host1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 {% for vm in host2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-host2 ansible_host={{ vm.public_ip_address }} ansible_user={{ ec2_login_names[ansible_node] }} private_ip={{ vm.private_ip_address }}
+host2 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}

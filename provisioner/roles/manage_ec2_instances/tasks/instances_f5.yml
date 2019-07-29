@@ -2,10 +2,10 @@
 - name: find ami for f5 (F5 MODE)
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_instance_types.f5node.owners }}"
+    owners: "{{ ec2_info.f5node.owners }}"
     filters:
-      name: "{{ ec2_instance_types.f5node.filter }}"
-      architecture: "{{ ec2_instance_types.f5node.architecture }}"
+      name: "{{ ec2_info.f5node.filter }}"
+      architecture: "{{ ec2_info.f5node.architecture }}"
   register: amis
 
 - name: save ami for f5 (F5 MODE)
@@ -18,7 +18,7 @@
     assign_public_ip: yes
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_instance_types.f5node.size }}"
+    instance_type: "{{ ec2_info.f5node.size }}"
     image: "{{ f5_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -44,6 +44,7 @@
       Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      username: "{{ec2_info.f5node.username}}"
   with_indexed_items:
     - "{{ f5_output.instance_ids }}"
   when: f5_output.instance_ids is not none
@@ -51,10 +52,10 @@
 - name: find ami for host1 & host2 (F5 MODE)
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_instance_types.rhel7.owners }}"
+    owners: "{{ ec2_info.rhel7.owners }}"
     filters:
-      name: "{{ ec2_instance_types.rhel7.filter }}"
-      architecture: "{{ ec2_instance_types.rhel7.architecture }}"
+      name: "{{ ec2_info.rhel7.filter }}"
+      architecture: "{{ ec2_info.rhel7.architecture }}"
   register: amis
 
 - name: save ami for host1 & host2 (F5 MODE)
@@ -67,7 +68,7 @@
     assign_public_ip: yes
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_instance_types.rhel7.size }}"
+    instance_type: "{{ ec2_info.rhel7.size }}"
     image: "{{ host1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -93,6 +94,7 @@
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host1
+      username: "{{ec2_info[rhel].username}}"
   with_indexed_items:
     - "{{ host1_output.instance_ids }}"
   when: host1_output.instance_ids is not none
@@ -102,7 +104,7 @@
     assign_public_ip: yes
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_instance_types.rhel7.size }}"
+    instance_type: "{{ ec2_info.rhel7.size }}"
     image: "{{ host1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -128,6 +130,7 @@
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host2
+      username: "{{ec2_info[rhel].username}}"
   with_indexed_items:
     - "{{ host2_output.instance_ids }}"
   when: host2_output.instance_ids is not none

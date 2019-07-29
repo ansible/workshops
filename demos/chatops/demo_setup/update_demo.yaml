@@ -1,0 +1,234 @@
+---
+- name: UPDATE THE USER SPECIFIC CHATOPS INFO
+  hosts: localhost
+
+  pre_tasks:
+
+    - name: MAKE THE ROLES DIR
+      file:
+        path: ../chatops_pb/roles
+        state: directory
+
+    - name: INSTALL ROLE DEPENDENCIES
+      command: ansible-galaxy install termlen0.ios_check_acls -p ../chatops_pb/roles/
+
+  tasks:
+
+    - name: UPDATE CUSTOM VARIABLES - SLASH COMMAND
+      lineinfile:
+        path: ../check_traffic.py
+        regexp: '^@app.*slash_cmd'
+        line: '@app.route("/{{ slash_cmd }}", methods=["POST"]) #slash_cmd'
+
+    - name: UPDATE CUSTOM VARIABLES - INTERACTIVE URI
+      lineinfile:
+        path: ../check_traffic.py
+        regexp: '^@app.*icomponent'
+        line: '@app.route("/{{ slack_interactive }}", methods=["POST"]) #icomponent'
+
+    - name: UPDATE CUSTOM VARIABLES - SLACK TOKEN
+      lineinfile:
+        path: ../check_traffic.py
+        regexp: '^SLACK_VERIFICATION_TOKEN.*'
+        line: 'SLACK_VERIFICATION_TOKEN = "{{ slack_token }}"'
+
+    - name: UPDATE CUSTOM VARIABLES - SLACK BOT TOKEN
+      lineinfile:
+        path: ../check_traffic.py
+        regexp: '^SLACK_BOT_TOKEN.*'
+        line: 'SLACK_BOT_TOKEN = "{{ slack_bot_token }}"'
+
+    - name: UPDATE CUSTOM VARIABLES - TOWER HOSTNAME
+      lineinfile:
+        path: ../check_traffic.py
+        regexp: '^TOWER_HOSTNAME.*'
+        line: 'TOWER_HOSTNAME = "{{ tower_hostname }}"'
+
+    - name: UPDATE CUSTOM VARIABLES - TOWER USERNAME
+      lineinfile:
+        path: ../check_traffic.py
+        regexp: '^TOWER_USERNAME.*'
+        line: 'TOWER_USERNAME = "{{ tower_username }}"'
+
+    - name: UPDATE CUSTOM VARIABLES - TOWER PASSWORD
+      lineinfile:
+        path: ../check_traffic.py
+        regexp: '^TOWER_PASSWORD.*'
+        line: 'TOWER_PASSWORD = "{{ tower_password }}"'
+
+    - name: UPDATE CUSTOM VARIABLES - SLACK CALLBACK
+      lineinfile:
+        path: ../chatops_pb/check_acls.yaml
+        regexp: '^\s+response_url:.*'
+        line: '    response_url: "{{ slack_webhook }}"'
+
+    - name: MOVE THE PLAYBOOK TO VAR/LIB
+      copy:
+        src: ../chatops_pb
+        dest: /var/lib/awx/projects/
+      become: yes
+      become_method: sudo
+      become_user: awx
+
+
+- name: ADD SOME TEST ACLS INTO THE ROUTERS
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+  tags: acl
+
+  vars:
+    acl_100:
+      rtr1:
+        - src: any
+          dest: any
+          protocol: ip
+          action: permit
+        - src: any
+          dest: host 8.8.8.8
+          protocol: udp
+          port: 53
+          action: permit
+      rtr2:
+        - src: 10.100.100.0 0.0.0.255
+          dest: 3.0.0.0 0.255.255.255
+          protocol: tcp
+          port: 2222
+          action: permit
+      rtr3:
+        - src: 192.168.69.0 0.0.0.255
+          dest: 10.22.22.0 0.0.3.255
+          protocol: udp
+          port: 8888
+          action: permit
+        - src: 10.100.0.0 0.0.0.255
+          dest: 10.100.100.0 0.0.0.255
+          protocol: tcp
+          port: 80
+          action: permit
+      rtr4:
+        - src: 10.33.33.0 0.0.0.255
+          dest: any
+          port: 53
+          protocol: udp
+          action: permit
+
+
+
+
+  tasks:
+    - name: template
+      ios_config:
+        src: ios_acls.j2
+
+
+
+
+- name: ADD JOB TEMPLATE TO TOWER
+  hosts: cisco
+  connection: local
+  become: yes
+  gather_facts: no
+  tasks:
+
+    - name: INCLUDE THE TOWER TASKS
+      include_role:
+        name: tower_tasks
+
+
+- name: INSTALL AND START THE FLASK APP
+  hosts: localhost
+  gather_facts: yes
+
+
+  tasks:
+
+    - name: INSTALL GCC
+      yum:
+        name:
+          - gcc
+          - libsemanage-python
+          - libselinux-python
+      become: yes
+      become_method: sudo
+
+    - name: INSTALL PYTHON PACKAGES
+      pip:
+       name:
+        - netaddr>=0.7.19
+        - Flask
+        - Werkzeug
+        - slackclient
+        - urllib3
+        - ansible-tower-cli
+        - requests
+        - uwsgi
+      become: yes
+      become_method: sudo
+
+    - name: PERMIT 8888 AS A VALID PORT IN SELINUX
+      seport:
+        ports: 8888
+        proto: tcp
+        setype: http_port_t
+        state: present
+      become: yes
+      become_method: sudo
+
+    - name: ADD THE SELINUX POLICY TO ALLOW UNIX SOCKET WRITES - CHECKMODULE
+      command: "checkmodule -M -m -o /tmp/nginx.mod {{ playbook_dir }}/files/nginx.te"
+      become: yes
+      become_method: sudo
+
+    - name: ADD THE SELINUX POLICY TO ALLOW UNIX SOCKET WRITES - SEMODULE_PACKAGE
+      command: "semodule_package -o /tmp/nginx.pp -m /tmp/nginx.mod"
+      become: yes
+      become_method: sudo
+
+    - name: ADD THE SELINUX POLICY TO ALLOW UNIX SOCKET WRITES - SEMODULE
+      command: "semodule -i /tmp/nginx.pp"
+      become: yes
+      become_method: sudo
+
+    - name: CREATE THE CHECK_TRAFFIC SERVICE
+      template:
+        src: check_traffic_service.j2
+        dest: "{{ playbook_dir}}/files/check_traffic.service"
+
+
+    - name: CREATE THE WSGI INI FILE
+      template:
+        src: check_traffic_ini.j2
+        dest: "{{ ansible_env['HOME'] }}/demos/chatops/check_traffic.ini"
+
+    - name: COPY THE CHECK_TRAFFIC SERVICE TO SYSTEMD
+      copy:
+        src: "{{ playbook_dir }}/files/check_traffic.service"
+        dest: /etc/systemd/system/check_traffic.service
+      become: yes
+      become_method: sudo
+
+    - name: ADD THE NGINX SNIPPET
+      blockinfile:
+        block: "{{ lookup('file', 'nginx_snippet') }}"
+        dest: /etc/nginx/nginx.conf
+        insertbefore: "}"
+        backup: yes
+      become: yes
+      become_method: sudo
+
+# Always restart the app and nginx
+
+    - name: start_app
+      service:
+        name: check_traffic
+        state: restarted
+      become: yes
+      become_method: sudo
+
+    - name: start_nginx
+      service:
+        name: nginx
+        state: restarted
+      become: yes
+      become_method: sudo

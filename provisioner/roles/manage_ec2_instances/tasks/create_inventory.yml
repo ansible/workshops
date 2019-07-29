@@ -6,10 +6,6 @@
       "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible"
   register: ansible_node_facts
 
-- name: DEBUG ansible_node_facts
-  debug:
-    var: ansible_node_facts
-
 - name: add ansible node to control_nodes and managed_nodes group
   add_host:
     name: "{{ item.tags.Name }}"
@@ -17,7 +13,7 @@
     student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
-    ansible_user: "{{ ec2_login_names[ansible_node] }}"
+    ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
@@ -26,18 +22,18 @@
       - control_nodes
   with_items: "{{ ansible_node_facts.instances }}"
 
-- name: engine (essentials) mode - setup inventory
-  include_tasks: "addhost_engine.yml"
-  when:
-    - not networking
-    - not f5workshop
+- name: RHEL (essentials) mode - setup inventory
+  include_tasks: "addhost_rhel.yml"
+  when: workshop_type == 'rhel'
 
 - name: networking mode - setup inventory
   include_tasks: "addhost_networking.yml"
-  when:
-    - networking
-    - not f5workshop
+  when: workshop_type == 'networking'
 
 - name: f5 mode - setup inventory
   include_tasks: "addhost_f5.yml"
-  when: f5workshop
+  when: workshop_type == 'f5'
+
+- name: security mode - setup inventory
+  include_tasks: "addhost_security.yml"
+  when: workshop_type == 'security'

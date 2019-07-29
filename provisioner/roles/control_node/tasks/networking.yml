@@ -1,61 +1,93 @@
-- name: Clone linklight repo (NETWORKING MODE)
+- name: block for f5 workshop (F5 AUTOMATION MODE)
+  block:
+    - name: install f5 workshop dependicies
+      become: yes
+      pip:
+        name:
+          - pip
+          - setuptools
+          - pysnow
+        state: latest
+
+    - name: install f5 workshop dependicies
+      become: yes
+      pip:
+        name:
+          - f5-sdk
+          - bigsuds
+          - netaddr
+          - jmespath
+        state: latest
+  when: workshop_type == "f5"
+
+- name: install additional packages (NETWORK AUTOMATION MODE)
+  become: yes
+  pip:
+    name:
+      - pip
+      - netaddr
+      - setuptools
+    state: latest
+  when:
+    - workshop_type == 'networking'
+
+- name: install ncclient for juniper devices (NETWORK AUTOMATION MODE)
+  become: yes
+  pip:
+    name:
+      - ncclient
+    state: latest
+  when:
+    - workshop_type == 'networking'
+    - network_type == 'juniper' or network_type == 'multivendor'
+
+# FIXME: This should probably be refactored to use things like the following
+# instead of hard coding
+#
+#   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
+#
+# That would enable a more generic role/scaffolding
+- name: clean out /tmp/linklight
+  file:
+    path: /tmp/linklight
+    state: absent
+
+- name: Clone workshops repo (NETWORKING MODE)
   git:
     accept_hostkey: yes
     clone: yes
-    dest: /tmp/linklight
-    repo: https://github.com/network-automation/linklight.git
+    dest: /tmp/workshops
+    repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
+    version: '{{ ansible_workshops_version | default("master") }}'
+    refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: yes
 
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
-#   copy:
-#     src: /tmp/linklight/exercises/networking_v2/
-#     dest: /home/{{ username }}/networking-workshop
-#     remote_src: yes
-#   when: networking
-- name: Move networking workshop folder to correct location  (NETWORKING MODE SPECIAL)
-  command: cp -r /tmp/linklight/exercises/networking_v2/ /home/{{ username }}/networking-workshop/
-  when: networking
-
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Create demos folder with demos
-#   copy:
-#     src: /tmp/linklight/demos/
-#     dest: /home/{{ username }}/demos
-#     remote_src: yes
-#   when: networking
+- name: Move networking workshop folder to correct location  (NETWORKING MODE)
+  copy:
+    src: /tmp/workshops/exercises/ansible_network/
+    dest: /home/{{ username }}/networking-workshop
+    remote_src: yes
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: workshop_type == 'networking'
 
 - name: Create demos folder with demos
-  command: cp -r /tmp/linklight/demos/ /home/{{ username }}/demos
-  when: networking
-
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Move networking workshop folder to correct location  (F5 MODE)
-#   copy:
-#     src: /{{playbook_dir}}/linklight/exercises/ansible_f5/
-#     dest: /home/{{ username }}/networking-workshop
-#   when: f5workshop
+  copy:
+    src: /tmp/workshops/demos/
+    dest: /home/{{ username }}/demos
+    remote_src: yes
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: workshop_type == 'networking'
 
 - name: Move networking workshop folder to correct location  (F5 MODE)
-  shell: mkdir /home/{{ username }}/networking-workshop; cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
-  when: f5workshop
-
-- name: fix permissions of networking-workshop  (NETWORKING MODE)
-  file:
-    path: /home/{{ username }}/networking-workshop
+  copy:
+    src: /tmp/workshops/exercises/ansible_f5/
+    dest: /home/{{ username }}/networking-workshop
+    remote_src: yes
     owner: "{{ username }}"
     group: "{{ username }}"
-    recurse: yes
-
-- name: fix permissions of demos  (NETWORKING MODE)
-  file:
-    path: /home/{{ username }}/demos
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    recurse: yes
+  when: workshop_type == 'f5'
 
 - name: Create lab inventory directory (NETWORKING MODE)
   file:

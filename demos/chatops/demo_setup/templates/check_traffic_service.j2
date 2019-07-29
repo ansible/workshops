@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve check_traffic
+After=network.target
+
+[Service]
+User={{ ansible_user_id }}
+Group=nginx
+WorkingDirectory=/home/{{ ansible_user_id }}/demos/chatops
+Environment="PATH=/home/{{ ansible_user_id }}/demos/chatops"
+ExecStart=/usr/bin/uwsgi --ini check_traffic.ini
+
+[Install]
+WantedBy=multi-user.target

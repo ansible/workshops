@@ -1,61 +1,48 @@
 # Directions
 
-## Requirements
+Please follow the [vagrant setup instructions](../README.md) before switching to the Arista lab.
 
-1. Install vagrant
+1. Download Arista Vagrant image
 
-   Download here: <a href="https://www.vagrantup.com/downloads.html" target="_blank">https://www.vagrantup.com/downloads.html</a>
+   Go to arista.com, make an account if you have not already, and click the Support->Software Downloads ![screenshot](download.png)
 
-2. Install VirtualBox
+2. Add the box image to Vagrant
 
-   Download here: <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">https://www.virtualbox.org/wiki/Downloads</a>
-
-3. Install Git (Optional)
-
-   Download here: <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank">https://git-scm.com/book/en/v2/Getting-Started-Installing-Git</a>
-
-## Setup
-
-1. git clone this repo
-
-       ```bash
-       git clone https://github.com/network-automation/linklight
-       ```
-
-2. Open up a terminal window in the same directory as the Vagrantfile
-
-       ```bash
-       cd ~<LOCATION OF GITHUB REPO>/network-auomation/linklight/vagrant-demo
-       ```
-
-3. Turn on the following VMs
+   Use the `vagrant box add` command on the newly downloaded box image.  Make sure to use the `--name` parameter and name the box image `veos`.
 
    ```bash
-   vagrant up leaf01 leaf02 spine01 spine02 ansible
+   ➜  user@rhel7:-$ vagrant box add vEOS-lab-4.20.1F-virtualbox.box --name veos
+   ==> box: Box file was not detected as metadata. Adding it directly...
+   ==> box: Adding box 'veos' (v0) for provider:
+       box: Unpacking necessary files from:        file:///Users/sean/Documents/GitHub/linklight/vagrant-demo/arista/vEOS-lab-4.20.1F-virtualbox.box
+   ==> box: Successfully added box 'veos' (v0) for 'virtualbox'!
+   ➜  user@rhel7:-$
    ```
 
-4. Grab a beer/soda/coffee
+   NOTE: If you are having trouble, please refer to [Arista's official documentation](https://eos.arista.com/using-veos-with-vagrant-and-virtualbox/).
 
-   takes about 5 minutes
+3. Vagrant up the topology
 
-5. Begin Exercises
+    Use the `vagrant up` command to bring up the topology
 
-   Once vagrant finishes provisioning, check out the [training course](training-course) and follow directions there.
+    ```
+    ➜  user@rhel7:-$ vagrant up ansible leaf01 leaf02 spine01 spine02
+    ```
 
-# Vagrant Topology
-![Network Topology Diagram](../images/diagram.png)
+4. Try connecting to an individual switch
 
+   From the same directory as the Vagrantfile, use the `vagrant ssh` command to connect to the device.  To connect directly to the Arista CLI use the `-c FastCli` parameter
+
+   ```
+   ➜  user@rhel7:-$ vagrant ssh leaf01 -c FastCli
+   leaf01>
+   ```
+
+5. Open up the Lab exercises
+
+   Open up the [labs](./labs) directory
 
  ---
-![Red Hat Ansible Automation](../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
 
-Red Hat® Ansible® Automation includes three products:
-
-- [Red Hat® Ansible® Engine](https://www.ansible.com/ansible-engine): a fully supported product built on the foundational capabilities of the Ansible project.
-
-- [Red Hat® Ansible® Networking Add-On](https://www.ansible.com/ansible-engine): provides support for select networking modules from Arista (EOS), Cisco (IOS, IOS XR, NX-OS), Juniper (Junos OS), Open vSwitch, and VyOS.
-
-- [Red Hat® Ansible® Tower](https://www.ansible.com/tower): makes it easy to scale automation, manage complex deployments and speed productivity. Extend the power of Ansible with workflows to streamline jobs and simple tools to share solutions with your team.
-
-Want more info?
-[Read this blog post for more info about Engine, the networking add-on and Tower](https://www.ansible.com/blog/red-hat-ansible-automation-engine-vs-tower)
+Red Hat® Ansible® Automation is a fully supported product built on the foundational capabilities of the Ansible project. Read more on [ansible.com](https://www.ansible.com/overview/networking)

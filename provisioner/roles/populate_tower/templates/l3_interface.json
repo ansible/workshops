@@ -1,0 +1,30 @@
+{
+  "name": "L3 Survey",
+  "description": "Prompt for interface name, ipv4 and ipv6",
+  "spec": [
+    {
+      "type": "text",
+      "question_name": "Which interface?",
+      "question_description": "Please specify the interface name",
+      "variable": "interface_name",
+      "required": true,
+      "default": "lo0"
+    },
+    {
+      "type": "text",
+      "question_name": "Please set an IPv4 Address",
+      "question_description": "e.g. 192.168.1.1/24, it is OK to leave this blank if you are using IPv6 only",
+      "variable": "interface_ipv4",
+      "required": false,
+      "default": "192.168.1.1/24"
+    },
+    {
+      "type": "text",
+      "question_name": "Please Set an IPv6 Address",
+      "question_description": "e.g. fc00::2/64, it is OK to leave this blank if you are using IPv4 only",
+      "variable": "interface_ipv6",
+      "required": false,
+      "default": "fc00::2/64"
+    }
+  ]
+}

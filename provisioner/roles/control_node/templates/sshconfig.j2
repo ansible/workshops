@@ -1,11 +1,3 @@
-{% if special is defined %}
-{% if special is match("multivendor") %}
-Host rtr3 rtr4
-     StrictHostKeyChecking no
-     User jnpr
-     IdentityFile /home/{{username}}/.ssh/aws-private.pem
-{% endif %}
-{% endif %}
 Host *
      StrictHostKeyChecking no
      User {{ansible_user}}

@@ -10,7 +10,12 @@
 - Feature Pull Request
 
 ##### COMPONENT NAME
-<!--- Write the short name of the role, task or feature below -->
+<!--- Pick one below and delete the rest -->
+- exercises
+- docs
+- decks
+- provisioner
+- demos
 
 ##### ADDITIONAL INFORMATION
 <!--- Include additional information to help people understand the change here -->

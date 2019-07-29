@@ -1,10 +1,10 @@
 - name: REMOVE DNS ENTRIES FOR EACH TOWER NODE
   include_tasks: teardown.yml
-  when: teardown
+  when: teardown|bool
 
 - name: CHECK TO SEE IF SSL CERT ALREADY APPLIED
   uri:
-    url: https://localhost/api/v2/ping/
+    url: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/api/v2/ping/"
     method: GET
     user: admin
     password: ansible

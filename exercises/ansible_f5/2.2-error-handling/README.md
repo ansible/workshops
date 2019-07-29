@@ -36,7 +36,7 @@ Enter the following play definition into `bigip-error-handling.yml`:
   hosts: lb
   connection: local
   gather_facts: false
-  
+
 ```
 {% endraw %}
 
@@ -56,7 +56,7 @@ Add a tasks section with a set_fact for setting the provider values
   hosts: lb
   connection: local
   gather_facts: false
-  
+
 tasks:
     - name: Setup provider
       set_fact:
@@ -90,7 +90,7 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES
@@ -124,7 +124,7 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
@@ -165,7 +165,7 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
@@ -216,7 +216,7 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES

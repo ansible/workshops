@@ -1,8 +1,11 @@
 # Ansible AWS training provisioner
-**aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  There are currently three modes:
- - [Ansible Engine Workshop](../exercises/ansible_engine) for demonstrating Ansible capabilities on Red Hat Enterprise Linux.
- - [Ansible Networking Workshop](../exercises/networking) for demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).
- - [Ansible F5 Workshop](../exercises/ansible_f5) for demonstrating Ansible’s capabilities on F5 BIG-IP
+**aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
+
+| Workshop   | Deck  | Exercises  | Workshop Type Var   |
+|---|---|---|---|
+| Ansible Red Hat Enterprise Linux Workshop  | [Deck](https://ansible.github.io/workshops/decks/ansible-essentials.html)  | [Exercises](../exercises/ansible_rhel) | `workshop_type: rhel`  |
+| Ansible Network Automation Workshop  | [Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf) | [Exercises](../exercises/ansible_network)  | `workshop_type: networking`  |
+| Ansible F5 Workshop | [Deck](https://ansible.github.io/workshops/decks/ansible_f5.pdf) | [Exercises](../exercises/ansible_f5)   | `workshop_type: f5`   |
 
 # Table Of Contents
 - [Requirements](#requirements)
@@ -26,26 +29,36 @@
 
 ```
 ---
-ec2_region: us-east-1                  # region where the nodes will live
-ec2_name_prefix: TESTWORKSHOP          # name prefix for all the VMs
-student_total: 2                       # creates student_total of workbenches for the workshop
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: TESTWORKSHOP
+# creates student_total of workbenches for the workshop
+student_total: 2
+# Set the right workshop type, like networking, rhel or f5 (see above)
+workshop_type: rhel
 #OPTIONAL VARIABLES
-admin_password: ansible                # password for Ansible control node, defaults to ansible
-networking: true                       # Set this if you want the workshop in networking mode
-create_login_page: true                # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-workshop_dns_zone: rhdemo.io           # Sets the Route53 DNS zone to use for the S3 website
-towerinstall: true                     # automatically installs Tower to control node
-#autolicense: true                     # automatically licenses Tower if license is provided
-#xrdp: true                            # install xrdp with xfce for graphical interface
+# password for Ansible control node, defaults to ansible
+admin_password: ansible
+# creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
+create_login_page: true                
+# Sets the Route53 DNS zone to use for the S3 website
+workshop_dns_zone: rhdemo.io           
+# automatically installs Tower to control node
+towerinstall: true                     
+# automatically licenses Tower if license is provided
+autolicense: true
+# install xrdp with xfce for graphical interface
+#xrdp: true
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
 
 For more extra_vars examples, look at the following:
-- [sample-vars.yml](sample_workshops/sample-vars.yml) - example for the Ansible Engine Workshop
+- [sample-vars-rhel.yml](sample_workshops/sample-vars-rhel.yml) - example for the Ansible RHEL Workshop
 - [sample-vars-networking.yml](sample_workshops/sample-vars-networking.yml) - example for the **Ansible Network Workshop**
 - [sample-vars-f5.yml](sample_workshops/sample-vars-f5.yml) - example for **Ansible F5 Workshop**
-- [sample-vars-auto.yml](sample_workshops/sample-vars-auto.yml) - example for Tower installation and licensing
+- [sample-vars-tower-auto.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 
 2. Run the playbook:
 

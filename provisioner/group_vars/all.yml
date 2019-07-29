@@ -1,5 +1,3 @@
-networking: false
-f5workshop: false
 admin_password: ansible
 workshop_dns_zone: "rhdemo.io"
 s3_state: "present"
@@ -7,3 +5,15 @@ teardown: false
 towerinstall: false
 website_information: ""
 dns_information: "No errors with DNS"
+workshop_type: ""
+valid_workshop_types:
+  - networking
+  - f5
+  - rhel
+  - security
+network_type: multivendor
+valid_network_types:
+  - cisco
+  - arista
+  - juniper
+  - multivendor

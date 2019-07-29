@@ -15,56 +15,11 @@
       - sshpass
       - tmux
       - python-pip
-      - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
+      - ansible
+      # - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
   retries: 10
   delay: 5
-
-- name: UPGRADE PIP
-  pip:
-    name: pip
-    state: latest
-
-- name: UPGRADE SETUPTOOLS
-  pip:
-    name: setuptools
-    state: latest
-
-- name: Install base packages for netaddr
-  yum:
-    name:
-      - python-netaddr
-    state: latest
-  when: not f5workshop
-
-- name: install ncclient for juniper devices (NETWORK AUTOMATION MODE)
-  become: yes
-  pip:
-    name:
-      - ncclient
-    state: latest
-  when: networking
-
-- name: block for f5workshop
-  block:
-    - name: install f5 workshop dependicies
-      become: yes
-      pip:
-        name:
-          - pip
-          - setuptools
-          - pysnow
-        state: latest
-
-    - name: install f5 workshop dependicies
-      become: yes
-      pip:
-        name:
-          - f5-sdk
-          - bigsuds
-          - netaddr
-        state: latest
-  when: f5workshop
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
@@ -80,19 +35,17 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: networking mode - setup control node
+- name: setup control node networking
   include_tasks: "networking.yml"
-  when: networking
+  when: workshop_type in ['networking', 'f5']
 
-- name: f5 mode - setup control node
-  include_tasks: "networking.yml"
-  when: f5workshop
+- name: setup control node security automation
+  include_tasks: "security.yml"
+  when: workshop_type == "security"
 
-- name: engine (essentials) mode - setup control node
-  include_tasks: "engine.yml"
-  when:
-    - not networking
-    - not f5workshop
+- name: RHEL (essentials) mode - setup control node
+  include_tasks: "rhel.yml"
+  when: workshop_type == 'rhel'
 
 - name: check to see if ansible tower is already up and running
   uri:
@@ -106,13 +59,13 @@
   ignore_errors: yes
   when:
     - towerinstall is defined
-    - towerinstall
+    - towerinstall|bool
 
 - name: install tower if knob is set
   include_tasks: "tower.yml"
   when:
     - towerinstall is defined
-    - towerinstall
+    - towerinstall|bool
     - check_tower is failed
 
 - name: Ensure eula is accepted if posting license
@@ -126,7 +79,7 @@
   become: no
   when:
     - autolicense is defined
-    - autolicense
+    - autolicense|bool
 
 - name: Post license key
   uri:
@@ -140,8 +93,8 @@
     force_basic_auth: yes
   when:
     - autolicense is defined
-    - autolicense
+    - autolicense|bool
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml
-  when: xrdp
+  when: xrdp|bool

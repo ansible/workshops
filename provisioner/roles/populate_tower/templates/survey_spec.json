@@ -1,0 +1,16 @@
+{
+  "name": "Network Operator Commands",
+  "description": "Restricted list of commands executable by operator",
+  "spec": [
+    {
+        "type": "multiplechoice",
+        "question_name": "Select a command you would like to execute",
+        "question_description": "Select a command you would like to execute",
+        "variable": "tower_input",
+        "required": true,
+        "default": "show version",
+        "choices": ["show ip interface brief", "show interface description", "show ip route"]
+    }
+
+  ]
+}

@@ -1,7 +1,14 @@
-ec2_region: us-east-1                 # region where the nodes will live
-ec2_name_prefix: TESTWORKSHOP         # name prefix for all the VMs
-student_total: 2											# amount of work benches to provision
+---
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: TESTWORKSHOP
+# amount of work benches to provision
+student_total: 2
+# workshop is put into networking mode
+workshop_type: networking
 ## Optional Variables
-admin_password: ansible								# password used for student account on control node
-create_login_page: true								# creates HTML website for workshop
-networking: true											# workshop is put into networking mode, uses two Cisco IOS-XE devices
+# password used for student account on control node
+admin_password: ansible
+# creates HTML website for workshop
+create_login_page: true

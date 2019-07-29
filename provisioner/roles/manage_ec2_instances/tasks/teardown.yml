@@ -2,7 +2,6 @@
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
-      instance-state-name: running
       "tag:Workshop": "{{ec2_name_prefix}}"
   register: all_workshop_nodes
 
@@ -31,7 +30,7 @@
       "tag:Name": "{{ ec2_name_prefix }}-vpc2"
     region: "{{ ec2_region }}"
   register: vpc_net_facts2
-  when: networking
+  when: workshop_type == 'networking'
 
 # - name: debugging vpc id for {{ ec2_name_prefix }}
 #   debug:
@@ -49,7 +48,7 @@
     ec2_vpc_id2: "{{vpc_net_facts2.vpcs[0].id}}"
     ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
   when:
-    - networking
+    - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
     - ec2_security_group2 is undefined
 
@@ -74,7 +73,7 @@
   until: delete_sgnetworking is not failed
   retries: 50
   when:
-    - networking
+    - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
 
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc
@@ -94,7 +93,7 @@
     cidr: "{{ec2_subnet2}}"
     state: absent
   when:
-    - networking
+    - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
 
 - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
@@ -110,7 +109,7 @@
     vpc_id: "{{ec2_vpc_id2}}"
     state: absent
   when:
-    - networking
+    - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
 
 - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
@@ -128,7 +127,7 @@
       vpc_id: "{{ec2_vpc_id2}}"
   register: route_table_facts2
   when:
-    - networking
+    - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
 
 - name: vpc public subnet route table is deleted
@@ -150,7 +149,7 @@
     state: absent
   with_items: "{{route_table_facts2.route_tables}}"
   when:
-    - networking
+    - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
     - item.associations == []
 
@@ -177,5 +176,4 @@
     cidr_block: "{{ ec2_subnet2 }}"
     region: "{{ ec2_region }}"
     state: absent
-  when:
-    - networking
+  when: workshop_type == 'networking'

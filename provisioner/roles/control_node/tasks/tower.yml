@@ -1,6 +1,6 @@
 - name: Download Ansible Tower
   get_url:
-    url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.4.3-1.tar.gz
+    url: '{{ tower_installer_url | default("https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.5.1-1.tar.gz") }}'
     dest: /tmp/tower.tar.gz
 
 - name: Create directory for Ansible Tower
@@ -42,3 +42,7 @@
   until: check2.json is defined
   retries: 10
   delay: 30
+
+- name: Display /api/v2/ping results
+  debug:
+    msg: '{{ check2.json }}'

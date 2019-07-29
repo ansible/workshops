@@ -1,0 +1,94 @@
+{
+    "spec": [
+        {
+            "required": true,
+            "min": 0,
+            "default": "10.100.100.1",
+            "max": 1024,
+            "question_description": "Please enter the source network",
+            "choices": "",
+            "variable": "src_network",
+            "question_name": "Source network",
+            "type": "text"
+        },
+        {
+            "required": true,
+            "min": 0,
+            "default": "255.255.255.255",
+            "max": 1024,
+            "question_description": "Please enter the source mask",
+            "choices": "",
+            "variable": "src_mask",
+            "question_name": "Source mask",
+            "type": "text"
+        },
+        {
+            "required": true,
+            "min": 0,
+            "default": "3.0.0.1",
+            "max": 1024,
+            "question_description": "Please enter the destination network",
+            "choices": "",
+            "variable": "dst_network",
+            "question_name": "Destination network",
+            "type": "text"
+        },
+        {
+            "required": true,
+            "min": 0,
+            "default": "255.255.255.255",
+            "max": 1024,
+            "question_description": "Please enter the destination mask",
+            "choices": "",
+            "variable": "dst_mask",
+            "question_name": "Destination mask",
+            "type": "text"
+        },
+        {
+            "required": true,
+            "min": 0,
+            "default": "2222",
+            "max": 1024,
+            "question_description": "Please enter the destination port",
+            "choices": "",
+            "variable": "dst_port",
+            "question_name": "Destination port",
+            "type": "text"
+        },
+        {
+            "required": true,
+            "min": null,
+            "default": "tcp",
+            "max": null,
+            "question_description": "Please enter the protocol",
+            "choices": "tcp\nudp\nip",
+            "variable": "protocol",
+            "question_name": "Protocol",
+            "type": "multiplechoice"
+        },
+        {
+            "required": true,
+            "min": null,
+            "default": "permit",
+            "max": null,
+            "question_description": "Check if the traffic is permitted or denied",
+            "choices": "permit\ndeny",
+            "variable": "action",
+            "question_name": "Is the traffic permitted or denied?",
+            "type": "multiplechoice"
+        },
+        {
+            "question_description": "",
+            "min": 0,
+            "default": "gdykeman",
+            "max": 1024,
+            "required": true,
+            "choices": "",
+            "variable": "slack_user",
+            "question_name": "Automated Slack Username",
+            "type": "text"
+        }
+    ],
+    "name": "",
+    "description": ""
+}

@@ -1,0 +1,164 @@
+- name: find ami for splunk
+  ec2_ami_facts:
+    region: "us-east-1" # I don't know why but that seems to be the only place it's available
+    owners: "{{ ec2_info['splunk_enterprise']['owners'] }}"
+    filters:
+      name: "{{ ec2_info['splunk_enterprise']['filter'] }}"
+      architecture: "{{ ec2_info['splunk_enterprise']['architecture'] }}"
+  register: amis
+
+- name: save ami for splunk
+  set_fact:
+    splunk_ami: >
+      {{ amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: Create EC2 instances for splunk
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['splunk_enterprise']['size'] }}"
+    image: "{{ splunk_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_splunk: "{{ec2_name_prefix}}-splunk"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info['splunk_enterprise']['disk_space'] }}"
+        delete_on_termination: true
+  register: splunk_output
+
+- name: Ensure tags are present for splunk
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-splunk"
+      Workshop_splunk: "{{ec2_name_prefix}}-splunk"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "splunk"
+      username: '{{ec2_info["rhel7"]["username"]}}'
+  with_indexed_items:
+    - "{{ splunk_output['instance_ids'] }}"
+  when: splunk_output['instance_ids'] is not none
+
+- name: find ami for snort
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info['rhel7']['owners'] }}"
+    filters:
+      name: "{{ ec2_info['rhel7']['filter'] }}"
+      architecture: "{{ ec2_info['rhel7']['architecture'] }}"
+  register: amis
+
+- name: save ami for snort
+  set_fact:
+    snort_ami: >
+      {{ amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: Create EC2 instances for snort
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['rhel7']['size'] }}"
+    image: "{{ snort_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_snort: "{{ec2_name_prefix}}-snort"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info['rhel7']['disk_space'] }}"
+        delete_on_termination: true
+  register: snort_output
+
+- name: Ensure tags are present for snort
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-snort"
+      Workshop_snort: "{{ec2_name_prefix}}-snort"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "snort"
+      username: '{{ec2_info["rhel7"]["username"]}}'
+  with_indexed_items:
+    - "{{ snort_output['instance_ids'] }}"
+  when: snort_output['instance_ids'] is not none
+
+- name: find ami for checkpoint
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info['checkpoint_firewall']['owners'] }}"
+    filters:
+      name: "{{ ec2_info['rhel7']['filter'] }}"
+      architecture: "{{ ec2_info['checkpoint_firewall']['architecture'] }}"
+  register: amis
+
+- name: save ami for checkpoint
+  set_fact:
+    checkpoint_ami: >
+      {{ amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: Create EC2 instances for checkpoint
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['checkpoint_firewall']['size'] }}"
+    image: "{{ checkpoint_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_checkpoint: "{{ec2_name_prefix}}-checkpoint"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info['checkpoint_firewall']['disk_space'] }}"
+        delete_on_termination: true
+  register: checkpoint_output
+
+- name: Ensure tags are present for checkpoint
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint"
+      Workshop_checkpoint: "{{ec2_name_prefix}}-checkpoint"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "checkpoint"
+      username: '{{ec2_info["rhel7"]["username"]}}'
+  with_indexed_items:
+    - "{{ checkpoint_output['instance_ids'] }}"
+  when: checkpoint_output['instance_ids'] is not none

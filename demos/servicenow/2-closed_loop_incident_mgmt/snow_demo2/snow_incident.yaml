@@ -1,0 +1,41 @@
+---
+- name: RAISE AN INCIDENT IF NO BANNER
+  hosts: rtr1
+  connection: local
+  gather_facts: no
+
+  tasks:
+
+    - name: GATHER THE CURRENT BANNER ON THE DEVICE
+      ios_command:
+        commands:
+          - show banner login
+      register: banner
+
+    - name: VISUAL OUTPUT
+      debug:
+        var: banner.stdout[0]
+      when: not banner.stdout[0]
+
+    - name: OPEN AN INCIDENT (SERVICENOW) IF NO BANNER IS CONFIGURED
+      block:
+        - name: CREATE AN INCIDENT
+          snow_record:
+            username: "{{ SN_USERNAME }}"
+            password: "{{ SN_PASSWORD }}"
+            instance: "{{ SN_INSTANCE }}"
+            state: present
+            table: incident
+            data:
+              short_description: "BANNER MISSING ON {{inventory_hostname}}"
+              severity: 3
+              priority: 2
+              caller_id: "System Administrator"
+              comments: "The login banner is missing on {{inventory_hostname}}"
+          register: snow_var
+          delegate_to: localhost
+
+        - name: VISUAL OUTPUT OF INCIDENT NUMBER
+          debug:
+            var: snow_var.record.number
+      when: not banner.stdout[0]

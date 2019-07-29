@@ -1,22 +1,4 @@
 ---
-- set_fact:
-    workshop_type: "networking"
-  when:
-    - networking is defined
-    - networking
-
-- set_fact:
-    workshop_type: "F5"
-  when:
-    - f5workshop is defined
-    - f5workshop
-
-- set_fact:
-    workshop_type: "Linux"
-  when:
-    - workshop_type is not match("F5")
-    - workshop_type is not match("networking")
-
 - name: execute a command with tower
   uri:
     url: https://ansible.rhdemo.io/api/v2/job_templates/22/launch/

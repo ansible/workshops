@@ -13,7 +13,7 @@
 ## プレゼンテーション資料
 
 プレゼンテーション資料はこちら:
-[Ansible Essentials Deck](../../decks/ansible-technical.pdf)
+[Ansible for Red Hat Enterprise Linux Deck](../../decks/ansible-technical.pdf)
 
 ## Ansible エンジン演習
 

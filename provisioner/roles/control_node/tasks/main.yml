@@ -43,7 +43,7 @@
   include_tasks: "security.yml"
   when: workshop_type == "security"
 
-- name: RHEL (essentials) mode - setup control node
+- name: RHEL mode - setup control node
   include_tasks: "rhel.yml"
   when: workshop_type == 'rhel'
 

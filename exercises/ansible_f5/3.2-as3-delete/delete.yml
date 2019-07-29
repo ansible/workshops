@@ -1,0 +1,19 @@
+- name: LINKLIGHT AS3
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+  - name: PUSH AS3
+    uri:
+      url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare/WorkshopExample"
+      method: DELETE
+      status_code: 200
+      timeout: 300
+      body_format: json
+      force_basic_auth: yes
+      user: "{{ ansible_user }}"
+      password: "{{ ansible_ssh_pass }}"
+      validate_certs: no
+    delegate_to: localhost

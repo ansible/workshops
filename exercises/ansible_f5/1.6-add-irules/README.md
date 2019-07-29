@@ -70,6 +70,7 @@ Save the file
 
 Next, add the `task`. This task will use the `bigip-irule` to add irules to the BIG-IP.
 
+{% raw %}
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -94,6 +95,8 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
       content: "{{lookup('file','{{item}}')}}"
     loop: "{{irules}}"
 ```
+{% endraw %}
+
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
@@ -114,6 +117,7 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
 
 Next, add the `task`. This task will use the `bigip_virtual_server` to add attach the iRules to a Virtual Server on the BIG-IP.
 
+{% raw %}
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -148,6 +152,8 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
       name: "vip"
       irules: "{{irules}}"
 ```
+{% endraw %}
+
 
 - `irules: "{{irules}}` is a list of irules to be attached to the virtual server 'irule1' and 'irule2'
 
@@ -193,7 +199,7 @@ To see the configured **iRules and Virtual Server**, login to the F5 load balanc
 
 Login information for the BIG-IP:
 - username: admin
-- password: admin
+- password: **provided by instructor** defaults to ansible
 
 The list of iRules can be found by navigating the menu on the left. Click on Local Traffic-> iRules -> iRules List.
 

@@ -5,7 +5,7 @@
 ## Presentation
 プレゼンテーション用のスライドが必要ですか？
 こちらを確認ください。:
-[Ansible Networking Linklight Deck](https://network-automation.github.io/linklight/decks/ansible_network.pdf)
+[Ansible Networking Linklight Deck](../../decks/ansible_network.pdf)
 
 ## Ansible Network Automation Exercises
 

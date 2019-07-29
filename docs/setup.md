@@ -6,9 +6,9 @@
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
-3. Install `boto` and `boto3`as well as `netaddr`
+3. Install `boto` and `boto3`as well as `netaddr` and `passlib`
 
-        pip install boto boto3 netaddr
+        pip install boto boto3 netaddr passlib
 
   **Are you using Tower?**  [Tower Instructions](#tower-instructions)
 
@@ -32,7 +32,7 @@ If you haven't done so already make sure you have the repo cloned to the machine
         git clone https://github.com/ansible/workshops.git
         cd workshops/provisioner
 
-7.  When doing a networking or F5 workshop make sure you have subscribed to the right marketplace AMI (Amazon Machine Image)
+6.  When doing a networking or F5 workshop make sure you have subscribed to the right marketplace AMI (Amazon Machine Image)
 
   - For Networking you will need the Cisco CSR (Cloud Services Router) [Click here](https://aws.amazon.com/marketplace/pp/B00NF48FI2/)
   - For F5 you will need the F5 BIG-IP [Click here](https://aws.amazon.com/marketplace/pp/B079C44MFH/)

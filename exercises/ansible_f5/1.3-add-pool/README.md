@@ -116,7 +116,7 @@ Login to the F5 with your web browser to see what was configured.  Grab the IP i
 
 Login information for the BIG-IP:
 - username: admin
-- password: admin
+- password: **provided by instructor, defaults to ansible**
 
 The load balancer pool can be found by navigating the menu on the left.  Click on Local Traffic-> then click on Pools.
 ![f5pool](pool.png)

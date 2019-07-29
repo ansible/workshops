@@ -126,7 +126,7 @@ To see the configured **Virtual Server**, login to the F5 load balancer with you
 
 Login information for the BIG-IP:
 - username: admin
-- password: admin
+- password: **provided by instructor** defaults to ansible
 
 The load balancer virtual server can be found by navigating the menu on the left.  Click on **Local Traffic**. then click on **Virtual Server**.  See the screenshot below:
 ![f5 vip image](f5vip.png)

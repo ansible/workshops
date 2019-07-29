@@ -140,7 +140,7 @@ Enter the following:
 
   - name: "View complete output"
     debug: "msg={{bigip_device_facts}}"
-    
+
   - name: "Show members belonging to pool"
     debug: "msg={{item}}"
     loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
@@ -148,7 +148,7 @@ Enter the following:
      query_string: "[?name=='http_pool'].members[*].name[]"
 ```
 - `vars:` in the module is defining a variable query_string to be used within the module itself
-- `query_String` will have the name of all members from pool name 'http_pool'. query_string is defined to make it easier to read the 
+- `query_String` will have the name of all members from pool name 'http_pool'. query_string is defined to make it easier to read the
    entire json string
 
 Execute the playbook

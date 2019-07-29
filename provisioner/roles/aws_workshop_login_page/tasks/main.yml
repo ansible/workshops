@@ -13,9 +13,8 @@
   retries: 4
   delay: 15
   register: s3_result
-  until: 
+  until:
     - s3_result.failed == false
-    - s3_result.changed == true
 
 - name: ENABLE WEB HOSTING
   s3_website:

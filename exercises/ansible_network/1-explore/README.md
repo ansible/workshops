@@ -37,12 +37,12 @@ This will not require a username or password.
 Navigate to the `networking-workshop` directory.
 
 ```
-[student1@ansible ~]$ cd networking-workshop/
+[student1@ansible ~]$ cd ~/networking-workshop/
 [student1@ansible networking-workshop]$
 [student1@ansible networking-workshop]$ pwd
 /home/student1/networking-workshop
 ```
-
+ - `~` - the tilde in this context is a shortcut for `/home/student1`
  - `cd` - Linux command to change directory
  - `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
@@ -93,6 +93,9 @@ The scope of a `play` within a `playbook` is limited to the groups of hosts decl
 
 In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
 
+```bash
+[student1@ansible ~]$ cat ~/networking-workshop/lab_inventory/hosts
+```
 
 ```
 [all:vars]
@@ -172,8 +175,8 @@ ansible_connection=network_cli
 ```
 
  - `ansible_user` - The user ansible will be used to login to this host, if not configured it will default to the user the playbook is run from
-- `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
-- `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
+ - `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
+ - `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
 
 
 # Complete

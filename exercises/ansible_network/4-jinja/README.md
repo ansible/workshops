@@ -1,4 +1,4 @@
-# Exercise 04 - Network Configuration with Jinja Templates
+# Exercise 4 - Network Configuration with Jinja Templates
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ rtr2  | 192.168.100.2/32 |
 Variable information can be stored in host_vars and group_vars.  For this exercise create a folder named `group_vars`:
 
 ```bash
-[student1@ansible networking-workshop]$ mkdir group_vars
+[student1@ansible networking-workshop]$ mkdir ~/networking-workshop/group_vars
 ```
 
 Now create a file in this directory name `all.yml` using your text editor of choice.  Both vim and nano are installed on the control node.
@@ -62,14 +62,14 @@ Create a new template file named `template.j2`:
 
 Copy the following into the template.j2 file:
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 {% for interface,ip in nodes[inventory_hostname].items() %}
 interface {{interface}}
   ip address {{ip}} 255.255.255.255
 {% endfor %}
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 Save the file.
@@ -78,15 +78,15 @@ Save the file.
 
 This step will explain and elaborate on each part of the newly created template.j2 file.
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 {% for interface,ip in nodes[inventory_hostname].items() %}
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
-{% raw %}
+<!-- {% raw %} -->
 - Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The `interface,ip` breaks down the dictionary into a key named `interface` and a value named `ip`.
-{% endraw %}
+<!-- {% endraw %} -->
 
 - The `nodes[inventory_hostname]` does a dictionary lookup in the `group_vars/all.yml` file.  The **inventory_hostname** is the name of the hostname as configured in Ansible's inventory host file.  When the playbook is executed against `rtr1` inventory_hostname will be `rtr1`, when the playbook is executed against `rtr2`, the inventory_hostname will be `rtr2` and so forth.  
 
@@ -94,21 +94,21 @@ This step will explain and elaborate on each part of the newly created template.
 
 - The keyword `items()` returns a list of dictionaries.  In this case the dictionary's key is the interface name (e.g. Loopback100) and the value is an IP address (e.g. 192.168.100.1)
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 interface {{interface}}
   ip address {{ip}} 255.255.255.255
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - Variables are rendered with the curly braces like this: `{{ variable_here }}`  In this case the variable name key and value only exist in the context of the loop.  Outside of the loop those two variables don't exist.  Each iteration will re-assign the variable name to new values based on what we have in our variables.
 
 Finally:
-{% raw %}
+<!-- {% raw %} -->
 ```
 {% endfor %}
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - In Jinja we need to specify the end of the loop.
 
@@ -122,18 +122,18 @@ Create the Ansible Playbook config.yml:
 
 Copy the following Ansible Playbook to the config.yml file:
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 ---
-- hosts: rtr1,rtr2
+- name: configure network devices
+  hosts: rtr1,rtr2
   gather_facts: false
-  connection: network_cli
   tasks:
     - name: configure device with config
       cli_config:
         config: "{{ lookup('template', 'template.j2') }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - This Ansible Playbook has one task named *configure device with config*
 - The **cli_config** module is vendor agnostic.  This module will work identically for an Arista, Cisco and Juniper device.  This module only works with the **network_cli** connection plugin.

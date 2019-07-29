@@ -14,14 +14,14 @@
       assert:
         that:
           - workshop_type is defined
-          - workshop_type is in valid_workshop_types
+          - workshop_type in valid_workshop_types
         msg: "workshop_type must be defined and be one of: {{valid_workshop_types}}"
 
     - name: make sure network_type is set to a correct value
       assert:
         that:
           - network_type is defined
-          - network_type is in valid_network_types
+          - network_type in valid_network_types
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
       when: workshop_type == "networking"
 

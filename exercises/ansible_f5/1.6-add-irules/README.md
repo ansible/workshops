@@ -62,7 +62,7 @@ Save the file
 when HTTP_REQUEST {
        log local0. "Accessing iRule2"
 }
-    
+
 ```
 Save the file
 
@@ -79,7 +79,7 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
 
   vars:
    irules: ['irule1','irule2']
-   
+
   tasks:
 
   - name: ADD iRules
@@ -123,7 +123,7 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
 
   vars:
    irules: ['irule1','irule2']
-   
+
   tasks:
 
   - name: ADD iRules
@@ -137,7 +137,7 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
       name: "{{item}}"
       content: "{{lookup('file','{{item}}')}}"
     loop: "{{irules}}"
-    
+
   - name: ATTACH iRules TO EXISTING VIRTUAL SERVER
     bigip_virtual_server:
       server: "{{private_ip}}"
@@ -151,7 +151,7 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
 
 - `irules: "{{irules}}` is a list of irules to be attached to the virtual server 'irule1' and 'irule2'
 
-Details of [BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html) 
+Details of [BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html)
 or reference [Exercise 1.5](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.5-add-virtual-server/bigip-virtual-server.yml)
 
 ## Step 6
@@ -195,7 +195,7 @@ Login information for the BIG-IP:
 - username: admin
 - password: admin
 
-The list of iRules can be found by navigating the menu on the left. Click on Local Traffic-> iRules -> iRules List. 
+The list of iRules can be found by navigating the menu on the left. Click on Local Traffic-> iRules -> iRules List.
 
 To view the Virtual Server click on Local Traffic-> Virtual Servers, click on the Virtual Server then click on the 'resoruces' tab and view the iRules attached to the Virtual Server
 ![irules](bigip-irule.png)

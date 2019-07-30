@@ -189,6 +189,23 @@ ${AWX_NIGHTLY_REPO_URL}"""
         }
     }
     post {
+        cleanup {
+            script {
+                stage('Cleaning up in case of failure') {
+                    withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                     string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                        withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                 "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                 "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                 "ANSIBLE_FORCE_COLOR=true"]) {
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                        }
+                    }
+                }
+            }
+        }
         failure {
             slackSend(
                 botUser: false,

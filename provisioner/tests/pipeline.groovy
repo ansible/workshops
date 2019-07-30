@@ -8,6 +8,11 @@ pipeline {
             description: 'Tower version to deploy',
             choices: ['devel', '3.5.1']
         )
+        choice(
+            name: 'ANSIBLE_VERSION',
+            description: 'Ansible version to deploy',
+            choices: ['devel', 'stable-2.8']
+        )
         string(
             name: 'WORKSHOP_FORK',
             description: 'Workshop fork to deploy from',
@@ -18,19 +23,47 @@ pipeline {
             description: 'Workshop branch to deploy',
             defaultValue: 'devel'
         )
+        string(
+            name: 'CHANGE_ID',
+            description: 'Change ID when gating',
+        )
     }
 
     stages {
 
         stage('Build Information') {
             steps {
-                echo """Tower Version under test: ${params.TOWER_VERSION}
-Workshop branch under test: ${params.WORKSHOP_BRANCH}
-${AWX_NIGHTLY_REPO_URL}"""
+                script {
+                    if (CHANGE_ID != null) {
+                        GATING_MODE = true
+                        ANSIBLE_WORKSHOPS_REFSPEC = "+refs/pull/${CHANGE_ID}/head:refs/remotes/origin/${WORKSHOP_BRANCH}"
+                        EXTRA_OPTS = "-e ansible_install_branch=${params.ANSIBLE_VERSION} -e ansible_workshops_version=${WORKSHOP_BRANCH} -e ansible_workshops_refspec=${ANSIBLE_WORKSHOPS_REFSPEC}"
+                        BUILD_INFORMATION_MSG = """
+Tower Version under test: ${TOWER_VERSION}
+Ansible Version under test: ${params.ANSIBLE_VERSION}
+Workshop branch under test: ${WORKSHOP_BRANCH}
+"""
+                    } else {
+                        GATING_MODE = false
+                        ANSIBLE_WORKSHOPS_URL = "https://github.com/${params.WORKSHOP_FORK}/workshops.git"
+                        EXTRA_OPTS = "-e ansible_install_branch=${params.ANSIBLE_VERSION} -e ansible_workshops_url=${ANSIBLE_WORKSHOPS_URL} -e ansible_workshops_version=${params.WORKSHOP_BRANCH} "
+                        BUILD_INFORMATION_MSG = """
+Tower Version under test: ${params.TOWER_VERSION}
+Ansible Version under test: ${params.ANSIBLE_VERSION}
+Workshop branch under test: ${params.WORKSHOP_FORK}/${params.WORKSHOP_BRANCH}
+"""
+                    }
+                }
+                echo BUILD_INFORMATION_MSG
             }
         }
 
-        stage('Retrieve ansible/workshops') {
+        stage('Retrieve ansible/workshops (Not applicable on gating)') {
+            when {
+                expression {
+                    return ! GATING_MODE
+                }
+            }
             steps {
                 checkout([
                     $class: 'GitSCM',
@@ -53,8 +86,6 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 sh 'pip install netaddr'
                 sh 'yum -y install sshpass'
                 script {
-                    ANSIBLE_WORKSHOPS_URL = "https://github.com/${params.WORKSHOP_FORK}/workshops.git"
-
                     if (params.TOWER_VERSION == 'devel') {
                         tower_installer_url = "${AWX_NIGHTLY_REPO_URL}/${params.TOWER_VERSION}/setup/ansible-tower-setup-latest.tar.gz"
                         gpgcheck = 0
@@ -80,7 +111,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_url=${ANSIBLE_WORKSHOPS_URL} -e ansible_workshops_version=${params.WORKSHOP_BRANCH} 2>&1 | tee rhel.log"
+                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${params.TOWER_VERSION}-ansible-${params.ANSIBLE_VERSION}-${WORKSHOP_BRANCH}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} ${EXTRA_OPTS} 2>&1 | tee rhel.log"
                                     }
                                 }
                             }
@@ -93,7 +124,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} 2>&1 | tee -a rhel.log"
+                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${params.TOWER_VERSION}-ansible-${params.ANSIBLE_VERSION}-${WORKSHOP_BRANCH}-${env.BUILD_ID} 2>&1 | tee -a rhel.log"
                                     }
                                 }
                                 archiveArtifacts artifacts: 'rhel.log'
@@ -116,7 +147,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_url=${ANSIBLE_WORKSHOPS_URL} -e ansible_workshops_version=${params.WORKSHOP_BRANCH} 2>&1 | tee networking.log"
+                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${params.TOWER_VERSION}-ansible-${params.ANSIBLE_VERSION}-${WORKSHOP_BRANCH}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} ${EXTRA_OPTS} 2>&1 | tee networking.log"
                                     }
                                 }
                             }
@@ -129,7 +160,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} 2>&1 | tee -a networking.log"
+                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${params.TOWER_VERSION}-ansible-${params.ANSIBLE_VERSION}-${WORKSHOP_BRANCH}-${env.BUILD_ID} 2>&1 | tee -a networking.log"
                                     }
                                 }
                                 archiveArtifacts artifacts: 'networking.log'
@@ -152,14 +183,14 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_url=${ANSIBLE_WORKSHOPS_URL} -e ansible_workshops_version=${params.WORKSHOP_BRANCH} 2>&1 | tee f5.log"
+                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${params.TOWER_VERSION}-ansible-${params.ANSIBLE_VERSION}-${WORKSHOP_BRANCH}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} ${EXTRA_OPTS} 2>&1 | tee f5.log"
                                     }
                                 }
                             }
                         }
                         script {
                             stage('F5-exercises') {
-                                sh "cat provisioner/tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
+                                sh "cat provisioner/tower-qe-f5-tower-${TOWER_VERSION}-ansible-${ANSIBLE_VERSION}-${WORKSHOP_BRANCH}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
                                 RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ansible-playbook {}"'
                                 sh "sshpass -p 'ansible' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
@@ -173,7 +204,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} 2>&1 | tee -a f5.log"
+                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${params.TOWER_VERSION}-ansible-${params.ANSIBLE_VERSION}-${WORKSHOP_BRANCH}-${env.BUILD_ID} 2>&1 | tee -a f5.log"
                                     }
                                 }
                                 archiveArtifacts artifacts: 'f5.log'
@@ -190,25 +221,33 @@ ${AWX_NIGHTLY_REPO_URL}"""
     }
     post {
         failure {
-            slackSend(
-                botUser: false,
-                color: "#922B21",
-                teamDomain: "ansible",
-                channel: "#workshops-events",
-                message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
-            )
+            script {
+                if (! GATING_MODE) {
+                    slackSend(
+                        botUser: false,
+                        color: "#922B21",
+                        teamDomain: "ansible",
+                        channel: "#workshops-events",
+                        message: "*Tower version: ${params.TOWER_VERSION}* | *Ansible version: ${params.ANSIBLE_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
+                    )
+                }
+            }
         }
         success {
-            slackSend(
-                botUser: false,
-                color: "good",
-                teamDomain: "ansible",
-                channel: "#workshops-events",
-                message: """
-*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link> \
+            script {
+                if (! GATING_MODE) {
+                    slackSend(
+                        botUser: false,
+                        color: "good",
+                        teamDomain: "ansible",
+                        channel: "#workshops-events",
+                        message: """
+*Tower version: ${params.TOWER_VERSION}* | *Ansible version: ${params.ANSIBLE_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link> \
 Deprecation Warnings: *${RHEL_DEPRECATED_WARNINGS}* in RHEL lab - *${NETWORKING_DEPRECATED_WARNINGS}* in Networking lab - *${F5_DEPRECATED_WARNINGS}* in F5 lab
 """
-            )
+                    )
+                }
+            }
         }
     }
 }

@@ -21,6 +21,20 @@
   retries: 10
   delay: 5
 
+- block:
+    - name: Configure the proper ansible nightly repository
+      yum_repository:
+        name: 'ansible_nighty'
+        description: 'ansible_nightly'
+        baseurl: 'https://releases.ansible.com/ansible/rpm/nightly/{{ ansible_install_branch }}/epel-7-x86_64/'
+
+    - name: Install packages
+      yum:
+        name: ansible
+        state: latest
+        update_cache: yes
+  when: ansible_install_non_base | default(false) | bool
+
 - name: Install ansible.cfg and vimrc in home directory
   template:
     src: ansible.cfg.j2

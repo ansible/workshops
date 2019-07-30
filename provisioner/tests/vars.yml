@@ -6,3 +6,4 @@ create_login_page: false
 autolicense: true
 towerinstall: true
 ansible_python_interpreter: '/usr/bin/env python'
+ansible_install_non_base: true

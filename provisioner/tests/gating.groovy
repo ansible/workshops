@@ -22,6 +22,8 @@ Build Tag: ${env.BUILD_TAG}"""
                 }
                 sh 'pip install netaddr'
                 sh 'yum -y install sshpass'
+                sh 'ansible --version | tee ansible_version.log'
+                archiveArtifacts artifacts: 'ansible_version.log'
                 script {
                     ANSIBLE_WORKSHOPS_REFSPEC = "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/${env.BRANCH_NAME}"
 

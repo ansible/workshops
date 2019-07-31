@@ -8,7 +8,12 @@ pipeline {
             description: 'Tower version to deploy',
             choices: ['devel', '3.5.1']
         )
-        string(
+        choice(
+            name: 'ANSIBLE_VERSION',
+            description: 'Ansible version to use to deploy the lab',
+            choices: ['devel', 'stable-2.8']
+        )
+         string(
             name: 'WORKSHOP_FORK',
             description: 'Workshop fork to deploy from',
             defaultValue: 'ansible'
@@ -25,6 +30,7 @@ pipeline {
         stage('Build Information') {
             steps {
                 echo """Tower Version under test: ${params.TOWER_VERSION}
+Ansible version under test: ${params.ANSIBLE_VERSION}
 Workshop branch under test: ${params.WORKSHOP_BRANCH}
 ${AWX_NIGHTLY_REPO_URL}"""
             }
@@ -52,6 +58,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 }
                 sh 'pip install netaddr'
                 sh 'yum -y install sshpass'
+                sh "pip install git+https://github.com/ansible/ansible.git@${params.ANSIBLE_VERSION}"
                 sh 'ansible --version | tee ansible_version.log'
                 archiveArtifacts artifacts: 'ansible_version.log'
                 script {
@@ -214,7 +221,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 color: "#922B21",
                 teamDomain: "ansible",
                 channel: "#workshops-events",
-                message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
+                message: "*Tower version: ${params.TOWER_VERSION}* | Ansible version: `${params.ANSIBLE_VERSION}` | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
             )
         }
         success {
@@ -224,7 +231,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 teamDomain: "ansible",
                 channel: "#workshops-events",
                 message: """
-*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link> \
+*Tower version: ${params.TOWER_VERSION}* | Ansible version: `${params.ANSIBLE_VERSION}` | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link> \
 Deprecation Warnings: *${RHEL_DEPRECATED_WARNINGS}* in RHEL lab - *${NETWORKING_DEPRECATED_WARNINGS}* in Networking lab - *${F5_DEPRECATED_WARNINGS}* in F5 lab
 """
             )

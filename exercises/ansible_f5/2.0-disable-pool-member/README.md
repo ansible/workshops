@@ -133,7 +133,7 @@ Next, add a task for the objective listed below:
   - Prompt the user to enter a Host:Port to disable a particular member or 'all' to disable all members
 
 HINT:
-Use the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: #000000">prompts</a> module</a></span>
+Use the <a href="https://docs.ansible.com/ansible/latest/modules/pause_module.html" style="color: #000000">pause</a> module</a></span>
 
 ## Step 9
 Next, add a task for the objective listed below:

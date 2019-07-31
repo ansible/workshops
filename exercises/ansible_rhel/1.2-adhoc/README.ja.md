@@ -92,7 +92,7 @@ timeout = 60
 deprecation_warnings = False
 host_key_checking = False
 retry_files_enabled = False
-inventory = /home/student<X>/lab_inventory/hosts
+inventory = /home/student#/lightbulb/lessons/lab_inventory/student#-instances.txt
 ```
 
 このファイルには複数の設定内容が存在しています。
@@ -101,7 +101,7 @@ inventory = /home/student<X>/lab_inventory/hosts
 みなさんに提供されているインベントリの内容を確認してみましょう。
 
 ```bash
-[student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
+[student<X>@ansible ~]$ cat /home/student#/lightbulb/lessons/lab_inventory/student#-instances.txt
 [all:vars]
 ansible_user=student<X>
 ansible_ssh_pass=ansible

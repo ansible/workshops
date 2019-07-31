@@ -138,7 +138,7 @@ Playbookは、管理ノード上で`ansible-playbook`コマンドを使うこと
 SSHを用いて`node1`でApacheが確かにインストールされているかどうかを確認してください。IPアドレスの情報はインベントリに記載されています。IPアドレスを入力してSSHでノードへ接続してください。
 
 ```bash
-[student<X>@ansible ansible-files]$ grep node1 ~/lab_inventory/hosts
+[student<X>@ansible ansible-files]$ grep node1 /home/student#/lightbulb/lessons/lab_inventory/student#-instances.txt
 node1 ansible_host=11.22.33.44
 [student<X>@ansible ansible-files]$ ssh 11.22.33.44
 student<X>@11.22.33.44's password: 

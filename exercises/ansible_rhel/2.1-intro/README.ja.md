@@ -43,7 +43,7 @@ Ansible Control Host に ssh でログインします。
 
     ssh studentX@11.22.33.44
 
-Ansible Control Host に Tower をインストールします。<xxxxx>の部分にはダウンロードしたバージョンを入力ください。  
+Ansible Control Host に Tower をインストールします。`<xxxxx>` の部分にはダウンロードしたバージョンを入力ください。  
 
     [student<X>@ansible ~]$ cd /tmp
     [student<X>@ansible ~]$ curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
@@ -64,8 +64,8 @@ Ansible Control Host に Tower をインストールします。<xxxxx>の部分
 ライセンスファイルの適応  
 
 1.Ansible Tower サーバーにブラウザでアクセスし"参照"をクリックします。  
-　https://<Ansigle Control Host>/  
-　IDとパスワードは、インストール時に指定した admin / ansibleWS です。  
+　`https://<Ansigle Control Host>/`  
+　IDとパスワードは、インストール時に指定した `admin` / `ansibleWS` です。  
 2. 参照をクリックし、ライセンスファイルを指定します。  
 　※ライセンスファイルに関しては講師より指示があります。
 3.使用許諾にチェックを入れて"送信"を押下します。 
@@ -75,9 +75,9 @@ Ansible Control Host に Tower をインストールします。<xxxxx>の部分
 
 ## ダッシュボード
 
-When logged in to Ansible Tower using the web UI, the administrator can view a graph that shows
+Web UI を使用して Ansible Tower に `admin` 権限でログインすると、グラフと以下のような情報が表示されます。  
 
-  - recent job activity
+  - 
 
   - the number of managed hosts
 

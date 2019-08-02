@@ -25,9 +25,11 @@ Demonstrate the removal of a node from the pool.  Build a Playbook that:
 
 Using your text editor of choice create a new file called `disable-pool-member.yml`.
 
+{% raw %}
 ```
 [student1@ansible ~]$ nano disable-pool-member.yml
 ```
+{% endraw %}
 
 >`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
 
@@ -35,6 +37,7 @@ Using your text editor of choice create a new file called `disable-pool-member.y
 
 Enter the following play definition into `disable-pool-member.yml`:
 
+{% raw %}
 ``` yaml
 ---
 
@@ -44,10 +47,13 @@ Enter the following play definition into `disable-pool-member.yml`:
   gather_facts: false
 
 ```
+{% endraw %}
+
 ## Step 3
 
-Add a tasks section and then set a fact for the provider. Once you set the provider you can re-use this key in future tasks instead of giving the server/user/password/server_port and validate_certs info to each task. 
+Add a tasks section and then set a fact for the provider. Once you set the provider you can re-use this key in future tasks instead of giving the server/user/password/server_port and validate_certs info to each task.
 
+{% raw %}
 ```
 ---
 - name: "Disabling a pool member"
@@ -65,8 +71,11 @@ Add a tasks section and then set a fact for the provider. Once you set the provi
       server_port: "8443"
       validate_certs: "no"
 ```
+{% endraw %}
 
 Now in the next task you can use provider as follows:
+
+{% raw %}
 
 ```
 bigip_device_facts:
@@ -74,9 +83,16 @@ bigip_device_facts:
   gather-subset:
   - ltm-pools
 ```
+{% endraw %}
+
 You DO NOT need to pass the server_ip/user/password etc. for each module going forward
 
-## Step 5
+```
+---
+- name: "Disabling a pool member"
+  hosts: lb
+  gather_facts: false
+  connection: local
 
 Next, add a task for the objective listed below:
 
@@ -84,16 +100,16 @@ Next, add a task for the objective listed below:
 
 HINT: Try using the bigip_device_facts module from <a href="../1.1-get-facts" style="color: #000000">Exercise 1.1</a>
 
-## Step 6
+## Step 5
 
 Next, add a task for the objective listed below:
 
   - Display the pool information to the terminal window
 
-HINT: 
+HINT:
 Find a way to `loop` on the output from the above step. Remember to also use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug module</a>
 
-## Step 7
+## Step 6
 
 Next, add a task for the objective listed below:
 
@@ -101,32 +117,32 @@ Next, add a task for the objective listed below:
 
 HINT: An easy way to set fact variables within a Playbook dynamically is using the <a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a></span>
 
-## Step 8
+## Step 7
 
 Next, add a task for the objective listed below:
 
   - Display members belonging to the pool
 
-HINT: 
+HINT:
 Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000">debug</a></span> and refer <a href="../1.4-add-pool-members">Exercise 1.4</a>
 
-## Step 9
+## Step 8
 
 Next, add a task for the objective listed below:
 
   - Prompt the user to enter a Host:Port to disable a particular member or 'all' to disable all members
 
-HINT: 
+HINT:
 Use the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: #000000">prompts</a> module</a></span>
 
-## Step 10
+## Step 9
 Next, add a task for the objective listed below:
 
   - Read the prompt information and disable all members or a single member based on the input from the user
-  
-HINT: 
+
+HINT:
 Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when conditions and loops </a></span> and [BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html)
-  
+
 ## Step 10
 Run the playbook - exit back into the command line of the control host and execute the following:
 
@@ -138,6 +154,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 The output will look as follows.
 
+{% raw %}
 ```yaml
 [student1@ansible ~]$ ansible-playbook disable-pool-member.yml
 
@@ -182,7 +199,7 @@ changed: [f5]
 PLAY RECAP **************************************************************************************************************
 f5                         : ok=7    changed=2    unreachable=0    failed=0
 ```
-
+{% endraw %}
 # Solution
 The solution will be provided by the instructor if you are stuck.  The GUI should show something similar to the following with a black diamond indicating the specified node was forced offline.
 

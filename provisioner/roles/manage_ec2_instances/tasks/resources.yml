@@ -54,8 +54,20 @@
         from_port: 8888
         cidr_ip: 0.0.0.0/0
       - proto: tcp
+        to_port: 8000
+        from_port: 8000
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
         to_port: 8080
         from_port: 8080
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8088
+        from_port: 8088
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8089
+        from_port: 8089
         cidr_ip: 0.0.0.0/0
       - proto: tcp
         to_port: 8443

@@ -46,6 +46,7 @@ Enter the following play definition into `bigip-virtual-server.yml`:
 
 Next, add the `task`. This task will use the `bigip-config` to save the running configuration to disk
 
+{% raw %}
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -64,6 +65,8 @@ Next, add the `task`. This task will use the `bigip-config` to save the running 
       validate_certs: "no"
       save: yes
 ```
+{% endraw %}
+
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 

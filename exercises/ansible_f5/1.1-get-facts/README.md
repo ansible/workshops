@@ -53,6 +53,7 @@ Enter the following play definition into `bigip-facts.yml`:
 
 Next, add the first `task`. This task will use the `bigip_device_facts` module to grab useful information from the BIG-IP device.
 
+{% raw %}
 ``` yaml
 ---
 - name: GRAB F5 FACTS
@@ -72,8 +73,9 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: no
-      register: bigip_device_facts
+      register: device_facts
 ```
+{% endraw %}
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
@@ -84,12 +86,13 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
-- `register: bigip_device_facts` tells the task to save the output to a variable bigip_device_facts
+- `register: device_facts` tells the task to save the output to a variable bigip_device_facts
 
 ## Step 4
 
-Next, add the second `task`. This task will use the `debug` module to print the output from bigip_device_facts variable we registered the facts to.
+Next, add the second `task`. This task will use the `debug` module to print the output from device_facts variable we registered the facts to.
 
+{% raw %}
 ```yaml
 ---
 - name: GRAB F5 FACTS
@@ -101,8 +104,9 @@ Next, add the second `task`. This task will use the `debug` module to print the 
   tasks:
 
     - name: COLLECT BIG-IP FACTS
-      bigip_facts:
-        include: system_info
+      bigip_device_facts:
+        gather_subset:
+         - system-info
         server: "{{private_ip}}"
         user: "{{ansible_user}}"
         password: "{{ansible_ssh_pass}}"
@@ -112,12 +116,13 @@ Next, add the second `task`. This task will use the `debug` module to print the 
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
-        var: bigip_device_facts
+        var: device_facts
 ```
+{% endraw %}
 
 - The `name: COMPLETE BIG-IP SYSTEM INFORMATION` is a user defined description that will display in the terminal output.
 - `debug:` tells the task to use the debug module.
-- The `var: bigip_device_facts` parameter tells the module to display the variable bigip_device_facts.
+- The `var: device_facts` parameter tells the module to display the variable bigip_device_facts.
 
 
 ## Step 5
@@ -132,6 +137,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 Finally lets add two more tasks to get more specific info from facts gathered.
 
+{% raw %}
 ```yaml
 ---
 - name: GRAB F5 FACTS
@@ -149,23 +155,25 @@ Finally lets add two more tasks to get more specific info from facts gathered.
         password: "{{ansible_ssh_pass}}"
         server_port: 8443
         validate_certs: no
-      register: bigip_device_facts
+      register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
-        var: bigip_device_facts
+        var: device_facts
 
     - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
-        var: bigip_device_facts['system_info']['base_mac_address']
+        var: device_facts['system_info']['base_mac_address']
 
     - name: DISPLAY ONLY THE VERSION
       debug:
-        var: bigip_device_facts['system_info']['product_version']
+        var: device_facts['system_info']['product_version']
 ```
+{% endraw %}
 
-- `var: bigip_device_facts['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
-- `bigip_device_facts['system_info']['product_version']` displays the product version BIG-IP device
+
+- `var: device_facts['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
+- `device_facts['system_info']['product_version']` displays the product version BIG-IP device
 
 >Because the bigip_device_facts module returns useful information in structured data, it is really easy to grab specific information without using regex or filters.  Fact modules are very powerful tools to grab specific device information that can be used in subsequent tasks, or even used to create dynamic documentation (reports, csv files, markdown).
 
@@ -182,6 +190,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 The output will look as follows.
 
+{% raw %}
 ```yaml
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 
@@ -253,18 +262,20 @@ ok: [f5] => {
 
 TASK [DISPLAY ONLY THE MAC ADDRESS] *************************************************************************************************************************
 ok: [f5] => {
-    "bigip_device_facts['system_info']['base_mac_address']": "0a:54:53:51:86:fc"
+    "device_facts['system_info']['base_mac_address']": "0a:54:53:51:86:fc"
 }
 
 TASK [DISPLAY ONLY THE VERSION] *****************************************************************************************************************************
 ok: [f5] => {
-    "bigip_device_facts['system_info']['product_version']": "13.1.0.7"
+    "device_facts['system_info']['product_version']": "13.1.0.7"
 }
 
 PLAY RECAP **************************************************************************************************************************************************
 f5                         : ok=4    changed=1    unreachable=0    failed=0
 
 ```
+{% endraw %}
+
 
 # Solution
 
@@ -272,12 +283,12 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here fo
 
 # Going Further
 
-For this bonus exercise add the `tags: debug` paramteter (at the task level) to the exiting debug task.
+For this bonus exercise add the `tags: debug` paramteter (at the task level) to the existing debug task.
 
 ```yaml
 - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
   debug:
-    var: bigip_device_facts
+    var: device_facts
   tags: debug
 ```
 

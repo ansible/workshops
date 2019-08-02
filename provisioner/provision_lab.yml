@@ -14,14 +14,14 @@
       assert:
         that:
           - workshop_type is defined
-          - workshop_type is in valid_workshop_types
+          - workshop_type in valid_workshop_types
         msg: "workshop_type must be defined and be one of: {{valid_workshop_types}}"
 
     - name: make sure network_type is set to a correct value
       assert:
         that:
           - network_type is defined
-          - network_type is in valid_network_types
+          - network_type in valid_network_types
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
       when: workshop_type == "networking"
 
@@ -33,6 +33,19 @@
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
+
+    - name: make sure packages required are installed on this control node
+      pip:
+        name:
+          - netaddr
+      check_mode: yes
+      when: workshop_type == "networking"
+      register: package_state
+
+    - name: fail if previous check has changed
+      assert:
+        that:
+          - package_state.changed != True
 
     - name: auto license feature for Ansible Tower
       block:
@@ -49,6 +62,15 @@
       when:
        - autolicense is defined
        - autolicense
+
+    - name: Install required roles onto THIS machine
+      shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+      loop:
+        - 'geerlingguy.repo-epel'
+        - 'ansible_security.ids_config'
+        - 'ansible_security.ids_install'
+      when:
+        - workshop_type == "security"
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -166,6 +188,38 @@
         - workshop_type == "networking"
         - ansible_network_os == "ios" or ansible_network_os == "eos"
 
+- name: INSTALL AND CONFIGURE SPLUNK ENTERPRISE
+  hosts: splunk
+  become: true
+  gather_facts: no
+  roles:
+    - role: splunk_enterprise
+      when:
+        - workshop_type == "security"
+
+- name: INSTALL AND CONFIGURE SNORT
+  hosts: snort
+  become: true
+  vars:
+    ids_config_snort_version: '2.9.13'
+    ids_install_provider: "snort"
+    ids_install_normalize_logs: True
+    ids_install_snort_user: root
+    ids_install_snort_group: root
+  tasks:
+    - block:
+      - name: setup epel for snort ecosystem rule lifecycling
+        include_role:
+          name: "geerlingguy.repo-epel"
+      - name: import ids_install role
+        include_role:
+          name: "ansible_security.ids_install"
+      - name: import ids_config role
+        include_role:
+          name: "ansible_security.ids_config"
+      when:
+        - workshop_type == "security"
+
 - name: CHANGE JUNIPER PASSWORD
   hosts: routers
   gather_facts: no
@@ -194,7 +248,7 @@
           *******************
           - Workshop name is {{ec2_name_prefix}}
           - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
-          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}.pem
+          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
           {{website_information}}
           FAILURES
           *******************
@@ -206,7 +260,6 @@
 
 - name: POPULATE TOWER STEP ONE
   hosts: control_nodes
-  connection: local
   gather_facts: no
 
   tasks:
@@ -239,7 +292,6 @@
 
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
-  connection: local
   gather_facts: no
 
   tasks:

@@ -50,14 +50,15 @@ Ansible Control Host に Tower をインストールします。
     [student<X>@ansible ~]$ tar xvzf ansible-tower-setup-<xxxxx>.tar.gz
     [student<X>@ansible ~]$ cd ansible-tower-setup-<xxxxx>
     [student<X>@ansible ~]$ vi inventory
-
+  
 ※ファイルの中でブランクになっている、3つのパスワードを以下の通り設定し、ファイルを保存します。  
- admin_password='ansibleWS'
- pg_password='ansibleWS'
- rabbitmq_password='ansibleWS'
+  
+ admin_password='ansibleWS'  
+ pg_password='ansibleWS'  
+ rabbitmq_password='ansibleWS'  
 
 インストール開始！！  
-
+  
     [student<X>@ansible ~]$ sudo ./setup.sh
 
 ライセンスファイルの適応  
@@ -67,8 +68,10 @@ Ansible Control Host に Tower をインストールします。
 　IDとパスワードは、インストール時に指定した admin / ansibleWS です。  
 2. 参照をクリックし、ライセンスファイルを指定します。  
 　※ライセンスファイルに関しては講師より指示があります。    
-![Ansible Tower Dashboard](images/)
+<img src="/image/LicenseFile.jpg" alt="attach:cat" title="attach:cat" width="700">
 3.使用許諾にチェックを入れて"送信"を押下します。  
+
+     
 
 ## ダッシュボード
 

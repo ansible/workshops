@@ -1,0 +1,10 @@
+module nginx 1.0;
+
+require {
+        type httpd_t;
+        type tmpfs_t;
+        class sock_file write;
+}
+
+#============= httpd_t ==============
+allow httpd_t tmpfs_t:sock_file write;

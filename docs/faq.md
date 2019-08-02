@@ -132,7 +132,7 @@ This is likely if you are using the device (CSR/F5/vMX) for the first time in AW
 
 ```
 TASK [f5_setup : Install AS3] *******************************************************************************
-fatal: [TESTWORKSHOP-student1-f5]: FAILED! => {"changed": false, "cmd": "rpm -qp --queryformat '%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}' <ommited>/linklight/provisioner/roles/f5_setup/files/f5-appsvcs-3.4.0-2.noarch.rpm", "msg": "[Errno 2] No such file or directory", "rc": 2}
+fatal: [TESTWORKSHOP-student1-f5]: FAILED! => {"changed": false, "cmd": "rpm -qp --queryformat '%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}' <ommited>/workshops/provisioner/roles/f5_setup/files/f5-appsvcs-3.4.0-2.noarch.rpm", "msg": "[Errno 2] No such file or directory", "rc": 2}
 ```
 
 ### Solution:

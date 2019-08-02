@@ -21,3 +21,6 @@ rabbitmq_cookie=cookiemonster
 
 # Needs to be true for fqdns and ip addresses
 rabbitmq_use_long_name=false
+
+gpgcheck='{{ gpgcheck | default(1)}}'
+aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'

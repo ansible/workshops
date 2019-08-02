@@ -1,217 +1,196 @@
-UNDER DEVELOPMENT - APRIL 11th, 2019
-
-# Exercise 01 - Configuring IP Addresses with Jinja Templates
-
-For this exercise we are going to configure all the IP addresses for our IP fabric using the [eos_config](http://docs.ansible.com/ansible/latest/eos_config_module.html) module.
+# Exercise 4 - Network Configuration with Jinja Templates
 
 ## Table of Contents
 
-- [Jinja Templates](#jinja-templates)
-- [Ansible Variables](#ansible-variables)
-- [Creating a template](#creating-a-template)
-- [The Playbook](#the-playbook)
-- [Looking at the results](#looking-at-the-results)
-- [Complete](#complete)
+- [Objective](#objective)
+- [Guide](#guide)
+- [Takeaways](#takeaways)
+- [Solution](#solution)
 
-## Jinja Templates
+# Objective
 
-On Linux hosts we can use the [template module](http://docs.ansible.com/ansible/latest/template_module.html) to render [jinja templates](http://jinja.pocoo.org/).  When using the connection **network_cli** the template module will just run locally for both the src and dest (as opposed to with Linux hosts where the src will be on the control node, and the dest will be on the inventory device the Playbook is being run against).  Lets look at a task of this:
+Demonstration templating a network configuration and pushing it a device
 
-```
-- name: create routing config
-  template:
-    src: ./test.j2
-    dest: ./test_config/test.cfg
-```
+- Use and understand group [variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html) to store the IP addresses we want.
+- Use the [Jinja2 template lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html)
+- Demonstrate use of the network automation [cli_config module](https://docs.ansible.com/ansible/latest/modules/cli_config_module.html)
 
-The vars for this example are:
+# Guide
 
-```yaml
-spine01:
-  loopback1: "172.16.0.1/32"
-```
+#### Step 1
 
-The test.j2 for this example is:
-```
-interface Loopback1    
-    address {{spine01.loopback1}}
+This step will cover creating Ansible variables for use in an Ansible Playbook. This exercise will use the following IP address schema for loopbacks addresses on rtr1 and rtr2:
 
-```
-
-Running the task above will render test.cfg:
-
-```yaml
-interface Loopback1
-    address 172.16.0.1/32
-```
-
-Jinja2 is very powerful and has lots of features.  The most commonly used ones to template configs are conditionals and loops [which you can read more about here](http://jinja.pocoo.org/docs/2.10/templates/).  With the networking **os_config** modules (i.e. eos_config) the src can set from a jinja template.  This means you don't need two tasks to render, then push config.  You can use one task like this:
-
-```
-- name: configure device with config
-  cli_config:
-    config: "{{ lookup('template', 'basic/config.j2') }}"
-```
-
-```
-- name: push config to device
-  eos_config:
-    src: ./ospf.j2
-    save_when: changed
-```
-
-## Ansible Variables
-
-Here is the IP address schema used for this network.
-
-Device Left | Left IP | Right IP | Device Right
------------- | ------------- | ------------- | -------------
-spine01 eth2 | 172.16.200.1/30 | 172.16.200.2/30 | eth2 leaf01
-spine01 eth3 | 172.16.200.5/30 | 172.16.200.6/30 | eth2 leaf02
-spine02 eth2 | 172.16.200.17/30 | 172.16.200.18/30 | eth3 leaf01
-spine02 eth3 | 172.16.200.21/30 | 172.16.200.22/30 | eth3 leaf02
-
-In addition the loopbacks are:
-
-Device  | Loopback IP |
+Device  | Loopback100 IP |
 ------------ | ------------- |
-spine01 eth2 | 172.16.0.1/32 |
-spine01 eth3 | 172.16.0.2/32 |
-spine02 eth2 | 172.16.0.3/32 |
-spine02 eth3 | 172.16.0.4/32 |
+rtr1  | 192.168.100.1/32 |
+rtr2  | 192.168.100.2/32 |
 
-We need to store the information about the IP address schema so that our playbook can use it.  Lets start by making a simple yaml dictionary that represents spine01's connections. Lets see what that dictionary would look like.  For simplicity (and demonstration purposes) we will put all the variables into one file.  We will use the top level variable `nodes` just so we can do a lookup based on the inventory_hostname.  
-
-The **inventory_hostname** is the name of the hostname as configured in Ansible's inventory host file.  When the playbook is executed against leaf01 inventory_hostname will be leaf01, when the playbook is executed against leaf02, the inventory_hostname will be leaf02 and so forth.  The inventory_hostname variable is considered a [magic variable](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts) which is automatically provided.
-
-Lets look at what this can look like:
-```
-nodes:
-  spine01:
-    Loopback1: "172.16.0.1/32"
-    Ethernet2: "172.16.200.1/30"
-    Ethernet3: "172.16.200.5/30"
-```
-
-Now continue creating the variables for spine02, leaf01 and leaf02.
-
-## Creating a template
-
-Now we need to combine what we learned about jinja templates to take advantage of our variables.  We need to create a loop that configures every interface on the switch.
-
-For example we want to configure an interface like this:
-```
-interface Ethernet2
-   no switchport
-   ip address 172.16.200.2/30
-```
-
-We can easily create a loop in jinja that iterates over each interface:
-```
-{% for interface in nodes[inventory_hostname] -%}
-interface {{interface}}
-  no switchport
-  ip address {{nodes[inventory_hostname][interface]}}
-{% endfor %}
-```
-
-There is one problem!  We are also configuring the loopbacks, and `no switchport` is not a valid command for the loopback interface.  We can make a simple **if** statement to check for loopback addresses:
-```
-{% for interface in nodes[inventory_hostname] -%}
-interface {{interface}}
-{% if "Loopback" not in interface %}
-  no switchport
-{% endif %}
-  ip address {{nodes[inventory_hostname][interface]}}
-{% endfor %}
-```
-
-Save this jinja template as ospf.j2 (we will add OSPF to it in the next exercise)
-
-## The Playbook
-
-We can store variables in multiple places.  There is [extensive documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html) and most Ansible users elect to use a combination of host_vars and group_vars.  For simplicity we will just define the vars in our playbook itself.
-
-Look at the following playbook:
-
-```yml
----
-- name: configure OSPF
-  hosts: network
-  vars:
-    nodes:
-      spine01:
-        Loopback1: "172.16.0.1/32"
-        Ethernet2: "172.16.200.1/30"
-        Ethernet3: "172.16.200.5/30"
-      spine02:
-        Loopback1: "172.16.0.2/32"
-        Ethernet2: "172.16.200.17/30"
-        Ethernet3: "172.16.200.21/30"
-      leaf01:
-        Loopback1: "172.16.0.3/32"
-        Ethernet2: "172.16.200.2/30"
-        Ethernet3: "172.16.200.18/30"
-      leaf02:
-        Loopback1: "172.16.0.4/32"
-        Ethernet2: "172.16.200.6/30"
-        Ethernet3: "172.16.200.22/30"
-
-  tasks:
-    - name: push config to device
-      eos_config:
-        src: ./ospf.j2
-        save_when: changed
-```
-
-While the playbook may seem long, it only contains 1 task.  To run the playbook use the `ansible-playbook` command.
+Variable information can be stored in host_vars and group_vars.  For this exercise create a folder named `group_vars`:
 
 ```bash
-ansible-playbook ospf.yml
-```
-Parameter | Explanation
------------- | -------------
-ansible-playbook | Ansible executable for running playbooks
-ospf.yml | the name of the playbook
-
-
-```
-[vagrant@ansible linklight]$ ansible-playbook ospf.yml
-
-PLAY [configure OSPF] ************************************************************************************************************************************************************
-
-TASK [push config to device] *****************************************************************************************************************************************************
-changed: [leaf01]
-changed: [spine02]
-changed: [spine01]
-changed: [leaf02]
-
-PLAY RECAP ***********************************************************************************************************************************************************************
-leaf01                     : ok=1    changed=1    unreachable=0    failed=0
-leaf02                     : ok=1    changed=1    unreachable=0    failed=0
-spine01                    : ok=1    changed=1    unreachable=0    failed=0
-spine02                    : ok=1    changed=1    unreachable=0    failed=0
+[student1@ansible networking-workshop]$ mkdir ~/networking-workshop/group_vars
 ```
 
-## Check the configuration
-Use the command `show ip int br` to check the IP addresses on multiple interfaces
+Now create a file in this directory name `all.yml` using your text editor of choice.  Both vim and nano are installed on the control node.
 
 ```
-[vagrant@ansible linklight]$ ssh admin@leaf01
-Password:
-Last login: Thu Jun 21 21:20:42 2018 from 192.168.0.2
-leaf01#show ip int br
-Interface              IP Address         Status     Protocol         MTU
-Ethernet1              192.168.0.14/24    up         up              1500
-Ethernet2              172.16.200.2/30    up         up              1500
-Ethernet3              172.16.200.18/30   up         up              1500
-Loopback1              172.16.0.3/32      up         up             65535
-Management1            10.0.2.15/24       up         up              1500
-leaf01#
+[student1@ansible networking-workshop]$ nano group_vars/all.yml
 ```
 
+The interface and IP address information above must be stored as variables so that the Ansible playbook can use it. Start by making a simple YAML dictionary that stores the table listed above. Use a top level variable (e.g. `nodes`) so that a lookup can be performed based on the `inventory_hostname`:
 
-## Complete
-You have completed Exercise 01.
+```yaml
+nodes:
+  rtr1:
+    Loopback100: "192.168.100.1"
+  rtr2:
+    Loopback100: "192.168.100.2"
+```
 
-[Return to training-course](../README.md)
+Copy the YAML dictionary we created above into the group_vars/all.yml file and save the file.  
+
+>All devices are part of the group **all** by default.  If we create a group named **cisco** only network devices belonging to that group would be able to access those variables.
+
+#### Step 2
+
+Create a new template file named `template.j2`:
+
+```
+[student1@ansible networking-workshop]$ nano template.j2
+```
+
+Copy the following into the template.j2 file:
+
+<!-- {% raw %} -->
+```yaml
+{% for interface,ip in nodes[inventory_hostname].items() %}
+interface {{interface}}
+  ip address {{ip}} 255.255.255.255
+{% endfor %}
+```
+<!-- {% endraw %} -->
+
+
+Save the file.
+
+#### Step 3
+
+This step will explain and elaborate on each part of the newly created template.j2 file.
+
+<!-- {% raw %} -->
+```yaml
+{% for interface,ip in nodes[inventory_hostname].items() %}
+```
+<!-- {% endraw %} -->
+
+<!-- {% raw %} -->
+- Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The `interface,ip` breaks down the dictionary into a key named `interface` and a value named `ip`.
+<!-- {% endraw %} -->
+
+- The `nodes[inventory_hostname]` does a dictionary lookup in the `group_vars/all.yml` file.  The **inventory_hostname** is the name of the hostname as configured in Ansible's inventory host file.  When the playbook is executed against `rtr1` inventory_hostname will be `rtr1`, when the playbook is executed against `rtr2`, the inventory_hostname will be `rtr2` and so forth.  
+
+>The inventory_hostname variable is considered a [magic variable](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts) which is automatically provided.  
+
+- The keyword `items()` returns a list of dictionaries.  In this case the dictionary's key is the interface name (e.g. Loopback100) and the value is an IP address (e.g. 192.168.100.1)
+
+<!-- {% raw %} -->
+```yaml
+interface {{interface}}
+  ip address {{ip}} 255.255.255.255
+```
+<!-- {% endraw %} -->
+
+- Variables are rendered with the curly braces like this: `{{ variable_here }}`  In this case the variable name key and value only exist in the context of the loop.  Outside of the loop those two variables don't exist.  Each iteration will re-assign the variable name to new values based on what we have in our variables.
+
+Finally:
+<!-- {% raw %} -->
+```
+{% endfor %}
+```
+<!-- {% endraw %} -->
+
+- In Jinja we need to specify the end of the loop.
+
+#### Step 4
+
+Create the Ansible Playbook config.yml:
+
+```
+[student1@ansible networking-workshop]$ nano config.yml
+```
+
+Copy the following Ansible Playbook to the config.yml file:
+
+<!-- {% raw %} -->
+```
+---
+- name: configure network devices
+  hosts: rtr1,rtr2
+  gather_facts: false
+  tasks:
+    - name: configure device with config
+      cli_config:
+        config: "{{ lookup('template', 'template.j2') }}"
+```
+<!-- {% endraw %} -->
+
+- This Ansible Playbook has one task named *configure device with config*
+- The **cli_config** module is vendor agnostic.  This module will work identically for an Arista, Cisco and Juniper device.  This module only works with the **network_cli** connection plugin.
+- The cli_config module only requires one parameter, in this case **config** which can point to a flat file, or in this case uses the lookup plugin.  For a list of all available lookup plugins [visit the documentation](https://docs.ansible.com/ansible/latest/plugins/lookup.html)  
+- Using the template lookup plugin requires two parameters, the plugin type *template* and the corresponding template name *template.j2*.
+
+#### Step 5
+
+Execute the Ansible Playbook:
+
+```
+[student1@ansible networking-workshop]$ ansible-playbook config.yml
+```
+
+The output should look as follows.
+
+```
+[student1@ansible ~]$ ansible-playbook config.yml
+
+PLAY [rtr1,rtr2] ********************************************************************************
+
+TASK [configure device with config] ********************************************************************************
+changed: [rtr1]
+changed: [rtr2]
+
+PLAY RECAP ********************************************************************************
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+#### Step 6
+
+Use the command `show ip int br` to verify the IP addresses have been confirmed on the network devices.
+
+```
+[student1@ansible networking-workshop]$ ssh rtr1
+
+rtr1#show ip int br | include Loopback100
+Loopback100            192.168.100.1   YES manual up                    up
+```
+
+# Takeaways
+
+- The [Jinja2 template lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html) can allow us to template out a device configuration.
+- The `*os_config` (e.g. ios_config) and cli_config modules can source a jinja2 template file, and push directly to a device.  If you want to just render a configuration locally on the control node, use the [template module](https://docs.ansible.com/ansible/latest/modules/template_module.html).
+- Variables are mostly commonly stored in group_vars and host_vars.  This short example only used group_vars.
+
+# Solution
+
+The finished Ansible Playbook is provided here for an answer key: [config.yml](config.yml).
+
+The provided Ansible Jinja2 template is provided here: [template.j2](template.j2).
+
+---
+
+# Complete
+
+You have completed lab exercise 4
+
+[Click here to return to the Ansible Network Automation Workshop](../README.md)

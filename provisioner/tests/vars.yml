@@ -1,0 +1,8 @@
+---
+ec2_region: us-east-1
+student_total: 2
+admin_password: ansible
+create_login_page: false
+autolicense: true
+towerinstall: true
+ansible_python_interpreter: '/usr/bin/env python'

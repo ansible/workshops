@@ -1,0 +1,140 @@
+- name: CREATE INVENTORY
+  tower_inventory:
+    name: "ChatOps Inventory"
+    organization: Default
+    tower_username: admin
+    tower_password: ansible
+    tower_host: https://localhost
+    tower_verify_ssl: no
+  run_once: true
+  delegate_to: localhost
+
+- name:  ADD HOST INTO TOWER INVENTORY
+  tower_host:
+    name: "{{ inventory_hostname }}"
+    inventory: "ChatOps Inventory"
+    tower_username: admin
+    tower_password: ansible
+    tower_host: https://localhost
+    tower_verify_ssl: no
+    variables:
+      ansible_network_os: "{{ansible_network_os}}"
+      ansible_host: "{{ansible_host}}"
+      ansible_user: "{{ansible_user}}"
+      private_ip: "{{private_ip}}"
+
+- name: ADD CREDENTIAL INTO TOWER
+  tower_credential:
+    name: ChatOps Credential
+    ssh_key_data: "/home/{{ansible_user}}/.ssh/aws-private.pem"
+    kind: ssh
+    organization: Default
+    tower_username: admin
+    tower_password: ansible
+    tower_host: https://localhost
+    tower_verify_ssl: no
+  run_once: true
+  delegate_to: localhost
+
+
+- name: ADD PROJECT TO TOWER
+  tower_project:
+    name: ChatOps
+    local_path: chatops_pb
+    organization: Default
+    tower_username: admin
+    tower_password: ansible
+    tower_host: https://localhost
+    tower_verify_ssl: no
+  run_once: true
+  delegate_to: localhost
+
+
+- name: ADD A JOB TEMPLATE
+  tower_job_template:
+    name: "Network-Validate-Traffic"
+    job_type: run
+    inventory: "ChatOps Inventory"
+    project: "ChatOps"
+    playbook: check_acls.yaml
+    credential: "ChatOps Credential"
+    state: "present"
+    tower_username: admin
+    tower_password: ansible
+    tower_host: https://localhost
+    tower_verify_ssl: no
+  run_once: true
+  delegate_to: localhost
+  when:
+    - ansible_version.minor <= 7
+
+- name: ADD SURVEYS TO THE JOB TEMPLATE
+  include_role:
+    name: genie-survey
+  vars:
+    tower_url: https://localhost
+    tower_user: admin
+    tower_pass: ansible
+    tower_verify_ssl: no
+    tower_surveys:
+      - job_template_name: "Network-Validate-Traffic"
+        job_template_survey_enabled: True
+        survey:
+          - variable: "protocol"
+            required: yes
+            type: text
+            prompt: "protocol"
+          - variable: "action"
+            required: yes
+            type: text
+            prompt: "action"
+          - variable: "src_network"
+            required: yes
+            type: text
+            prompt: "src_network"
+          - variable: "src_mask"
+            required: yes
+            type: text
+            prompt: "src_mask"
+          - variable: "dst_network"
+            required: yes
+            type: text
+            prompt: "dst_network"
+          - variable: "dst_mask"
+            required: yes
+            type: text
+            prompt: "dst_mask"
+          - variable: "dst_port"
+            required: yes
+            type: text
+            prompt: "dst_port"
+          - variable: "slack_user"
+            required: no
+            type: text
+            prompt: "slack_user"
+  run_once: true
+  delegate_to: localhost
+  when:
+    - ansible_version.major >= 2
+    - ansible_version.minor <= 7
+
+- name: ADD A JOB TEMPLATE
+  tower_job_template:
+    name: "Network-Validate-Traffic"
+    job_type: run
+    inventory: "ChatOps Inventory"
+    project: "ChatOps"
+    playbook: check_acls.yaml
+    credential: "ChatOps Credential"
+    state: "present"
+    tower_username: admin
+    tower_password: ansible
+    tower_host: https://localhost
+    tower_verify_ssl: no
+    survey_enabled: yes
+    survey_spec: "{{ lookup('template', 'survey_spec.json') }}"
+  run_once: true
+  delegate_to: localhost
+  when:
+    - ansible_version.major >= 2
+    - ansible_version.minor >= 8

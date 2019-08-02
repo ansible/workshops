@@ -22,7 +22,7 @@
       - control_nodes
   with_items: "{{ ansible_node_facts.instances }}"
 
-- name: RHEL (essentials) mode - setup inventory
+- name: RHEL mode - setup inventory
   include_tasks: "addhost_rhel.yml"
   when: workshop_type == 'rhel'
 
@@ -37,3 +37,7 @@
 - name: DevOps mode - setup inventory
   include_tasks: "addhost_devops.yml"
   when: workshop_type == 'devops'
+
+- name: security mode - setup inventory
+  include_tasks: "addhost_security.yml"
+  when: workshop_type == 'security'

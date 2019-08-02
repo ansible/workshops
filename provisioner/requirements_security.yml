@@ -1,0 +1,3 @@
+- src: ansible_security.ids_config
+- src: ansible_security.ids_install
+- src: geerlingguy.repo-epel

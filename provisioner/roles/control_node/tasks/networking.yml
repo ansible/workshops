@@ -16,6 +16,7 @@
           - f5-sdk
           - bigsuds
           - netaddr
+          - jmespath
         state: latest
   when: workshop_type == "f5"
 
@@ -46,66 +47,47 @@
 #   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
 #
 # That would enable a more generic role/scaffolding
+- name: clean out /tmp/linklight
+  file:
+    path: /tmp/linklight
+    state: absent
 
-- name: Clone linklight repo (NETWORKING MODE)
+- name: Clone workshops repo (NETWORKING MODE)
   git:
     accept_hostkey: yes
     clone: yes
-    dest: /tmp/linklight
-    repo: https://github.com/network-automation/linklight.git
+    dest: /tmp/workshops
+    repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
+    version: '{{ ansible_workshops_version | default("master") }}'
+    refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: yes
 
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Move networking workshop folder to correct location  (NETWORKING MODE)
-#   copy:
-#     src: /tmp/linklight/exercises/ansible_network/
-#     dest: /home/{{ username }}/networking-workshop
-#     remote_src: yes
-#   when: workshop_type == 'networking'
-
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)
-  command: cp -r /tmp/linklight/exercises/ansible_network/ /home/{{ username }}/networking-workshop/
+  copy:
+    src: /tmp/workshops/exercises/ansible_network/
+    dest: /home/{{ username }}/networking-workshop
+    remote_src: yes
+    owner: "{{ username }}"
+    group: "{{ username }}"
   when: workshop_type == 'networking'
-
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Create demos folder with demos
-#   copy:
-#     src: /tmp/linklight/demos/
-#     dest: /home/{{ username }}/demos
-#     remote_src: yes
-#   when: workshop_type == 'networking'
 
 - name: Create demos folder with demos
-  command: cp -r /tmp/linklight/demos/ /home/{{ username }}/demos
+  copy:
+    src: /tmp/workshops/demos/
+    dest: /home/{{ username }}/demos
+    remote_src: yes
+    owner: "{{ username }}"
+    group: "{{ username }}"
   when: workshop_type == 'networking'
 
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Move networking workshop folder to correct location  (F5 MODE)
-#   copy:
-#     src: /{{playbook_dir}}/linklight/exercises/ansible_f5/
-#     dest: /home/{{ username }}/networking-workshop
-#   when: workshop_type == 'f5'
-
 - name: Move networking workshop folder to correct location  (F5 MODE)
-  shell: mkdir /home/{{ username }}/networking-workshop; cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
+  copy:
+    src: /tmp/workshops/exercises/ansible_f5/
+    dest: /home/{{ username }}/networking-workshop
+    remote_src: yes
+    owner: "{{ username }}"
+    group: "{{ username }}"
   when: workshop_type == 'f5'
-
-- name: fix permissions of networking-workshop  (NETWORKING MODE)
-  file:
-    path: /home/{{ username }}/networking-workshop
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    recurse: yes
-
-- name: fix permissions of demos  (NETWORKING MODE)
-  file:
-    path: /home/{{ username }}/demos
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    recurse: yes
 
 - name: Create lab inventory directory (NETWORKING MODE)
   file:

@@ -1,6 +1,6 @@
-# Exercise 2.1 - Introduction to Tower
+# 演習 2.1 - Tower の紹介
 
-## Why Ansible Tower?
+## Ansible Tower の価値
 
 Ansible Tower is a web-based UI that provides an enterprise solution for IT automation. It
 

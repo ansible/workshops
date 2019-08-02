@@ -43,7 +43,8 @@ Ansible Control Host に ssh でログインします。
 
     ssh studentX@11.22.33.44
 
-Ansible Control Host に Tower をインストールします。`<xxxxx>` の部分にはダウンロードしたバージョンを入力ください。  
+Ansible Control Host に Tower をインストールします。  
+`<xxxxx>` の部分には、ダウンロードしたファイルに適合する、適切な値を入力ください。  
 
     [student<X>@ansible ~]$ cd /tmp
     [student<X>@ansible ~]$ curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
@@ -62,6 +63,7 @@ Ansible Control Host に Tower をインストールします。`<xxxxx>` の部
     [student<X>@ansible ~]$ sudo ./setup.sh
 
 ライセンスファイルの適応  
+![Ansible Tower License](images/LicenseFile.jpg)   
 
 1.Ansible Tower サーバーにブラウザでアクセスし"参照"をクリックします。  
 　`https://<Ansigle Control Host>/`  
@@ -70,22 +72,22 @@ Ansible Control Host に Tower をインストールします。`<xxxxx>` の部
 　※ライセンスファイルに関しては講師より指示があります。
 3.使用許諾にチェックを入れて"送信"を押下します。 
   
-![Ansible Tower License](images/LicenseFile.jpg)    
+ 
 
 
 ## ダッシュボード
 
 Web UI を使用して Ansible Tower に `admin` 権限でログインすると、グラフと以下のような情報が表示されます。  
 
-  - 
+  - 最近実行したジョブ
 
-  - the number of managed hosts
+  - 管理対象ホストの台数
 
-  - quick pointers to lists of hosts with problems.
+  - 問題のあるホストの台数とそのホストへのリンク
 
-The dashboard also displays real time data about the execution of tasks completed in playbooks.
+ダッシュボードには、 Playbook で完了したタスクの実行に関するリアルタイムデータも表示されます。  
 
-![Ansible Tower License](images/LisenceFile.jpg)
+![Ansible Tower ダッシュボード](images/dashboard-jp.png)
 
 ## Concepts
 

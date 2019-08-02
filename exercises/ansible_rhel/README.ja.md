@@ -1,30 +1,44 @@
-# Ansible Linklight - Ansible エンジン
+# Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
-このコンテンツは、Ansibleの効果的なデモンストレーション、ワークショップ、ハンズオン、自己学習など、さまざまな目的や用途で利用可能なツールです。
+Ansibleはアプリケーションの展開、構成管理、オーケストレーションなどで利用できるシンプルでパワフルな自動化エンジンであり、すぐに習得することができます。
 
-このラボでは、基本からより高度な概念まで、自動化における Ansible Engine の使い方を学びます。
+このラボの最初のセクションでは、Ansible Engineによる自動化の基礎からいくつかの先進的なコンセプトまでを学習します。
 
-このラボを終了すると、自動化の要件に対する Ansible の適応方法を理解することができます。
+二つ目のラボでは、Ansible Towerについて、Towerとは何か、仕組み、利点など、概要を説明します。
 
-想定している管理対象はLinux ホストです。
+これらのラボを完了させた時、あなたはAnsibleを用いた自動化の準備をできる状態になっているはずです。
 
 **Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).
 
 ## プレゼンテーション資料
 
 プレゼンテーション資料はこちら:
-[Ansible Essentials Deck](../../decks/ansible-technical.pdf)
+[Ansible for Red Hat Enterprise Linux Deck](../../decks/ansible-technical.pdf)
 
-## Ansible エンジン演習
+Ansibleのベストプラクティスもあわせてご覧ください:
+[Ansible Best Practices](../../decks/ansible_best_practices.pdf)
 
- - [演習 1.1 - 前提条件の確認](1.1-setup/README.ja.md)
- - [演習 1.2 - アドホック・コマンドの実行](1.2-adhoc/README.ja.md)
- - [演習 1.3 - 初めての Playbook 作成](1.3-playbook/README.ja.md)
+## Section 1 - Ansible Engineの演習
+
+ - [演習 1.1 - 要件を確認してみよう](1.1-setup/README.ja.md)
+ - [演習 1.2 - Ad-hoc コマンドを実行しよう](1.2-adhoc/README.ja.md)
+ - [演習 1.3 - 初めてのplaybook作成](1.3-playbook/README.ja.md)
  - [演習 1.4 - 変数を使ってみる](1.4-variables/README.ja.md)
  - [演習 1.5 - 条件式、ハンドラ、ループを使う](1.5-handlers/README.ja.md)
  - [演習 1.6 - テンプレートを使う](1.6-templates/README.ja.md)
  - [演習 1.7 - Roles：Playbookを再利用可能にする](1.7-role/README.ja.md)
  - [演習 1.8 - ボーナスラボ](1.8-bonus/README.ja.md)
+
+## Section 2 - Ansible Towerの演習
+
+ - [Exercise 2.1 - Towerの紹介](2.1-intro)
+ - [Exercise 2.2 - インベントリ, クレデンシャル情報,  Ad-hoc コマンド](2.2-cred)
+ - [Exercise 2.3 - Project, job template](2.3-projects)
+ - [Exercise 2.4 - サーベイ機能](2.4-surveys)
+ - [Exercise 2.5 - Role based access control](2.5-rbac)
+ - [Exercise 2.6 - ワークフロー](2.6-workflows)
+ - [Exercise 2.7 - まとめ](2.7-wrap)
+
 
 ## 追加情報
  - [Ansible - はじめに](http://docs.ansible.com/ansible/latest/intro_getting_started.html)

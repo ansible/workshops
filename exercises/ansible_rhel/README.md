@@ -8,7 +8,7 @@ The second section of this lab covers Tower and provide the user an overview of 
 
 After finishing this lab you are ready to start using Ansible for your automation requirements.
 
-**Read this in other languages**: [![uk](../../images/uk.png) English](README.md).
+**Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README_ja.md).
 
 ## Presentations
 
@@ -45,4 +45,3 @@ Also have a look at our Ansible Best Practices Deck:
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
-

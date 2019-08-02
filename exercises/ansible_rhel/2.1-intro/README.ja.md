@@ -61,20 +61,19 @@ Ansible Control Host に Tower をインストールします。
 以下のコマンドを実行し、Ansible Tower のインストールを開始します！！  
   
     [student<X>@ansible ~]$ sudo ./setup.sh
-
+  
 ライセンスファイルの適応  
+  
 ![Ansible Tower License](images/LicenseFile.jpg)   
 
 1.Ansible Tower サーバーにブラウザでアクセスし"参照"をクリックします。  
 　`https://<Ansigle Control Host>/`  
 　IDとパスワードは、インストール時に指定した `admin` / `ansibleWS` です。  
 2. 参照をクリックし、ライセンスファイルを指定します。  
-　※ライセンスファイルに関しては講師より指示があります。
+　※ライセンスファイルに関しては講師より指示があります。  
 3.使用許諾にチェックを入れて"送信"を押下します。 
   
  
-
-
 ## ダッシュボード
 
 Web UI を使用して Ansible Tower に `admin` 権限でログインすると、グラフと以下のような情報が表示されます。  

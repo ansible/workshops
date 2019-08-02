@@ -27,13 +27,40 @@ Ansible Towerは、IT自動化のためのエンタープライズソリュー�
 | Managed Host 2               | node2          |
 | Managed Host 2               | node3          |
 
-※Tower がインストールされていない場合もあります。
-　その際は、タワーのインストールから実施ください。
-　
+Ansible Towerはすでにインストールされ、ライセンスが付与されています。WebUIにはHTTP / HTTPS経由でアクセスできます。  
 
-The Ansible Tower provided in this lab is individually setup for you. Make sure to access the right machine whenever you work with it. Ansible Tower has already been installed and licensed for you, the web UI will be reachable over HTTP/HTTPS.
+※講師の意向により Tower がインストールされていない場合もあります。その際は講師より指示がありますので、Tower のインストールから実施ください。  
 
-## Dashboard
+## Tower インストール
+
+Tower のインストールが未実施の場合、以下の手順で Tower のインストールを実施ください。既にインストールされている場合はこの手順はスキップしてください。  
+
+> **Warning**
+> 
+> **11.22.33.44** は自分自身の Ansible Control Host のIPアドレスに置き換えてください。  
+
+Ansible Control Host に ssh でログインします。  
+
+    ssh studentX@11.22.33.44
+
+Ansible Control Host に Tower をインストールします。  
+
+    [student<X>@ansible ~]$ cd /tmp
+    [student<X>@ansible ~]$ curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+    [student<X>@ansible ~]$ tar xvzf ansible-tower-setup-<xxxxx>.tar.gz
+    [student<X>@ansible ~]$ cd ansible-tower-setup-<xxxxx>
+    [student<X>@ansible ~]$ vi inventory
+
+※ファイルの中でブランクになっている、3つのパスワードを以下の通り設定し、ファイルを保存します。  
+ admin_password='ansibleWS'
+ pg_password='ansibleWS'
+ rabbitmq_password='ansibleWS'
+
+インストール開始！！  
+
+    [student<X>@ansible ~]$ sudo ./setup.sh
+
+## ダッシュボード
 
 When logged in to Ansible Tower using the web UI, the administrator can view a graph that shows
 

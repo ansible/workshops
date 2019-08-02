@@ -123,5 +123,5 @@ Ansible Tower を使い始めるには、いくつかの概念と Ansible Tower 
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
 

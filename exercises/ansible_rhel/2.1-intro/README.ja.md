@@ -43,7 +43,7 @@ Ansible Control Host に ssh でログインします。
 
     ssh studentX@11.22.33.44
 
-Ansible Control Host に Tower をインストールします。  
+Ansible Control Host に Tower をインストールします。<xxxxx>の部分にはダウンロードしたバージョンを入力ください。  
 
     [student<X>@ansible ~]$ cd /tmp
     [student<X>@ansible ~]$ curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
@@ -68,11 +68,10 @@ Ansible Control Host に Tower をインストールします。
 　IDとパスワードは、インストール時に指定した admin / ansibleWS です。  
 2. 参照をクリックし、ライセンスファイルを指定します。  
 　※ライセンスファイルに関しては講師より指示があります。
+3.使用許諾にチェックを入れて"送信"を押下します。 
+  
+![Ansible Tower License](images/LicenseFile.jpg)    
 
-![Ansible Tower License](images/LicenseFile.jpg)
-3.使用許諾にチェックを入れて"送信"を押下します。  
-
-     
 
 ## ダッシュボード
 

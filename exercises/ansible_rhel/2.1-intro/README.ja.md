@@ -62,6 +62,12 @@ Ansible Control Host に Tower をインストールします。
   
     [student<X>@ansible ~]$ sudo ./setup.sh
   
+    
+インストール完了には10分程かかります。セットアップが成功したことを確認します。  
+
+![Ansible Tower インストール](images/install.png)  
+  
+  
 ライセンスファイルの適応  
   
 ![Ansible Tower License](images/LicenseFile.jpg)   
@@ -88,31 +94,32 @@ Web UI を使用して Ansible Tower に `admin` 権限でログインすると�
 
 ![Ansible Tower ダッシュボード](images/dashboard-jp.png)
 
-## Concepts
+## Ansible Tower の概念
 
-To start using Ansible Tower, you should get familiar with some concepts and naming conventions.
+Ansible Tower を使い始めるには、いくつかの概念と Ansible Tower 独特のオブジェクト名に慣れておく必要があります。  
 
-**Projects**
+**プロジェクト**
 
-Projects are logical collections of Ansible playbooks in Ansible Tower. These playbooks either reside on the Ansible Tower instance, or in a source code version control system supported by Tower.
+プロジェクトは Ansible Tower の Playbook の論理的な集まりです。これらの Playbook は Ansible Tower インスタンス上にあるか、または Tower がサポートするソースコードバージョン管理システム内にあります。  
 
-**Inventories**
+**インベントリー**
 
-An Inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. Inventories are divided into groups and these groups contain the actual hosts. Groups may be populated manually, by entering host names into Tower, from one of Ansible Tower’s supported cloud providers or through dynamic inventory scripts.
+インベントリーは、 Ansible Engine のインベントリーファイルと同じように、ジョブを実行する対象ノードの集まりです。インベントリーはグループに分けられ、これらのグループの中に実際のホストが含まれています。インベントリーホストの登録は、１台１台手動で登録することも可能ですし、 Ansible Tower がサポートするクラウドプロバイダや、インベントリースクリプトを使用して自動で登録することも可能です。  
 
-**Credentials**
+**認証情報**
 
-Credentials are utilized by Tower for authentication when launching Jobs against machines, synchronizing with inventory sources, and importing project content from a version control system. Credential configuration can be found in the Settings.
+認証情報は、対象ノードに対してジョブを実行したり、インベントリーをダイナミックに同期したり、バージョン管理システムからプロジェクトコンテンツをインポートする時に使用されます。  
 
-Tower credentials are imported and stored encrypted in Tower, and are not retrievable in plain text on the command line by any user. You can grant users and teams the ability to use these credentials, without actually exposing the credential to the user.
+認証情報は保存の際、 Tower によって暗号化されます。このため、登録された後はどのユーザーもコマンドラインでプレーンテキストで取得することはできません。このため、登録されたユーザーの資格情報を公開することなく、他のユーザーおよびチームに、これらの認証情報の使用権限を安全に付与することが可能です。  
 
-**Templates**
 
-A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. Job templates also encourage the reuse of Ansible playbook content and collaboration between teams. To execute a job, Tower requires that you first create a job template.
+**テンプレート**
+
+テンプレートにはジョブテンプレートとワークフローテンプレートがあります。ジョブテンプレートは、 Playbook を実行するための定義とパラメータのセットです。ジョブテンプレートは、同じジョブを何度も実行する際に便利です。ジョブテンプレートは、Ansible プレイブックのコンテンツの再利用とチーム間のコラボレーションも促進します。ジョブを実行するには、 Tower では最初に仕事テンプレートを作成する必要があります。ワークフローテンプレートは、複数のジョブテンプレートやワークフローテンプレートをまとめて実行するための機能を提供します。
 
 **Jobs**
 
-A job is basically an instance of Tower launching an Ansible playbook against an inventory of hosts.
+ジョブは基本的に、実行されたジョブテンプレートやワークフローテンプレートのことを指します。
 
 ----
 

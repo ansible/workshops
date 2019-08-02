@@ -1,24 +1,24 @@
-# 演習 2.1 - Tower の紹介
+# 演習 2.1 - Tower の紹介（インストール）
 
 ## Ansible Tower の価値
 
-Ansible Tower is a web-based UI that provides an enterprise solution for IT automation. It
+Ansible Towerは、IT自動化のためのエンタープライズソリューションを提供するWebベースのUIです。
 
-  - has a user-friendly dashboard
+  - ユーザーフレンドリーなダッシュボード形式
 
-  - complements Ansible, adding automation, visual management, and monitoring capabilities.
+  - Ansibleを補完し、自動化、ビジュアル管理、および監視機能を追加します
 
-  - provides user access control to administrators.
+  - 管理者にユーザーアクセス制御を提供します
 
-  - graphically manages or synchronizes inventories with a wide variety of sources.
+  - 仮想化、クラウドなど様々な情報ソース内のグラフィカルなインベントリの管理と同期
 
-  - a RESTful API
+  - RESTful API への対応
 
-  - And much more...
+  - などなど...
 
-## Your Ansible Tower Lab Environment
+## Ansible Tower ラボ環境
 
-In this lab you work in a pre-configured lab environment. You will have access to the following hosts:
+この実習ラボでは、事前設定された実習ラボ環境で作業します。以下のホストにアクセスできます。  
 
 | Role                         | Inventory name |
 | -----------------------------| ---------------|
@@ -26,6 +26,10 @@ In this lab you work in a pre-configured lab environment. You will have access t
 | Managed Host 1               | node1          |
 | Managed Host 2               | node2          |
 | Managed Host 2               | node3          |
+
+※Tower がインストールされていない場合もあります。
+　その際は、タワーのインストールから実施ください。
+　
 
 The Ansible Tower provided in this lab is individually setup for you. Make sure to access the right machine whenever you work with it. Ansible Tower has already been installed and licensed for you, the web UI will be reachable over HTTP/HTTPS.
 

@@ -4,3 +4,4 @@ exclude:
   - "*.yaml"
 include:
   - "exercises/ansible_network/2-first-playbook/router_configs.yml"
+  - "*.ja"

@@ -1,6 +1,6 @@
 # Exercise 1.1 - 要件を確認してみよう
 
-**Read this in other languages**: [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README-ja.md).
+**Read this in other languages**: [![uk](../../../images/uk.png) English](README),  [![japan](../../../images/japan.png) 日本語](README.ka).
 
 ## ラボ環境について
 

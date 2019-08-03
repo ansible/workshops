@@ -1,6 +1,6 @@
 # 演習 2.2 - モジュールの組み合わせを使用して適切なロールバックを実行する
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 

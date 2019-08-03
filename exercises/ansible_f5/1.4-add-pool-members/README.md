@@ -1,5 +1,7 @@
 # Exercise 1.4: Adding members to a pool on F5
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## Table of Contents
 
 - [Objective](#objective)

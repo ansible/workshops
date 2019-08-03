@@ -1,5 +1,7 @@
 # 演習 2.2 - モジュールの組み合わせを使用して適切なロールバックを実行する
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## 目次
 
 - [目的](#目的)
@@ -36,7 +38,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
   hosts: lb
   connection: local
   gather_facts: no
-  
+
 ```
 {% endraw %}
 
@@ -90,7 +92,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES
@@ -124,7 +126,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES
@@ -165,7 +167,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES
@@ -216,7 +218,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES
@@ -278,7 +280,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES
@@ -360,7 +362,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-        
+
   - name: Setup and graceful rollback BIG-IP configuration
     block:
       - name: CREATE NODES

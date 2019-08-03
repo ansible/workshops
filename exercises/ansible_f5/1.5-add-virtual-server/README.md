@@ -1,5 +1,7 @@
 # Exercise 1.5: Using the bigip_virtual_server module
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## Table of Contents
 
 - [Objective](#objective)

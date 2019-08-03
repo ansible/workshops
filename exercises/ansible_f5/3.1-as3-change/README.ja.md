@@ -1,5 +1,7 @@
 # 演習 3.1 - AS3 による変更運用
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## 目次
 
 - [目的](#目的)

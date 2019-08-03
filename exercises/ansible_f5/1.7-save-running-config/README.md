@@ -1,5 +1,7 @@
 # Exercise 1.7: Using the bigip_config module
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## Table of Contents
 
 - [Objective](#objective)

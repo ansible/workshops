@@ -1,6 +1,6 @@
 # Exercise 1.2 - Ad-hoc コマンドを実行しよう
 
-**Read this in other languages**: [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](japanREADME.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
 
 最初の演習では、Ansible がどのように動作するかを学習するために アドホック・コマンド を実行します。
 Ansible Ad-hocコマンドは、プレイブックを作成しなくてもリモートノードへのタスク実行を可能にします。

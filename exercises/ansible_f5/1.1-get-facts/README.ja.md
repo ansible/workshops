@@ -1,5 +1,7 @@
 # 演習 1.1 - Ansible による F5 BIG-IP の情報収集
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## 目次
 
 - [目的](#目的)
@@ -90,7 +92,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 ## Step 4
 
-次に2つ目の `task` を追加します。 このタスクでは `debug` モジュールを使って、register 
+次に2つ目の `task` を追加します。 このタスクでは `debug` モジュールを使って、register
 された `bigip_device_facts variable` 変数の値を出力します。
 
 {% raw %}

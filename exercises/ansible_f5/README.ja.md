@@ -4,7 +4,7 @@
 
 これはインストラクターの講義、ハンズオン、自習などの様々な形式でワークショップトレーニングを提供することで、F5 BIG-IP を Ansible で自動化する機能を効果的に実証する多目的のコンテンツとなります。
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png) [日本語](README.ja.md).
 
 ## Presentation
 プレゼンテーション資料はこちらです:

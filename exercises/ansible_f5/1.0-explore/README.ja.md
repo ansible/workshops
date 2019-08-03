@@ -1,6 +1,6 @@
 # 演習 1.0 - 演習環境の確認
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 演習を開始する前にぜひ Ansible Slack へ参加してください！(任意)
 

@@ -1,6 +1,6 @@
 # 演習 1.6 - iRules の追加と Virtual Server へのアタッチ
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 

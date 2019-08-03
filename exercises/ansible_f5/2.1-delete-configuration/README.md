@@ -1,6 +1,6 @@
 # Exercise 2.1: Using a combination of modules to delete configuration on the BIG-IP
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## Table of Contents
 

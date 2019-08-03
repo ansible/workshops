@@ -1,6 +1,6 @@
 # 演習1.4 - 変数を使ってみよう
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 前回までは Ansible Engine の基礎部分を学習してきました。この演習では Playbook をより柔軟かつパワフルに使用できる、より高度なスキルを学びます。
 

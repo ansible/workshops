@@ -1,6 +1,6 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
-**Read this in other languages**: ![uk](../../images/uk.png) [English](README),  ![japan](../../images/japan.png) [日本語](README.ja).
+**Read this in other languages**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png) [日本語](README.ja.md).
 
 Ansibleはアプリケーションの展開、構成管理、オーケストレーションなどで利用できるシンプルでパワフルな自動化エンジンであり、すぐに習得することができます。
 
@@ -9,8 +9,6 @@ Ansibleはアプリケーションの展開、構成管理、オーケストレ�
 二つ目のラボでは、Ansible Towerについて、Towerとは何か、仕組み、利点など、概要を説明します。
 
 これらのラボを完了させた時、あなたはAnsibleを用いた自動化の準備をできる状態になっているはずです。
-
-**Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja).
 
 ## プレゼンテーション資料
 

@@ -6,3 +6,4 @@ include:
   - "exercises/ansible_network/playbook.yml"
   - "exercises/ansible_network/3-facts/facts.yml"
   - "exercises/ansible_network/4-jinja/config.yml"
+  - workshops/exercises/ansible_network/3-facts/facts.yml

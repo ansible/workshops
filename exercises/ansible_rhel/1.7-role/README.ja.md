@@ -1,6 +1,6 @@
 # 演習 1.7 - Roles: Playbook を再利用可能にする
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 今までのワークショップで学習してきた通り、Playbook を1つのファイルに書くことは可能です。しかしそのうち、作成した Playbook を再利用したいと考えるようになると思います。  
 

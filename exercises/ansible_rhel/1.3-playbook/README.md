@@ -1,6 +1,6 @@
 # Exercise 1.3 - Writing Your First Playbook
 
-**Read this in other languages**: [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](japan_README.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
 
 While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
 

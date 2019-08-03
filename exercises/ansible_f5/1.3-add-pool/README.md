@@ -1,5 +1,7 @@
 # Exercise 1.3 - Adding a load balancing pool
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## Table of Contents
 
 - [Objective](#objective)

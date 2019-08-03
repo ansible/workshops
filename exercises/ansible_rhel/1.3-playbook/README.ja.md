@@ -1,6 +1,6 @@
 # Exercise 1.3 - 初めてのplaybookを書いてみよう
 
-**Read this in other languages**: [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](japan_README.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
 
 Ansibleのアドホックコマンドは単純なオペレーションの際にはとても役立ちますが、複雑な構成管理やオーケストレーションのシナリオには適していません。そのようなユースケースの時には、*playbooks*を用いてみると良いでしょう。
 

@@ -1,5 +1,7 @@
 # 演習 1.4 - メンバーをプールへ追加
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## 目次
 
 - [目的](#目的)
@@ -25,7 +27,7 @@
 
 ## Step 2:
 
-`bigip-pool-members.yml` へ、以下のプレイブック定義を記述します : 
+`bigip-pool-members.yml` へ、以下のプレイブック定義を記述します :
 
 ``` yaml
 ---
@@ -72,7 +74,7 @@
 
 - `name: ADD POOL MEMBERS` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_pool_member:` ：　使用するモジュールを宣言しています。
-- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。 
+- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。

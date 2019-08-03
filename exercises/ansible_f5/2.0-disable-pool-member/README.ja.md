@@ -1,5 +1,7 @@
 # 演習 2.0 - プールメンバーの無効化
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
+
 ## 目次
 
 - [目的](#目的)
@@ -137,7 +139,7 @@ HINT: Playbook 内で動的に各ファクト情報を簡易設定する方法�
 
 ヒント:
 <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when による条件分岐とループ </a> と [BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html)を参照してください。
-  
+
 ## Step 10
 Playbook の実行 - コントロールホストへ戻り、以下のコマンドを実行します:
 

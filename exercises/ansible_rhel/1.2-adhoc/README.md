@@ -1,6 +1,6 @@
 # Exercise 1.2 - Running Ad-hoc commands
 
-**Read this in other languages**: [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](japanREADME.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja).
 
 For our first exercise, we are going to run some ad-hoc commands to help you get a feel for how Ansible works.  Ansible Ad-Hoc commands enable you to perform tasks on remote nodes without having to write a playbook.  They are very useful when you simply need to do one or two things quickly and often, to many remote nodes.
 

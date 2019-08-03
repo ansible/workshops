@@ -1,6 +1,6 @@
 # Exercise 1.1 - Check the Prerequisites
 
-**Read this in other languages**: [![uk](../../../images/uk.png) English](README),  [![japan](../../../images/japan.png) 日本語](README.ja).
+**Read this in other languages**: ![uk](../../../images/uk.png)[English](README),  ![japan](../../../images/japan.png)[日本語](README.ja).
 
 ## Your Lab Environment
 

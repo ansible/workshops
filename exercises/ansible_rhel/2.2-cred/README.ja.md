@@ -4,19 +4,20 @@
 
 まず必要なのは、管理対象ホストの一覧です。これはAnsible Engineのインベントリファイルに相当します。インベントリーにはダイナミックインベントリーなど、高度なものもありますが、まずは基本的なところから始めてみましょう。  
 
-  - ブラウザで **https://<ansible >\<X\>.workshopname.rhdemo.io** (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+  - ブラウザで **https://<Ansigle Control Host & Tower>/** に接続しログインします。
+  　ユーザーは `admin` パスワードはインストール時に指定した `ansibleWS` です。
 
-Create the inventory:
+インベントリの作成:
 
-  - In the web UI menu on the left side, go to **RESOURCES** → **Inventories**, click the ![plus](images/green_plus.png) button on the right side and choose **Inventory**.
+  - 左側のWeb UIメニューで、**インベントリー** をクリックし、右端の ![plus](images/green_plus.png) ボタンをクリック。表示されるプルダウンの中から、インベントリーを選択します。
 
-  - **NAME:** Workshop Inventory
+  - **名前:** Workshop Inventory
 
-  - **ORGANIZATION:** Default
+  - **組織:** Default
 
-  - Click **SAVE**
+  - **保存** をクリック
 
-Now there will be two inventories, the **Demo Inventory** and the **Workshop Inventory**. In the **Workshop Inventory** click the **Hosts** button, it will be empty since we have not added any hosts there.
+ブラウザ下部に、利用可能なインベントリーが表示されていますので確認してみましょう。 Ansible Tower にあらかじめ作成されている **Demo Inventory** と、今作成した **Workshop Inventory** の2つが存在していることが分かります. ブラウザ上部に戻って、 **Workshop Inventory** の中にある **ホスト** ボタンをクリックすると、まだホストを 1 台も登録していないのでリストが空であることが分かります。
 
 So let's add some hosts. First we need to have the list of all hosts which are accessible to you within this lab. These can be found in an inventory on the ansible control node on which Tower is installed.
 

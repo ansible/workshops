@@ -1,5 +1,7 @@
 # Exercise 1.6: Using the bigip_irule module
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Table of Contents
 
 - [Objective](#objective)

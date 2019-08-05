@@ -1,5 +1,7 @@
 # 演習 1.5 - Virtual Server の追加
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## 目次
 
 - [目的](#目的)
@@ -27,7 +29,7 @@
 
 Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは構造化されたフォーマットで、非常に読み易いものです。
 
-以下の定義を `bigip-virtual-server.yml` に入力します : 
+以下の定義を `bigip-virtual-server.yml` に入力します :
 
 ``` yaml
 ---
@@ -74,13 +76,13 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 
 {% endraw %}
 
->プレイブックは一連のタスクから成ります。タスクとモジュールは1：1の関係性があります。モジュールは、Ansible API やansible / ansible-playbook から利用可能で、再利用可能なスタンドアロンスクリプトです。実行結果は、JSON文字列として標準出力へ出力されます。 
+>プレイブックは一連のタスクから成ります。タスクとモジュールは1：1の関係性があります。モジュールは、Ansible API やansible / ansible-playbook から利用可能で、再利用可能なスタンドアロンスクリプトです。実行結果は、JSON文字列として標準出力へ出力されます。
 
 - `name: ADD VIRTUAL SERVER` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_virtual_server:` ：　使用するモジュールを宣言しています。
-- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。 
+- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。 
+- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `name: "vip"` ： vip という名前のVirtual Server を作成することを指定します。
 - `destination"` ： Virtual Server にIPアドレスを指定します。
@@ -153,4 +155,4 @@ Virtual Serverは画面左のメニューから辿ることで確認できます
 ```
 
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md.md)

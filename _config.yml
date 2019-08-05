@@ -1,6 +1,8 @@
 theme: jekyll-theme-dinky
-exclude:
-  - "*.yml"
-  - "*.yaml"
 include:
-  - "exercises/ansible_network/2-first-playbook/router_configs.yml"
+  - "provisioner/README.md"
+exclude:
+  - "demos/*"
+  - "provisioner/roles"
+  - "provisioner/group_vars"
+  - "provisioner/inventory"

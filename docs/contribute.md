@@ -26,11 +26,13 @@ git remote add upstream https://github.com/ansible/workshops.git
 
 ### Rebasing Your Branch
 
-Three step process
+Rebase the branch on your fork
 
 ```bash
 git pull --rebase upstream devel
 ```
+
+Check your status 
 
 ```bash
 git status

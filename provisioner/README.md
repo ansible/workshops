@@ -1,5 +1,6 @@
 # Ansible AWS training provisioner
-**aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
+
+The `github.com/ansible/workshops` contains a provisioner `provision_lab.yml`, which is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
 
 | Workshop   | Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
@@ -17,7 +18,7 @@
 - [FAQ](../docs/faq.md)
 
 # Requirements
-- This provisioner must be run with Ansible Engine v2.7.0 or higher.
+- This provisioner must be run with Ansible Engine v2.8.0 or higher.
 - AWS Account (follow directions on one time setup below)
 
 # Lab Setup
@@ -70,7 +71,7 @@ For more extra_vars examples, look at the following:
 
 ## Accessing student documentation and slides
 
-  - Exercises and instructor slides are hosted at http://ansible.com/linklight
+  - Exercises and instructor slides are hosted at http://ansible.github.io/workshops
   - Workbench information is stored in two places after you provision:
     - in a local directory named after the workshop (e.g. TESTWORKSHOP/instructor_inventory)
     - if `create_login_page: true` is enabled, there will be a website ec2_name_prefix.workshop_dns_zone (e.g. TESTWORKSHOP.rhdemo.io)
@@ -86,4 +87,5 @@ To destroy all the EC2 instances after training is complete:
         ansible-playbook teardown_lab.yml -e @extra_vars.yml
 
 # FAQ
+
 For frequently asked questions see the [FAQ](../docs/faq.md)

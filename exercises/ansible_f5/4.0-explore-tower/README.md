@@ -1,23 +1,30 @@
-# Exercise 5: Explore Red Hat Ansible Tower
+# Exercise 4.0: Explore Red Hat Ansible Tower
 
 ## Table of Contents
 
+- [Exercise 4.0: Explore Red Hat Ansible Tower](#exercise-40-explore-red-hat-ansible-tower)
+  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-   - [Step 1: Login to Ansible Tower](#step-1-login-to-ansible-tower)
-   - [Step 2: Examine the Ansible Tower Inventory](#step-2-examine-the-ansible-tower-inventory)
-   - [Step 3: Examine the Ansible Tower Workshop Project](#step-3-examine-the-ansible-tower-workshop-project)
-   - [Step 4: Examine the Ansible Tower Workshop Credential](#step-4-examine-the-ansible-tower-workshop-credential)
+  - [Step 1: Login to Ansible Tower](#step-1-login-to-ansible-tower)
+  - [Step 2: Examine the Ansible Tower Inventory](#step-2-examine-the-ansible-tower-inventory)
+  - [Step 3: Examine the Ansible Tower Workshop Project](#step-3-examine-the-ansible-tower-workshop-project)
+  - [Step 4: Examine the Ansible Tower Workshop Credential](#step-4-examine-the-ansible-tower-workshop-credential)
+  - [Step 5: Examine the Ansible Tower Template](#step-5-examine-the-ansible-tower-template)
 - [Takeaways](#takeaways)
+- [Complete](#complete)
 
 # Objective
 
-Explore and understand the lab environment.  This exercise will cover
+Ansible Tower is a web-based solution than runs on top of Ansible that provides additional functionality while simplifying the operations of the software.
+
+In this lab, you will log in and perform some basic configurations that will be used in later labs to perform automation tasks against your F5 BIG-IP device pair.  This exercise will cover
 - Determining the Ansible version running on the control node
 - Locating and understanding:
   - Ansible Tower **Inventory**
   - Ansible Tower **Credentials**
   - Ansible Tower **Projects**
+  - Ansible Tower **Templates**
 
 # Guide
 
@@ -38,7 +45,7 @@ Open up your web browser and type in the Ansible control node's DNS name
 After logging in the Job Dashboard will be the default view as shown below.
 ![Tower Job Dashboard](images/tower_login.png)
 
-1.  Click on the **i** information button on the top left of the user interface.
+1.  Click on the **i** information button on the top right of the user interface.
 
     ![information button link](images/information_button.png)
 
@@ -59,26 +66,14 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 
     ![Inventories Button](images/inventories.png)
 
-2. Under Inventories there will be two inventories, the `Demo Inventory` and the `Workshop Inventory`.  Click on the `Workshop Inventory`.  
+2. Under Inventories there will inventories.  Click on the `Demo Inventory`.  
 
-    ![Workshop Inventory Link](images/workshop_inventory.png)
+3. Under the `Demo Inventory` click the **HOSTS** button at the top.  There will be hosts configured here.  Click on one of the devices.
 
-3. Under the `Workshop Inventory` click the **HOSTS** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  Click on one of the devices.
+4. Click on the `Demo Inventory` link at the top of the page to return the top level menu.
 
-     Take note of the **VARIABLES** field.  The `host_vars` are set here including the `ansible_host` variable.
-
-4. Click on the `Workshop Inventory` link at the top of the page to return the top level menu.
-
-    ![Workshop Inventory Top Link](images/workshop_inventory_top.png)
-
-5. Click on **GROUPS**.  There will be multiple groups here including `routers` and `cisco`.  Click on one of the groups.
-
-     Take note of the **VARIABLES** field. The `group_vars` are set here including the `ansible_connection` and `ansible_network_os` variable.
-
-Here is a walkthrough:
-
-![animation walkthrough ansible tower](images/inventory.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/4JNbFNSUS9g)
+5. Click on **GROUPS**.  There will where you can configure Group of hosts
+    ![Inventory](images/inventory.png)
 
 
 ## Step 3: Examine the Ansible Tower Workshop Project
@@ -91,18 +86,14 @@ A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You
 
     ![projects link](images/projects.png)
 
-2. Under **PROJECTS** there will be two pre-configured projects, `Demo Project` and the `Workshop Project`.  Click on the `Workshop Project`.  
-
-    ![Workshop Project Link](images/workshop_project.png)
+2. Under **PROJECTS** there will be one pre-configured projects, or `Demo Project`.  Click on the `Demo Project`.  
 
     Note that `GIT` is listed for this project.  This means this project is using Git for SCM.
 
-3. Under the `Workshop Project` click the **SCM TYPE** drop down menu
+3. Under the `Demo Project` click the **SCM TYPE** drop down menu
 
     Note that Git, Mercurial and Subversion are choices.  Return the choice to Git so that the Project continues to function correctly.
-
-![animation walkthrough ansible tower projects](images/projects.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/xRA97XTxMjA)
+![project link](images/project.png)
 
 ## Step 4: Examine the Ansible Tower Workshop Credential
 
@@ -114,25 +105,29 @@ Credentials are utilized by Tower for authentication when launching **Jobs** aga
 
     ![credentials link](images/credentials.png)
 
-2. Under **CREDENTIALS** there will be two pre-configured credentials, `Demo Credential` and the `Workshop Credentials`.  Click on the `Workshop Credential`.  
-
-    ![Workshop Credential Link](images/workshop_credential.png)
+2. Under **CREDENTIALS** there will be one pre-configured credential, or `Demo Credential`.  Click on the `Demo Credential`.  
 
 3. Under the `Workshop Credential` examine the following:
     - The **CREDENTIAL TYPE** is a **Machine** credential.  
-    - The **USERNAME** is set to `ec2-user`.
-    - The **PASSWORD** is blank.
-    - The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
+    - The **USERNAME** is set to `admin`.
+    - The **PASSWORD** is already configured, and is **ENCRYPTED**.
+    - The **SSH PRIVATE KEY** is blank.
 
-![animation walkthrough ansible credentials](images/credentials.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/UT0t_hlNw-c)
+![credential](images/credential.png)
+
+## Step 5: Examine the Ansible Tower Template
+
+Templates or Job Templates define the parameters that will be used when executing an Ansible playbook. These parameters include previously mentioned features such as which project and inventory will be used.
+Additionally, parameters such as logging level and process forks allow for additional granularity on how playbooks are ran.
+
+![template link](images/template.png)
 
 # Takeaways
 
 - Ansible Tower needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.  
-- Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Ansible Tower.
 - Ansible Tower can sync to existing SCM (source control management) including Github.  
 - Ansible Tower can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Tower can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
+- Ansible Job Templates define the parameters that will be used when executing an Ansible playbook
 
 ---
 

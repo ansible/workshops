@@ -1,15 +1,21 @@
-# Exercise 6: Creating a Tower Job Template
+# Exercise 4.1: Creating a Tower Job Template
 
 ## Table of Contents
 
+- [Exercise 4.1: Creating a Tower Job Template](#exercise-41-creating-a-tower-job-template)
+  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-   - [Step 1: Create a Job Template](#step-1-create-a-job-template)
-   - [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
-   - [Step 3: Examine the Job Details View](#step-3-examine-the-job-details-view)
-   - [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
-   - [Step 5: Verify the backups were created](#step-5-verify-the-backups-were-created)
+  - [Step 1: Create a Credential](#step-1-create-a-credential)
+  - [Step 2: Create an Inventory](#step-2-create-an-inventory)
+  - [Step 3: Create a Project](#step-3-create-a-project)
+  - [Step 1: Create a Job Template](#step-1-create-a-job-template)
+  - [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
+  - [Step 3: Examine the Job Details View](#step-3-examine-the-job-details-view)
+  - [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
+  - [Step 5: Verify the BIG-IP pool was created](#step-5-verify-the-big-ip-pool-was-created)
 - [Takeaways](#takeaways)
+- [Complete](#complete)
 
 # Objective
 
@@ -21,6 +27,104 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
  - A **Project** which contains Ansible Playbooks
 
 # Guide
+## Step 1: Create a Credential
+1. In the Ansible web UI, navigate to the :guilabel:`Credentials` section using the left navigation bar.
+
+2. Click on the green ![templates link](images/add.png) button to create a new Credential
+
+3. Fill out the credential parameters as follows, and click `Save`
+![workshop credential link](images/ws_credential.png)
+
+## Step 2: Create an Inventory
+1. In the Ansible web UI, navigate to the :guilabel:`Inventories` section using the left navigation bar.
+
+2. Click on the green ![templates link](images/add.png) button to create a new Inventory
+
+3. Fill out the inventory parameters as follows, and click `Save`
+
+![workshop inventory link](images/Workshop_inventory.png)
+4. In your newly created inventory, click on the button labeled :guilabel:`Groups`.
+5. Click on the green ![templates link](images/add.png) button and fill in the following information
+
+In this case, all of our BIG-IP devices will share the same username and password. Populate the variables section as shown below.
+![group link](images/group.png)
+
+6. In the newly created Group, click on the button labeled :guilabel:`Hosts`.
+7. Click on the green ![templates link](images/add.png) button  and then :guilabel:`New Host`. Fill in the following information
+
+Each BIG-IP host in the inventory will have a ``bigip_server`` variable assigned to it with the value being the device's management IP address.
+Fill in the ``bigip_server`` variable with your lab's F5-A mgmt address as shown below:
+![host link](images/host.png)
+
+## Step 3: Create a Project
+1. In the Ansible web UI, navigate to the :guilabel:`Projects` section using the left navigation bar.
+2. Click on the green ![templates link](images/add.png) button to create a new project
+3. Fill out the project parameters as follows, and click `Save`
+
+    | Parameter | Value |
+    |---|---|
+    | Name  | Workshop Project  |
+    |  SCM Type |  Git |
+    |  SCM URL |  https://github.com/ericzji/lab-4.2-example.git |
+    |  Update Revision on Launch |  ✓ |
+
+![workshop_project link](images/workshop_project.png)
+
+For reference, here is one playbook that were imported and that will be executed later this lab.
+
+**create_pool.yml**
+
+``` yaml
+- hosts: bigip_devices
+  connection: local
+  tasks:
+  - name: Add Webserver A
+    bigip_node:
+       server: "{{ bigip_server }}"
+       user: "{{ bigip_username }}"
+       password: "{{ bigip_password }}"
+       name: "10.128.20.104"
+       host: "10.128.20.104"
+       validate_certs: False
+- name: Add Webserver B
+  bigip_node:
+    server: "{{ bigip_server }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    name: "10.128.20.105"
+    host: "10.128.20.105"
+    validate_certs: False
+- name: Create Webserver Pool
+  bigip_pool:
+    server: "{{ bigip_server }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    name: "ansible_webserver_pool"
+    lb_method: "round-robin"
+    monitors:
+    - http
+    - tcp
+    monitor_type: and_list
+    validate_certs: False
+- name: Add Webserver A to Webserver Pool
+  bigip_pool_member:
+    server: "{{ bigip_server }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    pool: "ansible_webserver_pool"
+    host: "10.128.20.104"
+    port: 80
+    validate_certs: False
+- name: Add Webserver A to Webserver Pool
+  bigip_pool_member:
+    server: "{{ bigip_server }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    pool: "ansible_webserver_pool"
+    host: "10.128.20.105"
+    port: 80
+    validate_certs: False
+```
 
 ## Step 1: Create a Job Template
 
@@ -36,24 +140,19 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 
     | Parameter | Value |
     |---|---|
-    | Name  | Backup network configurations  |
+    | Name  | create_pool	  |
     |  Job Type |  Run |
     |  Inventory |  Workshop Inventory |
     |  Project |  Workshop Project |
-    |  Playbook |  network_backup.yml |
+    |  Playbook |  create_pool.yml |
     |  Credential |  Workshop Credential |
 
 
     Here is a screenshot of the job template parameters filled out.
 
-    ![backup job template](images/backup.png)
+    ![create_pool job template](images/create_pool.png)
 
 4. Scroll down and click the green `save` button.
-
-Here is a walkthrough:
-
-![animation walkthrough ansible tower](images/job_template.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/EQVkFaQYRiE)
 
 
 ## Step 2: Launch the Job Template
@@ -70,7 +169,7 @@ Prefer Youtube?  [Click Here](https://youtu.be/EQVkFaQYRiE)
 
 On the left side there is a **Details pane** on the right side there is the **Standard Out pane**.
 
-![job details view](images/jobfinish.png)
+![job details view](images/job_create_pool.png)
 
 1.  Examine the **Details pane**    
 
@@ -108,38 +207,16 @@ Any **Job Template** that has been run or is currently running will show up unde
 
     The **Backup network configurations** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
 
-## Step 5: Verify the backups were created
+## Step 5: Verify the BIG-IP pool was created
 
-1. On the Ansible control node command line `ls /tmp/backup` to view the time stamped folder (or folders if you created multiple backups)
+Login to the F5 with your web browser to see what was configured.
+Login information for the BIG-IP:
 
-   ```
-   [student1@ansible ~]$ ls /tmp/backup
-   2019-07-09-18-42  2019-07-09-19-18
-   ```
-
-   - `ls` is a command to list computer files in Linux operating systems
-
-2. Use the `cat` command to view the contents of one of the time stamped network devices
-
-   ```
-   [student1@ansible ~]$ cat /tmp/backup/2019-07-09-18-42/rtr1
-
-   Current configuration : 5625 bytes
-   !
-   ! Last configuration change at 02:44:24 UTC Wed Jul 3 2019 by ec2-user
-   !
-   version 16.9
-   service tcp-keepalives-in
-   service tcp-keepalives-out
-   service timestamps debug datetime msec
-   service timestamps log datetime msec
-   service password-encryption
-   !
-   ! [[REST OF OUTPUT REMOVED FOR BREVITY]]
-   !
-   ```
-
-  3. Examine the remaining routers.  Your instructor may have setup multiple vendors for this exercise including Juniper and Arista.  Ansible Playbooks can be written to be vendor agnostic,  in this case we provided the Ansible Playbook via the Github repo: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
+- username: admin
+- password: provided by instructor defaults to ansible
+  
+The pool will now show two members. Click on Local Traffic-> then click on Pools. Click on `ansible_webserver_pool` to get more granular information. Click on the Members tab in the middle to list all the Members. 
+![pool link](images/pool.png)
 
 # Takeaways
 

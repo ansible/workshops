@@ -21,7 +21,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 # DOCUMENTATION:
 
  - [How to contribute](docs/contribute.md)
- - [How to use the AWS Lab Provisioner](provisioner/readme.md)
+ - [How to use the AWS Lab Provisioner](provisioner/README.md)
  - [FAQ](docs/faq.md)
 
 

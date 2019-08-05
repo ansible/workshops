@@ -68,7 +68,7 @@ Ansible Control Host に Tower をインストールします。
 ![Ansible Tower インストール](images/install.png)  
   
   
-ライセンスファイルの適応  
+#ライセンスファイルの適応  
 
 1.Ansible Tower サーバーにブラウザでアクセスし"参照"をクリックします。  
 　`https://<Ansigle Control Host & Tower>/`  

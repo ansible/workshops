@@ -3,4 +3,6 @@ include:
   - "provisioner/README.md"
 exclude:
   - "demos/*"
-  - "provisioner/*"
+  - "provisioner/roles"
+  - "provisioner/group_vars"
+  - "provisioner/inventory"

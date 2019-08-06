@@ -60,15 +60,15 @@ node1、node2 などのホストの名前と IP addresses を控えておいて�
 
   -  ![plus](images/green_plus.png) ボタンをクリックします  
 
-  - **ホスト名** `node1`
+  - **ホスト名** `node1`  
 
-  - **変数** 3つのハイフン `---` の下（2行目）に、 `ansible_host: 22.33.44.55` を入力します。 IP アドレス、`22.33.44.55` については、先ほど `node1` について確認した IP アドレスに置き換えてください。記述方法についても注意してください。コロン **:** と IP アドレスの間にはスペースが必要です。また、インベントリーファイルで利用するような **=** で記述してはいけません。
+  - **変数** 3つのハイフン `---` の下（2行目）に、 `ansible_host: 22.33.44.55` を入力します。 IP アドレス、`22.33.44.55` については、先ほど `node1` について確認した IP アドレスに置き換えてください。記述方法についても注意してください。コロン **:** と IP アドレスの間にはスペースが必要です。また、インベントリーファイルで利用するような **=** で記述してはいけません。  
 
-  -  **保存** をクリックします
+  -  **保存** をクリックします  
 
-  -  **ホスト** に戻って `node2` と `node3` を上記と同様の手順で追加します。
-
-これで Tower で管理する 3 台のホストに対するインベントリーファイルの作成が完了です♬
+  -  **ホスト** に戻って `node2` と `node3` を上記と同様の手順で追加します。  
+  
+これで Tower で管理する 3 台のホストに対するインベントリーファイルの作成が完了です♬  
 
 ## マシンの認証情報
 
@@ -78,13 +78,13 @@ Ansible Tower は、ホストやクラウド等の認証情報をユーザーに
 > 
 > これは Tower が持っている重要な機能の一つ **認証情報の分離の機能です**\! 認証情報はホストやインベントリーの設定とは別で強固に管理することが可能です。
 
-Tower の重要な機能なので、まずはコマンドラインでラボ環境について確認してみましょう。
+Tower の重要な機能なので、まずはコマンドラインでラボ環境について確認してみましょう。  
 
-SSH 経由で Tower ホストにログインします。
+SSH 経由で Tower ホストにログインします。  
 
-  - いつものように、<X> の部分と、Tower ホストのアドレスは各自のものに置き換えてください。
+  - いつものように、<X> の部分と、Tower ホストのアドレスは各自のものに置き換えてください。  
 
-  - `node1` に SSH 接続し、 `sudo -i` を実行してみます。 SSH 接続の際はパスワード入力が要求されますが、 `sudo -i` に関してはパスワードは要求されません。
+  - `node1` に SSH 接続し、 `sudo -i` を実行してみます。 SSH 接続の際はパスワード入力が要求されますが、 `sudo -i` に関してはパスワードは要求されません。  
 
 ```bash
 [student<X>@ansible ~]$ ssh student<X>@22.33.44.55
@@ -94,23 +94,23 @@ Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
 [root@node1 ~]#
 ```
 
-これはどういう意味でしょう？
+これはどういう意味でしょう？  
 
-  - Tower ユーザーである **ansible** は、インベントリーで指定した管理対象ホストにパスワードベースの SSH で接続可能
+  - Tower ユーザーである **ansible** は、インベントリーで指定した管理対象ホストにパスワードベースの SSH で接続可能  
 
-  - ユーザー **ansible** は、 `sudo`  による権限昇格で、**root** としてコマンド実行が可能
+  - ユーザー **ansible** は、 `sudo`  による権限昇格で、**root** としてコマンド実行が可能  
 
-## Configure Machine Credentials
+## マシン認証情報の作成  
 
-Now we will configure the credentials to access our managed hosts from Tower. In the **RESOURCES** menu choose **Credentials**. Now:
+では早速 Tower で認証情報を作成してみましょう。 Tower　左側のメニューから **認証情報** をクリックします。  
 
-Click the ![plus](images/green_plus.png) button to add new credentials
+Click the ![plus](images/green_plus.png) button to add new credentials  
     
-  - **NAME:** Workshop Credentials
+  - **名前** Workshop Credentials  
 
-  - **ORGANIZATION:** Default
+  - **組織** Default  
 
-  - **CREDENTIAL TYPE:** Click on the magnifying glass, pick **Machine** and click ![plus](images/select.png)
+  - **認証情報のタイプ** 虫眼鏡をクリックして **マシン** を選択し、![plus](images/select.png)  をクリックします  
 
   - **CREDENTIAL TYPE:** Machine
 

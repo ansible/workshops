@@ -2,36 +2,36 @@
 
 ## インベントリの作成
 
-まず必要なのは、管理対象ホストの一覧です。これはAnsible Engineのインベントリファイルに相当します。インベントリーにはダイナミックインベントリーなど、高度なものもありますが、まずは基本的なところから始めてみましょう。  
+まず必要なのは、管理対象ホストの一覧です。これは Ansible Engine のインベントリファイルに相当します。インベントリーにはダイナミックインベントリーなど、高度なものもありますが、まずは基本的なところから始めてみましょう。  
 
-  - ブラウザで **https://<Ansigle Control Host & Tower>/** に接続しログインします。
-  　ユーザーは `admin` パスワードはインストール時に指定した `ansibleWS` です。
+  - ブラウザで **https://<Ansigle Control Host & Tower>/** に接続しログインします。  
+  　ユーザーは `admin` パスワードはインストール時に指定した `ansibleWS` です。  
 
-インベントリの作成:
+インベントリの作成:  
 
-  - 左側のWeb UIメニューで、**インベントリー** をクリックし、右端の ![plus](images/green_plus.png) ボタンをクリック。表示されるプルダウンの中から、インベントリーを選択します。
+  - 左側のWeb UIメニューで、**インベントリー** をクリックし、右端の ![plus](images/green_plus.png) ボタンをクリック。表示されるプルダウンの中から、インベントリーを選択します。  
 
-  - **名前:** Workshop Inventory
+  - **名前:** Workshop Inventory  
 
-  - **組織:** Default
+  - **組織:** Default  
 
-  - **保存** をクリック
+  - **保存** をクリック  
 
-ブラウザ下部に、利用可能なインベントリーが表示されていますので確認してみましょう。 Ansible Tower にあらかじめ作成されている **Demo Inventory** と、今作成した **Workshop Inventory** の2つが存在していることが分かります. ブラウザ上部に戻って、 **Workshop Inventory** の中にある **ホスト** ボタンをクリックすると、まだホストを 1 台も登録していないのでリストが空であることが分かります。
+ブラウザ下部に、利用可能なインベントリーが表示されていますので確認してみましょう。 Ansible Tower にあらかじめ作成されている **Demo Inventory** と、今作成した **Workshop Inventory** の2つが存在していることが分かります。ブラウザ上部に戻って、 **Workshop Inventory** の中にある **ホスト** ボタンをクリックすると、まだホストを 1 台も登録していないのでリストが空であることが分かります。  
 
-So let's add some hosts. First we need to have the list of all hosts which are accessible to you within this lab. These can be found in an inventory on the ansible control node on which Tower is installed.
+早速ホストを追加してみましょう。まず、登録するためのホスト一覧を取得する必要があります。このラボ環境では、Tower がインストールされている ansible Control Hot & Tower 上のインベントリーファイルに利用可能なホスト一覧が記述されていますのでそちらを確認してみます。  
 
-Login to your Tower control host via SSH:
+Tower サーバーに SSH でログインします。  
 
-> **Warning**
+> **注意**
 > 
-> Replace **workshopname** by the workshop name provided to you, and the **X** in student**X** by the student number provided to you.
+> student<X> の <X> の部分は、各自与えられた Student 番号を入力ください。また、11.22.33.44の部分は、各自与えられた、ansible Control Hot & Tower の IP アドレスを入力ください。  
 
 ```bash
-ssh student<X>@student<X>.workshopname.rhdemo.io
+ssh student<X>@11.22.33.44
 ```
 
-You can find the inventory information at `~/lab_inventory/hosts`. Output them with `cat`, they should look like:
+インベントリーファイルの場所は、Tower ホスト上の、 `~/lab_inventory/hosts` です。 cat で確認してみましょう。
 
 ```bash
 $ cat ~/lab_inventory/hosts 
@@ -48,44 +48,43 @@ node3 ansible_host=44.55.66.77
 [control]
 ansible ansible_host=11.22.33.44
 ```
-> **Warning**
+> **注意**
 > 
-> In your inventory the IP addresses will be different.
+> 表示される IP アドレスは各自固有のものになっていますので、上記とは異なります。  
 
-Note the names for the nodes and the IP addresses, we will use them to fill the inventory in Tower now:
+node1、node2 などのホストの名前と IP addresses を控えておいてください。これらの情報を以下の手順で Tower のインベントリーに登録していきます。  
 
-  - In the inventory view of Tower click on your **Workshop Inventory**
+  - Tower のインベントリービューで **Workshop Inventory** をクリックします  
 
-  - Click on  the **HOSTS** button
+  -  **HOSTS** をクリックします  
 
-  - To the right click the ![plus](images/green_plus.png) button.
+  -  ![plus](images/green_plus.png) ボタンをクリックします  
 
-  - **HOST NAME:** `node1`
+  - **ホスト名** `node1`
 
-  - **Variables:** Under the three dashes `---`, enter `ansible_host: 22.33.44.55` in a new line. Make sure to enter your specific IP address for your `node1` from the inventory looked up above, and note that the variable definition has a colon **:** and a space between the values, not an equal sign **=** like in the inventory file.
+  - **変数** 3つのハイフン `---` の下（2行目）に、 `ansible_host: 22.33.44.55` を入力します。 IP アドレス、`22.33.44.55` については、先ほど `node1` について確認した IP アドレスに置き換えてください。記述方法についても注意してください。コロン **:** と IP アドレスの間にはスペースが必要です。また、インベントリーファイルで利用するような **=** で記述してはいけません。
 
-  - Click **SAVE**
+  -  **保存** をクリックします
 
-  - Go back to **HOSTS** and repeat to add `node2` as a second host and `node3` as a third node. Make sure that for each node you enter the right IP addresses.
+  -  **ホスト** に戻って `node2` と `node3` を上記と同様の手順で追加します。
 
-You have now created an inventory with three managed hosts.
+これで Tower で管理する 3 台のホストに対するインベントリーファイルの作成が完了です♬
 
-## Machine Credentials
+## マシンの認証情報
 
-One of the great features of Ansible Tower is to make credentials usable to users without making them visible. To allow Tower to execute jobs on remote hosts, you must configure connection credentials.
+Ansible Tower は、ホストやクラウド等の認証情報をユーザーに開示せずに利用可能にするという優れた機能を持っています。 Tower がインベントリー登録したリモートホスト上でジョブを実行できるようにするには、リモートホストの認証情報を設定する必要があります。
 
-> **Note**
+> **メモ**
 > 
-> This is one of the most important features of Tower: **Credential Separation**\! Credentials are defined separately and not with the hosts or inventory settings.
+> これは Tower が持っている重要な機能の一つ **認証情報の分離の機能です**\! 認証情報はホストやインベントリーの設定とは別で強固に管理することが可能です。
 
-As this is an important part of your Tower setup, why not make sure that this is working and check if the credentials are properly working?
+Tower の重要な機能なので、まずはコマンドラインでラボ環境について確認してみましょう。
 
-To access the Tower host via SSH do the following:
+SSH 経由で Tower ホストにログインします。
 
-  - Login to your Tower control host via SSH: `ssh student<X>@student<X>.workshopname.rhdemo.io`
-    Replace **workshopname** by the workshop name provided to you, and the **X** in student**X** by the student number provided to you.
+  - いつものように、<X> の部分と、Tower ホストのアドレスは各自のものに置き換えてください。
 
-  - SSH into `node1` or one of the other nodes and execute `sudo -i`. For the SSH connection a password needs to be provided, `sudo -i` works without password.
+  - `node1` に SSH 接続し、 `sudo -i` を実行してみます。 SSH 接続の際はパスワード入力が要求されますが、 `sudo -i` に関してはパスワードは要求されません。
 
 ```bash
 [student<X>@ansible ~]$ ssh student<X>@22.33.44.55
@@ -95,11 +94,11 @@ Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
 [root@node1 ~]#
 ```
 
-What does this mean?
+これはどういう意味でしょう？
 
-  - Tower user **ansible** can connect to the managed hosts with password based SSH
+  - Tower ユーザーである **ansible** は、インベントリーで指定した管理対象ホストにパスワードベースの SSH で接続可能
 
-  - User **ansible** can execute commands on the managed hosts as **root** with `sudo`
+  - ユーザー **ansible** は、 `sudo`  による権限昇格で、**root** としてコマンド実行が可能
 
 ## Configure Machine Credentials
 

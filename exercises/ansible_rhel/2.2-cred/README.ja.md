@@ -112,63 +112,65 @@ Click the ![plus](images/green_plus.png) button to add new credentials
 
   - **認証情報のタイプ** 虫眼鏡をクリックして **マシン** を選択し、**選択**  をクリックします  
 
-  - **ユーザー名** student\<X\> - make sure to replace the **\<X\>** with your actual student number!
+  - **ユーザー名** student\<X\> - いつもの通り、 **\<X\>** は各自に割り当てられた番号を入力ください  
 
-  - **PASSWORD:** Enter the password which is provided by the instructor.
+  - **パスワード** ansible  
 
-  - **PRIVILEGE ESCALATION METHOD:** sudo
+  - **権限昇格方法** sudo  
 
-  - Click **SAVE**
+  - **保存** をクリックします  
 
-  - Go back to the **RESOURCES** → **Credentials** → **Workshop Credentials** and note that the password is not visible.
+  - パスワード部分が暗号化され表示されないことを確認します  
 
-> **Tip**
+> **ヒント**
 > 
-> Whenever you see a magnifiying glass icon next to an input field, clicking it will open a list to choose from.
+> Tower では、入力フィールドの横に虫眼鏡アイコンが表示されているときにはクリックすると選択リストが開きます。  
 
-You have now setup credentials to use later for your inventory hosts.
+これで、後でインベントリホストに使用する資格情報を設定できました。
 
-## Run Ad Hoc Commands
+## アドホックコマンドの実行
 
-As you’ve probably done with Ansible before you can run ad hoc commands from Tower as well.
+Ansible Engine で実行したアドホックコマンドを Tower でも実行してみましょう。
 
-  - In the web UI go to **RESOURCES → Inventories → Workshop Inventory**
+  - 左の選択メニューから、**インベントリ** → **Workshop Inventory** 
 
-  - Click the **HOSTS** button to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
+  - **HOSTS** ボタンをクリックし、登録したホスト一覧を表示し、`オン` の左にあるチェックボックスを全てのホストでチェックします  
 
-  - Click **RUN COMMANDS**. In the next screen you have to specify the ad hoc command:
+  - **コマンド実行** をクリックします。さらに次の画面でアドホックコマンドを下記の通り指定していきます。  
     
-      - As **MODULE** choose **ping**
+      - **モジュール** 欄で **ping** を選択  
     
-      - For **MACHINE CREDENTIAL** click the magnifying glass icon and select **Workshop Credentials**.
+      - **マシンの認証情報** 欄で **Workshop Credentials** を選択  
     
-      - Click **LAUNCH**, and watch the output.
+      - **起動** をクリックし、出力を確認します  
 
-The simple **ping** module doesn’t need options. For other modules youneed to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
+シンプルな **ping** モジュールにはオプションは必要ありません。しかしながら、他のモジュールの場合、実行には引数が必要な場合があります。次にこのケースを確認してみましょう。 **command** モジュールを使って実行中のユーザーのユーザー ID を確認してみます。  
   
-- **MODULE:** command
+- **モジュール** command  
 
-- **ARGUMENTS:** id
+- **引数** id  
 
-> **Tip**
+マシンの認証情報も入力して実行の上表示内容を確認します。  
+
+> **ヒント**  
 > 
-> After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
+> 「引数」の横にある疑問符をクリックすると、モジュールのドキュメントページへのリンクが表示されます。とっても便利ですね。♪  
 
-How about trying to get some secret information from the system? Try to print out */etc/shadow*.
+次に、/etc/shadow のファイルの中身を確認するコマンドを発行してみましょう  
     
-- **MODULE:** command
+- **モジュール** command  
 
-- **ARGUMENTS:** cat /etc/shadow
+- **引数** cat /etc/shadow  
 
-> **Warning**
+> **注意**  
 > 
-> **Expect an error\!**
+> **エラーが発生ます**  
 
-Oops, the last one didn’t went well, all red.
+失敗します、何故でしょう？  
 
-Re-run the last ad hoc command but this time tick the **ENABLE PRIVILEGE ESCALATION** box.
+理由は、そう、権限昇格が必要なのです。もう一度戻って、 **権限昇格の有効化** にチェックを入れて実行してみてください。  
 
-As you see, this time it worked. For tasks that have to run as root you need to escalate the privileges. This is the same as the **become: yes** you’ve probably used often in your Ansible Playbooks.
+今回はうまくいきました。 root 権限で実行する必要があるタスクの場合、権限昇格を有効化する必要があります。これは、 Playbook  の記述でもよく見かける　**become: yes**  と同じです。
 
 ## Challenge Lab: Ad Hoc Commands
 

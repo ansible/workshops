@@ -170,25 +170,27 @@ Ansible Engine で実行したアドホックコマンドを Tower でも実行�
 
 理由は、そう、権限昇格が必要なのです。もう一度戻って、 **権限昇格の有効化** にチェックを入れて実行してみてください。  
 
-今回はうまくいきました。 root 権限で実行する必要があるタスクの場合、権限昇格を有効化する必要があります。これは、 Playbook  の記述でもよく見かける　**become: yes**  と同じです。
+今回はうまくいきました。 root 権限で実行する必要があるタスクの場合、権限昇格を有効化する必要があります。これは、 Playbook  の記述でもよく見かける　**become: yes**  と同じです。  
 
-## Challenge Lab: Ad Hoc Commands
+## チャレンジラボ: アドホックコマンド  
 
-Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `[ansible@tower ~]$ ansible-doc yum` on your Tower control host.
+アドホックコマンドを使って、node1, node2 node3 にパッケージ「tmux」をインストールしてください。  
 
-> **Warning**
+> **ヒント**  
 > 
-> **Solution below\!**
+> **yum** モジュールを利用します。使い方は `[ansible@tower ~]$ ansible-doc yum` などで確認してみてください。  
 
-  - **MODULE:** yum
+> **回答**  
 
-  - **ARGUMENTS:** name=tmux
+  - **モジュール** yum  
 
-  - Tick **ENABLE PRIVILEGE ESCALATION**
+  - **引数** name=tmux  
 
-> **Tip**
+  - **権限昇格の有効化** チェックします  
+
+> **ヒント**
 > 
-> The yellow output of the command indicates Ansible has actually done something (here it needed to install the package). If you run the ad hoc command a second time, the output will be green and inform you that the package was already installed. So yellow in Ansible doesn’t mean "be careful"…​ ;-).
+> コマンドの黄色の出力は、Ansibleが実際に何かを実行したことを示しています（ここでは、パッケージがインストールされてなかったのでインストールを実行しました）。アドホックコマンドを再度実行すると、出力が緑色になり、パッケージが既にインストールされていることが通知されます。Ansible   の黄色は「注意」を意味するわけではありません…;-)。ご注意を…​ ;-).
 
 ----
 

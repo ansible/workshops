@@ -1,5 +1,7 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
+**Read this in other languages**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png) [日本語](README.ja.md).
+
 Ansibleはアプリケーションの展開、構成管理、オーケストレーションなどで利用できるシンプルでパワフルな自動化エンジンであり、すぐに習得することができます。
 
 このラボの最初のセクションでは、Ansible Engineによる自動化の基礎からいくつかの先進的なコンセプトまでを学習します。
@@ -7,8 +9,6 @@ Ansibleはアプリケーションの展開、構成管理、オーケストレ�
 二つ目のラボでは、Ansible Towerについて、Towerとは何か、仕組み、利点など、概要を説明します。
 
 これらのラボを完了させた時、あなたはAnsibleを用いた自動化の準備をできる状態になっているはずです。
-
-**Read this in other languages**: [![uk](../../images/uk.png) English](README.md),  [![uk](../../images/japan.png) 日本語](README.ja.md).
 
 ## プレゼンテーション資料
 
@@ -31,13 +31,13 @@ Ansibleのベストプラクティスもあわせてご覧ください:
 
 ## Section 2 - Ansible Towerの演習
 
- - [Exercise 2.1 - Towerの紹介](2.1-intro/README.ja.md)
- - [Exercise 2.2 - インベントリ, クレデンシャル情報,  Ad-hoc コマンド](2.2-cred/README.ja.md)
- - [Exercise 2.3 - Project, job template](2.3-projects/README.ja.md)
- - [Exercise 2.4 - サーベイ機能](2.4-surveys/README.ja.md)
- - [Exercise 2.5 - Role based access control](2.5-rbac/README.ja.md)
- - [Exercise 2.6 - ワークフロー](2.6-workflows/README.ja.md)
- - [Exercise 2.7 - まとめ](2.7-wrap/README.ja.md)
+ - [Exercise 2.1 - Towerの紹介](2.1-intro)
+ - [Exercise 2.2 - インベントリ, クレデンシャル情報,  Ad-hoc コマンド](2.2-cred)
+ - [Exercise 2.3 - Project, job template](2.3-projects)
+ - [Exercise 2.4 - サーベイ機能](2.4-surveys)
+ - [Exercise 2.5 - Role based access control](2.5-rbac)
+ - [Exercise 2.6 - ワークフロー](2.6-workflows)
+ - [Exercise 2.7 - まとめ](2.7-wrap)
 
 
 ## 追加情報

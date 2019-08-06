@@ -25,7 +25,11 @@ Build Tag: ${env.BUILD_TAG}"""
                 sh 'ansible --version | tee ansible_version.log'
                 archiveArtifacts artifacts: 'ansible_version.log'
                 script {
-                    ANSIBLE_WORKSHOPS_REFSPEC = "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/${env.BRANCH_NAME}"
+                    if (env.CHANGE_ID) {
+                        ANSIBLE_WORKSHOPS_REFSPEC = "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/${env.BRANCH_NAME}"
+                    } else {
+                        ANSIBLE_WORKSHOPS_REFSPEC = "+refs/heads/${env.BRANCH_NAME}:refs/remotes/origin/${env.BRANCH_NAME}"
+                    }
 
                     if (TOWER_VERSION == 'devel') {
                         tower_installer_url = "${AWX_NIGHTLY_REPO_URL}/${TOWER_VERSION}/setup/ansible-tower-setup-latest.tar.gz"

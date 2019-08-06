@@ -1,5 +1,7 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
+**Read this in other languages**: ![uk](../../images/uk.png) [English](README),  ![japan](../../images/japan.png) [日本語](README.ja.md).
+
 Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
 
 In the first section of this lab you will learn to use Ansible Engine for automation from the basics up to some more advanced concepts.
@@ -7,8 +9,6 @@ In the first section of this lab you will learn to use Ansible Engine for automa
 The second section of this lab covers Tower and provide the user an overview of what Tower is, how it works and what the benefit of it is.
 
 After finishing this lab you are ready to start using Ansible for your automation requirements.
-
-**Read this in other languages**: [![uk](../../images/uk.png) English](README.md).
 
 ## Presentations
 
@@ -45,4 +45,3 @@ Also have a look at our Ansible Best Practices Deck:
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
-

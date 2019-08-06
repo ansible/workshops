@@ -8,7 +8,12 @@ pipeline {
             description: 'Tower version to deploy',
             choices: ['devel', '3.5.1']
         )
-        string(
+        choice(
+            name: 'ANSIBLE_VERSION',
+            description: 'Ansible version to use to deploy the lab',
+            choices: ['devel', 'stable-2.8']
+        )
+         string(
             name: 'WORKSHOP_FORK',
             description: 'Workshop fork to deploy from',
             defaultValue: 'ansible'
@@ -25,6 +30,7 @@ pipeline {
         stage('Build Information') {
             steps {
                 echo """Tower Version under test: ${params.TOWER_VERSION}
+Ansible version under test: ${params.ANSIBLE_VERSION}
 Workshop branch under test: ${params.WORKSHOP_BRANCH}
 ${AWX_NIGHTLY_REPO_URL}"""
             }
@@ -52,6 +58,9 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 }
                 sh 'pip install netaddr'
                 sh 'yum -y install sshpass'
+                sh "pip install git+https://github.com/ansible/ansible.git@${params.ANSIBLE_VERSION}"
+                sh 'ansible --version | tee ansible_version.log'
+                archiveArtifacts artifacts: 'ansible_version.log'
                 script {
                     ANSIBLE_WORKSHOPS_URL = "https://github.com/${params.WORKSHOP_FORK}/workshops.git"
 
@@ -189,13 +198,30 @@ ${AWX_NIGHTLY_REPO_URL}"""
         }
     }
     post {
+        cleanup {
+            script {
+                stage('Cleaning up in case of failure') {
+                    withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                     string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                        withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                 "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                 "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                 "ANSIBLE_FORCE_COLOR=true"]) {
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                        }
+                    }
+                }
+            }
+        }
         failure {
             slackSend(
                 botUser: false,
                 color: "#922B21",
                 teamDomain: "ansible",
                 channel: "#workshops-events",
-                message: "*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
+                message: "*Tower version: ${params.TOWER_VERSION}* | Ansible version: `${params.ANSIBLE_VERSION}` | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: FAIL | <${env.RUN_DISPLAY_URL}|Link>"
             )
         }
         success {
@@ -205,7 +231,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 teamDomain: "ansible",
                 channel: "#workshops-events",
                 message: """
-*Tower version: ${params.TOWER_VERSION}* | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link> \
+*Tower version: ${params.TOWER_VERSION}* | Ansible version: `${params.ANSIBLE_VERSION}` | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link> \
 Deprecation Warnings: *${RHEL_DEPRECATED_WARNINGS}* in RHEL lab - *${NETWORKING_DEPRECATED_WARNINGS}* in Networking lab - *${F5_DEPRECATED_WARNINGS}* in F5 lab
 """
             )

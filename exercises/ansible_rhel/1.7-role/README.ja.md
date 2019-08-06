@@ -1,5 +1,7 @@
 # 演習 1.7 - Roles: Playbook を再利用可能にする
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 今までのワークショップで学習してきた通り、Playbook を1つのファイルに書くことは可能です。しかしそのうち、作成した Playbook を再利用したいと考えるようになると思います。  
 
 これを実現するのが Ansible の Roles です。Role という形で Playbook をパーツとして分解し、構造化されたディレクトリに納めるのです。詳しくはこちらの [ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html) をご確認ください。  
@@ -20,7 +22,7 @@ apache/
 ├── handlers
 │   └── main.yml
 ├── meta
-│   └── main.yml 
+│   └── main.yml
 ├── README.md
 ├── tasks
 │   └── main.yml

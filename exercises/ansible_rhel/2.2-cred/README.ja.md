@@ -110,11 +110,9 @@ Click the ![plus](images/green_plus.png) button to add new credentials
 
   - **組織** Default  
 
-  - **認証情報のタイプ** 虫眼鏡をクリックして **マシン** を選択し、![plus](images/select.png)  をクリックします  
+  - **認証情報のタイプ** 虫眼鏡をクリックして **マシン** を選択し、**選択**  をクリックします  
 
-  - **CREDENTIAL TYPE:** Machine
-
-  - **USERNAME:** student\<X\> - make sure to replace the **\<X\>** with your actual student number!
+  - **ユーザー名** student\<X\> - make sure to replace the **\<X\>** with your actual student number!
 
   - **PASSWORD:** Enter the password which is provided by the instructor.
 

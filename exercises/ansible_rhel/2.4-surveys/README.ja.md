@@ -126,11 +126,11 @@ $ curl http://<node1>
 > 
 > **次の章で利用しますので、以下の手順は必ず完了してください！**
 
-- Take the inventory `Webserver` and add the other nodes, `node2` and `node3` as well.
+- インベントリー `Webserver` に、 `node2` と `node3` を追加します  
 
-- Run the **Create index.html** Template again.
+- ジョブテンプレート `Create index.html` を再度実行します。
 
-- Verify the results on the other two nodes by using `curl` against their IP addresses.
+- Curl コマンドもしくはブラウザで `node2`, `node3` にアクセスし、結果を確認します。
 
 ----
 

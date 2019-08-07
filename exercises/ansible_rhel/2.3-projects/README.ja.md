@@ -55,7 +55,7 @@ Playbook は SCM など、バージョン管理の仕組みの下に置いてお
 
 ## プロジェクトの作成  
 
-  - 左のメニューから **プロジェクト** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。フォームにいかを記入します。  
+  - 左のメニューから **プロジェクト** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。フォームに以下を入力します。  
 
   - **名前** Ansible Workshop Examples  
 
@@ -88,99 +88,99 @@ SCM URL にコピーした URL を貼り付けます。
 - **Playbook の指定** 実際に使用する Playbook の指定  
 
 早速 **Job Template** を作成してみましょう。♪  
-左のメニューから **Templates** を選択し、[plus](images/green_plus.png) ボタンをクリック。選択肢の中から **ジョブテンプレート** を選びます。  
+左のメニューから **Templates** を選択し、[plus](images/green_plus.png) ボタンをクリック。選択肢の中から **ジョブテンプレート** を選びます。    
 
 > **ヒント**
 > 
-> 下記フィールドの多くは、虫眼鏡アイコンをクリックの上オプション選択で設定が可能です。
+> 下記フィールドの多くは、虫眼鏡アイコンをクリックの上オプション選択で設定が可能です。  
 
-- **名前** Apache Install
+- **名前** Apache Install  
 
-- **ジョブタイプ** 実行
+- **ジョブタイプ** 実行  
 
-- **インベントリー** Workshop Inventory
+- **インベントリー** Workshop Inventory  
 
-- **PROJECT:** Ansible Workshop Examples
+- **プロジェクト** Ansible Workshop Examples  
 
-- **PLAYBOOK:** `rhel/apache/apache_install.yml`
+- **Playbook** `rhel/apache/apache_install.yml`  
 
-- **CREDENTIAL:** Workshop Credentials
+- **認証情報** Workshop Credentials  
 
-- We need to run the tasks as root so check **Enable privilege escalation**
+- オプションで **権限昇格の有効化** にチェックを入れます  
 
-- Click **SAVE**
+- **保存** をクリックします  
 
-You can start the job by directly clicking the blue **LAUNCH** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
+青い **LAUNCH** ボタンを直接クリックするか、ジョブテンプレートの概要でロケットをクリックしてジョブを開始します。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。  
 
-![job exection](images/job_overview.png)
 
-Since this might take some time, have a closer look at all the details provided:
+![job exection](images/job_overview.png)  
 
-- All details of the job template like inventory, project, credentials and playbook are shown.
 
-- Additionally, the actual revision of the playbook is recorded here - this makes it easier to analyse job runs later on.
+完了するまで少し時間がかかりますので、何を行っているか確認してみてください。  
 
-- Also the time of execution with start and end time is recorded, giving you an idea of how long a job execution actually was.
+- インベントリ、プロジェクト、資格情報、Playbook などのジョブテンプレートのすべての詳細が表示されます。  
 
-- On the right side, the output of the playbook run is shown. Click on a node underneath a task and see that detailed information are provided for each task of each node.
+- さらに、Playbook での実際の変更部分がここ記録されます。  
 
-After the Job has finished go to the main **Jobs** view: All jobs are listed here, you should see directly before the Playbook run an SCM update was started. This is the Git update we configured for the **Project** on launch\!
+- また、開始時刻と終了時刻を含む実行時間も記録されるため、ジョブの実行が実際にどれくらいかかったかがわかります。  
 
-## Challenge Lab: Check the Result
+- 右側に、プレイブック実行の出力が表示されます。タスクの下のノードをクリックして、各ノードの各タスクの詳細情報が提供されていることを確認します。  
 
-Time for a little challenge:
+ジョブが完了したら、メインのジョブビューに移動します。すべてのジョブがここに一覧表示されます。Playbook を実行する前に、SCM 更新が開始されるのを直接確認できます。これは、起動時にプロジェクト用に構成した Git 更新です！  
 
-  - Use an ad hoc command on both hosts to make sure Apache has been installed and is running.
+## チャレンジラボ: 結果の確認  
 
-You have already been through all the steps needed, so try this for yourself.
+以下に挑戦してみましょう！
 
-> **Tip**
+  - アドホックコマンドを使用して、対象ホストに Apache がインストールされ、実行されていることを確認します。
+
+確認する方法は以前のラボで学んでいると思いますので、考えてやってみてください。
+
+> **ヒント**
 > 
-> What about `systemctl status httpd`?
+> `systemctl status httpd` を使う！？
 
-> **Warning**
+> **回答**
+
+- **インベントリー** → **Workshop Inventory**
+
+- **ホスト** をクリックし、対象ホストをチェックにより選択。さらに、 **RUN COMMANDS** をクリックします。
+
+- **モジュール** command
+
+- **引数** systemctl status httpd
+
+- **マシン認証情報** Workshop Credentials
+
+- **起動** をクリック
+
+## 次のラボの準備も含め少し作業します
+
+以下を実施ください。  
+
+> **注意**  
 > 
-> **Solution Below**
+> 次の章がそれに依存するので、これらの手順を必ず完了してください！  
 
-- Go to **Inventories** → **Workshop Inventory**
+- `Webserver` という名前のインベントリーを作成し、node1 のみ登録します  
 
-- In the **HOSTS** view select both hosts and click **RUN COMMANDS**
+- **テンプレート** をクリックし、 `Install Apache` テンプレートをコピーアイコンを使ってコピーします  
 
-- **MODULE:** command
-
-- **ARGUMENTS:** systemctl status httpd
-
-- **MACHINE CREDENTIALS:** Workshop Credentials
-
-- Click **LAUNCH**
-
-## What About Some Practice?
-
-Here is a list of tasks:
-
-> **Warning**
-> 
-> Please make sure to finish these steps as the next chapter depends on it\!
-
-- Create a new inventory called `Webserver` and make only `node1` member of it.
-
-- Copy the `Install Apache` template using the copy icon in the **Templates** view
-
-- Change the name to `Install Apache Ask`
+- `Install Apache Ask` に名前を変更します  
   
-- Change the **INVENTORY** setting of the Project so it will ask for the inventory on launch
+- **インベントリー** `起動プロンプト` にチェックを入れます  
 
-- **SAVE**
+- **保存**します  
 
-- Llaunch the `Install Apache Ask` template.
+- `Install Apache Ask` テンプレートを起動します  
 
-- It will now ask for the inventory to use, choose the `Webserver` inventory and click **LAUNCH**
+- 使用するインベントリーについて聞かれるので `Webserver` を選択し **次へ** をクリックし、**起動**をクリックします  
 
-- Wait until the Job has finished and make sure it run only on `node1`
+- ジョブが終了するのを待ち、 `node1` でしか実行されていないことを確認します。  
 
-> **Tip**
+> **ヒント**  
 > 
-> The Job didn’t change anything because Apache was already installed in the latest version.
+> Apache は既に最新バージョンでインストールされているため、ジョブは何も変更していないことが分かります。  
 
 ----
 

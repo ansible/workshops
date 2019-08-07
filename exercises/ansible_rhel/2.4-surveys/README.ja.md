@@ -18,7 +18,11 @@
 
 ## プロジェクトを作成する  
 
-Playbook と Jinja2 テンプレートを持つ Roles は Github リポジトリ **https://github.com/ansible/workshop-examples** の `rhel/apache` にあります。 Github UIに移動して、 `apache_role_install.yml` の中身を見てみてください。単に Role を参照しているだけです。 Role は `roles/role_apache` サブディレクトリに存在します。ロール内の jinja2 テンプレート `templates/index.html.j2` 内に定義された二つの変数を確認します。変数は `{{…​}}`\で定義されるんでしたね。また、メインのタスクを担う、 `tasks/main.yml` の中で、template からファイルをコピーするタスクをチェックします。この Playbook は何をやっているのでしょう、分かりますか？  テンプレート (**src**) から、対象ホスト上にファイル (**dest**) としてコピーしています。この際、コピー先のファイルには変数に値が入力されます。値を入力するのは、そう、 Survey インターフェースです。  
+Playbook と Jinja2 テンプレートを持つ Roles は Github リポジトリ
+
+**https://github.com/ansible/workshop-examples** の `rhel/apache` にあります。  
+
+Github UIに移動して、 `apache_role_install.yml` の中身を見てみてください。単に Role を参照しているだけです。 Role は `roles/role_apache` サブディレクトリに存在します。ロール内の jinja2 テンプレート `templates/index.html.j2` 内に定義された二つの変数を確認します。変数は `{{…​}}`\で定義されるんでしたね。また、メインのタスクを担う、 `tasks/main.yml` の中で、template からファイルをコピーするタスクをチェックします。この Playbook は何をやっているのでしょう、分かりますか？  テンプレート (**src**) から、対象ホスト上にファイル (**dest**) としてコピーしています。この際、コピー先のファイルには変数に値が入力されます。値を入力するのは、そう、 Survey インターフェースです。  
 
 ロールは、Apache のコンフィグレーションもデプロイします。前の章で行われたすべての変更が上書きされ、今回のサンプルが適切に機能することを保証するためのものです。  
 
@@ -48,79 +52,79 @@ Survey を含むジョブテンプレートを作成します。
 
 - **ジョブタイプ:** Run
 
-- **インベントリー** Webserver
+- **インベントリー** Webserver  
 
-- **プロジェクト** Ansible Workshop Examples
+- **プロジェクト** Ansible Workshop Examples  
 
-- **PLAYBOOK** `rhel/apache/apache_role_install.yml`
+- **PLAYBOOK** `rhel/apache/apache_role_install.yml`  
 
-- **認証情報** Workshop Credentials
+- **認証情報** Workshop Credentials  
 
-- **オプション** Enable Privilege Escalation
+- **オプション** Enable Privilege Escalation  
 
-- **保存**をクリック
+- **保存**をクリック  
 
-> **Warning**
+> **注意**  
 >
-> **Do not run the template yet!**
+> **まだジョブテンプレートを実行しないでください！！　そう、まだ変数の値が定義されてません！！**  
 
-### Add the Survey
+### Survey を追加する  
 
-- In the Template, click the **ADD SURVEY** button
+- ジョブテンプレートの中で、**ADD SURVEY** ボタンをクリックします  
 
-- Under **ADD SURVEY PROMPT** fill in:
+- **Survey プロンプトの追加** フォームで以下を入力します  
   
-    - **PROMPT:** First Line
+    - **プロンプト** First Line  
   
-    - **ANSWER VARIABLE NAME:** `first_line`
+    - **回答の変数名** `first_line`  
   
-    - **ANSWER TYPE:** Text
+    - **回答タイプ** テキスト  
 
-- Click **+ADD**
+- **+ADD**をクリックします。  
 
-- In the same way add a second **Survey Prompt**
+- 同じように2つ目の変数入力フォームを定義します 
   
-    - **PROMPT:** Second Line
+    - **プロンプト** Second Line
   
-    - **ANSWER VARIABLE NAME:** `second_line`
+    - **回答の変数名** `second_line`
   
-    - **ANSWER TYPE:** Text
+    - **回答タイプ** テキスト
 
-- Click **+ADD**
+- **+ADD**をクリックします  
 
-- Click **SAVE** for the Survey
+- **保存** をクリックし、 Survey を保存します
 
-- Click **SAVE** for the Template
+- **保存** をクリックし、ジョブテンプレートを保存します
 
-## Launch the Template
+## テンプレートを起動します
 
-Now launch **Create index.html** job template.
+作成したジョブテンプレート **Create index.html** を起動してみます。  
 
-Before the actual launch the survey will ask for **First Line** and **Second Line**. Fill in some text and click **Next**. The next window shows the values, if all is good run the Job by clicking **Launch**.
+実際の起動の際に、Survey は 2つの変数について入力を要求します。お好きなテキストを入力して、「次へ」をクリックします。次のウィンドウに入力した値が表示されます。問題なければ、「起動」をクリックしてジョブを実行します。  
 
-> **Tip**
+> **ヒント**
 > 
-> Note how the two survey lines are shown to the left of the Job view as **Extra Variables**.
+> 入力した 2つの値がジョブ実行画面の左下の **追加変数**に表示されていることを確認します。  
 
-After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against the IP address of your `node1`:
+ジョブが完了したら、Apache ホームページを確認してください。確認するのは、そう、`node1` です。 Tower Server の SSH コンソールの curl コマンドで確認したもよいですし、ブラウザで直接 node1 に接続してみてもOKです。  
 
 ```bash
-$ curl http://22.33.44.55
+$ curl http://<node1>
 <body>
 <h1>Apache is running fine</h1>
 <h1>This is survey field "First Line": line one</h1>
 <h1>This is survey field "Second Line": line two</h1>
 </body>
 ```
-Note how the two variables where used by the playbook to create the content of the `index.html` file.
+この index.html ファイルが Playbook と Survey によってどのように作成されたのか、よく理解しておて下さい。  
 
-## What About Some Practice?
+## さらに次のタスクを実行ください  
 
-Here is a list of tasks:
+タスクのリストは次のとおりです。  
 
-> **Warning**
+> **注意**
 > 
-> **Please make sure to finish these steps as the next chapter depends on it\!**
+> **次の章で利用しますので、以下の手順は必ず完了してください！**
 
 - Take the inventory `Webserver` and add the other nodes, `node2` and `node3` as well.
 

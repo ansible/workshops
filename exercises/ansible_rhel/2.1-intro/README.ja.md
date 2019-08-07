@@ -29,57 +29,6 @@ Ansible Towerは、IT自動化のためのエンタープライズソリュー�
 
 Ansible Towerはすでにインストールされ、ライセンスが付与されています。WebUIにはHTTP / HTTPS経由でアクセスできます。  
 
-※講師の意向により Ansible Tower がインストールされていない場合もあります。その際は講師より指示がありますので、Ansible Tower のインストールから実施ください。  
-
-## Ansible Tower インストール
-
-Ansible Tower のインストールが未実施の場合、以下の手順で Tower のインストールを実施ください。既にインストールされている場合はこの手順はスキップしてください。  
-
-> **Warning**
-> 
-> **11.22.33.44** は自分自身の Ansible Control Host のIPアドレスに置き換えてください。  
-
-Ansible Control Host に ssh でログインします。  
-
-    ssh studentX@11.22.33.44
-
-Ansible Control Host に Tower をインストールします。  
-`<xxxxx>` の部分には、ダウンロードしたファイルに適合する、適切な値を入力ください。  
-
-    [student<X>@ansible ~]$ cd /tmp
-    [student<X>@ansible ~]$ curl -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
-    [student<X>@ansible ~]$ tar xvzf ansible-tower-setup-<xxxxx>.tar.gz
-    [student<X>@ansible ~]$ cd ansible-tower-setup-<xxxxx>
-    [student<X>@ansible ~]$ vi inventory
-  
-※ファイルの中でブランクになっている、3つのパスワードを以下の通り設定し、ファイルを保存します。  
-  
- admin_password='ansibleWS'  
- pg_password='ansibleWS'  
- rabbitmq_password='ansibleWS'  
-
-以下のコマンドを実行し、Ansible Tower のインストールを開始します！！  
-  
-    [student<X>@ansible ~]$ sudo ./setup.sh
-  
-    
-インストール完了には10分程かかります。セットアップが成功したことを確認します。  
-
-![Ansible Tower インストール](images/install.png)  
-  
-  
-**ライセンスファイルの適応**  
-
-1.Ansible Tower サーバーにブラウザでアクセスし"参照"をクリックします。  
-　`https://<Ansigle Control Host & Tower>/`  
-　IDとパスワードは、インストール時に指定した `admin` / `ansibleWS` です。  
-2. 参照をクリックし、ライセンスファイルを指定します。  
-　※ライセンスファイルに関しては講師より指示があります。  
-3.使用許諾にチェックを入れて"送信"を押下します。  
-
-![Ansible Tower License](images/LicenseFile.jpg)   
-  
- 
 ## ダッシュボード
 
 Web UI を使用して Ansible Tower に `admin` 権限でログインすると、グラフと以下のような情報が表示されます。  

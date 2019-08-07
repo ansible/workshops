@@ -104,7 +104,7 @@ Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
 
 では早速 Tower で認証情報を作成してみましょう。 Tower　左側のメニューから **認証情報** をクリックします。  
 
-[plus](images/green_plus.png) をクリックします。  
+ ![plus](images/green_plus.png) ボタンをクリックします。  
     
   - **名前** Workshop Credentials  
 

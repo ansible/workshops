@@ -2,16 +2,14 @@
 
 Tower の **プロジェクト** は、 Git、Subversion、Mercurial、ローカルホルダなど、Playbook の置き場所を定義する仕組みを提供します。 Tower ではサポートとされるソースコード管理（SCM）と連携して Playbook を管理することが可能です。  
 
-Playbook は SCM など、バージョン管理の仕組みの下に置いておくべきです。このラボでは、 Git リポジトリに保存されている Playbook 
+Playbook は SCM など、バージョン管理の仕組みの下に置いておくべきです。このラボでは、 Git リポジトリに保存されている Playbook を利用します。  
 
-## Setup Git Repository
-
-For this demonstration we will use playbooks stored in a Git repository:
+## Git リポジトリのセットアップ  
+このデモでは、既に Git リポジトリに保存されているプレイブックを使用します。  
 
 **https://github.com/ansible/workshop-examples**
 
-
-A Playbook to install the Apache webserver has already been commited to the directory **rhel/apache**, `apache_install.yml`:
+このラボで利用する Apache Web Server をインストールするための Playbook は、上記 github サイトの **rhel/apache** に置いてある、`apache_install.yml` です。内容は以下の通りです。  
 
 ```yaml
 ---
@@ -49,63 +47,58 @@ A Playbook to install the Apache webserver has already been commited to the dire
       state: started
 ```
 
-> **Tip**
+> **ヒント**
 > 
-> Note the difference to other Playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
+> Engine の演習で書いた Playbook と比較するとちょっと違っているところがあります。重要なところは、 `become` が無いところと、 `hosts` の設定に `all` を指定しているところです。  
 
-To configure and use this repository as a **Source Control Management (SCM)** system in Tower you have to create a **Project** that uses the repository
+このリポジトリを Tower の **Source Control Management (SCM)** として利用するには **プロジェクト** を作成する必要があります。  
 
-## Create the Project
+## プロジェクトの作成  
 
-  - Go to **RESOURCES → Projects** in the side menu view click the ![plus](images/green_plus.png) button. Fill in the form:
+  - 左のメニューから **プロジェクト** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。フォームにいかを記入します。  
 
-  - **NAME:** Ansible Workshop Examples
+  - **名前** Ansible Workshop Examples  
 
-  - **ORGANIZATION:** Default
+  - **組織** Default  
 
-  - **SCM TYPE:** Git
+  - **SCM タイプ** Git  
 
-Now you need the URL to access the repo. Go to the Github repository mentioned above, choose the green **Clone or download** button on the right, click on **Use https** and copy the HTTPS URL.
+ここで、リポジトリにアクセスするためのURLが必要です。上記の Github リポジトリに移動し、右側の緑色の **Clone or download** ボタンをクリック。さらに、 **Clone with HTTPS** が選択されていることを確認し、URL をコピーします。  
 
-> **Note**
+SCM URL にコピーした URL を貼り付けます。  
+
+- **SCM URL** `https://github.com/ansible/workshop-examples.git`  
+
+- **SCM 更新オプション** 3つのボックスすべてにチェックマークを付けて、常にリポジトリの最新コピーを取得し、ジョブの起動時にリポジトリを更新します。    
+
+- **保存** をクリックします  
+
+新しいプロジェクトは、作成後に自動的に同期されます。ただし、これを手動で行うこともできます。 **Projects** ビューに移動し、プロジェクトの右側にある円形矢印 **最新のSCMリビジョンを取得** アイコンをクリックして、プロジェクトを Git リポジトリと再度同期します。  
+
+## ジョブテンプレートを作成してジョブを実行する  
+
+ジョブテンプレートは、Ansible ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。ジョブ手プレートではいくつかのパラメータを指定します。それぞれの意味は下記の通りです。  
+
+- **インベントリ** ジョブを実行するホストを指定します  
+
+- **認証情報** 管理対象ホストにログインするためのアカウント情報です  
+
+- **プロジェクト** Playbook の場所を指定します   
+
+- **Playbook の指定** 実際に使用する Playbook の指定  
+
+早速 **Job Template** を作成してみましょう。♪  
+左のメニューから **Templates** を選択し、[plus](images/green_plus.png) ボタンをクリック。選択肢の中から **ジョブテンプレート** を選びます。  
+
+> **ヒント**
 > 
-> If there is no **Use https** to click on, but a **Use SSH**, you are fine: just copy the URL. The important thing is that you copy the URL starting with **https**.
+> 下記フィールドの多くは、虫眼鏡アイコンをクリックの上オプション選択で設定が可能です。
 
- Enter the URL into the Project configuration:
+- **名前** Apache Install
 
-- **SCM URL:** `https://github.com/ansible/workshop-examples.git`
+- **ジョブタイプ** 実行
 
-- **SCM UPDATE OPTIONS:** Tick all three boxes to always get a fresh copy of the repository and to update the repository when launching a job.
-
-- Click **SAVE**
-
-The new Project will be synced automatically after creation. But you can also do this automatically: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Get latest SCM revision** icon to the right of the Project.
-
-After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
-
-## Create a Job Template and Run a Job
-
-A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. So before running an Ansible **Job** from Tower you must create a **Job Template** that pulls together:
-
-- **Inventory**: On what hosts should the job run?
-
-- **Credentials** What credentials are needed to log into the hosts?
-
-- **Project**: Where is the Playbook?
-
-- **What** Playbook to use?
-
-Okay, let’s just do that: Go to the **Templates** view, click the ![plus](images/green_plus.png) button and choose **Job Template**.
-
-> **Tip**
-> 
-> Remember that you can often click on magnfying glasses to get an overview of options to pick to fill in fields.
-
-- **NAME:** Install Apache
-
-- **JOB TYPE:** Run
-
-- **INVENTORY:** Workshop Inventory
+- **インベントリー** Workshop Inventory
 
 - **PROJECT:** Ansible Workshop Examples
 

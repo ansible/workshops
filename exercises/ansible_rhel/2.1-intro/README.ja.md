@@ -1,4 +1,4 @@
-# 演習 2.1 - Tower の紹介（インストール）
+# 演習 2.1 - Tower の紹介
 
 ## Ansible Tower の価値
 

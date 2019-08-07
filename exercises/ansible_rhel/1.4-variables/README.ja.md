@@ -116,7 +116,7 @@ stage: prod
 各ホストには、変数 stage の値に従って異なるファイルがコピーされているはずです。デフォルトが dev で、node2 のみ、prod となっているはず。それぞれのweb server に curl コマンド（もしくはブラウザ）で接続して確認してみましょう。
 
 ```bash
-[student<X>@ansible ansible-files]$ grep node /home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt
+[student<X>@ansible ansible-files]$ grep node ~/lab_inventory/hosts
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66

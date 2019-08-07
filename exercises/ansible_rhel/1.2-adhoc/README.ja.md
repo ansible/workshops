@@ -279,7 +279,7 @@ Managed by Ansible
 
   - 出力結果は、異なる色だったはずです。(適切な端末の設定がされている場合)
   - `"changed": true,` から `"changed": false,`へ変更されたはずです。
-  - 最初の行が、`SUCCESS` から `CHANGED`に変わったはずです。
+  - 最初の行が、`CHANGED` から `SUCCESS`に変わったはずです。
 
 > **Tip**
 >

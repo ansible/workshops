@@ -58,56 +58,53 @@ Ansible Tower のユーザーには以下の3つのタイプがあります
 
 権限を付与することにより、プロジェクト、インベントリ、およびその他の Ansible Tower 内のオブジェクトの読み取り、変更、および管理が可能になります。この権限は、Ansible Tower で管理するさまざまなリソースに設定できます。このあたりの柔軟性が Tower のもう一つの大きな特徴です。
 
-## パーミッションの付与
+## パーミッションの付与  
 
-ユーザーまたはチームが Ansible Tower 上で作業する場合、作業に対する適切なアクセス権限を持っている必要があります。新規に作成したユーザー wweb に対し、割り当てられた Web サーバーのコンテンツの変更のみを許可してみましょう。
+ユーザーまたはチームが Ansible Tower 上で作業する場合、作業に対する適切なアクセス権限を持っている必要があります。新規に作成したユーザー wweb に対し、割り当てられた Web サーバーのコンテンツの変更（具体的には Create index.html ジョブテンプレートの実行権限）のみを許可してみましょう。  
 
-To allow users or teams to actually do something, you have to set permissions. The user **wweb** should only be allowed to modify content of the assigned webservers.
+テンプレートを使用する権限を追加します。  
 
-Add the permission to use the template:
+- チーム `Web Content` 内で `パーミッション` を表示し、緑色のプラスボタンをクリックして権限を追加します。  
 
-- In the Permissions view of the Team `Web Content` click the green plus button to add permissions.
-
-- A new window opens. You can choose to set permissions for a number of resources.
+- 新しいウィンドウが開きます。様々なオブジェクトに対してアクセス権限を設定できることが分かります。  
   
-    - Select the resource type **JOB TEMPLATES**
+    - **ジョブテンプレート**を選択します  
   
-    - Choose the `Create index.html` Template by ticking the box next to it.
+    - `Create index.html` テンプレートの横にあるチェックボックスをオンにしてテンプレートを選択します。  
 
-- The second part of the window opens, here you assign roles to the selected resource.
-  
-    - Choose **EXECUTE**
+- ウィンドウの2番目の部分が開きます。ここで、選択したリソースに役割を割り当てます。  
 
-- Click **SAVE**
+    - **実行**を選択します
 
-## Test Permissions
+- **保存**をクリックします
 
-Now log out of Tower’s web UI and in again as the **wweb** user.
+## パーミッションのテスト
 
-- Go to the **Templates** view, you should notice for wweb only the `Create
-  index.html` template is listed. He is allowed to view and lauch, but not to edit the Template.
+Ansible Tower の Web UI からログアウトし、**wweb**ユーザーとして再度ログインします。  
 
-- Run the Job Template by clicking the rocket icon. Enter the survey content to your liking and launch the job.
+- **Templates** ビューに移動します。wweb の場合は、Create index.html テンプレートのみが表示されます。彼は、このテンプレートを閲覧したり、実行したりすることは許可されています。  
 
-- In the following **Jobs** view have a good look around, note that there where changes to the host (of course…​).
+- ロケットのアイコンをクリックして、ジョブテンプレートを実行します。アンケートの内容を好みに合わせて入力し、ジョブを開始します。  
 
-Check the result: execute `curl` again on the control host to pull the content of the webserver on the IP address of `node1`:
+- ジョブの実行結果を確認ください。変更された内容があることが分かります。変数値ですね、もちろん。  
+
+結果を `node1` に対する curl コマンドで確認します。　　
 
 ```bash
 $ curl http://22.33.44.55
 ```
 
-Just recall what you have just done: You enabled a restricted user to run an Ansible Playbook
+ここで実施した内容について理解できましたか？制限されたユーザーが権限を与えられることにより Ansible Playbook を実行できるようにしました。しかもこのユーザーは必要以上の権限は与えられていません。
 
-  - Without having access to the credentials
+  - 資格情報にアクセスできない
 
-  - Without being able to change the Playbook itself
+  - Playbook 自体を変更できない
 
-  - But with the ability to change variables you predefined\!
+  - しかし、事前に定義された変数を定義する権限を有しています！
 
-Effectively you provided the power to execute automation to another user without handing out your credentials or giving the user the ability to change the automation code. And yet, at the same time the user can still modify things based on the surveys you created.
+この様に、Ansible Tower では、認証情報を必要以上に提供したり、ユーザーに Playbook を変更したりする権限を与えることなく、柔軟に自動化を実行する権限のみを提供することができます。
 
-This capability is one of the main strengths of Ansible Tower\!
+この機能は、Ansible Towerの主な強みの1つです\！
 
 ----
 

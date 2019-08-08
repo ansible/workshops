@@ -8,7 +8,7 @@
   - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
   - [Step 3: Add the Configure Banner Job Template](#step-3-add-the-configure-banner-job-template)
   - [Step 3: Add the Configure Network-User Job Template](#add-the-configure-network-user-job-template)
-  - [Step 5: Add the Restore Job Template](#step-5-add-the-restore-job-template)
+  - [Step 5: Add the Network-Restore Job Template](#step-5-add-the-network-restore-job-template)
   - [Step 6: Create a converged link](#step-6-create-a-converged-link)
   - [Step 7: Run the Workflow](#step-7-run-the-workflow)
 - [Takeaways](#takeaways)
@@ -51,13 +51,13 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
    ![add a template](images/add-a-template.png)
 
-   The `Backup` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
+   The `Backup network configurations` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
 
    ![configure backup node](images/configure-backup.png)
 
 ## Step 3: Add the Configure Banner Job Template
 
-1. Hover over the *Backup* node and click the green **+** symbol.  The **ADD A TEMPLATE** window will appear again.
+1. Hover over the *Backup network configurations* node and click the green **+** symbol.  The **ADD A TEMPLATE** window will appear again.
 
 2. Select the **Configure Banner** Job Template.  For the **Run** parameter select **On Success** from the drop down menu.
 
@@ -76,11 +76,11 @@ For this exercise we will create a time-stamped backup, if the backup job succes
     ![configure user node](images/configure-user.png)
 
 
-## Step 5: Add the Restore Job Template
+## Step 5: Add the Network-Restore Job Template
 
 1.  Hover over the **Configure Banner** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-2. Select the **Restore Network Config** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+2. Select the **Network-Restore** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
 
    ![configure restore node](images/configure-restore.png)
 
@@ -88,7 +88,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 1. Hover over the **Network-User** node and click the blue **chain** symbol.
 
-2. Now, click on the existing **Restore Network Config**.  A **ADD LINK** window will appear.  For the **RUN** parameter choose **On Failure**.
+2. Now, click on the existing **Network-Restore**.  A **ADD LINK** window will appear.  For the **RUN** parameter choose **On Failure**.
 
     ![restore node](images/completed-workflow.png)
 

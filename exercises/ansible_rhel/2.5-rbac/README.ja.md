@@ -31,8 +31,6 @@ Ansible Tower のユーザーには以下の3つのタイプがあります
     - **ユーザータイプ** Normal User  
   
     - **パスワード** ansible  
-  
-    - Confirm password  
 
 - **保存**をクリック  
 
@@ -104,7 +102,7 @@ $ curl http://22.33.44.55
 
 この様に、Ansible Tower では、認証情報を必要以上に提供したり、ユーザーに Playbook を変更したりする権限を与えることなく、柔軟に自動化を実行する権限のみを提供することができます。
 
-この機能は、Ansible Towerの主な強みの1つです\！
+この機能は、Ansible Towerの主な強みの1つです！
 
 ----
 

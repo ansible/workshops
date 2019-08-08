@@ -149,7 +149,7 @@ For more in depth details on RBAC terminology please refer to the [documentation
 
    ![permissions window](images/RBAC_9.png )
 
-   Note the **TEAM ROLES** assigned for the **network-admin** and **network-operator** users. By assigning the **USE** Role, these users have been granted permission to use this particular inventory:
+   Note the **TEAM ROLES** assigned for the **network-admin** and **network-operator** users. By assigning the **USE** Role, the **network-operator** user has been granted permission to use this particular inventory.
 
 ## Step 7: Job Template Permissions
 

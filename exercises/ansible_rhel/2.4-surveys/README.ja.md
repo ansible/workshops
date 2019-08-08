@@ -48,19 +48,19 @@ Survey を含むジョブテンプレートを作成します。
 
 > **回答**
 
-- **名前** Create index.html
+- **名前:** Create index.html
 
-- **ジョブタイプ:** Run
+- **ジョブタイプ:** 実行
 
-- **インベントリー** Webserver  
+- **インベントリー:** Webserver  
 
-- **プロジェクト** Ansible Workshop Examples  
+- **プロジェクト:** Ansible Workshop Examples  
 
-- **PLAYBOOK** `rhel/apache/apache_role_install.yml`  
+- **PLAYBOOK:** `rhel/apache/apache_role_install.yml`  
 
-- **認証情報** Workshop Credentials  
+- **認証情報:** Workshop Credentials  
 
-- **オプション** Enable Privilege Escalation  
+- **オプション:** 権限昇格の有効化
 
 - **保存**をクリック  
 
@@ -70,25 +70,25 @@ Survey を含むジョブテンプレートを作成します。
 
 ### Survey を追加する  
 
-- ジョブテンプレートの中で、**ADD SURVEY** ボタンをクリックします  
+- ジョブテンプレートの中で、**SURVEYの追加** ボタンをクリックします  
 
 - **Survey プロンプトの追加** フォームで以下を入力します  
   
-    - **プロンプト** First Line  
+    - **プロンプト:** First Line  
   
-    - **回答の変数名** `first_line`  
+    - **回答の変数名:** `first_line`  
   
-    - **回答タイプ** テキスト  
+    - **回答タイプ:** テキスト  
 
 - **+ADD**をクリックします。  
 
 - 同じように2つ目の変数入力フォームを定義します 
   
-    - **プロンプト** Second Line
+    - **プロンプト:** Second Line
   
-    - **回答の変数名** `second_line`
+    - **回答の変数名:** `second_line`
   
-    - **回答タイプ** テキスト
+    - **回答タイプ:** テキスト
 
 - **+ADD**をクリックします  
 

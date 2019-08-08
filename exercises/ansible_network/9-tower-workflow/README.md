@@ -6,8 +6,8 @@
 - [Guide](#guide)
   - [Step 1: Create a Job Template](#step-1-create-a-job-template)
   - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
-  - [Step 3: Add the Backup Job Template](#step-3-add-the-backup-job template)
-  - [Step 4: Add the Configure Banner Job Template](#Step 4-add-the-configure-banner-job-template)
+  - [Step 3: Add the Configure Banner Job Template](#step-3-add-the-configure-banner-job-template)
+  - [Step 3: Add the Configure Network-User Job Template](#add-the-configure-network-user-job-template)
   - [Step 5: Add the Restore Job Template](#step-5-add-the-restore-job-template)
   - [Step 6: Create a converged link](#step-6-create-a-converged-link)
   - [Step 7: Run the Workflow](#step-7-run-the-workflow)
@@ -23,11 +23,13 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 ## Step 1: Create a Job Template
 
-1. Click on the **Templates** link on the left menu.  
+1. Make sure you are logged in as the **admin** user.
 
-2. Click on the green **+** button. Select the **Workflow Template**.  
+2. Click on the **Templates** link on the left menu.  
 
-3. Fill out the the form as follows:
+3. Click on the green **+** button. Select the **Workflow Template**.  
+
+4. Fill out the the form as follows:
 
 | Parameter | Value |
 |---|---|
@@ -35,7 +37,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 |  Organization |  Default |
 |  Inventory |  Workshop Inventory |
 
-4. Click on the **Save** button
+5. Click on the **Save** button
 
 ![workflow creation](images/workflow_create.gif)
 
@@ -53,7 +55,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
    ![configure backup node](images/configure-backup.png)
 
-## Step 3: Add the Backup Job Template
+## Step 3: Add the Configure Banner Job Template
 
 1. Hover over the *Backup* node and click the green **+** symbol.  The **ADD A TEMPLATE** window will appear again.
 
@@ -65,7 +67,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
     ![banner node](images/configure-banner.png)
 
-## Step 4: Add the Configure Banner Job Template
+## Step 4: Add the Configure Network-User Job Template
 
 1. Hover over the *Backup* node (not the **Configure Banner** node) and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 

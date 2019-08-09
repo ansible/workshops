@@ -31,13 +31,13 @@ Ansibleのベストプラクティスもあわせてご覧ください:
 
 ## Section 2 - Ansible Towerの演習
 
- - [Exercise 2.1 - Towerの紹介](2.1-intro)
- - [Exercise 2.2 - インベントリ, クレデンシャル情報,  Ad-hoc コマンド](2.2-cred)
- - [Exercise 2.3 - Project, job template](2.3-projects)
- - [Exercise 2.4 - サーベイ機能](2.4-surveys)
- - [Exercise 2.5 - Role based access control](2.5-rbac)
- - [Exercise 2.6 - ワークフロー](2.6-workflows)
- - [Exercise 2.7 - まとめ](2.7-wrap)
+ - [演習 2.1 - Towerの紹介](2.1-intro)
+ - [演習 2.2 - インベントリ, クレデンシャル情報,  Ad-hoc コマンド](2.2-cred)
+ - [演習 2.3 - Project, job template](2.3-projects)
+ - [演習 2.4 - サーベイ機能](2.4-surveys)
+ - [演習 2.5 - Role based access control](2.5-rbac)
+ - [演習 2.6 - ワークフロー](2.6-workflows)
+ - [演習 2.7 - まとめ](2.7-wrap)
 
 
 ## 追加情報

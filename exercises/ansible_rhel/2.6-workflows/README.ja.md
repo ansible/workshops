@@ -2,7 +2,7 @@
 
 # Ansible Tower ワークフロー
 
-Ansible Tower の主要な新機能としてバージョン 3.1 からワークフローが導入されました。ワークフローの基本的な考え方は、複数のジョブテンプレートをリンクし実行できることです。インベントリー、Playbook、またはパーミッションさえも共有する場合としない場合があります。各ジョブテンプレートの実行は、例えば以下の様な実行条件を付与することができます。  
+Ansible Tower の主要な新機能としてバージョン 3.1 からワークフローが導入されました。ワークフローの基本的な考え方は、複数のジョブテンプレートをリンクし実行できることです。各ジョブテンプレートの実行は、例えば以下の様な実行条件を付与することができます。  
 
   - ジョブテンプレート A が成功すると、ジョブテンプレート B が自動的に実行されます  
 
@@ -10,59 +10,58 @@ Ansible Tower の主要な新機能としてバージョン 3.1 からワーク�
 
 また、ワークフローはジョブテンプレートに限定されず、プロジェクトまたはインベントリの更新を含めることもできます  
 
-これにより、Towerの新しいアプリケーションが可能になります。異なるジョブテンプレートを相互に構築できます。たとえば、ネットワーキングチームは、独自のコンテンツを備えたプレイブックを独自のGitリポジトリに作成し、独自のインベントリをターゲットにしますが、運用チームには独自のリポジトリ、プレイブック、およびインベントリがあります。
+これにより、Tower の新しいアプリケーションが可能になります。異なるジョブテンプレートを相互に構築できます。たとえば、ネットワーキングチームは、独自のコンテンツを備えたプレイブックを独自のGitリポジトリに作成し、独自のインベントリをターゲットにしますが、運用チームには独自のリポジトリ、プレイブック、およびインベントリがあります。
 
 このラボでは、ワークフローの設定方法を学びます。
 
-## Lab Scenario
+## ラボシナリオ  
 
-You have two departements in your organization:
+組織には以下の2つの部門があります。  
 
-  - The web operations team that is developing Playbooks in their own Git repository.
+  - 自分の Git リポジトリで Playbook を開発しているWeb運用チーム
 
-  - The web applications team, that develops JSP web applications for Tomcat in their Git repository.
+  - Git リポジトリで Tomcat 用の JSP Web アプリケーションを開発するチーム
 
-When there is a new Tomcat server to deploy, two things need to happen:
+新しい Tomcat サーバーをデプロイする必要がある場合、以下の 2 つのことを行う必要があります  
 
-  - Tomcat needs to be installed, the firewall needs to be opened and Tomcat should get started.
+  - Tomcat をインストールし、ファイアウォールを開いて、Tomcatサービスを開始する必要があります  
 
-  - The most recent version of the web application needs to be deployed.
+  - 最新の Web アプリケーションを展開する必要があります  
 
-To make things somewhat easier for you, everything needed already exists in Git repositories: Playbooks, JSP-files etc. You just need to glue it together.
+Playbook、JSP ファイルなど、必要なものはすべて Git リポジトリーに存在します。それを利用してラボを行います。  
 
-> **Note**
+> **メモ**
 >
-> In this example we assume two different Git repositories, but in reality we will access two different branches of the same repository.
+> シナリオでは、2 つの異なる Git リポジトリの利用を想定していますが、このラボでは同じリポジトリの2つの異なるブランチにアクセスしています  
 
-## Set up Projects
+## プロジェクトの設定
 
-First you have to set up the Git repo as Projects like you normally would. You have done this before, try to do this on your own. Detailed instructions can be found below.
+先のラボで実施した通り、まずはプロジェクトに Git リポジトリを登録する必要があります。必要な情報は以下です。ご自身で設定してみてください。  
 
-> **Warning**
+> **注意**
 > 
-> **If you are still logged in as user **wweb**, log out of and log in as user **admin** again.**
+> このラボは admin アカウントで実施ます。 **wweb** ユーザーでログインしている場合は、ログアウトして **admin** でログインしなおしてください！**  
 
-- Create the project for web operations:
+- web オペレーションのためのプロジェクトを作成します  
 
-  - It should be named **Webops Git Repo**
+  - 名前は **Webops Git Repo** にしましょう  
 
-  - The URL to access the repo is **https://github.com/ansible/workshop-examples.git**
+  - SCM アクセス先は **https://github.com/ansible/workshop-examples.git** です  
 
-  - The **SCM BRANCH/TAG/COMMIT** is **webops**
+  - **SCM BRANCH/TAG/COMMIT** は **webops** とします  
 
-- Create the project for the application developers:
+- アプリケーション開発者向けのプロジェクトを作成します。  
 
-  - It should be named **Webdev Git Repo**
+  - 名前は **Webdev Git Repo** にしましょう  
 
-  - The URL to access the repo is **https://github.com/ansible/workshop-examples.git**
+  - SCM アクセス先は **https://github.com/ansible/workshop-examples.git** です
 
-  - The **SCM BRANCH/TAG/COMMIT** is **webdev**
+  - **SCM BRANCH/TAG/COMMIT** は **webdev**
+ 
+ 
+> **回答は以下の通り**
 
-> **Warning**
-> 
-> **Solution Below**
-
-- Create the project for web operations. In the **Projects** view click the green plus button and fill in:
+- Web 運用者用のプロジェクトを作成します。プロジェクトは、緑色のプラスボタンをクリックし、以下の値を入力します
   
     - **NAME:** Webops Git Repo
   

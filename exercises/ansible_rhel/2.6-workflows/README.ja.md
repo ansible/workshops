@@ -139,63 +139,63 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 
 ## ワークフローの設定
 
-And now you finally set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Job Template** and **Workflow Template** when adding a template so this is finally making sense.
+ジョブテンプレートが出来上がりましたので、ワークフローテンプレートを作成してみましょう♬  
+ワークフローテンプレートも左メニューの**テンプレート**より作成します。
 
-  - Go to the **Templates** view and click the the green plus button. This time choose **Workflow Template**
+  - **テンプレート** を選択し、色のプラスボタンをクリックして、**ワークフローテンプレート**を選択します。  
     
-      - **NAME:** Deploy Webapp Server
+      - **名前** Deploy Webapp Server
     
-      - **ORGANIZATION:** Default
+      - **組織** Default
 
-  - Click **SAVE**
+  - **保存**
 
-  - Now the **WORKFLOW VISUALIZER** button becomes active, click it to start the graphical editor.
+  - これで**ワークフロービジュアライザー**ボタンがアクティブになります。早速クリックしてグラフィカルエディターを起動します。  
 
-  - Click on the **START** button, a new node opens. To the right you can assign an action to the node, you can choose between **JOBS**, **PROJECT SYNC** and **INVENTORY SYNC**.
+  - **スタート** ボタンをクリックすると、Node 画面が開きます。右側で、ノードにアクションを割り当てることができます。**ジョブ**、**プロジェクトの同期**、**インベントリー同期**のいずれかが選択できます。
 
-  - In this lab we’ll link Jobs together, so select the **Tomcat Deploy** job and click **SELECT**.
+  - この実習ラボでは、ジョブをリンクします。そのため、**Tomcat Deploy**ジョブを選択して**選択**をクリックします。  
 
-  - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x** and a green **+** signs appear.
-
-> **Tip**
+  - 左側にノードが現れます。ノードにはジョブの名前が入っています。ノードの上にマウスポインターを合わせると、赤い**x**と緑の**+** 記号、真ん中には鎖のような青い記号が表示されます。  
+> **ヒント**
 > 
-> Using the red "x" allows you to remove the node, the green plus lets you add the next node.
+> 赤い「x」を使用するとノードを削除でき、緑のプラスを使用すると次のノードを追加できます。青は他のノードへのリンク作成を行う際に使います。  
 
-  - Click the green **+** sign
+  - 緑の**+** を選択します  
 
-  - Choose **Web App Deploy** as the next Job (you might have to switch to the next page)
+  - 次のジョブとして Web App Deploy を選択します（次のページに切り替える必要がある場合があります）  
 
-  - Leave **Type** set to **On Success**
+  - **実行** は**成功時**のままにします。
 
-> **Tip**
+> **ヒント**
 > 
-> The type allows for more complex workflows. You could lay out different execution paths for successful and for failed Playbook runs.
+> この実行を使うことにより、より複雑なワークフローが可能になります。Playbook の実行が成功した場合と失敗した場合に、異なる実行パスをレイアウトできます。
 
-  - Click **SELECT**
+  - **選択**  をクリック
 
-  - Click **SAVE** in the **WORKFLOW VISUALIZER** view
+  - **ワークフロービジュアライザー**画面で保存をクリックします  
 
-  - Click **SAVE** in the **Workflow Template** view
+  - **ワークフローテンプレート**画面で保存をクリックします
 
-## And Action
+## 実行してみましょう
 
-Your workflow is ready to go, launch it.
+作成が完了しましたので早速動作させてみましょう♪  
 
-  - Click the blue **LAUNCH** button directly or go to the the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
+  - **起動** ボタンを直接クリックしても良いですし、**テンプレート画面**でロケットアイコンをクリックしても起動ができます。  
 
 ![jobs view of workflow](images/job_workflow.png)
 
-Note how the workflow run is shown in the job view. In contrast to a normal job template job execution this time there is no playbook output on the right, but a visual representation of the different workflow steps. If you want to look at the actual playbooks behind that, click **DETAILS** in each step. If you want to get back from a details view to the corresponding workflow, click the ![w-button](images/w_button.png) in the **JOB TEMPLATE** line in the **DETAILS** part on the left side of the job overview.
+ジョブビューでワークフローの実行がどのように表示されるかに注意してください。今回の通常のジョブテンプレートジョブの実行とは対照的に、右側にはプレイブックの出力はありませんが、複数のジョブステップの実行状況が表示されます。各ジョブで実行されたプレイブックの状況を確認したい場合は、各ステップの**詳細**をクリックしてください。再度ワークフロー実行画面に戻りたい場合は、左の画面の Web App Deloy の右隣にある小さな ![w-button](images/w_button.png) をクリックしてください。  
 
-After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
+ジョブが完了した後、すべてがうまく働いたかどうかを確認node1、node2またはnode3お使いの制御ホストから以下を実行します。  
 
 ```bash
 $ curl http://localhost:8080/coolapp/
 ```
 
-> **Tip**
+> **ヒント**
 > 
-> You might have to wait a couple of minutes until Tomcat answers requests.
+> Tomcat がリクエストに応答するまで、数分待たなければならない場合があります。  
 
 ----
 

@@ -2,7 +2,7 @@
       tower_credential:
         username: ec2-user
         name: "Workshop Credential"
-        ssh_key_data: "/home/{{ username }}/.ssh/aws-private.pem"
+        ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
         kind: ssh
         organization: REDHAT NETWORK ORGANIZATION
         tower_username: admin

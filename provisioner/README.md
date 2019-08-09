@@ -16,12 +16,17 @@ The `github.com/ansible/workshops` contains a provisioner `provision_lab.yml`, w
   - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
 - [Lab Teardown](#aws-teardown)
 - [FAQ](../docs/faq.md)
+- [More info on what is happening](#more-info-on-what-is-happening)
+- [Remote Desktop](#remote-desktop)
+- [Getting Help](#getting-help)
 
 # Requirements
 - This provisioner must be run with Ansible Engine v2.8.0 or higher.
 - AWS Account (follow directions on one time setup below)
 
 # Lab Setup
+
+## One Time Setup
 [For One Time Setup - click here](../docs/setup.md)
 
 ## Setup (per workshop)
@@ -74,7 +79,9 @@ For more extra_vars examples, look at the following:
   - Exercises and instructor slides are hosted at http://ansible.github.io/workshops
   - Workbench information is stored in two places after you provision:
     - in a local directory named after the workshop (e.g. TESTWORKSHOP/instructor_inventory)
-    - if `create_login_page: true` is enabled, there will be a website ec2_name_prefix.workshop_dns_zone (e.g. TESTWORKSHOP.rhdemo.io)
+    - if `create_login_page: true` is enabled in your `extra_vars file,` there will be a website ec2_name_prefix.workshop_dns_zone (e.g. TESTWORKSHOP.rhdemo.io)
+    - It is possible to change the route53 DNS as well using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
+    - The playbook does not create the route53 zone and must exist prior to running the playbook.
 
 # Lab Teardown
 
@@ -89,3 +96,25 @@ To destroy all the EC2 instances after training is complete:
 # FAQ
 
 For frequently asked questions see the [FAQ](../docs/faq.md)
+
+# More info on what is happening
+
+The `provision_lab.yml` playbook creates a work bench for each student, configures them for password authentication, and creates an inventory file for each user with their IPs and credentials. An instructor inventory file is also created in the current directory which will let the instructor access the nodes of any student.  This file will be called `instructor_inventory.txt`
+
+What does the AWS provisioner take care of automatically?
+- AWS VPC creation (Amazon WebServices Virtual Private Cloud)
+- Creation of an SSH key pair (stored at ./WORKSHOPNAME/WORKSHOPNAME-private.pem)
+- Creation of a AWS EC2 security group
+- Creation of a subnet for the VPC
+- Creation of an internet gateway for the VPC
+- Creation of route table for VPC (for reachability from internet)
+
+# Remote Desktop
+
+If you used `xrdp: true` you will the ability to remote desktop to the control node.
+
+The provisioner has the ability to install [xrdp](http://www.xrdp.org/) with [xfce](https://xfce.org/) for graphical interface. The xrdp application is a an open source remote desktop protocol(rdp) server. Xfce is a lightweight desktop environment for UNIX-like operating systems. It aims to be fast and low on system resources, while still being visually appealing and user friendly.
+
+# Getting Help
+
+Please file issues on Github.  Please fill out all required information.  Your issue will be closed if there if you skip required information in the Github issues template.

@@ -61,83 +61,83 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
  
 > **回答は以下の通り**
 
-- Web 運用者用のプロジェクトを作成します。プロジェクトは、緑色のプラスボタンをクリックし、以下の値を入力します
+- Web 運用者用のプロジェクトを作成します。プロジェクトは、緑色のプラスボタンをクリックし、以下の値を入力します。  
   
-    - **NAME:** Webops Git Repo
+    - **名前** Webops Git Repo  
   
-    - **ORGANIZATION:** Default
+    - **組織** Default  
   
-    - **SCM TYPE:** Git
+    - **SCM タイプ** Git  
   
-    - **SCM URL:** https://github.com/ansible/workshop-examples.git
+    - **SCM URL:** https://github.com/ansible/workshop-examples.git  
 
-    - **SCM BRANCH/TAG/COMMIT:** webops
+    - **SCM BRANCH/TAG/COMMIT** webops  
   
-    - **SCM UPDATE OPTIONS:** Tick all three boxes.
+    - **SCM 更新オプション** 全てにチェックします  
 
-- Click **SAVE**
+- **保存**をクリックします    
 
 - Create the project for the application developers. In the **Projects** view click the green plus button and fill in:
   
-    - **NAME:** Webdev Git Repo
+    - **名前** Webdev Git Repo
   
-    - **ORGANIZATION:** Default
+    - **組織** Default
   
-    - **SCM TYPE:** Git
+    - **SCM タイプ** Git
   
-    - **SCM URL:** https://github.com/ansible/workshop-examples.git
+    - **SCM URL** https://github.com/ansible/workshop-examples.git
   
-    - **SCM BRANCH/TAG/COMMIT:** webdev
+    - **SCM BRANCH/TAG/COMMIT** webdev
 
-    - **SCM UPDATE OPTIONS:** Tick all three boxes.
+    - **SCM 更新オプション** 全てにチェックします 
 
-- Click **SAVE**
+- **保存**をクリックします  
 
-## Set up Job Templates
+## ジョブテンプレートの作成
 
-Now you have to create Job Templates like you would for "normal" Jobs.
+最終目標はワークフローの作成ですが、まず、通常のジョブテンプレートを作成する必要があります。
 
-  - Go to the **Templates** view, click the green plus button and choose **Job Template**:
+  - **テンプレート** を選択し、色のプラスボタンをクリックして、**Job Template**を選択します
     
-      - **NAME:** Tomcat Deploy
+      - **名前** Tomcat Deploy
     
-      - **JOB TYPE:** Run
+      - **ジョブタイプ** 実行
     
-      - **INVENTORY:** Workshop Inventory
+      - **インベントリー** Workshop Inventory
     
-      - **PROJECT:** Webops Git Repo
+      - **プロジェクト** Webops Git Repo
     
-      - **PLAYBOOK:** `rhel/webops/tomcat.yml`
+      - **PLAYBOOK** `rhel/webops/tomcat.yml`
     
-      - **CREDENTIAL:** Workshop Credentials
+      - **認証情報** Workshop Credentials  
     
-      - **OPTIONS:** Enable privilege escalation
+      - **オプション** 権限昇格の有効化にチェックを入れます  
 
-  - Click **SAVE**
+  - **保存**をクリック
 
-  - Go to the **Templates** view, click the green plus button and choose **Job Template**:
+  - 上記の内容をアプリチームに対して繰り返します。**テンプレート** を選択し、色のプラスボタンをクリックして、**ジョブテンプレート**を選択します  
     
-      - **NAME:** Web App Deploy
+      - **名前** Web App Deploy
     
-      - **JOB TYPE:** Run
+      - **ジョブタイプ** 実行
     
-      - **INVENTORY:** Workshop Inventory
+      - **インベントリー** Workshop Inventory
     
-      - **PROJECT:** Webdev Git Repo
+      - **プロジェクト** Webdev Git Repo
     
       - **PLAYBOOK:** `rhel/webdev/create_jsp.yml`
     
-      - **CREDENTIALS:** Workshop Credentials
+      - **認証情報** Workshop Credentials  
     
-      - **OPTIONS:** Enable privilege escalation
+      - **オプション** 権限昇格の有効化にチェックを入れます  
 
-  - Click **SAVE**
+  - **保存**をクリック
 
-> **Tip**
+> **ヒント**  
 > 
-> If you want to know what the Playbooks look like, check out the Github URL and switch to the appropriate branches.
+> Playbook の中身をご覧になりたい方は、 Github URL を確認して、適切なブランチに切り替えてご覧ください。  
 
-## Set up the Workflow
+## ワークフローの設定
 
 And now you finally set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Job Template** and **Workflow Template** when adding a template so this is finally making sense.
 

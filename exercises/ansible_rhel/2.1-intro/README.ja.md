@@ -72,5 +72,5 @@ Ansible Tower を使い始めるには、いくつかの概念と Ansible Tower 
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
+[Ansible ワークショップ表紙に戻る](../README.ja.md)
 

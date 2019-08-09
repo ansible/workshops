@@ -114,17 +114,17 @@ dev wweb
 </body>
 ```
 
-Note the warining in the first line about not to use `curl` via the `command` module since there are better modules right within Ansible. We will come back to that in the next part.
+Ansible では、 `curl` コマンドを `command` モジュールで実行するよりも優れたモジュールが提供されているため、警告が出ますが、今回は無視して大丈夫です。  
 
-## Add Survey
+## Survey の追加 
 
-- Add a survey to the Template to allow changing the variables `dev_content` and `prod_content`
+- 変数 `dev_content` と `prod_content`　の内容を変更できるように、Surveyを追加します
 
-- Add permissions to the Team `Web Content` so the Template **Create Web Content** can be executed by `wweb`.
+- `Web Content` チーム内の `wweb` ユーザーが、 **Create Web Content** を実行できるように権限を追加します
 
-- Run the survey as user `wweb`
+- `wweb` ユーザーで Survey 入力を行います
 
-Check the results. Since we got a warning last time using `curl` via the `command` module, this time we will use the dedicated `uri` module. As arguments it needs the actual URL and a flag to output the body in the results.
+結果を確認しまし。先ほど `command` モジュールで `curl` を実行し、警告が表示されたので、今回は専用 `uri` モジュールを使用します。引数として、実際の URL と結果の本文を出力するフラグが必要です。
 
 ```bash
 $ ansible web -m uri -a "url=http://localhost return_content=yes"
@@ -153,17 +153,15 @@ node2 | SUCCESS => {
 [...]
 ```
 
-## Solution
+## 解決方法
 
-> **Warning**
->
-> **Solution Not Below**
+> 解決方法はここでは記載しません
 
-You have done all the required configuration steps in the lab already. If unsure, just refer back to the respective chapters.
+ラボで必要な構成手順はすべて完了しています。不明な場合は、それぞれの章を参照してください。  
 
-# The End
+# 終わり
 
-Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible Tower as much as we enjoyed creating the labs.
+おめでとうございます、ラボを終了しました！ Ansible Tower との初めて出会いを、我々がこのラボを作成した時と同じくらい楽しんで実施頂いたことを願っています！！！
 
 ----
 

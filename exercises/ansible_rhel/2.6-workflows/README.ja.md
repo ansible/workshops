@@ -42,7 +42,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 
 - web オペレーションのためのプロジェクトを作成します  
 
-  - 名前は **Webops Git Repo** にしましょう  
+  - 名前は **Webops Git Repo** とします  
 
   - SCM アクセス先は **https://github.com/ansible/workshop-examples.git** です  
 
@@ -50,7 +50,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 
 - アプリケーション開発者向けのプロジェクトを作成します。  
 
-  - 名前は **Webdev Git Repo** にしましょう  
+  - 名前は **Webdev Git Repo** とします  
 
   - SCM アクセス先は **https://github.com/ansible/workshop-examples.git** です
 

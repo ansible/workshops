@@ -54,7 +54,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 
   - SCM アクセス先は **https://github.com/ansible/workshop-examples.git** です
 
-  - **SCM BRANCH/TAG/COMMIT** は **webdev**
+  - **SCM BRANCH/TAG/COMMIT** は **webdev** とします
  
  
 > **回答は以下の通り**

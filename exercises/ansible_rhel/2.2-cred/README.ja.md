@@ -193,5 +193,5 @@ Ansible Engine で実行したアドホックコマンドを Tower でも実行�
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md#section-2---ansible-tower-の演習)
 

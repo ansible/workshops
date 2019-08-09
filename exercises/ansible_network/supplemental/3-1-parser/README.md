@@ -362,7 +362,7 @@ Our next step is to use the template module to generate a report from the above 
 
 > Note: For this lab the  Jinja2 template has been pre-populated for you. Feel free to look at the file **interface_facts.j2** in the **templates** directory.
 
-> Note: The debug task has been commented out so that display is consise
+> Note: The debug task has been commented out so that display is concise
 
 #### Step 9
 

@@ -196,4 +196,4 @@ $ curl http://localhost:8080/coolapp/
 > Tomcat がリクエストに応答するまで、数分待たなければならない場合があります。  
 
 ----
-[Ansible ワークショップ表紙に戻る](../README.md#section-2---ansible-tower-exercises)
+[Ansible ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-tower-exercises)

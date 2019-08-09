@@ -143,7 +143,7 @@ Next, add a task for the objective listed below:
   - Read the prompt information and disable all members or a single member based on the input from the user
 
 HINT:
-Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when conditions and loops </a></span> and [BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html)
+Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: #000000"> when conditions and loops</a> and [BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html)
 
 ## Step 10
 Run the playbook - exit back into the command line of the control host and execute the following:
@@ -156,7 +156,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 The output will look as follows.
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 [student1@ansible ~]$ ansible-playbook disable-pool-member.yml
 
@@ -201,7 +201,8 @@ changed: [f5]
 PLAY RECAP **************************************************************************************************************
 f5                         : ok=7    changed=2    unreachable=0    failed=0
 ```
-{% endraw %}
+<!-- {% endraw %} -->
+
 # Solution
 The solution will be provided by the instructor if you are stuck.  The GUI should show something similar to the following with a black diamond indicating the specified node was forced offline.
 

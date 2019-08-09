@@ -59,7 +59,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
  
 > **回答は以下の通り**
 
-- Web 運用者用のプロジェクトを作成します。プロジェクトは、緑色のプラスボタンをクリックし、以下の値を入力します。  
+- Web 運用者用のプロジェクトを作成します。**プロジェクト**画面より緑色のプラスボタンをクリックし、以下の値を入力します。  
   
     - **名前** Webops Git Repo  
   
@@ -75,7 +75,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 
 - **保存**をクリックします    
 
-- Create the project for the application developers. In the **Projects** view click the green plus button and fill in:
+- Web アプリ開発者用のプロジェクトを作成します。**プロジェクト**画面より緑色のプラスボタンをクリックし、以下の値を入力します。   
   
     - **名前** Webdev Git Repo
   

@@ -166,5 +166,4 @@ You have done all the required configuration steps in the lab already. If unsure
 Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible Tower as much as we enjoyed creating the labs.
 
 ----
-
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+[Ansible ワークショップ表紙に戻る](../README.md#section-2---ansible-tower-exercises)

@@ -1,0 +1,10 @@
+---
+- name: RHEL workshop_type
+  hosts: localhost
+  become: true
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: Print Summary Information
+      debug:
+        msg: "No specific tasks for {{workshop_type}}"

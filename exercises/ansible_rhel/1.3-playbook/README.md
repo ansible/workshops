@@ -64,7 +64,7 @@ On your control host **ansible**, create a directory called `ansible-files` in y
 [student<X>@ansible ~]$ cd ansible-files/
 ```
 
-Add a file called `apache.yml` with the following content. As in the previous chapters, use `vi` or `vim` for that. If you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
+Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
 
 ```yaml
 ---
@@ -106,13 +106,18 @@ In the added lines:
 
   - We started the tasks part with the keyword `tasks:`.
 
-  - A task is named and the a module for the task is referenced. Here it uses the module "yum".
+  - A task is named and the module for the task is referenced. Here it uses the `yum` module.
 
-  - Parameters for the module are added: `name:` to identify the package name, and `state:` to define the wanted state of the package.
+  - Parameters for the module are added: 
+  
+    - `name:` to identify the package name
+    - `state:` to define the wanted state of the package
 
 > **Tip**
 >
 > The module parameters are individual to each module. If in doubt, look them up again with `ansible-doc`.
+
+Save your playbook and exit your editor.
 
 ## Step 3.3 - Running the Playbook
 
@@ -127,7 +132,7 @@ Now you should be ready to run your Playbook:
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
-The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an in-built task run automatically at the beginning of each play. It collects information about the managed nodes, a later chapter will discuss this.
+The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail.
 
 Use SSH to make sure Apache has been installed on `node1`. The necessary IP address is provided in the inventory. Grep for the IP address there and use it to SSH to the node.
 

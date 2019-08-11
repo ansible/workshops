@@ -3,7 +3,7 @@
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 Previous exercises showed you the basics of Ansible Engine.  In the next few exercises, we are going
-to teach some more advanced ansible skills that will add flexibility and power to your playbooks.
+to teach some more advanced Ansible skills that will add flexibility and power to your playbooks.
 
 Ansible exists to make tasks simple and repeatable.  We also know that not all systems are exactly alike and often require
 some slight change to the way an Ansible playbook is run.  Enter variables.
@@ -22,19 +22,19 @@ Variables and their values can be defined in various places: the inventory, addi
 
 The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
 
-  - To e.g. define variables for a group "servers", a YAML file named `group_vars/servers` with the variable definitions is created.
+  - To define variables for a group "servers", a YAML file named `group_vars/servers` with the variable definitions is created.
 
   - To define variables specifically for a host `node1`, the file `host_vars/node1` with the variable definitions is created.
 
 > **Tip**
 >
-> Host variables take precedence over group variables (more about precedence can be found in the docs).
+> Host variables take precedence over group variables (more about precedence can be found in the [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
 
 ## Step 4.1 - Create Variable Files
 
-For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​" you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
+For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​", you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
-On the ansible control host, as user ansible create the directories to hold the variable definitions in `~/ansible-files/`:
+On the ansible control host, as the `student` user, create the directories to hold the variable definitions in `~/ansible-files/`:
 
 ```bash
 [student<X>@ansible ansible-files]$ mkdir host_vars group_vars

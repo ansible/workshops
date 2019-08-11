@@ -23,7 +23,7 @@ node3 ansible_host=<Z.Z.Z.Z>
 ansible ansible_host=44.55.66.77
 ```
 
-Ansible is already configured to use the inventory specific to your use case. We will show you in the next step how that is done. For now, we will execute some simple commands to work with the inventory.
+Ansible is already configured to use the inventory specific to your environment. We will show you in the next step how that is done. For now, we will execute some simple commands to work with the inventory.
 
 To reference inventory hosts, you supply a host pattern to the ansible command. Ansible has a `--list-hosts` option which can be useful for clarifying which managed hosts are referenced by the host pattern in an ansible command.
 
@@ -44,7 +44,7 @@ An inventory file can contain a lot more information, it can organize your hosts
 [student<X@>ansible ~]$ ansible all --list-hosts
 ```
 
-AS you see it is ok to put systems in more than one group, for instance a server could be both a web server and a database server. Note that in Ansible the groups are not necessarily hierarchical.
+As you see it is OK to put systems in more than one group. For instance, a server could be both a web server and a database server. Note that in Ansible the groups are not necessarily hierarchical.
 
 > **Tip**
 >
@@ -56,7 +56,7 @@ The behavior of Ansible can be customized by modifying settings in Ansible’s i
 
 > **Tip**
 >
-> The recommended practice is to create an `ansible.cfg` file in the directory from which you run Ansible commands. This directory would also contain any files used by your Ansible project, such as the inventory and Playbooks. Another practice is to create a file `.ansible.cfg` in your home directory.
+> The recommended practice is to create an `ansible.cfg` file in the directory from which you run Ansible commands. This directory would also contain any files used by your Ansible project, such as the inventory and playbooks. Another recommended practice is to create a file `.ansible.cfg` in your home directory.
 
 In the lab environment provided to you an `.ansible.cfg` file has already been created and filled with the necessary details in the home directory of your `student<X>` user on the control node:
 
@@ -81,7 +81,7 @@ inventory = /home/student<X>/lab_inventory/hosts
 
 There are multiple configuration flags provided. Most of them are not of interest here, but make sure to note the last line: there the location of the inventory is provided. That is the way Ansible knew in the previous commands what machines to connect to.
 
-Output the content of your dedicated inventory to proof-read
+Output the content of your dedicated inventory:
 
 ```bash
 [student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
@@ -101,7 +101,7 @@ ansible ansible_host=44.55.66.77
 
 > **Tip**
 >
-> Note that each student has an individual lab environment. The ip addresses shown above are only an example, the ip addresses of your individual environment are different. As with the other cases, replace **\<X\>** with your actual student number.
+> Note that each student has an individual lab environment. The IP addresses shown above are only an example and the IP addresses of your individual environments are different. As with the other cases, replace **\<X\>** with your actual student number.
 
 ## Step 2.3 - Ping a host
 
@@ -109,7 +109,7 @@ ansible ansible_host=44.55.66.77
 >
 > **Don’t forget to run the commands from the home directory of your student user, `/home/student<X>`. That is where your `.ansible.cfg` file is located, without it Ansible will not know what which inventory to use.**
 
-Let's start with something really basic - pinging a host. To do that we use the Ansible `ping` module. The `ping` module makes sure our web hosts are responsive. Basically, it connects to the managed host, executes a small script there and collects the results. That way it is ensured that the managed host is reachable and that Ansible is able to execute commands properly on it.
+Let's start with something really basic - pinging a host. To do that we use the Ansible `ping` module. The `ping` module makes sure our target hosts are responsive. Basically, it connects to the managed host, executes a small script there and collects the results. This ensures that the managed host is reachable and that Ansible is able to execute commands properly on it.
 
 > **Tip**
 >
@@ -161,14 +161,14 @@ Get help for a specific module including usage examples:
 
 ## Step 2.5 - Use the command module:
 
-Now let's see how we can run a good ol' fashioned Linux command and format the output using the `command` module. It just executes a command on a managed host:
+Now let's see how we can run a good ol' fashioned Linux command and format the output using the `command` module. It simply executes the specified command on a managed host:
 
 ```bash
 [student<X>@ansible ~]$ ansible node1 -m command -a "id"
 node1 | CHANGED | rc=0 >>
 uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
 ```
-In this case the module is called `command` and the option passed with `-a` is the actual command to run. Try to run this ad hoc command on both hosts using the `all` host pattern.
+In this case the module is called `command` and the option passed with `-a` is the actual command to run. Try to run this ad hoc command on all managed hosts using the `all` host pattern.
 
 Another example: Have a quick look at the kernel versions your hosts are running:
 
@@ -190,11 +190,7 @@ Sometimes it’s desirable to have the output for a host on one line:
 
 Using the `copy` module, execute an ad hoc command on `node1` to change the contents of the `/etc/motd` file. **The content is handed to the module through an option in this case**.
 
-Run:
-
-> **Warning**
->
-> **Expect an error\!**
+Run the following, but **expect an error**:
 
 ```bash
 [student<X>@ansible ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'
@@ -213,7 +209,7 @@ As mentioned this produces an **error**:
 
 The output of the ad hoc command is screaming **FAILED** in red at you. Why? Because user **student\<X\>** is not allowed to write the motd file.
 
-Now this is a case for privilege escalation and the reason `sudo` has to be setup properly. We need to instruct ansible to use `sudo` to run the command as root by using the parameter `-b` (think "become").
+Now this is a case for privilege escalation and the reason `sudo` has to be setup properly. We need to instruct Ansible to use `sudo` to run the command as root by using the parameter `-b` (think "become").
 
 > **Tip**
 >

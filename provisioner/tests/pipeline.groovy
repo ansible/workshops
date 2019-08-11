@@ -107,7 +107,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                 }
                                 archiveArtifacts artifacts: 'rhel.log'
                                 RHEL_DEPRECATED_WARNINGS = sh(
-                                    script: 'grep -c \'DEPRECATION WARNING\' rhel.log',
+                                    script: 'grep -c \'DEPRECATION WARNING\' rhel.log || true',
                                     returnStdout: true
                                 ).trim()
                             }
@@ -143,7 +143,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                 }
                                 archiveArtifacts artifacts: 'networking.log'
                                 NETWORKING_DEPRECATED_WARNINGS = sh(
-                                    script: 'grep -c \'DEPRECATION WARNING\' networking.log',
+                                    script: 'grep -c \'DEPRECATION WARNING\' networking.log || true',
                                     returnStdout: true
                                 ).trim()
                             }
@@ -187,7 +187,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                 }
                                 archiveArtifacts artifacts: 'f5.log'
                                 F5_DEPRECATED_WARNINGS = sh(
-                                    script: 'grep -c \'DEPRECATION WARNING\' f5.log',
+                                    script: 'grep -c \'DEPRECATION WARNING\' f5.log || true',
                                     returnStdout: true
                                 ).trim()
                             }

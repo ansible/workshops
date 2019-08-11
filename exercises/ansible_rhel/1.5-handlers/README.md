@@ -72,7 +72,7 @@ changed: [node2]
 
 ## Step 5.2 - Handlers
 
-Sometimes when a task does make a change to the system, a further task may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
+Sometimes when a task does make a change to the system, an additional task or tasks may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
 
 Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks that only get triggered when explicitly invoked using the "notify" statement. Read more about them in the [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change) documentation.
 
@@ -113,7 +113,7 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
 
 So what’s new here?
 
-  - The "notify" section calls the handler only when the copy task changed the file. That way the service is only restarted if needed - and not each time the playbook is run.
+  - The "notify" section calls the handler only when the copy task actually changes the file. That way the service is only restarted if needed - and not each time the playbook is run.
 
   - The "handlers" section defines a task that is only run on notification.
 
@@ -146,7 +146,7 @@ Feel free to change the httpd.conf file again and run the Playbook.
 
 ## Step 5.3 - Simple Loops
 
-Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just lists: for example if you have a list of users with their coresponding group, loop can iterate over them as well. Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
+Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just basic lists. For example, if you have a list of users with their coresponding group, loop can iterate over them as well. Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
 
 To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible-files` on your control node as your student user. We will use the `user` module to generate the user accounts.
 

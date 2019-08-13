@@ -31,9 +31,9 @@ Ansibleのベストプラクティスもあわせてご覧ください:
 
 ## Section 2 - Ansible Towerの演習
 
- - [演習 2.1 - Towerの紹介](2.1-intro/README.ja.md)
- - [演習 2.2 - インベントリ, クレデンシャル情報,  Ad-hoc コマンド](2.2-cred/README.ja.md)
- - [演習 2.3 - Project, job template](2.3-projects/README.ja.md)
+ - [演習 2.1 - Tower の紹介](2.1-intro/README.ja.md)
+ - [演習 2.2 - インベントリー, 認証情報,  アドホックコマンド](2.2-cred/README.ja.md)
+ - [演習 2.3 - プロジェクト, ジョブテンプレート](2.3-projects/README.ja.md)
  - [演習 2.4 - サーベイ機能](2.4-surveys/README.ja.md)
  - [演習 2.5 - Role based access control](2.5-rbac/README.ja.md)
  - [演習 2.6 - ワークフロー](2.6-workflows/README.ja.md)

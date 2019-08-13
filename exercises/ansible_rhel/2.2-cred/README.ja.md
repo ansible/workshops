@@ -193,5 +193,5 @@ Ansible Engine で実行したアドホックコマンドを Tower でも実行�
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-tower-の演習)
+[Ansible ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-towerの演習)
 

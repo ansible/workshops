@@ -165,5 +165,5 @@ node2 | SUCCESS => {
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+[Ansible Tower ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-towerの演習)
 

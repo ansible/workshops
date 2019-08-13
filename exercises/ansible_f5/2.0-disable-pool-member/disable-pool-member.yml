@@ -50,6 +50,7 @@
       name: "{{item.split(':')[0]}}"
       pool: "{{pool_name}}"
       port: "{{item.split(':')[1]}}"
+      host: "{{hostvars[item.split(':')[0]].ansible_host}}"
     loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
     vars:
      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
@@ -62,4 +63,5 @@
       name: "{{member_name.user_input.split(':')[0]}}"
       pool: "{{pool_name}}"
       port: "{{member_name.user_input.split(':')[1]}}"
+      host: "{{hostvars[member_name.user_input.split(':')[0]].ansible_host}}
     when: '"all" not in member_name.user_input'

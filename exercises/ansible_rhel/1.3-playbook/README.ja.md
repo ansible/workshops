@@ -201,7 +201,7 @@ Playbookの次のパートでは、確かにApache Webserverが`node1`上で有�
 
 出力された結果をみてみてください。
 いくつかのタスクは緑色で"OK"と記載され、1つだけ黄色で"changed"と表示されているはずです。
-  - もう一度、AnsibleのAd-Hocコマンドw用いてApacheが有効になっておりかつ起動していることを確認します。例えば、`systemctl status httpd`などを実行しましょう。
+  - もう一度、AnsibleのAd-Hocコマンドを用いてApacheが有効になっておりかつ起動していることを確認します。例えば、`systemctl status httpd`などを実行しましょう。
 
   - Playbookをもう一度実行して、出力結果が変わる様に慣れてみましょう。
 

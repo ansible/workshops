@@ -57,17 +57,17 @@ Playbook は SCM など、バージョン管理の仕組みの下に置いてお
 
   - 左のメニューから **プロジェクト** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。フォームに以下を入力します。  
 
-  - **名前** Ansible Workshop Examples  
+  - **名前:** Ansible Workshop Examples  
 
-  - **組織** Default  
+  - **組織:** Default  
 
-  - **SCM タイプ** Git  
+  - **SCM タイプ:** Git  
 
 ここで、リポジトリにアクセスするためのURLが必要です。上記の Github リポジトリに移動し、右側の緑色の **Clone or download** ボタンをクリック。さらに、 **Clone with HTTPS** が選択されていることを確認し、URL をコピーします。  
 
 SCM URL にコピーした URL を貼り付けます。  
 
-- **SCM URL** `https://github.com/ansible/workshop-examples.git`  
+- **SCM URL:** `https://github.com/ansible/workshop-examples.git`  
 
 - **SCM 更新オプション** 3つのボックスすべてにチェックマークを付けて、常にリポジトリの最新コピーを取得し、ジョブの起動時にリポジトリを更新する設定とします。    
 
@@ -77,40 +77,41 @@ SCM URL にコピーした URL を貼り付けます。
 
 ## ジョブテンプレートを作成してジョブを実行する  
 
-ジョブテンプレートは、Ansible ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。ジョブ手プレートではいくつかのパラメータを指定します。それぞれの意味は下記の通りです。  
+ジョブテンプレートは、Ansible ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。ジョブテンプレートではいくつかのパラメータを指定します。それぞれの意味は下記の通りです。  
 
-- **インベントリ** ジョブを実行するホストを指定します  
+- **インベントリー:** ジョブを実行するホストを指定します  
 
-- **認証情報** 管理対象ホストにログインするためのアカウント情報です  
+- **認証情報:** 管理対象ホストにログインするためのアカウント情報です  
 
-- **プロジェクト** Playbook の場所を指定します   
+- **プロジェクト:** Playbook の場所を指定します   
 
-- **Playbook の指定** 実際に使用する Playbook の指定  
+- **Playbook の指定**
 
 早速 **ジョブテンプレート** を作成してみましょう。♪  
+    
 左のメニューから **テンプレート** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。選択肢の中から **ジョブテンプレート** を選びます。    
 
 > **ヒント**
 > 
 > 下記フィールドの多くは、虫眼鏡アイコンをクリックの上オプション選択で設定が可能です。  
 
-- **名前** Apache Install  
+- **名前:** Apache Install  
 
-- **ジョブタイプ** 実行  
+- **ジョブタイプ:** 実行  
 
-- **インベントリー** Workshop Inventory  
+- **インベントリー:** Workshop Inventory  
 
-- **プロジェクト** Ansible Workshop Examples  
+- **プロジェクト:** Ansible Workshop Examples  
 
-- **Playbook** `rhel/apache/apache_install.yml`  
+- **PLAYBOOK:** `rhel/apache/apache_install.yml`  
 
-- **認証情報** Workshop Credentials  
+- **認証情報:** Workshop Credentials  
 
 - オプションで **権限昇格の有効化** にチェックを入れます  
 
 - **保存** をクリックします  
 
-青い **LAUNCH** ボタンを直接クリックするか、ジョブテンプレートの概要でロケットをクリックしてジョブを開始します。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。  
+青い **起動** ボタンを直接クリックするか、テンプレートのビューでロケットアイコンをクリックしてジョブを開始します。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。  
 
 
 ![job exection](images/job_overview.png)  
@@ -146,11 +147,11 @@ SCM URL にコピーした URL を貼り付けます。
 
 - **ホスト** をクリックし、対象ホストをチェックにより選択。さらに、 **コマンドの実行** をクリックします。
 
-- **モジュール** command
+- **モジュール:** command
 
-- **引数** systemctl status httpd
+- **引数:** systemctl status httpd
 
-- **マシン認証情報** Workshop Credentials
+- **マシン認証情報:** Workshop Credentials
 
 - **起動** をクリック
 

@@ -1,0 +1,27 @@
+- name: INSTALL AND CONFIGURE SPLUNK ENTERPRISE
+  hosts: splunk
+  become: true
+  gather_facts: no
+  roles:
+    - role: splunk_enterprise
+
+- name: INSTALL AND CONFIGURE SNORT
+  hosts: snort
+  become: true
+  vars:
+    ids_config_snort_version: '2.9.13'
+    ids_install_provider: "snort"
+    ids_install_normalize_logs: True
+    ids_install_snort_user: root
+    ids_install_snort_group: root
+  tasks:
+    - block:
+      - name: setup epel for snort ecosystem rule lifecycling
+        include_role:
+          name: "geerlingguy.repo-epel"
+      - name: import ids_install role
+        include_role:
+          name: "ansible_security.ids_install"
+      - name: import ids_config role
+        include_role:
+          name: "ansible_security.ids_config"

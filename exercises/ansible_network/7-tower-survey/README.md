@@ -27,7 +27,7 @@ Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/a
 
    | Parameter | Value |
    |---|---|
-   | Name  | CONFIGURE BANNER  |
+   | Name  | Network-Banner |
    |  Job Type |  Run |
    |  Inventory |  Workshop Inventory |
    |  Project |  Workshop Project |

@@ -27,7 +27,7 @@ Ansible Towerは、IT自動化のためのエンタープライズソリュー�
 | Managed Host 2               | node2          |
 | Managed Host 2               | node3          |
 
-Ansible Towerはすでにインストールされ、ライセンスが付与されています。WebUIにはHTTP / HTTPS経由でアクセスできます。  
+Ansible Tower はすでにインストールされ、ライセンスが付与されています。WebUI には HTTP / HTTPS 経由でアクセスできます。  
 
 ## ダッシュボード
 
@@ -72,5 +72,5 @@ Ansible Tower を使い始めるには、いくつかの概念と Ansible Tower 
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md# Section 2 - Ansible Towerの演習)
+![Ansible ワークショップ表紙に戻る](../README.ja.md# Section 2 - Ansible Towerの演習)
 

@@ -227,4 +227,4 @@ node3                      : ok=2    changed=0    unreachable=0    failed=0
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md)
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

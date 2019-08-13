@@ -22,7 +22,7 @@ Playbook と Jinja2 テンプレートを持つ Roles は Github リポジトリ
 
 **https://github.com/ansible/workshop-examples** の `rhel/apache` にあります。  
 
-Github UIに移動して、 `apache_role_install.yml` の中身を見てみてください。単に Role を参照しているだけです。 Role は `roles/role_apache` サブディレクトリに存在します。ロール内の jinja2 テンプレート `templates/index.html.j2` 内に定義された二つの変数を確認します。変数は `{{…​}}`\で定義されるんでしたね。また、メインのタスクを担う、 `tasks/main.yml` の中で、template からファイルをコピーするタスクをチェックします。この Playbook は何をやっているのでしょう、分かりますか？  テンプレート (**src**) から、対象ホスト上にファイル (**dest**) としてコピーしています。この際、コピー先のファイルには変数に値が入力されます。値を入力するのは、そう、 Survey インターフェースです。  
+Github UIに移動して、 `apache_role_install.yml` の中身を見てみてください。単に Role を参照しているだけです。 Role は `roles/role_apache` サブディレクトリに存在します。Role 内の jinja2 テンプレート `templates/index.html.j2` 内に定義された二つの変数を確認します。変数は `{{…​}}`\で定義されるんでしたね。また、メインのタスクを担う、 `tasks/main.yml` の中で、template からファイルをコピーするタスクをチェックします。この Playbook は何をやっているのでしょう、分かりますか？  テンプレート (**src**) から、対象ホスト上にファイル (**dest**) としてコピーしています。この際、コピー先のファイルには変数に値が入力されます。値を入力するのは、そう、 Survey インターフェースです。  
 
 ロールは、Apache のコンフィグレーションもデプロイします。前の章で行われたすべての変更が上書きされ、今回のサンプルが適切に機能することを保証するためのものです。  
 

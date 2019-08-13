@@ -6,7 +6,7 @@
 
 ## ステージの設定  
 
-Your operations team and your application development team like what they see in Tower. To really use it in their environment they put together these requirements:
+今までの演習の延長です。以下の演習にチャレンジしてみましょう。  
 
 - すべてのWebサーバー（`node1`、`node2`および`node3`）は1つのグループに入れる必要があります
 

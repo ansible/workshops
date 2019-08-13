@@ -10,9 +10,9 @@ Ansible Towerは、IT自動化のためのエンタープライズソリュー�
 
   - 管理者にユーザーアクセス制御を提供します
 
-  - 仮想化、クラウドなど様々な情報ソース内のグラフィカルなインベントリーの管理と同期
+  - 仮想化、クラウドなど様々な情報ソース内のグラフィカルなインベントリの管理と同期が可能です
 
-  - RESTful API への対応
+  - RESTful API に対応しています
 
   - などなど...
 
@@ -27,7 +27,7 @@ Ansible Towerは、IT自動化のためのエンタープライズソリュー�
 | Managed Host 2               | node2          |
 | Managed Host 2               | node3          |
 
-Ansible Towerはすでにインストールされ、ライセンスが付与されています。WebUIにはHTTP / HTTPS経由でアクセスできます。  
+Ansible Tower はすでにインストールされ、ライセンスが付与されています。WebUI には HTTP / HTTPS 経由でアクセスできます。  
 
 ## ダッシュボード
 
@@ -72,5 +72,5 @@ Ansible Tower を使い始めるには、いくつかの概念と Ansible Tower 
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md)
+[Ansible Tower ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-towerの演習)
 

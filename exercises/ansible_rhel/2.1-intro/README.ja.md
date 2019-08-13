@@ -72,5 +72,5 @@ Ansible Tower を使い始めるには、いくつかの概念と Ansible Tower 
 
 ----
 
-![Ansible ワークショップ表紙に戻る](../README.ja.md# Section 2 - Ansible Towerの演習)
+![Ansible ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-tower-の演習)
 

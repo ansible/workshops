@@ -31,7 +31,7 @@ Ansibleのベストプラクティスもあわせてご覧ください:
 
 ## Section 2 - Ansible Towerの演習
 
- - [演習 2.1 - Tower の紹介](2.1-intro/README.ja.md#演習-2.1---tower-の紹介)
+ - [演習 2.1 - Tower の紹介](2.1-intro/README.ja.md)
  - [演習 2.2 - インベントリー、認証情報、アドホックコマンド](2.2-cred/README.ja.md)
  - [演習 2.3 - プロジェクト、ジョブテンプレート](2.3-projects/README.ja.md)
  - [演習 2.4 - Survey 機能](2.4-surveys/README.ja.md)

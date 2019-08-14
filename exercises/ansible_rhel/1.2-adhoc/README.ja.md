@@ -275,11 +275,11 @@ node1 | CHANGED => {
 node1 | CHANGED | rc=0 >>
 Managed by Ansible
 ```
-`ansible node1 -m copy …​`コマンドを再実行してみてください。以下の点に着目してみてください:
+`ansible node1 -m copy …?`コマンドを再実行してみてください。以下の点に着目してみてください:
 
   - 出力結果は、異なる色だったはずです。(適切な端末の設定がされている場合)
   - `"changed": true,` から `"changed": false,`へ変更されたはずです。
-  - 最初の行が、`SUCCESS` から `CHANGED`に変わったはずです。
+  - 最初の行が、`CHANGED` から `SUCCESS`に変わったはずです。
 
 > **Tip**
 >
@@ -311,4 +311,4 @@ Managed by Ansible
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md)
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

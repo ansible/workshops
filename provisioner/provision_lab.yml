@@ -109,7 +109,10 @@
   become: yes
   gather_facts: no
   roles:
-    - { role: aws_dns, when: create_login_page is defined and create_login_page }
+    - role: aws_dns
+      when:
+        - create_login_page is defined
+        - create_login_page
   tags: control_node
 
 - name: Setup Amazon S3 Website for Student Login
@@ -118,7 +121,10 @@
   become: no
   gather_facts: no
   roles:
-    - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
+    - role: aws_workshop_login_page
+      when:
+        - create_login_page is defined
+        - create_login_page
   tags: control_node
 
 - name: include workshop_type unique setup roles

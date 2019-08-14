@@ -1,14 +1,12 @@
 # 演習 1.7 - Roles: Playbook を再利用可能にする
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
-
 今までのワークショップで学習してきた通り、Playbook を1つのファイルに書くことは可能です。しかしそのうち、作成した Playbook を再利用したいと考えるようになると思います。  
 
 これを実現するのが Ansible の Roles です。Role という形で Playbook をパーツとして分解し、構造化されたディレクトリに納めるのです。詳しくはこちらの [ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html) をご確認ください。  
 
 ## ステップ 1.7.1 - Ansible Roles 構造を理解する
 
-Roles は基本的に、ディレクティブを自動化したものであり、実際には参照ファイルの検索パス処理に対するいくつかの機能を超えた追加の魔法的な手段は含まれていません。
+Roles は基本的に、includeディレクティブを自動化したものであり、実際には参照ファイルの検索パス処理に対するいくつかの機能を超えた追加の魔法的な手段は含まれていません。
 
 Roles は定義されたディレクトリ構造に従い、最上位ディレクトリ名で区別されます。いくつかのサブディレクトリの中には `main.yml` という名前の YAML ファイルが含まれています。 `files` と `templates` のサブディレクトリには YAML ファイルによって参照されるオブジェクトを入れておくことができます。  
 
@@ -22,7 +20,7 @@ apache/
 ├── handlers
 │   └── main.yml
 ├── meta
-│   └── main.yml
+│   └── main.yml 
 ├── README.md
 ├── tasks
 │   └── main.yml
@@ -255,7 +253,7 @@ Listen 8080
         msg: 'Web server has been configured.'
 ```
 
-`pre_tasks` と `post_tasks` というキーワードに注意してください。通常、 Roles のタスクはプレイブックのタスクの前に実行されます。この順番を制御するには、 `pre_tasks` が必要となります。逆に `post_tasks` は、すべての Roles が完了した後に実行されます。ここでは、実際の Roles が実行されたときにどういう順番で実行されたかを確認するため、これら2つのタスクをあえて入れています。  
+`pre_tasks` と `post_tasks` というキーワードに注意してください。通常、 Roles のタスクはプレイブックのタスクの前に実行されます。この順番を制御するため、 `pre_tasks` を指定してRolesの前に実行されるタスクを定義できます。逆に `post_tasks` は、すべての Roles が完了した後に実行されます。ここでは、実際の Roles が実行されたときにどういう順番で実行されたかを確認するため、これら2つのタスクをあえて入れています。  
 
 Playbook を実行する準備が整いましたので、実行してみましょう！  
 
@@ -279,4 +277,4 @@ simple vhost index
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md)
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

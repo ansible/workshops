@@ -43,6 +43,7 @@ Web UI を使用して Ansible Tower に `admin` 権限でログインすると�
 
 ![Ansible Tower ダッシュボード](images/dashboard-jp.png)
 
+
 ## Ansible Tower の概念
 
 Ansible Tower を使い始めるには、いくつかの概念と Ansible Tower 独特のオブジェクト名に慣れておく必要があります。  

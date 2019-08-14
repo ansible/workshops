@@ -1,0 +1,20 @@
+---
+- name: Disable Server Management at Startup
+  win_regedit:
+    path: HKCU:\Software\Microsoft\ServerManager\
+    name: DoNotOpenServerManagerAtLogon
+    data: 1
+    type: dword
+
+- name: Remove EC2 Feedback Icon
+  win_file:
+    path: C:\Users\Administrator\Desktop\EC2 Feedback.website
+    state: absent
+
+- name: Remove EC2 Website Icon
+  win_file:
+    path: C:\Users\Administrator\Desktop\EC2 Microsoft Windows Guide.website
+    state: absent
+
+- name: Remove network notice
+  win_command: netsh advfirewall firewall set rule group="Network Discovery" new enable=No

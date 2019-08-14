@@ -23,7 +23,7 @@ Ansibleのベストプラクティスもあわせてご覧ください:
  - [演習 1.1 - 要件を確認してみよう](1.1-setup/README.ja.md)
  - [演習 1.2 - Ad-hoc コマンドを実行しよう](1.2-adhoc/README.ja.md)
  - [演習 1.3 - 初めての Playbook 作成](1.3-playbook/README.ja.md)
- - [演習 1.4 - 変数を使ってみる](1.4-variables/README.ja.md)
+ - [演習 1.4 - 変数を使ってみよう](1.4-variables/README.ja.md)
  - [演習 1.5 - 条件式、ハンドラ、ループを使う](1.5-handlers/README.ja.md)
  - [演習 1.6 - テンプレートを使う](1.6-templates/README.ja.md)
  - [演習 1.7 - Roles：Playbook を再利用可能にする](1.7-role/README.ja.md)

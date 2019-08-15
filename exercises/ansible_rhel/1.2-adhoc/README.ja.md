@@ -1,5 +1,7 @@
 # Exercise 1.2 - Ad-hoc コマンドを実行しよう
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 最初の演習では、Ansible がどのように動作するかを学習するために アドホック・コマンド を実行します。
 Ansible Ad-hocコマンドは、プレイブックを作成しなくてもリモートノードへのタスク実行を可能にします。
 1つか2つ程度のタスクをたくさんのリモートノードに実行する必要がある時などにとても便利なコマンドです。
@@ -60,7 +62,7 @@ ansible ansible_host=44.55.66.77
 Ansibleでは、グループが常に階層的である必要は無いことに注意してください。
 
 > **Tip**
-> 
+>
 > インベントリには様々なデータを含めることができます。例えば、標準的では無いSSHポートで動作するホストがある場合には、ホスト名の後にコロンをつけて利用したいポート番号を入力できます。もしくは、Ansibleで利用する固有の名前を定義し、それらと実IPを紐付けることもできます。
 
 ## Step 1.2.2 - Ansibleの設定ファイルについて
@@ -70,7 +72,7 @@ Ansibleはコントロールノード上のいくつかの設定可能な場所�
 こちらの [documentation](https://docs.ansible.com/ansible/latest/reference_appendices/config.html)を参考にしてみてください。
 
 > **Tip**
-> 
+>
 > Ansibleコマンドを実行するディレクトリに`ansible.cfg`ファイルを作成・配置することが推奨されるやり方です。このディレクトリには、インベントリやPlaybookなどみなさんのAnsibleプロジェクトで利用されるファイルも含まれます。他にも、ホームディレクトリに`.ansible.cfg`を作成するやり方もあります。
 
 みなさんに提供されているラボ環境では、コントロールノードの`student <X>`ホームディレクトリに、`ansible.cfg`が必要な詳細な情報が記載され、すでに作成済みです。
@@ -84,7 +86,7 @@ Ansibleはコントロールノード上のいくつかの設定可能な場所�
 ファイルの内容を出力します。
 
 ```bash
-[student<X>@ansible ~]$ cat .ansible.cfg 
+[student<X>@ansible ~]$ cat .ansible.cfg
 [defaults]
 stdout_callback = yaml
 connection = smart
@@ -117,14 +119,14 @@ ansible ansible_host=44.55.66.77
 ```
 
 > **Tip**
-> 
+>
 > 各受講者はそれぞれ個別のラボ環境を持っていることに注意してください。テキストの結果に表示されているIPアドレスは例であり実際のものではありません。みなさん個々の環境の実際のIPアドレスは異なります。
 他の場合と同様に、**\<X\>**をStudent Numberに置き換えてください。
 
 ## Step 1.2.3 - Ping a host
 
 > **Warning**
-> 
+>
 > **みなさんのラボ環境では、ホームディレクトリ `/home/student<X>`でコマンドを実行することを忘れないでください。 そこは、あなたの `.ansible.cfg`ファイルがあるところです。それなしでは、Ansibleはどのインベントリを使うべきかを知ることはできません。**
 
 基本的なところから始めていきましょう - ホストへのpingです。
@@ -133,7 +135,7 @@ Ansibleの`ping`モジュールを使ってみましょう。
 基本的には、管理対象ホストへ接続し、そこで小さなスクリプトを実行させ結果を収集する動作をします。このモジュールが実行できれば、管理対象ホストに到達可能で、Ansibleが対象ホスト上でコマンドを正しく実行できることが確認できています。
 
 > **Tip**
-> 
+>
 > 特定のタスクを実行するために設計されたツールがモジュールだと考えてみてください。
 
 Ansibleでは`ping`モジュールを使うべきです。`-m`オプションを用いてどのAnsibleモジュールを利用するかを定義します。`-a`を使うことで特定の文字列をオプションとしてモジュールに渡すこともできます。
@@ -143,8 +145,8 @@ Ansibleでは`ping`モジュールを使うべきです。`-m`オプションを
 node2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": false, 
+    },
+    "changed": false,
     "ping": "pong"
 }
 [...]
@@ -161,7 +163,7 @@ Ansibleにはたくさんのモジュールが準備されています。全て�
 ```
 
 > **Tip**
-> 
+>
 > `ansible-doc` では、 `q` を押して終了してください。. `up`/`down`を用いることで、コンテンツをスクロールすることができます。
 
 モジュールを探したい時には、次のようにしてみてください。:
@@ -177,7 +179,7 @@ Ansibleにはたくさんのモジュールが準備されています。全て�
 ```
 
 > **Tip**
-> 
+>
 > 必須のオプションは、`ansible-doc`内では "=" で表現されます。
 
 ## Step 1.2.5 - コマンドモジュールを使ってみよう。
@@ -206,7 +208,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 ```
 
 > **Tip**
-> 
+>
 > 多くのLinuxコマンドのように、`ansible`は短い形式のオプションだけでなく長い形式にも対応しています。 例えば、`ansible web --module-name ping`は、`ansible web -m ping`と同じ意味となります。 このワークショップでは、短縮系のオプションが用いられます。
 
 ## Step 1.2.6 - Copyモジュールとパーミッション
@@ -216,7 +218,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 実行してみましょう:
 
 > **Warning**
-> 
+>
 > **おそらく失敗するでしょう!**
 
 ```bash
@@ -239,7 +241,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 これは、権限昇格(privilege escalation)が必要なケースであり、`sudo`が適切に設定されなければならない理由でもあります。`sudo`を用いてrootとしてコマンドを実行するために、`-b`のパラメータを用います。("become"と考えてください)
 
 > **Tip**
-> 
+>
 > Ansibleは、SSHと同じように、現在のユーザ名(今回の場合にはstudent\<X\>)を用いて接続しに行きます。リモートユーザ名を上書きするには`-u`のパラメータを使います。
 今回のラボでは、`sudo`がすでに設定済みなので`student<X>` で接続されても問題ありません。`-b`のパラメータを使ってもう一度実行してみましょう。
 
@@ -251,18 +253,18 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 
 ```bash
 node1 | CHANGED => {
-    "changed": true, 
-    "checksum": "4458b979ede3c332f8f2128385df4ba305e58c27", 
-    "dest": "/etc/motd", 
-    "gid": 0, 
-    "group": "root", 
-    "md5sum": "65a4290ee5559756ad04e558b0e0c4e3", 
-    "mode": "0644", 
-    "owner": "root", 
-    "secontext": "system_u:object_r:etc_t:s0", 
-    "size": 19, 
-    "src": "/home/student1/.ansible/tmp/ansible-tmp-1557857641.21-120920996103312/source", 
-    "state": "file", 
+    "changed": true,
+    "checksum": "4458b979ede3c332f8f2128385df4ba305e58c27",
+    "dest": "/etc/motd",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "65a4290ee5559756ad04e558b0e0c4e3",
+    "mode": "0644",
+    "owner": "root",
+    "secontext": "system_u:object_r:etc_t:s0",
+    "size": 19,
+    "src": "/home/student1/.ansible/tmp/ansible-tmp-1557857641.21-120920996103312/source",
+    "state": "file",
     "uid": 0
 ```
 
@@ -273,32 +275,32 @@ node1 | CHANGED => {
 node1 | CHANGED | rc=0 >>
 Managed by Ansible
 ```
-`ansible node1 -m copy …​`コマンドを再実行してみてください。以下の点に着目してみてください:
+`ansible node1 -m copy …?`コマンドを再実行してみてください。以下の点に着目してみてください:
 
   - 出力結果は、異なる色だったはずです。(適切な端末の設定がされている場合)
   - `"changed": true,` から `"changed": false,`へ変更されたはずです。
-  - 最初の行が、`SUCCESS` から `CHANGED`に変わったはずです。
+  - 最初の行が、`CHANGED` から `SUCCESS`に変わったはずです。
 
 > **Tip**
-> 
+>
 > これにより、どこが変更されて、Ansibleがなにをやったのかをとても簡単に見つけることができるようになります。
 
 ## チャレンジラボ: Modules
 
   - `ansible-doc`を利用します。
-    
+
       - ソフトウェアパッケージを管理するために、Yumを利用できるモジュールを見つけてください。
-    
+
       - 最新バージョンのパッケージをインストールするためにはどうすれば良いのかをヘルプの例から探してみてください。
 
   - Ansibleのアドホックコマンドを実行して、`node1`に`screen`の最新パッケージをインストールしてみてください。
 
 > **Tip**
-> 
+>
 > copyモジュールで実行したアドホックコマンドを参考にして、モジュールとオプションを変更すると良いでしょう。
 
 > **Warning**
-> 
+>
 > **以下は答えです\!**
 
 ```bash
@@ -309,5 +311,4 @@ Managed by Ansible
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md)
-
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

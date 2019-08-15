@@ -170,6 +170,7 @@
         tower_verify_ssl: no
 
 #PROJECT
+# this displays warning, documented here: https://github.com/ansible/ansible/issues/60327
     - name: ADD REPO INTO TOWER
       tower_project:
         name: "Workshop Project"

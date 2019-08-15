@@ -1,4 +1,4 @@
-# 演習 1.5 - 条件分岐, ハンドラー、ループ実行
+# 演習 1.5 - 条件分岐, ハンドラー、ループを使う
 
 ## ステップ 1.5.1 - 条件分岐
 
@@ -24,7 +24,7 @@ Ansible は特定の条件が満たされたときにタスクを実行したり
 
 では早速やってみましょう。まず、デフォルトで指定されたインベントリファイル編集し、`ftpserver` グループに `node2` を入れます。
 デフォルトのインベントリファイルは、  
-`/home/student<X>/lightbulb/lessons/lab_inventory/student<X>-instances.txt` でしたね。♪   
+`~/lab_inventory/hosts` でしたね。♪
   
 編集後は以下の様になります。node2 のIPアドレスはご自身ものを入力してください！  
 
@@ -238,7 +238,7 @@ httpd.conf ファイルを再度 "80" に変更し、どうなるか試してみ
 
   - 再度タスクが一覧表示されます。ただし、3つの変更が表示されます。その内容を含む各ループが表示されます。  
 
-node1 内に `prod_user` がグループ `ftp` で作成されていることを確認します。  
+node1 内に `dev_user` がグループ `ftp` で作成されていることを確認します。  
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
@@ -248,5 +248,5 @@ uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md)
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
 

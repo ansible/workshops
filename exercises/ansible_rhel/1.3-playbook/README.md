@@ -1,5 +1,7 @@
 # Exercise 1.3 - Writing Your First Playbook
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
 
 Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
@@ -9,7 +11,7 @@ A playbook is where you can take some of those ad-hoc commands you just ran and 
 A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, like the modules in the previous chapter. The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
 
 > **Tip**
-> 
+>
 > Here is a nice analogy: When Ansible modules are the tools in your workshop, the inventory is the materials and the Playbooks are the instructions.
 
 ## Step 3.1 - Playbook Basics
@@ -29,13 +31,13 @@ There are some important concepts:
   - **become**: privilege escalation in Playbooks, same as using `-b` in the ad hoc command.
 
 > **Warning**
-> 
+>
 > The ordering of the contents within a Playbook is important, because Ansible executes plays and tasks in the order they are presented.
 
 A Playbook should be **idempotent**, so if a Playbook is run once to put the hosts in the correct state, it should be safe to run it a second time and it should make no further changes to the hosts.
 
 > **Tip**
-> 
+>
 > Most Ansible modules are idempotent, so it is relatively easy to ensure this is true.
 
 
@@ -62,7 +64,7 @@ On your control host **ansible**, create a directory called `ansible-files` in y
 [student<X>@ansible ~]$ cd ansible-files/
 ```
 
-Add a file called `apache.yml` with the following content. As in the previous chapters, use `vi` or `vim` for that. If you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
+Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
 
 ```yaml
 ---
@@ -80,7 +82,7 @@ This shows one of Ansible’s strenghts: The Playbook syntax is easy to read and
   - We enable user privilege escalation with `become:`.
 
 > **Tip**
-> 
+>
 > You obviously need to use privilege escalation to install a package or run any other task that requires root permissions. This is done in the Playbook by `become: yes`.
 
 Now that we've defined the play, let's add a task to get something done. We will add a task in which yum will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
@@ -97,20 +99,25 @@ Now that we've defined the play, let's add a task to get something done. We will
       state: latest
 ```
 > **Tip**
-> 
+>
 > Since playbooks are written in YAML, alignment of the lines and keywords is crucial. Make sure to vertically align the *t* in `task` with the *b* in `become`. Once you are more familiar with Ansible, make sure to take some time and study a bit the [YAML Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html).
 
 In the added lines:
 
   - We started the tasks part with the keyword `tasks:`.
-  
-  - A task is named and the a module for the task is referenced. Here it uses the module "yum".
 
-  - Parameters for the module are added: `name:` to identify the package name, and `state:` to define the wanted state of the package.
+  - A task is named and the module for the task is referenced. Here it uses the `yum` module.
+
+  - Parameters for the module are added: 
+  
+    - `name:` to identify the package name
+    - `state:` to define the wanted state of the package
 
 > **Tip**
-> 
+>
 > The module parameters are individual to each module. If in doubt, look them up again with `ansible-doc`.
+
+Save your playbook and exit your editor.
 
 ## Step 3.3 - Running the Playbook
 
@@ -125,7 +132,7 @@ Now you should be ready to run your Playbook:
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
-The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an in-built task run automatically at the beginning of each play. It collects information about the managed nodes, a later chapter will discuss this.
+The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail.
 
 Use SSH to make sure Apache has been installed on `node1`. The necessary IP address is provided in the inventory. Grep for the IP address there and use it to SSH to the node.
 
@@ -133,7 +140,7 @@ Use SSH to make sure Apache has been installed on `node1`. The necessary IP addr
 [student<X>@ansible ansible-files]$ grep node1 ~/lab_inventory/hosts
 node1 ansible_host=11.22.33.44
 [student<X>@ansible ansible-files]$ ssh 11.22.33.44
-student<X>@11.22.33.44's password: 
+student<X>@11.22.33.44's password:
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 [student<X>@node1 ~]$ rpm -qi httpd
@@ -198,7 +205,7 @@ Note the output now: Some tasks are shown as "ok" in green and one is shown as "
 Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the node from the inventory.
 
 > **Warning**
-> 
+>
 > **Expect a lot of red lines and a 403 status\!**
 
 ```bash
@@ -269,7 +276,7 @@ node3 ansible_host=33.44.55.66
 ```
 
 > **Tip**
-> 
+>
 > The IP addresses shown here are just examples, your nodes will have different IP addresses.
 
 Change the Playbook to point to the group "web":

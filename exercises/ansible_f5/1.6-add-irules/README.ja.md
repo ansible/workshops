@@ -1,5 +1,7 @@
 # 演習 1.6 - iRules の追加と Virtual Server へのアタッチ
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## 目次
 
 - [目的](#目的)
@@ -97,19 +99,19 @@ when HTTP_REQUEST {
 ```
 {% endraw %}
 
->プレイブックは一連のタスクから成ります。タスクとモジュールは1：1の関係性があります。モジュールは、Ansible API やansible / ansible-playbook から利用可能で、再利用可能なスタンドアロンスクリプトです。実行結果は、JSON文字列として標準出力へ出力されます。 
+>プレイブックは一連のタスクから成ります。タスクとモジュールは1：1の関係性があります。モジュールは、Ansible API やansible / ansible-playbook から利用可能で、再利用可能なスタンドアロンスクリプトです。実行結果は、JSON文字列として標準出力へ出力されます。
 
 - 変数 `'irules'` ： ２つのiRules（つまり、'irule1'と'irule2'）を設定します。
 - `name: ADD iRules` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_irule:` ：　使用するモジュールを宣言しています。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。 
+- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `module: ltm` ： iRulesがBIG-IPのどの機能で使用するかを指定します。本演習では ltm を指定します。
 - `name: "{{item}}"` ：  'irule1'と 'irule2' という名前の iRules を登録することを指定します。
 - `content: "{{lookup('file','{{item}}')}}" ` ： [lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html)を使って、iRulesに追加するコンテンツを指定します。
-- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。 
+- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `loop:` 与えられた iRules のリストに対してタスクを実行するように指定します。
 
 ## Step 5

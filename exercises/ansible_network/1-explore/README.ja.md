@@ -1,5 +1,7 @@
 # Exercise 1.0 - Anisbleのlab環境を確認してみよう
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ラボを開始する前に、ぜひSlackに参加してみましょう!
 今後のAnsibleの学習に役立つはずです。
 ここでは日本のAnsibleユーザ会と２つのSlackチャンネルを紹介します。

@@ -1,4 +1,5 @@
 ---
+## @todo check if AMI original AMI image "RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2" will work if using CloudAccess
 ec2_name_prefix: TRAINING
 ec2_region: us-east-1
 ec2_wait: true

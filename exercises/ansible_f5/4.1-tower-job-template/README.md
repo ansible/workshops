@@ -1,29 +1,29 @@
 # Exercise 4.1: Creating a Tower Job Template
 
 ## Table of Contents
-
 - [Exercise 4.1: Creating a Tower Job Template](#exercise-41-creating-a-tower-job-template)
   - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
   - [Step 1: Create a Credential](#step-1-create-a-credential)
-  - [Step 2: Create an Inventory](#step-2-create-an-inventory)
+  - [Step 2: Create/Migrate an Inventory](#step-2-createmigrate-an-inventory)
   - [Step 3: Create a Project](#step-3-create-a-project)
-  - [Step 1: Create a Job Template](#step-1-create-a-job-template)
-  - [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
-  - [Step 3: Examine the Job Details View](#step-3-examine-the-job-details-view)
-  - [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
-  - [Step 5: Verify the BIG-IP pool was created](#step-5-verify-the-big-ip-pool-was-created)
+  - [Step 4: Create a Job Template](#step-4-create-a-job-template)
+  - [Step 5: Launch the Job Template](#step-5-launch-the-job-template)
+  - [Step 6: Examine the Job Details View](#step-6-examine-the-job-details-view)
+  - [Step 7: Examine the Jobs window](#step-7-examine-the-jobs-window)
+  - [Step 8: Verify the BIG-IP Virtual Server was created](#step-8-verify-the-big-ip-virtual-server-was-created)
+  - [Step 9: Verifying the web servers](#step-9-verifying-the-web-servers)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 
 # Objective
 
-Demonstrate a network backup configuration job template for Red Hat Ansible Tower.  This job template will save the running configuration from all four routers and store them under /tmp/backup on the control node with a timestamp.
+Demonstrate a Virtual Server configuration job template for Red Hat Ansible Tower.  This job template will create a virtual server, create a pool, and add two web servers to the pool .
 
 To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**.  A **Job Template** requires:
- - An **Inventory** to run the job against
  - A **Credential** to login to devices.
+ - An **Inventory** to run the job against
  - A **Project** which contains Ansible Playbooks
 
 # Guide
@@ -35,25 +35,28 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 3. Fill out the credential parameters as follows, and click `Save`
 ![workshop credential link](images/ws_credential.png)
 
-## Step 2: Create an Inventory
+## Step 2: Create/Migrate an Inventory
+> TBD: we will decide whether we will move/migrate Ansible inventory into Ansible Tower manually, or it's taken care by Provisioner
+> Here we just showcase one way to migrate an inventory file from the Ansible Tower control node (awx-manage)
+> 
 1. In the Ansible web UI, navigate to the :guilabel:`Inventories` section using the left navigation bar.
 
-2. Click on the green ![templates link](images/add.png) button to create a new Inventory
+2. Click on the green ![templates link](images/add.png) button to create an empty inventory `Workshop Inventory`.
 
-3. Fill out the inventory parameters as follows, and click `Save`
-
+3. Login via SSH to your Ansible Tower control node (This is the Linux machine that has Ansible Tower installed on it).
+4. Locate the flat-file that represents your Ansible inventory. Run the awx-manage inventory_import command like this
+   ```
+   sudo awx-manage inventory_import --source=/path/to/hosts --inventory-name="Workshop Inventory"
+   ```
+5. Now when you login via the WebUI you will see all the hosts under the inventory
 ![workshop inventory link](images/Workshop_inventory.png)
-4. In your newly created inventory, click on the button labeled :guilabel:`Groups`.
-5. Click on the green ![templates link](images/add.png) button and fill in the following information
 
-In this case, all of our BIG-IP devices will share the same username and password. Populate the variables section as shown below.
-![group link](images/group.png)
+6. In your newly created inventory, click on the button labeled :guilabel:`Groups`.
+![workshop inventory group link](images/Workshop_inventory_group.png)
 
-6. In the newly created Group, click on the button labeled :guilabel:`Hosts`.
-7. Click on the green ![templates link](images/add.png) button  and then :guilabel:`New Host`. Fill in the following information
+7. Click on the Group `lb`, and then click on the button labeled :guilabel:`Hosts`, you will see the host `f5`.
 
-Each BIG-IP host in the inventory will have a ``bigip_server`` variable assigned to it with the value being the device's management IP address.
-Fill in the ``bigip_server`` variable with your lab's F5-A mgmt address as shown below:
+The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory varibales later in the lab.
 ![host link](images/host.png)
 
 ## Step 3: Create a Project
@@ -70,63 +73,76 @@ Fill in the ``bigip_server`` variable with your lab's F5-A mgmt address as shown
 
 ![workshop_project link](images/workshop_project.png)
 
-For reference, here is one playbook that were imported and that will be executed later this lab.
+For reference, here is one of the playbooks that was imported and that will be executed later this lab.
 
-**create_pool.yml**
+**`create_vs.yml`**
 
 ``` yaml
-- hosts: bigip_devices
+---
+- name: BIG-IP SETUP
+  hosts: lb
   connection: local
+  gather_facts: false
+
   tasks:
-  - name: Add Webserver A
-    bigip_node:
-       server: "{{ bigip_server }}"
-       user: "{{ bigip_username }}"
-       password: "{{ bigip_password }}"
-       name: "10.128.20.104"
-       host: "10.128.20.104"
-       validate_certs: False
-- name: Add Webserver B
-  bigip_node:
-    server: "{{ bigip_server }}"
-    user: "{{ bigip_username }}"
-    password: "{{ bigip_password }}"
-    name: "10.128.20.105"
-    host: "10.128.20.105"
-    validate_certs: False
-- name: Create Webserver Pool
-  bigip_pool:
-    server: "{{ bigip_server }}"
-    user: "{{ bigip_username }}"
-    password: "{{ bigip_password }}"
-    name: "ansible_webserver_pool"
-    lb_method: "round-robin"
-    monitors:
-    - http
-    - tcp
-    monitor_type: and_list
-    validate_certs: False
-- name: Add Webserver A to Webserver Pool
-  bigip_pool_member:
-    server: "{{ bigip_server }}"
-    user: "{{ bigip_username }}"
-    password: "{{ bigip_password }}"
-    pool: "ansible_webserver_pool"
-    host: "10.128.20.104"
-    port: 80
-    validate_certs: False
-- name: Add Webserver A to Webserver Pool
-  bigip_pool_member:
-    server: "{{ bigip_server }}"
-    user: "{{ bigip_username }}"
-    password: "{{ bigip_password }}"
-    pool: "ansible_webserver_pool"
-    host: "10.128.20.105"
-    port: 80
-    validate_certs: False
+    - name: CREATE NODES
+      bigip_node:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        host: "{{hostvars[item].ansible_host}}"
+        name: "{{hostvars[item].inventory_hostname}}"
+        validate_certs: "no"
+      loop: "{{ groups['webservers'] }}"
+
+    - name: CREATE POOL
+      bigip_pool:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        name: "http_pool"
+        lb_method: "round-robin"
+        monitors: "/Common/http"
+        monitor_type: "and_list"
+        validate_certs: "no"
+
+    - name: ADD POOL MEMBERS
+      bigip_pool_member:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        state: "present"
+        name: "{{hostvars[item].inventory_hostname}}"
+        host: "{{hostvars[item].ansible_host}}"
+        port: "80"
+        pool: "http_pool"
+        validate_certs: "no"
+      loop: "{{ groups['webservers'] }}"
+
+    - name: ADD VIRTUAL SERVER
+      bigip_virtual_server:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        name: "vip"
+        destination: "{{private_ip}}"
+        port: "443"
+        enabled_vlans: "all"
+        all_profiles: ['http','clientssl','oneconnect']
+        pool: "http_pool"
+        snat: "Automap"
+        validate_certs: "no"
+
+    - name: PRINT OUT WEB VIP FOR F5
+      debug:
+        msg: "The VIP (Virtual IP) is https://{{ansible_host}}"
 ```
 
-## Step 1: Create a Job Template
+## Step 4: Create a Job Template
 
 1.  Open the web UI and click on the `Templates` link on the left menu.
 
@@ -134,42 +150,42 @@ For reference, here is one playbook that were imported and that will be executed
 
 2. Click on the green ![templates link](images/add.png) button to create a new job template
 
-    >Make sure to select `Job Template` and not `Workflow Template`)
+    >Make sure to select **`Job Template`** and not **`Workflow Template`**)
 
 3. Fill out the job template parameters as follows:
 
     | Parameter | Value |
     |---|---|
-    | Name  | create_pool	  |
+    | Name  | create_vs	  |
     |  Job Type |  Run |
     |  Inventory |  Workshop Inventory |
     |  Project |  Workshop Project |
-    |  Playbook |  create_pool.yml |
+    |  Playbook |  create_vs.yml |
     |  Credential |  Workshop Credential |
 
 
     Here is a screenshot of the job template parameters filled out.
 
-    ![create_pool job template](images/create_pool.png)
+    ![create_vs job template](images/create_vs.png)
 
 4. Scroll down and click the green `save` button.
 
 
-## Step 2: Launch the Job Template
+## Step 5: Launch the Job Template
 
 1. Navigate back to the `Templates` window, where all Job Templates are listed.
 
-2. Launch the `Backup network configurations` Job Template by clicking the Rocket button.
+2. Launch the `create_vs` Job Template by clicking the Rocket button.
 
     ![rocket button](images/rocket.png)
 
     When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) can be found in the documentation.
 
-## Step 3: Examine the Job Details View
+## Step 6: Examine the Job Details View
 
 On the left side there is a **Details pane** on the right side there is the **Standard Out pane**.
 
-![job details view](images/job_create_pool.png)
+![job details view](images/job_create_vs.png)
 
 1.  Examine the **Details pane**    
 
@@ -191,7 +207,7 @@ On the left side there is a **Details pane** on the right side there is the **St
 
     ![task details window](images/task_details.png)
 
-## Step 4: Examine the Jobs window
+## Step 7: Examine the Jobs window
 
 Any **Job Template** that has been run or is currently running will show up under the **Jobs** window.
 
@@ -201,29 +217,41 @@ Any **Job Template** that has been run or is currently running will show up unde
 
     The Jobs link displays a list of jobs and their status–shown as completed successfully or failed, or as an active (running) job. Actions you can take from this screen include viewing the details and standard output of a particular job, relaunch jobs, or remove jobs.
 
-2. Click on the **Backup network configurations** Job
+2. Click on the **`create_vs`** Job
 
     ![jobs link](images/jobslink.png)
 
-    The **Backup network configurations** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
+    The **`create_vs`** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
 
-## Step 5: Verify the BIG-IP pool was created
+## Step 8: Verify the BIG-IP Virtual Server was created
 
 Login to the F5 with your web browser to see what was configured.
 Login information for the BIG-IP:
 
 - username: admin
 - password: provided by instructor defaults to ansible
-  
-The pool will now show two members. Click on Local Traffic-> then click on Pools. Click on `ansible_webserver_pool` to get more granular information. Click on the Members tab in the middle to list all the Members. 
-![pool link](images/pool.png)
+
+The load balancer virtual server can be found by navigating the menu on the left.  Click on **Local Traffic**. then click on **Virtual Server**.  See the screenshot below:
+![vip link](images/vip.png)
+
+## Step 9: Verifying the web servers
+
+Each RHEL web server actually already has apache running. Open up the public IP of the F5 load balancer in your web browser:
+
+>This time use port 443 instead of 8443, e.g. https://X.X.X.X:443/
+
+Each time you refresh, BIG-IP will load balancing the traffic between **host1** and **host2**. 
+![host1 link](images/host1.png)
+![host2 link](images/host2.png)
+
 
 # Takeaways
 
 You have successfully demonstrated
- - Creating a Job Template for backing up network configurations
+ - Creating a Job Template for Virtual Server configurations
  - Launching a Job Template from the Ansible Tower UI
- - Verifying the backups are correctly stored
+ - Verifying the Virtual Server is correctly created
+ - Veryfying the web servers are up and running
 
 ---
 

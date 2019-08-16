@@ -1,7 +1,6 @@
 # Exercise 4.0: Explore Red Hat Ansible Tower
 
 ## Table of Contents
-
 - [Exercise 4.0: Explore Red Hat Ansible Tower](#exercise-40-explore-red-hat-ansible-tower)
   - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
@@ -66,7 +65,7 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 
     ![Inventories Button](images/inventories.png)
 
-2. Under Inventories there will inventories.  Click on the `Demo Inventory`.  
+2. Under Inventories there will be inventories.  Click on the `Demo Inventory`.  
 
 3. Under the `Demo Inventory` click the **HOSTS** button at the top.  There will be hosts configured here.  Click on one of the devices.
 
@@ -107,7 +106,7 @@ Credentials are utilized by Tower for authentication when launching **Jobs** aga
 
 2. Under **CREDENTIALS** there will be one pre-configured credential, or `Demo Credential`.  Click on the `Demo Credential`.  
 
-3. Under the `Workshop Credential` examine the following:
+3. Under the `Demo Credential` examine the following:
     - The **CREDENTIAL TYPE** is a **Machine** credential.  
     - The **USERNAME** is set to `admin`.
     - The **PASSWORD** is already configured, and is **ENCRYPTED**.
@@ -133,7 +132,7 @@ Additionally, parameters such as logging level and process forks allow for addit
 
 # Complete
 
-You have completed lab exercise 5
+You have completed lab exercise 4.0
 
 You have now examined all three components required to get started with Ansible Tower.  A credential, an inventory and a project.  In the next exercise we will create a job template.
 

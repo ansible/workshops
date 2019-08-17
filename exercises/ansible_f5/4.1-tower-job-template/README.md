@@ -33,31 +33,29 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 2. Click on the green ![templates link](images/add.png) button to create a new Credential
 
 3. Fill out the credential parameters as follows, and click `Save`
-![workshop credential link](images/ws_credential.png)
+  ![workshop credential link](images/ws_credential.png)
 
 ## Step 2: Create/Migrate an Inventory
 > TBD: we will decide whether we will move/migrate Ansible inventory into Ansible Tower manually, or it's taken care by Provisioner
 > Here we just showcase one way to migrate an inventory file from the Ansible Tower control node (awx-manage)
-> 
+
+
 1. In the Ansible web UI, navigate to the :guilabel:`Inventories` section using the left navigation bar.
-
 2. Click on the green ![templates link](images/add.png) button to create an empty inventory `Workshop Inventory`.
-
 3. Login via SSH to your Ansible Tower control node (This is the Linux machine that has Ansible Tower installed on it).
 4. Locate the flat-file that represents your Ansible inventory. Run the awx-manage inventory_import command like this
    ```
    sudo awx-manage inventory_import --source=/path/to/hosts --inventory-name="Workshop Inventory"
    ```
 5. Now when you login via the WebUI you will see all the hosts under the inventory
-![workshop inventory link](images/Workshop_inventory.png)
+  ![workshop inventory link](images/Workshop_inventory.png)
 
 6. In your newly created inventory, click on the button labeled :guilabel:`Groups`.
-![workshop inventory group link](images/Workshop_inventory_group.png)
+  ![workshop inventory group link](images/Workshop_inventory_group.png)
 
 7. Click on the Group `lb`, and then click on the button labeled :guilabel:`Hosts`, you will see the host `f5`.
-
 The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory varibales later in the lab.
-![host link](images/host.png)
+  ![host link](images/host.png)
 
 ## Step 3: Create a Project
 1. In the Ansible web UI, navigate to the :guilabel:`Projects` section using the left navigation bar.

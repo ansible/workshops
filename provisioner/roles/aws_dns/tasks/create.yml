@@ -2,7 +2,7 @@
   block:
     - name: dns for student webpage
       become: False
-      routee53:
+      route53:
         state: "{{ s3_state }}"
         zone: "{{workshop_dns_zone}}"
         record: "{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"

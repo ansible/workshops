@@ -22,22 +22,22 @@ Ansibleのベストプラクティスもあわせてご覧ください:
 
  - [演習 1.1 - 要件を確認してみよう](1.1-setup/README.ja.md)
  - [演習 1.2 - Ad-hoc コマンドを実行しよう](1.2-adhoc/README.ja.md)
- - [演習 1.3 - 初めてのplaybook作成](1.3-playbook/README.ja.md)
- - [演習 1.4 - 変数を使ってみる](1.4-variables/README.ja.md)
+ - [演習 1.3 - 初めての Playbook 作成](1.3-playbook/README.ja.md)
+ - [演習 1.4 - 変数を使ってみよう](1.4-variables/README.ja.md)
  - [演習 1.5 - 条件式、ハンドラ、ループを使う](1.5-handlers/README.ja.md)
  - [演習 1.6 - テンプレートを使う](1.6-templates/README.ja.md)
- - [演習 1.7 - Roles：Playbookを再利用可能にする](1.7-role/README.ja.md)
+ - [演習 1.7 - Roles：Playbook を再利用可能にする](1.7-role/README.ja.md)
  - [演習 1.8 - ボーナスラボ](1.8-bonus/README.ja.md)
 
 ## Section 2 - Ansible Towerの演習
 
- - [Exercise 2.1 - Towerの紹介](2.1-intro)
- - [Exercise 2.2 - インベントリ, クレデンシャル情報,  Ad-hoc コマンド](2.2-cred)
- - [Exercise 2.3 - Project, job template](2.3-projects)
- - [Exercise 2.4 - サーベイ機能](2.4-surveys)
- - [Exercise 2.5 - Role based access control](2.5-rbac)
- - [Exercise 2.6 - ワークフロー](2.6-workflows)
- - [Exercise 2.7 - まとめ](2.7-wrap)
+ - [演習 2.1 - Tower の紹介](2.1-intro/README.ja.md)
+ - [演習 2.2 - インベントリー、認証情報、アドホックコマンド](2.2-cred/README.ja.md)
+ - [演習 2.3 - プロジェクトとジョブテンプレート](2.3-projects/README.ja.md)
+ - [演習 2.4 - Survey 機能](2.4-surveys/README.ja.md)
+ - [演習 2.5 - ロールベースのアクセス制御](2.5-rbac/README.ja.md)
+ - [演習 2.6 - ワークフロー](2.6-workflows/README.ja.md)
+ - [演習 2.7 - まとめ](2.7-wrap/README.ja.md)
 
 
 ## 追加情報

@@ -1,4 +1,4 @@
-# Exercise 1.3 - 初めてのplaybookを書いてみよう
+# Exercise 1.3 - 初めての Playbook 作成
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
@@ -201,7 +201,7 @@ Playbookの次のパートでは、確かにApache Webserverが`node1`上で有�
 
 出力された結果をみてみてください。
 いくつかのタスクは緑色で"OK"と記載され、1つだけ黄色で"changed"と表示されているはずです。
-  - もう一度、AnsibleのAd-Hocコマンドw用いてApacheが有効になっておりかつ起動していることを確認します。例えば、`systemctl status httpd`などを実行しましょう。
+  - もう一度、AnsibleのAd-Hocコマンドを用いてApacheが有効になっておりかつ起動していることを確認します。例えば、`systemctl status httpd`などを実行しましょう。
 
   - Playbookをもう一度実行して、出力結果が変わる様に慣れてみましょう。
 
@@ -325,4 +325,4 @@ Playbookを実行してみましょう:
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engine-exercises)
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

@@ -31,7 +31,7 @@ The Ansible Tower provided in this lab is individually setup for you. Make sure 
 
 ## Dashboard
 
-Let's have a first look at the Tower: Point your browser to the URL you were given, similar to **https://student\<X\>.workshopname.rhdemo.io** (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+Let's have a first look at the Tower: Point your browser to the URL you were given, similar to `https://student<X>.workshopname.rhdemo.io` (replace `<X>` with your student number and `workshopname` with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
 
 The web UI of Ansible Tower greets you with a dashboard with a graph showing:
 

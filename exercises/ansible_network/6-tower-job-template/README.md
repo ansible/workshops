@@ -13,7 +13,7 @@
 
 # Objective
 
-Demonstrate a network backup configuration job template for Red Hat Ansible Tower.  This job template will save the running configuration from all four routers and store them under /tmp/backup on the control node with a timestamp.
+Demonstrate a network backup configuration job template for Red Hat Ansible Tower.  This job template will save the running configuration from all four routers and store them under /backup on the control node with a timestamp.
 
 To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**.  A **Job Template** requires:
  - An **Inventory** to run the job against
@@ -110,10 +110,10 @@ Any **Job Template** that has been run or is currently running will show up unde
 
 ## Step 5: Verify the backups were created
 
-1. On the Ansible control node command line `ls /tmp/backup` to view the time stamped folder (or folders if you created multiple backups)
+1. On the Ansible control node command line `ls /backup` to view the time stamped folder (or folders if you created multiple backups)
 
    ```
-   [student1@ansible ~]$ ls /tmp/backup
+   [student1@ansible ~]$ ls /backup
    2019-07-09-18-42  2019-07-09-19-18
    ```
 
@@ -122,7 +122,7 @@ Any **Job Template** that has been run or is currently running will show up unde
 2. Use the `cat` command to view the contents of one of the time stamped network devices
 
    ```
-   [student1@ansible ~]$ cat /tmp/backup/2019-07-09-18-42/rtr1
+   [student1@ansible ~]$ cat /backup/2019-07-09-18-42/rtr1
 
    Current configuration : 5625 bytes
    !

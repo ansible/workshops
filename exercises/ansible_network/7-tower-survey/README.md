@@ -63,10 +63,12 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
 The role **banner** has a very simple `main.yml` file:
 
+<!-- {% raw %} -->
 ```yml
 - name: configure banner
   include_tasks: "{{ ansible_network_os }}.yml"
 ```
+<!-- {% endraw %} -->
 
 The `ansible_network_os` variable is being used to parameterize the network OS and create a vendor neutral playbook.
 

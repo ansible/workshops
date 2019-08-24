@@ -70,11 +70,12 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
       bigip_device_facts:
         gather_subset:
          - system-info
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
       register: device_facts
 ```
 {% endraw %}
@@ -84,6 +85,7 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
 - `name: COLLECT BIG-IP FACTS` is a user defined description that will display in the terminal output.
 - `bigip_device_facts:` tells the task which module to use.  Everything except `register` is a module parameter defined on the module documentation page.
 - The `gather_subset: system_info` parameter tells the module only to grab system level information.
+- The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
@@ -109,12 +111,13 @@ Next, add the second `task`. This task will use the `debug` module to print the 
       bigip_device_facts:
         gather_subset:
          - system-info
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      register: bigip_device_facts
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+      register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
@@ -152,11 +155,12 @@ Finally lets add two more tasks to get more specific info from facts gathered.
       bigip_device_facts:
         gather_subset:
          - system-info
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
       register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION

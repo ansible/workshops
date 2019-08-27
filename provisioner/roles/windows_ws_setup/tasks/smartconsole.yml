@@ -1,0 +1,44 @@
+---
+- block:
+  - name: Download Microsoft Visual C++ Redistributable Packages needed for SmartConsole
+    win_chocolatey:
+      name:
+        - vcredist2010
+        - vcredist2012
+      state: present
+
+  - name: Ensure the required NuGet package provider version is installed
+    win_shell: Find-PackageProvider -Name Nuget -ForceBootstrap -IncludeDependencies -Force      
+
+  - name: Install Pscx needed for unzip step later
+    win_psmodule:
+      name: pscx
+      allow_clobber: true
+
+  - name: Get SmartConsole download link from CheckPoint support page
+    win_uri:
+      url: https://supportcenter.checkpoint.com/supportcenter/portal?action=portlets.DCFileAction&eventSubmit_doGetdcdetails=&fileid=94524
+      return_content: yes
+    register: filepage_data
+
+  - name: Download SmartConsole from CheckPoint support page
+    win_get_url:
+      url: "{{ filepage_data.content | regex_search('http://([a-z0-9]{1,3}).checkpoint.com/paid/20/([a-z0-9]{1,35})/Check_Point_SmartConsole_R80_20([a-zA-Z0-9_]{1,25})_Win.exe(.)HashKey=([0-9]{1,12})_([a-z0-9]{1,35})(.)xtn=.exe') }}"
+      dest: C:\Temp\SmartConsole.exe
+
+  - name: Unpack SmartConsole archive
+    win_unzip:
+      src: C:\Temp\SmartConsole.exe
+      dest: C:\Temp\SmartConsole
+      creates: C:\Temp\SmartConsole\SmartConsole.exe
+
+  - name: Copy installer answer file to appropriate place
+    win_copy:
+      src: setup.iss
+      dest: C:\Temp\SmartConsole\setup.iss
+
+  - name: Execute SmartConsole installer
+    win_command: C:\Temp\SmartConsole\SmartConsole.exe -s setup.iss
+
+  ignore_errors: yes
+

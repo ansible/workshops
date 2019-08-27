@@ -1,3 +1,4 @@
+---
 # region where the nodes will live
 ec2_region: us-east-1
 # name prefix for all the VMs
@@ -8,6 +9,7 @@ student_total: 2
 workshop_type: 'security'
 ## Optional Variables
 admin_password: ansible
+windows_password: RedHat19!
 create_login_page: false
 autolicense: false
 towerinstall: true

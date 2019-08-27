@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# gaia-mgmt-ftw-user-data.sh
+
+# all set to admin123
+SIC_KEY='admin123'
+ADMIN_HASH='$6$0rVzHRkDOMwsB9cP$dm60oGLtEfgNGZK.WiiECa4FP3MPBbhob.oG.a33LyoEZvlbfL.5AFRzKmzRB4OQq0rgDF4JymvibXz3hNB2z/'
+ADMIN_PW='admin123'
+
+FTW_LOG=/var/log/ftw.log
+BLINK_CONF=/home/admin/blink.conf
+NEWSYS_CONF=/home/admin/newsys.conf
+
+# Gaia first time wizard for a management server
+if [ -e "/bin/blink_config" ]; then
+  echo "Configuring Image Using Blink_Config" | tee /dev/console >> $FTW_LOG
+  echo "TODO: Implement management server configuration via Blink" | tee /dev/console >> $FTW_LOG
+  #blink_config -t $BLINK_CONF
+  #sed -i 's:download_info=".*":download_info="true":g' $BLINK_CONF
+  #sed -i 's:upload_info=".*":upload_info="true":g' $BLINK_CONF
+  #sed -i "s:ftw_sic_key='':ftw_sic_key='$SIC_KEY':g" $BLINK_CONF
+  #sed -i "s:admin_hash='':admin_hash='$ADMIN_HASH':g" $BLINK_CONF
+  #sed -i "s:admin_password_regular='':admin_password_regular='$ADMIN_PW':g" $BLINK_CONF
+  #echo "##### BLINK CONF #####" >> $FTW_LOG
+  #cat $BLINK_CONF >> $FTW_LOG
+  #echo "##### END BLINK CONF #####" >> $FTW_LOG
+  #blink_config -f $BLINK_CONF --dry-run >> $FTW_LOG 2>&1
+  #blink_config -f $BLINK_CONF >> $FTW_LOG 2>&1
+else
+  echo "Configuring Image Using Config_System" | tee /dev/console >> $FTW_LOG
+  config_system -t $NEWSYS_CONF
+  sed -i 's:install_security_gw=:install_security_gw="false":g' $NEWSYS_CONF
+  # IMPORTANT: There is a typo in the template file so don't change the next line
+  sed -i 's:install_security_managment=:install_security_managment="true":g' $NEWSYS_CONF
+  sed -i 's:install_mgmt_primary=:install_mgmt_primary="true":g' $NEWSYS_CONF
+  sed -i 's:download_info=".*":download_info="true":g' $NEWSYS_CONF
+  sed -i 's:upload_info=".*":upload_info="true":g' $NEWSYS_CONF
+  sed -i 's:mgmt_admin_radio=:mgmt_admin_radio="gaia_admin":g' $NEWSYS_CONF
+  sed -i 's:mgmt_gui_clients_radio=:mgmt_gui_clients_radio="any":g' $NEWSYS_CONF
+  sed -i "s:admin_hash='':admin_hash='$ADMIN_HASH':g" $NEWSYS_CONF
+  sed -i 's:reboot_if_required=:reboot_if_required="false":g' $NEWSYS_CONF
+  echo "##### NEWSYS CONF #####" >> $FTW_LOG
+  cat $NEWSYS_CONF >> $FTW_LOG
+  echo "##### END NEWSYS CONF #####" >> $FTW_LOG
+  config_system -f $NEWSYS_CONF --dry-run >> $FTW_LOG 2>&1
+  config_system -f $NEWSYS_CONF >> $FTW_LOG 2>&1
+fi
+
+# more clish customization below
+clish -c "lock database override"
+clish -c "set user admin shell /bin/bash" -s
+
+# allow incoming web API calls from anywhere
+if [ ! -d /home/admin/bin ]; then
+  mkdir /home/admin/bin
+fi
+cat << 'EOF' > /home/admin/bin/open-web-api.sh
+#!/bin/bash
+
+# open-web-api.sh
+
+LOG_FILE=/var/log/open-web-api.log
+
+start_time=$(date)
+
+echo "$start_time" > $LOG_FILE
+
+while true; do
+  api_status=$(api status |grep "Overall API Status" |awk -F ": " '{ print $2 }')
+  if [ "$api_status" == "Started" ]; then
+    echo "API has been started" >> $LOG_FILE
+    api_access=$(api status |grep "Access" |awk -F "ip " '{ print $2 }' |tr -d '[:space:]')
+    if [ "$api_access" == "127.0.0.1" ]; then
+      echo "API access set to localhost only" >> $LOG_FILE
+      mgmt_cli -r true set api-settings accepted-api-calls-from "All IP addresses" --domain 'System Data' --format json >> $LOG_FILE 2>&1
+      api restart >> $LOG_FILE 2>&1
+    else
+      api_access=$(api status |grep "Access")
+      echo "$api_access" >> $LOG_FILE
+    fi
+    break
+  else
+    echo "API not started" >> $LOG_FILE
+    sleep 5
+  fi
+done
+
+exit 0
+EOF
+
+chmod +x /home/admin/bin/open-web-api.sh
+
+cat << 'EOL' >> /etc/rc.local
+
+# Allow incoming web API calls
+/home/admin/bin/open-web-api.sh &
+EOL
+
+shutdown -r now

@@ -111,8 +111,6 @@
   roles:
     - { role: webservers, when: workshop_type == "f5" }
 
-=======
->>>>>>> devel
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
   gather_facts: no

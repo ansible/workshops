@@ -6,7 +6,7 @@
 - [Objective](#objective)
 - [Guide](#guide)
   - [Step 1: Create a Credential](#step-1-create-a-credential)
-  - [Step 2: Create/Migrate an Inventory](#step-2-createmigrate-an-inventory)
+  - [Step 2: Migrate an Inventory](#step-2-migrate-an-inventory)
   - [Step 3: Create a Project](#step-3-create-a-project)
   - [Step 4: Create a Job Template](#step-4-create-a-job-template)
   - [Step 5: Launch the Job Template](#step-5-launch-the-job-template)
@@ -33,12 +33,12 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 2. Click on the green ![templates link](images/add.png) button to create a new Credential
 
 3. Fill out the credential parameters as follows, and click `Save`
+   - Credential type: Network
+  
   ![workshop credential link](images/ws_credential.png)
 
-## Step 2: Create/Migrate an Inventory
-> TBD: we will decide whether we will move/migrate Ansible inventory into Ansible Tower manually, or it's taken care by Provisioner
+## Step 2: Migrate an Inventory
 > Here we just showcase one way to migrate an inventory file from the Ansible Tower control node (awx-manage)
-
 
 1. In the Ansible web UI, navigate to the :guilabel:`Inventories` section using the left navigation bar.
 2. Click on the green ![templates link](images/add.png) button to create an empty inventory `Workshop Inventory`.
@@ -56,6 +56,12 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 7. Click on the Group `lb`, and then click on the button labeled :guilabel:`Hosts`, you will see the host `f5`.
 The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory varibales later in the lab.
   ![host link](images/host.png)
+
+8. Click on `Workshop Inventory` on the top to return to inventoy
+   then click on the button labeled :guilabel:`Groups`
+   Click on the Group `webservers`, and then click on the button labeled :guilabel:`Hosts`. You will see two hosts: `host1` and `host2`
+   Click on `host1`, and you will see the variables assigned to it with the respective values.
+   ![host link](images/server1.png)
 
 ## Step 3: Create a Project
 1. In the Ansible web UI, navigate to the :guilabel:`Projects` section using the left navigation bar.
@@ -83,49 +89,41 @@ For reference, here is one of the playbooks that was imported and that will be e
   gather_facts: false
 
   tasks:
+    - name: Setting up provider values
+      set_fact:
+       provider:
+        server: "{{private_ip}}"
+        server_port: "8443"
+        validate_certs: "False"
+  
     - name: CREATE NODES
       bigip_node:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
+        provider: "{{provider}}"
         host: "{{hostvars[item].ansible_host}}"
         name: "{{hostvars[item].inventory_hostname}}"
-        validate_certs: "no"
       loop: "{{ groups['webservers'] }}"
 
     - name: CREATE POOL
       bigip_pool:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
+        provider: "{{provider}}"
         name: "http_pool"
         lb_method: "round-robin"
         monitors: "/Common/http"
         monitor_type: "and_list"
-        validate_certs: "no"
 
     - name: ADD POOL MEMBERS
       bigip_pool_member:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
+        provider: "{{provider}}"
         state: "present"
         name: "{{hostvars[item].inventory_hostname}}"
         host: "{{hostvars[item].ansible_host}}"
         port: "80"
         pool: "http_pool"
-        validate_certs: "no"
       loop: "{{ groups['webservers'] }}"
 
     - name: ADD VIRTUAL SERVER
       bigip_virtual_server:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
+        provider: "{{provider}}"
         name: "vip"
         destination: "{{private_ip}}"
         port: "443"
@@ -133,7 +131,6 @@ For reference, here is one of the playbooks that was imported and that will be e
         all_profiles: ['http','clientssl','oneconnect']
         pool: "http_pool"
         snat: "Automap"
-        validate_certs: "no"
 
     - name: PRINT OUT WEB VIP FOR F5
       debug:
@@ -159,10 +156,13 @@ For reference, here is one of the playbooks that was imported and that will be e
     |  Inventory |  Workshop Inventory |
     |  Project |  Workshop Project |
     |  Playbook |  create_vs.yml |
-    |  Credential |  Workshop Credential |
+    |  Credential |  Workshop Credential (From the Credential type select ‘Network’) |
+    
+    From the Credential type select ‘Network’, then seletct `Workshop Credential`
+    ![network credential](images/network.png) 
 
-
-    Here is a screenshot of the job template parameters filled out.
+  
+    Here is a screenshot of the job template parameters filled out:
 
     ![create_vs job template](images/create_vs.png)
 

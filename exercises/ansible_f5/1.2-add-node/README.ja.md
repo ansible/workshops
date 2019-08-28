@@ -1,5 +1,7 @@
 # 演習 1.2 - ノードの追加
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## 目次
 
 - [目的](#目的)
@@ -25,7 +27,7 @@
 
 ## Step 2:
 
-以下の定義を `bigip-node.yml` に入力します : 
+以下の定義を `bigip-node.yml` に入力します :
 
 ``` yaml
 ---
@@ -73,12 +75,12 @@
 
 - `name: CREATE NODES` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_node:` ：　使用するモジュールを宣言しています。  `loop` を除く全てのものは、モジュールのドキュメント上で定義されている、モジュールパラメータです。
-- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。 
+- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。 
+- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
-- `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（host1、host2 となります）として使うことを指示します。 
+- `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（host1、host2 となります）として使うことを指示します。
 - `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
 - `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む webservers グループが一覧となります。
 

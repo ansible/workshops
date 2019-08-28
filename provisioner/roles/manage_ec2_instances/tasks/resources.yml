@@ -83,6 +83,91 @@
         to_port: 179
         from_port: 179
         cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 256
+        from_port: 256
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point fetch policy
+      - proto: tcp
+        to_port: 257
+        from_port: 257
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point logging
+      - proto: tcp
+        to_port: 18183
+        from_port: 18183
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW1 sam
+      - proto: tcp
+        to_port: 18190
+        from_port: 18190
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SmartConsole CPMI
+      - proto: tcp
+        to_port: 18191
+        from_port: 18191
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SIC policy inst
+      - proto: tcp
+        to_port: 18192
+        from_port: 18192
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SIC get topology
+      - proto: tcp
+        to_port: 18194
+        from_port: 18194
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point temain
+      - proto: tcp
+        to_port: 18202
+        from_port: 18202
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point CP RTM
+      - proto: tcp
+        to_port: 18208
+        from_port: 18208
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW1 remote install
+      - proto: tcp
+        to_port: 18209
+        from_port: 18209
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point
+      - proto: tcp
+        to_port: 18210
+        from_port: 18210
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW ICA pull
+      - proto: tcp
+        to_port: 18211
+        from_port: 18211
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SIC ICA push
+      - proto: tcp
+        to_port: 18221
+        from_port: 18221
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point CP redundant
+      - proto: tcp
+        to_port: 18264
+        from_port: 18264
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW ICA services
+      - proto: tcp
+        to_port: 18266
+        from_port: 18266
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point seam
+      - proto: tcp
+        to_port: 19009
+        from_port: 19009
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SmartConsole CPMI
+      - proto: tcp
+        to_port: 5986
+        from_port: 5986
+        cidr_ip: 0.0.0.0/0
+        rule_desc: WinRM
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0

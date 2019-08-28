@@ -1,4 +1,4 @@
-# Exercise 1.5 - Executing the first Splunk ES playbook
+# Exercise 1.4 - Executing the first Splunk ES playbook
 
 ----
 

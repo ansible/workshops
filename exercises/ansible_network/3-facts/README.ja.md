@@ -1,5 +1,7 @@
 # Exercise 1.2 - Moduleのドキュメントの確認方法、 出力結果の登録方法、 tagの使い方
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 前のセクションでは、`ios_facts` と `debug` の使い方を学びました。
 `debug` モジュールの使い方では、 `msg` と呼ばれるパラメータを設定しましたが、`ios_facts`モジュールについては特にそのようなものを設定しませんでした。
 これらのモジュールに設定できるパラメータについて知りたいと思った場合、どうすれば良いでしょうか？

@@ -5,7 +5,7 @@ timeout = 60
 deprecation_warnings = False
 host_key_checking = False
 retry_files_enabled = False
-{% if workshop_type == 'rhel' %}
+{% if (workshop_type == 'rhel') or (workshop_type == 'security') %}
 inventory = /home/{{username}}/lab_inventory/hosts
 {% elif workshop_type == 'devops' %}  
 inventory = /home/{{username}}/devops-workshop/lab_inventory/hosts

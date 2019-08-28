@@ -1,0 +1,105 @@
+---
+# - name: Setup Host routes for ansible control node and host1 when in networking mode
+#   hosts: "managed_nodes:control_nodes"
+#   become: no
+#   gather_facts: no
+#   roles:
+#     - { role: network_hostroutes }
+
+- name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
+  hosts: "routers"
+  gather_facts: no
+  tasks:
+    - name: MAKE SURE ROUTERS HAVE SSH REACHABILITY
+      include_role:
+        name: connectivity_test
+        tasks_from: routers
+
+- name: CHANGE JUNIPER PASSWORD
+  hosts: routers
+  gather_facts: no
+  vars:
+    ansible_connection: network_cli
+  tasks:
+    - name: Run tasks/other.yaml instead of 'main'
+      include_role:
+        name: configure_routers
+        tasks_from: juniper_default
+      when: ansible_network_os == "junos"
+
+- name: GATHER AWS FACTS FOR ROUTERS
+  hosts: access,core
+  connection: local
+  gather_facts: no
+  roles:
+    - { role: gather_router_facts }
+
+- name: CONFIGURE ACCESS ROUTERS
+  hosts: access
+  connection: local
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: access
+        router3_tunnel: 100
+        router4_tunnel: 101
+      when:
+        - ansible_network_os == "ios"
+
+- name: CONFIGURE CORE ROUTERS
+  hosts: core
+  connection: local
+  gather_facts: no
+
+  roles:
+    - role: configure_routers
+      vars:
+        type: core
+      when:
+        - ansible_network_os == "ios" or ansible_network_os == "eos"
+
+- name: POPULATE TOWER STEP ONE
+  hosts: control_nodes
+  gather_facts: no
+
+  tasks:
+#INITAL SETUP
+    - name: RUN POPULATE TOWER STEP ONE
+      include_role:
+        name: populate_tower
+        tasks_from: populate_tower_step_one
+      when:
+        - towerinstall is defined
+        - towerinstall|bool
+
+
+- name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
+  hosts: control_nodes
+  become: yes
+  gather_facts: no
+
+  tasks:
+#CREDENTIAL AND INVENTORY
+    - name: RUN POPULATE TOWER STEP TWO
+      include_role:
+        name: populate_tower
+        tasks_from: populate_tower_step_two
+      when:
+        - towerinstall is defined
+        - towerinstall|bool
+
+- name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
+  hosts: control_nodes
+  gather_facts: no
+
+  tasks:
+#PERMISSIONS
+    - name: RUN POPULATE TOWER STEP THREE
+      include_role:
+        name: populate_tower
+        tasks_from: populate_tower_step_three
+      when:
+        - towerinstall is defined
+        - towerinstall|bool

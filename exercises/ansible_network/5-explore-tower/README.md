@@ -38,7 +38,7 @@ Open up your web browser and type in the Ansible control node's DNS name
 After logging in the Job Dashboard will be the default view as shown below.
 ![Tower Job Dashboard](images/tower_login.png)
 
-1.  Click on the **i** information button on the top left of the user interface.
+1.  Click on the **i** information button on the top right of the user interface.
 
     ![information button link](images/information_button.png)
 

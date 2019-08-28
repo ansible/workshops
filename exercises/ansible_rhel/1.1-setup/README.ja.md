@@ -74,4 +74,4 @@ rootアカウントからログアウトします。
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.ja.md#section-1---ansible-engine-exercises)
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

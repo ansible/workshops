@@ -1,0 +1,19 @@
+<powershell>
+# Disable .Net Optimization Service
+Get-ScheduledTask *ngen* | Disable-ScheduledTask
+
+# Disable Windows Auto Updates
+# https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/troubleshooting-windows-instances.html#high-cpu-issue
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" /v AUOptions /t REG_DWORD /d 1 /f net stop wuauserv net start wuauserv
+
+# Disable Windows Defender Monitoring
+Set-MpPreference -DisableRealtimeMonitoring $true
+
+# Enable WinRM
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile C:\ConfigureRemotingForAnsible.ps1
+C:\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
+
+# Set Administrator Password
+$admin = [adsi]("WinNT://./administrator, user")
+$admin.PSBase.Invoke("SetPassword", "{{ windows_password }}")
+</powershell>

@@ -1,7 +1,9 @@
 # Exercise 1.4 - Using Variables
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 Previous exercises showed you the basics of Ansible Engine.  In the next few exercises, we are going
-to teach some more advanced ansible skills that will add flexibility and power to your playbooks.
+to teach some more advanced Ansible skills that will add flexibility and power to your playbooks.
 
 Ansible exists to make tasks simple and repeatable.  We also know that not all systems are exactly alike and often require
 some slight change to the way an Ansible playbook is run.  Enter variables.
@@ -20,19 +22,19 @@ Variables and their values can be defined in various places: the inventory, addi
 
 The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
 
-  - To e.g. define variables for a group "servers", a YAML file named `group_vars/servers` with the variable definitions is created.
+  - To define variables for a group "servers", a YAML file named `group_vars/servers` with the variable definitions is created.
 
   - To define variables specifically for a host `node1`, the file `host_vars/node1` with the variable definitions is created.
 
 > **Tip**
-> 
-> Host variables take precedence over group variables (more about precedence can be found in the docs).
+>
+> Host variables take precedence over group variables (more about precedence can be found in the [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
 
 ## Step 4.1 - Create Variable Files
 
-For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​" you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
+For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​", you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
-On the ansible control host, as user ansible create the directories to hold the variable definitions in `~/ansible-files/`:
+On the ansible control host, as the `student` user, create the directories to hold the variable definitions in `~/ansible-files/`:
 
 ```bash
 [student<X>@ansible ansible-files]$ mkdir host_vars group_vars
@@ -87,7 +89,7 @@ Now you need a Playbook that copies the prod or dev `index.html` file - accordin
 Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` directory.
 
 > **Tip**
-> 
+>
 > Note how the variable "stage" is used in the name of the file to copy.
 
 <!-- {% raw %} -->
@@ -134,7 +136,7 @@ node3 ansible_host=33.44.55.66
 ```
 
 > **Tip**
-> 
+>
 > If by now you think: There has to be a smarter way to change content in files…​ you are absolutely right. This lab was done to introduce variables, you are about to learn about templates in one of the next chapters.
 
 ## Step 4.5 - Ansible Facts
@@ -163,11 +165,11 @@ Or what about only looking for memory related facts:
   - Try to find and print the distribution (Red Hat) of your managed hosts. On one line, please.
 
 > **Tip**
-> 
+>
 > Use grep to find the fact, then apply a filter to only print this fact.
 
 > **Warning**
-> 
+>
 > **Solution below\!**
 
 ```bash
@@ -192,13 +194,13 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
 <!-- {% endraw %} -->
 
 > **Tip**
-> 
+>
 > The "debug" module is handy for e.g. debugging variables or expressions.
 
 Execute it to see how the facts are printed:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook facts.yml 
+[student<X>@ansible ansible-files]$ ansible-playbook facts.yml
 
 PLAY [Output facts within a playbook] ******************************************
 
@@ -209,13 +211,13 @@ ok: [node1]
 ok: [ansible]
 
 TASK [Prints Ansible facts] ****************************************************
-ok: [node1] => 
+ok: [node1] =>
   msg: The default IPv4 address of node1 is 172.16.190.143
-ok: [node2] => 
+ok: [node2] =>
   msg: The default IPv4 address of node2 is 172.16.30.170
-ok: [node3] => 
+ok: [node3] =>
   msg: The default IPv4 address of node3 is 172.16.140.196
-ok: [ansible] => 
+ok: [ansible] =>
   msg: The default IPv4 address of ansible is 172.16.2.10
 
 PLAY RECAP *********************************************************************

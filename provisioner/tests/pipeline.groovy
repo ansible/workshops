@@ -6,7 +6,7 @@ pipeline {
         choice(
             name: 'TOWER_VERSION',
             description: 'Tower version to deploy',
-            choices: ['devel', '3.5.1']
+            choices: ['devel', '3.5.2']
         )
         choice(
             name: 'ANSIBLE_VERSION',
@@ -107,7 +107,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                 }
                                 archiveArtifacts artifacts: 'rhel.log'
                                 RHEL_DEPRECATED_WARNINGS = sh(
-                                    script: 'grep -c \'DEPRECATION WARNING\' rhel.log',
+                                    script: 'grep -c \'DEPRECATION WARNING\' rhel.log || true',
                                     returnStdout: true
                                 ).trim()
                             }
@@ -143,7 +143,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                 }
                                 archiveArtifacts artifacts: 'networking.log'
                                 NETWORKING_DEPRECATED_WARNINGS = sh(
-                                    script: 'grep -c \'DEPRECATION WARNING\' networking.log',
+                                    script: 'grep -c \'DEPRECATION WARNING\' networking.log || true',
                                     returnStdout: true
                                 ).trim()
                             }
@@ -170,7 +170,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                             stage('F5-exercises') {
                                 sh "cat provisioner/tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
-                                RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ansible-playbook {}"'
+                                RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
                                 sh "sshpass -p 'ansible' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
                             }
                         }
@@ -187,7 +187,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                 }
                                 archiveArtifacts artifacts: 'f5.log'
                                 F5_DEPRECATED_WARNINGS = sh(
-                                    script: 'grep -c \'DEPRECATION WARNING\' f5.log',
+                                    script: 'grep -c \'DEPRECATION WARNING\' f5.log || true',
                                     returnStdout: true
                                 ).trim()
                             }

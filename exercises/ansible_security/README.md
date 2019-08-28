@@ -8,11 +8,10 @@ Learn and practice how Ansible can be used to automate different security platfo
 
 ## Section 1 - Introduction to Ansible Security Automation Basics
 
- - [Exercise 1.1 - Check the prerequisites](1.1-setup)
- - [Exercise 1.2 - Exploring the lab environment](1.2-explore)
- - [Exercise 1.3 - Executing the first Check Point playbook](1.3-checkpoint)
- - [Exercise 1.4 - Executing the first Snort playbook](1.4-snort)
- - [Exercise 1.5 - Executing the first Splunk ES playbook](1.5-splunk)
+ - [Exercise 1.1 - Exploring the lab environment](1.1-explore)
+ - [Exercise 1.2 - Executing the first Check Point playbook](1.2-checkpoint)
+ - [Exercise 1.3 - Executing the first Snort playbook](1.3-snort)
+ - [Exercise 1.4 - Executing the first Splunk ES playbook](1.4-splunk)
 
 ## Section 2 - Ansible Security Automation Use Cases
 

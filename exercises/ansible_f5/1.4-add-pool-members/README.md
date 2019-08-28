@@ -57,16 +57,17 @@ Next, add the first `task`. This task will use the `bigip_pool_member` module co
 
   - name: ADD POOL MEMBERS
     bigip_pool_member:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+        validate_certs: no
       state: "present"
       name: "{{hostvars[item].inventory_hostname}}"
       host: "{{hostvars[item].ansible_host}}"
       port: "80"
       pool: "http_pool"
-      validate_certs: "no"
     loop: "{{ groups['webservers'] }}"
 ```
 {% endraw %}
@@ -78,6 +79,7 @@ Explanation of each line within the task:
 
 Next we have module parameters
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
+- The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with

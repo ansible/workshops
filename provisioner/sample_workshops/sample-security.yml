@@ -7,6 +7,7 @@ ec2_name_prefix: TESTWORKSHOP
 student_total: 2
 # workshop is put into isecurity mode
 workshop_type: 'security'
+security_console: 'qradar'
 ## Optional Variables
 admin_password: ansible
 windows_password: RedHat19!

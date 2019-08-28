@@ -10,11 +10,20 @@ ansible_port={{ ssh_port }}
 {{host.tags.Student}}-ansible ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
+{% if security_console == 'splunk' %}
 {% for host in splunk_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
 {{host.tags.Student}}-splunk ansible_host={{ host.public_ip_address }} ansible_user=admin
 {% endif %}
 {% endfor %}
+{% endif %}
+{% if security_console == 'qradar' %}
+{% for host in qradar_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-qradar ansible_host={{ host.public_ip_address }} ansible_user=admin
+{% endif %}
+{% endfor %}
+{% endif %}
 {% for host in snort_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
 {{host.tags.Student}}-snort ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}

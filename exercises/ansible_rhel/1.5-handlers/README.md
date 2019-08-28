@@ -171,11 +171,13 @@ To show the loops feature we will generate three new users on `node1`. For that,
 
 Understand the playbook and the output:
 
+<!-- {% raw %} -->
   - The names are not provided to the user module directly. Instead, there is only a variable called `{{ item }}` for the parameter `name`.
 
   - The `loop` keyword lists the actual user names. Those replace the `{{ item }}` during the actual execution of the playbook.
 
   - During execution the task is only listed once, but there are three changes listed underneath it.
+<!-- {% endraw %} -->
 
 ## Step 5.4 - Loops over hashes
 

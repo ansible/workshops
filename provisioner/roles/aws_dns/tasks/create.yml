@@ -1,14 +1,31 @@
-- name: DNS FOR STUDENT WEBPAGE FOR US-EAST-1
-  become: False
-  route53:
-    state: "{{ s3_state }}"
-    zone: "{{workshop_dns_zone}}"
-    record: "{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-    type: A
-    overwrite: yes
-    value: "{{ansible_host}}"
-  delegate_to: localhost
+- name: perform DNS and SSL certs for ansible control node
+  block:
+    - name: dns for student webpage
+      become: False
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{workshop_dns_zone}}"
+        record: "{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        type: A
+        overwrite: yes
+        value: "{{ansible_host}}"
+      delegate_to: localhost
+      register: route53_status
+
+  rescue:
+    - debug:
+       msg: 'DNS entries for control nodes have hit an issue in the aws_dns role, we will fail gracefully'
+
+    - name: appends
+      set_fact:
+        dns_information: |
+          - route53 module hit an error, DNS is not working, please use IP addresses
+      run_once: yes
+      delegate_to: localhost
+      delegate_facts: true
 
 - name: CERTBOT FOR TOWER
   include_tasks: "tower.yml"
-  when: towerinstall|bool
+  when:
+    - towerinstall|bool
+    - route53_status is not failed

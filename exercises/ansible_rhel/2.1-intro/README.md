@@ -31,7 +31,9 @@ The Ansible Tower provided in this lab is individually setup for you. Make sure 
 
 ## Dashboard
 
-When logged in to Ansible Tower using the web UI, the administrator can view a graph that shows
+Let's have a first look at the Tower: Point your browser to the URL you were given, similar to `https://student<X>.workshopname.rhdemo.io` (replace `<X>` with your student number and `workshopname` with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+
+The web UI of Ansible Tower greets you with a dashboard with a graph showing:
 
   - recent job activity
 
@@ -45,7 +47,7 @@ The dashboard also displays real time data about the execution of tasks complete
 
 ## Concepts
 
-To start using Ansible Tower, you should get familiar with some concepts and naming conventions.
+Before we dive further into using Ansible Tower for your automation, you should get familiar with some concepts and naming conventions.
 
 **Projects**
 

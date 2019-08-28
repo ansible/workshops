@@ -1,0 +1,51 @@
+---
+- name: install Chocolatey
+  win_chocolatey:
+    name: chocolatey
+    state: present
+
+- name: disable enhanced exit codes
+  win_chocolatey_feature:
+    name: useEnhancedExitCodes
+    state: disabled
+  when: ansible_version.full is version_compare('2.8', '<')
+
+- name: Install Chrome
+  win_chocolatey:
+    name: "{{ item }}"
+    ignore_checksums: true
+  with_items:
+    - googlechrome
+
+- name: Set Chrome to default Browser
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\{{ item }}\UserChoice
+    name: ProgId
+    data: ChromeHTML
+  with_items:
+    - http
+    - https
+
+- name: Set Chrome to not ask about default browser
+  win_regedit:
+    path: HKLM:\Software\Policies\Google\Chrome
+    name: DefaultBrowserSettingEnabled
+    data: 0
+    type: dword
+
+- name: Disable Chrome Welcome Screen
+  win_regedit:
+    path: HKLM:\Software\Policies\Google\Chrome
+    name: "{{ item }}"
+    data: 0
+    type: dword
+  with_items:
+    - PromotionalTabsEnabled
+    - WelcomePageOnOSUpgradeEnabled
+
+- name: Disable Chrome Syncing
+  win_regedit:
+    path: HKLM:\Software\Policies\Google\Chrome
+    name: SyncDisabled
+    data: 1
+    type: dword

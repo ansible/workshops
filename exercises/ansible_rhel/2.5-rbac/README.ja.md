@@ -1,5 +1,7 @@
 # 演習 2.5 - ロールベースのアクセス制御
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 Ansible Tower の優れた機能として、認証情報を Tower 内部で適切に管理する方法を学びました。Ansible Tower のもう1つの利点は、ユーザーとグループの権限管理です。  
 
 ## Ansible Tower ユーザー  

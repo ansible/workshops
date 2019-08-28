@@ -1,5 +1,7 @@
 # 演習 2.2 - インベントリー、認証情報、アドホックコマンド
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## インベントリーの作成
 
 まず必要なのは、管理対象ホストの一覧です。これは Ansible Engine のインベントリーファイルに相当します。インベントリーにはダイナミックインベントリーなど、高度なものもありますが、まずは基本的なところから始めてみましょう。  

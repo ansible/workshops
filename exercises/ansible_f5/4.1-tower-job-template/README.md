@@ -48,10 +48,10 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
    sudo awx-manage inventory_import --source=/path/to/hosts --inventory-name="Workshop Inventory"
    ```
 5. Now when you login via the WebUI you will see all the hosts under the inventory
-  ![workshop inventory link](images/workshop_inventory.png)
+  ![workshop inventory link](images/workshop_inventory1.png)
 
 6. In your newly created inventory, click on the button labeled :guilabel:`Groups`.
-  ![workshop inventory group link](images/workshop_inventory_group.png)
+  ![workshop inventory group link](images/workshop_inventory_group1.png)
 
 7. Click on the Group `lb`, and then click on the button labeled :guilabel:`Hosts`, you will see the host `f5`.
 The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory varibales later in the lab.

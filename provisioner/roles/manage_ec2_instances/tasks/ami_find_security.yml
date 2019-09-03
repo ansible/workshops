@@ -1,5 +1,6 @@
 #### CHECK POINT AMI
 - name: BLOCK FOR SPLUNK AMI
+  when: security_console == 'splunk'
   block:
   - name: find ami for splunk
     ec2_ami_facts:
@@ -15,6 +16,24 @@
       splunk_ami: >
         {{ splunk_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
+
+- name: BLOCK FOR QRADAR AMI
+  when: security_console == 'qradar'
+  block:
+  - name: find ami for qradar
+    ec2_ami_facts:
+      region: "us-east-1" # I don't know why but that seems to be the only place it's available
+      owners: "{{ ec2_info['qradar']['owners'] }}"
+      filters:
+        name: "{{ ec2_info['qradar']['filter'] }}"
+        architecture: "{{ ec2_info['qradar']['architecture'] }}"
+    register: qradar_amis
+
+  - name: save ami for qradar
+    set_fact:
+      qradar_ami: >
+        {{ qradar_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
 - name: BLOCK FOR SNORT AMI
   block:
   - name: find ami for snort
@@ -25,7 +44,7 @@
         name: "{{ ec2_info['rhel7']['filter'] }}"
         architecture: "{{ ec2_info['rhel7']['architecture'] }}"
     register: snort_amis
-   
+
   - name: save ami for snort
     set_fact:
       snort_ami: >
@@ -46,7 +65,7 @@
     set_fact:
       checkpoint_mgmt_ami: >
         {{ checkpoint_mgmt_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-      
+
   - name: find ami for check point gateway (SECURITY MODE)
     ec2_ami_facts:
       region: "{{ ec2_region }}"

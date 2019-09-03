@@ -1,9 +1,6 @@
-- name: INSTALL AND CONFIGURE SPLUNK ENTERPRISE
-  hosts: splunk
-  become: true
-  gather_facts: yes
-  roles:
-    - role: splunk_enterprise
+- name: include splunk playbook
+  import_playbook: splunk.yml
+  when: security_console == 'splunk'
 
 - name: INSTALL AND CONFIGURE SNORT
   hosts: snort

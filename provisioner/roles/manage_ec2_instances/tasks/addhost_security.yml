@@ -1,10 +1,54 @@
-- name: grab facts for splunknode (SECURITY MODE)
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_splunk": "{{ec2_name_prefix}}-splunk"
-  register: splunk_node_facts
+- name: MANAGE SPLUNK EC2 INSTANCES
+  when: security_console == 'splunk'
+  block:
+    - name: grab facts for splunknode (SECURITY MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_splunk": "{{ec2_name_prefix}}-splunk"
+      register: splunk_node_facts
+
+    - name: ADD SPLUNK NODE TO INVENTORY
+      add_host:
+        name: "{{ item.tags.Name }}"
+        short_name: "{{ item.tags.short_name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        username: "{{ item.tags.Student }}"
+        ansible_user: "{{ item.tags.username }}"
+        ansible_port: "{{ ssh_port }}"
+        ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        private_ip: "{{item.private_ip_address}}"
+        groups:
+          - splunk
+          - siem
+      loop: "{{ splunk_node_facts.instances|flatten(levels=1) }}"
+
+- name: MANAGE QRADAR EC2 INSTANCES
+  when: security_console == 'qradar'
+  block:
+    - name: grab facts for qradarnode (SECURITY MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_qradar": "{{ec2_name_prefix}}-qradar"
+      register: qradar_node_facts
+
+    - name: ADD QRADAR NODE TO INVENTORY
+      add_host:
+        name: "{{ item.tags.Name }}"
+        short_name: "{{ item.tags.short_name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        username: "{{ item.tags.Student }}"
+        ansible_user: "{{ item.tags.username }}"
+        ansible_port: "{{ ssh_port }}"
+        ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        private_ip: "{{item.private_ip_address}}"
+        groups:
+          - qradar
+          - siem
+      loop: "{{ qradar_node_facts.instances|flatten(levels=1) }}"
 
 - name: grab facts for snort node (SECURITY MODE)
   ec2_instance_facts:
@@ -30,23 +74,6 @@
       "tag:Workshop_windows": "{{ec2_name_prefix}}-windows"
   register: windows_node_facts
 
-- name: ADD SPLUNK NODE TO INVENTORY
-  add_host:
-    name: "{{ item.tags.Name }}"
-    short_name: "{{ item.tags.short_name }}"
-    ansible_host: "{{ item.public_ip_address }}"
-    username: "{{ item.tags.Student }}"
-    ansible_user: "{{ item.tags.username }}"
-    ansible_port: "{{ ssh_port }}"
-    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    private_ip: "{{item.private_ip_address}}"
-    #FIXME - need to add to splunk ec2_info in manage_ec2_instances once we have
-    #        a real splunk deployment for the httpapi backend
-    #ansible_network_os: "{{item.tags.ansible_network_os}}"
-    groups:
-      - splunk
-      - siem
-  loop: "{{ splunk_node_facts.instances|flatten(levels=1) }}"
 
 - name: ADD SNORT NODE TO INVENTORY
   add_host:

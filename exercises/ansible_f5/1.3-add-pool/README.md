@@ -59,15 +59,16 @@ Next, add the first `task`. This task will use the `bigip_pool` module configure
 
   - name: CREATE POOL
     bigip_pool:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+        validate_certs: no
       name: "http_pool"
       lb_method: "round-robin"
       monitors: "/Common/http"
       monitor_type: "and_list"
-      validate_certs: "no"
 ```
 
 <!-- {% endraw %} -->
@@ -75,6 +76,7 @@ Next, add the first `task`. This task will use the `bigip_pool` module configure
 - `name: CREATE POOL` is a user defined description that will display in the terminal output.
 - `bigip_pool:` tells the task which module to use.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
+- The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with

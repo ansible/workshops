@@ -87,15 +87,16 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
 
   - name: ADD iRules
     bigip_irule:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+        validate_certs: no
       module: "ltm"
       name: "{{item}}"
       content: "{{lookup('file','{{item}}')}}"
-    loop: "{{irules}}"
+    with_items: "{{irules}}"
 ```
 {% endraw %}
 
@@ -106,6 +107,7 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
 - `name: ADD iRules` is a user defined description that will display in the terminal output.
 - `bigip_irule:` tells the task which module to use.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
+- The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The `password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
@@ -134,23 +136,25 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
 
   - name: ADD iRules
     bigip_irule:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+        validate_certs: no
       module: "ltm"
       name: "{{item}}"
       content: "{{lookup('file','{{item}}')}}"
-    loop: "{{irules}}"
-
-  - name: ATTACH iRules TO EXISTING VIRTUAL SERVER
+    with_items: "{{irules}}"
+    
+  - name: ATTACH iRules TO VIRTUAL SERVER
     bigip_virtual_server:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+        validate_certs: no
       name: "vip"
       irules: "{{irules}}"
 ```

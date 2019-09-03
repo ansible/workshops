@@ -1,5 +1,7 @@
 # 演習 2.7 - まとめ
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 # 最終チャレンジとまとめ  
 
 今までに学んだことを踏まえて以下の課題を実施してみましょう。  

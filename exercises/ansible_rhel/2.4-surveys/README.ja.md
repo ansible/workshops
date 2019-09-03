@@ -1,5 +1,7 @@
 # 演習 2.4 - Survey 機能
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 テンプレート構成ビューの **SURVEYの追加** ボタンに気付いたかもしれません。Survey は、**テンプレート**が**ジョブ**として起動した時に利用する変数の値を入力する簡単なフォームです。  
 
 先ほどの演習で、全てのホストに Apache をインストールしました。次にこれを拡張します。  

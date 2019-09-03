@@ -1,5 +1,7 @@
 # 演習 2.3 - プロジェクトとジョブテンプレート
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 Tower の **プロジェクト** は、 Git、Subversion、Mercurial、ローカルホルダなど、Playbook の置き場所を定義する仕組みを提供します。 Tower ではサポートとされるソースコード管理（SCM）と連携して Playbook を管理することが可能です。  
 
 Playbook は SCM など、バージョン管理の仕組みの下に置いておくべきです。このラボでは、 Git リポジトリに保存されている Playbook を利用します。  

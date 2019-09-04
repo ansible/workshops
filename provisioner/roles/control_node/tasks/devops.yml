@@ -36,6 +36,7 @@
 - name: ADD THE EXTRAS REPO
   shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
 
+
 - name: ENSURE THAT DOCKER IS INSTALLED
   yum:
     name: docker
@@ -45,3 +46,13 @@
   service:
     name: docker
     state: started
+
+- name: CLONE THE LAB GUIDE
+  git:
+    repo: https://github.com/jduncan-rva/workshop-operator-lab-guide
+    dest: "/home/{{ username }}/devops-workshop/lab-guide"
+
+
+- name: RUN THE SCRIPT
+  shell: /home/{{ username }}/devops-workshop/lab-guide/hack/run.sh ansible-for-devops start
+  become: yes

@@ -50,3 +50,17 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   when: username in inventory_hostname
+
+# FIXME: REMOVE THIS ENTIRE BLOCK ONCE ANSIBLE ENGINE 2.9 GOES GA
+- name: Install Ansible 2.9 pre-release (if necessary)
+  block:
+    - name: Get package facts
+      package_facts:
+        manager: rpm
+
+    - name: Install Ansible 2.9 pre-release
+      yum:
+        state: latest
+        name: 'https://releases.ansible.com/ansible/rpm/nightly/devel/epel-7-x86_64/ansible-2.9.0-1.201908210200git.2bbbc5fafc.el7.ans.noarch.rpm'
+      when:
+        - ansible_facts['packages']['ansible'][0]['version'] < '2.9.0'

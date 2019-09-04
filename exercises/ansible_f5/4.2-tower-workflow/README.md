@@ -6,14 +6,16 @@
   - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
+  - [Step 1: Prepare Job Templates](#step-1-prepare-job-templates)
   - [Step 1: Create a Workflow Template](#step-1-create-a-workflow-template)
   - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
-  - [Step 3: Remove pool member Job Template](#step-3-remove-pool-member-job-template)
-  - [Step 4: Upgrade web server Template](#step-4-upgrade-web-server-template)
-  - [Step 5: Add back pool member Template](#step-5-add-back-pool-member-template)
-  - [Step 5: Restore configuration Template](#step-5-restore-configuration-template)
-  - [Step 6: Create a converged link](#step-6-create-a-converged-link)
-  - [Step 7: Run the Workflow](#step-7-run-the-workflow)
+  - [Step 3: Add `Create node` Job Template](#step-3-add-create-node-job-template)
+  - [Step 4: Add `Create pool` Job Template](#step-4-add-create-pool-job-template)
+  - [Step 5: Add `Create virtual server` Job Template](#step-5-add-create-virtual-server-job-template)
+  - [Step 5: Rollback node deploy Template](#step-5-rollback-node-deploy-template)
+  - [Step 6: Rollback pool deploy Template](#step-6-rollback-pool-deploy-template)
+  - [Step 6: Rollback virtual server Template](#step-6-rollback-virtual-server-template)
+  - [Step 8: Run the Workflow](#step-8-run-the-workflow)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 
@@ -25,11 +27,18 @@ For this exercise we will ...
 
 # Guide
 
+## Step 1: Prepare Job Templates
+
+Create the following templates by following `Lab 4.2`:
+* Create node
+* Create pool
+* Create virtual server
+
 ## Step 1: Create a Workflow Template
 
 1. Click on the **Templates** link on the left menu.  
 
-2. Click on the green **+** button. Select the **Workflow Template**.  
+2. Click on the green ![templates link](images/add.png) button. Select the **Workflow Template**.  
 
 3. Fill out the the form as follows:
 
@@ -39,56 +48,72 @@ For this exercise we will ...
 |  Organization |  Default |
 |  Inventory |  Workshop Inventory |
 
-4. Click on the **Save** button
+4. Click on the **`Save`** button
 
 ![workflow creation](images/workflow.gif)
 
 ## Step 2: The Workflow Visualizer
 
-1. When you click the **SAVE** the **WORKFLOW VISUALIZER** should automatically open.  If not click on the blue **WORKFLOW VISUALIZER** button.  
+1. When you click the **SAVE** the **WORKFLOW VISUALIZER** should automatically open.  If not, click on the blue **WORKFLOW VISUALIZER** button.  
 
 2. By default only a green **START** button will appear.  Click on the **START** button.  
 
-3. The **ADD A TEMPLATE** window will appear on the right.  Select the *creat_vs* Job Template that was created in previous lab(whatever you named it!).
+3. The **ADD A TEMPLATE** window will appear on the right.  Select the *creat_node* Job Template that was created in previous step(whatever you named it!).
 
    ![add a template](images/add-a-template.png)
 
-   The `create_vs` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
+   The `create_node` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
 
-## Step 3: Remove pool member Job Template
+## Step 3: Add `Create node` Job Template
 
-1.  Select the **Remove pool member** Job Template.  Use the drop down box to select run.  Click the green **SELECT** button.
+1.  Select the **`Create node`** Job Template.  Use the drop down box to select run.  Click the green **SELECT** button.
 
-    ![remove pool](images/remove_pool.png)
+    ![remove pool](images/create_node.png)
 
-## Step 4: Upgrade web server Template
+## Step 4: Add `Create pool` Job Template
 
-1.  Hover over the **Remove pool member** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1.  Hover over the **`Create node`** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-2. Select the **Upgrade web server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **`Create pool`** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
 
-   ![upgrade server](images/upgrade_server.png)
+   ![upgrade server](images/create_pool.png)
 
-## Step 5: Add back pool member Template
+## Step 5: Add `Create virtual server` Job Template
 
-1.  Hover over the **Remove pool member** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1.  Hover over the **`Create pool`**  node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-2. Select the **Add pool member** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **`Create virtual server`** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
 
-   ![add pool](images/add_pool.png)
+   ![add pool](images/create_virtualserver.png)
 
-## Step 5: Restore configuration Template
+## Step 5: Rollback node deploy Template
 
-1.  Hover over the **Add pool member** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1.  Hover over the **Create node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-2. Select the **Restore Configuration** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+2. Select the **Rollback node deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
 3. Click the green **SELECT** button.  
 
-   ![configure restore node](images/configure-restore.png)
+   ![configure restore node](images/rollback_node.png)
 
-## Step 6: Create a converged link
+## Step 6: Rollback pool deploy Template
 
-## Step 7: Run the Workflow
+1.  Hover over the **Create pool** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+
+2. Select the **Rollback pool deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+3. Click the green **SELECT** button.  
+
+   ![configure restore node](images/rollback_pool.png)
+
+## Step 6: Rollback virtual server Template
+
+1.  Hover over the **Create virtual server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+
+2. Select the **Rollback virtual server deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+3. Click the green **SELECT** button.  
+
+   ![configure restore node](images/rollback_virtualserver.png)
+
+## Step 8: Run the Workflow
 
 1. Return to the **Templates** window
 

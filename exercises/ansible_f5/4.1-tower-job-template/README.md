@@ -19,7 +19,7 @@
 
 # Objective
 
-Demonstrate a Virtual Server configuration job template for Red Hat Ansible Tower.  This job template will create a virtual server, create a pool, and add two web servers to the pool .
+Demonstrate a Virtual Server configuration job template for Red Hat Ansible Tower.  This job template will create a virtual server, a pool, and add two web servers to the pool .
 
 To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**.  A **Job Template** requires:
  - A **Credential** to login to devices.
@@ -57,9 +57,9 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory varibales later in the lab.
   ![host link](images/host.png)
 
-8. Click on `Workshop Inventory` on the top to return to inventoy
-   then click on the button labeled :guilabel:`Groups`
-   Click on the Group `webservers`, and then click on the button labeled :guilabel:`Hosts`. You will see two hosts: `host1` and `host2`
+8. Click on `Workshop Inventory` on the top to return to inventoy,
+   then click on the button labeled :guilabel:`Groups`. 
+   Click on the Group `webservers`, and then click on the button labeled :guilabel:`Hosts`. You will see two hosts: `host1` and `host2`. 
    Click on `host1`, and you will see the variables assigned to it with the respective values.
    ![host link](images/server1.png)
 
@@ -77,7 +77,7 @@ The BIG-IP host `f5` in the inventory will have variables assigned to it with th
 
 ![workshop_project link](images/workshop_project.png)
 
-For reference, here is one of the playbooks that was imported and that will be executed later this lab.
+For reference, here is one of the playbooks that was imported and that will be executed later in this lab.
 
 **`create_vs.yml`**
 
@@ -145,7 +145,7 @@ For reference, here is one of the playbooks that was imported and that will be e
 
 2. Click on the green ![templates link](images/add.png) button to create a new job template
 
-    >Make sure to select **`Job Template`** and not **`Workflow Template`**)
+    >Make sure to select **`Job Template`** and not **`Workflow Template`**
 
 3. Fill out the job template parameters as follows:
 
@@ -158,7 +158,7 @@ For reference, here is one of the playbooks that was imported and that will be e
     |  Playbook |  create_vs.yml |
     |  Credential |  Workshop Credential (From the Credential type select ‘Network’) |
     
-    From the Credential type select ‘Network’, then seletct `Workshop Credential`
+    From the Credential type select `Network`, then seletct `Workshop Credential`
     ![network credential](images/network.png) 
 
   

@@ -94,11 +94,11 @@ ansible_user=student1
 ansible_ssh_pass=ansible
 ansible_port=22
 
-[siem]
-splunk ansible_host=11.22.33.44 ansible_user=admin private_ip=192.168.1.2 ansible_ssh_pass=admin
-
 [control]
 ansible ansible_host=22.33.44.55 ansible_user=ec2-user private_ip=192.168.2.3
+
+[siem]
+qradar ansible_host=22.44.55.77 ansible_user=admin private_ip=172.16.3.44 ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=ibm.qradar.qradar
 
 [ids]
 snort ansible_host=33.44.55.66 ansible_user=ec2-user private_ip=192.168.3.4

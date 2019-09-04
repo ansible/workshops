@@ -49,7 +49,7 @@ Press the **Login** button. Afterwards you need to verify the server fingerprint
 
 > **Note**
 >
-> In a productive nevironment, you would first figure out the fingerprint of the server and would only proceed after you confirmed that the fiungerprint shown is identical with the one from the server. In our demo setup with the short lived instances we can assume that the fingerprints are good.
+> In a productive environment, you would first figure out the fingerprint of the server and would only proceed after you confirmed that the fiungerprint shown is identical with the one from the server. In our demo setup with the short lived instances we can assume that the fingerprints are good.
 
 You are now viewing the Check Point SmartConsole management interface.
 

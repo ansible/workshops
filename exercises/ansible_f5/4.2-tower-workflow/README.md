@@ -33,6 +33,9 @@ Create the following templates by following `Lab 4.2`:
 * Create node
 * Create pool
 * Create virtual server
+* Rollback node deploy
+* Rollback pool deploy
+* Rollback virtual server deploy
 
 ## Step 1: Create a Workflow Template
 
@@ -126,8 +129,8 @@ Create the following templates by following `Lab 4.2`:
 # Takeaways
 
 You have
- - created a workflow template that removes a pool memeber, upgrade web server, and add server back to the pool
- - made the workflow robust, if either job template fails it will restore the configuration
+ - created a workflow template that create node, a pool, and virtual server
+ - made the workflow robust, if either job template fails it will rollback the deployment
  - launched the workflow template and explored the **VISUALIZER**
 
 ---

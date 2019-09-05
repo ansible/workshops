@@ -9,10 +9,10 @@ Demonstrate automatic ticket creation for configuration drift.  When the configu
 
 ## Table of Contents
 
-- [Step 1 - Connect to workbench](#step_1_connect_to_workbench)
-- [Step 2 - Provide ServiceNow credentials](#provide_servicenow_credentials)
-- [Step 3 - Execute Ansible Playbook](#step_3_execute_ansible_playbook)
-- [Step 4 - Show ServiceNow incidents](#step_4_show_servicenow_incidents)
+- [Step 1 - Connect to workbench](#step-1---connect-to-workbench)
+- [Step 2 - Provide ServiceNow credentials](#step-2---provide-servicenow-credentials)
+- [Step 3 - Execute Ansible Playbook](#step-3---execute-ansible-playbook)
+- [Step 4 - Show ServiceNow incidents](#step-4---show-servicenow-incidents)
 - [Explanation](#explanation)
 
 ## Step 1 - Connect to workbench
@@ -59,7 +59,7 @@ Run the `config_drift.yml` playbook:
   - The Incident just created will show up at the top of the list, assigned to the `System Administrator` which is the default user for the ServerNow developer instance.
   - Scroll down to to read the `Short Desription` and the `Additional Comments`.
 
-![snow](images/gui.gif)
+![snow](../images/gui.gif)
 
 ## Explanation
 

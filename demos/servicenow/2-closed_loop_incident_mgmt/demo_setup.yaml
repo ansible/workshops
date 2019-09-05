@@ -37,7 +37,7 @@
         name: "SNOW_CL Credential"
         description: Credential type for SNOW
         inputs: "{{ lookup('file', playbook_dir + '/custom_cred/inputs.yml') }}"
-        injectors: "{{ lookup('file', playbook_dir + '/custom/cred/injectors.yml') }}"
+        injectors: "{{ lookup('file', playbook_dir + '/custom_cred/injectors.yml') }}"
         state: present
         validate_certs: false
 

@@ -18,6 +18,10 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
  - [Vagrant Demo](vagrant-demo) - Self-paced networking exercises that can be run on your personal laptop
 
+# Demos
+
+ - [Demos](demos) - These demos are intended for effectively demonstrating Ansible capabilities with prescriptive guides on the Ansible Automation Workshop infrastructure.
+
 # DOCUMENTATION:
 
  - [How to contribute](docs/contribute.md)

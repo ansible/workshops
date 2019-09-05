@@ -1,0 +1,8 @@
+env:
+  SN_INSTANCE: '{{instance}}'
+  SN_PASSWORD: '{{password}}'
+  SN_USERNAME: '{{username}}'
+extra_vars:
+  SN_INSTANCE: '{{instance}}'
+  SN_PASSWORD: '{{password}}'
+  SN_USERNAME: '{{username}}'

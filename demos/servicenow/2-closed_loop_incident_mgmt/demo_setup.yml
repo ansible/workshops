@@ -52,7 +52,7 @@
         validate_certs: false
 
     - name: Add Custom Credential
-      command: tower-cli credential create --name="SNOW Credential" --credential-type "SNOW_CL Credential" --inputs "{'SN_USERNAME':'{{ username }}','SN_PASSWORD':'{{ password }}','SN_INSTANCE':'{{ instance }}'}" -h endpoint -u admin -p password --organization Default
+      command: tower-cli credential create --name="SNOW Credential" --credential-type "SNOW_CL Credential" --inputs "{'SN_USERNAME':'{{ username }}','SN_PASSWORD':'{{ password }}','SN_INSTANCE':'{{ instance }}'}" -h localhost -u {{ tower_username }} -p {{ tower_password }} --organization Default
 
     - name: add job template - compliance check
       tower_job_template:

@@ -1,14 +1,15 @@
-# CHATOPS DEMO 
+# CHATOPS DEMO
+
 The objective of this demo is to familiarize the network engineer with integrating a chat tool like "Slack" as an interface to the managed network devices.
 
 **AUDIENCE**: Network engineers/systems engineers trying to integrate slack into their day-to-day operations to manage end devices
 
 **USE CASE**: The scenario for this demo is as follows :-
 
-    1. Network engineer gets a ticket from her customer requesting to open TCP/UDP/IP traffic from source IP (A) to destination IP (B) on some destination port X. 
-    
+    1. Network engineer gets a ticket from her customer requesting to open TCP/UDP/IP traffic from source IP (A) to destination IP (B) on some destination port X.
+
     2. The first step in the manual process is for the network engineer to crawl through devices in the path between A and B and check whether the traffic is already permitted.
-    
+
     3. Allow/Disallow the traffic per IT policy
 
 In particular, we will use Ansible and Slack to automate step 2 via this demo.
@@ -73,7 +74,7 @@ Add an "interactive component". This is the URI invoked (HTTP POST), when the fo
 
 ![](./images/interactive2.png)
 
-Similar to the previous step, add a url that contains the public IP/DNS name of the tower instance provisioned per the pre-requisites. 
+Similar to the previous step, add a url that contains the public IP/DNS name of the tower instance provisioned per the pre-requisites.
 
 >Note 1: The app server is preconfigured to listen on port 8888. Ensure that the URL is constructed with that port number. For example: http://34.207.200.32:8888/interactive or http://student11.mydemo.rhdemo.io:8888/collect-data  
 >Note 2: Use a meaningful URI for the interactive component and make sure to note down the name. We will need this later.
@@ -91,7 +92,7 @@ Incoming webhooks allow the tower job to communicate back into the slack channel
 
 ### STEP 5: Create the bot
 
-Next create the bot associated with this app. 
+Next create the bot associated with this app.
 
 ![](./images/addbotuser1.png)
 
@@ -99,13 +100,13 @@ Next create the bot associated with this app.
 
 ### STEP 6: Add the app to the slack channel created in step 1
 
-This step is done from within the slack client/browser 
+This step is done from within the slack client/browser
 
 ![](./images/add_app1.png)
 
 ![](./images/add_app2.png)
 
-After adding the app, ensure that the slash command is now available (it shows up) 
+After adding the app, ensure that the slash command is now available (it shows up)
 
 ![](./images/add_app3.png)
 
@@ -113,7 +114,7 @@ After adding the app, ensure that the slash command is now available (it shows u
 
 Finally, switch back to the app configuration in the browser and collect the App and Bot tokens.
 
-For the App verification token, navigate to the "Basic Information" link 
+For the App verification token, navigate to the "Basic Information" link
 
 ![](./images/token.png)
 
@@ -134,7 +135,7 @@ We will need this for our Python app to communicate with the slack app/bot.
 [student2@ansible ~]$ cd ~/demos/chatops/demo_setup/
 [student2@ansible demo_setup]$ pwd
 /home/student2/demos/chatops/demo_setup
-[student2@ansible demo_setup]$ 
+[student2@ansible demo_setup]$
 ```
 
 2. Edit/Create a file called `input_vars.yaml` and add the information collected in the previous steps into this file:
@@ -189,11 +190,11 @@ ok: [localhost]
 
 At this point, the demo should be all set up to work. Test this by going to the slack channel and using the "slash" command you created.
 
-![](./images/demo1.png ) 
+![](./images/demo1.png )
 
 Enter the following values to test this:
 
-![](./images/demo2.png ) 
+![](./images/demo2.png )
 
 This fires of an Ansible Tower job for you!
 
@@ -212,5 +213,5 @@ This playbook runs and generates a report that is then sent back to the Slack ch
 
 ## Conclusion
 
-Feel free to login to the routers and add additional acls entries and test them via the slack interface. 
+Feel free to login to the routers and add additional acls entries and test them via the slack interface.
 This demo shows you how flexible Ansible Tower can be for integrating with modern DevOps tools and interaction tools like Slack, allowing network administrators to literally "Chat" with their managed end points.

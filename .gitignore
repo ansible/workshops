@@ -22,3 +22,5 @@ demos/servicenow/closed_loop_incident_mgmt/snow_demo2/snow_vars.yaml
 provisioner/roles/ansible_security.ids_config/
 provisioner/roles/ansible_security.ids_install/
 provisioner/roles/geerlingguy.repo-epel/
+.pyc
+.swp

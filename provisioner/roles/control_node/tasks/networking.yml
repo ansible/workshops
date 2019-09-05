@@ -6,7 +6,6 @@
         name:
           - pip
           - setuptools
-          - pysnow
         state: latest
 
     - name: install f5 workshop dependicies
@@ -27,19 +26,11 @@
       - pip
       - netaddr
       - setuptools
-    state: latest
-  when:
-    - workshop_type == 'networking'
-
-- name: install ncclient for juniper devices (NETWORK AUTOMATION MODE)
-  become: yes
-  pip:
-    name:
+      - pysnow
       - ncclient
     state: latest
   when:
     - workshop_type == 'networking'
-    - network_type == 'juniper' or network_type == 'multivendor'
 
 # FIXME: This should probably be refactored to use things like the following
 # instead of hard coding

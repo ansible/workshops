@@ -1,0 +1,11 @@
+fields:
+  - type: string
+    id: username
+    label: SN_USERNAME
+  - secret: true
+    type: string
+    id: password
+    label: SN_PASSWORD
+  - type: string
+    id: instance
+    label: SN_INSTANCE

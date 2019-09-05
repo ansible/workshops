@@ -1,5 +1,7 @@
 # Demos
 
+These demos are built for https://github.com/ansible/workshops.  To use the demo it is recommended to run the [provisioner](../provisioner/README.md) for the correct **workshop_type**.  By standardizing demos on a Ansible Workshop **workbench** it is easier to test and verify demos are always working.  Feel free re-use any component of this demo but this demo is only supported in this fashion.
+
 | Demo Category   | Brief Description  |
 |---|---|
 | [ChatOps](chatops)  | The objective of this demo is showcase Ansible integrating with a chat tool like "Slack" as an interface to the managed network devices. |

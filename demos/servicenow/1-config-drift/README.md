@@ -1,6 +1,6 @@
 # Ansible + ServiceNow - Config Drift
 
-### Objective
+# Objective
 
 Demonstrate automatic ticket creation for configuration drift.  When the configuration for a Cisco CSR router doesn't match desired config, a ServiceNow ticket with relevant information will be created.
 
@@ -35,7 +35,7 @@ Move into the `demos/servicenow/1-config-drift` directory.
 
 ## Step 2 - Provide ServiceNow credentials
 
-Define the login information (username, password and instance) as defined in the [Setup](#setup).  Fill this information out in `login_info.yml` with your text editor of choice.
+Define the login information (username, password and instance) as defined in the [Common Setup](../README.md).  Fill this information out in `login_info.yml` with your text editor of choice.
 
 ```
 [student1@ansible ~]$ nano login_info.yml

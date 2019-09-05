@@ -4,8 +4,8 @@ These demos are intended for effectively demonstrating Ansible + ServiceNow capa
 
 # Table of Contents
 
-- [Demo Catalog](#demo_catalog)
-- [Common Setup](#common_setup)
+- [Demo Catalog](#demo-catalog)
+- [Common Setup](#common-setup)
 
 # Demo Catalog
 

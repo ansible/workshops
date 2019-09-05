@@ -5,7 +5,7 @@
   - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1: Prepare Job Templates](#step-1-prepare-job-templates)
+  - [Step 0: Prepare Job Templates](#step-0-prepare-job-templates)
   - [Step 1: Create a Workflow Template](#step-1-create-a-workflow-template)
   - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
   - [Step 3: Add *Create node* Job Template](#step-3-add-create-node-job-template)
@@ -26,7 +26,7 @@ For this exercise we will ...
 
 # Guide
 
-## Step 1: Prepare Job Templates
+## Step 0: Prepare Job Templates
 
 Create the following templates by following `Lab 4.2`:
 * Create node

@@ -6,12 +6,14 @@
   - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
+  - [Step 0: Prepare Job Templates](#step-0-prepare-job-templates)
   - [Step 1: Create a Workflow Template](#step-1-create-a-workflow-template)
   - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
-  - [Step 3: Remove pool member Job Template](#step-3-remove-pool-member-job-template)
-  - [Step 4: Upgrade web server Template](#step-4-upgrade-web-server-template)
-  - [Step 5: Add back pool member Template](#step-5-add-back-pool-member-template)
-  - [Step 5: Restore configuration Template](#step-5-restore-configuration-template)
+  - [Step 3: Disable node Job Template](#step-3-disable-node-job-template)
+  - [Step 4: Attach iRule to virtual server Template](#step-4-attach-irule-to-virtual-server-template)
+  - [Step 4: Patch server Template](#step-4-patch-server-template)
+  - [Step 5: Enable node Template](#step-5-enable-node-template)
+  - [Step 6: Detach iRule Template](#step-6-detach-irule-template)
   - [Step 6: Create a converged link](#step-6-create-a-converged-link)
   - [Step 7: Run the Workflow](#step-7-run-the-workflow)
 - [Takeaways](#takeaways)
@@ -19,11 +21,25 @@
 
 # Objective
 
-Demonstrate the use of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP.  Workflows allow you to configure a sequence of disparate job templates (or workflow templates) that may or may not share inventory, playbooks, or permissions.
+Demonstrate anothe use case of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP. 
 
 For this exercise we will ...
 
 # Guide
+
+## Step 0: Prepare Job Templates
+
+Create the following templates by following `Lab 4.2`:
+* Disable node
+* Enable node
+* Patch server
+* Attach iRule to virtual server
+* Detach iRule 
+
+Here is one example of the templates:
+![job template](images/job-template.png)
+
+**TODO: add server credetial**
 
 ## Step 1: Create a Workflow Template
 
@@ -35,13 +51,13 @@ For this exercise we will ...
 
 | Parameter | Value |
 |---|---|
-| Name  | Workshop Workflow  |
+| Name  | Node maintenance workflow  |
 |  Organization |  Default |
 |  Inventory |  Workshop Inventory |
 
 4. Click on the **Save** button
 
-![workflow creation](images/workflow.gif)
+![workflow creation](images/workflow.png)
 
 ## Step 2: The Workflow Visualizer
 
@@ -49,44 +65,51 @@ For this exercise we will ...
 
 2. By default only a green **START** button will appear.  Click on the **START** button.  
 
-3. The **ADD A TEMPLATE** window will appear on the right.  Select the *creat_vs* Job Template that was created in previous lab(whatever you named it!).
+3. The **ADD A TEMPLATE** window will appear on the right.  
 
-   ![add a template](images/add-a-template.png)
+## Step 3: Disable node Job Template
 
-   The `create_vs` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
+1.  Select the **Disable node** Job Template.  Use the drop down box to select run.  Click the green **SELECT** button.
 
-## Step 3: Remove pool member Job Template
+    ![Disable node](images/disable-node.png)
 
-1.  Select the **Remove pool member** Job Template.  Use the drop down box to select run.  Click the green **SELECT** button.
+## Step 4: Attach iRule to virtual server Template
 
-    ![remove pool](images/remove_pool.png)
+1.  Click on the **START** button, again.  The **ADD A TEMPLATE** will appear again.
 
-## Step 4: Upgrade web server Template
+2. Select the **Attach iRule to virtual server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+3. Click the green **SELECT** button.
 
-1.  Hover over the **Remove pool member** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+   ![attach irule](images/attach-irule.png)
 
-2. Select the **Upgrade web server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+## Step 4: Patch server Template
 
-   ![upgrade server](images/upgrade_server.png)
+1.  Hover over the **Disable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+2. Select the **Attach iRule to virtual server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+3. Click the green **SELECT** button.
 
-## Step 5: Add back pool member Template
+   ![upgrade server](images/patch-server.png)
 
-1.  Hover over the **Remove pool member** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+## Step 5: Enable node Template
 
-2. Select the **Add pool member** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+1.  Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
-   ![add pool](images/add_pool.png)
+2. Select the **Enable node** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+3. Click the green **SELECT** button.
 
-## Step 5: Restore configuration Template
+   ![enable node](images/enable-node.png)
 
-1.  Hover over the **Add pool member** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+## Step 6: Detach iRule Template
 
-2. Select the **Restore Configuration** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
-3. Click the green **SELECT** button.  
+1.  Hover over the **Enable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+2. Select the **Detach iRule** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+3. Click the green **SELECT** button.
 
-   ![configure restore node](images/configure-restore.png)
+   ![attach irule](images/detach-irule.png)
 
 ## Step 6: Create a converged link
+
+![converge link](images/converge-link.png)
 
 ## Step 7: Run the Workflow
 
@@ -97,6 +120,10 @@ For this exercise we will ...
    ![workflow job launched](images/running-workflow.png)
 
     At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
+
+Maintenance page during the server maintenance:
+   ![maintenance page](images/error-page.png)
+
 
 # Takeaways
 

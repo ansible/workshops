@@ -36,8 +36,8 @@
       tower_credential_type:
         name: "SNOW_CL Credential"
         description: Credential type for SNOW
-        inputs: "{{ lookup('file', playbook_dir + '/custom_cred/inputs.yml') }}"
-        injectors: "{{ lookup('file', playbook_dir + '/custom_cred/injector.yml') }}"
+        inputs: "{{ lookup('file', playbook_dir + '/custom_cred/inputs.yml') | from_yaml }}"
+        injectors: "{{ lookup('file', playbook_dir + '/custom_cred/injector.yml') | from_yaml }}"
         state: present
         validate_certs: false
 

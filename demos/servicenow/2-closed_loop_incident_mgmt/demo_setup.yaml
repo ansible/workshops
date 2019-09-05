@@ -9,6 +9,12 @@
     tower_password: "ansible"
 
   tasks:
+    - name: import login credentials for servicenow
+      include_vars: "{{lookup('first_found', login_info)}}"
+      vars:
+        login_info:
+          - 'private.yml'
+          - 'login_info.yml'
 
     - name: move playbooks to /var/lib/awx/projects/snow_demo
       copy:
@@ -45,14 +51,18 @@
         tower_host: https://localhost
         validate_certs: false
 
+    - name: Add Custom Credential
+      command: tower-cli credential create --name="SNOW Credential" --credential-type "SNOW_CL Credential" --inputs "{'SN_USERNAME':'{{ username }}','SN_PASSWORD':'{{ password }}','SN_INSTANCE':'{{ instance }}'}" -h endpoint -u admin -p password --organization Default
+      no_log: true
+
     - name: add job template - compliance check
       tower_job_template:
         name: "SNOW-Demo-Compliance-Check"
         job_type: run
         inventory: "Workshop Inventory"
         project: "SNOW_CL"
-        playbook: snow_incident.yaml
-        credential: "SNOW_CL Credential"
+        playbook: snow_incident.yml
+        credential: "SNOW Credential"
         state: "present"
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"
@@ -61,20 +71,18 @@
       run_once: true
       delegate_to: localhost
 
-    - name: ADD A JOB TEMPLATE - COMPLIANCE FIX
+    - name: add job template - complaince fix
       tower_job_template:
         name: "SNOW-Demo-Compliance-Fix"
         job_type: run
-        inventory: "SNOW_CL Inventory"
+        inventory: "Workshop Inventory"
         project: "SNOW_CL"
-        playbook: fix_banner.yaml
-        credential: "SNOW_CL Credential"
+        playbook: fix_banner.yml
+        credential: "SNOW Credential"
         state: "present"
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
         tower_verify_ssl: no
-        ask_extra_vars: True
-        extra_vars_path: ./snow_demo2/extra_vars.yaml
       run_once: true
       delegate_to: localhost

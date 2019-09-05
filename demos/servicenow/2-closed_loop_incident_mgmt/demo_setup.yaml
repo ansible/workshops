@@ -42,7 +42,7 @@
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
-        tower_verify_ssl: no        validate_certs: false
+        validate_certs: false
 
     - name: add job template - compliance check
       tower_job_template:

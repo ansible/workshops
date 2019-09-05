@@ -121,7 +121,8 @@ Here is one example of the templates:
 
     At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
 
-Maintenance page during the server maintenance:
+
+With iRule attached to virtual server, maintenance page during the server maintenance:
    ![maintenance page](images/error-page.png)
 
 

@@ -23,7 +23,7 @@
     - name: add project to tower
       tower_project:
         name: SNOW_CL
-        local_path: snow_demo2
+        local_path: snow_demo
         organization: Default
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"

@@ -61,7 +61,7 @@
         inventory: "Workshop Inventory"
         project: "SNOW_CL"
         playbook: snow_incident.yml
-        credential: "SNOW Credential"
+        credential: "Workshop Credential"
         state: "present"
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"
@@ -75,7 +75,7 @@
         inventory: "Workshop Inventory"
         project: "SNOW_CL"
         playbook: fix_banner.yml
-        credential: "SNOW Credential"
+        credential: "Workshop Credential"
         state: "present"
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"

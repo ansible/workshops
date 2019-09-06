@@ -58,9 +58,16 @@
       package_facts:
         manager: rpm
 
+    - name: Enable nightly RPM build Ansible stable-2.9 branch prerelease
+      copy:
+        src: 'ansible-stable-29-prerelease-nightly.repo'
+        dest: '/etc/yum.repos.d/ansible-stable-29-prerelease-nightly.repo'
+      when:
+        - ansible_facts['packages']['ansible'][0]['version'] < '2.9.0'
+
     - name: Install Ansible 2.9 pre-release
       yum:
         state: latest
-        name: 'https://releases.ansible.com/ansible/rpm/nightly/devel/epel-7-x86_64/ansible-2.9.0-1.201908210200git.2bbbc5fafc.el7.ans.noarch.rpm'
+        name: ansible
       when:
         - ansible_facts['packages']['ansible'][0]['version'] < '2.9.0'

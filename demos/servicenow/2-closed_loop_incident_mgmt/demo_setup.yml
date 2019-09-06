@@ -68,7 +68,7 @@
         tower_host: https://localhost
         tower_verify_ssl: no
 
-    - name: add job template - complaince fix
+    - name: add job template - compliance fix
       tower_job_template:
         name: "SNOW-Demo-Compliance-Fix"
         job_type: run

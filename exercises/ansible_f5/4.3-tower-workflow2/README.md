@@ -1,8 +1,8 @@
-# Exercise 4.2: Creating a Workflow
+# Exercise 4.3: Creating Node Maintenance Workflow
 
 ## Table of Contents
 
-- [Exercise 4.2: Creating a Workflow](#exercise-42-creating-a-workflow)
+- [Exercise 4.3: Creating Node Maintenance Workflow](#exercise-43-creating-node-maintenance-workflow)
   - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
@@ -23,13 +23,13 @@
 
 Demonstrate anothe use case of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP. 
 
-For this exercise we will ...
+For this exercise, we will create a workflow for server patch management, first to disable the pool members, patch the nodes, and then enable the nodes. In parallel, we also attach an iRule to virtual server, to respond to the users when servers are under maintenance.
 
 # Guide
 
 ## Step 0: Prepare Job Templates
 
-Create the following templates by following `Lab 4.2`:
+Similar to the previous lab, we would need to create the following templates by following `Lab 4.2`:
 * Disable node
 * Enable node
 * Patch server
@@ -39,7 +39,20 @@ Create the following templates by following `Lab 4.2`:
 Here is one example of the templates:
 ![job template](images/job-template.png)
 
-**TODO: add server credetial**
+Note that for job template `Patch server`, you should create a credential `Server credential` beforehand for the job to use to access servers.
+   
+| Parameter | Value |
+|---|---|
+|Name | Server Credential |
+| Credential type: | `Machine` |
+
+In this credential, we use the private key which can be copied from Ansible server.
+```
+[student1@ansible ~]$ ls ~/.ssh/aws-private.pem
+/home/student1/.ssh/aws-private.pem
+```
+
+  ![server credential](images/server-credential.png)
 
 ## Step 1: Create a Workflow Template
 
@@ -61,7 +74,7 @@ Here is one example of the templates:
 
 ## Step 2: The Workflow Visualizer
 
-1. When you click the **SAVE** the **WORKFLOW VISUALIZER** should automatically open.  If not click on the blue **WORKFLOW VISUALIZER** button.  
+1. When you click the **SAVE**, the **WORKFLOW VISUALIZER** should automatically open.  If not click on the blue **WORKFLOW VISUALIZER** button.  
 
 2. By default only a green **START** button will appear.  Click on the **START** button.  
 
@@ -85,7 +98,7 @@ Here is one example of the templates:
 ## Step 4: Patch server Template
 
 1.  Hover over the **Disable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
-2. Select the **Attach iRule to virtual server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **Patch server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
 3. Click the green **SELECT** button.
 
    ![upgrade server](images/patch-server.png)
@@ -108,35 +121,36 @@ Here is one example of the templates:
    ![attach irule](images/detach-irule.png)
 
 ## Step 6: Create a converged link
-
+1. Hover over the `Attach iRule to virtual server` node and click the blue chain symbol.
+2. Now, click on the existing `Detach iRule`. A ADD LINK window will appear. For the RUN parameter choose Always.
 ![converge link](images/converge-link.png)
 
 ## Step 7: Run the Workflow
 
 1. Return to the **Templates** window
 
-2. Click the rocket ship to launch the **Workshop Workflow** workflow template.
+2. Click the rocket ship to launch the **Node maintenance workflow** workflow template.
 
    ![workflow job launched](images/running-workflow.png)
 
     At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
 
 
-With iRule attached to virtual server, maintenance page during the server maintenance:
+With iRule attached to virtual server, user will receive a maintenance page during the server maintenance:
    ![maintenance page](images/error-page.png)
 
 
 # Takeaways
 
 You have
- - created a workflow template that removes a pool memeber, upgrade web server, and add server back to the pool
- - made the workflow robust, if either job template fails it will restore the configuration
+ - created a workflow template that disables pool memebers, upgrade web servers, and add servers back to the pool
+ - attached iRule to virtual server, and user will get maintenance page during server patch
  - launched the workflow template and explored the **VISUALIZER**
 
 ---
 
 # Complete
 
-You have completed lab exercise 9
+You have completed lab exercise 4.3
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

@@ -1,6 +1,6 @@
 ---
 - name: SETUP TOWER FOR CLOSED LOOP INCIDENT MGMT DEMO
-  hosts: cisco
+  hosts: ansible
   connection: local
   become: yes
   gather_facts: no
@@ -52,7 +52,7 @@
     #     validate_certs: false
 
     - name: Add Custom Credential
-      command: tower-cli credential create --name="SNOW Credential" --credential-type "SNOW_CL Credential" --inputs "{'username':'{{ username }}'}" -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --organization Default --insecure
+      command: tower-cli credential create --name="SNOW Credential" --credential-type "SNOW_CL Credential" --inputs "{'username':'{{ username }}','password':'{{ password }}','instance':'{{ instance }}'}" -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --organization Default --insecure
 
     - name: add job template - compliance check
       tower_job_template:
@@ -67,8 +67,6 @@
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
         tower_verify_ssl: no
-      run_once: true
-      delegate_to: localhost
 
     - name: add job template - complaince fix
       tower_job_template:
@@ -83,5 +81,3 @@
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
         tower_verify_ssl: no
-      run_once: true
-      delegate_to: localhost

@@ -49,8 +49,10 @@
 
 # This is documented here: https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#preparing-a-new-custom-virtualenv
 - name: Create directory for custom venvs
-  file: path=/opt/my_envs state=directory
-  mode: '0755'
+  file:
+    path: /opt/my-envs
+    state: directory
+    mode: '0755'
 
 - name: specify in Tower which directory to look for custom venvs
   uri:

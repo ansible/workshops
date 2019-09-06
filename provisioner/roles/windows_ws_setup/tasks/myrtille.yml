@@ -37,10 +37,14 @@
 
 - name: Download Myrtille to specified path only if modified
   win_get_url:
-    url: https://github.com/cedrozor/myrtille/releases/download/v2.5.5/Myrtille_2.5.5_x86_x64_Setup.exe
+    url: https://s3.amazonaws.com/linklight.securityautomation/Myrtille_2.5.5_x86_x64_Setup.exe
     dest: C:\Temp\Myrtille_2.5.5_x86_x64_Setup.exe
+    checksum: e95438ea3ae5f4363b43a6e2134df771c3d2a213
+    force: yes
   when: not myrtille.stat.exists
-
+  register: win_get_myrtille
+  until: win_get_myrtille is success
+  retries: 5
 
 - name: Extract the binary
   win_command: Myrtille_2.5.5_x86_x64_Setup.exe -o "C:\Temp" -y

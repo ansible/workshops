@@ -82,8 +82,8 @@
         tower_host: https://localhost
         tower_verify_ssl: no
 
-    - name: Add Custom Credential
-      command: tower-cli job_template associate_credential --job-template 'SNOW-Demo-Compliance-Check' --credential 'SNOW Credential' --insecure -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --organization Default --insecure
+    - name: associate snow cred to check
+      command: tower-cli job_template associate_credential --job-template 'SNOW-Demo-Compliance-Check' --credential 'SNOW Credential' --insecure -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --insecure
 
-    - name: Add Custom Credential
-      command: tower-cli job_template associate_credential --job-template 'SNOW-Demo-Compliance-Fix' --credential 'SNOW Credential' --insecure -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --organization Default --insecure
+    - name: associate snow cred to check
+      command: tower-cli job_template associate_credential --job-template 'SNOW-Demo-Compliance-Fix' --credential 'SNOW Credential' --insecure -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --insecure

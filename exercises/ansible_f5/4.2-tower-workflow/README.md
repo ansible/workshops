@@ -11,10 +11,10 @@
   - [Step 3: Add *Create node* Job Template](#step-3-add-create-node-job-template)
   - [Step 4: Add *Create pool* Job Template](#step-4-add-create-pool-job-template)
   - [Step 5: Add *Create virtual server* Job Template](#step-5-add-create-virtual-server-job-template)
-  - [Step 5: *Rollback node deploy* Template](#step-5-rollback-node-deploy-template)
-  - [Step 6: *Rollback pool deploy* Template](#step-6-rollback-pool-deploy-template)
-  - [Step 7: *Rollback virtual server* Template](#step-7-rollback-virtual-server-template)
-  - [Step 8: Run the Workflow](#step-8-run-the-workflow)
+  - [Step 6: *Rollback node deploy* Template](#step-6-rollback-node-deploy-template)
+  - [Step 7: *Rollback pool deploy* Template](#step-7-rollback-pool-deploy-template)
+  - [Step 8: *Rollback virtual server* Template](#step-8-rollback-virtual-server-template)
+  - [Step 9: Run the Workflow](#step-9-run-the-workflow)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 
@@ -22,19 +22,34 @@
 
 Demonstrate the use of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP.  Workflows allow you to configure a sequence of disparate job templates (or workflow templates) that may or may not share inventory, playbooks, or permissions.
 
-For this exercise we will ...
+For this exercise we will use workflow to achieve the same as the **create_vs** job template, while at the same time adding failure handling for each job.
 
 # Guide
 
 ## Step 0: Prepare Job Templates
 
-Create the following templates by following `Lab 4.2`:
+Following what we learned from `Lab 4.2`, create the following job templates:
 * Create node
 * Create pool
 * Create virtual server
 * Rollback node deploy
 * Rollback pool deploy
 * Rollback virtual server deploy
+
+For each of the above templates, we use the same template parameters as before except selecting different playbook to match the respective job :
+
+| Parameter | Value |
+|---|---|
+| Name  | 	  |
+|  Job Type |  Run |
+|  Inventory |  Workshop Inventory |
+|  Project |  Workshop Project |
+|  Playbook |   |
+|  Credential |  Workshop Credential  |
+
+Here is one example of **Create node**:
+
+![create node](images/create-node.png)
 
 ## Step 1: Create a Workflow Template
 
@@ -60,15 +75,15 @@ Create the following templates by following `Lab 4.2`:
 
 2. By default only a green **START** button will appear.  Click on the **START** button.  
 
-3. The **ADD A TEMPLATE** window will appear on the right.  Select the *creat_node* Job Template that was created in previous step(whatever you named it!).
+3. The **ADD A TEMPLATE** window will appear on the right.  Select the `Create node` Job Template that was created in previous step(whatever you named it!).
 
    ![add a template](images/add-a-template.png)
 
-   The `create_node` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
+   The `Create node` job template is now a node.  Job or workflow templates are linked together using a graph-like structure called nodes. These nodes can be jobs, project syncs, or inventory syncs. A template can be part of different workflows or used multiple times in the same workflow. A copy of the graph structure is saved to a workflow job when you launch the workflow.
 
 ## Step 3: Add *Create node* Job Template
 
-1.  Select the **`Create node`** Job Template.  Use the drop down box to select run.  Click the green **SELECT** button.
+1.  Select the **`Create node`** Job Template.  Use the ony run option of `Always`.  Click the green **SELECT** button.
 
     ![remove pool](images/create_node.png)
 
@@ -77,6 +92,7 @@ Create the following templates by following `Lab 4.2`:
 1.  Hover over the **`Create node`** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **`Create pool`** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+3. Click the green **SELECT** button.
 
    ![upgrade server](images/create_pool.png)
 
@@ -85,10 +101,11 @@ Create the following templates by following `Lab 4.2`:
 1.  Hover over the **`Create pool`**  node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **`Create virtual server`** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
-
+3. Click the green **SELECT** button.
+   
    ![add pool](images/create_virtualserver.png)
 
-## Step 5: *Rollback node deploy* Template
+## Step 6: *Rollback node deploy* Template
 
 1.  Hover over the **Create node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
@@ -97,7 +114,7 @@ Create the following templates by following `Lab 4.2`:
 
    ![configure restore node](images/rollback_node.png)
 
-## Step 6: *Rollback pool deploy* Template
+## Step 7: *Rollback pool deploy* Template
 
 1.  Hover over the **Create pool** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
@@ -106,7 +123,7 @@ Create the following templates by following `Lab 4.2`:
 
    ![configure restore node](images/rollback_pool.png)
 
-## Step 7: *Rollback virtual server* Template
+## Step 8: *Rollback virtual server* Template
 
 1.  Hover over the **Create virtual server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
@@ -115,7 +132,7 @@ Create the following templates by following `Lab 4.2`:
 
    ![configure restore node](images/rollback_virtualserver.png)
 
-## Step 8: Run the Workflow
+## Step 9: Run the Workflow
 
 1. Return to the **Templates** window
 

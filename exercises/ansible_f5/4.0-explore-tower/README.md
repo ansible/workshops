@@ -17,7 +17,7 @@
 
 Ansible Tower is a web-based solution than runs on top of Ansible that provides additional functionality while simplifying the operations of the software.
 
-In this lab, you will log in and perform some basic configurations that will be used in later labs to perform automation tasks against your F5 BIG-IP device pair.  This exercise will cover
+In this lab, you will log in and perform some basic configurations that will be used in later labs to perform automation tasks against your F5 BIG-IP device pair.  This exercise will cover:
 - Determining the Ansible version running on the control node
 - Locating and understanding:
   - Ansible Tower **Inventory**
@@ -72,12 +72,12 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 4. Click on the `Demo Inventory` link at the top of the page to return the top level menu.
 
 5. Click on **GROUPS**.  There will where you can configure Group of hosts
-    ![Inventory](images/inventory.png)
+       ![Inventory](images/inventory.png)
 
 
 ## Step 3: Examine the Ansible Tower Workshop Project
 
-A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Ansible Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
+A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Ansible Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial etc.
 
 > For more information on Projects in Tower, please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
 
@@ -91,7 +91,7 @@ A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You
 
 3. Under the `Demo Project` click the **SCM TYPE** drop down menu
 
-    Note that Git, Mercurial and Subversion are choices.  Return the choice to Git so that the Project continues to function correctly.
+    Note that Git, Mercurial and Subversion are some of the choices.  Return the choice to Git so that the Project continues to function correctly.
 ![project link](images/project.png)
 
 ## Step 4: Examine the Ansible Tower Workshop Credential

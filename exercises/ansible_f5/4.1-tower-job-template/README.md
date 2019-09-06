@@ -28,43 +28,49 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 
 # Guide
 ## Step 1: Create a Credential
-1. In the Ansible web UI, navigate to the :guilabel:`Credentials` section using the left navigation bar.
+1. In the Ansible web UI, navigate to the `Credentials` section using the left navigation bar.
 
 2. Click on the green ![templates link](images/add.png) button to create a new Credential
 
 3. Fill out the credential parameters as follows, and click `Save`
-   - Credential type: Network
+   
+    | Parameter | Value |
+    |---|---|
+    | Credential type: | `Network` |
+    | Username| `admin`|
+    | Password| `admin`|
   
   ![workshop credential link](images/ws_credential.png)
 
 ## Step 2: Migrate an Inventory
 > Here we just showcase one way to migrate an inventory file from the Ansible Tower control node (awx-manage)
 
-1. In the Ansible web UI, navigate to the :guilabel:`Inventories` section using the left navigation bar.
+1. In the Ansible web UI, navigate to the `Inventories` section using the left navigation bar.
 2. Click on the green ![templates link](images/add.png) button to create an empty inventory `Workshop Inventory`.
 3. Login via SSH to your Ansible Tower control node (This is the Linux machine that has Ansible Tower installed on it).
 4. Locate the flat-file that represents your Ansible inventory. Run the awx-manage inventory_import command like this
    ```
-   sudo awx-manage inventory_import --source=/path/to/hosts --inventory-name="Workshop Inventory"
+   cd /home/student1/networking-workshop/lab_inventory/
+   sudo awx-manage inventory_import --source=hosts --inventory-name="Workshop Inventory"
    ```
 5. Now when you login via the WebUI you will see all the hosts under the inventory
   ![workshop inventory link](images/workshop_inventory1.png)
 
-6. In your newly created inventory, click on the button labeled :guilabel:`Groups`.
+6. In your newly imported inventory, click on the button labeled `Groups`.
   ![workshop inventory group link](images/workshop_inventory_group1.png)
 
-7. Click on the Group `lb`, and then click on the button labeled :guilabel:`Hosts`, you will see the host `f5`.
+7. Click on the Group `lb`, and then click on the button labeled `Hosts`, you will see the host `f5`.
 The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory varibales later in the lab.
   ![host link](images/host.png)
 
 8. Click on `Workshop Inventory` on the top to return to inventoy,
-   then click on the button labeled :guilabel:`Groups`. 
-   Click on the Group `webservers`, and then click on the button labeled :guilabel:`Hosts`. You will see two hosts: `host1` and `host2`. 
+   then click on the button labeled `Groups`. 
+   Click on the Group `webservers`, and then click on the button labeled `Hosts`. You will see two hosts: `host1` and `host2`. 
    Click on `host1`, and you will see the variables assigned to it with the respective values.
    ![host link](images/server1.png)
 
 ## Step 3: Create a Project
-1. In the Ansible web UI, navigate to the :guilabel:`Projects` section using the left navigation bar.
+1. In the Ansible web UI, navigate to the `Projects` section using the left navigation bar.
 2. Click on the green ![templates link](images/add.png) button to create a new project
 3. Fill out the project parameters as follows, and click `Save`
 
@@ -156,13 +162,13 @@ For reference, here is one of the playbooks that was imported and that will be e
     |  Inventory |  Workshop Inventory |
     |  Project |  Workshop Project |
     |  Playbook |  create_vs.yml |
-    |  Credential |  Workshop Credential (From the Credential type select ‘Network’) |
+    |  Credential |  Workshop Credential  |
     
-    From the Credential type select `Network`, then seletct `Workshop Credential`
+    From the Credential type select `Network`, then seletct `Workshop Credential`:
     ![network credential](images/network.png) 
 
   
-    Here is a screenshot of the job template parameters filled out:
+    Here is a screenshot of the job template with parameters filled out:
 
     ![create_vs job template](images/create_vs.png)
 
@@ -181,13 +187,13 @@ For reference, here is one of the playbooks that was imported and that will be e
 
 ## Step 6: Examine the Job Details View
 
-On the left side there is a **Details pane** on the right side there is the **Standard Out pane**.
+On the left side there is a **Details pane**, on the right side there is the **Standard Out pane**.
 
 ![job details view](images/job_create_vs.png)
 
 1.  Examine the **Details pane**    
 
-    The **Details pane** will information such as the timestamp for when the job started and finished, the job type (Check or Run), the user that launched the job, which Project and Ansible Playbook were used and more.
+    The **Details pane** will provide information such as the timestamp for when the job started and finished, the job type (Check or Run), the user that launched the job, which Project and Ansible Playbook were used and more.
 
     If the Job has not finished yet, the **Details Pane** will have a cancel button ![cancel button](images/cancel.png) that can be used to stop the Job.
 
@@ -207,7 +213,7 @@ On the left side there is a **Details pane** on the right side there is the **St
 
 ## Step 7: Examine the Jobs window
 
-Any **Job Template** that has been run or is currently running will show up under the **Jobs** window.
+Any **Job Template** that has been run or is currently running will show up under the **Views -> Jobs** window.
 
 1. Click the Jobs button the left menu.
 
@@ -234,11 +240,11 @@ The load balancer virtual server can be found by navigating the menu on the left
 
 ## Step 9: Verifying the web servers
 
-Each RHEL web server actually already has apache running. Open up the public IP of the F5 load balancer in your web browser:
+Each of the two RHEL web servers actually already has apache running. Open up the public IP of the F5 load balancer in your web browser:
 
 >This time use port 443 instead of 8443, e.g. https://X.X.X.X:443/
 
-Each time you refresh, BIG-IP will load balancing the traffic between **host1** and **host2**. 
+Each time you refresh, BIG-IP will load balance the traffic between **host1** and **host2**, as shown below:
 ![host1 link](images/host1.png)
 ![host2 link](images/host2.png)
 
@@ -246,15 +252,15 @@ Each time you refresh, BIG-IP will load balancing the traffic between **host1** 
 # Takeaways
 
 You have successfully demonstrated
- - Creating a Job Template for Virtual Server configurations
+ - Creating a Job Template to create a Virtual Server 
  - Launching a Job Template from the Ansible Tower UI
  - Verifying the Virtual Server is correctly created
- - Veryfying the web servers are up and running
+ - Veryfying the web server is up and running
 
 ---
 
 # Complete
 
-You have completed lab exercise 6
+You have completed lab exercise 4.1
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

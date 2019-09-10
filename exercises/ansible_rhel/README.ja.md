@@ -13,7 +13,7 @@ Ansibleはアプリケーションの展開、構成管理、オーケストレ�
 ## プレゼンテーション資料
 
 プレゼンテーション資料はこちら:
-[Ansible for Red Hat Enterprise Linux Deck](../../decks/ansible-technical.pdf)
+[Ansible for Red Hat Enterprise Linux Deck](../../decks/ansible_rhel.pdf)
 
 Ansibleのベストプラクティスもあわせてご覧ください:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)

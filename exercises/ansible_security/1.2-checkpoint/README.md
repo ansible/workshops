@@ -21,7 +21,11 @@ The Windows workstation can be reached via Remote Desktop Protocol (RDP). We rec
 
 Test the access to the MGMT server now by pointing your RDP client to the `windows-ws` IP in your inventory.
 
-If you do not have a RDP client available or want to test the HTML RDP client, please open the following URL in your browser: `https://<windows-wsIP>/myrtille`. Be sure to replace `<windows-wsIP>` with the IP for the Windows workstation from your inventory. In the login field, only provide the user name and the password: The user name is **Adminimstrator**, the password is **RedHat19!** if not provided otherwise.
+If you do not have a RDP client available or want to test the HTML RDP client, please open the following URL in your browser: `http://<windows-wsIP>/myrtille`. Be sure to replace `<windows-wsIP>` with the IP for the Windows workstation from your inventory. In the login field, only provide the user name and the password: The user name is **Adminimstrator**, the password is **RedHat19!** if not provided otherwise.
+
+Upon first login there might be a message about a network interface in a blue bar on the right side. This message can be safely ignored and will disappear as soon as you click anywhere.
+
+You now are accessing a default windows workstation with a Google Chrome browser installed.
 
 > **Note**
 >
@@ -29,7 +33,7 @@ If you do not have a RDP client available or want to test the HTML RDP client, p
 
 ## Step 2.3 - Install SmartConsole
 
-SmartConsole should already be installed on your system. Please check your desktop for an icon to launch SmartConsole and launch it. If this works, the following tasks are not necessary and you can proceed to **Step 2.4**.
+SmartConsole should already be installed on your system. Please check your desktop for an icon to launch SmartConsole and launch it. If this works, the following tasks are **not necessary** and you can proceed to **Step 2.4**!
 
 If for any reason SmartConsole was not installed properly during the deployment of the lab, it is simple to do that yourself:
 
@@ -55,13 +59,11 @@ Press the **Login** button. Afterwards you need to verify the server fingerprint
 >
 > In a productive environment, you would first figure out the fingerprint of the server and would only proceed after you confirmed that the fiungerprint shown is identical with the one from the server. In our demo setup with the short lived instances we can assume that the fingerprints are good.
 
-You are now viewing the Check Point SmartConsole management interface.
+You are now viewing the Check Point SmartConsole management interface. There might be a Internet Explorer Warning visible upon start. This can safely be closed and is due to limitations in the way IE works.
 
 ![SmartConsole main window](images/smartconsole-main-window.png)
 
-> **Note**
->
-> Due to shortcomings of the Internet Explorer configuration you might see an Internet Explorer warning right when the SmartConsole login is successful. You can safely close the dialog.
+Next, on the left side, click on **SECURITY POLICIES** and note that there is currently only one rule installed: to drop all traffic. Now you have a first idea of how Check Point looks like in term of the management interface. We will interact more with it - but first we go back to the command line to learn how to write Ansible playbooks interacting with Check Point.
 
 ## Step 2.5 - First example playbook
 
@@ -102,15 +104,15 @@ If you are not very familiar with Ansible, see the following example of a playbo
 >
 > Here is a nice analogy: When Ansible modules are the tools in your workshop, the inventory is the materials and the playbooks are the instructions.
 
-We will now write a playbook to change the configuration of the Check Point setup. We will start with a simple example where we will add a blacklist entry in the firewall configuration.
+We will now write a playbook to change the configuration of the Check Point setup. We will start with a simple example where we will add a whilte entry in the firewall configuration to allow traffic from a certain machine to another. In our example we will allow the machine called **attacker** to send traffic to our machine **snort**.
 
-The playbook will be written and run on the `ansible` control host. Use SSH to access it via the IP provided to you by your instructir. On the control host, open an editor of your choice and create a file with the name `fw_blacklist_ip.yml`.
+The playbook will be written and run on the Ansible control host. Use SSH to access your control host. On there, open an editor of your choice and create a file with the name `whitelist_attacker.yml`.
 
 First, a playbook needs a name and the hosts it should be executed on. So let's add those:
 
 ```yaml
 ---
-- name: Blacklist IP
+- name: Whitelist Attacker
   hosts: checkpoint
 ```
 
@@ -118,39 +120,45 @@ First, a playbook needs a name and the hosts it should be executed on. So let's 
 >
 > It is a good practice to make playbooks more reusable by pointing them at `hosts: all` and limit the execution later on the command line or via Tower. But for now we simplify the process by naming hosts in the playbook directly.
 
-As mentioned, in this a simple example we will add a blacklist entry. A simple blacklist entry consists of a source IP address, a destination IP address and the rule to prevent access between those.
+As mentioned, in this a simple example we will add a whitelist entry. A simple whitelist entry consists of a source IP address, a destination IP address and the rule to prevent access between those.
 
-For this, we add the source and destination IP as variables to the playbook.
+For this, we add the source and destination IP as variables to the playbook. Since Ansible knows all the machines from the inventory and since the IPs are listed in the inventory, we can just reference those information as variables:
 
+<!-- {% raw %} -->
 ```yaml
 ---
-- name: Blacklist IP
+- name: Whitelist Attacker
   hosts: checkpoint
 
   vars:
-    source_ip: 192.168.0.10
-    destination_ip: 192.168.0.11
+    source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
+    destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 ```
+<!-- {% endraw %} -->
+
+Note that we use the second private IP - those belong to a network whihc is specifically routed via the FW for application traffic. The first private IP belongs to the management network.
 
 Next, we need to add the tasks where the actual changes on the target machines are done. This happens in three steps: first we create a source object, than a destination object, and finally the access rule between those two.
 
 Let's start with a task to define the source object:
 
+<!-- {% raw %} -->
 ```yaml
 ---
-- name: Blacklist IP
+- name: Whitelist attacker
   hosts: checkpoint
 
   vars:
-    source_ip: 192.168.0.10
-    destination_ip: 192.168.0.11
+    source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
+    destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 
-  tasks:
+  tasks: 
     - name: Create source IP host object
       checkpoint_host:
         name: "asa-{{ source_ip }}"
         ip_address: "{{ source_ip }}"
 ```
+<!-- {% endraw %} -->
 
 As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_hosts`. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can call the help:
 
@@ -164,16 +172,17 @@ As you can see, the task itself has a name - just like the play itself - and ref
 
 In the same way we defined the source IP host object, we will now add the destination IP host object:
 
+<!-- {% raw %} -->
 ```yaml
 ---
-- name: Blacklist IP
+- name: Whitelist attacker
   hosts: checkpoint
 
   vars:
-    source_ip: 192.168.0.10
-    destination_ip: 192.168.0.11
+    source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
+    destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 
-  tasks:
+  tasks: 
     - name: Create source IP host object
       checkpoint_host:
         name: "asa-{{ source_ip }}"
@@ -184,19 +193,21 @@ In the same way we defined the source IP host object, we will now add the destin
         name: "asa-{{ destination_ip }}"
         ip_address: "{{ destination_ip }}"
 ```
+<!-- {% endraw %} -->
 
 Last, we are defining the actual access rule between those two host objects:
 
+<!-- {% raw %} -->
 ```yaml
 ---
-- name: Blacklist IP
+- name: Whitelist attacker
   hosts: checkpoint
 
   vars:
-    source_ip: 192.168.0.10
-    destination_ip: 192.168.0.11
+    source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
+    destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 
-  tasks:
+  tasks: 
     - name: Create source IP host object
       checkpoint_host:
         name: "asa-{{ source_ip }}"
@@ -207,45 +218,48 @@ Last, we are defining the actual access rule between those two host objects:
         name: "asa-{{ destination_ip }}"
         ip_address: "{{ destination_ip }}"
 
-    - name: Create access rule to deny access from source to destination
+    - name: Create access rule to allow access from source to destination
       checkpoint_access_rule:
+        auto_install_policy: yes
+        auto_publish_session: yes
         layer: Network
         position: top
-        name: "asa-drop-{{ source_ip }}-to-{{ destination_ip }}"
+        name: "asa-accept-{{ source_ip }}-to-{{ destination_ip }}"
         source: "asa-{{ source_ip }}"
         destination: "asa-{{ destination_ip }}"
-        action: drop
+        action: accept
 ```
+<!-- {% endraw %} -->
 
 ## Step 2.6 - Run the playbook
 
 Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook --syntax-check fw_blacklist_ip.yml
+[student<X>@ansible ansible-files]$ ansible-playbook --syntax-check whitelist_attacker.yml
 ```
 
 Now you should be ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook fw_blacklist_ip.yml
+[student<X>@ansible ansible-files]$ ansible-playbook whitelist_attacker.yml 
 
-PLAY [Blacklist IP] *******************************************************************
+PLAY [Whitelist attacker] *********************************************************
 
-TASK [Gathering Facts] ****************************************************************
+TASK [Gathering Facts] ************************************************************
 ok: [checkpoint]
 
-TASK [Create source IP host object] ***************************************************
+TASK [Create source IP host object] ***********************************************************************************
 changed: [checkpoint]
 
-TASK [Create destination IP host object] **********************************************
+TASK [Create destination IP host object] ***********************************************************************************
 changed: [checkpoint]
 
-TASK [Create access rule to deny access from source todestination] ********************
+TASK [Create access rule to allow access from source to destination] ***********************************************************************************
 changed: [checkpoint]
 
-PLAY RECAP ****************************************************************************
-checkpoint  : ok=4  changed=1  unreachable=0  failed=0  skipped=0  rescued=0  ignored=0
+PLAY RECAP ************************************************************************
+checkpoint  : ok=4 changed=3 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 ```
 
 ## Step 2.7 - Verfiy changes in UI
@@ -256,77 +270,23 @@ Access the Windows workstation and open the SmartConsole interface. On the right
 
 ![SmartConsole Hosts list](images/smartconsole-hosts-list.png)
 
-Next, on the left side, click on **SECURITY POLICIES** and note the additional access control policy entry in the middle of the field
+Next, on the left side, click on **SECURITY POLICIES** and note the additional access control policy entry in the middle of the field compared to the first time we looked at this. This time it allows traffic, thus has another entry in the **Action** column and also a different color.
 
-![SmartConsole Policiy Entries](images/smartconsole-policy-entry.png)
+![SmartConsole Policy Entries](images/smartconsole-policy-entry.png)
 
-## Step 2.8 - Realizing the same task with pre-defined roles
+Also note in the bottom left corner that there is a green bar indicating that changes were applied to the entire system.
 
-While it is possible to write a playbook in one file as we did above throughout this workshop, eventually you’ll want to reuse files and start to organize things.
+## Step 2.8 - Turn on Logging for the new policy
 
-Ansible Roles are the way we do this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.
+To see how changes are usually performed in a typical interaction with Check Point in contrast, let's just do a small change which will come in handy later on: by default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
 
-There are multiple advantages in using roles to write your automation code. The most notable are that the complexity and intelligence behind a set of playbooks is hidden away. Also the roles are usually easy to re-use by others.
+![SmartConsole, change logging](images/smartconsole-change-logging.png)
 
-In case of the security automation we created a role which contains the code mentioned above already - together with some more tasks to make sure that the execution runs in no problems in case objects already exist. You can check out the code in the [Github repository acl_manger](https://github.com/ansible-security/acl_manager). The playbook you are familiar with already is in the file (´[tasks/providers/checkpoint/blacklist_ip.yaml](https://github.com/ansible-security/acl_manager/blob/master/tasks/providers/checkpoint/blacklist_ip.yaml).
+Afterwards, click on the **Install Policy** button at the top of the list of policies, confirm the dialog which opens with **Publish & Install** and in the last dialog, click **Install** again.
 
-If you have a closer look at how the entire role is set up you soon will realize that it is made in a way to support firewall solutions from multiple vendors. That way users of the role do not have to worry where are the differences are between different firewall vendors - that is hidden away in the role.
+As a result, in the left corner a small window pops up informing you of the progress of the deployment of the change.
 
-In the more advanced steps in the lab we will sometimes re-use the roles. So let's have a look at how our playbook can be rewritten to use the roles directly. For this first we have to get the role onto our control machine. There are different ways how this can be achieved, but a very convenient way is to use the command line tool `ansible-galaxy`. It can install roles directly from archives, Git URLs - and it can also install roles from [Ansible Galaxy](https://galaxy.ansible.com). Ansible Galaxy is a community hub for finding and sharing Ansible content. It provides features like rating, quality testing, proper searching and so on. For example, the role mentioned above can be found in Ansible Galaxy at [ansible_security/acl_manager](https://galaxy.ansible.com/ansible_security/acl_manager).
-
-On your control host, use the `ansible-galaxy` tool to download and install the above mentioned role with a single command:
-
-```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.acl_manager
-- downloading role 'acl_manager', owned by ansible_security
-- downloading role from https://github.com/ansible-security/acl_manager/archive/master.tar.gz
-- extracting ansible_security.acl_manager to /home/student<X>/.ansible/roles/ansible_security.acl_manager
-- ansible_security.acl_manager (master) was installed successfully
-```
-
-As you see the role was installed to the roles default path, `~/.ansible/roles/`. It was prefixed by `ansible_security` which is the project writing the security roles used for example in this workshop.
-
-As we now have the role installed on our control host, let's use it. Open your editor to create a new file, `role_blacklist.yml`, and add the name and target hosts. Also, we immediately add the variables needed to tell the tasks what we are going to do.
-
-```yaml
----
-- name: Blacklist IP
-  hosts: checkpoint
-
-  vars:
-    source_ip: 192.168.0.10
-    destination_ip: 192.168.0.11
-```
-
-Next, add the tasks. Instead of tasks directly interacting with target machines we just reference the role and what tasks of the role we want to be used:
-
-```yaml
----
-- name: Blacklist IP
-  hosts: checkpoint
-
-  vars:
-    source_ip: 192.168.0.10
-    destination_ip: 192.168.0.11
-
-  tasks:
-    - include_role:
-        name: ansible_security.acl_manager
-        tasks_from: blacklist_ip
-```
-
-That's it already - the playbook is much shorter than the previous one because a lot of the code already exists in the role!
-
-Now we can execute the role:
-
-```bash
-[student<X>@ansible ~]$ ansible-playbook role_blacklist.yml
-```
-
-The output should look fairly familiar to you - some of the tasks executed are just the ones we had in our playbook. Others are new - those are tasks ensuring that everything works fine even if certain objects already exist.
-
-You are done with the first steps of automating Check Point with Ansible. Head back to the exercise overview and continue with the next step.
-
+As you see, even doing a rather small change the configuraiton required multiple clicks and interactions with the user - the more of these steps can be automated, the better.
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md)
+[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)

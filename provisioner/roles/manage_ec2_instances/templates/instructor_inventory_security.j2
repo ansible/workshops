@@ -29,6 +29,11 @@ ansible_port={{ ssh_port }}
 {{host.tags.Student}}-snort ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
+{% for host in attacker_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-attacker ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
 {% for host in checkpoint_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
 {{host.tags.Student}}-checkpoint ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_password=admin123 ansible_network_os=checkpoint ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=no

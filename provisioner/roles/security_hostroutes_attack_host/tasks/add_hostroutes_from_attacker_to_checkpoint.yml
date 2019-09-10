@@ -1,0 +1,17 @@
+- name: get gw instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-checkpoint_gw"
+      "instance-state-name": running
+  register: checkpoint_facts
+  delegate_to: localhost
+  become: false
+
+- name: add route to 172.17.0.0/16 subnet on attacker node
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth0
+    line: "172.17.0.0/16 via {{checkpoint_facts['instances'][0]['network_interfaces'][1]['private_ip_address']}}"
+    create: yes
+  notify: restart network
+

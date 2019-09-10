@@ -1,0 +1,9 @@
+---
+
+- name: Apply network alias to work around QRadar issues
+  template:
+    src: "ifcfg-eth0:1.j2"
+    dest: "/etc/sysconfig/network-scripts/ifcfg-eth0:1"
+  notify:
+    - "restart network"
+

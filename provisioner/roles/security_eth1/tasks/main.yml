@@ -1,0 +1,8 @@
+---
+- name: Lay down dhcp config for eth1 (AWS does not for some reason)
+  template:
+    src: 'ifcfg-eth1.j2'
+    dest: '/etc/sysconfig/network-scripts/ifcfg-eth1'
+  when: ansible_eth1 is defined
+  notify:
+    - restart network

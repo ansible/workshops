@@ -1,5 +1,7 @@
 # Exercise 2.5 - Role based access control
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 You have already learned how Tower separates credentials from users. Another advantage of Ansible Tower is the user and group rights management.
 
 ## Ansible Tower Users

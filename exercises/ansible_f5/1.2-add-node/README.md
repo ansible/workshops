@@ -58,13 +58,14 @@ Next, add the first `task`. This task will use the `bigip_node` module configure
 
   - name: CREATE NODES
     bigip_node:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+        validate_certs: no
       host: "{{hostvars[item].ansible_host}}"
       name: "{{hostvars[item].inventory_hostname}}"
-      validate_certs: "no"
     loop: "{{ groups['webservers'] }}"
 ```
 <!-- {% endraw %} -->
@@ -74,6 +75,7 @@ Next, add the first `task`. This task will use the `bigip_node` module configure
 - `name: CREATE NODES` is a user defined description that will display in the terminal output.
 - `bigip_node:` tells the task which module to use.  Everything except `loop` is a module parameter defined on the module documentation page.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
+- The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with

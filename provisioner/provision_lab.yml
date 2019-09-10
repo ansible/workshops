@@ -25,6 +25,14 @@
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
       when: workshop_type == "networking"
 
+    - name: make sure security_console is set to a correct value
+      assert:
+        that:
+          - security_console is defined
+          - security_console in valid_security_console_types
+        msg: "network_type must be defined and be one of: {{valid_security_console_types}}"
+      when: workshop_type == "security"
+
     - name: run role to check if local environment setup will work with AWS
       include_role:
         name: aws_check_setup
@@ -63,14 +71,16 @@
        - autolicense is defined
        - autolicense
 
-    - name: Install required roles onto THIS machine
-      shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
-      loop:
-        - 'geerlingguy.repo-epel'
-        - 'ansible_security.ids_config'
-        - 'ansible_security.ids_install'
+    - name: Install required roles and collections onto THIS machine
       when:
         - workshop_type == "security"
+      block:
+        - name: required roles
+          shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+          loop:
+            - 'geerlingguy.repo-epel'
+            - 'ansible_security.ids_config'
+            - 'ansible_security.ids_install'
 
 - name: Create lab instances in AWS
   hosts: localhost

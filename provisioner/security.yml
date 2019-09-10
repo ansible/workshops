@@ -1,9 +1,6 @@
-- name: INSTALL AND CONFIGURE SPLUNK ENTERPRISE
-  hosts: splunk
-  become: true
-  gather_facts: no
-  roles:
-    - role: splunk_enterprise
+- name: include splunk playbook
+  import_playbook: splunk.yml
+  when: security_console == 'splunk'
 
 - name: INSTALL AND CONFIGURE SNORT
   hosts: snort
@@ -25,3 +22,16 @@
       - name: import ids_config role
         include_role:
           name: "ansible_security.ids_config"
+
+- name: SETUP CHECKPOINT ENVIRONMENT
+  hosts: localhost
+  become: no
+  connection: local
+  gather_facts: no
+  roles:
+    - role: cp_setup
+
+- name: SETUP WINDOWS WORKSTATION
+  hosts: windows
+  roles:
+    - role: windows_ws_setup

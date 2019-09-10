@@ -46,3 +46,33 @@
 - name: Display /api/v2/ping results
   debug:
     msg: '{{ check2.json }}'
+
+# This is documented here: https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#preparing-a-new-custom-virtualenv
+- name: Create directory for custom venvs
+  file:
+    path: /opt/my-envs
+    state: directory
+    mode: '0755'
+
+- name: specify in Tower which directory to look for custom venvs
+  uri:
+    url: https://localhost/api/v2/settings/system/
+    method: PATCH
+    user: admin
+    password: "ansible"
+    validate_certs: False
+    force_basic_auth: yes
+    body_format: json
+    body: '{"CUSTOM_VENV_PATHS": ["/opt/my-envs/"]}'
+    status_code:
+      - 200
+
+- name: install ansible development branch to venv
+  become: yes
+  pip:
+    name:
+      - git+https://github.com/ansible/ansible.git@devel
+      - psutil
+      - paramiko
+      - ncclient
+    virtualenv: /opt/my-envs/ansible_dev

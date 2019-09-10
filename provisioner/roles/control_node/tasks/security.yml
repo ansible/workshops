@@ -1,95 +1,4 @@
-# FIXME: This should probably be refactored to use things like the following
-# instead of hard coding
-#
-#   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
-#
-# That would enable a more generic role/scaffolding
-
-- name: Clone linklight repo (SECURITY AUTOMATION MODE)
-  git:
-    accept_hostkey: yes
-    clone: yes
-    dest: /tmp/linklight
-    repo: https://github.com/network-automation/linklight.git
-    force: yes
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Move networking workshop folder to correct location  (NETWORKING MODE)
-#   copy:
-#     src: /tmp/linklight/exercises/ansible_network/
-#     dest: /home/{{ username }}/networking-workshop
-#     remote_src: yes
-#   when: workshop_type == 'networking'
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-#- name: Move networking workshop folder to correct location  (NETWORKING MODE)
-#  command: cp -r /tmp/linklight/exercises/ansible_network/ /home/{{ username }}/networking-workshop/
-#  when: workshop_type == 'networking'
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Create demos folder with demos
-#   copy:
-#     src: /tmp/linklight/demos/
-#     dest: /home/{{ username }}/demos
-#     remote_src: yes
-#   when: workshop_type == 'networking'
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-#- name: Create demos folder with demos
-#  command: cp -r /tmp/linklight/demos/ /home/{{ username }}/demos
-#  when: workshop_type == 'networking'
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-# This is waiting on https://github.com/ansible/ansible/pull/41222
-# which will become available on ansible 2.8
-# - name: Move networking workshop folder to correct location  (F5 MODE)
-#   copy:
-#     src: /{{playbook_dir}}/linklight/exercises/ansible_f5/
-#     dest: /home/{{ username }}/networking-workshop
-#   when: workshop_type == 'f5'
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-#- name: Move networking workshop folder to correct location  (F5 MODE)
-#  shell: mkdir /home/{{ username }}/networking-workshop; cp -r /tmp/linklight/exercises/ansible_f5/* /home/{{ username }}/networking-workshop
-#  when: workshop_type == 'f5'
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-#- name: fix permissions of networking-workshop  (NETWORKING MODE)
-#  file:
-#    path: /home/{{ username }}/networking-workshop
-#    owner: "{{ username }}"
-#    group: "{{ username }}"
-#    recurse: yes
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-#- name: fix permissions of demos  (NETWORKING MODE)
-#  file:
-#    path: /home/{{ username }}/demos
-#  owner: "{{ username }}"
-#  group: "{{ username }}"
-#  recurse: yes
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-#- name: Create lab inventory directory (NETWORKING MODE)
-#  file:
-#    state: directory
-#  path: /home/{{ username }}/networking-workshop/lab_inventory
-#  owner: "{{ username }}"
-#  group: "{{ username }}"
-
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE
-#- name: Put student inventory in proper spot (NETWORKING MODE)
-#  copy:
-#    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
-#    dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"
-#    owner: "{{ username }}"
-#    group: "{{ username }}"
-#  when: username in inventory_hostname
-
+---
 - name: make sure .ssh is created
   file:
     path: "/home/{{username}}/.ssh/"
@@ -129,11 +38,36 @@
     group: "{{ansible_user}}"
     mode: 0700
 
-# FIXME - MAKE A SECURITY AUTOMATION ONE OF THESE - IF NEEDED
-#
-#- name: setup /etc/hosts file per student
-#  copy:
-#    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
-#    dest: "/etc/hosts"
-#    owner: "{{ username }}"
-#    group: "{{ username }}"
+- name: Create lab inventory directory
+  file:
+    state: directory
+    path: /home/{{ username }}/lab_inventory
+
+- name: Put student inventory in proper spot
+  copy:
+    src: ./{{ec2_name_prefix}}/{{ username }}-instances.txt
+    dest: /home/{{ username }}/lab_inventory/hosts
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname
+
+# FIXME: REMOVE THIS ENTIRE BLOCK ONCE ANSIBLE ENGINE 2.9 GOES GA
+- name: Install Ansible 2.9 pre-release (if necessary)
+  block:
+    - name: Get package facts
+      package_facts:
+        manager: rpm
+
+    - name: Enable nightly RPM build Ansible stable-2.9 branch prerelease
+      copy:
+        src: 'ansible-stable-29-prerelease-nightly.repo'
+        dest: '/etc/yum.repos.d/ansible-stable-29-prerelease-nightly.repo'
+      when:
+        - ansible_facts['packages']['ansible'][0]['version'] < '2.9.0'
+
+    - name: Install Ansible 2.9 pre-release
+      yum:
+        state: latest
+        name: ansible
+      when:
+        - ansible_facts['packages']['ansible'][0]['version'] < '2.9.0'

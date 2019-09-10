@@ -1,5 +1,7 @@
 # 演習 2.1 - Tower の紹介
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Ansible Tower の価値
 
 Ansible Towerは、IT自動化のためのエンタープライズソリューションを提供するWebベースのUIです。

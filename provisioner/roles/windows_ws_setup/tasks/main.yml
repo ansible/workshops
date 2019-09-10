@@ -1,0 +1,5 @@
+---
+- include_tasks: chrome.yml
+- include_tasks: server_mgmt.yml
+- include_tasks: myrtille.yml
+- include_tasks: smartconsole.yml

@@ -1,5 +1,7 @@
 # 演習 2.6 - ワークフロー
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 # Ansible Tower ワークフロー
 
 Ansible Tower の主要な新機能としてバージョン 3.1 からワークフローが導入されました。ワークフローの基本的な考え方は、複数のジョブテンプレートをリンクし実行できることです。各ジョブテンプレートの実行は、例えば以下の様な実行条件を付与することができます。  

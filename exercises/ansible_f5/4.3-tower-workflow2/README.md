@@ -29,30 +29,46 @@ For this exercise, we will create a workflow for server patch management, first 
 
 ## Step 0: Prepare Job Templates
 
-Similar to the previous lab, we would need to create the following templates by following `Lab 4.2`:
-* Disable node
-* Enable node
-* Patch server
-* Attach iRule to virtual server
-* Detach iRule 
-
-Here is one example of the templates:
-![job template](images/job-template.png)
-
-Note that for job template `Patch server`, you should create a credential `Server credential` beforehand for the job to use to access servers.
+Before creating templates, you should create one more credential `Server credential` beforehand, utilized by one of the jobs (`Patch server`) to access servers.
    
 | Parameter | Value |
 |---|---|
 |Name | Server Credential |
 | Credential type: | `Machine` |
 
-In this credential, we use the private key which can be copied from Ansible server.
+In this credential, we use the **SSH private key** which can be copied from Ansible server.
 ```
 [student1@ansible ~]$ ls ~/.ssh/aws-private.pem
 /home/student1/.ssh/aws-private.pem
 ```
 
   ![server credential](images/server-credential.png)
+
+
+Similar to the previous lab, we would need to prepare the following templates by following `Lab 4.2`:
+
+| Job template Name | Playbook |
+|---|---|
+| Disable node            | disable_node.yml     |
+| Enable node            | enable_node.yml    |
+| Patch server            | patch_server.yml     |  
+| Attach iRule to virtual server            | attach_irule.yml     |  
+| Detach iRule             | detach_irule.yml    |
+
+Again, we use the same template parameters as `Lab 4.2` for each of the above templates: (with the only exception: `Patch server` template will use credential `server credential`)
+
+| Parameter | Value |
+|---|---|
+| Name  | 	  |
+|  Job Type |  Run |
+|  Inventory |  Workshop Inventory |
+|  Project |  Workshop Project |
+|  Playbook |   |
+|  Credential |  Workshop Credential  |
+
+Here is one example of the templates:
+![job template](images/job-template.png)
+
 
 ## Step 1: Create a Workflow Template
 
@@ -122,7 +138,7 @@ In this credential, we use the private key which can be copied from Ansible serv
 
 ## Step 6: Create a converged link
 1. Hover over the `Attach iRule to virtual server` node and click the blue chain symbol.
-2. Now, click on the existing `Detach iRule`. A ADD LINK window will appear. For the RUN parameter choose Always.
+2. Now, click on the existing `Detach iRule`. An ADD LINK window will appear. For the RUN parameter choose Always.
 ![converge link](images/converge-link.png)
 
 ## Step 7: Run the Workflow

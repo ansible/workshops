@@ -28,15 +28,17 @@ For this exercise we will use workflow to achieve the same as the **create_vs** 
 
 ## Step 0: Prepare Job Templates
 
-Following what we learned from `Lab 4.2`, create the following job templates:
-* Create node
-* Create pool
-* Create virtual server
-* Rollback node deploy
-* Rollback pool deploy
-* Rollback virtual server deploy
+Following what we learned from `Lab 4.2`, create the following job templates with the respective playbook:
+| Job template Name | Playbook |
+|---|---|
+| Create node                      | create_node.yml     |
+| Create pool                      | create_pool.yml    |
+| Create virtual server            | create_virtualserver.yml     |  
+| Rollback node deploy             | rollback_node_deploy.yml     |  
+| Rollback pool deploy             | rollback_pool_deploy.yml     |
+| Rollback virtual server deploy   | rollback_vs_deploy.yml     |
 
-For each of the above templates, we use the same template parameters as before except selecting different playbook to match the respective job :
+Apart from above, we use the same template parameters as `Lab 4.2` for each of the above templates,:
 
 | Parameter | Value |
 |---|---|
@@ -47,7 +49,7 @@ For each of the above templates, we use the same template parameters as before e
 |  Playbook |   |
 |  Credential |  Workshop Credential  |
 
-Here is one example of **Create node**:
+Here is one example of templates: **Create node**:
 
 ![create node](images/create-node.png)
 
@@ -83,7 +85,7 @@ Here is one example of **Create node**:
 
 ## Step 3: Add *Create node* Job Template
 
-1.  Select the **`Create node`** Job Template.  Use the ony run option of `Always`.  Click the green **SELECT** button.
+1.  Select the **`Create node`** Job Template.  Use the only run option of `Always`.  Click the green **SELECT** button.
 
     ![remove pool](images/create_node.png)
 

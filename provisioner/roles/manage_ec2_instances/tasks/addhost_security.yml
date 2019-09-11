@@ -58,23 +58,6 @@
       "tag:Workshop_snort": "{{ec2_name_prefix}}-snort"
   register: snort_node_facts
 
-- name: grab facts for Check Point CloudGuard Security Management (SECURITY MODE)
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_checkpoint_mgmt": "{{ec2_name_prefix}}-checkpoint"
-  register: checkpoint_node_facts
-
-- name: grab facts for Windows workstation for Check Point (SECURITY MODE)
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_windows": "{{ec2_name_prefix}}-windows"
-  register: windows_node_facts
-
-
 - name: ADD SNORT NODE TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
@@ -90,6 +73,22 @@
       - ids
   loop: "{{ snort_node_facts.instances|flatten(levels=1) }}"
 
+- name: grab facts for Check Point CloudGuard Security Management (SECURITY MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_checkpoint_mgmt": "{{ec2_name_prefix}}-checkpoint"
+  register: checkpoint_node_facts
+
+- name: grab facts for Check Point CloudGuard Security Management (SECURITY MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_checkpoint_gw": "{{ec2_name_prefix}}-checkpoint"
+  register: checkpoint_gw_facts
+
 - name: ADD Check Point CloudGuard Security Management TO INVENTORY
   add_host:
     name: "{{ item.tags.Name }}"
@@ -104,6 +103,14 @@
       - checkpoint
       - firewall
   loop: "{{ checkpoint_node_facts.instances|flatten(levels=1) }}"
+
+- name: grab facts for Windows workstation for Check Point (SECURITY MODE)
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_windows": "{{ec2_name_prefix}}-windows"
+  register: windows_node_facts
 
 - name: ADD WINDOWS WORKSTATION TO INVENTORY
   add_host:

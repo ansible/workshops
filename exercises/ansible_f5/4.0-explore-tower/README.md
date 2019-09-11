@@ -17,7 +17,7 @@
 
 Ansible Tower is a web-based solution than runs on top of Ansible that provides additional functionality while simplifying the operations of the software.
 
-In this lab, you will log in and perform some basic configurations that will be used in later labs to perform automation tasks against your F5 BIG-IP device pair.  This exercise will cover:
+In this lab, you will log in and perform some basic configurations that will be used in later labs to perform automation tasks against your F5 BIG-IP device.  This exercise will cover:
 - Determining the Ansible version running on the control node
 - Locating and understanding:
   - Ansible Tower **Inventory**
@@ -65,13 +65,13 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 
     ![Inventories Button](images/inventories.png)
 
-2. Under Inventories there will be inventories.  Click on the `Demo Inventory`.  
+2. Under **Inventories** there will be inventories.  Click on the `Demo Inventory`.  
 
-3. Under the `Demo Inventory` click the **HOSTS** button at the top.  There will be hosts configured here.  Click on one of the devices.
+3. Under the `Demo Inventory`, click the **HOSTS** button at the top.  There will be hosts configured here.  Click on one of the devices.
 
 4. Click on the `Demo Inventory` link at the top of the page to return the top level menu.
 
-5. Click on **GROUPS**.  There will where you can configure Group of hosts
+5. Click on **GROUPS**.  This is where you can configure Group of hosts
        ![Inventory](images/inventory.png)
 
 
@@ -87,7 +87,7 @@ A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You
 
 2. Under **PROJECTS** there will be one pre-configured projects, or `Demo Project`.  Click on the `Demo Project`.  
 
-    Note that `GIT` is listed for this project.  This means this project is using Git for SCM.
+    Note that `Git` is listed for this project.  This means this project is using `Git` for SCM.
 
 3. Under the `Demo Project` click the **SCM TYPE** drop down menu
 
@@ -119,12 +119,16 @@ Credentials are utilized by Tower for authentication when launching **Jobs** aga
 Templates or Job Templates define the parameters that will be used when executing an Ansible playbook. These parameters include previously mentioned features such as which project and inventory will be used.
 Additionally, parameters such as logging level and process forks allow for additional granularity on how playbooks are ran.
 
+1. Click on the **Templates** button under **RESOURCES** on the left menu bar.  
+2. Under **TEMPLATES** there will be one pre-configured credential, or `Demo Job Template`.  Click on the `Demo Job Template`.  
+
+
 ![template link](images/template.png)
 
 # Takeaways
 
 - Ansible Tower needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.  
-- Ansible Tower can sync to existing SCM (source control management) including Github.  
+- Ansible Tower can sync to existing SCM (source control management) including `GitHub`.  
 - Ansible Tower can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Tower can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
 - Ansible Job Templates define the parameters that will be used when executing an Ansible playbook
 

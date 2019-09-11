@@ -130,12 +130,6 @@
         - create_login_page
   tags: control_node
 
-- name: ADD DNS ENTRIES FOR ALL STUDENT DEVOPS ENDPOINTS
-  hosts: control_nodes
-  become: yes
-  gather_facts: no
-  roles:
-    - { role: devops_dns, when: workshop_type == "devops" }
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

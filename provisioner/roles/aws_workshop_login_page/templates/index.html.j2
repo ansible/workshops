@@ -360,6 +360,7 @@ IP Address: {{ host.public_ip_address }}<br>
 DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 <pre><code>ssh student{{number}}@student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
 {% if towerinstall %}Tower Link: <a href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a><br>{% endif %}
+{% if workshop_type in ['devops']  %} Lab Guide: <a href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8080">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8080</a><br>{% endif %}
 {% endif %}
 {% endfor %}
     </div>

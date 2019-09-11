@@ -52,7 +52,8 @@
     repo: https://github.com/jduncan-rva/workshop-operator-lab-guide
     dest: "/home/{{ username }}/devops-workshop/lab-guide"
 
-
 - name: RUN THE SCRIPT
-  shell: /home/{{ username }}/devops-workshop/lab-guide/hack/run.sh ansible-for-devops start
+  shell: hack/run.sh ansible-for-devops start
+  args:
+    chdir: "/home/{{ username }}/devops-workshop/lab-guide"
   become: yes

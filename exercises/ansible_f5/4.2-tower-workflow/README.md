@@ -29,6 +29,7 @@ For this exercise we will use workflow to achieve the same as the **create_vs** 
 ## Step 0: Prepare Job Templates
 
 Following what we learned from `Lab 4.2`, create the following job templates with the respective playbook:
+
 | Job template Name | Playbook |
 |---|---|
 | Create node                      | create_node.yml     |

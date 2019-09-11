@@ -1,0 +1,68 @@
+---
+- name: get mgmt instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:short_name": checkpoint_mgmt
+      "tag:Student": "student{{ student_number }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+  register: mgmt_inst
+
+- name: get gw instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:short_name": checkpoint_gw
+      "tag:Student": "student{{ student_number }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+  register: gw_inst
+
+- name: login, get SID
+  uri:
+    url: "https://{{ mgmt_inst.instances[0].public_ip_address }}/web_api/login"
+    method: POST
+    body:
+      user: admin
+      password: admin123
+    body_format: json
+    validate_certs: no
+  register: login_data
+
+- name: Add NGFW to MGMT
+  uri:
+    url: "https://{{ mgmt_inst.instances[0].public_ip_address }}/web_api/add-simple-gateway"
+    validate_certs: no
+    method: POST
+    headers:
+      Content-Type: application/json
+      X-chkp-sid: "{{ login_data.json.sid }}"
+    body_format: json
+    body:
+      name: myngfw
+      ip-address: "{{ gw_inst.instances[0].public_ip_address }}"
+      one-time-password: admin123
+      firewall: true
+      version: R80.20
+      os-name: Gaia
+      interfaces:
+        - anti-spoofing: true
+          anti-spoofing-settings:
+            action: prevent
+          name: eth0
+          ip-address: "{{ gw_inst.instances[0].private_ip_address }}"
+          network-mask: "255.255.0.0"
+          ipv4-mask-length: 16
+          security-zone: false
+          topology: automatic
+
+- name: Publish
+  uri:
+    url: "https://{{ mgmt_inst.instances[0].public_ip_address }}/web_api/publish"
+    validate_certs: no
+    method: POST
+    headers:
+      Content-Type: application/json
+      X-chkp-sid: "{{ login_data.json.sid }}"
+    body_format: json
+    body: >
+      {}

@@ -16,7 +16,19 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 # SELF-PACED EXERCISES:
 
-  * [Vagrant Demo](vagrant-demo) - Self-paced networking exercises that can be run on your personal laptop
+ - [Vagrant Demo](vagrant-demo) - Self-paced networking exercises that can be run on your personal laptop
+
+# Demos
+
+ - [Demos](demos) - These demos are intended for effectively demonstrating Ansible capabilities with prescriptive guides on the Ansible Automation Workshop infrastructure.
+
+# DOCUMENTATION:
+
+ - [How to contribute](docs/contribute.md)
+ - [How to use the AWS Lab Provisioner](provisioner/README.md)
+ - [FAQ](docs/faq.md)
+
+
 
 ---
 ![Red Hat Ansible Automation](images/rh-ansible-automation.png)

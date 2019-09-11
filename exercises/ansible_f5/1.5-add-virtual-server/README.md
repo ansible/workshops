@@ -1,5 +1,7 @@
 # Exercise 1.5: Using the bigip_virtual_server module
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Table of Contents
 
 - [Objective](#objective)
@@ -59,10 +61,12 @@ Next, add the `task`. This task will use the `bigip-virtual-server` to configure
 
   - name: ADD VIRTUAL SERVER
     bigip_virtual_server:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: 8443
+        validate_certs: no
       name: "vip"
       destination: "{{private_ip}}"
       port: "443"
@@ -70,7 +74,6 @@ Next, add the `task`. This task will use the `bigip-virtual-server` to configure
       all_profiles: ['http','clientssl','oneconnect']
       pool: "http_pool"
       snat: "Automap"
-      validate_certs: "no"
 ```
 
 <!-- {% endraw %} -->
@@ -80,6 +83,7 @@ Next, add the `task`. This task will use the `bigip-virtual-server` to configure
 - `name: ADD VIRTUAL SERVER` is a user defined description that will display in the terminal output.
 - `bigip_virtual_server:` tells the task which module to use.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
+- The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with

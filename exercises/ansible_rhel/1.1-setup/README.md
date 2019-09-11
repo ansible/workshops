@@ -1,5 +1,7 @@
 # Exercise 1.1 - Check the Prerequisites
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
+
 ## Your Lab Environment
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts:
@@ -16,13 +18,13 @@ In this lab you work in a pre-configured lab environment. You will have access t
 Login to your control host via SSH:
 
 > **Warning**
-> 
+>
 > Replace **11.22.33.44** by your **IP** provided to you, and the **X** in student**X** by the student number provided to you.
 
     ssh studentX@11.22.33.44
 
 > **Tip**
-> 
+>
 > The password is **ansible**
 
 Then become root:
@@ -44,7 +46,7 @@ Check Ansible has been installed correctly
     [...]
 
 > **Note**
-> 
+>
 > Ansible is keeping configuration management simple. Ansible requires no database or running daemons and can run easily on a laptop. On the managed hosts it needs no running agent.
 
 Log out of the root account again:
@@ -53,19 +55,19 @@ Log out of the root account again:
     logout
 
 > **Note**
-> 
+>
 > In all subsequent exercises you should work as the student\<X\> user on the control node if not explicitly told differently.
 
 ## Step 1.2 - Working the Labs
 
 You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
-  - Don’t type everything manually, use copy & paste from the browser when appropriate. But don’t stop to think and understand.
+  - Don’t type everything manually, use copy & paste from the browser when appropriate. But stop to think and understand.
 
-  - All labs where prepared using **Vim**, but we understand not everybody loves it. Feel free to use alternative editors, in the lab environment we provide **Midnight Commander** (just run **mc**, function keys can be reached via Esc-\<n\> or simply clicked with the mouse) or **Nano** (run **nano**). Here is a short [editor intro](../0.0-support-docs/editor_intro.md).
+  - All labs were prepared using **Vim**, but we understand not everybody loves it. Feel free to use alternative editors. In the lab environment we provide **Midnight Commander** (just run **mc**, function keys can be reached via Esc-\<n\> or simply clicked with the mouse) or **Nano** (run **nano**). Here is a short [editor intro](../0.0-support-docs/editor_intro.md).
 
 > **Tip**
-> 
+>
 > In the lab guide commands you are supposed to run are shown with or without the expected output, whatever makes more sense in the context.
 
 ## Step 1.3 - Challenge Labs

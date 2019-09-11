@@ -1,95 +1,47 @@
-# ServiceNow Demo for Linklight
+# Ansible + ServiceNow - Config Drift
 
-## Table of Contents
-  - [Setup](#setup)
-  - [Demo 01 - Config Drift](#Demo-01-Config-Drift)
-    - [Explanation](#explanation)
-
-## Setup
-
-  - Setup a free account
-    https://developer.servicenow.com/
-
-  - Click **Manage** and create an instance
-
-    ![manage](images/manage.png)
-
-    A URL will be provided like ```https://dev66073.service-now.com/```
-
-  - Login to your WebURL and reset your password.
-    ![snow](images/snow.png)
-
-  - Record these three pieces of information that will provide authentication.
-
-    | Field | Input |
-    | -------- |:--------------------|
-    | username | admin |
-    | password | ThisIsAFakePassword |
-    | instance | dev66073      |
-
-    **Tip 1** the instance is part the webURL e.g. https://dev66073.service-now.com/ is `dev66073`
-
-    **Tip 2** the password is **not** the same as your password to login to https://developer.servicenow.com/.  To reset it click on **Action** and then **Reset admin password**
-
-    ![reset](images/reset.png)
-
-  - Install pysnow
-    https://pysnow.readthedocs.io/en/latest/
-
-    ```$ pip install pysnow```
-
-    **Tip** When using Tower, use [this guide](https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html).  Tower uses a virtualenv so the install changes slightly:
-
-    ```
-    # source /var/lib/awx/venv/ansible/bin/activate
-    # umask 0022
-    # pip install pysnow
-    # deactivate
-
-## Demo 01 - Config Drift
-
-### Objective
+# Objective
 
 Demonstrate automatic ticket creation for configuration drift.  When the configuration for a Cisco CSR router doesn't match desired config, a ServiceNow ticket with relevant information will be created.
 
-### Guide
+- Ansible Playbook will check for desired configuration on rtr1  
+- The configuration is missing, which generates a Service Now ticket indicating rtr1 is out of compliance.
 
-#### Preface
+## Table of Contents
 
-This demo is built for the Linklight workbench.  To use the demo it is recommended to run the [provisioner](../../provisioner/README.md) for **networking mode**.  By standardizing demos on the Linklight workbench it is easier to test and verify demos are always working.  Feel free re-use any component of this demo but this demo is only supported in this fashion.
+- [Step 1 - Connect to workbench](#step-1---connect-to-workbench)
+- [Step 2 - Provide ServiceNow credentials](#step-2---provide-servicenow-credentials)
+- [Step 3 - Execute Ansible Playbook](#step-3---execute-ansible-playbook)
+- [Step 4 - Show ServiceNow incidents](#step-4---show-servicenow-incidents)
+- [Explanation](#explanation)
 
-#### Overview
+## Step 1 - Connect to workbench
 
-- Playbook will check for desired configuration on rtr1  
-
-- The configuration is missing which generates a Service Now ticket indicating rtr1 is out of compliance.
-
-#### Step 1
-
-Connect to the Linklight workbench:
+Connect to the workshop workbench:
 
 ```
-[user@RHEL ~]$ ssh student1@X.X.X.X
-student1@X.X.X.X's password:
+[user@RHEL ~]$ ssh student1@student1.workshop.rhdemo.io
+student1@student1.workshop.rhdemo.io's password:
+
 ```
 
-Move into the `demos/servicenow` directory.
+Move into the `demos/servicenow/1-config-drift` directory.
 
 ```
 [student1@ansible ~]$
-[student1@ansible ~]$ cd demos/servicenow
+[student1@ansible ~]$ cd ~/demos/servicenow/1-config-drift
 ```
 
 
-#### Step 2
+## Step 2 - Provide ServiceNow credentials
 
-Define the login information (username, password and instance) as defined in the [Setup](#setup).  Fill this information out in `login_info.yml` with your text editor of choice.
+Define the login information (username, password and instance) as defined in the [Common Setup](../README.md).  Fill this information out in `login_info.yml` with your text editor of choice.
 
 ```
 [student1@ansible ~]$ nano login_info.yml
 ```
 
-#### Step 3
+## Step 3 - Execute Ansible Playbook
 
 Run the `config_drift.yml` playbook:
 
@@ -97,9 +49,9 @@ Run the `config_drift.yml` playbook:
 [student1@ansible ~]$ ansible-playbook config_drift.yml
 ```
 
-![snow](images/snow.gif)
+![snow](../images/snow.gif)
 
-#### Step 3
+# Step 4 - Show ServiceNow incidents
 
   - Login to the Web URL
     e.g. `https://dev66073.service-now.com/`
@@ -107,9 +59,9 @@ Run the `config_drift.yml` playbook:
   - The Incident just created will show up at the top of the list, assigned to the `System Administrator` which is the default user for the ServerNow developer instance.
   - Scroll down to to read the `Short Desription` and the `Additional Comments`.
 
-![snow](images/gui.gif)
+![snow](../images/gui.gif)
 
-#### Explanation
+## Explanation
 
 The Ansible Playbook runs a task to configure a Cisco CSR router.
 
@@ -168,4 +120,7 @@ Here is a snippet of ServiceNow task:
 
 The block uses the conditional `when` to only run if the previous task **changed**.  This means a ServiceNow ticket is only generated if the task actually reports changed.
 
-# End of Demo
+## End of Demo
+
+---
+![Red Hat Ansible Automation](../../../images/rh-ansible-automation.png)

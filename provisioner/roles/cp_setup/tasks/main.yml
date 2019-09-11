@@ -1,0 +1,5 @@
+---
+- include_tasks: add_gw_to_mgmt.yml
+  loop: "{{ range(1,student_total+1)|list }}"
+  loop_control:
+    loop_var: student_number

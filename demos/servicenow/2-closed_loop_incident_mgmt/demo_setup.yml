@@ -1,0 +1,89 @@
+---
+- name: SETUP TOWER FOR CLOSED LOOP INCIDENT MGMT DEMO
+  hosts: ansible
+  connection: local
+  become: yes
+  gather_facts: no
+  vars:
+    tower_username: "admin"
+    tower_password: "ansible"
+
+  tasks:
+    - name: import login credentials for servicenow
+      include_vars: "{{lookup('first_found', login_info)}}"
+      vars:
+        login_info:
+          - 'private.yml'
+          - 'login_info.yml'
+
+    - name: move playbooks to /var/lib/awx/projects/snow_demo
+      copy:
+        src: "{{playbook_dir}}/"
+        dest: /var/lib/awx/projects/snow_demo/
+      become: yes
+      become_method: sudo
+      become_user: awx
+      run_once: true
+      delegate_to: localhost
+
+    - name: add project to tower
+      tower_project:
+        name: SNOW_CL
+        local_path: snow_demo
+        organization: Default
+        tower_username: "{{ tower_username }}"
+        tower_password: "{{ tower_password }}"
+        tower_host: https://localhost
+        tower_verify_ssl: no
+      run_once: true
+      delegate_to: localhost
+
+    - name: add servicenow custom cred
+      tower_credential_type:
+        name: "SNOW_CL Credential"
+        description: Credential type for SNOW
+        inputs: "{{ lookup('file', playbook_dir + '/custom_cred/inputs.yml') | from_yaml }}"
+        injectors: "{{ lookup('file', playbook_dir + '/custom_cred/injector.yml') | from_yaml }}"
+        state: present
+        kind: cloud
+        tower_username: "{{ tower_username }}"
+        tower_password: "{{ tower_password }}"
+        tower_host: https://localhost
+        validate_certs: false
+
+    - name: Add Custom Credential
+      command: tower-cli credential create --name="SNOW Credential" --credential-type "SNOW_CL Credential" --inputs "{'username':'{{ username }}','password':'{{ password }}','instance':'{{ instance }}'}" -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --organization Default --insecure
+
+    - name: add job template - compliance check
+      tower_job_template:
+        name: "SNOW-Demo-Compliance-Check"
+        job_type: run
+        inventory: "Workshop Inventory"
+        project: "SNOW_CL"
+        playbook: snow_incident.yml
+        credential: "Workshop Credential"
+        state: "present"
+        tower_username: "{{ tower_username }}"
+        tower_password: "{{ tower_password }}"
+        tower_host: https://localhost
+        tower_verify_ssl: no
+
+    - name: add job template - compliance fix
+      tower_job_template:
+        name: "SNOW-Demo-Compliance-Fix"
+        job_type: run
+        inventory: "Workshop Inventory"
+        project: "SNOW_CL"
+        playbook: fix_banner.yml
+        credential: "Workshop Credential"
+        state: "present"
+        tower_username: "{{ tower_username }}"
+        tower_password: "{{ tower_password }}"
+        tower_host: https://localhost
+        tower_verify_ssl: no
+
+    - name: associate snow cred to check
+      command: tower-cli job_template associate_credential --job-template 'SNOW-Demo-Compliance-Check' --credential 'SNOW Credential' --insecure -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --insecure
+
+    - name: associate snow cred to check
+      command: tower-cli job_template associate_credential --job-template 'SNOW-Demo-Compliance-Fix' --credential 'SNOW Credential' --insecure -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --insecure

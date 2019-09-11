@@ -1,13 +1,3 @@
-#   not working right now, possible bug or mis-use of module
-# - name: Wait for BIG-IP to boot up completely
-#   bigip_wait:
-#     provider:
-#       ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-#       transport: cli
-#       user: admin
-#       validate_certs: false
-#       server: "{{ ansible_host }}"
-
 - name: Wait for BIG-IP to boot up completely
   wait_for:
     host: "{{ ansible_host }}"
@@ -23,13 +13,24 @@
       server: "{{ ansible_host }}"
     commands: "modify auth user admin password {{admin_password}}"
 
-# The bigip_iapplx_package requires rpm installed, on macOS use brew rather than pip or it won't work
+- name: Wait for API to be Ready
+  bigip_wait:
+    timeout: 300
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+  delegate_to: localhost
+
+# The bigip_lx_package requires rpm installed, on macOS use brew rather than pip or it won't work
 - name: Install AS3
-  bigip_iapplx_package:
+  bigip_lx_package:
     package: "{{playbook_dir}}/roles/f5_setup/files/f5-appsvcs-3.4.0-2.noarch.rpm"
     provider:
       validate_certs: "no"
       user: admin
       password: "{{admin_password}}"
-      server_port: "8443"
+      server_port: 8443
       server: "{{ ansible_host }}"

@@ -1,5 +1,7 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
+**Read this in other languages**: ![uk](../../images/uk.png) [English](README),  ![japan](../../images/japan.png) [日本語](README.ja.md).
+
 Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
 
 In the first section of this lab you will learn to use Ansible Engine for automation from the basics up to some more advanced concepts.
@@ -8,15 +10,23 @@ The second section of this lab covers Tower and provide the user an overview of 
 
 After finishing this lab you are ready to start using Ansible for your automation requirements.
 
-**Read this in other languages**: [![uk](../../images/uk.png) English](README.md).
-
 ## Presentations
 
-Want the Presentation Deck?  Its right here:
-[Red Hat Ansible Automation Technical Deck](../../decks/ansible_technical.pdf)
+The exercises are self explanatory and guide the particpants through the entire lab. All concepts are explained when they are introduces.
+
+There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
+[Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
 
 Also have a look at our Ansible Best Practices Deck:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)
+
+## Time planning
+
+The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
+
+Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds another hour.
+
+If your experience is different in schedulung those workshops, please let us know and fill an issue.
 
 ## Section 1 - Ansible Engine Exercises
 
@@ -45,4 +55,3 @@ Also have a look at our Ansible Best Practices Deck:
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
-

@@ -25,6 +25,14 @@
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
       when: workshop_type == "networking"
 
+    - name: make sure security_console is set to a correct value
+      assert:
+        that:
+          - security_console is defined
+          - security_console in valid_security_console_types
+        msg: "network_type must be defined and be one of: {{valid_security_console_types}}"
+      when: workshop_type == "security"
+
     - name: run role to check if local environment setup will work with AWS
       include_role:
         name: aws_check_setup
@@ -63,14 +71,16 @@
        - autolicense is defined
        - autolicense
 
-    - name: Install required roles onto THIS machine
-      shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
-      loop:
-        - 'geerlingguy.repo-epel'
-        - 'ansible_security.ids_config'
-        - 'ansible_security.ids_install'
+    - name: Install required roles and collections onto THIS machine
       when:
         - workshop_type == "security"
+      block:
+        - name: required roles
+          shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+          loop:
+            - 'geerlingguy.repo-epel'
+            - 'ansible_security.ids_config'
+            - 'ansible_security.ids_install'
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -96,13 +106,6 @@
     - common
   tags: control_node
 
-- name: CONFIGURE F5 WORKSHOP WEBSERVERS host1 and host2
-  hosts: lab_hosts
-  become: yes
-  gather_facts: no
-  roles:
-    - { role: webservers, when: workshop_type == "f5" }
-
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
   gather_facts: no
@@ -116,7 +119,10 @@
   become: yes
   gather_facts: no
   roles:
-    - { role: aws_dns, when: create_login_page is defined and create_login_page }
+    - role: aws_dns
+      when:
+        - create_login_page is defined
+        - create_login_page
   tags: control_node
 
 - name: Setup Amazon S3 Website for Student Login
@@ -125,112 +131,14 @@
   become: no
   gather_facts: no
   roles:
-    - { role: aws_workshop_login_page, when: create_login_page is defined and create_login_page }
+    - role: aws_workshop_login_page
+      when:
+        - create_login_page is defined
+        - create_login_page
   tags: control_node
 
-# - name: Setup Host routes for ansible control node and host1 when in networking mode
-#   hosts: "managed_nodes:control_nodes"
-#   become: no
-#   gather_facts: no
-#   roles:
-#     - { role: network_hostroutes, when: workshop_type == "networking" }
-
-- name: setup f5 nodes
-  hosts: f5
-  become: no
-  connection: local
-  gather_facts: no
-  roles:
-    - { role: f5_setup, when: workshop_type == "f5" }
-
-- name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
-  hosts: "routers"
-  gather_facts: no
-  tasks:
-    - name: MAKE SURE ROUTERS HAVE SSH REACHABILITY
-      include_role:
-        name: connectivity_test
-        tasks_from: routers
-      when: workshop_type == "networking"
-
-- name: GATHER AWS FACTS FOR ROUTERS
-  hosts: access,core
-  connection: local
-  gather_facts: no
-  roles:
-    - { role: gather_router_facts }
-
-- name: CONFIGURE ACCESS ROUTERS
-  hosts: access
-  connection: local
-  gather_facts: no
-
-  roles:
-    - role: configure_routers
-      vars:
-        type: access
-        router3_tunnel: 100
-        router4_tunnel: 101
-      when:
-        - workshop_type == "networking"
-        - ansible_network_os == "ios"
-
-- name: CONFIGURE CORE ROUTERS
-  hosts: core
-  connection: local
-  gather_facts: no
-
-  roles:
-    - role: configure_routers
-      vars:
-        type: core
-      when:
-        - workshop_type == "networking"
-        - ansible_network_os == "ios" or ansible_network_os == "eos"
-
-- name: INSTALL AND CONFIGURE SPLUNK ENTERPRISE
-  hosts: splunk
-  become: true
-  gather_facts: no
-  roles:
-    - role: splunk_enterprise
-      when:
-        - workshop_type == "security"
-
-- name: INSTALL AND CONFIGURE SNORT
-  hosts: snort
-  become: true
-  vars:
-    ids_config_snort_version: '2.9.13'
-    ids_install_provider: "snort"
-    ids_install_normalize_logs: True
-    ids_install_snort_user: root
-    ids_install_snort_group: root
-  tasks:
-    - block:
-      - name: setup epel for snort ecosystem rule lifecycling
-        include_role:
-          name: "geerlingguy.repo-epel"
-      - name: import ids_install role
-        include_role:
-          name: "ansible_security.ids_install"
-      - name: import ids_config role
-        include_role:
-          name: "ansible_security.ids_config"
-      when:
-        - workshop_type == "security"
-
-- name: CHANGE JUNIPER PASSWORD
-  hosts: routers
-  gather_facts: no
-  vars:
-    ansible_connection: network_cli
-  tasks:
-    - name: Run tasks/other.yaml instead of 'main'
-      include_role:
-        name: configure_routers
-        tasks_from: juniper_default
-      when: ansible_network_os == "junos"
+- name: include workshop_type unique setup roles
+  import_playbook: "{{workshop_type}}.yml"
 
 - name: Alert the mothership
   hosts: localhost
@@ -240,7 +148,12 @@
   tasks:
     - { include_role: {name: tower_request}, when: student_total > 9 }
 
-  post_tasks:
+- name: print out information for instructor
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  tasks:
     - name: set facts for output
       set_fact:
         summary_information: |
@@ -257,50 +170,3 @@
     - name: Print Summary Information
       debug:
         msg: "{{summary_information}}"
-
-- name: POPULATE TOWER STEP ONE
-  hosts: control_nodes
-  gather_facts: no
-
-  tasks:
-#INITAL SETUP
-    - name: RUN POPULATE TOWER STEP ONE
-      include_role:
-        name: populate_tower
-        tasks_from: populate_tower_step_one
-      when:
-        - workshop_type == "networking"
-        - towerinstall is defined
-        - towerinstall|bool
-
-
-- name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
-  hosts: control_nodes
-  become: yes
-  gather_facts: no
-
-  tasks:
-#CREDENTIAL AND INVENTORY
-    - name: RUN POPULATE TOWER STEP TWO
-      include_role:
-        name: populate_tower
-        tasks_from: populate_tower_step_two
-      when:
-        - workshop_type == "networking"
-        - towerinstall is defined
-        - towerinstall|bool
-
-- name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
-  hosts: control_nodes
-  gather_facts: no
-
-  tasks:
-#PERMISSIONS
-    - name: RUN POPULATE TOWER STEP THREE
-      include_role:
-        name: populate_tower
-        tasks_from: populate_tower_step_three
-      when:
-        - workshop_type == "networking"
-        - towerinstall is defined
-        - towerinstall|bool

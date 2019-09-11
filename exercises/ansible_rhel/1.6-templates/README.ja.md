@@ -1,4 +1,4 @@
-# 演習 1.6 - テンプレート
+# 演習 1.6 - テンプレートを使う
 
 Ansibleは、管理対象ホストにファイルをコピーする際、固定の内容ではなく変数に値を入力しながらコピーを行う様な事も可能です。例えば対象ホストユニークなホスト名などを含んだファイルのコピーを行うことが可能です。これを実現するのが Jinja2 テンプレートです。 Jinja2 は、Python で最も使用されているテンプレートエンジンの1つです。 (<http://jinja.pocoo.org/>)
 
@@ -92,5 +92,5 @@ running kernel {{ ansible_kernel }}.
 
 ----
 
-[Ansible ワークショップ表紙に戻る](../README.ja.md)
+[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
 

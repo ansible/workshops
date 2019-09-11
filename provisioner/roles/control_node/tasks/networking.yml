@@ -1,45 +1,31 @@
-- name: block for f5 workshop (F5 AUTOMATION MODE)
-  block:
-    - name: install f5 workshop dependicies
-      become: yes
-      pip:
-        name:
-          - pip
-          - setuptools
-          - pysnow
-        state: latest
+- name: upgrade pip and setuptools
+  become: yes
+  pip:
+    name:
+      - pip
+      - setuptools
+    state: latest
 
-    - name: install f5 workshop dependicies
-      become: yes
-      pip:
-        name:
-          - f5-sdk
-          - bigsuds
-          - netaddr
-          - jmespath
-        state: latest
+- name: install f5 workshop dependicies (F5 AUTOMATION MODE)
+  become: yes
+  pip:
+    name:
+      - f5-sdk
+      - bigsuds
+      - netaddr
+      - jmespath
+    state: latest
   when: workshop_type == "f5"
 
 - name: install additional packages (NETWORK AUTOMATION MODE)
   become: yes
   pip:
     name:
-      - pip
       - netaddr
-      - setuptools
-    state: latest
-  when:
-    - workshop_type == 'networking'
-
-- name: install ncclient for juniper devices (NETWORK AUTOMATION MODE)
-  become: yes
-  pip:
-    name:
+      - pysnow
       - ncclient
     state: latest
-  when:
-    - workshop_type == 'networking'
-    - network_type == 'juniper' or network_type == 'multivendor'
+  when: workshop_type == 'networking'
 
 # FIXME: This should probably be refactored to use things like the following
 # instead of hard coding

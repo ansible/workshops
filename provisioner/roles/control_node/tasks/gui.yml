@@ -11,9 +11,12 @@
 - name: ENSURE XRDP IS INSTALLED
   yum: name=xrdp
 
+# RHEL does not officially support XFCE, keep this in mind
+# https://access.redhat.com/solutions/56723
 - name: ENSURE XFCE IS INSTALLED
   yum:
     name: "@xfce"
+    skip_broken: true
 
 - name: ENSURE XCLIENTS IS PRESENT
   file:

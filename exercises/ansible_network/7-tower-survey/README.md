@@ -27,7 +27,7 @@ Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/a
 
    | Parameter | Value |
    |---|---|
-   | Name  | CONFIGURE BANNER  |
+   | Name  | Network-Banner |
    |  Job Type |  Run |
    |  Inventory |  Workshop Inventory |
    |  Project |  Workshop Project |
@@ -42,33 +42,42 @@ Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/a
 Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
 <!-- {% raw %} -->
-```yaml
+```yml
 ---
-- name: SET ROUTER BANNERS
-  hosts: all
+- name: set router banners
+  hosts: routers
   gather_facts: no
 
   tasks:
-
-    - name: LOAD BANNER ONTO NETWORK DEVICE
-      include_tasks: "{{ ansible_network_os }}_banner.yaml"
+    - name: load banner onto network device
       vars:
         - network_banner:  "{{ net_banner | default(None) }}"
-        - banner_type: "{{ banner_type | default('login') }}"
+        - banner_type: "{{ net_type | default('login') }}"
+      include_role:
+        name: banner
 ```
 <!-- {% endraw %} -->
 
 
 > Note: You can also view the Ansible Playbook here: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
 
-The `ansible_network_os` variable is being used to parameterize the network OS and create a vendor neutral playbook.
-
-If you are working with a junos device, this playbook would call for a task file called `junos_banner.yaml`.  If you are using an IOS-XE device, this playbook would call for a task file called `ios_banner.yaml`. This file will in turn contain the platform specific tasks:
+The role **banner** has a very simple `main.yml` file:
 
 <!-- {% raw %} -->
-```yaml
+```yml
+- name: configure banner
+  include_tasks: "{{ ansible_network_os }}.yml"
+```
+<!-- {% endraw %} -->
+
+The `ansible_network_os` variable is being used to parameterize the network OS and create a vendor neutral playbook.
+
+If you are working with a junos device, this playbook would call for a task file called `junos.yml`.  If you are using an IOS-XE device, this playbook would call for a task file called `ios.yml`. This file will in turn contain the platform specific tasks:
+
+<!-- {% raw %} -->
+```yml
 ---
-- name: ADD THE JUNOS BANNER
+- name: add the junos banner
   junos_banner:
     text: "{{ network_banner }}"
     banner: "{{ banner_type }}"
@@ -82,7 +91,7 @@ Also note that we are passing in 2 variables to the task file.
 
 1. `network_banner`: This variable is populated using the `net_banner` variable
 
-2. `banner_type`: This variable is populated by a variable named `banner_type`
+2. `banner_type`: This variable is populated by a variable named `net_type`
 
 
 ## Step 3: Create a survey
@@ -173,7 +182,7 @@ Click the green `+Add` button
    |-------------------------|--------------------------------|
    | Prompt                  | Please enter the  banner type  |
    | Description             | Please choose an option        |
-   | Answer Variable Name    | `banner_type`                    |
+   | Answer Variable Name    | `net_type`                    |
    | Answer type             | Multiple Choice(single select) |
    | Multiple Choice Options | login <br>motd                        |
    | default answer          | login                          |

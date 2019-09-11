@@ -1,3 +1,4 @@
+---
 # region where the nodes will live
 ec2_region: us-east-1
 # name prefix for all the VMs
@@ -6,8 +7,10 @@ ec2_name_prefix: TESTWORKSHOP
 student_total: 2
 # workshop is put into isecurity mode
 workshop_type: 'security'
+security_console: 'qradar'
 ## Optional Variables
 admin_password: ansible
+windows_password: RedHat19!
 create_login_page: false
 autolicense: false
 towerinstall: true

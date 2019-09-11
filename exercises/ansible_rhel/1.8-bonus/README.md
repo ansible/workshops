@@ -1,11 +1,13 @@
 # Exercise 1.8 - Bonus Labs
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 You have finished the lab already. But it doesn’t have to end here. We prepared some slightly more advanced bonus labs for you to follow through if you like. So if you are done with the labs and still have some time, here are some more labs for you:
 
 ## Step 8.1 - Bonus Lab: Ad Hoc Commands
 
 Create a new user "testuser" on `node1` and `node3` with a comment using an ad hoc command, make sure that it is not created on `node2`!
-    
+
   - Find the parameters for the appropriate module using `ansible-doc user` (leave with `q`)
 
   - Use an Ansible ad hoc command to create the user with the comment "Test D User"
@@ -15,11 +17,11 @@ Create a new user "testuser" on `node1` and `node3` with a comment using an ad h
   - Delete the user and check it has been deleted
 
 > **Tip**
-> 
+>
 > Remember privilege escalation…​
 
 > **Warning**
-> 
+>
 > **Solution below\!**
 
 Your commands could look like these:
@@ -54,7 +56,7 @@ Instead of editing and copying `httpd.conf` why don’t you just define a variab
 
 
 > **Warning**
-> 
+>
 > **Solution below\!**
 
 ### Define the variables:
@@ -113,7 +115,7 @@ Create a playbook called `apache_config_tpl.yml`:
 First run the playbook itself, then run curl against `node1` with port `8080` and `node2` with port `80`.
 
 ```bash
-[student1@ansible ansible-files]$ ansible-playbook apache_config_tpl.yml 
+[student1@ansible ansible-files]$ ansible-playbook apache_config_tpl.yml
 [...]
 [student1@ansible ansible-files]$ curl http://18.195.235.231:8080
 <body>

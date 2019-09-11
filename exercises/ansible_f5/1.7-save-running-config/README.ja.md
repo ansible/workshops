@@ -1,5 +1,7 @@
 # 演習 1.7 - コンフィグの保存
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## 目次
 
 - [目的](#目的)

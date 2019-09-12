@@ -20,7 +20,7 @@ Ansible Tower is a web-based solution than runs on top of Ansible that provides 
 In this lab, you will log in and perform some basic configurations that will be used in later labs to perform automation tasks against your F5 BIG-IP device.  This exercise will cover:
 - Determining the Ansible version running on the control node
 - Locating and understanding:
-  - Ansible Tower **Inventory**
+  - Ansible Tower **Inventories**
   - Ansible Tower **Credentials**
   - Ansible Tower **Projects**
   - Ansible Tower **Templates**
@@ -127,7 +127,7 @@ Additionally, parameters such as logging level and process forks allow for addit
 
 # Takeaways
 
-- Ansible Tower needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.  
+- Ansible Tower needs an inventory to execute Ansible Playbooks against.  This inventory is identical to what users would use with the command line only Ansible project.  
 - Ansible Tower can sync to existing SCM (source control management) including `GitHub`.  
 - Ansible Tower can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Tower can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
 - Ansible Job Templates define the parameters that will be used when executing an Ansible playbook

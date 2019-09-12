@@ -15,10 +15,11 @@
     - name: Install Pre Reqs for IDS
       block:
         - name: package pre-reqs are installed
-          yum:
+          package:
             state: present
             name:
               - libselinux-python
+              - python2-idstools
 
         - name: set selinux permissve because of policy issue that breaks snort
           selinux:

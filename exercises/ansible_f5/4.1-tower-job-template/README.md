@@ -41,7 +41,7 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
     | Username| `admin`|
     | Password| `ansible`|
   
-> Note: double check BIG-IP login information provided by the instructor
+> Note: double check BIG-IP password provided by instructor defaults to ansible
 
   ![workshop credential link](images/ws_credential.png)
 

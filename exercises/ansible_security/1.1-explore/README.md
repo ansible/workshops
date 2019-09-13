@@ -37,11 +37,13 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 ## Step 1.4 - Access the Ansible Environment
 
-Login to your control host via SSH. Open a terminal and type the following command:
+Login to your control host `ansible` via SSH.
 
 > **Warning**
 > 
-> Replace **11.22.33.44** by your **IP** provided to you, and the **X** in student**X** by the student number provided to you in the following example and in all other cases were examples contain IP addresses.
+> In the following examples, replace **11.22.33.44** by your **IP** provided to you by the instructor, and the **X** in student**X** by the student number provided to you in the following example and in all other cases were examples contain IP addresses.
+
+Open a terminal and type the following command:
 
 ```bash
 ssh studentX@11.22.33.44

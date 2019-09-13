@@ -8,7 +8,7 @@ In this lab, Snort is installed on a Red Hat Enterprise Linux machine. Ansible i
 
 ## Step 3.2 - Accessing the Snort server
 
-The Snort software is installed on a typical Red Hat Enterprise Linux system. Thus access to the server is performed via SSH. On you control host, open your inventory again and find the IP address of you Snort server. This can also be done in one go with a single command:
+The Snort software is installed on a typical Red Hat Enterprise Linux system. Thus access to the server is performed via SSH. On you control host `ansible`, open your inventory again and find the IP address of you Snort server. This can also be done in one go with a single command:
 
 ```bash
 [student<X>@ansible ~]$ grep snort lab_inventory/hosts 
@@ -160,7 +160,7 @@ Next, we need to add the tasks where the actual changes on the target machines a
         ids_rule_state: present
 ```
 
-Let's quickly look at what is actually happening here: the rule header is `alert tcp and any -> any any`, so we create an alert for tcp traffic from any source to any destination. The rule options define the human readable Snort message when the rule matches, and `uriconten` which is a specialized version of `content` making it easier to analyze URIs. The `classtype` is set to `attempted-used` which is the default class for "attempted user privilege gain" and the SID is set to a value high enough for user defined rules. The priority is `1`. Finally since this is the first version of this rule we set the revision to `1`.
+Let's quickly look at what is actually happening here: the rule header is `alert tcp and any -> any any`, so we create an alert for tcp traffic from any source to any destination. The rule options define the human readable Snort message when the rule matches, and `uricontent` which is a specialized version of `content` making it easier to analyze URIs. The `classtype` is set to `attempted-user` which is the default class for "attempted user privilege gain" and the SID is set to a value high enough for user defined rules. The priority is `1`. Finally since this is the first version of this rule we set the revision to `1`.
 
 The other variables set the rules file a the user defined location and set that the rule should be created if not there (`present`).
 

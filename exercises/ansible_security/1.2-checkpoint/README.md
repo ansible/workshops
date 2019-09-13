@@ -59,9 +59,36 @@ You are now viewing the Check Point SmartConsole management interface.
 
 In Ansible, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
-A playbook is where you can take some of those ad-hoc commands you just ran and put them into a repeatable set of *plays* and *tasks*.
+A playbook is a repeatable set of *plays* and *tasks*.
 
 A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, like the modules in the previous chapter. The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
+
+If you are not very familiar with Ansible, see the following example of a playbook:
+
+```yaml
+---
+- name: install and start apache
+  hosts: web
+  become: yes
+  vars:
+    http_port: 80
+
+  tasks:
+    - name: httpd package is present
+      yum:
+        name: httpd
+        state: latest
+
+    - name: latest index.html file is present
+      template:
+        src: files/index.html
+        dest: /var/www/html/
+
+    - name: httpd is started
+      service:
+        name: httpd
+        state: started
+```
 
 > **Tip**
 >
@@ -69,7 +96,7 @@ A playbook can have multiple plays and a play can have one or multiple tasks. In
 
 We will now write a playbook to change the configuration of the Check Point setup. We will start with a simple example where we will add a blacklist entry in the firewall configuration.
 
-The playbook will be written and run on the Ansible control host. Use SSH to access your control host. On there, open an editor of your choice and create a file with the name `fw_blacklist_ip.yml`.
+The playbook will be written and run on the `ansible` control host. Use SSH to access it via the IP provided to you by your instructir. On the control host, open an editor of your choice and create a file with the name `fw_blacklist_ip.yml`.
 
 First, a playbook needs a name and the hosts it should be executed on. So let's add those:
 
@@ -251,7 +278,7 @@ On your control host, use the `ansible-galaxy` tool to download and install the 
 
 As you see the role was installed to the roles default path, `~/.ansible/roles/`. It was prefixed by `ansible_security` which is the project writing the security roles used for example in this workshop.
 
-As we now have the role installed on our control host, let's use it. Open your editor to create a new file, `role-blacklist.yml`, and add the name and target hosts. Also, we immediately add the variables needed to tell the tasks what we are going to do.
+As we now have the role installed on our control host, let's use it. Open your editor to create a new file, `role_blacklist.yml`, and add the name and target hosts. Also, we immediately add the variables needed to tell the tasks what we are going to do.
 
 ```yaml
 ---

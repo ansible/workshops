@@ -66,10 +66,10 @@ Collections follow a simple directory structure to provide Ansible content. If y
 
 As roles, collections also need to be installed first before they can be used. They are installed on the machine executing Ansible,  in the case of the lab this is the control host.
 
-Let's install the collection for QRadar modules on your control host. Use SSH to access your control host, and execute the command `ansible-galaxy collection --help` to verify that the collections function is working properly:
+Let's install the collection for QRadar modules on your control host. Use SSH to access your control host `ansible` with the IP provided by your instructor and execute the command `ansible-galaxy collection --help` to verify that the collections function is working properly:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-galaxy collection --help
+[student<X>@ansible ~]$ ansible-galaxy collection --help
 usage: ansible-galaxy collection [-h] COLLECTION_ACTION ...
 
 positional arguments:
@@ -89,7 +89,7 @@ optional arguments:
 With that in mind, we can now install the collection `ibm.qradar`. To make sure that the collection is installed in our user path and not for example system wide, we also need to provide a path. This can be any path - but the Ansible command line tools automatically look for collections at `~/.ansible/collections`, so we install our collection directly there:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-galaxy collection install ibm.qradar -p ~/.ansible/collections
+[student<X>@ansible ~]$ ansible-galaxy collection install ibm.qradar -p ~/.ansible/collections
 Process install dependency map
 Starting collection install process
 Installing 'ibm.qradar:1.2.1' to '/home/rwolters/.ansible/collections/ansible_collections/ibm/qradar'
@@ -98,16 +98,15 @@ Installing 'ibm.qradar:1.2.1' to '/home/rwolters/.ansible/collections/ansible_co
 Verify that the collection was installed properly:
 
 ```bash
-[student<X>@ansible ansible-files]$ ls -1 ~/.ansible/collections/ansible_collections/ibm/qradar
+[student<X>@ansible ~]$ ls -1 ~/.ansible/collections/ansible_collections/ibm/qradar
 docs
-galaxy.yml
 LICENSE
 plugins
 README.md
 tests
 ```
 
-All required files are there - especially the `galaxy.yml` file which indicates that this is indeed an ansible collection, and the directory `plugins/modules` which contains the actual modules.
+All required files are there - especially the directory `plugins/modules` which contains the actual modules.
 
 With the collection in place, we can now start to write our playbook.
 
@@ -231,7 +230,11 @@ PLAY RECAP *********************************************************************
 qradar  : ok=3  changed=0  unreachable=0  failed=0  skipped=0  rescued=0  ignored=0
 ```
 
-As you see, the debug task `output returned rule_info` shows the content of the variable, and thus the content which was returned by the module `qradar_rule_info`. Note among those return data the key `id`, here with the value `100065`. This is the key we need.
+As you see, the debug task `output returned rule_info` shows the content of the variable, and thus the content which was returned by the module `qradar_rule_info`. Note among those return data the key `id`, in this example with the value `100065`. This is the key we need.
+
+> **Note**
+>
+> The key id might be different in your case.
 
 How do we get the key when it is in this structure? First, it is in the segment `rules` of the variable, which we can access via `rule_info.rules`. Inside of `rules` there is actually a list (note the curly brackets), but with only one entry - so we access it with `rule_info.rules[0]`. And from within the list entry we can access each key individually via its name: `rule_info.rules[0].id`.
 

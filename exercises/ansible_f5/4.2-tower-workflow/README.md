@@ -179,6 +179,6 @@ You have
 
 # Complete
 
-You have completed lab exercise 9
+You have completed lab exercise 4.2
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

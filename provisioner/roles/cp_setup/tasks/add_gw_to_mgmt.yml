@@ -6,6 +6,7 @@
       "tag:short_name": checkpoint_mgmt
       "tag:Student": "student{{ student_number }}"
       "tag:Workshop": "{{ ec2_name_prefix }}"
+      "instance-state-name": running
   register: mgmt_inst
 
 - name: get gw instances
@@ -15,6 +16,7 @@
       "tag:short_name": checkpoint_gw
       "tag:Student": "student{{ student_number }}"
       "tag:Workshop": "{{ ec2_name_prefix }}"
+      "instance-state-name": running
   register: gw_inst
 
 - name: login, get SID

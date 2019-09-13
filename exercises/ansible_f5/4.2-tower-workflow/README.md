@@ -168,6 +168,13 @@ The `create_virtualserver_error.yml` playbook will configure the Virtual Server,
 
 Click on **Local Traffic**. then click on **Virtual Servers**, **Pools**, and **Nodes**. You should see that `Rollback virtual server deploy`  kicked in and removed all BIG-IP configuration.
 
+Finally, we revert the configuration, and make it ready for next lab:
+7. Click on the **Templates** link on the left menu. Select template `Create virtual server`
+8. Change the PLAYBOOK back to `create_virtualserver.yml` 
+9. Scroll down and click the green `save` button.
+10. Return to the **Templates** window, cick the rocket ship to launch the **Workshop Workflow** workflow template again.
+
+
 # Takeaways
 
 You have

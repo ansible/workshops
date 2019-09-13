@@ -7,6 +7,8 @@
 - [Objective](#objective)
 - [Guide](#guide)
   - [Step 0: Prepare Job Templates](#step-0-prepare-job-templates)
+    - [Create Server Credential](#create-server-credential)
+    - [Create Job Templates](#create-job-templates)
   - [Step 1: Create a Workflow Template](#step-1-create-a-workflow-template)
   - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
   - [Step 3: Disable node Job Template](#step-3-disable-node-job-template)
@@ -29,6 +31,7 @@ For this exercise, we will create a workflow for server patch management, first 
 
 ## Step 0: Prepare Job Templates
 
+### Create Server Credential
 Before creating templates, you should create one more credential `Server credential` beforehand, to be utilized by one of the jobs (`Patch server`) to access servers.
    
 | Parameter | Value |
@@ -36,7 +39,7 @@ Before creating templates, you should create one more credential `Server credent
 |Name | Server Credential |
 | Credential type: | `Machine` |
 
-For this credential, we use the **SSH private key**. Get the private key from Ansible server, copy the output and paste in the **SSH PRIVATE KEY** box, and click SAVE.
+For this credential, we use the **SSH private key** instead. Get the private key from Ansible server, copy the output and paste in the **SSH PRIVATE KEY** box, and click SAVE.
 ```
 [student1@ansible ~]$ cat ~/.ssh/aws-private.pem
 ```
@@ -44,6 +47,7 @@ For this credential, we use the **SSH private key**. Get the private key from An
   ![server credential](images/server-credential.png)
 
 
+### Create Job Templates
 Similar to the previous lab, we would need to prepare the following templates by following `Lab 4.2`:
 
 | Job template Name | Playbook |
@@ -54,7 +58,9 @@ Similar to the previous lab, we would need to prepare the following templates by
 | Attach iRule to virtual server            | attach_irule.yml     |  
 | Detach iRule             | detach_irule.yml    |
 
-Again, we use the same template parameters as `Lab 4.2` for each of the above templates: (with the only exception: `Patch server` template will use credential `server credential`)
+Again, we use the same template parameters as `Lab 4.2` for each of the above templates, except the parameter of `CREDENTAUL`.
+
+For `CREDENTAUL`, the `Patch server` template will use credential `server credential`, and  all other templates will be using `Workshop Credential`
 
 | Parameter | Value |
 |---|---|
@@ -65,7 +71,7 @@ Again, we use the same template parameters as `Lab 4.2` for each of the above te
 |  Playbook |   |
 |  Credential |  Workshop Credential  |
 
-Here is one example of the templates:
+Here is one example of the templates configured:
 ![job template](images/job-template.png)
 
 
@@ -129,6 +135,7 @@ Here is one example of the templates:
 
 ## Step 6: Detach iRule Template
 
+
 1.  Hover over the **Enable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 2. Select the **Detach iRule** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
 3. Click the green **SELECT** button.
@@ -136,6 +143,9 @@ Here is one example of the templates:
    ![attach irule](images/detach-irule.png)
 
 ## Step 6: Create a converged link
+
+Lastly, we create a covergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger. 
+
 1. Hover over the `Attach iRule to virtual server` node and click the blue chain symbol.
 2. Now, click on the existing `Detach iRule`. An ADD LINK window will appear. For the RUN parameter choose Always.
 ![converge link](images/converge-link.png)

@@ -29,17 +29,16 @@ For this exercise, we will create a workflow for server patch management, first 
 
 ## Step 0: Prepare Job Templates
 
-Before creating templates, you should create one more credential `Server credential` beforehand, utilized by one of the jobs (`Patch server`) to access servers.
+Before creating templates, you should create one more credential `Server credential` beforehand, to be utilized by one of the jobs (`Patch server`) to access servers.
    
 | Parameter | Value |
 |---|---|
 |Name | Server Credential |
 | Credential type: | `Machine` |
 
-In this credential, we use the **SSH private key** which can be copied from Ansible server.
+For this credential, we use the **SSH private key**. Get the private key from Ansible server, copy the output and paste in the **SSH PRIVATE KEY** box, and click SAVE.
 ```
-[student1@ansible ~]$ ls ~/.ssh/aws-private.pem
-/home/student1/.ssh/aws-private.pem
+[student1@ansible ~]$ cat ~/.ssh/aws-private.pem
 ```
 
   ![server credential](images/server-credential.png)

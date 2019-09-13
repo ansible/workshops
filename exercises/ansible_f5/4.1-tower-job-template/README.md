@@ -85,10 +85,12 @@ The BIG-IP host `f5` in the inventory will have variables assigned to it with th
     |---|---|
     | Name  | Workshop Project  |
     |  SCM Type |  Git |
-    |  SCM URL |  https://github.com/ericzji/lab-4.2-example.git |
+    |  SCM URL |  https://github.com/f5devcentral/ansible-tower-workshop-examples.git |
     |  Update Revision on Launch |  ✓ |
 
 ![workshop_project link](images/workshop_project.png)
+
+All the playbooks are availabe at https://github.com/f5devcentral/ansible-tower-workshop-examples, and you may take a look at what's behind each playbook.
 
 For reference, here is one of the playbooks that was imported and  will be executed later in this lab.
 

@@ -15,6 +15,7 @@
   - [Step 7: *Rollback pool deploy* Template](#step-7-rollback-pool-deploy-template)
   - [Step 8: *Rollback virtual server* Template](#step-8-rollback-virtual-server-template)
   - [Step 9: Run the Workflow](#step-9-run-the-workflow)
+  - [Step 9: Error Handling](#step-9-error-handling)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 
@@ -144,6 +145,28 @@ Here is one example of templates: **Create node**:
    ![workflow job launched](images/running-workflow.png)
 
     At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
+
+## Step 9: Error Handling
+
+Next, we will show a failed job template for the workflow, where a rollback is performed.
+1.  Click on the `Templates` link on the left menu.
+
+    ![templates link](images/templates.png)
+
+2. Select template `Create virtual server`
+
+3. Change the PLAYBOOK from `create_virtualserver.yml` to `create_virtualserver_error.yml`
+
+The `create_virtualserver_error.yml` playbook will configure the Virtual Server, but tries to attach a pool `http_pool_error` which does not exist. Therefore, the addition of virtual server will fail, and the `Rollback virtual server deploy` node will be triggered.
+
+4. Scroll down and click the green `save` button.
+5. Return to the **Templates** window, cick the rocket ship to launch the **Workshop Workflow** workflow template again.
+
+    ![error handling link](images/error_handling.png)
+
+6. Login to the F5 BIG-IP with your web browser to see what was configured.
+
+Click on **Local Traffic**. then click on **Virtual Servers**, **Pools**, and **Nodes**. You should see that `Rollback virtual server deploy`  kicked in and removed all BIG-IP configuration.
 
 # Takeaways
 

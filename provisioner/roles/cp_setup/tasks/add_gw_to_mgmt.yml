@@ -3,9 +3,7 @@
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
-      "tag:short_name": checkpoint_mgmt
-      "tag:Student": "student{{ student_number }}"
-      "tag:Workshop": "{{ ec2_name_prefix }}"
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-checkpoint_mgmt"
       "instance-state-name": running
   register: mgmt_inst
 
@@ -13,9 +11,7 @@
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
-      "tag:short_name": checkpoint_gw
-      "tag:Student": "student{{ student_number }}"
-      "tag:Workshop": "{{ ec2_name_prefix }}"
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-checkpoint_gw"
       "instance-state-name": running
   register: gw_inst
 

@@ -166,8 +166,9 @@ https://student1.sean_workshop.rhdemo.io/api/v2/job_templates/SNOW-Demo-Complian
 
 - Click on the **Add Filter Condition** button and fill out the filter:
 
-    | Short description   | contains  | BANNER |
+    | Field  | Operation  | Value |
     |---|---|---|
+    | Short description   | contains  | BANNER |
 
   It should look similar to this screenshot:
 

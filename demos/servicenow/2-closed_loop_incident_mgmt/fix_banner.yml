@@ -1,6 +1,6 @@
 ---
 - name: ROUTER DEPLOY BANNER
-  hosts: routers
+  hosts: cisco
   connection: network_cli
   gather_facts: no
 

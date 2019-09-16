@@ -18,8 +18,10 @@ Thus a BSS (Business Services System) is able to maintain a statement of record 
 - [Step 1 - Connect to workbench](#step-1---connect-to-workbench)
 - [Step 2 - Provide ServiceNow credentials](#step-2---provide-servicenow-credentials)
 - [Step 3 - Run demo setup playbook](#step-3---run-demo-setup-playbook)
-
-- [Explanation](#explanation)
+- [Step 4 - The named URL](#step-4---the-named-url)
+- [Step 5 - Setup ServiceNow REST Message](#step-5---setup-servicenow-rest-message)
+- [Step 6 - Setup ServiceNow Business Rule](#step-6---setup-servicenow-business-rule)
+- [Running the Demo](#running-the-demo)
 
 ## Step 1 - Connect to workbench
 
@@ -56,121 +58,151 @@ Run the `demo_setup.yml` playbook as follows. This will create the necessary job
 ```
 
 After this step, log into your tower instance and verify that the 2 "SNOW" job templates are present:
+- **SNOW-Demo-Compliance-Check** - this Job Template will check for the banner being in compliance.  It will not modify the banner.
+- **SNOW-Demo-Compliance-Fix** - this Job Template will change the banner to the desired banner
 
+screenshot of Job Templates in Red Hat Ansible Tower:
 ![relevant job template picture](../images/job_templates.png)
 
-## Step 5
+## Step 4 - The named URL
 
 > *Extremely important: Make sure you use FQDNs that have valid SSL certs for the demo to work*
 
-Navigate to the API URI (api/v2/job_templates/) of your tower instance. For example: https://student1.snow-demo.redhatgov.io/api/v2/job_templates/ and identify the API endpoint for the **SNOW-Demo-Compliance-Fix** job template.
+The Ansible Tower API has the concept of a named URL (`named_url`).  The named URL feature allows you to access Tower resources via resource-specific human-readable identifiers.  More info can be found in the documentation at: https://docs.ansible.com/ansible-tower/latest/html/towerapi/access_resources.html
 
-For example, it is https://student1.snow-demo.redhatgov.io/api/v2/job_templates/8 in my instance.
-
-Adding a "launch" URI will make this template executable remotely. Record this URL endpoint as we will need it in a further step. For example: https://student1.snow-demo.redhatgov.io/api/v2/job_templates/8/launch
-
-
-
-## Step 5
-Now, in your servicenow instance, navigate to **System Web Services >> Outbound >> REST Message**
-
-> You can also use the search bar at the top left and search for "rest message"
-
-![](../images/restmsg.png)
-
-
-  - Click on *New* at the top of the page:
-    ![](../images/newrest.png)
-
-  - Give it a name and set the endpoint to the URL we captured in the previous step.
-  - Under the *Authentication* tab, chose "Basic" Authentication type.
-  - For the Basic auth profile, click on the search bar. This will open yet another window. Click on new and add your Tower instance' login information
-  ![](../images/rest_setup1.png)  
-  - Click Submit
-  - Click again on the REST message you just created and add a new HTTP method
-  ![](../images/rest_setup3.png)
-  - Give it a name, select **POST** and add the same end-point
-  ![](../images/rest_setup4.png)
-  - Click on the *HTTP Request* Tab. Under the "HTTP Headers" add a new HTTP header with the name "Content-Type" and value "application/json"
-  - At the bottom, in the "Content" area, add the following"
-  ```json
-  {"extra_vars": {
- "incident_num": "${INC}" } }
- ```
- ![](../images/rest_setup5.png)
- > The extra_vars is how the Service Now API is going to pass the incident number information to the Tower instance
-  - Click on the *Auto-generate variable* link
-  ![](../images/rest_setup6.png)
-
-  - Click the *Preview Script Usage* link at the bottom and copy the contents.
-  ![](../images/rest_setup7.png)
-
-  ```javascript
-   try {
- var r = new sn_ws.RESTMessageV2('Tower Job to fix compliance issues', 'Launch compliance fix');
- r.setStringParameterNoEscape('INC', '');
-
-//override authentication profile
-//authentication type ='basic'/ 'oauth2'
-//r.setAuthentication(authentication type, profile name);
-
-//set a MID server name if one wants to run the message on MID
-//r.setMIDServer('MY_MID_SERVER');
-
-//if the message is configured to communicate through ECC queue, either
-//by setting a MID server or calling executeAsync, one needs to set skip_sensor
-//to true. Otherwise, one may get an intermittent error that the response body is null
-//r.setEccParameter('skip_sensor', true);
-
- var response = r.execute();
- var responseBody = response.getBody();
- var httpStatus = response.getStatusCode();
-}
-catch(ex) {
- var message = ex.message;
-}
+The URL for the **SNOW-Demo-Compliance-Fix** will be:
 
 ```
+$TOWER_URL/api/v2/job_templates/SNOW-Demo-Compliance-Fix/launch
+```
+
+for example:
+
+```
+https://student1.sean_workshop.rhdemo.io/api/v2/job_templates/SNOW-Demo-Compliance-Fix/launch
+```
+
+## Step 5 - Setup ServiceNow REST Message
+
+  - In the ServiceNow instance, navigate to **System Web Services >> Outbound >> REST Message**
+
+    > You can also use the search bar at the top left and search for "rest message"
+
+    ![](../images/restmsg.png)
 
 
-  - Click submit
+  - Click on **New** at the top of the page:
+
+    ![](../images/newrest.png)
+
+  - Fill out the following:
+
+    | Parameter   | Value  |
+    |---|---|
+    | Name  | Ansible Tower Demo |
+    | Endpoint | `$TOWER_URL/api/v2/job_templates/SNOW-Demo-Compliance-Fix/launch` <br><br>make sure to use correct $TOWER_URL, example in previous step.  |
+
+  - Under the **Authentication** tab, choose the **Basic** Authentication type.
+  - For the Basic Auth Configuration, click on the search icon. This will open window. Click on new and add your Ansible Tower login information:
+
+    ![](../images/rest_setup1.png)  
+  - Click Submit, the user interface should look similar to the following:
+
+    ![](../images/rest_setup2.png)
+  - Click on the REST message you just created click on new to add a HTTP method
+
+    ![](../images/rest_setup3.png)
+
+  - Fill out the following values:
+
+    | Parameter   | Value  |
+    |---|---|
+    | Name  | Launch Compliance Fix |
+    | HTTP method | `POST` |
+    | Endpoint | Leave this blank |
+
+  - Click on the **HTTP Request** tab. Under the "HTTP Headers" add a new HTTP header with the following name and value:
+    | Name   | Value  |
+    |---|---|
+    | `Content-Type`  | `application/json` |
+
+  - At the bottom, in the **Content** text area, add the following:
+
+  ```json
+    {"extra_vars": {
+   "incident_num": "${INC}" } }
+  ```
+
+  ![screenshot of servicenow](../images/rest_setup5.png)
+
+  The `extra_vars` is how the ServiceNow API is going to pass the incident number information to the Ansible Tower instance
+
+  - Click Submit
 
 
-## Step 6
+## Step 6 - Setup ServiceNow Business Rule
 
- - Navigate to **System Definition >> Business Rules** and click on *New* to add a new business rule
+ - Navigate to **System Definition >> Business Rules**
+
+ ![](../images/business_rule.png)
+
+
+- Click on **New** to add a new business rule.  Fill out the following parameters:
+
+    | Parameter   | Value  |
+    |---|---|
+    | Name  | Ansible Tower Demo |
+    | Table | `Incident [incident]` |
+    | Active | ✓ |
+    | Advanced | ✓ |
+
+
+- Under the **When to run** tab:
+
+    | Parameter   | Value  |
+    |---|---|
+    | When | after |
+    | Insert | ✓ |
+
+- Click on the **Add Filter Condition** button and fill out the filter:
+
+    | Field  | Operation  | Value |
+    |---|---|---|
+    | Short description   | contains  | BANNER |
+
+  It should look similar to this screenshot:
+
  ![](../images/business_rule1.png)
- > For this demo, the bespoke incident type that should be automatically fixed is router login banner compliance. So the rule is looking for a new *incident* ticket whose description contains banner.
- - Click on the *Advanced* checkbox to enable the *Advanced* Tab
- ![](../images/business_rule2.png)
- > NOTE: Ensure that the Business rule is run **after** the ticket is inserted into the incidents table (see screencap above for all dropdowns and checkboxes)
 
+- Click on the **Advanced** tab
 
-** If you have used the exact naming conventions in this README, you can copy and paste the following into the *Advanced* tab.**
+  If you have used the exact naming conventions in this README, you can copy and paste the following:
 
 ```javascript
-(function executeRule(current, previous /*null when async*/) {
+(function executeRule(current, previous /*null when async*/ ) {
 
     try {
- var r = new sn_ws.RESTMessageV2('Tower Job to fix compliance issues', 'Launch compliance fix');
- r.setStringParameterNoEscape('INC', current.number);
+        var r = new sn_ws.RESTMessageV2('Ansible Tower Demo', 'Launch compliance fix');
+        r.setStringParameterNoEscape('INC', current.number);
 
- var response = r.execute();
- var responseBody = response.getBody();
- var httpStatus = response.getStatusCode();
- current.comments = "Contacting Ansible Tower to fix bespoke incident";
- current.state = '2';
- current.update();
-}
-catch(ex) {
- var message = ex.message;
-}
+        var response = r.execute();
+        var responseBody = response.getBody();
+        var httpStatus = response.getStatusCode();
+        current.comments = "Contacting Ansible Tower to fix bespoke incident";
+        current.state = '2';
+        current.update();
+    } catch (ex) {
+        var message = ex.message;
+    }
 
 })(current, previous);
 ```
+
+  It should look similar to this screenshot:
+
  ![](../images/business_rule4.png)
 
-- Click "Submit"
+- Click **Submit**
 
 
 # Running the Demo
@@ -196,7 +228,7 @@ rtr1#
 
 
 ## Step 2
-Log into the Tower instance and launch the "SNOW-Demo-Compliance-Check" Template
+Log into the Tower instance and launch the **SNOW-Demo-Compliance-Check** Job Template
 
 >Observe the following 2 tasks as that template runs
 
@@ -221,13 +253,11 @@ Switch over to the ServiceNow instance and see that the ticket number as see in 
 
 ## Step 4
 
-Switch back to the Ansible Tower Jobs and click on the "SNOW-Demo-Compliance-Fix" Job
+Switch back to the Ansible Tower Jobs and click on the **SNOW-Demo-Compliance-Fix** Job
 
->Observe that after sleeping for 180s, the job will fix the issue on the router, resolve and close out the ticket
+>Observe that the job will fix the issue on the router, resolve and close out the ticket
 
 ```
-TASK [sleep for 180 seconds and continue with play] ****************************
-ok: [rtr1 -> localhost]
 TASK [CONFIGURE THE LOGIN BANNER] **********************************************
 changed: [rtr1]
 TASK [MARK THE TICKET AS RESOLVED] *********************************************
@@ -238,13 +268,11 @@ changed: [rtr1]
 ```
 
 ## Step 5
-Log back into the router and see that you are greeted with the new banner:
 
-
-
+- Log back into the router and see that you are greeted with the new banner:
 
 ```
-[student1@ansible servicenow]$ ssh rtr1
+[student1@ansible]$ ssh rtr1
 
 DEMO BANNER FOR DEVICE rtr1
 
@@ -254,5 +282,10 @@ rtr1#
 ```
 
 ## Step 6
-Finally log back into servicenow to notice the history of the ticket
-![](../images/incident_2.png)
+
+ - Finally log back into ServiceNow and observe the history of the ticket:
+
+   ![](../images/incident_2.png)
+
+---
+![Red Hat Ansible Automation](../../../images/rh-ansible-automation.png)

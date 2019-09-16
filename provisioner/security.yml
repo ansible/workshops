@@ -14,6 +14,9 @@
   tasks:
     - name: Install Pre Reqs for IDS
       block:
+        - name: setup epel for snort ecosystem rule lifecycling
+          include_role:
+            name: "geerlingguy.repo-epel"
         - name: package pre-reqs are installed
           package:
             state: present
@@ -28,15 +31,17 @@
 
     - name: Install IDS
       block:
-        - name: setup epel for snort ecosystem rule lifecycling
-          include_role:
-            name: "geerlingguy.repo-epel"
         - name: import ids_install role
           include_role:
             name: "ansible_security.ids_install"
         - name: import ids_config role
           include_role:
             name: "ansible_security.ids_config"
+
+- name: SETUP WINDOWS WORKSTATION
+  hosts: windows
+  roles:
+    - role: windows_ws_setup
 
 - name: SETUP CHECKPOINT ENVIRONMENT
   hosts: localhost
@@ -45,8 +50,3 @@
   gather_facts: no
   roles:
     - role: cp_setup
-
-- name: SETUP WINDOWS WORKSTATION
-  hosts: windows
-  roles:
-    - role: windows_ws_setup

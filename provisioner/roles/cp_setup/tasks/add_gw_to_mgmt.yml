@@ -25,6 +25,9 @@
     body_format: json
     validate_certs: no
   register: login_data
+  until: (login_data.status == 200) and (login_data.json is defined)
+  retries: 60
+  delay: 15
 
 - name: Add NGFW to MGMT
   uri:

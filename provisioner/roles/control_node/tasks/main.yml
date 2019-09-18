@@ -17,10 +17,24 @@
       - python-pip
       - ansible
       - gcc
+      - cockpit
       # - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
   retries: 10
   delay: 5
+
+- name: cockpit (RHEL web console for web terminal) is started and enabled
+  service:
+    name: cockpit.socket
+    state: started
+    enabled: yes
+
+- name: open port for cockpit (RHEL web console) in firewall
+  firewalld:
+    port: 9090/tcp
+    immediate: true
+    permanent: true
+    state: enabled
 
 - name: Install ansible.cfg and vimrc in home directory
   template:

@@ -118,7 +118,7 @@
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: Administrator
-    ansible_password: RedHat19!
+    ansible_password: "{{ windows_password }}"
     ansible_port: 5986
     ansible_connection: winrm
     ansible_winrm_server_cert_validation: ignore

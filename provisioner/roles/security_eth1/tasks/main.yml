@@ -1,8 +1,5 @@
 ---
-- name: Lay down dhcp config for eth1 (AWS does not for some reason)
-  template:
-    src: 'ifcfg-eth1.j2'
-    dest: '/etc/sysconfig/network-scripts/ifcfg-eth1'
-  when: ansible_eth1 is defined
-  notify:
-    - restart network
+- include_tasks: configure_eth1.yml
+  loop: "{{ range(1,(student_total|int)+1)|list }}"
+  loop_control:
+    loop_var: student_number

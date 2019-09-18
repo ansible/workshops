@@ -40,7 +40,7 @@
     body_format: json
     body:
       name: myngfw
-      ip-address: "{{ gw_inst.instances[0].public_ip_address }}"
+      ip-address: "{{ gw_inst['instances'][0]['network_interfaces'][0]['private_ip_address'] }}"
       one-time-password: admin123
       firewall: true
       version: R80.20
@@ -49,12 +49,23 @@
         - anti-spoofing: true
           anti-spoofing-settings:
             action: prevent
-          name: eth0
-          ip-address: "{{ gw_inst.instances[0].private_ip_address }}"
+          name: "eth{{ gw_inst['instances'][0]['network_interfaces'][0]['attachment']['device_index'] }}"
+          ip-address: "{{ gw_inst['instances'][0]['network_interfaces'][0]['private_ip_address'] }}"
           network-mask: "255.255.0.0"
           ipv4-mask-length: 16
           security-zone: false
-          topology: automatic
+          topology: internal
+          topology-settings:
+            ip-address-behind-this-interface: "network defined by the interface ip and net mask"
+        - anti-spoofing: true
+          anti-spoofing-settings:
+            action: prevent
+          name: "eth{{ gw_inst['instances'][0]['network_interfaces'][1]['attachment']['device_index'] }}"
+          ip-address: "{{ gw_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }}"
+          network-mask: "255.255.0.0"
+          ipv4-mask-length: 16
+          security-zone: false
+          topology: external
 
 - name: Publish
   uri:
@@ -67,3 +78,10 @@
     body_format: json
     body: >
       {}
+
+- name: disable source_dest_checking on AWS interface
+  ec2_eni:
+    region: "{{ ec2_region }}"
+    eni_id: "{{ gw_inst['instances'][0]['network_interfaces'][1]['network_interface_id'] }}"
+    source_dest_check: no
+    state: present

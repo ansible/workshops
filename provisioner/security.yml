@@ -1,14 +1,29 @@
-##### FIXME - NEEDS CORRELATION BETWEEN STUDENT ENVS
-- name: Setup eth1 for attack simulator and victim (snort) node
+---
+- name: Deactivate NetworkManager on attack and victim machines
   hosts: attack:snort
-  become: true
+  become: yes
+
+  tasks:
+    - name: disable Network Manager to not intercept our networking stuff
+      systemd:
+        name: NetworkManager
+        state: stopped
+        enabled: no
+
+- name: Setup eth1 for attack simulator and victim (snort) node
+  hosts: localhost
+  become: no
+  connection: local
+  gather_facts: no
   tasks:
     - import_role:
         name: security_eth1
 
 - name: Setup host route for attack simulator
-  hosts: attack
-  become: true
+  hosts: localhost
+  become: no
+  connection: local
+  gather_facts: no
   tasks:
     - import_role:
         name: security_hostroutes_attack_host
@@ -57,6 +72,7 @@
         - name: setup epel for snort ecosystem rule lifecycling
           include_role:
             name: "geerlingguy.repo-epel"
+
         - name: package pre-reqs are installed
           package:
             state: present
@@ -84,7 +100,6 @@
           import_role:
             name: "webservers_attack_simulation"
 
-
 - name: SETUP WINDOWS WORKSTATION
   hosts: windows
   roles:
@@ -97,3 +112,4 @@
   gather_facts: no
   roles:
     - role: cp_setup
+

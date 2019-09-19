@@ -45,28 +45,19 @@
     ids_install_snort_user: root
     ids_install_snort_group: root
     ids_normalize_logs: false
-#    ids_config_remote_log: true
-#    ids_config_remote_log_procotol: udp
   tasks:
-    #- debug: var=hostvars
-    #- debug: var=groups
-# FIXME FIXME FIXME - How to correlate each student SIEM to student snort via
-# in-memory provisioner created inventory?
-#    - name: Set fact vars for ids based SIEM type
-#      block:
-#        - debug: var=hostvars
-#        - name: set fact vars for qradar
-#          set_fact:
-#            ids_install_normalize_logs: false
-#            ids_config_remote_log_destination: "{{ hostvars['qradar']['private_ip'] }}"
-#          when: security_console == 'qradar'
-#
-#        - name: set fact vars for qradar
-#          set_fact:
-#            ids_install_normalize_logs: true
-#            ids_config_remote_log_destination: "{{ hostvars['splunk']['private_ip'] }}"
-#          when: security_console == 'splunk'
-#
+    - name: Set fact vars for ids based SIEM type
+      block:
+        - name: set fact vars for qradar
+          set_fact:
+            ids_install_normalize_logs: false
+          when: security_console == 'qradar'
+
+        - name: set fact vars for qradar
+          set_fact:
+            ids_install_normalize_logs: true
+          when: security_console == 'splunk'
+
     - name: Install Pre Reqs for IDS
       block:
         - name: setup epel for snort ecosystem rule lifecycling

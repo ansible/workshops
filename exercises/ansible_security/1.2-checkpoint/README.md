@@ -23,6 +23,10 @@ Test the access to the MGMT server now by pointing your RDP client to the `windo
 
 If you do not have a RDP client available or want to test the HTML RDP client, please open the following URL in your browser: `https://<windows-wsIP>/myrtille`. Be sure to replace `<windows-wsIP>` with the IP for the Windows workstation from your inventory. In the login field, only provide the user name and the password: The user name is **Adminimstrator**, the password is **RedHat19!** if not provided otherwise.
 
+> **Note**
+>
+> Directly after the login you might see a wide blue bar on the right side of the screen, about network configurations. You can safely ignore this, the question hides away if you click anywhere on the screen.
+
 ## Step 2.3 - Install SmartConsole
 
 SmartConsole should already be installed on your system. Please check your desktop for an icon to launch SmartConsole and launch it. If this works, the following tasks are not necessary and you can proceed to **Step 2.4**.
@@ -31,7 +35,7 @@ If for any reason SmartConsole was not installed properly during the deployment 
 
 - Inside your Windows workstation, open the Chrome browser
 - Point the browser to `https://<checkpointIP>`, where `<checkpointIP>` is the IP for the checkpoint entry in your inventory
-- A warning page will open since Check Point MGMT server is by default installed with a self signed certificate. Accept the certificate by clicking on **Advanced** and afterwards by clicking on the link named **Proceed to 11.22.33.44 (unsafe)**, with your `checkpoint` IP instead of **11.22.33.44** 
+- A warning page will open since Check Point MGMT server is by default installed with a self signed certificate. Accept the certificate by clicking on **Advanced** and afterwards by clicking on the link named **Proceed to 11.22.33.44 (unsafe)**, with your `checkpoint` IP instead of **11.22.33.44**
 - Login with user name `admin` and password `admin123`
 - Accept the message of the day with a click on the **Ok** button
 - On top of the page, click on the green **Download Now!** button
@@ -54,6 +58,10 @@ Press the **Login** button. Afterwards you need to verify the server fingerprint
 You are now viewing the Check Point SmartConsole management interface.
 
 ![SmartConsole main window](images/smartconsole-main-window.png)
+
+> **Note**
+>
+> Due to shortcomings of the Internet Explorer configuration you might see an Internet Explorer warning right when the SmartConsole login is successful. You can safely close the dialog.
 
 ## Step 2.5 - First example playbook
 
@@ -301,7 +309,7 @@ Next, add the tasks. Instead of tasks directly interacting with target machines 
     source_ip: 192.168.0.10
     destination_ip: 192.168.0.11
 
-  tasks: 
+  tasks:
     - include_role:
         name: ansible_security.acl_manager
         tasks_from: blacklist_ip

@@ -1,0 +1,5 @@
+---
+- include_tasks: add_hostroutes_from_attacker_to_checkpoint.yml
+  loop: "{{ range(1,(student_total|int)+1)|list }}"
+  loop_control:
+    loop_var: student_number

@@ -1,0 +1,5 @@
+---
+- include_tasks: configure_eth1.yml
+  loop: "{{ range(1,(student_total|int)+1)|list }}"
+  loop_control:
+    loop_var: student_number

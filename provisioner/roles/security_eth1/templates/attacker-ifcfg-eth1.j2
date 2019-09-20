@@ -1,0 +1,12 @@
+# FILE TEMPLATED BY Ansible WorkShops Provisioner
+#   https://github.com/ansible/workshops/
+#
+BOOTPROTO=none
+DEVICE=eth1
+HWADDR={{ attacker_inst['instances'][0]['network_interfaces'][1]['mac_address'] }}
+ONBOOT=yes
+TYPE=Ethernet
+USERCTL=no
+PREFIX=16
+IPADDR={{ attacker_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }}
+DEFROUTE=no

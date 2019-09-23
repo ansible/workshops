@@ -243,6 +243,8 @@ attacker | CHANGED | rc=0 >>
 ```
 <!-- {% endraw %} -->
 
+If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
+
 You are done with this exercise. Return to the list of the exercises and read the wrap up.
 
 ----

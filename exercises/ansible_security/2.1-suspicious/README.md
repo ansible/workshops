@@ -302,7 +302,9 @@ Many of those logs are in fact internal QRadar logs. To get a better overview, c
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png)
 
-Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. Also, if you change the **View** from **Real Time** to for example **Last 5 Minutes** you can even click on individual events to see more details of the data the firewall sends you.
+Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. If that is not the case straight away, check if logs are coming in for the log source **SIM GENERIC LOG DSM-7**. In that case, wait a minute or two. Sometimes it takes a little bit of time until QRadar identifies a new log source and sorts logs acoordingly instead. until then the logs are identified as coming from an unknown source and are sorted into the generic log source.
+
+Also, if you change the **View** from **Real Time** to for example **Last 5 Minutes** you can even click on individual events to see more details of the data the firewall sends you.
 
 Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the burger menu in the left upper corner, and click on **Admin**. In there, click on **Log Souces**. A new window opens and shows the new log sources.
 
@@ -371,7 +373,6 @@ In the previous Snort exercise we already added a Snort rule with a signature to
         ids_rule: 'alert {{protocol}} {{source_ip}} {{source_port}} -> {{dest_ip}} {{dest_port}}  (msg:"Attempted Web Attack"; uricontent:"/web_attack_simulation"; classtype:web-application-attack; sid:99000020; priority:1; rev:1;)'
         ids_rules_file: '/etc/snort/rules/local.rules'
         ids_rule_state: present
-
 ```
 <!-- {% endraw %} -->
 
@@ -433,13 +434,13 @@ We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`.
     - ibm.qradar
 
   tasks:
-    - name: Remote snort remote logging from QRadar
+    - name: Remove snort remote logging from QRadar
       qradar_log_source_management:
         name: "Snort rsyslog source - {{ hostvars['snort']['private_ip'] }}"
         type_name: "Snort Open Source IDS"
         state: absent
         description: "Snort rsyslog source"
-        identifier: "{{ hostvars['snort']['private_ip'] }}"
+        identifier: "{{ hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') }}"
 
 - name: Configure Check Point to not send logs to QRadar
   hosts: checkpoint
@@ -467,7 +468,7 @@ We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`.
         description: "Check Point log source"
         identifier: "{{ hostvars['checkpoint']['private_ip'] }}"
 
-    - name: deploy the new log source
+    - name: deploy the log source changes
       qradar_deploy:
         type: INCREMENTAL
       ignore_errors: yes
@@ -494,6 +495,8 @@ attacker | CHANGED | rc=0 >>
 <!-- {% endraw %} -->
 
 The connects to the **attacker** machine with escalated privileges (`-b`) and runs the shell module there (`-m shell`). The parameter of the shell module is a chain of shell commans. We output all running processes, remove lines where grep is part of the command itself, assuming that those are not of value to us. We then filter for all commands executing watch, use awk to get the process ID and hand the process ID over to `kill`.
+
+If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 

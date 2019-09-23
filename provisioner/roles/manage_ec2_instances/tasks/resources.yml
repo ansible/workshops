@@ -189,6 +189,11 @@
         from_port: 5986
         cidr_ip: 0.0.0.0/0
         rule_desc: WinRM
+      - proto: udp
+        to_port: 514
+        from_port: 514
+        cidr_ip: 0.0.0.0/0
+        rule_desc: WinRM
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0

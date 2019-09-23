@@ -28,6 +28,20 @@
     - import_role:
         name: security_hostroutes_attack_host
 
+- name: Install Pre Reqs on attacker
+  hosts: attack
+  become: yes
+  tasks:
+    - name: setup epel on attacker
+      include_role:
+        name: "geerlingguy.repo-epel"
+
+    - name: package pre-reqs are installed
+      package:
+        state: present
+        name:
+          - daemonize
+
 - name: include splunk playbook
   import_playbook: splunk.yml
   when: security_console == 'splunk'
@@ -45,6 +59,7 @@
     ids_install_snort_user: root
     ids_install_snort_group: root
     ids_normalize_logs: false
+    ids_install_snort_interface: eth1
   tasks:
     - name: Set fact vars for ids based SIEM type
       block:

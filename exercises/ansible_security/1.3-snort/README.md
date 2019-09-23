@@ -96,19 +96,27 @@ If you want to learn more about Snort rules, check out the [Snort Rule Infograph
 
 With this knowledge, now let's automate the Snort rule configuration! As described earlier, in Ansible automation is described in Playbooks, which consist of multiple tasks. Each task uses a module and corresponding parameters to describe the change that needs to be done or the state that is desired.
 
-In case of Snort, in Ansible 2.8 there are no modules to interact with Snort. So we wrote a set of modules to interact with Snort properly. That way, we can provide value already without the need to wait for a new Ansible release. Also we are able to update our modules faster which is especially important in the early times of a rather newer module.
+In case of Snort, in Ansible 2.8 there are no modules to interact with Snort. So we wrote a set of modules to interact with Snort properly. That way, we can provide value already without the need to wait for a new Ansible release. Also we are able to update our modules faster which is especially important in the early times of a rather newer module. Those modules are shipped as part of a "role". But what are roles?
 
-The modules are shipped as part of a role to manage Snort modules, [ids_rule](https://github.com/ansible-security/ids_rule). Open the link in the web browser and click on the [library](https://github.com/ansible-security/ids_rule/tree/master/library) link: you will find the module `snort_rule.py` there.
+Think about how you wrote your playbook in the last seciont: while it is possible to write a playbook in one file as we did, eventually you’ll want to reuse files and start to organize things.
 
-If you take an even closer look at the role you will realize that it also comes along with a re-usable playbook at [tasks/snort.yml](https://github.com/ansible-security/ids_rule/blob/master/tasks/snort.yml) - just like it was the case with the Check Point role.
+Ansible Roles are the way we do this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.
 
-Again, to use the Snort role and the content inside it, we are going to use the command line `ansible-galaxy` to install it. On your control host, use the `ansible-galaxy` tool to download and install the above mentioned role with a single command:
+There are multiple advantages in using roles to write your automation code. The most notable are that the complexity and intelligence behind a set of playbooks is hidden away. Also the roles are usually easy to re-use by others.
+
+Back to the Snort use case: as mentioned, the Snort modules are shipped as part of a role to manage Snort modules, [ids_rule](https://github.com/ansible-security/ids_rule). Open the link in the web browser and click on the [library](https://github.com/ansible-security/ids_rule/tree/master/library) link: you will find the module `snort_rule.py` there.
+
+If you take an even closer look at the role you will realize that it also comes along with a re-usable playbook at [tasks/snort.yml](https://github.com/ansible-security/ids_rule/blob/master/tasks/snort.yml).
+
+Let's have a look at how our playbook can be rewritten to use the roles directly. For this first we have to get the role onto our control machine. There are different ways how this can be achieved, but a very convenient way is to use the command line tool `ansible-galaxy`. It can install roles directly from archives, Git URLs - and it can also install roles from [Ansible Galaxy](https://galaxy.ansible.com). Ansible Galaxy is a community hub for finding and sharing Ansible content. It provides features like rating, quality testing, proper searching and so on. For example, the role mentioned above can be found in Ansible Galaxy at [ansible_security/ids_rule](https://galaxy.ansible.com/ansible_security/ids_rule).
+
+On your control host, use the `ansible-galaxy` tool to download and install the above mentioned role with a single command:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule
 - downloading role 'ids_rule', owned by ansible_security
 - downloading role from https://github.com/ansible-security/ids_rule/archive/master.tar.gz
-- extracting ansible_security.ids_rule to /home/student1/.ansible/roles/ansible_security.ids_rule
+- extracting ansible_security.ids_rule to /home/student<X>/.ansible/roles/ansible_security.ids_rule
 - ansible_security.ids_rule (master) was installed successfully
 ```
 
@@ -307,4 +315,4 @@ You are done with the first steps of automating Snort with Ansible. Head back to
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md)
+[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)

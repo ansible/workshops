@@ -92,7 +92,7 @@ With that in mind, we can now install the collection `ibm.qradar`. To make sure 
 [student<X>@ansible ~]$ ansible-galaxy collection install ibm.qradar -p ~/.ansible/collections
 Process install dependency map
 Starting collection install process
-Installing 'ibm.qradar:1.2.1' to '/home/rwolters/.ansible/collections/ansible_collections/ibm/qradar'
+Installing 'ibm.qradar:0.0.1' to '/home/student<X>/.ansible/collections/ansible_collections/ibm/qradar'
 ```
 
 Verify that the collection was installed properly:
@@ -109,6 +109,10 @@ tests
 All required files are there - especially the directory `plugins/modules` which contains the actual modules.
 
 With the collection in place, we can now start to write our playbook.
+
+> **Note**
+>
+> If you want to try this at home: please note that this collection command requires at least Ansible version 2.9!
 
 ## Step 4.3 - First example playbook
 
@@ -298,4 +302,4 @@ You are done with the first steps of automating QRadar with Ansible. Head back t
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md)
+[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)

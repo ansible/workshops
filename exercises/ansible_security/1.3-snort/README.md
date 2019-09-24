@@ -163,7 +163,7 @@ Next, we need to add the tasks where the actual changes on the target machines a
       include_role:
         name: "ansible_security.ids_rule"
       vars:
-        ids_rule: 'alert tcp and any -> any any (msg:"Attempted /etc/passwd Attack"; uricontent:"/etc/passwd"; classtype:attempted-user; sid:99000004; priority:1; rev:1;)'
+        ids_rule: 'alert tcp any any -> any any (msg:"Attempted /etc/passwd Attack"; uricontent:"/etc/passwd"; classtype:attempted-user; sid:99000004; priority:1; rev:1;)'
         ids_rules_file: '/etc/snort/rules/local.rules'
         ids_rule_state: present
 ```

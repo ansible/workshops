@@ -204,7 +204,7 @@ On your Ansible control host, create a file called `incident_blacklist.yml`. Not
       cp_mgmt_install_policy:
         policy_package: standard
         install_on_all_cluster_members_or_fail: yes
-      ignore_errors: yes
+      failed_when: false
 ```
 <!-- {% endraw %} -->
 

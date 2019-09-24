@@ -100,7 +100,7 @@ On your control host, create the file `threat_cp_log.yml` with the following con
     - name: deploy the new log sources
       qradar_deploy:
         type: INCREMENTAL
-      ignore_errors: yes
+      failed_when: false
 ```
 <!-- {% endraw %} -->
 

@@ -245,7 +245,7 @@ Run the playbook:
 [student<X>@ansible ~]$ ansible-playbook threat_snort_log.yml
 ```
 
-In QRadar, access the log activity tab. Validate, that QRadar no events from the IDS are generated. That way you know for sure that the anomaly you see is only caused by the single IP you have in the firewall. No other traffic is causing the anomaly, you can safely assume that the anomaly you see is a false positive.
+In QRadar, access the log activity tab. Validate, that in QRadar **no** events from the IDS are generated. That way you know for sure that the anomaly you see is only caused by the single IP you have in the firewall. No other traffic is causing the anomaly, you can safely assume that the anomaly you see is a false positive.
 
 > **Note**
 >
@@ -287,6 +287,8 @@ Also we need to kill the process sending out attack. On your control host, execu
 attacker | CHANGED | rc=0 >>
 ```
 <!-- {% endraw %} -->
+
+If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 

@@ -195,7 +195,7 @@ In the same way we defined the source IP host object, we will now add the destin
 ```
 <!-- {% endraw %} -->
 
-Last, we are defining the actual access rule between those two host objects:
+Last, we are defining the actual access rule between those two host objects and add a task to to a final deploy of the changes in case that is needed.
 
 <!-- {% raw %} -->
 ```yaml
@@ -228,8 +228,18 @@ Last, we are defining the actual access rule between those two host objects:
         source: "asa-{{ source_ip }}"
         destination: "asa-{{ destination_ip }}"
         action: accept
+
+    - name: Install policy
+      cp_mgmt_install_policy:
+        policy_package: standard
+        install_on_all_cluster_members_or_fail: yes
+      ignore_errors: yes
 ```
 <!-- {% endraw %} -->
+
+> **Note**
+>
+> We ignore errors if the deploy fails in the last task, since sometimes Check Points throws an error if no deploy is necessary or another deploy is already running.
 
 ## Step 2.6 - Run the playbook
 

@@ -156,7 +156,7 @@ Now add again the existing playbook `triage_log_sources.yml` where we already br
 - name: Configure Check Point to send logs to QRadar
   hosts: checkpoint
 
-  tasks: 
+  tasks:
     - include_role:
         name: ansible_security.log_manager
         tasks_from: forward_logs_to_syslog
@@ -201,10 +201,11 @@ Now we have to tell QRadar that there is another log source, this time Check Poi
     - name: deploy the new log source
       qradar_deploy:
         type: INCREMENTAL
+      failed_when: false
 ```
 <!-- {% endraw %} -->
 
-Note that compared to the last QRadar play, this time an additional task is added: `deploy the new log source`. This is due to the fact that QRadar changes are spooled, and only applied upon an extra request.
+Note that compared to the last QRadar play, this time an additional task is added: `deploy the new log source`. This is due to the fact that QRadar changes are spooled, and only applied upon an extra request. We ignore errors because they might happen due to timeouts in the REST API which do not inflict the actual function of the API call.
 
 If you bring all these pieces together, the full playbook `triage_log_sources.yml` is:
 
@@ -244,7 +245,7 @@ If you bring all these pieces together, the full playbook `triage_log_sources.ym
 - name: Configure Check Point to send logs to QRadar
   hosts: checkpoint
 
-  tasks: 
+  tasks:
     - include_role:
         name: ansible_security.log_manager
         tasks_from: forward_logs_to_syslog
@@ -270,7 +271,7 @@ If you bring all these pieces together, the full playbook `triage_log_sources.ym
     - name: deploy the new log sources
       qradar_deploy:
         type: INCREMENTAL
-      ignore_errors: yes
+      failed_when: false
 ```
 <!-- {% endraw %} -->
 
@@ -285,10 +286,6 @@ Run the full playbook to add both log sources to QRadar:
 ```bash
 [student<X>@ansible ~]$ ansible-playbook triage_log_sources.yml
 ```
-
-> **Note**
->
-> Should you run into a timeout with the very last task, then the deploy on the QRadar instance took longer than the warning timeout. This can happen given the limited demo resources, but is of no concern to us and thus ignored.
 
 ## Step 1.6 - Verify the log source configuration
 
@@ -306,7 +303,7 @@ Now the list of logs is better to analyze. Verify that events are making it to Q
 
 Also, if you change the **View** from **Real Time** to for example **Last 5 Minutes** you can even click on individual events to see more details of the data the firewall sends you.
 
-Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the burger menu in the left upper corner, and click on **Admin**. In there, click on **Log Souces**. A new window opens and shows the new log sources.
+Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the burger menu in the left upper corner, and click on **Admin**. In there, click on **Log Sources**. A new window opens and shows the new log sources.
 
 ![QRadar Log Sources](images/qradar_log_sources.png)
 
@@ -327,7 +324,7 @@ Let's also verify that the Snort configuration in the background was successful.
 [student<X>@ansible ~]$ ssh ec2-user@22.33.44.55
 Last login: Wed Sep 11 15:45:00 2019 from 11.22.33.44
 [ec2-user@ip-172-16-11-222 ~]$ sudo -i
-[root@ip-172-16-11-222 ~]# cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf 
+[root@ip-172-16-11-222 ~]# cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
 $ModLoad imfile
 $InputFileName /var/log/snort/merged.log
 $InputFileTag ids-config-snort-alert
@@ -363,7 +360,7 @@ In the previous Snort exercise we already added a Snort rule with a signature to
     source_port: any
     source_ip: any
     dest_port: any
-    dest_ip: any    
+    dest_ip: any
 
   tasks:
     - name: Add snort web attack rule
@@ -445,7 +442,7 @@ We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`.
 - name: Configure Check Point to not send logs to QRadar
   hosts: checkpoint
 
-  tasks: 
+  tasks:
     - include_role:
         name: ansible_security.log_manager
         tasks_from: unforward_logs_to_syslog
@@ -471,7 +468,7 @@ We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`.
     - name: deploy the log source changes
       qradar_deploy:
         type: INCREMENTAL
-      ignore_errors: yes
+      failed_when: false
 ```
 <!-- {% endraw %} -->
 

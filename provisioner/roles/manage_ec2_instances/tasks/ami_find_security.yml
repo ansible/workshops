@@ -22,7 +22,7 @@
   block:
   - name: find ami for qradar
     ec2_ami_facts:
-      region: "us-east-1" # I don't know why but that seems to be the only place it's available
+      region: "{{ ec2_region }}" # I don't know why but that seems to be the only place it's available
       owners: "{{ ec2_info['qradar']['owners'] }}"
       filters:
         name: "{{ ec2_info['qradar']['filter'] }}"

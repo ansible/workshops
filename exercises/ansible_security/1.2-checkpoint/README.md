@@ -21,9 +21,7 @@ The Windows workstation can be reached via Remote Desktop Protocol (RDP). We rec
 
 Test the access to the MGMT server now by pointing your RDP client to the `windows-ws` IP in your inventory.
 
-If you do not have a RDP client available or want to test the HTML RDP client, please open the following URL in your browser: `http://<windows-wsIP>/myrtille`. Be sure to replace `<windows-wsIP>` with the IP for the Windows workstation from your inventory. In the login field, only provide the user name and the password: The user name is **Administrator**, the password is **Ansible+Red*Hat19!20** if not provided otherwise.
-
-Upon first login there might be a message about a network interface in a blue bar on the right side. This message can be safely ignored and will disappear as soon as you click anywhere.
+If you do not have a RDP client available or want to test the HTML RDP client, please open the following URL in your browser: `http://<windows-wsIP>/myrtille`. Be sure to replace `<windows-wsIP>` with the IP for the Windows workstation from your inventory. In the login field, only provide the user name and the password: The user name is **Administrator**, the password is **Ansible+Red*Hat19!20** if not provided otherwise. Leave the other fields empty, and click on **Connect**.
 
 You now are accessing a default windows workstation with a Google Chrome browser installed.
 
@@ -71,7 +69,9 @@ In Ansible, automation is described in playbooks. Playbooks are files which desc
 
 A playbook is a repeatable set of *plays* and *tasks*.
 
-A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, like the modules in the previous chapter. The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
+A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, which does the actual work.
+
+The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
 
 If you are not very familiar with Ansible, see the following example of a playbook:
 
@@ -104,9 +104,9 @@ If you are not very familiar with Ansible, see the following example of a playbo
 >
 > Here is a nice analogy: When Ansible modules are the tools in your workshop, the inventory is the materials and the playbooks are the instructions.
 
-We will now write a playbook to change the configuration of the Check Point setup. We will start with a simple example where we will add a whilte entry in the firewall configuration to allow traffic from a certain machine to another. In our example we will allow the machine called **attacker** to send traffic to our machine **snort**.
+We will now write a playbook to change the configuration of the Check Point setup. We will start with a simple example where we will add a whiltelist entry in the firewall configuration to allow traffic from a certain machine to another. In our example we will allow the machine called **attacker** to send traffic to our machine **snort**.
 
-The playbook will be written and run on the Ansible control host. Use SSH to access your control host. On there, open an editor of your choice and create a file with the name `whitelist_attacker.yml`.
+The playbook will be written and run on the Ansible control host. The languae the playbook is written in is [YAML](https://en.wikipedia.org/wiki/YAML). Use SSH to access your control host. On there, open an editor of your choice and create a file with the name: `whitelist_attacker.yml`
 
 First, a playbook needs a name and the hosts it should be executed on. So let's add those:
 
@@ -116,13 +116,15 @@ First, a playbook needs a name and the hosts it should be executed on. So let's 
   hosts: checkpoint
 ```
 
+In case you wonder: the three dashes at the top, `---`, indicate the start of a YAML file.
+
 > **Note**
 >
 > It is a good practice to make playbooks more reusable by pointing them at `hosts: all` and limit the execution later on the command line or via Tower. But for now we simplify the process by naming hosts in the playbook directly.
 
-As mentioned, in this a simple example we will add a whitelist entry. A simple whitelist entry consists of a source IP address, a destination IP address and the rule to prevent access between those.
+As mentioned, in this a simple example we will add a whitelist entry. A simple whitelist entry consists of a source IP address, a destination IP address and the rule to allow access between those.
 
-For this, we add the source and destination IP as variables to the playbook. Since Ansible knows all the machines from the inventory and since the IPs are listed in the inventory, we can just reference those information as variables:
+For this, we add the source and destination IPs as variables to the playbook. Since Ansible knows all the machines from the inventory and since the IPs are listed in the inventory, we can just reference those information as [variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html) of the corresponding hosts:
 
 <!-- {% raw %} -->
 ```yaml
@@ -136,7 +138,11 @@ For this, we add the source and destination IP as variables to the playbook. Sin
 ```
 <!-- {% endraw %} -->
 
-Note that we use the second private IP - those belong to a network whihc is specifically routed via the FW for application traffic. The first private IP belongs to the management network.
+As you see, variables are marked by curly brackets. Note that we use the second private IP - those belong to a network which is specifically routed via the FW for application traffic. The first private IP belongs to the management network. The variables are used to define yet another (shorter) variable each, which will be used throughout the playbook. This is a common way to decouple the data from the execution.
+
+> **Note**
+>
+> Make sure that the white spaces and indentation is exactly as shown: YAML is very picky about this, and many errors in running playbooks are due to wrong indentation.
 
 Next, we need to add the tasks where the actual changes on the target machines are done. This happens in three steps: first we create a source object, than a destination object, and finally the access rule between those two.
 
@@ -160,7 +166,7 @@ Let's start with a task to define the source object:
 ```
 <!-- {% endraw %} -->
 
-As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_hosts`. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can call the help:
+As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_hosts`. The module is the part of Ansible which "makes it so" - the module in this case creates of modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can call the help:
 
 ```bash
 [student<X>@ansible ~]$ ansible-doc checkpoint_host
@@ -195,7 +201,7 @@ In the same way we defined the source IP host object, we will now add the destin
 ```
 <!-- {% endraw %} -->
 
-Last, we are defining the actual access rule between those two host objects:
+Last, we are defining the actual access rule between those two host objects and add a task to ensure that the policy is installed in any case. Sometimes this task fails if another installations is already running, so we add a special flag to ignore possible errors, `failed_when: false`:
 
 <!-- {% raw %} -->
 ```yaml
@@ -236,8 +242,6 @@ Last, we are defining the actual access rule between those two host objects:
       failed_when: false
 ```
 <!-- {% endraw %} -->
-
-The last task ensures that the policy is installed in any case. Since sometimes this task fails if another installations is already running we ignore possible errors here.
 
 ## Step 2.6 - Run the playbook
 
@@ -295,6 +299,7 @@ Afterwards, click on the **Install Policy** button at the top of the list of pol
 As a result, in the left corner a small window pops up informing you of the progress of the deployment of the change.
 
 As you see, even doing a rather small change the configuraiton required multiple clicks and interactions with the user - the more of these steps can be automated, the better.
+
 ----
 
 [Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)

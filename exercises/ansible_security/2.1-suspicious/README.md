@@ -2,9 +2,7 @@
 
 ## Step 1.1 - The Background
 
-In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise it. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common.
-
-That often leads to manual work and interaction between people of different teams which is error prone and above all, slow.
+In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow.
 
 In comes Ansible: we use Ansible to elevate the interactions learned in the last section to combine the security tools into automated workflows.
 
@@ -46,7 +44,9 @@ The stage is set now. Read on to learn what this use case is about.
 
 ## Step 1.3 - See the anomaly
 
-Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. On your control host, ssh to the snort machine, and grep for the anomaly log entry:
+Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. On your control host, ssh to the snort machine. Remember that you can get the IP of the Snort server by executing this command on the control host: `grep snort ~/lab_inventory/hosts` . As the login user for the Snort server, you need to use `ec2-uesr`!
+
+On the Snort server, grep for the anomaly log entry:
 
 ```bash
 [student1@ansible ~]$ ssh ec2-user@11.22.33.44
@@ -56,11 +56,13 @@ Last login: Sun Sep 22 15:38:36 2019 from 35.175.178.231
 ...
 ```
 
+You can log off from the Snort server by executing the command `exit` or pressing `CTRL` and `D`.
+
 > **Note**
 >
 > You might have guessed already: this log entry is triggered every five seconds by the daemon we started at the beginning of this exercise.
 
-As a security analyst you know that anomalies can be the sign of a breach or other serious causes. You decide to investigate. Right now, you do not have enough information about the anomaly to dismiss it as a false positive. So you need to collect more data points - like from the firewall and the IDS. Going through the logs of the firewall and IDS manually takes a lot of time. In large organizations, the security analyst might not even have the necessary access rights and needs is to contact the teams responsible for both the enterprise firewall and the IDS, asking them to manually go through the respective logs and directly check for anomalies on their own and then reply with the results. This operation could take hours or even days.
+As a security analyst you know that anomalies can be the sign of a breach or other serious causes. You decide to investigate. Right now, you do not have enough information about the anomaly to dismiss it as a false positive. So you need to collect more data points - like from the firewall and the IDS. Going through the logs of the firewall and IDS manually takes a lot of time. In large organizations, the security analyst might not even have the necessary access rights and needs to contact the teams that each are responsible for both the enterprise firewall and the IDS, asking them to manually go through the respective logs and directly check for anomalies on their own and then reply with the results. This operation could take hours or even days.
 
 ## Step 1.4 - Write playbook to create new log sources
 
@@ -70,13 +72,13 @@ Doing this manually requires a lot of work on multiple machines, which again tak
 
 > **Note**
 >
-> Why don't we add those logs to QRadar permanently? The reason is that many log systems are licensed/paid by the amount of logs they consume, making it expansive pushing non-necessary logs in there. Also, if too many logs are in there it becomes harder to analyse the data properly and in an timely manner.
+> Why don't we add those logs to QRadar permanently? The reason is that many log systems are licensed/paid by the amount of logs they consume, making it expansive pushing non-necessary logs in there. Also, if too many logs are in there it becomes harder to analyse the data properly and in a timely manner.
 
 So let's write such a playbook which first configures the log sources - Snort and Check Point - to send the logs to QRadar, and afterwards add those log sources to QRadar so that it is aware of them.
 
 As usual, the playbook needs a name and the hosts it should be executed on. Since we are working on different machines in this workflow, we will separate the playbook into different "[plays](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#playbook-language-example)":
 
-> *The goal of a play is to map a group of hosts to some well defined roles, represented by things ansible calls tasks. At a basic level, a task is nothing more than a call to an ansible module (see Working With Modules).*
+> *The goal of a play is to map a group of hosts to some well defined roles, represented by things ansible calls tasks. At a basic level, a task is nothing more than a call to an ansible module.*
 
 This means that the "host" section will appear multiple times in one playbook, and each section has a dedicated task list.
 
@@ -115,7 +117,7 @@ So let's create our playbook where we use the role. On your control host, create
 ```
 <!-- {% endraw %} -->
 
-As you see, just like with the last time we configured Snort rules, we are re-using the role and let it do the work. We only change the behaviour of the role via the parameters - which provides the QRadar IP via variable.
+As you see, just like with the last time we configured Snort rules, we are re-using the role and let it do the work. We only change the behaviour of the role via the parameters: we provide the QRadar IP via variable, set the IDS provider to `snort` and define the protocol in which packages are sent as `UDP` 
 
 Now we have to tell QRadar that there is this new Snort log source. Add the following play to the playbook `triage_log_sources.yml`:
 
@@ -137,7 +139,7 @@ Now we have to tell QRadar that there is this new Snort log source. Add the foll
 ```
 <!-- {% endraw %} -->
 
-You might ask what the regex is doing in there: it changes the IP address to match the actual syslog header entry produced by snort. Otherwise, the logs would not be properly identified as QRadar.
+As you can see the collections are used here, and the only task we execute uses a module to manage log sources in QRadar. You might ask what the regex is doing in there: it changes the IP address to match the actual syslog header entry produced by Snort. Otherwise, the logs would not be properly identified as QRadar.
 
 Now we have to do the same for Check Point: we need to configure Check Point that it should forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager), so all we have to do is to import the role and use it with the right parameters. First, let's import the role:
 
@@ -171,9 +173,7 @@ Note that in this snippet you have to replace `YOURSERVERNAME` with the actual s
 
 ```bash
 [student<X>@ansible ~]$ ssh admin@11.33.44.55
-[Expert@gw-77f3f6:0]# ls -l /opt/CPrt-R80/log_exporter/targets
-total 0
-drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
+[Expert@gw-77f3f6:0]#
 ```
 
 Another way to find the correct name of the management instance is to connect to the Check Point management IP directly via https in your web browser. That way, the operating system management web interface is shown, with the machine name in the top right corner:
@@ -287,11 +287,13 @@ Run the full playbook to add both log sources to QRadar:
 [student<X>@ansible ~]$ ansible-playbook triage_log_sources.yml
 ```
 
+In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
+
 ## Step 1.6 - Verify the log source configuration
 
 Before that Ansible playbook was invoked, QRadar wasn’t receiving any data from Snort or Check Point. Immediately after, without any further intervention by us as security analyst, Check Point logs start to appear in the QRadar log overview.
 
-Log onto the QRadar web UI. Click on Log Activity. As you will see, there are a lot of logs coming in all the time:
+Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there are a lot of logs coming in all the time:
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png)
 
@@ -299,11 +301,11 @@ Many of those logs are in fact internal QRadar logs. To get a better overview, c
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png)
 
-Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. If that is not the case straight away, check if logs are coming in for the log source **SIM GENERIC LOG DSM-7**. In that case, wait a minute or two. Sometimes it takes a little bit of time until QRadar identifies a new log source and sorts logs acoordingly instead. until then the logs are identified as coming from an unknown source and are sorted into the generic log source.
+Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. If that is not the case straight away, check if logs are coming in for the log source **SIM GENERIC LOG DSM-7**. In that case, wait a minute or two. Sometimes it takes a little bit of time until QRadar identifies a new log source and sorts logs acoordingly. Until then the logs are identified as coming from an unknown source and are sorted into the generic log source.
 
 Also, if you change the **View** from **Real Time** to for example **Last 5 Minutes** you can even click on individual events to see more details of the data the firewall sends you.
 
-Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the burger menu in the left upper corner, and click on **Admin**. In there, click on **Log Sources**. A new window opens and shows the new log sources.
+Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner, and click on **Admin** down at the bottom. In there, click on **Log Sources**. A new window opens and shows the new log sources.
 
 ![QRadar Log Sources](images/qradar_log_sources.png)
 
@@ -316,9 +318,9 @@ total 0
 drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
 ```
 
-As you can see the central log server was configured via Check Point's internal log expoerter tool.
+As you can see the central log server was configured via Check Point's internal log exporter tool. Leave the Check Point server and go back to your control host.
 
-Let's also verify that the Snort configuration in the background was successful. Via SSH, log onto your Snort instance, become root and verify the rsyslog forwarding configuration:
+Let's also verify that the Snort configuration in the background was successful. From your control host, log onto your Snort instance via SSH as the user `ec2-user`. Become root and verify the rsyslog forwarding configuration:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@22.33.44.55
@@ -334,6 +336,8 @@ $InputFileFacility local3
 $InputRunFileMonitor
 local3.* @44.55.66.77:514
 ```
+
+Leave the Snort server again and come back to your control host.
 
 Note that so far no logs are sent from Snort to QRadar: Snort does not know yet that this traffic is noteworthy!
 
@@ -373,7 +377,7 @@ In the previous Snort exercise we already added a Snort rule with a signature to
 ```
 <!-- {% endraw %} -->
 
-As you can see the `ids_rule` containes the `web_attack_simulation` string as content, making it possible to identify future occurences of this behaviour.
+In this play we provide some variables for Snort stating that we want to control any traffic on tcp. Afterwards, with the help of the `ids_rule` role we set a new rule containing the `web_attack_simulation` string as content, making it possible to identify future occurences of this behaviour.
 
 Now execute the playbook:
 
@@ -381,7 +385,7 @@ Now execute the playbook:
 [student<X>@ansible ~]$ ansible-playbook triage_snort_rule.yml
 ```
 
-Let's quickly verify that the new rule was indeed added. From your Ansible control host ssh to the Snort server and have a look into the directory of custom rules:
+Let's quickly verify that the new rule was indeed added. From your Ansible control host ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
@@ -392,7 +396,7 @@ alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_atta
 
 ## Step 1.8 - Identify and close the Offense
 
-Moments after the playbook have been executed, we can check in QRadar if we see Offenses. And indeed, that is the case. Log into your QRadar UI, click on **Offenses**, and there on the right side on **All Offenses**:
+Moments after the playbook has been executed, we can check in QRadar if we see Offenses. And indeed, that is the case. Log into your QRadar UI, click on **Offenses**, and there on the left side on **All Offenses**:
 
 ![QRadar Offenses](images/qradar_offenses.png)
 
@@ -405,6 +409,8 @@ In the Offense view, click on the Offense, then in the menu on top on **Actions*
 In the final step, we will rollback all the configuraiton changes to their pre-investigation state, reducing resource consumption and the analysis workload for us and our fellow security analysts. Also we need to stop the attack simulation.
 
 We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`. The major differnces are that for QRadar we set the state of the log sources to `absent`, for Snort we set `ids_config_remote_log` to `false`, and for Check Point we initiate the tasks for `unforward_logs_to_syslog`.
+
+The playbook `rollback.yml` should have this content:
 
 <!-- {% raw %} -->
 ```yaml
@@ -475,6 +481,8 @@ We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`.
 > **Note**
 >
 > Again, remember to replace the value of `YOURSERVERNAME` with the actual server name of your Check Point instance.
+
+While this playbook is maybe the longest you see in these entire exercises, the structure and content should already be familiar to you. Take a second to go through each task to understand what is happening.
 
 Run the playbook to remove the log sources:
 

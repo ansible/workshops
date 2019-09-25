@@ -76,21 +76,15 @@ For a start, log into your Ansible control host via SSH. Open a terminal and typ
 
 > **Warning**
 > 
-> In the following examples, replace **11.22.33.44** by your **IP** provided to you by the instructor, and the **X** in student**X** by the student number provided to you in the following example and in all other cases were examples contain IP addresses.
+> In the next examples, replace **11.22.33.44** by the **IP** of your control host, provided to you by the instructor. Also, replace the **X** in student**X** by the student number provided to you. In all following examples and in all other cases were examples contain IP addresses, always replace them with the **IP** addresses from your individual setup
 
-Open a terminal and type the following command:
+Open a terminal and type the following command to connect to your control host via SSH:
 
 ```bash
 ssh studentX@11.22.33.44
 ```
 
 The password is **ansible** if not otherwise noted.
-
-Then become root:
-
-```bash
-[student<X>@ansible ~]$ sudo -i
-```
 
 Most prerequisite tasks have already been done for you:
 
@@ -99,13 +93,6 @@ Most prerequisite tasks have already been done for you:
   - SSH connection and keys are configured
 
   - `sudo` has been configured on the managed hosts to run commands that require root privileges.
-
-Log out of the root account again:
-
-```bash
-    [root@ansible ~]# exit
-    logout
-```
 
 Check Ansible has been installed correctly
 
@@ -131,7 +118,6 @@ ansible_user=student1
 ansible_ssh_pass=ansible
 ansible_port=22
 
-
 [attack]
 attacker ansible_host=99.88.77.66 ansible_user=ec2-user private_ip=172.16.99.66 private_ip2=172.17.44.66
 
@@ -151,6 +137,8 @@ checkpoint ansible_host=44.55.66.77 ansible_user=admin private_ip=192.168.4.5 an
 windows-ws ansible_host=55.66.77.88 ansible_user=Administrator ansible_pass=RedHat19! ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore private_ip=192.168.5.6
 ```
 
+On your control host, have a look at the inventory by edecuting the command `cat ~/lab_inventory/hosts`. All the IP addresses are specific to your environment. Whenever the exercises ask you to access a certain machine, you can always look up the IP in the inventory on the control host.
+
 Ansible is already configured to use the inventory specific to your environment. As shown in the example above, the inventory carries more than just the host names and IP addresses. Especially in the case of the Windows workstation, several more parameters are set.
 
 > **Note**
@@ -159,7 +147,7 @@ Ansible is already configured to use the inventory specific to your environment.
 
 ## Step 1.6 - Victim machine
 
-For the exercises of section 2 we need to have security incidents. Those should happen on a **victim** machine. For the ease of deployment, we just use the Snort server for this: besides the installed Snort daemon it is a basic RHEL server and can be used to run all kinds of attacks against.
+For the exercises of section 2 we need to have security incidents. Those should happen on a **victim** machine - that is Snort server. It is basically a RHEL installation with Snort installed and running a simplified web server to run attacks against.
 
 ## Step 1.7 - Working the Labs
 
@@ -168,10 +156,6 @@ You might have guessed by now this lab is pretty commandline-centric…​ :-)
   - Don’t type everything manually, use copy & paste from the browser when appropriate. But stop to think and understand.
 
   - All labs were prepared using **Vim**, but we understand not everybody loves it. Feel free to use alternative editors. In the lab environment we provide **Midnight Commander** (just run **mc**, function keys can be reached via Esc-\<n\> or simply clicked with the mouse) or **Nano** (run **nano**). Here is a short [editor intro](../0.0-support-docs/editor_intro.md).
-
-> **Tip**
->
-> In the lab guide commands you are supposed to run are shown with or without the expected output, whatever makes more sense in the context.
 
 ----
 

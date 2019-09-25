@@ -12,7 +12,6 @@ attacker ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.usernam
 {% endif %}
 {% endfor %}
 
-
 [control]
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}

@@ -141,7 +141,7 @@ node3 ansible_host=33.44.55.66
 
 ## Step 4.5 - Ansible Facts
 
-Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remeber the "Gathering Facts" task listed in the output of each `ansible-playbook` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
+Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remember the "Gathering Facts" task listed in the output of each `ansible-playbook` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
 
 To get an idea what facts Ansible collects by default, on your control node as your student user run:
 

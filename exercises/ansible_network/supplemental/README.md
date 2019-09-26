@@ -1,12 +1,4 @@
-# Ansible Linklight - Networking
-
-This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
-
-## Presentation
-Want the Presentation Deck?  Its right here:
-[Ansible Networking Linklight Deck](../../decks/ansible_network.pdf)
-
-## Ansible Network Automation Exercises
+## Additional Ansible Network Automation Exercises
 
 ### Section 01 - Using Ansible to gather data from network devices
 - [Exercise 1.0 - Exploring the lab environment](./exercises/1-0-explore)
@@ -23,15 +15,7 @@ Want the Presentation Deck?  Its right here:
 - [Exercise 3.1 - Building dynamic documentation using the command parser](./exercises/3-1-parser/)
 
 ## Network Diagram
-![Red Hat Ansible Automation](../../images/network_diagram.png)
-
-## Additional information
- - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
- - [List of Networking Ansible Modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html)
- - [Module Maintenance & Support](http://docs.ansible.com/ansible/latest/modules_support.html)
- - [Network Automation GitHub Repo](https://github.com/network-automation)
+![Red Hat Ansible Automation](../../../images/network_diagram.png)
 
 ---
-![Red Hat Ansible Automation](../../images/networkautomation.png)
-
-- [Red Hat® Ansible® Network Automation](https://www.ansible.com/networking): automate networking devices from Arista (EOS), Cisco (IOS, IOS XR, NX-OS), Juniper (JunOS), Open vSwitch, and VyOS and many more! Includes [Ansible Tower](https://www.ansible.com/tower) curated content specifically for network use cases.
+![Red Hat Ansible Automation](../../../images/networkautomation.png)

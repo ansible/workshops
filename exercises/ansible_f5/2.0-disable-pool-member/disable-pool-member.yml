@@ -63,5 +63,5 @@
       name: "{{member_name.user_input.split(':')[0]}}"
       pool: "{{pool_name}}"
       port: "{{member_name.user_input.split(':')[1]}}"
-      host: "{{hostvars[member_name.user_input.split(':')[0]].ansible_host}}
+      host: "{{hostvars[member_name.user_input.split(':')[0]].ansible_host}}"
     when: '"all" not in member_name.user_input'

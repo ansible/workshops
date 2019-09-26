@@ -14,7 +14,7 @@ Ansible Tower is a web-based UI that provides an enterprise solution for IT auto
 
   - graphically manages or synchronizes inventories with a wide variety of sources.
 
-  - a RESTful API
+  - has a RESTful API
 
   - And much more...
 

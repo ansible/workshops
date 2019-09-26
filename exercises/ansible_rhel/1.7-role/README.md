@@ -207,7 +207,7 @@ Create the HTML content that will be served by the webserver.
   - Create an index.html file in the "src" directory of the role, `files`:
 
 ```bash
-[student<X>@ansible ansible-files]$ echo 'simple vhost index' > files/index.html
+[student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/index.html
 ```
 
   - Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.

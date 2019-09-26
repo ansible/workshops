@@ -7,7 +7,7 @@ pipeline {
         stage('Build Information') {
             steps {
                 script {
-                    TOWER_VERSION = '3.5.2'
+                    TOWER_VERSION = '3.5.3'
                 }
                 echo """Tower Version under test: ${TOWER_VERSION}
 Workshop branch under test: ${env.BRANCH_NAME} | ${env.CHANGE_NAME}

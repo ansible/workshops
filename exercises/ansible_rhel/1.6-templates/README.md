@@ -80,11 +80,13 @@ Add a line to the template to list the current kernel of the managed node.
 
   - Modify the template `motd-facts.j2`:
 
+<!-- {% raw %} -->
 ```bash
 Welcome to {{ ansible_hostname }}.
 {{ ansible_distribution }} {{ ansible_distribution_version}}
 deployed on {{ ansible_architecture }} architecture
 running kernel {{ ansible_kernel }}.
+<!-- {% endraw %} -->
 ```
 
   - Run the playbook.

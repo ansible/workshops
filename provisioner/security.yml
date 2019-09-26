@@ -1,6 +1,54 @@
+---
+- name: Deactivate NetworkManager on attack and victim machines
+  hosts: attack:snort
+  become: yes
+
+  tasks:
+    - name: disable Network Manager to not intercept our networking stuff
+      systemd:
+        name: NetworkManager
+        state: stopped
+        enabled: no
+
+- name: Setup eth1 for attack simulator and victim (snort) node
+  hosts: localhost
+  become: no
+  connection: local
+  gather_facts: no
+  tasks:
+    - import_role:
+        name: security_eth1
+
+- name: Setup host route for attack simulator
+  hosts: localhost
+  become: no
+  connection: local
+  gather_facts: no
+  tasks:
+    - import_role:
+        name: security_hostroutes_attack_host
+
+- name: Install Pre Reqs on attacker
+  hosts: attack
+  become: yes
+  tasks:
+    - name: setup epel on attacker
+      include_role:
+        name: "geerlingguy.repo-epel"
+
+    - name: package pre-reqs are installed
+      package:
+        state: present
+        name:
+          - daemonize
+
 - name: include splunk playbook
   import_playbook: splunk.yml
   when: security_console == 'splunk'
+
+- name: include qradar playbook
+  import_playbook: qradar.yml
+  when: security_console == 'qradar'
 
 - name: INSTALL AND CONFIGURE SNORT
   hosts: snort
@@ -8,20 +56,60 @@
   vars:
     ids_config_snort_version: '2.9.13'
     ids_install_provider: "snort"
-    ids_install_normalize_logs: True
     ids_install_snort_user: root
     ids_install_snort_group: root
+    ids_normalize_logs: false
+    ids_install_snort_interface: eth1
   tasks:
-    - block:
-      - name: setup epel for snort ecosystem rule lifecycling
-        include_role:
-          name: "geerlingguy.repo-epel"
-      - name: import ids_install role
-        include_role:
-          name: "ansible_security.ids_install"
-      - name: import ids_config role
-        include_role:
-          name: "ansible_security.ids_config"
+    - name: Set fact vars for ids based SIEM type
+      block:
+        - name: set fact vars for qradar
+          set_fact:
+            ids_install_normalize_logs: false
+          when: security_console == 'qradar'
+
+        - name: set fact vars for qradar
+          set_fact:
+            ids_install_normalize_logs: true
+          when: security_console == 'splunk'
+
+    - name: Install Pre Reqs for IDS
+      block:
+        - name: setup epel for snort ecosystem rule lifecycling
+          include_role:
+            name: "geerlingguy.repo-epel"
+
+        - name: package pre-reqs are installed
+          package:
+            state: present
+            name:
+              - libselinux-python
+              - python2-idstools
+
+        - name: set selinux permissve because of policy issue that breaks snort
+          selinux:
+            policy: targeted
+            state: permissive
+
+    - name: Install IDS
+      block:
+        - name: import ids_install role
+          import_role:
+            name: "ansible_security.ids_install"
+        - name: import ids_config role
+          import_role:
+            name: "ansible_security.ids_config"
+        - name: import webserver role for web exploit simulation
+          import_role:
+            name: "webservers"
+        - name: import webserver attack simulation role
+          import_role:
+            name: "webservers_attack_simulation"
+
+- name: SETUP WINDOWS WORKSTATION
+  hosts: windows
+  roles:
+    - role: windows_ws_setup
 
 - name: SETUP CHECKPOINT ENVIRONMENT
   hosts: localhost
@@ -31,7 +119,3 @@
   roles:
     - role: cp_setup
 
-- name: SETUP WINDOWS WORKSTATION
-  hosts: windows
-  roles:
-    - role: windows_ws_setup

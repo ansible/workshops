@@ -1,0 +1,87 @@
+---
+- name: get mgmt instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-checkpoint_mgmt"
+      "instance-state-name": running
+  register: mgmt_inst
+
+- name: get gw instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-checkpoint_gw"
+      "instance-state-name": running
+  register: gw_inst
+
+- name: login, get SID
+  uri:
+    url: "https://{{ mgmt_inst.instances[0].public_ip_address }}/web_api/login"
+    method: POST
+    body:
+      user: admin
+      password: admin123
+    body_format: json
+    validate_certs: no
+  register: login_data
+  until: (login_data.status == 200) and (login_data.json is defined)
+  retries: 60
+  delay: 15
+
+- name: Add NGFW to MGMT
+  uri:
+    url: "https://{{ mgmt_inst.instances[0].public_ip_address }}/web_api/add-simple-gateway"
+    validate_certs: no
+    method: POST
+    headers:
+      Content-Type: application/json
+      X-chkp-sid: "{{ login_data.json.sid }}"
+    body_format: json
+    body:
+      name: myngfw
+      ip-address: "{{ gw_inst['instances'][0]['network_interfaces'][0]['private_ip_address'] }}"
+      one-time-password: admin123
+      firewall: true
+      version: R80.20
+      os-name: Gaia
+      interfaces:
+        - anti-spoofing: true
+          anti-spoofing-settings:
+            action: prevent
+          name: "eth{{ gw_inst['instances'][0]['network_interfaces'][0]['attachment']['device_index'] }}"
+          ip-address: "{{ gw_inst['instances'][0]['network_interfaces'][0]['private_ip_address'] }}"
+          network-mask: "255.255.0.0"
+          ipv4-mask-length: 16
+          security-zone: false
+          topology: internal
+          topology-settings:
+            ip-address-behind-this-interface: "network defined by the interface ip and net mask"
+        - anti-spoofing: true
+          anti-spoofing-settings:
+            action: prevent
+          name: "eth{{ gw_inst['instances'][0]['network_interfaces'][1]['attachment']['device_index'] }}"
+          ip-address: "{{ gw_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }}"
+          network-mask: "255.255.0.0"
+          ipv4-mask-length: 16
+          security-zone: false
+          topology: external
+
+- name: Publish
+  uri:
+    url: "https://{{ mgmt_inst.instances[0].public_ip_address }}/web_api/publish"
+    validate_certs: no
+    method: POST
+    headers:
+      Content-Type: application/json
+      X-chkp-sid: "{{ login_data.json.sid }}"
+    body_format: json
+    body: >
+      {}
+
+- name: disable source_dest_checking on AWS interface
+  ec2_eni:
+    region: "{{ ec2_region }}"
+    eni_id: "{{ gw_inst['instances'][0]['network_interfaces'][1]['network_interface_id'] }}"
+    source_dest_check: no
+    state: present

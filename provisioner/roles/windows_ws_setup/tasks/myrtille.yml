@@ -4,26 +4,10 @@
     name:
       - Web-Server
       - NET-Framework-Core
-#      - Application-Server
       - Web-Asp-Net45
     include_management_tools: True
     state: present
   when: "'Windows 10' not in ansible_distribution"
-
-- name: Install IIS and .Net 4.5 on Non-Server
-  win_dsc:
-    resource_name: WindowsOptionalFeature
-    Name: "{{ item }}"
-    Ensure: Enable
-  when: "'Windows 10' in ansible_distribution"
-  loop:
-    - IIS-WebServerRole
-    - IIS-WebServer
-    - NetFx4Extended-ASPNET45
-    - IIS-NetFxExtensibility45
-    - IIS-ISAPIExtensions
-    - IIS-ISAPIFilter
-    - IIS-ASPNET45
 
 - name: Create temp directory
   win_file:

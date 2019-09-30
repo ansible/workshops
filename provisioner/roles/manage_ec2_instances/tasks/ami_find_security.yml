@@ -50,6 +50,22 @@
       snort_ami: >
         {{ snort_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
+- name: BLOCK FOR ATTACKER AMI
+  block:
+  - name: find ami for attack simulation node
+    ec2_ami_facts:
+      region: "{{ ec2_region }}"
+      owners: "{{ ec2_info['rhel7']['owners'] }}"
+      filters:
+        name: "{{ ec2_info['rhel7']['filter'] }}"
+        architecture: "{{ ec2_info['rhel7']['architecture'] }}"
+    register: attacker_amis
+
+  - name: save ami for attack simulation node
+    set_fact:
+      attacker_ami: >
+        {{ attacker_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
 - name: BLOCK FOR CHECK POINT AMI
   block:
   - name: find ami for check point management server (SECURITY MODE)

@@ -7,9 +7,10 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 | Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| **Ansible Red Hat Enterprise Linux Workshop** <br>     focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](https://ansible.github.io/workshops/decks/ansible_technical.pdf)<br>[Ansible Tower](https://ansible.github.io/workshops/decks/tower_intro.pdf)  | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
-| **Ansible Network Automation Workshop** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf) | [Exercises](./exercises/ansible_network)  | `workshop_type: networking`  |
-| **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](https://ansible.github.io/workshops/decks/ansible_f5.pdf) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
+| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel.pdf) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
+| **Ansible Network Automation Workshop** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [Deck](./decks/ansible_network.pdf) | [Exercises](./exercises/ansible_network)  | `workshop_type: networking`  |
+| **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](./decks/ansible_f5.pdf) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
+| **Ansible Security Automation** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [Deck](./decks/ansible_security.pdf) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
 
 ## LAB PROVISIONER
  - [AWS Lab Provisioner](provisioner) - playbook that spins up instances on AWS for students to perform the exercises provided above.

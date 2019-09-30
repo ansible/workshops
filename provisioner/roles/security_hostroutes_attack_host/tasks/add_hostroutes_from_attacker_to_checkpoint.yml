@@ -1,0 +1,84 @@
+---
+######### Get instances data
+- name: get gw instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-checkpoint_gw"
+      "instance-state-name": running
+  register: checkpoint_inst
+
+- name: get attack instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-attacker"
+      "instance-state-name": running
+  register: attacker_inst
+
+- name: get snort instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-snort"
+      "instance-state-name": running
+  register: snort_inst
+
+########## Attacker
+- name: "add gw route on attacker node {{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth1
+    line: "{{ checkpoint_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }} dev eth{{ attacker_inst['instances'][0]['network_interfaces'][1]['attachment']['device_index'] }}"
+    create: yes
+  delegate_to: "{{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  become: yes
+  when: attacker_inst['instances'][0]['network_interfaces'][1] is defined
+  register: attacker_gw_route
+
+- name: "add snort route on attacker node {{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth1
+    line: "{{ snort_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }} via {{ checkpoint_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }} dev eth{{ attacker_inst['instances'][0]['network_interfaces'][1]['attachment']['device_index'] }} metric 5"
+    create: yes
+  delegate_to: "{{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  become: yes
+  when: attacker_inst['instances'][0]['network_interfaces'][1] is defined
+  register: attacker_snort_route
+
+- name: "restart attacker network for new hostroutes on {{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  systemd:
+    state: restarted
+    name: network
+  become: yes
+  delegate_to: "{{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  when: (attacker_gw_route.changed) or (attacker_snort_route.changed)
+
+########## Snort
+- name: "add gw route on snort node {{ snort_inst['instances'][0]['tags']['Name'] }}"
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth1
+    line: "{{ checkpoint_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }} dev eth{{ snort_inst['instances'][0]['network_interfaces'][1]['attachment']['device_index'] }}"
+    create: yes
+  delegate_to: "{{ snort_inst['instances'][0]['tags']['Name'] }}"
+  become: yes
+  when: snort_inst['instances'][0]['network_interfaces'][1] is defined
+  register: snort_gw_route
+
+- name: "add attacker route on snort node {{ snort_inst['instances'][0]['tags']['Name'] }}"
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth1
+    line: "{{ attacker_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }} via {{ checkpoint_inst['instances'][0]['network_interfaces'][1]['private_ip_address'] }} dev eth{{ snort_inst['instances'][0]['network_interfaces'][1]['attachment']['device_index'] }} metric 5"
+    create: yes
+  delegate_to: "{{ snort_inst['instances'][0]['tags']['Name'] }}"
+  become: yes
+  when: snort_inst['instances'][0]['network_interfaces'][1] is defined
+  register: snort_attacker_route
+
+- name: "restart snort network for new hostroutes on {{ snort_inst['instances'][0]['tags']['Name'] }}"
+  systemd:
+    state: restarted
+    name: network
+  become: yes
+  delegate_to: "{{ snort_inst['instances'][0]['tags']['Name'] }}"
+  when: (snort_gw_route.changed) or (snort_attacker_route.changed)
+

@@ -13,7 +13,7 @@ We will start this exercise with an operator looking at logs in Snort. So first 
 <!-- {% raw %} -->
 ```yml
 ---
-- name: Add ids signaturesa for sql injection simulation
+- name: Add ids signature for sql injection simulation
   hosts: ids
   become: yes
 

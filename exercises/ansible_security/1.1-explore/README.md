@@ -6,7 +6,7 @@ The objective of this lab is to provide you a deeper understanding and hands on 
 
 We have set up a common set of security related tools:
 
-- a Firewall, in this case [CheckPoint Next Generation Firewall](https://www.checkpoint.com/products/next-generation-firewall/)
+- a Firewall, in this case [Check Point Next Generation Firewall](https://www.checkpoint.com/products/next-generation-firewall/)
 - a Security Information and Event Management (SIEM), here [QRadar](https://www.ibm.com/security/security-intelligence/qradar)
 - a Intrusion Detection & Prevention System, here [Snort](https://www.snort.org)
 
@@ -137,7 +137,7 @@ checkpoint ansible_host=44.55.66.77 ansible_user=admin private_ip=192.168.4.5 an
 windows-ws ansible_host=55.66.77.88 ansible_user=Administrator ansible_pass=RedHat19! ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore private_ip=192.168.5.6
 ```
 
-On your control host, have a look at the inventory by edecuting the command `cat ~/lab_inventory/hosts`. All the IP addresses are specific to your environment. Whenever the exercises ask you to access a certain machine, you can always look up the IP in the inventory on the control host.
+On your control host, have a look at the inventory by executing the command `cat ~/lab_inventory/hosts`. All the IP addresses are specific to your environment. Whenever the exercises ask you to access a certain machine, you can always look up the IP in the inventory on the control host.
 
 Ansible is already configured to use the inventory specific to your environment. As shown in the example above, the inventory carries more than just the host names and IP addresses. Especially in the case of the Windows workstation, several more parameters are set.
 

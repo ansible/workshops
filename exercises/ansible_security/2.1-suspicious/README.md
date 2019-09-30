@@ -38,7 +38,7 @@ Execute the playbook:
 
 > **Note**
 >
-> Basically in this playbook we register a small daemon running watch, which will execute a command all 5 seconds. This is a rather harsh way to start a repeating task, but serves the purpose of the demo.
+> Basically in this playbook we register a small daemon running watch, which will execute a command every 5 seconds. This is a rather harsh way to start a repeating task, but serves the purpose of the demo.
 
 The stage is set now. Read on to learn what this use case is about.
 

@@ -164,7 +164,7 @@ On your control host, create the file `threat_snort_rule.yml` to add a new rule 
 <!-- {% raw %} -->
 ```yaml
 ---
-- name: Add ids signaturesa for ddos
+- name: Add ids signature for ddos
   hosts: ids
   become: yes
 

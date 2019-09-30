@@ -77,10 +77,21 @@
       block:
         - name: required roles
           shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+          async: 600
+          poll: 0
           loop:
             - 'geerlingguy.repo-epel'
             - 'ansible_security.ids_config'
             - 'ansible_security.ids_install'
+          register: required_role_loop_out
+
+        - name: check async role install
+          async_status:
+            jid: "{{ item['ansible_job_id'] }}"
+          loop: "{{ required_role_loop_out['results'] }}"
+          register: job_result
+          until: job_result.finished
+          retries: 30
 
 - name: Create lab instances in AWS
   hosts: localhost

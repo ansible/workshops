@@ -18,6 +18,7 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        ansible_python_interpreter: "{{ec2_info['splunk_enterprise']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
         groups:
           - splunk
@@ -44,6 +45,7 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        ansible_python_interpreter: "{{ec2_info['qradar']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
         groups:
           - qradar
@@ -69,6 +71,7 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
         private_ip2: "{{item['network_interfaces'][1]['private_ip_address']}}"
         groups:
@@ -102,6 +105,7 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
         private_ip2: "{{item['network_interfaces'][1]['private_ip_address']}}"
         groups:

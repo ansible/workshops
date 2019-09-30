@@ -85,6 +85,8 @@
           "tag:Subnet": '{{ ec2_name_prefix }}-subnet2'
       register: subnet2_eni_info
 
+    - debug: var=subnet2_eni_info
+
     - name: Delete dangling ENIs from subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
       ec2_eni:
         region: "{{ ec2_region }}"

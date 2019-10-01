@@ -86,7 +86,7 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
 
 > **注意**  
 >
-> ** `main.yml` にはタスクのみを記述します。今まで記述した Playbook 丸ごとではありません！**
+> **`main.yml` にはタスクのみを記述します。今まで記述した Playbook 丸ごとではありません！**
 
 `roles/apache_vhost` ディレクトリ内の `tasks/main.yml` ファイルを以下の様に編集します。  
 

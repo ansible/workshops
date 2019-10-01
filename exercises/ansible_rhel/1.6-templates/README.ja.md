@@ -77,12 +77,14 @@ Ansibleが変数をシステムから収取したファクト情報で変数を�
 
   - `motd-facts.j2` を以下の通り更新します
 
-```bash
+<!-- {% raw %} -->
+```html+jinja
 Welcome to {{ ansible_hostname }}.
 {{ ansible_distribution }} {{ ansible_distribution_version}}
 deployed on {{ ansible_architecture }} architecture
 running kernel {{ ansible_kernel }}.
 ```
+<!-- {% endraw %} -->
 
   - playbook を実行します
   - node1 にログインし、表示をチェックします

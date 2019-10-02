@@ -43,7 +43,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                     branches: [[name: "*/${params.WORKSHOP_BRANCH}" ]],
                     userRemoteConfigs: [
                         [
-                            url: "git@github.com:${params.WORKSHOP_FORK}/workshops.git"
+                            url: "https://github.com/${params.WORKSHOP_FORK}/workshops.git"
                         ]
                     ]
                 ])

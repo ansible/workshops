@@ -2,7 +2,7 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-A Tower **Project** is a logical collection of Ansible Playbooks. You can manage your playbooks by placingthem into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
+A Tower **Project** is a logical collection of Ansible Playbooks. You can manage your playbooks by placing them into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
 
 You should definitely keep your Playbooks under version control. In this lab we’ll use Playbooks kept in a Git repository.
 
@@ -181,7 +181,7 @@ Here is a list of tasks:
 
 - **SAVE**
 
-- Llaunch the `Install Apache Ask` template.
+- Launch the `Install Apache Ask` template.
 
 - It will now ask for the inventory to use, choose the `Webserver` inventory and click **LAUNCH**
 

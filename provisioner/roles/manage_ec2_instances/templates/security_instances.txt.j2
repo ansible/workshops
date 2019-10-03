@@ -5,6 +5,14 @@ ansible_ssh_pass={{ admin_password }}
 ansible_port={{ ssh_port }}
 {% endif %}
 
+[attack]
+{% for vm in attacker_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+attacker ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }} private_ip2={{ vm['network_interfaces'][1]['private_ip_address'] }}
+{% endif %}
+{% endfor %}
+
+
 [control]
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
@@ -31,7 +39,7 @@ qradar ansible_host={{ vm.public_ip_address }} ansible_user=admin private_ip={{ 
 [ids]
 {% for vm in snort_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-snort ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
+snort ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }} private_ip2={{ vm['network_interfaces'][1]['private_ip_address'] }}
 {% endif %}
 {% endfor %}
 

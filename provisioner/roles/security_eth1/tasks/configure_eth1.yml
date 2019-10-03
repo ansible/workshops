@@ -1,0 +1,51 @@
+---
+- name: get attack instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-attacker"
+      "instance-state-name": running
+  register: attacker_inst
+
+- name: "Lay down dhcp config for eth1 for {{ attacker_inst['instances'][0]['tags']['Name'] }} (AWS does not for some reason)"
+  template:
+    src: 'attacker-ifcfg-eth1.j2'
+    dest: '/etc/sysconfig/network-scripts/ifcfg-eth1'
+  delegate_to: "{{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  become: yes
+  when: attacker_inst['instances'][0]['network_interfaces'][1] is defined
+  register: attacker_network
+
+- name: "restart attacker network for {{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  systemd:
+    state: restarted
+    name: network
+  become: yes
+  delegate_to: "{{ attacker_inst['instances'][0]['tags']['Name'] }}"
+  when: attacker_network.changed
+
+- name: get Snort instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-student{{ student_number }}-snort"
+      "instance-state-name": running
+  register: snort_inst
+
+- name: "Lay down dhcp config for eth1 for {{ snort_inst['instances'][0]['tags']['Name'] }} (AWS does not for some reason)"
+  template:
+    src: 'snort-ifcfg-eth1.j2'
+    dest: '/etc/sysconfig/network-scripts/ifcfg-eth1'
+  delegate_to: "{{ snort_inst['instances'][0]['tags']['Name'] }}"
+  become: yes
+  when: snort_inst['instances'][0]['network_interfaces'][1] is defined
+  register: snort_network
+
+- name: "restart snort network for {{ snort_inst['instances'][0]['tags']['Name'] }}"
+  systemd:
+    state: restarted
+    name: network
+  become: yes
+  delegate_to: "{{ snort_inst['instances'][0]['tags']['Name'] }}"
+  when: snort_network.changed
+

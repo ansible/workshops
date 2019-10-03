@@ -20,13 +20,18 @@ ansible_port={{ ssh_port }}
 {% if security_console == 'qradar' %}
 {% for host in qradar_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-qradar ansible_host={{ host.public_ip_address }} ansible_user=admin
+{{host.tags.Student}}-qradar ansible_host={{ host.public_ip_address }} ansible_user=admin ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=ibm.qradar.qradar
 {% endif %}
 {% endfor %}
 {% endif %}
 {% for host in snort_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
 {{host.tags.Student}}-snort ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in attacker_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-attacker ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
 {% for host in checkpoint_node_facts.instances %}
@@ -36,7 +41,7 @@ ansible_port={{ ssh_port }}
 {% endfor %}
 {% for host in windows_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-windows-ws ansible_host={{ host.public_ip_address }} ansible_user=Administrator ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore
+{{host.tags.Student}}-windows-ws ansible_host={{ host.public_ip_address }} ansible_user=Administrator ansible_password={{ windows_password }} ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore
 {% endif %}
 {% endfor %}
 {% endfor %}

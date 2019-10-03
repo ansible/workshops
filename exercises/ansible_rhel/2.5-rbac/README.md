@@ -1,4 +1,4 @@
-# Exercise 2.5 - Role based access control
+# Exercise 2.5 - Role-based access control
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 

@@ -2,46 +2,83 @@
 
 ## Step 1.1 - Objective
 
-Explore and understand the lab environment. This exercise will cover
+The objective of this lab is to provide you a deeper understanding and hands on experience how to automate security tools used by security operators. For that we will tackle three security use cases rather typical for the day-to-day challenges of security operatos. While all of them will interact with roughly the same toolset, each use case shows a different perspective (security analyst, firewall operator, IDS specialist) and thus a different point of view on the available tools.
 
-- The general setup and idea of the lab
-- What nodes and services are part of your environment.
-- How you access the control node.
-- What your inventory is and where you can find it.
-- How to edit files.
-
-## Step 1.2 - General Setup of the lab
-
-The focus of this lab is to show how automation can help with various security challenges in the day-to-days business of security practitioners. For this we have set up a typical set of security related tools:
+We have set up a common set of security related tools:
 
 - a Firewall, in this case [CheckPoint Next Generation Firewall](https://www.checkpoint.com/products/next-generation-firewall/)
-- a Security Information and Event Management (SIEM), here [https://www.splunk.com/en_us/software/enterprise-security.html](Splunk Enterprise Security)
+- a Security Information and Event Management (SIEM), here [QRadar](https://www.ibm.com/security/security-intelligence/qradar)
 - a Intrusion Detection & Prevention System, here [Snort](https://www.snort.org)
 
-The exercises of the first section of this lab guide you through each individual solution mentioned above. You will learn how to access them, what is basically possible with them and how to interact with them using Ansible.
+The exercises of the first section of this lab guide you through each individual solution mentioned above. You will learn how to access them, what they are used for and how to interact with them using Ansible.
 
-The exercises of the second section of this lab are focused on typical security operations use cases: situations in which a certain challenge has to be met, usually by interacting not only with one of the mentioned solutions above, but with a mix of them. After setting forth the challenge and explaining what tasks need to be done manually to solve the situation, the lab walks through the steps to automate the tasks with Ansible.
+The exercises of the second section of this lab are focused on the actual security operations use cases: situations in which a certain challenge has to be met, usually by interacting not only with one of the mentioned solutions above, but with a mix of them. After setting forth the challenge and explaining what tasks need to be done manually to solve the situation, the lab walks through the steps to automate the tasks with Ansible.
 
-## Step 1.3 - Nodes and Services
+## Step 1.3 - Architecture of the lab, Nodes and Services
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts and services:
 
 | Role                         | Inventory name |
 | -----------------------------| ---------------|
 | Ansible Control Host         | ansible        |
-| Splunk Enterprise Security   | splunk         |
+| IBM QRadar                   | qradar         |
+| Attacker                     | attacker       |
 | Snort                        | snort          |
 | Ceck Point Management Server | checkpoint     |
 | Ceck Point Gateway           | -              |
 | Windows Workstation          | windows-ws     |
 
+The lab is set up individually for you. You have your own environment, own services, own virtual machines.
+
+All interactions with the environment are either done via SSH, or via web browser. All SSH connections should be to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
+
+```
+      +-------------+
+      |             |
+      |  Lab        |
+      |  computer   +-----------------^------------------->
+      |             |                 |                   |
+      +-----+-------+                 | RDP/HTTP          | HTTP
+            |                         |                   |
+        SSH |                         |            +------+------+
+            |                         |            |             |
+      +-----v-------+          +------+------+     | QRadar      |
+  SSH | Ansible     |  REST    | Windows     |     |             |
++-----+ Control     +----+---->+ Workstation |     +--+---+------+
+|     | Host        |    |     +------+------+        ^   ^
+|     +-------------+    |            |               |   |
+|                        +------------o---------------+   |
+|                                     |                   |
+|                              +------+------+            |
+|                              |             |    Syslog  |
+|     +-------------+          | Check Point +------------^
+|     |             |          | MGMT        |            |
+| SSH | Attacker    |  HTTP    |             |            |
++-----+             +------+   +------+------+            |
+|     |             |      |          |                   |
+|     +-------------+      |          |                   |
+|                          |          |                   |
+|                          |   +------+------+            |
+|                          +---+             |            |
+|                              | Check Point |            |
+|     +-------------+      +---+ Firewall    |            |
+| SSH |             |      |   |             |            |
++-----+ IDS Snort   +------+   +-------------+            |
+      |             |  HTTP                               |
+      +------+------+                                     |
+             |                    Syslog                  |
+             +--------------------------------------------+
+```
+
 ## Step 1.4 - Access the Ansible Environment
 
-Login to your control host via SSH. Open a terminal and type the following command:
+For a start, log into your Ansible control host via SSH. Open a terminal and type the following command:
 
 > **Warning**
 > 
-> Replace **11.22.33.44** by your **IP** provided to you, and the **X** in student**X** by the student number provided to you in the following example and in all other cases were examples contain IP addresses.
+> In the following examples, replace **11.22.33.44** by your **IP** provided to you by the instructor, and the **X** in student**X** by the student number provided to you in the following example and in all other cases were examples contain IP addresses.
+
+Open a terminal and type the following command:
 
 ```bash
 ssh studentX@11.22.33.44
@@ -94,6 +131,10 @@ ansible_user=student1
 ansible_ssh_pass=ansible
 ansible_port=22
 
+
+[attack]
+attacker ansible_host=99.88.77.66 ansible_user=ec2-user private_ip=172.16.99.66 private_ip2=172.17.44.66
+
 [control]
 ansible ansible_host=22.33.44.55 ansible_user=ec2-user private_ip=192.168.2.3
 
@@ -101,7 +142,7 @@ ansible ansible_host=22.33.44.55 ansible_user=ec2-user private_ip=192.168.2.3
 qradar ansible_host=22.44.55.77 ansible_user=admin private_ip=172.16.3.44 ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=ibm.qradar.qradar
 
 [ids]
-snort ansible_host=33.44.55.66 ansible_user=ec2-user private_ip=192.168.3.4
+snort ansible_host=33.44.55.66 ansible_user=ec2-user private_ip=192.168.3.4 private_ip2=172.17.33.77
 
 [firewall]
 checkpoint ansible_host=44.55.66.77 ansible_user=admin private_ip=192.168.4.5 ansible_network_os=checkpoint ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=no
@@ -116,7 +157,11 @@ Ansible is already configured to use the inventory specific to your environment.
 > 
 > Not all hosts in your lab can be reached vis SSH. During the exercises, each node type will be explained in detail and the means how to access the resources will be shown step by step.
 
-## Step 1.6 - Working the Labs
+## Step 1.6 - Victim machine
+
+For the exercises of section 2 we need to have security incidents. Those should happen on a **victim** machine. For the ease of deployment, we just use the Snort server for this: besides the installed Snort daemon it is a basic RHEL server and can be used to run all kinds of attacks against.
+
+## Step 1.7 - Working the Labs
 
 You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
@@ -130,4 +175,4 @@ You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md)
+[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)

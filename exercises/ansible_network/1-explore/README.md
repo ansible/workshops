@@ -36,7 +36,7 @@ This will not require a username or password.
 
 ## Step 1
 
-Navigate to the `networking-workshop` directory.
+Navigate to the `networking-workshop` directory on the Ansible control node.  The word `ansible` indicates the hostname, and that you are on the correct host.
 
 ```
 [student1@ansible ~]$ cd ~/networking-workshop/
@@ -54,6 +54,7 @@ Run the `ansible` command with the `--version` command to look at what is config
 
 
 ```
+[student1@ansible ~]$ ansible --version
 ansible 2.8.1
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']

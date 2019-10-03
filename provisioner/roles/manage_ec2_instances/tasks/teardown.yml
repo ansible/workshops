@@ -76,6 +76,33 @@
     - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
 
+- name: Cleanup subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+  block:
+    - name: Get subnet2 eni_info
+      ec2_eni_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:Subnet": '{{ ec2_name_prefix }}-subnet2'
+      register: subnet2_eni_info
+
+    - name: Delete dangling ENIs from subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+      ec2_eni:
+        region: "{{ ec2_region }}"
+        eni_id: "{{item['id']}}"
+        state: absent
+      loop: "{{subnet2_eni_info['network_interfaces']}}"
+
+    - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+      ec2_vpc_subnet:
+        region: "{{ ec2_region }}"
+        az: "{{ec2_az}}"
+        vpc_id: "{{ec2_vpc_id}}"
+        cidr: "{{ec2_subnet2}}"
+        state: absent
+  when:
+    - workshop_type == 'security'
+    - vpc_net_facts.vpcs|length > 0
+
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"

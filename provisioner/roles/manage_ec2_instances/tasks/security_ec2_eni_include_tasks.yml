@@ -1,0 +1,23 @@
+- name: Create Subnet2 ENI (SECURITY MODE)
+  ec2_eni:
+    instance_id: '{{ item.1 }}'
+    subnet_id: '{{ ec2_vpc_subnet2_id }}'
+    state: present
+    region: '{{ ec2_region }}'
+    delete_on_termination: true
+    attached: true
+    device_index: 1
+  register: ec2_subnet2_eni_out
+
+- name: Ensure Subnet2 ENI Tags (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ ec2_subnet2_eni_out['interface']['id'] }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-{{subnet2_eni_name}}-eni2"
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      Subnet: '{{ ec2_name_prefix }}-subnet2'

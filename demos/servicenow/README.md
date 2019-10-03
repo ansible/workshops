@@ -11,8 +11,8 @@ These demos are intended for effectively demonstrating Ansible + ServiceNow capa
 
 | Demo Name   | Brief Description  | Workshop Type | Uses Ansible Tower |
 |---|---|---|---|
-| [Config Drift](1-config-drift)  | Demonstrate automatic ticket creation for configuration drift.  When the configuration for a Cisco CSR router doesn't match desired config, a ServiceNow ticket with relevant information will be created. | `workshop_type: networking`  | ✗ |
-| [Closed Loop Incident Mgmt](2-closed-loop-incident-mgmt)   | Ansible Tower will find the router that is out of compliance and open an incident in ServiceNow.  ServiceNow will use a business rule to identify the newly opened incident, then kick off an Ansible Tower job to fix the issue. | `workshop_type: networking`  | <font color="green">✓</font> |
+| [Config Drift](1-config-drift)  | Demonstrate automatic ticket creation for configuration drift.  When the configuration for a Cisco CSR router doesn't match desired config, a ServiceNow ticket with relevant information will be created. | `workshop_type: networking` | ✗ |
+| [Closed Loop Incident Mgmt](2-closed_loop_incident_mgmt) | Ansible Tower will find the router that is out of compliance and open an incident in ServiceNow.  ServiceNow will use a business rule to identify the newly opened incident, then kick off an Ansible Tower job to fix the issue. | `workshop_type: networking`  | <font color="green">✓</font> |
 
 ## Common Setup
 

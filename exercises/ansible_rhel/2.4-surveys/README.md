@@ -16,7 +16,7 @@ Additionally, the role will also make sure that the Apache configuration is prop
 
 > **Tip**
 > 
-> The survey feature only provides a simple query for data - it dies not support four-eye principles, queries based on dynamic data or nested menues.
+> The survey feature only provides a simple query for data - it does not support four-eye principles, queries based on dynamic data or nested menus.
 
 ## Create the Project
 

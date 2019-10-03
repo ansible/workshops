@@ -6,7 +6,7 @@ pipeline {
         choice(
             name: 'TOWER_VERSION',
             description: 'Tower version to deploy',
-            choices: ['devel', '3.5.2']
+            choices: ['devel', '3.5.3']
         )
         choice(
             name: 'ANSIBLE_VERSION',
@@ -43,8 +43,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                     branches: [[name: "*/${params.WORKSHOP_BRANCH}" ]],
                     userRemoteConfigs: [
                         [
-                            credentialsId: 'd2d4d16b-dc9a-461b-bceb-601f9515c98a',
-                            url: "git@github.com:${params.WORKSHOP_FORK}/workshops.git"
+                            url: "https://github.com/${params.WORKSHOP_FORK}/workshops.git"
                         ]
                     ]
                 ])

@@ -36,11 +36,22 @@
       include_role:
         name: "geerlingguy.repo-epel"
 
-    - name: package pre-reqs are installed
-      package:
+    - name: package pre-reqs are installed async
+      yum:
         state: present
         name:
           - daemonize
+      async: 1000
+      poll: 0
+      register: yum_async
+
+    - name: wait for pre-reqs install async
+      async_status:
+        jid: "{{ yum_async.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
+
 
 - name: include splunk playbook
   import_playbook: splunk.yml
@@ -80,11 +91,21 @@
             name: "geerlingguy.repo-epel"
 
         - name: package pre-reqs are installed
-          package:
+          yum:
             state: present
             name:
               - libselinux-python
               - python2-idstools
+          async: 1000
+          poll: 0
+          register: yum_async
+
+        - name: wait for pre-reqs install async
+          async_status:
+            jid: "{{ yum_async.ansible_job_id }}"
+          register: job_result
+          until: job_result.finished
+          retries: 30
 
         - name: set selinux permissve because of policy issue that breaks snort
           selinux:

@@ -81,6 +81,7 @@ ec2_info:
     architecture: x86_64
     filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2'
     username: ec2-user
+    python_interpreter: '/usr/bin/python'
   f5node:
     owners: 679593333241
     size: t2.large
@@ -97,6 +98,7 @@ ec2_info:
     architecture: x86_64
     filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2'
     username: ec2-user
+    python_interpreter: '/usr/bin/python'
   netapp:
     owners: 679593333241
     size: t2.medium
@@ -113,3 +115,4 @@ ec2_info:
     architecture: x86_64
     filter: 'AnsibleSecurity-QRadarCE*'
     username: ec2-user
+    python_interpreter: '/usr/bin/python'

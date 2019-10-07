@@ -32,6 +32,9 @@
     name: DefaultBrowserSettingEnabled
     data: 0
     type: dword
+  async: "{{ windows_async_timeout }}"
+  poll: 0
+  register: dont_ask_default_browser_async
 
 - name: Disable Chrome Welcome Screen
   win_regedit:
@@ -42,6 +45,9 @@
   with_items:
     - PromotionalTabsEnabled
     - WelcomePageOnOSUpgradeEnabled
+  async: "{{ windows_async_timeout }}"
+  poll: 0
+  register: disable_chrome_welcome_screen_async
 
 - name: Disable Chrome Syncing
   win_regedit:
@@ -49,3 +55,17 @@
     name: SyncDisabled
     data: 1
     type: dword
+  async: "{{ windows_async_timeout }}"
+  poll: 0
+  register: disable_chrome_sync_async
+
+- name: Wait for Windows async tasks (chrome)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_async_tasks
+  until: wait_for_async_tasks.finished
+  retries: "{{ windows_async_timeout }}"
+  loop: >
+    {{ disable_chrome_welcome_screen_async['results'] }}
+    + [{{ disable_chrome_sync_async }}]
+    + [{{ dont_ask_default_browser_async }}]

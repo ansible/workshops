@@ -14,7 +14,7 @@ Your operations team and your application development team like what they see in
 
 - As the webservers can be used for development purposes or in production, there has to be a way to flag them accordingly as "stage dev" or "stage prod".
 
-    - Currently `host1` is used as a development system and `host2` is in production.
+    - Currently `node1` is used as a development system and `node2` is in production.
 
 - Of course the content of the world famous application "index.html" will be different between dev and prod stages.
 

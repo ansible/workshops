@@ -51,6 +51,9 @@
   with_items:
     - SecurityLayer
     - UserAuthentication
+  async: "{{ windows_async_timeout }}"
+  poll: 0
+  register: disable_ntlm_async
 
 - name: Create RDP Application
   win_iis_webapplication:
@@ -59,3 +62,13 @@
     application_pool: MyrtilleAppPool
     physical_path: C:\Program Files (x86)\Myrtille\
     state: present
+
+- name: Wait for Windows async tasks (myrtille)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_async_tasks
+  until: wait_for_async_tasks.finished
+  retries: "{{ windows_async_timeout }}"
+  loop: "{{ disable_ntlm_async['results'] }}"
+
+

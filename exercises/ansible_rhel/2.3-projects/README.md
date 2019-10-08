@@ -181,7 +181,7 @@ Here is a list of tasks:
 
 - **SAVE**
 
-- Llaunch the `Install Apache Ask` template.
+- Launch the `Install Apache Ask` template.
 
 - It will now ask for the inventory to use, choose the `Webserver` inventory and click **LAUNCH**
 

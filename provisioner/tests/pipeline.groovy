@@ -55,7 +55,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 withCredentials([file(credentialsId: 'workshops_tower_license', variable: 'TOWER_LICENSE')]) {
                     sh 'cp ${TOWER_LICENSE} provisioner/tower_license.json'
                 }
-                sh 'pip install netaddr'
+                sh 'pip install netaddr pywinrm'
                 sh 'yum -y install sshpass'
                 sh "pip install git+https://github.com/ansible/ansible.git@${params.ANSIBLE_VERSION}"
                 sh 'ansible --version | tee ansible_version.log'
@@ -102,6 +102,15 @@ ec2_region: ap-northeast-1
 ec2_name_prefix: tower-qe-f5-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}
 EOF
 """
+
+                sh """tee provisioner/tests/ci-security.yml << EOF
+workshop_type: security
+security_console: qradar
+windows_password: 'RedHatTesting19!'
+ec2_name_prefix: tower-qe-security-workshop-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}
+EOF
+"""
+
             }
         }
 
@@ -225,12 +234,51 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
-                                                -e @provisioner/tests/ci-f5.yml 2>&1 | tee -a f5.log  && exit ${PIPESTATUS[0]}'''
+                                                -e @provisioner/tests/ci-f5.yml 2>&1 | tee -a f5.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                                 archiveArtifacts artifacts: 'f5.log'
                                 F5_DEPRECATED_WARNINGS = sh(
                                     script: 'grep -c \'DEPRECATION WARNING\' f5.log || true',
+                                    returnStdout: true
+                                ).trim()
+                            }
+                        }
+                    }
+                }
+
+                stage('security') {
+                    steps {
+                        script {
+                            stage('security-deploy') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-security.yml 2>&1 | tee security.log && exit ${PIPESTATUS[0]}'''
+                                    }
+                                }
+                            }
+                        }
+                        script {
+                            stage('security-teardown') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-security.yml 2>&1 | tee -a security.log && exit ${PIPESTATUS[0]}'''
+                                    }
+                                archiveArtifacts artifacts: 'security.log'
+                                SECURITY_DEPRECATED_WARNINGS = sh(
+                                    script: 'grep -c \'DEPRECATION WARNING\' security.log || true',
                                     returnStdout: true
                                 ).trim()
                             }
@@ -250,9 +298,10 @@ EOF
                                  "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                  "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                  "ANSIBLE_FORCE_COLOR=true"]) {
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${DOTLESSS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-rhel.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-networking.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-f5.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-security.yml"
                         }
                     }
                 }

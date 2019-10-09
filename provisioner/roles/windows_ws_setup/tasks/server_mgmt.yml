@@ -6,35 +6,15 @@
     data: 1
     type: dword
 
-- name: Remove EC2 Feedback Icon async
+- name: Remove EC2 Feedback Icon
   win_file:
     path: C:\Users\Administrator\Desktop\EC2 Feedback.website
     state: absent
-  async: "{{ windows_async_timeout }}"
-  poll: 0
-  register: remove_ec2_feedback_icon_async
 
-- name: Remove EC2 Website Icon async
+- name: Remove EC2 Website Icon
   win_file:
     path: C:\Users\Administrator\Desktop\EC2 Microsoft Windows Guide.website
     state: absent
-  async: "{{ windows_async_timeout }}"
-  poll: 0
-  register: remove_ec2_website_icon_async
 
-- name: Remove network notice async
+- name: Remove network notice
   win_command: netsh advfirewall firewall set rule group="Network Discovery" new enable=No
-  async: "{{ windows_async_timeout }}"
-  poll: 0
-  register: remove_network_notice_async
-
-- name: Wait for Windows async tasks (server_mgmt)
-  async_status:
-    jid: "{{ item['ansible_job_id'] }}"
-  register: wait_for_async_tasks
-  until: wait_for_async_tasks.finished
-  retries: "{{ windows_async_timeout }}"
-  loop:
-    - "{{ remove_ec2_website_icon_async }}"
-    - "{{ remove_ec2_feedback_icon_async }}"
-    - "{{ remove_network_notice_async }}"

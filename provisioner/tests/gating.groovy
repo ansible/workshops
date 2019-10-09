@@ -20,7 +20,7 @@ Build Tag: ${env.BUILD_TAG}"""
                 withCredentials([file(credentialsId: 'workshops_tower_license', variable: 'TOWER_LICENSE')]) {
                     sh 'cp ${TOWER_LICENSE} provisioner/tower_license.json'
                 }
-                sh 'pip install netaddr'
+                sh 'pip install netaddr pywinrm'
                 sh 'yum -y install sshpass'
                 sh 'ansible --version | tee ansible_version.log'
                 archiveArtifacts artifacts: 'ansible_version.log'
@@ -66,6 +66,14 @@ EOF
 workshop_type: f5
 ec2_region: ap-northeast-1
 ec2_name_prefix: tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+EOF
+"""
+
+                sh """tee provisioner/tests/ci-security.yml << EOF
+workshop_type: security
+security_console: qradar
+windows_password: 'RedHatTesting19!'
+ec2_name_prefix: tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """
             }
@@ -188,6 +196,47 @@ EOF
                         }
                     }
                 }
+                stage('security') {
+                    steps {
+                        script {
+                            stage('security-deploy') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-security.yml"""
+                                    }
+                                }
+                            }
+                        }
+                        script {
+                            stage('security-validate') {
+                                sh """ansible-playbook provisioner/tests/verify_security.yml \
+                                    --private-key provisioner/tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-private.pem -i provisioner/tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/instructor_inventory.txt"""
+                            }
+                        }
+                        script {
+                            stage('security-teardown') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-security.yml"""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -205,6 +254,7 @@ EOF
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-rhel.yml"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-networking.yml"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-f5.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-security.yml"
                         }
                     }
                 }

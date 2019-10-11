@@ -73,7 +73,7 @@
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
         ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
-        private_ip2: "{{item['network_interfaces'][1]['private_ip_address']}}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
           - attack
       loop: "{{ attacker_node_facts.instances|flatten(levels=1) }}"
@@ -107,7 +107,7 @@
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
         ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
-        private_ip2: "{{item['network_interfaces'][1]['private_ip_address']}}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
           - snort
           - ids
@@ -137,6 +137,30 @@
           - checkpoint
           - firewall
       loop: "{{ checkpoint_node_facts.instances|flatten(levels=1) }}"
+
+    - name: grab facts for Check Point NGFW (SECURITY MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_checkpoint_gw": "{{ec2_name_prefix}}-checkpoint"
+      register: checkpoint_gw_node_facts
+
+    - name: ADD Check Point NGFW TO INVENTORY
+      add_host:
+        name: "{{ item.tags.Name }}"
+        short_name: "{{ item.tags.short_name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        username: "{{ item.tags.Student }}"
+        ansible_user: "{{ item.tags.username }}"
+        ansible_port: "{{ ssh_port }}"
+        ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        private_ip: "{{item.private_ip_address}}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
+        groups:
+          - checkpoint
+          - firewall
+      loop: "{{ checkpoint_gw_node_facts.instances|flatten(levels=1) }}"
 
 - name: MANAGE WINDOWS EC2 INSTANCES (SECURITY MODE)
   block:

@@ -45,6 +45,3 @@
   - name: Execute SmartConsole installer
     win_command: C:\Temp\SmartConsole\SmartConsole.exe -s setup.iss
 
-
-  ignore_errors: yes
-

@@ -1,45 +1,19 @@
 ---
 - block:
-  - name: Download Microsoft Visual C++ Redistributable Packages needed for SmartConsole async
+  - name: Download Microsoft Visual C++ Redistributable Packages needed for SmartConsole
     win_chocolatey:
       name:
         - vcredist2010
         - vcredist2012
       state: present
-    async: "{{ windows_async_timeout }}"
-    poll: 0
-    register: download_visual_cpp_async
 
-  - name: Wait for Download Microsoft Visual C++ async
-    async_status:
-      jid: "{{ download_visual_cpp_async.ansible_job_id }}"
-    register: job_result
-    until: job_result.finished
-    retries: 30
-
-  - name: Ensure the required NuGet package provider version is installed async
+  - name: Ensure the required NuGet package provider version is installed
     win_shell: Find-PackageProvider -Name Nuget -ForceBootstrap -IncludeDependencies -Force
-    async: "{{ windows_async_timeout }}"
-    poll: 0
-    register: ensure_nuget_async
 
-  - name: Install Pscx needed for unzip step later async
+  - name: Install Pscx needed for unzip step later
     win_psmodule:
       name: pscx
       allow_clobber: true
-    async: "{{ windows_async_timeout }}"
-    poll: 0
-    register: install_pscx_async
-
-  - name: Wait for Windows async tasks (smartconsole)
-    async_status:
-      jid: "{{ item['ansible_job_id'] }}"
-    register: wait_for_async_tasks
-    until: wait_for_async_tasks.finished
-    retries: "{{ windows_async_timeout }}"
-    loop:
-      - "{{ ensure_nuget_async }}"
-      - "{{ install_pscx_async }}"
 
   - name: Check if SmartConsole is downloaded
     win_stat:

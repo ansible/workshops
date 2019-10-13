@@ -118,7 +118,7 @@ $ curl http://<node1>
 <h1>This is survey field "Second Line": line two</h1>
 </body>
 ```
-この index.html ファイルが Playbook と Survey によってどのように作成されたのか、よく理解しておて下さい。  
+この index.html ファイルが Playbook と Survey によってどのように作成されたのか、よく理解しておいて下さい。
 
 ## さらに次のタスクを実行ください  
 
@@ -128,7 +128,7 @@ $ curl http://<node1>
 > 
 > **次の章で利用しますので、以下の手順は必ず完了してください！**
 
-- インベントリー `Webserver` に、 `node2` と `node3` を追加します  
+- インベントリー `Webserver` に、 `node2` と `node3` を追加します。
 
 - ジョブテンプレート `Create index.html` を再度実行します。
 

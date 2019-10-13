@@ -106,7 +106,7 @@ Apacheのパッケージの最新版がインストールされていること�
 ```
 > **Tip**
 >
-> PlaybookはYAMLで書かれているので、行とキーワードの位置関係は極めて重要です。`task`の *t*と、`become`の*b*が必ず縦に並ぶようによく確認してください。Ansibleに慣れてきたら、[YAML構文(YAML Syntax)](http://docs.ansible.com/ansible/YAMLSyntax.html)について少し時間をかけて勉強してみると良いでしょう。
+> PlaybookはYAMLで書かれているので、行とキーワードの位置関係は極めて重要です。`tasks`の *t*と、`become`の*b*が必ず縦に並ぶようによく確認してください。Ansibleに慣れてきたら、[YAML構文(YAML Syntax)](http://docs.ansible.com/ansible/YAMLSyntax.html)について少し時間をかけて勉強してみると良いでしょう。
 
 追加された行は以下の通りです。:
 
@@ -234,7 +234,7 @@ Playbookの次のパートでは、確かにApache Webserverが`node1`上で有�
 すでに今日の演習で`copy`モジュールを使いコマンドラインからファイルへテキストを入力した経験をしましたね？
 それではPlaybookでモジュールを使って、ファイルをコピーしましょう。
 
-管理ノード上で、StudentXユーザとして、`~/ansible-files/apache.yml`を編集し`copy`モジュール利用する新しいタスクを追加してください。
+管理ノード上で、StudentXユーザとして、`~/ansible-files/apache.yml`を編集し`copy`モジュールを利用する新しいタスクを追加してください。
 それは以下のような記述になるはずです。
 
 ```yaml

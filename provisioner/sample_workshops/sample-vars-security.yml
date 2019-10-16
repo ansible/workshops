@@ -10,7 +10,7 @@ workshop_type: 'security'
 security_console: 'qradar'
 ## Optional Variables
 admin_password: ansible
-windows_password: RedHat19!
+windows_password: Ansible+Red*Hat19!20
 create_login_page: false
 autolicense: false
 towerinstall: true

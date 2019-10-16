@@ -12,6 +12,7 @@
 
     - name: ADD TOWER CREDENTIAL INTO TOWER
       tower_credential:
+        host: "{{ansible_host}}"
         username: admin
         password: "{{admin_password}}"
         name: "Tower Credential"

@@ -115,16 +115,16 @@
     - name: Install IDS
       block:
         - name: import ids_install role
-          import_role:
+          include_role:
             name: "ansible_security.ids_install"
         - name: import ids_config role
-          import_role:
+          include_role:
             name: "ansible_security.ids_config"
         - name: import webserver role for web exploit simulation
-          import_role:
+          include_role:
             name: "webservers"
         - name: import webserver attack simulation role
-          import_role:
+          include_role:
             name: "webservers_attack_simulation"
 
 - name: SETUP WINDOWS WORKSTATION

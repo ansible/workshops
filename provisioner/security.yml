@@ -1,32 +1,17 @@
 ---
-- name: Deactivate NetworkManager on attack and victim machines
+- name: Setup eth1 for attack simulator and snort victim
   hosts: attack:snort
   become: yes
-
-  tasks:
-    - name: disable Network Manager to not intercept our networking stuff
-      systemd:
-        name: NetworkManager
-        state: stopped
-        enabled: no
-
-- name: Setup eth1 for attack simulator and victim (snort) node
-  hosts: localhost
-  become: no
-  connection: local
-  gather_facts: no
   tasks:
     - import_role:
         name: security_eth1
 
 - name: Setup host route for attack simulator
-  hosts: localhost
-  become: no
-  connection: local
-  gather_facts: no
+  hosts: attack:snort
+  become: yes
   tasks:
     - import_role:
-        name: security_hostroutes_attack_host
+        name: security_hostroutes
 
 - name: Install Pre Reqs on attacker
   hosts: attack
@@ -133,10 +118,7 @@
     - role: windows_ws_setup
 
 - name: SETUP CHECKPOINT ENVIRONMENT
-  hosts: localhost
-  become: no
-  connection: local
-  gather_facts: no
+  hosts: control_nodes
   roles:
     - role: cp_setup
 

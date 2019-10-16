@@ -9,7 +9,9 @@
 - [Guide](#guide)
 - [Takeaways](#takeaways)
 
-# Objective
+- [日本のAnsibleコミュニティ](https://ansible-users.connpass.com)
+- [日本のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E)
+- [海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtNTU4ODIyNzA1MDkyLThiYmQ3MmNkMWRmOTdjYjMxNzdlNDc4OTk5YTc1ZDBiNDAwOTZlZjE0NDliODJiMjJhMDBkZWM4Nzg2NjkzNDA)
 
 ラボ環境を確認して理解します。この演習は以下を含みます。
 - コントロールノードで稼働する Ansible バージョンを確認します。

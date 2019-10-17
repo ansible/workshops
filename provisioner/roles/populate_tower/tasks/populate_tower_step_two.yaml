@@ -10,5 +10,18 @@
         tower_host: "{{ ansible_host }}"
         tower_verify_ssl: no
 
+    - name: ADD TOWER CREDENTIAL INTO TOWER
+      tower_credential:
+        host: "{{ansible_host}}"
+        username: admin
+        password: "{{admin_password}}"
+        name: "Tower Credential"
+        kind: tower
+        organization: Default
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: no
+
     - name: IMPORT INVENTORY
       shell: 'tower-manage inventory_import --source=/home/{{ username }}/networking-workshop/lab_inventory/hosts --inventory-name="Workshop Inventory"'

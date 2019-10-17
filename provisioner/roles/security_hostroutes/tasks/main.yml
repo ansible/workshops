@@ -1,0 +1,6 @@
+---
+- include_tasks: add_hostroutes_from_attacker_to_checkpoint.yml
+  when: '"attack" in inventory_hostname'
+
+- include_tasks: add_hostroutes_from_snort_to_checkpoint.yml
+  when: '"snort" in inventory_hostname'

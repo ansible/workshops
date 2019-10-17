@@ -1,0 +1,16 @@
+---
+- name: "add gw route on attacker node {{ inventory_hostname }}"
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth1
+    line: "{{ hostvars[inventory_hostname|regex_replace('attacker', 'checkpoint_gw')]['private_ip2'] }} dev eth1"
+    create: yes
+  notify:
+    - restart-network
+
+- name: "add snort route on attacker node {{ inventory_hostname }}"
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/route-eth1
+    line: "{{ hostvars[inventory_hostname|regex_replace('attacker', 'snort')]['private_ip2'] }} via {{ hostvars[inventory_hostname|regex_replace('attacker', 'checkpoint_gw')]['private_ip2'] }} dev eth1 metric 5"
+    create: yes
+  notify:
+    - restart-network

@@ -1,36 +1,61 @@
-# Exercise 1.0 - Anisbleのlab環境を確認してみよう
+# Exercise 1 - ラボ環境の確認
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**別の言語で読む**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-ラボを開始する前に、ぜひSlackに参加してみましょう!
-今後のAnsibleの学習に役立つはずです。
-ここでは日本のAnsibleユーザ会と２つのSlackチャンネルを紹介します。
+## Table of Contents
 
+- [Objective](#objective)
+- [Diagram](#diagram)
+- [Guide](#guide)
+- [Takeaways](#takeaways)
 
 - [日本のAnsibleコミュニティ](https://ansible-users.connpass.com)
 - [日本のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E)
-- [海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
+- [海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtNTU4ODIyNzA1MDkyLThiYmQ3MmNkMWRmOTdjYjMxNzdlNDc4OTk5YTc1ZDBiNDAwOTZlZjE0NDliODJiMjJhMDBkZWM4Nzg2NjkzNDA)
 
+ラボ環境を確認して理解します。この演習は以下を含みます。
+- コントロールノードで稼働する Ansible バージョンを確認します。
+- Ansible の設定ファイル (`ansible.cfg`)を理解する。
+- `ini` 形式のインベントリーファイルを理解する。
+
+演習を開始する前にぜひSlackへ参加してみましょう。[日本のAnsibleコミュニティ](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E) [海外のAnsibleコミュニティ](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)。参加すると他の自動化エンジニアと交流し、情報交換することが可能です。
+
+# Diagram
+
+![Red Hat Ansible Automation Lab Diagram](../../../images/network_diagram.png)
+
+この環境には rtr1, rtr2, rtr3, rtr4 と名付けられた4つのルーターがあります。[この図](../README.ja.md)はワークショップ中にいつでも参照できます。SSH設定ファイル (~/.ssh/config)は設定済みで、コントローラーノードから各ルーターへ簡単に接続できるようになっています。
+
+例えば、コントローラーノードから rtr1 へ接続する場合は、以下のように入力します:
+
+```bash
+[student1@ansible ~]$ ssh rtr1
+```
+
+この環境ではユーザー名、パスワードを入力する必要はありません。
+
+# Guide
 
 ## Step 1
 
-`networking-workshop` ディレクトリへ移動します。
-
+コントローラーノードの `networking-workshop` ディレクトリへ移動します。プロンプトの `ansible` はホスト名を示し、これは正しいノード上にいることを示しています。
 
 ```
-[student1@ansible ~]$ cd networking-workshop/
+[student1@ansible ~]$ cd ~/networking-workshop/
+[student1@ansible networking-workshop]$
 [student1@ansible networking-workshop]$ pwd
 /home/student1/networking-workshop
-
-[student1@ansible networking-workshop]$
 ```
+ - `~` - チルダはホームディレクトリ `/home/student1` の短縮表記
+ - `cd` - ディレクトリを移動するコマンド
+ - `pwd` - 現在のディレクトリを表示するコマンドで、フルパスが表示されます。
 
 ## Step 2
 
-`ansible` コマンドを `--version` オプションをつけて実行し、現在のコンフィグについて確認してみましょう。:
-
+`ansible` コマンドを `--version` オプションをつけて実行すると、Ansible に関する情報を確認することができます:
 
 ```
+[student1@ansible ~]$ ansible --version
 ansible 2.8.1
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
@@ -39,60 +64,76 @@ ansible 2.8.1
   python version = 2.7.5 (default, Jun 11 2019, 12:19:05) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
 ```
 
-> Note: 表示される ansible version は上記のものと異なる可能性があります。
+> Note: Ansibleのバージョンは上記の表示と異なる場合があります。
 
-
-このコマンドは、Ansibleのバージョン、実行ファイルの場所、Pythonのバージョン、利用するモジュールを検索する場所、`ansible configuration file`の場所などが確認できます。
+このコマンドはAnsibleのバージョン、実行ファイルの場所、Pythonのバージョン、モジュールの検索パスと `ansible の設定ファイル` の場所を表示します。
 
 ## Step 3
 
-`cat` コマンドを用いて、`ansible.cfg` ファイルの中身を見てみましょう。
+`cat` コマンドで `ansible.cfg` ファイルの内容を確認します。
 
 ```
-[student1@ansible networking-workshop]$ cat ~/.ansible.cfg
+[student1@ansible ~]$ cat ~/.ansible.cfg
 [defaults]
+stdout_callback = yaml
 connection = smart
 timeout = 60
-inventory = /home/student1/networking-workshop/lab_inventory/hosts
+deprecation_warnings = False
 host_key_checking = False
-private_key_file = /home/student1/.ssh/aws-private.pem
-[student1@ansible networking-workshop]$
+retry_files_enabled = False
+inventory = /home/student1/networking-workshop/lab_inventory/hosts
+[persistent_connection]
+connect_timeout = 60
+command_timeout = 60
 ```
 
-`ansible.cfg` ファイル内の以下のパラメータに注意してください。
+`ansible.cfg` に含まれる以下の値に注意してください:
 
- - `inventory`: ansible が利用するInventoryファイルの場所を指定しています。
- - `private_key_file`: デバイスにログインするためのprivate keyの場所を指定しています。
-
-
+ - `inventory`: Ansibleインベントリーファイルの場所が示されます。
 
 ## Step 4
 
-`playbook`内の`play`においては、Anisbleの**inventory**ファイル内で定義されているターゲットホストのグループの制限を行うことができます。  
-Ansibleは複数の[inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html)のタイプをサポートしています。
-インベントリは、シンプルに定義されたホストのリストを定義することもできますし、(バックエンドのCMDBなどから)動的に実行されるスクリプトによって生成されるデバイスのリストでも構いません。
+`playbook` の `play` のスコープは **インベントリー** で宣言されたグループに制限されます。Ansible は複数の [インベントリー](http://docs.ansible.com/ansible/latest/intro_inventory.html) タイプをサポートしています。インベントリーはPlaybookの対象となるホストの一覧を持つシンプルなフラットファイルです。それ以外に、ホストの一覧を返すスクリプト（裏側でCMDBに問い合わせを行う）も利用可能です。
 
-このラボでは、**ini**形式で書かれたファイルベースのインベントリを使用します。   
-実際に登録されているインベントリを確認するには `cat`コマンドを使います：
+この演習では **ini** 形式で記述されたファイルベースのインベントリーを利用します。`cat` コマンドを利用して演習環境のインベントリーを確認してみます。
 
+```bash
+[student1@ansible ~]$ cat ~/networking-workshop/lab_inventory/hosts
+```
 
 ```
-[student1@ansible networking-workshop]$ cat ~/networking-workshop/lab_inventory/hosts
 [all:vars]
-ansible_port=22
+ansible_ssh_private_key_file=/home/student1/.ssh/aws-private.pem
 
 [routers:children]
 cisco
+juniper
+arista
 
 [cisco]
-rtr1 ansible_host=13.112.229.114 private_ip=172.16.135.74
-rtr2 ansible_host=13.115.23.185 private_ip=172.17.36.145
-rtr3 ansible_host=13.112.120.227 private_ip=172.16.171.158
-rtr4 ansible_host=3.112.2.222 private_ip=172.17.153.244
+rtr1 ansible_host=18.222.121.247 private_ip=172.16.129.86
+[arista]
+rtr2 ansible_host=18.188.194.126 private_ip=172.17.158.197
+rtr4 ansible_host=18.221.5.35 private_ip=172.17.8.111
+[juniper]
+rtr3 ansible_host=3.14.132.20 private_ip=172.16.73.175
 
 [cisco:vars]
 ansible_user=ec2-user
 ansible_network_os=ios
+ansible_connection=network_cli
+
+[juniper:vars]
+ansible_user=ec2-user
+ansible_network_os=junos
+ansible_connection=netconf
+
+[arista:vars]
+ansible_user=ec2-user
+ansible_network_os=eos
+ansible_connection=network_cli
+ansible_become=true
+ansible_become_method=enable
 
 [dc1]
 rtr1
@@ -102,48 +143,49 @@ rtr3
 rtr2
 rtr4
 
-[hosts]
-host1 ansible_host=52.194.213.203 ansible_user=ec2-user private_ip=172.17.193.235
-
 [control]
-ansible ansible_host=52.195.5.30 ansible_user=ec2-user private_ip=172.16.240.136
+ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
 ```
 
 ## Step 5
 
-出力結果を確認していきましょう。
-`[ ]` は、グループを定義しています。
-例えば、`[dc1]`は *dc1グループ* において、 `rtr1` と `rtr3` の２つのホスト(ここではルーターですが)が含まれていることを示しています。
+上記の出力では、すべての `[ ]` はグループを定義しています。例えば `[dc1]` はホスト `rtr1` と `rtr3` を含むグループです。グループは _ネスト_ することが可能です。`[routers]` グループは `[cisco]` の親グループになります。
 
-また、グループ定義は、_ネスト構造_ を取ることができます。
-上記の例では、グループ `[routers]` は、 `[cisco]` との２つのグループが所属する親グループとなります。
+> 親グループは `children` ディレクティブを使って宣言されます。ネストされたグループを用いると、柔軟な変数割当が可能となります。
 
-> 親グループは、 `children` ディレクティブを用いて宣言されます。ネスト構造が可能なことで、構成や変数の割り当てに柔軟性を持たせることができます。
 
-> 注意: **all** と定義されたグループがあります。このグループはデフォルトで定義されており、インベントリー内の全てのグループと全てのホストが含まれます。
+> Note: **all** というグループは常に存在し、インベントリー内で定義された全てのグループとホストを含みます。
 
-また、グループやホストに変数を割り当てることができます。
-例えば、ホスト変数はホスト自体と同じ行に宣言/定義されています。
-`rtr1` での例を見てみましょう:
+
+変数をグループやホストへと割り当てることが可能です。
+
+ホスト変数はホスト自身の定義と同じ行で定義できます。例えば、`rtr1` では:
 
 ```
-rtr1 ansible_host=13.112.229.114 private_ip=172.16.135.74
+rtr1 ansible_host=18.222.121.247 private_ip=172.16.129.86
 ```
- - `rtr1` - Ansibleが利用するホスト名です。これはDNSにも依存しますが、ローカルで定義することもできます。
- - `ansible_host` - Ansibleが使用するIPアドレスです。設定されていない場合は、DNSへ名前解決を実行します。
- - `private_ip` - Anisbleによって定義はされていない、デフォルトでは利用しない値です。
- ホストに対して利用する変数[host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables)としてユーザが名称を含め、任意に定義することができます。
-定義された値はPlaybookの中で利用されるか、利用されない場合は完全に無視されます。
 
-`[cisco:vars]`のグループは、`cisco`グループに所属するホストに大して共通の変数を定義しています。
-- `ansible_user` - Ansible が接続する際に使用するユーザー名を指定しています。
-- `ansible_network_os` - この変数は、`network_cli`というパラメーターをPlay定義内で使用する際に必要になります。コネクションタイプについては後ほど説明があります。
+ - `rtr1` - Ansibleが使う名前で、DNSと連携する必要はありません。
+ - `ansible_host` - Ansibleが接続に利用するIPアドレス。指定しない場合は、名前をDNSへ問い合わせます。
+ - `private_ip` - ユーザーが定義した [ホスト変数](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables) で、この値をPlaybook内で使うことができるようになります。もしくは、全く無視してしまっても問題ありません。
+
+グループ変数は `vars` ディレクティブで宣言できます。グループ変数を使うと、複数のホストに共通の値を柔軟に指定できます。グループ変数は `[group_name:vars]` セクション以下で定義されます。例として `cisco` を見てみます:
+
+```
+[cisco:vars]
+ansible_user=ec2-user
+ansible_network_os=ios
+ansible_connection=network_cli
+```
+
+ - `ansible_user` - Ansibleがこのホスト/グループにログインするために利用するユーザー名で、設定されていない場合はデフォルトでPlaybookを実行したユーザーの名前が利用されます。
+ - `ansible_network_os` - この次に定義されている `network_cli` コネクションタイプが利用される場合にこの定義は必須となります。
+ - `ansible_connection` - この変数は [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) をこのグループに設定します。これは `netconf`, `httpapi` `network_cli` など対象のネットワークプラットフォームがサポートしている形式を設定します。
 
 
 # Complete
 
-お疲れ様でした。
-lab exercise 1.0 は以上です。
+以上で exercise 1 は終了です。
 
 ---
-[ここをクリックすると Ansible Linklight - Networking Workshop へ戻ります](../../README.ja.md)
+[Click Here to return to the Ansible Network Automation Workshop](../README.ja.md)

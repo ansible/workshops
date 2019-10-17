@@ -41,6 +41,31 @@ Build Tag: ${env.BUILD_TAG}"""
                         aw_repo_url = "https://releases.ansible.com/ansible-tower"
                     }
                 }
+
+                sh """tee provisioner/tests/ci-common.yml << EOF
+tower_installer_url: ${tower_installer_url}
+gpgcheck: ${gpgcheck}
+aw_repo_url: ${aw_repo_url}
+ansible_workshops_refspec: ${ANSIBLE_WORKSHOPS_REFSPEC}
+EOF
+"""
+                sh """tee provisioner/tests/ci-rhel.yml << EOF
+workshop_type: rhel
+ec2_name_prefix: tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+EOF
+"""
+
+                sh """tee provisioner/tests/ci-networking.yml << EOF
+workshop_type: networking
+ec2_name_prefix: tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+EOF
+"""
+
+                sh """tee provisioner/tests/ci-f5.yml << EOF
+workshop_type: f5
+ec2_name_prefix: tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+EOF
+"""
             }
         }
 
@@ -56,7 +81,10 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_version=${env.BRANCH_NAME} -e ansible_workshops_refspec=${ANSIBLE_WORKSHOPS_REFSPEC}"
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                               -e @provisioner/tests/vars.yml \
+                                               -e @provisioner/tests/ci-common.yml \
+                                               -e @provisioner/tests/ci-rhel.yml"""
                                     }
                                 }
                             }
@@ -69,7 +97,9 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-rhel.yml"""
                                     }
                                 }
                             }
@@ -87,7 +117,10 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_version=${env.BRANCH_NAME} -e ansible_workshops_refspec=${ANSIBLE_WORKSHOPS_REFSPEC}"
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
+                                                -e @provisioner/tests/ci-networking.yml"""
                                     }
                                 }
                             }
@@ -100,7 +133,9 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-networking.yml"""
                                     }
                                 }
                             }
@@ -118,7 +153,10 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_version=${env.BRANCH_NAME} -e ansible_workshops_refspec=${ANSIBLE_WORKSHOPS_REFSPEC}"
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
+                                                -e @provisioner/tests/ci-f5.yml"""
                                     }
                                 }
                             }
@@ -139,7 +177,9 @@ Build Tag: ${env.BUILD_TAG}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-f5.yml"""
                                     }
                                 }
                             }
@@ -160,9 +200,9 @@ Build Tag: ${env.BUILD_TAG}"""
                                  "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                  "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                  "ANSIBLE_FORCE_COLOR=true"]) {
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-rhel.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-networking.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-f5.yml"
                         }
                     }
                 }

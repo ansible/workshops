@@ -1,32 +1,17 @@
 ---
-- name: Deactivate NetworkManager on attack and victim machines
+- name: Setup eth1 for attack simulator and snort victim
   hosts: attack:snort
   become: yes
-
-  tasks:
-    - name: disable Network Manager to not intercept our networking stuff
-      systemd:
-        name: NetworkManager
-        state: stopped
-        enabled: no
-
-- name: Setup eth1 for attack simulator and victim (snort) node
-  hosts: localhost
-  become: no
-  connection: local
-  gather_facts: no
   tasks:
     - import_role:
         name: security_eth1
 
 - name: Setup host route for attack simulator
-  hosts: localhost
-  become: no
-  connection: local
-  gather_facts: no
+  hosts: attack:snort
+  become: yes
   tasks:
     - import_role:
-        name: security_hostroutes_attack_host
+        name: security_hostroutes
 
 - name: Install Pre Reqs on attacker
   hosts: attack
@@ -115,16 +100,16 @@
     - name: Install IDS
       block:
         - name: import ids_install role
-          import_role:
+          include_role:
             name: "ansible_security.ids_install"
         - name: import ids_config role
-          import_role:
+          include_role:
             name: "ansible_security.ids_config"
         - name: import webserver role for web exploit simulation
-          import_role:
+          include_role:
             name: "webservers"
         - name: import webserver attack simulation role
-          import_role:
+          include_role:
             name: "webservers_attack_simulation"
 
 - name: SETUP WINDOWS WORKSTATION
@@ -133,10 +118,7 @@
     - role: windows_ws_setup
 
 - name: SETUP CHECKPOINT ENVIRONMENT
-  hosts: localhost
-  become: no
-  connection: local
-  gather_facts: no
+  hosts: control_nodes
   roles:
     - role: cp_setup
 

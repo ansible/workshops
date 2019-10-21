@@ -64,7 +64,7 @@ Você já deve ter percebido que este laboratório é centralizado em linha de c
 
   - Não digite tudo manualmente, use copiar e colar no navegador quando apropriado. Mas pare para pensar e entender.
 
-  - Todos os laboratórios foram preparados com o **Vim**, mas entendemos que nem todo mundo gosta dele. Sinta-se livre para usar editores alternativos. No ambiente de laboratório, fornecemos **Midnight Commander** (basta executar **mc**, as teclas de função podem ser acessadas via Esc-\<n\> ou simplesmente clicadas com o mouse) ou **Nano** (excução **nano**). Aqui está uma breve introcução do [editor](../0.0-support-docs/editor_intro.md).
+  - Todos os laboratórios foram preparados com o **Vim**, mas entendemos que nem todo mundo gosta dele. Sinta-se livre para usar editores alternativos. No ambiente de laboratório, fornecemos **Midnight Commander** (basta executar **mc**, as teclas de função podem ser acessadas via Esc-\<n\> ou simplesmente clicadas com o mouse) ou **Nano** (excução **nano**). Aqui está uma breve introdução do [editor](../0.0-support-docs/editor_intro.md).
   
 > **Dica**
 >

@@ -10,7 +10,6 @@
 - name: INSTALL CERTBOT
   yum:
     name: certbot
-    enablerepo: "rhui-REGION-rhel-server-extras,rhui-REGION-rhel-server-optional"
 
 #https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
 - name: TURN OFF TOWER

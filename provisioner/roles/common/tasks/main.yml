@@ -30,7 +30,7 @@
 - set_fact:
     redhat_aws_rhui_repos:
       - rhui-REGION-rhel-server-extras
-      - rhui-REGION-rhel-server-rhscl
+      - rhui-REGION-rhel-server-optional
       - rhui-REGION-rhel-server-rhscl
   when: rhui_version is match('rh-amazon-rhui-client-2')
 

@@ -18,8 +18,15 @@
     src: tower_install.j2
     dest: /tmp/tower_install/inventory
 
+- copy:
+    dest: /tmp/tower_install/extras-vars.yml
+    content: |
+      redhat_aws_rhui_repos: {{ redhat_aws_rhui_repos | to_yaml }}
+
 - name: run the Ansible Tower installer
-  shell: ./setup.sh chdir=/tmp/tower_install
+  shell: ./setup.sh -e @extras-vars.yml
+  args:
+    chdir: /tmp/tower_install
   async: 900
   poll: 10
 

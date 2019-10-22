@@ -16,6 +16,39 @@
 - hostname:
     name: "{{short_name}}"
 
+- name: Update rh-amazon-rhui-client to latest
+  yum:
+    name: rh-amazon-rhui-client
+    state: latest
+
+- command: rpm -q rh-amazon-rhui-client
+  register: rhui_version_out
+
+- set_fact:
+    rhui_version: "{{ rhui_version_out.stdout }}"
+
+- set_fact:
+    redhat_aws_rhui_repos:
+      - rhui-REGION-rhel-server-extras
+      - rhui-REGION-rhel-server-optional
+      - rhui-REGION-rhel-server-rhscl
+  when: rhui_version is match('rh-amazon-rhui-client-2')
+
+- set_fact:
+    redhat_aws_rhui_repos:
+      - rhel-7-server-rhui-extras-rpms
+      - rhel-7-server-rhui-optional-rpms
+      - rhel-server-rhui-rhscl-7-rpms
+  when: rhui_version is match('rh-amazon-rhui-client-3')
+
+- name: enable rhui repositories
+  ini_file:
+    dest: '/etc/yum.repos.d/redhat-rhui.repo'
+    section: '{{ item  }}'
+    option: enabled
+    value: 1
+  with_items: '{{ redhat_aws_rhui_repos }}'
+
 - meta: flush_handlers
   tags:
     - common

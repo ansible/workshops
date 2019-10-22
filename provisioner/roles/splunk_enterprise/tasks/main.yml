@@ -103,7 +103,6 @@
 - name: INSTALL CERTBOT
   yum:
     name: certbot
-    enablerepo: "rhui-REGION-rhel-server-extras,rhui-REGION-rhel-server-optional"
 
 #If this fails check out status of certbot: https://letsencrypt.status.io/
 - name: ISSUE CERT

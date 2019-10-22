@@ -10,7 +10,7 @@
     validate_certs: no
   register: login_data
   until: (login_data.status == 200) and (login_data.json is defined)
-  retries: 60
+  retries: 30
   delay: 10
 
 - name: Add NGFW to MGMT
@@ -75,7 +75,7 @@
 - name: disable source_dest_checking on AWS interface
   ec2_eni:
     region: "{{ ec2_region }}"
-    eni_id: "{{ gw_inst['instances'][0]['network_interfaces'][1]['network_interface_id'] }}"
+    eni_id: "{{ gw_inst['instances'][0]['network_interfaces'][0]['network_interface_id'] if gw_inst['instances'][0]['network_interfaces'][0]['attachment']['device_index'] == 1 else gw_inst['instances'][0]['network_interfaces'][1]['network_interface_id'] }}"
     source_dest_check: no
     state: present
   delegate_to: localhost

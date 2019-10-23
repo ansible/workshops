@@ -57,12 +57,14 @@ EOF
 
                 sh """tee provisioner/tests/ci-networking.yml << EOF
 workshop_type: networking
+ec2_region: eu-central-1
 ec2_name_prefix: tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """
 
                 sh """tee provisioner/tests/ci-f5.yml << EOF
 workshop_type: f5
+ec2_region: ap-northeast-1
 ec2_name_prefix: tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """

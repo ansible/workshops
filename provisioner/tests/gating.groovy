@@ -216,8 +216,8 @@ EOF
                         script {
                             stage('security-validate') {
                                 sh """ansible-playbook provisioner/tests/verify_security.yml \
-                                    --private-key provisioner/tower-qe-security-workshop-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}/tower-qe-security-workshop-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}-private.pem \
-                                    -i provisioner/tower-qe-security-workshop-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}/instructor_inventory.txt"""
+                                    --private-key provisioner/tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-private.pem \
+                                    -i provisioner/tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/instructor_inventory.txt"""
                             }
                         }
                         script {

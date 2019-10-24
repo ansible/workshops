@@ -106,7 +106,7 @@ EOF
 workshop_type: security
 security_console: qradar
 windows_password: 'RedHatTesting19!'
-ec2_name_prefix: tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+ec2_name_prefix: tower-qe-security-workshop-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}
 EOF
 """
 
@@ -307,7 +307,7 @@ EOF
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=security -e ec2_name_prefix=tower-qe-security-workshop-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=security -e ec2_name_prefix=tower-qe-security-workshop-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}"
                         }
                     }
                 }

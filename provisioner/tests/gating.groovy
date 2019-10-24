@@ -20,7 +20,7 @@ Build Tag: ${env.BUILD_TAG}"""
                 withCredentials([file(credentialsId: 'workshops_tower_license', variable: 'TOWER_LICENSE')]) {
                     sh 'cp ${TOWER_LICENSE} provisioner/tower_license.json'
                 }
-                sh 'pip install netaddr'
+                sh 'pip install netaddr pywinrm'
                 sh 'yum -y install sshpass'
                 sh 'ansible --version | tee ansible_version.log'
                 archiveArtifacts artifacts: 'ansible_version.log'

@@ -284,4 +284,4 @@ Execute o comando `ansible node1 -m copy…​` de cima novamente. Nota:
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)

@@ -37,7 +37,7 @@ Se a sua experiência for diferente na programação desses workshops, informe-n
  - [Exercício 1.5 - Condicionais, Handlers e Loops](1.5-handlers/README.pt-br.md)
  - [Exercício 1.6 - Templates](1.6-templates/README.pt-br.md)
  - [Exercício 1.7 - Roles](1.7-role/README.pt-br.md)
- - [Exercício 1.8 - Labs Bonus](1.8-bonus/README.pt-br.md)
+ - [Exercício 1.8 - Labs Bônus](1.8-bonus/README.pt-br.md)
 
 ## Seção 2 - Exercícios do Ansible Tower
 

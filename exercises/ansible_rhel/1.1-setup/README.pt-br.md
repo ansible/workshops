@@ -76,4 +76,4 @@ Você descobrirá em breve que muitos capítulos deste guia de laboratório vêm
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)

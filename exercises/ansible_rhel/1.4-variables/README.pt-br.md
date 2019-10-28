@@ -12,7 +12,7 @@ As variáveis são referenciadas nos Playbooks, colocando o nome da variável en
 
 <!-- {% raw %} -->
 ```yaml
-Here comes a variable {{ variable1 }}
+Isso é uma variável {{ variable1 }}
 ```
 <!-- {% endraw %} -->
 
@@ -22,7 +22,7 @@ A prática recomendada para fornecer variáveis no inventário é defini-las em 
 
   - Para definir variáveis para um grupo "servers", é criado um arquivo YAML chamado `group_vars/servers` com as definições de variáveis.
 
-  - Para definir variáveis especificamente para um host `node1`, o arquivo` host_vars/node1` com as definições de variáveis é criado.
+  - Para definir variáveis especificamente para um host `node1`, o arquivo `host_vars/node1` com as definições de variáveis é criado.
 
 > **Dica**
 >

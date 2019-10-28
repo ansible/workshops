@@ -119,7 +119,7 @@ Login to the F5 with your web browser to see what was configured.  Grab the IP i
 
 Login information for the BIG-IP:
 - username: admin
-- password: admin
+- password: See inventory file to the the password for the admin user in the F5 load balancer
 
 The list of nodes can be found by navigating the menu on the left.  Click on Local Traffic-> then click on Nodes.
 ![f5web](nodes.png)

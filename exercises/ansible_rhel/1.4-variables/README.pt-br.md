@@ -68,7 +68,7 @@ Um chamado `prod_index.html` com o seguinte conteúdo:
 
 ```html
 <body>
-<h1>Esse é servidor web em produção, tenha cuidado!</h1>
+<h1>Esse é um servidor web em produção, tenha cuidado!</h1>
 </body>
 ```
 
@@ -76,7 +76,7 @@ E um chamado `dev_index.html` com o seguinte conteúdo:
 
 ```html
 <body>
-<h1>Este é um servidor web de desenvolvimento, divirta-se!</h1>
+<h1>Esse é um servidor web de desenvolvimento, divirta-se!</h1>
 </body>
 ```
 
@@ -121,15 +121,15 @@ node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
 [student<X>@ansible ansible-files]$ curl http://11.22.33.44
 <body>
-<h1>Este é um servidor web de desenvolvimento, divirta-se!</h1>
+<h1>Esse é um servidor web de desenvolvimento, divirta-se!</h1>
 </body>
 [student1@ansible ansible-files]$ curl http://22.33.44.55
 <body>
-<h1>Esse é servidor web em produção, tenha cuidado!</h1>
+<h1>Esse é um servidor web em produção, tenha cuidado!</h1>
 </body>
 [student1@ansible ansible-files]$ curl http://33.44.55.66
 <body>
-<h1>Este é um servidor web de desenvolvimento, divirta-se!</h1>
+<h1>Esse é um servidor web de desenvolvimento, divirta-se!</h1>
 </body>
 ```
 

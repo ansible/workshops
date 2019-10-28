@@ -26,7 +26,7 @@ A prática recomendada para fornecer variáveis no inventário é defini-las em 
 
 > **Dica**
 >
-> Variáveis de host têm precedência sobre variáveis de grupo (mais sobre precedência pode ser encontrada em [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i -put-a-variable)).
+> Variáveis de host têm precedência sobre variáveis de grupo (mais sobre precedência pode ser encontrada em [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
 
 ## Passo 4.1 - Criando arquivos de variáveis 
 

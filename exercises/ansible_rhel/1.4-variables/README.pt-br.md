@@ -80,7 +80,7 @@ E um chamado `dev_index.html` com o seguinte conteúdo:
 </body>
 ```
 
-## Passo 4.3 - Criando o playbook
+## Passo 4.3 - Criando o Playbook
 
 Agora você precisa de um Playbook que copie o arquivo prod ou dev `index.html` - de acordo com a variável "stage".
 
@@ -110,7 +110,7 @@ Crie um novo playbook, chamado `deploy_index_html.yml` no diretório `~/ansible-
 [student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
-## Passo 4.4 - Teste o Result
+## Passo 4.4 - Teste o Resultado
 
 O Playbook deve copiar arquivos diferentes como index.html para os hosts, use `curl` para testá-lo. Verifique o inventário novamente se você esqueceu os endereços IP dos seus nós.
 

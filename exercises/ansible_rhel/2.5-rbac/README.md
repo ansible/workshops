@@ -85,13 +85,13 @@ Add the permission to use the template:
 Now log out of Tower’s web UI and in again as the **wweb** user.
 
 - Go to the **Templates** view, you should notice for wweb only the `Create
-  index.html` template is listed. He is allowed to view and lauch, but not to edit the Template.
+  index.html` template is listed. He is allowed to view and launch, but not to edit the Template. Just open the template and try to change it.
 
 - Run the Job Template by clicking the rocket icon. Enter the survey content to your liking and launch the job.
 
 - In the following **Jobs** view have a good look around, note that there where changes to the host (of course…​).
 
-Check the result: execute `curl` again on the control host to pull the content of the webserver on the IP address of `node1`:
+Check the result: execute `curl` again on the control host to pull the content of the webserver on the IP address of `node1` (you could of course check `node2` and `node3`, too):
 
 ```bash
 $ curl http://22.33.44.55

@@ -29,13 +29,6 @@
     state: started
     enabled: yes
 
-- name: open port for cockpit (RHEL web console) in firewall
-  firewalld:
-    port: 9090/tcp
-    immediate: true
-    permanent: true
-    state: enabled
-
 - name: Install ansible.cfg and vimrc in home directory
   template:
     src: ansible.cfg.j2

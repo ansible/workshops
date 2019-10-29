@@ -81,8 +81,12 @@ One of the great features of Ansible Tower is to make credentials usable to user
 
 As this is an important part of your Tower setup, why not make sure that connecting to the managed nodes from Tower is working?
 
-  - You should still have an open SSH connection to Tower from the exercise above.
-  - From Tower SSH into `node1` or one of the other nodes and execute `sudo -i`. For the SSH connection use the node password from the inventory file, `sudo -i` works without password.
+ To access the Tower host via SSH do the following:
+
+- Login to your Tower control host via SSH: `ssh student<X>@student<X>.workshopname.rhdemo.io` 
+- Replace **workshopname** by the workshop name provided to you, and the `<X>` in `student<X>` by the student number provided to you.
+- From Tower SSH into `node1` or one of the other nodes (look up the IP addresses from the inventory) and execute `sudo -i`. 
+- For the SSH connection use the node password from the inventory file, `sudo -i` works without password.
 
 ```bash
 [student<X>@ansible ~]$ ssh student<X>@22.33.44.55

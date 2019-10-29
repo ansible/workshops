@@ -61,17 +61,17 @@
 
 1. *Backup network configurations* ノードにマウスオーバーして、グリーンの **+** アイコンをクリックします。再度 **ADD A TEMPLATE** ウインドが表示されます。
 
-2. **Configure Banner** ジョブテンプレートを選択します。 **Run** パラメーターはドロップダウンメニューから **On Success** を選択します。
+2. **Network Banner** ジョブテンプレートを選択します。 **Run** パラメーターはドロップダウンメニューから **On Success** を選択します。
 
 3. プロンプトの入力を設定するまで **SELECT** をクリックしないでください。**PROMPT** をクリックして好きなバナーを入力します。
 
-4.  ここまでで **Backup network configurations** と **Configure Banner** はグリーンの線で繋がれているはずです。
+4.  ここまでで **Backup network configurations** と **Network Banner** はグリーンの線で繋がれているはずです。
 
     ![banner node](images/configure-banner.png)
 
 ## Step 4: Add the Configure Network-User Job Template
 
-1. *Backup* ノード(**Configure Banner** ノードではありません)にマウスオーバーして、グリーンの **+** アイコンをクリックします。**ADD A TEMPLATE** が再び表示されます。
+1. *Backup* ノード(**Network Banner** ノードではありません)にマウスオーバーして、グリーンの **+** アイコンをクリックします。**ADD A TEMPLATE** が再び表示されます。
 
 2. **Network-User** ジョブテンプレートを選択します。 **Run** パラメーターにはドロップダウンメニューから **On Success** を選択します。先の手順と同じように、プロンプトの入力をしてから **SELECT** をクリックします。
 
@@ -80,7 +80,7 @@
 
 ## Step 5: Add the Network-Restore Job Template
 
-1.  **Configure Banner** ノードにマウスオーバーし、グリーンの **+** アイコンをクリックします。**ADD A TEMPLATE** が再度表示されます。
+1.  **Network Banner** ノードにマウスオーバーし、グリーンの **+** アイコンをクリックします。**ADD A TEMPLATE** が再度表示されます。
 
 2. **Network-Restore** ジョブテンプレートを選択します。 **Run** パラメーターにはドロップダウンメニューから **On Failure** を選択します。
 

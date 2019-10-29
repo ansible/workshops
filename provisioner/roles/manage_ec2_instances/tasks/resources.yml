@@ -93,6 +93,11 @@
         from_port: 8089
         cidr_ip: 0.0.0.0/0
       - proto: tcp
+        to_port: 9090
+        from_port: 9090
+        cidr_ip: 0.0.0.0/0
+        rule_desc: for cockpit web interface
+      - proto: tcp
         to_port: 8443
         from_port: 8443
         cidr_ip: 0.0.0.0/0

@@ -126,7 +126,7 @@ Run the Playbook. We didn’t change anything in the file yet so there should no
 Listen 8080
 ```
 
-  - Run the Playbook again. Now Ansible’s output should be a lot more interesting:
+  - Run the Playbook again. Now the Ansible’s output should be a lot more interesting:
 
       - httpd.conf should have been copied over
 
@@ -148,7 +148,7 @@ Feel free to change the httpd.conf file again and run the Playbook.
 
 Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just basic lists. For example, if you have a list of users with their coresponding group, loop can iterate over them as well. Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
 
-To show the loops feature we will generate three new users on `node1`. For that, create the Playbook `loop_users.yml` in `~/ansible-files` on your control node as your student user and run it. We will use the `user` module to generate the user accounts.
+To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible-files` on your control node as your student user. We will use the `user` module to generate the user accounts.
 
 <!-- {% raw %} -->
 ```yaml

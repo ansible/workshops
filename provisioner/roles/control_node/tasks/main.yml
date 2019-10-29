@@ -17,6 +17,7 @@
       - python-pip
       - ansible
       - gcc
+      - cockpit
       # - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
   retries: 10
@@ -99,3 +100,9 @@
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml
   when: xrdp|bool
+  
+- name: start and enable cockpit for web interface to rhel
+  service:
+    name: cockpit.socket
+    state: started
+    enabled: yes

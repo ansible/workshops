@@ -78,7 +78,7 @@ Aqui, os handlers entram em cena. Os handlers podem ser vistos como tasks inativ
 
 Como exemplo, vamos escrever um Playbook que:
 
-  - Gerencia o arquivo de configuração do Apache `httpd.conf` em todos os hosts no grupo` web`.
+  - Gerencia o arquivo de configuração do Apache `httpd.conf` em todos os hosts no grupo `web`.
 
   - Reinicia o Apache quando o arquivo é alterado.
 
@@ -221,7 +221,7 @@ Verifique a saída:
 
   - Novamente, a tarefa é listada uma vez, mas três alterações são listadas. Cada loop com seu conteúdo é mostrado.
 
-Verifique se o usuário `prod_user` foi realmente criado no` node1`:
+Verifique se o usuário `prod_user` foi realmente criado no `node1`:
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"

@@ -1,0 +1,18 @@
+[Unit]
+Description=Code Server IDE
+After=network.target
+
+[Service]
+Type=simple
+User={{username}}
+WorkingDirectory=/home/{{username}}
+Restart=on-failure
+RestartSec=10
+
+ExecStart=/opt/code-server --auth none /home/{{username}}
+
+StandardOutput=file:/var/log/code-server-output.log
+StandardError=file:/var/log/code-server-error.log
+
+[Install]
+WantedBy=multi-user.target

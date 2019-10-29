@@ -20,7 +20,7 @@ Create the inventory:
 
 Now there will be two inventories, the **Demo Inventory** and the **Workshop Inventory**. In the **Workshop Inventory** click the **Hosts** button, it will be empty since we have not added any hosts there.
 
-So let's add some hosts. First we need to have the list of all hosts which are accessible to you within this lab. These can be found in an inventory on the ansible control node on which Tower is installed.
+So let's add some hosts. First we need to have the list of all hosts which are accessible to you within this lab. These can be found in an inventory on the ansible control node on which Tower is installed. You'll find the password for the SSH connection there as well.
 
 Login to your Tower control host via SSH:
 
@@ -38,7 +38,7 @@ You can find the inventory information at `~/lab_inventory/hosts`. Output them w
 $ cat ~/lab_inventory/hosts 
 [all:vars]
 ansible_user=student<X>
-ansible_ssh_pass=ansible
+ansible_ssh_pass=PASSWORD
 ansible_port=22
 
 [web]
@@ -79,14 +79,14 @@ One of the great features of Ansible Tower is to make credentials usable to user
 > 
 > This is one of the most important features of Tower: **Credential Separation**\! Credentials are defined separately and not with the hosts or inventory settings.
 
-As this is an important part of your Tower setup, why not make sure that this is working and check if the credentials are properly working?
+As this is an important part of your Tower setup, why not make sure that connecting to the managed nodes from Tower is working?
 
-To access the Tower host via SSH do the following:
+ To access the Tower host via SSH do the following:
 
-  - Login to your Tower control host via SSH: `ssh student<X>@student<X>.workshopname.rhdemo.io`
-    Replace **workshopname** by the workshop name provided to you, and the **X** in student**X** by the student number provided to you.
-
-  - SSH into `node1` or one of the other nodes and execute `sudo -i`. For the SSH connection a password needs to be provided, `sudo -i` works without password.
+- Login to your Tower control host via SSH: `ssh student<X>@student<X>.workshopname.rhdemo.io` 
+- Replace **workshopname** by the workshop name provided to you, and the `<X>` in `student<X>` by the student number provided to you.
+- From Tower SSH into `node1` or one of the other nodes (look up the IP addresses from the inventory) and execute `sudo -i`. 
+- For the SSH connection use the node password from the inventory file, `sudo -i` works without password.
 
 ```bash
 [student<X>@ansible ~]$ ssh student<X>@22.33.44.55
@@ -98,9 +98,9 @@ Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
 
 What does this mean?
 
-  - Tower user **ansible** can connect to the managed hosts with password based SSH
+  - Tower user **student\<X>** can connect to the managed hosts with password based SSH
 
-  - User **ansible** can execute commands on the managed hosts as **root** with `sudo`
+  - User **student\<X>** can execute commands on the managed hosts as **root** with `sudo`
 
 ## Configure Machine Credentials
 
@@ -114,11 +114,9 @@ Click the ![plus](images/green_plus.png) button to add new credentials
 
   - **CREDENTIAL TYPE:** Click on the magnifying glass, pick **Machine** and click ![plus](images/select.png)
 
-  - **CREDENTIAL TYPE:** Machine
-
   - **USERNAME:** student\<X\> - make sure to replace the **\<X\>** with your actual student number!
 
-  - **PASSWORD:** Enter the password which is provided by the instructor.
+  - **PASSWORD:** Enter the password from the inventory file.
 
   - **PRIVILEGE ESCALATION METHOD:** sudo
 
@@ -148,7 +146,7 @@ As you’ve probably done with Ansible before you can run ad hoc commands from T
     
       - Click **LAUNCH**, and watch the output.
 
-The simple **ping** module doesn’t need options. For other modules youneed to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
+The simple **ping** module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
   
 - **MODULE:** command
 

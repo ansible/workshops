@@ -308,7 +308,7 @@ Now run the Playbook:
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
 
-Finally check if Apache is now running on both servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the `node1` above. All output should be green.
+Finally check if Apache is now running on all servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the `node1` above. All output should be green.
 
 ----
 

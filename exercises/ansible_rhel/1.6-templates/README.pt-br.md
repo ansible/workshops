@@ -27,7 +27,7 @@ Em seguida, precisamos de um Playbook para usar este modelo. No diretório `~/an
 
 ```yaml
 ---
-- name: Preencher arquivo motd com dados do host
+- name: preencher arquivo motd com dados do host
   hosts: node1
   become: yes
   tasks:

@@ -1,8 +1,6 @@
 - import_tasks: ami_find_windows.yml
 
-####################
 ## create instructor instances
-####################
 
 - name: WINDOWS | DomainController | Launch instance
   ec2:
@@ -96,9 +94,7 @@
   async: 7200
   poll: 0
 
-####################
 ## create student instances
-####################
 
 - name: WINDOWS | Create instance 1
   ec2:
@@ -112,7 +108,7 @@
     count_tag:
       Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
     wait: "{{ ec2_wait }}"
-    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"  
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='instance1')) }}"
   register: instance1_output
   async: 7200
@@ -135,7 +131,6 @@
   register: workstation_output
   async: 7200
   poll: 0
-
 
 ### wait for student workbench
 

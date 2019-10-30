@@ -140,29 +140,29 @@
   roles:
     - manage_ec2_instances
 
-# - name: wait for all nodes to have SSH reachability
-#   hosts: "managed_nodes:control_nodes"
-#   become: yes
-#   gather_facts: no
-#   roles:
-#     - connectivity_test
+- name: wait for all nodes to have SSH reachability
+  hosts: "managed_nodes:control_nodes"
+  become: yes
+  gather_facts: no
+  roles:
+    - connectivity_test
 
-# - name: Configure common options on managed nodes and control nodes
-#   hosts: "managed_nodes:control_nodes"
-#   gather_facts: no
-#   become: yes
-#   roles:
-#     - user_accounts
-#     - common
-#   tags: control_node
+- name: Configure common options on managed nodes and control nodes
+  hosts: "managed_nodes:control_nodes"
+  gather_facts: no
+  become: yes
+  roles:
+    - user_accounts
+    - common
+  tags: control_node
 
-# - name: CONFIGURE CONTROL NODE
-#   hosts: control_nodes
-#   gather_facts: no
-#   become: yes
-#   roles:
-#     - control_node
-#   tags: control_node
+- name: CONFIGURE CONTROL NODE
+  hosts: control_nodes
+  gather_facts: no
+  become: yes
+  roles:
+    - control_node
+  tags: control_node
 
 # - name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
 #   hosts: control_nodes
@@ -187,8 +187,8 @@
 #         - create_login_page
 #   tags: control_node
 
-# - name: include workshop_type unique setup roles
-#   import_playbook: "{{workshop_type}}.yml"
+- name: include workshop_type unique setup roles
+  import_playbook: "{{workshop_type}}.yml"
 
 # - name: Alert the mothership
 #   hosts: localhost

@@ -1,0 +1,4 @@
+# Tower LDAP Integration
+ldap_search_base: "{{ ldap_basedn }}"
+ldap_access_filter: "(&(objectClass=user)(memberOf=CN=Ansible Users,CN=Users,{{ ldap_search_base }}))"
+tower_ldap_search_dn: "CN=Users,{{ ldap_search_base }}"

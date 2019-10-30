@@ -101,6 +101,10 @@
   include_tasks: "rhel.yml"
   when: workshop_type == 'rhel'
 
+- name: Windows mode - setup control node
+  include_tasks: "windows.yml"
+  when: workshop_type == 'windows'
+
 - name: check to see if ansible tower is already up and running
   uri:
     url: https://localhost/api/v2/ping/

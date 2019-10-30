@@ -215,17 +215,17 @@
 
 #   when: public_dns_zone is defined
 
-- name: GitLab | Wait for SSH to come up
-  wait_for_connection:
-  delegate_to: "{{ item }}"
-  with_items: 
-    - "{{ groups['rhel'] }}" 
-
+# - name: GitLab | Wait for SSH to come up
+#   wait_for_connection:
+#   delegate_to: "{{ item }}"
+#   with_items:
+#     - "{{ groups['rhel'] }}"
+#
 - name: Windows | Wait for WinRM to come up
   wait_for_connection:
   delegate_to: "{{ item }}"
-  with_items: 
-    - "{{ groups['windows'] }}" 
+  with_items:
+    - "{{ groups['windows'] }}"
 
 ###################
 

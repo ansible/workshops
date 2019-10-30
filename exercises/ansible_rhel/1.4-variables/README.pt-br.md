@@ -200,7 +200,7 @@ Execute-o para ver como os facts são impressos:
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook facts.yml
 
-PLAY [Output facts within a playbook] ******************************************
+PLAY [saida de facts em um playbook] ******************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [node3]
@@ -208,7 +208,7 @@ ok: [node2]
 ok: [node1]
 ok: [ansible]
 
-TASK [Prints Ansible facts] ****************************************************
+TASK [print ansible facts] ****************************************************
 ok: [node1] =>
   msg: O endereco IPv4 padrao de node1 eh 172.16.190.143
 ok: [node2] =>

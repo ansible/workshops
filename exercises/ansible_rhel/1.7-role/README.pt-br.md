@@ -34,11 +34,11 @@ apache/
     └── main.yml
 ```
 
-Os arquivos `main.yml` contem conteúdo, dependendo da sua localização na estrutura de diretórios mostrada acima. Por exemplo, `vars/main.yml` faz referência a variáveis,`handlers/main.yaml` descreve handlers, e assim por diante. Observe que, ao contrário dos playbooks, os arquivos `main.yml` contêm apenas o conteúdo específico e não informações adicionais, como hosts, `become` ou outras palavras-chave.
+Os arquivos `main.yml` contêm conteúdo, dependendo da sua localização na estrutura de diretórios mostrada acima. Por exemplo, `vars/main.yml` faz referência a variáveis,`handlers/main.yaml` descreve handlers, e assim por diante. Observe que, ao contrário dos playbooks, os arquivos `main.yml` contêm apenas o conteúdo específico e não informações adicionais, como hosts, `become` ou outras palavras-chave.
 
 > **Dica**
 >
-> Na verdade, existem dois diretórios para variáveis: `vars` e `default`: as variáveis padrão têm a menor precedência e geralmente contem valores padrão definidos pelos autores da função e são frequentemente usadas quando pretende que seus valores sejam substituídos. pode ser definido em `vars/main.yml` ou `defaults/main.yml`, mas não nos dois lugares.
+> Na verdade, existem dois diretórios para variáveis: `vars` e `default`: as variáveis padrão têm a menor precedência e geralmente contêm valores padrão definidos pelos autores da função e são frequentemente usadas quando pretende que seus valores sejam substituídos. pode ser definido em `vars/main.yml` ou `defaults/main.yml`, mas não nos dois lugares.
 
 O uso de roles em um Playbook é direto:
 

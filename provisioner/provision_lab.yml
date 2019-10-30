@@ -164,59 +164,59 @@
     - control_node
   tags: control_node
 
-# - name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
-#   hosts: control_nodes
-#   become: yes
-#   gather_facts: no
-#   roles:
-#     - role: aws_dns
-#       when:
-#         - create_login_page is defined
-#         - create_login_page
-#   tags: control_node
+- name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
+  hosts: control_nodes
+  become: yes
+  gather_facts: no
+  roles:
+    - role: aws_dns
+      when:
+        - create_login_page is defined
+        - create_login_page
+  tags: control_node
 
-# - name: Setup Amazon S3 Website for Student Login
-#   hosts: localhost
-#   connection: local
-#   become: no
-#   gather_facts: no
-#   roles:
-#     - role: aws_workshop_login_page
-#       when:
-#         - create_login_page is defined
-#         - create_login_page
-#   tags: control_node
+- name: Setup Amazon S3 Website for Student Login
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  roles:
+    - role: aws_workshop_login_page
+      when:
+        - create_login_page is defined
+        - create_login_page
+  tags: control_node
 
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"
 
-# - name: Alert the mothership
-#   hosts: localhost
-#   connection: local
-#   become: no
-#   gather_facts: no
-#   tasks:
-#     - { include_role: {name: tower_request}, when: student_total > 9 }
+- name: Alert the mothership
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  tasks:
+    - { include_role: {name: tower_request}, when: student_total > 9 }
 
-# - name: print out information for instructor
-#   hosts: localhost
-#   connection: local
-#   become: no
-#   gather_facts: no
-#   tasks:
-#     - name: set facts for output
-#       set_fact:
-#         summary_information: |
-#           PROVISIONER SUMMARY
-#           *******************
-#           - Workshop name is {{ec2_name_prefix}}
-#           - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
-#           - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
-#           {{website_information}}
-#           FAILURES
-#           *******************
-#           {{dns_information}}
+- name: print out information for instructor
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  tasks:
+    - name: set facts for output
+      set_fact:
+        summary_information: |
+          PROVISIONER SUMMARY
+          *******************
+          - Workshop name is {{ec2_name_prefix}}
+          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
+          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
+          {{website_information}}
+          FAILURES
+          *******************
+          {{dns_information}}
 
-#     - name: Print Summary Information
-#       debug:
-#         msg: "{{summary_information}}"
+    - name: Print Summary Information
+      debug:
+        msg: "{{summary_information}}"

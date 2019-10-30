@@ -139,7 +139,7 @@ O Apache agora deve escutar na porta 8080. Fácil o suficiente para verificar:
 curl: (7) Failed connect to 22.33.44.55:80; Connection refused
 [student1@ansible ansible-files]$ curl http://22.33.44.55:8080
 <body>
-<h1>Esse eh um servidor web em producao, tenha cuidado!</h1>
+<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
 </body>
 ```
 Sinta-se livre para alterar o arquivo httpd.conf novamente e executar o Playbook.

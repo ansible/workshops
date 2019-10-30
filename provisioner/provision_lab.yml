@@ -50,6 +50,20 @@
       when: workshop_type == "networking"
       register: package_state
 
+# windows has a dependancy on sshpass which is nogo on macos
+    - name: make sure (windows) packages required are installed on this control node
+      pip:
+        name:
+          - pywinrm
+          - boto
+          - requests
+          - requests-credssp
+          # - sshpass
+      check_mode: yes
+      when: workshop_type == "windows"
+      register: package_state
+
+
     - name: fail if previous check has changed
       assert:
         that:
@@ -93,6 +107,31 @@
           until: job_result.finished
           retries: 30
 
+    - name: Workshop specific vars
+      include_vars:
+        file: "group_vars/{{ workshop_type }}.yml"
+
+    - name: Check Domain Admin Password Complexity
+      assert:
+        that:
+          - domain_admin_password | length > 7
+          - domain_admin_password | regex_search('[A-Z]')
+          - domain_admin_password | regex_search('[a-z]')
+          - domain_admin_password | regex_search('[0-9]')
+        fail_msg: "domain_admin_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
+      when: workshop_type == "windows"
+
+    - name: Check Users Password Complexity
+      assert:
+        that:
+          - users_password | length > 7
+          - users_password | regex_search('[A-Z]')
+          - users_password | regex_search('[a-z]')
+          - users_password | regex_search('[0-9]')
+        fail_msg: "users_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
+      when: workshop_type == "windows"
+
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
@@ -101,83 +140,83 @@
   roles:
     - manage_ec2_instances
 
-- name: wait for all nodes to have SSH reachability
-  hosts: "managed_nodes:control_nodes"
-  become: yes
-  gather_facts: no
-  roles:
-    - connectivity_test
+# - name: wait for all nodes to have SSH reachability
+#   hosts: "managed_nodes:control_nodes"
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - connectivity_test
 
-- name: Configure common options on managed nodes and control nodes
-  hosts: "managed_nodes:control_nodes"
-  gather_facts: no
-  become: yes
-  roles:
-    - user_accounts
-    - common
-  tags: control_node
+# - name: Configure common options on managed nodes and control nodes
+#   hosts: "managed_nodes:control_nodes"
+#   gather_facts: no
+#   become: yes
+#   roles:
+#     - user_accounts
+#     - common
+#   tags: control_node
 
-- name: CONFIGURE CONTROL NODE
-  hosts: control_nodes
-  gather_facts: no
-  become: yes
-  roles:
-    - control_node
-  tags: control_node
+# - name: CONFIGURE CONTROL NODE
+#   hosts: control_nodes
+#   gather_facts: no
+#   become: yes
+#   roles:
+#     - control_node
+#   tags: control_node
 
-- name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
-  hosts: control_nodes
-  become: yes
-  gather_facts: no
-  roles:
-    - role: aws_dns
-      when:
-        - create_login_page is defined
-        - create_login_page
-  tags: control_node
+# - name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
+#   hosts: control_nodes
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - role: aws_dns
+#       when:
+#         - create_login_page is defined
+#         - create_login_page
+#   tags: control_node
 
-- name: Setup Amazon S3 Website for Student Login
-  hosts: localhost
-  connection: local
-  become: no
-  gather_facts: no
-  roles:
-    - role: aws_workshop_login_page
-      when:
-        - create_login_page is defined
-        - create_login_page
-  tags: control_node
+# - name: Setup Amazon S3 Website for Student Login
+#   hosts: localhost
+#   connection: local
+#   become: no
+#   gather_facts: no
+#   roles:
+#     - role: aws_workshop_login_page
+#       when:
+#         - create_login_page is defined
+#         - create_login_page
+#   tags: control_node
 
-- name: include workshop_type unique setup roles
-  import_playbook: "{{workshop_type}}.yml"
+# - name: include workshop_type unique setup roles
+#   import_playbook: "{{workshop_type}}.yml"
 
-- name: Alert the mothership
-  hosts: localhost
-  connection: local
-  become: no
-  gather_facts: no
-  tasks:
-    - { include_role: {name: tower_request}, when: student_total > 9 }
+# - name: Alert the mothership
+#   hosts: localhost
+#   connection: local
+#   become: no
+#   gather_facts: no
+#   tasks:
+#     - { include_role: {name: tower_request}, when: student_total > 9 }
 
-- name: print out information for instructor
-  hosts: localhost
-  connection: local
-  become: no
-  gather_facts: no
-  tasks:
-    - name: set facts for output
-      set_fact:
-        summary_information: |
-          PROVISIONER SUMMARY
-          *******************
-          - Workshop name is {{ec2_name_prefix}}
-          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
-          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
-          {{website_information}}
-          FAILURES
-          *******************
-          {{dns_information}}
+# - name: print out information for instructor
+#   hosts: localhost
+#   connection: local
+#   become: no
+#   gather_facts: no
+#   tasks:
+#     - name: set facts for output
+#       set_fact:
+#         summary_information: |
+#           PROVISIONER SUMMARY
+#           *******************
+#           - Workshop name is {{ec2_name_prefix}}
+#           - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
+#           - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
+#           {{website_information}}
+#           FAILURES
+#           *******************
+#           {{dns_information}}
 
-    - name: Print Summary Information
-      debug:
-        msg: "{{summary_information}}"
+#     - name: Print Summary Information
+#       debug:
+#         msg: "{{summary_information}}"

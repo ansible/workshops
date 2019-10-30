@@ -68,7 +68,7 @@ Um chamado `prod_index.html` com o seguinte conteúdo:
 
 ```html
 <body>
-<h1>Esse eh um servidor web em producao, tenha cuidado!</h1>
+<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
 </body>
 ```
 
@@ -125,7 +125,7 @@ node3 ansible_host=33.44.55.66
 </body>
 [student1@ansible ansible-files]$ curl http://22.33.44.55
 <body>
-<h1>Esse eh um servidor web em producao, tenha cuidado!</h1>
+<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
 </body>
 [student1@ansible ansible-files]$ curl http://33.44.55.66
 <body>

@@ -2,7 +2,7 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-Em nosso primeiro exercício, executaremos alguns comandos ad-hoc para ajudá-lo a entender como o Ansible funciona. Os comandos Ad-Hoc permitem executar tarefas em nós remotos sem precisar escrever um manual. Eles são muito úteis quando você simplesmente precisa fazer uma ou duas coisas de maneira rápida e frequente para muitos nós remotos.
+Em nosso primeiro exercício, executaremos alguns comandos ad-hoc para ajudá-lo a entender como o Ansible funciona. Os comandos ad-hoc permitem executar tarefas em nós remotos sem precisar escrever um manual. Eles são muito úteis quando você simplesmente precisa fazer uma ou duas coisas de maneira rápida e frequente para muitos nós remotos.
 
 ## Passo 2.1 - Trabalhe com seu inventário
 
@@ -44,7 +44,7 @@ Um arquivo de inventário pode conter muitas outras informações, como organiza
 [student<X@>ansible ~]$ ansible all --list-hosts
 ```
 
-Como você pode ver, não há problema em colocar sistemas em mais de um grupo. Por exemplo, um servidor pode ser um servidor da Web e um servidor de banco de dados. Observe que no Ansible os grupos não são necessariamente hierárquicos.
+Como você pode ver, não há problema em colocar sistemas em mais de um grupo. Por exemplo, um servidor pode ser um servidor web e um servidor de banco de dados. Observe que no Ansible os grupos não são necessariamente hierárquicos.
 
 > **Dica**
 >
@@ -209,7 +209,7 @@ Como mencionado, isso produz um **erro**:
 
 A saída do comando ad hoc está alertando **FAILED** em vermelho para você. Por quê? Porque o usuário **student\<X\>** não tem permissão para gravar o arquivo motd.
 
-Agora, este é um caso de escalonamento de privilégios e a razão pela qual o `sudo` precisa ser configurada corretamente. Precisamos instruir o Ansible a usar o `sudo` para executar o comando como root usando o parâmetro` -b` (pense em "tornar-se").
+Agora, este é um caso de escalonamento de privilégios e a razão pela qual o `sudo` precisa ser configurado corretamente. Precisamos instruir o Ansible a usar o `sudo` para executar o comando como root usando o parâmetro` -b` (pense em "tornar-se").
 
 > **Dica**
 >
@@ -252,7 +252,7 @@ Execute o comando `ansible node1 -m copy…​` de cima novamente. Nota:
 
    - A cor de saída diferente (configuração de terminal adequada fornecida).
    - A mudança de `"changed": true,` para `"changed": false,`.
-   - A primeira linha diz `SUCESS` em vez de`CHANGED`.
+   - A primeira linha diz `SUCCESS` em vez de`CHANGED`.
    
 > **Dica**
 >
@@ -266,7 +266,7 @@ Execute o comando `ansible node1 -m copy…​` de cima novamente. Nota:
 
        - Procure os exemplos de ajuda do módulo para saber como instalar um pacote na versão mais recente.
 
-   - Execute um comando Ansible ad hoc para instalar o pacote "screen" na versão mais recente no `node1`.
+       - Execute um comando Ansible ad hoc para instalar o pacote "screen" na versão mais recente no `node1`.
 
 > **Dica**
 >

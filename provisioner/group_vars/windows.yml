@@ -1,0 +1,208 @@
+---
+##########################################################
+##################### GENERAL INFO #######################
+##########################################################
+
+# Where to provision instances (ec2, azure, vmware)
+instance_loc: ec2
+
+# Map skylight vars to workshop_type:windows vars
+name_prefix: "TESTWORKSHOP"
+
+
+
+# Needed for AD and windows client provision
+dns_domain_name: "ansibleworkshop.com"
+# Could do regex search on dns_domain_name (.+?)(?=\.)
+dns_domain_name_short: "ansibleworkshop"
+ldap_basedn: "DC=ansibleworkshop,DC=com"
+domain_admin_password: "MyP@ssw0rd21"
+
+# Number of users and prefix for user name
+student_total: 1
+user_prefix: student
+users_password: "Ans1bl3--"
+
+# Tower Admin Password
+admin_pass: "MyPassw0rd21"
+towerversion: 3.5.2-1
+pgpass: awx
+rabbitpass: tower
+
+# Tower LDAP Integration
+ldap_search_base: "{{ ldap_basedn }}"
+ldap_access_filter: "(&(objectClass=user)(memberOf=CN=Ansible Users,CN=Users,{{ ldap_search_base }}))"
+tower_ldap_search_dn: "CN=Users,{{ ldap_search_base }}"
+
+# Root user (ec2-user for AWS)
+root_user: root
+root_password: MyPassw0rd21
+centos_root_user: centos
+
+# Needed for reverse lookup DNS setup
+ec2_subnet_name: "1.0.10.in-addr.arpa"
+ec2_subnet: "10.0.1.0/24"
+
+# Deploy Extra Labs
+git_lab: false
+advanced_lab: false
+
+# Enable nginx-ssl
+nginx_ssl: true
+
+##########################################################
+###################### GITLAB INFO #######################
+##########################################################
+
+# Gitlab variables
+gitlab_external_url: "https://gitlab.{{ dns_domain_name }}/"
+gitlab_git_data_dir: "/var/opt/gitlab/git-data"
+gitlab_backup_path: "/var/opt/gitlab/backups"
+gitlab_edition: "gitlab-ce"
+# SSL Config
+gitlab_redirect_http_to_https: "true"
+gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+# SSL Self-signed Certificate Configuration
+gitlab_create_self_signed_cert: "true"
+gitlab_self_signed_cert_subj: "/C=US/ST=North Carolina/L=Raleigh/O=Ansible/CN=gitlab.{{ dns_domain_name }}"
+# LDAP Configuration
+gitlab_ldap_enabled: "true"
+gitlab_ldap_host: "windc.{{ dns_domain_name }}"
+gitlab_ldap_port: "389"
+gitlab_ldap_uid: "sAMAccountName"
+gitlab_ldap_method: "plain"
+gitlab_ldap_bind_dn: "CN=Admin,CN=Users,{{ ldap_basedn }}"
+gitlab_ldap_password: "{{ domain_admin_password }}"
+gitlab_ldap_base: "{{ ldap_basedn }}"
+# General Config
+gitlab_time_zone: "UTC"
+gitlab_backup_keep_time: "604800"
+gitlab_download_validate_certs: yes
+# install latest version of gitlab when using ansible 2.8
+# enable gitlab_version below when using ansible < 2.8
+# gitlab_version: "10.0.6-ce.0.el7"
+# Email configuration.
+gitlab_email_enabled: "false"
+gitlab_smtp_enable: "false"
+
+
+##########################################################
+######################## EC2 INFO ########################
+##########################################################
+
+ec2_region: "us-east-1"
+
+# If this is defined, create a dns entries in the route53 zone
+#public_dns_zone: "labs.ansibleworkshop.com"
+
+# Internal lookup dict for image names and types
+# ec2_image_names:
+#   rhel7: "RHEL-7.6_HVM_GA*x86_64*"
+#   rhel8: "RHEL-8.0.0_HVM_GA*x86_64*"
+#   win2016_core: "Windows_Server-2016-English-Core-Base*"
+#   win2016_full: "Windows_Server-2016-English-Full-Base*"
+#   win2019_core: "Windows_Server-2019-English-Core-Base*"
+#   win2019_full: "Windows_Server-2019-English-Full-Base*"
+
+# # Instance Sizes
+# ec2_tower_instance_type: "t2.medium"    # Medium = 2 vCPU / 4GB
+# ec2_tower_instance_ami_type: rhel7 # See the ec2_image_names variable for lookup
+# ec2_gitlab_instance_type: "t2.medium"   # Might be able to use small...
+# ec2_gitlab_instance_ami_type: rhel7 # See the ec2_image_names variable for lookup
+# ec2_docs_instance_type: "t2.medium"
+# ec2_docs_instance_ami_type: rhel7 # See the ec2_image_names variable for lookup
+# ec2_windc_instance_type: "t3.medium"    # t2.micro fails
+# ec2_windc_instance_ami_type: win2019_core # See the ec2_image_names variable for lookup
+# ec2_windows_workstation_instance_type: "t3.medium"   # t2.small was slowwwwww...
+# # There seems to be an issue using win_chocolatey and win2019_full. See https://github.com/ansible/ansible/issues/47821
+# ec2_windows_workstation_instance_ami_type: win2016_full # See the ec2_image_names variable for lookup
+# ec2_windows_instance_type: "t3.small"   # Small = 1 vCPU / 2GB
+# ec2_windows_instance_ami_type: win2019_core # See the ec2_image_names variable for lookup
+
+
+# letsencrypt config
+certbot_admin_email: register@{{ public_dns_zone | default ('') }}
+certbot_create_if_missing: yes
+certbot_create_standalone_stop_services: []
+certbot_certs:
+  - domains:
+    - "{{ name_prefix }}.{{ public_dns_zone | default ('') }}"
+
+##########################################################
+###################### VMWARE INFO #######################
+##########################################################
+
+vCenterServer: 10.0.1.2
+vCenterUsername: administrator
+vCenterPassword: MyP@ssw0rd21
+vCenterDatacenter: Datacenter
+vCenterCluster: Cluster
+vCenterFolder: /Workshops
+vCenterCloneSourceWindows: Win2016Template
+VCenterCloneSnapshotWindows: LinkedSS
+vCenterCloneSourceLinux: CentosBase
+VCenterCloneSnapshotLinux: LinkedSS
+VCenterLinkedClone: true
+vCenterPortGroup: Workshops
+vCenterPortGroupExt: External
+
+vmware_tower_template: "{{ vCenterCloneSourceLinux }}"
+vmware_gitlab_template: "{{ vCenterCloneSourceLinux }}"
+vmware_docs_template: "{{ vCenterCloneSourceLinux }}"
+vmware_windc_template: "{{ vCenterCloneSourceWindows }}"
+vmware_windows_workstation_template: "{{ vCenterCloneSourceWindows }}"
+vmware_windows_template: "{{ vCenterCloneSourceWindows }}"
+
+##########################################################
+#################### OVIRT/RHV INFO ######################
+##########################################################
+
+ovirt_host: 10.0.1.2
+ovirt_user: administrator
+ovirt_password: MyP@ssw0rd21
+ovirt_datacenter: mydatacenter
+ovirt_cluster: production
+ovirt_clone_source_windows: Win2019Template
+ovirt_clone_source_linux: CentosBase
+ovirt_network_name: ovirtmgmt
+
+ovirt_tower_template: "{{ ovirt_clone_source_linux }}"
+ovirt_gitlab_template: "{{ ovirt_clone_source_linux }}"
+ovirt_docs_template: "{{ ovirt_clone_source_linux }}"
+ovirt_windc_template: "{{ ovirt_clone_source_windows }}"
+ovirt_windows_workstation_template: "{{ ovirt_clone_source_windows }}"
+ovirt_windows_template: "{{ ovirt_clone_source_windows }}"
+
+##########################################################
+####################### AZURE INFO #######################
+##########################################################
+
+azure_admin_user: "skylight"
+azure_admin_pass: "MyS3cr3tP@ssw0rd"
+
+azure_client_id: ''
+azure_secret: ''
+azure_subscription_id: ''
+azure_tenant: ''
+azure_location: ''
+
+azure_storage_account_type: Standard_LRS
+
+# Instance Sizes
+azure_tower_instance_type: "Standard_A2_v2"    # Medium = 2 vCPU / 4GB
+azure_gitlab_instance_type: "Standard_A2_v2"   # Might be able to use small...
+azure_windc_instance_type: "Standard_A2_v2"
+azure_windows_workstation_instance_type: "Standard_A2_v2"
+azure_windows_instance_type: "Standard_A2_v2"   # Medium = 2 vCPU / 4GB
+
+azure_rhel_publisher: "OpenLogic"
+azure_rhel_offer: "CentOS"
+azure_rhel_sku: "7.5"
+azure_rhel_version: "latest"
+
+azure_win_publisher: "MicrosoftWindowsServer"
+azure_win_offer: "WindowsServer"
+azure_win_sku: "2016-Datacenter"
+azure_win_version: "latest"
+

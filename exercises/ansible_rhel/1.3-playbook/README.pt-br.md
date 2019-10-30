@@ -217,7 +217,7 @@ Então, por que não usar o Ansible para implantar um simples arquivo `index.htm
 
 ```html
 <body>
-<h1>O Apache está funcionando bem</h1>
+<h1>O Apache esta funcionando bem</h1>
 </body>
 ```
 

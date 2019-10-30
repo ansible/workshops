@@ -35,7 +35,7 @@ O padrão de host mais básico é o nome de um único host gerenciado listado no
     node1
 ```
 
-Um arquivo de inventário pode conter muitas outras informações, como organizar seus hosts em grupos ou definir variáveis. No nosso exemplo, o inventário atual possui os grupos `web 'e` control`. Execute o Ansible com esses padrões de host e observe a saída:
+Um arquivo de inventário pode conter muitas outras informações, como organizar seus hosts em grupos ou definir variáveis. No nosso exemplo, o inventário atual possui os grupos `web `e` control`. Execute o Ansible com esses padrões de host e observe a saída:
 
 ```bash
 [student<X@>ansible ~]$ ansible web  --list-hosts

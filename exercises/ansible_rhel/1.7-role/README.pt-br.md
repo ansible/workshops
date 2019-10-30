@@ -108,7 +108,7 @@ Mude para o diretório `functions/apache_vhost`. Edite o arquivo `tasks/main.yml
 
 Observe que aqui apenas as tasks foram adicionadas. Os detalhes de um Playbook não estão presentes.
 
-As tarefas que foram adicionadas até o momento:
+As tasks que foram adicionadas até o momento:
 
   - Instalar o pacote httpd usando o módulo yum
 
@@ -132,7 +132,7 @@ Em seguida, adicionamos mais duas tasks para garantir uma estrutura de diretóri
 
 Note que o diretório vhost é criado/garantido usando o módulo `file`.
 
-A última tarefa que adicionamos usa o módulo de template para criar o arquivo de configuração do vhost a partir de um template j2:
+A última task que adicionamos usa o módulo de template para criar o arquivo de configuração do vhost a partir de um template j2:
 
 ```yaml
 - name: template arquivo vhost 
@@ -243,7 +243,7 @@ Você está pronto para testar a role no `node2`. Mas como uma role não pode se
 
   pre_tasks:
     - debug:
-        msg: 'Iniciando a configuração do servidor web.'
+        msg: 'Iniciando a configuracao do servidor web.'
 
   roles:
     - apache_vhost

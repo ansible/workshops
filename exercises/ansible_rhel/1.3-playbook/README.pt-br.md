@@ -24,7 +24,7 @@ Playbooks são arquivos de texto escritos no formato YAML e, portanto, precisam:
 
 Existem alguns conceitos importantes:
 
-  - **hosts**: Os hosts gerenciados para executar as tarefas.
+  - **hosts**: Os hosts gerenciados para executar as tasks.
 
   - **tasks**: As operações a serem executadas chamando os módulos e passando as opções necessárias.
 
@@ -82,7 +82,7 @@ Isso mostra uma das forças do Ansible: a sintaxe do Playbook é fácil de ler e
 
 > **Dica**
 >
-> Obviamente, você precisa usar a escalação de privilégios para instalar um pacote ou executar qualquer outra tarefa que exija permissões de root. Isso é feito no Playbook por `Become: yes'.
+> Obviamente, você precisa usar a escalação de privilégios para instalar um pacote ou executar qualquer outra task que exija permissões de root. Isso é feito no Playbook por `Become: yes'.
 
 Agora que definimos a play, vamos adicionar uma task para fazer algo. Adicionaremos uma task na qual o yum garantirá que o pacote Apache esteja instalado na versão mais recente. Modifique o arquivo para que ele se pareça com a seguinte listagem:
 
@@ -131,7 +131,7 @@ Agora você deve estar pronto para executar seu Playbook:
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
-A saída não deve relatar nenhum erro, e sim fornecer uma visão geral das tarefas executadas e uma recapitulação de reprodução resumindo o que foi feito. Há também uma tarefa chamada "Gathering Facts" listada: esta é uma tarefa interna que é executada automaticamente no início de cada Play. Ele coleta informações sobre os nós gerenciados. Os exercícios posteriores abordarão isso com mais detalhes.
+A saída não deve relatar nenhum erro, e sim fornecer uma visão geral das tasks executadas e uma recapitulação de reprodução resumindo o que foi feito. Há também uma task chamada "Gathering Facts" listada: esta é uma task interna que é executada automaticamente no início de cada Play. Ele coleta informações sobre os nós gerenciados. Os exercícios posteriores abordarão isso com mais detalhes.
 
 Use o SSH para garantir que o Apache tenha sido instalado no `node1`. O endereço IP necessário é fornecido no inventário.
 
@@ -160,7 +160,7 @@ Execute o Playbook pela segunda vez e compare a saída: A saída mudou de "chang
 
 A próxima parte do Playbook garante que o servidor Apache esteja startado e habilitado no `node1`.
 
-No host de controle, como seu usuário student, edite o arquivo `~/ansible-files/apache.yml` para adicionar uma segunda tarefa usando o módulo`service`. O Playbook agora deve ficar assim:
+No host de controle, como seu usuário student, edite o arquivo `~/ansible-files/apache.yml` para adicionar uma segunda task usando o módulo`service`. O Playbook agora deve ficar assim:
 
 ```yaml
 ---
@@ -193,7 +193,7 @@ Assim, com a segunda task, garantimos que o servidor Apache esteja realmente em 
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
 
-Observe a saída agora: algumas tarefas são mostradas como "ok" em verde e uma é mostrada como "changed" em amarelo.
+Observe a saída agora: algumas tasks são mostradas como "ok" em verde e uma é mostrada como "changed" em amarelo.
 
   - Use um comando Ansible ad hoc novamente para garantir que o Apache tenha sido ativado e iniciado, por exemplo com: `systemctl status httpd`.
 
@@ -223,7 +223,7 @@ Então, por que não usar o Ansible para implantar um simples arquivo `index.htm
 
 Você já usou o módulo `copy`  para gravar o texto fornecido na linha de comando em um arquivo. Agora você usará o módulo no seu Playbook para copiar um arquivo:
 
-No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files/apache.yml` e adicione uma nova tarefa utilizando o módulo`copy`. Agora deve ficar assim:
+No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files/apache.yml` e adicione uma nova task utilizando o módulo`copy`. Agora deve ficar assim:
 
 ```yaml
 ---
@@ -260,7 +260,7 @@ Execute seu Playbook ampliado:
 
 ## Passo 3.6 - Pratique: Aplicar a vários hosts
 
-Isso foi legal, mas o verdadeiro poder do Ansible é aplicar o mesmo conjunto de tarefas de maneira confiável a muitos hosts.
+Isso foi legal, mas o verdadeiro poder do Ansible é aplicar o mesmo conjunto de tasks de maneira confiável a muitos hosts.
 
   - Então, que tal mudar o apache.yml Playbook para executar no `node1` **e**` node2` **e** `node3`?
 

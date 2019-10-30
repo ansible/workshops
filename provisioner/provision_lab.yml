@@ -50,7 +50,7 @@
       when: workshop_type == "networking"
       register: package_state
 
-# windows has a dependancy on sshpass which is nogo on macos
+# windows has a dependancy on sshpass which is nogo on macos: brew install it
     - name: make sure (windows) packages required are installed on this control node
       pip:
         name:

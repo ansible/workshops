@@ -98,7 +98,7 @@ Depois, crie o playbook `httpd_conf.yml`. Verifique se você está no diretório
   hosts: web
   become: yes
   tasks:
-  - name: copiar arquivo de configuração do Apache
+  - name: copiar arquivo de configuracao do Apache
     copy:
       src: httpd.conf
       dest: /etc/httpd/conf/

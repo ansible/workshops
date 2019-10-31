@@ -104,7 +104,7 @@ The provisioner currently supports creating DNS records per control node with va
 
 This means that each student workbench will get an individual DNS entry.  For example a DNS name will look like this: `https://student1.testworkshop.rhdemo.io`
 
-  - **NOTE:** The variable `dns_type` defaults to `aws`.  This can also be set to `dns_type: none`.  
+  - **NOTE:** The variable `dns_type` defaults to `aws`.  This can also be set to `dns_type: none`.
 
   - **NOTE:**  If Lets Encrypt fails, the workshop provisioner will still pass, and alert you of errors in the `summary_information` at the end of the `provision_lab.yml` Ansible Playbook.
 

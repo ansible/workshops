@@ -13,7 +13,7 @@ ansible_port={{ ssh_port }}
 {% if security_console == 'splunk' %}
 {% for host in splunk_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-splunk ansible_host={{ host.public_ip_address }} ansible_user=admin
+{{host.tags.Student}}-qradar ansible_host={{ host.public_ip_address }} ansible_user=ansible ansible_httpapi_pass="security" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=splunk.enterprise_security.splunk
 {% endif %}
 {% endfor %}
 {% endif %}

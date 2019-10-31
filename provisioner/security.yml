@@ -41,10 +41,6 @@
       retries: "{{ async_wait_for_retries }}"
 
 
-- name: include splunk playbook
-  import_playbook: splunk.yml
-  when: security_console == 'splunk'
-
 - name: include qradar playbook
   import_playbook: qradar.yml
   when: security_console == 'qradar'
@@ -69,7 +65,7 @@
             ids_install_normalize_logs: false
           when: security_console == 'qradar'
 
-        - name: set fact vars for qradar
+        - name: set fact vars for splunk
           set_fact:
             ids_install_normalize_logs: true
           when: security_console == 'splunk'

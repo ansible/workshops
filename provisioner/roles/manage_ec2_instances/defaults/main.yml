@@ -91,12 +91,12 @@ ec2_info:
     filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
     username: admin
   splunk_enterprise:
-    owners: 309956199498
+    owners: 324218975267
     size: c4.4xlarge
     os_type: linux
-    disk_space: 200
+    disk_space: 300
     architecture: x86_64
-    filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
+    filter: 'AnsibleSecurity-SplunkEnterprise*'
     username: ec2-user
     python_interpreter: '/usr/bin/python'
   netapp:

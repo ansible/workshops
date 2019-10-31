@@ -148,6 +148,13 @@
   roles:
     - connectivity_test
 
+- name: wait for all security nodes to have SSH reachability
+  hosts: "security_connection_check"
+  become: yes
+  gather_facts: no
+  roles:
+    - connectivity_test
+
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
   gather_facts: no

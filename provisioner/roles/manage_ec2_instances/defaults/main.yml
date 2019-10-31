@@ -134,3 +134,4 @@ ec2_info:
     size: t2.xlarge
     username: ec2-user
 
+debug_teardown: false

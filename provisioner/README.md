@@ -47,11 +47,11 @@ workshop_type: rhel
 # password for Ansible control node, defaults to ansible
 admin_password: ansible
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-create_login_page: true                
+create_login_page: true
 # Sets the Route53 DNS zone to use for the S3 website
-workshop_dns_zone: rhdemo.io           
+workshop_dns_zone: rhdemo.io
 # automatically installs Tower to control node
-towerinstall: true                     
+towerinstall: true
 # automatically licenses Tower if license is provided
 autolicense: true
 # install xrdp with xfce for graphical interface
@@ -92,6 +92,12 @@ To destroy all the EC2 instances after training is complete:
 1. Run the playbook:
 
         ansible-playbook teardown_lab.yml -e @extra_vars.yml
+
+2. Optionally you can enable verbose debug output of the information gathered
+   that drives the teardown process by passing the extra optional variable
+   `debug_teardown=true`. Example:
+
+        ansible-playbook teardown_lab.yml -e @extra_vars.yml -e debug_teardown=true
 
 # FAQ
 

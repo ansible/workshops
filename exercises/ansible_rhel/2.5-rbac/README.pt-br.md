@@ -110,4 +110,4 @@ Esse recurso é um dos principais pontos fortes da Ansible Tower\!
 
 ----
 
-[Click here to return to the A[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-2---exercícios-do-ansible-tower)nsible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-2---exercícios-do-ansible-tower)

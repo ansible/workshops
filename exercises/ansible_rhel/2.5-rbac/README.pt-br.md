@@ -34,7 +34,7 @@ Vamos criar um usuário:
   
     - **PASSWORD:** ansible
   
-    - Confirm password
+    - confirme a senha
 
 - Click em **SAVE**
 

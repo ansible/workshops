@@ -43,8 +43,8 @@ Se a sua experiência for diferente na programação desses workshops, informe-n
 
  - [Exercício 2.1 - Introcução ao Tower](2.1-intro/README.pt-br.md)
  - [Exercício 2.2 - Inventários, credenciais e comandos ad hoc](2.2-cred/README.pt-br.md)
- - [Exercício 2.3 - Projetos & job templates](2.3-projects/README.pt-br.md)
- - [Exercício 2.4 - Pesquisas](2.4-surveys/README.pt-br.md)
+ - [Exercício 2.3 - Projects & Job templates](2.3-projects/README.pt-br.md)
+ - [Exercício 2.4 - Surveys](2.4-surveys/README.pt-br.md)
  - [Exercício 2.5 - Role baseado em controle de acesso](2.5-rbac/README.pt-br.md)
  - [Exercício 2.6 - Workflows](2.6-workflows/README.pt-br.md)
  - [Exercício 2.7 - Wrap up](2.7-wrap/README.pt-br.md)

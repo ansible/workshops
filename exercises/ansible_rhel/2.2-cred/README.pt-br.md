@@ -10,7 +10,7 @@ Vamos começar: a primeira coisa que precisamos é de um inventário de seus hos
   
 Criando o inventário:
 
-  - No menu da interface web no lado esquerdo, vá para **RECURSOS ** → **Inventários**, clique no botão! [plus](images/green_plus.png) no lado direito e escolha **Inventário**.
+  - No menu da interface web no lado esquerdo, vá para **RECURSOS ** → **Inventários**, clique no botão ![plus](images/green_plus.png) no lado direito e escolha **Inventário**.
   
   - **NAME:** Inventário Workshop 
 
@@ -59,7 +59,7 @@ Observe os nomes dos nós e os endereços IP, vamos usá-los para preencher o in
 
   - Clique no botão **HOSTS**
 
-  - À direita, clique no botão! [plus](images/green_plus.png).
+  - À direita, clique no botão ![plus](images/green_plus.png)
   
   - **HOST NAME:** `node1`
 
@@ -106,13 +106,13 @@ O que isto significa?
 
 Agora vamos configurar as credenciais para acessar nossos hosts gerenciados do Tower. No menu **RESOURCES **, escolha **CREDENTIALS**. Agora:
 
-Clique no botão! [plus](images/green_plus.png) para adicionar novas credenciais
+Clique no botão ![plus](images/green_plus.png) para adicionar novas credenciais
 
   - **NAME:** Credenciais Workshop 
 
   - **ORGANIZATION:** Default
 
-  - **CREDENTIAL TYPE:** Clique na lupa, escolha **Machine** e clique em! [plus](images/select.png)
+  - **CREDENTIAL TYPE:** Clique na lupa, escolha **Machine** e clique em ![plus](images/select.png)
   
   - **CREDENTIAL TYPE:** Machine
 

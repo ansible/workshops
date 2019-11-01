@@ -1,8 +1,8 @@
-# Exercício 2.3 - Projetos & job templates
+# Exercício 2.3 - Projects & job templates
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-O Tower **Project** é uma coleção lógica de Playbooks. Você pode gerenciar seus playbooks colocando-os em um sistema de gerenciamento de código-fonte (SCM) suportado pelo Tower, incluindo Git, Subversion e Mercurial.
+O **Project** é uma coleção lógica de Playbooks. Você pode gerenciar seus playbooks colocando-os em um sistema de gerenciamento de código-fonte (SCM) suportado pelo Tower, incluindo Git, Subversion e Mercurial.
 
 Você definitivamente deve manter seus Playbooks sob controle de versão. Neste laboratório, usaremos Playbooks mantidos em um repositório Git.
 
@@ -59,7 +59,7 @@ Para configurar e usar este repositório como um sistema **Source Control Manage
 
 ## Criando o projeto
 
-  - Vá para **RESOURCES → Projects** na visualização do menu lateral, clique no botão! [plus](images / green_plus.png). Preencha o formulário:
+  - Vá para **RESOURCES → Projects** na visualização do menu lateral, clique no botão ![plus](images / green_plus.png). Preencha o formulário:
  
   - **NAME:** Exemplos Ansible Workshop 
 
@@ -97,7 +97,7 @@ Um Job template é uma definição e um conjunto de parâmetros para executar um
 
 - **What** Playbook é para usar?
 
-Ok, vamos fazer isso: vá para a visualização **Templates**, clique no botão! [plus](images/green_plus.png) e escolha **Job template**.
+Ok, vamos fazer isso: vá para a visualização **Templates**, clique no botão ![plus](images/green_plus.png) e escolha **Job template**.
 
 > **Dica**
 > 

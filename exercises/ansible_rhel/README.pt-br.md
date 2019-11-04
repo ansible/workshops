@@ -41,7 +41,7 @@ Se a sua experiência for diferente na programação desses workshops, informe-n
 
 ## Seção 2 - Exercícios do Ansible Tower
 
- - [Exercício 2.1 - Introcução ao Tower](2.1-intro/README.pt-br.md)
+ - [Exercício 2.1 - Introdução ao Tower](2.1-intro/README.pt-br.md)
  - [Exercício 2.2 - Inventários, credenciais e comandos ad hoc](2.2-cred/README.pt-br.md)
  - [Exercício 2.3 - Projects & Job templates](2.3-projects/README.pt-br.md)
  - [Exercício 2.4 - Surveys](2.4-surveys/README.pt-br.md)

@@ -8,7 +8,7 @@ O Ansible Tower é uma interface do usuário baseada na Web que fornece uma solu
 
   - Possui um dashboard amigável.
 
-  - Ele complementa o Ansible, adicionando recursos de automação, gerenciamento visual e monitoramento.
+  - Ele complementa o Ansible Engine, adicionando recursos de automação, gerenciamento visual e monitoramento.
 
   - Ele fornece controle de acesso do usuário aos administradores.
 
@@ -29,11 +29,11 @@ Neste laboratório, você trabalha em um ambiente de laboratório pré-configura
 | Managed Host 2               | node2          |
 | Managed Host 2               | node3          |
 
-O Ansible Tower fornecido neste laboratório é configurado individualmente para você. Certifique-se de acessar a máquina certa sempre que trabalhar com ele. O Ansible Tower já foi instalado e licenciado para você, a interface do usuário da web estará acessível por HTTP / HTTPS.
+O Ansible Tower fornecido neste laboratório é configurado individualmente para você. Certifique-se de acessar a máquina certa sempre que trabalhar com ele. O Ansible Tower já foi instalado e licenciado para você, a interface web estará acessível por HTTP/HTTPS.
 
 ## Dashboard
 
-Vamos dar uma primeira olhada no Tower: Use a URL que você recebeu, semelhante a `https://student<X>.workshopname.rhdemo.io` (substitua `<X>` pelo número do seu usuário e` workshopname` com o nome do seu workshop atual) e efetue login como `admin`. A senha será fornecida pelo instrutor.
+Vamos dar uma primeira olhada no Tower: Use a URL que você recebeu, semelhante a `https://student<X>.workshopname.rhdemo.io` (substitua `<X>` pelo número do seu usuário e `workshopname` com o nome do seu workshop atual) e efetue login como `admin`. A senha será fornecida pelo instrutor.
 
 A interface do Tower recebe você com um painel com um gráfico mostrando:
 
@@ -67,11 +67,11 @@ As credenciais do Tower são importadas e armazenadas criptografadas no Tower e 
 
 **Templates**
 
-Um template de trabalho é uma definição e um conjunto de parâmetros para executar um trabalho Ansible. Os templates de trabalho são úteis para executar o mesmo trabalho várias vezes. Os templates de trabalho também incentivam a reutilização do conteúdo do Playbook e a colaboração entre as equipes. Para executar um trabalho, o Tower exige que você primeiro crie um template de trabalho.
+Um job template é uma definição e um conjunto de parâmetros para executar um trabalho Ansible. Os jobs templates são úteis para executar o mesmo job várias vezes. Os jobs templates também incentivam a reutilização do conteúdo do Playbook e a colaboração entre as equipes. Para executar um job, o Tower exige que você primeiro crie um job template.
 
 **Jobs**
 
-Um Job é basicamente uma instância da Tower que lança um Playbook contra um inventário de hosts.
+Um Job é basicamente uma instância do Tower que lança um Playbook contra um inventário de hosts.
 
 ----
 

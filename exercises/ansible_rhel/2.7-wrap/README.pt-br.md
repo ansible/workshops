@@ -10,11 +10,11 @@ Esse é o desafio final em que tentamos reunir a maior parte do que você aprend
 
 Sua equipe de operações e sua equipe de desenvolvimento de aplicações gostam do que vêem no Tower. Para realmente usá-lo em seu ambiente, eles reuniram esses requisitos:
 
-- Todos os servidores web (`node1`,` node2` e `node3`) devem entrar em um grupo
+- Todos os servidores web (`node1`, `node2` e `node3`) devem entrar em um grupo
 
 - Como os servidores web podem ser usados para fins de desenvolvimento ou produção, é necessário que haja uma maneira de sinalizá-los como "stage dev" ou "stage prod".
 
-    - Atualmente, o `node1` é usado como de desenvolvimento e o` node2` em produção.
+    - Atualmente, o `node1` é usado como de desenvolvimento e o `node2` em produção.
 
 - Obviamente, o conteúdo de "index.html" será diferente entre os estágios dev e prod.
 
@@ -26,7 +26,7 @@ Sua equipe de operações e sua equipe de desenvolvimento de aplicações gostam
 
 ## O repositório Git
 
-Todo o código já está no lugar - afinal, este é um laboratório da Tower. Confira o repositório git **Ansible Workshop Examples** em **https://github.com/ansible/workshop-examples**. Lá você encontrará o Plabook `webcontent.yml`, que chama a role ` role_webcontent`.
+Todo o código já está no lugar - afinal, este é um laboratório da Tower. Confira o repositório git **Ansible Workshop Examples** em **https://github.com/ansible/workshop-examples**. Lá você encontrará o Plabook `webcontent.yml`, que chama a role `role_webcontent`.
 
 Comparado à role de instalação anterior do Apache, há uma grande diferença: agora existem duas versões de um playbook `index.html` e uma task de implantar o arquivo de template que possui uma variável como parte do nome do arquivo de origem:
 
@@ -65,7 +65,7 @@ Comparado à role de instalação anterior do Apache, há uma grande diferença:
 
 - Verifique se todos os hosts estão no grupo de inventário `Webserver`.
 
-- Defina uma variável `stage` com o valor` dev` para o inventário `Webserver`:
+- Defina uma variável `stage` com o valor `dev` para o inventário `Webserver`:
 
     - Adicione `stage: dev` ao inventário `Webserver`, colocando-o no campo **VARIABLES** abaixo dos três traços start-yaml.
 
@@ -83,9 +83,9 @@ Comparado à role de instalação anterior do Apache, há uma grande diferença:
 
     - usa o Playbook `rhel/apache/webcontent.yml` do novo projeto **Exemplos Ansible Workshop**
 
-    - Define duas variáveis: `dev_content: default dev content` e` prod_content: default prod content` no **EXTRA VARIABLES FIELD**
+    - Define duas variáveis: `dev_content: default dev content` e `prod_content: default prod content` no **EXTRA VARIABLES FIELD**
     
-    - Usa `Credenciais workshop` e executa com escalação de privilégios
+    - Usa `Credenciais Workshop` e executa com escalação de privilégios
 
 - Salve e execute o template
 
@@ -122,7 +122,7 @@ Observe o aviso na primeira linha sobre não usar o `curl` através do módulo `
 
 - Adicione uma survey ao template para permitir alterar as variáveis `dev_content` e `prod_content`
 
-- Adicione permissões ao Team `Web Content` para que o Template **Create Web Content** possa ser executado por` wweb`.
+- Adicione permissões ao Team `Web Content` para que o Template **Create Web Content** possa ser executado por `wweb`.
 
 - Execute a survey como usuário `web`
 

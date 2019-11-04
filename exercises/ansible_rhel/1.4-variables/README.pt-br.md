@@ -208,7 +208,7 @@ ok: [node2]
 ok: [node1]
 ok: [ansible]
 
-TASK [print ansible facts] ****************************************************
+TASK [Print ansible facts] ****************************************************
 ok: [node1] =>
   msg: O endereco IPv4 padrao de node1 eh 172.16.190.143
 ok: [node2] =>

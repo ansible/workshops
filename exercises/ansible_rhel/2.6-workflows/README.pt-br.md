@@ -12,7 +12,7 @@ Os workflows foram introduzidos como um novo recurso importante no Ansible Tower
   
 E os workflows não se limitam aos job templates, mas também podem incluir atualizações de projeto ou inventário.
 
-Isso permite novas aplicações para o Tower: diferentes job templates podem ser criados entre si. Por exemplo. a equipe de rede cria playbooks com seu próprio conteúdo, em seu próprio repositório Git e até direciona seu próprio inventário, enquanto a equipe de operações também possui seus próprios repositórios, playbooks e inventário.
+Isso permite novas aplicações para o Tower: diferentes job templates podem ser criados entre si. Por exemplo, a equipe de rede cria playbooks com seu próprio conteúdo, em seu próprio repositório Git e até direciona seu próprio inventário, enquanto a equipe de operações também possui seus próprios repositórios, playbooks e inventário.
 
 Neste laboratório, você aprenderá como configurar um workflow.
 
@@ -34,7 +34,7 @@ Para tornar as coisas um pouco mais fáceis para você, tudo o que é necessári
 
 > **Nota**
 >
-> Neste exemplo, assumimos dois repositórios Git diferentes, mas, na realidade, acessaremos duas branches diferentes do mesmo repositório.
+> Neste exemplo, assumimos dois repositórios Git diferentes, mas na realidade, acessaremos duas branches diferentes do mesmo repositório.
 
 ## Configurando o projeto
 
@@ -42,7 +42,7 @@ Primeiro, você precisa configurar o repositório Git como Projetos. Você já f
 
 > **ATENÇÃO**
 > 
-> **Se você ainda estiver logado como usuário **wweb**, efetue logout e faça login como usuário **admin** novamente.**
+> Se você ainda estiver logado como usuário **wweb**, efetue logout e faça login como usuário **admin** novamente.
 
 - Crie o projeto para operações:
 
@@ -92,7 +92,7 @@ Primeiro, você precisa configurar o repositório Git como Projetos. Você já f
   
     - **SCM BRANCH/TAG/COMMIT:** webdev
 
-    - **SCM UPDATE OPTIONS:** Tick all three boxes.
+    - **SCM UPDATE OPTIONS:** Marque as três caixas.
 
 - Click em **SAVE**
 
@@ -106,13 +106,13 @@ Agora você deve criar job template como faria para jobs "normais".
     
       - **JOB TYPE:** Run
     
-      - **INVENTORY:** Inventario workshop 
+      - **INVENTORY:** Inventario Workshop 
     
       - **PROJECT:** Webops Git Repo
     
       - **PLAYBOOK:** `rhel/webops/tomcat.yml`
     
-      - **CREDENTIAL:** Credenciais workshop 
+      - **CREDENTIAL:** Credenciais Workshop 
     
       - **OPTIONS:** Enable privilege escalation
 
@@ -124,13 +124,13 @@ Agora você deve criar job template como faria para jobs "normais".
     
       - **JOB TYPE:** Run
     
-      - **INVENTORY:** Inventario workshop 
+      - **INVENTORY:** Inventario Workshop 
     
       - **PROJECT:** Webdev Git Repo
     
       - **PLAYBOOK:** `rhel/webdev/create_jsp.yml`
     
-      - **CREDENTIALS:** Credenciais workshop 
+      - **CREDENTIALS:** Credenciais Workshop 
     
       - **OPTIONS:** Enable privilege escalation
 
@@ -190,7 +190,7 @@ Seu workflow está pronto para ser iniciado.
 
 Observe como a execução do workflow é mostrada na exibição da tarefa. Ao contrário da execução normal de um job template, desta vez, não há saída do Playbook à direita, mas uma representação visual das diferentes etapas do workflow. Se você quiser ver os Playbooks reais por trás disso, clique em **DETAILS** em cada etapa. Se você deseja voltar de uma visualização de detalhes para o workflow correspondente, clique no botão ![w-button](images/w_button.png) na linha **JOB TEMPLATE** na parte **DETAILS** à esquerda, lado da visão geral do job.
 
-Após a conclusão do job, verifique se tudo funcionou bem: efetue login em `node1`,` node2` ou `node3` no host de controle e execute:
+Após a conclusão do job, verifique se tudo funcionou bem: efetue login em `node1`, `node2` ou `node3` no host de controle e execute:
 
 ```bash
 $ curl http://localhost:8080/coolapp/

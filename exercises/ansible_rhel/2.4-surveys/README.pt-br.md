@@ -108,12 +108,12 @@ Antes do lançamento real, a pesquisa solicitará **First Line** e **Second Line
 > 
 > Observe como as duas linhas de survey são mostradas à esquerda do Job view como **Extra Variables**.
 
-Após a conclusão do job, verifique a página inicial do Apache. No console SSH no host de controle, execute `curl 'no endereço IP do seu` node1`:
+Após a conclusão do job, verifique a página inicial do Apache. No console SSH no host de controle, execute `curl` no endereço IP do seu `node1`:
 
 ```bash
 $ curl http://22.33.44.55
 <body>
-<h1>Apache is running fine</h1>
+<h1>O Apache esta funcionando bem</h1>
 <h1>This is survey field "First Line": line one</h1>
 <h1>This is survey field "Second Line": line two</h1>
 </body>
@@ -132,7 +132,7 @@ Aqui está uma lista de tasks:
 
 - Execute o template **Create index.html** novamente.
 
-- Verifique os resultados nos outros dois nós usando `curl 'nos respectivos endereços IP.
+- Verifique os resultados nos outros dois nós usando `curl` nos respectivos endereços IP.
 
 ----
 

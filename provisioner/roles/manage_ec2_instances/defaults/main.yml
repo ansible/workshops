@@ -40,7 +40,7 @@ ec2_info:
     os: ios
     username: ec2-user
   arista:
-    size: t2.medium
+    size: c5.xlarge
     ami: "{{arista_ami | default(omit)}}"
     os: eos
     username: ec2-user

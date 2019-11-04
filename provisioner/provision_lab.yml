@@ -107,9 +107,10 @@
           until: job_result.finished
           retries: 30
 
-    - name: Workshop specific vars
+    - name: Windows workshop specific vars
       include_vars:
         file: "group_vars/{{ workshop_type }}.yml"
+      when: workshop_type == "windows"
 
     - name: Check Domain Admin Password Complexity
       assert:

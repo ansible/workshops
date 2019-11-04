@@ -31,18 +31,18 @@
     - windows_hosts
   roles:
     - windows-common
-#
-# - name: Configure GitLab Host
-#   hosts: gitlab
-#   become: True
-#   gather_facts: True
-#   vars_files:
-#     - [ 'vars/custom.yml', 'vars/main.yml' ]
-#   tags:
-#     - gitlab
-#   roles:
-#     - { role: linux-common }
-#     - { role: geerlingguy.gitlab }
+
+- name: Configure GitLab Host
+  hosts: gitlab
+  become: True
+  gather_facts: True
+  # vars_files:
+  #   - [ 'vars/custom.yml', 'vars/main.yml' ]
+  tags:
+    - gitlab
+  roles:
+    - { role: common }
+    - { role: geerlingguy.gitlab }
 #
 # # Run post-config separate to avoid handler restart issue...
 # - name: Gitlab Post Config

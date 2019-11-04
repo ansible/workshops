@@ -10,15 +10,15 @@ Vamos começar: a primeira coisa que precisamos é de um inventário de seus hos
   
 Criando o inventário:
 
-  - No menu da interface web no lado esquerdo, vá para **RECURSOS ** → **Inventários**, clique no botão ![plus](images/green_plus.png) no lado direito e escolha **Inventário**.
+  - No menu da interface web no lado esquerdo, vá para **RESOURCES** → **Inventories**, clique no botão ![plus](images/green_plus.png) no lado direito e escolha **Inventory**.
   
-  - **NAME:** Inventário Workshop 
+  - **NAME:** Inventario Workshop 
 
   - **ORGANIZATION:** Default
 
   - Click em **SAVE**
 
-Agora haverá dois inventários, o **Inventário Demo** e o **Inventário Workshop**. No **Inventário Workshop**, clique no botão **Hosts**, ele ficará vazio, pois não adicionamos nenhum host lá.
+Agora haverá dois inventários, o **Inventario Demo** e o **Inventario Workshop**. No **Inventario Workshop**, clique no botão **Hosts**, ele ficará vazio, pois não adicionamos nenhum host lá.
 
 Então, vamos adicionar alguns hosts. Primeiro, precisamos ter a lista de todos os hosts acessíveis a você neste laboratório. Estes podem ser encontrados em um inventário no nó de controle ansible no qual o Tower está instalado.
 
@@ -67,13 +67,13 @@ Observe os nomes dos nós e os endereços IP, vamos usá-los para preencher o in
   
   - Click em **SAVE**
 
-  - Volte para **HOSTS** e repita o processo para adicionar `node2` como um segundo host e` node3` como um terceiro. Certifique-se de que para cada nó insira os endereços IP corretos.
+  - Volte para **HOSTS** e repita o processo para adicionar `node2` como um segundo host e `node3` como um terceiro. Certifique-se de que para cada nó insira os endereços IP corretos.
 
 Agora você criou um inventário com três hosts gerenciados.
 
 ## Credenciais de máquina
 
-Um dos grandes recursos do Ansible Tower é tornar as credenciais utilizáveis para os usuários sem torná-las visíveis. Para permitir que o Tower execute tarefas em hosts remotos, você deve configurar credenciais de conexão.
+Um dos grandes recursos do Ansible Tower é tornar as credenciais utilizáveis para os usuários sem torná-las visíveis. Para permitir que o Tower execute tasks em hosts remotos, você deve configurar credenciais de conexão.
 
 > **Nota**
 > 
@@ -100,11 +100,11 @@ O que isto significa?
 
   - O usuário do Tower **ansible** pode conectar-se aos hosts gerenciados com senha baseada em SSH
 
-  - O usuário **ansible** pode executar comandos nos hosts gerenciados como **root ** com `sudo`
+  - O usuário **ansible** pode executar comandos nos hosts gerenciados como **root** com `sudo`
 
 ## Configurar credenciais da máquina
 
-Agora vamos configurar as credenciais para acessar nossos hosts gerenciados do Tower. No menu **RESOURCES **, escolha **CREDENTIALS**. Agora:
+Agora vamos configurar as credenciais para acessar nossos hosts gerenciados do Tower. No menu **RESOURCES**, escolha **CREDENTIALS**. Agora:
 
 Clique no botão ![plus](images/green_plus.png) para adicionar novas credenciais
 
@@ -124,7 +124,7 @@ Clique no botão ![plus](images/green_plus.png) para adicionar novas credenciais
 
   - Click em **SAVE**
 
-  - Volte para **RESOURCES** → **CREDENTIALS** → **Credenciais Workshop ** e observe que a senha não está visível.
+  - Volte para **RESOURCES** → **CREDENTIALS** → **Credenciais Workshop** e observe que a senha não está visível.
   
 > **Dica**
 > 
@@ -136,15 +136,15 @@ Agora você configurou credenciais para usar posteriormente em seus hosts de inv
 
 Provavelmente você já fez com o Ansible Engine, agora também pode executar comandos ad hoc no Tower.
 
-  - Vá para **RESOURCES → Inventories → Inventário Workshop**
+  - Vá para **RESOURCES → Inventories → Inventario Workshop**
 
-  - Clique no botão **HOSTS ** para mudar para a exibição de hosts e selecione os três hosts marcando as caixas à esquerda das entradas do host.
+  - Clique no botão **HOSTS** para mudar para a exibição de hosts e selecione os três hosts marcando as caixas à esquerda das entradas do host.
   
   - Clique em **RUN COMMANDS**. Na próxima tela, você deve especificar o comando ad hoc:
     
       - Em **MODULE**, escolha **ping**
     
-      - Para **MACHINE CREDENTIAL**, clique no ícone da lupa e selecione ** Credenciais Workshop**.
+      - Para **MACHINE CREDENTIAL**, clique no ícone da lupa e selecione **Credenciais Workshop**.
     
       - Clique em **LAUNCH** e observe a saída.
 
@@ -156,10 +156,10 @@ O módulo simples **ping** não precisa de opções. Para outros módulos, você
 
 > **Dica**
 > 
-> After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
+> Após escolher o módulo a ser executado, o Tower fornecerá um link para a página de documentos do módulo ao clicar no ponto de interrogação ao lado de "Arguments". Isso é útil, experimente.
 
-How about trying to get some secret information from the system? Try to print out */etc/shadow*.
-    
+Que tal tentar obter algumas informações secretas do sistema? Tente imprimir */etc/shadow*.  
+
 - **MODULE:** command
 
 - **ARGUMENTS:** cat /etc/shadow
@@ -172,7 +172,7 @@ Opa, o último não correu bem, todo vermelho.
 
 Execute novamente o último comando ad hoc, mas desta vez marque a caixa **ENABLE PRIVILEGE ESCALATION**.
 
-Como você pode ver, desta vez funcionou. Para tarefas que precisam ser executadas como root, você precisa escalar os privilégios. É o mesmo que o **become: yes** você provavelmente já usou com frequência em seus Playbooks com Ansible Engine.
+Como você pode ver, desta vez funcionou. Para tasks que precisam ser executadas como root, você precisa escalar os privilégios. É o mesmo que o **become: yes** você provavelmente já usou com frequência em seus Playbooks com Ansible Engine.
 
 ## Laboratório de desafios: Comandos Ad Hoc 
 

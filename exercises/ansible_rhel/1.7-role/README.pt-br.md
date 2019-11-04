@@ -44,7 +44,7 @@ O uso de roles em um Playbook é direto:
 
 ```yaml
 ---
-- name: iniciando roles
+- name: Iniciando roles
   hosts: web
   roles:
     - role1
@@ -94,12 +94,12 @@ Mude para o diretório `functions/apache_vhost`. Edite o arquivo `tasks/main.yml
 
 ```yaml
 ---
-- name: instalar httpd
+- name: Instalar httpd
   yum:
     name: httpd
     state: latest
 
-- name: start e enable o servico httpd
+- name: Start e enable o servico httpd
   service:
     name: httpd
     state: started
@@ -118,12 +118,12 @@ Em seguida, adicionamos mais duas tasks para garantir uma estrutura de diretóri
 
 <!-- {% raw %} -->
 ```yaml
-- name: verificar se o diretório vhost está presente
+- name: Verificar se o diretoio vhost esta presente
   file:
     path: "/var/www/vhosts/{{ ansible_hostname }}"
     state: directory
 
-- name: entregar conteúdo html
+- name: Entregar conteúdo html
   copy:
     src: index.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}"
@@ -135,7 +135,7 @@ Note que o diretório vhost é criado/garantido usando o módulo `file`.
 A última task que adicionamos usa o módulo de template para criar o arquivo de configuração do vhost a partir de um template j2:
 
 ```yaml
-- name: template arquivo vhost 
+- name: Template arquivo vhost 
   template:
     src: vhost.conf.j2
     dest: /etc/httpd/conf.d/vhost.conf
@@ -152,28 +152,28 @@ O arquivo completo `tasks/main.yml` é:
 <!-- {% raw %} -->
 ```yaml
 ---
-- name: instalar httpd
+- name: Instalar httpd
   yum:
     name: httpd
     state: latest
 
-- name: start e enable o servico httpd
+- name: Start e enable o servico httpd
   service:
     name: httpd
     state: started
     enabled: true
 
-- name: verificar se o diretório vhost está presente
+- name: Verificar se o diretório vhost está presente
   file:
     path: "/var/www/vhosts/{{ ansible_hostname }}"
     state: directory
 
-- name: entregar conteúdo html
+- name: Entregar conteúdo html
   copy:
     src: index.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}"
 
-- name: template arquivo vhost
+- name: Template arquivo vhost
   template:
     src: vhost.conf.j2
     dest: /etc/httpd/conf.d/vhost.conf
@@ -237,7 +237,7 @@ Você está pronto para testar a role no `node2`. Mas como uma role não pode se
 
 ```yaml
 ---
-- name: use apache_vhost role playbook
+- name: Use apache_vhost role playbook
   hosts: node2
   become: yes
 
@@ -272,4 +272,4 @@ Deu tudo certo? Parabéns! Você concluiu com êxito os exercícios do Workshop 
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine

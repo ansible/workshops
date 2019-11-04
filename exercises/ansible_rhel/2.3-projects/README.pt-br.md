@@ -17,34 +17,34 @@ Um Playbook para instalar o servidor Apache já foi confirmado no diretório **r
 
 ```yaml
 ---
-- name: instalado apache server 
+- name: Instalado apache server 
   hosts: all
 
   tasks:
-  - name: ultima versao do apache instalada
+  - name: Ultima versao do apache instalada
     yum:
       name: httpd
       state: latest
 
-  - name: ultima versão do firewalld instalada
+  - name: Ultima versão do firewalld instalada
     yum:
       name: firewalld
       state: latest
 
-  - name: firewalld ativado e em execucao
+  - name: Firewalld ativado e em execucao
     service:
       name: firewalld
       enabled: true
       state: started
 
-  - name: firewalld permite o servico http
+  - name: Firewalld permite o servico http
     firewalld:
       service: http
       permanent: true
       state: enabled
       immediate: yes
 
-  - name: apache ativado e em execucao
+  - name: Apache ativado e em execucao
     service:
       name: httpd
       enabled: true
@@ -55,7 +55,7 @@ Um Playbook para instalar o servidor Apache já foi confirmado no diretório **r
 > 
 > Compare e observe a diferença entre outros Playbooks que você pode ter escrito\! O mais importante é que não há `become`, e` hosts` está definido como `all`.
 
-Para configurar e usar este repositório como um sistema **Source Control Management (SCM)** no Tower, é necessário criar um **Projeto** que use o repositório.
+Para configurar e usar este repositório como um sistema **Source Control Management (SCM)** no Tower, é necessário criar um **Project** que use o repositório.
 
 ## Criando o projeto
 
@@ -81,7 +81,7 @@ Digite o URL na configuração do projeto:
 
 - Click em **SAVE**
 
-O novo projeto será sincronizado automaticamente após a criação. Mas você também pode fazer isso: Sincronize o projeto novamente com o repositório Git, indo para a visualização **Projects** e clicando na seta circular **Obtenha o ícone mais recente da revisão do SCM** à direita do projeto.
+O novo projeto será sincronizado automaticamente após a criação. Mas você também pode fazer isso: Sincronize o projeto novamente com o repositório Git, indo para a visualização **Projects** e clicando na seta circular **Get latest SCM revision** à direita do projeto.
 
 Após iniciar o trabalho de sincronização, vá para a exibição **Jobs**: há um novo trabalho para a atualização do repositório Git.
 
@@ -107,7 +107,7 @@ Ok, vamos fazer isso: vá para a visualização **Templates**, clique no botão 
 
 - **JOB TYPE:** Run
 
-- **INVENTORY:** Inventário Workshop 
+- **INVENTORY:** Inventario Workshop 
 
 - **PROJECT:** Exemplos Ansible Workshop 
 
@@ -119,7 +119,7 @@ Ok, vamos fazer isso: vá para a visualização **Templates**, clique no botão 
 
 - Click em **SAVE**
 
-You can start the job by directly clicking the blue **LAUNCH** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
+Você pode iniciar o trabalho clicando diretamente no botão azul **LAUNCH**, ou clicando no foguete na visão geral de Job Template. Depois de iniciar o Job Template, você é automaticamente levado para a visão geral do job, onde pode acompanhar a execução do playbook em tempo real:
 
 ![job exection](images/job_overview.png)
 
@@ -151,7 +151,7 @@ Você já passou por todas as etapas necessárias, então tente isso por si mesm
 > 
 > **Solução abaixo**
 
-- Vá para **Inventories** → **Inventário Workshop**
+- Vá para **Inventories** → **Inventario Workshop**
 
 - Em **HOSTS**, selecione os dois hosts e clique em **RUN COMMANDS**
 

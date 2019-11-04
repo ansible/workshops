@@ -1,0 +1,9 @@
+---
+# defaults file for windows-common
+dns_domain_name: "example.com"
+domain_admin_password: "Micr0soft!"
+# Grab the private IP of your windows DNS for your lab dns server
+dns_servers:
+  - "{{ hostvars['windc'].ansible_host }}"
+  - 8.8.8.8
+

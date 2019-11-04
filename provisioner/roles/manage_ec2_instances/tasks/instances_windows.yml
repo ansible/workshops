@@ -1,0 +1,218 @@
+- import_tasks: ami_find_windows.yml
+
+## create instructor instances
+
+- name: WINDOWS | DomainController | Launch instance
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_name_prefix }}-windcsg"
+    instance_type: "{{ ec2_info['skylight_windows_dc']['size'] }}"
+    image: "{{ win_dc_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: 1
+    count_tag:
+      Workshop_windc: "{{ ec2_name_prefix }}-windc"
+    instance_tags:
+      Workshop_windc: "{{ ec2_name_prefix }}-windc"
+      Name: "{{ ec2_name_prefix }}-windc"
+      App: AnsibleWorkshop
+      Workshop: "{{ ec2_name_prefix }}"
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: 'windc'
+      long_name: "windc.{{ ec2_name_prefix }}.{{ public_dns_zone | default('') }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='windc')) }}"
+  # with_sequence: count=1
+  register: dc_output
+  async: 7200
+  poll: 0
+
+- name: WINDOWS | GitLab | Launch Instance
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_name_prefix }}-gitlabsg"
+    instance_type: "{{ ec2_info['skylight_rhel7_gitlab']['size'] }}"
+    image: "{{ win_gitlab_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: 1
+    count_tag:
+      Workshop_gitlab: "{{ ec2_name_prefix }}-gitlab"
+    instance_tags:
+      Workshop_gitlab: "{{ ec2_name_prefix }}-gitlab"
+      Name: "{{ ec2_name_prefix }}-gitlab"
+      App: AnsibleWorkshop
+      Workshop: "{{ ec2_name_prefix }}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: 'gitlab'
+      long_name: "gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone | default('') }}"
+      username: "{{ ec2_info['skylight_rhel7_gitlab']['username'] }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    user_data: "{{ lookup('template', 'skylight_gitlab_userdata.j2') }}"
+  # with_sequence: count=1
+  register: gitlab_output
+  async: 7200
+  poll: 0
+
+- name: WINDOWS | Docs | Launch Instance
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_name_prefix }}-docssg"
+    instance_type: "{{ ec2_info['skylight_rhel7_docs']['size'] }}"
+    image: "{{ win_docs_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: 1
+    count_tag:
+      Workshop_docs: "{{ ec2_name_prefix }}-docs"
+    instance_tags:
+      Workshop_docs: "{{ ec2_name_prefix }}-docs"
+      Name: "{{ ec2_name_prefix }}-docs"
+      App: AnsibleWorkshop
+      Workshop: "{{ec2_name_prefix}}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "docs"
+      long_name: "docs.{{ ec2_name_prefix }}.{{ public_dns_zone | default('') }}"
+      username: "{{ ec2_info['skylight_rhel7_docs']['username'] }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    user_data: "{{ lookup('template', 'skylight_docs_userdata.j2') }}"
+  # with_sequence: count=1
+  register: docs_output
+  async: 7200
+  poll: 0
+
+## create student instances
+
+- name: WINDOWS | Create instance 1
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_name_prefix }}-windowssg"
+    instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"
+    image: "{{ win_instance_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='instance1')) }}"
+  register: instance1_output
+  async: 7200
+  poll: 0
+
+- name: WINDOWS | Create workstation
+  ec2:
+    assign_public_ip: yes
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_name_prefix }}-windowssg"
+    instance_type: "{{ ec2_info['skylight_windows_ws']['size'] }}"
+    image: "{{ win_ws_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_workstation: "{{ ec2_name_prefix }}-workstation"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='workstation')) }}"
+  register: workstation_output
+  async: 7200
+  poll: 0
+
+### wait for student workbench
+
+- name: Wait for quantity {{ student_total }} instance1 creation to complete
+  async_status: jid="{{ instance1_output.ansible_job_id }}"
+  register: instance1_instances
+  until: instance1_instances.finished
+  retries: 300
+  delay: 5
+
+- name: Wait for quantity {{ student_total }} workstation instance creation to complete
+  async_status: jid="{{ workstation_output.ansible_job_id }}"
+  register: workstation_instances
+  until: workstation_instances.finished
+  retries: 300
+  delay: 5
+
+### tag student workbench
+
+- name: WINDOWS | Ensure tags are present for instance 1
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-instance1"
+      App: AnsibleWorkshop
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item.0 + 1}}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "instance1"
+  with_indexed_items:
+    - "{{ instance1_instances.instance_ids }}"
+  when: instance1_instances.instance_ids is not none
+
+- name: WINDOWS | Ensure tags are present for workstation
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item.1}}"
+    state: present
+    tags:
+      Workshop_workstation: "{{ ec2_name_prefix }}-workstation"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-workstation"
+      App: AnsibleWorkshop
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item.0 + 1}}"
+      AWS_USERNAME: "{{ linklight_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "workstation"
+  with_indexed_items:
+    - "{{ workstation_instances.instance_ids }}"
+  when: workstation_instances.instance_ids is not none
+
+
+### wait for instructor instances
+
+- name: Wait for DC instance creation to complete
+  async_status: jid="{{ dc_output.ansible_job_id }}"
+  register: dc_instances
+  until: dc_instances.finished
+  retries: 300
+  delay: 1
+
+- name: Wait for gitlab instance creation to complete
+  async_status: jid="{{ gitlab_output.ansible_job_id }}"
+  register: gitlab_instances
+  until: gitlab_instances.finished
+  retries: 300
+  delay: 1
+
+- name: Wait for docs instance creation to complete
+  async_status: jid="{{ docs_output.ansible_job_id }}"
+  register: docs_instances
+  until: docs_instances.finished
+  retries: 300
+  delay: 1
+  with_items: "{{ docs_output }}"

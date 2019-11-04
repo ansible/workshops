@@ -63,6 +63,23 @@
   retries: 50
   when: vpc_net_facts.vpcs|length > 0
 
+  ### Additional Windows sgs added in resources_windows.yml
+- name: Deleted EC2 security groups for VPC vpc-{{ ec2_name_prefix }} (WINDOWS MODE)
+  ec2_group:
+    name: "{{ item }}"
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ec2_vpc_id}}"
+    state: absent
+  loop:
+    - "{{ ec2_name_prefix }}-gitlabsg"
+    - "{{ ec2_name_prefix }}-docssg"
+    - "{{ ec2_name_prefix }}-windcsg"
+    - "{{ ec2_name_prefix }}-windowssg"
+  register: delete_sg
+  until: delete_sg is not failed
+  retries: 50
+  when: (vpc_net_facts.vpcs|length > 0) or (workshop_type == 'windows')
+
 - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
   ec2_group:
     name: "{{ec2_security_group2}}"

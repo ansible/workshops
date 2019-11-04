@@ -12,6 +12,7 @@ valid_workshop_types:
   - rhel
   - security
   - storage
+  - windows
 network_type: multivendor
 valid_network_types:
   - cisco

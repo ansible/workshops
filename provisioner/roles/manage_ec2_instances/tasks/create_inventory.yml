@@ -37,3 +37,7 @@
 - name: security mode - setup inventory
   include_tasks: "addhost_security.yml"
   when: workshop_type == 'security'
+
+- name: windows mode - setup inventory
+  include_tasks: "addhost_windows.yml"
+  when: workshop_type == 'windows'

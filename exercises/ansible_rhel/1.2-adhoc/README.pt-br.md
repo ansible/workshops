@@ -115,7 +115,7 @@ Vamos começar com algo realmente básico - executando ping em um host. Para faz
 >
 > Pense em um módulo como uma ferramenta projetada para realizar uma tarefa específica.
 
-O Ansible precisa saber que deve usar o módulo `ping`: A opção` -m` define qual módulo usar. As opções podem ser passadas para o módulo especificado usando a opção `-a`.
+O Ansible precisa saber que deve usar o módulo `ping` : A opção `-m` define qual módulo usar. As opções podem ser passadas para o módulo especificado usando a opção `-a`.
 
 ```bash
 [student<X>@ansible ~]$ ansible web -m ping
@@ -141,7 +141,7 @@ O Ansible vem com muitos módulos por padrão. Para listar todos os módulos, ex
 
 > **Dica**
 >
-> No `ansible-doc`, pressione o botão`q`. Use as setas `up`/`down` para rolar pelo conteúdo.
+> No `ansible-doc`, pressione o botão `q`. Use as setas `up`/`down` para rolar pelo conteúdo.
 
 Para encontrar um módulo, tente por exemplo:
 

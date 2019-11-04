@@ -32,24 +32,29 @@ Compared to the previous Apache installation role there is a major difference: t
 
 `dev_index.html.j2`
 
+<!-- {% raw %} -->
 ```html
 <body>
 <h1>This is a development webserver, have fun!</h1>
 {{ dev_content }}
 </body>
 ```
+<!-- {% endraw %} -->
 
 `prod_index.html.j2`
 
+<!-- {% raw %} -->
 ```html
 <body>
 <h1>This is a production webserver, take care!</h1>
 {{ prod_content }}
 </body>
 ```
+<!-- {% endraw %} -->
 
 `main.yml`
 
+<!-- {% raw %} -->
 ```yaml
 [...]
 - name: Deploy index.html from template
@@ -58,6 +63,7 @@ Compared to the previous Apache installation role there is a major difference: t
     dest: /var/www/html/index.html
   notify: apache-restart
 ```
+<!-- {% endraw %} -->
 
 ## Prepare Inventory
 
@@ -97,6 +103,7 @@ This time we use the power of Ansible to check the results: execute curl to get 
 >
 > We are using the `ansible_host` variable in the URL to access every node in the inventory group. 
 
+<!-- {% raw %} -->
 ```bash
 [student<X>@ansible ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
  [WARNING]: Consider using the get_url or uri module rather than running 'curl'.  If you need to use command because get_url or uri is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in ansible.cfg to get rid of this message.
@@ -119,6 +126,7 @@ node3 | CHANGED | rc=0 >>
 dev wweb
 </body>
 ```
+<!-- {% endraw %} -->
 
 Note the warning in the first line about not to use `curl` via the `command` module since there are better modules right within Ansible. We will come back to that in the next part.
 
@@ -132,6 +140,7 @@ Note the warning in the first line about not to use `curl` via the `command` mod
 
 Check the results again from your Tower control host. Since we got a warning last time using `curl` via the `command` module, this time we will use the dedicated `uri` module. As arguments it needs the actual URL and a flag to output the body in the results.
 
+<!-- {% raw %} -->
 ```bash
 [student<X>ansible ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
 node3 | SUCCESS => {
@@ -158,6 +167,7 @@ node3 | SUCCESS => {
 }
 [...]
 ```
+<!-- {% endraw %} -->
 
 ## Solution
 

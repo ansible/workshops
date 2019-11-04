@@ -12,13 +12,13 @@ As variáveis são referenciadas nos Playbooks, colocando o nome da variável en
 
 <!-- {% raw %} -->
 ```yaml
-Isso é uma variavel {{ variable1 }}
+Isso é uma variável {{ variable1 }}
 ```
 <!-- {% endraw %} -->
 
 As variáveis e seus valores podem ser definidos em vários locais: no inventário, arquivos adicionais, na linha de comando etc.
 
-A prática recomendada para fornecer variáveis no inventário é defini-las em arquivos localizados em dois diretórios denominados `host_vars` e` group_vars`:
+A prática recomendada para fornecer variáveis no inventário é defini-las em arquivos localizados em dois diretórios denominados `host_vars` e `group_vars`:
 
   - Para definir variáveis para um grupo "servers", é criado um arquivo YAML chamado `group_vars/servers` com as definições de variáveis.
 
@@ -56,7 +56,7 @@ stage: prod
 
 O que é isso?
 
-  - Para todos os servidores no grupo `web`, a variável` stage` com o valor `dev` é definida. Portanto, como padrão sinalizamos como membros do ambiente de desenvolvimento.
+  - Para todos os servidores no grupo `web`, a variável `stage` com o valor `dev` é definida. Portanto, como padrão sinalizamos como membros do ambiente de desenvolvimento.
 
   - Para o servidor `node2`, isso é substituído e o host é sinalizado como um servidor de produção.
 
@@ -93,11 +93,11 @@ Crie um novo playbook, chamado `deploy_index_html.yml` no diretório `~/ansible-
 <!-- {% raw %} -->
 ```yaml
 ---
-- name: copia index.html
+- name: Copia index.html
   hosts: web
   become: yes
   tasks:
-  - name: copia index.html
+  - name: Copia index.html
     copy:
       src: ~/ansible-files/{{ stage }}_index.html
       dest: /var/www/html/index.html
@@ -182,10 +182,10 @@ Os facts podem ser usados em um Playbook como variáveis, usando a nomeação ap
 <!-- {% raw %} -->
 ```yaml    
 ---
-- name: saida de facts em um playbook
+- name: Saida de facts em um playbook
   hosts: all
   tasks:
-  - name: print ansible facts
+  - name: Print ansible facts
     debug:
       msg: O endereco IPv4 padrao de {{ ansible_fqdn }} eh {{ ansible_default_ipv4.address }}
 ```
@@ -200,7 +200,7 @@ Execute-o para ver como os facts são impressos:
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook facts.yml
 
-PLAY [saida de facts em um playbook] ******************************************
+PLAY [Saida de facts em um playbook] ******************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [node3]
@@ -227,4 +227,4 @@ node3                      : ok=2    changed=0    unreachable=0    failed=0
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

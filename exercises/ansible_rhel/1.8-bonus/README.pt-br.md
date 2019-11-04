@@ -2,11 +2,11 @@
 
 **Leia em outra linguagem**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-Você já terminou o laboratório. Mas não precisa terminar aqui. Preparamos alguns laboratórios de bônus um pouco mais avançados para você seguir, se quiser. Portanto, se você terminou os laboratórios e ainda tem algum tempo, aqui estão mais alguns laboratórios para você:
+Você já terminou o laboratório. Mas preparamos alguns laboratórios de bônus um pouco mais avançados para você seguir, se quiser. Portanto, se você terminou os laboratórios e ainda tem algum tempo, aqui estão mais alguns laboratórios para você:
 
 ## Passo 8.1 - Lab Bônus: Comandos Ad Hoc
 
-Crie um novo usuário "testuser" em `node1` e` node3` usando um comando ad hoc, verifique se ele não foi criado no `node2`!
+Crie um novo usuário "testuser" em `node1` e `node3` usando um comando ad hoc, verifique se ele não foi criado no `node2`!
 
   - Encontre os parâmetros para o módulo apropriado usando `ansible-doc user` (saia com `q`)
 
@@ -42,9 +42,9 @@ Você aprendeu o básico sobre templates, variáveis e handlers. Vamos combinar 
 
 Em vez de editar e copiar `httpd.conf`, por que você não define uma variável para a porta de escuta e a usa em um template? Aqui está o seu trabalho:
 
-  - Defina uma variável `listen_port` para o grupo` web` com o valor `8080` e outra para` node2` com o valor `80` usando os arquivos adequados.
+  - Defina uma variável `listen_port` para o grupo `web` com o valor `8080` e outra para `node2` com o valor `80` usando os arquivos adequados.
 
-  - Copie o arquivo `httpd.conf` no template` httpd.conf.j2` que usa a variável `listen_port` em vez do número da porta codificada.
+  - Copie o arquivo `httpd.conf` no template `httpd.conf.j2` que usa a variável `listen_port` em vez do número da porta codificada.
 
   - Escreva um Playbook que implante o template e reinicie o Apache nas alterações usando um handler.
 
@@ -52,14 +52,13 @@ Em vez de editar e copiar `httpd.conf`, por que você não define uma variável 
   
 > **Dica**
 >
-> Lembra dos diretórios `group_vars` e` host_vars`? Caso contrário, consulte o capítulo "Variáveis".
+> Lembra dos diretórios `group_vars` e `host_vars`? Caso contrário, consulte o capítulo "Variáveis".
 
 > **ATENÇÃO**
 >
 > **Solução abaixo\!**
 
 ### Define as variáveis:
-
 
 Adicione esta linha a `group_vars/web`:
 
@@ -92,18 +91,18 @@ Crie o playbook chamado `apache_config_tpl.yml`:
 
 ```yaml
 ---
-- name: apache httpd.conf
+- name: Apache httpd.conf
   hosts: web
   become: yes
   tasks:
-  - name: criar arquivo de configuração do apache a partir do template
+  - name: Criar arquivo de configuracao do apache a partir do template
     template:
       src: httpd.conf.j2
       dest: /etc/httpd/conf/httpd.conf
     notify:
         - restart apache
   handlers:
-    - name: reiniciar apache
+    - name: Reiniciar apache
       service:
         name: httpd
         state: restarted
@@ -128,4 +127,4 @@ Primeiro, execute o próprio Playbook e em seguida, execute curl no `node1` com 
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

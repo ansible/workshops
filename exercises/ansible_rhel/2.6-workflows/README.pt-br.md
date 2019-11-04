@@ -56,15 +56,15 @@ Primeiro, você precisa configurar o repositório Git como Projetos. Você já f
 
   - Deve ser nomeado como **Webdev Git Repo**
 
-  - The URL to access the repo is **https://github.com/ansible/workshop-examples.git**
+  - O URL para acessar o repositório é **https://github.com/ansible/workshop-examples.git**
 
-  - The **SCM BRANCH/TAG/COMMIT** is **webdev**
+  - O **SCM BRANCH/TAG/COMMIT** é **webdev**
 
-> **Warning**
+> **ATENÇÃO**
 > 
-> **Solution Below**
+> **Solução abaixo**
 
-- Create the project for web operations. In the **Projects** view click the green plus button and fill in:
+- Crie o projeto para operações. Na visualização **Projects**, clique no botão verde e preencha:
   
     - **NAME:** Webops Git Repo
   
@@ -78,10 +78,10 @@ Primeiro, você precisa configurar o repositório Git como Projetos. Você já f
   
     - **SCM UPDATE OPTIONS:** Tick all three boxes.
 
-- Click **SAVE**
+- Click em **SAVE**
 
-- Create the project for the application developers. In the **Projects** view click the green plus button and fill in:
-  
+- Crie o projeto para os desenvolvedores. Na visualização **Projects**, clique no botão verde mais e preencha: 
+
     - **NAME:** Webdev Git Repo
   
     - **ORGANIZATION:** Default
@@ -94,111 +94,111 @@ Primeiro, você precisa configurar o repositório Git como Projetos. Você já f
 
     - **SCM UPDATE OPTIONS:** Tick all three boxes.
 
-- Click **SAVE**
+- Click em **SAVE**
 
-## Set up Job Templates
+## Configurando Job Templates
 
-Now you have to create Job Templates like you would for "normal" Jobs.
+Agora você deve criar job template como faria para jobs "normais".
 
-  - Go to the **Templates** view, click the green plus button and choose **Job Template**:
+  - Vá para a visualização **Template**, clique no botão verde e escolha **Job template**:
     
       - **NAME:** Tomcat Deploy
     
       - **JOB TYPE:** Run
     
-      - **INVENTORY:** Workshop Inventory
+      - **INVENTORY:** Inventario workshop 
     
       - **PROJECT:** Webops Git Repo
     
       - **PLAYBOOK:** `rhel/webops/tomcat.yml`
     
-      - **CREDENTIAL:** Workshop Credentials
+      - **CREDENTIAL:** Credenciais workshop 
     
       - **OPTIONS:** Enable privilege escalation
 
-  - Click **SAVE**
+  - Click em **SAVE**
 
-  - Go to the **Templates** view, click the green plus button and choose **Job Template**:
+  - Vá para a visualização **Template**, clique no botão verde e escolha **Job template**:
     
       - **NAME:** Web App Deploy
     
       - **JOB TYPE:** Run
     
-      - **INVENTORY:** Workshop Inventory
+      - **INVENTORY:** Inventario workshop 
     
       - **PROJECT:** Webdev Git Repo
     
       - **PLAYBOOK:** `rhel/webdev/create_jsp.yml`
     
-      - **CREDENTIALS:** Workshop Credentials
+      - **CREDENTIALS:** Credenciais workshop 
     
       - **OPTIONS:** Enable privilege escalation
 
-  - Click **SAVE**
+  - Click em **SAVE**
 
-> **Tip**
+> **Dica**
 > 
-> If you want to know what the Playbooks look like, check out the Github URL and switch to the appropriate branches.
+> Se você quiser saber como são os Playbooks, confira o URL do Github e mude para as branchs apropriadas.
 
-## Set up the Workflow
+## Configurando Workflow
 
-And now you finally set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Job Template** and **Workflow Template** when adding a template so this is finally making sense.
+Agora você finalmente irá configurar o workflow. Os workflows são configurados na visualização **Templates**; você deve ter notado que pode escolher entre **Job template** e **workflow template** ao adicionar um template, para que isso finalmente faça sentido.
 
-  - Go to the **Templates** view and click the the green plus button. This time choose **Workflow Template**
+  - Vá para a visualização **Templates** e clique no botão verde. Desta vez, escolha **Workflow Template**
     
       - **NAME:** Deploy Webapp Server
     
       - **ORGANIZATION:** Default
 
-  - Click **SAVE**
+  - Click em **SAVE**
 
-  - Now the **WORKFLOW VISUALIZER** button becomes active, click it to start the graphical editor.
+  - Agora o botão **WORKFLOW VISUALIZER** fica ativo, clique nele para iniciar o editor gráfico.
 
-  - Click on the **START** button, a new node opens. To the right you can assign an action to the node, you can choose between **JOBS**, **PROJECT SYNC** and **INVENTORY SYNC**.
+  - Clique no botão **START**, e um novo nó é aberto. À direita, você pode atribuir uma ação ao nó, pode escolher entre **JOBS**, **PROJECT SYNC** e **INVENTORY SYNC**.
 
-  - In this lab we’ll link Jobs together, so select the **Tomcat Deploy** job and click **SELECT**.
+  - Neste laboratório, vincularemos os jobs, portanto selecione o job **Tomcat Deploy** e clique em **SELECT**.
 
-  - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x** and a green **+** signs appear.
-
-> **Tip**
+  - O nó é anotado com o nome do job. Passe o cursor do mouse sobre o nó, você verá um sinal vermelho **x** e um verde **+**.
+  
+> **Dica**
 > 
-> Using the red "x" allows you to remove the node, the green plus lets you add the next node.
+> Usando o vermelho "x" permite remover o nó, o sinal de mais verde permite adicionar o próximo nó.
 
-  - Click the green **+** sign
+  - Clique no sinal verde **+**
 
-  - Choose **Web App Deploy** as the next Job (you might have to switch to the next page)
+  - Escolha **Web App Deploy** como o próximo job (pode ser necessário mudar para a próxima página)
+  
+  - Deixe **Type** definido como **On Success**
 
-  - Leave **Type** set to **On Success**
-
-> **Tip**
+> **Dica**
 > 
-> The type allows for more complex workflows. You could lay out different execution paths for successful and for failed Playbook runs.
+> O tipo permite wokflows mais complexos. Você pode definir diferentes caminhos de execução para executar com êxito e para falhas no Playbook.
 
-  - Click **SELECT**
+  - Click em **SELECT**
 
-  - Click **SAVE** in the **WORKFLOW VISUALIZER** view
+  - Click em **SAVE** na visualização **WORKFLOW VISUALIZER**
+  
+  - Click em **SAVE** na visualização **Workflow Template** 
 
-  - Click **SAVE** in the **Workflow Template** view
+## E ação!
 
-## And Action
+Seu workflow está pronto para ser iniciado.
 
-Your workflow is ready to go, launch it.
-
-  - Click the blue **LAUNCH** button directly or go to the the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
+  - Clique no botão azul **LAUNCH** diretamente ou acesse a visualização **Templates** e inicie o workflow **Deploy Webapp Server** clicando no ícone do foguete.
 
 ![jobs view of workflow](images/job_workflow.png)
 
-Note how the workflow run is shown in the job view. In contrast to a normal job template job execution this time there is no playbook output on the right, but a visual representation of the different workflow steps. If you want to look at the actual playbooks behind that, click **DETAILS** in each step. If you want to get back from a details view to the corresponding workflow, click the ![w-button](images/w_button.png) in the **JOB TEMPLATE** line in the **DETAILS** part on the left side of the job overview.
+Observe como a execução do workflow é mostrada na exibição da tarefa. Ao contrário da execução normal de um job template, desta vez, não há saída do Playbook à direita, mas uma representação visual das diferentes etapas do workflow. Se você quiser ver os Playbooks reais por trás disso, clique em **DETAILS** em cada etapa. Se você deseja voltar de uma visualização de detalhes para o workflow correspondente, clique no botão ![w-button](images/w_button.png) na linha **JOB TEMPLATE** na parte **DETAILS** à esquerda, lado da visão geral do job.
 
-After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
+Após a conclusão do job, verifique se tudo funcionou bem: efetue login em `node1`,` node2` ou `node3` no host de controle e execute:
 
 ```bash
 $ curl http://localhost:8080/coolapp/
 ```
 
-> **Tip**
+> **Dica**
 > 
-> You might have to wait a couple of minutes until Tomcat answers requests.
+> Pode ser necessário aguardar alguns minutos até o Tomcat responder às solicitações.
 
 ----
 

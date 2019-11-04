@@ -35,7 +35,7 @@ O padrão de host mais básico é o nome de um único host gerenciado listado no
     node1
 ```
 
-Um arquivo de inventário pode conter muitas outras informações, como organizar seus hosts em grupos ou definir variáveis. No nosso exemplo, o inventário atual possui os grupos `web `e` control`. Execute o Ansible com esses padrões de host e observe a saída:
+Um arquivo de inventário pode conter muitas outras informações, como organizar seus hosts em grupos ou definir variáveis. No nosso exemplo, o inventário atual possui os grupos `web` e `control`. Execute o Ansible com esses padrões de host e observe a saída:
 
 ```bash
 [student<X@>ansible ~]$ ansible web  --list-hosts
@@ -56,7 +56,7 @@ O comportamento do Ansible pode ser personalizado modificando as configurações
 
 > **Dica**
 >
-> A prática recomendada é criar um arquivo `ansible.cfg` no diretório a partir do qual você executa os comandos Ansible. Esse diretório também contém todos os arquivos usados pelo seu projeto Ansible, como o inventário e os manuais. Outra prática recomendada é criar um arquivo `.ansible.cfg` no seu diretório pessoal.
+> A prática recomendada é criar um arquivo `ansible.cfg` no diretório a partir do qual você executa os comandos Ansible. Esse diretório também contém todos os arquivos usados pelo seu projeto Ansible, como o inventário e os playbooks. Outra prática recomendada é criar um arquivo `.ansible.cfg` no seu diretório pessoal.
 
 No ambiente de laboratório fornecido a você, um arquivo `.ansible.cfg` já foi criado e preenchido com os detalhes necessários no diretório inicial do seu usuário `student<X>` no nó de controle:
 
@@ -109,13 +109,13 @@ ansible ansible_host=44.55.66.77
 >
 > **Não se esqueça de executar os comandos no diretório inicial do usuário do aluno, `/home/student<X>`. É aí que o seu arquivo `.ansible.cfg` está localizado, sem ele o Ansible não saberá qual inventário usar.**
 
-Vamos começar com algo realmente básico - executando ping em um host. Para fazer isso, usamos o módulo Ansible `ping`. O módulo `ping` garante que nossos hosts de destino sejam responsivos. Basicamente, ele se conecta ao host gerenciado, executa um pequeno script e coleta os resultados. Isso garante que o host gerenciado esteja acessível e que o Ansible possa executar comandos corretamente nele.
+Vamos começar com algo realmente básico - executando ping em um host. Para fazer isso, usamos o módulo `ping`. O módulo `ping` garante que nossos hosts de destino sejam responsivos. Basicamente, ele se conecta ao host gerenciado, executa um pequeno script e coleta os resultados. Isso garante que o host gerenciado esteja acessível e que o Ansible possa executar comandos corretamente nele.
 
 > **Dica**
 >
 > Pense em um módulo como uma ferramenta projetada para realizar uma tarefa específica.
 
-O Ansible precisa saber que deve usar o módulo `ping`: A opção` -m` define qual módulo usar. As opções podem ser passadas para o módulo especificado usando a opção `-a`.
+O Ansible precisa saber que deve usar o módulo `ping` : A opção `-m` define qual módulo usar. As opções podem ser passadas para o módulo especificado usando a opção `-a`.
 
 ```bash
 [student<X>@ansible ~]$ ansible web -m ping
@@ -141,7 +141,7 @@ O Ansible vem com muitos módulos por padrão. Para listar todos os módulos, ex
 
 > **Dica**
 >
-> No `ansible-doc`, pressione o botão`q`. Use as setas `up`/`down` para rolar pelo conteúdo.
+> No `ansible-doc`, pressione o botão `q`. Use as setas `up`/`down` para rolar pelo conteúdo.
 
 Para encontrar um módulo, tente por exemplo:
 
@@ -168,7 +168,7 @@ Agora vamos ver como podemos executar um bom e velho comando Linux e formatar a 
 node1 | CHANGED | rc=0 >>
 uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
 ```
-Nesse caso, o módulo é chamado de `command` e a opção passada com` -a` é o comando real a ser executado. Tente executar este comando ad hoc em todos os hosts gerenciados usando o padrão de host `all`.
+Nesse caso, o módulo é chamado de `command` e a opção passada com `-a` é o comando real a ser executado. Tente executar este comando ad hoc em todos os hosts gerenciados usando o padrão de host `all`.
 
 Outro exemplo: Veja rapidamente as versões do kernel que seus hosts estão executando:
 
@@ -184,14 +184,13 @@ Outro exemplo: Veja rapidamente as versões do kernel que seus hosts estão exec
 
 > **Dica**
 >
-> Como muitos comandos do Linux, o `ansible` permite opções longas e curtas. Por exemplo, `ansible web --module-name ping` é o mesmo que executar` ansible web -m ping`. Usaremos as opções resumidas ao longo deste workshop.
+> Como muitos comandos do Linux, o `ansible` permite opções longas e curtas. Por exemplo, `ansible web --module-name ping` é o mesmo que executar `ansible web -m ping`. Usaremos as opções resumidas ao longo deste workshop.
 
 ## Passo 2.6 - O módulo de cópia e permissões
 
-Usando o módulo `copy`, execute um comando ad hoc no` node1` para alterar o conteúdo do arquivo `/etc/motd`. **Neste caso o conteúdo é entregue ao módulo através de uma opção**.
+Usando o módulo `copy`, execute um comando ad hoc no `node1` para alterar o conteúdo do arquivo `/etc/motd`. **Neste caso o conteúdo é entregue ao módulo através de uma opção**.
 
 Execute o seguinte, mas **espere um erro**:
-
 
 ```bash
 [student<X>@ansible ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'
@@ -209,7 +208,7 @@ Como mencionado, isso produz um **erro**:
 
 A saída do comando ad hoc está alertando **FAILED** em vermelho para você. Por quê? Porque o usuário **student\<X\>** não tem permissão para gravar o arquivo motd.
 
-Agora, este é um caso de escalonamento de privilégios e a razão pela qual o `sudo` precisa ser configurado corretamente. Precisamos instruir o Ansible a usar o `sudo` para executar o comando como root usando o parâmetro` -b` (pense em "tornar-se").
+Este é um caso de escalonamento de privilégios e a razão pela qual o `sudo` precisa ser configurado corretamente. Precisamos instruir o Ansible a usar o `sudo` para executar o comando como root usando o parâmetro `-b` (pense em "Become").
 
 > **Dica**
 >
@@ -284,4 +283,4 @@ Execute o comando `ansible node1 -m copy…​` de cima novamente. Nota:
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

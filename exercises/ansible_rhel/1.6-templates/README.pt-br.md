@@ -11,7 +11,7 @@ Quando um template é criado, ele pode ser implantado nos hosts gerenciados usan
 Como exemplo de uso de templates, você irá alterar o arquivo motd para conter dados específicos do host.
 
 
-No diretório `~/ansible-files/`crie o arquivo de template `motd-facts.j2`:
+No diretório `~/ansible-files/` crie o arquivo de template `motd-facts.j2`:
 
 <!-- {% raw %} -->
 ```html+jinja
@@ -86,7 +86,7 @@ Adicione uma linha ao template para listar o kernel atual do nó gerenciado.
 Bem vindo ao {{ ansible_hostname }}.
 {{ ansible_distribution }} {{ ansible_distribution_version}}
 implementado na arquitetura {{ ansible_architecture }}
-Executando o kernel {{ ansible_kernel }}.
+executando o kernel {{ ansible_kernel }}.
 ```
 <!-- {% endraw %} -->
 
@@ -94,4 +94,4 @@ Executando o kernel {{ ansible_kernel }}.
   - Verifique a nova mensagem via login SSH no `node1`.
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

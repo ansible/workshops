@@ -2,11 +2,11 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-Os exercícios anteriores mostraram os conceitos básicos do Ansible Engine. Nos próximos exercícios, ensinaremos algumas habilidades Ansible mais avançadas que adicionarão flexibilidade e poder aos seus Playbooks.
+Os exercícios anteriores mostraram os conceitos básicos do Ansible Engine. Nos próximos exercícios, ensinaremos algumas habilidades mais avançadas que adicionarão flexibilidade e poder aos seus Playbooks.
 
 O Ansible existe para tornar as tarefas simples e repetíveis. Também sabemos que nem todos os sistemas são exatamente iguais e geralmente exigem algumas alterações na maneira como um Playbook do Ansible é executado.
 
-O Ansible suporta variáveis para armazenar valores que podem ser usados nos Playbooks. As variáveis podem ser definidas em vários lugares e têm uma clara precedência. Ansible substitui a variável pelo seu valor quando uma tarefa é executada.
+O Ansible suporta variáveis para armazenar valores que podem ser usados nos Playbooks. As variáveis podem ser definidas em vários lugares e têm uma clara precedência. Ansible substitui a variável pelo seu valor quando uma task é executada.
 
 As variáveis são referenciadas nos Playbooks, colocando o nome da variável entre chaves duplas:
 
@@ -18,7 +18,7 @@ Isso é uma variável {{ variable1 }}
 
 As variáveis e seus valores podem ser definidos em vários locais: no inventário, arquivos adicionais, na linha de comando etc.
 
-A prática recomendada para fornecer variáveis no inventário é defini-las em arquivos localizados em dois diretórios denominados `host_vars` e` group_vars`:
+A prática recomendada para fornecer variáveis no inventário é defini-las em arquivos localizados em dois diretórios denominados `host_vars` e `group_vars`:
 
   - Para definir variáveis para um grupo "servers", é criado um arquivo YAML chamado `group_vars/servers` com as definições de variáveis.
 
@@ -56,7 +56,7 @@ stage: prod
 
 O que é isso?
 
-  - Para todos os servidores no grupo `web`, a variável` stage` com o valor `dev` é definida. Portanto, como padrão sinalizamos como membros do ambiente de desenvolvimento.
+  - Para todos os servidores no grupo `web`, a variável `stage` com o valor `dev` é definida. Portanto, como padrão sinalizamos como membros do ambiente de desenvolvimento.
 
   - Para o servidor `node2`, isso é substituído e o host é sinalizado como um servidor de produção.
 
@@ -68,7 +68,7 @@ Um chamado `prod_index.html` com o seguinte conteúdo:
 
 ```html
 <body>
-<h1>Esse é um servidor web em produção, tenha cuidado!</h1>
+<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
 </body>
 ```
 
@@ -76,7 +76,7 @@ E um chamado `dev_index.html` com o seguinte conteúdo:
 
 ```html
 <body>
-<h1>Esse é um servidor web de desenvolvimento, divirta-se!</h1>
+<h1>Esse eh um servidor web de desenvolvimento, divirta-se!</h1>
 </body>
 ```
 
@@ -121,25 +121,25 @@ node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
 [student<X>@ansible ansible-files]$ curl http://11.22.33.44
 <body>
-<h1>Esse é um servidor web de desenvolvimento, divirta-se!</h1>
+<h1>Esse eh um servidor web de desenvolvimento, divirta-se!</h1>
 </body>
 [student1@ansible ansible-files]$ curl http://22.33.44.55
 <body>
-<h1>Esse é um servidor web em produção, tenha cuidado!</h1>
+<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
 </body>
 [student1@ansible ansible-files]$ curl http://33.44.55.66
 <body>
-<h1>Esse é um servidor web de desenvolvimento, divirta-se!</h1>
+<h1>Esse eh um servidor web de desenvolvimento, divirta-se!</h1>
 </body>
 ```
 
 > **Dica**
 >
-> Agora você pensa: Tem que haver uma maneira mais inteligente de alterar o conteúdo dos arquivos... você está absolutamente certo. Este laboratório foi realizado para introduzir variáveis, você está prestes a aprender sobre templates em um dos próximos capítulos.
+> Agora você pensa: "Tem que haver uma maneira mais inteligente de alterar o conteúdo dos arquivos..." e você está absolutamente certo. Este laboratório foi realizado para introduzir variáveis, você está prestes a aprender sobre templates em um dos próximos capítulos.
 
 ## Passo 4.5 - Ansible Facts
 
-Facts são variáveis que são descobertas automaticamente pelo Ansible a partir de um host gerenciado. Lembra da tarefa "Gathering Facts" listada na saída de cada execução do `ansible-playbook`? Nesse momento, os facts são reunidos para cada nó gerenciado. Os fatos também podem ser obtidos pelo módulo `setup`. Eles contêm informações úteis armazenadas em variáveis que os administradores podem reutilizar.
+Facts são variáveis que são descobertas automaticamente pelo Ansible a partir de um host gerenciado. Lembra da task "Gathering Facts" listada na saída de cada execução do `ansible-playbook`? Nesse momento, os facts são reunidos para cada nó gerenciado. Os fatos também podem ser obtidos pelo módulo `setup`. Eles contêm informações úteis armazenadas em variáveis que os administradores podem reutilizar.
 
 Para ter uma ideia dos facts que o Ansible coleta por padrão, em seu nó de controle enquanto o usuário student executa:
 
@@ -182,12 +182,12 @@ Os facts podem ser usados em um Playbook como variáveis, usando a nomeação ap
 <!-- {% raw %} -->
 ```yaml    
 ---
-- name: Saída de Facts em um playbook
+- name: Saida de facts em um playbook
   hosts: all
   tasks:
-  - name: Print Ansible facts
+  - name: Print ansible facts
     debug:
-      msg: O endereço IPv4 padrão de {{ ansible_fqdn }} eh {{ ansible_default_ipv4.address }}
+      msg: O endereco IPv4 padrao de {{ ansible_fqdn }} eh {{ ansible_default_ipv4.address }}
 ```
 <!-- {% endraw %} -->
 
@@ -200,7 +200,7 @@ Execute-o para ver como os facts são impressos:
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook facts.yml
 
-PLAY [Output facts within a playbook] ******************************************
+PLAY [Saida de facts em um playbook] ******************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [node3]
@@ -208,15 +208,15 @@ ok: [node2]
 ok: [node1]
 ok: [ansible]
 
-TASK [Prints Ansible facts] ****************************************************
+TASK [Print ansible facts] ****************************************************
 ok: [node1] =>
-  msg: O endereço IPv4 padrão de node1 eh 172.16.190.143
+  msg: O endereco IPv4 padrao de node1 eh 172.16.190.143
 ok: [node2] =>
-  msg: O endereço IPv4 padrão de node2 eh 172.16.30.170
+  msg: O endereco IPv4 padrao de node2 eh 172.16.30.170
 ok: [node3] =>
-  msg: O endereço IPv4 padrão de node3 eh 172.16.140.196
+  msg: O endereco IPv4 padrao de node3 eh 172.16.140.196
 ok: [ansible] =>
-  msg: O endereço IPv4 padrão de ansible eh 172.16.2.10
+  msg: O endereco IPv4 padrao de ansible eh 172.16.2.10
 
 PLAY RECAP *********************************************************************
 ansible                    : ok=2    changed=0    unreachable=0    failed=0   
@@ -227,4 +227,4 @@ node3                      : ok=2    changed=0    unreachable=0    failed=0
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

@@ -8,11 +8,11 @@ Playbooks são arquivos que descrevem as configurações ou etapas desejadas par
 
 Um Playbook é onde você pode pegar alguns desses comandos ad-hoc que você acabou de executar e colocá-los em um conjunto repetitivo de *plays* e *tasks*.
 
-Um Playbook pode ter várias plays e uma play pode ter uma ou várias tasks. Em uma task, um *módulo* é chamado, como os módulos do capítulo anterior. O objetivo de um *play* é mapear um grupo de hosts. O objetivo de uma *tarefa* é implementar módulos nesses hosts.
+Um Playbook pode ter várias plays e uma play pode ter uma ou várias tasks. Em uma task, um *módulo* é chamado, como os módulos do capítulo anterior. O objetivo de um *play* é mapear um grupo de hosts. O objetivo de uma *task* é implementar módulos nesses hosts.
 
 > **Dica**
 >
-> Aqui está uma boa analogia: quando os módulos Ansible são as ferramentas da sua oficina, o inventário é o material e os Playbooks são as instruções.
+> Uma boa analogia: quando os módulos Ansible são as ferramentas da sua oficina, o inventário é o material e os Playbooks são as instruções.
 
 ## Passo 3.1 - Noções básicas do Playbook
 
@@ -24,7 +24,7 @@ Playbooks são arquivos de texto escritos no formato YAML e, portanto, precisam:
 
 Existem alguns conceitos importantes:
 
-  - **hosts**: Os hosts gerenciados para executar as tarefas.
+  - **hosts**: Os hosts gerenciados para executar as tasks.
 
   - **tasks**: As operações a serem executadas chamando os módulos e passando as opções necessárias.
 
@@ -32,7 +32,7 @@ Existem alguns conceitos importantes:
 
 > **ATENÇÃO**
 >
-> A ordem do conteúdo em um Playbook é importante, porque o Ansible executa plays e tarefas na ordem em que são apresentadas.
+> A ordem do conteúdo em um Playbook é importante, porque o Ansible executa plays e tasks na ordem em que são apresentadas.
 
 Um Playbook deve ser **idempotente**, portanto se um Playbook for executado uma vez para colocar os hosts no estado correto, deve ser seguro executá-lo uma segunda vez e não deverá fazer mais alterações nos hosts.
 
@@ -42,7 +42,7 @@ Um Playbook deve ser **idempotente**, portanto se um Playbook for executado uma 
 
 ## Passo 3.2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook
 
-Chega de teoria, é hora de criar seu primeiro Playbook. Neste laboratório, você cria um Playbook para configurar um servidor da web Apache em três etapas:
+Chega de teoria, é hora de criar seu primeiro Playbook. Neste laboratório, você cria um Playbook para configurar um servidor web Apache em três etapas:
 
   - 1ª Etapa: Instalar o pacote httpd
 
@@ -52,7 +52,7 @@ Chega de teoria, é hora de criar seu primeiro Playbook. Neste laboratório, voc
 
 Este Playbook garante que o pacote que contém o servidor Apache esteja instalado no `node1`.
 
-Há uma [melhor prática(http://docs.ansible.com/ansible/playbooks_best_practices.html) nas estruturas de diretório recomendadas para playbooks. Nós recomendamos a ler e entender essas práticas ao desenvolver suas habilidades de Ansible ninja. Dito isto, nosso manual hoje é muito básico e criar uma estrutura complexa apenas confundirá as coisas.
+Há uma [melhor prática(http://docs.ansible.com/ansible/playbooks_best_practices.html) nas estruturas de diretório recomendadas para playbooks. Nós recomendamos a ler e entender essas práticas ao desenvolver suas habilidades de Ansible ninja. Dito isto, nosso Playbook hoje é muito básico e criar uma estrutura complexa apenas confundirá as coisas.
 
 Em vez disso, vamos criar uma estrutura de diretórios muito simples para nosso playbook e adicionar apenas alguns arquivos a ele.
 
@@ -67,7 +67,7 @@ Adicione um arquivo chamado `apache.yml` com o seguinte conteúdo. Conforme disc
 
 ```yaml
 ---
-- name: Apache server Instalado
+- name: Apache server instalado
   hosts: node1
   become: yes
 ```
@@ -82,17 +82,17 @@ Isso mostra uma das forças do Ansible: a sintaxe do Playbook é fácil de ler e
 
 > **Dica**
 >
-> Obviamente, você precisa usar a escalação de privilégios para instalar um pacote ou executar qualquer outra tarefa que exija permissões de root. Isso é feito no Playbook por `Become: yes'.
+> Obviamente, você precisa usar a escalação de privilégios para instalar um pacote ou executar qualquer outra task que exija permissões de root. Isso é feito no Playbook por `Become: yes'.
 
-Agora que definimos a Play, vamos adicionar uma task para fazer algo. Adicionaremos uma task na qual o yum garantirá que o pacote Apache esteja instalado na versão mais recente. Modifique o arquivo para que ele se pareça com a seguinte listagem:
+Agora que definimos a play, vamos adicionar uma task para fazer algo. Adicionaremos uma task na qual o yum garantirá que o pacote Apache esteja instalado na versão mais recente. Modifique o arquivo para que ele se pareça com a seguinte listagem:
 
 ```yaml
 ---
-- name: Apache server Instalado
+- name: Apache server instalado
   hosts: node1
   become: yes
   tasks:
-  - name: Ultima versao do Apache server instalado
+  - name: Ultima versao do apache server instalado
     yum:
       name: httpd
       state: latest
@@ -109,14 +109,14 @@ Nas linhas adicionadas:
 
   - Parâmetros para o módulo são adicionados:
   
-    - `name:` Identifica o nome do pacote.
+    - `name:` identifica o nome do pacote.
     - `state:` para definir o estado desejado do pacote.
     
 > **Dica**
 >
 > Os parâmetros do módulo são individuais para cada módulo. Em caso de dúvida, procure-os novamente com `ansible-doc`.
 
-Save seu Playbook e saia do Editor.
+Salve seu Playbook e saia do Editor.
 
 ## Passo 3.3 - Rodando o Playbook
 
@@ -131,7 +131,7 @@ Agora você deve estar pronto para executar seu Playbook:
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
-A saída não deve relatar nenhum erro, e sim fornecer uma visão geral das tarefas executadas e uma recapitulação de reprodução resumindo o que foi feito. Há também uma tarefa chamada "Gathering Facts" listada lá: esta é uma tarefa interna que é executada automaticamente no início de cada Play. Ele coleta informações sobre os nós gerenciados. Os exercícios posteriores abordarão isso com mais detalhes.
+A saída não deve relatar nenhum erro, e sim fornecer uma visão geral das tasks executadas e uma recapitulação de reprodução resumindo o que foi feito. Há também uma task chamada "Gathering Facts" listada: esta é uma task interna que é executada automaticamente no início de cada Play. Ele coleta informações sobre os nós gerenciados. Os exercícios posteriores abordarão isso com mais detalhes.
 
 Use o SSH para garantir que o Apache tenha sido instalado no `node1`. O endereço IP necessário é fornecido no inventário.
 
@@ -154,21 +154,21 @@ Efetue logout do `node1` com o comando `exit` para voltar ao host de controle e 
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
 ```
 
-Execute o Playbook pela segunda vez e compare a saída: A saída mudou de "alterado" para "ok" e a cor mudou de amarelo para verde. Além disso, o "PLAY RECAP" é diferente agora. Isso facilita a identificação do que o Ansible realmente fez.
+Execute o Playbook pela segunda vez e compare a saída: A saída mudou de "changed" para "ok" e a cor mudou de amarelo para verde. Além disso, o "PLAY RECAP" é diferente agora. Isso facilita a identificação do que o Ansible realmente fez.
 
 ## Passo 3.4 - Amplie seu playbook: Apache Start & Enable 
 
 A próxima parte do Playbook garante que o servidor Apache esteja startado e habilitado no `node1`.
 
-No host de controle, como seu usuário student, edite o arquivo `~/ansible-files/apache.yml` para adicionar uma segunda tarefa usando o módulo`service`. O Playbook agora deve ficar assim:
+No host de controle, como seu usuário student, edite o arquivo `~/ansible-files/apache.yml` para adicionar uma segunda task usando o módulo `service`. O Playbook agora deve ficar assim:
 
 ```yaml
 ---
-- name: Apache server Instalado
+- name: Apache server instalado
   hosts: node1
   become: yes
   tasks:
-  - name: Ultima versao do Apache server instalado
+  - name: Ultima versao do apache server instalado
     yum:
       name: httpd
       state: latest
@@ -181,19 +181,19 @@ No host de controle, como seu usuário student, edite o arquivo `~/ansible-files
 
 Novamente: o que essas linhas fazem é fácil de entender:
 
-  - uma segunda tarefa é criada e nomeada
+  - uma segunda task é criada e nomeada
 
   - um módulo é especificado (`service`)
 
   - parâmetros para o módulo são fornecidos
 
-Assim, com a segunda tarefa, garantimos que o servidor Apache esteja realmente em execução na máquina de destino. Execute seu Playbook estendido:
+Assim, com a segunda task, garantimos que o servidor Apache esteja realmente em execução na máquina de destino. Execute seu Playbook estendido:
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
 
-Observe a saída agora: algumas tarefas são mostradas como "ok" em verde e uma é mostrada como "changed" em amarelo.
+Observe a saída agora: algumas tasks são mostradas como "ok" em verde e uma é mostrada como "changed" em amarelo.
 
   - Use um comando Ansible ad hoc novamente para garantir que o Apache tenha sido ativado e iniciado, por exemplo com: `systemctl status httpd`.
 
@@ -201,11 +201,11 @@ Observe a saída agora: algumas tarefas são mostradas como "ok" em verde e uma 
   
 ## Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html
 
-Verifique se as tarefas foram executadas corretamente e o Apache está aceitando conexões: faça uma solicitação HTTP usando o módulo `uri` em um comando ad hoc a partir do nó de controle. Certifique-se de substituir **\<IP\>** pelo IP do nó do inventário.
+Verifique se as tasks foram executadas corretamente e o Apache está aceitando conexões: faça uma solicitação HTTP usando o módulo `uri` em um comando ad hoc a partir do nó de controle. Certifique-se de substituir **\<IP\>** pelo IP do nó do inventário.
 
 > **ATENÇÃO**
 >
-> **Espere muitas linhas vermelhas e um status 403 \!**
+> **Espere muitas linhas vermelhas e um status 403\!**
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
@@ -213,25 +213,25 @@ Verifique se as tarefas foram executadas corretamente e o Apache está aceitando
 
 Há muitas linhas vermelhas e um erro: Contanto que não haja pelo menos um arquivo `index.html` a ser consumido pelo Apache, ele emitirá um status feio "HTTP Error 403: Forbidden" e o Ansible relatará um erro.
 
-Então, por que não usar o Ansible para implantar um simples arquivo `index.html`? Crie o arquivo `~/ansible-files/index.html` no nó de controle:
+Então, por que não usar o Ansible para implantar um simples arquivo `index.html` ? Crie o arquivo `~/ansible-files/index.html` no nó de controle:
 
 ```html
 <body>
-<h1>O Apache está funcionando bem</h1>
+<h1>O Apache esta funcionando bem</h1>
 </body>
 ```
 
 Você já usou o módulo `copy`  para gravar o texto fornecido na linha de comando em um arquivo. Agora você usará o módulo no seu Playbook para copiar um arquivo:
 
-No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files/apache.yml` e adicione uma nova tarefa utilizando o módulo`copy`. Agora deve ficar assim:
+No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files/apache.yml` e adicione uma nova task utilizando o módulo`copy`. Agora deve ficar assim:
 
 ```yaml
 ---
-- name: Apache server Instalado
+- name: Apache server instalado
   hosts: node1
   become: yes
   tasks:
-  - name: Ultima versao do Apache server instalado
+  - name: Ultima versao do apache server instalado
     yum:
       name: httpd
       state: latest
@@ -246,7 +246,7 @@ No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files
       dest: /var/www/html/
 ```
 
-Você está se acostumando com a sintaxe do Playbook, então o que acontece? A nova tarefa usa o módulo `copy` e define as opções de origem e destino para a operação de cópia como parâmetros.
+Você está se acostumando com a sintaxe do Playbook, então o que acontece? A nova task usa o módulo `copy` e define as opções de origem e destino para a operação de cópia como parâmetros.
 
 Execute seu Playbook ampliado:
 
@@ -254,13 +254,13 @@ Execute seu Playbook ampliado:
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
 
-  - Observe bem a saída
+  - Observe bem a saída.
 
   - Execute o comando ad hoc usando o módulo "uri" mais acima novamente para testar o Apache: O comando agora deve retornar uma linha verde "status: 200" amigável, entre outras informações.
 
 ## Passo 3.6 - Pratique: Aplicar a vários hosts
 
-Isso foi legal, mas o verdadeiro poder do Ansible é aplicar o mesmo conjunto de tarefas de maneira confiável a muitos hosts.
+Isso foi legal, mas o verdadeiro poder do Ansible é aplicar o mesmo conjunto de tasks de maneira confiável a muitos hosts.
 
   - Então, que tal mudar o apache.yml Playbook para executar no `node1` **e**` node2` **e** `node3`?
 
@@ -281,11 +281,11 @@ Altere o Playbook para apontar para o grupo "web":
 
 ```yaml
 ---
-- name: Apache server Instalado
+- name: Apache server instalado
   hosts: web
   become: yes
   tasks:
-  - name: Ultima versao do Apache server instalado
+  - name: Ultima versao do apache server instalado
     yum:
       name: httpd
       state: latest
@@ -310,4 +310,4 @@ Por fim, verifique se o Apache está em execução nos dois servidores. Primeiro
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

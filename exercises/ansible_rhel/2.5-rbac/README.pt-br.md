@@ -56,7 +56,7 @@ Agora você pode adicionar um usuário à equipe:
 
 - Clique no botão verde, marque a caixa ao lado do usuário `wweb` e clique em **SAVE**.
 
-Agora clique no botão **PERMISSIONS ** na visualização **TEAMS **, você será recebido com "No Permissions Have Been Granted".
+Agora clique no botão **PERMISSIONS** na visualização **TEAMS**, você será recebido com "No Permissions Have Been Granted".
 
 As permissões permitem ler, modificar e administrar projetos, inventários e outros elementos do Tower. As permissões podem ser definidas para diferentes recursos.
 

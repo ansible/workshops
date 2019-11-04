@@ -45,11 +45,11 @@ Depois, crie o arquivo `ftpserver.yml` no seu host de controle no diretório `~/
 
 ```yaml
 ---
-- name: instalar vsftpd no ftpserver
+- name: Instalar vsftpd no ftpserver
   hosts: all
   become: yes
   tasks:
-    - name: instalar servidor FTP quando host fizer parte do grupo ftpserver
+    - name: Instalar servidor FTP quando host fizer parte do grupo ftpserver
       yum:
         name: vsftpd
         state: latest
@@ -63,7 +63,7 @@ Depois, crie o arquivo `ftpserver.yml` no seu host de controle no diretório `~/
 Execute-o e examine a saída. O resultado esperado: a task é ignorada no node1, node3 e no host ansible (seu host de controle) porque eles não estão no grupo ftpserver no seu arquivo de inventário.
 
 ```bash
-TASK [instalar servidor FTP quando host fizer parte do grupo ftpserver] *******************************************
+TASK [Instalar servidor FTP quando host fizer parte do grupo ftpserver] *******************************************
 skipping: [ansible]
 skipping: [node1]
 skipping: [node3]
@@ -72,7 +72,7 @@ changed: [node2]
 
 ## Passo 5.2 - Handlers
 
-Às vezes, quando uma task faz uma alteração no sistema, pode ser necessário executar uma task ou tasks adicionais. Por exemplo, uma alteração no arquivo de configuração de um serviço pode exigir que o serviço seja reiniciado para que a configuração alterada entre em vigor.
+As vezes, quando uma task faz uma alteração no sistema, pode ser necessário executar uma task ou tasks adicionais. Por exemplo, uma alteração no arquivo de configuração de um serviço pode exigir que o serviço seja reiniciado para que a configuração alterada entre em vigor.
 
 Aqui, os handlers entram em cena. Os handlers podem ser vistos como tasks inativas que só são acionadas quando invocadas explicitamente usando a instrução "notify". Leia mais sobre eles na documentação [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change).
 
@@ -94,11 +94,11 @@ Depois, crie o playbook `httpd_conf.yml`. Verifique se você está no diretório
 
 ```yaml
 ---
-- name: manage httpd.conf
+- name: Manage httpd.conf
   hosts: web
   become: yes
   tasks:
-  - name: copiar arquivo de configuracao do Apache
+  - name: Copiar arquivo de configuracao do Apache
     copy:
       src: httpd.conf
       dest: /etc/httpd/conf/
@@ -146,19 +146,19 @@ Sinta-se livre para alterar o arquivo httpd.conf novamente e executar o Playbook
 
 ## Passo 5.3 - Loops simples
 
-Os loops nos permitem repetir a mesma task. Por exemplo, digamos que você queira criar vários usuários. Usando um loop, você pode fazer isso em uma única task. Os loops também podem iterar mais do que apenas listas básicas. Por exemplo, se você tiver uma lista de usuários com seu grupo de correspondência, o loop também poderá iterar sobre eles. Saiba mais sobre loops na documentação [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
+Os loops nos permitem repetir a mesma task. Por exemplo, digamos que você queira criar vários usuários. Usando um loop, você pode fazer isso em uma única task. Os loops também podem iterar mais do que apenas listas básicas. Por exemplo, se você tiver uma lista de usuários com seu grupo de correspondência, o loop também poderá iterar sobre eles. Saiba mais sobre loops na documentação [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html).
 
 Para mostrar o recurso de loops, geramos três novos usuários no `node1`. Para isso, crie o arquivo `loop_users.yml` em `~/ansible-files` no seu nó de controle com seu usuário student. Usaremos o módulo `user` para gerar as contas de usuário.
 
 <!-- {% raw %} -->
 ```yaml
 ---
-- name: garantir usuarios
+- name: Garantir usuarios
   hosts: node1
   become: yes
 
   tasks:
-    - name: garantir a presenca de tres usuarios
+    - name: Garantir a presenca de tres usuarios
       user:
         name: "{{ item }}"
         state: present
@@ -199,12 +199,12 @@ Vamos reescrever o Playbook para criar os usuários com direitos adicionais:
 <!-- {% raw %} -->
 ```yaml
 ---
-- name: garantir usuarios
+- name: Garantir usuarios
   hosts: node1
   become: yes
 
   tasks:
-    - name: garantir a presenca de tres usuarios
+    - name: Garantir a presenca de tres usuarios
       user:
         name: "{{ item.username }}"
         state: present
@@ -231,4 +231,4 @@ uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

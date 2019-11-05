@@ -288,4 +288,4 @@ rtr1#
    ![](../images/incident_2.png)
 
 ---
-![Red Hat Ansible Automation](../../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../../images/rh-ansible-automation-platform.png)

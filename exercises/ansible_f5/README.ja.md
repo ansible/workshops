@@ -44,4 +44,4 @@ BIG-IP へのログイン情報:
   - **https://devcentral.f5.com/questions/f5-ansible-automation-discussion-63579**
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

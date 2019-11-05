@@ -50,4 +50,4 @@ You must have the following setup to deliver these demos:
     ![reset](images/reset.png)
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

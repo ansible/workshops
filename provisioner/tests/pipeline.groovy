@@ -11,7 +11,7 @@ pipeline {
         choice(
             name: 'ANSIBLE_VERSION',
             description: 'Ansible version to use to deploy the lab',
-            choices: ['devel', 'stable-2.8']
+            choices: ['devel', 'stable-2.9']
         )
          string(
             name: 'WORKSHOP_FORK',

@@ -202,6 +202,115 @@
   until: create_sg is not failed
   retries: 5
 
+  ### Windows Security groups
+- name: Windows | Create Gitlab Node security group
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-gitlabsg"
+    description: "Gitlab SG"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Skylight: "This was provisioned through the skylight provisioner"
+      Students: "{{ student_total }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: all
+        cidr_ip: "{{ ec2_subnet }}"
+  when: workshop_type == 'windows'
+
+- name: Windows | Create Docs Node security group
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-docssg"
+    description: "Docs SG"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Skylight: "This was provisioned through the skylight provisioner"
+      Students: "{{ student_total }}"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: all
+        cidr_ip: "{{ ec2_subnet }}"
+  when: workshop_type == 'windows'
+
+
+- name: Windows | Create MS AD Domain Controller security group
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-windcsg"
+    description: "Microsoft AD Domain Controller SG"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Skylight: "This was provisioned through the skylight provisioner"
+      Students: "{{ student_total }}"
+    rules:
+      - proto: tcp
+        from_port: 5986
+        to_port: 5986
+        cidr_ip: "0.0.0.0/0"
+      - proto: tcp
+        from_port: 3389
+        to_port: 3389
+        cidr_ip: "0.0.0.0/0"
+      - proto: all
+        cidr_ip: "{{ ec2_subnet }}"
+  when: workshop_type == 'windows'
+
+
+- name: Windows | Create MS Windows security group
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-windowssg"
+    description: "Microsoft Windows SG"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ linklight_user }}"
+      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Skylight: "This was provisioned through the skylight provisioner"
+      Students: "{{ student_total }}"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 5986
+        to_port: 5986
+        cidr_ip: "0.0.0.0/0"
+      - proto: tcp
+        from_port: 3389
+        to_port: 3389
+        cidr_ip: "0.0.0.0/0"
+      - proto: all
+        cidr_ip: "{{ ec2_subnet }}"
+  when: workshop_type == 'windows'
+
+#########################
+
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"

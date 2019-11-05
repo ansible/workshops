@@ -40,7 +40,7 @@ ec2_info:
     os: ios
     username: ec2-user
   arista:
-    size: t2.medium
+    size: c5.xlarge
     ami: "{{arista_ami | default(omit)}}"
     os: eos
     username: ec2-user
@@ -116,3 +116,21 @@ ec2_info:
     filter: 'AnsibleSecurity-QRadarCE*'
     username: ec2-user
     python_interpreter: '/usr/bin/python'
+  skylight_windows_dc:
+    filter: 'Windows_Server-2019-English-Core-Base*'
+    size: t3.medium
+  skylight_windows_ws:
+    filter: 'Windows_Server-2016-English-Full-Base*'
+    size: t3.medium
+  skylight_windows_instance:
+    filter: 'Windows_Server-2019-English-Core-Base*'
+    size: t3.small
+  skylight_rhel7_gitlab:
+    filter: 'RHEL-7.6_HVM_GA*x86_64*'
+    size: t2.xlarge
+    username: ec2-user
+  skylight_rhel7_docs:
+    filter: 'RHEL-7.6_HVM_GA*x86_64*'
+    size: t2.xlarge
+    username: ec2-user
+

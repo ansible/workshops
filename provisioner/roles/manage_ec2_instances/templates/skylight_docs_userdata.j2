@@ -1,0 +1,6 @@
+#cloud-config
+hostname: "docs"
+fqdn: "docs.{{ dns_domain_name }}"
+manage_etc_hosts: true
+chpasswd: { expire: False }
+ssh_pwauth: True

@@ -14,7 +14,7 @@ Your operations team and your application development team like what they see in
 
 - As the webservers can be used for development purposes or in production, there has to be a way to flag them accordingly as "stage dev" or "stage prod".
 
-    - Currently `node1` is used as a development system and `node2` is in production.
+    - Currently `node1` and `node3` are used as a development system and `node2` is in production.
 
 - Of course the content of the world famous application "index.html" will be different between dev and prod stages.
 
@@ -32,24 +32,29 @@ Compared to the previous Apache installation role there is a major difference: t
 
 `dev_index.html.j2`
 
+<!-- {% raw %} -->
 ```html
 <body>
 <h1>This is a development webserver, have fun!</h1>
 {{ dev_content }}
 </body>
 ```
+<!-- {% endraw %} -->
 
 `prod_index.html.j2`
 
+<!-- {% raw %} -->
 ```html
 <body>
 <h1>This is a production webserver, take care!</h1>
 {{ prod_content }}
 </body>
 ```
+<!-- {% endraw %} -->
 
 `main.yml`
 
+<!-- {% raw %} -->
 ```yaml
 [...]
 - name: Deploy index.html from template
@@ -58,6 +63,7 @@ Compared to the previous Apache installation role there is a major difference: t
     dest: /var/www/html/index.html
   notify: apache-restart
 ```
+<!-- {% endraw %} -->
 
 ## Prepare Inventory
 
@@ -73,7 +79,7 @@ There is of course more then one way to accomplish this, but here is what you sh
 
 > **Tip**
 >
-> Make sure to keep the three dashes that mark the YAML start\!
+> Make sure to keep the three dashes that mark the YAML start and the `ansible_host` line in place\!
 
 ## Create the Template
 
@@ -81,7 +87,7 @@ There is of course more then one way to accomplish this, but here is what you sh
 
     - targets the `Webserver` inventory
 
-    - uses the Playbook `rhel/apache/webcontent.yml` from the new **Ansible Workshop Examples** Project
+    - uses the Playbook `rhel/apache/webcontent.yml` from the **Ansible Workshop Examples** Project
 
     - Defines two variables: `dev_content: default dev content` and `prod_content: default prod content` in the **EXTRA VARIABLES FIELD**
 
@@ -91,10 +97,15 @@ There is of course more then one way to accomplish this, but here is what you sh
 
 ## Check the results
 
-This time we use the power of Ansible to check the results: execute curl on each node locally, orchestrated by an ad-hoc command on the command line:
+This time we use the power of Ansible to check the results: execute curl to get the web content from each node, orchestrated by an ad-hoc command on the command line of your Tower control host:
 
+> **Tip**
+>
+> We are using the `ansible_host` variable in the URL to access every node in the inventory group. 
+
+<!-- {% raw %} -->
 ```bash
-$ ansible web -m command -a "curl -s http://localhost:80"
+[student<X>@ansible ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
  [WARNING]: Consider using the get_url or uri module rather than running 'curl'.  If you need to use command because get_url or uri is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in ansible.cfg to get rid of this message.
 
 node2 | CHANGED | rc=0 >>
@@ -115,8 +126,9 @@ node3 | CHANGED | rc=0 >>
 dev wweb
 </body>
 ```
+<!-- {% endraw %} -->
 
-Note the warining in the first line about not to use `curl` via the `command` module since there are better modules right within Ansible. We will come back to that in the next part.
+Note the warning in the first line about not to use `curl` via the `command` module since there are better modules right within Ansible. We will come back to that in the next part.
 
 ## Add Survey
 
@@ -126,34 +138,36 @@ Note the warining in the first line about not to use `curl` via the `command` mo
 
 - Run the survey as user `wweb`
 
-Check the results. Since we got a warning last time using `curl` via the `command` module, this time we will use the dedicated `uri` module. As arguments it needs the actual URL and a flag to output the body in the results.
+Check the results again from your Tower control host. Since we got a warning last time using `curl` via the `command` module, this time we will use the dedicated `uri` module. As arguments it needs the actual URL and a flag to output the body in the results.
 
+<!-- {% raw %} -->
 ```bash
-$ ansible web -m uri -a "url=http://localhost return_content=yes"
-node2 | SUCCESS => {
-    "accept_ranges": "bytes",
+[student<X>ansible ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
+node3 | SUCCESS => {
+    "accept_ranges": "bytes", 
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
-    },
-    "changed": false,
-    "connection": "close",
-    "content": "<body>\n<h1>This is a production webserver, take care!</h1>\nprod wweb\n</body>\n",
-    "content_length": "77",
-    "content_type": "text/html; charset=UTF-8",
-    "cookies": {},
-    "cookies_string": "",
-    "date": "Wed, 10 Jul 2019 22:15:45 GMT",
-    "elapsed": 0,
-    "etag": "\"4d-58d5aef2a5666\"",
-    "last_modified": "Wed, 10 Jul 2019 22:09:42 GMT",
-    "msg": "OK (77 bytes)",
-    "redirected": false,
-    "server": "Apache/2.4.6 (Red Hat Enterprise Linux)",
-    "status": 200,
-    "url": "http://localhost"
+    }, 
+    "changed": false, 
+    "connection": "close", 
+    "content": "<body>\n<h1>This is a development webserver, have fun!</h1>\nwerners dev content\n</body>\n",                                                                                         
+    "content_length": "87", 
+    "content_type": "text/html; charset=UTF-8", 
+    "cookies": {}, 
+    "cookies_string": "", 
+    "date": "Tue, 29 Oct 2019 11:14:24 GMT", 
+    "elapsed": 0, 
+    "etag": "\"57-5960ab74fc401\"", 
+    "last_modified": "Tue, 29 Oct 2019 11:14:12 GMT", 
+    "msg": "OK (87 bytes)", 
+    "redirected": false, 
+    "server": "Apache/2.4.6 (Red Hat Enterprise Linux)", 
+    "status": 200, 
+    "url": "http://18.205.236.208"
 }
 [...]
 ```
+<!-- {% endraw %} -->
 
 ## Solution
 

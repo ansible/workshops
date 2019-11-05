@@ -1,0 +1,15 @@
+---
+# defaults file for windows-ad-controller
+dns_domain_name: "example.com"
+domain_admin_password: "Micr0soft!"
+
+# Users and Password to Create
+users_password: "MySecureP@ssword1"        # MUST FOLLOW WINDOWS AD PASSWORD RULES
+users:
+  - user1
+  - user2
+
+# Details for reverse DNS lookup
+ptr_zone_name: "0.168.192.in-addr.arpa"
+ptr_zone_cidr: "192.168.0.0/24"
+

@@ -29,23 +29,7 @@ You now are accessing a default windows workstation with a Google Chrome browser
 >
 > Directly after the login you might see a wide blue bar on the right side of the screen, about network configurations. You can safely ignore this, the question hides away if you click anywhere on the screen.
 
-## Step 2.3 - Install SmartConsole
-
-SmartConsole should already be installed on your system. Please check your desktop for an icon to launch SmartConsole and launch it. If this works, the following tasks are **not necessary** and you can proceed to **Step 2.4**!
-
-If for any reason SmartConsole was not installed properly during the deployment of the lab, it is simple to do that yourself:
-
-- Inside your Windows workstation, open the Chrome browser
-- Point the browser to `https://<checkpointIP>`, where `<checkpointIP>` is the IP for the checkpoint entry in your inventory
-- A warning page will open since Check Point MGMT server is by default installed with a self signed certificate. Accept the certificate by clicking on **Advanced** and afterwards by clicking on the link named **Proceed to 11.22.33.44 (unsafe)**, with your `checkpoint` IP instead of **11.22.33.44**
-- Login with user name `admin` and password `admin123`
-- Accept the message of the day with a click on the **Ok** button
-- On top of the page, click on the green **Download Now!** button
-- The download starts immediately, the file is downloaded to the **Downloads** folder of the administrator
-- Find the file and launch the installer via double click
-- Accept all default values and finish the installation
-
-## Step 2.4 - Access the SmartConsole UI
+## Step 2.3 - Access the SmartConsole UI
 
 Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. The IP address to enter is the one from the **checkpoint** entry of your inventory.
 
@@ -63,7 +47,7 @@ You are now viewing the Check Point SmartConsole management interface. There mig
 
 Next, on the left side, click on **SECURITY POLICIES** and note that there is currently only one rule installed: to drop all traffic. Now you have a first idea of how Check Point looks like in term of the management interface. We will interact more with it - but first we go back to the command line to learn how to write Ansible playbooks interacting with Check Point.
 
-## Step 2.5 - First example playbook
+## Step 2.4 - First example playbook
 
 In Ansible, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
@@ -243,7 +227,7 @@ Last, we are defining the actual access rule between those two host objects and 
 ```
 <!-- {% endraw %} -->
 
-## Step 2.6 - Run the playbook
+## Step 2.5 - Run the playbook
 
 Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors:
 
@@ -274,7 +258,7 @@ PLAY RECAP *********************************************************************
 checkpoint  : ok=4 changed=3 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 ```
 
-## Step 2.7 - Verify changes in UI
+## Step 2.6 - Verify changes in UI
 
 Now it's time to check if the changes really did take place, if the actual Check Point MGMT server configuration was really altered.
 
@@ -288,7 +272,7 @@ Next, on the left side, click on **SECURITY POLICIES** and note the additional a
 
 Also note in the bottom left corner that there is a green bar indicating that changes were applied to the entire system.
 
-## Step 2.8 - Turn on Logging for the new policy
+## Step 2.7 - Turn on Logging for the new policy
 
 To see how changes are usually performed in a typical interaction with Check Point in contrast, let's just do a small change which will come in handy later on: by default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
 

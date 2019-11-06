@@ -51,19 +51,14 @@ Enter the following play definition into `bigip-facts.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
 
+Do not close editor yet.
+
 ## Step 3
 
 Next, add the first `task`. This task will use the `bigip_device_facts` module to grab useful information from the BIG-IP device.
 
 {% raw %}
 ``` yaml
----
-- name: GRAB F5 FACTS
-  hosts: f5
-  connection: local
-  gather_facts: no
-
-
   tasks:
 
     - name: COLLECT BIG-IP FACTS
@@ -89,36 +84,15 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
-- The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
+- The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with. 8443 is what's being used in this lab, but could be different depending on the deployment.
 - `register: device_facts` tells the task to save the output to a variable bigip_device_facts
 
 ## Step 4
 
-Next, add the second `task`. This task will use the `debug` module to print the output from device_facts variable we registered the facts to.
+Next, append the second `task` to above . This task will use the `debug` module to print the output from device_facts variable we registered the facts to.
 
 {% raw %}
 ```yaml
----
-- name: GRAB F5 FACTS
-  hosts: f5
-  connection: local
-  gather_facts: no
-
-
-  tasks:
-
-    - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
-        gather_subset:
-         - system-info
-        provider:
-          server: "{{private_ip}}"
-          user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
-          server_port: 8443
-          validate_certs: no
-      register: device_facts
-
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
         var: device_facts
@@ -130,6 +104,8 @@ Next, add the second `task`. This task will use the `debug` module to print the 
 - The `var: device_facts` parameter tells the module to display the variable bigip_device_facts.
 
 
+Save the file and exit out of editor.
+
 ## Step 5
 
 Run the playbook - exit back into the command line of the control host and execute the following:
@@ -138,34 +114,89 @@ Run the playbook - exit back into the command line of the control host and execu
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 ```
 
+The output will look as follows.
+``` yaml
+[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+
+PLAY [GRAB F5 FACTS] 
+****************************************************************
+TASK [Set a fact named 'provider' with BIG-IP login information] 
+****************************************************************
+ok: [f5]
+
+TASK [COLLECT BIG-IP FACTS] 
+****************************************************************
+changed: [f5]
+
+TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] 
+****************************************************************
+
+ok: [f5] =>
+  device_facts:
+    ansible_facts:
+      discovered_interpreter_python: /usr/bin/python
+    changed: true
+    failed: false
+
+    system_info:
+      base_mac_address: 02:f1:92:e9:a2:38
+      chassis_serial: 4eae2aec-f538-c80b-b48ce7466d8f
+      hardware_information:
+      - model: Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz
+        name: cpus
+        type: base-board
+        versions:
+        - name: cpu stepping
+          version: '1'
+        - name: cpu sockets
+          version: '1'
+        - name: cpu MHz
+          version: '2294.944'
+        - name: cores
+          version: 2  (physical:2)
+        - name: cache size
+          version: 46080 KB
+      marketing_name: BIG-IP Virtual Edition
+      package_edition: Point Release 7
+      package_version: Build 0.0.1 - Tue May 15 15:26:30 PDT 2018
+      platform: Z100
+      product_build: 0.0.1
+      product_build_date: Tue May 15 15:26:30 PDT 2018
+      product_built: 180515152630
+      product_changelist: 2557198
+      product_code: BIG-IP
+      product_jobid: 1012030
+      product_version: 13.1.0.7
+      time:
+        day: 28
+        hour: 18
+        minute: 38
+        month: 10
+        second: 42
+        year: 2019
+      uptime: 8196900.0
+
+TASK [DISPLAY ONLY THE MAC ADDRESS] 
+****************************************************************
+ok: [f5] =>
+  device_facts['system_info']['base_mac_address']: 02:f1:92:e9:a2:38
+
+TASK [DISPLAY ONLY THE VERSION] 
+****************************************************************
+ok: [f5] =>
+  device_facts['system_info']['product_version']: 13.1.0.7
+
+PLAY RECAP 
+****************************************************************
+f5                         : ok=4    changed=1    unreachable=0    failed=0
+```
+
 ## Step 6
 
-Finally lets add two more tasks to get more specific info from facts gathered.
+Finally let's append two more tasks to get more specific info from facts gathered, to the above playbook.
 
 {% raw %}
 ```yaml
----
-- name: GRAB F5 FACTS
-  hosts: f5
-  connection: local
-  gather_facts: no
-
-  tasks:
-    - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
-        gather_subset:
-         - system-info
-        provider:
-          server: "{{private_ip}}"
-          user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
-          server_port: 8443
-          validate_certs: no
-      register: device_facts
-
-    - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
-      debug:
-        var: device_facts
 
     - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
@@ -178,7 +209,7 @@ Finally lets add two more tasks to get more specific info from facts gathered.
 {% endraw %}
 
 
-- `var: device_facts['system_info']['base_mac_address']` displays the MAC address for the BIG-IP device
+- `var: device_facts['system_info']['base_mac_address']` displays the MAC address for  the Management IP on the BIG-IP device
 - `device_facts['system_info']['product_version']` displays the product version BIG-IP device
 
 >Because the bigip_device_facts module returns useful information in structured data, it is really easy to grab specific information without using regex or filters.  Fact modules are very powerful tools to grab specific device information that can be used in subsequent tasks, or even used to create dynamic documentation (reports, csv files, markdown).

@@ -10,7 +10,7 @@ In comes Ansible: we use Ansible to elevate the interactions learned in the last
 
 For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
-Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar
+Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar`
 
 Addtionally we will use the role to modify IDS rules from the previous Snort exercise. If you missed that, install them via: `ansible-galaxy install ansible_security.ids_rule`
 

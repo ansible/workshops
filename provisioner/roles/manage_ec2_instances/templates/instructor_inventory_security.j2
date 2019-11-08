@@ -26,12 +26,12 @@ ansible_port={{ ssh_port }}
 {% endif %}
 {% for host in snort_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-snort ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{{host.tags.Student}}-snort ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} private_ip={{ hostvars[host.tags.Name]['private_ip'] }} private_ip2={{ hostvars[host.tags.Name]['private_ip2'] }}
 {% endif %}
 {% endfor %}
 {% for host in attacker_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-attacker ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{{host.tags.Student}}-attacker ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} private_ip={{ hostvars[host.tags.Name]['private_ip'] }} private_ip2={{ hostvars[host.tags.Name]['private_ip2'] }}
 {% endif %}
 {% endfor %}
 {% for host in checkpoint_node_facts.instances %}

@@ -81,7 +81,7 @@ Now in the next task you can use provider as follows:
 ```
 bigip_device_facts:
   provider: "{{provider}}"
-  gather-subset:
+  gather_subset:
   - ltm-pools
 ```
 <!-- {% endraw %} -->

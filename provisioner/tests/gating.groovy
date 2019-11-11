@@ -83,7 +83,7 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook -vv provisioner/provision_lab.yml \
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
                                                -e @provisioner/tests/vars.yml \
                                                -e @provisioner/tests/ci-common.yml \
                                                -e @provisioner/tests/ci-rhel.yml"""
@@ -99,7 +99,7 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook -vv provisioner/teardown_lab.yml \
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-rhel.yml"""
                                     }
@@ -119,7 +119,7 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook -vv provisioner/provision_lab.yml \
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-networking.yml"""
@@ -135,7 +135,7 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook -vv provisioner/teardown_lab.yml \
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-networking.yml"""
                                     }
@@ -155,7 +155,7 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook -vv provisioner/provision_lab.yml \
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-f5.yml"""
@@ -167,7 +167,7 @@ EOF
                             stage('F5-exercises') {
                                 sh "cat provisioner/tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
-                                RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook -vv {}"'
+                                RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
                                 sh "sshpass -p 'ansible' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
                             }
                         }
@@ -179,7 +179,7 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook -vv provisioner/teardown_lab.yml \
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-f5.yml"""
                                     }
@@ -202,9 +202,9 @@ EOF
                                  "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                  "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                  "ANSIBLE_FORCE_COLOR=true"]) {
-                            sh "ansible-playbook -vv provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-rhel.yml"
-                            sh "ansible-playbook -vv provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-networking.yml"
-                            sh "ansible-playbook -vv provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-f5.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-rhel.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-networking.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-f5.yml"
                         }
                     }
                 }

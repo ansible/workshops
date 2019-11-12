@@ -24,3 +24,5 @@ provisioner/roles/ansible_security.ids_install/
 provisioner/roles/geerlingguy.repo-epel/
 .pyc
 .swp
+Gemfile.lock
+Gemfile

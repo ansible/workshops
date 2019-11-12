@@ -1,0 +1,19 @@
+---
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: nxtwork
+# amount of work benches to provision
+student_total: 1
+## Optional Variables
+# password used for student account on control node
+admin_password: ansible123
+# creates HTML website for workshop
+create_login_page: true
+# workshp runs in F5 mode
+workshop_type: networking
+# when towerinstall is on, this will license it with provided license
+autolicense: true
+# this will install Ansible Tower on all control nodes
+towerinstall: true
+network_type: juniper

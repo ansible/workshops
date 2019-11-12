@@ -26,7 +26,7 @@
     state: latest
   when: workshop_type == 'networking'
 
-# FIXME: This should probably be refactored to use things like the following
+# FIX ME: This should probably be refactored to use things like the following
 # instead of hard coding
 #
 #   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/

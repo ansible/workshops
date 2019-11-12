@@ -11,7 +11,7 @@ pipeline {
         choice(
             name: 'ANSIBLE_VERSION',
             description: 'Ansible version to use to deploy the lab',
-            choices: ['devel', 'stable-2.8']
+            choices: ['devel', 'stable-2.9']
         )
          string(
             name: 'WORKSHOP_FORK',
@@ -116,10 +116,10 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
                                                -e @provisioner/tests/vars.yml \
                                                -e @provisioner/tests/ci-common.yml \
-                                               -e @provisioner/tests/ci-rhel.yml 2>&1 | tee rhel.log"""
+                                               -e @provisioner/tests/ci-rhel.yml 2>&1 | tee rhel.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                             }
@@ -132,9 +132,9 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
-                                                -e @provisioner/tests/ci-rhel.yml 2>&1 | tee -a rhel.log"""
+                                                -e @provisioner/tests/ci-rhel.yml 2>&1 | tee -a rhel.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                                 archiveArtifacts artifacts: 'rhel.log'
@@ -157,10 +157,10 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
                                                -e @provisioner/tests/vars.yml \
                                                -e @provisioner/tests/ci-common.yml \
-                                               -e @provisioner/tests/ci-networking.yml 2>&1 | tee networking.log"""
+                                               -e @provisioner/tests/ci-networking.yml 2>&1 | tee networking.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                             }
@@ -173,9 +173,9 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
-                                                -e @provisioner/tests/ci-networking.yml 2>&1 | tee -a networking.log"""
+                                                -e @provisioner/tests/ci-networking.yml 2>&1 | tee -a networking.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                                 archiveArtifacts artifacts: 'networking.log'
@@ -198,10 +198,10 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-common.yml \
-                                                -e @provisioner/tests/ci-f5.yml 2>&1 | tee f5.log"""
+                                                -e @provisioner/tests/ci-f5.yml 2>&1 | tee f5.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                             }
@@ -222,9 +222,9 @@ EOF
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
-                                                -e @provisioner/tests/ci-f5.yml 2>&! | tee -a f5.log"""
+                                                -e @provisioner/tests/ci-f5.yml 2>&1 | tee -a f5.log  && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                                 archiveArtifacts artifacts: 'f5.log'

@@ -54,4 +54,4 @@ Se a sua experiência for diferente na programação desses workshops, informe-n
  - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

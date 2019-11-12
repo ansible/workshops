@@ -1,0 +1,61 @@
+---
+- name: Configure snort for external logging
+  hosts: snort
+  become: true
+  vars:
+    ids_provider: "snort"
+    ids_config_provider: "snort"
+    ids_config_remote_log: true
+    ids_config_remote_log_destination: "{{ '{{' }} hostvars['qradar']['private_ip'] {{ '}}' }}"
+    ids_config_remote_log_procotol: udp
+    ids_install_normalize_logs: false
+
+  tasks:
+    - name: import ids_config role
+      include_role:
+        name: "ansible_security.ids_config"
+
+- name: Add Snort log source to QRadar
+  hosts: qradar
+  collections:
+    - ibm.qradar
+
+  tasks:
+    - name: Add snort remote logging to QRadar
+      qradar_log_source_management:
+        name: "Snort rsyslog source - {{ '{{' }} hostvars['snort']['private_ip'] {{ '}}' }}"
+        type_name: "Snort Open Source IDS"
+        state: present
+        description: "Snort rsyslog source"
+        identifier: "{{ '{{' }} hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') {{ '}}' }}"
+
+- name: Configure Check Point to send logs to QRadar
+  hosts: checkpoint
+
+  tasks:
+    - include_role:
+        name: ansible_security.log_manager
+        tasks_from: forward_logs_to_syslog
+      vars:
+        syslog_server: "{{ '{{' }} hostvars['qradar']['private_ip'] {{ '}}' }}"
+        checkpoint_server_name: "{{ cp_mngmt_server_name }}"
+        firewall_provider: checkpoint
+
+- name: Add Check Point log source to QRadar
+  hosts: qradar
+  collections:
+    - ibm.qradar
+
+  tasks:
+    - name: Add Check Point remote logging to QRadar
+      qradar_log_source_management:
+        name: "Check Point source - {{ '{{' }} hostvars['checkpoint']['private_ip'] {{ '}}' }}"
+        type_name: "Check Point FireWall-1"
+        state: present
+        description: "Check Point log source"
+        identifier: "{{ '{{' }} hostvars['checkpoint']['private_ip'] {{ '}}' }}"
+
+    - name: deploy the new log sources
+      qradar_deploy:
+        type: INCREMENTAL
+      failed_when: false

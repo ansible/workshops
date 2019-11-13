@@ -116,7 +116,7 @@ Youtube でも確認できます  [Click Here](https://youtu.be/xRA97XTxMjA)
 
     ![credentials link](images/credentials.png)
 
-2. **CREDENTIALS** には事前設定された2つのクレデンシャル `Demo Credential` と `Workshop Credentials` があるはずです。ここでは `Workshop Credential` を選択します。
+2. **CREDENTIALS** には事前設定された3つのクレデンシャル `Demo Credential`、`Tower Credntial` と `Workshop Credentials` があるはずです。ここでは `Workshop Credential` を選択します。
 
     ![Workshop Credential Link](images/workshop_credential.png)
 

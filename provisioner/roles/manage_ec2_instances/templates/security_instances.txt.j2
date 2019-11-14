@@ -8,7 +8,7 @@ ansible_port={{ ssh_port }}
 [control]
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-ansible ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+ansible ansible_host={{ vm.public_ip_address }} private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
 {% endif %}
 {% endfor %}
 

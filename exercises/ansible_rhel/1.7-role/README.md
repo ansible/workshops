@@ -262,7 +262,7 @@ Now you are ready to run your playbook:
 [student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml
 ```
 
-Run a curl command against `node2` to confirm that the role worked (remember Apache is still listening on port 8080):
+Run a curl command against `node2` to confirm that the role worked:
 
 ```bash
 [student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080

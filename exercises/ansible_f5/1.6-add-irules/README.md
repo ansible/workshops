@@ -44,6 +44,8 @@ Enter the following play definition into `bigip-irule.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
 
+Save and Exit out of editor.
+
 ## Step 3
 
 Create two dummy irules with the names 'irule1' and 'irule2'
@@ -70,16 +72,10 @@ Save the file
 
 ## Step 4
 
-Next, add the `task`. This task will use the `bigip-irule` to add irules to the BIG-IP.
+Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigip-irule` to add irules to the BIG-IP.
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   vars:
    irules: ['irule1','irule2']
 
@@ -117,35 +113,15 @@ Next, add the `task`. This task will use the `bigip-irule` to add irules to the 
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 - `loop:` tells the task to loop over the provided list.  The list in this case is the list of iRules.
 
+Do not exit the file yet.
+
 ## Step 5
 
-Next, add the `task`. This task will use the `bigip_virtual_server` to add attach the iRules to a Virtual Server on the BIG-IP.
+Next, append the `task` to above playbook. This task will use the `bigip_virtual_server` to add attach the iRules to a Virtual Server on the BIG-IP.
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
 
-  vars:
-   irules: ['irule1','irule2']
-
-  tasks:
-
-  - name: ADD iRules
-    bigip_irule:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      module: "ltm"
-      name: "{{item}}"
-      content: "{{lookup('file','{{item}}')}}"
-    with_items: "{{irules}}"
     
   - name: ATTACH iRules TO VIRTUAL SERVER
     bigip_virtual_server:
@@ -165,6 +141,8 @@ Next, add the `task`. This task will use the `bigip_virtual_server` to add attac
 
 Details of [BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html)
 or reference [Exercise 1.5](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.5-add-virtual-server/bigip-virtual-server.yml)
+
+Save the file and exit out of editor.
 
 ## Step 6
 

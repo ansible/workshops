@@ -8,8 +8,9 @@ User={{username}}
 WorkingDirectory=/home/{{username}}
 Restart=on-failure
 RestartSec=10
+Environment="PASSWORD={{ admin_password }}"
 
-ExecStart=/opt/code-server --auth none /home/{{username}}
+ExecStart=/opt/code-server /home/{{username}}
 
 StandardOutput=file:/var/log/code-server-output.log
 StandardError=file:/var/log/code-server-error.log

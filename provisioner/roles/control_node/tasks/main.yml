@@ -15,9 +15,10 @@
       - sshpass
       - tmux
       - python-pip
-      - ansible
+      # NOTE: Uncomment once 2.9.1 is released on EPEL
+      # - ansible
+      - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.9.1-1.el7.ans.noarch.rpm
       - gcc
-      # - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
   retries: 10
   delay: 5

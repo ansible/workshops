@@ -1,23 +1,23 @@
 Table of Contents
 =================
 
--   [Agenda](index.html)
+- [Agenda](index.html)
 
--   [Exercise 1 - Configuring Ansible Tower](exercise1.html)
+- [Exercise 1 - Configuring Ansible Tower](exercise1.html)
 
--   [Exercise 2 - Ad-hoc commands in Tower](exercise2.html)
+- [Exercise 2 - Ad-hoc commands in Tower](exercise2.html)
 
--   [Exercise 3 - Writing Your First playbook](exercise3.html)
+- [Exercise 3 - Writing Your First playbook](exercise3.html)
 
--   [Exercise 4 - Creating and Running a Job Template](exercise4.html)
+- [Exercise 4 - Creating and Running a Job Template](exercise4.html)
 
--   [Exercise 5 - Using Variables, Loops, and Handlers](exercise5.html)
+- [Exercise 5 - Using Variables, Loops, and Handlers](exercise5.html)
 
--   [Exercise 6 - Roles: Making your playbooks reusable](exercise6.html)
+- [Exercise 6 - Roles: Making your playbooks reusable](exercise6.html)
 
--   [Exercise 7 - Using Ansible for Windows Patching](exercise7.html)
+- [Exercise 7 - Using Ansible for Windows Patching](exercise7.html)
 
--   [Wrap UP](wrapup.html)
+- [Wrap UP](wrapup.html)
 
 Let’s begin by writing our first ansible **playbook**. The playbook is
 where you list the steps you would like to automate into a repeatable
@@ -65,7 +65,7 @@ Open Visual Studio Code
 For this lab, we have already created a clone of your Git repository for
 you. It is located in your Documents folder, the full path will look
 like this (with the \# replaced with your student number)
-*C:\\Users\\student\#\\Documents\\student\#*
+*`C:\Users\student#\Documents\student#`*
 
 To access it, in Visual Code click **File &gt; Open Folder**. It should
 default to your documents folder, so select your student folder and
@@ -99,12 +99,12 @@ play and then understanding what each line accomplishes
     - name: install the iis web service
       hosts: all
 
--   `---` Defines the beginning of YAML
+- `---` Defines the beginning of YAML
 
--   `name: install the iis web service` This describes our play
+- `name: install the iis web service` This describes our play
 
--   `hosts: all` Defines the host group in your inventory on which this
-    play will run against
+- `hosts: all` Defines the host group in your inventory on which this
+  play will run against
 
 Section 3: Adding Tasks to Your Play
 ====================================
@@ -123,22 +123,22 @@ of this exercise.
          win_feature:
            name: Web-Server
            state: present
-
+    
        - name: start iis service
          win_service:
            name: W3Svc
            state: started
-
+    
        - name: Create website index.html
          win_copy:
            content: "{{ iis_test_message }}"
            dest: C:\Inetpub\wwwroot\index.html
 
--   `tasks:` This denotes that one or more tasks are about to be defined
+- `tasks:` This denotes that one or more tasks are about to be defined
 
--   `- name:` Each task requires a name which will print to standard
-    output when you run your playbook. Therefore, give your tasks a name
-    that is short, sweet, and to the point
+- `- name:` Each task requires a name which will print to standard
+  output when you run your playbook. Therefore, give your tasks a name
+  that is short, sweet, and to the point
 
 <!-- -->
 
@@ -146,10 +146,10 @@ of this exercise.
       name: Web-Server
       state: present
 
--   These three lines are calling the Ansible module **win\_feature** to
-    install the IIS Web Server. [Click
-    here](http://docs.ansible.com/ansible/latest/win_feature_module.html)
-    to see all options for the win\_feature module.
+- These three lines are calling the Ansible module **`win_feature`** to
+  install the IIS Web Server. [Click
+  here](http://docs.ansible.com/ansible/latest/win_feature_module.html)
+  to see all options for the `win_feature` module.
 
 <!-- -->
 
@@ -157,11 +157,11 @@ of this exercise.
       name: W3Svc
       state: started
 
--   The next few lines are using the ansible module **win\_service** to
-    start the IIS service. The `win_service` module is the preferred way
-    of controlling services on remote hosts. [Click
-    here](http://docs.ansible.com/ansible/latest/win_service_module.html)
-    to learn more about the **win\_service** module.
+- The next few lines are using the ansible module **win\_service** to
+  start the IIS service. The `win_service` module is the preferred way
+  of controlling services on remote hosts. [Click
+  here](http://docs.ansible.com/ansible/latest/win_service_module.html)
+  to learn more about the **`win_service`** module.
 
 <!-- -->
 
@@ -169,11 +169,11 @@ of this exercise.
       content: "{{ iis_test_message }}"
       dest: C:\Inetpub\wwwroot\index.html
 
--   In this task, we use the win\_copy module to create a file with
-    specific contents in it. We are getting a little more complex here
-    as we are using a variable to source the contents. We won’t go into
-    the variables just yet, since they will be showcased in a later
-    lesson.
+- In this task, we use the win\_copy module to create a file with
+  specific contents in it. We are getting a little more complex here
+  as we are using a variable to source the contents. We won’t go into
+  the variables just yet, since they will be showcased in a later
+  lesson.
 
 Section 4: Saving your Playbook
 ===============================
@@ -221,7 +221,7 @@ you should see your repository.
 You are ready to automate!
 
 > **Note**
->
+> 
 > Ansible (well, YAML really) can be a bit particular about formatting
 > especially around indentation/spacing. When you all get back to the
 > office, read up on this [YAML
@@ -233,18 +233,18 @@ You are ready to automate!
     ---
     - name: install the iis web service
       hosts: all
-
+    
       tasks:
         - name: install iis
           win_feature:
             name: Web-Server
             state: present
-
+    
         - name: start iis service
           win_service:
             name: W3Svc
             state: started
-
+    
         - name: Create website index.html
           win_copy:
             content: "{{ iis_test_message }}"

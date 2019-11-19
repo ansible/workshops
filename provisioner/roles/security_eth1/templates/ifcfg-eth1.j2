@@ -1,0 +1,11 @@
+# FILE TEMPLATED BY Ansible WorkShops Provisioner
+#   https://github.com/ansible/workshops/
+#
+BOOTPROTO=none
+DEVICE=eth1
+ONBOOT=yes
+TYPE=Ethernet
+USERCTL=no
+PREFIX=16
+IPADDR={{ hostvars[inventory_hostname]['private_ip2'] }}
+DEFROUTE=no

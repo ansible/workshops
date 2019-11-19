@@ -12,6 +12,6 @@ inventory = /home/{{username}}/devops-workshop/lab_inventory/hosts
 {% else %}
 inventory = /home/{{username}}/networking-workshop/lab_inventory/hosts
 [persistent_connection]
-connect_timeout = 60
-command_timeout = 60
+connect_timeout = 300
+command_timeout = 300
 {% endif %}

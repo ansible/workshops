@@ -12,11 +12,21 @@ After finishing this lab you are ready to start using Ansible for your automatio
 
 ## Presentations
 
-Want the Presentation Deck?  Its right here:
-[Red Hat Ansible Automation Technical Deck](../../decks/ansible_technical.pdf)
+The exercises are self explanatory and guide the particpants through the entire lab. All concepts are explained when they are introduces.
+
+There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
+[Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
 
 Also have a look at our Ansible Best Practices Deck:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)
+
+## Time planning
+
+The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
+
+Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds another hour.
+
+If your experience is different in schedulung those workshops, please let us know and fill an issue.
 
 ## Section 1 - Ansible Engine Exercises
 
@@ -44,4 +54,4 @@ Also have a look at our Ansible Best Practices Deck:
  - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

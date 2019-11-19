@@ -16,7 +16,7 @@ Explore and understand the lab environment.  This exercise will cover
 - Locating and understanding the Ansible configuration file (`ansible.cfg`)
 - Locating and understanding an `ini` formatted inventory file
 
-Before you get started, please join us on slack! [Click here to join the ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE).  This will allow you to chat with other network automation engineers and get help after the workshops concludes.
+Before you get started, please join us on slack! [Click here to join the ansiblenetwork slack](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtNTU4ODIyNzA1MDkyLThiYmQ3MmNkMWRmOTdjYjMxNzdlNDc4OTk5YTc1ZDBiNDAwOTZlZjE0NDliODJiMjJhMDBkZWM4Nzg2NjkzNDA).  This will allow you to chat with other network automation engineers and get help after the workshops concludes.
 
 # Diagram
 
@@ -36,7 +36,7 @@ This will not require a username or password.
 
 ## Step 1
 
-Navigate to the `networking-workshop` directory.
+Navigate to the `networking-workshop` directory on the Ansible control node.  The word `ansible` indicates the hostname, and that you are on the correct host.
 
 ```
 [student1@ansible ~]$ cd ~/networking-workshop/
@@ -54,6 +54,7 @@ Run the `ansible` command with the `--version` command to look at what is config
 
 
 ```
+[student1@ansible ~]$ ansible --version
 ansible 2.8.1
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']

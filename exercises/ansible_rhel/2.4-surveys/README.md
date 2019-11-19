@@ -1,5 +1,7 @@
 # Exercise 2.4 - Surveys
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 You might have noticed the **ADD SURVEY** button in the **Template** configuration view. A survey is a way to create a simple form to ask for parameters that get used as variables when a **Template** is launched as a **Job**.
 
 You have installed Apache on all hosts in the job you just run. Now we’re going to extend on this:
@@ -14,15 +16,22 @@ Additionally, the role will also make sure that the Apache configuration is prop
 
 > **Tip**
 > 
-> The survey feature only provides a simple query for data - it dies not support four-eye principles, queries based on dynamic data or nested menues.
+> The survey feature only provides a simple query for data - it does not support four-eye principles, queries based on dynamic data or nested menus.
 
-## Create the Project
+## The Apache-configuration Role
 
 The Playbook and the role with the Jinja template already exist in the Github repository **https://github.com/ansible/workshop-examples** in the directory `rhel/apache`**`.
 
- Head over to the Github UI and have a look at the content: the playbook `apache_role_install.yml` merely references the role. The role can be found in the `roles/role_apache` subdirectory. Inside the role, note the two variables in the `templates/index.html.j2` template file marked by `{{…​}}`\. Also, check out the tasks in `tasks/main.yml` that deploy the file from the template. What is this Playbook doing? It creates a file (**dest**) on the managed hosts from the template (**src**).
+ Head over to the Github UI and have a look at the content: the playbook `apache_role_install.yml` merely references the role. The role can be found in the `roles/role_apache` subdirectory. 
+ 
+ - Inside the role, note the two variables in the `templates/index.html.j2` template file marked by `{{…​}}`\. 
+ - Also, check out the tasks in `tasks/main.yml` that deploy the file from the template. 
+
+What is this Playbook doing? It creates a file (**dest**) on the managed hosts from the template (**src**).
 
 The role also deploys a static configuration for Apache. This is to make sure that all changes done in the previous chapters are overwritten and your examples work properly.
+
+Because the Playbook and role is located in the same Github repo as the `apache_install.yml` Playbook you don't have to configure a new project for this exercise.
 
 ## Create a Template with a Survey
 
@@ -36,7 +45,9 @@ Now you create a new Template that includes a survey.
 
 - Configure the template to:
   
-    - Use the **Project** and **Playbook**
+    - Use the `Ansible Workshop Examples` **Project** 
+    
+    - Use the `apache_role_install.yml` **Playbook**
   
     - To run on `node1`
   

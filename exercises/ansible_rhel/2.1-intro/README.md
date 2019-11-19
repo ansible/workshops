@@ -1,5 +1,7 @@
 # Exercise 2.1 - Introduction to Tower
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Why Ansible Tower?
 
 Ansible Tower is a web-based UI that provides an enterprise solution for IT automation. It
@@ -12,7 +14,7 @@ Ansible Tower is a web-based UI that provides an enterprise solution for IT auto
 
   - graphically manages or synchronizes inventories with a wide variety of sources.
 
-  - a RESTful API
+  - has a RESTful API
 
   - And much more...
 

@@ -1,5 +1,7 @@
 # 演習 1.7 - Roles: Playbook を再利用可能にする
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 今までのワークショップで学習してきた通り、Playbook を1つのファイルに書くことは可能です。しかしそのうち、作成した Playbook を再利用したいと考えるようになると思います。  
 
 これを実現するのが Ansible の Roles です。Role という形で Playbook をパーツとして分解し、構造化されたディレクトリに納めるのです。詳しくはこちらの [ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html) をご確認ください。  
@@ -36,7 +38,7 @@ apache/
 
 > **ヒント**
 >
-> 変数定義に関しては、 `vars` and `default` という2つのディレクトリがあります。変数定義には優先順位があり、`default` は最も優先順位が低くなっています。Playbook 実行時に、上書きされることも意識した、まさにデフォルトの値を定義する場所です。  
+> 変数定義に関しては、 `vars` と `default` という2つのディレクトリがあります。変数定義には優先順位があり、`default` は最も優先順位が低くなっています。Playbook 実行時に、上書きされることも意識した、まさにデフォルトの値を定義する場所です。
 
 Playbook で Roles を呼び出すのは以下の通り簡単です。  
 
@@ -86,7 +88,7 @@ Ansible は、プロジェクトディレクトリ内の `roles` サブディレ
 
 > **注意**  
 >
-> ** `main.yml` にはタスクのみを記述します。今まで記述した Playbook 丸ごとではありません！**
+> **`main.yml` にはタスクのみを記述します。今まで記述した Playbook 丸ごとではありません！**
 
 `roles/apache_vhost` ディレクトリ内の `tasks/main.yml` ファイルを以下の様に編集します。  
 

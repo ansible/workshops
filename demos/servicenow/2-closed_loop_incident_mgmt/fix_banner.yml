@@ -1,0 +1,40 @@
+---
+- name: ROUTER DEPLOY BANNER
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+
+    - name: CONFIGURE THE LOGIN BANNER
+      ios_banner:
+        banner: login
+        text: "DEMO BANNER FOR DEVICE {{ inventory_hostname }}"
+        state: present
+
+
+    - name: MARK THE TICKET AS RESOLVED
+      snow_record:
+        username: "{{ SN_USERNAME }}"
+        password: "{{ SN_PASSWORD }}"
+        instance: "{{ SN_INSTANCE }}"
+        state: present
+        table: incident
+        number: "{{ incident_num }}"
+        data:
+          state: 6
+          comments: "Banner has been updated, marking resolved"
+      when: incident_num is defined
+
+    - name: MARK THE TICKET AS CLOSED
+      snow_record:
+        username: "{{ SN_USERNAME }}"
+        password: "{{ SN_PASSWORD }}"
+        instance: "{{ SN_INSTANCE }}"
+        number: "{{ incident_num }}"
+        state: present
+        table: incident
+        data:
+          state: 7
+          comments: "Banner has been updated, closing ticket"
+      when: incident_num is defined

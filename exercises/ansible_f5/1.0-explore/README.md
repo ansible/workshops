@@ -79,6 +79,7 @@ ansible ansible_host=107.23.192.217 ansible_user=ec2-user private_ip=172.16.207.
 host1 ansible_host=107.22.141.4 ansible_user=ec2-user private_ip=172.16.170.190
 host2 ansible_host=54.146.162.192 ansible_user=ec2-user private_ip=172.16.160.13
 ```
+> Note that the IP addresses will be different in your environment.
 
 #### Step 5
 

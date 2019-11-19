@@ -13,9 +13,14 @@ valid_workshop_types:
   - devops
   - security
   - storage
+  - windows
 network_type: multivendor
 valid_network_types:
   - cisco
   - arista
   - juniper
   - multivendor
+security_console: qradar
+valid_security_console_types:
+  - splunk
+  - qradar

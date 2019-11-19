@@ -8,23 +8,28 @@
       state: present
 
   - name: Ensure the required NuGet package provider version is installed
-    win_shell: Find-PackageProvider -Name Nuget -ForceBootstrap -IncludeDependencies -Force      
+    win_shell: Find-PackageProvider -Name Nuget -ForceBootstrap -IncludeDependencies -Force
 
   - name: Install Pscx needed for unzip step later
     win_psmodule:
       name: pscx
       allow_clobber: true
 
-  - name: Get SmartConsole download link from CheckPoint support page
-    win_uri:
-      url: https://supportcenter.checkpoint.com/supportcenter/portal?action=portlets.DCFileAction&eventSubmit_doGetdcdetails=&fileid=94524
-      return_content: yes
-    register: filepage_data
+  - name: Check if SmartConsole is downloaded
+    win_stat:
+      path: C:\Temp\SmartConsole.exe
+    register: smartconsole
 
-  - name: Download SmartConsole from CheckPoint support page
+  - name: Download SmartConsole to specified path only if modified
     win_get_url:
-      url: "{{ filepage_data.content | regex_search('http://([a-z0-9]{1,3}).checkpoint.com/paid/20/([a-z0-9]{1,35})/Check_Point_SmartConsole_R80_20([a-zA-Z0-9_]{1,25})_Win.exe(.)HashKey=([0-9]{1,12})_([a-z0-9]{1,35})(.)xtn=.exe') }}"
+      url: https://s3.amazonaws.com/linklight.securityautomation/Check_Point_SmartConsole_R80_20_jumbo_HF_B055_Win.exe
       dest: C:\Temp\SmartConsole.exe
+      checksum: 424bd9ccac118c5a9c9e006b89f21d0a8b4f944b
+      force: yes
+    when: not smartconsole.stat.exists
+    register: win_get_smartconsole
+    until: win_get_smartconsole is success
+    retries: 5
 
   - name: Unpack SmartConsole archive
     win_unzip:
@@ -39,6 +44,4 @@
 
   - name: Execute SmartConsole installer
     win_command: C:\Temp\SmartConsole\SmartConsole.exe -s setup.iss
-
-  ignore_errors: yes
 

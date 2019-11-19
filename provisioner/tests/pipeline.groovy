@@ -6,12 +6,12 @@ pipeline {
         choice(
             name: 'TOWER_VERSION',
             description: 'Tower version to deploy',
-            choices: ['devel', '3.5.2']
+            choices: ['devel', '3.6.0']
         )
         choice(
             name: 'ANSIBLE_VERSION',
             description: 'Ansible version to use to deploy the lab',
-            choices: ['devel', 'stable-2.8']
+            choices: ['devel', 'stable-2.9']
         )
          string(
             name: 'WORKSHOP_FORK',
@@ -43,8 +43,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                     branches: [[name: "*/${params.WORKSHOP_BRANCH}" ]],
                     userRemoteConfigs: [
                         [
-                            credentialsId: 'd2d4d16b-dc9a-461b-bceb-601f9515c98a',
-                            url: "git@github.com:${params.WORKSHOP_FORK}/workshops.git"
+                            url: "https://github.com/${params.WORKSHOP_FORK}/workshops.git"
                         ]
                     ]
                 ])
@@ -74,6 +73,34 @@ ${AWX_NIGHTLY_REPO_URL}"""
                         aw_repo_url = "https://releases.ansible.com/ansible-tower"
                     }
                 }
+
+                sh """tee provisioner/tests/ci-common.yml << EOF
+tower_installer_url: ${tower_installer_url}
+gpgcheck: ${gpgcheck}
+aw_repo_url: ${aw_repo_url}
+ansible_workshops_url: ${ANSIBLE_WORKSHOPS_URL}
+ansible_workshops_version: ${params.WORKSHOP_BRANCH}
+EOF
+"""
+                sh """tee provisioner/tests/ci-rhel.yml << EOF
+workshop_type: rhel
+ec2_name_prefix: tower-qe-rhel-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}
+EOF
+"""
+
+                sh """tee provisioner/tests/ci-networking.yml << EOF
+workshop_type: networking
+ec2_region: eu-central-1
+ec2_name_prefix: tower-qe-networking-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}
+EOF
+"""
+
+                sh """tee provisioner/tests/ci-f5.yml << EOF
+workshop_type: f5
+ec2_region: ap-northeast-1
+ec2_name_prefix: tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}
+EOF
+"""
             }
         }
 
@@ -89,7 +116,10 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_url=${ANSIBLE_WORKSHOPS_URL} -e ansible_workshops_version=${params.WORKSHOP_BRANCH} 2>&1 | tee rhel.log"
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
+                                               -e @provisioner/tests/vars.yml \
+                                               -e @provisioner/tests/ci-common.yml \
+                                               -e @provisioner/tests/ci-rhel.yml 2>&1 | tee rhel.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                             }
@@ -102,7 +132,9 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=rhel -e ec2_name_prefix=tower-qe-rhel-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} 2>&1 | tee -a rhel.log"
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-rhel.yml 2>&1 | tee -a rhel.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                                 archiveArtifacts artifacts: 'rhel.log'
@@ -125,7 +157,10 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_url=${ANSIBLE_WORKSHOPS_URL} -e ansible_workshops_version=${params.WORKSHOP_BRANCH} 2>&1 | tee networking.log"
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
+                                               -e @provisioner/tests/vars.yml \
+                                               -e @provisioner/tests/ci-common.yml \
+                                               -e @provisioner/tests/ci-networking.yml 2>&1 | tee networking.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                             }
@@ -138,7 +173,9 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=networking -e ec2_name_prefix=tower-qe-networking-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} 2>&1 | tee -a networking.log"
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-networking.yml 2>&1 | tee -a networking.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                                 archiveArtifacts artifacts: 'networking.log'
@@ -161,14 +198,17 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/provision_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} -e tower_installer_url=${tower_installer_url} -e gpgcheck=${gpgcheck} -e aw_repo_url=${aw_repo_url} -e ansible_workshops_url=${ANSIBLE_WORKSHOPS_URL} -e ansible_workshops_version=${params.WORKSHOP_BRANCH} 2>&1 | tee f5.log"
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
+                                                -e @provisioner/tests/ci-f5.yml 2>&1 | tee f5.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                             }
                         }
                         script {
                             stage('F5-exercises') {
-                                sh "cat provisioner/tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
+                                sh "cat provisioner/tower-qe-f5-tower-${TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
                                 RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
                                 sh "sshpass -p 'ansible' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
@@ -182,7 +222,9 @@ ${AWX_NIGHTLY_REPO_URL}"""
                                              "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e workshop_type=f5 -e ec2_name_prefix=tower-qe-f5-tower-${params.TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID} 2>&1 | tee -a f5.log"
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-f5.yml 2>&1 | tee -a f5.log  && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
                                 archiveArtifacts artifacts: 'f5.log'

@@ -25,6 +25,14 @@
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
       when: workshop_type == "networking"
 
+    - name: make sure security_console is set to a correct value
+      assert:
+        that:
+          - security_console is defined
+          - security_console in valid_security_console_types
+        msg: "network_type must be defined and be one of: {{valid_security_console_types}}"
+      when: workshop_type == "security"
+
     - name: run role to check if local environment setup will work with AWS
       include_role:
         name: aws_check_setup
@@ -41,6 +49,20 @@
       check_mode: yes
       when: workshop_type == "networking"
       register: package_state
+
+# windows has a dependancy on sshpass which is nogo on macos: brew install it
+    - name: make sure (windows) packages required are installed on this control node
+      pip:
+        name:
+          - pywinrm
+          - boto
+          - requests
+          - requests-credssp
+          # - sshpass
+      check_mode: yes
+      when: workshop_type == "windows"
+      register: package_state
+
 
     - name: fail if previous check has changed
       assert:
@@ -63,14 +85,53 @@
        - autolicense is defined
        - autolicense
 
-    - name: Install required roles onto THIS machine
-      shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
-      loop:
-        - 'geerlingguy.repo-epel'
-        - 'ansible_security.ids_config'
-        - 'ansible_security.ids_install'
+    - name: Install required roles and collections onto THIS machine
       when:
         - workshop_type == "security"
+      block:
+        - name: required roles
+          shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+          async: 600
+          poll: 0
+          loop:
+            - 'geerlingguy.repo-epel'
+            - 'ansible_security.ids_config'
+            - 'ansible_security.ids_install'
+          register: required_role_loop_out
+
+        - name: check async role install
+          async_status:
+            jid: "{{ item['ansible_job_id'] }}"
+          loop: "{{ required_role_loop_out['results'] }}"
+          register: job_result
+          until: job_result.finished
+          retries: 30
+
+    - name: Windows workshop specific vars
+      include_vars:
+        file: "group_vars/{{ workshop_type }}.yml"
+      when: workshop_type == "windows"
+
+    - name: Check Domain Admin Password Complexity
+      assert:
+        that:
+          - domain_admin_password | length > 7
+          - domain_admin_password | regex_search('[A-Z]')
+          - domain_admin_password | regex_search('[a-z]')
+          - domain_admin_password | regex_search('[0-9]')
+        fail_msg: "domain_admin_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
+      when: workshop_type == "windows"
+
+    - name: Check Users Password Complexity
+      assert:
+        that:
+          - users_password | length > 7
+          - users_password | regex_search('[A-Z]')
+          - users_password | regex_search('[a-z]')
+          - users_password | regex_search('[0-9]')
+        fail_msg: "users_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
+      when: workshop_type == "windows"
+
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -113,7 +174,7 @@
 
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
-  gather_facts: no
+  gather_facts: yes
   become: yes
   roles:
     - control_node

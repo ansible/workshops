@@ -63,6 +63,23 @@
   retries: 50
   when: vpc_net_facts.vpcs|length > 0
 
+  ### Additional Windows sgs added in resources_windows.yml
+- name: Deleted EC2 security groups for VPC vpc-{{ ec2_name_prefix }} (WINDOWS MODE)
+  ec2_group:
+    name: "{{ item }}"
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ec2_vpc_id}}"
+    state: absent
+  loop:
+    - "{{ ec2_name_prefix }}-gitlabsg"
+    - "{{ ec2_name_prefix }}-docssg"
+    - "{{ ec2_name_prefix }}-windcsg"
+    - "{{ ec2_name_prefix }}-windowssg"
+  register: delete_sg
+  until: delete_sg is not failed
+  retries: 50
+  when: (vpc_net_facts.vpcs|length > 0) or (workshop_type == 'windows')
+
 - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
   ec2_group:
     name: "{{ec2_security_group2}}"
@@ -75,6 +92,35 @@
   when:
     - workshop_type == 'networking'
     - vpc_net_facts2.vpcs|length > 0
+
+- name: Cleanup subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+  block:
+    - name: Get subnet2 eni_info
+      ec2_eni_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:Subnet": '{{ ec2_name_prefix }}-subnet2'
+      register: subnet2_eni_info
+
+    - debug: var=subnet2_eni_info
+
+    - name: Delete dangling ENIs from subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+      ec2_eni:
+        region: "{{ ec2_region }}"
+        eni_id: "{{item['id']}}"
+        state: absent
+      loop: "{{subnet2_eni_info['network_interfaces']}}"
+
+    - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+      ec2_vpc_subnet:
+        region: "{{ ec2_region }}"
+        az: "{{ec2_az}}"
+        vpc_id: "{{ec2_vpc_id}}"
+        cidr: "{{ec2_subnet2}}"
+        state: absent
+  when:
+    - workshop_type == 'security'
+    - vpc_net_facts.vpcs|length > 0
 
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:

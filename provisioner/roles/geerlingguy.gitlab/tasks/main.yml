@@ -1,0 +1,88 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Check if GitLab configuration file already exists.
+  stat: path=/etc/gitlab/gitlab.rb
+  register: gitlab_config_file
+
+- name: Check if GitLab is already installed.
+  stat: path=/usr/bin/gitlab-ctl
+  register: gitlab_file
+
+# Install GitLab and its dependencies.
+- name: Install GitLab dependencies.
+  package: name={{ item }} state=present
+  with_items:
+    - openssh-server
+    - postfix
+    - curl
+    - openssl
+    - tzdata
+
+- name: Download GitLab repository installation script.
+  get_url:
+    url: "{{ gitlab_repository_installation_script_url }}"
+    dest: /tmp/gitlab_install_repository.sh
+    validate_certs: "{{ gitlab_download_validate_certs }}"
+  when: not gitlab_file.stat.exists
+
+- name: Install GitLab repository.
+  command: bash /tmp/gitlab_install_repository.sh
+  when: not gitlab_file.stat.exists
+
+- name: Define the Gitlab package name.
+  set_fact:
+    gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
+  when: gitlab_version != ''
+
+- name: Install GitLab
+  package:
+    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
+    state: present
+  when:
+    - not gitlab_file.stat.exists
+    - ansible_python_version is version_compare('3.0', '>=')
+
+# There seems to an issue with using ansible 2.8.x and python <= 2.7.x when using the package module
+# this needs to be tested more but it seems to work better with yum
+- name: Install GitLab
+  yum:
+    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
+    state: present
+  when:
+    - not gitlab_file.stat.exists
+    - ansible_python_version is version_compare('3.0', '<')
+
+# Start and configure GitLab. Sometimes the first run fails, but after that,
+# restarts fix problems, so ignore failures on this run.
+- name: Reconfigure GitLab (first run).
+  command: >
+    gitlab-ctl reconfigure
+    creates=/var/opt/gitlab/bootstrapped
+  failed_when: false
+
+- name: Create GitLab SSL configuration folder.
+  file:
+    path: /etc/gitlab/ssl
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when: gitlab_create_self_signed_cert | bool
+
+- name: Create self-signed certificate.
+  command: >
+    openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}"
+    -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
+    creates={{ gitlab_ssl_certificate }}
+  when: gitlab_create_self_signed_cert | bool
+
+- name: Copy GitLab configuration file.
+  template:
+    src: "{{ gitlab_config_template }}"
+    dest: /etc/gitlab/gitlab.rb
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart gitlab

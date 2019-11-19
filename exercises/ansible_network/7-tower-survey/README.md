@@ -1,5 +1,7 @@
 # Exercise 7: Creating a Survey
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Table of Contents
 
 - [Objective](#objective)
@@ -63,10 +65,12 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
 The role **banner** has a very simple `main.yml` file:
 
+<!-- {% raw %} -->
 ```yml
 - name: configure banner
   include_tasks: "{{ ansible_network_os }}.yml"
 ```
+<!-- {% endraw %} -->
 
 The `ansible_network_os` variable is being used to parameterize the network OS and create a vendor neutral playbook.
 

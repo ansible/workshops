@@ -1,5 +1,7 @@
 # 演習 2.4 - Survey 機能
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 テンプレート構成ビューの **SURVEYの追加** ボタンに気付いたかもしれません。Survey は、**テンプレート**が**ジョブ**として起動した時に利用する変数の値を入力する簡単なフォームです。  
 
 先ほどの演習で、全てのホストに Apache をインストールしました。次にこれを拡張します。  
@@ -116,7 +118,7 @@ $ curl http://<node1>
 <h1>This is survey field "Second Line": line two</h1>
 </body>
 ```
-この index.html ファイルが Playbook と Survey によってどのように作成されたのか、よく理解しておて下さい。  
+この index.html ファイルが Playbook と Survey によってどのように作成されたのか、よく理解しておいて下さい。
 
 ## さらに次のタスクを実行ください  
 
@@ -126,7 +128,7 @@ $ curl http://<node1>
 > 
 > **次の章で利用しますので、以下の手順は必ず完了してください！**
 
-- インベントリー `Webserver` に、 `node2` と `node3` を追加します  
+- インベントリー `Webserver` に、 `node2` と `node3` を追加します。
 
 - ジョブテンプレート `Create index.html` を再度実行します。
 

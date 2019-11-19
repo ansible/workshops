@@ -1,5 +1,7 @@
 # Exercise 9: Creating a Workflow
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Table of Contents
 
 - [Objective](#objective)
@@ -47,7 +49,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 2. By default only a green **START** button will appear.  Click on the **START** button.  
 
-3. The **ADD A TEMPLATE** window will appear on the right.  Select the *Backup* Job Template that was created in exercise 6 (whatever you named it!).  Use the drop down box to select run.  Click the green **SELECT** button.
+3. The **ADD A TEMPLATE** window will appear on the right.  Select the *Backup* Job Template that was created in exercise 6 (whatever you named it!).  Use the drop down box to select `always`.  Click the green **SELECT** button.
 
    ![add a template](images/add-a-template.png)
 

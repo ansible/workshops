@@ -1,5 +1,7 @@
 # 演習 1.6 - テンプレートを使う
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 Ansibleは、管理対象ホストにファイルをコピーする際、固定の内容ではなく変数に値を入力しながらコピーを行う様な事も可能です。例えば対象ホストユニークなホスト名などを含んだファイルのコピーを行うことが可能です。これを実現するのが Jinja2 テンプレートです。 Jinja2 は、Python で最も使用されているテンプレートエンジンの1つです。 (<http://jinja.pocoo.org/>)
 
 ## ステップ 1.6.1 -  playbook 内でテンプレートを使用する
@@ -46,7 +48,7 @@ deployed on {{ ansible_architecture }} architecture.
 
   - node1 からログオフします  
 
-Ansibleが変数をシステムから収取したファクト情報で変数を置き換えた上で、ファイルをコピーしていることがわかります。  
+Ansibleが変数をシステムから収集したファクト情報で変数を置き換えた上で、ファイルをコピーしていることがわかります。
 
 ## Step 1.6.2 - チャレンジラボ
 
@@ -56,7 +58,7 @@ Ansibleが変数をシステムから収取したファクト情報で変数を�
 
 > **ヒント**
 > 
-> モジュールは `setup` ですね？ `grep` 使って探してみましょう。  
+> モジュールは `setup` ですね？ `grep` を使って探してみましょう。
 
   - 見つかったらその変数を表示するよう、テンプレートファイルに追記しましょう
 
@@ -77,12 +79,14 @@ Ansibleが変数をシステムから収取したファクト情報で変数を�
 
   - `motd-facts.j2` を以下の通り更新します
 
-```bash
+<!-- {% raw %} -->
+```html+jinja
 Welcome to {{ ansible_hostname }}.
 {{ ansible_distribution }} {{ ansible_distribution_version}}
 deployed on {{ ansible_architecture }} architecture
 running kernel {{ ansible_kernel }}.
 ```
+<!-- {% endraw %} -->
 
   - playbook を実行します
   - node1 にログインし、表示をチェックします

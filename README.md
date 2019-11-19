@@ -32,4 +32,4 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 
 ---
-![Red Hat Ansible Automation](images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](images/rh-ansible-automation-platform.png)

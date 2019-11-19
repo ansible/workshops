@@ -22,7 +22,6 @@
   pip:
     name:
       - netaddr
-      - pysnow
       - ncclient
     state: latest
   when: workshop_type == 'networking'

@@ -15,9 +15,10 @@
       - sshpass
       - tmux
       - python-pip
-      - ansible
+      # NOTE: Uncomment once 2.9.1 is released on EPEL
+      # - ansible
+      - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.9.1-1.el7.ans.noarch.rpm
       - gcc
-      # - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
   retries: 10
   delay: 5
@@ -36,6 +37,59 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Get latest release of Coder binary
+  uri:
+    url: https://api.github.com/repos/cdr/code-server/releases/latest
+  register: github_result
+
+- name: Save url for extraction of Coder binary
+  set_fact:
+    download_url: "{{item.browser_download_url}}"
+    version_name: "{{item.name.split('.tar')[0]}}"
+  when: "'linux' in item.browser_download_url"
+  loop: "{{github_result.json.assets}}"
+  loop_control: 
+    label: "{{ item.browser_download_url }}"
+
+- name: Extract file
+  unarchive:
+    src: "{{download_url}}"
+    dest: "/home/{{username}}"
+    remote_src: yes
+  register: output
+    
+- name: Install ansible vscode extension
+  command: "/home/{{username}}/{{ version_name }}/code-server --auth none --install-extension vscoss.vscode-ansible"
+  register: result
+
+- name: Move binary to /opt
+  copy: 
+    src: /home/{{username}}/{{ version_name }}/code-server
+    dest: /opt/code-server
+    remote_src: yes
+    mode: '0744'
+    owner: "{{username}}"
+    group: "{{username}}"
+
+- name: Apply systemd service file
+  template: 
+    src: ../files/code-server.service.j2
+    dest: /etc/systemd/system/code-server.service
+    owner: "{{username}}"
+    group: wheel
+    mode: '0744'
+
+- name: Start code-server service
+  service:
+    name: code-server
+    state: started
+    enabled: yes   
+
+- name: Cleanup Coder binary from student directory
+  file: 
+    path: /home/{{username}}/{{ version_name }}
+    state: absent
+
 - name: setup control node networking
   include_tasks: "networking.yml"
   when: workshop_type in ['networking', 'f5']
@@ -47,6 +101,10 @@
 - name: RHEL mode - setup control node
   include_tasks: "rhel.yml"
   when: workshop_type == 'rhel'
+
+- name: Windows mode - setup control node
+  include_tasks: "windows.yml"
+  when: workshop_type == 'windows'
 
 - name: check to see if ansible tower is already up and running
   uri:

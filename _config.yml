@@ -5,3 +5,4 @@ exclude:
   - "provisioner/roles"
   - "provisioner/group_vars"
   - "provisioner/inventory"
+  - "provisioner/tests"

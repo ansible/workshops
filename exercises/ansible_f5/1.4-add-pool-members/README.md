@@ -42,17 +42,14 @@ Enter the following play definition into `bigip-pool-members.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: false` disables facts gathering.  We are not using any fact variables for this playbook.
 
+Do not exit the editor yet.
+
 ## Step 3
 
-Next, add the first `task`. This task will use the `bigip_pool_member` module configure the two RHEL web servers as nodes on the BIG-IP F5 load balancer.
+Next, append the first `task` to above playbook. This task will use the `bigip_pool_member` module configure the two RHEL web servers as nodes on the BIG-IP F5 load balancer.
 
 {% raw %}
 ``` yaml
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
 
   - name: ADD POOL MEMBERS
@@ -81,15 +78,18 @@ Next we have module parameters
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
-- The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
+- The `password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
 - The `state: "present"` parameter tells the module we want this to be added rather than deleted.
 - The `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be host1 and host2).
 - The `host: "{{hostvars[item].ansible_host}}"` parameter tells the module to add a web server IP address already defined in our inventory.
+- The `port`: parameter tells the pool member port.
 - The `pool: "http_pool"` parameter tells the module to put this node into a pool named http_pool
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 Finally there is a loop parameter which is at the task level (it is not a module parameter but a task level parameter:
 - `loop:` tells the task to loop over the provided list.  The list in this case is the group webservers which includes two RHEL hosts.
+
+Save the file and exit out of editor.
 
 ## Step 4
 
@@ -125,7 +125,7 @@ Let's use the bigip_device_facts to collect the pool members on BIG-IP. [JSON qu
 ```
 
 Enter the following:
-```
+```yaml
 ---
 - name: "List pool members"
   hosts: lb
@@ -167,24 +167,83 @@ Execute the playbook
 
 Output
 
-```
-[student1@ansible ~]$ ansible-playbook display-pool-member.yml
+``` yaml
+[student1@ansible 1.4-add-pool-members]$ ansible-playbook display-pool-members.yml
 
-PLAY [List pool members] ************************************************************************************************************************************
+PLAY [List pool members] ******************************************************************************************************************************************************************************
 
-TASK [Query BIG-IP facts] ***********************************************************************************************************************************
+TASK [Query BIG-IP facts] *****************************************************************************************************************************************************************************
 changed: [f5]
 
-TASK [Show members belonging to pool] ***********************************************************************************************************************
-ok: [f5] => (item=host1:80) => {
-    "msg": "host1:80"
-}
-ok: [f5] => (item=host2:80) => {
-    "msg": "host2:80"
-}
+TASK [View complete output] ***************************************************************************************************************************************************************************
+ok: [f5] =>
+  msg:
+    changed: true
+    ltm_pools:
+    - allow_nat: 'yes'
+      allow_snat: 'yes'
+      client_ip_tos: pass-through
+      client_link_qos: pass-through
+      full_path: /Common/http_pool
+      ignore_persisted_weight: 'no'
+      lb_method: round-robin
+      members:
+      - address: 54.191.xx.xx
+        connection_limit: 0
+        dynamic_ratio: 1
+        ephemeral: 'no'
+        fqdn_autopopulate: 'no'
+        full_path: /Common/host1:80
+        inherit_profile: 'yes'
+        logging: 'no'
+        monitors: []
+        name: host1:80
+        partition: Common
+        priority_group: 0
+        rate_limit: 'no'
+        ratio: 1
+        state: disabled
+      - address: 54.200.xx.xx
+        connection_limit: 0
+        dynamic_ratio: 1
+        ephemeral: 'no'
+        fqdn_autopopulate: 'no'
+        full_path: /Common/host2:80
+        inherit_profile: 'yes'
+        logging: 'no'
+        monitors: []
+        name: host2:80
+        partition: Common
+        priority_group: 0
+        rate_limit: 'no'
+        ratio: 1
+        state: disabled
+      minimum_active_members: 0
+      minimum_up_members: 0
+      minimum_up_members_action: failover
+      minimum_up_members_checking: 'no'
+      monitors:
+      - /Common/http
+      name: http_pool
+      priority_group_activation: 0
+      queue_depth_limit: 0
+      queue_on_connection_limit: 'no'
+      queue_time_limit: 0
+      reselect_tries: 0
+      server_ip_tos: pass-through
+      server_link_qos: pass-through
+      service_down_action: none
+      slow_ramp_time: 10
 
-PLAY RECAP **************************************************************************************************************************************************
-f5                         : ok=2    changed=1    unreachable=0    failed=0
+TASK [Show members belonging to pool] *****************************************************************************************************************************************************************
+ok: [f5] => (item=host1:80) =>
+  msg: host1:80
+ok: [f5] => (item=host2:80) =>
+  msg: host2:80
+
+PLAY RECAP ********************************************************************************************************************************************************************************************
+f5                         : ok=3    changed=1    unreachable=0    failed=0
+
 ```
 
 # Solution

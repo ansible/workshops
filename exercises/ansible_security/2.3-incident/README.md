@@ -13,7 +13,7 @@ We will start this exercise with an operator looking at logs in Snort. So first 
 <!-- {% raw %} -->
 ```yml
 ---
-- name: Add ids signaturesa for sql injection simulation
+- name: Add ids signature for sql injection simulation
   hosts: ids
   become: yes
 
@@ -68,7 +68,7 @@ Run it with:
 [student<X>@ansible ~]$ ansible-playbook sql_injection_simulation.yml
 ```
 
-Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar -p ~/.ansible/collections`
+Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar
 
 Also, to let the traffic between both machines pass, two things from the first Check Point exercise need to be completed: first the playbook `whitelist_attacker.yml` must have been run. And the logging for the attacker whitelist policy must have been activated. If you missed those steps, go back to the first Check Point exercise, create and execute the playbook, follow the steps to activate the logging and come back here.
 
@@ -99,7 +99,7 @@ User-Agent: curl/7.29.0
 Host: 172.17.30.140
 Accept: */*
 ```
-Besides some weird characters you will see the actual malformed "attack" of the user in the form of the string `sql_injection_simulation`.
+Besides some weird characters you will see the actual malformed "attack" of the user in the form of the string `sql_injection_simulation`. Leave the Snort server with the command `exit` .
 
 ## Step 3.4 - Create and run a playbook to forward logs to QRadar
 
@@ -141,6 +141,11 @@ On your Ansible control host, create a playbook called `incident_snort_log.yml` 
         state: present
         description: "Snort rsyslog source"
         identifier: "{{ hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') }}"
+
+    - name: deploy the new log sources
+      qradar_deploy:
+        type: INCREMENTAL
+      failed_when: false
 ```
 <!-- {% endraw %} -->
 
@@ -157,6 +162,10 @@ Let's change our perspective briefly to the one of a security analyst: we mainly
 ![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png)
 
 Remember that it helps to add filters to the QRadar log view to get a better overview. Note that those logs already show the offense marker on the left side!
+
+> **Note**
+>
+> If no logs are shown, wait a bit. It might take more than a minute to show the first entries. Also, the first logs might be identified with the right log source (showing **SIM Generic Log DSM-7** instead of **Snort rsyslog source**) so give it some time.
 
 In the offenses tab filter the list of offenses for **Error Based SQL Injection**. Open the Offense summary to check the details of the attacker IP address previously seen in Snort logs.
 

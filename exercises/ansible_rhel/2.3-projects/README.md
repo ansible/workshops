@@ -153,7 +153,7 @@ You have already been through all the steps needed, so try this for yourself.
 
 - Go to **Inventories** → **Workshop Inventory**
 
-- In the **HOSTS** view select both hosts and click **RUN COMMANDS**
+- In the **HOSTS** view select all hosts and click **RUN COMMANDS**
 
 - **MODULE:** command
 

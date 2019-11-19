@@ -54,4 +54,4 @@ If your experience is different in schedulung those workshops, please let us kno
  - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

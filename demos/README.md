@@ -9,4 +9,4 @@ These demos are built for https://github.com/ansible/workshops.  To use the demo
 | [Ansible + ServiceNow](servicenow)   | These demos are intended for effectively demonstrating Ansible + ServiceNow capabilities with prescriptive guides on the Ansible Automation Workshop infrastructure. |
 
 ---
-![Red Hat Ansible Automation](../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../images/rh-ansible-automation-platform.png)

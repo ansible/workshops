@@ -1,0 +1,9 @@
+{
+    "name": "Ansible Workshop Inventory",
+    "description": "workshop hosts",
+    "organization": 1,
+    "kind": "",
+    "host_filter": null,
+    "variables": "",
+    "insights_credential": null
+}

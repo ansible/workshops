@@ -123,4 +123,4 @@ The block uses the conditional `when` to only run if the previous task **changed
 ## End of Demo
 
 ---
-![Red Hat Ansible Automation](../../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../../images/rh-ansible-automation-platform.png)

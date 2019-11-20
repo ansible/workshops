@@ -10,5 +10,7 @@ workshop_type: networking
 ## Optional Variables
 # password used for student account on control node
 admin_password: ansible
+# turn DNS on for control nodes, and set to type in valid_dns_type
+dns_type: aws
 # creates HTML website for workshop
 create_login_page: true

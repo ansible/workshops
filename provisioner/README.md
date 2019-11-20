@@ -44,6 +44,8 @@ student_total: 2
 # Set the right workshop type, like networking, rhel or f5 (see above)
 workshop_type: rhel
 #OPTIONAL VARIABLES
+# turn DNS on for control nodes, and set to type in valid_dns_type
+dns_type: aws
 # password for Ansible control node, defaults to ansible
 admin_password: ansible
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
@@ -80,8 +82,15 @@ For more extra_vars examples, look at the following:
   - Workbench information is stored in two places after you provision:
     - in a local directory named after the workshop (e.g. TESTWORKSHOP/instructor_inventory)
     - if `create_login_page: true` is enabled in your `extra_vars file,` there will be a website ec2_name_prefix.workshop_dns_zone (e.g. TESTWORKSHOP.rhdemo.io)
-    - It is possible to change the route53 DNS as well using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
+    - It is possible to change the AWS route53 DNS as well using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
     - The playbook does not create the route53 zone and must exist prior to running the playbook.
+
+## DNS
+
+The provisioner currently supports creating DNS entries per control node using [Lets Encrypt](https://letsencrypt.org/).  Right now this is only supported via AWS Route53, however we are building it in a way that this can be more pluggable and take advantage of other public clouds.
+
+  - The variable `dns_type` defaults to `aws`.  This can also be set to `dns_type: none`.  
+  - If Lets Encrypt fails, the workshop provisioner will still pass, and alert you of errors in the `summary_information` at the end of the `provision_lab.yml` Ansible Playbook.
 
 # Lab Teardown
 

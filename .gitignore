@@ -26,3 +26,4 @@ provisioner/roles/geerlingguy.repo-epel/
 .swp
 Gemfile.lock
 Gemfile
+_site/*

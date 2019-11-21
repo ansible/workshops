@@ -33,7 +33,7 @@ student1@student1.workshop.rhdemo.io's password:
 
 ```
 
-Move into the `demos/servicenow/1-config-drift` directory.
+Move into the `demos/servicenow/2-closed_loop_incident_mgmt` directory.
 
 ```
 [student1@ansible ~]$

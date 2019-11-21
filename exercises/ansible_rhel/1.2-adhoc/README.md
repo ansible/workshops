@@ -6,9 +6,22 @@ For our first exercise, we are going to run some ad-hoc commands to help you get
 
 ## Step 2.1 - Work with your Inventory
 
-To use the ansible command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab the inventory is provided by your instructor. The inventory is an ini formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
+To use the ansible command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab the inventory is provided by your instructor. The inventory is an ini formatted file listing your hosts, sorted in groups, additionally providing some variables. View the content of your dedicated inventory:
 
 ```bash
+[student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
+[all:vars]
+ansible_user=student<X>
+ansible_ssh_pass=ansible
+ansible_port=22
+
+[web]
+node1 ansible_host=11.22.33.44
+node2 ansible_host=22.33.44.55
+node3 ansible_host=33.44.55.66
+
+[control]
+ansible ansible_host=44.55.66.77
 [all:vars]
 ansible_user=student1
 ansible_ssh_pass=PASSWORD

@@ -18,8 +18,8 @@
       Name: "{{ ec2_name_prefix }}-windc"
       App: AnsibleWorkshop
       Workshop: "{{ ec2_name_prefix }}"
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: 'windc'
@@ -48,8 +48,8 @@
       Name: "{{ ec2_name_prefix }}-gitlab"
       App: AnsibleWorkshop
       Workshop: "{{ ec2_name_prefix }}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: 'gitlab'
@@ -79,8 +79,8 @@
       Name: "{{ ec2_name_prefix }}-docs"
       App: AnsibleWorkshop
       Workshop: "{{ec2_name_prefix}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       short_name: "docs"
@@ -153,7 +153,7 @@
 - name: WINDOWS | Ensure tags are present for instance 1
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1}}"
+    resource: "{{item.1.id}}"
     state: present
     tags:
       Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
@@ -162,19 +162,20 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
-      short_name: "instance1"
+      short_name: "instance1"\
+      launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ instance1_instances.instance_ids }}"
+    - "{{ instance1_instances.instances }}"
   when: instance1_instances.instance_ids is not none
 
 - name: WINDOWS | Ensure tags are present for workstation
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1}}"
+    resource: "{{item.1.id}}"
     state: present
     tags:
       Workshop_workstation: "{{ ec2_name_prefix }}-workstation"
@@ -183,13 +184,14 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       short_name: "workstation"
+      launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ workstation_instances.instance_ids }}"
+    - "{{ workstation_instances.instances }}"
   when: workstation_instances.instance_ids is not none
 
 

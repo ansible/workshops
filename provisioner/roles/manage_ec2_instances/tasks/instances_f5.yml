@@ -40,8 +40,8 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       username: "{{ec2_info.f5node.username}}"
@@ -81,7 +81,7 @@
 - name: Ensure tags are present for host1 node (F5 MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1}}"
+    resource: "{{item.1.id}}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-host1"
@@ -89,14 +89,15 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host1
       username: "{{ec2_info[rhel].username}}"
+      launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ host1_output.instance_ids }}"
+    - "{{ host1_output.instances }}"
   when: host1_output.instance_ids is not none
 
 - name: Create EC2 instances for host2 node in VPC (F5 MODE)
@@ -117,7 +118,7 @@
 - name: Ensure tags are present for host2 node (F5 MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1}}"
+    resource: "{{item.1.id}}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-host2"
@@ -125,14 +126,15 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
       short_name: host2
       username: "{{ec2_info[rhel].username}}"
+      launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ host2_output.instance_ids }}"
+    - "{{ host2_output.instances }}"
   when: host2_output.instance_ids is not none
 
 ############## eni check ##############

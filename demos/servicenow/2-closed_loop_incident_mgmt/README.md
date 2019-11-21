@@ -122,6 +122,7 @@ https://student1.sean_workshop.rhdemo.io/api/v2/job_templates/SNOW-Demo-Complian
     | Endpoint | Leave this blank |
 
   - Click on the **HTTP Request** tab. Under the "HTTP Headers" add a new HTTP header with the following name and value:
+  
     | Name   | Value  |
     |---|---|
     | `Content-Type`  | `application/json` |

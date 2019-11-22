@@ -1,22 +1,3 @@
-# - name: Clone lightbulb
-#   git:
-#     accept_hostkey: yes
-#     clone: yes
-#     dest: /home/{{ username }}/lightbulb
-#     repo: https://github.com/ansible/lightbulb.git
-#     force: yes
-#   become_user: "{{ username }}"
-
-# - name: Remove things that students don't need
-#   file:
-#     state: absent
-#     path: /home/{{ username }}/lightbulb/{{ item }}
-#   with_items:
-#     - aws_lab_setup
-#     - resources
-#     - Vagrantfile
-#     - README.md
-
 - name: Create lab inventory directory
   file:
     state: directory
@@ -49,7 +30,7 @@
 
 - name: CLONE THE LAB GUIDE
   git:
-    repo: https://github.com/jduncan-rva/workshop-operator-lab-guide
+    repo: https://github.com/rhcreynold/workshop-operator-lab-guide
     dest: "/home/{{ username }}/devops-workshop/lab-guide"
 
 - name: RUN THE SCRIPT

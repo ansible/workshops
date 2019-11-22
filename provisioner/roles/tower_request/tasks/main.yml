@@ -11,7 +11,7 @@
     body:
       extra_vars:
         ec2_name_prefix: "{{ ec2_name_prefix }}"
-        linklight_user: "{{ linklight_user }}"
+        aws_user: "{{ aws_user }}"
         ec2_region: "{{ ec2_region }}"
         student_total: "{{ student_total }}"
         workshop_type: "{{ workshop_type }}"

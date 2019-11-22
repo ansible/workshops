@@ -35,7 +35,7 @@
 - name: Ensure tags are present for netapp_output
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1}}"
+    resource: "{{item.1.id}}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-netapp"
@@ -43,12 +43,13 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       short_name: "netapp"
       username: "{{ec2_info[rhel].username}}"
+      launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ netapp_output.instance_ids }}"
+    - "{{ netapp_output.instances }}"
   when: netapp_output.instance_ids is not none

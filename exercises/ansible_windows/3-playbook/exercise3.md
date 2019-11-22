@@ -1,24 +1,3 @@
-Table of Contents
-=================
-
-- [Agenda](index.html)
-
-- [Exercise 1 - Configuring Ansible Tower](exercise1.html)
-
-- [Exercise 2 - Ad-hoc commands in Tower](exercise2.html)
-
-- [Exercise 3 - Writing Your First playbook](exercise3.html)
-
-- [Exercise 4 - Creating and Running a Job Template](exercise4.html)
-
-- [Exercise 5 - Using Variables, Loops, and Handlers](exercise5.html)
-
-- [Exercise 6 - Roles: Making your playbooks reusable](exercise6.html)
-
-- [Exercise 7 - Using Ansible for Windows Patching](exercise7.html)
-
-- [Wrap UP](wrapup.html)
-
 Let’s begin by writing our first ansible **playbook**. The playbook is
 where you list the steps you would like to automate into a repeatable
 set of **plays** and **tasks**. To begin we will setup our directory
@@ -123,12 +102,12 @@ of this exercise.
          win_feature:
            name: Web-Server
            state: present
-    
+
        - name: start iis service
          win_service:
            name: W3Svc
            state: started
-    
+
        - name: Create website index.html
          win_copy:
            content: "{{ iis_test_message }}"
@@ -221,7 +200,7 @@ you should see your repository.
 You are ready to automate!
 
 > **Note**
-> 
+>
 > Ansible (well, YAML really) can be a bit particular about formatting
 > especially around indentation/spacing. When you all get back to the
 > office, read up on this [YAML
@@ -233,18 +212,18 @@ You are ready to automate!
     ---
     - name: install the iis web service
       hosts: all
-    
+
       tasks:
         - name: install iis
           win_feature:
             name: Web-Server
             state: present
-    
+
         - name: start iis service
           win_service:
             name: W3Svc
             state: started
-    
+
         - name: Create website index.html
           win_copy:
             content: "{{ iis_test_message }}"

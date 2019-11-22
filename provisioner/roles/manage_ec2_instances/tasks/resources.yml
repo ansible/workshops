@@ -5,8 +5,8 @@
       - "{{ec2_subnet}}"
     region: "{{ ec2_region }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
   register: create_vpc_one_cidr
@@ -23,8 +23,8 @@
       - "{{ec2_subnet2}}"
     region: "{{ ec2_region }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
   register: create_vpc_two_cidr
@@ -43,8 +43,8 @@
     region: "{{ ec2_region }}"
     vpc_id: "{{create_vpc.vpc.id}}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
     rules:
@@ -216,8 +216,8 @@
     vpc_id: "{{ create_vpc.vpc.id }}"
     region: "{{ ec2_region }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Skylight: "This was provisioned through the skylight provisioner"
       Students: "{{ student_total }}"
     rules:
@@ -236,8 +236,8 @@
     vpc_id: "{{ create_vpc.vpc.id }}"
     region: "{{ ec2_region }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Skylight: "This was provisioned through the skylight provisioner"
       Students: "{{ student_total }}"
     rules:
@@ -265,8 +265,8 @@
     vpc_id: "{{ create_vpc.vpc.id }}"
     region: "{{ ec2_region }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Skylight: "This was provisioned through the skylight provisioner"
       Students: "{{ student_total }}"
     rules:
@@ -290,8 +290,8 @@
     vpc_id: "{{ create_vpc.vpc.id }}"
     region: "{{ ec2_region }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Skylight: "This was provisioned through the skylight provisioner"
       Students: "{{ student_total }}"
     rules:
@@ -326,8 +326,8 @@
     wait_timeout: 600
     resource_tags:
       Name: "{{ ec2_name_prefix }}-subnet"
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
   register: create_subnet
@@ -344,8 +344,8 @@
     wait_timeout: 600
     resource_tags:
       Name: "{{ ec2_name_prefix }}-subnet2"
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
   register: create_subnet2
@@ -358,8 +358,8 @@
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "Total {{student_total}}"
   register: igw
@@ -377,8 +377,8 @@
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
     tags:
-      Username: "{{ linklight_user }}"
-      Info: "Username that provisioned this-> {{ linklight_user }}"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
   register: routetable

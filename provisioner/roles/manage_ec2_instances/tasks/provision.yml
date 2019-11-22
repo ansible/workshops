@@ -50,7 +50,7 @@
 - name: Ensure tags are present
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1}}"
+    resource: "{{item.1.id}}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-ansible"
@@ -58,15 +58,16 @@
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ linklight_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ linklight_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
       Students: "{{student_total}}"
-      ansible_network_os: "{{ec2_info[rtr2_type].os}}"
+      dns: "{% if dns_type != 'none' %}student{{item.0 + 1}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {% else %} none {% endif %}"
       username: "{{ec2_info[control_type].username}}"
       short_name: "ansible"
+      launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ control_output.instance_ids }}"
+    - "{{ control_output.instances }}"
   when: control_output.instance_ids is not none
 
 ## Instance creation

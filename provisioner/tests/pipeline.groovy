@@ -276,6 +276,7 @@ EOF
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-security.yml 2>&1 | tee -a security.log && exit ${PIPESTATUS[0]}'''
                                     }
+                                }
                                 archiveArtifacts artifacts: 'security.log'
                                 SECURITY_DEPRECATED_WARNINGS = sh(
                                     script: 'grep -c \'DEPRECATION WARNING\' security.log || true',

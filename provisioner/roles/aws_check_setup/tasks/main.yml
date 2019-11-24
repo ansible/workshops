@@ -35,6 +35,6 @@
 
 - name: save username of AWS user
   set_fact:
-     linklight_user: '{{ whoami.arn.split("/")[-1] }}'
+     aws_user: '{{ whoami.arn.split("/")[-1] }}'
 
 - debug: msg='{{ whoami.arn.split("/")[-1] }}'

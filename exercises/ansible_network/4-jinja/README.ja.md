@@ -28,7 +28,7 @@ Device  | Loopback100 IP |
 rtr1  | 192.168.100.1/32 |
 rtr2  | 192.168.100.2/32 |
 
-変数の情報は host_vars と group_vars に格納しましす。この演習のために `group_vars` という名前のディレクトリを作成します:
+変数の情報は host_vars と group_vars に格納することができます。この演習のために `group_vars` という名前のディレクトリを作成します:
 
 ```bash
 [student1@ansible networking-workshop]$ mkdir ~/networking-workshop/group_vars

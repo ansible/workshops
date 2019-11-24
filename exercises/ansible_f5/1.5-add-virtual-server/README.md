@@ -44,19 +44,15 @@ Enter the following play definition into `bigip-virtual-server.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
 
+Do not exit the editor yet.
+
 ## Step 3
 
-Next, add the `task`. This task will use the `bigip-virtual-server` to configure a virtual server on the BIG-IP
+Next, append the `task` to above playbook. This task will use the `bigip-virtual-server` to configure a virtual server on the BIG-IP
 
 <!-- {% raw %} -->
 
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
 
   - name: ADD VIRTUAL SERVER
@@ -95,6 +91,8 @@ Next, add the `task`. This task will use the `bigip-virtual-server` to configure
 - The `pool` parameter tells the module which pool is assigned to the virtual server
 - The `snat` paramter tells the module what the Source network address address should be. In this module we are assigning it to be Automap which means the source address on the request that goes to the backend server will be the self-ip address of the BIG-IP
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
+
+Save the file and exit out of editor
 
 ## Step 4
 
@@ -147,7 +145,7 @@ Each time you refresh the host will change between **host1** and **host2**. Here
 
 ## Alternate Verification Method
 
-Instead of using a browser window it is also possible to use the command line on the Ansible control node. Use the `curl` command on the **ansible_host** public IP address in combination with the `--insecure` and `--silent` command line arguments.  Since the entire website is loaded on the command line it is recommended to `| grep` for the student number assigned to the respective workbench. (e.g. student5 would `| grep student5`)
+Instead of using a browser window it is also possible to use the command line on the Ansible control node. Use the `curl` command on the **ansible_host** to access public IP or private IP address of F5 load balancer in combination with the `--insecure` and `--silent` command line arguments.  Since the entire website is loaded on the command line it is recommended to `| grep` for the student number assigned to the respective workbench. (e.g. student5 would `| grep student5`)
 
 ```
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX

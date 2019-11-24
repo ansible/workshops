@@ -23,10 +23,6 @@ node3 ansible_host=<Z.Z.Z.Z>
 ansible ansible_host=44.55.66.77
 ```
 
-> **Tip**
->
-> The environment for this lab uses SSH with password authentication to login to the managed nodes. For the sake of keeping things simple the password is put into the inventory file in clear text. In real world scenarios you would either use SSH key authentication or supply the password in a secure way, e.g. by using Ansible Vault. 
-
 Ansible is already configured to use the inventory specific to your environment. We will show you in the next step how that is done. For now, we will execute some simple commands to work with the inventory.
 
 To reference inventory hosts, you supply a host pattern to the ansible command. Ansible has a `--list-hosts` option which can be useful for clarifying which managed hosts are referenced by the host pattern in an ansible command.
@@ -109,13 +105,17 @@ ansible ansible_host=44.55.66.77
 
 ## Step 2.3 - Ping a host
 
+> **Warning**
+>
+> **Don’t forget to run the commands from the home directory of your student user, `/home/student<X>`. That is where your `.ansible.cfg` file is located, without it Ansible will not know what which inventory to use.**
+
 Let's start with something really basic - pinging a host. To do that we use the Ansible `ping` module. The `ping` module makes sure our target hosts are responsive. Basically, it connects to the managed host, executes a small script there and collects the results. This ensures that the managed host is reachable and that Ansible is able to execute commands properly on it.
 
 > **Tip**
 >
 > Think of a module as a tool which is designed to accomplish a specific task.
 
-Ansible needs to know that it should use the `ping` module: The `-m` option defines which Ansible module to use. Options can be passed to the specified modul using the `-a` option. In addition to the module Ansible needs to know what hosts it should run the task on, here you supply the group `web`.
+Ansible needs to know that it should use the `ping` module: The `-m` option defines which Ansible module to use. Options can be passed to the specified modul using the `-a` option.
 
 ```bash
 [student<X>@ansible ~]$ ansible web -m ping
@@ -129,7 +129,7 @@ node2 | SUCCESS => {
 [...]
 ```
 
-As you see each node in the `web` group reports the successful execution and the actual result - here "pong".
+As you see each node reports the successful execution and the actual result - here "pong".
 
 ## Step 2.4 - Listing Modules and Getting Help
 
@@ -161,7 +161,7 @@ Get help for a specific module including usage examples:
 
 ## Step 2.5 - Use the command module:
 
-Now let's see how we can run a good ol' fashioned Linux command and format the output using the `command` module. It simply executes the specified command on a managed host (note this time not a group but a hostname is used as host pattern):
+Now let's see how we can run a good ol' fashioned Linux command and format the output using the `command` module. It simply executes the specified command on a managed host:
 
 ```bash
 [student<X>@ansible ~]$ ansible node1 -m command -a "id"

@@ -49,7 +49,7 @@
 
 2. デフォルトではグリーンの **START** ボタンだけが配置されています。この **START** ボタンをクリックします。
 
-3. 右側に **ADD A TEMPLATE** ウィンドが表示されます。Exercise 6 で作成した *Backup* ジョブテンプレートを選択します。ドロップダウンボックスから run を選択します。最後にグリーンの **SELECT** ボタンをクリックします。
+3. 右側に **ADD A TEMPLATE** ウィンドが表示されます。Exercise 6 で作成した *Backup* ジョブテンプレートを選択します。ドロップダウンボックスから `always` を選択します。最後にグリーンの **SELECT** ボタンをクリックします。
 
    ![add a template](images/add-a-template.png)
 

@@ -18,7 +18,7 @@ Ansible facts はリモートのネットワーク構成要素から取得され
 この演習は以下を含みます。:
 - Playbookをスクラッチから作成します。
 - [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html) の利用
-- [ios_facts モジュール](https://docs.ansible.com/ansible/latest/modules/ios_config_module.html) の利用
+- [ios_facts モジュール](https://docs.ansible.com/ansible/latest/modules/ios_facts_module.html) の利用
 - [debug モジュール](https://docs.ansible.com/ansible/latest/modules/debug_module.html) の利用。
 
 #### Step 1

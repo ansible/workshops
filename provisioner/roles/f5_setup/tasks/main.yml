@@ -34,3 +34,4 @@
       password: "{{admin_password}}"
       server_port: 8443
       server: "{{ ansible_host }}"
+      timeout: 300

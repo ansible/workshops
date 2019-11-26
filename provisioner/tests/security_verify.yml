@@ -142,7 +142,7 @@
           method: GET
           return_content: yes
         register: gateway_page
-        failed_when: gateway_page['content'] is not search("R80.20")
+        failed_when: gateway_page['content'] is not search("R80")
 
       when: '"ansible" in inventory_hostname'
 

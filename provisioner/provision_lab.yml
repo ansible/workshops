@@ -224,6 +224,7 @@
           FAILURES
           *******************
           {{dns_information}}
+          {{callback_information}}
 
     - name: Print Summary Information
       debug:

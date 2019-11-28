@@ -73,7 +73,7 @@ Add a file called `apache.yml` with the following content. As discussed in the p
   become: yes
 ```
 
-This shows one of Ansible’s strenghts: The Playbook syntax is easy to read and understand. In this Playbook:
+This shows one of Ansible’s strengths: The Playbook syntax is easy to read and understand. In this Playbook:
 
   - A name is given for the play via `name:`.
 

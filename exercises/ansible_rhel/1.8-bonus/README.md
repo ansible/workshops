@@ -83,7 +83,7 @@ listen_port: 80
 ```ini
 [...]
 Listen {{ listen_port }}
-[]...]
+[...]
 ```
 <!-- {% endraw %} -->
 

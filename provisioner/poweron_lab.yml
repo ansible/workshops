@@ -1,0 +1,16 @@
+- name: Power on lab instances in AWS
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+
+  vars:
+    ec2_wait: no
+    teardown: false
+    poweroff: false
+    poweron: true
+    s3_state: absent
+    state: absent
+
+  tasks:
+    - { include_role: {name: manage_ec2_instances}}

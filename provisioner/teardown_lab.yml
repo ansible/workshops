@@ -7,6 +7,8 @@
   vars:
     ec2_wait: no
     teardown: true
+    poweroff: false
+    poweron:  false
     s3_state: absent
     state: absent
 

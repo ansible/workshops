@@ -1,0 +1,21 @@
+- name: grab facts for workshop
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: [ "running" ]
+      "tag:Workshop": "{{ec2_name_prefix}}"
+  register: all_workshop_nodes
+
+# - name: debug test
+#   debug:
+#     var: all_workshop_nodes
+
+- name: Shutdown EC2 instances
+  ec2:
+    region: "{{ ec2_region }}"
+    state: stopped
+    wait: True
+    instance_ids: "{{ all_workshop_nodes.instances | map(attribute='instance_id') | list }}"
+  register: result
+  when: all_workshop_nodes.instances
+

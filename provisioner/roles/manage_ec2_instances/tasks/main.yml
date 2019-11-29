@@ -1,6 +1,12 @@
 - include_tasks: teardown.yml
   when: teardown|bool
 
+- include_tasks: poweroff.yml
+  when: poweroff|bool and not teardown|bool
+
+- include_tasks: poweron.yml
+  when: poweron|bool and not teardown|bool
+
 - name: provision workshop in AWS public cloud
   block:
     - name: provision aws resources and instances
@@ -9,4 +15,4 @@
 
     - name: create instructor_inventory, and student files
       include_tasks: create_inventory.yml
-  when: not teardown|bool
+  when: not teardown|bool and not poweroff|bool and not poweron|bool

@@ -1,7 +1,8 @@
+---
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: false
   tasks:
 
     - pip:

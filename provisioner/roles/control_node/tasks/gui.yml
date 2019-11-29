@@ -1,3 +1,4 @@
+---
 - name: ADD THE KEY FOR VSCODE
   rpm_key:
     state: present

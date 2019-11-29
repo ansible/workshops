@@ -2,7 +2,7 @@
 - name: RHEL workshop_type
   hosts: localhost
   become: true
-  gather_facts: no
+  gather_facts: false
   connection: local
   tasks:
     - name: Print Summary Information

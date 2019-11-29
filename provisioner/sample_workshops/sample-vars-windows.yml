@@ -7,11 +7,11 @@ name_prefix: TESTWORKSHOP
 student_total: 1
 # Set the right workshop type, like networking, rhel or f5 (see above)
 workshop_type: windows
-#OPTIONAL VARIABLES
+# OPTIONAL VARIABLES
 # password for Ansible control node, defaults to ansible
 admin_password: ansible
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-##create_login_page: false
+# create_login_page: false
 # Sets the Route53 DNS zone to use for the S3 website
 public_dns_zone: rhdemo.io
 # automatically installs Tower to control node
@@ -19,6 +19,6 @@ public_dns_zone: rhdemo.io
 # automatically licenses Tower if license is provided
 autolicense: true
 # install xrdp with xfce for graphical interface
-#xrdp: true
+# xrdp: true
 # turn DNS on for control nodes, and set to type in valid_dns_type
 dns_type: aws

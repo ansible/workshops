@@ -1,11 +1,11 @@
 ---
 tower_url: ""
-tower_verify_ssl: False
-tower_secrets: False
+tower_verify_ssl: false
+tower_secrets: false
 tower_user: ""
-tower_pass: "" #Put in a vault at vars/tower-secrets.yml when tower_secrets: True
+tower_pass: ""  # Put in a vault at vars/tower-secrets.yml when tower_secrets: True
 tower_surveys: []
-#some examples:
+# some examples:
 # tower_surveys:
 #   - job_template_name: "testing"
 #     #job_template_survey_enabled: can be either True|False

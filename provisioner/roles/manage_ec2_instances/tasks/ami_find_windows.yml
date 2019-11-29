@@ -1,3 +1,4 @@
+---
 - name: WINDOWS | DomainController | find ami
   ec2_ami_facts:
     region: "{{ ec2_region }}"

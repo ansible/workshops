@@ -8,8 +8,8 @@
 - name: match sections
   pattern_match:
     regex: "^(\\S+) is up,"
-    match_all: yes
-    match_greedy: yes
+    match_all: true
+    match_greedy: true
   register: section
 
 - name: match interface values
@@ -45,16 +45,16 @@
     template:
       - key: "{{ item.name.matches.0 }}"
         object:
-        - key: config
-          object:
-            - key: name
-              value: "{{ item.name.matches.0 }}"
-            - key: type
-              value: "{{ item.type.matches.0 }}"
-            - key: mtu
-              value: "{{ item.mtu.matches.0 }}"
-            - key: description
-              value: "{{ item.description.matches.0 }}"
+          - key: config
+            object:
+              - key: name
+                value: "{{ item.name.matches.0 }}"
+              - key: type
+                value: "{{ item.type.matches.0 }}"
+              - key: mtu
+                value: "{{ item.mtu.matches.0 }}"
+              - key: description
+                value: "{{ item.description.matches.0 }}"
   loop: "{{ interfaces }}"
-  export: yes
+  export: true
   register: interface_facts

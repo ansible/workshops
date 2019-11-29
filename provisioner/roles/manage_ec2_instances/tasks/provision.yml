@@ -1,3 +1,4 @@
+---
 - name: ensure workshop folder {{ec2_name_prefix}} exists
   file:
     path: "{{ playbook_dir }}/{{ec2_name_prefix}}"
@@ -29,7 +30,7 @@
 
 - name: Create EC2 instances for ansible node (control node)
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[control_type].size }}"

@@ -8,7 +8,7 @@
 
 - name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
   hosts: "routers"
-  gather_facts: no
+  gather_facts: false
   tasks:
     - name: MAKE SURE ROUTERS HAVE SSH REACHABILITY
       include_role:
@@ -17,7 +17,7 @@
 
 - name: CHANGE JUNIPER PASSWORD
   hosts: routers
-  gather_facts: no
+  gather_facts: false
   vars:
     ansible_connection: network_cli
   tasks:
@@ -30,14 +30,14 @@
 - name: GATHER AWS FACTS FOR ROUTERS
   hosts: access,core
   connection: local
-  gather_facts: no
+  gather_facts: false
   roles:
-    - { role: gather_router_facts }
+    - {role: gather_router_facts}
 
 - name: CONFIGURE ACCESS ROUTERS
   hosts: access
   connection: local
-  gather_facts: no
+  gather_facts: false
 
   roles:
     - role: configure_routers
@@ -51,7 +51,7 @@
 - name: CONFIGURE CORE ROUTERS
   hosts: core
   connection: local
-  gather_facts: no
+  gather_facts: false
 
   roles:
     - role: configure_routers
@@ -62,10 +62,10 @@
 
 - name: POPULATE TOWER STEP ONE
   hosts: control_nodes
-  gather_facts: no
+  gather_facts: false
 
   tasks:
-#INITAL SETUP
+    # INITAL SETUP
     - name: RUN POPULATE TOWER STEP ONE
       include_role:
         name: populate_tower
@@ -77,11 +77,11 @@
 
 - name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
   hosts: control_nodes
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   tasks:
-#CREDENTIAL AND INVENTORY
+    # CREDENTIAL AND INVENTORY
     - name: RUN POPULATE TOWER STEP TWO
       include_role:
         name: populate_tower
@@ -92,10 +92,10 @@
 
 - name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
   hosts: control_nodes
-  gather_facts: no
+  gather_facts: false
 
   tasks:
-#PERMISSIONS
+    # PERMISSIONS
     - name: RUN POPULATE TOWER STEP THREE
       include_role:
         name: populate_tower

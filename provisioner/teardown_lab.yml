@@ -1,20 +1,21 @@
+---
 - name: Destroy lab instances in AWS
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
 
   vars:
-    ec2_wait: no
+    ec2_wait: false
     teardown: true
     s3_state: absent
     state: absent
     debug_teardown: false
 
   tasks:
-    - { include_role: {name: manage_ec2_instances}}
-    - { include_role: {name: aws_workshop_login_page}, when: create_login_page is defined and create_login_page }
-    - { include_role: {name: aws_dns}, when: create_login_page is defined and create_login_page }
+    - {include_role: {name: manage_ec2_instances}}
+    - {include_role: {name: aws_workshop_login_page}, when: create_login_page is defined and create_login_page}
+    - {include_role: {name: aws_dns}, when: create_login_page is defined and create_login_page}
 
     - name: Remove workshop local files
       file:

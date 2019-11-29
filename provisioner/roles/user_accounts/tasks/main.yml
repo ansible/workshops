@@ -1,3 +1,4 @@
+---
 - name: Create User Group
   group:
     name: "{{ username }}"
@@ -8,7 +9,7 @@
 
 - name: Create User Account
   user:
-    createhome: yes
+    createhome: true
     group: "{{ username }}"
     name: "{{ username }}"
     shell: /bin/bash

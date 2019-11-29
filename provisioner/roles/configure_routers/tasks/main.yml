@@ -1,3 +1,4 @@
+---
 - name: APPLY ROUTER TEMPLATE
   vars:
     ansible_connection: network_cli

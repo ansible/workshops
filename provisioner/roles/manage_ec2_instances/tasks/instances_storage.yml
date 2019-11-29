@@ -1,3 +1,4 @@
+---
 - name: find ami for netapp
   ec2_ami_facts:
     region: "{{ ec2_region }}"
@@ -14,7 +15,7 @@
 
 - name: Create EC2 instances for netapp
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"

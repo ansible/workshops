@@ -28,7 +28,7 @@
   win_group_membership:
     name: Administrators
     members:
-     - "{{ dns_domain_name_short }}\\Ansible Users"
+      - "{{ dns_domain_name_short }}\\Ansible Users"
     state: present
 
 - name: Add Ansible group to a local Remote Management Users

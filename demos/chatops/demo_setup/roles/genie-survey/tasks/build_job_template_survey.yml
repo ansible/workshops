@@ -12,7 +12,7 @@
     label: "{{ survey_field.variable }}"
   when: "job_template.survey | length > 0"
 
-#Get job template id
+# Get job template id
 - name: "Retrieve and set Ansible Tower job template ID"
   block:
     - name: "Retrieve Ansible Tower job template ID"
@@ -20,13 +20,13 @@
         url: "{{ tower_url }}/api/v2/job_templates/"
         user: "{{ tower_user }}"
         password: "{{ tower_pass }}"
-        force_basic_auth: True
+        force_basic_auth: true
         method: "GET"
         status_code: "200"
         validate_certs: "{{ tower_verify_ssl }}"
       register: "tower_job_templates"
-      changed_when: False
-      no_log: True
+      changed_when: false
+      no_log: true
 
     - name: "Initialize Ansible Tower job template data"
       set_fact:
@@ -56,13 +56,13 @@
     url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/survey_spec/"
     user: "{{ tower_user }}"
     password: "{{ tower_pass }}"
-    force_basic_auth: True
+    force_basic_auth: true
     method: "GET"
     status_code: "200"
     validate_certs: "{{ tower_verify_ssl }}"
   register: "tower_job_template_current_survey"
-  changed_when: False
-  no_log: True
+  changed_when: false
+  no_log: true
 
 # Update survey spec when not in desired state if different than existing
 - name: "Format Ansible Tower Survey"
@@ -74,7 +74,7 @@
     url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/survey_spec/"
     user: "{{ tower_user }}"
     password: "{{ tower_pass }}"
-    force_basic_auth: True
+    force_basic_auth: true
     method: "POST"
     body: "{{ tower_survey_formatted | to_json }}"
     body_format: "json"
@@ -82,7 +82,7 @@
     validate_certs: "{{ tower_verify_ssl }}"
   register: "update_survey"
   changed_when: 'update_survey.status == 200'
-  no_log: True
+  no_log: true
   when: 'tower_survey_formatted != tower_job_template_current_survey.json'
 
 # Ensure survey is enabled
@@ -91,7 +91,7 @@
     url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/"
     user: "{{ tower_user }}"
     password: "{{ tower_pass }}"
-    force_basic_auth: True
+    force_basic_auth: true
     method: "PATCH"
     body: '{"survey_enabled": true}'
     body_format: "json"
@@ -99,7 +99,7 @@
     validate_certs: "{{ tower_verify_ssl }}"
   register: "enable_job_template_survey"
   changed_when: 'enable_job_template_survey.status == 200'
-  no_log: True
+  no_log: true
   when:
     - 'job_template.job_template_survey_enabled'
     - 'not job_template_survey_enabled'
@@ -110,7 +110,7 @@
     url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/"
     user: "{{ tower_user }}"
     password: "{{ tower_pass }}"
-    force_basic_auth: True
+    force_basic_auth: true
     method: "PATCH"
     body: '{"survey_enabled": false}'
     body_format: "json"
@@ -118,7 +118,7 @@
     validate_certs: "{{ tower_verify_ssl }}"
   register: "disable_job_template_survey"
   changed_when: 'disable_job_template_survey.status == 200'
-  no_log: True
+  no_log: true
   when:
     - 'not job_template.job_template_survey_enabled'
     - 'job_template_survey_enabled'

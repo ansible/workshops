@@ -2,7 +2,7 @@
 - name: "Bring in vaulted Ansible Tower secrets"
   include_vars: "vars/tower-secrets.yml"
   when: "tower_secrets"
-  no_log: True
+  no_log: true
 
 # Build survey spec for job template
 - name: "Build Ansible Tower job template survey specification"

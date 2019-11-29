@@ -1,7 +1,7 @@
 ---
 - name: gather information from routers
   hosts: cisco
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: gather router facts

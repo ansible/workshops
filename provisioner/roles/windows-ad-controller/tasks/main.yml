@@ -3,23 +3,23 @@
   win_firewall:
     state: disabled
     profiles:
-    - Domain
-    - Private
-    - Public
+      - Domain
+      - Private
+      - Public
 
 - name: Install AD-Domain-Services
   win_feature:
     name: AD-Domain-Services
     state: present
-    include_management_tools: True
-    include_sub_features: True
+    include_management_tools: true
+    include_sub_features: true
   register: winfeature
 
 - name: Reboot if needed
   win_reboot:
   when: winfeature.changed
 
-#- name: Install AD-Certificate
+# - name: Install AD-Certificate
 #  win_feature:
 #    name: AD-Certificate
 #    state: present
@@ -27,9 +27,9 @@
 #    include_sub_features: True
 #  register: wincertfeature
 
-#- debug: var=wincertfeature
+# - debug: var=wincertfeature
 
-#- name: Reboot if needed
+# - name: Reboot if needed
 #  win_reboot:
 #  when: wincertfeature.reboot_required
 
@@ -112,8 +112,8 @@
     name: "Admin"
     upn: "Admin@{{ dns_domain_name }}"
     state: present
-    enabled: yes
-    account_locked: no
+    enabled: true
+    account_locked: false
     groups:
       - Domain Admins
     password: "{{ domain_admin_password }}"
@@ -129,8 +129,8 @@
     name: "{{ user_prefix }}{{ item }}"
     upn: "{{ user_prefix }}{{ item }}@{{ dns_domain_name }}"
     state: present
-    enabled: yes
-    account_locked: no
+    enabled: true
+    account_locked: false
     groups:
       - Ansible Users
     password: "{{ users_password }}"

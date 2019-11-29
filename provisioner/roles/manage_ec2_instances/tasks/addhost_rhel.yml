@@ -1,3 +1,4 @@
+---
 - name: grab facts for node1 node
   ec2_instance_facts:
     region: "{{ ec2_region }}"
@@ -36,7 +37,7 @@
     - "{{ node1_node_facts.instances }}"
     - "{{ node2_node_facts.instances }}"
     - "{{ node3_node_facts.instances }}"
-  changed_when: no
+  changed_when: false
 
 - name: Generate student inventories
   template:

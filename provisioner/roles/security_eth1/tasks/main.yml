@@ -3,7 +3,7 @@
   systemd:
     name: NetworkManager
     state: stopped
-    enabled: no
+    enabled: false
   notify:
     - restart-network
 - name: "Lay down dhcp config for eth1 for {{ inventory_hostname }} (AWS does not for some reason)"

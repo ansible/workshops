@@ -5,7 +5,7 @@
       - Web-Server
       - NET-Framework-Core
       - Web-Asp-Net45
-    include_management_tools: True
+    include_management_tools: true
     state: present
   when: "'Windows 10' not in ansible_distribution"
 
@@ -24,7 +24,7 @@
     url: https://s3.amazonaws.com/linklight.securityautomation/Myrtille_2.5.5_x86_x64_Setup.exe
     dest: C:\Temp\Myrtille_2.5.5_x86_x64_Setup.exe
     checksum: e95438ea3ae5f4363b43a6e2134df771c3d2a213
-    force: yes
+    force: true
   when: not myrtille.stat.exists
   register: win_get_myrtille
   until: win_get_myrtille is success

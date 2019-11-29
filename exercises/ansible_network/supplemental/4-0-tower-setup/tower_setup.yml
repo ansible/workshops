@@ -2,7 +2,7 @@
 - name: TOWER CONFIGURATION WITH PLAYBOOKS
   hosts: ansible
   connection: local
-  become: no
+  become: false
   tasks:
 
     - name: CREATE INVENTORY
@@ -36,7 +36,7 @@
         tower_password: ansible
         tower_host: "https://{{ansible_fqdn}}"
 
-## make sure ansible_user corresponds to your student number
+    # make sure ansible_user corresponds to your student number
     - name: ADD CREDENTIAL INTO TOWER
       tower_credential:
         name: Workshop Credential
@@ -50,8 +50,8 @@
 - name: ADD EACH HOST TO INVENTORY
   hosts: routers
   connection: local
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   tasks:
 
     - name: ADD HOST INTO TOWER
@@ -67,5 +67,5 @@
           ansible_user: "{{ansible_user}}"
           private_ip: "{{private_ip}}"
           ansible_connection: network_cli
-          ansible_become: yes
+          ansible_become: true
           ansible_become_method: enable

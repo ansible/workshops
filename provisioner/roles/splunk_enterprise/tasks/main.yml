@@ -16,7 +16,7 @@
       register: record_sets
 
     - name: DELETE DNS ENTRIES FOR EACH STUDENT
-      become: False
+      become: false
       route53:
         state: "{{ s3_state }}"
         zone: "{{workshop_dns_zone}}"
@@ -40,15 +40,15 @@
         validate_certs: true
         force_basic_auth: true
       register: check_cert
-      ignore_errors: yes
+      ignore_errors: true
     - name: DNS FOR SPLUNK
-      become: False
+      become: false
       route53:
         state: "{{ s3_state }}"
         zone: "{{workshop_dns_zone}}"
         record: "{{username}}-siem.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: A
-        overwrite: yes
+        overwrite: true
         value: "{{ansible_host}}"
       delegate_to: localhost
       when:
@@ -92,8 +92,8 @@
     state: present
     group: "{{ item['group'] }}"
   loop:
-    - { name: 'ansible', group: 'ansible' }
-    - { name: 'splunk', group: 'splunk' }
+    - {name: 'ansible', group: 'ansible'}
+    - {name: 'splunk', group: 'splunk'}
 
 - name: ensure hardcoded splunk-ansible container dir exists
   file:
@@ -104,19 +104,19 @@
   yum:
     name: certbot
 
-#If this fails check out status of certbot: https://letsencrypt.status.io/
+# If this fails check out status of certbot: https://letsencrypt.status.io/
 - name: ISSUE CERT
   shell: "certbot certonly --standalone -d {{username}}-siem.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-security-automation@redhat.com --noninteractive --agree-tos"
   register: issue_cert
   until: issue_cert is not failed
   retries: 5
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: APPEND LETS ENCRYPT FAILED
   set_fact:
     dns_information: |
       - The Lets Encrypt certbot failed, please check https://letsencrypt.status.io/ to make sure the service is running
-  run_once: yes
+  run_once: true
   delegate_to: localhost
   delegate_facts: true
   when: issue_cert is failed
@@ -129,7 +129,7 @@
 
 - name: MOVE SSL KEY
   copy:
-    remote_src: True
+    remote_src: true
     src: "/etc/letsencrypt/live/{{username}}-siem.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
     dest: /etc/pki/splunk/splunk.key
   when: issue_cert is not failed

@@ -7,7 +7,7 @@
       user: admin
       password: admin123
     body_format: json
-    validate_certs: no
+    validate_certs: false
   register: login_data
   until: (login_data.status == 200) and (login_data.json is defined)
   retries: 30
@@ -16,7 +16,7 @@
 - name: Add NGFW to MGMT
   uri:
     url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['private_ip'] }}/web_api/add-simple-gateway"
-    validate_certs: no
+    validate_certs: false
     method: POST
     headers:
       Content-Type: application/json
@@ -54,7 +54,7 @@
 - name: Publish
   uri:
     url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['private_ip'] }}/web_api/publish"
-    validate_certs: no
+    validate_certs: false
     method: POST
     headers:
       Content-Type: application/json
@@ -76,6 +76,6 @@
   ec2_eni:
     region: "{{ ec2_region }}"
     eni_id: "{{ gw_inst['instances'][0]['network_interfaces'][0]['network_interface_id'] if gw_inst['instances'][0]['network_interfaces'][0]['attachment']['device_index'] == 1 else gw_inst['instances'][0]['network_interfaces'][1]['network_interface_id'] }}"
-    source_dest_check: no
+    source_dest_check: false
     state: present
   delegate_to: localhost

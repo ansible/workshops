@@ -3,7 +3,7 @@
   lineinfile:
     path: /etc/sysconfig/network-scripts/route-eth1
     line: "{{ hostvars[inventory_hostname|regex_replace('snort', 'checkpoint_gw')]['private_ip2'] }} dev eth1"
-    create: yes
+    create: true
   notify:
     - restart-network
 
@@ -11,6 +11,6 @@
   lineinfile:
     path: /etc/sysconfig/network-scripts/route-eth1
     line: "{{ hostvars[inventory_hostname|regex_replace('snort', 'attacker')]['private_ip2'] }} via {{ hostvars[inventory_hostname|regex_replace('snort', 'checkpoint_gw')]['private_ip2'] }} dev eth1 metric 5"
-    create: yes
+    create: true
   notify:
     - restart-network

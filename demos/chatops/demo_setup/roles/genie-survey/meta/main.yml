@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: "Andrew J. Huffman"
   description: "An Ansible Role to deploy and ensure job template surveys are in a desired state in Ansible Tower."
@@ -14,7 +15,7 @@ galaxy_info:
   # - GPLv3
   # - Apache
   # - CC-BY
-  #license: "MIT"
+  # license: "MIT"
 
   min_ansible_version: 2.5
 
@@ -27,7 +28,7 @@ galaxy_info:
   # this branch. If Travis integration is configured, only notifications for this
   # branch will be accepted. Otherwise, in all cases, the repo's default branch
   # (usually master) will be used.
-  #github_branch:
+  # github_branch:
 
   #
   # platforms is a list of platforms, and each platform has a name and a list of versions.
@@ -55,5 +56,5 @@ galaxy_info:
     #       Maximum 20 tags per role.
 
 dependencies: []
-  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
-  # if you add dependencies to this list.
+# List your role dependencies here, one per line. Be sure to remove the '[]' above,
+# if you add dependencies to this list.

@@ -1,3 +1,4 @@
+---
 - name: REMOVE DNS ENTRIES FOR EACH TOWER NODE
   include_tasks: teardown.yml
   when: teardown|bool
@@ -11,7 +12,7 @@
     validate_certs: true
     force_basic_auth: true
   register: check_cert
-  ignore_errors: yes
+  ignore_errors: true
   when:
     - not teardown
 

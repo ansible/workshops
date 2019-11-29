@@ -1,3 +1,4 @@
+---
 - name: GRAB ZONE ID
   route53_zone:
     zone: "{{workshop_dns_zone}}"
@@ -13,7 +14,7 @@
   register: record_sets
 
 - name: DELETE DNS ENTRIES FOR EACH STUDENT
-  become: False
+  become: false
   route53:
     state: "{{ s3_state }}"
     zone: "{{workshop_dns_zone}}"

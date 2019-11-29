@@ -1,7 +1,7 @@
 ---
 - name: GATHER INFORMATION FROM SWITCHES
   hosts: network
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: GATHER SWITCH FACTS

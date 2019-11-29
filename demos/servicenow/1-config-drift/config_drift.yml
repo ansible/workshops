@@ -1,7 +1,8 @@
+---
 - name: CONFIG DRIFT DEMO
   hosts: rtr1
   connection: local
-  gather_facts: no
+  gather_facts: false
   tasks:
 
     - name: IMPORT LOGIN CREDENTIALS FOR SERVICENOW
@@ -16,7 +17,7 @@
         lines:
           - description test
         parents: interface GigabitEthernet1
-      check_mode: yes
+      check_mode: true
       register: changeFlag
 
     - name: look at changeFlag

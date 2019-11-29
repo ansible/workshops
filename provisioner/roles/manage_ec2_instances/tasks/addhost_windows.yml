@@ -1,6 +1,7 @@
+---
 ################### Get workshop nodes info ###################
 
-- name: grab facts for DomainController 
+- name: grab facts for DomainController
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
@@ -8,7 +9,7 @@
       "tag:Workshop_windc": "{{ec2_name_prefix}}-windc"
   register: windc_node_facts
 
-- name: grab facts for Gitlab 
+- name: grab facts for Gitlab
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
@@ -16,7 +17,7 @@
       "tag:Workshop_gitlab": "{{ec2_name_prefix}}-gitlab"
   register: gitlab_node_facts
 
-- name: grab facts for docs 
+- name: grab facts for docs
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
@@ -24,7 +25,7 @@
       "tag:Workshop_docs": "{{ec2_name_prefix}}-docs"
   register: docs_node_facts
 
-- name: grab facts for instance 1 
+- name: grab facts for instance 1
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
@@ -49,7 +50,7 @@
     region: '{{ ec2_region }}'
     instance_id: "{{ item.instance_id }}"
     key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
-    wait: yes
+    wait: true
     wait_timeout: 300
   with_items: "{{ windc_node_facts.instances }}"
   register: ec2dc_password
@@ -60,7 +61,7 @@
     region: '{{ ec2_region }}'
     instance_id: "{{ item.instance_id }}"
     key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
-    wait: yes
+    wait: true
     wait_timeout: 300
   with_items: "{{ workstation_node_facts.instances }}"
   register: ec2workstation_password
@@ -71,7 +72,7 @@
     region: '{{ ec2_region }}'
     instance_id: "{{ item.instance_id }}"
     key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
-    wait: yes
+    wait: true
     wait_timeout: 300
   with_items: "{{ instance1_node_facts.instances }}"
   register: ec2windows_password
@@ -118,7 +119,7 @@
     ansible_winrm_server_cert_validation: "ignore"
     ansible_winrm_operation_timeout_sec: 120
     ansible_winrm_read_timeout_sec: 150
-    groups: 
+    groups:
       - windows
       - windows_domain_controllers
   with_items: "{{ ec2dc_password.results }}"
@@ -139,7 +140,7 @@
     ansible_winrm_operation_timeout_sec: 120
     ansible_winrm_read_timeout_sec: 150
     student: "{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}"
-    groups: 
+    groups:
       - windows
       - windows_instance1
   with_items: "{{ ec2windows_password.results }}"
@@ -160,7 +161,7 @@
     ansible_winrm_operation_timeout_sec: 120
     ansible_winrm_read_timeout_sec: 150
     student: "{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}"
-    groups: 
+    groups:
       - windows
       - windows_workstations
   with_items: "{{ ec2workstation_password.results }}"

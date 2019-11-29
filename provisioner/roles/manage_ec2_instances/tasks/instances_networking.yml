@@ -1,3 +1,4 @@
+---
 - import_tasks: ami_find_networking.yml
 
 - name: set router types to network_type
@@ -8,10 +9,10 @@
     rtr4_type: "{{network_type}}"
   when: network_type != "multivendor"
 
-##############Router 1##############
+############## Router 1 ##############
 - name: Create EC2 instances for rtr1 node (NETWORKING MODE)
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ec2_info[rtr1_type].size}}"
@@ -49,10 +50,10 @@
     - "{{ rtr1_output.instances }}"
   when: rtr1_output.instance_ids is not none
 
-##############Router 2##############
+############## Router 2 ##############
 - name: Create EC2 instances for rtr2 node in VPC-2 (NETWORKING MODE)
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ec2_info[rtr2_type].size }}"
@@ -90,10 +91,10 @@
     - "{{ rtr2_output.instances }}"
   when: rtr2_output.instance_ids is not none
 
-##############Router 3##############
+############## Router 3 ##############
 - name: Create EC2 instances for rtr3 node (NETWORKING MODE)
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ec2_info[rtr3_type].size }}"
@@ -131,10 +132,10 @@
     - "{{ rtr3_output.instances }}"
   when: rtr3_output.instance_ids is not none
 
-##############Router 4##############
+############## Router 4 ##############
 - name: Create EC2 instances for rtr4 node in VPC-2 (NETWORKING MODE)
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group2 }}"
     instance_type: "{{ec2_info[rtr4_type].size }}"

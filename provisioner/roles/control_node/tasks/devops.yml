@@ -1,10 +1,11 @@
+---
 - name: Create lab inventory directory
   file:
     state: directory
     path: "/home/{{ username }}/devops-workshop/lab_inventory"
     owner: "{{ username }}"
     group: "{{ username }}"
-    recurse: yes
+    recurse: true
 
 - name: Put student inventory in proper spot
   copy:
@@ -20,7 +21,6 @@
     name: docker
     state: present
 
-    
 - name: ENSURE THAT DOCKER DAEMON IS STARTED
   service:
     name: docker
@@ -35,4 +35,4 @@
   shell: hack/run.sh ansible-for-devops start
   args:
     chdir: "/home/{{ username }}/devops-workshop/lab-guide"
-  become: yes
+  become: true

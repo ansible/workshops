@@ -1,3 +1,4 @@
+---
 - include_vars: vars/windows.yml
 
 
@@ -9,20 +10,20 @@
     password: "{{ admin_password }}"
     body: "{{ lookup('template','ldap_conf.json.j2') }}"
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
 
 - set_fact:
     userid: "{{ inventory_hostname | regex_replace('[^0-9]', '') }}"
 
 - name: Delete demo inventory
   uri:
-    url:  https://localhost/api/v2/inventories/1/
+    url: https://localhost/api/v2/inventories/1/
     method: DELETE
     user: admin
     password: "{{ admin_password }}"
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 201
@@ -35,12 +36,12 @@
 
 - name: Delete demo project
   uri:
-    url:  https://localhost/api/v2/projects/4/
+    url: https://localhost/api/v2/projects/4/
     method: DELETE
     user: admin
     password: "{{ admin_password }}"
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 201
@@ -53,12 +54,12 @@
 
 - name: Delete demo template
   uri:
-    url:  https://localhost/api/v2/job_templates/5/
+    url: https://localhost/api/v2/job_templates/5/
     method: DELETE
     user: admin
     password: "{{ admin_password }}"
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 201
@@ -71,12 +72,12 @@
 
 - name: Delete demo credential
   uri:
-    url:  https://localhost/api/v2/credentials/1/
+    url: https://localhost/api/v2/credentials/1/
     method: DELETE
     user: admin
     password: "{{ admin_password }}"
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 201
@@ -89,14 +90,14 @@
 
 - name: create inventory
   uri:
-    url:  https://localhost/api/v2/inventories/
+    url: https://localhost/api/v2/inventories/
     method: POST
     user: admin
     password: "{{ admin_password }}"
     body: "{{ lookup('file','tower_inventory.json') }}"
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 201
@@ -106,14 +107,14 @@
 
 - name: create group
   uri:
-    url:  https://localhost/api/v2/groups/
+    url: https://localhost/api/v2/groups/
     method: POST
     user: admin
     password: "{{ admin_password }}"
     body: "{{ lookup('template','tower_group.json.j2') }}"
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 201
@@ -123,14 +124,14 @@
 
 - name: create host
   uri:
-    url:  https://localhost/api/v2/hosts/
+    url: https://localhost/api/v2/hosts/
     method: POST
     user: admin
     password: "{{ admin_password }}"
     body: "{{ lookup('template','tower_host.json.j2') }}"
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 201
@@ -140,14 +141,14 @@
 
 - name: Associate host to group
   uri:
-    url:  https://localhost/api/v2/groups/1/hosts/
+    url: https://localhost/api/v2/groups/1/hosts/
     method: POST
     user: admin
     password: "{{ admin_password }}"
     body: '{ "id": 2 }'
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 204
@@ -157,14 +158,14 @@
 
 - name: Add win_shell/win_feature/win_reboot to allowed adhoc modules
   uri:
-    url:  https://localhost/api/v2/settings/all/
+    url: https://localhost/api/v2/settings/all/
     method: PATCH
     user: admin
     password: "{{ admin_password }}"
     body: "{{ lookup('template','tower_config_adhoc.json.j2') }}"
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 204
@@ -174,14 +175,14 @@
 
 - name: Set Base URL of Tower to resolve issues with websocket
   uri:
-    url:  https://localhost/api/v2/settings/system/
+    url: https://localhost/api/v2/settings/system/
     method: PATCH
     user: admin
     password: "{{ admin_password }}"
     body: '{ "TOWER_URL_BASE": "https://s{{ userid }}-tower.{{ dns_domain_name }}" }'
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code:
       - 200
       - 204
@@ -194,4 +195,4 @@
     path: /etc/tower/settings.py
     regexp: 'GIT_SSL_NO_VERIFY'
     line: "AWX_TASK_ENV['GIT_SSL_NO_VERIFY'] = 'True'"
-  # notify: restart tower
+    # notify: restart tower

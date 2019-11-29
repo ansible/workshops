@@ -1,3 +1,4 @@
+---
 - name: CREATE INVENTORY
   tower_inventory:
     name: "ChatOps Inventory"
@@ -5,18 +6,18 @@
     tower_username: admin
     tower_password: ansible
     tower_host: https://localhost
-    tower_verify_ssl: no
+    tower_verify_ssl: false
   run_once: true
   delegate_to: localhost
 
-- name:  ADD HOST INTO TOWER INVENTORY
+- name: ADD HOST INTO TOWER INVENTORY
   tower_host:
     name: "{{ inventory_hostname }}"
     inventory: "ChatOps Inventory"
     tower_username: admin
     tower_password: ansible
     tower_host: https://localhost
-    tower_verify_ssl: no
+    tower_verify_ssl: false
     variables:
       ansible_network_os: "{{ansible_network_os}}"
       ansible_host: "{{ansible_host}}"
@@ -32,7 +33,7 @@
     tower_username: admin
     tower_password: ansible
     tower_host: https://localhost
-    tower_verify_ssl: no
+    tower_verify_ssl: false
   run_once: true
   delegate_to: localhost
 
@@ -45,7 +46,7 @@
     tower_username: admin
     tower_password: ansible
     tower_host: https://localhost
-    tower_verify_ssl: no
+    tower_verify_ssl: false
   run_once: true
   delegate_to: localhost
 
@@ -62,7 +63,7 @@
     tower_username: admin
     tower_password: ansible
     tower_host: https://localhost
-    tower_verify_ssl: no
+    tower_verify_ssl: false
   run_once: true
   delegate_to: localhost
   when:
@@ -75,41 +76,41 @@
     tower_url: https://localhost
     tower_user: admin
     tower_pass: ansible
-    tower_verify_ssl: no
+    tower_verify_ssl: false
     tower_surveys:
       - job_template_name: "Network-Validate-Traffic"
-        job_template_survey_enabled: True
+        job_template_survey_enabled: true
         survey:
           - variable: "protocol"
-            required: yes
+            required: true
             type: text
             prompt: "protocol"
           - variable: "action"
-            required: yes
+            required: true
             type: text
             prompt: "action"
           - variable: "src_network"
-            required: yes
+            required: true
             type: text
             prompt: "src_network"
           - variable: "src_mask"
-            required: yes
+            required: true
             type: text
             prompt: "src_mask"
           - variable: "dst_network"
-            required: yes
+            required: true
             type: text
             prompt: "dst_network"
           - variable: "dst_mask"
-            required: yes
+            required: true
             type: text
             prompt: "dst_mask"
           - variable: "dst_port"
-            required: yes
+            required: true
             type: text
             prompt: "dst_port"
           - variable: "slack_user"
-            required: no
+            required: false
             type: text
             prompt: "slack_user"
   run_once: true
@@ -130,8 +131,8 @@
     tower_username: admin
     tower_password: ansible
     tower_host: https://localhost
-    tower_verify_ssl: no
-    survey_enabled: yes
+    tower_verify_ssl: false
+    survey_enabled: true
     survey_spec: "{{ lookup('template', 'survey_spec.json') }}"
   run_once: true
   delegate_to: localhost

@@ -1,8 +1,8 @@
 ---
 - name: start attack
   hosts: attacker
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   tasks:
     - name: simulate attack every 5 seconds

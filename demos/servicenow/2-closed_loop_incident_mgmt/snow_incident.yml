@@ -2,7 +2,7 @@
 - name: RAISE AN INCIDENT IF NO BANNER
   hosts: rtr1
   connection: local
-  gather_facts: no
+  gather_facts: false
 
   tasks:
 

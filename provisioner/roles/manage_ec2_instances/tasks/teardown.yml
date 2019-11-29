@@ -1,3 +1,4 @@
+---
 - name: Get the VPC ID for {{ ec2_name_prefix }}
   ec2_vpc_net_facts:
     filters:
@@ -101,7 +102,7 @@
         region: "{{ ec2_region }}"
         state: absent
         instance_ids: "{{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list }}"
-        wait: yes
+        wait: true
         wait_timeout: "{{ student_total * 300 | int}}"
       register: result_ec2_destroy
       when: all_workshop_vpc_nodes.instances
@@ -116,7 +117,7 @@
         region: "{{ ec2_region }}"
         state: absent
         instance_ids: "{{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list }}"
-        wait: yes
+        wait: true
         wait_timeout: "{{ student_total * 300 | int}}"
       register: result_ec2_destroy2
       when:
@@ -345,4 +346,3 @@
         public_ip: "{{ item['public_ip'] }}"
         state: absent
       loop: "{{ ec2_eip_by_workshop_tag['addresses'] }}"
-

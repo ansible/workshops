@@ -1,3 +1,4 @@
+---
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc2"

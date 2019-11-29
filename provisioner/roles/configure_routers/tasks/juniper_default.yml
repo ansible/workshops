@@ -1,3 +1,4 @@
+---
 - name: CHANGE PASSWORD TO WORKSHOP DEFAULT
   cli_command:
     command: "{{item}}"
@@ -7,7 +8,7 @@
     answer:
       - "{{admin_password}}1"
       - "{{admin_password}}1"
-    check_all: True
+    check_all: true
   loop:
     - "configure"
     - "rollback"

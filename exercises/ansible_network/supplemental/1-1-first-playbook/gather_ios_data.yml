@@ -2,7 +2,7 @@
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: GATHER ROUTER FACTS

@@ -1,3 +1,4 @@
+---
 # needed for workshop_type == windows
 # Needed for AD and windows client provision
 dns_domain_name: "ansibleworkshop.com"

@@ -14,7 +14,7 @@ Create a new user "testuser" on `node1` and `node3` with a comment using an ad h
 
   - Use the "command" module with the proper invocation to find the userid
 
-  - Delete the user and check it has been deleted
+  - Delete the user and its directories, then check that the user has been deleted
 
 > **Tip**
 >

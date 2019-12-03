@@ -142,7 +142,7 @@ Check the results again from your Tower control host. Since we got a warning las
 
 <!-- {% raw %} -->
 ```bash
-[student<X>ansible ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
+[student<X>ansible ~]$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
 node3 | SUCCESS => {
     "accept_ranges": "bytes", 
     "ansible_facts": {

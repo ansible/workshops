@@ -46,14 +46,14 @@ ec2_info:
     username: ec2-user
   checkpoint_mgmt:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS*PAYG-MGMT*R80.20*'
+    filter: 'Check Point CloudGuard IaaS BYOL*R80.30*'
     architecture: x86_64
     size: m5.xlarge
     ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
     username: admin
   checkpoint_gw:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS GW*PAYG-NGTX*R80.20*'
+    filter: 'Check Point CloudGuard IaaS GW*BYOL*R80.30*'
     architecture: x86_64
     size: c5.large
     ami: "{{ checkpoint_gw_ami| default(omit) }}"

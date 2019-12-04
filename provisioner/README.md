@@ -118,6 +118,12 @@ To destroy all the EC2 instances after training is complete:
 
         ansible-playbook teardown_lab.yml -e @extra_vars.yml
 
+2. Optionally you can enable verbose debug output of the information gathered
+   that drives the teardown process by passing the extra optional variable
+   `debug_teardown=true`. Example:
+
+        ansible-playbook teardown_lab.yml -e @extra_vars.yml -e debug_teardown=true
+
 # FAQ
 
 For frequently asked questions see the [FAQ](../docs/faq.md)

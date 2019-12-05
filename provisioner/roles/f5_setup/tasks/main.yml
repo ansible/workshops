@@ -34,3 +34,7 @@
       password: "{{admin_password}}"
       server_port: 8443
       server: "{{ ansible_host }}"
+      timeout: 300
+  register: install_as3
+  until: install_as3 is not failed
+  retries: 2

@@ -129,7 +129,7 @@ Observe o aviso na primeira linha sobre não usar o `curl` através do módulo `
 Verifique os resultados. Desde que recebemos um aviso da última vez usando `curl` através do módulo `command`, desta vez usaremos o módulo `uri` dedicado. Como argumentos, ele precisa da URL real e de um sinalizador para exibir o corpo nos resultados.
 
 ```bash
-$ ansible web -m uri -a "url=http://localhost return_content=yes"
+$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
 node2 | SUCCESS => {
     "accept_ranges": "bytes",
     "ansible_facts": {

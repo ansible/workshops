@@ -86,9 +86,13 @@
         from_port: 8080
         cidr_ip: 0.0.0.0/0
       - proto: tcp
+        to_port: 8088
+        from_port: 8088
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
         to_port: 8081
         from_port: 8081
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: 0.0.0.0/0        
         rule_desc: DevOps GOGs listener
       - proto: tcp
         to_port: 5000

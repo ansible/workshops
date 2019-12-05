@@ -314,6 +314,7 @@ Finally check if Apache is now running on both servers. Identify the IP addresse
 >
 > An alternative way to verify that Apache is running on both servers is to use the command `ansible node2,node3 -m uri -a "url=http://localhost/"`.
 
+
 ----
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -9,16 +9,14 @@
 - [Guide](#guide)
 - [Takeaways](#takeaways)
 
-- [日本のAnsibleコミュニティ](https://ansible-users.connpass.com)
-- [日本のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E)
-- [海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtNTU4ODIyNzA1MDkyLThiYmQ3MmNkMWRmOTdjYjMxNzdlNDc4OTk5YTc1ZDBiNDAwOTZlZjE0NDliODJiMjJhMDBkZWM4Nzg2NjkzNDA)
+# Objective
 
 ラボ環境を確認して理解します。この演習は以下を含みます。
 - コントロールノードで稼働する Ansible バージョンを確認します。
 - Ansible の設定ファイル (`ansible.cfg`)を理解する。
 - `ini` 形式のインベントリーファイルを理解する。
 
-演習を開始する前にぜひSlackへ参加してみましょう。[日本のAnsibleコミュニティ](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E) [海外のAnsibleコミュニティ](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)。参加すると他の自動化エンジニアと交流し、情報交換することが可能です。
+演習を開始する前にぜひSlackへ参加してみましょう。[日本のAnsibleコミュニティ](https://ansible-users.connpass.com) [日本のAnsible slack コミュニティ](https://ansiblejp.slack.com/join/shared_invite/enQtNzQwNTEyNTc2Mjc3LTRmYzBkY2FhM2RhOGIzNjVhYTczMDdiODY0YWFiMjdmMGRkNGJiZDYzN2I4M2NjZDA5MjkxYzU3ZWQyMzFhYjU) [海外のAnsible slack コミュニティ](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtNTU4ODIyNzA1MDkyLThiYmQ3MmNkMWRmOTdjYjMxNzdlNDc4OTk5YTc1ZDBiNDAwOTZlZjE0NDliODJiMjJhMDBkZWM4Nzg2NjkzNDA)。参加すると他の自動化エンジニアと交流し、情報交換することが可能です。
 
 # Diagram
 
@@ -70,7 +68,7 @@ ansible 2.8.1
 
 ## Step 3
 
-`cat` コマンドで `ansible.cfg` ファイルの内容を確認します。
+`cat` コマンドで `ansible.cfg` ファイルの内容を確認します(実際の環境の値とは異なる部分があるかもしれませんが演習には影響はありません)。
 
 ```
 [student1@ansible ~]$ cat ~/.ansible.cfg

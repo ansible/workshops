@@ -17,7 +17,6 @@
       - python-pip
       - ansible
       - gcc
-      # - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
   retries: 10
   delay: 5
@@ -47,7 +46,7 @@
     version_name: "{{item.name.split('.tar')[0]}}"
   when: "'linux' in item.browser_download_url"
   loop: "{{github_result.json.assets}}"
-  loop_control: 
+  loop_control:
     label: "{{ item.browser_download_url }}"
 
 - name: Extract file
@@ -56,13 +55,13 @@
     dest: "/home/{{username}}"
     remote_src: yes
   register: output
-    
+
 - name: Install ansible vscode extension
   command: "/home/{{username}}/{{ version_name }}/code-server --auth none --install-extension vscoss.vscode-ansible"
   register: result
 
 - name: Move binary to /opt
-  copy: 
+  copy:
     src: /home/{{username}}/{{ version_name }}/code-server
     dest: /opt/code-server
     remote_src: yes
@@ -71,8 +70,8 @@
     group: "{{username}}"
 
 - name: Apply systemd service file
-  template: 
-    src: ../files/code-server.service.j2
+  template:
+    src: code-server.service.j2
     dest: /etc/systemd/system/code-server.service
     owner: "{{username}}"
     group: wheel
@@ -82,10 +81,10 @@
   service:
     name: code-server
     state: started
-    enabled: yes   
+    enabled: yes
 
 - name: Cleanup Coder binary from student directory
-  file: 
+  file:
     path: /home/{{username}}/{{ version_name }}
     state: absent
 

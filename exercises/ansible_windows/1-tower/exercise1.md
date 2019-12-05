@@ -1,27 +1,3 @@
-Table of Contents
-=================
-
--   [Agenda](index.html)
-
--   [Exercise 1 - Configuring Ansible Tower](exercise1.html)
-
--   [Exercise 2 - Ad-hoc commands in Tower](exercise2.html)
-
--   [Exercise 3 - Writing Your First playbook](exercise3.html)
-
--   [Exercise 4 - Creating and Running a Job Template](exercise4.html)
-
--   [Exercise 5 - Using Variables, Loops, and Handlers](exercise5.html)
-
--   [Exercise 6 - Roles: Making your playbooks reusable](exercise6.html)
-
--   [Exercise 7 - Using Ansible for Windows Patching](exercise7.html)
-
--   [Wrap UP](wrapup.html)
-
-In this exercise, we are going to configure Ansible Tower so that we can
-run a playbook.
-
 Configuring Ansible Tower
 =========================
 
@@ -30,13 +6,13 @@ multi-tenancy, notifications, scheduling, etc. However, we are only
 going to focus on a few of the key constructs that are required for this
 workshop today.
 
--   Credentials
+- Credentials
 
--   Projects
+- Projects
 
--   Inventory
+- Inventory
 
--   Job Template
+- Job Template
 
 Logging into Tower
 ==================
@@ -311,23 +287,23 @@ for Windows we need to tell it utilize a different connection method, in
 this case,
 [WinRM](https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html).
 
-**ansible\_connection: winrm**
+**`ansible_connection: winrm`**
 
 We also instruct Ansible to connect to the WinRM SSL port 5986 (the
 non-SSL port runs on 5985 but is unencrypted).
 
-**ansible\_port: 5986**
+**`ansible_port: 5986`**
 
 We also tell Ansible to ignore the WinRM cert, since our lab doesn’t
 have a proper certificate store setup.
 
-**ansible\_winrm\_server\_cert\_validation: ignore**
+**`ansible_winrm_server_cert_validation: ignore`**
 
 Windows also has various authentication methods that we can utilize to
 connect. Here we tell Ansible to use the **CredSSP** Transport Method to
 authenticate to our Windows host:
 
-**ansible\_winrm\_transport: credssp**
+**`ansible_winrm_transport: credssp`**
 
 You can find more information about these and other settings in our
 [Windows

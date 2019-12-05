@@ -116,7 +116,7 @@ Credentials are utilized by Tower for authentication when launching **Jobs** aga
 
     ![credentials link](images/credentials.png)
 
-2. Under **CREDENTIALS** there will be two pre-configured credentials, `Demo Credential` and the `Workshop Credentials`.  Click on the `Workshop Credential`.  
+2. Under **CREDENTIALS** there will be three pre-configured credentials, `Demo Credential`, `Tower Credential` and the `Workshop Credentials`.  Click on the `Workshop Credential`.  
 
     ![Workshop Credential Link](images/workshop_credential.png)
 

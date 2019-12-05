@@ -1,18 +1,31 @@
 ---
-- name: execute a command with tower
-  uri:
-    url: https://ansible.rhdemo.io/api/v2/job_templates/22/launch/
-    validate_certs: no
-    method: POST
-    user: public
-    password: public
-    status_code: [200, 201]
-    force_basic_auth: yes
-    body:
-      extra_vars:
-        ec2_name_prefix: "{{ ec2_name_prefix }}"
-        linklight_user: "{{ linklight_user }}"
-        ec2_region: "{{ ec2_region }}"
-        student_total: "{{ student_total }}"
-        workshop_type: "{{ workshop_type }}"
-    body_format: json
+- name: attempt callback to record data
+  block:
+    - name: execute a command with tower
+      uri:
+        url: https://ansible.rhdemo.io/api/v2/job_templates/22/launch/
+        validate_certs: no
+        method: POST
+        user: public
+        password: public
+        status_code: [200, 201]
+        force_basic_auth: yes
+        body:
+          extra_vars:
+            ec2_name_prefix: "{{ ec2_name_prefix }}"
+            aws_user: "{{ aws_user }}"
+            ec2_region: "{{ ec2_region }}"
+            student_total: "{{ student_total }}"
+            workshop_type: "{{ workshop_type }}"
+        body_format: json
+  rescue:
+    - debug:
+       msg: 'Ansible Tower callback has failed, we will fail gracefully'
+
+    - name: append information to summary
+      set_fact:
+        callback_information: |
+          - Ansible Tower callback failure, this workshop will not be recorded
+      run_once: yes
+      delegate_to: localhost
+      delegate_facts: true

@@ -5,7 +5,12 @@ teardown: false
 towerinstall: false
 website_information: ""
 dns_information: "No errors with DNS"
+callback_information: "No issue with Ansible Tower callback"
 workshop_type: ""
+dns_type: aws
+valid_dns_type:
+  - aws
+  - none
 valid_workshop_types:
   - networking
   - f5

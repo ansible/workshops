@@ -53,3 +53,6 @@
 
 - name: TURN ON TOWER
   shell: ansible-tower-service start
+  register: install_tower
+  until: install_tower is not failed
+  retries: 5

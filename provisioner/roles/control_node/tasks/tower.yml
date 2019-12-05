@@ -1,6 +1,6 @@
 - name: Download Ansible Tower
   get_url:
-    url: '{{ tower_installer_url | default("https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.5.3-1.tar.gz") }}'
+    url: '{{ tower_installer_url | default("https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.6.1-1.tar.gz") }}'
     dest: /tmp/tower.tar.gz
 
 - name: Create directory for Ansible Tower
@@ -18,17 +18,12 @@
     src: tower_install.j2
     dest: /tmp/tower_install/inventory
 
-- copy:
-    dest: /tmp/tower_install/extras-vars.yml
-    content: |
-      redhat_aws_rhui_repos: {{ redhat_aws_rhui_repos | to_yaml }}
-
 - name: run the Ansible Tower installer
-  shell: ./setup.sh -e @extras-vars.yml
+  shell: ./setup.sh
   args:
     chdir: /tmp/tower_install
-  async: 900
-  poll: 10
+  async: 1400
+  poll: 15
 
 - name: install ansible-tower-cli and requests
   become: yes

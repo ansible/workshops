@@ -14,3 +14,4 @@ windows_password: Ansible+Red*Hat19!20
 create_login_page: false
 autolicense: false
 towerinstall: true
+dns_type: aws

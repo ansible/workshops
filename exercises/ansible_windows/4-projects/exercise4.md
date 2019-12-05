@@ -1,24 +1,3 @@
-Table of Contents
-=================
-
--   [Agenda](index.html)
-
--   [Exercise 1 - Configuring Ansible Tower](exercise1.html)
-
--   [Exercise 2 - Ad-hoc commands in Tower](exercise2.html)
-
--   [Exercise 3 - Writing Your First playbook](exercise3.html)
-
--   [Exercise 4 - Creating and Running a Job Template](exercise4.html)
-
--   [Exercise 5 - Using Variables, Loops, and Handlers](exercise5.html)
-
--   [Exercise 6 - Roles: Making your playbooks reusable](exercise6.html)
-
--   [Exercise 7 - Using Ansible for Windows Patching](exercise7.html)
-
--   [Wrap UP](wrapup.html)
-
 A job template is a definition and set of parameters for running an
 Ansible job. Job templates are useful to execute the same job many
 times.

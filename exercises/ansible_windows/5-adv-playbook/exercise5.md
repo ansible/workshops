@@ -1,24 +1,3 @@
-Table of Contents
-=================
-
--   [Agenda](index.html)
-
--   [Exercise 1 - Configuring Ansible Tower](exercise1.html)
-
--   [Exercise 2 - Ad-hoc commands in Tower](exercise2.html)
-
--   [Exercise 3 - Writing Your First playbook](exercise3.html)
-
--   [Exercise 4 - Creating and Running a Job Template](exercise4.html)
-
--   [Exercise 5 - Using Variables, Loops, and Handlers](exercise5.html)
-
--   [Exercise 6 - Roles: Making your playbooks reusable](exercise6.html)
-
--   [Exercise 7 - Using Ansible for Windows Patching](exercise7.html)
-
--   [Wrap UP](wrapup.html)
-
 Previous exercises showed you the basics of Ansible playbooks. In the
 next few exercises, we are going to teach some more advanced ansible
 skills that will add flexibility and power to your playbooks.
@@ -136,27 +115,27 @@ Add a new task called **install IIS**. After writing the playbook, click
 >
 > **What is happening here!?**  
 >
-> -   `vars:` You’ve told Ansible the next thing it sees will be a
->     variable name  
+> - `vars:` You’ve told Ansible the next thing it sees will be a
+>   variable name  
 >
-> -   `iis_sites` You are defining a list-type variable called
->     iis\_sites. What follows is a list of each site with it’s related
->     variables  
+> - `iis_sites` You are defining a list-type variable called
+>   iis\_sites. What follows is a list of each site with it’s related
+>   variables  
 >
-> -   `file:` This module is used to create, modify, delete files,
->     directories, and symlinks.
+> - `file:` This module is used to create, modify, delete files,
+>   directories, and symlinks.
 >
-> -   `{{ item }}` You are telling Ansible that this will expand into a
->     list item. Each item has several variables like `name`, `port`,
->     and `path`.  
+> - `{{ item }}` You are telling Ansible that this will expand into a
+>   list item. Each item has several variables like `name`, `port`,
+>   and `path`.  
 >
-> -   `with_items: "{{ iis_sites }}` This is your loop which is
->     instructing Ansible to perform this task on every `item` in
->     `iis_sites`
+> - `with_items: "{{ iis_sites }}` This is your loop which is
+>   instructing Ansible to perform this task on every `item` in
+>   `iis_sites`
 >
-> -   `notify: restart iis service` This statement is a `handler`, so
->     we’ll come back to it in Section 3.
->
+> - `notify: restart iis service` This statement is a `handler`, so
+>   we’ll come back to it in Section 3.
+
 Section 2: Opening Firewall and Deploying Files
 ===============================================
 
@@ -219,17 +198,17 @@ not escape the forward slash.
 >
 > **So… what did I just write?**
 >
-> -   `win_firewall_rule:` This module is used to create, modify, and
->     update firewall rules. Note in the case of AWS there are also
->     security group rules which may impact communication. We’ve opened
->     these for the ports in this example.
+> - `win_firewall_rule:` This module is used to create, modify, and
+>   update firewall rules. Note in the case of AWS there are also
+>   security group rules which may impact communication. We’ve opened
+>   these for the ports in this example.
 >
-> -   `win_template:` This module specifies that a jinja2 template is
->     being used and deployed.
+> - `win_template:` This module specifies that a jinja2 template is
+>   being used and deployed.
 >
-> -   used in Ansible to transform data inside a template expression,
->     i.e. filters.
->
+> - used in Ansible to transform data inside a template expression,
+>   i.e. filters.
+
 Section 3: Defining and Using Handlers
 ======================================
 
@@ -258,18 +237,18 @@ Define a handler.
 >
 > **You can’t have a former if you don’t mention the latter**
 >
-> -   `handler:` This is telling the **play** that the `tasks:` are
->     over, and now we are defining `handlers:`. Everything below that
->     looks the same as any other task, i.e. you give it a name, a
->     module, and the options for that module. This is the definition of
->     a handler.
+> - `handler:` This is telling the **play** that the `tasks:` are
+>   over, and now we are defining `handlers:`. Everything below that
+>   looks the same as any other task, i.e. you give it a name, a
+>   module, and the options for that module. This is the definition of
+>   a handler.
 >
-> -   `notify: restart iis service` …and here is your latter. Finally!
->     The `notify` statement is the invocation of a handler by name.
->     Quite the reveal, we know. You already noticed that you’ve added a
->     `notify` statement to the `win_iis_website` task, now you know
->     why.
->
+> - `notify: restart iis service` …and here is your latter. Finally!
+>   The `notify` statement is the invocation of a handler by name.
+>   Quite the reveal, we know. You already noticed that you’ve added a
+>   `notify` statement to the `win_iis_website` task, now you know
+>   why.
+
 Section 4: Commit and Review
 ============================
 

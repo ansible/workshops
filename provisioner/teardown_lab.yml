@@ -9,6 +9,7 @@
     teardown: true
     s3_state: absent
     state: absent
+    debug_teardown: false
 
   tasks:
     - { include_role: {name: manage_ec2_instances}}

@@ -16,6 +16,12 @@
 - hostname:
     name: "{{short_name}}"
 
+- name: Update systemd
+  yum:
+    name: systemd*
+    state: latest
+    update_cache: true
+
 - name: Update rh-amazon-rhui-client to latest
   yum:
     name: rh-amazon-rhui-client

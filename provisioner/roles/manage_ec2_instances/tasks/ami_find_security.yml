@@ -83,7 +83,7 @@
         {{ checkpoint_mgmt_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
   - name: find ami for check point gateway (SECURITY MODE)
-    ec2_ami_facts:
+    ec2_ami_info:
       region: "{{ ec2_region }}"
       owners: "{{ ec2_info['checkpoint_gw']['owners'] }}"
       filters:

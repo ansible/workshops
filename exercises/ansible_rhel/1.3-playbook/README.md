@@ -73,7 +73,7 @@ Add a file called `apache.yml` with the following content. As discussed in the p
   become: yes
 ```
 
-This shows one of Ansible’s strenghts: The Playbook syntax is easy to read and understand. In this Playbook:
+This shows one of Ansible’s strengths: The Playbook syntax is easy to read and understand. In this Playbook:
 
   - A name is given for the play via `name:`.
 
@@ -309,6 +309,11 @@ Now run the Playbook:
 ```
 
 Finally check if Apache is now running on both servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the `node1` above. All output should be green.
+
+> **Tip**
+>
+> An alternative way to verify that Apache is running on both servers is to use the command `ansible node2,node3 -m uri -a "url=http://localhost/"`.
+
 
 ----
 

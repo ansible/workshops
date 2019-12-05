@@ -1,24 +1,3 @@
-Table of Contents
-=================
-
--   [Agenda](index.html)
-
--   [Exercise 1 - Configuring Ansible Tower](exercise1.html)
-
--   [Exercise 2 - Ad-hoc commands in Tower](exercise2.html)
-
--   [Exercise 3 - Writing Your First playbook](exercise3.html)
-
--   [Exercise 4 - Creating and Running a Job Template](exercise4.html)
-
--   [Exercise 5 - Using Variables, Loops, and Handlers](exercise5.html)
-
--   [Exercise 6 - Roles: Making your playbooks reusable](exercise6.html)
-
--   [Exercise 7 - Using Ansible for Windows Patching](exercise7.html)
-
--   [Wrap UP](wrapup.html)
-
 Section 1: Ad-hoc commands
 ==========================
 
@@ -339,7 +318,7 @@ And now reboot the host.
 
 > **Note**
 >
-> The win\_reboot module will cause the machine to reboot, and then will
+> The `win_reboot` module will cause the machine to reboot, and then will
 > wait for it to come completely back up before finishing. This way, if
 > you need to reboot the host in the middle of your playbook, the rest
 > of the playbook will not fail because the host is inaccessible.

@@ -46,14 +46,14 @@ ec2_info:
     username: ec2-user
   checkpoint_mgmt:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS*PAYG-MGMT*R80.20*'
+    filter: 'Check Point CloudGuard IaaS BYOL*R80.30*'
     architecture: x86_64
     size: m5.xlarge
     ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
     username: admin
   checkpoint_gw:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS GW*PAYG-NGTX*R80.20*'
+    filter: 'Check Point CloudGuard IaaS GW*BYOL*R80.30*'
     architecture: x86_64
     size: c5.large
     ami: "{{ checkpoint_gw_ami| default(omit) }}"
@@ -71,7 +71,7 @@ ec2_info:
     os_type: linux
     disk_space: 20
     architecture: x86_64
-    filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2'
+    filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
     username: ec2-user
   rhel7:
     owners: 309956199498
@@ -79,7 +79,7 @@ ec2_info:
     os_type: linux
     disk_space: 10
     architecture: x86_64
-    filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2'
+    filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
     username: ec2-user
     python_interpreter: '/usr/bin/python'
   f5node:
@@ -96,7 +96,7 @@ ec2_info:
     os_type: linux
     disk_space: 200
     architecture: x86_64
-    filter: 'RHEL-7.6_HVM-20190515-x86_64-0-Access2-GP2'
+    filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
     username: ec2-user
     python_interpreter: '/usr/bin/python'
   netapp:
@@ -134,3 +134,4 @@ ec2_info:
     size: t2.xlarge
     username: ec2-user
 
+debug_teardown: false

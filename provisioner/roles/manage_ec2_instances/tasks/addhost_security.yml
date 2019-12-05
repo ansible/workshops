@@ -21,6 +21,8 @@
         ansible_python_interpreter: "{{ec2_info['splunk_enterprise']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
         groups:
+          - security
+          - security_connection_check
           - splunk
           - siem
       loop: "{{ splunk_node_facts.instances|flatten(levels=1) }}"
@@ -48,6 +50,8 @@
         ansible_python_interpreter: "{{ec2_info['qradar']['python_interpreter']}}"
         private_ip: "{{item.private_ip_address}}"
         groups:
+          - security
+          - security_connection_check
           - qradar
           - siem
       loop: "{{ qradar_node_facts.instances|flatten(levels=1) }}"
@@ -72,9 +76,11 @@
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
         ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
-        private_ip: "{{item.private_ip_address}}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
         private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
+          - security
+          - security_connection_check
           - attack
       loop: "{{ attacker_node_facts.instances|flatten(levels=1) }}"
 
@@ -106,9 +112,11 @@
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
         ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
-        private_ip: "{{item.private_ip_address}}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
         private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
+          - security
+          - security_connection_check
           - snort
           - ids
       loop: "{{ snort_node_facts.instances|flatten(levels=1) }}"
@@ -134,6 +142,7 @@
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
         private_ip: "{{item.private_ip_address}}"
         groups:
+          - security
           - checkpoint
           - firewall
       loop: "{{ checkpoint_node_facts.instances|flatten(levels=1) }}"
@@ -155,12 +164,13 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        private_ip: "{{item.private_ip_address}}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
         private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
+          - security
           - checkpoint
           - firewall
-      loop: "{{ checkpoint_gw_node_facts.instances|flatten(levels=1) }}"
+      loop: "{{ checkpoint_gw_node_facts['instances']|flatten(levels=1) }}"
 
 - name: MANAGE WINDOWS EC2 INSTANCES (SECURITY MODE)
   block:
@@ -185,6 +195,7 @@
         username: "{{ item.tags.Student }}"
         private_ip: "{{item.private_ip_address}}"
         groups:
+          - security
           - windows
           - workstation
       loop: "{{ windows_node_facts.instances|flatten(levels=1) }}"

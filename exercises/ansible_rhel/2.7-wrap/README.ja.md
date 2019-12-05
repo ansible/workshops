@@ -129,7 +129,7 @@ Ansible では、 `curl` コマンドを `command` モジュールで実行す�
 結果を確認しまし。先ほど `command` モジュールで `curl` を実行し、警告が表示されたので、今回は専用 `uri` モジュールを使用します。引数として、実際の URL と結果の本文を出力するフラグが必要です。
 
 ```bash
-$ ansible web -m uri -a "url=http://localhost return_content=yes"
+$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
 node2 | SUCCESS => {
     "accept_ranges": "bytes",
     "ansible_facts": {

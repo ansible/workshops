@@ -6,7 +6,7 @@
 
 ## Presentation
 プレゼン資料が必要な場合はこちらになります：
-[Ansible Network Automation Workshop Deck](https://ansible.github.io/linklight/decks/ansible_network.pdf)
+[Ansible Network Automation Workshop Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf)
 
 ## Ansible Network Automation Exercises
 

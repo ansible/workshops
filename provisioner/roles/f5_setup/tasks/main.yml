@@ -12,6 +12,9 @@
       user: admin
       server: "{{ ansible_host }}"
     commands: "modify auth user admin password {{admin_password}}"
+  register: change_password
+  until: change_password is not failed
+  retries: 2
 
 - name: Wait for API to be Ready
   bigip_wait:
@@ -34,3 +37,7 @@
       password: "{{admin_password}}"
       server_port: 8443
       server: "{{ ansible_host }}"
+      timeout: 300
+  register: install_as3
+  until: install_as3 is not failed
+  retries: 2

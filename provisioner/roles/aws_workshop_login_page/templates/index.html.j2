@@ -361,7 +361,12 @@ IP Address: {{ host.public_ip_address }}<br>
 {% if towerinstall and dns_type != 'none' %}Ansible Tower Link: <a href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a><br>{% endif %}
 {% if towerinstall and dns_type == 'none' %}Ansible Tower Link: <a href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a><br>
 {% endif %}
-{% if workshop_type in ['devops']  %} Lab Guide: <a href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8080">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8080</a><br>{% endif %}
+{% if towerinstall %}
+  To login to the <code>Tower</code> website use the following credentials:<br>
+  username: admin<br>
+  password: {{ admin_password }}<br>
+{% endif %}
+{% if workshop_type in ['devops']  %} Lab Guide: <a href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888</a><br>{% endif %}
 {% endif %}
 {% endfor %}
     </div>

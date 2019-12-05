@@ -76,6 +76,7 @@
         to_port: 8888
         from_port: 8888
         cidr_ip: 0.0.0.0/0
+        rule_desc: DevOps Sphinx Listener 
       - proto: tcp
         to_port: 8000
         from_port: 8000

@@ -1,10 +1,7 @@
 ---
-- name: RHEL workshop_type
-  hosts: localhost
-  become: true
+- name: CONFIGURE WORKSHOP WEBSERVERS FOR DEVOPS
+  hosts: lab_hosts
+  become: yes
   gather_facts: no
-  connection: local
-  tasks:
-    - name: Print Summary Information
-      debug:
-        msg: "No specific tasks for {{workshop_type}}"
+  roles:
+    - { role: devops, when: workshop_type == "devops" }

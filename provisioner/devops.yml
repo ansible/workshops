@@ -1,4 +1,18 @@
 ---
+
+- name: SET INSECURE REGISTRY ON CONTROL NODE
+  hosts: control_nodes
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: ALLOW THE INSECURE REGISTRY
+      lineinfile:
+        path: /etc/sysconfig/docker
+        state: present
+        insertafter: EOF
+        line: 'INSECURE_REGISTRY="--insecure-registry {{ host.public_ip_address }}:5000"'
+
+
 - name: CONFIGURE WORKSHOP WEBSERVERS FOR DEVOPS
   hosts: lab_hosts
   become: yes

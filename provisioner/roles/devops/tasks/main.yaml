@@ -11,8 +11,6 @@
   retries: 10
   delay: 5
 
-
-
 - name: ADD THE EXTRAS REPO
   shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
 

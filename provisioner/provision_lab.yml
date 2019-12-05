@@ -181,12 +181,6 @@
   tags: control_node
 
 
-- name: CONFIGURE WORKSHOP WEBSERVERS FOR DEVOPS
-  hosts: lab_hosts
-  become: yes
-  gather_facts: no
-  roles:
-    - { role: devops, when: workshop_type == "devops" }
 
 
 - name: add dns entires for all student control nodes

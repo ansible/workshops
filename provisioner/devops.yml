@@ -10,7 +10,7 @@
         path: /etc/sysconfig/docker
         state: present
         insertafter: EOF
-        line: 'INSECURE_REGISTRY="--insecure-registry {{ host.public_ip_address }}:5000"'
+        line: 'INSECURE_REGISTRY="--insecure-registry {{ ansible_host }}:5000"'
 
 
 - name: CONFIGURE WORKSHOP WEBSERVERS FOR DEVOPS

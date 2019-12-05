@@ -20,13 +20,6 @@
     name: docker
     state: present
 
-
-- name: ALLOW THE INSECURE REGISTRY
-  lineinfile:
-    path: /etc/sysconfig/docker
-    state: present
-    insertafter: EOF
-    line: 'INSECURE_REGISTRY="--insecure-registry {{ host.public_ip_address }}:5000"'
     
 - name: ENSURE THAT DOCKER DAEMON IS STARTED
   service:

@@ -7,7 +7,7 @@ pipeline {
         stage('Build Information') {
             steps {
                 script {
-                    TOWER_VERSION = '3.6.0'
+                    TOWER_VERSION = '3.6.1'
                     DOTLESS_TOWER_VERSION = TOWER_VERSION.replace('.', '').trim()
                 }
                 echo """Tower Version under test: ${TOWER_VERSION}

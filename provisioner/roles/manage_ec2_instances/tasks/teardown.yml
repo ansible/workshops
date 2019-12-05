@@ -1,22 +1,3 @@
-- name: grab facts for workshop
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      "tag:Workshop": "{{ec2_name_prefix}}"
-  register: all_workshop_nodes
-
-# - name: debug test
-#   debug:
-#     var: all_workshop_nodes
-
-- name: destroy EC2 instances
-  ec2:
-    region: "{{ ec2_region }}"
-    state: absent
-    instance_ids: "{{ all_workshop_nodes.instances | map(attribute='instance_id') | list }}"
-  register: result
-  when: all_workshop_nodes.instances
-
 - name: Get the VPC ID for {{ ec2_name_prefix }}
   ec2_vpc_net_facts:
     filters:
@@ -24,202 +5,344 @@
     region: "{{ ec2_region }}"
   register: vpc_net_facts
 
-- name: Get the VPC ID 2 for {{ ec2_name_prefix }} (NETWORKING MODE)
-  ec2_vpc_net_facts:
-    filters:
-      "tag:Name": "{{ ec2_name_prefix }}-vpc2"
-    region: "{{ ec2_region }}"
-  register: vpc_net_facts2
-  when: workshop_type == 'networking'
+- name: debug vpc_net_facts
+  debug:
+    var: vpc_net_facts
+  when: debug_teardown
 
-# - name: debugging vpc id for {{ ec2_name_prefix }}
-#   debug:
-#     msg: "vpc id:'{{vpc_net_facts.vpcs[0].id}}'"
-#   when: vpc_net_facts.vpcs|length > 0
-
-- name: use set fact for easier variables
-  set_fact:
-    ec2_vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
-    ec2_security_group: "{{ ec2_name_prefix }}-insecure_all"
-  when: vpc_net_facts.vpcs|length > 0 and ec2_security_group is undefined
-
-- name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORKING MODE)
-  set_fact:
-    ec2_vpc_id2: "{{vpc_net_facts2.vpcs[0].id}}"
-    ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
-  when:
-    - workshop_type == 'networking'
-    - vpc_net_facts2.vpcs|length > 0
-    - ec2_security_group2 is undefined
-
-- name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }}
-  ec2_group:
-    name: "{{ec2_security_group}}"
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id}}"
-    state: absent
-  register: delete_sg
-  until: delete_sg is not failed
-  retries: 50
-  when: vpc_net_facts.vpcs|length > 0
-
-  ### Additional Windows sgs added in resources_windows.yml
-- name: Deleted EC2 security groups for VPC vpc-{{ ec2_name_prefix }} (WINDOWS MODE)
-  ec2_group:
-    name: "{{ item }}"
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id}}"
-    state: absent
-  loop:
-    - "{{ ec2_name_prefix }}-gitlabsg"
-    - "{{ ec2_name_prefix }}-docssg"
-    - "{{ ec2_name_prefix }}-windcsg"
-    - "{{ ec2_name_prefix }}-windowssg"
-  register: delete_sg
-  until: delete_sg is not failed
-  retries: 50
-  when: (vpc_net_facts.vpcs|length > 0) or (workshop_type == 'windows')
-
-- name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
-  ec2_group:
-    name: "{{ec2_security_group2}}"
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id2}}"
-    state: absent
-  register: delete_sgnetworking
-  until: delete_sgnetworking is not failed
-  retries: 50
-  when:
-    - workshop_type == 'networking'
-    - vpc_net_facts2.vpcs|length > 0
-
-- name: Cleanup subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+- name: if vpc exists, delete everything, else exit
+  when: vpc_net_facts['vpcs']|length > 0
   block:
-    - name: Get subnet2 eni_info
-      ec2_eni_facts:
+    - name: Get the VPC ID 2 for {{ ec2_name_prefix }} (NETWORKING MODE)
+      ec2_vpc_net_facts:
+        filters:
+          "tag:Name": "{{ ec2_name_prefix }}-vpc2"
+        region: "{{ ec2_region }}"
+      register: vpc_net_facts2
+      when: workshop_type == 'networking'
+
+    - name: debug vpc_net_facts2
+      debug:
+        var: vpc_net_facts2
+      when: debug_teardown
+
+    - name: debugging vpc id for {{ ec2_name_prefix }}
+      debug:
+        msg: "vpc id:'{{vpc_net_facts.vpcs[0].id}}'"
+      when: debug_teardown
+
+    - name: use set fact for easier variables
+      set_fact:
+        ec2_vpc_id: "{{vpc_net_facts.vpcs[0].id|default('WORKSHOP_UNDEF')}}"
+        ec2_security_group: "{{ ec2_name_prefix }}-insecure_all"
+      when: ec2_security_group is undefined
+
+    - name: debug ec2_vpc_id
+      debug:
+        var: ec2_vpc_id
+      when: debug_teardown
+
+    - name: debug ec2_security_group
+      debug:
+        var: ec2_security_group
+      when: debug_teardown
+
+    - name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORKING MODE)
+      set_fact:
+        ec2_vpc_id2: "{{vpc_net_facts2.vpcs[0].id}}"
+        ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
+      when:
+        - workshop_type == 'networking'
+        - vpc_net_facts2.vpcs|length > 0
+        - ec2_security_group2 is undefined
+
+    - name: debug ec2_vpc_id2
+      debug:
+        var: ec2_vpc_id2
+      when:
+        - debug_teardown
+        - ec2_vpc_id2 is defined
+        - workshop_type == 'networking'
+
+    - name: debug ec2_security_group2
+      debug:
+        var: ec2_security_group2
+      when: debug_teardown
+
+    - name: grab vpc node facts for workshop
+      ec2_instance_facts:
         region: "{{ ec2_region }}"
         filters:
-          "tag:Subnet": '{{ ec2_name_prefix }}-subnet2'
-      register: subnet2_eni_info
+          "vpc-id": "{{ec2_vpc_id}}"
+      register: all_workshop_vpc_nodes
 
-    - debug: var=subnet2_eni_info
+    - name: debug all_workshop_vpc_nodes
+      debug:
+        var: all_workshop_vpc_nodes
+      when: debug_teardown
 
-    - name: Delete dangling ENIs from subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
-      ec2_eni:
+    - name: grab vpc2 node facts for workshop
+      ec2_instance_facts:
         region: "{{ ec2_region }}"
-        eni_id: "{{item['id']}}"
-        state: absent
-      loop: "{{subnet2_eni_info['network_interfaces']}}"
+        filters:
+          "vpc-id": "{{ec2_vpc_id2}}"
+      register: all_workshop_vpc2_nodes
+      when: ec2_vpc_id2 is defined
 
-    - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+    - name: debug all_workshop_vpc2_nodes
+      debug:
+        var: all_workshop_vpc2_nodes
+      when:
+        - debug_teardown
+        - ec2_vpc_id2 is defined
+
+    - name: destroy EC2 instances
+      ec2:
+        region: "{{ ec2_region }}"
+        state: absent
+        instance_ids: "{{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list }}"
+        wait: yes
+        wait_timeout: "{{ student_total * 300 | int}}"
+      register: result_ec2_destroy
+      when: all_workshop_vpc_nodes.instances
+
+    - name: debug result_ec2_destroy
+      debug:
+        var: result_ec2_destroy
+      when: debug_teardown
+
+    - name: destroy EC2 instances (VPC2)
+      ec2:
+        region: "{{ ec2_region }}"
+        state: absent
+        instance_ids: "{{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list }}"
+        wait: yes
+        wait_timeout: "{{ student_total * 300 | int}}"
+      register: result_ec2_destroy2
+      when:
+        - all_workshop_vpc2_nodes is defined
+        - all_workshop_vpc2_nodes|length > 0
+        - ec2_vpc_id2 is defined
+
+    - name: debug result_ec2_destroy2
+      debug:
+        var: result_ec2_destroy2
+      when: debug_teardown
+
+    - name: Cleanup subnet1 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+      block:
+        - name: Get subnet1 eni_info
+          ec2_eni_facts:
+            region: "{{ ec2_region }}"
+            filters:
+              "tag:Subnet": '{{ ec2_name_prefix }}-subnet1'
+          register: subnet1_eni_info
+
+        - name: debug subnet1_eni_info
+          debug:
+            var: subnet1_eni_info
+          when: debug_teardown
+
+        - name: Delete dangling ENIs from subnet1 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+          ec2_eni:
+            region: "{{ ec2_region }}"
+            eni_id: "{{item['id']}}"
+            state: absent
+          loop: "{{subnet1_eni_info['network_interfaces']}}"
+      when: workshop_type == 'security'
+
+    - name: Cleanup subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+      block:
+        - name: Get subnet2 eni_info
+          ec2_eni_facts:
+            region: "{{ ec2_region }}"
+            filters:
+              "tag:Subnet": '{{ ec2_name_prefix }}-subnet2'
+          register: subnet2_eni_info
+
+        - name: debug subnet2_eni_info
+          debug:
+            var: subnet2_eni_info
+          when: debug_teardown
+
+        - name: Delete dangling ENIs from subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+          ec2_eni:
+            region: "{{ ec2_region }}"
+            eni_id: "{{item['id']}}"
+            state: absent
+          loop: "{{subnet2_eni_info['network_interfaces']}}"
+
+        - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+          ec2_vpc_subnet:
+            region: "{{ ec2_region }}"
+            az: "{{ec2_az}}"
+            vpc_id: "{{ec2_vpc_id}}"
+            cidr: "{{ec2_subnet2}}"
+            state: absent
+      when: workshop_type == 'security'
+
+    - name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }}
+      ec2_group:
+        name: "{{ec2_security_group}}"
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ec2_vpc_id}}"
+        state: absent
+      register: delete_sg
+      until: delete_sg is not failed
+      retries: 50
+
+      ### Additional Windows sgs added in resources_windows.yml
+    - name: Deleted EC2 security groups for VPC vpc-{{ ec2_name_prefix }} (WINDOWS MODE)
+      ec2_group:
+        name: "{{ item }}"
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ec2_vpc_id}}"
+        state: absent
+      loop:
+        - "{{ ec2_name_prefix }}-gitlabsg"
+        - "{{ ec2_name_prefix }}-docssg"
+        - "{{ ec2_name_prefix }}-windcsg"
+        - "{{ ec2_name_prefix }}-windowssg"
+      register: delete_sg
+      until: delete_sg is not failed
+      retries: 50
+      when: (vpc_net_facts.vpcs|length > 0) or (workshop_type == 'windows')
+
+    - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
+      ec2_group:
+        name: "{{ec2_security_group2}}"
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ec2_vpc_id2}}"
+        state: absent
+      register: delete_sgnetworking
+      until: delete_sgnetworking is not failed
+      retries: 50
+      when:
+        - workshop_type == 'networking'
+        - vpc_net_facts2.vpcs|length > 0
+
+    - name: Delete subnet for {{ ec2_name_prefix }}-vpc
       ec2_vpc_subnet:
         region: "{{ ec2_region }}"
         az: "{{ec2_az}}"
         vpc_id: "{{ec2_vpc_id}}"
+        cidr: "{{ec2_subnet}}"
+        state: absent
+
+    - name: Delete subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
+      ec2_vpc_subnet:
+        region: "{{ ec2_region }}"
+        az: "{{ec2_az}}"
+        vpc_id: "{{ec2_vpc_id2}}"
         cidr: "{{ec2_subnet2}}"
         state: absent
-  when:
-    - workshop_type == 'security'
-    - vpc_net_facts.vpcs|length > 0
+      when:
+        - workshop_type == 'networking'
+        - vpc_net_facts2.vpcs|length > 0
 
-- name: Delete subnet for {{ ec2_name_prefix }}-vpc
-  ec2_vpc_subnet:
-    region: "{{ ec2_region }}"
-    az: "{{ec2_az}}"
-    vpc_id: "{{ec2_vpc_id}}"
-    cidr: "{{ec2_subnet}}"
-    state: absent
-  when: vpc_net_facts.vpcs|length > 0
+    - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
+      ec2_vpc_igw:
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ec2_vpc_id}}"
+        state: absent
 
-- name: Delete subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
-  ec2_vpc_subnet:
-    region: "{{ ec2_region }}"
-    az: "{{ec2_az}}"
-    vpc_id: "{{ec2_vpc_id2}}"
-    cidr: "{{ec2_subnet2}}"
-    state: absent
-  when:
-    - workshop_type == 'networking'
-    - vpc_net_facts2.vpcs|length > 0
+    - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
+      ec2_vpc_igw:
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ec2_vpc_id2}}"
+        state: absent
+      when:
+        - workshop_type == 'networking'
+        - vpc_net_facts2.vpcs|length > 0
 
-- name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
-  ec2_vpc_igw:
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id}}"
-    state: absent
-  when: vpc_net_facts.vpcs|length > 0
+    - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
+      ec2_vpc_route_table_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          vpc_id: "{{ec2_vpc_id}}"
+      register: route_table_facts
 
-- name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
-  ec2_vpc_igw:
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id2}}"
-    state: absent
-  when:
-    - workshop_type == 'networking'
-    - vpc_net_facts2.vpcs|length > 0
+    - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORKING MODE)
+      ec2_vpc_route_table_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          vpc_id: "{{ec2_vpc_id2}}"
+      register: route_table_facts2
+      when:
+        - workshop_type == 'networking'
+        - vpc_net_facts2.vpcs|length > 0
 
-- name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
-  ec2_vpc_route_table_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      vpc_id: "{{ec2_vpc_id}}"
-  register: route_table_facts
-  when: vpc_net_facts.vpcs|length > 0
+    - name: vpc public subnet route table is deleted
+      ec2_vpc_route_table:
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ec2_vpc_id}}"
+        route_table_id: "{{item.id}}"
+        lookup: id
+        state: absent
+      with_items: "{{route_table_facts.route_tables}}"
+      when: item.associations == []
 
-- name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORKING MODE)
-  ec2_vpc_route_table_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      vpc_id: "{{ec2_vpc_id2}}"
-  register: route_table_facts2
-  when:
-    - workshop_type == 'networking'
-    - vpc_net_facts2.vpcs|length > 0
+    - name: vpc public subnet route table is deleted (VPC2) (NETWORKING MODE)
+      ec2_vpc_route_table:
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ec2_vpc_id2}}"
+        route_table_id: "{{item.id}}"
+        lookup: id
+        state: absent
+      with_items: "{{route_table_facts2.route_tables}}"
+      when:
+        - workshop_type == 'networking'
+        - vpc_net_facts2.vpcs|length > 0
+        - item.associations == []
 
-- name: vpc public subnet route table is deleted
-  ec2_vpc_route_table:
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id}}"
-    route_table_id: "{{item.id}}"
-    lookup: id
-    state: absent
-  with_items: "{{route_table_facts.route_tables}}"
-  when: vpc_net_facts.vpcs|length > 0 and item.associations == []
+    - name: set keys for instance creation dynamically since key was not supplied by user
+      set_fact:
+        ec2_key_name: "{{ ec2_name_prefix }}-key"
 
-- name: vpc public subnet route table is deleted (VPC2) (NETWORKING MODE)
-  ec2_vpc_route_table:
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ec2_vpc_id2}}"
-    route_table_id: "{{item.id}}"
-    lookup: id
-    state: absent
-  with_items: "{{route_table_facts2.route_tables}}"
-  when:
-    - workshop_type == 'networking'
-    - vpc_net_facts2.vpcs|length > 0
-    - item.associations == []
+    - name: delete ssh key pair for workshop {{ ec2_name_prefix }}
+      ec2_key:
+        name: "{{ec2_key_name}}"
+        region: "{{ ec2_region }}"
+        state: absent
 
-- name: set keys for instance creation dynamically since key was not supplied by user
-  set_fact:
-    ec2_key_name: "{{ ec2_name_prefix }}-key"
+    - name: delete AWS VPC {{ ec2_name_prefix }}
+      ec2_vpc_net:
+        name: "{{ ec2_name_prefix }}-vpc"
+        cidr_block: "{{ ec2_subnet }}"
+        region: "{{ ec2_region }}"
+        state: absent
 
-- name: delete ssh key pair for workshop {{ ec2_name_prefix }}
-  ec2_key:
-    name: "{{ec2_key_name}}"
-    region: "{{ ec2_region }}"
-    state: absent
+    - name: delete AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
+      ec2_vpc_net:
+        name: "{{ ec2_name_prefix }}-vpc2"
+        cidr_block: "{{ ec2_subnet2 }}"
+        region: "{{ ec2_region }}"
+        state: absent
+      when: workshop_type == 'networking'
 
-- name: delete AWS VPC {{ ec2_name_prefix }}
-  ec2_vpc_net:
-    name: "{{ ec2_name_prefix }}-vpc"
-    cidr_block: "{{ ec2_subnet }}"
-    region: "{{ ec2_region }}"
-    state: absent
 
-- name: delete AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
-  ec2_vpc_net:
-    name: "{{ ec2_name_prefix }}-vpc2"
-    cidr_block: "{{ ec2_subnet2 }}"
-    region: "{{ ec2_region }}"
-    state: absent
-  when: workshop_type == 'networking'
+# This is unfortunately something we have to do by tag data because even though
+# the EIP claims to be associated with a VPC, you can't actually query them by
+# VPC ID
+- name: Handle EIP cleanup (SECURITY MODE)
+  when: workshop_type == 'security'
+  block:
+    - name: Get EIP informaion
+      ec2_eip_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:Workshop": "{{ ec2_name_prefix }}"
+      register: ec2_eip_by_workshop_tag
+
+    - name: debug ec2_eip_by_workshop_tag
+      debug:
+        var: ec2_eip_by_workshop_tag
+      when: debug_teardown
+
+    - name: Release EIPs
+      ec2_eip:
+        region: "{{ ec2_region }}"
+        public_ip: "{{ item['public_ip'] }}"
+        state: absent
+      loop: "{{ ec2_eip_by_workshop_tag['addresses'] }}"
+

@@ -117,7 +117,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 # Output parsing
 
-Let's use the bigip_device_facts to collect the pool members on BIG-IP. [JSON query](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter) is a powerful filter that can be used. Please go through before proceeding
+Let's use the bigip_device_info to collect the pool members on BIG-IP. [JSON query](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter) is a powerful filter that can be used. Please go through before proceeding
 
 {% raw %}
 ```
@@ -135,7 +135,7 @@ Enter the following:
   tasks:
 
   - name: Query BIG-IP facts
-    bigip_device_facts:
+    bigip_device_info:
       server: "{{private_ip}}"
       user: "{{ansible_user}}"
       password: "{{ansible_ssh_pass}}"

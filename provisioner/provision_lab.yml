@@ -171,6 +171,7 @@
     - common
   tags: control_node
 
+
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
   gather_facts: yes
@@ -178,6 +179,9 @@
   roles:
     - control_node
   tags: control_node
+
+
+
 
 - name: add dns entires for all student control nodes
   hosts: control_nodes
@@ -189,6 +193,7 @@
         - dns_type is defined
         - dns_type == "aws"
   tags: control_node
+
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

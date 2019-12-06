@@ -100,6 +100,10 @@
   include_tasks: "rhel.yml"
   when: workshop_type == 'rhel'
 
+- name: Devops mode - setup control node
+  include_tasks: "devops.yml"
+  when: workshop_type == 'devops'
+
 - name: Windows mode - setup control node
   include_tasks: "windows.yml"
   when: workshop_type == 'windows'

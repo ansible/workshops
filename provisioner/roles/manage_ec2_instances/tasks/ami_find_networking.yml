@@ -20,14 +20,14 @@
 #### ARISTA AMI
 - name: BLOCK FOR ARISTA AMI
   block:
-  - name: find ami for arista (NETWORKING MODE)
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "679593333241"
-      filters:
-        name: "{{ec2_info.arista.filter}}"
-        architecture: "x86_64"
-    register: arista_amis
+    - name: find ami for arista (NETWORKING MODE)
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        owners: "679593333241"
+        filters:
+          name: "{{ec2_info.arista.filter}}"
+          architecture: "x86_64"
+      register: arista_amis
 
     - name: save ami for arista eos (NETWORKING MODE)
       set_fact:

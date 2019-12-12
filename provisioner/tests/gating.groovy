@@ -16,12 +16,6 @@ Build Tag: ${env.BUILD_TAG}"""
             }
         }
 
-        stage('Run linters') {
-            steps {
-                sh 'tox -e linters'
-            }
-        }
-
         stage('Prep Environment') {
             steps {
                 withCredentials([file(credentialsId: 'workshops_tower_license', variable: 'TOWER_LICENSE')]) {

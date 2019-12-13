@@ -14,7 +14,7 @@
         validate_certs: "no"
 
   - name: Query BIG-IP facts
-    bigip_device_facts:
+    bigip_device_info:
       provider: "{{provider}}"
       gather_subset:
         - ltm-pools

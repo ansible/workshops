@@ -25,7 +25,7 @@
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:
-          name: "*EOS*"
+          name: "{{ec2_info.arista.filter}}"
           architecture: "x86_64"
       register: arista_amis
 

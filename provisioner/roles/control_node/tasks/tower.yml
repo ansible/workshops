@@ -79,3 +79,15 @@
       - paramiko
       - ncclient
     virtualenv: /opt/my-envs/ansible_dev
+
+- name: add student user
+  tower_user:
+    username: "{{ username }}"
+    password: "{{ admin_password }}"
+    email: fake@fake.com
+    state: present
+    superuser: true
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false

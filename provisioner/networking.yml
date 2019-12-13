@@ -60,46 +60,16 @@
       when:
         - ansible_network_os == "ios" or ansible_network_os == "eos"
 
-- name: POPULATE TOWER STEP ONE
-  hosts: control_nodes
-  gather_facts: false
-
-  tasks:
-    # INITAL SETUP
-    - name: RUN POPULATE TOWER STEP ONE
-      include_role:
-        name: populate_tower
-        tasks_from: populate_tower_step_one
-      when:
-        - towerinstall is defined
-        - towerinstall|bool
-
-
-- name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
+- name: populate ansible tower for network automation workshop
   hosts: control_nodes
   become: true
   gather_facts: false
 
   tasks:
-    # CREDENTIAL AND INVENTORY
-    - name: RUN POPULATE TOWER STEP TWO
+    - name: run populate_tower role
       include_role:
         name: populate_tower
-        tasks_from: populate_tower_step_two
-      when:
-        - towerinstall is defined
-        - towerinstall|bool
-
-- name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
-  hosts: control_nodes
-  gather_facts: false
-
-  tasks:
-    # PERMISSIONS
-    - name: RUN POPULATE TOWER STEP THREE
-      include_role:
-        name: populate_tower
-        tasks_from: populate_tower_step_three
+        tasks_from: "{{workshop_type}}"
       when:
         - towerinstall is defined
         - towerinstall|bool

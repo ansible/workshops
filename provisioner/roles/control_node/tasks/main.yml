@@ -19,7 +19,9 @@
       - ansible
       - gcc
     state: present
-  retries: 10
+  register: yum_check
+  until: yum_check is not failed
+  retries: 4
   delay: 5
 
 - name: Install ansible.cfg and vimrc in home directory

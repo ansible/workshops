@@ -5,7 +5,7 @@ ansible_ssh_pass={{ admin_password }}
 ansible_port={{ ssh_port }}
 {% endif %}
 
-[dev]
+[sitea]
 {% for vm in node1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.tags.Devops_tag }} ansible_host={{ vm.private_ip_address }}
@@ -16,7 +16,7 @@ ansible_port={{ ssh_port }}
 {{vm.tags.Devops_tag }} ansible_host={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
-[prod]
+[siteb]
 {% for vm in node3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{vm.tags.Devops_tag }} ansible_host={{ vm.private_ip_address }}

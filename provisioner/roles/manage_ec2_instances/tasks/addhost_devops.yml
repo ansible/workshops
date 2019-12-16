@@ -65,20 +65,11 @@
     - "{{ node4_node_facts.instances }}"
   changed_when: false
 
-
-# - debug:
-#     msg: "{{ item }}"
-#   with_items:
-#     - "{{ node1_node_facts.instances[0] }}"
-
-
-
 - name: Generate student inventories
   template:
     src: devops_instances.txt.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
   with_sequence: count="{{ student_total }}"
-
     
 - name: Generate instructor inventory
   template:

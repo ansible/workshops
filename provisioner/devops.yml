@@ -1,18 +1,4 @@
 ---
-
-- name: SET INSECURE REGISTRY ON CONTROL NODE
-  hosts: control_nodes
-  become: true
-  gather_facts: false
-  tasks:
-    - name: ALLOW THE INSECURE REGISTRY
-      lineinfile:
-        path: /etc/sysconfig/docker
-        state: present
-        insertafter: EOF
-        line: 'INSECURE_REGISTRY="--insecure-registry {{ ansible_host }}:5000"'
-
-
 - name: CONFIGURE WORKSHOP WEBSERVERS FOR DEVOPS
   hosts: lab_hosts
   become: true

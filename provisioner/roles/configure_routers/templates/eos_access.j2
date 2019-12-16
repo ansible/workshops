@@ -3,21 +3,20 @@
 hostname {{short_name}}
 !
 router ospf 1
- network 10.{{ site }}.{{ site }}.0 0.0.0.255 area 0
- network {{ (device[short_name].ospf_tunnel_source ~ '/24') | ipaddr('network') }} 0.0.0.255 area 0
- network {{ (private_ip ~ '/16') | ipaddr('network') }} 0.0.255.255 area 0
- network 192.168.{{ site }}.0 0.0.0.255 area 0
+ router-id 192.168.{{site}}.{{site}}
+ redistribute connected
 !
 interface Loopback0
- ip address 192.168.{{ site }}.10{{ site }} 255.255.255.0
-!
-interface Loopback1
- ip address 10.{{ site }}.{{ site }}.10{{ site }} 255.255.255.0
+ ip address 192.168.{{ site }}.{{ site }}/32
 !
 interface Tunnel0
+ ip mtu 1394
  ip address {{ device[short_name].ospf_tunnel_source }} 255.255.255.0
- ip mtu 1476
- tcp mss ceiling ipv4 1360
+ ip ospf network point-to-point
+ ip ospf area 0.0.0.0
+ tunnel mode gre
  tunnel source interface Ethernet1
  tunnel destination {{ device[short_name].ospf_tunnel_destination }}
+ tunnel path-mtu-discovery
+ tunnel ttl 10
 !

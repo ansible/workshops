@@ -4,6 +4,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
+      "tag:Workshop": "{{ec2_name_prefix}}"
       "tag:Devops_tag": "dev_web1"
   register: node1_node_facts
 
@@ -12,6 +13,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
+      "tag:Workshop": "{{ec2_name_prefix}}"
       "tag:Devops_tag": "dev_web2"
   register: node2_node_facts
 
@@ -20,6 +22,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
+      "tag:Workshop": "{{ec2_name_prefix}}"
       "tag:Devops_tag": "prod_web1"
   register: node3_node_facts
 
@@ -28,6 +31,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
+      "tag:Workshop": "{{ec2_name_prefix}}"
       "tag:Devops_tag": "prod_web2"
   register: node4_node_facts
 
@@ -61,12 +65,21 @@
     - "{{ node4_node_facts.instances }}"
   changed_when: false
 
+
+# - debug:
+#     msg: "{{ item }}"
+#   with_items:
+#     - "{{ node1_node_facts.instances[0] }}"
+
+
+
 - name: Generate student inventories
   template:
     src: devops_instances.txt.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
   with_sequence: count="{{ student_total }}"
 
+    
 - name: Generate instructor inventory
   template:
     src: instructor_inventory_devops.j2

@@ -11,7 +11,7 @@ interface Loopback0
 !
 interface Tunnel0
  ip mtu 1394
- ip address {{ device[short_name].ospf_tunnel_source }} 255.255.255.0
+ ip address {{ device[short_name].ospf_tunnel_ip }} 255.255.255.0
  ip ospf network point-to-point
  ip ospf area 0.0.0.0
  tunnel mode gre
@@ -21,7 +21,7 @@ interface Tunnel0
  tunnel ttl 10
 !
 interface Tunnel1
- ip address {{ device[short_name].bgp_tunnel_source }} 255.255.255.0
+ ip address {{ device[short_name].bgp_tunnel_ip }} 255.255.255.0
  tunnel source interface Ethernet1
  tunnel destination {{ device[short_name].bgp_tunnel_destination }}
 !
@@ -30,12 +30,13 @@ interface Tunnel1
 router bgp {{ device[short_name].local_as }}
  router-id 192.168.{{ site }}.{{ site }}
  bgp log-neighbor-changes
- neighbor {{ device[neighbor].bgp_tunnel_source }} remote-as {{ device[neighbor].local_as }}
- neighbor {{ device[neighbor].bgp_tunnel_source }} ebgp-multihop 255
+ neighbor {{ device[neighbor].bgp_tunnel_ip }} remote-as {{ device[neighbor].local_as }}
+ neighbor {{ device[neighbor].bgp_tunnel_ip }} ebgp-multihop 255
+ redistribute ospf match external
 !
  address-family ipv4
-  neighbor {{ device[neighbor].bgp_tunnel_source }} activate
+  neighbor {{ device[neighbor].bgp_tunnel_ip }} activate
   network 192.168.{{site}}.{{site}} mask 255.255.255.255
-  network {{ (device[short_name].ospf_tunnel_source ~ '/24') | ipaddr('network') }} mask 255.255.255.0
+  network {{ (device[short_name].ospf_tunnel_ip ~ '/24') | ipaddr('network') }} mask 255.255.255.0
   network 10.200.200.0 mask 255.255.255.0
   network {{ (private_ip ~ '/16') | ipaddr('network') }}/16

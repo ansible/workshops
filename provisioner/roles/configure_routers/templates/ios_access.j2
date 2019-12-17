@@ -11,7 +11,7 @@ interface Loopback0
 
 interface Tunnel0
  ip mtu 1476
- ip address {{ device[short_name].ospf_tunnel_source }} 255.255.255.0
+ ip address {{ device[short_name].ospf_tunnel_ip }} 255.255.255.0
  ip ospf network point-to-point
  ip ospf area 0.0.0.0
  ip tcp adjust-mss 1360

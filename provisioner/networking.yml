@@ -36,8 +36,6 @@
     - role: configure_routers
       vars:
         type: access
-      when:
-        - ansible_network_os == "ios" or ansible_network_os == "eos"
 
 - name: configure core routers
   hosts: core

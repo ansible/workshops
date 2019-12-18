@@ -67,6 +67,7 @@
       username: "{{ec2_info[control_type].username}}"
       short_name: "ansible"
       launch_time: "{{item.1.launch_time}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ control_output.instances }}"
   when: control_output.instance_ids is not none

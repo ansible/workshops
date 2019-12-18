@@ -136,6 +136,7 @@
           Workshop_windows: "{{ec2_name_prefix}}-windows"
         wait: "{{ ec2_wait }}"
         vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+        guid: {{ ec2_name_prefix }}"
       async: "{{ async_timeout_seconds }}"
       poll: 0
       register: windows_ws_async
@@ -194,6 +195,7 @@
           short_name: "splunk"
           username: '{{ec2_info["rhel7"]["username"]}}'
           launch_time: "{{item.1.launch_time}}"
+          guid: {{ ec2_name_prefix }}"
       with_indexed_items:
         - "{{ siem_output.instances }}"
       async: "{{ async_timeout_seconds }}"
@@ -220,6 +222,7 @@
           short_name: "qradar"
           username: '{{ec2_info["rhel7"]["username"]}}'
           launch_time: "{{item.1.launch_time}}"
+          guid: {{ ec2_name_prefix }}"
       with_indexed_items:
         - "{{ siem_output.instances }}"
       async: "{{ async_timeout_seconds }}"
@@ -253,6 +256,7 @@
           short_name: "snort"
           username: '{{ec2_info["rhel7"]["username"]}}'
           launch_time: "{{item.1.launch_time}}"
+          guid: {{ ec2_name_prefix }}"
       with_indexed_items:
         - "{{ snort_output.instances }}"
       async: "{{ async_timeout_seconds }}"
@@ -278,6 +282,7 @@
           short_name: "attacker"
           username: '{{ec2_info["rhel7"]["username"]}}'
           launch_time: "{{item.1.launch_time}}"
+          guid: {{ ec2_name_prefix }}"
       with_indexed_items:
         - "{{ attacker_output.instances }}"
       async: "{{ async_timeout_seconds }}"
@@ -304,6 +309,7 @@
           short_name: "checkpoint_mgmt"
           username: "{{ec2_info.checkpoint_mgmt.username}}"
           launch_time: "{{item.1.launch_time}}"
+          guid: {{ ec2_name_prefix }}"
       with_indexed_items:
         - "{{ checkpoint_mgmt_output.instances }}"
       async: "{{ async_timeout_seconds }}"

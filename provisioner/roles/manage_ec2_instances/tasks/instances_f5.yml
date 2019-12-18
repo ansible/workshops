@@ -46,6 +46,7 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       username: "{{ec2_info.f5node.username}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ f5_output.instance_ids }}"
   when: f5_output.instance_ids is not none
@@ -97,6 +98,7 @@
       short_name: host1
       username: "{{ec2_info[rhel].username}}"
       launch_time: "{{item.1.launch_time}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ host1_output.instances }}"
   when: host1_output.instance_ids is not none
@@ -134,6 +136,7 @@
       short_name: host2
       username: "{{ec2_info[rhel].username}}"
       launch_time: "{{item.1.launch_time}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ host2_output.instances }}"
   when: host2_output.instance_ids is not none

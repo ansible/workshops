@@ -51,6 +51,7 @@
       short_name: "node1"
       username: "{{ec2_info[rhel].username}}"
       launch_time: "{{item.1.launch_time}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node1_output.instances }}"
   when: node1_output.instance_ids is not none
@@ -107,6 +108,7 @@
       short_name: "node2"
       username: "{{ec2_info[rhel].username}}"
       launch_time: "{{item.1.launch_time}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node2_output.instances }}"
   when: node2_output.instance_ids is not none
@@ -163,6 +165,7 @@
       short_name: "node3"
       username: "{{ec2_info[rhel].username}}"
       launch_time: "{{item.1.launch_time}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node3_output.instances }}"
   when: node3_output.instance_ids is not none

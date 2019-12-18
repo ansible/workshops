@@ -52,6 +52,7 @@
       Students: "{{student_total}}"
       short_name: "dev_web1"
       username: "{{ec2_info[rhel].username}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node1_output.instance_ids }}"
   when: node1_output.instance_ids is not none
@@ -109,6 +110,7 @@
       Students: "{{student_total}}"
       short_name: "dev_web2"
       username: "{{ec2_info[rhel].username}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node2_output.instance_ids }}"
   when: node2_output.instance_ids is not none
@@ -166,6 +168,7 @@
       Students: "{{student_total}}"
       short_name: "prod_web1"
       username: "{{ec2_info[rhel].username}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node3_output.instance_ids }}"
   when: node3_output.instance_ids is not none
@@ -223,6 +226,7 @@
       Students: "{{student_total}}"
       short_name: "prod_web2"
       username: "{{ec2_info[rhel].username}}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node4_output.instance_ids }}"
   when: node4_output.instance_ids is not none

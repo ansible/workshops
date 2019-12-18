@@ -49,6 +49,18 @@
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
+        msg:
+          - "ec2_name_prefix cannot be set to TESTWORKSHOP"
+          - "please set a unique name for your workshop"
+
+
+    - name: make sure we are not using `ansible` as the password
+      assert:
+        that:
+          - admin_password != "ansible"
+        msg:
+          - "admin_password cannot be set to ansible"
+          - "please set a unique password for your workshop"
 
     - name: make sure packages required are installed on this control node
       pip:

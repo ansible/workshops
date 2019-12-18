@@ -264,6 +264,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh '''ansible-playbook provisioner/provision_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-security.yml 2>&1 | tee security.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }

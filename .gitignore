@@ -29,3 +29,5 @@ Gemfile.lock
 Gemfile
 _site/*
 .tox/
+.pre-commit-config.yaml
+

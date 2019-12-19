@@ -53,7 +53,11 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 
 4. Add a second credential to the Job Template.
 
-    The **Tower Credential** also must be added to this particular Job Template.  This is so Ansible Tower can update the pool of backups the **Network-Restore** Job Template will use. Ansible Tower can be programmatically updated with Job Templates to add or update configurations dynamically.
+    The **Tower Credential** also must be added to this particular Job Template.  This is so Ansible Tower can update the pool of backups the **Network-Restore** Job Template will use. Ansible Tower can be programmatically updated with Job Templates to add or update configurations dynamically.  Select the 2nd credential by using the drop down box to select the **Ansible Tower** credential type:
+
+    ![switch credential type](images/ansible_tower_cred.png)
+
+    When you have both credential successfully added to the Job Template it will look like the following picture:
 
     ![tower credential](images/tower_credential.png)
 
@@ -62,7 +66,7 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 Here is a walkthrough:
 
 ![animation walkthrough ansible tower](images/job_template.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/EQVkFaQYRiE)
+Prefer Youtube?  [Click Here](https://youtu.be/Vd4jyx7xGuU)
 
 
 ## Step 2: Launch the Job Template

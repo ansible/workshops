@@ -117,7 +117,7 @@ For more in depth details on RBAC terminology please refer to the [documentation
    | Parameter | Value |
    |---|---|
    | username  | network-admin  |
-   |  password|  ansible |
+   |  password|  provided by instructor |
 
 3. Confirm that you are logged in as the **network-admin** user.
 
@@ -175,7 +175,7 @@ Finally, to see the RBAC in action!
    | Parameter | Value |
    |---|---|
    | username  | `network-operator`  |
-   |  password|  ansible |
+   |  password|  provided by instructor |
 
 2. Navigate to **Templates** and click on the **Network-Commands** Job Template.
 

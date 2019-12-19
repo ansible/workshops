@@ -61,7 +61,7 @@ ec2_info:
     username: admin
   windows_ws:
     owners: 679593333241
-    filter: 'Windows_Server-2016-English-Full-Base-2019.08.16'
+    filter: 'Windows_Server-2016-English-Full-Base*'
     size: m5.xlarge
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator

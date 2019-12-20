@@ -301,7 +301,7 @@
     state: "present"
     limit: "cisco"
     survey_enabled: true
-    survey_spec: "{{ lookup('template', './templates/survey_spec.json') }}"
+    survey_spec: "{{ lookup('template', 'survey_spec.json') }}"
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"
@@ -394,8 +394,6 @@
     validate_certs: false
   loop:
     - "Network-Commands"
-# Commenting out backup as students will now specify this#
-#        - "Network-Backup"
 
 - name: ENSURE THAT NW ORG CAN USE THE WS INV
   tower_role:

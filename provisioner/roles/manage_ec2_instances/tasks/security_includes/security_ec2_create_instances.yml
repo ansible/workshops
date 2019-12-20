@@ -1,0 +1,167 @@
+---
+- name: Create EC2 instances for qradar
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['qradar']['size'] }}"
+    image: "{{ qradar_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_qradar: "{{ec2_name_prefix}}-qradar"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info['qradar']['disk_space'] }}"
+        delete_on_termination: true
+  when: security_console == 'qradar'
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: qradar_async
+
+- name: Create EC2 instances for splunk
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['splunk_enterprise']['size'] }}"
+    image: "{{ splunk_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_splunk: "{{ec2_name_prefix}}-splunk"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info['splunk_enterprise']['disk_space'] }}"
+        delete_on_termination: true
+  when: security_console == 'splunk'
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: splunk_async
+
+- set_fact:
+    siem_async: "{{splunk_async}}"
+  when: security_console == 'splunk'
+- set_fact:
+    siem_async: "{{qradar_async}}"
+  when: security_console == 'qradar'
+
+- name: Create EC2 instances for snort
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['rhel7']['size'] }}"
+    image: "{{ snort_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_snort: "{{ec2_name_prefix}}-snort"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info['rhel7']['disk_space'] }}"
+        delete_on_termination: true
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: snort_async
+
+- name: Create EC2 instances for attack simulation node
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['rhel7']['size'] }}"
+    image: "{{ attacker_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_attacker: "{{ec2_name_prefix}}-attacker"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info['rhel7']['disk_space'] }}"
+        delete_on_termination: true
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: attacker_async
+
+- name: Create EC2 instances for Check Point CloudGuard Security Management
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ec2_info.checkpoint_mgmt.size }}"
+    image: "{{ec2_info.checkpoint_mgmt.ami.image_id}}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    user_data: "{{ lookup('template', 'gaia-mgmt-ftw-user-data.sh.j2') }}"
+    count_tag:
+      Workshop_checkpoint_mgmt: "{{ec2_name_prefix}}-checkpoint"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: checkpoint_mgmt_async
+
+- name: Create EC2 instances for Windows Workstation (SECURITY MODE)
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ec2_info.windows_ws.size }}"
+    image: "{{ec2_info.windows_ws.ami.image_id}}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    user_data: "{{ lookup('template', 'windows_userdata.txt.j2') }}"
+    count_tag:
+      Workshop_windows: "{{ec2_name_prefix}}-windows"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: windows_ws_async
+
+
+###########################################################################
+### THIS IS A BIT OF A HACK AND REQUIRES BOOK KEEPING BUT IT'S FAST
+#
+#   The order in which the _async vars are listed here is the order in
+#   which they will be registered in the
+#   wait_for_ec2_instance_creation['results'] variable and that is important
+#   for the following set_fact that makes that information usable later on
+- name: Wait for async instance creation to complete
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_ec2_instance_creation
+  when: "'ansible_job_id' in item"
+  until: wait_for_ec2_instance_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop:
+    - "{{siem_async}}"
+    - "{{snort_async}}"
+    - "{{attacker_async}}"
+    - "{{checkpoint_mgmt_async}}"
+    - "{{windows_ws_async}}"
+
+# BOOK KEEPING FOR ABOVE async_status
+#   NOTE: Order matters here and must match the above task
+- set_fact:
+    siem_output: "{{wait_for_ec2_instance_creation['results'][0]}}"
+    snort_output: "{{wait_for_ec2_instance_creation['results'][1]}}"
+    attacker_output: "{{wait_for_ec2_instance_creation['results'][2]}}"
+    checkpoint_mgmt_output: "{{wait_for_ec2_instance_creation['results'][3]}}"
+    windows_ws_output: "{{wait_for_ec2_instance_creation['results'][4]}}"
+
+    ###
+    ###########################################################################

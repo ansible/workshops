@@ -1,7 +1,8 @@
+---
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
   connection: local
-  gather_facts: yes
+  gather_facts: true
   tasks:
     - name: ADD LINKLIGHT INTO TOWER
       tower_project:
@@ -37,9 +38,9 @@
         state: present
         tower_config_file: "~/tower_cli.cfg"
         kind: aws
-        #access key for aws
+        # access key for aws
         username: "{{ lookup('ini', 'aws_access_key_id section=default file=~/.aws/credentials') }}"
-        #secret key for aws
+        # secret key for aws
         password: "{{ lookup('ini', 'aws_secret_access_key section=default file=~/.aws/credentials') }}"
       register: credential
 

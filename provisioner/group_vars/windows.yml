@@ -9,8 +9,6 @@ instance_loc: ec2
 # Map skylight vars to workshop_type:windows vars
 name_prefix: "TESTWORKSHOP"
 
-
-
 # Needed for AD and windows client provision
 dns_domain_name: "ansibleworkshop.com"
 # Could do regex search on dns_domain_name (.+?)(?=\.)
@@ -78,7 +76,7 @@ gitlab_ldap_base: "{{ ldap_basedn }}"
 # General Config
 gitlab_time_zone: "UTC"
 gitlab_backup_keep_time: "604800"
-gitlab_download_validate_certs: yes
+gitlab_download_validate_certs: true
 # install latest version of gitlab when using ansible 2.8
 # enable gitlab_version below when using ansible < 2.8
 # gitlab_version: "10.0.6-ce.0.el7"
@@ -94,7 +92,7 @@ gitlab_smtp_enable: "false"
 ec2_region: "us-east-1"
 
 # If this is defined, create a dns entries in the route53 zone
-#public_dns_zone: "labs.ansibleworkshop.com"
+# public_dns_zone: "labs.ansibleworkshop.com"
 
 # Internal lookup dict for image names and types
 # ec2_image_names:
@@ -123,11 +121,11 @@ ec2_region: "us-east-1"
 
 # letsencrypt config
 certbot_admin_email: register@{{ public_dns_zone | default ('') }}
-certbot_create_if_missing: yes
+certbot_create_if_missing: true
 certbot_create_standalone_stop_services: []
 certbot_certs:
   - domains:
-    - "{{ name_prefix }}.{{ public_dns_zone | default ('') }}"
+      - "{{ name_prefix }}.{{ public_dns_zone | default ('') }}"
 
 ##########################################################
 ###################### VMWARE INFO #######################
@@ -205,4 +203,3 @@ azure_win_publisher: "MicrosoftWindowsServer"
 azure_win_offer: "WindowsServer"
 azure_win_sku: "2016-Datacenter"
 azure_win_version: "latest"
-

@@ -1,3 +1,4 @@
+---
 ## This is needed for sshpass
 - name: Install EPEL
   yum:
@@ -18,7 +19,9 @@
       - ansible
       - gcc
     state: present
-  retries: 10
+  register: yum_check
+  until: yum_check is not failed
+  retries: 4
   delay: 5
 
 - name: Install ansible.cfg and vimrc in home directory
@@ -53,7 +56,7 @@
   unarchive:
     src: "{{download_url}}"
     dest: "/home/{{username}}"
-    remote_src: yes
+    remote_src: true
   register: output
 
 - name: Install ansible vscode extension
@@ -64,7 +67,7 @@
   copy:
     src: /home/{{username}}/{{ version_name }}/code-server
     dest: /opt/code-server
-    remote_src: yes
+    remote_src: true
     mode: '0744'
     owner: "{{username}}"
     group: "{{username}}"
@@ -81,7 +84,7 @@
   service:
     name: code-server
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Cleanup Coder binary from student directory
   file:
@@ -100,6 +103,10 @@
   include_tasks: "rhel.yml"
   when: workshop_type == 'rhel'
 
+- name: Devops mode - setup control node
+  include_tasks: "devops.yml"
+  when: workshop_type == 'devops'
+
 - name: Windows mode - setup control node
   include_tasks: "windows.yml"
   when: workshop_type == 'windows'
@@ -110,10 +117,10 @@
     method: GET
     user: admin
     password: "{{admin_password}}"
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
   register: check_tower
-  ignore_errors: yes
+  ignore_errors: true
   when:
     - towerinstall is defined
     - towerinstall|bool
@@ -133,7 +140,7 @@
     state: present
   delegate_to: localhost
   run_once: true
-  become: no
+  become: false
   when:
     - autolicense is defined
     - autolicense|bool
@@ -146,8 +153,8 @@
     password: "{{admin_password}}"
     body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
   when:
     - autolicense is defined
     - autolicense|bool

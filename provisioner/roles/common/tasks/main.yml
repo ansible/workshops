@@ -1,3 +1,4 @@
+---
 - name: Configure sshd and sudoers
   lineinfile:
     dest: "{{ item.dest }}"
@@ -5,7 +6,7 @@
     line: "{{ item.line }}"
     state: "{{ item.state | default('present') }}"
     validate: "{{ item.validate | default(omit) }}"
-    backup: no
+    backup: false
   with_items: "{{ common_node_config_options }}"
   notify: restart ssh
   tags:

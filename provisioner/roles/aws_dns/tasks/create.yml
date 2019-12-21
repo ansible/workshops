@@ -1,26 +1,27 @@
+---
 - name: perform DNS and SSL certs for ansible control node
   block:
     - name: dns for student webpage
-      become: False
+      become: false
       route53:
         state: "{{ s3_state }}"
         zone: "{{workshop_dns_zone}}"
         record: "{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: A
-        overwrite: yes
+        overwrite: true
         value: "{{ansible_host}}"
       delegate_to: localhost
       register: route53_status
 
   rescue:
     - debug:
-       msg: 'DNS entries for control nodes have hit an issue in the aws_dns role, we will fail gracefully'
+        msg: 'DNS entries for control nodes have hit an issue in the aws_dns role, we will fail gracefully'
 
     - name: appends
       set_fact:
         dns_information: |
           - route53 module hit an error, DNS is not working, please use IP addresses
-      run_once: yes
+      run_once: true
       delegate_to: localhost
       delegate_facts: true
 

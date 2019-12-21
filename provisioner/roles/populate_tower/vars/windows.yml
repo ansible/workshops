@@ -1,3 +1,4 @@
+---
 # Tower LDAP Integration
 dns_domain_name: "ansibleworkshop.com"
 domain_admin_password: "MyP@ssw0rd21"

@@ -1,4 +1,4 @@
-# Exercise 1.1: Using the bigip_device_facts module
+# Exercise 1.1: Using the bigip_device_info module
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
@@ -12,7 +12,7 @@
 
 # Objective
 
-Demonstrate use of the [BIG-IP Facts module](https://docs.ansible.com/ansible/latest/modules/bigip_device_facts_module.html) to grab facts (useful information) from a F5 BIG-IP device and display them to the terminal window using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).  
+Demonstrate use of the [BIG-IP Facts module](https://docs.ansible.com/ansible/latest/modules/bigip_device_info_module.html) to grab facts (useful information) from a F5 BIG-IP device and display them to the terminal window using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).  
 
 # Guide
 
@@ -55,14 +55,14 @@ Do not close editor yet.
 
 ## Step 3
 
-Next, add the first `task`. This task will use the `bigip_device_facts` module to grab useful information from the BIG-IP device.
+Next, add the first `task`. This task will use the `bigip_device_info` module to grab useful information from the BIG-IP device.
 
 {% raw %}
 ``` yaml
   tasks:
 
     - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
+      bigip_device_info:
         gather_subset:
          - system-info
         provider:
@@ -78,14 +78,14 @@ Next, add the first `task`. This task will use the `bigip_device_facts` module t
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
 - `name: COLLECT BIG-IP FACTS` is a user defined description that will display in the terminal output.
-- `bigip_device_facts:` tells the task which module to use.  Everything except `register` is a module parameter defined on the module documentation page.
+- `bigip_device_info:` tells the task which module to use.  Everything except `register` is a module parameter defined on the module documentation page.
 - The `gather_subset: system_info` parameter tells the module only to grab system level information.
 - The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with. 8443 is what's being used in this lab, but could be different depending on the deployment.
-- `register: device_facts` tells the task to save the output to a variable bigip_device_facts
+- `register: device_facts` tells the task to save the output to a variable bigip_device_info
 
 ## Step 4
 
@@ -101,7 +101,7 @@ Next, append the second `task` to above . This task will use the `debug` module 
 
 - The `name: COMPLETE BIG-IP SYSTEM INFORMATION` is a user defined description that will display in the terminal output.
 - `debug:` tells the task to use the debug module.
-- The `var: device_facts` parameter tells the module to display the variable bigip_device_facts.
+- The `var: device_facts` parameter tells the module to display the variable bigip_device_info.
 
 
 Save the file and exit out of editor.
@@ -212,7 +212,7 @@ Finally let's append two more tasks to get more specific info from facts gathere
 - `var: device_facts['system_info']['base_mac_address']` displays the MAC address for  the Management IP on the BIG-IP device
 - `device_facts['system_info']['product_version']` displays the product version BIG-IP device
 
->Because the bigip_device_facts module returns useful information in structured data, it is really easy to grab specific information without using regex or filters.  Fact modules are very powerful tools to grab specific device information that can be used in subsequent tasks, or even used to create dynamic documentation (reports, csv files, markdown).
+>Because the bigip_device_info module returns useful information in structured data, it is really easy to grab specific information without using regex or filters.  Fact modules are very powerful tools to grab specific device information that can be used in subsequent tasks, or even used to create dynamic documentation (reports, csv files, markdown).
 
 
 ## Step 7
@@ -238,7 +238,7 @@ changed: [f5]
 
 TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] ***********************************************************************************************************
 ok: [f5] => {
-    "bigip_device_facts": {
+    "device_facts": {
         "changed": true,
         "failed": false,
         "system_info": {

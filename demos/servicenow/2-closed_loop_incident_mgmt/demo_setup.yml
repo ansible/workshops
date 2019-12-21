@@ -2,8 +2,8 @@
 - name: SETUP TOWER FOR CLOSED LOOP INCIDENT MGMT DEMO
   hosts: ansible
   connection: local
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   vars:
     tower_username: "admin"
     tower_password: "ansible"
@@ -20,7 +20,7 @@
       copy:
         src: "{{playbook_dir}}/"
         dest: /var/lib/awx/projects/snow_demo/
-      become: yes
+      become: true
       become_method: sudo
       become_user: awx
       run_once: true
@@ -34,7 +34,7 @@
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
-        tower_verify_ssl: no
+        tower_verify_ssl: false
       run_once: true
       delegate_to: localhost
 
@@ -66,7 +66,7 @@
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
-        tower_verify_ssl: no
+        tower_verify_ssl: false
 
     - name: add job template - compliance fix
       tower_job_template:
@@ -80,7 +80,7 @@
         tower_username: "{{ tower_username }}"
         tower_password: "{{ tower_password }}"
         tower_host: https://localhost
-        tower_verify_ssl: no
+        tower_verify_ssl: false
 
     - name: associate snow cred to check
       command: tower-cli job_template associate_credential --job-template 'SNOW-Demo-Compliance-Check' --credential 'SNOW Credential' --insecure -h https://localhost -u {{ tower_username }} -p {{ tower_password }} --insecure

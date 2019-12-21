@@ -2,12 +2,12 @@
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: BACKUP THE CONFIG
       ios_config:
-        backup: yes
+        backup: true
       register: config_output
 
     - name: RENAME BACKUP
@@ -25,4 +25,4 @@
       lineinfile:
         path: "./backup/{{inventory_hostname}}.config"
         regexp: 'Current configuration.*'
-        state: absent  
+        state: absent

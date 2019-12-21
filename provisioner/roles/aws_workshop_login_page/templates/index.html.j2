@@ -2,13 +2,36 @@
 <html>
 <font face="verdana,sans,arial">
 <style>
+
+#control_node {
+  display: flex;
+}
+
+#login_info {
+  width: 400px;
+}
+
+#example_login {
+  padding-top: 5px;
+}
+
+
+hr {
+  width: 80%;
+}
+
+td {
+  padding: 5px;
+  border-bottom: 1px solid #cccccc;
+}
+
 pre {
   background: black;
   color: #fff !important;
   width: 100%;
   padding: 5px;
-  max-width: 500px;
-
+  max-width: 600px;
+  margin: 10px 0 10px 0;
 }
 
 .content{
@@ -352,18 +375,62 @@ $("document").ready(function(){
     <div class="content">
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-To login to the <code>ansible</code> control node use the following for SSH access:<br>
-username:   student{{number}}<br>
-password:   {{admin_password}}<br>
-IP Address: {{ host.public_ip_address }}<br>
+To login to the ansible control node use the following for SSH access:<br>
+<div id="control_node">
+<div id="login_info">
+<table>
+  <tr>
+    <td>username:</td>
+    <td><code>student{{number}}</code></td>
+  </tr>
+  <tr>
+    <td>password:</td>
+    <td><code>{{admin_password}}</code></td>
+  </tr>
+  <tr>
+    <td>IP Address:</td>
+    <td><code>{{ host.public_ip_address }}</code></td>
+  </tr>
+</table>
+</div>
+<div id="example_login">
 <pre><code>ssh student{{number}}@{{ host.public_ip_address }}</code></pre>
 {% if dns_type != 'none' %}
 DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 <pre><code>ssh student{{number}}@student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
 {% endif %}
-{% if towerinstall and dns_type != 'none' %}Ansible Tower Link: <a href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a><br>{% endif %}
-{% if towerinstall and dns_type == 'none' %}Ansible Tower Link: <a href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a><br>
+</div>
+</div>
+<div id="tower_info">
+<hr>
+{% if towerinstall %}
+To login to the Ansible Tower UI use the following credentials:<br>
+<table>
+  <tr>
+    <td>username:</td>
+    <td><code>admin</code></td>
+  </tr>
+  <tr>
+    <td>password:</td>
+    <td><code>{{admin_password}}</code></td>
+  </tr>
+{% if dns_type != 'none' %}
+  <tr>
+<td>UI link:</td>
+<td><a href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+  </tr>
 {% endif %}
+{% if dns_type == 'none' %}
+  <tr>
+<td>UI link:
+<td><a href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a></td>
+  </tr>
+{% endif %}
+</table>
+{% endif %}
+</div>
+
+{% if workshop_type in ['devops'] %} Lab Guide: <a href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888</a><br>{% endif %}
 {% endif %}
 {% endfor %}
     </div>

@@ -1,7 +1,8 @@
+---
 - name: Populate Tower
   hosts: control_nodes
-  gather_facts: yes
-  become: yes
+  gather_facts: true
+  become: true
 
   tasks:
     - name: Create Tower student resources
@@ -14,7 +15,7 @@
 
 - name: Configure Active Directory Domain Controller
   hosts: windows_domain_controllers
-  gather_facts: yes
+  gather_facts: true
   # vars_files:
   #   - [ 'vars/custom.yml', 'vars/main.yml' ]
   tags:
@@ -24,7 +25,7 @@
 
 - name: Configure Windows Servers
   hosts: windows
-  gather_facts: True
+  gather_facts: true
   # vars_files:
   #   - [ 'vars/custom.yml', 'vars/main.yml' ]
   tags:
@@ -34,15 +35,15 @@
 
 - name: Configure GitLab Host
   hosts: gitlab
-  become: True
-  gather_facts: True
+  become: true
+  gather_facts: true
   # vars_files:
   #   - [ 'vars/custom.yml', 'vars/main.yml' ]
   tags:
     - gitlab
   roles:
-    - { role: common }
-    - { role: geerlingguy.gitlab }
+    - {role: common}
+    - {role: geerlingguy.gitlab}
 #
 # # Run post-config separate to avoid handler restart issue...
 # - name: Gitlab Post Config

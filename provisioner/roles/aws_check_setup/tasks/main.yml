@@ -9,21 +9,36 @@
       - py_cmd.stdout is version('1.7', operator='ge')
     msg: "boto3 >= 1.7 is required."
 
-- name: check for underscores in workshop name
-  fail:
-    msg: "Amazon AWS does not allow underscores _ for s3 websites, please see https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html"
+- name: check route53 information
+  block:
+    - name: check for underscores in workshop name
+      fail:
+        msg: "Amazon AWS does not allow underscores _ for s3 websites, please see https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html"
+      when:
+        - "'_' in ec2_name_prefix"
+
+    - name: does route53 zone exist
+      check_mode: true
+      route53_zone:
+        zone: "{{workshop_dns_zone}}"
+        state: present
+      register: test
+
+    - name: make sure workshop_type is set to a correct value
+      assert:
+        that:
+          - test.zone_id is not none
+        msg:
+          - "You must have a valid route53 zone configured for workshop_dns_zone"
+          - "Right now the workshop_dns_zone is {{workshop_dns_zone}}"
   when:
     - create_login_page is defined
     - create_login_page|bool
-    - "'_' in ec2_name_prefix"
 
 - name: FIND AZ ZONE FOR REGION {{ec2_region}}
   aws_az_facts:
     region: "{{ec2_region}}"
   register: az_names
-
-# - debug:
-#     var: az_names
 
 - name: SET AZ ZONE TO FIRST AVAILABLE
   set_fact: ec2_az={{az_names.availability_zones[0].zone_name}}
@@ -35,6 +50,4 @@
 
 - name: save username of AWS user
   set_fact:
-     aws_user: '{{ whoami.arn.split("/")[-1] }}'
-
-- debug: msg='{{ whoami.arn.split("/")[-1] }}'
+    aws_user: '{{ whoami.arn.split("/")[-1] }}'

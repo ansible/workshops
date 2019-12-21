@@ -2,7 +2,7 @@
 - name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: GATHER ROUTER FACTS
@@ -24,4 +24,4 @@
         src: reports/
         dest: network_os_report.md
       delegate_to: localhost
-      run_once: yes
+      run_once: true

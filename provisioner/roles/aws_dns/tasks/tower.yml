@@ -1,8 +1,9 @@
+---
 - name: CHANGE TOWER BASE URL
   tower_settings:
     name: TOWER_URL_BASE
     value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-    tower_verify_ssl: no
+    tower_verify_ssl: false
     tower_host: localhost
     tower_username: admin
     tower_password: "{{admin_password}}"
@@ -11,23 +12,23 @@
   yum:
     name: certbot
 
-#https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
+# https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
 - name: TURN OFF TOWER
   shell: ansible-tower-service stop
 
-#If this fails check out status of certbot: https://letsencrypt.status.io/
+# If this fails check out status of certbot: https://letsencrypt.status.io/
 - name: ISSUE CERT
   shell: certbot certonly --standalone -d {{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
   register: issue_cert
   until: issue_cert is not failed
   retries: 5
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: APPEND LETS ENCRYPT FAILED
   set_fact:
     dns_information: |
       - The Lets Encrypt certbot failed, please check https://letsencrypt.status.io/ to make sure the service is running
-  run_once: yes
+  run_once: true
   delegate_to: localhost
   delegate_facts: true
   when: issue_cert is failed
@@ -36,7 +37,7 @@
   block:
     - name: MOVE SSL KEY
       copy:
-        remote_src: True
+        remote_src: true
         src: "/etc/letsencrypt/live/{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
         dest: /etc/tower/tower.key
 

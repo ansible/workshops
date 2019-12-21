@@ -1,5 +1,6 @@
+---
 - name: restart network
   systemd:
     state: restarted
     name: network
-  become: yes
+  become: true

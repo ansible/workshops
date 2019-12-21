@@ -1,5 +1,6 @@
+---
 - name: upgrade pip and setuptools
-  become: yes
+  become: true
   pip:
     name:
       - pip
@@ -7,7 +8,7 @@
     state: latest
 
 - name: install f5 workshop dependicies (F5 AUTOMATION MODE)
-  become: yes
+  become: true
   pip:
     name:
       - f5-sdk
@@ -18,7 +19,7 @@
   when: workshop_type == "f5"
 
 - name: install additional packages (NETWORK AUTOMATION MODE)
-  become: yes
+  become: true
   pip:
     name:
       - netaddr
@@ -39,19 +40,19 @@
 
 - name: Clone workshops repo (NETWORKING MODE)
   git:
-    accept_hostkey: yes
-    clone: yes
+    accept_hostkey: true
+    clone: true
     dest: /tmp/workshops
     repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
     version: '{{ ansible_workshops_version | default("master") }}'
     refspec: '{{ ansible_workshops_refspec | default("") }}'
-    force: yes
+    force: true
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)
   copy:
     src: /tmp/workshops/exercises/ansible_network/
     dest: /home/{{ username }}/networking-workshop
-    remote_src: yes
+    remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
   when: workshop_type == 'networking'
@@ -60,7 +61,7 @@
   copy:
     src: /tmp/workshops/demos/
     dest: /home/{{ username }}/demos
-    remote_src: yes
+    remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
   when: workshop_type == 'networking'
@@ -69,7 +70,7 @@
   copy:
     src: /tmp/workshops/exercises/ansible_f5/
     dest: /home/{{ username }}/networking-workshop
-    remote_src: yes
+    remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
   when: workshop_type == 'f5'

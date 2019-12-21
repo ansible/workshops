@@ -2,7 +2,7 @@
 - name: ROUTER DEPLOY BANNER
   hosts: cisco
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
 
   tasks:
 

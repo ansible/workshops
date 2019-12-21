@@ -1,0 +1,38 @@
+---
+- name: Create lab inventory directory
+  file:
+    state: directory
+    path: "/home/{{ username }}/devops-workshop/lab_inventory"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: true
+
+- name: Put student inventory in proper spot
+  copy:
+    src: ./{{ec2_name_prefix}}/{{ username }}-instances.txt
+    dest: "/home/{{ username }}/devops-workshop/lab_inventory/hosts"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname
+
+
+- name: ENSURE THAT DOCKER IS INSTALLED
+  yum:
+    name: docker
+    state: present
+
+- name: ENSURE THAT DOCKER DAEMON IS STARTED
+  service:
+    name: docker
+    state: started
+
+- name: CLONE THE LAB GUIDE
+  git:
+    repo: https://github.com/rhcreynold/workshop-operator-lab-guide
+    dest: "/home/{{ username }}/devops-workshop/lab-guide"
+
+- name: RUN THE SCRIPT
+  shell: hack/run.sh ansible-for-devops start
+  args:
+    chdir: "/home/{{ username }}/devops-workshop/lab-guide"
+  become: true

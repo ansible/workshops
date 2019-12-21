@@ -1,27 +1,30 @@
+---
 device:
   rtr1:
     site: 1
     local_as: 65000
-    bgp_tunnel_source: "10.200.200.1"
+    bgp_tunnel_ip: "10.200.200.1"
     bgp_tunnel_destination: "{{ rtr2_node_facts.instances[0].public_ip_address }}"
     bgp_neighbor: "rtr2"
-    remote_ospf_neighbor: "10.3.3.103"
-    ospf_tunnel_source: "10.100.100.1"
-    ospf_tunnel_destination: "{{ rtr3_node_facts.instances[0].public_ip_address }}"
+    ospf_tunnel_ip: "10.100.100.1"
+    ospf_tunnel_destination: "{{ rtr3_node_facts.instances[0].private_ip_address }}"
+    ospf_tunnel_source: "{{ rtr1_node_facts.instances[0].private_ip_address }}"
   rtr2:
     site: 2
     local_as: 65001
-    bgp_tunnel_source: "10.200.200.2"
+    bgp_tunnel_ip: "10.200.200.2"
     bgp_tunnel_destination: "{{ rtr1_node_facts.instances[0].public_ip_address }}"
     bgp_neighbor: "rtr1"
-    remote_ospf_neighbor: "10.4.4.104"
-    ospf_tunnel_source: "10.101.101.2"
-    ospf_tunnel_destination: "{{ rtr4_node_facts.instances[0].public_ip_address }}"
+    ospf_tunnel_ip: "10.101.101.2"
+    ospf_tunnel_destination: "{{ rtr4_node_facts.instances[0].private_ip_address }}"
+    ospf_tunnel_source: "{{ rtr2_node_facts.instances[0].private_ip_address }}"
   rtr3:
     site: 3
-    ospf_tunnel_source: "10.100.100.2"
-    ospf_tunnel_destination: "{{ rtr1_node_facts.instances[0].public_ip_address }}"
+    ospf_tunnel_ip: "10.100.100.2"
+    ospf_tunnel_destination: "{{ rtr1_node_facts.instances[0].private_ip_address }}"
+    ospf_tunnel_source: "{{ rtr3_node_facts.instances[0].private_ip_address }}"
   rtr4:
     site: 4
-    ospf_tunnel_source: "10.101.101.2"
-    ospf_tunnel_destination: "{{ rtr2_node_facts.instances[0].public_ip_address }}"
+    ospf_tunnel_ip: "10.101.101.4"
+    ospf_tunnel_destination: "{{ rtr2_node_facts.instances[0].private_ip_address }}"
+    ospf_tunnel_source: "{{ rtr4_node_facts.instances[0].private_ip_address }}"

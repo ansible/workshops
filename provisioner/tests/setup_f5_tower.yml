@@ -1,7 +1,8 @@
+---
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
   connection: local
-  gather_facts: yes
+  gather_facts: true
   tasks:
     - name: ADD LINKLIGHT INTO TOWER
       tower_project:
@@ -58,18 +59,19 @@
         project: "Linklight Project"
         playbook: "exercises/ansible_f5/1.5-add-virtual-server/bigip-virtual-server.yml"
         tower_config_file: "~/tower_cli.cfg"
-    # - name: THIS LOADS USERNAME AND PASSWORD FROM tower_cli.cfg FOR FOLLOWING URI TASKS
-    #   include_vars:
-    #     file: ~/tower_cli.cfg
-    #
-    # - name: SETUP NETWORK WORKSHOP
-    #   import_role:
-    #     name: setup_network
-    #
-    # - name: SETUP F5 WORKSHOP
-    #   import_role:
-    #     name: setup_f5
-    #
-    # - name: SETUP RHEL WORKSHOP
-    #   import_role:
-    #     name: setup_rhel
+
+        # - name: THIS LOADS USERNAME AND PASSWORD FROM tower_cli.cfg FOR FOLLOWING URI TASKS
+        #   include_vars:
+        #     file: ~/tower_cli.cfg
+        #
+        # - name: SETUP NETWORK WORKSHOP
+        #   import_role:
+        #     name: setup_network
+        #
+        # - name: SETUP F5 WORKSHOP
+        #   import_role:
+        #     name: setup_f5
+        #
+        # - name: SETUP RHEL WORKSHOP
+        #   import_role:
+        #     name: setup_rhel

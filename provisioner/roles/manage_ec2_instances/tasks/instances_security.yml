@@ -1,3 +1,4 @@
+---
 - import_tasks: ami_find_security.yml
 
 - set_fact:
@@ -8,7 +9,7 @@
   block:
     - name: Create EC2 instances for qradar
       ec2:
-        assign_public_ip: yes
+        assign_public_ip: true
         key_name: "{{ ec2_name_prefix }}-key"
         group: "{{ ec2_security_group }}"
         instance_type: "{{ ec2_info['qradar']['size'] }}"
@@ -31,7 +32,7 @@
 
     - name: Create EC2 instances for splunk
       ec2:
-        assign_public_ip: yes
+        assign_public_ip: true
         key_name: "{{ ec2_name_prefix }}-key"
         group: "{{ ec2_security_group }}"
         instance_type: "{{ ec2_info['splunk_enterprise']['size'] }}"
@@ -61,7 +62,7 @@
 
     - name: Create EC2 instances for snort
       ec2:
-        assign_public_ip: yes
+        assign_public_ip: true
         key_name: "{{ ec2_name_prefix }}-key"
         group: "{{ ec2_security_group }}"
         instance_type: "{{ ec2_info['rhel7']['size'] }}"
@@ -83,7 +84,7 @@
 
     - name: Create EC2 instances for attack simulation node
       ec2:
-        assign_public_ip: yes
+        assign_public_ip: true
         key_name: "{{ ec2_name_prefix }}-key"
         group: "{{ ec2_security_group }}"
         instance_type: "{{ ec2_info['rhel7']['size'] }}"
@@ -105,7 +106,7 @@
 
     - name: Create EC2 instances for Check Point CloudGuard Security Management
       ec2:
-        assign_public_ip: yes
+        assign_public_ip: true
         key_name: "{{ ec2_name_prefix }}-key"
         group: "{{ ec2_security_group }}"
         instance_type: "{{ec2_info.checkpoint_mgmt.size }}"
@@ -123,7 +124,7 @@
 
     - name: Create EC2 instances for Windows Workstation (SECURITY MODE)
       ec2:
-        assign_public_ip: yes
+        assign_public_ip: true
         key_name: "{{ ec2_name_prefix }}-key"
         group: "{{ ec2_security_group }}"
         instance_type: "{{ec2_info.windows_ws.size }}"
@@ -170,8 +171,8 @@
         checkpoint_mgmt_output: "{{wait_for_ec2_instance_creation['results'][3]}}"
         windows_ws_output: "{{wait_for_ec2_instance_creation['results'][4]}}"
 
-    ###
-    ###########################################################################
+        ###
+        ###########################################################################
 
 - name: EC2 Tags Block - SECURITY MODE
   block:
@@ -284,7 +285,7 @@
       register: ensure_tags_attacker_async
       when: attacker_output['instance_ids'] is not none
 
-    ##############Check Point CloudGuard IaaS Security Management##############
+    ############## Check Point CloudGuard IaaS Security Management ##############
     - name: Ensure tags are present for Check Point CloudGuard Security Management node (SECURITY MODE)
       ec2_tag:
         region: "{{ ec2_region }}"
@@ -481,7 +482,7 @@
           - '{{ ec2_security_group }}'
         state: present
         region: '{{ ec2_region }}'
-        delete_on_termination: yes
+        delete_on_termination: true
       loop: '{{ range(0, student_total) | list }}'
       async: "{{ async_timeout_seconds }}"
       poll: 0
@@ -492,7 +493,7 @@
         subnet_id: '{{ ec2_vpc_subnet2_id }}'
         state: present
         region: '{{ ec2_region }}'
-        delete_on_termination: yes
+        delete_on_termination: true
       loop: '{{ range(0, student_total) | list }}'
       async: "{{ async_timeout_seconds }}"
       poll: 0
@@ -509,10 +510,10 @@
 
     - name: Create EIP async for checkpoint_gw Subnet1 ENI (SECURITY MODE)
       ec2_eip:
-        in_vpc: yes
+        in_vpc: true
         region: "{{ ec2_region }}"
         device_id: "{{ item['interface']['id'] }}"
-        release_on_disassociation: yes
+        release_on_disassociation: true
       loop: "{{ wait_eni1_creation_checkpoint_gw['results'] }}"
       async: "{{ async_timeout_seconds }}"
       poll: 0
@@ -648,7 +649,7 @@
     - set_fact:
         checkpoint_gw_output: "{{wait_for_checkpoint_gw_ec2_instance_creation['results']}}"
 
-    ##############Check Point CloudGuard IaaS Gateway ##############
+    ############## Check Point CloudGuard IaaS Gateway ##############
     - name: Ensure tags are present for Check Point CloudGuard Gateway node (SECURITY MODE)
       ec2_tag:
         region: "{{ ec2_region }}"

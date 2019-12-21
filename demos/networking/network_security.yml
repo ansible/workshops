@@ -2,7 +2,7 @@
 - name: ROUTER SECURITY BASELINE
   hosts: routers
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - include_role:

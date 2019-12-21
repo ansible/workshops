@@ -2,7 +2,7 @@
 - name: COMPLIANCE CHECK
   hosts: cisco
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     ## SSH into router and change hostname or create a loopback ###

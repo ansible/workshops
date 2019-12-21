@@ -5,39 +5,39 @@
 
 - name: "Add survey field | float"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "{{ survey_field.default | default('') }}", max: "{{ survey_field.max | default('100') }}", required: "{{ survey_field.required }}", choices: "", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "float"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "{{ survey_field.default | default('') }}", max: "{{ survey_field.max | default('100') }}", required: "{{ survey_field.required }}", choices: "", new_question: true, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "float"}]
   when: 'survey_field.type == "float"'
 
 
 - name: "Add survey field | integer"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "{{ survey_field.default | default('') }}", max: "{{ survey_field.max | default('100') }}", required: "{{ survey_field.required }}", choices: "", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "integer"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "{{ survey_field.default | default('') }}", max: "{{ survey_field.max | default('100') }}", required: "{{ survey_field.required }}", choices: "", new_question: true, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "integer"}]
   when: 'survey_field.type == "integer"'
 
 - name: "Add survey field | multiple-choice multiple-select"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: null, default: "{{ survey_field.default | join('\n') | default('') }}", max: null, required: "{{ survey_field.required }}", choices: "{{ survey_field.choices | join('\n') }}", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "multiselect"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: null, default: "{{ survey_field.default | join('\n') | default('') }}", max: null, required: "{{ survey_field.required }}", choices: "{{ survey_field.choices | join('\n') }}", new_question: true, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "multiselect"}]
   when: 'survey_field.type == "multiselect"'
 
 - name: "Add survey field | multiple-choice single-select"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: null, default: "{{ survey_field.default | default('') }}", max: null, required: "{{ survey_field.required }}", choices: "{{ survey_field.choices | join('\n') }}", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "multiplechoice"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: null, default: "{{ survey_field.default | default('') }}", max: null, required: "{{ survey_field.required }}", choices: "{{ survey_field.choices | join('\n') }}", new_question: true, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "multiplechoice"}]
   when: 'survey_field.type == "multiplechoice"'
 
 - name: "Add survey field | password"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "", max: "{{ survey_field.max | default('32') }}", required: "{{ survey_field.required }}", choices: "", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "password"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "", max: "{{ survey_field.max | default('32') }}", required: "{{ survey_field.required }}", choices: "", new_question: true, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "password"}]
   when: 'survey_field.type == "password"'
 
 - name: "Add survey field | text area"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "{{ survey_field.default | default('') }}", max: "{{ survey_field.max | default('4096') }}", required: "{{ survey_field.required }}", choices: "", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "textarea"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: "{{ survey_field.min | default('0') }}", default: "{{ survey_field.default | default('') }}", max: "{{ survey_field.max | default('4096') }}", required: "{{ survey_field.required }}", choices: "", new_question: true, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "textarea"}]
   when: 'survey_field.type == "textarea"'
 
 
 - name: "Add survey field | text"
   set_fact:
-    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: 0, default: "{{ survey_field.default | default('') }}", max: 1024 , required: "{{ survey_field.required }}", choices: "", new_question: True, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "text"}]
+    add_survey_field: [{question_description: "{{ survey_field.description | default('') }}", min: 0, default: "{{ survey_field.default | default('') }}", max: 1024, required: "{{ survey_field.required }}", choices: "", new_question: true, variable: "{{ survey_field.variable }}", question_name: "{{ survey_field.prompt }}", type: "text"}]
   when: 'survey_field.type == "text"'
 
 - name: "Add survey field | {{ survey_field.variable }}"

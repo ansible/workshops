@@ -1,10 +1,11 @@
+---
 - import_tasks: ami_find_windows.yml
 
 ## create instructor instances
 
 - name: WINDOWS | DomainController | Launch instance
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_name_prefix }}-windcsg"
     instance_type: "{{ ec2_info['skylight_windows_dc']['size'] }}"
@@ -34,7 +35,7 @@
 
 - name: WINDOWS | GitLab | Launch Instance
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_name_prefix }}-gitlabsg"
     instance_type: "{{ ec2_info['skylight_rhel7_gitlab']['size'] }}"
@@ -65,7 +66,7 @@
 
 - name: WINDOWS | Docs | Launch Instance
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_name_prefix }}-docssg"
     instance_type: "{{ ec2_info['skylight_rhel7_docs']['size'] }}"
@@ -98,7 +99,7 @@
 
 - name: WINDOWS | Create instance 1
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_name_prefix }}-windowssg"
     instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"
@@ -116,7 +117,7 @@
 
 - name: WINDOWS | Create workstation
   ec2:
-    assign_public_ip: yes
+    assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_name_prefix }}-windowssg"
     instance_type: "{{ ec2_info['skylight_windows_ws']['size'] }}"
@@ -166,7 +167,7 @@
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
-      short_name: "instance1"\
+      short_name: "instance1"
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
     - "{{ instance1_instances.instances }}"

@@ -1,8 +1,8 @@
 ---
 ec2_name_prefix: TRAINING
 ec2_region: us-east-1
-ec2_wait: yes
-#need to circle back and fix this for teardown - sean
+ec2_wait: true
+# need to circle back and fix this for teardown - sean
 ec2_az: "{{ec2_region}}a"
 ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
@@ -44,6 +44,7 @@ ec2_info:
     ami: "{{arista_ami | default(omit)}}"
     os: eos
     username: ec2-user
+    filter: "*VEOSRouter*"
   checkpoint_mgmt:
     owners: 679593333241
     filter: 'Check Point CloudGuard IaaS BYOL*R80.30*'
@@ -60,7 +61,7 @@ ec2_info:
     username: admin
   windows_ws:
     owners: 679593333241
-    filter: 'Windows_Server-2016-English-Full-Base-2019.08.16'
+    filter: 'Windows_Server-2016-English-Full-Base*'
     size: m5.xlarge
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator
@@ -133,5 +134,4 @@ ec2_info:
     filter: 'RHEL-7.6_HVM_GA*x86_64*'
     size: t2.xlarge
     username: ec2-user
-
 debug_teardown: false

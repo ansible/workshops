@@ -1,3 +1,4 @@
+---
 env:
   SN_INSTANCE: '{{instance}}'
   SN_PASSWORD: '{{password}}'

@@ -6,4 +6,3 @@ domain_admin_password: "Micr0soft!"
 dns_servers:
   - "{{ hostvars['windc'].ansible_host }}"
   - 8.8.8.8
-

@@ -1,3 +1,4 @@
+---
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc"
@@ -76,6 +77,7 @@
         to_port: 8888
         from_port: 8888
         cidr_ip: 0.0.0.0/0
+        rule_desc: DevOps Sphinx Listener
       - proto: tcp
         to_port: 8000
         from_port: 8000
@@ -88,6 +90,16 @@
         to_port: 8088
         from_port: 8088
         cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8081
+        from_port: 8081
+        cidr_ip: 0.0.0.0/0
+        rule_desc: DevOps GOGs listener
+      - proto: tcp
+        to_port: 5000
+        from_port: 5000
+        cidr_ip: 0.0.0.0/0
+        rule_desc: DevOps Container Registry
       - proto: tcp
         to_port: 8089
         from_port: 8089

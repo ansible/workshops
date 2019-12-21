@@ -1,0 +1,8 @@
+{% set site = device[short_name].site %}
+set system host-name {{short_name}}
+set interfaces lo0 unit 0 family inet address 192.168.{{site}}.{{site}}
+set interfaces gr-0/0/0 unit 0 tunnel source {{ device[short_name].ospf_tunnel_source}}
+set interfaces gr-0/0/0 unit 0 tunnel destination {{ device[short_name].ospf_tunnel_destination }}
+set interfaces gr-0/0/0 unit 0 family inet address {{ device[short_name].ospf_tunnel_ip }}/24
+set protocols ospf area 0.0.0.0 interface gr-0/0/0
+set protocols ospf area 0.0.0.0 interface lo0 passive

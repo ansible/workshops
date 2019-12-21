@@ -1,0 +1,22 @@
+{% set site = device[short_name].site %}
+!
+hostname {{short_name}}
+!
+router ospf 1
+ router-id 192.168.{{site}}.{{site}}
+ redistribute connected
+!
+interface Loopback0
+ ip address 192.168.{{ site }}.{{ site }}/32
+!
+interface Tunnel0
+ ip mtu 1394
+ ip address {{ device[short_name].ospf_tunnel_ip }} 255.255.255.0
+ ip ospf network point-to-point
+ ip ospf area 0.0.0.0
+ tunnel mode gre
+ tunnel source interface Ethernet1
+ tunnel destination {{ device[short_name].ospf_tunnel_destination }}
+ tunnel path-mtu-discovery
+ tunnel ttl 10
+!

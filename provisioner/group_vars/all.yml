@@ -1,3 +1,4 @@
+---
 admin_password: ansible
 workshop_dns_zone: "rhdemo.io"
 s3_state: "present"
@@ -15,6 +16,7 @@ valid_workshop_types:
   - networking
   - f5
   - rhel
+  - devops
   - security
   - storage
   - windows

@@ -61,6 +61,27 @@ Just because you submit a PR, doesn't mean that it will get accepted.  Right now
 
 Being more descriptive is better, and has a higher change of getting merged upstream.  Communication is key!  Just b/c the PR doesn't get accepted right away doesn't mean it is not a good idea. Ansible Workshops have to balance many different types of users.  Thank you for contributing!
 
+## Testing and Continuous Integration
+
+Every Pull Requests submitted is expected to pass linters verification. (linters currently enabled: `yamllint`).
+If the PR is not passing `tox -e linters` it won't be able to merge.
+
+To verify locally, install `tox` and from within your `ansible/workshops` clone, run `tox -e linters`.
+
+```bash
+# pip install tox
+# cd /path/to/workshops
+# tox -e linters
+linters installed: pathspec==0.6.0,PyYAML==5.1.2,yamllint==1.19.0
+linters run-test-pre: PYTHONHASHSEED='2171258914'
+linters runtests: commands[0] | yamllint -s .
+___________________________________________________________________________________________ summary ___________________________________________________________________________________________
+  linters: commands succeeded
+  congratulations :)
+```
+
+To make sure this is run everytime one commits a change, and hence one is not sending a Pull Request that won't be merged, one could enable this as part of a git [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+
 # Going Further
 
 The following links will be helpful if you want to contribute code to the Ansible Workshops project, or any Ansible project:

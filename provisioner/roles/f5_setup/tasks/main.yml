@@ -1,3 +1,4 @@
+---
 - name: Wait for BIG-IP to boot up completely
   wait_for:
     host: "{{ ansible_host }}"

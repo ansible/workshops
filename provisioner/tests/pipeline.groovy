@@ -6,7 +6,7 @@ pipeline {
         choice(
             name: 'TOWER_VERSION',
             description: 'Tower version to deploy',
-            choices: ['devel', '3.6.1']
+            choices: ['devel', '3.6.2']
         )
         choice(
             name: 'ANSIBLE_VERSION',
@@ -61,6 +61,10 @@ ${AWX_NIGHTLY_REPO_URL}"""
                 sh 'ansible --version | tee ansible_version.log'
                 archiveArtifacts artifacts: 'ansible_version.log'
                 script {
+                    ADMIN_PASSWORD = sh(
+                        script: "cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1",
+                        returnStdout: true
+                    ).trim()
                     DOTLESS_TOWER_VERSION = TOWER_VERSION.replace('.', '').trim()
                     ANSIBLE_WORKSHOPS_URL = "https://github.com/${params.WORKSHOP_FORK}/workshops.git"
 
@@ -79,6 +83,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
 tower_installer_url: ${tower_installer_url}
 gpgcheck: ${gpgcheck}
 aw_repo_url: ${aw_repo_url}
+admin_password: ${ADMIN_PASSWORD}
 ansible_workshops_url: ${ANSIBLE_WORKSHOPS_URL}
 ansible_workshops_version: ${params.WORKSHOP_BRANCH}
 EOF
@@ -221,7 +226,7 @@ EOF
                                 sh "cat provisioner/tower-qe-f5-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-${params.ANSIBLE_VERSION}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
                                 RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
-                                sh "sshpass -p 'ansible' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
+                                sh "sshpass -p '${ADMIN_PASSWORD}' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
                             }
                         }
                         script {
@@ -259,6 +264,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh '''ansible-playbook provisioner/provision_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-security.yml 2>&1 | tee security.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }

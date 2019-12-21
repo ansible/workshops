@@ -7,7 +7,7 @@ pipeline {
         stage('Build Information') {
             steps {
                 script {
-                    TOWER_VERSION = '3.6.1'
+                    TOWER_VERSION = '3.6.2'
                     DOTLESS_TOWER_VERSION = TOWER_VERSION.replace('.', '').trim()
                 }
                 echo """Tower Version under test: ${TOWER_VERSION}
@@ -26,6 +26,11 @@ Build Tag: ${env.BUILD_TAG}"""
                 sh 'ansible --version | tee ansible_version.log'
                 archiveArtifacts artifacts: 'ansible_version.log'
                 script {
+                    ADMIN_PASSWORD = sh(
+                        script: "cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1",
+                        returnStdout: true
+                    ).trim()
+
                     if (env.CHANGE_ID) {
                         ANSIBLE_WORKSHOPS_REFSPEC = "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/${env.BRANCH_NAME}"
                     } else {
@@ -47,6 +52,7 @@ Build Tag: ${env.BUILD_TAG}"""
 tower_installer_url: ${tower_installer_url}
 gpgcheck: ${gpgcheck}
 aw_repo_url: ${aw_repo_url}
+admin_password: ${ADMIN_PASSWORD}
 ansible_workshops_refspec: ${ANSIBLE_WORKSHOPS_REFSPEC}
 EOF
 """
@@ -177,7 +183,7 @@ EOF
                                 sh "cat provisioner/tower-qe-f5-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
                                 RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
-                                sh "sshpass -p 'ansible' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
+                                sh "sshpass -p '${ADMIN_PASSWORD}' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"
                             }
                         }
                         script {
@@ -209,6 +215,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/provision_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-security.yml"""
                                     }
                                 }

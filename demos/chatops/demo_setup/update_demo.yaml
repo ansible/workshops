@@ -66,7 +66,7 @@
       copy:
         src: ../chatops_pb
         dest: /var/lib/awx/projects/
-      become: yes
+      become: true
       become_method: sudo
       become_user: awx
 
@@ -74,7 +74,7 @@
 - name: ADD SOME TEST ACLS INTO THE ROUTERS
   hosts: cisco
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
   tags: acl
 
   vars:
@@ -114,21 +114,17 @@
           action: permit
 
 
-
-
   tasks:
     - name: template
       ios_config:
         src: ios_acls.j2
 
 
-
-
 - name: ADD JOB TEMPLATE TO TOWER
   hosts: cisco
   connection: local
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   tasks:
 
     - name: INCLUDE THE TOWER TASKS
@@ -138,7 +134,7 @@
 
 - name: INSTALL AND START THE FLASK APP
   hosts: localhost
-  gather_facts: yes
+  gather_facts: true
 
 
   tasks:
@@ -149,21 +145,21 @@
           - gcc
           - libsemanage-python
           - libselinux-python
-      become: yes
+      become: true
       become_method: sudo
 
     - name: INSTALL PYTHON PACKAGES
       pip:
-       name:
-        - netaddr>=0.7.19
-        - Flask
-        - Werkzeug
-        - slackclient
-        - urllib3
-        - ansible-tower-cli
-        - requests
-        - uwsgi
-      become: yes
+        name:
+          - netaddr>=0.7.19
+          - Flask
+          - Werkzeug
+          - slackclient
+          - urllib3
+          - ansible-tower-cli
+          - requests
+          - uwsgi
+      become: true
       become_method: sudo
 
     - name: PERMIT 8888 AS A VALID PORT IN SELINUX
@@ -172,22 +168,22 @@
         proto: tcp
         setype: http_port_t
         state: present
-      become: yes
+      become: true
       become_method: sudo
 
     - name: ADD THE SELINUX POLICY TO ALLOW UNIX SOCKET WRITES - CHECKMODULE
       command: "checkmodule -M -m -o /tmp/nginx.mod {{ playbook_dir }}/files/nginx.te"
-      become: yes
+      become: true
       become_method: sudo
 
     - name: ADD THE SELINUX POLICY TO ALLOW UNIX SOCKET WRITES - SEMODULE_PACKAGE
       command: "semodule_package -o /tmp/nginx.pp -m /tmp/nginx.mod"
-      become: yes
+      become: true
       become_method: sudo
 
     - name: ADD THE SELINUX POLICY TO ALLOW UNIX SOCKET WRITES - SEMODULE
       command: "semodule -i /tmp/nginx.pp"
-      become: yes
+      become: true
       become_method: sudo
 
     - name: CREATE THE CHECK_TRAFFIC SERVICE
@@ -205,7 +201,7 @@
       copy:
         src: "{{ playbook_dir }}/files/check_traffic.service"
         dest: /etc/systemd/system/check_traffic.service
-      become: yes
+      become: true
       become_method: sudo
 
     - name: ADD THE NGINX SNIPPET
@@ -213,22 +209,22 @@
         block: "{{ lookup('file', 'nginx_snippet') }}"
         dest: /etc/nginx/nginx.conf
         insertbefore: "}"
-        backup: yes
-      become: yes
+        backup: true
+      become: true
       become_method: sudo
 
-# Always restart the app and nginx
+    # Always restart the app and nginx
 
     - name: start_app
       service:
         name: check_traffic
         state: restarted
-      become: yes
+      become: true
       become_method: sudo
 
     - name: start_nginx
       service:
         name: nginx
         state: restarted
-      become: yes
+      become: true
       become_method: sudo

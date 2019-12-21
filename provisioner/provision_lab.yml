@@ -1,8 +1,9 @@
+---
 - name: Perform Checks to make sure this Playbook will complete successfully
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: yes
+  become: false
+  gather_facts: true
   tasks:
     - name: make sure we are running correct Ansible Version
       assert:
@@ -48,16 +49,28 @@
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
+        msg:
+          - "ec2_name_prefix cannot be set to TESTWORKSHOP"
+          - "please set a unique name for your workshop"
+
+
+    - name: make sure we are not using `ansible` as the password
+      assert:
+        that:
+          - admin_password != "ansible"
+        msg:
+          - "admin_password cannot be set to ansible"
+          - "please set a unique password for your workshop"
 
     - name: make sure packages required are installed on this control node
       pip:
         name:
           - netaddr
-      check_mode: yes
+      check_mode: true
       when: workshop_type == "networking"
       register: package_state
 
-# windows has a dependancy on sshpass which is nogo on macos: brew install it
+    # windows has a dependancy on sshpass which is nogo on macos: brew install it
     - name: make sure (windows) packages required are installed on this control node
       pip:
         name:
@@ -66,7 +79,7 @@
           - requests
           - requests-credssp
           # - sshpass
-      check_mode: yes
+      check_mode: true
       when: workshop_type == "windows"
       register: package_state
 
@@ -87,10 +100,10 @@
         - fail:
             msg: "autolicense is turned on, but we need a license located at {{playbook_dir}}/tower_license.json"
           when:
-           - not stat_result.stat.exists
+            - not stat_result.stat.exists
       when:
-       - autolicense is defined
-       - autolicense
+        - autolicense is defined
+        - autolicense
 
     - name: Install required roles and collections onto THIS machine
       when:
@@ -143,46 +156,48 @@
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   roles:
     - manage_ec2_instances
 
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes"
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   roles:
     - connectivity_test
 
 - name: wait for all security nodes to have SSH reachability
   hosts: "security_connection_check"
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   roles:
     - connectivity_test
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
-  gather_facts: no
-  become: yes
+  gather_facts: false
+  become: true
   roles:
     - user_accounts
     - common
   tags: control_node
 
+
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
-  gather_facts: yes
-  become: yes
+  gather_facts: true
+  become: true
   roles:
     - control_node
   tags: control_node
 
+
 - name: add dns entires for all student control nodes
   hosts: control_nodes
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   roles:
     - role: aws_dns
       when:
@@ -190,11 +205,12 @@
         - dns_type == "aws"
   tags: control_node
 
+
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   roles:
     - role: aws_workshop_login_page
       when:
@@ -208,16 +224,16 @@
 - name: Alert the mothership
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   tasks:
-    - { include_role: {name: tower_request}, when: student_total > 9 }
+    - {include_role: {name: tower_request}, when: student_total > 9}
 
 - name: print out information for instructor
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   tasks:
     - name: set facts for output
       set_fact:

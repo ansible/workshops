@@ -1,3 +1,4 @@
+---
 - name: Wait 400 seconds (using wait_for_connection)
   wait_for_connection:
     delay: 0

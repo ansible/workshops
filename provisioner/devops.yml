@@ -1,0 +1,8 @@
+---
+- name: CONFIGURE WORKSHOP WEBSERVERS FOR DEVOPS
+  hosts: lab_hosts
+  become: true
+  gather_facts: false
+  roles:
+    - role: devops
+      when: workshop_type == "devops"

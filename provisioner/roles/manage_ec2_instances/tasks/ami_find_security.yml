@@ -1,113 +1,117 @@
+---
 #### CHECK POINT AMI
 - name: BLOCK FOR SPLUNK AMI
   when: security_console == 'splunk'
   block:
-  - name: find ami for splunk
-    ec2_ami_facts:
-      region: "{{ ec2_region }}" # I don't know why but that seems to be the only place it's available
-      owners: "{{ ec2_info['splunk_enterprise']['owners'] }}"
-      filters:
-        name: "{{ ec2_info['splunk_enterprise']['filter'] }}"
-        architecture: "{{ ec2_info['splunk_enterprise']['architecture'] }}"
-    register: splunk_amis
+    - name: find ami for splunk
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"  # I don't know why but that seems to be the only place it's available
+        owners: "{{ ec2_info['splunk_enterprise']['owners'] }}"
+        filters:
+          name: "{{ ec2_info['splunk_enterprise']['filter'] }}"
+          architecture: "{{ ec2_info['splunk_enterprise']['architecture'] }}"
+      register: splunk_amis
 
-  - name: save ami for splunk
-    set_fact:
-      splunk_ami: >
-        {{ splunk_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for splunk
+      set_fact:
+        splunk_ami: >
+          {{ splunk_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 
 - name: BLOCK FOR QRADAR AMI
   when: security_console == 'qradar'
   block:
-  - name: find ami for qradar
-    ec2_ami_facts:
-      region: "{{ ec2_region }}" # I don't know why but that seems to be the only place it's available
-      owners: "{{ ec2_info['qradar']['owners'] }}"
-      filters:
-        name: "{{ ec2_info['qradar']['filter'] }}"
-        architecture: "{{ ec2_info['qradar']['architecture'] }}"
-    register: qradar_amis
+    - name: find ami for qradar
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"  # I don't know why but that seems to be the only place it's available
+        owners: "{{ ec2_info['qradar']['owners'] }}"
+        filters:
+          name: "{{ ec2_info['qradar']['filter'] }}"
+          architecture: "{{ ec2_info['qradar']['architecture'] }}"
+      register: qradar_amis
 
-  - name: save ami for qradar
-    set_fact:
-      qradar_ami: >
-        {{ qradar_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for qradar
+      set_fact:
+        qradar_ami: >
+          {{ qradar_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
 
 - name: BLOCK FOR SNORT AMI
   block:
-  - name: find ami for snort
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "{{ ec2_info['rhel7']['owners'] }}"
-      filters:
-        name: "{{ ec2_info['rhel7']['filter'] }}"
-        architecture: "{{ ec2_info['rhel7']['architecture'] }}"
-    register: snort_amis
+    - name: find ami for snort
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        owners: "{{ ec2_info['rhel7']['owners'] }}"
+        filters:
+          name: "{{ ec2_info['rhel7']['filter'] }}"
+          architecture: "{{ ec2_info['rhel7']['architecture'] }}"
+      register: snort_amis
 
-  - name: save ami for snort
-    set_fact:
-      snort_ami: >
-        {{ snort_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for snort
+      set_fact:
+        snort_ami: >
+          {{ snort_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
 
 - name: BLOCK FOR ATTACKER AMI
   block:
-  - name: find ami for attack simulation node
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "{{ ec2_info['rhel7']['owners'] }}"
-      filters:
-        name: "{{ ec2_info['rhel7']['filter'] }}"
-        architecture: "{{ ec2_info['rhel7']['architecture'] }}"
-    register: attacker_amis
+    - name: find ami for attack simulation node
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        owners: "{{ ec2_info['rhel7']['owners'] }}"
+        filters:
+          name: "{{ ec2_info['rhel7']['filter'] }}"
+          architecture: "{{ ec2_info['rhel7']['architecture'] }}"
+      register: attacker_amis
 
-  - name: save ami for attack simulation node
-    set_fact:
-      attacker_ami: >
-        {{ attacker_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for attack simulation node
+      set_fact:
+        attacker_ami: >
+          {{ attacker_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
 
 - name: BLOCK FOR CHECK POINT AMI
   block:
-  - name: find ami for check point management server (SECURITY MODE)
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "{{ ec2_info['checkpoint_mgmt']['owners'] }}"
-      filters:
-        name: "{{ ec2_info['checkpoint_mgmt']['filter'] }}"
-        architecture: "{{ ec2_info['checkpoint_mgmt']['architecture'] }}"
-    register: checkpoint_mgmt_ami_list
+    - name: find ami for check point management server (SECURITY MODE)
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        owners: "{{ ec2_info['checkpoint_mgmt']['owners'] }}"
+        filters:
+          name: "{{ ec2_info['checkpoint_mgmt']['filter'] }}"
+          architecture: "{{ ec2_info['checkpoint_mgmt']['architecture'] }}"
+      register: checkpoint_mgmt_ami_list
 
-  - name: save ami for check point management server (SECURITY MODE)
-    set_fact:
-      checkpoint_mgmt_ami: >
-        {{ checkpoint_mgmt_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for check point management server (SECURITY MODE)
+      set_fact:
+        checkpoint_mgmt_ami: >
+          {{ checkpoint_mgmt_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
-  - name: find ami for check point gateway (SECURITY MODE)
-    ec2_ami_info:
-      region: "{{ ec2_region }}"
-      owners: "{{ ec2_info['checkpoint_gw']['owners'] }}"
-      filters:
-        name: "{{ ec2_info['checkpoint_gw']['filter'] }}"
-        architecture: "{{ ec2_info['checkpoint_gw']['architecture'] }}"
-    register: checkpoint_gw_ami_list
+    - name: find ami for check point gateway (SECURITY MODE)
+      ec2_ami_info:
+        region: "{{ ec2_region }}"
+        owners: "{{ ec2_info['checkpoint_gw']['owners'] }}"
+        filters:
+          name: "{{ ec2_info['checkpoint_gw']['filter'] }}"
+          architecture: "{{ ec2_info['checkpoint_gw']['architecture'] }}"
+      register: checkpoint_gw_ami_list
 
-  - name: save ami for check point gw (SECURITY MODE)
-    set_fact:
-      checkpoint_gw_ami: >
-        {{ checkpoint_gw_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for check point gw (SECURITY MODE)
+      set_fact:
+        checkpoint_gw_ami: >
+          {{ checkpoint_gw_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 
 #### WINDOWS WORKSTATION AMI
 - name: BLOCK FOR WINDOWS WORKSTATION AMI
   block:
-  - name: find ami for windows workstation
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      filters:
-        name: "{{ ec2_info['windows_ws']['filter'] }}"
-    register: windows_ws_amis
+    - name: find ami for windows workstation
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          name: "{{ ec2_info['windows_ws']['filter'] }}"
+      register: windows_ws_amis
 
-  - name: save ami for windows
-    set_fact:
-      windows_ws_ami: >
-        {{ windows_ws_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for windows
+      set_fact:
+        windows_ws_ami: >
+          {{ windows_ws_amis['images'] | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

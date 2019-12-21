@@ -1,3 +1,4 @@
+---
 fields:
   - type: string
     id: username

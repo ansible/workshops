@@ -1,3 +1,4 @@
+---
 - name: install apache
   yum:
     name: httpd

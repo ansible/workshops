@@ -1,3 +1,4 @@
+---
 - name: MANAGE SPLUNK EC2 INSTANCES (SECURITY MODE)
   when: security_console == 'splunk'
   block:

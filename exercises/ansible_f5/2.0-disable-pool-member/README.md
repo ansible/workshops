@@ -79,7 +79,7 @@ Now in the next task you can use provider as follows:
 
 <!-- {% raw %} -->
 ```
-bigip_device_facts:
+bigip_device_info:
   provider: "{{provider}}"
   gather_subset:
   - ltm-pools
@@ -100,7 +100,7 @@ Next, add a task for the objective listed below:
 
   - Retrieve Facts from BIG-IP for the subset ltm-pools
 
-HINT: Try using the bigip_device_facts module from <a href="../1.1-get-facts" style="color: #000000">Exercise 1.1</a>
+HINT: Try using the bigip_device_info module from <a href="../1.1-get-facts" style="color: #000000">Exercise 1.1</a>
 
 ## Step 5
 

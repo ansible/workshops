@@ -1,5 +1,28 @@
 ---
-- include_tasks: chrome.yml
-- include_tasks: server_mgmt.yml
-- include_tasks: myrtille.yml
-- include_tasks: smartconsole.yml
+- block:
+    - name: Import chrome install tasks
+      import_tasks: chrome.yml
+  rescue:
+    - name: RESCUE RETRY Import chrome install tasks
+      import_tasks: chrome.yml
+
+- block:
+    - name: Import server mgmt install tasks
+      import_tasks: server_mgmt.yml
+  rescue:
+    - name: RESCUE RETRY Import server mgmt install tasks
+      import_tasks: server_mgmt.yml
+
+- block:
+    - name: Import myrtille install tasks
+      import_tasks: myrtille.yml
+  rescue:
+    - name: RESCUE RETRY Import myrtille install tasks
+      import_tasks: myrtille.yml
+
+- block:
+    - name: Import smart console install tasks
+      import_tasks: smartconsole.yml
+  rescue:
+    - name: RESCUE RETRY Import smart console install tasks
+      import_tasks: smartconsole.yml

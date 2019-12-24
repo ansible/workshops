@@ -1,0 +1,215 @@
+---
+###########################################################################
+# BEGIN ENI / EIP creation and book keeping
+#
+# These are interleaved on purpose in some places so that creation and wait
+# tasks can be running in parallel and take advantage of the async
+# operations.
+#
+- name: Create Subnet1 ENI async checkpoint_gw (SECURITY MODE)
+  ec2_eni:
+    subnet_id: '{{ ec2_vpc_subnet_id }}'
+    security_groups:
+      - '{{ ec2_security_group }}'
+    state: present
+    region: '{{ ec2_region }}'
+    delete_on_termination: true
+  loop: '{{ range(0, student_total) | list }}'
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ec2_subnet1_eni_checkpoint_gw_async
+
+- name: Create Subnet2 ENI async checkpoint_gw (SECURITY MODE)
+  ec2_eni:
+    subnet_id: '{{ ec2_vpc_subnet2_id }}'
+    state: present
+    region: '{{ ec2_region }}'
+    delete_on_termination: true
+  loop: '{{ range(0, student_total) | list }}'
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ec2_subnet2_eni_checkpoint_gw_async
+
+- name: Wait for async 1st net iface creation to complete (checkpoint_gw)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_eni1_creation_checkpoint_gw
+  when: "'ansible_job_id' in item"
+  until: wait_eni1_creation_checkpoint_gw.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop: "{{ ('results' in ec2_subnet1_eni_checkpoint_gw_async) | ternary(ec2_subnet1_eni_checkpoint_gw_async['results'], []) }}"
+
+- name: Create EIP async for checkpoint_gw Subnet1 ENI (SECURITY MODE)
+  ec2_eip:
+    in_vpc: true
+    region: "{{ ec2_region }}"
+    device_id: "{{ item['interface']['id'] }}"
+    release_on_disassociation: true
+  loop: "{{ wait_eni1_creation_checkpoint_gw['results'] }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ec2_subnet1_eip_checkpoint_gw_async
+
+- name: Wait for async 2nd net iface creation to complete (checkpoint_gw)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_eni2_creation_checkpoint_gw
+  when: "'ansible_job_id' in item"
+  until: wait_eni2_creation_checkpoint_gw.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop: "{{ ('results' in ec2_subnet2_eni_checkpoint_gw_async) | ternary(ec2_subnet2_eni_checkpoint_gw_async['results'], []) }}"
+
+- name: Wait for async create EIP async for checkpoint_gw Subnet1 ENI (checkpoint_gw)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_subnet1_eip_creation_checkpoint_gw
+  when: "'ansible_job_id' in item"
+  until: wait_subnet1_eip_creation_checkpoint_gw.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop: "{{ ('results' in ec2_subnet1_eip_checkpoint_gw_async) | ternary(ec2_subnet1_eip_checkpoint_gw_async['results'], []) }}"
+
+- name: Ensure Subnet1 EIP Tags async checkpoint_gw (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item[1]['allocation_id'] }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint_gw-eip1"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      Subnet: '{{ ec2_name_prefix }}-subnet1'
+      Workshop: "{{ec2_name_prefix}}"
+      VPC: "{{ec2_name_prefix}}"
+  when: "(item|length|int > 1) and ('allocation_id' in item[1])"
+  with_indexed_items:
+    - "{{ ('results' in wait_subnet1_eip_creation_checkpoint_gw) | ternary(wait_subnet1_eip_creation_checkpoint_gw['results'], []) }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ec2_subnet1_eni_tags_checkpoint_gw_async
+
+- name: Ensure Subnet1 ENI Tags async checkpoint_gw (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item[1]['interface']['id'] }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint_gw-eni1"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      Subnet: '{{ ec2_name_prefix }}-subnet1'
+      Workshop: "{{ec2_name_prefix}}"
+  when: "(item|length|int > 1) and ('interface' in item[1])"
+  with_indexed_items:
+    - "{{ ('results' in wait_eni1_creation_checkpoint_gw) | ternary(wait_eni1_creation_checkpoint_gw['results'], []) }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ec2_subnet1_eni_tags_checkpoint_gw_async
+
+- name: Ensure Subnet2 ENI Tags async checkpoint_gw (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item[1]['interface']['id'] }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint_gw-eni2"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      Subnet: '{{ ec2_name_prefix }}-subnet2'
+      Workshop: "{{ec2_name_prefix}}"
+  when: "(item|length|int > 1) and ('interface' in item[1])"
+  with_indexed_items:
+    - "{{ ('results' in wait_eni2_creation_checkpoint_gw) | ternary(wait_eni2_creation_checkpoint_gw['results'], []) }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ec2_subnet2_eni_tags_checkpoint_gw_async
+
+- name: Wait for async tag creation to complete (CheckPoint GW ENI1)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_checkpoint_eni1_tag_creation
+  when: "'ansible_job_id' in item"
+  until: wait_for_checkpoint_eni1_tag_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop: "{{ ('results' in ec2_subnet1_eni_checkpoint_gw_async) | ternary(ec2_subnet1_eni_checkpoint_gw_async['results'], []) }}"
+
+- name: Wait for async tag creation to complete (CheckPoint GW ENI2)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_checkpoint_eni2_tag_creation
+  when: "'ansible_job_id' in item"
+  until: wait_for_checkpoint_eni2_tag_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop: "{{ ('results' in ec2_subnet2_eni_checkpoint_gw_async) | ternary(ec2_subnet2_eni_checkpoint_gw_async['results'], []) }}"
+#
+# END ENI / EIP creation and book keeping
+###########################################################################
+
+- name: Create EC2 instances for Check Point CloudGuard Gateway
+  ec2:
+    key_name: "{{ ec2_name_prefix }}-key"
+    instance_type: "{{ec2_info.checkpoint_gw.size }}"
+    image: "{{ec2_info.checkpoint_gw.ami.image_id}}"
+    region: "{{ ec2_region }}"
+    user_data: "{{ lookup('template', 'gaia-ftw-user-data.sh.j2') }}"
+    wait: "{{ ec2_wait }}"
+    network_interfaces:
+      - "{{ item[0]['interface']['id'] }}"
+      - "{{ item[1]['interface']['id'] }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: checkpoint_gw_async
+  with_together:
+    - "{{ wait_eni1_creation_checkpoint_gw['results'] }}"
+    - "{{ wait_eni2_creation_checkpoint_gw['results'] }}"
+
+- name: Wait for async instance creation to complete (checkpoint_gw)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_checkpoint_gw_ec2_instance_creation
+  when: "'ansible_job_id' in item"
+  until: wait_for_checkpoint_gw_ec2_instance_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop: "{{checkpoint_gw_async['results']}}"
+
+- set_fact:
+    checkpoint_gw_output: "{{wait_for_checkpoint_gw_ec2_instance_creation['results']}}"
+
+############## Check Point CloudGuard IaaS Gateway ##############
+- name: Ensure tags are present for Check Point CloudGuard Gateway node (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['instance_ids'][0]}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint_gw"
+      Workshop_checkpoint_gw: "{{ec2_name_prefix}}-checkpoint"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "checkpoint_gw"
+      username: "{{ec2_info.checkpoint_gw.username}}"
+  with_indexed_items:
+    - "{{ checkpoint_gw_output }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_checkpoint_gw_async
+  when: checkpoint_gw_output.instance_ids is not none
+
+- name: Wait for async tag creation to complete (checkpoint_gw)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_ec2_tag_creation
+  until: wait_for_ec2_tag_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  when: "'ansible_job_id' in item"
+  loop: "{{ ('results' in ensure_tags_checkpoint_gw_async) | ternary(ensure_tags_checkpoint_gw_async['results'], []) }}"

@@ -8,7 +8,7 @@
     url: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/api/v2/ping/"
     method: GET
     user: admin
-    password: ansible
+    password: "{{admin_password}}"
     validate_certs: true
     force_basic_auth: true
   register: check_cert

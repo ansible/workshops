@@ -69,7 +69,7 @@
 - name: ensure custom facts directory exists
   file:
     path: "/home/{{username}}/.local/share/code-server/User/"
-    recurse: yes
+    recurse: true
     state: directory
     owner: "{{username}}"
 

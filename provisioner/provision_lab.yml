@@ -184,15 +184,14 @@
     - common
   tags: control_node
 
-
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
   gather_facts: true
   become: true
   roles:
     - control_node
+    - code_server
   tags: control_node
-
 
 - name: add dns entires for all student control nodes
   hosts: control_nodes
@@ -248,6 +247,7 @@
           *******************
           {{dns_information}}
           {{callback_information}}
+          {{coder_information}}
 
     - name: Print Summary Information
       debug:

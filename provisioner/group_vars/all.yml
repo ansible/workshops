@@ -1,5 +1,6 @@
 ---
 admin_password: ansible
+code_server: true
 workshop_dns_zone: "rhdemo.io"
 s3_state: "present"
 teardown: false
@@ -7,6 +8,7 @@ towerinstall: false
 website_information: ""
 dns_information: "No errors with DNS"
 callback_information: "No issue with Ansible Tower callback"
+coder_information: "No issue with VS code integration"
 workshop_type: ""
 dns_type: aws
 valid_dns_type:

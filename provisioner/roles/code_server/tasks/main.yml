@@ -23,6 +23,13 @@
     - debug:
         msg: 'VS code integration has failed'
 
+    - name: remove additional nginx configuration because of failure
+      blockinfile:
+        block: "{{ lookup('template', 'nginx.conf') }}"
+        dest: /etc/nginx/nginx.conf
+        state: absent
+        insertafter: "http {"
+
     - name: make sure tower is on
       shell: ansible-tower-service start
       register: install_tower
@@ -33,6 +40,7 @@
       set_fact:
         coder_information: |
           - VS code integration has failed, please use direct SSH addresses
+        code_server: false
       run_once: true
       delegate_to: localhost
       delegate_facts: true

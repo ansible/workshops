@@ -8,10 +8,10 @@ User={{username}}
 WorkingDirectory=/home/{{username}}
 Restart=on-failure
 RestartSec=10
-Environment="PASSWORD={{ admin_password }}"
+Environment="PASSWORD={{admin_password}}"
 
-ExecStart=/opt/code-server /home/{{username}}
-
+ExecStart=/opt/code-server --cert $(pwd)
+ExecStop=/bin/kill -s QUIT $MAINPID
 StandardOutput=file:/var/log/code-server-output.log
 StandardError=file:/var/log/code-server-error.log
 

@@ -33,6 +33,14 @@
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
       when: workshop_type == "networking"
 
+    - name: make sure DNS name is 65 characters or less
+      vars:
+        test_name: "studentXXX-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+      assert:
+        that:
+          - "{{test_name|length}} <= 65"
+        msg: "you must make sure your DNS name is shorter"
+
     - name: make sure security_console is set to a correct value
       assert:
         that:
@@ -184,15 +192,17 @@
     - common
   tags: control_node
 
-
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
   gather_facts: true
   become: true
   roles:
-    - control_node
+    - role: control_node
+    - role: code_server
+      when:
+        - code_server is defined
+        - code_server
   tags: control_node
-
 
 - name: add dns entires for all student control nodes
   hosts: control_nodes
@@ -248,6 +258,7 @@
           *******************
           {{dns_information}}
           {{callback_information}}
+          {{coder_information}}
 
     - name: Print Summary Information
       debug:

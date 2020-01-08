@@ -1,4 +1,5 @@
 {
     "git.ignoreLegacyWarning": true,
-    "terminal.integrated.experimentalRefreshOnResume": true
+    "terminal.integrated.experimentalRefreshOnResume": true,
+    "window.menuBarVisibility": "visible"
 }

@@ -58,21 +58,21 @@ EOF
 """
                 sh """tee provisioner/tests/ci-rhel.yml << EOF
 workshop_type: rhel
-ec2_name_prefix: tower-qe-rhel-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+ec2_name_prefix: tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """
 
                 sh """tee provisioner/tests/ci-networking.yml << EOF
 workshop_type: networking
 ec2_region: eu-central-1
-ec2_name_prefix: tower-qe-networking-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+ec2_name_prefix: tqe-networking-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """
 
                 sh """tee provisioner/tests/ci-f5.yml << EOF
 workshop_type: f5
 ec2_region: ap-northeast-1
-ec2_name_prefix: tower-qe-f5-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+ec2_name_prefix: tqe-f5-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """
 
@@ -80,7 +80,7 @@ EOF
 workshop_type: security
 security_console: qradar
 windows_password: 'RedHatTesting19!'
-ec2_name_prefix: tower-qe-security-workshop-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
+ec2_name_prefix: tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """
             }
@@ -180,7 +180,7 @@ EOF
                         }
                         script {
                             stage('F5-exercises') {
-                                sh "cat provisioner/tower-qe-f5-tower-${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
+                                sh "cat provisioner/tqe-f5-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
                                 RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
                                 sh "sshpass -p '${ADMIN_PASSWORD}' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd networking-workshop && ${RUN_ALL_PLAYBOOKS}'"

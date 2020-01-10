@@ -379,7 +379,7 @@ $("document").ready(function(){
     <div class="content">
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{% if code_server %}
+{% if code_server is defined and code_server %}
 <div id="section_title">VS Code access</div>
 To login to Visual Studio Code via your web browser please go here:<br>
 <table>
@@ -423,7 +423,7 @@ DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 </div>
 <div id="tower_info">
 <hr>
-{% if towerinstall %}
+{% if towerinstall is defined and towerinstall %}
 <div id="section_title">Ansible Tower access</div>
 To login to the Ansible Tower UI use the following credentials:<br>
 <table>

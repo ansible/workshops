@@ -153,7 +153,8 @@ Let's start with a task to define the source object:
 ```
 <!-- {% endraw %} -->
 
-As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_hosts`. The module is the part of Ansible which "makes it so" - the module in this case creates of modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can call the help:
+As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_hosts`. The module is the part of Ansible which "makes it so" - the module in this case creates of modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. 
+Each Ansible module has individual parameters. Some of these parameters are required while others are optional. To get more information about a module, you can call the help:
 
 ```bash
 [student<X>@ansible ~]$ ansible-doc checkpoint_host
@@ -161,7 +162,7 @@ As you can see, the task itself has a name - just like the play itself - and ref
 
 > **Tip**
 >
-> In `ansible-doc` leave by pressing the button `q`. Use the `up`/`down` arrows to scroll through the content.
+> In `ansible-doc`, you can use the `up`/`down` arrows to scroll through the content. To exit press the button `q`. 
 
 In the same way we defined the source IP host object, we will now add the destination IP host object:
 
@@ -188,7 +189,8 @@ In the same way we defined the source IP host object, we will now add the destin
 ```
 <!-- {% endraw %} -->
 
-Last, we are defining the actual access rule between those two host objects and add a task to ensure that the policy is installed in any case. Sometimes this task fails if another installations is already running, so we add a special flag to ignore possible errors, `failed_when: false`:
+Last, we are defining the actual access rule between those two host objects and add a task to ensure that the policy is installed in any case. 
+This task may fail if another policy installation is running already, therefore we are adding a special flag to ignore possible errors, `failed_when: false`: 
 
 <!-- {% raw %} -->
 ```yaml

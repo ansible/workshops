@@ -128,7 +128,8 @@ As you see, variables are marked by curly brackets. Note that we use the second 
 >
 > Make sure that the white spaces and indentation is exactly as shown: YAML is very picky about this, and many errors in running playbooks are due to wrong indentation.
 
-Next, we need to add the tasks where the actual changes on the target machines are done. This happens in three steps: 
+Next, we need to add the tasks. The tasks section is where the actual changes on the target machines are made. In this case, this happens in three steps: 
+
 - first we create a source object
 - then a destination object
 - finally the access rule between those two objects

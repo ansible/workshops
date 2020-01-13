@@ -1,11 +1,15 @@
 ---
-- name: upgrade pip and setuptools
+- name: upgrade pip
   become: true
   pip:
-    name:
-      - pip
-      - setuptools
+    name: pip
     state: latest
+
+# Force <45 because 45.0.0 dropped support for python2
+- name: upgrade setuptools to 44
+  become: true
+  pip:
+    name: setuptools==44.0.0
 
 - name: install f5 workshop dependicies (F5 AUTOMATION MODE)
   become: true

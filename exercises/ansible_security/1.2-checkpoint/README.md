@@ -53,7 +53,7 @@ In Ansible, automation is described in playbooks. Playbooks are files which desc
 
 A playbook is a repeatable set of *plays* and *tasks*.
 
-A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, which does the actual work.
+A playbook can have multiple plays and a play can have one or multiple tasks. A task is comprised of one or more *modules*,  modules are the components that do the actual work.
 
 The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
 

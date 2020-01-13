@@ -161,7 +161,7 @@ As you can see, the task itself has a name - just like the play itself - and ref
 
 > **Tip**
 >
-> In `ansible-doc` leave by pressing the button `q`. Use the `up`/`down` arrows to scroll through the content.
+> In `ansible-doc` you can use the `up`/`down` arrows to scroll through the content and `q` to exit.
 
 In the same way we defined the source IP host object, we will now add the destination IP host object:
 
@@ -263,13 +263,13 @@ checkpoint  : ok=4 changed=3 unreachable=0 failed=0 skipped=0 rescued=0 ignored=
 
 ## Step 2.6 - Verify changes in UI
 
-Now it's time to check if the changes really did take place, if the actual Check Point MGMT server configuration was really altered.
+Now it's time to check if the changes really did take place and Check Point MGMT server's configuration was altered.
 
 Access the Windows workstation and open the SmartConsole interface. On the right side, underneath **Object Categories**, click on **Network Objects**, then pick **Hosts**. It should list both new host entries.
 
 ![SmartConsole Hosts list](images/smartconsole-hosts-list.png)
 
-Next, on the left side, click on **SECURITY POLICIES** and note the additional access control policy entry in the middle of the field compared to the first time we looked at this. This time it allows traffic, thus has another entry in the **Action** column and also a different color.
+Next, on the left side, click on **SECURITY POLICIES**. Notice the additional access control policy entry in the middle of the field, compare this with when we looked at this earlier. Since the traffic is allowed now, the entry in the **Action** column is changed and has a different color.
 
 ![SmartConsole Policy Entries](images/smartconsole-policy-entry.png)
 
@@ -277,15 +277,15 @@ Also note in the bottom left corner that there is a green bar indicating that ch
 
 ## Step 2.7 - Turn on Logging for the new policy
 
-To see how changes are usually performed in a typical interaction with Check Point in contrast, let's just do a small change which will come in handy later on: by default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
+To see how changes are normally performed in a typical manual interaction with Check Point, let's do a small change which will come in handy later on. By default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
 
 ![SmartConsole, change logging](images/smartconsole-change-logging.png)
 
 Afterwards, click on the **Install Policy** button at the top of the list of policies, confirm the dialog which opens with **Publish & Install** and in the last dialog, click **Install** again.
 
-As a result, in the left corner a small window pops up informing you of the progress of the deployment of the change.
+As a result, in the left corner, a small window pops up informing you of the progress of the deployment of the change.
 
-As you see, even doing a rather small change the configuration required multiple clicks and interactions with the user - the more of these steps can be automated, the better.
+As you see, even doing a small change in the configuration requires multiple clicks from the user - the more of these steps can be automated, the better.
 
 ----
 

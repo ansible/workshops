@@ -271,7 +271,7 @@ Access the Windows workstation and open the SmartConsole interface. On the right
 
 ![SmartConsole Hosts list](images/smartconsole-hosts-list.png)
 
-Next, on the left side, click on **SECURITY POLICIES** and note the additional access control policy entry in the middle of the field compared to the first time we looked at this. This time it allows traffic, thus has another entry in the **Action** column and also a different color.
+Next, on the left side, click on **SECURITY POLICIES** and note the additional access control policy entry which is added in the middle of the field. If you remeber, this did not exist when we first looked at this section. Now that Checkpoint allows traffic, there is another entry in the **Action** column and it is now a different color.
 
 ![SmartConsole Policy Entries](images/smartconsole-policy-entry.png)
 

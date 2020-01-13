@@ -286,7 +286,7 @@ Afterwards, click on the **Install Policy** button at the top of the list of pol
 
 As a result, in the left corner, a small window pops up informing you of the progress of the deployment of the change.
 
-As you see, even making a small change in the configuration requires multiple clicks from the user - the more of these steps can be automated, the better.
+As you can see, even making a small change in the configuration requires multiple clicks from the user - the more of these steps can be automated, the better.
 
 ----
 

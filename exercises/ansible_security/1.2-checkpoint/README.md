@@ -39,7 +39,7 @@ Press the **Login** button. Afterwards you need to verify the server fingerprint
 
 > **Note**
 >
-> In a productive environment, you would first figure out the fingerprint of the server and would only proceed after you confirmed that the fiungerprint shown is identical with the one from the server. In our demo setup with the short lived instances we can assume that the fingerprints are good.
+> In a production environment, you would first figure out the fingerprint of the server and would only proceed after you confirmed that the fiungerprint shown is identical with the one from the server. In our demo setup with the short lived instances we can assume that the fingerprints are good.
 
 You are now viewing the Check Point SmartConsole management interface. There might be a Internet Explorer Warning visible upon start. This can safely be closed and is due to limitations in the way IE works.
 

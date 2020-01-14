@@ -59,13 +59,13 @@
 
   - name: CREATE NODES
     bigip_node:
+      host: "{{hostvars[item].ansible_host}}"
+      name: "{{hostvars[item].inventory_hostname}}"
       provider:
         server: "{{private_ip}}"
         user: "{{ansible_user}}"
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
-        host: "{{hostvars[item].ansible_host}}"
-        name: "{{hostvars[item].inventory_hostname}}"
         validate_certs: "no"
     loop: "{{ groups['webservers'] }}"
 ```

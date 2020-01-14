@@ -1,0 +1,176 @@
+---
+- name: Ensure tags are present for splunk
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['id']}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-splunk"
+      Workshop_splunk: "{{ec2_name_prefix}}-splunk"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "splunk"
+      username: '{{ec2_info["rhel7"]["username"]}}'
+      launch_time: "{{item.1.launch_time}}"
+  with_indexed_items:
+    - "{{ siem_output.instances }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_splunk_async
+  when:
+    - (security_console == 'splunk') and (siem_output['instance_ids'] is not none)
+
+- name: Ensure tags are present for qradar
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['id']}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-qradar"
+      Workshop_qradar: "{{ec2_name_prefix}}-qradar"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "qradar"
+      username: '{{ec2_info["rhel7"]["username"]}}'
+      launch_time: "{{item.1.launch_time}}"
+  with_indexed_items:
+    - "{{ siem_output.instances }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_qradar_async
+  when:
+    - (security_console == 'qradar') and (siem_output['instance_ids'] is not none)
+
+- set_fact:
+    ensure_tags_siem_async: "{{ensure_tags_splunk_async}}"
+  when: security_console == 'splunk'
+- set_fact:
+    ensure_tags_siem_async: "{{ensure_tags_qradar_async}}"
+  when: security_console == 'qradar'
+
+- name: Ensure tags are present for snort
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['id']}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-snort"
+      Workshop_snort: "{{ec2_name_prefix}}-snort"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "snort"
+      username: '{{ec2_info["rhel7"]["username"]}}'
+      launch_time: "{{item.1.launch_time}}"
+  with_indexed_items:
+    - "{{ snort_output.instances }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_snort_async
+  when: snort_output['instance_ids'] is not none
+
+- name: Ensure tags are present for attack simulation node
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['id']}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-attacker"
+      Workshop_attacker: "{{ec2_name_prefix}}-attacker"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "attacker"
+      username: '{{ec2_info["rhel7"]["username"]}}'
+      launch_time: "{{item.1.launch_time}}"
+  with_indexed_items:
+    - "{{ attacker_output.instances }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_attacker_async
+  when: attacker_output['instance_ids'] is not none
+
+############## Check Point CloudGuard IaaS Security Management ##############
+- name: Ensure tags are present for Check Point CloudGuard Security Management node (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['id']}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint_mgmt"
+      Workshop_checkpoint_mgmt: "{{ec2_name_prefix}}-checkpoint"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "checkpoint_mgmt"
+      username: "{{ec2_info.checkpoint_mgmt.username}}"
+      launch_time: "{{item.1.launch_time}}"
+  with_indexed_items:
+    - "{{ checkpoint_mgmt_output.instances }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_checkpoint_mgmt_async
+  when: checkpoint_mgmt_output.instance_ids is not none
+
+############## Windows Workstation ##############
+
+- name: Ensure tags are present for Windows Workstation (SECURITY MODE)
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['id']}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-windows_ws"
+      Workshop_windows: "{{ec2_name_prefix}}-windows"
+      Workshop: "{{ec2_name_prefix}}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "windows_ws"
+      username: "{{ec2_info.windows_ws.username}}"
+      launch_time: "{{item.1.launch_time}}"
+  with_indexed_items:
+    - "{{ windows_ws_output.instances }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_windows_async
+  when: windows_ws_output.instance_ids is not none
+
+- name: Wait for async tag creation to complete (instance creation)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_ec2_tag_creation
+  until: wait_for_ec2_tag_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  when: "'ansible_job_id' in item"
+  loop: >
+    {{ ('results' in ensure_tags_siem_async) | ternary(ensure_tags_siem_async['results'], []) }}
+    + {{ ('results' in ensure_tags_snort_async) | ternary(ensure_tags_snort_async['results'], []) }}
+    + {{ ('results' in ensure_tags_attacker_async) | ternary(ensure_tags_attacker_async['results'], []) }}
+    + {{ ('results' in ensure_tags_checkpoint_mgmt_async) | ternary(ensure_tags_checkpoint_mgmt_async['results'], []) }}
+    + {{ ('results' in ensure_tags_windows_async) | ternary(ensure_tags_windows_async['results'], []) }}

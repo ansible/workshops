@@ -1,0 +1,104 @@
+---
+- name: install cerbot
+  yum:
+    name: certbot
+
+- name: turn off tower
+  shell: ansible-tower-service stop
+
+- name: dns for coder
+  become: false
+  route53:
+    state: "{{ s3_state }}"
+    zone: "{{workshop_dns_zone}}"
+    record: "{{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: A
+    overwrite: true
+    value: "{{ansible_host}}"
+  delegate_to: localhost
+  register: route53_status
+
+- name: grab latest release of Coder binary
+  uri:
+    url: https://api.github.com/repos/cdr/code-server/releases/latest
+  register: github_result
+
+- name: save url for extraction of Coder binary
+  set_fact:
+    download_url: "{{item.browser_download_url}}"
+    version_name: "{{item.name.split('.tar')[0]}}"
+  when: "'linux' in item.browser_download_url"
+  loop: "{{github_result.json.assets}}"
+  loop_control:
+    label: "{{ item.browser_download_url }}"
+
+- name: Extract file
+  unarchive:
+    src: "{{download_url}}"
+    dest: "/home/{{username}}"
+    remote_src: true
+  register: output
+
+- name: install ansible vscode extension
+  command: "/home/{{username}}/{{ version_name }}/code-server --install-extension vscoss.vscode-ansible"
+
+- name: move binary to /opt
+  copy:
+    src: /home/{{username}}/{{ version_name }}/code-server
+    dest: /opt/code-server
+    remote_src: true
+    mode: '0744'
+    owner: "{{username}}"
+    group: "{{username}}"
+
+- name: update nginx configuration to support code server
+  blockinfile:
+    block: "{{ lookup('template', 'nginx.conf') }}"
+    dest: /etc/nginx/nginx.conf
+    insertafter: "http {"
+
+- name: Apply systemd service file
+  template:
+    src: code-server.service.j2
+    dest: /etc/systemd/system/code-server.service
+    owner: "{{username}}"
+    group: wheel
+    mode: '0744'
+
+# source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
+- name: ensure custom facts directory exists
+  file:
+    path: "/home/{{username}}/.local/share/code-server/User/"
+    recurse: true
+    state: directory
+    owner: "{{username}}"
+
+- name: apply code server defaults
+  template:
+    src: settings.json
+    dest: "/home/{{username}}/.local/share/code-server/User/settings.json"
+    owner: "{{username}}"
+
+- name: start code-server service
+  service:
+    name: code-server
+    state: started
+    enabled: true
+
+- name: issue cert
+  shell: certbot certonly --standalone -d {{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+  register: issue_cert
+  until: issue_cert is not failed
+  retries: 5
+  ignore_errors: true
+
+- name: turn on tower
+  shell: ansible-tower-service start
+  register: install_tower
+  until: install_tower is not failed
+  retries: 5
+
+- name: cleanup Coder binary from student directory
+  file:
+    path: /home/{{username}}/{{ version_name }}
+    state: absent

@@ -11,10 +11,14 @@
   width: 400px;
 }
 
+#section_title {
+  font-weight: bold;
+  font-size: 25px;
+}
+
 #example_login {
   padding-top: 5px;
 }
-
 
 hr {
   width: 80%;
@@ -375,7 +379,23 @@ $("document").ready(function(){
     <div class="content">
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-To login to the ansible control node use the following for SSH access:<br>
+{% if code_server is defined and code_server %}
+<div id="section_title">VS Code access</div>
+To login to Visual Studio Code via your web browser please go here:<br>
+<table>
+  <tr>
+    <td>UI link:</td>
+    <td><a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+  </tr>
+  <tr>
+    <td>password:</td>
+    <td><code>{{admin_password}}</code></td>
+  </tr>
+</table><br>
+<hr>
+{% endif %}
+<div id="section_title">SSH access</div>
+To login to the Ansible Control Node use the following for SSH access:<br>
 <div id="control_node">
 <div id="login_info">
 <table>
@@ -403,17 +423,10 @@ DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 </div>
 <div id="tower_info">
 <hr>
-{% if towerinstall %}
+{% if towerinstall is defined and towerinstall %}
+<div id="section_title">Ansible Tower access</div>
 To login to the Ansible Tower UI use the following credentials:<br>
 <table>
-  <tr>
-    <td>username:</td>
-    <td><code>admin</code></td>
-  </tr>
-  <tr>
-    <td>password:</td>
-    <td><code>{{admin_password}}</code></td>
-  </tr>
 {% if dns_type != 'none' %}
   <tr>
 <td>UI link:</td>
@@ -426,6 +439,14 @@ To login to the Ansible Tower UI use the following credentials:<br>
 <td><a href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a></td>
   </tr>
 {% endif %}
+  <tr>
+    <td>username:</td>
+    <td><code>admin</code></td>
+  </tr>
+  <tr>
+    <td>password:</td>
+    <td><code>{{admin_password}}</code></td>
+  </tr>
 </table>
 {% endif %}
 </div>

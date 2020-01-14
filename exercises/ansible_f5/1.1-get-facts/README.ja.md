@@ -108,7 +108,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
   tasks:
 
     - name: COLLECT BIG-IP FACTS
-      bigip_facts:
+      bigip_device_facts:
         include: system_info
         provider:
           server: "{{private_ip}}"

@@ -1,8 +1,8 @@
 # Ansible Workshop - Ansible Security Automation
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly. Ansible Security Automation is our expansion deeper into the security use case. The goal is to provide a more efficient, streamlined way for security teams to automate their various processes for the identification, search, and response to security events.
+Ansible is a simple yet powerful IT automation engine for application deployment, configuration management and orchestration which is easy to learn and quick to adapt. Ansible Security Automation is our deeper expansion into the security use case. The goal is to provide a more efficient, streamlined way for security teams to automate their various processes for the identification, search, and response to security events.
 
-In this workshop shows you will learn - step by step - how you can use Ansible to orchestrate 3 security investigation and response activities involving multiple security tools: an enterprise firewall (CheckPoint Next Generation Firewall), an intrusion detection system (Snort) and a SIEM (IBM QRadar).
+In this workshop, you will learn - step by step - how you can use Ansible to orchestrate three security investigation and response activities involving multiple security tools as follows: an enterprise firewall (CheckPoint Next Generation Firewall), an intrusion detection system (Snort) and a SIEM (IBM QRadar).
 
 **Read this in other languages**: [![uk](../../images/uk.png) English](README.md).
 

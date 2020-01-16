@@ -3,7 +3,7 @@
 ## Step 3.1 - Snort
 
 To showcase how to automate a network intrusion detection and intrusion prevention system in a security environment, this lab will take you through managing a Snort IDS instance. Snort analyzes network traffic and compares it against some given rule set.
-In this lab, Snort is installed on a Red Hat Enterprise Linux machine and Ansible interacts Snort via accessing the RHEL node over SSH.
+In this lab, Snort is installed on a Red Hat Enterprise Linux machine and Ansible interacts with it by accessing the RHEL node over SSH.
 
 ## Step 3.2 - Accessing the Snort server
 

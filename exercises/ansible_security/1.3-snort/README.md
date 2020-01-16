@@ -59,7 +59,7 @@ Exit the Snort server now by pressing `CTRL` and `D`, or by typing `exit` on the
 
 ## Step 3.3 - Simple Snort rules
 
-In the most basic capacity, Snort works by reading some rules and acting according to them. In this lab, we will be working with some very simple examples of Snort in order to highlight how to automate it's configuration with Ansible. This lab is not designed to dive into the specifics of Snort rules and the complexity involved in large setups, however, it is helpful to understand the basic structure of a simple Snort rule so you are aware of what you are trying to automate.
+In the most basic capacity, Snort works by reading some rules and acting according to them. In this lab, we will be working with some simple examples of Snort in order to show how to automate this configuration with Ansible. This session is not designed to dive into the specifics of Snort rules and the complexity involved in large setups, however, it is helpful to understand the basic structure of a simple rule so that you are aware of what you are automating.
 
 A rule consists of a rule header and rule options and is saved in files.
 

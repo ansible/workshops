@@ -83,7 +83,7 @@ The Snort rule options are keywords separated by `;` and can be:
 
 Not all options are mandatory, some also only override existing default values.
 
-Together a Snort rule outline is:
+A Snort rule's outline is as follows:
 
 ```
 [action][protocol][sourceIP][sourceport] -> [destIP][destport] ( [Rule options] )

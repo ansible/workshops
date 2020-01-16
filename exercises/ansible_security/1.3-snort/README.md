@@ -259,7 +259,7 @@ Next, we import the role `ids_rule_facts`. We also need to provide a search stri
         ids_rule_facts_filter: 'uricontent:"/etc/passwd"'
 ```
 
-And most importantly, we want to be able see what is actually found. The `ids_rule_facts` stores the data it collects as Ansible facts. Ansible facts are information individual to each host which can be used in further tasks. Therefore, we add another task to output these facts.
+And most importantly, we want to be able see what is actually found. The `ids_rule_facts` stores the data it collects as Ansible facts. Ansible facts are information specific to each individual host which can be used in further tasks. Therefore, we add another task to output these facts.
 
 ```yaml
 ---

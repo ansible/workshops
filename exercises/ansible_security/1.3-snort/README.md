@@ -217,9 +217,8 @@ This yet again highlights the value of using roles. By taking advantage of roles
 
 A quick way to check if the rules were written correctly is to SSH to the Snort server and look for the content of the `/etc/snort/rules/local.rules` file.  
 
-Another way is to use Ansible. We have created another Ansible role that finds existing rules in Snort. This role is called [ids_rule_facts](htithub.com/ansible-security/ids_rule_facts). Let's use this role to verify that the rule we wrote in our playbook is installed on the Snort server.
-
-First, as you did previously, install the role with `ansible-galaxy`:
+Another way is to use Ansible on our control host. To do this we use a different role have written to verify if a Snort rule is in place. This role searches and finds existing rules in Snort and is called [ids_rule_facts](htithub.com/ansible-security/ids_rule_facts).
+To use this role, as we did previously, we install it using `ansible-galaxy`:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule_facts
@@ -229,7 +228,7 @@ First, as you did previously, install the role with `ansible-galaxy`:
 - ansible_security.ids_rule_facts (master) was installed successfully
 ```
 
-The create a playbook, `verify_attack_rule.yml` to use this rule. Set the name of the playbook to something like "Verify Snort rule". The values for hosts, the IDS provider variable and the `become` flag can be set the same as our previous playbook.
+Once the role is installed, we create a playbook, `verify_attack_rule.yml` to use it. Set the name of the playbook to something like "Verify Snort rule". The values for hosts, the IDS provider variable and the `become` flag can be set the same as our previous playbook.
 
 ```yaml
 ---

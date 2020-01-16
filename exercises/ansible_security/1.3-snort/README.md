@@ -7,7 +7,7 @@ In this lab, Snort is installed on a Red Hat Enterprise Linux machine. Ansible i
 
 ## Step 3.2 - Accessing the Snort server
 
-In order to connect to the Snort installation, we need to to find the IP address of the machine it is installed on. First, make sure you are connected to your control host `ansible`. Then, to get the IP address of the Snort machine, you can look up the information about the Snort node on the inventory file `~/lab_inventory/hosts`. This can be done in a single command:
+In order to connect to the Snort installation, we need to to find the IP address of the machine it is installed on. First, make sure you are connected to your control host `ansible`. You can then get the IP address of the Snort machine by looking up the information on the inventory file `~/lab_inventory/hosts`. This can be done in a single command:
 
 ```bash
 [student<X>@ansible ~]$ grep snort ~/lab_inventory/hosts

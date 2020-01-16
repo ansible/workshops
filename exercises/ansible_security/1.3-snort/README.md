@@ -2,13 +2,12 @@
 
 ## Step 3.1 - Snort
 
-To showcase how to automate a network intrusion detection and intrusion prevention system in a security environment, this lab take you through managing a Snort IDS instance. Snort can analyze network traffic and compare it against given rule sets.
-
-In this lab, Snort is installed on a Red Hat Enterprise Linux machine. Ansible interacts with this Snort installation via accessing the Linux node over SSH.
+To showcase how to automate a network intrusion detection and intrusion prevention system in a security environment, this lab take you through managing a Snort IDS instance. Snort analyzes network traffic and compare it against given rule sets.
+In this lab, Snort is installed on a Red Hat Enterprise Linux machine. Ansible interacts with the Snort installation via accessing the RHEL node over SSH.
 
 ## Step 3.2 - Accessing the Snort server
 
-To be able to SSH to the Red Hat Enterprise Linux machine with Snort installation, we need to to find it's IP address. To do this, we need to read the information about the Snort node on the inventory on your control host `ansible`. This can be done in one single command:
+In order to connect to the Snort installation, we need to to find the IP address of the machine it is installed on. First, make sure you are connected to your control host `ansible`. Then, to get the IP address of the Snort machine, you can look up the information about the Snort node on the inventory file `~/lab_inventory/hosts`. This can be done in a single command:
 
 ```bash
 [student<X>@ansible ~]$ grep snort ~/lab_inventory/hosts

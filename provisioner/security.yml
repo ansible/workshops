@@ -122,6 +122,12 @@
   roles:
     - role: windows_ws_setup
 
+- name: FIX CHECKPOINT MGMT SERVER
+  hosts: checkpoint_mgmt
+  gather_facts: false
+  roles:
+    - role: cp_fix_mgmt
+
 - name: SETUP CHECKPOINT ENVIRONMENT
   hosts: control_nodes
   roles:

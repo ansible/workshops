@@ -146,6 +146,7 @@
           - security
           - checkpoint
           - firewall
+          - checkpoint_mgmt
       loop: "{{ checkpoint_node_facts.instances|flatten(levels=1) }}"
 
     - name: grab facts for Check Point NGFW (SECURITY MODE)

@@ -84,14 +84,15 @@ when HTTP_REQUEST {
    irules: ['irule1','irule2']
 
   tasks:
-
+  
   - name: ADD iRules
     bigip_irule:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
       module: "ltm"
       name: "{{item}}"
       content: "{{lookup('file','{{item}}')}}"
@@ -133,11 +134,12 @@ when HTTP_REQUEST {
 
   - name: ADD iRules
     bigip_irule:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
       module: "ltm"
       name: "{{item}}"
       content: "{{lookup('file','{{item}}')}}"
@@ -145,11 +147,12 @@ when HTTP_REQUEST {
 
   - name: ATTACH iRules TO EXISTING VIRTUAL SERVER
     bigip_virtual_server:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
       name: "vip"
       irules: "{{irules}}"
 ```

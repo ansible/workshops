@@ -7,6 +7,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 | Ansible Red Hat Enterprise Linux Workshop | `workshop_type: rhel`  |
 | Ansible Network Automation Workshop | `workshop_type: networking`  |
 | Ansible F5 Workshop | `workshop_type: f5`   |
+| Ansible Security Automation | `workshop_type: security`   |
 
 # Table Of Contents
 - [Requirements](#requirements)

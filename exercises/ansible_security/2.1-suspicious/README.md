@@ -301,7 +301,7 @@ Many of those logs are in fact internal QRadar logs. To get a better overview, c
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png)
 
-Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. If that is not the case straight away, check if logs are coming in for the log source **SIM GENERIC LOG DSM-7**. In that case, wait a minute or two. Sometimes it takes a little bit of time until QRadar identifies a new log source and sorts logs acoordingly. Until then the logs are identified as coming from an unknown source and are sorted into the generic log source.
+Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. Sometimes QRadar needs a few seconds to fully apply the new log sources. Until the new log sources are fully configured, incoming logs will have a "default" log source for unknown logs, called **SIM GENERIC LOG DSM-7**. If you see logs from this default log source, wait a minute or two. After that waiting time, the new log source configuration is properly applied and QRadar will attribute the logs to the right log source, here Check Point.
 
 Also, if you change the **View** from **Real Time** to for example **Last 5 Minutes** you can even click on individual events to see more details of the data the firewall sends you.
 
@@ -400,7 +400,9 @@ Moments after the playbook has been executed, we can check in QRadar if we see O
 
 ![QRadar Offenses](images/qradar_offenses.png)
 
-With these information at our hand, we can now finally check all offenses of this type, and verify that they are all coming only from one single host, the attacker. We can finally confirm that the anomalous application behaviour is a false positive and dismiss the QRadar offense.
+With these information at our hand, we can now finally check all offenses of this type, and verify that they are all coming only from one single host, the attacker.
+
+The next step would be to get in touch with the team responsible for that machine, and discuss the behaviour. For the purpose of the demo we assume that the team of that machine provides feedback that this behaviour is indeed wanted, and that the security alert is a false positive. Thus we can dismiss the QRadar offense.
 
 In the Offense view, click on the Offense, then in the menu on top on **Actions**, In the drop-down menu-click on **close**. A window will pop up where you can enter additional information and finally close the offense as a false positive.
 

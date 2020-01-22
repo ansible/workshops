@@ -18,7 +18,7 @@ snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 >
 > The IP addresses here are for demo purposes and will be different in your case. You have your own dedicated Snort setup in your individual lab environment.
 
-Once you find the IP address, it's time to access the Snort server. Note that the user for the Snort server is `ec2-user`!
+Once you find the IP address, it's time to access the Snort server. The connection uses a SSH key pre-installed on the control host, the user for the Snort server is `ec2-user`. From your control host, access the snort server via:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@22.333.44.5
@@ -54,6 +54,10 @@ Also, check if the service is actively running via `sudo systemctl`:
            └─17217 /usr/sbin/snort -u root -g root -c /etc/snort/snort.conf -i eth0 -p -R 1 --pid-path=/var/run/snort --no-interface-pidfile --nolock-pidfile
 [...]
 ```
+
+> **NOTE**
+>
+> It might happen that the snort service is not running. In this demo environment this is not a problem, if that is the case, restart it with `systemctl restart snort` and check the status again. It should be running.
 
 Exit the Snort server now by pressing `CTRL` and `D`, or by typing `exit` on the command line. All further interaction will be done via Ansible from the Ansible control host.
 

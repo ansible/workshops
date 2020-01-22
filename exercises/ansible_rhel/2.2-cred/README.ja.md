@@ -40,7 +40,7 @@ ssh student<X>@11.22.33.44
 $ cat ~/lab_inventory/hosts 
 [all:vars]
 ansible_user=student<X>
-ansible_ssh_pass=ansible
+ansible_ssh_pass=PASSWORD
 ansible_port=22
 
 [web]
@@ -78,14 +78,15 @@ node1、node2 などのホストの名前と IP addresses を控えておいて�
 Ansible Tower は、ホストやクラウド等の認証情報をユーザーに開示せずに利用可能にするという優れた機能を持っています。 Tower がインベントリー登録したリモートホスト上でジョブを実行できるようにするには、リモートホストの認証情報を設定する必要があります。
 
 > **メモ**
-> 
+>
 > これは Tower が持っている重要な機能の一つ **認証情報の分離の機能です**\! 認証情報はホストやインベントリーの設定とは別で強固に管理することが可能です。
 
-Tower の重要な機能なので、まずはコマンドラインでラボ環境について確認してみましょう。  
+Tower の重要な機能なので、まずはコマンドラインでラボ環境について確認してみましょう。
 
-SSH 経由で Tower ホストにログインします。  
+SSH 経由で Tower ホストにログインします。
 
-  - `ssh student<X>@11.22.33.44` いつものように、\<X\> の部分と、Tower ホストのIPアドレスは各自のものに置き換えてください。
+  - Tower コントローラーへ SSH でログインします: `ssh student<X>@student<X>.workshopname.rhdemo.io`
+  - \<X\> の部分と、workshopname は各自のものに置き換えてください。
 
   - `node1` に SSH 接続し、 `sudo -i` を実行してみます。 SSH 接続の際はパスワード入力が要求されますが、 `sudo -i` に関してはパスワードは要求されません。
 

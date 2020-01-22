@@ -12,11 +12,21 @@ Ansibleはアプリケーションの展開、構成管理、オーケストレ�
 
 ## プレゼンテーション資料
 
-プレゼンテーション資料はこちら:
-[Ansible for Red Hat Enterprise Linux Deck](../../decks/ansible_rhel.pdf)
+本演習は自習形式でラボ全体を通してガイドされます。演習の導入時にそれぞれの概念には解説があります。
+
+演習をサポートし、自動化やAnsibleの基礎的な概念を補足するためのプレゼンテーション資料はこちらです:
+[Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
 
 Ansibleのベストプラクティスもあわせてご覧ください:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)
+
+## 時間配分
+
+ワークショップに必要な時間は複数の要素に依存します。参加者の人数、Linux全般に渡る習熟度、及び演習中の議論の程度です。
+
+とはいえ、ワークショップ自身に4〜5時間はかかります。最初のセクションは、以降のセクションよりもやや長くなっています。付随するプレゼンテーションを用いると更に1時間が追加されます。
+
+もし実際の感覚とこのワークショップのスケジュールが異なる場合、Issue で知らせてください。
 
 ## Section 1 - Ansible Engineの演習
 
@@ -26,7 +36,7 @@ Ansibleのベストプラクティスもあわせてご覧ください:
  - [演習 1.4 - 変数を使ってみよう](1.4-variables/README.ja.md)
  - [演習 1.5 - 条件式、ハンドラ、ループを使う](1.5-handlers/README.ja.md)
  - [演習 1.6 - テンプレートを使う](1.6-templates/README.ja.md)
- - [演習 1.7 - Roles：Playbook を再利用可能にする](1.7-role/README.ja.md)
+ - [演習 1.7 - Roles](1.7-role/README.ja.md)
  - [演習 1.8 - ボーナスラボ](1.8-bonus/README.ja.md)
 
 ## Section 2 - Ansible Towerの演習

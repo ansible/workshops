@@ -10,6 +10,8 @@ In this exercise, we imagine that we are a security operator in charge of an ent
 
 For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise in section 1. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
+Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar`
+
 Also, in the Check Point SmartConsole interface, go to **SECURITY POLICIES**. You will see two entries there. On the upper one, in the column action, click on **Accept**. This open a menu: click on **Drop** there, changing the policy to drop such packets. In the menu above, click on **Install Policy**, that opens a window, click the **Publish & Install** button there. Another window opens, click on the **Install** button there. This way we have effectively changed the whitelist to a blacklist entry.
 
 > **Note**
@@ -44,7 +46,7 @@ The stage is set now. Read on to learn what this use case is about.
 
 ## Step 2.3 - See the attack
 
-You are a security operator in charge of an enterprise firewall in a larger cooperaiton. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab:
+You are a security operator in charge of an enterprise firewall in a larger cooperaiton. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab. A new window opens, offering you two choices: **Audit Logs** and **Logs**. Click on **logs** to get to the actual view of the logs:
 
 ![Check Point logs view, violation logs](images/smartconsole_violation_logs.png)
 

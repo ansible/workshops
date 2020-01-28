@@ -202,6 +202,8 @@
       when:
         - code_server is defined
         - code_server
+        - towerinstall is defined
+        - towerinstall
   tags: control_node
 
 - name: add dns entires for all student control nodes

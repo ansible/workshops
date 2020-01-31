@@ -1,0 +1,14 @@
+---
+- name: test cert
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: GitLab post | check to see if SSL cert already applied
+    become: false
+    get_certificate:
+      host: "gitlab.win-test1.rhdemo.io"
+      port: 443
+    delegate_to: localhost
+    run_once: true
+    register: check_cert
+    ignore_errors: true

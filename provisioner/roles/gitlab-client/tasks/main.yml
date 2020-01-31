@@ -1,0 +1,22 @@
+---
+- name: install git packages
+  yum:
+    name:
+      - git
+    state: present
+
+- name: Set git to cache credentials
+  command: git config --global credential.helper manager
+
+- name: Allow insecure git repos for self signed certificates
+  command: git config --global http.sslVerify "false"
+
+- name: Set git user
+  command: git config --global user.name "{{ username }}"
+  register: git_user
+
+- debug:
+    var: git_user
+
+- name: Set git user email
+  command: git config --global user.email "{{ username }}@{{ public_dns_zone }}"

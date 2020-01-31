@@ -1,6 +1,6 @@
 ---
 # General config.
-gitlab_external_url: "https://gitlab/"
+gitlab_external_url: "https://gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
 gitlab_version: ''
@@ -9,11 +9,11 @@ gitlab_config_template: "gitlab.rb.j2"
 
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
-gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+gitlab_ssl_certificate: "/etc/letsencrypt/live/gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/fullchain.pem"
+gitlab_ssl_certificate_key: "/etc/letsencrypt/live/gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
 
 # SSL Self-signed Certificate Configuration.
-gitlab_create_self_signed_cert: "true"
+gitlab_create_self_signed_cert: "false"
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
 # LDAP Configuration.

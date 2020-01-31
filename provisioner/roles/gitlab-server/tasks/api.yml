@@ -17,9 +17,6 @@
       }
   register: gitlab_access_token
 
-- debug:
-    var: gitlab_access_token
-
 - name: GitLab Post | Create local users via API
   uri:
     url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone }}/api/v4/users
@@ -43,9 +40,6 @@
       }
     register: create_user
   with_sequence: count="{{ student_total }}"
-
-- debug:
-    var: create_user
 
 - name: GitLab Post | Get local user information via API
   uri:

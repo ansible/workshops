@@ -61,8 +61,8 @@
     name: epel
     description: EPEL for Enterprise Linux 7
     baseurl: https://dl.fedoraproject.org/pub/epel/7/x86_64/
-    enabled: yes
-    gpgcheck: no
+    enabled: true
+    gpgcheck: false
   when: ansible_distribution_major_version|int == 7
 
 - name: Add EPEL repo for RHEL 8
@@ -70,8 +70,8 @@
     name: epel
     description: EPEL for Enterprise Linux 8
     baseurl: https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/
-    enabled: yes
-    gpgcheck: no
+    enabled: true
+    gpgcheck: false
   when: ansible_distribution_major_version|int == 8
 
 - name: Enable optional repos for RHEL 7 (ec2)

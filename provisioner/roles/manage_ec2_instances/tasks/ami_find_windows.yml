@@ -51,14 +51,14 @@
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 
-- name: WINDOWS | Workstation | find ami
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      name: "{{ ec2_info['skylight_windows_ws']['filter'] }}"
-  register: amis
+# - name: WINDOWS | Workstation | find ami
+#   ec2_ami_facts:
+#     region: "{{ ec2_region }}"
+#     filters:
+#       name: "{{ ec2_info['skylight_windows_ws']['filter'] }}"
+#   register: amis
 
-- name: WINDOWS | Workstation | save ami
-  set_fact:
-    win_ws_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+# - name: WINDOWS | Workstation | save ami
+#   set_fact:
+#     win_ws_ami: >
+#       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

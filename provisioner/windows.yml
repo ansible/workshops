@@ -46,7 +46,7 @@
     - {role: geerlingguy.gitlab}
     - {role: gitlab-server}
 
-- name: Configure GitLab client 
+- name: Configure GitLab client
   hosts: control_nodes
   become: true
   gather_facts: true

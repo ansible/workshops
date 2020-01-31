@@ -87,4 +87,3 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   when: username in inventory_hostname
-  

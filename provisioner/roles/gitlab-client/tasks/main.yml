@@ -20,3 +20,4 @@
 
 - name: Set git user email
   command: git config --global user.email "{{ username }}@{{ public_dns_zone }}"
+  

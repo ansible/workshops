@@ -10,7 +10,7 @@ ec2_name_prefix: TESTWORKSHOP
 student_total: 2
 # Set the right workshop type, like networking, rhel or f5 (see above)
 workshop_type: windows
-#OPTIONAL VARIABLES
+# OPTIONAL VARIABLES
 # password for Ansible control node, defaults to ansible
 admin_password: ansible123
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone

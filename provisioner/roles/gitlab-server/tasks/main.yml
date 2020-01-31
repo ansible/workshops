@@ -11,9 +11,9 @@
 
 - name: GitLab Post | Install pyapi-gitlab
   pip:
-    name: 
-    - pyapi-gitlab
-    - python-gitlab
+    name:
+      - pyapi-gitlab
+      - python-gitlab
 
 - name: GitLab Post | Repos to create
   debug: msg="https://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}/student{{ item }}/ansible-playbooks"
@@ -28,7 +28,7 @@
     type: A
     overwrite: true
     value: "{{ansible_host}}"
-    wait: yes
+    wait: true
   delegate_to: localhost
   register: route53_status
 
@@ -38,7 +38,7 @@
       uri:
         url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}/oauth/token
         method: POST
-        validate_certs: no
+        validate_certs: false
         status_code: 200
         body_format: json
         headers:
@@ -49,7 +49,7 @@
             "username": "root",
             "password": "{{ admin_password }}"
           }
-      no_log: True
+      no_log: true
 
   rescue:
 
@@ -75,7 +75,7 @@
       uri:
         url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}/oauth/token
         method: POST
-        validate_certs: no
+        validate_certs: false
         status_code: 200
         body_format: json
         headers:
@@ -96,28 +96,28 @@
     - name: GitLab Post | Create local users
       gitlab_user:
         server_url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}
-        validate_certs: False
+        validate_certs: false
         login_user: root
         login_password: "{{ admin_password }}"
         name: student{{ item }}
         username: student{{ item }}
         password: "{{ admin_password }}"
         email: student{{ item }}@{{ public_dns_zone }}
-        confirm: False
+        confirm: false
         state: present
       with_sequence: count="{{ student_total }}"
 
     - name: GitLab Post | Create Projects in GitLab
       gitlab_project:
         server_url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}
-        validate_certs: False
+        validate_certs: false
         login_user: root
         login_password: "{{ admin_password }}"
         name: student{{ item }}
         group: student{{ item }}
-        issues_enabled: False
-        wiki_enabled: False
-        snippets_enabled: False
+        issues_enabled: false
+        wiki_enabled: false
+        snippets_enabled: false
         state: present
       with_sequence: count="{{ student_total }}"
       ignore_errors: true
@@ -130,4 +130,3 @@
   when: ansible_version.full is version_compare('2.8', '>=')
 
 - include_tasks: certbot.yml
-

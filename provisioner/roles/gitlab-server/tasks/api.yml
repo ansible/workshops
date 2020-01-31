@@ -4,7 +4,7 @@
   uri:
     url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}/oauth/token
     method: POST
-    validate_certs: no
+    validate_certs: false
     status_code: 200
     body_format: json
     headers:
@@ -24,7 +24,7 @@
   uri:
     url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone }}/api/v4/users
     method: POST
-    validate_certs: no
+    validate_certs: false
     status_code:
       - 200
       - 201
@@ -51,7 +51,7 @@
   uri:
     url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}/api/v4/users?username=student{{ item }}
     method: GET
-    validate_certs: no
+    validate_certs: false
     status_code:
       - 200
       - 201
@@ -65,7 +65,7 @@
   uri:
     url: http://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}/api/v4/projects/user/{{ item.json[0].id }}
     method: POST
-    validate_certs: no
+    validate_certs: false
     status_code:
       - 200
       - 201

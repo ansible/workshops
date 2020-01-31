@@ -12,18 +12,6 @@
   include_tasks: teardown.yml
   when: teardown|bool
 
-# - name: GitLab post | dns for gitlab
-#   become: false
-#   route53:
-#     state: "{{ s3_state }}"
-#     zone: "{{workshop_dns_zone}}"
-#     record: "gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-#     type: A
-#     overwrite: true
-#     value: "{{ansible_host}}"
-#   delegate_to: localhost
-#   register: route53_status
-
 - name: GitLab post | check to see if SSL cert already applied
   become: false
   get_certificate:
@@ -40,7 +28,7 @@
   until: issue_cert is not failed
   retries: 5
   ignore_errors: true
-  when: 
+  when:
     - check_cert is failed
     - not teardown|bool
 

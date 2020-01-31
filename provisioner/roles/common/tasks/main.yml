@@ -56,12 +56,6 @@
     value: 1
   with_items: '{{ redhat_aws_rhui_repos }}'
 
-# - name: windows workshop linux config
-#   include_tasks: windows.yml
-#   when: workshop_type == "windows"
-
 - meta: flush_handlers
   tags:
     - common
-
-

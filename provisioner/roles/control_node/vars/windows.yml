@@ -1,8 +1,0 @@
----
-# needed for workshop_type == windows
-# Needed for AD and windows client provision
-dns_domain_name: "ansibleworkshop.com"
-# Could do regex search on dns_domain_name (.+?)(?=\.)
-dns_domain_name_short: "ansibleworkshop"
-ldap_basedn: "DC=ansibleworkshop,DC=com"
-domain_admin_password: "MyP@ssw0rd21"

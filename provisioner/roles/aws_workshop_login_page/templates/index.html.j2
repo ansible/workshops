@@ -267,6 +267,9 @@ $("document").ready(function(){
                 {% elif workshop_type in ['security'] %}
                 <h2>Security Automation Workshops</h2>
                 <p>These workshops are focused on automating security platforms like Snort, Check Point and Splunk Enterprise Security.</p>
+                {% elif workshop_type in ['windows'] %}
+                <h2>Windows Automation Workshops</h2>
+                <p>These workshops are focused on automating Microsoft Windows.</p>
                 {% endif %}
             </div>
         </div>
@@ -305,6 +308,15 @@ $("document").ready(function(){
         <div class="row">
             <div class="col-sm-4">
                 <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_security/">Ansible Security Exercises</a>
+            </div>
+            <div class="col-sm-4">
+              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
+          </div>
+        </div>
+        {% elif workshop_type == "windows" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
             </div>
             <div class="col-sm-4">
               <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>

@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "user = User.where(id: 1).first
+user.password = '{{ admin_password }}'
+user.password_confirmation = '{{ admin_password }}'
+user.password_automatically_set = false
+user.reset_password_token = nil
+user.reset_password_sent_at = nil
+user.save!
+user.unlock_access!
+quit
+" | gitlab-rails console production

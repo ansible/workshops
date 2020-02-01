@@ -1,15 +1,15 @@
 ---
-- name: WINDOWS | DomainController | find ami
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      name: "{{ ec2_info['skylight_windows_dc']['filter'] }}"
-  register: amis
+# - name: WINDOWS | DomainController | find ami
+#   ec2_ami_facts:
+#     region: "{{ ec2_region }}"
+#     filters:
+#       name: "{{ ec2_info['skylight_windows_dc']['filter'] }}"
+#   register: amis
 
-- name: WINDOWS | DomainController| save ami
-  set_fact:
-    win_dc_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+# - name: WINDOWS | DomainController| save ami
+#   set_fact:
+#     win_dc_ami: >
+#       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 
 - name: WINDOWS | GitLab | find ami
@@ -25,17 +25,17 @@
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 
-- name: WINDOWS | Docs | find ami
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      name: "{{ ec2_info['skylight_rhel7_docs']['filter'] }}"
-  register: amis
+# - name: WINDOWS | Docs | find ami
+#   ec2_ami_facts:
+#     region: "{{ ec2_region }}"
+#     filters:
+#       name: "{{ ec2_info['skylight_rhel7_docs']['filter'] }}"
+#   register: amis
 
-- name: WINDOWS | Docs | save ami
-  set_fact:
-    win_docs_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+# - name: WINDOWS | Docs | save ami
+#   set_fact:
+#     win_docs_ami: >
+#       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 
 - name: WINDOWS | Instance | find ami
@@ -51,14 +51,14 @@
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 
-- name: WINDOWS | Workstation | find ami
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      name: "{{ ec2_info['skylight_windows_ws']['filter'] }}"
-  register: amis
+# - name: WINDOWS | Workstation | find ami
+#   ec2_ami_facts:
+#     region: "{{ ec2_region }}"
+#     filters:
+#       name: "{{ ec2_info['skylight_windows_ws']['filter'] }}"
+#   register: amis
 
-- name: WINDOWS | Workstation | save ami
-  set_fact:
-    win_ws_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+# - name: WINDOWS | Workstation | save ami
+#   set_fact:
+#     win_ws_ami: >
+#       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

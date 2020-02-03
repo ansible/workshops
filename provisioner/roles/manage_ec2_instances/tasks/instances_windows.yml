@@ -175,6 +175,6 @@
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
     - "{{ instance2_output.instances }}"
-  when: 
+  when:
     - doubleup|bool
     - instance2_output.instance_ids is not none

@@ -160,7 +160,7 @@
     resource: "{{item.1.id}}"
     state: present
     tags:
-      Workshop_instance1: "{{ ec2_name_prefix }}-instance2"
+      Workshop_instance2: "{{ ec2_name_prefix }}-instance2"
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-instance2"
       App: AnsibleWorkshop
       Workshop: "{{ec2_name_prefix}}"

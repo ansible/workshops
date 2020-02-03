@@ -319,7 +319,7 @@ $("document").ready(function(){
                 <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
             </div>
             <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
+              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
           </div>
         </div>
         {% endif %}
@@ -397,7 +397,7 @@ To login to Visual Studio Code via your web browser please go here:<br>
 <table>
   <tr>
     <td>UI link:</td>
-    <td><a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+    <td>{% if workshop_type == "windows" %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}/?folder=vscode-remote%3A%2F%2Fstudent{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}%2Fhome%2Fstudent{{number}}%2Fwindows-workshop">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% else %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% endif %}</td>
   </tr>
   <tr>
     <td>password:</td>
@@ -406,6 +406,27 @@ To login to Visual Studio Code via your web browser please go here:<br>
 </table><br>
 <hr>
 {% endif %}
+{% if workshop_type == "windows" %}
+<div id="section_title">GitLab access</div>
+To login to GitLab via your web browser please go here:<br>
+<table>
+  <tr>
+    <td>UI link:</td>
+    <td><a href="https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+  </tr>
+  <tr>
+    <td>username:</td>
+    <td><code>student{{number}}</code></td>
+  </tr>
+  <tr>
+    <td>password:</td>
+    <td><code>{{admin_password}}</code></td>
+  </tr>
+</table><br>
+<hr>
+{% endif %}
+{% if workshop_type == "windows" %}
+{% else %}
 <div id="section_title">SSH access</div>
 To login to the Ansible Control Node use the following for SSH access:<br>
 <div id="control_node">
@@ -433,6 +454,7 @@ DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 {% endif %}
 </div>
 </div>
+{% endif %}
 <div id="tower_info">
 <hr>
 {% if towerinstall is defined and towerinstall %}

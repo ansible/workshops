@@ -39,4 +39,3 @@
   retries: 120
   delay: 1
   until: check_cert is not failed
-

@@ -35,13 +35,13 @@
       command: git config --global user.email "{{ username }}@{{ public_dns_zone }}"
       become_user: "{{ username }}"
 
-    - name: Create project directory 
+    - name: Create project directory
       file:
         path: /home/{{ username }}/windows-workshop/workshop_project
         state: directory
         owner: "{{ username }}"
         group: "{{ username }}"
-      
+
     - name: Initialize git repo
       command: git init
       args:
@@ -72,7 +72,7 @@
       args:
         chdir: /home/{{ username }}/windows-workshop/workshop_project
       become_user: "{{ username }}"
-      
+
     - name: Commit file
       command: git push origin master
       args:

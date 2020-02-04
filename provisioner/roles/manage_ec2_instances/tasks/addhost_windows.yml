@@ -49,7 +49,7 @@
     wait_timeout: 300
   with_items: "{{ instance2_node_facts.instances }}"
   register: ec2windows2_password
-  when: 
+  when:
     - doubleup|bool
     - instance2_node_facts is defined
 
@@ -109,7 +109,7 @@
     groups:
       - windows
   with_items: "{{ ec2windows2_password.results }}"
-  when: 
+  when:
     - doubleup|bool
     - ec2windows2_password is defined
 

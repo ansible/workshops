@@ -19,7 +19,7 @@
 #   debug: msg="https://gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone}}/student{{ item }}/ansible-playbooks"
 #   with_sequence: count="{{ student_total }}"
 
-- name: GitLab post | dns for gitlab
+- name: GitLab post | DNS
   become: false
   route53:
     state: "{{ s3_state }}"
@@ -63,9 +63,6 @@
             "password": "{{ admin_password }}"
           }
       register: root_user
-
-    - debug:
-        var: root_user
 
   rescue:
 

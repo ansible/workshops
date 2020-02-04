@@ -25,7 +25,7 @@
 #       Linklight: "This was provisioned through the linklight provisioner"
 #       Students: "{{ student_total }}"
 #       short_name: 'windc'
-#       long_name: "windc.{{ ec2_name_prefix }}.{{ public_dns_zone | default('') }}"
+#       long_name: "windc.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
 #     wait: "{{ ec2_wait }}"
 #     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
 #     user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='windc')) }}"
@@ -55,7 +55,7 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: 'gitlab'
-      long_name: "gitlab.{{ ec2_name_prefix }}.{{ public_dns_zone | default('') }}"
+      long_name: "gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
       username: "{{ ec2_info['skylight_rhel7_gitlab']['username'] }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
@@ -86,7 +86,7 @@
 #       Linklight: "This was provisioned through the linklight provisioner"
 #       Students: "{{student_total}}"
 #       short_name: "docs"
-#       long_name: "docs.{{ ec2_name_prefix }}.{{ public_dns_zone | default('') }}"
+#       long_name: "docs.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
 #       username: "{{ ec2_info['skylight_rhel7_docs']['username'] }}"
 #     wait: "{{ ec2_wait }}"
 #     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"

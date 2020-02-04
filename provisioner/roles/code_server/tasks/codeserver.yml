@@ -94,7 +94,7 @@
     - bierner.markdown-preview-github-styles-0.1.6.vsix
     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
     - vscoss.vscode-ansible-0.5.2.vsix
-  ignore_errors: false
+  ignore_errors: true
 
 - name: start code-server service
   service:

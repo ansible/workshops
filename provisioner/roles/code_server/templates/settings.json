@@ -1,5 +1,6 @@
 {
     "git.ignoreLegacyWarning": true,
     "terminal.integrated.experimentalRefreshOnResume": true,
-    "window.menuBarVisibility": "visible"
+    "window.menuBarVisibility": "visible",
+    "git.enableSmartCommit": true
 }

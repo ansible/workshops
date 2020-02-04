@@ -17,11 +17,7 @@ workshop today.
 Logging into Tower
 ==================
 
-You will find a shortcut on your desktop named "Ansible Tower", click
-this to open your personal Ansible Tower instance in Chrome.
-
-Your Tower instance has already been pre-configured for LDAP Login, so
-use your student credentials to login.
+Your Ansible Tower instance url and credentials were supplied to you on the page created for this workshop.
 
 Your Ansible Tower license has already been applied for you, so after
 logging in you should now see the Dashboard.
@@ -55,38 +51,13 @@ Step 3:
 
 Complete the form using the following entries:
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>NAME</p></td>
-<td><p>Student Account</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>ORGANIZATION</p></td>
-<td><p>Default</p></td>
-</tr>
-<tr class="even">
-<td><p>TYPE</p></td>
-<td><p>Machine</p></td>
-</tr>
-<tr class="odd">
-<td><p>USERNAME</p></td>
-<td><p>&lt;your USER ID - instructor provided (ie. <a href="mailto:student1@ansibleworkshop.com">student1@ansibleworkshop.com</a>)&gt;</p></td>
-</tr>
-<tr class="even">
-<td><p>PASSWORD</p></td>
-<td><p>&lt;your AD account password - instructor provided&gt;</p></td>
-</tr>
-</tbody>
-</table>
+| Key          | Value           |                                          |
+|--------------|-----------------|------------------------------------------|
+| Name         | Student Account |                                          |
+| Organization | Default         |                                          |
+| Type         | Machine         |                                          |
+| Username     | student#        | Replace # with your student number       |
+| Password     | *****           | Replace with your student password       |
 
 ![Add Machine Credential](images/1-tower-add-machine-credential.png)
 

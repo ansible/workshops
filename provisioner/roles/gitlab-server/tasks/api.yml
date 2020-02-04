@@ -55,27 +55,3 @@
   with_sequence: count="{{ student_total }}"
   register: gitlab_local_users
 
-# - name: GitLab Post | Create Projects via API
-#   uri:
-#     url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/api/v4/projects/user/{{ item.json[0].id }}
-#     method: POST
-#     validate_certs: false
-#     status_code:
-#       - 200
-#       - 201
-#       - 409
-#       - 400
-#     body_format: json
-#     headers:
-#       Content-Type: application/json
-#       Authorization: Bearer {{ gitlab_access_token.json.access_token }}
-#     body: >
-#       {
-#         "name": "{{ item.json[0].name }}",
-#         "group": "{{ item.json[0].name }}",
-#         "issues_enabled": false,
-#         "wiki_enabled": false,
-#         "snippets_enabled": false
-#       }
-#   loop: "{{ gitlab_local_users.results }}"
-#   when: item.json is defined

@@ -39,23 +39,22 @@ Step 1:
 Within Visual Studio Code, create a new directory in your git repo and
 create a site.yml file.
 
-In the Explorer accordion you should have a *student\#* section where
-you previously made iis\_basic.
+In the Explorer accordion you should have a *WORKSHOP_PROJECT* section where
+you previously made `iis_basic`.
 
 ![Student Playbooks](images/5-vscode-existing-folders.png)
 
-Step 2: Create a folder called **iis\_advanced** and a file called `site.yml`
+Step 2: Create a folder called **iis_advanced** and a file called `site.yml`
 -----------------------------------------------------------------------------
 
-Hover over the *student\#* section and click the *New Folder* button
+Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button
 
-Type iis\_advanced and hit enter. Then click that folder so it is
+Type `iis_advanced` and hit enter. Now, click that folder so it is
 selected.
 
-Hover over the *student\#* section again and click the *New File*
-button.
+Right-click the `iis_advanced` folder and select *New File*.
 
-Type site.yml and hit enter.
+Type `site.yml` and hit enter.
 
 You should now have an editor open in the right pane that can be used
 for creating your playbook.
@@ -70,7 +69,7 @@ addtional packages your playbook will install on your web servers, plus
 some web server specific configurations.
 
     ---
-    - hosts: Windows
+    - hosts: windows
       name: This is a play within a playbook
       vars:
         iis_sites:
@@ -147,14 +146,12 @@ Step 1:
 Create a `templates` directory in your project directory and create a
 template as follows:
 
-Ensure your **iis\_advanced folder** is highlighted and then hover over
-the *student\#* section and click the *New Folder* button
+Ensure your **iis_advanced folder** is highlighted and then hover over
+the *WORKSHOP_PROJECT* section and click the *New Folder* button
 
-Type templates and hit enter. Then click that folder so it is selected.
+Type `templates` and hit enter. The right-click the *templates* folder and click the *New File* button.
 
-Hover over the *templates* folder and click the *New File* button.
-
-Type index.html.j2 and hit enter.
+Type `index.html.j2` and hit enter.
 
 You should now have an editor open in the right pane that can be used
 for creating your template. Enter the following details:
@@ -257,7 +254,7 @@ commit the changes to source code control.
 
 Click `File` → `Save All` to save the files you’ve written
 
-![site.yml part 2](images/5-vscode-iis-yaml-2.png)
+![site.yml part 2](images/5-vscode-iis-yaml.png)
 
 Click the Source Code icon (1), type in a commit message such as *Adding
 advanced playbook* (2), and click the check box above (3).

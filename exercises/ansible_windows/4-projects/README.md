@@ -30,52 +30,17 @@ Step 3:
 
 Complete the form using the following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>NAME</p></td>
-<td><p>IIS Basic Job Template</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Template for the iis-basic-playbook</p></td>
-</tr>
-<tr class="odd">
-<td><p>JOB TYPE</p></td>
-<td><p>Run</p></td>
-</tr>
-<tr class="even">
-<td><p>INVENTORY</p></td>
-<td><p>Windows Workshop Inventory</p></td>
-</tr>
-<tr class="odd">
-<td><p>PROJECT</p></td>
-<td><p>Ansible Workshop Project</p></td>
-</tr>
-<tr class="even">
-<td><p>PLAYBOOK</p></td>
-<td><p>iis-basic/install_iis.yml</p></td>
-</tr>
-<tr class="odd">
-<td><p>CREDENTIAL</p></td>
-<td><p>Type: <strong>Machine</strong>. Name: Student Account</p></td>
-</tr>
-<tr class="even">
-<td><p>LIMIT</p></td>
-<td><p>Windows</p></td>
-</tr>
-<tr class="odd">
-<td><p>OPTIONS</p></td>
-<td><ul>
-<li><p>[*] USE FACT CACHE</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
+| Key         | Value                                        | Note |
+|-------------|----------------------------------------------|------|
+| Name        | IIS Basic Job Template                       |      |
+| Description | Template for the iis-basic playbook          |      |
+| JOB TYPE    | Run                                          |      |
+| INVENTORY   | Windows Workshop Inventory                   |      |
+| PROJECT     | Ansible Workshop Project                     |      |
+| PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account** |      |
+| LIMIT       | windows                                      |      |
+| OPTIONS     | [*] ENABLE FACT CACHE                        |      |
 
 ![Create Job Template](images/4-create-job-template.png)
 
@@ -179,7 +144,7 @@ Select **NEXT** and preview the inputs.
 Step 5:
 -------
 
-Select LAUNCH ![SurveyL](images/at_survey_launch.png)
+Select LAUNCH ![SurveyL](images/4-survey-launch.png)
 
 Step 6:
 -------

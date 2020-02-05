@@ -54,4 +54,3 @@
       Authorization: Bearer {{ gitlab_access_token.json.access_token }}
   with_sequence: count="{{ student_total }}"
   register: gitlab_local_users
-

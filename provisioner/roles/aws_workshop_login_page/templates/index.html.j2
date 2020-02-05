@@ -397,7 +397,7 @@ To login to Visual Studio Code via your web browser please go here:<br>
 <table>
   <tr>
     <td>UI link:</td>
-    <td>{% if workshop_type == "windows" %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}/?folder=vscode-remote%3A%2F%2Fstudent{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}%2Fhome%2Fstudent{{number}}%2Fwindows-workshop">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% else %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% endif %}</td>
+    <td>{% if workshop_type == "windows" %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}/?folder=vscode-remote%3A%2F%2Fstudent{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}%2Fhome%2Fstudent{{number}}%2Fwindows-workshop%2Fworkshop_project">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% else %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% endif %}</td>
   </tr>
   <tr>
     <td>password:</td>
@@ -454,9 +454,9 @@ DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 {% endif %}
 </div>
 </div>
+<hr>
 {% endif %}
 <div id="tower_info">
-<hr>
 {% if towerinstall is defined and towerinstall %}
 <div id="section_title">Ansible Tower access</div>
 To login to the Ansible Tower UI use the following credentials:<br>

@@ -74,7 +74,7 @@ play and then understanding what each line accomplishes
 
     ---
     - name: install the iis web service
-      hosts: all
+      hosts: windows
 
 - `---` Defines the beginning of YAML
 
@@ -110,6 +110,10 @@ of this exercise.
          win_copy:
            content: "{{ iis_test_message }}"
            dest: C:\Inetpub\wwwroot\index.html
+
+       - name: Show website address
+         debug:
+           msg: http://{{ ansible_host }}
 
 - `tasks:` This denotes that one or more tasks are about to be defined
 
@@ -151,6 +155,14 @@ of this exercise.
   as we are using a variable to source the contents. We won’t go into
   the variables just yet, since they will be showcased in a later
   lesson.
+
+<!-- -->
+
+    debug:
+      msg: http://{{ ansible_host }}
+
+- This task uses the `debug` module to post a message at the end of playbook execution. This particular message prints out `http://` + the variable name that contains the IP address of the host we're running the playbook on (our Windows IIS server)
+  
 
 Section 4: Saving your Playbook
 ===============================
@@ -225,3 +237,7 @@ You are ready to automate!
           win_copy:
             content: "{{ iis_test_message }}"
             dest: C:\Inetpub\wwwroot\index.html
+
+        - name: Show website address
+          debug:
+            msg: http://{{ ansible_host }}

@@ -55,38 +55,14 @@ Step 5:
 
 Complete the survey form with following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>PROMPT</p></td>
-<td><p>Please enter a test message for your new website</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Website test message prompt</p></td>
-</tr>
-<tr class="odd">
-<td><p>ANSWER VARIABLE NAME</p></td>
-<td><p>iis_test_message</p></td>
-</tr>
-<tr class="even">
-<td><p>ANSWER TYPE</p></td>
-<td><p>Text</p></td>
-</tr>
-<tr class="odd">
-<td><p>MINIMUM/MAXIMUM LENGTH</p></td>
-<td><p>Use the defaults</p></td>
-</tr>
-<tr class="even">
-<td><p>DEFAULT ANSWER</p></td>
-<td><p><em>Be creative, keep it clean, we’re all professionals here</em></p></td>
-</tr>
-</tbody>
-</table>
+| Key                    | Value                                                      | Note             |
+|------------------------|------------------------------------------------------------|------------------|
+| PROMPT                 | Please enter a test message for your new website           |                  |
+| DESCRIPTION            | Website test message prompt                                |                  |
+| ANSWER VARIABLE NAME   | `iis_test_message`                                         |                  |
+| ANSWER TYPE            | Text                                                       |                  |
+| MINIMUM/MAXIMUM LENGTH |                                                            | Use the defaults |
+| DEFAULT ANSWER         | *Be creative, keep it clean, we’re all professionals here* |                  |
 
 ![Survey Form](images/4-survey.png)
 
@@ -165,10 +141,7 @@ playbook.
 Step 7:
 -------
 
-Once your job is successful, navigate to your new website (replace \#
-with your student number)
-
-    http://s#-win1.ansibleworkshop.com
+When the job has successfully completed, you should see a URL to your website printed at the bottom of the job output.
 
 If all went well, you should see something like this, but with your own
 custom message of course.

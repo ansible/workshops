@@ -26,14 +26,9 @@ you previously made iis\_basic.
 
 ![Student Playbooks](images/7-vscode-existing-folders.png)
 
-Hover over the *student\#* section and click the *New Folder* button
+Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button. Type `win_updates` and hit enter. 
 
-Type `win_updates` and hit enter. Then click that folder so it is
-selected.
-
-Now click the `win_updates` folder and click the *New File* button.
-
-Type `site.yml` and hit enter.
+Now richt-click the `win_updates` folder and click the *New File* button. Type `site.yml` and hit enter.
 
 You should now have an editor open in the right pane that can be used
 for creating your playbook.
@@ -50,7 +45,7 @@ entire update process. This might entail creating service tickets,
 creating snapshots, or disabling monitoring.
 
     ---
-    - hosts: Windows
+    - hosts: windows
       name: This is my Windows patching playbook
       tasks:
         - name: Install Windows Updates
@@ -107,52 +102,17 @@ Step 1:
 
 Complete the form using the following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>NAME</p></td>
-<td><p>Windows Updates</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>JOB TYPE</p></td>
-<td><p>Run</p></td>
-</tr>
-<tr class="even">
-<td><p>INVENTORY</p></td>
-<td><p>Windows Workshop Inventory</p></td>
-</tr>
-<tr class="odd">
-<td><p>PROJECT</p></td>
-<td><p>Ansible Workshop Project</p></td>
-</tr>
-<tr class="even">
-<td><p>PLAYBOOK</p></td>
-<td><p>win_updates/site.yml</p></td>
-</tr>
-<tr class="odd">
-<td><p>MACHINE CREDENTIAL</p></td>
-<td><p>Student Account</p></td>
-</tr>
-<tr class="even">
-<td><p>LIMIT</p></td>
-<td><p>Windows</p></td>
-</tr>
-<tr class="odd">
-<td><p>OPTIONS</p></td>
-<td><ul>
-<li><p>[*] Use Fact Cache</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
+| Key                | Value                      | Note |
+|--------------------|----------------------------|------|
+| NAME               | Windows Updates            |      |
+| DESCRIPTION        |                            |      |
+| JOB TYPE           | Run                        |      |
+| INVENTORY          | Windows Workshop Inventory |      |
+| PROJECT            | Ansible Workshop Project   |      |
+| Playbook           | `win_updates/site.yml`     |      |
+| MACHINE CREDENTIAL | Student Account            |      |
+| LIMIT              | windows                    |      |
+| OPTIONS            | [*] ENABLE FACT CACHE      |      |
 
 ![Create Job Template](images/7-win_update-template.png)
 
@@ -167,54 +127,16 @@ Step 3:
 
 Complete the survey form with following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>PROMPT</p></td>
-<td><p>Categories</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Which Categories to install?</p></td>
-</tr>
-<tr class="odd">
-<td><p>ANSWER VARIABLE NAME</p></td>
-<td><p>categories</p></td>
-</tr>
-<tr class="even">
-<td><p>ANSWER TYPE</p></td>
-<td><p>Multiple Choice (multiple select)</p></td>
-</tr>
-<tr class="odd">
-<td><p>MULTIPLE CHOICE OPTIONS</p></td>
-<td><p>Application<br />
-Connectors<br />
-CriticalUpdates<br />
-DefinitionUpdates<br />
-DeveloperKits<br />
-FeaturePacks<br />
-Guidance<br />
-SecurityUpdates<br />
-ServicePacks<br />
-Tools<br />
-UpdateRollups<br />
-Updates</p></td>
-</tr>
-<tr class="even">
-<td><p>DEFAULT ANSWER</p></td>
-<td><p>CriticalUpdates<br />
-SecurityUpdates</p></td>
-</tr>
-<tr class="odd">
-<td><p>REQUIRED</p></td>
-<td><p>Selected</p></td>
-</tr>
-</tbody>
-</table>
+| Key                     | Value                                                                                                                                                  | Note                                         |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
+| PROMPT                  | Categories                                                                                                                                             |                                              |
+| DESCRIPTION             | Which Categories to install?                                                                                                                           |                                              |
+| ANSWER VARIABLE NAME    | categories                                                                                                                                             |                                              |
+| ANSWER TYPE             | Multiple Choice (multiple select)                                                                                                                      | **There's also a *single* selection option** |
+| MULTIPLE CHOICE OPTIONS |  Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |                                              |
+| DEFAULT ANSWER          |  CriticalUpdates<br>SecurityUpdates                                                                                                                       |                                              |
+| REQUIRED                | Selected                                                                                                                                               |                                              |
+|                         |                                                                                                                                                        |                                              |
 
 ![Category Survey Form](images/7-category-survey.png)
 
@@ -222,43 +144,15 @@ Once complete, click the ADD ![Add](images/at_add.png) button. You will
 see your new field off to the right. Now add another field by filling
 out the form on the left again.
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>PROMPT</p></td>
-<td><p>Reboot after install?</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>If the server needs to reboot, then do so after install</p></td>
-</tr>
-<tr class="odd">
-<td><p>ANSWER VARIABLE NAME</p></td>
-<td><p>reboot_server</p></td>
-</tr>
-<tr class="even">
-<td><p>ANSWER TYPE</p></td>
-<td><p>Multiple Choice (single select)</p></td>
-</tr>
-<tr class="odd">
-<td><p>MULTIPLE CHOICE OPTIONS</p></td>
-<td><p>Yes<br />
-No</p></td>
-</tr>
-<tr class="even">
-<td><p>DEFAULT ANSWER</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="odd">
-<td><p>REQUIRED</p></td>
-<td><p>Selected</p></td>
-</tr>
-</tbody>
-</table>
+| Key                     | Value                                                   | Note |
+|-------------------------|---------------------------------------------------------|------|
+| PROMPT                  | Reboot after install?                                   |      |
+| DESCRIPTION             | If the server needs to reboot, then do so after install |      |
+| ANSWER VARIABLE NAME    | `reboot_server`                                         |      |
+| ANSWER TYPE             | Multiple Choice (single select)                         |      |
+| MULTIPLE CHOICE OPTIONS | Yes<br>No                                               |      |
+| DEFAULT ANSWER          | Yes                                                     |      |
+| REQUIRED                | Selected                                                |      |
 
 ![Reboot Survey Form](images/7-reboot-survey.png)
 

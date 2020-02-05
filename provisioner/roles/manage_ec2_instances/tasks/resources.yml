@@ -247,6 +247,10 @@
         from_port: 3389
         to_port: 3389
         cidr_ip: "0.0.0.0/0"
+      - proto: tcp
+        from_port: 8080
+        to_port: 8081
+        cidr_ip: "0.0.0.0/0"
       - proto: all
         cidr_ip: "{{ ec2_subnet }}"
   when: workshop_type == 'windows'

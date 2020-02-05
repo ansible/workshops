@@ -191,6 +191,13 @@ not escape the forward slash.
             dest: '{{ item.path }}\index.html'
           with_items: "{{ iis_sites }}"
 
+        - name: Show website addresses
+          debug:
+            msg: "{{ item }}"
+          loop:
+            - http://{{ ansible_host }}:8080
+            - http://{{ ansible_host }}:8081
+
 > **Note**
 >
 > **So… what did I just write?**
@@ -205,6 +212,9 @@ not escape the forward slash.
 >
 > - used in Ansible to transform data inside a template expression,
 >   i.e. filters.
+> 
+> - `debug:` Again, like in the `iis_basic` playbook, this task displays the URLs to access the sites we are creating for this exercise
+
 
 Section 3: Defining and Using Handlers
 ======================================
@@ -274,7 +284,7 @@ intended. If not, now is the time for us to fix it up. The figure below
 shows line counts and spacing.
 
     ---
-    - hosts: Windows
+    - hosts: windows
       name: This is a play within a playbook
       vars:
         iis_sites:
@@ -323,6 +333,13 @@ shows line counts and spacing.
             src: 'index.html.j2'
             dest: '{{ item.path }}\index.html'
           with_items: "{{ iis_sites }}"
+
+        - name: Show website addresses
+          debug:
+            msg: "{{ item }}"
+          loop:
+            - http://{{ ansible_host }}:8080
+            - http://{{ ansible_host }}:8081
 
       handlers:
         - name: restart iis service
@@ -437,11 +454,11 @@ When prompted, enter your desired test message
 After it launches, you should be redirected and can watch the output of
 the job in real time.
 
-Once your job is successful, navigate to your new websites (replace \#
-with your student number)
+When the job has successfully completed, you should see two URLs to your websites printed at the bottom of the job output.
 
-    http://s#-win1.ansibleworkshop.com:8080
+![Job output](images/5-job-output.png)
 
-and
 
-    http://s#-win1.ansibleworkshop.com:8081
+![IIS site](images/5-iis-8080.png)
+
+

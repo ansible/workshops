@@ -56,7 +56,7 @@ Complete the form using the following entries:
 | Name         | Student Account |                                          |
 | Organization | Default         |                                          |
 | Type         | Machine         |                                          |
-| Username     | student#        | Replace # with your student number       |
+| Username     | student#        | **Replace # with your student number**   |
 | Password     | *****           | Replace with your student password       |
 
 ![Add Machine Credential](images/1-tower-add-machine-credential.png)
@@ -73,38 +73,14 @@ Our first credential was to access our Windows machines. We need another
 to access our source code repository. Repeat the process as above, but
 with the following details:
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>NAME</p></td>
-<td><p>Git Credential</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>SCM credential for playbook sync</p></td>
-</tr>
-<tr class="odd">
-<td><p>ORGANIZATION</p></td>
-<td><p>Default</p></td>
-</tr>
-<tr class="even">
-<td><p>TYPE</p></td>
-<td><p>Source Control</p></td>
-</tr>
-<tr class="odd">
-<td><p>USERNAME</p></td>
-<td><p>&lt;your USER ID - instructor provided (ie. <a href="mailto:student1@ansibleworkshop.com">student1@ansibleworkshop.com</a>)&gt;</p></td>
-</tr>
-<tr class="even">
-<td><p>PASSWORD</p></td>
-<td><p>&lt;your AD account password - instructor provided&gt;</p></td>
-</tr>
-</tbody>
-</table>
+| Key          | Value                            |                                            |
+|--------------|----------------------------------|--------------------------------------------|
+| Name         | Git Credential                   |                                            |
+| Description  | SCM credential for playbook sync |                                            |
+| Organization | Default                          |                                            |
+| Type         | Source Control                   |                                            |
+| Username     | student#                         | Replace # with your student number         |
+| Password     | *******                          | Replace ******* with your student password |
 
 Select SAVE ![Save](images/at_save.png)  
 
@@ -137,50 +113,21 @@ Step 3:
 Complete the form using the following entries (**using your student
 number in SCM URL**)
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>NAME</p></td>
-<td><p>Ansible Workshop Project</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Workshop playbooks</p></td>
-</tr>
-<tr class="odd">
-<td><p>ORGANIZATION</p></td>
-<td><p>Default</p></td>
-</tr>
-<tr class="even">
-<td><p>SCM TYPE</p></td>
-<td><p>Git</p></td>
-</tr>
-<tr class="odd">
-<td><p>SCM URL</p></td>
-<td><p><a href="https://gitlab.ansibleworkshop.com/student#/student#.git">https://gitlab.ansibleworkshop.com/student#/student#.git</a></p></td>
-</tr>
-<tr class="even">
-<td><p>SCM BRANCH</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>SCM CREDENTIAL</p></td>
-<td><p>Git Credential</p></td>
-</tr>
-<tr class="even">
-<td><p>SCM UPDATE OPTIONS</p></td>
-<td><ul>
-<li><p>[ ] Clean</p></li>
-<li><p>[ ] Delete on Update</p></li>
-<li><p>[*] Update Revision on Launch</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
+| Key            | Value                                                                   |                                                   |
+|----------------|-------------------------------------------------------------------------|---------------------------------------------------|
+| Name           | Ansible Workshop Project                                                |                                                   |
+| Description    | Workshop playbooks                                                      |                                                   |
+| Organization   | Default                                                                 |                                                   |
+| SCM Type       | Git                                                                     |                                                   |
+| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.get | **Replace the workshop name and student# in URL** |
+| SCM BRANCH     |                                                                         | Intentionally blank                               |
+| SCM CREDENTIAL | Git Credential                                                          |                                                   |
+SCM UPDATE OPTIONS
+
+- [ ] Clean
+- [ ] Delete on Update
+- [*] Update Revision on Launch
+
 
 ![Defining a Project](images/1-tower-create-project.png)
 
@@ -214,7 +161,7 @@ Step 1:
 -------
 
 Click **Inventories** from the left hand panel. You will see the
-preconfigured Inventory listed. Click the Inventories' name **Ansible
+preconfigured Inventory listed. Click the Inventories' name **Windows
 Workshop Inventory** or the Edit button. ![Edit](images/at_edit.png)
 
 Step 2:
@@ -230,7 +177,7 @@ We will be viewing the hosts, so click the **HOSTS** button.
 Step 3:
 -------
 
-In the Hosts view, we can see every host associated with with this
+In the Hosts view, we can see every host associated with this
 inventory. You will also see which groups a host is associated with.
 Hosts can be associated with multiple groups. These groups can later
 then be used to narrow down to the exact hosts we will later run our
@@ -241,19 +188,15 @@ playbooks on.
 Step 4:
 -------
 
-If you click the Host’s name or on the Edit Button
-![Edit](images/at_edit.png) we will be able to look at variables
-specific to this host.
+If you click the **GROUPS** button and then select the **Windows** group, you can inspect variables set at the group level that will apply to all hosts in that group.
 
-![Host Edit](images/1-tower-host-edit.png)
+![Group Edit](images/1-tower-group-edit.png)
 
-Today we have already setup various variables to tell Ansible that this
-host is a Windows machine. You do not have to define these variables as
-a Host variable here, they could also be Group variables or reside
-directly in your Template or Playbook. We will place them here for
-simplicities sake.
+Today, we have already defined a handful of variables to tell Ansible how to connect to hosts in this group. You do not have to define these variables as
+a Group variable here, they could also be Host variables or reside
+directly in your Template or Playbook. However, because these variables will be the same for **ALL** windows hosts in our environment, we defined them for the entire windows group.
 
-By default Ansible will attempt to use SSH to connect to any Host, so
+By default, Ansible will attempt to use SSH to connect to any Host, so
 for Windows we need to tell it utilize a different connection method, in
 this case,
 [WinRM](https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html).
@@ -276,6 +219,26 @@ authenticate to our Windows host:
 
 **`ansible_winrm_transport: credssp`**
 
+
+
+If you click the **HOSTS** button, you can view the hosts belonging to the windows group. If you click the link for the host on this page, you can view the host specific variables that have been defined.
+
+![Host Edit](images/1-tower-host-edit.png)
+
+**`ansible_host`**
+
+This is the IP address of this particular server
+
+**`ansible_password`** 
+
+This is the password needed to connect to this server
+
+**`ansible_user`**
+
+This is the username that Ansible will use along with the password to connect to this server
+
+These variables are very host specific thus have been defined at the host level instead of at the group level.
+
 You can find more information about these and other settings in our
 [Windows
 Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
@@ -286,5 +249,5 @@ End Result
 ----------
 
 At this point, we are done with our basic configuration of Ansible
-Tower. In exercise 2, we will now run a few Ad-Hoc commands against
+Tower. In exercise 2, we will run a few Ad-Hoc commands against
 these hosts.

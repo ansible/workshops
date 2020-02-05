@@ -475,7 +475,7 @@ To login to the Ansible Tower UI use the following credentials:<br>
 {% endif %}
   <tr>
     <td>username:</td>
-    <td><code>admin</code></td>
+    <td><code>{% if workshop_type == "windows" %}student{{number}}{% else %}admin{% endif %}</code></td>
   </tr>
   <tr>
     <td>password:</td>

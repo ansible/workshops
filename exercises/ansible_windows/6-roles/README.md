@@ -19,14 +19,13 @@ Section 1: Create directory structure for your new role
 Step 1:
 -------
 
-In Visual Studio Code, navigate to explorer and your `student#` project
-where you previously made iis\_advanced.
+In Visual Studio Code, navigate to explorer and your *WORKSHOP_PROJECT* section where you previously made `iis_advanced`.
 
 ![iis\_advanced](images/6-vscode-existing-folders.png)
 
-Select the **iis\_advanced** folder.
+Select the **iis_advanced** folder.
 
-Create a directory called **roles** by right-clicking on iis\_advanced
+Create a directory called **roles** by right-clicking on **iis_advanced**
 and selecting *New Folder*
 
 Now right-click **roles** and create a new folder underneath called

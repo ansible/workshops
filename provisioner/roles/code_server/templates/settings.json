@@ -6,5 +6,6 @@
     "workbench.tips.enabled": false,
     "workbench.startupEditor": "readme",
     "telemetry.enableTelemetry": false,
-    "search.smartCase": true
+    "search.smartCase": true,
+    "git.confirmSync": false
 }

@@ -38,7 +38,7 @@
         "email": "student{{ item }}@{{ workshop_dns_zone }}",
         "skip_confirmation": true
       }
-    register: create_user
+  register: create_user
   with_sequence: count="{{ student_total }}"
 
 - name: GitLab Post | Get local user information via API

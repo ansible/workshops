@@ -379,7 +379,7 @@ Complete the form using the following values
 </tr>
 <tr class="even">
 <td><p>INVENTORY</p></td>
-<td><p>Ansible Workshop Inventory</p></td>
+<td><p>Windows Workshop Inventory</p></td>
 </tr>
 <tr class="odd">
 <td><p>PROJECT</p></td>

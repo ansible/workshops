@@ -42,15 +42,13 @@ our playbook, and add just a couple of files.
 Open Visual Studio Code
 
 For this lab, we have already created a clone of your Git repository for
-you. It is located in your Documents folder, the full path will look
-like this (with the \# replaced with your student number)
-*`C:\Users\student#\Documents\student#`*
+you. 
 
-To access it, in Visual Code click **File &gt; Open Folder**. It should
-default to your documents folder, so select your student folder and
-click the **Select Folder** button.
+To access it, click the link for VS Code Access from the workshop page.
 
-At this point in the Explorer sidebar you should have a *student\#*
+![VS Code Access](images/3-vscode-access.png)
+
+At this point in the Explorer sidebar you should have a *WORKSHOP_PROJECT*
 section with only a README file in it.
 
 ![Student Playbooks Repo](images/3-vscode-open-folder.png)
@@ -58,7 +56,7 @@ section with only a README file in it.
 **Step 2:** Create a directory called **iis\_basic** and a file called
 `install_iis.yml`
 
-Hover over the *student\#* section and click the *New Folder* button.
+Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button.
 Create a folder called `iis_basic`. Then click that folder so it is
 selected. Right click the new folder you’ve created and create a file
 called `install_iis.yml`.
@@ -76,13 +74,13 @@ play and then understanding what each line accomplishes
 
     ---
     - name: install the iis web service
-      hosts: all
+      hosts: windows
 
 - `---` Defines the beginning of YAML
 
 - `name: install the iis web service` This describes our play
 
-- `hosts: all` Defines the host group in your inventory on which this
+- `hosts: windows` Defines the host group in your inventory on which this
   play will run against
 
 Section 3: Adding Tasks to Your Play
@@ -112,6 +110,10 @@ of this exercise.
          win_copy:
            content: "{{ iis_test_message }}"
            dest: C:\Inetpub\wwwroot\index.html
+
+       - name: Show website address
+         debug:
+           msg: http://{{ ansible_host }}
 
 - `tasks:` This denotes that one or more tasks are about to be defined
 
@@ -154,6 +156,14 @@ of this exercise.
   the variables just yet, since they will be showcased in a later
   lesson.
 
+<!-- -->
+
+    debug:
+      msg: http://{{ ansible_host }}
+
+- This task uses the `debug` module to post a message at the end of playbook execution. This particular message prints out `http://` + the variable name that contains the IP address of the host we're running the playbook on (our Windows IIS server)
+  
+
 Section 4: Saving your Playbook
 ===============================
 
@@ -192,17 +202,16 @@ click **Yes** or **No**.
 ![Git Push Origin](images/3-vscode-push-initial-pop-up.png)
 
 If you’re interested in validating the code is in git, you can connect
-to GitLab to verify. Open `Chrome` and connect to
-`https://gitlab.ansibleworkshop.com`. Click the `LDAP Login` tab and
-login with your AD user (student\#@ansibleworkshop.com) and password and
-you should see your repository.
+to GitLab to verify. Go back to the workshop page, and click the link under **GitLab Access** taking note of your username and password.
+
+![GitLab access](images/3-vscode-gitlab-access.png)
 
 You are ready to automate!
 
 > **Note**
 >
 > Ansible (well, YAML really) can be a bit particular about formatting
-> especially around indentation/spacing. When you all get back to the
+> especially around indentation/spacing. When you get back to the
 > office, read up on this [YAML
 > Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html) a bit more
 > and it will save you some headaches later. In the meantime, your
@@ -211,7 +220,7 @@ You are ready to automate!
 
     ---
     - name: install the iis web service
-      hosts: all
+      hosts: windows
 
       tasks:
         - name: install iis
@@ -228,3 +237,7 @@ You are ready to automate!
           win_copy:
             content: "{{ iis_test_message }}"
             dest: C:\Inetpub\wwwroot\index.html
+
+        - name: Show website address
+          debug:
+            msg: http://{{ ansible_host }}

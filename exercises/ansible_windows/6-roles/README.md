@@ -19,14 +19,13 @@ Section 1: Create directory structure for your new role
 Step 1:
 -------
 
-In Visual Studio Code, navigate to explorer and your `student#` project
-where you previously made iis\_advanced.
+In Visual Studio Code, navigate to explorer and your *WORKSHOP_PROJECT* section where you previously made `iis_advanced`.
 
 ![iis\_advanced](images/6-vscode-existing-folders.png)
 
-Select the **iis\_advanced** folder.
+Select the **iis_advanced** folder.
 
-Create a directory called **roles** by right-clicking on iis\_advanced
+Create a directory called **roles** by right-clicking on **iis_advanced**
 and selecting *New Folder*
 
 Now right-click **roles** and create a new folder underneath called
@@ -205,6 +204,13 @@ Add tasks to your role in `roles\iis_simple\tasks\main.yml`.
         dest: '{{ item.path }}\index.html'
       with_items: "{{ iis_sites }}"
 
+    - name: Show website addresses
+      debug:
+        msg: "{{ item }}"
+      loop:
+        - http://{{ ansible_host }}:8080
+        - http://{{ ansible_host }}:8081
+
 Step 7:
 -------
 
@@ -281,16 +287,10 @@ If successful, your standard output should look similar to the figure
 below. Note that most of the tasks return OK because we’ve previously
 configured the servers and services are already running.
 
-![Role site.yml stdout](images/6-results.png)
+![Job output](images/6-job-output.png)
 
-Once your job is successful, navigate again to your websites to verify
-they are still working (replace \# with your student number)
 
-    http://s#-win1.ansibleworkshop.com:8080
-
-and
-
-    http://s#-win1.ansibleworkshop.com:8081
+When the job has successfully completed, you should see two URLs to your websites printed at the bottom of the job output. Verify they are still working.
 
 Section 5: Review
 =================

@@ -30,52 +30,17 @@ Step 3:
 
 Complete the form using the following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>NAME</p></td>
-<td><p>IIS Basic Job Template</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Template for the iis-basic-playbook</p></td>
-</tr>
-<tr class="odd">
-<td><p>JOB TYPE</p></td>
-<td><p>Run</p></td>
-</tr>
-<tr class="even">
-<td><p>INVENTORY</p></td>
-<td><p>Ansible Workshop Inventory</p></td>
-</tr>
-<tr class="odd">
-<td><p>PROJECT</p></td>
-<td><p>Ansible Workshop Project</p></td>
-</tr>
-<tr class="even">
-<td><p>PLAYBOOK</p></td>
-<td><p>iis-basic/install_iis.yml</p></td>
-</tr>
-<tr class="odd">
-<td><p>CREDENTIAL</p></td>
-<td><p>Type: <strong>Machine</strong>. Name: Student Account</p></td>
-</tr>
-<tr class="even">
-<td><p>LIMIT</p></td>
-<td><p>Windows</p></td>
-</tr>
-<tr class="odd">
-<td><p>OPTIONS</p></td>
-<td><ul>
-<li><p>[*] USE FACT CACHE</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
+| Key         | Value                                        | Note |
+|-------------|----------------------------------------------|------|
+| Name        | IIS Basic Job Template                       |      |
+| Description | Template for the iis-basic playbook          |      |
+| JOB TYPE    | Run                                          |      |
+| INVENTORY   | Windows Workshop Inventory                   |      |
+| PROJECT     | Ansible Workshop Project                     |      |
+| PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account** |      |
+| LIMIT       | windows                                      |      |
+| OPTIONS     | [*] ENABLE FACT CACHE                        |      |
 
 ![Create Job Template](images/4-create-job-template.png)
 
@@ -90,38 +55,14 @@ Step 5:
 
 Complete the survey form with following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>PROMPT</p></td>
-<td><p>Please enter a test message for your new website</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Website test message prompt</p></td>
-</tr>
-<tr class="odd">
-<td><p>ANSWER VARIABLE NAME</p></td>
-<td><p>iis_test_message</p></td>
-</tr>
-<tr class="even">
-<td><p>ANSWER TYPE</p></td>
-<td><p>Text</p></td>
-</tr>
-<tr class="odd">
-<td><p>MINIMUM/MAXIMUM LENGTH</p></td>
-<td><p>Use the defaults</p></td>
-</tr>
-<tr class="even">
-<td><p>DEFAULT ANSWER</p></td>
-<td><p><em>Be creative, keep it clean, we’re all professionals here</em></p></td>
-</tr>
-</tbody>
-</table>
+| Key                    | Value                                                      | Note             |
+|------------------------|------------------------------------------------------------|------------------|
+| PROMPT                 | Please enter a test message for your new website           |                  |
+| DESCRIPTION            | Website test message prompt                                |                  |
+| ANSWER VARIABLE NAME   | `iis_test_message`                                         |                  |
+| ANSWER TYPE            | Text                                                       |                  |
+| MINIMUM/MAXIMUM LENGTH |                                                            | Use the defaults |
+| DEFAULT ANSWER         | *Be creative, keep it clean, we’re all professionals here* |                  |
 
 ![Survey Form](images/4-survey.png)
 
@@ -179,7 +120,7 @@ Select **NEXT** and preview the inputs.
 Step 5:
 -------
 
-Select LAUNCH ![SurveyL](images/at_survey_launch.png)
+Select LAUNCH ![SurveyL](images/4-survey-launch.png)
 
 Step 6:
 -------
@@ -200,10 +141,7 @@ playbook.
 Step 7:
 -------
 
-Once your job is successful, navigate to your new website (replace \#
-with your student number)
-
-    http://s#-win1.ansibleworkshop.com
+When the job has successfully completed, you should see a URL to your website printed at the bottom of the job output.
 
 If all went well, you should see something like this, but with your own
 custom message of course.

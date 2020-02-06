@@ -39,23 +39,22 @@ Step 1:
 Within Visual Studio Code, create a new directory in your git repo and
 create a site.yml file.
 
-In the Explorer accordion you should have a *student\#* section where
-you previously made iis\_basic.
+In the Explorer accordion you should have a *WORKSHOP_PROJECT* section where
+you previously made `iis_basic`.
 
 ![Student Playbooks](images/5-vscode-existing-folders.png)
 
-Step 2: Create a folder called **iis\_advanced** and a file called `site.yml`
+Step 2: Create a folder called **iis_advanced** and a file called `site.yml`
 -----------------------------------------------------------------------------
 
-Hover over the *student\#* section and click the *New Folder* button
+Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button
 
-Type iis\_advanced and hit enter. Then click that folder so it is
+Type `iis_advanced` and hit enter. Now, click that folder so it is
 selected.
 
-Hover over the *student\#* section again and click the *New File*
-button.
+Right-click the `iis_advanced` folder and select *New File*.
 
-Type site.yml and hit enter.
+Type `site.yml` and hit enter.
 
 You should now have an editor open in the right pane that can be used
 for creating your playbook.
@@ -70,7 +69,7 @@ addtional packages your playbook will install on your web servers, plus
 some web server specific configurations.
 
     ---
-    - hosts: Windows
+    - hosts: windows
       name: This is a play within a playbook
       vars:
         iis_sites:
@@ -147,14 +146,12 @@ Step 1:
 Create a `templates` directory in your project directory and create a
 template as follows:
 
-Ensure your **iis\_advanced folder** is highlighted and then hover over
-the *student\#* section and click the *New Folder* button
+Ensure your **iis_advanced folder** is highlighted and then hover over
+the *WORKSHOP_PROJECT* section and click the *New Folder* button
 
-Type templates and hit enter. Then click that folder so it is selected.
+Type `templates` and hit enter. The right-click the *templates* folder and click the *New File* button.
 
-Hover over the *templates* folder and click the *New File* button.
-
-Type index.html.j2 and hit enter.
+Type `index.html.j2` and hit enter.
 
 You should now have an editor open in the right pane that can be used
 for creating your template. Enter the following details:
@@ -194,6 +191,13 @@ not escape the forward slash.
             dest: '{{ item.path }}\index.html'
           with_items: "{{ iis_sites }}"
 
+        - name: Show website addresses
+          debug:
+            msg: "{{ item }}"
+          loop:
+            - http://{{ ansible_host }}:8080
+            - http://{{ ansible_host }}:8081
+
 > **Note**
 >
 > **So… what did I just write?**
@@ -208,6 +212,9 @@ not escape the forward slash.
 >
 > - used in Ansible to transform data inside a template expression,
 >   i.e. filters.
+> 
+> - `debug:` Again, like in the `iis_basic` playbook, this task displays the URLs to access the sites we are creating for this exercise
+
 
 Section 3: Defining and Using Handlers
 ======================================
@@ -257,7 +264,7 @@ commit the changes to source code control.
 
 Click `File` → `Save All` to save the files you’ve written
 
-![site.yml part 2](images/5-vscode-iis-yaml-2.png)
+![site.yml part 2](images/5-vscode-iis-yaml.png)
 
 Click the Source Code icon (1), type in a commit message such as *Adding
 advanced playbook* (2), and click the check box above (3).
@@ -277,7 +284,7 @@ intended. If not, now is the time for us to fix it up. The figure below
 shows line counts and spacing.
 
     ---
-    - hosts: Windows
+    - hosts: windows
       name: This is a play within a playbook
       vars:
         iis_sites:
@@ -327,6 +334,13 @@ shows line counts and spacing.
             dest: '{{ item.path }}\index.html'
           with_items: "{{ iis_sites }}"
 
+        - name: Show website addresses
+          debug:
+            msg: "{{ item }}"
+          loop:
+            - http://{{ ansible_host }}:8080
+            - http://{{ ansible_host }}:8081
+
       handlers:
         - name: restart iis service
           win_service:
@@ -359,52 +373,17 @@ to create a second job template.
 
 Complete the form using the following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>NAME</p></td>
-<td><p>IIS Advanced</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Template for iis_advanced</p></td>
-</tr>
-<tr class="odd">
-<td><p>JOB TYPE</p></td>
-<td><p>Run</p></td>
-</tr>
-<tr class="even">
-<td><p>INVENTORY</p></td>
-<td><p>Ansible Workshop Inventory</p></td>
-</tr>
-<tr class="odd">
-<td><p>PROJECT</p></td>
-<td><p>Ansible Workshop Project</p></td>
-</tr>
-<tr class="even">
-<td><p>PLAYBOOK</p></td>
-<td><p>iis_advanced/site.yml</p></td>
-</tr>
-<tr class="odd">
-<td><p>MACHINE CREDENTIAL</p></td>
-<td><p>Student Account</p></td>
-</tr>
-<tr class="even">
-<td><p>LIMIT</p></td>
-<td><p>Windows</p></td>
-</tr>
-<tr class="odd">
-<td><p>OPTIONS</p></td>
-<td><ul>
-<li><p>[*] USE FACT CACHE</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
+| Key         | Value                      | Note |
+|-------------|----------------------------|------|
+| Name        | IIS Advanced               |      |
+| Description | Template for iis_advanced  |      |
+| JOB TYPE    | Run                        |      |
+| INVENTORY   | Windows Workshop Inventory |      |
+| PROJECT     | Ansible Workshop Project   |      |
+| PLAYBOOK    | `iis_advanced/site.yml`    |      |
+| CREDENTIAL  | Student Account            |      |
+| LIMIT       | windows                    |      |
+| OPTIONS     | [*] USE FACT CACHE         |      |
 
 ![Create Job Template](images/5-create-template.png)
 
@@ -419,38 +398,14 @@ Step 4:
 
 Complete the survey form with following values
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>PROMPT</p></td>
-<td><p>Please enter a test message for your new website</p></td>
-</tr>
-<tr class="even">
-<td><p>DESCRIPTION</p></td>
-<td><p>Website test message prompt</p></td>
-</tr>
-<tr class="odd">
-<td><p>ANSWER VARIABLE NAME</p></td>
-<td><p>iis_test_message</p></td>
-</tr>
-<tr class="even">
-<td><p>ANSWER TYPE</p></td>
-<td><p>Text</p></td>
-</tr>
-<tr class="odd">
-<td><p>MINIMUM/MAXIMUM LENGTH</p></td>
-<td><p>Use the defaults</p></td>
-</tr>
-<tr class="even">
-<td><p>DEFAULT ANSWER</p></td>
-<td><p><em>Be creative, keep it clean, we’re all professionals here</em></p></td>
-</tr>
-</tbody>
-</table>
+| Key                    | Value                                                    | Note |
+|------------------------|----------------------------------------------------------|------|
+| PROMPT                 | Please enter a test message for your new website         |      |
+| DESCRIPTION            | Website test message prompt                              |      |
+| ANSWER VARIABLE NAME   | `iis_test_message`                                       |      |
+| ANSWER TYPE            | Text                                                     |      |
+| MINIMUM/MAXIMUM LENGTH | Use the defaults                                         |      |
+| DEFAULT ANSWER         | Be creative, keep it clean, we’re all professionals here |      |
 
 ![Survey Form](images/5-survey.png)
 
@@ -499,11 +454,11 @@ When prompted, enter your desired test message
 After it launches, you should be redirected and can watch the output of
 the job in real time.
 
-Once your job is successful, navigate to your new websites (replace \#
-with your student number)
+When the job has successfully completed, you should see two URLs to your websites printed at the bottom of the job output.
 
-    http://s#-win1.ansibleworkshop.com:8080
+![Job output](images/5-job-output.png)
 
-and
 
-    http://s#-win1.ansibleworkshop.com:8081
+![IIS site](images/5-iis-8080.png)
+
+

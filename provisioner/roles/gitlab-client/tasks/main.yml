@@ -63,7 +63,7 @@
 
     - name: Create test file
       template:
-        src: templages/README.md.j2
+        src: templates/README.md.j2
         dest: /home/{{ username }}/windows-workshop/workshop_project/README.md
         owner: "{{ username }}"
         group: "{{ username }}"

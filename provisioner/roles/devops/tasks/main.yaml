@@ -1,0 +1,26 @@
+---
+- name: Install EPEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
+
+- name: Install base packages
+  yum:
+    name:
+      - python-pip
+    state: present
+  retries: 10
+  delay: 5
+
+- name: ADD THE EXTRAS REPO
+  shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
+
+- name: ENSURE THAT DOCKER IS INSTALLED
+  yum:
+    name: docker
+    state: present
+
+- name: ENSURE THAT DOCKER DAEMON IS STARTED
+  service:
+    name: docker
+    state: started

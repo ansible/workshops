@@ -1,3 +1,0 @@
-- name: SET HOST NAME TO SHORT NAME
-  net_system:
-    hostname: "{{short_name}}"

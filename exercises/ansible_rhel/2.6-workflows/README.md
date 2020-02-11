@@ -30,11 +30,11 @@ When there is a new Tomcat server to deploy, two things need to happen:
 
   - The most recent version of the web application needs to be deployed.
 
-To make things somewhat easier for you, everything needed already exists in Git repositories: Playbooks, JSP-files etc. You just need to glue it together.
+To make things somewhat easier for you, everything needed already exists in a Github repository: Playbooks, JSP-files etc. You just need to glue it together.
 
 > **Note**
 >
-> In this example we assume two different Git repositories, but in reality we will access two different branches of the same repository.
+> In this example we use two different branches of the same repository for the content of the separate teams. In reality the structure of your SCM repositories depends on a lot of factors and could be different.
 
 ## Set up Projects
 
@@ -152,17 +152,17 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
 
   - Click **SAVE**
 
-  - Now the **WORKFLOW VISUALIZER** button becomes active, click it to start the graphical editor.
+  - After saving the template the **Workflow Visualizer** opens to allow you to build a workflow. You can later open the **Workflow Visualizer** again by using the button on the template details page.
 
   - Click on the **START** button, a new node opens. To the right you can assign an action to the node, you can choose between **JOBS**, **PROJECT SYNC** and **INVENTORY SYNC**.
 
   - In this lab we’ll link Jobs together, so select the **Tomcat Deploy** job and click **SELECT**.
 
-  - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x** and a green **+** signs appear.
+  - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x**, a green **+** and a blue **chain**-symbol appear.
 
 > **Tip**
 > 
-> Using the red "x" allows you to remove the node, the green plus lets you add the next node.
+> Using the red "x" allows you to remove the node, the green plus lets you add the next node and the chain-symbol links to another node .
 
   - Click the green **+** sign
 
@@ -179,6 +179,10 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
   - Click **SAVE** in the **WORKFLOW VISUALIZER** view
 
   - Click **SAVE** in the **Workflow Template** view
+
+> **Tip**
+> 
+> The **Workflow Visualizer** has options for setting up more advanced workflows, please refer to the documentation.
 
 ## And Action
 

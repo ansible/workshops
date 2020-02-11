@@ -9,4 +9,5 @@ workshop_type: networking
 # possible values cisco, arista, juniper or multivendor
 network_type: cisco
 ## Optional Variables
+dns_type: aws
 create_login_page: true

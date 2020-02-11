@@ -44,18 +44,14 @@ Enter the following play definition into `bigip-virtual-server.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
 
+Do not exit the editor yet.
+
 ## Step 3
 
 Next, add the `task`. This task will use the `bigip-config` to save the running configuration to disk
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
 
   - name: SAVE RUNNING CONFIG ON BIG-IP
@@ -78,12 +74,14 @@ Next, add the `task`. This task will use the `bigip-config` to save the running 
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
-- The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
+- The `password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
 - The `save: "yes""` parameter tells the module to save the running-config to startup-config.
   This operation is performed after any changes are made to the current running config. If no changes are made, the configuration is   
   still saved to the startup config. This option will always cause the module to return changed
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes   since this is a lab.
+
+Save File and exit out of editor.
 
 ## Step 4
 

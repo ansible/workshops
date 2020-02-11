@@ -29,23 +29,7 @@ You now are accessing a default windows workstation with a Google Chrome browser
 >
 > Directly after the login you might see a wide blue bar on the right side of the screen, about network configurations. You can safely ignore this, the question hides away if you click anywhere on the screen.
 
-## Step 2.3 - Install SmartConsole
-
-SmartConsole should already be installed on your system. Please check your desktop for an icon to launch SmartConsole and launch it. If this works, the following tasks are **not necessary** and you can proceed to **Step 2.4**!
-
-If for any reason SmartConsole was not installed properly during the deployment of the lab, it is simple to do that yourself:
-
-- Inside your Windows workstation, open the Chrome browser
-- Point the browser to `https://<checkpointIP>`, where `<checkpointIP>` is the IP for the checkpoint entry in your inventory
-- A warning page will open since Check Point MGMT server is by default installed with a self signed certificate. Accept the certificate by clicking on **Advanced** and afterwards by clicking on the link named **Proceed to 11.22.33.44 (unsafe)**, with your `checkpoint` IP instead of **11.22.33.44**
-- Login with user name `admin` and password `admin123`
-- Accept the message of the day with a click on the **Ok** button
-- On top of the page, click on the green **Download Now!** button
-- The download starts immediately, the file is downloaded to the **Downloads** folder of the administrator
-- Find the file and launch the installer via double click
-- Accept all default values and finish the installation
-
-## Step 2.4 - Access the SmartConsole UI
+## Step 2.3 - Access the SmartConsole UI
 
 Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. The IP address to enter is the one from the **checkpoint** entry of your inventory.
 
@@ -55,7 +39,7 @@ Press the **Login** button. Afterwards you need to verify the server fingerprint
 
 > **Note**
 >
-> In a productive environment, you would first figure out the fingerprint of the server and would only proceed after you confirmed that the fiungerprint shown is identical with the one from the server. In our demo setup with the short lived instances we can assume that the fingerprints are good.
+> In a production environment, you would first figure out the fingerprint of the server and would only proceed after you confirmed that the fiungerprint shown is identical with the one from the server. In our demo setup with the short lived instances we can assume that the fingerprints are good.
 
 You are now viewing the Check Point SmartConsole management interface. There might be a Internet Explorer Warning visible upon start. This can safely be closed and is due to limitations in the way IE works.
 
@@ -63,13 +47,13 @@ You are now viewing the Check Point SmartConsole management interface. There mig
 
 Next, on the left side, click on **SECURITY POLICIES** and note that there is currently only one rule installed: to drop all traffic. Now you have a first idea of how Check Point looks like in term of the management interface. We will interact more with it - but first we go back to the command line to learn how to write Ansible playbooks interacting with Check Point.
 
-## Step 2.5 - First example playbook
+## Step 2.4 - First example playbook
 
 In Ansible, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
 A playbook is a repeatable set of *plays* and *tasks*.
 
-A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, which does the actual work.
+A playbook can have multiple plays and a play can have one or multiple tasks. A task is comprised of one or more *modules*,  modules are the components that do the actual work.
 
 The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
 
@@ -144,7 +128,11 @@ As you see, variables are marked by curly brackets. Note that we use the second 
 >
 > Make sure that the white spaces and indentation is exactly as shown: YAML is very picky about this, and many errors in running playbooks are due to wrong indentation.
 
-Next, we need to add the tasks where the actual changes on the target machines are done. This happens in three steps: first we create a source object, than a destination object, and finally the access rule between those two.
+Next, we need to add the tasks. The tasks section is where the actual changes on the target machines are made. In this case, this happens in three steps: 
+
+- first we create a source object
+- then a destination object
+- finally the access rule between those two objects
 
 Let's start with a task to define the source object:
 
@@ -174,7 +162,7 @@ As you can see, the task itself has a name - just like the play itself - and ref
 
 > **Tip**
 >
-> In `ansible-doc` leave by pressing the button `q`. Use the `up`/`down` arrows to scroll through the content.
+> In `ansible-doc` you can use `up`/`down` arrows to scroll through the content and `q` to exit.
 
 In the same way we defined the source IP host object, we will now add the destination IP host object:
 
@@ -243,7 +231,7 @@ Last, we are defining the actual access rule between those two host objects and 
 ```
 <!-- {% endraw %} -->
 
-## Step 2.6 - Run the playbook
+## Step 2.5 - Run the playbook
 
 Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors:
 
@@ -274,31 +262,31 @@ PLAY RECAP *********************************************************************
 checkpoint  : ok=4 changed=3 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 ```
 
-## Step 2.7 - Verify changes in UI
+## Step 2.6 - Verify changes in UI
 
-Now it's time to check if the changes really did take place, if the actual Check Point MGMT server configuration was really altered.
+Now it's time to check if the changes really did take place and Check Point MGMT server's configuration was altered.
 
 Access the Windows workstation and open the SmartConsole interface. On the right side, underneath **Object Categories**, click on **Network Objects**, then pick **Hosts**. It should list both new host entries.
 
 ![SmartConsole Hosts list](images/smartconsole-hosts-list.png)
 
-Next, on the left side, click on **SECURITY POLICIES** and note the additional access control policy entry in the middle of the field compared to the first time we looked at this. This time it allows traffic, thus has another entry in the **Action** column and also a different color.
+Next, on the left side, click on **SECURITY POLICIES**. Notice the additional access control policy entry in the middle of the field, compare this with when we looked at this earlier. Since the traffic is allowed now, the entry in the **Action** column is changed and has a different color.
 
 ![SmartConsole Policy Entries](images/smartconsole-policy-entry.png)
 
 Also note in the bottom left corner that there is a green bar indicating that changes were applied to the entire system.
 
-## Step 2.8 - Turn on Logging for the new policy
+## Step 2.7 - Turn on Logging for the new policy
 
-To see how changes are usually performed in a typical interaction with Check Point in contrast, let's just do a small change which will come in handy later on: by default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
+To see how changes are normally performed in a typical manual interaction with Check Point, let's do a small change which will come in handy later on. By default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
 
 ![SmartConsole, change logging](images/smartconsole-change-logging.png)
 
 Afterwards, click on the **Install Policy** button at the top of the list of policies, confirm the dialog which opens with **Publish & Install** and in the last dialog, click **Install** again.
 
-As a result, in the left corner a small window pops up informing you of the progress of the deployment of the change.
+As a result, in the left corner, a small window pops up informing you of the progress of the deployment of the change.
 
-As you see, even doing a rather small change the configuration required multiple clicks and interactions with the user - the more of these steps can be automated, the better.
+As you can see, even making a small change in the configuration requires multiple clicks from the user - the more of these steps can be automated, the better.
 
 ----
 

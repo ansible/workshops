@@ -1,4 +1,5 @@
-- name: APPLY ROUTER TEMPLATE
+---
+- name: apply network device template
   vars:
     ansible_connection: network_cli
     ansible_become: true

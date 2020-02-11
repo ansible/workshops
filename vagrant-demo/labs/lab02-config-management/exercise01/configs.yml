@@ -1,7 +1,7 @@
 ---
 - name: UPDATE THE SNMP RO/RW STRINGS
   hosts: network
-  gather_facts: no
+  gather_facts: false
 
   tasks:
 
@@ -15,7 +15,7 @@
 
 - name: CONFIGURE SYSTEM SERVICES
   hosts: network
-  gather_facts: no
+  gather_facts: false
 
   tasks:
 

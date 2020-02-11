@@ -1,0 +1,15 @@
+---
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: TESTWORKSHOP
+# amount of work benches to provision
+student_total: 2
+workshop_type: 'devops'
+## Optional Variables
+admin_password: ansible
+workshop_dns_zone: redhatgov.io
+towerinstall: true
+autolicense: true
+# creates HTML website for workshop
+create_login_page: true

@@ -1,15 +1,15 @@
 ---
 - name: CONFIGURE F5 WORKSHOP WEBSERVERS host1 and host2
   hosts: lab_hosts
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   roles:
-    - { role: webservers }
+    - {role: webservers}
 
 - name: setup f5 nodes
   hosts: f5
-  become: no
+  become: false
   connection: local
-  gather_facts: no
+  gather_facts: false
   roles:
-    - { role: f5_setup }
+    - {role: f5_setup}

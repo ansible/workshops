@@ -1,7 +1,8 @@
+---
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
   connection: local
-  gather_facts: yes
+  gather_facts: true
   tasks:
     - name: CREATE TIME STAMP FOR LINKLIGHT TESTING
       set_stats:

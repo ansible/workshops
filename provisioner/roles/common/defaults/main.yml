@@ -1,3 +1,4 @@
+---
 common_node_config_options:
   - dest: /etc/ssh/sshd_config
     regexp: '^#?Port'

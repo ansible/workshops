@@ -1,12 +1,12 @@
 # Ansible AWS training provisioner
 
-The `github.com/ansible/workshops` contains a provisioner `provision_lab.yml`, which is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
+The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.yml`, which is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
 
-| Workshop   | Deck  | Exercises  | Workshop Type Var   |
-|---|---|---|---|
-| Ansible Red Hat Enterprise Linux Workshop  | [Deck](https://ansible.github.io/workshops/decks/ansible_rhel.pdf)  | [Exercises](../exercises/ansible_rhel) | `workshop_type: rhel`  |
-| Ansible Network Automation Workshop  | [Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf) | [Exercises](../exercises/ansible_network)  | `workshop_type: networking`  |
-| Ansible F5 Workshop | [Deck](https://ansible.github.io/workshops/decks/ansible_f5.pdf) | [Exercises](../exercises/ansible_f5)   | `workshop_type: f5`   |
+| Workshop | Workshop Type Var   |
+|---|---|
+| Ansible Red Hat Enterprise Linux Workshop | `workshop_type: rhel`  |
+| Ansible Network Automation Workshop | `workshop_type: networking`  |
+| Ansible F5 Workshop | `workshop_type: f5`   |
 
 # Table Of Contents
 - [Requirements](#requirements)
@@ -21,6 +21,7 @@ The `github.com/ansible/workshops` contains a provisioner `provision_lab.yml`, w
 - [Getting Help](#getting-help)
 
 # Requirements
+
 - This provisioner must be run with Ansible Engine v2.8.0 or higher.
 - AWS Account (follow directions on one time setup below)
 
@@ -37,25 +38,35 @@ The `github.com/ansible/workshops` contains a provisioner `provision_lab.yml`, w
 ---
 # region where the nodes will live
 ec2_region: us-east-1
+
 # name prefix for all the VMs
 ec2_name_prefix: TESTWORKSHOP
+
 # creates student_total of workbenches for the workshop
 student_total: 2
+
 # Set the right workshop type, like networking, rhel or f5 (see above)
 workshop_type: rhel
-#OPTIONAL VARIABLES
+
+#####OPTIONAL VARIABLES
+
+# turn DNS on for control nodes, and set to type in valid_dns_type
+dns_type: aws
+
 # password for Ansible control node, defaults to ansible
 admin_password: ansible
+
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-create_login_page: true                
+create_login_page: true
+
 # Sets the Route53 DNS zone to use for the S3 website
-workshop_dns_zone: rhdemo.io           
+workshop_dns_zone: rhdemo.io
+
 # automatically installs Tower to control node
-towerinstall: true                     
+towerinstall: true
+
 # automatically licenses Tower if license is provided
 autolicense: true
-# install xrdp with xfce for graphical interface
-#xrdp: true
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
@@ -70,18 +81,32 @@ For more extra_vars examples, look at the following:
 
         ansible-playbook provision_lab.yml -e @extra_vars.yml
 
-3. Login to the EC2 console and you should see instances being created like:
+3. Login to the AWS EC2 console and you will see instances being created.  For example:
 
-        `TESTWORKSHOP-student1-ansible`
+        `tesworkshop-student1-ansible`
 
 ## Accessing student documentation and slides
 
-  - Exercises and instructor slides are hosted at http://ansible.github.io/workshops
+  - Exercises and instructor slides are hosted at [http://ansible.github.io/workshops](http://ansible.github.io/workshops)
+
   - Workbench information is stored in two places after you provision:
-    - in a local directory named after the workshop (e.g. TESTWORKSHOP/instructor_inventory)
-    - if `create_login_page: true` is enabled in your `extra_vars file,` there will be a website ec2_name_prefix.workshop_dns_zone (e.g. TESTWORKSHOP.rhdemo.io)
-    - It is possible to change the route53 DNS as well using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
-    - The playbook does not create the route53 zone and must exist prior to running the playbook.
+    1. in a local directory named after the workshop (e.g. testworkshop/instructor_inventory)
+
+    2. if `create_login_page: true` is enabled in your `extra_vars file,` there will be a website `ec2_name_prefix.workshop_dns_zone` (e.g. `testworkshop.rhdemo.io`)
+
+       - **NOTE:** It is possible to change the DNS domain (right now this is only supported via a AWS Route 53 Hosted Zone) using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
+
+       - **NOTE:** The playbook does not create the route53 zone and must exist prior to running the playbook.
+
+## DNS
+
+The provisioner currently supports creating DNS records per control node with valid SSL certs using [Lets Encrypt](https://letsencrypt.org/).  Right now DNS is only supported via AWS Route 53, however we are building it in a way that this can be more pluggable and take advantage of other public clouds.
+
+This means that each student workbench will get an individual DNS entry.  For example a DNS name will look like this: `https://student1.testworkshop.rhdemo.io`
+
+  - **NOTE:** The variable `dns_type` defaults to `aws`.  This can also be set to `dns_type: none`.  
+
+  - **NOTE:**  If Lets Encrypt fails, the workshop provisioner will still pass, and alert you of errors in the `summary_information` at the end of the `provision_lab.yml` Ansible Playbook.
 
 # Lab Teardown
 
@@ -92,6 +117,12 @@ To destroy all the EC2 instances after training is complete:
 1. Run the playbook:
 
         ansible-playbook teardown_lab.yml -e @extra_vars.yml
+
+2. Optionally you can enable verbose debug output of the information gathered
+   that drives the teardown process by passing the extra optional variable
+   `debug_teardown=true`. Example:
+
+        ansible-playbook teardown_lab.yml -e @extra_vars.yml -e debug_teardown=true
 
 # FAQ
 

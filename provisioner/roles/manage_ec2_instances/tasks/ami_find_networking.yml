@@ -1,53 +1,54 @@
+---
 #### CISCO AMI
 - name: BLOCK FOR CISCO AMI
   block:
-  - name: find ami for cisco (NETWORKING MODE)
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "679593333241"
-      filters:
-        name: "cisco-CSR-.16.09.02-BYOL*"
-        architecture: "x86_64"
-    register: cisco_ami_list
+    - name: find ami for cisco (NETWORKING MODE)
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        owners: "679593333241"
+        filters:
+          name: "cisco-CSR-.16.09.02-BYOL*"
+          architecture: "x86_64"
+      register: cisco_ami_list
 
-  - name: save ami for cisco (NETWORKING MODE)
-    set_fact:
-      cisco_ami: >
-        {{ cisco_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for cisco (NETWORKING MODE)
+      set_fact:
+        cisco_ami: >
+          {{ cisco_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
   when: 'network_type == "multivendor" or network_type == "cisco"'
 
 #### ARISTA AMI
 - name: BLOCK FOR ARISTA AMI
   block:
-  - name: find ami for arista (NETWORKING MODE)
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "679593333241"
-      filters:
-        name: "*EOS*"
-        architecture: "x86_64"
-    register: arista_amis
+    - name: find ami for arista (NETWORKING MODE)
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        owners: "679593333241"
+        filters:
+          name: "{{ec2_info.arista.filter}}"
+          architecture: "x86_64"
+      register: arista_amis
 
-  - name: save ami for arista eos (NETWORKING MODE)
-    set_fact:
-      arista_ami: >
-        {{ arista_amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for arista eos (NETWORKING MODE)
+      set_fact:
+        arista_ami: >
+          {{ arista_amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
   when: 'network_type == "multivendor" or network_type == "arista"'
 
 #### JUNIPER AMI
 - name: BLOCK FOR ARISTA AMI
   block:
-  - name: find ami for juniper vsrx (NETWORKING MODE)
-    ec2_ami_facts:
-      region: "{{ ec2_region }}"
-      owners: "679593333241"
-      filters:
-        name: "junos-vsrx3-x86-64-18.4R1.8--pm*"
-        architecture: "x86_64"
-    register: juniper_amis
+    - name: find ami for juniper vsrx (NETWORKING MODE)
+      ec2_ami_facts:
+        region: "{{ ec2_region }}"
+        owners: "679593333241"
+        filters:
+          name: "junos-vsrx3-x86-64-18.4R1.8--pm*"
+          architecture: "x86_64"
+      register: juniper_amis
 
-  - name: save ami for juniper (NETWORKING MODE)
-    set_fact:
-      juniper_ami: >
-        {{ juniper_amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    - name: save ami for juniper (NETWORKING MODE)
+      set_fact:
+        juniper_ami: >
+          {{ juniper_amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
   when: 'network_type == "multivendor" or network_type == "juniper"'

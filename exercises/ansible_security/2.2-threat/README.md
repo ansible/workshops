@@ -35,7 +35,7 @@ Next we again need suspicious traffic - an attack. Again we have a playbook whic
 Execute the playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook web_attack_simulation.yml
+[student<X>@ansible ansible-files]$ ansible-playbook ddos_attack_simulation.yml
 ```
 
 Addtionally we will use the role to modify IDS rules from the previous Snort exercise. If you missed that, install them via: `ansible-galaxy install ansible_security.ids_rule`

@@ -2,7 +2,7 @@
 - name: CONFIGURE VLANS
   hosts: all
   connection: local
-  gather_facts : no
+  gather_facts: false
 
   vars:
     vlans:

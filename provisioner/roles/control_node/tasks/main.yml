@@ -1,3 +1,4 @@
+---
 ## This is needed for sshpass
 - name: Install EPEL
   yum:
@@ -17,9 +18,10 @@
       - python-pip
       - ansible
       - gcc
-      # - https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.7.0-1.el7.ans.noarch.rpm
     state: present
-  retries: 10
+  register: yum_check
+  until: yum_check is not failed
+  retries: 4
   delay: 5
 
 - name: Install ansible.cfg and vimrc in home directory
@@ -48,16 +50,24 @@
   include_tasks: "rhel.yml"
   when: workshop_type == 'rhel'
 
+- name: Devops mode - setup control node
+  include_tasks: "devops.yml"
+  when: workshop_type == 'devops'
+
+- name: Windows mode - setup control node
+  include_tasks: "windows.yml"
+  when: workshop_type == 'windows'
+
 - name: check to see if ansible tower is already up and running
   uri:
     url: https://localhost/api/v2/ping/
     method: GET
     user: admin
     password: "{{admin_password}}"
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
   register: check_tower
-  ignore_errors: yes
+  ignore_errors: true
   when:
     - towerinstall is defined
     - towerinstall|bool
@@ -77,7 +87,7 @@
     state: present
   delegate_to: localhost
   run_once: true
-  become: no
+  become: false
   when:
     - autolicense is defined
     - autolicense|bool
@@ -90,8 +100,8 @@
     password: "{{admin_password}}"
     body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
     body_format: json
-    validate_certs: False
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
   when:
     - autolicense is defined
     - autolicense|bool

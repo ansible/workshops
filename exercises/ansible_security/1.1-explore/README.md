@@ -14,7 +14,7 @@ The exercises of the first section of this lab guide you through each individual
 
 The exercises of the second section of this lab are focused on the actual security operations use cases: situations in which a certain challenge has to be met, usually by interacting not only with one of the mentioned solutions above, but with a mix of them. After setting forth the challenge and explaining what tasks need to be done manually to solve the situation, the lab walks through the steps to automate the tasks with Ansible.
 
-## Step 1.3 - Architecture of the lab, Nodes and Services
+## Step 1.2 - Architecture of the lab, Nodes and Services
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts and services:
 
@@ -70,7 +70,7 @@ All interactions with the environment are either done via SSH, or via web browse
              +--------------------------------------------+
 ```
 
-## Step 1.4 - Access the Ansible Environment
+## Step 1.3 - Access the Ansible Environment
 
 For a start, log into your Ansible control host via SSH. Open a terminal and type the following command:
 
@@ -108,7 +108,7 @@ In all subsequent exercises you should work as the student\<X\> user on the cont
 > 
 > Ansible is keeping configuration management simple. Ansible requires no database or running daemons and can run easily on a laptop. On the managed hosts it needs no running agent.
 
-## Step 1.5 - Your inventory
+## Step 1.4 - Your inventory
 
 The inventory of your environment will be provided in a static, ini-type file. It can be found at `/home/student<X>/lab_inventory/hosts` and looks like the following listing. Please note that the IP addresses provided here are just an example and will be different in your lab environment:
 
@@ -145,11 +145,11 @@ Ansible is already configured to use the inventory specific to your environment.
 > 
 > Not all hosts in your lab can be reached vis SSH. During the exercises, each node type will be explained in detail and the means how to access the resources will be shown step by step.
 
-## Step 1.6 - Victim machine
+## Step 1.5 - Victim machine
 
 For the exercises of section 2 we need to have security incidents. Those should happen on a **victim** machine - that is Snort server. It is basically a RHEL installation with Snort installed and running a simplified web server to run attacks against.
 
-## Step 1.7 - Working the Labs
+## Step 1.6 - Working the Labs
 
 You might have guessed by now this lab is pretty commandline-centric…​ :-)
 

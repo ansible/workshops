@@ -3,22 +3,21 @@
   hosts: lb
   gather_facts: false
   connection: local
-
   tasks:
   - name: Setup provider
     set_fact:
-     provider:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
 
   - name: Query BIG-IP facts
-    bigip_device_facts:
+    bigip_device_info:
       provider: "{{provider}}"
       gather_subset:
-       - ltm-pools
+        - ltm-pools
     register: bigip_facts
 
   - name: Display Pools available
@@ -29,7 +28,7 @@
 
   - name: Store pool name in a variable
     set_fact:
-     pool_name: "{{item.name}}"
+      pool_name: "{{item.name}}"
     loop: "{{bigip_facts.ltm_pools}}"
     no_log: true
 
@@ -37,7 +36,7 @@
     debug: "msg={{item}}"
     loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
     vars:
-     query_string: "[?name=='{{pool_name}}'].members[*].name[]"
+      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
 
   - pause:
       prompt: "To disable a particular member enter member with format member_name:port \nTo disable all members of the pool enter 'all'"
@@ -53,7 +52,7 @@
       host: "{{hostvars[item.split(':')[0]].ansible_host}}"
     loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
     vars:
-     query_string: "[?name=='{{pool_name}}'].members[*].name[]"
+      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
     when: '"all" in member_name.user_input'
 
   - name: Disable pool member {{member_name.user_input}}

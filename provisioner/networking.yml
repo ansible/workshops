@@ -1,57 +1,46 @@
 ---
-# - name: Setup Host routes for ansible control node and host1 when in networking mode
-#   hosts: "managed_nodes:control_nodes"
-#   become: no
-#   gather_facts: no
-#   roles:
-#     - { role: network_hostroutes }
-
-- name: WAIT FOR ROUTERS TO HAVE SSH REACHABILITY
+- name: wait for routers to have ssh reachability
   hosts: "routers"
-  gather_facts: no
+  gather_facts: false
   tasks:
-    - name: MAKE SURE ROUTERS HAVE SSH REACHABILITY
+    - name: make sure routers have ssh reachability
       include_role:
         name: connectivity_test
         tasks_from: routers
 
-- name: CHANGE JUNIPER PASSWORD
+- name: change juniper password
   hosts: routers
-  gather_facts: no
+  gather_facts: false
   vars:
     ansible_connection: network_cli
   tasks:
-    - name: Run tasks/other.yaml instead of 'main'
+    - name: configure juniper password
       include_role:
         name: configure_routers
         tasks_from: juniper_default
       when: ansible_network_os == "junos"
 
-- name: GATHER AWS FACTS FOR ROUTERS
+- name: gather aws facts for routers
   hosts: access,core
   connection: local
-  gather_facts: no
+  gather_facts: false
   roles:
-    - { role: gather_router_facts }
+    - {role: gather_router_facts}
 
-- name: CONFIGURE ACCESS ROUTERS
+- name: configure access routers
   hosts: access
   connection: local
-  gather_facts: no
+  gather_facts: false
 
   roles:
     - role: configure_routers
       vars:
         type: access
-        router3_tunnel: 100
-        router4_tunnel: 101
-      when:
-        - ansible_network_os == "ios"
 
-- name: CONFIGURE CORE ROUTERS
+- name: configure core routers
   hosts: core
   connection: local
-  gather_facts: no
+  gather_facts: false
 
   roles:
     - role: configure_routers
@@ -60,46 +49,16 @@
       when:
         - ansible_network_os == "ios" or ansible_network_os == "eos"
 
-- name: POPULATE TOWER STEP ONE
+- name: populate ansible tower for network automation workshop
   hosts: control_nodes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   tasks:
-#INITAL SETUP
-    - name: RUN POPULATE TOWER STEP ONE
+    - name: run populate_tower role
       include_role:
         name: populate_tower
-        tasks_from: populate_tower_step_one
-      when:
-        - towerinstall is defined
-        - towerinstall|bool
-
-
-- name: POPULATE TOWER STEP TWO (FOR REMOTE EXECUTION)
-  hosts: control_nodes
-  become: yes
-  gather_facts: no
-
-  tasks:
-#CREDENTIAL AND INVENTORY
-    - name: RUN POPULATE TOWER STEP TWO
-      include_role:
-        name: populate_tower
-        tasks_from: populate_tower_step_two
-      when:
-        - towerinstall is defined
-        - towerinstall|bool
-
-- name: TOWER JOB TEMPLATES IN PLAYBOOK FORM
-  hosts: control_nodes
-  gather_facts: no
-
-  tasks:
-#PERMISSIONS
-    - name: RUN POPULATE TOWER STEP THREE
-      include_role:
-        name: populate_tower
-        tasks_from: populate_tower_step_three
+        tasks_from: "{{workshop_type}}"
       when:
         - towerinstall is defined
         - towerinstall|bool

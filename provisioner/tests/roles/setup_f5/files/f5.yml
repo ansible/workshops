@@ -1,6 +1,7 @@
+---
 # region where the nodes will live
 ec2_region: us-east-2
- # name prefix for all the VMs
+# name prefix for all the VMs
 ec2_name_prefix: "LINKLIGHT-F5-TEST-{{workshop_timestamp}}"
 # amount of work benches to provision
 student_total: 2
@@ -14,4 +15,4 @@ workshop_type: f5
 # when towerinstall is on, this will license it with provided license
 autolicense: true
 # this will install Ansible Tower on all control nodes
-towerinstall: true                    #
+towerinstall: true

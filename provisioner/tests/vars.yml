@@ -1,7 +1,6 @@
 ---
 ec2_region: us-east-1
 student_total: 2
-admin_password: ansible
 create_login_page: true
 autolicense: true
 towerinstall: true

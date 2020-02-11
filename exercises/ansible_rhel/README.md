@@ -12,7 +12,7 @@ After finishing this lab you are ready to start using Ansible for your automatio
 
 ## Presentations
 
-The exercises are self explanatory and guide the particpants through the entire lab. All concepts are explained when they are introduces.
+The exercises are self explanatory and guide the particpants through the entire lab. All concepts are explained when they are introduced.
 
 There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
 [Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
@@ -54,4 +54,4 @@ If your experience is different in schedulung those workshops, please let us kno
  - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

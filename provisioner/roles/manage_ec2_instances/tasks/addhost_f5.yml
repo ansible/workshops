@@ -1,3 +1,4 @@
+---
 - name: grab facts for f5 node (F5 MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"

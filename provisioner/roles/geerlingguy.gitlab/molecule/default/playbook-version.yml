@@ -1,0 +1,31 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    gitlab_restart_handler_failed_when: false
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Remove the .dockerenv file so GitLab Omnibus doesn't get confused.
+      file:
+        path: /.dockerenv
+        state: absent
+
+    - name: Set the test GitLab version number for Debian.
+      set_fact:
+        gitlab_version: '11.4.0-ce.0'
+      when: ansible_os_family == 'Debian'
+
+    - name: Set the test GitLab version number for RedHat.
+      set_fact:
+        gitlab_version: '11.4.0-ce.0.el7'
+      when: ansible_os_family == 'RedHat'
+
+  roles:
+    - role: geerlingguy.gitlab

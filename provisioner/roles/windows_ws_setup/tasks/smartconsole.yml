@@ -22,10 +22,10 @@
 
   - name: Download SmartConsole to specified path only if modified
     win_get_url:
-      url: https://s3.amazonaws.com/linklight.securityautomation/Check_Point_SmartConsole_R80_20_jumbo_HF_B055_Win.exe
+      url: https://s3.amazonaws.com/linklight.securityautomation/Check_Point_R80.30_T200_SmartConsole_Windows.exe
       dest: C:\Temp\SmartConsole.exe
-      checksum: 424bd9ccac118c5a9c9e006b89f21d0a8b4f944b
-      force: yes
+      checksum: 953fe8c4682175d2bc42396a2bc82bdadd8fb833
+      force: true
     when: not smartconsole.stat.exists
     register: win_get_smartconsole
     until: win_get_smartconsole is success
@@ -44,4 +44,3 @@
 
   - name: Execute SmartConsole installer
     win_command: C:\Temp\SmartConsole\SmartConsole.exe -s setup.iss
-

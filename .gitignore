@@ -2,6 +2,7 @@ secrets.yml
 users.yml
 extra_vars.yml
 *.txt
+!test-requirements.txt
 *.vagrant
 TODO
 TODO.md
@@ -24,3 +25,7 @@ provisioner/roles/ansible_security.ids_install/
 provisioner/roles/geerlingguy.repo-epel/
 .pyc
 .swp
+Gemfile.lock
+Gemfile
+_site/*
+.tox/

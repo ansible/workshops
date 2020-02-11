@@ -1,3 +1,4 @@
+---
 - name: grab facts for rtr1 node (NETWORKING MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"

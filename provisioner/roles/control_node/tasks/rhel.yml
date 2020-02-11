@@ -1,3 +1,4 @@
+---
 - name: Create lab inventory directory
   file:
     state: directory

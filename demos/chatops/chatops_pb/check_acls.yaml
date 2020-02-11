@@ -2,7 +2,7 @@
 - name: TOWER TEMPLATE
   hosts: all
   connection: network_cli
-  gather_facts: no
+  gather_facts: false
 
   vars:
     response_url: ''
@@ -25,20 +25,20 @@
         path: acl_report
         insertbefore: BOF
         line: '{ "text": "@{{slack_user}} ```'
-      run_once: yes
+      run_once: true
 
     - name: LINEINFILE INSERT AFTER
       lineinfile:
         path: acl_report
         insertafter: EOF
         line: '``` "}'
-      run_once: yes
+      run_once: true
 
     - name: SEND RESPONSE TO SLACK
       uri:
         url: "{{response_url}}"
         body: "{{ lookup('file','acl_report') }}"
         method: POST
-        validate_certs: no
+        validate_certs: false
       delegate_to: localhost
-      run_once: yes
+      run_once: true

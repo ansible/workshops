@@ -50,7 +50,13 @@ Ansible Tower で Playbook を実行するには **Job Template** を作成す�
 
     ![backup job template](images/backup.png)
 
-4. 画面を下方向へスクロールしてグリーンの `save` ボタンをクリックします。
+4. 2つ目の認証情報をジョブテンプレートに割り当てます。
+
+    この **Tower Credential** (認証タイプ Ansible Tower)もジョブテンプレートに追加する必要があります。これは **Network-Restore** ジョブテンプレートが使用しているプールをアップデートするために使用されます。Ansible Tower ではジョブテンプレートから、プログラマブルに Ansible Tower 自身の設定を動的に追加・更新することができます。
+
+    ![tower credential](images/tower_credential.png)
+
+5. 画面を下方向へスクロールしてグリーンの `save` ボタンをクリックします。
 
 以下がチュートリアルです:
 

@@ -1,3 +1,4 @@
+---
 theme: jekyll-theme-dinky
 include:
   - "provisioner/README.md"
@@ -5,3 +6,4 @@ exclude:
   - "provisioner/roles"
   - "provisioner/group_vars"
   - "provisioner/inventory"
+  - "provisioner/tests"

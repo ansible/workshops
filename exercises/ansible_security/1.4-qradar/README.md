@@ -85,10 +85,10 @@ optional arguments:
   -h, --help         show this help message and exit
 ```
 
-With that in mind, we can now install the collection `ibm.qradar`. To make sure that the collection is installed in our user path and not for example system wide, we also need to provide a path. This can be any path - but the Ansible command line tools automatically look for collections at `~/.ansible/collections`, so we install our collection directly there:
+With that in mind, we can now install the collection `ibm.qradar`:
 
 ```bash
-[student<X>@ansible ~]$ ansible-galaxy collection install ibm.qradar -p ~/.ansible/collections
+[student<X>@ansible ~]$ ansible-galaxy collection install ibm.qradar
 Process install dependency map
 Starting collection install process
 Installing 'ibm.qradar:0.0.1' to '/home/student<X>/.ansible/collections/ansible_collections/ibm/qradar'

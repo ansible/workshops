@@ -1,8 +1,9 @@
+---
 - name: Perform Checks to make sure this Playbook will complete successfully
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: yes
+  become: false
+  gather_facts: true
   tasks:
     - name: make sure we are running correct Ansible Version
       assert:
@@ -17,6 +18,13 @@
           - workshop_type in valid_workshop_types
         msg: "workshop_type must be defined and be one of: {{valid_workshop_types}}"
 
+    - name: make sure dns_type is set to a correct value
+      assert:
+        that:
+          - dns_type is defined
+          - dns_type in valid_dns_type
+        msg: "workshop_type must be defined and be one of: {{valid_dns_type}}"
+
     - name: make sure network_type is set to a correct value
       assert:
         that:
@@ -24,6 +32,14 @@
           - network_type in valid_network_types
         msg: "network_type must be defined and be one of: {{valid_network_types}}"
       when: workshop_type == "networking"
+
+    - name: make sure DNS name is 65 characters or less
+      vars:
+        test_name: "studentXXX-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+      assert:
+        that:
+          - "{{test_name|length}} <= 65"
+        msg: "you must make sure your DNS name is shorter"
 
     - name: make sure security_console is set to a correct value
       assert:
@@ -41,14 +57,40 @@
       assert:
         that:
           - ec2_name_prefix != "TESTWORKSHOP"
+        msg:
+          - "ec2_name_prefix cannot be set to TESTWORKSHOP"
+          - "please set a unique name for your workshop"
+
+
+    - name: make sure we are not using `ansible` as the password
+      assert:
+        that:
+          - admin_password != "ansible"
+        msg:
+          - "admin_password cannot be set to ansible"
+          - "please set a unique password for your workshop"
 
     - name: make sure packages required are installed on this control node
       pip:
         name:
           - netaddr
-      check_mode: yes
+      check_mode: true
       when: workshop_type == "networking"
       register: package_state
+
+    # windows has a dependancy on sshpass which is nogo on macos: brew install it
+    - name: make sure (windows) packages required are installed on this control node
+      pip:
+        name:
+          - pywinrm
+          - boto
+          - requests
+          - requests-credssp
+          # - sshpass
+      check_mode: true
+      when: workshop_type == "windows"
+      register: package_state
+
 
     - name: fail if previous check has changed
       assert:
@@ -66,10 +108,10 @@
         - fail:
             msg: "autolicense is turned on, but we need a license located at {{playbook_dir}}/tower_license.json"
           when:
-           - not stat_result.stat.exists
+            - not stat_result.stat.exists
       when:
-       - autolicense is defined
-       - autolicense
+        - autolicense is defined
+        - autolicense
 
     - name: Install required roles and collections onto THIS machine
       when:
@@ -93,25 +135,58 @@
           until: job_result.finished
           retries: 30
 
+    - name: Windows workshop specific vars
+      include_vars:
+        file: "group_vars/{{ workshop_type }}.yml"
+      when: workshop_type == "windows"
+
+    - name: Check Domain Admin Password Complexity
+      assert:
+        that:
+          - domain_admin_password | length > 7
+          - domain_admin_password | regex_search('[A-Z]')
+          - domain_admin_password | regex_search('[a-z]')
+          - domain_admin_password | regex_search('[0-9]')
+        fail_msg: "domain_admin_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
+      when: workshop_type == "windows"
+
+    - name: Check Users Password Complexity
+      assert:
+        that:
+          - users_password | length > 7
+          - users_password | regex_search('[A-Z]')
+          - users_password | regex_search('[a-z]')
+          - users_password | regex_search('[0-9]')
+        fail_msg: "users_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
+      when: workshop_type == "windows"
+
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   roles:
     - manage_ec2_instances
 
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes"
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
+  roles:
+    - connectivity_test
+
+- name: wait for all security nodes to have SSH reachability
+  hosts: "security_connection_check"
+  become: true
+  gather_facts: false
   roles:
     - connectivity_test
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
-  gather_facts: no
-  become: yes
+  gather_facts: false
+  become: true
   roles:
     - user_accounts
     - common
@@ -119,28 +194,33 @@
 
 - name: CONFIGURE CONTROL NODE
   hosts: control_nodes
-  gather_facts: no
-  become: yes
+  gather_facts: true
+  become: true
   roles:
-    - control_node
+    - role: control_node
+    - role: code_server
+      when:
+        - code_server is defined
+        - code_server
   tags: control_node
 
-- name: ADD DNS ENTRIES FOR ALL STUDENT TOWER NODES
+- name: add dns entires for all student control nodes
   hosts: control_nodes
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   roles:
     - role: aws_dns
       when:
-        - create_login_page is defined
-        - create_login_page
+        - dns_type is defined
+        - dns_type == "aws"
   tags: control_node
+
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   roles:
     - role: aws_workshop_login_page
       when:
@@ -154,16 +234,16 @@
 - name: Alert the mothership
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   tasks:
-    - { include_role: {name: tower_request}, when: student_total > 9 }
+    - {include_role: {name: tower_request}, when: student_total > 9}
 
 - name: print out information for instructor
   hosts: localhost
   connection: local
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
   tasks:
     - name: set facts for output
       set_fact:
@@ -177,6 +257,8 @@
           FAILURES
           *******************
           {{dns_information}}
+          {{callback_information}}
+          {{coder_information}}
 
     - name: Print Summary Information
       debug:

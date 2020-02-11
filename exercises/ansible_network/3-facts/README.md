@@ -18,7 +18,7 @@ Ansible facts are information derived from speaking to the remote network elemen
 This exercise will cover:
 - Building an Ansible Playbook from scratch.
 - Using [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html).
-- Using the [ios_facts module](https://docs.ansible.com/ansible/latest/modules/ios_config_module.html).
+- Using the [ios_facts module](https://docs.ansible.com/ansible/latest/modules/ios_facts_module.html).
 - Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
 #### Step 1

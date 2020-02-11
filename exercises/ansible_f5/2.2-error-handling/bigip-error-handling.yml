@@ -7,12 +7,12 @@
   tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
@@ -48,7 +48,7 @@
             destination: "{{private_ip}}"
             port: "443"
             enabled_vlans: "all"
-            all_profiles: ['http','clientssl','oneconnect']
+            all_profiles: ['http', 'clientssl', 'oneconnect']
             pool: "http_pool"
             snat: "Automap1"
 
@@ -76,4 +76,4 @@
         - name: SAVE RUNNING CONFIGURATION
           bigip_config:
             provider: "{{provider}}"
-            save: yes
+            save: true

@@ -200,7 +200,7 @@ Login to the F5 with your web browser to see what was configured.  Grab the IP i
 
 Login information for the BIG-IP:
 - username: admin
-- password: admin
+- password: **provided by instructor defaults to ansible**
 
 Navigate the menu on the left and view that the configuration has been deleted
 * Local Traffic Manager -> Virtual Server

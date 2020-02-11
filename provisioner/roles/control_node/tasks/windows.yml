@@ -1,7 +1,4 @@
 ---
-- include_vars: vars/windows.yml
-
-
 - name: Enable extras repos
   shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
   when:
@@ -75,3 +72,18 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Create lab inventory directory (WINDOWS MODE)
+  file:
+    state: directory
+    path: /home/{{ username }}/windows-workshop/lab_inventory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Put student inventory in proper spot (WINDOWS MODE)
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
+    dest: "/home/{{ username }}/windows-workshop/lab_inventory/hosts"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname

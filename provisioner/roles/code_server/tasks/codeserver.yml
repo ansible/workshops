@@ -39,9 +39,6 @@
     remote_src: true
   register: output
 
-- name: install ansible vscode extension
-  command: "/home/{{username}}/{{ version_name }}/code-server --install-extension vscoss.vscode-ansible"
-
 - name: move binary to /opt
   copy:
     src: /home/{{username}}/{{ version_name }}/code-server
@@ -78,6 +75,26 @@
     src: settings.json
     dest: "/home/{{username}}/.local/share/code-server/User/settings.json"
     owner: "{{username}}"
+
+- name: copy extension files to host
+  copy:
+    src: files/{{ item }}
+    dest: /home/{{ username }}/.local/share/code-server/extensions/
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - bierner.markdown-preview-github-styles-0.1.6.vsix
+    - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+    - vscoss.vscode-ansible-0.5.2.vsix
+
+- name: install ansible and markdown extensions
+  become_user: "{{ username }}"
+  command: "/opt/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
+  loop:
+    - bierner.markdown-preview-github-styles-0.1.6.vsix
+    - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+    - vscoss.vscode-ansible-0.5.2.vsix
+  ignore_errors: true
 
 - name: start code-server service
   service:

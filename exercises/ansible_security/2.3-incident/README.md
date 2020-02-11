@@ -68,7 +68,7 @@ Run it with:
 [student<X>@ansible ~]$ ansible-playbook sql_injection_simulation.yml
 ```
 
-Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar
+Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar`
 
 Also, to let the traffic between both machines pass, two things from the first Check Point exercise need to be completed: first the playbook `whitelist_attacker.yml` must have been run. And the logging for the attacker whitelist policy must have been activated. If you missed those steps, go back to the first Check Point exercise, create and execute the playbook, follow the steps to activate the logging and come back here.
 
@@ -81,9 +81,9 @@ As the security operator in charge of the corporate IDS, you routinely check the
 ```bash
 [ec2-user@ip-172-16-11-22 ~]$ journalctl -u snort -f
 -- Logs begin at Sun 2019-09-22 14:24:07 UTC. --
-Sep 22 21:03:03 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted Web Attack [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53376 -> 172.17.23.180:80
-Sep 22 21:03:08 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted Web Attack [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53378 -> 172.17.23.180:80
-Sep 22 21:03:13 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted Web Attack [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53380 -> 172.17.23.180:80
+Sep 22 21:03:03 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted SQL Injection [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53376 -> 172.17.23.180:80
+Sep 22 21:03:08 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted SQL Injection [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53378 -> 172.17.23.180:80
+Sep 22 21:03:13 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted SQL Injection [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53380 -> 172.17.23.180:80
 ```
 
 As you see this node has just registered multiple alerts to an **Attempted Administrator Privilege Gain**. Leave the log view by pressing `CTRL-C`.
@@ -161,11 +161,11 @@ Let's change our perspective briefly to the one of a security analyst: we mainly
 
 ![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png)
 
-Remember that it helps to add filters to the QRadar log view to get a better overview. Note that those logs already show the offense marker on the left side!
+Remember that it helps to add filters to the QRadar log view to get a better overview, and that it might be necessary to change the display to **Raw Events**. Note that those logs already show the offense marker on the left side!
 
 > **Note**
 >
-> If no logs are shown, wait a bit. It might take more than a minute to show the first entries. Also, the first logs might be identified with the right log source (showing **SIM Generic Log DSM-7** instead of **Snort rsyslog source**) so give it some time.
+> If no logs are shown, wait a bit. It might take more than a minute to show the first entries. Also, the first logs might be identified with the "default" log source (showing **SIM Generic Log DSM-7** instead of **Snort rsyslog source**) so give it some time.
 
 In the offenses tab filter the list of offenses for **Error Based SQL Injection**. Open the Offense summary to check the details of the attacker IP address previously seen in Snort logs.
 

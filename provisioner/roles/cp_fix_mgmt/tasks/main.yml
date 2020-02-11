@@ -1,0 +1,6 @@
+---
+- name: ensure API settings
+  command: mgmt_cli -r true set api-settings accepted-api-calls-from "All IP addresses" --domain 'System Data'
+
+- name: api restart
+  command: api restart

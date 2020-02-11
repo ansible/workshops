@@ -1,194 +1,102 @@
 ---
-- include_vars: vars/windows.yml
-
-
-- name: Add LDAP Config
-  uri:
-    url: https://localhost/api/v2/settings/ldap/
-    method: PATCH
-    user: admin
-    password: "{{ admin_password }}"
-    body: "{{ lookup('template','ldap_conf.json.j2') }}"
-    body_format: json
-    validate_certs: false
-    force_basic_auth: true
-
 - set_fact:
     userid: "{{ inventory_hostname | regex_replace('[^0-9]', '') }}"
 
-- name: Delete demo inventory
-  uri:
-    url: https://localhost/api/v2/inventories/1/
-    method: DELETE
-    user: admin
-    password: "{{ admin_password }}"
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 201
-      - 202
-      - 204
-      - 400
-      - 404
-  register: response
-  changed_when: response.status == 204
+- name: Remove demo job template
+  shell: awx-cli job_template delete -n "Demo Job Template" --project "Demo Project" --playbook "hello_world.yml" --insecure -u {{ username }} -p {{ admin_password }}
+  ignore_errors: true
 
-- name: Delete demo project
-  uri:
-    url: https://localhost/api/v2/projects/4/
-    method: DELETE
-    user: admin
-    password: "{{ admin_password }}"
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 201
-      - 202
-      - 204
-      - 400
-      - 404
-  register: response
-  changed_when: response.status == 204
+# - name: Remove demo job template
+#   tower_job_template:
+#     name: "Demo Job Template"
+#     job_type: run
+#     project: "Demo Project"
+#     playbook: "hello_world.yml"
+#     state: absent
+#     validate_certs: false
+#     tower_password: "{{ admin_password }}"
+#     tower_username: "{{ username }}"
+#     tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
 
-- name: Delete demo template
-  uri:
-    url: https://localhost/api/v2/job_templates/5/
-    method: DELETE
-    user: admin
-    password: "{{ admin_password }}"
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 201
-      - 202
-      - 204
-      - 400
-      - 404
-  register: response
-  changed_when: response.status == 204
+- name: Remove demo project
+  shell: awx-cli project delete -n "Demo Project" --insecure -u {{ username }} -p {{ admin_password }}
+  ignore_errors: true
 
-- name: Delete demo credential
-  uri:
-    url: https://localhost/api/v2/credentials/1/
-    method: DELETE
-    user: admin
-    password: "{{ admin_password }}"
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 201
-      - 202
-      - 204
-      - 400
-      - 404
-  register: response
-  changed_when: response.status == 204
+# - name: Remove demo project
+#   tower_project:
+#     name: "Demo Project"
+#     state: absent
+#     validate_certs: false
+#     tower_password: "{{ admin_password }}"
+#     tower_username: "{{ username }}"
+#     tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
 
-- name: create inventory
-  uri:
-    url: https://localhost/api/v2/inventories/
-    method: POST
-    user: admin
-    password: "{{ admin_password }}"
-    body: "{{ lookup('file','tower_inventory.json') }}"
-    body_format: json
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 201
-      - 400
-  register: response
-  changed_when: response.status == 201
+- name: Remove demo credential
+  shell: awx-cli credential delete -n Demo --credential-type Machine --insecure -u {{ username }} -p {{ admin_password }}
+  ignore_errors: true
 
-- name: create group
-  uri:
-    url: https://localhost/api/v2/groups/
-    method: POST
-    user: admin
-    password: "{{ admin_password }}"
-    body: "{{ lookup('template','tower_group.json.j2') }}"
-    body_format: json
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 201
-      - 400
-  register: response
-  changed_when: response.status == 201
+# - name: Remove demo credential
+#   tower_credential:
+#     name: "Demo"
+#     kind: ssh
+#     organization: "Default"
+#     state: absent
+#     validate_certs: false
+#     tower_password: "{{ admin_password }}"
+#     tower_username: "{{ username }}"
+#     tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
 
-- name: create host
-  uri:
-    url: https://localhost/api/v2/hosts/
-    method: POST
-    user: admin
-    password: "{{ admin_password }}"
-    body: "{{ lookup('template','tower_host.json.j2') }}"
-    body_format: json
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 201
-      - 400
-  register: response
-  changed_when: response.status == 201
+- name: Remove demo inventory
+  shell: awx-cli inventory delete -n "Demo Inventory" --organization "Default" --insecure -u {{ username }} -p {{ admin_password }}
+  ignore_errors: true
 
-- name: Associate host to group
-  uri:
-    url: https://localhost/api/v2/groups/1/hosts/
-    method: POST
-    user: admin
-    password: "{{ admin_password }}"
-    body: '{ "id": 2 }'
-    body_format: json
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 204
-      - 400
-  register: response
-  changed_when: response.status == 204
+# - name: Remove demo inventory
+#   tower_inventory:
+#     name: "Demo Inventory"
+#     organization: "Default"
+#     state: absent
+#     validate_certs: false
+#     tower_password: "{{ admin_password }}"
+#     tower_username: "{{ username }}"
+#     tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
+
+- name: Create workshop inventory
+  tower_inventory:
+    name: "Windows Workshop Inventory"
+    organization: Default
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false
+
+- name: import inventory
+  shell: 'tower-manage inventory_import --source=/home/{{ username }}/windows-workshop/lab_inventory/hosts --inventory-name="Windows Workshop Inventory"'
+
+# - name: Add win_shell/win_feature/win_reboot to allowed adhoc modules
+#   uri:
+#     url: https://localhost/api/v2/settings/all/
+#     method: PATCH
+#     user: admin
+#     password: "{{ admin_password }}"
+#     body: "{{ lookup('template','tower_config_adhoc.json.j2') }}"
+#     body_format: json
+#     validate_certs: false
+#     force_basic_auth: true
+#     status_code:
+#       - 200
+#       - 204
+#       - 400
+#   register: response
+#   changed_when: response.status == 200
 
 - name: Add win_shell/win_feature/win_reboot to allowed adhoc modules
-  uri:
-    url: https://localhost/api/v2/settings/all/
-    method: PATCH
-    user: admin
-    password: "{{ admin_password }}"
-    body: "{{ lookup('template','tower_config_adhoc.json.j2') }}"
-    body_format: json
+  tower_settings:
+    name: AD_HOC_COMMANDS
+    value: "'command','shell','yum','apt','apt_key','apt_repository','apt_rpm','service','group','user','mount','ping','selinux','setup','win_ping','win_service','win_updates','win_group','win_user','win_shell','win_feature','win_reboot'"
     validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 204
-      - 400
-  register: response
-  changed_when: response.status == 200
-
-- name: Set Base URL of Tower to resolve issues with websocket
-  uri:
-    url: https://localhost/api/v2/settings/system/
-    method: PATCH
-    user: admin
-    password: "{{ admin_password }}"
-    body: '{ "TOWER_URL_BASE": "https://s{{ userid }}-tower.{{ dns_domain_name }}" }'
-    body_format: json
-    validate_certs: false
-    force_basic_auth: true
-    status_code:
-      - 200
-      - 204
-      - 400
-  register: response
-  changed_when: response.status == 200
+    tower_password: "{{ admin_password }}"
+    tower_username: "{{ username }}"
+    tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
 
 - name: Disable GIT Cert validation
   lineinfile:

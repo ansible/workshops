@@ -1,14 +1,6 @@
 ---
 ################### Get workshop nodes info ###################
 
-- name: grab facts for DomainController
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_windc": "{{ec2_name_prefix}}-windc"
-  register: windc_node_facts
-
 - name: grab facts for Gitlab
   ec2_instance_facts:
     region: "{{ ec2_region }}"
@@ -16,14 +8,6 @@
       instance-state-name: running
       "tag:Workshop_gitlab": "{{ec2_name_prefix}}-gitlab"
   register: gitlab_node_facts
-
-- name: grab facts for docs
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_docs": "{{ec2_name_prefix}}-docs"
-  register: docs_node_facts
 
 - name: grab facts for instance 1
   ec2_instance_facts:
@@ -33,41 +17,19 @@
       "tag:Workshop_instance1": "{{ec2_name_prefix}}-instance1"
   register: instance1_node_facts
 
-- name: grab facts for workstation
+- name: grab facts for instance 2
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_workstation": "{{ec2_name_prefix}}-workstation"
-  register: workstation_node_facts
+      "tag:Workshop_instance2": "{{ec2_name_prefix}}-instance2"
+  register: instance2_node_facts
+  when:
+    - doubleup|bool
 
 ################### Get Passwords ###################
 
-# TODO: why does this take so long on the first task?
-
-- name: DomainController | Obtain windows passwords for instances
-  ec2_win_password:
-    region: '{{ ec2_region }}'
-    instance_id: "{{ item.instance_id }}"
-    key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
-    wait: true
-    wait_timeout: 300
-  with_items: "{{ windc_node_facts.instances }}"
-  register: ec2dc_password
-  when: windc_node_facts is defined
-
-- name: Workstation | Obtain windows passwords for instances
-  ec2_win_password:
-    region: '{{ ec2_region }}'
-    instance_id: "{{ item.instance_id }}"
-    key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
-    wait: true
-    wait_timeout: 300
-  with_items: "{{ workstation_node_facts.instances }}"
-  register: ec2workstation_password
-  when: workstation_node_facts is defined
-
-- name: Windows | Obtain windows passwords for instances
+- name: Windows | Obtain windows passwords for instance1
   ec2_win_password:
     region: '{{ ec2_region }}'
     instance_id: "{{ item.instance_id }}"
@@ -75,14 +37,28 @@
     wait: true
     wait_timeout: 300
   with_items: "{{ instance1_node_facts.instances }}"
-  register: ec2windows_password
+  register: ec2windows1_password
   when: instance1_node_facts is defined
+
+- name: Windows | Obtain windows passwords for instance2
+  ec2_win_password:
+    region: '{{ ec2_region }}'
+    instance_id: "{{ item.instance_id }}"
+    key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+    wait: true
+    wait_timeout: 300
+  with_items: "{{ instance2_node_facts.instances }}"
+  register: ec2windows2_password
+  when:
+    - doubleup|bool
+    - instance2_node_facts is defined
 
 ################### Create inventories ###################
 
 - name: GitLab | Add new instance to host group
   add_host:
     hostname: 'gitlab'
+    short_name: "{{ item.tags.short_name }}"
     username: "{{ item.tags.username }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
@@ -93,47 +69,16 @@
       - gitlab
   with_items: "{{ gitlab_node_facts.instances }}"
 
-- name: Docs | Add new instance to host group
-  add_host:
-    hostname: 'docs'
-    username: "{{ item.tags.username }}"
-    ansible_user: "{{ item.tags.username }}"
-    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
-    ansible_host: "{{ item.public_ip_address }}"
-    private_ip: "{{ item.private_ip_address }}"
-    groups:
-      - rhel
-      - docs
-  with_items: "{{ docs_node_facts.instances }}"
-
-- name: DomainController | Add new instance to host group
-  add_host:
-    hostname: "windc"
-    ansible_host: "{{ item.item.public_ip_address }}"
-    ansible_port: 5986
-    ansible_user: "Administrator"
-    ansible_password: "{{ item.win_password }}"
-    ansible_connection: "winrm"
-    private_ip: "{{ item.item.private_ip_address }}"
-    ansible_winrm_transport: "ntlm"
-    ansible_winrm_server_cert_validation: "ignore"
-    ansible_winrm_operation_timeout_sec: 120
-    ansible_winrm_read_timeout_sec: 150
-    groups:
-      - windows
-      - windows_domain_controllers
-  with_items: "{{ ec2dc_password.results }}"
-  when: ec2dc_password is defined
-
 - name: Windows instance1 | Add new instance to host group
   add_host:
     hostname: "student{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}-win1"
+    short_name: "{{ item.item.tags.short_name }}"
     ansible_host: "{{ item.item.public_ip_address }}"
     private_ip: "{{ item.item.private_ip_address }}"
     ansible_port: 5986
     ansible_user: "Administrator"
     ansible_password: "{{ item.win_password }}"
-    ansible_become_password: "{{ domain_admin_password }}"
+    ansible_become_password: "{{ admin_password }}"
     ansible_connection: "winrm"
     ansible_winrm_transport: "ntlm"
     ansible_winrm_server_cert_validation: "ignore"
@@ -142,19 +87,19 @@
     student: "{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}"
     groups:
       - windows
-      - windows_instance1
-  with_items: "{{ ec2windows_password.results }}"
-  when: ec2windows_password is defined
+  with_items: "{{ ec2windows1_password.results }}"
+  when: ec2windows1_password is defined
 
-- name: Workstation | Add new instance to host group
+- name: Windows instance2 | Add new instance to host group
   add_host:
-    hostname: "student{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}-work"
+    hostname: "student{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}-win2"
+    short_name: "{{ item.item.tags.short_name }}"
     ansible_host: "{{ item.item.public_ip_address }}"
     private_ip: "{{ item.item.private_ip_address }}"
     ansible_port: 5986
     ansible_user: "Administrator"
     ansible_password: "{{ item.win_password }}"
-    ansible_become_password: "{{ users_password }}"
+    ansible_become_password: "{{ admin_password }}"
     ansible_connection: "winrm"
     ansible_winrm_transport: "ntlm"
     ansible_winrm_server_cert_validation: "ignore"
@@ -163,72 +108,18 @@
     student: "{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}"
     groups:
       - windows
-      - windows_workstations
-  with_items: "{{ ec2workstation_password.results }}"
-  when: ec2workstation_password is defined
+  with_items: "{{ ec2windows2_password.results }}"
+  when:
+    - doubleup|bool
+    - ec2windows2_password is defined
 
-# # Add new dns entries to make the url pretty
-# - block:
-
-#   - name: "Docs | Create DNS entry for {{ ec2_name_prefix }}.{{ public_dns_zone }}"
-#     route53:
-#       state: present
-#       zone: "{{ public_dns_zone }}"
-#       record: "{{ ec2_name_prefix }}.{{ public_dns_zone }}"
-#       type: A
-#       ttl: 600
-#       value: "{{ item.public_ip_address }}"
-#       wait: yes
-#     with_items: "{{ docs_node_facts.instances }}"
-
-# #  - name: "Docs | Create DNS entry for docs.{{ item.tags.long_name }}"
-# #    route53:
-# #      state: present
-# #      zone: "{{ public_dns_zone }}"
-# #      record: "{{ item.tags.long_name }}"
-# #      type: A
-# #      ttl: 600
-# #      value: "{{ item.public_ip }}"
-# #      wait: yes
-# #    with_items: "{{ docs_instances.results | map(attribute='tagged_instances') | list }}"
-# #
-# #  - name: "GitLab | Create DNS entry for gitlab.{{ name_prefix }}.{{ public_dns_zone }}"
-# #    route53:
-# #      state: present
-# #      zone: "{{ public_dns_zone }}"
-# #      record: "{{ item.tags.long_name }}"
-# #      type: A
-# #      ttl: 600
-# #      value: "{{ item.public_ip }}"
-# #      wait: yes
-# #    with_items: "{{ gitlab_instances.results | map(attribute='tagged_instances') | list }}"
-# #
-# #  - name: "Workstation | Create DNS entries for student workstations"
-# #    route53:
-# #      state: present
-# #      zone: "{{ public_dns_zone }}"
-# #      record: "{{ item.tags.long_name }}"
-# #      type: A
-# #      ttl: 600
-# #      value: "{{ item.public_ip }}"
-# #      wait: yes
-# #    with_items: "{{ workstation_instances.results | map(attribute='tagged_instances') | list }}"
-
-#   when: public_dns_zone is defined
-
-# - name: GitLab | Wait for SSH to come up
-#   wait_for_connection:
-#   delegate_to: "{{ item }}"
-#   with_items:
-#     - "{{ groups['rhel'] }}"
-#
 - name: Windows | Wait for WinRM to come up
   wait_for_connection:
   delegate_to: "{{ item }}"
   with_items:
     - "{{ groups['windows'] }}"
 
-###################
+################### Write inventories ###################
 
 - name: Generate instructor inventory
   template:
@@ -238,5 +129,5 @@
 - name: Generate student inventories
   template:
     src: windows_instances.txt.j2
-    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ user_prefix }}{{ item }}-instances.txt"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/student{{ item }}-instances.txt"
   with_sequence: count="{{ student_total }}"

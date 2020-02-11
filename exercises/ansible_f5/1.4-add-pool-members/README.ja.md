@@ -57,16 +57,17 @@
 
   - name: ADD POOL MEMBERS
     bigip_pool_member:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
       state: "present"
       name: "{{hostvars[item].inventory_hostname}}"
       host: "{{hostvars[item].ansible_host}}"
       port: "80"
       pool: "http_pool"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
     loop: "{{ groups['webservers'] }}"
 ```
 {% endraw %}
@@ -132,11 +133,12 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 
   - name: Query BIG-IP facts
     bigip_device_facts:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
       gather_subset:
        - ltm-pools
     register: bigip_device_facts

@@ -241,8 +241,8 @@ $("document").ready(function(){
       <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-              <h1 class="project-name">Red Hat Ansible Automation <br/><strong class="text-nowrap">Technical Workshops</strong></h1>
-              <h2>The Ansible Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops and self-paced exercises.</h2>
+              <h1 class="project-name">Red Hat Ansible Automation Platform<br/><strong class="text-nowrap">Technical Workshops</strong></h1>
+              <h2>The Ansible Workshops project is intended to effectively demonstrate the capabilities of Red Hat Ansible Automation Platform through instructor-led workshops and self-paced exercises.</h2>
 
                 <a href="https://github.com/ansible/workshops" class="btn btn-ghost">View on GitHub</a><br><br>
 
@@ -267,6 +267,9 @@ $("document").ready(function(){
                 {% elif workshop_type in ['security'] %}
                 <h2>Security Automation Workshops</h2>
                 <p>These workshops are focused on automating security platforms like Snort, Check Point and Splunk Enterprise Security.</p>
+                {% elif workshop_type in ['windows'] %}
+                <h2>Windows Automation Workshops</h2>
+                <p>These workshops are focused on automating Microsoft Windows.</p>
                 {% endif %}
             </div>
         </div>
@@ -308,6 +311,15 @@ $("document").ready(function(){
             </div>
             <div class="col-sm-4">
               <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
+          </div>
+        </div>
+        {% elif workshop_type == "windows" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
+            </div>
+            <div class="col-sm-4">
+              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
           </div>
         </div>
         {% endif %}
@@ -385,7 +397,7 @@ To login to Visual Studio Code via your web browser please go here:<br>
 <table>
   <tr>
     <td>UI link:</td>
-    <td><a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+    <td>{% if workshop_type == "windows" %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}/?folder=vscode-remote%3A%2F%2Fstudent{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}%2Fhome%2Fstudent{{number}}%2Fwindows-workshop%2Fworkshop_project">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% else %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% endif %}</td>
   </tr>
   <tr>
     <td>password:</td>
@@ -394,6 +406,27 @@ To login to Visual Studio Code via your web browser please go here:<br>
 </table><br>
 <hr>
 {% endif %}
+{% if workshop_type == "windows" %}
+<div id="section_title">GitLab access</div>
+To login to GitLab via your web browser please go here:<br>
+<table>
+  <tr>
+    <td>UI link:</td>
+    <td><a href="https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+  </tr>
+  <tr>
+    <td>username:</td>
+    <td><code>student{{number}}</code></td>
+  </tr>
+  <tr>
+    <td>password:</td>
+    <td><code>{{admin_password}}</code></td>
+  </tr>
+</table><br>
+<hr>
+{% endif %}
+{% if workshop_type == "windows" %}
+{% else %}
 <div id="section_title">SSH access</div>
 To login to the Ansible Control Node use the following for SSH access:<br>
 <div id="control_node">
@@ -421,8 +454,9 @@ DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 {% endif %}
 </div>
 </div>
-<div id="tower_info">
 <hr>
+{% endif %}
+<div id="tower_info">
 {% if towerinstall is defined and towerinstall %}
 <div id="section_title">Ansible Tower access</div>
 To login to the Ansible Tower UI use the following credentials:<br>
@@ -441,7 +475,7 @@ To login to the Ansible Tower UI use the following credentials:<br>
 {% endif %}
   <tr>
     <td>username:</td>
-    <td><code>admin</code></td>
+    <td><code>{% if workshop_type == "windows" %}student{{number}}{% else %}admin{% endif %}</code></td>
   </tr>
   <tr>
     <td>password:</td>

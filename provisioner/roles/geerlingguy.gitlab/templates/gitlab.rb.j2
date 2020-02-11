@@ -18,6 +18,7 @@ gitlab_rails['gitlab_default_theme'] = "{{ gitlab_default_theme }}"
 nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
+nginx['custom_gitlab_server_config']="location ^~ /.well-known {\n alias /var/www/letsencrypt/.well-known;\n}\n"
 
 # The directory where Git repositories will be stored.
 git_data_dirs({"default" => {"path" => "{{ gitlab_git_data_dir }}"} })

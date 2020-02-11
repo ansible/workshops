@@ -115,13 +115,13 @@ With the collection in place, we can now start to write our playbook.
 
 ## Step 4.3 - First example playbook
 
-In our first example to interface with QRadar we are going to enable/disable a rule. It is a rather small but common change and shows how Ansible and QRadar interact.
+In our first example to interface with QRadar we are going to enable/disable a rule. It is a rather small but common change and shows how Ansible and QRadar interact. We will do this in two steps: first we find the rule we want to change, afterwards we apply the change.
 
-On your control host, open an editor to create a new file, `change_qradar_rule.yml`. Add the name and target hosts, here `qradar`.
+On your control host, open an editor to create a new file, `find_qradar_rule.yml`. Add the name and target hosts, here `qradar`.
 
 ```yaml
 ---
-- name: Change QRadar rule state
+- name: Find QRadar rule state
   hosts: qradar
 ```
 
@@ -129,7 +129,7 @@ We also want to use the collections we just added. Collections can be referenced
 
 ```yaml
 ---
-- name: Change QRadar rule state
+- name: Find QRadar rule state
   hosts: qradar
   collections:
     - ibm.qradar
@@ -139,7 +139,7 @@ Next we bring in the actual tasks. The REST API of QRadar is desgined in a way t
 
 ```yaml
 ---
-- name: Change QRadar rule state
+- name: Find QRadar rule state
   hosts: qradar
   collections:
     - ibm.qradar
@@ -154,7 +154,7 @@ This module returns a lot of information, among those the ID we need to actually
 
 ```yaml
 ---
-- name: Change QRadar rule state
+- name: Find QRadar rule state
   hosts: qradar
   collections:
     - ibm.qradar
@@ -170,7 +170,7 @@ So how do the information returned by the module actually look like? How about w
 
 ```yaml
 ---
-- name: Change QRadar rule state
+- name: Find QRadar rule state
   hosts: qradar
   collections:
     - ibm.qradar
@@ -193,9 +193,9 @@ So how do the information returned by the module actually look like? How about w
 Both tasks only collect and output data, they do not change anything. Let's quickly run the playbook to look at the returned data:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook change_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-playbook find_qradar_rule.yml
 
-PLAY [Change QRadar rule state] ***************************************************
+PLAY [Find QRadar rule state] ***************************************************
 
 TASK [Gathering Facts] ************************************************************
 ok: [qradar]
@@ -241,7 +241,9 @@ As you see, the debug task `output returned rule_info` shows the content of the 
 
 How do we get the key when it is in this structure? First, it is in the segment `rules` of the variable, which we can access via `rule_info.rules`. Inside of `rules` there is actually a list (note the curly brackets), but with only one entry - so we access it with `rule_info.rules[0]`. And from within the list entry we can access each key individually via its name: `rule_info.rules[0]['id']`.
 
-So, let's provide this as a value to the module which can disable the rule, `qradar_rule`. At the same time we can remove the debug entry since it is not needed for the actual execution.
+So, let's write a new playbook where we provide this as a value to the module which can disable the rule, `qradar_rule`.
+
+On your control host, open an editor to create a new file, `change_qradar_rule.yml`. Add the name and target hosts, here `qradar`.
 
 <!-- {% raw %} -->
 ```yaml

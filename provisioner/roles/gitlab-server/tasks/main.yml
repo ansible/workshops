@@ -1,0 +1,143 @@
+---
+- name: GitLab post | Install EPEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
+
+- name: GitLab Post | Install pip
+  yum:
+    name: python-pip
+    state: present
+
+- name: GitLab Post | Install pyapi-gitlab
+  pip:
+    name:
+      - pyapi-gitlab
+      - python-gitlab
+
+# - name: GitLab Post | Repos to create
+#   debug: msg="https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/student{{ item }}/ansible-playbooks"
+#   with_sequence: count="{{ student_total }}"
+
+- name: GitLab post | DNS
+  become: false
+  route53:
+    state: "{{ s3_state }}"
+    zone: "{{workshop_dns_zone}}"
+    record: "gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: A
+    overwrite: true
+    value: "{{ansible_host}}"
+    wait: true
+  delegate_to: localhost
+  register: route53_status
+
+- name: GitLab post | check to see if SSL cert already applied
+  become: false
+  get_certificate:
+    host: "gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    port: 443
+  delegate_to: localhost
+  run_once: true
+  register: check_cert
+  ignore_errors: true
+
+- include_tasks: certbot.yml
+  when: check_cert is failed
+
+- block:
+
+    - name: GitLab Post | Check if root user password is set
+      uri:
+        url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
+        method: POST
+        validate_certs: false
+        status_code: 200, 301
+        body_format: json
+        headers:
+          Content-Type: application/json
+        body: >
+          {
+            "grant_type": "password",
+            "username": "root",
+            "password": "{{ admin_password }}"
+          }
+      register: root_user
+
+  rescue:
+
+    - name: GitLab Post | Copy root password script to host
+      template:
+        src: set_root_pw.sh.j2
+        dest: /root/set_root_pw.sh
+        owner: root
+        group: root
+        mode: 0700
+
+    - name: GitLab Post | Execute set root password
+      command: ./set_root_pw.sh
+      args:
+        chdir: /root
+
+    - name: GitLab Post | Remove set root password script
+      file:
+        path: /root/set_root_pw.sh
+        state: absent
+
+    - name: GitLab Post | Wait for root user to initizalize
+      uri:
+        url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
+        method: POST
+        validate_certs: false
+        status_code: 200
+        body_format: json
+        headers:
+          Content-Type: application/json
+        body: >
+          {
+            "grant_type": "password",
+            "username": "root",
+            "password": "{{ admin_password }}"
+          }
+      register: gitlab_access_token
+      until: gitlab_access_token is success and gitlab_access_token.json.access_token is defined
+      delay: 3
+      retries: 60
+
+- block:
+
+    - name: GitLab Post | Create local users
+      gitlab_user:
+        server_url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}
+        validate_certs: false
+        login_user: root
+        login_password: "{{ admin_password }}"
+        name: student{{ item }}
+        username: student{{ item }}
+        password: "{{ admin_password }}"
+        email: student{{ item }}@{{ workshop_dns_zone }}
+        confirm: false
+        state: present
+      with_sequence: count="{{ student_total }}"
+
+    - name: GitLab Post | Create Projects in GitLab
+      gitlab_project:
+        server_url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}
+        validate_certs: false
+        login_user: root
+        login_password: "{{ admin_password }}"
+        name: student{{ item }}
+        group: student{{ item }}
+        issues_enabled: false
+        wiki_enabled: false
+        snippets_enabled: false
+        state: present
+      with_sequence: count="{{ student_total }}"
+      ignore_errors: true
+
+  when: ansible_version.full is version_compare('2.8', '<')
+
+# There seems to be an issue with using basic auth when using ansible 2.8
+# Create users and projects with uri module using API endpoint
+- include_tasks: api.yml
+  when: ansible_version.full is version_compare('2.8', '>=')

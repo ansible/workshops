@@ -16,6 +16,7 @@ ssh_port: 22
 ##  (rtr3)  -   (rtr4)
 ##
 control_type: "rhel7-tower"
+tower_type: "rhel7-tower"
 rtr1_type: "cisco"
 rtr2_type: "arista"
 rtr3_type: "juniper"
@@ -66,7 +67,7 @@ ec2_info:
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator
   # Look for owner 309956199498 to find official Red Hat AMIs
-  rhel7_tower:
+  rhel7-tower:
     owners: 309956199498
     size: t2.medium
     os_type: linux

@@ -284,10 +284,10 @@
 - name: find ami for towernode1
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel7_tower].owners }}"
+    owners: "{{ ec2_info[tower_type].owners }}"
     filters:
-      name: "{{ ec2_info[rhel7_tower].filter }}"
-      architecture: "{{ ec2_info[rhel7_tower].architecture }}"
+      name: "{{ ec2_info[tower_type].filter }}"
+      architecture: "{{ ec2_info[tower_type].architecture }}"
   register: amis
 
 - name: save ami for towernode1
@@ -300,7 +300,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel7-tower].size }}"
+    instance_type: "{{ ec2_info[tower_type].size }}"
     image: "{{ towernode1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -311,7 +311,7 @@
     volumes:
       - device_name: /dev/sda1
         volume_type: gp2
-        volume_size: "{{ ec2_info[rhel7-tower].disk_space }}"
+        volume_size: "{{ ec2_info[tower_type].disk_space }}"
         delete_on_termination: true
   register: towernode1_output
 
@@ -341,10 +341,10 @@
 - name: find ami for tower-node2
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel7_tower].owners }}"
+    owners: "{{ ec2_info[tower_type].owners }}"
     filters:
-      name: "{{ ec2_info[rhel7_tower].filter }}"
-      architecture: "{{ ec2_info[rhel7_tower].architecture }}"
+      name: "{{ ec2_info[tower_type].filter }}"
+      architecture: "{{ ec2_info[tower_type].architecture }}"
   register: amis
 
 - name: save ami for tower-node2
@@ -357,7 +357,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel7-tower].size }}"
+    instance_type: "{{ ec2_info[tower_type].size }}"
     image: "{{ towernode2_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -368,7 +368,7 @@
     volumes:
       - device_name: /dev/sda1
         volume_type: gp2
-        volume_size: "{{ ec2_info[rhel7-tower].disk_space }}"
+        volume_size: "{{ ec2_info[tower_type].disk_space }}"
         delete_on_termination: true
   register: towernode2_output
 
@@ -398,10 +398,10 @@
 - name: find ami for towernode3
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel7_tower].owners }}"
+    owners: "{{ ec2_info[tower_type].owners }}"
     filters:
-      name: "{{ ec2_info[rhel7_tower].filter }}"
-      architecture: "{{ ec2_info[rhel7_tower].architecture }}"
+      name: "{{ ec2_info[tower_type].filter }}"
+      architecture: "{{ ec2_info[tower_type].architecture }}"
   register: amis
 
 - name: save ami for towernode3
@@ -414,7 +414,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel7-tower].size }}"
+    instance_type: "{{ ec2_info[tower_type].size }}"
     image: "{{ towernode3_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -425,7 +425,7 @@
     volumes:
       - device_name: /dev/sda1
         volume_type: gp2
-        volume_size: "{{ ec2_info[rhel7-tower].disk_space }}"
+        volume_size: "{{ ec2_info[tower_type].disk_space }}"
         delete_on_termination: true
   register: towernode3_output
 

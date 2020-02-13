@@ -97,8 +97,8 @@
             validate_certs: false
           register: cp_login_data
           until: (cp_login_data.status == 200) and (cp_login_data.json is defined)
-          retries: 60
-          delay: 15
+          retries: 5
+          delay: 4
           delegate_to: localhost
 
       when: '"checkpoint" in inventory_hostname'
@@ -117,8 +117,8 @@
             validate_certs: false
           register: login_data
           until: (login_data.status == 200) and (login_data.json is defined)
-          retries: 30
-          delay: 10
+          retries: 5
+          delay: 4
 
         - name: Test NGFW access, step 2/3 - Get NGFW data
           uri:
@@ -159,8 +159,8 @@
             validate_certs: false
           register: login_data
           until: (login_data.status == 200) and (login_data.json is defined)
-          retries: 30
-          delay: 10
+          retries: 5
+          delay: 4
 
         - name: Validate eth1, step 2/3 - Launch script
           uri:

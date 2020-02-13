@@ -1,5 +1,11 @@
 {
     "git.ignoreLegacyWarning": true,
     "terminal.integrated.experimentalRefreshOnResume": true,
-    "window.menuBarVisibility": "visible"
+    "window.menuBarVisibility": "visible",
+    "git.enableSmartCommit": true,
+    "workbench.tips.enabled": false,
+    "workbench.startupEditor": "readme",
+    "telemetry.enableTelemetry": false,
+    "search.smartCase": true,
+    "git.confirmSync": false
 }

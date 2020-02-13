@@ -7,6 +7,8 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 | Ansible Red Hat Enterprise Linux Workshop | `workshop_type: rhel`  |
 | Ansible Network Automation Workshop | `workshop_type: networking`  |
 | Ansible F5 Workshop | `workshop_type: f5`   |
+| Ansible Security Automation | `workshop_type: security`   |
+| Ansible Windows Automation  | `workshop_type: windows`    |
 
 # Table Of Contents
 - [Requirements](#requirements)
@@ -73,6 +75,7 @@ If you want to license it you must copy a license called tower_license.json into
 
 For more extra_vars examples, look at the following:
 - [sample-vars-rhel.yml](sample_workshops/sample-vars-rhel.yml) - example for the Ansible RHEL Workshop
+- [sample-vars-rhel.yml](sample_workshops/sample-vars-windows.yml) - example for the **Ansible Windows Workshop**
 - [sample-vars-networking.yml](sample_workshops/sample-vars-networking.yml) - example for the **Ansible Network Workshop**
 - [sample-vars-f5.yml](sample_workshops/sample-vars-f5.yml) - example for **Ansible F5 Workshop**
 - [sample-vars-tower-auto.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing

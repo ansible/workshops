@@ -189,7 +189,7 @@ In the same way we defined the source IP host object, we will now add the destin
 ```
 <!-- {% endraw %} -->
 
-Last, we are defining the actual access rule between those two host objects and add a task to ensure that the policy is installed in any case. Sometimes this task fails if another installations is already running, so we add a special flag to ignore possible errors, `failed_when: false`:
+Last, we are defining the actual access rule between those two host objects. The rules still need to be applied, and this can be done in two ways: either on a per-task base, shown via the module parameter `auto_install_policy: yes`, or as a final, dedicated task with the module `cp_mgmt_install_policy`. Both are shown in this playbook to highlight the flexibility we have with the modular approach. In case however the module already started an apply process, the last install policy module might fail, so we add a special flag to ignore possible errors, `failed_when: false`:
 
 <!-- {% raw %} -->
 ```yaml

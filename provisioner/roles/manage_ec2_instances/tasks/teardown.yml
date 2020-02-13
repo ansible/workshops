@@ -200,10 +200,7 @@
         vpc_id: "{{ec2_vpc_id}}"
         state: absent
       loop:
-        - "{{ ec2_name_prefix }}-gitlabsg"
-        - "{{ ec2_name_prefix }}-docssg"
-        - "{{ ec2_name_prefix }}-windcsg"
-        - "{{ ec2_name_prefix }}-windowssg"
+        - "{{ ec2_name_prefix }}-windows"
       register: delete_sg
       until: delete_sg is not failed
       retries: 50

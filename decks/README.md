@@ -7,6 +7,7 @@ All slides are currently managed internally at Red Hat Ansible with Google Slide
 - [Ansible Network Automation](https://docs.google.com/presentation/d/1pMnLskQjDywwglZRKXS16rPFJip94obyzND_iKzaidQ/edit?usp=sharing)
 - [Ansible F5 Automation](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84)
 - [Ansible RHEL Automation](https://docs.google.com/presentation/d/13V_-MfJMslBJWGohllS9NErapClMAKY8iOP4_BI12xI)
+- [Ansible Windows Automation](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE)
 - [Ansible Best Practices](https://docs.google.com/presentation/d/1khWEuTXGQbJ-hQ4cneigDgAJ__tPccch7Q5Xqj1rkio)
 
 **Why use Google Slides?**

@@ -70,11 +70,12 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
       bigip_device_facts:
         gather_subset:
          - system-info
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
       register: device_facts
 ```
 {% endraw %}
@@ -107,13 +108,14 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
   tasks:
 
     - name: COLLECT BIG-IP FACTS
-      bigip_facts:
+      bigip_device_facts:
         include: system_info
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
       register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
@@ -152,11 +154,12 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
       bigip_device_facts:
         gather_subset:
          - system-info
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
       register: device_facts
 
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION

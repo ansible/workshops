@@ -1,5 +1,0 @@
----
-# Needed for AD and windows client provision
-dns_domain_name: "ansibleworkshop.com"
-# Could do regex search on dns_domain_name (.+?)(?=\.)
-dns_domain_name_short: "ansibleworkshop"

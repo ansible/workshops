@@ -135,31 +135,6 @@
           until: job_result.finished
           retries: 30
 
-    - name: Windows workshop specific vars
-      include_vars:
-        file: "group_vars/{{ workshop_type }}.yml"
-      when: workshop_type == "windows"
-
-    - name: Check Domain Admin Password Complexity
-      assert:
-        that:
-          - domain_admin_password | length > 7
-          - domain_admin_password | regex_search('[A-Z]')
-          - domain_admin_password | regex_search('[a-z]')
-          - domain_admin_password | regex_search('[0-9]')
-        fail_msg: "domain_admin_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
-      when: workshop_type == "windows"
-
-    - name: Check Users Password Complexity
-      assert:
-        that:
-          - users_password | length > 7
-          - users_password | regex_search('[A-Z]')
-          - users_password | regex_search('[a-z]')
-          - users_password | regex_search('[0-9]')
-        fail_msg: "users_password does not need password complexity requirements (8+ Chars, Lower Case, Upper Case, Number)"
-      when: workshop_type == "windows"
-
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -202,6 +177,8 @@
       when:
         - code_server is defined
         - code_server
+        - towerinstall is defined
+        - towerinstall
   tags: control_node
 
 - name: add dns entires for all student control nodes

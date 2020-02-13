@@ -60,10 +60,6 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 
   - name: ADD VIRTUAL SERVER
     bigip_virtual_server:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
       name: "vip"
       destination: "{{private_ip}}"
       port: "443"
@@ -71,7 +67,12 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
       all_profiles: ['http','clientssl','oneconnect']
       pool: "http_pool"
       snat: "Automap"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
 ```
 
 {% endraw %}

@@ -1,24 +1,22 @@
 ---
+# Where to provision (Don't change: only testing ec2)
+instance_loc: ec2
 # region where the nodes will live
 ec2_region: us-east-1
 # name prefix for all the VMs
-name_prefix: TESTWORKSHOP
+ec2_name_prefix: TESTWORKSHOP
 # creates student_total of workbenches for the workshop
-student_total: 1
+student_total: 2
 # Set the right workshop type, like networking, rhel or f5 (see above)
 workshop_type: windows
 # OPTIONAL VARIABLES
+# creates 2 windows instances per student instead of default 1
+doubleup: false
 # password for Ansible control node, defaults to ansible
-admin_password: ansible
+admin_password: ansible123
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-# create_login_page: false
-# Sets the Route53 DNS zone to use for the S3 website
-public_dns_zone: rhdemo.io
+create_login_page: true
 # automatically installs Tower to control node
-## towerinstall: true
+towerinstall: true
 # automatically licenses Tower if license is provided
 autolicense: true
-# install xrdp with xfce for graphical interface
-# xrdp: true
-# turn DNS on for control nodes, and set to type in valid_dns_type
-dns_type: aws

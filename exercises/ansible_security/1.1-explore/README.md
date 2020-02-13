@@ -33,32 +33,28 @@ The lab is set up individually for you. You have your own environment, own servi
 All interactions with the environment are either done via SSH, or via web browser. All SSH connections should be to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
 
 ```
-      +-------------+
-      |             |
-      |  Lab        |
-      |  computer   +-----------------^------------------->
-      |             |                 |                   |
-      +-----+-------+                 | RDP/HTTP          | HTTP
-            |                         |                   |
-        SSH |                         |            +------+------+
-            |                         |            |             |
-      +-----v-------+          +------+------+     | QRadar      |
-  SSH | Ansible     |  REST    | Windows     |     |             |
-+-----+ Control     +----+---->+ Workstation |     +--+---+------+
-|     | Host        |    |     +------+------+        ^   ^
-|     +-------------+    |            |               |   |
-|                        +------------o---------------+   |
-|                                     |                   |
-|                              +------+------+            |
-|                              |             |    Syslog  |
-|     +-------------+          | Check Point +------------^
-|     |             |          | MGMT        |            |
-| SSH | Attacker    |  HTTP    |             |            |
-+-----+             +------+   +------+------+            |
+     +--------------+
+     |              |
+     | Lab computer +-----------------+------------------->
+     |              |                 |                   |
+     +------+-------+                 | RDP/HTTP          | HTTP
+            |                         v                   |
+            |                  +------+------+            |
+        SSH |                  | Windows     |            |
+            v                  | Workstation |            v
+      +-------------+          +------+------+     +------+------+
+  SSH | Ansible     |                 |            |             |
++-----+ Control     +-----+-----------O----------->+ QRadar      |
+|     | Host        |     |REST       |            |             |
+|     +-------------+     |           v            +------+------+
+|                         |    +------+------+            ^
+|                         |    |             |    Syslog  |
+|                         +--->+ Check Point +----------->+
+|     +-------------+          | MGMT        |            |
+| SSH |             |  HTTP    |             |            |
++-----+ Attacker    +------+   +------+------+            |
 |     |             |      |          |                   |
-|     +-------------+      |          |                   |
-|                          |          |                   |
-|                          |   +------+------+            |
+|     +-------------+      |   +------+------+            |
 |                          +---+             |            |
 |                              | Check Point |            |
 |     +-------------+      +---+ Firewall    |            |
@@ -145,9 +141,9 @@ Ansible is already configured to use the inventory specific to your environment.
 > 
 > Not all hosts in your lab can be reached vis SSH. During the exercises, each node type will be explained in detail and the means how to access the resources will be shown step by step.
 
-## Step 1.5 - Victim machine
+## Step 1.5 - Target machine
 
-For the exercises of section 2 we need to have security incidents. Those should happen on a **victim** machine - that is Snort server. It is basically a RHEL installation with Snort installed and running a simplified web server to run attacks against.
+For the exercises of section 2 we need to have security incidents. Those should happen on a **target** machine - that is Snort server. It is basically a RHEL installation with Snort installed and running a simplified web server to run attacks against.
 
 ## Step 1.6 - Working the Labs
 

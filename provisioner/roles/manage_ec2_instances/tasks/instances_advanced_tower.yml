@@ -284,10 +284,10 @@
 - name: find ami for towernode1
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel7-tower].owners }}"
+    owners: "{{ ec2_info[rhel7_tower].owners }}"
     filters:
-      name: "{{ ec2_info[rhel].filter }}"
-      architecture: "{{ ec2_info[rhel7-tower].architecture }}"
+      name: "{{ ec2_info[rhel7_tower].filter }}"
+      architecture: "{{ ec2_info[rhel7_tower].architecture }}"
   register: amis
 
 - name: save ami for towernode1
@@ -341,10 +341,10 @@
 - name: find ami for tower-node2
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel7-tower].owners }}"
+    owners: "{{ ec2_info[rhel7_tower].owners }}"
     filters:
-      name: "{{ ec2_info[rhel7-tower].filter }}"
-      architecture: "{{ ec2_info[rhel].architecture }}"
+      name: "{{ ec2_info[rhel7_tower].filter }}"
+      architecture: "{{ ec2_info[rhel7_tower].architecture }}"
   register: amis
 
 - name: save ami for tower-node2
@@ -398,10 +398,10 @@
 - name: find ami for towernode3
   ec2_ami_facts:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel7-tower].owners }}"
+    owners: "{{ ec2_info[rhel7_tower].owners }}"
     filters:
-      name: "{{ ec2_info[rhel].filter }}"
-      architecture: "{{ ec2_info[rhel7-tower].architecture }}"
+      name: "{{ ec2_info[rhel7_tower].filter }}"
+      architecture: "{{ ec2_info[rhel7_tower].architecture }}"
   register: amis
 
 - name: save ami for towernode3

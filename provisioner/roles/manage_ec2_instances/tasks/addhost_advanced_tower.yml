@@ -1,35 +1,35 @@
 ---
-- name: grab facts for node1 node
+- name: grab facts for towernode1 node
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
-  register: node1_node_facts
+      "tag:Workshop_towernode1": "{{ec2_name_prefix}}-towernode1"
+  register: towernode1_node_facts
 
-- name: grab facts for node2 node
+- name: grab facts for towernode2 node
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
-  register: node2_node_facts
+      "tag:Workshop_towernode2": "{{ec2_name_prefix}}-towernode2"
+  register: towernode2_node_facts
 
-- name: grab facts for node3 node
+- name: grab facts for towernode3 node
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
-  register: node3_node_facts
+      "tag:Workshop_towernode3": "{{ec2_name_prefix}}-towernode3"
+  register: towernode3_node_facts
 
-- name: grab facts for node4 node
+- name: grab facts for towerdb node
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
-  register: node3_node_facts
+      "tag:Workshop_towerdb": "{{ec2_name_prefix}}-towerdb"
+  register: towerdb_node_facts
 
 - name: add hosts to groups (ANSIBLE RHEL MODE)
   add_host:
@@ -42,10 +42,10 @@
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     groups: lab_hosts,managed_nodes
   with_items:
-    - "{{ node1_node_facts.instances }}"
-    - "{{ node2_node_facts.instances }}"
-    - "{{ node3_node_facts.instances }}"
-    - "{{ node4_node_facts.instances }}"
+    - "{{ towernode1_node_facts.instances }}"
+    - "{{ towernode2_node_facts.instances }}"
+    - "{{ towernode3_node_facts.instances }}"
+    - "{{ towerdb_node_facts.instances }}"
   changed_when: false
 
 - name: Generate student inventories

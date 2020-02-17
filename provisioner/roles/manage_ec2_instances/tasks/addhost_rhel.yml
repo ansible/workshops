@@ -23,14 +23,6 @@
       "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
   register: node3_node_facts
 
-- name: grab facts for node4 node
-  ec2_instance_facts:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
-  register: node3_node_facts
-
 - name: add hosts to groups (ANSIBLE RHEL MODE)
   add_host:
     name: "{{ item.tags.Name }}"
@@ -45,7 +37,6 @@
     - "{{ node1_node_facts.instances }}"
     - "{{ node2_node_facts.instances }}"
     - "{{ node3_node_facts.instances }}"
-    - "{{ node4_node_facts.instances }}"
   changed_when: false
 
 - name: Generate student inventories

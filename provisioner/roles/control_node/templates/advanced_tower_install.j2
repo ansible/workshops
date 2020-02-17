@@ -1,0 +1,26 @@
+[tower]
+localhost ansible_connection=local
+
+[database]
+
+[all:vars]
+admin_password='{{admin_password}}'
+
+pg_host=''
+pg_port=''
+
+pg_database='awx'
+pg_username='awx'
+pg_password='{{admin_password}}'
+
+rabbitmq_port=5672
+rabbitmq_vhost=tower
+rabbitmq_username=tower
+rabbitmq_password='{{admin_password}}'
+rabbitmq_cookie=cookiemonster
+
+# Needs to be true for fqdns and ip addresses
+rabbitmq_use_long_name=false
+
+gpgcheck='{{ gpgcheck | default(1)}}'
+aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'

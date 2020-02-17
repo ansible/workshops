@@ -1,5 +1,5 @@
 ---
-- name: find ami for node1
+- name: find ami
   ec2_ami_facts:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[rhel].owners }}"
@@ -8,9 +8,9 @@
       architecture: "{{ ec2_info[rhel].architecture }}"
   register: amis
 
-- name: save ami for node1
+- name: save ami
   set_fact:
-    node1_ami: >
+    node_ami: >
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 - name: Create EC2 instances for node1
@@ -19,7 +19,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node1_ami.image_id }}"
+    image: "{{ node_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -55,27 +55,13 @@
     - "{{ node1_output.instances }}"
   when: node1_output.instance_ids is not none
 
-- name: find ami for node2
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel].owners }}"
-    filters:
-      name: "{{ ec2_info[rhel].filter }}"
-      architecture: "{{ ec2_info[rhel].architecture }}"
-  register: amis
-
-- name: save ami for node2
-  set_fact:
-    node2_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
 - name: Create EC2 instances for node2
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node2_ami.image_id }}"
+    image: "{{ node_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -111,27 +97,13 @@
     - "{{ node2_output.instances }}"
   when: node2_output.instance_ids is not none
 
-- name: find ami for node3
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel].owners }}"
-    filters:
-      name: "{{ ec2_info[rhel].filter }}"
-      architecture: "{{ ec2_info[rhel].architecture }}"
-  register: amis
-
-- name: save ami for node3
-  set_fact:
-    node3_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
 - name: Create EC2 instances for node3
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node3_ami.image_id }}"
+    image: "{{ node_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -167,27 +139,13 @@
     - "{{ node3_output.instances }}"
   when: node3_output.instance_ids is not none
 
-- name: find ami for node4
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel].owners }}"
-    filters:
-      name: "{{ ec2_info[rhel].filter }}"
-      architecture: "{{ ec2_info[rhel].architecture }}"
-  register: amis
-
-- name: save ami for node4
-  set_fact:
-    node4_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
 - name: Create EC2 instances for node4
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node4_ami.image_id }}"
+    image: "{{ node_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -292,7 +250,7 @@
 
 - name: save ami for towernode1
   set_fact:
-    towernode1_ami: >
+    towernode_ami: >
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
 - name: Create EC2 instances for towernode1
@@ -301,7 +259,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[tower_type].size }}"
-    image: "{{ towernode1_ami.image_id }}"
+    image: "{{ towernode_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -338,27 +296,13 @@
   when: towernode1_output.instance_ids is not none
 
 # Tower Node 2
-- name: find ami for tower-node2
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[tower_type].owners }}"
-    filters:
-      name: "{{ ec2_info[tower_type].filter }}"
-      architecture: "{{ ec2_info[tower_type].architecture }}"
-  register: amis
-
-- name: save ami for tower-node2
-  set_fact:
-    towernode2_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
 - name: Create EC2 instances for towernode2
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[tower_type].size }}"
-    image: "{{ towernode2_ami.image_id }}"
+    image: "{{ towernode_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -395,27 +339,13 @@
   when: towernode2_output.instance_ids is not none
 
 # Tower Node 3
-- name: find ami for towernode3
-  ec2_ami_facts:
-    region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[tower_type].owners }}"
-    filters:
-      name: "{{ ec2_info[tower_type].filter }}"
-      architecture: "{{ ec2_info[tower_type].architecture }}"
-  register: amis
-
-- name: save ami for towernode3
-  set_fact:
-    towernode3_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
-
 - name: Create EC2 instances for towernode3
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[tower_type].size }}"
-    image: "{{ towernode3_ami.image_id }}"
+    image: "{{ towernode_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:

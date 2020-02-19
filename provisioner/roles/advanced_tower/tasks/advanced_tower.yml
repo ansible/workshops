@@ -23,6 +23,7 @@
   shell: ./setup.sh
   args:
     chdir: /tmp/tower_install
+    creates: /var/log/tower/
   async: 1400
   poll: 15
 

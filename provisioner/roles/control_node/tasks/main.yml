@@ -24,12 +24,19 @@
   retries: 4
   delay: 5
 
-- name: Install ansible.cfg and vimrc in home directory
+- name: Install ansible.cfg in home directory
   template:
     src: ansible.cfg.j2
     dest: "/home/{{ username }}/.ansible.cfg"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Install ansible.cfg in root home directory
+  template:
+    src: ansible.cfg.j2
+    dest: "/root/.ansible.cfg"
+    owner: root
+    group: root
 
 - name: Install vimrc in home directory
   template:
@@ -48,7 +55,7 @@
 
 - name: RHEL mode - setup control node
   include_tasks: "rhel.yml"
-  when: workshop_type == 'rhel'
+  when: workshop_type in ['rhel','advanced_tower']
 
 - name: Devops mode - setup control node
   include_tasks: "devops.yml"

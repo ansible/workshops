@@ -81,6 +81,33 @@
       - ncclient
     virtualenv: /opt/my-envs/ansible_dev
 
+- name: Ensure eula is accepted if posting license
+  lineinfile:
+    path: "{{playbook_dir}}/tower_license.json"
+    line: '    "eula_accepted": true,'
+    insertbefore: '"company_name"'
+    state: present
+  delegate_to: localhost
+  run_once: true
+  become: false
+  when:
+    - autolicense is defined
+    - autolicense|bool
+
+- name: Post license key
+  uri:
+    url: https://{{ansible_host}}/api/v2/config/
+    method: POST
+    user: admin
+    password: "{{admin_password}}"
+    body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
+    body_format: json
+    validate_certs: false
+    force_basic_auth: true
+  when:
+    - autolicense is defined
+    - autolicense|bool
+
 - name: add student user
   tower_user:
     username: "{{ username }}"

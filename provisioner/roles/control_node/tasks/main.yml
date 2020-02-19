@@ -98,6 +98,7 @@
   when:
     - autolicense is defined
     - autolicense|bool
+    - workshop_type != "advanced_tower"
 
 - name: Post license key
   uri:
@@ -112,6 +113,7 @@
   when:
     - autolicense is defined
     - autolicense|bool
+    - workshop_type != "advanced_tower"
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml

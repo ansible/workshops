@@ -1,0 +1,42 @@
+---
+- name: find ami
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[rhel].owners }}"
+    filters:
+      name: "{{ ec2_info[rhel].filter }}"
+      architecture: "{{ ec2_info[rhel].architecture }}"
+  register: amis
+
+- name: save ami
+  set_fact:
+    node_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: find ami for towerdb
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[rhel].owners }}"
+    filters:
+      name: "{{ ec2_info[rhel].filter }}"
+      architecture: "{{ ec2_info[rhel].architecture }}"
+  register: amis
+
+- name: save ami for towerdb
+  set_fact:
+    towerdb_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: find ami for towernode1
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[tower_type].owners }}"
+    filters:
+      name: "{{ ec2_info[tower_type].filter }}"
+      architecture: "{{ ec2_info[tower_type].architecture }}"
+  register: amis
+
+- name: save ami for towernode1
+  set_fact:
+    towernode_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

@@ -61,7 +61,6 @@
           - "ec2_name_prefix cannot be set to TESTWORKSHOP"
           - "please set a unique name for your workshop"
 
-
     - name: make sure we are not using `ansible` as the password
       assert:
         that:
@@ -90,7 +89,6 @@
       check_mode: true
       when: workshop_type == "windows"
       register: package_state
-
 
     - name: fail if previous check has changed
       assert:
@@ -134,7 +132,6 @@
           register: job_result
           until: job_result.finished
           retries: 30
-
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -190,8 +187,32 @@
       when:
         - dns_type is defined
         - dns_type == "aws"
+        - workshop_type != "advanced_tower"
   tags: control_node
 
+- name: CONFIGURE ADVANCED TOWER CLUSTER
+  hosts: tower_master
+  become: true
+  gather_facts: false
+  roles:
+    - role: advanced_tower
+      when:
+      - workshop_type == "advanced_tower"
+  tags: tower_master
+
+- name: add dns entires for all student tower nodes
+  hosts:
+  - tower_nodes
+  - towerdb
+  become: true
+  gather_facts: false
+  roles:
+    - role: aws_dns
+      when:
+        - dns_type is defined
+        - dns_type == "aws"
+        - workshop_type == "advanced_tower"
+  tags: tower_nodes
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

@@ -70,6 +70,21 @@
         from_port: 22
         cidr_ip: 0.0.0.0/0
       - proto: tcp
+        to_port: 25672
+        from_port: 25672
+        cidr_ip: 0.0.0.0/0
+        rule_desc: RabbitMQ
+      - proto: tcp
+        to_port: 4369
+        from_port: 4369
+        cidr_ip: 0.0.0.0/0
+        rule_desc: RabbitMQ
+      - proto: tcp
+        to_port: 5432
+        from_port: 5432
+        cidr_ip: 0.0.0.0/0
+        rule_desc: PostgreSQL
+      - proto: tcp
         to_port: 3389
         from_port: 3389
         cidr_ip: 0.0.0.0/0

@@ -1,0 +1,39 @@
+[tower]
+{% for host in hostvars %}
+{% if "tower_nodes" in hostvars[host].group_names %}
+{{ hostvars[host].ansible_nodename }} ansible_host={{ hostvars[host].ansible_host }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
+{% endif %}
+{% endfor %}
+
+[database]
+{% for host in hostvars %}
+{% if "towerdb" in hostvars[host].group_names %}
+{{ hostvars[host].ansible_nodename }} ansible_host={{ hostvars[host].ansible_host }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
+{% endif %}
+{% endfor %}
+
+[all:vars]
+admin_password='{{admin_password}}'
+
+{% for host in hostvars %}
+{% if "towerdb" in hostvars[host].group_names %}
+pg_host='{{ hostvars[host].ansible_host }}'
+{% endif %}
+{% endfor %}
+pg_port='5432'
+
+pg_database='awx'
+pg_username='awx'
+pg_password='{{admin_password}}'
+
+rabbitmq_port=5672
+rabbitmq_vhost=tower
+rabbitmq_username=tower
+rabbitmq_password='{{admin_password}}'
+rabbitmq_cookie=cookiemonster
+
+# Needs to be true for fqdns and ip addresses
+rabbitmq_use_long_name=true
+
+gpgcheck='{{ gpgcheck | default(1)}}'
+aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'

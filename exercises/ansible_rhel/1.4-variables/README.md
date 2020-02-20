@@ -64,7 +64,7 @@ What is this about?
 
 ## Step 4.2 - Create index.html Files
 
-Now create two files in `~/ansible-files/`:
+Now create two files in `~/ansible-files/files/`:
 
 One called `prod_index.html` with the following content:
 
@@ -101,7 +101,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
   tasks:
   - name: copy index.html
     copy:
-      src: ~/ansible-files/{{ stage }}_index.html
+      src: {{ stage }}_index.html
       dest: /var/www/html/index.html
 ```
 <!-- {% endraw %} -->

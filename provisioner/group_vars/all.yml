@@ -28,6 +28,7 @@ valid_network_types:
   - arista
   - juniper
   - multivendor
+doubleup: false
 security_console: qradar
 valid_security_console_types:
   - splunk

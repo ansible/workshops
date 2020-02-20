@@ -206,8 +206,10 @@
   - tower_master
   become: true
   gather_facts: false
-  roles:
-    - role: aws_dns
+  tasks:
+    - import_role:
+        name: advanced_tower
+        tasks_from: cert.yml
       when:
         - dns_type is defined
         - dns_type == "aws"

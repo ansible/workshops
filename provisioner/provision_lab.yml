@@ -180,7 +180,7 @@
         - towerinstall
   tags: control_node
 
-- name: add dns entires for all student control nodes
+- name: add dns entries for all student control nodes
   hosts: control_nodes
   become: true
   gather_facts: false
@@ -201,7 +201,7 @@
       - workshop_type == "advanced_tower"
   tags: tower_master
 
-- name: add dns entires for all student tower master nodes
+- name: add dns entries for all student tower master nodes
   hosts:
   - tower_master
   become: true

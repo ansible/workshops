@@ -28,5 +28,5 @@
 - name: CERTBOT FOR TOWER
   include_tasks: "tower.yml"
   when:
-    - towerinstall|bool
+    - towerinstall|bool or workshop_type == "advanced_tower"
     - route53_status is not failed

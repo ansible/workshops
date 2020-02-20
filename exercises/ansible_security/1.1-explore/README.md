@@ -32,39 +32,8 @@ The lab is set up individually for you. You have your own environment, own servi
 
 All interactions with the environment are either done via SSH, or via web browser. All SSH connections should be to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
 
-```
-     +--------------+
-     |              |
-     | Lab computer +-----------------+------------------->
-     |              |                 |                   |
-     +------+-------+                 | RDP/HTTP          | HTTP
-            |                         v                   |
-            |                  +------+------+            |
-        SSH |                  | Windows     |            |
-            v                  | Workstation |            v
-      +-------------+          +------+------+     +------+------+
-  SSH | Ansible     |                 |            |             |
-+-----+ Control     +-----+-----------O----------->+ QRadar      |
-|     | Host        |     |REST       |            |             |
-|     +-------------+     |           v            +------+------+
-|                         |    +------+------+            ^
-|                         |    |             |    Syslog  |
-|                         +--->+ Check Point +----------->+
-|     +-------------+          | MGMT        |            |
-| SSH |             |  HTTP    |             |            |
-+-----+ Attacker    +------+   +------+------+            |
-|     |             |      |          |                   |
-|     +-------------+      |   +------+------+            |
-|                          +---+             |            |
-|                              | Check Point |            |
-|     +-------------+      +---+ Firewall    |            |
-| SSH |             |      |   |             |            |
-+-----+ IDS Snort   +------+   +-------------+            |
-      |             |  HTTP                               |
-      +------+------+                                     |
-             |                    Syslog                  |
-             +--------------------------------------------+
-```
+![Red Hat Ansible Security Workshop Pod](../../../images/security_diagram.png)
+
 
 ## Step 1.3 - Access the Ansible Environment
 

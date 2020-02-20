@@ -83,7 +83,7 @@ Update site.yml to look like to only call your role. It should look like
 below:
 
     ---
-    - hosts: Windows
+    - hosts: windows
       name: This is my role-based playbook
 
       roles:

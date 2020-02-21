@@ -79,7 +79,7 @@ EOF
                 sh """tee provisioner/tests/ci-security.yml << EOF
 workshop_type: security
 security_console: qradar
-windows_password: 'RedHatTesting19!'
+windows_password: 'Ansible+Red*Hat-Testing19!20'
 ec2_name_prefix: tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """

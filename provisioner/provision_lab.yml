@@ -201,21 +201,6 @@
       - workshop_type == "advanced_tower"
   tags: tower_master
 
-- name: add dns entries for all student tower master nodes
-  hosts:
-  - tower_master
-  become: true
-  gather_facts: false
-  tasks:
-    - import_role:
-        name: advanced_tower
-        tasks_from: cert.yml
-      when:
-        - dns_type is defined
-        - dns_type == "aws"
-        - workshop_type == "advanced_tower"
-  tags: tower_master
-
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
   connection: local

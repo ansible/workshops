@@ -78,6 +78,7 @@
   when:
     - towerinstall is defined
     - towerinstall|bool
+    - workshop_type != "advanced_tower"
 
 - name: install tower if knob is set
   include_tasks: "tower.yml"
@@ -85,6 +86,7 @@
     - towerinstall is defined
     - towerinstall|bool
     - check_tower is failed
+    - workshop_type != "advanced_tower"
 
 - name: Ensure eula is accepted if posting license
   lineinfile:

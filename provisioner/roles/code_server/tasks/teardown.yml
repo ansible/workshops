@@ -10,7 +10,6 @@
     query: record_sets
     hosted_zone_id: "{{AWSINFO.zone_id}}"
     start_record_name: "student1-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-    max_items: "{% if ansible_version.minor <= 9 %}{{student_total|string}}{% else %}{{student_total|int}}{% endif %}"
   register: record_sets
 
 - name: delete dns entries for vs code for each student

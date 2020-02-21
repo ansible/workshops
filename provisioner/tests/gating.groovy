@@ -245,7 +245,7 @@ EOF
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
-                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1 -instances.txt"""
+                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt"""
                                     }
                                 }
                             }

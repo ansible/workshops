@@ -220,6 +220,8 @@ EOF
                                     }
                                 }
                             }
+                        }
+                        script {
                             stage('security-verify') {
                                 withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
                                                  string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
@@ -233,6 +235,8 @@ EOF
                                     }
                                 }
                             }
+                        }
+                        script {
                             stage('security-exercises') {
                                 withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
                                                  string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {

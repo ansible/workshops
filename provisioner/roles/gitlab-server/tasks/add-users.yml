@@ -1,0 +1,130 @@
+---
+- name: GitLab post | Install EPEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
+
+- name: GitLab Post | Install pip
+  yum:
+    name: python-pip
+    state: present
+
+- name: GitLab Post | Install pyapi-gitlab
+  pip:
+    name:
+      - pyapi-gitlab
+      - python-gitlab
+
+- block:
+
+    - name: GitLab Post | Check if root user password is set
+      uri:
+        url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
+        method: POST
+        validate_certs: false
+        status_code: 200, 301
+        body_format: json
+        headers:
+          Content-Type: application/json
+        body: >
+          {
+            "grant_type": "password",
+            "username": "root",
+            "password": "{{ admin_password }}"
+          }
+      register: root_user
+
+  rescue:
+
+    - name: GitLab Post | Copy root password script to host
+      template:
+        src: set_root_pw.sh.j2
+        dest: /root/set_root_pw.sh
+        owner: root
+        group: root
+        mode: 0700
+
+    - name: GitLab Post | Execute set root password
+      command: ./set_root_pw.sh
+      args:
+        chdir: /root
+
+    - name: GitLab Post | Remove set root password script
+      file:
+        path: /root/set_root_pw.sh
+        state: absent
+
+    - name: GitLab Post | Wait for root user to initizalize
+      uri:
+        url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
+        method: POST
+        validate_certs: false
+        status_code: 200
+        body_format: json
+        headers:
+          Content-Type: application/json
+        body: >
+          {
+            "grant_type": "password",
+            "username": "root",
+            "password": "{{ admin_password }}"
+          }
+      register: gitlab_access_token
+      until: gitlab_access_token is success and gitlab_access_token.json.access_token is defined
+      delay: 3
+      retries: 60
+
+- name: GitLab Post | Obtain Access Token
+  uri:
+    url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
+    method: POST
+    validate_certs: false
+    status_code: 200
+    body_format: json
+    headers:
+      Content-Type: application/json
+    body: >
+      {
+        "grant_type": "password",
+        "username": "root",
+        "password": "{{ admin_password }}"
+      }
+  register: gitlab_access_token
+
+- name: GitLab Post | Create local users via API
+  uri:
+    url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v4/users
+    method: POST
+    validate_certs: false
+    status_code:
+      - 200
+      - 201
+      - 409
+    body_format: json
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer {{ gitlab_access_token.json.access_token }}
+    body: >
+      {
+        "username": "student{{ item }}",
+        "password": "{{ admin_password }}",
+        "name": "student{{ item }}",
+        "email": "student{{ item }}@{{ workshop_dns_zone }}",
+        "skip_confirmation": true
+      }
+  register: create_user
+  with_sequence: count="{{ student_total }}"
+
+- name: GitLab Post | Get local user information via API
+  uri:
+    url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/api/v4/users?username=student{{ item }}
+    method: GET
+    validate_certs: false
+    status_code:
+      - 200
+      - 201
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer {{ gitlab_access_token.json.access_token }}
+  with_sequence: count="{{ student_total }}"
+  register: gitlab_local_users

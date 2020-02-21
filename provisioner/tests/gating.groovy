@@ -231,7 +231,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/security_verify.yml \
                                                 -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/instructor_inventory.txt \
-                                                --private-key=provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/test-workshop-private.pem"""
+                                                --private-key=provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-private.pem"""
                                     }
                                 }
                             }

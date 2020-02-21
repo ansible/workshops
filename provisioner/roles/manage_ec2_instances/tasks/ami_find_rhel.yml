@@ -1,0 +1,15 @@
+---
+
+- name: find ami for node
+  ec2_ami_facts:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[rhel].owners }}"
+    filters:
+      name: "{{ ec2_info[rhel].filter }}"
+      architecture: "{{ ec2_info[rhel].architecture }}"
+  register: amis
+
+- name: save ami for node
+  set_fact:
+    node_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

@@ -280,8 +280,8 @@ EOF
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/security_verify.yml \
-                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/instructor_inventory.txt \
-                                                --private-key=provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}-private.pem"""
+                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/instructor_inventory.txt \
+                                                --private-key=provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}-private.pem"""
                                     }
                                 }
                             }
@@ -295,7 +295,7 @@ EOF
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
-                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1 -instances.txt"""
+                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/student1 -instances.txt"""
                                     }
                                 }
                             }

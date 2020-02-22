@@ -126,7 +126,7 @@ SCM UPDATE OPTIONS
 
 - [ ] Clean
 - [ ] Delete on Update
-- [*] Update Revision on Launch
+- [x] Update Revision on Launch
 
 
 ![Defining a Project](images/1-tower-create-project.png)

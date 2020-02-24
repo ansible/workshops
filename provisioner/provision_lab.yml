@@ -201,6 +201,17 @@
       - workshop_type == "advanced_tower"
   tags: tower_master
 
+- name: CONFIGURE ADVANCED TOWER CLUSTER DNS
+  hosts: tower_master
+  become: true
+  gather_facts: false
+  tasks:
+    - import_role:
+        name: advanced_tower
+      when:
+      - workshop_type == "advanced_tower"
+  tags: tower_master
+
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
   connection: local

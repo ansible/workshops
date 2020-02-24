@@ -27,6 +27,10 @@
         - name: execute whitelist_attacker.yml on control nodes
           command: /usr/bin/ansible-playbook whitelist_attacker.yml
 
+        - name: Wait for logs coming through
+          pause:
+            minutes: 1
+
         - name: install required collections
           command: "ansible-galaxy collection install {{ item }}"
           loop:
@@ -44,7 +48,7 @@
 
         - name: Wait for logs coming through
           pause:
-            minutes: 5
+            minutes: 1
 
         - name: Verify attack string in log file
           command: "ssh ec2-user@{{ hostvars['snort']['ansible_host'] }} sudo grep web_attack /var/log/httpd/access_log"

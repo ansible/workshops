@@ -44,7 +44,7 @@
 
         - name: Wait for logs coming through
           pause:
-            minutes: 2
+            minutes: 5
 
         - name: Verify attack string in log file
           command: "ssh ec2-user@{{ hostvars['snort']['ansible_host'] }} sudo grep web_attack /var/log/httpd/access_log"

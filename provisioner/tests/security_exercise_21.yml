@@ -36,9 +36,6 @@
           loop:
             - ibm.qradar
 
-        - name: Ensure policies are deployed on Check Point
-          command: /usr/bin/ansible-playbook whitelist_attacker.yml
-
         - name: install required roles
           command: "ansible-galaxy install {{ item }}"
           loop:

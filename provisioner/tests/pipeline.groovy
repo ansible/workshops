@@ -87,36 +87,9 @@ aw_repo_url: ${aw_repo_url}
 admin_password: ${ADMIN_PASSWORD}
 ansible_workshops_url: ${ANSIBLE_WORKSHOPS_URL}
 ansible_workshops_version: ${params.WORKSHOP_BRANCH}
+ec2_name_prefix: tqe-{{ workshop_type }}-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
 EOF
 """
-                sh """tee provisioner/tests/ci-rhel.yml << EOF
-workshop_type: rhel
-ec2_name_prefix: tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
-EOF
-"""
-
-                sh """tee provisioner/tests/ci-networking.yml << EOF
-workshop_type: networking
-ec2_region: eu-central-1
-ec2_name_prefix: tqe-networking-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
-EOF
-"""
-
-                sh """tee provisioner/tests/ci-f5.yml << EOF
-workshop_type: f5
-ec2_region: ap-northeast-1
-ec2_name_prefix: tqe-f5-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
-EOF
-"""
-
-                sh """tee provisioner/tests/ci-security.yml << EOF
-workshop_type: security
-security_console: qradar
-windows_password: 'Ansible+Red*Hat-Testing19!20'
-ec2_name_prefix: tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
-EOF
-"""
-
             }
         }
 
@@ -150,6 +123,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-rhel.yml 2>&1 | tee -a rhel.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
@@ -191,6 +165,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-networking.yml 2>&1 | tee -a networking.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
@@ -240,6 +215,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-f5.yml 2>&1 | tee -a f5.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
@@ -310,6 +286,7 @@ EOF
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh '''ansible-playbook provisioner/teardown_lab.yml \
                                                 -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-security.yml 2>&1 | tee -a security.log && exit ${PIPESTATUS[0]}'''
                                     }
                                 }
@@ -335,10 +312,10 @@ EOF
                                  "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
                                  "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                  "ANSIBLE_FORCE_COLOR=true"]) {
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-rhel.yml"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-networking.yml"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-f5.yml"
-                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-security.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-rhel.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-networking.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-f5.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-security.yml"
                         }
                     }
                 }

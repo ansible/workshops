@@ -176,6 +176,17 @@
     ec2_vpc_subnet_id: "{{ create_subnet.subnet.id }}"
     ec2_vpc_subnet2_id: "{{ create_subnet2.subnet.id }}"
 
+- name: s3 bucket for persistent storage of ec2 key exists
+  s3_bucket:
+    name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
+    state: present
+    region: "{{ ec2_region }}"
+  retries: 4
+  delay: 15
+  register: s3_result
+  until:
+    - s3_result.failed == false
+
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
     name: "{{ ec2_name_prefix }}-key"
@@ -185,9 +196,34 @@
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     mode: '0400'
   when: create_key.changed
+
+- name: Store SSH Key Pair
+  aws_s3:
+    bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
+    mode: put
+    object: "{{ec2_name_prefix}}-private.pem"
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    encrypt: true
+    region: "{{ ec2_region }}"
+  when: create_key.changed
+
+- name: Save Private key from S3 Bucket when not generating it
+  aws_s3:
+    bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
+    mode: get
+    object: "{{ec2_name_prefix}}-private.pem"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    encrypt: true
+    region: "{{ ec2_region }}"
+  when: not create_key.changed
+
+- name: Ensure key file has proper permissions
+  file:
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    mode: 0600
 
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:

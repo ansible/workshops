@@ -337,7 +337,7 @@
     name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
     state: absent
     region: "{{ ec2_region }}"
-    force: yes
+    force: true
   retries: 4
   delay: 15
   register: s3_result

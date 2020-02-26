@@ -59,6 +59,11 @@
   hosts: control_nodes
   gather_facts: true
   become: true
+  vars:
+    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
+  pre_tasks:
+    - debug:
+        var: tower_license
   roles:
     - role: control_node
   tasks:
@@ -155,7 +160,6 @@
 - name: print out information for instructor
   hosts: localhost
   connection: local
-  become:
   gather_facts: false
   tasks:
     - name: set facts for output

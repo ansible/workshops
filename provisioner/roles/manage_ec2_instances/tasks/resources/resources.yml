@@ -196,7 +196,7 @@
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
     mode: '0400'
   when: create_key.changed
 
@@ -205,7 +205,7 @@
     bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
     mode: put
     object: "{{ec2_name_prefix}}-private.pem"
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
     encrypt: true
     region: "{{ ec2_region }}"
   when: create_key.changed
@@ -214,15 +214,15 @@
   aws_s3:
     bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
     mode: get
-    object: "{{ec2_name_prefix}}-private.pem"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    object: "{{ ec2_name_prefix }}-private.pem"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
     encrypt: true
     region: "{{ ec2_region }}"
   when: not create_key.changed
 
 - name: Ensure key file has proper permissions
   file:
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
     mode: 0600
 
 - name: debugging all variables for ec2 instance creation VPC-1

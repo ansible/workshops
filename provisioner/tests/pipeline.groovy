@@ -112,7 +112,7 @@ EOF
                 sh """tee provisioner/tests/ci-security.yml << EOF
 workshop_type: security
 security_console: qradar
-windows_password: 'RedHatTesting19!'
+windows_password: 'Ansible+Red*Hat-Testing19!20'
 ec2_name_prefix: tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
 EOF
 """
@@ -267,6 +267,35 @@ EOF
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-security.yml 2>&1 | tee security.log && exit ${PIPESTATUS[0]}'''
+                                    }
+                                }
+                            }
+                        }
+                        script {
+                            stage('security-verify') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/tests/security_verify.yml \
+                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/instructor_inventory.txt \
+                                                --private-key=provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}-private.pem"""
+                                    }
+                                }
+                            }
+                        }
+                        script {
+                            stage('security-exercises') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
+                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/student1-instances.txt"""
                                     }
                                 }
                             }

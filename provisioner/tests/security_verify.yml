@@ -1,4 +1,14 @@
 ---
+- name: Install prerequisites
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Install required collection
+      shell: "ansible-galaxy collection install {{item}}"
+      loop:
+        - 'ibm.qradar'
+
 - name: Check each student environment
   hosts: all
   gather_facts: true

@@ -30,7 +30,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 The lab is set up individually for you. You have your own environment, own services, own virtual machines.
 
-All interactions with the environment can be done via web browser. In the event where SSH access is required, all SSH connections should be to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
+All interactions with the environment can be done via web browser. In the event where SSH access is required, all SSH connections should be made to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
 
 ![Red Hat Ansible Security Workshop Pod](../../../images/security_diagram.png)
 

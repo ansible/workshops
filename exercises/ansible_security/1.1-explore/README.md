@@ -51,7 +51,7 @@ Open a new **Terminal**
 
 ![VS Code New Terminal](images/1-vscode-new-terminal.png)
 
-The terminal will open up and you will be at the command prompt. Note that most prerequisite tasks have already been done for you:
+A new terminal will be opened and you will be at the command prompt. Note that most prerequisite tasks have already been done for you:
 
   - Ansible software is installed
 
@@ -68,7 +68,7 @@ Next, proceed to check that Ansible has been installed correctly.
     [student<X>@ansible ~]$ ansible --version
 ```
 
-The results should resembles the following
+The result should resembles the following
 
 ![VS Code Check Ansible Version](images/1-vscode-check-ansible-version.png)
 

@@ -37,21 +37,18 @@ All interactions with the environment are either done via SSH, or via web browse
 
 ## Step 1.3 - Access the Ansible Environment
 
-For a start, log into your Ansible control host via SSH. Open a terminal and type the following command:
+The first step will be to access Visual Studio Code
 
-> **Warning**
-> 
-> In the next examples, replace **11.22.33.44** by the **IP** of your control host, provided to you by the instructor. Also, replace the **X** in student**X** by the student number provided to you. In all following examples and in all other cases were examples contain IP addresses, always replace them with the **IP** addresses from your individual setup
+To access it, click on the link for VS Code Access from the workshop page
+![VS Code Access](images/1-vscode-access.png)
 
-Open a terminal and type the following command to connect to your control host via SSH:
+At this point, you will see a **Welcome** page
+![VS Code Welcome](images/1-vscode-welcome-page.png)
 
-```bash
-ssh studentX@11.22.33.44
-```
+Open a new terminal
+![VS Code New Terminal](images/1-vscode-new-terminal.png)
 
-The password is **ansible** if not otherwise noted.
-
-Most prerequisite tasks have already been done for you:
+The terminal will open up and you will be at the command prompt. Note that most prerequisite tasks have already been done for you:
 
   - Ansible software is installed
 
@@ -59,15 +56,16 @@ Most prerequisite tasks have already been done for you:
 
   - `sudo` has been configured on the managed hosts to run commands that require root privileges.
 
-Check Ansible has been installed correctly
+Note that each student is assigned a student number, i.e. X and you should work as the student <X> user on the control node if not explicitly told differently.
+
+Next, proceed to check that Ansible has been installed correctly.
 
 ```bash
     [student<X>@ansible ~]$ ansible --version
-    ansible 2.8.2
-    [...]
 ```
 
-In all subsequent exercises you should work as the student\<X\> user on the control node if not explicitly told differently.
+The results should resembles the following
+![VS Code Check Ansible Version](images/1-vscode-check-ansible-version.png)
 
 > **Note**
 > 

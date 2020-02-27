@@ -30,7 +30,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 The lab is set up individually for you. You have your own environment, own services, own virtual machines.
 
-All interactions with the environment are either done via SSH, or via web browser. All SSH connections should be to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
+All interactions with the environment can be done via web browser. In the event where SSH access is required, all SSH connections should be to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
 
 ![Red Hat Ansible Security Workshop Pod](../../../images/security_diagram.png)
 
@@ -123,8 +123,6 @@ For the exercises of section 2 we need to have security incidents. Those should 
 You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
   - Don’t type everything manually, use copy & paste from the browser when appropriate. But stop to think and understand.
-
-  - All labs were prepared using **Vim**, but we understand not everybody loves it. Feel free to use alternative editors. In the lab environment we provide **Midnight Commander** (just run **mc**, function keys can be reached via Esc-\<n\> or simply clicked with the mouse) or **Nano** (run **nano**). Here is a short [editor intro](../0.0-support-docs/editor_intro.md).
 
 ----
 

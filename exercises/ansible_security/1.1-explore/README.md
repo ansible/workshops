@@ -40,12 +40,15 @@ All interactions with the environment are either done via SSH, or via web browse
 The first step will be to access Visual Studio Code
 
 To access it, click on the link for VS Code Access from the workshop page
+
 ![VS Code Access](images/1-vscode-access.png)
 
 At this point, you will see a **Welcome** page
+
 ![VS Code Welcome](images/1-vscode-welcome-page.png)
 
 Open a new terminal
+
 ![VS Code New Terminal](images/1-vscode-new-terminal.png)
 
 The terminal will open up and you will be at the command prompt. Note that most prerequisite tasks have already been done for you:
@@ -56,6 +59,7 @@ The terminal will open up and you will be at the command prompt. Note that most 
 
   - `sudo` has been configured on the managed hosts to run commands that require root privileges.
 
+
 Note that each student is assigned a student number, i.e. X and you should work as the student <X> user on the control node if not explicitly told differently.
 
 Next, proceed to check that Ansible has been installed correctly.
@@ -65,7 +69,9 @@ Next, proceed to check that Ansible has been installed correctly.
 ```
 
 The results should resembles the following
+
 ![VS Code Check Ansible Version](images/1-vscode-check-ansible-version.png)
+
 
 > **Note**
 > 

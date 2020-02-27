@@ -47,7 +47,7 @@ At this point, you will see a **Welcome** page
 
 ![VS Code Welcome](images/1-vscode-welcome-page.png)
 
-Open a new terminal
+Open a new **Terminal**
 
 ![VS Code New Terminal](images/1-vscode-new-terminal.png)
 

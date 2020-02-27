@@ -19,11 +19,11 @@ new config file, install a new package? If so, you may need to restart a
 service for those changes to take effect. We do that with a handler.
 
 For a full understanding of variables, loops, and handlers; check out
-our Ansible documentation on these subjects.  
+our Ansible documentation on these subjects.
 [Ansible
-Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)  
+Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
 [Ansible
-Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)  
+Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
 [Ansible
 Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
 
@@ -68,6 +68,7 @@ Add a play definition and some variables to your playbook. These include
 addtional packages your playbook will install on your web servers, plus
 some web server specific configurations.
 
+```yaml
     ---
     - hosts: windows
       name: This is a play within a playbook
@@ -80,6 +81,7 @@ some web server specific configurations.
             port: '8081'
             path: 'C:\sites\playbooktest2'
         iis_test_message: "Hello World!  My test IIS Server"
+```
 
 Step 4:
 -------
@@ -87,6 +89,8 @@ Step 4:
 Add a new task called **install IIS**. After writing the playbook, click
 `File` &gt; `Save` to save your changes.
 
+<!-- {% raw %} -->
+```yaml
       tasks:
         - name: Install IIS
           win_feature:
@@ -107,26 +111,28 @@ Add a new task called **install IIS**. After writing the playbook, click
             physical_path: "{{ item.path }}"
           with_items: "{{ iis_sites }}"
           notify: restart iis service
+```
+<!-- {% endraw %} -->
 
 ![site.yml part 1](images/5-vscode-iis-yaml.png)
 
 > **Note**
 >
-> **What is happening here!?**  
+> **What is happening here!?**
 >
 > - `vars:` You’ve told Ansible the next thing it sees will be a
->   variable name  
+>   variable name
 >
 > - `iis_sites` You are defining a list-type variable called
 >   iis\_sites. What follows is a list of each site with it’s related
->   variables  
+>   variables
 >
 > - `file:` This module is used to create, modify, delete files,
 >   directories, and symlinks.
 >
 > - `{{ item }}` You are telling Ansible that this will expand into a
 >   list item. Each item has several variables like `name`, `port`,
->   and `path`.  
+>   and `path`.
 >
 > - `with_items: "{{ iis_sites }}` This is your loop which is
 >   instructing Ansible to perform this task on every `item` in
@@ -156,6 +162,8 @@ Type `index.html.j2` and hit enter.
 You should now have an editor open in the right pane that can be used
 for creating your template. Enter the following details:
 
+<!-- {% raw %} -->
+```html
     <html>
     <body>
 
@@ -164,6 +172,8 @@ for creating your template. Enter the following details:
 
     </body>
     </html>
+```
+<!-- {% endraw %} -->
 
 ![index.html template](images/5-vscode-template.png)
 
@@ -174,6 +184,8 @@ Edit back your playbook, `site.yml`, by opening your firewall ports and
 writing the template. Use single quotes for `win_template` in order to
 not escape the forward slash.
 
+<!-- {% raw %} -->
+```yaml
         - name: Open port for site on the firewall
           win_firewall_rule:
             name: "iisport{{ item.port }}"
@@ -197,6 +209,8 @@ not escape the forward slash.
           loop:
             - http://{{ ansible_host }}:8080
             - http://{{ ansible_host }}:8081
+```
+<!-- {% endraw %} -->
 
 > **Note**
 >
@@ -212,7 +226,7 @@ not escape the forward slash.
 >
 > - used in Ansible to transform data inside a template expression,
 >   i.e. filters.
-> 
+>
 > - `debug:` Again, like in the `iis_basic` playbook, this task displays the URLs to access the sites we are creating for this exercise
 
 
@@ -233,12 +247,14 @@ Step 1:
 
 Define a handler.
 
+```yaml
       handlers:
         - name: restart iis service
           win_service:
             name: W3Svc
             state: restarted
             start_mode: auto
+```
 
 > **Note**
 >
@@ -283,6 +299,8 @@ Now let’s take a second look to make sure everything looks the way you
 intended. If not, now is the time for us to fix it up. The figure below
 shows line counts and spacing.
 
+<!-- {% raw %} -->
+```yaml
     ---
     - hosts: windows
       name: This is a play within a playbook
@@ -347,6 +365,8 @@ shows line counts and spacing.
             name: W3Svc
             state: restarted
             start_mode: auto
+```
+<!-- {% endraw %} -->
 
 Section 5: Create your Job Template
 ===================================
@@ -460,5 +480,3 @@ When the job has successfully completed, you should see two URLs to your website
 
 
 ![IIS site](images/5-iis-8080.png)
-
-

@@ -106,12 +106,27 @@
         - debug:
             var: stat_result
         - fail:
-            msg: "autolicense is turned on, but we need a license located at {{playbook_dir}}/tower_license.json"
+            msg: "autolicense is turned on, but we need tower_license_data in extra_vars or a license located at {{playbook_dir}}/tower_license.json"
           when:
             - not stat_result.stat.exists
+        - set_fact:
+            tower_license: "{{ lookup('file',playbook_dir+'/tower_license.json')) |from_json }}"
       when:
         - autolicense is defined
         - autolicense
+        - tower_license_data is not defined
+
+    - set_fact:
+        tower_license: "{{ tower_license_data|from_json }}"
+        when: tower_license is not defined
+
+    - assert:
+        that: "{{ tower_license.eula_accepted }}"
+        fail_msg: "EULA must be accepted in license data (eula_accepted: true)"
+
+    - assert:
+        that: ansible_date_time.epoch|int < tower_license.license_date|int
+        fail_msg: "Ansible Tower License expired.  Please provide valid license."
 
     - name: Install required roles and collections onto THIS machine
       when:
@@ -171,6 +186,11 @@
   hosts: control_nodes
   gather_facts: true
   become: true
+  vars:
+    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
+  pre_tasks:
+    - debug:
+        var: tower_license
   roles:
     - role: control_node
     - role: code_server

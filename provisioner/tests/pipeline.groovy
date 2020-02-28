@@ -286,20 +286,20 @@ EOF
                                 }
                             }
                         }
-                        script {
-                            stage('security-exercises') {
-                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
-                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
-                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
-                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
-                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
-                                             "ANSIBLE_FORCE_COLOR=true"]) {
-                                        sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
-                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/student1-instances.txt"""
-                                    }
-                                }
-                            }
-                        }
+                        // script {
+                        //     stage('security-exercises') {
+                        //         withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                        //                          string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                        //             withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                        //                      "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                        //                      "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                        //                      "ANSIBLE_FORCE_COLOR=true"]) {
+                        //                 sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
+                        //                         -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/student1-instances.txt"""
+                        //             }
+                        //         }
+                        //     }
+                        // }
                         script {
                             stage('security-teardown') {
                                 withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),

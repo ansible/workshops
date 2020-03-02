@@ -30,28 +30,28 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 The lab is set up individually for you. You have your own environment, own services, own virtual machines.
 
-All interactions with the environment are either done via SSH, or via web browser. All SSH connections should be to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
+All interactions with the environment can be done via web browser. In the event where SSH access is required, all SSH connections should be made to your control host, from which the Ansible playbooks are executed. The web browser connections are explained in the  later exercises since they are very specific to the corresponding solutions.
 
 ![Red Hat Ansible Security Workshop Pod](../../../images/security_diagram.png)
 
 
 ## Step 1.3 - Access the Ansible Environment
 
-For a start, log into your Ansible control host via SSH. Open a terminal and type the following command:
+The first step will be to access Visual Studio Code
 
-> **Warning**
-> 
-> In the next examples, replace **11.22.33.44** by the **IP** of your control host, provided to you by the instructor. Also, replace the **X** in student**X** by the student number provided to you. In all following examples and in all other cases were examples contain IP addresses, always replace them with the **IP** addresses from your individual setup
+To access it, click on the link for VS Code Access from the workshop page
 
-Open a terminal and type the following command to connect to your control host via SSH:
+![VS Code Access](images/1-vscode-access.png)
 
-```bash
-ssh studentX@11.22.33.44
-```
+At this point, you will see a **Welcome** page
 
-The password is **ansible** if not otherwise noted.
+![VS Code Welcome](images/1-vscode-welcome-page.png)
 
-Most prerequisite tasks have already been done for you:
+Open a new **Terminal**
+
+![VS Code New Terminal](images/1-vscode-new-terminal.png)
+
+A new terminal will be opened and you will be at the command prompt. Note that most prerequisite tasks have already been done for you:
 
   - Ansible software is installed
 
@@ -59,15 +59,19 @@ Most prerequisite tasks have already been done for you:
 
   - `sudo` has been configured on the managed hosts to run commands that require root privileges.
 
-Check Ansible has been installed correctly
+
+Note that each student is assigned a student number, i.e. X and you should work as the student <X> user on the control node if not explicitly told differently.
+
+Next, proceed to check that Ansible has been installed correctly.
 
 ```bash
     [student<X>@ansible ~]$ ansible --version
-    ansible 2.8.2
-    [...]
 ```
 
-In all subsequent exercises you should work as the student\<X\> user on the control node if not explicitly told differently.
+The result should resembles the following
+
+![VS Code Check Ansible Version](images/1-vscode-check-ansible-version.png)
+
 
 > **Note**
 > 
@@ -119,8 +123,6 @@ For the exercises of section 2 we need to have security incidents. Those should 
 You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
   - Don’t type everything manually, use copy & paste from the browser when appropriate. But stop to think and understand.
-
-  - All labs were prepared using **Vim**, but we understand not everybody loves it. Feel free to use alternative editors. In the lab environment we provide **Midnight Commander** (just run **mc**, function keys can be reached via Esc-\<n\> or simply clicked with the mouse) or **Nano** (run **nano**). Here is a short [editor intro](../0.0-support-docs/editor_intro.md).
 
 ----
 

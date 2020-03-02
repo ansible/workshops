@@ -18,7 +18,7 @@
 
 # use this task to check authentication
 - name: find ami for node
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[rhel].owners }}"
     filters:

@@ -26,3 +26,21 @@ To run the walkthrough tests, the playbook `security_exercise_21.yml` needs to b
 ```
 ansible-playbook provisioner/tests/security_exercise_21.yml -i provisioner/test-workshop/student4-instances.txt
 ```
+
+## RHEL testing
+
+There is currently a deployment test available. Current tests:
+
+- Availabilitiy of all machines
+- Right Ansible version installed on control host
+- Necessary Python libs are installed on control host to run Tower modules
+- Tower itself is installed
+- Tower license is configured and valid (login test)
+- Tower is working and provides API feedback
+
+The tower password as well as the workshop name must be provided on the command line.
+
+```
+ansible-playbook provisioner/tests/rhel_verify.yml -i provisioner/test-workshop/instructor_inventory.txt --private-key=provisioner/test-workshop/test-workshop-private.pem -e tower_password=mypwd -e workshop_name=test-workshop
+```
+

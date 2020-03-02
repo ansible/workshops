@@ -114,6 +114,22 @@ EOF
                             }
                         }
                         script {
+                            stage('RHEL-verify') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/tests/rhel_verify.yml \
+                                                -i provisioner/tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/instructor_inventory.txt \
+                                                --private-key=provisioner/tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}-private.pem \
+                                                -e tower_password=${ADMIN_PASSWORD} -e workshop_name=tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}"""
+                                    }
+                                }
+                            }
+                        }
+                        script {
                             stage('RHEL-teardown') {
                                 withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
                                                  string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {

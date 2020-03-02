@@ -27,10 +27,6 @@
         - name: execute whitelist_attacker.yml on control nodes
           command: /usr/bin/ansible-playbook whitelist_attacker.yml
 
-        - name: Wait for logs coming through
-          pause:
-            minutes: 1
-
         - name: install required collections
           command: "ansible-galaxy collection install {{ item }}"
           loop:
@@ -43,12 +39,19 @@
             - ansible_security.ids_config
             - ansible_security.log_manager
 
-        - name: Wait for logs coming through
+        - name: Give time to apply policy change
           pause:
             minutes: 1
 
+        - name: Verify policy installation
+          command: /usr/bin/ansible-playbook --start-at-task="Install policy" whitelist_attacker.yml
+
         - name: Verify attack string in log file
           command: "ssh ec2-user@{{ hostvars['snort']['ansible_host'] }} sudo grep web_attack /var/log/httpd/access_log"
+          retries: 12
+          delay: 15
+          register: result
+          until: result.rc == 0
 
     - name: Step 4, Step 5 - Create and execute triage_log playbook
       block:

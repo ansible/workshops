@@ -21,7 +21,7 @@ Build Tag: ${env.BUILD_TAG}"""
                 withCredentials([file(credentialsId: 'workshops_tower_license', variable: 'TOWER_LICENSE')]) {
                     sh 'cp ${TOWER_LICENSE} provisioner/tower_license.json'
                 }
-                sh 'pip install netaddr pywinrm'
+                sh 'pip install netaddr pywinrm requests requests-credssp boto'
                 sh 'yum -y install sshpass'
                 sh 'ansible --version | tee ansible_version.log'
                 archiveArtifacts artifacts: 'ansible_version.log'
@@ -201,20 +201,20 @@ EOF
                                 }
                             }
                         }
-                        // script {
-                        //     stage('security-exercises') {
-                        //         withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
-                        //                          string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
-                        //             withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
-                        //                      "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
-                        //                      "ANSIBLE_CONFIG=provisioner/ansible.cfg",
-                        //                      "ANSIBLE_FORCE_COLOR=true"]) {
-                        //                 sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
-                        //                         -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt"""
-                        //             }
-                        //         }
-                        //     }
-                        // }
+                        script {
+                            stage('security-exercises') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
+                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}/student1-instances.txt"""
+                                    }
+                                }
+                            }
+                        }
                         script {
                             stage('security-teardown') {
                                 withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
@@ -227,6 +227,42 @@ EOF
                                                 -e @provisioner/tests/vars.yml \
                                                 -e @provisioner/tests/ci-common.yml \
                                                 -e @provisioner/tests/ci-security.yml"""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                stage('windows') {
+                    steps {
+                        script {
+                            stage('windows-deploy') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/provision_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
+                                                -e @provisioner/tests/ci-windows.yml"""
+                                    }
+                                }
+                            }
+                        }
+                        script {
+                            stage('windows-teardown') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
+                                                -e @provisioner/tests/ci-windows.yml"""
                                     }
                                 }
                             }
@@ -252,6 +288,7 @@ EOF
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-networking.yml"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-f5.yml"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-security.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-windows.yml"
                         }
                     }
                 }

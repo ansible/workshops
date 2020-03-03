@@ -1,4 +1,24 @@
 ---
+- name: GRAB ZONE ID
+  route53_zone:
+    zone: "{{workshop_dns_zone}}"
+  register: AWSINFO
+
+- name: print current DNS sets
+  route53_facts:
+    query: record_sets
+    hosted_zone_id: "{{ AWSINFO.zone_id }}"
+    max_items: "50"
+    hosted_zone_method: "count"
+#    type: "A"
+#    start_record_name: "student1.towernode2.tower-cluster.workshop.jung-christian.de."
+  register: records_sets
+  delegate_to: localhost
+
+- name: print record_sets hosted zone
+  debug:
+    var: record_sets
+
 - name: remove DNS record
   become: false
   route53:

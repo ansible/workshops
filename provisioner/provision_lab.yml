@@ -199,7 +199,7 @@
     - import_role:
         name: route53
       vars:
-        record: "{{ ansible_nodename }}.{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        record: "{{username}}.{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: "A"
         value: "{{ ansible_host }}"
       when:

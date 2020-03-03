@@ -1,0 +1,11 @@
+---
+- name: create DNS record
+  become: false
+  route53:
+    state: present
+    zone: "{{workshop_dns_zone}}"
+    record: "{{ record }}"
+    type: "{{ type }}"
+    overwrite: true
+    value: "{{ value }}"
+  delegate_to: localhost

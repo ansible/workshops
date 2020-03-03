@@ -191,23 +191,27 @@
         - dns_type == "aws"
   tags: control_node
 
+- name: CONFIGURE ADVANCED TOWER CLUSTER DNS
+  hosts: tower_nodes
+  become: true
+  gather_facts: false
+  tasks:
+    - import_role:
+        name: route53
+      vars:
+        record: "{{ ansible_nodename }}.{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        type: "A"
+        value: "{{ ansible_host }}"
+      when:
+      - workshop_type == "advanced_tower"
+  tags: tower_master
+
 - name: CONFIGURE ADVANCED TOWER CLUSTER
   hosts: tower_master
   become: true
   gather_facts: false
   roles:
     - role: advanced_tower
-      when:
-      - workshop_type == "advanced_tower"
-  tags: tower_master
-
-- name: CONFIGURE ADVANCED TOWER CLUSTER DNS
-  hosts: tower_master
-  become: true
-  gather_facts: false
-  tasks:
-    - import_role:
-        name: advanced_tower
       when:
       - workshop_type == "advanced_tower"
   tags: tower_master

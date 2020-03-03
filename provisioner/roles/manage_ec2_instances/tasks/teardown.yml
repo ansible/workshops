@@ -71,7 +71,7 @@
       when: debug_teardown
 
     - name: grab vpc node facts for workshop
-      ec2_instance_facts:
+      ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           "vpc-id": "{{ec2_vpc_id}}"
@@ -83,7 +83,7 @@
       when: debug_teardown
 
     - name: grab vpc2 node facts for workshop
-      ec2_instance_facts:
+      ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           "vpc-id": "{{ec2_vpc_id2}}"

@@ -1,0 +1,11 @@
+---
+- name: remove DNS record
+  become: false
+  route53:
+    state: absent
+    zone: "{{workshop_dns_zone}}"
+    record: "{{ record }}"
+    type: "{{ type }}"
+    overwrite: true
+    value: "{{ value }}"
+  delegate_to: localhost

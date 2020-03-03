@@ -1,6 +1,6 @@
 ---
 - name: grab facts for f5 node (F5 MODE)
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -22,7 +22,7 @@
   with_items: "{{ f5_node_facts.instances }}"
 
 - name: grab facts for host1 node (F5 MODE)
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -45,7 +45,7 @@
   with_items: "{{ host1_node_facts.instances }}"
 
 - name: grab facts for host2 node (F5 MODE)
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

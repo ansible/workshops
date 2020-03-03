@@ -1,6 +1,6 @@
 ---
 - name: grab facts for node1 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -8,7 +8,7 @@
   register: node1_node_facts
 
 - name: grab facts for node2 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -16,7 +16,7 @@
   register: node2_node_facts
 
 - name: grab facts for node3 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -24,7 +24,7 @@
   register: node3_node_facts
 
 - name: grab facts for node4 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -49,7 +49,7 @@
   changed_when: false
 
 - name: grab facts for towernode1 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -57,7 +57,7 @@
   register: towernode1_node_facts
 
 - name: grab facts for towernode2 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -65,7 +65,7 @@
   register: towernode2_node_facts
 
 - name: grab facts for towernode3 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -73,7 +73,7 @@
   register: towernode3_node_facts
 
 - name: grab facts for towerdb node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

@@ -1,20 +1,11 @@
 ---
-- name: GRAB ZONE ID
-  route53_zone:
+- name: get value for DNS record
+  route53:
     zone: "{{workshop_dns_zone}}"
-  register: AWSINFO
-
-- name: print current DNS sets
-  route53_facts:
-    query: record_sets
-    hosted_zone_id: "{{ AWSINFO.zone_id }}"
-    max_items: "50"
-  register: records_sets
-  delegate_to: localhost
-
-- name: print record_sets hosted zone
-  debug:
-    var: record_sets
+    record: "{{ record }}"
+    type: "{{ type }}"
+    state: get
+  register: value
 
 - name: remove DNS record
   become: false
@@ -24,5 +15,6 @@
     record: "{{ record }}"
     type: "{{ type }}"
     overwrite: true
-    value: "{{ value }}"
+    value: "{{ value.set.value }}"
+  when: value.set
   delegate_to: localhost

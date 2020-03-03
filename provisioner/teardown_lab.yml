@@ -11,15 +11,31 @@
     s3_state: absent
     state: absent
     debug_teardown: false
+    dns_records: []
 
   tasks:
     - {include_role: {name: manage_ec2_instances}}
     - {include_role: {name: aws_workshop_login_page}, when: create_login_page is defined and create_login_page}
     - {include_role: {name: aws_dns}, when: create_login_page is defined and create_login_page}
     - {include_role: {name: code_server}, when: code_server}
-    - {include_role: {name: route53}}
     # - {include_role: {name: gitlab-server}, when: workshop_type == "windows"}
 
+    - name: create list of DNS records
+      set_fact:
+        dns_records: '[ "student{{ item }}.towernode1" ] + [ "student{{ item }}.towernode2" ] + [ "student{{ item }}.towernode3" ] + {{ dns_records }}'
+      loop:
+        '{{ range (1, student_total | int + 1) | list }}'
+
+    - name: delete DNS records for tower cluster
+      include_role:
+        name: route53
+        tasks_from: remove.yml
+      vars:
+        record: "{{ item }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        type: "A"
+      loop:
+        "{{ dns_records }}"
+      when: workshop_type == "advanced_tower"
 
     - name: Remove workshop local files
       file:

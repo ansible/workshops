@@ -18,7 +18,7 @@ Also, in the Check Point SmartConsole interface, go to **SECURITY POLICIES**. Yo
 >
 > We could have done this change via a playbook. But we want to keep the amount of playbooks in the prep phase to as few as possible.
 
-Next we again need suspicious traffic - an attack. Again we have a playbook which simulates a simple access every five seconds on which the other components in this exercise will later on react to. On your control host, create the playbook `ddos_attack_simulation.yml` with the following content:
+Next we again need suspicious traffic - an attack. Again we have a playbook which simulates a simple access every five seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `ddos_attack_simulation.yml` in your home directory with the following content:
 
 <!-- {% raw %} -->
 ```yml
@@ -30,7 +30,7 @@ Next we again need suspicious traffic - an attack. Again we have a playbook whic
 
   tasks:
     - name: simulate attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -s http://{{ hostvars['snort']['private_ip2'] }}/ddos_simulation"
+      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/ddos_simulation"
 ```
 <!-- {% endraw %} -->
 
@@ -68,7 +68,7 @@ But, as shown with the last exercise, we can automate this process with Ansible!
 
 Let's write a playbook to enable log forwarding from Check Point to QRadar and create a log source in QRadar. We can partially re-use the main playbook from the last exercise where we already connected Check Point with QRadar.
 
-On your control host, create the file `threat_cp_log.yml` with the following content:
+In your VS Code online editor, create the file `threat_cp_log.yml` with the following content:
 
 <!-- {% raw %} -->
 ```yaml
@@ -120,7 +120,7 @@ In Check Point SmartConsole you might even see a little window pop up in the bot
 
 ## Step 2.5 - Verify new configuration
 
-Let's quickly verify the new configuration, like we did in the last exercise. We start with Check Point: In Check Point the easiest way to verify that the log source is set is indeed via command line. From your control host `ansible`, use SSH as the user `admin` to log into the Check Point management server and issue the following `ls` comand. If you do not remember your Check Point server IP address, check it out with `grep checkpoint ~/lab_inventory/hosts`
+Let's quickly verify the new configuration, like we did in the last exercise. We start with Check Point: In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH as the user `admin` to log into the Check Point management server and issue the following `ls` comand. If you do not remember your Check Point server IP address, check it out in your inventory file.
 
 ```bash
 [student<X>@ansible ~]$ ssh admin@11.33.44.55
@@ -161,7 +161,7 @@ In a typical situation, accessing IDS logs would again require another interacti
 
 First, we run a playbook to configure Snort with a new signature. The signature here is specific to our attack - in real life you might identify the signature by your extended analysis, or in best case together with the team responsible for the application in question.
 
-On your control host, create the file `threat_snort_rule.yml` to add a new rule to Snort:
+In your VS Code online editor, create the file `threat_snort_rule.yml` to add a new rule to Snort:
 
 <!-- {% raw %} -->
 ```yaml
@@ -197,7 +197,7 @@ Run the playbook:
 [student<X>@ansible ~]$ ansible-playbook threat_snort_rule.yml
 ```
 
-Quickly verify the new rule on the Snort instance. From your control host log in to Snort via SSH with the user `ec2user`:
+Quickly verify the new rule on the Snort instance. From the terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2user`:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
@@ -285,7 +285,7 @@ Execute the playbook `rollback.yml` we wrote in the last exercise to roll all ch
 [student<X>@ansible ~]$ ansible-playbook rollback.yml
 ```
 
-Also we need to kill the process sending out attack. On your control host, execute the follwing Ansible ad-hoc command:
+Also we need to kill the process sending out attack. From the terminal of your VS Code online editor, execute the follwing Ansible ad-hoc command:
 
 <!-- {% raw %} -->
 ```bash

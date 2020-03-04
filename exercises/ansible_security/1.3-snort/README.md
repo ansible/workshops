@@ -7,10 +7,9 @@ In this lab, Snort is installed on a Red Hat Enterprise Linux machine and Ansibl
 
 ## Step 3.2 - Accessing the Snort server
 
-In order to connect to the Snort installation, we need to to find the IP address of the machine it is installed on. First, make sure you are connected to your control host `ansible`. You can then get the IP address of the Snort machine by looking up the information on the inventory file `~/lab_inventory/hosts`. This can be done in a single command:
+In order to connect to the Snort installation, we need to to find the IP address of the machine it is installed on. You can then get the IP address of the Snort machine by looking up the information on the inventory file `~/lab_inventory/hosts`. In your VS Code online editor, in the menu bar click on **File** > **Open File...** and open the file `/home/student<X>/lab_inventory/hosts`. Search and find the entry for snort which looks like this:
 
 ```bash
-[student<X>@ansible ~]$ grep snort ~/lab_inventory/hosts
 snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 ```
 
@@ -18,7 +17,7 @@ snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 >
 > The IP addresses here are for demo purposes and will be different in your case. You have your own dedicated Snort setup in your individual lab environment.
 
-Once you find the IP address, it's time to access the Snort server. The connection uses a SSH key pre-installed on the control host, the user for the Snort server is `ec2-user`. From your control host, access the snort server via:
+Once you find the IP address, it's time to access the Snort server. The connection uses a SSH key pre-installed on the control host, the user for the Snort server is `ec2-user`. In your VS Code online editor, open a terminal and access the snort server via:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@22.333.44.5
@@ -111,7 +110,7 @@ If you take a closer look at the role you'll see that it comes with a re-usable 
 
 Let's have a look at how this playbook can be re-written to use the roles directly. To do this, we first need to download and install the role on our control host. There are different ways to do this but a very convenient way is the command line tool `ansible-galaxy`. This tool installs roles directly from the archives, Git URLs and from [Ansible Galaxy](https://galaxy.ansible.com). Ansible Galaxy is a community hub for finding and sharing Ansible content. It provides features like rating, quality testing, proper searching and so on. For example, the role mentioned above can be found in Ansible Galaxy at [ansible_security/ids_rule](https://galaxy.ansible.com/ansible_security/ids_rule).
 
-On your control host, you can use the `ansible-galaxy` tool to download and install ids_rule role with a single command:
+On the command line, you can use the `ansible-galaxy` tool to download and install the `ids_rule` role with a single command. Execute the following command in a terminal of your VS Code online editor:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule
@@ -123,7 +122,7 @@ On your control host, you can use the `ansible-galaxy` tool to download and inst
 
 As you see the role is installed to the roles default path, `~/.ansible/roles/`.It was prefixed by `ansible_security`, this is the name of the project used for security roles, such as what we are using in this lab.
 
-Now that we have the role installed on our control host, we can use it in a playbook. In order to use the role, open your editor to create a new file, `add_snort_rule.yml`. Add the name `Add Snort rule` and target hosts, here `snort`. Since we need root rights to make any changes on Snort, add the `become` flag so that Ansible would take care of privilege escalation.
+Now that we have the role installed on our control host, we can use it in a playbook. In order to use the role, create a new file called `add_snort_rule.yml` in your VS Code online editor. Save it in the home directory of your user, and add the name `Add Snort rule` and target hosts, here `snort`. Since we need root rights to make any changes on Snort, add the `become` flag so that Ansible would take care of privilege escalation.
 
 ```yaml
 ---
@@ -232,7 +231,7 @@ To use this role, as we did previously, we install it using `ansible-galaxy`:
 - ansible_security.ids_rule_facts (master) was installed successfully
 ```
 
-Once the role is installed, we create a playbook, `verify_attack_rule.yml` to use it. Set the name of the playbook to something like "Verify Snort rule". The values for hosts, the IDS provider variable and the `become` flag can be set the same as our previous playbook.
+In our VS Code online editor, we create a playbook, `verify_attack_rule.yml` to use it. Set the name of the playbook to something like "Verify Snort rule". The values for hosts, the IDS provider variable and the `become` flag can be set the same as our previous playbook.
 
 ```yaml
 ---

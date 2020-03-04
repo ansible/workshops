@@ -119,14 +119,14 @@ number in SCM URL**)
 | Description    | Workshop playbooks                                                      |                                                   |
 | Organization   | Default                                                                 |                                                   |
 | SCM Type       | Git                                                                     |                                                   |
-| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.get | **Replace the workshop name and student# in URL** |
+| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **Replace the workshop name and student# in URL** |
 | SCM BRANCH     |                                                                         | Intentionally blank                               |
 | SCM CREDENTIAL | Git Credential                                                          |                                                   |
 SCM UPDATE OPTIONS
 
 - [ ] Clean
 - [ ] Delete on Update
-- [*] Update Revision on Launch
+- [x] Update Revision on Launch
 
 
 ![Defining a Project](images/1-tower-create-project.png)

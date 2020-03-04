@@ -36,15 +36,15 @@ Step 2:
 
 Within *iis\_simple* create new folders as follows:
 
--   defaults
+- defaults
 
--   vars
+- vars
 
--   handlers
+- handlers
 
--   tasks
+- tasks
 
--   templates
+- templates
 
 Step 3:
 -------
@@ -82,12 +82,14 @@ Step 2:
 Update site.yml to look like to only call your role. It should look like
 below:
 
+```yaml
     ---
     - hosts: windows
       name: This is my role-based playbook
 
       roles:
         - iis_simple
+```
 
 ![New site.yml](images/6-new-site.png)
 
@@ -97,6 +99,7 @@ Step 3:
 Add a default variable to your role. Edit the
 `roles\iis_simple\defaults\main.yml` as follows:
 
+```yaml
     ---
     # defaults file for iis_simple
     iis_sites:
@@ -106,6 +109,7 @@ Add a default variable to your role. Edit the
       - name: 'Ansible Playbook Test 2'
         port: '8081'
         path: 'C:\sites\playbooktest2'
+```
 
 Step 4:
 -------
@@ -113,29 +117,31 @@ Step 4:
 Add some role-specific variables to your role in
 `roles\iis_simple\vars\main.yml`.
 
+```yaml
     ---
     # vars file for iis_simple
     iis_test_message: "Hello World!  My test IIS Server"
+```
 
 > **Note**
 >
-> **Hey, wait… did we just put variables in two seperate places?**  
+> **Hey, wait… did we just put variables in two seperate places?**
 >
 > Yes… yes we did. Variables can live in quite a few places. Just to
-> name a few:  
+> name a few:
 >
-> -   vars directory
+> - vars directory
 >
-> -   defaults directory
+> - defaults directory
 >
-> -   group\_vars directory
+> - group\_vars directory
 >
-> -   In the playbook under the `vars:` section
+> - In the playbook under the `vars:` section
 >
-> -   In any file which can be specified on the command line using the
+> - In any file which can be specified on the command line using the
 >     `--extra_vars` option
 >
-> -   On a boat, in a moat, with a goat *(disclaimer: this is a complete
+> - On a boat, in a moat, with a goat *(disclaimer: this is a complete
 >     lie)*
 >
 > Bottom line, you need to read up on [variable
@@ -151,6 +157,7 @@ Step 5:
 
 Create your role handler in `roles\iis_simple\handlers\main.yml`.
 
+```yaml
     ---
     # handlers file for iis_simple
     - name: restart iis service
@@ -158,12 +165,15 @@ Create your role handler in `roles\iis_simple\handlers\main.yml`.
         name: W3Svc
         state: restarted
         start_mode: auto
+```
 
 Step 6:
 -------
 
 Add tasks to your role in `roles\iis_simple\tasks\main.yml`.
 
+<!-- {% raw %} -->
+```yaml
     ---
     # tasks file for iis_simple
 
@@ -210,6 +220,8 @@ Add tasks to your role in `roles\iis_simple\tasks\main.yml`.
       loop:
         - http://{{ ansible_host }}:8080
         - http://{{ ansible_host }}:8081
+```
+<!-- {% endraw %} -->
 
 Step 7:
 -------
@@ -219,6 +231,8 @@ Add your index.html template.
 Right-click `roles\iis_simple\templates` and create a new file called
 `index.html.j2` with the following content:
 
+<!-- {% raw %} -->
+```html
     <html>
     <body>
 
@@ -227,6 +241,8 @@ Right-click `roles\iis_simple\templates` and create a new file called
 
     </body>
     </html>
+```
+<!-- {% endraw %} -->
 
 Now, remember we still have a *templates* folder at the base level of
 this playbook, so we will delete that now. Right click it and Select

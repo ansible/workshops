@@ -97,6 +97,10 @@
     tower_password: "{{ admin_password }}"
     tower_username: "{{ username }}"
     tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
+  register: adhoc_commands
+  until: adhoc_commands is success
+  delay: 3
+  retries: 60
 
 - name: Disable GIT Cert validation
   lineinfile:

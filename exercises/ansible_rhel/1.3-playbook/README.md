@@ -214,7 +214,13 @@ Check that the tasks were executed correctly and Apache is accepting connections
 
 There are a lot of red lines and an error: As long as there is not at least an `index.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `index.html` file? Create the file `~/ansible-files/index.html` on the control node:
+So why not use Ansible to deploy a simple `index.html` file? On the ansible control host, as the `student<X>` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+
+```bash
+[student<X>@ansible ansible-files]$ mkdir files
+```
+
+Then create the file `~/ansible-files/files/index.html` on the control node:
 
 ```html
 <body>
@@ -243,7 +249,7 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
       state: started
   - name: copy index.html
     copy:
-      src: ~/ansible-files/index.html
+      src: index.html
       dest: /var/www/html/
 ```
 
@@ -298,7 +304,7 @@ Change the Playbook to point to the group "web":
       state: started
   - name: copy index.html
     copy:
-      src: ~/ansible-files/index.html
+      src: index.html
       dest: /var/www/html/
 ```
 

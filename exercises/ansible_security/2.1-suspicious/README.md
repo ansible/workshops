@@ -14,7 +14,7 @@ Also we need the QRadar collection. This was installed already in the previous Q
 
 Addtionally we will use the role to modify IDS rules from the previous Snort exercise. If you missed that, install them via: `ansible-galaxy install ansible_security.ids_rule`
 
-Next, since this is a security lab, we do need suspicious traffic - an attack. We have a playbook which simulates a simple access every five seconds on which the other components in this exercise will later on react to. On your control host, create the playbook `web_attack_simulation.yml` with the following content:
+Next, since this is a security lab, we do need suspicious traffic - an attack. We have a playbook which simulates a simple access every five seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `web_attack_simulation.yml` in the user home directory with the following content:
 
 <!-- {% raw %} -->
 ```yml
@@ -26,7 +26,7 @@ Next, since this is a security lab, we do need suspicious traffic - an attack. W
 
   tasks:
     - name: simulate attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -s http://{{ hostvars['snort']['private_ip2'] }}/web_attack_simulation"
+      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/web_attack_simulation"
 ```
 <!-- {% endraw %} -->
 
@@ -44,12 +44,12 @@ The stage is set now. Read on to learn what this use case is about.
 
 ## Step 1.3 - See the anomaly
 
-Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. On your control host, ssh to the snort machine. Remember that you can get the IP of the Snort server by executing this command on the control host: `grep snort ~/lab_inventory/hosts` . As the login user for the Snort server, you need to use `ec2-uesr`!
+Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. From within a terminal in your VS Code online editor, ssh to the snort machine. Remember that you can look up the IP of the Snort server from the inventory file at `/home/student<X>/lab_inventory/hosts`.
 
-On the Snort server, grep for the anomaly log entry:
+Open a new terminal in your VS Code online editor to connect to the Snort server via SSH. Note: As the login user for the Snort server, you need to use `ec2-user`! After login, grep for the anomaly log entry:
 
 ```bash
-[student1@ansible ~]$ ssh ec2-user@11.22.33.44
+[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
 Last login: Sun Sep 22 15:38:36 2019 from 35.175.178.231
 [ec2-user@ip-172-16-115-120 ~]$ sudo grep web_attack /var/log/httpd/access_log
 172.17.78.163 - - [22/Sep/2019:15:56:49 +0000] "GET /web_attack_simulation HTTP/1.1" 200 22 "-" "curl/7.29.0"
@@ -84,7 +84,7 @@ This means that the "host" section will appear multiple times in one playbook, a
 
 Let's start with the Snort configuration. We need Snort's log server to send the logs to the QRadar server. This can be configured with an already existing role, [ids_config](https://github.com/ansible-security/ids_config), so all we have to do is to import the role and use it with the right parameters.
 
-On your control host, use the `ansible-galaxy` tool to download and install the above mentioned role with a single command:
+In a terminal of your VS Code online editor, use the `ansible-galaxy` tool to download and install the above mentioned role with a single command:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_config
@@ -94,7 +94,7 @@ On your control host, use the `ansible-galaxy` tool to download and install the 
 - ansible_security.ids_config (master) was installed successfully
 ```
 
-So let's create our playbook where we use the role. On your control host, create the file `triage_log_sources.yml` with the following content:
+So let's create our playbook where we use the role. In your VS Code online editor, create the file `triage_log_sources.yml` with the following content:
 
 <!-- {% raw %} -->
 ```yaml
@@ -169,16 +169,15 @@ Now add again the existing playbook `triage_log_sources.yml` where we already br
 ```
 <!-- {% endraw %} -->
 
-Note that in this snippet you have to replace `YOURSERVERNAME` with the actual server name from your Check Point management instance, like `gw-77f3f6`. There are multiple ways to get this name: one is to simply connect ot the Check Point IP from your control host via SSH as the user admin: it shows the name in the prompt.
+Note that in this snippet you have to replace `YOURSERVERNAME` with the actual server name from your Check Point management instance, like `gw-77f3f6`. You can find the name of your individual Check Point instance by logging into your SmartConsole. It is shown in the **GATEWAYS & SERVERS** tab in the lower part of the screen underneath **Summary**:
 
-```bash
-[student<X>@ansible ~]$ ssh admin@11.33.44.55
-[Expert@gw-77f3f6:0]#
-```
+![Check Point Gateway Name](images/check_point_gw_name.png)
 
-Another way to find the correct name of the management instance is to connect to the Check Point management IP directly via https in your web browser. That way, the operating system management web interface is shown, with the machine name in the top right corner:
+Replace the string `YOURSERVERNAME` in the playbook with your indididual name.
 
-![Check Point Gaia web interface](images/check_point_gaia_view.png)
+> **Note**
+>
+> This could also be done automatically with two API calls, but it would complicate the playbook listing here.
 
 Now we have to tell QRadar that there is another log source, this time Check Point. Add the following play to the playbook `triage_log_sources.yml`:
 
@@ -309,7 +308,7 @@ Let's verify that QRadar also properly shows the log source. In the QRadar UI, c
 
 ![QRadar Log Sources](images/qradar_log_sources.png)
 
-In Check Point the easiest way to verify that the log source is set is indeed via command line. From your control host `ansible`, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` comand:
+In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` comand:
 
 ```bash
 [student<X>@ansible ~]$ ssh admin@11.33.44.55
@@ -320,7 +319,7 @@ drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
 
 As you can see the central log server was configured via Check Point's internal log exporter tool. Leave the Check Point server and go back to your control host.
 
-Let's also verify that the Snort configuration in the background was successful. From your control host, log onto your Snort instance via SSH as the user `ec2-user`. Become root and verify the rsyslog forwarding configuration:
+Let's also verify that the Snort configuration in the background was successful. From the terminal of your VS Code online editor, log onto your Snort instance via SSH as the user `ec2-user`. Become root and verify the rsyslog forwarding configuration:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@22.33.44.55
@@ -349,7 +348,7 @@ To decide if this anomaly is a false positive, as a security analyst you need to
 
 In a typical situation, implementing a new rule would require another interaction with the security operators in charge of Snort. But luckily we can again use an Ansible Playbook to achieve the same goal in seconds rather than hours or days.
 
-In the previous Snort exercise we already added a Snort rule with a signature to get more information, so we can reuse the playbook and only change the rule data. Create a file called `triage_snort_rule.yml` with the following content:
+In the previous Snort exercise we already added a Snort rule with a signature to get more information, so we can reuse the playbook and only change the rule data. In your VS Code online editor, create a file called `triage_snort_rule.yml` in your users' home directory with the following content:
 
 <!-- {% raw %} -->
 ```yaml
@@ -385,7 +384,7 @@ Now execute the playbook:
 [student<X>@ansible ~]$ ansible-playbook triage_snort_rule.yml
 ```
 
-Let's quickly verify that the new rule was indeed added. From your Ansible control host ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
+Let's quickly verify that the new rule was indeed added. From the terminal of your VS Code online editor, ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
@@ -410,7 +409,7 @@ In the Offense view, click on the Offense, then in the menu on top on **Actions*
 
 In the final step, we will rollback all the configuraiton changes to their pre-investigation state, reducing resource consumption and the analysis workload for us and our fellow security analysts. Also we need to stop the attack simulation.
 
-We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`. The major differnces are that for QRadar we set the state of the log sources to `absent`, for Snort we set `ids_config_remote_log` to `false`, and for Check Point we initiate the tasks for `unforward_logs_to_syslog`.
+We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`. The major differences are that for QRadar we set the state of the log sources to `absent`, for Snort we set `ids_config_remote_log` to `false`, and for Check Point we initiate the tasks for `unforward_logs_to_syslog`.
 
 The playbook `rollback.yml` should have this content:
 
@@ -492,7 +491,7 @@ Run the playbook to remove the log sources:
 [student<X>@ansible ~]$ ansible-playbook rollback.yml
 ```
 
-Also, we need to kill the process which simulates the attack. For this we will use a so called Ansible ad-hoc command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. On your control host, run the following command:
+Also, we need to kill the process which simulates the attack. For this we will use a so called Ansible ad-hoc command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. In a terminal of your VS Code online editor, run the following command:
 
 <!-- {% raw %} -->
 ```bash

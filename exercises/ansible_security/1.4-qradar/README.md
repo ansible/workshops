@@ -65,7 +65,7 @@ Collections follow a simple directory structure to provide Ansible content. If y
 
 As roles, collections also need to be installed first before they can be used. They are installed on the machine executing Ansible,  in the case of the lab this is the control host.
 
-Let's install the collection for QRadar modules on your control host. Use SSH to access your control host `ansible` with the IP provided by your instructor and execute the command `ansible-galaxy collection --help` to verify that the collections function is working properly:
+Let's install the collection for QRadar modules on your control host. In your VS Code online editor open a new terminal. Execute the command `ansible-galaxy collection --help` to verify that the collections function is working properly:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy collection --help
@@ -117,7 +117,7 @@ With the collection in place, we can now start to write our playbook.
 
 In our first example to interface with QRadar we are going to enable/disable a rule. It is a rather small but common change and shows how Ansible and QRadar interact. We will do this in two steps: first we find the rule we want to change, afterwards we apply the change.
 
-On your control host, open an editor to create a new file, `find_qradar_rule.yml`. Add the name and target hosts, here `qradar`.
+In your VS Code online editor, create a new file, `find_qradar_rule.yml` in the home directory of your user. Add the name and target hosts, here `qradar`.
 
 ```yaml
 ---
@@ -243,7 +243,7 @@ How do we get the key when it is in this structure? First, it is in the segment 
 
 So, let's write a new playbook where we provide this as a value to the module which can disable the rule, `qradar_rule`.
 
-On your control host, open an editor to create a new file, `change_qradar_rule.yml`. Add the name and target hosts, here `qradar`.
+In your VS Code online editor, create a new file, `change_qradar_rule.yml` in the home directory `/home/student<X>/`. Add the name and target hosts, here `qradar`.
 
 <!-- {% raw %} -->
 ```yaml

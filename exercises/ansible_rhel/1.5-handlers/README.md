@@ -221,7 +221,7 @@ Check the output:
 
   - Again the task is listed once, but three changes are listed. Each loop with its content is shown.
 
-Verify that the user `prod_user` was indeed created on `node1`:
+Verify that the user `dev_user` was indeed created on `node1`:
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"

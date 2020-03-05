@@ -130,10 +130,29 @@
         var: result_ec2_destroy2
       when: debug_teardown
 
-    - name: Cleanup subnet1 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+    - name: Cleanup subnets for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
       block:
+        - name: Get left ENI
+          ec2_eni_info:
+            region: "{{ ec2_region }}"
+            filters:
+              "vpc-id": '{{ ec2_vpc_id }}'
+          register: dangling_eni_info
+
+        - name: debug dangling_eni_info
+          debug:
+            var: dangling_eni_info
+          when: debug_teardown
+
+        - name: Delete dangling ENIs from for {{ ec2_name_prefix }}-vpc
+          ec2_eni:
+            region: "{{ ec2_region }}"
+            eni_id: "{{item['id']}}"
+            state: absent
+          loop: "{{dangling_eni_info['network_interfaces']}}"
+
         - name: Get subnet1 eni_info
-          ec2_eni_facts:
+          ec2_eni_info:
             region: "{{ ec2_region }}"
             filters:
               "tag:Subnet": '{{ ec2_name_prefix }}-subnet1'
@@ -144,18 +163,16 @@
             var: subnet1_eni_info
           when: debug_teardown
 
-        - name: Delete dangling ENIs from subnet1 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
-          ec2_eni:
+        - name: Delete subnet1 for {{ ec2_name_prefix }}-vpc
+          ec2_vpc_subnet:
             region: "{{ ec2_region }}"
-            eni_id: "{{item['id']}}"
+            az: "{{ec2_az}}"
+            vpc_id: "{{ec2_vpc_id}}"
+            cidr: "{{ec2_subnet}}"
             state: absent
-          loop: "{{subnet1_eni_info['network_interfaces']}}"
-      when: workshop_type == 'security'
 
-    - name: Cleanup subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
-      block:
         - name: Get subnet2 eni_info
-          ec2_eni_facts:
+          ec2_eni_info:
             region: "{{ ec2_region }}"
             filters:
               "tag:Subnet": '{{ ec2_name_prefix }}-subnet2'
@@ -166,14 +183,7 @@
             var: subnet2_eni_info
           when: debug_teardown
 
-        - name: Delete dangling ENIs from subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
-          ec2_eni:
-            region: "{{ ec2_region }}"
-            eni_id: "{{item['id']}}"
-            state: absent
-          loop: "{{subnet2_eni_info['network_interfaces']}}"
-
-        - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
+        - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc
           ec2_vpc_subnet:
             region: "{{ ec2_region }}"
             az: "{{ec2_az}}"

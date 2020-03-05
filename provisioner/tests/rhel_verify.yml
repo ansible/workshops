@@ -1,0 +1,25 @@
+---
+- name: Check each student environment
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Control host
+      block:
+        - name: Check if ansible is installed
+          package_facts:
+
+        - name: Fail if ansible is not of a recent enough version
+          fail:
+            msg: "Ansible is not of a recent enough version on {{ inventory_hostname }}."
+          when: ((ansible_facts.packages['ansible'][0]['version'] is not defined) or (ansible_facts.packages['ansible'][0]['version']|string) is version("2.9.0",'<'))
+
+        - name: Test access by exporting assets
+          tower_receive:
+            inventory:
+              - all
+            tower_host: "{{ inventory_hostname|regex_replace('-ansible', '') }}.{{ workshop_name }}.rhdemo.io"
+            tower_username: admin
+            tower_password: "{{ tower_password }}"
+
+      when: '"ansible" in inventory_hostname'

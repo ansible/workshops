@@ -22,9 +22,9 @@ Variables and their values can be defined in various places: the inventory, addi
 
 The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
 
-  - To define variables for a group "servers", a YAML file named `group_vars/servers` with the variable definitions is created.
+  - To define variables for a group "servers", a YAML file named `group_vars/servers.yml` with the variable definitions is created.
 
-  - To define variables specifically for a host `node1`, the file `host_vars/node1` with the variable definitions is created.
+  - To define variables specifically for a host `node1`, the file `host_vars/node1.yml` with the variable definitions is created.
 
 > **Tip**
 >
@@ -42,14 +42,14 @@ On the ansible control host, as the `student<X>` user, create the directories to
 
 Now create two files containing variable definitions. We’ll define a variable named `stage` which will point to different environments, `dev` or `prod`:
 
-  - Create the file `~/ansible-files/group_vars/web` with this content:
+  - Create the file `~/ansible-files/group_vars/web.yml` with this content:
 
 ```yaml
 ---
 stage: dev
 ```
 
-  - Create the file `~/ansible-files/host_vars/node2` with this content:
+  - Create the file `~/ansible-files/host_vars/node2.yml` with this content:
 
 ```yaml
 ---

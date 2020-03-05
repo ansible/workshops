@@ -26,7 +26,7 @@ you previously made iis\_basic.
 
 ![Student Playbooks](images/7-vscode-existing-folders.png)
 
-Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button. Type `win_updates` and hit enter. 
+Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button. Type `win_updates` and hit enter.
 
 Now richt-click the `win_updates` folder and click the *New File* button. Type `site.yml` and hit enter.
 
@@ -44,6 +44,8 @@ Updates. Typically you would have even more tasks to accomplish the
 entire update process. This might entail creating service tickets,
 creating snapshots, or disabling monitoring.
 
+<!-- {% raw %} -->
+```yaml
     ---
     - hosts: windows
       name: This is my Windows patching playbook
@@ -52,6 +54,8 @@ creating snapshots, or disabling monitoring.
           win_updates:
             category_names: "{{ categories | default(omit) }}"
             reboot: '{{ reboot_server | default(yes) }}'
+```
+<!-- {% endraw %} -->
 
 > **Note**
 >

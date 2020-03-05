@@ -77,7 +77,7 @@ Now you need the URL to access the repo. Go to the Github repository mentioned a
 
 - **SCM URL:** `https://github.com/ansible/workshop-examples.git`
 
-- **SCM UPDATE OPTIONS:** Tick all three boxes to always get a fresh copy of the repository and to update the repository when launching a job.
+- **SCM UPDATE OPTIONS:** Tick the first three boxes to always get a fresh copy of the repository and to update the repository when launching a job.
 
 - Click **SAVE**
 

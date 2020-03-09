@@ -3,6 +3,7 @@ users.yml
 extra_vars.yml
 *.txt
 !test-requirements.txt
+!bindep.txt
 *.vagrant
 TODO
 TODO.md
@@ -29,3 +30,4 @@ Gemfile.lock
 Gemfile
 _site/*
 .tox/
+provisioner/tests/ci-common.yml

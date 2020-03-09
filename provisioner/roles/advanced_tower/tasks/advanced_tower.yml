@@ -14,6 +14,10 @@
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
 
+- name: debugger test
+  command: /bin/false
+  debugger: on_error
+
 - name: template inventory file for Ansible Tower Install
   template:
     src: advanced_tower_install.j2

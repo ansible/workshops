@@ -1,4 +1,4 @@
-# Exercise 2.1 - Detection and triage of suspicious activities
+# Exercise 2.1 - Investigation Enrichment
 
 ## Step 1.1 - The Background
 
@@ -94,7 +94,7 @@ In a terminal of your VS Code online editor, use the `ansible-galaxy` tool to do
 - ansible_security.ids_config (master) was installed successfully
 ```
 
-So let's create our playbook where we use the role. In your VS Code online editor, create the file `triage_log_sources.yml` with the following content:
+So let's create our playbook where we use the role. In your VS Code online editor, create the file `enrich_log_sources.yml` with the following content:
 
 <!-- {% raw %} -->
 ```yaml
@@ -119,7 +119,7 @@ So let's create our playbook where we use the role. In your VS Code online edito
 
 As you see, just like with the last time we configured Snort rules, we are re-using the role and let it do the work. We only change the behaviour of the role via the parameters: we provide the QRadar IP via variable, set the IDS provider to `snort` and define the protocol in which packages are sent as `UDP` 
 
-Now we have to tell QRadar that there is this new Snort log source. Add the following play to the playbook `triage_log_sources.yml`:
+Now we have to tell QRadar that there is this new Snort log source. Add the following play to the playbook `enrich_log_sources.yml`:
 
 <!-- {% raw %} -->
 ```yaml
@@ -151,7 +151,7 @@ Now we have to do the same for Check Point: we need to configure Check Point tha
 - ansible_security.log_manager (master) was installed successfully
 ```
 
-Now add again the existing playbook `triage_log_sources.yml` where we already broought together Snort and QRadar, and add another section for Check Point:
+Now add again the existing playbook `enrich_log_sources.yml` where we already broought together Snort and QRadar, and add another section for Check Point:
 
 <!-- {% raw %} -->
 ```yaml
@@ -179,7 +179,7 @@ Replace the string `YOURSERVERNAME` in the playbook with your indididual name.
 >
 > This could also be done automatically with two API calls, but it would complicate the playbook listing here.
 
-Now we have to tell QRadar that there is another log source, this time Check Point. Add the following play to the playbook `triage_log_sources.yml`:
+Now we have to tell QRadar that there is another log source, this time Check Point. Add the following play to the playbook `enrich_log_sources.yml`:
 
 <!-- {% raw %} -->
 ```yaml
@@ -206,7 +206,7 @@ Now we have to tell QRadar that there is another log source, this time Check Poi
 
 Note that compared to the last QRadar play, this time an additional task is added: `deploy the new log source`. This is due to the fact that QRadar changes are spooled, and only applied upon an extra request. We ignore errors because they might happen due to timeouts in the REST API which do not inflict the actual function of the API call.
 
-If you bring all these pieces together, the full playbook `triage_log_sources.yml` is:
+If you bring all these pieces together, the full playbook `enrich_log_sources.yml` is:
 
 <!-- {% raw %} -->
 ```yaml
@@ -283,7 +283,7 @@ If you bring all these pieces together, the full playbook `triage_log_sources.ym
 Run the full playbook to add both log sources to QRadar:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook triage_log_sources.yml
+[student<X>@ansible ~]$ ansible-playbook enrich_log_sources.yml
 ```
 
 In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
@@ -348,7 +348,7 @@ To decide if this anomaly is a false positive, as a security analyst you need to
 
 In a typical situation, implementing a new rule would require another interaction with the security operators in charge of Snort. But luckily we can again use an Ansible Playbook to achieve the same goal in seconds rather than hours or days.
 
-In the previous Snort exercise we already added a Snort rule with a signature to get more information, so we can reuse the playbook and only change the rule data. In your VS Code online editor, create a file called `triage_snort_rule.yml` in your users' home directory with the following content:
+In the previous Snort exercise we already added a Snort rule with a signature to get more information, so we can reuse the playbook and only change the rule data. In your VS Code online editor, create a file called `enrich_snort_rule.yml` in your users' home directory with the following content:
 
 <!-- {% raw %} -->
 ```yaml
@@ -381,7 +381,7 @@ In this play we provide some variables for Snort stating that we want to control
 Now execute the playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook triage_snort_rule.yml
+[student<X>@ansible ~]$ ansible-playbook enrich_snort_rule.yml
 ```
 
 Let's quickly verify that the new rule was indeed added. From the terminal of your VS Code online editor, ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
@@ -409,7 +409,7 @@ In the Offense view, click on the Offense, then in the menu on top on **Actions*
 
 In the final step, we will rollback all the configuraiton changes to their pre-investigation state, reducing resource consumption and the analysis workload for us and our fellow security analysts. Also we need to stop the attack simulation.
 
-We create a new playbook, `rollback.yml`, based on the `triage_log_sources.yml`. The major differences are that for QRadar we set the state of the log sources to `absent`, for Snort we set `ids_config_remote_log` to `false`, and for Check Point we initiate the tasks for `unforward_logs_to_syslog`.
+We create a new playbook, `rollback.yml`, based on the `enrich_log_sources.yml`. The major differences are that for QRadar we set the state of the log sources to `absent`, for Snort we set `ids_config_remote_log` to `false`, and for Check Point we initiate the tasks for `unforward_logs_to_syslog`.
 
 The playbook `rollback.yml` should have this content:
 

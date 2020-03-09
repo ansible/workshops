@@ -10,7 +10,13 @@ When a template for a file has been created, it can be deployed to the managed h
 
 As an example of using templates you will change the motd file to contain host-specific data.
 
-First in the `~/ansible-files/` directory create the template file `motd-facts.j2`:
+First create the directory `templates` to hold template resources in `~/ansible-files/`:
+
+```bash
+[student<X>@ansible ansible-files]$ mkdir templates
+```
+
+Then in the `~/ansible-files/templates/` directory create the template file `motd-facts.j2`:
 
 <!-- {% raw %} -->
 ```html+jinja

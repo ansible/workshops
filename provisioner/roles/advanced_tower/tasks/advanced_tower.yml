@@ -19,10 +19,6 @@
     src: advanced_tower_install.j2
     dest: /tmp/tower_install/inventory
 
-- name: debugger breakpoint
-  command: /bin/false
-  debugger: on_error
-
 - name: run the Ansible Tower installer
   shell: ./setup.sh
   args:

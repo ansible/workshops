@@ -17,18 +17,16 @@ Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポ
 
 ワークショップ完了までの時間は、様々ですが、おおよそ以下を想定しています。  
 
+・座学：1時間
+・演習：4～5時間
 
-Having said that, the exercises themselves should take roughly 4-5 hours. The accompanying presentation itself adds another hour.
+## 演習内容
 
-If your experience is different in schedulung these workshops, please let us know and file an issue.
-
-## Exercises
-
-- [Exercise 1 - Intro and configuration of Ansible Tower](1-tower)
-- [Exercise 2 - Ad-hoc commands](2-adhoc)
-- [Exercise 3 - Intro to playbooks](3-playbook)
-- [Exercise 4 - Ansible Tower projects](4-projects)
-- [Exercise 5 - Advanced playbooks](5-adv-playbook)
-- [Exercise 6 - Ansible roles](6-roles)
-- [Exercise 7 - Patching Windows](7-win-patch) (optional)
+- [演習 1 - Ansible Towerの概要と構成](1-tower)
+- [演習 2 - アドホックコマンド](2-adhoc)
+- [演習 3 - playbook 概要](3-playbook)
+- [演習 4 - Ansible Tower プロジェクト](4-projects)
+- [演習 5 - 高度な playbook](5-adv-playbook)
+- [演習 6 - Ansible roles](6-roles)
+- [演習 7 - Windows パッチ管理](7-win-patch) (optional)
 

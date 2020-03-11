@@ -28,5 +28,5 @@ Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポ
 - [演習 4 - Ansible Tower プロジェクト](4-projects)
 - [演習 5 - 高度な playbook](5-adv-playbook)
 - [演習 6 - Ansible roles](6-roles)
-- [演習 7 - Windows パッチ管理](7-win-patch) (optional)
+- [演習 7 - Windows パッチ管理](7-win-patch) (オプション演習)
 

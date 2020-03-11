@@ -1,16 +1,11 @@
+演習 3 - playbook 概要
+=========================
 
+この演習では、初めての Ansible Playbook を書いてみましょう。 Playbook は、実際の作業を記述する **タスク** と、タスクの実行条件などを記述する **プレイ** のセットで構成されます。このセットは Playbook 内で繰り返すことも可能です。まず、プレイブックを保存するためのディレクトリ構造をセットアップします。このディレクトリ構造は、**ソースコード管理**(SCM)システムと同期して、プレイブックのバージョンや品質を管理します。 この演習では、SCM として**git**を使用します。  
 
-Let’s begin by writing our first ansible **playbook**. The playbook is
-where you list the steps you would like to automate into a repeatable
-set of **plays** and **tasks**. To begin we will setup our directory
-structure for storing our playbooks. This directory structure will sync
-with a **source control management** (SCM) system to version our
-playbooks. We will be using **git** as out SCM.
+Playbook には複数のプレイがあり、プレイには1つまたは複数のタスクがあります。 **プレイ**の目的の1つは、タスクを実行するホストのグループを記述することです。 **タスク**の目標は、それらのホストに対してモジュールを実行することです。
 
-A playbook can have multiple plays and a play can have one or multiple
-tasks. The goal of a **play** is to map a group of hosts. The goal of a
-**task** is to implement modules against those hosts.
-
+最初の Playbook 
 For our first playbook, we are only going to write 1 play and 3 tasks.
 
 All of our playbooks will be stored in a single git **repository**.

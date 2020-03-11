@@ -3,25 +3,18 @@
 
 この演習では、初めての Ansible Playbook を書いてみましょう。 Playbook は、実際の作業を記述する **タスク** と、タスクの実行条件などを記述する **プレイ** のセットで構成されます。このセットは Playbook 内で繰り返すことも可能です。まず、プレイブックを保存するためのディレクトリ構造をセットアップします。このディレクトリ構造は、**ソースコード管理**(SCM)システムと同期して、プレイブックのバージョンや品質を管理します。 この演習では、SCM として**git**を使用します。  
 
-Playbook には複数のプレイがあり、プレイには1つまたは複数のタスクがあります。 **プレイ**の目的の1つは、タスクを実行するホストのグループを記述することです。 **タスク**の目標は、それらのホストに対してモジュールを実行することです。
+Playbook には複数のプレイがあり、プレイには1つまたは複数のタスクがあります。 **プレイ**の目的の1つは、タスクを実行するホストのグループを記述することです。 **タスク**の目標は、それらのホストに対してモジュールを実行することです。  
 
-最初の Playbook 
-For our first playbook, we are only going to write 1 play and 3 tasks.
+最初の Playbook では、1つのプレイと3つのタスクを記述します。  
 
-All of our playbooks will be stored in a single git **repository**.
-Multiple users can use the same repository and git will manage file
-conflicts and versions.
+今回の演習では、全ての Playbook は単一のgit **リポジトリ**に保存されています。複数のユーザーが同じリポジトリを使用でき、gitはファイルの競合とバージョンを管理します。
 
-Overview
+概要
 ========
 
-Starting at this task we are going to use Visual Studio Code as our
-editor. In addition, we will use GitLab for source code control. This
-will allow us to minimize development work on the linux command line.
-Other editors or source code solutions can be used, but this will show
-the general workflow.
+この演習では、エディターとして Visual Studio Code を使ってみましょう。さらに、ソースコード管理に GitLab を使用します。これにより、Linuxコマンドラインを理解していなくても開発作業が楽に行えます。他のエディターまたはソースコードソリューションを使用することももちろん可能です。  
 
-Section 1: Creating a Directory Structure and Files for your Playbook
+ステップ 1: プレイブックのディレクトリ構造とファイルの作成
 =====================================================================
 
 There is a [best

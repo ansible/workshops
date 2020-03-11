@@ -22,7 +22,7 @@
 
 下記を入力ください。  
 
-| Key                | Value           | Note                                                            |
+| キー                | 値           | 備考                                                            |
 |--------------------|-----------------|-----------------------------------------------------------------|
 | モジュール             | `win_ping`      |                                                                 |
 | 引数         |                 | 空欄のままでOKです                                             |
@@ -41,46 +41,35 @@
 
 ![Win\_Ping Log Details](images/2-adhoc-run-win_ping-output.png)
 
-結果表示は、使用するモジュールによって異なります。タスクに応じて異なるデータセットを処理および処理するためです。ただ、使用されているモジュールに関係なく、常に成功、失敗、変更、スキップのいずれかの色分けされたステータスが表示されます。これは共通です。  
+結果表示は、使用するモジュールによって異なります。タスクに応じて異なるデータセットを処理するためです。ただ、使用されているモジュールに関係なく、常に成功、失敗、変更、スキップのいずれかの色分けされたステータスが表示されます。これは共通です。  
 
 ステップ 2:
 -------
 
-Now let’s see how we can run a PowerShell command and view the output
-using the `win_shell` module.
+次に、`win_shell` モジュールを使用して PowerShell コマンドを実行し、出力を表示する方法を見てみましょう。
 
-Let’s fill out the form again, but this time use the `win_shell` module
-to execute the `Get-Service` Powershell command.
 
-| Key                | Value           | Note |
+| キー                | 値           | 備考 |
 |--------------------|-----------------|------|
-| Module             | `win_shell`     |      |
-| Arguments          | `Get-Service`   |      |
-| MACHINE CREDENTIAL | Student Account |      |
+| モジュール             | `win_shell`     |      |
+| 引数          | `Get-Service`   |      |
+| マシンの認証情報 | Student Account |      |
 
-Launch the job and view the results. You will see that it returns a
-direct output of what the Powershell command returned. This data can be
-stored to a variable and directly parsed inside your Ansible playbook
-later on.
 
-And run it one more time with the `Get-Process` Powershell command.
+ジョブを起動し、結果を確認してみましょう。Powershell コマンドが返した内容が直接表示されていることが分かります。この表示内容を変数に保存し、後でAnsibleプレイブック内で利用することも可能です。  
 
-| Key                | Value           | Note |
+今度は引数に `Get-Process` を入力し、Powershell コマンドを実行してみましょう.
+
+| キー                | 値           | 備考 |
 |--------------------|-----------------|------|
-| Module             | `win_shell`     |      |
-| Arguments          | `Get-Process`   |      |
-| MACHINE CREDENTIAL | Student Account |      |
+| モジュール             | `win_shell`     |      |
+| 引数          | `Get-Process`   |      |
+| マシン認証情報 | Student Account |      |
 
 Step 3:
 -------
 
-We will now take a look at your Windows nodes configuration. The `setup`
-module queries the remote host for various data and returns that data as
-Ansible facts. This data is useful to determine things such as OS
-Versions, Hardware Configuration, and other data points. This
-can then be used in your playbook for all sorts of reasons such as
-determining whether a task should even run, or determining what the name
-of a package should be based upon the OS Version.
+ここで、Windowsノードの構成を確認します。`setup` モジュールはリモートホストにさまざまなデータを照会し、そのデータを Ansible ファクト情報として返します。ファクトには、OSバージョン、ハードウェア構成、その他のデータポイントなどターゲットノードに関する様々な情報が含まれてており、この情報を基にタスク実行の要否を判断したり、OSバージョンに基づいたパッケージ名の決定したりなど、プレイブック内で様々な形で再利用可能です。  
 
 The `setup` module will run automatically at the beginning of every
 playbook, unless configured not to, so that this data is always available to

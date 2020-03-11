@@ -2,9 +2,9 @@
 
 Ansibleは構成管理、アプリケーションの展開、オーケストレーションなど、非常に幅広く利用可能なシンプルで強力な IT 自動化のツールです。yaml というわかりやすい言語を利用していますので、学習も容易です。  
 
-Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポーネントの1つであり、Ansible Playbook を実行するWeb UI、API、およびコントロールノードとして機能します。  
+Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポーネントの1つであり、単なる Playbook の実行だけではなく、Web UI、API、各種認証情報の管理など、複数管理者での統一的な管理に有用な各種機能を提供します。  
 
-このワークショップでは、Ansible Tower を構成して、Windows インスタンスに接続する方法を学びます。一旦 Ansible Tower が構成されると、より複雑な操作であっても、Ansible を使ってシンプルに管理できることを演習を通して学びます。  
+このワークショップでは、Ansible Tower を構成して、Windows インスタンスを管理する方法を学びます。一旦 Ansible Tower が構成されると、より複雑な操作であっても、Ansible を使ってシンプルに管理できることを演習を通して学んでいきます。  
 
 このワークショップは全て Ansible Tower を使って行います。Ansible Tower と互換性のあるブラウザがあれば演習を進める事が出来ます。  
 

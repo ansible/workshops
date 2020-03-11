@@ -10,12 +10,13 @@ Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポ
 
 ## プレゼンテーション資料  
 
-The presenter deck is available here:
+学習用の資料はこちらからダウンロード可能です。（英語版のみ）:  
 [Ansible Windows Automation](../../decks/ansible_windows.pdf)
 
-## Time planning
+## タイムスケジュール
 
-The time required to do the workshops strongly depends on a couple factors: the number of participants and how much discussions are done in between.
+ワークショップ完了までの時間は、様々ですが、おおよそ以下を想定しています。  
+
 
 Having said that, the exercises themselves should take roughly 4-5 hours. The accompanying presentation itself adds another hour.
 

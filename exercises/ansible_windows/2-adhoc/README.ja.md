@@ -135,28 +135,25 @@ IIS　がインストールされたので、 `service` モジュールを使用
 | 引数          | `name=Web-Server state=absent` |      |
 | マシンの認証情報 | Student Account                |      |
 
-And now reboot the host.
+そして、ホストをリブートします。And now reboot the host.
 
-| Key                | Value           | Note                |
+| キー                | 値           | 備考                |
 |--------------------|-----------------|---------------------|
-| Module             | `win_reboot`    |                     |
-| Arguments          |                 | Intentionally blank |
-| MACHINE CREDENTIAL | Student Account |                     |
+| モジュール             | `win_reboot`    |                     |
+| 引数          |                 | 空欄のまま |
+| マシンの認証情報 | Student Account |                     |
 
-> **Note**
+> **ヒント**
 >
-> The `win_reboot` module will cause the machine to reboot, and then will
-> wait for it to come completely back up before finishing. This way, if
-> you need to reboot the host in the middle of your playbook, the rest
-> of the playbook will not fail because the host is inaccessible.
+> この `win_reboot` モジュールはマシンをリブートさせ、終了する前に完全に戻るのを待ちます。例えばプレイブックの途中でホストを再起動する必要がある場合、ホストにアクセスできないことによるプレイブックの残りの部分の失敗はありません。便利ですね。♬    
 
 
 
-End Result
+まとめ
 ----------
 
-Ad-hoc commands may be useful to run once in a while. However, as automation continues to grow within an environment, they are used less and less often. In the IIS example above, this could have (should have) been written out in a playbook instead of executed through a laborious series of ad-hoc commands. This interaction with ad-hoc commands seems to mimic running individual commands from a CLI. Additional exercises will really make this clear.
+アドホックコマンドは、本当の意味でアドホックに実行する際に役に立ちます。逆に、環境内で自動化が大きくなると、アドホックコマンドの実行は面倒になってきます。上記の IIS の例では、本来は、面倒な一連のアドホックコマンド実行ではなく、プレイブック化して実行する方がよかったと思います。アドホックコマンド利用は、CLIからの個々のコマンドの実行に似ていますよね。これは Playbook を使った演習で、より明確になります。
 
-*Also, did you catch this?* When a task is performed on a Windows server, Ansible is smart enough to know whether a reboot is required after executing that task. The below is part of the output of the command to remove the IIS feature. The output of this task can be used in subsequent tasks, like whether or not to reboot before continuing. 
+*こんなコメント確認しましたか？* Windowsサーバーでタスクが実行されると、Ansibleはそのタスクを実行した後の再起動の要否も同時に取得可能です。以下は、IIS 機能を削除するコマンドの出力の一部です。このタスクの出力は、続行する前に再起動するかどうかが含まれており、ここを確認の後、rebbot_required = true なら、後続のタスクでリブートを実行するようなことも可能です。  
 
 ![Reboot required](images/2-adhoc-reboot-required.png)

@@ -61,14 +61,14 @@ Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT 
 
 - `---` YAMLであることを示しています。  
 
-- `name: install the iis web service` play に対する名前です。  
+- `name: install the iis web service` プレイに対する名前です。  
 
 - `hosts: windows` このプレイが実行されるインベントリ内のホストグループを定義します  
 
 ステップ 5: プレイに対するタスクの記述
 -------
 
-次に、いくつかのタスクを追加します。 （タスク）の**t**をhost`hosts`の**h**に（垂直に）位置合わせします。  
+次に、いくつかのタスクを追加します。（タスク）の**t**をhost`hosts`の**h**に（垂直に）位置合わせします。  
 YAML ファイルではスペースはとても重要です。タブを使ってはいけません。  
 Playbook 全体は一番下にありますので必要に応じてご参照ください。  
 
@@ -108,10 +108,8 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
       state: present
 ```
 
-- These three lines are calling the Ansible module **`win_feature`** to
-  install the IIS Web Server. [Click
-  here](http://docs.ansible.com/ansible/latest/win_feature_module.html)
-  to see all options for the `win_feature` module.
+- 上記 3 行は、Ansible モジュール**`win_feature`**　を使って IIS Web サーバーをインストールしています。`win_feature` モジュールのすべてのオプションを表示します。win_feature モジュール詳細は下記参照ください。  
+[Click here](http://docs.ansible.com/ansible/latest/win_feature_module.html)
 
 <!-- -->
 ```yaml
@@ -120,11 +118,8 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
       state: started
 ```
 
-- The next few lines are using the ansible module **win\_service** to
-  start the IIS service. The `win_service` module is the preferred way
-  of controlling services on remote hosts. [Click
-  here](http://docs.ansible.com/ansible/latest/win_service_module.html)
-  to learn more about the **`win_service`** module.
+- 続くいくつかの行で、Ansible モジュール **win_service** を使って IIS サービスを起動しています。この win_service モジュールは windows ホストのサービス管理するために有用なモジュールです。win_service モジュール詳細は下記参照ください。  
+ [Click here](http://docs.ansible.com/ansible/latest/win_service_module.html)
 
 <!-- {% raw %} -->
 ```yaml
@@ -134,11 +129,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 ```
 <!-- {% endraw %} -->
 
-- In this task, we use the win\_copy module to create a file with
-  specific contents in it. We are getting a little more complex here
-  as we are using a variable to source the contents. We won’t go into
-  the variables just yet, since they will be showcased in a later
-  lesson.
+- このタスクでは、win_copy モジュールを使用して、特定のコンテンツを含むファイルを作成します。 ここでは、変数を使用してコンテンツを取得しているため、もう少し複雑になっています。変数については、後のレッスンで説明いたします。ここではAnsible ホストから リモートホストに index.html としてファイルをコピーしていることだけ理解いただければ大丈夫です！    
 
 <!-- {% raw %} -->
 ```yaml
@@ -149,30 +140,28 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 
 - This task uses the `debug` module to post a message at the end of playbook execution. This particular message prints out `http://` + the variable name that contains the IP address of the host we're running the playbook on (our Windows IIS server)
 
+
+ステップ 6: Playbook の保存
+-------
+
 Section 4: Saving your Playbook
 ===============================
 
-Now that you’ve completed writing your playbook, it would be a shame not
-to keep it. Click `File > Save` from the menu.
+Playbook の記述が完了しましたので、保存しましょう。  
+左上から `File > Save` をクリックします。  
 
 And that should do it. You should now have a fully written playbook
 called `install_iis.yml`.
 
-But wait!!! We haven’t committed our changes from our **local** copy to
-**git**. Click the Source Code icon as shown below (It is the middle on
-the far left of the page that has the blue circle with \# 1 in it)
+でもまだ終わってません！！！ **ローカル**コピーから**git**への変更（コミット）が必要です。以下に示すように、[Source Code]アイコンをクリックします（ページの一番左の中央にある青い円に\＃1が含まれています）
 
 ![Git Commit](images/3-vscode-click-commit.png)
 
-Type in a commit message such as *Adding install\_iis.yml* in the text
-box at the top of the sidebar. Click the check box above to commit. This
-message is intended to describe the changes you made so that others
-(including yourself) better understand what is changing when comparing
-versions.
+サイドバーの上部にあるテキストボックスに*Adding install _iis.yml* などのコミットメッセージを入力した上で、上部ののチェックボックスをクリックしてコミットします。このメッセージは、バージョンを比較するときに他の人（自分を含む）が何が変更されているかをよりよく理解できるように、行った変更を説明することを目的としています。  
 
 ![Git Commit install\_iis.yml](images/3-vscode-commit.png)
 
-Now you need to push the committed changes to your repository.
+次に、コミットした変更をリポジトリにプッシュする必要があります。　　
 
 On the bottom left blue bar, click the section that contains the
 circular arrows to push the changes.

@@ -37,24 +37,21 @@ Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT 
 
 ![Student Playbooks Repo](images/3-vscode-open-folder.png)
 
-ステップ 3: ディレクトリー**iis_basic** と　`install_iis.yml` の作成
+ステップ 3: ディレクトリーと Playbook の作成
 -------
 
 *WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
-`iis_basic`という名前のフォルダーを作成します。次に、そのフォルダをクリックして選択します。作成した新しいフォルダーを右クリックして、「install_iis.yml」というファイルを作成します。  
+`iis_basic`という名前のフォルダーを作成します。次に作成した新しいフォルダーを右クリックして、「install_iis.yml」というファイルを作成します。  
 
 作成すると右ペインに編集可能なエディタが表示されます。ここに Playbook を記述していきます。♬  
-
-You should now have an editor open in the right pane that can be used
-for creating your playbook.
 
 ![Empty install\_iis.yml](images/3-vscode-create-folders.png)
 
 ステップ 4: プレイの定義
 -------
 
-Now that you are editing `install_iis.yml`, let’s begin by defining the
-play and then understanding what each line accomplishes
+`install_iis.yml`を編集します。まずプレイを記述してみましょう。  
+次に、各行の意味をご説明します。  
 
 ```yaml
     ---
@@ -72,17 +69,8 @@ play and then understanding what each line accomplishes
 -------
 
 次に、いくつかのタスクを追加します。 （タスク）の**t**をhost`hosts`の**h**に（垂直に）位置合わせします。  
-はい、それは実際に重要です。 実際、プレイブックのすべてのステートメントがここに示されている方法で調整されていることを確認する必要があります。 また、インデントにはスペースを使用する必要があります。 タブは有効なYAML構文ではありません。
-参照用にプレイブック全体を表示する場合は、この演習の最後までスキップしてください。
-
-Now that we’ve defined your play, let’s add some tasks to get some
-things done. Align (vertically) the **t** in `task` with the **h** in
-`hosts`.
-Yes, it does actually matter. In fact, you should make sure all of your
-playbook statements are aligned in the way shown here. You also must use
-spaces for indentation. Tabs are not valid YAML syntax.
-If you want to see the entire playbook for reference, skip to the bottom
-of this exercise.
+YAML ファイルではスペースはとても重要です。タブを使ってはいけません。  
+Playbook 全体は一番下にありますので必要に応じてご参照ください。  
 
 <!-- {% raw %} -->
 ```yaml
@@ -108,11 +96,9 @@ of this exercise.
 ```
 <!-- {% endraw %} -->
 
-- `tasks:` This denotes that one or more tasks are about to be defined
+- `tasks:` タスクが記述されていることを示しています。  
 
-- `- name:` Each task requires a name which will print to standard
-  output when you run your playbook. Therefore, give your tasks a name
-  that is short, sweet, and to the point
+- `- name:` プレイブックの実行時に標準出力に表示される名前です。短くて分かりやすい名前が良いと思います。♬
 
 <!-- -->
 

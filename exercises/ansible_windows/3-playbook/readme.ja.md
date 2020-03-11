@@ -144,9 +144,6 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 ステップ 6: Playbook の保存
 -------
 
-Section 4: Saving your Playbook
-===============================
-
 Playbook の記述が完了しましたので、保存しましょう。  
 左上から `File > Save` をクリックします。  
 
@@ -179,7 +176,7 @@ called `install_iis.yml`.
 
 > **Note**
 >
-> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。オフィスに戻ったら、この記事を読んでください。[YAML Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html)  上記で完成したプレイブックは次のようになります。スペースに特に注意してください。
+> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。オフィスに戻ったら、[この記事] (http://docs.ansible.com/ansible/YAMLSyntax.html)を読んでください。上記で完成したプレイブックは次のようになります。スペースに特に注意してください。
 
 <!-- {% raw %} -->
 ```yaml

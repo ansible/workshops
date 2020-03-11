@@ -69,8 +69,8 @@ SCM 認証情報の作成
 | 説明  | SCM credential for playbook sync |                                            |  
 | 組織 | Default                          |                                            |  
 | 認証情報タイプ | ソースコントロール                   |                                            |  
-| ユーザー名     | student#                         | Replace # with your student number         |  
-| パスワード     | *******                          | Replace ******* with your student password |  
+| ユーザー名     | student#                         |  ** # の部分は各自の番号に置き換えてください**    |  
+| パスワード     | *******                          | student password に置き換えてください |  
 
 保存をクリック ![Save](images/at_save.png)    
 

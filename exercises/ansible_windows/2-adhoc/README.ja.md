@@ -66,81 +66,74 @@
 | 引数          | `Get-Process`   |      |
 | マシン認証情報 | Student Account |      |
 
-Step 3:
+ステップ 3:
 -------
 
-ここで、Windowsノードの構成を確認します。`setup` モジュールはリモートホストにさまざまなデータを照会し、そのデータを Ansible ファクト情報として返します。ファクトには、OSバージョン、ハードウェア構成、その他のデータポイントなどターゲットノードに関する様々な情報が含まれてており、この情報を基にタスク実行の要否を判断したり、OSバージョンに基づいたパッケージ名の決定したりなど、プレイブック内で様々な形で再利用可能です。  
+次に、Ansible の強力な機能の1つである、対象ノードのファクト情報について演習してみましょう。今回の演習では、Windows ノードの構成を確認します。利用するのは、`setup` モジュールです。このモジュールはリモートホストからさまざまなデータを取得し、そのデータを Ansible ファクトとして返します。ファクトには、OSバージョン、ハードウェア構成、その他のデータポイントなどターゲットノードに関する様々な情報が含まれてており、この情報を基にタスク実行の要否を判断したり、OSバージョンに基づいたパッケージ名の決定したりなど、プレイブック内で様々な形で再利用することが可能です。  
 
-The `setup` module will run automatically at the beginning of every
-playbook, unless configured not to, so that this data is always available to
-your playbook.
+デフォルトで、 `setup` モジュールはすべてのプレイブックの先頭で自動的に実行されます。このため、このファクト情報は常にプレイブックで利用可能です。
 
-Lets go ahead and run the `setup` module to look at the output. Fill out
-the **EXECUTE COMMAND** form again with this info.
+早速 `setup` モジュールを実行して出力を見てみましょう。下記情報を使用して**コマンド実行**を行います。
 
-| Key                | Value           | Note                |
+| キー                | 値           | 備考                |
 |--------------------|-----------------|---------------------|
-| Module             | `setup`         |                     |
-| Arguments          |                 | Intentionally blank |
-| MACHINE CREDENTIAL | Student Account |                     |
+| モジュール             | `setup`         |                     |
+| 引数          |                 | 空欄のまま |
+| マシンの認証情報 | Student Account |                     |
 
-You will then see results like this
+実行すると以下のような結果が確認できます。  
 
 ![Setup Log Details](images/2-adhoc-run-setup-output.png)
 
-(**Note:** If you click the three dots shown on line 23 in the above output, you will see all the facts returned by the `setup` module.)
+(**Note:** 上記の出力の23行目に表示されている3つのドットをクリックすると、`setup`モジュールによって返されたすべてのファクトが表示されます。.)
 
-Step 4:
+ステップ 4:
 -------
 
-Now, let’s install IIS using the `win_feature` module. Our arguments
-parameter is going to get a little more complex now.
+では、`win_feature` モジュールを使用して IIS をインストールしましょう。引数は、もう少し複雑になります。
 
-| Key                | Value                           | Note |
+| キー                | 値                           | 備考|
 |--------------------|---------------------------------|------|
-| Module             | `win_feature`                   |      |
-| Arguments          | `name=Web-Server state=present` |      |
-| MACHINE CREDENTIAL | Student Account                 |      |
+| モジュール             | `win_feature`                   |      |
+| 引数          | `name=Web-Server state=present` |      |
+| マシンの認証情報 | Student Account                 |      |
 
-You will notice that the log text is now orange. This is to denote that
-a change was made on the system versus the green that shows that no
-changes were made earlier.
+ログテキストがオレンジ色になっていることがわかります。これは、システムに変更が加えられたことを示しており、緑は変更が加えられていないことを示しています。
 
 ![Win\_Feature Log Details](images/2-adhoc-run-win_feature-output.png)
 
-Step 5:
+ステップ 5:
 -------
 
-OK, IIS is installed now so let’s be certain it is started using the
-`service` module.
+IIS　がインストールされたので、 `service` モジュールを使用して開始されていることを確認してみます。  
 
-| Key                | Value                      | Note |
+| キー                | 値                      | 備考 |
 |--------------------|----------------------------|------|
-| Module             | `win_service`              |      |
-| Arguments          | `name=W3Svc state=started` |      |
-| MACHINE CREDENTIAL | Student Account            |      |
+| モジュール             | `win_service`              |      |
+| 引数         | `name=W3Svc state=started` |      |
+| マシンの認証情報 | Student Account            |      |
 
-Step 6:
+ステップ 6:
 -------
 
-Finally, let’s clean up after ourselves. First, stop the IIS service.
+最後に、インストールした IIS をクリーンアップしましょう。まず、IISサービスを止めます。  
 
-| Key                | Value                      | Note |
+| キー                | 値                      | 備考 |
 |--------------------|----------------------------|------|
-| Module             | `win_service`              |      |
-| Arguments          | `name=W3Svc state=stopped` |      |
-| MACHINE CREDENTIAL | Student Account            |      |
+| モジュール             | `win_service`              |      |
+| 引数          | `name=W3Svc state=stopped` |      |
+| マシンの認証情報 | Student Account            |      |
 
-Step 7:
+ステップ 7:
 -------
 
-Next, remove the IIS feature.
+次に、IIS をアンインストールします。  
 
-| Key                | Value                          | Note |
+| キー                | 値                          | 備考 |
 |--------------------|--------------------------------|------|
-| Module             | `win_feature`                  |      |
-| Arguments          | `name=Web-Server state=absent` |      |
-| MACHINE CREDENTIAL | Student Account                |      |
+| モジュール             | `win_feature`                  |      |
+| 引数          | `name=Web-Server state=absent` |      |
+| マシンの認証情報 | Student Account                |      |
 
 And now reboot the host.
 

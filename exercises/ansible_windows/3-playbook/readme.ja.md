@@ -161,36 +161,25 @@ called `install_iis.yml`.
 
 ![Git Commit install\_iis.yml](images/3-vscode-commit.png)
 
-次に、コミットした変更をリポジトリにプッシュする必要があります。　　
+次に、コミットした変更をリポジトリにプッシュする必要があります。  
 
-On the bottom left blue bar, click the section that contains the
-circular arrows to push the changes.
+左下の青いバーで、円形矢印を含むセクションをクリックして、変更をプッシュします。  
 
 ![Git Push Origin](images/3-vscode-push.png)
 
-This may take as long as 30 seconds to push. After your first push, you
-may get a pop-up message asking if you would like to periodically run
-git fetch. Because you’re the only one working on the git repo, you can
-click **Yes** or **No**.
+プッシュするのに30秒程度かかる場合があります。 最初のプッシュの後、git fetch を定期的に実行するかどうかを尋ねるポップアップメッセージが表示される場合があります。**Yes** or **No** どちらを選択いただいてもかまいません。  
 
 ![Git Push Origin](images/3-vscode-push-initial-pop-up.png)
 
-If you’re interested in validating the code is in git, you can connect
-to GitLab to verify. Go back to the workshop page, and click the link under **GitLab Access** taking note of your username and password.
+コードがgitにあることを検証したい場合は、GitLabに接続して確認してみましょう。  
 
 ![GitLab access](images/3-vscode-gitlab-access.png)
 
-You are ready to automate!
+これであなたは、自動化の準備が整いました♬  
 
 > **Note**
 >
-> Ansible (well, YAML really) can be a bit particular about formatting
-> especially around indentation/spacing. When you get back to the
-> office, read up on this [YAML
-> Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html) a bit more
-> and it will save you some headaches later. In the meantime, your
-> completed playbook should look like this. Take note of the spacing and
-> alignment.
+> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。オフィスに戻ったら、この記事を読んでください。[YAML Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html)  上記で完成したプレイブックは次のようになります。スペースに特に注意してください。
 
 <!-- {% raw %} -->
 ```yaml

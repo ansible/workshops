@@ -15,49 +15,43 @@ Playbook には複数のプレイがあり、プレイには1つまたは複数�
 この演習では、エディターとして Visual Studio Code を使ってみましょう。さらに、ソースコード管理に GitLab を使用します。これにより、Linuxコマンドラインを理解していなくても開発作業が楽に行えます。他のエディターまたはソースコードソリューションを使用することももちろん可能です。  
 
 ステップ 1: プレイブックのディレクトリ構造とファイルの作成
-=====================================================================
+-------
 
-There is a [best
-practice](http://docs.ansible.com/ansible/playbooks_best_practices.html)
-on the preferred directory structures for playbooks. We strongly
-encourage you to read and understand these practices as you develop your
-Ansible skills. That said, our playbook today is very basic and a
-complex directory structure is not necessary.
+Playbook のディレクトリ構造としては、ベストプラクティスがあります。  
+[ベストプラクティス]（http://docs.ansible.com/ansible/playbooks_best_practices.html）があります
+Ansible の技術を習得する際には、上記を学習しておくことを強くお勧めします。とはいえ、この演習で利用する Playbook は非常に基本的なものですので複雑なディレクトリ構造は必要ありません。  
 
-Instead, we are going to create a very simple directory structure for
-our playbook, and add just a couple of files.
+代わりに、非常にシンプルなディレクトリ構造を作成します。プレイブックを追加し、いくつかのファイルを追加します。  
 
-**Step 1:**
+ステップ 2: Visual Studio Code への接続
+-------
 
-Open Visual Studio Code
+Visual Studio Code を開きます。  
 
-For this lab, we have already created a clone of your Git repository for
-you.
-
-To access it, click the link for VS Code Access from the workshop page.
+この演習では、あらかじめ各自の Git リポジトリはクローン済みです。  
+VS Code へのアクセス先と認証情報を確認し接続を完了します。  
 
 ![VS Code Access](images/3-vscode-access.png)
 
-At this point in the Explorer sidebar you should have a *WORKSHOP_PROJECT*
-section with only a README file in it.
+Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT セクションとなっています。  
 
 ![Student Playbooks Repo](images/3-vscode-open-folder.png)
 
-**Step 2:** Create a directory called **iis\_basic** and a file called
-`install_iis.yml`
+ステップ 3: ディレクトリー**iis_basic** と　`install_iis.yml` の作成
+-------
 
-Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button.
-Create a folder called `iis_basic`. Then click that folder so it is
-selected. Right click the new folder you’ve created and create a file
-called `install_iis.yml`.
+*WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
+`iis_basic`という名前のフォルダーを作成します。次に、そのフォルダをクリックして選択します。作成した新しいフォルダーを右クリックして、「install_iis.yml」というファイルを作成します。  
+
+作成すると右ペインに編集可能なエディタが表示されます。ここに Playbook を記述していきます。♬  
 
 You should now have an editor open in the right pane that can be used
 for creating your playbook.
 
 ![Empty install\_iis.yml](images/3-vscode-create-folders.png)
 
-Section 2: Defining Your Play
-=============================
+ステップ 4: プレイの定義
+-------
 
 Now that you are editing `install_iis.yml`, let’s begin by defining the
 play and then understanding what each line accomplishes
@@ -68,15 +62,18 @@ play and then understanding what each line accomplishes
       hosts: windows
 ```
 
-- `---` Defines the beginning of YAML
+- `---` YAMLであることを示しています。  
 
-- `name: install the iis web service` This describes our play
+- `name: install the iis web service` play に対する名前です。  
 
-- `hosts: windows` Defines the host group in your inventory on which this
-  play will run against
+- `hosts: windows` このプレイが実行されるインベントリ内のホストグループを定義します  
 
-Section 3: Adding Tasks to Your Play
-====================================
+ステップ 5: プレイに対するタスクの記述
+-------
+
+次に、いくつかのタスクを追加します。 （タスク）の**t**をhost`hosts`の**h**に（垂直に）位置合わせします。  
+はい、それは実際に重要です。 実際、プレイブックのすべてのステートメントがここに示されている方法で調整されていることを確認する必要があります。 また、インデントにはスペースを使用する必要があります。 タブは有効なYAML構文ではありません。
+参照用にプレイブック全体を表示する場合は、この演習の最後までスキップしてください。
 
 Now that we’ve defined your play, let’s add some tasks to get some
 things done. Align (vertically) the **t** in `task` with the **h** in

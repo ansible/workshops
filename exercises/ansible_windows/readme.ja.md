@@ -1,6 +1,6 @@
 # Ansible ワークショップ - Windows の自動化
 
-Ansibleは、構成管理、アプリケーションの展開、オーケストレーションなど非常に幅広く利用可能なシンプルで強力な IT 自動化のツールです。Playbook という学習しやすい言語を利用していますので、学習も容易です。  
+Ansibleは構成管理、アプリケーションの展開、オーケストレーションなど、非常に幅広く利用可能なシンプルで強力な IT 自動化のツールです。Playbook という学習しやすい言語を利用していますので、学習も容易です。  
 
 Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポーネントの1つであり、Ansible Playbook を実行するWeb UI、API、およびコントロールノードとして機能します。  
 

@@ -176,7 +176,8 @@ called `install_iis.yml`.
 
 > **Note**
 >
-> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。オフィスに戻ったら、[この記事](http://docs.ansible.com/ansible/YAMLSyntax.html)　を読んでください。上記で完成したプレイブックは次のようになります。スペースに特に注意してください。
+> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。YAML の書き方は、[こちら](http://docs.ansible.com/ansible/YAMLSyntax.html)をご確認ください。  
+上記で完成したプレイブックは次のようになります。スペースに特に注意してください。
 
 <!-- {% raw %} -->
 ```yaml

@@ -9,53 +9,41 @@
 左パネルの **インベントリー**をクリックし、インベントリ **Windows Workshop Inventory** をクリックします。  
 インベントリーの詳細が表示されたら**ホスト**をクリックします。  
 
-各ホストの横にはチェックボックスがあります。 アドホックコマンドを実行するホストの横にあるチェックボックスをオンにします。
-You will then see the **RUN COMMANDS** button become enabled. Click it now.
+各ホストの横にはチェックボックスがあります。アドホックコマンドを実行する Windows グループに属するホストの横にあるチェックボックスをオンにします。**コマンドの実行** ボタンが有効になったことを確認し、クリックします。  
 
 ![Run Command](images/2-adhoc-run-command.png)
 
-This will pop up the **Execute Command** window. From here is where we
-can run a single task against our hosts.
+**コマンドの実行** ウィンドウが表示されます。ここからアドホックコマンドを実行する事が出来ます。  
 
-Let’s start with something really basic - pinging a host. The `win_ping`
-module makes sure our windows hosts are responsive. This is not a
-traditional *ping*, but actually verifying both connectivity and
-authentication to the host.
 
-Fill out this form as follows
+まずは簡単なことから始めましょう♪
+ホストへの ping です。 `win_ping` モジュールは、Windows ホストが応答することを確認します。これは一般的に知られているネットワークの*ping*ではなく、Ansible のターゲットホストへ接続と認証の両方を検証します。
+
+
+下記を入力ください。  
 
 | Key                | Value           | Note                                                            |
 |--------------------|-----------------|-----------------------------------------------------------------|
-| Module             | `win_ping`      |                                                                 |
-| Arguments          |                 | Intentionally blank                                             |
-| Limit              |                 | This will be pre-filled out for you with the hosts you selected |
-| MACHINE CREDENTIAL | Student Account |                                                                 |
+| モジュール             | `win_ping`      |                                                                 |
+| 引数         |                 | 空欄のままでOKです                                             |
+| 制限              |                 | 選択したホストが自動で入力されます |
+| マシンの認証情報 | Student Account |                                                                 |
 
 ![Run Win\_Ping](images/2-adhoc-run-win_ping.png)
 
-Once you click **LAUNCH** you will be redirected to the Job log. Every
-job and action in Ansible Tower is recorded and stored. These logs can
-be auto-rotated and can also be exported automatically to another
-logging system such as Splunk or ELK.
+**起動** をクリックするとジョブ表示に切り替わります。Ansible Towerのすべてのジョブとアクションは記録され保存されます。これらのログは自動でローテーションする形式をとっていますが、Splunk や ELK などの別のログシステムに自動的にエクスポートすることもできます。  
 
-The first part of the log shows you the details of the job. This
-includes information such as who launched the job, against what hosts,
-and when.
+ログには、誰がジョブを開始したか、どのホストに対して、いつ実行したかなどの情報が含まれます。  
 
 ![Win\_Ping Log Details](images/2-adhoc-run-win_ping-success.png)
 
-The second part of the job log shows you the actual output from the
-command. If your connection was successful, you should see a result such
-as this.
+また、実際の出力結果が表示されます。接続が成功した場合、次のような結果が表示されます。
 
 ![Win\_Ping Log Details](images/2-adhoc-run-win_ping-output.png)
 
-The results returned will be different depending on which module is
-used, as they all handle and deal with different data sets depending on
-the task. No matter which module is used, you will always see a color
-coded STATUS of either SUCCESS, FAILURE, CHANGED, or SKIPPING.
+結果表示は、使用するモジュールによって異なります。タスクに応じて異なるデータセットを処理および処理するためです。ただ、使用されているモジュールに関係なく、常に成功、失敗、変更、スキップのいずれかの色分けされたステータスが表示されます。これは共通です。  
 
-Step 2:
+ステップ 2:
 -------
 
 Now let’s see how we can run a PowerShell command and view the output

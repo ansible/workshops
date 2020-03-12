@@ -65,26 +65,25 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 
 <!-- {% raw %} -->
 ```yaml
-      tasks:
-        - name: Install IIS
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        state: present
+    - name: Create site directory structure
+      win_file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items: "{{ iis_sites }}"
 
-        - name: Create site directory structure
-          win_file:
-            path: "{{ item.path }}"
-            state: directory
-          with_items: "{{ iis_sites }}"
-
-        - name: Create IIS site
-          win_iis_website:
-            name: "{{ item.name }}"
-            state: started
-            port: "{{ item.port }}"
-            physical_path: "{{ item.path }}"
-          with_items: "{{ iis_sites }}"
-          notify: restart iis service
+    - name: Create IIS site
+      win_iis_website:
+        name: "{{ item.name }}"
+        state: started
+        port: "{{ item.port }}"
+        physical_path: "{{ item.path }}"
+      with_items: "{{ iis_sites }}"
+      notify: restart iis service
 ```
 <!-- {% endraw %} -->
 

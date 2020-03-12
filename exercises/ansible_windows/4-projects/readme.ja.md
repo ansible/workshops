@@ -1,3 +1,7 @@
+演習 4 - playbook 概要
+=========================
+
+
 A job template is a definition and set of parameters for running an
 Ansible job. Job templates are useful to execute the same job many
 times.

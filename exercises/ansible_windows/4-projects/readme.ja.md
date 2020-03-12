@@ -77,7 +77,7 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 | 回答の変数名   | `iis_test_message`                                         |                  |
 | 回答タイプ            | テキスト                                                       |                  |
 | 最大長 |                                                            | デフォルトのまま |
-| デフォルトの応答         | *Be creative, keep it clean, we’re all professionals here* |                  |
+| デフォルトの応答         | *Be creative, keep it clean, we're all professionals here* |                  |
 
 ![Survey Form](images/4-survey.png)
 

@@ -30,9 +30,7 @@ Visual Studio Code 内で、gitリポジトリに新しいディレクトリを�
 
 *WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
 
-「iis_advanced」と入力してEnterキーを押します。 次に、そのフォルダをクリックして選択します。  
-
-「iis_advanced」と入力してEnterキーを押します。 次に、そのフォルダをクリックして選択します。  
+「iis_advanced」と入力してEnterキーを押します。  
 
 `iis_advanced`フォルダーを右クリックし、*New_File*を選択します。  
 
@@ -47,22 +45,21 @@ Visual Studio Code 内で、gitリポジトリに新しいディレクトリを�
 Playbook のプレイの中にいくつかの変数を定義します。これには後程タスクの中で利用する Web サーバーに対する固有の構成情報が含まれています。  
 
 ```yaml
-    ---
-    - hosts: windows
-      name: This is a play within a playbook
-      vars:
-        iis_sites:
-          - name: 'Ansible Playbook Test'
-            port: '8080'
-            path: 'C:\sites\playbooktest'
-          - name: 'Ansible Playbook Test 2'
-            port: '8081'
-            path: 'C:\sites\playbooktest2'
-        iis_test_message: "Hello World!  My test IIS Server"
+---
+- hosts: windows
+  name: This is a play within a playbook
+  vars:
+    iis_sites:
+      - name: 'Ansible Playbook Test'
+        port: '8080'
+        path: 'C:\sites\playbooktest'
+      - name: 'Ansible Playbook Test 2'
+        port: '8081'
+        path: 'C:\sites\playbooktest2'
+    iis_test_message: "Hello World!  My test IIS Server"
 ```
 
-ステップ 4:
--------
+### ステップ 4:
 
 **install IIS**という新しいタスクを追加します。プレイブックを書いた後、`ファイル` &gt; `保存`をクリックして変更を保存します。  
 
@@ -93,37 +90,25 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 
 ![site.yml part 1](images/5-vscode-iis-yaml.png)
 
-> **Note**
+> **ヒント**
 >
-> **What is happening here!?**
+> - `vars:` 変数名と値に関する定義を行うための宣言です    
 >
-> - `vars:` You’ve told Ansible the next thing it sees will be a
->   variable name
+> - `iis_sites` iis_sitesという名前のリスト型変数を定義しています。その下の、`name` `port` `path` は iis_sites の下位の階層の変数を定義しています。  
 >
-> - `iis_sites` You are defining a list-type variable called
->   iis\_sites. What follows is a list of each site with it’s related
->   variables
+> - `win_file:` ファイル、ディレクトリ、およびシンボリックリンクを作成、変更、削除するために使用されるモジュールです。  
 >
-> - `file:` This module is used to create, modify, delete files,
->   directories, and symlinks.
+> - `{{ item }}` 変数 iis_sites に対して変数の値を変化させながらタスクがループされます。ここでは、プレイで定義した `name`, `port`, `path` にそれぞれ2つの値が入りながらループが実行されます。
 >
-> - `{{ item }}` You are telling Ansible that this will expand into a
->   list item. Each item has several variables like `name`, `port`,
->   and `path`.
+> - `with_items: "{{ iis_sites }}` Ansible によるループの書き方の1つです。変数 iis_sites が持つ値を入力しながらループを実行するという意味です。ループ内での変数は、`{{ item }}` で、この中に定義された値が入ります。  
 >
-> - `with_items: "{{ iis_sites }}` This is your loop which is
->   instructing Ansible to perform this task on every `item` in
->   `iis_sites`
->
-> - `notify: restart iis service` This statement is a `handler`, so
->   we’ll come back to it in Section 3.
+> - `notify: restart iis service` これはハンドラーに関する内容ですので、後述します。  
 
-Section 2: Opening Firewall and Deploying Files
-===============================================
+## Firewall の開放とファイルの送付
 
-After that, you will define a task to start the IIS service.
+その後、IISサービスを開始するタスクを定義します。
 
-Step 1:
+ステップ 1:
 -------
 
 Create a `templates` directory in your project directory and create a

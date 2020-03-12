@@ -71,7 +71,7 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 | 回答の変数名   | `iis_test_message`                                         |                  |
 | 回答タイプ            | テキスト                                                       |                  |
 | 最大長 |                                                            | デフォルトのまま |
-| デフォルトの応答         | *Be creative, keep it clean, we're all professionals here* |                  |
+| デフォルトの応答         | *Be creative, keep it clean, we're all professionals here* |                  |  
 
 ![Survey Form](images/4-survey.png)
 
@@ -117,7 +117,7 @@ Surveyで作成した入力画面が表示されるので、お好きなメッ�
 
 ### ステップ 5:
 
-![SurveyL](images/4-survey-launch.png)
+![SurveyL](images/4-survey-launch.png)  
 起動ボタンをクリックしてジョブテンプレートを起動します。  
 
 ### ステップ 6:

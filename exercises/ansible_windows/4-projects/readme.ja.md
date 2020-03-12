@@ -2,7 +2,10 @@
 =========================
 
 Ansible Tower 独自のオブジェクトとして、プロジェクトとジョブテンプレートがあります。  
-ジョブテンプレートは、Playbook 実行に必要な以下のオブジェクトを紐づけて定義したものです。  
+
+ジョブテンプレート
+-------
+Playbook 実行に必要な以下のオブジェクトを紐づけて定義したものです。  
 
 ・接続先ホスト一覧（インベントリ）  
 ・接続先ホストの認証情報（ホスト認証情報）  
@@ -10,129 +13,128 @@ Ansible Tower 独自のオブジェクトとして、プロジェクトとジョ
 
 ジョブテンプレートを作成・実行すると、管理対象ホストに対して Playbook が実行されます。  
 
-プロジェクトの同期
-====================
-
 プロジェクト
+-------
 
-Before you can create a job template with a new playbook, you must first
-sync your Project so that Tower knows about it. To do this, click
-**Projects** and then click the sync icon next to your project. Once
-this is complete, you can create the job template.
+利用する Playbook の保存先ディレクトリを指定したものです。指定するのは Playbook のディレクトリまでで、実際稼働させるPlaybook はこのプロジェクト内に存在する Playbook の中からジョブテンプレートで指定します。プロジェクトは、/var/lib/awx/projects/ の下に作成され、各プロジェクトの中に Playbook が配置されます。Playbook は Ansible Tower ホストに sshで接続して /var/lib/awx/projects/<project_name>/xxx.yml という形で作成することも可能ですし、Git 等の SCM と連携して管理することも可能です。Playbook のバージョン管理や品質管理の面で、SCM利用を推奨しています。  
+この演習でも、SCMを利用します。
+
+プロジェクトの同期
+-------
+
+新しい Playbook でジョブテンプレートを作成する前に、最初にProjectを同期して、Towerがそれを認識できるようにする必要があります。 これを行うには、**プロジェクト**をクリックし、プロジェクトの横にある同期アイコンをクリックします。 これが完了したら、ジョブテンプレートを作成できます。実はこの作業は演習1でプロジェクトを作成した時点で完了しています。一応同期プロセスに対する理解のために確認頂きました。  
 
 ![Project Sync](images/4-project-sync.png)
 
-Creating a Job Template
-=======================
 
-Step 1:
+ジョブテンプレートの作成
 -------
 
-Select **Templates**
-
-Step 2:
+ステップ 1:
 -------
 
-Click the ![Add](images/add.png) icon, and select Job Template
+左側のメニューから**テンプレート**をクリックします。  
 
-Step 3:
+ステップ 2:
 -------
 
-Complete the form using the following values
+次に、右側の ![+](images/add.png) アイコンをクリックし、**ジョブテンプレート** を選択します。  
 
-| Key         | Value                                        | Note |
+ステップ 3:
+-------
+
+ジョブテンプレート作成画面が立ち上がりますので、以下を参考に作成ください。  
+
+| キー         | 値                                        | 備考 |
 |-------------|----------------------------------------------|------|
-| Name        | IIS Basic Job Template                       |      |
-| Description | Template for the iis-basic playbook          |      |
-| JOB TYPE    | Run                                          |      |
-| INVENTORY   | Windows Workshop Inventory                   |      |
-| PROJECT     | Ansible Workshop Project                     |      |
+| 名前        | IIS Basic Job Template                       |      |
+| 説明 | Template for the iis-basic playbook          |      |
+| ジョブタイプ    | 実行                                          |      |
+| インベントリー   | Windows Workshop Inventory                   |      |
+| プロジェクト     | Ansible Workshop Project                     |      |
 | PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Student Account** |      |
-| LIMIT       | windows                                      |      |
-| OPTIONS     | [*] ENABLE FACT CACHE                        |      |
+| 認証情報  | 認証情報タイプ: **マシン**. 名前: **Student Account** |      |
+| 制限       | windows                                      |      |
+| オプション     | [*] ファクトキャッシュの有効化にチェック       |      |
 
 ![Create Job Template](images/4-create-job-template.png)
 
-Step 4:
+ステップ 4:
 -------
 
-Click SAVE ![Save](images/at_save.png) and then select ADD SURVEY
+保存![Save](images/at_save.png) をクリックし、SURVEY の追加をクリックします。  
 ![Add](images/at_add_survey.png)
 
-Step 5:
+ステップ 5:
 -------
 
-Complete the survey form with following values
+以下の値を参考に、Surveyを完成させてください。  
 
-| Key                    | Value                                                      | Note             |
+| キー                    | 値                                                      | 備考             |
 |------------------------|------------------------------------------------------------|------------------|
-| PROMPT                 | Please enter a test message for your new website           |                  |
-| DESCRIPTION            | Website test message prompt                                |                  |
-| ANSWER VARIABLE NAME   | `iis_test_message`                                         |                  |
-| ANSWER TYPE            | Text                                                       |                  |
-| MINIMUM/MAXIMUM LENGTH |                                                            | Use the defaults |
-| DEFAULT ANSWER         | *Be creative, keep it clean, we’re all professionals here* |                  |
+| プロンプト                 | 新しい Web サイト用のテストメッセージを入力します          |                  |
+| 説明            | Webサイトのテストメッセージ入力画面                                |                  |
+| 回答の変数名   | `iis_test_message`                                         |                  |
+| 回答タイプ            | テキスト                                                       |                  |
+| 最大長 |                                                            | デフォルトのまま |
+| デフォルトの応答         | *Be creative, keep it clean, we’re all professionals here* |                  |
 
 ![Survey Form](images/4-survey.png)
 
-Step 6:
+ステップ 6:
 -------
 
-Select ADD ![Add](images/at_add.png)
+![Add](images/at_add.png)　+Add ボタンをクリックします。  
 
-Step 7:
+ステップ 7:
 -------
 
-Select SAVE ![Add](images/at_save.png)
+![Add](images/at_save.png) 保存ボタンをクリックします。  
 
-Step 8:
+ステップ 8:
 -------
 
-Back on the main Job Template page, select SAVE
+先ほどのジョブテンプレート作成画面に戻りますので、保存ボタンをクリックします。  
 ![Add](images/at_save.png) again.
 
-Running a Job Template
+ジョブテンプレートの起動
 ======================
 
-Now that you’ve successfully created your Job Template, you are ready to
-launch it. Once you do, you will be redirected to a job screen which is
-refreshing in real time showing you the status of the job.
+ここまでの演習で、ジョブテンプレートの作成が完了しました。♬  
+早速起動してみましょう。ジョブテンプレートを実行すると、ジョブのステータスがリアルタイムで更新されるジョブ画面にリダイレクトされます。  
 
-Step 1:
+ステップ 1:
 -------
 
-Select TEMPLATES
+テンプレートをクリックします。  
 
-> **Note**
+> **ヒント**
 >
-> Alternatively, if you haven’t navigated away from the job templates
-> creation page, you can scroll down to see all existing job templates
+> ジョブテンプレートの作成ページから移動していない場合は、下にスクロールして既存のすべてのジョブテンプレートを表示することも可能です  
 
-Step 2:
+ステップ 2:
 -------
 
-Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**IIS Basic Job Template**
+**IIS Basic Job Template**の右端にあるロケットアイコン ![Add](images/at_launch_icon.png) をクリックします。  
 
-Step 3:
+ステップ 3:
 -------
 
-When prompted, enter your desired test message
+Surveyで作成した入力画面が表示されるので、お好きなメッセージを入力してください。♪  
 
 ![Survey Prompt](images/4-survey-prompt.png)
 
-Step 4:
+ステップ 4:
 -------
 
-Select **NEXT** and preview the inputs.
+**次へ** をクリックします。  
 
-Step 5:
+ステップ 5:
 -------
 
-Select LAUNCH ![SurveyL](images/4-survey-launch.png)
+![SurveyL](images/4-survey-launch.png)起動ボタンをクリックしてジョブテンプレートを起動します。  
 
-Step 6:
+ステップ 6:
 -------
 
 Sit back, watch the magic happen

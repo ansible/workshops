@@ -83,12 +83,12 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 ステップ 6:
 -------
 
-![Add](images/at_add.png)　+Add ボタンをクリックします。  
+![Add](images/at_add.png) をクリックします。  
 
 ステップ 7:
 -------
 
-![Add](images/at_save.png) 保存ボタンをクリックします。  
+![Add](images/at_save.png) をクリックします。  
 
 ステップ 8:
 -------

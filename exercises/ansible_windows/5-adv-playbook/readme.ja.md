@@ -91,7 +91,7 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 
 > **ヒント**
 >
-> - `vars:` 変数名と値に関する定義を行うための宣言です    
+> - `vars:` 変数名と値に関する定義を行うことを宣言しています    
 >
 > - `iis_sites` iis_sitesという名前のリスト型変数を定義しています。その下の、`name` `port` `path` は iis_sites の下位の階層の変数を定義しています。  
 >
@@ -110,11 +110,26 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 ステップ 1:
 -------
 
-Create a `templates` directory in your project directory and create a
-template as follows:
+プロジェクトディレクトリの配下に `templates` ホルダを作成し、以下の様なテンプレートを作成します。  
 
-Ensure your **iis_advanced folder** is highlighted and then hover over
-the *WORKSHOP_PROJECT* section and click the *New Folder* button
+**iis_advanced folder** がハイライトされていることを確認し、*WORKSHOP_PROJECT* にカーソルを合わせて *New Folder*  をクリックします。
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        state: present
+    - name: Create site directory structure
+      win_file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items: "{{ iis_sites }}"
+
+    - name: Create IIS site
+      win_iis_website:
+        name: "{{ item.name }}"
+        state: started
+        port: "{{ item.port }}"
+        physical_path: "{{ item.path }}"
+      with_items: "{{ iis_sites }} 
 
 Type `templates` and hit enter. The right-click the *templates* folder and click the *New File* button.
 

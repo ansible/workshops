@@ -62,8 +62,8 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 ステップ 4:
 -------
 
-保存![Save](images/at_save.png) をクリックし、SURVEY の追加をクリックします。  
-![Add](images/at_add_survey.png)
+保存![Save](images/at_save.png) をクリックし、![Add](images/at_add_survey.png)SURVEY の追加をクリックします。  
+
 
 ステップ 5:
 -------
@@ -98,7 +98,7 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 ![Add](images/at_save.png) again.
 
 ジョブテンプレートの起動
-======================
+-------
 
 ここまでの演習で、ジョブテンプレートの作成が完了しました。♬  
 早速起動してみましょう。ジョブテンプレートを実行すると、ジョブのステータスがリアルタイムで更新されるジョブ画面にリダイレクトされます。  
@@ -120,7 +120,7 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 ステップ 3:
 -------
 
-Surveyで作成した入力画面が表示されるので、お好きなメッセージを入力してください。♪  
+Surveyで作成した入力画面が表示されるので、お好きなメッセージ(英語)を入力してください。♪  
 
 ![Survey Prompt](images/4-survey-prompt.png)
 
@@ -137,45 +137,32 @@ Surveyで作成した入力画面が表示されるので、お好きなメッ�
 ステップ 6:
 -------
 
-Sit back, watch the magic happen
-
-One of the first things you will notice is the summary section. This
-gives you details about your job such as who launched it, what playbook
-it’s running, what the status is, i.e. pending, running, or complete.
+ジョブの画面にリダイレクトされます。ジョブのステータス（保留中、実行中、完了など）や、だれがいつ、どのインベントリーに対して実行しているかなどが確認できます。  
 
 ![Job Summary](images/4-job-summary-details.png)
 
-Next you will be able to see details on the play and each task in the
-playbook.
+また、実際に動作しているジョブのステータスが表示されていることが分かります。  
 
 ![Play and Task Output](images/4-job-summary-output.png)
 
-Step 7:
+ステップ 7:
 -------
 
-When the job has successfully completed, you should see a URL to your website printed at the bottom of the job output.
+ジョブが正常に完了すると、ジョブ出力の下部にWebサイトへのURLが印刷されます。  
+すべてうまくいけば、このようなものが表示されますが、もちろん独自のカスタムメッセージの表示も可能です。  
 
-If all went well, you should see something like this, but with your own
-custom message of course.
+![New Website with Personalized Test Message](images/4-website-output.png)
 
-![New Website with Personalized Test
-Message](images/4-website-output.png)
+追加演習
+-------
 
-Extra Credit
-============
+ここまでで IISをインストールしましたので、*remove_iis.yml*という新しいプレイブックを作成してIISを停止および削除します。  
 
-Now that you have IIS Installed, create a new playbook called
-*remove\_iis.yml* to stop and remove IIS.
+**ヒント：**最初に `win_service` モジュールを使用して `W3Svc` サービスを停止し、次に `win_feature` モジュールを使用して `Web-Server` サービスを削除します。 オプションで、`win_file` モジュールを使用してインデックスページを削除します。
 
-**Hint:** First stop the `W3Svc` service using the `win_service` module,
-then delete the `Web-Server` service using the `win_feature` module.
-Optionally, use the `win_file` module to delete the index page.
 
-End Result
-==========
+まとめ
+-------
 
-At this point in the workshop, you’ve experienced the core functionality
-of Ansible Tower. But wait… there’s more! You’ve just begun to explore
-the possibilities of Ansible Tower. The next few lessons will help you
-move beyond a basic playbook.
+演習4はこれで終了です。ここまでで、Ansible Tower のコア機能を学びました。次の演習では、基本的な Playbook を超えた実装を行ってみましょう。  
 

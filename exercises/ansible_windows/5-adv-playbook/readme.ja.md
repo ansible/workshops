@@ -167,26 +167,20 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 ```
 <!-- {% endraw %} -->
 
-> **Note**
+> **ヒント**
 >
-> **So… what did I just write?**
+> **上記の解説です**
 >
-> - `win_firewall_rule:` This module is used to create, modify, and
->   update firewall rules. Note in the case of AWS there are also
->   security group rules which may impact communication. We’ve opened
->   these for the ports in this example.
+> - `win_firewall_rule:` ファイアウォールルールを作成、変更、および更新するために使用されるモジュールです。AWSの場合、通信に影響を与える可能性のあるセキュリティグループルールもあります。今回の演習では、ポート開放を行っています。    
 >
-> - `win_template:` This module specifies that a jinja2 template is
->   being used and deployed.
+> - `win_template:` jinja2テンプレートを使ってファイルを作成し、対象ホストにファイルをコピーしています。    
 >
-> - used in Ansible to transform data inside a template expression,
->   i.e. filters.
+> - テンプレートの中では、変数に値が入力されファイルコピーが行われます。  
 >
-> - `debug:` Again, like in the `iis_basic` playbook, this task displays the URLs to access the sites we are creating for this exercise
+> - `debug:` `iis_basic` 同様、この Playbook も最後に Web サイトの URL を表示するように構成されています。    
 
 
-Section 3: Defining and Using Handlers
-======================================
+## ハンドラーの利用
 
 There are any number of reasons we often need to restart a
 service/process including the deployment of a configuration file,

@@ -11,10 +11,10 @@ Ansible を利用することにより、タスクをシンプルかつ簡単に
 ハンドラーについても学びます。ハンドラーとは、特定のタスクが実行されたときにのみに追加で呼び出されるタスクです。例えば、httpd サービスの設定ファイルを変更した場合にのみ httpd サービスを再起動するというようなことが簡単に実現可能です。通常だと if 文で書いたり、複雑になりがちですよね。Ansible だと極めて簡単に記述する事が出来ます。  
 
 変数、ループ、およびハンドラーを完全に理解するには、 これらのテーマに関する以下の Ansible ドキュメントをご覧ください。  
-[Ansible Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
-[Ansible Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
-[Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
-
+[Ansible Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)  
+[Ansible Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)  
+[Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)  
+  
 ## Playbook の作成
 
 まず最初に新しい Playbook を作成しますが、演習3で作成したものに近いので問題なく理解できると思います。  
@@ -22,31 +22,29 @@ Ansible を利用することにより、タスクをシンプルかつ簡単に
 ### ステップ 1:
 
 Visual Studio Code 内で、gitリポジトリに新しいディレクトリを作成し、`site.yml` ファイルを作成します。  
+以前に「iis_basic」ディレクトリを作成した*WORKSHOP_PROJECT*が存在していると思います。  
+
 ![Student Playbooks](images/5-vscode-existing-folders.png)
 
-ステップ 2: Create a folder called **iis_advanced** and a file called `site.yml`
------------------------------------------------------------------------------
+### ステップ 2: フォルダーとファイルの作成
 
-Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button
+*WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
 
-Type `iis_advanced` and hit enter. Now, click that folder so it is
-selected.
+「iis_advanced」と入力してEnterキーを押します。 次に、そのフォルダをクリックして選択します。  
 
-Right-click the `iis_advanced` folder and select *New File*.
+「iis_advanced」と入力してEnterキーを押します。 次に、そのフォルダをクリックして選択します。  
 
-Type `site.yml` and hit enter.
+`iis_advanced`フォルダーを右クリックし、*New_File*を選択します。  
 
-You should now have an editor open in the right pane that can be used
-for creating your playbook.
+`site.yml` と入力します。  
+
+プレイブック用のエディターが右ペインに開きます。  
 
 ![Empty site.yml](images/5-vscode-create-folders.png)
 
-Step 3:
--------
+### ステップ 3:
 
-Add a play definition and some variables to your playbook. These include
-addtional packages your playbook will install on your web servers, plus
-some web server specific configurations.
+Playbook のプレイの中にいくつかの変数を定義します。これには後程タスクの中で利用する Web サーバーに対する固有の構成情報が含まれています。  
 
 ```yaml
     ---
@@ -63,11 +61,10 @@ some web server specific configurations.
         iis_test_message: "Hello World!  My test IIS Server"
 ```
 
-Step 4:
+ステップ 4:
 -------
 
-Add a new task called **install IIS**. After writing the playbook, click
-`File` &gt; `Save` to save your changes.
+**install IIS**という新しいタスクを追加します。プレイブックを書いた後、`ファイル` &gt; `保存`をクリックして変更を保存します。  
 
 <!-- {% raw %} -->
 ```yaml

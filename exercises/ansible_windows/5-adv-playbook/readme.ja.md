@@ -1,52 +1,30 @@
 # 高度な Playbook 
 
-Previous exercises showed you the basics of Ansible playbooks. In the
-next few exercises, we are going to teach some more advanced ansible
-skills that will add flexibility and power to your playbooks.
+以前の演習で、Ansible Playbook の基本を学びました。この演習では、以下の様な柔軟性に富んだパワフルな Playbook について学びます。  
 
-Ansible exists to make tasks simple and repeatable. We also know that
-not all systems are exactly alike and often require some slight change
-to the way an Ansible playbook is run. Enter variables.
+Ansible を利用することにより、タスクをシンプルかつ簡単に繰り返すことが可能になります。ただ、全てのシステムが同じ設定というわけではなく、Ansible Playbook の実行に若干の柔軟性が必要になることもよくあります。この様な場合には変数が利用可能です。  
 
-Variables are how we deal with differences between your systems,
-allowing you to account for a change in port, IP address or directory.
+変数は、システム間の違いを吸収する手段を提供します。例えば、ポート、IPアドレス、またはディレクトリなどをシステムに毎に柔軟に変更することができます。  
 
-Loops enable us to repeat the same task over and over again. For
-example, lets say you want to start multiple services, install several
-features, or create multiple directories. By using an ansible loop, you
-can do that in a single task.
+ループを使用すると同じタスクを何度も繰り返すことができます。たとえば、複数のサービスを開始したり、複数の機能をインストールしたり、複数のディレクトリを作成したりする事が出来ます。ansible ループを使用すると、1つのタスクでそれを実行できます。  
 
-Handlers are the way in which we restart services. Did you just deploy a
-new config file, install a new package? If so, you may need to restart a
-service for those changes to take effect. We do that with a handler.
+ハンドラーについても学びます。ハンドラーとは、特定のタスクが実行されたときにのみに追加で呼び出されるタスクです。例えば、httpd サービスの設定ファイルを変更した場合にのみ httpd サービスを再起動するというようなことが簡単に実現可能です。通常だと if 文で書いたり、複雑になりがちですよね。Ansible だと極めて簡単に記述する事が出来ます。  
 
-For a full understanding of variables, loops, and handlers; check out
-our Ansible documentation on these subjects.
-[Ansible
-Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
-[Ansible
-Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
-[Ansible
-Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
+変数、ループ、およびハンドラーを完全に理解するには、 これらのテーマに関する以下の Ansible ドキュメントをご覧ください。  
+[Ansible Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
+[Ansible Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
+[Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
 
-Section 1: Creating the Playbook
-================================
+## Playbook の作成
 
-To begin, we are going to create a new playbook, but it should look very
-familiar to the one you created in exercise 3
+まず最初に新しい Playbook を作成しますが、演習3で作成したものに近いので問題なく理解できると思います。  
 
-Step 1:
--------
+### ステップ 1:
 
-Within Visual Studio Code, create a new directory in your git repo and
-create a site.yml file.
-
-In the Explorer accordion you should have a *WORKSHOP_PROJECT* section where
-you previously made `iis_basic`.
-
+Visual Studio Code 内で、gitリポジトリに新しいディレクトリを作成し、`site.yml` ファイルを作成します。  
 ![Student Playbooks](images/5-vscode-existing-folders.png)
 
-Step 2: Create a folder called **iis_advanced** and a file called `site.yml`
+ステップ 2: Create a folder called **iis_advanced** and a file called `site.yml`
 -----------------------------------------------------------------------------
 
 Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button

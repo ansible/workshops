@@ -182,11 +182,7 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 
 ## ハンドラーの利用
 
-There are any number of reasons we often need to restart a
-service/process including the deployment of a configuration file,
-installing a new package, etc. There are really two parts to this
-Section; adding a handler to the playbook and calling the handler after
-the a task. We will start with the former.
+構成ファイルの更新、新しいパッケージのインストールなど、多くの場合、サービス/プロセスの再起動が必要となります。ハンドラーは Notify と共に機能します。特定のタスクに Notify を追記し、Notify を記述したタスクが実行されたときにのみハンドラーで記述されたタスクが実行されるという仕組みです。    
 
 The `handlers` block should start after a one-level indentation, that
 is, two spaces. It should align with the `tasks` block.

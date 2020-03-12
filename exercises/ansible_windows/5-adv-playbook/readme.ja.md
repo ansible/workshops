@@ -107,84 +107,63 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 
 その後、IISサービスを開始するタスクを定義します。
 
-ステップ 1:
--------
+### ステップ 1:
 
 プロジェクトディレクトリの配下に `templates` ホルダを作成し、以下の様なテンプレートを作成します。  
 
-**iis_advanced folder** がハイライトされていることを確認し、*WORKSHOP_PROJECT* にカーソルを合わせて *New Folder*  をクリックします。
-    - name: Install IIS
-      win_feature:
-        name: Web-Server
-        state: present
-    - name: Create site directory structure
-      win_file:
-        path: "{{ item.path }}"
-        state: directory
-      with_items: "{{ iis_sites }}"
+**iis_advanced folder** がハイライトされていることを確認して、*WORKSHOP_PROJECT* にカーソルを当て、*New Folder* ボタンをクリックします。  
 
-    - name: Create IIS site
-      win_iis_website:
-        name: "{{ item.name }}"
-        state: started
-        port: "{{ item.port }}"
-        physical_path: "{{ item.path }}"
-      with_items: "{{ iis_sites }} 
+`templates` と入力します。次に、この *templates* ホルダーを右クリックして *New File* ボタンを選択します。  
 
-Type `templates` and hit enter. The right-click the *templates* folder and click the *New File* button.
+`index.html.j2` と入力します。  
 
-Type `index.html.j2` and hit enter.
+テンプレート作成用のエディターが右ペインに開きます。次の様に入力します。
 
-You should now have an editor open in the right pane that can be used
-for creating your template. Enter the following details:
 
 <!-- {% raw %} -->
 ```html
-    <html>
-    <body>
+<html>
+<body>
 
-      <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}
+  <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
+  <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}
 
-    </body>
-    </html>
+</body>
+</html>
 ```
 <!-- {% endraw %} -->
 
 ![index.html template](images/5-vscode-template.png)
 
-Step 2:
--------
+### ステップ 2:
 
-Edit back your playbook, `site.yml`, by opening your firewall ports and
-writing the template. Use single quotes for `win_template` in order to
-not escape the forward slash.
+ファイアウォールのポートの開放と、テンプレートによるファイル作成を行うためのプレイブック`site.yml`を作成します。スラッシュをエスケープしないために、 `win_template`に一重引用符を使用しましょう。  
 
 <!-- {% raw %} -->
 ```yaml
-        - name: Open port for site on the firewall
-          win_firewall_rule:
-            name: "iisport{{ item.port }}"
-            enable: yes
-            state: present
-            localport: "{{ item.port }}"
-            action: Allow
-            direction: In
-            protocol: Tcp
-          with_items: "{{ iis_sites }}"
+    - name: Open port for site on the firewall
+      win_firewall_rule:
+        name: "iisport{{ item.port }}"
+        enable: yes
+        state: present
+        localport: "{{ item.port }}"
+        action: Allow
+        direction: In
+        protocol: Tcp
+      with_items: "{{ iis_sites }}"
 
-        - name: Template simple web site to iis_site_path as index.html
-          win_template:
-            src: 'index.html.j2'
-            dest: '{{ item.path }}\index.html'
-          with_items: "{{ iis_sites }}"
+    - name: Template simple web site to iis_site_path as index.html
+      win_template:
+        src: 'index.html.j2'
+        dest: '{{ item.path }}\index.html'
+      with_items: "{{ iis_sites }}"
 
-        - name: Show website addresses
-          debug:
-            msg: "{{ item }}"
-          loop:
-            - http://{{ ansible_host }}:8080
-            - http://{{ ansible_host }}:8081
+    - name: Show website addresses
+      debug:
+        msg: "{{ item }}"
+      loop:
+        - http://{{ ansible_host }}:8080
+        - http://{{ ansible_host }}:8081
 ```
 <!-- {% endraw %} -->
 
@@ -456,4 +435,3 @@ When the job has successfully completed, you should see two URLs to your website
 
 
 ![IIS site](images/5-iis-8080.png)
-

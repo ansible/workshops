@@ -1,13 +1,19 @@
-演習 4 - playbook 概要
+演習 4 - Ansible Tower プロジェクト・ジョブテンプレート
 =========================
 
+Ansible Tower 独自のオブジェクトとして、プロジェクトとジョブテンプレートがあります。  
+ジョブテンプレートは、Playbook 実行に必要な以下のオブジェクトを紐づけて定義したものです。  
 
-A job template is a definition and set of parameters for running an
-Ansible job. Job templates are useful to execute the same job many
-times.
+・接続先ホスト一覧（インベントリ）  
+・接続先ホストの認証情報（ホスト認証情報）  
+・起動するAnsible Playbook（プロジェクト / Playbook）  
 
-Syncing your Project
+ジョブテンプレートを作成・実行すると、管理対象ホストに対して Playbook が実行されます。  
+
+プロジェクトの同期
 ====================
+
+プロジェクト
 
 Before you can create a job template with a new playbook, you must first
 sync your Project so that Tower knows about it. To do this, click

@@ -1,6 +1,6 @@
 # Workshop Ansible - Ansible para Red Hat Enterprise Linux
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Leia em outras linguagens**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Workshop Ansible - Ansible para Red Hat Enterprise Linux](#workshop-ansible---ansible-para-red-hat-enterprise-linux)
       * [Apresentação](#apresentação)

@@ -205,7 +205,7 @@ iis_test_message: "Hello World!  My test IIS Server"
 
 さて、iiadvanced レベルに以前の演習で作成した*templates*フォルダーがまだ残っていると思います。これを削除しておきましょう。右クリックして選択し、削除します。  
 
-## ステップ 8: コミット
+### ステップ 8: コミット
 
 File → Save All をクリックして、すべてのファイルが保存されていることを確認します。  
 

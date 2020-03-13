@@ -237,15 +237,6 @@ Source Control アイコンをクリックし(1)、変更の内容に関する�
 
 ### ステップ 4:
 
-When prompted, enter your desired test message
-
-If successful, your standard output should look similar to the figure
-below. Note that most of the tasks return OK because we’ve previously
-configured the servers and services are already running.
-
-![Job output](images/6-job-output.png)
-
-
 プロンプトが表示されたら、お好きなテストメッセージを入力してください。♬  
 
 成功すると、標準出力は次の図のようになります。 サーバーとサービスが既に実行されていることを以前に構成したため、ほとんどのタスクはOKを返します。  

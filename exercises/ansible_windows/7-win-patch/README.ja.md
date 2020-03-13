@@ -78,68 +78,60 @@ Ansible Tower の GUI に戻ってプロジェクトの同期を行います。�
 |--------------------|----------------------------|------|
 | 名前               | Windows Updates            |      |
 | 説明        |                            |      |
-| ジョブタイプ           | Run                        |      |
+| ジョブタイプ           | 実行                        |      |
 | インベントリー          | Windows Workshop Inventory |      |
 | プロジェクト            | Ansible Workshop Project   |      |
 | PLAYBOOK           | `win_updates/site.yml`     |      |
 | 認証情報 | Student Account            |      |
-| LIMIT              | windows                    |      |
-| OPTIONS            | [*] ENABLE FACT CACHE      |      |
+| 制限              | windows                    |      |
+| オプション            | [*] ファクトキャッシュの有効化にチェック      |      |
 
 ![Create Job Template](images/7-win_update-template.png)
 
-Step 2:
--------
+### ステップ 2:
 
-Click SAVE ![Save](images/at_save.png) and then select ADD SURVEY
-![Add](images/at_add_survey.png)
+*保存* をクリックし、ADD SURVEY ![Add](images/at_add_survey.png) をクリックします。  
 
-Step 3:
--------
+### ステップ 3:
 
-Complete the survey form with following values
+Survey画面に以下を入力します。
 
-| Key                     | Value                                                                                                                                                  | Note                                         |
+| キー                     | 値                                                                                                                                                  | 備考                                         |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| PROMPT                  | Categories                                                                                                                                             |                                              |
-| DESCRIPTION             | Which Categories to install?                                                                                                                           |                                              |
-| ANSWER VARIABLE NAME    | categories                                                                                                                                             |                                              |
-| ANSWER TYPE             | Multiple Choice (multiple select)                                                                                                                      | **There's also a *single* selection option** |
-| MULTIPLE CHOICE OPTIONS |  Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |                                              |
-| DEFAULT ANSWER          |  CriticalUpdates<br>SecurityUpdates                                                                                                                       |                                              |
-| REQUIRED                | Selected                                                                                                                                               |                                              |
+| プロンプト                  | カテゴリー                                                                                                                                             |                                              |
+| 説明             | どのカテゴリーのパッチをインストール？                                                                                                                           |                                              |
+| 回答の変数名    | categories                                                                                                                                             |                                              |
+| 回答タイプ             | 複数の選択 (複数の選択)                                                                                                                      | ***単一* 選択のオプションもあります** |
+| 複数選択のオプション |  Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |                                              |
+| デフォルトの応答          |  CriticalUpdates<br>SecurityUpdates                                                                                                                       |                                              |
+| 必須                | チェック                                                                                                                                               |                                              |
 |                         |                                                                                                                                                        |                                              |
 
 ![Category Survey Form](images/7-category-survey.png)
 
-Once complete, click the ADD ![Add](images/at_add.png) button. You will
-see your new field off to the right. Now add another field by filling
-out the form on the left again.
+入力が完了したら *+Add* をクリックします。今作成した Survey 内容が右に追加されます。さらに、もう一つ Survey を追加します。  
 
-| Key                     | Value                                                   | Note |
+| キー                     | 値                                                   | 備考 |
 |-------------------------|---------------------------------------------------------|------|
-| PROMPT                  | Reboot after install?                                   |      |
-| DESCRIPTION             | If the server needs to reboot, then do so after install |      |
-| ANSWER VARIABLE NAME    | `reboot_server`                                         |      |
-| ANSWER TYPE             | Multiple Choice (single select)                         |      |
-| MULTIPLE CHOICE OPTIONS | Yes<br>No                                               |      |
-| DEFAULT ANSWER          | Yes                                                     |      |
-| REQUIRED                | Selected                                                |      |
+| プロンプト                  | Reboot after install?                                   |      |
+| 説明             | If the server needs to reboot, then do so after install |      |
+| 回答の変数名    | `reboot_server`                                         |      |
+| 回答タイプ             | 複数の選択 (単一の選択)                         |      |
+| 複数選択のオプション | Yes<br>No                                               |      |
+| デフォルトの応答          | Yes                                                     |      |
+| 必須                | チェック                                                |      |
 
 ![Reboot Survey Form](images/7-reboot-survey.png)
 
-Step 4:
--------
+## ステップ 4:
 
-Select ADD ![Add](images/at_add.png)
+*+Add* をクリックします。  
 
-Step 5:
--------
+## ステップ 5:
 
-Select SAVE ![Add](images/at_save.png)
+保存をクリックします。  
 
-Step 6:
--------
+## ステップ 6:
 
 Back on the main Job Template page, select SAVE
 ![Add](images/at_save.png) again.

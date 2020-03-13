@@ -125,43 +125,34 @@ Survey画面に以下を入力します。
 
 ## ステップ 4:
 
-*+Add* をクリックします。  
+![Add](images/at_add.png)をクリックします。  
 
 ## ステップ 5:
 
-保存をクリックします。  
+![Add](images/at_save.png)をクリックします。  
 
 ## ステップ 6:
 
-Back on the main Job Template page, select SAVE
-![Add](images/at_save.png) again.
+ジョブテンプレート画面に戻りますので、![Add](images/at_save.png) をクリックします。  
 
-Section 6: Running your new playbook
-====================================
+## playbook の起動
 
-Now let’s run it and see how it works.
+作成した Playbook を実行して、動くかどうか確認してみましょう♬  
 
-Step 1:
--------
+## ステップ 1:
 
-Select TEMPLATES
+テンプレートを選択します。  
 
-> **Note**
+> **ヒント**
 >
-> Alternatively, if you haven’t navigated away from the job templates
-> creation page, you can scroll down to see all existing job templates
+> ジョブテンプレートの作成ページから移動していない場合は、下にスクロールして既存のすべてのジョブテンプレートを表示することも可能です  
 
-Step 2:
--------
+## ステップ 2:
 
-Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**Windows Updates** Job Template.
+**Windows Updates**の右端にあるロケットアイコン ![Add](images/at_launch_icon.png) をクリックします！  
 
-Step 3:
--------
+## ステップ 3:
 
-When prompted, enter select the update categories. Answer `Yes` to the
-*Reboot after install?* prompt and click **NEXT**.
+プロンプトが表示されたらUpdateのカテゴリーを選択し、さらに、*Reboot after install?*に `Yes` を選択して、**次へ**をクリックします。  
 
-After the job launches, you should be redirected and can watch the
-output of the job in realtime.
+ジョブが起動したら、リダイレクトされ、ジョブの出力をリアルタイムで見ることができます。  

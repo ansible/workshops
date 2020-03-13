@@ -19,6 +19,7 @@
     - {include_role: {name: aws_dns}, when: create_login_page is defined and create_login_page}
     - {include_role: {name: code_server}, when: code_server}
     - {include_role: {name: gitlab-server}, when: workshop_type == "windows"}
+    - {include_role: {name: internal_dns}, when: workshop_type == "advanced_tower"}
 
     - name: create list of DNS records
       set_fact:

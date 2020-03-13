@@ -71,7 +71,7 @@
       when: debug_teardown
 
     - name: grab vpc node facts for workshop
-      ec2_instance_facts:
+      ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           "vpc-id": "{{ec2_vpc_id}}"
@@ -83,7 +83,7 @@
       when: debug_teardown
 
     - name: grab vpc2 node facts for workshop
-      ec2_instance_facts:
+      ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           "vpc-id": "{{ec2_vpc_id2}}"
@@ -264,14 +264,14 @@
         - vpc_net_facts2.vpcs|length > 0
 
     - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
-      ec2_vpc_route_table_facts:
+      ec2_vpc_route_table_info:
         region: "{{ ec2_region }}"
         filters:
           vpc_id: "{{ec2_vpc_id}}"
       register: route_table_facts
 
     - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORKING MODE)
-      ec2_vpc_route_table_facts:
+      ec2_vpc_route_table_info:
         region: "{{ ec2_region }}"
         filters:
           vpc_id: "{{ec2_vpc_id2}}"

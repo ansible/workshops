@@ -1,6 +1,11 @@
 # 演習 2.5 - ロールベースのアクセス制御
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Ansible Tower ユーザー](#ansible-tower-ユーザー)
+* [Ansible Tower チーム](#ansible-tower-チーム)
+* [パーミッションの付与](#パーミッションの付与)
+* [パーミッションのテスト](#パーミッションのテスト)
 
 Ansible Tower の優れた機能として、認証情報を Tower 内部で適切に管理する方法を学びました。Ansible Tower のもう1つの利点は、ユーザーとグループの権限管理です。  
 
@@ -21,17 +26,17 @@ Ansible Tower のユーザーには以下の3つのタイプがあります
 - 緑色のプラスボタンをクリックします  
 
 - 新しいユーザーに関する情報を入力します  
-  
+
     - **名** Werner  
-  
+
     - **姓** Web  
-  
+
     - **メール** wweb@example.com  
-   
+
     - **ユーザー名** wweb  
-  
+
     - **ユーザータイプ** Normal User  
-  
+
     - **パスワード** ansible  
 
 - **保存**をクリック  
@@ -67,9 +72,9 @@ Ansible Tower のユーザーには以下の3つのタイプがあります
 - チーム `Web Content` 内で `パーミッション` を表示し、緑色のプラスボタンをクリックして権限を追加します。  
 
 - 新しいウィンドウが開きます。様々なオブジェクトに対してアクセス権限を設定できることが分かります。  
-  
+
     - **ジョブテンプレート**を選択します  
-  
+
     - `Create index.html` テンプレートの横にあるチェックボックスをオンにしてテンプレートを選択します。  
 
 - ウィンドウの2番目の部分が開きます。ここで、選択したリソースにロールを割り当てます。  

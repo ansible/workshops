@@ -1,6 +1,13 @@
 # Exercise 2.4 - Surveys
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Criando o projeto](#criando-o-projeto)
+* [Criando um template com uma Survey](#criando-um-template-com-uma-survey)
+   * [Crie o Template](#crie-o-template)
+   * [Adicionando o Survey](#adicionando-o-survey)
+* [Iniciando o template](#iniciando-o-template)
+* [Vamos praticar!](#vamos-praticar)
 
 Você deve ter notado o botão **ADD SURVEY** na visualização de configuração **Template**. Uma survey é uma maneira de criar um formulário simples para solicitar parâmetros que são usados como variáveis quando um **template** é iniciado como um **job**.
 
@@ -15,7 +22,7 @@ Você instalou o Apache em todos os hosts no job que você acabou de executar. A
 Além disso, a role também garantirá que a configuração do Apache esteja configurada corretamente - caso seja confundida durante os outros exercícios.
 
 > **Dica**
-> 
+>
 > O recurso de survey fornece apenas uma consulta simples para dados - ele não suporta princípios de four-eye, consultas baseadas em dados dinâmicos ou menus aninhados.
 
 ## Criando o projeto
@@ -37,17 +44,17 @@ Agora você irá criar um novo template que inclui uma survey.
 - **NAME:** Crie index.html
 
 - Configure o template para:
-  
+
     - Use o **Project** e o **Playbook**
-  
+
     - Para executar no `node1`
-  
+
     - Para executar no modo privilegiado
 
 Tente você mesmo.
 
 > **ATENÇÃO**
-> 
+>
 > **Solução abaixo\!**
 
 - **NAME:** Crie index.html
@@ -75,21 +82,21 @@ Tente você mesmo.
 - No template, clique no botão **ADD SURVEY**
 
 - Em **ADD SURVEY PROMPT**, preencha:
-  
+
     - **PROMPT:** First Line
-  
+
     - **ANSWER VARIABLE NAME:** `first_line`
-  
+
     - **ANSWER TYPE:** Text
 
 - Click em **+ADD**
 
 - Da mesma maneira, adicione um segundo **Survey Prompt**
-  
+
     - **PROMPT:** Second Line
-  
+
     - **ANSWER VARIABLE NAME:** `second_line`
-  
+
     - **ANSWER TYPE:** Text
 
 - Click em **+ADD**
@@ -105,7 +112,7 @@ Agora inicie o **Create index.html** job template.
 Antes do lançamento real, a pesquisa solicitará **First Line** e **Second Line**. Preencha e clique em **Next**. A próxima janela mostra os valores, se tudo estiver bom, execute o Job clicando em **Launch**.
 
 > **Dica**
-> 
+>
 > Observe como as duas linhas de survey são mostradas à esquerda do Job view como **Extra Variables**.
 
 Após a conclusão do job, verifique a página inicial do Apache. No console SSH no host de controle, execute `curl` no endereço IP do seu `node1`:
@@ -125,7 +132,7 @@ Observe como as duas variáveis foram usadas pelo playbook para criar o conteúd
 Aqui está uma lista de tasks:
 
 > **ATENÇÃO**
-> 
+>
 > **Certifique-se de concluir estas etapas, pois o próximo capítulo depende disso\!**
 
 - No inventário `Webserver` adicione os outros nós, `node2` e `node3`.

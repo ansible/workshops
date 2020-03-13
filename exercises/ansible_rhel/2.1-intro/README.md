@@ -1,6 +1,11 @@
 # Exercise 2.1 - Introduction to Tower
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Why Ansible Tower?](#why-ansible-tower)
+* [Your Ansible Tower Lab Environment](#your-ansible-tower-lab-environment)
+* [Dashboard](#dashboard)
+* [Concepts](#concepts)
 
 ## Why Ansible Tower?
 

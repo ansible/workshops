@@ -1,6 +1,13 @@
 # Exercício 1.7 - Roles: Tornando seus playbooks reutilizáveis
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Passo 7.1 - Entendendo a estrutura da Role](#passo-71---entendendo-a-estrutura-da-role)
+* [Passo 7.2 - Criando uma estrutura básica de diretório de roles](#passo-72---criando-uma-estrutura-básica-de-diretório-de-roles)
+* [Passo 7.3 - Criando o arquivo de tasks](#passo-73---criando-o-arquivo-de-tasks)
+* [Passo 7.4 - Criando o handler](#passo-74---criando-o-handler)
+* [Passo 7.5 - Criando o index.html e template de arquivo de configuração do vhost](#passo-75---criando-o-indexhtml-e-template-de-arquivo-de-configuração-do-vhost)
+* [Passo 7.6 - Teste a role](#passo-76---teste-a-role)
 
 Embora seja possível escrever um playbook em um arquivo, como fizemos neste workshop, você poderá reutilizar arquivos e começar a organizar as coisas.
 
@@ -79,7 +86,7 @@ Dê uma olhada nos diretórios de role e seu conteúdo:
 O arquivo `main.yml` no subdiretório de taks da role deve fazer o seguinte:
 
   - Verificar se o httpd está instalado
-  
+
   - Verificar se o httpd está iniciado e habilitado
 
   - Colocar o conteúdo HTML na raiz do documento Apache
@@ -135,7 +142,7 @@ Note que o diretório vhost é criado/garantido usando o módulo `file`.
 A última task que adicionamos usa o módulo de template para criar o arquivo de configuração do vhost a partir de um template j2:
 
 ```yaml
-- name: Template arquivo vhost 
+- name: Template arquivo vhost
   template:
     src: vhost.conf.j2
     dest: /etc/httpd/conf.d/vhost.conf

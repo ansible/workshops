@@ -2,9 +2,15 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+   * [Exercício 2.1 - Introdução ao Tower](#exercício-21---introdução-ao-tower)
+      * [Por que Ansible Tower?](#por-que-ansible-tower)
+      * [Seu ambiente de laboratório Ansible Tower](#seu-ambiente-de-laboratório-ansible-tower)
+      * [Dashboard](#dashboard)
+      * [Conceitos](#conceitos)
+
 ## Por que Ansible Tower?
 
-O Ansible Tower é uma interface do usuário baseada na Web que fornece uma solução corporativa para automação de TI. 
+O Ansible Tower é uma interface do usuário baseada na Web que fornece uma solução corporativa para automação de TI.
 
   - Possui um dashboard amigável.
 
@@ -42,7 +48,7 @@ A interface do Tower recebe você com um painel com um gráfico mostrando:
   - o número de hosts gerenciados
 
   - quick pointers para listas de hosts com problemas.
-  
+
 A dashboard também exibe dados em tempo real sobre a execução de tasks concluídas nos playbooks.
 
 ![Ansible Tower Dashboard](images/dashboard.png)

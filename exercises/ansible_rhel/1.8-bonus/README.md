@@ -2,6 +2,14 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+   * [Exercise 1.8 - Bonus Labs](#exercise-18---bonus-labs)
+      * [Step 8.1 - Bonus Lab: Ad Hoc Commands](#step-81---bonus-lab-ad-hoc-commands)
+      * [Step 8.2 - Bonus Lab: Templates and Variables](#step-82---bonus-lab-templates-and-variables)
+         * [Define the variables:](#define-the-variables)
+         * [Prepare the template:](#prepare-the-template)
+         * [Create the Playbook](#create-the-playbook)
+         * [Run and test](#run-and-test)
+
 You have finished the lab already. But it doesn’t have to end here. We prepared some slightly more advanced bonus labs for you to follow through if you like. So if you are done with the labs and still have some time, here are some more labs for you:
 
 ## Step 8.1 - Bonus Lab: Ad Hoc Commands

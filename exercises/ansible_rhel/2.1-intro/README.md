@@ -2,6 +2,12 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+   * [Exercise 2.1 - Introduction to Tower](#exercise-21---introduction-to-tower)
+      * [Why Ansible Tower?](#why-ansible-tower)
+      * [Your Ansible Tower Lab Environment](#your-ansible-tower-lab-environment)
+      * [Dashboard](#dashboard)
+      * [Concepts](#concepts)
+
 ## Why Ansible Tower?
 
 Ansible Tower is a web-based UI that provides an enterprise solution for IT automation. It

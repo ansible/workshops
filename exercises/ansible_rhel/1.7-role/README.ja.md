@@ -2,6 +2,14 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+   * [演習 1.7 - Roles: Playbook を再利用可能にする](#演習-17---roles-playbook-を再利用可能にする)
+      * [ステップ 1.7.1 - Ansible Roles 構造を理解する](#ステップ-171---ansible-roles-構造を理解する)
+      * [ステップ 1.7.2 - 基本的な Role ディレクトリ構造を作成する](#ステップ-172---基本的な-role-ディレクトリ構造を作成する)
+      * [ステップ 1.7.3 - タスクファイルの作成](#ステップ-173---タスクファイルの作成)
+      * [ステップ 1.7.4 - ハンドラーの作成](#ステップ-174---ハンドラーの作成)
+      * [ステップ 1.7.5 - index.html の作成とバーチャルホスト用テンプレートファイルの作成](#ステップ-175---indexhtml-の作成とバーチャルホスト用テンプレートファイルの作成)
+      * [ステップ 1.7.6 -  Role のテスト実行](#ステップ-176----role-のテスト実行)
+
 今までのワークショップで学習してきた通り、Playbook を1つのファイルに書くことは可能です。しかしそのうち、作成した Playbook を再利用したいと考えるようになると思います。  
 
 これを実現するのが Ansible の Roles です。Role という形で Playbook をパーツとして分解し、構造化されたディレクトリに納めるのです。詳しくはこちらの [ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html) をご確認ください。  
@@ -22,7 +30,7 @@ apache/
 ├── handlers
 │   └── main.yml
 ├── meta
-│   └── main.yml 
+│   └── main.yml
 ├── README.md
 ├── tasks
 │   └── main.yml

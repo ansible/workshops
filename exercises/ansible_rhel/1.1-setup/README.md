@@ -2,6 +2,12 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
 
+   * [Exercise 1.1 - Check the Prerequisites](#exercise-11---check-the-prerequisites)
+      * [Your Lab Environment](#your-lab-environment)
+      * [Step 1.1 - Access the Environment](#step-11---access-the-environment)
+      * [Step 1.2 - Working the Labs](#step-12---working-the-labs)
+      * [Step 1.3 - Challenge Labs](#step-13---challenge-labs)
+
 ## Your Lab Environment
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts:

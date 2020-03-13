@@ -2,6 +2,10 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+   * [Exercicio 1.6 - Templates](#exercicio-16---templates)
+      * [Passo 6.1 - Usando Templates em Playbooks](#passo-61---usando-templates-em-playbooks)
+      * [Passo 6.2 - Laboratório de Desafios](#passo-62---laboratório-de-desafios)
+
 O Ansible usa o template Jinja2 para modificar arquivos antes de serem distribuídos para hosts gerenciados. O Jinja2 é um dos mecanismos de template mais usados para o Python (<http://jinja.pocoo.org/>).
 
 ## Passo 6.1 - Usando Templates em Playbooks
@@ -62,7 +66,7 @@ Adicione uma linha ao template para listar o kernel atual do nó gerenciado.
 > Use `grep -i` para o kernel
 
   - Mude o template para usar o fact que você encontrou.
-  
+
   - Execute o Playbook novamente.
 
   - Verifique o motd efetuando login no node1

@@ -2,6 +2,13 @@
 
 **Leia em outras linguagens**: ![uk](../../images/uk.png) [English](README),  ![japan](../../images/japan.png) [日本語](README.ja.md).
 
+   * [Workshop Ansible - Ansible para Red Hat Enterprise Linux](#workshop-ansible---ansible-para-red-hat-enterprise-linux)
+      * [Apresentação](#apresentação)
+      * [Planejamento de tempo](#planejamento-de-tempo)
+      * [Seção 1 - Exercícios do Ansible Engine](#seção-1---exercícios-do-ansible-engine)
+      * [Seção 2 - Exercícios do Ansible Tower](#seção-2---exercícios-do-ansible-tower)
+      * [Informações adicionais](#informações-adicionais)
+
 O Ansible é um mecanismo de automação de TI simples e poderoso para implantação de aplicativos, gerenciamento de configurações e orquestração que você pode aprender rapidamente.
 
 Na primeira seção deste laboratório, você aprenderá a usar o Ansible Engine para automação, do básico até alguns conceitos mais avançados.
@@ -28,7 +35,7 @@ Dito isto, os exercícios em si devem levar cerca de 4-5 horas. A primeira seç�
 
 Se a sua experiência for diferente na programação desses workshops, informe-nos e preencha um problema.
 
-## Seção 1 - Exercícios do Ansible Engine 
+## Seção 1 - Exercícios do Ansible Engine
 
  - [Exercício 1.1 - Verifique os pré-requisitos](1.1-setup/README.pt-br.md)
  - [Exercício 1.2 - Executando comandos ad-hoc](1.2-adhoc/README.pt-br.md)

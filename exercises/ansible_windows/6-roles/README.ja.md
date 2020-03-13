@@ -17,16 +17,13 @@ Visual Studio Codeで、エクスプローラーと以前に `iis_advanced` を�
 
 **iis_advanced** フォルダーを選択します。  
 
-Create a directory called **roles** by right-clicking on **iis_advanced**
-and selecting *New Folder*
+**iis_advanced**を右クリックして*New Folder*を選択、**roles** という名前のホルダーを作成します。   
 
-Now right-click **roles** and create a new folder underneath called
-`iis_simple`.
+**roles**を右クリックし、その下に `iis_simple`という新しいフォルダーを作成します。　　
 
-Step 2:
--------
+## ステップ 2:  
 
-Within *iis\_simple* create new folders as follows:
+*iis\_simple* の下にさらに以下の新しいホルダーを作成します:
 
 - defaults
 
@@ -38,129 +35,100 @@ Within *iis\_simple* create new folders as follows:
 
 - templates
 
-Step 3:
--------
+## Step 3:  
 
-Within each of these new folders (except templates), right-click and
-create *New File* Create a file called `main.yml` in each of these
-folders. You will not do this under templates as we will create
-individual template files. This is your basic role structure and
-main.yml will be the default file that the role will use for each
-section.
+template ホルダーを除く各ホルダーに、`main.yml`という名前のファイルを作成します。これは基本的な Roles のホルダー構造であり、main.ymlはロールが各セクションで使用するデフォルトのファイルになります。
 
-The finished structure will look like this:
+完成した構造は次のようになります。  
 
 ![Role Structure](images/6-create-role.png)
 
-Section 2: Breaking Your `site.yml` Playbook into the Newly Created `iis_simple` Role
-=====================================================================================
+# Playbook の Role 化
 
-In this section, we will separate out the major parts of your playbook
-including `vars:`, `tasks:`, `template:`, and `handlers:`.
+このセクションでは、`vars：`、`tasks：`、`template：`、`handlers：`など、Playbook の主要部分を分解し Role 化します。  
 
-Step 1:
--------
+## ステップ 1:
 
-Make a backup copy of `site.yml`, then create a new `site.yml`.
+元の `site.yml` のバックアップを作成した後、新しく `site.yml`を作成します。  
 
-Navigate to your `iis_advanced` folder, right click `site.yml`, click
-`rename`, and call it `site.yml.backup`
+`iis_advanced` ホルダーで、`site.yml`を右クリックし、`rename`を選択、`site.yml.backup`に変更します。  
 
-Create a blank new file called `site.yml` in the same folder
+同じホルダーに`site.yml` を新たに作成します。  
 
-Step 2:
--------
+## ステップ 2:
 
-Update site.yml to look like to only call your role. It should look like
-below:
+site.ymlを編集して、iis_simple という名の Role を呼び出すようにします。以下のようになります。  
 
 ```yaml
     ---
-    - hosts: windows
-      name: This is my role-based playbook
-
-      roles:
-        - iis_simple
+- hosts: windows
+  name: This is my role-based playbook
+  
+  roles:
+    - iis_simple
 ```
 
 ![New site.yml](images/6-new-site.png)
 
-Step 3:
--------
+## ステップ 3:
 
-Add a default variable to your role. Edit the
-`roles\iis_simple\defaults\main.yml` as follows:
+デフォルト変数をロールに追加します。 `roles \ iis_simple \ defaults \ main.yml`を次のように編集します：
 
 ```yaml
     ---
-    # defaults file for iis_simple
-    iis_sites:
-      - name: 'Ansible Playbook Test'
-        port: '8080'
-        path: 'C:\sites\playbooktest'
-      - name: 'Ansible Playbook Test 2'
-        port: '8081'
-        path: 'C:\sites\playbooktest2'
+# defaults file for iis_simple
+iis_sites:
+  - name: 'Ansible Playbook Test'
+    port: '8080'
+    path: 'C:\sites\playbooktest'
+  - name: 'Ansible Playbook Test 2'
+    port: '8081'
+    path: 'C:\sites\playbooktest2'
 ```
 
-Step 4:
--------
+## ステップ 4:
 
-Add some role-specific variables to your role in
-`roles\iis_simple\vars\main.yml`.
+`roles \ iis_simple \ vars \ main.yml`のロールにいくつかのロール固有の変数を追加します。  
 
 ```yaml
-    ---
-    # vars file for iis_simple
-    iis_test_message: "Hello World!  My test IIS Server"
+---
+# vars file for iis_simple
+iis_test_message: "Hello World!  My test IIS Server"
 ```
 
-> **Note**
+> **ヒント**
 >
-> **Hey, wait… did we just put variables in two seperate places?**
+> **変数を違う場所に置く？？**
 >
-> Yes… yes we did. Variables can live in quite a few places. Just to
-> name a few:
+> はい！ Ansible では、変数はいろんな場所に置く事が出来ます。ほんの一例をあげると:  
 >
-> - vars directory
+> - vars ホルダー
 >
-> - defaults directory
+> - defaults ホルダー
 >
-> - group\_vars directory
+> - group\_vars ホルダー
 >
-> - In the playbook under the `vars:` section
+> - Playbook の `vars:` の中
 >
-> - In any file which can be specified on the command line using the
->     `--extra_vars` option
+> - コマンド実行の際の`--extra_vars` オプション
 >
-> - On a boat, in a moat, with a goat *(disclaimer: this is a complete
->     lie)*
->
-> Bottom line, you need to read up on [variable
-> precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
-> to understand both where to define variables and which locations take
-> precedence. In this exercise, we are using role defaults to define a
-> couple of variables and these are the most malleable. After that, we
-> defined some variables in `/vars` which have a higher precedence than
-> defaults and can’t be overridden as a default variable.
+>上記変数の定義は、場所によって優先順位が決まっています。最初からあまりいろんなところに置く必要はありませんが、こちらを一度確認しておくと良いと思います。[variable precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)。この演習では、Role の default を使用していくつかの変数を定義していますが、これらは優先順位が低いため、他の場所で記述されると置き換わります。逆に言うと、順応性がある変数とも言えます。この default より優先順位が高いのが vars で、一部をこちらで定義してみました。  
 
-Step 5:
--------
+## ステップ 5:
 
-Create your role handler in `roles\iis_simple\handlers\main.yml`.
+次に、ハンドラーを Role 化してみましょう。編集するファイルは、`roles\iis_simple\handlers\main.yml` です。
 
 ```yaml
-    ---
-    # handlers file for iis_simple
-    - name: restart iis service
-      win_service:
-        name: W3Svc
-        state: restarted
-        start_mode: auto
+---
+# handlers file for iis_simple
+- name: restart iis service
+  win_service:
+    name: W3Svc
+    state: restarted
+    start_mode: auto
 ```
 
-Step 6:
--------
+## ステップ 6:
 
 Add tasks to your role in `roles\iis_simple\tasks\main.yml`.
 

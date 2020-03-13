@@ -3,7 +3,7 @@
 - name: BLOCK FOR CISCO AMI
   block:
     - name: find ami for cisco (NETWORKING MODE)
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:
@@ -21,7 +21,7 @@
 - name: BLOCK FOR ARISTA AMI
   block:
     - name: find ami for arista (NETWORKING MODE)
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:
@@ -39,7 +39,7 @@
 - name: BLOCK FOR ARISTA AMI
   block:
     - name: find ami for juniper vsrx (NETWORKING MODE)
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:

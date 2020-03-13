@@ -64,7 +64,7 @@
       {}
 
 - name: get gw instances
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       "tag:Name": "{{ inventory_hostname|regex_replace('ansible', 'checkpoint_gw') }}"

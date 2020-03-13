@@ -1,6 +1,6 @@
 ---
 - name: find ami for node1
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[rhel].owners }}"
     filters:
@@ -57,7 +57,7 @@
   when: node1_output.instance_ids is not none
 
 - name: find ami for node2
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[rhel].owners }}"
     filters:
@@ -114,7 +114,7 @@
   when: node2_output.instance_ids is not none
 
 - name: find ami for node3
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[rhel].owners }}"
     filters:
@@ -171,7 +171,7 @@
   when: node3_output.instance_ids is not none
 
 - name: find ami for node4
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[rhel].owners }}"
     filters:

@@ -122,6 +122,8 @@ number in SCM URL**)
 | SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **Replace the workshop name and student# in URL** |
 | SCM BRANCH     |                                                                         | Intentionally blank                               |
 | SCM CREDENTIAL | Git Credential                                                          |                                                   |
+
+
 SCM UPDATE OPTIONS
 
 - [ ] Clean
@@ -245,9 +247,4 @@ Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
 The authentication settings are particularly important and you will need
 to review them and decide which method is best for your needs.
 
-End Result
-----------
-
-At this point, we are done with our basic configuration of Ansible
-Tower. In exercise 2, we will run a few Ad-Hoc commands against
-these hosts.
+Replace the workshop name and student# i

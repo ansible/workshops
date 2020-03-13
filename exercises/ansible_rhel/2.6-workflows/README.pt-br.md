@@ -1,6 +1,6 @@
 # Exercício 2.6 - Workflows
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercício 2.6 - Workflows](#exercício-26---workflows)
    * [Ansible Tower Workflows](#ansible-tower-workflows)

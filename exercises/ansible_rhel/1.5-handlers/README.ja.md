@@ -1,6 +1,6 @@
 # 演習 1.5 - 条件分岐、ハンドラー、ループを使う
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [演習 1.5 - 条件分岐、ハンドラー、ループを使う](#演習-15---条件分岐ハンドラーループを使う)
       * [ステップ 1.5.1 - 条件分岐](#ステップ-151---条件分岐)

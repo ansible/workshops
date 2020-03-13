@@ -1,6 +1,6 @@
 # Exercício 1.4 - Usando variáveis
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercício 1.4 - Usando variáveis](#exercício-14---usando-variáveis)
       * [Passo 4.1 - Criando arquivos de variáveis](#passo-41---criando-arquivos-de-variáveis)

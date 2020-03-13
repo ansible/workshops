@@ -1,6 +1,6 @@
 # Exercise 1.3 - 初めての Playbook 作成
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 1.3 - 初めての Playbook 作成](#exercise-13---初めての-playbook-作成)
       * [Step 1.3.1 - Playbook Basics](#step-131---playbook-basics)

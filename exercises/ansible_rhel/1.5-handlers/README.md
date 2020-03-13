@@ -1,6 +1,6 @@
 # Exercise 1.5 - Conditionals, Handlers and Loops
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 1.5 - Conditionals, Handlers and Loops](#exercise-15---conditionals-handlers-and-loops)
       * [Step 5.1 - Conditionals](#step-51---conditionals)

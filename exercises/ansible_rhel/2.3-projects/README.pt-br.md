@@ -1,6 +1,6 @@
 # Exercício 2.3 - Projects & job templates
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercício 2.3 - Projects &amp; job templates](#exercício-23---projects--job-templates)
       * [Configurando o repositório Git](#configurando-o-repositório-git)

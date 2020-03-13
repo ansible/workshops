@@ -1,6 +1,6 @@
 # Exercise 2.4 - Surveys
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 2.4 - Surveys](#exercise-24---surveys)
       * [The Apache-configuration Role](#the-apache-configuration-role)

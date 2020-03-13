@@ -1,6 +1,6 @@
 # Exercicio 2.5 - Controle de acesso baseado em role
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercicio 2.5 - Controle de acesso baseado em role](#exercicio-25---controle-de-acesso-baseado-em-role)
       * [Usuários Ansible Tower](#usuários-ansible-tower)

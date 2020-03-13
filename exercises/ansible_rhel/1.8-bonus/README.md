@@ -1,6 +1,6 @@
 # Exercise 1.8 - Bonus Labs
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 1.8 - Bonus Labs](#exercise-18---bonus-labs)
       * [Step 8.1 - Bonus Lab: Ad Hoc Commands](#step-81---bonus-lab-ad-hoc-commands)

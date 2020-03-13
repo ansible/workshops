@@ -1,6 +1,6 @@
 # Exercício 1.7 - Roles: Tornando seus playbooks reutilizáveis
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercício 1.7 - Roles: Tornando seus playbooks reutilizáveis](#exercício-17---roles-tornando-seus-playbooks-reutilizáveis)
       * [Passo 7.1 - Entendendo a estrutura da Role](#passo-71---entendendo-a-estrutura-da-role)

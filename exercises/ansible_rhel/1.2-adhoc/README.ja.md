@@ -1,6 +1,6 @@
 # Exercise 1.2 - Ad-hoc コマンドを実行しよう
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 1.2 - Ad-hoc コマンドを実行しよう](#exercise-12---ad-hoc-コマンドを実行しよう)
       * [Step 1.2.1 - インベントリを操作してみよう](#step-121---インベントリを操作してみよう)

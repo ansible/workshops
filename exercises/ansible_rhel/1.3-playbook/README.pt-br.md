@@ -1,6 +1,6 @@
 # Exercício 1.3 - Escrevendo seu primeiro Playbook
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercício 1.3 - Escrevendo seu primeiro Playbook](#exercício-13---escrevendo-seu-primeiro-playbook)
       * [Passo 3.1 - Noções básicas do Playbook](#passo-31---noções-básicas-do-playbook)

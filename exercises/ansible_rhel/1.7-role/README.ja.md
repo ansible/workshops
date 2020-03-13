@@ -1,6 +1,6 @@
 # 演習 1.7 - Roles: Playbook を再利用可能にする
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [演習 1.7 - Roles: Playbook を再利用可能にする](#演習-17---roles-playbook-を再利用可能にする)
       * [ステップ 1.7.1 - Ansible Roles 構造を理解する](#ステップ-171---ansible-roles-構造を理解する)

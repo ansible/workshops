@@ -1,6 +1,6 @@
 # 演習 2.1 - Tower の紹介
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [演習 2.1 - Tower の紹介](#演習-21---tower-の紹介)
       * [Ansible Tower の価値](#ansible-tower-の価値)

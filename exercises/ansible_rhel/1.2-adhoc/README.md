@@ -1,6 +1,6 @@
 # Exercise 1.2 - Running Ad-hoc commands
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 1.2 - Running Ad-hoc commands](#exercise-12---running-ad-hoc-commands)
       * [Step 2.1 - Work with your Inventory](#step-21---work-with-your-inventory)

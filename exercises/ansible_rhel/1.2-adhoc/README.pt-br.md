@@ -1,6 +1,6 @@
 # Exercício 1.2 - Executando comandos ad-hoc
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercício 1.2 - Executando comandos ad-hoc](#exercício-12---executando-comandos-ad-hoc)
       * [Passo 2.1 - Trabalhe com seu inventário](#passo-21---trabalhe-com-seu-inventário)

@@ -1,6 +1,6 @@
 # Exercise 1.7 - Roles: Making your playbooks reusable
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 1.7 - Roles: Making your playbooks reusable](#exercise-17---roles-making-your-playbooks-reusable)
       * [Step 7.1 - Understanding the Ansible Role Structure](#step-71---understanding-the-ansible-role-structure)

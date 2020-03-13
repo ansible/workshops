@@ -1,6 +1,6 @@
 # 演習 1.8 - ボーナスラボ  
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [演習 1.8 - ボーナスラボ](#演習-18---ボーナスラボ)
       * [ステップ 1.8.1 - ボーナスラボ: アドホックコマンド](#ステップ-181---ボーナスラボ-アドホックコマンド)

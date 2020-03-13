@@ -1,6 +1,6 @@
 # Exercise 1.6 - Templates
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercise 1.6 - Templates](#exercise-16---templates)
       * [Step 6.1 - Using Templates in Playbooks](#step-61---using-templates-in-playbooks)

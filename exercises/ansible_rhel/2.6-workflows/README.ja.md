@@ -1,6 +1,6 @@
 # 演習 2.6 - ワークフロー
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [演習 2.6 - ワークフロー](#演習-26---ワークフロー)
    * [Ansible Tower ワークフロー](#ansible-tower-ワークフロー)

@@ -1,5 +1,7 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
    * [Ansible Workshop - Ansible for Red Hat Enterprise Linux](#ansible-workshop---ansible-for-red-hat-enterprise-linux)
       * [プレゼンテーション資料](#プレゼンテーション資料)
       * [時間配分](#時間配分)
@@ -7,7 +9,7 @@
       * [Section 2 - Ansible Towerの演習](#section-2---ansible-towerの演習)
       * [追加情報](#追加情報)
 
-**Read this in other languages**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png) [日本語](README.ja.md).
+
 
 Ansibleはアプリケーションの展開、構成管理、オーケストレーションなどで利用できるシンプルでパワフルな自動化エンジンであり、すぐに習得することができます。
 

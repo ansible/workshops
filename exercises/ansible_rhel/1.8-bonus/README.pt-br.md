@@ -1,6 +1,6 @@
 # Exercicio 1.8 - Labs Bônus
 
-**Leia em outra linguagem**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outra linguagem**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [Exercicio 1.8 - Labs Bônus](#exercicio-18---labs-bônus)
       * [Passo 8.1 - Lab Bônus: Comandos Ad Hoc](#passo-81---lab-bônus-comandos-ad-hoc)

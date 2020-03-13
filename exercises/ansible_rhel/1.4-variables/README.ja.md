@@ -1,6 +1,6 @@
 # 演習1.4 - 変数を使ってみよう
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [演習1.4 - 変数を使ってみよう](#演習14---変数を使ってみよう)
       * [ステップ 1.4.1 - 変数ファイルの作成](#ステップ-141---変数ファイルの作成)

@@ -1,6 +1,6 @@
 # 演習 1.6 - テンプレートを使う
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
    * [演習 1.6 - テンプレートを使う](#演習-16---テンプレートを使う)
       * [ステップ 1.6.1 -  playbook 内でテンプレートを使用する](#ステップ-161----playbook-内でテンプレートを使用する)

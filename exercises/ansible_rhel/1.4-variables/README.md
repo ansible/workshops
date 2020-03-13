@@ -109,7 +109,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
   tasks:
   - name: copy index.html
     copy:
-      src: {{ stage }}_index.html
+      src: "{{ stage }}_index.html"
       dest: /var/www/html/index.html
 ```
 <!-- {% endraw %} -->

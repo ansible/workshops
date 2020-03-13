@@ -1,4 +1,4 @@
-# 演習 6 - Ansible roles
+# 演習 6 - Ansible Roles
 このワークショップ全体で行ったように、1つの Playbook として記述することは可能ですが、Ansible を使っていると、有用な Playbook を他から再利用したいと考えるようになります。  
 
 Ansible Roles はこの手段を提供します。Roles を作成すると、Playbook をパーツが分解され、それらのパーツがディレクトリ構造に配置されます。これは Playbook 管理のベストプラクティスと考えられており、Ansible を使っていく上で多くの時間を節約できます。  

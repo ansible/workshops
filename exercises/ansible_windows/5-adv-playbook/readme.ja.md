@@ -36,7 +36,7 @@ Visual Studio Code 内で、gitリポジトリに新しいディレクトリを�
 
 `site.yml` と入力します。  
 
-プレイブック用のエディターが右ペインに開きます。  
+Playbook 編集用のエディターが右ペインに開きます。  
 
 ![Empty site.yml](images/5-vscode-create-folders.png)
 

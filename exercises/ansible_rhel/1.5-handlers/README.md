@@ -2,6 +2,12 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+   * [Exercise 1.5 - Conditionals, Handlers and Loops](#exercise-15---conditionals-handlers-and-loops)
+      * [Step 5.1 - Conditionals](#step-51---conditionals)
+      * [Step 5.2 - Handlers](#step-52---handlers)
+      * [Step 5.3 - Simple Loops](#step-53---simple-loops)
+      * [Step 5.4 - Loops over hashes](#step-54---loops-over-hashes)
+
 ## Step 5.1 - Conditionals
 
 Ansible can use conditionals to execute tasks or plays when certain conditions are met.

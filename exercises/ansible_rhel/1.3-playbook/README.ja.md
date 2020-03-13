@@ -2,6 +2,14 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+   * [Exercise 1.3 - 初めての Playbook 作成](#exercise-13---初めての-playbook-作成)
+      * [Step 1.3.1 - Playbook Basics](#step-131---playbook-basics)
+      * [Step 1.3.2 - ディレクトリの構成とPlaybook用のファイルを作成しよう](#step-132---ディレクトリの構成とplaybook用のファイルを作成しよう)
+      * [Step 1.3.3 - Playbookを実行してみる](#step-133---playbookを実行してみる)
+      * [Step 1.3.4 - Playbookを拡張してみよう。Apacheの起動と有効化](#step-134---playbookを拡張してみようapacheの起動と有効化)
+      * [Step 1.3.5 - Playbookを拡張してみよう。index.htmlの作成](#step-135---playbookを拡張してみようindexhtmlの作成)
+      * [Step 1.3.6 - 練習: 複数ホストへの適用](#step-136---練習-複数ホストへの適用)
+
 Ansibleのアドホックコマンドは単純なオペレーションの際にはとても役立ちますが、複雑な構成管理やオーケストレーションのシナリオには適していません。そのようなユースケースの時には、*playbooks*を用いてみると良いでしょう。
 
 Playbook（プレイブック）は、管理対象に対して実装したいこうなってほしいという構成や手順を記述したファイルです。Playbookを用いることで、長く複雑な管理タスクたちを、成功が予測される状態で、簡単にいつでも再現できるルーチンへと変えることができます。

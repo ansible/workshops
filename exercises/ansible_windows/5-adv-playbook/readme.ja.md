@@ -189,12 +189,12 @@ Ansible には便利な機能として、ハンドラーという機能が備わ
 ハンドラーの定義
 
 ```yaml
-    handlers:
-      - name: restart iis service
-        win_service:
-          name: W3Svc
-          state: restarted
-          start_mode: auto
+  handlers:
+    - name: restart iis service
+      win_service:
+        name: W3Svc
+        state: restarted
+        start_mode: auto
 ```
 
 > **ヒント**

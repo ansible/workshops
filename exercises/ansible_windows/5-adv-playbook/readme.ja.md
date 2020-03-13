@@ -369,7 +369,7 @@ Survey に以下を入力します。
 
 ## ステップ 2:
 
-**IIS Advanced**の右端にあるロケットアイコン [Add](images/at_launch_icon.png) をクリックします。  
+**IIS Advanced**の右端にあるロケットアイコン ![Add](images/at_launch_icon.png) をクリックします。  
 
 ## ステップ 3:
 

@@ -7,7 +7,7 @@
       register: AWSINFO
 
     - name: GRAB ROUTE53 INFORMATION
-      route53_facts:
+      route53_info:
         type: A
         query: record_sets
         hosted_zone_id: "{{AWSINFO.zone_id}}"

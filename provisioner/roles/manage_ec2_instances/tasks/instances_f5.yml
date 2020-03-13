@@ -1,7 +1,7 @@
 ---
 ############## f5 node ##############
 - name: find ami for f5 (F5 MODE)
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info.f5node.owners }}"
     filters:
@@ -51,7 +51,7 @@
   when: f5_output.instance_ids is not none
 
 - name: find ami for host1 & host2 (F5 MODE)
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info.rhel7.owners }}"
     filters:

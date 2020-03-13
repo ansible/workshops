@@ -1,6 +1,13 @@
 # 演習 2.6 - ワークフロー
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Ansible Tower ワークフロー](#ansible-tower-ワークフロー)
+  * [ラボシナリオ](#ラボシナリオ)
+  * [プロジェクトの設定](#プロジェクトの設定)
+  * [ジョブテンプレートの作成](#ジョブテンプレートの作成)
+  * [ワークフローの設定](#ワークフローの設定)
+  * [実行してみましょう](#実行してみましょう)
 
 # Ansible Tower ワークフロー
 
@@ -39,7 +46,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 先のラボで実施した通り、まずはプロジェクトを作成し、 Git リポジトリを登録する必要があります。必要な情報は以下です。ご自身で設定してみてください。  
 
 > **注意**
-> 
+>
 > このラボは admin アカウントで実施します。 **wweb** ユーザーでログインしている場合は、ログアウトして **admin** でログインしなおしてください！
 
 - web オペレーションのためのプロジェクトを作成します  
@@ -57,39 +64,39 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
   - SCM アクセス先は **https://github.com/ansible/workshop-examples.git** です
 
   - **SCM BRANCH/TAG/COMMIT** は **webdev** とします
- 
- 
+
+
 > **回答は以下の通り**
 
 - Web 運用者用のプロジェクトを作成します。**プロジェクト**画面より緑色のプラスボタンをクリックし、以下の値を入力します。  
-  
+
     - **名前** Webops Git Repo  
-  
+
     - **組織** Default  
-  
+
     - **SCM タイプ** Git  
-  
+
     - **SCM URL:** https://github.com/ansible/workshop-examples.git  
 
     - **SCM BRANCH/TAG/COMMIT** webops  
-  
+
     - **SCM 更新オプション** 全てにチェックします  
 
 - **保存**をクリックします    
 
 - Web アプリ開発者用のプロジェクトを作成します。**プロジェクト**画面より緑色のプラスボタンをクリックし、以下の値を入力します。   
-  
+
     - **名前** Webdev Git Repo
-  
+
     - **組織** Default
-  
+
     - **SCM タイプ** Git
-  
+
     - **SCM URL** https://github.com/ansible/workshop-examples.git
-  
+
     - **SCM BRANCH/TAG/COMMIT** webdev
 
-    - **SCM 更新オプション** 全てにチェックします 
+    - **SCM 更新オプション** 全てにチェックします
 
 - **保存**をクリックします  
 
@@ -98,43 +105,43 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 最終目標はワークフローの作成ですが、まず、通常のジョブテンプレートを作成する必要があります。
 
   - **テンプレート** を選択し、色のプラスボタンをクリックして、**Job Template**を選択します
-    
+
       - **名前** Tomcat Deploy
-    
+
       - **ジョブタイプ** 実行
-    
+
       - **インベントリー** Workshop Inventory
-    
+
       - **プロジェクト** Webops Git Repo
-    
+
       - **PLAYBOOK** `rhel/webops/tomcat.yml`
-    
+
       - **認証情報** Workshop Credentials  
-    
+
       - **オプション** 権限昇格の有効化にチェックを入れます  
 
   - **保存**をクリック
 
   - 上記の内容をアプリチームに対して繰り返します。**テンプレート** を選択し、色のプラスボタンをクリックして、**ジョブテンプレート**を選択します  
-    
+
       - **名前** Web App Deploy
-    
+
       - **ジョブタイプ** 実行
-    
+
       - **インベントリー** Workshop Inventory
-    
+
       - **プロジェクト** Webdev Git Repo
-    
+
       - **PLAYBOOK:** `rhel/webdev/create_jsp.yml`
-    
+
       - **認証情報** Workshop Credentials  
-    
+
       - **オプション** 権限昇格の有効化にチェックを入れます  
 
   - **保存**をクリック
 
 > **ヒント**  
-> 
+>
 > Playbook の中身をご覧になりたい方は、 Github URL を確認して、適切なブランチに切り替えてご覧ください。  
 
 ## ワークフローの設定
@@ -143,9 +150,9 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 ワークフローテンプレートも左メニューの**テンプレート**より作成します。
 
   - **テンプレート** を選択し、緑色のプラスボタンをクリックして、**ワークフローテンプレート**を選択します。
-    
+
       - **名前** Deploy Webapp Server
-    
+
       - **組織** Default
 
   - **保存**
@@ -158,7 +165,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
 
   - 左側にノードが現れます。ノードにはジョブの名前が入っています。ノードの上にマウスポインターを合わせると、赤い**x**と緑の **+** 記号、真ん中には鎖のような青い記号が表示されます。
 > **ヒント**
-> 
+>
 > 赤い「x」を使用するとノードを削除でき、緑のプラスを使用すると次のノードを追加できます。青は他のノードへのリンク作成を行う際に使います。  
 
   - 緑の **+** を選択します
@@ -168,7 +175,7 @@ Playbook、JSP ファイルなど、必要なものはすべて Git リポジト
   - **実行** は**成功時**のままにします。
 
 > **ヒント**
-> 
+>
 > この実行を使うことにより、より複雑なワークフローが可能になります。Playbook の実行が成功した場合と失敗した場合に、異なる実行パスをレイアウトできます。
 
   - **選択**  をクリック
@@ -194,7 +201,7 @@ $ curl http://localhost:8080/coolapp/
 ```
 
 > **ヒント**
-> 
+>
 > Tomcat がリクエストに応答するまで、数分待たなければならない場合があります。  
 
 ----

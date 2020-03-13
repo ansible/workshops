@@ -1,6 +1,13 @@
 # Exercise 1.7 - Roles: Making your playbooks reusable
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Step 7.1 - Understanding the Ansible Role Structure](#step-71---understanding-the-ansible-role-structure)
+* [Step 7.2 - Create a Basic Role Directory Structure](#step-72---create-a-basic-role-directory-structure)
+* [Step 7.3 - Create the Tasks File](#step-73---create-the-tasks-file)
+* [Step 7.4 - Create the handler](#step-74---create-the-handler)
+* [Step 7.5 - Create the index.html and vhost configuration file template](#step-75---create-the-indexhtml-and-vhost-configuration-file-template)
+* [Step 7.6 - Test the role](#step-76---test-the-role)
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 

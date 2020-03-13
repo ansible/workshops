@@ -1,13 +1,20 @@
 # 演習 1.8 - ボーナスラボ  
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [ステップ 1.8.1 - ボーナスラボ: アドホックコマンド](#ステップ-181---ボーナスラボ-アドホックコマンド)
+* [ステップ 1.8.2 - ボーナスラボ: テンプレートと変数](#ステップ-182---ボーナスラボ-テンプレートと変数)
+   * [変数を定義します:](#変数を定義します)
+   * [テンプレートを準備します](#テンプレートを準備します)
+   * [Playbook を作成します。](#playbook-を作成します)
+   * [実行し確認します](#実行し確認します)
 
 あなたは既にラボを完了しています・・・、が、さらに先に進みたい方は是非このボーナスラボにチャレンジしてみてください。  
 
 ## ステップ 1.8.1 - ボーナスラボ: アドホックコマンド  
 
 アドホックコマンドを使って、適当なコメント付きで新しいユーザー "testuser"　を `node1` と `node3` に作成します。`node2` に作成してはいけません。実行後、想定通り作成できていることも確認します。  
-    
+
   - `ansible-doc user` を使ってモジュールのパラメータを確認します。  
 
   - アドホックコマンドを使ってコメント "Test D User" 付きのユーザーを作成します。  
@@ -17,7 +24,7 @@
   - ユーザーとユーザーのティレクトリを削除し、ユーザーが削除されたことを確認します。
 
 > **ヒント**
-> 
+>
 > 権限昇格の記述を忘れないこと！  
 
 > **答えは以下の通り**  
@@ -40,7 +47,7 @@
 
 `httpd.conf` のリッスンポートを都度 vi 等で編集してコピーするのではなく、変数としてテンプレートの中で定義し、その変数の値を変数ファイルを使って与える方法について考えてみます。  
 
-  
+
   - `listen_port` に変数を埋め込んだ `httpd.conf` ファイルを作成し、 `httpd.conf.j2` テンプレートを使って各 node に送付します。  
 
   - `web` グループのリッスンポートとして `8080` 、 `node2` のリッスンポートとして `80` を取るように変数ファイルを作成します。
@@ -106,13 +113,13 @@ Playbook `apache_config_tpl.yml` を以下の内容で作成します。
         name: httpd
         state: restarted
 ```
- 
+
 ### 実行し確認します  
 
 まずは playbook を実行し、curl コマンドで、 `node1` と `node3` にポート `8080` そして `node2` にポート `80` で接続してみます。  
 
 ```bash
-[student1@ansible ansible-files]$ ansible-playbook apache_config_tpl.yml 
+[student1@ansible ansible-files]$ ansible-playbook apache_config_tpl.yml
 [...]
 [student1@ansible ansible-files]$ curl http://18.195.235.231:8080
 <body>

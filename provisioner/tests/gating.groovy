@@ -2,6 +2,12 @@ pipeline {
 
     agent { label 'jenkins-jnlp-agent' }
 
+    options {
+        timestamps()
+        timeout(time: 3, unit: 'HOURS')
+        buildDiscarder(logRotator(daysToKeepStr: '10'))
+    }
+
     stages {
 
         stage('Build Information') {

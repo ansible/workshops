@@ -1,6 +1,12 @@
 # Exercício 2.3 - Projects & job templates
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Configurando o repositório Git](#configurando-o-repositório-git)
+* [Criando o projeto](#criando-o-projeto)
+* [Criando um job template e executando um job](#criando-um-job-template-e-executando-um-job)
+* [Laboratório de Desafios: Confira o Resultado](#laboratório-de-desafios-confira-o-resultado)
+* [E quanto a alguma prática?](#e-quanto-a-alguma-prática)
 
 O **Project** é uma coleção lógica de Playbooks. Você pode gerenciar seus playbooks colocando-os em um sistema de gerenciamento de código-fonte (SCM) suportado pelo Tower, incluindo Git, Subversion e Mercurial.
 
@@ -17,7 +23,7 @@ Um Playbook para instalar o servidor Apache já foi confirmado no diretório **r
 
 ```yaml
 ---
-- name: Instalado apache server 
+- name: Instalado apache server
   hosts: all
 
   tasks:
@@ -52,7 +58,7 @@ Um Playbook para instalar o servidor Apache já foi confirmado no diretório **r
 ```
 
 > **Dica**
-> 
+>
 > Compare e observe a diferença entre outros Playbooks que você pode ter escrito\! O mais importante é que não há `become`, e` hosts` está definido como `all`.
 
 Para configurar e usar este repositório como um sistema **Source Control Management (SCM)** no Tower, é necessário criar um **Project** que use o repositório.
@@ -60,8 +66,8 @@ Para configurar e usar este repositório como um sistema **Source Control Manage
 ## Criando o projeto
 
   - Vá para **RESOURCES → Projects** na visualização do menu lateral, clique no botão ![plus](images / green_plus.png). Preencha o formulário:
- 
-  - **NAME:** Exemplos Ansible Workshop 
+
+  - **NAME:** Exemplos Ansible Workshop
 
   - **ORGANIZATION:** Default
 
@@ -70,7 +76,7 @@ Para configurar e usar este repositório como um sistema **Source Control Manage
 Agora você precisa do URL para acessar o repositório. Vá para o repositório do Github mencionado acima, escolha o botão verde **Clone or download** à direita, clique em **Use https** e copie o URL HTTPS.
 
 > **Nota**
-> 
+>
 > Se não houver **Use https** para clicar, basta copiar o URL. O importante é que você copie o URL começando com **https**.
 
 Digite o URL na configuração do projeto:
@@ -100,16 +106,16 @@ Um Job template é uma definição e um conjunto de parâmetros para executar um
 Ok, vamos fazer isso: vá para a visualização **Templates**, clique no botão ![plus](images/green_plus.png) e escolha **Job template**.
 
 > **Dica**
-> 
+>
 > Lembre-se que você pode clicar nas lupas para obter uma visão geral das opções a serem selecionadas para preencher os campos.
 
 - **NAME:** Instalar Apache
 
 - **JOB TYPE:** Run
 
-- **INVENTORY:** Inventario Workshop 
+- **INVENTORY:** Inventario Workshop
 
-- **PROJECT:** Exemplos Ansible Workshop 
+- **PROJECT:** Exemplos Ansible Workshop
 
 - **PLAYBOOK:** `rhel/apache/apache_install.yml`
 
@@ -144,11 +150,11 @@ Após o término do job, vá para a tela principal **Jobs**: Todos os jobs são 
 Você já passou por todas as etapas necessárias, então tente isso por si mesmo.
 
 > **Dica**
-> 
+>
 > E quanto ao `systemctl status httpd`?
 
 > **ATENÇÃO**
-> 
+>
 > **Solução abaixo**
 
 - Vá para **Inventories** → **Inventario Workshop**
@@ -159,7 +165,7 @@ Você já passou por todas as etapas necessárias, então tente isso por si mesm
 
 - **ARGUMENTS:** systemctl status httpd
 
-- **MACHINE CREDENTIALS:** Credenciais Workshop 
+- **MACHINE CREDENTIALS:** Credenciais Workshop
 
 - Click em **LAUNCH**
 
@@ -168,7 +174,7 @@ Você já passou por todas as etapas necessárias, então tente isso por si mesm
 Aqui está uma lista de tasks:
 
 > **ATENÇÃO**
-> 
+>
 > Certifique-se de concluir estas etapas, pois o próximo capítulo depende disso\!
 
 - Crie um novo inventário chamado `Webserver` e coloque apenas `node1` fazendo parte dele.
@@ -176,7 +182,7 @@ Aqui está uma lista de tasks:
 - Copie o template `Instalar Apache` usando o ícone de cópia na visualização **Templates**.
 
 - Mude o nome para `Instalar o apache ask`
-  
+
 - Altere a configuração **INVENTORY** do projeto para solicitar o inventário no lauch
 
 - **Salve**
@@ -188,7 +194,7 @@ Aqui está uma lista de tasks:
 - Aguarde até o job terminar e verifique se ele é executado apenas no `node1`
 
 > **Dica**
-> 
+>
 > O Job não mudou nada porque o Apache já estava instalado na versão mais recente.
 
 ----

@@ -1,6 +1,13 @@
 # Exercise 1.3 - Writing Your First Playbook
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Step 3.1 - Playbook Basics](#step-31---playbook-basics)
+* [Step 3.2 - Creating a Directory Structure and File for your Playbook](#step-32---creating-a-directory-structure-and-file-for-your-playbook)
+* [Step 3.3 - Running the Playbook](#step-33---running-the-playbook)
+* [Step 3.4 - Extend your Playbook: Start &amp; Enable Apache](#step-34---extend-your-playbook-start--enable-apache)
+* [Step 3.5 - Extend your Playbook: Create an index.html](#step-35---extend-your-playbook-create-an-indexhtml)
+* [Step 3.6 - Practice: Apply to Multiple Host](#step-36---practice-apply-to-multiple-host)
 
 While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
 
@@ -108,8 +115,8 @@ In the added lines:
 
   - A task is named and the module for the task is referenced. Here it uses the `yum` module.
 
-  - Parameters for the module are added: 
-  
+  - Parameters for the module are added:
+
     - `name:` to identify the package name
     - `state:` to define the wanted state of the package
 

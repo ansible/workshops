@@ -1,6 +1,11 @@
 # Exercício 1.1 - Verifique os pré-requisitos
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Seu ambiente de Laboratório](#seu-ambiente-de-laboratório)
+* [Passo 1.1 - Acesse o ambiente](#passo-11---acesse-o-ambiente)
+* [Passo 1.2 - Trabalhando nos laboratórios](#passo-12---trabalhando-nos-laboratórios)
+* [Passo 1.3 - Troca de Labs](#passo-13---troca-de-labs)
 
 ## Seu ambiente de Laboratório
 
@@ -65,7 +70,7 @@ Você já deve ter percebido que este laboratório é centralizado em linha de c
   - Não digite tudo manualmente, use copiar e colar no navegador quando apropriado. Mas pare para pensar e entender.
 
   - Todos os laboratórios foram preparados com o **Vim**, mas entendemos que nem todo mundo gosta dele. Sinta-se livre para usar editores alternativos. No ambiente de laboratório, fornecemos **Midnight Commander** (basta executar **mc**, as teclas de função podem ser acessadas via Esc-\<n\> ou simplesmente clicadas com o mouse) ou **Nano** (excução **nano**). Aqui está uma breve introdução do [editor](../0.0-support-docs/editor_intro.md).
-  
+
 > **Dica**
 >
 > No guia do laboratório, os comandos que você deve executar são mostrados com ou sem a saída esperada, o que fizer mais sentido no contexto.

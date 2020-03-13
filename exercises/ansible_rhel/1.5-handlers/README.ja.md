@@ -1,6 +1,11 @@
 # 演習 1.5 - 条件分岐、ハンドラー、ループを使う
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [ステップ 1.5.1 - 条件分岐](#ステップ-151---条件分岐)
+* [ステップ 1.5.2 - ハンドラー](#ステップ-152---ハンドラー)
+* [ステップ 1.5.3 - 単純な繰り返し（ループ実行）](#ステップ-153---単純な繰り返しループ実行)
+* [ステップ - ハッシュをループする](#ステップ---ハッシュをループする)
 
 ## ステップ 1.5.1 - 条件分岐
 
@@ -27,7 +32,7 @@ Ansible は特定の条件が満たされたときにタスクを実行したり
 では早速やってみましょう。まず、デフォルトで指定されたインベントリファイルを編集し、`ftpserver` グループに `node2` を入れます。
 デフォルトのインベントリファイルは、  
 `~/lab_inventory/hosts` でしたね。♪
-  
+
 編集後は以下の様になります。node2 のIPアドレスはご自身のものを入力してください！
 
 ```ini
@@ -64,7 +69,7 @@ ansible ansible_host=44.55.66.77
 ```
 
 > **ヒント**
-> 
+>
 > 作成完了したら playbook を実行してみてください。やり方は・・・、もう分かってますね (^^♪
 
 実行した結果を確認してみてください。 `ftpserver` グループに記載された node2 以外のホストはタスクがスキップされ、node2 のみタスクの実行が行われていることが確認できます。  
@@ -93,13 +98,13 @@ changed: [node2]
 まずはコピー元として利用する httpd.conf を node1 から取得します。  
 
 > **ヒント**
-> 
+>
 >このファイルは既に node1 node2 node3 に配置されています。  
 
 
 ```bash
 [student<X>@ansible ansible-files]$ scp <node1>:/etc/httpd/conf/httpd.conf ~/ansible-files/.
-student<X>@<node1>'s password: 
+student<X>@<node1>'s password:
 httpd.conf             
 ```
 
@@ -140,9 +145,9 @@ Listen 8080
 ```
 
   - Playbookをもう一度実行してください。興味深い結果が得られます。  
-    
+
       - httpd.conf が上書きコピーされた  
-    
+
       - ハンドラーが呼び出され、 Apache サービスをリスタートした  
 
 Apacheはポート8080でリッスンしているはずです。試してみてください。  
@@ -158,17 +163,17 @@ curl: (7) Failed connect to <node1>:80; Connection refused
 httpd.conf ファイルを再度 "80" に変更し、どうなるか試してみてください。
 
 > **注意**
-> 
+>
 > 演習1.7で、ポート8080を使います。この時点で 80ポートをリッスンするよう設定を戻しておいてください。
 
 
 > **ヒント**
-> 
+>
 > よく聞かれる質問として、notify セクションが実行されたらすぐにハンドラーが呼び出されるのか？ということがありますが、これは違います。今回の場合、notify 直下にハンドラーが定義されているのですぐの実行となりますが、notiry とハンドラーが離れていた場合は、あくまで上から順に実行され、ハンドラーの順番になったところで実行されます。 notify でハンドラー実行のフラグを立てておく感じです。  
 
 ## ステップ 1.5.3 - 単純な繰り返し（ループ実行）
 
-ループを使用すると、同じタスクを繰り返し実行することができます。たとえば、複数のユーザーを作成したいとしましょう。Ansible ループを使用すると、単一のタスクでそれを実行できます。ループは、単なるリスト以外にも反復することができます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらに対しても反復することができます。 詳しくはマニュアルをご確認ください [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) 
+ループを使用すると、同じタスクを繰り返し実行することができます。たとえば、複数のユーザーを作成したいとしましょう。Ansible ループを使用すると、単一のタスクでそれを実行できます。ループは、単なるリスト以外にも反復することができます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらに対しても反復することができます。 詳しくはマニュアルをご確認ください [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
 
 ループの機能を確認してみましょう。 node1 に3人の新しいユーザーを作成します。 `~/ansible-files` ディレクトリの中に、 `loop_users.yml` という名前の playbook を作成します。使用するのは `user` モジュールで、playbook の中身は以下の通りです。  
 
@@ -251,4 +256,3 @@ uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ----
 
 [Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
-

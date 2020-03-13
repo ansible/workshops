@@ -4,7 +4,7 @@
   when: security_console == 'splunk'
   block:
     - name: find ami for splunk
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"  # I don't know why but that seems to be the only place it's available
         owners: "{{ ec2_info['splunk_enterprise']['owners'] }}"
         filters:
@@ -22,7 +22,7 @@
   when: security_console == 'qradar'
   block:
     - name: find ami for qradar
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"  # I don't know why but that seems to be the only place it's available
         owners: "{{ ec2_info['qradar']['owners'] }}"
         filters:
@@ -39,7 +39,7 @@
 - name: BLOCK FOR SNORT AMI
   block:
     - name: find ami for snort
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "{{ ec2_info['rhel7']['owners'] }}"
         filters:
@@ -56,7 +56,7 @@
 - name: BLOCK FOR ATTACKER AMI
   block:
     - name: find ami for attack simulation node
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "{{ ec2_info['rhel7']['owners'] }}"
         filters:
@@ -73,7 +73,7 @@
 - name: BLOCK FOR CHECK POINT AMI
   block:
     - name: find ami for check point management server (SECURITY MODE)
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "{{ ec2_info['checkpoint_mgmt']['owners'] }}"
         filters:
@@ -105,7 +105,7 @@
 - name: BLOCK FOR WINDOWS WORKSTATION AMI
   block:
     - name: find ami for windows workstation
-      ec2_ami_facts:
+      ec2_ami_info:
         region: "{{ ec2_region }}"
         filters:
           name: "{{ ec2_info['windows_ws']['filter'] }}"

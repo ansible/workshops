@@ -1,122 +1,88 @@
+# 演習 7 - Windows パッチ管理
 
+## Playbook の作成
 
-## Creating your Playbook
-==================================
+Windwos のパッチ管理は、Ansible で Windows ホストを管理する理由の一つです。Ansible では、`win_updates` モジュールを使って Windows Update の確認またはインストールが行われます。このモジュールは、Windows にもともと組み込まれている、Window Update サービスを利用します。これは、各端末から更新をダウンロードするための、WSUS やオンラインの Windows Update サーバーなどのバックエンドシステムが引き続き必要ということを示しています。Windows Update 構成が自動的にダウンロードするがインストールはしないように設定されている場合は、更新を`検索`するよう指示することで、モジュールを使用して更新をステージングすることもできます。各パッチをホワイトリストまたはブラックリストに登録する機能もあります。たとえば、利用可能なすべての更新ではなく、1つの特定のセキュリティ更新のみをインストールするように指示することも可能です。  
 
-The `win_updates` module is used to either check for or to install
-Windows Updates. The module utilizes the built in Windows Update service
-to function. This means that you still will need a backend system like
-WSUS or the online Windows Update Servers to download updates from. If
-your server’s Windows Update configuration is set to automatically
-download but not install, you can also utilize the module to stage
-updates by telling it to `search` for updates. We also have the ability
-to whitelist or blacklist updates. For example we could tell it to only
-install one particular security update instead of every update
-available.
+最初に、新しいプレイブックを作成します。 以前の演習で実行した手順を繰り返します。  
 
-To begin, we are going to create a new playbook. We will be repeating
-the steps you performed in the earlier exercises.
+### ステップ 1:
 
-Step 1:
--------
+Visual Studio Code を使って、Git リポジトリに新しいホルダーを作成し、新しい Playbook を作成します。  
 
-Within Visual Studio Code, we will now create a new directory in your
-git repository and create a new playbook file.
-
-In the Explorer accordion you should have a *student\#* section where
-you previously made iis\_basic.
+以前に「iis_basic」ディレクトリを作成したWORKSHOP_PROJECTが存在していると思います。  
 
 ![Student Playbooks](images/7-vscode-existing-folders.png)
 
-Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button. Type `win_updates` and hit enter.
+WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`win_updates` と入力します。  
 
-Now richt-click the `win_updates` folder and click the *New File* button. Type `site.yml` and hit enter.
+次に、`win_updates` ホルダーを右クリックして、*New File* を選択、`site.yml` と入力します。  
 
-You should now have an editor open in the right pane that can be used
-for creating your playbook.
+Playbook 編集用のエディターが右ペインに開きます。  
 
 ![Empty site.yml](images/7-create-win_updates.png)
 
-Section 2: Write your Playbook
-==============================
+## Playbook の作成
 
-Edit your site.yml and add a play definition and some tasks to your
-playbook. This will cover a very basic playbook for installing Windows
-Updates. Typically you would have even more tasks to accomplish the
-entire update process. This might entail creating service tickets,
-creating snapshots, or disabling monitoring.
+作成した site.yml を編集し、Playbook にプレイの定義といくつかのタスクを追加します。これは、Windows Update を実行するための非常に基本的な Playbook です。一般的には、更新プロセスを実行するためにはさらに多くのタスク、例えば、サービスチケットの作成、バックアップの作成、または監視の無効化などが必要になる場合があります。そういった今回の演習では含まれていません。もちろん、別途他システムを Ansible と連携、または Ansible から操作することにより、全自動で行うことも可能です。  
 
 <!-- {% raw %} -->
 ```yaml
-    ---
-    - hosts: windows
-      name: This is my Windows patching playbook
-      tasks:
-        - name: Install Windows Updates
-          win_updates:
-            category_names: "{{ categories | default(omit) }}"
-            reboot: '{{ reboot_server | default(yes) }}'
+---
+- hosts: windows
+  name: This is my Windows patching playbook
+  tasks:
+    - name: Install Windows Updates
+      win_updates:
+        category_names: "{{ categories | default(omit) }}"
+        reboot: '{{ reboot_server | default(yes) }}'
 ```
 <!-- {% endraw %} -->
 
-> **Note**
+> **ヒント**
 >
-> **What are we doing?**
+> **上記の説明**
 >
-> -   `win_updates:` This module is used for checking or installing
->     updates. We tell it to only install updates from specific
->     categories using a variable. `reboot` attribute will automatically
->     reboot the remote host if it is required and continue to install
->     updates after the reboot. We will also use a survey variable to
->     stop us from rebooting even if needed. If the reboot\_server value
->     is not specified we will set the reboot attribute to yes.
->
-Section 3: Save and Commit
-==========================
+> -   `win_updates:` このモジュールは、Windows 端末の新規パッチの確認またはインストールに使用されます。変数を使用して特定のカテゴリの更新のみをインストールするように指示しています。`reboot`属性は、必要に応じてリモートホストを自動的に再起動し再起動後も更新のインストールを続行します。 また、必要に応じて Survey を使って再起動を停止することも可能です。reboot_server 値が指定されていない場合、再起動属性をyesに設定します。
 
-Your playbook is done! But remember we still need to commit the changes
-to source code control.
+## 保存とコミット
 
-Click `File` → `Save All` to save the files you’ve written
+改良された新しいプレイブックの完成です♪  
+早速、変更を保存し、GitLabにコミットしましょう。  
+
+`File` をクリックし、`Save All` を選択。編集したファイルを保存します。  
 
 ![site.yml](images/7-win_update-playbook.png)
 
-Click the Source Code icon (1), type in a commit message such as *Adding
-windows update playbook* (2), and click the check box above (3).
+Source Control アイコンをクリックし (1)、変更内容例えば*Adding windows update playbook*を記述し (2)、上部の Commit ボタンをクリックします (3)。  
 
 ![Commit site.yml](images/7-win_update-commit.png)
 
-Sync to gitlab by clicking the arrows on the lower left blue bar.
+左下の青いバーの矢印をクリックして、gitlabに同期します。  
 
 ![Push to Gitlab.yml](images/7-push.png)
 
-It should take 5-30 seconds to finish the commit. The blue bar should
-stop rotating and indicate 0 problems…
+コミットが完了するまでに5〜30秒かかります。 青いバーは回転を停止し、問題が0であることを確認します...　
 
-Section 4: Create your Job Template
-===================================
+## ジョブテンプレートの作成
 
-Now, back in Tower, you will need to resync your Project so that the new
-files show up.
+Ansible Tower の GUI に戻ってプロジェクトの同期を行います。理由は・・・、もうお分かりですね？  
 
-Next we need to create a new Job Template to run this playbook. So go to
-*Template*, click *Add* and select `Job Template` to create a new job
-template.
+次に、このプレイブックを実行する新しいジョブテンプレートを作成する必要があります。*テンプレート*に移動して*追加*をクリックし、`ジョブテンプレート`を選択して新しいジョブテンプレートを作成します。
 
-Step 1:
--------
+### ステップ 1:
 
-Complete the form using the following values
+次の値を使用してフォームに入力します。  
 
-| Key                | Value                      | Note |
+| キー                | 値                      | 備考 |
 |--------------------|----------------------------|------|
-| NAME               | Windows Updates            |      |
-| DESCRIPTION        |                            |      |
-| JOB TYPE           | Run                        |      |
-| INVENTORY          | Windows Workshop Inventory |      |
-| PROJECT            | Ansible Workshop Project   |      |
-| Playbook           | `win_updates/site.yml`     |      |
-| MACHINE CREDENTIAL | Student Account            |      |
+| 名前               | Windows Updates            |      |
+| 説明        |                            |      |
+| ジョブタイプ           | Run                        |      |
+| インベントリー          | Windows Workshop Inventory |      |
+| プロジェクト            | Ansible Workshop Project   |      |
+| PLAYBOOK           | `win_updates/site.yml`     |      |
+| 認証情報 | Student Account            |      |
 | LIMIT              | windows                    |      |
 | OPTIONS            | [*] ENABLE FACT CACHE      |      |
 

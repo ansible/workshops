@@ -90,7 +90,7 @@ Ansible Tower の GUI に戻ってプロジェクトの同期を行います。�
 
 ### ステップ 2:
 
-*保存* をクリックし、ADD SURVEY ![Add](images/at_add_survey.png) をクリックします。  
+![Save](images/at_save.png) をクリックし、ADD SURVEY ![Add](images/at_add_survey.png) をクリックします。  
 
 ### ステップ 3:
 

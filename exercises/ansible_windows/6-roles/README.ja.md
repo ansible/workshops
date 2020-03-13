@@ -1,30 +1,21 @@
-## 演習 6 -  
-Although it is possible to write a playbook in one file as we’ve done
-throughout this workshop, eventually you’ll want to reuse files and
-start to organize things.
+# 演習 6 - Ansible roles
+このワークショップ全体で行ったように、1つの Playbook として記述することは可能ですが、Ansible を使っていると、有用な Playbook を他から再利用したいと考えるようになります。  
 
-Ansible Roles are the way we do this. When you create a role, you
-deconstruct your playbook into parts and those parts sit in a directory
-structure. This is considered best practice and will save you a lot of
-time in the future.
+Ansible Roles はこの手段を提供します。Roles を作成すると、Playbook をパーツが分解され、それらのパーツがディレクトリ構造に配置されます。これは Playbook 管理のベストプラクティスと考えられており、Ansible を使っていく上で多くの時間を節約できます。  
 
-For this exercise, you are going to take the playbook you just wrote and
-refactor it into a role.
+この演習では、作成した Playbook を Role に作り変えます。  
 
-Let’s begin with seeing how your iis-basic-playbook will break down into
-a role…
+まず、iis-basic-playbookがどのように複数の Role に分解されるかを見てみましょう…  
 
-Section 1: Create directory structure for your new role
-=======================================================
+## Role のためのディレクトリーの作成
 
-Step 1:
--------
+## ステップ 1:
 
-In Visual Studio Code, navigate to explorer and your *WORKSHOP_PROJECT* section where you previously made `iis_advanced`.
+Visual Studio Codeで、エクスプローラーと以前に `iis_advanced` を作成したWORKSHOP_PROJECT *セクションに移動します。  
 
 ![iis\_advanced](images/6-vscode-existing-folders.png)
 
-Select the **iis_advanced** folder.
+**iis_advanced** フォルダーを選択します。  
 
 Create a directory called **roles** by right-clicking on **iis_advanced**
 and selecting *New Folder*

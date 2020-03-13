@@ -2,9 +2,8 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercicio 1.6 - Templates](#exercicio-16---templates)
-      * [Passo 6.1 - Usando Templates em Playbooks](#passo-61---usando-templates-em-playbooks)
-      * [Passo 6.2 - Laboratório de Desafios](#passo-62---laboratório-de-desafios)
+* [Passo 6.1 - Usando Templates em Playbooks](#passo-61---usando-templates-em-playbooks)
+* [Passo 6.2 - Laboratório de Desafios](#passo-62---laboratório-de-desafios)
 
 O Ansible usa o template Jinja2 para modificar arquivos antes de serem distribuídos para hosts gerenciados. O Jinja2 é um dos mecanismos de template mais usados para o Python (<http://jinja.pocoo.org/>).
 

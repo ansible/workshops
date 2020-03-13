@@ -2,12 +2,11 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercise 2.2 - Inventories, credentials and ad hoc commands](#exercise-22---inventories-credentials-and-ad-hoc-commands)
-      * [Create an Inventory](#create-an-inventory)
-      * [Machine Credentials](#machine-credentials)
-      * [Configure Machine Credentials](#configure-machine-credentials)
-      * [Run Ad Hoc Commands](#run-ad-hoc-commands)
-      * [Challenge Lab: Ad Hoc Commands](#challenge-lab-ad-hoc-commands)
+* [Create an Inventory](#create-an-inventory)
+* [Machine Credentials](#machine-credentials)
+* [Configure Machine Credentials](#configure-machine-credentials)
+* [Run Ad Hoc Commands](#run-ad-hoc-commands)
+* [Challenge Lab: Ad Hoc Commands](#challenge-lab-ad-hoc-commands)
 
 ## Create an Inventory
 

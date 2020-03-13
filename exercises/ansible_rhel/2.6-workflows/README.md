@@ -2,13 +2,12 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercise 2.6 - Workflows](#exercise-26---workflows)
-   * [Ansible Tower Workflows](#ansible-tower-workflows)
-      * [Lab Scenario](#lab-scenario)
-      * [Set up Projects](#set-up-projects)
-      * [Set up Job Templates](#set-up-job-templates)
-      * [Set up the Workflow](#set-up-the-workflow)
-      * [And Action](#and-action)
+* [Ansible Tower Workflows](#ansible-tower-workflows)
+  * [Lab Scenario](#lab-scenario)
+  * [Set up Projects](#set-up-projects)
+  * [Set up Job Templates](#set-up-job-templates)
+  * [Set up the Workflow](#set-up-the-workflow)
+  * [And Action](#and-action)
 
 # Ansible Tower Workflows
 

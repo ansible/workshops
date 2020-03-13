@@ -2,13 +2,12 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercício 1.3 - Escrevendo seu primeiro Playbook](#exercício-13---escrevendo-seu-primeiro-playbook)
-      * [Passo 3.1 - Noções básicas do Playbook](#passo-31---noções-básicas-do-playbook)
-      * [Passo 3.2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook](#passo-32---criando-uma-estrutura-de-diretórios-e-um-arquivo-para-o-seu-playbook)
-      * [Passo 3.3 - Rodando o Playbook](#passo-33---rodando-o-playbook)
-      * [Passo 3.4 - Amplie seu playbook: Apache Start &amp; Enable](#passo-34---amplie-seu-playbook-apache-start--enable)
-      * [Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html](#passo-35---ampliando-seu-playbook-criando-um-aquivo-indexhtml)
-      * [Passo 3.6 - Pratique: Aplicar a vários hosts](#passo-36---pratique-aplicar-a-vários-hosts)
+* [Passo 3.1 - Noções básicas do Playbook](#passo-31---noções-básicas-do-playbook)
+* [Passo 3.2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook](#passo-32---criando-uma-estrutura-de-diretórios-e-um-arquivo-para-o-seu-playbook)
+* [Passo 3.3 - Rodando o Playbook](#passo-33---rodando-o-playbook)
+* [Passo 3.4 - Amplie seu playbook: Apache Start &amp; Enable](#passo-34---amplie-seu-playbook-apache-start--enable)
+* [Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html](#passo-35---ampliando-seu-playbook-criando-um-aquivo-indexhtml)
+* [Passo 3.6 - Pratique: Aplicar a vários hosts](#passo-36---pratique-aplicar-a-vários-hosts)
 
 Embora os comandos Ansible ad hoc sejam úteis para operações simples, eles não são adequados para cenários complexos de gerenciamento ou orquestração de configurações. Para tais casos de uso, os playbooks são o caminho a percorrer.
 

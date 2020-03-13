@@ -2,13 +2,12 @@
 
 **Leia em outra linguagem**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercicio 1.8 - Labs Bônus](#exercicio-18---labs-bônus)
-      * [Passo 8.1 - Lab Bônus: Comandos Ad Hoc](#passo-81---lab-bônus-comandos-ad-hoc)
-      * [Passo 8.2 - Lab Bônus: Templates e variáveis](#passo-82---lab-bônus-templates-e-variáveis)
-         * [Define as variáveis:](#define-as-variáveis)
-         * [Prepare o template:](#prepare-o-template)
-         * [Crie o Playbook](#crie-o-playbook)
-         * [Execute e teste](#execute-e-teste)
+* [Passo 8.1 - Lab Bônus: Comandos Ad Hoc](#passo-81---lab-bônus-comandos-ad-hoc)
+* [Passo 8.2 - Lab Bônus: Templates e variáveis](#passo-82---lab-bônus-templates-e-variáveis)
+   * [Define as variáveis:](#define-as-variáveis)
+   * [Prepare o template:](#prepare-o-template)
+   * [Crie o Playbook](#crie-o-playbook)
+   * [Execute e teste](#execute-e-teste)
 
 Você já terminou o laboratório. Mas preparamos alguns laboratórios de bônus um pouco mais avançados para você seguir, se quiser. Portanto, se você terminou os laboratórios e ainda tem algum tempo, aqui estão mais alguns laboratórios para você:
 

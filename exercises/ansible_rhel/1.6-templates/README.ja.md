@@ -2,9 +2,8 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [演習 1.6 - テンプレートを使う](#演習-16---テンプレートを使う)
-      * [ステップ 1.6.1 -  playbook 内でテンプレートを使用する](#ステップ-161----playbook-内でテンプレートを使用する)
-      * [Step 1.6.2 - チャレンジラボ](#step-162---チャレンジラボ)
+* [ステップ 1.6.1 -  playbook 内でテンプレートを使用する](#ステップ-161----playbook-内でテンプレートを使用する)
+* [Step 1.6.2 - チャレンジラボ](#step-162---チャレンジラボ)
 
 Ansibleは、管理対象ホストにファイルをコピーする際、固定の内容ではなく変数に値を入力しながらコピーを行う様な事も可能です。例えば対象ホストユニークなホスト名などを含んだファイルのコピーを行うことが可能です。これを実現するのが Jinja2 テンプレートです。 Jinja2 は、Python で最も使用されているテンプレートエンジンの1つです。 (<http://jinja.pocoo.org/>)
 

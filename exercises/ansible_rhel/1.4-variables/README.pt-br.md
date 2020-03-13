@@ -2,14 +2,13 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercício 1.4 - Usando variáveis](#exercício-14---usando-variáveis)
-      * [Passo 4.1 - Criando arquivos de variáveis](#passo-41---criando-arquivos-de-variáveis)
-      * [Passo 4.2 - Criando o arquivo index.html](#passo-42---criando-o-arquivo-indexhtml)
-      * [Passo 4.3 - Criando o Playbook](#passo-43---criando-o-playbook)
-      * [Passo 4.4 - Teste o Resultado](#passo-44---teste-o-resultado)
-      * [Passo 4.5 - Ansible Facts](#passo-45---ansible-facts)
-      * [Passo 4.6 - Laboratório de desafios: Facts](#passo-46---laboratório-de-desafios-facts)
-      * [Passo 4.7 - Usando Facts em Playbooks](#passo-47---usando-facts-em-playbooks)
+* [Passo 4.1 - Criando arquivos de variáveis](#passo-41---criando-arquivos-de-variáveis)
+* [Passo 4.2 - Criando o arquivo index.html](#passo-42---criando-o-arquivo-indexhtml)
+* [Passo 4.3 - Criando o Playbook](#passo-43---criando-o-playbook)
+* [Passo 4.4 - Teste o Resultado](#passo-44---teste-o-resultado)
+* [Passo 4.5 - Ansible Facts](#passo-45---ansible-facts)
+* [Passo 4.6 - Laboratório de desafios: Facts](#passo-46---laboratório-de-desafios-facts)
+* [Passo 4.7 - Usando Facts em Playbooks](#passo-47---usando-facts-em-playbooks)
 
 Os exercícios anteriores mostraram os conceitos básicos do Ansible Engine. Nos próximos exercícios, ensinaremos algumas habilidades mais avançadas que adicionarão flexibilidade e poder aos seus Playbooks.
 

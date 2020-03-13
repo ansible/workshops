@@ -2,12 +2,11 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercise 2.3 - Projects &amp; job templates](#exercise-23---projects--job-templates)
-      * [Setup Git Repository](#setup-git-repository)
-      * [Create the Project](#create-the-project)
-      * [Create a Job Template and Run a Job](#create-a-job-template-and-run-a-job)
-      * [Challenge Lab: Check the Result](#challenge-lab-check-the-result)
-      * [What About Some Practice?](#what-about-some-practice)
+* [Setup Git Repository](#setup-git-repository)
+* [Create the Project](#create-the-project)
+* [Create a Job Template and Run a Job](#create-a-job-template-and-run-a-job)
+* [Challenge Lab: Check the Result](#challenge-lab-check-the-result)
+* [What About Some Practice?](#what-about-some-practice)
 
 A Tower **Project** is a logical collection of Ansible Playbooks. You can manage your playbooks by placing them into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
 

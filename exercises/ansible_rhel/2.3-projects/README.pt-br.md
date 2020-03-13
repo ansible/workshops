@@ -2,12 +2,11 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercício 2.3 - Projects &amp; job templates](#exercício-23---projects--job-templates)
-      * [Configurando o repositório Git](#configurando-o-repositório-git)
-      * [Criando o projeto](#criando-o-projeto)
-      * [Criando um job template e executando um job](#criando-um-job-template-e-executando-um-job)
-      * [Laboratório de Desafios: Confira o Resultado](#laboratório-de-desafios-confira-o-resultado)
-      * [E quanto a alguma prática?](#e-quanto-a-alguma-prática)
+* [Configurando o repositório Git](#configurando-o-repositório-git)
+* [Criando o projeto](#criando-o-projeto)
+* [Criando um job template e executando um job](#criando-um-job-template-e-executando-um-job)
+* [Laboratório de Desafios: Confira o Resultado](#laboratório-de-desafios-confira-o-resultado)
+* [E quanto a alguma prática?](#e-quanto-a-alguma-prática)
 
 O **Project** é uma coleção lógica de Playbooks. Você pode gerenciar seus playbooks colocando-os em um sistema de gerenciamento de código-fonte (SCM) suportado pelo Tower, incluindo Git, Subversion e Mercurial.
 

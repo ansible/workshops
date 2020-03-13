@@ -2,11 +2,10 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercicio 2.5 - Controle de acesso baseado em role](#exercicio-25---controle-de-acesso-baseado-em-role)
-      * [Usuários Ansible Tower](#usuários-ansible-tower)
-      * [Times no Ansible Tower](#times-no-ansible-tower)
-      * [Concedendo Permissões](#concedendo-permissões)
-      * [Permissão de testes](#permissão-de-testes)
+* [Usuários Ansible Tower](#usuários-ansible-tower)
+* [Times no Ansible Tower](#times-no-ansible-tower)
+* [Concedendo Permissões](#concedendo-permissões)
+* [Permissão de testes](#permissão-de-testes)
 
 Você já aprendeu como o Tower separa credenciais de usuários. Outra vantagem do Ansible Tower é o gerenciamento de direitos de usuários e grupos.
 

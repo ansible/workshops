@@ -2,11 +2,10 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercise 2.5 - Role-based access control](#exercise-25---role-based-access-control)
-      * [Ansible Tower Users](#ansible-tower-users)
-      * [Ansible Tower Teams](#ansible-tower-teams)
-      * [Granting Permissions](#granting-permissions)
-      * [Test Permissions](#test-permissions)
+* [Ansible Tower Users](#ansible-tower-users)
+* [Ansible Tower Teams](#ansible-tower-teams)
+* [Granting Permissions](#granting-permissions)
+* [Test Permissions](#test-permissions)
 
 You have already learned how Tower separates credentials from users. Another advantage of Ansible Tower is the user and group rights management.
 

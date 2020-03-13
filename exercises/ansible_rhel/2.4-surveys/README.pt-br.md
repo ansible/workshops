@@ -1,13 +1,13 @@
 # Exercise 2.4 - Surveys
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
-   * [Exercise 2.4 - Surveys](#exercise-24---surveys)
-      * [Criando o projeto](#criando-o-projeto)
-      * [Criando um template com uma Survey](#criando-um-template-com-uma-survey)
-         * [Crie o Template](#crie-o-template)
-         * [Adicionando o Survey](#adicionando-o-survey)
-      * [Iniciando o template](#iniciando-o-template)
-      * [Vamos praticar!](#vamos-praticar)
+
+* [Criando o projeto](#criando-o-projeto)
+* [Criando um template com uma Survey](#criando-um-template-com-uma-survey)
+   * [Crie o Template](#crie-o-template)
+   * [Adicionando o Survey](#adicionando-o-survey)
+* [Iniciando o template](#iniciando-o-template)
+* [Vamos praticar!](#vamos-praticar)
 
 Você deve ter notado o botão **ADD SURVEY** na visualização de configuração **Template**. Uma survey é uma maneira de criar um formulário simples para solicitar parâmetros que são usados como variáveis quando um **template** é iniciado como um **job**.
 

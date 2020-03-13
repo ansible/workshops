@@ -2,13 +2,6 @@
 
 **Read this in other languages**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Ansible Workshop - Ansible for Red Hat Enterprise Linux](#ansible-workshop---ansible-for-red-hat-enterprise-linux)
-      * [Presentations](#presentations)
-      * [Time planning](#time-planning)
-      * [Section 1 - Ansible Engine Exercises](#section-1---ansible-engine-exercises)
-      * [Section 2 - Ansible Tower Exercises](#section-2---ansible-tower-exercises)
-      * [Additional information](#additional-information)
-
 Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
 
 In the first section of this lab you will learn to use Ansible Engine for automation from the basics up to some more advanced concepts.

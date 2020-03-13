@@ -2,11 +2,10 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercise 1.1 - 要件を確認してみよう](#exercise-11---要件を確認してみよう)
-      * [ラボ環境について](#ラボ環境について)
-      * [Step 1.1 - 環境へのアクセス](#step-11---環境へのアクセス)
-      * [Step 1.2 - Working the Labs](#step-12---working-the-labs)
-      * [Step 1.3 - チャレンジLabs](#step-13---チャレンジlabs)
+* [ラボ環境について](#ラボ環境について)
+* [Step 1.1 - 環境へのアクセス](#step-11---環境へのアクセス)
+* [Step 1.2 - Working the Labs](#step-12---working-the-labs)
+* [Step 1.3 - チャレンジLabs](#step-13---チャレンジlabs)
 
 ## ラボ環境について
 

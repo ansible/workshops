@@ -2,11 +2,10 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercício 2.1 - Introdução ao Tower](#exercício-21---introdução-ao-tower)
-      * [Por que Ansible Tower?](#por-que-ansible-tower)
-      * [Seu ambiente de laboratório Ansible Tower](#seu-ambiente-de-laboratório-ansible-tower)
-      * [Dashboard](#dashboard)
-      * [Conceitos](#conceitos)
+* [Por que Ansible Tower?](#por-que-ansible-tower)
+* [Seu ambiente de laboratório Ansible Tower](#seu-ambiente-de-laboratório-ansible-tower)
+* [Dashboard](#dashboard)
+* [Conceitos](#conceitos)
 
 ## Por que Ansible Tower?
 

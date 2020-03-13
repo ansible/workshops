@@ -2,11 +2,10 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [演習 2.5 - ロールベースのアクセス制御](#演習-25---ロールベースのアクセス制御)
-      * [Ansible Tower ユーザー](#ansible-tower-ユーザー)
-      * [Ansible Tower チーム](#ansible-tower-チーム)
-      * [パーミッションの付与](#パーミッションの付与)
-      * [パーミッションのテスト](#パーミッションのテスト)
+* [Ansible Tower ユーザー](#ansible-tower-ユーザー)
+* [Ansible Tower チーム](#ansible-tower-チーム)
+* [パーミッションの付与](#パーミッションの付与)
+* [パーミッションのテスト](#パーミッションのテスト)
 
 Ansible Tower の優れた機能として、認証情報を Tower 内部で適切に管理する方法を学びました。Ansible Tower のもう1つの利点は、ユーザーとグループの権限管理です。  
 

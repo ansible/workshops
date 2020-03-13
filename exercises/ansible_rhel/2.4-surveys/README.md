@@ -2,13 +2,12 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercise 2.4 - Surveys](#exercise-24---surveys)
-      * [The Apache-configuration Role](#the-apache-configuration-role)
-      * [Create a Template with a Survey](#create-a-template-with-a-survey)
-         * [Create Template](#create-template)
-         * [Add the Survey](#add-the-survey)
-      * [Launch the Template](#launch-the-template)
-      * [What About Some Practice?](#what-about-some-practice)
+* [The Apache-configuration Role](#the-apache-configuration-role)
+* [Create a Template with a Survey](#create-a-template-with-a-survey)
+   * [Create Template](#create-template)
+   * [Add the Survey](#add-the-survey)
+* [Launch the Template](#launch-the-template)
+* [What About Some Practice?](#what-about-some-practice)
 
 You might have noticed the **ADD SURVEY** button in the **Template** configuration view. A survey is a way to create a simple form to ask for parameters that get used as variables when a **Template** is launched as a **Job**.
 

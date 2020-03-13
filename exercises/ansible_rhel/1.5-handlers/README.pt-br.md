@@ -2,11 +2,10 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercício 1.5 - Condicionais, Handlers and Loops](#exercício-15---condicionais-handlers-and-loops)
-      * [Passo 5.1 - Condicionais](#passo-51---condicionais)
-      * [Passo 5.2 - Handlers](#passo-52---handlers)
-      * [Passo 5.3 - Loops simples](#passo-53---loops-simples)
-      * [Passo 5.4 - Loops sobre hashes](#passo-54---loops-sobre-hashes)
+* [Passo 5.1 - Condicionais](#passo-51---condicionais)
+* [Passo 5.2 - Handlers](#passo-52---handlers)
+* [Passo 5.3 - Loops simples](#passo-53---loops-simples)
+* [Passo 5.4 - Loops sobre hashes](#passo-54---loops-sobre-hashes)
 
 ## Passo 5.1 - Condicionais
 

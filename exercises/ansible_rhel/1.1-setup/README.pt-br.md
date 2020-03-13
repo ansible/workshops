@@ -2,11 +2,10 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercício 1.1 - Verifique os pré-requisitos](#exercício-11---verifique-os-pré-requisitos)
-      * [Seu ambiente de Laboratório](#seu-ambiente-de-laboratório)
-      * [Passo 1.1 - Acesse o ambiente](#passo-11---acesse-o-ambiente)
-      * [Passo 1.2 - Trabalhando nos laboratórios](#passo-12---trabalhando-nos-laboratórios)
-      * [Passo 1.3 - Troca de Labs](#passo-13---troca-de-labs)
+* [Seu ambiente de Laboratório](#seu-ambiente-de-laboratório)
+* [Passo 1.1 - Acesse o ambiente](#passo-11---acesse-o-ambiente)
+* [Passo 1.2 - Trabalhando nos laboratórios](#passo-12---trabalhando-nos-laboratórios)
+* [Passo 1.3 - Troca de Labs](#passo-13---troca-de-labs)
 
 ## Seu ambiente de Laboratório
 

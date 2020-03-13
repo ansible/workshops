@@ -2,13 +2,12 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-   * [Exercício 2.6 - Workflows](#exercício-26---workflows)
-   * [Ansible Tower Workflows](#ansible-tower-workflows)
-      * [Cenário de laboratório](#cenário-de-laboratório)
-      * [Configurando o projeto](#configurando-o-projeto)
-      * [Configurando Job Templates](#configurando-job-templates)
-      * [Configurando Workflow](#configurando-workflow)
-      * [E ação!](#e-ação)
+* [Ansible Tower Workflows](#ansible-tower-workflows)
+  * [Cenário de laboratório](#cenário-de-laboratório)
+  * [Configurando o projeto](#configurando-o-projeto)
+  * [Configurando Job Templates](#configurando-job-templates)
+  * [Configurando Workflow](#configurando-workflow)
+  * [E ação!](#e-ação)
 
 # Ansible Tower Workflows
 

@@ -23,10 +23,10 @@ Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポ
 ## 演習内容
 
 - [演習 1 - Ansible Towerの概要と構成](1-tower/README.ja.md)
-- [演習 2 - アドホックコマンド](2-adhoc)
-- [演習 3 - playbook 概要](3-playbook)
-- [演習 4 - Ansible Tower プロジェクト](4-projects)
-- [演習 5 - 高度な playbook](5-adv-playbook)
-- [演習 6 - Ansible Roles](6-roles)
-- [演習 7 - Windows パッチ管理](7-win-patch) (オプション演習)
+- [演習 2 - アドホックコマンド](2-adhoc/README.ja.md)
+- [演習 3 - playbook 概要](3-playbook/README.ja.md)
+- [演習 4 - Ansible Tower プロジェクト](4-projects/README.ja.md)
+- [演習 5 - 高度な playbook](5-adv-playbook/README.ja.md)
+- [演習 6 - Ansible Roles](6-roles/README.ja.md)
+- [演習 7 - Windows パッチ管理](7-win-patch/README.ja.md) 
 

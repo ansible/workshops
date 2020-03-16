@@ -99,7 +99,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
       state: present
 ```
 
-- 上記 3 行は、Ansible モジュール**`win_feature`**　を使って IIS Web サーバーをインストールしています。`win_feature` モジュールのすべてのオプションを表示します。win_feature モジュール詳細は[こちら](http://docs.ansible.com/ansible/latest/win_feature_module.html)を参照ください。  
+- 上記 3 行は、Ansible モジュール**`win_feature`**　を使って IIS Web サーバーをインストールしています。`win_feature` モジュールのすべてのオプションを表示します。win_feature モジュール詳細は[こちら](http://docs.ansible.com/ansible/latest/win_feature_module.html)をご参照ください。  
 
 
 <!-- -->
@@ -109,8 +109,8 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
       state: started
 ```
 
-- 続くいくつかの行で、Ansible モジュール **win_service** を使って IIS サービスを起動しています。この win_service モジュールは windows ホストのサービス管理するために有用なモジュールです。win_service モジュール詳細は下記参照ください。  
- [Click here](http://docs.ansible.com/ansible/latest/win_service_module.html)
+- 続くいくつかの行で、Ansible モジュール **win_service** を使って IIS サービスを起動しています。この win_service モジュールは windows ホストのサービス管理するために有用なモジュールです。win_service モジュール詳細は[こちら](http://docs.ansible.com/ansible/latest/win_service_module.html)をご参照ください。  
+ 
 
 <!-- {% raw %} -->
 ```yaml

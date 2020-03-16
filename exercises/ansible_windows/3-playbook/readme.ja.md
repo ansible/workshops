@@ -65,25 +65,25 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 
 <!-- {% raw %} -->
 ```yaml
-      tasks:
-       - name: install iis
-         win_feature:
-           name: Web-Server
-           state: present
+  tasks:
+   - name: install iis
+     win_feature:
+       name: Web-Server
+       state: present
+       
+   - name: start iis service
+     win_service:
+       name: W3Svc
+       state: started
 
-       - name: start iis service
-         win_service:
-           name: W3Svc
-           state: started
+   - name: Create website index.html
+     win_copy:
+       content: "{{ iis_test_message }}"
+       dest: C:\Inetpub\wwwroot\index.html
 
-       - name: Create website index.html
-         win_copy:
-           content: "{{ iis_test_message }}"
-           dest: C:\Inetpub\wwwroot\index.html
-
-       - name: Show website address
-         debug:
-           msg: "http://{{ ansible_host }}"
+   - name: Show website address
+     debug:
+       msg: "http://{{ ansible_host }}"
 ```
 <!-- {% endraw %} -->
 

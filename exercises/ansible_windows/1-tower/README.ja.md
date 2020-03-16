@@ -95,7 +95,7 @@ SCM 認証情報の作成
 ステップ 3:  
 -------  
 
-次のエントリを使用してフォームに入力します (**SCM URL の欄にはこのワークショップ名と各自の Studente 番号を使ってください**)  
+次のエントリを使用してフォームに入力します (**SCM URL の欄にはこのワークショップ名（英数字4文字）と各自の Studente 番号を使ってください**)  
 
 | キー            | 値                                                                   |                                                   |  
 |----------------|-------------------------------------------------------------------------|---------------------------------------------------|  
@@ -103,7 +103,7 @@ SCM 認証情報の作成
 | 説明    | Workshop playbooks                                                      |                                                   |  
 | 組織   | Default                                                                 |                                                   |  
 | SCM タイプ       | Git                                                                     |                                                   |  
-| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **WORKSHOP と student# は今回のワークショック名と各自のStudent番号に変更ください** |  
+| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **WORKSHOP と student# は今回のワークショック名（英数字4文字）と各自のStudent番号に変更ください** |  
 | SCM ブランチ     |                                                                         | Intentionally blank                               |  
 | SCM 認証情報 | Git Credential                                                          |                                                   |  
 SCM 更新オプション  
@@ -113,7 +113,7 @@ SCM 更新オプション
 - [x] 起動時のリビジョン更新  
 
 
-![Defining a Project](images/1-tower-create-project.ja.jpg)  
+![Defining a Project](images/1-tower-create-project.png)  
 
 ステップ 4:  
 -------  

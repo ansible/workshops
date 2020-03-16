@@ -107,8 +107,6 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 
 ### ステップ 1:
 
-プロジェクトディレクトリの配下に `templates` ホルダを作成し、以下の様なテンプレートを作成します。  
-
 **iis_advanced folder** がハイライトされていることを確認して、*WORKSHOP_PROJECT* にカーソルを当て、*New Folder* ボタンをクリックします。  
 
 `templates` と入力します。次に、この *templates* ホルダーを右クリックして *New File* ボタンを選択します。  

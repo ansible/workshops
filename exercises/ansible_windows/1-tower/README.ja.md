@@ -129,7 +129,7 @@ SCM 更新オプション
 
 インベントリーの内容が表示されています。ここからホストやグループや変数など、このインベントリーに関する情報を追加する事が出来ます。  
 
-![Edit Inventory](images/1-tower-edit-inventory.png)  
+![Edit Inventory](images/1-tower-edit-inventory.ja.jpg)  
 
 **ホスト** ボタンをクリックすると対象ホストがリスト表示されます。  
 
@@ -138,13 +138,13 @@ SCM 更新オプション
 ホストビューでは、このインベントリーに関連付けられているすべてのホストが確認できます。また、ホストが関連付けられているグループも表示されます。  
 ホストは複数のグループに関連付けることができます。プレイブックの実行はこのインベントリー全体でも可能ですし、このグループを指定した実行も可能です。    
 
-![Hosts View](images/1-tower-hosts-view.png)  
+![Hosts View](images/1-tower-hosts-view.ja.jpg)  
 
 ### ステップ 4:  
 
 **グループ** ボタンをクリックし **Windows** を選択すると、このグループに対して適応している変数を見る事が出来ます。Windows の場合は接続に WinRM を利用しますので、その情報とポート番号などが記載されています。    
 
-![Group Edit](images/1-tower-group-edit.png)  
+![Group Edit](images/1-tower-group-edit.ja.jpg)  
 
 このラボでは、特定のホスト（この例では Windows ホスト）に接続する方法をグループ内の変数として定義しました。ただ、必ずここに記載しないといけない、というわけではなく、ホスト毎の変数として定義することも出来ますし、テンプレートや、プレイブックの中に定義することも可能です。    
 
@@ -170,7 +170,7 @@ Windowsには様々な接続時の認証方法があります。ここでは、*
 
 **ホスト** ボタンをクリックすると windows グループに所属するホスト一覧が表示されます。このページでホストのリンクをクリックすると、定義されているホスト固有の変数を確認する事が出来ます。  
 
-![Host Edit](images/1-tower-host-edit.png)  
+![Host Edit](images/1-tower-host-edit.ja.jpg)  
 
 **`ansible_host`**  
 

@@ -60,7 +60,7 @@ template ホルダーを除く各ホルダーに、`main.yml`という名前の�
 site.ymlを編集して、iis_simple という名の Role を呼び出すようにします。以下のようになります。  
 
 ```yaml
-    ---
+---
 - hosts: windows
   name: This is my role-based playbook
   

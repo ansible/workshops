@@ -9,7 +9,7 @@
 
 各ホストの横にはチェックボックスがあります。アドホックコマンドを実行する Windows グループに属するホストの横にあるチェックボックスをオンにします。**コマンドの実行** ボタンが有効になったことを確認し、クリックします。  
 
-![Run Command](images/2-adhoc-run-command.png)
+![Run Command](images/2-adhoc-run-command.ja.jpg)
 
 **コマンドの実行** ウィンドウが表示されます。ここからアドホックコマンドを実行する事が出来ます。  
 
@@ -27,17 +27,17 @@
 | 制限              |                 | 選択したホストが自動で入力されます |
 | マシンの認証情報 | Student Account |                                                                 |
 
-![Run Win\_Ping](images/2-adhoc-run-win_ping.png)
+![Run Win\_Ping](images/2-adhoc-run-win_ping.ja.jpg)
 
 **起動** をクリックするとジョブ表示に切り替わります。Ansible Towerのすべてのジョブとアクションは保存されます。これらのログは自動でローテーションする形式をとっていますが、Splunk や ELK などの別のログシステムに自動的にエクスポートすることもできます。  
 
 以下の通りログには、誰が、どのホストに対して、いつ、ジョブを実行したかなどの情報が含まれます。  
 
-![Win\_Ping Log Details](images/2-adhoc-run-win_ping-success.png)
+![Win\_Ping Log Details](images/2-adhoc-run-win_ping-success.ja.jpg)
 
 また、実際の出力結果が表示されます。接続が成功した場合、次のような結果が表示されます。
 
-![Win\_Ping Log Details](images/2-adhoc-run-win_ping-output.png)
+![Win\_Ping Log Details](images/2-adhoc-run-win_ping-output.ja.jpg)
 
 結果表示は、使用するモジュールによって異なります。タスクに応じて異なるデータセットを処理するためです。ただ、使用されているモジュールに関係なく、常に成功、失敗、変更、スキップのいずれかの色分けされたステータスが表示されます。これは共通です。  
 
@@ -79,7 +79,7 @@
 
 実行すると以下のような結果が確認できます。  
 
-![Setup Log Details](images/2-adhoc-run-setup-output.png)
+![Setup Log Details](images/2-adhoc-run-setup-output.ja.jpg)
 
 (**Note:** 上記の出力の23行目に表示されている3つのドットをクリックすると、`setup`モジュールによって返されたすべてのファクトが表示されます。.)
 
@@ -95,7 +95,7 @@
 
 ログテキストがオレンジ色になっていることがわかります。これは、システムに変更が加えられたことを示しており、緑は変更が加えられていないことを示しています。
 
-![Win\_Feature Log Details](images/2-adhoc-run-win_feature-output.png)
+![Win\_Feature Log Details](images/2-adhoc-run-win_feature-output.ja.jpg)
 
 ### ステップ 5:
 

@@ -1,20 +1,18 @@
 # 演習 3 - Playbook 概要
 
-この演習では、初めての Ansible Playbook を書いてみましょう。 Playbook は、実際の作業を記述する **タスク** と、タスクの実行条件などを記述する **プレイ** のセットで構成されます。このセットは Playbook 内で繰り返すことも可能です。まず、プレイブックを保存するためのディレクトリ構造をセットアップします。このディレクトリ構造は、**ソースコード管理**(SCM)システムと同期して、Playbook のバージョンや品質を管理します。 この演習では、SCM として**git**を使用します。  
+この演習では、初めての Ansible Playbook を書いてみましょう。 Playbook は、実際の作業を記述する **タスク** と、タスクの実行条件などを記述する **プレイ** のセットで構成されます。このセットは Playbook 内で繰り返すことも可能です。まず、プレイブックを保存するためのディレクトリ構造をセットアップします。このディレクトリ構造は、**ソースコード管理**(SCM)システムと同期して、Playbook のバージョンや品質を管理します。 この演習では、SCM として**Git**を使用します。  
 
 Playbook には1つ以上のプレイがあり、プレイには1つまたは複数のタスクがあります。 **プレイ**の目的の1つは、タスクを実行するホストのグループを記述することです。 **タスク**の目標は、それらのホストに対してモジュールを実行することです。  
 
 最初の Playbook では、1つのプレイと3つのタスクを記述します。  
 
-今回の演習では、全ての Playbook は単一のgit **リポジトリ**に保存されています。複数のユーザーが同じリポジトリを使用でき、gitはファイルの競合とバージョンを管理します。
+今回の演習では、全ての Playbook は単一のGit **リポジトリ**に保存されています。Git の様な SCM は、複数のユーザーが同じリポジトリを使用できるため、Playbook の品質とバージョンを管理に有用です。Ansible Tower では簡単に SCM と連携する事が出来ます。  
 
-概要
-========
+## 概要
 
 この演習では、エディターとして Visual Studio Code を使ってみましょう。さらに、ソースコード管理に GitLab を使用します。これにより、Linuxコマンドラインを理解していなくても開発作業が楽に行えます。他のエディターまたはソースコードソリューションを使用することももちろん可能です。  
 
-ステップ 1: プレイブックのディレクトリ構造とファイルの作成
--------
+### ステップ 1: プレイブックのディレクトリ構造とファイルの作成
 
 Playbook のディレクトリ構造としては、ベストプラクティスがあります。  
 [ベストプラクティス]（http://docs.ansible.com/ansible/playbooks_best_practices.html）があります
@@ -22,8 +20,7 @@ Ansible の技術を習得する際には、上記を学習しておくことを
 
 代わりに、非常にシンプルなディレクトリ構造を作成します。プレイブックを追加し、いくつかのファイルを追加します。  
 
-ステップ 2: Visual Studio Code への接続
--------
+### ステップ 2: Visual Studio Code への接続
 
 Visual Studio Code を開きます。  
 
@@ -36,8 +33,7 @@ Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT 
 
 ![Student Playbooks Repo](images/3-vscode-open-folder.png)
 
-ステップ 3: ディレクトリーと Playbook の作成
--------
+### ステップ 3: ディレクトリーと Playbook の作成
 
 *WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
 `iis_basic`という名前のフォルダーを作成します。次に作成した新しいフォルダーを右クリックして、「install_iis.yml」というファイルを作成します。  
@@ -46,8 +42,7 @@ Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT 
 
 ![Empty install\_iis.yml](images/3-vscode-create-folders.png)
 
-ステップ 4: プレイの定義
--------
+### ステップ 4: プレイの定義
 
 `install_iis.yml`を編集します。まずプレイを記述してみましょう。  
 次に、各行の意味をご説明します。  
@@ -64,8 +59,7 @@ Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT 
 
 - `hosts: windows` このプレイが実行されるインベントリ内のホストグループを定義します  
 
-ステップ 5: プレイに対するタスクの記述
--------
+### ステップ 5: プレイに対するタスクの記述
 
 次に、いくつかのタスクを追加します。（タスク）の**t**をhost`hosts`の**h**に（垂直に）位置合わせします。  
 YAML ファイルではスペースはとても重要です。タブを使ってはいけません。  
@@ -140,8 +134,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 - This task uses the `debug` module to post a message at the end of playbook execution. This particular message prints out `http://` + the variable name that contains the IP address of the host we're running the playbook on (our Windows IIS server)
 
 
-ステップ 6: Playbook の保存
--------
+### ステップ 6: Playbook の保存
 
 Playbook の記述が完了しましたので、保存しましょう。  
 左上から `File > Save` をクリックします。  

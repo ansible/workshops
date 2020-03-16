@@ -206,3 +206,5 @@ called `install_iis.yml`.
             msg: http://{{ ansible_host }}
 ```
 <!-- {% endraw %} -->
+
+[ワークショップ一覧に戻る](../readme.ja.md)

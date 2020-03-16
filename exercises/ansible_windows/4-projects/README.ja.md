@@ -14,7 +14,7 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 
 ## プロジェクト
 
-利用する Playbook の保存先ディレクトリを指定したものです。プロジェクトで指定するのは Playbook のディレクトリまでで、実際稼働させるPlaybook はジョブテンプレートで指定します。プロジェクトは、/var/lib/awx/projects/ の下に作成され、各プロジェクトの中に Playbook が配置されます。Playbook は Ansible Tower ホストに sshで接続して /var/lib/awx/projects/<project_name>/xxx.yml という形で作成することも可能ですし、Git 等の SCM と連携して管理することも可能ですが、Playbook の品質管理やバージョン管理の面で、SCM利用を推奨しています。この演習でも、SCMを利用します。  
+利用する Playbook の保存先ディレクトリを指定したものです。プロジェクトで指定するのは Playbook のディレクトリまでで、Playbook の指定はジョブテンプレートで行います。プロジェクトは、/var/lib/awx/projects/ の下に作成され、各プロジェクトの中に Playbook が配置されます。Playbook は Ansible Tower ホストに sshで接続して /var/lib/awx/projects/<project_name>/xxx.yml という形で作成することも可能ですし、Git 等の SCM と連携して管理することも可能ですが、Playbook の品質管理やバージョン管理の面で、SCM利用を推奨しています。この演習でも、SCMを利用します。  
 
 ## プロジェクトの同期
 

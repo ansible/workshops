@@ -129,7 +129,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 ```
 <!-- {% endraw %} -->
 
-- This task uses the `debug` module to post a message at the end of playbook execution. This particular message prints out `http://` + the variable name that contains the IP address of the host we're running the playbook on (our Windows IIS server)
+- このタスクは `debug` モジュールを利用しています。debug は、変数など特定の内容を出力するためのモジュールです。ここでは、`http://` に続いて、IISをインストールした対象ホストのアドレスを出力するよう構成されています。Ansible 実行後にすぐ対象ホストにブラウザでアクセス出来て便利ですよね。♬  
 
 
 ### ステップ 6: Playbook の保存

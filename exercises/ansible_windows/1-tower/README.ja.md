@@ -125,7 +125,7 @@ SCM 更新オプション
 
 下にスクロールして、プロジェクトの保存時に、Git に対して正常に同期されたことを確認します。ページ下部のリストビューで、プロジェクト名の左横に緑色の丸が表示されていることを確認します。  
 
-![Succesfull Sync](images/1-tower-project-success.png)  
+![Succesfull Sync](images/1-tower-project-success.ja.jpg)  
 
 インベントリ  
 ===========  

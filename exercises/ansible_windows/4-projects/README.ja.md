@@ -131,7 +131,7 @@ Surveyで作成した入力画面が表示されるので、お好きなメッ�
 ジョブが正常に完了すると、ジョブ出力の下部にWebサイトへのURLが印刷されます。  
 アドレスに接続すると、以下のようなものが表示されます。  
 
-![New Website with Personalized Test Message](images/4-website-output.ja.jpg)
+![New Website with Personalized Test Message](images/4-website-output.png)
 
 ### 追加演習
 

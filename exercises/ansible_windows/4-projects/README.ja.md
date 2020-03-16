@@ -99,7 +99,7 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 
 ### ステップ 2:
 
-**IIS Basic Job Template**の右端にあるロケットアイコン ![Add](images/at_launch_icon.ja.jpg) をクリックします。  
+**IIS Basic Job Template**の右端にあるロケットアイコン ![Add](images/at_launch_icon.png) をクリックします。  
 
 ### ステップ 3:
 

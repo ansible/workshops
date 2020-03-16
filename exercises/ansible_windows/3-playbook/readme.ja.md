@@ -162,12 +162,11 @@ called `install_iis.yml`.
 
 ![GitLab access](images/3-vscode-gitlab-access.png)
 
-これであなたは、自動化の準備が整いました♬  
+これで最初の Playbook は完成です♬  
 
 > **Note**
 >
-> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。YAML の書き方は、[こちら](http://docs.ansible.com/ansible/YAMLSyntax.html)をご確認ください。  
-上記で完成したプレイブックは次のようになります。スペースに特に注意してください。
+> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。YAML の書き方は、[こちら](http://docs.ansible.com/ansible/YAMLSyntax.html)をご確認ください。上記で完成したプレイブックは次のようになります。スペースに特に注意してください。
 
 <!-- {% raw %} -->
 ```yaml

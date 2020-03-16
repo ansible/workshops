@@ -335,11 +335,11 @@ Survey に以下を入力します。
 | 最大長 | デフォルトのまま                                         |      |
 | デフォルトの応答         | Be creative, keep it clean, we're all professionals here |      |
 
-![Survey Form](images/5-survey.png)  
+![Survey Form](images/5-survey.ja.jpg)  
 
 ### ステップ 5:
 
-![Add](images/at_add.png)* をクリックします。
+![Add](images/at_add.png) をクリックします。
 
 ### ステップ 6:
 -------

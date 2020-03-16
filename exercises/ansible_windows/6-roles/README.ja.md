@@ -249,7 +249,7 @@ Source Control アイコンをクリックし(1)、変更の内容に関する�
 
 これで、 `iis_simple`と呼ばれる1つのロールを持つ Playbook ` site.yml`が完成しました。Playbook を Role 化することの利点は、Playbook を再利用しやすくするだけでなく、変数、タスク、テンプレートなどの変更を簡単にできることです。  
 
-[Ansible Galaxy](https://galaxy.ansible.com) is a good repository of roles for use or reference.
+[Ansible Galaxy](https://galaxy.ansible.com) には沢山の Roles が置いてあります。是非ご確認ください。  
 
 
 [ワークショップ一覧に戻る](../readme.ja.md)

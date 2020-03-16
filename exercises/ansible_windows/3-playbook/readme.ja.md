@@ -46,9 +46,9 @@ Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT 
 次に、各行の意味をご説明します。  
 
 ```yaml
-    ---
-    - name: install the iis web service
-      hosts: windows
+---
+- name: install the iis web service
+  hosts: windows
 ```
 
 - `---` YAMLであることを示しています。  

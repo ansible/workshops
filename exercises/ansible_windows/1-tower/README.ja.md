@@ -113,7 +113,7 @@ SCM 更新オプション
 - [x] 起動時のリビジョン更新  
 
 
-![Defining a Project](images/1-tower-create-project.png)  
+![Defining a Project](images/1-tower-create-project.ja.jpg)  
 
 ステップ 4:  
 -------  

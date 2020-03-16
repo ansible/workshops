@@ -34,7 +34,7 @@ Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT 
 ### ステップ 3: ディレクトリーと Playbook の作成
 
 *WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
-`iis_basic`という名前のフォルダーを作成します。次に作成した新しいフォルダーを右クリックして、「install_iis.yml」というファイルを作成します。  
+`iis_basic`という名前のフォルダーを作成します。次に作成した新しいフォルダーを右クリックして、`install_iis.yml`というファイルを作成します。  
 
 作成すると右ペインに編集可能なエディタが表示されます。ここに Playbook を記述していきます。♬  
 

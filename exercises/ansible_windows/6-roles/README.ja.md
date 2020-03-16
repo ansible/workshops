@@ -11,7 +11,7 @@ Ansible Roles はこの手段を提供します。Roles を作成すると、Pla
 
 ### ステップ 1:
 
-Visual Studio Codeで、エクスプローラーと以前に `iis_advanced` を作成したWORKSHOP_PROJECT *セクションに移動します。  
+Visual Studio Codeで、エクスプローラーと以前に `iis_advanced` を作成した*WORKSHOP_PROJECT*セクションに移動します。  
 
 ![iis\_advanced](images/6-vscode-existing-folders.png)
 

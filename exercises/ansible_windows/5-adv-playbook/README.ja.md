@@ -320,7 +320,7 @@ Playbook は以下のようになっているはずです。もう一度確認�
 
 ### ステップ 3:
 
-*保存* をクリックした上で、ADD SURVEY をクリック ![Add](images/at_add_survey.png)  
+*保存* をクリックした上で、SURVEY の追加をクリック ![Add](images/at_add_survey.png)  
 
 ### ステップ 4:
 

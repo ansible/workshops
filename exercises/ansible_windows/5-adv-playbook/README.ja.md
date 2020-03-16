@@ -333,7 +333,7 @@ Survey に以下を入力します。
 | 回答の変数名   | `iis_test_message`                                       |      |
 | 回答のタイプ            | テキスト                                                     |      |
 | 最大長 | デフォルトのまま                                         |      |
-| デフォルトの応答         | Be creative, keep it clean, we’re all professionals here |      |
+| デフォルトの応答         | Be creative, keep it clean, we're all professionals here |      |
 
 ![Survey Form](images/5-survey.png)  
 

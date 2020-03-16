@@ -191,6 +191,26 @@
         - dns_type == "aws"
   tags: control_node
 
+# - name: Create private zone for internal DNS
+#   hosts: localhost
+#   connection: local
+#   become: false
+#   gather_facts: false
+#   roles:
+#     - internal_dns_zone
+
+# - name: Configure internal DNS
+#   hosts: managed_nodes
+#   become: true
+#   gather_facts: false
+#   tasks:
+#     - import_role:
+#         name: internal_dns_records
+#       vars:
+#         record: "{{username}}-{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.internal"
+#         type: "A"
+#         value: "{{ private_ip }}"
+
 - name: Configure internal DNS
   hosts: managed_nodes
   become: true

@@ -75,7 +75,7 @@ site.ymlを編集して、iis_simple という名の Role を呼び出すよう�
 デフォルト変数をロールに追加します。 `roles \ iis_simple \ defaults \ main.yml`を次のように編集します：
 
 ```yaml
-    ---
+---
 # defaults file for iis_simple
 iis_sites:
   - name: 'Ansible Playbook Test'

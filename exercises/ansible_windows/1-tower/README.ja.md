@@ -30,7 +30,7 @@ Ansible Tower は、Windows や Linux、ネットワーク機器など管理対�
 
 左側のパネルから「認証情報」を選択します  
 
-![Cred](images/1-tower-credentials.png)  
+![Cred](images/1-tower-credentials.ja.jpg)  
 
 ステップ 2:  
 -------
@@ -50,12 +50,12 @@ Ansible Tower は、Windows や Linux、ネットワーク機器など管理対�
 | Username     | student#        | **# の部分は各自の番号に置き換えてください**  |  
 | Password     | *****           | student password に置き換えてください |  
 
-![マシン認証情報の追加](images/1-tower-add-machine-credential.png)  
+![マシン認証情報の追加](images/1-tower-add-machine-credential.ja.jpg)  
 
 ステップ 4:  
 -------  
 
-保存をクリック ![Save](images/at_save.png)    
+保存をクリック ![Save](images/at_save.ja.jpg)    
 
 SCM 認証情報の作成  
 ========================  

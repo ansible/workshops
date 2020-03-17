@@ -202,9 +202,11 @@
     type: "A"
     value: "{{ private_ip }}"
   roles:
-    - internal_dns
+    - role: internal_dns
+      when:
+      - create_internal_dns is defined
+      - create_internal_dns  
       
-
 - name: CONFIGURE ADVANCED TOWER CLUSTER DNS
   hosts: tower_nodes
   become: true

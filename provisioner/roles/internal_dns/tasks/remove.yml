@@ -9,7 +9,7 @@
 
 - name: Get zone id for zone {{ zonename }}
   set_fact:
-    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}"
+    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}" 
   loop: "{{ hosted_zones.HostedZones }}"
   when: item.Name == ec2_name_prefix + "." + workshop_internal_dns_zone + "."
 

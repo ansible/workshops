@@ -18,5 +18,5 @@
     type: "{{ type }}"
     overwrite: true
     value: "{{ value }}"
-  delegate_to: localhost 
-
+    wait: yes
+  delegate_to: localhost

@@ -74,7 +74,7 @@ WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタ
 ```
 <!-- {% endraw %} -->
 
-![app_manage.yml](images/8-create-manage.ja.jpg)
+![app_manage.yml](images/8-create-mamage.ja.jpg)
 
 > **ヒント**
 >

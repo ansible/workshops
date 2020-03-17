@@ -55,8 +55,6 @@ WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタ
 
 > **ヒント**
 >
-> **上記の説明**
->
 > `win_chocolatey_facts:` chocolatey で管理するアプリケーションに関する情報を取得するモジュールです。今回は、アプリケーションインストール前後で動作させてみて、インストールされたパッケージの差異を確認します。  
 
 
@@ -79,8 +77,6 @@ WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタ
 ![app_manage.yml](images/8-create-manage.ja.jpg)
 
 > **ヒント**
->
-> **上記の説明**
 >
 > `win_chocolatey:` chocolatey リポジトリと連携してアプリケーションを追加、削除、更新するモジュールです。今回はほんの一例として Googoe Chrome をインストールしてみました。他にも、`name` に `jre8` を指定すると、Javaのランタイム、そのほか、`putty`、`vscode`などと記述すれば、それぞれのアプリケーションを管理することが可能です。  
 

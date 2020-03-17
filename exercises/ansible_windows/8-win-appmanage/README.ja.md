@@ -19,13 +19,13 @@ Ansible Tower で、「インベントリー」→「Windows Workshop Inventory�
 
 コマンドの実行画面で、以下を入力して`起動` をクリックします。  
 
-**モジュール：**
+**モジュール：**  
 win_shell
 
-**引数**
+**引数**  
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-**マシンの認証情報**
+**マシンの認証情報**  
 Student Account
 
 これで、Windows ホスト上で Chocolatey が利用できるようになりました。準備完了です！！  

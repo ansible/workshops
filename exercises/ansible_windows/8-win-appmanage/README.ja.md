@@ -39,7 +39,7 @@ WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタ
 ```yaml
 ---
 - hosts: windows
-  name: This is my Windows patching playbook
+  name: This is my Windows application list playbook
 
   tasks:
   - name: Gather facts from chocolatey
@@ -64,7 +64,7 @@ WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタ
 ```yaml
 ---
 - hosts: windows
-  name: This is my Windows patching playbook
+  name: his is my Windows application management playbook
 
   tasks:
   - name: Install Chrome

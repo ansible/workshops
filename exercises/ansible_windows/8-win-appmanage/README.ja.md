@@ -27,9 +27,9 @@ WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタ
 
 今から二つの Playbook を作成します。
 
-1. app_list.yml:  
+**1. app_list.yml:**  
    Windows ホストに chocolatey 経由でインストールされているアプリケーションを表示します。  
-2. app_manage.yml:  
+**2. app_manage.yml:**  
    Windows ホスト上にアプリケーションの、追加、削除、更新を行います。  
 
 まず、1から実施してみましょう。  

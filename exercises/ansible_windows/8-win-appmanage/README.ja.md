@@ -14,7 +14,7 @@ Chocolatey 利用には、Windows ホストへ chocolatey ソフトをインス�
 
 Ansible Tower で、**「インベントリー」→「Windows Workshop Inventory」→「ホスト」**  
 
-で、**「student1-win1」** にチェックを入れて **「コマンドの実行」**をクリックします。  
+で、**「student1-win1」** にチェックを入れて　**「コマンドの実行」** をクリックします。  
 
 コマンドの実行画面で、以下を入力して`起動` をクリックします。  
 

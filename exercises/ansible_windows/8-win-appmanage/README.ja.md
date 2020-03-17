@@ -13,7 +13,7 @@ Windows OS が提供するアプリケーションの管理であれば、演習
 
 以前の演習で「iis_basic」ディレクトリなどを作成した WORKSHOP_PROJECT が存在していると思います。  
 
-![Student Playbooks](images/8-vscode-existing-folders.png)
+![Student Playbooks](images/8-vscode-existing-folders.ja.jpg)
 
 WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`win_chocolatey` と入力します。  
 

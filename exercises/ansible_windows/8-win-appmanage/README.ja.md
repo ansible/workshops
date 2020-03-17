@@ -1,9 +1,7 @@
 # 演習8 - Windwos のアプリケーション管理  
 
-Windows の管理で結構手間になっているものの一つにアプリケーションの管理があるようです。私も良く面倒くさいという話を聞きます。  
-Windows OS が提供するアプリケーションの管理であれば、演習2で行った win_feature モジュールで出来ます。
-ただ、Windows の場合、3rdパーティ製のアプリケーションをインストールすることも多いと思います。
-これを管理する方法として、[win_pacage](https://docs.ansible.com/ansible/latest/modules/win_package_module.html#win-package-module) モジュールがあるのですが、モジュールの Example を見ていただくと分かる通り、元来 Windows のアプリケーションはそれぞれのベンダーから CD や DVD などのメディアや独自のURLで提供されるケースが多く、Linux の yum コマンドの様に、一括したリポジトリから同一手法でアプリケーションを管理する、ということがなかなか出来ませんでした。このため、パッケージを一括した手法で管理するということがなかなか難しかった面があります。  
+Windows を Ansible で管理するもう一つの大きなモチベーションはアプリケーションの管理です。  
+Windows 上のアプリケーションを Ansible で自動化する方法はいくつかあって、例えば、OS が提供するアプリケーションの管理であれば、演習2で行った win_feature モジュールが利用可能です。OS 提供の機能ではなく、3rd パーティ製のアプリケーションの場合、[win_pacage](https://docs.ansible.com/ansible/latest/modules/win_package_module.html#win-package-module) というモジュールがあります。ただ、モジュールの Example を見ていただくと分かる通り、元来 Windows のアプリケーションはそれぞれのベンダーから CD や DVD などのメディアや独自の URLで提供されるケースが多く、Linux の yum コマンドの様に、一括したリポジトリから同一手法でアプリケーションを管理する、ということがなかなか出来ませんでした。このため、パッケージの一括管理がなかなか難しかったというのが実情でした。  
 
 しかし、最近、[Chocolatey](https://chocolatey.org/) というリポジトリが登場し、Windows でもLinux同様の一括したアプリケーション管理が可能となってきました。[パッケージ](https://chocolatey.org/packages)も Chrome、Firewfox、JRE、Putty、Adbe Reader、MS Officeなどなど非常に多彩です。 
 

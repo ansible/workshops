@@ -3,11 +3,9 @@
 Windows の管理で結構手間になっているものの一つにアプリケーションの管理があるようです。私も良く面倒くさいという話を聞きます。  
 Windows OS が提供するアプリケーションの管理であれば、演習2で行った win_feature モジュールで出来ます。
 ただ、Windows の場合、3rdパーティ製のアプリケーションをインストールすることも多いと思います。
-これを管理する方法として、[win_pacage](https://docs.ansible.com/ansible/latest/modules/win_package_module.html#win-package-module) モジュールがあるのですが、元来 Windows のアプリケーションはそれぞれのベンダーから CD や DVD などのメディア
-や独自のURLで提供されるケースが多く、Linux の yum コマンドの様に、一括したリポジトリから同一手法でアプリケーションを管理する、ということがなかなか
-出来ませんでした。  
+これを管理する方法として、[win_pacage](https://docs.ansible.com/ansible/latest/modules/win_package_module.html#win-package-module) モジュールがあるのですが、モジュールの Example を見ていただくと分かる通り、元来 Windows のアプリケーションはそれぞれのベンダーから CD や DVD などのメディアや独自のURLで提供されるケースが多く、Linux の yum コマンドの様に、一括したリポジトリから同一手法でアプリケーションを管理する、ということがなかなか出来ませんでした。このため、パッケージを一括した手法で管理するということがなかなか難しかった面があります。  
 
-しかし、最近、Chocolatey というリポジトリが登場し、Windows でもLinux同様の一括したアプリケーション管理が可能となってきました。  
+しかし、最近、[Chocolatey](https://chocolatey.org/) というリポジトリが登場し、Windows でもLinux同様の一括したアプリケーション管理が可能となってきました。  
 
 凄く便利ですので、演習で確認してみましょう。♬  
 
@@ -15,15 +13,16 @@ Windows OS が提供するアプリケーションの管理であれば、演習
 
 以前の演習で「iis_basic」ディレクトリなどを作成した WORKSHOP_PROJECT が存在していると思います。  
 
-![Student Playbooks](images/7-vscode-existing-folders.png)
+![Student Playbooks](images/8-vscode-existing-folders.png)
 
 WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`win_chocolatey` と入力します。  
 
-次に、`win_updates` ホルダーを右クリックして、*New File* を選択、`site.yml` と入力します。  
+次に、`win_chocolatey` ホルダーを右クリックして、*New File* を選択、`app_manage.yml` と入力します。  
+もう一度、`win_chocolatey` ホルダーを右クリックして、*New File* を選択、`app_list.yml` と入力します。  
 
-Playbook 編集用のエディターが右ペインに開きます。  
+`app_list.yml` の Playbook 編集用のエディターが右ペインに開いていることを確認し、以下作業を行います。  
 
-![Empty site.yml](images/7-create-win_updates.png)
+![Empty site.yml](images/8-create-win_updates.png)
 
 ## Playbook の作成
 

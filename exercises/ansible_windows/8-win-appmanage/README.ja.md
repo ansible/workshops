@@ -19,6 +19,8 @@ WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタ
 次に、`win_chocolatey` ホルダーを右クリックして、*New File* を選択、`app_manage.yml` と入力します。  
 もう一度、`win_chocolatey` ホルダーを右クリックして、*New File* を選択、`app_list.yml` と入力します。  
 
+以下のようになっていれば OK です。♬  
+
 ![Empty site.yml](images/8-create-list-empty.ja.jpg)
 
 ## Playbook の作成

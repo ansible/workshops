@@ -8,6 +8,28 @@ Windows 上のアプリケーションを Ansible で管理する方法はいく
 
 凄く便利ですので、演習で確認してみましょう。♬  
 
+### 準備  
+
+Windows ホストへの chocolatey インストール。  
+演習2 を参考に、win_shell を使って以下を実行してください。  
+
+Ansible Tower で、「インベントリー」→「Windows Workshop Inventory」→「ホスト」  
+
+で、"student1-win1" にチェックを入れて「コマンドの実行」をクリックします。  
+
+コマンドの実行画面で、以下を入力して`起動` をクリックします。  
+
+**モジュール：**
+win_shell
+
+**引数**
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+**マシンの認証情報**
+Student Account
+
+これで、Windows ホスト上で Chocolatey が利用できるようになりました。準備完了です！！  
+
 ### ステップ 1:
 
 以前の演習で「iis_basic」ディレクトリなどを作成した WORKSHOP_PROJECT が存在していると思います。  

@@ -50,7 +50,7 @@ Playbook 編集用のエディターが右ペインに開きます。
 改良された新しいプレイブックの完成です♪  
 早速、変更を保存し、GitLabにコミットしましょう。  
 
-`File` をクリックし、`Save All` を選択。編集したファイルを保存します。  
+`File` をクリックし、`Save` を選択。編集したファイルを保存します。  
 
 ![site.yml](images/7-win_update-playbook.png)
 

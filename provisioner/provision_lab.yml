@@ -158,20 +158,12 @@
   roles:
     - connectivity_test
 
-- name: Configure common options on managed nodes and control nodes
-  hosts: "managed_nodes:control_nodes"
-  gather_facts: false
-  become: true
-  roles:
-    - user_accounts
-    - common
-  tags: control_node
-
-- name: CONFIGURE CONTROL NODE
+- name: configure ansible control node
   hosts: control_nodes
   gather_facts: true
   become: true
   roles:
+    - role: user_accounts
     - role: control_node
     - role: code_server
       when:
@@ -179,7 +171,6 @@
         - code_server
         - towerinstall is defined
         - towerinstall
-  tags: control_node
 
 - name: add dns entires for all student control nodes
   hosts: control_nodes

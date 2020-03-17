@@ -10,12 +10,11 @@ Windows 上のアプリケーションを Ansible で管理する方法はいく
 
 ### 準備  
 
-Chocolatey 利用には、Windows ホストへ chocolatey ソフトをインストールする必要があります。ここもAnsibleで自動化してみましょう。♬  
-演習2 を参考に、PowerShell のアドホックコマンド `win_shell` を使って以下を実行してください。  
+Chocolatey 利用には、Windows ホストへ chocolatey ソフトをインストールする必要があります。ここもAnsibleで自動化してみましょう。演習2 を参考に、PowerShell のアドホックコマンド `win_shell` を使って以下を実行してください。  
 
-Ansible Tower で、「インベントリー」→「Windows Workshop Inventory」→「ホスト」  
+Ansible Tower で、**「インベントリー」→「Windows Workshop Inventory」→「ホスト」**  
 
-で、"student1-win1" にチェックを入れて「コマンドの実行」をクリックします。  
+で、**student1-win1** にチェックを入れて「コマンドの実行」をクリックします。  
 
 コマンドの実行画面で、以下を入力して`起動` をクリックします。  
 

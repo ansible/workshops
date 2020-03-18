@@ -33,14 +33,14 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
 2. Click on the green ![templates link](images/add.png) button to create a new Credential: `Workshop Credential`
 
 3. Fill out the credential parameters as follows, and click `Save`
-   
+
     | Parameter | Value |
     |---|---|
     | Name | `Workshop Credential`|
     | Credential type: | `Network` |
     | Username| `admin`|
     | Password| `ansible`|
-  
+
 > Note: double check BIG-IP password provided by instructor defaults to ansible
 
   ![workshop credential link](images/ws_credential.png)
@@ -49,9 +49,9 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
 > **Note:** Here we just showcase one way to migrate an inventory file from the Ansible Tower control node (awx-manage)
 
 1. In the Ansible web UI, navigate to the `Inventories` section using the left navigation bar.
-   
+
 2. Click on the green ![templates link](images/add.png) button to create an empty inventory `Workshop Inventory`.
-   
+
 3. Login via SSH to your Ansible Tower control node (This is the Linux machine that has Ansible Tower installed on). The SSH credentials needed again here.
 4. Locate the flat-file that represents your Ansible inventory. Run the awx-manage inventory_import command like this
    ```
@@ -70,15 +70,15 @@ The BIG-IP host `f5` in the inventory will have variables assigned to it with th
 
 8. Click on `Workshop Inventory` on the top to return to inventory\
    then click on the button labeled `GROUPS`. \
-   Click on the Group `webservers`, and then click on the button labeled `Hosts`. You will see two hosts: `host1` and `host2`. \
-   Click on `host1`, and you will see the variables assigned to it with the respective values.
+   Click on the Group `web`, and then click on the button labeled `Hosts`. You will see two hosts: `node1` and `node2`. \
+   Click on `node1`, and you will see the variables assigned to it with the respective values.
    ![host link](images/server1.png)
 
 ## Step 3: Create a Project
 1. In the Ansible web UI, navigate to the `Projects` section using the left navigation bar.
-   
+
 2. Click on the green ![templates link](images/add.png) button to create a new project
-   
+
 3. Fill out the project parameters as follows, and click `Save`
 
     | Parameter | Value |
@@ -110,13 +110,13 @@ For reference, here is one of the playbooks that was imported and  will be execu
         server: "{{private_ip}}"
         server_port: "8443"
         validate_certs: "False"
-  
+
     - name: CREATE NODES
       bigip_node:
         provider: "{{provider}}"
         host: "{{hostvars[item].ansible_host}}"
         name: "{{hostvars[item].inventory_hostname}}"
-      loop: "{{ groups['webservers'] }}"
+      loop: "{{ groups['web'] }}"
 
     - name: CREATE POOL
       bigip_pool:
@@ -134,7 +134,7 @@ For reference, here is one of the playbooks that was imported and  will be execu
         host: "{{hostvars[item].ansible_host}}"
         port: "80"
         pool: "http_pool"
-      loop: "{{ groups['webservers'] }}"
+      loop: "{{ groups['web'] }}"
 
     - name: ADD VIRTUAL SERVER
       bigip_virtual_server:
@@ -172,11 +172,11 @@ For reference, here is one of the playbooks that was imported and  will be execu
     |  Project |  Workshop Project |
     |  Playbook |  create_vs.yml |
     |  Credential |  Workshop Credential  |
-    
-    From the **CREDENTIAL TYPE** select `Network`, then seletct `Workshop Credential`:
-    ![network credential](images/network.png) 
 
-  
+    From the **CREDENTIAL TYPE** select `Network`, then seletct `Workshop Credential`:
+    ![network credential](images/network.png)
+
+
     Here is a screenshot of the job template with parameters filled out:
 
     ![create_vs job template](images/create_vs.png)
@@ -253,15 +253,15 @@ Each of the two RHEL web servers actually already has apache running. Open up th
 
 >This time use port 443 instead of 8443, e.g. https://X.X.X.X:443/
 
-Each time you refresh, BIG-IP will load balance the traffic between **host1** and **host2**, as shown below:
-![host1 link](images/host1.png)
-![host2 link](images/host2.png)
+Each time you refresh, BIG-IP will load balance the traffic between **node1** and **node2**, as shown below:
+![node1 link](images/node1.png)
+![node2 link](images/node2.png)
 
 
 # Takeaways
 
 You have successfully demonstrated
- - Creating a Job Template to deploy a Virtual Server 
+ - Creating a Job Template to deploy a Virtual Server
  - Launching a Job Template from the Ansible Tower UI
  - Verifying the Virtual Server is correctly created
  - Veryfying the web server is up and running

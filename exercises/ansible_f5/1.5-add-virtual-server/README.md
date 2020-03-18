@@ -139,7 +139,7 @@ Each RHEL web server actually already has apache running.  Exercise 1.1 through 
 
 >This time use port 443 instead of 8443, e.g. https://X.X.X.X:443/
 
-Each time you refresh the host will change between **host1** and **host2**. Here is animation of the host field changing:
+Each time you refresh the host will change between **node1** and **node2**. Here is animation of the host field changing:
 ![animation](animation.gif)
 >the animation might not work on certain browsers
 
@@ -149,11 +149,11 @@ Instead of using a browser window it is also possible to use the command line on
 
 ```
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
-    <p>F5TEST-studentX-host1</p>
+    <p>F5TEST-studentX-node1</p>
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
-    <p>F5TEST-studentX-host2</p>
+    <p>F5TEST-studentX-node2</p>
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
-    <p>F5TEST-studentX-host1</p>
+    <p>F5TEST-studentX-node1</p>
 ```
 
 

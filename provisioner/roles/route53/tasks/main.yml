@@ -5,5 +5,5 @@
   - not teardown
 
 - name: remove DNS record
-  include_tasks: remove.yml
+  include_tasks: teardown.yml
   when: teardown|bool

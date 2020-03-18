@@ -1,5 +1,5 @@
 ---
-- name: CONFIGURE F5 WORKSHOP WEBSERVERS host1 and host2
+- name: configure f5 workshops for webservers node1 and node2
   hosts: lab_hosts
   become: true
   gather_facts: false

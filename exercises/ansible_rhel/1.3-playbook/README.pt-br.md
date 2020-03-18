@@ -1,6 +1,13 @@
 # Exercício 1.3 - Escrevendo seu primeiro Playbook
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Passo 3.1 - Noções básicas do Playbook](#passo-31---noções-básicas-do-playbook)
+* [Passo 3.2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook](#passo-32---criando-uma-estrutura-de-diretórios-e-um-arquivo-para-o-seu-playbook)
+* [Passo 3.3 - Rodando o Playbook](#passo-33---rodando-o-playbook)
+* [Passo 3.4 - Amplie seu playbook: Apache Start &amp; Enable](#passo-34---amplie-seu-playbook-apache-start--enable)
+* [Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html](#passo-35---ampliando-seu-playbook-criando-um-aquivo-indexhtml)
+* [Passo 3.6 - Pratique: Aplicar a vários hosts](#passo-36---pratique-aplicar-a-vários-hosts)
 
 Embora os comandos Ansible ad hoc sejam úteis para operações simples, eles não são adequados para cenários complexos de gerenciamento ou orquestração de configurações. Para tais casos de uso, os playbooks são o caminho a percorrer.
 
@@ -48,7 +55,7 @@ Chega de teoria, é hora de criar seu primeiro Playbook. Neste laboratório, voc
 
   - 2ª Etapa: Enable/start o serviço httpd
 
-  - 3ª Etapa: Criar um aquivo index.html 
+  - 3ª Etapa: Criar um aquivo index.html
 
 Este Playbook garante que o pacote que contém o servidor Apache esteja instalado no `node1`.
 
@@ -108,10 +115,10 @@ Nas linhas adicionadas:
   - Uma task é nomeada e o módulo da task é referenciado. Aqui ele usa o módulo `yum`.
 
   - Parâmetros para o módulo são adicionados:
-  
+
     - `name:` identifica o nome do pacote.
     - `state:` para definir o estado desejado do pacote.
-    
+
 > **Dica**
 >
 > Os parâmetros do módulo são individuais para cada módulo. Em caso de dúvida, procure-os novamente com `ansible-doc`.
@@ -156,7 +163,7 @@ Efetue logout do `node1` com o comando `exit` para voltar ao host de controle e 
 
 Execute o Playbook pela segunda vez e compare a saída: A saída mudou de "changed" para "ok" e a cor mudou de amarelo para verde. Além disso, o "PLAY RECAP" é diferente agora. Isso facilita a identificação do que o Ansible realmente fez.
 
-## Passo 3.4 - Amplie seu playbook: Apache Start & Enable 
+## Passo 3.4 - Amplie seu playbook: Apache Start & Enable
 
 A próxima parte do Playbook garante que o servidor Apache esteja startado e habilitado no `node1`.
 
@@ -198,7 +205,7 @@ Observe a saída agora: algumas tasks são mostradas como "ok" em verde e uma é
   - Use um comando Ansible ad hoc novamente para garantir que o Apache tenha sido ativado e iniciado, por exemplo com: `systemctl status httpd`.
 
   - Execute o Playbook uma segunda vez para se acostumar com a alteração na saída.
-  
+
 ## Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html
 
 Verifique se as tasks foram executadas corretamente e o Apache está aceitando conexões: faça uma solicitação HTTP usando o módulo `uri` em um comando ad hoc a partir do nó de controle. Certifique-se de substituir **\<IP\>** pelo IP do nó do inventário.

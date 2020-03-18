@@ -89,11 +89,7 @@
     - workshop_type != "advanced_tower"
 
 - name: Ensure eula is accepted if posting license
-  lineinfile:
-    path: "{{playbook_dir}}/tower_license.json"
-    line: '    "eula_accepted": true,'
-    insertbefore: '"company_name"'
-    state: present
+  command: python -c "import json; license = json.loads(open('{{playbook_dir}}/tower_license.json', 'r').read()); ceula = license.get('eula_accepted'); license['eula_accepted'] = True if not ceula else ceula ; open('{{playbook_dir}}/tower_license.json', 'w').write(json.dumps(license));"
   delegate_to: localhost
   run_once: true
   become: false

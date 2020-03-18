@@ -1,6 +1,14 @@
 # 演習1.4 - 変数を使ってみよう
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [ステップ 1.4.1 - 変数ファイルの作成](#ステップ-141---変数ファイルの作成)
+* [ステップ 1.4.2 - index.html ファイルの作成](#ステップ-142---indexhtml-ファイルの作成)
+* [ステップ 1.4.3 - Playbook の作成](#ステップ-143---playbook-の作成)
+* [ステップ 1.4.4 - 実行結果の確認](#ステップ-144---実行結果の確認)
+* [ステップ 1.4.5 - Ansible ファクト](#ステップ-145---ansible-ファクト)
+* [ステップ 1.4.6 - チャレンジラボ: ファクト](#ステップ-146---チャレンジラボ-ファクト)
+* [Step 1.4.7 - Playbook の中でファクトを使う](#step-147---playbook-の中でファクトを使う)
 
 前回までは Ansible Engine の基礎部分を学習してきました。この演習では Playbook をより柔軟かつパワフルに使用できる、より高度なスキルを学びます。
 
@@ -27,7 +35,7 @@ Playbook では、変数名を二重中括弧で囲むことで変数を表現�
 
 
 > **ヒント**
-> 
+>
 > ホスト変数には優先順位があります。上記 Host 変数は、 Group 変数より優先されます。詳しくは製品マニュアルをご確認ください。
 
 ## ステップ 1.4.1 - 変数ファイルの作成
@@ -61,7 +69,7 @@ stage: prod
 
   -  `web` group のすべてのサーバーに対して、変数 `stage` に値 `dev` が定義されます。そして dev （開発）をデフォルト値として定義します。
 
-  -  `node2` に関しては、上記で定義された変数 stage = dev が、prod で上書きされます。本番環境として定義されます。 
+  -  `node2` に関しては、上記で定義された変数 stage = dev が、prod で上書きされます。本番環境として定義されます。
 
 ## ステップ 1.4.2 - index.html ファイルの作成
 
@@ -90,7 +98,7 @@ stage: prod
  `deploy_index_html.yml` という名前の Playbook を `~/ansible-files/` ディレクトリ内に作成します。
 
 > **ヒント**
-> 
+>
 > コピーするファイル名の中に指定された変数 "stage" がホストごとに取る値に注意してください。
 
 <!-- {% raw %} -->
@@ -137,7 +145,7 @@ node3 ansible_host=33.44.55.66
 ```
 
 > **ヒント**
-> 
+>
 > 鋭い人はちょっと思うかもしれません、”もっと柔軟にファイルの中身を変更出来たら・・・、と”。こちらについては次の章（template モジュール）で学びます！
 
 ## ステップ 1.4.5 - Ansible ファクト
@@ -166,10 +174,10 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
   - 管理対象ホストのディストリビューション（Red Hat）を表示してください。ただし、結果は一行で出力してください。
 
 > **ヒント**
-> 
+>
 > grep を使ってファクトの中から必要な情報を探してみます。次に、 filter を使ってこのファクトのみの情報を抽出してみましょう。一行での表示の方法は ansible コマンドの -h (help) を使って調べてみましょう！
 
- 
+
 > **答えは下記の通り\!**
 
 ```bash
@@ -194,13 +202,13 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
 <!-- {% endraw %} -->
 
 > **ヒント**
-> 
+>
 > "debug" モジュールは変数や式を確認するのに有用です。
 
 取得されたファクトがどのような形で表示されるか Playbook を実行してみてください。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook facts.yml 
+[student<X>@ansible ansible-files]$ ansible-playbook facts.yml
 
 PLAY [Output facts within a playbook] ******************************************
 
@@ -211,13 +219,13 @@ ok: [node1]
 ok: [ansible]
 
 TASK [Prints Ansible facts] ****************************************************
-ok: [node1] => 
+ok: [node1] =>
   msg: The default IPv4 address of node1 is 172.16.190.143
-ok: [node2] => 
+ok: [node2] =>
   msg: The default IPv4 address of node2 is 172.16.30.170
-ok: [node3] => 
+ok: [node3] =>
   msg: The default IPv4 address of node3 is 172.16.140.196
-ok: [ansible] => 
+ok: [ansible] =>
   msg: The default IPv4 address of ansible is 172.16.2.10
 
 PLAY RECAP *********************************************************************

@@ -1,6 +1,13 @@
 # Exercise 2.6 - Workflows
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Ansible Tower Workflows](#ansible-tower-workflows)
+  * [Lab Scenario](#lab-scenario)
+  * [Set up Projects](#set-up-projects)
+  * [Set up Job Templates](#set-up-job-templates)
+  * [Set up the Workflow](#set-up-the-workflow)
+  * [And Action](#and-action)
 
 # Ansible Tower Workflows
 
@@ -41,7 +48,7 @@ To make things somewhat easier for you, everything needed already exists in a Gi
 First you have to set up the Git repo as Projects like you normally would. You have done this before, try to do this on your own. Detailed instructions can be found below.
 
 > **Warning**
-> 
+>
 > **If you are still logged in as user **wweb**, log out of and log in as user **admin** again.**
 
 - Create the project for web operations:
@@ -61,35 +68,35 @@ First you have to set up the Git repo as Projects like you normally would. You h
   - The **SCM BRANCH/TAG/COMMIT** is **webdev**
 
 > **Warning**
-> 
+>
 > **Solution Below**
 
 - Create the project for web operations. In the **Projects** view click the green plus button and fill in:
-  
+
     - **NAME:** Webops Git Repo
-  
+
     - **ORGANIZATION:** Default
-  
+
     - **SCM TYPE:** Git
-  
+
     - **SCM URL:** https://github.com/ansible/workshop-examples.git
 
     - **SCM BRANCH/TAG/COMMIT:** webops
-  
+
     - **SCM UPDATE OPTIONS:** Tick all three boxes.
 
 - Click **SAVE**
 
 - Create the project for the application developers. In the **Projects** view click the green plus button and fill in:
-  
+
     - **NAME:** Webdev Git Repo
-  
+
     - **ORGANIZATION:** Default
-  
+
     - **SCM TYPE:** Git
-  
+
     - **SCM URL:** https://github.com/ansible/workshop-examples.git
-  
+
     - **SCM BRANCH/TAG/COMMIT:** webdev
 
     - **SCM UPDATE OPTIONS:** Tick all three boxes.
@@ -101,43 +108,43 @@ First you have to set up the Git repo as Projects like you normally would. You h
 Now you have to create Job Templates like you would for "normal" Jobs.
 
   - Go to the **Templates** view, click the green plus button and choose **Job Template**:
-    
+
       - **NAME:** Tomcat Deploy
-    
+
       - **JOB TYPE:** Run
-    
+
       - **INVENTORY:** Workshop Inventory
-    
+
       - **PROJECT:** Webops Git Repo
-    
+
       - **PLAYBOOK:** `rhel/webops/tomcat.yml`
-    
+
       - **CREDENTIAL:** Workshop Credentials
-    
+
       - **OPTIONS:** Enable privilege escalation
 
   - Click **SAVE**
 
   - Go to the **Templates** view, click the green plus button and choose **Job Template**:
-    
+
       - **NAME:** Web App Deploy
-    
+
       - **JOB TYPE:** Run
-    
+
       - **INVENTORY:** Workshop Inventory
-    
+
       - **PROJECT:** Webdev Git Repo
-    
+
       - **PLAYBOOK:** `rhel/webdev/create_jsp.yml`
-    
+
       - **CREDENTIALS:** Workshop Credentials
-    
+
       - **OPTIONS:** Enable privilege escalation
 
   - Click **SAVE**
 
 > **Tip**
-> 
+>
 > If you want to know what the Playbooks look like, check out the Github URL and switch to the appropriate branches.
 
 ## Set up the Workflow
@@ -145,9 +152,9 @@ Now you have to create Job Templates like you would for "normal" Jobs.
 And now you finally set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Job Template** and **Workflow Template** when adding a template so this is finally making sense.
 
   - Go to the **Templates** view and click the the green plus button. This time choose **Workflow Template**
-    
+
       - **NAME:** Deploy Webapp Server
-    
+
       - **ORGANIZATION:** Default
 
   - Click **SAVE**
@@ -161,7 +168,7 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
   - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x**, a green **+** and a blue **chain**-symbol appear.
 
 > **Tip**
-> 
+>
 > Using the red "x" allows you to remove the node, the green plus lets you add the next node and the chain-symbol links to another node .
 
   - Click the green **+** sign
@@ -171,7 +178,7 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
   - Leave **Type** set to **On Success**
 
 > **Tip**
-> 
+>
 > The type allows for more complex workflows. You could lay out different execution paths for successful and for failed Playbook runs.
 
   - Click **SELECT**
@@ -181,7 +188,7 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
   - Click **SAVE** in the **Workflow Template** view
 
 > **Tip**
-> 
+>
 > The **Workflow Visualizer** has options for setting up more advanced workflows, please refer to the documentation.
 
 ## And Action
@@ -201,7 +208,7 @@ $ curl http://localhost:8080/coolapp/
 ```
 
 > **Tip**
-> 
+>
 > You might have to wait a couple of minutes until Tomcat answers requests.
 
 ----

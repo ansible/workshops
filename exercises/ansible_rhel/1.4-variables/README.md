@@ -1,6 +1,14 @@
 # Exercise 1.4 - Using Variables
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Step 4.1 - Create Variable Files](#step-41---create-variable-files)
+* [Step 4.2 - Create index.html Files](#step-42---create-indexhtml-files)
+* [Step 4.3 - Create the Playbook](#step-43---create-the-playbook)
+* [Step 4.4 - Test the Result](#step-44---test-the-result)
+* [Step 4.5 - Ansible Facts](#step-45---ansible-facts)
+* [Step 4.6 - Challenge Lab: Facts](#step-46---challenge-lab-facts)
+* [Step 4.7 - Using Facts in Playbooks](#step-47---using-facts-in-playbooks)
 
 Previous exercises showed you the basics of Ansible Engine.  In the next few exercises, we are going
 to teach some more advanced Ansible skills that will add flexibility and power to your playbooks.
@@ -101,7 +109,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
   tasks:
   - name: copy index.html
     copy:
-      src: {{ stage }}_index.html
+      src: "{{ stage }}_index.html"
       dest: /var/www/html/index.html
 ```
 <!-- {% endraw %} -->
@@ -182,7 +190,7 @@ Or what about only looking for memory related facts:
 Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible-files/` directory:
 
 <!-- {% raw %} -->
-```yaml    
+```yaml
 ---
 - name: Output facts within a playbook
   hosts: all
@@ -221,10 +229,10 @@ ok: [ansible] =>
   msg: The default IPv4 address of ansible is 172.16.2.10
 
 PLAY RECAP *********************************************************************
-ansible                    : ok=2    changed=0    unreachable=0    failed=0   
-node1                      : ok=2    changed=0    unreachable=0    failed=0   
-node2                      : ok=2    changed=0    unreachable=0    failed=0   
-node3                      : ok=2    changed=0    unreachable=0    failed=0   
+ansible                    : ok=2    changed=0    unreachable=0    failed=0
+node1                      : ok=2    changed=0    unreachable=0    failed=0
+node2                      : ok=2    changed=0    unreachable=0    failed=0
+node3                      : ok=2    changed=0    unreachable=0    failed=0
 ```
 
 ----

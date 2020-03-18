@@ -219,7 +219,7 @@ snmp-server community ansible-test RO
 
 # Takeaways
 
-- **os_config** モジュールは冪等性を持ち、ステートフルです。
+- ***os_config** (例えば ios_config) モジュールは冪等性を持ち、ステートフルです。
 - **check mode** はリモートシステムを変更せずにPlaybookを確認できる。
 - **verbose mode** は端末に多くの情報を表示し、そこにはどのようなコマンドが適用されるかが含まれている。
 - Playbook は設定を強制するために **Red Hat Ansible Tower** からスケジュールすることが可能です。例えば、特定のネットワークに1日1回Playbookを実行するなどです。また **check mode** と組み合わせ利用すると、ネットワークの設定が変更されたり削除された場合に、それを確認したりレポートすることも可能になります。

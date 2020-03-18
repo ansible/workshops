@@ -27,7 +27,7 @@ If your experience is different in schedulung those workshops, please let us kno
 
 ## Section 2 - Ansible Security Automation Use Cases
 
- - [Exercise 2.1 - Detection and triage of suspicious activities](2.1-suspicious)
+ - [Exercise 2.1 - Investigation Enrichment](2.1-enrich)
  - [Exercise 2.2 - Threat hunting](2.2-threat)
  - [Exercise 2.3 - Incident response](2.3-incident)
 

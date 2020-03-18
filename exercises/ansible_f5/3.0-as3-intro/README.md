@@ -160,7 +160,7 @@ This section from above...
 ```
 <!-- {% endraw %} -->
 
-...sets a variable named `pool_members`, to the webservers group.  There are two webservers on the workbench, `host1` and `host2`.  This means that the `pool_members` variable refers to a list of two webservers.
+...sets a variable named `pool_members`, to the webservers group.  There are two webservers on the workbench, `node1` and `node2`.  This means that the `pool_members` variable refers to a list of two webservers.
 
 ## Step 5
 

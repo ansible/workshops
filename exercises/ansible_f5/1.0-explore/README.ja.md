@@ -80,14 +80,14 @@ f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansibl
 [control]
 ansible ansible_host=107.23.192.217 ansible_user=ec2-user private_ip=172.16.207.49
 
-[webservers]
-host1 ansible_host=107.22.141.4 ansible_user=ec2-user private_ip=172.16.170.190
-host2 ansible_host=54.146.162.192 ansible_user=ec2-user private_ip=172.16.160.13
+[web]
+node1 ansible_host=107.22.141.4 ansible_user=ec2-user private_ip=172.16.170.190
+node2 ansible_host=54.146.162.192 ansible_user=ec2-user private_ip=172.16.160.13
 ```
 
 #### Step 5
 
-上の出力では `[ ]` でグループを定義しています。例えば `[webservers]` は `host1` と `host2` を含んむグループです。
+上の出力では `[ ]` でグループを定義しています。例えば `[web]` は `node1` と `node2` を含んむグループです。
 
 > Note: **all** というグループは常に存在し、インベントリー内で定義された全てのホストとグループを含みます。
 

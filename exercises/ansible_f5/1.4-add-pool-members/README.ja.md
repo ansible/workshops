@@ -68,7 +68,7 @@
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-    loop: "{{ groups['webservers'] }}"
+    loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -80,13 +80,13 @@
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `state: "present"` ： プールメンバーを（削除ではなく）追加するように指定します。
-- `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be host1 and host2).
-- `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（host1、host2 となります）として使うことを指示します。
+- `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be node1 and node2).
+- `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（node1、node2 となります）として使うことを指示します。
 - `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
 - `pool: "http_pool"` ： Webサーバーを追加するプールとして、http_pool を指定します。
 - `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
 最後に、（モジュール・パラメータではなく）タスクレベルのパラメータである、loop パラメータの指定です。
-- `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む webservers グループが一覧となります。
+- `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む web グループが一覧となります。
 
 ## Step 4
 
@@ -106,8 +106,8 @@
 PLAY [BIG-IP SETUP] ************************************************************
 
 TASK [ADD POOL MEMBERS] ********************************************************
-changed: [f5] => (item=host1)
-changed: [f5] => (item=host2)
+changed: [f5] => (item=node1)
+changed: [f5] => (item=node2)
 
 PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
@@ -173,11 +173,11 @@ TASK [Query BIG-IP facts] ******************************************************
 changed: [f5]
 
 TASK [Show members belonging to pool] ***********************************************************************************************************************
-ok: [f5] => (item=host1:80) => {
-    "msg": "host1:80"
+ok: [f5] => (item=node1:80) => {
+    "msg": "node1:80"
 }
-ok: [f5] => (item=host2:80) => {
-    "msg": "host2:80"
+ok: [f5] => (item=node2:80) => {
+    "msg": "node2:80"
 }
 
 PLAY RECAP **************************************************************************************************************************************************
@@ -209,7 +209,7 @@ BIG-IP へのログイン情報:
 - username: admin
 - password: admin
 
-プールに二つのメンバー（host1とhost2）が含まれていることを確認します。Local Traffic -> Pools とクリックします。そして、http_pool をクリックすることでより詳細な情報を確認します。Members タブをクリックすることで全てのプールメンバーが表示されます。
+プールに二つのメンバー（node1とnode2）が含まれていることを確認します。Local Traffic -> Pools とクリックします。そして、http_pool をクリックすることでより詳細な情報を確認します。Members タブをクリックすることで全てのプールメンバーが表示されます。
 ![f5members](poolmembers.png)
 
 

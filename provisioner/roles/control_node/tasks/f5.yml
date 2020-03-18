@@ -1,15 +1,16 @@
----
-- name: install additional packages (NETWORKING MODE)
+- name: install f5 workshop dependicies (F5 AUTOMATION MODE)
   become: true
   pip:
     name:
+      - f5-sdk
+      - bigsuds
       - netaddr
-      - ncclient
+      - jmespath
     state: latest
 
-- name: Move networking workshop folder to correct location  (NETWORKING MODE)
+- name: Move networking workshop folder to correct location  (F5 MODE)
   copy:
-    src: /tmp/workshops/exercises/ansible_network/
+    src: /tmp/workshops/exercises/ansible_f5/
     dest: /home/{{ username }}/networking-workshop
     remote_src: true
     owner: "{{ username }}"

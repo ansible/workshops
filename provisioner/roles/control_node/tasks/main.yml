@@ -118,6 +118,18 @@
     refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: true
 
+- name: Move relevant exercises to correct location
+  copy:
+    src: "/tmp/workshops/exercises/ansible_{{workshop_type}}/"
+    dest: "/home/{{ username }}/{{workshop_type}}-workshop"
+    remote_src: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when:
+    - workshop_type != "f5"
+    - workshop_type != "networking"
+## need to fix the conditionals above https://github.com/ansible/workshops/issues/743
+
 - name: setup control node networking
   include_tasks: "{{workshop_type}}.yml"
 

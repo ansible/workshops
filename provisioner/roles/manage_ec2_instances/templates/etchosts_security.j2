@@ -7,13 +7,31 @@
 {% endif %}
 {% endfor %}
 
-{% for vm in node1_node_facts.instances %}
+{% for vm in qradar_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 
-{% for vm in node2_node_facts.instances %}
+{% for vm in attacker_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}
+
+{% for vm in checkpoint_gw_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}
+
+{% for vm in checkpoint_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}
+
+{% for vm in snort_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{vm.tags.short_name}}
 {% endif %}

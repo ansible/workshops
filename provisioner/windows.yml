@@ -42,7 +42,6 @@
   tags:
     - gitlab
   roles:
-    - {role: common}
     - {role: geerlingguy.gitlab}
     - {role: gitlab-server}
 

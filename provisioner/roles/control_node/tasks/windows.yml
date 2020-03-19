@@ -1,41 +1,4 @@
 ---
-- name: Enable extras repos
-  shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
-  when:
-    - ansible_distribution == 'RedHat'
-    - ansible_distribution_major_version|int < 8
-
-- name: Install packages
-  package:
-    name:
-      - vim
-      - git
-      - sshpass
-      - ansible
-      - nano
-      - bind-utils
-      - python-pip
-    state: present
-  when: ansible_distribution_major_version|int < 8
-
-- name: Install packages
-  package:
-    name:
-      - vim
-      - git
-      # - sshpass
-      # - ansible
-      - nano
-      - bind-utils
-      - python36
-    state: present
-  when: ansible_distribution_major_version|int == 8
-
-- name: install the last version of OpenSSL
-  pip:
-    name: pyOpenSSL
-    state: latest
-
 - name: Install dependencies for Kerberos auth
   package:
     name:
@@ -44,7 +7,6 @@
       - krb5-libs
       - krb5-workstation
       - python-kerberos
-      - gcc
     state: present
   when: ansible_distribution_major_version|int < 8
 
@@ -54,16 +16,8 @@
       - krb5-devel
       - krb5-libs
       - krb5-workstation
-      - gcc
     state: present
   when: ansible_distribution_major_version|int == 8
-
-- name: Install pywinrm for connecting to windows hosts
-  pip:
-    name:
-      - pywinrm>=0.2.2
-      - pywinrm[kerberos]
-      - pywinrm[credssp]
 
 - name: Configure KRB5.conf file
   template:
@@ -76,14 +30,14 @@
 - name: Create lab inventory directory (WINDOWS MODE)
   file:
     state: directory
-    path: /home/{{ username }}/windows-workshop/lab_inventory
+    path: /home/{{ username }}/{{workshop_type}}-workshop/lab_inventory
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Put student inventory in proper spot (WINDOWS MODE)
   copy:
     src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
-    dest: "/home/{{ username }}/windows-workshop/lab_inventory/hosts"
+    dest: "/home/{{ username }}/{{workshop_type}}-workshop/lab_inventory/hosts"
     owner: "{{ username }}"
     group: "{{ username }}"
   when: username in inventory_hostname

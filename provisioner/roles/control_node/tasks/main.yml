@@ -10,12 +10,6 @@
   with_items: "{{ common_node_config_options }}"
   notify: restart ssh
 
-- name: Update systemd
-  yum:
-    name: systemd*
-    state: latest
-    update_cache: true
-
 - name: Update rh-amazon-rhui-client to latest
   yum:
     name: rh-amazon-rhui-client
@@ -85,7 +79,6 @@
     - "{{ansible_user}}"
     - "{{username}}"
 
-## This is needed for sshpass
 - name: Install EPEL
   yum:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
@@ -104,7 +97,11 @@
       - python-pip
       - ansible
       - gcc
+      - bind-utils
+      - pyOpenSSL
+      # - systemd*
     state: present
+    update_cache: true
   register: yum_check
   until: yum_check is not failed
   retries: 4
@@ -129,12 +126,6 @@
   pip:
     name: pip
     state: latest
-
-# Force <45 because 45.0.0 dropped support for python2
-- name: upgrade setuptools to 44
-  become: true
-  pip:
-    name: setuptools==44.0.0
 
 # FIXME: This should probably be refactored to use things like the following
 # instead of hard coding
@@ -169,7 +160,7 @@
     - workshop_type != "networking"
 ## need to fix the conditionals above https://github.com/ansible/workshops/issues/743
 
-- name: setup control node networking
+- name: setup control node for workshop type
   include_tasks: "{{workshop_type}}.yml"
 
 - name: check to see if ansible tower is already up and running

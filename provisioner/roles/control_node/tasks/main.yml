@@ -10,6 +10,15 @@
   with_items: "{{ common_node_config_options }}"
   notify: restart ssh
 
+- hostname:
+    name: "{{short_name}}"
+
+- name: Update systemd
+  yum:
+    name: systemd*
+    state: latest
+    update_cache: true
+
 - name: Update rh-amazon-rhui-client to latest
   yum:
     name: rh-amazon-rhui-client
@@ -42,6 +51,45 @@
     option: enabled
     value: 1
   with_items: '{{ redhat_aws_rhui_repos }}'
+
+## This is needed for sshpass
+- name: Install EPEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
+
+- name: Install base packages
+  yum:
+    name:
+      - vim
+      - git
+      - wget
+      - nano
+      - tree
+      - sshpass
+      - tmux
+      - python-pip
+      - ansible
+      - gcc
+    state: present
+  register: yum_check
+  until: yum_check is not failed
+  retries: 4
+  delay: 5
+
+- name: Install ansible.cfg and vimrc in home directory
+  template:
+    src: ansible.cfg.j2
+    dest: "/home/{{ username }}/.ansible.cfg"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Install vimrc in home directory
+  template:
+    src: vimrc.j2
+    dest: "/home/{{ username }}/.vimrc"
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
 - name: setup /etc/hosts file per student
   copy:
@@ -78,54 +126,6 @@
   loop:
     - "{{ansible_user}}"
     - "{{username}}"
-
-- name: Install EPEL
-  yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-    state: present
-
-- name: Install base packages
-  yum:
-    name:
-      - vim
-      - git
-      - wget
-      - nano
-      - tree
-      - sshpass
-      - tmux
-      - python-pip
-      - ansible
-      - gcc
-      - bind-utils
-      - pyOpenSSL
-      # - systemd*
-    state: present
-    update_cache: true
-  register: yum_check
-  until: yum_check is not failed
-  retries: 4
-  delay: 5
-
-- name: Install ansible.cfg and vimrc in home directory
-  template:
-    src: ansible.cfg.j2
-    dest: "/home/{{ username }}/.ansible.cfg"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Install vimrc in home directory
-  template:
-    src: vimrc.j2
-    dest: "/home/{{ username }}/.vimrc"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: upgrade pip
-  become: true
-  pip:
-    name: pip
-    state: latest
 
 # FIXME: This should probably be refactored to use things like the following
 # instead of hard coding

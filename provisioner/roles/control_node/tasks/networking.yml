@@ -1,4 +1,9 @@
 ---
+- name: upgrade pip
+  become: true
+  pip:
+    name: pip
+    state: latest
 # Force <45 because 45.0.0 dropped support for python2
 # This is required for Juniper ncclient - do a pip show ncclient to see requirements
 - name: upgrade setuptools to 44

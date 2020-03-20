@@ -52,6 +52,16 @@
     refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: true
 
+- name: Debuging version
+  command: ls -l
+  args:
+    chdir: /tmp/workshops
+  register: ls_output
+
+- name: debuging
+  debug:
+    msg: '{{ ls_output.stdout }}'
+
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)
   copy:
     src: /tmp/workshops/exercises/ansible_network/

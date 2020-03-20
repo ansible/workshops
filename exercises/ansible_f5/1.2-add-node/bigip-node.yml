@@ -6,6 +6,10 @@
 
   tasks:
 
+  - name: Debuggggggging
+    debug:
+      msg: 'Debuging in quarantine'
+
   - name: CREATE NODES
     bigip_node:
       provider:

@@ -62,7 +62,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_n
         validate_certs: no
       host: "{{hostvars[item].ansible_host}}"
       name: "{{hostvars[item].inventory_hostname}}"
-    loop: "{{ groups['webservers'] }}"
+    loop: "{{ groups['web'] }}"
 ```
 <!-- {% endraw %} -->
 
@@ -78,7 +78,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_n
 - The `host: "{{hostvars[item].ansible_host}}"` parameter tells the module to add a web server IP address already defined in our inventory.
 - The `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be node1 and node2).
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
-- `loop:` tells the task to loop over the provided list.  The list in this case is the group webservers which includes two RHEL hosts.
+- `loop:` tells the task to loop over the provided list.  The list in this case is the group web which includes two RHEL hosts.
 
 Save the file and exit out of editor.
 

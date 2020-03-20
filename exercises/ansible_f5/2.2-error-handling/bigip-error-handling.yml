@@ -21,7 +21,7 @@
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
           bigip_pool:
@@ -39,7 +39,7 @@
             host: "{{hostvars[item].ansible_host}}"
             port: "80"
             pool: "http_pool"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
           bigip_virtual_server:
@@ -71,7 +71,7 @@
             provider: "{{provider}}"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
       always:
         - name: SAVE RUNNING CONFIGURATION
           bigip_config:

@@ -100,7 +100,7 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
          provider: "{{provider}}"
          host: "{{hostvars[item].ansible_host}}"
          name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 ```
 
 {% endraw %}
@@ -134,7 +134,7 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
           bigip_pool:
@@ -175,7 +175,7 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
           bigip_pool:
@@ -193,7 +193,7 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
            host: "{{hostvars[item].ansible_host}}"
            port: "80"
            pool: "http_pool"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -226,7 +226,7 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
           bigip_pool:
@@ -244,7 +244,7 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
            host: "{{hostvars[item].ansible_host}}"
            port: "80"
            pool: "http_pool"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
           bigip_virtual_server:
@@ -288,7 +288,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
           bigip_pool:
@@ -306,7 +306,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             host: "{{hostvars[item].ansible_host}}"
             port: "80"
             pool: "http_pool"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
           bigip_virtual_server:
@@ -338,7 +338,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             provider: "{{provider}}"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -371,7 +371,7 @@ Finally add the **always** to save the running configuration.
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
           bigip_pool:
@@ -389,7 +389,7 @@ Finally add the **always** to save the running configuration.
             host: "{{hostvars[item].ansible_host}}"
             port: "80"
             pool: "http_pool"
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
           bigip_virtual_server:
@@ -421,7 +421,7 @@ Finally add the **always** to save the running configuration.
             provider: "{{provider}}"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
-          loop: "{{ groups['webservers'] }}"
+          loop: "{{ groups['web'] }}"
       always:
         - name: SAVE RUNNING CONFIGURATION
           bigip_config:

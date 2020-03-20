@@ -4,4 +4,7 @@
     name: "{{short_name}}"
 
 - name: setup workshop specific webserver information
-  include_tasks: "{{workshop_type}}.yml"
+  include_tasks: "{{item}}"
+  with_first_found:
+  - "{{workshop_type}}.yml"
+  - "unsupported_workshop.yml"

@@ -162,6 +162,7 @@
   hosts: "managed_nodes:control_nodes"
   gather_facts: false
   become: true
+  roles:
     - user_accounts
     - common
 

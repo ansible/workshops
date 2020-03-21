@@ -158,12 +158,18 @@
   roles:
     - connectivity_test
 
+- name: Configure common options on managed nodes and control nodes
+  hosts: "managed_nodes:control_nodes"
+  gather_facts: false
+  become: true
+    - user_accounts
+    - common
+
 - name: configure ansible control node
   hosts: control_nodes
   gather_facts: true
   become: true
   roles:
-    - role: user_accounts
     - role: control_node
     - role: code_server
       when:

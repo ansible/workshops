@@ -20,10 +20,8 @@
   tags:
     - gitlab
   tasks:
-    - name: old common fix by sean
-      include_role:
-        name: gitlab-server
-        tasks_from: old-common.yml
+    - include_role:
+        name: common
     - include_role:
         name: geerlingguy.gitlab
     - include_role:

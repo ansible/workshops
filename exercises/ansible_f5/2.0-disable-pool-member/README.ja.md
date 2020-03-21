@@ -173,24 +173,24 @@ ok: [f5] => (item=None)
 ok: [f5]
 
 TASK [Show members belonging to pool http_pool] *************************************************************************************************************
-ok: [f5] => (item=host1:80) => {
-    "msg": "host1:80"
+ok: [f5] => (item=node1:80) => {
+    "msg": "node1:80"
 }
-ok: [f5] => (item=host2:80) => {
-    "msg": "host2:80"
+ok: [f5] => (item=node2:80) => {
+    "msg": "node2:80"
 }
 
 TASK [pause] ************************************************************************************************************
 [pause]
 To disable a particular member enter member with format member_name:port
 To disable all members of the pool enter 'all':
-host1:80
+node1:80
 
 TASK [Disable ALL pool members] ************************************************************************************************************************
-skipping: [f5] => (item=host1:80)
-skipping: [f5] => (item=host2:80)
+skipping: [f5] => (item=node1:80)
+skipping: [f5] => (item=node2:80)
 
-TASK [Disable pool member host1:80] *************************************************************************************************************************
+TASK [Disable pool member node1:80] *************************************************************************************************************************
 changed: [f5]
 
 PLAY RECAP **************************************************************************************************************

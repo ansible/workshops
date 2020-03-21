@@ -31,4 +31,4 @@
         provider: "{{provider}}"
         name: "{{hostvars[item].inventory_hostname}}"
         state: absent
-      loop: "{{ groups['webservers'] }}"
+      loop: "{{ groups['web'] }}"

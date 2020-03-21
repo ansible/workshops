@@ -4,37 +4,38 @@
   pip:
     name: pip
     state: latest
-# Force <45 because 45.0.0 dropped support for python2
-# This is required for Juniper ncclient - do a pip show ncclient to see requirements
-- name: upgrade setuptools to 44
+
+- name: upgrade setuptools to 44 (F5 MODE)
   become: true
   pip:
     name: setuptools==44.0.0
 
-- name: install additional packages (NETWORKING MODE)
+- name: install f5 workshop dependicies (F5 MODE)
   become: true
   pip:
     name:
+      - f5-sdk
+      - bigsuds
       - netaddr
-      - ncclient
+      - jmespath
     state: latest
 
-- name: Move networking workshop folder to correct location  (NETWORKING MODE)
+- name: Move networking workshop folder to correct location  (F5 MODE)
   copy:
-    src: /tmp/workshops/exercises/ansible_network/
+    src: /tmp/workshops/exercises/ansible_f5/
     dest: /home/{{ username }}/networking-workshop
     remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Create lab inventory directory (NETWORKING MODE)
+- name: Create lab inventory directory (F5 MODE)
   file:
     state: directory
     path: /home/{{ username }}/networking-workshop/lab_inventory
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Put student inventory in proper spot (NETWORKING MODE)
+- name: Put student inventory in proper spot (F5 MODE)
   copy:
     src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
     dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"

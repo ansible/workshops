@@ -16,4 +16,4 @@
         validate_certs: false
       host: "{{hostvars[item].ansible_host}}"
       name: "{{hostvars[item].inventory_hostname}}"
-    loop: "{{ groups['webservers'] }}"
+    loop: "{{ groups['web'] }}"

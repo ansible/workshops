@@ -13,38 +13,19 @@
         - towerinstall is defined
         - towerinstall|bool
 
-# - name: Configure Active Directory Domain Controller
-#   hosts: windows_domain_controllers
-#   gather_facts: true
-#   # vars_files:
-#   #   - [ 'vars/custom.yml', 'vars/main.yml' ]
-#   tags:
-#     - windows-ad-controller
-#   roles:
-#     - windows-ad-controller
-
-# - name: Configure Windows Servers
-#   hosts: windows
-#   gather_facts: true
-#   # vars_files:
-#   #   - [ 'vars/custom.yml', 'vars/main.yml' ]
-#   tags:
-#     - windows_hosts
-#   roles:
-#     - windows-common
-
 - name: Configure GitLab Host
   hosts: gitlab
   become: true
   gather_facts: true
-  # vars_files:
-  #   - [ 'vars/custom.yml', 'vars/main.yml' ]
   tags:
     - gitlab
-  roles:
-    - {role: common}
-    - {role: geerlingguy.gitlab}
-    - {role: gitlab-server}
+  tasks:
+    - include_role:
+        name: common
+    - include_role:
+        name: geerlingguy.gitlab
+    - include_role:
+        name: gitlab-server
 
 - name: Configure GitLab client
   hosts: control_nodes
@@ -54,15 +35,3 @@
     - git
   roles:
     - gitlab-client
-#
-# # Run post-config separate to avoid handler restart issue...
-# - name: Gitlab Post Config
-#   hosts: gitlab
-#   become: True
-#   gather_facts: True
-#   vars_files:
-#     - [ 'vars/custom.yml', 'vars/main.yml' ]
-#   tags:
-#     - gitlab
-#   roles:
-#     - { role: gitlab-postconfig }

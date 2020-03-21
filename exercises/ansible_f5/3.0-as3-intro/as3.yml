@@ -5,7 +5,7 @@
   gather_facts: false
 
   vars:
-    pool_members: "{{ groups['webservers'] }}"
+    pool_members: "{{ groups['web'] }}"
 
   tasks:
     - name: CREATE AS3 JSON BODY

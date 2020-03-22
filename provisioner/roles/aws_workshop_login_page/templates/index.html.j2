@@ -216,19 +216,28 @@ a {
 $("document").ready(function(){
   $click =  $('.studentinfo');   // Click selector
 
-
   $click.click(function () {
 
     $clicked = $(this);
+    
     $expand = $(this).parent('.header').next();  // Expand and collapse content selector
 
         //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
         $expand.slideToggle(500, function () {
             //execute this after slideToggle is done
             //change text of header based on visibility of content div
+
+            // scrolls page to expanded slide
+            $('html, body').animate({
+                scrollTop: 1000
+            }, 500);
+            
         });
 
     });
+    $("a[href='" + window.location.hash + "']").parent(".studentinfo").click();
+    
+    
 });
 </script>
 
@@ -386,7 +395,7 @@ $("document").ready(function(){
   <div class="student_logins">
     <div class="header">
 
-      <p class="studentinfo">student{{number}} - Click to see login details</p>
+      <p class="studentinfo"><a href="#student{{number}}"></a>student{{number}} - Click to see login details</p>
     </div>
     <div class="content">
 {% for host in ansible_node_facts.instances %}

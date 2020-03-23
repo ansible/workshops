@@ -135,6 +135,7 @@
           until: job_result.finished
           retries: 30
 
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
@@ -165,6 +166,20 @@
     - user_accounts
     - common
 
+- name: configure ansible control node
+  hosts: control_nodes
+  gather_facts: true
+  become: true
+  roles:
+    - role: control_node
+    - role: code_server
+      when:
+        - code_server is defined
+        - code_server
+        - towerinstall is defined
+        - towerinstall
+  tags: control_node
+
 - name: add dns entries for all student control nodes
   hosts: control_nodes
   become: true
@@ -190,8 +205,8 @@
     - role: internal_dns
       when:
       - create_internal_dns is defined
-      - create_internal_dns
-
+      - create_internal_dns  
+      
 - name: CONFIGURE ADVANCED TOWER CLUSTER DNS
   hosts: tower_nodes
   become: true
@@ -207,29 +222,15 @@
       - workshop_type == "advanced_tower"
   tags: tower_master
 
-- name: configure ansible control node
-  hosts: control_nodes
-  gather_facts: true
+- name: CONFIGURE ADVANCED TOWER CLUSTER
+  hosts: tower_master
   become: true
+  gather_facts: false
   roles:
-    - role: control_node
-    - role: code_server
+    - role: advanced_tower
       when:
-        - code_server is defined
-        - code_server
-        - towerinstall is defined
-        - towerinstall
-  tags: control_node
-
-# - name: CONFIGURE ADVANCED TOWER CLUSTER
-#   hosts: tower_master
-#   become: true
-#   gather_facts: false
-#   roles:
-#     - role: advanced_tower
-#       when:
-#       - workshop_type == "advanced_tower"
-#   tags: tower_master
+      - workshop_type == "advanced_tower"
+  tags: tower_master
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

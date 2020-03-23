@@ -1,6 +1,0 @@
----
-- name: import advanced tower tasks
-  import_tasks: advanced_tower.yml
-
-# - name: setup let's encrypt certificate
-#   import_tasks: cert.yml

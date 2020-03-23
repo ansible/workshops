@@ -26,7 +26,6 @@
     dest: /tmp/tower_install/inventory
   when: workshop_type == "advanced_tower"
 
-
 - name: run the Ansible Tower installer
   shell: ./setup.sh
   args:

@@ -1,6 +1,6 @@
 ---
 - name: initialize dns_records
-  vars:
+  set_fact:
     dns_records: []
 
 - name: create list of DNS records

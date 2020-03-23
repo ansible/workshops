@@ -66,10 +66,6 @@
         from_port: 80
         cidr_ip: 0.0.0.0/0
       - proto: tcp
-        to_port: 22
-        from_port: 22
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
         to_port: 25672
         from_port: 25672
         cidr_ip: 0.0.0.0/0
@@ -84,6 +80,10 @@
         from_port: 5432
         cidr_ip: 0.0.0.0/0
         rule_desc: PostgreSQL
+      - proto: tcp
+        to_port: 22
+        from_port: 22
+        cidr_ip: 0.0.0.0/0
       - proto: tcp
         to_port: 3389
         from_port: 3389

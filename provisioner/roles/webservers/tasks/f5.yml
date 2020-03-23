@@ -1,0 +1,15 @@
+---
+- name: install apache
+  yum:
+    name: httpd
+    state: present
+
+- name: start httpd
+  service:
+    name: httpd
+    state: started
+
+- name: copy index.html
+  template:
+    src: index.j2
+    dest: /var/www/html/index.html

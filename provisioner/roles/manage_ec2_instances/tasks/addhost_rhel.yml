@@ -46,6 +46,12 @@
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
   with_sequence: count="{{ student_total }}"
 
+- name: Generate student etchosts
+  template:
+    src: etchosts_rhel.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
+  with_sequence: count="{{ student_total }}"
+
 - name: Generate instructor inventory
   template:
     src: instructor_inventory.j2

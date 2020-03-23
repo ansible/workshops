@@ -61,6 +61,7 @@
           - "ec2_name_prefix cannot be set to TESTWORKSHOP"
           - "please set a unique name for your workshop"
 
+
     - name: make sure we are not using `ansible` as the password
       assert:
         that:
@@ -89,6 +90,7 @@
       check_mode: true
       when: workshop_type == "windows"
       register: package_state
+
 
     - name: fail if previous check has changed
       assert:
@@ -133,6 +135,7 @@
           until: job_result.finished
           retries: 30
 
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
@@ -162,12 +165,9 @@
   roles:
     - user_accounts
     - common
-  tags: control_node
 
-- name: CONFIGURE CONTROL NODE
-  hosts:
-  - control_nodes
-  - tower_nodes
+- name: configure ansible control node
+  hosts: control_nodes
   gather_facts: true
   become: true
   roles:

@@ -18,13 +18,6 @@
   template:
     src: tower_install.j2
     dest: /tmp/tower_install/inventory
-  when: workshop_type != "advanced_tower"
-
-- name: template inventory file for Ansible Tower Install
-  template:
-    src: advanced_tower_install.j2
-    dest: /tmp/tower_install/inventory
-  when: workshop_type == "advanced_tower"
 
 - name: run the Ansible Tower installer
   shell: ./setup.sh

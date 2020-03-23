@@ -65,7 +65,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
       host: "{{hostvars[item].ansible_host}}"
       port: "80"
       pool: "http_pool"
-    loop: "{{ groups['webservers'] }}"
+    loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -87,7 +87,7 @@ Next we have module parameters
 - The `pool: "http_pool"` parameter tells the module to put this node into a pool named http_pool
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 Finally there is a loop parameter which is at the task level (it is not a module parameter but a task level parameter:
-- `loop:` tells the task to loop over the provided list.  The list in this case is the group webservers which includes two RHEL hosts.
+- `loop:` tells the task to loop over the provided list.  The list in this case is the group web which includes two RHEL hosts.
 
 Save the file and exit out of editor.
 

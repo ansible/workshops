@@ -19,14 +19,14 @@ ansible ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username
 {% endif %}
 {% endfor %}
 
-[webservers]
-{% for vm in host1_node_facts.instances %}
+[web]
+{% for vm in node1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-host1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
+node1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
-{% for vm in host2_node_facts.instances %}
+{% for vm in node2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-host2 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
+node2 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}

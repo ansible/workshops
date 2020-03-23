@@ -84,7 +84,7 @@ when HTTP_REQUEST {
    irules: ['irule1','irule2']
 
   tasks:
-  
+
   - name: ADD iRules
     bigip_irule:
       provider:

@@ -219,7 +219,7 @@ snmp-server community ansible-test RO
 
 # Takeaways
 
-- the **os_config** modules are idempotent, meaning they are stateful
+- the ***os_config** (e.g. ios_config) modules are idempotent, meaning they are stateful
 - **check mode** ensures the Ansible Playbook does not make any changes on the remote systems
 - **verbose mode** allows us to see more output to the terminal window, including which commands would be applied
 - This Ansible Playbook could be scheduled in **Red Hat Ansible Tower** to enforce the configuration.  For example this could mean the Ansible Playbook could be run once a day for a particular network.  In combination with **check mode** this could just be a read only Ansible Playbook that sees and reports if configuration is missing or modified on the network.

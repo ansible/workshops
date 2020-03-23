@@ -67,7 +67,7 @@
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
-    loop: "{{ groups['webservers'] }}"
+    loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -81,9 +81,9 @@
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
-- `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（host1、host2 となります）として使うことを指示します。
+- `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（node1、node2 となります）として使うことを指示します。
 - `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
-- `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む webservers グループが一覧となります。
+- `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む web グループが一覧となります。
 
 ## Step 4
 
@@ -103,8 +103,8 @@
 PLAY [BIG-IP SETUP] ************************************************************
 
 TASK [CREATE NODES] ************************************************************
-changed: [f5] => (item=host1)
-changed: [f5] => (item=host2)
+changed: [f5] => (item=node1)
+changed: [f5] => (item=node2)
 
 PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0

@@ -100,7 +100,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           host: "{{hostvars[item].ansible_host}}"
           name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 ```
 
 {% endraw %}
@@ -134,7 +134,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           host: "{{hostvars[item].ansible_host}}"
           name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: CREATE POOL
         bigip_pool:
@@ -175,7 +175,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           host: "{{hostvars[item].ansible_host}}"
           name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: CREATE POOL
         bigip_pool:
@@ -193,7 +193,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           host: "{{hostvars[item].ansible_host}}"
           port: "80"
           pool: "http_pool"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -226,7 +226,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           host: "{{hostvars[item].ansible_host}}"
           name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: CREATE POOL
         bigip_pool:
@@ -244,7 +244,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           host: "{{hostvars[item].ansible_host}}"
           port: "80"
           pool: "http_pool"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: ADD VIRTUAL SERVER
         bigip_virtual_server:
@@ -288,7 +288,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           host: "{{hostvars[item].ansible_host}}"
           name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: CREATE POOL
         bigip_pool:
@@ -306,7 +306,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           host: "{{hostvars[item].ansible_host}}"
           port: "80"
           pool: "http_pool"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: ADD VIRTUAL SERVER
         bigip_virtual_server:
@@ -337,7 +337,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           name: "{{hostvars[item].inventory_hostname}}"
           state: absent
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -370,7 +370,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           host: "{{hostvars[item].ansible_host}}"
           name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: CREATE POOL
         bigip_pool:
@@ -388,7 +388,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           host: "{{hostvars[item].ansible_host}}"
           port: "80"
           pool: "http_pool"
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
       - name: ADD VIRTUAL SERVER
         bigip_virtual_server:
@@ -419,7 +419,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           name: "{{hostvars[item].inventory_hostname}}"
           state: absent
-        loop: "{{ groups['webservers'] }}"
+        loop: "{{ groups['web'] }}"
 
     always:
       - name: SAVE RUNNING CONFIGURATION
@@ -455,15 +455,15 @@ TASK [Setup provider] **********************************************************
 ok: [f5]
 
 TASK [CREATE NODES] *****************************************************************************************************
-changed: [f5] => (item=host1)
-changed: [f5] => (item=host2)
+changed: [f5] => (item=node1)
+changed: [f5] => (item=node2)
 
 TASK [CREATE POOL] *******************************************************************************************************
 changed: [f5]
 
 TASK [ADD POOL MEMBERS] **************************************************************************************************************************
-changed: [f5] => (item=host1)
-changed: [f5] => (item=host2)
+changed: [f5] => (item=node1)
+changed: [f5] => (item=node2)
 
 TASK [ADD VIRTUAL SERVER] ***************************************************************************************************************************
 fatal: [f5]: FAILED! => {"changed": false, "msg": "0107163f:3: Pool (/Common/Automap1) of type (snatpool) doesn't exist."}
@@ -475,8 +475,8 @@ TASK [DELETE POOL] *************************************************************
 changed: [f5]
 
 TASK [DELETE NODES] **************************************************************************************************************************
-changed: [f5] => (item=host1)
-changed: [f5] => (item=host2)
+changed: [f5] => (item=node1)
+changed: [f5] => (item=node2)
 
 TASK [SAVE RUNNING CONFIGURATION] ***************************************************************************************************************************
 changed: [f5]

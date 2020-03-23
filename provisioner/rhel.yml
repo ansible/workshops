@@ -1,10 +1,7 @@
 ---
-- name: RHEL workshop_type
-  hosts: localhost
+- name: configure rhel workshop for webservers
+  hosts: lab_hosts
   become: true
   gather_facts: false
-  connection: local
-  tasks:
-    - name: Print Summary Information
-      debug:
-        msg: "No specific tasks for {{workshop_type}}"
+  roles:
+    - {role: webservers}

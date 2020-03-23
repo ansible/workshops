@@ -187,7 +187,7 @@ In your VS Code online editor, create a file called `incident_blacklist.yml`. No
     source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
     destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 
-  tasks:
+  tasks: 
     - name: Create source IP host object
       checkpoint_host:
         name: "asa-{{ source_ip }}"

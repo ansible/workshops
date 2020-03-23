@@ -11,7 +11,6 @@
     s3_state: absent
     state: absent
     debug_teardown: false
-    dns_records: []
 
   tasks:
     - {include_role: {name: manage_ec2_instances}}
@@ -21,7 +20,6 @@
     - {include_role: {name: gitlab-server}, when: workshop_type == "windows"}
     - {include_role: {name: internal_dns}, when: create_internal_dns is defined and create_internal_dns}
     - {include_role: {name: route53}, when: workshop_type == "advanced_tower"}
-
 
     - name: Remove workshop local files
       file:

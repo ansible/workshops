@@ -104,6 +104,8 @@
     version: '{{ ansible_workshops_version | default("master") }}'
     refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: true
+  when:
+    - workshop_type != "networking"
 
 - name: Move relevant exercises to correct location
   copy:

@@ -205,8 +205,8 @@
     - role: internal_dns
       when:
       - create_internal_dns is defined
-      - create_internal_dns  
-      
+      - create_internal_dns
+
 - name: CONFIGURE ADVANCED TOWER CLUSTER DNS
   hosts: tower_nodes
   become: true
@@ -218,16 +218,6 @@
         record: "{{username}}.{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: "A"
         value: "{{ ansible_host }}"
-      when:
-      - workshop_type == "advanced_tower"
-  tags: tower_master
-
-- name: CONFIGURE ADVANCED TOWER CLUSTER
-  hosts: tower_master
-  become: true
-  gather_facts: false
-  roles:
-    - role: advanced_tower
       when:
       - workshop_type == "advanced_tower"
   tags: tower_master

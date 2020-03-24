@@ -26,16 +26,16 @@ create_login_page: true
 autolicense: true
 
 # Install Ansible Tower on all control nodes
-towerinstall: false
+towerinstall: true
 
 # Sets the Route53 DNS zone to use for the S3 website
 workshop_dns_zone: "ocpdemo.net"
 
+## Internal DNS only for RHEL and Advanced Tower 
 # Create internal zone ec2_name_prefix.workshop_internal_dns_zone
 create_internal_dns: true
-
 # Name of internal DNS zone
 workshop_internal_dns_zone: "ansibleworkshops.com"
 
 # Install Code Server
-code_server: false
+code_server: true

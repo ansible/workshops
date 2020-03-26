@@ -194,7 +194,7 @@
     state: "present"
     limit: "snort"
     credential: "ec2-user credential"
-    become_enabled: yes
+    become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -248,7 +248,7 @@
     state: "present"
     limit: "snort"
     credential: "ec2-user credential"
-    become_enabled: yes
+    become_enabled: true
     survey_enabled: true
     survey_spec: "{{ lookup('template', 'security_survey_ids_rule.json') }}"
     tower_username: admin
@@ -265,7 +265,7 @@
     state: "present"
     limit: "attacker"
     credential: "ec2-user credential"
-    become_enabled: yes
+    become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -280,7 +280,7 @@
     state: "present"
     limit: "attacker"
     credential: "ec2-user credential"
-    become_enabled: yes
+    become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"

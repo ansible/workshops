@@ -30,6 +30,8 @@
 
 - command: rpm -q rh-amazon-rhui-client
   register: rhui_version_out
+  args:
+    warn: false
 
 - set_fact:
     rhui_version: "{{ rhui_version_out.stdout }}"
@@ -53,7 +55,7 @@
     dest: '/etc/yum.repos.d/redhat-rhui.repo'
     section: '{{ item  }}'
     option: enabled
-    value: 1
+    value: "1"
   with_items: '{{ redhat_aws_rhui_repos }}'
 
 - meta: flush_handlers

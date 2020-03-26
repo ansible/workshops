@@ -1,0 +1,9 @@
+---
+collections:
+  - name: ansible.posix
+  - name: ansible.netcommon
+  - name: community.general
+  - name: community.crypto
+  - name: awx.awx
+  - name: amazon.aws
+  # - name: community.aws

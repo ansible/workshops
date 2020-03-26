@@ -1,0 +1,7 @@
+---
+collections:
+  - ansible.posix
+  - community.general
+  - community.crypto
+  - amazon.aws
+  - community.aws

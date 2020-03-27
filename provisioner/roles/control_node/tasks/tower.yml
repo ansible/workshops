@@ -65,7 +65,6 @@
     path: /opt/my-envs
     state: directory
     mode: '0755'
-  when: workshop_type != "advanced_tower"
 
 - name: specify in Tower which directory to look for custom venvs
   uri:

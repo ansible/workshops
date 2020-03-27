@@ -26,11 +26,6 @@
     tower_password: "{{admin_password}}"
   #delegate_to: "{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
 
-- name: Install EPEL
-  yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-    state: present
-
 - name: INSTALL CERTBOT
   yum:
     name: certbot

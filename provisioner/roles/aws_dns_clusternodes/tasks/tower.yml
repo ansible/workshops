@@ -4,10 +4,10 @@
     name: TOWER_URL_BASE
     value: "https://{{ record }}"
     tower_verify_ssl: false
-    tower_host: "https://{{ record }}"
+    tower_host: "{{ record }}"
     tower_username: admin
     tower_password: "{{admin_password}}"
-  delegate_to: localhost
+  delegate_to: "{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
 
 - name: Install EPEL
   yum:

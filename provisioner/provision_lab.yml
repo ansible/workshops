@@ -196,7 +196,7 @@
         - towerinstall
   tags: control_node
 
-- name: add dns entries for all student control nodes
+- name: add dns entries and LE certs for control/tower nodes
   hosts: control_nodes
   become: true
   gather_facts: false
@@ -207,20 +207,20 @@
         - dns_type == "aws"
   tags: control_node
 
-- name: CONFIGURE ADVANCED TOWER CLUSTER DNS
-  hosts: tower_nodes
+- name: add dns entries and LE certs for tower cluster nodes
+  hosts: tower_cluster_nodes
   become: true
   gather_facts: false
   tasks:
     - import_role:
-        name: route53
+        name: aws_dns_clusternodes
       vars:
         record: "{{username}}.{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: "A"
         value: "{{ ansible_host }}"
       when:
       - workshop_type == "advanced_tower"
-  tags: tower_master
+  #tags: tower_master
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

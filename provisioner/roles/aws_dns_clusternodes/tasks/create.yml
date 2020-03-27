@@ -9,3 +9,10 @@
     overwrite: true
     value: "{{ value }}"
   delegate_to: localhost
+  register: route53_status
+
+- name: CERTBOT FOR TOWER
+  include_tasks: "tower.yml"
+  when:
+    - towerinstall|bool
+    - route53_status is not failed

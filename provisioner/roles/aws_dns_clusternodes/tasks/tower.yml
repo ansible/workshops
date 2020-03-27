@@ -2,11 +2,17 @@
 - name: CHANGE TOWER BASE URL
   tower_settings:
     name: TOWER_URL_BASE
-    value: "https://{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    value: "https://{{ record }}"
     tower_verify_ssl: false
-    tower_host: localhost
+    tower_host: "https://{{ record }}"
     tower_username: admin
     tower_password: "{{admin_password}}"
+  delegate_to: localhost
+
+- name: Install EPEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
 
 - name: INSTALL CERTBOT
   yum:
@@ -18,7 +24,7 @@
 
 # If this fails check out status of certbot: https://letsencrypt.status.io/
 - name: ISSUE CERT
-  shell: certbot certonly --standalone -d {{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+  shell: certbot certonly --standalone -d {{ record }} --email ansible-network@redhat.com --noninteractive --agree-tos
   register: issue_cert
   until: issue_cert is not failed
   retries: 5
@@ -38,12 +44,12 @@
     - name: MOVE SSL KEY
       copy:
         remote_src: true
-        src: "/etc/letsencrypt/live/{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
+        src: "/etc/letsencrypt/live/{{ record }}/privkey.pem"
         dest: /etc/tower/tower.key
 
     - name: GRAB SPECIFIC SSL CERT
       slurp:
-        src: "/etc/letsencrypt/live/{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/cert.pem"
+        src: "/etc/letsencrypt/live/{{ record }}/cert.pem"
       register: intermediate_cert
 
     - name: COMBINE SPECIFIC AND INTERMEDIATE CERT

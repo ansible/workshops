@@ -29,7 +29,7 @@ autolicense: true
 towerinstall: true
 
 # Sets the Route53 DNS zone to use for the S3 website
-workshop_dns_zone: "ocpdemo.net"
+workshop_dns_zone: "rhdemo.io"
 
 ## Internal DNS only for RHEL and Advanced Tower 
 # Create internal zone ec2_name_prefix.workshop_internal_dns_zone

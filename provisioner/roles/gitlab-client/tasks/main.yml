@@ -5,8 +5,6 @@
       - git
     state: present
 
-
-
 - name: Configure workshop repository
   lineinfile:
     name: /home/{{ username }}/windows-workshop/workshop_project/.git/config
@@ -86,4 +84,3 @@
       become_user: "{{ username }}"
 
   when: (gitrepo is changed) or (gitrepo is failed)
-

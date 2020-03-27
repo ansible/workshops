@@ -152,6 +152,8 @@
   when:
     - autolicense is defined
     - autolicense|bool
+    - towerinstall is defined
+    - towerinstall|bool
 
 - name: Post license key
   uri:
@@ -166,6 +168,8 @@
   when:
     - autolicense is defined
     - autolicense|bool
+    - towerinstall is defined
+    - towerinstall|bool
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml

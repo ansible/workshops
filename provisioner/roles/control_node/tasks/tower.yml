@@ -43,7 +43,7 @@
 
 - name: wait for Ansible Tower to be up
   uri:
-    url: https://localhost/api/v2/ping/
+    url: https://{{ ansible_host }}/api/v2/ping/
     method: GET
     user: admin
     password: "{{admin_password}}"
@@ -69,7 +69,7 @@
 
 - name: specify in Tower which directory to look for custom venvs
   uri:
-    url: https://localhost/api/v2/settings/system/
+    url: https://{{ ansible_host }}/api/v2/settings/system/
     method: PATCH
     user: admin
     password: "{{admin_password}}"
@@ -79,7 +79,6 @@
     body: '{"CUSTOM_VENV_PATHS": ["/opt/my-envs/"]}'
     status_code:
       - 200
-  when: workshop_type != "advanced_tower"
 
 - name: install ansible development branch to venv
   become: true
@@ -90,7 +89,6 @@
       - paramiko
       - ncclient
     virtualenv: /opt/my-envs/ansible_dev
-  when: workshop_type != "advanced_tower"
 
 - name: add student user
   tower_user:
@@ -103,4 +101,3 @@
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"
     tower_verify_ssl: false
-  when: workshop_type != "advanced_tower"

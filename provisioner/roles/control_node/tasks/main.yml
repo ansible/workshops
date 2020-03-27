@@ -125,7 +125,7 @@
 
 - name: check to see if ansible tower is already up and running
   uri:
-    url: https://localhost/api/v2/ping/
+    url: https://{{ ansible_host }}/api/v2/ping/
     method: GET
     user: admin
     password: "{{admin_password}}"

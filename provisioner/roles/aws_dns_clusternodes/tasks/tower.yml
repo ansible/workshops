@@ -1,4 +1,21 @@
 ---
+- name: Install EPEL for python2-pip
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
+
+- name: make sure pip is installed
+  yum:
+    name: python2-pip
+    state: present
+
+- name: install ansible-tower-cli and requests
+  pip:
+    name:
+      - ansible-tower-cli
+      - "requests==2.6.0"
+    state: latest
+
 - name: CHANGE TOWER BASE URL
   tower_settings:
     name: TOWER_URL_BASE
@@ -7,7 +24,7 @@
     tower_host: "{{ record }}"
     tower_username: admin
     tower_password: "{{admin_password}}"
-  delegate_to: "{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+  #delegate_to: "{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
 
 - name: Install EPEL
   yum:

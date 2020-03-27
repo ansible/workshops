@@ -24,7 +24,6 @@
     tower_host: localhost
     tower_username: admin
     tower_password: "{{admin_password}}"
-  #delegate_to: "{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
 
 - name: INSTALL CERTBOT
   yum:

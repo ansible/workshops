@@ -52,12 +52,10 @@
   until: check2.json is defined
   retries: 10
   delay: 30
-  when: workshop_type != "advanced_tower"
 
 - name: Display /api/v2/ping results
   debug:
     msg: '{{ check2.json }}'
-  when: workshop_type != "advanced_tower"
 
 # This is documented here: https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#preparing-a-new-custom-virtualenv
 - name: Create directory for custom venvs

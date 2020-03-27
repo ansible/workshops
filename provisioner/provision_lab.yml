@@ -215,7 +215,7 @@
     - import_role:
         name: aws_dns_clusternodes
       vars:
-        record: "{{username}}.{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        record: "{{username}}-{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: "A"
         value: "{{ ansible_host }}"
       when:

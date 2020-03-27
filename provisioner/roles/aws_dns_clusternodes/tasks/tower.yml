@@ -1,13 +1,39 @@
 ---
+- hostname:
+    name: "{{short_name}}"
+
+## This is needed for sshpass
+- name: Install EPEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
+
+- name: Install pip from packages
+  yum:
+    name:
+      - python-pip
+    state: present
+  register: yum_check
+  until: yum_check is not failed
+  retries: 4
+  delay: 5
+
+- name: install ansible-tower-cli and requests
+  become: true
+  pip:
+    name:
+      - ansible-tower-cli
+      - "requests==2.6.0"
+    state: latest
+
 - name: CHANGE TOWER BASE URL
   tower_settings:
     name: TOWER_URL_BASE
     value: "https://{{ record }}"
     tower_verify_ssl: false
-    tower_host: "{{ record }}"
+    tower_host: localhost
     tower_username: admin
     tower_password: "{{admin_password}}"
-  delegate_to: "{{username}}.ansible.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
 
 - name: Install EPEL
   yum:

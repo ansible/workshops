@@ -123,6 +123,7 @@
     force_basic_auth: true
   register: check_tower
   ignore_errors: true
+  failed_when: false
   when:
     - towerinstall is defined
     - towerinstall|bool
@@ -132,7 +133,7 @@
   when:
     - towerinstall is defined
     - towerinstall|bool
-    - check_tower is failed
+    - check_tower.status != 200
 
 - name: Ensure eula is accepted if posting license
   command: python -c "import json; license = json.loads(open('{{playbook_dir}}/tower_license.json', 'r').read()); ceula = license.get('eula_accepted'); license['eula_accepted'] = True if not ceula else ceula ; open('{{playbook_dir}}/tower_license.json', 'w').write(json.dumps(license));"

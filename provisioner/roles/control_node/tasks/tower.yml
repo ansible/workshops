@@ -70,6 +70,11 @@
     status_code:
       - 200
 
+- name: Install virtualenv via pip
+  pip:
+    name: virtualenv
+    executable: pip3
+
 - name: install ansible development branch to venv
   pip:
     name:

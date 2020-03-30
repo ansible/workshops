@@ -5,6 +5,7 @@
 - name: Remove demo job template
   shell: awx-cli job_template delete -n "Demo Job Template" --project "Demo Project" --playbook "hello_world.yml" --insecure -u {{ username }} -p {{ admin_password }}
   ignore_errors: true
+  failed_when: false
 
 # - name: Remove demo job template
 #   tower_job_template:
@@ -21,6 +22,7 @@
 - name: Remove demo project
   shell: awx-cli project delete -n "Demo Project" --insecure -u {{ username }} -p {{ admin_password }}
   ignore_errors: true
+  failed_when: false
 
 # - name: Remove demo project
 #   tower_project:
@@ -34,6 +36,7 @@
 - name: Remove demo credential
   shell: awx-cli credential delete -n Demo --credential-type Machine --insecure -u {{ username }} -p {{ admin_password }}
   ignore_errors: true
+  failed_when: false
 
 # - name: Remove demo credential
 #   tower_credential:
@@ -49,6 +52,7 @@
 - name: Remove demo inventory
   shell: awx-cli inventory delete -n "Demo Inventory" --organization "Default" --insecure -u {{ username }} -p {{ admin_password }}
   ignore_errors: true
+  failed_when: false
 
 # - name: Remove demo inventory
 #   tower_inventory:

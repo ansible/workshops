@@ -71,7 +71,6 @@
       - 200
 
 - name: install ansible development branch to venv
-  become: true
   pip:
     name:
       - git+https://github.com/ansible/ansible.git@devel
@@ -79,7 +78,7 @@
       - paramiko
       - ncclient
     virtualenv: /opt/my-envs/ansible_dev
-    virtualenv_command: virtualenv
+    virtualenv_command: /usr/local/bin/virtualenv
 
 - name: add student user
   tower_user:

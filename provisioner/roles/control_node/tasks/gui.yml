@@ -7,15 +7,15 @@
 - name: ADD THE VSCODE RPM INFO
   copy:
     src: files/vscode_rpminfo
-    dest: /etc/yum.repos.d/vscode.repo
+    dest: /etc/dnf.repos.d/vscode.repo
 
 - name: ENSURE XRDP IS INSTALLED
-  yum: name=xrdp
+  dnf: name=xrdp
 
 # RHEL does not officially support XFCE, keep this in mind
 # https://access.redhat.com/solutions/56723
 - name: ENSURE XFCE IS INSTALLED
-  yum:
+  dnf:
     name: "@xfce"
     skip_broken: true
 
@@ -29,7 +29,7 @@
   shell: "echo xfce4-session > /home/{{ username }}/.Xclients"
 
 - name: ENSURE VSCODE IS INSTALLED
-  yum: name=code
+  dnf: name=code
 
 - name: Start xrdp service
   service: name=xrdp state=started

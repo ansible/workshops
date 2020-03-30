@@ -79,6 +79,7 @@
       - paramiko
       - ncclient
     virtualenv: /opt/my-envs/ansible_dev
+    virtualenv_command: virtualenv
 
 - name: add student user
   tower_user:

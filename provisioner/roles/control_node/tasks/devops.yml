@@ -17,7 +17,7 @@
 
 
 - name: ENSURE THAT DOCKER IS INSTALLED
-  yum:
+  dnf:
     name: docker
     state: present
 

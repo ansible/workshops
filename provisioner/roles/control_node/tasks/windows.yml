@@ -1,10 +1,4 @@
 ---
-- name: Enable extras repos
-  shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
-  when:
-    - ansible_distribution == 'RedHat'
-    - ansible_distribution_major_version|int < 8
-
 - name: Install packages
   package:
     name:

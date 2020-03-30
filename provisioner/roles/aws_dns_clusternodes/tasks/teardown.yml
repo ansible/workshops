@@ -5,7 +5,7 @@
 
 - name: create list of DNS records
   set_fact:
-    dns_records: '[ "student{{ item }}.ansible" ] + [ "student{{ item }}.towernode2" ] + [ "student{{ item }}.towernode3" ] + {{ dns_records }}'
+    dns_records: '[ "student{{ item }}-ansible" ] + [ "student{{ item }}-towernode2" ] + [ "student{{ item }}-towernode3" ] + {{ dns_records }}'
   loop:
     '{{ range (1, student_total | int + 1) | list }}'
 

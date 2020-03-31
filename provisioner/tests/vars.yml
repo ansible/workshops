@@ -4,4 +4,3 @@ student_total: 2
 create_login_page: true
 autolicense: true
 towerinstall: true
-ansible_python_interpreter: '/usr/bin/env python'

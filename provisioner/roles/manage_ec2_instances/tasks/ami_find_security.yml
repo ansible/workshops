@@ -41,10 +41,10 @@
     - name: find ami for snort
       ec2_ami_info:
         region: "{{ ec2_region }}"
-        owners: "{{ ec2_info['rhel7']['owners'] }}"
+        owners: "{{ ec2_info['rhel8']['owners'] }}"
         filters:
-          name: "{{ ec2_info['rhel7']['filter'] }}"
-          architecture: "{{ ec2_info['rhel7']['architecture'] }}"
+          name: "{{ ec2_info['rhel8']['filter'] }}"
+          architecture: "{{ ec2_info['rhel8']['architecture'] }}"
       register: snort_amis
 
     - name: save ami for snort
@@ -58,10 +58,10 @@
     - name: find ami for attack simulation node
       ec2_ami_info:
         region: "{{ ec2_region }}"
-        owners: "{{ ec2_info['rhel7']['owners'] }}"
+        owners: "{{ ec2_info['rhel8']['owners'] }}"
         filters:
-          name: "{{ ec2_info['rhel7']['filter'] }}"
-          architecture: "{{ ec2_info['rhel7']['architecture'] }}"
+          name: "{{ ec2_info['rhel8']['filter'] }}"
+          architecture: "{{ ec2_info['rhel8']['architecture'] }}"
       register: attacker_amis
 
     - name: save ami for attack simulation node

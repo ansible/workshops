@@ -6,7 +6,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_name_prefix }}-windows"
-    instance_type: "{{ ec2_info['skylight_rhel7_gitlab']['size'] }}"
+    instance_type: "{{ ec2_info['skylight_rhel8_gitlab']['size'] }}"
     image: "{{ win_gitlab_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: 1
@@ -24,7 +24,7 @@
       Students: "{{ student_total }}"
       short_name: 'gitlab'
       long_name: "gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
-      username: "{{ ec2_info['skylight_rhel7_gitlab']['username'] }}"
+      username: "{{ ec2_info['skylight_rhel8_gitlab']['username'] }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     user_data: "{{ lookup('template', 'skylight_gitlab_userdata.j2') }}"

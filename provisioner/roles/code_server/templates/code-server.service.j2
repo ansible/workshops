@@ -10,10 +10,9 @@ Restart=on-failure
 RestartSec=10
 Environment="PASSWORD={{admin_password}}"
 
-ExecStart=/opt/code-server --cert $(pwd)
+ExecStart=/opt/code-server /home/{{username}} --cert
 ExecStop=/bin/kill -s QUIT $MAINPID
-StandardOutput=file:/var/log/code-server-output.log
-StandardError=file:/var/log/code-server-error.log
+
 
 [Install]
 WantedBy=multi-user.target

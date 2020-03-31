@@ -1,6 +1,6 @@
 ---
 - name: install cerbot
-  yum:
+  dnf:
     name: certbot
 
 - name: turn off tower

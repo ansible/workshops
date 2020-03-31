@@ -1,19 +1,13 @@
 ---
-- name: GitLab post | Install EPEL
-  yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-    state: present
-
 - name: GitLab Post | Install pip
-  yum:
-    name: python-pip
+  dnf:
+    name: python3-pip
     state: present
 
 - name: GitLab Post | Install pyapi-gitlab
-  pip:
+  dnf:
     name:
-      - pyapi-gitlab
-      - python-gitlab
+      - python3-gitlab
 
 - name: GitLab Post | Check if root user password is set
   uri:

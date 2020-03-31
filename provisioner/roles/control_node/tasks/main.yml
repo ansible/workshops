@@ -2,7 +2,6 @@
 - hostname:
     name: "{{short_name}}"
 
-## This is needed for sshpass
 - name: Install EPEL
   dnf:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"

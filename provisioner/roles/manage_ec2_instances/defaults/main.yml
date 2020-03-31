@@ -128,7 +128,9 @@ ec2_info:
     size: t2.xlarge
     username: ec2-user
   skylight_rhel8_gitlab:
+    owners: 309956199498
     filter: 'RHEL-8*HVM-*Hourly*'
     size: t2.xlarge
     username: ec2-user
+    architecture: x86_64
 debug_teardown: false

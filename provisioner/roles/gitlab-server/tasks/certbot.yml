@@ -15,12 +15,12 @@
       command: gitlab-ctl stop
 
     - name: GitLab post | Install EPEL
-      yum:
-        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+      dnf:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
         state: present
 
     - name: GitLab post | install cerbot
-      yum:
+      dnf:
         name: certbot
         state: present
 

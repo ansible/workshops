@@ -2,14 +2,13 @@
 - hostname:
     name: "{{short_name}}"
 
-## This is needed for sshpass
 - name: Install EPEL
-  yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+  dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
 
 - name: Install base packages
-  yum:
+  dnf:
     name:
       - vim
       - git
@@ -18,12 +17,14 @@
       - tree
       - sshpass
       - tmux
-      - python-pip
+      - python3-pip
+      - python3-devel
       - ansible
       - gcc
+      - bind-utils
     state: present
-  register: yum_check
-  until: yum_check is not failed
+  register: dnf_check
+  until: dnf_check is not failed
   retries: 4
   delay: 5
 

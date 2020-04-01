@@ -1,52 +1,8 @@
 ---
-- name: Enable extras repos
-  shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
-  when:
-    - ansible_distribution == 'RedHat'
-    - ansible_distribution_major_version|int < 8
-
-- name: Install packages
-  package:
-    name:
-      - vim
-      - git
-      - sshpass
-      - ansible
-      - nano
-      - bind-utils
-      - python-pip
-    state: present
-  when: ansible_distribution_major_version|int < 8
-
-- name: Install packages
-  package:
-    name:
-      - vim
-      - git
-      # - sshpass
-      # - ansible
-      - nano
-      - bind-utils
-      - python36
-    state: present
-  when: ansible_distribution_major_version|int == 8
-
 - name: install the last version of OpenSSL
   pip:
     name: pyOpenSSL
     state: latest
-
-- name: Install dependencies for Kerberos auth
-  package:
-    name:
-      - python-devel
-      - krb5-devel
-      - krb5-libs
-      - krb5-workstation
-      - python-kerberos
-      - gcc
-    state: present
-  when: ansible_distribution_major_version|int < 8
 
 - name: Install dependencies for Kerberos auth
   package:

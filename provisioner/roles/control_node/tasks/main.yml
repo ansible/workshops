@@ -21,6 +21,7 @@
       - python3-devel
       - ansible
       - gcc
+      - bind-utils
     state: present
   register: dnf_check
   until: dnf_check is not failed

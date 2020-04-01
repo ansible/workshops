@@ -5,6 +5,15 @@
       - git
     state: present
 
+- name: Check for workshop .git/config file
+  stat:
+    path: /home/{{ username }}/windows-workshop/workshop_project/.git/config
+  register: gitstat
+
+- name: print output for gitstat
+  debug:
+    msg: "{{gitstat}}"
+
 - name: Configure workshop repository
   lineinfile:
     name: /home/{{ username }}/windows-workshop/workshop_project/.git/config
@@ -83,4 +92,4 @@
         chdir: /home/{{ username }}/windows-workshop/workshop_project
       become_user: "{{ username }}"
 
-  when: (gitrepo is changed) or (gitrepo is failed)
+  when: (gitrepo is changed) or (gitstat.stat.exists is not defined) or (not gitstat.stat.exists)

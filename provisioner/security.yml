@@ -117,6 +117,20 @@
           include_role:
             name: "webservers_attack_simulation"
 
+- name: Populate Tower
+  hosts: control_nodes
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: Create Tower student resources
+      include_role:
+        name: populate_tower
+        tasks_from: "{{workshop_type}}"
+      when:
+        - towerinstall is defined
+        - towerinstall|bool
+
 - name: SETUP WINDOWS WORKSTATION
   hosts: windows
   roles:

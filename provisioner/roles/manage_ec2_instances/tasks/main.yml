@@ -10,4 +10,27 @@
 
     - name: create instructor_inventory, and student files
       include_tasks: create_inventory.yml
+
+    - name: check connectivity to all nodes (excluding routers)
+      wait_for_connection:
+        delay: 0
+        timeout: 400
+      loop: "{{ groups.all }}"
+      delegate_to: "{{ item }}"
+      when:
+        - item != "localhost"
+        - groups.routers is not defined or item not in groups.routers
+
+    - name: check connectivity to all routers
+      wait_for:
+        host: "{{ ansible_host }}"
+        timeout: 400
+        port: 22
+      vars:
+        ansible_connection: local
+      loop: "{{ groups.all }}"
+      when:
+        - groups.routers is defined
+        - item in groups.routers
+
   when: not teardown|bool

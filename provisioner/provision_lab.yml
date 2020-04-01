@@ -144,20 +144,6 @@
   roles:
     - manage_ec2_instances
 
-- name: wait for all nodes to have SSH reachability
-  hosts: "managed_nodes:control_nodes"
-  become: true
-  gather_facts: false
-  roles:
-    - connectivity_test
-
-- name: wait for all security nodes to have SSH reachability
-  hosts: "security_connection_check"
-  become: true
-  gather_facts: false
-  roles:
-    - connectivity_test
-
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
   gather_facts: false

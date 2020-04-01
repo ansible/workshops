@@ -1,8 +1,0 @@
----
-- name: Wait 400 seconds (using wait_for)
-  wait_for:
-    host: "{{ ansible_host }}"
-    timeout: 400
-    port: 22
-  vars:
-    ansible_connection: local

@@ -1,13 +1,4 @@
 ---
-- name: wait for routers to have ssh reachability
-  hosts: "routers"
-  gather_facts: false
-  tasks:
-    - name: make sure routers have ssh reachability
-      include_role:
-        name: connectivity_test
-        tasks_from: routers
-
 - name: change juniper password
   hosts: routers
   gather_facts: false

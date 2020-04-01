@@ -2,4 +2,4 @@
 - name: restart-network
   systemd:
     state: restarted
-    name: NetworkManager
+    name: network

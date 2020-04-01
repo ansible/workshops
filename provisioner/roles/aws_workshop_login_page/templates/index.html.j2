@@ -490,7 +490,9 @@ To login to the Ansible Tower UI use the following credentials:<br>
 <td>Tower Cluster Nodes:</td>
 {% for host in hostvars %}
 {% if "tower_nodes" in hostvars[host].group_names %}
+{% if "student" ~ number == hostvars[host].username %}
 <td><a target=_blank href="https://student{{ number }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student{{ number }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
+{% endif %}
 {% endif %}
 {% endfor %}
   </tr>

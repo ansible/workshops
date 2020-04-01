@@ -82,7 +82,6 @@ ec2_info:
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
-    python_interpreter: '/usr/bin/python'
   f5node:
     owners: 679593333241
     size: t2.large

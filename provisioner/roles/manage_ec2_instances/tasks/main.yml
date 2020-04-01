@@ -20,6 +20,7 @@
       when:
         - item != "localhost"
         - groups.routers is not defined or item not in groups.routers
+        - workshop_type != "security" or (workshop_type == "security" and (item in groups.security_connection_check or item in groups.managed_nodes))
 
     - name: check connectivity to all routers
       wait_for:

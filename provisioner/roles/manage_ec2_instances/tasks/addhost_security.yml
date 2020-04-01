@@ -200,6 +200,7 @@
           - security
           - windows
           - workstation
+          - security_connection_check
       loop: "{{ windows_node_facts.instances|flatten(levels=1) }}"
 
 - name: Generate student inventories

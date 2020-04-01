@@ -113,12 +113,6 @@
     - doubleup|bool
     - ec2windows2_password is defined
 
-- name: Windows | Wait for WinRM to come up
-  wait_for_connection:
-  delegate_to: "{{ item }}"
-  with_items:
-    - "{{ groups['windows'] }}"
-
 ################### Write inventories ###################
 
 - name: Generate instructor inventory

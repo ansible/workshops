@@ -23,7 +23,7 @@
         private_ip: "{{item.private_ip_address}}"
         groups:
           - security
-          - security_connection_check
+          - check_connection
           - splunk
           - siem
       loop: "{{ splunk_node_facts.instances|flatten(levels=1) }}"
@@ -52,7 +52,7 @@
         private_ip: "{{item.private_ip_address}}"
         groups:
           - security
-          - security_connection_check
+          - check_connection
           - qradar
           - siem
       loop: "{{ qradar_node_facts.instances|flatten(levels=1) }}"
@@ -81,7 +81,7 @@
         private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
-          - security_connection_check
+          - check_connection
           - attack
       loop: "{{ attacker_node_facts.instances|flatten(levels=1) }}"
 
@@ -117,7 +117,7 @@
         private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
-          - security_connection_check
+          - check_connection
           - snort
           - ids
       loop: "{{ snort_node_facts.instances|flatten(levels=1) }}"
@@ -200,7 +200,7 @@
           - security
           - windows
           - workstation
-          - security_connection_check
+          - check_connection
       loop: "{{ windows_node_facts.instances|flatten(levels=1) }}"
 
 - name: Generate student inventories

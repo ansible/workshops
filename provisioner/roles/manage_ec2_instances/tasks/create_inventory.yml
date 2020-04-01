@@ -21,6 +21,7 @@
     groups:
       - managed_nodes
       - control_nodes
+      - check_connection
   with_items: "{{ ansible_node_facts.instances }}"
 
 - name: RHEL mode - setup inventory

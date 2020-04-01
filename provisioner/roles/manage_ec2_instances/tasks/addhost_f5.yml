@@ -42,6 +42,7 @@
     groups:
       - lab_hosts
       - managed_nodes
+      - check_connection
   with_items: "{{ node1_node_facts.instances }}"
 
 - name: grab facts for node2 node (F5 MODE)
@@ -65,6 +66,7 @@
     groups:
       - lab_hosts
       - managed_nodes
+      - check_connection
   with_items: "{{ node2_node_facts.instances }}"
 
 - name: Generate student inventories

@@ -46,6 +46,7 @@
       - routers
       - core
       - dmvpn
+      - check_port_22
   loop: "{{ rtr1_node_facts.instances|flatten(levels=1) }}"
 
 - name: ADD RTR2 ROUTERS TO INVENTORY
@@ -62,6 +63,7 @@
     groups:
       - routers
       - core
+      - check_port_22
   loop: "{{ rtr2_node_facts.instances|flatten(levels=1) }}"
 
 - name: ADD RTR3 ROUTERS TO INVENTORY
@@ -78,6 +80,7 @@
     groups:
       - routers
       - access
+      - check_port_22
   loop: "{{ rtr3_node_facts.instances|flatten(levels=1) }}"
 
 - name: ADD RTR3 ROUTERS TO INVENTORY
@@ -94,6 +97,7 @@
     groups:
       - routers
       - access
+      - check_port_22
   loop: "{{ rtr4_node_facts.instances|flatten(levels=1) }}"
 
 - name: Generate student inventories

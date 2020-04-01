@@ -67,6 +67,7 @@
     groups:
       - rhel
       - gitlab
+      - check_connection
   with_items: "{{ gitlab_node_facts.instances }}"
 
 - name: Windows instance1 | Add new instance to host group
@@ -87,6 +88,7 @@
     student: "{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}"
     groups:
       - windows
+      - check_connection
   with_items: "{{ ec2windows1_password.results }}"
   when: ec2windows1_password is defined
 
@@ -108,6 +110,7 @@
     student: "{{ item.item.tags.Student | regex_replace('[^0-9]', '') }}"
     groups:
       - windows
+      - check_connection
   with_items: "{{ ec2windows2_password.results }}"
   when:
     - doubleup|bool

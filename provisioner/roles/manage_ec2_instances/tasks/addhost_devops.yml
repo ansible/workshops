@@ -44,7 +44,11 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: lab_hosts,managed_nodes, site1
+    groups:
+      - lab_hosts
+      - managed_nodes
+      - site1
+      - check_connection
   with_items:
     - "{{ node1_node_facts.instances }}"
     - "{{ node2_node_facts.instances }}"
@@ -59,7 +63,11 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: lab_hosts,managed_nodes, site2
+    groups:
+      - lab_hosts
+      - managed_nodes
+      - site2
+      - check_connection
   with_items:
     - "{{ node3_node_facts.instances }}"
     - "{{ node4_node_facts.instances }}"

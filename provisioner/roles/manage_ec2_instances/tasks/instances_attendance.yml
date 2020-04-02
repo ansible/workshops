@@ -1,5 +1,5 @@
 ---
-- import_tasks: ami_find_attedance.yml
+- import_tasks: ami_find_attendance.yml
 
 - name: Provision attendance host
   ec2:

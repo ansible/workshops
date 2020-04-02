@@ -36,5 +36,3 @@
   route53_zone:
     state: absent
     zone: "{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}"
-    vpc_id: "{{ ec2_vpc_id }}"
-    vpc_region: "{{ ec2_region }}"

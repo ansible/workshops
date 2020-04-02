@@ -219,7 +219,7 @@ $("document").ready(function(){
   $click.click(function () {
 
     $clicked = $(this);
-    
+
     $expand = $(this).parent('.header').next();  // Expand and collapse content selector
 
         //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
@@ -231,13 +231,13 @@ $("document").ready(function(){
             $('html, body').animate({
                 scrollTop: 1000
             }, 500);
-            
+
         });
 
     });
     $("a[href='" + window.location.hash + "']").parent(".studentinfo").click();
-    
-    
+
+
 });
 </script>
 
@@ -279,6 +279,9 @@ $("document").ready(function(){
                 {% elif workshop_type in ['windows'] %}
                 <h2>Windows Automation Workshops</h2>
                 <p>These workshops are focused on automating Microsoft Windows.</p>
+                {% elif workshop_type in ['advanced_tower'] %}
+                <h2>Advanced Tower Workshop</h2>
+                <p>These workshops are foscussed on advanced Ansible Tower.</p>
                 {% endif %}
             </div>
         </div>
@@ -330,6 +333,12 @@ $("document").ready(function(){
             <div class="col-sm-4">
                 <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
           </div>
+        </div>
+        {% elif workshop_type == "advanced_tower" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://github.com/goetzrieger/ansible-labs-summit2020/tree/linklight/ansible-tower-advanced/">Advanced Tower Exercises</a>
+            </div>
         </div>
         {% endif %}
 <br><br>
@@ -474,6 +483,18 @@ To login to the Ansible Tower UI use the following credentials:<br>
   <tr>
 <td>UI link:</td>
 <td><a target=_blank href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+  </tr>
+{% endif %}
+{% if workshop_type == 'advanced_tower' %}
+  <tr>
+<td>Tower Cluster Nodes:</td>
+{% for host in hostvars %}
+{% if "tower_nodes" in hostvars[host].group_names %}
+{% if "student" ~ number == hostvars[host].username %}
+<td><a target=_blank href="https://student{{ number }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student{{ number }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
+{% endif %}
+{% endif %}
+{% endfor %}
   </tr>
 {% endif %}
 {% if dns_type == 'none' %}

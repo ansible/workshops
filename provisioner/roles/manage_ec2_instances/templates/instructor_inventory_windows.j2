@@ -45,11 +45,23 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 {% endfor %}
 
 {% for group in groups %}
-[{{group}}]
+{%   if "gitlab" in group -%}
+{%   elif "windows_instance1" in group -%}
+{%   elif "managed_nodes" in group -%}
+{%   elif "rhel" in group -%}
+{%   elif "ungrouped" in group -%}
+{%   else %}
+[{{group}}] 
+{%   endif %}
 {%   for entry in groups[group] %}
 {%     for host in hostvars %}
-{%       if entry == host %}
+{%       if entry == host and "student" + item + "-" in host %}
+{%         if "windc" in host -%}
+{%         elif "gitlab" in host -%}
+{%         elif "docs" in host -%}
+{%         else %}
 {{ host|replace(ec2_name_prefix + "-", "") }}
+{%         endif %}
 {%       endif %}
 {%     endfor %}
 {%   endfor %}

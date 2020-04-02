@@ -15,7 +15,7 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       short_name: "splunk"
-      username: '{{ec2_info["rhel7"]["username"]}}'
+      username: '{{ec2_info["rhel8"]["username"]}}'
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
     - "{{ siem_output.instances }}"
@@ -41,7 +41,7 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       short_name: "qradar"
-      username: '{{ec2_info["rhel7"]["username"]}}'
+      username: '{{ec2_info["rhel8"]["username"]}}'
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
     - "{{ siem_output.instances }}"
@@ -74,7 +74,7 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       short_name: "snort"
-      username: '{{ec2_info["rhel7"]["username"]}}'
+      username: '{{ec2_info["rhel8"]["username"]}}'
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
     - "{{ snort_output.instances }}"
@@ -99,7 +99,7 @@
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
       short_name: "attacker"
-      username: '{{ec2_info["rhel7"]["username"]}}'
+      username: '{{ec2_info["rhel8"]["username"]}}'
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
     - "{{ attacker_output.instances }}"

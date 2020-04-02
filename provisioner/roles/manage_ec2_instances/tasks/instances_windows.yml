@@ -1,44 +1,12 @@
 ---
 - import_tasks: ami_find_windows.yml
 
-## create instructor instances
-
-# - name: WINDOWS | DomainController | Launch instance
-#   ec2:
-#     assign_public_ip: true
-#     key_name: "{{ ec2_name_prefix }}-key"
-#     group: "{{ ec2_name_prefix }}-windcsg"
-#     instance_type: "{{ ec2_info['skylight_windows_dc']['size'] }}"
-#     image: "{{ win_dc_ami.image_id }}"
-#     region: "{{ ec2_region }}"
-#     exact_count: 1
-#     count_tag:
-#       Workshop_windc: "{{ ec2_name_prefix }}-windc"
-#     instance_tags:
-#       Workshop_windc: "{{ ec2_name_prefix }}-windc"
-#       Name: "{{ ec2_name_prefix }}-windc"
-#       App: AnsibleWorkshop
-#       Workshop: "{{ ec2_name_prefix }}"
-#       Workshop_type: "{{ workshop_type }}"
-#       Username: "{{ aws_user }}"
-#       Info: "Username that provisioned this-> {{ aws_user }}"
-#       Linklight: "This was provisioned through the linklight provisioner"
-#       Students: "{{ student_total }}"
-#       short_name: 'windc'
-#       long_name: "windc.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
-#     wait: "{{ ec2_wait }}"
-#     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-#     user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='windc')) }}"
-#   # with_sequence: count=1
-#   register: dc_output
-
-
 - name: WINDOWS | GitLab | Launch Instance
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_name_prefix }}-windows"
-    instance_type: "{{ ec2_info['skylight_rhel7_gitlab']['size'] }}"
+    instance_type: "{{ ec2_info['skylight_rhel8_gitlab']['size'] }}"
     image: "{{ win_gitlab_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: 1
@@ -56,45 +24,11 @@
       Students: "{{ student_total }}"
       short_name: 'gitlab'
       long_name: "gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
-      username: "{{ ec2_info['skylight_rhel7_gitlab']['username'] }}"
+      username: "{{ ec2_info['skylight_rhel8_gitlab']['username'] }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     user_data: "{{ lookup('template', 'skylight_gitlab_userdata.j2') }}"
-  # with_sequence: count=1
   register: gitlab_output
-
-
-# - name: WINDOWS | Docs | Launch Instance
-#   ec2:
-#     assign_public_ip: true
-#     key_name: "{{ ec2_name_prefix }}-key"
-#     group: "{{ ec2_name_prefix }}-docssg"
-#     instance_type: "{{ ec2_info['skylight_rhel7_docs']['size'] }}"
-#     image: "{{ win_docs_ami.image_id }}"
-#     region: "{{ ec2_region }}"
-#     exact_count: 1
-#     count_tag:
-#       Workshop_docs: "{{ ec2_name_prefix }}-docs"
-#     instance_tags:
-#       Workshop_docs: "{{ ec2_name_prefix }}-docs"
-#       Name: "{{ ec2_name_prefix }}-docs"
-#       App: AnsibleWorkshop
-#       Workshop: "{{ec2_name_prefix}}"
-#       Workshop_type: "{{ workshop_type }}"
-#       AWS_USERNAME: "{{ aws_user }}"
-#       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-#       Linklight: "This was provisioned through the linklight provisioner"
-#       Students: "{{student_total}}"
-#       short_name: "docs"
-#       long_name: "docs.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
-#       username: "{{ ec2_info['skylight_rhel7_docs']['username'] }}"
-#     wait: "{{ ec2_wait }}"
-#     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-#     user_data: "{{ lookup('template', 'skylight_docs_userdata.j2') }}"
-#   register: docs_output
-
-
-## create student instances
 
 - name: WINDOWS | Create instance 1
   ec2:

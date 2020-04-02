@@ -4,53 +4,20 @@
   pip:
     name: pip
     state: latest
-
 # Force <45 because 45.0.0 dropped support for python2
+# This is required for Juniper ncclient - do a pip show ncclient to see requirements
 - name: upgrade setuptools to 44
   become: true
   pip:
     name: setuptools==44.0.0
 
-- name: install f5 workshop dependicies (F5 AUTOMATION MODE)
-  become: true
-  pip:
-    name:
-      - f5-sdk
-      - bigsuds
-      - netaddr
-      - jmespath
-    state: latest
-  when: workshop_type == "f5"
-
-- name: install additional packages (NETWORK AUTOMATION MODE)
+- name: install additional packages (NETWORKING MODE)
   become: true
   pip:
     name:
       - netaddr
       - ncclient
     state: latest
-  when: workshop_type == 'networking'
-
-# FIXME: This should probably be refactored to use things like the following
-# instead of hard coding
-#
-#   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
-#
-# That would enable a more generic role/scaffolding
-- name: clean out /tmp/linklight
-  file:
-    path: /tmp/linklight
-    state: absent
-
-- name: Clone workshops repo (NETWORKING MODE)
-  git:
-    accept_hostkey: true
-    clone: true
-    dest: /tmp/workshops
-    repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
-    version: '{{ ansible_workshops_version | default("master") }}'
-    refspec: '{{ ansible_workshops_refspec | default("") }}'
-    force: true
 
 - name: Move networking workshop folder to correct location  (NETWORKING MODE)
   copy:
@@ -59,25 +26,6 @@
     remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
-  when: workshop_type == 'networking'
-
-- name: Create demos folder with demos
-  copy:
-    src: /tmp/workshops/demos/
-    dest: /home/{{ username }}/demos
-    remote_src: true
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: workshop_type == 'networking'
-
-- name: Move networking workshop folder to correct location  (F5 MODE)
-  copy:
-    src: /tmp/workshops/exercises/ansible_f5/
-    dest: /home/{{ username }}/networking-workshop
-    remote_src: true
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: workshop_type == 'f5'
 
 - name: Create lab inventory directory (NETWORKING MODE)
   file:
@@ -93,49 +41,3 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   when: username in inventory_hostname
-
-- name: make sure .ssh is created
-  file:
-    path: "/home/{{username}}/.ssh/"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    state: directory
-
-- name: Put ssh-key in proper spot for student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    dest: "/home/{{username}}/.ssh/aws-private.pem"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0400
-
-- name: Put ssh-key in proper for {{ansible_user}}
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    dest: "/home/{{ansible_user}}/.ssh/aws-private.pem"
-    owner: "{{ansible_user}}"
-    group: "{{ansible_user}}"
-    mode: 0400
-
-- name: copy over ssh config file for student
-  template:
-    src: sshconfig.j2
-    dest: /home/{{username}}/.ssh/config
-    owner: "{{username}}"
-    group: "{{username}}"
-    mode: 0700
-
-- name: copy over ssh config file for {{ansible_user}}
-  template:
-    src: sshconfig_ec2.j2
-    dest: /home/{{ansible_user}}/.ssh/config
-    owner: "{{ansible_user}}"
-    group: "{{ansible_user}}"
-    mode: 0700
-
-- name: setup /etc/hosts file per student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
-    dest: "/etc/hosts"
-    owner: "{{ username }}"
-    group: "{{ username }}"

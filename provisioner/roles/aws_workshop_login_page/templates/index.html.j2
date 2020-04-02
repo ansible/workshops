@@ -216,19 +216,28 @@ a {
 $("document").ready(function(){
   $click =  $('.studentinfo');   // Click selector
 
-
   $click.click(function () {
 
     $clicked = $(this);
+    
     $expand = $(this).parent('.header').next();  // Expand and collapse content selector
 
         //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
         $expand.slideToggle(500, function () {
             //execute this after slideToggle is done
             //change text of header based on visibility of content div
+
+            // scrolls page to expanded slide
+            $('html, body').animate({
+                scrollTop: 1000
+            }, 500);
+            
         });
 
     });
+    $("a[href='" + window.location.hash + "']").parent(".studentinfo").click();
+    
+    
 });
 </script>
 
@@ -244,7 +253,7 @@ $("document").ready(function(){
               <h1 class="project-name">Red Hat Ansible Automation Platform<br/><strong class="text-nowrap">Technical Workshops</strong></h1>
               <h2>The Ansible Workshops project is intended to effectively demonstrate the capabilities of Red Hat Ansible Automation Platform through instructor-led workshops and self-paced exercises.</h2>
 
-                <a href="https://github.com/ansible/workshops" class="btn btn-ghost">View on GitHub</a><br><br>
+                <a target=_blank href="https://github.com/ansible/workshops" class="btn btn-ghost">View on GitHub</a><br><br>
 
               <h1>Workshop Name: {{ec2_name_prefix}}</h1>
 
@@ -276,50 +285,50 @@ $("document").ready(function(){
         {% if workshop_type == "networking" %}
         <div class="row">
           <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
           </div>
 
           <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_network.pdf">Ansible Network Deck</a>
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_network.pdf">Ansible Network Deck</a>
           </div>
 
         </div>
         {% elif workshop_type == "f5" %}
         <div class="row">
           <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_f5/">Ansible F5 Exercises</a>
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_f5/">Ansible F5 Exercises</a>
           </div>
 
           <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_f5.pdf">Ansible F5 Deck</a>
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_f5.pdf">Ansible F5 Deck</a>
           </div>
 
         </div>
         {% elif workshop_type == "rhel" %}
         <div class="row">
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
             </div>
             <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
             </div>
         </div>
         {% elif workshop_type == "security" %}
         <div class="row">
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_security/">Ansible Security Exercises</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_security/">Ansible Security Exercises</a>
             </div>
             <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
           </div>
         </div>
         {% elif workshop_type == "windows" %}
         <div class="row">
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
             </div>
             <div class="col-sm-4">
-              <a class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
           </div>
         </div>
         {% endif %}
@@ -341,30 +350,30 @@ $("document").ready(function(){
 
         <div class="row">
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe">Download: PuTTY for Windows</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe">Download: PuTTY for Windows</a>
             </div>
 
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://www.ansible.com/workshop-license">Ansible Tower Workshop License</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://www.ansible.com/workshop-license">Ansible Tower Workshop License</a>
             </div>
 
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://ansible.sivel.net/test/">Ansible Template Tester</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.sivel.net/test/">Ansible Template Tester</a>
             </div>
         </div>
 <br>
         <div class="row">
             {% if workshop_type in ['networking', 'f5'] %}
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
             </div>
 
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html">Ansible Network Modules</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html">Ansible Network Modules</a>
             </div>
             {% endif %}
             <div class="col-sm-4">
-                <a class="btn btn-secondary btn-block" href="https://pythex.org/">Real-time regular expression editor</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://pythex.org/">Real-time regular expression editor</a>
             </div>
 
         </div>
@@ -386,7 +395,7 @@ $("document").ready(function(){
   <div class="student_logins">
     <div class="header">
 
-      <p class="studentinfo">student{{number}} - Click to see login details</p>
+      <p class="studentinfo"><a href="#student{{number}}"></a>student{{number}} - Click to see login details</p>
     </div>
     <div class="content">
 {% for host in ansible_node_facts.instances %}
@@ -397,7 +406,7 @@ To login to Visual Studio Code via your web browser please go here:<br>
 <table>
   <tr>
     <td>UI link:</td>
-    <td>{% if workshop_type == "windows" %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}/?folder=vscode-remote%3A%2F%2Fstudent{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}%2Fhome%2Fstudent{{number}}%2Fwindows-workshop%2Fworkshop_project">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% else %}<a href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% endif %}</td>
+    <td>{% if workshop_type == "windows" %}<a target=_blank href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}/?folder=vscode-remote%3A%2F%2Fstudent{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}%2Fhome%2Fstudent{{number}}%2Fwindows-workshop%2Fworkshop_project">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% else %}<a target=_blank href="https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}-code.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a>{% endif %}</td>
   </tr>
   <tr>
     <td>password:</td>
@@ -412,7 +421,7 @@ To login to GitLab via your web browser please go here:<br>
 <table>
   <tr>
     <td>UI link:</td>
-    <td><a href="https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+    <td><a target=_blank href="https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
   </tr>
   <tr>
     <td>username:</td>
@@ -464,13 +473,13 @@ To login to the Ansible Tower UI use the following credentials:<br>
 {% if dns_type != 'none' %}
   <tr>
 <td>UI link:</td>
-<td><a href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
+<td><a target=_blank href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>
   </tr>
 {% endif %}
 {% if dns_type == 'none' %}
   <tr>
 <td>UI link:
-<td><a href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a></td>
+<td><a target=_blank href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a></td>
   </tr>
 {% endif %}
   <tr>
@@ -485,7 +494,7 @@ To login to the Ansible Tower UI use the following credentials:<br>
 {% endif %}
 </div>
 
-{% if workshop_type in ['devops'] %} Lab Guide: <a href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888</a><br>{% endif %}
+{% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888</a><br>{% endif %}
 {% endif %}
 {% endfor %}
     </div>

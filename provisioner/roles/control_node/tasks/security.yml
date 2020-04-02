@@ -1,43 +1,4 @@
 ---
-- name: make sure .ssh is created
-  file:
-    path: "/home/{{username}}/.ssh/"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    state: directory
-
-- name: Put ssh-key in proper spot for student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    dest: "/home/{{username}}/.ssh/aws-private.pem"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0400
-
-- name: Put ssh-key in proper for {{ansible_user}}
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    dest: "/home/{{ansible_user}}/.ssh/aws-private.pem"
-    owner: "{{ansible_user}}"
-    group: "{{ansible_user}}"
-    mode: 0400
-
-- name: copy over ssh config file for student
-  template:
-    src: sshconfig.j2
-    dest: /home/{{username}}/.ssh/config
-    owner: "{{username}}"
-    group: "{{username}}"
-    mode: 0700
-
-- name: copy over ssh config file for {{ansible_user}}
-  template:
-    src: sshconfig_ec2.j2
-    dest: /home/{{ansible_user}}/.ssh/config
-    owner: "{{ansible_user}}"
-    group: "{{ansible_user}}"
-    mode: 0700
-
 - name: Create lab inventory directory
   file:
     state: directory
@@ -50,24 +11,3 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   when: username in inventory_hostname
-
-# FIXME: REMOVE THIS ENTIRE BLOCK ONCE ANSIBLE ENGINE 2.9 GOES GA
-- name: Install Ansible 2.9 pre-release (if necessary)
-  block:
-    - name: Get package facts
-      package_facts:
-        manager: rpm
-
-    - name: Enable nightly RPM build Ansible stable-2.9 branch prerelease
-      copy:
-        src: 'ansible-stable-29-prerelease-nightly.repo'
-        dest: '/etc/yum.repos.d/ansible-stable-29-prerelease-nightly.repo'
-      when:
-        - ansible_facts['packages']['ansible'][0]['version'] < '2.9.0'
-
-    - name: Install Ansible 2.9 pre-release
-      yum:
-        state: latest
-        name: ansible
-      when:
-        - ansible_facts['packages']['ansible'][0]['version'] < '2.9.0'

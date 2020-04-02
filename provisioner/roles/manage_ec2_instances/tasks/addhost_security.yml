@@ -76,7 +76,6 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
         private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
         private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
@@ -112,7 +111,6 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        ansible_python_interpreter: "{{ec2_info['rhel7']['python_interpreter']}}"
         private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
         private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
         groups:
@@ -206,6 +204,12 @@
   template:
     src: security_instances.txt.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate student etchosts
+  template:
+    src: etchosts_security.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
   with_sequence: count="{{ student_total }}"
 
 - name: Generate instructor inventory

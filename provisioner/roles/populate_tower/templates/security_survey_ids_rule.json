@@ -1,0 +1,13 @@
+{
+  "name": "IDS rule",
+  "description": "Provide Snort rule to be deployed",
+  "spec": [
+    {
+      "type": "text",
+      "question_name": "Snort rule",
+      "question_description": "Input a Snort compatible rule",
+      "variable": "tower_snort_rule",
+      "required": true
+    }
+  ]
+}

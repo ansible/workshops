@@ -140,7 +140,7 @@ cp ~/networking-workshop/3.0-as3-intro/j2/* j2/
   gather_facts: false
 
   vars:
-    pool_members: "{{ groups['webservers'] }}"
+    pool_members: "{{ groups['web'] }}"
 ```
 - `---` はファイルの先頭である事を示します。このファイルは YAML ファイルです。
 - `hosts: lb` は lb グループに属するホストに対してのみ処理を実行するという意味です。F5 デバイスは今回1つだけですが、しかし、複数台ある場合には複数台を同時に指定できます。
@@ -150,9 +150,9 @@ cp ~/networking-workshop/3.0-as3-intro/j2/* j2/
 以下のセクションは
 ```
   vars:
-    pool_members: "{{ groups['webservers'] }}"
+    pool_members: "{{ groups['web'] }}"
 ```
-... `pool_members` と呼ばれる変数を定義し、webservers グループを値として指定します。workbench に2台のWebサーバーがあり、`pool_members` の値を参照することで2台のWebサーバーのリストを取得することができます。
+... `pool_members` と呼ばれる変数を定義し、web グループを値として指定します。workbench に2台のWebサーバーがあり、`pool_members` の値を参照することで2台のWebサーバーのリストを取得することができます。
 
 ## Step 5
 

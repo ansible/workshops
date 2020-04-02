@@ -2,12 +2,29 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Step 3.1 - Playbook Basics](#step-31---playbook-basics)
-* [Step 3.2 - Creating a Directory Structure and File for your Playbook](#step-32---creating-a-directory-structure-and-file-for-your-playbook)
-* [Step 3.3 - Running the Playbook](#step-33---running-the-playbook)
-* [Step 3.4 - Extend your Playbook: Start &amp; Enable Apache](#step-34---extend-your-playbook-start--enable-apache)
-* [Step 3.5 - Extend your Playbook: Create an index.html](#step-35---extend-your-playbook-create-an-indexhtml)
-* [Step 3.6 - Practice: Apply to Multiple Host](#step-36---practice-apply-to-multiple-host)
+## Table of Contents
+
+- [Objective](#objective)
+- [Guide](#guide)
+  - [Step 3.1 - Playbook Basics](#step-31---playbook-basics)
+  - [Step 3.2 - Creating a Directory Structure and File for your Playbook](#step-32---creating-a-directory-structure-and-file-for-your-playbook)
+  - [Step 3.3 - Running the Playbook](#step-33---running-the-playbook)
+  - [Step 3.4 - Extend your Playbook: Start &amp; Enable Apache](#step-34---extend-your-playbook-start--enable-apache)
+  - [Step 3.5 - Extend your Playbook: Create an index.html](#step-35---extend-your-playbook-create-an-indexhtml)
+  - [Step 3.6 - Practice: Apply to Multiple Host](#step-36---practice-apply-to-multiple-host)
+
+# Objective
+
+This exercise covers using Ansible to build two Apache web servers on Red Hat Enterprise Linux. This exercise covers the following Ansible fundamentals:
+
+- Understanding Ansible Module parameters
+- Understanding and using the following modules
+  - [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
+  - [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+  - [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
+- Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible Modules can be idempotent  
+
+# Guide
 
 While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
 
@@ -27,7 +44,7 @@ Playbooks are text files written in YAML format and therefore need:
 
   - to start with three dashes (`---`)
 
-  - proper identation using spaces and **not** tabs\!
+  - proper indentation using spaces and **not** tabs\!
 
 There are some important concepts:
 
@@ -50,15 +67,15 @@ A Playbook should be **idempotent**, so if a Playbook is run once to put the hos
 
 ## Step 3.2 - Creating a Directory Structure and File for your Playbook
 
-Enough theory, it’s time to create your first Playbook. In this lab you create a Playbook to set up an Apache webserver in three steps:
+Enough theory, it’s time to create your first Ansible Playbook. In this lab you create a playbook to set up an Apache web server in three steps:
 
-  - First step: Install httpd package
+  1. Install httpd package
 
-  - Second step: Enable/start httpd service
+  2. Enable/start httpd service
 
-  - Third step: Create an index.html file
+  3. Copy over an index.html file to each web host
 
-This Playbook makes sure the package containing the Apache webserver is installed on `node1`.
+This Playbook makes sure the package containing the Apache web server is installed on `node1`.
 
 There is a [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills.  That said, our playbook today is very basic and creating a complex structure will just confuse things.
 
@@ -143,7 +160,7 @@ The output should not report any errors but provide an overview of the tasks exe
 
 Use SSH to make sure Apache has been installed on `node1`. The necessary IP address is provided in the inventory. Grep for the IP address there and use it to SSH to the node.
 
-```bash
+```
 [student<X>@ansible ansible-files]$ grep node1 ~/lab_inventory/hosts
 node1 ansible_host=11.22.33.44
 [student<X>@ansible ansible-files]$ ssh 11.22.33.44
@@ -166,7 +183,7 @@ Run the Playbook a second time, and compare the output: The output changed from 
 
 ## Step 3.4 - Extend your Playbook: Start & Enable Apache
 
-The next part of the Playbook makes sure the Apache webserver is enabled and started on `node1`.
+The next part of the Ansible Playbook makes sure the Apache application is enabled and started on `node1`.
 
 On the control host, as your student user, edit the file `~/ansible-files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
 

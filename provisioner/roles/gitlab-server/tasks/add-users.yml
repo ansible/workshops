@@ -1,41 +1,33 @@
 ---
-- name: GitLab post | Install EPEL
-  yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-    state: present
-
 - name: GitLab Post | Install pip
-  yum:
-    name: python-pip
+  dnf:
+    name: python3-pip
     state: present
 
 - name: GitLab Post | Install pyapi-gitlab
-  pip:
+  dnf:
     name:
-      - pyapi-gitlab
-      - python-gitlab
+      - python3-gitlab
+
+- name: GitLab Post | Check if root user password is set
+  uri:
+    url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
+    method: POST
+    validate_certs: false
+    status_code: 200, 301
+    body_format: json
+    headers:
+      Content-Type: application/json
+    body: >
+      {
+        "grant_type": "password",
+        "username": "root",
+        "password": "{{ admin_password }}"
+      }
+  register: root_user
+  failed_when: false
 
 - block:
-
-    - name: GitLab Post | Check if root user password is set
-      uri:
-        url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
-        method: POST
-        validate_certs: false
-        status_code: 200, 301
-        body_format: json
-        headers:
-          Content-Type: application/json
-        body: >
-          {
-            "grant_type": "password",
-            "username": "root",
-            "password": "{{ admin_password }}"
-          }
-      register: root_user
-
-  rescue:
-
     - name: GitLab Post | Copy root password script to host
       template:
         src: set_root_pw.sh.j2
@@ -73,6 +65,10 @@
       until: gitlab_access_token is success and gitlab_access_token.json.access_token is defined
       delay: 3
       retries: 60
+
+  when:
+    - root_user.status != 200
+    - root_user.status != 301
 
 - name: GitLab Post | Obtain Access Token
   uri:

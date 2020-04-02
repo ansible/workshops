@@ -1,0 +1,44 @@
+---
+- name: upgrade pip
+  become: true
+  pip:
+    name: pip
+    state: latest
+
+- name: upgrade setuptools to 44 (F5 MODE)
+  become: true
+  pip:
+    name: setuptools==44.0.0
+
+- name: install f5 workshop dependicies (F5 MODE)
+  become: true
+  pip:
+    name:
+      - f5-sdk
+      - bigsuds
+      - netaddr
+      - jmespath
+    state: latest
+
+- name: Move networking workshop folder to correct location  (F5 MODE)
+  copy:
+    src: /tmp/workshops/exercises/ansible_f5/
+    dest: /home/{{ username }}/networking-workshop
+    remote_src: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Create lab inventory directory (F5 MODE)
+  file:
+    state: directory
+    path: /home/{{ username }}/networking-workshop/lab_inventory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Put student inventory in proper spot (F5 MODE)
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
+    dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname

@@ -28,7 +28,7 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 
 [gitlab:vars]
 ansible_port=22
-ansible_user={{ ec2_info['skylight_rhel7_gitlab']['username'] }}
+ansible_user={{ ec2_info['skylight_rhel8_gitlab']['username'] }}
 ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
 
 {# [docs:vars]
@@ -56,7 +56,7 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 {%       elif "gitlab" in host -%}
 {%       elif "docs" in host -%}
 {%       elif "ansible" in host %}
-{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} 
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }}
 {%       else %}
 {{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_user={{ hostvars[host].ansible_user }} ansible_password="{{ hostvars[host].ansible_password }}" student="{{ hostvars[host].student }}"
 {%       endif %}

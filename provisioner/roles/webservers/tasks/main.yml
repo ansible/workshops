@@ -1,15 +1,10 @@
 ---
-- name: install apache
-  yum:
-    name: httpd
-    state: present
+- name: configure hostname
+  hostname:
+    name: "{{short_name}}"
 
-- name: start httpd
-  service:
-    name: httpd
-    state: started
-
-- name: copy index.html
-  template:
-    src: index.j2
-    dest: /var/www/html/index.html
+- name: setup workshop specific webserver information
+  include_tasks: "{{item}}"
+  with_first_found:
+    - "{{workshop_type}}.yml"
+    - "unsupported_workshop.yml"

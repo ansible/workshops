@@ -16,7 +16,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 | Ansible Control Host | ansible        |
 | Managed Host 1       | node1          |
 | Managed Host 2       | node2          |
-| Managed Host 2       | node3          |
+| Managed Host 3       | node3          |
 
 ## Step 1.1 - Access the Environment
 

@@ -9,7 +9,7 @@
 
 - name: Add new instance to host group
   add_host:
-    hostname: 'attendance'
+    hostname: 'attendance-host'
     short_name: "{{ item.tags.short_name }}"
     username: "{{ item.tags.username }}"
     ansible_user: "{{ item.tags.username }}"

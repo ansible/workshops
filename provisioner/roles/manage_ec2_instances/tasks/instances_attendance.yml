@@ -22,7 +22,7 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
-      short_name: 'attendance'
+      short_name: 'attendance-host'
       long_name: "attendance.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
       username: "{{ ec2_info['attendance_host']['username'] }}"
     wait: "{{ ec2_wait }}"

@@ -1,0 +1,16 @@
+Welcome to the Skylight Workshop!
+
+Here are the PUBLIC FACING links to important sites:
+
+Student Login
+  {% if public_dns_zone is defined %}http://{{ name_prefix }}.{{ public_dns_zone }}/users/{% else %}http://{{ hostvars['docs'].ansible_host }}/users/{% endif %}
+
+
+Lab Slide Deck
+  {% if public_dns_zone is defined %}http://{{ name_prefix }}.{{ public_dns_zone }}/decks/{% else %}http://{{ hostvars['docs'].ansible_host }}/decks/{% endif %}
+
+
+Administration
+  {% if public_dns_zone is defined %}http://{{ name_prefix }}.{{ public_dns_zone }}/users/list.php{% else %}http://{{ hostvars['docs'].ansible_host }}/users/list.php{% endif %}
+
+Additionally, you can view the inventories which were generated on the fly.

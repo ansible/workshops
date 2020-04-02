@@ -1,0 +1,228 @@
+<?php
+
+$sql_server = "127.0.0.1";
+$port = '3306';
+$sql_user = "root";
+$sql_pass = "";
+
+$mydb="workshop";
+
+try {
+	$db = new \PDO("mysql:host=$sql_server;port=$port;dbname=$mydb;charset=utf8", $sql_user, $sql_pass);
+} catch(PDOException $e) {
+	echo "Could not connect to the database\n";
+	exit;
+}
+
+if (!$db) {
+	echo "Could not connect to the database\n";
+	exit;
+}
+
+session_start();
+
+if (!isset($_SESSION['email'])) {
+	if (!isset($_POST['email'])) {
+		display_header();
+		display_form();
+		display_footer ();
+		exit;
+	} else {
+		if (!isValidEmail($_POST['email'])) {
+			display_header();
+			print '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Email is invalid</font>';
+			display_form();
+			display_footer ();
+			exit;
+		} else {
+			// Check if student already exists
+			$student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_POST['email']));
+			if (!isset($student['id'])) {
+				$id = db_fetch_cell("SELECT id FROM `users` WHERE email = '' LIMIT 1", 'id');
+				if (!$id) {
+					display_header();
+					print '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Sorry, all available student accounts are taken.  Please let the instructor know.</font>';
+					display_footer ();
+					exit;
+				} else {
+					db_execute_prepare('UPDATE `users` set name=?, email=? WHERE id = ?', array(sql_clean_username($_POST['name']), sql_clean_username($_POST['email']), $id));
+					$_SESSION['email'] = $_POST['email'];
+					$student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_POST['email']));
+				}
+			} else {
+				$_SESSION['email'] = $_POST['email'];
+			}
+		}
+	}
+} else {
+	$student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_SESSION['email']));
+}
+
+if (isset($_GET['logout']) || $student['email'] != $_SESSION['email']) {
+        session_destroy();
+        header("Location: index.php\n\n");
+        exit;
+}
+
+display_header();
+
+print "  <div data-role='main' class='ui-content'>
+    <div data-role='collapsible' data-collapsed='false'>
+      <h1>" . $student['username'] . "</h1>
+      <p>
+Username=" . $student['username'] . "@{{ dns_domain_name }}<br />
+Password=" . $student['password'] . "<br />
+<br />
+<b>Workstation</b>:<br />
+" . $student['ip'] . "<br />
+" . $student['fqdn'] . "<br />
+<br /><br />
+Please use your laptop's Remote Desktop Client to connect to the above IP.  If that fails, then use the link(s) below for a HTML5 RDP client.  It is slower and may provide a subpar experience.<br /><br />
+<b>Webconnect</b>:<br />";
+if ($student['fqdn'] == "") {
+	print "<a href='https://" . $student['ip'] . "/" . $student['username'] . "/?__EVENTTARGET=&__EVENTARGUMENT=&server=" . $student['ip'] . "&domain={{ dns_domain_name_short }}&user=" . $student['username'] . "&password=" . urlencode($student['password']) . "&connect=Connect%21' target=rdp>https://" . $student['ip'] . "/" . $student['username'] . "</a><br />";
+} else {
+	print "<a href='https://" . $student['fqdn'] . "/" . $student['username'] . "/?__EVENTTARGET=&__EVENTARGUMENT=&server=" . $student['fqdn'] . "&domain={{ dns_domain_name_short }}&user=" . $student['username'] . "&password=" . urlencode($student['password']) . "&connect=Connect%21' target=rdp>https://" . $student['fqdn'] . "/" . $student['username'] . "</a><br />";
+}
+{% if public_dns_zone is defined and nginx_ssl %}print "<a href='https://{{ name_prefix }}.{{ public_dns_zone }}/" . $student['username'] . "/?__EVENTTARGET=&__EVENTARGUMENT=&server=" . $student['ip'] . "&domain={{ dns_domain_name_short }}&user=" . $student['username'] . "&password=" . urlencode($student['password']) . "&connect=Connect%21' target=rdp>https://{{ name_prefix }}.{{ public_dns_zone }}/" . $student['username'] . "</a><br />";{% endif %}
+
+display_footer ();
+
+
+
+function isValidEmail($email){
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+}
+
+function display_form() {
+	print "  <div data-role='main' class='ui-content'>
+	    <div data-role='collapsible' data-collapsed='false'>
+	      <h1>Please enter your Name and Email address</h1>
+	      <p>";
+	print "<form action='/users/' method=POST enctype='multipart/form-data'>";
+	print "<table><tr><td align=right>Name: </td><td><input type=text name=name size=20></td></tr>";
+	print "<tr><td align=right>Email: </td><td><input type=text name=email size=20></td></tr>";
+	print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
+	print "</p>";
+}
+
+function sql_clean_username($text) {
+	$text = preg_replace("/[^[:alnum:][:space:] @\.\-_]/u", '', $text);
+	return $text;
+}
+
+function db_execute($query) {
+	global $db;
+	$stmt = $db->query($query);
+	return $db->lastInsertId();
+}
+
+function db_execute_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	return $db->lastInsertId();
+}
+
+function db_fetch_cell($query, $cell) {
+	global $db;
+	$stmt = $db->query($query);
+	if (!$stmt) return false;
+	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+	if (!isset($results[$cell])) return false;
+	return $results[$cell];
+}
+
+function db_fetch_assoc($query) {
+	global $db;
+	$stmt = $db->query($query);
+	if ($stmt) {
+		$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+		return $results;
+	} else {
+		return false;
+	}
+}
+
+function db_fetch_assoc_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+	return $results;
+}
+
+function db_fetch_assocs($query) {
+	global $db;
+	$stmt = $db->query($query);
+	if ($stmt) {
+		$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		return $results;
+	} else {
+		return false;
+	}
+}
+
+function db_fetch_assocs_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	return $results;
+}
+
+function display_header() {
+?>
+<!DOCTYPE html>
+<html>
+<font face="verdana,sans,arial">
+<style>
+
+/* unvisited link */
+a:link {
+    color: #FF6978;
+}
+
+/* visited link */
+a:visited {
+    color: #FF6978;
+}
+
+/* mouse over link */
+a:hover {
+    color: #3DCCCC;
+}
+
+/* selected link */
+a:active {
+    color: blue;
+}
+
+</style>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>Ansible Windows Lightbulb Workshop</h1>
+  </div>
+  <div data-role="main">
+    <img src="https://www.ansible.com/hubfs/2016_Images/Assets/Ansible-Tower-Logotype-Small-RGB-FullBlack.png"/>
+<?php
+}
+
+function display_footer () {
+?>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+<?php
+}

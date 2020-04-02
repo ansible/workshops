@@ -1,0 +1,237 @@
+<?php
+
+$sql_server = "127.0.0.1";
+$port = '3306';
+$sql_user = "root";
+$sql_pass = "";
+$login_pass = "{{ domain_admin_password }}";
+
+$mydb="workshop";
+
+try {
+	$db = new \PDO("mysql:host=$sql_server;port=$port;dbname=$mydb;charset=utf8", $sql_user, $sql_pass);
+} catch(PDOException $e) {
+	echo "Could not connect to the database\n";
+	exit;
+}
+
+if (!$db) {
+	echo "Could not connect to the database\n";
+	exit;
+}
+
+session_start();
+
+if (!isset($_SESSION['pass'])) {
+	if (!isset($_POST['pass'])) {
+		display_header();
+		display_form();
+		display_footer ();
+		exit;
+	} else {
+		if ($_POST['pass'] != $login_pass) {
+			sleep(2);
+			display_header();
+			print '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Unauthorized</font>';
+			display_form();
+			display_footer ();
+			exit;
+		} else {
+			$_SESSION['pass'] = $_POST['pass'];
+		}
+	}
+}
+
+if (isset($_POST['delete']) && $_POST['delete'] == intval($_POST['delete'])) {
+        db_execute_prepare("UPDATE `users` SET `name` = '', `email` = ''  WHERE `id` = ?", array(intval($_POST['delete'])));
+        header("Location:list.php\n\n");
+        exit;
+}
+
+if (isset($_POST['grade'])) {
+        $students = db_fetch_assocs("SELECT * FROM `users` WHERE email != ''");
+        foreach ($students as $s) {
+                $p = check_progress($s['id']);
+                update_grade($s['id'], $p);
+        }
+        header("Location:list.php\n\n");
+        exit;
+}
+
+
+display_header();
+
+$students = db_fetch_assocs("SELECT * FROM `users`");
+print "<div class=small><form method=POST><input type=submit value=Grade name=grade></form></div><br>\n";
+print "<table cellpadding=3 cellspacing=0 border=1><tr><td>Name</td><td>EMail</td><td>Student</td><td>Workstation IP</td><td>Progress</td><td>Delete</td></tr>\n";
+foreach ($students as $s) {
+        print '<tr><td>' . $s['name'] . '</td><td>' . $s['email'] . '</td><td>' . $s['id'] . '</td><td>' . $s['ip'] . '</td><td align=right>' . $s['grade'] . '%</td><td align=center>' . ($s['email'] != '' ? '<form method=POST><input type=hidden name=delete value=' . $s['id'] . '><input type=submit value=Delete data-icon=delete data-iconpos=notext></a></form>' : '') . "</td></tr>\n";
+}
+print "</table>";
+
+display_footer ();
+
+
+
+
+function check_progress($user) {
+	exec('rm -fr /tmp/{{ user_prefix }}' . $user);
+	$c = "cd /tmp; git -c http.sslVerify=false clone 'https://{{ user_prefix }}" . $user . ":{{ users_password }}@gitlab.{{ dns_domain_name }}/{{ user_prefix }}" . $user . "/{{ user_prefix }}" . $user . ".git' 2>&1";
+	exec($c, $out, $ret);
+	$p = 0;
+	if (file_exists('/tmp/{{ user_prefix }}' .$user . '/iis_basic/remove_iis.yml')) {
+		$p = 10;;
+	}
+	if (file_exists('/tmp/{{ user_prefix }}' .$user . '/iis_advanced/roles/iis_simple/tasks/main.yml')) {
+		return 100 + $p;
+	}
+	if (file_exists('/tmp/{{ user_prefix }}' .$user . '/iis_advanced/site.yml')) {
+		return 66 + $p;
+	}
+	if (file_exists('/tmp/{{ user_prefix }}' .$user . '/iis_basic/install_iis.yml')) {
+		return 33 + $p;
+	}
+	return 0;
+}
+
+function update_grade($id, $grade) {
+	db_execute_prepare('UPDATE `users` SET `grade` = ?  WHERE `id` = ?', array($grade, $id));
+}
+
+function display_form() {
+	print "  <div data-role='main' class='ui-content'>
+	    <div data-role='collapsible' data-collapsed='false'>
+	      <h1>Please login</h1>
+	      <p>";
+	print "<form action='/users/list.php' method=POST enctype='multipart/form-data'>";
+	print "<table><tr><td></td><td><input type=password name=pass size=20></td></tr>";
+	print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
+	print "</p>";
+}
+
+function sql_clean_username($text) {
+	$text = str_replace(array("\\"), "\\\\", $text);
+	$text = str_replace(array("%", '/', "'", '"', '|'), '', $text);
+	return $text;
+}
+
+function db_execute($query) {
+	global $db;
+	$stmt = $db->query($query);
+	return $db->lastInsertId();
+}
+
+function db_execute_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	return $db->lastInsertId();
+}
+
+function db_fetch_cell($query, $cell) {
+	global $db;
+	$stmt = $db->query($query);
+	if (!$stmt) return false;
+	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+	if (!isset($results[$cell])) return false;
+	return $results[$cell];
+}
+
+function db_fetch_assoc($query) {
+	global $db;
+	$stmt = $db->query($query);
+	if ($stmt) {
+		$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+		return $results;
+	} else {
+		return false;
+	}
+}
+
+function db_fetch_assoc_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+	return $results;
+}
+
+function db_fetch_assocs($query) {
+	global $db;
+	$stmt = $db->query($query);
+	if ($stmt) {
+		$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		return $results;
+	} else {
+		return false;
+	}
+}
+
+function db_fetch_assocs_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	return $results;
+}
+
+
+function display_header() {
+?>
+<!DOCTYPE html>
+<html>
+<font face="verdana,sans,arial">
+<style>
+
+/* unvisited link */
+a:link {
+    color: #FF6978;
+}
+
+/* visited link */
+a:visited {
+    color: #FF6978;
+}
+
+/* mouse over link */
+a:hover {
+    color: #3DCCCC;
+}
+
+/* selected link */
+a:active {
+    color: blue;
+}
+
+div.small {
+  width: 120px;
+}
+
+</style>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>Ansible Windows Lightbulb Workshop</h1>
+  </div>
+  <div data-role="main">
+    <img src="https://www.ansible.com/hubfs/2016_Images/Assets/Ansible-Tower-Logotype-Small-RGB-FullBlack.png"/>
+<?php
+}
+
+function display_footer () {
+?>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+<?php
+}

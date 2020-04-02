@@ -18,30 +18,18 @@
   delegate_to: localhost
   register: route53_status
 
-- name: grab latest release of Coder binary
-  uri:
-    url: https://api.github.com/repos/cdr/code-server/releases/latest
-  register: github_result
-
-- name: save url for extraction of Coder binary
-  set_fact:
-    download_url: "{{item.browser_download_url}}"
-    version_name: "{{item.name.split('.tar')[0]}}"
-  when: "'linux' in item.browser_download_url"
-  loop: "{{github_result.json.assets}}"
-  loop_control:
-    label: "{{ item.browser_download_url }}"
-
 - name: Extract file
   unarchive:
-    src: "{{download_url}}"
-    dest: "/home/{{username}}"
+    src: '{{ codeserver_url | default("https://github.com/cdr/code-server/releases/download/2.1698/code-server2.1698-vsc1.41.1-linux-x86_64.tar.gz") }}'
+    dest: "/home/{{ username }}"
     remote_src: true
-  register: output
+    list_files: yes
+  register: unarchive_out
 
+# this usage of unarchive_out will get us into trouble if archive contains more then one top level directory. But it doesn't ;)
 - name: move binary to /opt
   copy:
-    src: /home/{{username}}/{{ version_name }}/code-server
+    src: /home/{{username}}/{{ unarchive_out.files[0] }}/code-server
     dest: /opt/code-server
     remote_src: true
     mode: '0744'
@@ -117,5 +105,5 @@
 
 - name: cleanup Coder binary from student directory
   file:
-    path: /home/{{username}}/{{ version_name }}
+    path: /home/{{username}}/{{ unarchive_out.files[0] }}
     state: absent

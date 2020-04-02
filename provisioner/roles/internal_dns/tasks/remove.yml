@@ -7,13 +7,13 @@
 - debug:
     msg: "{{ ec2_name_prefix }} {{ workshop_internal_dns_zone }}"
 
-- name: Get zone id for zone {{ zonename }}
+- name: Get zone id for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
   set_fact:
-    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}" 
+    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}"
   loop: "{{ hosted_zones.HostedZones }}"
   when: item.Name == ec2_name_prefix + "." + workshop_internal_dns_zone + "."
 
-- name: Get A records for zone {{ zonename }}
+- name: Get A records for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
   route53_info:
     query: record_sets
     hosted_zone_id: "{{ privatezoneid }}"
@@ -32,7 +32,7 @@
   loop: "{{ records.ResourceRecordSets | subelements('ResourceRecords', 'skip_missing=True') }}"
   when: item.0.Type == "A"
 
-- name: Delete the private zone {{ zonename }}
+- name: Delete the private zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
   route53_zone:
     state: absent
     zone: "{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}"

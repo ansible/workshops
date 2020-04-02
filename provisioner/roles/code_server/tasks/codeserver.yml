@@ -23,7 +23,7 @@
     src: '{{ codeserver_url | default("https://github.com/cdr/code-server/releases/download/2.1698/code-server2.1698-vsc1.41.1-linux-x86_64.tar.gz") }}'
     dest: "/home/{{ username }}"
     remote_src: true
-    list_files: yes
+    list_files: true
   register: unarchive_out
 
 # this usage of unarchive_out will get us into trouble if archive contains more then one top level directory. But it doesn't ;)

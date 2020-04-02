@@ -7,7 +7,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['attendance_host']['size'] }}"
-    image: "{{ attendance_ami.image_id }}"
+    image: "{{ attendance_host_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: 1
     count_tag:

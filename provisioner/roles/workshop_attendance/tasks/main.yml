@@ -40,18 +40,18 @@
 
 - name: Create users directory on server
   file:
-    path: /usr/share/nginx/html/users/
+    path: /usr/share/nginx/html/
     state: directory
 
 - name: Copy users file to server
   template:
     src: templates/index.php.j2
-    dest: /usr/share/nginx/html/users/index.php
+    dest: /usr/share/nginx/html/index.php
 
 - name: Copy list file to server
   template:
     src: templates/list.php.j2
-    dest: /usr/share/nginx/html/users/list.php
+    dest: /usr/share/nginx/html/list.php
 
 - name: Install PyMySQL
   pip:

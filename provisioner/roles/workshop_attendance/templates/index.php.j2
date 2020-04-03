@@ -70,21 +70,13 @@ print "  <div data-role='main' class='ui-content'>
     <div data-role='collapsible' data-collapsed='false'>
       <h1>" . $student['username'] . "</h1>
       <p>
-Username=" . $student['username'] . "@{{ dns_domain_name }}<br />
+Username=" . $student['username'] . "@dns_domain_name <br />
 Password=" . $student['password'] . "<br />
 <br />
 <b>Workstation</b>:<br />
 " . $student['ip'] . "<br />
 " . $student['fqdn'] . "<br />
 <br /><br />
-Please use your laptop's Remote Desktop Client to connect to the above IP.  If that fails, then use the link(s) below for a HTML5 RDP client.  It is slower and may provide a subpar experience.<br /><br />
-<b>Webconnect</b>:<br />";
-if ($student['fqdn'] == "") {
-	print "<a href='https://" . $student['ip'] . "/" . $student['username'] . "/?__EVENTTARGET=&__EVENTARGUMENT=&server=" . $student['ip'] . "&domain={{ dns_domain_name_short }}&user=" . $student['username'] . "&password=" . urlencode($student['password']) . "&connect=Connect%21' target=rdp>https://" . $student['ip'] . "/" . $student['username'] . "</a><br />";
-} else {
-	print "<a href='https://" . $student['fqdn'] . "/" . $student['username'] . "/?__EVENTTARGET=&__EVENTARGUMENT=&server=" . $student['fqdn'] . "&domain={{ dns_domain_name_short }}&user=" . $student['username'] . "&password=" . urlencode($student['password']) . "&connect=Connect%21' target=rdp>https://" . $student['fqdn'] . "/" . $student['username'] . "</a><br />";
-}
-{% if public_dns_zone is defined and nginx_ssl %}print "<a href='https://{{ name_prefix }}.{{ public_dns_zone }}/" . $student['username'] . "/?__EVENTTARGET=&__EVENTARGUMENT=&server=" . $student['ip'] . "&domain={{ dns_domain_name_short }}&user=" . $student['username'] . "&password=" . urlencode($student['password']) . "&connect=Connect%21' target=rdp>https://{{ name_prefix }}.{{ public_dns_zone }}/" . $student['username'] . "</a><br />";{% endif %}
 
 display_footer ();
 

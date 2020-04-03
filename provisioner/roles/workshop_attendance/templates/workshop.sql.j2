@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 
 {% for vm in groups['windows'] %}
-INSERT INTO `users` (`id`, `ip`, `fqdn`, `username`, `password`) VALUES ({{ hostvars[vm].student|string }}, '{{ hostvars[vm].ansible_host }}', '{{ hostvars[vm].long_name|default("", true) }}', '{{ student + hostvars[vm].student|string }}', '{{ admin_password }}')
+INSERT INTO `users` (`id`, `ip`, `fqdn`, `username`, `password`) VALUES ({{ hostvars[vm].student|string }}, '{{ hostvars[vm].ansible_host }}', '{{ hostvars[vm].long_name|default("", true) }}', 'student{{hostvars[vm].student|string }}', '{{ admin_password }}')
   ON DUPLICATE KEY UPDATE `ip` = '{{ hostvars[vm].ansible_host }}', `password` = '{{ admin_password }}';
 {% endfor %}

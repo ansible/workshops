@@ -223,6 +223,15 @@
         - create_login_page
   tags: control_node
 
+- name: Configure attendance host
+  hosts: attendance
+  become: true
+  gather_facts: true
+  roles:
+    - role: workshop_attendance
+      when:
+        - attendance|bool
+
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"
 

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-{% for vm in groups['windows_workstations'] %}
-INSERT INTO `users` (`id`, `ip`, `fqdn`, `username`, `password`) VALUES ({{ hostvars[vm].student|string }}, '{{ hostvars[vm].ansible_host }}', '{{ hostvars[vm].long_name|default("", true) }}', '{{ user_prefix + hostvars[vm].student|string }}', '{{ users_password }}')
-  ON DUPLICATE KEY UPDATE `ip` = '{{ hostvars[vm].ansible_host }}', `password` = '{{ users_password }}';
+{% for vm in groups['windows'] %}
+INSERT INTO `users` (`id`, `ip`, `fqdn`, `username`, `password`) VALUES ({{ hostvars[vm].student|string }}, '{{ hostvars[vm].ansible_host }}', '{{ hostvars[vm].long_name|default("", true) }}', '{{ user_prefix + hostvars[vm].student|string }}', '{{ admin_password }}')
+  ON DUPLICATE KEY UPDATE `ip` = '{{ hostvars[vm].ansible_host }}', `password` = '{{ admin_password }}';
 {% endfor %}

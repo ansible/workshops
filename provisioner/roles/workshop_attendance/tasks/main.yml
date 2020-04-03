@@ -17,7 +17,7 @@
   lineinfile:
     path: /etc/php-fpm.d/www.conf
     regexp: '^listen ='
-    line: 'listen = {{ ansible_host }}:9000'
+    line: 'listen = 127.0.0.1:9000'
   notify: restart php-fpm
 
 - name: Start Services

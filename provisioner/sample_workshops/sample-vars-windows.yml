@@ -12,6 +12,8 @@ workshop_type: windows
 # OPTIONAL VARIABLES
 # creates 2 windows instances per student instead of default 1
 doubleup: false
+# adds a form that prompts for name and email to allocate student credentials
+attendance: false
 # password for Ansible control node, defaults to ansible
 admin_password: ansible123
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone

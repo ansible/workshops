@@ -26,18 +26,3 @@
     remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
-
-- name: Create lab inventory directory (NETWORKING MODE)
-  file:
-    state: directory
-    path: /home/{{ username }}/networking-workshop/lab_inventory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Put student inventory in proper spot (NETWORKING MODE)
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
-    dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: username in inventory_hostname

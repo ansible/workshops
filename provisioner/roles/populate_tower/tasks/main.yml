@@ -1,0 +1,47 @@
+---
+#### INVENTORY
+- name: create workshop inventory
+  tower_inventory:
+    name: "Workshop Inventory"
+    organization: "Default"
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false
+
+- name: import inventory
+  shell: 'tower-manage inventory_import --source=/home/{{ username }}/lab_inventory/hosts --inventory-name="Workshop Inventory"'
+#### END OF INVENTORY
+
+#### CREDENTIAL
+- name: add SSH credential into Ansible Tower
+  tower_credential:
+    username: ec2-user
+    name: "Workshop Credential"
+    ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
+    kind: ssh
+    organization: "Default"
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false
+
+- name: add tower credential into ansible tower
+  tower_credential:
+    host: "{{ansible_host}}"
+    username: admin
+    password: "{{admin_password}}"
+    name: "Tower Credential"
+    kind: tower
+    organization: Default
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false
+#### END OF CREDENTIAL
+
+- name: setup workshop specific tower information
+  include_tasks: "{{item}}"
+  with_first_found:
+    - "{{role_path}}/tasks/{{workshop_type}}.yml"
+    - "{{role_path}}/tasks/unsupported_workshop.yml"

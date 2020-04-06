@@ -14,5 +14,3 @@ admin_password: ansible
 dns_type: aws
 # creates HTML website for workshop
 create_login_page: true
-# install xrdp with xfce for graphical interface
-xrdp: true

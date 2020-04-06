@@ -17,12 +17,6 @@
 - hostname:
     name: "{{short_name}}"
 
-- name: Update systemd
-  yum:
-    name: systemd*
-    state: latest
-    update_cache: true
-
 - meta: flush_handlers
   tags:
     - common

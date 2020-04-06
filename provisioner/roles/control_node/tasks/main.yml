@@ -111,8 +111,24 @@
     - workshop_type != "networking"
 ## need to fix the conditionals above https://github.com/ansible/workshops/issues/743
 
+- name: Create lab inventory directory
+  file:
+    state: directory
+    path: /home/{{ username }}/lab_inventory
+
+- name: Put student inventory in proper spot
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
+    dest: /home/{{ username }}/lab_inventory/hosts
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname
+
 - name: setup control node for workshop type
-  include_tasks: "{{workshop_type}}.yml"
+  include_tasks: "{{item}}"
+  with_first_found:
+    - "{{role_path}}/tasks/{{workshop_type}}.yml"
+    - "{{role_path}}/tasks/unsupported_workshop.yml"
 
 - name: check to see if ansible tower is already up and running
   uri:
@@ -158,7 +174,3 @@
   when:
     - autolicense is defined
     - autolicense|bool
-
-- name: INSTALL VSCODE AND XRDP
-  include_tasks: gui.yml
-  when: xrdp|bool

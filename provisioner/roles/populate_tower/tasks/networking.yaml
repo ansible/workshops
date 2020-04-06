@@ -20,16 +20,6 @@
     tower_host: "{{ ansible_host }}"
     tower_verify_ssl: false
 
-# INVENTORY
-- name: CREATE INVENTORY
-  tower_inventory:
-    name: "Workshop Inventory"
-    organization: REDHAT NETWORK ORGANIZATION
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
-    tower_verify_ssl: false
-
 # TEAMS
 - name: CREATE NETOPS TEAM
   tower_team:
@@ -228,34 +218,6 @@
     tower_host: "{{ ansible_host }}"
     validate_certs: false
 
-- name: ADD CREDENTIAL INTO TOWER
-  tower_credential:
-    username: ec2-user
-    name: "Workshop Credential"
-    ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
-    kind: ssh
-    organization: REDHAT NETWORK ORGANIZATION
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
-    tower_verify_ssl: false
-
-- name: ADD TOWER CREDENTIAL INTO TOWER
-  tower_credential:
-    host: "{{ansible_host}}"
-    username: admin
-    password: "{{admin_password}}"
-    name: "Tower Credential"
-    kind: tower
-    organization: Default
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
-    tower_verify_ssl: false
-
-- name: IMPORT INVENTORY
-  shell: 'tower-manage inventory_import --source=/home/{{ username }}/networking-workshop/lab_inventory/hosts --inventory-name="Workshop Inventory"'
-
 # REMOVE HARD CODED SSH_KEY VAR
 - name: REMOVE HARD CODED SSH KEY VAR IN INVENTORY
   uri:
@@ -272,23 +234,6 @@
       - 204
   register: result_uri
   ignore_errors: true
-
-# JOB TEMPLATES
-# Commenting out as students will not create this#
-# - name: CREATE BACKUP JOB IN TOWER
-#   tower_job_template:
-#     name: "Network-Backup"
-#     job_type: "run"
-#     inventory: "Workshop Inventory"
-#     project: "Workshop Project"
-#     playbook: "network_backup.yml"
-#     credential: "Workshop Credential"
-#     state: "present"
-#     limit: "cisco"
-#     tower_username: admin
-#     tower_password: "{{ admin_password }}"
-#     tower_host: "{{ ansible_host }}"
-#     tower_verify_ssl: no
 
 - name: CREATE SHOW COMMAND JOB IN TOWER
   tower_job_template:

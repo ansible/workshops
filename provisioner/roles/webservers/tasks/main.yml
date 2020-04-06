@@ -6,5 +6,5 @@
 - name: setup workshop specific webserver information
   include_tasks: "{{item}}"
   with_first_found:
-    - "{{workshop_type}}.yml"
-    - "unsupported_workshop.yml"
+    - "{{role_path}}/tasks/{{workshop_type}}.yml"
+    - "{{role_path}}/tasks/unsupported_workshop.yml"

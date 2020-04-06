@@ -1,0 +1,4 @@
+---
+- name: unsupported for this workshop type
+  debug:
+    msg: "no more setup specified for {{workshop_type}}"

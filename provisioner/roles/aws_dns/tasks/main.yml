@@ -23,7 +23,13 @@
       include_tasks: create.yml
 
     - name: certbot for Ansible Tower
-      include_tasks: "tower.yml"
+      include_tasks: tower.yml
+
+    - name: turn on tower
+      shell: ansible-tower-service start
+      register: install_tower
+      until: install_tower is not failed
+      retries: 5
   when:
     - not teardown
     - check_cert.status != 200

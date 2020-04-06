@@ -80,7 +80,7 @@ timeout = 60
 deprecation_warnings = False
 host_key_checking = False
 retry_files_enabled = False
-inventory = /home/student1/networking-workshop/lab_inventory/hosts
+inventory = /home/student1/lab_inventory/hosts
 [persistent_connection]
 connect_timeout = 60
 command_timeout = 60
@@ -97,7 +97,7 @@ The scope of a `play` within a `playbook` is limited to the groups of hosts decl
 In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
 
 ```bash
-[student1@ansible ~]$ cat ~/networking-workshop/lab_inventory/hosts
+[student1@ansible ~]$ cat ~/lab_inventory/hosts
 ```
 
 ```

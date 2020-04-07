@@ -8,33 +8,27 @@
     tower_username: admin
     tower_password: "{{admin_password}}"
 
-- name: INSTALL CERTBOT
-  yum:
-    name: certbot
+# directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
+- name: Download and install certbot
+  get_url:
+    url: https://dl.eff.org/certbot-auto
+    dest: /usr/local/bin/certbot-auto
+    mode: '0755'
+    owner: "root"
 
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-- name: TURN OFF TOWER
+- name: turn off Ansible Tower
   shell: ansible-tower-service stop
 
-# If this fails check out status of certbot: https://letsencrypt.status.io/
-- name: ISSUE CERT
-  shell: certbot certonly --standalone -d {{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
-  register: issue_cert
-  until: issue_cert is not failed
-  retries: 5
-  ignore_errors: true
-
-- name: APPEND LETS ENCRYPT FAILED
-  set_fact:
-    dns_information: |
-      - The Lets Encrypt certbot failed, please check https://letsencrypt.status.io/ to make sure the service is running
-  run_once: true
-  delegate_to: localhost
-  delegate_facts: true
-  when: issue_cert is failed
-
-- name: If issue cert works install it on tower
+- name: SSL cert block
   block:
+    # If this fails check out status of certbot: https://letsencrypt.status.io/
+    - name: ISSUE CERT
+      shell: /usr/local/bin/certbot-auto certonly --no-bootstrap --standalone -d {{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+      register: issue_cert
+      until: issue_cert is not failed
+      retries: 5
+
     - name: MOVE SSL KEY
       copy:
         remote_src: true
@@ -50,10 +44,14 @@
       template:
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
-  when: issue_cert is not failed
+  rescue:
+    - name: turn on tower
+      shell: ansible-tower-service start
+      register: install_tower
+      until: install_tower is not failed
+      retries: 5
 
-- name: TURN ON TOWER
-  shell: ansible-tower-service start
-  register: install_tower
-  until: install_tower is not failed
-  retries: 5
+    - name: fail on purpose
+      debug:
+        msg: "failing on purpose - SSL cert problem"
+      failed_when: true

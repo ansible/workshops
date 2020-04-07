@@ -1,25 +1,9 @@
 ---
-- name: create private DNS zone
+- name: create private DNS zone 
   include_tasks: create.yml
   when:
   - not teardown
 
-- name: Get all hosted zones
-  route53_info:
-    query: hosted_zone
-  register: hosted_zones
-  when: teardown|bool
-
-- name: Get zone id for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
-  set_fact:
-    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}"
-  loop: "{{ hosted_zones.HostedZones }}"
-  when:
-    - item.Name == ec2_name_prefix + "." + workshop_internal_dns_zone + "."
-    - teardown|bool
-
 - name: remove private DNS zone
   include_tasks: remove.yml
-  when:
-    - teardown|bool
-    - privatezoneid is defined
+  when: teardown|bool

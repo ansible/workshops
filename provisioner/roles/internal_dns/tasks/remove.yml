@@ -1,4 +1,18 @@
 ---
+- name: Get all hosted zones
+  route53_info:
+    query: hosted_zone
+  register: hosted_zones
+
+- debug:
+    msg: "{{ ec2_name_prefix }} {{ workshop_internal_dns_zone }}"
+
+- name: Get zone id for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+  set_fact:
+    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}"
+  loop: "{{ hosted_zones.HostedZones }}"
+  when: item.Name == ec2_name_prefix + "." + workshop_internal_dns_zone + "."
+
 - name: Get A records for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
   route53_info:
     query: record_sets

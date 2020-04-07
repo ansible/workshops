@@ -19,6 +19,12 @@
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
         state: present
 
+    - name: GitLab post | IInstall base packages
+      dnf:
+        name:
+          - python3-pip
+          - python3-devel
+
     # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
     - name: Download and install certbot
       get_url:

@@ -1,0 +1,40 @@
+---
+- name: Get all hosted zones
+  route53_info:
+    query: hosted_zone
+  register: hosted_zones
+
+- debug:
+    msg: "{{ ec2_name_prefix }} {{ workshop_internal_dns_zone }}"
+
+- name: Get zone id for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+  set_fact:
+    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}"
+  loop: "{{ hosted_zones.HostedZones }}"
+  when: item.Name == ec2_name_prefix + "." + workshop_internal_dns_zone + "."
+
+- name: Get A records for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+  route53_info:
+    query: record_sets
+    hosted_zone_id: "{{ privatezoneid }}"
+    type: A
+    start_record_name: "a"
+  register: records
+
+- name: Delete all A records
+  route53:
+    state: delete
+    hosted_zone_id: "{{ privatezoneid }}"
+    record: "{{ item.0.Name }}"
+    ttl: "{{ item.0.TTL }}"
+    type: "A"
+    value: "{{ item.1.Value }}"
+  loop: "{{ records.ResourceRecordSets | subelements('ResourceRecords', 'skip_missing=True') }}"
+  when: item.0.Type == "A"
+
+- name: Delete the private zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+  route53_zone:
+    state: absent
+    zone: "{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    vpc_region: "{{ ec2_region }}"

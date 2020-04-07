@@ -18,7 +18,8 @@
     - {include_role: {name: aws_dns}, when: create_login_page is defined and create_login_page}
     - {include_role: {name: code_server}, when: code_server}
     - {include_role: {name: gitlab-server}, when: workshop_type == "windows"}
-
+    - {include_role: {name: internal_dns}, when: create_internal_dns is defined and create_internal_dns}
+    - {include_role: {name: aws_dns_clusternodes}, when: workshop_type == "advanced_tower"}
 
     - name: Remove workshop local files
       file:

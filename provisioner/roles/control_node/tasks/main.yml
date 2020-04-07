@@ -27,12 +27,19 @@
   retries: 4
   delay: 5
 
-- name: Install ansible.cfg and vimrc in home directory
+- name: Install ansible.cfg in home directory
   template:
     src: ansible.cfg.j2
     dest: "/home/{{ username }}/.ansible.cfg"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Install ansible.cfg in root home directory
+  template:
+    src: ansible.cfg.j2
+    dest: "/root/.ansible.cfg"
+    owner: root
+    group: root
 
 - name: Install vimrc in home directory
   template:
@@ -97,6 +104,8 @@
     version: '{{ ansible_workshops_version | default("master") }}'
     refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: true
+  when:
+    - workshop_type != "networking"
 
 - name: Move relevant exercises to correct location
   copy:
@@ -108,6 +117,7 @@
   when:
     - workshop_type != "f5"
     - workshop_type != "networking"
+    - workshop_type != "advanced_tower"
 ## need to fix the conditionals above https://github.com/ansible/workshops/issues/743
 
 - name: setup control node for workshop type
@@ -115,7 +125,7 @@
 
 - name: check to see if ansible tower is already up and running
   uri:
-    url: https://localhost/api/v2/ping/
+    url: https://{{ ansible_host }}/api/v2/ping/
     method: GET
     user: admin
     password: "{{admin_password}}"
@@ -143,6 +153,8 @@
   when:
     - autolicense is defined
     - autolicense|bool
+    - towerinstall is defined
+    - towerinstall|bool
 
 - name: Post license key
   uri:
@@ -157,6 +169,8 @@
   when:
     - autolicense is defined
     - autolicense|bool
+    - towerinstall is defined
+    - towerinstall|bool
 
 - name: INSTALL VSCODE AND XRDP
   include_tasks: gui.yml

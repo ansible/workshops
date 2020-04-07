@@ -1,0 +1,18 @@
+---
+- name: create DNS record
+  become: false
+  route53:
+    state: present
+    zone: "{{workshop_dns_zone}}"
+    record: "{{ record }}"
+    type: "{{ type }}"
+    overwrite: true
+    value: "{{ value }}"
+  delegate_to: localhost
+  register: route53_status
+
+- name: CERTBOT FOR TOWER
+  include_tasks: "tower.yml"
+  when:
+    - towerinstall|bool
+    - route53_status is not failed

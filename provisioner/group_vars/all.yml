@@ -15,6 +15,7 @@ valid_dns_type:
   - aws
   - none
 valid_workshop_types:
+  - advanced_tower
   - networking
   - f5
   - rhel

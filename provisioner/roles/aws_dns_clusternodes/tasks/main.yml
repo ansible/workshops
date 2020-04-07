@@ -1,0 +1,9 @@
+---
+- name: create DNS record
+  include_tasks: create.yml
+  when:
+  - not teardown
+
+- name: remove DNS record
+  include_tasks: teardown.yml
+  when: teardown|bool

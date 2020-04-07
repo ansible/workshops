@@ -1,0 +1,24 @@
+---
+- name: initialize dns_records
+  set_fact:
+    dns_records: []
+
+- name: create list of DNS records
+  set_fact:
+    dns_records: '[ "student{{ item }}-ansible" ] + [ "student{{ item }}-towernode2" ] + [ "student{{ item }}-towernode3" ] + {{ dns_records }}'
+  loop:
+    '{{ range (1, student_total | int + 1) | list }}'
+
+- name: delete DNS records for tower cluster
+  include_tasks: remove.yml
+  vars:
+    record: "{{ item }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: "A"
+  loop:
+    "{{ dns_records }}"
+  when: workshop_type == "advanced_tower"
+
+- name: Remove workshop local files
+  file:
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
+    state: absent

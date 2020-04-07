@@ -1,0 +1,20 @@
+---
+- name: get value for DNS record
+  route53:
+    zone: "{{workshop_dns_zone}}"
+    record: "{{ record }}"
+    type: "{{ type }}"
+    state: get
+  register: value
+
+- name: remove DNS record
+  become: false
+  route53:
+    state: absent
+    zone: "{{workshop_dns_zone}}"
+    record: "{{ record }}"
+    type: "{{ type }}"
+    overwrite: true
+    value: "{{ value.set.value }}"
+  when: value.set
+  delegate_to: localhost

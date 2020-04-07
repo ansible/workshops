@@ -1,0 +1,9 @@
+---
+- name: create private DNS zone 
+  include_tasks: create.yml
+  when:
+  - not teardown
+
+- name: remove private DNS zone
+  include_tasks: remove.yml
+  when: teardown|bool

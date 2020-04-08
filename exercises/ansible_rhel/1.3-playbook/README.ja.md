@@ -262,7 +262,7 @@ Playbookの次のパートでは、確かにApache Webserverが`node1`上で有�
   - name: copy web.html
     copy:
       src: ~/ansible-files/web.html
-      dest: /var/www/html/
+      dest: /var/www/html/index.html
 ```
 
 そろそろPlaybookの構文に慣れてきましたか？
@@ -319,7 +319,7 @@ Playbookをグループ`web`をさすように変更しましょう。
   - name: copy web.html
     copy:
       src: ~/ansible-files/web.html
-      dest: /var/www/html/
+      dest: /var/www/html/index.html
 ```
 
 Playbookを実行してみましょう:

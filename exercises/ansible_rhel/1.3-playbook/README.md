@@ -274,7 +274,7 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
   - name: copy web.html
     copy:
       src: web.html
-      dest: /var/www/html/
+      dest: /var/www/html/index.html
 ```
 
 You are getting used to the Playbook syntax, so what happens? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
@@ -329,7 +329,7 @@ Change the Playbook to point to the group "web":
   - name: copy web.html
     copy:
       src: web.html
-      dest: /var/www/html/
+      dest: /var/www/html/index.html
 ```
 
 Now run the Playbook:

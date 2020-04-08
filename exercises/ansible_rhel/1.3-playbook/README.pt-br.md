@@ -250,7 +250,7 @@ No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files
   - name: Copiar web.html
     copy:
       src: ~/ansible-files/web.html
-      dest: /var/www/html/
+      dest: /var/www/html/index.html
 ```
 
 Você está se acostumando com a sintaxe do Playbook, então o que acontece? A nova task usa o módulo `copy` e define as opções de origem e destino para a operação de cópia como parâmetros.
@@ -304,7 +304,7 @@ Altere o Playbook para apontar para o grupo "web":
   - name: Copiar web.html
     copy:
       src: ~/ansible-files/web.html
-      dest: /var/www/html/
+      dest: /var/www/html/index.html
 ```
 
 Agora, execute o playbook:

@@ -6,7 +6,7 @@
 * [Passo 3.2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook](#passo-32---criando-uma-estrutura-de-diretórios-e-um-arquivo-para-o-seu-playbook)
 * [Passo 3.3 - Rodando o Playbook](#passo-33---rodando-o-playbook)
 * [Passo 3.4 - Amplie seu playbook: Apache Start &amp; Enable](#passo-34---amplie-seu-playbook-apache-start--enable)
-* [Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html](#passo-35---ampliando-seu-playbook-criando-um-aquivo-indexhtml)
+* [Passo 3.5 - Ampliando seu Playbook: Criando um aquivo web.html](#passo-35---ampliando-seu-playbook-criando-um-aquivo-indexhtml)
 * [Passo 3.6 - Pratique: Aplicar a vários hosts](#passo-36---pratique-aplicar-a-vários-hosts)
 
 Embora os comandos Ansible ad hoc sejam úteis para operações simples, eles não são adequados para cenários complexos de gerenciamento ou orquestração de configurações. Para tais casos de uso, os playbooks são o caminho a percorrer.
@@ -55,7 +55,7 @@ Chega de teoria, é hora de criar seu primeiro Playbook. Neste laboratório, voc
 
   - 2ª Etapa: Enable/start o serviço httpd
 
-  - 3ª Etapa: Criar um aquivo index.html
+  - 3ª Etapa: Criar um aquivo web.html
 
 Este Playbook garante que o pacote que contém o servidor Apache esteja instalado no `node1`.
 
@@ -206,7 +206,7 @@ Observe a saída agora: algumas tasks são mostradas como "ok" em verde e uma é
 
   - Execute o Playbook uma segunda vez para se acostumar com a alteração na saída.
 
-## Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html
+## Passo 3.5 - Ampliando seu Playbook: Criando um aquivo web.html
 
 Verifique se as tasks foram executadas corretamente e o Apache está aceitando conexões: faça uma solicitação HTTP usando o módulo `uri` em um comando ad hoc a partir do nó de controle. Certifique-se de substituir **\<IP\>** pelo IP do nó do inventário.
 
@@ -218,9 +218,9 @@ Verifique se as tasks foram executadas corretamente e o Apache está aceitando c
 [student<X>@ansible ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
 ```
 
-Há muitas linhas vermelhas e um erro: Contanto que não haja pelo menos um arquivo `index.html` a ser consumido pelo Apache, ele emitirá um status feio "HTTP Error 403: Forbidden" e o Ansible relatará um erro.
+Há muitas linhas vermelhas e um erro: Contanto que não haja pelo menos um arquivo `web.html` a ser consumido pelo Apache, ele emitirá um status feio "HTTP Error 403: Forbidden" e o Ansible relatará um erro.
 
-Então, por que não usar o Ansible para implantar um simples arquivo `index.html` ? Crie o arquivo `~/ansible-files/index.html` no nó de controle:
+Então, por que não usar o Ansible para implantar um simples arquivo `web.html` ? Crie o arquivo `~/ansible-files/web.html` no nó de controle:
 
 ```html
 <body>
@@ -247,9 +247,9 @@ No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files
       name: httpd
       enabled: true
       state: started
-  - name: Copiar index.html
+  - name: Copiar web.html
     copy:
-      src: ~/ansible-files/index.html
+      src: ~/ansible-files/web.html
       dest: /var/www/html/
 ```
 
@@ -301,9 +301,9 @@ Altere o Playbook para apontar para o grupo "web":
       name: httpd
       enabled: true
       state: started
-  - name: Copiar index.html
+  - name: Copiar web.html
     copy:
-      src: ~/ansible-files/index.html
+      src: ~/ansible-files/web.html
       dest: /var/www/html/
 ```
 

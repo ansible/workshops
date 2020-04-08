@@ -273,7 +273,7 @@ Execute o comando `ansible node1 -m copy…​` de cima novamente. Nota:
 
        - Procure os exemplos de ajuda do módulo para saber como instalar um pacote na versão mais recente.
 
-       - Execute um comando Ansible ad hoc para instalar o pacote "screen" na versão mais recente no `node1`.
+       - Execute um comando Ansible ad hoc para instalar o pacote "squid" na versão mais recente no `node1`.
 
 > **Dica**
 >
@@ -286,7 +286,7 @@ Execute o comando `ansible node1 -m copy…​` de cima novamente. Nota:
 ```bash
 [student<X>@ansible ~]$ ansible-doc -l | grep -i yum
 [student<X>@ansible ~]$ ansible-doc yum
-[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=screen state=latest' -b
+[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=squid state=latest' -b
 ```
 
 ----

@@ -130,13 +130,11 @@ It is possible to run run ad hoc commands from Ansible Tower as well.
     </tr>
   </table>
 
-      - Click **LAUNCH**, and watch the output.
+  - Click **LAUNCH**, and watch the output.
 
 <hr>
 
 The simple **ping** module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
-
-
 
   <table>
     <tr>

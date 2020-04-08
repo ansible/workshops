@@ -200,4 +200,4 @@ Agora um pequeno desafio: execute um ad hoc para garantir que o pacote "tmux" es
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-2---exercícios-do-ansible-tower)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../../README.pt-br.md#seção-2---exercícios-do-ansible-tower)

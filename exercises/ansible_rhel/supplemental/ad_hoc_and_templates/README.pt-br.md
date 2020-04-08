@@ -134,4 +134,4 @@ Primeiro, execute o próprio Playbook e em seguida, execute curl no `node1` com 
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

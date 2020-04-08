@@ -80,9 +80,32 @@ What does this mean?
 
 ## Examine Machine Credentials
 
-Now we will configure the credentials to access our managed hosts from Tower. In the **RESOURCES** menu choose **Credentials**. Now:
+Now we will examine the credentials to access our managed hosts from Tower.  As part of the provisioning process for this Ansible Workshop the **Workshop Credential** has already been setup.
 
-## Run Ad Hoc Commands
+In the **RESOURCES** menu choose **Credentials**. Now click on the **Workshop Credential**.
+
+Note the following information:
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Credential Type</td>
+    <td><code>Machine</code>- Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host.</td>
+  </tr>
+  <tr>
+    <td>username</td>
+    <td><code>ec2-user</code> which matches our command-line Ansible inventory username for the other linux nodes</td>
+  </tr>
+  <tr>
+    <td>SSH PRIVATE KEY</td>
+    <td><code>ENCRYPTED</code> - take note that you can't actually examine the SSH private key once someone hands it over to Ansible Tower</td>
+  </tr>
+</table>
+
+## Run Ad Hoc commands
 
 It is possible to run run ad hoc commands from Ansible Tower as well.
 

@@ -6,7 +6,7 @@
 * [Step 1.3.2 - ディレクトリの構成とPlaybook用のファイルを作成しよう](#step-132---ディレクトリの構成とplaybook用のファイルを作成しよう)
 * [Step 1.3.3 - Playbookを実行してみる](#step-133---playbookを実行してみる)
 * [Step 1.3.4 - Playbookを拡張してみよう。Apacheの起動と有効化](#step-134---playbookを拡張してみようapacheの起動と有効化)
-* [Step 1.3.5 - Playbookを拡張してみよう。index.htmlの作成](#step-135---playbookを拡張してみようindexhtmlの作成)
+* [Step 1.3.5 - Playbookを拡張してみよう。web.htmlの作成](#step-135---playbookを拡張してみようindexhtmlの作成)
 * [Step 1.3.6 - 練習: 複数ホストへの適用](#step-136---練習-複数ホストへの適用)
 
 Ansibleのアドホックコマンドは単純なオペレーションの際にはとても役立ちますが、複雑な構成管理やオーケストレーションのシナリオには適していません。そのようなユースケースの時には、*playbooks*を用いてみると良いでしょう。
@@ -54,7 +54,7 @@ Playbookは**冪等性(べきとうせい。ある操作を1回行っても複�
 
   - Second step: httpd serviceを構成し、スタートさせます。
 
-  - Third step: index.html ファイルを作成します。
+  - Third step: web.html ファイルを作成します。
 
 このPlaybookは、Apache webserverなどのPackageが`node1`にインストールされているかを確認します。
 
@@ -212,7 +212,7 @@ Playbookの次のパートでは、確かにApache Webserverが`node1`上で有�
 
   - Playbookをもう一度実行して、出力結果が変わる様に慣れてみましょう。
 
-## Step 1.3.5 - Playbookを拡張してみよう。index.htmlの作成
+## Step 1.3.5 - Playbookを拡張してみよう。web.htmlの作成
 
 タスクが正しく実行され、Apacheが接続を受け付けているのかを確認してみましょう。
 管理ノードから、Ad-hocコマンドでAnsibleの`uri`モジュールを使ってHTTPリクエストを実施します。 **\<IP\>** を皆さんの環境のインベントリファイルのノード情報に置き換えて実行することに注意してください。
@@ -226,11 +226,11 @@ Playbookの次のパートでは、確かにApache Webserverが`node1`上で有�
 ```
 
 たくさんの赤い列とエラーが表示されたことでしょう。
-少なくとも、Apacheが提供すべき`index.html`ファイルがなければとても汚い"HTTP Error 403: Forbidden"ステータスが投げつけられるのはしょうがないことですし、Ansibleもエラーをレポートするはずです。
+少なくとも、Apacheが提供すべき`web.html`ファイルがなければとても汚い"HTTP Error 403: Forbidden"ステータスが投げつけられるのはしょうがないことですし、Ansibleもエラーをレポートするはずです。
 
 
-では、Ansibleを使って`index.html`をデプロイしてみましょう。
-管理ノード上で`vim`などを用いて以下の内容の`~/ansible-files/index.html`を作成します。
+では、Ansibleを使って`web.html`をデプロイしてみましょう。
+管理ノード上で`vim`などを用いて以下の内容の`~/ansible-files/web.html`を作成します。
 
 ```html
 <body>
@@ -259,9 +259,9 @@ Playbookの次のパートでは、確かにApache Webserverが`node1`上で有�
       name: httpd
       enabled: true
       state: started
-  - name: copy index.html
+  - name: copy web.html
     copy:
-      src: ~/ansible-files/index.html
+      src: ~/ansible-files/web.html
       dest: /var/www/html/
 ```
 
@@ -316,9 +316,9 @@ Playbookをグループ`web`をさすように変更しましょう。
       name: httpd
       enabled: true
       state: started
-  - name: copy index.html
+  - name: copy web.html
     copy:
-      src: ~/ansible-files/index.html
+      src: ~/ansible-files/web.html
       dest: /var/www/html/
 ```
 

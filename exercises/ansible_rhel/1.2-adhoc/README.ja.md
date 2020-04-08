@@ -301,7 +301,7 @@ Managed by Ansible
 
       - 最新バージョンのパッケージをインストールするためにはどうすれば良いのかをヘルプの例から探してみてください。
 
-  - Ansibleのアドホックコマンドを実行して、`node1`に`screen`の最新パッケージをインストールしてみてください。
+  - Ansibleのアドホックコマンドを実行して、`node1`に`squid`の最新パッケージをインストールしてみてください。
 
 > **Tip**
 >
@@ -314,7 +314,7 @@ Managed by Ansible
 ```bash
 [student<X>@ansible ~]$ ansible-doc -l | grep -i yum
 [student<X>@ansible ~]$ ansible-doc yum
-[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=screen state=latest' -b
+[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=squid state=latest' -b
 ```
 
 ----

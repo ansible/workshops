@@ -7,6 +7,14 @@
         - vcredist2012
       state: present
 
+  - name: Set strong cryptography on 64 bit .Net Framework (version 4 and above)
+    win_shell: >
+      Set-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319' -Name 'SchUseStrongCrypto' -Value '1' -Type DWord
+
+  - name: Set strong cryptography on 32 bit .Net Framework (version 4 and above)
+    win_shell: >
+      Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319' -Name 'SchUseStrongCrypto' -Value '1' -Type DWord
+
   - name: Ensure the required NuGet package provider version is installed
     win_shell: Find-PackageProvider -Name Nuget -ForceBootstrap -IncludeDependencies -Force
 

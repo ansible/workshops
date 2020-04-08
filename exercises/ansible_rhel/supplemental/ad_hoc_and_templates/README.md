@@ -1,6 +1,6 @@
 # Ad Hoc Commands, Templates and Variables
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
 * [Step 1 - Bonus Lab: Ad Hoc Commands](#step-1---bonus-lab-ad-hoc-commands)
 * [Step 2 - Bonus Lab: Templates and Variables](#step-2---bonus-lab-templates-and-variables)

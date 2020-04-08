@@ -49,6 +49,12 @@ If your experience is different in schedulung these workshops, please let us kno
  - [Exercise 2.6 - Workflows](2.6-workflows)
  - [Exercise 2.7 - Wrap up](2.7-wrap)
 
+## Supplemental Exercises
+
+There is also a series of exercises that go above and beyond our normal workshop content.  Please check out our supplemental exercises if you want more content to learn from.  
+
+ - [Supplemental Exercises](supplemental)
+
 ## Additional information
 
  - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)

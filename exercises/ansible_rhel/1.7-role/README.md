@@ -2,16 +2,29 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+# Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Step 7.1 - Understanding the Ansible Role Structure](#step-71---understanding-the-ansible-role-structure)
 * [Step 7.2 - Create a Basic Role Directory Structure](#step-72---create-a-basic-role-directory-structure)
 * [Step 7.3 - Create the Tasks File](#step-73---create-the-tasks-file)
 * [Step 7.4 - Create the handler](#step-74---create-the-handler)
-* [Step 7.5 - Create the index.html and vhost configuration file template](#step-75---create-the-indexhtml-and-vhost-configuration-file-template)
+* [Step 7.5 - Create the web.html and vhost configuration file template](#step-75---create-the-indexhtml-and-vhost-configuration-file-template)
 * [Step 7.6 - Test the role](#step-76---test-the-role)
+
+# Objective
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) already mentioned in exercise 3.
+Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html).  
+
+This exercise will cover:
+- the folder structure of an Ansible Role
+- how to build an Ansible Role
+- creating an Ansible Play to use and execute a role
+
+# Guide
 
 ## Step 7.1 - Understanding the Ansible Role Structure
 
@@ -133,7 +146,7 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
 
 - name: deliver html content
   copy:
-    src: index.html
+    src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}"
 ```
 <!-- {% endraw %} -->
@@ -178,7 +191,7 @@ The full `tasks/main.yml` file is:
 
 - name: deliver html content
   copy:
-    src: index.html
+    src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}"
 
 - name: template vhost file
@@ -207,14 +220,14 @@ Create the handler in the file `handlers/main.yml` to restart httpd when notifie
     state: restarted
 ```
 
-## Step 7.5 - Create the index.html and vhost configuration file template
+## Step 7.5 - Create the web.html and vhost configuration file template
 
 Create the HTML content that will be served by the webserver.
 
-  - Create an index.html file in the "src" directory of the role, `files`:
+  - Create an web.html file in the "src" directory of the role, `files`:
 
 ```bash
-[student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/index.html
+[student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
 ```
 
   - Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.

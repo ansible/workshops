@@ -2,10 +2,23 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+## Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Step 5.1 - Conditionals](#step-51---conditionals)
 * [Step 5.2 - Handlers](#step-52---handlers)
 * [Step 5.3 - Simple Loops](#step-53---simple-loops)
 * [Step 5.4 - Loops over hashes](#step-54---loops-over-hashes)
+
+# Objective
+
+Three foundational Ansible features are:  
+- [Conditionals](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
+- [Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
+- [Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+
+# Guide
 
 ## Step 5.1 - Conditionals
 
@@ -75,7 +88,7 @@ skipping: [node3]
 changed: [node2]
 ```
 
-## Step 5.2 - Handlers
+# Step 5.2 - Handlers
 
 Sometimes when a task does make a change to the system, an additional task or tasks may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
 

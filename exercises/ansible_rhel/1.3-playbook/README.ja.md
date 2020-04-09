@@ -2,6 +2,8 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+# Table of Contents
+
 * [Step 1.3.1 - Playbook Basics](#step-131---playbook-basics)
 * [Step 1.3.2 - ディレクトリの構成とPlaybook用のファイルを作成しよう](#step-132---ディレクトリの構成とplaybook用のファイルを作成しよう)
 * [Step 1.3.3 - Playbookを実行してみる](#step-133---playbookを実行してみる)

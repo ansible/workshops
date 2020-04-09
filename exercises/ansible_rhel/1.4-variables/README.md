@@ -2,6 +2,12 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+
+## Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
+* [Step 4.0 - Intro to Variables](#step-40---intro-to-variables)
 * [Step 4.1 - Create Variable Files](#step-41---create-variable-files)
 * [Step 4.2 - Create index.html Files](#step-42---create-indexhtml-files)
 * [Step 4.3 - Create the Playbook](#step-43---create-the-playbook)
@@ -10,13 +16,19 @@
 * [Step 4.6 - Challenge Lab: Facts](#step-46---challenge-lab-facts)
 * [Step 4.7 - Using Facts in Playbooks](#step-47---using-facts-in-playbooks)
 
-Previous exercises showed you the basics of Ansible Engine.  In the next few exercises, we are going
-to teach some more advanced Ansible skills that will add flexibility and power to your playbooks.
-
-Ansible exists to make tasks simple and repeatable.  We also know that not all systems are exactly alike and often require
-some slight change to the way an Ansible playbook is run.  Enter variables.
+# Objective
 
 Ansible supports variables to store values that can be used in Playbooks. Variables can be defined in a variety of places and have a clear precedence. Ansible substitutes the variable with its value when a task is executed.
+
+This exercise covers variables, specifically
+- How to use variable delimiters `{{` and `}}`
+- What `host_vars` and `group_vars` are and when to use them
+- How to use `ansible_facts`
+- How to use the `debug` module to print variables to the console window
+
+# Guide
+
+## Step 4.0 - Intro to Variables
 
 Variables are referenced in Playbooks by placing the variable name in double curly braces:
 
@@ -38,9 +50,10 @@ The recommended practice to provide variables in the inventory is to define them
 >
 > Host variables take precedence over group variables (more about precedence can be found in the [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
 
+
 ## Step 4.1 - Create Variable Files
 
-For understanding and practice let’s do a lab. Following up on the theme "Let’s build a webserver. Or two. Or even more…​", you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
+For understanding and practice let’s do a lab. Following up on the theme "Let’s build a web server. Or two. Or even more…​", you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
 On the ansible control host, as the `student<X>` user, create the directories to hold the variable definitions in `~/ansible-files/`:
 
@@ -70,7 +83,7 @@ What is this about?
 
   - For server `node2` this is overriden and the host is flagged as a production server.
 
-## Step 4.2 - Create index.html Files
+## Step 4.2 - Create web.html Files
 
 Now create two files in `~/ansible-files/files/`:
 
@@ -82,7 +95,7 @@ One called `prod_index.html` with the following content:
 </body>
 ```
 
-And the other called `dev_index.html` with the following content:
+And the other called `dev_web.html` with the following content:
 
 ```html
 <body>
@@ -92,7 +105,7 @@ And the other called `dev_index.html` with the following content:
 
 ## Step 4.3 - Create the Playbook
 
-Now you need a Playbook that copies the prod or dev `index.html` file - according to the "stage" variable.
+Now you need a Playbook that copies the prod or dev `web.html` file - according to the "stage" variable.
 
 Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` directory.
 
@@ -103,13 +116,13 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 <!-- {% raw %} -->
 ```yaml
 ---
-- name: Copy index.html
+- name: Copy web.html
   hosts: web
   become: yes
   tasks:
-  - name: copy index.html
+  - name: copy web.html
     copy:
-      src: "{{ stage }}_index.html"
+      src: "{{ stage }}_web.html"
       dest: /var/www/html/index.html
 ```
 <!-- {% endraw %} -->

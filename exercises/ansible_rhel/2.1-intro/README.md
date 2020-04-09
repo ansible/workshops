@@ -2,10 +2,26 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+# Table Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Why Ansible Tower?](#why-ansible-tower)
 * [Your Ansible Tower Lab Environment](#your-ansible-tower-lab-environment)
 * [Dashboard](#dashboard)
 * [Concepts](#concepts)
+
+# Objective
+
+This exercise will provide an Ansible Tower overview including going through features that are provided by the Red Hat Ansible Automation Platform.  This will cover Ansible Tower fundamentals such as:
+
+  - Job Templates
+  - Projects
+  - Inventories
+  - Credentials
+  - Inventories
+
+# Guide
 
 ## Why Ansible Tower?
 

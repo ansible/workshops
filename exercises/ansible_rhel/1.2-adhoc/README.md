@@ -2,6 +2,10 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+## Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Step 2.1 - Work with your Inventory](#step-21---work-with-your-inventory)
 * [Step 2.2 - The Ansible Configuration Files](#step-22---the-ansible-configuration-files)
 * [Step 2.3 - Ping a host](#step-23---ping-a-host)
@@ -10,7 +14,16 @@
 * [Step 2.6 - The copy module and permissions](#step-26---the-copy-module-and-permissions)
 * [Challenge Lab: Modules](#challenge-lab-modules)
 
+# Objective
+
 For our first exercise, we are going to run some ad-hoc commands to help you get a feel for how Ansible works.  Ansible Ad-Hoc commands enable you to perform tasks on remote nodes without having to write a playbook.  They are very useful when you simply need to do one or two things quickly and often, to many remote nodes.
+
+This exercise will cover
+- Locating and understanding the Ansible configuration file (`ansible.cfg`)
+- Locating and understanding an `ini` formatted inventory file
+- Executing ad hoc commands
+
+# Guide
 
 ## Step 2.1 - Work with your Inventory
 

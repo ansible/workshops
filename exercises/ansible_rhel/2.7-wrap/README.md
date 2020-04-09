@@ -2,7 +2,8 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-* [Final Challenge or Putting it all Together](#final-challenge-or-putting-it-all-together)
+* [Objective](#objective)
+* [Guide](#guide)
   * [Let’s set the stage](#lets-set-the-stage)
   * [The Git Repository](#the-git-repository)
   * [Prepare Inventory](#prepare-inventory)
@@ -12,13 +13,15 @@
   * [Solution](#solution)
 * [The End](#the-end)
 
-# Final Challenge or Putting it all Together
+# Objective
 
 This is the final challenge where we try to put most of what you have learned together.
 
+# Guide
+
 ## Let’s set the stage
 
-Your operations team and your application development team like what they see in Tower. To really use it in their environment they put together these requirements:
+Your operations team and your application development team likes what they see in Ansible Tower. To really use it in their environment they put together these requirements:
 
 - All webservers (`node1`, `node2` and `node3`) should go in one group
 

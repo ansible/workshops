@@ -2,6 +2,10 @@
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+Em nosso primeiro exercício, executaremos alguns comandos ad-hoc para ajudá-lo a entender como o Ansible funciona. Os comandos ad-hoc permitem executar tarefas em nós remotos sem precisar escrever um manual. Eles são muito úteis quando você simplesmente precisa fazer uma ou duas coisas de maneira rápida e frequente para muitos nós remotos.
+
+## Table of Contents
+
 * [Passo 2.1 - Trabalhe com seu inventário](#passo-21---trabalhe-com-seu-inventário)
 * [Passo 2.2 - Arquivos de configuração Ansible](#passo-22---arquivos-de-configuração-ansible)
 * [Passo 2.3 - Pingando um host](#passo-23---pingando-um-host)
@@ -10,7 +14,6 @@
 * [Passo 2.6 - O módulo de cópia e permissões](#passo-26---o-módulo-de-cópia-e-permissões)
 * [Laboratório de Desafios: Módulos](#laboratório-de-desafios-módulos)
 
-Em nosso primeiro exercício, executaremos alguns comandos ad-hoc para ajudá-lo a entender como o Ansible funciona. Os comandos ad-hoc permitem executar tarefas em nós remotos sem precisar escrever um manual. Eles são muito úteis quando você simplesmente precisa fazer uma ou duas coisas de maneira rápida e frequente para muitos nós remotos.
 
 ## Passo 2.1 - Trabalhe com seu inventário
 

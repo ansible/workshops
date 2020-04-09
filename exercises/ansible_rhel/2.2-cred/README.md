@@ -1,6 +1,9 @@
 # Exercise 2.2 - Inventories, credentials and ad hoc commands
 
+## Table of Contents
+
 * [Objective](#objective)
+* [Guide](#guide)
 * [Examine an Inventory](#examine-an-inventory)
 * [Machine Credentials](#machine-credentials)
 * [Configure Machine Credentials](#examine-machine-credentials)
@@ -14,6 +17,8 @@ Explore and understand the lab environment.  This exercise will cover
   - Ansible Tower [**Inventory**](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
   - Ansible Tower [**Credentials**](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html)
 - Running ad hoc commands via the Ansible Tower web UI
+
+# Guide
 
 ## Examine an Inventory
 

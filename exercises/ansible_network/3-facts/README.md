@@ -21,6 +21,8 @@ This exercise will cover:
 - Using the [ios_facts module](https://docs.ansible.com/ansible/latest/modules/ios_facts_module.html).
 - Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
+# Guide
+
 #### Step 1
 
 On the control host read the documentation about the `ios_facts` module and the `debug` module.

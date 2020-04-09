@@ -1,6 +1,6 @@
 # 演習 1.8 - ボーナスラボ  
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
 * [ステップ 1.8.1 - ボーナスラボ: アドホックコマンド](#ステップ-181---ボーナスラボ-アドホックコマンド)
 * [ステップ 1.8.2 - ボーナスラボ: テンプレートと変数](#ステップ-182---ボーナスラボ-テンプレートと変数)
@@ -132,4 +132,4 @@ Playbook `apache_config_tpl.yml` を以下の内容で作成します。
 ```
 
 ----
-[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
+[Ansible Engine ワークショップ表紙に戻る](../../README.ja.md#section-1---ansible-engineの演習)

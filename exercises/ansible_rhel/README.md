@@ -37,7 +37,6 @@ If your experience is different in schedulung these workshops, please let us kno
  - [Exercise 1.5 - Conditionals, Handlers and Loops](1.5-handlers)
  - [Exercise 1.6 - Templates](1.6-templates)
  - [Exercise 1.7 - Roles](1.7-role)
- - [Exercise 1.8 - Bonus Labs](1.8-bonus)
 
 ## Section 2 - Ansible Tower Exercises
 
@@ -48,6 +47,12 @@ If your experience is different in schedulung these workshops, please let us kno
  - [Exercise 2.5 - Role based access control](2.5-rbac)
  - [Exercise 2.6 - Workflows](2.6-workflows)
  - [Exercise 2.7 - Wrap up](2.7-wrap)
+
+## Supplemental Exercises
+
+There is also a series of exercises that go above and beyond our normal workshop content.  Please check out our supplemental exercises if you want more content to learn from.  
+
+ - [Supplemental Exercises](supplemental)
 
 ## Additional information
 

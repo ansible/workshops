@@ -37,12 +37,11 @@ Ansibleのベストプラクティスもあわせてご覧ください:
  - [演習 1.5 - 条件式、ハンドラ、ループを使う](1.5-handlers/README.ja.md)
  - [演習 1.6 - テンプレートを使う](1.6-templates/README.ja.md)
  - [演習 1.7 - Roles](1.7-role/README.ja.md)
- - [演習 1.8 - ボーナスラボ](1.8-bonus/README.ja.md)
 
 ## Section 2 - Ansible Towerの演習
 
  - [演習 2.1 - Tower の紹介](2.1-intro/README.ja.md)
- - [演習 2.2 - インベントリー、認証情報、アドホックコマンド](2.2-cred/README.ja.md)
+ - 演習 2.2 - インベントリー、認証情報、アドホックコマンド - not translated
  - [演習 2.3 - プロジェクトとジョブテンプレート](2.3-projects/README.ja.md)
  - [演習 2.4 - Survey 機能](2.4-surveys/README.ja.md)
  - [演習 2.5 - ロールベースのアクセス制御](2.5-rbac/README.ja.md)

@@ -2,6 +2,12 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+最初の演習では、Ansible がどのように動作するかを学習するために アドホック・コマンド を実行します。
+Ansible Ad-hocコマンドは、プレイブックを作成しなくてもリモートノードへのタスク実行を可能にします。
+1つか2つ程度のタスクをたくさんのリモートノードに実行する必要がある時などにとても便利なコマンドです。
+
+## Table of Contents
+
 * [Step 1.2.1 - インベントリを操作してみよう](#step-121---インベントリを操作してみよう)
 * [Step 1.2.2 - Ansibleの設定ファイルについて](#step-122---ansibleの設定ファイルについて)
 * [Step 1.2.3 - Ping a host](#step-123---ping-a-host)
@@ -9,10 +15,6 @@
 * [Step 1.2.5 - コマンドモジュールを使ってみよう。](#step-125---コマンドモジュールを使ってみよう)
 * [Step 1.2.6 - Copyモジュールとパーミッション](#step-126---copyモジュールとパーミッション)
 * [チャレンジラボ: Modules](#チャレンジラボ-modules)
-
-最初の演習では、Ansible がどのように動作するかを学習するために アドホック・コマンド を実行します。
-Ansible Ad-hocコマンドは、プレイブックを作成しなくてもリモートノードへのタスク実行を可能にします。
-1つか2つ程度のタスクをたくさんのリモートノードに実行する必要がある時などにとても便利なコマンドです。
 
 ## Step 1.2.1 - インベントリを操作してみよう
 

@@ -42,7 +42,7 @@ Use the `cat` command to view the contents of the `ansible.cfg` file.
 [defaults]
 connection = smart
 timeout = 60
-inventory = /home/student1/networking-workshop/lab_inventory/hosts
+inventory = /home/student1/lab_inventory/hosts
 host_key_checking = False
 private_key_file = /home/student1/.ssh/aws-private.pem
 [student1@ansible networking-workshop]$
@@ -60,7 +60,7 @@ The scope of a `play` within a `playbook` is limited to the groups of hosts decl
 
 In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
 
-`[student1@ansible networking-workshop]$ cat lab_inventory/hosts`
+`[student1@ansible networking-workshop]$ cat ~/lab_inventory/hosts`
 
 The output will look as follows with student2 being the respective student workbench:
 ```

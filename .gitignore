@@ -19,7 +19,7 @@ ansible/
 *.retry
 demos/servicenow/private.yml
 *.html
-!exercises/ansible_rhel/1.3-playbook/index.html
+!exercises/ansible_rhel/1.3-playbook/web.html
 demos/servicenow/closed_loop_incident_mgmt/input_vars.yaml
 demos/servicenow/closed_loop_incident_mgmt/snow_demo2/snow_vars.yaml
 provisioner/roles/ansible_security.ids_config/

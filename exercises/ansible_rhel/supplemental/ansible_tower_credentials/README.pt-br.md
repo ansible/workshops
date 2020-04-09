@@ -1,6 +1,6 @@
 # Exercício 2.2 - Inventários, Credenciais e comandos ad hoc
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
 * [Criando um inventário](#criando-um-inventário)
 * [Credenciais de máquina](#credenciais-de-máquina)
@@ -200,4 +200,4 @@ Agora um pequeno desafio: execute um ad hoc para garantir que o pacote "tmux" es
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-2---exercícios-do-ansible-tower)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../../README.pt-br.md#seção-2---exercícios-do-ansible-tower)

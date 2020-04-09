@@ -47,7 +47,7 @@ ansible 2.6.2
 [defaults]
 connection = smart
 timeout = 60
-inventory = /home/student1/networking-workshop/lab_inventory/hosts
+inventory = /home/student1/lab_inventory/hosts
 host_key_checking = False
 private_key_file = /home/student1/.ssh/aws-private.pem
 [student1@ansible networking-workshop]$
@@ -65,7 +65,7 @@ Note: `ansible.cfg` には以下のパラメーターが含まれています:
 
 この演習では **ini** 形式で書かれたファイルを使います. `cat` コマンドでインベントリーの中身を確認します:
 
-`[student1@ansible networking-workshop]$ cat lab_inventory/hosts`
+`[student1@ansible networking-workshop]$ cat ~/lab_inventory/hosts`
 
 以下が student2 の出力例です:
 ```

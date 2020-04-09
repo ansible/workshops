@@ -79,7 +79,7 @@ timeout = 60
 deprecation_warnings = False
 host_key_checking = False
 retry_files_enabled = False
-inventory = /home/student1/networking-workshop/lab_inventory/hosts
+inventory = /home/student1/lab_inventory/hosts
 [persistent_connection]
 connect_timeout = 60
 command_timeout = 60
@@ -96,7 +96,7 @@ command_timeout = 60
 この演習では **ini** 形式で記述されたファイルベースのインベントリーを利用します。`cat` コマンドを利用して演習環境のインベントリーを確認してみます。
 
 ```bash
-[student1@ansible ~]$ cat ~/networking-workshop/lab_inventory/hosts
+[student1@ansible ~]$ cat ~/lab_inventory/hosts
 ```
 
 ```

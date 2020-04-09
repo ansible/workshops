@@ -48,17 +48,3 @@
         type: core
       when:
         - ansible_network_os == "ios" or ansible_network_os == "eos"
-
-- name: populate ansible tower for network automation workshop
-  hosts: control_nodes
-  become: true
-  gather_facts: false
-
-  tasks:
-    - name: run populate_tower role
-      include_role:
-        name: populate_tower
-        tasks_from: "{{workshop_type}}"
-      when:
-        - towerinstall is defined
-        - towerinstall|bool

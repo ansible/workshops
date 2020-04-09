@@ -49,9 +49,6 @@ ansible ansible_host=11.22.33.44
 >
 > In your inventory the IP addresses will be different.
 
-Note the names for the nodes and the IP addresses, we will use them to fill the inventory in Tower now:
-
-
 ## Machine Credentials
 
 One of the great features of Ansible Tower is to make credentials usable to users without making them visible. To allow Tower to execute jobs on remote hosts, you must configure authentication credentials.

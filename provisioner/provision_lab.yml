@@ -209,6 +209,7 @@
       when:
         - towerinstall is defined
         - towerinstall|bool
+        - populatetower
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

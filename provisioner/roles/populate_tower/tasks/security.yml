@@ -169,7 +169,7 @@
     playbook: "idps_log.yml"
     state: "present"
     limit: "snort"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
@@ -209,7 +209,7 @@
     project: "Workshop Project"
     playbook: "rollback.yml"
     state: "present"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -223,7 +223,7 @@
     playbook: "snort_rule.yml"
     state: "present"
     limit: "snort"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     survey_enabled: true
     survey_spec: "{{ lookup('template', 'security_survey_ids_rule.json') }}"
@@ -240,7 +240,7 @@
     playbook: "ddos_attack_simulation.yml"
     state: "present"
     limit: "attacker"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
@@ -255,7 +255,7 @@
     playbook: "ddos_stop_simulation.yml"
     state: "present"
     limit: "attacker"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"

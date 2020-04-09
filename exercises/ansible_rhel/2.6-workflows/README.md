@@ -2,7 +2,7 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-# Table Contents
+## Table Contents
 
 * [Objective](#objective)
 * [Guide](#guide)
@@ -278,5 +278,8 @@ $ curl http://localhost:8080/coolapp/
 > You might have to wait a couple of minutes until Tomcat answers requests.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.5-rbac) - [Next Exercise](../2.7-wrap)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

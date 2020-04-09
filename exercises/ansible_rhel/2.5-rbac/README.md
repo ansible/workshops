@@ -2,7 +2,7 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-# Table Contents
+## Table Contents
 
 * [Objective](#objective)
 * [Guide](#guide)
@@ -153,5 +153,8 @@ Effectively you provided the power to execute automation to another user without
 This capability is one of the main strengths of Ansible Tower\!
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.4-surveys) - [Next Exercise](../2.6-workflows)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

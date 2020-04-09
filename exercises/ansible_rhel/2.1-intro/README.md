@@ -2,7 +2,7 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-# Table Contents
+## Table Contents
 
 * [Objective](#objective)
 * [Guide](#guide)
@@ -95,5 +95,8 @@ A job template is a definition and set of parameters for running an Ansible job.
 A job is basically an instance of Tower launching an Ansible playbook against an inventory of hosts.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../1.7-role) - [Next Exercise](../2.2-cred)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

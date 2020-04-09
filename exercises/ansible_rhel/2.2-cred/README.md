@@ -219,5 +219,8 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 > The yellow output of the command indicates Ansible has actually done something (here it needed to install the package). If you run the ad hoc command a second time, the output will be green and inform you that the package was already installed. So yellow in Ansible doesn’t mean "be careful"…​ ;-).
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.1-intro) - [Next Exercise](../2.3-cred)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

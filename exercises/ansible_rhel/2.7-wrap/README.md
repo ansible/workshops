@@ -2,6 +2,8 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
+## Table of Contents
+
 * [Objective](#objective)
 * [Guide](#guide)
   * [Let’s set the stage](#lets-set-the-stage)
@@ -195,5 +197,8 @@ You have done all the required configuration steps in the lab already. If unsure
 Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible Tower as much as we enjoyed creating the labs.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.6-workflows)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

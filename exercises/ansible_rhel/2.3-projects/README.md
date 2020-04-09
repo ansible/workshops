@@ -2,7 +2,7 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-# Table Contents
+## Table Contents
 
 * [Objective](#objective)
 * [Guide](#guide)
@@ -76,7 +76,7 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 
 ## Create the Project
 
-  - Go to **RESOURCES → Projects** in the side menu view click the ![plus](images/green_plus.png) button. Fill in the form:
+  - Go to **RESOURCES → Projects** in the side menu view click the green **+**  button. Fill in the form:
 
   <table>
     <tr>
@@ -268,5 +268,8 @@ Here is a list of tasks:
 > The Job didn’t change anything because Apache was already installed in the latest version.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

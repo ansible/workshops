@@ -122,7 +122,7 @@ Next, append the `task` to above playbook. This task will use the `bigip_virtual
 {% raw %}
 ``` yaml
 
-    
+
   - name: ATTACH iRules TO VIRTUAL SERVER
     bigip_virtual_server:
       provider:

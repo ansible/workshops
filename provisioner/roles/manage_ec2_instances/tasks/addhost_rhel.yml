@@ -1,6 +1,6 @@
 ---
 - name: grab facts for node1 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -8,7 +8,7 @@
   register: node1_node_facts
 
 - name: grab facts for node2 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -16,7 +16,7 @@
   register: node2_node_facts
 
 - name: grab facts for node3 node
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -43,6 +43,12 @@
   template:
     src: instances.txt.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate student etchosts
+  template:
+    src: etchosts_rhel.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
   with_sequence: count="{{ student_total }}"
 
 - name: Generate instructor inventory

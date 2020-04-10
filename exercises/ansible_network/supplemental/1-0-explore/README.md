@@ -102,7 +102,7 @@ rtr2
 rtr4
 
 [hosts]
-host1 ansible_host=35.183.19.221 ansible_user=ec2-user private_ip=172.17.179.150
+node1 ansible_host=35.183.19.221 ansible_user=ec2-user private_ip=172.17.179.150
 
 [control]
 ansible ansible_host=35.183.137.160 ansible_user=ec2-user private_ip=172.16.45.102

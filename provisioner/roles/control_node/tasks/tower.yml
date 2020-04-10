@@ -70,8 +70,12 @@
     status_code:
       - 200
 
+- name: Install virtualenv via pip
+  pip:
+    name: virtualenv
+    executable: pip3
+
 - name: install ansible development branch to venv
-  become: true
   pip:
     name:
       - git+https://github.com/ansible/ansible.git@devel
@@ -79,6 +83,7 @@
       - paramiko
       - ncclient
     virtualenv: /opt/my-envs/ansible_dev
+    virtualenv_command: /usr/local/bin/virtualenv
 
 - name: add student user
   tower_user:

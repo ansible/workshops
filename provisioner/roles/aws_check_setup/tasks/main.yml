@@ -36,7 +36,7 @@
     - create_login_page|bool
 
 - name: FIND AZ ZONE FOR REGION {{ec2_region}}
-  aws_az_facts:
+  aws_az_info:
     region: "{{ec2_region}}"
   register: az_names
 
@@ -44,7 +44,7 @@
   set_fact: ec2_az={{az_names.availability_zones[0].zone_name}}
 
 - name: grab information about AWS user
-  aws_caller_facts:
+  aws_caller_info:
     region: "{{ ec2_region }}"
   register: whoami
 

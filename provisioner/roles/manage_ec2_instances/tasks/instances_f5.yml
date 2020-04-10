@@ -1,7 +1,7 @@
 ---
 ############## f5 node ##############
 - name: find ami for f5 (F5 MODE)
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info.f5node.owners }}"
     filters:
@@ -50,43 +50,43 @@
     - "{{ f5_output.instance_ids }}"
   when: f5_output.instance_ids is not none
 
-- name: find ami for host1 & host2 (F5 MODE)
-  ec2_ami_facts:
+- name: find ami for node1 & node2 (F5 MODE)
+  ec2_ami_info:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info.rhel7.owners }}"
+    owners: "{{ ec2_info.rhel8.owners }}"
     filters:
-      name: "{{ ec2_info.rhel7.filter }}"
-      architecture: "{{ ec2_info.rhel7.architecture }}"
+      name: "{{ ec2_info.rhel8.filter }}"
+      architecture: "{{ ec2_info.rhel8.architecture }}"
   register: amis
 
-- name: save ami for host1 & host2 (F5 MODE)
+- name: save ami for node1 & node2 (F5 MODE)
   set_fact:
-    host1_ami: >
+    node1_ami: >
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
-- name: Create EC2 instances for host1 node in VPC (F5 MODE)
+- name: Create EC2 instances for node1 node in VPC (F5 MODE)
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info.rhel7.size }}"
-    image: "{{ host1_ami.image_id }}"
+    instance_type: "{{ ec2_info.rhel8.size }}"
+    image: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_host1: "{{ec2_name_prefix}}-host1"
+      Workshop_node1: "{{ec2_name_prefix}}-node1"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-  register: host1_output
+  register: node1_output
 
-- name: Ensure tags are present for host1 node (F5 MODE)
+- name: Ensure tags are present for node1 node (F5 MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{item.1.id}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-host1"
-      Workshop_host1: "{{ec2_name_prefix}}-host1"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node1"
+      Workshop_node1: "{{ec2_name_prefix}}-node1"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
@@ -94,36 +94,36 @@
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
-      short_name: host1
+      short_name: node1
       username: "{{ec2_info[rhel].username}}"
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ host1_output.instances }}"
-  when: host1_output.instance_ids is not none
+    - "{{ node1_output.instances }}"
+  when: node1_output.instance_ids is not none
 
-- name: Create EC2 instances for host2 node in VPC (F5 MODE)
+- name: Create EC2 instances for node2 node in VPC (F5 MODE)
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info.rhel7.size }}"
-    image: "{{ host1_ami.image_id }}"
+    instance_type: "{{ ec2_info.rhel8.size }}"
+    image: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_host2: "{{ec2_name_prefix}}-host2"
+      Workshop_node2: "{{ec2_name_prefix}}-node2"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-  register: host2_output
+  register: node2_output
 
-- name: Ensure tags are present for host2 node (F5 MODE)
+- name: Ensure tags are present for node2 node (F5 MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{item.1.id}}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-host2"
-      Workshop_host2: "{{ec2_name_prefix}}-host2"
+      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node2"
+      Workshop_node2: "{{ec2_name_prefix}}-node2"
       Workshop: "{{ec2_name_prefix}}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
@@ -131,12 +131,12 @@
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
       Students: "{{student_total}}"
-      short_name: host2
+      short_name: node2
       username: "{{ec2_info[rhel].username}}"
       launch_time: "{{item.1.launch_time}}"
   with_indexed_items:
-    - "{{ host2_output.instances }}"
-  when: host2_output.instance_ids is not none
+    - "{{ node2_output.instances }}"
+  when: node2_output.instance_ids is not none
 
 ############## eni check ##############
 

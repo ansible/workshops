@@ -15,14 +15,14 @@ ansible_port={{ ssh_port }}
 {{host.tags.Student}}-f5 ansible_host={{ host.public_ip_address }} ansible_user=admin
 {% endif %}
 {% endfor %}
-{% for host in host1_node_facts.instances %}
+{% for host in node1_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-host1 ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{{host.tags.Student}}-node1 ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
-{% for host in host2_node_facts.instances %}
+{% for host in node2_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{host.tags.Student}}-host2 ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{{host.tags.Student}}-node2 ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
 {% endfor %}

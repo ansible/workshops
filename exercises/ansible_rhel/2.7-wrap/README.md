@@ -2,13 +2,28 @@
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
-# Final Challenge or Putting it all Together
+## Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
+  * [Let’s set the stage](#lets-set-the-stage)
+  * [The Git Repository](#the-git-repository)
+  * [Prepare Inventory](#prepare-inventory)
+  * [Create the Template](#create-the-template)
+  * [Check the results](#check-the-results)
+  * [Add Survey](#add-survey)
+  * [Solution](#solution)
+* [The End](#the-end)
+
+# Objective
 
 This is the final challenge where we try to put most of what you have learned together.
 
+# Guide
+
 ## Let’s set the stage
 
-Your operations team and your application development team like what they see in Tower. To really use it in their environment they put together these requirements:
+Your operations team and your application development team likes what they see in Ansible Tower. To really use it in their environment they put together these requirements:
 
 - All webservers (`node1`, `node2` and `node3`) should go in one group
 
@@ -101,7 +116,7 @@ This time we use the power of Ansible to check the results: execute curl to get 
 
 > **Tip**
 >
-> We are using the `ansible_host` variable in the URL to access every node in the inventory group. 
+> We are using the `ansible_host` variable in the URL to access every node in the inventory group.
 
 <!-- {% raw %} -->
 ```bash
@@ -144,25 +159,25 @@ Check the results again from your Tower control host. Since we got a warning las
 ```bash
 [student<X>ansible ~]$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
 node3 | SUCCESS => {
-    "accept_ranges": "bytes", 
+    "accept_ranges": "bytes",
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": false, 
-    "connection": "close", 
+    },
+    "changed": false,
+    "connection": "close",
     "content": "<body>\n<h1>This is a development webserver, have fun!</h1>\nwerners dev content\n</body>\n",                                                                                         
-    "content_length": "87", 
-    "content_type": "text/html; charset=UTF-8", 
-    "cookies": {}, 
-    "cookies_string": "", 
-    "date": "Tue, 29 Oct 2019 11:14:24 GMT", 
-    "elapsed": 0, 
-    "etag": "\"57-5960ab74fc401\"", 
-    "last_modified": "Tue, 29 Oct 2019 11:14:12 GMT", 
-    "msg": "OK (87 bytes)", 
-    "redirected": false, 
-    "server": "Apache/2.4.6 (Red Hat Enterprise Linux)", 
-    "status": 200, 
+    "content_length": "87",
+    "content_type": "text/html; charset=UTF-8",
+    "cookies": {},
+    "cookies_string": "",
+    "date": "Tue, 29 Oct 2019 11:14:24 GMT",
+    "elapsed": 0,
+    "etag": "\"57-5960ab74fc401\"",
+    "last_modified": "Tue, 29 Oct 2019 11:14:12 GMT",
+    "msg": "OK (87 bytes)",
+    "redirected": false,
+    "server": "Apache/2.4.6 (Red Hat Enterprise Linux)",
+    "status": 200,
     "url": "http://18.205.236.208"
 }
 [...]
@@ -182,5 +197,8 @@ You have done all the required configuration steps in the lab already. If unsure
 Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible Tower as much as we enjoyed creating the labs.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.6-workflows)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

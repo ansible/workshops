@@ -142,7 +142,7 @@ Enter the following play definition into `as3.yml`:
   gather_facts: false
 
   vars:
-    pool_members: "{{ groups['webservers'] }}"
+    pool_members: "{{ groups['web'] }}"
 ```
 <!-- {% endraw %} -->
 
@@ -156,11 +156,11 @@ This section from above...
 <!-- {% raw %} -->
 ```
   vars:
-    pool_members: "{{ groups['webservers'] }}"
+    pool_members: "{{ groups['web'] }}"
 ```
 <!-- {% endraw %} -->
 
-...sets a variable named `pool_members`, to the webservers group.  There are two webservers on the workbench, `host1` and `host2`.  This means that the `pool_members` variable refers to a list of two webservers.
+...sets a variable named `pool_members`, to the web group.  There are two web on the workbench, `node1` and `node2`.  This means that the `pool_members` variable refers to a list of two web.
 
 ## Step 5
 

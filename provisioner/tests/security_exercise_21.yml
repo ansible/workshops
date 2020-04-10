@@ -53,7 +53,7 @@
           register: result
           until: result.rc == 0
 
-    - name: Step 4, Step 5 - Create and execute triage_log playbook
+    - name: Step 4, Step 5 - Create and execute enrich_log playbook
       block:
         - name: Get Check Point MGMT server name, step 1/2 - login, get SID
           uri:
@@ -87,10 +87,10 @@
           set_fact:
             cp_mngmt_server_name: "{{ mgmt_data.json.objects | selectattr('type', 'equalto', 'CpmiHostCkp')|map(attribute='name')|join(',') }}"
 
-        - name: deploy triage_log_sources.yml template to control nodes
+        - name: deploy enrich_log_sources.yml template to control nodes
           template:
-            src: ../../exercises/ansible_security/2.1-suspicious/playbooks/triage_log_sources.yml.j2
-            dest: triage_log_sources.yml
+            src: ../../exercises/ansible_security/2.1-enrich/playbooks/enrich_log_sources.yml.j2
+            dest: enrich_log_sources.yml
 
-        - name: execute triage_log_sources.yml on control nodes
-          command: /usr/bin/ansible-playbook triage_log_sources.yml
+        - name: execute enrich_log_sources.yml on control nodes
+          command: /usr/bin/ansible-playbook enrich_log_sources.yml

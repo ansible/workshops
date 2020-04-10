@@ -2,6 +2,12 @@ pipeline {
 
     agent { label 'jenkins-jnlp-agent' }
 
+    options {
+        timestamps()
+        timeout(time: 3, unit: 'HOURS')
+        buildDiscarder(logRotator(daysToKeepStr: '10'))
+    }
+
     stages {
 
         stage('Build Information') {
@@ -42,6 +48,7 @@ Build Tag: ${env.BUILD_TAG}"""
 tower_installer_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-${TOWER_VERSION}-1.tar.gz
 admin_password: ${ADMIN_PASSWORD}
 ansible_workshops_refspec: ${ANSIBLE_WORKSHOPS_REFSPEC}
+ansible_workshops_version: ${env.BRANCH_NAME}
 ec2_name_prefix: tqe-{{ workshop_type }}-tower${DOTLESS_TOWER_VERSION}-${env.BRANCH_NAME}-${env.BUILD_ID}
 EOF
 """

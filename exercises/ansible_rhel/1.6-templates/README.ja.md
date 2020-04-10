@@ -1,10 +1,13 @@
 # 演習 1.6 - テンプレートを使う
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [ステップ 1 -  playbook 内でテンプレートを使用する](#ステップ-1----playbook-内でテンプレートを使用する)
+* [ステップ 2 - チャレンジラボ](#step-2---チャレンジラボ)
 
 Ansibleは、管理対象ホストにファイルをコピーする際、固定の内容ではなく変数に値を入力しながらコピーを行う様な事も可能です。例えば対象ホストユニークなホスト名などを含んだファイルのコピーを行うことが可能です。これを実現するのが Jinja2 テンプレートです。 Jinja2 は、Python で最も使用されているテンプレートエンジンの1つです。 (<http://jinja.pocoo.org/>)
 
-## ステップ 1.6.1 -  playbook 内でテンプレートを使用する
+## ステップ 1 -  playbook 内でテンプレートを使用する
 
 利用は簡単です。まず、ファイル作成を行うための変数を含んだテンプレートファイルを作成し、テンプレートモジュールを使って対象ホストに転送するだけです。
 
@@ -50,14 +53,14 @@ deployed on {{ ansible_architecture }} architecture.
 
 Ansibleが変数をシステムから収集したファクト情報で変数を置き換えた上で、ファイルをコピーしていることがわかります。
 
-## Step 1.6.2 - チャレンジラボ
+## ステップ 2 - チャレンジラボ
 
 テンプレートに1行追加して、管理対象ノードの現在のカーネルを表示してください。  
 
   - 「Ansible ファクト」の章で学んだコマンドを使用して、カーネルバージョンを含むファクトを見つけます。  
 
 > **ヒント**
-> 
+>
 > モジュールは `setup` ですね？ `grep` を使って探してみましょう。
 
   - 見つかったらその変数を表示するよう、テンプレートファイルに追記しましょう
@@ -65,7 +68,7 @@ Ansibleが変数をシステムから収集したファクト情報で変数を�
   - 再度 playbook を実行します
 
   - 再度 node1 にログインし、表示をチェックしてみてください
-  
+
 
 > **答えは以下の通り**
 
@@ -97,4 +100,3 @@ running kernel {{ ansible_kernel }}.
 ----
 
 [Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
-

@@ -1,10 +1,21 @@
 # Exercise 2.6 - Workflows
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-# Ansible Tower Workflows
+## Table Contents
 
-Workflows were introduced as a major new feature in Ansible Tower 3.1. The basic idea of a workflow is to link multiple Job Templates together. They may or may not share inventory, Playbooks or even permissions. The links can be conditional:
+* [Objective](#objective)
+* [Guide](#guide)
+* [Ansible Tower Workflows](#ansible-tower-workflows)
+  * [Lab Scenario](#lab-scenario)
+  * [Set up Projects](#set-up-projects)
+  * [Set up Job Templates](#set-up-job-templates)
+  * [Set up the Workflow](#set-up-the-workflow)
+  * [And Action](#and-action)
+
+# Objective
+
+The basic idea of a workflow is to link multiple Job Templates together. They may or may not share inventory, Playbooks or even permissions. The links can be conditional:
 
   - if job template A succeeds, job template B is automatically executed afterwards
 
@@ -12,13 +23,14 @@ Workflows were introduced as a major new feature in Ansible Tower 3.1. The basic
 
 And the workflows are not even limited to Job Templates, but can also include project or inventory updates.
 
-This enables new applications for Tower: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory.
+This enables new applications for Ansible Tower: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory.
 
 In this lab you’ll learn how to setup a workflow.
 
+# Guide
 ## Lab Scenario
 
-You have two departements in your organization:
+You have two departments in your organization:
 
   - The web operations team that is developing Playbooks in their own Git repository.
 
@@ -41,7 +53,7 @@ To make things somewhat easier for you, everything needed already exists in a Gi
 First you have to set up the Git repo as Projects like you normally would. You have done this before, try to do this on your own. Detailed instructions can be found below.
 
 > **Warning**
-> 
+>
 > **If you are still logged in as user **wweb**, log out of and log in as user **admin** again.**
 
 - Create the project for web operations:
@@ -61,38 +73,57 @@ First you have to set up the Git repo as Projects like you normally would. You h
   - The **SCM BRANCH/TAG/COMMIT** is **webdev**
 
 > **Warning**
-> 
+>
 > **Solution Below**
 
 - Create the project for web operations. In the **Projects** view click the green plus button and fill in:
-  
+
     - **NAME:** Webops Git Repo
-  
+
     - **ORGANIZATION:** Default
-  
+
     - **SCM TYPE:** Git
-  
+
     - **SCM URL:** https://github.com/ansible/workshop-examples.git
 
     - **SCM BRANCH/TAG/COMMIT:** webops
-  
+
     - **SCM UPDATE OPTIONS:** Tick all three boxes.
 
 - Click **SAVE**
 
 - Create the project for the application developers. In the **Projects** view click the green plus button and fill in:
-  
-    - **NAME:** Webdev Git Repo
-  
-    - **ORGANIZATION:** Default
-  
-    - **SCM TYPE:** Git
-  
-    - **SCM URL:** https://github.com/ansible/workshop-examples.git
-  
-    - **SCM BRANCH/TAG/COMMIT:** webdev
 
-    - **SCM UPDATE OPTIONS:** Tick all three boxes.
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>NAME</td>
+    <td>Webdev Git Repo</td>
+  </tr>
+  <tr>
+    <td>ORGANIZATION</td>
+    <td>Default</td>
+  </tr>
+  <tr>
+    <td>SCM TYPE</td>
+    <td>Git</td>
+  </tr>  
+  <tr>
+    <td>SCM URL</td>
+    <td><code>https://github.com/ansible/workshop-examples.git</code></td>
+  </tr>
+  <tr>
+    <td>SCM BRANCH/TAG/COMMIT</td>
+    <td><code>webdev</code></td>
+  </tr>
+  <tr>
+    <td>SCM UPDATE OPTIONS</td>
+    <td>Tick all three boxes.</td>
+  </tr>             
+</table>
 
 - Click **SAVE**
 
@@ -101,53 +132,95 @@ First you have to set up the Git repo as Projects like you normally would. You h
 Now you have to create Job Templates like you would for "normal" Jobs.
 
   - Go to the **Templates** view, click the green plus button and choose **Job Template**:
-    
-      - **NAME:** Tomcat Deploy
-    
-      - **JOB TYPE:** Run
-    
-      - **INVENTORY:** Workshop Inventory
-    
-      - **PROJECT:** Webops Git Repo
-    
-      - **PLAYBOOK:** `rhel/webops/tomcat.yml`
-    
-      - **CREDENTIAL:** Workshop Credentials
-    
-      - **OPTIONS:** Enable privilege escalation
+
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>NAME</td>
+      <td>Tomcat Deploy</td>
+    </tr>
+    <tr>
+      <td>JOB TYPE</td>
+      <td>Run</td>
+    </tr>
+    <tr>
+      <td>INVENTORY</td>
+      <td>Workshop Inventory</td>
+    </tr>  
+    <tr>
+      <td>PROJECT</td>
+      <td>Webops Git Repo</td>
+    </tr>
+    <tr>
+      <td>PLAYBOOK</td>
+      <td><code>rhel/webops/tomcat.yml</code></td>
+    </tr>
+    <tr>
+      <td>CREDENTIAL</td>
+      <td>Workshop Credentials</td>
+    </tr>
+    <tr>
+      <td>OPTIONS</td>
+      <td>Enable privilege escalation</td>
+    </tr>                     
+  </table>  
 
   - Click **SAVE**
 
   - Go to the **Templates** view, click the green plus button and choose **Job Template**:
-    
-      - **NAME:** Web App Deploy
-    
-      - **JOB TYPE:** Run
-    
-      - **INVENTORY:** Workshop Inventory
-    
-      - **PROJECT:** Webdev Git Repo
-    
-      - **PLAYBOOK:** `rhel/webdev/create_jsp.yml`
-    
-      - **CREDENTIALS:** Workshop Credentials
-    
-      - **OPTIONS:** Enable privilege escalation
+
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>NAME</td>
+      <td>Web App Deploy</td>
+    </tr>
+    <tr>
+      <td>JOB TYPE</td>
+      <td>Run</td>
+    </tr>
+    <tr>
+      <td>INVENTORY</td>
+      <td>Workshop Inventory</td>
+    </tr>  
+    <tr>
+      <td>PROJECT</td>
+      <td>Webops Git Repo</td>
+    </tr>
+    <tr>
+      <td>PLAYBOOK</td>
+      <td><code>rhel/webdev/create_jsp.yml</code></td>
+    </tr>
+    <tr>
+      <td>CREDENTIAL</td>
+      <td>Workshop Credentials</td>
+    </tr>
+    <tr>
+      <td>OPTIONS</td>
+      <td>Enable privilege escalation</td>
+    </tr>                     
+  </table>  
 
   - Click **SAVE**
 
 > **Tip**
-> 
-> If you want to know what the Playbooks look like, check out the Github URL and switch to the appropriate branches.
+>
+> If you want to know what the Ansible Playbooks look like, check out the Github URL and switch to the appropriate branches.
 
 ## Set up the Workflow
 
 And now you finally set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Job Template** and **Workflow Template** when adding a template so this is finally making sense.
 
   - Go to the **Templates** view and click the the green plus button. This time choose **Workflow Template**
-    
+
       - **NAME:** Deploy Webapp Server
-    
+
       - **ORGANIZATION:** Default
 
   - Click **SAVE**
@@ -161,7 +234,7 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
   - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x**, a green **+** and a blue **chain**-symbol appear.
 
 > **Tip**
-> 
+>
 > Using the red "x" allows you to remove the node, the green plus lets you add the next node and the chain-symbol links to another node .
 
   - Click the green **+** sign
@@ -171,7 +244,7 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
   - Leave **Type** set to **On Success**
 
 > **Tip**
-> 
+>
 > The type allows for more complex workflows. You could lay out different execution paths for successful and for failed Playbook runs.
 
   - Click **SELECT**
@@ -181,7 +254,7 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
   - Click **SAVE** in the **Workflow Template** view
 
 > **Tip**
-> 
+>
 > The **Workflow Visualizer** has options for setting up more advanced workflows, please refer to the documentation.
 
 ## And Action
@@ -201,9 +274,12 @@ $ curl http://localhost:8080/coolapp/
 ```
 
 > **Tip**
-> 
+>
 > You might have to wait a couple of minutes until Tomcat answers requests.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.5-rbac) - [Next Exercise](../2.7-wrap)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

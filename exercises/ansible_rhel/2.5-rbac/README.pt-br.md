@@ -1,10 +1,15 @@
 # Exercicio 2.5 - Controle de acesso baseado em role
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+
+* [Usuários Ansible Tower](#usuários-ansible-tower)
+* [Times no Ansible Tower](#times-no-ansible-tower)
+* [Concedendo Permissões](#concedendo-permissões)
+* [Permissão de testes](#permissão-de-testes)
 
 Você já aprendeu como o Tower separa credenciais de usuários. Outra vantagem do Ansible Tower é o gerenciamento de direitos de usuários e grupos.
 
-## Usuários Ansible Tower 
+## Usuários Ansible Tower
 
 Existem três tipos de usuários:
 
@@ -21,24 +26,24 @@ Vamos criar um usuário:
 - Click no botão verde.
 
 - Preencha os valores para o novo usuário:
-  
+
     - **FIRST NAME:** Werner
-  
+
     - **LAST NAME:** Web
-  
+
     - **EMAIL:** wweb@example.com
-  
+
     - **USERNAME:** wweb
-  
+
     - **USER TYPE:** Normal User
-  
+
     - **PASSWORD:** ansible
-  
+
     - confirme a senha
 
 - Click em **SAVE**
 
-## Times no Ansible Tower 
+## Times no Ansible Tower
 
 Uma equipe é uma subdivisão de uma organização com usuários, projetos, credenciais e permissões associadas. As equipes fornecem um meio para implementar esquemas de controle de acesso baseados em role e delegar responsabilidades nas organizações. Por exemplo, as permissões podem ser concedidas a uma equipe inteira, e não a cada usuário da equipe.
 
@@ -69,13 +74,13 @@ Adicione a permissão para usar o template:
 - Na visualização Permissions do time `Web Content`, clique no botão verde para adicionar permissões.
 
 - Uma nova janela é aberta. Você pode optar por definir permissões para vários recursos.
-  
+
     - Selecione o tipo de recurso **JOB TEMPLATE**
-  
+
     - Escolha o template `Create index.html` marcando a caixa ao lado.
 
 - A segunda parte da janela é aberta, aqui você atribui roles ao recurso selecionado.
-  
+
     - Escolha **EXECUTE**
 
 - Click em **SAVE**
@@ -99,11 +104,11 @@ $ curl http://22.33.44.55
 Lembre-se do que acabou de fazer: você ativou um usuário restrito para executar um Playbook!
 
   - Sem ter acesso às credenciais
-  
+
   - Sem poder alterar o próprio Playbook
 
   - Mas com a capacidade de alterar variáveis, você predefiniu\!
-  
+
 Efetivamente, você forneceu o poder de executar a automação para outro usuário sem distribuir suas credenciais ou dar ao usuário a capacidade de alterar o código de automação. E, ao mesmo tempo, o usuário ainda pode modificar as coisas com base nas surveys que você criou.
 
 Esse recurso é um dos principais pontos fortes da Ansible Tower\!

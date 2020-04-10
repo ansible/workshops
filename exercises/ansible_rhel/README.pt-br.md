@@ -1,6 +1,6 @@
 # Workshop Ansible - Ansible para Red Hat Enterprise Linux
 
-**Leia em outras linguagens**: ![uk](../../images/uk.png) [English](README),  ![japan](../../images/japan.png) [日本語](README.ja.md).
+**Leia em outras linguagens**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
 O Ansible é um mecanismo de automação de TI simples e poderoso para implantação de aplicativos, gerenciamento de configurações e orquestração que você pode aprender rapidamente.
 
@@ -28,7 +28,7 @@ Dito isto, os exercícios em si devem levar cerca de 4-5 horas. A primeira seç�
 
 Se a sua experiência for diferente na programação desses workshops, informe-nos e preencha um problema.
 
-## Seção 1 - Exercícios do Ansible Engine 
+## Seção 1 - Exercícios do Ansible Engine
 
  - [Exercício 1.1 - Verifique os pré-requisitos](1.1-setup/README.pt-br.md)
  - [Exercício 1.2 - Executando comandos ad-hoc](1.2-adhoc/README.pt-br.md)
@@ -42,7 +42,7 @@ Se a sua experiência for diferente na programação desses workshops, informe-n
 ## Seção 2 - Exercícios do Ansible Tower
 
  - [Exercício 2.1 - Introdução ao Tower](2.1-intro/README.pt-br.md)
- - [Exercício 2.2 - Inventários, credenciais e comandos ad hoc](2.2-cred/README.pt-br.md)
+ - Exercício 2.2 - Inventários, credenciais e comandos ad hoc - not translated
  - [Exercício 2.3 - Projects & Job templates](2.3-projects/README.pt-br.md)
  - [Exercício 2.4 - Surveys](2.4-surveys/README.pt-br.md)
  - [Exercício 2.5 - Controle de acesso baseado em role](2.5-rbac/README.pt-br.md)

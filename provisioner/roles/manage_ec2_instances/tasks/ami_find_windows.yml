@@ -1,6 +1,6 @@
 ---
 # - name: WINDOWS | DomainController | find ami
-#   ec2_ami_facts:
+#   ec2_ami_info:
 #     region: "{{ ec2_region }}"
 #     filters:
 #       name: "{{ ec2_info['skylight_windows_dc']['filter'] }}"
@@ -13,10 +13,12 @@
 
 
 - name: WINDOWS | GitLab | find ami
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
+    owners: "{{ ec2_info['skylight_rhel8_gitlab'].owners }}"
     filters:
-      name: "{{ ec2_info['skylight_rhel7_gitlab']['filter'] }}"
+      name: "{{ ec2_info['skylight_rhel8_gitlab']['filter'] }}"
+      architecture: "{{ ec2_info['skylight_rhel8_gitlab'].architecture }}"
   register: amis
 
 - name: WINDOWS | GitLab | save ami
@@ -26,7 +28,7 @@
 
 
 # - name: WINDOWS | Docs | find ami
-#   ec2_ami_facts:
+#   ec2_ami_info:
 #     region: "{{ ec2_region }}"
 #     filters:
 #       name: "{{ ec2_info['skylight_rhel7_docs']['filter'] }}"
@@ -39,7 +41,7 @@
 
 
 - name: WINDOWS | Instance | find ami
-  ec2_ami_facts:
+  ec2_ami_info:
     region: "{{ ec2_region }}"
     filters:
       name: "{{ ec2_info['skylight_windows_instance']['filter'] }}"
@@ -52,7 +54,7 @@
 
 
 # - name: WINDOWS | Workstation | find ami
-#   ec2_ami_facts:
+#   ec2_ami_info:
 #     region: "{{ ec2_region }}"
 #     filters:
 #       name: "{{ ec2_info['skylight_windows_ws']['filter'] }}"

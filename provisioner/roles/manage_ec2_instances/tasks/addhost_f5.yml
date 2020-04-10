@@ -1,6 +1,6 @@
 ---
 - name: grab facts for f5 node (F5 MODE)
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -21,15 +21,15 @@
       - f5
   with_items: "{{ f5_node_facts.instances }}"
 
-- name: grab facts for host1 node (F5 MODE)
+- name: grab facts for node1 node (F5 MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_host1": "{{ec2_name_prefix}}-host1"
-  register: host1_node_facts
+      "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
+  register: node1_node_facts
 
-- name: add host1 to groups (NETWORKING MODE)
+- name: add node1 to groups (F5 MODE)
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
@@ -42,17 +42,17 @@
     groups:
       - lab_hosts
       - managed_nodes
-  with_items: "{{ host1_node_facts.instances }}"
+  with_items: "{{ node1_node_facts.instances }}"
 
-- name: grab facts for host2 node (F5 MODE)
+- name: grab facts for node2 node (F5 MODE)
   ec2_instance_facts:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_host2": "{{ec2_name_prefix}}-host2"
-  register: host2_node_facts
+      "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
+  register: node2_node_facts
 
-- name: add host2 to groups (NETWORKING MODE)
+- name: add node2 to groups (F5 MODE)
   add_host:
     name: "{{ item.tags.Name }}"
     short_name: "{{ item.tags.short_name }}"
@@ -65,7 +65,7 @@
     groups:
       - lab_hosts
       - managed_nodes
-  with_items: "{{ host2_node_facts.instances }}"
+  with_items: "{{ node2_node_facts.instances }}"
 
 - name: Generate student inventories
   template:

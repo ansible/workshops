@@ -1,10 +1,20 @@
 # Exercise 1.2 - Ad-hoc コマンドを実行しよう
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
 最初の演習では、Ansible がどのように動作するかを学習するために アドホック・コマンド を実行します。
 Ansible Ad-hocコマンドは、プレイブックを作成しなくてもリモートノードへのタスク実行を可能にします。
 1つか2つ程度のタスクをたくさんのリモートノードに実行する必要がある時などにとても便利なコマンドです。
+
+## Table of Contents
+
+* [Step 1.2.1 - インベントリを操作してみよう](#step-121---インベントリを操作してみよう)
+* [Step 1.2.2 - Ansibleの設定ファイルについて](#step-122---ansibleの設定ファイルについて)
+* [Step 1.2.3 - Ping a host](#step-123---ping-a-host)
+* [Step 1.2.4 - モジュールのリストとヘルプを表示しよう](#step-124---モジュールのリストとヘルプを表示しよう)
+* [Step 1.2.5 - コマンドモジュールを使ってみよう。](#step-125---コマンドモジュールを使ってみよう)
+* [Step 1.2.6 - Copyモジュールとパーミッション](#step-126---copyモジュールとパーミッション)
+* [チャレンジラボ: Modules](#チャレンジラボ-modules)
 
 ## Step 1.2.1 - インベントリを操作してみよう
 
@@ -293,7 +303,7 @@ Managed by Ansible
 
       - 最新バージョンのパッケージをインストールするためにはどうすれば良いのかをヘルプの例から探してみてください。
 
-  - Ansibleのアドホックコマンドを実行して、`node1`に`screen`の最新パッケージをインストールしてみてください。
+  - Ansibleのアドホックコマンドを実行して、`node1`に`squid`の最新パッケージをインストールしてみてください。
 
 > **Tip**
 >
@@ -306,7 +316,7 @@ Managed by Ansible
 ```bash
 [student<X>@ansible ~]$ ansible-doc -l | grep -i yum
 [student<X>@ansible ~]$ ansible-doc yum
-[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=screen state=latest' -b
+[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=squid state=latest' -b
 ```
 
 ----

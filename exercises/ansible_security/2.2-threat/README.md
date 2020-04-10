@@ -4,53 +4,43 @@
 
 Threat detection and response capabilities require from a security operator typically to deploy many tools to secure an enterprise IT. Due to missing processes and a lot of manual work this is a serious challenge to proper IT security operations!
 
-In this exercise, we imagine that we are a security operator in charge of an enterprise firewall in a larger organization. The firewall product used here is Check Point Next Generation Firewall.
+In this exercise, we imagine that we are a security operator in charge of an enterprise firewall in a larger organization. The firewall product used here is Check Point Next Generation Firewall. We will put special focus on interaction between various teams in this exercise - and how those interaction can be streamlined with [Ansible Tower](https://www.ansible.com/products/tower).
 
 ## Step 2.2 - Preparations
 
-For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise in section 1. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
+For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also in the Check Point SmartConsole management interface the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise in section 1. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
-Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar`
+## Step 2.3 - Explore the Tower setup
 
-Also, in the Check Point SmartConsole interface, go to **SECURITY POLICIES**. You will see two entries there. On the upper one, in the column action, click on **Accept**. This open a menu: click on **Drop** there, changing the policy to drop such packets. In the menu above, click on **Install Policy**, that opens a window, click the **Publish & Install** button there. Another window opens, click on the **Install** button there. This way we have effectively changed the whitelist to a blacklist entry.
+There are two more steps needed for preparation - but in contrast to the previous exercise, we will use Tower to do them. Your Tower installation is already populated with users, inventory, credentials and so on, and can be used directly. Let's have a look at it: Tower is accessed via browser. You need the URL to your personal Tower instance. It is be similar to the URL for your VS Code online editor, but without the `-code`. You can also find it on your workshop page:
+
+![Tower URL example](images/tower_url.png)
 
 > **Note**
 >
-> We could have done this change via a playbook. But we want to keep the amount of playbooks in the prep phase to as few as possible.
+> This URL and login information are just an example. Your Tower URL and login information will be different.
 
-Next we again need suspicious traffic - an attack. Again we have a playbook which simulates a simple access every five seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `ddos_attack_simulation.yml` in your home directory with the following content:
+Open your browser and enter the link to your Tower instance. Log-in with your student ID and the password provided to you. You are greeted with a dashboard and a navigation bar on the left side.
 
-<!-- {% raw %} -->
-```yml
----
-- name: start attack
-  hosts: attacker
-  become: yes
-  gather_facts: no
+![Tower dashboard](images/tower_dashboard.png)
 
-  tasks:
-    - name: simulate attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/ddos_simulation"
-```
-<!-- {% endraw %} -->
+On the left side, click on **Templates**. A list of all already configured job templates are shown. A job template is a definition and set of parameters for running an Ansible job. It defines the inventory, credentials, playbook, limits, become rights and so on which are needed to execute the automation. In this list, find the entry called **Blacklist attacker**, and click on the rocket symbol right to it:
 
-Execute the playbook:
+![Blacklist attacker](images/tower_blacklist.png)
 
-```bash
-[student<X>@ansible ansible-files]$ ansible-playbook ddos_attack_simulation.yml
-```
+This click will bring you to the job overview, showing live data from the automation job execution and a summary of all the parameters which are relevant to the job. With this automation execution we have changed the existing policy in the Firewall to drop packages between the two machines.
 
-Addtionally we will use the role to modify IDS rules from the previous Snort exercise. If you missed that, install them via: `ansible-galaxy install ansible_security.ids_rule`
+Now all we need is the attack. Unlike the last exercise we will not write and execute a playbook, but again use Tower to start the attack. In the navigation bar on the left side, click on **Templates**. In the list of templates, find and execute the one called **Start DDOS attack simulation** by clicking on the rocket icon right to it. This will ensure that every few seconds an attack is simulated.
 
 The stage is set now. Read on to learn what this use case is about.
 
-## Step 2.3 - See the attack
+## Step 2.4 - See the attack
 
-You are a security operator in charge of an enterprise firewall in a larger cooperaiton. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab. A new window opens, offering you two choices: **Audit Logs** and **Logs**. Click on **logs** to get to the actual view of the logs:
+You are a security operator in charge of an enterprise firewall in a larger cooperaiton. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab. A new window opens, offering you two choices: **Audit Logs** and **Logs**. Click on **Logs** to get to the actual view of the logs:
 
 ![Check Point logs view, violation logs](images/smartconsole_violation_logs.png)
 
-As you can see, a series of messages with the description **http Traffic Dropped** there, repeating again and again over time.
+You can see, a series of messages with the description **http Traffic Dropped** there, repeating again and again over time.
 
 > **Note**
 >
@@ -60,80 +50,35 @@ As you can see, a series of messages with the description **http Traffic Dropped
 
 Seeing these violations we should start an investigation to assess if they are the outcome of an attack. The best way to investigate is to correlate the firewall logs with logs generated by other security solutions deployed in our network - like Snort - in a log management tool like QRadar.
 
-## Step 2.4 - Create and run a playbook to forward logs to QRadar
+## Step 2.5 - Forward logs to QRadar
 
 However, as mentioned in many enterprise environments security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. In our scenario, the typical way for a security operator to escalate the issue and start our investigation would be to contact the security analysis team, manually sending them the firewall logs we used to identify the rule violation - and then wait for the reply. A slow, manual process.
 
-But, as shown with the last exercise, we can automate this process with Ansible! The can be pre-approved automation workflows in form of playbooks, provided to us by the security analysis team. With such an Ansible playbook, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
+But, as shown with the last exercise, we can automate this process with Ansible! There can be pre-approved automation workflows in form of playbooks, provided via a central automation tool like Ansible Tower. With such a set of Ansible playbooks, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
 
-Let's write a playbook to enable log forwarding from Check Point to QRadar and create a log source in QRadar. We can partially re-use the main playbook from the last exercise where we already connected Check Point with QRadar.
+Let's try this out. Log out of your Tower instance, and log in as the firewall user: `opsfirewall`. For the simplicity of the demo, the password is the same as for your student user. Once you have logged in and can see the dashboard, navigate to **Templates**. As you see, as the firewall administrator we can only see and execute few job templates:
 
-In your VS Code online editor, create the file `threat_cp_log.yml` with the following content:
+- **Blacklist attacker**
+- **Send firewall logs to QRadar**
+- **Whitelist attacker**
 
-<!-- {% raw %} -->
-```yaml
----
-- name: Configure Check Point to send logs to QRadar
-  hosts: checkpoint
+Since we are the domain owners of the firewall, we can modify, delete and execute those job templates. Let's execute the template **Send firewall logs to QRadar** by clicking on the little rocket icon next to it. The execution of the job takes a few seconds. From the perspective of the firewall operator we have now reconfigured the firewall to send logs to the central SIEM.
 
-  tasks: 
-    - include_role:
-        name: ansible_security.log_manager
-        tasks_from: forward_logs_to_syslog
-      vars:
-        syslog_server: "{{ hostvars['qradar']['private_ip'] }}"
-        checkpoint_server_name: "YOURSERVERNAME"
-        firewall_provider: checkpoint
+However, the SIEM still needs to accept logs and sort them into proper streams, called log sources in QRadar. Let's switch our perspective to the one of the security analyst. We get a call that there is something weird in the firewall and that logs are already sent into our direction. Log out of Tower and log back in as the user `analyst`. Again, check out the **Templates**: again we have a different list of automation templates at our hand. we can only see and use those which are relevant to our job. Let's accept the firewall logs into our SIEM: Execute the job template **Accept firewall logs in QRadar**.
 
-- name: Add Check Point log source to QRadar
-  hosts: qradar
-  collections:
-    - ibm.qradar
+After a few seconds the playbook run through, and the new security configuration is done. In contrast to the previous exercise, none of these steps required the operator or the analyst to access the command line, write playbooks or even install roles or collections. The playbooks were pre-approved and in fact accessed from within a Git repository. Tower took care of the execution and the downloads of any role or collections. This substantially simplifies automation operations.
 
-  tasks:
-    - name: Add Check Point remote logging to QRadar
-      qradar_log_source_management:
-        name: "Check Point source - {{ hostvars['checkpoint']['private_ip'] }}"
-        type_name: "Check Point FireWall-1"
-        state: present
-        description: "Check Point log source"
-        identifier: "{{ hostvars['checkpoint']['private_ip'] }}"
+If you click on **Jobs** on the right side you will also see that you can always access the previously run jobs. This enables the teams to better track what was executed when, and what where the results. This enables transparency and clear understanding of the automation that was run.
 
-    - name: deploy the new log sources
-      qradar_deploy:
-        type: INCREMENTAL
-      failed_when: false
-```
-<!-- {% endraw %} -->
+## Step 2.6 - Verify new configuration
+
+Let's quickly verify that the QRadar logs are now showing up. Log into the QRadar web UI. Click on **Log Activity** and verify that events are making it to QRadar from Check Point:
+
+![QRadar Log Activity showing logs from Check Point](images/qradar_checkpoint_logs.png)
 
 > **Note**
 >
-> Remeber to replace the value `YOURSERVERNAME` with your actual server name as mentioned in the last exercise.
-
-Execute the playbook:
-
-```bash
-[student<X>@ansible ~]$ ansible-playbook threat_cp_log.yml
-```
-
-In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
-
-## Step 2.5 - Verify new configuration
-
-Let's quickly verify the new configuration, like we did in the last exercise. We start with Check Point: In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH as the user `admin` to log into the Check Point management server and issue the following `ls` comand. If you do not remember your Check Point server IP address, check it out in your inventory file.
-
-```bash
-[student<X>@ansible ~]$ ssh admin@11.33.44.55
-[Expert@gw-77f3f6:0]# ls -l /opt/CPrt-R80/log_exporter/targets
-total 0
-drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
-```
-
-Leave the Check Point management server again with `exit`
-
-Imagine we are now the security analysts in charge of QRadar. As such, without any further doing, we suddenly get additional logs in QRadar. Verfify this by logging into the QRadar web UI. Click on **Log Activity** and verify that events are making it to QRadar from Check Point:
-
-![QRadar Log Activity showing logs from Check Point](images/qradar_checkpoint_logs.png)
+> If you do not see any logs coming in, click on the drop down menu next to **View** and select **Real Time (streaming)**.
 
 If the logs get drowned in QRadar's own logs, create a filter. Or click on unwanted log lines in the column **Log Source**, and pick **Filter on Log Source is not ...** to create filters on the fly to filter out unwanted traffic.
 
@@ -141,9 +86,9 @@ Let's verify that QRadar also properly shows the log source. In the QRadar UI, c
 
 ![QRadar Log Sources](images/qradar_log_sources.png)
 
-## Step 2.6 - Offenses
+## Step 2.7 - Offenses
 
-Next we want to manage Offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All preconfigured offense rules for this workshop are shown:
+Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All preconfigured offense rules for this workshop are shown:
 
 ![QRadar Preconfigured Rules](images/qradar_preconfigured_rules.png)
 
@@ -155,49 +100,25 @@ From the wizard you can see that we only use very checks (second box in the wind
 
 To decide if this violation is a false positive, we need to make sure that other sources are not performing an attack which we might not see in the firewall. To do that we need to access the logs generated by the IDS and decide to check for a specific attack pattern that could be compatible with the violation on the firewall.
 
-## Step 2.7 - Add Snort rule
+## Step 2.8 - Add Snort rule
 
-In a typical situation, accessing IDS logs would again require another interaction with the security operators in charge of the IDS. Asking for a new rule, specific for a single investigation, could be even more complicated. But we as a security analyst usually in charge of QRadar can launch Ansible playbooks to achieve the same goal in seconds.
+Let's add a new IDS rule. Again we will do this via a pre-approved playbook already in Tower. Log out of Tower, and log in as user `opsids` - the IDPS operator in charge of the IDPS. Navigate to **Templates**. There is a pre-created playbook available to add a rule to Snort. Execute it by clicking on the small rocket icon. But as you see, instead of bringing you to the jobs output, you will be faced with a survey:
 
-First, we run a playbook to configure Snort with a new signature. The signature here is specific to our attack - in real life you might identify the signature by your extended analysis, or in best case together with the team responsible for the application in question.
+![Ansible Tower survey](images/tower_snort_survey.png)
 
-In your VS Code online editor, create the file `threat_snort_rule.yml` to add a new rule to Snort:
+The playbook cannot run without further content - we have to provide the actual rule which needs to be deployed! Of course, with Snort, the rule necessary to be added depends on the actual use case and thus might be different each time. Thus this job template has a ***survey*** enabled, a method in Ansible Tower to query input before execution.
 
-<!-- {% raw %} -->
-```yaml
----
-- name: Add ids signature for ddos
-  hosts: ids
-  become: yes
+In this case we query the proper signature, the right Snort rule for this specific attack. Enter the following string into the field:
 
-  vars:
-    ids_provider: snort
-    protocol: tcp
-    source_port: any
-    source_ip: any
-    dest_port: any
-    dest_ip: any
-
-  tasks:
-    - name: Add snort ddos attack rule
-      include_role:
-        name: "ansible_security.ids_rule"
-      vars:
-        ids_rule: 'alert {{protocol}} {{source_ip}} {{source_port}} -> {{dest_ip}} {{dest_port}}  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_simulation"; classtype:successful-dos; sid:99000010; priority:1; rev:1;)'
-        ids_rules_file: '/etc/snort/rules/local.rules'
-        ids_rule_state: present
 ```
-<!-- {% endraw %} -->
-
-As you can see we add a new snort rule matching on the parameters of the attack. In our example we again check for URI content.
-
-Run the playbook:
-
-```bash
-[student<X>@ansible ~]$ ansible-playbook threat_snort_rule.yml
+alert tcp any any -> any any (msg:"Attempted DDoS Attack"; uricontent:"/ddos_simulation"; classtype:successful-dos; sid:99000010; priority:1; rev:1;)
 ```
 
-Quickly verify the new rule on the Snort instance. From the terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2user`:
+As you can see we add a new snort rule matching on the parameters of the attack. In our example we again check for URI content. After you added the string, click on **Next** and then on **Launch**.
+
+The playbook runs through, takes care of installing the new rule, restarting the service and so on.
+
+Quickly verify the new rule on the Snort instance. From a terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2user`:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
@@ -206,95 +127,48 @@ Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_simulation"; classtype:successful-dos; sid:99000010; priority:1; rev:1;)
 ```
 
-Leave the Snort server via the command `exit`
+> **Note**
+>
+> Also, verify that the snort service is running via `systemctl status snort`. If there is a fatal error, chances are the rule you entered had an error. Remove the rules line from the file `/etc/snort/rules/local.rules` and run the playbook again.
 
-Also we have to make sure that logs from Snort make it to QRadar, so let's reuse parts of the playbook from the last exercise. Create a file called `threat_snort_log.yml`:
+After you have verified the rule, leave the Snort server via the command `exit`.
 
-<!-- {% raw %} -->
-```yaml
----
-- name: Configure snort for external logging
-  hosts: snort
-  become: true
-  vars:
-    ids_provider: "snort"
-    ids_config_provider: "snort"
-    ids_config_remote_log: true
-    ids_config_remote_log_destination: "{{ hostvars['qradar']['private_ip'] }}"
-    ids_config_remote_log_procotol: udp
-    ids_install_normalize_logs: false
+Next we also want the IDPS to send logs to QRadar in case the rule has a hit. We could just execute a corresponding job template as the user `opsids`. But this time we want to take a different path: instead of the IDPS operator executing the prepared playbook, we want to show how Ansible Tower can delegate such execution rights to others without letting them take control of the domain.
 
-  tasks:
-    - name: import ids_config role
-      include_role:
-        name: "ansible_security.ids_config"
+Imagine that the analysts team and the IDPS operator team have agreed upon a pre-defined playbook to forward logs from the IDPS to QRadar. Since the IDPS team was involved in creating this playbook and agreed to it, they provide it to the analyst team to execute it whenever they need it, without any further involvement.
 
-- name: Add Snort log source to QRadar
-  hosts: qradar
-  collections:
-    - ibm.qradar
+Log out of Tower, and log back in as user `analyst`. In the **Templates** section there are multiple playbooks:
 
-  tasks:
-    - name: Add snort remote logging to QRadar
-      qradar_log_source_management:
-        name: "Snort rsyslog source - {{ hostvars['snort']['private_ip'] }}"
-        type_name: "Snort Open Source IDS"
-        state: present
-        description: "Snort rsyslog source"
-        identifier: "{{ hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') }}"
-```
-<!-- {% endraw %} -->
+- **Accept firewall logs in QRadar**
+- **Accept IDPS logs in QRadar**
+- **Roll back all changes**
+- **Send IDPS logs to QRadar**
 
-Run the playbook:
+Only the two **Accept...** job templates belong the the analyst, and can be modified or for example deleted as inidcated by the little garbage can icon. The job template **Send IDPS logs to QRadar** is provided by the IDPS team solely for execution rights, and thus cannot be modified or removed - only executed. That way the right to execute automation is provided across team boundaries - while the right to modify or change it stays with the team which has the domain knowledge, here the IDPS team. Also note the credentials: accessing the IDPS requires SSH keys. They are referenced in the job template, but the user analyst cannot look up their content in the **Credentials** section of Tower. This way a separation of right to execute the automation from the right to access the target machine is ensured.
 
-```bash
-[student<X>@ansible ~]$ ansible-playbook threat_snort_log.yml
-```
+Execute now both job templates **Accept IDPS logs in QRadar** and **Send IDPS logs to QRadar** by pressing the little rocket icon next to the job templates.
 
-In QRadar, access the log activity tab. Validate, that in QRadar **no** events from the IDS are generated. That way you know for sure that the anomaly you see is only caused by the single IP you have in the firewall. No other traffic is causing the anomaly, you can safely assume that the anomaly you see is a false positive.
+## Step 2.9 - Whitelist IP
+
+Let's quickly have a look at our SIEM QRadar: access the log activity tab. Validate, that in QRadar **no** events from the IDS are generated. That way you know for sure that the anomaly you see is only caused by the single IP you have in the firewall. No other traffic is causing the anomaly, you can safely assume that the anomaly you see is a false positive.
 
 > **Note**
 >
 > In reality you might perform additional steps analyzing the machines behavior to exclude the possibility that it has been compromised.
 
-## Step 2.8 - Whitelist IP
-
 We have determined that the host is not performing an attack and finally confirmed that the firewall policy violation is a false positive, probably caused by a misconfiguration of the whitelist group for that application. So we can whitelist the IP in the firewall to let events come through.
 
-Instead of starting even another manual interaction with the firewall team to have the source IP whitelisted, we can simply launch the whitelisting Ansible playbook to achieve the same goal in seconds.
+Log out of Tower and log back in as user `opsfirewall`. Go to the **Templates** overview, and launch the job template **Whitelist attacker**. A few moments later the traffic is allowed.
 
-For this we can re-use the playbook we wrote earlier in the first Check Point exercise, `whitelist_attacker.yml`. Run the playbook, to effectively white list the IP:
+## Step 2.10 - Rollback
 
-```bash
-[student<X>@ansible ~]$ ansible-playbook whitelist_attacker.yml
-```
+The analysts have ended their threat hunting. To reduce resource consumption and the analysis workload it is preferable to now rollback the Check Point and Snort log configurations back to their pre-investigation state. To do so, there is pre-approved job template available to the analysts:
 
-Verify that the IP is now whitelisted and does not generate deny messages in Check Point anymore. Open the SmartConsole on your Windows workstation, access the Check Point management server and go to the logs tab.
+- **Roll back all changes**
 
-> **Note**
->
-> In rare cases during our tests the policy was changed, but not applied. If that is the case for you as well and you see no new logs even with **Auto Refresh** turned on, then go to the tab **SECURITY POLICIES** and click on **Install Policy**.
+Log into Ansible Tower as the user `analyst`, and execute it by clicking on the little rocket icon next to it. Soon all logging configuration is set back to normal.
 
-## Step 2.9 - Rollback
-
-As the final step, we can run one last Ansible Playbook to rollback all the Check Point and Snort configurations back to their pre-investigation state, reducing resource consumption and the analysis workload.
-
-Execute the playbook `rollback.yml` we wrote in the last exercise to roll all changes back.
-
-```bash
-[student<X>@ansible ~]$ ansible-playbook rollback.yml
-```
-
-Also we need to kill the process sending out attack. From the terminal of your VS Code online editor, execute the follwing Ansible ad-hoc command:
-
-<!-- {% raw %} -->
-```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
-attacker | CHANGED | rc=0 >>
-```
-<!-- {% endraw %} -->
-
-If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
+Last but not least we have to stop the attack simulation. Log out of Tower, and log back in as your student user. In the section **Templates**, find and execute the job template called **Stop DDOS attack simulation**.
 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 

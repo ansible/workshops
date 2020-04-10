@@ -97,13 +97,23 @@ supported by Tower, including Git, Subversion, and Mercurial.
 
 Step 1:
 -------
+A **Project** is a logical collection of Ansible playbooks, represented in Tower. 
+
+You can manage playbooks and playbook directories by either placing them manually on your Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights.
+
+In this environment, playbooks are stored in a git repository available on the workshop GitLab instance. Before a **Project** can be created in Ansible Tower, the git URL for the repository is needed. In order to obtain the URL to your project, login to the GitLab instance, select your workshop project and copy the `https` url presented after clicking the "Clone" button.
+
+![Proj](images/1-gitlab-project.png)
+![Clone](images/1-gitlab-clone.png)
+
+The repo url will be used in **Step 3**
+
+Step 2:
+-------
 
 Click **Projects** on the left hand panel.
 
 ![Proj](images/1-tower-project.png)
-
-Step 2:
--------
 
 Click the ![Add](images/add.png) icon and add new project
 
@@ -119,9 +129,11 @@ number in SCM URL**)
 | Description    | Workshop playbooks                                                      |                                                   |
 | Organization   | Default                                                                 |                                                   |
 | SCM Type       | Git                                                                     |                                                   |
-| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **Replace the workshop name and student# in URL** |
+| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | URL obtained from Step 1                          |
 | SCM BRANCH     |                                                                         | Intentionally blank                               |
 | SCM CREDENTIAL | Git Credential                                                          |                                                   |
+
+
 SCM UPDATE OPTIONS
 
 - [ ] Clean
@@ -245,9 +257,4 @@ Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
 The authentication settings are particularly important and you will need
 to review them and decide which method is best for your needs.
 
-End Result
-----------
-
-At this point, we are done with our basic configuration of Ansible
-Tower. In exercise 2, we will run a few Ad-Hoc commands against
-these hosts.
+Replace the workshop name and student# i

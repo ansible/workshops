@@ -1,12 +1,14 @@
 ---
-## This is needed for sshpass
+- hostname:
+    name: "{{short_name}}"
+
 - name: Install EPEL
-  yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+  dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
 
 - name: Install base packages
-  yum:
+  dnf:
     name:
       - vim
       - git
@@ -15,12 +17,14 @@
       - tree
       - sshpass
       - tmux
-      - python-pip
+      - python3-pip
+      - python3-devel
       - ansible
       - gcc
+      - bind-utils
     state: present
-  register: yum_check
-  until: yum_check is not failed
+  register: dnf_check
+  until: dnf_check is not failed
   retries: 4
   delay: 5
 
@@ -38,25 +42,93 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: setup control node networking
-  include_tasks: "networking.yml"
-  when: workshop_type in ['networking', 'f5']
+- name: setup /etc/hosts file per student
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+    dest: "/etc/hosts"
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
-- name: setup control node security automation
-  include_tasks: "security.yml"
-  when: workshop_type == "security"
+- name: make sure .ssh is created
+  file:
+    path: "/home/{{username}}/.ssh/"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    state: directory
 
-- name: RHEL mode - setup control node
-  include_tasks: "rhel.yml"
-  when: workshop_type == 'rhel'
+- name: copy over ssh config file
+  template:
+    src: sshconfig.j2
+    dest: /home/{{item}}/.ssh/config
+    owner: "{{item}}"
+    group: "{{item}}"
+    mode: 0700
+  loop:
+    - "{{ansible_user}}"
+    - "{{username}}"
 
-- name: Devops mode - setup control node
-  include_tasks: "devops.yml"
-  when: workshop_type == 'devops'
+- name: Put ssh-key in proper spot for student
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    dest: "/home/{{item}}/.ssh/aws-private.pem"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0400
+  loop:
+    - "{{ansible_user}}"
+    - "{{username}}"
 
-- name: Windows mode - setup control node
-  include_tasks: "windows.yml"
-  when: workshop_type == 'windows'
+# FIXME: This should probably be refactored to use things like the following
+# instead of hard coding
+#
+#   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
+#
+# That would enable a more generic role/scaffolding
+- name: clean out /tmp/linklight
+  file:
+    path: /tmp/linklight
+    state: absent
+
+- name: Clone workshops repo (NETWORKING MODE)
+  git:
+    accept_hostkey: true
+    clone: true
+    dest: /tmp/workshops
+    repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
+    version: '{{ ansible_workshops_version | default("master") }}'
+    refspec: '{{ ansible_workshops_refspec | default("") }}'
+    force: true
+
+- name: Move relevant exercises to correct location
+  copy:
+    src: "/tmp/workshops/exercises/ansible_{{workshop_type}}/"
+    dest: "/home/{{ username }}/{{workshop_type}}-workshop"
+    remote_src: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when:
+    - workshop_type != "f5"
+    - workshop_type != "networking"
+## need to fix the conditionals above https://github.com/ansible/workshops/issues/743
+
+- name: Create lab inventory directory
+  file:
+    state: directory
+    path: /home/{{ username }}/lab_inventory
+
+- name: Put student inventory in proper spot
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
+    dest: /home/{{ username }}/lab_inventory/hosts
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: username in inventory_hostname
+
+- name: setup control node for workshop type
+  include_tasks: "{{item}}"
+  with_first_found:
+    - "{{role_path}}/tasks/{{workshop_type}}.yml"
+    - "{{role_path}}/tasks/unsupported_workshop.yml"
 
 - name: check to see if ansible tower is already up and running
   uri:
@@ -68,6 +140,7 @@
     force_basic_auth: true
   register: check_tower
   ignore_errors: true
+  failed_when: false
   when:
     - towerinstall is defined
     - towerinstall|bool
@@ -77,14 +150,10 @@
   when:
     - towerinstall is defined
     - towerinstall|bool
-    - check_tower is failed
+    - check_tower.status != 200
 
 - name: Ensure eula is accepted if posting license
-  lineinfile:
-    path: "{{playbook_dir}}/tower_license.json"
-    line: '    "eula_accepted": true,'
-    insertbefore: '"company_name"'
-    state: present
+  command: python -c "import json; license = json.loads(open('{{playbook_dir}}/tower_license.json', 'r').read()); ceula = license.get('eula_accepted'); license['eula_accepted'] = True if not ceula else ceula ; open('{{playbook_dir}}/tower_license.json', 'w').write(json.dumps(license));"
   delegate_to: localhost
   run_once: true
   become: false
@@ -105,7 +174,3 @@
   when:
     - autolicense is defined
     - autolicense|bool
-
-- name: INSTALL VSCODE AND XRDP
-  include_tasks: gui.yml
-  when: xrdp|bool

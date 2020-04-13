@@ -1,4 +1,4 @@
-# Exercise 1.3 - 初めての Playbook 作成
+# Workshop Exercise - 初めての Playbook 作成
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 

@@ -1,4 +1,4 @@
-# Exercise 2.2 - Inventories, credentials and ad hoc commands
+# Workshop Exercise - Inventories, credentials and ad hoc commands
 
 ## Table of Contents
 

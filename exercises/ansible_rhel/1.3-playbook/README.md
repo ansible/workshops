@@ -1,4 +1,4 @@
-# Exercise 1.3 - Writing Your First Playbook
+# Workshop Exercise - Writing Your First Playbook
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 

@@ -253,7 +253,6 @@
           *******************
           {{dns_information}}
           {{callback_information}}
-          {{coder_information}}
 
     - name: Print Summary Information
       debug:

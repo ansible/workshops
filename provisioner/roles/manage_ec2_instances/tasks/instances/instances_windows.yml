@@ -1,6 +1,4 @@
 ---
-- import_tasks: ami_find_windows.yml
-
 - name: WINDOWS | GitLab | Launch Instance
   ec2:
     assign_public_ip: true

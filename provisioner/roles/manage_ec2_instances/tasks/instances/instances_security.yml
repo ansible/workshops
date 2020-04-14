@@ -1,6 +1,4 @@
 ---
-- import_tasks: ami_find_security.yml
-
 - set_fact:
     async_timeout_seconds: "{{ student_total * 60 }}"
     async_wait_for_retries: "{{ student_total * 10 }}"

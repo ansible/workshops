@@ -1,4 +1,4 @@
-# Exercicio 1.6 - Templates
+# Exercicio - Templates
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 

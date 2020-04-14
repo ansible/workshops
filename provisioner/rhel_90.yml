@@ -1,0 +1,9 @@
+---
+- name: configure rhel workshop for webservers
+  hosts: lab_hosts
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure RHEL webservers
+      include_role:
+        name: webservers

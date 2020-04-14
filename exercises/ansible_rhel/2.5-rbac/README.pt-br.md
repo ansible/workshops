@@ -1,4 +1,4 @@
-# Exercicio 2.5 - Controle de acesso baseado em role
+# Exercicio - Controle de acesso baseado em role
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 

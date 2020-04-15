@@ -1,4 +1,10 @@
-# Contribute new Exercise Content
+# Create New Exercise Content
+
+We encourage folks to create new exercise content, fork with your own content, and customize the workshop any way you want.  This will give you the flexibility to customize workshops for your own friends, customers, community or project!
+
+## Table of Contents
+
+# Using your own fork
 
 When a workshop is provisioned, the control node for every workbench (where the Red Hat Ansible Automation is installed and executed from) will load solution exercises into `~/{{workshop}}-workshop`.  For example if you are running the `networking` workshop the home directory for every student will have `~/home/networking-workshop`.
 
@@ -10,20 +16,70 @@ This can be customized!  There are three variables that you can change with your
 
 These variables are used in the `control_node` role which can found here: `provisioner/roles/control_node/tasks/main.yml`
 
-Here is an example of provisioning the `workshop_type: rhel` with exercises from a forked repository on a different branch:
+
+## Practical Example
+
+Here is the `extra_vars` example of provisioning the `workshop_type: rhel` with exercises from a forked repository on a different branch:
 
 ```
 ---
 ec2_region: us-east-2
-# name prefix for all the VMs
-ec2_name_prefix: sean-april8-rhel
-admin_password: ansible1234
+ec2_name_prefix: sean-workshop
+admin_password: ansible123
 student_total: 1
 workshop_type: rhel
-dns_type: aws
 create_login_page: true
-towerinstall: true
-autolicense: true
 ansible_workshops_url: https://github.com/ipvsean/workshops.git
 ansible_workshops_version: "test_branch"
 ```
+
+This would load the exercises `/exercises/ansible_rhel` from fork `github.com/ipvsean/workshops.git` branch `test_branch` into the student home directory of `~/rhel-workshop`
+
+
+# Changing solution folder on control node
+
+It is possible to change the location of the destination folder where the exercises are loaded into with the `exercise_dest_location` variable.
+
+
+## Practical Example
+
+Here is the `extra_vars` example of provisioning the `workshop_type: rhel` with exercises from a forked repository on a different branch:
+
+```
+---
+ec2_region: us-east-1
+ec2_name_prefix: sean-workshop2
+admin_password: ansible123
+student_total: 1
+workshop_type: rhel
+create_login_page: true
+ansible_workshops_url: https://github.com/ipvsean/workshops.git
+ansible_workshops_version: "test_branch"
+exercise_dest_location: "my_folder"
+```
+
+This would load the exercises `/exercises/ansible_rhel` from fork `github.com/ipvsean/workshops.git` branch `test_branch` into the student home directory of `~/my_folder`
+
+# Changing source folder for exercise solutions
+
+It is possible to change the location of the source folder with the `exercise_src_location` variable.  This defaults to `exercises/ansible_{{workshop_type}}`.  For example by default it would load `exercises/ansible_rhel` for the `workshop_type: rhel` workshop.
+
+## Practical Example
+
+Here is the `extra_vars` example of provisioning the `workshop_type: rhel` with different exercises from a forked repository on a different branch:
+
+```
+---
+ec2_region: us-east-1
+ec2_name_prefix: sean-workshop2
+admin_password: ansible123
+student_total: 1
+workshop_type: rhel
+create_login_page: true
+ansible_workshops_url: https://github.com/ipvsean/workshops.git
+ansible_workshops_version: "test_branch"
+exercise_dest_location: "my_folder"
+exercise_src_location: "exercises/my_exercises"
+```
+
+This would load the exercises `/exercises/my_exercises` from fork `github.com/ipvsean/workshops.git` branch `test_branch` into the student home directory of `~/my_folder`

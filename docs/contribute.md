@@ -2,8 +2,7 @@
 
 We treat Ansible Automation Workshops just like we treat the Ansible Project.  Please help us!  Check out the [Issues](https://github.com/ansible/workshops/issues) for a list of what we are working on.
 
-
-## Table of Conents
+## Table of Contents
 
 * [Pull Requests ](#pull-requests)
    * [Create a fork!](#create-a-fork)
@@ -15,7 +14,6 @@ We treat Ansible Automation Workshops just like we treat the Ansible Project.  P
    * [Testing and Continuous Integration](#testing-and-continuous-integration)
 * [Contributing New Workshop Types of content](#contributing-new-workshop-types-of-content)
 * [Going Further](#going-further)
-
 
 # Pull Requests
 

@@ -1,7 +1,4 @@
 ---
-- name: find ami for attendance host
-  import_tasks: ami_find_attendance.yml
-
 - name: Provision attendance host
   ec2:
     assign_public_ip: true

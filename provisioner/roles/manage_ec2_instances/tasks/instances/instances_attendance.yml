@@ -1,0 +1,28 @@
+---
+- name: Provision attendance host
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['attendance_host']['size'] }}"
+    image: "{{ attendance_host_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: 1
+    count_tag:
+      Workshop_attendance: "{{ ec2_name_prefix }}-attendance"
+    instance_tags:
+      Workshop_attendance: "{{ ec2_name_prefix }}-attendance"
+      Name: "{{ ec2_name_prefix }}-attendance"
+      App: AnsibleWorkshop
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: 'attendance-host'
+      long_name: "attendance-host.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
+      username: "{{ ec2_info['attendance_host']['username'] }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  register: attendance_output

@@ -1,6 +1,4 @@
 ---
-- import_tasks: ami_find_networking.yml
-
 - name: set router types to network_type
   set_fact:
     rtr1_type: "{{network_type}}"

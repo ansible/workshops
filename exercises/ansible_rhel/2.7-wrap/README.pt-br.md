@@ -1,4 +1,4 @@
-# Exercício 2.7 - Wrap up
+# Exercício - Wrap up
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 

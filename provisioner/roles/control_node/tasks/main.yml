@@ -78,18 +78,12 @@
     - "{{ansible_user}}"
     - "{{username}}"
 
-# FIXME: This should probably be refactored to use things like the following
-# instead of hard coding
-#
-#   command: cp -r /tmp/linklight/exercises/{{workshop_type}}/ /home/{{ username }}/{{workshop_type}}-workshop/
-#
-# That would enable a more generic role/scaffolding
-- name: clean out /tmp/linklight
+- name: clean out /tmp/workshops
   file:
-    path: /tmp/linklight
+    path: /tmp/workshops
     state: absent
 
-- name: Clone workshops repo (NETWORKING MODE)
+- name: Clone workshops repo
   git:
     accept_hostkey: true
     clone: true
@@ -101,8 +95,8 @@
 
 - name: Move relevant exercises to correct location
   copy:
-    src: "/tmp/workshops/exercises/ansible_{{workshop_type}}/"
-    dest: "/home/{{ username }}/{{workshop_type}}-workshop"
+    src: '{{ "/tmp/workshops/" + exercise_src_location | default("exercises/ansible_" + workshop_type) }}'
+    dest: '{{ "/home/" + username + "/" + exercise_dest_location | default(workshop_type + "-workshop") }}'
     remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"

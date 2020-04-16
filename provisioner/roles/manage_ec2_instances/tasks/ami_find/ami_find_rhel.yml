@@ -1,5 +1,4 @@
 ---
-
 - name: find ami for node
   ec2_ami_info:
     region: "{{ ec2_region }}"

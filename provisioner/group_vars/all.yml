@@ -9,7 +9,6 @@ populatetower: true
 website_information: ""
 dns_information: "No errors with DNS"
 callback_information: "No issue with Ansible Tower callback"
-coder_information: "No issue with VS code integration"
 workshop_type: ""
 dns_type: aws
 valid_dns_type:
@@ -23,6 +22,7 @@ valid_workshop_types:
   - security
   - storage
   - windows
+  - rhel_90
 network_type: multivendor
 valid_network_types:
   - cisco
@@ -30,6 +30,7 @@ valid_network_types:
   - juniper
   - multivendor
 doubleup: false
+attendance: false
 security_console: qradar
 valid_security_console_types:
   - splunk

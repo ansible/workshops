@@ -119,7 +119,7 @@ cd into the relevant project folder and execute the Playbook from the command li
 
 ```
 TASK [manage_ec2_instances : Create EC2 instances for rtr3 node (NETWORKING MODE)] ***
-fatal: [localhost]: FAILED! => changed=false 
+fatal: [localhost]: FAILED! => changed=false
   msg: 'Instance creation failed => OptInRequired: In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=bw54e0gl17zf0vxq54dttwvow'
 
 ```

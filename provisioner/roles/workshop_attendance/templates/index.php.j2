@@ -1,0 +1,660 @@
+<?php
+
+$sql_server = "127.0.0.1";
+$port = '3306';
+$sql_user = "root";
+$sql_pass = "";
+
+$mydb="workshop";
+
+$error = '';
+
+try {
+	$db = new \PDO("mysql:host=$sql_server;port=$port;dbname=$mydb;charset=utf8", $sql_user, $sql_pass);
+} catch(PDOException $e) {
+	echo "Could not connect to the database\n";
+	exit;
+}
+
+if (!$db) {
+	echo "Could not connect to the database\n";
+	exit;
+}
+
+session_start();
+
+
+if (!isset($_SESSION['email'])) {
+	if (!isset($_POST['email'])) {
+	} else {
+		if (!isValidEmail($_POST['email'])) {
+			$error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Email is invalid</font>';
+		} else {
+			// Check if student already exists
+			$student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array(sql_clean_username($_POST['email'])));
+			if (!isset($student['id'])) {
+				$id = db_fetch_cell("SELECT id FROM `users` WHERE email = '' LIMIT 1", 'id');
+				if (!$id) {
+					$error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Sorry, all available student accounts are taken.  Please let the instructor know.</font>';
+				} else {
+					db_execute_prepare('UPDATE `users` set name=?, email=? WHERE id = ?', array(sql_clean_username($_POST['name']), sql_clean_username($_POST['email']), $id));
+					$_SESSION['email'] = sql_clean_username($_POST['email']);
+					Header("Location: /#studentinfo\n\n");
+					exit;
+				}
+			} else {
+				$_SESSION['email'] = $student['email'];
+				Header("Location: /#studentinfo\n\n");
+				exit;
+			}
+		}
+	}
+} else {
+	$student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_SESSION['email']));
+	if (!isset($student['id'])) {
+		session_destroy();
+		header("Location: index.php\n\n");
+		exit;
+	}
+}
+
+if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != $_SESSION['email'])) {
+	session_destroy();
+	header("Location: index.php\n\n");
+	exit;
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<font face="verdana,sans,arial">
+<style>
+
+#control_node {
+  display: flex;
+}
+
+#login_info {
+  width: 400px;
+}
+
+#section_title {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+#example_login {
+  padding-top: 5px;
+}
+
+hr {
+  width: 80%;
+}
+
+td {
+  padding: 5px;
+  border-bottom: 1px solid #cccccc;
+}
+
+pre {
+  background: black;
+  color: #fff !important;
+  width: 100%;
+  padding: 5px;
+  max-width: 600px;
+  margin: 10px 0 10px 0;
+}
+
+.content{
+         margin: 10px;
+}
+
+.header{
+  border-bottom: 1px solid #494a5a;
+}
+
+.student_logins {
+    width:100%;
+    border:1px solid #d3d3d3;
+}
+.student_logins div {
+    width:100%;
+}
+.student_logins .header {
+    background-color:#d3d3d3;
+    padding: 2px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.student_logins .studentx {
+    padding : 5px;
+}
+
+.studentinfo {
+         margin: 10px;
+}
+
+.linklightfooter {
+    background-color: #212121;
+    padding: 80px 0px;
+    font-size: 0.7em;
+    color: #fff;
+    font-weight: 300;
+}
+
+section {
+    padding: 30px 0px;
+}
+
+body {
+  line-height: 1.5;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.theme-dark,
+.theme-dark *{
+    color: #fff;
+}
+
+.theme-bg-gray{
+    background-color: #cac8c8;
+}
+
+.theme-bg-darkgray{
+    background-color: #a2a1a1;
+}
+
+.btn {
+    border-radius: 0px;
+    text-align: center;
+    padding: 10px 20px;
+    margin-bottom: 0px;
+}
+
+.btn.btn-block {
+    display: block;
+}
+
+.btn.btn-primary,
+.btn.btn-secondary {
+    background-color: #a2a1a1;
+    color: #fff;
+    padding: 30px;
+}
+
+.btn.btn-secondary {
+    background-color: #cac8c8;
+}
+
+.btn.btn-ghost{
+    border: 1px solid #fff;
+    color: #fff;
+    background: transparent;
+}
+
+
+.page-header {
+    background: #c00;
+    color: #fff;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 21px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.page-header h2 {
+    font-size: 1em;
+    font-weight: 300;
+}
+
+
+.main-content h1{
+    color: #333;
+}
+
+.main-content h2{
+    color: #cc0000;
+}
+
+.main-content h3, .main-content h4, .main-content h5, .main-content h6 {
+    color: #c00;
+}
+
+
+footer.site-footer{
+    background-color: #212121;
+    padding: 80px 0px;
+    font-size: 0.7em;
+    color: #fff;
+    font-weight: 300;
+}
+
+
+
+@media screen and (min-width: 768px){
+
+    .page-header h1 {
+        font-size: 24px;
+    }
+
+    .main-content {
+        font-size: 1.125rem;
+    }
+}
+
+
+
+/* theme overrides */
+
+@media screen and (max-width: 42em){
+    .main-content {
+        padding: 2rem 0px;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 64em) and (min-width: 42em){
+    .main-content {
+        padding: 2rem 0px;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 64em){
+    .main-content {
+        max-width: none;
+        font-size: 1.1rem;
+    }
+}
+
+a {
+  test-decoration: none;
+}
+
+</style>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Overpass:300,400,700” rel="stylesheet”>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+
+    <section class="page-header">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+              <h1 class="project-name">Red Hat Ansible Automation Platform<br/><strong class="text-nowrap">Technical Workshops</strong></h1>
+              <h2>The Ansible Workshops project is intended to effectively demonstrate the capabilities of Red Hat Ansible Automation Platform through instructor-led workshops and self-paced exercises.</h2>
+
+                <a target=_blank href="https://github.com/ansible/workshops" class="btn btn-ghost">View on GitHub</a><br><br>
+
+              <h1>Workshop Name: {{ec2_name_prefix}}</h1>
+
+            </div>
+        </div>
+      </div>
+    </section>
+
+<section class="main-content">
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                {% if workshop_type in ['networking', 'f5'] %}
+                <h2>Network Automation Workshops</h2>
+                <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
+                {% elif workshop_type in ['rhel'] %}
+                <h2>Ansible Automation Workshops</h2>
+                <p>These workshops are focused on getting started with Ansible Engine and Ansible Tower in automating Linux platforms like RHEL (Red Hat Enterprise Linux).</p>
+                {% elif workshop_type in ['security'] %}
+                <h2>Security Automation Workshops</h2>
+                <p>These workshops are focused on automating security platforms like Snort, Check Point and Splunk Enterprise Security.</p>
+                {% elif workshop_type in ['windows'] %}
+                <h2>Windows Automation Workshops</h2>
+                <p>These workshops are focused on automating Microsoft Windows.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% if workshop_type == "networking" %}
+        <div class="row">
+          <div class="col-sm-4">
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
+          </div>
+
+          <div class="col-sm-4">
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_network.pdf">Ansible Network Deck</a>
+          </div>
+
+        </div>
+        {% elif workshop_type == "f5" %}
+        <div class="row">
+          <div class="col-sm-4">
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_f5/">Ansible F5 Exercises</a>
+          </div>
+
+          <div class="col-sm-4">
+              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_f5.pdf">Ansible F5 Deck</a>
+          </div>
+
+        </div>
+        {% elif workshop_type == "rhel" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
+            </div>
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
+            </div>
+        </div>
+        {% elif workshop_type == "security" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_security/">Ansible Security Exercises</a>
+            </div>
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
+          </div>
+        </div>
+        {% elif workshop_type == "windows" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
+            </div>
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
+          </div>
+        </div>
+        {% endif %}
+<br><br>
+
+    </div>
+</section>
+
+<hr>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Workshop Resources</h2>
+                <p>Links and materials to help complete the exercises.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe">Download: PuTTY for Windows</a>
+            </div>
+
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://www.ansible.com/workshop-license">Ansible Tower Workshop License</a>
+            </div>
+
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.sivel.net/test/">Ansible Template Tester</a>
+            </div>
+        </div>
+<br>
+        <div class="row">
+            {% if workshop_type in ['networking', 'f5'] %}
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
+            </div>
+
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html">Ansible Network Modules</a>
+            </div>
+            {% endif %}
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://pythex.org/">Real-time regular expression editor</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Workbench Information</h2>
+                <p><?php print $error ?></p>
+                <a id=studentinfo></a>
+            </div>
+        </div>
+
+
+
+<?php
+
+if (isset($student['id'])) {
+	display_student($student);
+
+} else {
+	display_form();
+}
+?>
+
+    </div>
+</section>
+
+</section>
+
+<div class="linklightfooter">
+  <div class="container">
+  <p>Red Hat, the Shadowman logo, Ansible, and Ansible Tower are trademarks or registered trademarks of Red Hat, Inc. or its subsidiaries in the United States and other countries.
+
+  All other parts of Ansible Automation Workshops are made available under the terms of the MIT License</p>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+<?php
+
+function display_student($student) {
+	print "<div class='student_logins'>
+    <div class='header'>
+	      <p class='studentinfo'>" . ucfirst($student['username']) . "</p></div>
+	    <div class='content'>
+	      <p>
+	{% if code_server is defined and code_server %}
+	<div id='section_title'>VS Code access</div>
+	To login to Visual Studio Code via your web browser please go here:<br>
+	<table>
+	  <tr>
+	    <td>UI link:</td>
+	    <td>{% if workshop_type == 'windows' %}<a target=_blank href='" . $student['vscode'] . "'>" . $student['vscode_display'] . "</a>{% else %}<a target=_blank href='" . $student['vscode_display'] . "'>" . $student['vscode_display'] . "</a>{% endif %}</td>
+	  </tr>
+	  <tr>
+	    <td>password:</td>
+	    <td><code>" . $student['password'] . "</code></td>
+	  </tr>
+	</table><br>";
+
+	{% endif %}
+	{% if workshop_type == "windows" %}
+	print '<div id="section_title">GitLab access</div>
+	To login to GitLab via your web browser please go here:<br>
+	<table>
+	  <tr>
+	    <td>UI link:</td>
+	    <td><a target=_blank href="' . $student['gitlab'] . '">' . $student['gitlab'] . '</a></td>
+	  </tr>
+	  <tr>
+	    <td>username:</td>
+	    <td><code>student' . $student['id'] . '</code></td>
+	  </tr>
+	  <tr>
+	    <td>password:</td>
+	    <td><code>' . $student['password'] . '</code></td>
+	  </tr>
+	</table><br>';
+
+	{% endif %}
+	{% if workshop_type == "windows" %}
+	{% else %}
+	print '<div id="section_title">SSH access</div>
+	To login to the Ansible Control Node use the following for SSH access:<br>
+	<div id="control_node">
+	<div id="login_info">
+	<table>
+	  <tr>
+	    <td>username:</td>
+	    <td><code>student' . $student['id'] . '</code></td>
+	  </tr>
+	  <tr>
+	    <td>password:</td>
+	    <td><code>' . $student['password'] . '</code></td>
+	  </tr>
+	  <tr>
+	    <td>IP Address:</td>
+	    <td><code>' . $student['tower'] . '</code></td>
+	  </tr>
+	</table>
+	</div>
+	<div id="example_login">
+	<pre><code>ssh student' . $student['id'] . '@' . $student['ip'] . '</code></pre>
+	{% if dns_type != 'none' %}
+	DNS: student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}<br>
+	<pre><code>ssh student' . $student['id'] . '@student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</code></pre>
+	{% endif %}
+	</div>
+	</div>
+	<hr>';
+	{% endif %}
+
+	print '<div id="tower_info">
+	{% if towerinstall is defined and towerinstall %}
+	<div id="section_title">Ansible Tower access</div>
+	To login to the Ansible Tower UI use the following credentials:<br>
+	<table>
+	{% if dns_type != 'none' %}
+	  <tr>
+	<td>UI link:</td>
+	<td><a target=_blank href="https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
+	  </tr>
+	{% endif %}
+	{% if dns_type == 'none' %}
+	  <tr>
+	<td>UI link:
+	<td><a target=_blank href="https://' . $student['ip'] . '">https://' . $student['ip'] . '</a></td>
+	  </tr>
+	{% endif %}
+	  <tr>
+	    <td>username:</td>
+	    <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+	  </tr>
+	  <tr>
+	    <td>password:</td>
+	    <td><code>{{admin_password}}</code></td>
+	  </tr>
+	</table>
+	{% endif %}
+	</div>
+
+	{% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
+	    </div>
+	  </div>';
+
+	print "</div></div>";
+
+}
+
+
+
+
+
+function isValidEmail($email){
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+}
+
+function display_form() {
+	print "<div class='student_logins'>
+    <div class='header'>
+             <p class='studentinfo'>Please enter your Name and Email address.</p>
+    </div>
+	    <div class='content'>
+	      <p>";
+	print "<form action='/' method=POST enctype='multipart/form-data'>";
+	print "<table><tr><td align=right>Name: </td><td><input type=text name=name size=20></td></tr>";
+	print "<tr><td align=right>Email: </td><td><input type=text name=email size=20></td></tr>";
+	print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
+	print "</p>";
+	print "</div></div>";
+
+}
+
+function sql_clean_username($text) {
+	$text = preg_replace("/[^[:alnum:][:space:] @\.\-_]/u", '', $text);
+	return $text;
+}
+
+function db_execute($query) {
+	global $db;
+	$stmt = $db->query($query);
+	return $db->lastInsertId();
+}
+
+function db_execute_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	return $db->lastInsertId();
+}
+
+function db_fetch_cell($query, $cell) {
+	global $db;
+	$stmt = $db->query($query);
+	if (!$stmt) return false;
+	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+	if (!isset($results[$cell])) return false;
+	return $results[$cell];
+}
+
+function db_fetch_assoc($query) {
+	global $db;
+	$stmt = $db->query($query);
+	if ($stmt) {
+		$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+		return $results;
+	} else {
+		return false;
+	}
+}
+
+function db_fetch_assoc_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
+	return $results;
+}
+
+function db_fetch_assocs($query) {
+	global $db;
+	$stmt = $db->query($query);
+	if ($stmt) {
+		$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		return $results;
+	} else {
+		return false;
+	}
+}
+
+function db_fetch_assocs_prepare($query, $data) {
+	global $db;
+	$stmt = $db->prepare($query);
+	$stmt->execute($data);
+	$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	return $results;
+}

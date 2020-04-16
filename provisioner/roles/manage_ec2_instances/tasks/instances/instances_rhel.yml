@@ -1,7 +1,4 @@
 ---
-- name: find amis
-  import_tasks: ami_find_rhel.yml
-
 - name: Create EC2 instances for node1
   ec2:
     assign_public_ip: true

@@ -1,5 +1,22 @@
 # Contribute
 
+We treat Ansible Automation Workshops just like we treat the Ansible Project.  Please help us!  Check out the [Issues](https://github.com/ansible/workshops/issues) for a list of what we are working on.
+
+## Table of Contents
+
+* [Pull Requests ](#pull-requests)
+   * [Create a fork!](#create-a-fork)
+   * [Stay in Sync](#stay-in-sync)
+      * [Configuring Your Remotes](#configuring-your-remotes)
+      * [Rebasing Your Branch](#rebasing-your-branch)
+      * [Updating your Pull Request](#updating-your-pull-request)
+   * [Create a pull requests](#create-a-pull-requests)
+   * [Testing and Continuous Integration](#testing-and-continuous-integration)
+* [Contributing New Workshop Types of content](#contributing-new-workshop-types-of-content)
+* [Going Further](#going-further)
+
+# Pull Requests
+
 We take pull requests!  What is a pull request?
 
 >Pull requests let you tell others about changes you've pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch
@@ -32,7 +49,7 @@ Rebase the branch on your fork
 git pull --rebase upstream devel
 ```
 
-Check your status 
+Check your status
 
 ```bash
 git status
@@ -81,6 +98,11 @@ ________________________________________________________________________________
 ```
 
 To make sure this is run everytime one commits a change, and hence one is not sending a Pull Request that won't be merged, one could enable this as part of a git [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+
+# Contributing New Workshop Types of content
+
+- [Contribute New Workshop Topology for AWS](contribute-aws.md)
+- [Contrbitue New Workshop Exercises](exercises.md)
 
 # Going Further
 

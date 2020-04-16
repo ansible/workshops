@@ -1,0 +1,28 @@
+---
+- name: find ami for f5 (F5 MODE)
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info.f5node.owners }}"
+    filters:
+      name: "{{ ec2_info.f5node.filter }}"
+      architecture: "{{ ec2_info.f5node.architecture }}"
+  register: amis
+
+- name: save ami for f5 (F5 MODE)
+  set_fact:
+    f5_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: find ami for node1 & node2 (F5 MODE)
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info.rhel8.owners }}"
+    filters:
+      name: "{{ ec2_info.rhel8.filter }}"
+      architecture: "{{ ec2_info.rhel8.architecture }}"
+  register: amis
+
+- name: save ami for node1 & node2 (F5 MODE)
+  set_fact:
+    node1_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

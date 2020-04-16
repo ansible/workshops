@@ -28,12 +28,9 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 
 {% for group in groups %}
 {%   if "gitlab" in group -%}
-{%   elif "windows_domain_controllers" in group -%}
 {%   elif "windows_instance1" in group -%}
-{%   elif "windows_workstation" in group -%}
 {%   elif "managed_nodes" in group -%}
 {%   elif "rhel" in group -%}
-{%   elif "docs" in group -%}
 {%   elif "ungrouped" in group -%}
 {%   else %}
 [{{group}}] 

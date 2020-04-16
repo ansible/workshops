@@ -30,7 +30,7 @@ For this demonstration we will use playbooks stored in a Git repository:
 **https://github.com/ansible/workshop-examples**
 
 
-A Playbook to install the Apache webserver has already been commited to the directory **rhel/apache**, `apache_install.yml`:
+A Playbook to install the Apache web server has already been committed to the directory **rhel/apache**, `apache_install.yml`:
 
 ```yaml
 ---
@@ -173,10 +173,16 @@ Okay, let’s just do that: Go to the **Templates** view, click the ![plus](imag
   <tr>
     <td>CREDENTIAL</td>
     <td>Workshop Credentials</td>
-  </tr>     
+  </tr>
+  <tr>
+    <td>LIMIT</td>
+    <td>web</td>
+  </tr>    
+  <tr>
+    <td>OPTIONS</td>
+    <td>tasks need to run as root so check **Enable privilege escalation**</td>
+  </tr>           
 </table>
-
-- We need to run the tasks as root so check **Enable privilege escalation**
 
 - Click **SAVE**
 

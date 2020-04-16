@@ -4,6 +4,13 @@ We encourage folks to create new exercise content, fork with your own content, a
 
 ## Table of Contents
 
+* [Using your own fork](#using-your-own-fork)
+   * [Practical Example](#practical-example)
+* [Changing solution folder on control node](#changing-solution-folder-on-control-node)
+   * [Practical Example](#practical-example-1)
+* [Changing source folder for exercise solutions](#changing-source-folder-for-exercise-solutions)
+   * [Practical Example](#practical-example-2)
+
 # Using your own fork
 
 When a workshop is provisioned, the control node for every workbench (where the Red Hat Ansible Automation is installed and executed from) will load solution exercises into `~/{{workshop}}-workshop`.  For example if you are running the `networking` workshop the home directory for every student will have `~/home/networking-workshop`.

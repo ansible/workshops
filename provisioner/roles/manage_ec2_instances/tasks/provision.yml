@@ -7,11 +7,11 @@
 ## These AWS resources are used for every workshop type
 ## This includes VPC, subnet, Security Group, Internet Gateway and route table
 - name: provision aws resources
-  include_tasks: resources.yml
+  include_tasks: resources/resources.yml
 
 ## This duplicates the above when networking workshop uses 2 VPCs
 - name: provision networking aws resources
-  include_tasks: resources_{{workshop_type}}.yml
+  include_tasks: resources/resources_{{workshop_type}}.yml
   when: workshop_type == 'networking'
 
 - name: find ami for ansible control node
@@ -71,6 +71,10 @@
     - "{{ control_output.instances }}"
   when: control_output.instance_ids is not none
 
+## find AMI - amazon machine images dynamically
+- name: find correct AMI
+  include_tasks: 'ami_find/ami_find_{{workshop_type}}.yml'
+
 ## Instance creation
 - name: provision workshop instances
-  include_tasks: 'instances_{{workshop_type}}.yml'
+  include_tasks: 'instances/instances_{{workshop_type}}.yml'

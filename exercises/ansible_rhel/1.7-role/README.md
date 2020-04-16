@@ -1,19 +1,32 @@
-# Exercise 1.7 - Roles: Making your playbooks reusable
+# Workshop Exercise - Roles: Making your playbooks reusable
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Step 7.1 - Understanding the Ansible Role Structure](#step-71---understanding-the-ansible-role-structure)
-* [Step 7.2 - Create a Basic Role Directory Structure](#step-72---create-a-basic-role-directory-structure)
-* [Step 7.3 - Create the Tasks File](#step-73---create-the-tasks-file)
-* [Step 7.4 - Create the handler](#step-74---create-the-handler)
-* [Step 7.5 - Create the index.html and vhost configuration file template](#step-75---create-the-indexhtml-and-vhost-configuration-file-template)
-* [Step 7.6 - Test the role](#step-76---test-the-role)
+## Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
+* [Step 1 - Understanding the Ansible Role Structure](#step-1---understanding-the-ansible-role-structure)
+* [Step 2 - Create a Basic Role Directory Structure](#step-2---create-a-basic-role-directory-structure)
+* [Step 3 - Create the Tasks File](#step-3---create-the-tasks-file)
+* [Step 4 - Create the handler](#step-4---create-the-handler)
+* [Step 5 - Create the web.html and vhost configuration file template](#step-5---create-the-indexhtml-and-vhost-configuration-file-template)
+* [Step 6 - Test the role](#step-6---test-the-role)
+
+# Objective
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) already mentioned in exercise 3.
+Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html).  
 
-## Step 7.1 - Understanding the Ansible Role Structure
+This exercise will cover:
+- the folder structure of an Ansible Role
+- how to build an Ansible Role
+- creating an Ansible Play to use and execute a role
+
+# Guide
+
+## Step 1 - Understanding the Ansible Role Structure
 
 Roles are basically automation built around *include* directives and really don’t contain much additional magic beyond some improvements to search path handling for referenced files.
 
@@ -61,7 +74,7 @@ Using roles in a Playbook is straight forward:
 For each role, the tasks, handlers and variables of that role will be included in the Playbook, in that order. Any copy, script, template, or include tasks in the role can reference the relevant files, templates, or tasks *without absolute or relative path names*. Ansible will look for them in the role's files, templates, or tasks respectively, based on their
 use.
 
-## Step 7.2 - Create a Basic Role Directory Structure
+## Step 2 - Create a Basic Role Directory Structure
 
 Ansible looks for roles in a subdirectory called `roles` in the project directory. This can be overridden in the Ansible configuration. Each role has its own directory. To ease creation of a new role the tool `ansible-galaxy` can be used.
 
@@ -82,7 +95,7 @@ Have a look at the role directories and their content:
 [student<X>@ansible ansible-files]$ tree roles
 ```
 
-## Step 7.3 - Create the Tasks File
+## Step 3 - Create the Tasks File
 
 The `main.yml` file in the tasks subdirectory of the role should do the following:
 
@@ -133,7 +146,7 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
 
 - name: deliver html content
   copy:
-    src: index.html
+    src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}"
 ```
 <!-- {% endraw %} -->
@@ -178,7 +191,7 @@ The full `tasks/main.yml` file is:
 
 - name: deliver html content
   copy:
-    src: index.html
+    src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}"
 
 - name: template vhost file
@@ -194,7 +207,7 @@ The full `tasks/main.yml` file is:
 <!-- {% endraw %} -->
 
 
-## Step 7.4 - Create the handler
+## Step 4 - Create the handler
 
 Create the handler in the file `handlers/main.yml` to restart httpd when notified by the template task:
 
@@ -207,20 +220,20 @@ Create the handler in the file `handlers/main.yml` to restart httpd when notifie
     state: restarted
 ```
 
-## Step 7.5 - Create the index.html and vhost configuration file template
+## Step 5 - Create the web.html and vhost configuration file template
 
 Create the HTML content that will be served by the webserver.
 
-  - Create an index.html file in the "src" directory of the role, `files`:
+  - Create an web.html file in the "src" directory of the role, `files`:
 
 ```bash
-[student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/index.html
+[student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
 ```
 
   - Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
 
 <!-- {% raw %} -->
-```html
+```
 # {{ ansible_managed }}
 
 <VirtualHost *:8080>
@@ -239,7 +252,7 @@ Create the HTML content that will be served by the webserver.
 ```
 <!-- {% endraw %} -->
 
-## Step 7.6 - Test the role
+## Step 6 - Test the role
 
 You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible-files`:
 
@@ -279,5 +292,8 @@ simple vhost index
 All looking good? Congratulations! You have successfully completed the Ansible Engine Workshop Exercises!
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../1.6-templates) - [Next Exercise](../1.7-role)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

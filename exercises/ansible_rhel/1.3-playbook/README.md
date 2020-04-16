@@ -1,4 +1,4 @@
-# Exercise 1.3 - Writing Your First Playbook
+# Workshop Exercise - Writing Your First Playbook
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
@@ -6,12 +6,12 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 3.1 - Playbook Basics](#step-31---playbook-basics)
-  - [Step 3.2 - Creating a Directory Structure and File for your Playbook](#step-32---creating-a-directory-structure-and-file-for-your-playbook)
-  - [Step 3.3 - Running the Playbook](#step-33---running-the-playbook)
-  - [Step 3.4 - Extend your Playbook: Start &amp; Enable Apache](#step-34---extend-your-playbook-start--enable-apache)
-  - [Step 3.5 - Extend your Playbook: Create an index.html](#step-35---extend-your-playbook-create-an-indexhtml)
-  - [Step 3.6 - Practice: Apply to Multiple Host](#step-36---practice-apply-to-multiple-host)
+  - [Step 1 - Playbook Basics](#step-1---playbook-basics)
+  - [Step 2 - Creating a Directory Structure and File for your Playbook](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
+  - [Step 3 - Running the Playbook](#step-3---running-the-playbook)
+  - [Step 4 - Extend your Playbook: Start &amp; Enable Apache](#step-4---extend-your-playbook-start--enable-apache)
+  - [Step 5 - Extend your Playbook: Create an web.html](#step-5---extend-your-playbook-create-an-indexhtml)
+  - [Step 6 - Practice: Apply to Multiple Host](#step-6---practice-apply-to-multiple-host)
 
 # Objective
 
@@ -38,7 +38,7 @@ A playbook can have multiple plays and a play can have one or multiple tasks. In
 >
 > Here is a nice analogy: When Ansible modules are the tools in your workshop, the inventory is the materials and the Playbooks are the instructions.
 
-## Step 3.1 - Playbook Basics
+## Step 1 - Playbook Basics
 
 Playbooks are text files written in YAML format and therefore need:
 
@@ -65,7 +65,7 @@ A Playbook should be **idempotent**, so if a Playbook is run once to put the hos
 > Most Ansible modules are idempotent, so it is relatively easy to ensure this is true.
 
 
-## Step 3.2 - Creating a Directory Structure and File for your Playbook
+## Step 2 - Creating a Directory Structure and File for your Playbook
 
 Enough theory, it’s time to create your first Ansible Playbook. In this lab you create a playbook to set up an Apache web server in three steps:
 
@@ -73,7 +73,7 @@ Enough theory, it’s time to create your first Ansible Playbook. In this lab yo
 
   2. Enable/start httpd service
 
-  3. Copy over an index.html file to each web host
+  3. Copy over an web.html file to each web host
 
 This Playbook makes sure the package containing the Apache web server is installed on `node1`.
 
@@ -143,30 +143,33 @@ In the added lines:
 
 Save your playbook and exit your editor.
 
-## Step 3.3 - Running the Playbook
+## Step 3 - Running the Playbook
 
-Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new Playbook it’s a good idea to check for syntax errors:
+Ansible Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new Playbook it’s a good idea to check for syntax errors:
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook --syntax-check apache.yml
 ```
 
-Now you should be ready to run your Playbook:
+Now you should be ready to run your playbook:
 
-```bash
+```
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
+
 The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail.
 
-Use SSH to make sure Apache has been installed on `node1`. The necessary IP address is provided in the inventory. Grep for the IP address there and use it to SSH to the node.
+Connect to `node1` via SSH to make sure Apache has been installed:
 
 ```
-[student<X>@ansible ansible-files]$ grep node1 ~/lab_inventory/hosts
-node1 ansible_host=11.22.33.44
-[student<X>@ansible ansible-files]$ ssh 11.22.33.44
-student<X>@11.22.33.44's password:
+[student<X>@ansible ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
+```
+
+Use the command `rpm -qe httpd` to verify httpd is installed:
+
+```
 [student<X>@node1 ~]$ rpm -qi httpd
 Name        : httpd
 Version     : 2.4.6
@@ -181,7 +184,7 @@ Log out of `node1` with the command `exit` so that you are back on the control h
 
 Run the Playbook a second time, and compare the output: The output changed from "changed" to "ok", and the color changed from yellow to green. Also the "PLAY RECAP" is different now. This make it easy to spot what Ansible actually did.
 
-## Step 3.4 - Extend your Playbook: Start & Enable Apache
+## Step 4 - Extend your Playbook: Start & Enable Apache
 
 The next part of the Ansible Playbook makes sure the Apache application is enabled and started on `node1`.
 
@@ -224,7 +227,7 @@ Note the output now: Some tasks are shown as "ok" in green and one is shown as "
 
   - Run the Playbook a second time to get used to the change in the output.
 
-## Step 3.5 - Extend your Playbook: Create an index.html
+## Step 5 - Extend your Playbook: Create an web.html
 
 Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the node from the inventory.
 
@@ -236,15 +239,15 @@ Check that the tasks were executed correctly and Apache is accepting connections
 [student<X>@ansible ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
 ```
 
-There are a lot of red lines and an error: As long as there is not at least an `index.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
+There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `index.html` file? On the ansible control host, as the `student<X>` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student<X>` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
 ```bash
 [student<X>@ansible ansible-files]$ mkdir files
 ```
 
-Then create the file `~/ansible-files/files/index.html` on the control node:
+Then create the file `~/ansible-files/files/web.html` on the control node:
 
 ```html
 <body>
@@ -271,10 +274,10 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
       name: httpd
       enabled: true
       state: started
-  - name: copy index.html
+  - name: copy web.html
     copy:
-      src: index.html
-      dest: /var/www/html/
+      src: web.html
+      dest: /var/www/html/index.html
 ```
 
 You are getting used to the Playbook syntax, so what happens? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
@@ -289,7 +292,7 @@ Run your extended Playbook:
 
   - Run the ad hoc command  using the "uri" module from further above again to test Apache: The command should now return a friendly green "status: 200" line, amongst other information.
 
-## Step 3.6 - Practice: Apply to Multiple Host
+## Step 6 - Practice: Apply to Multiple Host
 
 This was nice but the real power of Ansible is to apply the same set of tasks reliably to many hosts.
 
@@ -326,10 +329,10 @@ Change the Playbook to point to the group "web":
       name: httpd
       enabled: true
       state: started
-  - name: copy index.html
+  - name: copy web.html
     copy:
-      src: index.html
-      dest: /var/www/html/
+      src: web.html
+      dest: /var/www/html/index.html
 ```
 
 Now run the Playbook:
@@ -346,5 +349,8 @@ Finally check if Apache is now running on both servers. Identify the IP addresse
 
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../1.2-adhoc) - [Next Exercise](../1.4-variables)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

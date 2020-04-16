@@ -1,16 +1,27 @@
-# Exercise 2.3 - Projects & job templates
+# Workshop Exercise - Projects & job templates
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+## Table Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Setup Git Repository](#setup-git-repository)
 * [Create the Project](#create-the-project)
 * [Create a Job Template and Run a Job](#create-a-job-template-and-run-a-job)
 * [Challenge Lab: Check the Result](#challenge-lab-check-the-result)
 * [What About Some Practice?](#what-about-some-practice)
 
-A Tower **Project** is a logical collection of Ansible Playbooks. You can manage your playbooks by placing them into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
+# Objective
 
-You should definitely keep your Playbooks under version control. In this lab we’ll use Playbooks kept in a Git repository.
+An Ansible Tower **Project** is a logical collection of Ansible Playbooks. You can manage your playbooks by placing them into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
+
+This exercise covers
+- Understanding and using an Ansible Tower Project
+- Using Ansible Playbooks kept in a Git repository.
+- Creating and using an Ansible Job Template
+
+# Guide
 
 ## Setup Git Repository
 
@@ -19,7 +30,7 @@ For this demonstration we will use playbooks stored in a Git repository:
 **https://github.com/ansible/workshop-examples**
 
 
-A Playbook to install the Apache webserver has already been commited to the directory **rhel/apache**, `apache_install.yml`:
+A Playbook to install the Apache web server has already been committed to the directory **rhel/apache**, `apache_install.yml`:
 
 ```yaml
 ---
@@ -65,13 +76,26 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 
 ## Create the Project
 
-  - Go to **RESOURCES → Projects** in the side menu view click the ![plus](images/green_plus.png) button. Fill in the form:
+  - Go to **RESOURCES → Projects** in the side menu view click the green **+**  button. Fill in the form:
 
-  - **NAME:** Ansible Workshop Examples
-
-  - **ORGANIZATION:** Default
-
-  - **SCM TYPE:** Git
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>NAME</td>
+      <td>Ansible Workshop Examples</td>
+    </tr>
+    <tr>
+      <td>ORGANIZATION</td>
+      <td>Default</td>
+    </tr>
+    <tr>
+      <td>SCM TYPE</td>
+      <td>Git</td>
+    </tr>
+  </table>
 
 Now you need the URL to access the repo. Go to the Github repository mentioned above, choose the green **Clone or download** button on the right, click on **Use https** and copy the HTTPS URL.
 
@@ -81,13 +105,25 @@ Now you need the URL to access the repo. Go to the Github repository mentioned a
 
  Enter the URL into the Project configuration:
 
-- **SCM URL:** `https://github.com/ansible/workshop-examples.git`
+ <table>
+   <tr>
+     <th>Parameter</th>
+     <th>Value</th>
+   </tr>
+   <tr>
+     <td>SCM URL</td>
+     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
+   </tr>
+   <tr>
+     <td>SCM UPDATE OPTIONS</td>
+     <td>Tick the first three boxes to always get a fresh copy of the repository and to update the repository when launching a job</td>
+   </tr>
+ </table>
 
-- **SCM UPDATE OPTIONS:** Tick the first three boxes to always get a fresh copy of the repository and to update the repository when launching a job.
 
 - Click **SAVE**
 
-The new Project will be synced automatically after creation. But you can also do this automatically: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Get latest SCM revision** icon to the right of the Project.
+The new Project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Get latest SCM revision** icon to the right of the Project.
 
 After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
 
@@ -109,19 +145,44 @@ Okay, let’s just do that: Go to the **Templates** view, click the ![plus](imag
 >
 > Remember that you can often click on magnfying glasses to get an overview of options to pick to fill in fields.
 
-- **NAME:** Install Apache
-
-- **JOB TYPE:** Run
-
-- **INVENTORY:** Workshop Inventory
-
-- **PROJECT:** Ansible Workshop Examples
-
-- **PLAYBOOK:** `rhel/apache/apache_install.yml`
-
-- **CREDENTIAL:** Workshop Credentials
-
-- We need to run the tasks as root so check **Enable privilege escalation**
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>NAME</td>
+    <td>Install Apache</td>
+  </tr>
+  <tr>
+    <td>JOB TYPE</td>
+    <td>Run</td>
+  </tr>
+  <tr>
+    <td>INVENTORY</td>
+    <td>Workshop Inventory</td>
+  </tr>
+  <tr>
+    <td>PROJECT</td>
+    <td>Ansible Workshop Examples</td>
+  </tr>
+  <tr>
+    <td>PLAYBOOK</td>
+    <td><code>rhel/apache/apache_install.yml</code></td>
+  </tr>    
+  <tr>
+    <td>CREDENTIAL</td>
+    <td>Workshop Credentials</td>
+  </tr>
+  <tr>
+    <td>LIMIT</td>
+    <td>web</td>
+  </tr>    
+  <tr>
+    <td>OPTIONS</td>
+    <td>tasks need to run as root so check **Enable privilege escalation**</td>
+  </tr>           
+</table>
 
 - Click **SAVE**
 
@@ -161,11 +222,26 @@ You have already been through all the steps needed, so try this for yourself.
 
 - In the **HOSTS** view select all hosts and click **RUN COMMANDS**
 
-- **MODULE:** command
+- Fill out the following:
 
-- **ARGUMENTS:** systemctl status httpd
-
-- **MACHINE CREDENTIALS:** Workshop Credentials
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>MODULE</td>
+    <td>command</td>
+  </tr>
+  <tr>
+    <td>ARGUMENTS</td>
+    <td>systemctl status httpd</td>
+  </tr>
+  <tr>
+    <td>MACHINE CREDENTIALS</td>
+    <td>Workshop Credentials</td>
+  </tr>   
+</table>
 
 - Click **LAUNCH**
 
@@ -198,5 +274,8 @@ Here is a list of tasks:
 > The Job didn’t change anything because Apache was already installed in the latest version.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

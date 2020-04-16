@@ -1,6 +1,6 @@
 # Exercicio 1.8 - Labs Bônus
 
-**Leia em outra linguagem**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
 * [Passo 8.1 - Lab Bônus: Comandos Ad Hoc](#passo-81---lab-bônus-comandos-ad-hoc)
 * [Passo 8.2 - Lab Bônus: Templates e variáveis](#passo-82---lab-bônus-templates-e-variáveis)
@@ -134,4 +134,4 @@ Primeiro, execute o próprio Playbook e em seguida, execute curl no `node1` com 
 
 ----
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)
+[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../../README.pt-br.md#seção-1---exercícios-do-ansible-engine)

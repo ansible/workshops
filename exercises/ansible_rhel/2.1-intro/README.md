@@ -1,11 +1,27 @@
-# Exercise 2.1 - Introduction to Tower
+# Workshop Exercise - Introduction to Ansible Tower
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+## Table Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Why Ansible Tower?](#why-ansible-tower)
 * [Your Ansible Tower Lab Environment](#your-ansible-tower-lab-environment)
 * [Dashboard](#dashboard)
 * [Concepts](#concepts)
+
+# Objective
+
+This exercise will provide an Ansible Tower overview including going through features that are provided by the Red Hat Ansible Automation Platform.  This will cover Ansible Tower fundamentals such as:
+
+  - Job Templates
+  - Projects
+  - Inventories
+  - Credentials
+  - Inventories
+
+# Guide
 
 ## Why Ansible Tower?
 
@@ -79,5 +95,8 @@ A job template is a definition and set of parameters for running an Ansible job.
 A job is basically an instance of Tower launching an Ansible playbook against an inventory of hosts.
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../1.7-role) - [Next Exercise](../2.2-cred)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

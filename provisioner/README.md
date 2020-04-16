@@ -143,12 +143,6 @@ What does the AWS provisioner take care of automatically?
 - Creation of an internet gateway for the VPC
 - Creation of route table for VPC (for reachability from internet)
 
-# Remote Desktop
-
-If you used `xrdp: true` you will the ability to remote desktop to the control node.
-
-The provisioner has the ability to install [xrdp](http://www.xrdp.org/) with [xfce](https://xfce.org/) for graphical interface. The xrdp application is a an open source remote desktop protocol(rdp) server. Xfce is a lightweight desktop environment for UNIX-like operating systems. It aims to be fast and low on system resources, while still being visually appealing and user friendly.
-
 # Getting Help
 
 Please file issues on Github.  Please fill out all required information.  Your issue will be closed if there if you skip required information in the Github issues template.

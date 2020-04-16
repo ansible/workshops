@@ -1,16 +1,4 @@
 ---
-# Inventory
-- name: Create inventory
-  tower_inventory:
-    name: "Workshop Inventory"
-    organization: "Default"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-
-- name: Import existing inventory into Tower
-  command: "awx-manage inventory_import --source=/home/{{ username }}/lab_inventory/hosts --inventory-id=2"
-
 # Teams
 - name: Create analyst team
   tower_team:
@@ -144,18 +132,6 @@
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
-# Credentials
-- name: Add ec2-user credential to Tower
-  tower_credential:
-    username: ec2-user
-    name: "ec2-user credential"
-    ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
-    kind: ssh
-    organization: "Default"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-
 # Add repository as project
 - name: Add git repository as Tower project
   tower_project:
@@ -193,7 +169,7 @@
     playbook: "idps_log.yml"
     state: "present"
     limit: "snort"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
@@ -233,7 +209,7 @@
     project: "Workshop Project"
     playbook: "rollback.yml"
     state: "present"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -247,7 +223,7 @@
     playbook: "snort_rule.yml"
     state: "present"
     limit: "snort"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     survey_enabled: true
     survey_spec: "{{ lookup('template', 'security_survey_ids_rule.json') }}"
@@ -264,7 +240,7 @@
     playbook: "ddos_attack_simulation.yml"
     state: "present"
     limit: "attacker"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
@@ -279,7 +255,7 @@
     playbook: "ddos_stop_simulation.yml"
     state: "present"
     limit: "attacker"
-    credential: "ec2-user credential"
+    credential: "Workshop Credential"
     become_enabled: true
     tower_username: admin
     tower_password: "{{ admin_password }}"

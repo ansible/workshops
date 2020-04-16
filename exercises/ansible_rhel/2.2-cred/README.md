@@ -1,44 +1,34 @@
-# Exercise 2.2 - Inventories, credentials and ad hoc commands
+# Workshop Exercise - Inventories, credentials and ad hoc commands
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+## Table of Contents
 
-* [Create an Inventory](#create-an-inventory)
+* [Objective](#objective)
+* [Guide](#guide)
+* [Examine an Inventory](#examine-an-inventory)
 * [Machine Credentials](#machine-credentials)
-* [Configure Machine Credentials](#configure-machine-credentials)
+* [Configure Machine Credentials](#examine-machine-credentials)
 * [Run Ad Hoc Commands](#run-ad-hoc-commands)
 * [Challenge Lab: Ad Hoc Commands](#challenge-lab-ad-hoc-commands)
 
-## Create an Inventory
+# Objective
 
-Let’s get started with: The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.
+Explore and understand the lab environment.  This exercise will cover
+- Locating and understanding:
+  - Ansible Tower [**Inventory**](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+  - Ansible Tower [**Credentials**](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html)
+- Running ad hoc commands via the Ansible Tower web UI
+
+# Guide
+
+## Examine an Inventory
+
+The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.
 
   - You should already have the web UI open, if not: Point your browser to the URL you were given, similar to **https://student\<X\>.workshopname.rhdemo.io** (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
 
-Create the inventory:
+There will be one inventory, the **Workshop Inventory**. Click the **Workshop Inventory** then click the **Hosts** button
 
-  - In the web UI menu on the left side, go to **RESOURCES** → **Inventories**, click the ![plus](images/green_plus.png) button on the right side and choose **Inventory**.
-
-  - **NAME:** Workshop Inventory
-
-  - **ORGANIZATION:** Default
-
-  - Click **SAVE**
-
-Now there will be two inventories, the **Demo Inventory** and the **Workshop Inventory**. In the **Workshop Inventory** click the **Hosts** button, it will be empty since we have not added any hosts there.
-
-So let's add some hosts. First we need to have the list of all hosts which are accessible to you within this lab. These can be found in an inventory on the ansible control node on which Tower is installed. You'll find the password for the SSH connection there as well.
-
-Login to your Tower control host via SSH:
-
-> **Warning**
->
-> Replace **workshopname** by the workshop name provided to you, and the **X** in student**X** by the student number provided to you.
-
-```bash
-ssh student<X>@student<X>.workshopname.rhdemo.io
-```
-
-You can find the inventory information at `~/lab_inventory/hosts`. Output them with `cat`, they should look like:
+The inventory information at `~/lab_inventory/hosts` was pre-loaded into the Ansible Tower Inventory as part of the provisioning process.
 
 ```bash
 $ cat ~/lab_inventory/hosts
@@ -59,86 +49,36 @@ ansible ansible_host=11.22.33.44
 >
 > In your inventory the IP addresses will be different.
 
-Note the names for the nodes and the IP addresses, we will use them to fill the inventory in Tower now:
+## Examine Machine Credentials
 
-  - In the inventory view of Tower click on your **Workshop Inventory**
+Now we will examine the credentials to access our managed hosts from Tower.  As part of the provisioning process for this Ansible Workshop the **Workshop Credential** has already been setup.
 
-  - Click on  the **HOSTS** button
+In the **RESOURCES** menu choose **Credentials**. Now click on the **Workshop Credential**.
 
-  - To the right click the ![plus](images/green_plus.png) button.
+Note the following information:
 
-  - **HOST NAME:** `node1`
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Credential Type</td>
+    <td><code>Machine</code>- Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host.</td>
+  </tr>
+  <tr>
+    <td>username</td>
+    <td><code>ec2-user</code> which matches our command-line Ansible inventory username for the other linux nodes</td>
+  </tr>
+  <tr>
+    <td>SSH PRIVATE KEY</td>
+    <td><code>ENCRYPTED</code> - take note that you can't actually examine the SSH private key once someone hands it over to Ansible Tower</td>
+  </tr>
+</table>
 
-  - **Variables:** Under the three dashes `---`, enter `ansible_host: 22.33.44.55` in a new line. Make sure to enter your specific IP address for your `node1` from the inventory looked up above, and note that the variable definition has a colon **:** and a space between the values, not an equal sign **=** like in the inventory file.
+## Run Ad Hoc commands
 
-  - Click **SAVE**
-
-  - Go back to **HOSTS** and repeat to add `node2` as a second host and `node3` as a third node. Make sure that for each node you enter the right IP addresses.
-
-You have now created an inventory with three managed hosts.
-
-## Machine Credentials
-
-One of the great features of Ansible Tower is to make credentials usable to users without making them visible. To allow Tower to execute jobs on remote hosts, you must configure connection credentials.
-
-> **Note**
->
-> This is one of the most important features of Tower: **Credential Separation**\! Credentials are defined separately and not with the hosts or inventory settings.
-
-As this is an important part of your Tower setup, why not make sure that connecting to the managed nodes from Tower is working?
-
- To access the Tower host via SSH do the following:
-
-- Login to your Tower control host via SSH: `ssh student<X>@student<X>.workshopname.rhdemo.io`
-- Replace **workshopname** by the workshop name provided to you, and the `<X>` in `student<X>` by the student number provided to you.
-- From Tower SSH into `node1` or one of the other nodes (look up the IP addresses from the inventory) and execute `sudo -i`.
-- For the SSH connection use the node password from the inventory file, `sudo -i` works without password.
-
-```bash
-[student<X>@ansible ~]$ ssh student<X>@22.33.44.55
-student<X>@22.33.44.55's password:
-Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
-[student<X>@node1 ~]$ sudo -i
-[root@node1 ~]#
-```
-
-What does this mean?
-
-  - Tower user **student\<X>** can connect to the managed hosts with password based SSH
-
-  - User **student\<X>** can execute commands on the managed hosts as **root** with `sudo`
-
-## Configure Machine Credentials
-
-Now we will configure the credentials to access our managed hosts from Tower. In the **RESOURCES** menu choose **Credentials**. Now:
-
-Click the ![plus](images/green_plus.png) button to add new credentials
-
-  - **NAME:** Workshop Credentials
-
-  - **ORGANIZATION:** Default
-
-  - **CREDENTIAL TYPE:** Click on the magnifying glass, pick **Machine** and click ![plus](images/select.png)
-
-  - **USERNAME:** student\<X\> - make sure to replace the **\<X\>** with your actual student number!
-
-  - **PASSWORD:** Enter the password from the inventory file.
-
-  - **PRIVILEGE ESCALATION METHOD:** sudo
-
-  - Click **SAVE**
-
-  - Go back to the **RESOURCES** → **Credentials** → **Workshop Credentials** and note that the password is not visible.
-
-> **Tip**
->
-> Whenever you see a magnifiying glass icon next to an input field, clicking it will open a list to choose from.
-
-You have now setup credentials to use later for your inventory hosts.
-
-## Run Ad Hoc Commands
-
-As you’ve probably done with Ansible before you can run ad hoc commands from Tower as well.
+It is possible to run run ad hoc commands from Ansible Tower as well.
 
   - In the web UI go to **RESOURCES → Inventories → Workshop Inventory**
 
@@ -146,27 +86,65 @@ As you’ve probably done with Ansible before you can run ad hoc commands from T
 
   - Click **RUN COMMANDS**. In the next screen you have to specify the ad hoc command:
 
-      - As **MODULE** choose **ping**
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>MODULE</td>
+      <td>MACHINE CREDENTIAL</td>
+    </tr>
+    <tr>
+      <td>ping</td>
+      <td>Workshop Credentials</td>
+    </tr>
+  </table>
 
-      - For **MACHINE CREDENTIAL** click the magnifying glass icon and select **Workshop Credentials**.
+  - Click **LAUNCH**, and watch the output.
 
-      - Click **LAUNCH**, and watch the output.
+<hr>
 
 The simple **ping** module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
 
-- **MODULE:** command
-
-- **ARGUMENTS:** id
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>MODULE</td>
+      <td>command</td>
+    </tr>
+    <tr>
+      <td>ARGUMENTS</td>
+      <td>id</td>
+    </tr>
+  </table>
 
 > **Tip**
 >
 > After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
 
+<hr>
+
 How about trying to get some secret information from the system? Try to print out */etc/shadow*.
 
-- **MODULE:** command
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>MODULE</td>
+    <td>command</td>
+  </tr>
+  <tr>
+    <td>ARGUMENTS</td>
+    <td>cat /etc/shadow</td>
+  </tr>
+</table>
 
-- **ARGUMENTS:** cat /etc/shadow
 
 > **Warning**
 >
@@ -176,7 +154,7 @@ Oops, the last one didn’t went well, all red.
 
 Re-run the last ad hoc command but this time tick the **ENABLE PRIVILEGE ESCALATION** box.
 
-As you see, this time it worked. For tasks that have to run as root you need to escalate the privileges. This is the same as the **become: yes** you’ve probably used often in your Ansible Playbooks.
+As you see, this time it worked. For tasks that have to run as root you need to escalate the privileges. This is the same as the **become: yes** used in your Ansible Playbooks.
 
 ## Challenge Lab: Ad Hoc Commands
 
@@ -186,16 +164,32 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 >
 > **Solution below\!**
 
-  - **MODULE:** yum
-
-  - **ARGUMENTS:** name=tmux
-
-  - Tick **ENABLE PRIVILEGE ESCALATION**
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>yum</td>
+    <td>command</td>
+  </tr>
+  <tr>
+    <td>ARGUMENTS</td>
+    <td>name=tmux</td>
+  </tr>
+  <tr>
+    <td>ENABLE PRIVILEGE ESCALATION</td>
+    <td>✓</td>
+  </tr>
+</table>
 
 > **Tip**
 >
 > The yellow output of the command indicates Ansible has actually done something (here it needed to install the package). If you run the ad hoc command a second time, the output will be green and inform you that the package was already installed. So yellow in Ansible doesn’t mean "be careful"…​ ;-).
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.1-intro) - [Next Exercise](../2.3-cred)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

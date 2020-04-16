@@ -1,18 +1,4 @@
 ---
-- name: Populate Tower
-  hosts: control_nodes
-  gather_facts: true
-  become: true
-
-  tasks:
-    - name: Create Tower student resources
-      include_role:
-        name: populate_tower
-        tasks_from: windows.yml
-      when:
-        - towerinstall is defined
-        - towerinstall|bool
-
 - name: Configure GitLab Host
   hosts: gitlab
   become: true

@@ -1,18 +1,21 @@
-# Exercício 1.2 - Executando comandos ad-hoc
+# Exercício - Executando comandos ad-hoc
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Passo 2.1 - Trabalhe com seu inventário](#passo-21---trabalhe-com-seu-inventário)
-* [Passo 2.2 - Arquivos de configuração Ansible](#passo-22---arquivos-de-configuração-ansible)
-* [Passo 2.3 - Pingando um host](#passo-23---pingando-um-host)
-* [Passo 2.4 - Como listar módulos e obter ajuda](#passo-24---como-listar-módulos-e-obter-ajuda)
-* [Passo 2.5 - Use o módulo de command:](#passo-25---use-o-módulo-de-command)
-* [Passo 2.6 - O módulo de cópia e permissões](#passo-26---o-módulo-de-cópia-e-permissões)
-* [Laboratório de Desafios: Módulos](#laboratório-de-desafios-módulos)
-
 Em nosso primeiro exercício, executaremos alguns comandos ad-hoc para ajudá-lo a entender como o Ansible funciona. Os comandos ad-hoc permitem executar tarefas em nós remotos sem precisar escrever um manual. Eles são muito úteis quando você simplesmente precisa fazer uma ou duas coisas de maneira rápida e frequente para muitos nós remotos.
 
-## Passo 2.1 - Trabalhe com seu inventário
+## Table of Contents
+
+* [Passo 1 - Trabalhe com seu inventário](#passo-1---trabalhe-com-seu-inventário)
+* [Passo 2 - Arquivos de configuração Ansible](#passo-2---arquivos-de-configuração-ansible)
+* [Passo 3 - Pingando um host](#passo-3---pingando-um-host)
+* [Passo 4 - Como listar módulos e obter ajuda](#passo-4---como-listar-módulos-e-obter-ajuda)
+* [Passo 5 - Use o módulo de command:](#passo-5---use-o-módulo-de-command)
+* [Passo 6 - O módulo de cópia e permissões](#passo-6---o-módulo-de-cópia-e-permissões)
+* [Laboratório de Desafios: Módulos](#laboratório-de-desafios-módulos)
+
+
+## Passo 1 - Trabalhe com seu inventário
 
 Para usar o comando ansible para gerenciamento de host, é necessário fornecer um arquivo de inventário que defina uma lista de hosts a serem gerenciados a partir do nó de controle. Neste laboratório, o inventário é fornecido pelo seu instrutor. O inventário é um arquivo listando seus hosts, classificando em grupos, além de fornecer algumas variáveis. É parecido com isso:
 
@@ -58,7 +61,7 @@ Como você pode ver, não há problema em colocar sistemas em mais de um grupo. 
 >
 > O inventário pode conter mais dados. Por exemplo, se você possui hosts que executam em portas SSH não padrão, pode colocar o número da porta após o nome do host com dois pontos. Ou pode definir nomes específicos para o Ansible e fazer com que aponte para o IP ou nome de host "real".
 
-## Passo 2.2 - Arquivos de configuração Ansible
+## Passo 2 - Arquivos de configuração Ansible
 
 O comportamento do Ansible pode ser personalizado modificando as configurações no arquivo de configuração do Ansible. O Ansible selecionará seu arquivo de configuração em um dos vários locais possíveis no nó de controle, consulte a [documentação](https://docs.ansible.com/ansible/latest/reference_appendices/config.html).
 
@@ -111,7 +114,7 @@ ansible ansible_host=44.55.66.77
 >
 > Observe que cada aluno tem um ambiente de laboratório individual. Os endereços IP mostrados acima são apenas um exemplo e os endereços IP de seus ambientes individuais são diferentes. Como nos outros casos, substitua **\<X\>** pelo número real do aluno.
 
-## Passo 2.3 - Pingando um host
+## Passo 3 - Pingando um host
 
 > **ATENÇÃO**
 >
@@ -139,7 +142,7 @@ node2 | SUCCESS => {
 
 Como você vê cada nó relata a execução bem-sucedida e o resultado real - "pong".
 
-## Passo 2.4 - Como listar módulos e obter ajuda
+## Passo 4 - Como listar módulos e obter ajuda
 
 O Ansible vem com muitos módulos por padrão. Para listar todos os módulos, execute:
 
@@ -167,7 +170,7 @@ Obtenha ajuda para um módulo específico, incluindo exemplos de uso:
 >
 > As opções obrigatórias são marcadas com "=" em `ansible-doc`.
 
-## Passo 2.5 - Use o módulo de command:
+## Passo 5 - Use o módulo de command:
 
 Agora vamos ver como podemos executar um bom e velho comando Linux e formatar a saída usando o módulo `command`. Ele simplesmente executa o comando especificado em um host gerenciado:
 
@@ -194,7 +197,7 @@ Outro exemplo: Veja rapidamente as versões do kernel que seus hosts estão exec
 >
 > Como muitos comandos do Linux, o `ansible` permite opções longas e curtas. Por exemplo, `ansible web --module-name ping` é o mesmo que executar `ansible web -m ping`. Usaremos as opções resumidas ao longo deste workshop.
 
-## Passo 2.6 - O módulo de cópia e permissões
+## Passo 6 - O módulo de cópia e permissões
 
 Usando o módulo `copy`, execute um comando ad hoc no `node1` para alterar o conteúdo do arquivo `/etc/motd`. **Neste caso o conteúdo é entregue ao módulo através de uma opção**.
 

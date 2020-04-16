@@ -1,19 +1,19 @@
-# Exercício 1.7 - Roles: Tornando seus playbooks reutilizáveis
+# Exercício - Roles: Tornando seus playbooks reutilizáveis
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Passo 7.1 - Entendendo a estrutura da Role](#passo-71---entendendo-a-estrutura-da-role)
-* [Passo 7.2 - Criando uma estrutura básica de diretório de roles](#passo-72---criando-uma-estrutura-básica-de-diretório-de-roles)
-* [Passo 7.3 - Criando o arquivo de tasks](#passo-73---criando-o-arquivo-de-tasks)
-* [Passo 7.4 - Criando o handler](#passo-74---criando-o-handler)
-* [Passo 7.5 - Criando o index.html e template de arquivo de configuração do vhost](#passo-75---criando-o-indexhtml-e-template-de-arquivo-de-configuração-do-vhost)
-* [Passo 7.6 - Teste a role](#passo-76---teste-a-role)
+* [Passo 1 - Entendendo a estrutura da Role](#passo-1---entendendo-a-estrutura-da-role)
+* [Passo 2 - Criando uma estrutura básica de diretório de roles](#passo-2---criando-uma-estrutura-básica-de-diretório-de-roles)
+* [Passo 3 - Criando o arquivo de tasks](#passo-3---criando-o-arquivo-de-tasks)
+* [Passo 4 - Criando o handler](#passo-4---criando-o-handler)
+* [Passo 5 - Criando o index.html e template de arquivo de configuração do vhost](#passo-5---criando-o-indexhtml-e-template-de-arquivo-de-configuração-do-vhost)
+* [Passo 6 - Teste a role](#passo-6---teste-a-role)
 
 Embora seja possível escrever um playbook em um arquivo, como fizemos neste workshop, você poderá reutilizar arquivos e começar a organizar as coisas.
 
 Roles são a maneira como fazemos isso. Quando você cria uma role, desconstrói seu playbook em partes e essas partes ficam em uma estrutura de diretórios. Isso é explicado em mais detalhes nas [melhores práticas](http://docs.ansible.com/ansible/playbooks_best_practices.html) já mencionadas no exercício 3.
 
-## Passo 7.1 - Entendendo a estrutura da Role
+## Passo 1 - Entendendo a estrutura da Role
 
 As roles são basicamente a automação criada em torno das diretivas *include* e realmente não contêm muita magia adicional além de algumas melhorias no processamento do caminho de pesquisa para arquivos referenciados.
 
@@ -60,7 +60,7 @@ O uso de roles em um Playbook é direto:
 
 As tasks, handlers e variáveis dessa role serão incluídas no Playbook, nessa ordem. Qualquer cópia, script, template ou task de inclusão na role pode fazer referência aos arquivos, templates ou tasks relevantes *sem nomes de caminho absolutos ou relativos*. O Ansible procurará por eles nos arquivos, templates ou task da role, respectivamente, com base em seu uso.
 
-## Passo 7.2 - Criando uma estrutura básica de diretório de roles
+## Passo 2 - Criando uma estrutura básica de diretório de roles
 
 Ansible procura por roles em um subdiretório chamado `roles` no diretório do projeto. Isso pode ser substituído na configuração Ansible. Cada role tem seu próprio diretório. Para facilitar a criação de um novo role, a ferramenta `ansible-galaxy` pode ser usada.
 
@@ -81,7 +81,7 @@ Dê uma olhada nos diretórios de role e seu conteúdo:
 [student<X>@ansible ansible-files]$ tree roles
 ```
 
-## Passo 7.3 - Criando o arquivo de tasks
+## Passo 3 - Criando o arquivo de tasks
 
 O arquivo `main.yml` no subdiretório de taks da role deve fazer o seguinte:
 
@@ -193,7 +193,7 @@ O arquivo completo `tasks/main.yml` é:
 <!-- {% endraw %} -->
 
 
-## Passo 7.4 - Criando o handler
+## Passo 4 - Criando o handler
 
 Crie o handler no arquivo `handlers/main.yml` para reiniciar o httpd quando notificado pela task do template:
 
@@ -206,7 +206,7 @@ Crie o handler no arquivo `handlers/main.yml` para reiniciar o httpd quando noti
     state: restarted
 ```
 
-## Passo 7.5 - Criando o index.html e template de arquivo de configuração do vhost
+## Passo 5 - Criando o index.html e template de arquivo de configuração do vhost
 
 Crie o conteúdo HTML que será exibido pelo servidor web.
 
@@ -238,7 +238,7 @@ Crie o conteúdo HTML que será exibido pelo servidor web.
 ```
 <!-- {% endraw %} -->
 
-## Passo 7.6 - Teste a role
+## Passo 6 - Teste a role
 
 Você está pronto para testar a role no `node2`. Mas como uma role não pode ser atribuída diretamente a um nó, primeiro crie um Playbook que conecte a role e o host. Crie o arquivo `test_apache_role.yml` no diretório `~/ansible-files`:
 

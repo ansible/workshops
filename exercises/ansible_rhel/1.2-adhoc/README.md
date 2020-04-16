@@ -1,18 +1,31 @@
-# Exercise 1.2 - Running Ad-hoc commands
+# Workshop Exercise - Running Ad-hoc commands
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Step 2.1 - Work with your Inventory](#step-21---work-with-your-inventory)
-* [Step 2.2 - The Ansible Configuration Files](#step-22---the-ansible-configuration-files)
-* [Step 2.3 - Ping a host](#step-23---ping-a-host)
-* [Step 2.4 - Listing Modules and Getting Help](#step-24---listing-modules-and-getting-help)
-* [Step 2.5 - Use the command module:](#step-25---use-the-command-module)
-* [Step 2.6 - The copy module and permissions](#step-26---the-copy-module-and-permissions)
+## Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
+* [Step 1 - Work with your Inventory](#step-1---work-with-your-inventory)
+* [Step 2 - The Ansible Configuration Files](#step-2---the-ansible-configuration-files)
+* [Step 3 - Ping a host](#step-3---ping-a-host)
+* [Step 4 - Listing Modules and Getting Help](#step-4---listing-modules-and-getting-help)
+* [Step 5 - Use the command module:](#step-5---use-the-command-module)
+* [Step 6 - The copy module and permissions](#step-6---the-copy-module-and-permissions)
 * [Challenge Lab: Modules](#challenge-lab-modules)
+
+# Objective
 
 For our first exercise, we are going to run some ad-hoc commands to help you get a feel for how Ansible works.  Ansible Ad-Hoc commands enable you to perform tasks on remote nodes without having to write a playbook.  They are very useful when you simply need to do one or two things quickly and often, to many remote nodes.
 
-## Step 2.1 - Work with your Inventory
+This exercise will cover
+- Locating and understanding the Ansible configuration file (`ansible.cfg`)
+- Locating and understanding an `ini` formatted inventory file
+- Executing ad hoc commands
+
+# Guide
+
+## Step 1 - Work with your Inventory
 
 To use the ansible command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab the inventory is provided by your instructor. The inventory is an ini formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
 
@@ -58,7 +71,7 @@ As you see it is OK to put systems in more than one group. For instance, a serve
 >
 > The inventory can contain more data. E.g. if you have hosts that run on non-standard SSH ports you can put the port number after the hostname with a colon. Or you could define names specific to Ansible and have them point to the "real" IP or hostname.
 
-## Step 2.2 - The Ansible Configuration Files
+## Step 2 - The Ansible Configuration Files
 
 The behavior of Ansible can be customized by modifying settings in Ansible’s ini-style configuration file. Ansible will select its configuration file from one of several possible locations on the control node, please refer to the [documentation](https://docs.ansible.com/ansible/latest/reference_appendices/config.html).
 
@@ -111,7 +124,7 @@ ansible ansible_host=44.55.66.77
 >
 > Note that each student has an individual lab environment. The IP addresses shown above are only an example and the IP addresses of your individual environments are different. As with the other cases, replace **\<X\>** with your actual student number.
 
-## Step 2.3 - Ping a host
+## Step 3 - Ping a host
 
 > **Warning**
 >
@@ -139,7 +152,7 @@ node2 | SUCCESS => {
 
 As you see each node reports the successful execution and the actual result - here "pong".
 
-## Step 2.4 - Listing Modules and Getting Help
+## Step 4 - Listing Modules and Getting Help
 
 Ansible comes with a lot of modules by default. To list all modules run:
 
@@ -167,7 +180,7 @@ Get help for a specific module including usage examples:
 >
 > Mandatory options are marked by a "=" in `ansible-doc`.
 
-## Step 2.5 - Use the command module:
+## Step 5 - Use the command module:
 
 Now let's see how we can run a good ol' fashioned Linux command and format the output using the `command` module. It simply executes the specified command on a managed host:
 
@@ -194,7 +207,7 @@ Sometimes it’s desirable to have the output for a host on one line:
 >
 > Like many Linux commands, `ansible` allows for long-form options as well as short-form.  For example `ansible web --module-name ping` is the same as running `ansible web -m ping`.  We are going to be using the short-form options throughout this workshop.
 
-## Step 2.6 - The copy module and permissions
+## Step 6 - The copy module and permissions
 
 Using the `copy` module, execute an ad hoc command on `node1` to change the contents of the `/etc/motd` file. **The content is handed to the module through an option in this case**.
 
@@ -231,7 +244,7 @@ For us it’s okay to connect as `student<X>` because `sudo` is set up. Change t
 
 This time the command is a success:
 
-```bash
+```
 node1 | CHANGED => {
     "changed": true,
     "checksum": "4458b979ede3c332f8f2128385df4ba305e58c27",
@@ -284,12 +297,15 @@ Run the `ansible node1 -m copy …​` command from above again. Note:
 >
 > **Solution below\!**
 
-```bash
+```
 [student<X>@ansible ~]$ ansible-doc -l | grep -i yum
 [student<X>@ansible ~]$ ansible-doc yum
 [student<X>@ansible ~]$ ansible node1 -m yum -a 'name=squid state=latest' -b
 ```
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../1.1-setup) - [Next Exercise](../1.3-playbook)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

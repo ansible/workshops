@@ -1,14 +1,14 @@
-# Exercício 1.4 - Usando variáveis
+# Exercício - Usando variáveis
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Passo 4.1 - Criando arquivos de variáveis](#passo-41---criando-arquivos-de-variáveis)
-* [Passo 4.2 - Criando o arquivo index.html](#passo-42---criando-o-arquivo-indexhtml)
-* [Passo 4.3 - Criando o Playbook](#passo-43---criando-o-playbook)
-* [Passo 4.4 - Teste o Resultado](#passo-44---teste-o-resultado)
-* [Passo 4.5 - Ansible Facts](#passo-45---ansible-facts)
-* [Passo 4.6 - Laboratório de desafios: Facts](#passo-46---laboratório-de-desafios-facts)
-* [Passo 4.7 - Usando Facts em Playbooks](#passo-47---usando-facts-em-playbooks)
+* [Passo 1 - Criando arquivos de variáveis](#passo-1---criando-arquivos-de-variáveis)
+* [Passo 2 - Criando o arquivo index.html](#passo-2---criando-o-arquivo-indexhtml)
+* [Passo 3 - Criando o Playbook](#passo-3---criando-o-playbook)
+* [Passo 4 - Teste o Resultado](#passo-4---teste-o-resultado)
+* [Passo 5 - Ansible Facts](#passo-5---ansible-facts)
+* [Passo 6 - Laboratório de desafios: Facts](#passo-6---laboratório-de-desafios-facts)
+* [Passo 7 - Usando Facts em Playbooks](#passo-7---usando-facts-em-playbooks)
 
 Os exercícios anteriores mostraram os conceitos básicos do Ansible Engine. Nos próximos exercícios, ensinaremos algumas habilidades mais avançadas que adicionarão flexibilidade e poder aos seus Playbooks.
 
@@ -36,7 +36,7 @@ A prática recomendada para fornecer variáveis no inventário é defini-las em 
 >
 > Variáveis de host têm precedência sobre variáveis de grupo (mais sobre precedência pode ser encontrada em [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
 
-## Passo 4.1 - Criando arquivos de variáveis
+## Passo 1 - Criando arquivos de variáveis
 
 Para entender e praticar, vamos fazer um laboratório. Seguindo o tema "Vamos construir um servidor Web, ou dois, ou ainda mais...​", você alterará o `index.html` para mostrar o ambiente de desenvolvimento (dev/prod) em que um servidor está implantado.
 
@@ -68,7 +68,7 @@ O que é isso?
 
   - Para o servidor `node2`, isso é substituído e o host é sinalizado como um servidor de produção.
 
-## Passo 4.2 - Criando o arquivo index.html
+## Passo 2 - Criando o arquivo index.html
 
 Agora, crie dois aquivos em `~/ansible-files/`:
 
@@ -88,7 +88,7 @@ E um chamado `dev_index.html` com o seguinte conteúdo:
 </body>
 ```
 
-## Passo 4.3 - Criando o Playbook
+## Passo 3 - Criando o Playbook
 
 Agora você precisa de um Playbook que copie o arquivo prod ou dev `index.html` - de acordo com a variável "stage".
 
@@ -118,7 +118,7 @@ Crie um novo playbook, chamado `deploy_index_html.yml` no diretório `~/ansible-
 [student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
-## Passo 4.4 - Teste o Resultado
+## Passo 4 - Teste o Resultado
 
 O Playbook deve copiar arquivos diferentes como index.html para os hosts, use `curl` para testá-lo. Verifique o inventário novamente se você esqueceu os endereços IP dos seus nós.
 
@@ -145,7 +145,7 @@ node3 ansible_host=33.44.55.66
 >
 > Agora você pensa: "Tem que haver uma maneira mais inteligente de alterar o conteúdo dos arquivos..." e você está absolutamente certo. Este laboratório foi realizado para introduzir variáveis, você está prestes a aprender sobre templates em um dos próximos capítulos.
 
-## Passo 4.5 - Ansible Facts
+## Passo 5 - Ansible Facts
 
 Facts são variáveis que são descobertas automaticamente pelo Ansible a partir de um host gerenciado. Lembra da task "Gathering Facts" listada na saída de cada execução do `ansible-playbook`? Nesse momento, os facts são reunidos para cada nó gerenciado. Os fatos também podem ser obtidos pelo módulo `setup`. Eles contêm informações úteis armazenadas em variáveis que os administradores podem reutilizar.
 
@@ -166,7 +166,7 @@ Ou que tal procurar apenas facts relacionados à memória:
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
 ```
 
-## Passo 4.6 - Laboratório de desafios: Facts
+## Passo 6 - Laboratório de desafios: Facts
 
   - Tente encontrar e imprimir a distribuição (Red Hat) de seus hosts gerenciados. Em uma linha, por favor.
 
@@ -183,7 +183,7 @@ Ou que tal procurar apenas facts relacionados à memória:
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
 ```
 
-## Passo 4.7 - Usando Facts em Playbooks
+## Passo 7 - Usando Facts em Playbooks
 
 Os facts podem ser usados em um Playbook como variáveis, usando a nomeação apropriada. Crie este Playbook como `facts.yml` no diretório `~/ansible-files/`:
 

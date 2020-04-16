@@ -1,13 +1,13 @@
-# Exercício 1.3 - Escrevendo seu primeiro Playbook
+# Exercício - Escrevendo seu primeiro Playbook
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Passo 3.1 - Noções básicas do Playbook](#passo-31---noções-básicas-do-playbook)
-* [Passo 3.2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook](#passo-32---criando-uma-estrutura-de-diretórios-e-um-arquivo-para-o-seu-playbook)
-* [Passo 3.3 - Rodando o Playbook](#passo-33---rodando-o-playbook)
-* [Passo 3.4 - Amplie seu playbook: Apache Start &amp; Enable](#passo-34---amplie-seu-playbook-apache-start--enable)
-* [Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html](#passo-35---ampliando-seu-playbook-criando-um-aquivo-indexhtml)
-* [Passo 3.6 - Pratique: Aplicar a vários hosts](#passo-36---pratique-aplicar-a-vários-hosts)
+* [Passo 1 - Noções básicas do Playbook](#passo-1---noções-básicas-do-playbook)
+* [Passo 2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook](#passo-2---criando-uma-estrutura-de-diretórios-e-um-arquivo-para-o-seu-playbook)
+* [Passo 3 - Rodando o Playbook](#passo-3---rodando-o-playbook)
+* [Passo 4 - Amplie seu playbook: Apache Start &amp; Enable](#passo-4---amplie-seu-playbook-apache-start--enable)
+* [Passo 5 - Ampliando seu Playbook: Criando um aquivo web.html](#passo-5---ampliando-seu-playbook-criando-um-aquivo-indexhtml)
+* [Passo 6 - Pratique: Aplicar a vários hosts](#passo-6---pratique-aplicar-a-vários-hosts)
 
 Embora os comandos Ansible ad hoc sejam úteis para operações simples, eles não são adequados para cenários complexos de gerenciamento ou orquestração de configurações. Para tais casos de uso, os playbooks são o caminho a percorrer.
 
@@ -21,7 +21,7 @@ Um Playbook pode ter várias plays e uma play pode ter uma ou várias tasks. Em 
 >
 > Uma boa analogia: quando os módulos Ansible são as ferramentas da sua oficina, o inventário é o material e os Playbooks são as instruções.
 
-## Passo 3.1 - Noções básicas do Playbook
+## Passo 1 - Noções básicas do Playbook
 
 Playbooks são arquivos de texto escritos no formato YAML e, portanto, precisam:
 
@@ -47,7 +47,7 @@ Um Playbook deve ser **idempotente**, portanto se um Playbook for executado uma 
 >
 > A maioria dos módulos Ansible é idempotente, portanto é relativamente fácil garantir que isso seja verdade.
 
-## Passo 3.2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook
+## Passo 2 - Criando uma estrutura de diretórios e um arquivo para o seu Playbook
 
 Chega de teoria, é hora de criar seu primeiro Playbook. Neste laboratório, você cria um Playbook para configurar um servidor web Apache em três etapas:
 
@@ -55,7 +55,7 @@ Chega de teoria, é hora de criar seu primeiro Playbook. Neste laboratório, voc
 
   - 2ª Etapa: Enable/start o serviço httpd
 
-  - 3ª Etapa: Criar um aquivo index.html
+  - 3ª Etapa: Criar um aquivo web.html
 
 Este Playbook garante que o pacote que contém o servidor Apache esteja instalado no `node1`.
 
@@ -125,7 +125,7 @@ Nas linhas adicionadas:
 
 Salve seu Playbook e saia do Editor.
 
-## Passo 3.3 - Rodando o Playbook
+## Passo 3 - Rodando o Playbook
 
 Playbooks são executados usando o comando `ansible-playbook` no nó de controle. Antes de executar um novo Playbook, é uma boa ideia verificar se há erros de sintaxe:
 
@@ -163,7 +163,7 @@ Efetue logout do `node1` com o comando `exit` para voltar ao host de controle e 
 
 Execute o Playbook pela segunda vez e compare a saída: A saída mudou de "changed" para "ok" e a cor mudou de amarelo para verde. Além disso, o "PLAY RECAP" é diferente agora. Isso facilita a identificação do que o Ansible realmente fez.
 
-## Passo 3.4 - Amplie seu playbook: Apache Start & Enable
+## Passo 4 - Amplie seu playbook: Apache Start & Enable
 
 A próxima parte do Playbook garante que o servidor Apache esteja startado e habilitado no `node1`.
 
@@ -206,7 +206,7 @@ Observe a saída agora: algumas tasks são mostradas como "ok" em verde e uma é
 
   - Execute o Playbook uma segunda vez para se acostumar com a alteração na saída.
 
-## Passo 3.5 - Ampliando seu Playbook: Criando um aquivo index.html
+## Passo 5 - Ampliando seu Playbook: Criando um aquivo web.html
 
 Verifique se as tasks foram executadas corretamente e o Apache está aceitando conexões: faça uma solicitação HTTP usando o módulo `uri` em um comando ad hoc a partir do nó de controle. Certifique-se de substituir **\<IP\>** pelo IP do nó do inventário.
 
@@ -218,9 +218,9 @@ Verifique se as tasks foram executadas corretamente e o Apache está aceitando c
 [student<X>@ansible ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
 ```
 
-Há muitas linhas vermelhas e um erro: Contanto que não haja pelo menos um arquivo `index.html` a ser consumido pelo Apache, ele emitirá um status feio "HTTP Error 403: Forbidden" e o Ansible relatará um erro.
+Há muitas linhas vermelhas e um erro: Contanto que não haja pelo menos um arquivo `web.html` a ser consumido pelo Apache, ele emitirá um status feio "HTTP Error 403: Forbidden" e o Ansible relatará um erro.
 
-Então, por que não usar o Ansible para implantar um simples arquivo `index.html` ? Crie o arquivo `~/ansible-files/index.html` no nó de controle:
+Então, por que não usar o Ansible para implantar um simples arquivo `web.html` ? Crie o arquivo `~/ansible-files/web.html` no nó de controle:
 
 ```html
 <body>
@@ -247,10 +247,10 @@ No nó de controle, com o seu usuário student, edite o arquivo `~/ansible-files
       name: httpd
       enabled: true
       state: started
-  - name: Copiar index.html
+  - name: Copiar web.html
     copy:
-      src: ~/ansible-files/index.html
-      dest: /var/www/html/
+      src: ~/ansible-files/web.html
+      dest: /var/www/html/index.html
 ```
 
 Você está se acostumando com a sintaxe do Playbook, então o que acontece? A nova task usa o módulo `copy` e define as opções de origem e destino para a operação de cópia como parâmetros.
@@ -265,7 +265,7 @@ Execute seu Playbook ampliado:
 
   - Execute o comando ad hoc usando o módulo "uri" mais acima novamente para testar o Apache: O comando agora deve retornar uma linha verde "status: 200" amigável, entre outras informações.
 
-## Passo 3.6 - Pratique: Aplicar a vários hosts
+## Passo 6 - Pratique: Aplicar a vários hosts
 
 Isso foi legal, mas o verdadeiro poder do Ansible é aplicar o mesmo conjunto de tasks de maneira confiável a muitos hosts.
 
@@ -301,10 +301,10 @@ Altere o Playbook para apontar para o grupo "web":
       name: httpd
       enabled: true
       state: started
-  - name: Copiar index.html
+  - name: Copiar web.html
     copy:
-      src: ~/ansible-files/index.html
-      dest: /var/www/html/
+      src: ~/ansible-files/web.html
+      dest: /var/www/html/index.html
 ```
 
 Agora, execute o playbook:

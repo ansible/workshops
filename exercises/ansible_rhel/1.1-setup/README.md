@@ -1,11 +1,23 @@
-# Exercise 1.1 - Check the Prerequisites
+# Workshop Exercise - Check the Prerequisites
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+## Table of Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Your Lab Environment](#your-lab-environment)
-* [Step 1.1 - Access the Environment](#step-11---access-the-environment)
-* [Step 1.2 - Working the Labs](#step-12---working-the-labs)
-* [Step 1.3 - Challenge Labs](#step-13---challenge-labs)
+* [Step 1 - Access the Environment](#step-1---access-the-environment)
+* [Step 2 - Working the Labs](#step-2---working-the-labs)
+* [Step 3 - Challenge Labs](#step-3---challenge-labs)
+
+# Objective
+
+- Understand the lab topology and how to access the environment.
+- Understand how to work the workshop exercises
+- Understand challenge labs
+
+# Guide
 
 ## Your Lab Environment
 
@@ -18,7 +30,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 | Managed Host 2       | node2          |
 | Managed Host 3       | node3          |
 
-## Step 1.1 - Access the Environment
+## Step 1 - Access the Environment
 
 Login to your control host via SSH:
 
@@ -63,7 +75,7 @@ Log out of the root account again:
 >
 > In all subsequent exercises you should work as the student\<X\> user on the control node if not explicitly told differently.
 
-## Step 1.2 - Working the Labs
+## Step 2 - Working the Labs
 
 You might have guessed by now this lab is pretty commandline-centric…​ :-)
 
@@ -75,10 +87,13 @@ You might have guessed by now this lab is pretty commandline-centric…​ :-)
 >
 > In the lab guide commands you are supposed to run are shown with or without the expected output, whatever makes more sense in the context.
 
-## Step 1.3 - Challenge Labs
+## Step 3 - Challenge Labs
 
 You will soon discover that many chapters in this lab guide come with a "Challenge Lab" section. These labs are meant to give you a small task to solve using what you have learned so far. The solution of the task is shown underneath a warning sign.
 
 ----
+**Navigation**
+<br>
+[Next Exercise](../1.2-adhoc)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

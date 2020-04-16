@@ -1,9 +1,9 @@
-# Exercise 1.8 - Bonus Labs
+# Ad Hoc Commands, Templates and Variables
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Step 8.1 - Bonus Lab: Ad Hoc Commands](#step-81---bonus-lab-ad-hoc-commands)
-* [Step 8.2 - Bonus Lab: Templates and Variables](#step-82---bonus-lab-templates-and-variables)
+* [Step 1 - Bonus Lab: Ad Hoc Commands](#step-1---bonus-lab-ad-hoc-commands)
+* [Step 2 - Bonus Lab: Templates and Variables](#step-2---bonus-lab-templates-and-variables)
    * [Define the variables:](#define-the-variables)
    * [Prepare the template:](#prepare-the-template)
    * [Create the Playbook](#create-the-playbook)
@@ -11,7 +11,7 @@
 
 You have finished the lab already. But it doesn’t have to end here. We prepared some slightly more advanced bonus labs for you to follow through if you like. So if you are done with the labs and still have some time, here are some more labs for you:
 
-## Step 8.1 - Bonus Lab: Ad Hoc Commands
+## Step 1 - Bonus Lab: Ad Hoc Commands
 
 Create a new user "testuser" on `node1` and `node3` with a comment using an ad hoc command, make sure that it is not created on `node2`!
 
@@ -43,7 +43,7 @@ Your commands could look like these:
 [student<X>@ansible ansible-files]$ ansible web -m command -a " id testuser" -b
 ```
 
-## Step 8.2 - Bonus Lab: Templates and Variables
+## Step 2 - Bonus Lab: Templates and Variables
 
 You have learned the basics about Ansible templates, variables and handlers. Let’s combine all of these.
 
@@ -136,4 +136,4 @@ First run the playbook itself, then run curl against `node1` with port `8080` an
 
 ----
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../../README.md#section-1---ansible-engine-exercises)

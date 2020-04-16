@@ -197,6 +197,19 @@
         - dns_type == "aws"
   tags: control_node
 
+- name: populate ansible tower
+  hosts: control_nodes
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: run populate_tower role
+      include_role:
+        name: populate_tower
+      when:
+        - towerinstall is defined
+        - towerinstall|bool
+        - populatetower
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost
@@ -240,7 +253,6 @@
           *******************
           {{dns_information}}
           {{callback_information}}
-          {{coder_information}}
 
     - name: Print Summary Information
       debug:

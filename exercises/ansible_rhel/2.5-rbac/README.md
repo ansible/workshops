@@ -1,13 +1,21 @@
-# Exercise 2.5 - Role-based access control
+# Workshop Exercise - Role-based access control
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+## Table Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [Ansible Tower Users](#ansible-tower-users)
 * [Ansible Tower Teams](#ansible-tower-teams)
 * [Granting Permissions](#granting-permissions)
 * [Test Permissions](#test-permissions)
 
-You have already learned how Tower separates credentials from users. Another advantage of Ansible Tower is the user and group rights management.
+# Objective
+
+You have already learned how Ansible Tower separates credentials from users. Another advantage of Ansible Tower is the user and group rights management.  This exercise demonstrates Role Based Access Control (RBAC)
+
+# Guide
 
 ## Ansible Tower Users
 
@@ -27,17 +35,47 @@ Let’s create a user:
 
 - Fill in the values for the new user:
 
-    - **FIRST NAME:** Werner
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>FIRST NAME </td>
+    <td>Werner</td>
+  </tr>
+  <tr>
+    <td>LAST NAME</td>
+    <td>Web</td>
+  </tr>
+  <tr>
+    <td>Organization</td>
+    <td>Default</td>
+  </tr>         
+  <tr>
+    <td>EMAIL</td>
+    <td>wweb@example.com</td>
+  </tr>
+  <tr>
+    <td>USERNAME</td>
+    <td>wweb</td>
+  </tr>  
+  <tr>
+    <td>PASSWORD</td>
+    <td>ansible</td>
+  </tr>
+  <tr>
+    <td>CONFIRM PASSWORD</td>
+    <td>ansible</td>
+  </tr>
+  <tr>
+    <td>USER TYPE</td>
+    <td>Normal User</td>
+  </tr>                           
+</table>
 
-    - **LAST NAME:** Web
 
-    - **EMAIL:** wweb@example.com
 
-    - **USERNAME:** wweb
-
-    - **USER TYPE:** Normal User
-
-    - **PASSWORD:** ansible
 
     - Confirm password
 
@@ -115,5 +153,8 @@ Effectively you provided the power to execute automation to another user without
 This capability is one of the main strengths of Ansible Tower\!
 
 ----
+**Navigation**
+<br>
+[Previous Exercise](../2.4-surveys) - [Next Exercise](../2.6-workflows)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

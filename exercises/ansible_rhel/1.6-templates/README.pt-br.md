@@ -1,13 +1,13 @@
-# Exercicio 1.6 - Templates
+# Exercicio - Templates
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Passo 6.1 - Usando Templates em Playbooks](#passo-61---usando-templates-em-playbooks)
-* [Passo 6.2 - Laboratório de Desafios](#passo-62---laboratório-de-desafios)
+* [Passo 1 - Usando Templates em Playbooks](#passo-1---usando-templates-em-playbooks)
+* [Passo 2 - Laboratório de Desafios](#passo-2---laboratório-de-desafios)
 
 O Ansible usa o template Jinja2 para modificar arquivos antes de serem distribuídos para hosts gerenciados. O Jinja2 é um dos mecanismos de template mais usados para o Python (<http://jinja.pocoo.org/>).
 
-## Passo 6.1 - Usando Templates em Playbooks
+## Passo 1 - Usando Templates em Playbooks
 
 Quando um template é criado, ele pode ser implantado nos hosts gerenciados usando o módulo `template`, que suporta a transferência de um arquivo local do nó de controle para os hosts gerenciados.
 
@@ -54,7 +54,7 @@ Você já fez isso algumas vezes até agora:
 
 Você deve ter visto como o Ansible substitui as variáveis pelos dados descobertos no sistema.
 
-## Passo 6.2 - Laboratório de Desafios
+## Passo 2 - Laboratório de Desafios
 
 Adicione uma linha ao template para listar o kernel atual do nó gerenciado.
 

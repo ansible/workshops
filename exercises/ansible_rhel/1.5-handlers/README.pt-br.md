@@ -1,13 +1,13 @@
-# Exercício 1.5 - Condicionais, Handlers and Loops
+# Exercício - Condicionais, Handlers and Loops
 
 **Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [Passo 5.1 - Condicionais](#passo-51---condicionais)
-* [Passo 5.2 - Handlers](#passo-52---handlers)
-* [Passo 5.3 - Loops simples](#passo-53---loops-simples)
-* [Passo 5.4 - Loops sobre hashes](#passo-54---loops-sobre-hashes)
+* [Passo 1 - Condicionais](#passo-1---condicionais)
+* [Passo 2 - Handlers](#passo-2---handlers)
+* [Passo 3 - Loops simples](#passo-3---loops-simples)
+* [Passo 4 - Loops sobre hashes](#passo-4---loops-sobre-hashes)
 
-## Passo 5.1 - Condicionais
+## Passo 1 - Condicionais
 
 O Ansible pode usar condicionais para executar tasks ou plays quando determinadas condições forem atendidas.
 
@@ -75,7 +75,7 @@ skipping: [node3]
 changed: [node2]
 ```
 
-## Passo 5.2 - Handlers
+## Passo 2 - Handlers
 
 As vezes, quando uma task faz uma alteração no sistema, pode ser necessário executar uma task ou tasks adicionais. Por exemplo, uma alteração no arquivo de configuração de um serviço pode exigir que o serviço seja reiniciado para que a configuração alterada entre em vigor.
 
@@ -149,7 +149,7 @@ curl: (7) Failed connect to 22.33.44.55:80; Connection refused
 ```
 Sinta-se livre para alterar o arquivo httpd.conf novamente e executar o Playbook.
 
-## Passo 5.3 - Loops simples
+## Passo 3 - Loops simples
 
 Os loops nos permitem repetir a mesma task. Por exemplo, digamos que você queira criar vários usuários. Usando um loop, você pode fazer isso em uma única task. Os loops também podem iterar mais do que apenas listas básicas. Por exemplo, se você tiver uma lista de usuários com seu grupo de correspondência, o loop também poderá iterar sobre eles. Saiba mais sobre loops na documentação [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html).
 
@@ -184,7 +184,7 @@ Entenda o playbook e a saída:
   - Durante a execução, a task é listada apenas uma vez, mas há três alterações listadas abaixo dela.
 <!-- {% endraw %} -->
 
-## Passo 5.4 - Loops sobre hashes
+## Passo 4 - Loops sobre hashes
 
 Como mencionado, os loops também podem estar sobre listas de hashes. Imagine que os usuários devam ser atribuídos a diferentes grupos adicionais:
 

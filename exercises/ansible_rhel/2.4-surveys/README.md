@@ -1,7 +1,11 @@
-# Exercise 2.4 - Surveys
+# Exercise - Surveys
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
+## Table Contents
+
+* [Objective](#objective)
+* [Guide](#guide)
 * [The Apache-configuration Role](#the-apache-configuration-role)
 * [Create a Template with a Survey](#create-a-template-with-a-survey)
    * [Create Template](#create-template)
@@ -9,7 +13,11 @@
 * [Launch the Template](#launch-the-template)
 * [What About Some Practice?](#what-about-some-practice)
 
-You might have noticed the **ADD SURVEY** button in the **Template** configuration view. A survey is a way to create a simple form to ask for parameters that get used as variables when a **Template** is launched as a **Job**.
+# Objective
+
+Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
+
+# Guide
 
 You have installed Apache on all hosts in the job you just run. Now we’re going to extend on this:
 
@@ -66,19 +74,40 @@ Try for yourself, the solution is below.
 >
 > **Solution Below\!**
 
-- **NAME:** Create index.html
-
-- **JOB TYPE:** Run
-
-- **INVENTORY:** Webserver
-
-- **Project:** Ansible Workshop Examples
-
-- **PLAYBOOK:** `rhel/apache/apache_role_install.yml`
-
-- **CREDENTIAL:** Workshop Credentials
-
-- **OPTIONS:** Enable Privilege Escalation
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>NAME</td>
+    <td>Create index.html</td>
+  </tr>
+  <tr>
+    <td>JOB TYPE</td>
+    <td>Run</td>
+  </tr>
+  <tr>
+    <td>INVENTORY</td>
+    <td>Webserver</td>
+  </tr>
+  <tr>
+    <td>Project</td>
+    <td>Ansible Workshop Examples</td>
+  </tr>  
+  <tr>
+    <td>PLAYBOOK</td>
+    <td><code>rhel/apache/apache_role_install.yml</code></td>
+  </tr>
+  <tr>
+    <td>CREDENTIAL</td>
+    <td>Workshop Credentials</td>
+  </tr>
+  <tr>
+    <td>OPTIONS</td>
+    <td>Enable Privilege Escalation</td>
+  </tr>          
+</table>
 
 - Click **SAVE**
 
@@ -92,21 +121,47 @@ Try for yourself, the solution is below.
 
 - Under **ADD SURVEY PROMPT** fill in:
 
-    - **PROMPT:** First Line
-
-    - **ANSWER VARIABLE NAME:** `first_line`
-
-    - **ANSWER TYPE:** Text
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>PROMPT</td>
+    <td>First Line</td>
+  </tr>
+  <tr>
+    <td>ANSWER VARIABLE NAME</td>
+    <td><code>first_line</code></td>
+  </tr>
+  <tr>
+    <td>ANSWER TYPE</td>
+    <td>Text</td>
+  </tr>         
+</table>
 
 - Click **+ADD**
 
 - In the same way add a second **Survey Prompt**
 
-    - **PROMPT:** Second Line
-
-    - **ANSWER VARIABLE NAME:** `second_line`
-
-    - **ANSWER TYPE:** Text
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>PROMPT</td>
+    <td>Second Line</td>
+  </tr>
+  <tr>
+    <td>ANSWER VARIABLE NAME</td>
+    <td><code>second_line</code></td>
+  </tr>
+  <tr>
+    <td>ANSWER TYPE</td>
+    <td>Text</td>
+  </tr>         
+</table>
 
 - Click **+ADD**
 

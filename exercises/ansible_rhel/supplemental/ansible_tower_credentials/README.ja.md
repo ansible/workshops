@@ -1,6 +1,6 @@
 # 演習 2.2 - インベントリー、認証情報、アドホックコマンド
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
 * [インベントリーの作成](#インベントリーの作成)
 * [マシンの認証情報](#マシンの認証情報)
@@ -202,4 +202,4 @@ Ansible Engine で実行したアドホックコマンドを Tower でも実行�
 
 ----
 
-[Ansible Tower ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-towerの演習)
+[Ansible Tower ワークショップ表紙に戻る](../../README.ja.md#section-2---ansible-towerの演習)

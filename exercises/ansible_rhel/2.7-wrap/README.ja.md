@@ -1,4 +1,4 @@
-# 演習 2.7 - まとめ
+# 演習 - まとめ
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 

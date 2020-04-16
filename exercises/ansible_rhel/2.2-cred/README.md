@@ -49,37 +49,6 @@ ansible ansible_host=11.22.33.44
 >
 > In your inventory the IP addresses will be different.
 
-## Machine Credentials
-
-One of the great features of Ansible Tower is to make credentials usable to users without making them visible. To allow Tower to execute jobs on remote hosts, you must configure authentication credentials.
-
-> **Note**
->
-> This is one of the most important features of Tower: **Credential Separation**\! Credentials are defined separately and not with the hosts or inventory settings.
-
-As this is an important part of your Tower setup, why not make sure that connecting to the managed nodes from Tower is working?
-
- To access the Tower host via SSH do the following:
-
-- Login to your Tower control host via SSH: `ssh student<X>@student<X>.workshopname.rhdemo.io`
-- Replace **workshopname** by the workshop name provided to you, and the `<X>` in `student<X>` by the student number provided to you.
-- From the Ansible Tower control node, SSH into `node1` or one of the other nodes (look up the IP addresses from the inventory) and execute `sudo -i`.
-- For the SSH connection use the node password from the inventory file, `sudo -i` works without password.
-
-```
-[student<X>@ansible ~]$ ssh student<X>@22.33.44.55
-student<X>@22.33.44.55's password:
-Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
-[student<X>@node1 ~]$ sudo -i
-[root@node1 ~]#
-```
-
-What does this mean?
-
-  - Ansible Tower user **student\<X>** can connect to the managed hosts with password based SSH
-
-  - User **student\<X>** can execute commands on the managed hosts as **root** with `sudo`
-
 ## Examine Machine Credentials
 
 Now we will examine the credentials to access our managed hosts from Tower.  As part of the provisioning process for this Ansible Workshop the **Workshop Credential** has already been setup.

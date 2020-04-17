@@ -191,20 +191,6 @@ $ curl http://22.33.44.55
 ```
 Note how the two variables where used by the playbook to create the content of the `index.html` file.
 
-## What About Some Practice?
-
-Here is a list of tasks:
-
-> **Warning**
->
-> **Please make sure to finish these steps as the next chapter depends on it\!**
-
-- Take the inventory `Webserver` and add the other nodes, `node2` and `node3` as well.
-
-- Run the **Create index.html** Template again.
-
-- Verify the results on the other two nodes by using `curl` against their IP addresses.
-
 ----
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

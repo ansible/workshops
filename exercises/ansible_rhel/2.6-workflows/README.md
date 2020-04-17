@@ -54,45 +54,46 @@ First you have to set up the Git repo as Projects like you normally would. You h
 
 > **Warning**
 >
-> **If you are still logged in as user **wweb**, log out of and log in as user **admin** again.**
+> If you are still logged in as user **wweb**, log out of and log in as user **admin** again.**
 
-- Create the project for web operations:
+Create the project for web operations. In the **Projects** view click the green plus button and fill in.
 
-  - It should be named **Webops Git Repo**
-
-  - The URL to access the repo is **https://github.com/ansible/workshop-examples.git**
-
-  - The **SCM BRANCH/TAG/COMMIT** is **webops**
-
-- Create the project for the application developers:
-
-  - It should be named **Webdev Git Repo**
-
-  - The URL to access the repo is **https://github.com/ansible/workshop-examples.git**
-
-  - The **SCM BRANCH/TAG/COMMIT** is **webdev**
-
-> **Warning**
->
-> **Solution Below**
-
-- Create the project for web operations. In the **Projects** view click the green plus button and fill in:
-
-    - **NAME:** Webops Git Repo
-
-    - **ORGANIZATION:** Default
-
-    - **SCM TYPE:** Git
-
-    - **SCM URL:** https://github.com/ansible/workshop-examples.git
-
-    - **SCM BRANCH/TAG/COMMIT:** webops
-
-    - **SCM UPDATE OPTIONS:** Tick all three boxes.
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>NAME</td>
+    <td>Webops Git Repo</td>
+  </tr>
+  <tr>
+    <td>ORGANIZATION</td>
+    <td>Default</td>
+  </tr>
+  <tr>
+    <td>SCM TYPE</td>
+    <td>Git</td>
+  </tr>  
+  <tr>
+    <td>SCM URL</td>
+    <td><code>https://github.com/ansible/workshop-examples.git</code></td>
+  </tr>
+  <tr>
+    <td>SCM BRANCH/TAG/COMMIT</td>
+    <td><code>webops</code></td>
+  </tr>  
+  <tr>
+    <td>SCM UPDATE OPTIONS</td>
+    <td>Tick all three boxes.</td>
+  </tr>                    
+</table>  
 
 - Click **SAVE**
 
-- Create the project for the application developers. In the **Projects** view click the green plus button and fill in:
+---
+
+Create the project for the application developers. In the **Projects** view click the green plus button and fill in:
 
 <table>
   <tr>
@@ -131,7 +132,7 @@ First you have to set up the Git repo as Projects like you normally would. You h
 
 Now you have to create Job Templates like you would for "normal" Jobs.
 
-  - Go to the **Templates** view, click the green plus button and choose **Job Template**:
+Go to the **Templates** view, click the green plus button and choose **Job Template**:
 
   <table>
     <tr>
@@ -170,7 +171,9 @@ Now you have to create Job Templates like you would for "normal" Jobs.
 
   - Click **SAVE**
 
-  - Go to the **Templates** view, click the green plus button and choose **Job Template**:
+---
+
+Go to the **Templates** view, click the green plus button and choose **Job Template**:
 
   <table>
     <tr>

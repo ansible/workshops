@@ -1,19 +1,39 @@
 ---
-- name: Get all hosted zones
-  route53_info:
-    query: hosted_zone
-  register: hosted_zones
+- name: Output debug info for Route53
+  debug:
+    msg: 
+      - "Internal DNS Zone: {{ ec2_name_prefix }} {{ workshop_internal_dns_zone }}"
+      - "AWS_PROFILE:  {{ lookup('env','AWS_PROFILE') }}"
+    verbosity: 2
 
-- debug:
-    msg: "{{ ec2_name_prefix }} {{ workshop_internal_dns_zone }}"
+- name: route53_info by aws cli  
+  command: >-
+    aws route53 list-hosted-zones-by-name 
+      --dns-name {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+      --region {{ ec2_region }}
+      --profile {{ AWS_PROFILE }}
+  register: r_zone_info
+  vars:
+    AWS_PROFILE:  "{{ lookup('env','AWS_PROFILE') }}"
 
-- name: Get zone id for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+- name: Set zone_info easy parse fact
   set_fact:
-    privatezoneid: "{{ item.Id | regex_replace('\/hostedzone\/', '') }}"
-  loop: "{{ hosted_zones.HostedZones }}"
-  when: item.Name == ec2_name_prefix + "." + workshop_internal_dns_zone + "."
+    f_zone_info_json: "{{ r_zone_info.stdout | from_json }}"  
 
-- name: Get A records for zone {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+- when: hosted_zone.Name == ec2_name_prefix + "." + workshop_internal_dns_zone + "."
+  name: Output Hostedzone id    
+  set_fact:
+    privatezoneid: "{{ hosted_zone.Id | regex_replace('\/hostedzone\/', '') }}"
+  loop: "{{ f_zone_info_json.HostedZones }}"
+  loop_control:
+    loop_var: hosted_zone
+
+- name: Output privatezoneid for debugging
+  debug:
+    msg: "privatezoneid: {{ privatezoneid }}"
+    verbosity: 2
+
+- name: Get A records for zone # {{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
   route53_info:
     query: record_sets
     hosted_zone_id: "{{ privatezoneid }}"

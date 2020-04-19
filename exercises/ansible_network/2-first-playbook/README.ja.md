@@ -34,7 +34,7 @@
 
 演習用に提供される `playbook.yml`を確認します。好きなエディタでこのファイルを開いてください。以下の例では `cat` コマンドを利用しています。
 
-```bash
+```
 [student1@ansible networking-workshop]$ cat playbook.yml
 ---
 - name: snmp ro/rw string configuration

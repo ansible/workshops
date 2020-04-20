@@ -6,17 +6,17 @@
     vpc_id: "{{ vpc_id }}"
     vpc_region: "{{ vpc_region }}"
   delegate_to: localhost
-  run_once: True
+  run_once: true
 
 - name: create internal DNS records
   become: false
   route53:
     state: present
     zone: "{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}"
-    private_zone: yes
+    private_zone: true
     record: "{{ record }}"
     type: "{{ type }}"
     overwrite: true
     value: "{{ value }}"
-    wait: yes
+    wait: true
   delegate_to: localhost

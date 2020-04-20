@@ -179,8 +179,8 @@
   roles:
     - role: internal_dns
       when:
-      - create_internal_dns is defined
-      - create_internal_dns
+        - create_internal_dns is defined
+        - create_internal_dns
 
 - name: configure ansible control node
   hosts: control_nodes
@@ -220,7 +220,7 @@
         value: "{{ ansible_host }}"
       when:
       - workshop_type == "advanced_tower"
-  #tags: tower_master
+      # tags: tower_master
 
 - name: Setup Amazon S3 Website for Student Login
   hosts: localhost

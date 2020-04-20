@@ -1,5 +1,5 @@
 ---
-- name: create private DNS zone 
+- name: create private DNS zone
   include_tasks: create.yml
   when:
   - not teardown

@@ -77,15 +77,15 @@
     status_code:
       - 200
 
-# - name: install ansible development branch to venv
-#   become: true
-#   pip:
-#     name:
-#       - git+https://github.com/ansible/ansible.git@devel
-#       - psutil
-#       - paramiko
-#       - ncclient
-#     virtualenv: /opt/my-envs/ansible_dev
+- name: install ansible development branch to venv
+  become: true
+  pip:
+    name:
+      - git+https://github.com/ansible/ansible.git@devel
+      - psutil
+      - paramiko
+      - ncclient
+    virtualenv: /opt/my-envs/ansible_dev
 
 - name: add student user
   tower_user:

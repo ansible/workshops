@@ -1,0 +1,10 @@
+---
+## re-use RHEL workshop code
+- name: provision aws resources
+  include_tasks: instances_rhel.yml
+
+- name: provision aws resources
+  include_tasks: instances_windows.yml
+
+- name: provision aws resources
+  include_tasks: instances_networking.yml

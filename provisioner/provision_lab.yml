@@ -9,7 +9,7 @@
       assert:
         that:
           - ansible_version.major >= 2
-          - ansible_version.minor >= 8
+          - ansible_version.minor >= 9
 
     - name: make sure workshop_type is set to a correct value
       assert:
@@ -142,6 +142,8 @@
           until: job_result.finished
           retries: 30
 
+    - name: install product_demos collection
+      shell: "ansible-galaxy collection install ipvsean.product_demos"
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -225,6 +227,22 @@
 
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"
+
+- name: setup demos
+  hosts: control_nodes
+  gather_facts: false
+  vars:
+    my_tower_username: admin
+    my_tower_password: "{{ admin_password }}"
+    my_tower_host: "{{ ansible_host }}"
+  tasks:
+    - name: install demo
+      include_role:
+        name: "ipvsean.product_demos.install_demo"
+      when:
+        - demo is defined
+        - towerinstall is defined
+        - towerinstall
 
 - name: Alert the mothership
   hosts: localhost

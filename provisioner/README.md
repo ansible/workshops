@@ -4,7 +4,8 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 | Workshop | Workshop Type Var   |
 |---|---|
-| Ansible Red Hat Enterprise Linux Workshop | `workshop_type: rhel`  |
+| Ansible for Red Hat Enterprise Linux Workshop | `workshop_type: rhel`  |
+| Ansible for Red Hat Enterprise Linux Workshop - 90 minutes  | `workshop_type: rhel_90`    |
 | Ansible Network Automation Workshop | `workshop_type: networking`  |
 | Ansible F5 Workshop | `workshop_type: f5`   |
 | Ansible Security Automation | `workshop_type: security`   |
@@ -17,6 +18,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
   - [Setup (per workshop)](#setup-per-workshop)
   - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
 - [Lab Teardown](#aws-teardown)
+- [Demos](#demos)
 - [FAQ](../docs/faq.md)
 - [More info on what is happening](#more-info-on-what-is-happening)
 - [Remote Desktop](#remote-desktop)
@@ -55,8 +57,8 @@ workshop_type: rhel
 # turn DNS on for control nodes, and set to type in valid_dns_type
 dns_type: aws
 
-# password for Ansible control node, defaults to ansible
-admin_password: ansible
+# password for Ansible control node
+admin_password: your_password123
 
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
 create_login_page: true
@@ -79,6 +81,9 @@ For more extra_vars examples, look at the following:
 - [sample-vars-networking.yml](sample_workshops/sample-vars-networking.yml) - example for the **Ansible Network Workshop**
 - [sample-vars-f5.yml](sample_workshops/sample-vars-f5.yml) - example for **Ansible F5 Workshop**
 - [sample-vars-tower-auto.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
+- [sample-vars-rhel-90.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
+- [sample-vars-rhel-90.yml](sample_workshops/sample-vars-rhel-90.yml) - example for `rhel_90` workshop, meant to be taught in 90 minutes
+
 
 2. Run the playbook:
 
@@ -127,6 +132,18 @@ To destroy all the EC2 instances after training is complete:
 
         ansible-playbook teardown_lab.yml -e @extra_vars.yml -e debug_teardown=true
 
+# Demos
+
+There is a variable you can pass in within your extra_vars named `demo`.  When this keyword is defined it will install the specified demo from the Github repository [https://github.com/ansible/product-demos](https://github.com/ansible/product-demos).  
+
+For example you can put:
+
+```
+demo: all
+```
+
+Which will install all demos onto the Ansible Tower instance.  Not all demos will work on any `workshop_type`.  Please refer to the [Demo repository list](https://github.com/ansible/product-demos#demo-repository).
+
 # FAQ
 
 For frequently asked questions see the [FAQ](../docs/faq.md)
@@ -145,4 +162,4 @@ What does the AWS provisioner take care of automatically?
 
 # Getting Help
 
-Please file issues on Github.  Please fill out all required information.  Your issue will be closed if there if you skip required information in the Github issues template.
+Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.

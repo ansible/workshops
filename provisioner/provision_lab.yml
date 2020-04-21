@@ -232,9 +232,9 @@
   hosts: control_nodes
   gather_facts: false
   vars:
-      my_tower_username: admin
-      my_tower_password: "{{ admin_password }}"
-      my_tower_host: "{{ ansible_host }}"
+    my_tower_username: admin
+    my_tower_password: "{{ admin_password }}"
+    my_tower_host: "{{ ansible_host }}"
   tasks:
     - name: install demo
       include_role:

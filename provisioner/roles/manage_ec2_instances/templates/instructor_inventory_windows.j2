@@ -36,6 +36,22 @@ ansible_port=22
 ansible_user={{ root_user }}
 ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem" #}
 
+{% if attendance %}
+ansible_port=22
+[attendance]
+ansible_user={{ root_user }}
+{%   for host in hostvars %}
+ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem" #}
+{%     if "attendance-host" in host %}
+
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_port=22 ansible_user=ec2-user ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+
+{%     endif %}
+[instructor]
+{%   endfor %}
+{% for host in hostvars %}
+{% endif %}
+
 
 [instructor]
 {% for host in hostvars %}

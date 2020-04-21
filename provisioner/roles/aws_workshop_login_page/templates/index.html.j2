@@ -479,7 +479,7 @@ DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 To login to the Ansible Tower UI use the following credentials:<br>
 <table>
 {% if dns_type != 'none' %}
-{% if workshop_type != "advanced_tower" %}
+{% if workshop_type != 'advanced_tower' %}
   <tr>
 <td>UI link:</td>
 <td><a target=_blank href="https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}">https://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</a></td>

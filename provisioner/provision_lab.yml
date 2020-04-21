@@ -153,6 +153,24 @@
   roles:
     - manage_ec2_instances
 
+- name: Configure nginx on attendance host
+  hosts: attendance
+  become: true
+  gather_facts: true
+  roles:
+    - role: workshop_attendance_nginx
+      when:
+        - attendance|bool
+
+- name: Configure attendance host
+  hosts: attendance
+  become: true
+  gather_facts: true
+  roles:
+    - role: workshop_attendance
+      when:
+        - attendance|bool
+
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes"
   become: true

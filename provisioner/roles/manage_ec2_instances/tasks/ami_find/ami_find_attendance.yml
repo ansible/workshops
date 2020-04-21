@@ -1,0 +1,14 @@
+---
+- name: Get attendance host ami
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info['attendance_host'].owners }}"
+    filters:
+      name: "{{ ec2_info['attendance_host'].filter }}"
+      architecture: "{{ ec2_info['attendance_host'].architecture }}"
+  register: amis
+
+- name: Save attendance host ami
+  set_fact:
+    attendance_host_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

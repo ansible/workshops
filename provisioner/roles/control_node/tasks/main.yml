@@ -100,6 +100,7 @@
     remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
+    local_follow: true
   when:
     - workshop_type != "f5"
     - workshop_type != "networking"

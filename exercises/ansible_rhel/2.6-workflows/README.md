@@ -23,7 +23,7 @@ The basic idea of a workflow is to link multiple Job Templates together. They ma
 
 And the workflows are not even limited to Job Templates, but can also include project or inventory updates.
 
-This enables new applications for Ansible Tower: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory.
+This enables new applications for Ansible Tower: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory. Workflows can bring those separate automation pieces together into streamlined processes, spanning across the IT domains.
 
 In this lab you’ll learn how to setup a workflow.
 
@@ -34,19 +34,19 @@ You have two departments in your organization:
 
   - The web operations team that is developing Playbooks in their own Git repository.
 
-  - The web applications team, that develops JSP web applications for Tomcat in their Git repository.
+  - The web applications team, that develops NodeJS web applications in their Git repository.
 
-When there is a new Tomcat server to deploy, two things need to happen:
+When there is a NodeJS application to deploy, two things need to happen:
 
-  - Tomcat needs to be installed, the firewall needs to be opened and Tomcat should get started.
+  - Apache needs to be installed and configured as a proxy and the firewall needs to be opened.
 
   - The most recent version of the web application needs to be deployed.
 
-To make things somewhat easier for you, everything needed already exists in a Github repository: Playbooks, JSP-files etc. You just need to glue it together.
+To make things somewhat easier for you, everything needed already exists in a Github repository: Playbooks, NodeJS-files etc. You just need to glue it together.
 
 > **Note**
 >
-> In this example we use two different branches of the same repository for the content of the separate teams. In reality the structure of your SCM repositories depends on a lot of factors and could be different.
+> In this example we use two different branches of the same repository to server the content of the separate teams. In reality the structure of your SCM repositories depends on a lot of factors and would likely be different.
 
 ## Set up Projects
 
@@ -82,12 +82,12 @@ Create the project for web operations. In the **Projects** view click the green 
   <tr>
     <td>SCM BRANCH/TAG/COMMIT</td>
     <td><code>webops</code></td>
-  </tr>  
+  </tr>
   <tr>
     <td>SCM UPDATE OPTIONS</td>
-    <td>Tick all three boxes.</td>
-  </tr>                    
-</table>  
+    <td>Tick the first three boxes.</td>
+  </tr>
+</table>
 
 - Click **SAVE**
 
@@ -111,7 +111,7 @@ Create the project for the application developers. In the **Projects** view clic
   <tr>
     <td>SCM TYPE</td>
     <td>Git</td>
-  </tr>  
+  </tr>
   <tr>
     <td>SCM URL</td>
     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
@@ -122,8 +122,8 @@ Create the project for the application developers. In the **Projects** view clic
   </tr>
   <tr>
     <td>SCM UPDATE OPTIONS</td>
-    <td>Tick all three boxes.</td>
-  </tr>             
+    <td>Tick the first three boxes.</td>
+  </tr>
 </table>
 
 - Click **SAVE**
@@ -141,7 +141,7 @@ Go to the **Templates** view, click the green plus button and choose **Job Templ
     </tr>
     <tr>
       <td>NAME</td>
-      <td>Tomcat Deploy</td>
+      <td>Webserver Deploy</td>
     </tr>
     <tr>
       <td>JOB TYPE</td>
@@ -157,7 +157,7 @@ Go to the **Templates** view, click the green plus button and choose **Job Templ
     </tr>
     <tr>
       <td>PLAYBOOK</td>
-      <td><code>rhel/webops/tomcat.yml</code></td>
+      <td><code>rhel/webops/web_infrastructure.yml</code></td>
     </tr>
     <tr>
       <td>CREDENTIAL</td>
@@ -194,11 +194,11 @@ Go to the **Templates** view, click the green plus button and choose **Job Templ
     </tr>  
     <tr>
       <td>PROJECT</td>
-      <td>Webops Git Repo</td>
+      <td>Webdev Git Repo</td>
     </tr>
     <tr>
       <td>PLAYBOOK</td>
-      <td><code>rhel/webdev/create_jsp.yml</code></td>
+      <td><code>rhel/webdev/install_node_app.yml</code></td>
     </tr>
     <tr>
       <td>CREDENTIAL</td>
@@ -228,33 +228,13 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
 
   - Click **SAVE**
 
-  - After saving the template the **Workflow Visualizer** opens to allow you to build a workflow. You can later open the **Workflow Visualizer** again by using the button on the template details page.
-
-  - Click on the **START** button, a new node opens. To the right you can assign an action to the node, you can choose between **JOBS**, **PROJECT SYNC** and **INVENTORY SYNC**.
-
-  - In this lab we’ll link Jobs together, so select the **Tomcat Deploy** job and click **SELECT**.
-
-  - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x**, a green **+** and a blue **chain**-symbol appear.
+After saving the template the **Workflow Visualizer** opens to allow you to build a workflow. You can later open the **Workflow Visualizer** again by using the button on the template details page. Click on the **START** button, a new node opens. To the right you can assign an action to the node, you can choose between **JOBS**, **PROJECT SYNC** and **INVENTORY SYNC**. In this lab we’ll link Jobs together, so select the **Webserver Deploy** job and click **SELECT**. The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x**, a green **+** and a blue **chain**-symbol appear.
 
 > **Tip**
 >
 > Using the red "x" allows you to remove the node, the green plus lets you add the next node and the chain-symbol links to another node .
 
-  - Click the green **+** sign
-
-  - Choose **Web App Deploy** as the next Job (you might have to switch to the next page)
-
-  - Leave **Type** set to **On Success**
-
-> **Tip**
->
-> The type allows for more complex workflows. You could lay out different execution paths for successful and for failed Playbook runs.
-
-  - Click **SELECT**
-
-  - Click **SAVE** in the **WORKFLOW VISUALIZER** view
-
-  - Click **SAVE** in the **Workflow Template** view
+Click the green **+** sign. Choose **Web App Deploy** as the next Job (you might have to switch to the next page). Leave **Type** set to **On Success**. Click **SELECT**, then click **SAVE** in the **WORKFLOW VISUALIZER** view and click **SAVE** in the **Workflow Template** view.
 
 > **Tip**
 >
@@ -262,9 +242,7 @@ And now you finally set up the workflow. Workflows are configured in the **Templ
 
 ## And Action
 
-Your workflow is ready to go, launch it.
-
-  - Click the blue **LAUNCH** button directly or go to the the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
+Your workflow is ready to go, launch it! Click the blue **LAUNCH** button directly or go to the the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
 
 ![jobs view of workflow](images/job_workflow.png)
 
@@ -273,12 +251,10 @@ Note how the workflow run is shown in the job view. In contrast to a normal job 
 After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
 
 ```bash
-$ curl http://localhost:8080/coolapp/
+$ curl http://localhost/nodejs
 ```
 
-> **Tip**
->
-> You might have to wait a couple of minutes until Tomcat answers requests.
+You can also execute curl on the control host, pointing it towards the nodes and query the `nodejs` path, it should also show the simple nodejs application.
 
 ----
 **Navigation**

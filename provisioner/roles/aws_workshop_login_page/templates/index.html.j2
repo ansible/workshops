@@ -467,7 +467,7 @@ To login to the Ansible Control Node use the following for SSH access:<br>
 <pre><code>ssh student{{number}}@{{ host.public_ip_address }}</code></pre>
 {% if dns_type != 'none' %}
 DNS: student{{number}}-ansible.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
-<pre><code>ssh student{{number}}@student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
+<pre><code>ssh student{{number}}@student{{number}}-ansible.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
 {% endif %}
 </div>
 </div>

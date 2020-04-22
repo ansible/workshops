@@ -9,3 +9,12 @@
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"
     tower_verify_ssl: false
+
+- name: install demo
+  vars:
+    my_tower_username: admin
+    my_tower_password: "{{ admin_password }}"
+    my_tower_host: "{{ ansible_host }}"
+    demo: hardening
+  include_role:
+    name: "ipvsean.product_demos.install_demo"

@@ -1,0 +1,13 @@
+---
+- name: GitLab post | Create DNS record
+  become: false
+  route53:
+    state: "{{ s3_state }}"
+    zone: "{{ workshop_dns_zone }}"
+    record: "login.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: A
+    overwrite: true
+    value: "{{ ansible_host }}"
+    wait: false
+  delegate_to: localhost
+  register: route53_status

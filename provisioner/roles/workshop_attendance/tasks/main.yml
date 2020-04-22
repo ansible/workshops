@@ -1,4 +1,7 @@
 ---
+- name: Add route 53 record
+  import_tasks: dns.yml
+
 - name: Install MySQL, PHP, Git
   yum:
     name:

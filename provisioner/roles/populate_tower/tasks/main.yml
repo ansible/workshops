@@ -74,6 +74,18 @@
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"
     tower_verify_ssl: false
+
+- name: remove built-in tower project
+  tower_project:
+    name: "Demo Project"
+    organization: "Default"
+    scm_type: git
+    scm_url: "https://github.com/ansible/ansible-tower-samples"
+    state: absent
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false
 #### END OF REMOVE BUILT-IN DEMO CONTENT
 
 - name: setup workshop specific tower information

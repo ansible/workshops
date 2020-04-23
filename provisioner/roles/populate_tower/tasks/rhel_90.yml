@@ -1,6 +1,6 @@
 ---
 - name: add tower project for rhel_90 workshop
-  tower_project:
+  awx.awx.tower_project:
     name: "Workshop Project"
     organization: "Default"
     scm_type: git

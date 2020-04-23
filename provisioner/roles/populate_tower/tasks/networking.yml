@@ -1,7 +1,7 @@
 ---
 # ORGS
 - name: CREATE NETWORK ORGANIZATION
-  tower_organization:
+  awx.awx.tower_organization:
     name: "REDHAT NETWORK ORGANIZATION"
     description: "RedHat Network Organization"
     state: present
@@ -11,7 +11,7 @@
     tower_verify_ssl: false
 
 - name: CREATE COMPUTE ORGANIZATION
-  tower_organization:
+  awx.awx.tower_organization:
     name: "REDHAT COMPUTE ORGANIZATION"
     description: "RedHat Compute Organization"
     state: present
@@ -22,7 +22,7 @@
 
 # TEAMS
 - name: CREATE NETOPS TEAM
-  tower_team:
+  awx.awx.tower_team:
     name: "Netops"
     description: "Network Ops Team"
     organization: "REDHAT NETWORK ORGANIZATION"
@@ -33,7 +33,7 @@
     tower_verify_ssl: false
 
 - name: CREATE NETADMIN TEAM
-  tower_team:
+  awx.awx.tower_team:
     name: "Netadmin"
     description: "Network Admin Team"
     organization: "REDHAT NETWORK ORGANIZATION"
@@ -44,7 +44,7 @@
     tower_verify_ssl: false
 
 - name: CREATE COMPUTE TIER1 TEAM
-  tower_team:
+  awx.awx.tower_team:
     name: "Compute T1"
     description: "Computer T1 Team"
     organization: "REDHAT COMPUTE ORGANIZATION"
@@ -55,7 +55,7 @@
     tower_verify_ssl: false
 
 - name: CREATE COMPUTE TIER2 TEAM
-  tower_team:
+  awx.awx.tower_team:
     name: "Compute T2"
     description: "Computer T1 Team"
     organization: "REDHAT COMPUTE ORGANIZATION"
@@ -67,7 +67,7 @@
 
 # USERS
 - name: ADD USER NWOPERATOR
-  tower_user:
+  awx.awx.tower_user:
     username: network-operator
     password: "{{ admin_password }}"
     email: nwops@redhat.com
@@ -81,7 +81,7 @@
     tower_verify_ssl: false
 
 - name: ADD USER NWADMIN
-  tower_user:
+  awx.awx.tower_user:
     username: network-admin
     password: "{{ admin_password }}"
     email: nwadmin@redhat.com
@@ -95,7 +95,7 @@
     tower_verify_ssl: false
 
 - name: ADD USER BOB
-  tower_user:
+  awx.awx.tower_user:
     username: bbelcher
     password: "{{ admin_password }}"
     email: bbelcher@redhat.com
@@ -109,7 +109,7 @@
     tower_verify_ssl: false
 
 - name: ADD USER TINA
-  tower_user:
+  awx.awx.tower_user:
     username: tbelcher
     password: "{{ admin_password }}"
     email: tbelcher@redhat.com
@@ -122,7 +122,7 @@
     tower_verify_ssl: false
 
 - name: ADD USER LOUISE
-  tower_user:
+  awx.awx.tower_user:
     username: lbelcher
     password: "{{ admin_password }}"
     email: lbelcher@redhat.com
@@ -135,7 +135,7 @@
     tower_verify_ssl: false
 
 - name: ADD USER LINDA
-  tower_user:
+  awx.awx.tower_user:
     username: libelcher
     password: "{{ admin_password }}"
     email: libelcher@redhat.com
@@ -148,7 +148,7 @@
     tower_verify_ssl: false
 
 - name: ADD USER GENE
-  tower_user:
+  awx.awx.tower_user:
     username: gbelcher
     password: "{{ admin_password }}"
     email: gbelcher@redhat.com
@@ -163,11 +163,11 @@
 # PROJECT
 # this displays warning, documented here: https://github.com/ansible/ansible/issues/60327
 - name: ADD REPO INTO TOWER
-  tower_project:
+  awx.awx.tower_project:
     name: "Workshop Project"
     organization: "REDHAT NETWORK ORGANIZATION"
     scm_type: git
-    scm_url: "https://github.com/network-automation/tower_workshop"
+    scm_url: "https://github.com/network-automation/awx.awx.tower_workshop"
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"
@@ -175,7 +175,7 @@
 
 # PERMISSIONS
 - name: ENSURE THAT NWADMIN BELONGS TO THE NW ORG
-  tower_role:
+  awx.awx.tower_role:
     user: network-admin
     organization: "REDHAT NETWORK ORGANIZATION"
     role: member
@@ -186,7 +186,7 @@
     validate_certs: false
 
 - name: ENSURE THAT NWADMIN IS AN ORG ADMIN
-  tower_role:
+  awx.awx.tower_role:
     user: network-admin
     organization: "REDHAT NETWORK ORGANIZATION"
     role: admin
@@ -197,7 +197,7 @@
     validate_certs: false
 
 - name: ENSURE THAT NWOP BELONGS TO THE NW ORG
-  tower_role:
+  awx.awx.tower_role:
     user: network-operator
     organization: "REDHAT NETWORK ORGANIZATION"
     role: member
@@ -208,7 +208,7 @@
     validate_certs: false
 
 - name: ENSURE THAT NWOP CAN ONLY EXECUTE TEMPLATES
-  tower_role:
+  awx.awx.tower_role:
     user: network-operator
     target_team: "Netops"
     role: member
@@ -236,7 +236,7 @@
   ignore_errors: true
 
 - name: CREATE SHOW COMMAND JOB IN TOWER
-  tower_job_template:
+  awx.awx.tower_job_template:
     name: "Network-Commands"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -253,7 +253,7 @@
     tower_verify_ssl: false
 
 - name: create reload muiltivendor network template
-  tower_job_template:
+  awx.awx.tower_job_template:
     name: "Network-Reload"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -267,7 +267,7 @@
     tower_verify_ssl: false
 
 - name: create user job in tower
-  tower_job_template:
+  awx.awx.tower_job_template:
     name: "Network-User"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -283,7 +283,7 @@
     tower_verify_ssl: false
 
 - name: CREATE SYSTEM JOB IN TOWER
-  tower_job_template:
+  awx.awx.tower_job_template:
     name: "Network-System"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -298,7 +298,7 @@
     tower_verify_ssl: false
 
 - name: CREATE TIME JOB IN TOWER
-  tower_job_template:
+  awx.awx.tower_job_template:
     name: "Network-Time"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -313,7 +313,7 @@
     tower_verify_ssl: false
 
 - name: Create network report job
-  tower_job_template:
+  awx.awx.tower_job_template:
     name: "Network-Report"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -328,7 +328,7 @@
 
 # JOB TEMPLATE PERMISSIONS
 - name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
-  tower_role:
+  awx.awx.tower_role:
     user: network-operator
     role: execute
     job_template: "{{ item }}"
@@ -341,7 +341,7 @@
     - "Network-Commands"
 
 - name: ENSURE THAT NW ORG CAN USE THE WS INV
-  tower_role:
+  awx.awx.tower_role:
     role: use
     inventory: "Workshop Inventory"
     team: "{{ item }}"

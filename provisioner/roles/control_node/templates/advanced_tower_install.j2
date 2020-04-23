@@ -1,41 +1,34 @@
 [tower]
-{% for host in hostvars %}
-{% if "tower_nodes" in hostvars[host].group_names %}
-{% if username in hostvars[host].inventory_hostname %}
-{{ hostvars[host].ansible_nodename }} ansible_host={{ username }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
-{% endif %}
-{% endif %}
+{% for host in groups.tower_nodes %}
+{%   if username == hostvars[host].username %}
+{{ hostvars[host].ansible_nodename }} ansible_host={{ username }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+{%   endif %}
 {% endfor %}
 
 [database]
-{% for host in hostvars %}
-{% if "towerdb" in hostvars[host].group_names %}
-{% if username in hostvars[host].inventory_hostname %}
-{{ hostvars[host].ansible_nodename }} ansible_host={{ username }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
-{% endif %}
-{% endif %}
+{% for host in groups.towerdb %}
+{%   if username == hostvars[host].username %}
+{{ hostvars[host].ansible_nodename }} ansible_host={{ username }}-{{ hostvars[host].ansible_nodename }}.{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}
+{%   endif %}
 {% endfor %}
 
 [all:vars]
-admin_password='{{admin_password}}'
+ansible_user='{{ username }}'
+ansible_become=true
+admin_password='{{ admin_password }}'
+ansible_password='{{ admin_password }}'
 
-{% for host in hostvars %}
-{% if "towerdb" in hostvars[host].group_names %}
-{% if username in hostvars[host].inventory_hostname %}
-pg_host='{{ hostvars[host].ansible_host }}'
-{% endif %}
-{% endif %}
-{% endfor %}
+pg_host='{{ username }}-towerdb.{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}'
 pg_port='5432'
 
 pg_database='awx'
 pg_username='awx'
-pg_password='{{admin_password}}'
+pg_password='{{ admin_password }}'
 
 rabbitmq_port=5672
 rabbitmq_vhost=tower
 rabbitmq_username=tower
-rabbitmq_password='{{admin_password}}'
+rabbitmq_password='{{ admin_password }}'
 rabbitmq_cookie=cookiemonster
 
 # Needs to be true for fqdns and ip addresses

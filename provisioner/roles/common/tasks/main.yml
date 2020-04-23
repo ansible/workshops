@@ -59,3 +59,11 @@
 - meta: flush_handlers
   tags:
     - common
+
+- name: setup /etc/hosts file per student
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+    dest: "/etc/hosts"
+    owner: root
+    group: root
+    mode: 0644

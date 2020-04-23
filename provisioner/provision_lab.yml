@@ -166,21 +166,21 @@
     - user_accounts
     - common
 
-- name: Configure internal DNS
-  hosts: managed_nodes
-  become: true
-  gather_facts: false
-  vars:
-    vpc_id: "{{ hostvars['localhost']['create_vpc']['vpc']['id'] }}"
-    vpc_region: "{{ hostvars['localhost']['ec2_region'] }}"
-    record: "{{username}}-{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.{{ workshop_internal_dns_zone }}"
-    type: "A"
-    value: "{{ private_ip }}"
-  roles:
-    - role: internal_dns
-      when:
-      - create_internal_dns is defined
-      - create_internal_dns
+# - name: Configure internal DNS
+#   hosts: managed_nodes
+#   become: true
+#   gather_facts: false
+#   vars:
+#     vpc_id: "{{ hostvars['localhost']['create_vpc']['vpc']['id'] }}"
+#     vpc_region: "{{ hostvars['localhost']['ec2_region'] }}"
+#     record: "{{username}}-{{ ansible_nodename }}.{{ec2_name_prefix|lower}}.{{ workshop_internal_dns_zone }}"
+#     type: "A"
+#     value: "{{ private_ip }}"
+#   roles:
+#     - role: internal_dns
+#       when:
+#       - create_internal_dns is defined
+#       - create_internal_dns
 
 - name: configure ansible control node
   hosts: control_nodes

@@ -20,7 +20,7 @@ ansible_password='{{ admin_password }}'
 
 {% for host in groups.towerdb %}
 {% if username in hostvars[host].inventory_hostname %}
-pg_host='{{ username }}-towerdb.{{ ec2_name_prefix }}.{{ workshop_internal_dns_zone }}'
+pg_host='{{ hostvars[host].short_name }}.{{ workshop_internal_dns_zone }}'
 {% endif %}
 {% endfor %}
 

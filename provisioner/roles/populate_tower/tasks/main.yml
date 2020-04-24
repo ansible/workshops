@@ -41,14 +41,14 @@
 #### END OF CREDENTIAL
 
 #### REMOVE BUILT-IN DEMO CONTENT
-  - name: delete demo job template
-    awx.awx.tower_job_template:
-      name: "Demo Job Template"
-      state: absent
-      tower_username: admin
-      tower_password: "{{ admin_password }}"
-      tower_host: "{{ ansible_host }}"
-      tower_verify_ssl: false
+- name: delete demo job template
+  awx.awx.tower_job_template:
+    name: "Demo Job Template"
+    state: absent
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false
 
 - name: remove demo credential
   awx.awx.tower_credential:

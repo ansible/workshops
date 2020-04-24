@@ -4,7 +4,7 @@
 {% if instance1_node_facts.instances is defined %}
 {% for vm in instance1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -13,18 +13,18 @@
 {% if instance2_node_facts.instances is defined %}
 {% for vm in instance2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}
 {% endif %}
 {% endif %}
 
 {% for vm in gitlab_node_facts.instances %}
-{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endfor %}
 
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
+{{ vm.public_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}

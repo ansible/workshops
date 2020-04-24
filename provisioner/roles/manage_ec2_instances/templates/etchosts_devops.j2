@@ -3,30 +3,30 @@
 
 {% for vm in node1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}
 
 {% for vm in node2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{{ vm.public_ip_address }} {{vm.tags.short_name}} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}
 
 {% for vm in node3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{{ vm.public_ip_address }} {{vm.tags.short_name}} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}
 
 {% for vm in node4_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{{ vm.public_ip_address }} {{vm.tags.short_name}} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}
 
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.public_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
+{{ vm.public_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }} {{ vm.tags.short_name }}.{{ workshop_internal_dns_zone }}
 {% endif %}
 {% endfor %}

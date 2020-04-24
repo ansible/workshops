@@ -2,7 +2,7 @@
 {% for host in hostvars %}
 {% if "tower_nodes" in hostvars[host].group_names %}
 {% if username in hostvars[host].inventory_hostname %}
-{{ hostvars[host].ansible_nodename }} ansible_host={{ hostvars[host].short_name }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
+{{ hostvars[host].ansible_nodename }} ansible_host={{ hostvars[host].short_name }}.{{ workshop_internal_dns_zone }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -11,7 +11,7 @@
 {% for host in hostvars %}
 {% if "towerdb" in hostvars[host].group_names %}
 {% if username in hostvars[host].inventory_hostname %}
-{{ hostvars[host].ansible_nodename }} ansible_host={{ hostvars[host].short_name }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
+{{ hostvars[host].ansible_nodename }} ansible_host={{ hostvars[host].short_name }}.{{ workshop_internal_dns_zone }} ansible_user="{{ username }}" ansible_password='{{ admin_password }}' ansible_become=true
 {% endif %}
 {% endif %}
 {% endfor %}

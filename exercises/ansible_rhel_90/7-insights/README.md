@@ -87,7 +87,11 @@ You now have a Red Hat account, and an active subscription to use Red Hat Insigh
 
 - Navigate your web browser to [https://cloud.redhat.com](https://cloud.redhat.com)
 - Login and select Red Hat Insights Dashboard
-- 
+- Click on **Inventory** in the left menu to show all your workshop nodes:
+
+  ![workshop inventory](images/nodes.png)
+
+- Click on any node to bring up additional information on those Red Hat Enterprise Linux nodes.
 
 
 # Complete

@@ -4,7 +4,16 @@
 
 ## Table Contents
 
-
+* [Exercise - Red Hat Insights](#exercise---red-hat-insights)
+   * [Table Contents](#table-contents)
+* [Objective](#objective)
+* [Guide](#guide)
+   * [Step 1 - Understand Red Hat Insights](#step-1---understand-red-hat-insights)
+   * [Step 2 - Create a cloud.redhat.com account](#step-2---create-a-cloudredhatcom-account)
+   * [Step 3 - Examine your license](#step-3---examine-your-license)
+   * [Step 4 - Launch the Ansible Job](#step-4---launch-the-ansible-job)
+   * [Step 5 - Login to cloud.redhat.com](#step-5---login-to-cloudredhatcom)
+* [Complete](#complete)
 
 # Objective
 

@@ -41,20 +41,14 @@
 #### END OF CREDENTIAL
 
 #### REMOVE BUILT-IN DEMO CONTENT
-- name: delete demo job template
-  awx.awx.tower_job_template:
-    name: "Demo Job Template"
-    job_type: "run"
-    project: "Demo Project"
-    playbook: "hello_world.yml"
-    state: absent
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
-    tower_verify_ssl: false
-  ignore_errors: true
-# https://github.com/ansible/awx/issues/6819 ignore_errors problem here
-
+  - name: delete demo job template
+    awx.awx.tower_job_template:
+      name: "Demo Job Template"
+      state: absent
+      tower_username: admin
+      tower_password: "{{ admin_password }}"
+      tower_host: "{{ ansible_host }}"
+      tower_verify_ssl: false
 
 - name: remove demo credential
   awx.awx.tower_credential:

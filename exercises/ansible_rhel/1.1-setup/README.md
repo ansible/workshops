@@ -42,7 +42,7 @@ Login to your control host via SSH:
 
 > **Tip**
 >
-> The password is **ansible**
+> The password will be provided by your instructor
 
 Then become root:
 

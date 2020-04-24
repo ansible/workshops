@@ -86,7 +86,7 @@ What is this about?
 
 Now create two files in `~/ansible-files/files/`:
 
-One called `prod_index.html` with the following content:
+One called `prod_web.html` with the following content:
 
 ```html
 <body>

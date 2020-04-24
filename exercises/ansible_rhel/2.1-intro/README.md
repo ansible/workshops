@@ -19,7 +19,7 @@ This exercise will provide an Ansible Tower overview including going through fea
   - Projects
   - Inventories
   - Credentials
-  - Inventories
+  - Workflows
 
 # Guide
 

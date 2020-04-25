@@ -209,6 +209,18 @@
         - dns_type == "aws"
   tags: control_node
 
+- name: Setup Amazon S3 Website for Student Login
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  roles:
+    - role: aws_workshop_login_page
+      when:
+        - create_login_page is defined
+        - create_login_page
+  tags: control_node
+
 - name: populate ansible tower
   hosts: control_nodes
   become: true
@@ -222,18 +234,6 @@
         - towerinstall is defined
         - towerinstall|bool
         - populatetower
-
-- name: Setup Amazon S3 Website for Student Login
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: false
-  roles:
-    - role: aws_workshop_login_page
-      when:
-        - create_login_page is defined
-        - create_login_page
-  tags: control_node
 
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"

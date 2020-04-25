@@ -3,9 +3,31 @@
     userid: "{{ inventory_hostname | regex_replace('[^0-9]', '') }}"
 
 - name: Add win_shell/win_feature/win_reboot to allowed adhoc modules
-  tower_settings:
+  awx.awx.tower_settings:
     name: AD_HOC_COMMANDS
-    value: "'command','shell','yum','apt','apt_key','apt_repository','apt_rpm','service','group','user','mount','ping','selinux','setup','win_ping','win_service','win_updates','win_group','win_user','win_shell','win_feature','win_reboot'"
+    value:
+      - 'command'
+      - 'shell'
+      - 'yum'
+      - 'apt'
+      - 'apt_key'
+      - 'apt_repository'
+      - 'apt_rpm'
+      - 'service'
+      - 'group'
+      - 'user'
+      - 'mount'
+      - 'ping'
+      - 'selinux'
+      - 'setup'
+      - 'win_ping'
+      - 'win_service'
+      - 'win_updates'
+      - 'win_group'
+      - 'win_user'
+      - 'win_shell'
+      - 'win_feature'
+      - 'win_reboot'
     validate_certs: false
     tower_password: "{{ admin_password }}"
     tower_username: "{{ username }}"

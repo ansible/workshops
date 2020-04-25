@@ -121,6 +121,6 @@ running kernel 4.18.0-147.8.1.el8_1.x86_64.
 ----
 **Navigation**
 <br>
-[Previous Exercise](../1.5-handlers) - [Next Exercise](../1.6-templates)
+[Previous Exercise](../1.5-handlers) - [Next Exercise](../1.7-role)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

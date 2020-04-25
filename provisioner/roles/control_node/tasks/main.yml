@@ -95,11 +95,12 @@
 
 - name: Move relevant exercises to correct location
   copy:
-    src: '{{ "/tmp/workshops/" + exercise_src_location | default("exercises/ansible_" + workshop_type) }}'
+    src: '{{ "/tmp/workshops/" + exercise_src_location | default("exercises/ansible_" + workshop_type) + "/" }}'
     dest: '{{ "/home/" + username + "/" + exercise_dest_location | default(workshop_type + "-workshop") }}'
     remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
+    local_follow: true
   when:
     - workshop_type != "f5"
     - workshop_type != "networking"

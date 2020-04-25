@@ -30,7 +30,7 @@ Faça Login com seu Ansible Control Host via SSH:
 
 > **Dica**
 >
-> A senha é **ansible**
+> A senha é **instructor provides this**
 
 Torne-se Root:
 

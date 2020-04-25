@@ -6,7 +6,7 @@
     description: "Analysts Team"
     organization: "Default"
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -16,7 +16,7 @@
     description: "IDS Team"
     organization: "Default"
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -26,7 +26,7 @@
     description: "Firewall Team"
     organization: "Default"
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -40,7 +40,7 @@
     last_name: Analyst
     state: present
     superuser: false
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -53,7 +53,7 @@
     last_name: Ops
     state: present
     superuser: false
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -66,7 +66,7 @@
     last_name: Ops
     state: present
     superuser: false
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -77,7 +77,7 @@
     organization: "Default"
     role: member
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -87,7 +87,7 @@
     organization: "Default"
     role: member
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -97,7 +97,7 @@
     organization: "Default"
     role: member
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -108,7 +108,7 @@
     target_team: "TeamSIEM"
     role: member
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -118,7 +118,7 @@
     target_team: "TeamIDS"
     role: member
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -128,7 +128,7 @@
     target_team: "TeamFIREWALL"
     role: member
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -138,7 +138,7 @@
     name: "Workshop Project"
     scm_type: git
     scm_url: "https://github.com/ansible-security/workshop-examples"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -156,7 +156,7 @@
     playbook: "cp_log.yml"
     state: "present"
     limit: "checkpoint"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -171,7 +171,7 @@
     limit: "snort"
     credential: "Workshop Credential"
     become_enabled: true
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -184,7 +184,7 @@
     playbook: "qradar_cp_log.yml"
     state: "present"
     limit: "qradar"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -197,7 +197,7 @@
     playbook: "qradar_snort_log.yml"
     state: "present"
     limit: "qradar"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -210,7 +210,7 @@
     playbook: "rollback.yml"
     state: "present"
     credential: "Workshop Credential"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -227,7 +227,7 @@
     become_enabled: true
     survey_enabled: true
     survey_spec: "{{ lookup('template', 'security_survey_ids_rule.json') }}"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -242,7 +242,7 @@
     limit: "attacker"
     credential: "Workshop Credential"
     become_enabled: true
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -257,7 +257,7 @@
     limit: "attacker"
     credential: "Workshop Credential"
     become_enabled: true
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -270,7 +270,7 @@
     playbook: "whitelist_attacker.yml"
     state: "present"
     limit: "checkpoint"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -283,7 +283,7 @@
     playbook: "blacklist_attacker.yml"
     state: "present"
     limit: "checkpoint"
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
@@ -294,7 +294,7 @@
     role: admin
     job_template: "{{ item }}"
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
   loop:
@@ -308,7 +308,7 @@
     role: admin
     job_template: "{{ item }}"
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
   loop:
@@ -321,7 +321,7 @@
     role: admin
     job_template: "{{ item }}"
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
   loop:
@@ -334,7 +334,7 @@
     role: execute
     job_template: "{{ item }}"
     state: present
-    awx.awx.tower_username: admin
+    tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
   loop:

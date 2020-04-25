@@ -80,6 +80,13 @@
     - name: make sure packages required are installed on this control node
       pip:
         name:
+          - ansible-tower-cli
+      check_mode: true
+      register: package_state
+
+    - name: make sure packages required are installed on this control node
+      pip:
+        name:
           - netaddr
       check_mode: true
       when: workshop_type == "networking"
@@ -143,7 +150,10 @@
           retries: 30
 
     - name: install product_demos collection
-      shell: "ansible-galaxy collection install ipvsean.product_demos"
+      shell: "{{item}}"
+      loop:
+        - "ansible-galaxy collection install ansible.product_demos"
+        - "ansible-galaxy collection install awx.awx"
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -199,6 +209,18 @@
         - dns_type == "aws"
   tags: control_node
 
+- name: Setup Amazon S3 Website for Student Login
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  roles:
+    - role: aws_workshop_login_page
+      when:
+        - create_login_page is defined
+        - create_login_page
+  tags: control_node
+
 - name: populate ansible tower
   hosts: control_nodes
   become: true
@@ -213,18 +235,6 @@
         - towerinstall|bool
         - populatetower
 
-- name: Setup Amazon S3 Website for Student Login
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: false
-  roles:
-    - role: aws_workshop_login_page
-      when:
-        - create_login_page is defined
-        - create_login_page
-  tags: control_node
-
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"
 
@@ -238,7 +248,7 @@
   tasks:
     - name: install demo
       include_role:
-        name: "ipvsean.product_demos.install_demo"
+        name: "ansible.product_demos.install_demo"
       when:
         - demo is defined
         - towerinstall is defined

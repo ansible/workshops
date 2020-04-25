@@ -30,7 +30,7 @@ SSHでログインできます。:
 
 > **Tip**
 >
-> パスワードは **ansible** です。
+> パスワードは **instructor provides this** です。
 
 rootになるには以下のように実行してください。:
 

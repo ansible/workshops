@@ -74,7 +74,7 @@ There are two tasks that include a role.  If you have trouble distinguishing a r
 
 The Ansible Playbooks are simple.  They just use the pre-built Ansible Playbooks provided by Ansible Galaxy and Automation Hub.  These were pre-installed for this Ansible Workshop.
 
-- [firewall system role](https://galaxy.ansible.com/linux-system-roles/firewall)  - by default this installs firewalld, python3-firewall.  Parameters can be sent such as what service to open:
+- [firewall system role](https://galaxy.ansible.com/linux-system-roles/firewall)  - by default this installs firewalld, python3-firewall.  Optional parameters can be sent such as what service to open:
 
 ```
 vars:
@@ -83,7 +83,18 @@ vars:
     state: 'disabled'
 ```
 
-- [timesync system role](https://galaxy.ansible.com/linux-system-roles/timesync) - will install NTP or chrony depending on your OS version, configure them,
+- [timesync system role](https://galaxy.ansible.com/linux-system-roles/timesync) - will install NTP or chrony depending on your OS version, configure them, and make sure the system clock for the Linux host is synchronized.  Optional parameters can be set to specify specific parameters:
+
+```
+vars:
+  timesync_ntp_servers:
+    - hostname: foo.example.com
+      iburst: yes
+    - hostname: bar.example.com
+      iburst: yes
+    - hostname: baz.example.com
+      iburst: yes
+```
 
 ## Step 4 - Launch the Ansible Job
 
@@ -99,6 +110,17 @@ This will launch a survey before starting the job.  Fill out the survey:
 
 - The **CONFIGURE FIREWALL?** question will enable the `firewall` system role.
 - The **CONFIGURE TIME?** will enable the `timesync` system role.
+- For the purpose of this exercise set the rest to **No**
+
+Click the **NEXT** button:
+
+![next button](images/next.png)
+
+Review the **EXTRA VARIABLES** to understand what the survey did.  Click the **LAUNCH** button:
+
+![next button](images/launch.png)
+
+Watch the Job kick off!
 
 ## Step 5 - Verify the configuration
 
@@ -145,6 +167,18 @@ Here are some other commands that can be used to verify time is working correctl
 # systemctl status chronyd
 # chronyc activity
 # timedatectl
+```
+
+For example:
+
+```
+$ timedatectl
+               Local time: Wed 2020-04-22 03:52:15 UTC
+           Universal time: Wed 2020-04-22 03:52:15 UTC
+                 RTC time: Wed 2020-04-22 03:52:15
+                Time zone: UTC (UTC, +0000)
+System clock synchronized: yes
+              NTP service: active
 ```
 
 # Complete

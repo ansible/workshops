@@ -6,7 +6,7 @@ Ansible is a simple yet powerful IT automation engine for application deployment
 
 The exercises are self explanatory and guide the participants through the entire lab. All concepts are explained when they are introduced.
 
-(**coming soon)**There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
+There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
 [Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
 [WIP: Google source - Red Hat only](https://drive.google.com/open?id=143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y)
 
@@ -15,7 +15,7 @@ Also have a look at our Ansible Best Practices Deck:
 
 ## Time planning
 
-This workshop was created to last about 90 minutes and focuses more on targetting every day use cases to apply automation. 
+This workshop was created to last about 90 minutes and focuses more on targeting every day use cases to apply automation.
 
 ## Section 1 - Ansible Engine Exercises
 
@@ -24,8 +24,7 @@ This workshop was created to last about 90 minutes and focuses more on targettin
  - [Exercise 3 - Retrieving information from automation hosts](3-variables)
  - [Exercise 4 - Deploying applications to linux hosts](4-roles)
  - [Exercise 5 - Self-service IT via surveys](5-surveys)
- - [**(coming soon)**Exercise 6 - Overview of system roles for RHEL](6-system-roles)
- - [**(coming soon)**Exercise 7 - Overview of Red Hat Insights integration](7-insights)
+ - [Exercise 6 - Overview of system roles for RHEL](6-system-roles)
 
 ## Additional information
 

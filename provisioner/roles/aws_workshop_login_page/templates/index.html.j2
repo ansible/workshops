@@ -219,7 +219,7 @@ $("document").ready(function(){
   $click.click(function () {
 
     $clicked = $(this);
-    
+
     $expand = $(this).parent('.header').next();  // Expand and collapse content selector
 
         //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
@@ -231,13 +231,13 @@ $("document").ready(function(){
             $('html, body').animate({
                 scrollTop: 1000
             }, 500);
-            
+
         });
 
     });
     $("a[href='" + window.location.hash + "']").parent(".studentinfo").click();
-    
-    
+
+
 });
 </script>
 
@@ -398,8 +398,6 @@ $("document").ready(function(){
       <p class="studentinfo"><a href="#student{{number}}"></a>student{{number}} - Click to see login details</p>
     </div>
     <div class="content">
-{% for host in ansible_node_facts.instances %}
-{% if 'student' ~ number == host.tags.Student %}
 {% if code_server is defined and code_server %}
 <div id="section_title">VS Code access</div>
 To login to Visual Studio Code via your web browser please go here:<br>
@@ -451,12 +449,12 @@ To login to the Ansible Control Node use the following for SSH access:<br>
   </tr>
   <tr>
     <td>IP Address:</td>
-    <td><code>{{ host.public_ip_address }}</code></td>
+    <td><code>{{ hostvars[ec2_name_prefix+ '-student' + number|string + '-ansible'].ansible_host }}</code></td>
   </tr>
 </table>
 </div>
 <div id="example_login">
-<pre><code>ssh student{{number}}@{{ host.public_ip_address }}</code></pre>
+<pre><code>ssh student{{number}}@sean_placeholder</code></pre>
 {% if dns_type != 'none' %}
 DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 <pre><code>ssh student{{number}}@student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
@@ -479,7 +477,7 @@ To login to the Ansible Tower UI use the following credentials:<br>
 {% if dns_type == 'none' %}
   <tr>
 <td>UI link:
-<td><a target=_blank href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a></td>
+<td>sean_placeholder</td>
   </tr>
 {% endif %}
   <tr>
@@ -495,8 +493,6 @@ To login to the Ansible Tower UI use the following credentials:<br>
 </div>
 
 {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888</a><br>{% endif %}
-{% endif %}
-{% endfor %}
     </div>
   </div>
 {% endfor %}

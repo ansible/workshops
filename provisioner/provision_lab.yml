@@ -164,7 +164,7 @@
     - manage_ec2_instances
 
 - name: wait for all nodes to have SSH reachability
-  hosts: "managed_nodes:control_nodes"
+  hosts: "control_nodes:lab_hosts"
   become: true
   gather_facts: false
   roles:
@@ -177,8 +177,8 @@
   roles:
     - connectivity_test
 
-- name: Configure common options on managed nodes and control nodes
-  hosts: "managed_nodes:control_nodes"
+- name: Configure common options on lab_hosts and control nodes
+  hosts: "control_nodes:lab_hosts"
   gather_facts: false
   become: true
   roles:

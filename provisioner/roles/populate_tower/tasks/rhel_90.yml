@@ -17,4 +17,4 @@
     my_tower_host: "{{ ansible_host }}"
     demo: hardening
   include_role:
-    name: "ipvsean.product_demos.install_demo"
+    name: "ansible.product_demos.install_demo"

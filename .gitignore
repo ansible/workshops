@@ -32,3 +32,4 @@ Gemfile
 _site/*
 .tox/
 provisioner/tests/ci-common.yml
+provisioner/aws_ec2.yml

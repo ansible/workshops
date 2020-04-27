@@ -1,0 +1,12 @@
+---
+# group_vars for security automation workshop - contact Colin McNaughton
+ansible_user: Administrator
+ansible_port: 5986
+ansible_winrm_server_cert_validation: ignore
+ansible_password: "{{ windows_password }}"
+ansible_become_password: "{{ admin_password }}"
+ansible_connection: "winrm"
+ansible_winrm_transport: "ntlm"
+ansible_winrm_server_cert_validation: "ignore"
+ansible_winrm_operation_timeout_sec: 120
+ansible_winrm_read_timeout_sec: 150

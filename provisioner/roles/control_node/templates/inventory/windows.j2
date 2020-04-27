@@ -7,6 +7,8 @@ ansible_connection=winrm
 ansible_winrm_transport=credssp
 ansible_winrm_server_cert_validation=ignore
 ansible_port=5986
+ansible_user=Administrator
+ansible_password="{{windows_password}}"
 
 [control_nodes:vars]
 ansible_port=22
@@ -15,10 +17,10 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 
 [{{ username }}]
 {{ username }}-ansible ansible_host={{ hostvars[control_node].ansible_host }}
-{{ username }}-win1 ansible_host={{ hostvars[win1].ansible_host }} ansible_user=Administrator  ansible_password="rSzVIZU*b$z@DwDsrrzubPezBm)j2-Cg"
+{{ username }}-win1 ansible_host={{ hostvars[win1].ansible_host }}
 {% if doubleup %}
 {% set win2 = ec2_name_prefix + '-' + username + '-instance2' %}
-{{ username }}-win2 ansible_host={{ hostvars[win2].ansible_host }} ansible_user=Administrator  ansible_password="rSzVIZU*b$z@DwDsrrzubPezBm)j2-Cg"
+{{ username }}-win2 ansible_host={{ hostvars[win2].ansible_host }}
 {% endif %}
 
 

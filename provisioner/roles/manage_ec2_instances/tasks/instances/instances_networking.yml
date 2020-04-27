@@ -44,6 +44,7 @@
       ansible_network_os: "{{ec2_info[rtr1_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: core
   with_indexed_items:
     - "{{ rtr1_output.instances }}"
   when: rtr1_output.instance_ids is not none
@@ -85,6 +86,7 @@
       ansible_network_os: "{{ec2_info[rtr2_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: core
   with_indexed_items:
     - "{{ rtr2_output.instances }}"
   when: rtr2_output.instance_ids is not none
@@ -126,6 +128,7 @@
       ansible_network_os: "{{ec2_info[rtr3_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: access
   with_indexed_items:
     - "{{ rtr3_output.instances }}"
   when: rtr3_output.instance_ids is not none
@@ -167,6 +170,7 @@
       ansible_network_os: "{{ec2_info[rtr4_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: access
   with_indexed_items:
     - "{{ rtr4_output.instances }}"
   when: rtr4_output.instance_ids is not none

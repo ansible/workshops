@@ -3,6 +3,8 @@
   hosts: gitlab
   become: true
   gather_facts: true
+  vars:
+    username: "ec2-user"
   tags:
     - gitlab
   tasks:

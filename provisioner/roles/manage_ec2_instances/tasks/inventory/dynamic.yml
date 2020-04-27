@@ -11,12 +11,19 @@
 - name: refresh AWS inventory information
   meta: refresh_inventory
 
-- name: debug it
+- group_by:
+    key: security_connection_check
+    parents:
+      - attack
+      - snort
+      - qradar
+  when: workshop_type == "security"
+
+- name: display all groups from dynamic inventory
   debug:
     msg: "{{ groups }}"
 
-
-# - name: Generate instructor inventory
-#   template:
-#     src: instructor_inventory.j2
-#     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"
+- name: Generate instructor inventory
+  template:
+    src: instructor_inv.j2
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

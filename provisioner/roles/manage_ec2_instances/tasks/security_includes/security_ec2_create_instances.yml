@@ -123,7 +123,7 @@
     image: "{{ec2_info.windows_ws.ami.image_id}}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    user_data: "{{ lookup('template', 'windows_userdata.txt.j2') }}"
+    user_data: "{{ lookup('template', 'windows_userdata.txt.j2', template_vars=dict(vm_name='windows_ws')) }}"
     count_tag:
       Workshop_windows: "{{ec2_name_prefix}}-windows"
     wait: "{{ ec2_wait }}"

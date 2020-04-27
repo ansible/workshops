@@ -1,0 +1,42 @@
+---
+plugin: aws_ec2
+regions:
+  - "{{ec2_region}}"
+filters:
+  tag:Workshop: "{{ec2_name_prefix}}"
+groups:
+  # all workshop types
+  control_nodes: "'ansible' in tags.short_name"
+  # rhel, rhel_90, f5
+  lab_hosts: "'node' in tags.short_name"
+  # network
+  routers: "'rtr' in tags.short_name"
+  core: "'core' in tags.group"
+  access: "'access' in tags.group"
+  # f5
+  # windows
+  windows: "'instance' in tags.short_name"
+  gitlab: "'gitlab' in tags.short_name"
+  # security
+  qradar: "'qradar' in tags.short_name"
+  attack: "'attack' in tags.short_name"
+  security: "'security' in tags.Workshop_type"
+  security_connection_check: attack snort qradar
+  snort: "'snort' in tags.short_name"
+  checkpoint: "'checkpoint_gw' in tags.short_name"
+  checkpoint_mgmt: "'checkpoint_mgmt' in tags.short_name"
+  security_windows: "'windows_ws' in tags.short_name"
+{% for n in range(1, student_total + 1) %}
+  student{{ n }}: "'student{{ n }}' == tags.Student"
+{% endfor %}
+hostnames:
+  - tag:Name
+compose:
+  ansible_host: public_ip_address
+  ansible_user: tags.username
+  short_name: tags.short_name
+  username: tags.Student
+  ansible_port: "{{ssh_port}}"
+  ansible_ssh_private_key_file: '"{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"'
+  private_ip: private_ip_address
+  ansible_network_os: tags.ansible_network_os

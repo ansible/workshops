@@ -1,0 +1,21 @@
+[all:vars]
+ansible_user={{username}}
+ansible_password={{ admin_password }}
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+[lb]
+{% set f5_device = ec2_name_prefix + '-' + username + '-f5' %}
+{{ hostvars[f5_device].short_name }} ansible_host={{ hostvars[f5_device].ansible_host }} ansible_user=admin private_ip={{ hostvars[f5_device].private_ip }} ansible_pass={{admin_password}}
+
+[control]
+{% set control_node = ec2_name_prefix + '-' + username + '-ansible' %}
+{{ hostvars[control_node].short_name }} ansible_host={{ hostvars[control_node].ansible_host }}
+
+
+[web]
+{% set node1 = ec2_name_prefix + '-' + username + '-node1' %}
+{{ hostvars[node1].short_name }} ansible_host={{ hostvars[node1].ansible_host }} private_ip={{hostvars[node1].private_ip }}
+{% set node2 = ec2_name_prefix + '-' + username + '-node2' %}
+{{ hostvars[node2].short_name }} ansible_host={{ hostvars[node2].ansible_host }} private_ip={{hostvars[node2].private_ip }}

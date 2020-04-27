@@ -454,7 +454,7 @@ To login to the Ansible Control Node use the following for SSH access:<br>
 </table>
 </div>
 <div id="example_login">
-<pre><code>ssh student{{number}}@sean_placeholder</code></pre>
+<pre><code>ssh student{{number}}@{{ hostvars[ec2_name_prefix+ '-student' + number|string + '-ansible'].ansible_host }}</code></pre>
 {% if dns_type != 'none' %}
 DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 <pre><code>ssh student{{number}}@student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
@@ -477,7 +477,7 @@ To login to the Ansible Tower UI use the following credentials:<br>
 {% if dns_type == 'none' %}
   <tr>
 <td>UI link:
-<td>sean_placeholder</td>
+<td><a href="https://{{ hostvars[ec2_name_prefix+ '-student' + number|string + '-ansible'].ansible_host }}">https://{{ hostvars[ec2_name_prefix+ '-student' + number|string + '-ansible'].ansible_host }}</a></td>
   </tr>
 {% endif %}
   <tr>

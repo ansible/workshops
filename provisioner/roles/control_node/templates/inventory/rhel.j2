@@ -1,0 +1,17 @@
+[all:vars]
+ansible_user={{username}}
+ansible_password={{ admin_password }}
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+[web]
+{% for vm in groups[username] %}
+{% if hostvars[vm].short_name != "ansible" %}
+{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }}
+{% endif %}
+{% endfor %}
+
+[control]
+{% set control_node = ec2_name_prefix + '-' + username + '-ansible' %}
+{{ hostvars[control_node].short_name }} ansible_host={{ hostvars[control_node].ansible_host }}

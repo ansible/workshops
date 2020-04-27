@@ -41,7 +41,7 @@
       Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='instance1')) }}"
+    user_data: "{{ lookup('template', 'windows_userdata.txt.j2', template_vars=dict(vm_name='instance1')) }}"
   register: instance1_output
 
 - name: WINDOWS | Create instance 2
@@ -57,7 +57,7 @@
       Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='instance1')) }}"
+    user_data: "{{ lookup('template', 'windows_userdata.txt.j2', template_vars=dict(vm_name='instance1')) }}"
   register: instance2_output
   when: doubleup|bool
 

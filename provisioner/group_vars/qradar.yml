@@ -1,0 +1,3 @@
+---
+# group_vars for security automation workshop - contact Roland Wolters
+ansible_python_interpreter: "python_interpreter"

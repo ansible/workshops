@@ -118,7 +118,7 @@
             name: "webservers_attack_simulation"
 
 - name: SETUP WINDOWS WORKSTATION
-  hosts: windows
+  hosts: security_windows
   roles:
     - role: windows_ws_setup
 

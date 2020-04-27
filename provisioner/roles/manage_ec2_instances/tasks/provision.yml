@@ -78,3 +78,7 @@
 ## Instance creation
 - name: provision workshop instances
   include_tasks: 'instances/instances_{{workshop_type}}.yml'
+
+## inventory for subsequent roles to configure workshop node
+- name: provision workshop instances
+  include_tasks: '{{role_path}}/tasks/inventory/dynamic.yml'

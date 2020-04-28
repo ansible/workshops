@@ -1,3 +1,0 @@
----
-# group_vars for security automation workshop - contact Roland Wolters
-ansible_python_interpreter: "{{ec2_info['splunk_enterprise']['python_interpreter']}}"

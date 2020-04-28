@@ -1,0 +1,36 @@
+[all:vars]
+ansible_user={{username}}
+ansible_password={{ admin_password }}
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+[control]
+{% set control_node = ec2_name_prefix + '-' + username + '-ansible' %}
+{{ hostvars[control_node].short_name }} ansible_host={{ hostvars[control_node].ansible_host }} private_ip={{ hostvars[control_node].private_ip }}
+
+[attack]
+{% set attacker = ec2_name_prefix + '-' + username + '-attacker' %}
+{{ hostvars[attacker].short_name }} ansible_host={{ hostvars[attacker].ansible_host }} ansible_user={{ hostvars[attacker].ansible_user }} private_ip={{ hostvars[attacker].security_interface_one }} private_ip2={{ hostvars[attacker].security_interface_two }}
+
+[siem]
+{% if security_console == 'splunk' %}
+{% set splunk = ec2_name_prefix + '-' + username + '-splunk' %}
+{{ hostvars[splunk].short_name }} ansible_host={{ hostvars[splunk].ansible_host }} ansible_user=admin private_ip={{ hostvars[splunk].private_ip }} ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=splunk.enterprise_security.splunk
+{% endif %}
+{% if security_console == 'qradar' %}
+{% set qradar = ec2_name_prefix + '-' + username + '-qradar' %}
+{{ hostvars[qradar].short_name }} ansible_host={{ hostvars[qradar].ansible_host }} ansible_user=admin private_ip={{ hostvars[qradar].private_ip }} ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=ibm.qradar.qradar
+{% endif %}
+
+[ids]
+{% set snort = ec2_name_prefix + '-' + username + '-snort' %}
+{{ hostvars[snort].short_name }} ansible_host={{ hostvars[snort].ansible_host }} ansible_user={{ hostvars[snort].ansible_user }} private_ip={{ hostvars[snort].security_interface_one }} private_ip2={{ hostvars[snort].security_interface_two }}
+
+[firewall]
+{% set checkpoint = ec2_name_prefix + '-' + username + '-checkpoint_mgmt' %}
+checkpoint ansible_host={{ hostvars[checkpoint].ansible_host }} ansible_user=admin ansible_password=admin123 private_ip={{ hostvars[checkpoint].private_ip }} ansible_network_os=checkpoint ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=no
+
+[windows]
+{% set windows = ec2_name_prefix + '-' + username + '-windows_ws' %}
+windows ansible_host={{ hostvars[windows].ansible_host }} ansible_user=Administrator ansible_password={{ windows_password}} ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore private_ip={{ hostvars[windows].private_ip }}

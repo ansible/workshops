@@ -82,6 +82,7 @@
       Students: "{{student_total}}"
       short_name: "instance1"
       launch_time: "{{item.1.launch_time}}"
+      username: "{{ ec2_info['windows_ws']['username'] }}"
   with_indexed_items:
     - "{{ instance1_output.instances }}"
   when: instance1_output.instance_ids is not none
@@ -105,6 +106,7 @@
       Students: "{{student_total}}"
       short_name: "instance2"
       launch_time: "{{item.1.launch_time}}"
+      username: "{{ ec2_info['windows_ws']['username'] }}"
   with_indexed_items:
     - "{{ instance2_output.instances }}"
   when:

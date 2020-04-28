@@ -1,0 +1,33 @@
+
+[attack]
+{% for vm in groups.attack %}
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }} private_ip={{ hostvars[vm].security_interface_one }} private_ip2={{ hostvars[vm].security_interface_two }}
+{% endfor %}
+
+[siem]
+{% if security_console == 'splunk' %}
+{% for vm in groups.splunk %}
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }} private_ip={{ hostvars[vm].private_ip }} ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=splunk.enterprise_security.splunk
+{% endfor %}
+{% endif %}
+
+{% if security_console == 'qradar' %}
+{% for vm in groups.qradar %}
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }} private_ip={{ hostvars[vm].private_ip }} ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=ibm.qradar.qradar
+{% endfor %}
+{% endif %}
+
+[ids]
+{% for vm in groups.snort %}
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }} private_ip={{ hostvars[vm].security_interface_one }} private_ip2={{ hostvars[vm].security_interface_two }}
+{% endfor %}
+
+[firewall]
+{% for vm in groups.checkpoint_mgmt %}
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }} ansible_password=admin123 private_ip={{ hostvars[vm].private_ip }} ansible_network_os=checkpoint ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=no
+{% endfor %}
+
+[windows]
+{% for vm in groups.security_windows %}
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }} ansible_password={{ windows_password}} ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore private_ip={{ hostvars[vm].private_ip }}
+{% endfor %}

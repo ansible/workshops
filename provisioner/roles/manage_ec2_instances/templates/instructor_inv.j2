@@ -1,15 +1,17 @@
 [all:vars]
+ansible_password={{ admin_password }}
 ansible_ssh_private_key_file={{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem
 {% if ssh_port is defined %}
 ansible_port={{ ssh_port }}
 {% endif %}
 
+{% include 'instructor-' + workshop_type + '.j2' %}
 
 {% for number in range(1,student_total + 1) %}
 
 [student{{ number }}]
 {% for vm in groups['student' + number|string] %}
-{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }}
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }}
 {% endfor %}
 
 {% endfor %}

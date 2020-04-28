@@ -1,0 +1,75 @@
+{% set rtr1 = ec2_name_prefix + '-' + username + '-rtr1' %}
+{% set rtr2 = ec2_name_prefix + '-' + username + '-rtr2' %}
+{% set rtr3 = ec2_name_prefix + '-' + username + '-rtr3' %}
+{% set rtr4 = ec2_name_prefix + '-' + username + '-rtr4' %}
+
+
+[all:vars]
+ansible_ssh_private_key_file=/home/{{username}}/.ssh/aws-private.pem
+
+[routers:children]
+{% if network_type == "multivendor" or network_type == "cisco" %}
+cisco
+{% endif %}
+{% if network_type == "multivendor" or network_type == "juniper" %}
+juniper
+{% endif %}
+{% if network_type == "multivendor" or network_type == "arista" %}
+arista
+{% endif %}
+
+{% if network_type == "multivendor" or network_type == "cisco" %}
+[cisco]
+{% endif %}
+{% if network_type == "arista" %}
+[arista]
+{% endif %}
+{% if network_type == "juniper" %}
+[juniper]
+{% endif %}
+{{ hostvars[rtr1].short_name }} ansible_host={{ hostvars[rtr1].ansible_host }} private_ip={{ hostvars[rtr1].private_ip }}
+{% if network_type == "multivendor" %}
+[arista]
+{% endif %}
+{{ hostvars[rtr2].short_name }} ansible_host={{ hostvars[rtr2].ansible_host }} private_ip={{ hostvars[rtr2].private_ip }}
+{{ hostvars[rtr4].short_name }} ansible_host={{ hostvars[rtr4].ansible_host }} private_ip={{ hostvars[rtr4].private_ip }}
+{% if network_type == "multivendor" %}
+[juniper]
+{% endif %}
+{{ hostvars[rtr3].short_name }} ansible_host={{ hostvars[rtr3].ansible_host }} private_ip={{ hostvars[rtr3].private_ip }}
+
+
+{% if network_type == "multivendor" or network_type == "cisco" %}
+[cisco:vars]
+ansible_user=ec2-user
+ansible_network_os=ios
+ansible_connection=network_cli
+{% endif %}
+
+{% if network_type == "multivendor" or network_type == "juniper" %}
+[juniper:vars]
+ansible_user=ec2-user
+ansible_network_os=junos
+ansible_connection=netconf
+{% endif %}
+
+{% if network_type == "multivendor" or network_type == "arista" %}
+[arista:vars]
+ansible_user=ec2-user
+ansible_network_os=eos
+ansible_connection=network_cli
+ansible_become=true
+ansible_become_method=enable
+{% endif %}
+
+[dc1]
+rtr1
+rtr3
+
+[dc2]
+rtr2
+rtr4
+
+[control]
+{% set control_node = ec2_name_prefix + '-' + username + '-ansible' %}
+{{ hostvars[control_node].short_name }} ansible_host={{ hostvars[control_node].ansible_host }}

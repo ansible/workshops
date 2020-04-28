@@ -14,6 +14,7 @@ groups:
   core: "'core' in tags.group"
   access: "'access' in tags.group"
   # f5
+  f5: "'f5' in tags.short_name"
   # windows
   windows: "'instance' in tags.short_name"
   gitlab: "'gitlab' in tags.short_name"
@@ -40,3 +41,5 @@ compose:
   ansible_ssh_private_key_file: '"{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"'
   private_ip: private_ip_address
   ansible_network_os: tags.ansible_network_os
+  security_interface_one: network_interfaces|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first
+  security_interface_two: network_interfaces|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first

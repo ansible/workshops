@@ -119,6 +119,12 @@
 
 - name: SETUP WINDOWS WORKSTATION
   hosts: security_windows
+  vars:
+    ansible_user: Administrator
+    ansible_password: "{{ windows_password }}"
+    ansible_port: 5986
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
   roles:
     - role: windows_ws_setup
 

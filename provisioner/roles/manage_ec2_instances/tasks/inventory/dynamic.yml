@@ -11,14 +11,6 @@
 - name: refresh AWS inventory information
   meta: refresh_inventory
 
-- group_by:
-    key: security_connection_check
-    parents:
-      - attack
-      - snort
-      - qradar
-  when: workshop_type == "security"
-
 - name: display all groups from dynamic inventory
   debug:
     msg: "{{ groups }}"

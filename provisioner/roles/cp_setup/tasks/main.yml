@@ -24,7 +24,7 @@
     body_format: json
     body:
       name: myngfw
-      ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['private_ip'] }}"
+      ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['security_interface_one'] }}"
       one-time-password: admin123
       firewall: true
       version: R80.30
@@ -34,7 +34,7 @@
           anti-spoofing-settings:
             action: prevent
           name: "eth0"
-          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['private_ip'] }}"
+          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['security_interface_one'] }}"
           network-mask: "255.255.0.0"
           ipv4-mask-length: 16
           security-zone: false
@@ -45,7 +45,7 @@
           anti-spoofing-settings:
             action: prevent
           name: "eth1"
-          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['private_ip2'] }}"
+          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['security_interface_two'] }}"
           network-mask: "255.255.0.0"
           ipv4-mask-length: 16
           security-zone: false

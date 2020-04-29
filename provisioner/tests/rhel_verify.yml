@@ -1,6 +1,6 @@
 ---
 - name: Check each student environment
-  hosts: all
+  hosts: control
   gather_facts: true
 
   tasks:

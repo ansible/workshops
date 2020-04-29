@@ -1,3 +1,4 @@
 ---
 workshop_type: windows
 ec2_region: us-west-1
+windows_password: 'Ansible+Red*Hat-Testing19!20'

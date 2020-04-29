@@ -1,12 +1,13 @@
 ---
+- name: Create workshop_inventory directory
+  file:
+    state: directory
+    path: "{{playbook_dir}}/workshop_inventory"
+
 - name: customize dynamic inventory script
   template:
     src: "aws_ec2.j2"
     dest: "{{playbook_dir}}/workshop_inventory/aws_ec2.yml"
-
-- name: debug it
-  debug:
-    msg: "{{ playbook_dir }}"
 
 - name: refresh AWS inventory information
   meta: refresh_inventory

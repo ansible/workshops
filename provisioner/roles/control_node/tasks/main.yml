@@ -43,8 +43,8 @@
     group: "{{ username }}"
 
 - name: setup /etc/hosts file per student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+  template:
+    src: "etchosts.j2"
     dest: "/etc/hosts"
     owner: "{{ username }}"
     group: "{{ username }}"
@@ -112,8 +112,8 @@
     path: /home/{{ username }}/lab_inventory
 
 - name: Put student inventory in proper spot
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
+  template:
+    src: "{{role_path}}/templates/inventory/{{workshop_type}}.j2"
     dest: /home/{{ username }}/lab_inventory/hosts
     owner: "{{ username }}"
     group: "{{ username }}"

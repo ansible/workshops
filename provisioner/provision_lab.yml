@@ -207,6 +207,8 @@
       when:
         - dns_type is defined
         - dns_type == "aws"
+        - towerinstall is defined
+        - towerinstall
   tags: control_node
 
 - name: Setup Amazon S3 Website for Student Login

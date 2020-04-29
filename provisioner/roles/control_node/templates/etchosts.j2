@@ -1,0 +1,11 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+{% for vm in groups[username] %}
+{% if hostvars[vm].short_name != "ansible" %}
+{{ hostvars[vm].ansible_host }} {{ hostvars[vm].short_name }}
+{% endif %}
+{% endfor %}
+
+{% set control_node = ec2_name_prefix + '-' + username + '-ansible' %}
+{{ hostvars[control_node].ansible_host }} {{username }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ hostvars[control_node].short_name }}

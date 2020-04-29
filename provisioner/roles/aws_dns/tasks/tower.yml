@@ -1,6 +1,6 @@
 ---
 - name: CHANGE TOWER BASE URL
-  tower_settings:
+  awx.awx.tower_settings:
     name: TOWER_URL_BASE
     value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
     tower_verify_ssl: false

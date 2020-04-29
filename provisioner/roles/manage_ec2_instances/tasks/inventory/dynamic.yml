@@ -2,7 +2,7 @@
 - name: customize dynamic inventory script
   template:
     src: "aws_ec2.j2"
-    dest: "{{playbook_dir}}/aws_ec2.yml"
+    dest: "{{playbook_dir}}/workshop_inventory/aws_ec2.yml"
 
 - name: debug it
   debug:

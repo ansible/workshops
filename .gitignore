@@ -8,6 +8,7 @@ extra_vars.yml
 TODO
 TODO.md
 bak/
+provisioner/workshop_inventory/*
 *.BAK
 *.DS_Store
 *.pem

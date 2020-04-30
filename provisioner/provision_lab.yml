@@ -154,6 +154,9 @@
       loop:
         - "ansible-galaxy collection install ansible.product_demos"
         - "ansible-galaxy collection install awx.awx"
+      register: galaxy
+      until: galaxy is not failed
+      retries: 5
 
 - name: Create lab instances in AWS
   hosts: localhost

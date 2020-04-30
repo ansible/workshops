@@ -1,0 +1,6 @@
+#cloud-config
+hostname: "gitlab"
+fqdn: "gitlab.{{ workshop_dns_zone }}"
+manage_etc_hosts: true
+chpasswd: { expire: False }
+ssh_pwauth: True

@@ -9,8 +9,9 @@
       loop:
         - 'ibm.qradar'
 
+# run on everything except the checkpoint_gw
 - name: Check each student environment
-  hosts: all
+  hosts: all:!checkpoint
   gather_facts: true
 
   tasks:
@@ -118,7 +119,7 @@
 
         - name: Test NGFW access, step 1/3 - login, get SID
           uri:
-            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint')]['ansible_host'] }}/web_api/login"
+            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['ansible_host'] }}/web_api/login"
             method: POST
             body:
               user: admin
@@ -132,7 +133,7 @@
 
         - name: Test NGFW access, step 2/3 - Get NGFW data
           uri:
-            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint')]['ansible_host'] }}/web_api/show-simple-gateway"
+            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['ansible_host'] }}/web_api/show-simple-gateway"
             validate_certs: false
             method: POST
             headers:
@@ -160,7 +161,7 @@
 
         - name: Validate eth1, step 1/3 - login, get SID
           uri:
-            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint')]['ansible_host'] }}/web_api/login"
+            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['ansible_host'] }}/web_api/login"
             method: POST
             body:
               user: admin
@@ -174,7 +175,7 @@
 
         - name: Validate eth1, step 2/3 - Launch script
           uri:
-            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint')]['ansible_host'] }}/web_api/run-script"
+            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['ansible_host'] }}/web_api/run-script"
             validate_certs: false
             method: POST
             headers:
@@ -191,7 +192,7 @@
 
         - name: Validate eth1, step 3/3 - Verify script return values
           uri:
-            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint')]['ansible_host'] }}/web_api/show-task"
+            url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['ansible_host'] }}/web_api/show-task"
             validate_certs: false
             method: POST
             headers:

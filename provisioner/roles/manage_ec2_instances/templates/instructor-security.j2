@@ -13,7 +13,7 @@
 
 {% if security_console == 'qradar' %}
 {% for vm in groups.qradar %}
-{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user={{ hostvars[vm].ansible_user }} private_ip={{ hostvars[vm].private_ip }} ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=ibm.qradar.qradar
+{{ hostvars[vm].username }}-{{ hostvars[vm].short_name }} ansible_host={{ hostvars[vm].ansible_host }} ansible_user=admin private_ip={{ hostvars[vm].private_ip }} ansible_httpapi_pass="Ansible1!" ansible_connection=httpapi ansible_httpapi_use_ssl=yes ansible_httpapi_validate_certs=False ansible_network_os=ibm.qradar.qradar
 {% endfor %}
 {% endif %}
 

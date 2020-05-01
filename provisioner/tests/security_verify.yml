@@ -11,7 +11,7 @@
 
 # run on everything except the checkpoint_gw
 - name: Check each student environment
-  hosts: all
+  hosts: all:!*checkpoint_gw
   gather_facts: true
 
   tasks:
@@ -210,18 +210,12 @@
 
     - name: QRadar
       block:
-        - name: print out qradar information for debugging
-          debug:
-            msg:
-              - "URL: https://{{ hostvars[inventory_hostname]['ansible_host'] }}/api/help/endpoints/1"
-              - "USER: {{ hostvars[inventory_hostname]['ansible_user'] }}"
-              - "PASSWORD: {{ hostvars[inventory_hostname]['ansible_httpapi_pass'] }}"
 
         - name: Check if QRadar API is available
           uri:
             url: "https://{{ hostvars[inventory_hostname]['ansible_host'] }}/api/help/endpoints/1"
             method: GET
-            user: "{{ hostvars[inventory_hostname]['ansible_user'] }}"
+            user: "admin"
             password: "{{ hostvars[inventory_hostname]['ansible_httpapi_pass'] }}"
             force_basic_auth: true
             headers:

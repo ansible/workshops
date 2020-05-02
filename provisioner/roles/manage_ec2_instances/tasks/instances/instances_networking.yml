@@ -34,6 +34,7 @@
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-rtr1"
       Workshop_rtr1: "{{ec2_name_prefix}}-rtr1"
       Workshop: "{{ec2_name_prefix}}"
+      Workshop_type: "{{ workshop_type }}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
       AWS_USERNAME: "{{ aws_user }}"
@@ -44,6 +45,7 @@
       ansible_network_os: "{{ec2_info[rtr1_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: core      
   with_indexed_items:
     - "{{ rtr1_output.instances }}"
   when: rtr1_output.instance_ids is not none
@@ -75,6 +77,7 @@
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-rtr2"
       Workshop_rtr2: "{{ec2_name_prefix}}-rtr2"
       Workshop: "{{ec2_name_prefix}}"
+      Workshop_type: "{{ workshop_type }}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
       AWS_USERNAME: "{{ aws_user }}"
@@ -85,6 +88,7 @@
       ansible_network_os: "{{ec2_info[rtr2_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: core
   with_indexed_items:
     - "{{ rtr2_output.instances }}"
   when: rtr2_output.instance_ids is not none
@@ -116,6 +120,7 @@
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-rtr3"
       Workshop_rtr3: "{{ec2_name_prefix}}-rtr3"
       Workshop: "{{ec2_name_prefix}}"
+      Workshop_type: "{{ workshop_type }}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
       AWS_USERNAME: "{{ aws_user }}"
@@ -126,6 +131,7 @@
       ansible_network_os: "{{ec2_info[rtr3_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: access
   with_indexed_items:
     - "{{ rtr3_output.instances }}"
   when: rtr3_output.instance_ids is not none
@@ -157,6 +163,7 @@
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-rtr4"
       Workshop_rtr4: "{{ec2_name_prefix}}-rtr4"
       Workshop: "{{ec2_name_prefix}}"
+      Workshop_type: "{{ workshop_type }}"
       Index: "{{ item[0] }}"
       Student: "student{{item.0 + 1}}"
       AWS_USERNAME: "{{ aws_user }}"
@@ -167,6 +174,7 @@
       ansible_network_os: "{{ec2_info[rtr4_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
+      group: access
   with_indexed_items:
     - "{{ rtr4_output.instances }}"
   when: rtr4_output.instance_ids is not none

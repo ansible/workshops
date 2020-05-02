@@ -1,6 +1,10 @@
 # FAQ for the Provisioner
 Frequently Asked Questions... or rather common problems that people have hit.
 
+## How do I do a release PR?
+
+Read this [guide](release.md)
+
 ## Problem: boto3 missing
 
 ```

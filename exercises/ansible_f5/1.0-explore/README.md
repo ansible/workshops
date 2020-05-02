@@ -6,11 +6,11 @@ Before you get started, please join us on slack! [Click here to join the ansible
 
 #### Step 1
 
-Navigate to the `networking-workshop` directory.
+Navigate to the `f5-workshop` directory.
 
 ```
-[student1@ansible ~]$ cd networking-workshop/
-[student1@ansible networking-workshop]$
+[student1@ansible ~]$ cd f5-workshop/
+[student1@ansible f5-workshop]$
 ```
 
 #### Step 2
@@ -18,7 +18,7 @@ Navigate to the `networking-workshop` directory.
 Run the `ansible` command with the `--version` command to look at what is configured:
 
 ```
-[student1@ansible networking-workshop]$ ansible --version
+[student1@ansible f5-workshop]$ ansible --version
 ansible 2.6.2
   config file = /home/student1/.ansible.cfg
   configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
@@ -38,14 +38,14 @@ Use the `cat` command to view the contents of the `ansible.cfg` file.
 
 
 ```
-[student1@ansible networking-workshop]$ cat ~/.ansible.cfg
+[student1@ansible f5-workshop]$ cat ~/.ansible.cfg
 [defaults]
 connection = smart
 timeout = 60
 inventory = /home/student1/lab_inventory/hosts
 host_key_checking = False
 private_key_file = /home/student1/.ssh/aws-private.pem
-[student1@ansible networking-workshop]$
+[student1@ansible f5-workshop]$
 
 ```
 
@@ -60,7 +60,7 @@ The scope of a `play` within a `playbook` is limited to the groups of hosts decl
 
 In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
 
-`[student1@ansible networking-workshop]$ cat ~/lab_inventory/hosts`
+`[student1@ansible f5-workshop]$ cat ~/lab_inventory/hosts`
 
 The output will look as follows with student2 being the respective student workbench:
 ```
@@ -105,7 +105,7 @@ f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansibl
 Go back to the home directory
 
 ```
-[student1@ansible networking-workshop]$ cd ~
+[student1@ansible f5-workshop]$ cd ~
 ```
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

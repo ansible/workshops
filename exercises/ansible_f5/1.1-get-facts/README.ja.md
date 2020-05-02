@@ -19,7 +19,7 @@
 ホームディレクトリにいることを確認してください。
 
 ```
-[student1@ansible networking-workshop]$ cd ~
+[student1@ansible f5-workshop]$ cd ~
 ```
 
 ## Step 1:

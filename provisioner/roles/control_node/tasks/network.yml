@@ -1,0 +1,21 @@
+---
+- name: upgrade pip (NETWORK MODE)
+  become: true
+  pip:
+    name: pip
+    state: latest
+
+# Force <45 because 45.0.0 dropped support for python2
+# This is required for Juniper ncclient - do a pip show ncclient to see requirements
+- name: upgrade setuptools to 44 (NETWORK MODE)
+  become: true
+  pip:
+    name: setuptools==44.0.0
+
+- name: install additional packages (NETWORK MODE)
+  become: true
+  pip:
+    name:
+      - netaddr
+      - ncclient
+    state: latest

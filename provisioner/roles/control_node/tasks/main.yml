@@ -101,10 +101,6 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     local_follow: true
-  when:
-    - workshop_type != "f5"
-    - workshop_type != "networking"
-## need to fix the conditionals above https://github.com/ansible/workshops/issues/743
 
 - name: Create lab inventory directory
   file:

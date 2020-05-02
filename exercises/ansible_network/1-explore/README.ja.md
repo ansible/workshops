@@ -36,13 +36,13 @@
 
 ## Step 1
 
-コントローラーノードの `networking-workshop` ディレクトリへ移動します。プロンプトの `ansible` はホスト名を示し、これは正しいノード上にいることを示しています。
+コントローラーノードの `network-workshop` ディレクトリへ移動します。プロンプトの `ansible` はホスト名を示し、これは正しいノード上にいることを示しています。
 
 ```
-[student1@ansible ~]$ cd ~/networking-workshop/
-[student1@ansible networking-workshop]$
-[student1@ansible networking-workshop]$ pwd
-/home/student1/networking-workshop
+[student1@ansible ~]$ cd ~/network-workshop/
+[student1@ansible network-workshop]$
+[student1@ansible network-workshop]$ pwd
+/home/student1/network-workshop
 ```
  - `~` - チルダはホームディレクトリ `/home/student1` の短縮表記
  - `cd` - ディレクトリを移動するコマンド

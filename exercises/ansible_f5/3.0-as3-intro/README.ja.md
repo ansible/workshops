@@ -119,7 +119,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 
 ```
 mkdir j2
-cp ~/networking-workshop/3.0-as3-intro/j2/* j2/
+cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
 ```
 
 ## Step 3:

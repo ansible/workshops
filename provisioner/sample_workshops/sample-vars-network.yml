@@ -6,7 +6,7 @@ ec2_name_prefix: TESTWORKSHOP
 # amount of work benches to provision
 student_total: 2
 # workshop is put into networking mode
-workshop_type: networking
+workshop_type: network
 ## Optional Variables
 # password used for student account on control node
 admin_password: ansible

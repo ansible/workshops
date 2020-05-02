@@ -28,13 +28,13 @@ This exercise will cover:
 On the control host read the documentation about the `ios_facts` module and the `debug` module.
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-doc debug
+[student1@ansible network-workshop]$ ansible-doc debug
 ```
 
 What happens when you use `debug` without specifying any parameter?
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-doc ios_facts
+[student1@ansible network-workshop]$ ansible-doc ios_facts
 ```
 
 How can you limit the facts collected ?
@@ -47,7 +47,7 @@ Ansible Playbooks are [**YAML** files](https://yaml.org/). YAML is a structured 
 Using your favorite text editor (`vim` and `nano` are available on the control host) create a new file called `facts.yml`:  
 
 ```
-[student1@ansible networking-workshop]$ vim facts.yml
+[student1@ansible network-workshop]$ vim facts.yml
 ```
 
 Enter the following play definition into `facts.yml`:
@@ -89,13 +89,13 @@ Next, add the first `task`. This task will use the `ios_facts` module to gather 
 Execute the Ansible Playbook:
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml
+[student1@ansible network-workshop]$ ansible-playbook facts.yml
 ```
 
 The output should look as follows.
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml
+[student1@ansible network-workshop]$ ansible-playbook facts.yml
 
 PLAY [gather information from routers] *****************************************
 
@@ -113,7 +113,7 @@ The play ran successfully and executed against the Cisco router(s). But where is
 
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml -v
+[student1@ansible network-workshop]$ ansible-playbook facts.yml -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [gather information from routers] *****************************************
@@ -183,7 +183,7 @@ Write two additional tasks that display the routers' OS version and serial numbe
 Now re-run the playbook but this time do not use the `verbose` flag:
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml
+[student1@ansible network-workshop]$ ansible-playbook facts.yml
 
 PLAY [gather information from routers] **************************************************************************************
 

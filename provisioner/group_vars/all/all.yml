@@ -15,7 +15,7 @@ valid_dns_type:
   - aws
   - none
 valid_workshop_types:
-  - networking
+  - network
   - f5
   - rhel
   - devops

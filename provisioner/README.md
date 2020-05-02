@@ -6,7 +6,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 |---|---|
 | Ansible for Red Hat Enterprise Linux Workshop | `workshop_type: rhel`  |
 | Ansible for Red Hat Enterprise Linux Workshop - 90 minutes  | `workshop_type: rhel_90`    |
-| Ansible Network Automation Workshop | `workshop_type: networking`  |
+| Ansible Network Automation Workshop | `workshop_type: network`  |
 | Ansible F5 Workshop | `workshop_type: f5`   |
 | Ansible Security Automation | `workshop_type: security`   |
 | Ansible Windows Automation  | `workshop_type: windows`    |
@@ -49,7 +49,7 @@ ec2_name_prefix: TESTWORKSHOP
 # creates student_total of workbenches for the workshop
 student_total: 2
 
-# Set the right workshop type, like networking, rhel or f5 (see above)
+# Set the right workshop type, like network, rhel or f5 (see above)
 workshop_type: rhel
 
 #####OPTIONAL VARIABLES
@@ -78,7 +78,7 @@ If you want to license it you must copy a license called tower_license.json into
 For more extra_vars examples, look at the following:
 - [sample-vars-rhel.yml](sample_workshops/sample-vars-rhel.yml) - example for the Ansible RHEL Workshop
 - [sample-vars-windows.yml](sample_workshops/sample-vars-windows.yml) - example for the **Ansible Windows Workshop**
-- [sample-vars-networking.yml](sample_workshops/sample-vars-networking.yml) - example for the **Ansible Network Workshop**
+- [sample-vars-network.yml](sample_workshops/sample-vars-network.yml) - example for the **Ansible Network Workshop**
 - [sample-vars-f5.yml](sample_workshops/sample-vars-f5.yml) - example for **Ansible F5 Workshop**
 - [sample-vars-tower-auto.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 - [sample-vars-rhel-90.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing

@@ -5,7 +5,7 @@ ec2_region: us-east-1
 ec2_name_prefix: TESTWORKSHOP
 admin_password: ansible
 student_total: 2
-workshop_type: networking
+workshop_type: network
 # possible values cisco, arista, juniper or multivendor
 network_type: arista
 ## Optional Variables

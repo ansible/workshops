@@ -149,7 +149,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 1. **テンプレート** ウインドウに戻ります。
 
-2. ロケットをクリックし、**`Workshop Workflow`**ワークフローテンプレートを起動します。
+2. ロケットをクリックし、**`Workshop Workflow`** ワークフローテンプレートを起動します。
 
    ![workflow job launched](images/running-workflow.ja.png)
 
@@ -171,7 +171,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 4. 下にスクロールし、緑色の **保存** ボタンをクリックします。
 
-5. **テンプレート**ウインドウに戻り、ロケットをクリックし**`Workshop Workflow`**ワークフローテンプレートを再び起動します。
+5. **テンプレート**ウインドウに戻り、ロケットをクリックし **`Workshop Workflow`** ワークフローテンプレートを再び起動します。
 
     ![error handling link](images/error_handling.ja.png)
 

@@ -45,7 +45,7 @@
       ansible_network_os: "{{ec2_info[rtr1_type].os}}"
       username: "{{ec2_info[rtr1_type].username}}"
       launch_time: "{{item.1.launch_time}}"
-      group: core      
+      group: core
   with_indexed_items:
     - "{{ rtr1_output.instances }}"
   when: rtr1_output.instance_ids is not none

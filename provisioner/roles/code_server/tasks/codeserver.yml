@@ -90,7 +90,7 @@
   register: install_extension
   until: install_extension is not failed
   retries: 5
-  
+
 - name: start code-server service
   service:
     name: code-server

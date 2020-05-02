@@ -87,6 +87,9 @@
     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
     - vscoss.vscode-ansible-0.5.2.vsix
   ignore_errors: true
+  register: install_extension
+  until: install_extension is not failed
+  retries: 5
 
 - name: start code-server service
   service:

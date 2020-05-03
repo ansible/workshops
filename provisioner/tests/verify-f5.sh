@@ -9,4 +9,4 @@ CONTROL_NODE_HOST=$(grep -A 1 control provisioner/${DEPLOYMENT_NAME}/student1-in
 
 RUN_ALL_PLAYBOOKS_CMD='find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
 
-sshpass -p "${ADMIN_PASSWORD}" ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} "cd networking-workshop && ${RUN_ALL_PLAYBOOKS_CMD}"
+sshpass -p "${ADMIN_PASSWORD}" ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} "cd f5-workshop && ${RUN_ALL_PLAYBOOKS_CMD}"

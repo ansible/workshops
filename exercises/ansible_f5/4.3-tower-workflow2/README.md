@@ -23,7 +23,7 @@
 
 # Objective
 
-Demonstrate anothe use case of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP. 
+Demonstrate anothe use case of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP.
 
 For this exercise, we will create a workflow for server patch management, first to disable the pool members, patch the nodes, and then enable the nodes. In parallel, we also attach an iRule to virtual server, to respond to the users when servers are under maintenance.
 
@@ -33,7 +33,7 @@ For this exercise, we will create a workflow for server patch management, first 
 
 ### Create Server Credential
 Before creating templates, you should create one more credential `Server credential` beforehand, to be utilized by one of the jobs (`Patch server`) to access servers.
-   
+
 | Parameter | Value |
 |---|---|
 |Name | Server Credential |
@@ -144,7 +144,7 @@ Here is one example of the templates configured:
 
 ## Step 6: Create a converged link
 
-Lastly, we create a covergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger. 
+Lastly, we create a covergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger.
 
 1. Hover over the `Attach iRule to virtual server` node and click the blue chain symbol.
 2. Now, click on the existing `Detach iRule`. An ADD LINK window will appear. For the RUN parameter choose Always.

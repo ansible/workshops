@@ -31,13 +31,13 @@ rtr2  | 192.168.100.2/32 |
 変数の情報は host_vars と group_vars に格納することができます。この演習のために `group_vars` という名前のディレクトリを作成します:
 
 ```bash
-[student1@ansible networking-workshop]$ mkdir ~/networking-workshop/group_vars
+[student1@ansible network-workshop]$ mkdir ~/network-workshop/group_vars
 ```
 
 そしてこのディレクトリ内に `all.yml` という名前のファイルを好きなエディタで作成してください。コントローラーノードでは vim か nano がインストールされています。
 
 ```
-[student1@ansible networking-workshop]$ nano group_vars/all.yml
+[student1@ansible network-workshop]$ nano group_vars/all.yml
 ```
 
 インターフェースとIPアドレスの情報は Playbook から利用できるように、変数として上記のファイルに格納されている必要があります。上記のテーブル表を格納するためにシンプルな YAML の辞書データを作ることから始めます。トップレベルの変数(例えば `nodes`)を使用し、`inventory_hostname` に基づいて検索可能となるよう以下のように定義します:
@@ -59,7 +59,7 @@ group_vars/all.yml ファイルに上記の YAML 辞書データを記入して�
 `template.j2` という名前のファイルを作成します:
 
 ```
-[student1@ansible networking-workshop]$ nano template.j2
+[student1@ansible network-workshop]$ nano template.j2
 ```
 
 以下を template.j2 ファイルに記述します:
@@ -119,7 +119,7 @@ interface {{interface}}
 config.yml という Playbook を作成します:
 
 ```
-[student1@ansible networking-workshop]$ nano config.yml
+[student1@ansible network-workshop]$ nano config.yml
 ```
 
 以下を config.yml へと記述します:
@@ -147,7 +147,7 @@ config.yml という Playbook を作成します:
 Playbook を実行します:
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook config.yml
+[student1@ansible network-workshop]$ ansible-playbook config.yml
 ```
 
 出力は以下のようになるはずです。
@@ -171,7 +171,7 @@ rtr2                       : ok=1    changed=1    unreachable=0    failed=0    s
 `show ip int br` コマンドを実行して、ネットワークデバイスに設定されたIPアドレスを確認します。
 
 ```
-[student1@ansible networking-workshop]$ ssh rtr1
+[student1@ansible network-workshop]$ ssh rtr1
 
 rtr1#show ip int br | include Loopback100
 Loopback100            192.168.100.1   YES manual up                    up

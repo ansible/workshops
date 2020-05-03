@@ -19,7 +19,7 @@ Demonstrate use of the [BIG-IP Facts module](https://docs.ansible.com/ansible/la
 Make sure you are in the home directory
 
 ```
-[student1@ansible networking-workshop]$ cd ~
+[student1@ansible f5-workshop]$ cd ~
 ```
 
 ## Step 1:
@@ -118,17 +118,17 @@ The output will look as follows.
 ``` yaml
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 
-PLAY [GRAB F5 FACTS] 
+PLAY [GRAB F5 FACTS]
 ****************************************************************
-TASK [Set a fact named 'provider' with BIG-IP login information] 
+TASK [Set a fact named 'provider' with BIG-IP login information]
 ****************************************************************
 ok: [f5]
 
-TASK [COLLECT BIG-IP FACTS] 
+TASK [COLLECT BIG-IP FACTS]
 ****************************************************************
 changed: [f5]
 
-TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] 
+TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION]
 ****************************************************************
 
 ok: [f5] =>
@@ -176,17 +176,17 @@ ok: [f5] =>
         year: 2019
       uptime: 8196900.0
 
-TASK [DISPLAY ONLY THE MAC ADDRESS] 
+TASK [DISPLAY ONLY THE MAC ADDRESS]
 ****************************************************************
 ok: [f5] =>
   device_facts['system_info']['base_mac_address']: 02:f1:92:e9:a2:38
 
-TASK [DISPLAY ONLY THE VERSION] 
+TASK [DISPLAY ONLY THE VERSION]
 ****************************************************************
 ok: [f5] =>
   device_facts['system_info']['product_version']: 13.1.0.7
 
-PLAY RECAP 
+PLAY RECAP
 ****************************************************************
 f5                         : ok=4    changed=1    unreachable=0    failed=0
 ```

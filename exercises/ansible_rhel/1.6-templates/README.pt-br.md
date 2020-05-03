@@ -1,6 +1,7 @@
 # Exercicio - Templates
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Leia em outras linguagens**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 * [Passo 1 - Usando Templates em Playbooks](#passo-1---usando-templates-em-playbooks)
 * [Passo 2 - Laboratório de Desafios](#passo-2---laboratório-de-desafios)

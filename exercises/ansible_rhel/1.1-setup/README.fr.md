@@ -19,7 +19,7 @@
 
 # Guide
 
-## Votre environnement de travail 
+## Votre environnement de travail
 
 Cet atelier est composé d'un environnement préconfiguré, d'ou vous aurez accès aux hôtes suivants:
 
@@ -79,7 +79,7 @@ Déconnectez-vous du compte root:
 
 Vous avez peut-être deviné maintenant que ce laboratoire est plutôt centré sur la ligne de commande… :-)
 
-   - Ne saisissez pas tout manuellement, utilisez le copier-coller à partir du navigateur le cas échéant. 
+   - Ne saisissez pas tout manuellement, utilisez le copier-coller à partir du navigateur le cas échéant.
 
    - Tous les laboratoires ont été préparés avec **vim**, mais nous comprenons qu'il ne plait pas à tout le monde. N'hésitez pas à utiliser des éditeurs alternatifs. Dans l'environnement de laboratoire, nous fournissons **Midnight Commander** (il suffit d'exécuter **mc**, les touches de fonction peuvent être atteintes via Esc-\<n\> ou simplement cliquées avec la souris) ou **Nano** (exécuter **nano**). Voici une courte [introduction aux éditeurs](../0.0-support-docs/editor_intro.md).
 

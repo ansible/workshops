@@ -1,6 +1,7 @@
 # Exercício - Executando comandos ad-hoc
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Leia em outras linguagens**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 Em nosso primeiro exercício, executaremos alguns comandos ad-hoc para ajudá-lo a entender como o Ansible funciona. Os comandos ad-hoc permitem executar tarefas em nós remotos sem precisar escrever um manual. Eles são muito úteis quando você simplesmente precisa fazer uma ou duas coisas de maneira rápida e frequente para muitos nós remotos.
 

@@ -1,6 +1,6 @@
 # Atelier - Les conditions, Handlers et boucles
 
-**Lisez ceci dans d'autres langues**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![fr](../../../images/fr.png) [Français](README.fr.md).
+**Lisez ceci dans d'autres langues**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 ## Table des matières
 
@@ -139,7 +139,7 @@ Alors quoi de neuf ici?
 Exécutez le Playbook. Nous n'avons encore rien modifié dans le fichier, donc il ne devrait pas y avoir de lignes "modifies" dans la sortie et bien sûr le handler n'a pas dû se déclencher.
 
    - Maintenant, changez la ligne `Listen 80` dans `/etc/httpd/conf/httpd.conf` en:
-   
+
 ```ini
 Listen 8080
 ```

@@ -1,6 +1,7 @@
 # Exercício - Usando variáveis
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Leia em outras linguagens**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 * [Passo 1 - Criando arquivos de variáveis](#passo-1---criando-arquivos-de-variáveis)
 * [Passo 2 - Criando o arquivo index.html](#passo-2---criando-o-arquivo-indexhtml)

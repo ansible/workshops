@@ -246,34 +246,6 @@ You have already been through all the steps needed, so try this for yourself.
 
 - Click **LAUNCH**
 
-## What About Some Practice?
-
-Here is a list of tasks:
-
-> **Warning**
->
-> Please make sure to finish these steps as the next chapter depends on it\!
-
-- Create a new inventory called `Webserver` and make only `node1` member of it.
-
-- Copy the `Install Apache` template using the copy icon in the **Templates** view
-
-- Change the name to `Install Apache Ask`
-
-- Change the **INVENTORY** setting of the Project so it will ask for the inventory on launch
-
-- **SAVE**
-
-- Launch the `Install Apache Ask` template.
-
-- It will now ask for the inventory to use, choose the `Webserver` inventory and click **LAUNCH**
-
-- Wait until the Job has finished and make sure it run only on `node1`
-
-> **Tip**
->
-> The Job didn’t change anything because Apache was already installed in the latest version.
-
 ----
 **Navigation**
 <br>

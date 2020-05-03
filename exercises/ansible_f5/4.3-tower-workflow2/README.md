@@ -111,26 +111,30 @@ Here is one example of the templates configured:
 
 ## Step 5: Attach iRule to virtual server Template
 
-1.  Click on the **START** button, again.  The **ADD A TEMPLATE** will appear again.
+1. Click on the **START** button, again.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **Attach iRule to virtual server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+
 3. Click the green **SELECT** button.
 
    ![attach irule](images/attach-irule.png)
 
 ## Step 6: Patch server Template
 
-1.  Hover over the **Disable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Disable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+
 2. Select the **Patch server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+
 3. Click the green **SELECT** button.
 
    ![upgrade server](images/patch-server.png)
 
 ## Step 7: Enable node Template
 
-1.  Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **Enable node** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+
 3. Click the green **SELECT** button.
 
    ![enable node](images/enable-node.png)
@@ -138,8 +142,10 @@ Here is one example of the templates configured:
 ## Step 8: Detach iRule Template
 
 
-1.  Hover over the **Enable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Enable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+
 2. Select the **Detach iRule** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+
 3. Click the green **SELECT** button.
 
    ![attach irule](images/detach-irule.png)
@@ -149,6 +155,7 @@ Here is one example of the templates configured:
 Lastly, we create a covergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger. 
 
 1. Hover over the `Attach iRule to virtual server` node and click the blue chain symbol.
+
 2. Now, click on the existing `Detach iRule`. An ADD LINK window will appear. For the RUN parameter choose Always.
 ![converge link](images/converge-link.png)
 

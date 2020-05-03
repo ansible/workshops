@@ -89,51 +89,56 @@ Here is one example of templates: **Create node**:
 
 ## Step 4: Add *Create node* Job Template
 
-1.  Select the **`Create node`** Job Template.  Use the only run option of `Always`.  Click the green **SELECT** button.
+1. Select the **`Create node`** Job Template.  Use the only run option of `Always`.  Click the green **SELECT** button.
 
     ![remove pool](images/create_node.png)
 
 ## Step 5: Add *Create pool* Job Template
 
-1.  Hover over the **`Create node`** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **`Create node`** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **`Create pool`** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+
 3. Click the green **SELECT** button.
 
    ![upgrade server](images/create_pool.png)
 
 ## Step 6: Add *Create virtual server* Job Template
 
-1.  Hover over the **`Create pool`**  node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **`Create pool`**  node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **`Create virtual server`** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+
 3. Click the green **SELECT** button.
    
    ![add pool](images/create_virtualserver.png)
 
 ## Step 7: *Rollback node deploy* Template
 
-1.  Hover over the **Create node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Create node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **Rollback node deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+
 3. Click the green **SELECT** button.  
 
    ![configure restore node](images/rollback_node.png)
 
 ## Step 8: *Rollback pool deploy* Template
 
-1.  Hover over the **Create pool** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Create pool** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **Rollback pool deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+
 3. Click the green **SELECT** button.  
 
    ![configure restore node](images/rollback_pool.png)
 
 ## Step 9: *Rollback virtual server* Template
 
-1.  Hover over the **Create virtual server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Create virtual server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
 2. Select the **Rollback virtual server deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+
 3. Click the green **SELECT** button.  
 
    ![configure restore node](images/rollback_virtualserver.png)
@@ -151,7 +156,7 @@ Here is one example of templates: **Create node**:
 ## Step 11: Error Handling
 
 Next, we will show a failed job template for the workflow, where a rollback is performed.
-1.  Click on the `Templates` link on the left menu.
+1. Click on the `Templates` link on the left menu.
 
     ![templates link](images/templates.png)
 
@@ -162,6 +167,7 @@ Next, we will show a failed job template for the workflow, where a rollback is p
 The `create_virtualserver_error.yml` playbook will configure the Virtual Server, but tries to attach a pool `http_pool_error` which does not exist. Therefore, the addition of virtual server will fail, and the `Rollback virtual server deploy` node will be triggered.
 
 4. Scroll down and click the green `save` button.
+
 5. Return to the **Templates** window, click the rocket ship to launch the **Workshop Workflow** workflow template again.
 
     ![error handling link](images/error_handling.png)
@@ -172,8 +178,11 @@ Click on **Local Traffic**. then click on **Virtual Servers**, **Pools**, and **
 
 Finally, we revert the configuration, and make it ready for next lab:
 7. Click on the **Templates** link on the left menu. Select template `Create virtual server`
+
 8. Change the PLAYBOOK back to `create_virtualserver.yml` 
+
 9. Scroll down and click the green `save` button.
+
 10. Return to the **Templates** window, click the rocket ship to launch the **Workshop Workflow** workflow template again.
 
 

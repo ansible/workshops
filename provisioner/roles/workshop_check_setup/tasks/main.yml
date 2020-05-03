@@ -74,17 +74,18 @@
       - "admin_password cannot be set to ansible"
       - "please set a unique password for your workshop"
 
-- name: make sure packages required are installed on this control node
-  pip:
-    name:
-      - ansible-tower-cli
-  check_mode: true
-  register: package_state
-
-- name: fail if previous check has changed
-  assert:
-    that:
-      - package_state.changed != True
+# this needs to get fixed by yanis
+# - name: make sure packages required are installed on this control node
+#   pip:
+#     name:
+#       - ansible-tower-cli
+#   check_mode: true
+#   register: package_state
+#
+# - name: fail if previous check has changed
+#   assert:
+#     that:
+#       - package_state.changed != True
 
 - name: auto license feature for Ansible Tower
   block:

@@ -81,7 +81,7 @@ Here is one example of the templates configured:
 
 1. Click on the **Templates** link on the left menu.  
 
-2. Click on the green **+** button. Select the **Workflow Template**.  
+2. Click on the green ![templates link](images/add.png) button. Select the **Workflow Template**.  
 
 3. Fill out the the form as follows:
 

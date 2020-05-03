@@ -40,6 +40,13 @@ BIG-IP へのログイン情報:
  - [演習 3.1 - AS3 による変更運用](3.1-as3-change/README.ja.md)
  - [演習 3.2 - Web アプリケーションの削除](3.2-as3-delete/README.ja.md)
 
+## Section 4 - Ansible F5 Ansible Tower 演習
+
+ - [演習 4.0 - Red Hat Ansible Tower環境の確認](4.0-explore-tower/README.ja.md)
+ - [演習 4.1 - Ansible Tower ジョブテンプレートの作成](4.1-tower-job-template/README.ja.md)
+ - [演習 4.2 - ワークフローの作成](4.2-tower-workflow/README.ja.md)
+ - [演習 4.3 - ノードメンテナンスワークフローの作成](4.3-tower-workflow2/README.ja.md)
+
 ### 演習に関連した議論や質問を投稿するには以下のリンクを使用してください:
   - **https://devcentral.f5.com/questions/f5-ansible-automation-discussion-63579**
 

@@ -1,23 +1,25 @@
 # Exercise 4.3: Creating Node Maintenance Workflow
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Table of Contents
 
 - [Exercise 4.3: Creating Node Maintenance Workflow](#exercise-43-creating-node-maintenance-workflow)
   - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 0: Prepare Job Templates](#step-0-prepare-job-templates)
+  - [Step 1: Prepare Job Templates](#step-1-prepare-job-templates)
     - [Create Server Credential](#create-server-credential)
     - [Create Job Templates](#create-job-templates)
-  - [Step 1: Create a Workflow Template](#step-1-create-a-workflow-template)
-  - [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
-  - [Step 3: Disable node Job Template](#step-3-disable-node-job-template)
-  - [Step 4: Attach iRule to virtual server Template](#step-4-attach-irule-to-virtual-server-template)
-  - [Step 4: Patch server Template](#step-4-patch-server-template)
-  - [Step 5: Enable node Template](#step-5-enable-node-template)
-  - [Step 6: Detach iRule Template](#step-6-detach-irule-template)
-  - [Step 6: Create a converged link](#step-6-create-a-converged-link)
-  - [Step 7: Run the Workflow](#step-7-run-the-workflow)
+  - [Step 2: Create a Workflow Template](#step-2-create-a-workflow-template)
+  - [Step 3: The Workflow Visualizer](#step-3-the-workflow-visualizer)
+  - [Step 4: Disable node Job Template](#step-4-disable-node-job-template)
+  - [Step 5: Attach iRule to virtual server Template](#step-5-attach-irule-to-virtual-server-template)
+  - [Step 6: Patch server Template](#step-6-patch-server-template)
+  - [Step 7: Enable node Template](#step-7-enable-node-template)
+  - [Step 8: Detach iRule Template](#step-8-detach-irule-template)
+  - [Step 9: Create a converged link](#step-9-create-a-converged-link)
+  - [Step 10: Run the Workflow](#step-10-run-the-workflow)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 
@@ -29,7 +31,7 @@ For this exercise, we will create a workflow for server patch management, first 
 
 # Guide
 
-## Step 0: Prepare Job Templates
+## Step 1: Prepare Job Templates
 
 ### Create Server Credential
 Before creating templates, you should create one more credential `Server credential` beforehand, to be utilized by one of the jobs (`Patch server`) to access servers.
@@ -48,7 +50,7 @@ For this credential, we use the **SSH private key** instead. Get the private key
 
 
 ### Create Job Templates
-Similar to the previous lab, we would need to prepare the following templates by following `Lab 4.2`:
+Similar to the previous lab, we would need to prepare the following templates by following `Lab 4.1`:
 
 | Job template Name | Playbook |
 |---|---|
@@ -58,7 +60,7 @@ Similar to the previous lab, we would need to prepare the following templates by
 | Attach iRule to virtual server            | attach_irule.yml     |  
 | Detach iRule             | detach_irule.yml    |
 
-Again, we use the same template parameters as `Lab 4.2` for each of the above templates, except the parameter of `CREDENTAUL`.
+Again, we use the same template parameters as `Lab 4.1` for each of the above templates, except the parameter of `CREDENTAUL`.
 
 For `CREDENTAUL`, the `Patch server` template will use credential `server credential`, and  all other templates will be using `Workshop Credential`
 
@@ -75,7 +77,7 @@ Here is one example of the templates configured:
 ![job template](images/job-template.png)
 
 
-## Step 1: Create a Workflow Template
+## Step 2: Create a Workflow Template
 
 1. Click on the **Templates** link on the left menu.  
 
@@ -93,7 +95,7 @@ Here is one example of the templates configured:
 
 ![workflow creation](images/workflow.png)
 
-## Step 2: The Workflow Visualizer
+## Step 3: The Workflow Visualizer
 
 1. When you click the **SAVE**, the **WORKFLOW VISUALIZER** should automatically open.  If not click on the blue **WORKFLOW VISUALIZER** button.  
 
@@ -101,13 +103,13 @@ Here is one example of the templates configured:
 
 3. The **ADD A TEMPLATE** window will appear on the right.  
 
-## Step 3: Disable node Job Template
+## Step 4: Disable node Job Template
 
 1.  Select the **Disable node** Job Template.  Use the drop down box to select run.  Click the green **SELECT** button.
 
     ![Disable node](images/disable-node.png)
 
-## Step 4: Attach iRule to virtual server Template
+## Step 5: Attach iRule to virtual server Template
 
 1.  Click on the **START** button, again.  The **ADD A TEMPLATE** will appear again.
 
@@ -116,7 +118,7 @@ Here is one example of the templates configured:
 
    ![attach irule](images/attach-irule.png)
 
-## Step 4: Patch server Template
+## Step 6: Patch server Template
 
 1.  Hover over the **Disable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 2. Select the **Patch server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
@@ -124,7 +126,7 @@ Here is one example of the templates configured:
 
    ![upgrade server](images/patch-server.png)
 
-## Step 5: Enable node Template
+## Step 7: Enable node Template
 
 1.  Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
@@ -133,7 +135,7 @@ Here is one example of the templates configured:
 
    ![enable node](images/enable-node.png)
 
-## Step 6: Detach iRule Template
+## Step 8: Detach iRule Template
 
 
 1.  Hover over the **Enable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
@@ -142,7 +144,7 @@ Here is one example of the templates configured:
 
    ![attach irule](images/detach-irule.png)
 
-## Step 6: Create a converged link
+## Step 9: Create a converged link
 
 Lastly, we create a covergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger. 
 
@@ -150,7 +152,7 @@ Lastly, we create a covergence link, which allows the jobs running in parallel t
 2. Now, click on the existing `Detach iRule`. An ADD LINK window will appear. For the RUN parameter choose Always.
 ![converge link](images/converge-link.png)
 
-## Step 7: Run the Workflow
+## Step 10: Run the Workflow
 
 1. Return to the **Templates** window
 

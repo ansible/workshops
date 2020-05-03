@@ -184,7 +184,7 @@ Note how the two variables where used by the playbook to create the content of t
 **Navigation**
 <br>
 
-{{site.url}}
+{{page.url}}
 
 [Previous Exercise](../2.2-cred) - [Next Exercise](../../ansible_rhel_90/5-surveys/)
 

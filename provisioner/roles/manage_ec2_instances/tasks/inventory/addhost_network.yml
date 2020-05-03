@@ -98,17 +98,17 @@
 
 - name: Generate student inventories
   template:
-    src: networking_instances.txt.j2
+    src: {{workshop_type}}_instances.txt.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
   with_sequence: count="{{ student_total }}"
 
 - name: Generate student etchosts
   template:
-    src: etchosts_networking.j2
+    src: etchosts_{{workshop_type}}.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
   with_sequence: count="{{ student_total }}"
 
 - name: Generate instructor inventory
   template:
-    src: instructor_inventory_networking.j2
+    src: instructor_inventory_{{workshop_type}}.j2
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

@@ -1,6 +1,6 @@
 # Atelier - Rédaction de votre premier Playbook
 
-**Lisez ceci dans d'autres langues**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![fr](../../../images/fr.png) [Français](README.fr.md).
+**Lisez ceci dans d'autres langues**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 ## Table of Contents
 
@@ -240,7 +240,7 @@ Vérifiez que les tâches ont été exécutées correctement et qu'Apache accept
 
 Il y a beaucoup de lignes rouges et une erreur: tant qu'il n'y a pas le fichier `web.html` devant être servi par Apache, il affichera un vilain état ""HTTP Error 403: Forbidden"" et Ansible signalera une erreur.
 
-Alors pourquoi ne pas utiliser Ansible pour déployer un simple fichier `web.html`? 
+Alors pourquoi ne pas utiliser Ansible pour déployer un simple fichier `web.html`?
 Sur l'hôte de contrôle ansible, en tant qu'utilisateur `student <X>`, créez le répertoire `files` pour contenir les ressources de fichiers dans `~/ ansible-files/`:
 
 ```bash

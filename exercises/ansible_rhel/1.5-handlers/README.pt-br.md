@@ -1,6 +1,6 @@
 # Exercício - Condicionais, Handlers and Loops
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Leia em outras linguagens**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 * [Passo 1 - Condicionais](#passo-1---condicionais)
 * [Passo 2 - Handlers](#passo-2---handlers)

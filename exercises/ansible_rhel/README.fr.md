@@ -1,6 +1,7 @@
 # Atelier Ansible - Ansible pour Red Hat Enterprise Linux
 
-**Lisez ceci dans d'autres langues**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![fr](../../../images/fr.png) [Français](README.fr.md).
+**Lisez ceci dans d'autres langues**: 
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images
 
 Ansible est un moteur d'automatisation informatique simple mais puissant pour le déploiement d'applications, la gestion de la configuration et l'orchestration que vous pouvez apprendre rapidement.
 

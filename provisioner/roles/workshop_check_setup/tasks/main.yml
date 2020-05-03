@@ -5,21 +5,6 @@
       - ansible_version.major >= 2
       - ansible_version.minor >= 9
 
-- name: change workshop_type networking to network
-  block:
-    - debug:
-        msg:
-          - "changing workshop_type: {{workshop_type}} to workshop_type: network"
-
-    - name: change networking to network
-      set_fact:
-        workshop_type: network
-      when: 'workshop_type == "networking"'
-
-    - debug:
-        msg: "workshop_type is now: {{workshop_type}}"
-  when: 'workshop_type == "networking"'
-
 - name: make sure workshop_type is set to a correct value
   assert:
     that:

@@ -122,6 +122,9 @@ Templates or Job Templates define the parameters that will be used when executin
 Additionally, parameters such as logging level and process forks allow for additional granularity on how playbooks are ran.
 
 1. Click on the **Templates** button under **RESOURCES** on the left menu bar.  
+
+    ![templates link](images/templates.png)
+
 2. Under **TEMPLATES** there will be one pre-configured credential, or `Demo Job Template`.  Click on the `Demo Job Template`.  
 
 

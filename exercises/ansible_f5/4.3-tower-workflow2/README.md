@@ -113,7 +113,7 @@ Here is one example of the templates configured:
 
 1. Click on the **START** button, again.  The **ADD A TEMPLATE** will appear again.
 
-2. Select the **Attach iRule to virtual server** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **Attach iRule to virtual server** job template.  For the **Run** parameter select **Always** from the drop down menu.  
 
 3. Click the green **SELECT** button.
 
@@ -140,7 +140,6 @@ Here is one example of the templates configured:
    ![enable node](images/enable-node.png)
 
 ## Step 8: Detach iRule Template
-
 
 1. Hover over the **Enable node** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
 
@@ -169,6 +168,7 @@ Lastly, we create a covergence link, which allows the jobs running in parallel t
 
     At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
 
+3. Click the green **SAVE** button.
 
 With iRule attached to virtual server, user will receive a maintenance page during the server maintenance:
    ![maintenance page](images/error-page.png)

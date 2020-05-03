@@ -143,6 +143,8 @@ Here is one example of templates: **Create node**:
 
    ![configure restore node](images/rollback_virtualserver.png)
 
+4. Click the green **SAVE** button.  
+
 ## Step 10: Run the Workflow
 
 1. Return to the **Templates** window

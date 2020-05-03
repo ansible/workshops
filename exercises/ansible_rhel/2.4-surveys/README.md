@@ -186,7 +186,7 @@ Note how the two variables where used by the playbook to create the content of t
 
 {% if "ansible_rhel_90" in page.url %}
 [Previous Exercise](../2.2-cred) - [Next Exercise](../../ansible_rhel_90/5-surveys/)
-{% elif %}
+{% else %}
 [Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
 {% endif %}
 

@@ -185,10 +185,11 @@ Note how the two variables where used by the playbook to create the content of t
 <br>
 
 {{page.url}}
-
+{% if page.url contains 'ansible_rhel_90' %}
 [Previous Exercise](../2.2-cred) - [Next Exercise](../../ansible_rhel_90/5-surveys/)
-
+{% else %}
 [Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
+{% endif %}
 
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

@@ -1,7 +1,7 @@
 ---
 - name: Copy web.html
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: copy web.html
     copy:

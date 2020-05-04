@@ -118,7 +118,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 ---
 - name: Copy web.html
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: copy web.html
     copy:

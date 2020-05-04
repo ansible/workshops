@@ -7,8 +7,8 @@ Ansible is a simple yet powerful IT automation engine for application deployment
 The exercises are self explanatory and guide the participants through the entire lab. All concepts are explained when they are introduced.
 
 There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
-[Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
-[WIP: Google source - Red Hat only](https://drive.google.com/open?id=143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y)
+[Ansible RHEL Automation](../../decks/ansible_rhel_90.pdf)
+[Google source - Red Hat only](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y/edit?usp=sharing)
 
 Also have a look at our Ansible Best Practices Deck:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)

@@ -30,7 +30,7 @@ This exercise covers variables, specifically
 
 ## Intro to Variables
 
-Variables are referenced in Playbooks by placing the variable name in double curly braces:
+Variables are referenced in Ansible Playbooks by placing the variable name in double curly braces:
 
 <!-- {% raw %} -->
 ```yaml
@@ -81,7 +81,7 @@ What is this about?
 
   - For all servers in the `web` group the variable `stage` with value `dev` is defined. So as default we flag them as members of the dev environment.
 
-  - For server `node2` this is overriden and the host is flagged as a production server.
+  - For server `node2` this is overridden and the host is flagged as a production server.
 
 ## Step 2 - Create web.html Files
 

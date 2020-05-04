@@ -21,8 +21,8 @@ This workshop was created to last about 90 minutes and focuses more on targeting
 
  - [Exercise 1 - Overview of public cloud provisioning](1-setup)
  - [Exercise 2 - Converting bash/shell commands to Ansible](2-adhoc)
- - [Exercise 3 - Retrieving information from automation hosts](3-variables)
- - [Exercise 4 - Deploying applications to linux hosts](4-roles)
+ - [Exercise 3 - Deploying applications to linux hosts](3-playbook)
+ - [Exercise 4 - Retrieving information from automation hosts](4-variables)
  - [Exercise 5 - Self-service IT via surveys](5-surveys)
  - [Exercise 6 - Overview of system roles for RHEL](6-system-roles)
 

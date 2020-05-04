@@ -186,5 +186,8 @@ System clock synchronized: yes
 You have completed lab exercise
 
 ----
-
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+**Navigation**
+<br>
+[Previous Exercise](../5-surveys) - [Next Exercise](../7-insights)
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

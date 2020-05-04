@@ -219,7 +219,7 @@ $("document").ready(function(){
   $click.click(function () {
 
     $clicked = $(this);
-    
+
     $expand = $(this).parent('.header').next();  // Expand and collapse content selector
 
         //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
@@ -231,13 +231,13 @@ $("document").ready(function(){
             $('html, body').animate({
                 scrollTop: 1000
             }, 500);
-            
+
         });
 
     });
     $("a[href='" + window.location.hash + "']").parent(".studentinfo").click();
-    
-    
+
+
 });
 </script>
 
@@ -310,7 +310,16 @@ $("document").ready(function(){
                 <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
             </div>
             <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Workshop Deck</a>
+            </div>
+        </div>
+        {% elif workshop_type == "rhel_90" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel_90/">Ansible RHEL Exercises</a>
+            </div>
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel_90.pdf">Ansible Workshop Deck</a>
             </div>
         </div>
         {% elif workshop_type == "security" %}

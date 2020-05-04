@@ -251,6 +251,11 @@ node3                      : ok=2    changed=0    unreachable=0    failed=0
 ----
 **Navigation**
 <br>
-[Previous Exercise](../1.3-playbook) - [Next Exercise](../1.5-handlers)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../3-playbook) - [Next Exercise](../5-surveys)
+{% else %}
+[Previous Exercise](../1.3-playbook) - [Next Exercise](../1.5-handlers)
+{% endif %}
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

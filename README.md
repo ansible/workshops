@@ -9,6 +9,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 # Instructor-led Workshops
 
+6 hour workshops:
+
 | Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
 | **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel.pdf) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
@@ -16,6 +18,12 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 | **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](./decks/ansible_f5.pdf) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
 | **Ansible Security Automation** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [Deck](./decks/ansible_security.pdf) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
 | **Ansible Windows Automation Workshop** <br> focused on automation of Microsoft Windows  | [Deck](./decks/ansible_windows.pdf) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
+
+90 minute abbreviated versions:
+
+| Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
+|---|---|---|---|
+| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel_90.pdf) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
 
 ## Lab Provisioner
  - [AWS Lab Provisioner](provisioner) - playbook that spins up instances on AWS for students to perform the exercises provided above.

@@ -108,5 +108,8 @@ You now have a Red Hat account, and an active subscription to use Red Hat Insigh
 You have completed lab exercise
 
 ----
-
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+**Navigation**
+<br>
+[Previous Exercise](../6-system-roles)
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -55,7 +55,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 次に最初の `task` を追加します。 このタスクでは `device_facts` モジュールを利用して BIG-IP から情報を取得します。
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: GRAB F5 FACTS
@@ -78,7 +78,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
           validate_certs: no
       register: device_facts
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 >`play` はタスクのリストです。タスクとリストは1：1の関係を持ちます。Ansible モジュールは再利用可能で、Ansible API、`ansible` `ansible-playbook` コマンドから利用できるスタンドアローンなスクリプトです。実行されたモジュールは Ansible に JSON 形式の文字列を返します。
 
@@ -96,7 +96,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 次に2つ目の `task` を追加します。 このタスクでは `debug` モジュールを使って、register
 された `bigip_device_facts variable` 変数の値を出力します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: GRAB F5 FACTS
@@ -122,7 +122,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
       debug:
         var: device_facts
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - `name: COMPLETE BIG-IP SYSTEM INFORMATION` はユーザーが指定するタスクの説明文です。この内容がターミナルへ表示されます。
 - `debug:` タスクで使用するモジュール指定しています。
@@ -141,7 +141,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 
 最後に、2つのタスクを追加して取得したファクト情報から特定の情報を取得します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: GRAB F5 FACTS
@@ -174,7 +174,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
       debug:
         var: device_facts['system_info']['product_version']
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 - `var: device_facts['system_info']['base_mac_address']` BIG-IP のMACアドレスを取得します。
@@ -195,7 +195,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 
 以下のような出力となるはずです。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 
@@ -279,7 +279,7 @@ PLAY RECAP *********************************************************************
 f5                         : ok=4    changed=1    unreachable=0    failed=0
 
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 # 解答

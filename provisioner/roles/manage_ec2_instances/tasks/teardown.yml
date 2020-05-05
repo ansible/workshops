@@ -14,13 +14,13 @@
 - name: if vpc exists, delete everything, else exit
   when: vpc_net_facts['vpcs']|length > 0
   block:
-    - name: Get the VPC ID 2 for {{ ec2_name_prefix }} (NETWORKING MODE)
+    - name: Get the VPC ID 2 for {{ ec2_name_prefix }} (NETWORK MODE)
       ec2_vpc_net_info:
         filters:
           "tag:Name": "{{ ec2_name_prefix }}-vpc2"
         region: "{{ ec2_region }}"
       register: vpc_net_facts2
-      when: workshop_type == 'networking'
+      when: workshop_type == 'networking' or workshop_type == 'network'
 
     - name: debug vpc_net_facts2
       debug:
@@ -48,12 +48,12 @@
         var: ec2_security_group
       when: debug_teardown
 
-    - name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORKING MODE)
+    - name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORK MODE)
       set_fact:
         ec2_vpc_id2: "{{vpc_net_facts2.vpcs[0].id}}"
         ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
       when:
-        - workshop_type == 'networking'
+        - workshop_type == 'networking' or workshop_type == 'network'
         - vpc_net_facts2.vpcs|length > 0
         - ec2_security_group2 is undefined
 
@@ -63,7 +63,7 @@
       when:
         - debug_teardown
         - ec2_vpc_id2 is defined
-        - workshop_type == 'networking'
+        - workshop_type == 'networking' or workshop_type == 'network'
 
     - name: debug ec2_security_group2
       debug:
@@ -216,7 +216,7 @@
       retries: 50
       when: (vpc_net_facts.vpcs|length > 0) or (workshop_type == 'windows')
 
-    - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
+    - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORK MODE)
       ec2_group:
         name: "{{ec2_security_group2}}"
         region: "{{ ec2_region }}"
@@ -226,7 +226,7 @@
       until: delete_sgnetworking is not failed
       retries: 50
       when:
-        - workshop_type == 'networking'
+        - workshop_type == 'networking' or workshop_type == 'network'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: Delete subnet for {{ ec2_name_prefix }}-vpc
@@ -237,7 +237,7 @@
         cidr: "{{ec2_subnet}}"
         state: absent
 
-    - name: Delete subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
+    - name: Delete subnet for {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
       ec2_vpc_subnet:
         region: "{{ ec2_region }}"
         az: "{{ec2_az}}"
@@ -245,7 +245,7 @@
         cidr: "{{ec2_subnet2}}"
         state: absent
       when:
-        - workshop_type == 'networking'
+        - workshop_type == 'networking' or workshop_type == 'network'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
@@ -254,13 +254,13 @@
         vpc_id: "{{ec2_vpc_id}}"
         state: absent
 
-    - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
+    - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }} (NETWORK MODE)
       ec2_vpc_igw:
         region: "{{ ec2_region }}"
         vpc_id: "{{ec2_vpc_id2}}"
         state: absent
       when:
-        - workshop_type == 'networking'
+        - workshop_type == 'networking' or workshop_type == 'network'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
@@ -270,14 +270,14 @@
           vpc_id: "{{ec2_vpc_id}}"
       register: route_table_facts
 
-    - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORKING MODE)
+    - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORK MODE)
       ec2_vpc_route_table_info:
         region: "{{ ec2_region }}"
         filters:
           vpc_id: "{{ec2_vpc_id2}}"
       register: route_table_facts2
       when:
-        - workshop_type == 'networking'
+        - workshop_type == 'networking' or workshop_type == 'network'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: vpc public subnet route table is deleted
@@ -290,7 +290,7 @@
       with_items: "{{route_table_facts.route_tables}}"
       when: item.associations == []
 
-    - name: vpc public subnet route table is deleted (VPC2) (NETWORKING MODE)
+    - name: vpc public subnet route table is deleted (VPC2) (NETWORK MODE)
       ec2_vpc_route_table:
         region: "{{ ec2_region }}"
         vpc_id: "{{ec2_vpc_id2}}"
@@ -299,7 +299,7 @@
         state: absent
       with_items: "{{route_table_facts2.route_tables}}"
       when:
-        - workshop_type == 'networking'
+        - workshop_type == 'networking' or workshop_type == 'network'
         - vpc_net_facts2.vpcs|length > 0
         - item.associations == []
 
@@ -320,13 +320,13 @@
         region: "{{ ec2_region }}"
         state: absent
 
-    - name: delete AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
+    - name: delete AWS VPC {{ ec2_name_prefix }}-vpc2 (network MODE)
       ec2_vpc_net:
         name: "{{ ec2_name_prefix }}-vpc2"
         cidr_block: "{{ ec2_subnet2 }}"
         region: "{{ ec2_region }}"
         state: absent
-      when: workshop_type == 'networking'
+      when: workshop_type == 'networking' or workshop_type == 'network'
 
 
 # This is unfortunately something we have to do by tag data because even though

@@ -26,11 +26,11 @@
 
 テキストエディタを使用して、`disable-pool-member.yml`という名前の新しいファイルを作成します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ nano disable-pool-member.yml
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 >`vim`および`nano`は、コントロール ノードだけでなく、RDPを介してVisual StudioおよびAtomでも使用できます
 
@@ -38,7 +38,7 @@
 
 以下の定義を`disable-pool-member.yml`に Playbook に入力します:
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 
@@ -48,14 +48,14 @@
   gather_facts: false
 
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 3
 
 次に、タスク セクションを追加して、上記の目的のためのタスクを作成します。
 一度プロバイダーを設定すると、各タスクに対して接続先サーバやユーザ・パスワードといった認証情報を定義する必要はありません。次回以降のタスクについて、本プロバイダー情報を再利用できます。
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 ---
 - name: "Disabling a pool member"
@@ -73,18 +73,18 @@
         server_port: "8443"
         validate_certs: "no"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 プロバイダーは以下のように利用します:
 
-{% raw %}
+<!-- {% raw %} -->
 ```
     bigip_device_facts:
       provider: "{{provider}}"
       gather-subset:
       - ltm-pools
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 各モジュールで、接続先サーバやUser/passwordといった認証情報を入力する必要はありません。
 
@@ -151,7 +151,7 @@ Playbook の実行 - コントロールホストへ戻り、以下のコマン�
 
 以下のような出力となります。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 [student1@ansible ~]$ ansible-playbook disable-pool-member.yml
 
@@ -196,7 +196,7 @@ changed: [f5]
 PLAY RECAP **************************************************************************************************************
 f5                         : ok=7    changed=2    unreachable=0    failed=0
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 # 解答
 問題がある場合は講師より[解答](./disable-pool-member.yml)が提供されます。GUIにより以下のように表示されます。黒いひし形のマークは、そのノードがオフラインにされたことを示します。

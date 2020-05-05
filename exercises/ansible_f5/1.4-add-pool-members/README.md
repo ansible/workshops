@@ -7,7 +7,9 @@
 - [Objective](#objective)
 - [Guide](#guide)
 - [Playbook Output](#playbook-output)
+- [Output parsing](#output-parsing)
 - [Solution](#solution)
+- [Verifying the Solution](#verifying-the-solution)
 
 # Objective
 
@@ -48,7 +50,7 @@ Do not exit the editor yet.
 
 Next, append the first `task` to above playbook. This task will use the `bigip_pool_member` module configure the two RHEL web servers as nodes on the BIG-IP F5 load balancer.
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
   tasks:
 
@@ -67,7 +69,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
       pool: "http_pool"
     loop: "{{ groups['web'] }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 Explanation of each line within the task:
@@ -119,7 +121,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 Let's use the bigip_device_info to collect the pool members on BIG-IP. [JSON query](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter) is a powerful filter that can be used. Please go through before proceeding
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ nano display-pool-members.yml
 ```
@@ -154,7 +156,7 @@ Enter the following:
     vars:
      query_string: "[?name=='http_pool'].members[*].name[]"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - `vars:` in the module is defining a variable query_string to be used within the module itself
 - `query_String` will have the name of all members from pool name 'http_pool'. query_string is defined to make it easier to read the

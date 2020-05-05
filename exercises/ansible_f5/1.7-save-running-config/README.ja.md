@@ -48,7 +48,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 次に、`task` を追加します。このタスクは `bigip-config` を使って稼働中のコンフィグを保存します。
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -68,7 +68,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
         validate_certs: "no"
       save: yes
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 >`play` はタスクのリストです。タスクとリストは1：1の関係を持ちます。Ansible モジュールは再利用可能で、Ansible API、`ansible` `ansible-playbook` コマンドから利用できるスタンドアローンなスクリプトです。実行されたモジュールは Ansible に JSON 形式の文字列を返します。

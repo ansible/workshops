@@ -8,7 +8,7 @@
 - [Guide](#guide)
 - [Playbook Output](#playbook-output)
 - [Solution](#solution)
-- [Verifying the Solution](#Verifying the Solution)
+- [Verifying the Solution](#verifying-the-solution)
 
 # Objective
 

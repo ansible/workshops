@@ -19,11 +19,11 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 テキストエディアで新しいファイル `bigip-error-handling.yml` を作成します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ nano bigip-error-handling.yml
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 >`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
 
@@ -31,7 +31,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 以下の play 定義を `bigip-error-handling.yml` に追加してください:
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -40,7 +40,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
   gather_facts: no
 
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
 - `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
@@ -51,7 +51,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 プロバイダ値を設定するために `set_fact` を含む tasks を追加します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 ---
 - name: BIG-IP SETUP
@@ -69,13 +69,13 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         server_port: "8443"
         validate_certs: "no"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 4
 
 次に、`block` 句とタスクを追加します。タスク[演習 1.2 - F5 BIG-IPへノードを追加](../1.2-add-node/README.ja.md) で実行した `bigip_node` です。
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -103,13 +103,13 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         loop: "{{ groups['web'] }}"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 5
 
 次に、 [演習 1.3 - プールの追加](../1.3-add-pool/README.ja.md) で利用された`bigip_pool` のタスクを追加します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -144,13 +144,13 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           monitors: "/Common/http"
           monitor_type: "and_list"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 6
 
 次タスクでは [演習 1.4 - メンバーをプールへ追加](../1.4-add-pool-members/README.ja.md) で説明した `bigip_pool_member` を使用します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -195,13 +195,13 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           pool: "http_pool"
         loop: "{{ groups['web'] }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 7
 
 次に[演習 1.5 - Virtual Server の追加](../1.5-add-virtual-server/README.ja.md)で使用した `bigip_virtual_server` タスクを追加します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -257,13 +257,13 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           pool: "http_pool"
           snat: "Automap1"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 7
 
-次に、**rescue** 句を追加します。`rescue` 句に配置されるタスクは、 [演習 2.1 - コンフィグの削除](2.1-delete-configuration/README.ja.md) と同じです。ノードとプールを削除するとすべての構成が削除されるため、`bigip_pool_member` タスクを再入力する必要はありません。**block** 内のいずれかのタスクが失敗すると、**rescue** が順番に実行されます。VIP、プール、およびノードは適切に削除されます。
+次に、**rescue** 句を追加します。`rescue` 句に配置されるタスクは、 [演習 2.1 - コンフィグの削除](../2.1-delete-configuration/README.ja.md) と同じです。ノードとプールを削除するとすべての構成が削除されるため、`bigip_pool_member` タスクを再入力する必要はありません。**block** 内のいずれかのタスクが失敗すると、**rescue** が順番に実行されます。VIP、プール、およびノードは適切に削除されます。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -339,13 +339,13 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           state: absent
         loop: "{{ groups['web'] }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 8
 
 最後に **always** を追加してrunning config を保存します。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -427,7 +427,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           provider: "{{provider}}"
           save: yes
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 上記の Playbook では、仮想サーバー、プール、ノードの構成を試みますが、snat値が `Automap1` として提供されているため、仮想サーバーの追加は失敗し、`rescue` が実行されます。
 
@@ -435,15 +435,15 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 Playbook の実行 - コマンドラインへ戻ったら以下のコマンドでPlaybookを実行してください:
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
-# Playbook Output
+# Playbookの出力
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
 
@@ -485,7 +485,7 @@ PLAY RECAP *********************************************************************
 f5                         : ok=8    changed=6    unreachable=0    failed=1
 
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 # 解答
 
 完成したPlaybookのサンプルは [bigip-error-handling.yml](./bigip-error-handling.yml) から参照できます。

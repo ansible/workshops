@@ -19,11 +19,11 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 
 テキストエディタで新規ファイル `delete.yml` を作成します:
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ nano delete.yml
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 >`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
 
@@ -31,7 +31,7 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 
 以下の play 定義を `delete.yml` に追加してください:
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: LINKLIGHT AS3
@@ -40,7 +40,7 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
   gather_facts: no
 
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
 - `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
@@ -50,7 +50,8 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 ## Step 3
 
 以下を delete.yml へ **追加** してください。
-{% raw %}
+
+<!-- {% raw %} -->
 ```
   tasks:
 
@@ -67,7 +68,7 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
       validate_certs: no
     delegate_to: localhost
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 前の演習から変更したパラメータは以下の3つだけです。
 - `url` が変更され、最後が `declare` ではなく、テナント名（ここでは `WorkshopExample` ）になっています。
@@ -86,7 +87,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 
 出力例は以下となります。
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 [student1@ansible ~]$ ansible-playbook delete.yml
 
@@ -98,7 +99,7 @@ ok: [f5 -> localhost]
 PLAY RECAP ********************************************************************************
 f5                         : ok=1    changed=0    unreachable=0    failed=0
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 # 解答
 

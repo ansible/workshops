@@ -8,6 +8,7 @@
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
 - [解答](#解答)
+- [確認](#確認)
 
 # 目的
 
@@ -47,7 +48,7 @@
 
 次に、最初のタスクを追加します。このタスクは、`bigip_node` モジュールを使用して、BIG-IP上に、２つの RHEL （Webサーバー）をノードとして設定します。
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -69,7 +70,7 @@
         validate_certs: "no"
     loop: "{{ groups['web'] }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 >[loop](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) は指定された一覧に対して、タスクを繰り返し実行します。  この演習では、二つのWebサーバーに対して一度づつタスクを実行します。
 

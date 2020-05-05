@@ -19,11 +19,11 @@ Demonstrate use of the different modules to perform a rollback of the configurat
 
 Using your text editor of choice create a new file called `bigip-error-handling.yml`.
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ nano bigip-error-handling.yml
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 >`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
 
@@ -31,7 +31,7 @@ Using your text editor of choice create a new file called `bigip-error-handling.
 
 Enter the following play definition into `bigip-error-handling.yml`:
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -40,7 +40,7 @@ Enter the following play definition into `bigip-error-handling.yml`:
   gather_facts: false
 
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - The `---` at the top of the file indicates that this is a YAML file.
 - The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
@@ -51,7 +51,7 @@ Enter the following play definition into `bigip-error-handling.yml`:
 
 Add a tasks section with a set_fact for setting the provider values
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 ---
 - name: BIG-IP SETUP
@@ -69,13 +69,13 @@ tasks:
         server_port: "8443"
         validate_certs: "no"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 4
 
 Next, add the `block` stanza and the first `task`. The first task will be the bigip_node as performed in [Exercise 1.2 - Adding nodes to F5 BIG-IP](../1.2-add-node/README.md).
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -103,13 +103,13 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
         loop: "{{ groups['web'] }}"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 5
 
 Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Adding a load balancing pool](../1.3-add-pool/README.md).
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -144,13 +144,13 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
             monitors: "/Common/http"
             monitor_type: "and_list"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 6
 
 Next, add the third task.  For the third task use the bigip_pool_member as demonstrated in [Exercise 1.4 - Adding members to a pool](../1.4-add-pool-members/README.md).
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -195,13 +195,13 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
            pool: "http_pool"
           loop: "{{ groups['web'] }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 7
 
 Next, add the fourth task.  For the fourth task use the bigip_virtual_server as demonstrated in [Exercise 1.5 - Adding a virtual server](../1.5-add-virtual-server/README.md).
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -257,13 +257,13 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
            pool: "http_pool"
            snat: "Automap1"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 7
 
-Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be identical to [Exercise 1.6 - Deleting F5 BIG-IP Configuration](../1.6-delete-configuration/README.md).  The bigip_pool_member task does not need to re-enterered since by deleting the nodes and pool will remove all configuration. If any task within the **block** fails, the **rescue** stanza will execute in order.  The VIP, pool, and nodes will be removed gracefully.
+Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be identical to [Exercise 2.1 - Deleting F5 BIG-IP Configuration](../2.1-delete-configuration/README.md).  The bigip_pool_member task does not need to re-enterered since by deleting the nodes and pool will remove all configuration. If any task within the **block** fails, the **rescue** stanza will execute in order.  The VIP, pool, and nodes will be removed gracefully.
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -340,13 +340,13 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             state: absent
           loop: "{{ groups['web'] }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Step 8
 
 Finally add the **always** to save the running configuration.
 
-{% raw %}
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: BIG-IP SETUP
@@ -428,7 +428,7 @@ Finally add the **always** to save the running configuration.
             provider: "{{provider}}"
             save: yes
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 The above playbook will try and configure the Virtual Server, Pool and Nodes but since the snat value is provided as 'Automap1' the addition of virtual server will fail and the 'rescue' block will be run
 
@@ -436,15 +436,15 @@ The above playbook will try and configure the Virtual Server, Pool and Nodes but
 
 Run the playbook - exit back into the command line of the control host and execute the following:
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 # Playbook Output
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
 
@@ -486,7 +486,7 @@ PLAY RECAP *********************************************************************
 f5                         : ok=8    changed=6    unreachable=0    failed=1
 
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 # Solution
 
 The finished Ansible Playbook is provided here for an Answer key.  Click here: [bigip-error-handling.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/2.2-error-handling/bigip-error-handling.yml).

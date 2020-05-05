@@ -7,7 +7,9 @@
 - [目的](#目的)
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
+- [出力のパース](#出力のパース)
 - [解答](#解答)
+- [確認](#確認)
 
 # 目的
 
@@ -46,7 +48,7 @@
 
 次に、タスクを追加します。このタスクは、`bigip_pool_member` モジュールを使用して、BIG-IP上に、２つの RHEL （Webサーバー）をプールメンバーとして設定します。
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 - name: BIG-IP SETUP
   hosts: lb
@@ -70,7 +72,7 @@
         validate_certs: "no"
     loop: "{{ groups['web'] }}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 - `name: ADD POOL MEMBERS` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
@@ -116,7 +118,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 bigip_device_facts モジュールを使って、BIG-IPに設定されたプールメンバー情報を確認してみましょう。 [JSON query](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter) は強力なフィルタリングツールです。演習を進める前に確認してみましょう。
 
-{% raw %}
+<!-- {% raw %} -->
 ```
 [student1@ansible ~]$ nano display-pool-members.yml
 ```
@@ -152,7 +154,7 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
     vars:
      query_string: "[?name=='http_pool'].members[*].name[]"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 - `vars:` ： モジュール内部で利用されるクエリ文字列を定義しています。
 - `query_String` ： 'http_pool' というプールに含まれる全てのプールメンバーの名前を取得します。query_string を設定することで JSON の可読性が向上します。

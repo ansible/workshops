@@ -8,6 +8,7 @@
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
 - [解答](#解答)
+- [確認](#確認)
 
 # 目的
 
@@ -72,7 +73,7 @@ when HTTP_REQUEST {
 
 次に、タスクを追加します。このタスクは、`bigip-irule` モジュールを使用して、BIG-IPにiRulesを登録します。
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -98,7 +99,7 @@ when HTTP_REQUEST {
       content: "{{lookup('file','{{item}}')}}"
     loop: "{{irules}}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 >プレイブックは一連のタスクから成ります。タスクとモジュールは1：1の関係性があります。モジュールは、Ansible API やansible / ansible-playbook から利用可能で、再利用可能なスタンドアロンスクリプトです。実行結果は、JSON文字列として標準出力へ出力されます。
 
@@ -119,7 +120,7 @@ when HTTP_REQUEST {
 
 次に、タスクを実行します。このタスクは `bigip_virtual_server` モジュールを使って、BIG-IP上のVirtual Server へiRules をアタッチします。
 
-{% raw %}
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -156,7 +157,7 @@ when HTTP_REQUEST {
       name: "vip"
       irules: "{{irules}}"
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 
 - `irules: "{{irules}}` ： Virtual ServerにアタッチするiRulesのリストです。 'irule1'と'irule2' となります。

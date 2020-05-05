@@ -8,7 +8,7 @@
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
 - [解答](#解答)
-- [解答の確認](#解答の確認)
+- [確認](#確認)
 
 # 目的
 
@@ -96,7 +96,7 @@ f5                         : ok=2    changed=0    unreachable=0    failed=0
 
 修正した Jinja2 テンプレートは [as3_template.j2](./j2/as3_template.j2) から参照できます。
 
-# 解答の確認
+# 確認
 
 Webブラウザを使用してF5にログインし、設定内容を確認します。F5ロードバランサーのIP情報を `lab_inventory/hosts` ファイルから取得し、https://X.X.X.X:8443/のように入力します。
 

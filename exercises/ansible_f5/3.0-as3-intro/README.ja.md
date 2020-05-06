@@ -71,7 +71,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 
 2. `as3_template.j2`
 
-<!-- {% raw %} -->
+{% raw %}
 ```
 "web_app": {
     "class": "Application",
@@ -103,7 +103,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
     }
 }
 ```
-<!-- {% endraw %} -->
+{% endraw %}
 
 このテンプレートは Web アプリケーションに対する JSON の表記です。ここのパートで重要な点としては、
 

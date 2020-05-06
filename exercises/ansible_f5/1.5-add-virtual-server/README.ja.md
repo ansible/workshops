@@ -49,7 +49,7 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 
 次に、タスクを追加します。このタスクは、`bigip-virtual-server` モジュールを使用して、BIG-IP上にVirtual Server を設定します。
 
-<!-- {% raw %} -->
+{% raw %}
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -76,7 +76,7 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
         validate_certs: "no"
 ```
 
-<!-- {% endraw %} -->
+{% endraw %}
 
 >プレイブックは一連のタスクから成ります。タスクとモジュールは1：1の関係性があります。モジュールは、Ansible API やansible / ansible-playbook から利用可能で、再利用可能なスタンドアロンスクリプトです。実行結果は、JSON文字列として標準出力へ出力されます。
 

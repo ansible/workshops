@@ -47,7 +47,7 @@
 
 次に、タスクを追加します。このタスクは、`bigip_pool` モジュールを使用して、BIG-IP上に、http_poolという名前のプールを設定します。
 
-<!-- {% raw %} -->
+{% raw %}
 ``` yaml
 ---
 - name: BIG-IP SETUP
@@ -71,7 +71,7 @@
         validate_certs: "no"
 ```
 
-<!-- {% endraw %} -->
+{% endraw %}
 
 - `name: CREATE POOL` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_pool:` ： 使用するモジュールを宣言しています。

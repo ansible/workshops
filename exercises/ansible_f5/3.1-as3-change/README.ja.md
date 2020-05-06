@@ -49,19 +49,19 @@
 
 この行を->
 
-<!-- {% raw %} -->
+{% raw %}
 ``` json
                 "servicePort": 443,
 ```
-<!-- {% endraw %} -->
+{% endraw %}
 
 以下のように変更します->
 
-<!-- {% raw %} -->
+{% raw %}
 ``` json
                 "servicePort": 80,
 ```
-<!-- {% endraw %} -->
+{% endraw %}
 
 ## Step 4
 
@@ -75,7 +75,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 
 以下は出力の例となります。
 
-<!-- {% raw %} -->
+{% raw %}
 ```yaml
 [student1@ansible ~]$ ansible-playbook as3.yml
 
@@ -90,7 +90,7 @@ ok: [f5 -> localhost]
 PLAY RECAP *********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
-<!-- {% endraw %} -->
+{% endraw %}
 
 # 解答
 

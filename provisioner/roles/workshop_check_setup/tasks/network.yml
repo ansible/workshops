@@ -1,0 +1,12 @@
+---
+- name: make sure packages required are installed on this control node
+  pip:
+    name:
+      - netaddr
+  check_mode: true
+  register: package_state
+
+- name: fail if previous check has changed
+  assert:
+    that:
+      - package_state.changed != True

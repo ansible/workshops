@@ -1,6 +1,7 @@
 # Workshop Exercise - Using Variables
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 ## Table of Contents
 
@@ -29,7 +30,7 @@ This exercise covers variables, specifically
 
 ## Intro to Variables
 
-Variables are referenced in Playbooks by placing the variable name in double curly braces:
+Variables are referenced in Ansible Playbooks by placing the variable name in double curly braces:
 
 <!-- {% raw %} -->
 ```yaml
@@ -80,7 +81,7 @@ What is this about?
 
   - For all servers in the `web` group the variable `stage` with value `dev` is defined. So as default we flag them as members of the dev environment.
 
-  - For server `node2` this is overriden and the host is flagged as a production server.
+  - For server `node2` this is overridden and the host is flagged as a production server.
 
 ## Step 2 - Create web.html Files
 
@@ -117,7 +118,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 ---
 - name: Copy web.html
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: copy web.html
     copy:
@@ -250,6 +251,11 @@ node3                      : ok=2    changed=0    unreachable=0    failed=0
 ----
 **Navigation**
 <br>
-[Previous Exercise](../1.3-playbook) - [Next Exercise](../1.5-handlers)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../3-playbook) - [Next Exercise](../5-surveys)
+{% else %}
+[Previous Exercise](../1.3-playbook) - [Next Exercise](../1.5-handlers)
+{% endif %}
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

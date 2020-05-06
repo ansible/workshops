@@ -1,6 +1,7 @@
 # Exercise - Surveys
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 ## Table Contents
 
@@ -35,7 +36,7 @@ Additionally, the role will also make sure that the Apache configuration is prop
 
 ## The Apache-configuration Role
 
-The Playbook and the role with the Jinja template already exist in the Github repository **https://github.com/ansible/workshop-examples** in the directory `rhel/apache`**`.
+The Playbook and the role with the Jinja template already exist in the Github repository **https://github.com/ansible/workshop-examples** in the directory `rhel/apache`.
 
  Head over to the Github UI and have a look at the content: the playbook `apache_role_install.yml` merely references the role. The role can be found in the `roles/role_apache` subdirectory.
 
@@ -56,23 +57,7 @@ Now you create a new Template that includes a survey.
 
 - Go to **Templates**, click the ![plus](images/green_plus.png) button and choose **Job Template**
 
-- **NAME:** Create index.html
-
-- Configure the template to:
-
-    - Use the `Ansible Workshop Examples` **Project**
-
-    - Use the `apache_role_install.yml` **Playbook**
-
-    - To run on `node1`
-
-    - To run in privileged mode
-
-Try for yourself, the solution is below.
-
-> **Warning**
->
-> **Solution Below\!**
+- Fill out the following information:
 
 <table>
   <tr>
@@ -103,6 +88,10 @@ Try for yourself, the solution is below.
     <td>CREDENTIAL</td>
     <td>Workshop Credentials</td>
   </tr>
+  <tr>
+    <td>LIMIT</td>
+    <td>web</td>
+  </tr>  
   <tr>
     <td>OPTIONS</td>
     <td>Enable Privilege Escalation</td>
@@ -192,5 +181,13 @@ $ curl http://22.33.44.55
 Note how the two variables where used by the playbook to create the content of the `index.html` file.
 
 ----
+**Navigation**
+<br>
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../1.4-variables) - [Next Exercise](../../ansible_rhel_90/6-system-roles/)
+{% else %}
+[Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
+{% endif %}
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -1,0 +1,131 @@
+---
+- name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
+  ec2_vpc_net:
+    name: "{{ ec2_name_prefix }}-vpc2"
+    cidr_block: "{{ ec2_subnet2 }}"
+    region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+  register: create_vpc2
+  when: ec2_vpc_id2 is undefined
+  until: create_vpc2 is not failed
+  retries: 5
+
+- name: Create EC2 security group 2 for VPC named {{ ec2_name_prefix }}-vpc (NETWORK MODE)
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-insecure_all2"
+    description: all ports open
+    region: "{{ ec2_region }}"
+    vpc_id: "{{create_vpc2.vpc.id}}"
+    tags:
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+    rules:
+      - proto: 47
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 443
+        from_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: icmp
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 80
+        from_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 22
+        from_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8443
+        from_port: 8443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 830
+        from_port: 830
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 179
+        from_port: 179
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  when: ec2_vpc_id2 is undefined
+  register: create_sg2
+  until: create_sg2 is not failed
+  retries: 5
+
+- name: Create subnet for {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
+  ec2_vpc_subnet:
+    region: "{{ ec2_region }}"
+    az: "{{ ec2_az }}"
+    vpc_id: "{{create_vpc2.vpc.id}}"
+    cidr: "{{ec2_subnet2}}"
+    resource_tags:
+      Name: "{{ ec2_name_prefix }}-subnet2"
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+  register: create_subnet2
+  until: create_subnet2 is not failed
+  retries: 15
+  when: ec2_vpc_id2 is undefined
+
+- name: vpc internet gateway is present for {{ create_vpc2.vpc.id }} (NETWORK MODE)
+  ec2_vpc_igw:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ create_vpc2.vpc.id }}"
+    tags:
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "Total {{student_total}}"
+  register: igw2
+  until: igw2 is not failed
+  retries: 15
+  when: ec2_vpc_id2 is undefined
+
+- name: vpc public subnet route table is present for {{ create_vpc2.vpc.id }} (NETWORK MODE)
+  ec2_vpc_route_table:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ create_vpc2.vpc.id }}"
+    subnets:
+      - "{{ create_subnet2.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw2.gateway_id }}"
+    tags:
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+  register: routetablenetworking
+  until: routetablenetworking is not failed
+  retries: 5
+  when: ec2_vpc_id2 is undefined
+
+- name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORK MODE)
+  set_fact:
+    ec2_vpc_id2: "{{ create_vpc2.vpc.id }}"
+    ec2_vpc_subnet_id2: "{{ create_subnet2.subnet.id }}"
+    ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
+  when: ec2_vpc_id2 is undefined
+
+- name: debugging all variables for ec2 instance creation VPC-2 (NETWORK MODE)
+  debug:
+    msg:
+      - "ec2_name_prefix: {{ec2_name_prefix}}"
+      - "ec2_vpc_id2: {{ ec2_vpc_id2 }}"
+      - "ec2_vpc_subnet_id2: {{ ec2_vpc_subnet_id2 }}"

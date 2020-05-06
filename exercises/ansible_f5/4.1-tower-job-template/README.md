@@ -1,5 +1,7 @@
 # Exercise 4.1: Creating a Tower Job Template
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Table of Contents
 - [Exercise 4.1: Creating a Tower Job Template](#exercise-41-creating-a-tower-job-template)
   - [Table of Contents](#table-of-contents)
@@ -55,7 +57,7 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
 3. Login via SSH to your Ansible Tower control node (This is the Linux machine that has Ansible Tower installed on). The SSH credentials needed again here.
 4. Locate the flat-file that represents your Ansible inventory. Run the awx-manage inventory_import command like this
    ```
-   cd ~/networking-workshop/lab_inventory/
+   cd ~/f5-workshop/lab_inventory/
    sudo awx-manage inventory_import --source=hosts --inventory-name="Workshop Inventory"
    ```
 5. Now when you login via the WebUI you will see all the hosts under the inventory `Workshop Inventory`

@@ -26,7 +26,7 @@ The goal of this exercise is to understand and use pre-existing content in the f
 
 Linux System Roles create a consistent user interface to provide settings to a given subsystem that is abstract from any particular implementation. For example, assigning an IP Address to a network interface should be a generic concept separate from any particular implementations such as init networking scripts, NetworkManager, or systemd-networkd.
 
-This exericse will use two Linux System Roles, the `timesync` and `firewall` roles.
+This exercise will use two Linux System Roles, the `timesync` and `firewall` roles.
 
 ## Step 1 - Examine Ansible Project
 
@@ -186,5 +186,8 @@ System clock synchronized: yes
 You have completed lab exercise
 
 ----
-
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+**Navigation**
+<br>
+[Previous Exercise](../5-surveys) - [Next Exercise](../7-insights)
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

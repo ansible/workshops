@@ -120,7 +120,7 @@ This template is a JSON representation of the Web Application.  The important pa
 <!-- {% raw %} -->
 ```
 mkdir j2
-cp ~/networking-workshop/3.0-as3-intro/j2/* j2/
+cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
 ```
 <!-- {% endraw %} -->
 

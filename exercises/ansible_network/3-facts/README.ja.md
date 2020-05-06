@@ -26,13 +26,13 @@ Ansible facts はリモートのネットワーク構成要素から取得され
 コントローラーノード上で `ios_facts` モジュールと `debug` モジュールのドキュメントを確認します。
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-doc debug
+[student1@ansible network-workshop]$ ansible-doc debug
 ```
 
 `debug` を任意のパラメーター無しで利用するとどうなるか確認してください。
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-doc ios_facts
+[student1@ansible network-workshop]$ ansible-doc ios_facts
 ```
 
 収集する Facts 情報に制限を書ける方法を確認してください。
@@ -45,7 +45,7 @@ Playbooks は [**YAML**](https://yaml.org/) 形式です。YAML は構造化さ�
 好きなエディタを使って新しいファイル `facts.yml` を作成してください (`vim` と `nano` がコントローラーホストで利用可能です) :
 
 ```
-[student1@ansible networking-workshop]$ vim facts.yml
+[student1@ansible network-workshop]$ vim facts.yml
 ```
 
 `facts.yml` に以下の Play 定義を入力します:
@@ -87,13 +87,13 @@ Playbooks は [**YAML**](https://yaml.org/) 形式です。YAML は構造化さ�
 この Playbook を実行します:
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml
+[student1@ansible network-workshop]$ ansible-playbook facts.yml
 ```
 
 出力は以下のようになるはずです。
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml
+[student1@ansible network-workshop]$ ansible-playbook facts.yml
 
 PLAY [gather information from routers] *****************************************
 
@@ -111,7 +111,7 @@ rtr1                       : ok=1    changed=0    unreachable=0    failed=0    s
 
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml -v
+[student1@ansible network-workshop]$ ansible-playbook facts.yml -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [gather information from routers] *****************************************
@@ -181,7 +181,7 @@ Playbook を冗長モードで実行するのは変数を確認するのに便�
 では `冗長出力モード` オプションを利用せずに、再度Playbookを実行します:
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook facts.yml
+[student1@ansible network-workshop]$ ansible-playbook facts.yml
 
 PLAY [gather information from routers] **************************************************************************************
 

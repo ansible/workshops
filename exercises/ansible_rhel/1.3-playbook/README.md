@@ -1,6 +1,7 @@
 # Workshop Exercise - Writing Your First Playbook
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 ## Table of Contents
 
@@ -167,7 +168,7 @@ Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
 
-Use the command `rpm -qe httpd` to verify httpd is installed:
+Use the command `rpm -qi httpd` to verify httpd is installed:
 
 ```
 [student<X>@node1 ~]$ rpm -qi httpd

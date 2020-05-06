@@ -1,12 +1,15 @@
 ---
-- name: CHANGE TOWER BASE URL
-  tower_settings:
+- name: change ansible tower base URL
+  awx.awx.tower_settings:
     name: TOWER_URL_BASE
     value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
     tower_verify_ssl: false
     tower_host: localhost
     tower_username: admin
     tower_password: "{{admin_password}}"
+  register: change_base_url
+  until: change_base_url is not failed
+  retries: 5
 
 # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
 - name: Download and install certbot

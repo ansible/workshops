@@ -1,6 +1,7 @@
 # Exercício - Roles: Tornando seus playbooks reutilizáveis
 
-**Leia em outras linguagens**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Leia em outras linguagens**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 * [Passo 1 - Entendendo a estrutura da Role](#passo-1---entendendo-a-estrutura-da-role)
 * [Passo 2 - Criando uma estrutura básica de diretório de roles](#passo-2---criando-uma-estrutura-básica-de-diretório-de-roles)

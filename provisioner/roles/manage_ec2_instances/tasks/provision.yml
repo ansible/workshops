@@ -9,10 +9,10 @@
 - name: provision aws resources
   include_tasks: resources/resources.yml
 
-## This duplicates the above when networking workshop uses 2 VPCs
+## This duplicates the above when network workshop uses 2 VPCs
 - name: provision networking aws resources
   include_tasks: resources/resources_{{workshop_type}}.yml
-  when: workshop_type == 'networking'
+  when: workshop_type == 'network'
 
 - name: find ami for ansible control node
   ec2_ami_info:
@@ -78,3 +78,6 @@
 ## Instance creation
 - name: provision workshop instances
   include_tasks: 'instances/instances_{{workshop_type}}.yml'
+
+- name: create instructor_inventory, and student files
+  include_tasks: create_inventory.yml

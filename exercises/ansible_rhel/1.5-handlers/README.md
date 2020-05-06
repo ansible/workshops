@@ -1,6 +1,7 @@
 # Workshop Exercise - Conditionals, Handlers and Loops
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
 
 ## Table of Contents
 
@@ -33,7 +34,7 @@ To implement a conditional, the `when` statement must be used, followed by the c
 | \>   | true if the left hand side is greater than the right hand side.        |
 | \>=  | true if the left hand side is greater or equal to the right hand side. |
 | \<   | true if the left hand side is lower than the right hand side.          |
-| \< = | true if the left hand side is lower or equal to the right hand side.   |
+| \<= | true if the left hand side is lower or equal to the right hand side.   |
 
 For more on this, please refer to the documentation: <http://jinja.pocoo.org/docs/2.10/templates/>
 

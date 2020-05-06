@@ -1,0 +1,4 @@
+---
+- name: unsupported workshop for workshop_check_setup role
+  debug:
+    msg: "no more setup for workshop_check_setup role the {{workshop_type}} does not have any specific setup specified"

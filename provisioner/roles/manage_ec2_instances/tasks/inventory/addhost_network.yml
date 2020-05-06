@@ -1,0 +1,114 @@
+---
+- name: grab facts for rtr1 node (NETWORK MODE)
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
+  register: rtr1_node_facts
+
+- name: grab facts for rtr2 node (NETWORK MODE)
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr2": "{{ec2_name_prefix}}-rtr2"
+  register: rtr2_node_facts
+
+- name: grab facts for rtr3 node (NETWORK MODE)
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr3": "{{ec2_name_prefix}}-rtr3"
+  register: rtr3_node_facts
+
+- name: grab facts for rtr4 node (NETWORK MODE)
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr4": "{{ec2_name_prefix}}-rtr4"
+  register: rtr4_node_facts
+
+- name: ADD RTR1 ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    groups:
+      - routers
+      - core
+      - dmvpn
+  loop: "{{ rtr1_node_facts.instances|flatten(levels=1) }}"
+
+- name: ADD RTR2 ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    groups:
+      - routers
+      - core
+  loop: "{{ rtr2_node_facts.instances|flatten(levels=1) }}"
+
+- name: ADD RTR3 ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    groups:
+      - routers
+      - access
+  loop: "{{ rtr3_node_facts.instances|flatten(levels=1) }}"
+
+- name: ADD RTR3 ROUTERS TO INVENTORY
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    username: "{{ item.tags.Student }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    groups:
+      - routers
+      - access
+  loop: "{{ rtr4_node_facts.instances|flatten(levels=1) }}"
+
+- name: Generate student inventories
+  template:
+    src: "{{workshop_type}}_instances.txt.j2"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate student etchosts
+  template:
+    src: "etchosts_{{workshop_type}}.j2"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
+  with_sequence: count="{{ student_total }}"
+
+- name: Generate instructor inventory
+  template:
+    src: "instructor_inventory_{{workshop_type}}.j2"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

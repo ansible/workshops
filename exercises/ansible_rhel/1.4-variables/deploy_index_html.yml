@@ -1,0 +1,9 @@
+---
+- name: Copy web.html
+  hosts: web
+  become: true
+  tasks:
+  - name: copy web.html
+    copy:
+      src: "{{ stage }}_web.html"
+      dest: /var/www/html/index.html

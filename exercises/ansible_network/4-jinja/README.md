@@ -31,13 +31,13 @@ rtr2  | 192.168.100.2/32 |
 Variable information can be stored in host_vars and group_vars.  For this exercise create a folder named `group_vars`:
 
 ```bash
-[student1@ansible networking-workshop]$ mkdir ~/networking-workshop/group_vars
+[student1@ansible network-workshop]$ mkdir ~/network-workshop/group_vars
 ```
 
 Now create a file in this directory name `all.yml` using your text editor of choice.  Both vim and nano are installed on the control node.
 
 ```
-[student1@ansible networking-workshop]$ nano group_vars/all.yml
+[student1@ansible network-workshop]$ nano group_vars/all.yml
 ```
 
 The interface and IP address information above must be stored as variables so that the Ansible playbook can use it. Start by making a simple YAML dictionary that stores the table listed above. Use a top level variable (e.g. `nodes`) so that a lookup can be performed based on the `inventory_hostname`:
@@ -59,7 +59,7 @@ Copy the YAML dictionary we created above into the group_vars/all.yml file and s
 Create a new template file named `template.j2`:
 
 ```
-[student1@ansible networking-workshop]$ nano template.j2
+[student1@ansible network-workshop]$ nano template.j2
 ```
 
 Copy the following into the template.j2 file:
@@ -119,7 +119,7 @@ Finally:
 Create the Ansible Playbook config.yml:
 
 ```
-[student1@ansible networking-workshop]$ nano config.yml
+[student1@ansible network-workshop]$ nano config.yml
 ```
 
 Copy the following Ansible Playbook to the config.yml file:
@@ -147,7 +147,7 @@ Copy the following Ansible Playbook to the config.yml file:
 Execute the Ansible Playbook:
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook config.yml
+[student1@ansible network-workshop]$ ansible-playbook config.yml
 ```
 
 The output should look as follows.
@@ -171,7 +171,7 @@ rtr2                       : ok=1    changed=1    unreachable=0    failed=0    s
 Use the command `show ip int br` to verify the IP addresses have been confirmed on the network devices.
 
 ```
-[student1@ansible networking-workshop]$ ssh rtr1
+[student1@ansible network-workshop]$ ssh rtr1
 
 rtr1#show ip int br | include Loopback100
 Loopback100            192.168.100.1   YES manual up                    up

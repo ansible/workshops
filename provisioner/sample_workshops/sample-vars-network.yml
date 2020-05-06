@@ -1,0 +1,16 @@
+---
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: TESTWORKSHOP
+# amount of work benches to provision
+student_total: 2
+# workshop is put into networking mode
+workshop_type: network
+## Optional Variables
+# password used for student account on control node
+admin_password: ansible
+# turn DNS on for control nodes, and set to type in valid_dns_type
+dns_type: aws
+# creates HTML website for workshop
+create_login_page: true

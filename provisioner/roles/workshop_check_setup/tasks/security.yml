@@ -1,0 +1,24 @@
+---
+- name: make sure security workshop has password set is set to a correct value
+  assert:
+    that:
+      - windows_password is defined
+    msg: "windows_password must be set for security automation workshop"
+
+- name: required roles
+  shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+  async: 600
+  poll: 0
+  loop:
+    - 'geerlingguy.repo-epel'
+    - 'ansible_security.ids_config'
+    - 'ansible_security.ids_install'
+  register: required_role_loop_out
+
+- name: check async role install
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  loop: "{{ required_role_loop_out['results'] }}"
+  register: job_result
+  until: job_result.finished
+  retries: 30

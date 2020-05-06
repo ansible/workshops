@@ -18,15 +18,15 @@ The exercises of the second section of this lab are focused on the actual securi
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts and services:
 
-| Role                         | Inventory name |
-| -----------------------------| ---------------|
-| Ansible Control Host         | ansible        |
-| IBM QRadar                   | qradar         |
-| Attacker                     | attacker       |
-| Snort                        | snort          |
-| Ceck Point Management Server | checkpoint     |
-| Ceck Point Gateway           | -              |
-| Windows Workstation          | windows-ws     |
+| Role                          | Inventory name |
+| ------------------------------| ---------------|
+| Ansible Control Host          | ansible        |
+| IBM QRadar                    | qradar         |
+| Attacker                      | attacker       |
+| Snort                         | snort          |
+| Check Point Management Server | checkpoint     |
+| Check Point Gateway           | -              |
+| Windows Workstation           | windows-ws     |
 
 The lab is set up individually for you. You have your own environment, own services, own virtual machines.
 

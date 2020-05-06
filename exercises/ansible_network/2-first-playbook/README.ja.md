@@ -23,19 +23,19 @@
 
 #### Step 1
 
-`networking-workshop` ディレクトリを移動してください（別のディレクトリにいる場合）
+`network-workshop` ディレクトリを移動してください（別のディレクトリにいる場合）
 
 ```bash
-[student1@ansible ~]$ cd ~/networking-workshop/
-[student1@ansible networking-workshop]$
-[student1@ansible networking-workshop]$ pwd
-/home/student1/networking-workshop
+[student1@ansible ~]$ cd ~/network-workshop/
+[student1@ansible network-workshop]$
+[student1@ansible network-workshop]$ pwd
+/home/student1/network-workshop
 ```
 
 演習用に提供される `playbook.yml`を確認します。好きなエディタでこのファイルを開いてください。以下の例では `cat` コマンドを利用しています。
 
 ```
-[student1@ansible networking-workshop]$ cat playbook.yml
+[student1@ansible network-workshop]$ cat playbook.yml
 ---
 - name: snmp ro/rw string configuration
   hosts: cisco
@@ -65,7 +65,7 @@ snmp-server community ansible-private RW
 `ansible-playbook` コマンドを使ってこのPlaybookを実行します:
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook playbook.yml
+[student1@ansible network-workshop]$ ansible-playbook playbook.yml
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -81,7 +81,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 このPlaybookの動きを確認します。`rtr1`へログインし、Cisco IOS-XE上で実行中のコンフィグを確認します。
 
 ```bash
-[student1@ansible networking-workshop]$ ssh rtr1
+[student1@ansible network-workshop]$ ssh rtr1
 
 rtr1#show run | i snmp
 snmp-server community ansible-public RO
@@ -98,7 +98,7 @@ snmp-server community ansible-private RW
 冪等性を確認するには、Playbookを再実行します:
 
 ```bash
-[student1@ansible networking-workshop]$  ansible-playbook playbook.yml
+[student1@ansible network-workshop]$  ansible-playbook playbook.yml
 
 PLAY [snmp ro/rw string configuration] **************************************************************************************
 
@@ -108,7 +108,7 @@ ok: [rtr1]
 PLAY RECAP ******************************************************************************************************************
 rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-[student1@ansible networking-workshop]$
+[student1@ansible network-workshop]$
 ```
 
 > Note: **PLAY RECAP** の中の **changed** パラメーターが changed=0 であることを確認してください。
@@ -127,7 +127,7 @@ snmp-server community ansible-test RO
 好きなテキストエディタで `playbook.yml` を開いて、コマンドを追加します:
 
 ```bash
-[student1@ansible networking-workshop]$ nano playbook.yml
+[student1@ansible network-workshop]$ nano playbook.yml
 ```
 
 Playbookは以下のようになります:
@@ -154,7 +154,7 @@ Playbookは以下のようになります:
 
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook playbook.yml --verbose --check
+[student1@ansible network-workshop]$ ansible-playbook playbook.yml --verbose --check
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [snmp ro/rw string configuration] *****************************************
@@ -180,7 +180,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 `ansible-test` コミュニティが作成されていないことを確認します。`rtr1` へログインして、コンフィグ内容を確認してください。
 
 ```bash
-[student1@ansible networking-workshop]$ ssh rtr1
+[student1@ansible network-workshop]$ ssh rtr1
 
 rtr1#show run | i snmp
 snmp-server community ansible-public RO
@@ -193,7 +193,7 @@ snmp-server community ansible-private RW
 最後に、このPlaybookを `-v` `--check` オプションなしで再実行して、更新をプッシュします。
 
 ```bash
-[student1@ansible networking-workshop]$ ansible-playbook playbook.yml
+[student1@ansible network-workshop]$ ansible-playbook playbook.yml
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -209,7 +209,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 Playbookが設定した `ansible-test` コミュニティを確認します。`rtr1` へログインして、コンフィグ内容を確認してください。
 
 ```bash
-[student1@ansible networking-workshop]$ ssh rtr1
+[student1@ansible network-workshop]$ ssh rtr1
 
 rtr1#sh run | i snmp
 snmp-server community ansible-public RO

@@ -1,0 +1,25 @@
+---
+- name: Install EPEL
+  dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    state: present
+
+- package:
+    name:
+      - boinc-client
+    state: present
+
+- name: enable and start boinc-client
+  systemd:
+    name: boinc-client
+    state: started
+    enabled: yes
+
+- name: World Community Grid
+  vars:
+     boinc_auth: "1fa4185037ba9ff7b01be35ef286c547"
+     boinc_url: "www.worldcommunitygrid.org"
+  command:
+    cmd: "boinccmd --project_attach {{boinc_url}} {{boinc_auth}}"
+    chdir: /var/lib/boinc/
+    creates: "/var/lib/boinc/account_{{ boinc_url }}.xml"

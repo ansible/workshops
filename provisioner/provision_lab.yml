@@ -96,6 +96,17 @@
         - towerinstall|bool
         - populatetower
 
+- name: IBM community grid
+  hosts: "control_nodes:managed_nodes"
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: install boinc-client and register
+      include_role:
+        name: community_grid
+
+
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"
 

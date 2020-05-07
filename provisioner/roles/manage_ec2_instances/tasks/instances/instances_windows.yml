@@ -112,6 +112,3 @@
   when:
     - doubleup|bool
     - instance2_output.instance_ids is not none
-
-- fail:
-

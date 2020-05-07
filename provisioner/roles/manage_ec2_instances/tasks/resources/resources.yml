@@ -9,7 +9,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_vpc_one_cidr
   when: (ec2_vpc_id is undefined) and (workshop_type != 'security')
   until: create_vpc_one_cidr is not failed
@@ -27,7 +29,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_vpc_two_cidr
   when: (ec2_vpc_id is undefined) and (workshop_type == 'security')
   until: create_vpc_two_cidr is not failed
@@ -47,7 +51,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
     rules:
       - proto: 47
         to_port: -1
@@ -226,6 +232,8 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Skylight: "This was provisioned through the skylight provisioner"
       Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
     rules:
       - proto: tcp
         from_port: 22
@@ -355,7 +363,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_subnet
   when: ec2_vpc_id is undefined
   until: create_subnet is not failed
@@ -373,7 +383,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_subnet2
   when: (ec2_vpc_id is undefined) and (workshop_type == 'security')
   until: create_subnet2 is not failed
@@ -387,7 +399,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "Total {{student_total}}"
+      Students: "Total {{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: igw
   until: igw is not failed
   retries: 15
@@ -406,7 +420,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: routetable
   until: routetable is not failed
   retries: 5
@@ -436,14 +452,14 @@
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
     mode: '0400'
   when: create_key.changed
 
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:
     msg:
-      - "ec2_name_prefix: {{ec2_name_prefix}}"
+      - "ec2_name_prefix: {{ ec2_name_prefix }}"
       - "ec2_vpc_id: {{ ec2_vpc_id }}"
       - "{{ ec2_name_prefix }}-key: {{ ec2_name_prefix }}-key"
       - "ec2_security_group: {{ ec2_security_group }}"
@@ -453,7 +469,7 @@
 - name: debugging all variables for ec2 instance creation VPC-1 (SECURITY MODE)
   debug:
     msg:
-      - "ec2_name_prefix: {{ec2_name_prefix}}"
+      - "ec2_name_prefix: {{ ec2_name_prefix }}"
       - "ec2_vpc_id: {{ ec2_vpc_id }}"
       - "{{ ec2_name_prefix }}-key: {{ ec2_name_prefix }}-key"
       - "ec2_security_group: {{ ec2_security_group }}"

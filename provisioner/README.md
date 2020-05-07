@@ -71,6 +71,9 @@ towerinstall: true
 
 # automatically licenses Tower if license is provided
 autolicense: true
+
+# IBM Community Grid - defaults to true if you don't tell the provisioner
+ibm_community_grid: false
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).

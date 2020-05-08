@@ -18,4 +18,3 @@
     private_ip: "{{ item.private_ip_address }}"
     groups: attendance
   with_items: "{{ attendance_host_facts.instances }}"
-  

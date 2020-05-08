@@ -13,4 +13,4 @@
   service:
     name: php-fpm
     state: restarted
-    
+

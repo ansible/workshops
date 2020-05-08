@@ -8,6 +8,7 @@
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
 - [解答](#解答)
+- [確認](#確認)
 
 # 目的
 
@@ -46,7 +47,8 @@
 
 ポート **443** をポート **80** に変更します。
 
-このの行を->
+この行を->
+
 {% raw %}
 ``` json
                 "servicePort": 443,
@@ -69,7 +71,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 [student1@ansible ~]$ ansible-playbook as3.yml
 ```
 
-# Playbook Output
+# Playbookの出力
 
 以下は出力の例となります。
 
@@ -90,11 +92,11 @@ f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}
 
-# Solution
+# 解答
 
 修正した Jinja2 テンプレートは [as3_template.j2](./j2/as3_template.j2) から参照できます。
 
-# 解答の確認
+# 確認
 
 Webブラウザを使用してF5にログインし、設定内容を確認します。F5ロードバランサーのIP情報を `lab_inventory/hosts` ファイルから取得し、https://X.X.X.X:8443/のように入力します。
 

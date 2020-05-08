@@ -24,3 +24,4 @@
   vars:
     records: '{{record_sets.ResourceRecordSets | selectattr("Name", "match", "login" + "." + ec2_name_prefix|lower + "." + workshop_dns_zone) | map(attribute="ResourceRecords") | list }}'
   when: records | length > 0
+  

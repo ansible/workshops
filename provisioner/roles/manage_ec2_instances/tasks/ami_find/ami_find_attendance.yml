@@ -12,3 +12,4 @@
   set_fact:
     attendance_host_ami: >
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+      

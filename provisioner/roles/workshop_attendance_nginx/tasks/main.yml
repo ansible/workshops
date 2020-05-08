@@ -34,8 +34,8 @@
 - name: set httpd_unified (selinux)
   seboolean:
     name: "{{ item }}"
-    state: yes
-    persistent: yes
+    state: true
+    persistent: true
   when: ansible_selinux.status is defined and ansible_selinux.status == "enabled"
   with_items:
     - httpd_unified
@@ -46,7 +46,7 @@
   service:
     name: nginx
     state: started
-    enabled: yes
+    enabled: true
 
 - name: setup site config dirs
   file:
@@ -55,8 +55,8 @@
     owner: root
     mode: 0755
   with_items:
-   - sites-available.d
-   - sites-enabled.d
+    - sites-available.d
+    - sites-enabled.d
   notify: restart nginx
 
 - name: main config

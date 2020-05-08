@@ -54,10 +54,10 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
+      Workshop_instance2: "{{ ec2_name_prefix }}-instance2"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='instance1')) }}"
+    user_data: "{{ lookup('template', 'skylight_windows_userdata.j2', template_vars=dict(vm_name='instance2')) }}"
   register: instance2_output
   when: doubleup|bool
 

@@ -23,7 +23,16 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_netapp: "{{ec2_name_prefix}}-netapp"
+      Workshop_netapp: "{{ ec2_name_prefix }}-netapp"
+    instance_tags:
+      Workshop_netapp: "{{ ec2_name_prefix }}-netapp"
+      Workshop: "{{ ec2_name_prefix }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "netapp"
+      username: "{{ ec2_info[rhel].username }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -36,21 +45,13 @@
 - name: Ensure tags are present for netapp_output
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1.id}}"
+    resource: "{{ item.1.id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-netapp"
-      Workshop_netapp: "{{ec2_name_prefix}}-netapp"
-      Workshop: "{{ec2_name_prefix}}"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-netapp"
       Index: "{{ item[0] }}"
-      Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "netapp"
-      username: "{{ec2_info[rhel].username}}"
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ netapp_output.instances }}"
   when: netapp_output.instance_ids is not none

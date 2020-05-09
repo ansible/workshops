@@ -187,7 +187,7 @@ Note how the two variables where used by the playbook to create the content of t
 {% if page.url contains 'ansible_rhel_90' %}
 [Previous Exercise](../1.4-variables) - [Next Exercise](../../ansible_rhel_90/6-system-roles/)
 {% else %}
-[Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
+[Previous Exercise](../2.3-projects) - [Next Exercise](../2.5-rbac)
 {% endif %}
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

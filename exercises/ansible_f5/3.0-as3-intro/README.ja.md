@@ -20,7 +20,7 @@ F5 AS3 を使った virtual server 構築(Section 1 Ansible F5 Exercisesで学�
 
 # Guide
 
-#### BIG-IP の設定がクリーンになっていることを確認し、次に進む前に [演習 2.1 - コンフィグの削除](2.1-delete-configuration/README.ja.md)  を必ず実行してください。
+#### BIG-IP の設定がクリーンになっていることを確認し、次に進む前に [演習 2.1 - コンフィグの削除](../2.1-delete-configuration/README.ja.md)  を必ず実行してください。
 
 ## Step 1:
 

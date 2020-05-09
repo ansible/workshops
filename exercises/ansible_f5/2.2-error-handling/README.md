@@ -261,7 +261,7 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
 
 ## Step 7
 
-Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be identical to [Exercise 1.6 - Deleting F5 BIG-IP Configuration](../1.6-delete-configuration/README.md).  The bigip_pool_member task does not need to re-enterered since by deleting the nodes and pool will remove all configuration. If any task within the **block** fails, the **rescue** stanza will execute in order.  The VIP, pool, and nodes will be removed gracefully.
+Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be identical to [Exercise 2.1 - Deleting F5 BIG-IP Configuration](../2.1-delete-configuration/README.md).  The bigip_pool_member task does not need to re-enterered since by deleting the nodes and pool will remove all configuration. If any task within the **block** fails, the **rescue** stanza will execute in order.  The VIP, pool, and nodes will be removed gracefully.
 
 {% raw %}
 ```yaml

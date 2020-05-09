@@ -28,7 +28,7 @@
 - name: Ensure tags are present for f5 node (F5 MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1 }}"
+    resource: "{{ item.1.id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-f5"
@@ -36,8 +36,8 @@
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
-    - "{{ f5_output.instance_ids }}"
-  when: f5_output.instance_ids is not none
+    - "{{ f5_output.instances }}"
+  when: f5_output.instances is not none
 
 - name: Create EC2 instances for node1 node in VPC (F5 MODE)
   ec2:

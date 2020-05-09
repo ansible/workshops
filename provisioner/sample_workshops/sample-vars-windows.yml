@@ -14,6 +14,8 @@ workshop_type: windows
 doubleup: false
 # password for Ansible control node, defaults to ansible
 admin_password: ansible123
+# adds a form that prompts for name and email to allocate student credentials
+attendance: false
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
 create_login_page: true
 # automatically installs Tower to control node

@@ -71,6 +71,11 @@
     - "{{ control_output.instances }}"
   when: control_output.instance_ids is not none
 
+## create instance that will host login page
+- name: configure attendance host
+  include_tasks: 'attendance.yml'
+  when: attendance|bool
+
 ## find AMI - amazon machine images dynamically
 - name: find correct AMI
   include_tasks: 'ami_find/ami_find_{{workshop_type}}.yml'

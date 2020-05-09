@@ -33,6 +33,9 @@
       - ansible-tower-cli
       - "requests==2.6.0"
     state: latest
+  register: pip_install
+  until: pip_install is not failed
+  retries: 5
 
 - name: wait for Ansible Tower to be up
   uri:

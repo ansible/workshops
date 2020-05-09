@@ -10,4 +10,3 @@
 - name: Configure attendance host
   import_tasks: attendance.yml
   when: not teardown
-

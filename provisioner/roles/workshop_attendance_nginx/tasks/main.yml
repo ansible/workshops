@@ -70,4 +70,3 @@
     src: site.conf.j2
     dest: /etc/nginx/sites-enabled.d/site.conf
   notify: restart nginx
-

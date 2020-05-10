@@ -51,13 +51,10 @@
 
 - name: make sure .ssh is created
   file:
-    path: "/home/{{item}}/.ssh/"
+    path: "/home/{{username}}/.ssh/"
     owner: "{{ username }}"
     group: "{{ username }}"
     state: directory
-  loop:
-    - "{{ansible_user}}"
-    - "{{username}}"
 
 - name: copy over ssh config file
   template:

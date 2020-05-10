@@ -115,7 +115,7 @@
         - populatetower
 
 - name: IBM community grid
-  hosts: "control_nodes:managed_nodes"
+  hosts: "managed_nodes"
   become: true
   gather_facts: false
 
@@ -123,6 +123,9 @@
     - name: install boinc-client and register
       include_role:
         name: community_grid
+      when:
+        - ibm_community_grid is defined
+        - ibm_community_grid
 
 
 - name: include workshop_type unique setup roles

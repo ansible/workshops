@@ -88,8 +88,7 @@ changed: [node2]
 
 プレイブックを書いていると、特定のタスクが実行された時のみ、さらに追加のタスクを実行したい場合があります。たとえば、サービスの更新や設定ファイルを変更した場合に、変更した設定が有効になるようにサービスの再起動が必要となるケースです。  
 
-このような場合にハンドラーを利用します。ハンドラーは、"notify" ステートメントで定義されたタスクが実行された場合にのみ実行される非アクティブタスクです。詳しくはマニュアルをご確認ください。
-[Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change) documentation.
+このような場合にハンドラーを利用します。ハンドラーは、"notify" ステートメントで定義されたタスクが実行された場合にのみ実行される非アクティブタスクです。詳しくは[Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)のマニュアルをご確認ください。
 
 早速演習で試してみましょう。以下のような Playbook を作ります。  
 
@@ -175,7 +174,7 @@ httpd.conf ファイルを再度 "80" に変更し、どうなるか試してみ
 
 ## ステップ 3 - 単純な繰り返し（ループ実行）
 
-ループを使用すると、同じタスクを繰り返し実行することができます。たとえば、複数のユーザーを作成したいとしましょう。Ansible ループを使用すると、単一のタスクでそれを実行できます。ループは、単なるリスト以外にも反復することができます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらに対しても反復することができます。 詳しくはマニュアルをご確認ください [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+ループを使用すると、同じタスクを繰り返し実行することができます。たとえば、複数のユーザーを作成したいとしましょう。Ansible ループを使用すると、単一のタスクでそれを実行できます。ループは、単なるリスト以外にも反復することができます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらに対しても反復することができます。 詳しくは[Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)のマニュアルをご確認ください。
 
 ループの機能を確認してみましょう。 node1 に3人の新しいユーザーを作成します。 `~/ansible-files` ディレクトリの中に、 `loop_users.yml` という名前の playbook を作成します。使用するのは `user` モジュールで、playbook の中身は以下の通りです。  
 

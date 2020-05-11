@@ -20,5 +20,3 @@ attendance: false
 create_login_page: true
 # automatically installs Tower to control node
 towerinstall: true
-# automatically licenses Tower if license is provided
-autolicense: true

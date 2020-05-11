@@ -10,6 +10,5 @@ workshop_type: 'devops'
 admin_password: ansible
 workshop_dns_zone: redhatgov.io
 towerinstall: true
-autolicense: true
 # creates HTML website for workshop
 create_login_page: true

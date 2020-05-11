@@ -85,8 +85,8 @@
       when:
         - not stat_result.stat.exists
   when:
-    - autolicense is defined
-    - autolicense
+    - towerinstall is defined
+    - towerinstall
 
 - name: install product_demos collection
   shell: "{{item}}"

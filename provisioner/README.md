@@ -69,9 +69,6 @@ workshop_dns_zone: rhdemo.io
 # automatically installs Tower to control node
 towerinstall: true
 
-# automatically licenses Tower if license is provided
-autolicense: true
-
 # IBM Community Grid - defaults to true if you don't tell the provisioner
 ibm_community_grid: false
 ```

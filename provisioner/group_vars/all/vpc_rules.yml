@@ -1,3 +1,4 @@
+---
 workshops:
   common:
     ports:
@@ -66,11 +67,6 @@ workshops:
   f5:
     ports:
       - proto: tcp
-        to_port: 8080
-        from_port: 8080
-        cidr_ip: 0.0.0.0/0
-        rule_desc: f5 port
-      - proto: tcp
         to_port: 8081
         from_port: 8081
         cidr_ip: 0.0.0.0/0
@@ -103,16 +99,6 @@ workshops:
       - proto: tcp
         to_port: 8087
         from_port: 8087
-        cidr_ip: 0.0.0.0/0
-        rule_desc: f5 port
-      - proto: tcp
-        to_port: 8088
-        from_port: 8088
-        cidr_ip: 0.0.0.0/0
-        rule_desc: f5 port
-      - proto: tcp
-        to_port: 8089
-        from_port: 8089
         cidr_ip: 0.0.0.0/0
         rule_desc: f5 port
       - proto: tcp

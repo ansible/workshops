@@ -4,15 +4,15 @@
 
 ## Tabla de contenidos
 
-* [Objetivos](#objective)
-* [Guía](#guide)
-* [Paso 1 - Trabaje con su inventario](#step-1---work-with-your-inventory)
-* [Paso 2 - Los archivos de configuración de Ansible](#step-2---the-ansible-configuration-files)
-* [Paso 3 - Ping a un host](#step-3---ping-a-host)
-* [Paso 4 - Listado de módulos y obtención de ayuda](#step-4---listing-modules-and-getting-help)
-* [Paso 5 - Utilice el módulo de comandos:](#step-5---use-the-command-module)
-* [Paso 6 - Los módulos de copiar y de permisos](#step-6---the-copy-module-and-permissions)
-* [Laboratorios de desafío: Módulos](#challenge-lab-modules)
+* [Objetivos](#Objetivos)
+* [Guía](#Guía)
+* [Paso 1 - Trabaje con su inventario](#Paso-1---Trabaje-con-su-inventario)
+* [Paso 2 - Los archivos de configuración de Ansible](#Paso-2---Los-archivos-de-configuración-de-Ansible)
+* [Paso 3 - Ping a un host](#Paso-3---Ping-a-un-host)
+* [Paso 4 - Listado de módulos y obtención de ayuda](#Paso-4---Listado-de-módulos-y-obtención-de-ayuda)
+* [Paso 5 - Utilice el módulo de comandos:](#Paso-5---Utilice-el-módulo-de-comandos)
+* [Paso 6 - Los módulos de copiar y de permisos](#Paso-6---Los-módulos-de-copiar-y-de-permisos)
+* [Laboratorios de desafío: Módulos](#Laboratorios-de-desafío)
 
 # Objetivos
 

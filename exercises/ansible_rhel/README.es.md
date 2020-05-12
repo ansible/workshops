@@ -34,9 +34,9 @@ Si su experiencia es diferente al programar estos talleres, por favor háganoslo
  - [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc/README.es.md)
  - [Ejercicio 1.3 - Escribir su primer Playbook](1.3-playbook/README.es.md)
  - [Ejercicio 1.4 - Uso de Variables](1.4-variables/README.es.md)
- - [Ejercicio 1.5 - Condicionales, controladores y bucles](1.5-handlers)
- - [Ejercicio 1.6 - Plantillas](1.6-templates)
- - [Ejercicio 1.7 - Roles](1.7-role)
+ - [Ejercicio 1.5 - Condicionales, controladores y bucles](1.5-handlers/README.es.md)
+ - [Ejercicio 1.6 - Plantillas](1.6-templates/README.es.md)
+ - [Ejercicio 1.7 - Roles](1.7-role/README.es.md)
 
 ## Sección 2 - Ejercicios de Ansible Tower
 

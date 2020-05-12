@@ -1,0 +1,6 @@
+{{ workshops.common.ports | to_nice_json }}
+{% if workshops[workshop_type] is defined %}
+{% if workshops[workshop_type].ports is defined %}
+{{ workshops[workshop_type].ports | to_nice_json }}
+{% endif %}
+{% endif %}

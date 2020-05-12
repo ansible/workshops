@@ -18,4 +18,5 @@
       - bigsuds
       - netaddr
       - jmespath
+      - lxml
     state: latest

@@ -5,17 +5,6 @@
     port: 8443
     state: present
 
-- name: Wait for API to be Ready
-  bigip_wait:
-    timeout: 300
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
-  delegate_to: localhost
-
 - name: Change BIG-IP F5 mgmt password
   bigip_command:
     provider:
@@ -27,6 +16,17 @@
   register: change_password
   until: change_password is not failed
   retries: 5
+  
+- name: Wait for API to be Ready
+  bigip_wait:
+    timeout: 300
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+  delegate_to: localhost
 
 # The bigip_lx_package requires rpm installed, on macOS use brew rather than pip or it won't work
 - name: Install AS3

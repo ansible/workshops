@@ -4,12 +4,12 @@
 
 ## Tabla de contenidos
 
-* [Objetivos](#objective)
-* [Guía](#guide)
-* [Su entorno de laboratorio](#your-lab-environment)
-* [Paso 1 - Acceso al entorno](#step-1---access-the-environment)
-* [Paso 2 - Trabajar los laboratorios](#step-2---working-the-labs)
-* [Paso 3 - Laboratorios de desafío](#step-3---challenge-labs)
+* [Objetivos](#Objetivos)
+* [Guía](#Guía)
+* [Su entorno de laboratorio](#Su-entorno-de-laboratorio)
+* [Paso 1 - Acceso al entorno](#Paso-1---Acceso-al-entorno)
+* [Paso 2 - Trabajar los laboratorios](#Paso-2---Trabajar-los-laboratorios)
+* [Paso 3 - Laboratorios de desafío](#Paso-3---Laboratorios-de-desafío)
 
 # Objetivos
 

@@ -30,10 +30,10 @@ Si su experiencia es diferente al programar estos talleres, por favor háganoslo
 
 ## Sección 1 - Ejercicios de Ansible Engine
 
- - [Ejercicio 1.1 - Validación de los pre-requisitos](1.1-setup)
- - [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc)
- - [Ejercicio 1.3 - Escribir su primer Playbook](1.3-playbook)
- - [Ejercicio 1.4 - Uso de Variables](1.4-variables)
+ - [Ejercicio 1.1 - Validación de los pre-requisitos](1.1-setup/README.es.md)
+ - [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc/README.es.md)
+ - [Ejercicio 1.3 - Escribir su primer Playbook](1.3-playbook/README.es.md)
+ - [Ejercicio 1.4 - Uso de Variables](1.4-variables/README.es.md)
  - [Ejercicio 1.5 - Condicionales, controladores y bucles](1.5-handlers)
  - [Ejercicio 1.6 - Plantillas](1.6-templates)
  - [Ejercicio 1.7 - Roles](1.7-role)

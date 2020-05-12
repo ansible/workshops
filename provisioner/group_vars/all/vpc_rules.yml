@@ -176,7 +176,7 @@ workshops:
   windows:
   rhel:
   rhel_90:
-  networking:
+  network:
   security:
     ports:
       - proto: tcp

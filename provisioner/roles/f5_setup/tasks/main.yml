@@ -5,18 +5,6 @@
     port: 8443
     state: present
 
-- name: Change BIG-IP F5 mgmt password
-  bigip_command:
-    provider:
-      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-      transport: cli
-      user: admin
-      server: "{{ ansible_host }}"
-    commands: "modify auth user admin password {{admin_password}}"
-  register: change_password
-  until: change_password is not failed
-  retries: 2
-
 - name: Wait for API to be Ready
   bigip_wait:
     timeout: 300
@@ -27,6 +15,18 @@
       server_port: 8443
       server: "{{ ansible_host }}"
   delegate_to: localhost
+
+- name: Change BIG-IP F5 mgmt password
+  bigip_command:
+    provider:
+      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+      transport: cli
+      user: admin
+      server: "{{ ansible_host }}"
+    commands: "modify auth user admin password {{admin_password}}"
+  register: change_password
+  until: change_password is not failed
+  retries: 5
 
 # The bigip_lx_package requires rpm installed, on macOS use brew rather than pip or it won't work
 - name: Install AS3

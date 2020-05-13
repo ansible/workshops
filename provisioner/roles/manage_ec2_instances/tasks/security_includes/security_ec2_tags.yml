@@ -2,22 +2,13 @@
 - name: Ensure tags are present for splunk
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item[1]['id']}}"
+    resource: "{{ item[1]['id'] }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-splunk"
-      Workshop_splunk: "{{ec2_name_prefix}}-splunk"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item[0] + 1 }}-splunk"
       Index: "{{ item[0] }}"
-      Student: "student{{item[0] + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "splunk"
-      username: '{{ec2_info["rhel8"]["username"]}}'
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item[0] + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ siem_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -29,22 +20,13 @@
 - name: Ensure tags are present for qradar
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item[1]['id']}}"
+    resource: "{{ item[1]['id'] }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-qradar"
-      Workshop_qradar: "{{ec2_name_prefix}}-qradar"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item[0] + 1 }}-qradar"
       Index: "{{ item[0] }}"
-      Student: "student{{item[0] + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "qradar"
-      username: '{{ec2_info["rhel8"]["username"]}}'
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item[0] + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ siem_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -63,22 +45,13 @@
 - name: Ensure tags are present for snort
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item[1]['id']}}"
+    resource: "{{ item[1]['id'] }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-snort"
-      Workshop_snort: "{{ec2_name_prefix}}-snort"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item[0] + 1 }}-snort"
       Index: "{{ item[0] }}"
-      Student: "student{{item[0] + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "snort"
-      username: '{{ec2_info["rhel8"]["username"]}}'
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item[0] + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ snort_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -89,22 +62,13 @@
 - name: Ensure tags are present for attack simulation node
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item[1]['id']}}"
+    resource: "{{ item[1]['id'] }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-attacker"
-      Workshop_attacker: "{{ec2_name_prefix}}-attacker"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item[0] + 1 }}-attacker"
       Index: "{{ item[0] }}"
-      Student: "student{{item[0] + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "attacker"
-      username: '{{ec2_info["rhel8"]["username"]}}'
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item[0] + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ attacker_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -116,22 +80,13 @@
 - name: Ensure tags are present for Check Point CloudGuard Security Management node (SECURITY MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item[1]['id']}}"
+    resource: "{{ item[1]['id'] }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint_mgmt"
-      Workshop_checkpoint_mgmt: "{{ec2_name_prefix}}-checkpoint"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item[0] + 1 }}-checkpoint_mgmt"
       Index: "{{ item[0] }}"
-      Student: "student{{item[0] + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "checkpoint_mgmt"
-      username: "{{ec2_info.checkpoint_mgmt.username}}"
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item[0] + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ checkpoint_mgmt_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -144,22 +99,13 @@
 - name: Ensure tags are present for Windows Workstation (SECURITY MODE)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item[1]['id']}}"
+    resource: "{{ item[1]['id'] }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-windows_ws"
-      Workshop_windows: "{{ec2_name_prefix}}-windows"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item[0] + 1 }}-windows_ws"
       Index: "{{ item[0] }}"
-      Student: "student{{item[0] + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "windows_ws"
-      username: "{{ec2_info.windows_ws.username}}"
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item[0] + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ windows_ws_output.instances }}"
   async: "{{ async_timeout_seconds }}"

@@ -1,6 +1,7 @@
 # Atelier - Exécution de commandes Ad-hoc
 
-**Lisez ceci dans d'autres langues**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![fr](../../../images/fr.png) [Français](README.fr.md).
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 
 ## Table des matières
@@ -28,7 +29,7 @@ Cet exercice couvrira
 
 ## Étape 1 - Travailler avec votre inventaire
 
-Pour utiliser Ansible, vous devez fournir un fichier d'inventaire qui définit une liste d'hôtes à gérer. Dans cet atelier, l'inventaire est fourni par votre instructeur. L'inventaire est un fichier au format ini répertoriant vos hôtes, trié en groupes, fournissant en outre certaines variables. 
+Pour utiliser Ansible, vous devez fournir un fichier d'inventaire qui définit une liste d'hôtes à gérer. Dans cet atelier, l'inventaire est fourni par votre instructeur. L'inventaire est un fichier au format ini répertoriant vos hôtes, trié en groupes, fournissant en outre certaines variables.
 Par exemple:
 
 ```bash
@@ -50,7 +51,7 @@ Ansible est déjà configuré pour utiliser l'inventaire spécifique à votre en
 
 Pour référencer les hôtes d'inventaire, vous fournissez un modèle d'hôte à la commande ansible. Ansible a une option `--list-hosts` qui peut être utile pour clarifier quels hôtes gérés sont référencés par le modèle d'hôte dans une commande ansible.
 
-Le modèle d'hôte le plus basique est le nom d'un seul hôte géré répertorié dans le fichier d'inventaire. Cela spécifie que l'hôte sera le seul dans le fichier d'inventaire qui sera traité par la commande ansible. 
+Le modèle d'hôte le plus basique est le nom d'un seul hôte géré répertorié dans le fichier d'inventaire. Cela spécifie que l'hôte sera le seul dans le fichier d'inventaire qui sera traité par la commande ansible.
 Executez:
 
 ```bash
@@ -186,7 +187,7 @@ Obtenez de l'aide pour un module spécifique, y compris des exemples d'utilisati
 
 ## Étape 5 - Utilisation du module commande:
 
-Voyons maintenant comment exécuter une bonne commande Linux à l'ancienne à l'aide du module `command`. 
+Voyons maintenant comment exécuter une bonne commande Linux à l'ancienne à l'aide du module `command`.
 Celui lui ci exécute simplement la commande spécifiée sur un hôte géré:
 
 ```bash
@@ -274,7 +275,7 @@ node1 | CHANGED | rc=0 >>
 Managed by Ansible
 ```
 
-  
+
 Exécutez à nouveau la commande `ansible node1 -m copy…`. Notez:
 
    - La couleur de sortie différente (configuration de terminal appropriée fournie).

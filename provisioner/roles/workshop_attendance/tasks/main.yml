@@ -1,0 +1,12 @@
+---
+- name: Teardown attendance
+  include_tasks: teardown.yml
+  when: teardown|bool
+
+- name: Add route 53 record
+  import_tasks: dns.yml
+  when: not teardown
+
+- name: Configure attendance host
+  import_tasks: attendance.yml
+  when: not teardown

@@ -8,6 +8,7 @@
 - [解説](#解説)
 - [Playbook の出力](#Playbookの出力)
 - [解答](#解答)
+- [確認](#確認)
 
 # 目的
 
@@ -138,7 +139,7 @@
 
 ## Step 6
 
-最後に、[bigip_node](https://docs.ansible.com/ansible/latest/modules/bigip_node_module.html) を使用して最後のタスクを追加します。このタスクは、[演習 1.2 - F5 BIG-IP へのノード追加](1.2-add-node/README.ja.md) に **state** パラメーター `absent` をつけたものと同じです。
+最後に、[bigip_node](https://docs.ansible.com/ansible/latest/modules/bigip_node_module.html) を使用して最後のタスクを追加します。このタスクは、[演習 1.2 - F5 BIG-IP へのノード追加](../1.2-add-node/README.ja.md) に **state** パラメーター `absent` をつけたものと同じです。
 
 {% raw %}
 ```yaml
@@ -221,7 +222,7 @@ f5                         : ok=4    changed=3    unreachable=0    failed=0
 
 完成したPlaybookのサンプルは [bigip-delete-configuration.yml](./bigip-delete-configuration.yml) から参照できます。
 
-# 解答の確認
+# 確認
 
 Webブラウザを使用してF5にログインし、設定内容を確認します。F5ロードバランサーのIP情報を `lab_inventory/hosts` ファイルから取得し、https://X.X.X.X:8443/のように入力します。
 

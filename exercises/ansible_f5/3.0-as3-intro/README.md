@@ -20,7 +20,7 @@ Demonstrate building a virtual server (exactly like the Section 1 Ansible F5 Exe
 
 # Guide
 
-#### Make sure the BIG-IP configuration is clean, run exercise 1.6-delete-configuration before proceeding
+#### Make sure the BIG-IP configuration is clean, run exercise [2.1-delete-configuration](../2.1-delete-configuration/README.md) before proceeding
 
 ## Step 1:
 

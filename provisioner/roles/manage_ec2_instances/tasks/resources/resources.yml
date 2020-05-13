@@ -9,7 +9,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_vpc_one_cidr
   when: (ec2_vpc_id is undefined) and (workshop_type != 'security')
   until: create_vpc_one_cidr is not failed
@@ -27,7 +29,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_vpc_two_cidr
   when: (ec2_vpc_id is undefined) and (workshop_type == 'security')
   until: create_vpc_two_cidr is not failed
@@ -36,6 +40,16 @@
 - name: Set the create_vpc fact with the correct VPC info
   set_fact:
     create_vpc: "{{ create_vpc_one_cidr if create_vpc_one_cidr is not skipped else create_vpc_two_cidr }}"
+
+- name: create file for all AWS security group rules
+  template:
+    src: vpc_rules.j2
+    dest: "{{playbook_dir}}/{{ec2_name_prefix}}/aws_rules.yml"
+  delegate_to: localhost
+  run_once: true
+
+- include_vars:
+    file: "{{playbook_dir}}/{{ec2_name_prefix}}/aws_rules.yml"
 
 - name: Create EC2 security group for VPC named {{ ec2_name_prefix }}-vpc
   ec2_group:
@@ -47,165 +61,10 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-    rules:
-      - proto: 47
-        to_port: -1
-        from_port: -1
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 443
-        from_port: 443
-        cidr_ip: 0.0.0.0/0
-      - proto: icmp
-        to_port: -1
-        from_port: -1
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 80
-        from_port: 80
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 22
-        from_port: 22
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 3389
-        from_port: 3389
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 8888
-        from_port: 8888
-        cidr_ip: 0.0.0.0/0
-        rule_desc: DevOps Sphinx Listener
-      - proto: tcp
-        to_port: 8000
-        from_port: 8000
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 8080
-        from_port: 8080
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 8088
-        from_port: 8088
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 8081
-        from_port: 8081
-        cidr_ip: 0.0.0.0/0
-        rule_desc: DevOps GOGs listener
-      - proto: tcp
-        to_port: 5000
-        from_port: 5000
-        cidr_ip: 0.0.0.0/0
-        rule_desc: DevOps Container Registry
-      - proto: tcp
-        to_port: 8089
-        from_port: 8089
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 8443
-        from_port: 8443
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 830
-        from_port: 830
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 179
-        from_port: 179
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        to_port: 256
-        from_port: 256
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point fetch policy
-      - proto: tcp
-        to_port: 257
-        from_port: 257
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point logging
-      - proto: tcp
-        to_port: 18183
-        from_port: 18183
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point FW1 sam
-      - proto: tcp
-        to_port: 18190
-        from_port: 18190
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point SmartConsole CPMI
-      - proto: tcp
-        to_port: 18191
-        from_port: 18191
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point SIC policy inst
-      - proto: tcp
-        to_port: 18192
-        from_port: 18192
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point SIC get topology
-      - proto: tcp
-        to_port: 18194
-        from_port: 18194
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point temain
-      - proto: tcp
-        to_port: 18202
-        from_port: 18202
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point CP RTM
-      - proto: tcp
-        to_port: 18208
-        from_port: 18208
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point FW1 remote install
-      - proto: tcp
-        to_port: 18209
-        from_port: 18209
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point
-      - proto: tcp
-        to_port: 18210
-        from_port: 18210
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point FW ICA pull
-      - proto: tcp
-        to_port: 18211
-        from_port: 18211
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point SIC ICA push
-      - proto: tcp
-        to_port: 18221
-        from_port: 18221
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point CP redundant
-      - proto: tcp
-        to_port: 18264
-        from_port: 18264
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point FW ICA services
-      - proto: tcp
-        to_port: 18266
-        from_port: 18266
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point seam
-      - proto: tcp
-        to_port: 19009
-        from_port: 19009
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Check Point SmartConsole CPMI
-      - proto: tcp
-        to_port: 5986
-        from_port: 5986
-        cidr_ip: 0.0.0.0/0
-        rule_desc: WinRM
-      - proto: udp
-        to_port: 514
-        from_port: 514
-        cidr_ip: 0.0.0.0/0
-        rule_desc: WinRM
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
+    rules: "{{ all_rules }}"
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0
@@ -226,6 +85,8 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Skylight: "This was provisioned through the skylight provisioner"
       Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
     rules:
       - proto: tcp
         from_port: 22
@@ -255,94 +116,6 @@
         cidr_ip: "{{ ec2_subnet }}"
   when: workshop_type == 'windows'
 
-# - name: Windows | Create Docs Node security group
-#   ec2_group:
-#     name: "{{ ec2_name_prefix }}-docssg"
-#     description: "Docs SG"
-#     vpc_id: "{{ create_vpc.vpc.id }}"
-#     region: "{{ ec2_region }}"
-#     tags:
-#       Username: "{{ aws_user }}"
-#       Info: "Username that provisioned this-> {{ aws_user }}"
-#       Skylight: "This was provisioned through the skylight provisioner"
-#       Students: "{{ student_total }}"
-#     rules:
-#       - proto: tcp
-#         from_port: 80
-#         to_port: 80
-#         cidr_ip: 0.0.0.0/0
-#       - proto: tcp
-#         from_port: 443
-#         to_port: 443
-#         cidr_ip: 0.0.0.0/0
-#       - proto: tcp
-#         from_port: 22
-#         to_port: 22
-#         cidr_ip: 0.0.0.0/0
-#       - proto: all
-#         cidr_ip: "{{ ec2_subnet }}"
-#   when: workshop_type == 'windows'
-
-
-# - name: Windows | Create MS AD Domain Controller security group
-#   ec2_group:
-#     name: "{{ ec2_name_prefix }}-windcsg"
-#     description: "Microsoft AD Domain Controller SG"
-#     vpc_id: "{{ create_vpc.vpc.id }}"
-#     region: "{{ ec2_region }}"
-#     tags:
-#       Username: "{{ aws_user }}"
-#       Info: "Username that provisioned this-> {{ aws_user }}"
-#       Skylight: "This was provisioned through the skylight provisioner"
-#       Students: "{{ student_total }}"
-#     rules:
-#       - proto: tcp
-#         from_port: 5986
-#         to_port: 5986
-#         cidr_ip: "0.0.0.0/0"
-#       - proto: tcp
-#         from_port: 3389
-#         to_port: 3389
-#         cidr_ip: "0.0.0.0/0"
-#       - proto: all
-#         cidr_ip: "{{ ec2_subnet }}"
-#   when: workshop_type == 'windows'
-
-
-# - name: Windows | Create MS Windows security group
-#   ec2_group:
-#     name: "{{ ec2_name_prefix }}-windowssg"
-#     description: "Microsoft Windows SG"
-#     vpc_id: "{{ create_vpc.vpc.id }}"
-#     region: "{{ ec2_region }}"
-#     tags:
-#       Username: "{{ aws_user }}"
-#       Info: "Username that provisioned this-> {{ aws_user }}"
-#       Skylight: "This was provisioned through the skylight provisioner"
-#       Students: "{{ student_total }}"
-#     rules:
-#       - proto: tcp
-#         from_port: 80
-#         to_port: 80
-#         cidr_ip: 0.0.0.0/0
-#       - proto: tcp
-#         from_port: 443
-#         to_port: 443
-#         cidr_ip: 0.0.0.0/0
-#       - proto: tcp
-#         from_port: 5986
-#         to_port: 5986
-#         cidr_ip: "0.0.0.0/0"
-#       - proto: tcp
-#         from_port: 3389
-#         to_port: 3389
-#         cidr_ip: "0.0.0.0/0"
-#       - proto: all
-#         cidr_ip: "{{ ec2_subnet }}"
-#   when: workshop_type == 'windows'
-
-#########################
-
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"
@@ -355,7 +128,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_subnet
   when: ec2_vpc_id is undefined
   until: create_subnet is not failed
@@ -373,7 +148,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: create_subnet2
   when: (ec2_vpc_id is undefined) and (workshop_type == 'security')
   until: create_subnet2 is not failed
@@ -387,7 +164,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "Total {{student_total}}"
+      Students: "Total {{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: igw
   until: igw is not failed
   retries: 15
@@ -406,7 +185,9 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
   register: routetable
   until: routetable is not failed
   retries: 5
@@ -436,14 +217,14 @@
 - name: save private key
   copy:
     content: "{{ create_key.key.private_key }}"
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
     mode: '0400'
   when: create_key.changed
 
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:
     msg:
-      - "ec2_name_prefix: {{ec2_name_prefix}}"
+      - "ec2_name_prefix: {{ ec2_name_prefix }}"
       - "ec2_vpc_id: {{ ec2_vpc_id }}"
       - "{{ ec2_name_prefix }}-key: {{ ec2_name_prefix }}-key"
       - "ec2_security_group: {{ ec2_security_group }}"
@@ -453,7 +234,7 @@
 - name: debugging all variables for ec2 instance creation VPC-1 (SECURITY MODE)
   debug:
     msg:
-      - "ec2_name_prefix: {{ec2_name_prefix}}"
+      - "ec2_name_prefix: {{ ec2_name_prefix }}"
       - "ec2_vpc_id: {{ ec2_vpc_id }}"
       - "{{ ec2_name_prefix }}-key: {{ ec2_name_prefix }}-key"
       - "ec2_security_group: {{ ec2_security_group }}"

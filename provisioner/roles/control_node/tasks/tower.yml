@@ -26,14 +26,6 @@
   async: 1400
   poll: 15
 
-- name: install ansible-tower-cli and requests
-  become: true
-  pip:
-    name:
-      - ansible-tower-cli
-      - "requests==2.6.0"
-    state: latest
-
 - name: wait for Ansible Tower to be up
   uri:
     url: https://localhost/api/v2/ping/
@@ -49,6 +41,14 @@
 - name: Display /api/v2/ping results
   debug:
     msg: '{{ check2.json }}'
+
+- name: install ansible-tower-cli and requests
+  become: true
+  pip:
+    name:
+      - ansible-tower-cli
+      - "requests==2.6.0"
+    state: latest
 
 # This is documented here: https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#preparing-a-new-custom-virtualenv
 - name: Create directory for custom venvs
@@ -96,3 +96,20 @@
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"
     tower_verify_ssl: false
+
+- name: Ensure eula is accepted if posting license
+  command: python -c "import json; license = json.loads(open('{{playbook_dir}}/tower_license.json', 'r').read()); ceula = license.get('eula_accepted'); license['eula_accepted'] = True if not ceula else ceula ; open('{{playbook_dir}}/tower_license.json', 'w').write(json.dumps(license));"
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Post license key
+  uri:
+    url: https://{{ansible_host}}/api/v2/config/
+    method: POST
+    user: admin
+    password: "{{admin_password}}"
+    body: "{{ lookup('file',playbook_dir+'/tower_license.json') }}"
+    body_format: json
+    validate_certs: false
+    force_basic_auth: true

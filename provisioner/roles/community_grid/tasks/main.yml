@@ -4,7 +4,8 @@
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
 
-- package:
+- name: install boinc-client with package module
+  package:
     name:
       - boinc-client
     state: present
@@ -13,12 +14,12 @@
   systemd:
     name: boinc-client
     state: started
-    enabled: yes
+    enabled: true
 
 - name: World Community Grid
   vars:
-     boinc_auth: "1fa4185037ba9ff7b01be35ef286c547"
-     boinc_url: "www.worldcommunitygrid.org"
+    boinc_auth: "1fa4185037ba9ff7b01be35ef286c547"
+    boinc_url: "www.worldcommunitygrid.org"
   command:
     cmd: "boinccmd --project_attach {{boinc_url}} {{boinc_auth}}"
     chdir: /var/lib/boinc/

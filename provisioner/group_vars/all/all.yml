@@ -30,7 +30,9 @@ valid_network_types:
   - juniper
   - multivendor
 doubleup: false
+attendance: false
 security_console: qradar
 valid_security_console_types:
   - splunk
   - qradar
+ibm_community_grid: true

@@ -9,7 +9,17 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_node1: "{{ec2_name_prefix}}-node1"
+      Workshop_node1: "{{ ec2_name_prefix }}-node1"
+    instance_tags:
+      Workshop_node1: "{{ ec2_name_prefix }}-node1"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node1"
+      username: "{{ ec2_info[rhel].username }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -22,22 +32,13 @@
 - name: Ensure tags are present for node1
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1.id}}"
+    resource: "{{ item.1.id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node1"
-      Workshop_node1: "{{ec2_name_prefix}}-node1"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node1"
       Index: "{{ item[0] }}"
-      Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "node1"
-      username: "{{ec2_info[rhel].username}}"
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node1_output.instances }}"
   when: node1_output.instance_ids is not none
@@ -52,7 +53,17 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_node2: "{{ec2_name_prefix}}-node2"
+      Workshop_node2: "{{ ec2_name_prefix }}-node2"
+    instance_tags:
+      Workshop_node2: "{{ ec2_name_prefix }}-node2"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node2"
+      username: "{{ ec2_info[rhel].username }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -65,22 +76,13 @@
 - name: Ensure tags are present for node2
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1.id}}"
+    resource: "{{ item.1.id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node2"
-      Workshop_node2: "{{ec2_name_prefix}}-node2"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node2"
       Index: "{{ item[0] }}"
-      Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "node2"
-      username: "{{ec2_info[rhel].username}}"
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node2_output.instances }}"
   when: node2_output.instance_ids is not none
@@ -95,7 +97,17 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_node3: "{{ec2_name_prefix}}-node3"
+      Workshop_node3: "{{ ec2_name_prefix }}-node3"
+    instance_tags:
+      Workshop_node3: "{{ ec2_name_prefix }}-node3"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node3"
+      username: "{{ ec2_info[rhel].username }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -108,22 +120,13 @@
 - name: Ensure tags are present for node3
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{item.1.id}}"
+    resource: "{{ item.1.id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-node3"
-      Workshop_node3: "{{ec2_name_prefix}}-node3"
-      Workshop: "{{ec2_name_prefix}}"
-      Workshop_type: "{{ workshop_type }}"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node3"
       Index: "{{ item[0] }}"
-      Student: "student{{item.0 + 1}}"
-      AWS_USERNAME: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
-      short_name: "node3"
-      username: "{{ec2_info[rhel].username}}"
-      launch_time: "{{item.1.launch_time}}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node3_output.instances }}"
   when: node3_output.instance_ids is not none

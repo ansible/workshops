@@ -1,7 +1,8 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
 **Leer esto en otros idiomas**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues de Brasil](README.pt-br.md), ![france](../../../images
+<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/col.png) [Español](README.es.md).
+<br>
 
 Ansible es un motor de automatización de TI simple pero potente para la implementación de aplicaciones, la administración de la configuración y la orquestación que puede aprender rápidamente.
 
@@ -31,13 +32,13 @@ Si su experiencia es diferente al programar estos talleres, por favor háganoslo
 
 ## Sección 1 - Ejercicios de Ansible Engine
 
- - [Ejercicio 1.1 - Validación de los pre-requisitos](1.1-setup)
- - [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc)
- - [Ejercicio 1.3 - Escribir su primer Playbook](1.3-playbook)
- - [Ejercicio 1.4 - Uso de Variables](1.4-variables)
- - [Ejercicio 1.5 - Condicionales, controladores y bucles](1.5-handlers)
- - [Ejercicio 1.6 - Plantillas](1.6-templates)
- - [Ejercicio 1.7 - Roles](1.7-role)
+ - [Ejercicio 1.1 - Validación de los pre-requisitos](1.1-setup/README.es.md)
+ - [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc/README.es.md)
+ - [Ejercicio 1.3 - Escribir su primer Playbook](1.3-playbook/README.es.md)
+ - [Ejercicio 1.4 - Uso de Variables](1.4-variables/README.es.md)
+ - [Ejercicio 1.5 - Condicionales, controladores y bucles](1.5-handlers/README.es.md)
+ - [Ejercicio 1.6 - Plantillas](1.6-templates/README.es.md)
+ - [Ejercicio 1.7 - Roles](1.7-role/README.es.md)
 
 ## Sección 2 - Ejercicios de Ansible Tower
 

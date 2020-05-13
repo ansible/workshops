@@ -1,0 +1,72 @@
+---
+- name: setup repo
+  copy:
+    src: nginx.repo
+    dest: /etc/yum.repos.d/nginx.repo
+
+- name: selinux bindings RHEL7
+  package:
+    name:
+      - libsemanage-python
+      - libselinux-python
+    state: present
+  when:
+    - ansible_selinux.status is defined
+    - ansible_selinux.status == "enabled"
+    - ansible_distribution_major_version|int < 8
+
+- name: selinux bindings RHEL8
+  package:
+    name:
+      - policycoreutils-python-utils
+      - python3-libselinux
+    state: present
+  when:
+    - ansible_selinux.status is defined
+    - ansible_selinux.status == "enabled"
+    - ansible_distribution_major_version|int == 8
+
+- name: install nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: set httpd_unified (selinux)
+  seboolean:
+    name: "{{ item }}"
+    state: true
+    persistent: true
+  when: ansible_selinux.status is defined and ansible_selinux.status == "enabled"
+  with_items:
+    - httpd_unified
+    - httpd_can_network_connect
+    - httpd_can_network_relay
+
+- name: enable at startup
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: setup site config dirs
+  file:
+    dest: /etc/nginx/{{ item }}
+    state: directory
+    owner: root
+    mode: 0755
+  with_items:
+    - sites-available.d
+    - sites-enabled.d
+  notify: restart nginx
+
+- name: main config
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: site enabled config
+  template:
+    src: site.conf.j2
+    dest: /etc/nginx/sites-enabled.d/site.conf
+  notify: restart nginx

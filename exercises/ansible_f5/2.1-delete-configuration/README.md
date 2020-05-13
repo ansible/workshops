@@ -8,6 +8,7 @@
 - [Guide](#guide)
 - [Playbook Output](#playbook-output)
 - [Solution](#solution)
+- [Verifying the Solution](#verifying-the-solution)
 
 # Objective
 
@@ -119,7 +120,7 @@ Next, add the second `task` using the [bigip_pool](https://docs.ansible.com/ansi
 
 ## Step 6
 
-Finally, add the last `task` using the [bigip_node](https://docs.ansible.com/ansible/latest/modules/bigip_node_module.html).  This task will be identical to [Exercise 1.2 - Adding nodes to F5 BIG-IP](1.2-add-node) with an additional **state** parameter set to `absent`.
+Finally, add the last `task` using the [bigip_node](https://docs.ansible.com/ansible/latest/modules/bigip_node_module.html).  This task will be identical to [Exercise 1.2 - Adding nodes to F5 BIG-IP](../1.2-add-node/README.md) with an additional **state** parameter set to `absent`.
 
 {% raw %}
 ```yaml

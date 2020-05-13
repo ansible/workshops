@@ -1,0 +1,20 @@
+---
+- name: grab facts for attendance host
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_attendance": "{{ec2_name_prefix}}-attendance"
+  register: attendance_host_facts
+
+- name: Add new instance to host group
+  add_host:
+    hostname: 'attendance-host'
+    short_name: "{{ item.tags.short_name }}"
+    username: "{{ item.tags.username }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+    ansible_host: "{{ item.public_ip_address }}"
+    private_ip: "{{ item.private_ip_address }}"
+    groups: attendance
+  with_items: "{{ attendance_host_facts.instances }}"

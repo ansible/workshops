@@ -9,7 +9,17 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_qradar: "{{ec2_name_prefix}}-qradar"
+      Workshop_qradar: "{{ ec2_name_prefix }}-qradar"
+    instance_tags:
+      Workshop_qradar: "{{ ec2_name_prefix }}-qradar"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "qradar"
+      username: '{{ ec2_info["rhel8"]["username"] }}'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -32,7 +42,17 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_splunk: "{{ec2_name_prefix}}-splunk"
+      Workshop_splunk: "{{ ec2_name_prefix }}-splunk"
+    instance_tags:
+      Workshop_splunk: "{{ ec2_name_prefix }}-splunk"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "splunk"
+      username: '{{ ec2_info["rhel8"]["username"] }}'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -62,7 +82,17 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_snort: "{{ec2_name_prefix}}-snort"
+      Workshop_snort: "{{ ec2_name_prefix }}-snort"
+    instance_tags:
+      Workshop_snort: "{{ ec2_name_prefix }}-snort"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "snort"
+      username: '{{ ec2_info["rhel8"]["username"] }}'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -84,7 +114,17 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_attacker: "{{ec2_name_prefix}}-attacker"
+      Workshop_attacker: "{{ ec2_name_prefix }}-attacker"
+    instance_tags:
+      Workshop_attacker: "{{ ec2_name_prefix }}-attacker"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "attacker"
+      username: '{{ ec2_info["rhel8"]["username"] }}'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -107,7 +147,17 @@
     exact_count: "{{ student_total }}"
     user_data: "{{ lookup('template', 'gaia-mgmt-ftw-user-data.sh.j2') }}"
     count_tag:
-      Workshop_checkpoint_mgmt: "{{ec2_name_prefix}}-checkpoint"
+      Workshop_checkpoint_mgmt: "{{ ec2_name_prefix }}-checkpoint"
+    instance_tags:
+      Workshop_checkpoint_mgmt: "{{ ec2_name_prefix }}-checkpoint"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "checkpoint_mgmt"
+      username: "{{ ec2_info.checkpoint_mgmt.username }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   async: "{{ async_timeout_seconds }}"
@@ -125,7 +175,17 @@
     exact_count: "{{ student_total }}"
     user_data: "{{ lookup('template', 'windows_userdata.txt.j2') }}"
     count_tag:
-      Workshop_windows: "{{ec2_name_prefix}}-windows"
+      Workshop_windows: "{{ ec2_name_prefix }}-windows"
+    instance_tags:
+      Workshop_windows: "{{ ec2_name_prefix }}-windows"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "windows_ws"
+      username: "{{ ec2_info.windows_ws.username }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   async: "{{ async_timeout_seconds }}"

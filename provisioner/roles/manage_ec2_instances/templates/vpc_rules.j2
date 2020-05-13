@@ -1,0 +1,10 @@
+{
+  "all_rules":
+  {% if workshops[workshop_type] is defined %}
+  {% if workshops[workshop_type].ports is defined %}
+  {{ (workshops.common.ports + workshops[workshop_type].ports) | to_nice_json }}
+  {% else %}
+  {{ workshops.common.ports | to_nice_json }}
+  {% endif %}
+  {% endif %}
+}

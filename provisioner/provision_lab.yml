@@ -22,6 +22,24 @@
   roles:
     - manage_ec2_instances
 
+- name: Configure nginx on attendance host
+  hosts: attendance
+  become: true
+  gather_facts: true
+  roles:
+    - role: workshop_attendance_nginx
+      when:
+        - attendance|bool
+
+- name: Configure attendance host
+  hosts: attendance
+  become: true
+  gather_facts: true
+  roles:
+    - role: workshop_attendance
+      when:
+        - attendance|bool
+
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes"
   become: true
@@ -97,7 +115,7 @@
         - populatetower
 
 - name: IBM community grid
-  hosts: "control_nodes:managed_nodes"
+  hosts: "managed_nodes"
   become: true
   gather_facts: false
 
@@ -105,6 +123,9 @@
     - name: install boinc-client and register
       include_role:
         name: community_grid
+      when:
+        - ibm_community_grid is defined
+        - ibm_community_grid
 
 
 - name: include workshop_type unique setup roles

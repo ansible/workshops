@@ -1,7 +1,7 @@
 # Workshop - Roles: Hacer que tus playbooks sean reutilizables
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md),![Español](../../../images/col.png)[Español](README.es.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table of Contents
 
@@ -292,6 +292,6 @@ simple vhost index
 ----
 **Navegación**
 <br>
-[Ejercicio anterior](../1.6-templates) 
+[Ejercicio anterior](../1.6-templates)
 
 [Haga clic aquí para volver al Taller Ansible for Red Hat Enterprise Linux](../README.md#section-1---ansible-engine-exercises)

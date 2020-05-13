@@ -1,26 +1,31 @@
 ---
-- name: Install EPEL
-  dnf:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-    state: present
+- name: initiation boinc-client installation and registration
+  block:
+    - name: Install EPEL
+      dnf:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+        state: present
 
-- name: install boinc-client with package module
-  package:
-    name:
-      - boinc-client
-    state: present
+    - name: install boinc-client with package module
+      package:
+        name:
+          - boinc-client
+        state: present
 
-- name: enable and start boinc-client
-  systemd:
-    name: boinc-client
-    state: started
-    enabled: true
+    - name: enable and start boinc-client
+      systemd:
+        name: boinc-client
+        state: started
+        enabled: true
 
-- name: World Community Grid
-  vars:
-    boinc_auth: "1fa4185037ba9ff7b01be35ef286c547"
-    boinc_url: "www.worldcommunitygrid.org"
-  command:
-    cmd: "boinccmd --project_attach {{boinc_url}} {{boinc_auth}}"
-    chdir: /var/lib/boinc/
-    creates: "/var/lib/boinc/account_{{ boinc_url }}.xml"
+    - name: World Community Grid
+      vars:
+        boinc_auth: "1fa4185037ba9ff7b01be35ef286c547"
+        boinc_url: "www.worldcommunitygrid.org"
+      command:
+        cmd: "boinccmd --project_attach {{boinc_url}} {{boinc_auth}}"
+        chdir: /var/lib/boinc/
+        creates: "/var/lib/boinc/account_{{ boinc_url }}.xml"
+  rescue:
+    - debug:
+        msg: 'community grid role has failed, continuing workshop'

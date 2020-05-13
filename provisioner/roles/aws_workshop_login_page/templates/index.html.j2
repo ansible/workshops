@@ -388,8 +388,16 @@ $("document").ready(function(){
         </div>
     </div>
 </section>
-
-
+{% if attendance %}
+<div class="attendance">
+<section>
+  <div class="container">
+  Not sure which workbench you are assigned to?  Please go here:
+  <a href="http://login.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}">http://login.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}</a>
+  </div>
+</section>
+</div>
+{% endif %}
 <section>
     <div class="container">
         <div class="row">

@@ -1,6 +1,7 @@
 # Workshop - Uso de variables
 
-**Leer esto en otros idiomas**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md), ![Español](../../../images/col.png)[Español](README.es.md).
+**Leer esto en otros idiomas**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Tabla de contenidos
 
@@ -26,7 +27,7 @@ Este ejercicio abarca variables, específicamente
 
 # Guía
 
-## Introducción a variables 
+## Introducción a variables
 
 Se hace referencia a las variables en Playbooks colocando el nombre de la variable entre llaves dobles:
 
@@ -183,7 +184,7 @@ O qué pasa con sólo buscar facts relacionados con la memoria:
 
 > **Consejo**
 >
-> Utilice grep para encontrar el facts y, a continuación, aplique un filtro para imprimir solo este fact. 
+> Utilice grep para encontrar el facts y, a continuación, aplique un filtro para imprimir solo este fact.
 
 > **Advertencia**
 >

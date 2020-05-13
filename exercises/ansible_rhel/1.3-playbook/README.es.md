@@ -1,6 +1,7 @@
 # Workshop - Escribir su primer Playbook
 
-**Leer esto en otros idiomas**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md), ![Español](../../../images/col.png)[Español](README.es.md).
+**Leer esto en otros idiomas**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Tabla de contenidos
 
@@ -45,7 +46,7 @@ Los Playbooks son archivos de texto escritos en formato YAML y por lo tanto nece
   - empezar con tres guiones (`---`)
 
   - sangría adecuada utilizando espacios y **no** tabuladores\!
-  
+
 
 Hay algunos conceptos importantes:
 
@@ -184,7 +185,7 @@ Version     : 2.4.6
 
 Ejecute el Playbook una segunda vez y compare la salida: la salida ha cambiado de "changed" a "ok", y el color cambió de amarillo a verde. También el "PLAY RECAP" es diferente ahora. Esto hace que sea fácil detectar lo que Ansible realmente hizo.
 
-## Paso 4 - Extiende tu Playbook: Iniciar &amp; Habilitar Apache 
+## Paso 4 - Extiende tu Playbook: Iniciar &amp; Habilitar Apache
 
 La siguiente parte del Ansible Playbook se asegura de que la aplicación Apache esté habilitada e iniciada en `node1`.
 
@@ -214,7 +215,7 @@ Una vez más: lo que hacen estas líneas es fácil de entender:
 
   - se especifica un módulo (`service`)
 
-  - se suministran los parámetros del módulo 
+  - se suministran los parámetros del módulo
 
 Por lo tanto, con la segunda tarea nos aseguramos de que el servidor Apache se está ejecutando en la máquina de destino. Ejecuta tu Playbook extendido:
 
@@ -223,7 +224,7 @@ Por lo tanto, con la segunda tarea nos aseguramos de que el servidor Apache se e
 ```
 Tenga en cuenta la salida ahora: Algunas tareas se muestran como "ok" en verde y una se muestra como "changed" en amarillo.
   - Utilice un comando Ansible ad hoc de nuevo para asegurarse de que Apache se ha habilitado e iniciado, por ejemplo, con: `systemctl status httpd`.
-  
+
   - Ejecutar el Playbook una segunda vez para acostumbrarse a los cambios en la salida del comando.
 
 ## Paso 5 - Extiende tu Playbook: Crear un web.html

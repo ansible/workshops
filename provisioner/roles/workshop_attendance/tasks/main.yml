@@ -10,3 +10,9 @@
 - name: Configure attendance host
   import_tasks: attendance.yml
   when: not teardown
+
+- name: set information for instructor
+  set_fact:
+    login_website_information: "Auto-Assignment website located at http://login.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}"
+  delegate_to: localhost
+  run_once: true

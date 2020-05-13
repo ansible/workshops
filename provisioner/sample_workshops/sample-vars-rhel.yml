@@ -12,7 +12,5 @@ workshop_type: rhel
 admin_password: ansible
 # turn DNS on for control nodes, and set to type in valid_dns_type
 dns_type: aws
-# creates HTML website for workshop
-create_login_page: true
 # this will install Ansible Tower on all control nodes
 towerinstall: true

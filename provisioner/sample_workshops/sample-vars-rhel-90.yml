@@ -12,10 +12,6 @@ workshop_type: rhel_90
 admin_password: ansible
 # turn DNS on for control nodes, and set to type in valid_dns_type
 dns_type: aws
-# creates HTML website for workshop
-create_login_page: true
-# when towerinstall is on, this will license it with provided license
-autolicense: true
 # this will install Ansible Tower on all control nodes
 towerinstall: true
 # this will install all demos from github.com/ansible/product-demos that work for this workshop type

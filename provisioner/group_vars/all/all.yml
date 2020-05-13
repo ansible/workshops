@@ -30,7 +30,8 @@ valid_network_types:
   - juniper
   - multivendor
 doubleup: false
-attendance: false
+create_login_page: true
+attendance: true
 security_console: qradar
 valid_security_console_types:
   - splunk

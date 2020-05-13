@@ -1,7 +1,7 @@
 # Workshop - Inventarios, credenciales y comandos ad hoc
 
 **Lee esto en otros idiomas**:
-<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png)[Française](README.fr.md)![Español](../../../images/col.png)[Español](README.es.md).
+<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 
 ## Tabla de contenidos
@@ -109,7 +109,7 @@ También es posible ejecutar comandos ad hoc desde Ansible Tower.
   </table>
 
   - Haga clic en **LAUNCH** y observe la salida.
-  
+
 
 <hr>
 
@@ -137,7 +137,7 @@ El módulo simple **ping** no necesita opciones. Para otros módulos, debe propo
 
 <hr>
 
-¿Qué tal si tratamos de obtener información secreta del sistema? Intente imprimir */etc/shadow*. 
+¿Qué tal si tratamos de obtener información secreta del sistema? Intente imprimir */etc/shadow*.
 
 
 <table>
@@ -196,7 +196,7 @@ Bien, un pequeño desafío: Ejecuta un comando ad hoc para asegurarte de que el 
 
 > **Consejo**
 >
-> La salida amarilla del comando indica que Ansible ha hecho algo (aquí se necesita instalar el paquete). Si ejecuta el comando ad hoc por segunda vez, la salida será verde e informará de que el paquete ya estaba instalado. Así que el amarillo en Ansible no significa "tener cuidado"... ;-). 
+> La salida amarilla del comando indica que Ansible ha hecho algo (aquí se necesita instalar el paquete). Si ejecuta el comando ad hoc por segunda vez, la salida será verde e informará de que el paquete ya estaba instalado. Así que el amarillo en Ansible no significa "tener cuidado"... ;-).
 
 
 ----

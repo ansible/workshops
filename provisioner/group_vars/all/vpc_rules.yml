@@ -1,0 +1,261 @@
+---
+workshops:
+  common:
+    ports:
+      - proto: 47
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 443
+        from_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: icmp
+        to_port: -1
+        from_port: -1
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 80
+        from_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 22
+        from_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 3389
+        from_port: 3389
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8000
+        from_port: 8000
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8080
+        from_port: 8080
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8088
+        from_port: 8088
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8089
+        from_port: 8089
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 8443
+        from_port: 8443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 830
+        from_port: 830
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 179
+        from_port: 179
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        to_port: 5986
+        from_port: 5986
+        cidr_ip: 0.0.0.0/0
+        rule_desc: WinRM
+      - proto: udp
+        to_port: 514
+        from_port: 514
+        cidr_ip: 0.0.0.0/0
+        rule_desc: WinRM
+  f5:
+    ports:
+      - proto: tcp
+        to_port: 8081
+        from_port: 8081
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8082
+        from_port: 8082
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8083
+        from_port: 8083
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8084
+        from_port: 8084
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8085
+        from_port: 8085
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8086
+        from_port: 8086
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8087
+        from_port: 8087
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8090
+        from_port: 8090
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8091
+        from_port: 8091
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8092
+        from_port: 8092
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8093
+        from_port: 8093
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8094
+        from_port: 8094
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8095
+        from_port: 8095
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8096
+        from_port: 8096
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8097
+        from_port: 8097
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8098
+        from_port: 8098
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8099
+        from_port: 8099
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+      - proto: tcp
+        to_port: 8100
+        from_port: 8100
+        cidr_ip: 0.0.0.0/0
+        rule_desc: f5 port
+  devops:
+    ports:
+      - proto: tcp
+        to_port: 8888
+        from_port: 8888
+        cidr_ip: 0.0.0.0/0
+        rule_desc: DevOps Sphinx Listener
+      - proto: tcp
+        to_port: 8081
+        from_port: 8081
+        cidr_ip: 0.0.0.0/0
+        rule_desc: DevOps GOGs listener
+      - proto: tcp
+        to_port: 5000
+        from_port: 5000
+        cidr_ip: 0.0.0.0/0
+        rule_desc: DevOps Container Registry
+  windows:
+  rhel:
+  rhel_90:
+  network:
+  security:
+    ports:
+      - proto: tcp
+        to_port: 256
+        from_port: 256
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point fetch policy
+      - proto: tcp
+        to_port: 257
+        from_port: 257
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point logging
+      - proto: tcp
+        to_port: 18183
+        from_port: 18183
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW1 sam
+      - proto: tcp
+        to_port: 18190
+        from_port: 18190
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SmartConsole CPMI
+      - proto: tcp
+        to_port: 18191
+        from_port: 18191
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SIC policy inst
+      - proto: tcp
+        to_port: 18192
+        from_port: 18192
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SIC get topology
+      - proto: tcp
+        to_port: 18194
+        from_port: 18194
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point temain
+      - proto: tcp
+        to_port: 18202
+        from_port: 18202
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point CP RTM
+      - proto: tcp
+        to_port: 18208
+        from_port: 18208
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW1 remote install
+      - proto: tcp
+        to_port: 18209
+        from_port: 18209
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point
+      - proto: tcp
+        to_port: 18210
+        from_port: 18210
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW ICA pull
+      - proto: tcp
+        to_port: 18211
+        from_port: 18211
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SIC ICA push
+      - proto: tcp
+        to_port: 18221
+        from_port: 18221
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point CP redundant
+      - proto: tcp
+        to_port: 18264
+        from_port: 18264
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point FW ICA services
+      - proto: tcp
+        to_port: 18266
+        from_port: 18266
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point seam
+      - proto: tcp
+        to_port: 19009
+        from_port: 19009
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Check Point SmartConsole CPMI

@@ -2,6 +2,7 @@ secrets.yml
 users.yml
 extra_vars.yml
 *.txt
+aws_rules.yml
 !test-requirements.txt
 !bindep.txt
 *.vagrant

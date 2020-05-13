@@ -16,7 +16,8 @@
   register: change_password
   until: change_password is not failed
   retries: 5
-  
+  delay: 10
+
 - name: Wait for API to be Ready
   bigip_wait:
     timeout: 300

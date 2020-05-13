@@ -13,13 +13,6 @@
 
 - name: set information for instructor
   set_fact:
-    login_website_information: |
-      - Auto-Assignment website located at http://login.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}
-  delegate_to: localhost
-  run_once: true
-
-- name: print website info
-  debug:
-    msg: "The auto-assignment website information is {{login_website_information}}"
+    login_website_information: "Auto-Assignment website located at http://login.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}"
   delegate_to: localhost
   run_once: true

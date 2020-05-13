@@ -163,8 +163,8 @@
           - Workshop name is {{ec2_name_prefix}}
           - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
           - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
-          {{website_information}}
-          {{hostvars['attendance-host'].login_website_information}}
+          - {{website_information}}
+          - {{hostvars['attendance-host'].login_website_information}}
 
           FAILURES
           *******************

@@ -101,10 +101,10 @@ Il est également possible d'exécuter des commandes ad hoc à partir d'Ansible 
     </tr>
     <tr>
       <td>MODULE</td>
-      <td>MACHINE CREDENTIAL</td>
+      <td>ping</td>
     </tr>
     <tr>
-      <td>ping</td>
+      <td>MACHINE CREDENTIAL</td>
       <td>Workshop Credentials</td>
     </tr>
   </table>

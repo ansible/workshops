@@ -146,7 +146,7 @@ A continuación, agregamos dos tareas más para garantizar una estructura de dir
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
 <!-- {% endraw %} -->
 

@@ -100,10 +100,10 @@ También es posible ejecutar comandos ad hoc desde Ansible Tower.
     </tr>
     <tr>
       <td>MODULE</td>
-      <td>MACHINE CREDENTIAL</td>
+      <td>ping</td>
     </tr>
     <tr>
-      <td>ping</td>
+      <td>MACHINE CREDENTIAL</td>
       <td>Workshop Credentials</td>
     </tr>
   </table>

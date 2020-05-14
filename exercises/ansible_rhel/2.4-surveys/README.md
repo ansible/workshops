@@ -74,7 +74,7 @@ Now you create a new Template that includes a survey.
   </tr>
   <tr>
     <td>INVENTORY</td>
-    <td>Webserver</td>
+    <td>Workshop Inventory</td>
   </tr>
   <tr>
     <td>Project</td>

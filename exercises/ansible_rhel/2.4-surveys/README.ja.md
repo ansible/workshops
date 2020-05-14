@@ -71,7 +71,7 @@ Github UIに移動して、 `apache_role_install.yml` の中身を見てみて�
 
 - **ジョブタイプ:** 実行
 
-- **インベントリー:** Webserver
+- **インベントリー:** Workshop Inventory
 
 - **プロジェクト:** Ansible Workshop Examples  
 

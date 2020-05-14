@@ -62,7 +62,7 @@ Tente você mesmo.
 
 - **JOB TYPE:** Run
 
-- **INVENTORY:** Webserver
+- **INVENTORY:** Workshop Inventory
 
 - **Project:** Exemplo Ansible Workshop
 

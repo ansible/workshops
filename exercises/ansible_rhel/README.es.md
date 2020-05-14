@@ -42,13 +42,13 @@ Si su experiencia es diferente al programar estos talleres, por favor háganoslo
 
 ## Sección 2 - Ejercicios de Ansible Tower
 
- - [Ejercicio 2.1 - Introducción a Tower](2.1-intro)
- - [Ejercicio 2.2 - Inventarios, credenciales y comandos ad hoc](2.2-cred)
- - [Ejercicio 2.3 - Proyectos y plantillas de trabajo](2.3-projects)
- - [Ejercicio 2.4 - Encuestas](2.4-surveys)
- - [Ejercicio 2.5 - Control de acceso basado en roles](2.5-rbac)
- - [Ejercicio 2.6 - Flujos de trabajo](2.6-workflows)
- - [Ejercicio 2.7 - Conclusión](2.7-wrap)
+ - [Ejercicio 2.1 - Introducción a Tower](2.1-intro/README.es.md)
+ - [Ejercicio 2.2 - Inventarios, credenciales y comandos ad hoc](2.2-cred/README.es.md)
+ - [Ejercicio 2.3 - Proyectos y plantillas de trabajo](2.3-projects/README.es.md)
+ - [Ejercicio 2.4 - Encuestas](2.4-surveys/README.es.md)
+ - [Ejercicio 2.5 - Control de acceso basado en roles](2.5-rbac/README.es.md)
+ - [Ejercicio 2.6 - Flujos de trabajo](2.6-workflows/README.es.md)
+ - [Ejercicio 2.7 - Conclusión](2.7-wrap/README.es.md)
 
 ##  Ejercicios Suplementarios
 

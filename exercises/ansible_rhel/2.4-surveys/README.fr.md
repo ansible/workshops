@@ -89,7 +89,7 @@ Essayez par vous-même, la solution est ci-dessous.
   </tr>
   <tr>
     <td>INVENTAIRE</td>
-    <td>Webserver</td>
+    <td>Workshop Inventory</td>
   </tr>
   <tr>
     <td>PROJET</td>

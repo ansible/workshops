@@ -63,13 +63,11 @@
 
     - name: SET WEBSITE INFORMATION VARIABLE
       set_fact:
-        website_information: |
-          - Website created at http://{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}
+        website_information: "Website created at http://{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}"
   rescue:
     - debug:
         msg: 'issue with S3 website'
 
     - name: provide error information
       set_fact:
-        dns_information: |
-          - aws_workshop_login_page role hit an issue
+        dns_information: "aws_workshop_login_page role hit an issue"

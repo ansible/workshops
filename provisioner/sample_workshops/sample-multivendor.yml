@@ -8,4 +8,3 @@ student_total: 2
 workshop_type: network
 ## Optional Variables
 dns_type: aws
-create_login_page: true

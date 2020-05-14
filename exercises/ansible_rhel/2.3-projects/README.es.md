@@ -1,7 +1,7 @@
 # Workshop - Proyectos y plantillas de trabajo
 
 **Lee esto en otros idiomas***:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md),![Español](../../../images/col.png)[Español](README.es.md)
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Tabla de contenidos
 
@@ -77,7 +77,7 @@ Para configurar y utilizar este repositorio como un **Sistema de Control de Cód
 ## Crear el proyecto
 
   - Ir a **RESOURCES → Projects** en la vista de menú lateral haga clic en el botón verde **+**. Rellene el formulario
-  
+
   <table>
     <tr>
       <th>Parámetro</th>

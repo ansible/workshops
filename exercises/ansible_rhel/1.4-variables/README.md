@@ -135,22 +135,28 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 
 ## Step 4 - Test the Result
 
-The Playbook should copy different files as index.html to the hosts, use `curl` to test it. Check the inventory again if you forgot the IP addresses of your nodes.
+The Ansible Playbook copies different files as index.html to the hosts, use `curl` to test it.
 
-```bash
-[student<X>@ansible ansible-files]$ grep node ~/lab_inventory/hosts
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
-[student<X>@ansible ansible-files]$ curl http://11.22.33.44
+For node1:
+```
+[student<X>@ansible ansible-files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
-[student1@ansible ansible-files]$ curl http://22.33.44.55
+```
+
+For node2:
+
+```
+[student1@ansible ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
-[student1@ansible ansible-files]$ curl http://33.44.55.66
+```
+
+For node3:
+```
+[student1@ansible ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>

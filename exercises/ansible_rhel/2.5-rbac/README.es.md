@@ -1,7 +1,7 @@
 # Workshop - Control de acceso basado en roles
 
 **Lee esto en otros idiomas**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md),![Español](../../../images/col.png)[Español](README.es.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Tabla de contenidos:
 
@@ -146,7 +146,7 @@ Compruebe el resultado: ejecute `curl` de nuevo en el host de control para extra
 $ curl http://22.33.44.55
 ```
 
-Sólo recuerda lo que acabas de hacer: has habilitado a un usuario restringido para ejecutar un Playbook de Ansible 
+Sólo recuerda lo que acabas de hacer: has habilitado a un usuario restringido para ejecutar un Playbook de Ansible
 
   - Sin tener acceso a las credenciales
 

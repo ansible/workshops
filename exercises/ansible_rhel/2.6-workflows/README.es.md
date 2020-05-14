@@ -1,7 +1,7 @@
 # Workshop - Flujos de trabajo
 
-****Lee esto en otros idiomas****:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md) ![Español](../../../images/col.png)[Español](README.es.md).
+**Lee esto en otros idiomas**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Tabla de contenidos
 
@@ -278,7 +278,7 @@ Después de guardar la plantilla, se abre el **Workflow Visualizer** para permit
   - Haga clic en **SAVE** en la vista **WORKFLOW VISUALIZER**
 
   - Haga clic en **SAVE** en la vista **Workflow Template**
-  
+
 > **Consejo**
 >
 > El **Workflow Visualizer** tiene opciones para configurar flujos de trabajo más avanzados, consulte la documentación.

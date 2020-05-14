@@ -1,7 +1,7 @@
 # Workshop - Encuestas
 
 **Lee esto en otros idiomas**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md),![Español](../../../images/col.png)[Español](README.es.md)
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Tabla de contenidos
 
@@ -63,9 +63,9 @@ Ahora creará una nueva plantilla que incluye una encuesta.
 
 - Configurar la plantilla para:
 
-    - Utilice el **Project** `Ansible Workshop Examples` 
+    - Utilice el **Project** `Ansible Workshop Examples`
 
-    - Utilice el **Playbook** `apache_role_install.yml` 
+    - Utilice el **Playbook** `apache_role_install.yml`
 
     - Para ejecutar en `node1`
 
@@ -93,7 +93,7 @@ Inténtalo por ti mismo, la solución está a continuación.
   </tr>
   <tr>
     <td>INVENTORY</td>
-    <td>Webserver</td>
+    <td>Workshop Inventory</td>
   </tr>
   <tr>
     <td>Project</td>

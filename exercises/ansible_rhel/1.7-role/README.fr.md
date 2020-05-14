@@ -284,7 +284,7 @@ Vous êtes maintenant prêt à exécuter votre playbook:
 Exécutez une commande curl contre `node2` pour confirmer que le rôle a fonctionné:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 

@@ -21,6 +21,7 @@ ansible/
 demos/servicenow/private.yml
 *.html
 !exercises/ansible_rhel/1.3-playbook/web.html
+!exercises/ansible_rhel/1.7-role/roles/apache_vhost/files/web.html
 !exercises/ansible_rhel/1.4-variables/files/dev_web.html
 !exercises/ansible_rhel/1.4-variables/files/prod_web.html
 demos/servicenow/closed_loop_incident_mgmt/input_vars.yaml

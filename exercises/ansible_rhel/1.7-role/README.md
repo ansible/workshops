@@ -148,7 +148,7 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
 <!-- {% endraw %} -->
 
@@ -225,7 +225,7 @@ Create the handler in the file `handlers/main.yml` to restart httpd when notifie
 
 Create the HTML content that will be served by the webserver.
 
-  - Create an web.html file in the "src" directory of the role, `files`:
+  - Create the `web.html` file in the "src" directory of the role, `files`:
 
 ```bash
 [student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html

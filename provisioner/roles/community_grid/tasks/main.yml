@@ -20,7 +20,7 @@
 
     - name: World Community Grid
       vars:
-        boinc_auth: "1fa4185037ba9ff7b01be35ef286c547"
+        boinc_auth: "1114316_4080087955dc198a6109a25a56817809"
         boinc_url: "www.worldcommunitygrid.org"
       command:
         cmd: "boinccmd --project_attach {{boinc_url}} {{boinc_auth}}"

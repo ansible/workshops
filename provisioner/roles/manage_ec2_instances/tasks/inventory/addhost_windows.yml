@@ -118,22 +118,3 @@
   delegate_to: "{{ item }}"
   with_items:
     - "{{ groups['windows'] }}"
-
-################### Write inventories ###################
-
-- name: Generate instructor inventory
-  template:
-    src: instructor_inventory_windows.j2
-    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt"
-
-- name: Generate student etchosts
-  template:
-    src: etchosts_windows.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
-  with_sequence: count="{{ student_total }}"
-
-- name: Generate student inventories
-  template:
-    src: windows_instances.txt.j2
-    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/student{{ item }}-instances.txt"
-  with_sequence: count="{{ student_total }}"

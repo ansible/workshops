@@ -20,12 +20,12 @@ ansible ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username
 {% endfor %}
 
 [web]
-{% for vm in node1_node_facts.instances %}
+{% for vm in f5_node1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 node1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
-{% for vm in node2_node_facts.instances %}
+{% for vm in f5_node2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 node2 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} private_ip={{ vm.private_ip_address }}
 {% endif %}

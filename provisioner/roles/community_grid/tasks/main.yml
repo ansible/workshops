@@ -18,13 +18,13 @@
         state: started
         enabled: true
 
-# note from IPvSean may 16, 2020
-# /var/lib/boinc vi global_prefs_override.xml
-# source: https://boinc.berkeley.edu/dev/forum_thread.php?id=3113
-# <cpu_usage_limit>60.0</cpu_usage_limit>
-# boinccmd --read_global_prefs_override
-# I did not notice any improvement on Ansible Playbooks when I lowered
-# the cpu useage to 50-60%... boinc-client seems to have no affect on web nodes
+    # note from IPvSean may 16, 2020
+    # /var/lib/boinc vi global_prefs_override.xml
+    # source: https://boinc.berkeley.edu/dev/forum_thread.php?id=3113
+    # <cpu_usage_limit>60.0</cpu_usage_limit>
+    # boinccmd --read_global_prefs_override
+    # I did not notice any improvement on Ansible Playbooks when I lowered
+    # the cpu useage to 50-60%... boinc-client seems to have no affect on web nodes
 
     - name: World Community Grid
       vars:

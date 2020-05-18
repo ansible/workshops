@@ -126,6 +126,6 @@ ansible_port=5986
 [windows]
 {% for vm in instance1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} ansible_user={{ hostvars['student1' + item +'-win1'].ansible_user }} ansible_password="{{ hostvars['student1' + item +'-win1'].ansible_user }}"
+{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} ansible_user={{ hostvars['student' + item +'-win1'].ansible_user }} ansible_password="{{ hostvars['student' + item +'-win1'].ansible_user }}"
 {% endif %}
 {% endfor %}

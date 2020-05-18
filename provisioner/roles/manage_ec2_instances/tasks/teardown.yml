@@ -6,22 +6,22 @@
     region: "{{ ec2_region }}"
   register: vpc_net_facts
 
+- name: Get the VPC ID 2 for {{ ec2_name_prefix }} (NETWORK MODE)
+  ec2_vpc_net_info:
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-vpc2"
+    region: "{{ ec2_region }}"
+  register: vpc_net_facts2
+  when: workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
+
 - name: debug vpc_net_facts
   debug:
     var: vpc_net_facts
   when: debug_teardown
 
 - name: if vpc exists, delete everything, else exit
-  when: vpc_net_facts['vpcs']|length > 0
+  when: vpc_net_facts['vpcs']|length > 0 or vpc_net_facts2['vpcs']|length > 0
   block:
-    - name: Get the VPC ID 2 for {{ ec2_name_prefix }} (NETWORK MODE)
-      ec2_vpc_net_info:
-        filters:
-          "tag:Name": "{{ ec2_name_prefix }}-vpc2"
-        region: "{{ ec2_region }}"
-      register: vpc_net_facts2
-      when: workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
-
     - name: debug vpc_net_facts2
       debug:
         var: vpc_net_facts2
@@ -105,7 +105,6 @@
         wait: true
         wait_timeout: "{{ student_total * 300 | int}}"
       register: result_ec2_destroy
-      when: all_workshop_vpc_nodes.instances
 
     - name: debug result_ec2_destroy
       debug:
@@ -201,6 +200,7 @@
       register: delete_sg
       until: delete_sg is not failed
       retries: 50
+      when: vpc_net_facts['vpcs']|length > 0
 
       ### Additional Windows sgs added in resources_windows.yml
     - name: Deleted EC2 security groups for VPC vpc-{{ ec2_name_prefix }} (WINDOWS MODE)

@@ -247,7 +247,7 @@ Você está pronto para testar a role no `node2`. Mas como uma role não pode se
 ---
 - name: Use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:
@@ -272,7 +272,7 @@ Agora você está pronto para executar seu playbook:
 Execute um comando curl no `node2` para confirmar que a role funcionou:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 vhost index
 ```
 

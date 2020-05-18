@@ -1,0 +1,3 @@
+---
+- name: provision networking aws resources
+  include_tasks: resources/resources_network.yml

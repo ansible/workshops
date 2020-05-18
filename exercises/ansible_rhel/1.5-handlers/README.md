@@ -139,7 +139,7 @@ So what’s new here?
 
 Run the Playbook. We didn’t change anything in the file yet so there should not be any `changed` lines in the output and of course the handler shouldn’t have fired.
 
-  - Now change the `Listen 80` line in `/etc/httpd/conf/httpd.conf` to:
+  - Now change the `Listen 80` line in `~/ansible-files/files/httpd.conf` to:
 
 ```ini
 Listen 8080
@@ -154,9 +154,9 @@ Listen 8080
 Apache should now listen on port 8080. Easy enough to verify:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://22.33.44.55
+[student1@ansible ansible-files]$ curl http://node1
 curl: (7) Failed connect to 22.33.44.55:80; Connection refused
-[student1@ansible ansible-files]$ curl http://22.33.44.55:8080
+[student1@ansible ansible-files]$ curl http://node1:8080
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>

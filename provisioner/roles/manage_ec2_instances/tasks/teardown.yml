@@ -20,7 +20,7 @@
           "tag:Name": "{{ ec2_name_prefix }}-vpc2"
         region: "{{ ec2_region }}"
       register: vpc_net_facts2
-      when: workshop_type == 'networking' or workshop_type == 'network'
+      when: workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
 
     - name: debug vpc_net_facts2
       debug:
@@ -53,7 +53,7 @@
         ec2_vpc_id2: "{{vpc_net_facts2.vpcs[0].id}}"
         ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
       when:
-        - workshop_type == 'networking' or workshop_type == 'network'
+        - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
         - vpc_net_facts2.vpcs|length > 0
         - ec2_security_group2 is undefined
 
@@ -63,7 +63,7 @@
       when:
         - debug_teardown
         - ec2_vpc_id2 is defined
-        - workshop_type == 'networking' or workshop_type == 'network'
+        - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
 
     - name: debug ec2_security_group2
       debug:
@@ -226,7 +226,7 @@
       until: delete_sgnetworking is not failed
       retries: 50
       when:
-        - workshop_type == 'networking' or workshop_type == 'network'
+        - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: Delete subnet for {{ ec2_name_prefix }}-vpc
@@ -245,7 +245,7 @@
         cidr: "{{ec2_subnet2}}"
         state: absent
       when:
-        - workshop_type == 'networking' or workshop_type == 'network'
+        - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
@@ -260,7 +260,7 @@
         vpc_id: "{{ec2_vpc_id2}}"
         state: absent
       when:
-        - workshop_type == 'networking' or workshop_type == 'network'
+        - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
@@ -277,7 +277,7 @@
           vpc_id: "{{ec2_vpc_id2}}"
       register: route_table_facts2
       when:
-        - workshop_type == 'networking' or workshop_type == 'network'
+        - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
         - vpc_net_facts2.vpcs|length > 0
 
     - name: vpc public subnet route table is deleted
@@ -299,7 +299,7 @@
         state: absent
       with_items: "{{route_table_facts2.route_tables}}"
       when:
-        - workshop_type == 'networking' or workshop_type == 'network'
+        - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
         - vpc_net_facts2.vpcs|length > 0
         - item.associations == []
 
@@ -326,7 +326,7 @@
         cidr_block: "{{ ec2_subnet2 }}"
         region: "{{ ec2_region }}"
         state: absent
-      when: workshop_type == 'networking' or workshop_type == 'network'
+      when: workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
 
 
 # This is unfortunately something we have to do by tag data because even though

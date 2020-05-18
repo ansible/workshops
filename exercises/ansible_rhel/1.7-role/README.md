@@ -29,8 +29,6 @@ This exercise will cover:
 
 ## Step 1 - Understanding the Ansible Role Structure
 
-Roles are basically automation built around *include* directives and really don’t contain much additional magic beyond some improvements to search path handling for referenced files.
-
 Roles follow a defined directory structure; a role is named by the top level directory. Some of the subdirectories contain YAML files, named `main.yml`. The files and templates subdirectories can contain objects referenced by the YAML files.
 
 An example project structure could look like this, the name of the role would be "apache":
@@ -96,6 +94,27 @@ Have a look at the role directories and their content:
 [student<X>@ansible ansible-files]$ tree roles
 ```
 
+```
+roles/
+└── apache_vhost
+    ├── defaults
+    │   └── main.yml
+    ├── files
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── README.md
+    ├── tasks
+    │   └── main.yml
+    ├── templates
+    ├── tests
+    │   ├── inventory
+    │   └── test.yml
+    └── vars
+        └── main.yml
+```
+
 ## Step 3 - Create the Tasks File
 
 The `main.yml` file in the tasks subdirectory of the role should do the following:
@@ -110,9 +129,9 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 
 > **WARNING**
 >
-> **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete Playbooks!**
+> **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete playbooks!**
 
-Change into the `roles/apache_vhost` directory. Edit the `tasks/main.yml` file:
+Edit the `roles/apache_vhost/tasks/main.yml` file:
 
 ```yaml
 ---
@@ -148,7 +167,7 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
 <!-- {% endraw %} -->
 
@@ -193,7 +212,7 @@ The full `tasks/main.yml` file is:
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 
 - name: template vhost file
   template:
@@ -210,7 +229,7 @@ The full `tasks/main.yml` file is:
 
 ## Step 4 - Create the handler
 
-Create the handler in the file `handlers/main.yml` to restart httpd when notified by the template task:
+Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart httpd when notified by the template task:
 
 ```yaml
 ---
@@ -227,11 +246,13 @@ Create the HTML content that will be served by the webserver.
 
   - Create an web.html file in the "src" directory of the role, `files`:
 
-```bash
-[student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
+```
+$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
 ```
 
   - Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
+
+`$ cat roles/apache_vhost/templates/vhost.conf.j2`
 
 <!-- {% raw %} -->
 ```
@@ -261,7 +282,7 @@ You are ready to test the role against `node2`. But since a role cannot be assig
 ---
 - name: use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:
@@ -286,11 +307,11 @@ Now you are ready to run your playbook:
 Run a curl command against `node2` to confirm that the role worked:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 
-All looking good? Congratulations! You have successfully completed the Ansible Engine Workshop Exercises!
+Congratulations! You have successfully completed this exercise!
 
 ----
 **Navigation**

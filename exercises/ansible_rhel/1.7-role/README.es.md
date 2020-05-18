@@ -146,7 +146,7 @@ A continuación, agregamos dos tareas más para garantizar una estructura de dir
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
 <!-- {% endraw %} -->
 
@@ -258,7 +258,7 @@ Está listo para probar el role con `node2`. Pero dado que un role no se puede a
 ---
 - name: use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:
@@ -283,7 +283,7 @@ Ahora ya estás listo para ejecutar tu playbook:
 Ejecute un comando curl contra `node2` para confirmar que el role funcionó:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 

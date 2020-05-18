@@ -1,0 +1,13 @@
+---
+## all your base are belong to us
+- name: rhel workshop
+  include_tasks: ami_find_rhel.yml
+
+- name: network workshop
+  include_tasks: ami_find_network.yml
+
+- name: f5 workshop
+  include_tasks: ami_find_f5.yml
+
+- name: windows workshop
+  include_tasks: ami_find_windows.yml

@@ -96,10 +96,10 @@ It is possible to run run ad hoc commands from Ansible Tower as well.
     </tr>
     <tr>
       <td>MODULE</td>
-      <td>MACHINE CREDENTIAL</td>
+      <td>ping</td>
     </tr>
     <tr>
-      <td>ping</td>
+      <td>MACHINE CREDENTIAL</td>
       <td>Workshop Credentials</td>
     </tr>
   </table>

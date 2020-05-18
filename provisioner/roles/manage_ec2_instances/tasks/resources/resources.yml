@@ -114,7 +114,7 @@
         cidr_ip: "0.0.0.0/0"
       - proto: all
         cidr_ip: "{{ ec2_subnet }}"
-  when: workshop_type == 'windows'
+  when: workshop_type == 'windows' or workshop_type == 'demo'
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:

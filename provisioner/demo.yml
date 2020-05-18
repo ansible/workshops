@@ -1,0 +1,9 @@
+---
+- name: wait for routers to have ssh reachability
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: demo-mode workshop type
+      debug:
+        msg: "No more setup required for demo-mode"

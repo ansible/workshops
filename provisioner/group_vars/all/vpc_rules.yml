@@ -51,10 +51,6 @@ workshops:
         from_port: 830
         cidr_ip: 0.0.0.0/0
       - proto: tcp
-        to_port: 179
-        from_port: 179
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
         to_port: 5986
         from_port: 5986
         cidr_ip: 0.0.0.0/0
@@ -177,6 +173,12 @@ workshops:
   rhel:
   rhel_90:
   network:
+    ports:
+      - proto: tcp
+        to_port: 179
+        from_port: 179
+        cidr_ip: 0.0.0.0/0
+        rule_desc: BGP
   security:
     ports:
       - proto: tcp

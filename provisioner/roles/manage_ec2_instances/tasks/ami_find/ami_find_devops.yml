@@ -1,0 +1,56 @@
+---
+- name: find ami for node1
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[rhel].owners }}"
+    filters:
+      name: "{{ ec2_info[rhel].filter }}"
+      architecture: "{{ ec2_info[rhel].architecture }}"
+  register: amis
+
+- name: save ami for node1
+  set_fact:
+    node1_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: find ami for node2
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[rhel].owners }}"
+    filters:
+      name: "{{ ec2_info[rhel].filter }}"
+      architecture: "{{ ec2_info[rhel].architecture }}"
+  register: amis
+
+- name: save ami for node2
+  set_fact:
+    node2_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: find ami for node3
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[rhel].owners }}"
+    filters:
+      name: "{{ ec2_info[rhel].filter }}"
+      architecture: "{{ ec2_info[rhel].architecture }}"
+  register: amis
+
+- name: save ami for node3
+  set_fact:
+    node3_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+- name: find ami for node4
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[rhel].owners }}"
+    filters:
+      name: "{{ ec2_info[rhel].filter }}"
+      architecture: "{{ ec2_info[rhel].architecture }}"
+  register: amis
+
+- name: save ami for node4
+  set_fact:
+    node4_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

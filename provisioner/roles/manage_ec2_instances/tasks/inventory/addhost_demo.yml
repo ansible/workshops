@@ -1,0 +1,13 @@
+---
+## all your base are belong to us
+- name: inventory for rhel workshop
+  include_tasks: addhost_rhel.yml
+
+- name: inventory for network workshop
+  include_tasks: addhost_network.yml
+
+- name: inventory for f5 workshop
+  include_tasks: addhost_f5.yml
+
+- name: inventory for windows workshop
+  include_tasks: addhost_windows.yml

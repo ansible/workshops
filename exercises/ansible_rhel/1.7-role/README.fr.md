@@ -259,7 +259,7 @@ Vous êtes prêt à tester le rôle sur `node2`. Mais comme un rôle ne peut pas
 ---
 - name: use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:

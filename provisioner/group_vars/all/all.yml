@@ -24,6 +24,7 @@ valid_workshop_types:
   - storage
   - windows
   - rhel_90
+  - demo
 network_type: multivendor
 valid_network_types:
   - cisco

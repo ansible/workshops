@@ -282,7 +282,7 @@ You are ready to test the role against `node2`. But since a role cannot be assig
 ---
 - name: use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:

@@ -27,7 +27,7 @@
     filters:
       instance-state-name: running
       "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
-  register: node1_node_facts
+  register: f5_node1_node_facts
 
 - name: add node1 to groups (F5 MODE)
   add_host:
@@ -42,7 +42,7 @@
     groups:
       - lab_hosts
       - managed_nodes
-  with_items: "{{ node1_node_facts.instances }}"
+  with_items: "{{ f5_node1_node_facts.instances }}"
 
 - name: grab facts for node2 node (F5 MODE)
   ec2_instance_facts:
@@ -50,7 +50,7 @@
     filters:
       instance-state-name: running
       "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
-  register: node2_node_facts
+  register: f5_node2_node_facts
 
 - name: add node2 to groups (F5 MODE)
   add_host:
@@ -65,21 +65,4 @@
     groups:
       - lab_hosts
       - managed_nodes
-  with_items: "{{ node2_node_facts.instances }}"
-
-- name: Generate student inventories
-  template:
-    src: f5_instances.txt.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
-  with_sequence: count="{{ student_total }}"
-
-- name: Generate student etchosts
-  template:
-    src: etchosts_f5.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
-  with_sequence: count="{{ student_total }}"
-
-- name: Generate instructor inventory
-  template:
-    src: instructor_inventory_f5.j2
-    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"
+  with_items: "{{ f5_node2_node_facts.instances }}"

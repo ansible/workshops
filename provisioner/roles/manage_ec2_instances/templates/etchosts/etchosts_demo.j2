@@ -74,7 +74,7 @@
 {{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endfor %}
 
-% for vm in windows_node_facts.instances %}
+{% for vm in windows_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
 {{ vm.public_ip_address }} {{ vm.tags.short_name }}
 {% endif %}

@@ -84,11 +84,20 @@ ansible_port={{ ssh_port }}
 {{host.tags.Student}}-windows-ws ansible_host={{ host.public_ip_address }} ansible_user=Administrator ansible_password={{ windows_password }} ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore
 {% endif %}
 {% endfor %}
-
 {% for vm in instance1_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{vm.tags.Student}}-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} ansible_user={{ hostvars['student' + number +'-win1'].ansible_user }} ansible_password="{{ hostvars['student' + number +'-win1'].ansible_user }}"
+{% if 'student' ~ number == vm.tags.Student %}
+{{vm.tags.Student}}-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} ansible_user=Administrator ansible_password="{{ hostvars[vm.tags.Student + '-win1'].ansible_password }}"
 {% endif %}
 {% endfor %}
+{% if instance2_node_facts is defined %}
+{% if instance2_node_facts.instances is defined %}
+{% for vm in instance2_node_facts.instances %}
+{% if 'student' ~ number == vm.tags.Student %}
+{{vm.tags.Student}}-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }} ansible_user=Administrator ansible_password="{{ hostvars[vm.tags.Student + '-win2'].ansible_password }}"
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+
 
 {% endfor %}

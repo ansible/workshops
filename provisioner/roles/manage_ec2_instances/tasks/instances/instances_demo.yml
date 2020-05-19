@@ -11,3 +11,6 @@
 
 - name: provision aws resources
   include_tasks: instances_f5.yml
+
+- name: provision aws resources
+  include_tasks: instances_security.yml

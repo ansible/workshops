@@ -15,3 +15,5 @@
 - import_playbook: f5.yml
 
 - import_playbook: windows.yml
+
+- import_playbook: security.yml

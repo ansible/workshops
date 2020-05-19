@@ -2,7 +2,7 @@
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc2"
-    cidr_block: "{{ ec2_subnet2 }}"
+    cidr_block: "{{ ec2_network_vpc2 }}"
     region: "{{ ec2_region }}"
     tags:
       Username: "{{ aws_user }}"
@@ -71,7 +71,7 @@
     region: "{{ ec2_region }}"
     az: "{{ ec2_az }}"
     vpc_id: "{{create_vpc2.vpc.id}}"
-    cidr: "{{ec2_subnet2}}"
+    cidr: "{{ec2_network_vpc2}}"
     resource_tags:
       Name: "{{ ec2_name_prefix }}-subnet2"
       Username: "{{ aws_user }}"

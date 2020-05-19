@@ -6,6 +6,7 @@ ec2_wait: true
 ec2_az: "{{ec2_region}}a"
 ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
+ec2_network_vpc2: "172.18.0.0/16"
 ssh_port: 22
 
 ## The default is multivendor, 1 x Cisco, 2 x Arista, 1 x Juniper

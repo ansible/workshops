@@ -11,3 +11,6 @@
 
 - name: windows workshop
   include_tasks: ami_find_windows.yml
+
+- name: security workshop
+  include_tasks: ami_find_security.yml

@@ -1,7 +1,7 @@
 ---
 - name: Download Ansible Tower
   get_url:
-    url: '{{ tower_installer_url | default("https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.6.4-1.tar.gz") }}'
+    url: '{{ tower_installer_url | default("https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.0-4.tar.gz") }}'
     dest: /tmp/tower.tar.gz
 
 - name: Create directory for Ansible Tower

@@ -28,7 +28,9 @@
 - name: debugging vpc id for {{ ec2_name_prefix }}
   debug:
     msg: "vpc id:'{{vpc_net_facts.vpcs[0].id}}'"
-  when: debug_teardown
+  when:
+    - debug_teardown
+    - vpc_net_facts.vpcs|length > 0
 
 - name: use set fact for easier variables
   set_fact:
@@ -203,6 +205,7 @@
   register: delete_sg
   until: delete_sg is not failed
   retries: 50
+  when: vpc_net_facts.vpcs|length > 0
 
 ### Additional Windows sgs added in resources_windows.yml
 - name: Deleted EC2 security groups for VPC vpc-{{ ec2_name_prefix }} (WINDOWS MODE)
@@ -228,7 +231,9 @@
   register: delete_sgnetworking
   until: delete_sgnetworking is not failed
   retries: 50
-  when: workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
+  when:
+    - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
+    - vpc_net_facts2.vpcs|length > 0
 
 # delete ec2_subnet for vpc-1
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc

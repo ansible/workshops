@@ -13,7 +13,7 @@ pipeline {
         stage('Build Information') {
             steps {
                 script {
-                    TOWER_VERSION = '3.6.4'
+                    TOWER_VERSION = '3.7.0'
                     DOTLESS_TOWER_VERSION = TOWER_VERSION.replace('.', '').trim()
                 }
                 echo """Tower Version under test: ${TOWER_VERSION}
@@ -45,7 +45,7 @@ Build Tag: ${env.BUILD_TAG}"""
                 }
 
                 sh """tee provisioner/tests/ci-common.yml << EOF
-tower_installer_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-${TOWER_VERSION}-1.tar.gz
+tower_installer_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-${TOWER_VERSION}-4.tar.gz
 admin_password: ${ADMIN_PASSWORD}
 ansible_workshops_refspec: ${ANSIBLE_WORKSHOPS_REFSPEC}
 ansible_workshops_version: ${env.BRANCH_NAME}

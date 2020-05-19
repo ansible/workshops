@@ -236,12 +236,21 @@
         cidr: "{{ec2_subnet}}"
         state: absent
 
+    - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc
+      ec2_vpc_subnet:
+        region: "{{ ec2_region }}"
+        az: "{{ec2_az}}"
+        vpc_id: "{{ec2_vpc_id}}"
+        cidr: "{{ec2_subnet2}}"
+        state: absent
+      when: workshop_type == '!security' and workshop_type == '!demo'
+
     - name: Delete subnet for {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
       ec2_vpc_subnet:
         region: "{{ ec2_region }}"
         az: "{{ec2_az}}"
         vpc_id: "{{ec2_vpc_id2}}"
-        cidr: "{{ec2_subnet2}}"
+        cidr: "{{ec2_network_vpc2}}"
         state: absent
       when:
         - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'
@@ -322,7 +331,7 @@
     - name: delete AWS VPC {{ ec2_name_prefix }}-vpc2 (network MODE)
       ec2_vpc_net:
         name: "{{ ec2_name_prefix }}-vpc2"
-        cidr_block: "{{ ec2_subnet2 }}"
+        cidr_block: "{{ ec2_network_vpc2 }}"
         region: "{{ ec2_region }}"
         state: absent
       when: workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'

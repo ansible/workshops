@@ -26,26 +26,6 @@
   include_tasks: "inventory/addhost_{{workshop_type}}.yml"
 
 ################### Write inventories ##################
-- name: temp debugger
-  debug:
-    msg: "{{ windows_node_facts.instances }}"
-
-- name: temp debugger
-  debug:
-    msg: "{{ attacker_node_facts.instances }}"
-
-- name: temp debugger
-  debug:
-    msg: "{{ qradar_node_facts.instances }}"
-
-- name: temp debugger
-  debug:
-    msg: "{{ snort_node_facts.instances }}"
-
-- name: temp debugger
-  debug:
-    msg: "{{ checkpoint_node_facts.instances }}"
-
 - name: Generate student inventories
   template:
     src: "student_inventory/instances_{{workshop_type}}.j2"

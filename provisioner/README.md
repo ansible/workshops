@@ -10,6 +10,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 | Ansible F5 Workshop | `workshop_type: f5`   |
 | Ansible Security Automation | `workshop_type: security`   |
 | Ansible Windows Automation  | `workshop_type: windows`    |
+| Ansible Demo Mode  | `workshop_type: demo`    |
 
 # Table Of Contents
 - [Requirements](#requirements)
@@ -84,7 +85,7 @@ For more extra_vars examples, look at the following:
 - [sample-vars-tower-auto.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 - [sample-vars-rhel-90.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 - [sample-vars-rhel-90.yml](sample_workshops/sample-vars-rhel-90.yml) - example for `rhel_90` workshop, meant to be taught in 90 minutes
-
+- [sample-vars-demo.yml](sample_workshops/sample-vars-demo.yml) - example for `demo` mode, aggregate of all workshop topologies
 
 2. Run the playbook:
 

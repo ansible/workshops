@@ -6,6 +6,9 @@
     dest: /usr/local/bin/certbot-auto
     mode: '0755'
     owner: "root"
+  register: certbot_install
+  until: certbot_install is not failed
+  retries: 5
 
 - name: turn off tower
   shell: ansible-tower-service stop

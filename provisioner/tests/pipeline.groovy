@@ -12,7 +12,7 @@ pipeline {
         choice(
             name: 'TOWER_VERSION',
             description: 'Tower version to deploy',
-            choices: ['devel', '3.6.4']
+            choices: ['devel', '3.7.0']
         )
         choice(
             name: 'ANSIBLE_VERSION',
@@ -80,7 +80,7 @@ ${AWX_NIGHTLY_REPO_URL}"""
                         gpgcheck = 0
                         aw_repo_url = "${AWX_NIGHTLY_REPO_URL}/${params.TOWER_VERSION}"
                     } else {
-                        tower_installer_url = "https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-${params.TOWER_VERSION}-1.tar.gz"
+                        tower_installer_url = "https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-${params.TOWER_VERSION}-4.tar.gz"
                         gpgcheck = 1
                         aw_repo_url = "https://releases.ansible.com/ansible-tower"
                     }

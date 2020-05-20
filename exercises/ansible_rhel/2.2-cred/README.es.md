@@ -202,6 +202,6 @@ Bien, un pequeño desafío: Ejecuta un comando ad hoc para asegurarte de que el 
 ----
 **Navegación**
 <br>
-[Ejercicio anterior](../2.1-intro/README.es.md) - [Próximo Ejercicio](../2.3-projects/README.md)
+[Ejercicio anterior](../2.1-intro/README.es.md) - [Próximo Ejercicio](../2.3-projects/README.es.md)
 
 [Haga clic aquí para volver al Taller Ansible for Red Hat Enterprise Linux](../README.md#Sección-2---Ejercicios-de-Ansible-Tower)

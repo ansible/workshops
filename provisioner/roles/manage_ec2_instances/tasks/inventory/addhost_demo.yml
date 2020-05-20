@@ -11,3 +11,6 @@
 
 - name: inventory for windows workshop
   include_tasks: addhost_windows.yml
+
+- name: inventory for windows workshop
+  include_tasks: addhost_security.yml

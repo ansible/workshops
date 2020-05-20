@@ -24,3 +24,88 @@
 {{ vm.public_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
+
+{% for vm in rtr1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% for vm in rtr2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% for vm in rtr3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% for vm in rtr4_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in f5_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% if instance1_node_facts.instances is defined %}
+{% for vm in instance1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if instance2_node_facts is defined %}
+{% if instance2_node_facts.instances is defined %}
+{% for vm in instance2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% for vm in gitlab_node_facts.instances %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endfor %}
+
+{% for vm in windows_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in qradar_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in attacker_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}
+
+{% for vm in checkpoint_gw_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}
+
+{% for vm in checkpoint_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}
+
+{% for vm in snort_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.public_ip_address }} {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}

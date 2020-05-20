@@ -26,7 +26,6 @@
   include_tasks: "inventory/addhost_{{workshop_type}}.yml"
 
 ################### Write inventories ##################
-
 - name: Generate student inventories
   template:
     src: "student_inventory/instances_{{workshop_type}}.j2"

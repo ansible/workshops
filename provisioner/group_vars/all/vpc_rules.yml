@@ -60,6 +60,26 @@ workshops:
         from_port: 514
         cidr_ip: 0.0.0.0/0
         rule_desc: WinRM
+      - proto: tcp
+        to_port: 5432
+        from_port: 5432
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Cluster option DB port
+      - proto: tcp
+        to_port: 4369
+        from_port: 4369
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Cluster option RabbitMQ
+      - proto: tcp
+        to_port: 25672
+        from_port: 25672
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Cluster option RabbitMQ
+      - proto: tcp
+        to_port: 5672
+        from_port: 5672
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Cluster option RabbitMQ
   f5:
     ports:
       - proto: tcp

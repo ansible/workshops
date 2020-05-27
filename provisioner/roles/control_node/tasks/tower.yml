@@ -18,7 +18,14 @@
   template:
     src: tower_install.j2
     dest: /tmp/tower_install/inventory
+  when: create_cluster is not defined or not create_cluster|bool
 
+- name: template inventory file for Ansible Tower Install
+  template:
+    src: tower_cluster_install.j2
+    dest: /tmp/tower_install/inventory
+  when: create_cluster is defined and create_cluster|bool
+  
 - name: run the Ansible Tower installer
   shell: ./setup.sh
   args:

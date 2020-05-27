@@ -18,8 +18,15 @@
   connection: local
   become: false
   gather_facts: false
-  roles:
-    - manage_ec2_instances
+  tasks:
+    - name: Cluster nodes
+      set_fact:
+        control_nodes: 4
+      when: create_cluster is defined and create_cluster|bool
+      
+    - name: Manage EC2
+      include_role:
+        name: manage_ec2_instances
 
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes:attendance"
@@ -55,8 +62,21 @@
     - user_accounts
     - common
 
+- name: Configure cluster nodes with /etc/hosts
+  hosts: '*ansible-2,*ansible-3,*ansible-4'
+  gather_facts: true
+  become: true
+  tasks:
+    - name: setup /etc/hosts file per student
+      copy:
+        src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+        dest: "/etc/hosts"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+      when: create_cluster|bool
+
 - name: configure ansible control node
-  hosts: control_nodes
+  hosts: '*ansible-1'
   gather_facts: true
   become: true
   roles:
@@ -69,7 +89,7 @@
         - towerinstall
 
 - name: add dns entires for all student control nodes
-  hosts: control_nodes
+  hosts: '*ansible-1'
   become: true
   gather_facts: false
   roles:
@@ -94,7 +114,7 @@
   tags: control_node
 
 - name: populate ansible tower
-  hosts: control_nodes
+  hosts: '*ansible-1'
   become: true
   gather_facts: false
 

@@ -18,6 +18,9 @@
       when:
         - ansible_distribution_major_version|int == 8
 
+    - name: clean yum cache
+      command: yum clean all
+
     - name: install boinc-client with package module
       package:
         name:

@@ -110,7 +110,7 @@
 - name: IBM community grid
   hosts: "managed_nodes"
   become: true
-  gather_facts: false
+  gather_facts: true
 
   tasks:
     - name: install boinc-client and register

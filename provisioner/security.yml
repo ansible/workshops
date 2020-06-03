@@ -16,10 +16,6 @@
 - name: Install Pre Reqs on attacker
   hosts: attack
   become: true
-  vars:
-    async_timeout_seconds: "{{ student_total * 60 }}"
-    async_wait_for_retries: "{{ student_total * 10}}"
-    async_delay_time: "{{ async_timeout_seconds / async_wait_for_retries }}"
   tasks:
     - name: setup epel on attacker
       include_role:
@@ -30,18 +26,6 @@
         state: present
         name:
           - daemonize
-      async: "{{ async_timeout_seconds }}"
-      poll: 0
-      register: yum_async
-
-    - name: wait for pre-reqs install async
-      async_status:
-        jid: "{{ yum_async.ansible_job_id }}"
-      register: job_result
-      until: job_result.finished
-      delay: "{{ async_delay_time }}"
-      retries: "{{ async_wait_for_retries }}"
-
 
 - name: include splunk playbook
   import_playbook: splunk.yml

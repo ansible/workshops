@@ -19,6 +19,7 @@
   vars:
     async_timeout_seconds: "{{ student_total * 60 }}"
     async_wait_for_retries: "{{ student_total * 10}}"
+    async_delay_time: "{{ async_timeout_seconds / async_wait_for_retries }}"
   tasks:
     - name: setup epel on attacker
       include_role:
@@ -38,6 +39,7 @@
         jid: "{{ yum_async.ansible_job_id }}"
       register: job_result
       until: job_result.finished
+      delay: "{{ async_delay_time }}"
       retries: "{{ async_wait_for_retries }}"
 
 

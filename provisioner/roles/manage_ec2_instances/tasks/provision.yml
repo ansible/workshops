@@ -33,7 +33,7 @@
   loop: "{{ range(1, control_nodes|default(1) + 1 ) | list }}"
   loop_control:
     loop_var: sequence
-  
+
 ## create instance that will host login page
 - name: configure attendance host
   include_tasks: 'attendance.yml'

@@ -25,7 +25,7 @@
     src: tower_cluster_install.j2
     dest: /tmp/tower_install/inventory
   when: create_cluster is defined and create_cluster|bool
-  
+
 - name: run the Ansible Tower installer
   shell: ./setup.sh
   args:

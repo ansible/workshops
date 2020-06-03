@@ -1,4 +1,4 @@
-
+---
 - name: Create EC2 instances for ansible node (control node)
   ec2:
     assign_public_ip: true

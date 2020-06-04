@@ -257,4 +257,3 @@ Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
 The authentication settings are particularly important and you will need
 to review them and decide which method is best for your needs.
 
-Replace the workshop name and student# i

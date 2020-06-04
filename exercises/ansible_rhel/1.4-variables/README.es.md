@@ -84,7 +84,7 @@ stage: prod
 
 Ahora, cree dos archivos en `~/ansible-files/files/`:
 
-Uno llamado 'prod_web.html' con el siguiente contenido:
+Uno llamado `prod_web.html` con el siguiente contenido:
 
 ```html
 <body>

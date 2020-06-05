@@ -81,12 +81,6 @@ Notez les informations suivantes:
 
 ## Exécution des commandes Ad hoc
 
-Nous allons maintenant examiner les informations d'identification pour accéder à nos hôtes gérés depuis Tower. Dans le cadre du processus d'approvisionnement de cet atelier Ansible, ** les informations d'identification de l'atelier ** ont déjà été configurées.
-
-Dans le menu **RESSOURCES**, choisissez **INFORMATIONS D’IDENTIFICATION**. Maintenant, cliquez sur **Workshop Credential**.
-
-Notez les informations suivantes: ## Exécuter des commandes ad hoc
-
 Il est également possible d'exécuter des commandes ad hoc à partir d'Ansible Tower.
 
    - Dans l'interface utilisateur Web, accédez à **RESSOURCES → Inventaires → Workshop Inventory**

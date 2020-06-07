@@ -1,3 +1,6 @@
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
+
 Un modèle est une définition et un ensemble de paramètres permettant d'exécuter une tache Ansible. Les modèles sont utiles pour exécuter plusieurs fois la même tache.
 
 Synchroniser votre projet
@@ -150,3 +153,5 @@ Résultat final
 ==============
 
 À ce stade de l'atelier, vous avez découvert les fonctionnalités de base d'Ansible Tower. Mais attendez… il y a plus! Vous venez de commencer à explorer les possibilités d'Ansible. Les prochaines leçons vous aideront à aller au-delà d'un simple playbook.
+<br><br>
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)

@@ -1,6 +1,8 @@
 Configuring Ansible Tower
 =========================
 
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
 
 Ansible Tower propose de nombreuses fonctionnalités tel que les organisations, les notifications, l'ordonnancement, etc. Cependant, aujourd'hui nous allons nous concentrer uniquement sur quelques-unes des fonctions clés qui sont nécessaires pour l'atelier.
 
@@ -227,3 +229,6 @@ Ces variables sont très spécifiques à l'hôte et ont donc été définies au 
 Vous pouvez trouver plus d'informations sur ces paramètres et d'autres dans notre [guide Windows](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
 
 Les paramètres d'authentification sont particulièrement importants et vous devrez les revoir et décider quelle méthode convient le mieux à vos besoins.
+
+<br><br>
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)

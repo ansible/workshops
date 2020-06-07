@@ -1,5 +1,8 @@
 # 演習 5 - 高度な Playbook 
 
+**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 これまでの演習で、Ansible Playbook の書き方の基本を学びました。これを発展させてさらに柔軟性に富んだパワフルな Playbook の書き方について学んでいきましょう。♬  
 
 Ansible を利用することにより、タスクをシンプルかつ簡単に繰り返すことが可能になります。ただ、ちょっと考えていただければ分かると思いますが、全てのシステムが同じ設定というわけではなく、Playbook 実行の際、システムごとの柔軟性が必要になることもよくあります。この様な場合に対応するため、 Ansible では、非常に柔軟性に富んだ利用しやすい変数の機能が備わっています。  

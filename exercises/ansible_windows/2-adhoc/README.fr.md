@@ -1,6 +1,9 @@
 Section 1: Les commandes Ad-hoc
 ===============================
 
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
+
 
 Pour notre premier exercice, nous allons exécuter quelques commandes Ad-hoc pour vous aider à comprendre comment fonctionne Ansible. Les commandes Ad-Hoc Ansible vous permettent d'effectuer des tâches sur des nœuds distants sans avoir à écrire un playbook. Ils sont très utiles lorsque vous avez simplement besoin de faire une ou deux choses rapidement, vers de nombreux nœuds distants.
 
@@ -164,3 +167,5 @@ Les commandes Ad-hoc peuvent être utiles à exécuter de temps en temps. L'exem
 
 
 ![Reboot required](images/2-adhoc-reboot-required.png)
+<br><br>
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)

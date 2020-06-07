@@ -1,5 +1,8 @@
 # 演習 7 - Windows パッチ管理
 
+**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 ## Playbook の作成
 
 Windwos のパッチ管理は、Ansible で Windows ホストを管理する際の大きなユースケースの一つです。Ansible では、`win_updates` モジュールを使って Windows Update の確認またはインストールが行われます。このモジュールは、Windows に元々組み込まれている、Window Update サービスを利用します。これは、各端末から更新をダウンロードするための WSUS やオンラインの Windows Update サーバーなどの パッチのリポジトリが引き続き必要ということを示しています。Windows Update の設定が自動的にダウンロードするがインストールはしないように構成されている場合は、更新を`検索`するよう指示することで、モジュールを使用して更新をステージングすることもできます。各パッチをホワイトリストまたはブラックリストに登録する機能もあります。たとえば、利用可能なすべての更新ではなく、1つの特定のセキュリティ更新のみをインストールするように指示することも可能です。  

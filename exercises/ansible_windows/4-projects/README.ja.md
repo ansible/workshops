@@ -1,5 +1,8 @@
 # 演習 4 - Ansible Tower プロジェクト・ジョブテンプレート
 
+**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Ansible Tower 独自のオブジェクトとして、プロジェクトとジョブテンプレートがあります。  
 
 ## ジョブテンプレート

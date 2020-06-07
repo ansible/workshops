@@ -1,5 +1,8 @@
 # 演習 1 - Ansible Towerの概要と構成  
 
+**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Ansible Tower には、マルチテナント、通知、スケジューリングなどの機能を提供する多くのオブジェクトがあります。ここでは、ワークショップに必要な以下の重要なものに焦点を当ててご説明します。インベントリーなど、Ansible Engine でおなじみのオブジェクトもありますし、Ansible Tower 独自のオブジェクトもあります。♬  
 
 - 認証情報  

@@ -1,5 +1,9 @@
 # Ansible Workshop - Ansible pour Windows
 
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../images/uk.png) [English](readme.md),  ![japan](../../images/japan.png)[日本語](readme.ja.md), ![france](../../images/fr.png) [Française](readme.fr.md).
+
+
 Ansible est un moteur d'automatisation informatique simple mais puissant pour le déploiement d'applications, la gestion de la configuration et l'orchestration que vous pouvez apprendre rapidement.
 
 Ansible Tower est l'un des composants de la plate-forme d'automatisation Red Hat Ansible et sert d'interface utilisateur Web, d'api et de nœud de contrôle qui exécute les playbooks Ansible.

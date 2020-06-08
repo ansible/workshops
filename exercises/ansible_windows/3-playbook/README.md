@@ -1,3 +1,7 @@
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Let’s begin by writing our first ansible **playbook**. The playbook is
 where you list the steps you would like to automate into a repeatable
 set of **plays** and **tasks**. To begin we will setup our directory
@@ -257,3 +261,5 @@ You are ready to automate!
             msg: http://{{ ansible_host }}
 ```
 <!-- {% endraw %} -->
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../readme.md)

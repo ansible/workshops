@@ -1,6 +1,10 @@
 Les playbooks
 =============
 
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
+
+
 Commençons par écrire notre premier **playbook ansible**. Le playbook est l'endroit où vous listez les étapes que vous souhaitez automatiser en un ensemble répétable de **play** et **tâches**. Pour commencer, nous allons configurer notre structure de répertoires pour stocker nos playbooks. Cette structure de répertoire se synchronisera avec un système **de gestion du contrôle des sources** (SCM) afin de recuperer nos playbooks. Nous utiliserons le SCM **git**.
 
 Un playbook peut avoir plusieurs plays et un play peut avoir une ou plusieurs tâches. Le but d'un **play** est d'executer un ensemble de taches sur un groupe d'hôtes. Le but d'une **tâche** est d'executer une action sur l'hote via un module.
@@ -209,3 +213,5 @@ Vous êtes prêt à automatiser!
             msg: http://{{ ansible_host }}
 ```
 <!-- {% endraw %} -->
+<br><br>
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)

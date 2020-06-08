@@ -1,3 +1,7 @@
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Section 1 - Creating your Playbook
 ==================================
 
@@ -205,3 +209,6 @@ When prompted, enter select the update categories. Answer `Yes` to the
 
 After the job launches, you should be redirected and can watch the
 output of the job in realtime.
+
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../readme.md)

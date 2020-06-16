@@ -10,7 +10,7 @@ Restart=on-failure
 RestartSec=10
 Environment="PASSWORD={{admin_password}}"
 
-ExecStart=/opt/code-server /home/{{username}} --cert
+ExecStart=/bin/code-server
 ExecStop=/bin/kill -s QUIT $MAINPID
 
 

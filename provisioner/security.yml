@@ -16,30 +16,15 @@
 - name: Install Pre Reqs on attacker
   hosts: attack
   become: true
-  vars:
-    async_timeout_seconds: "{{ student_total * 60 }}"
-    async_wait_for_retries: "{{ student_total * 10}}"
   tasks:
     - name: setup epel on attacker
       include_role:
         name: "geerlingguy.repo-epel"
 
-    - name: package pre-reqs are installed async
+    - name: package pre-reqs are installed
       yum:
         state: present
-        name:
-          - daemonize
-      async: "{{ async_timeout_seconds }}"
-      poll: 0
-      register: yum_async
-
-    - name: wait for pre-reqs install async
-      async_status:
-        jid: "{{ yum_async.ansible_job_id }}"
-      register: job_result
-      until: job_result.finished
-      retries: "{{ async_wait_for_retries }}"
-
+        name: daemonize
 
 - name: include splunk playbook
   import_playbook: splunk.yml
@@ -59,8 +44,6 @@
     ids_install_snort_group: root
     ids_normalize_logs: false
     ids_install_snort_interface: eth1
-    async_timeout_seconds: "{{ student_total * 60 }}"
-    async_wait_for_retries: "{{ student_total * 10 }}"
   tasks:
     - name: Set fact vars for ids based SIEM type
       block:
@@ -86,16 +69,6 @@
             name:
               - libselinux-python
               - python2-idstools
-          async: "{{ async_timeout_seconds }}"
-          poll: 0
-          register: yum_async
-
-        - name: wait for pre-reqs install async
-          async_status:
-            jid: "{{ yum_async.ansible_job_id }}"
-          register: job_result
-          until: job_result.finished
-          retries: "{{ async_wait_for_retries }}"
 
         - name: set selinux permissve because of policy issue that breaks snort
           selinux:

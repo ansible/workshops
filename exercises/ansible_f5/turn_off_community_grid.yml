@@ -1,0 +1,11 @@
+---
+- name: turn off community-grid
+  hosts: web
+  gather_facts: false
+  become: true
+  tasks:
+    - name: enable and start boinc-client
+      systemd:
+        name: boinc-client
+        state: stopped
+        enabled: false

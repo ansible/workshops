@@ -1,5 +1,8 @@
 # Ansible ワークショップ - Windows の自動化
 
+**別の言語で読む**:![uk](../../images/uk.png) [English](readme.md),  ![japan](../../images/japan.png)[日本語](readme.ja.md), ![france](../../images/fr.png) [Français](readme.fr.md).
+<br>
+
 Ansibleは構成管理、アプリケーションの展開、オーケストレーションなど、非常に幅広く利用可能なシンプルで強力な IT 自動化のツールです。yaml というわかりやすい言語を利用していますので、学習も容易です。  
 
 Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポーネントの1つであり、単なる Playbook の実行だけではなく、Web UI、API、各種認証情報の管理など、複数管理者での多岐にわたるIT機器の管理に有用な、様々な機能を提供します。  
@@ -29,5 +32,4 @@ Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポ
 - [演習 5 - 高度な playbook](5-adv-playbook/README.ja.md)
 - [演習 6 - Ansible Roles](6-roles/README.ja.md)
 - [演習 7 - Windows パッチ管理](7-win-patch/README.ja.md) 
-- [演習 8 - Windwos のアプリケーション管理](8-win-appmanage/README.ja.md) 
 

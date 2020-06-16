@@ -220,7 +220,7 @@ This yet again highlights the value of using roles. By taking advantage of roles
 
 A quick way to check if the rules were written correctly is to SSH to the Snort server and look for the content of the `/etc/snort/rules/local.rules` file.  
 
-Another way is to use Ansible on our control host. To do this we use a different role have written to verify if a Snort rule is in place. This role searches and finds existing rules in Snort and is called [ids_rule_facts](htithub.com/ansible-security/ids_rule_facts).
+Another way is to use Ansible on our control host. To do this we use a different role have written to verify if a Snort rule is in place. This role searches and finds existing rules in Snort and is called [ids_rule_facts](http://github.com/ansible-security/ids_rule_facts).
 To use this role, as we did previously, we install it using `ansible-galaxy`:
 
 ```bash

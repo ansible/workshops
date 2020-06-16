@@ -1,6 +1,10 @@
 Configuring Ansible Tower
 =========================
 
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 There are a number of constructs in the Ansible Tower UI that enable
 multi-tenancy, notifications, scheduling, etc. However, we are only
 going to focus on a few of the key constructs that are required for this
@@ -257,4 +261,5 @@ Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
 The authentication settings are particularly important and you will need
 to review them and decide which method is best for your needs.
 
-Replace the workshop name and student# i
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../readme.md)

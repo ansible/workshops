@@ -36,15 +36,6 @@
     name: /tmp/code-server.rpm
     state: present
 
-# - name: copy code-server unit file to global instead of user dir
-#   copy:
-#     src: /usr/lib/systemd/user/code-server.service
-#     dest: /etc/systemd/system
-#     owner: "{{username}}"
-#     group: wheel
-#     mode: '0744'
-#     remote_src: yes
-
 - name: Apply our systemd service file (instead of RPM file)
   template:
     src: code-server.service.j2

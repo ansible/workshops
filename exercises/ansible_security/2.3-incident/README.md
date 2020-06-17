@@ -4,7 +4,7 @@
 
 In this exercise we will focus on threat detection and response capabilities. As usual, security operators need a set of tools in enterprise IT to perform this task.
 
-You are a security operator in charge of the corporate IDS. The IDS of our choice it Snort.
+You are a security operator in charge of the corporate IDS. The IDS of our choice is Snort.
 
 ## Step 3.2 - Preparations
 
@@ -105,7 +105,7 @@ Besides some weird characters you will see the actual malformed "attack" of the 
 
 To better analyze this incident it is crucial to correlate the data with other sources. For this we want to feed the logs into our SIEM, QRadar.
 
-As you by now know, due to the missing integration of various security tool with each other, as a security operator in charge of the IDS we would now have to manually contanct another team or forward our logs via e-mail. Or upload them to a FTP server, carry them over on USB stick or worse. Luckily as shown in the last exercises already we can use Ansible to just configure Snort and Qradar.
+As you know by now, due to the missing integration of various security tool with each other, as a security operator in charge of the IDS we would now have to manually contact another team or forward our logs via e-mail. Or upload them to a FTP server, carry them over on USB stick or worse. Luckily as shown in the last exercises already we can use Ansible to just configure Snort and Qradar.
 
 In your VS Code online editor, create a playbook called `incident_snort_log.yml` like the following:
 
@@ -157,7 +157,7 @@ This playbook should look familiar to you, it configures Snort to send logs to Q
 
 ## Step 3.5 - Verify new configuration in QRadar
 
-Let's change our perspective briefly to the one of a security analyst: we mainly use the SIEM, and now logs are coming in from Snort. To verify that, access your QRadar UI, open the **Log Activity** tab and validate that events are now making to QRadar from Snort.
+Let's change our perspective briefly to the one of a security analyst: we mainly use the SIEM, and now logs are coming in from Snort. To verify that, access your QRadar UI, open the **Log Activity** tab and validate that events are now making it to QRadar from Snort.
 
 ![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png)
 
@@ -187,7 +187,7 @@ In your VS Code online editor, create a file called `incident_blacklist.yml`. No
     source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
     destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 
-  tasks: 
+  tasks:
     - name: Create source IP host object
       checkpoint_host:
         name: "asa-{{ source_ip }}"

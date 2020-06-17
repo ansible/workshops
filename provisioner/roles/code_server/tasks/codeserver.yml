@@ -89,9 +89,9 @@
 
 - name: daemon-reload, enable and start code-server
   systemd:
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true
     name: code-server
 
 - name: issue cert

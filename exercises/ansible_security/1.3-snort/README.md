@@ -1,5 +1,8 @@
 # Exercise 1.3 - Executing the first Snort playbook
 
+**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
+<br>
+
 ## Step 3.1 - Snort
 
 To showcase how to automate a network intrusion detection and intrusion prevention system in a security environment, this lab will take you through managing a Snort IDS instance. Snort analyzes network traffic and compares it against some given rule set.
@@ -216,7 +219,7 @@ snort  : ok=4  changed=2  unreachable=0  failed=0  skipped=4  rescued=0  ignored
 As you can see when you run this playbook, there are many tasks executed in addition to adding the rules. For instance, the role reloads the Snort service after the rule is added. Other tasks ensure that the variables are defined and verified.
 This yet again highlights the value of using roles. By taking advantage of roles, you are not only making your content re-usable but you can also add verification tasks and other important steps and keep them neatly hidden inside the role. The users of the role do not need to know the specifics of how Snort works in order to use this role as part of their security automation.
 
-## Step 3.6 - Verfiy changes
+## Step 3.6 - Verify changes
 
 A quick way to check if the rules were written correctly is to SSH to the Snort server and look for the content of the `/etc/snort/rules/local.rules` file.
 

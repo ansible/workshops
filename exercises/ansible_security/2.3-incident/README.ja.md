@@ -36,7 +36,7 @@
 ```
 <!-- {% endraw %} -->
 
-Playbook を実行できるようにするため `ids_rule` に、以前の Snort の演習で行ったように、用意された Role を使用して IDS ルールを変更します。それを逃していた場合には、次の方法でインストールしてください。`ansible-galaxy install ansible_security.ids_rule`
+Playbook を実行できるようにするため `ids_rule` に、前回の Snort の演習で行ったように、用意された Role を使用して IDS ルールを変更します。それを逃していた場合には、次の方法でインストールしてください。`ansible-galaxy install ansible_security.ids_rule`
 
 同じことが Role の `ids.config` にも当てはまります。 `ansible-galaxy install ansible_security.ids_config`
 
@@ -62,21 +62,21 @@ Playbook を実行します:
 ```
 <!-- {% endraw %} -->
 
-実行してください:
+これを実行します:
 
 ```bash
 [student<X>@ansible ~]$ ansible-playbook sql_injection_simulation.yml
 ```
 
-QRadarコレクションも必要です。これは前回のQRadar演習ですでにインストールされています。その部分を見逃した場合は、以下の手順でインストールしてください。ansible-galaxy collection install ibm.qradar` でインストールしてください。
+また、QRadar コレクションも必要です。これは前回の QRadar 演習で既にインストールされています。その部分を見逃した場合は、次の方法でインストールしてください。`ansible-galaxy collection install ibm.qradar`
 
-また、両方のマシン間のトラフィックを通過させるために、最初のチェックポイントの演習で2つのことを完了させる必要があります: まず、playbook `whitelist_attacker.yml` を実行する必要があります。まず、playbook `whitelist_attacker.yml` を実行する必要があります。また、攻撃者のホワイトリストポリシーのロギングが有効になっている必要があります。これらの手順を見逃した場合は、最初のチェックポイント演習に戻り、playbookを作成して実行し、手順に従ってロギングを有効にしてからここに戻ってください。
+また、両方のマシン間のトラフィックを通過させるには、最初の Check Point の演習で2つのことを完了させておく必要があります: 最初に、Playbook `whitelist_attacker.yml` を実行する必要があります。次に、攻撃者のホワイトリストポリシーのロギングが有効になっている必要があります。これらの手順をやり逃した場合は、最初の Check Point 演習に戻り、Playbook を作成して実行し、手順に従ってロギングを有効にしてから、ここに戻ってください。
 
-これで舞台は整いました。このユースケースがどのようなものなのか、お読みください。
+これで舞台は整いました。このユースケースが何であるかを学ぶためにお読みください。
 
-## Step 3.3 - Identify incident
+## Step 3.3 - インシデントを特定する
 
-企業のIDSを担当するセキュリティオペレータとして、あなたは日常的にログを確認します。VS Code のオンラインエディタの端末から、ユーザ `ec2-user` として snort ノードに SSH 接続し、ログを表示します:
+企業の IDS を担当するセキュリティオペレータとして、あなたは日常的にログを確認します。VS Code オンラインエディタの端末から、ユーザ `ec2-user` として Snort ノードに SSH 接続し、ログを表示します:
 
 ```bash
 [ec2-user@ip-172-16-11-22 ~]$ journalctl -u snort -f

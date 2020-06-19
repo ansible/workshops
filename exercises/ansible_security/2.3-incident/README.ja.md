@@ -1,14 +1,14 @@
-# Exercise 2.3 - Incident response
+# Exercise 2.3 - インシデントレスポンス
 
-## Step 3.1 - Background
+## Step 3.1 - 背景
 
-この演習では、脅威の検出と対応能力に焦点を当てます。いつものように、セキュリティオペレータは、このタスクを実行するために、エンタープライズITの一連のツールを必要とします。
+この演習では、脅威の検出と対応能力に焦点を当てます。いつものように、セキュリティオペレータは、このタスクを実行するためにエンタープライズ IT の一連のツールを必要とします。
 
-あなたは企業のIDSを担当するセキュリティオペレーターです。選択したIDS......それはSnortです。
+あなたは企業の IDS を担当するセキュリティオペレーターです。私たちの選択した IDS は Snort です。
 
-## Step 3.2 - Preparations
+## Step 3.2 - 準備
 
-この演習では、Snortでログを見るオペレータから始めます。そこで最初に、実際にログエントリを生成するための snort ルールを設定する必要があります。VS Code のオンラインエディタで、playbook `incident_snort_rule.yml` を作成して実行します:
+この演習では、Snort でログを見る操作から始めます。まず最初に実際にログエントリを生成するための Snort ルールを設定する必要があります。VS Code オンラインエディタで、Playbook を作成して実行します `incident_snort_rule.yml` :
 
 <!-- {% raw %} -->
 ```yml
@@ -36,11 +36,11 @@
 ```
 <!-- {% endraw %} -->
 
-playbookを実行できるようにするために、前回のSnortの演習で行ったように、IDSのルールを変更するために用意されたロール `ids_rule` を使用します。見逃した場合は、以下の手順でインストールしてください。ansible-galaxy install ansible_security.ids_rule` でインストールしてください。
+Playbook を実行できるようにするため `ids_rule` に、以前の Snort の演習で行ったように、用意されたロールを使用して IDS ルールを変更します。それを逃していた場合には、次の方法でインストールしてください。`ansible-galaxy install ansible_security.ids_rule`
 
-同じことがロール `ids.config` にも当てはまります。
+同じことが Role の `ids.config` にも当てはまります。 `ansible-galaxy install ansible_security.ids_config`
 
-playbookを使って実行する:
+Playbook を実行します:
 
 ```bash
 [student<X>@ansible ~]$ ansible-playbook incident_snort_rule.yml

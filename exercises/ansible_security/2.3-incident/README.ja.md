@@ -76,7 +76,7 @@ Playbook を実行します:
 
 ## Step 3.3 - インシデントを特定する
 
-企業の IDS を担当するセキュリティオペレータとして、あなたは日常的にログを確認します。VS Code オンラインエディタの端末から、ユーザ `ec2-user` として Snort ノードに SSH 接続し、ログを表示します:
+企業の IDS を担当するセキュリティオペレータとして、あなたは日常的にログを確認します。VS Code オンラインエディタのターミナルから、ユーザ `ec2-user` として Snort ノードに SSH で接続し、ログを表示します:
 
 ```bash
 [ec2-user@ip-172-16-11-22 ~]$ journalctl -u snort -f
@@ -86,9 +86,9 @@ Sep 22 21:03:08 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Atte
 Sep 22 21:03:13 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted SQL Injection [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53380 -> 172.17.23.180:80
 ```
 
-ご覧のように、このノードは**Attempted Administrator Privilege Gain**に対して複数のアラートを登録しました。CTRL-C`を押してログビューを残します。
+ご覧のように、このノードは **Attempted Administrator Privilege Gain** の複数のアラートを登録しました。`CTRL-C` を押してログビューを終了します。
 
-snortログの詳細を詳しく見たい場合は、Snortマシン上のファイル `/var/log/snort/merged.log` の内容を確認してください:
+Snort ログの詳細をさらに詳しく知りたい場合は、Snortマシン上のファイル `/var/log/snort/merged.log` の内容を確認してください:
 
 ```bash
 [ec2-user@ip-172-16-180-99 ~]$ sudo tail -f /var/log/snort/merged.log
@@ -99,15 +99,15 @@ User-Agent: curl/7.29.0
 Host: 172.17.30.140
 Accept: */*
 ```
-奇妙な文字の他に、ユーザの実際の不正な「攻撃」が `sql_injection_simulation` という文字列の形で表示されます。コマンド `exit` で Snort サーバを離れる。
+一部の奇妙な文字に加えて、ユーザの実際の不正な「攻撃」が `sql_injection_simulation` という文字列の形で表示されます。`exit` コマンドで Snort サーバから抜けます。
 
-## Step 3.4 - Create and run a playbook to forward logs to QRadar
+## Step 3.4 - ログを QRadar に転送するための Playbook を作成し実行する
 
-このインシデントをより良く分析するためには、他のソースとデータを相関させることが重要です。そのためには、ログを当社のSIEMであるQRadarにフィードしたいと考えています。
+このインシデントをより良く分析するためには、他のソースとデータを相関させることが重要です。そのためには、ログを SIEM である QRadar に与えたいと考えています。
 
-ご存知のように、様々なセキュリティツールがお互いに統合されていないため、IDSを担当するセキュリティオペレータとしては、別のチームに手動で連絡を取るか、電子メールでログを転送しなければなりません。あるいは、FTPサーバーにアップロードしたり、USBスティックや最悪の場合は持ち運んだりしなければなりません。幸いにも、最後の演習で示したように、Ansibleを使ってSnortとQradarを設定することができます。
+ご存知のように、様々なセキュリティツールがお互いに統合されていないため、IDS を担当するセキュリティオペレータは、別チームに手動で連絡を取るか、電子メールでログを転送しなければなりません。あるいは、FTP サーバーにアップロードしたり、最悪の場合は USB スティックを持ち運んだりしなければなりません。幸いにも、前の演習で示したように、Ansible を使って Snort と Qradar を構成することができます。
 
-VS Codeのオンラインエディタで、`incident_snort_log.yml` というplaybookを以下のように作成します:
+VS Code オンラインエディタで、`incident_snort_log.yml` という Playbook を以下のように作成します:
 
 <!-- {% raw %} -->
 ```yaml
@@ -149,13 +149,13 @@ VS Codeのオンラインエディタで、`incident_snort_log.yml` というpla
 ```
 <!-- {% endraw %} -->
 
-このplaybookは見覚えがあると思いますが、SnortがQRadarにログを送信するように設定し、QRadarがログを受信するように設定し、攻撃を有効にします。実行してください:
+この Playbook は見慣れているはずです。Snort が QRadar にログを送信するように設定し、QRadar がログを受信するように設定し、Offence を有効にします。それを実行してください:
 
 ```bash
 [student<X>@ansible ~]$ ansible-playbook incident_snort_log.yml
 ```
 
-## Step 3.5 - Verify new configuration in QRadar
+## Step 3.5 - QRadar の新しい構成を確認する
 
 主にSIEMを使用していますが、Snortからログが入ってきました。それを確認するには、QRadar UIにアクセスして、**Log Activity**タブを開き、SnortからQRadarにイベントが発生していることを確認してください。
 

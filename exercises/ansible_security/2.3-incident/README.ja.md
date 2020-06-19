@@ -157,11 +157,11 @@ VS Code オンラインエディタで、`incident_snort_log.yml` という Play
 
 ## Step 3.5 - QRadar の新しい構成を確認する
 
-主にSIEMを使用していますが、Snortからログが入ってきました。それを確認するには、QRadar UIにアクセスして、**Log Activity**タブを開き、SnortからQRadarにイベントが発生していることを確認してください。
+パースペクティブを簡単にセキュリティアナリストの視点に変更しましょう。主に SIEM を使用しており、Snort からログを取得しています。これを確認するには、QRadar UI にアクセスして、**Log Activity** タブを開いて、イベントが Snort から QRadar に送信されていることを確認します。
 
 ![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png)
 
-QRadarログビューにフィルターを追加すると、より良い概観を得ることができます。これらのログには、すでに左側にオフェンスマーカーが表示されていることに注意してください!
+QRadar ログビューにフィルターを追加すると、より良い概観を得ることができます。これらのログには、すでに左側にオフェンスマーカーが表示されていることに注意してください!
 
 > **Note**
 >

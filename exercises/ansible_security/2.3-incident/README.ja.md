@@ -36,7 +36,7 @@
 ```
 <!-- {% endraw %} -->
 
-Playbook を実行できるようにするため `ids_rule` に、以前の Snort の演習で行ったように、用意されたロールを使用して IDS ルールを変更します。それを逃していた場合には、次の方法でインストールしてください。`ansible-galaxy install ansible_security.ids_rule`
+Playbook を実行できるようにするため `ids_rule` に、以前の Snort の演習で行ったように、用意された Role を使用して IDS ルールを変更します。それを逃していた場合には、次の方法でインストールしてください。`ansible-galaxy install ansible_security.ids_rule`
 
 同じことが Role の `ids.config` にも当てはまります。 `ansible-galaxy install ansible_security.ids_config`
 

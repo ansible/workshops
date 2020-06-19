@@ -46,7 +46,7 @@ Playbook を実行します:
 [student<X>@ansible ~]$ ansible-playbook incident_snort_rule.yml
 ```
 
-これらのルールがログを生成するためには、疑わしいトラフィック、つまり攻撃が必要です。ここでも、数秒ごとの単純なアクセスをシミュレートするplaybookがあり、この演習の他のコンポーネントが後で反応することになります。VS Code のオンラインエディタで、以下の内容のplaybook `sql_injection_simulation.yml` を作成してください:
+これらのルールでログを生成するには、疑わしいトラフィック、つまり攻撃が必要です。この演習の他のコンポーネントが後で反応する数秒ごとの単純なアクセスをシミュレートする Playbook があります。VS Code オンラインエディタで、以下の内容の Playbook `sql_injection_simulation.yml` を作成してください:
 
 <!-- {% raw %} -->
 ```yml

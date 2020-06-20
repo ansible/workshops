@@ -82,9 +82,9 @@ SIEM を使えば、ログを集中的に収集して分析することができ
 
 つまり、1つの Playbook の中に "host" セクションが複数回登場し、各セクションには専用のタスクリストがあります。
 
-Snort の設定から始めましょう。QRadar サーバにログを送信するために Snort のログサーバが必要です。これは既存のロール [ids_config](https://github.com/ansible-security/ids_config) で設定できるので、ロールをインポートして正しいパラメータで使用するだけです。
+Snort の設定から始めましょう。QRadar サーバにログを送信するために Snort のログサーバが必要です。これは既存のRole [ids_config](https://github.com/ansible-security/ids_config) で設定できるので、Role をインポートして適切なパラメータで使用するだけです。
 
-VS Code Online エディタのターミナルで、`ansible-galaxy` ツールを使用して、単一のコマンドで上記のロールをダウンロードしてインストールします:
+VS Code オンラインエディタのターミナルで、`ansible-galaxy` ツールを使用して、上記の Role を1つのコマンドでダウンロードおよびインストールします:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_config
@@ -94,7 +94,7 @@ VS Code Online エディタのターミナルで、`ansible-galaxy` ツールを
 - ansible_security.ids_config (master) was installed successfully
 ```
 
-それでは、ロールを使用する playbook を作成してみましょう。VS Code Online エディタで、以下の内容のファイル `enrich_log_sources.yml` を作成します:
+それでは、Role を使用する Playbook を作成してみましょう。VS Code オンラインエディタで、以下の内容のファイル `enrich_log_sources.yml` を作成します:
 
 <!-- {% raw %} -->
 ```yaml
@@ -117,9 +117,9 @@ VS Code Online エディタのターミナルで、`ansible-galaxy` ツールを
 ```
 <!-- {% endraw %} -->
 
-ご覧のように、前回Snortルールを設定したときと同じように、ロールを再利用して仕事をさせています。QRadar IPを変数で指定し、IDSプロバイダを `snort` に設定し、パッケージを送信するプロトコルを `UDP` に定義します。 
+ご覧のように、前回 Snort ルールを設定したときと同じように、Role を再利用して機能させています。変数を介して Role の動作のみを変更します。変数を介して QRadar IP を提供し、IDSプロバイダを `snort` に設定し、Snort が送信するプロトコルを `UDP` に定義します。
 
-新しいSnortログソースがあることをQRadarに伝えなければなりません。playbook `enrich_log_sources.yml` に以下のプレイを追加してください:
+次に新しい Snort ログソースがあることを QRadar に通知する必要があります。Playbook `enrich_log_sources.yml` に以下の play を追加してください:
 
 <!-- {% raw %} -->
 ```yaml
@@ -139,9 +139,9 @@ VS Code Online エディタのターミナルで、`ansible-galaxy` ツールを
 ```
 <!-- {% endraw %} -->
 
-ご覧のように、ここではコレクションが使用されており、実行する唯一のタスクは QRadar のログソースを管理するモジュールを使用しています。正規表現は何をしているのかと聞かれるかもしれませんが、これは Snort が生成した実際の syslog ヘッダーエントリと一致するように IP アドレスを変更しています。そうでなければ、ログは QRadar として正しく識別されません。
+ご覧のように、ここではコレクションが使用されており、実行する唯一のタスクは QRadar でログソースを管理するモジュールを使用しています。ここで正規表現は何をしているのかと聞かれるかもしれませんが、これは Snort が生成した実際の syslog ヘッダーエントリと一致するように IP アドレスを変更しています。そうしなければ、ログが QRadar によって正しく識別されません。
 
-次に、チェックポイントについても同じことをしなければなりません。これは、既に存在する [log_manager](https://github.com/ansible-security/log_manager) というロールで設定できるので、ロールをインポートして、適切なパラメータで使用するだけです。まず、ロールをインポートしましょう:
+次に、Check Point についても同じことをしなければなりません。ログを QRadar に転送するように Check Point を設定する必要があります。これは、既存の Role [log_manager](https://github.com/ansible-security/log_manager) で設定できるため、Role をインポートして、適切なパラメータで使用するだけです。まず、Role をインポートしましょう:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.log_manager
@@ -151,7 +151,7 @@ VS Code Online エディタのターミナルで、`ansible-galaxy` ツールを
 - ansible_security.log_manager (master) was installed successfully
 ```
 
-既存の playbook `enrich_log_sources.yml` を再度追加して、Snort と QRadar を統合し、Check Point のセクションを追加します:
+ここで、Snort と QRadar をまとめた既存の Playbook `enrich_log_sources.yml` を再度編集して、Check Point 用のセクションを追加します:
 
 <!-- {% raw %} -->
 ```yaml
@@ -169,17 +169,17 @@ VS Code Online エディタのターミナルで、`ansible-galaxy` ツールを
 ```
 <!-- {% endraw %} -->
 
-このスニペットでは、`YOURSERVERNAME` を Check Point 管理インスタンスの実際のサーバ名（`gw-77f3f6` など）に置き換える必要があることに注意してください。個々の Check Point インスタンスの名前は、SmartConsole にログインすることで確認できます。画面下部の **Summary** の下にある **GATEWAYS & SERVERS** タブに表示されます:
+このスニペットでは、`YOURSERVERNAME` を Check Point 管理インスタンスの実際のサーバ名（`gw-77f3f6` など）に置き換える必要があることに注意してください。SmartConsole にログインすることで、個々の Check Point インスタンスの名前を確認できます。これは画面下部の **Summary** の下にある **GATEWAYS & SERVERS** タブに表示されます:
 
 ![Check Point Gateway Name](images/check_point_gw_name.png)
 
-playbook の文字列 `YOURSERVERNAME` をあなたの個人名に置き換えてください。
+Playbook の文字列 `YOURSERVERNAME` をあなたの個人名に置き換えてください。
 
 > **Note**
 >
-> これは2つの API コールで自動的に行うこともできますが、ここでは playbook のリストを複雑にしてしまいます。
+> これは2つの API 呼び出しで自動的に行うこともできますが、ここでは Playbook のリストが複雑になります。
 
-ここで、もう一つのログソースがあることを QRadar に伝えなければなりません。playbook `enrich_log_sources.yml` に以下のプレイを追加します:
+次に、別のログソース、今回では Check Point があることを QRadar に通知しなければなりません。Playbook `enrich_log_sources.yml` に以下の play を追加します:
 
 <!-- {% raw %} -->
 ```yaml

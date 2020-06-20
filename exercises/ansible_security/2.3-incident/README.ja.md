@@ -187,7 +187,7 @@ VS Code オンラインエディタで `incident_blacklist.yml` というファ�
     source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
     destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 
-  tasks: 
+  tasks:
     - name: Create source IP host object
       checkpoint_host:
         name: "asa-{{ source_ip }}"
@@ -223,15 +223,15 @@ Playbookを実行し、IP アドレスを効果的にブラックリストに登
 [student<X>@ansible ~]$ ansible-playbook incident_blacklist.yml
 ```
 
-QRadar UIで、ログアクティビティタブでSnortからのアラートを受信していないことを確認してください。ファイアウォールをQRadarに接続した場合、実際にはそこからログが入ってくることに注意してください。
+QRadar UI の、**Log Activity** タブで Snort からのアラートを受信していないことを確認してください。ファイアウォールを QRadar に接続した場合、実際にはそこからログが入ってくることに注意してください。
 
-また、チェック・ポイントに新しいルールが追加されたことをすばやく確認してみましょう。Windowsワークステーションにアクセスし、SmartConsoleインターフェイスを開きます。左側の[**SECURITY POLICIES**]をクリックして、アクセス制御ポリシーのエントリが**Accept**から**Drop**に変更されていることに注意してください。
+また、Check Point に新しいルールが追加されたことを簡単に確認してみましょう。Windows ワークステーションにアクセスし、SmartConsole インターフェイスを開きます。左側の [**SECURITY POLICIES**] をクリックして、アクセス制御ポリシーのエントリが **Accept** から **Drop** に変更されていることに注意してください。
 
 ![SmartConsole Blacklist Policy](images/check_point_policy_drop.png)
 
 攻撃を識別し、攻撃の背後にあるトラフィックをブロックすることに成功しました!
 
-## Step 3.7 - Roll back
+## Step 3.7 - ロールバック
 
 最後のステップとして、ロールバックplaybookを実行してSnortの設定を元に戻すことで、リソースの消費と解析作業負荷を削減することができます。
 
@@ -256,7 +256,7 @@ attacker | CHANGED | rc=0 >>
 
 これで最後の練習は終了です。おめでとうございます。
 
-## Step 3.8 - Wrap it all up
+## Step 3.8 - まとめ
 
 必要なツールが揃っていても、ツール同士が統合されていないため、ＣＩＳＯとそのチームの仕事は難しい。セキュリティ侵害が発生した場合、アナリストはトリアージを行い、インフラ全体の関連情報を追いかけ、何が起きているのかを理解し、最終的に何らかの修復を行うのに何日もかかります。
 

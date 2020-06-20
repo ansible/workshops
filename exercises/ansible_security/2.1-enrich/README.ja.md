@@ -276,23 +276,23 @@ Playbook の文字列 `YOURSERVERNAME` をあなたの個人名に置き換え�
 
 > **Note**
 >
-> 値 `YOURSERVERNAME` は、上で述べたように実際のサーバ名に置き換えることを忘れないでください。
+> 上記のように `YOURSERVERNAME` を実際のサーバ名に置き換えることを忘れないでください。
 
-## Step 1.5 - playbook を実行してログ転送を有効にします
+## Step 1.5 - Playbook を実行してログ転送を有効にする
 
-playbook を実行して、両方のログソースを QRadar に追加します:
+Playbook を実行して、両方のログソースを QRadar に追加します:
 
 ```bash
 [student<X>@ansible ~]$ ansible-playbook enrich_log_sources.yml
 ```
 
-Check Point Smart Console では、左下隅に進捗状況を知らせる小さなウィンドウがポップアップ表示されることがあります。これが10%で止まっている場合は、通常は無視しても問題ありませんが、ログ・エクスポータが動作します。
+Check Point Smart Console では、左下隅に進捗状況を知らせる小さなウィンドウがポップアップ表示されることがあります。これが10%で止まっている場合は、通常は無視しても問題ありませんが、ログ・エクスポータは動作しています。
 
 ## Step 1.6 - ログソースの設定を確認する
 
-Ansible playbook が起動される前は、QRadar は Snort や Check Point からデータを受信していませんでした。直後、セキュリティアナリストである私たちが何も介入することなく、Check Point のログが QRadar のログ概要に表示され始めました。
+Ansible Playbook を実行する前は、QRadar は Snort や Check Point からデータを受信していませんでした。実行後、セキュリティアナリストである私たちが何も介入することなく、Check Point のログが QRadar のログ概要に表示され始めました。
 
-QRadar の Web UI にログインします。**Log Activity** をクリックしてください。ご覧のように、常にたくさんのログが入ってきます:
+QRadar の Web UI にログインします。**Log Activity** をクリックしてください。ご覧のように、常に大量のログが送信されています。
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png)
 

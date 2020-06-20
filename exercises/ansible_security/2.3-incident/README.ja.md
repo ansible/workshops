@@ -1,5 +1,7 @@
 # 演習 2.3 - Incident response
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Step 3.1 - 背景
 
 この演習では、脅威の検出と対応能力に焦点を当てます。いつものように、セキュリティオペレータは、このタスクを実行するためにエンタープライズ IT の一連のツールを必要とします。

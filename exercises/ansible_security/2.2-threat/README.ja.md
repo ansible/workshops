@@ -1,5 +1,7 @@
 # 演習 2.2 - Threat hunting
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Step 2.1 - 背景
 
 脅威の検出と対応能力は、通常、セキュリティオペレータが企業の IT を保護するために多くのツールを展開する必要があります。不足しているプロセスと多くの手動作業により、これは適切な IT セキュリティ運用にとって深刻な課題です！

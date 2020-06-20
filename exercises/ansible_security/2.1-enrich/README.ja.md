@@ -141,9 +141,9 @@ VS Code オンラインエディタのターミナルで、`ansible-galaxy` ツ�
 ```
 <!-- {% endraw %} -->
 
-ご覧のように、ここではコレクションが使用されており、実行する唯一のタスクは QRadar でログソースを管理するモジュールを使用しています。ここで正規表現は何をしているのかと聞かれるかもしれませんが、これは Snort が生成した実際の syslog ヘッダーエントリと一致するように IP アドレスを変更しています。そうしなければ、ログが QRadar によって正しく識別されません。
+ご覧のように、ここでは Collection が使用されており、実行する唯一のタスクは QRadar でログソースを管理するモジュールを使用しています。ここで正規表現は何をしているのかと聞かれるかもしれませんが、これは Snort が生成した実際の syslog ヘッダーエントリと一致するように IP アドレスを変更しています。そうしなければ、ログが QRadar によって正しく識別されません。
 
-次に、Check Point についても同じことをしなければなりません。ログを QRadar に転送するように Check Point を設定する必要があります。これは、既存の Role [log_manager](https://github.com/ansible-security/log_manager) で設定できるため、Role をインポートして、適切なパラメータで使用するだけです。まず、Role をインポートしましょう:
+次に、Check Point についても同じことをしなければなりません。ログを QRadar に転送するように Check Point を設定する必要があります。これは、既存の Role [log_manager](https://github.com/ansible-security/log_manager) で設定できるため、Role をインポートして、適切なパラメータで使用するだけです。まず、Role をインポートします:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.log_manager
@@ -171,7 +171,7 @@ VS Code オンラインエディタのターミナルで、`ansible-galaxy` ツ�
 ```
 <!-- {% endraw %} -->
 
-このスニペットでは、`YOURSERVERNAME` を Check Point 管理インスタンスの実際のサーバ名（`gw-77f3f6` など）に置き換える必要があることに注意してください。SmartConsole にログインすることで、個々の Check Point インスタンスの名前を確認できます。これは画面下部の **Summary** の下にある **GATEWAYS & SERVERS** タブに表示されます:
+このスニペットでは、`YOURSERVERNAME` を Check Point 管理インスタンスの実際のサーバ名（`gw-77f3f6` など）に置き換える必要があることに注意してください。Smart Console にログインすることで、個々の Check Point インスタンスの名前を確認できます。これは画面下部の **Summary** の下にある **GATEWAYS & SERVERS** タブに表示されます:
 
 ![Check Point Gateway Name](images/check_point_gw_name.png)
 

@@ -1,4 +1,4 @@
-# Exercise 2.3 - インシデントレスポンス
+# Exercise 2.3 - Incident response
 
 ## Step 3.1 - 背景
 
@@ -262,7 +262,7 @@ attacker | CHANGED | rc=0 >>
 
 Ansible Security Automation は、共通のオープンな自動化言語である Ansible を通じて、幅広いセキュリティソリューションの統合を促進するRed Hatの取り組みです。Ansible Security Automation は、セキュリティアナリストがセキュリティインシデントをより迅速に調査および修正できるように設計されています。
 
-Ansible Security Automation は、エンタープライズファイアウォール、IDS、SIEM の3つの異なるセキュリティ製品を統合して、セキュリティアナリストやオペレータが調査の充実、脅威の調査、インシデントレスポンスに役立つようにします。
+Ansible Security Automation は、エンタープライズファイアウォール、IDS、SIEM の3つの異なるセキュリティ製品を統合して、セキュリティアナリストやオペレータがInvestigation Enrichment、Threat hunting、Incident response に役立ちます。
 
 Ansible Security Automation を使用すると、セキュリティ組織は、事前承認された Playbook と呼ばれる自動化ワークフローを作成できます。また、Ansible Tower のサポートにより、これらの自動化ワークフローを、制御されたユーザーフレンドリーで使いやすい方法で他のチームに提供することもできます。
 

@@ -76,7 +76,7 @@ SIEM を使えば、ログを集中的に収集して分析することができ
 >
 > これらのログを QRadar に永続的に追加しないのはなぜですか？その理由は、多くのログシステムは、消費するログの量に応じてライセンス/料金が決められており、不要なログを退避することで拡張性を持たせているからです。また、ログが多すぎると、データを適切かつタイムリーに分析することが難しくなります。
 
-そこで、まずログソース(Snort と Check Point)を設定して QRadar にログを送信し、その後 QRadar にログソースを追加して QRadar が認識できるようにするような Playbook を書いてみましょう。
+そこで、まずログソース(Snort と Check Point)を設定して QRadar にログを送信し、その後 QRadar にログソースを追加して QRadar が認識できるようにするような Playbook を作成します。
 
 いつものように、Playbook には名前とそれを実行するホストが必要です。このワークフローではさまざまなマシンで作業しているため、Playbook をさまざまな "[plays](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#playbook-language-example)" に分割します:
 
@@ -84,7 +84,7 @@ SIEM を使えば、ログを集中的に収集して分析することができ
 
 つまり、1つの Playbook の中に "host" セクションが複数回登場し、各セクションには専用のタスクリストがあります。
 
-Snort の設定から始めましょう。QRadar サーバにログを送信するために Snort のログサーバが必要です。これは既存のRole [ids_config](https://github.com/ansible-security/ids_config) で設定できるので、Role をインポートして適切なパラメータで使用するだけです。
+Snort の設定から始めます。QRadar サーバにログを送信するために Snort のログサーバが必要です。これは既存の Role [ids_config](https://github.com/ansible-security/ids_config) で設定できるため、Role をインポートして適切なパラメータで使用するのみです。
 
 VS Code オンラインエディタのターミナルで、`ansible-galaxy` ツールを使用して、上記の Role を1つのコマンドでダウンロードおよびインストールします:
 
@@ -96,7 +96,7 @@ VS Code オンラインエディタのターミナルで、`ansible-galaxy` ツ�
 - ansible_security.ids_config (master) was installed successfully
 ```
 
-それでは、Role を使用する Playbook を作成してみましょう。VS Code オンラインエディタで、以下の内容のファイル `enrich_log_sources.yml` を作成します:
+それでは、Role を使用する Playbook を作成します。VS Code オンラインエディタで、以下の内容のファイル `enrich_log_sources.yml` を作成します:
 
 <!-- {% raw %} -->
 ```yaml

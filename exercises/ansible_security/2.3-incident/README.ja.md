@@ -1,4 +1,4 @@
-# Exercise 2.3 - Incident response
+# 演習 2.3 - Incident response
 
 ## Step 3.1 - 背景
 

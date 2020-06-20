@@ -1,4 +1,4 @@
-# Exercise 2.1 - Investigation Enrichment
+# 演習 2.1 - Investigation Enrichment
 
 ## Step 1.1 - 背景
 

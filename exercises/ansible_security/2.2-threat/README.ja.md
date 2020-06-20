@@ -1,4 +1,4 @@
-# Exercise 2.2 - 脅威の追跡
+# 演習 2.2 - Threat hunting
 
 ## Step 2.1 - 背景
 

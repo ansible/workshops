@@ -81,7 +81,7 @@ Playbook は SCM など、バージョン管理の仕組みの下に置いてお
     </tr>
     <tr>
       <td>名前</td>
-      <td>Ansible Workshop Examples</td>
+      <td>Workshop Project</td>
     </tr>
     <tr>
       <td>組織</td>
@@ -159,7 +159,7 @@ SCM URL にコピーした URL を貼り付けます。
   </tr>
   <tr>
     <td>プロジェクト</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>
   <tr>
     <td>PLAYBOOK</td>

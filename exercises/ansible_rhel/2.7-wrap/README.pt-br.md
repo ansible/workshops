@@ -37,7 +37,7 @@ Sua equipe de operações e sua equipe de desenvolvimento de aplicações gostam
 
 ## O repositório Git
 
-Todo o código já está no lugar - afinal, este é um laboratório da Tower. Confira o repositório git **Ansible Workshop Examples** em **https://github.com/ansible/workshop-examples**. Lá você encontrará o Plabook `webcontent.yml`, que chama a role `role_webcontent`.
+Todo o código já está no lugar - afinal, este é um laboratório da Tower. Confira o repositório git **Workshop Project** em **https://github.com/ansible/workshop-examples**. Lá você encontrará o Plabook `webcontent.yml`, que chama a role `role_webcontent`.
 
 Comparado à role de instalação anterior do Apache, há uma grande diferença: agora existem duas versões de um playbook `index.html` e uma task de implantar o arquivo de template que possui uma variável como parte do nome do arquivo de origem:
 

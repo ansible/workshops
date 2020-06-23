@@ -85,7 +85,7 @@ Para configurar y utilizar este repositorio como un **Sistema de Control de Cód
     </tr>
     <tr>
       <td>NAME</td>
-      <td>Ansible Workshop Examples</td>
+      <td>Workshop Project</td>
     </tr>
     <tr>
       <td>ORGANIZATION</td>
@@ -167,7 +167,7 @@ Okay, let’s just do that: Go to the **Templates** view, click the ![plus](imag
   </tr>
   <tr>
     <td>PROJECT</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>
   <tr>
     <td>PLAYBOOK</td>

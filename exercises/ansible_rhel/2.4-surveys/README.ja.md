@@ -76,7 +76,7 @@ Github UIに移動して、 `apache_role_install.yml` の中身を見てみて�
   </tr>
   <tr>
     <td>プロジェクト</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>  
   <tr>
     <td>PLAYBOOK</td>

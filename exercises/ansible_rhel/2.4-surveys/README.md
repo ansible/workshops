@@ -78,7 +78,7 @@ Now you create a new Template that includes a survey.
   </tr>
   <tr>
     <td>Project</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>  
   <tr>
     <td>PLAYBOOK</td>

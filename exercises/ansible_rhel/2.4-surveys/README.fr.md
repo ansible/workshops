@@ -94,7 +94,7 @@ Essayez par vous-même, la solution est ci-dessous.
   </tr>
   <tr>
     <td>PROJET</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>  
   <tr>
     <td>PLAYBOOK</td>

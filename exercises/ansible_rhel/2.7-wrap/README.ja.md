@@ -37,7 +37,7 @@
 
 ## Git リポジトリ
 
-すべてのコードは Github にあるものを使います。https://github.com/ansible/workshop-examples で **Ansible Workshop Examples** の gitリポジトリを確認してください。そこに `role_webcontent Role` を呼び出すプレイブック `webcontent.yml` があります。
+すべてのコードは Github にあるものを使います。https://github.com/ansible/workshop-examples で **Workshop Project** の gitリポジトリを確認してください。そこに `role_webcontent Role` を呼び出すプレイブック `webcontent.yml` があります。
 
 以前の Apache インストールロールと比較すると、大きな違いがあります。`index.html` テンプレートには2つのバージョンがあり、そのソースファイルの一部には変数入力が存在し、タスクによりこのテンプレートがデプロイされます。  
 
@@ -92,7 +92,7 @@
 
     - ターゲットは `Webserver` インベントリーです
 
-    - Playbook は、**Ansible Workshop Examples** の `rhel/apache/webcontent.yml` を使います  
+    - Playbook は、**Workshop Project** の `rhel/apache/webcontent.yml` を使います  
 
     - 2 つの変数の値を、 `dev_content: default dev content` と `prod_content: default prod content` として、**追加変数**欄に入力します。   
 

@@ -1,5 +1,7 @@
 # Exercise 2.2 - Threat hunting
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Step 2.1 - The Background
 
 Threat detection and response capabilities require from a security operator typically to deploy many tools to secure an enterprise IT. Due to missing processes and a lot of manual work this is a serious challenge to proper IT security operations!

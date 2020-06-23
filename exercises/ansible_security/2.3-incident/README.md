@@ -1,5 +1,7 @@
 # Exercise 2.3 - Incident response
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Step 3.1 - Background
 
 In this exercise we will focus on threat detection and response capabilities. As usual, security operators need a set of tools in enterprise IT to perform this task.

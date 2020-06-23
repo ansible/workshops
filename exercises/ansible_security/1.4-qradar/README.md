@@ -8,11 +8,11 @@ The SIEM can be accessed via web UI and via REST API. In this lab the playbooks 
 
 ## Step 4.2 - Access the web UI
 
-Have a first look at the SIEM, and verify that it is actualy working. Point your web broswer towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the vertificate is unsecure since it is self-signed. Please accept this and proceed.
+Have a first look at the SIEM, and verify that it is actually working. Point your web browser towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the vertificate is unsecure since it is self-signed. Please accept this and proceed.
 
 > **Note**
 >
-> In a productive environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purppose we accept the risk in this case.
+> In a production environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purpose we accept the risk in this case.
 
 In the login field, provide the username **admin** and the password **Ansible1!** if not provided otherwise. Press the **Login** button.
 
@@ -49,7 +49,7 @@ The list is filtered, and only shows few rules which are related to DDOS.
 
 ![QRadar, filtered rules list](images/qradar-offenses-rules.png)
 
-Click on the one called **"Potential DDoS Against Single Host (TCP)"**, note that it is enabled. This will be relevant later in this exercise.
+Click the one called **"Potential DDoS Against Single Host (TCP)"**, note that it is enabled. This will be relevant later in this exercise.
 
 Now that you had a very first glance at QRadar, it is time to look how it can be automated by Ansible.
 
@@ -125,7 +125,7 @@ In your VS Code online editor, create a new file, `find_qradar_rule.yml` in the 
   hosts: qradar
 ```
 
-We also want to use the collections we just added. Collections can be referenced at multiple spots, for example at task level as well as play level. We will reference them at play level to be able to write multiple tasks based on them later on.
+We also want to use the collections we just added. Collections can be referenced at multiple places, for example at task level as well as play level. We will reference them at play level to be able to write multiple tasks based on them later on.
 
 ```yaml
 ---
@@ -295,7 +295,7 @@ As you can see, the playbook denotes a change: the rule was changed. Run the pla
 ## Step 4.6 - Verfiy changes in UI
 
 To verify that Ansible indeed changed something, we go back to the UI of QRadar. Open the QRadar IP in your web browser. Click on the **Offenses** tab, and from there on the left side click on **Rules**. The long list of rules is displayed. In the search bar on top of this list, enter the following search term: `DDoS`
-Hit enter afterwards to filter the list, so that it only shows few rules which are related to DDOS. At the end, note the rule regarding potential DDOS attacks, and check the state in the **Enabled** column: it is set to **False**!
+Hit enter to filter the list, so that it only shows rules which are related to DDOS. At the end, note the rule regarding potential DDOS attacks, and check the state in the **Enabled** column: it is set to **False**!
 
 ![QRadar, filtered rules list showing disabled rule](images/qradar-rules-disabled.png)
 

@@ -1,5 +1,8 @@
 # Exercise 1.2 - Executing the first Check Point playbook
 
+**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
+<br>
+
 ## Step 2.1 - Check Point Next Generation Firewall
 
 To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generaion Firewall (NGFW).
@@ -90,10 +93,10 @@ If you are not very familiar with Ansible, see the following example of a playbo
 
 We will now write a playbook to change the configuration of the Check Point setup. We will start with a simple example where we will add a whiltelist entry in the firewall configuration to allow traffic from a certain machine to another. In our example we will allow the machine called **attacker** to send traffic to our machine **snort**.
 
-The playbook will be written and run on the Ansible control host. The languae the playbook is written in is [YAML](https://en.wikipedia.org/wiki/YAML). In your browser, access the VS Code online editor. In the menu bar, click on **File** -> **New File**. A new, empty file opens. Before we continue, let's save it. Again in the menu bar, click on **File** -> **Save As...**. The drop down menu opens suggesting the filename **Untitled-1** in the directory **lab_inventory**. Change this to `whitelist_attacker.yml` and remove the directory **lab_inventory** so that the full filename is: `/home/student<X>/whitelist_attacker.yml` where `<X>` is the student id assigned to you.
+The playbook will be written and run on the Ansible control host. The language the playbook is written in is [YAML](https://en.wikipedia.org/wiki/YAML). In your browser, access the VS Code online editor. In the menu bar, click on **File** -> **New File**. A new, empty file opens. Before we continue, let's save it. Again in the menu bar, click on **File** -> **Save As...**. The drop down menu opens suggesting the filename **Untitled-1** in the directory **lab_inventory**. Change this to `whitelist_attacker.yml` and remove the directory **lab_inventory** so that the full filename is: `/home/student<X>/whitelist_attacker.yml` where `<X>` is the student id assigned to you.
 
 > **Note**
-> 
+>
 > Make sure that the file, and all future operations, are always done in the home directory, **/home/student\<X>**. This is crucial for the proper execution of the exercises.
 
 once we have saved the file in the proper place, we can add our playbook code. First, a playbook needs a name and the hosts it should be executed on. So let's add those:
@@ -132,7 +135,7 @@ As you see, variables are marked by curly brackets. Note that we use the second 
 >
 > Make sure that the white spaces and indentation is exactly as shown: YAML is very picky about this, and many errors in running playbooks are due to wrong indentation.
 
-Next, we need to add the tasks. The tasks section is where the actual changes on the target machines are made. In this case, this happens in three steps: 
+Next, we need to add the tasks. The tasks section is where the actual changes on the target machines are made. In this case, this happens in three steps:
 
 - first we create a source object
 - then a destination object
@@ -158,7 +161,7 @@ Let's start with a task to define the source object:
 ```
 <!-- {% endraw %} -->
 
-As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_hosts`. The module is the part of Ansible which "makes it so" - the module in this case creates of modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can open a terminal in your VS Code online editor and call the help. For example, in the menu bar, click on **Terminal** > **New Terminal** and execute the following command. It will show the help for the module `checkpoint_host`:
+As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_host`. The module is the part of Ansible which "makes it so" - the module in this case creates or modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can open a terminal in your VS Code online editor and call the help. For example, in the menu bar, click on **Terminal** > **New Terminal** and execute the following command. It will show the help for the module `checkpoint_host`:
 
 ```bash
 [student<X>@ansible ~]$ ansible-doc checkpoint_host

@@ -1,5 +1,7 @@
 # Exercise 2.1 - Investigation Enrichment
 
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+
 ## Step 1.1 - The Background
 
 In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow.
@@ -38,7 +40,7 @@ Execute the playbook:
 
 > **Note**
 >
-> Basically in this playbook we register a small daemon running watch, which will execute a command every 5 seconds. This is a rather harsh way to start a repeating task, but serves the purpose of the demo.
+> Basically in this playbook we register a small daemon running watch, which will execute a command every 5 seconds. This is a rather harsh way to start a repeating task, but serves the purpose of this lab.
 
 The stage is set now. Read on to learn what this use case is about.
 
@@ -62,11 +64,11 @@ You can log off from the Snort server by executing the command `exit` or pressin
 >
 > You might have guessed already: this log entry is triggered every five seconds by the daemon we started at the beginning of this exercise.
 
-As a security analyst you know that anomalies can be the sign of a breach or other serious causes. You decide to investigate. Right now, you do not have enough information about the anomaly to dismiss it as a false positive. So you need to collect more data points - like from the firewall and the IDS. Going through the logs of the firewall and IDS manually takes a lot of time. In large organizations, the security analyst might not even have the necessary access rights and needs to contact the teams that each are responsible for both the enterprise firewall and the IDS, asking them to manually go through the respective logs and directly check for anomalies on their own and then reply with the results. This operation could take hours or even days.
+As a security analyst you know that anomalies can be the sign of a breach or other serious causes. You decide to investigate. Right now, you do not have enough information about the anomaly to dismiss it as a false positive. So you need to collect more data points - like from the firewall and the IDS. Going through the logs of the firewall and IDS manually takes a lot of time. In large organizations, the security analyst might not even have the necessary access rights and needs to contact the teams  responsible for both the enterprise firewall and the IDS, asking them to manually go through the respective logs and directly check for anomalies on their own and then reply with the results. This operation could take hours or even days.
 
 ## Step 1.4 - Write playbook to create new log sources
 
-If you use a SIEM, things are better: you can collect and analyze logs centrally. In our case the SIEM is QRadar. QRadar has the ability to collect logs from other systems and look in them for suspicious activities. So how do we analyze logs in QRadar? Before we can look at those logs we need to stream those into QRadar. This happens in two steps: first we need to configure the sources - here Check Point and Snort - to forward their logs to QRadar. And second we have to add those systems as log sources to QRadar.
+If you use a SIEM, things are better: you can collect and analyze logs centrally. In our case the SIEM is QRadar. QRadar has the ability to collect logs from other systems and search them for suspicious activities. So how do we analyze logs in QRadar? Before we can look at these logs we need to stream them into QRadar. This happens in two steps: first we need to configure the sources - here Check Point and Snort - to forward their logs to QRadar. And second we have to add those systems as log sources to QRadar.
 
 Doing this manually requires a lot of work on multiple machines, which again takes time and might require privileges a security analyst does not have. But Ansible allows security organizations to create pre-approved automation workflows in the form of playbooks. Those can even be maintained centrally and shared across different teams to enable security workflows at the press of a button. With these Playbooks, we as the security analyst can automatically configure both the enterprise firewall and the IDS to send their events/logs to the QRadar instance, so that we can correlate the data and decide how to proceed with the suspect application.
 
@@ -117,7 +119,7 @@ So let's create our playbook where we use the role. In your VS Code online edito
 ```
 <!-- {% endraw %} -->
 
-As you see, just like with the last time we configured Snort rules, we are re-using the role and let it do the work. We only change the behaviour of the role via the parameters: we provide the QRadar IP via variable, set the IDS provider to `snort` and define the protocol in which packages are sent as `UDP` 
+As you see, just like with the last time we configured Snort rules, we are re-using the role and let it do the work. We only change the behaviour of the role via the parameters: we provide the QRadar IP via variable, set the IDS provider to `snort` and define the protocol in which packages are sent as `UDP`
 
 Now we have to tell QRadar that there is this new Snort log source. Add the following play to the playbook `enrich_log_sources.yml`:
 
@@ -139,9 +141,9 @@ Now we have to tell QRadar that there is this new Snort log source. Add the foll
 ```
 <!-- {% endraw %} -->
 
-As you can see the collections are used here, and the only task we execute uses a module to manage log sources in QRadar. You might ask what the regex is doing in there: it changes the IP address to match the actual syslog header entry produced by Snort. Otherwise, the logs would not be properly identified as QRadar.
+As you can see the collections are used here, and the only task we execute uses a module to manage log sources in QRadar. You might ask what the regex is doing in there: it changes the IP address to match the actual syslog header entry produced by Snort. Otherwise, the logs would not be properly identified by QRadar.
 
-Now we have to do the same for Check Point: we need to configure Check Point that it should forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager), so all we have to do is to import the role and use it with the right parameters. First, let's import the role:
+Now we have to do the same for Check Point: we need to configure Check Point to forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager), so all we have to do is to import the role and use it with the right parameters. First, let's import the role:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy install ansible_security.log_manager
@@ -151,7 +153,7 @@ Now we have to do the same for Check Point: we need to configure Check Point tha
 - ansible_security.log_manager (master) was installed successfully
 ```
 
-Now add again the existing playbook `enrich_log_sources.yml` where we already broought together Snort and QRadar, and add another section for Check Point:
+Now edit again the existing playbook `enrich_log_sources.yml` where we already brought together Snort and QRadar, and add another section for Check Point:
 
 <!-- {% raw %} -->
 ```yaml
@@ -276,7 +278,7 @@ If you bring all these pieces together, the full playbook `enrich_log_sources.ym
 
 > **Note**
 >
-> Remeber to replace the value `YOURSERVERNAME` with your actual server name as mentioned further above.
+> Remember to replace the value `YOURSERVERNAME` with your actual server name as mentioned further above.
 
 ## Step 1.5 - Run playbooks to enable log forwarding
 
@@ -344,7 +346,7 @@ But as a security analyst, with more data at our disposal, we finally have a bet
 
 ## Step 1.7 - Add Snort signature
 
-To decide if this anomaly is a false positive, as a security analyst you need to exclude any potential attack. Given the data at your disposal you decide to implement a new signature on the IDS to get alert logs if such traffic is deteced again.
+To decide if this anomaly is a false positive, as a security analyst you need to exclude any potential attack. Given the data at your disposal you decide to implement a new signature on the IDS to get alert logs if such traffic is detected again.
 
 In a typical situation, implementing a new rule would require another interaction with the security operators in charge of Snort. But luckily we can again use an Ansible Playbook to achieve the same goal in seconds rather than hours or days.
 
@@ -407,7 +409,7 @@ In the Offense view, click on the Offense, then in the menu on top on **Actions*
 
 ## Step 1.9 - Rollback
 
-In the final step, we will rollback all the configuraiton changes to their pre-investigation state, reducing resource consumption and the analysis workload for us and our fellow security analysts. Also we need to stop the attack simulation.
+In the final step, we will rollback all configuration changes to their pre-investigation state, reducing resource consumption and the analysis workload for us and our fellow security analysts. Also we need to stop the attack simulation.
 
 We create a new playbook, `rollback.yml`, based on the `enrich_log_sources.yml`. The major differences are that for QRadar we set the state of the log sources to `absent`, for Snort we set `ids_config_remote_log` to `false`, and for Check Point we initiate the tasks for `unforward_logs_to_syslog`.
 

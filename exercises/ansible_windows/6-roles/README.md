@@ -1,3 +1,7 @@
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Although it is possible to write a playbook in one file as we’ve done
 throughout this workshop, eventually you’ll want to reuse files and
 start to organize things.
@@ -318,3 +322,6 @@ simplifying changes to variables, tasks, templates, etc.
 
 [Ansible Galaxy](https://galaxy.ansible.com) is a good repository of
 roles for use or reference.
+
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../readme.md)

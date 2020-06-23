@@ -1,5 +1,8 @@
 # 演習 1 - Ansible Towerの概要と構成  
 
+**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Ansible Tower には、マルチテナント、通知、スケジューリングなどの機能を提供する多くのオブジェクトがあります。ここでは、ワークショップに必要な以下の重要なものに焦点を当ててご説明します。インベントリーなど、Ansible Engine でおなじみのオブジェクトもありますし、Ansible Tower 独自のオブジェクトもあります。♬  
 
 - 認証情報  
@@ -36,13 +39,13 @@ Ansible Tower は、Windows や Linux、ネットワーク機器など管理対�
 
 次のエントリを使用してフォームに入力します。  
 
-| キー          | 値           |                                          |  
-|--------------|-----------------|------------------------------------------|  
-| 名前          | Student Account|                                          |  
-| 組織          | Default         |                                          |  
-| Type         | マシン         |                                          |  
-| Username     | student#        | **# の部分は各自の番号に置き換えてください**  |  
-| Password     | *****           | student password に置き換えてください |  
+| キー           | 値              |                                              |  
+|----------------|-----------------|----------------------------------------------|  
+| 名前           | Student Account |                                              |  
+| 組織           | Default         |                                              |  
+| 認証情報タイプ | マシン          |                                              |  
+| ユーザー名     | student#        | **# の部分は各自の番号に置き換えてください** |  
+| パスワード     | *****           | student password に置き換えてください        |  
 
 ![マシン認証情報の追加](images/1-tower-add-machine-credential.ja.jpg)  
 
@@ -92,7 +95,7 @@ Ansible Tower は、Windows や Linux、ネットワーク機器など管理対�
 | 説明    | Workshop playbooks                                                      |                                                   |  
 | 組織   | Default                                                                 |                                                   |  
 | SCM タイプ       | Git                                                                     |                                                   |  
-| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **WORKSHOP と student# は今回のワークショック名（英数字4文字）と各自のStudent番号に変更ください** |  
+| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **WORKSHOP と student# は今回のワークショップ名（英数字4文字）と各自のStudent番号に変更ください** |  
 | SCM ブランチ     |                                                                         | Intentionally blank                               |  
 | SCM 認証情報 | Git Credential                                                          |                                                   |  
 SCM 更新オプション  
@@ -116,7 +119,7 @@ SCM 更新オプション
 
 ## インベントリー  
 
-管理対象のホストをインベントリーと呼びます。これは Ansible Engine と同じですね。インベントリーはグループに分割することも可能で、これらのグループには実際のホストの一覧が含まれています。インベントリーには、Ansible Tower に直接ホスト接続情報を入力する静的インベントリーと、Ansible Towerでサポートされている、AWS やAzure、などクラウドや、vSphere などの仮想環境からインベントリー情報を取得して登録する動的インベントリーがあります。  
+管理対象のホストをインベントリーと呼びます。これは Ansible Engine と同じですね。インベントリーはグループに分割することも可能で、これらのグループには実際のホストの一覧が含まれています。インベントリーには、Ansible Tower に直接ホスト接続情報を入力する静的インベントリーと、Ansible Towerでサポートされている、AWS やAzureなどクラウドや、vSphere などの仮想環境からインベントリー情報を取得して登録する動的インベントリーがあります。  
 
 今回の演習では、静的インベントリーがすでに作成されています。ここで、このインベントリーを見て、その書き方について確認してみます。  
 

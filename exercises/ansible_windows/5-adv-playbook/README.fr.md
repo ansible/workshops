@@ -1,3 +1,6 @@
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
+
 Les exercices précédents vous ont montré les bases des playbooks Ansible. Dans les prochains exercices, nous allons voir des fonctionnalités ansibles plus avancées qui ajouteront de la flexibilité et de la puissance à vos playbook.
 
 Ansible existe pour rendre les tâches simples et reproductibles. Nous savons également que tous les systèmes ne sont pas exactement pareils et nécessitent souvent de légères modifications par rapport à la façon dont un playbook Ansible est exécuté.
@@ -413,3 +416,5 @@ Une fois la tâche terminé, vous devriez voir deux URL de vos sites Web affich�
 
 
 ![IIS site](images/5-iis-8080.png)
+<br><br>
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)

@@ -1,3 +1,6 @@
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
+
 Bien qu'il soit possible d'écrire un playbook dans un fichier comme nous l'avons fait tout au long de cet atelier, vous allez forcement vouloir réutiliser et organiser vos fichiers.
 
 Les rôles Ansible sont notre façon de procéder. Lorsque vous créez un rôle, vous
@@ -273,3 +276,5 @@ Vous devriez maintenant avoir un playbook complet, `site.yml` avec un seul rôle
 
 
 [Ansible Galaxy](https://galaxy.ansible.com) un bon référentiel de rôles à utiliser ou à référencer.
+<br><br>
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)

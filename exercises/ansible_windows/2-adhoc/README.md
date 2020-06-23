@@ -1,6 +1,10 @@
 Section 1: Ad-hoc commands
 ==========================
 
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 For our first exercise, we are going to run some ad-hoc commands to help
 you get a feel for how Ansible works. Ansible Ad-Hoc commands enable you
 to perform tasks on remote nodes without having to write a playbook.
@@ -197,3 +201,5 @@ Ad-hoc commands may be useful to run once in a while. However, as automation con
 *Also, did you catch this?* When a task is performed on a Windows server, Ansible is smart enough to know whether a reboot is required after executing that task. The below is part of the output of the command to remove the IIS feature. The output of this task can be used in subsequent tasks, like whether or not to reboot before continuing. 
 
 ![Reboot required](images/2-adhoc-reboot-required.png)
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../readme.md)

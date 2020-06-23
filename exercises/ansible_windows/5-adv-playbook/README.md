@@ -1,3 +1,7 @@
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Previous exercises showed you the basics of Ansible playbooks. In the
 next few exercises, we are going to teach some more advanced ansible
 skills that will add flexibility and power to your playbooks.
@@ -480,3 +484,6 @@ When the job has successfully completed, you should see two URLs to your website
 
 
 ![IIS site](images/5-iis-8080.png)
+
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../readme.md)

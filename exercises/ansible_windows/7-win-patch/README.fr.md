@@ -1,3 +1,6 @@
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
+
 Section 1 - Créer un Playbook
 ==================================
 
@@ -167,3 +170,5 @@ Cliquez sur l'icône de la fusée ![Add](images/at_launch_icon.png) pour éxécu
 Lorsque vous y êtes invité, sélectionnez la catégories de mise à jour. Puis répondez "Oui" à la question **Redémarrer après l'installation?** Et cliquez sur **SUIVANT**.
 
 Après le lancement de la tache, vous pouvez voir le résultat de la tache en cours en temps réel.
+<br><br>
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)

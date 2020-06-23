@@ -84,7 +84,7 @@ Pour configurer et utiliser ce référentiel en tant que système **Source Contr
     </tr>
     <tr>
       <td>NOM</td>
-      <td>Ansible Workshop Examples</td>
+      <td>Workshop Project</td>
     </tr>
     <tr>
       <td>ORGANISATION</td>
@@ -163,7 +163,7 @@ D'accord, allons-y: accédez à la vue **Modèles**, cliquez sur le bouton ![Plu
   </tr>
   <tr>
     <td>PROJET</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>
   <tr>
     <td>PLAYBOOK</td>

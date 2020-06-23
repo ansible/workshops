@@ -1,3 +1,7 @@
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 A job template is a definition and set of parameters for running an
 Ansible job. Job templates are useful to execute the same job many
 times.
@@ -166,3 +170,6 @@ At this point in the workshop, you’ve experienced the core functionality
 of Ansible Tower. But wait… there’s more! You’ve just begun to explore
 the possibilities of Ansible Tower. The next few lessons will help you
 move beyond a basic playbook.
+
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../readme.md)

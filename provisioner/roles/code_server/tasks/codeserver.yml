@@ -25,37 +25,30 @@
   delegate_to: localhost
   register: route53_status
 
-- name: Extract file
-  unarchive:
-    src: '{{ codeserver_url | default("https://github.com/cdr/code-server/releases/download/2.1698/code-server2.1698-vsc1.41.1-linux-x86_64.tar.gz") }}'
-    dest: "/home/{{ username }}"
-    remote_src: true
-    list_files: true
-  register: unarchive_out
+- name: Download code-server 3 rpm
+  get_url:
+    url: https://github.com/cdr/code-server/releases/download/v3.4.1/code-server-3.4.1-amd64.rpm
+    dest: /tmp/code-server.rpm
+    mode: '0440'
 
-# this usage of unarchive_out will get us into trouble if archive contains more then one top level directory. But it doesn't ;)
-- name: move binary to /opt
-  copy:
-    src: /home/{{username}}/{{ unarchive_out.files[0] }}/code-server
-    dest: /opt/code-server
-    remote_src: true
-    mode: '0744'
-    owner: "{{username}}"
-    group: "{{username}}"
+- name: install code-server 3 rpm from local rpm
+  dnf:
+    name: /tmp/code-server.rpm
+    state: present
 
-- name: update nginx configuration to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx.conf') }}"
-    dest: /etc/nginx/nginx.conf
-    insertafter: "http {"
-
-- name: Apply systemd service file
+- name: Apply our systemd service file (instead of RPM file)
   template:
     src: code-server.service.j2
     dest: /etc/systemd/system/code-server.service
     owner: "{{username}}"
     group: wheel
     mode: '0744'
+
+- name: update nginx configuration to support code server
+  blockinfile:
+    block: "{{ lookup('template', 'nginx.conf') }}"
+    dest: /etc/nginx/nginx.conf
+    insertafter: "http {"
 
 # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
 - name: ensure custom facts directory exists
@@ -84,7 +77,7 @@
 
 - name: install ansible and markdown extensions
   become_user: "{{ username }}"
-  command: "/opt/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
+  command: "/bin/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
   loop:
     - bierner.markdown-preview-github-styles-0.1.6.vsix
     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
@@ -94,11 +87,12 @@
   until: install_extension is not failed
   retries: 5
 
-- name: start code-server service
-  service:
-    name: code-server
-    state: started
+- name: daemon-reload, enable and start code-server
+  systemd:
     enabled: true
+    state: started
+    daemon_reload: true
+    name: code-server
 
 - name: issue cert
   shell: /usr/local/bin/certbot-auto certonly --no-bootstrap --standalone -d {{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
@@ -112,8 +106,3 @@
   register: install_tower
   until: install_tower is not failed
   retries: 5
-
-- name: cleanup Coder binary from student directory
-  file:
-    path: /home/{{username}}/{{ unarchive_out.files[0] }}
-    state: absent

@@ -3,14 +3,21 @@
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
-
+* [目的](#目的)
 * [Git リポジトリのセットアップ](#git-リポジトリのセットアップ)
 * [プロジェクトの作成](#プロジェクトの作成)
 * [ジョブテンプレートを作成してジョブを実行する](#ジョブテンプレートを作成してジョブを実行する)
 * [チャレンジラボ: 結果の確認](#チャレンジラボ-結果の確認)
 * [次のラボの準備も含め少し作業します](#次のラボの準備も含め少し作業します)
 
-Tower の **プロジェクト** は、 Git、Subversion、Mercurial、ローカルホルダなど、Playbook の置き場所を定義する仕組みを提供します。 Tower ではサポートとされるソースコード管理（SCM）と連携して Playbook を管理することが可能です。  
+# 目的
+
+Ansible Towerの **Project** は、Ansible Playbookの論理的なコレクションです。PlaybookをGit、Subversion、Mercurialなど、Towerがサポートしているソースコード管理（SCM）システムに配置して管理することができます。
+
+この演習では以下の内容をカバーしています。
+- Ansible Tower プロジェクトの理解と使用
+- Gitリポジトリに保管されているAnsibleのプレイブックを使う
+- Ansible のジョブテンプレートを作成して使用する
 
 Playbook は SCM など、バージョン管理の仕組みの下に置いておくべきです。このラボでは、 Git リポジトリに保存されている Playbook を利用します。  
 
@@ -67,19 +74,47 @@ Playbook は SCM など、バージョン管理の仕組みの下に置いてお
 
   - 左のメニューから **プロジェクト** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。フォームに以下を入力します。  
 
-  - **名前:** Ansible Workshop Examples  
-
-  - **組織:** Default  
-
-  - **SCM タイプ:** Git  
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>名前</td>
+      <td>Workshop Project</td>
+    </tr>
+    <tr>
+      <td>組織</td>
+      <td>Default</td>
+    </tr>
+    <tr>
+      <td>SCMタイプ</td>
+      <td>Git</td>
+    </tr>
+  </table>
 
 ここで、リポジトリにアクセスするためのURLが必要です。上記の Github リポジトリに移動し、右側の緑色の **Clone or download** ボタンをクリック。さらに、 **Clone with HTTPS** が選択されていることを確認し、URL をコピーします。  
 
+> **Note**
+>
+> クリックする **httpsを使用** の項目がない場合でも、**SSHを使用** があれば問題ありません。URLをコピーするだけです。重要なのは、**https** で始まるURLをコピーすることです。
+
 SCM URL にコピーした URL を貼り付けます。  
 
-- **SCM URL:** `https://github.com/ansible/workshop-examples.git`  
-
-- **SCM 更新オプション** 上から3つのボックスにチェックマークを付けて、常にリポジトリの最新コピーを取得し、ジョブの起動時にリポジトリを更新する設定とします。    
+ <table>
+   <tr>
+     <th>Parameter</th>
+     <th>Value</th>
+   </tr>
+   <tr>
+     <td>SCM URL</td>
+     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
+   </tr>
+   <tr>
+     <td>SCM 更新オプション</td>
+     <td>上から3つのボックスにチェックマークを付けて、常にリポジトリの最新コピーを取得し、ジョブの起動時にリポジトリを更新する設定とします。</td>
+   </tr>
+ </table>
 
 - **保存** をクリックします  
 
@@ -97,7 +132,7 @@ SCM URL にコピーした URL を貼り付けます。
 
 - **Playbook の指定**
 
-早速 **ジョブテンプレート** を作成してみましょう。♪  
+早速 **ジョブテンプレート** を作成してみましょう。 
 
 左のメニューから **テンプレート** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。選択肢の中から **ジョブテンプレート** を選びます。    
 
@@ -105,19 +140,44 @@ SCM URL にコピーした URL を貼り付けます。
 >
 > 下記フィールドの多くは、虫眼鏡アイコンをクリックの上オプション選択で設定が可能です。  
 
-- **名前:** Apache Install  
-
-- **ジョブタイプ:** 実行  
-
-- **インベントリー:** Workshop Inventory  
-
-- **プロジェクト:** Ansible Workshop Examples  
-
-- **PLAYBOOK:** `rhel/apache/apache_install.yml`  
-
-- **認証情報:** Workshop Credentials  
-
-- オプションで **権限昇格の有効化** にチェックを入れます  
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>名前</td>
+    <td>Install Apache</td>
+  </tr>
+  <tr>
+    <td>ジョブタイプ</td>
+    <td>実行</td>
+  </tr>
+  <tr>
+    <td>インベントリー</td>
+    <td>Workshop Inventory</td>
+  </tr>
+  <tr>
+    <td>プロジェクト</td>
+    <td>Workshop Project</td>
+  </tr>
+  <tr>
+    <td>PLAYBOOK</td>
+    <td><code>rhel/apache/apache_install.yml</code></td>
+  </tr>    
+  <tr>
+    <td>認証情報</td>
+    <td>Workshop Credentials</td>
+  </tr>
+  <tr>
+    <td>制限</td>
+    <td>web</td>
+  </tr>    
+  <tr>
+    <td>オプション</td>
+    <td>root権限で実行するために **権限昇格の有効化** にチェックを入れます  </td>
+  </tr>           
+</table>
 
 - **保存** をクリックします  
 
@@ -157,41 +217,28 @@ SCM URL にコピーした URL を貼り付けます。
 
 - **ホスト** をクリックし、対象ホストをチェックにより選択。さらに、 **コマンドの実行** をクリックします。
 
-- **モジュール:** command
+- 以下を記入します:
 
-- **引数:** systemctl status httpd
-
-- **マシン認証情報:** Workshop Credentials
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>モジュール</td>
+    <td>command</td>
+  </tr>
+  <tr>
+    <td>引数</td>
+    <td>systemctl status httpd</td>
+  </tr>
+  <tr>
+    <td>マシンの認証情報</td>
+    <td>Workshop Credentials</td>
+  </tr>   
+</table>
 
 - **起動** をクリック
-
-## 次のラボの準備も含め少し作業します
-
-以下を実施ください。  
-
-> **注意**  
->
-> 次の章がそれに依存するので、これらの手順を必ず完了してください！  
-
-- `Webserver` という名前のインベントリーを作成し、node1 のみ登録します  
-
-- **テンプレート** をクリックし、 `Install Apache` テンプレートをコピーアイコンを使ってコピーします  
-
-- コピーしたジョブテンプレートを開き `Install Apache Ask` に名前を変更します  
-
-- さらに **インベントリー** で、 `起動プロンプト` にチェックを入れます  
-
-- **保存**します  
-
-- `Install Apache Ask` テンプレートを起動します  
-
-- 使用するインベントリーについて聞かれるので `Webserver` を選択し **次へ** をクリックし、**起動**をクリックします  
-
-- ジョブが終了するのを待ち、 `node1` でしか実行されていないことを確認します。  
-
-> **ヒント**  
->
-> Apache は既に最新バージョンでインストールされているため、ジョブは何も変更していないことが分かります。  
 
 ----
 

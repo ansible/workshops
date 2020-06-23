@@ -42,7 +42,7 @@ Votre équipe d'exploitation et votre équipe de développement d'applications a
 
 ## Le référentiel Git
 
-Tout le code est déjà en place - c'est un Atelier pour Tower apres tout. Consultez le **Ansible Workshop Examples** à **https: //github.com/ansible/workshop-examples**. Vous y trouverez le playbook `webcontent.yml`, qui appelle le rôle` role_webcontent`.
+Tout le code est déjà en place - c'est un Atelier pour Tower apres tout. Consultez le **Workshop Project** à **https: //github.com/ansible/workshop-examples**. Vous y trouverez le playbook `webcontent.yml`, qui appelle le rôle` role_webcontent`.
 
 Par rapport au précédent rôle d'installation d'Apache, il y a une différence majeure: il existe maintenant deux versions d'un modèle `index.html` et une tâche de déploiement du fichier modèle qui a une variable dans le nom du fichier source:
 
@@ -103,7 +103,7 @@ Il y a bien sûr plus d'une façon d'y parvenir, mais voici ce que vous devez fa
 
     - cible l'inventaire `Webserver`
 
-    - utilise le Playbook `rhel/apache/webcontent.yml` du projet **Ansible Workshop Examples**
+    - utilise le Playbook `rhel/apache/webcontent.yml` du projet **Workshop Project**
 
     - Définit deux variables: `dev_content: contenu dev par défaut` et `prod_content: contenu prod par défaut` dans le **CHAMP EXTRA VARIABLES**
 

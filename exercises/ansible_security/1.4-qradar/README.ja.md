@@ -270,7 +270,7 @@ Playbook が完成しました: それは QRadar にルールのリストを照�
 
 ## Step 4.5 - Playbook を実行します
 
-playbook を完成させたら、実行してみましょう:
+Playbook を完成させたら、実行してみます:
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook change_qradar_rule.yml
@@ -290,12 +290,11 @@ PLAY RECAP *********************************************************************
 qradar  : ok=3  changed=1  unreachable=0  failed=0  skipped=0  rescued=0  ignored=0
 ```
 
-ご覧のように、playbook は変更を示しています: ルールが変更されました。playbook をもう一度実行してみてください - ルールはすでに無効化されているので、変更は報告されません。
+ご覧のように、Playbook は変更を示しています: ルールが変更されました。Playbook をもう一度実行してみてください - ルールはすでに無効化されているので、変更は報告されません。
 
 ## Step 4.6 - UI から変更を確認します
 
-Ansible が実際に何かを変更したことを確認するために、QRadar の UI に戻ります。Web ブラウザで QRadar の IP を開きます。**Offenses** タブをクリックし、そこから左側の **Rules** をクリックします。ルールの長いリストが表示されます。このリストの上部にある検索バーに、以下の検索語を入力します:
-`DDoS`
+Ansible が実際に何かを変更したことを確認するために、QRadar の UI に戻ります。Web ブラウザで QRadar の IP を開きます。**Offenses** タブをクリックし、そこから左側の **Rules** をクリックします。ルールの長いリストが表示されます。このリストの上部にある検索バーに、以下の検索語を入力します: `DDoS`
 リストをフィルタリングするために、DDoS に関連するいくつかのルールのみが表示されるように、後から Enter キーを押します。最後に、潜在的な DDoS 攻撃に関するルールに注意して、**Enabled** 列の状態を確認してください。
 
 ![QRadar, filtered rules list showing disabled rule](images/qradar-rules-disabled.png)
@@ -304,4 +303,4 @@ Ansible が実際に何かを変更したことを確認するために、QRadar
 
 ----
 
-[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.ja.md#section-1---introduction-to-ansible-security-automation-basics)

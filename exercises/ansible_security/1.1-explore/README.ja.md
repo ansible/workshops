@@ -1,6 +1,6 @@
 # 演習 1.1 - ラボ環境を確認してみよう
 
-**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
+**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md), ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
 <br>
 
 ## Step 1.1 - 目的

@@ -1,5 +1,7 @@
 # Exercise 1.4 - 最初の IBM QRadar playbook の実行
 
+**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
+
 ## Step 4.1 - IBM QRadar
 
 セキュリティ環境で SIEM を自動化する方法を紹介するために、このラボでは、[IBM QRadar SIEM, community edition](https://developer.ibm.com/qradar/ce/) が含まれています。

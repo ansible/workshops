@@ -53,19 +53,19 @@ Offense は、悪意のあるログ行のようなログメッセージやネッ
 
 QRadar を一目見たところで、次は Ansible でどのように自動化できるかを見てみます。
 
-## Step 4.3 - QRadar モジュールと Ansible Collections
+## Step 4.3 - QRadar モジュールと Ansible collections
 
 最も基本的なレベルでは、Ansible の自動化はタスクを実行します。これらのタスクはモジュールを実行し、通常は特別なデバイスやプログラムの API エンドポイントのような対応するターゲットで動作します。
 
 Ansible には多くのモジュールが付属しています。しかし、この記事を書いている時点では、Ansible は QRadar モジュールを提供していません。代わりに、それらのモジュールは [Ansible collections](https://docs.ansible.com/ansible/devel/dev_guide/collections_tech_preview.html) として提供されています:
 
-> *Collections は Ansible コンテンツの配布フォーマットです。Collections は、playbook 、role 、module 、および plugin をパッケージ化して配布するために使用できます。Ansible Galaxy を通じて Collections を公開して使用することができます。*
+> *Collections は Ansible コンテンツの配布フォーマットです。Collections は、Playbook 、Role 、Module 、および Plugin をパッケージ化して配布するために使用できます。Ansible Galaxy を通じて Collections を公開して使用することができます。*
 
-Collections は、Ansible のコンテンツを提供するためのシンプルなディレクトリ構造に従っています。ここで Ansible の Role を思い出してしまうかもしれませんが、これには理由があります。Collections は Role の概念に基づいて構築されていますが、その概念を一般的な Ansible コンテンツ管理にまで拡張しています。IBM QRadar 用のコレクションは [ansible-security project](https://github.com/ansible-security/ibm_qradar) にあります。
+Collections は、Ansible のコンテンツを提供するためのシンプルなディレクトリ構造に従っています。ここで Ansible の Role を思い出すかもしれませんが、これには理由があります。Collections は Role の概念に基づいて構築されていますが、その概念を一般的な Ansible コンテンツ管理にまで拡張しています。IBM QRadar 用のコレクションは [ansible-security project](https://github.com/ansible-security/ibm_qradar) にあります。
 
 Role と同様に、Collections も使用する前に最初にインストールする必要があります。これらは Ansible を実行しているマシンにインストールされますが、ラボの場合はこれがコントロールホストです。
 
-QRadar module の Collection をコントロールホストにインストールしてみましょう。VS Code Online エディタで新しいターミナルを開きます。コマンド `ansible-galaxy collection --help` を実行して、Collection 機能が正しく動作していることを確認します:
+QRadar module の Collection をコントロールホストにインストールします。VS Code Online エディタで新しいターミナルを開きます。コマンド `ansible-galaxy collection --help` を実行して、Collections 機能が正しく動作していることを確認します:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy collection --help
@@ -85,7 +85,7 @@ optional arguments:
   -h, --help         show this help message and exit
 ```
 
-これを念頭に置いて、Collection `ibm.qradar` をインストールします:
+これを念頭に置いて、`ibm.qradar` Collections をインストールします:
 
 ```bash
 [student<X>@ansible ~]$ ansible-galaxy collection install ibm.qradar
@@ -94,7 +94,7 @@ Starting collection install process
 Installing 'ibm.qradar:0.0.1' to '/home/student<X>/.ansible/collections/ansible_collections/ibm/qradar'
 ```
 
-Collection が正しくインストールされていることを確認します:
+Collections が正しくインストールされていることを確認します:
 
 ```bash
 [student<X>@ansible ~]$ ls -1 ~/.ansible/collections/ansible_collections/ibm/qradar
@@ -105,15 +105,15 @@ README.md
 tests
 ```
 
-必要なファイルはすべてそこにあります - 特に実際のモジュールが入っている `plugins/modules` ディレクトリにあります。
+必要なファイルはすべてそこにあります - 特に実際のモジュールは `plugins/modules` ディレクトリにあります。
 
-コレクションが揃ったことで、あとは playbook の作成に取り掛かることができるようになりました。
+Collection が揃ったことで、あとは Playbook の作成に取り掛かることができるようになりました。
 
 > **Note**
 >
 > 自宅でも試してみたい方へ: Collection command は最低でも Ansible のバージョン 2.9 が必要なのでご注意ください！
 
-## Step 4.4 - 最初のサンプル playbook
+## Step 4.4 - 最初のサンプル Playbook
 
 QRadar とのインターフェイスの最初の例では、ルールの有効化/無効化を行います。これはかなり小さな変更ですが、一般的な変更であり、Ansible と QRadar がどのように相互作用するかを示しています。まず最初に変更したいルールを見つけ、その後で変更を適用します。
 
@@ -125,7 +125,7 @@ VS Code Online エディタで、ユーザのホームディレクトリに `fin
   hosts: qradar
 ```
 
-また、先ほど追加した Collection を使いたいと思います。Collection は、プレイレベルだけでなくタスクレベルなど複数の場所で参照することができます。プレイレベルで参照することで、後からそれらに基づいて複数のタスクを書くことができるようになります。
+また、先ほど追加した Collection を使います。Collection は、play レベルだけでなく task レベルなど複数の場所で参照することができます。play レベルで参照することで、後からそれらに基づいて複数の task を作成することができます。
 
 ```yaml
 ---

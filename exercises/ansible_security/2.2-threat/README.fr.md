@@ -1,5 +1,7 @@
 # Exercise 2.2 - Chasse aux menaces
 
+**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
+
 ## Étape 2.1 - Le contexte
 
 Les capacités de détection et de réponse aux menaces nécessitent généralement d'un opérateur de sécurité qu'il déploie de nombreux outils pour sécuriser l'informatique de l'entreprise. En raison de processus manquants et de nombreux travaux manuels, cela représente un réel défi pour les opérations de sécurité informatique!

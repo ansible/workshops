@@ -1,6 +1,6 @@
 # 演習 2.1 - Investigation Enrichment
 
-**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
+**Read this in other languages**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
 
 ## Step 1.1 - 背景
 

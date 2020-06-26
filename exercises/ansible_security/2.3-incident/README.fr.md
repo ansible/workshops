@@ -1,6 +1,6 @@
 # Exercice 2.3 - Réponse aux incidents
 
-**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
+**Read this in other languages**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
 
 ## Étape 3.1 - Contexte
 

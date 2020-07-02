@@ -48,27 +48,9 @@ Run the playbook with:
 [student<X>@ansible ~]$ ansible-playbook incident_snort_rule.yml
 ```
 
-To have those rules generate logs, we need suspicious traffic - an attack. Again we have a playbook which simulates a simple access every few seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `sql_injection_simulation.yml` with the following content:
+To have those rules generate logs, we need suspicious traffic - an attack. Again we have an attack simulation available which can be started via Tower. Open your browser and enter the link to your Tower instance. Log-in with your student ID and the password provided to you.
 
-<!-- {% raw %} -->
-```yml
----
-- name: start sql injection simulation
-  hosts: attacker
-  become: yes
-  gather_facts: no
-
-  tasks:
-    - name: simulate sql injection attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/sql_injection_simulation"
-```
-<!-- {% endraw %} -->
-
-Run it with:
-
-```bash
-[student<X>@ansible ~]$ ansible-playbook sql_injection_simulation.yml
-```
+In the navigation bar on the left side, click on **Templates**. In the list of templates, find and execute the one called **Start SQL injection simulation** by clicking on the rocket icon right to it. This will ensure that every few seconds an attack is simulated. You can close the Tower borwser tab now, we will not need it agaion in this exercise.
 
 Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar`
 
@@ -245,16 +227,7 @@ Execute the playbook `rollback.yml` we wrote in the last exercise to roll all ch
 
 Note here that the playbook runs through without problems - even though we did not configure Check Point as a log source for QRadar this time! This is possible since Ansible tasks are most often idempotent: they can be run again and again, ensuring the desired state.
 
-Also we need to kill the process sending out attack. From the terminal of your VS Code online editor, execute the follwing Ansible ad-hoc command:
-
-<!-- {% raw %} -->
-```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
-attacker | CHANGED | rc=0 >>
-```
-<!-- {% endraw %} -->
-
-If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
+Last but not least we have to stop the attack simulation. Log into Tower as your student user. In the section **Templates**, find and execute the job template called **Stop sql injection simulation**.
 
 You are done with this last exercise. Congratulations!
 

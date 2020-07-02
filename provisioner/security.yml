@@ -21,11 +21,6 @@
       include_role:
         name: "geerlingguy.repo-epel"
 
-    - name: package pre-reqs are installed
-      yum:
-        state: present
-        name: daemonize
-
 - name: include splunk playbook
   import_playbook: splunk.yml
   when: security_console == 'splunk'

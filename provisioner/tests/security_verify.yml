@@ -29,14 +29,6 @@
     - name: Attacker
       block:
 
-        - name: Check if daemonize is installed
-          package_facts:
-
-        - name: Fail if daemonize is not of a recent enough version
-          fail:
-            msg: "Daemonize is not of a recent enough version on {{ inventory_hostname }}."
-          when: ((ansible_facts.packages['daemonize'][0]['version'] is not defined) or (ansible_facts.packages['daemonize'][0]['version']|string) is version("1.7.6",'<'))
-
         - name: Fail if eth0 is not in 172.16. or eth1 is not in 172.17.
           fail:
             msg: "IP address setup on ethX is not right on {{ inventory_hostname }}."

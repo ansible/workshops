@@ -16,31 +16,21 @@ Also we need the QRadar collection. This was installed already in the previous Q
 
 Addtionally we will use the role to modify IDS rules from the previous Snort exercise. If you missed that, install them via: `ansible-galaxy install ansible_security.ids_rule`
 
-Next, since this is a security lab, we do need suspicious traffic - an attack. We have a playbook which simulates a simple access every five seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `web_attack_simulation.yml` in the user home directory with the following content:
+Next, since this is a security lab, we do need suspicious traffic - an attack. We simulate a simple access every five seconds on which the other components in this exercise will later on react to. To start this simulation we will be using Tower. Your Tower installation is already populated with users, inventory, credentials and so on. However, note that in this exercise we will be focusing on the comand line to better showcase how things are working. In the next exercise Tower plays a major role. Thus here we will only guide you through the interface to start the attack. In the next exercise we will more deeply explain the features and capabilities of Tower, and why it plays a crucial role in security automation.
 
-<!-- {% raw %} -->
-```yml
----
-- name: start attack
-  hosts: attacker
-  become: yes
-  gather_facts: no
+Tower is accessed via browser. You need the URL to your personal Tower instance. It is be similar to the URL for your VS Code online editor, but without the `-code`. You can also find it on your workshop page:
 
-  tasks:
-    - name: simulate attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/web_attack_simulation"
-```
-<!-- {% endraw %} -->
-
-Execute the playbook:
-
-```bash
-[student<X>@ansible ansible-files]$ ansible-playbook web_attack_simulation.yml
-```
+![Tower URL example](images/tower_url.png)
 
 > **Note**
 >
-> Basically in this playbook we register a small daemon running watch, which will execute a command every 5 seconds. This is a rather harsh way to start a repeating task, but serves the purpose of this lab.
+> This URL and login information are just an example. Your Tower URL and login information will be different.
+
+Open your browser and enter the link to your Tower instance. Log-in with your student ID and the password provided to you. You are greeted with a dashboard and a navigation bar on the left side.
+
+![Tower dashboard](images/tower_dashboard.png)
+
+In the navigation bar on the left side, click on **Templates**. In the list of templates, find and execute the one called **Start web attack simulation** by clicking on the rocket icon right to it. This will ensure that every few seconds an attack is simulated. You can close the Tower browser tab now, we will not need it agaion in this exercise.
 
 The stage is set now. Read on to learn what this use case is about.
 
@@ -493,18 +483,7 @@ Run the playbook to remove the log sources:
 [student<X>@ansible ~]$ ansible-playbook rollback.yml
 ```
 
-Also, we need to kill the process which simulates the attack. For this we will use a so called Ansible ad-hoc command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. In a terminal of your VS Code online editor, run the following command:
-
-<!-- {% raw %} -->
-```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
-attacker | CHANGED | rc=0 >>
-```
-<!-- {% endraw %} -->
-
-The connects to the **attacker** machine with escalated privileges (`-b`) and runs the shell module there (`-m shell`). The parameter of the shell module is a chain of shell commans. We output all running processes, remove lines where grep is part of the command itself, assuming that those are not of value to us. We then filter for all commands executing watch, use awk to get the process ID and hand the process ID over to `kill`.
-
-If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
+Last but not least we have to stop the attack simulation. Log into Tower as your student user. In the section **Templates**, find and execute the job template called **Stop web attack simulation**.
 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 

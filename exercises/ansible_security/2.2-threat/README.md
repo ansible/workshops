@@ -14,25 +14,13 @@ For this exercise to work properly, the playbook `whitelist_attacker.yml` must h
 
 ## Step 2.3 - Explore the Tower setup
 
-There are two more steps needed for preparation - but in contrast to the previous exercise, we will use Tower to do them. Your Tower installation is already populated with users, inventory, credentials and so on, and can be used directly. Let's have a look at it: Tower is accessed via browser. You need the URL to your personal Tower instance. It is be similar to the URL for your VS Code online editor, but without the `-code`. You can also find it on your workshop page:
-
-![Tower URL example](images/tower_url.png)
-
-> **Note**
->
-> This URL and login information are just an example. Your Tower URL and login information will be different.
-
-Open your browser and enter the link to your Tower instance. Log-in with your student ID and the password provided to you. You are greeted with a dashboard and a navigation bar on the left side.
-
-![Tower dashboard](images/tower_dashboard.png)
-
-On the left side, click on **Templates**. A list of all already configured job templates are shown. A job template is a definition and set of parameters for running an Ansible job. It defines the inventory, credentials, playbook, limits, become rights and so on which are needed to execute the automation. In this list, find the entry called **Blacklist attacker**, and click on the rocket symbol right to it:
+There are two more steps needed for preparation. Again we will use Tower to do them. On the left side, click on **Templates**. A list of all already configured job templates are shown. A job template is a definition and set of parameters for running an Ansible job. It defines the inventory, credentials, playbook, limits, become rights and so on which are needed to execute the automation. In this list, find the entry called **Blacklist attacker**, and click on the rocket symbol right to it:
 
 ![Blacklist attacker](images/tower_blacklist.png)
 
 This click will bring you to the job overview, showing live data from the automation job execution and a summary of all the parameters which are relevant to the job. With this automation execution we have changed the existing policy in the Firewall to drop packages between the two machines.
 
-Now all we need is the attack. Unlike the last exercise we will not write and execute a playbook, but again use Tower to start the attack. In the navigation bar on the left side, click on **Templates**. In the list of templates, find and execute the one called **Start DDOS attack simulation** by clicking on the rocket icon right to it. This will ensure that every few seconds an attack is simulated.
+Now all we need is the attack. In the navigation bar on the left side, click on **Templates**. In the list of templates, find and execute the one called **Start DDOS attack simulation** by clicking on the rocket icon right to it. This will ensure that every few seconds an attack is simulated.
 
 The stage is set now. Read on to learn what this use case is about.
 

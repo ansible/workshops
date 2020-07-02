@@ -231,6 +231,66 @@
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
+- name: Job template adding web attack simulation
+  awx.awx.tower_job_template:
+    name: "Start web attack simulation"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "web_attack_simulation.yml"
+    state: "present"
+    limit: "attacker"
+    credential: "Workshop Credential"
+    become_enabled: true
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+
+- name: Job template stopping web attack simulation
+  awx.awx.tower_job_template:
+    name: "Stop web attack simulation"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "web_stop_simulation.yml"
+    state: "present"
+    limit: "attacker"
+    credential: "Workshop Credential"
+    become_enabled: true
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+
+- name: Job template adding sql injection simulation
+  awx.awx.tower_job_template:
+    name: "Start SQL injection simulation"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "sql_injection_simulation.yml"
+    state: "present"
+    limit: "attacker"
+    credential: "Workshop Credential"
+    become_enabled: true
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+
+- name: Job template stopping sql injection simulation
+  awx.awx.tower_job_template:
+    name: "Stop sql injection simulation"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "sql_stop_simulation.yml"
+    state: "present"
+    limit: "attacker"
+    credential: "Workshop Credential"
+    become_enabled: true
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+
 - name: Job template adding ddos attack simulation
   awx.awx.tower_job_template:
     name: "Start DDOS attack simulation"

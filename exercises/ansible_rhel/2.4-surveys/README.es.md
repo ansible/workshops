@@ -63,7 +63,7 @@ Ahora creará una nueva plantilla que incluye una encuesta.
 
 - Configurar la plantilla para:
 
-    - Utilice el **Project** `Ansible Workshop Examples`
+    - Utilice el **Project** `Workshop Project`
 
     - Utilice el **Playbook** `apache_role_install.yml`
 
@@ -97,7 +97,7 @@ Inténtalo por ti mismo, la solución está a continuación.
   </tr>
   <tr>
     <td>Project</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>  
   <tr>
     <td>PLAYBOOK</td>

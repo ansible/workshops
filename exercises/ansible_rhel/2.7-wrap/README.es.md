@@ -42,7 +42,7 @@ A su equipo de operaciones y a su equipo de desarrollo de aplicaciones le gusta 
 
 ## El Repositorio de Git
 
-Todo el código ya está en su lugar - este es un laboratorio Tower después de todo. Echa un vistazo al repositorio git **Ansible Workshop Examples** en https://github.com/ansible/workshop-examples**. Allí encontrará el playbook `webcontent.yml`, que llama el role `role_webcontent`.
+Todo el código ya está en su lugar - este es un laboratorio Tower después de todo. Echa un vistazo al repositorio git **Workshop Project** en https://github.com/ansible/workshop-examples**. Allí encontrará el playbook `webcontent.yml`, que llama el role `role_webcontent`.
 
 En comparación con el role de instalación de Apache anterior, hay una diferencia importante: ahora hay dos versiones de una plantilla `index.html` y una tarea que implementa el archivo de plantilla que tiene una variable como parte del nombre del archivo de origen:
 
@@ -102,7 +102,7 @@ Por supuesto, hay más de una manera de lograr esto, pero esto es lo que debe ha
 
     - se dirige al inventario `Webserver`
 
-    - utiliza el Playbook `rhel/apache/webcontent.yml` del proyecto **Ansible Workshop Examples**
+    - utiliza el Playbook `rhel/apache/webcontent.yml` del proyecto **Workshop Project**
 
     - Define dos variables: `dev_content: default dev content` y `prod_content: default prod content`: en el **EXTRA VARIABLES FIELD**
 

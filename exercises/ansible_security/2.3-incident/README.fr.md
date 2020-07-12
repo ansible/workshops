@@ -1,7 +1,5 @@
 # Exercice 2.3 - Réponse aux incidents
 
-**Read this in other languages**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
-
 ## Étape 3.1 - Contexte
 
 Dans cet exercice, nous nous concentrerons sur les capacités de détection et de réponse aux menaces. Comme d'habitude, les opérateurs de sécurité ont besoin d'un ensemble d'outils pour effectuer cette tâche.

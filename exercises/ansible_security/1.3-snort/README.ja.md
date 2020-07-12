@@ -1,6 +1,6 @@
 # 演習 1.3 - 最初のSnort用のPlaybookを実行してみよう
 
-**Read this in other languages**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
+**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
 <br>
 
 ## Step 3.1 - Snort

@@ -1,6 +1,6 @@
 # Exercise 2.2 - Threat hunting
 
-**Read this in other languages**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## Step 2.1 - The Background
 

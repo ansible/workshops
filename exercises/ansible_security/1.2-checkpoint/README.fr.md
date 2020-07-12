@@ -1,7 +1,5 @@
 # Exercice 1.2 - Exécution du premier playbook Check Point
 
-**Read this in other languages**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Francaise](README.fr.md).
-
 ## Étape 2.1 - Pare-feu Check Point
 
 Pour montrer comment automatiser un pare-feu dans un environnement de sécurité, ce laboratoire contient le pare-feu Check Point (NGFW).

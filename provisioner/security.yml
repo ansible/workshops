@@ -68,7 +68,13 @@
             state: present
             name:
               - libselinux-python
-              - python2-idstools
+              - python-virtualenv
+              - python-setuptools
+              - python-pip
+
+        - name: install idstools
+          pip:
+            name: idstools
 
         - name: set selinux permissve because of policy issue that breaks snort
           selinux:

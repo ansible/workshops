@@ -32,13 +32,13 @@
   hosts: attendance
   become: true
   gather_facts: true
-  roles:
-    - role: workshop_attendance_nginx
-      when:
-        - attendance|bool
-    - role: workshop_attendance
-      when:
-        - attendance|bool
+  tasks:
+    - block:
+        - include_role:
+            name: workshop_attendance_nginx
+        - include_role:
+            name: workshop_attendance
+      when: attendance|bool
 
 - name: wait for all security nodes to have SSH reachability
   hosts: "security_connection_check"
@@ -61,7 +61,9 @@
   become: true
   roles:
     - role: control_node
-    - role: code_server
+  tasks:
+    - include_role:
+        name: code_server
       when:
         - code_server is defined
         - code_server
@@ -72,8 +74,9 @@
   hosts: control_nodes
   become: true
   gather_facts: false
-  roles:
-    - role: aws_dns
+  tasks:
+    - include_role:
+        name: aws_dns
       when:
         - dns_type is defined
         - dns_type == "aws"
@@ -86,8 +89,9 @@
   connection: local
   become: false
   gather_facts: false
-  roles:
-    - role: aws_workshop_login_page
+  tasks:
+    - include_role:
+        name: aws_workshop_login_page
       when:
         - create_login_page is defined
         - create_login_page

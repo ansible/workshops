@@ -40,7 +40,19 @@ This will always download and install the latest version, even if it was already
 
 By default the installation is stored in your local `~/.ansible` directory. This can be overwritten by using the `-p /pat/to/collection` switch. Keep in mind though that `ansible-playbook` will only use that directory if you change your `ansible.cfg` accordingly.
 
-## Step 2 - Write an Ansible Playbook
+## Step 2 - Documentation
+
+The `ansible-doc` command only searches the system directories for documentation. You can still use it though to read up on modules you installed from Ansible Collections by using the fully qualified collection name.
+
+Let's have a look at the module documentation for the `selinux` module which we are going to use in the next part of the exercise:
+
+```bash
+ansible-doc ansible.posix.selinux
+```
+
+> **NOTE**: Depending on your screen resolution you might have to press `q` to leave the documentation viewer.
+
+## Step 3 - Write an Ansible Playbook
 
 We want to use the SELinux module to make sure it is configured in enforcing mode. SELinux is a kernel feature which brings extra security to our Linux system and it is highly recommended to always keep it enabled and in enforcing mode. If you're new to SELinux, there is a nice article on [What is SELinux](https://www.redhat.com/en/topics/linux/what-is-selinux) to get you started.
 
@@ -62,7 +74,7 @@ Save the playbook as `enforce-selinux.yml` for later.
 
 > **NOTE**: Pay special attention to the module name. Typically you would see something like `selinux`, but since we are using a module provided by an Ansible Collection, we have to specify the fully qualified module name.
 
-## Step 3 - Test the playbook
+## Step 4 - Test the playbook
 
 You can run the Playbook and see what happens:
 
@@ -85,7 +97,7 @@ You should see output like this:
 
 If SELinux was not set to enforcing before, you might see "changed" instead of ok. If it did say "changed" and you run it a second time, you should now see "ok" - the magic of [Ansible idempotency](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html).
 
-## Step 4 - Simplify the namespace
+## Step 5 - Simplify the namespace
 
 If you use many modules from Ansible Collections in your Playbook, the <autho>.<collection> prefix can become quite annoying it reading your Playbook can become harder as well.
 
@@ -107,6 +119,6 @@ You can use the `collections` key word to skip defining the namespace with every
 
 > **NOTE**: Although the syntax looks similar to how you specify roles, this works different. They keyword `roles` will execute the `tasks/main.yml` in each role. The `collections` keyword is merely a shortcut so you can skip the author and namespace every time you use a module in a task.
 
-## Step 5: Test the change
+## Step 6: Test the change
 
 When running the Playbook again, you shouldn't actually see any difference in the output. As explained before, the `collections` keyword only simplifies writing your Playbook.

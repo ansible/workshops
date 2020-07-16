@@ -36,7 +36,9 @@ This will install collection on your system, only if it wasn't installed before.
 
     ansible-galaxy collection install -f ansible.posix
 
-This will always download and install the latest version, even if it was already up to date.
+This will always download and install the latest version, even if it was already up to date. Ansible Collections can have dependencies for other Ansible Collections as well - if you want to make sure those dependencies are refreshed as well, you can use the `--force-with-deps` switch.
+
+By default the installation is stored in your local `~/.ansible` directory. This can be overwritten by using the `-p /pat/to/collection` switch. Keep in mind though that `ansible-playbook` will only use that directory if you change your `ansible.cfg` accordingly.
 
 ## Step 2 - Write an Ansible Playbook
 

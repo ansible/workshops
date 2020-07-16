@@ -4,7 +4,7 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
-    - [Step 1 - Write requirements.yml](#step-1---write-requirementsyml)
+    - [Step 1 - Write a requirements.yml](#step-1---write-a-requirementsyml)
     - [Step 2 - Create Job Template](#step-2---create-job-template)
 - [Troubleshooting](#troubleshooting)
 
@@ -12,11 +12,13 @@
 
 Red Hat Ansible Tower supports Ansible Collections starting with version 3.5 - earlier version will not automatically install and configure them for you. To make sure Ansible Collections are recognized by Red Hat Ansible Tower a requirements file is needed and has to be stored in the proper directory.
 
+Ansible Galaxy is already configured by default, however if you want your Red Hat Ansible Tower to prefer and fetch content from the Red Hat Automation Hub, additional configuration changes are required. They are addressed in a the chapter [Use Automation Hub](../7-use-automation-hub/) in this lab.
+
 # Guide
 
 In this exercise you will learn how to define an Ansible Collection as a requirement in a format recognized by Red Hat Ansible Tower.
 
-## Step 1 - Write requirements.yml
+## Step 1 - Write a requirements.yml
 
 Red Hat Ansible Tower can download and install Ansible Collections automatically before executing a Job Template. If a `collections/requirements.yml` exists, it will be parsed and Ansible Collections specified in this file will be automatically installed.
 
@@ -44,6 +46,8 @@ In this case you should check the option **Delete on Update** which will delete 
 
 If there is a problem while parsing your `requirements.yml` it worth testing it with the `ansible-galaxy` command. As a reminder, Red Hat Ansible Tower basically also just runs the command for you with the appropriate parameters, so testing this works manually makes a lot of sense.
 
-    ansible-galaxy collections install -r collections/requirements.yml -f
+```bash
+ansible-galaxy collections install -r collections/requirements.yml -f
+```
 
-> **NOTE**: The `-f` switch will forces a fresh installation of the specified Ansible Collections, otherwise `ansible-galaxy` will only install it, if it wasn't already installed.
+> **NOTE**: The `-f` switch will forces a fresh installation of the specified Ansible Collections, otherwise `ansible-galaxy` will only install it, if it wasn't already installed. You can also use the `--force-with-deps` switch to make sure Ansible Collections which have dependencies to others are refreshed as well.

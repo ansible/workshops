@@ -1,0 +1,20 @@
+---
+# tasks file for selinux_manage_meta
+- name: Enable SELinux enforcing mode
+  selinux:
+    policy: targeted
+    state: "{{ selinux_mode }}"
+
+- name: Enable booleans
+  seboolean:
+    name: "{{ item }}"
+    state: true
+    persistent: true
+  loop: "{{ sebooleans_enable }}"
+
+- name: Disable booleans
+  seboolean:
+    name: "{{ item }}"
+    state: false
+    persistent: true
+  loop: "{{ sebooleans_disable }}"

@@ -1,0 +1,7 @@
+---
+# defaults file for selinux_manage_meta
+selinux_mode: enforcing
+
+sebooleans_enable: []
+sebooleans_disable: []
+

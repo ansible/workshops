@@ -17,7 +17,7 @@ Covered topics:
 
 - Demonstrate the steps involved in the installation of an Ansible Collection from the
 command line using the `ansible-galaxy` utility.
-- Demonstrate the steps involved in the creation of a new collectoin with the `ansible-galaxy`
+- Demonstrate the steps involved in the creation of a new collection with the `ansible-galaxy`
 utility.
 - Demonstrate the creation of a custom role inside the newly created collection.
 - Demonstrate the creation of a new custom plugin (basic Ansible module) in the newly created collection.
@@ -32,6 +32,7 @@ and executed in complex Ansible-based projects.
 ### Preparing the exercise environment
 Create a directory in your lab named `dir_name` and cd into it. This directory will be used during the
 whole exercise.
+
 ```
 $ mkdir exercise-01
 $ cd exercise-01
@@ -42,16 +43,16 @@ Collection have two default lookup paths that are searched:
 - System scoped path `/usr/share/ansible/collections`
 
 > **TIP**: Users can customized the collections path by modifying the `collections_path` key in the
-> `ansible.cfg` file or by setting the environment variable `ANSIBLE_COLLECTIONS_PATHS` with the desidered
+> `ansible.cfg` file or by setting the environment variable `ANSIBLE_COLLECTIONS_PATHS` with the desired
 > search path.
 
 ### Installing in the default collections path
-First, we demonstrate how to install a collection in the user scoped path. 
+First, we demonstrate how to install a collection in the user scoped path.
 For the sake of simplicity we are going to use the collection `newswangerd.collection_demo` (https://galaxy.ansible.com/newswangerd/collection_demo),
-a basic collection created for demo purposes.   
+a basic collection created for demo purposes.
 It contains basic roles and a very simple module and is a good example to understand how a collection works without getting involved in modules or roles logic.
-  
-Intall the collection using the command `ansible galaxy collection install` with no extra options:
+
+Install the collection using the command `ansible galaxy collection install` with no extra options:
 ```
 $ ansible-galaxy collection install newswangerd.collection_demo
 Process install dependency map
@@ -73,7 +74,7 @@ $ ansible-galaxy collection install -p . newswangerd.collection_demo
 > '/home/gbsalinetti/.ansible/collections:/usr/share/ansible/collections'. The installed collection won't be picked up in an Ansible run.
 >  ```
 
-The installed path follows the standard pattern `ansible_collections/<author>/<collection>`. 
+The installed path follows the standard pattern `ansible_collections/<author>/<collection>`.
 Run the `tree` command to inspect the contents:
 ```
 $ tree
@@ -113,7 +114,7 @@ $ tree
 ```
 
 ### Inspecting the contents of the collection
-Collections have a standard structure that can can hold modules, plugins, roles and playbooks. 
+Collections have a standard structure that can can hold modules, plugins, roles and playbooks.
 ```
 collection/
 ├── docs/
@@ -138,11 +139,11 @@ collection/
 
 A short description of the collection structure:
 
-- The `plugins` folder holds plugins, modules, and module_utils that can be reused in playbooks and roles.  
-- The `roles` folder hosts custom roles, while all collection playbooks must be stored in the `playbooks` folder.  
-- The `docs` folder can be used for the collections documentation, as well as the main `README.md` file that is 
+- The `plugins` folder holds plugins, modules, and module_utils that can be reused in playbooks and roles.
+- The `roles` folder hosts custom roles, while all collection playbooks must be stored in the `playbooks` folder.
+- The `docs` folder can be used for the collections documentation, as well as the main `README.md` file that is
   used to describe the collection and its content.
-- The `tests` folder holds tests written for the collection.  
+- The `tests` folder holds tests written for the collection.
 - The `galaxy.yml` file is a YAML text file that contains all the metadata used in the Ansible Galaxy hub to index the collection.
   It is also used to list collection dependencies, if there are any.
 
@@ -152,16 +153,16 @@ When a collection is downloaded with the `ansible-galaxy collection install` two
 
 ## Step 2: Creating collections from the command line
 Users can create their own collections and populate them with roles, playbook, plugins and modules.
-User defined collections skeleton can be created manually or it can be authored with the 
-`ansible-galaxy collection init` command. This will create a standard skeleton that can be 
+User defined collections skeleton can be created manually or it can be authored with the
+`ansible-galaxy collection init` command. This will create a standard skeleton that can be
 customized lately.
 
 Create the following collection:
 ```
-$ ansible-galaxy collection init --init-path ansible_collections redhat.workshop_demo_collection 
+$ ansible-galaxy collection init --init-path ansible_collections redhat.workshop_demo_collection
 ```
 
-The `--init-path` flag is used to define a custom path in which the skeleton will be initialized.  
+The `--init-path` flag is used to define a custom path in which the skeleton will be initialized.
 The collection name always follows the pattern `<namespace.collection>`. The above example creates
 the `workshop_demo_collection` in the `redhat` namespace.
 
@@ -177,17 +178,17 @@ ansible_collections/redhat/workshop_demo_collection/
 └── roles
 ```
 
-The skeleton is really minimal. Besides the template README files, a template `galaxy.yml` file 
+The skeleton is really minimal. Besides the template README files, a template `galaxy.yml` file
 is created to define Galaxy metadata.
 
 ### Initializing the Git repository
 A good practice is, necessary if we want to publish our collection in Galaxy, is to initialize
-a Git repository in the collection. 
+a Git repository in the collection.
 ```
 $ cd ansible_collections/redhat/workshop_demo_collection && git init .
 ```
 
-When changed, files will be added to the staging area with the `git add` and committed with 
+When changed, files will be added to the staging area with the `git add` and committed with
 the `git commit` commands.
 
 To publish the collection on GitHub a remote should be added:
@@ -195,12 +196,12 @@ To publish the collection on GitHub a remote should be added:
 $ git remote add origin https://github.com/<user>/workshop_demo_collection.git
 ```
 
-The `workshop_demo_collection` repository must be already present on GitHub. To create a new 
+The `workshop_demo_collection` repository must be already present on GitHub. To create a new
 repository follow the official GitHub [documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-new-repository).
 
 ## Step 3: Creating custom plugins
-Collections can be customized with different kinds of plugins and modules. For a complete list please 
-refer to the `README.md` file in the `plugins` folder.  
+Collections can be customized with different kinds of plugins and modules. For a complete list please
+refer to the `README.md` file in the `plugins` folder.
 
 In this workshop we are going to create a minimal *Hello World* module and install it
 in the `plugins/modules` directory.
@@ -211,14 +212,14 @@ $ cd ansible_collections/redhat/workshop_demo_collection
 $ mkdir plugins/modules
 ```
 
-Create the `demo_hello.py` module in the the new folder. The module code is available in the `solutions/modules` 
+Create the `demo_hello.py` module in the the new folder. The module code is available in the `solutions/modules`
 folder of this exercise.
 ```
 $ cp <path_to_workshop_repo>/workshops/exercises/ansible_collections/1-create-collections/modules/demo_hello.py plugins/modules/
 ```
 
 The `demo_hello` module says Hello in different languages to custom defined users.
-Take your time to look at the module code and uderstand its behavior.
+Take your time to look at the module code and understand its behavior.
 ```
 #!/usr/bin/python
 
@@ -234,7 +235,7 @@ DOCUMENTATION = '''
 module: demo_hello
 short_description: A module that says hello in many languages
 version_added: "2.8"
-description: 
+description:
   - "A module that says hello in many languages."
 options:
     name:
@@ -311,18 +312,18 @@ if __name__ == '__main__':
 
 An Ansible module is basically an implementation of the AnsibleModule class created and
 executed in a minimal function called `run_module()`.
-As you can see, a module has a `main()` funcion, like a plain Python executable. Anyway, it is
+As you can see, a module has a `main()` function, like a plain Python executable. Anyway, it is
 not meant to be executed independently.
 
 ## Step 4: Creating custom roles
-The last step of this exercise will be focused on a role creation inside the custom 
+The last step of this exercise will be focused on a role creation inside the custom
 collection.
-We will deploy a basic role that uses the previous module to dinamically generate 
+We will deploy a basic role that uses the previous module to dynamically generates
 greetings inside an index.html and build it inside an OCI image with podman.
 The image will be finally pushed into a customizable private registry.
 
-> **TIP**: If you want to speed up the lab you can copy the completed role from the 
->          exercise `solutions/roles` folder.
+> **TIP**: If you want to speed up the lab you can copy the completed role from the
+> exercise `solutions/roles` folder.
 
 Generate the new role skeleton using the `ansible-galaxy init` command:
 ```
@@ -378,8 +379,8 @@ Create the following tasks in the `roles/demo_image_builder/tasks/main.yml` file
       dest: "{{ image_registry }}/{{ registry_username }}"
 ```
 
-Notice the usage of the `demo_hello` module, installed in the collection, to generate the greeting string.  
-**When a collection role calls a module in the same collection namespace, the module is automatically resolved***. 
+Notice the usage of the `demo_hello` module, installed in the collection, to generate the greeting string.
+**When a collection role calls a module in the same collection namespace, the module is automatically resolved***.
 
 Create the following variables in the `roles/demo_image_builder/defaults/main.yml`:
 ```
@@ -431,10 +432,10 @@ $ rm -rf roles/demo_image_builder/{handlers,vars,tests}
 ```
 
 Customize the `roles/demo_image_builder/meta/main.yml` file to define Galaxy
-metadata and potential dependecies of the role. Use this sample minimal content:
+metadata and potential dependencies of the role. Use this sample minimal content:
 ```
 galaxy_info:
-  author: Ansible Automation Platform Hackaton Team
+  author: Ansible Automation Platform Hackathon Team
   description: Basic builder role based on podman
   company: Red Hat
 
@@ -502,10 +503,10 @@ cat > playbook.yml << EOF
 EOF
 ```
 
-Replace the `<YOUR_USERNAME>` field with a valid quay.io username. 
-Before running the test playbook, be sure to have a valid auth token to authenticate 
+Replace the `<YOUR_USERNAME>` field with a valid quay.io username.
+Before running the test playbook, be sure to have a valid auth token to authenticate
 to the registry.
-You can authenticate by running the following command and passing valid credentials that will 
+You can authenticate by running the following command and passing valid credentials that will
 generate a token stored in the `~/.docker/config.json` file:
 ```
 $ podman login quay.io
@@ -515,7 +516,7 @@ Run the test playbook. Since some tasks require privilege escalation use the `-K
 to authenticate via sudo.
 ```
 $ ansible-playbook playbook.yml -K
-BECOME password: 
+BECOME password:
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
 PLAY [localhost] **************************************************************************************************************************************************************************************************
@@ -542,7 +543,7 @@ TASK [redhat.workshop_demo_collection.demo_image_builder : Build and Push OCI im
 changed: [localhost]
 
 PLAY RECAP ********************************************************************************************************************************************************************************************************
-localhost                  : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+localhost                  : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 ### Running the local container
@@ -577,13 +578,12 @@ $ curl localhost:8080
 </html>
 ```
 
-
 # Takeaways
 - Collections can be installed from Galaxy of from Red Hat Automation Hub. Default collections
   search paths or custom paths can be used.
-- Collections can be created using the `ansible-galaxy collection init` command. Users can 
+- Collections can be created using the `ansible-galaxy collection init` command. Users can
   develop collections contents accordingly to their needs and business logic.
 - Collections plugins can be either any kind of Ansible plugins or modules. Modules are
-  often developed inside collection to create an authonomous lifecycle from the main 
+  often developed inside collection to create an autonomous lifecycle from the main
   Ansible upstream.
 - Collection roles can use local collections plugins and modules.

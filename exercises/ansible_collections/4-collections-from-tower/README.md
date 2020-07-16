@@ -6,16 +6,21 @@
 
 - [Exercise 3 - How to use Collections on Red Hat Ansible Tower](#exercise-3---how-to-use-collections-on-red-hat-ansible-tower)
     - [Table of Contents](#table-of-contents)
+- [Objective](#objective)
 - [Guide](#guide)
     - [Step 1 - Write requirements.yml](#step-1---write-requirementsyml)
     - [Step 2 - Create Job Template](#step-2---create-job-template)
-    - [Troubleshooting](#troubleshooting)
+- [Troubleshooting](#troubleshooting)
 
 <!-- /TOC -->
 
-# Guide
+# Objective
 
 Red Hat Ansible Tower supports Ansible Collections starting with version 3.5 - earlier version will not automatically install and configure them for you. To make sure Ansible Collections are recognized by Red Hat Ansible Tower a requirements file is needed and has to be stored in the proper directory.
+
+# Guide
+
+In this exercise you will learn how to define an Ansible Collection as a requirement in a format recognized by Red Hat Ansible Tower.
 
 ## Step 1 - Write requirements.yml
 
@@ -37,8 +42,14 @@ collections:
 
 When using Ansible Collections in your Playbook, there are no additional options to set in your Red Hat Ansible Tower Job Template. You specify the repository in which your Playbook is stored, inventory, credentials and other parameters, and execute it by clicking on the **Launch** button.
 
-## Troubleshooting
+# Troubleshooting
 
-Since Red Hat Ansible Tower does only check for updates in the the repository in which you stored your Playbook, it might not do a refresh if there was a change in the Ansible Collection used by your Playbook.
+Since Red Hat Ansible Tower does only check for updates in the the repository in which you stored your Playbook, it might not do a refresh if there was a change in the Ansible Collection used by your Playbook. This happens particularly if you also combine Roles and Collections.
 
-In this case you should check the option **
+In this case you should check the option **Delete on Update** which will delete the entire local directory during a refresh.
+
+If there is a problem while parsing your `requirements.yml` it worth testing it with the `ansible-galaxy` command. As a reminder, Red Hat Ansible Tower basically also just runs the command for you with the appropriate parameters, so testing this works manually makes a lot of sense.
+
+    ansible-galaxy collections install -r collections/requirements.yml -f
+
+> **NOTE**: The `-f` switch will forces a fresh installation of the specified Ansible Collections, otherwise `ansible-galaxy` will only install it, if it wasn't already installed.

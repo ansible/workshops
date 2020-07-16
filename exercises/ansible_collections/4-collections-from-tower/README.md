@@ -2,17 +2,11 @@
 
 ## Table of Contents
 
-<!-- TOC -->
-
-- [Exercise 3 - How to use Collections on Red Hat Ansible Tower](#exercise-3---how-to-use-collections-on-red-hat-ansible-tower)
-    - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
     - [Step 1 - Write requirements.yml](#step-1---write-requirementsyml)
     - [Step 2 - Create Job Template](#step-2---create-job-template)
 - [Troubleshooting](#troubleshooting)
-
-<!-- /TOC -->
 
 # Objective
 

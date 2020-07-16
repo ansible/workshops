@@ -7,7 +7,8 @@
     - [Step 1 - Install the Ansible Collection](#step-1---install-the-ansible-collection)
     - [Step 2 - Write an Ansible Playbook](#step-2---write-an-ansible-playbook)
     - [Step 3 - Test the playbook](#step-3---test-the-playbook)
-
+    - [Step 4 - Simplify the namespace](#step-4---simplify-the-namespace)
+    - [Step 5: Test the change](#step-5-test-the-change)
 
 # Objective
 

@@ -21,6 +21,8 @@ As you can see they maintain several collections and roles. One of their collect
 
 One of the modules provided by this collection allows us to manage [SELinux](https://www.redhat.com/en/topics/linux/what-is-selinux) settings. The fully qualified collection name for this module is therefore `ansible.posix.selinux`.
 
+You can find more details about [using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) in the [Ansible Documentation](https://docs.ansible.com/).
+
 # Guide
 
 ## Step 1 - Install the Ansible Collection

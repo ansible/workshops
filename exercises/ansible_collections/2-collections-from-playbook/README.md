@@ -28,7 +28,7 @@ You can find more details about [using collections](https://docs.ansible.com/ans
 
 ## Step 1 - Install the Ansible Collection
 
-The `ansible.posix.selinux` module which we want to use for this exercise, it part of the `ansible.posix` collection. We have to install this collection first, before we can use its modules. The `ansible-galxy` command line tool can be used to automate the installation. It us preconfigured to search for roles and collections on [Ansible Galaxy](https://galaxy.ansible.com/) so we can just specify the collection name and it will take care of the rest:
+The `ansible.posix.selinux` module which we want to use for this exercise, it part of the `ansible.posix` collection. We have to install this collection first, before we can use its modules. The `ansible-galaxy` command line tool can be used to automate the installation. It us preconfigured to search for roles and collections on [Ansible Galaxy](https://galaxy.ansible.com/) so we can just specify the collection name and it will take care of the rest:
 
     ansible-galaxy collection install ansible.posix
 
@@ -38,7 +38,7 @@ This will install collection on your system, only if it wasn't installed before.
 
 This will always download and install the latest version, even if it was already up to date. Ansible Collections can have dependencies for other Ansible Collections as well - if you want to make sure those dependencies are refreshed as well, you can use the `--force-with-deps` switch.
 
-By default the installation is stored in your local `~/.ansible` directory. This can be overwritten by using the `-p /pat/to/collection` switch. Keep in mind though that `ansible-playbook` will only use that directory if you change your `ansible.cfg` accordingly.
+By default the installation is stored in your local `~/.ansible` directory. This can be overwritten by using the `-p /path/to/collection` switch. Keep in mind though that `ansible-playbook` will only use that directory if you change your `ansible.cfg` accordingly.
 
 ## Step 2 - Documentation
 
@@ -99,7 +99,7 @@ If SELinux was not set to enforcing before, you might see "changed" instead of o
 
 ## Step 5 - Simplify the namespace
 
-If you use many modules from Ansible Collections in your Playbook, the <autho>.<collection> prefix can become quite annoying it reading your Playbook can become harder as well.
+If you use many modules from Ansible Collections in your Playbook, the <author>.<collection> prefix can become quite annoying it reading your Playbook can become harder as well.
 
 You can use the `collections` key word to skip defining the namespace with every task.
 

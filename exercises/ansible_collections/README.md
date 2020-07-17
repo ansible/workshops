@@ -1,16 +1,16 @@
 # Ansible Collections Workshop
 
 This workshop is a step by step series of exercises to demonstrate
-features and benefits of Ansible Collections, a unique distribution 
+features and benefits of Ansible Collections, a unique distribution
 format of Ansible content that can be used to package and distribute
 playbooks, roles, modules, and plugins.
 
 ## Time Planning
-The average duration of this workshop depends on the Ansible skills of 
-practitioner. The average duration should be around 3 hours or less with 
+The average duration of this workshop depends on the Ansible skills of
+practitioner. The average duration should be around 3 hours or less with
 advanced Ansible users.
 
-All exercises are self explanatory and guide the particpants through the entire lab. 
+All exercises are self explanatory and guide the participants through the entire lab.
 Concepts are explained when they are introduced along with the practice exercise.
 
 ## Prerequisites

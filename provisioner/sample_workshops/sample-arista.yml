@@ -10,4 +10,4 @@ workshop_type: network
 network_type: arista
 ## Optional Variables
 dns_type: aws
-create_cluster: no
+create_cluster: false

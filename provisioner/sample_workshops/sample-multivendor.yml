@@ -8,4 +8,4 @@ student_total: 2
 workshop_type: network
 ## Optional Variables
 dns_type: aws
-create_cluster: no
+create_cluster: false

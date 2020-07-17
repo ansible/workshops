@@ -30,6 +30,7 @@ usage from playbooks, roles and Tower and an introduction to Ansible Automation 
 ## Additional Information
 - [Ansible Docs: Using Collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html)
 - [Ansible Docs: Developing Collections](https://docs.ansible.com/ansible/devel/dev_guide/developing_collections.html)
+- [Blog Post: Introducing: The AWX and Ansible Tower Collections](https://www.ansible.com/blog/introducing-the-awx-collection)
 
 ## Authors
 Ansible Automation Platform 1.1 Hackfest - Team 1

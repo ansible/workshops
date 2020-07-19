@@ -32,11 +32,14 @@ In the scope of this exercise, the focus is on how access content from Automatio
 
 ## Authenticate Tower to Automation Hub
  1. As user admin, navigate to the Settings > Jobs
- 2. Set PRIMARY GALAXY SERVER URL to: https://cloud.redhat.com/api/automation-hub/
- 3. Set PRIMARY GALAXY AUTHENTICATION URL to: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
- 4. Set PRIMARY GALAXY SERVER TOKEN to: <YOUR_OWN_TOKEN> 
+ 2. Set **PRIMARY GALAXY SERVER URL** to: https<nolink>://example.com//cloud.redhat.com/api/automation-hub/
+ 3. Set **PRIMARY GALAXY AUTHENTICATION** URL to: https<nolink>://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+ 4. Set **PRIMARY GALAXY SERVER TOKEN** to: <YOUR_OWN_TOKEN> 
                                   OR  
-    Set  PRIMARY GALAXY SERVER USERNAME and PRIMARY GALAXY SERVER PASSWORD
+    Set  **PRIMARY GALAXY SERVER USERNAME** and **PRIMARY GALAXY SERVER PASSWORD**
+    
+    
+    ![test image size](screenshots/token.png)
  
 # Takeaways
  

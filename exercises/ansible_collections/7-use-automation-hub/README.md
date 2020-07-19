@@ -1,4 +1,4 @@
-# Exercise 7 - How to use Red Hat Automation Hub
+# Exercise 7 - How to use Red Hat Automation Hub?
 
 ## Table of Contents
 - [Objective](#objective)
@@ -16,7 +16,8 @@
 
 # Red Hat Automation Hub
 It is a service that is provided as part of the Red Hat SaaS Offering. It consists of the location where to discover and download only supported and certified Ansible Content Collections by Red Hat Partners. These content collections contain ways to consume automation, how-to-guides to implement them in your infrastructure. The support Automation Hub is included with Red Hat Automation Platform subscription.
-  Red Hat Automation Hub : https://cloud.redhat.com/ansible/automation-hub
+
+- Red Hat Automation Hub resides on https://cloud.redhat.com/ansible/automation-hub : requires Red Hat customer portal credentials and a valid Red Hat Automation Platform subcription.
 
 ## Certified Content
 In the portal of Automation Hub, users have direct access to trusted content collections from Red Hat Certified Partners.
@@ -26,7 +27,8 @@ In the portal of Automation Hub, users have direct access to trusted content col
 
 # Ansible Galaxy
 Automation Hub provides a one-stop-shop for Ansible content that is backed by support from Red Hat and its partners to deliver additional reassurance for customers.
-  Ansible Galaxy : https://galaxy.ansible.com/
+
+. Ansible Galaxy resides on https://galaxy.ansible.com/
 
 # How to use Automation Hub
 

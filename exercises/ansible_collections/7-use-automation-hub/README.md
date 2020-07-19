@@ -31,15 +31,32 @@ Ansible collections can be used and downloaded from multiple locations. They can
 In the scope of this exercise, the focus is on how access content from Automation Hub. This requires an authentication token and authentication URL. To do, some configuration steps need to be done in Ansible Tower.
 
 ## Authenticate Tower to Automation Hub
- 1. As user admin, navigate to the Settings > Jobs
+
+### Creating a token
+Authenticating Ansible Tower requires either a token. It can be achieved using the setps below:
+  1. Navigate to https://cloud.redhat.com/ansible/automation-hub/token/
+  
+   ![Load token|845x550, 20%](screenshots/create-token.png)
+    
+    
+  2. Click **Load Token**.
+  3. Click **copy icon** to copy the API token to the clipboard.
+  
+   ![Copy token|845x550, 20%](screenshots/copy-toket.png){ width=50% }
+    
+### Using authentication token:
+    
+ 1. As user admin, navigate to the *Settings l> Jobs*
  2. Set **PRIMARY GALAXY SERVER URL** to: https<nolink>://example.com//cloud.redhat.com/api/automation-hub/
  3. Set **PRIMARY GALAXY AUTHENTICATION** URL to: https<nolink>://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
- 4. Set **PRIMARY GALAXY SERVER TOKEN** to: <YOUR_OWN_TOKEN> 
-                                  OR  
-    Set  **PRIMARY GALAXY SERVER USERNAME** and **PRIMARY GALAXY SERVER PASSWORD**
+ 4. Set **PRIMARY GALAXY SERVER TOKEN** to: <COPIED_TOKEN> 
     
-    
-    ![test image size](screenshots/token.png)
- 
+> **TIP**: It is recommended using Red Hat Automation Hub as primary Galaxy Server URL to ensure using certified and supported
+> content by Red Hat and its partners via Red Hat Ansible Automation subscription.
+
+![test image size](screenshots/token.png)
+
+## Using Collections.
+
 # Takeaways
  

@@ -36,13 +36,13 @@ In the scope of this exercise, the focus is on how access content from Automatio
 Authenticating Ansible Tower requires either a token. It can be achieved using the setps below:
   1. Navigate to https://cloud.redhat.com/ansible/automation-hub/token/
   
-   ![Load token|845x550, 20%](screenshots/create-token.png)
+   ![Load token|845x550,50%](screenshots/create-token.png)
     
     
   2. Click **Load Token**.
   3. Click **copy icon** to copy the API token to the clipboard.
   
-   ![Copy token|845x550, 20%](screenshots/copy-toket.png){ width=50% }
+   ![Copy token|845x550,50%](screenshots/copy-token.png)
     
 ### Using authentication token:
     

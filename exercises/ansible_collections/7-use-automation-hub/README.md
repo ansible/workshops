@@ -1,3 +1,5 @@
+# Exercise 7 - How to use Red Hat Automation Hub
+
 ## Table of Contents
 - [Objective](#objective)
     - [Red Hat Automation Hub](#red-hat-automation-hub)

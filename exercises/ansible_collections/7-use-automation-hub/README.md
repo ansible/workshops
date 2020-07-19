@@ -14,6 +14,7 @@
 
 # Red Hat Automation Hub
 It is a service that is provided as part of the Red Hat SaaS Offering. It consists of the location where to discover and download only supported and certified Ansible Content Collections by Red Hat Partners. These content collections contain ways to consume automation, how-to-guides to implement them in your infrastructure. The support Automation Hub is included with Red Hat Automation Platform subscription.
+  Red Hat Automation Hub : https://cloud.redhat.com/ansible/automation-hub
 
 ## Certified Content
 In the portal of Automation Hub, users have direct access to trusted content collections from Red Hat Certified Partners.
@@ -23,6 +24,7 @@ In the portal of Automation Hub, users have direct access to trusted content col
 
 # Ansible Galaxy
 Automation Hub provides a one-stop-shop for Ansible content that is backed by support from Red Hat and its partners to deliver additional reassurance for customers.
+  Ansible Galaxy : https://galaxy.ansible.com/
 
 # How to use Automation Hub
 
@@ -36,9 +38,10 @@ In the scope of this exercise, the focus is on how access content from Automatio
 Authenticating Ansible Tower requires either a token. It can be achieved using the setps below:
   1. Navigate to https://cloud.redhat.com/ansible/automation-hub/token/
   
+  
    ![Load token|845x550,50%](screenshots/create-token.png)
     
-    
+  
   2. Click **Load Token**.
   3. Click **copy icon** to copy the API token to the clipboard.
   
@@ -47,16 +50,24 @@ Authenticating Ansible Tower requires either a token. It can be achieved using t
 ### Using authentication token:
     
  1. As user admin, navigate to the *Settings l> Jobs*
- 2. Set **PRIMARY GALAXY SERVER URL** to: https<nolink>://example.com//cloud.redhat.com/api/automation-hub/
+ 2. Set **PRIMARY GALAXY SERVER URL** to: https<nolink>://cloud.redhat.com/api/automation-hub/
  3. Set **PRIMARY GALAXY AUTHENTICATION** URL to: https<nolink>://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
  4. Set **PRIMARY GALAXY SERVER TOKEN** to: <COPIED_TOKEN> 
     
 > **TIP**: It is recommended using Red Hat Automation Hub as primary Galaxy Server URL to ensure using certified and supported
 > content by Red Hat and its partners via Red Hat Ansible Automation subscription.
 
+
 ![test image size](screenshots/token.png)
+
 
 ## Using Collections.
 
+After authenticating Ansible Tower to access Automation Hub, using collections/requirements.yml file will automatically fecthes the content collections from Automation Hub as first source.
+
+
 # Takeaways
- 
+
+- The Red Hat Automation Hub provides certified collections that supported by Red Hat and its Partners. It's available via Red Hat Ansible Automation Platform.
+- Ansible Galaxy hosts upstream community content collections.
+- Red Hat Ansible Tower can be configured to authenticate to Red Hat Automation Hub in order to fetch certified and supported content collections that are utilized in a given project within tower.

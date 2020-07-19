@@ -2,12 +2,15 @@
 
 ## Table of Contents
 - [Objective](#objective)
-    - [Red Hat Automation Hub](#red-hat-automation-hub)
+- [Red Hat Automation Hub](#red-hat-automation-hub)
     - [Certified Content](#certified-content)
     - [Supported Automation](#supported-automation)
-    - [Ansible Galaxy](#ansible-galaxy)
-    - [How to use Automation Hub](#how-to-use-automation-hub)
+- [Ansible Galaxy](#ansible-galaxy)
+- [How to use Automation Hub](#how-to-use-automation-hub)
     - [Accessing collections](#accessing-collections)
+       - [Creating a token](#creating-a-token)
+       - [Using authentication token](#using-authentication-token)
+       - [Using Collections](#using-collections)
     - [Authenticate Tower to Automation Hub](#authenticate-tower-to-automation-hub)
 - [Takeaways](#takeaways)
 
@@ -51,11 +54,11 @@ Authenticating Ansible Tower requires either a token. It can be achieved using t
   
    ![Copy token|845x550,50%](screenshots/copy-token.png)
     
-### Using authentication token:
+### Using authentication token
     
  1. As user admin, navigate to the *Settings l> Jobs*
- 2. Set **PRIMARY GALAXY SERVER URL** to: https<nolink>://cloud.redhat.com/api/automation-hub/
- 3. Set **PRIMARY GALAXY AUTHENTICATION** URL to: https<nolink>://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+ 2. Set **PRIMARY GALAXY SERVER URL** to: `https://cloud.redhat.com/api/automation-hub/`
+ 3. Set **PRIMARY GALAXY AUTHENTICATION** URL to: `https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token`
  4. Set **PRIMARY GALAXY SERVER TOKEN** to: <COPIED_TOKEN> 
     
 > **TIP**: It is recommended using Red Hat Automation Hub as primary Galaxy Server URL to ensure using certified and supported
@@ -65,9 +68,9 @@ Authenticating Ansible Tower requires either a token. It can be achieved using t
 ![test image size](screenshots/token.png)
 
 
-## Using Collections.
+### Using collections
 
-After authenticating Ansible Tower to access Automation Hub, using collections/requirements.yml file will automatically fecthes the content collections from Automation Hub as first source.
+After authenticating Ansible Tower to access Automation Hub, using `collections/requirements.yml` file will automatically fecthes the content collections from Automation Hub as first source.
 
 
 # Takeaways

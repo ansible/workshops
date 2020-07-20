@@ -1,6 +1,7 @@
 # Exercise 3 - Running Collections from Roles
 
 ## Table of Contents
+
 - [Objective](#objective)
 - [Guide](#guide)
     - [Step 1: Understand collections lookup](#step-1-understand-collections-lookup)
@@ -8,16 +9,19 @@
 - [Takeaways](#takeaways)
 
 # Objective
+
 This exercise will help users understand how collections are used from within roles.
 
 Covered topics:
 
 - Explain collection resolution logic
+
 - Demonstrate how to call collections from roles using collection fully qualified collection name (FQCN)
 
 # Guide
 
 ## Step 1: Understand collections lookup
+
 Ansible Collections use a simple method to define collection namespaces. Anyway, if
 your playbook loads collections using the `collections` key and one or more roles, then
 the roles will not inherit the collections set by the playbook.
@@ -32,7 +36,7 @@ two approaches:
   the collections list in the playbook. Ansible will use the collections list defined inside the role
   even if the playbook that calls the role defines different collections in a separate `collections` keyword entry.
 
-  ```
+  ```yaml
   # myrole/meta/main.yml
   collections:
     - my_namespace.first_collection
@@ -44,7 +48,7 @@ two approaches:
   In this way the collection will always be called with its unique FQCN, and override any other
   lookup in the playbook
 
-  ```
+  ```yaml
   - name: Create an EC2 instance using collection by FQCN
     amazon.aws.ec2:
       key_name: mykey
@@ -58,20 +62,22 @@ two approaches:
   ```
 
 Roles defined **within** a collection always implicitly search their own collection
-first, so there is no need to use the `collections` keyword in the role metadata to access
-modules, plugins, or other roles.
+first, so there is no need to use the `collections` keyword in the role metadata to access modules, plugins, or other roles.
 
 ## Step 2: Running collections from a role
+
 Create the exercise folder:
-```
-$ mkdir exercise-03
-$ cd esercise--3
+
+```bash
+mkdir exercise-03
+cd esercise--3
 ```
 
 For this lab, we will use the `ansible.posix` collection, which contains a series of POSIX
 oriented modules and plugins for systems management.
-```
-$ ansible-galaxy collection install ansible.posix
+
+```bash
+ansible-galaxy collection install ansible.posix
 ```
 
 ### Approach 1: Collections loaded as metadata
@@ -79,20 +85,22 @@ $ ansible-galaxy collection install ansible.posix
 > **TIP**: You can go though the exercise steps or copy the finished role from `solutions/selinux_manage_meta`.
 
 Create a new role using the `ansible-galaxy init` command:
-```
-$ ansible-galaxy init --init-path roles selinux_manage_meta
+
+```bash
+ansible-galaxy init --init-path roles selinux_manage_meta
 ```
 
-Edit the `roles/selinux_manage_meta/meta/main.yml` file and append the following lines at the end
-of the file, beginning at column 1:
-```
+Edit the `roles/selinux_manage_meta/meta/main.yml` file and append the following lines at the end of the file, beginning at column 1:
+
+```yaml
 # Collections list
 collections:
   - ansible.posix
 ```
 
 Edit the `roles/selinux_manage_meta/tasks/main.yml` file and add the following tasks:
-```
+
+```yaml
 ---
 # tasks file for selinux_manage_meta
 - name: Enable SELinux enforcing mode
@@ -118,9 +126,9 @@ Edit the `roles/selinux_manage_meta/tasks/main.yml` file and add the following t
 > **NOTE:** We're using the simple module name. Ansible uses the information from the
 > `collections` list in the metadata file to locate the collection(s) used.
 
-Edit the `roles/selinux_manage_meta/defaults/main.yml` to define default values
-for role variables:
-```
+Edit the `roles/selinux_manage_meta/defaults/main.yml` to define default values for role variables:
+
+```yaml
 ---
 # defaults file for selinux_manage_meta
 selinux_mode: enforcing
@@ -129,13 +137,15 @@ sebooleans_disable: []
 ```
 
 Cleanup unused folders in the role:
-```
-$ rm -rf roles/selinux_manage_meta/{tests,vars,handlers,files,templates}
+
+```bash
+rm -rf roles/selinux_manage_meta/{tests,vars,handlers,files,templates}
 ```
 
 We can now test the new role with a basic playbook. Create the `playbook.yml` file
 in the current folder with the following content:
-```
+
+```yaml
 ---
 - hosts: localhost
   become: true
@@ -149,15 +159,10 @@ in the current folder with the following content:
     - selinux_manage_meta
 ```
 
-Create a minimal `inventory` file with localhost:
-```
-$ echo localhost > inventory
-```
-
 Run the playbook and check the results:
-```
-$ ansible-playbook playbook.yml -K
-BECOME password:
+
+```bash
+$ ansible-playbook playbook.yml
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
 PLAY [localhost] ******************************************************************************************************
@@ -180,19 +185,20 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0    s
 ```
 
 ### Approach 2: Collections loaded with FQCN
-The second approach uses the collection FQCN to call the related modules and plugins.
-To better demonstrate the differences, we will implement a new version of the
-previous role with the FQCN approach without changing the inner logic.
+
+The second approach uses the collection FQCN to call the related modules and plugins. To better demonstrate the differences, we will implement a new version of the previous role with the FQCN approach without changing the inner logic.
 
 > **TIP**: You can go though the exercise steps or copy the finished role from `solutions/selinux_manage_fqcn`.
 
 Create a new role using the `ansible-galaxy init` command:
-```
-$ ansible-galaxy init --init-path roles selinux_manage_fqcn
+
+```bash
+ansible-galaxy init --init-path roles selinux_manage_fqcn
 ```
 
 Edit the `roles/selinux_manage_fqcn/tasks/main.yml` file and add the following tasks:
-```
+
+```yaml
 ---
 # tasks file for selinux_manage_fqcn
 - name: Enable SELinux enforcing mode
@@ -219,9 +225,9 @@ Edit the `roles/selinux_manage_fqcn/tasks/main.yml` file and add the following t
 > look for the installed collection from within the role task, no matter if
 > the `collections` keyword is defined at playbook level.
 
-Edit the `roles/selinux_manage_fqcn/defaults/main.yml` to define default values
-for role variables:
-```
+Edit the `roles/selinux_manage_fqcn/defaults/main.yml` to define default values for role variables:
+
+```yaml
 ---
 # defaults file for selinux_manage_fqcn
 selinux_mode: enforcing
@@ -230,12 +236,14 @@ sebooleans_disable: []
 ```
 
 Cleanup unused folders in the role:
-```
-$ rm -rf roles/selinux_manage_meta/{tests,vars,handlers,files,templates}
+
+```bash
+rm -rf roles/selinux_manage_meta/{tests,vars,handlers,files,templates}
 ```
 
 Modify the previous `playbook.yml` file to use the new role:
-```
+
+```yaml
 ---
 - hosts: localhost
   become: true
@@ -250,9 +258,9 @@ Modify the previous `playbook.yml` file to use the new role:
 ```
 
 Run the playbook again and check the results:
-```
-$ ansible-playbook playbook.yml -K
-BECOME password:
+
+```bash
+$ ansible-playbook playbook.yml
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
 PLAY [localhost] ******************************************************************************************************
@@ -277,5 +285,7 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0    s
 This concludes the guided exercise.
 
 # Takeaways
+
 - Collections can be called from roles using the `collections` list defined in `meta/main.yml`.
+
 - Collections can be called from roles using their FQCN directly from the role task.

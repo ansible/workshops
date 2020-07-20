@@ -18,18 +18,18 @@
 # Objective
 
 # Red Hat Automation Hub
-It is a service that is provided as part of the Red Hat SaaS Offering. It consists of the location where to discover and download only supported and certified Ansible Content Collections by Red Hat Partners. These content collections contain ways to consume automation, how-to-guides to implement them in your infrastructure. The support Automation Hub is included with Red Hat Automation Platform subscription.
+  It is a service that is provided as part of the Red Hat SaaS Offering. It consists of the location where to discover and download only supported and certified Ansible Content Collections by Red Hat Partners. These content collections contain ways to consume automation, how-to-guides to implement them in your infrastructure. The support Automation Hub is included with Red Hat Automation Platform subscription.
 
 - Red Hat Automation Hub resides on https://cloud.redhat.com/ansible/automation-hub : requires Red Hat customer portal credentials and a valid Red Hat Automation Platform subcription.
 
 ## Certified Content
-In the portal of Automation Hub, users have direct access to trusted content collections from Red Hat Certified Partners.
+   In the portal of Automation Hub, users have direct access to trusted content collections from Red Hat Certified Partners.  Certified collections are developed, tested, built, delivered, and supported by Red Hat.
 
 ## Supported Automation
-  Automation Hub provides a one-stop-shop for Ansible content that is backed by support from Red Hat and its partners to deliver additional reassurance for customers.
+  Automation Hub is a one-stop-shop for Ansible content that is backed by support from Red Hat to deliver additional reassurance for customers. Additional supportability claims for these collections may be provided under the "Maintained and Supported By" one of Red Hat Partners.
 
 # Ansible Galaxy
-Automation Hub provides a one-stop-shop for Ansible content that is backed by support from Red Hat and its partners to deliver additional reassurance for customers.
+  It is the location for wider Ansible community that initially started to provide pre-packaged units of work known as Ansible roles. Roles can be dropped into Ansible PlayBooks and immediately put to work. in a recent version of Galaxy started to provide Ansible content collections as well.
 
 . Ansible Galaxy resides on https://galaxy.ansible.com/
 
@@ -46,13 +46,13 @@ Authenticating Ansible Tower requires either a token. It can be achieved using t
   1. Navigate to https://cloud.redhat.com/ansible/automation-hub/token/
   
   
-   ![Load token|845x550,50%](screenshots/create-token.png)
+   ![Load token|845x550,20%](screenshots/create-token.png)
     
   
   2. Click **Load Token**.
   3. Click **copy icon** to copy the API token to the clipboard.
   
-   ![Copy token|845x550,50%](screenshots/copy-token.png)
+   ![Copy token|845x550,20%](screenshots/copy-token.png)
     
 ### Using authentication token
     

@@ -43,4 +43,3 @@
     force: true
     push_args:
       dest: "{{ image_registry }}/{{ registry_username }}"
-

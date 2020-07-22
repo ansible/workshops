@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Ansible Automation Platform Hackaton Team
   description: Basic builder role based on podman
@@ -18,4 +19,3 @@ galaxy_info:
   galaxy_tags: ["demo", "podman"]
 
 dependencies: []
-  

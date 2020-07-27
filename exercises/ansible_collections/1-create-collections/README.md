@@ -4,12 +4,19 @@
 
 - [Objective](#objective)
 - [Guide](#guide)
-    - [Step 1: Installing collection from the command line](#step-1-installing-collections-from-the-command-line)
+    - [Step 1: Installing collections from the command line](#step-1-installing-collections-from-the-command-line)
+        - [Preparing the exercise environment](#preparing-the-exercise-environment)
+        - [Installing in the default collections path](#installing-in-the-default-collections-path)
+        - [Instaling in a custom collections path](#instaling-in-a-custom-collections-path)
+        - [Inspecting the contents of the collection](#inspecting-the-contents-of-the-collection)
     - [Step 2: Creating collections from the command line](#step-2-creating-collections-from-the-command-line)
-    - [Step 3: Creating custom plugins](#step-3-creating-custom-plugins)
-    - [Step 4: Creating custom roles](#step-4-creating-custom-roles)
+        - [Initializing the Git repository](#initializing-the-git-repository)
+    - [Step 3: Adding custom modules and plugins to the collection](#step-3-adding-custom-modules-and-plugins-to-the-collection)
+    - [Step 4: Adding custom roles to the collection](#step-4-adding-custom-roles-to-the-collection)
     - [Step 5: Building and installing collections](#step-5-building-and-installing-collections)
     - [Step 6: Testing collections locally](#step-6-testing-collections-locally)
+        - [Running the test playbook](#running-the-test-playbook)
+        - [Running the local container](#running-the-local-container)
 - [Takeaways](#takeaways)
 
 # Objective
@@ -218,7 +225,7 @@ git remote add origin https://github.com/<user>/workshop_demo_collection.git
 
 The `workshop_demo_collection` repository must be already present on GitHub. To create a new repository follow the official GitHub [documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-new-repository).
 
-## Step 3: Creating custom plugins
+## Step 3: Adding custom modules and plugins to the collection
 
 Collections can be customized with different kinds of plugins and modules. For a complete list please refer to the `README.md` file in the `plugins` folder.
 
@@ -333,7 +340,7 @@ if __name__ == '__main__':
 An Ansible module is basically an implementation of the AnsibleModule class created and executed in a minimal function called `run_module()`. As you can see, a module has a `main()` function, like a plain Python executable. Anyway, it is
 not meant to be executed independently.
 
-## Step 4: Creating custom roles
+## Step 4: Adding custom roles to the collection
 
 The last step of this exercise will be focused on a role creation inside the custom collection. We will deploy a basic role that uses the previous module to dynamically generates greetings inside an index.html and build it inside an OCI image with podman. The image will be finally pushed into a customizable private registry.
 

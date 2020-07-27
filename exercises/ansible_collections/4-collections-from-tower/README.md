@@ -1,4 +1,4 @@
-# Exercise 3 - How to use Collections on Red Hat Ansible Tower
+# Exercise 4 - How to use Collections on Red Hat Ansible Tower
 
 ## Table of Contents
 

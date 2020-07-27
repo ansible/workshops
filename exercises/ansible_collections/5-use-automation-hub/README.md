@@ -1,4 +1,4 @@
-# Exercise 7 - How to use Red Hat Automation Hub?
+# Exercise 5 - How to use Red Hat Automation Hub?
 
 ## Table of Contents
 

@@ -610,3 +610,10 @@ $ curl localhost:8080
 - Collections plugins can be either any kind of Ansible plugins or modules. Modules are often developed inside collection to create an autonomous lifecycle from the main Ansible upstream.
 
 - Collection roles can use local collections plugins and modules.
+
+----
+**Navigation**
+<br>
+[Next Exercise](../2-collections-from-playbook)
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

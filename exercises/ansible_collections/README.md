@@ -33,7 +33,7 @@ usage from playbooks, roles and Tower and an introduction to Ansible Automation 
 
 - [Exercise 4 - Collections from tower](./4-collections-from-tower)
 
-- [Exercise 7 - Use Automation Hub](./7-use-automation-hub)
+- [Exercise 5 - Use Automation Hub](./5-use-automation-hub)
 
 ## Additional Information
 

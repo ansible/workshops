@@ -51,3 +51,10 @@ ansible-galaxy collections install -r collections/requirements.yml -f
 ```
 
 > **NOTE**: The `-f` switch will forces a fresh installation of the specified Ansible Collections, otherwise `ansible-galaxy` will only install it, if it wasn't already installed. You can also use the `--force-with-deps` switch to make sure Ansible Collections which have dependencies to others are refreshed as well.
+
+----
+**Navigation**
+<br>
+[Previous Exercise](../3-collections-from-roles/) - [Next Exercise](../5-use-automation-hub)
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

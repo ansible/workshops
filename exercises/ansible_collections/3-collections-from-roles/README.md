@@ -289,3 +289,10 @@ This concludes the guided exercise.
 - Collections can be called from roles using the `collections` list defined in `meta/main.yml`.
 
 - Collections can be called from roles using their FQCN directly from the role task.
+
+----
+**Navigation**
+<br>
+[Previous Exercise](../2-collections-from-playbook/) - [Next Exercise](../4-collections-from-tower)
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -86,3 +86,10 @@ After authenticating Ansible Tower to access Automation Hub, using `collections/
 - The Red Hat Automation Hub provides certified collections that supported by Red Hat and its Partners. It's available via Red Hat Ansible Automation Platform.
 - Ansible Galaxy hosts upstream community content collections.
 - Red Hat Ansible Tower can be configured to authenticate to Red Hat Automation Hub in order to fetch certified and supported content collections that are utilized in a given project within tower.
+
+----
+**Navigation**
+<br>
+[Previous Exercise](../4-collections-from-tower/)
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

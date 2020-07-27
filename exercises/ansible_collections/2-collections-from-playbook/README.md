@@ -122,3 +122,10 @@ You can use the `collections` key word to skip defining the namespace with every
 ## Step 6: Test the change
 
 When running the Playbook again, you shouldn't actually see any difference in the output. As explained before, the `collections` keyword only simplifies writing your Playbook.
+
+----
+**Navigation**
+<br>
+[Previous Exercise](../1-create-collections/) - [Next Exercise](../3-collections-from-roles)
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

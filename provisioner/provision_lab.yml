@@ -59,6 +59,11 @@
   hosts: control_nodes
   gather_facts: true
   become: true
+  vars:
+    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
+  pre_tasks:
+    - debug:
+        var: tower_license
   roles:
     - role: control_node
   tasks:

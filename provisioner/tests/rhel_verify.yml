@@ -26,4 +26,4 @@
           delay: 3
           retries: 60
 
-      when: '"ansiblei-1" in inventory_hostname'
+      when: '"ansible-1" in inventory_hostname'

@@ -98,7 +98,7 @@ ec2_info:
     os_type: linux
     disk_space: 40
     architecture: x86_64
-    filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
+    filter: 'F5 BIGIP-13.1.*PAYG-Best 25Mbps*'
     username: admin
   splunk_enterprise:
     owners: 309956199498

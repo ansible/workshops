@@ -32,4 +32,4 @@ There are additional supplemental exercises that are [located here](supplemental
  - [Network Automation GitHub Repo](https://github.com/network-automation)
 
 ---
-![Red Hat Ansible Automation](../../images/networkautomation.png)
+![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

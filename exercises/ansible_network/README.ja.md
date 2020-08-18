@@ -31,5 +31,5 @@
  - [Module Maintenance & Support](http://docs.ansible.com/ansible/latest/modules_support.html)
  - [Network Automation GitHub Repo](https://github.com/network-automation)
 
----
-![Red Hat Ansible Automation](../../images/networkautomation.png)
+ ---
+ ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

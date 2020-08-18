@@ -18,15 +18,13 @@
   connection: local
   become: false
   gather_facts: false
-  tasks:
+  pre_tasks:
     - name: Cluster nodes
       set_fact:
         control_nodes: 4
       when: create_cluster is defined and create_cluster|bool
-
-    - name: Manage EC2
-      include_role:
-        name: manage_ec2_instances
+  roles:
+    - manage_ec2_instances
 
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes:attendance"

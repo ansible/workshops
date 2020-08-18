@@ -13,17 +13,21 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 | Ansible Demo Mode  | `workshop_type: demo`    |
 
 # Table Of Contents
-- [Requirements](#requirements)
-- [Lab Setup](#lab-setup)
-  - [One Time Setup](#one-time-setup)
-  - [Setup (per workshop)](#setup-per-workshop)
-  - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
-- [Lab Teardown](#aws-teardown)
-- [Demos](#demos)
-- [FAQ](../docs/faq.md)
-- [More info on what is happening](#more-info-on-what-is-happening)
-- [Remote Desktop](#remote-desktop)
-- [Getting Help](#getting-help)
+
+* [Ansible AWS training provisioner](#ansible-aws-training-provisioner)
+* [Table Of Contents](#table-of-contents)
+* [Requirements](#requirements)
+* [Lab Setup](#lab-setup)
+   * [One Time Setup](#one-time-setup)
+   * [Setup (per workshop)](#setup-per-workshop)
+   * [IBM Community Grid](#ibm-community-grid)
+   * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
+   * [DNS](#dns)
+* [Lab Teardown](#lab-teardown)
+* [Demos](#demos)
+* [FAQ](#faq)
+* [More info on what is happening](#more-info-on-what-is-happening)
+* [Getting Help](#getting-help)
 
 # Requirements
 
@@ -94,6 +98,19 @@ For more extra_vars examples, look at the following:
 3. Login to the AWS EC2 console and you will see instances being created.  For example:
 
         `tesworkshop-student1-ansible`
+
+## IBM Community Grid
+
+IBM’s World Community Grid is integrated into the workshops.  World Community Grid enables anyone with a Linux, Windows or Mac computer (or an Android smartphone for some projects)  to donate their unused computing power to advance scientific research on topics related to health and sustainability.
+
+By default the key, value pair is set: `ibm_community_grid: true`.  This installs the boinc-client to all Red Hat Enterprise Linux instances (except the Ansible control node).  This can be disabled by setting `ibm_community_grid: false`. By default in the Ansible Automation workshops all research progress (points and CPU time) is added to a joint Ansible account for Red Hat. If you prefer to use your own account, or another project change the following variables:
+
+```
+boinc_auth: "1114316_4080087955dc198a6109a25a56817809"
+boinc_url: "www.worldcommunitygrid.org"
+```
+
+Please read this blog for more information: [https://www.ansible.com/blog/ansible-and-ibm-community-grid](https://www.ansible.com/blog/ansible-and-ibm-community-grid)
 
 ## Accessing student documentation and slides
 

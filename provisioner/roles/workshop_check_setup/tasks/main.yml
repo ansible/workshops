@@ -87,11 +87,13 @@
     - set_fact:
         tower_license: "{{ lookup('file',playbook_dir+'/tower_license.json')|from_json|combine({'eula_accepted':true}) }}"
   when:
+    - towerinstall
     - tower_license_data is not defined
 
 - set_fact:
     tower_license: "{{ tower_license_data|from_json|combine({'eula_accepted':true}) }}"
   when:
+    - towerinstall
     - tower_license is not defined
 
 - name: Ensure tower license is not expired
@@ -99,6 +101,8 @@
     that: ansible_date_time.epoch|int < tower_license.license_date|int
     fail_msg: "WARNING: Ansible Tower License expired."
   ignore_errors: true
+  when:
+    - towerinstall
 
 - name: install product_demos collection
   shell: "{{item}}"
@@ -108,6 +112,8 @@
   register: galaxy
   until: galaxy is not failed
   retries: 5
+  when:
+    - towerinstall
 
 - name: check workshop specific information
   include_tasks: "{{item}}"

@@ -28,8 +28,6 @@ The time required to do the workshops strongly depends on multiple factors: the 
 
 Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds another hour.
 
-If your experience is different in schedulung these workshops, please let us know and file an issue.
-
 ## Section 1 - Ansible Engine Exercises
 
  - [Exercise 1.1 - Check the Prerequisites](1.1-setup)

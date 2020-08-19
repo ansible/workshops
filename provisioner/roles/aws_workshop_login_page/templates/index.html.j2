@@ -267,7 +267,7 @@ $("document").ready(function(){
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                {% if workshop_type in ['networking', 'f5'] %}
+                {% if workshop_type in ['network', 'f5'] %}
                 <h2>Network Automation Workshops</h2>
                 <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
                 {% elif workshop_type in ['rhel'] %}
@@ -282,7 +282,7 @@ $("document").ready(function(){
                 {% endif %}
             </div>
         </div>
-        {% if workshop_type == "networking" %}
+        {% if workshop_type == "network" %}
         <div class="row">
           <div class="col-sm-4">
               <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
@@ -372,7 +372,7 @@ $("document").ready(function(){
         </div>
 <br>
         <div class="row">
-            {% if workshop_type in ['networking', 'f5'] %}
+            {% if workshop_type in ['network', 'f5'] %}
             <div class="col-sm-4">
                 <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
             </div>

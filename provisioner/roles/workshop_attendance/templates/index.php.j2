@@ -10,58 +10,58 @@ $mydb="workshop";
 $error = '';
 
 try {
-	$db = new \PDO("mysql:host=$sql_server;port=$port;dbname=$mydb;charset=utf8", $sql_user, $sql_pass);
+  $db = new \PDO("mysql:host=$sql_server;port=$port;dbname=$mydb;charset=utf8", $sql_user, $sql_pass);
 } catch(PDOException $e) {
-	echo "Could not connect to the database\n";
-	exit;
+  echo "Could not connect to the database\n";
+  exit;
 }
 
 if (!$db) {
-	echo "Could not connect to the database\n";
-	exit;
+  echo "Could not connect to the database\n";
+  exit;
 }
 
 session_start();
 
 
 if (!isset($_SESSION['email'])) {
-	if (!isset($_POST['email'])) {
-	} else {
-		if (!isValidEmail($_POST['email'])) {
-			$error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Email is invalid</font>';
-		} else {
-			// Check if student already exists
-			$student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array(sql_clean_username($_POST['email'])));
-			if (!isset($student['id'])) {
-				$id = db_fetch_cell("SELECT id FROM `users` WHERE email = '' LIMIT 1", 'id');
-				if (!$id) {
-					$error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Sorry, all available student accounts are taken.  Please let the instructor know.</font>';
-				} else {
-					db_execute_prepare('UPDATE `users` set name=?, email=? WHERE id = ?', array(sql_clean_username($_POST['name']), sql_clean_username($_POST['email']), $id));
-					$_SESSION['email'] = sql_clean_username($_POST['email']);
-					Header("Location: /#studentinfo\n\n");
-					exit;
-				}
-			} else {
-				$_SESSION['email'] = $student['email'];
-				Header("Location: /#studentinfo\n\n");
-				exit;
-			}
-		}
-	}
+  if (!isset($_POST['email'])) {
+  } else {
+    if (!isValidEmail($_POST['email'])) {
+      $error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Email is invalid</font>';
+    } else {
+      // Check if student already exists
+      $student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array(sql_clean_username($_POST['email'])));
+      if (!isset($student['id'])) {
+        $id = db_fetch_cell("SELECT id FROM `users` WHERE email = '' LIMIT 1", 'id');
+        if (!$id) {
+          $error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Sorry, all available student accounts are taken.  Please let the instructor know.</font>';
+        } else {
+          db_execute_prepare('UPDATE `users` set name=?, email=? WHERE id = ?', array(sql_clean_username($_POST['name']), sql_clean_username($_POST['email']), $id));
+          $_SESSION['email'] = sql_clean_username($_POST['email']);
+          Header("Location: /#studentinfo\n\n");
+          exit;
+        }
+      } else {
+        $_SESSION['email'] = $student['email'];
+        Header("Location: /#studentinfo\n\n");
+        exit;
+      }
+    }
+  }
 } else {
-	$student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_SESSION['email']));
-	if (!isset($student['id'])) {
-		session_destroy();
-		header("Location: index.php\n\n");
-		exit;
-	}
+  $student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_SESSION['email']));
+  if (!isset($student['id'])) {
+    session_destroy();
+    header("Location: index.php\n\n");
+    exit;
+  }
 }
 
 if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != $_SESSION['email'])) {
-	session_destroy();
-	header("Location: index.php\n\n");
-	exit;
+  session_destroy();
+  header("Location: index.php\n\n");
+  exit;
 }
 
 ?>
@@ -305,7 +305,7 @@ a {
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                {% if workshop_type in ['networking', 'f5'] %}
+                {% if workshop_type in ['network', 'f5'] %}
                 <h2>Network Automation Workshops</h2>
                 <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
                 {% elif workshop_type in ['rhel'] %}
@@ -320,7 +320,7 @@ a {
                 {% endif %}
             </div>
         </div>
-        {% if workshop_type == "networking" %}
+        {% if workshop_type == "network" %}
         <div class="row">
           <div class="col-sm-4">
               <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
@@ -401,7 +401,7 @@ a {
         </div>
 <br>
         <div class="row">
-            {% if workshop_type in ['networking', 'f5'] %}
+            {% if workshop_type in ['network', 'f5'] %}
             <div class="col-sm-4">
                 <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
             </div>
@@ -434,10 +434,10 @@ a {
 <?php
 
 if (isset($student['id'])) {
-	display_student($student);
+  display_student($student);
 
 } else {
-	display_form();
+  display_form();
 }
 ?>
 
@@ -462,111 +462,111 @@ if (isset($student['id'])) {
 <?php
 
 function display_student($student) {
-	print "<div class='student_logins'>
+  print "<div class='student_logins'>
     <div class='header'>
-	      <p class='studentinfo'>" . ucfirst($student['username']) . "</p></div>
-	    <div class='content'>
-	      <p>
-	{% if code_server is defined and code_server %}
-	<div id='section_title'>VS Code access</div>
-	To login to Visual Studio Code via your web browser please go here:<br>
-	<table>
-	  <tr>
-	    <td>UI link:</td>
-	    <td>{% if workshop_type == 'windows' %}<a target=_blank href='" . $student['vscode'] . "'>" . $student['vscode_display'] . "</a>{% else %}<a target=_blank href='" . $student['vscode_display'] . "'>" . $student['vscode_display'] . "</a>{% endif %}</td>
-	  </tr>
-	  <tr>
-	    <td>password:</td>
-	    <td><code>" . $student['password'] . "</code></td>
-	  </tr>
-	</table><br>";
+        <p class='studentinfo'>" . ucfirst($student['username']) . "</p></div>
+      <div class='content'>
+        <p>
+  {% if code_server is defined and code_server %}
+  <div id='section_title'>VS Code access</div>
+  To login to Visual Studio Code via your web browser please go here:<br>
+  <table>
+    <tr>
+      <td>UI link:</td>
+      <td>{% if workshop_type == 'windows' %}<a target=_blank href='" . $student['vscode'] . "'>" . $student['vscode_display'] . "</a>{% else %}<a target=_blank href='" . $student['vscode_display'] . "'>" . $student['vscode_display'] . "</a>{% endif %}</td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>" . $student['password'] . "</code></td>
+    </tr>
+  </table><br>";
 
-	{% endif %}
-	{% if workshop_type == "windows" %}
-	print '<div id="section_title">GitLab access</div>
-	To login to GitLab via your web browser please go here:<br>
-	<table>
-	  <tr>
-	    <td>UI link:</td>
-	    <td><a target=_blank href="' . $student['gitlab'] . '">' . $student['gitlab'] . '</a></td>
-	  </tr>
-	  <tr>
-	    <td>username:</td>
-	    <td><code>student' . $student['id'] . '</code></td>
-	  </tr>
-	  <tr>
-	    <td>password:</td>
-	    <td><code>' . $student['password'] . '</code></td>
-	  </tr>
-	</table><br>';
+  {% endif %}
+  {% if workshop_type == "windows" %}
+  print '<div id="section_title">GitLab access</div>
+  To login to GitLab via your web browser please go here:<br>
+  <table>
+    <tr>
+      <td>UI link:</td>
+      <td><a target=_blank href="' . $student['gitlab'] . '">' . $student['gitlab'] . '</a></td>
+    </tr>
+    <tr>
+      <td>username:</td>
+      <td><code>student' . $student['id'] . '</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>' . $student['password'] . '</code></td>
+    </tr>
+  </table><br>';
 
-	{% endif %}
-	{% if workshop_type == "windows" %}
-	{% else %}
-	print '<div id="section_title">SSH access</div>
-	To login to the Ansible Control Node use the following for SSH access:<br>
-	<div id="control_node">
-	<div id="login_info">
-	<table>
-	  <tr>
-	    <td>username:</td>
-	    <td><code>student' . $student['id'] . '</code></td>
-	  </tr>
-	  <tr>
-	    <td>password:</td>
-	    <td><code>' . $student['password'] . '</code></td>
-	  </tr>
-	  <tr>
-	    <td>IP Address:</td>
-	    <td><code>' . $student['tower'] . '</code></td>
-	  </tr>
-	</table>
-	</div>
-	<div id="example_login">
-	<pre><code>ssh student' . $student['id'] . '@' . $student['ip'] . '</code></pre>
-	{% if dns_type != 'none' %}
-	DNS: student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}<br>
-	<pre><code>ssh student' . $student['id'] . '@student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</code></pre>
-	{% endif %}
-	</div>
-	</div>
-	<hr>';
-	{% endif %}
+  {% endif %}
+  {% if workshop_type == "windows" %}
+  {% else %}
+  print '<div id="section_title">SSH access</div>
+  To login to the Ansible Control Node use the following for SSH access:<br>
+  <div id="control_node">
+  <div id="login_info">
+  <table>
+    <tr>
+      <td>username:</td>
+      <td><code>student' . $student['id'] . '</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>' . $student['password'] . '</code></td>
+    </tr>
+    <tr>
+      <td>IP Address:</td>
+      <td><code>' . $student['tower'] . '</code></td>
+    </tr>
+  </table>
+  </div>
+  <div id="example_login">
+  <pre><code>ssh student' . $student['id'] . '@' . $student['ip'] . '</code></pre>
+  {% if dns_type != 'none' %}
+  DNS: student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}<br>
+  <pre><code>ssh student' . $student['id'] . '@student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</code></pre>
+  {% endif %}
+  </div>
+  </div>
+  <hr>';
+  {% endif %}
 
-	print '<div id="tower_info">
-	{% if towerinstall is defined and towerinstall %}
-	<div id="section_title">Ansible Tower access</div>
-	To login to the Ansible Tower UI use the following credentials:<br>
-	<table>
-	{% if dns_type != 'none' %}
-	  <tr>
-	<td>UI link:</td>
-	<td><a target=_blank href="https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
-	  </tr>
-	{% endif %}
-	{% if dns_type == 'none' %}
-	  <tr>
-	<td>UI link:
-	<td><a target=_blank href="https://' . $student['ip'] . '">https://' . $student['ip'] . '</a></td>
-	  </tr>
-	{% endif %}
-	  <tr>
-	    <td>username:</td>
-	    <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
-	  </tr>
-	  <tr>
-	    <td>password:</td>
-	    <td><code>{{admin_password}}</code></td>
-	  </tr>
-	</table>
-	{% endif %}
-	</div>
+  print '<div id="tower_info">
+  {% if towerinstall is defined and towerinstall %}
+  <div id="section_title">Ansible Tower access</div>
+  To login to the Ansible Tower UI use the following credentials:<br>
+  <table>
+  {% if dns_type != 'none' %}
+    <tr>
+  <td>UI link:</td>
+  <td><a target=_blank href="https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
+    </tr>
+  {% endif %}
+  {% if dns_type == 'none' %}
+    <tr>
+  <td>UI link:
+  <td><a target=_blank href="https://' . $student['ip'] . '">https://' . $student['ip'] . '</a></td>
+    </tr>
+  {% endif %}
+    <tr>
+      <td>username:</td>
+      <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>{{admin_password}}</code></td>
+    </tr>
+  </table>
+  {% endif %}
+  </div>
 
-	{% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
-	    </div>
-	  </div>';
+  {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
+      </div>
+    </div>';
 
-	print "</div></div>";
+  print "</div></div>";
 
 }
 
@@ -579,82 +579,82 @@ function isValidEmail($email){
 }
 
 function display_form() {
-	print "<div class='student_logins'>
+  print "<div class='student_logins'>
     <div class='header'>
              <p class='studentinfo'>Please enter your Name and Email address.</p>
     </div>
-	    <div class='content'>
-	      <p>";
-	print "<form action='/' method=POST enctype='multipart/form-data'>";
-	print "<table><tr><td align=right>Name: </td><td><input type=text name=name size=20></td></tr>";
-	print "<tr><td align=right>Email: </td><td><input type=text name=email size=20></td></tr>";
-	print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
-	print "</p>";
-	print "</div></div>";
+      <div class='content'>
+        <p>";
+  print "<form action='/' method=POST enctype='multipart/form-data'>";
+  print "<table><tr><td align=right>Name: </td><td><input type=text name=name size=20></td></tr>";
+  print "<tr><td align=right>Email: </td><td><input type=text name=email size=20></td></tr>";
+  print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
+  print "</p>";
+  print "</div></div>";
 
 }
 
 function sql_clean_username($text) {
-	$text = preg_replace("/[^[:alnum:][:space:] @\.\-_]/u", '', $text);
-	return $text;
+  $text = preg_replace("/[^[:alnum:][:space:] @\.\-_]/u", '', $text);
+  return $text;
 }
 
 function db_execute($query) {
-	global $db;
-	$stmt = $db->query($query);
-	return $db->lastInsertId();
+  global $db;
+  $stmt = $db->query($query);
+  return $db->lastInsertId();
 }
 
 function db_execute_prepare($query, $data) {
-	global $db;
-	$stmt = $db->prepare($query);
-	$stmt->execute($data);
-	return $db->lastInsertId();
+  global $db;
+  $stmt = $db->prepare($query);
+  $stmt->execute($data);
+  return $db->lastInsertId();
 }
 
 function db_fetch_cell($query, $cell) {
-	global $db;
-	$stmt = $db->query($query);
-	if (!$stmt) return false;
-	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
-	if (!isset($results[$cell])) return false;
-	return $results[$cell];
+  global $db;
+  $stmt = $db->query($query);
+  if (!$stmt) return false;
+  $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+  if (!isset($results[$cell])) return false;
+  return $results[$cell];
 }
 
 function db_fetch_assoc($query) {
-	global $db;
-	$stmt = $db->query($query);
-	if ($stmt) {
-		$results = $stmt->fetch(\PDO::FETCH_ASSOC);
-		return $results;
-	} else {
-		return false;
-	}
+  global $db;
+  $stmt = $db->query($query);
+  if ($stmt) {
+    $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $results;
+  } else {
+    return false;
+  }
 }
 
 function db_fetch_assoc_prepare($query, $data) {
-	global $db;
-	$stmt = $db->prepare($query);
-	$stmt->execute($data);
-	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
-	return $results;
+  global $db;
+  $stmt = $db->prepare($query);
+  $stmt->execute($data);
+  $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+  return $results;
 }
 
 function db_fetch_assocs($query) {
-	global $db;
-	$stmt = $db->query($query);
-	if ($stmt) {
-		$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-		return $results;
-	} else {
-		return false;
-	}
+  global $db;
+  $stmt = $db->query($query);
+  if ($stmt) {
+    $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $results;
+  } else {
+    return false;
+  }
 }
 
 function db_fetch_assocs_prepare($query, $data) {
-	global $db;
-	$stmt = $db->prepare($query);
-	$stmt->execute($data);
-	$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-	return $results;
+  global $db;
+  $stmt = $db->prepare($query);
+  $stmt->execute($data);
+  $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  return $results;
 }

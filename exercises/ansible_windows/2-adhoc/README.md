@@ -15,8 +15,7 @@ Step 1:
 -------
 
 To start, we will need to go to our Inventory. So click **Inventories**
-on the left panel, and then click the name of our Inventory **Windows
-Workshop Inventory**. Now that you are on the Inventory Details page, we
+on the left panel, and then click the name of our Inventory **Workshop Inventory**. Now that you are on the Inventory Details page, we
 will need to go select our Host. So click **HOSTS**.
 
 Next to each host is a checkbox. Check the box next to each host you
@@ -198,7 +197,7 @@ End Result
 
 Ad-hoc commands may be useful to run once in a while. However, as automation continues to grow within an environment, they are used less and less often. In the IIS example above, this could have (should have) been written out in a playbook instead of executed through a laborious series of ad-hoc commands. This interaction with ad-hoc commands seems to mimic running individual commands from a CLI. Additional exercises will really make this clear.
 
-*Also, did you catch this?* When a task is performed on a Windows server, Ansible is smart enough to know whether a reboot is required after executing that task. The below is part of the output of the command to remove the IIS feature. The output of this task can be used in subsequent tasks, like whether or not to reboot before continuing. 
+*Also, did you catch this?* When a task is performed on a Windows server, Ansible is smart enough to know whether a reboot is required after executing that task. The below is part of the output of the command to remove the IIS feature. The output of this task can be used in subsequent tasks, like whether or not to reboot before continuing.
 
 ![Reboot required](images/2-adhoc-reboot-required.png)
 <br><br>

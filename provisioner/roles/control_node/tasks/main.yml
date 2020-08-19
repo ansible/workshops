@@ -2,10 +2,16 @@
 - hostname:
     name: "{{short_name}}"
 
-- name: Install EPEL
-  dnf:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-    state: present
+# - name: Install EPEL
+#   dnf:
+#     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+#     state: present
+
+- name: Add repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: http://admin.na.shared.opentlc.com/repos/epel8/x86_64/
 
 # temporary fix for rhel 8.2 dnf substitution
 - name: fix EPEL repo substitution
@@ -14,7 +20,7 @@
     regexp: '\$releasever'
     replace: '8'
   loop:
-    - /etc/yum.repos.d/epel-modular.repo
+    # - /etc/yum.repos.d/epel-modular.repo
     - /etc/yum.repos.d/epel.repo
   when:
     - ansible_distribution_major_version|int == 8

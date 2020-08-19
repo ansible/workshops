@@ -8,14 +8,13 @@
 - [Objective](#objective)
 - [Guide](#guide)
   - [Step 1: Create a Credential](#step-1-create-a-credential)
-  - [Step 2: Migrate an Inventory](#step-2-migrate-an-inventory)
-  - [Step 3: Create a Project](#step-3-create-a-project)
-  - [Step 4: Create a Job Template](#step-4-create-a-job-template)
-  - [Step 5: Launch the Job Template](#step-5-launch-the-job-template)
-  - [Step 6: Examine the Job Details View](#step-6-examine-the-job-details-view)
-  - [Step 7: Examine the Jobs window](#step-7-examine-the-jobs-window)
-  - [Step 8: Verify the BIG-IP Virtual Server was created](#step-8-verify-the-big-ip-virtual-server-was-created)
-  - [Step 9: Verifying the web servers](#step-9-verifying-the-web-servers)
+  - [Step 2: Create a Project](#step-3-create-a-project)
+  - [Step 3: Create a Job Template](#step-4-create-a-job-template)
+  - [Step 4: Launch the Job Template](#step-5-launch-the-job-template)
+  - [Step 5: Examine the Job Details View](#step-6-examine-the-job-details-view)
+  - [Step 6: Examine the Jobs window](#step-7-examine-the-jobs-window)
+  - [Step 7: Verify the BIG-IP Virtual Server was created](#step-8-verify-the-big-ip-virtual-server-was-created)
+  - [Step 8: Verifying the web servers](#step-9-verifying-the-web-servers)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 
@@ -46,35 +45,6 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
 > Note: double check BIG-IP password provided by instructor defaults to ansible
 
   ![workshop credential link](images/ws_credential.png)
-
-## Step 2: Migrate an Inventory
-> **Note:** Here we just showcase one way to migrate an inventory file from the Ansible Tower control node (awx-manage)
-
-1. In the Ansible web UI, navigate to the `Inventories` section using the left navigation bar.
-
-2. Click on the green ![templates link](images/add.png) button to create an empty inventory `Workshop Inventory`.
-
-3. Login via SSH to your Ansible Tower control node (This is the Linux machine that has Ansible Tower installed on). The SSH credentials needed again here.
-4. Locate the flat-file that represents your Ansible inventory. Run the awx-manage inventory_import command like this
-   ```
-   cd ~/f5-workshop/lab_inventory/
-   sudo awx-manage inventory_import --source=hosts --inventory-name="Workshop Inventory"
-   ```
-5. Now when you login via the WebUI you will see all the hosts under the inventory `Workshop Inventory`
-  ![workshop inventory link](images/workshop_inventory1.png)
-
-6. In your newly imported inventory, click on the button labeled `GROUPS`.
-  ![workshop inventory group link](images/workshop_inventory_group1.png)
-
-7. Click on the Group `lb`, and then click on the button labeled `HOSTS`, you will see the host `f5`.
-The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory variables later in the lab.
-  ![host link](images/host.png)
-
-8. Click on `Workshop Inventory` on the top to return to inventory\
-   then click on the button labeled `GROUPS`. \
-   Click on the Group `web`, and then click on the button labeled `Hosts`. You will see two hosts: `node1` and `node2`. \
-   Click on `node1`, and you will see the variables assigned to it with the respective values.
-   ![host link](images/server1.png)
 
 ## Step 3: Create a Project
 1. In the Ansible web UI, navigate to the `Projects` section using the left navigation bar.

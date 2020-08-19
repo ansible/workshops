@@ -18,3 +18,4 @@ admin_password: ansible123
 attendance: false
 # automatically installs Tower to control node
 towerinstall: true
+create_cluster: false

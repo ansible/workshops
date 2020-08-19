@@ -12,3 +12,4 @@ workshop_type: f5
 admin_password: ansible
 # turn DNS on for control nodes, and set to type in valid_dns_type
 dns_type: aws
+create_cluster: false

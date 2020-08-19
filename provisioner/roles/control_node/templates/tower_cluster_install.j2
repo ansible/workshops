@@ -1,0 +1,35 @@
+[tower]
+ansible-1
+ansible-2
+ansible-3
+
+[database]
+ansible-4
+
+[all:vars]
+admin_password='{{admin_password}}'
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/home/ec2-user/.ssh/aws-private.pem
+ansible_become=yes
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+
+
+pg_host='ansible-4'
+pg_port='5432'
+
+pg_database='awx'
+pg_username='awx'
+pg_password='{{admin_password}}'
+
+rabbitmq_port=5672
+rabbitmq_vhost=tower
+rabbitmq_username=tower
+rabbitmq_password='{{admin_password}}'
+rabbitmq_cookie=cookiemonster
+
+# Needs to be true for fqdns and ip addresses
+rabbitmq_use_long_name=false
+
+gpgcheck='{{ gpgcheck | default(1)}}'
+aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'

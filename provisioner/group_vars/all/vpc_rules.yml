@@ -60,6 +60,7 @@ workshops:
         from_port: 514
         cidr_ip: 0.0.0.0/0
         rule_desc: WinRM
+
   f5:
     ports:
       - proto: tcp

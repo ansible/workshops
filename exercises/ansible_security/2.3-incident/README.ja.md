@@ -229,7 +229,6 @@ QRadar UI の、**Log Activity** タブで Snort からのアラートを受信�
 
 今回は QRadar のログソースとして Check Point を設定していませんが、Playbook は問題なく実行されることに注目してください。Ansible のタスクの多くは冪等性があるので、タスクを何度も実行しても、目的の状態を確保することができます。
 
-Last but not least we have to stop the attack simulation. Log into Tower as your student user. In the section **Templates**, find and execute the job template called **Stop sql injection simulation**.
 最後に、攻撃シミュレーションを停止する必要があります。student ユーザーとして Tower にログインします。**Templates** セクションで、**Stop sql injection simulation** と呼ばれるジョブテンプレートを見つけて実行します。
 
 これで最後の練習は終了です。おめでとう！

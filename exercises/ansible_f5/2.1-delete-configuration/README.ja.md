@@ -176,7 +176,7 @@
       provider: "{{provider}}"
       name: "{{hostvars[item].inventory_hostname}}"
       state: absent
-    loop: "{{ groups['webservers'] }}"
+    loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 上記のPlaybookは、仮想サーバ、プール、前の実習で構成したノードの順に削除します。

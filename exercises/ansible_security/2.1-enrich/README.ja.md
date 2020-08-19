@@ -16,33 +16,23 @@
 
 さらに、この Role を使用して、前回の Snort の演習の IDS ルールを変更します。未実施の場合には、次のコマンドを実行しインストールしてください: `ansible-galaxy install ansible_security.ids_rule`
 
-次に、これはセキュリティラボなので、疑わしいトラフィック、つまり攻撃が必要です。5秒ごとの簡単なアクセスをシミュレートする Playbook を用意して、この演習の他のコンポーネントが後で反応するようにします。VS Code オンラインエディタで、ユーザのホームディレクトリに以下の内容の Playbook `web_attack_simulation.yml` を作成してください:
+次に、これはセキュリティラボなので、疑わしいトラフィック、つまり攻撃が必要です。この演習の他のコンポーネントが後で反応する5秒ごとの単純なアクセスをシミュレートします。このシミュレーションを開始するには、Tower を使用します。Tower のインストールには、ユーザー、インベントリ、認証情報などがすでに入力されています。ただし、この演習では、コマンドラインに焦点を当て、物事がどのように機能しているかをよりよく示すことに注意してください。次の演習では、Tower が大きな役割を果たします。したがって、ここでは攻撃を開始するためのインターフェースのみを案内します。次の演習では、Tower の特徴と機能をより深く説明し、なぜそれが Security Automation で重要な役割を果たすのかを説明します。
 
-<!-- {% raw %} -->
-```yml
----
-- name: start attack
-  hosts: attacker
-  become: yes
-  gather_facts: no
+Tower にはブラウザからアクセスします。個人の Tower インスタンスへの URL が必要です。これは VS Code オンラインエディターの URL に似ていますが、`-code` はありません。ワークショップのページでも見つけることができます:
 
-  tasks:
-    - name: simulate attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/web_attack_simulation"
-```
-<!-- {% endraw %} -->
-
-Playbook を実行します:
-
-```bash
-[student<X>@ansible ansible-files]$ ansible-playbook web_attack_simulation.yml
-```
+![Tower URL example](images/tower_url.png)
 
 > **Note**
 >
-> 基本的にこの Playbook では、5秒間隔で watch コマンドを実行する小さなデーモンを登録します。これは繰り返しタスクを開始するにはかなり厳しい方法ですが、デモの目的を果たしています。
+> この URL とログイン情報は一例です。Tower の URL とログイン情報は異なります。
 
-これで舞台は整いました。このユースケースが何であるかを学ぶために、お読みください。
+ブラウザを開き、Tower インスタンスへのリンクを入力します。提供された student ID とパスワードを使用してログインします。左側にダッシュボードとナビゲーションバーが表示されます。
+
+![Tower dashboard](images/tower_dashboard.png)
+
+左側のナビゲーションバーで、**Templates** をクリックします。テンプレートのリストで、右にあるロケットのアイコンをクリックして、**Start web attack simulation** というテンプレートを見つけて実行します。これにより、数秒ごとに攻撃がシミュレートされます。これで Tower ブラウザーのタブを閉じることができます。この演習では、これを再度必要とすることはありません。
+
+これでステージは整いました。このユースケースが何であるかを学ぶために読んでください。
 
 ## Step 1.3 - 異常を確認する
 
@@ -493,18 +483,7 @@ Playbook を実行しログソースを削除します:
 [student<X>@ansible ~]$ ansible-playbook rollback.yml
 ```
 
-また、攻撃をシミュレートするプロセスを強制終了する必要があります。このためには、いわゆる Ansible ad-hoc コマンドを使用します。Playbook 全体を記述する必要なく、Ansible を介して実行される単一の task です。shellモジュールを使用します。これは、パイピングをサポートし、複数のコマンドを繋げることができるためです。VS Code オンラインエディタのターミナルで、以下のコマンドを実行します。
-
-<!-- {% raw %} -->
-```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
-attacker | CHANGED | rc=0 >>
-```
-<!-- {% endraw %} -->
-
-**attacker** のマシンにエスカレートされた権限で接続し(`-b`)、そこでシェルモジュールを実行します(`-m shell`)。シェルモジュールのパラメータは、シェルコマンドの連続です。実行中のすべてのプロセスを出力し、grep コマンド自体の行を削除します。次に、watch を実行しているすべてのコマンドをフィルタリングし、awk を使ってプロセス ID を取得し、プロセス ID を `kill` に渡します。
-
-もし、`Share connection to ... closed.` というエラーが出たら心配しないでください: もう一度コマンドを実行してください。
+最後に、攻撃シミュレーションを停止する必要があります。student ユーザーとして Tower にログインします。**Templates** セクションで、**Stop web attack simulation** というジョブテンプレートを見つけて実行します。
 
 これで演習は終了です。次の演習を続けるために、演習のリストに戻ってください。
 

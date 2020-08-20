@@ -7,12 +7,13 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-* [Step 1 - Understanding the Ansible Role Structure](#step-1---understanding-the-ansible-role-structure)
-* [Step 2 - Create a Basic Role Directory Structure](#step-2---create-a-basic-role-directory-structure)
-* [Step 3 - Create the Tasks File](#step-3---create-the-tasks-file)
-* [Step 4 - Create the handler](#step-4---create-the-handler)
-* [Step 5 - Create the web.html and vhost configuration file template](#step-5---create-the-indexhtml-and-vhost-configuration-file-template)
-* [Step 6 - Test the role](#step-6---test-the-role)
+   * [Step 1 - Understanding the Ansible Role Structure](#step-1---understanding-the-ansible-role-structure)
+   * [Step 2 - Create a Basic Role Directory Structure](#step-2---create-a-basic-role-directory-structure)
+   * [Step 3 - Create the Tasks File](#step-3---create-the-tasks-file)
+   * [Step 4 - Create the handler](#step-4---create-the-handler)
+   * [Step 5 - Create the web.html and vhost configuration file template](#step-5---create-the-webhtml-and-vhost-configuration-file-template)
+   * [Step 6 - Test the role](#step-6---test-the-role)
+* [Troubleshooting problems](#troubleshooting-problems)
 
 # Objective
 
@@ -24,6 +25,7 @@ This exercise will cover:
 - the folder structure of an Ansible Role
 - how to build an Ansible Role
 - creating an Ansible Play to use and execute a role
+- using Ansible to create a Apache VirtualHost on node2
 
 # Guide
 
@@ -312,6 +314,22 @@ simple vhost index
 ```
 
 Congratulations! You have successfully completed this exercise!
+
+# Troubleshooting problems
+
+Did the final curl work?  You can see what ports the web server is running by using the netstat command:
+
+```
+$ sudo netstat -tulpn
+```
+
+There should be a line like this:
+
+```
+tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
+```
+
+If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](../1.5-handlers)
 
 ----
 **Navigation**

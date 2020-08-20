@@ -3,17 +3,16 @@
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## Table of Contents
-- [Exercise 4.0: Explore Red Hat Ansible Tower](#exercise-40-explore-red-hat-ansible-tower)
-  - [Table of Contents](#table-of-contents)
-- [Objective](#objective)
-- [Guide](#guide)
-  - [Step 1: Login to Ansible Tower](#step-1-login-to-ansible-tower)
-  - [Step 2: Examine the Ansible Tower Inventory](#step-2-examine-the-ansible-tower-inventory)
-  - [Step 3: Examine the Ansible Tower Workshop Project](#step-3-examine-the-ansible-tower-workshop-project)
-  - [Step 4: Examine the Ansible Tower Workshop Credential](#step-4-examine-the-ansible-tower-workshop-credential)
-  - [Step 5: Examine the Ansible Tower Template](#step-5-examine-the-ansible-tower-template)
-- [Takeaways](#takeaways)
-- [Complete](#complete)
+
+* [Objective](#objective)
+* [Guide](#guide)
+   * [Step 1: Login to the Ansible Automation Platform](#step-1-login-to-the-ansible-automation-platform)
+   * [Step 2: Examine the Inventory](#step-2-examine-the-inventory)
+   * [Step 3: Examine the Workshop Project](#step-3-examine-the-workshop-project)
+   * [Step 4: Examine the Workshop Credential](#step-4-examine-the-workshop-credential)
+   * [Step 5: Examine the Job Template](#step-5-examine-the-job-template)
+* [Takeaways](#takeaways)
+* [Complete](#complete)
 
 # Objective
 

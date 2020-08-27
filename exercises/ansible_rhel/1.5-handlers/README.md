@@ -66,7 +66,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
 ---
 - name: Install vsftpd on ftpservers
   hosts: all
-  become: yes
+  become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
       yum:
@@ -115,7 +115,7 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
 ---
 - name: manage httpd.conf
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: Copy Apache configuration file
     copy:
@@ -174,7 +174,7 @@ To show the loops feature we will generate three new users on `node1`. For that,
 ---
 - name: Ensure users
   hosts: node1
-  become: yes
+  become: true
 
   tasks:
     - name: Ensure three users are present
@@ -220,7 +220,7 @@ Let's rewrite the playbook to create the users with additional user rights:
 ---
 - name: Ensure users
   hosts: node1
-  become: yes
+  become: true
 
   tasks:
     - name: Ensure three users are present

@@ -1,7 +1,7 @@
 ---
 - name: manage httpd.conf
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: Copy Apache configuration file
     copy:

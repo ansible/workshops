@@ -1,14 +1,14 @@
 ---
 - name: manage httpd.conf
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: Copy Apache configuration file
     copy:
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
-        - restart_apache
+      - restart_apache
   handlers:
     - name: restart_apache
       service:

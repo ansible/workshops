@@ -29,6 +29,7 @@ ec2_info:
     ami: "{{juniper_ami | default(omit)}}"
     os: junos
     username: ec2-user
+    filter: "junos-vsrx3-x86-*byol*"
     volume:
       - device_name: /dev/sda1
         volume_type: io1

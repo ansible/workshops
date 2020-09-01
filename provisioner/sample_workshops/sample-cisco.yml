@@ -10,3 +10,4 @@ workshop_type: network
 network_type: cisco
 ## Optional Variables
 dns_type: aws
+create_cluster: false

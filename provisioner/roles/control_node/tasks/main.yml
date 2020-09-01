@@ -6,6 +6,7 @@
   dnf:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
+    disable_gpg_check: true
 
 # temporary fix for rhel 8.2 dnf substitution
 - name: fix EPEL repo substitution
@@ -14,7 +15,7 @@
     regexp: '\$releasever'
     replace: '8'
   loop:
-    - /etc/yum.repos.d/epel-modular.repo
+    # - /etc/yum.repos.d/epel-modular.repo
     - /etc/yum.repos.d/epel.repo
   when:
     - ansible_distribution_major_version|int == 8
@@ -68,27 +69,45 @@
     group: "{{ username }}"
     state: directory
 
-- name: copy over ssh config file
+# This may look redundant, but you can't put these in a loop because the
+# ansible_user will not be templated the way you expect when running under
+# Tower/AWX
+
+- name: copy over ssh config file for student
   template:
     src: sshconfig.j2
-    dest: /home/{{item}}/.ssh/config
-    owner: "{{item}}"
-    group: "{{item}}"
+    dest: /home/{{ username }}/.ssh/config
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: 0700
-  loop:
-    - "{{ansible_user}}"
-    - "{{username}}"
 
 - name: Put ssh-key in proper spot for student
   copy:
     src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    dest: "/home/{{item}}/.ssh/aws-private.pem"
-    owner: "{{ item }}"
-    group: "{{ item }}"
+    dest: "/home/{{ ansible_user }}/.ssh/aws-private.pem"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0400
-  loop:
-    - "{{ansible_user}}"
-    - "{{username}}"
+
+# It isn't really safe to use ansible_user, because it could be resolved
+# in different ways, depending on where it's used.
+# It should work as expected below. -ptoal
+
+- name: copy over ssh config file for ansible_user
+  template:
+    src: sshconfig.j2
+    dest: /home/{{ ansible_user }}/.ssh/config
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0700
+
+- name: Put ssh-key in proper spot for student
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    dest: "/home/{{ username }}/.ssh/aws-private.pem"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0400
 
 - name: clean out /tmp/workshops
   file:

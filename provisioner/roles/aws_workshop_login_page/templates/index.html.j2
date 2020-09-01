@@ -267,7 +267,7 @@ $("document").ready(function(){
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                {% if workshop_type in ['networking', 'f5'] %}
+                {% if workshop_type in ['network', 'f5'] %}
                 <h2>Network Automation Workshops</h2>
                 <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
                 {% elif workshop_type in ['rhel'] %}
@@ -282,7 +282,7 @@ $("document").ready(function(){
                 {% endif %}
             </div>
         </div>
-        {% if workshop_type == "networking" %}
+        {% if workshop_type == "network" %}
         <div class="row">
           <div class="col-sm-4">
               <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
@@ -372,7 +372,7 @@ $("document").ready(function(){
         </div>
 <br>
         <div class="row">
-            {% if workshop_type in ['networking', 'f5'] %}
+            {% if workshop_type in ['network', 'f5'] %}
             <div class="col-sm-4">
                 <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
             </div>
@@ -417,6 +417,7 @@ $("document").ready(function(){
     <div class="content">
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
+{% if 'ansible-1' in host.tags.Name %}
 {% if code_server is defined and code_server %}
 <div id="section_title">VS Code access</div>
 To login to Visual Studio Code via your web browser please go here:<br>
@@ -473,7 +474,7 @@ To login to the Ansible Control Node use the following for SSH access:<br>
 </table>
 </div>
 <div id="example_login">
-<pre><code>ssh student{{number}}@{{ host.public_ip_address }}</code></pre>
+ <pre><code>ssh student{{number}}@{{ host.public_ip_address }}</code></pre>
 {% if dns_type != 'none' %}
 DNS: student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}<br>
 <pre><code>ssh student{{number}}@student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}</code></pre>
@@ -495,8 +496,8 @@ To login to the Ansible Tower UI use the following credentials:<br>
 {% endif %}
 {% if dns_type == 'none' %}
   <tr>
-<td>UI link:
-<td><a target=_blank href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a></td>
+   <td>UI link:
+    <td><a target=_blank href="https://{{ host.public_ip_address }}">https://{{ host.public_ip_address }}</a></td>
   </tr>
 {% endif %}
   <tr>
@@ -512,6 +513,7 @@ To login to the Ansible Tower UI use the following credentials:<br>
 </div>
 
 {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888">http://student{{number}}.{{ec2_name_prefix}}.{{workshop_dns_zone}}:8888</a><br>{% endif %}
+{% endif %}
 {% endif %}
 {% endfor %}
     </div>

@@ -8,7 +8,7 @@ ec2_subnet: "172.16.0.0/16"
 ec2_subnet2: "172.17.0.0/16"
 ec2_network_vpc2: "172.18.0.0/16"
 ssh_port: 22
-
+create_cluster: false
 ## The default is multivendor, 1 x Cisco, 2 x Arista, 1 x Juniper
 ##
 ##   VPC1       VPC2
@@ -29,6 +29,7 @@ ec2_info:
     ami: "{{juniper_ami | default(omit)}}"
     os: junos
     username: ec2-user
+    filter: "junos-vsrx3-x86-*byol*"
     volume:
       - device_name: /dev/sda1
         volume_type: io1
@@ -98,7 +99,7 @@ ec2_info:
     os_type: linux
     disk_space: 40
     architecture: x86_64
-    filter: 'F5 Networks Prelicensed Hourly BIGIP-13.1*Good 25MBPS*'
+    filter: 'F5 BIGIP-13.1.*PAYG-Best 25Mbps*'
     username: admin
   splunk_enterprise:
     owners: 309956199498

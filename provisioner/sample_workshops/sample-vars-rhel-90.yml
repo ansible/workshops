@@ -16,3 +16,4 @@ dns_type: aws
 towerinstall: true
 # this will install all demos from github.com/ansible/product-demos that work for this workshop type
 demo: all
+create_cluster: false

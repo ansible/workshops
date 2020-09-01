@@ -108,6 +108,6 @@
     - role: cp_fix_mgmt
 
 - name: SETUP CHECKPOINT ENVIRONMENT
-  hosts: control_nodes
+  hosts: '*ansible-1'
   roles:
     - role: cp_setup

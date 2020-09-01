@@ -14,3 +14,4 @@ admin_password: ansible
 dns_type: aws
 # creates HTML website for workshop
 create_login_page: false
+create_cluster: false

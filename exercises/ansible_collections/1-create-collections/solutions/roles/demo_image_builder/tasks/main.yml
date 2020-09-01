@@ -1,0 +1,45 @@
+---
+# tasks file for redhat.demo_nginx
+- name: Ensure podman is present in the host
+  dnf:
+    name: podman
+    state: present
+  become: true
+
+- name: Generate greeting and store result
+  demo_hello:
+    name: "{{ friend_name }}"
+  register: demo_greeting
+
+- name: Create build directory
+  file:
+    path: "{{ build_dir_path }}"
+    state: directory
+    mode: 0755
+
+- name: Copy Dockerfile
+  copy:
+    src: files/Dockerfile
+    dest: "{{ build_dir_path }}"
+    mode: 0644
+
+- name: Copy custom index.html
+  template:
+    src: templates/index.html.j2
+    dest: "{{ build_dir_path }}/index.html"
+    mode: 0644
+
+- name: Build and Push OCI image
+  podman_image:
+    name: demo-nginx
+    path: "{{ build_dir_path }}"
+    build:
+      annotation:
+        app: nginx
+        function: demo
+        info: Demo app for Ansible Collections workshop
+      format: oci
+    push: true
+    force: true
+    push_args:
+      dest: "{{ image_registry }}/{{ registry_username }}"

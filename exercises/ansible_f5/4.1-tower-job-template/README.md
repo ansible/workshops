@@ -3,21 +3,18 @@
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## Table of Contents
-- [Exercise 4.1: Creating a Tower Job Template](#exercise-41-creating-a-tower-job-template)
-  - [Table of Contents](#table-of-contents)
-- [Objective](#objective)
-- [Guide](#guide)
-  - [Step 1: Create a Credential](#step-1-create-a-credential)
-  - [Step 2: Migrate an Inventory](#step-2-migrate-an-inventory)
-  - [Step 3: Create a Project](#step-3-create-a-project)
-  - [Step 4: Create a Job Template](#step-4-create-a-job-template)
-  - [Step 5: Launch the Job Template](#step-5-launch-the-job-template)
-  - [Step 6: Examine the Job Details View](#step-6-examine-the-job-details-view)
-  - [Step 7: Examine the Jobs window](#step-7-examine-the-jobs-window)
-  - [Step 8: Verify the BIG-IP Virtual Server was created](#step-8-verify-the-big-ip-virtual-server-was-created)
-  - [Step 9: Verifying the web servers](#step-9-verifying-the-web-servers)
-- [Takeaways](#takeaways)
-- [Complete](#complete)
+
+* [Objective](#objective)
+* [Guide](#guide)
+   * [Step 1: Create a Project](#step-1-create-a-project)
+   * [Step 2: Create a Job Template](#step-2-create-a-job-template)
+   * [Step 3: Launch the Job Template](#step-3-launch-the-job-template)
+   * [Step 4: Examine the Job Details View](#step-4-examine-the-job-details-view)
+   * [Step 5: Examine the Jobs window](#step-5-examine-the-jobs-window)
+   * [Step 6: Verify the BIG-IP Virtual Server was created](#step-6-verify-the-big-ip-virtual-server-was-created)
+   * [Step 7: Verifying the web servers](#step-7-verifying-the-web-servers)
+* [Takeaways](#takeaways)
+* [Complete](#complete)
 
 # Objective
 
@@ -29,54 +26,9 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
  - A **Project** which contains Ansible Playbooks
 
 # Guide
-## Step 1: Create a Credential
-1. In the Ansible web UI, navigate to the `Credentials` section using the left navigation bar.
 
-2. Click on the green ![templates link](images/add.png) button to create a new Credential: `Workshop Credential`
+## Step 1: Create a Project
 
-3. Fill out the credential parameters as follows, and click `Save`
-
-    | Parameter | Value |
-    |---|---|
-    | Name | `Workshop Credential`|
-    | Credential type: | `Network` |
-    | Username| `admin`|
-    | Password| `ansible`|
-
-> Note: double check BIG-IP password provided by instructor defaults to ansible
-
-  ![workshop credential link](images/ws_credential.png)
-
-## Step 2: Migrate an Inventory
-> **Note:** Here we just showcase one way to migrate an inventory file from the Ansible Tower control node (awx-manage)
-
-1. In the Ansible web UI, navigate to the `Inventories` section using the left navigation bar.
-
-2. Click on the green ![templates link](images/add.png) button to create an empty inventory `Workshop Inventory`.
-
-3. Login via SSH to your Ansible Tower control node (This is the Linux machine that has Ansible Tower installed on). The SSH credentials needed again here.
-4. Locate the flat-file that represents your Ansible inventory. Run the awx-manage inventory_import command like this
-   ```
-   cd ~/f5-workshop/lab_inventory/
-   sudo awx-manage inventory_import --source=hosts --inventory-name="Workshop Inventory"
-   ```
-5. Now when you login via the WebUI you will see all the hosts under the inventory `Workshop Inventory`
-  ![workshop inventory link](images/workshop_inventory1.png)
-
-6. In your newly imported inventory, click on the button labeled `GROUPS`.
-  ![workshop inventory group link](images/workshop_inventory_group1.png)
-
-7. Click on the Group `lb`, and then click on the button labeled `HOSTS`, you will see the host `f5`.
-The BIG-IP host `f5` in the inventory will have variables assigned to it with the respective values. Our playbook will refer to these inventory variables later in the lab.
-  ![host link](images/host.png)
-
-8. Click on `Workshop Inventory` on the top to return to inventory\
-   then click on the button labeled `GROUPS`. \
-   Click on the Group `web`, and then click on the button labeled `Hosts`. You will see two hosts: `node1` and `node2`. \
-   Click on `node1`, and you will see the variables assigned to it with the respective values.
-   ![host link](images/server1.png)
-
-## Step 3: Create a Project
 1. In the Ansible web UI, navigate to the `Projects` section using the left navigation bar.
 
 2. Click on the green ![templates link](images/add.png) button to create a new project
@@ -89,6 +41,8 @@ The BIG-IP host `f5` in the inventory will have variables assigned to it with th
     |  SCM Type |  Git |
     |  SCM URL |  https://github.com/f5devcentral/ansible-tower-workshop-examples.git |
     |  Update Revision on Launch |  ✓ |
+
+**NOTE**: there may be additional projects setup in your environment.  Each project represents a repository of Ansible Playbooks.  It is completly normal to have multiple projects.
 
 ![workshop_project link](images/workshop_project.png)
 
@@ -154,7 +108,7 @@ For reference, here is one of the playbooks that was imported and  will be execu
         msg: "The VIP (Virtual IP) is https://{{ansible_host}}"
 ```
 
-## Step 4: Create a Job Template
+## Step 2: Create a Job Template
 
 1.  Open the web UI and click on the `Templates` link on the left menu.
 
@@ -179,14 +133,14 @@ For reference, here is one of the playbooks that was imported and  will be execu
     ![network credential](images/network.png)
 
 
-    Here is a screenshot of the job template with parameters filled out:
+ Here is a screenshot of the job template with parameters filled out:
 
-    ![create_vs job template](images/create_vs.png)
+   ![create_vs job template](images/create_vs.png)
 
 4. Scroll down and click the green `save` button.
 
 
-## Step 5: Launch the Job Template
+## Step 3: Launch the Job Template
 
 1. Navigate back to the `Templates` window, where all Job Templates are listed.
 
@@ -196,7 +150,7 @@ For reference, here is one of the playbooks that was imported and  will be execu
 
     When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) can be found in the documentation.
 
-## Step 6: Examine the Job Details View
+## Step 4: Examine the Job Details View
 
 On the left side there is a **DETAILS** pane, on the right side there is the **Standard Out pane**.
 
@@ -222,7 +176,7 @@ On the left side there is a **DETAILS** pane, on the right side there is the **S
 
     ![task details window](images/task_details.png)
 
-## Step 7: Examine the Jobs window
+## Step 5: Examine the Jobs window
 
 Any **Job Template** that has been run or is currently running will show up under the **Views -> Jobs** window.
 
@@ -238,7 +192,7 @@ Any **Job Template** that has been run or is currently running will show up unde
 
     The **`create_vs`** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
 
-## Step 8: Verify the BIG-IP Virtual Server was created
+## Step 6: Verify the BIG-IP Virtual Server was created
 
 Login to the F5 BIG-IP with your web browser to see what was configured.
 Login information for the BIG-IP:
@@ -249,7 +203,7 @@ Login information for the BIG-IP:
 The load balancer virtual server can be found by navigating the menu on the left.  Click on **Local Traffic**. then click on **Virtual Servers**.  See the screenshot below:
 ![vip link](images/vip.png)
 
-## Step 9: Verifying the web servers
+## Step 7: Verifying the web servers
 
 Each of the two RHEL web servers actually already has apache running. Open up the public IP of the F5 load balancer in your web browser:
 

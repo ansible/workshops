@@ -1,7 +1,7 @@
 ---
 - name: login, get SID
   uri:
-    url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['private_ip'] }}/web_api/login"
+    url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_mgmt')]['private_ip'] }}/web_api/login"
     method: POST
     body:
       user: admin
@@ -15,7 +15,7 @@
 
 - name: Add NGFW to MGMT
   uri:
-    url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['private_ip'] }}/web_api/add-simple-gateway"
+    url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_mgmt')]['private_ip'] }}/web_api/add-simple-gateway"
     validate_certs: false
     method: POST
     headers:
@@ -24,7 +24,7 @@
     body_format: json
     body:
       name: myngfw
-      ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['private_ip'] }}"
+      ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_gw')]['private_ip'] }}"
       one-time-password: admin123
       firewall: true
       version: R80.30
@@ -34,7 +34,7 @@
           anti-spoofing-settings:
             action: prevent
           name: "eth0"
-          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['private_ip'] }}"
+          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_gw')]['private_ip'] }}"
           network-mask: "255.255.0.0"
           ipv4-mask-length: 16
           security-zone: false
@@ -45,7 +45,7 @@
           anti-spoofing-settings:
             action: prevent
           name: "eth1"
-          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_gw')]['private_ip2'] }}"
+          ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_gw')]['private_ip2'] }}"
           network-mask: "255.255.0.0"
           ipv4-mask-length: 16
           security-zone: false
@@ -53,7 +53,7 @@
 
 - name: Publish
   uri:
-    url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible', 'checkpoint_mgmt')]['private_ip'] }}/web_api/publish"
+    url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_mgmt')]['private_ip'] }}/web_api/publish"
     validate_certs: false
     method: POST
     headers:
@@ -67,7 +67,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
-      "tag:Name": "{{ inventory_hostname|regex_replace('ansible', 'checkpoint_gw') }}"
+      "tag:Name": "{{ inventory_hostname|regex_replace('ansible-1', 'checkpoint_gw') }}"
       "instance-state-name": running
   register: gw_inst
   delegate_to: localhost

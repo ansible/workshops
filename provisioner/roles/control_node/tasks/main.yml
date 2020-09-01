@@ -6,6 +6,7 @@
   dnf:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
+    disable_gpg_check: true
 
 # temporary fix for rhel 8.2 dnf substitution
 - name: fix EPEL repo substitution

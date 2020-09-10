@@ -14,6 +14,12 @@
     - name: GitLab post | stop gitlab
       command: gitlab-ctl stop
 
+    - name: Install required RPM GPG keys
+      rpm_key:
+        state: present
+        key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
+      become: true
+
     - name: GitLab post | Install EPEL
       dnf:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"

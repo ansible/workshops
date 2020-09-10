@@ -35,6 +35,7 @@
   dnf:
     name: /tmp/code-server.rpm
     state: present
+    disable_gpg_check: true
 
 - name: Apply our systemd service file (instead of RPM file)
   template:

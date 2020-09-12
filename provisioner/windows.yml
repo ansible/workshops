@@ -14,7 +14,7 @@
         name: gitlab-server
 
 - name: Configure GitLab client
-  hosts: ansible-1
+  hosts: '*ansible-1'
   become: true
   gather_facts: true
   tags:

@@ -70,5 +70,5 @@
   with_items:
     - "{{ isonode_node_facts.instances }}"
     - "{{ remotenode_node_facts.instances }}"
-  #changed_when: false
+  # changed_when: false
   when: create_cluster|bool

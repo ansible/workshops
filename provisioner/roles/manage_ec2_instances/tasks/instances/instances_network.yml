@@ -23,6 +23,8 @@
     instance_tags:
       Workshop_rtr1: "{{ ec2_name_prefix }}-rtr1"
       Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
@@ -67,6 +69,8 @@
     instance_tags:
       Workshop_rtr2: "{{ ec2_name_prefix }}-rtr2"
       Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
@@ -111,6 +115,8 @@
     instance_tags:
       Workshop_rtr3: "{{ ec2_name_prefix }}-rtr3"
       Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
@@ -155,6 +161,8 @@
     instance_tags:
       Workshop_rtr4: "{{ ec2_name_prefix }}-rtr4"
       Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"

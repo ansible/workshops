@@ -176,7 +176,7 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ isonode_output.instances }}"
-  when: isonode_output.instance_ids is not none
+  when: isonode_output.instance_ids is not none and create_cluster|bool
 
 - name: Create EC2 instances for remotenode
   ec2:
@@ -221,4 +221,4 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ remotenode_output.instances }}"
-  when: remotenode_output.instance_ids is not none
+  when: remotenode_output.instance_ids is not none and create_cluster|bool

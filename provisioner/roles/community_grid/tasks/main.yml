@@ -1,6 +1,11 @@
 ---
 - name: initiation boinc-client installation and registration
   block:
+    - name: Install required RPM GPG keys
+      rpm_key:
+        state: present
+        key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
+
     - name: Install EPEL
       dnf:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"

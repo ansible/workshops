@@ -12,7 +12,7 @@ pipeline {
         choice(
             name: 'TOWER_VERSION',
             description: 'Tower version to deploy',
-            choices: ['devel', '3.7.1']
+            choices: ['devel', '3.7.2']
         )
         choice(
             name: 'ANSIBLE_VERSION',

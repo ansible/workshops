@@ -15,6 +15,8 @@
       Name: "{{ ec2_name_prefix }}-gitlab"
       App: AnsibleWorkshop
       Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
@@ -43,6 +45,8 @@
       Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
       App: AnsibleWorkshop
       Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
@@ -69,6 +73,8 @@
       Workshop_instance2: "{{ ec2_name_prefix }}-instance2"
       App: AnsibleWorkshop
       Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"

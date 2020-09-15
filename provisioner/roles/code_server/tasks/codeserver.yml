@@ -35,6 +35,7 @@
   dnf:
     name: /tmp/code-server.rpm
     state: present
+    disable_gpg_check: true
 
 - name: Apply our systemd service file (instead of RPM file)
   template:
@@ -50,7 +51,28 @@
     dest: /etc/nginx/nginx.conf
     insertafter: "http {"
 
-# source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
+# Make sure we can re-run the Tower installer during a lab without killing code-server access
+- name: update Ansible installer nginx configuration template to support code server
+  blockinfile:
+    block: "{{ lookup('template', 'nginx.conf') }}"
+    dest: /tmp/tower_install/roles/nginx/templates/nginx.conf
+    insertafter: "http {"
+
+# Make the block inserted above conditional to only apply to ansible-1
+- name: Add jinja conditional start
+  lineinfile:
+    path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+    insertafter: "http {"
+    line: '{% raw %} {% if ansible_hostname == "ansible-1" %} {% endraw %}'
+
+# Make the block inserted above conditional to only apply to ansible-1
+- name: Add jinja conditional end
+  lineinfile:
+    path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+    insertbefore: "include(.*)/etc/nginx/mime.types;"
+    line: '{% raw %} {% endif %} {% endraw %}'
+
+    # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
 - name: ensure custom facts directory exists
   file:
     path: "/home/{{username}}/.local/share/code-server/User/"

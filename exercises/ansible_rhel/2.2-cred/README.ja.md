@@ -181,7 +181,7 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
   </tr>
   <tr>
     <td>ENABLE PRIVILEGE ESCALATION</td>
-    <td>?</td>
+    <td>✓</td>
   </tr>
 </table>
 

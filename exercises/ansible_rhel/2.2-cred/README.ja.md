@@ -28,7 +28,7 @@
 
   - すでに Web UI を開いているはずですが、開いていない場合は **https://student\<X\>.workshopname.rhdemo.io** ("\<X\>"を学生番号に、"workshopname" を現在のワークショップ名に置き換えてください) のように URL をブラウザで指定して、`admin` としてログインしてください。パスワードは講師が教えてくれます。
 
-**Workshop Inventory** が１つあります。**Workshop Inventory** をクリック後、**Hosts** ボタンをクリックします。
+**Workshop Inventory** が１つあります。**Workshop Inventory** をクリック後、**ホスト** ボタンをクリックします。
 
 `~/lab_inventory/hosts` のインベントリ情報は、プロビジョニングプロセスの一部として Ansible Tower Inventory に事前にロードされています。
 
@@ -55,7 +55,7 @@ ansible ansible_host=11.22.33.44
 
 ここでは、Tower から管理ホストにアクセスするための資格情報を調べてみましょう。 この Ansible Workshop のプロビジョニングプロセスの一部として、**Workshop Credential** はすでに設定されています。
 
-**RESOURCES** メニューで、**資格情報** を選択します。その後、**Workshop Credential** をクリックします。
+**リソース** メニューで、**資格情報** を選択します。その後、**Workshop Credential** をクリックします。
 
 Note the following information:
 
@@ -82,11 +82,11 @@ Note the following information:
 
 Ansible Tower から Ad Hoc コマンドを実行することも可能です。
 
-  - Web UI で **RESOURCES → Inventories → Workshop Inventory** に移動します。
+  - Web UI で **リソース → インベントリ → Workshop Inventory** に移動します。
 
-  - **HOSTS** ボタンをクリックし、ホストビューに切り替え、ホストエントリの左側にあるボックスをチェックして3つのホストを選択します。
+  - **** ボタンをクリックし、ホストビューに切り替え、ホストエントリの左側にあるボックスをチェックして3つのホストを選択します。
 
-  - **RUN COMMANDS** をクリックします。 次の画面で、Ad Hoc コマンドを指定する必要があります:
+  - **コマンドの実行** をクリックします。 次の画面で、Ad Hoc コマンドを指定する必要があります:
 
   <table>
     <tr>
@@ -103,7 +103,7 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
     </tr>
   </table>
 
-  - **LAUNCH** をクリックし、出力を確認します。
+  - **起動** をクリックし、出力を確認します。
 
 <hr>
 

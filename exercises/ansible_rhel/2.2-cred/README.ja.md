@@ -84,7 +84,7 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
 
   - Web UI で **リソース → インベントリ → Workshop Inventory** に移動します。
 
-  - **** ボタンをクリックし、ホストビューに切り替え、ホストエントリの左側にあるボックスをチェックして3つのホストを選択します。
+  - **ホスト** ボタンをクリックし、ホストビューに切り替え、ホストエントリの左側にあるボックスをチェックして3つのホストを選択します。
 
   - **コマンドの実行** をクリックします。 次の画面で、Ad Hoc コマンドを指定する必要があります:
 
@@ -194,4 +194,4 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
 <br>
 [前の演習](../2.1-intro/README.ja.md) - [次の演習](../2.3-projects/README.ja.md)
 
-[ここをクリックして Ansible for Red Hat Enterprise Linux Workshop に戻ります](../README.ja.md#section-2---ansible-tower-exercises)
+[ここをクリックして Ansible for Red Hat Enterprise Linux Workshop に戻ります](../README.ja.md#Section-2---Ansible-Towerの演習)

@@ -66,15 +66,15 @@ Note the following information:
   </tr>
   <tr>
     <td>Credential Type</td>
-    <td><code>Machine</code>- Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host.</td>
+    <td><code>Machine</code>- マシン資格情報は、プレイブックの ssh およびユーザレベルの特権エスカレーションアクセスを定義します。これらは、リモートホスト上でプレイブックを実行するためにジョブを送信するときに使用されます</td>
   </tr>
   <tr>
     <td>username</td>
-    <td><code>ec2-user</code> which matches our command-line Ansible inventory username for the other linux nodes</td>
+    <td><code>ec2-user</code> これは他の linux ノードのコマンドライン Ansible インベントリのユーザ名と一致します</td>
   </tr>
   <tr>
     <td>SSH PRIVATE KEY</td>
-    <td><code>ENCRYPTED</code> - take note that you can't actually examine the SSH private key once someone hands it over to Ansible Tower</td>
+    <td><code>ENCRYPTED</code> - Ansible Tower に SSH 秘密鍵を渡すと、実際には調べられないことに注意してください</td>
   </tr>
 </table>
 

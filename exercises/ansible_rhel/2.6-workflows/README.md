@@ -236,7 +236,7 @@ Set up the workflow. Workflows are configured in the **Templates** view, you mig
 
   ![workflow add](images/workflow_add.png)
 
-  - Go to the **Templates** view and click the the green plus button. This time choose **Workflow Template**
+  - Go to the **Templates** view and click the green plus button. This time choose **Workflow Template**
 
   <table>
     <tr>
@@ -289,7 +289,7 @@ After saving the template the **Workflow Visualizer** opens to allow you to buil
 
 Your workflow is ready to go, launch it.
 
-  - Click the blue **LAUNCH** button directly or go to the the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
+  - Click the blue **LAUNCH** button directly or go to the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
 
   ![launch](images/launch.png)
 

@@ -83,7 +83,7 @@ Here is one example of the templates configured:
 
 2. Click on the green ![templates link](images/add.png) button. Select the **Workflow Template**.  
 
-3. Fill out the the form as follows:
+3. Fill out the form as follows:
 
 | Parameter | Value |
 |---|---|

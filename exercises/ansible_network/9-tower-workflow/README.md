@@ -31,7 +31,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 3. Click on the green **+** button. Select the **Workflow Template**.  
 
-4. Fill out the the form as follows:
+4. Fill out the form as follows:
 
 | Parameter | Value |
 |---|---|

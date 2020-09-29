@@ -146,7 +146,7 @@ Next we need to add the variables required by our playbook. The role we are usin
     ids_provider: snort
 ```
 
-Next, we need to add the tasks. Tasks are the the components which make the actual changes on the target machines. Since we are using a role, we can simply use a single step in our tasks, `include_role`, to add it to our playbook. In order to make the role suitable for our use case, we add the following task-specific variables:
+Next, we need to add the tasks. Tasks are the components which make the actual changes on the target machines. Since we are using a role, we can simply use a single step in our tasks, `include_role`, to add it to our playbook. In order to make the role suitable for our use case, we add the following task-specific variables:
 
 - the actual rule
 - the Snort rules file

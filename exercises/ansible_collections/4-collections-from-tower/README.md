@@ -40,7 +40,7 @@ When using Ansible Collections in your Playbook, there are no additional options
 
 # Troubleshooting
 
-Since Red Hat Ansible Tower does only check for updates in the the repository in which you stored your Playbook, it might not do a refresh if there was a change in the Ansible Collection used by your Playbook. This happens particularly if you also combine Roles and Collections.
+Since Red Hat Ansible Tower does only check for updates in the repository in which you stored your Playbook, it might not do a refresh if there was a change in the Ansible Collection used by your Playbook. This happens particularly if you also combine Roles and Collections.
 
 In this case you should check the option **Delete on Update** which will delete the entire local directory during a refresh.
 

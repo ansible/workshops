@@ -54,7 +54,7 @@
     verbosity: 2
 
 - name: SET AZ ZONE TO FIRST AVAILABLE
-  set_fact: 
+  set_fact:
     ec2_az: "{{ availability_zones[0].zone_name }}"
 
 - name: grab information about AWS user

@@ -138,11 +138,12 @@ Enter the following:
 
   - name: Query BIG-IP facts
     bigip_device_info:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+      provider:
+        server: "{{private_ip}}"
+        user: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        server_port: "8443"
+        validate_certs: "no"
       gather_subset:
        - ltm-pools
     register: bigip_device_facts

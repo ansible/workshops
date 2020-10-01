@@ -571,7 +571,7 @@ function display_student($student) {
   {% endif %}
   </div>
 
-  {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
+  {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
       </div>
     </div>';
 

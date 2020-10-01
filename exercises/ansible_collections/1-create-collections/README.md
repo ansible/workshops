@@ -238,7 +238,7 @@ cd ansible_collections/redhat/workshop_demo_collection
 mkdir plugins/modules
 ```
 
-Create the `demo_hello.py` module in the the new folder. The module code is available in the `solutions/modules`
+Create the `demo_hello.py` module in the new folder. The module code is available in the `solutions/modules`
 folder of this exercise.
 
 ```bash

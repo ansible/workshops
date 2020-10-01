@@ -39,3 +39,4 @@ valid_security_console_types:
   - splunk
   - qradar
 ibm_community_grid: true
+create_cluster: false

@@ -308,6 +308,9 @@ a {
                 {% if workshop_type in ['network', 'f5'] %}
                 <h2>Network Automation Workshops</h2>
                 <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
+                {% elif create_cluster|bool and workshop_type == "rhel" %}
+                <h2>Ansible Tower Advanced Workshops</h2>
+                <p>These workshops are focused on using advanced features of Ansible Tower like clustering.</p>
                 {% elif workshop_type in ['rhel'] %}
                 <h2>Ansible Automation Workshops</h2>
                 <p>These workshops are focused on getting started with Ansible Engine and Ansible Tower in automating Linux platforms like RHEL (Red Hat Enterprise Linux).</p>
@@ -341,6 +344,12 @@ a {
               <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_f5.pdf">Ansible F5 Deck</a>
           </div>
 
+        {% elif create_cluster|bool and workshop_type == "rhel" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://red.ht/advanced_tower">Ansible Tower Advanced Exercises</a>
+            </div>
+        </div>
         </div>
         {% elif workshop_type == "rhel" %}
         <div class="row">
@@ -562,7 +571,7 @@ function display_student($student) {
   {% endif %}
   </div>
 
-  {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['password'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
+  {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
       </div>
     </div>';
 

@@ -78,7 +78,7 @@ ec2_info:
     username: ec2-user
   rhel8:
     owners: 309956199498
-    size: t2.micro
+    size: t3.micro
     os_type: linux
     disk_space: 10
     architecture: x86_64
@@ -86,7 +86,7 @@ ec2_info:
     username: ec2-user
   rhel7:
     owners: 309956199498
-    size: t2.micro
+    size: t3.micro
     os_type: linux
     disk_space: 10
     architecture: x86_64
@@ -145,7 +145,7 @@ ec2_info:
     architecture: x86_64
   attendance_host:
     owners: 309956199498
-    size: t2.micro
+    size: t3.micro
     os_type: linux
     disk_space: 10
     architecture: x86_64

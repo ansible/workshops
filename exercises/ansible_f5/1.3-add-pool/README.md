@@ -53,19 +53,18 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
 
 ``` yaml
   tasks:
-
-  - name: CREATE POOL
-    bigip_pool:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      name: "http_pool"
-      lb_method: "round-robin"
-      monitors: "/Common/http"
-      monitor_type: "and_list"
+    - name: CREATE POOL
+      bigip_pool:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+        name: "http_pool"
+        lb_method: "round-robin"
+        monitors: "/Common/http"
+        monitor_type: "and_list"
 ```
 
 <!-- {% endraw %} -->

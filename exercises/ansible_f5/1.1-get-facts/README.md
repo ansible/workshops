@@ -60,11 +60,10 @@ Next, add the first `task`. This task will use the `bigip_device_info` module to
 {% raw %}
 ``` yaml
   tasks:
-
     - name: COLLECT BIG-IP FACTS
       bigip_device_info:
         gather_subset:
-         - system-info
+          - system-info
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

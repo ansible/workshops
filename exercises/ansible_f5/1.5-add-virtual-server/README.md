@@ -55,22 +55,21 @@ Next, append the `task` to above playbook. This task will use the `bigip-virtual
 
 ``` yaml
   tasks:
-
-  - name: ADD VIRTUAL SERVER
-    bigip_virtual_server:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      name: "vip"
-      destination: "{{private_ip}}"
-      port: "443"
-      enabled_vlans: "all"
-      all_profiles: ['http','clientssl','oneconnect']
-      pool: "http_pool"
-      snat: "Automap"
+    - name: ADD VIRTUAL SERVER
+      bigip_virtual_server:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+        name: "vip"
+        destination: "{{private_ip}}"
+        port: "443"
+        enabled_vlans: "all"
+        all_profiles: ['http','clientssl','oneconnect']
+        pool: "http_pool"
+        snat: "Automap"
 ```
 
 <!-- {% endraw %} -->

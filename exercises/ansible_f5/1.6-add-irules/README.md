@@ -55,7 +55,7 @@ Create two dummy irules with the names 'irule1' and 'irule2'
 [student1@ansible ~]$ nano irule1
 
 when HTTP_REQUEST {
-       log local0. "Accessing iRule1"
+    log local0. "Accessing iRule1"
 }
 
 ```
@@ -65,7 +65,7 @@ Save the file
 [student1@ansible ~]$ nano irule2
 
 when HTTP_REQUEST {
-       log local0. "Accessing iRule2"
+    log local0. "Accessing iRule2"
 }
 
 ```
@@ -78,22 +78,21 @@ Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigi
 {% raw %}
 ``` yaml
   vars:
-   irules: ['irule1','irule2']
+    irules: ['irule1','irule2']
 
   tasks:
-
-  - name: ADD iRules
-    bigip_irule:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      module: "ltm"
-      name: "{{item}}"
-      content: "{{lookup('file','{{item}}')}}"
-    with_items: "{{irules}}"
+    - name: ADD iRules
+      bigip_irule:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+        module: "ltm"
+        name: "{{item}}"
+        content: "{{lookup('file','{{item}}')}}"
+      with_items: "{{irules}}"
 ```
 {% endraw %}
 
@@ -124,16 +123,16 @@ Next, append the `task` to above playbook. This task will use the `bigip_virtual
 ``` yaml
 
 
-  - name: ATTACH iRules TO VIRTUAL SERVER
-    bigip_virtual_server:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      name: "vip"
-      irules: "{{irules}}"
+    - name: ATTACH iRules TO VIRTUAL SERVER
+      bigip_virtual_server:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+        name: "vip"
+        irules: "{{irules}}"
 ```
 {% endraw %}
 

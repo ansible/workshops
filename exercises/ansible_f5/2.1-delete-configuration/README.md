@@ -34,7 +34,7 @@ Enter the following play definition into `bigip-delete-configuration.yml`:
 {% raw %}
 ``` yaml
 ---
-- name: BIG-IP SETUP
+- name: BIG-IP TEARDOWN
   hosts: lb
   connection: local
   gather_facts: false
@@ -50,22 +50,16 @@ Enter the following play definition into `bigip-delete-configuration.yml`:
 Add a tasks section with a set_fact for setting the provider values
 
 {% raw %}
-```
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-tasks:
+``` yaml
+  tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 ```
 {% endraw %}
 
@@ -75,17 +69,11 @@ Next, add the first `task` using the [bigip_virtual_server](https://docs.ansible
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-  - name: DELETE VIRTUAL SERVER
-    bigip_virtual_server:
-      provider: "{{provider}}"
-      name: "vip"
-      state: absent
+    - name: DELETE VIRTUAL SERVER
+      bigip_virtual_server:
+        provider: "{{provider}}"
+        name: "vip"
+        state: absent
 ```
 {% endraw %}
 - `state: absent` is a parameter that tells the module to delete the configuration
@@ -96,25 +84,11 @@ Next, add the second `task` using the [bigip_pool](https://docs.ansible.com/ansi
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-  tasks:
-
-  - name: DELETE VIRTUAL SERVER
-    bigip_virtual_server:
-      provider: "{{provider}}"
-      name: "vip"
-      state: absent
-
-  - name: DELETE POOL
-    bigip_pool:
-     provider: "{{provider}}"
-      name: "http_pool"
-      state: absent
+    - name: DELETE POOL
+      bigip_pool:
+        provider: "{{provider}}"
+          name: "http_pool"
+          state: absent
 ```
 {% endraw %}
 
@@ -124,37 +98,17 @@ Finally, add the last `task` using the [bigip_node](https://docs.ansible.com/ans
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
-  tasks:
-
-  - name: DELETE VIRTUAL SERVER
-    bigip_virtual_server:
-      provider: "{{provider}}"
-      name: "vip"
-      state: absent
-
-  - name: DELETE POOL
-    bigip_pool:
-      provider: "{{provider}}"
-      name: "http_pool"
-      state: absent
-
-  - name: DELETE NODES
-    bigip_node:
-      provider: "{{provider}}"
-      name: "{{hostvars[item].inventory_hostname}}"
-      state: absent
-    loop: "{{ groups['web'] }}"
+    - name: DELETE NODES
+      bigip_node:
+        provider: "{{provider}}"
+        name: "{{hostvars[item].inventory_hostname}}"
+        state: absent
+      loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
-The above playbook will delete the virtual server, then the pool and then the nodes configured in previous exercises.
 
 ## Step 7
+The playbook will delete the virtual server, then the pool and then the nodes configured in previous exercises.
 
 Run the playbook - exit back into the command line of the control host and execute the following:
 

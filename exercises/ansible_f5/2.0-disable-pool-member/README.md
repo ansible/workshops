@@ -42,7 +42,6 @@ Enter the following play definition into `disable-pool-member.yml`:
 <!-- {% raw %} -->
 ``` yaml
 ---
-
 - name:  Disabling a pool member
   hosts: f5
   connection: local
@@ -56,22 +55,16 @@ Enter the following play definition into `disable-pool-member.yml`:
 Add a tasks section and then set a fact for the provider. Once you set the provider you can re-use this key in future tasks instead of giving the server/user/password/server_port and validate_certs info to each task.
 
 <!-- {% raw %} -->
-```
----
-- name: "Disabling a pool member"
-  hosts: lb
-  gather_facts: false
-  connection: local
-
+``` yaml
   tasks:
-  - name: Setup provider
-    set_fact:
-     provider:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: "8443"
-      validate_certs: "no"
+    - name: Setup provider
+      set_fact:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 ```
 <!-- {% endraw %} -->
 
@@ -95,6 +88,8 @@ You DO NOT need to pass the server_ip/user/password etc. for each module going f
   gather_facts: false
   connection: local
 ```
+
+## Step 4
 
 Next, add a task for the objective listed below:
 

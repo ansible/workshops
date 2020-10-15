@@ -2,7 +2,7 @@
 
 ## Google Slides
 
-All slides are currently managed internally at Red Hat Ansible with Google Slides.
+All slides are currently managed internally at Red Hat Ansible with Google Slides. **Google Slides decks can only be accessed by Red Hat employees. For external access to decks, please use the pdf versions shown above.**
 
 - [Ansible Network Automation](https://docs.google.com/presentation/d/1pMnLskQjDywwglZRKXS16rPFJip94obyzND_iKzaidQ)
 - [Ansible F5 Automation](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84)

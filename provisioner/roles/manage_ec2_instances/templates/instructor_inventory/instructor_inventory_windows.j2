@@ -5,20 +5,42 @@ ansible_port={{ ssh_port }}
 {% endif %}
 
 [windows:vars]
+ansible_user={{ ec2_info['skylight_rhel8_gitlab']['username'] }}
 ansible_connection=winrm
 ansible_winrm_transport=credssp
 ansible_winrm_server_cert_validation=ignore
 ansible_port=5986
+
+{%   for host in hostvars %}
+{%     if "win" in host %}
+[windows]
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_password="{{ hostvars[host].ansible_password }}"
+{%     endif %}
+{%   endfor %}
 
 [control_nodes:vars]
 ansible_port=22
 ansible_user=ec2-user
 ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
 
+{%   for host in hostvars %}
+{%     if "ansible" in host %}
+[control_nodes]
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} 
+{%     endif %}
+{%   endfor %}
+
 [gitlab:vars]
 ansible_port=22
 ansible_user={{ ec2_info['skylight_rhel8_gitlab']['username'] }}
 ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+
+{%   for host in hostvars %}
+{%     if "gitlab" in host %}
+[gitlab]
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} 
+{%     endif %}
+{%   endfor %}
 
 {% if attendance %}
 [attendance]

@@ -3,21 +3,9 @@
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## Table of Contents
-- [Exercise 4.2: Creating a Workflow](#exercise-42-creating-a-workflow)
-  - [Table of Contents](#table-of-contents)
+
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1: Prepare Job Templates](#step-1-prepare-job-templates)
-  - [Step 2: Create a Workflow Template](#step-2-create-a-workflow-template)
-  - [Step 3: The Workflow Visualizer](#step-3-the-workflow-visualizer)
-  - [Step 4: Add *Create node* Job Template](#step-4-add-create-node-job-template)
-  - [Step 5: Add *Create pool* Job Template](#step-5-add-create-pool-job-template)
-  - [Step 6: Add *Create virtual server* Job Template](#step-6-add-create-virtual-server-job-template)
-  - [Step 7: *Rollback node deploy* Template](#step-7-rollback-node-deploy-template)
-  - [Step 8: *Rollback pool deploy* Template](#step-8-rollback-pool-deploy-template)
-  - [Step 9: *Rollback virtual server* Template](#step-9-rollback-virtual-server-template)
-  - [Step 10: Run the Workflow](#step-10-run-the-workflow)
-  - [Step 11: Error Handling](#step-11-error-handling)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 

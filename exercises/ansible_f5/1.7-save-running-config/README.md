@@ -4,14 +4,8 @@
 
 ## Table of Contents
 
-- [Exercise 1.7: Using the bigip_config module](#exercise-17-using-the-bigip_config-module)
-  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1:](#step-1)
-  - [Step 2:](#step-2)
-  - [Step 3](#step-3)
-  - [Step 4](#step-4)
 - [Playbook Output](#playbook-output)
 - [Solution](#solution)
 

@@ -4,16 +4,8 @@
 
 ## Table of Contents
 
-- [Exercise 1.6: Using the bigip_irule module](#exercise-16-using-the-bigip_irule-module)
-  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1:](#step-1)
-  - [Step 2:](#step-2)
-  - [Step 3](#step-3)
-  - [Step 4](#step-4)
-  - [Step 5](#step-5)
-  - [Step 6](#step-6)
 - [Playbook Output](#playbook-output)
 - [Solution](#solution)
 - [Verifying the Solution](#verifying-the-solution)

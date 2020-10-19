@@ -4,17 +4,8 @@
 
 ## Table of Contents
 
-- [Exercise 4.1: Creating a Tower Job Template](#exercise-41-creating-a-tower-job-template)
-  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1: Create a Project](#step-1-create-a-project)
-  - [Step 2: Create a Job Template](#step-2-create-a-job-template)
-  - [Step 3: Launch the Job Template](#step-3-launch-the-job-template)
-  - [Step 4: Examine the Job Details View](#step-4-examine-the-job-details-view)
-  - [Step 5: Examine the Jobs window](#step-5-examine-the-jobs-window)
-  - [Step 6: Verify the BIG-IP Virtual Server was created](#step-6-verify-the-big-ip-virtual-server-was-created)
-  - [Step 7: Verifying the web servers](#step-7-verifying-the-web-servers)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 

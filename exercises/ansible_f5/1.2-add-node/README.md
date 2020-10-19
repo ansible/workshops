@@ -4,14 +4,8 @@
 
 ## Table of Contents
 
-- [Exercise 1.2 - Adding nodes to F5 BIG-IP](#exercise-12---adding-nodes-to-f5-big-ip)
-  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1:](#step-1)
-  - [Step 2:](#step-2)
-  - [Step 3](#step-3)
-  - [Step 4](#step-4)
 - [Playbook Output](#playbook-output)
 - [Solution](#solution)
 - [Verifying the Solution](#verifying-the-solution)

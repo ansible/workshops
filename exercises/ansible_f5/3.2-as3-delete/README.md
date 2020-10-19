@@ -4,14 +4,8 @@
 
 ## Table of Contents
 
-- [Exercise 3.2 - Deleting a Web Application](#exercise-32---deleting-a-web-application)
-  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1:](#step-1)
-  - [Step 2:](#step-2)
-  - [Step 3](#step-3)
-  - [Step 4](#step-4)
 - [Playbook Output](#playbook-output)
 - [Solution](#solution)
 

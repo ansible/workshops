@@ -4,14 +4,8 @@
 
 ## Table of Contents
 
-- [Exercise 1.4: Adding members to a pool on F5](#exercise-14-adding-members-to-a-pool-on-f5)
-  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1:](#step-1)
-  - [Step 2:](#step-2)
-  - [Step 3](#step-3)
-  - [Step 4](#step-4)
 - [Playbook Output](#playbook-output)
 - [Output parsing](#output-parsing)
 - [Solution](#solution)

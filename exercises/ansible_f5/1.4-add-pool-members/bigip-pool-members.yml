@@ -5,18 +5,17 @@
   gather_facts: false
 
   tasks:
-
-  - name: ADD POOL MEMBERS
-    bigip_pool_member:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: false
-      state: "present"
-      name: "{{hostvars[item].inventory_hostname}}"
-      host: "{{hostvars[item].ansible_host}}"
-      port: "80"
-      pool: "http_pool"
-    loop: "{{ groups['web'] }}"
+    - name: ADD POOL MEMBERS
+      bigip_pool_member:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        state: "present"
+        name: "{{hostvars[item].inventory_hostname}}"
+        host: "{{hostvars[item].ansible_host}}"
+        port: "80"
+        pool: "http_pool"
+      loop: "{{ groups['web'] }}"

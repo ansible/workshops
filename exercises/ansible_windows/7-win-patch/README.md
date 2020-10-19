@@ -32,7 +32,7 @@ you previously made iis\_basic.
 
 Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button. Type `win_updates` and hit enter.
 
-Now richt-click the `win_updates` folder and click the *New File* button. Type `site.yml` and hit enter.
+Now right-click the `win_updates` folder and click the *New File* button. Type `site.yml` and hit enter.
 
 You should now have an editor open in the right pane that can be used
 for creating your playbook.

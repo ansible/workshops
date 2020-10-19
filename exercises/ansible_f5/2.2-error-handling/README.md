@@ -52,22 +52,23 @@ Enter the following play definition into `bigip-error-handling.yml`:
 Add a tasks section with a set_fact for setting the provider values
 
 {% raw %}
-```
+``` yaml
 ---
 - name: BIG-IP SETUP
   hosts: lb
   connection: local
   gather_facts: false
 
-tasks:
+  tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
+
 ```
 {% endraw %}
 
@@ -84,23 +85,24 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
   gather_facts: false
 
   tasks:
-  - name: Setup provider
+    - name: Setup provider
       set_fact:
-       provider:
+      provider:
         server: "{{private_ip}}"
         user: "{{ansible_user}}"
         password: "{{ansible_ssh_pass}}"
         server_port: "8443"
         validate_certs: "no"
 
-  - name: Setup and graceful rollback BIG-IP configuration
-    block:
-      - name: CREATE NODES
-        bigip_node:
-         provider: "{{provider}}"
-         host: "{{hostvars[item].ansible_host}}"
-         name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['web'] }}"
+    - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
+      block:
+        - name: CREATE NODES
+          bigip_node:
+            provider: "{{provider}}"
+            host: "{{hostvars[item].ansible_host}}"
+            name: "{{hostvars[item].inventory_hostname}}"
+          loop: "{{ groups['web'] }}"
+
 ```
 
 {% endraw %}
@@ -120,12 +122,12 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
   tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
@@ -143,6 +145,7 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
             lb_method: "round-robin"
             monitors: "/Common/http"
             monitor_type: "and_list"
+
 ```
 {% endraw %}
 
@@ -161,12 +164,12 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
   tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
@@ -187,19 +190,20 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
 
         - name: ADD POOL MEMBERS
           bigip_pool_member:
-           provider: "{{provider}}"
-           state: "present"
-           name: "{{hostvars[item].inventory_hostname}}"
-           host: "{{hostvars[item].ansible_host}}"
-           port: "80"
-           pool: "http_pool"
+            provider: "{{provider}}"
+            state: "present"
+            name: "{{hostvars[item].inventory_hostname}}"
+            host: "{{hostvars[item].ansible_host}}"
+            port: "80"
+            pool: "http_pool"
           loop: "{{ groups['web'] }}"
+
 ```
 {% endraw %}
 
 ## Step 7
 
-Next, add the fourth task.  For the fourth task use the bigip_virtual_server as demonstrated in [Exercise 1.5 - Adding a virtual server](../1.5-add-virtual-server/README.md).
+Next, add the fourth task. For the fourth task use the bigip_virtual_server as demonstrated in [Exercise 1.5 - Adding a virtual server](../1.5-add-virtual-server/README.md).
 
 {% raw %}
 ```yaml
@@ -212,12 +216,12 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
   tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
@@ -238,24 +242,25 @@ Next, add the fourth task.  For the fourth task use the bigip_virtual_server as 
 
         - name: ADD POOL MEMBERS
           bigip_pool_member:
-           provider: "{{provider}}"
-           state: "present"
-           name: "{{hostvars[item].inventory_hostname}}"
-           host: "{{hostvars[item].ansible_host}}"
-           port: "80"
-           pool: "http_pool"
+            provider: "{{provider}}"
+            state: "present"
+            name: "{{hostvars[item].inventory_hostname}}"
+            host: "{{hostvars[item].ansible_host}}"
+            port: "80"
+            pool: "http_pool"
           loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
           bigip_virtual_server:
-           provider: "{{provider}}"
-           name: "vip"
-           destination: "{{private_ip}}"
-           port: "443"
-           enabled_vlans: "all"
-           all_profiles: ['http','clientssl','oneconnect']
-           pool: "http_pool"
-           snat: "Automap1"
+            provider: "{{provider}}"
+            name: "vip"
+            destination: "{{private_ip}}"
+            port: "443"
+            enabled_vlans: "all"
+            all_profiles: ['http', 'clientssl', 'oneconnect']
+            pool: "http_pool"
+            snat: "Automap1"
+
 ```
 {% endraw %}
 
@@ -274,12 +279,12 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
   tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
@@ -315,12 +320,11 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             destination: "{{private_ip}}"
             port: "443"
             enabled_vlans: "all"
-            all_profiles: ['http','clientssl','oneconnect']
+            all_profiles: ['http', 'clientssl', 'oneconnect']
             pool: "http_pool"
             snat: "Automap1"
 
       rescue:
-
         - name: DELETE VIRTUAL SERVER
           bigip_virtual_server:
             provider: "{{provider}}"
@@ -339,6 +343,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
           loop: "{{ groups['web'] }}"
+
 ```
 {% endraw %}
 
@@ -357,12 +362,12 @@ Finally add the **always** to save the running configuration.
   tasks:
     - name: Setup provider
       set_fact:
-       provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
@@ -398,12 +403,11 @@ Finally add the **always** to save the running configuration.
             destination: "{{private_ip}}"
             port: "443"
             enabled_vlans: "all"
-            all_profiles: ['http','clientssl','oneconnect']
+            all_profiles: ['http', 'clientssl', 'oneconnect']
             pool: "http_pool"
             snat: "Automap1"
 
       rescue:
-
         - name: DELETE VIRTUAL SERVER
           bigip_virtual_server:
             provider: "{{provider}}"
@@ -422,11 +426,12 @@ Finally add the **always** to save the running configuration.
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
           loop: "{{ groups['web'] }}"
+ 
       always:
         - name: SAVE RUNNING CONFIGURATION
           bigip_config:
             provider: "{{provider}}"
-            save: yes
+            save: true
 ```
 {% endraw %}
 

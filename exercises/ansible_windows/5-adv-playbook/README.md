@@ -131,7 +131,7 @@ Add a new task called **install IIS**. After writing the playbook, click
 >   iis\_sites. What follows is a list of each site with it’s related
 >   variables
 >
-> - `file:` This module is used to create, modify, delete files,
+> - `win_file:` This module is used to create, modify, delete files,
 >   directories, and symlinks.
 >
 > - `{{ item }}` You are telling Ansible that this will expand into a

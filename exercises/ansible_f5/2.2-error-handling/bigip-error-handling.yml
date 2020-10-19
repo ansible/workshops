@@ -53,7 +53,6 @@
             snat: "Automap1"
 
       rescue:
-
         - name: DELETE VIRTUAL SERVER
           bigip_virtual_server:
             provider: "{{provider}}"
@@ -72,6 +71,7 @@
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
           loop: "{{ groups['web'] }}"
+
       always:
         - name: SAVE RUNNING CONFIGURATION
           bigip_config:

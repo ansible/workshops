@@ -53,21 +53,20 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
 {% raw %}
 ``` yaml
   tasks:
-
-  - name: ADD POOL MEMBERS
-    bigip_pool_member:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      state: "present"
-      name: "{{hostvars[item].inventory_hostname}}"
-      host: "{{hostvars[item].ansible_host}}"
-      port: "80"
-      pool: "http_pool"
-    loop: "{{ groups['web'] }}"
+    - name: ADD POOL MEMBERS
+      bigip_pool_member:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+        state: "present"
+        name: "{{hostvars[item].inventory_hostname}}"
+        host: "{{hostvars[item].ansible_host}}"
+        port: "80"
+        pool: "http_pool"
+      loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -135,27 +134,26 @@ Enter the following:
   connection: local
 
   tasks:
+    - name: Query BIG-IP facts
+      bigip_device_info:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
+        gather_subset:
+          - ltm-pools
+      register: bigip_device_facts
 
-  - name: Query BIG-IP facts
-    bigip_device_info:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-      gather_subset:
-       - ltm-pools
-    register: bigip_device_facts
+    - name: "View complete output"
+      debug: "msg={{bigip_device_facts}}"
 
-  - name: "View complete output"
-    debug: "msg={{bigip_device_facts}}"
-
-  - name: "Show members belonging to pool"
-    debug: "msg={{item}}"
-    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
-    vars:
-     query_string: "[?name=='http_pool'].members[*].name[]"
+    - name: "Show members belonging to pool"
+      debug: "msg={{item}}"
+      loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+      vars:
+        query_string: "[?name=='http_pool'].members[*].name[]"
 ```
 {% endraw %}
 
@@ -196,7 +194,7 @@ ok: [f5] =>
         dynamic_ratio: 1
         ephemeral: 'no'
         fqdn_autopopulate: 'no'
-        full_path: /Common/host1:80
+        full_path: /Common/node1:80
         inherit_profile: 'yes'
         logging: 'no'
         monitors: []
@@ -211,7 +209,7 @@ ok: [f5] =>
         dynamic_ratio: 1
         ephemeral: 'no'
         fqdn_autopopulate: 'no'
-        full_path: /Common/host2:80
+        full_path: /Common/node2:80
         inherit_profile: 'yes'
         logging: 'no'
         monitors: []
@@ -239,9 +237,9 @@ ok: [f5] =>
       slow_ramp_time: 10
 
 TASK [Show members belonging to pool] *****************************************************************************************************************************************************************
-ok: [f5] => (item=host1:80) =>
+ok: [f5] => (item=node1:80) =>
   msg: host1:80
-ok: [f5] => (item=host2:80) =>
+ok: [f5] => (item=node2:80) =>
   msg: host2:80
 
 PLAY RECAP ********************************************************************************************************************************************************************************************

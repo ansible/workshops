@@ -52,18 +52,17 @@ Next, append the first `task` to above playbook. This task will use the `bigip_n
 <!-- {% raw %} -->
 ``` yaml
   tasks:
-
-  - name: CREATE NODES
-    bigip_node:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: 8443
-        validate_certs: no
-      host: "{{hostvars[item].ansible_host}}"
-      name: "{{hostvars[item].inventory_hostname}}"
-    loop: "{{ groups['web'] }}"
+    - name: CREATE NODES
+      bigip_node:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+        host: "{{hostvars[item].ansible_host}}"
+        name: "{{hostvars[item].inventory_hostname}}"
+      loop: "{{ groups['web'] }}"
 ```
 <!-- {% endraw %} -->
 

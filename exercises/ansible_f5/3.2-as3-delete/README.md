@@ -4,8 +4,14 @@
 
 ## Table of Contents
 
+- [Exercise 3.2 - Deleting a Web Application](#exercise-32---deleting-a-web-application)
+  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
+  - [Step 1:](#step-1)
+  - [Step 2:](#step-2)
+  - [Step 3](#step-3)
+  - [Step 4](#step-4)
 - [Playbook Output](#playbook-output)
 - [Solution](#solution)
 
@@ -45,21 +51,20 @@ Enter the following play definition into `delete.yml`:
 
 **Append** the following to the delete.yml Playbook.  
 {% raw %}
-```
+``` yaml
   tasks:
-
-  - name: PUSH AS3
-    uri:
-      url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare/WorkshopExample"
-      method: DELETE
-      status_code: 200
-      timeout: 300
-      body_format: json
-      force_basic_auth: yes
-      user: "{{ ansible_user }}"
-      password: "{{ ansible_ssh_pass }}"
-      validate_certs: no
-    delegate_to: localhost
+    - name: PUSH AS3
+      uri:
+        url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare/WorkshopExample"
+        method: DELETE
+        status_code: 200
+        timeout: 300
+        body_format: json
+        force_basic_auth: true
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_ssh_pass }}"
+        validate_certs: false
+      delegate_to: localhost
 ```
 {% endraw %}
 
@@ -83,12 +88,12 @@ The output will look as follows.
 ```yaml
 [student1@ansible ~]$ ansible-playbook delete.yml
 
-PLAY [LINKLIGHT AS3] ***********************************************************
+PLAY [LINKLIGHT AS3] **********************************************************
 
-TASK [PUSH AS3] ********************************************************************************
-ok: [f5 -> localhost]
+TASK [PUSH AS3] ***************************************************************
+ok: [f5]
 
-PLAY RECAP ********************************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=1    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}

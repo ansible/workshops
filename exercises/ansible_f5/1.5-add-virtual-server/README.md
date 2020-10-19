@@ -62,12 +62,12 @@ Next, append the `task` to above playbook. This task will use the `bigip-virtual
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: no
+          validate_certs: false
         name: "vip"
         destination: "{{private_ip}}"
         port: "443"
         enabled_vlans: "all"
-        all_profiles: ['http','clientssl','oneconnect']
+        all_profiles: ['http', 'clientssl', 'oneconnect']
         pool: "http_pool"
         snat: "Automap"
 ```
@@ -107,12 +107,12 @@ Run the playbook - exit back into the command line of the control host and execu
 ```yaml
 [student1@ansible]$ ansible-playbook bigip-virtual-server.yml
 
-PLAY [BIG-IP SETUP]*************************************************************
+PLAY [BIG-IP SETUP] ***********************************************************
 
-TASK [ADD VIRTUAL SERVER] ******************************************************
+TASK [ADD VIRTUAL SERVER] *****************************************************
 changed: [f5]
 
-PLAY RECAP *********************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
@@ -155,6 +155,5 @@ Instead of using a browser window it is also possible to use the command line on
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
     <p>F5TEST-studentX-node1</p>
 ```
-
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

@@ -188,7 +188,6 @@ Finally, we revert the configuration, and make it ready for next lab:
 
 10. Return to the **Templates** window, click the rocket ship to launch the **Workshop Workflow** workflow template again.
 
-
 # Takeaways
 
 You have

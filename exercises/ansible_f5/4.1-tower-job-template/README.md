@@ -4,17 +4,19 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1: Create a Project](#step-1-create-a-project)
-   * [Step 2: Create a Job Template](#step-2-create-a-job-template)
-   * [Step 3: Launch the Job Template](#step-3-launch-the-job-template)
-   * [Step 4: Examine the Job Details View](#step-4-examine-the-job-details-view)
-   * [Step 5: Examine the Jobs window](#step-5-examine-the-jobs-window)
-   * [Step 6: Verify the BIG-IP Virtual Server was created](#step-6-verify-the-big-ip-virtual-server-was-created)
-   * [Step 7: Verifying the web servers](#step-7-verifying-the-web-servers)
-* [Takeaways](#takeaways)
-* [Complete](#complete)
+- [Exercise 4.1: Creating a Tower Job Template](#exercise-41-creating-a-tower-job-template)
+  - [Table of Contents](#table-of-contents)
+- [Objective](#objective)
+- [Guide](#guide)
+  - [Step 1: Create a Project](#step-1-create-a-project)
+  - [Step 2: Create a Job Template](#step-2-create-a-job-template)
+  - [Step 3: Launch the Job Template](#step-3-launch-the-job-template)
+  - [Step 4: Examine the Job Details View](#step-4-examine-the-job-details-view)
+  - [Step 5: Examine the Jobs window](#step-5-examine-the-jobs-window)
+  - [Step 6: Verify the BIG-IP Virtual Server was created](#step-6-verify-the-big-ip-virtual-server-was-created)
+  - [Step 7: Verifying the web servers](#step-7-verifying-the-web-servers)
+- [Takeaways](#takeaways)
+- [Complete](#complete)
 
 # Objective
 
@@ -132,13 +134,11 @@ For reference, here is one of the playbooks that was imported and  will be execu
     From the **CREDENTIAL TYPE** select `Network`, then seletct `Workshop Credential`:
     ![network credential](images/network.png)
 
-
  Here is a screenshot of the job template with parameters filled out:
 
    ![create_vs job template](images/create_vs.png)
 
 4. Scroll down and click the green `save` button.
-
 
 ## Step 3: Launch the Job Template
 
@@ -212,7 +212,6 @@ Each of the two RHEL web servers actually already has apache running. Open up th
 Each time you refresh, BIG-IP will load balance the traffic between **node1** and **node2**, as shown below:
 ![node1 link](images/node1.png)
 ![node2 link](images/node2.png)
-
 
 # Takeaways
 

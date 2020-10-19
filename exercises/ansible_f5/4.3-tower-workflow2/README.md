@@ -48,7 +48,6 @@ For this credential, we use the **SSH private key** instead. Get the private key
 
   ![server credential](images/server-credential.png)
 
-
 ### Create Job Templates
 Similar to the previous lab, we would need to prepare the following templates by following `Lab 4.1`:
 
@@ -75,7 +74,6 @@ For `CREDENTAUL`, the `Patch server` template will use credential `server creden
 
 Here is one example of the templates configured:
 ![job template](images/job-template.png)
-
 
 ## Step 2: Create a Workflow Template
 
@@ -172,7 +170,6 @@ Lastly, we create a covergence link, which allows the jobs running in parallel t
 
 With iRule attached to virtual server, user will receive a maintenance page during the server maintenance:
    ![maintenance page](images/error-page.png)
-
 
 # Takeaways
 

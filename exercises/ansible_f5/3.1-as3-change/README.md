@@ -14,7 +14,6 @@
 Demonstrate changing an existing Web Application AS3 template.  There is a problem with the existing template, the serviceMain is showing red.  What is wrong?  
 ![serviceMain-offline.png](serviceMain-offline.png)
 
-
 # Guide
 
 ## Step 1:
@@ -36,7 +35,7 @@ The port **443** is incorrect.  The two RHEL web servers are only running on por
 
 ## Step 2:
 
-Using your text editor of choice open the existing jinja template `as3_template.j2`:
+Using your text editor of choice open the existing jinja template `as3_template.j2` in the ~/j2 directory:
 
 >`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
 
@@ -74,15 +73,15 @@ The output will look as follows.
 ```yaml
 [student1@ansible ~]$ ansible-playbook as3.yml
 
-PLAY [Linklight AS3] ***********************************************************
+PLAY [Linklight AS3] **********************************************************
 
-TASK [Create AS3 JSON Body] ****************************************************
+TASK [Create AS3 JSON Body] ***************************************************
 ok: [f5]
 
-TASK [Push AS3] ****************************************************************
-ok: [f5 -> localhost]
+TASK [Push AS3] ***************************************************************
+ok: [f5]
 
-PLAY RECAP *********************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}

@@ -78,7 +78,7 @@ Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigi
 {% raw %}
 ``` yaml
   vars:
-    irules: ['irule1','irule2']
+    irules: ['irule1', 'irule2']
 
   tasks:
     - name: ADD iRules
@@ -88,14 +88,13 @@ Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigi
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: no
+          validate_certs: false
         module: "ltm"
         name: "{{item}}"
         content: "{{lookup('file','{{item}}')}}"
       with_items: "{{irules}}"
 ```
 {% endraw %}
-
 
 >A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
 
@@ -122,7 +121,6 @@ Next, append the `task` to above playbook. This task will use the `bigip_virtual
 {% raw %}
 ``` yaml
 
-
     - name: ATTACH iRules TO VIRTUAL SERVER
       bigip_virtual_server:
         provider:
@@ -130,12 +128,11 @@ Next, append the `task` to above playbook. This task will use the `bigip_virtual
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: no
+          validate_certs: false
         name: "vip"
         irules: "{{irules}}"
 ```
 {% endraw %}
-
 
 - `irules: "{{irules}}` is a list of irules to be attached to the virtual server 'irule1' and 'irule2'
 
@@ -157,16 +154,16 @@ Run the playbook - exit back into the command line of the control host and execu
 ```yaml
 [student1@ansible]$ ansible-playbook bigip-irule.yml
 
-PLAY [BIG-IP SETUP] *********************************************************************************************************************************
+PLAY [BIG-IP SETUP] ***********************************************************
 
-TASK [ADD iRules] *********************************************************************************************************************************
+TASK [ADD iRules] *******************************************************************************
 changed: [f5] => (item=irule1)
 changed: [f5] => (item=irule2)
 
-TASK [ATTACH iRules TO VIRTUAL SERVER] **********************************************************************************************************************
+TASK [ATTACH iRules TO VIRTUAL SERVER] ****************************************
 changed: [f5]
 
-PLAY RECAP *********************************************************************************************************************************
+PLAY RECAP *******************************************************************************
 f5                         : ok=2    changed=2    unreachable=0    failed=0
 
 ```

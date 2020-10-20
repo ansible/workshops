@@ -29,13 +29,11 @@ ansible 2.9.14
 
 > Note: The Ansible version you see might differ from the above output
 
-
 This command gives you information about the version of Ansible, location of the executable, version of Python, search path for the modules and location of the `ansible configuration file`.
 
 #### Step 3
 
 Use the `cat` command to view the contents of the `ansible.cfg` file.
-
 
 ```
 [student1@ansible f5-workshop]$ cat ~/.ansible.cfg

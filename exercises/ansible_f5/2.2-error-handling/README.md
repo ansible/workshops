@@ -435,7 +435,9 @@ Finally add the **always** to save the running configuration.
 ```
 {% endraw %}
 
-The above playbook will try and configure the Virtual Server, Pool and Nodes but since the snat value is provided as 'Automap1' the addition of virtual server will fail and the 'rescue' block will be run
+The above playbook will try and configure the Virtual Server, Pool and Nodes but since the snat value is provided as 'Automap1' the addition of virtual server will fail and the 'rescue' block will be run.
+
+Save File and exit out of editor.
 
 ## Step 9
 
@@ -450,7 +452,7 @@ Run the playbook - exit back into the command line of the control host and execu
 # Playbook Output
 
 {% raw %}
-```
+```yaml
 [student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
 
 PLAY [BIG-IP SETUP] ***********************************************************

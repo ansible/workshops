@@ -109,8 +109,8 @@ The output will look as follows.
 PLAY [BIG-IP SETUP] ************************************************************
 
 TASK [ADD POOL MEMBERS] ********************************************************
-changed: [f5] => (item=host1)
-changed: [f5] => (item=host2)
+changed: [f5] => (item=node1)
+changed: [f5] => (item=node2)
 
 PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0

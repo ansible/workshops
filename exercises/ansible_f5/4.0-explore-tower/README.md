@@ -58,7 +58,7 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 
 1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.  
 
-    ![Inventories Button](images/inventories.png)
+   ![Inventories Button](images/inventories.png)
 
 2. Under **Inventories**,  Click on the `Workshop Inventory`.  
 
@@ -67,8 +67,8 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 4. Click on the `Workshop Inventory` link at the top of the page to return the top level menu.
 
 5. Click on **GROUPS**.  This is where you can configure Group of hosts
-       ![Inventory](images/inventory.png)
-
+   
+    ![Inventory](images/inventory.png)
 
 ## Step 3: Examine the Workshop Project
 
@@ -80,14 +80,15 @@ A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You
 
     ![projects link](images/projects.png)
 
-2. Under **PROJECTS** there will be one pre-configured projects, or `Ansible official demo project`.  Click on the `Ansible official demo project`.  
+2. Under **PROJECTS** there will be one pre-configured projects, `Ansible official demo project`. Open it up by clicking on the object.
 
     Note that `Git` is listed for this project.  This means this project is using `Git` for SCM.
 
+   ![project link](images/project.png)
+
 3. Under the `Ansible official demo project` click the **SCM TYPE** drop down menu
 
-    Note that Git, Mercurial and Subversion are some of the choices.  Return the choice to Git so that the Project continues to function correctly.
-![project link](images/project.png)
+   Note that Git, Mercurial and Subversion are some of the choices.  Return the choice to Git so that the Project continues to function correctly.
 
 ## Step 4: Examine the Workshop Credential
 
@@ -97,17 +98,18 @@ Credentials are utilized by the Red Hat Ansible Automation Platform for authenti
 
 1. Click on the **Credentials** button under **RESOURCES** on the left menu bar.  
 
-    ![credentials link](images/credentials.png)
+   ![credentials link](images/credentials.png)
 
 2. Under **CREDENTIALS** there will be two pre-configured credentials, `Workshop Credential` and `Tower Credential`.  Click on the `Workshop Credential`.  
 
 3. Under the `Workshop Credential` examine the following:
-    - The **CREDENTIAL TYPE** is a **Machine** credential.  
-    - The **USERNAME** is set to `admin`.
-    - The **PASSWORD** is blank.  This credential is using a key instead of a password.
-    - The **SSH PRIVATE KEY** is already configured and is **ENCRYPTED**..
+   
+   - The **CREDENTIAL TYPE** is a `Machine` credential.  
+   - The **USERNAME** is set to `ec2-user`.
+   - The **PASSWORD** is `blank`. This credential is using a key instead of a password.
+   - The **SSH PRIVATE KEY** is already configured and is `ENCRYPTED`.
 
-![credential](images/credential.png)
+   ![credential](images/credential.png)
 
 ## Step 5: Examine the Job Template
 
@@ -116,11 +118,11 @@ Additionally, parameters such as logging level and process forks allow for addit
 
 1. Click on the **Templates** button under **RESOURCES** on the left menu bar.  
 
-    ![templates link](images/templates.png)
+   ![templates link](images/templates.png)
 
-2. Under **TEMPLATES** there will be at least one pre-configured Job Template, or `INFRASTRUCTURE / Turn off IBM Community Grid`.  Click on the `INFRASTRUCTURE / Turn off IBM Community Grid`.  
+2. Under **TEMPLATES** there will be at least one pre-configured Job Template `INFRASTRUCTURE / Turn off IBM Community Grid`. Open it up by clicking on the object.
 
-![template link](images/template.png)
+   ![template link](images/template.png)
 
 # Takeaways
 
@@ -128,8 +130,6 @@ Additionally, parameters such as logging level and process forks allow for addit
 - Ansible Automation Platform can sync to existing SCM (source control management) including `GitHub`.  
 - Ansible Automation Platform can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Automation Platform can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
 - Job Templates define the parameters that will be used when executing an Ansible playbook
-
----
 
 # Complete
 

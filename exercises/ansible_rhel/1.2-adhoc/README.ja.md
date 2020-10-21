@@ -3,19 +3,28 @@
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-最初の演習では、Ansible がどのように動作するかを学習するために アドホック・コマンド を実行します。
-Ansible Ad-hocコマンドは、プレイブックを作成しなくてもリモートノードへのタスク実行を可能にします。
-1つか2つ程度のタスクをたくさんのリモートノードに実行する必要がある時などにとても便利なコマンドです。
+## 目次
 
-## Table of Contents
-
+* [目的](#目的)
+* [ガイド](#ガイド)
 * [Step 1 - インベントリを操作してみよう](#step-1---インベントリを操作してみよう)
 * [Step 2 - Ansibleの設定ファイルについて](#step-2---ansibleの設定ファイルについて)
-* [Step 3 - Ping a host](#step-3---ping-a-host)
+* [Step 3 - ホストへPingする](#step-3---ホストへPingする)
 * [Step 4 - モジュールのリストとヘルプを表示しよう](#step-4---モジュールのリストとヘルプを表示しよう)
 * [Step 5 - コマンドモジュールを使ってみよう。](#step-5---コマンドモジュールを使ってみよう)
 * [Step 6 - Copyモジュールとパーミッション](#step-6---copyモジュールとパーミッション)
 * [チャレンジラボ: Modules](#チャレンジラボ-modules)
+
+# 目的
+
+最初の演習では、Ansible がどのように動作するかを学習するために アドホック・コマンド を実行します。
+Ansible Ad-hocコマンドは、プレイブックを作成しなくてもリモートノードへのタスク実行を可能にします。
+1つか2つ程度のタスクをたくさんのリモートノードに実行する必要がある時などにとても便利なコマンドです。
+
+この演習では、以下の内容を学びます。
+- Ansibleの設定ファイル(`ansible.cfg`)の場所と内容を理解する
+- `ini`フォーマットのインベントリファイルの場所と内容を理解する
+- アドホックコマンドを実行する
 
 ## Step 1 - インベントリを操作してみよう
 
@@ -72,7 +81,7 @@ ansible ansible_host=44.55.66.77
 例えば、サーバをwebとdatabaseどちらにも属することができます。
 Ansibleでは、グループが常に階層的である必要は無いことに注意してください。
 
-> **Tip**
+> **ヒント**
 >
 > インベントリには様々なデータを含めることができます。例えば、標準的では無いSSHポートで動作するホストがある場合には、ホスト名の後にコロンをつけて利用したいポート番号を入力できます。もしくは、Ansibleで利用する固有の名前を定義し、それらと実IPを紐付けることもできます。
 
@@ -82,7 +91,7 @@ Ansibleは、Ansibleがもつini形式の設定ファイルを変更すること
 Ansibleはコントロールノード上のいくつかの設定可能な場所の1つから設定ファイルを読み込みます。
 こちらの [documentation](https://docs.ansible.com/ansible/latest/reference_appendices/config.html)を参考にしてみてください。
 
-> **Tip**
+> **ヒント**
 >
 > Ansibleコマンドを実行するディレクトリに`ansible.cfg`ファイルを作成・配置することが推奨されるやり方です。このディレクトリには、インベントリやPlaybookなどみなさんのAnsibleプロジェクトで利用されるファイルも含まれます。他にも、ホームディレクトリに`.ansible.cfg`を作成するやり方もあります。
 
@@ -129,12 +138,12 @@ node3 ansible_host=33.44.55.66
 ansible ansible_host=44.55.66.77
 ```
 
-> **Tip**
+> **ヒント**
 >
 > 各受講者はそれぞれ個別のラボ環境を持っていることに注意してください。テキストの結果に表示されているIPアドレスは例であり実際のものではありません。みなさん個々の環境の実際のIPアドレスは異なります。
 他の場合と同様に、**\<X\>** をStudent Numberに置き換えてください。
 
-## Step 3 - Ping a host
+## Step 3 - ホストへPingする
 
 > **Warning**
 >
@@ -145,7 +154,7 @@ Ansibleの`ping`モジュールを使ってみましょう。
 この`ping`モジュールは、webホストが確実に反応できるのかどうかを確認できます。
 基本的には、管理対象ホストへ接続し、そこで小さなスクリプトを実行させ結果を収集する動作をします。このモジュールが実行できれば、管理対象ホストに到達可能で、Ansibleが対象ホスト上でコマンドを正しく実行できることが確認できています。
 
-> **Tip**
+> **ヒント**
 >
 > 特定のタスクを実行するために設計されたツールがモジュールだと考えてみてください。
 
@@ -173,7 +182,7 @@ Ansibleにはたくさんのモジュールが準備されています。全て�
 [student<X>@ansible ~]$ ansible-doc -l
 ```
 
-> **Tip**
+> **ヒント**
 >
 > `ansible-doc` では、 `q` を押して終了してください。`up`/`down`を用いることで、コンテンツをスクロールすることができます。
 
@@ -189,7 +198,7 @@ Ansibleにはたくさんのモジュールが準備されています。全て�
 [student<X>@ansible ~]$ ansible-doc user
 ```
 
-> **Tip**
+> **ヒント**
 >
 > 必須のオプションは、`ansible-doc`内では "=" で表現されます。
 
@@ -218,7 +227,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 [student<X>@ansible ~]$ ansible all -m command -a 'uname -r' -o
 ```
 
-> **Tip**
+> **ヒント**
 >
 > 多くのLinuxコマンドのように、`ansible`は短い形式のオプションだけでなく長い形式にも対応しています。 例えば、`ansible web --module-name ping`は、`ansible web -m ping`と同じ意味となります。 このワークショップでは、短縮系のオプションが用いられます。
 
@@ -226,11 +235,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 
 `copy` モジュールを使って、アドホックコマンドで`node1`の`/etc/motd`ファイルを変更してみましょう。 **このケースでは、コンテンツはオプションを介して、モジュールに渡されます。**
 
-実行してみましょう:
-
-> **Warning**
->
-> **おそらく失敗するでしょう!**
+実行してみましょう。しかし、**おそらく失敗するでしょう**:
 
 ```bash
 [student<X>@ansible ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'
@@ -251,7 +256,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 
 これは、権限昇格(privilege escalation)が必要なケースであり、`sudo`が適切に設定されなければならない理由でもあります。`sudo`を用いてrootとしてコマンドを実行するために、`-b`のパラメータを用います。("become"と考えてください)
 
-> **Tip**
+> **ヒント**
 >
 > Ansibleは、SSHと同じように、現在のユーザ名(今回の場合にはstudent\<X\>)を用いて接続しに行きます。リモートユーザ名を上書きするには`-u`のパラメータを使います。
 今回のラボでは、`sudo`がすでに設定済みなので`student<X>` で接続されても問題ありません。`-b`のパラメータを使ってもう一度実行してみましょう。
@@ -292,7 +297,7 @@ Managed by Ansible
   - `"changed": true,` から `"changed": false,`へ変更されたはずです。
   - 最初の行が、`CHANGED` から `SUCCESS`に変わったはずです。
 
-> **Tip**
+> **ヒント**
 >
 > これにより、どこが変更されて、Ansibleがなにをやったのかをとても簡単に見つけることができるようになります。
 
@@ -306,7 +311,7 @@ Managed by Ansible
 
   - Ansibleのアドホックコマンドを実行して、`node1`に`squid`の最新パッケージをインストールしてみてください。
 
-> **Tip**
+> **ヒント**
 >
 > copyモジュールで実行したアドホックコマンドを参考にして、モジュールとオプションを変更すると良いでしょう。
 
@@ -321,5 +326,8 @@ Managed by Ansible
 ```
 
 ----
+**ナビゲーション**
+<br>
+[前の演習に戻る] Exercise](../1.1-setup/README.ja.md) - [次の演習に進む](../1.3-playbook/README.ja.md)
 
 [Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

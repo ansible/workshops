@@ -3,14 +3,29 @@
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-# Table of Contents
+## 目次
 
-* [Step 1 - Playbook Basics](#step-1---playbook-basics)
-* [Step 2 - ディレクトリの構成とPlaybook用のファイルを作成しよう](#step-2---ディレクトリの構成とplaybook用のファイルを作成しよう)
-* [Step 3 - Playbookを実行してみる](#step-3---playbookを実行してみる)
-* [Step 4 - Playbookを拡張してみよう。Apacheの起動と有効化](#step-4---playbookを拡張してみようapacheの起動と有効化)
-* [Step 5 - Playbookを拡張してみよう。web.htmlの作成](#step-5---playbookを拡張してみようindexhtmlの作成)
-* [Step 6 - 練習: 複数ホストへの適用](#step-6---練習-複数ホストへの適用)
+- [目的](#目的)
+- [ガイド](#ガイド)
+  - [Step 1 - Playbookの基本](#step-1---playbookの基本)
+  - [Step 2 - ディレクトリの構成とPlaybook用のファイルを作成しよう](#step-2---ディレクトリの構成とplaybook用のファイルを作成しよう)
+  - [Step 3 - Playbookを実行してみる](#step-3---playbookを実行してみる)
+  - [Step 4 - Playbookを拡張してみよう。Apacheの起動と有効化](#step-4---playbookを拡張してみようapacheの起動と有効化)
+  - [Step 5 - Playbookを拡張してみよう。web.htmlの作成](#step-5---playbookを拡張してみようindexhtmlの作成)
+  - [Step 6 - 練習: 複数ホストへの適用](#step-6---練習-複数ホストへの適用)
+
+  # Objective
+
+この演習では、2つのApache WebサーバーをRed Hat Enterprise Linux上に構築します。以下のAnsibleの基礎について学びます:
+
+- Ansibleのモジュールパラメーターについて理解する
+- 以下のモジュールを使用し理解する
+  - [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
+  - [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+  - [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
+- Understanding [冪等性](https://ja.wikipedia.org/wiki/%E5%86%AA%E7%AD%89) について理解し、Anisbleモジュールがどのように冪等性を担保しているか学ぶ  
+
+# ガイド
 
 Ansibleのアドホックコマンドは単純なオペレーションの際にはとても役立ちますが、複雑な構成管理やオーケストレーションのシナリオには適していません。そのようなユースケースの時には、*playbooks*を用いてみると良いでしょう。
 
@@ -21,7 +36,11 @@ playbookは先ほど実行していたアドホックコマンドを複数取り
 Playbookには、複数のPlayを持たせることができ、Playは1つもしくは複数のTaskを持ちます。前の章で学習したように、Taskでは*module*が呼び出され実行されます。
 *play*の目的は、ホストのグループをマッピングすることです。 *task*のゴールはそれらのホストに対して、モジュールを用いて実行することです。
 
-## Step 1 - Playbook Basics
+> **ヒント**
+>
+> 良い例えとして、Ansibleモジュールはこのワークショップにおけるツールにあたり、インベントリーは教材、Playbookは指示にあたります。
+
+## Step 1 - Playbookの基本
 
 PlaybookはYAML形式で書かれたテキストファイルです。
 以下のような記載が必要です。
@@ -44,7 +63,7 @@ PlaybookはYAML形式で書かれたテキストファイルです。
 
 Playbookは**冪等性(べきとうせい。ある操作を1回行っても複数回行っても結果が同じになる性質)** を持っているべきです。一度、playbookを正しい状態にすべく実行されたのであれば、さらにもう一度playbookが実行された場合には安全であるべきです。そしてその際にはなんの変更もホストで発生するべきではありません。
 
-> **Tip**
+> **ヒント**
 >
 > ほとんどのAnsibleモジュールはべき等性を持っているので、比較的簡単に正しいかどうかは確認できます。
 
@@ -53,11 +72,11 @@ Playbookは**冪等性(べきとうせい。ある操作を1回行っても複�
 セオリーの話はもう十分でしょう。そろそろ最初のPlaybookを作成しましょう。
 このラボでは、Apache webserverを3つのステップでセットアップするPlaybookを作成します。:
 
-  - First step: httpd パッケージをインストールします。
+  1. httpd パッケージをインストールします。
 
-  - Second step: httpd serviceを構成し、スタートさせます。
+  2. httpd serviceを構成し、スタートさせます。
 
-  - Third step: web.html ファイルを作成します。
+  3. web.html ファイルを作成します。
 
 このPlaybookは、Apache webserverなどのPackageが`node1`にインストールされているかを確認します。
 
@@ -95,7 +114,7 @@ Playbookの構造は、とても簡単で読みやすく、理解しやすいは
 
   - `become:`でユーザー権限の昇格を有効化しています。
 
-> **Tip**
+> **ヒント**
 >
 > パッケージをインストールしたり、root権限を必要とする諸々のタスクを実行するには、いうまでもなく権限昇格が必要になります。これは、Playbookが`become: yes`であることで実行可能です。
 
@@ -114,7 +133,7 @@ Apacheのパッケージの最新版がインストールされていること�
       name: httpd
       state: latest
 ```
-> **Tip**
+> **ヒント**
 >
 > PlaybookはYAMLで書かれているので、行とキーワードの位置関係は極めて重要です。`tasks`の *t*と、`become`の*b*が必ず縦に並ぶようによく確認してください。Ansibleに慣れてきたら、[YAML構文(YAML Syntax)](http://docs.ansible.com/ansible/YAMLSyntax.html)について少し時間をかけて勉強してみると良いでしょう。
 
@@ -126,7 +145,7 @@ Apacheのパッケージの最新版がインストールされていること�
 
   - モジュールに加えるパラメータが追加されました: `name: `はyumモジュールで管理されるパッケージの名称を指定しています。`state`はそのインストールされるパッケージの望ましい状態を定義しています。
 
-> **Tip**
+> **ヒント**
 >
 > モジュールのパラメータは、それぞれのモジュールで固有なものです。よくわからない場合には、再度`ansible-doc`コマンドを用いて調べてみてください。
 
@@ -338,5 +357,8 @@ Playbookを実行してみましょう:
 > また、Apacheが実行された全てのノードで動作しているかどうかを確認する別方法として`ansible web -m uri -a "url=http://localhost/"`コマンドを実行することもできます。
 
 ----
+**ナビゲーション**
+<br>
+[前の演習に戻る](../1.2-adhoc/README.ja.md) - [次の演習に進む](../1.4-variables/README.ja.md)
 
 [Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

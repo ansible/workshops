@@ -60,7 +60,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: no
+          validate_certs: false
         state: "present"
         name: "{{hostvars[item].inventory_hostname}}"
         host: "{{hostvars[item].ansible_host}}"
@@ -69,7 +69,6 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
       loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
-
 
 Explanation of each line within the task:
 - `name: ADD POOL MEMBERS` is a user defined description that will display in the terminal output.
@@ -171,12 +170,12 @@ Output
 ``` yaml
 [student1@ansible 1.4-add-pool-members]$ ansible-playbook display-pool-members.yml
 
-PLAY [List pool members] ******************************************************************************************************************************************************************************
+PLAY [List pool members] ******************************************************
 
-TASK [Query BIG-IP facts] *****************************************************************************************************************************************************************************
+TASK [Query BIG-IP facts] *****************************************************
 changed: [f5]
 
-TASK [View complete output] ***************************************************************************************************************************************************************************
+TASK [View complete output] ***************************************************
 ok: [f5] =>
   msg:
     changed: true
@@ -236,13 +235,13 @@ ok: [f5] =>
       service_down_action: none
       slow_ramp_time: 10
 
-TASK [Show members belonging to pool] *****************************************************************************************************************************************************************
+TASK [Show members belonging to pool] *****************************************
 ok: [f5] => (item=node1:80) =>
-  msg: host1:80
+  msg: node1:80
 ok: [f5] => (item=node2:80) =>
-  msg: host2:80
+  msg: node2:80
 
-PLAY RECAP ********************************************************************************************************************************************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=3    changed=1    unreachable=0    failed=0
 
 ```
@@ -260,6 +259,5 @@ Login information for the BIG-IP:
 
 The pool will now show two members (host1 and host2).  Click on Local Traffic-> then click on Pools.  Click on http_pool to get more granular information.  Click on the Members tab in the middle to list all the Members.
 ![f5members](poolmembers.png)
-
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

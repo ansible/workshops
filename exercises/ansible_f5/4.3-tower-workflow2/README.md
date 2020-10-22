@@ -4,22 +4,8 @@
 
 ## Table of Contents
 
-- [Exercise 4.3: Creating Node Maintenance Workflow](#exercise-43-creating-node-maintenance-workflow)
-  - [Table of Contents](#table-of-contents)
 - [Objective](#objective)
 - [Guide](#guide)
-  - [Step 1: Prepare Job Templates](#step-1-prepare-job-templates)
-    - [Create Server Credential](#create-server-credential)
-    - [Create Job Templates](#create-job-templates)
-  - [Step 2: Create a Workflow Template](#step-2-create-a-workflow-template)
-  - [Step 3: The Workflow Visualizer](#step-3-the-workflow-visualizer)
-  - [Step 4: Disable node Job Template](#step-4-disable-node-job-template)
-  - [Step 5: Attach iRule to virtual server Template](#step-5-attach-irule-to-virtual-server-template)
-  - [Step 6: Patch server Template](#step-6-patch-server-template)
-  - [Step 7: Enable node Template](#step-7-enable-node-template)
-  - [Step 8: Detach iRule Template](#step-8-detach-irule-template)
-  - [Step 9: Create a converged link](#step-9-create-a-converged-link)
-  - [Step 10: Run the Workflow](#step-10-run-the-workflow)
 - [Takeaways](#takeaways)
 - [Complete](#complete)
 
@@ -48,7 +34,6 @@ For this credential, we use the **SSH private key** instead. Get the private key
 
   ![server credential](images/server-credential.png)
 
-
 ### Create Job Templates
 Similar to the previous lab, we would need to prepare the following templates by following `Lab 4.1`:
 
@@ -75,7 +60,6 @@ For `CREDENTAUL`, the `Patch server` template will use credential `server creden
 
 Here is one example of the templates configured:
 ![job template](images/job-template.png)
-
 
 ## Step 2: Create a Workflow Template
 
@@ -172,7 +156,6 @@ Lastly, we create a covergence link, which allows the jobs running in parallel t
 
 With iRule attached to virtual server, user will receive a maintenance page during the server maintenance:
    ![maintenance page](images/error-page.png)
-
 
 # Takeaways
 

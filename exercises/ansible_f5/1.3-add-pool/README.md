@@ -60,7 +60,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: no
+          validate_certs: false
         name: "http_pool"
         lb_method: "round-robin"
         monitors: "/Common/http"

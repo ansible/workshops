@@ -17,7 +17,6 @@ Demonstrate building a virtual server (exactly like the Section 1 Ansible F5 Exe
   - Learn about the [set_fact module](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html)
   - Learn about the [uri module](https://docs.ansible.com/ansible/latest/modules/uri_module.html)
 
-
 # Guide
 
 #### Make sure the BIG-IP configuration is clean, run exercise [2.1-delete-configuration](../2.1-delete-configuration/README.md) before proceeding
@@ -37,12 +36,12 @@ If this is not working please ask your instructor for help.
 
 ## Step 2:
 
-Before starting to build a Playbook, its important to understand how AS3 works.  AS3 requires a JSON template to be handed as an API call to F5 BIG-IP.  **The templates are provided** for this exercise.  You do not need to fully understand every parameter, or create these templates from scratch.  There are two parts->
+Before starting to build a Playbook, its important to understand how AS3 works.  AS3 requires a JSON template to be handed as an API call to F5 BIG-IP.  **The templates are provided** for this exercise.  You do not need to fully understand every parameter, or create these templates from scratch.  There are two parts:
 
 1. `tenant_base.j2`
 
 <!-- {% raw %} -->
-```
+``` yaml
 {
     "class": "AS3",
     "action": "deploy",
@@ -64,8 +63,8 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
 
  `tenant_base` is a standard template that F5 Networks will provide to their customers.  The important parts to understand are:
 
-  - `"WorkshopExample": {` - this is the name of our Tenant.  The AS3 will create a tenant for this particular WebApp.  A WebApp in this case is a virtual server that load balances between our two web servers.
-  - `"class": "Tenant",` - this indicates that `WorkshopExample` is a Tenant.
+  - `"WorkshopExample"` - this is the name of our Tenant.  The AS3 will create a tenant for this particular WebApp.  A WebApp in this case is a virtual server that load balances between our two web servers.
+  - `"class": "Tenant"` - this indicates that `WorkshopExample` is a Tenant.
   - `as3_app_body` - this is a variable that will point to the second jinja2 template which is the actual WebApp.  
 
 ----
@@ -73,7 +72,7 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
 2. `as3_template.j2`
 
 <!-- {% raw %} -->
-```
+``` yaml
 "web_app": {
     "class": "Application",
     "template": "http",
@@ -105,7 +104,6 @@ Before starting to build a Playbook, its important to understand how AS3 works. 
 }
 ```
 <!-- {% endraw %} -->
-
 
 This template is a JSON representation of the Web Application.  The important parts to note are:
 
@@ -151,28 +149,18 @@ Enter the following play definition into `as3.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: false` disables facts gathering.  We are not using any fact variables for this playbook.
 
-This section from above...
-
-<!-- {% raw %} -->
-```
-  vars:
-    pool_members: "{{ groups['web'] }}"
-```
-<!-- {% endraw %} -->
-
-...sets a variable named `pool_members`, to the web group.  There are two web on the workbench, `node1` and `node2`.  This means that the `pool_members` variable refers to a list of two web.
+- The `vars` section sets a variable named `pool_members`, to the web group.  There are two web on the workbench, `node1` and `node2`.  This means that the `pool_members` variable refers to a list of two web.
 
 ## Step 5
 
 **Append** the following to the as3.yml Playbook.  
 
 <!-- {% raw %} -->
-```
+``` yaml
   tasks:
-
-  - name: CREATE AS3 JSON BODY
-    set_fact:
-      as3_app_body: "{{ lookup('template', 'j2/as3_template.j2', split_lines=False) }}"
+    - name: CREATE AS3 JSON BODY
+      set_fact:
+        as3_app_body: "{{ lookup('template', 'j2/as3_template.j2', split_lines=False) }}"
 ```
 <!-- {% endraw %} -->
 
@@ -180,26 +168,25 @@ The module [set_fact module](https://docs.ansible.com/ansible/latest/modules/set
   1. renders the j2/as3_template.j2 jinja template that is provided.
   2. creates a new fact named `as3_app_body` that is just JSON text.
 
-
 ## Step 6
 
 **Append** the following to the as3.yml Playbook.  This task uses the uri module which is used to interact with HTTP and HTTPS web services and supports Digest, Basic and WSSE HTTP authentication mechanisms.  This module is extremely common and very easy to use.  The workshop itself (the Playbooks that provisioned the workbenches) uses the uri module to configure and license Red Hat Ansible Tower.
 
 <!-- {% raw %} -->
-```
-  - name: PUSH AS3
-    uri:
-      url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"
-      method: POST
-      body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"
-      status_code: 200
-      timeout: 300
-      body_format: json
-      force_basic_auth: yes
-      user: "{{ ansible_user }}"
-      password: "{{ ansible_ssh_pass }}"
-      validate_certs: no
-    delegate_to: localhost
+``` yaml
+    - name: PUSH AS3
+      uri:
+        url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"
+        method: POST
+        body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"
+        status_code: 200
+        timeout: 300
+        body_format: json
+        force_basic_auth: true
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_ssh_pass }}"
+        validate_certs: false
+      delegate_to: localhost
 ```
 <!-- {% endraw %} -->
 
@@ -207,8 +194,8 @@ Explanation of parameters:
 
 <table>
   <tr>
-    <th>parameter</th>
-    <th>explanation</th>
+    <th>Parameter</th>
+    <th>Explanation</th>
 
   </tr>
   <tr>
@@ -239,7 +226,6 @@ Explanation of parameters:
 
 The rest of the parameters are for authentication to the F5 BIG-IP and fairly straight forward (similar to all BIG-IP modules).
 
-
 ## Step 7
 Run the playbook - exit back into the command line of the control host and execute the following:
 
@@ -257,15 +243,15 @@ The output will look as follows.
 ```yaml
 [student1@ansible ~]$ ansible-playbook as3.yml
 
-PLAY [Linklight AS3] ***********************************************************
+PLAY [Linklight AS3] **********************************************************
 
-TASK [Create AS3 JSON Body] ****************************************************
+TASK [Create AS3 JSON Body] ***************************************************
 ok: [f5]
 
-TASK [Push AS3] ****************************************************************
-ok: [f5 -> localhost]
+TASK [Push AS3] ***************************************************************
+ok: [f5]
 
-PLAY RECAP *********************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
 <!-- {% endraw %} -->
@@ -284,7 +270,6 @@ Login to the F5 with your web browser to see what was configured.  Grab the IP i
 2. Click on Virtual Servers.
 3. On the top right, click on the drop down menu titled `Partition` and select WorkshopExample
 4. The Virtual Server `serviceMain` will be displayed.
-
 
 ----
 

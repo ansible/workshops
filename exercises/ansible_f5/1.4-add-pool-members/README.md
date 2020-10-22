@@ -81,7 +81,7 @@ Next we have module parameters
 - The `password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
 - The `state: "present"` parameter tells the module we want this to be added rather than deleted.
-- The `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be host1 and host2).
+- The `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be node1 and node2).
 - The `host: "{{hostvars[item].ansible_host}}"` parameter tells the module to add a web server IP address already defined in our inventory.
 - The `port`: parameter tells the pool member port.
 - The `pool: "http_pool"` parameter tells the module to put this node into a pool named http_pool
@@ -197,7 +197,7 @@ ok: [f5] =>
         inherit_profile: 'yes'
         logging: 'no'
         monitors: []
-        name: host1:80
+        name: node1:80
         partition: Common
         priority_group: 0
         rate_limit: 'no'
@@ -212,7 +212,7 @@ ok: [f5] =>
         inherit_profile: 'yes'
         logging: 'no'
         monitors: []
-        name: host2:80
+        name: node2:80
         partition: Common
         priority_group: 0
         rate_limit: 'no'
@@ -257,7 +257,7 @@ Login information for the BIG-IP:
 - username: admin
 - password: **provided by instructor** defaults to ansible
 
-The pool will now show two members (host1 and host2).  Click on Local Traffic-> then click on Pools.  Click on http_pool to get more granular information.  Click on the Members tab in the middle to list all the Members.
+The pool will now show two members (node1 and node2).  Click on Local Traffic-> then click on Pools.  Click on http_pool to get more granular information.  Click on the Members tab in the middle to list all the Members.
 ![f5members](poolmembers.png)
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

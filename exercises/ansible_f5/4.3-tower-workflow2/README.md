@@ -19,40 +19,18 @@ For this exercise, we will create a workflow for server patch management, first 
 
 ## Step 1: Prepare Job Templates
 
-### Create Server Credential
+Similar to the previous lab, we need to create the following templates by following `Lab 4.1`:
 
-Before creating the new template, create one more credential `Server credential` beforehand, to be utilized by one of the jobs (`Patch server`) to access the servers.
-
-| Parameter | Value |
-|---|---|
-| NAME | Server Credential |
-| CREDENTIAL TYPE | `Machine` |
-|
-
-For this credential, we use the **SSH private key** instead. Get the private key from Ansible server, copy the output and paste in the **SSH PRIVATE KEY** box, and click SAVE.
-
-```
-[student1@ansible ~]$ cat ~/.ssh/aws-private.pem
-```
-
-![server credential](images/server-credential.png)
-
-### Create Job Templates
-
-Similar to the previous lab, we would need to prepare the following templates by following `Lab 4.1`:
-
-| Job template Name | Playbook |
+| NAME | Playbook |
 |---|---|
 | Disable node | disable_node.yml |
 | Enable node | enable_node.yml |
 | Patch server | patch_server.yml |
-| Attach iRule to virtual server | attach_irule.yml |
+| Attach iRule | attach_irule.yml |
 | Detach iRule | detach_irule.yml |
 |
 
-Again, we use the same template parameters as `Lab 4.1` for each of the above templates, except the parameter of `CREDENTIAL`.
-
-For `CREDENTIAL`, the `Patch server` template will use credential `Server Credential`, and  all other templates will be using `Workshop Credential`
+Again, we use the same template parameters as `Lab 4.1` for each of the above templates, except for `Patch server`. This template will use credential `Workshop Credential`, and  all other templates will be using `BIGIP`
 
 | Parameter | Value |
 |---|---|
@@ -61,10 +39,10 @@ For `CREDENTIAL`, the `Patch server` template will use credential `Server Creden
 | INVENTORY | Workshop Inventory |
 | PROJECT | Workshop Project |
 | PLAYBOOK | |
-| CREDENTIALS | Workshop Credential |
+| CREDENTIALS | |
 |
 
-Here is one example of the templates configured:
+Here is one example templates configured:
 
 ![job template](images/job-template.png)
 
@@ -93,20 +71,20 @@ Here is one example of the templates configured:
 
 2. By default only a green **START** button will appear. Click on the **START** button.  
 
-3. The **ADD A TEMPLATE** window will appear on the right.  
+3. The **ADD A NODE** window will appear on the right.  
 
-## Step 4: Disable node Job Template
+## Step 4: Disable node Template
 
 1. Select the **Disable node** Job Template. Use the drop down box to select run. For the **Run** parameter select **Always** from the drop down menu. 
 2. Click the green **SELECT** button.
 
    ![Disable node](images/disable-node.png)
 
-## Step 5: Attach iRule to virtual server Template
+## Step 5: Attach iRule Template
 
-1. Click on the **START** button, again. The **ADD A TEMPLATE** will appear again.
+1. Click on the **START** button, again. The **ADD A NODE** will appear again.
 
-2. Select the **Attach iRule to virtual server** job template.  For the **Run** parameter select **Always** from the drop down menu.  
+2. Select the **Attach iRule** job template. For the **Run** parameter select **Always** from the drop down menu.  
 
 3. Click the green **SELECT** button.
 
@@ -114,7 +92,7 @@ Here is one example of the templates configured:
 
 ## Step 6: Patch server Template
 
-1. Hover over the **Disable node** node and click the green **+** symbol. The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Disable node** node and click the green **+** symbol. The **ADD A NODE** will appear again.
 
 2. Select the **Patch server** job template. For the **Run** parameter select **On Success** from the drop down menu.  
 
@@ -124,7 +102,7 @@ Here is one example of the templates configured:
 
 ## Step 7: Enable node Template
 
-1. Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A NODE** will appear again.
 
 2. Select the **Enable node** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
 
@@ -134,7 +112,7 @@ Here is one example of the templates configured:
 
 ## Step 8: Detach iRule Template
 
-1. Hover over the **Enable node** node and click the green **+** symbol. The **ADD A TEMPLATE** will appear again.
+1. Hover over the **Enable node** node and click the green **+** symbol. The **ADD A NODE** will appear again.
 
 2. Select the **Detach iRule** job template. For the **Run** parameter select **On Success** from the drop down menu.  
 
@@ -165,11 +143,9 @@ Lastly, we create a covergence link, which allows the jobs running in parallel t
 
    At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
 
-3. Click the green **SAVE** button.
+3. With the iRule attached to virtual server, users will receive a maintenance page during the server maintenance:
 
-With the iRule attached to virtual server, users will receive a maintenance page during the server maintenance:
-
-![maintenance page](images/error-page.png)
+   ![maintenance page](images/error-page.png)
 
 # Takeaways
 

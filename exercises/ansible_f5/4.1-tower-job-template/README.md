@@ -104,7 +104,31 @@ For reference, here is one of the playbooks that was imported and  will be execu
         msg: "The VIP (Virtual IP) is https://{{ansible_host}}"
 ```
 
-## Step 2: Create a Job Template
+## Step 2: Create BIGIP Credentials
+
+Before we can create a job we must create the credentials to authenticate to BIGIP.
+
+1. Open the web UI and click on the `Credentials` link under the `RESOURCES` section using the left navigation bar.
+
+   ![credentials link](images/credentials.png)
+
+2. Click on the green ![templates link](images/add.png) button to create a new credentials template.
+
+3. Fill out the fields with the following credentials template parameters as follows:
+
+   | Parameter | Value |
+   |---|---|
+   | NAME  | BIGIP |
+   | CREDENTIAL TYPE | Network |
+   | USERNAME | admin |
+   | PASSWORD |  |
+   |
+
+   **NOTE**: The password can be found in the Workbench Information section of the webpage that contains your student lab information. If you're unsure of the password please ask the instructor for help.
+
+4. Click SAVE
+
+## Step 3: Create a Job Template
 
 1. Open the web UI and click on the `Templates` link under the `RESOURCES` section using the left navigation bar.
 
@@ -123,20 +147,20 @@ For reference, here is one of the playbooks that was imported and  will be execu
    | INVENTORY | Workshop Inventory |
    | PROJECT | Workshop Project |
    | PLAYBOOK | create_vs.yml |
-   | CREDENTIALS | Workshop Credential |
+   | CREDENTIALS | BIGIP |
    |
 
-   From the **CREDENTIAL TYPE** select `Network`, then seletct `Workshop Credential`:
+   From the **CREDENTIAL TYPE** select `Network`, then seletct `BIGIP`:
 
    ![network credential](images/network.png)
 
    Here is a screenshot of the job template with parameters filled out:
 
    ![create_vs job template](images/create_vs.png)
+      
+4. Scroll down and click the green `SAVE` button.
 
-4. Scroll down and click the green `save` button.
-
-## Step 3: Launch the Job Template
+## Step 4: Launch the Job Template
 
 1. Navigate back to the `Templates` window, where all Job Templates are listed.
 
@@ -146,9 +170,9 @@ For reference, here is one of the playbooks that was imported and  will be execu
 
    When the rocket button is clicked this will launch the job. The job will open in a new window called the **Job Details View**. More info about [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) can be found in the documentation.
 
-## Step 4: Examine the Job Details View
+## Step 5: Examine the Job Details View
 
-On the left side there is a **DETAILS** pane, on the right side there is the **Standard Out pane**.
+On the left side there is a **DETAILS pane**, on the right side there is the **Standard Out pane**.
 
 ![job details view](images/job_create_vs.png)
 
@@ -172,9 +196,9 @@ On the left side there is a **DETAILS** pane, on the right side there is the **S
 
    ![task details window](images/task_details.png)
 
-## Step 5: Examine the Jobs window
+## Step 6: Examine the Jobs window
 
-Any **Job Template** that has been run or is currently running will show up under the **Views --> Jobs** window.
+Any **Job Template** that has been run or is currently running will show up under the **VIEWS --> Jobs** window.
 
 1. Click the Jobs button the left menu.
 
@@ -188,7 +212,7 @@ Any **Job Template** that has been run or is currently running will show up unde
 
    The **`create_vs`** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
 
-## Step 6: Verify the BIG-IP Virtual Server was created
+## Step 7: Verify the BIG-IP Virtual Server was created
 
 Login to the F5 BIG-IP with your web browser to see what was configured.
 Login information for the BIG-IP:
@@ -200,7 +224,7 @@ The load balancer virtual server can be found by navigating the menu on the left
 
 ![vip link](images/vip.png)
 
-## Step 7: Verifying the web servers
+## Step 8: Verifying the web servers
 
 Each of the two RHEL web servers actually already has apache running. Open up the public IP of the F5 load balancer in your web browser:
 

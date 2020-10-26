@@ -40,15 +40,15 @@ Open up your web browser and type in the Ansible control node's DNS name
 After logging in the Job Dashboard will be the default view as shown below.
 ![Tower Job Dashboard](images/tower_login.png)
 
-1.  Click on the **i** information button on the top right of the user interface.
+1. Click on the **i** information button on the top right of the user interface.
 
-    ![information button link](images/information_button.png)
+   ![information button link](images/information_button.png)
 
-2.  A window will pop up similar to the following:
+2. A window will pop up similar to the following:
 
-    ![version info window](images/version_info.png)
+   ![version info window](images/version_info.png)
 
-    Take note that both the Ansible Tower version and the Ansible Engine version are provided here.
+   Take note that both the Ansible Tower version and the Ansible Engine version are provided here.
 
 ## Step 2: Examine the Inventory
 
@@ -68,7 +68,7 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 
 5. Click on **GROUPS**.  This is where you can configure Group of hosts
    
-    ![Inventory](images/inventory.png)
+   ![Inventory](images/inventory.png)
 
 ## Step 3: Examine the Workshop Project
 
@@ -78,11 +78,11 @@ A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You
 
 1. Click on the **Projects** button under **RESOURCES** on the left menu bar.  
 
-    ![projects link](images/projects.png)
+   ![projects link](images/projects.png)
 
 2. Under **PROJECTS** there will be one pre-configured projects, `Ansible official demo project`. Open it up by clicking on the object.
 
-    Note that `Git` is listed for this project.  This means this project is using `Git` for SCM.
+   Note that `Git` is listed for this project.  This means this project is using `Git` for SCM.
 
    ![project link](images/project.png)
 

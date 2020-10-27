@@ -227,7 +227,7 @@ Explanation of parameters:
 The rest of the parameters are for authentication to the F5 BIG-IP and fairly straight forward (similar to all BIG-IP modules).
 
 ## Step 7
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - save and exit back into the command line of the control host and execute the following:
 
 <!-- {% raw %} -->
 ```

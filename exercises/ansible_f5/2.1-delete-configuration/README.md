@@ -107,6 +107,8 @@ Finally, add the last `task` using the [bigip_node](https://docs.ansible.com/ans
 ```
 {% endraw %}
 
+Save File and exit out of editor.
+
 ## Step 7
 The playbook will delete the virtual server, then the pool and then the nodes configured in previous exercises.
 

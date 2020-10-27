@@ -3,11 +3,23 @@
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-* [ステップ 1 - 条件分岐](#ステップ-1---条件分岐)
-* [ステップ 2 - ハンドラー](#ステップ-2---ハンドラー)
-* [ステップ 3 - 単純な繰り返し（ループ実行）](#ステップ-3---単純な繰り返しループ実行)
-* [ステップ 4 - ハッシュをループする](#ステップ-4---ハッシュをループする)
+## 目次
 
+* [目的](#目的)
+* [ガイド](#ガイド)
+   * [ステップ 1 - 条件分岐](#ステップ-1---条件分岐)
+   * [ステップ 2 - ハンドラー](#ステップ-2---ハンドラー)
+   * [ステップ 3 - 単純な繰り返し（ループ実行）](#ステップ-3---単純な繰り返しループ実行)
+   * [ステップ 4 - ハッシュをループする](#ステップ-4---ハッシュをループする)
+
+# 目的
+
+Ansibleの基礎となる3つの機能について学びます:
+- [条件分岐](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
+- [ハンドラー](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
+- [ループ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+
+# ガイド
 
 ## ステップ 1 - 条件分岐
 
@@ -135,11 +147,11 @@ playbook は以下の様になっています。
   - "notify" セクションは、コピータスクがファイルを変更したときだけハンドラーを呼び出します。つまり、サービス再起動は必要な場合にのみ（この例の場合はファイルの更新が行われた場合のみ）行われます。  
 
   - "ハンドラー" セクションは、notify から呼び出された時に実際に実行されるタスクを定義します。  
+<hr>
 
 まずこのまま playbook を実行してみてください。まだ httpd.conf に何も変更を加えていないので、changed は "0" で、ハンドラーも動作していないことが分かると思います。  
 
   - httpd.conf の中の、 `Listen 80` の行を以下の通り変更します。  
-
 
 ```ini
 Listen 8080
@@ -255,5 +267,8 @@ uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```
 
 ----
+**ナビゲーション**
+<br>
+[前の演習に戻る](../1.4-variables/README.ja.md) - [次の演習に進む](../1.6-templates/README.ja.md)
 
 [Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

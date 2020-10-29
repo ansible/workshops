@@ -402,7 +402,7 @@ Complete the form using the following values
 | Name        | IIS Advanced               |      |
 | Description | Template for iis_advanced  |      |
 | JOB TYPE    | Run                        |      |
-| INVENTORY   | Windows Workshop Inventory |      |
+| INVENTORY   | Workshop Inventory |      |
 | PROJECT     | Ansible Workshop Project   |      |
 | PLAYBOOK    | `iis_advanced/site.yml`    |      |
 | CREDENTIAL  | Student Account            |      |

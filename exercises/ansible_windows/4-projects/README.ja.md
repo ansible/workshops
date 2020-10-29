@@ -45,7 +45,7 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 | 名前        | IIS Basic Job Template                       |      |
 | 説明 | Template for the iis-basic playbook          |      |
 | ジョブタイプ    | 実行                                          |      |
-| インベントリー   | Windows Workshop Inventory                   |      |
+| インベントリー   | Workshop Inventory                   |      |
 | プロジェクト     | Ansible Workshop Project                     |      |
 | PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
 | 認証情報  | 認証情報タイプ: **マシン**. 名前: **Student Account** |      |

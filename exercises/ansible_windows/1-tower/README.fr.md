@@ -161,7 +161,7 @@ Un inventaire statique a déjà été créé pour vous aujourd'hui. Nous allons 
 Étape 1:
 --------
 
-Cliquez sur **Inventaires** dans le panneau de gauche. Vous verrez l'inventaire préconfiguré répertorié. Cliquez sur le nom de inventaire **Windows Workshop Inventory** ou sur le bouton Modifier.
+Cliquez sur **Inventaires** dans le panneau de gauche. Vous verrez l'inventaire préconfiguré répertorié. Cliquez sur le nom de inventaire **Workshop Inventory** ou sur le bouton Modifier.
 
 ![Edit](images/at_edit.png)
 

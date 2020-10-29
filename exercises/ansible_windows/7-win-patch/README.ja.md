@@ -82,7 +82,7 @@ Ansible Tower の GUI に戻ってプロジェクトの同期を行います。�
 | 名前               | Windows Updates            |      |
 | 説明        |                            |      |
 | ジョブタイプ           | 実行                        |      |
-| インベントリー          | Windows Workshop Inventory |      |
+| インベントリー          | Workshop Inventory |      |
 | プロジェクト            | Ansible Workshop Project   |      |
 | PLAYBOOK           | `win_updates/site.yml`     |      |
 | 認証情報 | Student Account            |      |

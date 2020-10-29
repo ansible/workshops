@@ -312,7 +312,7 @@ Playbook は以下のようになっているはずです。もう一度確認�
 | 名前        | IIS Advanced               |      |
 | 説明 | Template for iis_advanced  |      |
 | ジョブタイプ    | 実行                        |      |
-| インベントリー   | Windows Workshop Inventory |      |
+| インベントリー   | Workshop Inventory |      |
 | プロジェクト     | Ansible Workshop Project   |      |
 | PLAYBOOK    | `iis_advanced/site.yml`    |      |
 | 認証情報  | Student Account            |      |

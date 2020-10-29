@@ -115,7 +115,7 @@ Complete the form using the following values
 | NAME               | Windows Updates            |      |
 | DESCRIPTION        |                            |      |
 | JOB TYPE           | Run                        |      |
-| INVENTORY          | Windows Workshop Inventory |      |
+| INVENTORY          | Workshop Inventory |      |
 | PROJECT            | Ansible Workshop Project   |      |
 | Playbook           | `win_updates/site.yml`     |      |
 | MACHINE CREDENTIAL | Student Account            |      |

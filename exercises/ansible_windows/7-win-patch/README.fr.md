@@ -86,7 +86,7 @@ Remplissez le formulaire en utilisant les valeurs suivantes
 | NOM                | Windows Updates            |      |
 | DESCRIPTION        |                            |      |
 | JOB TYPE           | Run                        |      |
-| INVENTAIRE         | Windows Workshop Inventory |      |
+| INVENTAIRE         | Workshop Inventory |      |
 | PROJET             | Ansible Workshop Project   |      |
 | Playbook           | `win_updates/site.yml`     |      |
 | MACHINE CREDENTIAL | Student Account            |      |

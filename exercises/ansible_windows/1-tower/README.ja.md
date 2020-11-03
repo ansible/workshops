@@ -96,7 +96,7 @@ Ansible Tower は、Windows や Linux、ネットワーク機器など管理対�
 | 組織   | Default                                                                 |                                                   |  
 | SCM タイプ       | Git                                                                     |                                                   |  
 | SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **WORKSHOP と student# は今回のワークショップ名（英数字4文字）と各自のStudent番号に変更ください** |  
-| SCM ブランチ     |                                                                         | Intentionally blank                               |  
+| SCM ブランチ     |                                                                         | 空欄のまま                               |  
 | SCM 認証情報 | Git Credential                                                          |                                                   |  
 SCM 更新オプション  
 
@@ -119,7 +119,7 @@ SCM 更新オプション
 
 ## インベントリー  
 
-管理対象のホストをインベントリーと呼びます。これは Ansible Engine と同じですね。インベントリーはグループに分割することも可能で、これらのグループには実際のホストの一覧が含まれています。インベントリーには、Ansible Tower に直接ホスト接続情報を入力する静的インベントリーと、Ansible Towerでサポートされている、AWS やAzureなどクラウドや、vSphere などの仮想環境からインベントリー情報を取得して登録する動的インベントリーがあります。  
+管理対象のホスト一覧をインベントリーと呼びます。これは Ansible Engine と同じですね。インベントリーはグループに分割することも可能で、これらのグループには実際のホストの一覧が含まれています。インベントリーには、Ansible Tower に直接ホスト接続情報を入力する静的インベントリーと、Ansible Tower でサポートされている、AWS や Azure などクラウドや、vSphere などの仮想環境からインベントリー情報を取得して登録する動的インベントリーがあります。  
 
 今回の演習では、静的インベントリーがすでに作成されています。ここで、このインベントリーを見て、その書き方について確認してみます。  
 
@@ -189,8 +189,7 @@ Windowsには様々な接続時の認証方法があります。ここでは、*
 
 これらの変数はホスト固有であるため、グループレベルではなくホストレベルで定義されています。  
 
-その他の設定についてはこちらをご参照ください。  
-[Windows Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
+その他の設定については [Windows Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html) をご参照ください。  
 認証設定は特に重要であり、それらを確認して、ニーズに合わせて最適な方法を決定する必要があります。  
 
 ## まとめ  

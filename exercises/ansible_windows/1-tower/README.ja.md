@@ -126,7 +126,7 @@ SCM 更新オプション
 ### ステップ 1:  
 
 左側のパネルで **インベントリー** をクリックします。事前に作成されたインベントリー情報が見えます。    
-**Windows Workshop Inventory** という名前のインベントリーもしくは編集アイコン ![Edit](images/at_edit.png)　をクリックします。    
+**Workshop Inventory** という名前のインベントリーもしくは編集アイコン ![Edit](images/at_edit.png)　をクリックします。    
 
 ### ステップ 2:  
 

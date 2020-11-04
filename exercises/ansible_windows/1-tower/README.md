@@ -177,8 +177,7 @@ Step 1:
 -------
 
 Click **Inventories** from the left hand panel. You will see the
-preconfigured Inventory listed. Click the Inventories' name **Windows
-Workshop Inventory** or the Edit button. ![Edit](images/at_edit.png)
+preconfigured Inventory listed. Click the Inventories' name **Workshop Inventory** or the Edit button. ![Edit](images/at_edit.png)
 
 Step 2:
 -------

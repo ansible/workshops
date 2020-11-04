@@ -34,7 +34,7 @@ Remplissez le formulaire en utilisant les valeurs suivantes
 | Name        | IIS Basic Job Template                       |      |
 | Description | Template for the iis-basic playbook          |      |
 | JOB TYPE    | Run                                          |      |
-| INVENTORY   | Windows Workshop Inventory                   |      |
+| INVENTORY   | Workshop Inventory                   |      |
 | PROJECT     | Ansible Workshop Project                     |      |
 | PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
 | CREDENTIAL  | Type: **Machine**. Name: **Student Account** |      |

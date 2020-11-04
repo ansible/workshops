@@ -21,13 +21,13 @@ Visual Studio Codeで、エクスプローラーと以前に `iis_advanced` を�
 
 **iis_advanced** フォルダーを選択します。  
 
-**iis_advanced**を右クリックして*New Folder*を選択、**roles** という名前のホルダーを作成します。   
+**iis_advanced** を右クリックして *New Folder* を選択、**roles** という名前のフォルダーを作成します。   
 
-**roles**を右クリックし、その下に `iis_simple`という新しいフォルダーを作成します。　　
+**roles** を右クリックし、その下に `iis_simple` という新しいフォルダーを作成します。　　
 
 ### ステップ 2:  
 
-*iis\_simple* の下にさらに以下の新しいホルダーを作成します:
+*iis\_simple* の下にさらに以下の新しいフォルダーを作成します:
 
 - defaults
 
@@ -41,7 +41,7 @@ Visual Studio Codeで、エクスプローラーと以前に `iis_advanced` を�
 
 ### ステップ 3:  
 
-template ホルダーを除く各ホルダーに、`main.yml`という名前のファイルを作成します。これは基本的な Roles のホルダー構造であり、main.ymlはロールが各セクションで使用するデフォルトのファイルになります。
+templates フォルダーを除く各フォルダーに、`main.yml`という名前のファイルを作成します。これは基本的な Roles のフォルダー構造であり、main.yml はロールが各セクションで使用するデフォルトのファイルになります。
 
 完成した構造は次のようになります。  
 
@@ -55,9 +55,9 @@ template ホルダーを除く各ホルダーに、`main.yml`という名前の�
 
 元の `site.yml` のバックアップを作成した後、新しく `site.yml`を作成します。  
 
-`iis_advanced` ホルダーで、`site.yml`を右クリックし、`rename`を選択、`site.yml.backup`に変更します。  
+`iis_advanced` フォルダーで、`site.yml`を右クリックし、`rename`を選択、`site.yml.backup`に変更します。  
 
-同じホルダーに`site.yml` を新たに作成します。  
+同じフォルダーに`site.yml` を新たに作成します。  
 
 ### ステップ 2:
 
@@ -106,11 +106,11 @@ iis_test_message: "Hello World!  My test IIS Server"
 >
 > はい！ Ansible では、変数はいろんな場所に置く事が出来ます。ほんの一例をあげると:  
 >
-> - vars ホルダー
+> - vars フォルダー
 >
-> - defaults ホルダー
+> - defaults フォルダー
 >
-> - group\_vars ホルダー
+> - group\_vars フォルダー
 >
 > - Playbook の `vars:` の中
 >
@@ -190,7 +190,7 @@ iis_test_message: "Hello World!  My test IIS Server"
 ### ステップ 7:
 
 
-最後にテンプレートの Role化です。こちらは、main.yml がありませんので、新しいファイルを作成して内容を記述します。  
+index.htmlテンプレートを追加します。  
 
 `roles\iis_simple\templates` を右クリックして`index.html.j2` という名前の新しいファイルを作成、さらに、そのファイルを以下の通り編集してください。  
 
@@ -217,7 +217,7 @@ Source Control アイコンをクリックし(1)、変更の内容に関する�
 
 ![Commit iis\_simple\_role](images/6-commit.png)
 
-左下の青いバーにある`変更を同期`ボタンをクリックします。これは問題なく終了することを確認します。  
+左下の青いバーにある`synchronize changes` ボタンをクリックします。これは問題なく終了することを確認します。  
 
 ## Role ベースの新しい Playbook の実行
 

@@ -173,29 +173,29 @@ Playbook の記述が完了しましたので、保存しましょう。
 
 <!-- {% raw %} -->
 ```yaml
-    ---
-    - name: install the iis web service
-      hosts: windows
+---
+- name: install the iis web service
+  hosts: windows
 
-      tasks:
-        - name: install iis
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: install iis
+      win_feature:
+        name: Web-Server
+        state: present
 
-        - name: start iis service
-          win_service:
-            name: W3Svc
-            state: started
+    - name: start iis service
+      win_service:
+        name: W3Svc
+        state: started
 
-        - name: Create website index.html
-          win_copy:
-            content: "{{ iis_test_message }}"
-            dest: C:\Inetpub\wwwroot\index.html
+    - name: Create website index.html
+      win_copy:
+        content: "{{ iis_test_message }}"
+        dest: C:\Inetpub\wwwroot\index.html
 
-        - name: Show website address
-          debug:
-            msg: http://{{ ansible_host }}
+    - name: Show website address
+      debug:
+        msg: http://{{ ansible_host }}
 ```
 <!-- {% endraw %} -->
 

@@ -26,6 +26,9 @@
     dest: /tmp/tower_install/inventory
   when: create_cluster is defined and create_cluster|bool
 
+- fail:
+    msg: '{{ ansible_memtotal_mb }}'
+
 - name: run the Ansible Tower installer
   shell: ./setup.sh
   args:

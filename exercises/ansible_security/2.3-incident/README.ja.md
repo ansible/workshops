@@ -50,27 +50,9 @@ Playbook を実行します:
 [student<X>@ansible ~]$ ansible-playbook incident_snort_rule.yml
 ```
 
-これらのルールでログを生成するには、疑わしいトラフィック、つまり攻撃が必要です。この演習の他のコンポーネントが後で反応する数秒ごとの単純なアクセスをシミュレートする Playbook があります。VS Code オンラインエディタで、以下の内容の Playbook `sql_injection_simulation.yml` を作成してください:
+これらのルールでログを生成するには、疑わしいトラフィック、つまり攻撃が必要です。繰り返しになりますが、Tower を介して攻撃シミュレーションを開始できます。ブラウザを開き、Tower インスタンスへのリンクを入力します。提供された student ID とパスワードを使用してログインします。
 
-<!-- {% raw %} -->
-```yml
----
-- name: start sql injection simulation
-  hosts: attacker
-  become: yes
-  gather_facts: no
-
-  tasks:
-    - name: simulate sql injection attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/sql_injection_simulation"
-```
-<!-- {% endraw %} -->
-
-これを実行します:
-
-```bash
-[student<X>@ansible ~]$ ansible-playbook sql_injection_simulation.yml
-```
+左側のナビゲーションバーで、**Templates** をクリックします。テンプレートのリストで、右のロケットアイコンをクリックして、**Start SQL injection simulation** と呼ばれるテンプレートを見つけて実行します。これにより、数秒ごとに攻撃がシミュレートされます。これでTower ブラウザタブを閉じることができます。この演習では、これを再度必要とすることはありません。
 
 また、QRadar コレクションも必要です。これは前回の QRadar 演習で既にインストールされています。その部分を見逃した場合は、次の方法でインストールしてください。`ansible-galaxy collection install ibm.qradar`
 
@@ -247,16 +229,7 @@ QRadar UI の、**Log Activity** タブで Snort からのアラートを受信�
 
 今回は QRadar のログソースとして Check Point を設定していませんが、Playbook は問題なく実行されることに注目してください。Ansible のタスクの多くは冪等性があるので、タスクを何度も実行しても、目的の状態を確保することができます。
 
-また、攻撃を送信するプロセスを強制終了する必要があります。VS Code オンラインエディタのターミナルから、以下の Ansible の ad-hoc コマンドを実行します:
-
-<!-- {% raw %} -->
-```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
-attacker | CHANGED | rc=0 >>
-```
-<!-- {% endraw %} -->
-
-もし、`Share connection to ... closed.` というエラーが出ても心配しないでください: もう一度コマンドを実行してください。
+最後に、攻撃シミュレーションを停止する必要があります。student ユーザーとして Tower にログインします。**Templates** セクションで、**Stop sql injection simulation** と呼ばれるジョブテンプレートを見つけて実行します。
 
 これで最後の練習は終了です。おめでとう！
 

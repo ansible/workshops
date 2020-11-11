@@ -146,6 +146,14 @@
     group: "{{ username }}"
   when: username in inventory_hostname
 
+- name: Copy instructor inventory to student1
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"
+    dest: /tmp/instructor-inventory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: '"student1" in inventory_hostname'
+
 - name: setup control node for workshop type
   include_tasks: "{{item}}"
   with_first_found:

@@ -128,7 +128,7 @@ Please read this blog for more information: [https://www.ansible.com/blog/ansibl
 
 ## Accessing instructor inventory
 
-  - For workshops deploying Ansible Tower on the control_nodes, the instructor inventory will be copied to `/tmp` on student1's control_node. 
+  - The instructor inventory will be copied to `/tmp` on student1's control_node as part of the control_nodes role. 
 
 ## DNS
 

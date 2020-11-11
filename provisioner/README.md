@@ -22,6 +22,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
    * [Setup (per workshop)](#setup-per-workshop)
    * [IBM Community Grid](#ibm-community-grid)
    * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
+   * [Accessing instructor inventory](#accessing-instructor-inventory)
    * [DNS](#dns)
 * [Lab Teardown](#lab-teardown)
 * [Demos](#demos)
@@ -124,6 +125,10 @@ Please read this blog for more information: [https://www.ansible.com/blog/ansibl
        - **NOTE:** It is possible to change the DNS domain (right now this is only supported via a AWS Route 53 Hosted Zone) using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
 
        - **NOTE:** The playbook does not create the route53 zone and must exist prior to running the playbook.
+
+## Accessing instructor inventory
+
+  - For workshops deploying Ansible Tower on the control_nodes, the instructor inventory will be copied to `/tmp` on student1's control_node. 
 
 ## DNS
 

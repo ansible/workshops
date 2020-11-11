@@ -8,7 +8,7 @@ The SIEM can be accessed via web UI and via REST API. In this lab the playbooks 
 
 ## Step 4.2 - Access the web UI
 
-Have a first look at the SIEM, and verify that it is actually working. Point your web browser towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the vertificate is unsecure since it is self-signed. Please accept this and proceed.
+Have a first look at the SIEM, and verify that it is actually working. Point your web browser towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the certificate is unsecure since it is self-signed. Please accept this and proceed.
 
 > **Note**
 >
@@ -57,7 +57,7 @@ Now that you had a very first glance at QRadar, it is time to look how it can be
 
 On the most basic level, Ansible automation performs tasks. Those tasks execute modules, which usually work on the corresponding targets, like an API endpoint of a special device or program.
 
-Ansible comes along with a lot of modules included. But as time of writing Ansible does not ship QRadar modules out of the box. Instead, those modules are provided as [Ansible collections](https://docs.ansible.com/ansible/devel/dev_guide/collections_tech_preview.html):
+Ansible comes with a lot of modules included, but as of the time of writing, Ansible does not ship QRadar modules out of the box. Instead, those modules are provided as [Ansible collections](https://docs.ansible.com/ansible/devel/dev_guide/collections_tech_preview.html):
 
 > *Collections are a distribution format for Ansible content. They can be used to package and distribute playbooks, roles, modules, and plugins. You can publish and use collections through Ansible Galaxy.*
 

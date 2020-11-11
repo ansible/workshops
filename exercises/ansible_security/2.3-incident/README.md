@@ -225,7 +225,7 @@ Run the playbook, to effectively blacklist the IP:
 [student<X>@ansible ~]$ ansible-playbook incident_blacklist.yml
 ```
 
-In your QRadar UI, verify in the Log Activity tab that you do not receive any more alerts from Snort. Note that, if you would have connected the firewall to QRadar, theere would actually be logs coming in from there.
+In your QRadar UI, verify in the Log Activity tab that you do not receive any more alerts from Snort. Note that, if you would have connected the firewall to QRadar, there would actually be logs coming in from there.
 
 Also, let's quickly verify that the new rule was added to Check Point: Access the Windows workstation and open the SmartConsole interface. On the left side, click on **SECURITY POLICIES** and note that the access control policy entry changed from **Accept** to **Drop**.
 

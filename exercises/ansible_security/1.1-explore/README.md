@@ -84,7 +84,7 @@ Let's open a file in VS Code. In the menu bar, click on **File**, **Open File**.
 
 ![VS Code - VS Code file picker](images/1-vscode-filepicker.png)
 
-Pick **lab_inventory**, this will immediately update the file list. In the new file list, pick **hosts**. This will open the inventory of you environment.
+Pick **lab_inventory**, this will immediately update the file list. In the new file list, pick **hosts**. This will open the inventory of your environment.
 
 As you see, the inventory of your environment is provided in a static, ini-type file. It looks like the following listing. Please note that the IP addresses provided here are just an example and will be different in your lab environment:
 
@@ -119,7 +119,7 @@ Ansible is already configured to use the inventory specific to your environment.
 
 > **Note**
 > 
-> Not all hosts in your lab can be reached via SSH or WinRM. Some are accessed via REST API, RDP or web browser. During the exercises, each node type will be explained in detail and the means how to access the resources will be shown step by step.
+> Not all hosts in your lab can be reached via SSH or WinRM. Some are accessed via REST API, RDP or web browser. During the exercises, each node type will be explained in detail and how to access the resources will be shown step by step.
 
 ## Step 1.6 - Working the Labs
 

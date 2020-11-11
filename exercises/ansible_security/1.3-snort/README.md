@@ -313,7 +313,7 @@ snort  : ok=3  changed=0  unreachable=0  failed=0  skipped=0  rescued=0  ignored
 
 The last task outputs the rule which was found by the role. As you can see, it is the rule we previously added.
 
-Congratulation! You have completed the first steps of automating Snort with Ansible. Head back to the exercise overview and continue with the next step.
+Congratulations! You have completed the first steps of automating Snort with Ansible. Head back to the exercise overview and continue with the next step.
 
 ----
 

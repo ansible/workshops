@@ -50,23 +50,16 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
-
-  - name: SAVE RUNNING CONFIG ON BIG-IP
-    bigip_config:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-      save: yes
+    - name: SAVE RUNNING CONFIG ON BIG-IP
+      bigip_config:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        save: yes
 ```
 {% endraw %}
 

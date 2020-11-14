@@ -57,20 +57,20 @@
 
   tasks:
 
-  - name: ADD POOL MEMBERS
-    bigip_pool_member:
-      state: "present"
-      name: "{{hostvars[item].inventory_hostname}}"
-      host: "{{hostvars[item].ansible_host}}"
-      port: "80"
-      pool: "http_pool"
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-    loop: "{{ groups['web'] }}"
+    - name: ADD POOL MEMBERS
+      bigip_pool_member:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        state: "present"
+        name: "{{hostvars[item].inventory_hostname}}"
+        host: "{{hostvars[item].ansible_host}}"
+        port: "80"
+        pool: "http_pool"
+      loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -133,26 +133,24 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 
   tasks:
 
-  - name: Query BIG-IP facts
-    bigip_device_facts:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-      gather_subset:
-       - ltm-pools
-    register: bigip_device_facts
-
-  - name: "View complete output"
-    debug: "msg={{bigip_device_facts}}"
-
-  - name: "Show members belonging to pool"
-    debug: "msg={{item}}"
-    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
-    vars:
-     query_string: "[?name=='http_pool'].members[*].name[]"
+    - name: Query BIG-IP facts
+      bigip_device_info:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: false
+        gather_subset:
+          - ltm-pools
+      register: bigip_device_facts
+    - name: "View complete output"
+      debug: "msg={{bigip_device_facts}}"
+    - name: "Show members belonging to pool"
+      debug: "msg={{item}}"
+      loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+      vars:
+        query_string: "[?name=='http_pool'].members[*].name[]"
 ```
 {% endraw %}
 
@@ -167,37 +165,81 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 出力
 
 ```
-[student1@ansible ~]$ ansible-playbook display-pool-member.yml
+[student1@ansible 1.4-add-pool-members]$ ansible-playbook display-pool-members.yml
 
-PLAY [List pool members] ************************************************************************************************************************************
+PLAY [List pool members] ******************************************************
 
-TASK [Query BIG-IP facts] ***********************************************************************************************************************************
+TASK [Query BIG-IP facts] *****************************************************
 changed: [f5]
 
-TASK [Show members belonging to pool] ***********************************************************************************************************************
-ok: [f5] => (item=node1:80) => {
-    "msg": "node1:80"
-}
-ok: [f5] => (item=node2:80) => {
-    "msg": "node2:80"
-}
+TASK [View complete output] ***************************************************
+ok: [f5] =>
+  msg:
+    changed: true
+    ltm_pools:
+    - allow_nat: 'yes'
+      allow_snat: 'yes'
+      client_ip_tos: pass-through
+      client_link_qos: pass-through
+      full_path: /Common/http_pool
+      ignore_persisted_weight: 'no'
+      lb_method: round-robin
+      members:
+      - address: 54.191.xx.xx
+        connection_limit: 0
+        dynamic_ratio: 1
+        ephemeral: 'no'
+        fqdn_autopopulate: 'no'
+        full_path: /Common/node1:80
+        inherit_profile: 'yes'
+        logging: 'no'
+        monitors: []
+        name: node1:80
+        partition: Common
+        priority_group: 0
+        rate_limit: 'no'
+        ratio: 1
+        state: disabled
+      - address: 54.200.xx.xx
+        connection_limit: 0
+        dynamic_ratio: 1
+        ephemeral: 'no'
+        fqdn_autopopulate: 'no'
+        full_path: /Common/node2:80
+        inherit_profile: 'yes'
+        logging: 'no'
+        monitors: []
+        name: node2:80
+        partition: Common
+        priority_group: 0
+        rate_limit: 'no'
+        ratio: 1
+        state: disabled
+      minimum_active_members: 0
+      minimum_up_members: 0
+      minimum_up_members_action: failover
+      minimum_up_members_checking: 'no'
+      monitors:
+      - /Common/http
+      name: http_pool
+      priority_group_activation: 0
+      queue_depth_limit: 0
+      queue_on_connection_limit: 'no'
+      queue_time_limit: 0
+      reselect_tries: 0
+      server_ip_tos: pass-through
+      server_link_qos: pass-through
+      service_down_action: none
+      slow_ramp_time: 10
 
-PLAY RECAP **************************************************************************************************************************************************
-f5                         : ok=2    changed=1    unreachable=0    failed=0
-```
+TASK [Show members belonging to pool] *****************************************
+ok: [f5] => (item=node1:80) =>
+  msg: node1:80
+ok: [f5] => (item=node2:80) =>
+  msg: node2:80
 
->Note: もし以下のエラーが出る場合は、ワークアラウンドを実行してください。
-
-```
-TASK [Show members belonging to pool] ***********************************
-fatal: [f5]: FAILED! =>
-  msg: You need to install "jmespath" prior to running json_query filter
-```
-
->ワークアラウンド
-
-```
-[student1@ansible ~]$ sudo yum install -y python-jmespath
+PLAY RECAP ********************************************************************
+f5                         : ok=3    changed=0    unreachable=0    failed=0
 ```
 
 # 解答

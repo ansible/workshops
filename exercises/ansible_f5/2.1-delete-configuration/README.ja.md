@@ -35,10 +35,10 @@
 {% raw %}
 ``` yaml
 ---
-- name: BIG-IP SETUP
+- name: BIG-IP TEARDOWN
   hosts: lb
   connection: local
-  gather_facts: no
+  gather_facts: false
 ```
 {% endraw %}
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
@@ -51,22 +51,16 @@
 プロバイダ値を設定するために `set_fact` を含む tasks を追加します。
 
 {% raw %}
-```
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
+```yaml
   tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+    - name: Setup provider
+      set_fact:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "no"
 ```
 {% endraw %}
 
@@ -76,27 +70,11 @@
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: DELETE VIRTUAL SERVER
-    bigip_virtual_server:
-      provider: "{{provider}}"
-      name: "vip"
-      state: absent
+    - name: DELETE VIRTUAL SERVER
+      bigip_virtual_server:
+        provider: "{{provider}}"
+        name: "vip"
+        state: absent
 ```
 {% endraw %}
 - `state: absent` はモジュールに設定を削除するように指示するパラメータです。
@@ -107,33 +85,11 @@
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: DELETE VIRTUAL SERVER
-    bigip_virtual_server:
-      provider: "{{provider}}"
-      name: "vip"
-      state: absent
-
-  - name: DELETE POOL
-    bigip_pool:
-      provider: "{{provider}}"
-      name: "http_pool"
-      state: absent
+    - name: DELETE POOL
+      bigip_pool:
+        provider: "{{provider}}"
+        name: "http_pool"
+        state: absent
 ```
 {% endraw %}
 
@@ -143,40 +99,12 @@
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: DELETE VIRTUAL SERVER
-    bigip_virtual_server:
-      provider: "{{provider}}"
-      name: "vip"
-      state: absent
-
-  - name: DELETE POOL
-    bigip_pool:
-      provider: "{{provider}}"
-      name: "http_pool"
-      state: absent
-
-  - name: DELETE NODES
-    bigip_node:
-      provider: "{{provider}}"
-      name: "{{hostvars[item].inventory_hostname}}"
-      state: absent
-    loop: "{{ groups['web'] }}"
+    - name: DELETE NODES
+      bigip_node:
+        provider: "{{provider}}"
+        name: "{{hostvars[item].inventory_hostname}}"
+        state: absent
+      loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 上記のPlaybookは、仮想サーバ、プール、前の実習で構成したノードの順に削除します。
@@ -235,4 +163,4 @@ BIG-IPのログイン情報:
 * Local Traffic Manager -> Pool
 * Local Traffic Manager -> Node
 
-本演習は終了です。[Click here to return to the lab guide](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

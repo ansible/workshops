@@ -43,7 +43,7 @@
 ---
 
 - name:  Disabling a pool member
-  hosts: lb
+  hosts: f5
   connection: local
   gather_facts: false
 
@@ -56,33 +56,27 @@
 一度プロバイダーを設定すると、各タスクに対して接続先サーバやユーザ・パスワードといった認証情報を定義する必要はありません。次回以降のタスクについて、本プロバイダー情報を再利用できます。
 
 {% raw %}
-```
----
-- name: "Disabling a pool member"
-  hosts: lb
-  gather_facts: false
-  connection: local
-
+```yaml
   tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+    - name: Setup provider
+      set_fact:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: "8443"
+          validate_certs: "false"
 ```
 {% endraw %}
 
 プロバイダーは以下のように利用します:
 
 {% raw %}
-```
-    bigip_device_facts:
-      provider: "{{provider}}"
-      gather-subset:
-      - ltm-pools
+```yaml
+bigip_device_info:
+  provider: "{{provider}}"
+  gather_subset:
+  - ltm-pools
 ```
 {% endraw %}
 
@@ -94,7 +88,8 @@
 
   - LTM Poolのサブセット情報をBIG-IPからファクト情報として取得する
 
-HINT: <a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1</a>で実施したbigip_device_factsモジュールの利用。
+ヒント:
+<a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1</a>で実施したbigip_device_factsモジュールの利用。
 
 ## Step 5
 
@@ -111,7 +106,7 @@ HINT: <a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1<
 
   - ファクト情報に従い、プール名を格納
 
-HINT: Playbook 内で動的に各ファクト情報を簡易設定する方法は<a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a>の利用となります。
+ヒント: Playbook 内で動的に各ファクト情報を簡易設定する方法は<a href="https://docs.ansible.com/ansible/latest/modules/set_fact_module.html" style="color: #000000">set_fact module</a>の利用となります。
 
 ## Step 7
 
@@ -204,4 +199,4 @@ f5                         : ok=7    changed=2    unreachable=0    failed=0
 ![f5bigip-gui](f5bigip-gui.png)
 
 --
-この演習はこれで終了です。 [Click here to return to the lab guide](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

@@ -51,29 +51,22 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
-
-  - name: ADD VIRTUAL SERVER
-    bigip_virtual_server:
-      name: "vip"
-      destination: "{{private_ip}}"
-      port: "443"
-      enabled_vlans: "all"
-      all_profiles: ['http','clientssl','oneconnect']
-      pool: "http_pool"
-      snat: "Automap"
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+    - name: ADD VIRTUAL SERVER
+      bigip_virtual_server:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        name: "vip"
+        destination: "{{private_ip}}"
+        port: "443"
+        enabled_vlans: "all"
+        all_profiles: ['http', 'clientssl', 'oneconnect']
+        pool: "http_pool"
+        snat: "Automap"
 ```
 
 {% endraw %}

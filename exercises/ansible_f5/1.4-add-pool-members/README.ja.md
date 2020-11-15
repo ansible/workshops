@@ -73,7 +73,7 @@
 
 - `name: ADD POOL MEMBERS` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_pool_member:` ：　使用するモジュールを宣言しています。
-- `provider:` ：　BIG-IP の接続情報のパラメータです。
+- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。

@@ -79,7 +79,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `name: COLLECT BIG-IP FACTS` は利用者が定義するタスクの説明文で、この内容がターミナルに表示されます。
 - `bigip_device_facts:` はタスクで使用されるモジュール名を指定します。`register` 以外のモジュールパラメーターはドキュメントページで説明されています。
 - `gather_subset: system_info` モジュールのパラメーターです。モジュールに対してシステムレベルの情報のみを取得するように指示します。
-- `provider:` BIG-IP への接続情報のパラメータです。
+- `provider:` BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` モジュールのパラメーターです。モジュールがどのBIG-IPのIPアドレスに接続するかを指定します。ここではインベントリーで定義された`private_ip`が指定されています。
 - `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
 - `password: "{{ansible_ssh_pass}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。

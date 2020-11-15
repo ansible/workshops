@@ -71,8 +71,8 @@
 
 - `name: CREATE NODES` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_node:` ：　使用するモジュールを宣言しています。  `loop` を除く全てのものは、モジュールのドキュメント上で定義されている、モジュールパラメータです。
-- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `provider:` ：　BIG-IP の接続情報のパラメータです。
+- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。

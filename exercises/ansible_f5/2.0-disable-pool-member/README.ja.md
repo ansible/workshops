@@ -41,9 +41,8 @@
 {% raw %}
 ``` yaml
 ---
-
 - name:  Disabling a pool member
-  hosts: f5
+  hosts: lb
   connection: local
   gather_facts: false
 

@@ -73,7 +73,7 @@ when HTTP_REQUEST {
 
 ## Step 4
 
-次に、タスクを追加します。このタスクは、`bigip-irule` モジュールを使用して、BIG-IPにiRulesを登録します。
+次に、`bigip-irule.yml` を開きタスクを追加します。このタスクは、`bigip-irule` モジュールを使用して、BIG-IPにiRulesを登録します。
 
 {% raw %}
 ``` yaml
@@ -101,6 +101,7 @@ when HTTP_REQUEST {
 - 変数 `'irules'` ： ２つのiRules（つまり、'irule1'と'irule2'）を設定します。
 - `name: ADD iRules` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_irule:` ：　使用するモジュールを宣言しています。
+- `provider:` ：　BIG-IP の接続情報のパラメータです。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
@@ -110,6 +111,8 @@ when HTTP_REQUEST {
 - `name: "{{item}}"` ：  'irule1'と 'irule2' という名前の iRules を登録することを指定します。
 - `content: "{{lookup('file','{{item}}')}}" ` ： [lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html)を使って、iRulesに追加するコンテンツを指定します。
 - `loop:` 与えられた iRules のリストに対してタスクを実行するように指定します。
+
+まだエディタを閉じないでください。
 
 ## Step 5
 

@@ -70,6 +70,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 - `name: SAVE RUNNING CONFIG ON BIG-IP` は利用者が定義するタスクの説明文で、この内容がターミナルに表示されます。
 - `bigip_config:` はタスクで使用されるモジュール名を指定します。
+- `provider:` ：　BIG-IP の接続情報のパラメータです。
 - The `server: "{{private_ip}}"` モジュールのパラメーターです。モジュールがどのBIG-IPのIPアドレスに接続するかを指定します。ここではインベントリーで定義された`private_ip`が指定されています。
 - The `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
 - The`password: "{{ansible_ssh_pass}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
@@ -77,6 +78,8 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - The `save: "yes""` モジュールのパラメーターです。running-config を startup-config へ保存するします。
   この操作は現在のコンフィグに変更が行われた後に実行されます。何も変更されなくても設定は startup-config に保存されます。このオプションは常に `changed` を返します。
 - `validate_certs: "no"` モジュールのパラメーターです。証明書の検証を行いません。これは演習上のデモ環境のためです。
+
+ファイルを保存して、エディタを終了してください。
 
 ## Step 4
 

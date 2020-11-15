@@ -34,7 +34,6 @@ ansible 2.9.14
 
 > Note: 実際の演習環境ではバージョンが異なる場合があります
 
-
 このコマンドは Ansible のバージョン、実行ファイルの場所、Python のバージョン、モジュールの検索パスおよび `ansible 設定ファイル` の場所を表示します。
 
 #### Step 3
@@ -68,7 +67,9 @@ Note: `ansible.cfg` には以下のパラメーターが含まれています:
 
 この演習では **ini** 形式で書かれたファイルを使います. `cat` コマンドでインベントリーの中身を確認します:
 
-`[student1@ansible f5-workshop]$ cat ~/lab_inventory/hosts`
+```
+[student1@ansible f5-workshop]$ cat ~/lab_inventory/hosts
+```
 
 以下が student2 の出力例です:
 ```

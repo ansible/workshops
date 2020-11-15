@@ -44,7 +44,7 @@
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
 - `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
 - `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
 
 ## Step 3
 
@@ -60,7 +60,7 @@
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: "8443"
-          validate_certs: "no"
+          validate_certs: "false"
 ```
 {% endraw %}
 

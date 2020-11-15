@@ -105,6 +105,5 @@ f5                         : ok=1    changed=0    unreachable=0    failed=0
 
 Web UIにログインして、 `Partition` が削除されていることを確認します。
 
---
-
+---
 これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

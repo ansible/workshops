@@ -91,10 +91,11 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 - `pool` ： Virtual Server に紐づけられるプールを指定します。
 - `snat` ： Source NAT の指定をします。本演習では、Automap を設定しています。これにより、後段のWebサーバーへ送られるトラフィック（パケット）の送信元IPはBIG-IP自身のIPとなります。
 
+ファイルを保存して、エディタを終了してください。
+
 ## Step 4
 
 プレイブックの実行 - コントロールホストのコマンドラインで以下を実行します。
-
 
 ```
 [student1@ansible ~]$ ansible-playbook bigip-virtual-server.yml
@@ -152,4 +153,4 @@ Virtual Serverは画面左のメニューから辿ることで確認できます
     <p>F5TEST-studentX-node1</p>
 ```
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

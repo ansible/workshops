@@ -39,7 +39,7 @@
 
 ## Step 2:
 
-テキストエディタで新規ファイル `j2/as3_template.j2` を編集します:
+テキストエディタで `j2/as3_template.j2` ファイルを編集します:
 
 >`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
 

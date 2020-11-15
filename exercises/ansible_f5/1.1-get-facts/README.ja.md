@@ -119,7 +119,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 PLAY [GRAB F5 FACTS] **********************************************************
 
 TASK [COLLECT BIG-IP FACTS] ***************************************************
-changed: [f5]
+ok: [f5]
 
 TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] *****************************
 ok: [f5] =>
@@ -168,7 +168,7 @@ ok: [f5] =>
       uptime: 4465
 
 PLAY RECAP ********************************************************************
-f5                         : ok=4    changed=0    unreachable=0    failed=0
+f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
 ## Step 6
 
@@ -212,7 +212,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 PLAY [GRAB F5 FACTS] **********************************************************
 
 TASK [COLLECT BIG-IP FACTS] ***************************************************
-changed: [f5]
+ok: [f5]
 
 TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] *****************************
 ok: [f5] =>

@@ -61,7 +61,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: "8443"
-          validate_certs: "no"
+          validate_certs: "false"
 ```
 {% endraw %}
 
@@ -229,7 +229,7 @@ TASK [SAVE RUNNING CONFIGURATION] **********************************************
 changed: [f5]
 
 PLAY RECAP *****************************************************************************************************************
-f5                         : ok=8    changed=6    unreachable=0    failed=1
+f5                         : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0
 
 ```
 {% endraw %}

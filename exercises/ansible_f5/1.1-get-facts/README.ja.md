@@ -49,7 +49,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
 - `hosts: f5` はこの play が F5 BIG-IP 機器のグループに対して実行されることを示します。
 - `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
 
 まだエディタを閉じないでください。
 

@@ -43,6 +43,8 @@
 - `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
 - `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
 
+まだエディタを閉じないでください。
+
 ## Step 3
 
 次に、タスクを追加します。このタスクは、`bigip_pool` モジュールを使用して、BIG-IP上に、http_poolという名前のプールを設定します。
@@ -69,15 +71,16 @@
 
 - `name: CREATE POOL` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_pool:` ： 使用するモジュールを宣言しています。
+- `provider:` ：　BIG-IP の接続情報のパラメータです。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
+- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `name: "http_pool"` ： 作成するプールの名前を指定します。
 - `lb_method: "round-robin"`  ： 負荷分散方式を round-robin に指定します。全ての設定可能な負荷分散方式は bigip_pool モジュールのドキュメンテーションで確認できます。
 - `monitors: "/Common/http"` ： http_poolというプールはHTTPトラフィックだけを扱うことを指定します。
 - `monitor_type: "and_list"` ： 全てのモニターがチェックされるように指定します。
-- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
 
 ## Step 4
 

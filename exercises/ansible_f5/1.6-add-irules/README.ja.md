@@ -45,6 +45,8 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 - `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
 - `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
 
+ファイルを保存して、エディタを終了してください。
+
 ## Step 3
 
 ２つのダミーのiRules を作成します。それぞれ、'irule1' 'irule2' という名前にします。
@@ -53,7 +55,7 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 [student1@ansible ~]$ nano irule1
 
 when HTTP_REQUEST {
-     log local0. "Accessing iRule1"
+    log local0. "Accessing iRule1"
 }
 
 ```
@@ -63,7 +65,7 @@ when HTTP_REQUEST {
 [student1@ansible ~]$ nano irule2
 
 when HTTP_REQUEST {
-     log local0. "Accessing iRule2"
+    log local0. "Accessing iRule2"
 }
 
 ```
@@ -75,17 +77,10 @@ when HTTP_REQUEST {
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   vars:
     irules: ['irule1', 'irule2']
 
   tasks:
-
     - name: ADD iRules
       bigip_irule:
         provider:
@@ -110,10 +105,10 @@ when HTTP_REQUEST {
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
+- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `module: ltm` ： iRulesがBIG-IPのどの機能で使用するかを指定します。本演習では ltm を指定します。
 - `name: "{{item}}"` ：  'irule1'と 'irule2' という名前の iRules を登録することを指定します。
 - `content: "{{lookup('file','{{item}}')}}" ` ： [lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html)を使って、iRulesに追加するコンテンツを指定します。
-- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `loop:` 与えられた iRules のリストに対してタスクを実行するように指定します。
 
 ## Step 5
@@ -129,7 +124,7 @@ when HTTP_REQUEST {
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: no
+          validate_certs: false
         name: "vip"
         irules: "{{irules}}"
 ```
@@ -140,6 +135,8 @@ when HTTP_REQUEST {
 
 参考：[BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html)
 or [演習 1.5](./1.5-add-virtual-server/bigip-virtual-server.yml)
+
+ファイルを保存して、エディタを終了してください。
 
 ## Step 6
 

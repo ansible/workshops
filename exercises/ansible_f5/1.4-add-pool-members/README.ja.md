@@ -44,19 +44,15 @@
 - `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
 - `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
 
+まだエディタを閉じないでください。
+
 ## Step 3
 
 次に、タスクを追加します。このタスクは、`bigip_pool_member` モジュールを使用して、BIG-IP上に、２つの RHEL （Webサーバー）をプールメンバーとして設定します。
 
 {% raw %}
 ``` yaml
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
-
     - name: ADD POOL MEMBERS
       bigip_pool_member:
         provider:
@@ -77,18 +73,21 @@
 
 - `name: ADD POOL MEMBERS` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_pool_member:` ：　使用するモジュールを宣言しています。
+- `provider:` ：　BIG-IP の接続情報のパラメータです。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
+- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `state: "present"` ： プールメンバーを（削除ではなく）追加するように指定します。
 - `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be node1 and node2).
 - `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（node1、node2 となります）として使うことを指示します。
 - `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
 - `pool: "http_pool"` ： Webサーバーを追加するプールとして、http_pool を指定します。
-- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
 最後に、（モジュール・パラメータではなく）タスクレベルのパラメータである、loop パラメータの指定です。
 - `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む web グループが一覧となります。
+
+ファイルを保存して、エディタを終了してください。
 
 ## Step 4
 
@@ -124,7 +123,7 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 ```
 
 以下を記述します:
-```
+```yaml
 ---
 - name: "List pool members"
   hosts: lb
@@ -132,7 +131,6 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
   connection: local
 
   tasks:
-
     - name: Query BIG-IP facts
       bigip_device_info:
         provider:
@@ -144,8 +142,10 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
         gather_subset:
           - ltm-pools
       register: bigip_device_facts
+
     - name: "View complete output"
       debug: "msg={{bigip_device_facts}}"
+
     - name: "Show members belonging to pool"
       debug: "msg={{item}}"
       loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
@@ -164,7 +164,7 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 
 出力
 
-```
+```yaml
 [student1@ansible 1.4-add-pool-members]$ ansible-playbook display-pool-members.yml
 
 PLAY [List pool members] ******************************************************

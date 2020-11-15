@@ -44,6 +44,8 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `connection: local` は Playbook がローカル実行されることを示します。
 - `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
 
+まだエディタを閉じないでください。
+
 ## Step 3
 
 次に、`task` を追加します。このタスクは `bigip-config` を使って稼働中のコンフィグを保存します。
@@ -59,7 +61,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
           validate_certs: false
-        save: yes
+        save: true
 ```
 {% endraw %}
 

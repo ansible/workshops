@@ -140,7 +140,7 @@ Enter the following:
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: "8443"
-          validate_certs: "no"
+          validate_certs: "false"
         gather_subset:
           - ltm-pools
       register: bigip_device_facts

@@ -63,8 +63,8 @@ Add a tasks section and then set a fact for the provider. Once you set the provi
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
-          server_port: "8443"
-          validate_certs: "false"
+          server_port: 8443
+          validate_certs: false
 ```
 <!-- {% endraw %} -->
 

@@ -137,7 +137,7 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
-          server_port: "8443"
+          server_port: 8443
           validate_certs: false
         gather_subset:
           - ltm-pools
@@ -165,7 +165,7 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 出力
 
 ```yaml
-[student1@ansible 1.4-add-pool-members]$ ansible-playbook display-pool-members.yml
+[student1@ansible ~]$ ansible-playbook display-pool-members.yml
 
 PLAY [List pool members] ******************************************************
 

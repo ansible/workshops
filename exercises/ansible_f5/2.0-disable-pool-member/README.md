@@ -43,7 +43,7 @@ Enter the following play definition into `disable-pool-member.yml`:
 ``` yaml
 ---
 - name:  Disabling a pool member
-  hosts: f5
+  hosts: lb
   connection: local
   gather_facts: false
 
@@ -64,7 +64,7 @@ Add a tasks section and then set a fact for the provider. Once you set the provi
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: "8443"
-          validate_certs: "no"
+          validate_certs: "false"
 ```
 <!-- {% endraw %} -->
 

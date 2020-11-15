@@ -67,7 +67,7 @@ Add a tasks section with a set_fact for setting the provider values
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: "8443"
-          validate_certs: "no"
+          validate_certs: "false"
 
 ```
 {% endraw %}

@@ -39,6 +39,11 @@
   include_tasks: 'attendance.yml'
   when: attendance|bool
 
+## create private automation hub
+- name: configure automation hub host
+  include_tasks: 'automation_hub.yml'
+  when: automation_hub|bool
+
 ## find AMI - amazon machine images dynamically
 - name: find correct AMI
   include_tasks: 'ami_find/ami_find_{{ workshop_type }}.yml'

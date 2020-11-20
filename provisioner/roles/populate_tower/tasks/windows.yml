@@ -28,6 +28,7 @@
       - 'win_shell'
       - 'win_feature'
       - 'win_reboot'
+      - 'win_chocolatey'
     validate_certs: false
     tower_password: "{{ admin_password }}"
     tower_username: "{{ username }}"

@@ -328,6 +328,6 @@ Managed by Ansible
 ----
 **ナビゲーション**
 <br>
-[前の演習に戻る] Exercise](../1.1-setup/README.ja.md) - [次の演習に進む](../1.3-playbook/README.ja.md)
+[前の演習に戻る](../1.1-setup/README.ja.md) - [次の演習に進む](../1.3-playbook/README.ja.md)
 
 [Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)

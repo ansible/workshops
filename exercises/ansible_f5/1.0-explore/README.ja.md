@@ -24,16 +24,15 @@
 
 ```
 [student1@ansible f5-workshop]$ ansible --version
-ansible 2.6.2
+ansible 2.9.14
   config file = /home/student1/.ansible.cfg
-  configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  configured module search path = ['/home/student1/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3.6/site-packages/ansible
   executable location = /usr/bin/ansible
-  python version = 2.7.5 (default, May  3 2017, 07:55:04) [GCC 4.8.5 20150623 (Red Hat 4.8.5-14)]
+  python version = 3.6.8 (default, Dec  5 2019, 15:45:45) [GCC 8.3.1 20191121 (Red Hat 8.3.1-5)]
 ```
 
 > Note: 実際の演習環境ではバージョンが異なる場合があります
-
 
 このコマンドは Ansible のバージョン、実行ファイルの場所、Python のバージョン、モジュールの検索パスおよび `ansible 設定ファイル` の場所を表示します。
 
@@ -41,15 +40,19 @@ ansible 2.6.2
 
 `cat` コマンドを使って `ansible.cfg` ファイルの中身を確認します。
 
-
 ```
 [student1@ansible f5-workshop]$ cat ~/.ansible.cfg
 [defaults]
+stdout_callback = yaml
 connection = smart
 timeout = 60
-inventory = /home/student1/lab_inventory/hosts
+deprecation_warnings = False
 host_key_checking = False
-private_key_file = /home/student1/.ssh/aws-private.pem
+retry_files_enabled = False
+inventory = /home/student1/lab_inventory/hosts
+[persistent_connection]
+connect_timeout = 200
+command_timeout = 200
 [student1@ansible f5-workshop]$
 
 ```
@@ -57,7 +60,6 @@ private_key_file = /home/student1/.ssh/aws-private.pem
 Note: `ansible.cfg` には以下のパラメーターが含まれています:
 
  - `inventory`: 利用される Ansible インベントリーの場所を示します。
- - `private_key_file`: デバイスのログインに使用される秘密鍵の場所を示します。
 
 #### Step 4
 
@@ -65,7 +67,9 @@ Note: `ansible.cfg` には以下のパラメーターが含まれています:
 
 この演習では **ini** 形式で書かれたファイルを使います. `cat` コマンドでインベントリーの中身を確認します:
 
-`[student1@ansible f5-workshop]$ cat ~/lab_inventory/hosts`
+```
+[student1@ansible f5-workshop]$ cat ~/lab_inventory/hosts
+```
 
 以下が student2 の出力例です:
 ```
@@ -87,7 +91,7 @@ node2 ansible_host=54.146.162.192 ansible_user=ec2-user private_ip=172.16.160.13
 
 #### Step 5
 
-上の出力では `[ ]` でグループを定義しています。例えば `[web]` は `node1` と `node2` を含んむグループです。
+上の出力では `[ ]` でグループを定義しています。例えば `[web]` は `node1` と `node2` を含むグループです。
 
 > Note: **all** というグループは常に存在し、インベントリー内で定義された全てのホストとグループを含みます。
 
@@ -112,4 +116,4 @@ f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansibl
 [student1@ansible f5-workshop]$ cd ~
 ```
 
-本演習は以上となります。  [Click here to return to the lab guide](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

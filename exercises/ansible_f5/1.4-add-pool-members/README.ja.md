@@ -44,51 +44,50 @@
 - `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
 - `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
 
+まだエディタを閉じないでください。
+
 ## Step 3
 
 次に、タスクを追加します。このタスクは、`bigip_pool_member` モジュールを使用して、BIG-IP上に、２つの RHEL （Webサーバー）をプールメンバーとして設定します。
 
 {% raw %}
 ``` yaml
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
-
-  - name: ADD POOL MEMBERS
-    bigip_pool_member:
-      state: "present"
-      name: "{{hostvars[item].inventory_hostname}}"
-      host: "{{hostvars[item].ansible_host}}"
-      port: "80"
-      pool: "http_pool"
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-    loop: "{{ groups['web'] }}"
+    - name: ADD POOL MEMBERS
+      bigip_pool_member:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        state: "present"
+        name: "{{hostvars[item].inventory_hostname}}"
+        host: "{{hostvars[item].ansible_host}}"
+        port: "80"
+        pool: "http_pool"
+      loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
 
 - `name: ADD POOL MEMBERS` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_pool_member:` ：　使用するモジュールを宣言しています。
+- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
+- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `state: "present"` ： プールメンバーを（削除ではなく）追加するように指定します。
 - `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be node1 and node2).
 - `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（node1、node2 となります）として使うことを指示します。
 - `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
 - `pool: "http_pool"` ： Webサーバーを追加するプールとして、http_pool を指定します。
-- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
 最後に、（モジュール・パラメータではなく）タスクレベルのパラメータである、loop パラメータの指定です。
 - `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む web グループが一覧となります。
+
+ファイルを保存して、エディタを終了してください。
 
 ## Step 4
 
@@ -124,7 +123,7 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 ```
 
 以下を記述します:
-```
+```yaml
 ---
 - name: "List pool members"
   hosts: lb
@@ -132,27 +131,26 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
   connection: local
 
   tasks:
+    - name: Query BIG-IP facts
+      bigip_device_info:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        gather_subset:
+          - ltm-pools
+      register: bigip_device_facts
 
-  - name: Query BIG-IP facts
-    bigip_device_facts:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-      gather_subset:
-       - ltm-pools
-    register: bigip_device_facts
+    - name: "View complete output"
+      debug: "msg={{bigip_device_facts}}"
 
-  - name: "View complete output"
-    debug: "msg={{bigip_device_facts}}"
-
-  - name: "Show members belonging to pool"
-    debug: "msg={{item}}"
-    loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
-    vars:
-     query_string: "[?name=='http_pool'].members[*].name[]"
+    - name: "Show members belonging to pool"
+      debug: "msg={{item}}"
+      loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+      vars:
+        query_string: "[?name=='http_pool'].members[*].name[]"
 ```
 {% endraw %}
 
@@ -166,38 +164,82 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 
 出力
 
-```
-[student1@ansible ~]$ ansible-playbook display-pool-member.yml
+```yaml
+[student1@ansible ~]$ ansible-playbook display-pool-members.yml
 
-PLAY [List pool members] ************************************************************************************************************************************
+PLAY [List pool members] ******************************************************
 
-TASK [Query BIG-IP facts] ***********************************************************************************************************************************
+TASK [Query BIG-IP facts] *****************************************************
 changed: [f5]
 
-TASK [Show members belonging to pool] ***********************************************************************************************************************
-ok: [f5] => (item=node1:80) => {
-    "msg": "node1:80"
-}
-ok: [f5] => (item=node2:80) => {
-    "msg": "node2:80"
-}
+TASK [View complete output] ***************************************************
+ok: [f5] =>
+  msg:
+    changed: true
+    ltm_pools:
+    - allow_nat: 'yes'
+      allow_snat: 'yes'
+      client_ip_tos: pass-through
+      client_link_qos: pass-through
+      full_path: /Common/http_pool
+      ignore_persisted_weight: 'no'
+      lb_method: round-robin
+      members:
+      - address: 54.191.xx.xx
+        connection_limit: 0
+        dynamic_ratio: 1
+        ephemeral: 'no'
+        fqdn_autopopulate: 'no'
+        full_path: /Common/node1:80
+        inherit_profile: 'yes'
+        logging: 'no'
+        monitors: []
+        name: node1:80
+        partition: Common
+        priority_group: 0
+        rate_limit: 'no'
+        ratio: 1
+        state: disabled
+      - address: 54.200.xx.xx
+        connection_limit: 0
+        dynamic_ratio: 1
+        ephemeral: 'no'
+        fqdn_autopopulate: 'no'
+        full_path: /Common/node2:80
+        inherit_profile: 'yes'
+        logging: 'no'
+        monitors: []
+        name: node2:80
+        partition: Common
+        priority_group: 0
+        rate_limit: 'no'
+        ratio: 1
+        state: disabled
+      minimum_active_members: 0
+      minimum_up_members: 0
+      minimum_up_members_action: failover
+      minimum_up_members_checking: 'no'
+      monitors:
+      - /Common/http
+      name: http_pool
+      priority_group_activation: 0
+      queue_depth_limit: 0
+      queue_on_connection_limit: 'no'
+      queue_time_limit: 0
+      reselect_tries: 0
+      server_ip_tos: pass-through
+      server_link_qos: pass-through
+      service_down_action: none
+      slow_ramp_time: 10
 
-PLAY RECAP **************************************************************************************************************************************************
-f5                         : ok=2    changed=1    unreachable=0    failed=0
-```
+TASK [Show members belonging to pool] *****************************************
+ok: [f5] => (item=node1:80) =>
+  msg: node1:80
+ok: [f5] => (item=node2:80) =>
+  msg: node2:80
 
->Note: もし以下のエラーが出る場合は、ワークアラウンドを実行してください。
-
-```
-TASK [Show members belonging to pool] ***********************************
-fatal: [f5]: FAILED! =>
-  msg: You need to install "jmespath" prior to running json_query filter
-```
-
->ワークアラウンド
-
-```
-[student1@ansible ~]$ sudo yum install -y python-jmespath
+PLAY RECAP ********************************************************************
+f5                         : ok=3    changed=0    unreachable=0    failed=0
 ```
 
 # 解答

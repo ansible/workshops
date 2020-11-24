@@ -42,7 +42,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 
 1. `tenant_base.j2`
 
-```
+```yaml
 {
     "class": "AS3",
     "action": "deploy",
@@ -72,7 +72,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 2. `as3_template.j2`
 
 {% raw %}
-```
+```yaml
 "web_app": {
     "class": "Application",
     "template": "http",
@@ -118,13 +118,19 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 **これらのテンプレートを作業ディレクトリにコピーしてください。**
 
 ```
-mkdir j2
-cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
+[student1@ansible ~]$ mkdir j2
+[student1@ansible ~]$ cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
 ```
 
 ## Step 3:
 
 テキストエディターを使って `as3.yml` という名前でファイルを作成します。
+
+{% raw %}
+```
+[student1@ansible ~]$ nano as3.yml
+```
+{% endraw %}
 
 > コントロールノードでは `vim` と `nano`、また、RDP 経由では Visual Studio と Atom が利用可能です。
 
@@ -156,14 +162,13 @@ cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
 
 ## Step 5
 
-** 追記 ** 次のタスクをPlaybook `as3.yml` の後ろに追記します。
+**追記** 次のタスクをPlaybook `as3.yml` の後ろに追記します。
 
-```
+```yaml
   tasks:
-
-  - name: CREATE AS3 JSON BODY
-    set_fact:
-      as3_app_body: "{{ lookup('template', 'j2/as3_template.j2', split_lines=False) }}"
+    - name: CREATE AS3 JSON BODY
+      set_fact:
+        as3_app_body: "{{ lookup('template', 'j2/as3_template.j2', split_lines=False) }}"
 ```
 
 この [set_fact モジュール](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html) は、Playbook 内のタスクにおいて使用できる変数を作成(再定義)することができます。これにより新しい facts を動的に作成することができます。今回の場合、 [template lookup プラグイン](https://docs.ansible.com/ansible/latest/plugins/lookup/template.html) を使用します。このタスクには以下の内容を記述しています。
@@ -174,28 +179,28 @@ cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
 
 ** 追記 ** 以下は as3.yml の Playbook に追記します。このタスクは uri モジュールを使い、HTTP および HTTPS Web サービスと対話するためのものです。Digest認証、Basic認証、および WSSE HTTP 認証メカニズムをサポートします。このモジュールは非常に一般的で非常に使いやすいです。このワークショップの演習環境をプロビジョニングした Playbook の中でで uri モジュールを使って、Red Hat Ansible Tower の設定や、ライセンス登録を行っています。
 
-```
-  - name: PUSH AS3
-    uri:
-      url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"
-      method: POST
-      body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"
-      status_code: 200
-      timeout: 300
-      body_format: json
-      force_basic_auth: yes
-      user: "{{ ansible_user }}"
-      password: "{{ ansible_ssh_pass }}"
-      validate_certs: no
-    delegate_to: localhost
+```yaml
+    - name: PUSH AS3
+      uri:
+        url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"
+        method: POST
+        body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"
+        status_code: 200
+        timeout: 300
+        body_format: json
+        force_basic_auth: true
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_ssh_pass }}"
+        validate_certs: false
+      delegate_to: localhost
 ```
 
 パラメーターの説明:
 
 <table>
   <tr>
-    <th>parameter</th>
-    <th>explanation</th>
+    <th>Parameter</th>
+    <th>Explanation</th>
 
   </tr>
   <tr>
@@ -246,7 +251,7 @@ TASK [Create AS3 JSON Body] ****************************************************
 ok: [f5]
 
 TASK [Push AS3] ****************************************************************
-ok: [f5 -> localhost]
+ok: [f5]
 
 PLAY RECAP *********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
@@ -269,4 +274,4 @@ Webブラウザーから F5 BIG-IP にログインして、設定が行われて
 
 ----
 
-この演習は完了です。 [Lab ガイドに戻ってください。](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

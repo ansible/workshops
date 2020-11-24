@@ -37,7 +37,7 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 - name: LINKLIGHT AS3
   hosts: lb
   connection: local
-  gather_facts: no
+  gather_facts: false
 
 ```
 {% endraw %}
@@ -51,21 +51,20 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 
 以下を delete.yml へ **追加** してください。
 {% raw %}
-```
+```yaml
   tasks:
-
-  - name: PUSH AS3
-    uri:
-      url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare/WorkshopExample"
-      method: DELETE
-      status_code: 200
-      timeout: 300
-      body_format: json
-      force_basic_auth: yes
-      user: "{{ ansible_user }}"
-      password: "{{ ansible_ssh_pass }}"
-      validate_certs: no
-    delegate_to: localhost
+    - name: PUSH AS3
+      uri:
+        url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare/WorkshopExample"
+        method: DELETE
+        status_code: 200
+        timeout: 300
+        body_format: json
+        force_basic_auth: true
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_ssh_pass }}"
+        validate_certs: false
+      delegate_to: localhost
 ```
 {% endraw %}
 
@@ -93,7 +92,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 PLAY [LINKLIGHT AS3] ***********************************************************
 
 TASK [PUSH AS3] ********************************************************************************
-ok: [f5 -> localhost]
+ok: [f5]
 
 PLAY RECAP ********************************************************************************
 f5                         : ok=1    changed=0    unreachable=0    failed=0
@@ -106,6 +105,5 @@ f5                         : ok=1    changed=0    unreachable=0    failed=0
 
 Web UIにログインして、 `Partition` が削除されていることを確認します。
 
---
-
-本演習は終了です。[Click here to return to the lab guide](../README.ja.md)
+---
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

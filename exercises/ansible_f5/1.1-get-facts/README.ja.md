@@ -43,13 +43,15 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - name: GRAB F5 FACTS
   hosts: f5
   connection: local
-  gather_facts: no
+  gather_facts: false
 ```
 
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
 - `hosts: f5` はこの play が F5 BIG-IP 機器のグループに対して実行されることを示します。
 - `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+
+まだエディタを閉じないでください。
 
 ## Step 3
 
@@ -57,25 +59,17 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 {% raw %}
 ``` yaml
----
-- name: GRAB F5 FACTS
-  hosts: f5
-  connection: local
-  gather_facts: no
-
-
   tasks:
-
     - name: COLLECT BIG-IP FACTS
       bigip_device_facts:
         gather_subset:
-         - system-info
+          - system-info
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: no
+          validate_certs: false
       register: device_facts
 ```
 {% endraw %}
@@ -85,6 +79,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `name: COLLECT BIG-IP FACTS` は利用者が定義するタスクの説明文で、この内容がターミナルに表示されます。
 - `bigip_device_facts:` はタスクで使用されるモジュール名を指定します。`register` 以外のモジュールパラメーターはドキュメントページで説明されています。
 - `gather_subset: system_info` モジュールのパラメーターです。モジュールに対してシステムレベルの情報のみを取得するように指示します。
+- `provider:` BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` モジュールのパラメーターです。モジュールがどのBIG-IPのIPアドレスに接続するかを指定します。ここではインベントリーで定義された`private_ip`が指定されています。
 - `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
 - `password: "{{ansible_ssh_pass}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
@@ -93,31 +88,10 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 ## Step 4
 
-次に2つ目の `task` を追加します。 このタスクでは `debug` モジュールを使って、register
-された `bigip_device_facts variable` 変数の値を出力します。
+次に2つ目の `task` を追加します。 このタスクでは `debug` モジュールを使って、register された `bigip_device_facts variable` 変数の値を出力します。
 
 {% raw %}
 ```yaml
----
-- name: GRAB F5 FACTS
-  hosts: f5
-  connection: local
-  gather_facts: no
-
-
-  tasks:
-
-    - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
-        include: system_info
-        provider:
-          server: "{{private_ip}}"
-          user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
-          server_port: 8443
-          validate_certs: no
-      register: device_facts
-
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
       debug:
         var: device_facts
@@ -128,6 +102,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `debug:` タスクで使用するモジュール指定しています。
 - `var: device_facts` モジュールのパラメーターです。`device_facts` 変数の値を出力するように指定しています。
 
+ファイルを保存して、エディタを終了してください。
 
 ## Step 5
 
@@ -137,35 +112,70 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 ```
 
+出力は以下のようになります。
+```yaml
+[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+
+PLAY [GRAB F5 FACTS] **********************************************************
+
+TASK [COLLECT BIG-IP FACTS] ***************************************************
+ok: [f5]
+
+TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] *****************************
+ok: [f5] =>
+  device_facts:
+    ansible_facts:
+      discovered_interpreter_python: /usr/libexec/platform-python
+    changed: false
+    failed: false
+    queried: true
+    system_info:
+      base_mac_address: 02:04:cc:f9:26:3c
+      chassis_serial: dc9c21ec-8b80-ff90-87324c84c43b
+      hardware_information:
+      - model: Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz
+        name: cpus
+        type: base-board
+        versions:
+        - name: cache size
+          version: 30720 KB
+        - name: cores
+          version: 2  (physical:2)
+        - name: cpu MHz
+          version: '2400.052'
+        - name: cpu sockets
+          version: '1'
+        - name: cpu stepping
+          version: '2'
+      marketing_name: BIG-IP Virtual Edition
+      package_edition: Point Release 4
+      package_version: Build 0.0.5 - Tue Jun 16 14:26:18 PDT 2020
+      platform: Z100
+      product_build: 0.0.5
+      product_build_date: Tue Jun 16 14:26:18 PDT 2020
+      product_built: 200616142618
+      product_changelist: 3337209
+      product_code: BIG-IP
+      product_jobid: 1206494
+      product_version: 13.1.3.4
+      time:
+        day: 19
+        hour: 17
+        minute: 11
+        month: 10
+        second: 2
+        year: 2020
+      uptime: 4465
+
+PLAY RECAP ********************************************************************
+f5                         : ok=2    changed=0    unreachable=0    failed=0
+```
 ## Step 6
 
 最後に、2つのタスクを追加して取得したファクト情報から特定の情報を取得します。
 
 {% raw %}
 ```yaml
----
-- name: GRAB F5 FACTS
-  hosts: f5
-  connection: local
-  gather_facts: no
-
-  tasks:
-    - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
-        gather_subset:
-         - system-info
-        provider:
-          server: "{{private_ip}}"
-          user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
-          server_port: 8443
-          validate_certs: no
-      register: device_facts
-
-    - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
-      debug:
-        var: device_facts
-
     - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
         var: device_facts['system_info']['base_mac_address']
@@ -199,85 +209,67 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 ```yaml
 [student1@ansible ~]$ ansible-playbook bigip-facts.yml
 
-PLAY [GRAB F5 FACTS] ****************************************************************************************************************************************
+PLAY [GRAB F5 FACTS] **********************************************************
 
-TASK [COLLECT BIG-IP FACTS] *********************************************************************************************************************************
-changed: [f5]
+TASK [COLLECT BIG-IP FACTS] ***************************************************
+ok: [f5]
 
-TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] ***********************************************************************************************************
-ok: [f5] => {
-    "device_facts": {
-        "changed": true,
-        "failed": false,
-        "system_info": {
-            "base_mac_address": "0a:54:53:51:86:fc",
-            "chassis_serial": "685023ec-071e-3fa0-3849dcf70dff",
-            "hardware_information": [
-                {
-                    "model": "Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz",
-                    "name": "cpus",
-                    "type": "base-board",
-                    "versions": [
-                        {
-                            "name": "cpu stepping",
-                            "version": "2"
-                        },
-                        {
-                            "name": "cpu sockets",
-                            "version": "1"
-                        },
-                        {
-                            "name": "cpu MHz",
-                            "version": "2399.981"
-                        },
-                        {
-                            "name": "cores",
-                            "version": "2  (physical:2)"
-                        },
-                        {
-                            "name": "cache size",
-                            "version": "30720 KB"
-                        }
-                    ]
-                }
-            ],
-            "marketing_name": "BIG-IP Virtual Edition",
-            "package_edition": "Point Release 7",
-            "package_version": "Build 0.0.1 - Tue May 15 15:26:30 PDT 2018",
-            "platform": "Z100",
-            "product_build": "0.0.1",
-            "product_build_date": "Tue May 15 15:26:30 PDT 2018",
-            "product_built": 180515152630,
-            "product_changelist": 2557198,
-            "product_code": "BIG-IP",
-            "product_jobid": 1012030,
-            "product_version": "13.1.0.7",
-            "time": {
-                "day": 15,
-                "hour": 23,
-                "minute": 46,
-                "month": 4,
-                "second": 25,
-                "year": 2019
-            },
-            "uptime": 1738.0
-        }
-    }
-}
+TASK [DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION] *****************************
+ok: [f5] =>
+  device_facts:
+    ansible_facts:
+      discovered_interpreter_python: /usr/libexec/platform-python
+    changed: false
+    failed: false
+    queried: true
+    system_info:
+      base_mac_address: 02:04:cc:f9:26:3c
+      chassis_serial: dc9c21ec-8b80-ff90-87324c84c43b
+      hardware_information:
+      - model: Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz
+        name: cpus
+        type: base-board
+        versions:
+        - name: cache size
+          version: 30720 KB
+        - name: cores
+          version: 2  (physical:2)
+        - name: cpu MHz
+          version: '2400.052'
+        - name: cpu sockets
+          version: '1'
+        - name: cpu stepping
+          version: '2'
+      marketing_name: BIG-IP Virtual Edition
+      package_edition: Point Release 4
+      package_version: Build 0.0.5 - Tue Jun 16 14:26:18 PDT 2020
+      platform: Z100
+      product_build: 0.0.5
+      product_build_date: Tue Jun 16 14:26:18 PDT 2020
+      product_built: 200616142618
+      product_changelist: 3337209
+      product_code: BIG-IP
+      product_jobid: 1206494
+      product_version: 13.1.3.4
+      time:
+        day: 19
+        hour: 17
+        minute: 11
+        month: 10
+        second: 2
+        year: 2020
+      uptime: 4465
 
-TASK [DISPLAY ONLY THE MAC ADDRESS] *************************************************************************************************************************
-ok: [f5] => {
-    "device_facts['system_info']['base_mac_address']": "0a:54:53:51:86:fc"
-}
+TASK [DISPLAY ONLY THE MAC ADDRESS] *******************************************
+ok: [f5] =>
+  "device_facts['system_info']['base_mac_address']": "0a:54:53:51:86:fc"
 
-TASK [DISPLAY ONLY THE VERSION] *****************************************************************************************************************************
-ok: [f5] => {
-    "device_facts['system_info']['product_version']": "13.1.0.7"
-}
+TASK [DISPLAY ONLY THE VERSION] ***********************************************
+ok: [f5] =>
+  "device_facts['system_info']['product_version']": "13.1.3.4"
 
-PLAY RECAP **************************************************************************************************************************************************
-f5                         : ok=4    changed=1    unreachable=0    failed=0
-
+PLAY RECAP ********************************************************************
+f5                         : ok=4    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}
 
@@ -300,9 +292,9 @@ f5                         : ok=4    changed=1    unreachable=0    failed=0
 `--skip-tags=debug` オプションをつけてコマンドを実行します。
 
 ```
-ansible-playbook bigip-facts.yml --skip-tags=debug
+[student1@ansible ~]$ ansible-playbook bigip-facts.yml --skip-tags=debug
 ```
 
 `DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` タスクがスキップされ、３つのタスクの結果が表示されたはずです。
 
-本演習は終了です。  [Click here to return to the lab guide](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

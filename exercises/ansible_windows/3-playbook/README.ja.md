@@ -31,13 +31,13 @@ VS Code へのアクセス先と認証情報を確認し接続を完了します
 
 ![VS Code Access](images/3-vscode-access.png)
 
-Explorer サイドバーは、READMEファイルのみを含むWORKSHOP_PROJECT セクションとなっています。  
+Explorer サイドバーは、READMEファイルのみを含む *WORKSHOP_PROJECT* セクションとなっています。  
 
 ![Student Playbooks Repo](images/3-vscode-open-folder.png)
 
 ### ステップ 3: ディレクトリーと Playbook の作成
 
-*WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
+*WORKSHOP_PROJECT* セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。  
 `iis_basic`という名前のフォルダーを作成します。次に作成した新しいフォルダーを右クリックして、`install_iis.yml`というファイルを作成します。  
 
 作成すると右ペインに編集可能なエディタが表示されます。ここに Playbook を記述していきます。♬  
@@ -141,8 +141,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 Playbook の記述が完了しましたので、保存しましょう。  
 左上から `File > Save` をクリックします。  
 
-And that should do it. You should now have a fully written playbook
-called `install_iis.yml`.
+これはするべきです。これで `install_iis.yml` の Playbook ができました。
 
 でもまだ終わってません！！！ **ローカル**コピーから**Git**への変更（コミット）が必要です。以下に示すように、[Source Code]アイコンをクリックします（ページの一番左の中央にある青い円に1が表示されていることが確認できます）
 
@@ -174,29 +173,29 @@ called `install_iis.yml`.
 
 <!-- {% raw %} -->
 ```yaml
-    ---
-    - name: install the iis web service
-      hosts: windows
+---
+- name: install the iis web service
+  hosts: windows
 
-      tasks:
-        - name: install iis
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: install iis
+      win_feature:
+        name: Web-Server
+        state: present
 
-        - name: start iis service
-          win_service:
-            name: W3Svc
-            state: started
+    - name: start iis service
+      win_service:
+        name: W3Svc
+        state: started
 
-        - name: Create website index.html
-          win_copy:
-            content: "{{ iis_test_message }}"
-            dest: C:\Inetpub\wwwroot\index.html
+    - name: Create website index.html
+      win_copy:
+        content: "{{ iis_test_message }}"
+        dest: C:\Inetpub\wwwroot\index.html
 
-        - name: Show website address
-          debug:
-            msg: http://{{ ansible_host }}
+    - name: Show website address
+      debug:
+        msg: http://{{ ansible_host }}
 ```
 <!-- {% endraw %} -->
 

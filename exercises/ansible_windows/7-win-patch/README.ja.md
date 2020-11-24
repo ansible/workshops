@@ -11,15 +11,15 @@ Windwos のパッチ管理は、Ansible で Windows ホストを管理する際�
 
 ### ステップ 1:
 
-Visual Studio Code を使って、Git リポジトリに新しいホルダーを作成し、新しい Playbook を作成します。  
+Visual Studio Code を使って、Git リポジトリに新しいフォルダーを作成し、新しい Playbook を作成します。  
 
-以前に「iis_basic」ディレクトリを作成したWORKSHOP_PROJECTが存在していると思います。  
+以前に「iis_basic」ディレクトリを作成した WORKSHOP_PROJECT が存在していると思います。  
 
 ![Student Playbooks](images/7-vscode-existing-folders.png)
 
-WORKSHOP_PROJECTセクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`win_updates` と入力します。  
+WORKSHOP_PROJECT セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`win_updates` と入力します。  
 
-次に、`win_updates` ホルダーを右クリックして、*New File* を選択、`site.yml` と入力します。  
+次に、`win_updates` フォルダーを右クリックして、*New File* を選択、`site.yml` と入力します。  
 
 Playbook 編集用のエディターが右ペインに開きます。  
 
@@ -57,11 +57,11 @@ Playbook 編集用のエディターが右ペインに開きます。
 
 ![site.yml](images/7-win_update-playbook.png)
 
-Source Control アイコンをクリックし (1)、変更内容例えば*Adding windows update playbook*を記述し (2)、上部の Commit ボタンをクリックします (3)。  
+Source Control アイコンをクリックし (1)、変更内容例えば *Adding windows update playbook* を記述し (2)、上部の Commit ボタンをクリックします (3)。  
 
 ![Commit site.yml](images/7-win_update-commit.png)
 
-左下の青いバーの矢印をクリックして、gitlabに同期します。  
+左下の青いバーの矢印をクリックして、gitlab に同期します。  
 
 ![Push to Gitlab.yml](images/7-push.png)
 

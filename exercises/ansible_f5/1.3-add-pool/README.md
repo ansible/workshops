@@ -80,7 +80,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
 - The `lb_method: "round-robin"` parameter tells the module the load balancing method will be round-robin.  A full list of methods can be found on the documentation page for bigip_pool.
 - The `monitors: "/Common/http"` parameter tells the module the that the http_pool will only look at http traffic.
 - The `monitor_type: "and_list"` ensures that all monitors are checked.
-- The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
+- The `validate_certs: false` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 
 Save the file and exit out of editor
 

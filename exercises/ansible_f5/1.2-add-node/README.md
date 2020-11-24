@@ -77,7 +77,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_n
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
 - The `host: "{{hostvars[item].ansible_host}}"` parameter tells the module to add a web server IP address already defined in our inventory.
 - The `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be node1 and node2).
-- The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
+- The `validate_certs: false` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 - `loop:` tells the task to loop over the provided list.  The list in this case is the group web which includes two RHEL hosts.
 
 Save the file and exit out of editor.

@@ -37,7 +37,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 - name: BIG-IP SETUP
   hosts: lb
   connection: local
-  gather_facts: no
+  gather_facts: false
 
 ```
 {% endraw %}
@@ -52,22 +52,16 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 プロバイダ値を設定するために `set_fact` を含む tasks を追加します。
 
 {% raw %}
-```
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
+```yaml
   tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+    - name: Setup provider
+      set_fact:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
 ```
 {% endraw %}
 
@@ -77,30 +71,14 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: Setup and graceful rollback BIG-IP configuration
-    block:
-      - name: CREATE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          host: "{{hostvars[item].ansible_host}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['web'] }}"
+    - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
+      block:
+        - name: CREATE NODES
+          bigip_node:
+            provider: "{{provider}}"
+            host: "{{hostvars[item].ansible_host}}"
+            name: "{{hostvars[item].inventory_hostname}}"
+          loop: "{{ groups['web'] }}"
 ```
 
 {% endraw %}
@@ -111,38 +89,13 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: Setup and graceful rollback BIG-IP configuration
-    block:
-      - name: CREATE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          host: "{{hostvars[item].ansible_host}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['web'] }}"
-
-      - name: CREATE POOL
-        bigip_pool:
-          provider: "{{provider}}"
-          name: "http_pool"
-          lb_method: "round-robin"
-          monitors: "/Common/http"
-          monitor_type: "and_list"
+        - name: CREATE POOL
+          bigip_pool:
+            provider: "{{provider}}"
+            name: "http_pool"
+            lb_method: "round-robin"
+            monitors: "/Common/http"
+            monitor_type: "and_list"
 ```
 {% endraw %}
 
@@ -152,48 +105,15 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: Setup and graceful rollback BIG-IP configuration
-    block:
-      - name: CREATE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          host: "{{hostvars[item].ansible_host}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['web'] }}"
-
-      - name: CREATE POOL
-        bigip_pool:
-          provider: "{{provider}}"
-          name: "http_pool"
-          lb_method: "round-robin"
-          monitors: "/Common/http"
-          monitor_type: "and_list"
-
-      - name: ADD POOL MEMBERS
-        bigip_pool_member:
-          provider: "{{provider}}"
-          state: "present"
-          name: "{{hostvars[item].inventory_hostname}}"
-          host: "{{hostvars[item].ansible_host}}"
-          port: "80"
-          pool: "http_pool"
-        loop: "{{ groups['web'] }}"
+        - name: ADD POOL MEMBERS
+          bigip_pool_member:
+            provider: "{{provider}}"
+            state: "present"
+            name: "{{hostvars[item].inventory_hostname}}"
+            host: "{{hostvars[item].ansible_host}}"
+            port: "80"
+            pool: "http_pool"
+          loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -203,59 +123,16 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: Setup and graceful rollback BIG-IP configuration
-    block:
-      - name: CREATE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          host: "{{hostvars[item].ansible_host}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['web'] }}"
-
-      - name: CREATE POOL
-        bigip_pool:
-          provider: "{{provider}}"
-          name: "http_pool"
-          lb_method: "round-robin"
-          monitors: "/Common/http"
-          monitor_type: "and_list"
-
-      - name: ADD POOL MEMBERS
-        bigip_pool_member:
-          provider: "{{provider}}"
-          state: "present"
-          name: "{{hostvars[item].inventory_hostname}}"
-          host: "{{hostvars[item].ansible_host}}"
-          port: "80"
-          pool: "http_pool"
-        loop: "{{ groups['web'] }}"
-
-      - name: ADD VIRTUAL SERVER
-        bigip_virtual_server:
-          provider: "{{provider}}"
-          name: "vip"
-          destination: "{{private_ip}}"
-          port: "443"
-          enabled_vlans: "all"
-          all_profiles: ['http','clientssl','oneconnect']
-          pool: "http_pool"
-          snat: "Automap1"
+        - name: ADD VIRTUAL SERVER
+          bigip_virtual_server:
+            provider: "{{provider}}"
+            name: "vip"
+            destination: "{{private_ip}}"
+            port: "443"
+            enabled_vlans: "all"
+            all_profiles: ['http', 'clientssl', 'oneconnect']
+            pool: "http_pool"
+            snat: "Automap1"
 ```
 {% endraw %}
 
@@ -265,79 +142,25 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
+      rescue:
+        - name: DELETE VIRTUAL SERVER
+          bigip_virtual_server:
+            provider: "{{provider}}"
+            name: "vip"
+            state: absent
 
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+        - name: DELETE POOL
+          bigip_pool:
+            provider: "{{provider}}"
+            name: "http_pool"
+            state: absent
 
-  - name: Setup and graceful rollback BIG-IP configuration
-    block:
-      - name: CREATE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          host: "{{hostvars[item].ansible_host}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['web'] }}"
-
-      - name: CREATE POOL
-        bigip_pool:
-          provider: "{{provider}}"
-          name: "http_pool"
-          lb_method: "round-robin"
-          monitors: "/Common/http"
-          monitor_type: "and_list"
-
-      - name: ADD POOL MEMBERS
-        bigip_pool_member:
-          provider: "{{provider}}"
-          state: "present"
-          name: "{{hostvars[item].inventory_hostname}}"
-          host: "{{hostvars[item].ansible_host}}"
-          port: "80"
-          pool: "http_pool"
-        loop: "{{ groups['web'] }}"
-
-      - name: ADD VIRTUAL SERVER
-        bigip_virtual_server:
-          provider: "{{provider}}"
-          name: "vip"
-          destination: "{{private_ip}}"
-          port: "443"
-          enabled_vlans: "all"
-          all_profiles: ['http','clientssl','oneconnect']
-          pool: "http_pool"
-          snat: "Automap1"
-
-    rescue:
-      - name: DELETE VIRTUAL SERVER
-        bigip_virtual_server:
-          provider: "{{provider}}"
-          name: "vip"
-          state: absent
-
-      - name: DELETE POOL
-        bigip_pool:
-          provider: "{{provider}}"
-          name: "http_pool"
-          state: absent
-
-      - name: DELETE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-          state: absent
-        loop: "{{ groups['web'] }}"
+        - name: DELETE NODES
+          bigip_node:
+            provider: "{{provider}}"
+            name: "{{hostvars[item].inventory_hostname}}"
+            state: absent
+          loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -347,85 +170,11 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 
 {% raw %}
 ```yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: no
-
-  tasks:
-  - name: Setup provider
-    set_fact:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-
-  - name: Setup and graceful rollback BIG-IP configuration
-    block:
-      - name: CREATE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          host: "{{hostvars[item].ansible_host}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-        loop: "{{ groups['web'] }}"
-
-      - name: CREATE POOL
-        bigip_pool:
-          provider: "{{provider}}"
-          name: "http_pool"
-          lb_method: "round-robin"
-          monitors: "/Common/http"
-          monitor_type: "and_list"
-
-      - name: ADD POOL MEMBERS
-        bigip_pool_member:
-          provider: "{{provider}}"
-          state: "present"
-          name: "{{hostvars[item].inventory_hostname}}"
-          host: "{{hostvars[item].ansible_host}}"
-          port: "80"
-          pool: "http_pool"
-        loop: "{{ groups['web'] }}"
-
-      - name: ADD VIRTUAL SERVER
-        bigip_virtual_server:
-          provider: "{{provider}}"
-          name: "vip"
-          destination: "{{private_ip}}"
-          port: "443"
-          enabled_vlans: "all"
-          all_profiles: ['http','clientssl','oneconnect']
-          pool: "http_pool"
-          snat: "Automap1"
-
-    rescue:
-      - name: DELETE VIRTUAL SERVER
-        bigip_virtual_server:
-          provider: "{{provider}}"
-          name: "vip"
-          state: absent
-
-      - name: DELETE POOL
-        bigip_pool:
-          provider: "{{provider}}"
-          name: "http_pool"
-          state: absent
-
-      - name: DELETE NODES
-        bigip_node:
-          provider: "{{provider}}"
-          name: "{{hostvars[item].inventory_hostname}}"
-          state: absent
-        loop: "{{ groups['web'] }}"
-
-    always:
-      - name: SAVE RUNNING CONFIGURATION
-        bigip_config:
-          provider: "{{provider}}"
-          save: yes
+      always:
+        - name: SAVE RUNNING CONFIGURATION
+          bigip_config:
+            provider: "{{provider}}"
+            save: true
 ```
 {% endraw %}
 
@@ -444,9 +193,7 @@ Playbook の実行 - コマンドラインへ戻ったら以下のコマンド�
 # Playbookの出力
 
 {% raw %}
-```
-[student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
-
+```yaml
 [student1@ansible ~]$ ansible-playbook bigip-error-handling.yml
 
 PLAY [BIG-IP SETUP] ****************************************************************************************************
@@ -482,7 +229,7 @@ TASK [SAVE RUNNING CONFIGURATION] **********************************************
 changed: [f5]
 
 PLAY RECAP *****************************************************************************************************************
-f5                         : ok=8    changed=6    unreachable=0    failed=1
+f5                         : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0
 
 ```
 {% endraw %}
@@ -490,4 +237,4 @@ f5                         : ok=8    changed=6    unreachable=0    failed=1
 
 完成したPlaybookのサンプルは [bigip-error-handling.yml](./bigip-error-handling.yml) から参照できます。
 
-本演習は終了です。 [Click here to return to the lab guide](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

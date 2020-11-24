@@ -43,7 +43,7 @@ Enter the following play definition into `bigip-delete-configuration.yml`:
 - The `---` at the top of the file indicates that this is a YAML file.
 - The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
-- `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
+- `gather_facts: false` disables facts gathering.  We are not using any fact variables for this playbook.
 
 ## Step 3
 
@@ -58,8 +58,8 @@ Add a tasks section with a set_fact for setting the provider values
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
-          server_port: "8443"
-          validate_certs: "no"
+          server_port: 8443
+          validate_certs: false
 ```
 {% endraw %}
 

@@ -44,29 +44,24 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `connection: local` は Playbook がローカル実行されることを示します。
 - `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
 
+まだエディタを閉じないでください。
+
 ## Step 3
 
 次に、`task` を追加します。このタスクは `bigip-config` を使って稼働中のコンフィグを保存します。
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
-
-  - name: SAVE RUNNING CONFIG ON BIG-IP
-    bigip_config:
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-      save: yes
+    - name: SAVE RUNNING CONFIG ON BIG-IP
+      bigip_config:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        save: true
 ```
 {% endraw %}
 
@@ -75,6 +70,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 
 - `name: SAVE RUNNING CONFIG ON BIG-IP` は利用者が定義するタスクの説明文で、この内容がターミナルに表示されます。
 - `bigip_config:` はタスクで使用されるモジュール名を指定します。
+- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - The `server: "{{private_ip}}"` モジュールのパラメーターです。モジュールがどのBIG-IPのIPアドレスに接続するかを指定します。ここではインベントリーで定義された`private_ip`が指定されています。
 - The `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
 - The`password: "{{ansible_ssh_pass}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
@@ -82,6 +78,8 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - The `save: "yes""` モジュールのパラメーターです。running-config を startup-config へ保存するします。
   この操作は現在のコンフィグに変更が行われた後に実行されます。何も変更されなくても設定は startup-config に保存されます。このオプションは常に `changed` を返します。
 - `validate_certs: "no"` モジュールのパラメーターです。証明書の検証を行いません。これは演習上のデモ環境のためです。
+
+ファイルを保存して、エディタを終了してください。
 
 ## Step 4
 

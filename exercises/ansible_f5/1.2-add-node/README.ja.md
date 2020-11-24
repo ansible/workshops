@@ -1,4 +1,4 @@
-# 演習 1.2 - ノードの追加
+# 演習 1.2 - F5 BIG-IP へのノード追加
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
@@ -41,8 +41,9 @@
 - このファイルの最初の `---` は、このファイルがYAMLであることを示します。
 - `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
 - `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
-- `gather_facts: false` disables facts gathering.  We are not using any fact variables for this playbook.
 - `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
+
+まだエディタを閉じないでください。
 
 ## Step 3
 
@@ -50,25 +51,18 @@
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
-
-  - name: CREATE NODES
-    bigip_node:
-      host: "{{hostvars[item].ansible_host}}"
-      name: "{{hostvars[item].inventory_hostname}}"
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
-    loop: "{{ groups['web'] }}"
+    - name: CREATE NODES
+      bigip_node:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        host: "{{hostvars[item].ansible_host}}"
+        name: "{{hostvars[item].inventory_hostname}}"
+      loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
 
@@ -77,14 +71,17 @@
 
 - `name: CREATE NODES` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_node:` ：　使用するモジュールを宣言しています。  `loop` を除く全てのものは、モジュールのドキュメント上で定義されている、モジュールパラメータです。
+- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
+- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
 - `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（node1、node2 となります）として使うことを指示します。
-- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
 - `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む web グループが一覧となります。
+
+ファイルを保存して、エディタを終了します。
 
 ## Step 4
 

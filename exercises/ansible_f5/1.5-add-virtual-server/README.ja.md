@@ -1,6 +1,6 @@
 # 演習 1.5 - Virtual Server の追加
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
@@ -45,35 +45,30 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 - `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
 - `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
 
+まだエディタを閉じないでください。
+
 ## Step 3
 
 次に、タスクを追加します。このタスクは、`bigip-virtual-server` モジュールを使用して、BIG-IP上にVirtual Server を設定します。
 
 {% raw %}
 ``` yaml
----
-- name: BIG-IP SETUP
-  hosts: lb
-  connection: local
-  gather_facts: false
-
   tasks:
-
-  - name: ADD VIRTUAL SERVER
-    bigip_virtual_server:
-      name: "vip"
-      destination: "{{private_ip}}"
-      port: "443"
-      enabled_vlans: "all"
-      all_profiles: ['http','clientssl','oneconnect']
-      pool: "http_pool"
-      snat: "Automap"
-      provider:
-        server: "{{private_ip}}"
-        user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
-        server_port: "8443"
-        validate_certs: "no"
+    - name: ADD VIRTUAL SERVER
+      bigip_virtual_server:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+        name: "vip"
+        destination: "{{private_ip}}"
+        port: "443"
+        enabled_vlans: "all"
+        all_profiles: ['http', 'clientssl', 'oneconnect']
+        pool: "http_pool"
+        snat: "Automap"
 ```
 
 {% endraw %}
@@ -82,10 +77,12 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 
 - `name: ADD VIRTUAL SERVER` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
 - `bigip_virtual_server:` ：　使用するモジュールを宣言しています。
+- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
 - `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
+- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `name: "vip"` ： vip という名前のVirtual Server を作成することを指定します。
 - `destination"` ： Virtual Server にIPアドレスを指定します。
 - `port` ： Virtual Server がリッスンするポート番号を指定します。
@@ -93,12 +90,12 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 - `all_profiles` ： Virtual Server に全てのプロファイルをアサインします。
 - `pool` ： Virtual Server に紐づけられるプールを指定します。
 - `snat` ： Source NAT の指定をします。本演習では、Automap を設定しています。これにより、後段のWebサーバーへ送られるトラフィック（パケット）の送信元IPはBIG-IP自身のIPとなります。
-- `validate_certs: "no"` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。  
+
+ファイルを保存して、エディタを終了してください。
 
 ## Step 4
 
 プレイブックの実行 - コントロールホストのコマンドラインで以下を実行します。
-
 
 ```
 [student1@ansible ~]$ ansible-playbook bigip-virtual-server.yml
@@ -149,12 +146,11 @@ Virtual Serverは画面左のメニューから辿ることで確認できます
 
 ```
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
-    <p>F5TEST-studentX-host1</p>
+    <p>F5TEST-studentX-node1</p>
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
-    <p>F5TEST-studentX-host2</p>
+    <p>F5TEST-studentX-node2</p>
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
-    <p>F5TEST-studentX-host1</p>
+    <p>F5TEST-studentX-node1</p>
 ```
 
-
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

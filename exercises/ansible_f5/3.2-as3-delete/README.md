@@ -98,5 +98,5 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here: [
 
 Login to the web UI and make sure the `Partition` is removed.
 
---
+---
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

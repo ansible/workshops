@@ -48,7 +48,13 @@ The stage is set now. Read on to learn what this use case is about.
 
 Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. From within a terminal in your VS Code online editor, ssh to the snort machine. Remember that you can look up the IP of the Snort server from the inventory file at `/home/student<X>/lab_inventory/hosts`.
 
-Open a new terminal in your VS Code online editor to connect to the Snort server via SSH. Note: As the login user for the Snort server, you need to use `ec2-user`! After login, grep for the anomaly log entry:
+Open a new terminal in your VS Code online editor to connect to the Snort server via SSH. 
+
+> **Note**
+>
+> As the login user for the Snort server, you need to use `ec2-user` 
+
+After login, grep for the anomaly log entry:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
@@ -80,7 +86,7 @@ So let's write such a playbook which first configures the log sources - Snort an
 
 As usual, the playbook needs a name and the hosts it should be executed on. Since we are working on different machines in this workflow, we will separate the playbook into different "[plays](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#playbook-language-example)":
 
-> *The goal of a play is to map a group of hosts to some well defined roles, represented by things ansible calls tasks. At a basic level, a task is nothing more than a call to an ansible module.*
+> The goal of a play is to map a group of hosts to some well defined roles, represented by things ansible calls tasks. At a basic level, a task is nothing more than a call to an ansible module.
 
 This means that the "host" section will appear multiple times in one playbook, and each section has a dedicated task list.
 
@@ -342,7 +348,7 @@ Leave the Snort server again and come back to your control host.
 
 Note that so far no logs are sent from Snort to QRadar: Snort does not know yet that this traffic is noteworthy!
 
-But as a security analyst, with more data at our disposal, we finally have a better idea of what could be the cause of the anomaly in the application behaviour. We see the logs from the firewall, see who is send traffic to whom, but still not enough data to dismiss the event as a false positive.
+But as a security analyst, with more data at our disposal, we finally have a better idea of what could be the cause of the anomaly in the application behaviour. We see the logs from the firewall, see who is sending traffic to who, but there's still not enough data to dismiss the event as a false positive.
 
 ## Step 1.7 - Add Snort signature
 
@@ -493,7 +499,7 @@ Run the playbook to remove the log sources:
 [student<X>@ansible ~]$ ansible-playbook rollback.yml
 ```
 
-Also, we need to kill the process which simulates the attack. For this we will use a so called Ansible ad-hoc command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. In a terminal of your VS Code online editor, run the following command:
+Also, we need to kill the process which simulates the attack. For this we will use an ad-hoc Ansible command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. In a terminal of your VS Code online editor, run the following command:
 
 <!-- {% raw %} -->
 ```bash

@@ -44,6 +44,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 # Additional Content
 
+- [Get a Trial Subscription for Red Hat Ansible Automation Platform](http://red.ht/try_ansible)
 - [Ansible Blog - The Inside Playbook](https://www.ansible.com/blog)
 - [Ansible YouTube](https://youtube.com/ansibleautomation)
 - [Ansible Getting Started Guide](https://docs.ansible.com/ansible/latest/user_guide/index.html#get)

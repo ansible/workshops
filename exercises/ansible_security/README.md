@@ -31,9 +31,5 @@ If your experience is different in schedulung those workshops, please let us kno
  - [Exercise 2.2 - Threat hunting](2.2-threat)
  - [Exercise 2.3 - Incident response](2.3-incident)
 
-## Additional information
-
- - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
-
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

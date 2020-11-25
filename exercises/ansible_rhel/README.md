@@ -4,17 +4,17 @@
 <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/col.png) [Español](README.es.md).
 <br>
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
+Ansible is simple yet powerful IT automation for application deployment, configuration management, and orchestration that you can learn quickly.
 
-In the first section of this lab you will learn to use Ansible Engine for automation from the basics up to some more advanced concepts.
+In the first section of this lab you will learn to use command-line Ansible for automation from the basics up to some more advanced concepts.
 
-The second section of this lab covers Tower and provide the user an overview of what Tower is, how it works and what the benefit of it is.
+The second section of this lab covers Ansible Automation Platform and provide the user an overview of what Ansible Tower is, how it works and what the benefit of it is.
 
 After finishing this lab you are ready to start using Ansible for your automation requirements.
 
 ## Presentations
 
-The exercises are self explanatory and guide the particpants through the entire lab. All concepts are explained when they are introduced.
+The exercises are self explanatory and guide the participants through the entire lab. All concepts are explained when they are introduced.
 
 There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
 [Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
@@ -28,7 +28,11 @@ The time required to do the workshops strongly depends on multiple factors: the 
 
 Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds another hour.
 
-## Section 1 - Ansible Engine Exercises
+## Lab Diagram
+
+![ansible rhel lab diagram](../../images/rhel_lab_diagram.png)
+
+## Section 1 - Command-line Ansible Exercises
 
  - [Exercise 1.1 - Check the Prerequisites](1.1-setup)
  - [Exercise 1.2 - Running Ad-hoc Commands](1.2-adhoc)
@@ -38,7 +42,7 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
  - [Exercise 1.6 - Templates](1.6-templates)
  - [Exercise 1.7 - Roles](1.7-role)
 
-## Section 2 - Ansible Tower Exercises
+## Section 2 - Ansible Automation Platform Exercises
 
  - [Exercise 2.1 - Introduction to Tower](2.1-intro)
  - [Exercise 2.2 - Inventories, credentials and ad hoc commands](2.2-cred)

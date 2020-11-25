@@ -23,13 +23,8 @@ Want the Presentation Deck?  Its right here:
 There are additional supplemental exercises that are [located here](supplemental/).
 
 ## Network Diagram
-![Red Hat Ansible Automation](../../images/network_diagram.png)
+![Red Hat Ansible Automation](../../images/ansible_network_diagram.png)
 
-## Additional information
- - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
- - [List of Networking Ansible Modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html)
- - [Module Maintenance & Support](http://docs.ansible.com/ansible/latest/modules_support.html)
- - [Network Automation GitHub Repo](https://github.com/network-automation)
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

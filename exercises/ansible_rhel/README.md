@@ -16,7 +16,6 @@ After finishing this lab you are ready to start using Ansible for your automatio
 * [Section 1 - Command-line Ansible Exercises](#section-1---command-line-ansible-exercises)
 * [Section 2 - Ansible Automation Platform Exercises](#section-2---ansible-automation-platform-exercises)
 * [Supplemental Exercises](#supplemental-exercises)
-* [Additional information](#additional-information)
 
 ## Presentations
 

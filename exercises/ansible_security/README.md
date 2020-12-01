@@ -18,6 +18,10 @@ Given students with basic experience with Ansible:
 
 If your experience is different in schedulung those workshops, please let us know and fill an issue.
 
+## Lab Diagram
+
+![ansible rhel lab diagram](../../images/ansible_security_diagram.png)
+
 ## Section 1 - Introduction to Ansible Security Automation Basics
 
  - [Exercise 1.1 - Exploring the lab environment](1.1-explore)
@@ -30,10 +34,6 @@ If your experience is different in schedulung those workshops, please let us kno
  - [Exercise 2.1 - Investigation Enrichment](2.1-enrich)
  - [Exercise 2.2 - Threat hunting](2.2-threat)
  - [Exercise 2.3 - Incident response](2.3-incident)
-
-## Additional information
-
- - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

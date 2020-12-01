@@ -8,9 +8,9 @@ Ansible is a simple yet powerful IT automation engine for application deployment
 
 Ansible Tower is one of the components that makes up Red Hat Ansible Automation Platform and serves as the web ui, api and control node that executes Ansible playbooks.
 
-This workshop will guide students through configuring Ansible Tower to connect to the Windows instances created for this workshop. Once Ansible Tower is configured, students will then progress through exercises that highlight the simplicity of Ansible as a language for automation while introducing more complex operations. 
+This workshop will guide students through configuring Ansible Tower to connect to the Windows instances created for this workshop. Once Ansible Tower is configured, students will then progress through exercises that highlight the simplicity of Ansible as a language for automation while introducing more complex operations.
 
-All automation for this workshop is executed from Ansible Tower and there are minimal client requirements for students to interact with the workshop such that students only need a compatible browser. 
+All automation for this workshop is executed from Ansible Tower and there are minimal client requirements for students to interact with the workshop such that students only need a compatible browser.
 
 ## Presentations
 
@@ -24,6 +24,10 @@ The time required to do the workshops strongly depends on a couple factors: the 
 Having said that, the exercises themselves should take roughly 4-5 hours. The accompanying presentation itself adds another hour.
 
 If your experience is different in scheduling these workshops, please let us know and file an issue.
+
+## Lab Diagram
+
+![ansible windows lab diagram](../../images/ansible_windows_diagram.png)
 
 ## Exercises
 

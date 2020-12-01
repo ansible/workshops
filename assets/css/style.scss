@@ -236,3 +236,9 @@ footer {
     margin-left: 18px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .footer-linkSpacer {
+    display: none;
+  }
+}

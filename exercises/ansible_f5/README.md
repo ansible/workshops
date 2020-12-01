@@ -11,11 +11,11 @@ Want the Presentation Deck?  Its right here:
 [Ansible F5 Workshop Deck](../../decks/ansible_f5.pdf)
 
 ## Diagram
-![f5 diagram](../../images/f5topology.png)
+![f5 diagram](../../images/ansible_f5_diagram.png)
 
 Login information for the BIG-IP:
 - username: admin
-- password: **provided by instructor** (default is ansible)
+- password: **provided by instructor**
 
 ## Section 1 - Ansible F5 Basic Exercises
 

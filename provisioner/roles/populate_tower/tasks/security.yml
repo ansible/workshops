@@ -9,6 +9,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Create IDS team
   awx.awx.tower_team:
@@ -19,6 +20,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Create Firewall team
   awx.awx.tower_team:
@@ -29,6 +31,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 # Users
 - name: Add user analyst
@@ -43,6 +46,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Add user opsids
   awx.awx.tower_user:
@@ -56,6 +60,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Add user opsfirewall
   awx.awx.tower_user:
@@ -69,6 +74,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 # Assign users to default org
 - name: Ensure that user analyst belongs to the Default org
@@ -80,6 +86,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Ensure that user opsids belongs to the Default org
   awx.awx.tower_role:
@@ -90,6 +97,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Ensure that user opsfirewall belongs to the Default org
   awx.awx.tower_role:
@@ -100,6 +108,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 # Teams assignment
 - name: Assign analyst to group TeamSIEM
@@ -111,6 +120,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Assign opsids to group TeamIDS
   awx.awx.tower_role:
@@ -121,6 +131,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Assign opsfirewall to group TeamFirewall
   awx.awx.tower_role:
@@ -131,6 +142,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 # Add repository as project
 - name: Add git repository as Tower project
@@ -141,6 +153,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Wait for update to finish
   pause:
@@ -159,6 +172,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template sending IDPS logs to QRadar
   awx.awx.tower_job_template:
@@ -174,6 +188,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template accepting firewall logs in QRadar
   awx.awx.tower_job_template:
@@ -187,6 +202,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template accepting IDPS logs in QRadar
   awx.awx.tower_job_template:
@@ -200,6 +216,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template rolling back everything
   awx.awx.tower_job_template:
@@ -213,6 +230,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template adding DDOS IDPS rule
   awx.awx.tower_job_template:
@@ -230,6 +248,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template adding ddos attack simulation
   awx.awx.tower_job_template:
@@ -245,6 +264,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template stopping ddos attack simulation
   awx.awx.tower_job_template:
@@ -260,6 +280,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template adding whitelist entry for attacker
   awx.awx.tower_job_template:
@@ -273,6 +294,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 - name: Job template adding blacklist entry for attacker
   awx.awx.tower_job_template:
@@ -286,6 +308,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
 
 # Permissions on Job Templates
 - name: Ensure that opsfirewall has admin rights for own jobs
@@ -297,6 +320,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
   loop:
     - "Send firewall logs to QRadar"
     - "Whitelist attacker"
@@ -311,6 +335,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
   loop:
     - "Send IDPS logs to QRadar"
     - "Add IDPS rule"
@@ -324,6 +349,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
   loop:
     - "Accept firewall logs in QRadar"
     - "Accept IDPS logs in QRadar"
@@ -337,6 +363,7 @@
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
   loop:
     - "Roll back all changes"
     - "Send IDPS logs to QRadar"

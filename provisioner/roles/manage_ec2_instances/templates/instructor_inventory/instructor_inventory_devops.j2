@@ -3,6 +3,15 @@
 ansible_port={{ ssh_port }}
 {% endif %}
 
+{% if automation_hub %}
+[automation-hub]
+{%   for host in hostvars %}
+{%     if "automation-hub" in host %}
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_port=22 ansible_user=ec2-user ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+{%     endif %}
+{%   endfor %}
+{% endif %}
+
 {% for number in range(1,student_total + 1) %}
 [student{{ number }}]
 {% for host in ansible_node_facts.instances %}

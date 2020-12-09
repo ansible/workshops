@@ -100,8 +100,14 @@
   tasks:
     - include_role:
         name: control_node
+        tasks_from: package_dependencies
+      when: create_cluster|bool
+
+    - include_role:
+        name: control_node
         tasks_from: venv
       when: create_cluster|bool
+
 
 - name: add dns entires for all student control nodes
   hosts: '*ansible-1'

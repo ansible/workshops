@@ -57,7 +57,7 @@
       - "requests==2.6.0"
     state: latest
 
-- name:  Install venv
+- name: Install venv
   include_tasks: venv.yml
 
 - name: add student user

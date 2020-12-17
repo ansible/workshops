@@ -43,3 +43,59 @@
   register: install_as3
   until: install_as3 is not failed
   retries: 2
+
+- name: Set db provision.extramb
+  bigip_sys_db:
+    key: provision.extramb
+    value: "1024"
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Set db restjavad.useextramb
+  bigip_sys_db:
+    key: restjavad.useextramb
+    value: "true"
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Set db restjavad.timeout
+  bigip_sys_db:
+    key: restjavad.timeout
+    value: "180"
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Set httpd max-clients
+  bigip_device_httpd:
+    max_clients: 20
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Save config and restart REST
+  bigip_command:
+    provider:
+      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+      transport: cli
+      user: admin
+      server: "{{ ansible_host }}"
+    commands:
+      - save sys config
+      - restart sys service restjavad
+      - restart sys service restnoded
+

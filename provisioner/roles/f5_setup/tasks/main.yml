@@ -32,7 +32,7 @@
 # The bigip_lx_package requires rpm installed, on macOS use brew rather than pip or it won't work
 - name: Install AS3
   bigip_lx_package:
-    package: "{{playbook_dir}}/roles/f5_setup/files/f5-appsvcs-3.4.0-2.noarch.rpm"
+    package: "{{playbook_dir}}/roles/f5_setup/files/f5-appsvcs-3.24.0-5.noarch.rpm"
     provider:
       validate_certs: "no"
       user: admin

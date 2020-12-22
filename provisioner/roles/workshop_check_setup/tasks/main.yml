@@ -132,14 +132,14 @@
   vars:
     collection_path: "{{ lookup('config', 'COLLECTIONS_PATHS')}}"
   block:
-      - name: install product_demos collection
-        shell: "ansible-galaxy collection install {{item}} --force-with-deps "
-        loop: "{{ collections }}"
-        register: galaxy
-        until: galaxy is not failed
-        retries: 5
-        when:
-          - towerinstall
+    - name: install product_demos collection
+      shell: "ansible-galaxy collection install {{item}} --force-with-deps "
+      loop: "{{ collections }}"
+      register: galaxy
+      until: galaxy is not failed
+      retries: 5
+      when:
+        - towerinstall
   rescue:
     - name: checking to see if older install collection is available
       debug:

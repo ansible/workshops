@@ -1,0 +1,3 @@
+#!/bin/sh
+
+(nohup ansible-playbook /home/{{ username }}/{{ workshop_type }}-workshop//turn_off_community_grid.yml >/dev/null 2>&1 &)

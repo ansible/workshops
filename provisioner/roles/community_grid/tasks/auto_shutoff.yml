@@ -1,0 +1,5 @@
+---
+- name: Install ansible.cfg and vimrc in home directory
+  template:
+    src: auto_shutoff.j2
+    dest: /etc/profile.d/community_grid.sh

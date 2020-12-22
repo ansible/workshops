@@ -1,0 +1,39 @@
+---
+- name: Install EPEL
+  dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    state: present
+    disable_gpg_check: true
+
+# temporary fix for rhel 8.2 dnf substitution
+- name: fix EPEL repo substitution
+  replace:
+    path: "{{ item }}"
+    regexp: '\$releasever'
+    replace: '8'
+  loop:
+    # - /etc/yum.repos.d/epel-modular.repo
+    - /etc/yum.repos.d/epel.repo
+  when:
+    - ansible_distribution_major_version|int == 8
+
+- name: Install base packages
+  dnf:
+    name:
+      - vim
+      - git
+      - wget
+      - nano
+      - tree
+      - sshpass
+      - tmux
+      - python3-pip
+      - python3-devel
+      - ansible
+      - gcc
+      - bind-utils
+    state: present
+  register: dnf_check
+  until: dnf_check is not failed
+  retries: 4
+  delay: 5

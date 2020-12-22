@@ -351,7 +351,7 @@ a {
             </div>
         </div>
         </div>
-        {% elif workshop_type == "rhel" %}
+        {% elif workshop_type in ['rhel', 'rhel_90'] %}
         <div class="row">
             <div class="col-sm-4">
                 <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
@@ -385,47 +385,6 @@ a {
 </section>
 
 <hr>
-
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <h2>Workshop Resources</h2>
-                <p>Links and materials to help complete the exercises.</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe">Download: PuTTY for Windows</a>
-            </div>
-
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://www.ansible.com/workshop-license">Ansible Tower Workshop License</a>
-            </div>
-
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.sivel.net/test/">Ansible Template Tester</a>
-            </div>
-        </div>
-<br>
-        <div class="row">
-            {% if workshop_type in ['network', 'f5'] %}
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/network/index.html">Documentation Network Automation </a>
-            </div>
-
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html">Ansible Network Modules</a>
-            </div>
-            {% endif %}
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://pythex.org/">Real-time regular expression editor</a>
-            </div>
-
-        </div>
-    </div>
-</section>
 
 
 <section>

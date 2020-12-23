@@ -125,19 +125,6 @@
         - towerinstall
   tags: control_node
 
-- name: Setup Amazon S3 Website for Student Login
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: false
-  tasks:
-    - include_role:
-        name: aws_workshop_login_page
-      when:
-        - create_login_page is defined
-        - create_login_page
-  tags: control_node
-
 - name: populate ansible tower
   hosts: '*ansible-1'
   become: true
@@ -220,7 +207,6 @@
           - Workshop name is {{ec2_name_prefix}}
           - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
           - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
-          - {{website_information}}
           {% if attendance %}
           - {{hostvars['attendance-host'].login_website_information | default("attendance feature is off") }}
           {% endif %}

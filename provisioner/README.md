@@ -66,11 +66,7 @@ dns_type: aws
 # password for Ansible control node
 admin_password: your_password123
 
-# creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-# this is defaulted to on as of May 13th, 2020
-create_login_page: false
-
-# Sets the Route53 DNS zone to use for the S3 website
+# Sets the Route53 DNS zone to use for Amazon Web Services
 workshop_dns_zone: rhdemo.io
 
 # automatically installs Tower to control node
@@ -98,7 +94,7 @@ For more extra_vars examples, look at the following:
 
 3. Login to the AWS EC2 console and you will see instances being created.  For example:
 
-        `tesworkshop-student1-ansible`
+        `testworkshop-student1-ansible`
 
 ## IBM Community Grid
 
@@ -128,7 +124,8 @@ Please read this blog for more information: [https://www.ansible.com/blog/ansibl
 
 ## Accessing instructor inventory
 
-  - The instructor inventory will be copied to `/tmp` on student1's control_node as part of the control_nodes role. 
+  - The instructor inventory will be copied to `/tmp` on student1's control_node as part of the control_nodes role.
+  - The instructor can see all assigned students and what their workbench is by visiting `ec2_name_prefix.workshop_dns_zone/list.php` (e.g. `testworkshop.rhdemo.io/list.php`)
 
 ## DNS
 

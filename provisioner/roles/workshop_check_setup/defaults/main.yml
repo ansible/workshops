@@ -1,0 +1,5 @@
+---
+use_manifest: false
+collections:
+  - awx.awx
+  - ansible.product_demos

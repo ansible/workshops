@@ -35,7 +35,6 @@ ec2_name_prefix: sean-workshop
 admin_password: ansible123
 student_total: 1
 workshop_type: rhel
-create_login_page: true
 ansible_workshops_url: https://github.com/ipvsean/workshops.git
 ansible_workshops_version: "test_branch"
 ```

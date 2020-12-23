@@ -11,7 +11,6 @@ security_console: 'qradar'
 ## Optional Variables
 admin_password: ansible
 windows_password: Ansible+Red*Hat19!20
-create_login_page: false
 towerinstall: true
 dns_type: aws
 create_cluster: false

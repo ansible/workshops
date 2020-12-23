@@ -27,7 +27,6 @@ ec2_region: us-east-1
 ec2_name_prefix: seantest
 student_total: 25
 admin_password: ansible
-create_login_page: true
 ```
 for more information on the extra vars file please refer to: https://github.com/network-automation/linklight/blob/master/provisioner/README.md
 

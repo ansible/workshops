@@ -9,4 +9,4 @@ There is also a series of exercises that go above and beyond our normal workshop
 ## Navigation
 
 - [Return to Ansible for Red Hat Enterprise Linux Workshop](../README.md)
-- [Return to Ansible Automation Workshops Index](../../README.md)
+- [Return to Ansible Automation Workshops Index](../../../README.md)

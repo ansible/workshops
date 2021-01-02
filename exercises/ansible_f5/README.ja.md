@@ -11,7 +11,7 @@
 [Ansible F5 Workshop Deck](../../decks/ansible_f5.pdf)
 
 ## Diagram
-![f5 diagram](../../images/f5topology.png)
+![f5 diagram](../../images/ansible_f5_diagram.png)
 
 BIG-IP へのログイン情報:
 - username: admin

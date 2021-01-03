@@ -36,7 +36,7 @@ Ansible Tower で Ansible Playbook を実行するには、**ジョブテンプ�
 
 > Note: ご使用の環境には、追加のプロジェクトがセットアップされている場合があります。各プロジェクトは、Ansible Playbook のリポジトリを表します。複数のプロジェクトがあるのは正常です。
 
-  ![workshop credential link](images/ws_credential.ja.png)
+![workshop_project link](images/workshop_project.ja.png)
 
 すべての Playbook は https://github.com/f5devcentral/ansible-tower-workshop-examples から入手でき、各 Playbook を確認することができます。
 
@@ -142,9 +142,11 @@ NOTE: パスワードは、学生ラボ情報が含まれているWebページ�
 
 認証情報タイプから `ネットワーク` を選択し、次に `BIGIP` を選択します。
 
+   ![network credential](images/network.ja.png)
+
 これは、パラメータが入力されたジョブテンプレートのスクリーンショットです。
 
-   ![network credential](images/network.ja.png)
+   ![create_vs job template](images/create_vs.ja.png)
 
 4. 下にスクロールして、緑色の **保存** ボタンをクリックします。
 

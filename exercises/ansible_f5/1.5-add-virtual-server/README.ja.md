@@ -125,7 +125,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
 Virtual Serverは画面左のメニューから辿ることで確認できます。**Local Traffic** -> **Virtual Server** とクリックします。以下のスクリーンショットを参考にしてください。
 ![f5 vip image](f5vip.png)
@@ -136,7 +136,7 @@ Virtual Serverは画面左のメニューから辿ることで確認できます
 
 >ここでは、ポート番号は 8443ではなく 443 を指定します。 例： https://X.X.X.X:443/
 
-ブラウザを再読み込みを行うたびに、**host1** と **host2** が入れかわり表示されるはずです。以下のアニメーションを参考にしてください。
+ブラウザを再読み込みを行うたびに、**node1** と **node2** が入れかわり表示されるはずです。以下のアニメーションを参考にしてください。
 ![animation](animation.gif)
 >注：ブラウザの種類によっては、アニメーションが動かない可能性があります。
 

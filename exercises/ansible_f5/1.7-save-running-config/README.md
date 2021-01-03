@@ -29,7 +29,7 @@ Using your text editor of choice create a new file called `bigip-config.yml`.
 
 Ansible playbooks are **YAML** files. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format).
 
-Enter the following play definition into `bigip-virtual-server.yml`:
+Enter the following play definition into `bigip-config.yml`:
 
 ``` yaml
 ---
@@ -42,7 +42,7 @@ Enter the following play definition into `bigip-virtual-server.yml`:
 - The `---` at the top of the file indicates that this is a YAML file.
 - The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
-- `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
+- `gather_facts: false` disables facts gathering.  We are not using any fact variables for this playbook.
 
 Do not exit the editor yet.
 

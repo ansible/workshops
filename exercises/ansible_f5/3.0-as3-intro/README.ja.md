@@ -112,7 +112,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 - `app_pool` という名前の Pool があります。
   - Jinja2 テンプレートはループ処理を使用して、すべての Pool member (これは web servers グループを指しています)を取得できます。
 
-** 要約 **
+**要約**
 `tenant_base.j2` と `as3_template.j2` の2つのテンプレートファイルは、Web アプリケーションのための1つの JSON ペイロードを作ります。次に Playbook を構築することで F5 BIG-IP に対して、この JSON ペイロードを送ります。
 
 **これらのテンプレートを作業ディレクトリにコピーしてください。**
@@ -177,7 +177,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 
 ## Step 6
 
-** 追記 ** 以下は as3.yml の Playbook に追記します。このタスクは uri モジュールを使い、HTTP および HTTPS Web サービスと対話するためのものです。Digest認証、Basic認証、および WSSE HTTP 認証メカニズムをサポートします。このモジュールは非常に一般的で非常に使いやすいです。このワークショップの演習環境をプロビジョニングした Playbook の中でで uri モジュールを使って、Red Hat Ansible Tower の設定や、ライセンス登録を行っています。
+**追記** 以下は as3.yml の Playbook に追記します。このタスクは uri モジュールを使い、HTTP および HTTPS Web サービスと対話するためのものです。Digest認証、Basic認証、および WSSE HTTP 認証メカニズムをサポートします。このモジュールは非常に一般的で非常に使いやすいです。このワークショップの演習環境をプロビジョニングした Playbook の中でで uri モジュールを使って、Red Hat Ansible Tower の設定や、ライセンス登録を行っています。
 
 ```yaml
     - name: PUSH AS3
@@ -199,33 +199,33 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
 
 <table>
   <tr>
-    <th>Parameter</th>
-    <th>Explanation</th>
+    <th>パラメータ</th>
+    <th>説明</th>
 
   </tr>
   <tr>
     <td><code>- name: PUSH AS3</code></td>
-    <td>human description of Playbook task, prints to terminal window</td>
+    <td>Playbook task の説明です。ターミナルに表示されます。</td>
   </tr>
   <tr>
     <td><code>uri:</code></td>
-    <td>this task is calling the <a href="https://docs.ansible.com/ansible/latest/modules/uri_module.html">uri module</a></td>
+    <td><a href="https://docs.ansible.com/ansible/latest/modules/uri_module.html">uri module</a> を呼び出します。</td>
   </tr>
   <tr>
     <td><code>url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"</code></td>
-    <td>webURL (API) for AS3</td>
+    <td>AS3 の web URL (API) です。</td>
   </tr>
   <tr>
     <td><code>method: POST</code></td>
-    <td>HTTP method of the request, must be uppercase.  Module documentation page has list of all options.  This could also be a <code>DELETE</code> vs a <code>POST</code></td>
+    <td>HTTP リクエストメソッドは大文字である必要があります。モジュールドキュメントのページに全てのオプションリストがあります。<code>DELETE</code> や <code>POST</code> が使用できます。</td>
   </tr>
   <tr>
     <td><code>body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"</code></td>
-    <td>This sends the combined template (the <code>tenant_base.j2</code> which contains <code>as3_template.j2</code>) and is passed as the body for the API request.</td>
+    <td>これにより、結合されたテンプレート (<code>tenant_base.j2</code> や <code>as3_template.j2</code> を含む) が送信され、APIリクエストの本文として渡されます。</td>
   </tr>
   <tr>
     <td><code>status_code: 200</code></td>
-    <td>A valid, numeric, <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status code</a> that signifies success of the request. Can also be comma separated list of status codes.  200 means OK, which is a standard response for successful HTTP requests</td>
+    <td>リクエストの成功を示す有効な数値の<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP ステータスコード</a>。ステータスコードのカンマ区切りリストにすることもできます。200は正常を意味します。これは、HTTPリクエストが成功した場合の標準的な応答です。</td>
   </tr>
 </table>
 

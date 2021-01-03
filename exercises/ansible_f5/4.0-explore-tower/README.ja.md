@@ -60,11 +60,11 @@ Red Hat Ansible Tower がジョブを実行できるようにするには、イ�
 
     ![Inventories Button](images/inventories.ja.png)
 
-2. **インベントリー** の中にある `Demo Inventory` をクリックしてください。
+2. **インベントリー** の中にある `Workshop Inventory` をクリックしてください。
 
-3. `Demo Inventory` の下にある 上部の **ホスト** ボタンをクリックします。ここには構成されたホストが表示されます。ホストの1つをクリックします。
+3. `Workshop Inventory` の枠の中にある 上部の **ホスト** ボタンをクリックします。ここには構成されたホストが表示されます。ホストの1つをクリックします。
 
-4. ページ上部にある `Demo Inventory` をクリックし、トップレベルのメニューに戻ります。
+4. ページ上部にある `Workshop Inventory` をクリックし、トップレベルのメニューに戻ります。
 
 5. **グループ** をクリックします。ここではホストのグループを設定できます。
     ![Inventory](images/inventory.ja.png)
@@ -92,7 +92,7 @@ Red Hat Ansible Tower がジョブを実行できるようにするには、イ�
 
 ## Step 4: 認証情報の確認
 
-認証情報は、Red Hat Ansible Automation Platform によって、マシンに対して **ジョブ** を起動するときの認証、インベントリソースとの同期、およびバージョン管理システムからのプロジェクトコンテンツのインポートに使用されます。ワークショップでは、ネットワークデバイスを認証するための資格情報が必要です。
+認証情報は Red Hat Ansible Automation Platform によって、マシンに対して **ジョブ** を起動するときの認証、インベントリソースとの同期、およびバージョン管理システムからのプロジェクトコンテンツのインポートに使用されます。ワークショップでは、ネットワークデバイスを認証するための資格情報が必要です。
 
 > Tower に関する認証情報の詳細については、 [こちらのドキュメントをご覧ください](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html).
 
@@ -102,11 +102,11 @@ Red Hat Ansible Tower がジョブを実行できるようにするには、イ�
 
 2. **認証情報** の下には、事前に構成された認証情報の `Workshop Credential` と `Tower Credential` があります。`Workshop Credential` をクリックします。
 
-3. `Workshop Credential` の下で次のことを確認します。
+3. `Workshop Credential` の中で次のことを確認します。
     - **認証情報タイプ**: マシン
-    - **ユーザー名**: `admin`
-    - **パスワード**: 既に設定されており、**暗号化** されています
-    - **SSH 秘密鍵**: 空白
+    - **ユーザー名**: `ec2-user`
+    - **パスワード**: `blank` です。この資格情報は、パスワードの代わりにキーを使用しています。
+    - **SSH 秘密鍵**: 既に `暗号化` され設定されています。
 
 ![credential](images/credential.ja.png)
 
@@ -118,7 +118,7 @@ Red Hat Ansible Tower がジョブを実行できるようにするには、イ�
 
     ![templates link](images/templates.ja.png)
 
-2. **テンプレート** の下には、事前に構成された`INFRASTRUCTURE/Turn off IBM Community Grid` があります。オブジェクトをクリックします。
+2. **テンプレート** の下には、事前に構成された`INFRASTRUCTURE / Turn off IBM Community Grid` があります。オブジェクトをクリックします。
 
 
 ![template link](images/template.ja.png)
@@ -138,4 +138,4 @@ Red Hat Ansible Tower がジョブを実行できるようにするには、イ�
 
 これで、Ansible AutomationPlatform の使用を開始するために必要な3つのコンポーネントすべてを確認しました。インベントリー、プロジェクトおよび認証情報です。次の演習では、ジョブテンプレートを作成します。
 
-[Ansible F5 Network Automation Workshopに戻るには、ここをクリックしてください](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

@@ -24,7 +24,7 @@
 [student1@ansible ~]$ nano bigip-pool.yml
 ```
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+>`vim` と `nano` はコントロールノード上で利用可能です。RDP経由でのVisual Studio と Atom も同様です。
 
 ## Step 2:
 
@@ -82,6 +82,8 @@
 - `monitors: "/Common/http"` ： http_poolというプールはHTTPトラフィックだけを扱うことを指定します。
 - `monitor_type: "and_list"` ： 全てのモニターがチェックされるように指定します。
 
+ファイルを保存して、エディタを終了してください。
+
 ## Step 4
 
 プレイブックの実行 - コントロールホストのコマンドラインで以下を実行します。
@@ -116,9 +118,9 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
-画面左のメニューからプールが確認できます。Local Traffic-> Pools とクリックします。
+画面左のメニューからプールが確認できます。**Local Traffic** -> **Pools** とクリックします。
 ![f5pool](pool.png)
 
 これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

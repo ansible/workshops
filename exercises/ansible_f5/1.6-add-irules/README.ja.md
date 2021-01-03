@@ -137,7 +137,7 @@ when HTTP_REQUEST {
 - `irules: "{{irules}}` ： Virtual ServerにアタッチするiRulesのリストです。 'irule1'と'irule2' となります。
 
 参考：[BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html)
-or [演習 1.5](./1.5-add-virtual-server/bigip-virtual-server.yml)
+or [演習 1.5](../1.5-add-virtual-server/bigip-virtual-server.yml)
 
 ファイルを保存して、エディタを終了してください。
 
@@ -180,11 +180,11 @@ lab_inventory/hosts ファイルからBIG-IPのIPアドレスを確認して、h
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
-登録されたiRulesの一覧は、画面左のメニューから辿ることで確認できます。Local Traffic -> iRules -> iRules List とクリックします。
+登録されたiRulesの一覧は、画面左のメニューから辿ることで確認できます。**Local Traffic** -> **iRules** -> **iRules List** とクリックします。
 
-Virtual Server の詳細の確認は、Local Traffic-> Virtual Servers とクリックし 'resoruces' タブを参照することで、iRulesがVirtual Serverにアタッチされていることが確認できます。
+Virtual Server の詳細の確認は、**Local Traffic** -> **Virtual Servers** とクリックし 'resoruces' タブを参照することで、iRulesがVirtual Serverにアタッチされていることが確認できます。
 ![irules](bigip-irule.png)
 
 これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

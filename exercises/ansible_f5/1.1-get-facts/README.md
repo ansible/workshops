@@ -84,6 +84,7 @@ Next, add the first `task`. This task will use the `bigip_device_info` module to
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
 - The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with. 8443 is what's being used in this lab, but could be different depending on the deployment.
+- The `validate_certs: false` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 - `register: device_facts` tells the task to save the output to a variable bigip_device_info
 
 ## Step 4
@@ -281,10 +282,10 @@ The finished Ansible Playbook is provided here for an Answer key.  Click here fo
 For this bonus exercise add the `tags: debug` paramteter (at the task level) to the existing debug task.
 
 ```yaml
-- name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
-  debug:
-    var: device_facts
-  tags: debug
+    - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
+      debug:
+        var: device_facts
+      tags: debug
 ```
 
 Now re-run the playbook with the `--skip-tags-debug` command line option.

@@ -158,4 +158,4 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 演習 4.3 を完了しました。
 
-[Ansible F5 Network Automation Workshopに戻るには、ここをクリックしてください](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

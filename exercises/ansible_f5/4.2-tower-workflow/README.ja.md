@@ -29,7 +29,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 | Rollback pool deploy           | rollback_pool_deploy.yml |
 | Rollback virtual server deploy | rollback_vs_deploy.yml   |
 
-上記とは別に、上記のテンプレートそれぞれについて、`演習 4.1`と同じテンプレートパラメータを使用します。
+上記のジョブテンプレートそれぞれについて、`演習 4.1` と同じテンプレートパラメータを使用します。
 
 | パラメータ     | 値                 |
 |----------------|--------------------|
@@ -191,4 +191,4 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 演習 4.2 を完了しました。
 
-[Ansible F5 Network Automation Workshopに戻るには、ここをクリックしてください](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

@@ -43,7 +43,7 @@ Enter the following play definition into `bigip-error-handling.yml`:
 {% endraw %}
 
 - The `---` at the top of the file indicates that this is a YAML file.
-- The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
+- The `hosts: lb`,  indicates the play is run only on the F5 BIG-IP device
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: false` disables facts gathering.  We are not using any fact variables for this playbook.
 

@@ -32,7 +32,7 @@ Ansible Tower で Ansible Playbook を実行するには、**ジョブテンプ�
     | 組織                   | Default                                                             |
     | SCM タイプ             | Git                                                                 |
     | SCMURL                 | https://github.com/f5devcentral/ansible-tower-workshop-examples.git |
-    | 起動時のリビジョン更新 | ?                                                                   |
+    | 起動時のリビジョン更新 | ✓                                                                   |
 
 > Note: ご使用の環境には、追加のプロジェクトがセットアップされている場合があります。各プロジェクトは、Ansible Playbook のリポジトリを表します。複数のプロジェクトがあるのは正常です。
 

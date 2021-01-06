@@ -36,7 +36,6 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
    |  SCM TYPE |  Git |
    |  SCM URL |  https://github.com/f5devcentral/ansible-tower-workshop-examples.git |
    |  Update Revision on Launch |  ✓ |
-   |
 
 **NOTE**: There may be additional projects setup in your environment. Each project represents a repository of Ansible Playbooks. It is completly normal to have multiple projects.
 

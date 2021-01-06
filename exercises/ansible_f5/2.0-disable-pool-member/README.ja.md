@@ -41,7 +41,7 @@
 {% raw %}
 ``` yaml
 ---
-- name:  Disabling a pool member
+- name: Disabling a pool member
   hosts: lb
   connection: local
   gather_facts: false
@@ -72,10 +72,10 @@
 
 {% raw %}
 ```yaml
-bigip_device_info:
-  provider: "{{provider}}"
-  gather_subset:
-  - ltm-pools
+      bigip_device_info:
+        provider: "{{provider}}"
+        gather_subset:
+        - ltm-pools
 ```
 {% endraw %}
 
@@ -88,7 +88,7 @@ bigip_device_info:
   - LTM Poolのサブセット情報をBIG-IPからファクト情報として取得する
 
 ヒント:
-<a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1</a>で実施したbigip_device_factsモジュールの利用。
+<a href="../1.1-get-facts/README.ja.md" style="color: #000000">演習 1.1</a>で実施したbigip_device_infoモジュールの利用。
 
 ## Step 5
 
@@ -97,7 +97,7 @@ bigip_device_info:
   - 端末ウィンドウにプール情報を表示
 
 ヒント:
-上記 Step 出力内容の Loop 検索、または<a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000"> debug moduleの利用となります</a>
+上記 Step 出力内容の `loop` 検索、または<a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: #000000"> debug moduleの利用となります</a>
 
 ## Step 6
 
@@ -197,5 +197,5 @@ f5                         : ok=7    changed=2    unreachable=0    failed=0
 
 ![f5bigip-gui](f5bigip-gui.png)
 
---
+---
 これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

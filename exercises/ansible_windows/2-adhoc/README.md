@@ -145,7 +145,7 @@ Step 5:
 -------
 
 OK, IIS is installed now so let’s be certain it is started using the
-`service` module.
+`win_service` module.
 
 | Key                | Value                      | Note |
 |--------------------|----------------------------|------|

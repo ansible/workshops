@@ -84,6 +84,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
 - `password: "{{ansible_ssh_pass}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
 - `server_port: 8443` モジュールのパラメーターです。BIP-IPに接続する際のポート番号を指定します。
+- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `register: device_facts` このタスクで取得された情報を変数 `device_facts` へ格納するように指示しています。
 
 ## Step 4
@@ -283,10 +284,10 @@ f5                         : ok=4    changed=0    unreachable=0    failed=0
 オプション演習で `tags: debug` パラメーターを１つの debug タスクに追加してみましょう。
 
 ```yaml
-- name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
-  debug:
-    var: device_facts
-  tags: debug
+    - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
+      debug:
+        var: device_facts
+      tags: debug
 ```
 
 `--skip-tags=debug` オプションをつけてコマンドを実行します。

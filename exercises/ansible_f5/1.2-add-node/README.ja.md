@@ -119,9 +119,9 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
-画面左のメニューからノード一覧が確認できます。Local Traffic -> Nodes とクリックします。
+画面左のメニューからノード一覧が確認できます。**Local Traffic** -> **Nodes** とクリックします。
 ![f5web](nodes.png)
 
 これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

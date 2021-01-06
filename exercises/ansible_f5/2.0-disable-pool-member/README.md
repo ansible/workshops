@@ -42,7 +42,7 @@ Enter the following play definition into `disable-pool-member.yml`:
 <!-- {% raw %} -->
 ``` yaml
 ---
-- name:  Disabling a pool member
+- name: Disabling a pool member
   hosts: lb
   connection: local
   gather_facts: false
@@ -72,10 +72,10 @@ Now in the next task you can use provider as follows:
 
 <!-- {% raw %} -->
 ``` yaml
-bigip_device_info:
-  provider: "{{provider}}"
-  gather_subset:
-  - ltm-pools
+      bigip_device_info:
+        provider: "{{provider}}"
+        gather_subset:
+        - ltm-pools
 ```
 <!-- {% endraw %} -->
 

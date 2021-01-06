@@ -60,7 +60,7 @@
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
-          validate_certs: "alse
+          validate_certs: false
 ```
 {% endraw %}
 
@@ -156,7 +156,7 @@ Webブラウザを使用してF5にログインし、設定内容を確認しま
 
 BIG-IPのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
 左側のメニューに移動し、構成が削除されたことを確認します。
 * Local Traffic Manager -> Virtual Server

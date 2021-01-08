@@ -119,7 +119,7 @@ ec2_info:
     filter: 'OnCommand_Cloud_Manager_3.7.0_Marketplace*'
     username: ec2-user
   qradar:
-    owners: 324218975267
+    owners: 721066863947
     size: t2.2xlarge
     os_type: linux
     disk_space: 300

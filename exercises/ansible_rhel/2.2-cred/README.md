@@ -12,21 +12,24 @@
 * [Run Ad Hoc Commands](#run-ad-hoc-commands)
 * [Challenge Lab: Ad Hoc Commands](#challenge-lab-ad-hoc-commands)
 
-# Objective
+## Objective
 
 Explore and understand the lab environment.  This exercise will cover
-- Locating and understanding:
-  - Ansible Tower [**Inventory**](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
-  - Ansible Tower [**Credentials**](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html)
-- Running ad hoc commands via the Ansible Tower web UI
 
-# Guide
+* Locating and understanding:
 
-## Examine an Inventory
+  * Ansible Tower [**Inventory**](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+  * Ansible Tower [**Credentials**](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html)
+
+* Running ad hoc commands via the Ansible Tower web UI
+
+## Guide
+
+### Examine an Inventory
 
 The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.
 
-  - You should already have the web UI open, if not: Point your browser to the URL you were given, similar to **https://student\<X\>.workshopname.rhdemo.io** (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+* You should already have the web UI open, if not: Point your browser to the URL you were given, similar to **https://student\<X\>.workshopname.rhdemo.io** (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
 
 There will be one inventory, the **Workshop Inventory**. Click the **Workshop Inventory** then click the **Hosts** button
 
@@ -47,11 +50,12 @@ node3 ansible_host=44.55.66.77
 [control]
 ansible ansible_host=11.22.33.44
 ```
+
 > **Warning**
 >
 > In your inventory the IP addresses will be different.
 
-## Examine Machine Credentials
+### Examine Machine Credentials
 
 Now we will examine the credentials to access our managed hosts from Tower.  As part of the provisioning process for this Ansible Workshop the **Workshop Credential** has already been setup.
 
@@ -78,15 +82,15 @@ Note the following information:
   </tr>
 </table>
 
-## Run Ad Hoc commands
+### Run Ad Hoc commands
 
 It is possible to run run ad hoc commands from Ansible Tower as well.
 
-  - In the web UI go to **RESOURCES → Inventories → Workshop Inventory**
+* In the web UI go to **RESOURCES → Inventories → Workshop Inventory**
 
-  - Click the **HOSTS** button to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
+* Click the **HOSTS** button to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
 
-  - Click **RUN COMMANDS**. In the next screen you have to specify the ad hoc command:
+* Click **RUN COMMANDS**. In the next screen you have to specify the ad hoc command:
 
   <table>
     <tr>
@@ -103,7 +107,7 @@ It is possible to run run ad hoc commands from Ansible Tower as well.
     </tr>
   </table>
 
-  - Click **LAUNCH**, and watch the output.
+  * Click **LAUNCH**, and watch the output.
 
 <hr>
 
@@ -147,7 +151,6 @@ How about trying to get some secret information from the system? Try to print ou
   </tr>
 </table>
 
-
 > **Warning**
 >
 > **Expect an error\!**
@@ -158,7 +161,7 @@ Re-run the last ad hoc command but this time tick the **ENABLE PRIVILEGE ESCALAT
 
 As you see, this time it worked. For tasks that have to run as root you need to escalate the privileges. This is the same as the **become: yes** used in your Ansible Playbooks.
 
-## Challenge Lab: Ad Hoc Commands
+### Challenge Lab: Ad Hoc Commands
 
 Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `[ansible@tower ~]$ ansible-doc yum` on your Tower control host.
 
@@ -189,7 +192,7 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 >
 > The yellow output of the command indicates Ansible has actually done something (here it needed to install the package). If you run the ad hoc command a second time, the output will be green and inform you that the package was already installed. So yellow in Ansible doesn’t mean "be careful"…​ ;-).
 
-----
+---
 **Navigation**
 <br>
 [Previous Exercise](../2.1-intro) - [Next Exercise](../2.3-projects)

@@ -13,23 +13,23 @@
 * [Challenge Lab: Check the Result](#challenge-lab-check-the-result)
 * [What About Some Practice?](#what-about-some-practice)
 
-# Objective
+## Objective
 
 An Ansible Tower **Project** is a logical collection of Ansible Playbooks. You can manage your playbooks by placing them into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
 
 This exercise covers
-- Understanding and using an Ansible Tower Project
-- Using Ansible Playbooks kept in a Git repository.
-- Creating and using an Ansible Job Template
 
-# Guide
+* Understanding and using an Ansible Tower Project
+* Using Ansible Playbooks kept in a Git repository.
+* Creating and using an Ansible Job Template
 
-## Setup Git Repository
+## Guide
+
+### Setup Git Repository
 
 For this demonstration we will use playbooks stored in a Git repository:
 
-**https://github.com/ansible/workshop-examples**
-
+[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
 
 A Playbook to install the Apache web server has already been committed to the directory **rhel/apache**, `apache_install.yml`:
 
@@ -75,9 +75,9 @@ A Playbook to install the Apache web server has already been committed to the di
 
 To configure and use this repository as a **Source Control Management (SCM)** system in Tower you have to create a **Project** that uses the repository
 
-## Create the Project
+### Create the Project
 
-  - Go to **RESOURCES → Projects** in the side menu view click the green **+**  button. Fill in the form:
+* Go to **RESOURCES → Projects** in the side menu view click the green **+**  button. Fill in the form:
 
   <table>
     <tr>
@@ -121,24 +121,23 @@ Now you need the URL to access the repo. Go to the Github repository mentioned a
    </tr>
  </table>
 
-
-- Click **SAVE**
+* Click **SAVE**
 
 The new Project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Get latest SCM revision** icon to the right of the Project.
 
 After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
 
-## Create a Job Template and Run a Job
+### Create a Job Template and Run a Job
 
 A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. So before running an Ansible **Job** from Tower you must create a **Job Template** that pulls together:
 
-- **Inventory**: On what hosts should the job run?
+* **Inventory**: On what hosts should the job run?
 
-- **Credentials** What credentials are needed to log into the hosts?
+* **Credentials** What credentials are needed to log into the hosts?
 
-- **Project**: Where is the Playbook?
+* **Project**: Where is the Playbook?
 
-- **What** Playbook to use?
+* **What** Playbook to use?
 
 Okay, let’s just do that: Go to the **Templates** view, click the ![plus](images/green_plus.png) button and choose **Job Template**.
 
@@ -170,7 +169,7 @@ Okay, let’s just do that: Go to the **Templates** view, click the ![plus](imag
   <tr>
     <td>PLAYBOOK</td>
     <td><code>rhel/apache/apache_install.yml</code></td>
-  </tr>    
+  </tr>
   <tr>
     <td>CREDENTIAL</td>
     <td>Workshop Credentials</td>
@@ -178,14 +177,14 @@ Okay, let’s just do that: Go to the **Templates** view, click the ![plus](imag
   <tr>
     <td>LIMIT</td>
     <td>web</td>
-  </tr>    
+  </tr>
   <tr>
     <td>OPTIONS</td>
     <td>tasks need to run as root so check **Enable privilege escalation**</td>
-  </tr>           
+  </tr>
 </table>
 
-- Click **SAVE**
+* Click **SAVE**
 
 You can start the job by directly clicking the blue **LAUNCH** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
 
@@ -193,21 +192,21 @@ You can start the job by directly clicking the blue **LAUNCH** button, or by cli
 
 Since this might take some time, have a closer look at all the details provided:
 
-- All details of the job template like inventory, project, credentials and playbook are shown.
+* All details of the job template like inventory, project, credentials and playbook are shown.
 
-- Additionally, the actual revision of the playbook is recorded here - this makes it easier to analyse job runs later on.
+* Additionally, the actual revision of the playbook is recorded here - this makes it easier to analyse job runs later on.
 
-- Also the time of execution with start and end time is recorded, giving you an idea of how long a job execution actually was.
+* Also the time of execution with start and end time is recorded, giving you an idea of how long a job execution actually was.
 
-- On the right side, the output of the playbook run is shown. Click on a node underneath a task and see that detailed information are provided for each task of each node.
+* On the right side, the output of the playbook run is shown. Click on a node underneath a task and see that detailed information are provided for each task of each node.
 
 After the Job has finished go to the main **Jobs** view: All jobs are listed here, you should see directly before the Playbook run an SCM update was started. This is the Git update we configured for the **Project** on launch\!
 
-## Challenge Lab: Check the Result
+### Challenge Lab: Check the Result
 
 Time for a little challenge:
 
-  - Use an ad hoc command on both hosts to make sure Apache has been installed and is running.
+* Use an ad hoc command on both hosts to make sure Apache has been installed and is running.
 
 You have already been through all the steps needed, so try this for yourself.
 
@@ -219,11 +218,11 @@ You have already been through all the steps needed, so try this for yourself.
 >
 > **Solution Below**
 
-- Go to **Inventories** → **Workshop Inventory**
+* Go to **Inventories** → **Workshop Inventory**
 
-- In the **HOSTS** view select all hosts and click **RUN COMMANDS**
+* In the **HOSTS** view select all hosts and click **RUN COMMANDS**
 
-- Fill out the following:
+* Fill out the following:
 
 <table>
   <tr>
@@ -241,12 +240,12 @@ You have already been through all the steps needed, so try this for yourself.
   <tr>
     <td>MACHINE CREDENTIALS</td>
     <td>Workshop Credentials</td>
-  </tr>   
+  </tr>
 </table>
 
-- Click **LAUNCH**
+* Click **LAUNCH**
 
-----
+---
 **Navigation**
 <br>
 [Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)

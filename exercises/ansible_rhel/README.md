@@ -39,29 +39,29 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
 
 ## Section 1 - Command-line Ansible Exercises
 
- - [Exercise 1.1 - Check the Prerequisites](1.1-setup)
- - [Exercise 1.2 - Running Ad-hoc Commands](1.2-adhoc)
- - [Exercise 1.3 - Writing Your First Playbook](1.3-playbook)
- - [Exercise 1.4 - Using Variables](1.4-variables)
- - [Exercise 1.5 - Conditionals, Handlers and Loops](1.5-handlers)
- - [Exercise 1.6 - Templates](1.6-templates)
- - [Exercise 1.7 - Roles](1.7-role)
+* [Exercise 1.1 - Check the Prerequisites](1.1-setup)
+* [Exercise 1.2 - Running Ad-hoc Commands](1.2-adhoc)
+* [Exercise 1.3 - Writing Your First Playbook](1.3-playbook)
+* [Exercise 1.4 - Using Variables](1.4-variables)
+* [Exercise 1.5 - Conditionals, Handlers and Loops](1.5-handlers)
+* [Exercise 1.6 - Templates](1.6-templates)
+* [Exercise 1.7 - Roles](1.7-role)
 
 ## Section 2 - Ansible Automation Platform Exercises
 
- - [Exercise 2.1 - Introduction to Tower](2.1-intro)
- - [Exercise 2.2 - Inventories, credentials and ad hoc commands](2.2-cred)
- - [Exercise 2.3 - Projects & job templates](2.3-projects)
- - [Exercise 2.4 - Surveys](2.4-surveys)
- - [Exercise 2.5 - Role based access control](2.5-rbac)
- - [Exercise 2.6 - Workflows](2.6-workflows)
- - [Exercise 2.7 - Wrap up](2.7-wrap)
+* [Exercise 2.1 - Introduction to Tower](2.1-intro)
+* [Exercise 2.2 - Inventories, credentials and ad hoc commands](2.2-cred)
+* [Exercise 2.3 - Projects & job templates](2.3-projects)
+* [Exercise 2.4 - Surveys](2.4-surveys)
+* [Exercise 2.5 - Role based access control](2.5-rbac)
+* [Exercise 2.6 - Workflows](2.6-workflows)
+* [Exercise 2.7 - Wrap up](2.7-wrap)
 
 ## Supplemental Exercises
 
-There is also a series of exercises that go above and beyond our normal workshop content.  Please check out our supplemental exercises if you want more content to learn from.  
+There is also a series of exercises that go above and beyond our normal workshop content.  Please check out our supplemental exercises if you want more content to learn from.
 
- - [Supplemental Exercises](supplemental)
+* [Supplemental Exercises](supplemental)
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

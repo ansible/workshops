@@ -1,7 +1,7 @@
 # Ansible Workshop - Ansible for Windows Automation
 
 **Read this in other languages**:
-<br>![uk](../../images/uk.png) [English](readme.md),  ![japan](../../images/japan.png)[日本語](readme.ja.md), ![france](../../images/fr.png) [Français](readme.fr.md).
+<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md).
 <br>
 
 Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.

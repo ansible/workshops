@@ -1,6 +1,6 @@
 # Ansible ワークショップ - Windows の自動化
 
-**別の言語で読む**:![uk](../../images/uk.png) [English](readme.md),  ![japan](../../images/japan.png)[日本語](readme.ja.md), ![france](../../images/fr.png) [Français](readme.fr.md).
+**別の言語で読む**:![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md).
 <br>
 
 Ansibleは構成管理、アプリケーションの展開、オーケストレーションなど、非常に幅広く利用可能なシンプルで強力な IT 自動化のツールです。yaml というわかりやすい言語を利用していますので、学習も容易です。  

@@ -7,19 +7,18 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-   * [Lab Scenario](#lab-scenario)
-   * [Set up Projects](#set-up-projects)
-   * [Set up Job Templates](#set-up-job-templates)
-   * [Set up the Workflow](#set-up-the-workflow)
-   * [Launch Workflow](#launch-workflow)
+  * [Lab Scenario](#lab-scenario)
+  * [Set up Projects](#set-up-projects)
+  * [Set up Job Templates](#set-up-job-templates)
+  * [Set up the Workflow](#set-up-the-workflow)
+  * [Launch Workflow](#launch-workflow)
 
-# Objective
+## Objective
 
 The basic idea of a workflow is to link multiple Job Templates together. They may or may not share inventory, Playbooks or even permissions. The links can be conditional:
 
-  - if job template A succeeds, job template B is automatically executed afterwards
-
-  - but in case of failure, job template C will be run.
+* if job template A succeeds, job template B is automatically executed afterwards
+* but in case of failure, job template C will be run.
 
 And the workflows are not even limited to Job Templates, but can also include project or inventory updates.
 
@@ -27,23 +26,24 @@ This enables new applications for Ansible Tower: different Job Templates can bui
 
 In this lab you’ll learn how to setup a workflow.
 
-# Guide
+## Guide
 
-## Lab Scenario
+### Lab Scenario
 
 You have two departments in your organization:
 
-  - The web operations team that is developing playbooks in their own Git branch named `webops`
-
-  - The web developers team that is developing playbooks in their own Git branch named `webdev`.
+* The web operations team that is developing playbooks in their own Git branch named `webops`
+* The web developers team that is developing playbooks in their own Git branch named `webdev`.
 
 When there is a new Node.js server to deploy, two things need to happen:
 
-**Web Operations Team**:
-  - node.js needs to be installed, the firewall needs to be opened and node.js should get started.
+#### Web Operations Team
 
-**Web Developers Team**
-  - The most recent version of the web application needs to be deployed.
+* node.js needs to be installed, the firewall needs to be opened and node.js should get started.
+
+#### Web Developers Team
+
+* The most recent version of the web application needs to be deployed.
 
 ---
 
@@ -53,7 +53,7 @@ To make things somewhat easier for you, everything needed already exists in a Gi
 >
 > In this example we use two different branches of the same repository for the content of the separate teams. In reality the structure of your SCM repositories depends on a lot of factors and could be different.
 
-## Set up Projects
+### Set up Projects
 
 First you have to set up the Git repo as a Project like you normally would.
 
@@ -79,7 +79,7 @@ Create the project for the web operations team.  In the **Projects** view click 
   <tr>
     <td>SCM TYPE</td>
     <td>Git</td>
-  </tr>  
+  </tr>
   <tr>
     <td>SCM URL</td>
     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
@@ -91,10 +91,10 @@ Create the project for the web operations team.  In the **Projects** view click 
   <tr>
     <td>SCM UPDATE OPTIONS</td>
     <td><ul><li>✓ CLEAN</li><li>✓ DELETE ON UPDATE</li><li>✓ UPDATE REVISION ON LAUNCH</li></ul></td>
-  </tr>             
+  </tr>
 </table>
 
-- Click **SAVE**
+Click **SAVE**
 
 ---
 Create the project for the web developers team. In the **Projects** view click the green plus button and fill it in as follows:
@@ -115,7 +115,7 @@ Create the project for the web developers team. In the **Projects** view click t
   <tr>
     <td>SCM TYPE</td>
     <td>Git</td>
-  </tr>  
+  </tr>
   <tr>
     <td>SCM URL</td>
     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
@@ -127,15 +127,14 @@ Create the project for the web developers team. In the **Projects** view click t
   <tr>
     <td>SCM UPDATE OPTIONS</td>
     <td><ul><li>✓ CLEAN</li><li>✓ DELETE ON UPDATE</li><li>✓ UPDATE REVISION ON LAUNCH</li></ul></td>
-  </tr>             
+  </tr>
 </table>
 
-- Click **SAVE**
+Click **SAVE**
 
-## Set up Job Templates
+### Set up Job Templates
 
 Now you have to create two Job Templates like you would for "normal" Jobs.
-
 
 Go to the **Templates** view, click the green plus button and choose **Job Template**:
 
@@ -155,7 +154,7 @@ Go to the **Templates** view, click the green plus button and choose **Job Templ
     <tr>
       <td>INVENTORY</td>
       <td>Workshop Inventory</td>
-    </tr>  
+    </tr>
     <tr>
       <td>PROJECT</td>
       <td>Webops Git Repo</td>
@@ -171,19 +170,18 @@ Go to the **Templates** view, click the green plus button and choose **Job Templ
     <tr>
       <td>LIMIT</td>
       <td>web</td>
-    </tr>    
+    </tr>
     <tr>
       <td>OPTIONS</td>
       <td>✓ ENABLE PRIVILEGE ESCALATION</td>
-    </tr>                     
-  </table>  
+    </tr>
+  </table>
 
-  - Click **SAVE**
+Click **SAVE**
 
----  
+---
 
 Go to the **Templates** view, click the green plus button and choose **Job Template**:
-
 
   <table>
     <tr>
@@ -201,7 +199,7 @@ Go to the **Templates** view, click the green plus button and choose **Job Templ
     <tr>
       <td>INVENTORY</td>
       <td>Workshop Inventory</td>
-    </tr>  
+    </tr>
     <tr>
       <td>PROJECT</td>
       <td>Webdev Git Repo</td>
@@ -217,26 +215,26 @@ Go to the **Templates** view, click the green plus button and choose **Job Templ
     <tr>
       <td>LIMIT</td>
       <td>web</td>
-    </tr>        
+    </tr>
     <tr>
       <td>OPTIONS</td>
       <td>✓ ENABLE PRIVILEGE ESCALATION</td>
-    </tr>                     
-  </table>  
+    </tr>
+  </table>
 
-  - Click **SAVE**
+Click **SAVE**
 
 > **Tip**
 >
 > If you want to know what the Ansible Playbooks look like, check out the Github URL and switch to the appropriate branches.
 
-## Set up the Workflow
+### Set up the Workflow
 
 Set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Job Template** and **Workflow Template** when adding a template.
 
   ![workflow add](images/workflow_add.png)
 
-  - Go to the **Templates** view and click the green plus button. This time choose **Workflow Template**
+Go to the **Templates** view and click the green plus button. This time choose **Workflow Template**
 
   <table>
     <tr>
@@ -246,18 +244,18 @@ Set up the workflow. Workflows are configured in the **Templates** view, you mig
     <tr>
       <td><b>ORGANIZATION</b></td>
       <td>Default</td>
-    </tr>    
-</table>      
+    </tr>
+  </table>
 
-  - Click **SAVE**
+Click **SAVE**
 
 After saving the template the **Workflow Visualizer** opens to allow you to build a workflow. You can later open the **Workflow Visualizer** again by using the button on the template details page.
 
-  - Click on the **START** button, a new node opens. To the right you can assign an action to the node, you can choose between **JOBS**, **PROJECT SYNC**, **INVENTORY SYNC** and **APPROVAL**.
+* Click on the **START** button, a new node opens. To the right you can assign an action to the node, you can choose between **JOBS**, **PROJECT SYNC**, **INVENTORY SYNC** and **APPROVAL**.
 
-  - In this lab we’ll link our two jobs together, so select the **Web App Deploy** job and click **SELECT**.
+* In this lab we’ll link our two jobs together, so select the **Web App Deploy** job and click **SELECT**.
 
-  - The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x**, a green **+** and a blue **chain**-symbol appear.
+* The node gets annotated with the name of the job. Hover the mouse pointer over the node, you’ll see a red **x**, a green **+** and a blue **chain**-symbol appear.
 
   ![workflow node](images/workflow_node.png)
 
@@ -265,31 +263,27 @@ After saving the template the **Workflow Visualizer** opens to allow you to buil
 >
 > Using the red "x" allows you to remove the node, the green plus lets you add the next node and the chain-symbol links to another node.
 
-  - Click the green **+** sign
-
-  - Choose **Node.js Deploy** as the next Job (you might have to switch to the next page)
-
-  - Leave **Type** set to **On Success**
+* Click the green **+** sign
+* Choose **Node.js Deploy** as the next Job (you might have to switch to the next page)
+* Leave **Type** set to **On Success**
 
 > **Tip**
 >
 > The type allows for more complex workflows. You could lay out different execution paths for successful and for failed playbook runs.
 
-  - Click **SELECT**
-
-  - Click **SAVE** in the **WORKFLOW VISUALIZER** view
-
-  - Click **SAVE** in the **Workflow Template** view
+* Click **SELECT**
+* Click **SAVE** in the **WORKFLOW VISUALIZER** view
+* Click **SAVE** in the **Workflow Template** view
 
 > **Tip**
 >
 > The **Workflow Visualizer** has options for setting up more advanced workflows, please refer to the documentation.
 
-## Launch Workflow
+### Launch Workflow
 
 Your workflow is ready to go, launch it.
 
-  - Click the blue **LAUNCH** button directly or go to the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
+Click the blue **LAUNCH** button directly or go to the **Templates** view and launch the **Deploy Webapp Server** workflow by clicking the rocket icon.
 
   ![launch](images/launch.png)
 
@@ -297,16 +291,15 @@ Note how the workflow run is shown in the job view. In contrast to a normal job 
 
 ![jobs view of workflow](images/job_workflow.png)
 
-
 After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
 
 ```bash
-$ curl http://localhost/nodejs
+#> curl http://localhost/nodejs
 ```
 
 You can also execute curl on the control host, pointing it towards the nodes and query the `nodejs` path, it should also show the simple nodejs application.
 
-----
+---
 **Navigation**
 <br>
 [Previous Exercise](../2.5-rbac) - [Next Exercise](../2.7-wrap)

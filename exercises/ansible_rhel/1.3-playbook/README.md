@@ -5,27 +5,27 @@
 
 ## Table of Contents
 
-- [Objective](#objective)
-- [Guide](#guide)
-  - [Step 1 - Playbook Basics](#step-1---playbook-basics)
-  - [Step 2 - Creating a Directory Structure and File for your Playbook](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
-  - [Step 3 - Running the Playbook](#step-3---running-the-playbook)
-  - [Step 4 - Extend your Playbook: Start &amp; Enable Apache](#step-4---extend-your-playbook-start--enable-apache)
-  - [Step 5 - Extend your Playbook: Create an web.html](#step-5---extend-your-playbook-create-an-indexhtml)
-  - [Step 6 - Practice: Apply to Multiple Host](#step-6---practice-apply-to-multiple-host)
+* [Objective](#objective)
+* [Guide](#guide)
+  * [Step 1 - Playbook Basics](#step-1---playbook-basics)
+  * [Step 2 - Creating a Directory Structure and File for your Playbook](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
+  * [Step 3 - Running the Playbook](#step-3---running-the-playbook)
+  * [Step 4 - Extend your Playbook: Start &amp; Enable Apache](#step-4---extend-your-playbook-start--enable-apache)
+  * [Step 5 - Extend your Playbook: Create an web.html](#step-5---extend-your-playbook-create-an-indexhtml)
+  * [Step 6 - Practice: Apply to Multiple Host](#step-6---practice-apply-to-multiple-host)
 
-# Objective
+## Objective
 
 This exercise covers using Ansible to build two Apache web servers on Red Hat Enterprise Linux. This exercise covers the following Ansible fundamentals:
 
-- Understanding Ansible Module parameters
-- Understanding and using the following modules
-  - [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
-  - [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
-  - [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
-- Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible Modules can be idempotent  
+* Understanding Ansible Module parameters
+* Understanding and using the following modules
+  * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
+  * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+  * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
+* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible Modules can be idempotent
 
-# Guide
+## Guide
 
 While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
 
@@ -39,21 +39,21 @@ A playbook can have multiple plays and a play can have one or multiple tasks. In
 >
 > Here is a nice analogy: When Ansible modules are the tools in your workshop, the inventory is the materials and the Playbooks are the instructions.
 
-## Step 1 - Playbook Basics
+### Step 1 - Playbook Basics
 
 Playbooks are text files written in YAML format and therefore need:
 
-  - to start with three dashes (`---`)
+* to start with three dashes (`---`)
 
-  - proper indentation using spaces and **not** tabs\!
+* proper indentation using spaces and **not** tabs\!
 
 There are some important concepts:
 
-  - **hosts**: the managed hosts to perform the tasks on
+* **hosts**: the managed hosts to perform the tasks on
 
-  - **tasks**: the operations to be performed by invoking Ansible modules and passing them the necessary options.
+* **tasks**: the operations to be performed by invoking Ansible modules and passing them the necessary options.
 
-  - **become**: privilege escalation in Playbooks, same as using `-b` in the ad hoc command.
+* **become**: privilege escalation in Playbooks, same as using `-b` in the ad hoc command.
 
 > **Warning**
 >
@@ -65,16 +65,13 @@ A Playbook should be **idempotent**, so if a Playbook is run once to put the hos
 >
 > Most Ansible modules are idempotent, so it is relatively easy to ensure this is true.
 
-
-## Step 2 - Creating a Directory Structure and File for your Playbook
+### Step 2 - Creating a Directory Structure and File for your Playbook
 
 Enough theory, it’s time to create your first Ansible Playbook. In this lab you create a playbook to set up an Apache web server in three steps:
 
-  1. Install httpd package
-
-  2. Enable/start httpd service
-
-  3. Copy over an web.html file to each web host
+1. Install httpd package
+2. Enable/start httpd service
+3. Copy over an web.html file to each web host
 
 This Playbook makes sure the package containing the Apache web server is installed on `node1`.
 
@@ -100,11 +97,9 @@ Add a file called `apache.yml` with the following content. As discussed in the p
 
 This shows one of Ansible’s strengths: The Playbook syntax is easy to read and understand. In this Playbook:
 
-  - A name is given for the play via `name:`.
-
-  - The host to run the playbook against is defined via `hosts:`.
-
-  - We enable user privilege escalation with `become:`.
+* A name is given for the play via `name:`.
+* The host to run the playbook against is defined via `hosts:`.
+* We enable user privilege escalation with `become:`.
 
 > **Tip**
 >
@@ -123,20 +118,18 @@ Now that we've defined the play, let's add a task to get something done. We will
       name: httpd
       state: latest
 ```
+
 > **Tip**
 >
 > Since playbooks are written in YAML, alignment of the lines and keywords is crucial. Make sure to vertically align the *t* in `task` with the *b* in `become`. Once you are more familiar with Ansible, make sure to take some time and study a bit the [YAML Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html).
 
 In the added lines:
 
-  - We started the tasks part with the keyword `tasks:`.
-
-  - A task is named and the module for the task is referenced. Here it uses the `yum` module.
-
-  - Parameters for the module are added:
-
-    - `name:` to identify the package name
-    - `state:` to define the wanted state of the package
+* We started the tasks part with the keyword `tasks:`.
+* A task is named and the module for the task is referenced. Here it uses the `yum` module.
+* Parameters for the module are added:
+  * `name:` to identify the package name
+  * `state:` to define the wanted state of the package
 
 > **Tip**
 >
@@ -144,7 +137,7 @@ In the added lines:
 
 Save your playbook and exit your editor.
 
-## Step 3 - Running the Playbook
+### Step 3 - Running the Playbook
 
 Ansible Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new Playbook it’s a good idea to check for syntax errors:
 
@@ -154,7 +147,7 @@ Ansible Playbooks are executed using the `ansible-playbook` command on the contr
 
 Now you should be ready to run your playbook:
 
-```
+```bash
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
 
@@ -162,7 +155,7 @@ The output should not report any errors but provide an overview of the tasks exe
 
 Connect to `node1` via SSH to make sure Apache has been installed:
 
-```
+```bash
 [student<X>@ansible ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
@@ -170,7 +163,7 @@ Managed by Ansible
 
 Use the command `rpm -qi httpd` to verify httpd is installed:
 
-```
+```bash
 [student<X>@node1 ~]$ rpm -qi httpd
 Name        : httpd
 Version     : 2.4.6
@@ -185,7 +178,7 @@ Log out of `node1` with the command `exit` so that you are back on the control h
 
 Run the Playbook a second time, and compare the output: The output changed from "changed" to "ok", and the color changed from yellow to green. Also the "PLAY RECAP" is different now. This make it easy to spot what Ansible actually did.
 
-## Step 4 - Extend your Playbook: Start & Enable Apache
+### Step 4 - Extend your Playbook: Start & Enable Apache
 
 The next part of the Ansible Playbook makes sure the Apache application is enabled and started on `node1`.
 
@@ -210,11 +203,9 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
 
 Again: what these lines do is easy to understand:
 
-  - a second task is created and named
-
-  - a module is specified (`service`)
-
-  - parameters for the module are supplied
+* a second task is created and named
+* a module is specified (`service`)
+* parameters for the module are supplied
 
 Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
@@ -224,11 +215,11 @@ Thus with the second task we make sure the Apache server is indeed running on th
 
 Note the output now: Some tasks are shown as "ok" in green and one is shown as "changed" in yellow.
 
-  - Use an Ansible ad hoc command again to make sure Apache has been enabled and started, e.g. with: `systemctl status httpd`.
+* Use an Ansible ad hoc command again to make sure Apache has been enabled and started, e.g. with: `systemctl status httpd`.
 
-  - Run the Playbook a second time to get used to the change in the output.
+* Run the Playbook a second time to get used to the change in the output.
 
-## Step 5 - Extend your Playbook: Create an web.html
+### Step 5 - Extend your Playbook: Create an web.html
 
 Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the node from the inventory.
 
@@ -289,16 +280,15 @@ Run your extended Playbook:
 [student<X>@ansible ansible-files]$ ansible-playbook apache.yml
 ```
 
-  - Have a good look at the output
+* Have a good look at the output
 
-  - Run the ad hoc command  using the "uri" module from further above again to test Apache: The command should now return a friendly green "status: 200" line, amongst other information.
+* Run the ad hoc command  using the "uri" module from further above again to test Apache: The command should now return a friendly green "status: 200" line, amongst other information.
 
-## Step 6 - Practice: Apply to Multiple Host
+### Step 6 - Practice: Apply to Multiple Host
 
 This was nice but the real power of Ansible is to apply the same set of tasks reliably to many hosts.
 
-  - So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
-
+* So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
 
 As you might remember, the inventory lists all nodes as members of the group `web`:
 
@@ -348,8 +338,7 @@ Finally check if Apache is now running on both servers. Identify the IP addresse
 >
 > An alternative way to verify that Apache is running on both servers is to use the command `ansible node2,node3 -m uri -a "url=http://localhost/"`.
 
-
-----
+---
 **Navigation**
 <br>
 [Previous Exercise](../1.2-adhoc) - [Next Exercise](../1.4-variables)

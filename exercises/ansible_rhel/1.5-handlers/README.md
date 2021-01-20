@@ -7,21 +7,22 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-   * [Step 1 - Conditionals](#step-1---conditionals)
-   * [Step 2 - Handlers](#step-2---handlers)
-   * [Step 3 - Simple Loops](#step-3---simple-loops)
-   * [Step 4 - Loops over hashes](#step-4---loops-over-hashes)
+  * [Step 1 - Conditionals](#step-1---conditionals)
+  * [Step 2 - Handlers](#step-2---handlers)
+  * [Step 3 - Simple Loops](#step-3---simple-loops)
+  * [Step 4 - Loops over hashes](#step-4---loops-over-hashes)
 
-# Objective
+## Objective
 
-Three foundational Ansible features are:  
-- [Conditionals](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
-- [Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
-- [Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+Three foundational Ansible features are:
 
-# Guide
+* [Conditionals](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
+* [Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
+* [Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
 
-## Step 1 - Conditionals
+## Guide
+
+### Step 1 - Conditionals
 
 Ansible can use conditionals to execute tasks or plays when certain conditions are met.
 
@@ -89,7 +90,7 @@ skipping: [node3]
 changed: [node2]
 ```
 
-## Step 2 - Handlers
+### Step 2 - Handlers
 
 Sometimes when a task does make a change to the system, an additional task or tasks may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
 
@@ -97,16 +98,15 @@ Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks
 
 As a an example, let’s write a playbook that:
 
-  - manages Apache’s configuration file `/etc/httpd/conf/httpd.conf` on all hosts in the `web` group
-
-  - restarts Apache when the file has changed
+* manages Apache’s configuration file `/etc/httpd/conf/httpd.conf` on all hosts in the `web` group
+* restarts Apache when the file has changed
 
 First we need the file Ansible will deploy, let’s just take the one from node1. Remember to replace the IP address shown in the listing below with the IP address from your individual `node1`.
 
-```
+```bash
 [student<X>@ansible ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 student<X>@11.22.33.44's password:
-httpd.conf             
+httpd.conf
 ```
 
 Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the directory `~/ansible-files`.
@@ -132,24 +132,23 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
 
 So what’s new here?
 
-  - The "notify" section calls the handler only when the copy task actually changes the file. That way the service is only restarted if needed - and not each time the playbook is run.
+* The "notify" section calls the handler only when the copy task actually changes the file. That way the service is only restarted if needed - and not each time the playbook is run.
+* The "handlers" section defines a task that is only run on notification.
 
-  - The "handlers" section defines a task that is only run on notification.
 <hr>
 
 Run the playbook. We didn’t change anything in the file yet so there should not be any `changed` lines in the output and of course the handler shouldn’t have fired.
 
-  - Now change the `Listen 80` line in `~/ansible-files/files/httpd.conf` to:
+* Now change the `Listen 80` line in `~/ansible-files/files/httpd.conf` to:
 
 ```ini
 Listen 8080
 ```
 
-  - Run the playbook again. Now the Ansible’s output should be a lot more interesting:
+* Run the playbook again. Now the Ansible’s output should be a lot more interesting:
 
-      - httpd.conf should have been copied over
-
-      - The handler should have restarted Apache
+  * httpd.conf should have been copied over
+  * The handler should have restarted Apache
 
 Apache should now listen on port 8080. Easy enough to verify:
 
@@ -161,15 +160,17 @@ curl: (7) Failed to connect to node1 port 80: Connection refused
 <h1>This is a production webserver, take care!</h1>
 </body>
 ```
+
 Feel free to change the httpd.conf file again and run the playbook.
 
-## Step 3 - Simple Loops
+### Step 3 - Simple Loops
 
 Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just basic lists. For example, if you have a list of users with their coresponding group, loop can iterate over them as well. Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) documentation.
 
 To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible-files` on your control node as your student user. We will use the `user` module to generate the user accounts.
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
 - name: Ensure users
@@ -186,19 +187,20 @@ To show the loops feature we will generate three new users on `node1`. For that,
          - qa_user
          - prod_user
 ```
+
 <!-- {% endraw %} -->
 
 Understand the playbook and the output:
 
 <!-- {% raw %} -->
-  - The names are not provided to the user module directly. Instead, there is only a variable called `{{ item }}` for the parameter `name`.
 
-  - The `loop` keyword lists the actual user names. Those replace the `{{ item }}` during the actual execution of the playbook.
+* The names are not provided to the user module directly. Instead, there is only a variable called `{{ item }}` for the parameter `name`.
+* The `loop` keyword lists the actual user names. Those replace the `{{ item }}` during the actual execution of the playbook.
+* During execution the task is only listed once, but there are three changes listed underneath it.
 
-  - During execution the task is only listed once, but there are three changes listed underneath it.
 <!-- {% endraw %} -->
 
-## Step 4 - Loops over hashes
+### Step 4 - Loops over hashes
 
 As mentioned loops can also be over lists of hashes. Imagine that the users should be assigned to different additional groups:
 
@@ -216,6 +218,7 @@ The `user` module has the optional parameter `groups` to list additional users. 
 Let's rewrite the playbook to create the users with additional user rights:
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
 - name: Ensure users
@@ -234,11 +237,12 @@ Let's rewrite the playbook to create the users with additional user rights:
         - { username: 'prod_user', groups: 'apache' }
 
 ```
+
 <!-- {% endraw %} -->
 
 Check the output:
 
-  - Again the task is listed once, but three changes are listed. Each loop with its content is shown.
+* Again the task is listed once, but three changes are listed. Each loop with its content is shown.
 
 Verify that the user `dev_user` was indeed created on `node1`:
 
@@ -248,7 +252,7 @@ node1 | CHANGED | rc=0 >>
 uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```
 
-----
+---
 **Navigation**
 <br>
 [Previous Exercise](../1.4-variables) - [Next Exercise](../1.6-templates)

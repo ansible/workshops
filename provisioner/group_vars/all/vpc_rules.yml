@@ -177,6 +177,7 @@ workshops:
   windows:
   rhel:
   rhel_90:
+  smart_mgmt:
   network:
     ports:
       - proto: tcp

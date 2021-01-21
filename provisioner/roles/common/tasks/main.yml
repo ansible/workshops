@@ -14,8 +14,15 @@
     - sudo
     - common
 
+- name: setup /etc/hosts file per student
+  copy:
+    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+    dest: "/etc/hosts"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - hostname:
-    name: "{{short_name}}"
+    name: "{{short_name}}.example.com"
 
 - meta: flush_handlers
   tags:

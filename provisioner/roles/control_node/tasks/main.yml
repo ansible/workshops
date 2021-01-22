@@ -1,7 +1,4 @@
 ---
-#- hostname:
-#    name: "{{short_name}}.example.com"
-
 - name: Install packages
   include_tasks: package_dependencies.yml
 

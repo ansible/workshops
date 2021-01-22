@@ -206,7 +206,7 @@
   register: wait_for_ec2_instance_creation
   when: "'ansible_job_id' in item"
   until: wait_for_ec2_instance_creation.finished
-  retries: "{{ [async_wait_for_retries, 60] | max }}"
+  retries: "{{ [async_wait_for_retries | int, 60] | max }}"
   loop:
     - "{{siem_async}}"
     - "{{snort_async}}"

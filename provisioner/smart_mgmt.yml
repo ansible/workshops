@@ -7,3 +7,11 @@
     - name: configure RHEL webservers
       include_role:
         name: webservers
+
+- name: configure satellite
+  hosts: satellite
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure satellite admin password
+      command: "foreman-rake permissions:reset password={{ admin_password }}"

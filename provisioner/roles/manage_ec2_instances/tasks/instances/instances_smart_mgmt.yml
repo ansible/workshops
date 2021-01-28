@@ -4,8 +4,8 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: r5a.xlarge #"{{ ec2_info[rhel].size }}"
-    image: ami-0eae09c58cb57a919 #"{{ node_ami.image_id }}"
+    instance_type: "{{ ec2_info['satellite'].size }}"
+    image: "{{ sat_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:

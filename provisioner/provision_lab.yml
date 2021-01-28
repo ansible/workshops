@@ -60,8 +60,8 @@
     - user_accounts
     - common
 
-- name: Configure cluster nodes with /etc/hosts
-  hosts: '*ansible-2,*ansible-3,*ansible-4'
+- name: Configure /etc/hosts
+  hosts: 'managed_nodes:control_nodes'
   gather_facts: true
   become: true
   tasks:
@@ -71,7 +71,6 @@
         dest: "/etc/hosts"
         owner: "{{ username }}"
         group: "{{ username }}"
-      when: create_cluster|bool
 
 - name: configure ansible control node
   hosts: '*ansible-1'

@@ -75,7 +75,7 @@ Enough theory, it’s time to create your first Ansible Playbook. In this lab yo
 
 This Playbook makes sure the package containing the Apache web server is installed on `node1`.
 
-There is a [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills.  That said, our playbook today is very basic and creating a complex structure will just confuse things.
+There is a [best practice](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills.  That said, our playbook today is very basic and creating a complex structure will just confuse things.
 
 Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
 

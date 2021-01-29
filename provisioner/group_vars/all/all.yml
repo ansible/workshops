@@ -25,6 +25,7 @@ valid_workshop_types:
   - windows
   - rhel_90
   - demo
+  - smart_mgmt
 network_type: multivendor
 valid_network_types:
   - cisco

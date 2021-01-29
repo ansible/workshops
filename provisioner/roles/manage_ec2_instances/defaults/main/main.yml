@@ -151,4 +151,10 @@ ec2_info:
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
+  satellite:
+    owners: 551178754270
+    filter: Satellite*
+    username: ec2-user
+    os_type: linux
+    size: r5a.xlarge
 debug_teardown: false

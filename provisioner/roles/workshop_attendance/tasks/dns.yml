@@ -11,3 +11,6 @@
     wait: false
   delegate_to: localhost
   register: route53_status
+  when:
+    - dns_type is defined
+    - dns_type == "aws"

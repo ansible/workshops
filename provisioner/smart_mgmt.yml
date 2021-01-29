@@ -1,0 +1,31 @@
+---
+- name: configure rhel workshop for webservers
+  hosts: lab_hosts
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure RHEL webservers
+      include_role:
+        name: webservers
+
+- name: configure satellite
+  hosts: satellite
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure satellite admin password
+      command: "foreman-rake permissions:reset password={{ admin_password }}"
+    - name: configure satellite dns
+      become: false
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{workshop_dns_zone}}"
+        record: "{{username}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        type: A
+        overwrite: true
+        value: "{{ansible_host}}"
+        wait: true
+      delegate_to: localhost
+      when:
+        - dns_type is defined
+        - dns_type == 'aws'

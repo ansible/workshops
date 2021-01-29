@@ -7,10 +7,20 @@ ec2_name_prefix: TESTWORKSHOP
 student_total: 2
 # workshop is put into rhel mode
 workshop_type: smart_mgmt
-## Optional Variables
+# define DNS zone. AWS DNS required
+dns_type: aws
+workshop_dns_zone: rhdemo.io
 # password used for student account on control node
 admin_password: ansible
-# turn DNS on for control nodes, and set to type in valid_dns_type
-dns_type: aws
+# disable ibm community grid
+ibm_community_grid: false
+## Optional Variables
+# select rhel7 or rhel8 client nodes
+rhel: rhel7
 # this will install Ansible Tower on all control nodes
 towerinstall: true
+# this will install VS Code web on all control nodes
+code_server: true
+# this will change the location of lab guide
+# ansible_workshops_url: https://github.com/ansible/workshops
+# ansible_workshops_version: smart_mgmt

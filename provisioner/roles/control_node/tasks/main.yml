@@ -1,7 +1,4 @@
 ---
-- hostname:
-    name: "{{short_name}}"
-
 - name: Install packages
   include_tasks: package_dependencies.yml
 
@@ -16,13 +13,6 @@
   template:
     src: vimrc.j2
     dest: "/home/{{ username }}/.vimrc"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: setup /etc/hosts file per student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
-    dest: "/etc/hosts"
     owner: "{{ username }}"
     group: "{{ username }}"
 

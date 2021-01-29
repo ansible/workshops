@@ -3,26 +3,26 @@
 
 {% for vm in node1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.private_ip_address }} {{ vm.tags.short_name }}
+{{ vm.private_ip_address }} {{ vm.tags.short_name }}.example.com {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 
 {% for vm in node2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.private_ip_address }} {{vm.tags.short_name}}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 
 {% for vm in node3_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.private_ip_address }} {{vm.tags.short_name}}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 
 {% if create_cluster %}
 {% for vm in isonode_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.private_ip_address }} {{vm.tags.short_name}}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -30,13 +30,13 @@
 {% if create_cluster %}
 {% for vm in remotenode_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.private_ip_address }} {{vm.tags.short_name}}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
 {% endif %}
 
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.private_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
+{{ vm.private_ip_address }} {{ vm.tags.short_name }}.example.com {{ vm.tags.short_name }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}
 {% endif %}
 {% endfor %}

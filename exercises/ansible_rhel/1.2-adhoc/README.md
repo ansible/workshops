@@ -43,7 +43,7 @@ node2 ansible_host=<Y.Y.Y.Y>
 node3 ansible_host=<Z.Z.Z.Z>
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 Ansible is already configured to use the inventory specific to your environment. We will show you in the next step how that is done. For now, we will execute some simple commands to work with the inventory.
@@ -62,7 +62,7 @@ An inventory file can contain a lot more information, it can organize your hosts
 
 ```bash
 [student<X@>ansible ~]$ ansible web  --list-hosts
-[student<X@>ansible ~]$ ansible web,ansible --list-hosts
+[student<X@>ansible ~]$ ansible web,control --list-hosts
 [student<X@>ansible ~]$ ansible 'node*' --list-hosts
 [student<X@>ansible ~]$ ansible all --list-hosts
 ```
@@ -119,7 +119,7 @@ node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 > **Tip**

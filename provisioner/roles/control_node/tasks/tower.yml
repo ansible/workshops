@@ -90,6 +90,7 @@
         module: slurp
         src: "{{ playbook_dir }}/manifest.zip"
       register: manifest_file
+      become: false
 
     - name: Post manifest file
       uri:

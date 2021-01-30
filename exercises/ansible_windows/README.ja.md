@@ -23,6 +23,10 @@ Ansible Tower は、Red Hat Ansible Automation Platform を構成するコンポ
 ・座学：1時間
 ・演習：4～5時間
 
+## Lab ダイアグラム
+
+![ansible windows lab diagram](../../images/ansible_windows_diagram.png)
+
 ## 演習内容
 
 - [演習 1 - Ansible Towerの概要と構成](1-tower/README.ja.md)

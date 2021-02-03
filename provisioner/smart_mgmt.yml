@@ -34,9 +34,9 @@
   hosts: control_nodes
   become: true
   vars:
-    tower_venv_pylibs:
+    tower_venv_online_installs:
       - "apypie"
-      - "jinja2"
+      - "jinja2==2.11.3"
   roles:
     - redhat_cop.tower_utilities.tower_virtual_environments
 

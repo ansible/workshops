@@ -1,0 +1,25 @@
+---
+- name: Add tower user
+  awx.awx.tower_user:
+    auditor:             "{{ tower_user_accounts_item.is_auditor | default(tower_user_accounts_item.is_system_auditor | default('false')) }}"
+    username:            "{{ tower_user_accounts_item.user | default(tower_user_accounts_item.username) }}"
+    # the 'true' in the second default leads to no password being set if the default password is empty
+    password:            "{{ tower_user_accounts_item.password | default(tower_user_default_password | default(omit, true)) }}"
+    email:               "{{ tower_user_accounts_item.email | default(omit) }}"
+    first_name:          "{{ tower_user_accounts_item.firstname | default(tower_user_accounts_item.first_name | default(omit)) }}"
+    last_name:           "{{ tower_user_accounts_item.lastname | default(tower_user_accounts_item.last_name | default(omit)) }}"
+    is_superuser:        "{{ tower_user_accounts_item.is_superuser | default(tower_user_accounts_item.superuser | default(omit)) }}"
+    update_secrets:      "{{ tower_user_accounts_item.update_secrets | default(omit) }}"
+    state:               "{{ tower_user_accounts_item.state | default(tower_state | default(omit)) }}"
+    tower_host:          "{{ tower_hostname }}"
+    tower_username:      "{{ tower_username | default(omit) }}"
+    tower_password:      "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:    "{{ tower_oauthtoken | default(omit) }}"
+    tower_verify_ssl:    "{{ tower_verify_ssl | default(false) }}"
+    tower_config_file:   "{{ tower_config_file | default(omit) }}"
+  loop: "{{ tower_user_accounts }}"
+  loop_control:
+    loop_var: tower_user_accounts_item
+  no_log: "{{ tower_configuration_users_secure_logging }}"
+  tags:
+    - tower-user-create

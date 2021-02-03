@@ -1,0 +1,30 @@
+---
+
+- name: Add Tower Schedule
+  awx.awx.tower_schedule:
+    name:                           "{{ schedule_item.name }}"
+    new_name:                       "{{ schedule_item.new_name | default(omit) }}"
+    description:                    "{{ schedule_item.description | default('') }}"
+    rrule:                          "{{ schedule_item.rrule }}"
+    extra_data:                     "{{ schedule_item.extra_data | default(omit) }}"
+    inventory:                      "{{ schedule_item.inventory | default(omit) }}"
+    scm_branch:                     "{{ schedule_item.scm_branch | default(omit) }}"
+    job_type:                       "{{ schedule_item.job_type | default(omit) }}"
+    job_tags:                       "{{ schedule_item.job_tags | default(omit) }}"
+    skip_tags:                      "{{ schedule_item.skip_tags | default(omit) }}"
+    limit:                          "{{ schedule_item.limit | default(omit) }}"
+    diff_mode:                      "{{ schedule_item.diff_mode | default(omit) }}"
+    verbosity:                      "{{ schedule_item.verbosity | default(omit) }}"
+    unified_job_template:           "{{ schedule_item.unified_job_template | default(omit) }}"
+    enabled:                        "{{ schedule_item.enabled | default(omit) }}"
+    state:                          "{{ schedule_item.state | default(tower_state | default('present')) }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_schedules }}"
+  loop_control:
+    loop_var: "schedule_item"
+  no_log: "{{ tower_configuration_schedules_secure_logging }}"

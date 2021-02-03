@@ -1,0 +1,33 @@
+---
+
+- name: Create RBAC Entry
+  awx.awx.tower_role:
+    user:                           "{{ tower_rbac_item.user | default(omit) }}"
+    team:                           "{{ tower_rbac_item.team | default(omit) }}"
+    role:                           "{{ tower_rbac_item.role }}"
+    target_team:                    "{{ tower_rbac_item.target_team | default(omit) }}"
+    target_teams:                   "{{ tower_rbac_item.target_teams | default(omit) }}"
+    inventory:                      "{{ tower_rbac_item.inventory | default(omit) }}"
+    inventories:                    "{{ tower_rbac_item.inventories | default(omit) }}"
+    job_template:                   "{{ tower_rbac_item.job_template | default(omit) }}"
+    job_templates:                  "{{ tower_rbac_item.job_templates | default(omit) }}"
+    workflow:                       "{{ tower_rbac_item.workflow | default(omit) }}"
+    workflows:                      "{{ tower_rbac_item.workflows | default(omit) }}"
+    credential:                     "{{ tower_rbac_item.credential | default(omit) }}"
+    credentials:                    "{{ tower_rbac_item.credentials | default(omit) }}"
+    organization:                   "{{ tower_rbac_item.organization | default(omit) }}"
+    organizations:                  "{{ tower_rbac_item.organizations | default(omit) }}"
+    lookup_organization:            "{{ tower_rbac_item.lookup_organization | default(omit) }}"
+    project:                        "{{ tower_rbac_item.project | default(omit) }}"
+    projects:                       "{{ tower_rbac_item.projects | default(omit) }}"
+    state:                          "{{ tower_rbac_item.state | default(tower_state | default('present')) }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default(omit) }}"
+  loop: "{{ tower_rbac }}"
+  loop_control:
+    loop_var: tower_rbac_item
+  no_log: "{{ tower_configuration_rbac_secure_logging }}"

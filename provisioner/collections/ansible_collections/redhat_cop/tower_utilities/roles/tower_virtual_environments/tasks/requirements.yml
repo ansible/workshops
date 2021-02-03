@@ -1,0 +1,10 @@
+---
+
+- name: call setup if not yet done to get necessary facts
+  setup:
+  when: ansible_distribution is not defined
+
+- name: Required RPM packages For virtualenv and pip
+  yum:
+    name: "{{ tower_venv_rpms[ansible_distribution + ansible_distribution_major_version] }}"
+    state: installed

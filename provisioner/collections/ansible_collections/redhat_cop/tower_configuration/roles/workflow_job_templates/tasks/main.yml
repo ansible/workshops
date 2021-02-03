@@ -1,0 +1,45 @@
+---
+
+# Create Job Template
+- name: Create Workflow
+  awx.awx.tower_workflow_job_template:
+    name:                               "{{ workflow_loop_var.name }}"
+    new_name:                           "{{ workflow_loop_var.new_name | default(omit) }}"
+    description:                        "{{ workflow_loop_var.description | default(omit) }}"
+    extra_vars:                         "{{ workflow_loop_var.extra_vars | default(omit) }}"
+    allow_simultaneous:                 "{{ workflow_loop_var.allow_simultaneous | default('no') }}"
+    organization:                       "{{ workflow_loop_var.organization.name | default( workflow_loop_var.organization ) }}"
+    ask_variables_on_launch:            "{{ workflow_loop_var.ask_variables_on_launch | default(false) }}"  # only supported starting from Ansible 2.9
+    inventory:                          "{{ workflow_loop_var.inventory | default(omit) }}"
+    limit:                              "{{ workflow_loop_var.limit | default(omit) }}"
+    labels:                             "{{ workflow_loop_var.labels | default(workflow_loop_var.related.labels | default([]) | map(attribute='name') | list ) }}"
+    scm_branch:                         "{{ workflow_loop_var.scm_branch | default(omit) }}"
+    ask_inventory_on_launch:            "{{ workflow_loop_var.ask_inventory_on_launch | default(omit) }}"
+    ask_scm_branch_on_launch:           "{{ workflow_loop_var.ask_scm_branch_on_launch | default(omit) }}"
+    ask_limit_on_launch:                "{{ workflow_loop_var.ask_limit_on_launch | default(omit) }}"
+    webhook_service:                    "{{ workflow_loop_var.webhook_service | default(omit) }}"
+    webhook_credential:                 "{{ workflow_loop_var.webhook_credential.name | default(workflow_loop_var.webhook_credential | default(omit)) }}"
+    survey_enabled:                     "{{ workflow_loop_var.survey_enabled | default('false') }}"
+    survey:                             "{{ workflow_loop_var.related.survey_spec | default( workflow_loop_var.survey_spec | default( workflow_loop_var.survey | default(omit))) }}"
+    state:                              "{{ workflow_loop_var.state | default(tower_state | default('present')) }}"
+    notification_templates_started:     "{{ workflow_loop_var.notification_templates_started | default(workflow_loop_var.related.notification_templates_started | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_success:     "{{ workflow_loop_var.notification_templates_success | default(workflow_loop_var.related.notification_templates_success | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_error:       "{{ workflow_loop_var.notification_templates_error | default(workflow_loop_var.related.notification_templates_error | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_approvals:   "{{ workflow_loop_var.notification_templates_approvals | default(workflow_loop_var.related.notification_templates_approvals | default([]) | map(attribute='name') | list ) }}"
+    tower_username:                     "{{ tower_username | default(omit) }}"
+    tower_password:                     "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:                   "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                         "{{ tower_hostname }}"
+    tower_config_file:                  "{{ tower_config_file | default(omit) }}"
+    validate_certs:                     "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_workflows }}"
+  loop_control:
+    loop_var: workflow_loop_var
+  no_log: "{{ workflow_job_templates_secure_logging }}"
+
+# Create links between workflow node
+- name: loop over nodes in schema to add to workflow templates
+  include_tasks: "add_workflows_schema.yml"
+  loop: "{{ tower_workflows }}"
+  loop_control:
+    loop_var: workflow_loop_var

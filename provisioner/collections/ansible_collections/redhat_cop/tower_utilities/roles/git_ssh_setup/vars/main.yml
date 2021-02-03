@@ -1,0 +1,6 @@
+---
+# vars file for git_ssh_setup
+
+# list of software we need to setup our minimal Git server
+git_needed_software:
+- git

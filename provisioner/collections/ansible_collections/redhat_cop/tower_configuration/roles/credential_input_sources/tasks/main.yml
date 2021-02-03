@@ -1,0 +1,20 @@
+---
+
+- name: Add Tower Credential Input Sources
+  awx.awx.tower_credential_input_source:
+    target_credential:              "{{ cred_input_src_item.target_credential }}"
+    input_field_name:               "{{ cred_input_src_item.input_field_name }}"
+    source_credential:              "{{ cred_input_src_item.source_credential | default(omit) }}"
+    description:                    "{{ cred_input_src_item.description | default('') }}"
+    metadata:                       "{{ cred_input_src_item.metadata | default(omit) }}"
+    state:                          "{{ cred_input_src_item.state | default(tower_state | default('present')) }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_credential_input_sources }}"
+  loop_control:
+    loop_var: "cred_input_src_item"
+  no_log: "{{ tower_configuration_credential_input_sources_secure_logging }}"

@@ -1,0 +1,39 @@
+---
+
+# These are the default variables common to most tower_configuration and _utilities roles
+# You shouldn't need to define them again and again but they should be defined
+#tower_hostname: "{{ inventory_hostname }}"
+#tower_username: "admin"
+#tower_password: ""
+#tower_oauthtoken: ""
+#tower_config_file: ""
+#tower_validate_certs: false
+
+# These are the default variables specific to the license role
+# list of dict to describe Tower inventory sources
+tower_inventory_sources: []
+#- name: "inv_source_name"  # mandatory
+#  inventory: "inventory_name"  # mandatory, str or inventory dict with name field
+#  organization: "Default"  # optional, str or organization dict with name field
+#  new_name: "new_name"  # optional
+#  description: "some description"  # optional
+#  source: ""  # optional, choices: scm, ec2, gce, azure_rm, vmware, satellite6, openstack, rhv, tower, custom
+#  source_project: "project_name"  # optional, for scm str or project dict with name field
+#  source_path: "inventory/hosts"  # optional, for scm type relative path to inventory
+#  source_script: "some_custom_script"  # optional, for custom type name of custom inventory script (obsolete!)
+#  source_vars: {}  # optional, dict of (environment) variables to apply
+#  credential: "credential_name"  # optional
+#  overwrite: false  # optional, boolean
+#  overwrite_vars: false  # optional, boolean
+#  custom_virtualenv: "/var/lib/awx/myvirtualenv"  # optional, absolute path to virtualenv on Tower
+#  timeout: 0  # optional, in seconds
+#  verbosity: 0  # optional, choices: 0, 1, 2
+#  update_on_launch: false  # optional, boolean
+#  update_cache_timeout: 0  # optional, in seconds
+#  update_on_project_update: false  # optional, boolean
+#  notification_templates_started: []  # optional, list of notification templates
+#  notification_templates_success: []  # optional, list of notification templates
+#  notification_templates_error: []  # optional, list of notification templates
+#  state: present  # optional, choices: present, absent
+
+tower_configuration_inventory_sources_secure_logging: "{{tower_configuration_secure_logging | default(false)}}"

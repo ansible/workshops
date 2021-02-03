@@ -1,0 +1,35 @@
+{
+  "tower_templates": [
+      {
+          "name": "Survey Template with vars",
+          "job_type": "run",
+          "inventory": "Demo Inventory",
+          "survey_enabled": true,
+          "survey": "{{ lookup('template', 'template_surveys/basic_survey.json') | regex_replace('\\n', '') }}",
+          "project": "Tower Config",
+          "playbook": "helloworld.yml",
+          "credentials": [
+              "Demo Credential"
+            ],
+          "extra_vars": "{{ survey_extra_vars }}",
+          "notification_templates_error": [
+              "Slack_for_testing"
+            ]
+      },
+      {
+          "name": "No Survey Template no vars",
+          "job_type": "run",
+          "inventory": "Demo Inventory",
+          "project": "Tower Config",
+          "playbook": "helloworld.yml",
+          "credentials": [
+              "Demo Credential"
+            ],
+          "survey": {},
+          "extra_vars": "{{ empty_master_vars }}",
+          "notification_templates_error": [
+              "Slack_for_testing"
+            ]
+      }
+  ]
+}

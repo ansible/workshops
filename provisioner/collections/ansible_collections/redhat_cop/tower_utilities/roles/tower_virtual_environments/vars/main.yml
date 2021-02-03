@@ -1,0 +1,17 @@
+---
+tower_venv_base_deps:
+  - "python-memcached"
+  - "psutil"
+tower_venv_rpms:
+  RedHat7:
+  - gcc
+  - python-pip
+  - python-virtualenv
+  - krb5-devel
+  - python-gssapi
+  RedHat8:
+  - gcc
+  - python3-pip
+  - python3-virtualenv
+  - krb5-devel
+  - python3-gssapi

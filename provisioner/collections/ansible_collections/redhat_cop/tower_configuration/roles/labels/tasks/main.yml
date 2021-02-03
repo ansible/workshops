@@ -1,0 +1,17 @@
+---
+- name: Add a label to tower
+  awx.awx.tower_label:
+    name:                                 "{{ label.name }}"  # REQUIRED
+    new_name:                             "{{ label.new_name | default(omit) }}"
+    organization:                         "{{ label.organization }}"  # REQUIRED
+    state:                                "{{ label.state | default(tower_state | default('present')) }}"
+    tower_config_file:                    "{{ tower_config_file | default(omit) }}"
+    tower_host:                           "{{ tower_hostname | default(omit) }}"
+    tower_username:                       "{{ tower_username | default(omit) }}"
+    tower_password:                       "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:                     "{{ tower_oauthtoken | default(omit) }}"
+    validate_certs:                       "{{ tower_validate_certs | default('false') }}"
+  loop: "{{ tower_labels }}"
+  loop_control:
+    loop_var: label
+  no_log: "{{ tower_configuration_labels_secure_logging }}"

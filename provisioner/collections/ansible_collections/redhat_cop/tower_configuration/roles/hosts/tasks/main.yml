@@ -1,0 +1,20 @@
+---
+- name: Add tower host
+  awx.awx.tower_host:
+    name:              "{{ tower_hosts_item.name }}"
+    new_name:          "{{ tower_hosts_item.new_name | default(omit) }}"
+    description:       "{{ tower_hosts_item.description | default('') }}"
+    inventory:         "{{ tower_hosts_item.inventory }}"
+    enabled:           "{{ tower_hosts_item.enabled | default(true) }}"
+    state:             "{{ tower_hosts_item.state | default(tower_state | default('present')) }}"
+    variables:         "{{ tower_hosts_item.variables | default(omit) }}"
+    tower_host:        "{{ tower_hostname }}"
+    tower_username:    "{{ tower_username | default(omit) }}"
+    tower_password:    "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:  "{{ tower_oauthtoken | default(omit) }}"
+    tower_config_file: "{{ tower_config_file | default(omit) }}"
+    tower_verify_ssl:  "{{ tower_verify_ssl | default(false) }}"
+  loop: "{{ tower_hosts }}"
+  loop_control:
+    loop_var: tower_hosts_item
+  no_log: "{{ tower_configuration_hosts_secure_logging }}"

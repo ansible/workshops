@@ -1,0 +1,63 @@
+---
+# Creating Workflow Node
+- name : Create the Workfow Node
+  awx.awx.tower_workflow_job_template_node:
+    identifier :                    "{{ workflow_loop_node.identifier }}"   # internal identification ID
+    extra_data:                     "{{ workflow_loop_node.extra_data | default (omit) }}"
+    inventory:                      "{{ workflow_loop_node.inventory | default (omit) }}"
+    scm_branch:                     "{{ workflow_loop_node.scm_branch | default (omit) }}"
+    job_type:                       "{{ workflow_loop_node.job_type | default (omit) }}"
+    job_tags:                       "{{ workflow_loop_node.job_tags | default (omit) }}"
+    skip_tags:                      "{{ workflow_loop_node.skip_tags | default (omit) }}"
+    limit:                          "{{ workflow_loop_node.limit | default (omit) }}"
+    diff_mode:                      "{{ workflow_loop_node.diff_mode | default (false) }}"
+    verbosity:                      "{{ workflow_loop_node.verbosity | default (omit) }}"
+    credentials:                    "{{ workflow_loop_node.credentials | default(workflow_loop_node.related.credentials | default([]) | map(attribute='name') | list ) }}"
+    workflow_job_template:          "{{ workflow_loop_node.workflow_job_template.name | default( workflow_loop_node.workflow_job_template | default (omit) ) }}"
+    unified_job_template :          "{{ workflow_loop_node.unified_job_template.name | default( workflow_loop_node.unified_job_template | default (omit)) }}"  # Run Job template
+    approval_node:                  "{{ workflow_loop_node.approval_node | default (omit) }}"
+    workflow :                      "{{ workflow_loop_var.name }}"        # Workflow job template name to associate with
+    state:                          "{{ workflow_loop_node.state | default(tower_state | default('present')) }}"
+    all_parents_must_converge :     "{{ workflow_loop_node.all_parents_must_converge | default (omit) }}"
+    organization:                   "{{ workflow_loop_var.organization.name | default( workflow_loop_var.organization ) }}"  # Workflow job template organization
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop : "{{ workflow_loop_var.related.workflow_nodes | default( workflow_loop_var.workflow_nodes ) }}"
+  loop_control:
+    loop_var: workflow_loop_node
+  when:
+    - workflow_loop_var.related.workflow_nodes is defined or workflow_loop_var.workflow_nodes is defined
+    - workflow_loop_node is iterable
+  no_log: "{{ workflow_job_templates_secure_logging }}"
+
+# Create links between workflow node
+- name : Create links between Workflow Nodes
+  awx.awx.tower_workflow_job_template_node:
+    identifier:                     "{{ workflow_loop_node.identifier }}"
+    workflow :                      "{{ workflow_loop_var.name }}"
+    always_nodes:                   "{{ workflow_loop_node.always_nodes | default( workflow_loop_node.related.always_nodes | json_query('[*].identifier') | default(omit) ) }}"  # Nodes to advance on success (green links) # noqa 204
+    success_nodes:                  "{{ workflow_loop_node.success_nodes | default( workflow_loop_node.related.success_nodes | json_query('[*].identifier') | default(omit) ) }}"  # Nodes to advance on success (green links) # noqa 204
+    failure_nodes:                  "{{ workflow_loop_node.failure_nodes | default( workflow_loop_node.related.failure_nodes | json_query('[*].identifier') | default(omit) ) }}"  # Nodes to advance on success (green links) # noqa 204
+    state:                          "{{ workflow_loop_node.state | default(tower_state | default('present')) }}"
+    organization:                   "{{ workflow_loop_var.organization.name | default( workflow_loop_var.organization ) }}"  # Workflow job template organization
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop : "{{ workflow_loop_var.related.workflow_nodes | default( workflow_loop_var.workflow_nodes ) }}"
+  loop_control:
+    loop_var: workflow_loop_node
+  no_log: "{{ workflow_job_templates_secure_logging }}"
+  # Execute only the nodes that define links to the following
+  when : ((workflow_loop_node.related.always_nodes is defined and workflow_loop_node.related.always_nodes | length > 0 ) or
+         (workflow_loop_node.related.success_nodes is defined and workflow_loop_node.related.success_nodes | length > 0 ) or
+         (workflow_loop_node.related.failure_nodes is defined and workflow_loop_node.related.failure_nodes | length > 0 )) or
+         ((workflow_loop_node.always_nodes is defined and workflow_loop_node.always_nodes | length > 0 ) or
+         (workflow_loop_node.success_nodes is defined and workflow_loop_node.success_nodes | length > 0 ) or
+         (workflow_loop_node.failure_nodes is defined and workflow_loop_node.failure_nodes | length > 0 ))

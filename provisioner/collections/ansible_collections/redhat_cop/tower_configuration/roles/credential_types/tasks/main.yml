@@ -1,0 +1,19 @@
+---
+- name: Add Credential Types
+  awx.awx.tower_credential_type:
+    name:                           "{{ tower_credential_types_item.name }}"
+    description:                    "{{ tower_credential_types_item.description | default(omit) }}"
+    injectors:                      "{{ tower_credential_types_item.injectors | default(omit) | regex_replace('[ ]{2,}','') }}"
+    inputs:                         "{{ tower_credential_types_item.inputs | default(omit) }}"
+    kind:                           "{{ tower_credential_types_item.kind | default(omit) }}"
+    state:                          "{{ tower_credential_types_item.state | default(tower_state | default('present')) }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default(omit) }}"
+  loop: "{{ tower_credential_types }}"
+  loop_control:
+    loop_var: tower_credential_types_item
+  no_log: "{{ tower_configuration_credential_types_secure_logging }}"

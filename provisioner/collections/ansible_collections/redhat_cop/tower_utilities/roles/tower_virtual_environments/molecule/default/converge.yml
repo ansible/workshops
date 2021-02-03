@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include tower_virtual_environments"
+      include_role:
+        name: "tower_virtual_environments"

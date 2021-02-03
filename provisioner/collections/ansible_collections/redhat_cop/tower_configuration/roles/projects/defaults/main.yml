@@ -1,0 +1,39 @@
+---
+
+# These are the default variables common to most tower_configuration and _utilities roles
+# You shouldn't need to define them again and again but they should be defined
+#tower_hostname: "{{ inventory_hostname }}"
+#tower_username: "admin"
+#tower_password: ""
+#tower_oauthtoken: ""
+#tower_config_file: ""
+#tower_validate_certs: false
+
+# These are the default variables specific to the projects role
+
+# list of dict describing Tower projects
+tower_projects: []
+# possible fields:
+#- name: "project_name"  # mandatory
+#  description: "some description"  # optional
+#  organization: "organization_name"  # optional
+#  scm_type: manual  # optional, choices: manual, git, hg, svn, insights
+#  scm_url:  # optional, URI
+#  local_path:  # optional, URI
+#  scm_branch:  # optional, str
+#  scm_refspec:  # optional, str
+#  scm_credential: "credential_name"  # optional
+#  scm_clean: false  # optional, boolean
+#  scm_delete_on_update: false  # optional, boolean
+#  scm_update_on_launch: false  # optional, boolean
+#  scm_update_cache_timeout:       "{{ tower_projects_item.scm_update_cache_timeout | default(omit) }}"
+#  allow_override: false  # optional, boolean
+#  timeout: 0  # optional, integer in seconds
+#  custom_virtualenv: "/var/lib/awx/myvenv"  # optional, absolute path to custom virtualenv
+#  wait: true  # optional, boolean
+#  notification_templates_started: []  # optional, list of notification template names
+#  notification_templates_success: []  # optional, list of notification template names
+#  notification_templates_error:   []  # optional, list of notification template names
+#  state: present  # optional, choices: present, absent
+
+tower_configuration_projects_secure_logging: "{{tower_configuration_secure_logging | default(false)}}"

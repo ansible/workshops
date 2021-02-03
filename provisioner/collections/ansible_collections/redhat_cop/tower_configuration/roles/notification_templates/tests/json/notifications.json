@@ -1,0 +1,20 @@
+{
+    "tower_notification_templates": [
+      {
+        "name": "Email notification",
+        "description": "Send out emails for tower jobs",
+        "organization": "Default",
+        "notification_type": "email",
+        "notification_configuration": {
+          "host": "smtp.example.com",
+          "recipients": [
+            "admin@example.com"
+          ],
+          "sender": "tower0@example.com",
+          "port": "25",
+          "username": "",
+          "password": ""
+        }
+      }
+    ]
+}

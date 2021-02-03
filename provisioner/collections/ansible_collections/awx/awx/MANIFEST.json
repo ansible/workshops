@@ -1,0 +1,36 @@
+{
+ "collection_info": {
+  "description": "Ansible content that interacts with the AWX or Ansible Tower API.", 
+  "repository": "https://github.com/ansible/awx", 
+  "tags": [
+   "cloud", 
+   "infrastructure", 
+   "awx", 
+   "ansible", 
+   "automation"
+  ], 
+  "dependencies": {}, 
+  "authors": [
+   "AWX Project Contributors <awx-project@googlegroups.com>"
+  ], 
+  "issues": "https://github.com/ansible/awx/issues?q=is%3Aissue+label%3Acomponent%3Aawx_collection", 
+  "name": "awx", 
+  "license": [
+   "GPL-3.0-only"
+  ], 
+  "documentation": "https://github.com/ansible/awx/blob/devel/awx_collection/README.md", 
+  "namespace": "awx", 
+  "version": "17.0.1", 
+  "readme": "README.md", 
+  "license_file": null, 
+  "homepage": "https://www.ansible.com/"
+ }, 
+ "file_manifest_file": {
+  "format": 1, 
+  "ftype": "file", 
+  "chksum_sha256": "d259156508cf7158f9a26eb0631919f9d78e601b55f9d5cea452c8029f0c6826", 
+  "name": "FILES.json", 
+  "chksum_type": "sha256"
+ }, 
+ "format": 1
+}

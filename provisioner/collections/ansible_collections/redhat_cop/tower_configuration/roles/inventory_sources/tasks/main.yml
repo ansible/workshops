@@ -1,0 +1,39 @@
+---
+- name: Add an inventory source
+  awx.awx.tower_inventory_source:
+    name:                                 "{{ source.name }}"  # REQUIRED
+    new_name:                             "{{ source.new_name | default(omit) }}"
+    description:                          "{{ source.description | default(omit) }}"
+    inventory:                            "{{ source.inventory.name | default( source.inventory ) }}" # REQUIRED
+    organization:                         "{{ source.inventory.organization.name | default( source.organization | default(omit)) }}"
+    source:                               "{{ source.source }}"  # REQUIRED
+    source_path:                          "{{ source.source_path | default(omit) }}"
+    source_script:                        "{{ source.source_script | default(omit) }}"
+    source_vars:                          "{{ source.source_vars | default(omit) }}"
+    enabled_var:                          "{{ source.enabled_var | default(omit) }}"
+    enabled_value:                        "{{ source.enabled_value | default(omit) }}"
+    host_filter:                          "{{ source.host_filter | default(omit) }}"
+    credential:                           "{{ source.credential | default(omit) }}"
+    overwrite:                            "{{ source.overwrite | default(omit) }}"
+    overwrite_vars:                       "{{ source.overwrite_vars | default(omit) }}"
+    custom_virtualenv:                    "{{ source.custom_virtualenv | default(omit) }}"
+    timeout:                              "{{ source.timeout | default(omit) }}"
+    verbosity:                            "{{ source.verbosity | default(omit) }}"
+    update_on_launch:                     "{{ source.update_on_launch | default(omit) }}"
+    update_cache_timeout:                 "{{ source.update_cache_timeout | default(omit) }}"
+    source_project:                       "{{ source.source_project.name | default( source.source_project | default(omit)) }}"
+    update_on_project_update:             "{{ source.update_on_project_update | default(omit) }}"
+    state:                                "{{ source.state | default(tower_state | default('present')) }}"
+    notification_templates_started:       "{{ source.notification_templates_started | default(source.related.notification_templates_started | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_success:       "{{ source.notification_templates_success | default(source.related.notification_templates_success | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_error:         "{{ source.notification_templates_error | default(source.related.notification_templates_error | default([]) | map(attribute='name') | list ) }}"
+    tower_config_file:                    "{{ tower_config_file | default(omit) }}"
+    tower_host:                           "{{ tower_hostname | default(omit) }}"
+    tower_username:                       "{{ tower_username | default(omit) }}"
+    tower_password:                       "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:                     "{{ tower_oauthtoken | default(omit) }}"
+    validate_certs:                       "{{ tower_validate_certs | default('false') }}"
+  loop: "{{ tower_inventory_sources }}"
+  loop_control:
+    loop_var: source
+  no_log: "{{ tower_configuration_inventory_sources_secure_logging }}"

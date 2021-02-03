@@ -1,0 +1,9 @@
+---
+tower_inventories:
+  - name: test1
+    description: test inventory
+  - name: test2
+    kind: smart
+    host_filter: "name__icontains=test"
+    variables: '{"key1":"val1", "key2":"val2"}'
+...

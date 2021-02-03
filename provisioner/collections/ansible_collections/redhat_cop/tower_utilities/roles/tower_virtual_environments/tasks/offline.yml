@@ -1,0 +1,26 @@
+---
+
+- name: create temporary directory to copy python libraries
+  tempfile:
+    prefix: tower_venv
+    state: directory
+  register: __tower_venv_tmp_dir
+
+- name: Copy Over the Python Libraries For Offline Install
+  copy:
+    src: "{{ item.package_path }}"
+    dest: "{{ __tower_venv_tmp_dir.path }}"
+    mode: "preserve"  # not required, but E208 in lint without it
+  loop: "{{ tower_venv_offline_installs }}"
+
+- name: Install the Python Libraries in a created virtualenv Offline
+  pip:
+    virtualenv_site_packages: true
+    requirements: "{{ __tower_venv_tmp_dir.path }}/{{ item.package_path }}/{{ item.reqts_file }}"
+    umask: "{{ tower_venv_umask }}"
+    virtualenv: "{{ tower_venv_path }}/{{ item.name }}"
+    virtualenv_command: "virtualenv"
+    extra_args: "--no-index --find-links file://{{ tower_venv_tmp_dir.path }}/{{ item.package_path }}"
+    state: "present"
+  become: true
+  loop: "{{ tower_venv_offline_installs }}"

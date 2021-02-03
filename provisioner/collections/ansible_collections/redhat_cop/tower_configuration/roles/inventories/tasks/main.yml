@@ -1,0 +1,21 @@
+---
+- name: Create inventory
+  awx.awx.tower_inventory:
+    name:                 "{{ inventory.name }}"  # REQUIRED
+    description:          "{{ inventory.description | default(omit) }}"
+    organization:         "{{ inventory.organization.name | default( inventory.organization ) }}"
+    variables:            "{{ inventory.variables | default(omit) }}"
+    kind:                 "{{ inventory.kind | default(omit) }}"
+    host_filter:          "{{ inventory.host_filter | default(omit) }}"
+    insights_credential:  "{{ inventory.insights_credential | default(omit) }}"
+    state:                "{{ inventory.state | default(tower_state | default('present')) }}"
+    tower_config_file:    "{{ tower_config_file | default(omit) }}"
+    tower_host:           "{{ tower_hostname | default(omit) }}"
+    tower_username:       "{{ tower_username | default(omit) }}"
+    tower_password:       "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:     "{{ tower_oauthtoken | default(omit) }}"
+    validate_certs:       "{{ tower_verify_ssl | default('False') }}"
+  loop: "{{ tower_inventories }}"
+  loop_control:
+    loop_var: inventory
+  no_log: "{{ tower_configuration_inventories_secure_logging }}"

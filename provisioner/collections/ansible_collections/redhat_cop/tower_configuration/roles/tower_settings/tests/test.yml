@@ -1,0 +1,28 @@
+---
+- name: Test settings
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  pre_tasks:
+    - name: Get token for use during play
+      uri:
+        url: "https://{{ tower_hostname }}/api/v2/tokens/"
+        method: POST
+        user: "{{ tower_username }}"
+        password: "{{ tower_password }}"
+        force_basic_auth: true
+        status_code: 201
+        validate_certs: false
+      register: user_token
+      no_log: true
+
+    - name: Set Tower oath Token
+      set_fact:
+        tower_oauthtoken: "{{ user_token.json.token }}"
+
+    - name: Import settings
+      include_vars:
+        file: "configs/tower_settings.yml"
+
+  roles:
+    - ../../tower_settings

@@ -1,0 +1,6 @@
+---
+collections:
+  - name: redhat_cop.tower_utilities
+    version: 0.3.2
+  - name: redhat_cop.tower_configuration
+    varsion: 1.0.2

@@ -1,0 +1,46 @@
+---
+# Only Job name, type, project and playbook are required
+# Survey spec can be exported from existing job template using:
+# tower-cli job_template survey --name="my job template" -f yaml
+# https://github.com/ansible/tower-cli/blob/master/docs/source/cli_ref/usage/SURVEYS.rst
+tower_templates:
+  - name: test-template-1
+    description: created by Ansible Playbook
+    job_type: run
+    inventory: RHVM-01
+    labels:
+      - Prod
+    credentials: admin@internal-RHVM-01
+    project: Test Project
+    playbook: helloworld.yml
+    verbosity: 2
+    extra_vars:
+      target_hosts: infra-ansible-tower-01.example.com
+  - name: Demo Job Template
+    project: Test Project
+    job_type: run
+    playbook: helloworld.yml
+    ask_extra_vars: false
+    concurrent_jobs_enabled: false
+    credentials: Demo Credential
+    verbosity: 0
+    inventory: localhost
+
+# You can retrieve a job along with its survey spec using tower cli as follows:
+# tower-cli receive --job_template <Name> --user admin --format yaml
+# If you need to add Survey, Survey spec would look like given below:
+# survey_spec:
+#   name: ''
+#   description: ''
+#   spec:
+#   - question_name: Target Host
+#     question_description: target host is required for playbook to work, this host
+#       needs to exist in the inventory
+#     required: true
+#     type: text
+#     variable: target_hosts
+#     min: 0
+#     max: 1024
+#     default: infra-ansible-tower-testing.infra.sat.rdu2.redhat.com
+#     choices: ''
+#     new_question: true

@@ -1,0 +1,35 @@
+---
+
+- name: Add Projects
+  awx.awx.tower_project:
+    name:                           "{{ tower_projects_item.name }}"
+    description:                    "{{ tower_projects_item.description | default(omit) }}"
+    scm_type:                       "{{ tower_projects_item.scm_type }}"
+    scm_url:                        "{{ tower_projects_item.scm_url }}"
+    local_path:                     "{{ tower_projects_item.local_path | default(omit) }}"
+    scm_branch:                     "{{ tower_projects_item.scm_branch | default(omit)  }}"
+    scm_refspec:                    "{{ tower_projects_item.scm_refspec | default(omit) }}"
+    scm_credential:                 "{{ tower_projects_item.scm_credential | default(tower_projects_item.credential | default(omit)) }}"
+    scm_clean:                      "{{ tower_projects_item.scm_clean | default(omit) }}"
+    scm_delete_on_update:           "{{ tower_projects_item.scm_delete_on_update | default(omit) }}"
+    scm_update_on_launch:           "{{ tower_projects_item.scm_update_on_launch | default(omit) }}"
+    scm_update_cache_timeout:       "{{ tower_projects_item.scm_update_cache_timeout | default(omit) }}"
+    allow_override:                 "{{ tower_projects_item.allow_override | default(omit) }}"
+    job_timeout:                    "{{ tower_projects_item.job_timeout | default(tower_projects_item.timeout | default(omit)) }}"
+    custom_virtualenv:              "{{ tower_projects_item.custom_virtualenv | default(omit) }}"
+    organization:                   "{{ tower_projects_item.organization.name | default( tower_projects_item.organization ) }}"
+    state:                          "{{ tower_projects_item.state | default(tower_state | default('present')) }}"
+    wait:                           "{{ tower_projects_item.wait | default(omit) }}"
+    notification_templates_started: "{{ tower_projects_item.notification_templates_started | default(tower_projects_item.related.notification_templates_started | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_success: "{{ tower_projects_item.notification_templates_success | default(tower_projects_item.related.notification_templates_success | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_error:   "{{ tower_projects_item.notification_templates_error | default(tower_projects_item.related.notification_templates_error | default([]) | map(attribute='name') | list ) }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_projects }}"
+  loop_control:
+    loop_var: tower_projects_item
+  no_log: "{{ tower_configuration_projects_secure_logging }}"

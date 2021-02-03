@@ -1,0 +1,19 @@
+---
+
+# These are the default variables common to most tower_configuration and _utilities roles
+# You shouldn't need to define them again and again but they should be defined
+#tower_hostname: "{{ inventory_hostname }}"
+#tower_username: "admin"
+#tower_password: ""
+#tower_oauthtoken: ""
+#tower_config_file: ""
+#tower_validate_certs: false
+
+# These are the default variables specific to the license role
+
+tower_configuration_license_secure_logging: "{{tower_configuration_secure_logging | default(false)}}"
+
+# Example license datastructure but no sensible default.
+#tower_license:
+#  manifest: "{{ playbook_dir }}/tower_manifest/manifest_redhat_cop_tower_configuration_manifest.zip"
+#  eula_accepted: true  # must be true or role will fail

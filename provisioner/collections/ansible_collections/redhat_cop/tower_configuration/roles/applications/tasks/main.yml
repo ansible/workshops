@@ -1,0 +1,23 @@
+---
+
+# Create Job Template
+- name: Add Tower Applications
+  awx.awx.tower_application:
+    name:                           "{{ application_item.name }}"
+    organization:                   "{{ application_item.organization }}"
+    description:                    "{{ application_item.description | default('') }}"
+    authorization_grant_type:       "{{ application_item.authorization_grant_type | default('password') }}"
+    client_type:                    "{{ application_item.client_type | default('public') }}"
+    redirect_uris:                  "{{ application_item.redirect_uris | default([]) }}"
+    skip_authorization:             "{{ application_item.skip_authorization | default(false) }}"
+    state:                          "{{ application_item.state | default(tower_state | default('present')) }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_applications }}"
+  loop_control:
+    loop_var: "application_item"
+  no_log: "{{ tower_configuration_applications_secure_logging }}"

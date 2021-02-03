@@ -1,0 +1,19 @@
+---
+# tasks file for tower_settings
+
+- name: Update Ansible Tower Settings from dictionary or list of dictionaries
+  awx.awx.tower_settings:
+    settings:            "{{ tower_setting_item.settings | default(omit) }}"
+    name:                "{{ tower_setting_item.name | default(omit) }}"
+    value:               "{{ tower_setting_item.value | default(omit) }}"
+    tower_config_file:   "{{ tower_config_file | default(omit) }}"
+    tower_host:          "{{ tower_hostname | default(omit) }}"
+    tower_password:      "{{ tower_password | default(omit) }}"
+    tower_username:      "{{ tower_username | default(omit) }}"
+    tower_oauthtoken:    "{{ tower_oauthtoken | default(omit) }}"
+    validate_certs:      "{{ tower_validate_certs | default('true') }}"
+  # tower_settings must be either a dictionary/mapping or a list of dictionaries
+  loop: "{{ tower_settings is mapping | ternary([tower_settings], tower_settings) }}"
+  loop_control:
+    loop_var: tower_setting_item
+  no_log: "{{ tower_configuration_settings_secure_logging }}"

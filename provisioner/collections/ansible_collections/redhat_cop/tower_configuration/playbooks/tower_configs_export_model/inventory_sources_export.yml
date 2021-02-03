@@ -1,0 +1,44 @@
+---
+tower_inventory_sources:
+  - name: test
+    description: ''
+    source: scm
+    source_path: /test.yml
+    source_regions: ''
+    instance_filters: ''
+    group_by: ''
+    overwrite: false
+    overwrite_vars: false
+    custom_virtualenv: null
+    timeout: 0
+    verbosity: 1
+    update_on_launch: false
+    update_cache_timeout: 0
+    update_on_project_update: false
+    inventory:
+      organization:
+        name: Satellite
+        type: organization
+      name: Testing Inventory
+      type: inventory
+    source_project:
+      organization:
+        name: Satellite
+        type: organization
+      name: Test Project
+      type: project
+    related:
+      schedules: []
+      notification_templates_started: []
+      notification_templates_success: []
+      notification_templates_error: []
+      credentials: []
+    natural_key:
+      name: test
+      inventory:
+        organization:
+          name: Satellite
+          type: organization
+        name: Testing Inventory
+        type: inventory
+      type: inventory_source

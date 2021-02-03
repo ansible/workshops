@@ -1,0 +1,5 @@
+---
+collections:
+  - name: awx.awx
+    version: 15.0.0
+    # https://github.com/ansible/awx/pull/8205

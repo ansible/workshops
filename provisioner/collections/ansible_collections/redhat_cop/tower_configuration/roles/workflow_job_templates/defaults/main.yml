@@ -1,0 +1,63 @@
+---
+
+# These are the default variables common to most tower_configuration and _utilities roles
+# You shouldn't need to define them again and again but they should be defined
+#tower_hostname: "{{ inventory_hostname }}"
+#tower_username: "admin"
+#tower_password: ""
+#tower_oauthtoken: ""
+#tower_config_file: ""
+#tower_validate_certs: false
+
+# These are the default variables specific to the workflow_job_templates role
+
+# list of dicts describing Tower workflow templates
+tower_workflows: []
+#- name: "workflow_template_name"  # mandatory
+#  new_name: "new_name"  # optional
+#  description: "some description"  # optional
+#  extra_vars:  # optional, dict
+#  allow_simultaneous: false  # optional, boolean
+#  organization: "organization_name"  # optional, str or organization dict with name field
+#  ask_variables_on_launch: false  # optional, boolean
+#  inventory: "inventory_name"  # optional, str or inventory dict with name field
+#  limit:  # optional, str
+#  labels:  # optional, str
+#  scm_branch:  # optional, str
+#  ask_variables_on_launch: false  # optional, boolean
+#  ask_scm_branch_on_launch: false  # optional, boolean
+#  ask_limit_on_launch: false  # optional, boolean
+#  webhook_service:   # optional, str
+#  webhook_credential:   # optional, str
+#  survey_enabled: false  # optional, boolean
+#  survey: {} # optional, YAML/JSON object
+#  state: present  # optional, choices: present, absent
+#  notification_templates_started: []  # optional, notification template names
+#  notification_templates_success: []  # optional, notification template names
+#  notification_templates_error: []  # optional, notification template names
+#  notification_templates_approvals: []  # optional, notification template names
+#  workflow_nodes: [] # optional, YAML/JSON list of workflow objects, structure described below:
+#  - identifier : # internal identification ID # mandatory
+#    extra_data:  # optional, dict
+#    inventory: "inventory_name"  # optional, str or inventory dict with name field
+#    scm_branch:  # optional, str
+#    job_type:  # optional, choices: [run,check]
+#    job_tags:  # optional, comma separated tags
+#    skip_tags: # optional, comma separated tags
+#    limit:  # optional, str
+#    diff_mode: false  # optional, boolean
+#    verbosity: 0  # optional, choices: [0-4]
+#    credentials: # optional, list of credential names
+#    workflow_job_template: "workflow_template_name"  # mandatory
+#    unified_job_template : Can be a job template, project, inventory source, etc.  # mandatory
+#    approval_node: # optional, dictionary of Name, description, and timeout values for the approval node.
+#    workflow : "workflow_template_name"  # mandatory # alias of workflow_job_template
+#    state: present  # optional, choices: present, absent
+#    all_parents_must_converge : false  # optional, boolean
+#    organization: "organization_name"  # optional, str or organization dict with name field
+#    always_nodes: [] # optional, list, List of node identifiers
+#    success_nodes: [] # optional, list, List of node identifiers
+#    failure_nodes: [] # optional, list, List of node identifiers
+
+
+workflow_job_templates_secure_logging: "{{tower_configuration_secure_logging | default(False)}}"

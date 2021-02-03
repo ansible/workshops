@@ -1,0 +1,44 @@
+---
+tower_notifications:
+  - name: Email notification
+    description: Send out emails for tower jobs
+    notification_type: email
+    notification_configuration:
+      username: ''
+      sender: tower0@example.com
+      recipients:
+        - admin@example.com
+      use_tls: false
+      host: smtp.example.com
+      use_ssl: false
+      password: ''
+      port: 25
+      timeout: 30
+    messages:
+      started: null
+      success: null
+      error: null
+      workflow_approval: null
+    organization:
+      name: Satellite
+      type: organization
+  - name: irc-satqe-chat-notification
+    description: Notify us on job in IRC!
+    notification_type: irc
+    notification_configuration:
+      use_tls: false
+      use_ssl: false
+      password: ''
+      port: 6667
+      server: irc.freenode.com
+      nickname: Ansible-Tower-Stage-Bot-01
+      targets:
+        - '#my-channel'
+    messages:
+      started: null
+      success: null
+      error: null
+      workflow_approval: null
+    organization:
+      name: Satellite
+      type: organization

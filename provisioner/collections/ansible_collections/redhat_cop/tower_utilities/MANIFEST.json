@@ -1,0 +1,40 @@
+{
+ "collection_info": {
+  "namespace": "redhat_cop",
+  "name": "tower_utilities",
+  "version": "0.3.2",
+  "authors": [
+   "Jonathan Lozada De La Matta @jlozadad",
+   "Kedar Kulkarni @kedark3",
+   "Tom Page @Tompage1994",
+   "Sean Sullivan @sean-m-sullivan"
+  ],
+  "readme": "README.md",
+  "tags": [
+   "tower",
+   "collection",
+   "utilities",
+   "utils",
+   "tower_utilities",
+   "tower_utils"
+  ],
+  "description": "A collection of utility roles for usage with Ansible Tower",
+  "license": [
+   "GPL-3.0-or-later"
+  ],
+  "license_file": null,
+  "dependencies": {},
+  "repository": "https://github.com/redhat-cop/tower_utilities",
+  "documentation": null,
+  "homepage": null,
+  "issues": "https://github.com/redhat-cop/tower_utilities/issues"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "10c450094b0f03043a7c9c150541c75751e45b856062d2e4a509bd9b79d7a39c",
+  "format": 1
+ },
+ "format": 1
+}

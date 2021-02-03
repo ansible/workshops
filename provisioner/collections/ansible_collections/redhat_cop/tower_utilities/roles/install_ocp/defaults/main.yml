@@ -1,0 +1,49 @@
+---
+# defaults file for ansible-tower-manage
+
+############################################################
+#               Tower Installation Vars                    #
+############################################################
+
+# Working location for installation files
+tower_working_location: "/var/tmp"
+
+# vars file for install_ocp
+tower_ocp_releases_url: https://releases.ansible.com/ansible-tower/setup_openshift/
+tower_ocp_setup_file: ansible-tower-openshift-setup-{{ tower_release_version }}.tar.gz
+
+# Tower variables
+tower_admin_user: "admin"
+tower_admin_password: "password"
+
+# Tower Install Verbosity
+tower_verbose_install: false
+
+# Tower secret key
+tower_secret_key: "mysecret"
+
+# Postgresql variables
+
+# pg_hostname: pg.tower.example.com
+tower_pg_database: "awx"
+tower_pg_username: "awx"
+tower_pg_password: "password"
+tower_pg_port: 5432
+tower_pg_sslmode: "prefer"
+
+############################################################
+#               Openshift vars.                 #
+############################################################
+
+# Note: The user running this installer will need cluster-admin privileges.
+# Tower's job execution container requires running in privileged mode,
+# and a service account must be created for auto peer-discovery to work.
+
+openshift_host: https://openshift.example.com
+openshift_skip_tls_verify: true
+openshift_project: tower
+openshift_user: kubeadmin
+
+# persistant volume for pg database details
+openshift_pg_pvc_name: postgresql
+pvc_claim_size: 10Gi

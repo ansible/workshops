@@ -1,0 +1,18 @@
+---
+- name: Create Ansible Tower Team
+  awx.awx.tower_team:
+    name:                "{{ team.name }}"
+    new_name:            "{{ team.new_name | default(omit) }}"
+    description:         "{{ team.description | default(omit) }}"
+    organization:        "{{ team.organization.name | default( team.organization ) }}"
+    state:               "{{ team.state | default(tower_state | default('present')) }}"
+    tower_config_file:   "{{ team.tower_config_file | default(omit) }}"
+    tower_host:          "{{ tower_hostname | default(omit) }}"
+    tower_password:      "{{ tower_password | default(omit) }}"
+    tower_username:      "{{ tower_username | default(omit) }}"
+    tower_oauthtoken:    "{{ tower_oauthtoken | default(omit) }}"
+    validate_certs:      "{{ tower_validate_certs | default(omit) }}"
+  loop: "{{ tower_teams }}"
+  loop_control:
+    loop_var: team
+  no_log: "{{ tower_configuration_teams_secure_logging }}"

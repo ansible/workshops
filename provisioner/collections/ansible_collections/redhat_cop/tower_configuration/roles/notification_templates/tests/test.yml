@@ -1,0 +1,40 @@
+---
+# based on method defined here: https://coderwall.com/p/8yfuva/how-to-develop-ansible-roles-w-unit-test-and-ci
+
+- name: Add notifications to Tower
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  # Bring in vaulted Ansible Tower secrets
+  vars_files:
+    - ../tests/vars/tower_secrets.yml
+
+  tasks:
+
+    - name: Get token for use during play
+      uri:
+        url: "https://{{ tower_hostname }}/api/v2/tokens/"
+        method: POST
+        user: "{{ tower_username }}"
+        password: "{{ tower_passname }}"
+        force_basic_auth: true
+        status_code: 201
+        validate_certs: false
+      register: user_token
+      no_log: true
+
+    - name: Set Tower oath Token
+      set_fact:
+        tower_oauthtoken: "{{ user_token.json.token }}"
+
+    - name: Import JSON
+      include_vars:
+        file: "json/notifications.json"
+        name: notifications_json
+
+    - name: Add notifications
+      include_role:
+        name: ../..
+      vars:
+        tower_notification_templates: "{{ notifications_json.tower_notification_templates }}"

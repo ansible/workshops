@@ -1,0 +1,6 @@
+---
+
+# list of absolutely required RPM packages
+__towerutils_check_packages:
+- unzip  # required by unarchive module, not present on a minimal/core RHEL
+- tar  # required by unarchive module, not present on a minimal/core RHEL

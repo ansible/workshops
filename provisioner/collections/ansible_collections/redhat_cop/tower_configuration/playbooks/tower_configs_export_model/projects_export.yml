@@ -1,0 +1,68 @@
+---
+tower_projects:
+- name: Tower Config Testing
+  description: ''
+  local_path: _48__tower_config_testing
+  scm_type: git
+  scm_url: https://github.com/ansible/tower-example.git
+  scm_branch: master
+  scm_refspec: ''
+  scm_clean: false
+  scm_delete_on_update: false
+  timeout: 0
+  scm_update_on_launch: false
+  scm_update_cache_timeout: 0
+  allow_override: false
+  custom_virtualenv:
+  organization:
+    name: Satellite
+    type: organization
+  related:
+    schedules: []
+    notification_templates_started: []
+    notification_templates_success: []
+    notification_templates_error:
+    - organization:
+        name: Satellite
+        type: organization
+      name: irc-satqe-chat-notification
+      type: notification_template
+  natural_key:
+    organization:
+      name: Satellite
+      type: organization
+    name: Tower Config Testing
+    type: project
+- name: Tower Config
+  description: ''
+  local_path: _52__tower_config
+  scm_type: git
+  scm_url: https://github.com/ansible/tower-example.git
+  scm_branch: master
+  scm_refspec: ''
+  scm_clean: false
+  scm_delete_on_update: false
+  timeout: 0
+  scm_update_on_launch: false
+  scm_update_cache_timeout: 0
+  allow_override: false
+  custom_virtualenv:
+  organization:
+    name: Satellite
+    type: organization
+  related:
+    schedules: []
+    notification_templates_started: []
+    notification_templates_success: []
+    notification_templates_error:
+    - organization:
+        name: Satellite
+        type: organization
+      name: irc-satqe-chat-notification
+      type: notification_template
+  natural_key:
+    organization:
+      name: Satellite
+      type: organization
+    name: Tower Config
+    type: project

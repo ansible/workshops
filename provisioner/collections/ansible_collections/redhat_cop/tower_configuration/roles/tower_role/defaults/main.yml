@@ -1,0 +1,34 @@
+---
+
+# These are the default variables common to most tower_configuration and _utilities roles
+# You shouldn't need to define them again and again but they should be defined
+#tower_hostname: "{{ inventory_hostname }}"
+#tower_username: "admin"
+#tower_password: ""
+#tower_oauthtoken: ""
+#tower_config_file: ""
+#tower_validate_certs: false
+
+# These are the default variables specific to the tower_role role
+
+# list of dict describing a Tower access controle rule
+tower_rbac: []
+# possible fields:
+#- role:  # mandatory, choices: admin, read, member, execute, adhoc, update, use, auditor, project_admin,
+#         # inventory_admin, credential_admin, workflow_admin, notification_admin, job_template_admin
+#  # one of user or team is mandatory
+#  user: "user_name"
+#  team: "team_name"
+#  # one object to which the role applies, also mandatory
+#  credential:  # possible roles: admin, use, read
+#  inventory:  # possible roles: admin, update, use, adhoc, read
+#  job_template:  # possible roles: admin, execute, read
+#  organization:  # possible roles: admin, member, execute, read,
+#                 #                 {project,inventory,credential,workflow,notification,job_template}_admin
+#  project:  # possible roles: admin, update, use, read
+#  target_team:  # possible roles: admin, member
+#  workflow:  # possible roles: admin, execute, read
+#  # other fields
+#  state: present  # optional, choices: present, absent
+
+tower_configuration_rbac_secure_logging: "{{tower_configuration_secure_logging | default(false)}}"

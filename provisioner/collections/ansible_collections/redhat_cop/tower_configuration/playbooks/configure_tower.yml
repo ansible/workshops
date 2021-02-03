@@ -1,0 +1,54 @@
+---
+- name: Playbook to configure ansible tower post installation
+  hosts: localhost
+  connection: local
+  vars:
+    tower_validate_certs: false
+  collections:
+    - awx.awx
+  # Define following vars here, or in tower_configs/tower_auth.yml
+  # tower_hostname: ansible-tower-web-svc-test-project.example.com
+  # tower_username: admin
+  # tower_password: changeme
+  pre_tasks:
+    - name: Include vars from tower_configs directory
+      include_vars:
+        dir: ./tower_configs
+        ignore_files: [tower_config.yml.template]
+        extensions: ["yml"]
+      tags:
+        - always
+    - debug:
+        var: playbook_dir
+    - debug:
+        var: ansible_config_file
+
+  roles:
+    - {role: tower_settings, when: tower_settings is defined, tags: tower_settings}
+    - {role: organizations, when: tower_organizations is defined, tags: organizations}
+    - {role: labels, when: tower_labels is defined, tags: labels}
+    - {role: users, when: tower_user_accounts is defined, tags: users}
+    - {role: teams, when: tower_teams is defined, tags: teams}
+    - {role: credential_types, when: tower_credential_types is defined, tags: credential_types}
+    - {role: credentials, when: tower_credentials is defined, tags: credentials}
+    - {role: credential_input_sources, when: tower_credential_input_sources is defined, tags: credential_input_sources}
+    - {role: applications, when: tower_applications is defined, tags: applications}
+    - {role: inventories, when: tower_inventories is defined, tags: inventories}
+    - {role: instance_groups, when: tower_instance_groups is defined, tags: instance_groups}
+    - {role: inventory_sources, when: tower_inventory_sources is defined, tags: inventory_sources}
+    - {role: projects, when: tower_projects is defined, tags: projects}
+    - {role: hosts, when: tower_hosts is defined, tags: hosts}
+    - {role: groups, when: tower_groups is defined, tags: inventories}
+    - {role: job_templates, when: tower_templates is defined, tags: job_templates}
+    - {role: workflow_job_templates, when: tower_workflows is defined, tags: workflow_job_templates}
+    - {role: schedules, when: tower_schedules is defined, tags: schedules}
+    - {role: notification_templates, when: tower_notifications is defined, tags: notification_templates}
+    - {role: tower_role, when: tower_rbac is defined, tags: tower_role}
+
+  tasks:
+
+    - name: Add Tower Settings Individually
+      include_role:
+        name: tower_settings
+      vars:
+        tower_settings: "{{ tower_settings_individuale }}"

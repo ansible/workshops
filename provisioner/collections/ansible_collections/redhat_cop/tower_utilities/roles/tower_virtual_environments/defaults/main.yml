@@ -1,0 +1,31 @@
+---
+# path to the virtual environment
+tower_venv_path: "/var/lib/awx/venv/ansible"
+# umask to use during installation
+tower_venv_umask: "0022"
+# install RPM packages necessary to support virtualenv?
+tower_venv_requirements: true
+
+# shall we do a backup after update and where?
+tower_venv_backup: false
+tower_venv_backup_path: "/var/lib/awx/venv/.backups"
+
+# do installation online and/or offline
+tower_venv_online: true
+tower_venv_offline: false
+
+# list of python libraries to install online resp. offline
+# NOTE: base dependencies are only installed in online mode!
+tower_venv_online_installs: []
+# e.g.
+#  - "ansible-tower-cli"
+#  - "ansible==2.10.4"
+
+tower_venv_offline_installs: []
+# e.g.
+#  - name: rhv-cloud
+#    package_path: pip-deps
+#    reqts_file: pip-reqts-provisioner.txt
+#  - name: networking
+#    package_path: pip-deps
+#    reqts_file: pip-reqts-provisioner.txt

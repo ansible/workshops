@@ -29,3 +29,51 @@
       when:
         - dns_type is defined
         - dns_type == 'aws'
+
+- name: configure tower virtual environments
+  hosts: control_nodes
+  become: true
+  vars:
+    tower_venv_pylibs:
+      - "apypie"
+      - "jinja2"
+  roles:
+    - redhat_cop.tower_utilities.tower_virtual_environments
+
+- name: configure tower Credentials
+  hosts: control_nodes[0]
+  gather_facts: no
+  vars:
+    tower_hostname: "https://{{ ansible_host }}"
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_validate_certs: no
+    tower_credential_types:
+      - name: Satellite_Collection
+        description: Credential for redhat.satellite collection
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: username
+              label: Satellite Username
+            - type: string
+              id: password
+              label: Satellite Password
+              secret: true
+            - type: string
+              id: host
+              label: Satellite Hostname
+          required:
+            - username
+            - password
+            - host
+        injectors:
+          env:
+            FOREMAN_SERVER: "{% raw %}{{ '{{host}}' }}{% endraw %}"
+            FOREMAN_USER: "{% raw %}{{ '{{username}}' }}{% endraw %}"
+            FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
+            FOREMAN_VALIDATE_CERTS: 'false'
+  roles:
+    - redhat_cop.tower_configuration.credential_types
+

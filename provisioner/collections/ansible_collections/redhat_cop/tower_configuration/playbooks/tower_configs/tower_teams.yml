@@ -1,0 +1,6 @@
+---
+tower_teams:
+  - name: satellite-qe
+    organization: Satellite
+  - name: satlab-admin
+    organization: Satellite

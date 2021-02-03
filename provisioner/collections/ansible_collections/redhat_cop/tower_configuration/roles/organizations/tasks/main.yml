@@ -1,0 +1,23 @@
+---
+- name: Add organizations
+  awx.awx.tower_organization:
+    name:                               "{{ tower_organizations_item.name }}"
+    description:                        "{{ tower_organizations_item.description | default(omit) }}"
+    custom_virtualenv:                  "{{ tower_organizations_item.custom_virtualenv | default(omit) }}"
+    max_hosts:                          "{{ tower_organizations_item.max_hosts | default(omit) }}"
+    galaxy_credentials:                 "{{ tower_organizations_item.galaxy_credentials | default(omit) }}"
+    notification_templates_approvals:     "{{ tower_organizations_item.notification_templates_approvals | default(tower_organizations_item.related.notification_templates_approvals | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_started:     "{{ tower_organizations_item.notification_templates_started | default(tower_organizations_item.related.notification_templates_started | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_success:     "{{ tower_organizations_item.notification_templates_success | default(tower_organizations_item.related.notification_templates_success | default([]) | map(attribute='name') | list ) }}"
+    notification_templates_error:       "{{ tower_organizations_item.notification_templates_error | default(tower_organizations_item.related.notification_templates_error | default([]) | map(attribute='name') | list ) }}"
+    state:                              "{{ tower_organizations_item.state | default(tower_state | default('present')) }}"
+    tower_username:                     "{{ tower_username | default(omit) }}"
+    tower_password:                     "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:                   "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                         "{{ tower_hostname }}"
+    tower_config_file:                  "{{ tower_config_file | default(omit) }}"
+    validate_certs:                     "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_organizations }}"
+  loop_control:
+    loop_var: tower_organizations_item
+  no_log: "{{ tower_configuration_organizations_secure_logging }}"

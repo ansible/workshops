@@ -1,0 +1,10 @@
+---
+# defaults file for ansible-tower-manage
+
+############################################################
+#               Tower Installation Vars                    #
+############################################################
+
+tower_url: "https://localhost"
+tower_server: "{{ tower_url }}"
+tower_force_setup: true

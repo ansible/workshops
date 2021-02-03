@@ -1,0 +1,6 @@
+---
+- name: Restart Ansible tower service
+  become: true
+  command: ansible-tower-service restart
+  tags:
+    - tower_certs

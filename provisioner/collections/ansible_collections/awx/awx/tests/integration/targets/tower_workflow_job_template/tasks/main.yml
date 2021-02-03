@@ -1,0 +1,350 @@
+---
+- name: Generate a random string for names
+  set_fact:
+    test_id: "{{ lookup('password', '/dev/null chars=ascii_letters length=16') }}"
+
+- name: Generate random names for test objects
+  set_fact:
+    scm_cred_name: "AWX-Collection-tests-tower_workflow_job_template-scm-cred-{{ test_id }}"
+    demo_project_name: "AWX-Collection-tests-tower_workflow_job_template-proj-{{ test_id }}"
+    jt1_name: "AWX-Collection-tests-tower_workflow_job_template-jt1-{{ test_id }}"
+    jt2_name: "AWX-Collection-tests-tower_workflow_job_template-jt2-{{ test_id }}"
+    approval_node_name: "AWX-Collection-tests-tower_workflow_approval_node-{{ test_id }}"
+    lab1: "AWX-Collection-tests-tower_job_template-lab1-{{ test_id }}"
+    wfjt_name: "AWX-Collection-tests-tower_workflow_job_template-wfjt-{{ test_id }}"
+    email_not: "AWX-Collection-tests-tower_job_template-email-not-{{ test_id }}"
+    webhook_not: "AWX-Collection-tests-tower_notification_template-wehbook-not-{{ test_id }}"
+
+- name: Create an SCM Credential
+  tower_credential:
+    name: "{{ scm_cred_name }}"
+    organization: Default
+    kind: scm
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Add email notification
+  tower_notification_template:
+    name: "{{ email_not }}"
+    organization: Default
+    notification_type: email
+    username: user
+    password: s3cr3t
+    sender: tower@example.com
+    recipients:
+      - user1@example.com
+    host: smtp.example.com
+    port: 25
+    use_tls: false
+    use_ssl: false
+    state: present
+
+- name: Add webhook notification
+  tower_notification_template:
+    name: "{{ webhook_not }}"
+    organization: Default
+    notification_type: webhook
+    url: http://www.example.com/hook
+    headers:
+      X-Custom-Header: value123
+    state: present
+  register: result
+
+- name: Create Label
+  tower_label:
+    name: "{{ lab1 }}"
+    organization: Default
+
+- name: Create a Demo Project
+  tower_project:
+    name: "{{ demo_project_name }}"
+    organization: Default
+    state: present
+    scm_type: git
+    scm_url: https://github.com/ansible/ansible-tower-samples.git
+    scm_credential: "{{ scm_cred_name }}"
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Create a Job Template
+  tower_job_template:
+    name: "{{ jt1_name }}"
+    project: "{{ demo_project_name }}"
+    inventory: Demo Inventory
+    playbook: hello_world.yml
+    credential: Demo Credential
+    job_type: run
+    state: present
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Create a second Job Template
+  tower_job_template:
+    name: "{{ jt2_name }}"
+    project: "{{ demo_project_name }}"
+    inventory: Demo Inventory
+    playbook: hello_world.yml
+    credential: Demo Credential
+    job_type: run
+    state: present
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Add a Survey to second Job Template
+  tower_job_template:
+    name: "{{ jt2_name }}"
+    project: "{{ demo_project_name }}"
+    inventory: Demo Inventory
+    playbook: hello_world.yml
+    credential: Demo Credential
+    job_type: run
+    state: present
+    survey_enabled: true
+    survey_spec: '{"spec": [{"index": 0, "question_name": "my question?", "default": "mydef", "variable": "myvar", "type": "text", "required": false}], "description": "test", "name": "test"}'
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Create a workflow job template
+  tower_workflow_job_template:
+    name: "{{ wfjt_name }}"
+    inventory: Demo Inventory
+    extra_vars: {'foo': 'bar', 'another-foo': {'barz': 'bar2'}}
+    labels:
+      - "{{ lab1 }}"
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+# Node actions do what this schema command used to do
+# schema: [{"success": [{"job_template": "{{ jt1_name }}"}], "job_template": "{{ jt2_name }}"}]
+- name: Create leaf node
+  tower_workflow_job_template_node:
+    identifier: leaf
+    unified_job_template: "{{ jt2_name }}"
+    workflow: "{{ wfjt_name }}"
+
+- name: Create root node
+  tower_workflow_job_template_node:
+    identifier: root
+    unified_job_template: "{{ jt1_name }}"
+    workflow: "{{ wfjt_name }}"
+
+- name: Fail if no name is set for approval
+  tower_workflow_job_template_node:
+    identifier: approval_test
+    approval_node:
+      description: "{{ approval_node_name }}"
+    workflow: "{{ wfjt_name }}"
+  register: no_name_results
+  ignore_errors: true
+
+- assert:
+    that:
+      - "no_name_results.msg == 'Approval node name is required to create approval node.'"
+
+- name: Fail if absent and no identifier set
+  tower_workflow_job_template_node:
+    approval_node:
+      description: "{{ approval_node_name }}"
+    workflow: "{{ wfjt_name }}"
+    state: absent
+  register: no_identifier_results
+  ignore_errors: true
+
+- assert:
+    that:
+      - "no_identifier_results.msg == 'missing required arguments: identifier'"
+
+- name: Fail if present and no unified job template set
+  tower_workflow_job_template_node:
+    identifier: approval_test
+    workflow: "{{ wfjt_name }}"
+  register: no_unified_results
+  ignore_errors: true
+
+- assert:
+    that:
+      - "no_unified_results.msg == 'state is present but any of the following are missing: unified_job_template, approval_node, success_nodes, always_nodes, failure_nodes'"
+
+- name: Create approval node
+  tower_workflow_job_template_node:
+    identifier: approval_test
+    approval_node:
+      name: "{{ approval_node_name }}"
+      timeout: 900
+    workflow: "{{ wfjt_name }}"
+
+- name: Create link for root node
+  tower_workflow_job_template_node:
+    identifier: root
+    workflow: "{{ wfjt_name }}"
+    success_nodes:
+      - approval_test
+    always_nodes:
+      - leaf
+
+- name: Delete approval node
+  tower_workflow_job_template_node:
+    identifier: approval_test
+    approval_node:
+      name: "{{ approval_node_name }}"
+    state: absent
+    workflow: "{{ wfjt_name }}"
+
+- name: Add started notifications to workflow job template
+  tower_workflow_job_template:
+    name: "{{ wfjt_name }}"
+    notification_templates_started:
+      - "{{ email_not }}"
+      - "{{ webhook_not }}"
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Re Add started notifications to workflow job template
+  tower_workflow_job_template:
+    name: "{{ wfjt_name }}"
+    notification_templates_started:
+      - "{{ email_not }}"
+      - "{{ webhook_not }}"
+  register: result
+
+- assert:
+    that:
+      - "result is not changed"
+
+- name: Add success notifications to workflow job template
+  tower_workflow_job_template:
+    name: "{{ wfjt_name }}"
+    notification_templates_success:
+      - "{{ email_not }}"
+      - "{{ webhook_not }}"
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Remove "on start" webhook notification from workflow job template
+  tower_workflow_job_template:
+    name: "{{ wfjt_name }}"
+    notification_templates_started:
+      - "{{ email_not }}"
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Delete a workflow job template with an invalid inventory and webook_credential
+  tower_workflow_job_template:
+    name: "{{ wfjt_name }}"
+    inventory: "Does Not Exist"
+    webhook_credential: "Does Not Exist"
+    state: absent
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Check module fails with correct msg
+  tower_workflow_job_template:
+    name: "{{ wfjt_name }}"
+    organization: Non_Existing_Organization
+  register: result
+  ignore_errors: true
+
+- assert:
+    that:
+      - "result is failed"
+      - "result is not changed"
+      - "'Non_Existing_Organization' in result.msg"
+      - "result.total_results == 0"
+
+- name: Delete the Job Template
+  tower_job_template:
+    name: "{{ jt1_name }}"
+    project: "{{ demo_project_name }}"
+    inventory: Demo Inventory
+    playbook: hello_world.yml
+    credential: Demo Credential
+    job_type: run
+    state: absent
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Delete the second Job Template
+  tower_job_template:
+    name: "{{ jt2_name }}"
+    project: "{{ demo_project_name }}"
+    inventory: Demo Inventory
+    playbook: hello_world.yml
+    credential: Demo Credential
+    job_type: run
+    state: absent
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Delete the Demo Project
+  tower_project:
+    name: "{{ demo_project_name }}"
+    organization: Default
+    scm_type: git
+    scm_url: https://github.com/ansible/ansible-tower-samples.git
+    scm_credential: "{{ scm_cred_name }}"
+    state: absent
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Delete the SCM Credential
+  tower_credential:
+    name: "{{ scm_cred_name }}"
+    organization: Default
+    kind: scm
+    state: absent
+  register: result
+
+- assert:
+    that:
+      - "result is changed"
+
+- name: Delete email notification
+  tower_notification_template:
+    name: "{{ email_not }}"
+    organization: Default
+    state: absent
+
+- name: Delete webhook notification
+  tower_notification_template:
+    name: "{{ webhook_not }}"
+    organization: Default
+    state: absent

@@ -1,0 +1,55 @@
+---
+- name: Install required kerberos packages
+  package:
+    name: "{{ item }}"
+    state: "present"
+  with_items: "{{ krb_req_pkgs }}"
+  become: true
+
+# EPEL required for python-pip install
+- name: Ensure EPEL repository is installed | EL7
+  package:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: "installed"
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+  become: true
+  tags: prerequisites
+
+- name: Ensure pip is installed
+  package:
+    name: "python-pip"
+    state: "present"
+  when: (ansible_os_family == "RedHat" and ansible_distribution_major_version == "7") or
+        (ansible_distribution == "Fedora")
+  become: true
+  tags: prerequisites
+
+- name: Ensure Python libraries are installed
+  pip:
+    name: "{{ item }}"
+    umask: "0022"
+    state: "present"
+  with_items: "{{ krb_pip_pkgs }}"
+  become: true
+
+- name: Configure kerberos
+  template:
+    src: krb5.conf.j2
+    dest: /etc/krb5.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- debug:
+    msg:
+      - "To enable communication with your Windows nodes, add the following variables to your Windows group_vars:"
+      - "  ansible_connection: 'winrm'"
+      - "  ansible_winrm_transport: 'kerberos'"
+      - "You may also want to set the following to your Windows group_vars:"
+      - "  ansible_port: '5986'"
+      - "  When using self-signed winrm certificates:"
+      - "    ansible_winrm_server_cert_validation: 'ignore'"
+      - "  If you are communicating with a single domain and don't want to enter usernames as username@MYDOMAIN.COM, but instead username:"
+      - "    ansible_winrm_realm: 'YOURDOMAINHERE.COM'"

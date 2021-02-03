@@ -1,0 +1,51 @@
+---
+
+# Install absolutely necessary packages
+
+- name: Check if the absolutely necessary packages are installed
+  raw: "rpm -q {{ __towerutils_check_packages | join(' ') }}" # noqa 303
+  register: __towerutils_type_packages
+  ignore_errors: yes
+  changed_when: false
+
+- name: "Install absolutely necessary packages"
+  yum:
+    name: "{{ package_item }}"
+    state: present
+  loop: "{{ __towerutils_check_packages }}"
+  loop_control:
+    loop_var: package_item
+  when:
+    - ('package ' + package_item + ' is not installed') in __towerutils_type_packages.stdout
+
+# Assert tower version specified
+- name: "Assert tower version specified"
+  assert:
+    that:
+      - tower_release_version is defined
+    fail_msg: "tower_release_version must be defined"
+
+- name: "Determine whether RabbitMQ vars are required"
+  set_fact:
+    rabbitmq_required: "{{ not ((tower_release_version == 'latest') or (tower_release_version is version(3.7, '>='))) }}"
+
+# Download and Extract
+- name: "Download and Extract Tower"
+  unarchive:
+    src: "{{ tower_releases_url }}/{{ tower_setup_file }}"
+    dest: "{{ tower_working_location }}"
+    list_files: true
+    remote_src: true
+    exclude: "inventory"
+  register: tower_download_extract
+
+- name: Set tower_setup_dir
+  set_fact:
+    tower_setup_dir: "{{ tower_working_location }}/{{ tower_download_extract.files[0] }}"
+
+# Create Inventory
+- name: "Populate Tower Setup Inventory from Template"
+  template:
+    src: inventory.j2
+    dest: "{{ tower_setup_dir }}/inventory"
+  when: pre_tasks_process_template

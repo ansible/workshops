@@ -1,0 +1,47 @@
+---
+# defaults file for ansible-tower-manage
+
+############################################################
+#               Tower Installation Vars                    #
+############################################################
+
+# Tower release version, either fixed e.g. 3.7.2 or "latest"
+tower_release_version: latest
+
+# Working location for installation files
+tower_working_location: "/var/tmp"
+
+# Tower variables
+tower_admin_password: "password"
+
+# Use the default tower installation template
+pre_tasks_process_template: True
+
+# Postgresql variables
+tower_pg_database: "awx"
+tower_pg_username: "awx"
+tower_pg_password: "password"
+
+# RabbitMQ variables
+tower_rabbitmq_username: tower
+tower_rabbitmq_password: "password"
+tower_rabbitmq_cookie: "cookiemonster"
+tower_rabbitmq_port: 5672
+tower_rabbitmq_vhost: tower
+tower_rabbitmq_use_long_name: false
+
+tower_releases_url: https://releases.ansible.com/ansible-tower/setup
+tower_setup_file: ansible-tower-setup-{{ tower_release_version }}.tar.gz
+
+tower_server: "https://localhost"
+
+############################################################
+#               Ansible host settings.                 #
+############################################################
+
+# Default setup for a single node instance with internal DB
+tower_hosts:
+  - "localhost ansible_connection=local"
+
+tower_database: ""
+tower_database_port: "5432"

@@ -1,0 +1,257 @@
+---
+tower_templates:
+  - name: No Survey Template no vars
+    description: ''
+    job_type: run
+    playbook: helloworld.yml
+    scm_branch: ''
+    forks: 0
+    limit: ''
+    verbosity: 0
+    extra_vars: '{"empty_var": "nothing"}'
+    job_tags: ''
+    force_handlers: false
+    skip_tags: ''
+    start_at_task: ''
+    timeout: 0
+    use_fact_cache: false
+    host_config_key: ''
+    ask_scm_branch_on_launch: false
+    ask_diff_mode_on_launch: false
+    ask_variables_on_launch: false
+    ask_limit_on_launch: false
+    ask_tags_on_launch: false
+    ask_skip_tags_on_launch: false
+    ask_job_type_on_launch: false
+    ask_verbosity_on_launch: false
+    ask_inventory_on_launch: false
+    ask_credential_on_launch: false
+    survey_enabled: false
+    become_enabled: false
+    diff_mode: false
+    allow_simultaneous: false
+    custom_virtualenv: null
+    job_slice_count: 1
+    webhook_service: ''
+    inventory:
+      organization:
+        name: Satellite
+        type: organization
+      name: Testing Inventory
+      type: inventory
+    project:
+      organization:
+        name: Satellite
+        type: organization
+      name: Tower Config
+      type: project
+    related:
+      labels: []
+      credentials:
+        - organization: null
+          name: Demo Credential
+          credential_type:
+            name: Machine
+            kind: ssh
+            type: credential_type
+          type: credential
+      schedules: []
+      notification_templates_started: []
+      notification_templates_success: []
+      notification_templates_error:
+        - organization:
+            name: Satellite
+            type: organization
+          name: irc-satqe-chat-notification
+          type: notification_template
+      survey_spec: {}
+    natural_key:
+      organization:
+        name: Satellite
+        type: organization
+      name: No Survey Template no vars
+      type: job_template
+  - name: Survey Template with vars no org
+    description: ''
+    job_type: run
+    playbook: helloworld.yml
+    scm_branch: ''
+    forks: 0
+    limit: ''
+    verbosity: 0
+    extra_vars: '{"example_a": "127.0.0.1", "example_b": "text"}'
+    job_tags: ''
+    force_handlers: false
+    skip_tags: ''
+    start_at_task: ''
+    timeout: 0
+    use_fact_cache: false
+    host_config_key: ''
+    ask_scm_branch_on_launch: false
+    ask_diff_mode_on_launch: false
+    ask_variables_on_launch: false
+    ask_limit_on_launch: false
+    ask_tags_on_launch: false
+    ask_skip_tags_on_launch: false
+    ask_job_type_on_launch: false
+    ask_verbosity_on_launch: false
+    ask_inventory_on_launch: false
+    ask_credential_on_launch: false
+    survey_enabled: true
+    become_enabled: false
+    diff_mode: false
+    allow_simultaneous: false
+    custom_virtualenv: null
+    job_slice_count: 1
+    webhook_service: ''
+    inventory:
+      organization:
+        name: Satellite
+        type: organization
+      name: Testing Inventory
+      type: inventory
+    project:
+      organization:
+        name: Satellite
+        type: organization
+      name: Tower Config Testing
+      type: project
+    related:
+      labels:
+        - name: Prod
+          organization:
+            name: Default
+            type: organization
+      credentials:
+        - organization: null
+          name: Demo Credential
+          credential_type:
+            name: Machine
+            kind: ssh
+            type: credential_type
+          type: credential
+      schedules: []
+      notification_templates_started: []
+      notification_templates_success: []
+      notification_templates_error:
+        - organization:
+            name: Satellite
+            type: organization
+          name: irc-satqe-chat-notification
+          type: notification_template
+      survey_spec:
+        name: Basic Survey
+        description: Basic Survey
+        spec:
+          - question_description: Name
+            min: 0
+            default: ''
+            max: 128
+            required: true
+            choices: ''
+            new_question: true
+            variable: basic_name
+            question_name: Basic Name
+            type: text
+          - question_description: Choosing yes or no.
+            min: 0
+            default: 'yes'
+            max: 0
+            required: true
+            choices: |-
+              yes
+              no
+            new_question: true
+            variable: option_true_false
+            question_name: Choose yes or no?
+            type: multiplechoice
+          - question_description: ''
+            min: 0
+            default: ''
+            max: 0
+            required: true
+            choices: |-
+              group1
+              group2
+              group3
+            new_question: true
+            variable: target_groups
+            question_name: 'Select Group:'
+            type: multiselect
+    natural_key:
+      organization:
+        name: Satellite
+        type: organization
+      name: Survey Template with vars no org
+      type: job_template
+  - name: workflow_test_template
+    description: ''
+    job_type: run
+    playbook: helloworld.yml
+    scm_branch: ''
+    forks: 0
+    limit: ''
+    verbosity: 0
+    extra_vars: '{"empty_var": "nothing"}'
+    job_tags: ''
+    force_handlers: false
+    skip_tags: ''
+    start_at_task: ''
+    timeout: 0
+    use_fact_cache: false
+    host_config_key: ''
+    ask_scm_branch_on_launch: false
+    ask_diff_mode_on_launch: true
+    ask_variables_on_launch: false
+    ask_limit_on_launch: true
+    ask_tags_on_launch: true
+    ask_skip_tags_on_launch: true
+    ask_job_type_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_inventory_on_launch: true
+    ask_credential_on_launch: true
+    survey_enabled: false
+    become_enabled: false
+    diff_mode: false
+    allow_simultaneous: false
+    custom_virtualenv: null
+    job_slice_count: 1
+    webhook_service: ''
+    inventory:
+      organization:
+        name: Satellite
+        type: organization
+      name: Testing Inventory
+      type: inventory
+    project:
+      organization:
+        name: Satellite
+        type: organization
+      name: Tower Config
+      type: project
+    related:
+      labels: []
+      credentials:
+        - organization: null
+          name: Demo Credential
+          credential_type:
+            name: Machine
+            kind: ssh
+            type: credential_type
+          type: credential
+      schedules: []
+      notification_templates_started: []
+      notification_templates_success: []
+      notification_templates_error:
+        - organization:
+            name: Satellite
+            type: organization
+          name: irc-satqe-chat-notification
+          type: notification_template
+      survey_spec: {}
+    natural_key:
+      organization:
+        name: Satellite
+        type: organization
+      name: workflow_test_template
+      type: job_template

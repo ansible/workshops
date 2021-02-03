@@ -1,0 +1,42 @@
+{
+    "name": "Basic Survey",
+    "description": "Basic Survey",
+    "spec": [
+      {
+        "question_description": "Name",
+        "min": 0,
+        "default": "",
+        "max": 128,
+        "required": true,
+        "choices": "",
+        "new_question": true,
+        "variable": "basic_name",
+        "question_name": "Basic Name",
+        "type": "text"
+      },
+      {
+        "question_description": "Choosing yes or no.",
+        "min": 0,
+        "default": "yes",
+        "max": 0,
+        "required": true,
+        "choices": "yes\nno",
+        "new_question": true,
+        "variable": "option_true_false",
+        "question_name": "Choose yes or no?",
+        "type": "multiplechoice"
+      },
+      {
+        "question_description": "",
+        "min": 0,
+        "default": "",
+        "max": 0,
+        "required": true,
+        "choices": "group1\ngroup2\ngroup3",
+        "new_question": true,
+        "variable": "target_groups",
+        "question_name": "Select Group:",
+        "type": "multiselect"
+      }
+    ]
+  }

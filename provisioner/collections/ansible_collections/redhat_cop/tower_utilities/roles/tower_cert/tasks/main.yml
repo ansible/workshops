@@ -1,0 +1,16 @@
+---
+- name: Copy cert into place
+  become: true
+  copy:
+    src: "{{ tower_cert_location }}"
+    dest: /etc/tower/tower.cert
+  notify:
+    - Restart Ansible tower service
+
+- name: Copy cert key into place
+  become: true
+  copy:
+    src: "{{ tower_cert_key_location }}"
+    dest: /etc/tower/tower.key
+  notify:
+    - Restart Ansible tower service

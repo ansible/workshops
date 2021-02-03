@@ -1,0 +1,37 @@
+---
+- name: Check Ansible Tower Running
+  uri:
+    url: "{{ tower_url }}/api/v2/ping/"
+    method: GET
+    user: admin
+    password: "{{ tower_admin_password }}"
+    validate_certs: false
+    force_basic_auth: true
+  register: tower_install_check
+  ignore_errors: true
+  failed_when: false
+  when: not tower_force_setup
+
+- block:
+    # Run the Setup
+    - name: "[Tower] Run the Ansible Tower Setup Program"
+      become: true
+      command: ./setup.sh
+      args:
+        chdir: "{{ tower_setup_dir }}"
+      async: 10000
+      poll: 20
+      changed_when: false   # these will always run and will always report “changed” otherwise
+
+    - name: Wait for ansible tower to be running.
+      uri:
+        url: "{{ tower_url }}"
+        status_code: 200
+        validate_certs: false
+      register: result
+      until: result.status == 200
+      retries: 90
+      delay: 10
+  when:
+    - tower_force_setup or tower_install_check.status != 200
+...

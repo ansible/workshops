@@ -1,0 +1,40 @@
+{
+ "collection_info": {
+  "namespace": "redhat_cop",
+  "name": "tower_configuration",
+  "version": "1.0.2",
+  "authors": [
+   "Andrew Huffman",
+   "Jonathan Lozada De La Matta @jlozadad",
+   "Kedar Kulkarni @kedark3",
+   "Tom Page @Tompage1994",
+   "Sean Sullivan @sean-m-sullivan"
+  ],
+  "readme": "README.md",
+  "tags": [
+   "tower",
+   "collection",
+   "tower_configuration"
+  ],
+  "description": "A collection of roles to manage Ansible Tower",
+  "license": [
+   "GPL-3.0-or-later"
+  ],
+  "license_file": null,
+  "dependencies": {
+   "awx.awx": "*"
+  },
+  "repository": "https://github.com/redhat-cop/tower_configuration",
+  "documentation": null,
+  "homepage": null,
+  "issues": "https://github.com/redhat-cop/tower_configuration/issues"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "4504fffa3150eb9db676a130d8d331fb65bf76e5a076c6c25cef8205afaff888",
+  "format": 1
+ },
+ "format": 1
+}

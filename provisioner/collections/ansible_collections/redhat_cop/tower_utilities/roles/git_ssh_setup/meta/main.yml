@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  role_name: redhat_cop.tower_utilities.git_ssh_setup
+  author: Eric Lavarde
+  description: Role to install a minimal Git over SSH server
+  company: Red Hat
+
+  license: license (MIT)
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+  galaxy_tags:
+    - linux
+    - system
+    - ansible
+    - git
+
+dependencies: []

@@ -1,0 +1,17 @@
+{
+    "tower_projects": [
+      {
+        "name": "Tower Config",
+        "organization": "Default",
+        "scm_branch": "master",
+        "scm_clean": "no",
+        "scm_delete_on_update": "no",
+        "scm_type": "git",
+        "scm_update_on_launch": "no",
+        "scm_url": "https://github.com/ansible/tower-example.git",
+        "notification_templates_error": [
+          "Slack_for_testing"
+        ]
+      }
+    ]
+  }

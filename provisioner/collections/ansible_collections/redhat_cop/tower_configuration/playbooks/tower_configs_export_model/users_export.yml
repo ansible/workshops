@@ -1,0 +1,34 @@
+---
+tower_user_accounts:
+  - username: AWX-Collection-tests-tower_role-user
+    first_name: Joe
+    last_name: User
+    email: joe@example.org
+    is_superuser: false
+    is_system_auditor: false
+    password: tower_password
+    related:
+      roles:
+        - name: Execute
+          type: role
+          content_object:
+            organization:
+              name: Default
+              type: organization
+            name: test-role-workflow
+            type: workflow_job_template
+    natural_key:
+      username: AWX-Collection-tests-tower_role-user
+      type: user
+  - username: AWX-Collection-tests-tower_role-user-ClPzjxrRTIwcOCvO
+    first_name: Joe
+    last_name: User
+    email: joe@example.org
+    is_superuser: false
+    is_system_auditor: false
+    password: tower_password
+    related:
+      roles: []
+    natural_key:
+      username: AWX-Collection-tests-tower_role-user-ClPzjxrRTIwcOCvO
+      type: user

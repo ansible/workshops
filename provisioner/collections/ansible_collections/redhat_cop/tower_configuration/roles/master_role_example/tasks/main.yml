@@ -1,0 +1,22 @@
+---
+
+# Create Job Template
+- name: Add Tower ***********
+  awx.awx.tower_***********:
+    name:                           "{{ ***********_item.name }}"
+    new_name:                       "{{ ***********_item.new_name | default(omit) }}"
+    description:                    "{{ ***********_item.description | default('') }}"
+
+    # Role specific options
+    state:                          "{{ ***********_item.state | default(tower_state | default('present')) }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_************ }}"
+  loop_control:
+    loop_var: "***********_item"
+  no_log: "{{ tower_configuration_*******_secure_logging }}"
+  when: tower_************ is defined

@@ -1,0 +1,12 @@
+---
+tower_teams:
+  - name: "team1"
+    desc: "My first team"
+    organization: "Default"
+  - name: "team2"
+    desc: "My second team"
+    organization: "Default"
+  - name: "team3"
+    desc: "My third team"
+    organization: "Default"
+...

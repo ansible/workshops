@@ -1,0 +1,5 @@
+---
+tower_user_accounts:
+  - user: tower_user
+    is_superuser: false
+    password: tower_password

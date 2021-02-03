@@ -1,0 +1,21 @@
+---
+- name: Add tower group
+  awx.awx.tower_group:
+    name:                           "{{ tower_groups_item.name }}"
+    new_name:                       "{{ tower_groups_item.new_name | default(omit) }}"
+    description:                    "{{ tower_groups_item.description | default(omit) }}"
+    inventory:                      "{{ tower_groups_item.inventory }}"
+    variables:                      "{{ tower_groups_item.variables | default(omit) }}"
+    hosts:                          "{{ tower_groups_item.hosts | default(omit) }}"
+    children:                       "{{ tower_groups_item.children | default(omit) }}"
+    state:                          "{{ tower_groups_item.state | default('present') }}"
+    tower_username:                 "{{ tower_username | default(omit) }}"
+    tower_password:                 "{{ tower_password | default(omit) }}"
+    tower_oauthtoken:               "{{ tower_oauthtoken | default(omit) }}"
+    tower_host:                     "{{ tower_hostname }}"
+    tower_config_file:              "{{ tower_config_file | default(omit) }}"
+    validate_certs:                 "{{ tower_validate_certs | default('true') }}"
+  loop: "{{ tower_groups }}"
+  loop_control:
+    loop_var: tower_groups_item
+  no_log: "{{ tower_configuration_group_secure_logging }}"

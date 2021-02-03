@@ -1,0 +1,29 @@
+---
+- name: Find the current run time.
+  set_fact:  # tar tries to interpret colons as remote files hence we avoid
+    __tower_venv_backup_date: '{{ lookup("pipe", "date +%F_%H-%M-%S") }}'
+
+- name: Ensure virtual environment path exists
+  file:
+    mode: "0755"
+    owner: "awx"
+    group: "awx"
+    path: "{{ tower_venv_path }}"
+    state: directory
+  become: true
+
+- name: Include Requirements
+  include_tasks: requirements.yml
+  when: tower_venv_requirements|bool
+
+- name: Include Online Virtualenv
+  include_tasks: online.yml
+  when: tower_venv_online|bool
+
+- name: Include Offline Virtualenv
+  include_tasks: offline.yml
+  when: tower_venv_offline|bool
+
+- name: Include Backup of the Virtualenv
+  include_tasks: backup.yml
+  when: tower_venv_backup|bool

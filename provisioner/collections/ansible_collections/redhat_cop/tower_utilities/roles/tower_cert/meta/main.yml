@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  role_name: ansible-tower-cert
+  author: Tom Page
+  description: Role to install Ansible Tower Certificates
+  company: Red Hat
+
+  license: license (MIT)
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - linux
+    - system
+    - ansible
+    - cert
+    - certs
+
+dependencies: []

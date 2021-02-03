@@ -1,0 +1,64 @@
+---
+
+# These are the default variables common to most tower_configuration and _utilities roles
+# You shouldn't need to define them again and again but they should be defined
+#tower_hostname: "{{ inventory_hostname }}"
+#tower_username: "admin"
+#tower_password: ""
+#tower_oauthtoken: ""
+#tower_config_file: ""
+#tower_validate_certs: false
+
+# These are the default variables specific to the job_templates role
+
+# list of dict describing Tower job templates:
+tower_job_templates: []
+# possible fields:
+#- name: "job_template_name"  # mandatory
+#  new_name: "new_name"  # optional
+#  description: "some description"  # optional
+#  job_type:  # optional, choices: run, check
+#  ask_job_type_on_launch: false  # optional, boolean
+#  inventory: "inventory_name"  # optional, str or inventory dict with name field
+#  ask_inventory_on_launch: false  # optional, boolean
+#  organization: "organization_name"  # optional, str or organization dict with name field
+#  project: "project_name"  # optional, str or project dict with name field
+#  playbook: "playbook.yml"  # optional, relative path to playbook
+#  scm_branch:  # optional, str
+#  ask_scm_branch_on_launch: false  # optional, boolean
+#  credentials:  # optional, list of credential names
+#  - "credential_name"
+#  ask_credential_on_launch: false  # optional, boolean
+#  forks:  # optional, integer
+#  limit:  # optional, str
+#  ask_limit_on_launch: false  # optional, boolean
+#  verbosity: 0  # optional, choices: [0-4]
+#  ask_verbosity_on_launch: false  # optional, boolean
+#  extra_vars:  # optional, str
+#  ask_variables_on_launch: false  # optional, boolean
+#  job_tags:  # optional, comma separated tags
+#  ask_tags_on_launch: false  # optional, boolean
+#  skip_tags:  # optional, comma separated tags
+#  ask_skip_tags_on_launch: false  # optional, boolean
+#  force_handlers: false  # optional, boolean
+#  start_at_task:  # optional, str
+#  diff_mode: false  # optional, boolean
+#  ask_diff_mode_on_launch: false  # optional, boolean
+#  use_fact_cache: false  # optional, boolean
+#  host_config_key:  # optional, str
+#  survey_enabled: false  # optional, boolean
+#  survey_spec: {} # optional, YAML/JSON object
+#  become_enabled: false  # optional, boolean
+#  allow_simultaneous: false  # optional, boolean
+#  timeout:  # optional, integer in seconds
+#  custom_virtualenv: "/var/lib/awx/myvenv"  # optional, absolute path to virtualenv
+#  job_slice_count: 1  # optional, integer
+#  webhook_service:   # optional, str
+#  webhook_credential:   # optional, str
+#  labels:  # optional, str
+#  state: present  # optional, choices: present, absent
+#  notification_templates_started: []  # optional, notification template names
+#  notification_templates_success: []  # optional, notification template names
+#  notification_templates_error: []  # optional, notification template names
+
+tower_configuration_job_templates_secure_logging: "{{tower_configuration_secure_logging | default(false)}}"

@@ -1,0 +1,36 @@
+# {{ ansible_managed }}
+# Configuration snippets may be placed in this directory as well
+includedir /etc/krb5.conf.d/
+
+[logging]
+default = FILE:/var/log/krb5libs.log
+kdc = FILE:/var/log/krb5kdc.log
+admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+dns_lookup_realm = {{ krb_dns_lookup_realm }}
+dns_lookup_kdc = {{ krb_dns_lookup_kdc }}
+ticket_lifetime = {{ krb_ticket_lifetime }}
+renew_lifetime = {{ krb_renew_lifetime }}
+forwardable = {{ krb_forwardable }}
+rdns = {{  krb_rdns }}
+{% if krb_default_realm is defined %}
+default_realm = {{ krb_default_realm | upper }}
+{% endif %}
+default_ccache_name = KEYRING:persistent:%{uid}
+
+[realms]
+{% for realm in krb_realms %}
+    {{ realm.name | upper }} = {
+{% for dc in realm.dc_fqdns %}
+        kdc = {{ dc | lower }}
+{% endfor %}
+        admin_server = {{ realm.dc_fqdns | first | lower }}
+    }
+{% endfor %}
+
+[domain_realm]
+{% for realm in krb_realms %}
+    .{{ realm.name | lower }} = {{ realm.name | upper }}
+    {{ realm.name | lower }} = {{ realm.name | upper }}
+{% endfor %}

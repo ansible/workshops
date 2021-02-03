@@ -1,0 +1,31 @@
+---
+- name: Playbook to configure ansible tower post installation
+  hosts: localhost
+  connection: local
+  vars:
+    workflow_job_templates_secure_logging: false
+    tower_validate_certs: false
+  collections:
+    - awx.awx
+  # Define following vars here, or in tower_configs/tower_auth.yml
+  # tower_hostname: ansible-tower-web-svc-test-project.example.com
+  # tower_username: admin
+  # tower_password: changeme
+  pre_tasks:
+    - name: Include vars from tower_configs directory
+      include_vars:
+        dir: ./tower_configs_export_model
+        ignore_files: [README.md]
+        extensions: ["yml"]
+  roles:
+    - {role: organizations, when: tower_organizations is defined, tags: organizations}
+    - {role: users, when: tower_user_accounts is defined, tags: users}
+    - {role: teams, when: tower_teams is defined, tags: teams}
+    - {role: credential_types, when: tower_credential_types is defined, tags: credential_types}
+    - {role: credentials, when: tower_credentials is defined, tags: credentials}
+    - {role: inventories, when: tower_inventories is defined, tags: inventories}
+    - {role: inventory_sources, when: tower_inventory_sources is defined, tags: inventory_sources}
+    - {role: projects, when: tower_projects is defined, tags: projects}
+    - {role: job_templates, when: tower_templates is defined, tags: job_templates}
+    - {role: workflow_job_templates, when: tower_workflows is defined}
+    - {role: notification_templates, when: tower_notifications is defined, tags: notification_templates}

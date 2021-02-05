@@ -1,9 +1,0 @@
-{
-  "tower_user_accounts": [
-    {
-      "user": "johnsmith",
-      "superuser": false,
-      "password": "password1"
-    }
-  ]
-}

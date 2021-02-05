@@ -1,7 +1,0 @@
----
-############################################################
-#               Ansible Tower backup settings.                 #
-############################################################
-
-# Default backup vars, these are default from installer
-backup_dest: "{{ tower_working_location }}/"

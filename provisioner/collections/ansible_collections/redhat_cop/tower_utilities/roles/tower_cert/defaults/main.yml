@@ -1,3 +1,0 @@
----
-tower_cert_location: "{{ playbook_dir }}/tower.cert"
-tower_cert_key_location: "{{ playbook_dir }}/tower.key"

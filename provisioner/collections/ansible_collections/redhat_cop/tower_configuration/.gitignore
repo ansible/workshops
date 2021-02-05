@@ -1,4 +1,0 @@
-collections/*
-!collections/requirements.yml
-galaxy.yml
-*.tar.gz

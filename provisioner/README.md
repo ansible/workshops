@@ -11,24 +11,25 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 | Ansible Security Automation | `workshop_type: security`   |
 | Ansible Windows Automation  | `workshop_type: windows`    |
 | Ansible Demo Mode  | `workshop_type: demo`    |
+| Smart Management Workshop | `workshop_type: smart_mgmt` |
 
 ## Table Of Contents
 
-* [Ansible AWS training provisioner](#ansible-aws-training-provisioner)
-* [Table Of Contents](#table-of-contents)
-* [Requirements](#requirements)
-* [Lab Setup](#lab-setup)
-  * [One Time Setup](#one-time-setup)
-  * [Setup (per workshop)](#setup-per-workshop)
-  * [IBM Community Grid](#ibm-community-grid)
-  * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
-  * [Accessing instructor inventory](#accessing-instructor-inventory)
-  * [DNS](#dns)
-* [Lab Teardown](#lab-teardown)
-* [Demos](#demos)
-* [FAQ](#faq)
-* [More info on what is happening](#more-info-on-what-is-happening)
-* [Getting Help](#getting-help)
+- [Ansible AWS training provisioner](#ansible-aws-training-provisioner)
+  - [Table Of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Lab Setup](#lab-setup)
+    - [One Time Setup](#one-time-setup)
+    - [Setup (per workshop)](#setup-per-workshop)
+    - [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
+    - [Accessing instructor inventory](#accessing-instructor-inventory)
+    - [DNS](#dns)
+    - [Smart Management](#smart-management)
+  - [Lab Teardown](#lab-teardown)
+  - [Demos](#demos)
+  - [FAQ](#faq)
+  - [More info on what is happening](#more-info-on-what-is-happening)
+  - [Getting Help](#getting-help)
 
 ## Requirements
 
@@ -89,6 +90,7 @@ For more extra_vars examples, look at the following:
 * [sample-vars-rhel-90.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 * [sample-vars-rhel-90.yml](sample_workshops/sample-vars-rhel-90.yml) - example for `rhel_90` workshop, meant to be taught in 90 minutes
 * [sample-vars-demo.yml](sample_workshops/sample-vars-demo.yml) - example for `demo` mode, aggregate of all workshop topologies
+* [sameple-vars-smart_mgmt.yml](sample_workshops/sample-vars-smart_mgmt.yml) - example for `smart_mgmt` workshop. [Read Notes](#smart-management)
 
 * Run the playbook:
 
@@ -140,6 +142,12 @@ This means that each student workbench will get an individual DNS entry.  For ex
 
 * **NOTE:** The variable `dns_type` defaults to `aws`.  This can also be set to `dns_type: none`.
 * **NOTE:**  If Lets Encrypt fails, the workshop provisioner will still pass, and alert you of errors in the `summary_information` at the end of the `provision_lab.yml` Ansible Playbook.
+
+### Smart Management
+
+The Smart Management Lab relies on a prebuilt AMI for Red Hat Satellite Server. An example for building this AMI can be found [here](https://github.com/willtome/ec2-image-build).
+
+The Smart Management Lab also requires AWS DNS to be enabled and IBM community Grid to be disabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
 
 ## Lab Teardown
 

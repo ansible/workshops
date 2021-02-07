@@ -86,11 +86,11 @@ ec2_info:
     username: ec2-user
   rhel7:
     owners: 309956199498
-    size: t3.micro
+    size: t2.medium
     os_type: linux
     disk_space: 10
     architecture: x86_64
-    filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
+    filter: 'RHEL-7.9_HVM*'
     username: ec2-user
     python_interpreter: '/usr/bin/python'
   f5node:

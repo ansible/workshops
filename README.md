@@ -17,6 +17,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 | **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](./decks/ansible_f5.pdf) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
 | **Ansible Security Automation** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [Deck](./decks/ansible_security.pdf) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
 | **Ansible Windows Automation Workshop** <br> focused on automation of Microsoft Windows  | [Deck](./decks/ansible_windows.pdf) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
+| \[WIP\] **Smart Management Automation Workshop** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | Deck | [Exercises](./exercises/smart_mgmt) | `workshop_type: smart_mgmt`
 
 90 minute abbreviated versions:
 

@@ -36,7 +36,7 @@ Additionally, the role will also make sure that the Apache configuration is prop
 
 ### The Apache-configuration Role
 
-The Playbook and the role with the Jinja template already exist in the Github repository [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-exampleshttps://github.com/ansible/workshop-examples) in the directory `rhel/apache`.
+The Playbook and the role with the Jinja template already exist in the Github repository [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples) in the directory `rhel/apache`.
 
  Head over to the Github UI and have a look at the content: the playbook `apache_role_install.yml` merely references the role. The role can be found in the `roles/role_apache` subdirectory.
 

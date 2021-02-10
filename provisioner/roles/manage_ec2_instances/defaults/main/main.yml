@@ -49,14 +49,14 @@ ec2_info:
     filter: "*VEOSRouter*"
   checkpoint_mgmt:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS BYOL*R80.30*'
+    filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'
     architecture: x86_64
     size: m5.xlarge
     ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
     username: admin
   checkpoint_gw:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS GW*BYOL*R80.30*'
+    filter: 'Check Point CloudGuard IaaS GW*BYOL*R80.40*'
     architecture: x86_64
     size: c5.large
     ami: "{{ checkpoint_gw_ami| default(omit) }}"

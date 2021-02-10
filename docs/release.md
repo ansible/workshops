@@ -51,3 +51,9 @@ cc @cloin @liquidat @goetzrieger @Spredzy
   ![passed ci](../images/passed.png)
 
 7.  If there are major changes, announce these to Roland to make sure they reach his newsletter :)
+
+## Getting Help
+
+Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
+
+![Ansible-Workshop-Logo.png](../images/Ansible-Workshop-Logo.png)

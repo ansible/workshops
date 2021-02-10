@@ -89,3 +89,9 @@ exercise_src_location: "exercises/my_exercises"
 ```
 
 This would load the exercises `/exercises/my_exercises` from fork `github.com/ipvsean/workshops.git` branch `test_branch` into the student home directory of `~/my_folder`
+
+## Getting Help
+
+Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
+
+![Ansible-Workshop-Logo.png](../images/Ansible-Workshop-Logo.png)

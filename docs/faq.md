@@ -156,3 +156,9 @@ objc[43678]: +[__NSPlaceholderDate initialize] may have been in progress in anot
 ```
 $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ```
+
+## Getting Help
+
+Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
+
+![Ansible-Workshop-Logo.png](../images/Ansible-Workshop-Logo.png)

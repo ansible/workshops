@@ -14,6 +14,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: create_vpc
   until: create_vpc is not failed
   retries: 5
@@ -41,6 +42,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
     rules: "{{ all_rules }}"
     rules_egress:
       - proto: all
@@ -64,6 +66,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
     rules:
       - proto: tcp
         from_port: 22
@@ -108,6 +111,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: create_subnet
   when: ec2_vpc_id is undefined
   until: create_subnet is not failed
@@ -128,6 +132,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: create_subnet2
   until: create_subnet2 is not failed
   retries: 15
@@ -143,6 +148,7 @@
       Students: "Total {{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: igw
   until: igw is not failed
   retries: 15
@@ -164,6 +170,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: routetable
   until: routetable is not failed
   retries: 5
@@ -181,6 +188,8 @@
     name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
     state: present
     region: "{{ ec2_region }}"
+    tags:
+      ansible-workshops: "true"
   retries: 4
   delay: 15
   register: s3_result

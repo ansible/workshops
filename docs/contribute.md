@@ -109,3 +109,9 @@ To make sure this is run everytime one commits a change, and hence one is not se
 The following links will be helpful if you want to contribute code to the Ansible Workshops project, or any Ansible project:
 - [Ansible Committer Guidelines](http://docs.ansible.com/ansible/latest/committer_guidelines.html)
 - [Learning Git](https://git-scm.com/book/en/v2)
+
+## Getting Help
+
+Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
+
+![Ansible-Workshop-Logo.png](../images/Ansible-Workshop-Logo.png)

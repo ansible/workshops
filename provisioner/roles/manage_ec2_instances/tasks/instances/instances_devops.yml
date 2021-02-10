@@ -23,6 +23,7 @@
       short_name: "dev_web1"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: dev_web1
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -70,6 +71,7 @@
       short_name: "dev_web2"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: dev_web2
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -117,6 +119,7 @@
       short_name: "prod_web1"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: prod_web1
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -164,6 +167,7 @@
       short_name: "prod_web2"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: prod_web2
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

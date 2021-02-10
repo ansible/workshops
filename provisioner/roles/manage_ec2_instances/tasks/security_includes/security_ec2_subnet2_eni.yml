@@ -62,6 +62,7 @@
       Students: "{{student_total}}"
       Subnet: '{{ ec2_name_prefix }}-subnet2'
       Workshop: "{{ec2_name_prefix}}"
+      ansible-workshops: "true"
   when: "(item|length|int > 1) and ('interface' in item[1])"
   with_indexed_items:
     - "{{ ('results' in wait_eni2_creation_attacker) | ternary(wait_eni2_creation_attacker['results'],[]) }}"
@@ -82,6 +83,7 @@
       Students: "{{student_total}}"
       Subnet: '{{ ec2_name_prefix }}-subnet2'
       Workshop: "{{ec2_name_prefix}}"
+      ansible-workshops: "true"
   when: "(item|length|int > 1) and ('interface' in item[1])"
   with_indexed_items:
     - "{{ ('results' in wait_eni2_creation_snort) | ternary(wait_eni2_creation_snort['results'], []) }}"

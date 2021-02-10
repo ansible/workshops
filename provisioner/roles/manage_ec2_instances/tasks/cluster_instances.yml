@@ -20,6 +20,7 @@
       Students: "{{ student_total }}"
       username: "{{ ec2_info[control_type].username }}"
       short_name: "ansible-{{ sequence }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

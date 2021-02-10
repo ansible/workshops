@@ -9,7 +9,7 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item[0] + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
-      ansible-workshops: true
+      ansible-workshops: "true"
   with_indexed_items:
     - "{{ siem_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -28,7 +28,7 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item[0] + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
-      ansible-workshops: true
+      ansible-workshops: "true"
   with_indexed_items:
     - "{{ siem_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -54,7 +54,7 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item[0] + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
-      ansible-workshops: true
+      ansible-workshops: "true"
   with_indexed_items:
     - "{{ snort_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -72,7 +72,7 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item[0] + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
-      ansible-workshops: true
+      ansible-workshops: "true"
   with_indexed_items:
     - "{{ attacker_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -91,7 +91,7 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item[0] + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
-      ansible-workshops: true
+      ansible-workshops: "true"
   with_indexed_items:
     - "{{ checkpoint_mgmt_output.instances }}"
   async: "{{ async_timeout_seconds }}"
@@ -111,7 +111,7 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item[0] + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
-      ansible-workshops: true
+      ansible-workshops: "true"
   with_indexed_items:
     - "{{ windows_ws_output.instances }}"
   async: "{{ async_timeout_seconds }}"

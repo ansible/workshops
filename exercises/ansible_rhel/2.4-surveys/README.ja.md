@@ -1,61 +1,72 @@
-# 演習 - Survey 機能
+# 演習 - アンケート
 
-**Read this in other languages**:
+**その他の言語はこちらをお読みください。**
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
-* [目的](#目的)
-* [ガイド](#ガイド)
-* [Apache-configuration Role](#apache-configuration-role)
-* [プロジェクトを作成する](#プロジェクトを作成する)
-* [Survey 付きのテンプレートを作成](#survey-付きのテンプレートを作成)
-   * [テンプレートの作成](#テンプレートの作成)
-   * [Survey を追加する](#survey-を追加する)
-* [テンプレートを起動します](#テンプレートを起動します)
-* [さらに次のタスクを実行ください](#さらに次のタスクを実行ください)
+## 目次
 
-# 目的
+* [目的](#objective)
+* [ガイド](#guide)
+* [Apache-configuration ロール](#the-apache-configuration-role)
+* [Survey によるテンプレートの作成](#create-a-template-with-a-survey)
+  * [テンプレートの作成](#create-template)
+  * [Aurvey の追加](#add-the-survey)
+* [テンプレートの起動](#launch-the-template)
+* [練習してみましょう。](#what-about-some-practice)
 
-Ansible Towerの [Survey機能](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys) の使用方法をデモします。Surveyは、「Prompt for Extra Variables」と同様にPlaybookに追加変数を設定しますが、ユーザーフレンドリーな質問と回答の方法で行います。Surveyでは、ユーザーの入力を検証することもできます。
+## 目的
 
-# ガイド
+Ansible Tower Survey [survey
+機能](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys)
+の使用のデモンストレーションを行います。Survey は、「Prompt for Extra Variables (追加変数のプロンプト)」と同様に
+Playbook の追加変数を設定しますが、ユーザーが使いやすい質問と回答を使ってこれを実行します。また、Survey
+ではユーザー入力を検証することもできます。
 
-先ほど実行したジョブでは、すべてのホストにApacheをインストールしました。これを拡張してみましょう。
+## ガイド
 
-- Jinja2テンプレートを持つ適切なroleを使って `index.html` ファイルをデプロイします。
+実行したジョブのすべてのホストに Apache をインストールしました。次に、これに拡張を行っていきます。
 
-- index.html` テンプレートの値を収集するためのSurveyを持つ ジョブ **テンプレート**を作成します。
+* jinja2 テンプレートを持つ適切なロールを使用して、`index.html`ファイルをデプロイします。
 
-- ジョブ **テンプレート** を起動します。
+* survey でジョブ **Template** を作成し、`index.html` テンプレートの値を収集します。
+
+* ジョブ **Template** の起動
+
+さらに、このロールは、他の演習中に混ざった場合を考慮して、Apache 構成が適切に設定されていることも確認します。
 
 > **ヒント**
 >
-> Survey機能では、データに対する簡単なクエリのみを提供していますが、4つの目の原則、つまり動的データや入れ子になったメニューに基づくクエリはサポートしていません。
+> この survey 機能では、データにシンプルな query を提供します。4 つの目の原則、動的データに基づいたクエリー、ネストメニューには対応していません。
 
-## Apache-configuration Role
+### Apache-configuration ロール
 
-Playbook と Jinja2 テンプレートを持つ Roles は Github リポジトリ **https://github.com/ansible/workshop-examples** の `rhel/apache` にあります。  
+Jinja テンプレートの Playbook とロールが、ディレクトリー `rhel/apache` の Github
+レポジトリーに既に存在します。[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-exampleshttps://github.com/ansible/workshop-examples)
 
-Github UIに移動して、 `apache_role_install.yml` の中身を見てみてください。単に Role を参照しているだけです。 Role は `roles/role_apache` サブディレクトリに存在します。
+Github UI にアクセスして、コンテンツを確認します。Playbook `apache_role_install.yml` は単にロールを参照します。ロールは、`roles/role_apache` サブディレクトリーにあります。
 
- - Role 内の jinja2 テンプレート `templates/index.html.j2` 内に定義された二つの変数を確認します。変数は `{{…?}}` で定義されるんでしたね。
- - また、メインのタスクを担う、 `tasks/main.yml` の中で、template からファイルをコピーするタスクをチェックします。
+* ロール内で、`{{…​}}` でマークされている `templates/index.html.j2` テンプレートファイルの 2
+  つの変数をメモします。
+* また、テンプレートからファイルをデプロイする、`tasks/main.yml` のタスクを確認します。
 
-この Playbook は何をやっているのでしょうか？これはテンプレート (**src**) から、対象ホスト上にファイル (**dest**) としてコピーしています。
+この Playbook はどのような操作を行うのでしょうか。テンプレート (**src**) の管理対象ホストでファイル (**dest**)
+を作成します。
 
-この Role は、Apache の静的な設定もデプロイします。前の章で行われた全ての変更が上書きされ、今回の演習が問題なく実行できることを保証するためのものです。
+このロールは、Apache の静的構成も展開します。これにより、前の章で行ったすべての変更が上書きされ、例が正しく動作するようになります。
 
-この Playbook と Role は `apache_install.yml` と同じ Github リポジトリに配置されているため、この演習用に新しいプロジェクトを作成する必要はありません。
+Playbook とロールは、`apache_install.yml` Playbook と同じ Github
+レポジシトリーにあるため、この演習用に新しいプロジェクトを構成する必要はありません。
 
-## Survey 付きのテンプレートを作成
+### Survey を持つテンプレートの作成
 
-ここでは Survey を含む新しいジョブテンプレートを作成します。
+次は、survey を含む新しいテンプレートを作成します。
 
-### テンプレートの作成
+#### テンプレートの作成
 
-- 左のメニューで**テンプレート**を選択し、![plus](images/green_plus.png) ボタンをクリック。 **ジョブテンプレート**を選択します。  
+* **Templates** に移動し、![plus](images/green_plus.png) ボタンをクリックして、**Job
+  Template** を選択します。
 
-- 以下の情報を入力します:
-
+* 次の情報を入力します。
 
 <table>
   <tr>
@@ -63,71 +74,50 @@ Github UIに移動して、 `apache_role_install.yml` の中身を見てみて�
     <th>Value</th>
   </tr>
   <tr>
-    <td>名前</td>
+    <td>NAME</td>
     <td>Create index.html</td>
   </tr>
   <tr>
-    <td>ジョブタイプ</td>
+    <td>JOB TYPE</td>
     <td>Run</td>
   </tr>
   <tr>
-    <td>インベントリー</td>
+    <td>INVENTORY</td>
     <td>Workshop Inventory</td>
   </tr>
   <tr>
-    <td>プロジェクト</td>
+    <td>Project</td>
     <td>Workshop Project</td>
-  </tr>  
+  </tr>
   <tr>
     <td>PLAYBOOK</td>
     <td><code>rhel/apache/apache_role_install.yml</code></td>
   </tr>
   <tr>
-    <td>認証情報</td>
+    <td>CREDENTIAL</td>
     <td>Workshop Credentials</td>
   </tr>
   <tr>
-    <td>制限</td>
+    <td>LIMIT</td>
     <td>web</td>
-  </tr>  
+  </tr>
   <tr>
-    <td>オプション</td>
-    <td>権限昇格の有効化</td>
-  </tr>          
+    <td>OPTIONS</td>
+    <td>Enable Privilege Escalation</td>
+  </tr>
 </table>
 
-> **注意**  
+* **SAVE** をクリックします。
+
+> **警告**
 >
-> **まだジョブテンプレートを実行しないでください！**  
+> **まだテンプレートは実行しないでください。**
 
-### Survey を追加する
+#### Survey nの追加
 
-- ジョブテンプレートの中で、**SURVEY の追加** ボタンをクリックします  
+* Template で、**ADD SURVEY** ボタンをクリックします。
 
-- **Survey プロンプトの追加** フォームで以下を入力します  
-
-    <table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>プロンプト</td>
-    <td>First Line</td>
-  </tr>
-  <tr>
-    <td>回答の変数名</td>
-    <td><code>first_line</code></td>
-  </tr>
-  <tr>
-    <td>回答タイプ</td>
-    <td>テキスト</td>
-  </tr>         
-</table>
-
-- **+ADD**をクリックします。
-
-- 同じように2つ目の変数入力フォームを定義します
+* **ADD SURVEY PROMPT**の下に、次のように入力します。
 
 <table>
   <tr>
@@ -135,47 +125,82 @@ Github UIに移動して、 `apache_role_install.yml` の中身を見てみて�
     <th>Value</th>
   </tr>
   <tr>
-    <td>プロンプト</td>
+    <td>PROMPT</td>
+    <td>First Line</td>
+  </tr>
+  <tr>
+    <td>ANSWER VARIABLE NAME</td>
+    <td><code>first_line</code></td>
+  </tr>
+  <tr>
+    <td>ANSWER TYPE</td>
+    <td>Text</td>
+  </tr>
+</table>
+
+* **+ADD** をクリックしてください。
+
+* 同様に、2 番目の **Survey Prompt** を追加します
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>PROMPT</td>
     <td>Second Line</td>
   </tr>
   <tr>
-    <td>回答の変数名</td>
+    <td>ANSWER VARIABLE NAME</td>
     <td><code>second_line</code></td>
   </tr>
   <tr>
-    <td>回答タイプ</td>
-    <td>テキスト</td>
-  </tr>         
+    <td>ANSWER TYPE</td>
+    <td>Text</td>
+  </tr>
 </table>
 
-- **+ADD**をクリックします
+* **+ADD** をクリックしてください。
 
-- **保存** をクリックし、 Survey を保存します
+* Survey の **SAVE** をクリックします。
 
-- **保存** をクリックし、ジョブテンプレートを保存します
+* Template の **SAVE** をクリックします。
 
-## テンプレートを起動します
+### テンプレートの起動
 
-作成したジョブテンプレート **Create index.html** を起動してみます。  
+次に、**Create index.html** ジョブテンプレートを起動します。
 
-実際の起動の際に、Survey は **First Line** と **Second Line** の2つについて入力を要求します。お好きなテキストを入力して、「次へ」をクリックします。次のウィンドウに入力した値が表示されます。問題なければ、「起動」をクリックしてジョブを実行します。
+実際に起動する前に、Survey により、**First Line** と **Second Line**
+が求められます。テキストを入力して、**Next** をクリックします。次のウィンドウに値が表示されます。問題がなければ、**Launch**
+をクリックしてジョブを実行します。
 
 > **ヒント**
 >
-> 入力した 2つの値がジョブ実行画面の左下の **追加変数**に表示されていることを確認します。  
+> 2 つの survey 行が **Extra Variables** としてジョブの左にどのように表示されているかに注意してください。
 
-ジョブが完了したら、Apache ホームページを確認してください。確認するのは、そう、`node1` です。 Tower Server の SSH コンソールの curl コマンドで確認したもよいですし、ブラウザで直接 node1 に接続してみてもOKです。  
+ジョブが完了したら、Apache ホームページを確認します。コントロールホストの SSH コンソールで、`node1` の IP アドレスに対して
+`curl` を実行します。
 
 ```bash
-$ curl http://<node1>
+$ curl http://22.33.44.55
 <body>
 <h1>Apache is running fine</h1>
 <h1>This is survey field "First Line": line one</h1>
 <h1>This is survey field "Second Line": line two</h1>
 </body>
 ```
-この index.html ファイルが Playbook と Survey によってどのように作成されたのか、よく理解しておいて下さい。
 
-----
+Playbook によって使用されている 2 つの変数が `index.html` ファイルの内容を作成するかに注意してください。
 
-[Ansible Tower ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-towerの演習)
+---
+**ナビゲーション**
+<br>
+
+{% if page.url contains 'ansible_rhel_90' %}
+[前の演習](../1.4-variables) - [次の演習](../../ansible_rhel_90/6-system-roles/)
+{% else %}
+[前の演習](../2.3-projects) - [次の演習](../2.5-rbac)
+{% endif %}
+<br><br>
+[こちらをクリックして、Ansible for Red Hat Enterprise Linux Workshop に戻ります](../README.md)

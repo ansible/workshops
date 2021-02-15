@@ -1,32 +1,40 @@
-# 演習 - プロジェクトとジョブテンプレート
+# ワークショップ演習 - プロジェクトとジョブテンプレート
 
-**Read this in other languages**:
+**その他の言語はこちらをお読みください。**
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
-* [目的](#目的)
-* [Git リポジトリのセットアップ](#git-リポジトリのセットアップ)
-* [プロジェクトの作成](#プロジェクトの作成)
-* [ジョブテンプレートを作成してジョブを実行する](#ジョブテンプレートを作成してジョブを実行する)
-* [チャレンジラボ: 結果の確認](#チャレンジラボ-結果の確認)
-* [次のラボの準備も含め少し作業します](#次のラボの準備も含め少し作業します)
+## 目次
 
-# 目的
+* [目的](#objective)
+* [ガイド](#guide)
+* [Git リポジトリーのセットアップ](#setup-git-repository)
+* [プロジェクトの作成](#create-the-project)
+* [ジョブテンプレートの作成とジョブの実行](#create-a-job-template-and-run-a-job)
+* [チャレンジラボ: 結果のチェック](#challenge-lab-check-the-result)
+* [練習してみましょう。](#what-about-some-practice)
 
-Ansible Towerの **Project** は、Ansible Playbookの論理的なコレクションです。PlaybookをGit、Subversion、Mercurialなど、Towerがサポートしているソースコード管理（SCM）システムに配置して管理することができます。
+## 目的
 
-この演習では以下の内容をカバーしています。
-- Ansible Tower プロジェクトの理解と使用
-- Gitリポジトリに保管されているAnsibleのプレイブックを使う
-- Ansible のジョブテンプレートを作成して使用する
+Ansible Tower **Project** は、AnsiblePlaybook
+の論理的なコレクションです。プレイブックは、Git、Subversion、Mercurial などのTower がサポートするソースコード管理
+(SCM) システムに配置することで管理できます。
 
-Playbook は SCM など、バージョン管理の仕組みの下に置いておくべきです。このラボでは、 Git リポジトリに保存されている Playbook を利用します。  
+この演習では、以下について説明します。
 
-## Git リポジトリのセットアップ  
-このデモでは、既に Git リポジトリに保存されているプレイブックを使用します。  
+* AnsibleTower プロジェクトの概要と利用
+* Git リポジトリーに保存されている AnsiblePlaybook の使用
+* Ansible ジョブテンプレートの作成と使用
 
-**https://github.com/ansible/workshop-examples**
+## ガイド
 
-このラボで利用する Apache Web Server をインストールするための Playbook は、上記 github サイトの **rhel/apache** に置いてある、`apache_install.yml` です。内容は以下の通りです。  
+### Git リポジトリーのセットアップ
+
+このデモでは、Git リポジトリーに保存されている Playbook を使用します。
+
+[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
+
+Apache Web サーバーをインストールする Playbook が既に **rhel/apache** ディレクトリーにコミットされている
+(`apache_install.yml`):
 
 ```yaml
 ---
@@ -66,13 +74,15 @@ Playbook は SCM など、バージョン管理の仕組みの下に置いてお
 
 > **ヒント**
 >
-> Engine の演習で書いた Playbook と比較するとちょっと違っているところがあります。重要なところは、 `become` が無いところと、 `hosts` の設定に `all` を指定しているところです。  
+> 作成した Playbook の違いをメモしてください。最も重要なのは、`become` がなく、`hosts` が `all` に設定されていることです。
 
-このリポジトリを Tower の **Source Control Management (SCM)** として利用するには **プロジェクト** を作成する必要があります。  
+Tower で **Source Control Management (SCM)**
+として、このレポジトリーを設定して使用するには、このレポジトリーを使用する **Project** を作成する必要があります。
 
-## プロジェクトの作成  
+### プロジェクトの作成
 
-  - 左のメニューから **プロジェクト** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。フォームに以下を入力します。  
+* サイドメニュービューで **RESOURCES → Projects** に移動し、緑色の **+**
+  ボタンをクリックします。フォームを記入します。
 
   <table>
     <tr>
@@ -80,26 +90,27 @@ Playbook は SCM など、バージョン管理の仕組みの下に置いてお
       <th>Value</th>
     </tr>
     <tr>
-      <td>名前</td>
+      <td>NAME</td>
       <td>Workshop Project</td>
     </tr>
     <tr>
-      <td>組織</td>
+      <td>ORGANIZATION</td>
       <td>Default</td>
     </tr>
     <tr>
-      <td>SCMタイプ</td>
+      <td>SCM TYPE</td>
       <td>Git</td>
     </tr>
   </table>
 
-ここで、リポジトリにアクセスするためのURLが必要です。上記の Github リポジトリに移動し、右側の緑色の **Clone or download** ボタンをクリック。さらに、 **Clone with HTTPS** が選択されていることを確認し、URL をコピーします。  
+次に、リポジトリーにアクセスするための URL が必要になります。上記の Github リポジトリーに移動し、右側にある緑色の **Clone or
+download** ボタンを選択し、**Use https** をクリックして、HTTPS URL をコピーします。
 
-> **Note**
+> **注意**
 >
-> クリックする **httpsを使用** の項目がない場合でも、**SSHを使用** があれば問題ありません。URLをコピーするだけです。重要なのは、**https** で始まるURLをコピーすることです。
+> リックする **Use https** がなく、**Use SSH** がある場合でも問題ありません。URL をコピーしてください。**https** で始まる URL をコピーすることが重要です。
 
-SCM URL にコピーした URL を貼り付けます。  
+Project 構成に URL を入力します。
 
  <table>
    <tr>
@@ -111,34 +122,39 @@ SCM URL にコピーした URL を貼り付けます。
      <td><code>https://github.com/ansible/workshop-examples.git</code></td>
    </tr>
    <tr>
-     <td>SCM 更新オプション</td>
-     <td>上から3つのボックスにチェックマークを付けて、常にリポジトリの最新コピーを取得し、ジョブの起動時にリポジトリを更新する設定とします。</td>
+     <td>SCM UPDATE OPTIONS</td>
+     <td>Tick the first three boxes to always get a fresh copy of the repository and to update the repository when launching a job</td>
    </tr>
  </table>
 
-- **保存** をクリックします  
+* **SAVE** をクリックします。
 
-新しいプロジェクトは、作成後に自動的に同期されます。ただし、これを手動で行うこともできます。 **Projects** ビューに移動し、プロジェクトの右側にある円形矢印 **最新のSCMリビジョンを取得** アイコンをクリックすると、プロジェクトを Git リポジトリと再度同期します。  
+新しい Project は、作成後に自動的に同期されます。ただし、これを手動で行うこともできます。**Projects**
+ビューに移動し、プロジェクトの右側にある円形の矢印 *Get latest SCM revision** アイコンをクリックして、プロジェクトを Git
+リポジトリーと再度同期します。
 
-## ジョブテンプレートを作成してジョブを実行する  
+同期ジョブを開始した後、**Jobs** ビューに移動します。Git リポジトリーを更新するための新しいジョブがあります。
 
-ジョブテンプレートは、Ansible ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。ジョブテンプレートではいくつかのパラメータを指定します。それぞれの意味は下記の通りです。  
+### ジョブテンプレートの作成とジョブの実行
 
-- **インベントリー:** ジョブを実行するホストを指定します  
+ジョブテンプレートは、Ansible
+ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。したがって、Tower から
+Ansible **Job**を実行する前に、まとめる **Job Template** を作成する必要があります。
 
-- **認証情報:** 管理対象ホストにログインするためのアカウント情報です  
+* **Inventory**: ジョブが実行するホスト
 
-- **プロジェクト:** Playbook の場所を指定します   
+* **Credentials** ホストへのログインに必要な認証情報
 
-- **Playbook の指定**
+* **Project**: Playbook の場所
 
-早速 **ジョブテンプレート** を作成してみましょう。 
+* **What** 使用する Playbook
 
-左のメニューから **テンプレート** を選択し、 ![plus](images/green_plus.png) ボタンをクリック。選択肢の中から **ジョブテンプレート** を選びます。    
+実際にやってみましょう。**Templates** ビューに移動して、![plus](images/green_plus.png)
+ボタンをクリックし、**Job Template** を選択します。
 
 > **ヒント**
 >
-> 下記フィールドの多くは、虫眼鏡アイコンをクリックの上オプション選択で設定が可能です。  
+> フィールドへの記入を選ぶにあたり、オプションの概要を得るには拡大鏡をクリックすることができます。
 
 <table>
   <tr>
@@ -146,78 +162,82 @@ SCM URL にコピーした URL を貼り付けます。
     <th>Value</th>
   </tr>
   <tr>
-    <td>名前</td>
+    <td>NAME</td>
     <td>Install Apache</td>
   </tr>
   <tr>
-    <td>ジョブタイプ</td>
-    <td>実行</td>
+    <td>JOB TYPE</td>
+    <td>Run</td>
   </tr>
   <tr>
-    <td>インベントリー</td>
+    <td>INVENTORY</td>
     <td>Workshop Inventory</td>
   </tr>
   <tr>
-    <td>プロジェクト</td>
+    <td>PROJECT</td>
     <td>Workshop Project</td>
   </tr>
   <tr>
     <td>PLAYBOOK</td>
     <td><code>rhel/apache/apache_install.yml</code></td>
-  </tr>    
+  </tr>
   <tr>
-    <td>認証情報</td>
+    <td>CREDENTIAL</td>
     <td>Workshop Credentials</td>
   </tr>
   <tr>
-    <td>制限</td>
+    <td>LIMIT</td>
     <td>web</td>
-  </tr>    
+  </tr>
   <tr>
-    <td>オプション</td>
-    <td>root権限で実行するために **権限昇格の有効化** にチェックを入れます  </td>
-  </tr>           
+    <td>OPTIONS</td>
+    <td>tasks need to run as root so check **Enable privilege escalation**</td>
+  </tr>
 </table>
 
-- **保存** をクリックします  
+* **SAVE** をクリックします。
 
-青い **起動** ボタンを直接クリックするか、テンプレートのビューでロケットアイコンをクリックしてジョブを開始します。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。  
+青い **LAUNCH** ボタンを直接クリックするか、Job Templates
+の概要でロケットをクリックすると、ジョブを開始できます。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook
+の実行をリアルタイムで追跡できます。
 
+![ジョブの実行](images/job_overview.png)
 
-![job exection](images/job_overview.png)  
+これには時間がかかる場合があるため、提供されているすべての詳細を詳しく調べてください。
 
+* インベントリー、プロジェクト、認証情報、Playbook などのジョブテンプレートのすべての詳細が表示されます。
 
-完了するまで少し時間がかかりますので、何を行っているか確認してみてください。  
+* さらに、Playbook の実際のリビジョンがここに記録されます。これにより、後でジョブの実行を分析しやすくなります。
 
-- インベントリ、プロジェクト、認証情報のチェック、Playbook などのジョブテンプレートの詳細が表示されます  
+* また、開始時間と終了時間の実行時間が記録されるため、ジョブの実行が実際にどのくらいの時間であったかがわかります。
 
-- さらに、Playbook で変更された部分が記録されています  
+* 右側には、Playbook
+  の実行の出力が表示されます。タスクの下のノードをクリックして、各ノードの各タスクの詳細情報が表示されていることを確認します。
 
-- また、開始時刻と終了時刻を含む実行時間も記録されるため、ジョブの実行が実際にどれくらいかかったかがわかります  
+ジョブが終了したら、メインの **Jobs** ビューに移動します。すべてのジョブがここに一覧表示されます。Playbook が実行される前に、SCM
+更新が開始されていたことがわかります。これは、起動時に **Project** 用に構成した Git アップデートです。
 
-- 右側に、プレイブック実行の出力が表示されます。タスクの下のノードをクリックして、各ノードの各タスクの詳細情報が提供されていることを確認します  
+### チャレンジラボ: 結果を確認する
 
-ジョブが完了したら、左のメニューからジョブをクリックします。すべてのジョブがここに一覧表示されます。Playbook を実行する前に、SCM 更新が開始されるのが分かります。これは、プロジェクト作成時に、 `起動時のリビジョン更新` にチェックを入れましたね？その Git 情報の更新です！  
+小チャレンジ:
 
-## チャレンジラボ: 結果の確認  
+* 両方のホストでアドホックコマンドを使用して、Apache がインストールされ、実行されていることを確認します。
 
-以下に挑戦してみましょう！
-
-  - アドホックコマンドを使用して、対象ホストに Apache がインストールされ、実行されていることを確認します。
-
-確認する方法は以前のラボで学んでいると思いますので、考えてやってみてください。
+必要なすべての手順をすでに完了しているので、これを自分で試してください。
 
 > **ヒント**
 >
-> `systemctl status httpd` を使う！？
+> `systemctl status httpd` はどうでしょうか。
 
-> **回答**
+> **警告**
+>
+> **回答を以下に示します**
 
-- **インベントリー** → **Workshop Inventory**
+* **Inventories** → **Workshop Inventory** に移動します
 
-- **ホスト** をクリックし、対象ホストをチェックにより選択。さらに、 **コマンドの実行** をクリックします。
+* **HOSTS** ビューでは、すべてのホストを表示して、**RUN COMMANDS** をクリックします。
 
-- 以下を記入します:
+* 以下に記入してください。
 
 <table>
   <tr>
@@ -225,21 +245,25 @@ SCM URL にコピーした URL を貼り付けます。
     <th>Value</th>
   </tr>
   <tr>
-    <td>モジュール</td>
+    <td>MODULE</td>
     <td>command</td>
   </tr>
   <tr>
-    <td>引数</td>
+    <td>ARGUMENTS</td>
     <td>systemctl status httpd</td>
   </tr>
   <tr>
-    <td>マシンの認証情報</td>
+    <td>MACHINE CREDENTIALS</td>
     <td>Workshop Credentials</td>
-  </tr>   
+  </tr>
 </table>
 
-- **起動** をクリック
+* **LAUNCH** をクリックします
 
-----
+---
+**ナビゲーション**
+<br>
+[前の演習](../2.2-cred) - [次の演習](../2.4-surveys)
 
-[Ansible Tower ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-towerの演習)
+[クリックして Ansible for Red Hat Enterprise Linux Workshop
+に戻ります](../README.md#section-2---ansible-tower-exercises)

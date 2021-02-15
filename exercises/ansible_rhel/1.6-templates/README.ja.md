@@ -1,39 +1,58 @@
-# 演習 - テンプレートを使う
+# ワークショップ演習 - テンプレート
 
-**Read this in other languages**:
+**その他の言語はこちらをお読みください。**
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-* [ステップ 1 -  playbook 内でテンプレートを使用する](#ステップ-1----playbook-内でテンプレートを使用する)
-* [ステップ 2 - チャレンジラボ](#step-2---チャレンジラボ)
+## 目次
 
-Ansibleは、管理対象ホストにファイルをコピーする際、固定の内容ではなく変数に値を入力しながらコピーを行う様な事も可能です。例えば対象ホストユニークなホスト名などを含んだファイルのコピーを行うことが可能です。これを実現するのが Jinja2 テンプレートです。 Jinja2 は、Python で最も使用されているテンプレートエンジンの1つです。 (<http://jinja.pocoo.org/>)
+* [目的](#objective)
+* [ガイド](#guide)
+* [Step 1 - Playbooks でのテンプレートの使用](#step-1---using-templates-in-playbooks)
+* [Step 2 - チャレンジラボ](#step-2---challenge-lab)
 
-## ステップ 1 -  playbook 内でテンプレートを使用する
+## 目的
 
-利用は簡単です。まず、ファイル作成を行うための変数を含んだテンプレートファイルを作成し、テンプレートモジュールを使って対象ホストに転送するだけです。
+この演習では、Jinja2 テンプレートについて説明します。Ansible は Jinja2
+テンプレートを使用して、ファイルが管理対象ホストに配布される前にファイルを変更します。Jinja2は、Python
+で最も使用されているテンプレートエンジンの1つです (<http://jinja.pocoo.org/>)。
 
-早速演習を行ってみましょう！  
-テンプレートを使って、対象ホストの motd ファイルをホスト固有のデータを含むように変更してみます。  
+## ガイド
 
-まず、 `~/ansible-files/` ディレクトリ内に、テンプレートファイル `motd-facts.j2` を作成します。  
+### Step 1 - Playbook でのテンプレートの使用
+
+ファイルのテンプレートが作成されると、`template`
+モジュールを使用して管理対象ホストに展開できます。これは、制御ノードから管理対象ホストへのローカルファイルの転送に対応しています。
+
+テンプレートの使用例として、ホスト固有のデータを含むように motd ファイルを変更します。
+
+最初に、テンプレートリソースを保持するディレクトリー `templates` を `~/ansible-files/` に作成します。
+
+```bash
+[student<X>@ansible ansible-files]$ mkdir templates
+```
+
+その後、`~/ansible-files/templates/` ディレクトリーに、テンプレートファイル `motd-facts.j2` を作成します。
 
 <!-- {% raw %} -->
+
 ```html+jinja
 Welcome to {{ ansible_hostname }}.
 {{ ansible_distribution }} {{ ansible_distribution_version}}
 deployed on {{ ansible_architecture }} architecture.
 ```
+
 <!-- {% endraw %} -->
 
-テンプレートファイルには、コピーされる基本テキスト（文頭の Welcome to と文末の architecture ですね♪ ）が含まれています。また、ターゲットマシンのユニークな値に置き換えられる変数がその間に入っています。  
+このテンプレートファイルには、後でコピーされる基本的なテキストが含まれています。また、ターゲットマシンで個別に置き換えられる変数も含まれています。
 
-次に、上記テンプレートを利用するための playbook `motd-facts.yml` を以下の通り作成します。場所は、 `~/ansible-files/` ディレクトリ内です。  
+次に、このテンプレートを使用するための Playbook が必要です。`~/ansible-files/` ディレクトリーで、Playbook
+`motd-facts.yml` を作成します。
 
 ```yaml
 ---
 - name: Fill motd file with host data
   hosts: node1
-  become: yes
+  become: true
   tasks:
     - template:
         src: motd-facts.j2
@@ -43,61 +62,75 @@ deployed on {{ ansible_architecture }} architecture.
         mode: 0644
 ```
 
+この操作はこれまで数回行ってきました。
 
-  - 上記 playbook の意味を考えてみましょう  
+* Playbook の内容を把握します。
+* Playbook `motd-facts.yml` を実行します。
+* SSH 経由で node1 にログインし、その日の内容のメッセージを確認します。
+* node1 からログアウトします。
 
-  - 作成した playbook `motd-facts.yml` を実行してみましょう  
+Ansible がシステムから検出したファクトに変数置き換える方法を確認してください。
 
-  - SSHで node1 にログインし、出力されるメッセージを確認してみてください  
+### Step 2 - チャレンジラボ
 
-  - node1 からログオフします  
+テンプレートに行を追加して、管理対象ノードの現在のカーネルを一覧表示します。
 
-Ansibleが変数をシステムから収集したファクト情報で変数を置き換えた上で、ファイルをコピーしていることがわかります。
-
-## ステップ 2 - チャレンジラボ
-
-テンプレートに1行追加して、管理対象ノードの現在のカーネルを表示してください。  
-
-  - 「Ansible ファクト」の章で学んだコマンドを使用して、カーネルバージョンを含むファクトを見つけます。  
+* 「Ansible ファクト」の章で学習したコマンドを使用して、カーネルバージョンを含むファクトを見つけます。
 
 > **ヒント**
 >
-> モジュールは `setup` ですね？ `grep` を使って探してみましょう。
+> カーネルについて `grep -i` を実行します
 
-  - 見つかったらその変数を表示するよう、テンプレートファイルに追記しましょう
+* テンプレートを変更して、見つけたファクトを使用します。
 
-  - 再度 playbook を実行します
+* 再び Playbook を実行します。
 
-  - 再度 node1 にログインし、表示をチェックしてみてください
+* node1 にログインして motd を確認します
 
+> **警告**
+>
+> **回答を以下に示します。**
 
-> **答えは以下の通り**
-
-
-  - kernel 情報を有するファクトを見つけます
+* ファクトを見つけます。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup|grep -i kernel
        "ansible_kernel": "3.10.0-693.el7.x86_64",
 ```
 
-  - `motd-facts.j2` を以下の通り更新します
+* テンプレート `motd-facts.j2` 変更します。
 
 <!-- {% raw %} -->
+
 ```html+jinja
 Welcome to {{ ansible_hostname }}.
 {{ ansible_distribution }} {{ ansible_distribution_version}}
 deployed on {{ ansible_architecture }} architecture
 running kernel {{ ansible_kernel }}.
 ```
+
 <!-- {% endraw %} -->
 
-  - playbook を実行します
-  - node1 にログインし、表示をチェックします
+* Playbook を実行します。
 
+```bash
+[student1@ansible ~]$ ansible-playbook motd-facts.yml
+```
 
-うまくいきましたか？
+* `node1` への SSH ログインを介して新しいメッセージを確認します。
 
-----
+```bash
+[student1@ansible ~]$ ssh node1
+Welcome to node1.
+RedHat 8.1
+deployed on x86_64 architecture
+running kernel 4.18.0-147.8.1.el8_1.x86_64.
+```
 
-[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
+---
+**ナビゲーション**
+<br>
+[前の演習](../1.5-handlers) - [次の演習](../1.7-role)
+
+[こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
+に戻ります](../README.md#section-1---ansible-engine-exercises)

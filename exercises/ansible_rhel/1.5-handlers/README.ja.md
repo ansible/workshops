@@ -1,53 +1,50 @@
-# 演習 - 条件分岐、ハンドラー、ループを使う
+# ワークショップ演習 - 条件、ハンドラー、ループ
 
-**Read this in other languages**:
+**その他の言語はこちらをお読みください。**
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## 目次
 
-* [目的](#目的)
-* [ガイド](#ガイド)
-   * [ステップ 1 - 条件分岐](#ステップ-1---条件分岐)
-   * [ステップ 2 - ハンドラー](#ステップ-2---ハンドラー)
-   * [ステップ 3 - 単純な繰り返し（ループ実行）](#ステップ-3---単純な繰り返しループ実行)
-   * [ステップ 4 - ハッシュをループする](#ステップ-4---ハッシュをループする)
+* [目的](#objective)
+* [ガイド](#guide)
+  * [Step 1 - 条件](#step-1---conditionals)
+  * [Step 2 - ハンドラー](#step-2---handlers)
+  * [Step 3 - シンプルループ](#step-3---simple-loops)
+  * [Step 4 - ハッシュのループ](#step-4---loops-over-hashes)
 
-# 目的
+## 目的
 
-Ansibleの基礎となる3つの機能について学びます:
-- [条件分岐](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
-- [ハンドラー](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
-- [ループ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+3 つの基本的な Ansible 機能は次のとおりです。
 
-# ガイド
+* [Conditionals](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
+* [Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
+* [Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
 
-## ステップ 1 - 条件分岐
+## ガイド
 
-Ansible は特定の条件が満たされたときにタスクを実行したり再生したりすることができます。
+### Step 1 - 条件
 
-特定の条件を指定するには、 `when` ステートメントを利用し、続いて具体的な条件を記述します。 条件は、比較などに使用可能な演算子の1つを使用します。
+Ansible は条件を使用して、特定の条件が満たされたときにタスクまたは再生を実行できます。
 
-
+条件を実装するには、`when`
+ステートメントを使用します。その後にテストする条件が続きます。条件は、たとえば比較のような利用可能なオペレーターのひとつを使って表現します。
 
 |      |                                                                        |
 | ---- | ---------------------------------------------------------------------- |
-| \==  | Compares two objects for equality.                                     |
-| \!=  | Compares two objects for inequality.                                   |
-| \>   | true if the left hand side is greater than the right hand side.        |
-| \>=  | true if the left hand side is greater or equal to the right hand side. |
-| \<   | true if the left hand side is lower than the right hand side.          |
-| \< = | true if the left hand side is lower or equal to the right hand side.   |
+| \==  | 2 つのオブジェクトが等しいかを比較します。                                     |
+| \!=  | 2 つのオブジェクトが等しくないかどうかを比較します。                                   |
+| \>   | 左側が右側よりも大きい場合に真になります。        |
+| \>=  | 左側が右側よりも小さい場合に真になります。       |
+| \<   | 左側が右側よりも小さい場合に真になります。          |
+| \<= | 左側が右側と等しいか、右側よりも小さい場合に真になります。   |
 
-詳しくは、次のドキュメントを参照してください。  
-<https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html#the-when-statement>
+詳細は、以下のドキュメントを参照してください。<http://jinja.pocoo.org/docs/2.10/templates/> 
 
-例として、 "ftpserver"インベントリグループにあるホストにのみ、FTPサーバーをインストールすることを考えてみます。
+例として、FTP
+サーバーをインストールしたいと思っていますが、「ftpserver」インベントリーグループにあるホストにのみにインストールしたいとします。
 
-では早速やってみましょう。まず、デフォルトで指定されたインベントリファイルを編集し、`ftpserver` グループに `node2` を入れます。
-デフォルトのインベントリファイルは、  
-`~/lab_inventory/hosts` でしたね。♪
-
-編集後は以下の様になります。node2 のIPアドレスはご自身のものを入力してください！
+これを行うには、インベントリーを編集して別のグループを追加し、`node2` を配置します。`node2` の IP アドレスは、`node2`
+がリストされたときと常に同じになるようにしてください。以下のリストのようにインベントリー `~/lab_inventory/hosts` を編集します。
 
 ```ini
 [all:vars]
@@ -67,13 +64,13 @@ node2 ansible_host=22.33.44.55
 ansible ansible_host=44.55.66.77
 ```
 
-次に、`~/ansible-files/` ディレクトリ内に `ftpserver.yml` という名前の Playbook を作成します。ファイルの中身は以下の通りです。
+次に、`~/ansible-files/` ディレクトリーのコントロールホストで `ftpserver.yml` ファイルを作成します。
 
 ```yaml
 ---
 - name: Install vsftpd on ftpservers
   hosts: all
-  become: yes
+  become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
       yum:
@@ -84,9 +81,10 @@ ansible ansible_host=44.55.66.77
 
 > **ヒント**
 >
-> 作成完了したら playbook を実行してみてください。やり方は・・・、もう分かってますね (^^♪
+> これで、Ansible Playbook の実行方法をご理解いただけたと思いますので、これからは説明を少し簡潔にしていき、作成して実行するというスタイルにします。
 
-実行した結果を確認してみてください。 `ftpserver` グループに記載された node2 以外のホストはタスクがスキップされ、node2 のみタスクの実行が行われていることが確認できます。  
+そして、それを実行して結果を検証します。予期される結果: このタスクは、node1、node3、ansible ホスト (コントロールホスト)
+ではスキップされます。これは、インベントリーファイルの ftpserver グループに存在しないためです。
 
 ```bash
 TASK [Install FTP server when host in ftpserver group] *******************************************
@@ -96,38 +94,37 @@ skipping: [node3]
 changed: [node2]
 ```
 
-## ステップ 2 - ハンドラー
+### Step 2 - ハンドラー
 
-プレイブックを書いていると、特定のタスクが実行された時のみ、さらに追加のタスクを実行したい場合があります。たとえば、サービスの更新や設定ファイルを変更した場合に、変更した設定が有効になるようにサービスの再起動が必要となるケースです。  
+タスクがシステムに変更を加える場合は時折、その他の単一のタスクまたは複数タスクを実行しなければならない場合があります。たとえば、サービスの設定ファイルを変更すると、変更した構成の有効化にサービスを再起動しなければならないことがあります。
 
-このような場合にハンドラーを利用します。ハンドラーは、"notify" ステートメントで定義されたタスクが実行された場合にのみ実行される非アクティブタスクです。詳しくは[Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)のマニュアルをご確認ください。
+ここで、Ansible
+のハンドラーが機能します。ハンドラーは、「notify」ステートメントを使用して明示的に呼び出された場合にのみトリガーされる非アクティブなタスクと見なすことができます。詳細は、[Ansible
+ハンドラー](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
+のドキュメントをご覧ください。
 
-早速演習で試してみましょう。以下のような Playbook を作ります。  
+例として、次のような playbook を作成しましょう。
 
-  - 全 `web` グループのホストに対して、 Apache の構成ファイル `httpd.conf` をコピーする  
+* `web` グループのすべてのホスト上で Apache の設定ファイル `/etc/httpd/conf/httpd.conf` を管理
+* ファイルが変更されたときに Apache を再起動
 
-  - ファイルが変更された時のみ Apache のサービスをリスタートする  
-
-まずはコピー元として利用する httpd.conf を node1 から取得します。  
-
-> **ヒント**
->
->このファイルは既に node1 node2 node3 に配置されています。  
-
+まず、Ansible がデプロイするファイルが必要です。node1 からファイルを取得しましょう。以下のリストに示されている IP アドレスは、個人の
+`node1` の IP アドレスに置き換えることを忘れないでください。
 
 ```bash
-[student<X>@ansible ansible-files]$ scp <node1>:/etc/httpd/conf/httpd.conf ~/ansible-files/.
-student<X>@<node1>'s password:
-httpd.conf             
+[student<X>@ansible ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+student<X>@11.22.33.44's password:
+httpd.conf
 ```
 
-次に、 `~/ansible-files` ディレクトリに、Playbook `httpd_conf.yml` を作成します。 playbook には以下を記述します。  
+次に、Playbook `httpd_conf.yml` を作成します。ディレクトリー `~/ansible-files`
+にいることを確認してください。
 
 ```yaml
 ---
 - name: manage httpd.conf
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: Copy Apache configuration file
     copy:
@@ -142,60 +139,58 @@ httpd.conf
         state: restarted
 ```
 
-playbook は以下の様になっています。
+さて、なにがこれまでと違うのでしょうか。
 
-  - "notify" セクションは、コピータスクがファイルを変更したときだけハンドラーを呼び出します。つまり、サービス再起動は必要な場合にのみ（この例の場合はファイルの更新が行われた場合のみ）行われます。  
+* 「notify」セクションは、コピータスクが実際にファイルを変更したときにのみハンドラーを呼び出します。そうすれば、そのサービスは必要なときだけ再起動され、プレイブックが実行されるたびに再起動されなくなります。
+* 「handlers」セクションは、通知時にのみ実行されるタスクを定義します。
 
-  - "ハンドラー" セクションは、notify から呼び出された時に実際に実行されるタスクを定義します。  
 <hr>
 
-まずこのまま playbook を実行してみてください。まだ httpd.conf に何も変更を加えていないので、changed は "0" で、ハンドラーも動作していないことが分かると思います。  
+playbook を実行します。このファイルではまだ何も変更していないので `changed`
+の行は出力に表示されません。もちろん、ハンドラーは起動していません。
 
-  - httpd.conf の中の、 `Listen 80` の行を以下の通り変更します。  
+* 今すぐ、`~/ansible-files/files/httpd.conf` の `Listen 80` を以下に変更します。
 
 ```ini
 Listen 8080
 ```
 
-  - Playbookをもう一度実行してください。興味深い結果が得られます。  
+* playbook を再び実行します。これで、Ansible の出力はもっと興味深いものになるはずです。
 
-      - httpd.conf が上書きコピーされた  
+  * httpd.conf がコピーされているはずです
+  * ハンドラーは Apache を再起動しているはずです
 
-      - ハンドラーが呼び出され、 Apache サービスをリスタートした  
-
-Apacheはポート8080でリッスンしているはずです。試してみてください。  
+Apache はポート 8080 でリッスンするはずです。確認は簡単です。
 
 ```bash
-[student1@ansible ansible-files]$ curl http://<node1>
-curl: (7) Failed connect to <node1>:80; Connection refused
-[student1@ansible ansible-files]$ curl http://22.33.44.55:8080
+[student1@ansible ansible-files]$ curl http://node1
+curl: (7) Failed to connect to node1 port 80: Connection refused
+[student1@ansible ansible-files]$ curl http://node1:8080
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
 ```
-httpd.conf ファイルを再度 "80" に変更し、どうなるか試してみてください。
 
-> **注意**
->
-> 演習1.7で、ポート8080を使います。この時点で 80ポートをリッスンするよう設定を戻しておいてください。
+httpd.conf ファイルを自由に再度変更して、playbook を実行してください。
 
+### Step 3 - 簡単なループ
 
-> **ヒント**
->
-> よく聞かれる質問として、notify セクションが実行されたらすぐにハンドラーが呼び出されるのか？ということがありますが、これは違います。今回の場合、notify 直下にハンドラーが定義されているのですぐの実行となりますが、notiry とハンドラーが離れていた場合は、あくまで上から順に実行され、ハンドラーの順番になったところで実行されます。 notify でハンドラー実行のフラグを立てておく感じです。  
+ループを使用すると、同じタスクを何度も繰り返すことができます。たとえば、複数のユーザーを作成するとします。Ansibleループを使用することで、1
+つのタスクでそれを行うことができます。ループは、基本的なリスト以上のものを繰り返すこともできます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらを反復処理することもできます。ループの詳細については、[Ansible
+Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+のドキュメントをご覧ください。
 
-## ステップ 3 - 単純な繰り返し（ループ実行）
-
-ループを使用すると、同じタスクを繰り返し実行することができます。たとえば、複数のユーザーを作成したいとしましょう。Ansible ループを使用すると、単一のタスクでそれを実行できます。ループは、単なるリスト以外にも反復することができます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらに対しても反復することができます。 詳しくは[Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)のマニュアルをご確認ください。
-
-ループの機能を確認してみましょう。 node1 に3人の新しいユーザーを作成します。 `~/ansible-files` ディレクトリの中に、 `loop_users.yml` という名前の playbook を作成します。使用するのは `user` モジュールで、playbook の中身は以下の通りです。  
+ループ機能のデモとして、`node1` で 3 つの新しいユーザーをつくります。この作業用に、お使いの学習者ユーザーとしてコントロールノードの
+`~/ansible-files` に `loop_users.yml` ファイルを作成します。`user`
+モジュールを使用して、ユーザーアカウントを生成します。
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
 - name: Ensure users
   hosts: node1
-  become: yes
+  become: true
 
   tasks:
     - name: Ensure three users are present
@@ -207,38 +202,43 @@ httpd.conf ファイルを再度 "80" に変更し、どうなるか試してみ
          - qa_user
          - prod_user
 ```
+
 <!-- {% endraw %} -->
 
-作成出来たら実行してみてください。playbook は以下の内容になっています。  
-
-  - 作成するユーザー名は直接 user モジュールには与えられません。代わりに `{{ item }}` パラメータで呼び出される変数が定義されています
-
-  - `loop` 内のキーワードには、実際に作成するユーザー名が3名分列挙されています。この値が、`{{ item }}` 内に順に入力され、 playbook が実行されます。    
-
-  - 実行中、タスクは一度だけ表示されますが、その下に loop された3つの変更点が表示されます。  
-
-## ステップ 4 - ハッシュをループする
-
-ハッシュリストにまたがったループも可能です。例えば、上記の例で、ユーザーを別の追加グループに割り当てる必要があるとします。例えば以下のような感じです。  
-
-```yaml
-- username: dev_user
-  groups: ftp
-- username: qa_user
-  groups: ftp
-- username: prod_user
-  groups: apache
-```
-
-`user` モジュールはオプションパラメータとして `groups` を持っています。 ハッシュ内のこの値を取得する場合、 `{{ item }}` 内にサブキーワード、例えば、 `{{ item.groups }}` の様に入力します。  
-
+Playbook と出力の概要:
 
 <!-- {% raw %} -->
+
+* この名前はユーザーモジュールに直接指定されません。代わりに、パラメーター `name` 用の `{{ item }}` と呼ばれる変数のみがあります
+* `loop` キーワードは実際のユーザー名をリストします。これらは、Playbook を実際に実行しているときに `{{ item }}`
+  を置き換えます。
+* 実行中、タスクは1回だけリストされますが、その下に 3 つの変更がリストされます。
+
+<!-- {% endraw %} -->
+
+### Step 4 - ハッシュのループ
+
+前述のように、ループはハッシュのリストでも実行できます。ユーザーを別の追加グループに割り当てる必要があると想像してください。
+
+```yaml
+- username: dev_user groups: ftp
+- username: qa_user groups: ftp
+- username: prod_user groups: apache
+```
+
+`user` モジュールには、その他のユーザーを一覧表示するためのオプションのパラメーター `groups`
+があります。ハッシュでアイテムを参照するには、`{{ item }}` キーワードが、サブキーを参照する必要があります (例: `{{
+item.groups }}`)。
+
+Playbook を書き直して、追加のユーザー権限を持つユーザーを作成しましょう。
+
+<!-- {% raw %} -->
+
 ```yaml
 ---
 - name: Ensure users
   hosts: node1
-  become: yes
+  become: true
 
   tasks:
     - name: Ensure three users are present
@@ -252,13 +252,14 @@ httpd.conf ファイルを再度 "80" に変更し、どうなるか試してみ
         - { username: 'prod_user', groups: 'apache' }
 
 ```
+
 <!-- {% endraw %} -->
 
-再度 playbook を実行し、出力を確認してみてください。  
+出力を確認します。
 
-  - 再度タスクが一覧表示されます。ただし、3つの変更が表示されます。その内容を含む各ループが表示されます。  
+* ここでも、タスクは 1 回リストされていますが、3 つの変更がリストされています。各ループとその内容が表示されます。
 
-node1 内に `dev_user` がグループ `ftp` で作成されていることを確認します。  
+ユーザー `dev_user` が `node1` で確実に作成されたことを確認します。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
@@ -266,9 +267,10 @@ node1 | CHANGED | rc=0 >>
 uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```
 
-----
+---
 **ナビゲーション**
 <br>
-[前の演習に戻る](../1.4-variables/README.ja.md) - [次の演習に進む](../1.6-templates/README.ja.md)
+[前の演習](../1.4-variables) - [次の演習](../1.6-templates)
 
-[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
+[こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
+に戻ります](../README.md#section-1---ansible-engine-exercises)

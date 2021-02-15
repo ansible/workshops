@@ -48,6 +48,8 @@
     tower_infra_workloads:
       - redhat_cop.tower_configuration.credential_types
       - redhat_cop.tower_configuration.credentials
+      - redhat_cop.tower_configuration.projects
+      - redhat_cop.tower_configuration.job_templates
     tower_hostname: "https://{{ ansible_host }}"
     tower_username: admin
     tower_password: "{{ admin_password }}"
@@ -79,7 +81,7 @@
             FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
             FOREMAN_VALIDATE_CERTS: 'false'
     tower_credentials:
-      - name: Satellite
+      - name: Satellite Credential
         credential_type: Satellite_Collection
         state: present
         organization: Default
@@ -87,6 +89,39 @@
           host: "https://satellite.example.com"
           username: 'admin'
           password: "{{ admin_password }}"
+      - name: Inventory Credential
+        credential_type: Red Hat Satellite 6
+        state: present
+        organization: Default
+        inputs:
+          host: "https://satellite.example.com"
+          username: 'admin'
+          password: "{{ admin_password }}"
+    tower_projects:
+      - name: Automated Management
+        organization: Default
+        scm_update_on_launch: true
+        scm_update_cache_timeout: 3600
+        scm_type: git
+        scm_url: 'https://github.com/willtome/automated-smart-management.git'
+        scm_branch: smart_mgmt
+      - name: Fact Scan
+        organization: Default
+        scm_type: git
+        scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
+    tower_templates:
+      - name: SETUP / Satellite
+        project: Automated Management
+        playbook: setup_satellite.yml
+        inventory: Workshop Inventory
+        credentials:
+          - Satellite Credential
+      - name: SETUP / Tower
+        project: Automated Management
+        playbook: setup_tower.yml
+        inventory: Workshop Inventory
+        credentials:
+          - Tower Credential
   tasks:
     - name: Deploy tower-infra workloads
       include_role:

@@ -98,3 +98,7 @@
       - save sys config
       - restart sys service restjavad
       - restart sys service restnoded
+  register: save_config
+  until: save_config is not failed
+  retries: 5
+  delay: 10

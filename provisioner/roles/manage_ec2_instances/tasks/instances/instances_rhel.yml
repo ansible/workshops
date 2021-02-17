@@ -5,7 +5,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node_ami.image_id }}"
+    image: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -52,7 +52,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node_ami.image_id }}"
+    image: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -99,7 +99,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node_ami.image_id }}"
+    image: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -148,7 +148,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node_ami.image_id }}"
+    image: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
@@ -194,7 +194,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node_ami.image_id }}"
+    image: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:

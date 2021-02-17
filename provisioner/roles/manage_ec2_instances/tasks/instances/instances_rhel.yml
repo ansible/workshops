@@ -22,6 +22,7 @@
       Students: "{{ student_total }}"
       short_name: "node1"
       username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -68,6 +69,7 @@
       Students: "{{ student_total }}"
       short_name: "node2"
       username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -114,6 +116,7 @@
       Students: "{{ student_total }}"
       short_name: "node3"
       username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -160,6 +163,7 @@
       Students: "{{ student_total }}"
       short_name: "isonode"
       username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -205,6 +209,7 @@
       Students: "{{ student_total }}"
       short_name: "remotenode"
       username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

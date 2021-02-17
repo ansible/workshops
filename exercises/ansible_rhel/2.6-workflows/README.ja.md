@@ -1,161 +1,165 @@
-# 演習 - ワークフロー
+# ワークショップ演習 - ワークフロー
 
-**Read this in other languages**:
+**その他の言語はこちらをお読みください。**
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
-* [目的](#目的)
-  * [ラボシナリオ](#ラボシナリオ)
-  * [プロジェクトの設定](#プロジェクトの設定)
-  * [ジョブテンプレートの作成](#ジョブテンプレートの作成)
-  * [ワークフローの設定](#ワークフローの設定)
-  * [実行してみましょう](#実行してみましょう)
+## 目次
 
-# 目的
+* [目的](#objective)
+* [ガイド](#guide)
+  * [ラボシナリオ](#lab-scenario)
+  * [プロジェクトのセットアップ](#set-up-projects)
+  * [ジョブテンプレートのセットアップ](#set-up-job-templates)
+  * [ワークフローのセットアップ](#set-up-the-workflow)
+  * [ワークロードの起動](#launch-workflow)
 
-ワークフローの基本的な考え方は、複数のジョブテンプレートをリンクし実行できることです。各ジョブテンプレートの実行は、例えば以下の様な実行条件を付与することができます。  
+## 目的
 
-  - ジョブテンプレート A が成功すると、ジョブテンプレート B が自動的に実行される  
+ワークフローの基本的な考え方は、複数のジョブテンプレートをリンクするというものです。インベントリー、Playbook、さらにはパーミッションを共有する場合と共有しない場合があります。リンクは条件付きにすることができます。
 
-  - ただし、失敗した場合は、ジョブテンプレート C が実行される  
+* ジョブテンプレート A が成功すると、その後ジョブテンプレート B が自動的に実行されます。
+* ただし、失敗した場合は、ジョブテンプレート C が実行されます。
 
-また、ワークフローはジョブテンプレートだけではなくプロジェクトやインベントリの更新を行うこともできます。  
+また、ワークフローは Job Templates に限定されるものではなく、プロジェクトやインベントリーの更新を含めることもできます。
 
-これにより、異なるジョブテンプレートをが互いに対して構築するようなことが可能になります。例えば、ネットワークチームは独自のコンテンツを含むPlaybookを独自の Git リポジトリで作成し、独自のインベントリをターゲットにしつつ、運用チームも独自のリポジトリ、Playbook、インベントリを持つことができます。
+これにより、AnsibleTower
+の新しいアプリケーションが可能になります。さまざまなジョブテンプレートを相互に構築できます。たとえば、ネットワーキングチームは、独自のコンテンツを使用して、独自のGitリポジトリに、さらには独自のインベントリを対象に
+Playbook を作成します。一方、運用チームには、独自のリポジトリー、Playbook、およびインベントリーがあります。
 
-このラボでは、ワークフローの設定方法を学びます。  
+このラボでは、ワークフローを設定する方法を説明します。
 
-# ガイド
+## ガイド
 
-## ラボシナリオ  
+### ラボシナリオ
 
-組織には以下の2つの部門があります。  
+組織に 2 つの部門があるとします。
 
-  - `webops` Git ブランチでPlaybookを開発しているWeb運用チーム  
+* `webops` という独自の Git ブランチで Playbook を開発している Web 運用チーム
+* `webdev` という独自の Git ブランチでプレイブックを開発しているWeb開発者チーム。
 
-  - `webdev` Git ブランチでPlaybookを開発しているWeb開発チーム  
+デプロイする新しい Node.js サーバーがある場合は、次の 2 つのことが必要です。
 
-新しい Node.js サーバーをデプロイする必要がある場合、以下の 2 つのことを行う必要があります  
+#### Web 運用チーム
 
-**Web運用チーム**
-  - node.js をインストールし、ファイアウォール設定を行い、node.jsを開始する  
+* node.js をインストールし、ファイアウォールを開いて、node.js を開始する必要があります。
 
-**Web開発チーム**
-  - 最新バージョンのWebアプリケーションをデプロイする  
+#### Web 開発者チーム
 
-Playbook、JSP ファイルなど、必要なものはすべて Git リポジトリーに存在します。それを利用してラボを行います。  
-
-物事を簡単にするために、プレイブック、JSPファイルなど必要な資材はすべてGitHubのリポジトリに存在しています。あなたはそれを組み合わせる必要があります。
+* Web アプリケーションの最新バージョンをデプロイする必要があります。
 
 ---
 
-> **メモ**
->
-> シナリオでは、2 つの異なる Git リポジトリの利用を想定していますが、このラボでは同じリポジトリの2つの異なるブランチにアクセスしています。実際には、SCMリポジトリの構造は多くの要因により異なっている可能性があります。
-
-## プロジェクトの設定
-
-先のラボで実施した通り、まずはプロジェクトを作成し、 Git リポジトリを登録する必要があります。必要な情報は以下です。ご自身で設定してみてください。  
+作業を少し簡単にするために、必要なものはすべて Github リポジトリーに既に存在します。Playbook、JSP
+ファイルなどです。接着するだけです。
 
 > **注意**
 >
-> このラボは admin アカウントで実施します。 **wweb** ユーザーでログインしている場合は、ログアウトして **admin** でログインしなおしてください！
+> この例では、別々のチームのコンテンツに同じレポジトリーの異なる 2 つのブランチを使用します。実際には、SCM レポジトリーの構造は、ファクターによってことなります。
 
-Web運用チーム用のプロジェクトを作成します。**プロジェクト** 画面で緑色の「+」ボタンをクリックし、以下の内容を入力します。 
+### プロジェクトの設定
+
+まず、通常どおりに Git リポジトリーをプロジェクトとして設定する必要があります。
+
+> **警告**
+>
+> ユーザー **wweb** としてログインしている場合は、*admin** として再びログインします。
+
+Web 運用チームのプロジェクトを作成します。**Project** ビューで、緑色のプラスボタンをクリックし、次のように入力します。
 
 <table>
   <tr>
-    <th>パラメーター名</th>
-    <th>設定値</th>
+    <th>Parameter</th>
+    <th>Value</th>
   </tr>
   <tr>
-    <td>名前</td>
+    <td>NAME</td>
     <td>Webops Git Repo</td>
   </tr>
   <tr>
-    <td>組織</td>
+    <td>ORGANIZATION</td>
     <td>Default</td>
   </tr>
   <tr>
-    <td>SCMタイプ</td>
+    <td>SCM TYPE</td>
     <td>Git</td>
-  </tr>  
+  </tr>
   <tr>
     <td>SCM URL</td>
     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
   </tr>
   <tr>
-    <td>SCM ブランチ/タグ/コミット</td>
+    <td>SCM BRANCH/TAG/COMMIT</td>
     <td><code>webops</code></td>
   </tr>
   <tr>
-    <td>SCM 更新オプション</td>
-    <td><ul><li>✓ クリーニング</li><li>✓ 更新時のデプロイ</li><li>✓ 起動時のリビジョン更新</li></ul></td>
-  </tr>             
+    <td>SCM UPDATE OPTIONS</td>
+    <td><ul><li>✓ CLEAN</li><li>✓ DELETE ON UPDATE</li><li>✓ UPDATE REVISION ON LAUNCH</li></ul></td>
+  </tr>
 </table>
 
-- **保存** をクリックします
+**SAVE** をクリックします。
 
 ---
-Web開発チーム用のプロジェクトを作成します。**プロジェクト** 画面で緑色の「+」ボタンをクリックし、以下の内容を入力します。 
+Web 開発者チームのプロジェクトを作成します。**Project** ビューで、緑色のプラスボタンをクリックし、次のように入力します。
 
 <table>
   <tr>
-    <th>パラメーター名</th>
-    <th>設定値</th>
+    <th>Parameter</th>
+    <th>Value</th>
   </tr>
   <tr>
-    <td>名前</td>
+    <td>NAME</td>
     <td>Webdev Git Repo</td>
   </tr>
   <tr>
-    <td>組織</td>
+    <td>ORGANIZATION</td>
     <td>Default</td>
   </tr>
   <tr>
-    <td>SCMタイプ</td>
+    <td>SCM TYPE</td>
     <td>Git</td>
-  </tr>  
+  </tr>
   <tr>
     <td>SCM URL</td>
     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
   </tr>
   <tr>
-    <td>SCM ブランチ/タグ/コミット</td>
+    <td>SCM BRANCH/TAG/COMMIT</td>
     <td><code>webdev</code></td>
   </tr>
   <tr>
-    <td>SCM 更新オプション</td>
-    <td><ul><li>✓ クリーニング</li><li>✓ 更新時のデプロイ</li><li>✓ 起動時のリビジョン更新</li></ul></td>
-  </tr>             
+    <td>SCM UPDATE OPTIONS</td>
+    <td><ul><li>✓ CLEAN</li><li>✓ DELETE ON UPDATE</li><li>✓ UPDATE REVISION ON LAUNCH</li></ul></td>
+  </tr>
 </table>
 
-- **保存** をクリックします    
+**SAVE** をクリックします。
 
-## ジョブテンプレートの作成
+### ジョブテンプレートのセットアップ
 
-最終目標はワークフローの作成ですが、まず、通常のジョブテンプレートを作成する必要があります。
+次に、「通常」ジョブの場合と同じように、2 つのジョブテンプレートを作成する必要があります。
 
-**テンプレート** 画面で緑色の「+」ボタンをクリックし、**ジョブテンプレート** を選択します。
+**Template** ビューに移動し、緑色のプラスボタンをクリックして、**Job Template** を選択します。
 
- <table>
+  <table>
     <tr>
-      <th>パラメーター名</th>
-      <th>設定値</th>
+      <th>Parameter</th>
+      <th>Value</th>
     </tr>
     <tr>
-      <td>名前</td>
+      <td>NAME</td>
       <td>Web App Deploy</td>
     </tr>
     <tr>
-      <td>ジョブタイプ</td>
-      <td>実行</td>
+      <td>JOB TYPE</td>
+      <td>Run</td>
     </tr>
     <tr>
-      <td>インベントリー</td>
+      <td>INVENTORY</td>
       <td>Workshop Inventory</td>
-    </tr>  
+    </tr>
     <tr>
-      <td>プロジェクト</td>
+      <td>PROJECT</td>
       <td>Webops Git Repo</td>
     </tr>
     <tr>
@@ -163,145 +167,157 @@ Web開発チーム用のプロジェクトを作成します。**プロジェク
       <td><code>rhel/webops/web_infrastructure.yml</code></td>
     </tr>
     <tr>
-      <td>認証情報</td>
+      <td>CREDENTIAL</td>
       <td>Workshop Credentials</td>
     </tr>
     <tr>
-      <td>制限</td>
+      <td>LIMIT</td>
       <td>web</td>
-    </tr>    
-    <tr>
-      <td>オプション</td>
-      <td>✓ 権限昇格の有効化</td>
-    </tr>                     
-  </table> 
-
-  - **保存** をクリックします  
-
-  ---
-
-  **テンプレート** 画面で緑色の「+」ボタンをクリックし、**ジョブテンプレート** を選択します。
-
-   <table>
-    <tr>
-      <th>パラメーター名</th>
-      <th>設定値</th>
     </tr>
     <tr>
-      <td>名前</td>
+      <td>OPTIONS</td>
+      <td>✓ ENABLE PRIVILEGE ESCALATION</td>
+    </tr>
+  </table>
+
+**SAVE** をクリックします。
+
+---
+
+**Template** ビューに移動し、緑色のプラスボタンをクリックして、**Job Template** を選択します。
+
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>NAME</td>
       <td>Node.js Deploy</td>
     </tr>
     <tr>
-      <td>ジョブタイプ</td>
-      <td>実行</td>
+      <td>JOB TYPE</td>
+      <td>Run</td>
     </tr>
     <tr>
-      <td>インベントリー</td>
+      <td>INVENTORY</td>
       <td>Workshop Inventory</td>
-    </tr>  
+    </tr>
     <tr>
-      <td>プロジェクト</td>
+      <td>PROJECT</td>
       <td>Webdev Git Repo</td>
     </tr>
     <tr>
       <td>PLAYBOOK</td>
-      <td><code>hel/webdev/install_node_app.yml</code></td>
+      <td><code>rhel/webdev/install_node_app.yml</code></td>
     </tr>
     <tr>
-      <td>認証情報</td>
+      <td>CREDENTIAL</td>
       <td>Workshop Credentials</td>
     </tr>
     <tr>
-      <td>制限</td>
+      <td>LIMIT</td>
       <td>web</td>
-    </tr>    
+    </tr>
     <tr>
-      <td>オプション</td>
-      <td>✓ 権限昇格の有効化</td>
-    </tr>                     
-  </table> 
+      <td>OPTIONS</td>
+      <td>✓ ENABLE PRIVILEGE ESCALATION</td>
+    </tr>
+  </table>
 
-  - **保存** をクリックします  
+**SAVE** をクリックします。
 
-> **ヒント**  
+> **ヒント**
 >
-> Playbook の中身をご覧になりたい方は、 Github URL を確認して、適切なブランチに切り替えてご覧ください。  
+> Ansible Playbook がどのようなものかを見たい場合は、Github URL を確認して適切なブランチに切り替えてください。
 
-## ワークフローの設定
+### ワークフローの設定
 
-ワークフローを設定します。ワークフローは **テンプレート** 画面で設定できます。
-テンプレートを追加する際に、**ジョブテンプレート** と **ワークフローテンプレート** のどちらかを選択することができます。
+ワークフローを設定します。ワークフローは **Template** ビューで構成されます。テンプレートを追加するときに、**Job Template**
+と **Workflow Template** のどちらかを選択できることに気付いたかもしれません。
 
   ![workflow add](images/workflow_add.png)
 
-  - **テンプレート** を選択し、緑色の「+」ボタンをクリックして、**ワークフローテンプレート**を選択します。
+**Templates** ビューに移動して、今回は、**Workflow Template** を選択します。
 
   <table>
     <tr>
-      <td><b>名前</b></td>
+      <td><b>NAME</b></td>
       <td>Deploy Webapp Server</td>
     </tr>
     <tr>
-      <td><b>組織</b></td>
+      <td><b>ORGANIZATION</b></td>
       <td>Default</td>
-    </tr>    
-</table>      
+    </tr>
+  </table>
 
-  - **保存** をクリックします  
+**SAVE** をクリックします。
 
-テンプレートを保存すると、**ワークフロー・ビジュアライザー** が開き、ワークフローを作成することができます。テンプレートの詳細ページにあるボタンを使用して、**ワークフロー・ビジュアライザー** を再度開くことができます。
+テンプレートを保存すると、**Workflow Visualizer**
+が開き、ワークフローを作成できます。テンプレートの詳細ページのボタンを使用して、後で **Workflow Visualizer**
+を再度開くことができます。
 
-  - **開始** ボタンをクリックすると、Node 画面が開きます。右側で、ノードにアクションを割り当てることができます。**ジョブ**、**プロジェクトの同期**、**インベントリー同期**のいずれかが選択できます。
+* **START**
+  ボタンをクリックすると、新しいノードが開きます。右側では、ノードにアクションを割り当てることができ、**JOBS**、**PROJECT
+  SYNC**、**INVENTORY SYNC**、および **APPROVAL** から選択できます。
 
-  - この実習ラボでは、先に作成したジョブテンプレートをリンクします。そのため、**Tomcat Deploy** ジョブを選んで**選択**をクリックします。  
+* このラボでは、2つのジョブをリンクするため、**Web App Deploy** ジョブを選択し、**SELECT** をクリックします。
 
-  - 左側にノードが現れます。ノードにはジョブの名前が入っています。ノードの上にマウスポインターを合わせると、赤い**x**と緑の **+** 記号、真ん中には鎖のような青い記号が表示されます。
+* ノードには、ジョブの名前が注釈として付けられます。マウスポインターをノードに合わせると、赤い **x**、緑の ** + **、青い
+  **chain** 記号が表示されます。
 
-   ![workflow node](images/workflow_node.png)
-
-> **ヒント**
->
-> 赤い「x」を使用するとノードを削除でき、緑のプラスを使用すると次のノードを追加できます。青は他のノードへのリンク作成を行う際に使います。  
-
-  - 緑の **+** を選択します
-
-  - 次のジョブとして **Node.js Deploy** を選択します（次のページに切り替える必要がある場合があります）  
-
-  - **実行** は**成功時**のままにします。
+  ![workflow node](images/workflow_node.png)
 
 > **ヒント**
 >
-> この実行を使うことにより、より複雑なワークフローが可能になります。Playbook の実行が成功した場合と失敗した場合に、異なる実行パスをレイアウトできます。
+> 赤い "x" を使用すると、ノードを削除できます。緑色のプラスでは、次のノードを追加できます。チェーン記号は、別のノードに接続します。
 
-  - **選択**  をクリック
+* 緑の **+** 記号をクリックします
+* 次のジョブとして **Node.js Deploy** を選択します (次のページに切り替える必要がある場合があります)
+* **Type** は **On Success** のままにします
 
-  - **ワークフロービジュアライザー**画面で**保存**をクリックします  
+> **ヒント**
+>
+> このタイプにより、より複雑なワークフローが可能になります。Playbook 実行に成功した実行パスや失敗した実行パスなど、各種パスのレイアウトを行うことができます。
 
-  - **ワークフローテンプレート**画面で**保存**をクリックします
+* **SELECT** をクリックします
+* **WORKFLOW VISUALIZER** ビューの **SAVE** をクリックします。
+* **Workflow Template** ビューの **SAVE** をクリックします。
 
-## 実行してみましょう
+> **ヒント**
+>
+> **Workflow Visualizer** には、より高度なワークフローを設定するためのオプションがあります。ドキュメントを参照してください。
 
-作成が完了しましたので早速動作させてみましょう♪  
+### ワークフローの起動
 
-  - **起動** ボタンを直接クリックしても良いですし、**テンプレート画面**で**Deploy Webapp Server**のロケットアイコンをクリックしても起動ができます。  
+ワークフローの準備ができました。起動します。
 
-  ![launch](images/launch.png)
+青い **LAUNCH** ボタンを直接クリックするか、**Templates** ビューに移動し、ロケットアイコンをクリックして **Deploy
+Webapp Server** ワークフローを起動します。
 
-ジョブビューでワークフローの実行がどのように表示されるかに注意してください。今回の通常のジョブテンプレートジョブの実行とは対照的に、右側にはプレイブックの出力はありませんが、複数のジョブステップの実行状況が表示されます。各ジョブで実行されたプレイブックの状況を確認したい場合は、各ステップの**詳細**をクリックしてください。再度ワークフロー実行画面に戻りたい場合は、左の画面の Web App Deloy の右隣にある小さな ![w-button](images/w_button.png) をクリックしてください。
+  ![起動](images/launch.png)
+
+ワークフローの実行がジョブビューにどのように表示されるかに注目してください。通常のジョブテンプレートのジョブの実行と比べ、今回のものには、右側には
+Playbook の出力はありませんが、さまざまなワークフローステップの視覚的表現があります。その背後にある実際の Playbook
+を見たい場合は、各ステップで **詳細** をクリックしてください。詳細ビューから対応するワークフローに戻る場合は、ジョブ概要の左側の
+**DETAIS** 部分の **JOB TEMPLATE** の ![w-button](images/w_button.png) をクリックします。
 
 ![jobs view of workflow](images/job_workflow.png)
 
-ジョブが完了した後、すべてがうまく働いたかどうかを確認します。コントロールホストから`node1`、`node2`または`node3`のいずれかにログインし、以下を実行します。
+ジョブが終了した後、すべてが正常に動作したことを確認します。コントロールホストから `node1`、`node2`、`node3`
+にログインし、以下を実行します。
 
 ```bash
-$ curl http://localhost/nodejs
+#> curl http://localhost/nodejs
 ```
 
-また、コントロールホスト上でcurlを実行し、ノードに向けて `nodejs` のパスを問い合わせれば、シンプルなnodejsアプリケーションも表示されるはずです。  
+コントロールホストで curl を実行して、ノードに向けて `nodejs` パスを参照することもできます。また、単純な nodejs
+アプリケーションも表示されます。
 
-----
+---
 **ナビゲーション**
 <br>
-[前のエクササイズ](../2.5-rbac/README.ja.md) - [次のエクササイズ](../2.7-wrap/README.ja.md)
+[前の演習](../2.5-rbac) - [次の演習](../2.7-wrap)
 
-[Ansible Tower ワークショップ表紙に戻る](../README.ja.md#section-2---ansible-towerの演習)
+[クリックして Ansible for Red Hat Enterprise Linux Workshop
+に戻ります](../README.md#section-2---ansible-tower-exercises)

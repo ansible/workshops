@@ -49,14 +49,14 @@ ec2_info:
     filter: "*VEOSRouter*"
   checkpoint_mgmt:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS BYOL*R80.30*'
+    filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'
     architecture: x86_64
     size: m5.xlarge
     ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
     username: admin
   checkpoint_gw:
     owners: 679593333241
-    filter: 'Check Point CloudGuard IaaS GW*BYOL*R80.30*'
+    filter: 'Check Point CloudGuard IaaS GW*BYOL*R80.40*'
     architecture: x86_64
     size: c5.large
     ami: "{{ checkpoint_gw_ami| default(omit) }}"
@@ -99,7 +99,7 @@ ec2_info:
     os_type: linux
     disk_space: 40
     architecture: x86_64
-    filter: 'F5 BIGIP-13.1.*PAYG-Best 25Mbps*'
+    filter: 'F5 BIGIP-16.0.*PAYG-Best 25Mbps*'
     username: admin
   splunk_enterprise:
     owners: 309956199498
@@ -119,7 +119,7 @@ ec2_info:
     filter: 'OnCommand_Cloud_Manager_3.7.0_Marketplace*'
     username: ec2-user
   qradar:
-    owners: 324218975267
+    owners: 721066863947
     size: t2.2xlarge
     os_type: linux
     disk_space: 300

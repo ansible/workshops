@@ -34,6 +34,7 @@
       ansible_network_os: "{{ ec2_info[rtr1_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
       group: core
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes: "{{ec2_info[rtr1_type].volume | default(omit)}}"
@@ -80,6 +81,7 @@
       ansible_network_os: "{{ ec2_info[rtr2_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
       group: core
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id2 }}"
     volumes: "{{ ec2_info[rtr2_type].volume | default(omit) }}"
@@ -126,6 +128,7 @@
       ansible_network_os: "{{ ec2_info[rtr3_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
       group: access
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes: "{{ ec2_info[rtr3_type].volume | default(omit) }}"
@@ -172,6 +175,7 @@
       ansible_network_os: "{{ ec2_info[rtr4_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
       group: access
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id2 }}"
     volumes: "{{ ec2_info[rtr4_type].volume | default(omit) }}"

@@ -9,6 +9,7 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      ansible-workshops: "true"
   register: create_vpc2
   when: ec2_vpc_id2 is undefined
   until: create_vpc2 is not failed
@@ -25,6 +26,7 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      ansible-workshops: "true"
     rules:
       - proto: 47
         to_port: -1
@@ -78,6 +80,7 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      ansible-workshops: "true"
   register: create_subnet2
   until: create_subnet2 is not failed
   retries: 15
@@ -92,6 +95,7 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "Total {{student_total}}"
+      ansible-workshops: "true"
   register: igw2
   until: igw2 is not failed
   retries: 15
@@ -111,6 +115,7 @@
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"
+      ansible-workshops: "true"
   register: routetablenetworking
   until: routetablenetworking is not failed
   retries: 5

@@ -91,4 +91,3 @@
   with_indexed_items:
     - "{{ node7_output.instances }}"
   when: node7_output.instance_ids is not none
-

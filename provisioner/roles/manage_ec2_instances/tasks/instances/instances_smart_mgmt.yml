@@ -22,6 +22,7 @@
       Students: "{{ student_total }}"
       short_name: "satellite"
       username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

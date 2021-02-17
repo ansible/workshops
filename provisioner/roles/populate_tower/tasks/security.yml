@@ -146,8 +146,9 @@
 
 # Add repository as project
 - name: Add git repository as Tower project
-  tower_project:
+  awx.awx.tower_project:
     name: "Workshop Project"
+    organization: "Default"
     scm_type: git
     scm_url: "https://github.com/ansible-security/workshop-examples"
     tower_username: admin

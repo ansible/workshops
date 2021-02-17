@@ -84,6 +84,7 @@
       uuid: "{{ ec2_name_prefix }}"
       guid: "{{ ec2_name_prefix }}"
       VPC: "{{ec2_name_prefix}}"
+      ansible-workshops: "true"
   when: "(item|length|int > 1) and ('allocation_id' in item[1])"
   with_indexed_items:
     - "{{ ('results' in wait_subnet1_eip_creation_checkpoint_gw) | ternary(wait_subnet1_eip_creation_checkpoint_gw['results'], []) }}"
@@ -106,6 +107,7 @@
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
       guid: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   when: "(item|length|int > 1) and ('interface' in item[1])"
   with_indexed_items:
     - "{{ ('results' in wait_eni1_creation_checkpoint_gw) | ternary(wait_eni1_creation_checkpoint_gw['results'], []) }}"
@@ -128,6 +130,7 @@
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
       guid: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   when: "(item|length|int > 1) and ('interface' in item[1])"
   with_indexed_items:
     - "{{ ('results' in wait_eni2_creation_checkpoint_gw) | ternary(wait_eni2_creation_checkpoint_gw['results'], []) }}"
@@ -167,6 +170,8 @@
     network_interfaces:
       - "{{ item[0]['interface']['id'] }}"
       - "{{ item[1]['interface']['id'] }}"
+    instance_tags:
+      ansible-workshops: "true"
   async: "{{ async_timeout_seconds }}"
   poll: 0
   register: checkpoint_gw_async
@@ -206,6 +211,7 @@
       Students: "{{student_total}}"
       short_name: "checkpoint_gw"
       username: "{{ec2_info.checkpoint_gw.username}}"
+      ansible-workshops: "true"
   with_indexed_items:
     - "{{ checkpoint_gw_output }}"
   async: "{{ async_timeout_seconds }}"

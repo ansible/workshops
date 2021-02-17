@@ -1,0 +1,4 @@
+---
+workshop_type: smart_mgmt
+ibm_community_grid: false
+ec2_region: us-east-1

@@ -1,158 +1,173 @@
-# 演習 - 変数を使ってみよう
+# ワークショップ演習 - 変数の使用
 
-**Read this in other languages**:
+**その他の言語はこちらをお読みください。**
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## 目次
 
-* [目的](#目的)
-* [ガイド](#ガイド)
-* [変数入門](#変数入門)
-* [ステップ 1 - 変数ファイルの作成](#ステップ-1---変数ファイルの作成)
-* [ステップ 2 - index.html ファイルの作成](#ステップ-2---indexhtml-ファイルの作成)
-* [ステップ 3 - Playbook の作成](#ステップ-3---playbook-の作成)
-* [ステップ 4 - 実行結果の確認](#ステップ-4---実行結果の確認)
-* [ステップ 5 - Ansible ファクト](#ステップ-5---ansible-ファクト)
-* [ステップ 6 - チャレンジラボ: ファクト](#ステップ-6---チャレンジラボ-ファクト)
-* [ステップ 7 - Playbook の中でファクトを使う](#step-147---playbook-の中でファクトを使う)
+* [目的](#objective)
+* [ガイド](#guide)
+* [変数の概要](#intro-to-variables)
+* [Step 1 - 変数ファイルの作成](#step-1---create-variable-files)
+* [Step 2 - index.html ファイルの作成](#step-2---create-indexhtml-files)
+* [Step 3 - Playbook の作成](#step-3---create-the-playbook)
+* [Step 4 - 結果のテスト](#step-4---test-the-result)
+* [Step 5 - Ansible ファクト](#step-5---ansible-facts)
+* [Step 6 - チャレンジラボ: ファクト](#step-6---challenge-lab-facts)
+* [Step 7 - Playbooks でのファクトの使用](#step-7---using-facts-in-playbooks)
 
-# 目的
+## 目的
 
-Ansible は、Playbook で使用できる値を格納するための変数をサポートしています。変数は様々な場所で定義することができ、明確な優先順位を持っています。Ansible は、タスクが実行されたときに変数をその値で置換します。
+Ansibleは、Playbook
+で使用できる値を格納するための変数をサポートしています。変数はさまざまな場所で定義でき、明確な優先順位があります。Ansible
+は、タスクの実行時に変数をその値に置き換えます。
 
-この演習では変数について学びます。特に、
+この演習では、特に以下についての変数について説明します。
 
-- 変数の区切り（`{{` と `}}`）の使い方
-- `host_vars` と `group_vars` についてとその使い方
-- `ansible_facts` の使い方
-- 変数の内容を表示する `debug` モジュールの使い方
+* 変数区切り文字 `{{`や `}}` の使用方法
+* `host_vars` と `group_vars` について、また使用するとき
+* `ansible_facts` の使い方
+* `debug` モジュールを使用して、コンソールウィンドウに変数を出力する方法
 
-# ガイド
+## ガイド
 
-## 変数入門
+### 変数の概要
 
-Playbook では、変数名を二重中括弧で囲むことで変数を表現します。
+変数は、変数名を二重中括弧で囲むことにより、AnsiblePlaybooks で参照されます。
 
 <!-- {% raw %} -->
+
 ```yaml
-変数は右の様に表現します　 {{ variable1 }}
+こちらが変数です。{{ variable1 }}
 ```
+
 <!-- {% endraw %} -->
 
-変数とその値は、インベントリ、追加ファイル、コマンドラインなどのさまざまな場所で定義できます。
+変数とその値は、インベントリー、追加ファイル、コマンドラインなどのさまざまな場所で定義できます。
 
-インベントリで変数を提供するための推奨される方法は、`host_vars` と `group_vars` という2つのディレクトリにあるファイルにそれらを定義することです。
+インベントリーで変数を使う場合は、`host_vars` と `group_vars` という名前の 2
+つのディレクトリーにあるファイルで変数を定義することが推奨されます。
 
-  - グループ "servers" の変数を定義するために、変数名が付けられたYAMLファイル `group_vars/servers.yml` を作成します。
-
-  - 特定ホスト `node1` 専用の変数を定義するために、変数定義を含む node1 ファイル `host_vars/node1.yml` を作成します。
-
+* グループ「servers」の変数を定義するために、変数定義のある `group_vars/servers.yml` という YAML
+  ファイルが作成されます。
+* ホスト `node1` 専用の変数を定義するために、変数定義のある `host_vars/node1.yml` ファイルが作成されます。
 
 > **ヒント**
 >
-> ホスト変数には優先順位があります。上記 Host 変数は、 Group 変数より優先されます。詳しくは[ドキュメント](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)をご確認ください。
+> ホスト変数はグループ変数よりも優先されます (優先順位の詳細については、[docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) を参照してください)。
 
-## ステップ 1 - 変数ファイルの作成
+### Step 1 - 変数ファイルの作成
 
-早速演習で変数の動きを確かめてみましょう。3台の Web Server を構築してみます。どのホストに接続されているかを示すため、 `index.html` を変更します。
+理解を深め練習するためにも、ラボをみていきましょう。「Webサーバーを構築しましょう。1 つまたは 2
+つ。またはそれ以上…」というテーマに続いて、`index.html` を変更し、サーバーがデプロイされている開発環境 (dev / prod)
+を表示します。
 
-まずは、Ansible Control Host で、変数ファイルの置き場所となるディレクトリを `~/ansible-files/`　に作成します。
+Ansible コントロールホストでは、`student<X>` ユーザーとして、`~/ansible-files/` に変数定義を保持するディレクトリーを作成します。
 
 ```bash
-[student<X>@ansible ansible-files]$ cd ~/ansible-files/
 [student<X>@ansible ansible-files]$ mkdir host_vars group_vars
 ```
 
-変数の定義を含むファイルを２つ作成しましょう。 `stage` という名前の変数に、`dev` or `prod`という異なる二つの値を定義します。
+次に、変数定義を含む 2 つのファイルを作成します。異なる環境 `dev` または `prod` を参照する `stage` を定義します。
 
-  - 以下の内容を含むファイルを `~/ansible-files/group_vars/web` として作成します。
+* 以下の内容で `~/ansible-files/group_vars/web.yml` ファイルを作成します。
 
 ```yaml
 ---
 stage: dev
 ```
 
-  - 同様に、以下の内容を含むファイルを `~/ansible-files/host_vars/node2` として作成します。
+* 以下の内容で `~/ansible-files/host_vars/node2.yml` ファイルを作成します。
 
 ```yaml
 ---
 stage: prod
 ```
 
-これはどういう意味でしょう？
+これはなんでしょうか。
 
-  -  `web` group のすべてのサーバーに対して、変数 `stage` に値 `dev` が定義されます。そして dev （開発）をデフォルト値として定義します。
+* `web` グループのサーバーすべてには、値 `dev` を持つ `stage`
+  が定義されています。そのため、デフォルトでは、開発環境のメンバーとしてフラグを立てます。
+* サーバー `node2` については、これはオーバーライドされ、ホストは実稼働サーバーとしてフラグが立てられます。
 
-  -  `node2` に関しては、上記で定義された変数 stage = dev が、prod で上書きされます。本番環境として定義されます。
+### Step 2 - web.html ファイルの作成
 
-## ステップ 2 - index.html ファイルの作成
+次に、`~/ansible-files/files/` で 2 つのファイルを作成します。
 
-`~/ansible-files/` 内に、以下の2つのファイルを作成します:
-
-まずは本番環境用の `prod_index.html` に以下の内容を記述し、保存します。
-
-```html
-<body>
-<h1>This is a production webserver, take care!</h1>
-</body>
-```
-
-同様に、開発環境用の `dev_index.html` に以下の内容を記述し、保存します。
+1 つは、以下の内容の `prod_web.html` と呼ばれます。
 
 ```html
 <body>
-<h1>This is a development webserver, have fun!</h1>
+<h1>これは稼働 Web サーバーです。それでは！</h1>
 </body>
 ```
 
-## ステップ 3 - Playbook の作成
+もう 1 つは、以下のない用の `dev_web.html` と呼ばれるファイルです。
 
-次に、上記手順で作成した本番用、開発用の `index.html` の内いずれかのファイルを "stage" 変数の値に従って Web Server にコピーするための Playbook を作成します。
+```html
+<body>
+<h1>これは開発用ウェブサーバーです。お楽しみください！</h1>
+</body>
+```
 
- `deploy_index_html.yml` という名前の Playbook を `~/ansible-files/` ディレクトリ内に作成します。
+### Step 3 - Playbook の作成
+
+次に、「stage」変数にしたがって、prod または dev `web.html` ファイルをコピーする Playbook が必要です。
+
+`~/ansible-files/` ディレクトリーに `deploy_index_html.yml` という新しい Playbook を作成します。
 
 > **ヒント**
 >
-> コピーするファイル名の中に指定された変数 "stage" がホストごとに取る値に注意してください。
+> 変数「stage」がどのように、コピーするファイルの名前で使用さているかに注意してください。
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
-- name: Copy index.html
+- name: Copy web.html
   hosts: web
-  become: yes
+  become: true
   tasks:
-  - name: copy index.html
+  - name: copy web.html
     copy:
-      src: ~/ansible-files/{{ stage }}_index.html
+      src: "{{ stage }}_web.html"
       dest: /var/www/html/index.html
 ```
+
 <!-- {% endraw %} -->
 
-  - Playbook を実行します
+* Playbook を実行します。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
-## ステップ 4 - 実行結果の確認
+### Step 4 - 結果のテスト
 
-各ホストには、変数 stage の値に従って異なるファイルがコピーされているはずです。デフォルトが dev で、node2 のみ、prod となっているはず。それぞれのweb server に curl コマンド（もしくはブラウザ）で接続して確認してみましょう。
+Ansible Playbook は、さまざまなファイルを index.html としてホストにコピーし、`curl` を使用してテストします。
+
+node1:
 
 ```bash
-[student<X>@ansible ansible-files]$ grep node ~/lab_inventory/hosts
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
-[student<X>@ansible ansible-files]$ curl http://11.22.33.44
+[student<X>@ansible ansible-files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
-[student1@ansible ansible-files]$ curl http://22.33.44.55
+```
+
+node2:
+
+```bash
+[student1@ansible ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
-[student1@ansible ansible-files]$ curl http://33.44.55.66
+```
+
+node3:
+
+```bash
+[student1@ansible ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -160,51 +175,57 @@ node3 ansible_host=33.44.55.66
 
 > **ヒント**
 >
-> 鋭い人はちょっと思うかもしれません、”もっと柔軟にファイルの中身を変更出来たら・・・、と”。こちらについては次の章（template モジュール）で学びます！
+> おそらくこのような考えがありませんでしょうか。ファイルの内容を変更する、もっと賢い方法があるはず...。その通りです。このラボは、変数の説明を行うためのものでした。次の章では、テンプレートについて学びます。
 
-## ステップ 5 - Ansible ファクト
+### Step 5 - Ansible ファクト
 
-Ansible ファクトは Ansible によって管理対象ホストから自動的に収集される変数です。"Gathering Facts" が各 ansible-playbook で実行されたことを思い出してください。ファクトは `setup` モジュールからも取得可能です。このファクトには、再利用可能な有用な情報が変数として格納されています。
+Ansible ファクトは、管理対象ホストから Ansible によって自動的に検出される変数です。それぞれの `ansible-playbook`
+実行の出力にリストされている「ファクトの収集」タスクを覚えていますか？その時点で、管理対象ノードごとにファクトが収集されます。ファクトは、`setup`
+モジュールでプルできます。これらには、管理者が再利用できる変数に格納された有用な情報が含まれています。
 
-Ansibleがデフォルトでどのような事実を収集しているのか、コントロールノードで次のように入力し確認してみましょう。
+Ansible がデフォルトで収集するファクトを把握するには、コントロールノードで、student ユーザーとして次を実行します。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup
 ```
 
-結果表示がちょっと長すぎるので、フィルタを使ってみましょう。表現はシェルスタイルのワイルドカードです：
+多すぎる場合は、特定のファクトに出力を制限するフィルターを使用できます。使用する表現は、シェルスタイルのワイルドカードです。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
 ```
-メモリ関連の情報が見たい場合は以下の様に実行します。
+
+あるいは、メモリ関連のファクトだけを探すのはどうでしょうか。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
 ```
 
-## ステップ 6 - チャレンジラボ: ファクト
+### Step 6 - チャレンジラボ: ファクト
 
-  - 管理対象ホストのディストリビューション（Red Hat）を表示してください。ただし、結果は一行で出力してください。
+* 管理対象ホストのディストリビューション (Red Hat) の検索と出力を試行します。これは一行で行います。
 
 > **ヒント**
 >
-> grep を使ってファクトの中から必要な情報を探してみます。次に、 filter を使ってこのファクトのみの情報を抽出してみましょう。一行での表示の方法は ansible コマンドの -h (help) を使って調べてみましょう！
+> grep を使用してファクトを検索し、フィルターを適用して、このファクトのみを出力します。
 
-
-> **下記は答えです\!**
+> **警告**
+>
+> **回答を以下に示します。**
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible node1 -m setup|grep distribution
 [student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
 ```
 
-## Step 1.4.7 - Playbook の中でファクトを使う
+### Step 7 - Playbook でのファクトの使用
 
-取得したファクトの値は Playbook の中で変数同様に利用することが可能です。早速 Playbook `facts.yml` を `~/ansible-files/` ディレクトリに作成し、試してみましょう！
+もちろん、ファクトは、正しい名前を使用して、変数のように Playbook
+で使用できます。このプレイブックを次のように、`~/ansible-files/` ディレクトリーに `facts.yml` として作成します。
 
 <!-- {% raw %} -->
-```yaml    
+
+```yaml
 ---
 - name: Output facts within a playbook
   hosts: all
@@ -213,13 +234,14 @@ Ansibleがデフォルトでどのような事実を収集しているのか、�
     debug:
       msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
 ```
+
 <!-- {% endraw %} -->
 
 > **ヒント**
 >
-> "debug" モジュールは変数や式を確認するのに有用です。
+> 「debug」モジュールは、変数と式のデバッグを行うのに便利です。
 
-取得されたファクトがどのような形で表示されるか Playbook を実行してみてください。
+それを実行して、ファクトがどのように出力されるかを確認します。
 
 ```bash
 [student<X>@ansible ansible-files]$ ansible-playbook facts.yml
@@ -243,16 +265,20 @@ ok: [ansible] =>
   msg: The default IPv4 address of ansible is 172.16.2.10
 
 PLAY RECAP *********************************************************************
-ansible                    : ok=2    changed=0    unreachable=0    failed=0   
-node1                      : ok=2    changed=0    unreachable=0    failed=0   
-node2                      : ok=2    changed=0    unreachable=0    failed=0   
-node3                      : ok=2    changed=0    unreachable=0    failed=0   
+ansible                    : ok=2    changed=0    unreachable=0    failed=0
+node1                      : ok=2    changed=0    unreachable=0    failed=0
+node2                      : ok=2    changed=0    unreachable=0    failed=0
+node3                      : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-----
-**Navigation**
+---
+**ナビゲーション**
 <br>
-[前の演習に戻る](../1.3-playbook/README.ja.md) - [次の演習に進む](../1.5-handlers/README.ja.md)
 
-
-[Ansible Engine ワークショップ表紙に戻る](../README.ja.md#section-1---ansible-engineの演習)
+{% if page.url contains 'ansible_rhel_90' %}
+[前の演習](../3-playbook) - [次の演習](../5-surveys)
+{% else %}
+[前の演習](../1.3-playbook) - [次の演習](../1.5-handlers)
+{% endif %}
+<br><br>
+[こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop に戻ります](../README.md)

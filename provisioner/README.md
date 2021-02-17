@@ -199,3 +199,5 @@ What does the AWS provisioner take care of automatically?
 ## Getting Help
 
 Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
+
+![Ansible-Workshop-Logo.png](../images/Ansible-Workshop-Logo.png)

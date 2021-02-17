@@ -32,7 +32,7 @@
 # The bigip_lx_package requires rpm installed, on macOS use brew rather than pip or it won't work
 - name: Install AS3
   bigip_lx_package:
-    package: "{{playbook_dir}}/roles/f5_setup/files/f5-appsvcs-3.4.0-2.noarch.rpm"
+    package: "{{playbook_dir}}/roles/f5_setup/files/f5-appsvcs-3.25.0-3.noarch.rpm"
     provider:
       validate_certs: "no"
       user: admin
@@ -43,3 +43,62 @@
   register: install_as3
   until: install_as3 is not failed
   retries: 2
+
+- name: Set db provision.extramb
+  bigip_sys_db:
+    key: provision.extramb
+    value: "1024"
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Set db restjavad.useextramb
+  bigip_sys_db:
+    key: restjavad.useextramb
+    value: "true"
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Set db restjavad.timeout
+  bigip_sys_db:
+    key: restjavad.timeout
+    value: "180"
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Set httpd max-clients
+  bigip_device_httpd:
+    max_clients: 20
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Save config and restart REST
+  bigip_command:
+    provider:
+      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+      transport: cli
+      user: admin
+      server: "{{ ansible_host }}"
+    commands:
+      - save sys config
+      - restart sys service restjavad
+      - restart sys service restnoded
+  register: save_config
+  until: save_config is not failed
+  retries: 5
+  delay: 10

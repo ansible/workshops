@@ -27,7 +27,7 @@
       ip-address: "{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_gw')]['private_ip'] }}"
       one-time-password: admin123
       firewall: true
-      version: R80.30
+      version: R80.40
       os-name: Gaia
       interfaces:
         - anti-spoofing: true

@@ -54,3 +54,9 @@ https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtu
 [root@centos ~]# pip install --upgrade boto3
 [root@centos ~]# deactivate
 ```
+
+## Getting Help
+
+Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
+
+![Ansible-Workshop-Logo.png](../images/Ansible-Workshop-Logo.png)

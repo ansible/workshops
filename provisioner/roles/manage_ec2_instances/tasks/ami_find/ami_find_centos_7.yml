@@ -1,0 +1,14 @@
+---
+- name: find ami for centos 7 node
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info[centos7].owners }}"
+    filters:
+      name: "{{ ec2_info[centos7].filter }}"
+      architecture: "{{ ec2_info[centos7].architecture }}"
+  register: amis
+
+- name: save ami for centos 7 node
+  set_fact:
+    node_ami_centos7: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

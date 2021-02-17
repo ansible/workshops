@@ -201,4 +201,4 @@ Ad-hoc commands may be useful to run once in a while. However, as automation con
 
 ![Reboot required](images/2-adhoc-reboot-required.png)
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

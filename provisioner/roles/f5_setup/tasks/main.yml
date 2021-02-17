@@ -79,7 +79,7 @@
 
 - name: Save Config
   bigip_config:
-    save: yes
+    save: true
     provider:
       validate_certs: "no"
       user: admin
@@ -98,4 +98,4 @@
     commands:
       - restart sys service restjavad
       - restart sys service restnoded
-  ignore_errors: yes
+  ignore_errors: true

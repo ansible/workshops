@@ -57,7 +57,7 @@ Add a tasks section with a set_fact for setting the provider values
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
 ```

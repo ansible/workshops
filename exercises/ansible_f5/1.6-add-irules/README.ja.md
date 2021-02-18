@@ -86,7 +86,7 @@ when HTTP_REQUEST {
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         module: "ltm"
@@ -104,7 +104,7 @@ when HTTP_REQUEST {
 - `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
+- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `module: ltm` ： iRulesがBIG-IPのどの機能で使用するかを指定します。本演習では ltm を指定します。
@@ -125,7 +125,7 @@ when HTTP_REQUEST {
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         name: "vip"

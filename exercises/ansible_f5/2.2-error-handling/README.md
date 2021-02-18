@@ -65,7 +65,7 @@ Add a tasks section with a set_fact for setting the provider values
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
 
@@ -90,7 +90,7 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
       provider:
         server: "{{private_ip}}"
         user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
+        password: "{{ansible_password}}"
         server_port: "8443"
         validate_certs: "no"
 
@@ -125,7 +125,7 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
@@ -167,7 +167,7 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
@@ -219,7 +219,7 @@ Next, add the fourth task. For the fourth task use the bigip_virtual_server as d
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
@@ -282,7 +282,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
@@ -365,7 +365,7 @@ Finally add the **always** to save the running configuration.
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
@@ -426,7 +426,7 @@ Finally add the **always** to save the running configuration.
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
           loop: "{{ groups['web'] }}"
- 
+
       always:
         - name: SAVE RUNNING CONFIGURATION
           bigip_config:

@@ -59,7 +59,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
 ```

@@ -68,11 +68,11 @@ The output will look as follows with student2 being the respective student workb
 ```
 [all:vars]
 ansible_user=student2
-ansible_ssh_pass=ansible
+ansible_password=ansible
 ansible_port=22
 
 [lb]
-f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=admin
+f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_password=admin
 
 [control]
 ansible ansible_host=107.23.192.217 ansible_user=ec2-user private_ip=172.16.207.49
@@ -93,14 +93,14 @@ In the above output every `[ ]` defines a group. For example `[web]` is a group 
 We can associate variables to groups and hosts. Host variables are declared/defined on the same line as the host themselves. For example for the host `f5`:
 
 ```
-f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_ssh_pass=admin
+f5 ansible_host=34.199.128.69 ansible_user=admin private_ip=172.16.26.136 ansible_password=admin
 ```
 
  - `f5` - The name that Ansible will use.  This can but does not have to rely on DNS
  - `ansible_host` - The IP address that ansible will use, if not configured it will default to DNS
  - `ansible_user` - The user ansible will use to login to this host, if not configured it will default to the user the playbook is run from
  - `private_ip` - This value is not reserved by ansible so it will default to a [host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables).  This variable can be used by playbooks or ignored completely.
-- `ansible_ssh_pass` - The password ansible will use to login to this host, if not configured it will assume the user the playbook ran from has access to this host through SSH keys.  
+- `ansible_password` - The password ansible will use to login to this host, if not configured it will assume the user the playbook ran from has access to this host through SSH keys.  
 
 > Does the password have to be in plain text?  No, Red Hat Ansible Tower can take care of credential management in an easy to use web GUI or a user may use [ansible-vault](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html#protecting-sensitive-variables-with-ansible-vault)
 

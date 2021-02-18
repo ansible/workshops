@@ -58,7 +58,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         save: true
@@ -73,7 +73,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 - `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - The `server: "{{private_ip}}"` モジュールのパラメーターです。モジュールがどのBIG-IPのIPアドレスに接続するかを指定します。ここではインベントリーで定義された`private_ip`が指定されています。
 - The `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
-- The`password: "{{ansible_ssh_pass}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
+- The`password: "{{ansible_password}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
 - The `server_port: 8443` モジュールのパラメーターです。BIP-IPに接続する際のポート番号を指定します。
 - `validate_certs: "false"` モジュールのパラメーターです。証明書の検証を行いません。これは演習上のデモ環境のためです。
 - The `save: "yes""` モジュールのパラメーターです。running-config を startup-config へ保存するします。

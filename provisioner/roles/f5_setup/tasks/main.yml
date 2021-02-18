@@ -77,6 +77,16 @@
       server_port: 8443
       server: "{{ ansible_host }}"
 
+- name: Set httpd max-clients
+  bigip_device_httpd:
+    max_clients: 20
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
 - name: Save Config
   bigip_config:
     save: true

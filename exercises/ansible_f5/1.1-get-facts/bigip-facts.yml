@@ -6,7 +6,7 @@
 
   tasks:
     - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
+      f5networks.f5_modules.bigip_device_info:
         gather_subset:
           - system-info
         provider:

@@ -15,7 +15,7 @@
           validate_certs: false
 
     - name: DELETE VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider: "{{provider}}"
         name: "vip"
         state: absent

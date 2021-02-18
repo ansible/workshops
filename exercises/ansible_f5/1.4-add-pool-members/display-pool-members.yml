@@ -6,7 +6,7 @@
 
   tasks:
     - name: Query BIG-IP facts
-      bigip_device_info:
+      f5networks.f5_modules.bigip_device_info:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

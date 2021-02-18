@@ -20,3 +20,11 @@
       - jmespath
       - lxml
     state: latest
+
+- name: install f5 collection
+  shell: "ansible-galaxy collection install f5networks.f5_modules --force-with-deps "
+  register: f5networks
+  until: f5networks is not failed
+  retries: 5
+  when:
+    - towerinstall

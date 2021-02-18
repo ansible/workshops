@@ -6,7 +6,7 @@
 
   tasks:
     - name: ADD POOL MEMBERS
-      bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

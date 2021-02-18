@@ -36,7 +36,7 @@ Fill out this form as follows:
 | MODULE             | `win_chocolatey`         |                                                                 |
 | ARGUMENTS          | `name=git state=present` | The name and state of the package                               |
 | LIMIT              |                          | This will be pre-filled out for you with the hosts you selected |
-| MACHINE CREDENTIAL | Workshop Credential      |                                                                 |
+| MACHINE CREDENTIAL |Student Account     |                                                                 |
 
 ![Run Win\_Chocolatey](images/8-chocolatey-run-win_chocolatey.png)
 
@@ -173,7 +173,7 @@ Once this is complete, we will create a new job template. Select **Templates** a
 | INVENTORY   | Workshop Inventory                               |      |
 | PROJECT     | Ansible Workshop Project                         |      |
 | PLAYBOOK    | `chocolatey/install_packages.yml`                |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Workshop Credential** |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account**     |      |
 | LIMIT       | windows                                          |      |
 | OPTIONS     |                                                  |      |
 
@@ -247,7 +247,7 @@ Now go ahead and make sure your new playbook is in Git, and that Ansible Tower c
 | INVENTORY   | Workshop Inventory                               |      |
 | PROJECT     | Ansible Workshop Project                         |      |
 | PLAYBOOK    | `chocolatey/update_packages.yml`                 |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Workshop Credential** |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account**     |      |
 | LIMIT       | windows                                          |      |
 | OPTIONS     |                                                  |      |
 
@@ -303,7 +303,7 @@ Add your new playbook to your source control repo, and sync your project in Ansi
 | INVENTORY   | Workshop Inventory                               |      |
 | PROJECT     | Ansible Workshop Project                         |      |
 | PLAYBOOK    | `chocolatey/chocolatey_conguration.yml`          |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Workshop Credential** |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account**     |      |
 | LIMIT       | windows                                          |      |
 | OPTIONS     |                                                  |      |
 

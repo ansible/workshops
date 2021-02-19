@@ -93,7 +93,7 @@ aw_repo_url: ${aw_repo_url}
 admin_password: ${ADMIN_PASSWORD}
 ansible_workshops_url: ${ANSIBLE_WORKSHOPS_URL}
 ansible_workshops_version: ${params.WORKSHOP_BRANCH}
-ec2_name_prefix: tqe-{{ workshop_type }}-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
+ec2_name_prefix: tqe-{{ workshop_type | replace('_', '-') }}-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
 EOF
 """
             }
@@ -152,6 +152,64 @@ EOF
                                 archiveArtifacts artifacts: 'rhel.log'
                                 RHEL_DEPRECATED_WARNINGS = sh(
                                     script: 'grep -c \'DEPRECATION WARNING\' rhel.log || true',
+                                    returnStdout: true
+                                ).trim()
+                            }
+                        }
+                    }
+                }
+
+                stage('SMART-MGMT') {
+                    steps {
+                        script {
+                            stage('SMART-MGMT-deploy') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh '''ansible-playbook provisioner/provision_lab.yml \
+                                               -e @provisioner/tests/vars.yml \
+                                               -e @provisioner/tests/ci-common.yml \
+                                               -e @provisioner/tests/ci-smart_mgmt.yml 2>&1 | tee smart_mgmt.log && exit ${PIPESTATUS[0]}'''
+                                    }
+                                }
+                            }
+                        }
+                        script {
+                            stage('SMART-MGMT-verify') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh """ansible-playbook provisioner/tests/rhel_verify.yml \
+                                                -i provisioner/tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/instructor_inventory.txt \
+                                                --private-key=provisioner/tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}-private.pem \
+                                                -e tower_password=${ADMIN_PASSWORD} -e workshop_name=tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}"""
+                                    }
+                                }
+                            }
+                        }
+                        script {
+                            stage('SMART-MGMT-teardown') {
+                                withCredentials([string(credentialsId: 'workshops_aws_access_key', variable: 'AWS_ACCESS_KEY'),
+                                                 string(credentialsId: 'workshops_aws_secret_key', variable: 'AWS_SECRET_KEY')]) {
+                                    withEnv(["AWS_SECRET_KEY=${AWS_SECRET_KEY}",
+                                             "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}",
+                                             "ANSIBLE_CONFIG=provisioner/ansible.cfg",
+                                             "ANSIBLE_FORCE_COLOR=true"]) {
+                                        sh '''ansible-playbook provisioner/teardown_lab.yml \
+                                                -e @provisioner/tests/vars.yml \
+                                                -e @provisioner/tests/ci-common.yml \
+                                                -e @provisioner/tests/ci-smart-mgmt.yml 2>&1 | tee -a smart_mgmt.log && exit ${PIPESTATUS[1]}'''
+                                    }
+                                }
+                                archiveArtifacts artifacts: 'smart_mgmt.log'
+                                SMART_MGMT_DEPRECATED_WARNINGS = sh(
+                                    script: 'grep -c \'DEPRECATION WARNING\' smart_mgmt.log || true',
                                     returnStdout: true
                                 ).trim()
                             }
@@ -381,6 +439,7 @@ EOF
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-f5.yml"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-security.yml"
                             sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-windows.yml"
+                            sh "ansible-playbook provisioner/teardown_lab.yml -e @provisioner/tests/vars.yml -e @provisioner/tests/ci-common.yml -e @provisioner/tests/ci-smart_mgmt.yml"
                         }
                     }
                 }
@@ -403,7 +462,7 @@ EOF
                 channel: "#workshops-events",
                 message: """
 *Tower version: ${params.TOWER_VERSION}* | Ansible version: `${params.ANSIBLE_VERSION}` | Workshop branch: ${params.WORKSHOP_BRANCH} | Integration State: OK | <${env.RUN_DISPLAY_URL}|Link> \
-Deprecation Warnings: *${RHEL_DEPRECATED_WARNINGS}* in RHEL lab - *${NETWORKING_DEPRECATED_WARNINGS}* in Networking lab - *${F5_DEPRECATED_WARNINGS}* in F5 lab
+Deprecation Warnings: *${RHEL_DEPRECATED_WARNINGS}* in RHEL lab - *${NETWORKING_DEPRECATED_WARNINGS}* in Networking lab - *${F5_DEPRECATED_WARNINGS}* in F5 lab - *${SMART_MGMT_DEPRECATED_WARNINGS}* in Smart-Mgmt lab
 """
             )
         }

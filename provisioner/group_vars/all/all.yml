@@ -1,7 +1,7 @@
 ---
 admin_password: ansible
 code_server: true
-workshop_dns_zone: "rhdemo.io"
+workshop_dns_zone: "workshops.ansible.com"
 s3_state: "present"
 teardown: false
 towerinstall: false

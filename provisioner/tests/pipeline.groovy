@@ -93,7 +93,7 @@ aw_repo_url: ${aw_repo_url}
 admin_password: ${ADMIN_PASSWORD}
 ansible_workshops_url: ${ANSIBLE_WORKSHOPS_URL}
 ansible_workshops_version: ${params.WORKSHOP_BRANCH}
-ec2_name_prefix: tqe-{{ workshop_type | replace('_', '-') }}-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}
+ec2_name_prefix: tqe-{{ workshop_type | replace('_', '-') }}-${env.BUILD_ID}
 EOF
 """
             }
@@ -128,9 +128,9 @@ EOF
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/rhel_verify.yml \
-                                                -i provisioner/tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/instructor_inventory.txt \
-                                                --private-key=provisioner/tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}-private.pem \
-                                                -e tower_password=${ADMIN_PASSWORD} -e workshop_name=tqe-rhel-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}"""
+                                                -i provisioner/tqe-rhel-${env.BUILD_ID}/instructor_inventory.txt \
+                                                --private-key=provisioner/tqe-rhel-${env.BUILD_ID}/tqe-rhel-${env.BUILD_ID}-private.pem \
+                                                -e tower_password=${ADMIN_PASSWORD} -e workshop_name=tqe-rhel-${env.BUILD_ID}"""
                                     }
                                 }
                             }
@@ -186,9 +186,9 @@ EOF
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/rhel_verify.yml \
-                                                -i provisioner/tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/instructor_inventory.txt \
-                                                --private-key=provisioner/tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}-private.pem \
-                                                -e tower_password=${ADMIN_PASSWORD} -e workshop_name=tqe-smart-mgmt-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}"""
+                                                -i provisioner/tqe-smart-mgmt-${env.BUILD_ID}/instructor_inventory.txt \
+                                                --private-key=provisioner/tqe-smart-mgmt-${env.BUILD_ID}/tqe-smart-mgmt-${env.BUILD_ID}-private.pem \
+                                                -e tower_password=${ADMIN_PASSWORD} -e workshop_name=tqe-smart-mgmt-${env.BUILD_ID}"""
                                     }
                                 }
                             }
@@ -279,7 +279,7 @@ EOF
                         }
                         script {
                             stage('F5-exercises') {
-                                sh "cat provisioner/tqe-f5-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
+                                sh "cat provisioner/tqe-f5-${env.BUILD_ID}/student1-instances.txt | grep -A 1 control | tail -n 1 | cut -d' ' -f 2 | cut -d'=' -f2 | tee control_host"
                                 CONTROL_NODE_HOST = readFile('control_host').trim()
                                 RUN_ALL_PLAYBOOKS = 'find . -name "*.yml" -o -name "*.yaml" | grep -v "2.0" | sort | xargs -I {} bash -c "echo {} && ANSIBLE_FORCE_COLOR=true ansible-playbook {}"'
                                 sh "sshpass -p '${ADMIN_PASSWORD}' ssh -o StrictHostKeyChecking=no student1@${CONTROL_NODE_HOST} 'cd f5-workshop && ${RUN_ALL_PLAYBOOKS}'"
@@ -336,8 +336,8 @@ EOF
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/security_verify.yml \
-                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/instructor_inventory.txt \
-                                                --private-key=provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}-private.pem"""
+                                                -i provisioner/tqe-security-${env.BUILD_ID}/instructor_inventory.txt \
+                                                --private-key=provisioner/tqe-security-${env.BUILD_ID}/tqe-security-${env.BUILD_ID}-private.pem"""
                                     }
                                 }
                             }
@@ -351,7 +351,7 @@ EOF
                                              "ANSIBLE_CONFIG=provisioner/ansible.cfg",
                                              "ANSIBLE_FORCE_COLOR=true"]) {
                                         sh """ansible-playbook provisioner/tests/security_exercise_21.yml \
-                                                -i provisioner/tqe-security-tower${DOTLESS_TOWER_VERSION}-${env.BUILD_ID}-${SHORTENED_ANSIBLE_VERSION}/student1-instances.txt"""
+                                                -i provisioner/tqe-security-${env.BUILD_ID}/student1-instances.txt"""
                                     }
                                 }
                             }

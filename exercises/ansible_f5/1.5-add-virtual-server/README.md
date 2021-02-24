@@ -60,7 +60,7 @@ Next, append the `task` to above playbook. This task will use the `bigip-virtual
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         name: "vip"
@@ -81,7 +81,7 @@ Next, append the `task` to above playbook. This task will use the `bigip-virtual
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
-- The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
+- The`password: "{{ansible_password}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
 - The `name: "vip"` parameter tells the module to create a virtual server named vip
 - The `destination"` parameter tells the module which IP address to assign for the virtual server

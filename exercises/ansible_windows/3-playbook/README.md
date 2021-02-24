@@ -32,7 +32,7 @@ Section 1: Creating a Directory Structure and Files for your Playbook
 =====================================================================
 
 There is a [best
-practice](http://docs.ansible.com/ansible/playbooks_best_practices.html)
+practice](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
 on the preferred directory structures for playbooks. We strongly
 encourage you to read and understand these practices as you develop your
 Ansible skills. That said, our playbook today is very basic and a
@@ -262,4 +262,4 @@ You are ready to automate!
 ```
 <!-- {% endraw %} -->
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

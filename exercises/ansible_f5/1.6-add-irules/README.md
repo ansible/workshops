@@ -86,7 +86,7 @@ Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigi
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         module: "ltm"
@@ -104,7 +104,7 @@ Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigi
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
-- The `password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
+- The `password: "{{ansible_password}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with
 - The `module: ltm` paramters tells the module which BIG-IP module(ltm) the iRule is for
 - The `name: "{{item}}"` parameter tells the module to create an iRule with the name 'irule1' and 'irule2'
@@ -126,7 +126,7 @@ Next, append the `task` to above playbook. This task will use the `bigip_virtual
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         name: "vip"

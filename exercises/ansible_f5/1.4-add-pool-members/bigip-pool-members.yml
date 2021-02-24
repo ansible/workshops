@@ -6,11 +6,11 @@
 
   tasks:
     - name: ADD POOL MEMBERS
-      bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         state: "present"

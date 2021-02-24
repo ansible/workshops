@@ -12,7 +12,7 @@
 
 # Objective
 
-Demonstrate use of the [BIG-IP Facts module](https://docs.ansible.com/ansible/latest/modules/bigip_device_info_module.html) to grab facts (useful information) from a F5 BIG-IP device and display them to the terminal window using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).  
+Demonstrate use of the [BIG-IP Info module](https://docs.ansible.com/ansible/latest/collections/f5networks/f5_modules/bigip_device_info_module.html) to grab facts (useful information) from a F5 BIG-IP device and display them to the terminal window using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).  
 
 # Guide
 
@@ -24,10 +24,10 @@ Make sure you are in the home directory
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-facts.yml`.
+Using your text editor of choice create a new file called `bigip-info.yml`.
 
 ```
-[student1@ansible ~]$ nano bigip-facts.yml
+[student1@ansible ~]$ nano bigip-info.yml
 ```
 
 >`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
@@ -36,7 +36,7 @@ Using your text editor of choice create a new file called `bigip-facts.yml`.
 
 Ansible playbooks are **YAML** files. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format).
 
-Enter the following play definition into `bigip-facts.yml`:
+Enter the following play definition into `bigip-info.yml`:
 
 ``` yaml
 ---
@@ -49,7 +49,7 @@ Enter the following play definition into `bigip-facts.yml`:
 - The `---` at the top of the file indicates that this is a YAML file.
 - The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
-- `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
+- `gather_facts: no` disables facts gathering.  
 
 Do not close editor yet.
 
@@ -61,13 +61,13 @@ Next, add the first `task`. This task will use the `bigip_device_info` module to
 ``` yaml
   tasks:
     - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
+      f5networks.f5_modules.bigip_device_info:
         gather_subset:
           - system-info
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
       register: device_facts
@@ -82,7 +82,7 @@ Next, add the first `task`. This task will use the `bigip_device_info` module to
 - The `provider:` parameter is a group of connection details for the BIG-IP.
 - The `server: "{{private_ip}}"` parameter tells the module to connect to the F5 BIG-IP IP address, which is stored as a variable `private_ip` in inventory
 - The `user: "{{ansible_user}}"` parameter tells the module the username to login to the F5 BIG-IP device with
-- The`password: "{{ansible_ssh_pass}}"` parameter tells the module the password to login to the F5 BIG-IP device with
+- The`password: "{{ansible_password}}"` parameter tells the module the password to login to the F5 BIG-IP device with
 - The `server_port: 8443` parameter tells the module the port to connect to the F5 BIG-IP device with. 8443 is what's being used in this lab, but could be different depending on the deployment.
 - The `validate_certs: false` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 - `register: device_facts` tells the task to save the output to a variable bigip_device_info
@@ -110,12 +110,12 @@ Save the file and exit out of editor.
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-playbook bigip-info.yml
 ```
 
 The output will look as follows.
 ``` yaml
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-playbook bigip-info.yml
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -198,7 +198,7 @@ Finally let's append two more tasks to get more specific info from facts gathere
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-playbook bigip-info.yml
 ```
 
 # Playbook Output
@@ -207,7 +207,7 @@ The output will look as follows.
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-playbook bigip-info.yml
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -275,7 +275,7 @@ f5                         : ok=4    changed=0    unreachable=0    failed=0
 
 # Solution
 
-The finished Ansible Playbook is provided here for an Answer key.  Click here for [bigip-facts.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.1-get-facts/bigip-facts.yml).
+The finished Ansible Playbook is provided here for an Answer key.  Click here for [bigip-info.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.1-get-facts/bigip-info.yml).
 
 # Going Further
 
@@ -291,7 +291,7 @@ For this bonus exercise add the `tags: debug` paramteter (at the task level) to 
 Now re-run the playbook with the `--skip-tags-debug` command line option.
 
 ```
-ansible-playbook bigip-facts.yml --skip-tags=debug
+ansible-playbook bigip-info.yml --skip-tags=debug
 ```
 
 The Ansible Playbook will only run three tasks, skipping the `DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` task.

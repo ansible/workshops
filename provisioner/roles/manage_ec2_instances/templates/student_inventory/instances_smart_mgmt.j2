@@ -1,37 +1,125 @@
 [all:vars]
 ansible_user=student{{ item }}
 ansible_ssh_pass={{ admin_password }}
-{% if ssh_port is defined %}
+{% if ssh_port is defined -%}
 ansible_port={{ ssh_port }}
 {% endif %}
 
 [node]
-{% for vm in node1_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }}.example.com ansible_host={{ vm.public_ip_address }}
+{% for vm in node1_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% for vm in node2_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% for vm in node3_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% if centos7 is defined -%}
+{% for vm in node4_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% for vm in node5_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
 {% endif %}
-{% endfor %}
-{% for vm in node2_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }}.example.com ansible_host={{ vm.public_ip_address }}
+{% if centos6 is defined -%}
+{% for vm in node6_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% for vm in node7_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
 {% endif %}
-{% endfor %}
-{% for vm in node3_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }}.example.com ansible_host={{ vm.public_ip_address }}
-{% endif %}
+
+[rhel:children]
+{{ rhel }}
+
+[{{ rhel }}]
+{% for vm in node1_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com
+{% endif -%}
+{% endfor -%}
+{% for vm in node2_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com
+{% endif -%}
+{% endfor -%}
+{% for vm in node3_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com
+{% endif -%}
 {% endfor %}
 
-[control]
-{% for vm in ansible_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }}.example.com ansible_host={{ vm.public_ip_address }}
+[{{ rhel }}:vars]
+ansible_user=ec2-user
+
+{% if centos6 is defined or centos7 is defined -%}
+[centos:children]
+{% if centos6 is defined -%}
+centos6
+{% endif -%}
+{% if centos7 is defined -%}
+centos7
 {% endif %}
+
+{% if centos6 is defined -%}
+[centos6]
+{% for vm in node6_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com
+{% endif -%}
+{% endfor -%}
+{% for vm in node7_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com
+{% endif -%}
+{% endfor %}
+
+{% endif %}
+{% if centos7 is defined -%}
+[centos7]
+{% for vm in node4_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com
+{% endif -%}
+{% endfor -%}
+{% for vm in node5_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com
+{% endif -%}
+{% endfor %}
+
+{% endif %}
+[centos:vars]
+ansible_user=centos
+
+{% endif %}
+[control]
+{% for vm in ansible_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
 {% endfor %}
 
 [satellite]
-{% for vm in satellite_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }}.example.com ansible_host={{ vm.public_ip_address }}
-{% endif %}
-{% endfor %}
+{% for vm in satellite_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}

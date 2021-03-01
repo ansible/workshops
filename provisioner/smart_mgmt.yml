@@ -15,6 +15,11 @@
   tasks:
     - name: configure satellite admin password
       command: "foreman-rake permissions:reset password={{ admin_password }}"
+    - name: update hammer admin password in /root/.hammer/cli.modules.d/foreman.yml
+      lineinfile:
+        path: /root/.hammer/cli.modules.d/foreman.yml
+        regexp: 'password'
+        line: "  :password: '{{ admin_password }}'"
     - name: configure satellite dns
       become: false
       route53:

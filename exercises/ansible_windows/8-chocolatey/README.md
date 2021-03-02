@@ -273,7 +273,7 @@ The first module we will use is the `win_chocolatey_facts` module. This module i
 
 So let's take a closer look at the information gathered by this module by writing a simple playbook to collect and display the collected information.
 
-In Visual Studio Code, under the `chocolatey` folder, create a new file called `chocolatey_conguration.yml`. The contents of that file should be as follows:
+In Visual Studio Code, under the `chocolatey` folder, create a new file called `chocolatey_configuration.yml`. The contents of that file should be as follows:
 
 ```yaml
 ---
@@ -298,11 +298,11 @@ Add your new playbook to your source control repo, and sync your project in Ansi
 | Key         | Value                                            | Note |
 |-------------|--------------------------------------------------|------|
 | Name        | Chocolatey - Facts and configuration             |      |
-| Description | Template for the chocolatey_conguration playbook |      |
+| Description | Template for the chocolatey_configuration playbook |      |
 | JOB TYPE    | Run                                              |      |
 | INVENTORY   | Workshop Inventory                               |      |
 | PROJECT     | Ansible Workshop Project                         |      |
-| PLAYBOOK    | `chocolatey/chocolatey_conguration.yml`          |      |
+| PLAYBOOK    | `chocolatey/chocolatey_configuration.yml`          |      |
 | CREDENTIAL  | Type: **Machine**. Name: **Workshop Credential** |      |
 | LIMIT       | windows                                          |      |
 | OPTIONS     |                                                  |      |
@@ -346,7 +346,7 @@ We will change the values of two configuration options: `cacheLocation` and `com
 - set `cacheLocation` to `C:\ChocoCache`.
 - set `commandExecutionTimeoutSeconds` to 1 hour or `3600` seconds.
 
-In Visual Studio Code, edit the `chocolatey_conguration.yml` playbook, to add the following tasks:
+In Visual Studio Code, edit the `chocolatey_configuration.yml` playbook, to add the following tasks:
 
 ```yaml
   - name: Create a directory for the new Chocolatey caching directory
@@ -382,7 +382,7 @@ These new tasks will perform the following:
 - Re gather the Chocolatey facts after modifying the configuration values.
 - And Finally print out the `config` section from the refreshed Chocolatey facts.
 
-The contents of the `chocolatey_conguration.yml` playbook should now look like this:
+The contents of the `chocolatey_configuration.yml` playbook should now look like this:
 
 ```yaml
 ---

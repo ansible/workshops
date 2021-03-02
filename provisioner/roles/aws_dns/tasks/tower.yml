@@ -2,10 +2,10 @@
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
 - name: make sure Ansible Tower is online before changing tower base URL
   service:
-    name: turn on tower
+    name: ansible-tower.service
     state: started
-  register: install_tower
-  until: install_tower is not failed
+  register: start_tower
+  until: start_tower is not failed
   retries: 5
 
 - name: install certbot if not already installed
@@ -27,9 +27,9 @@
   retries: 5
 
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-- name: turn off Ansible Tower
+- name: make sure Ansible Tower is stopped
   service:
-    name: turn off tower
+    name: ansible-tower.service
     state: stopped
   register: stop_tower
   until: stop_tower is not failed
@@ -60,10 +60,12 @@
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
   rescue:
-    - name: turn on tower
-      shell: ansible-tower-service start
-      register: install_tower
-      until: install_tower is not failed
+    - name: make sure Ansible Tower is started
+      service:
+        name: ansible-tower.service
+        state: started
+      register: start_tower
+      until: start_tower is not failed
       retries: 5
 
     - name: no SSL cert for Ansible Tower

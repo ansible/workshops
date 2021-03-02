@@ -25,9 +25,9 @@
     - name: certbot for Ansible Tower
       include_tasks: tower.yml
 
-    - name: turn on tower
+    - name: make sure Ansible Tower is started
       service:
-        name: turn on tower
+        name: ansible-tower.service
         state: started
       register: install_tower
       until: install_tower is not failed

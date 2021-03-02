@@ -1,0 +1,93 @@
+---
+- name: Create EC2 instances for node6
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[centos6].size }}"
+    image: "{{ node_ami_centos6.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node6: "{{ ec2_name_prefix }}-node6"
+    instance_tags:
+      Workshop_node6: "{{ ec2_name_prefix }}-node6"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node6"
+      username: "{{ ec2_info[centos6].username }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info[centos6].disk_space }}"
+        delete_on_termination: true
+  register: node6_output
+
+- name: Ensure tags are present for node6
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node6"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node6_output.instances }}"
+  when: node6_output.instance_ids is not none
+
+---
+- name: Create EC2 instances for node7
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[centos6].size }}"
+    image: "{{ node_ami_centos6.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node7: "{{ ec2_name_prefix }}-node7"
+    instance_tags:
+      Workshop_node7: "{{ ec2_name_prefix }}-node7"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node7"
+      username: "{{ ec2_info[centos6].username }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info[centos6].disk_space }}"
+        delete_on_termination: true
+  register: node7_output
+
+- name: Ensure tags are present for node7
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node7"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node7_output.instances }}"
+  when: node7_output.instance_ids is not none

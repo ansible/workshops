@@ -93,6 +93,33 @@ ec2_info:
     filter: 'RHEL-7.9_HVM*'
     username: ec2-user
     python_interpreter: '/usr/bin/python'
+  rhel68:
+    owners: 309956199498
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-6.8_HVM_GA*'
+    username: ec2-user
+    python_interpreter: '/usr/bin/python'
+  centos78:
+    owners: 125523088429
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'CentOS*7.8*x86_64'
+    username: centos
+    python_interpreter: '/usr/bin/python'
+  centos79:
+    owners: 125523088429
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'CentOS*7.9*x86_64'
+    username: centos
+    python_interpreter: '/usr/bin/python'
   f5node:
     owners: 679593333241
     size: t2.large

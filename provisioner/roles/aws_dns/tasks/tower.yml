@@ -1,8 +1,18 @@
 ---
+# https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
+- name: make sure Ansible Tower is online before changing tower base URL
+  shell: ansible-tower-service start
+
+- name: install certbot if not already installed
+  dnf:
+    name: certbot
+    state: present
+    disable_gpg_check: true
+
 - name: change ansible tower base URL
   awx.awx.tower_settings:
     name: TOWER_URL_BASE
-    value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    value: "https://{{ username }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
     tower_verify_ssl: false
     tower_host: localhost
     tower_username: admin
@@ -10,12 +20,6 @@
   register: change_base_url
   until: change_base_url is not failed
   retries: 5
-
-- name: install certbot if not already installed
-  dnf:
-    name: certbot
-    state: present
-    disable_gpg_check: true
 
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
 - name: turn off Ansible Tower

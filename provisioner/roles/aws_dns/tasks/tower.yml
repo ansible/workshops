@@ -1,7 +1,12 @@
 ---
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
 - name: make sure Ansible Tower is online before changing tower base URL
-  shell: ansible-tower-service start
+  service:
+    name: turn on tower
+    state: started
+  register: install_tower
+  until: install_tower is not failed
+  retries: 5
 
 - name: install certbot if not already installed
   dnf:
@@ -23,7 +28,12 @@
 
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
 - name: turn off Ansible Tower
-  shell: ansible-tower-service stop
+  service:
+    name: turn off tower
+    state: stopped
+  register: stop_tower
+  until: stop_tower is not failed
+  retries: 5
 
 - name: SSL cert block
   block:
@@ -56,7 +66,6 @@
       until: install_tower is not failed
       retries: 5
 
-    - name: fail on purpose
+    - name: no SSL cert for Ansible Tower
       debug:
-        msg: "failing on purpose - SSL cert problem"
-      failed_when: true
+        msg: "SSL cert problem - no cert applied"

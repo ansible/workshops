@@ -26,7 +26,9 @@
       include_tasks: tower.yml
 
     - name: turn on tower
-      shell: ansible-tower-service start
+      service:
+        name: turn on tower
+        state: started
       register: install_tower
       until: install_tower is not failed
       retries: 5

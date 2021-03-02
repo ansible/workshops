@@ -88,7 +88,7 @@
   retries: 5
   ignore_errors: true
 
-- name: modify nginx if cert is able to be issued
+- name: modify nginx to support code-server
   block:
     - name: update nginx configuration to support code server
       blockinfile:
@@ -117,8 +117,10 @@
         insertbefore: "include(.*)/etc/nginx/mime.types;"
         line: '{% raw %} {% endif %} {% endraw %}'
 
-- name: turn on tower
-  shell: ansible-tower-service start
+- name: make sure Ansible Tower is started
+  service:
+    name: ansible-tower.service
+    state: started
   register: install_tower
   until: install_tower is not failed
   retries: 5

@@ -12,13 +12,15 @@
 
 # Install GitLab and its dependencies.
 - name: Install GitLab dependencies.
-  package: name={{ item }} state=present
-  with_items:
-    - openssh-server
-    - postfix
-    - curl
-    - openssl
-    - tzdata
+  package:
+    name: "{{ gitlab_dependencies }}"
+    state: present
+
+- name: Install GitLab dependencies (Debian).
+  apt:
+    name: gnupg2
+    state: present
+  when: ansible_os_family == 'Debian'
 
 - name: Download GitLab repository installation script.
   get_url:
@@ -29,30 +31,21 @@
 
 - name: Install GitLab repository.
   command: bash /tmp/gitlab_install_repository.sh
+  register: output
   when: not gitlab_file.stat.exists
 
 - name: Define the Gitlab package name.
   set_fact:
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
-  when: gitlab_version != ''
+  when: gitlab_version | default(false)
 
 - name: Install GitLab
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
-  when:
-    - not gitlab_file.stat.exists
-    - ansible_python_version is version_compare('3.0', '>=')
-
-# There seems to an issue with using ansible 2.8.x and python <= 2.7.x when using the package module
-# this needs to be tested more but it seems to work better with yum
-- name: Install GitLab
-  yum:
-    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
-    state: present
-  when:
-    - not gitlab_file.stat.exists
-    - ansible_python_version is version_compare('3.0', '<')
+  async: 600
+  poll: 5
+  when: not gitlab_file.stat.exists
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
@@ -69,14 +62,14 @@
     owner: root
     group: root
     mode: 0700
-  when: gitlab_create_self_signed_cert | bool
+  when: gitlab_create_self_signed_cert
 
 - name: Create self-signed certificate.
   command: >
     openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}"
     -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
     creates={{ gitlab_ssl_certificate }}
-  when: gitlab_create_self_signed_cert | bool
+  when: gitlab_create_self_signed_cert
 
 - name: Copy GitLab configuration file.
   template:

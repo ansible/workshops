@@ -19,6 +19,7 @@
       - netaddr
       - jmespath
       - lxml
+      - ipaddr
     state: latest
 
 - name: install f5 collection

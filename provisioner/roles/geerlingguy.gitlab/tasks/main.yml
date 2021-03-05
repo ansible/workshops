@@ -43,7 +43,7 @@
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
-  async: 300
+  async: 600
   poll: 5
   when: not gitlab_file.stat.exists
 

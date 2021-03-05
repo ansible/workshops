@@ -15,10 +15,6 @@
       vars:
         gitlab_version: '13.6.7-ce.0.el8'
         gitlab_external_url: "https://gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-        gitlab_ssl_certificate: "/etc/letsencrypt/live/gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/fullchain.pem"
-        gitlab_ssl_certificate_key: "/etc/letsencrypt/live/gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
-        gitlab_create_self_signed_cert: "false"
-        gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN={{ gitlab_domain }}"
     - include_role:
         name: gitlab-server
         tasks_from: add-users

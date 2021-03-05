@@ -10,7 +10,3 @@
 - name: GitLab Post | Configure SSL
   include_tasks: certbot.yml
   when: not teardown
-
-- name: GitLab Post | Configure users
-  include_tasks: add-users.yml
-  when: not teardown

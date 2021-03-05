@@ -31,8 +31,10 @@
         state: absent
         insertafter: "http {"
 
-    - name: make sure tower is on
-      shell: ansible-tower-service start
+    - name: Smake sure tower is on
+      service:
+        name: ansible-tower.service
+        state: started
       register: install_tower
       until: install_tower is not failed
       retries: 5

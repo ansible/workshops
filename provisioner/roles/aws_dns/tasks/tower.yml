@@ -1,14 +1,11 @@
 ---
-- name: change ansible tower base URL
-  awx.awx.tower_settings:
-    name: TOWER_URL_BASE
-    value: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-    tower_verify_ssl: false
-    tower_host: localhost
-    tower_username: admin
-    tower_password: "{{admin_password}}"
-  register: change_base_url
-  until: change_base_url is not failed
+# https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
+- name: make sure Ansible Tower is online before changing tower base URL
+  service:
+    name: ansible-tower.service
+    state: started
+  register: start_tower
+  until: start_tower is not failed
   retries: 5
 
 - name: install certbot if not already installed
@@ -17,9 +14,26 @@
     state: present
     disable_gpg_check: true
 
+- name: change ansible tower base URL
+  awx.awx.tower_settings:
+    name: TOWER_URL_BASE
+    value: "https://{{ username }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+    tower_verify_ssl: false
+    tower_host: localhost
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+  register: change_base_url
+  until: change_base_url is not failed
+  retries: 5
+
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-- name: turn off Ansible Tower
-  shell: ansible-tower-service stop
+- name: make sure Ansible Tower is stopped
+  service:
+    name: ansible-tower.service
+    state: stopped
+  register: stop_tower
+  until: stop_tower is not failed
+  retries: 5
 
 - name: SSL cert block
   block:
@@ -46,13 +60,14 @@
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
   rescue:
-    - name: turn on tower
-      shell: ansible-tower-service start
-      register: install_tower
-      until: install_tower is not failed
+    - name: make sure Ansible Tower is started
+      service:
+        name: ansible-tower.service
+        state: started
+      register: start_tower
+      until: start_tower is not failed
       retries: 5
 
-    - name: fail on purpose
+    - name: no SSL cert for Ansible Tower
       debug:
-        msg: "failing on purpose - SSL cert problem"
-      failed_when: true
+        msg: "SSL cert problem - no cert applied"

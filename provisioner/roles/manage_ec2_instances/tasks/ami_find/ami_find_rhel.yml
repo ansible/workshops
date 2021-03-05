@@ -1,5 +1,5 @@
 ---
-- name: find ami for node
+- name: find ami for rhel node
   ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[rhel].owners }}"
@@ -8,7 +8,7 @@
       architecture: "{{ ec2_info[rhel].architecture }}"
   register: amis
 
-- name: save ami for node
+- name: save ami for rhel node
   set_fact:
-    node_ami: >
+    node_ami_rhel: >
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

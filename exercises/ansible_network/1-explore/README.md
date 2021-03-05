@@ -7,7 +7,6 @@
 - [Objective](#objective)
 - [Diagram](#diagram)
 - [Guide](#guide)
-- [Takeaways](#takeaways)
 
 # Objective
 

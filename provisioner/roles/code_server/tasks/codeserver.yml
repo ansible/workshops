@@ -36,33 +36,6 @@
     group: wheel
     mode: '0744'
 
-- name: update nginx configuration to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx.conf') }}"
-    dest: /etc/nginx/nginx.conf
-    insertafter: "http {"
-
-# Make sure we can re-run the Tower installer during a lab without killing code-server access
-- name: update Ansible installer nginx configuration template to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx.conf') }}"
-    dest: /tmp/tower_install/roles/nginx/templates/nginx.conf
-    insertafter: "http {"
-
-# Make the block inserted above conditional to only apply to ansible-1
-- name: Add jinja conditional start
-  lineinfile:
-    path: /tmp/tower_install/roles/nginx/templates/nginx.conf
-    insertafter: "http {"
-    line: '{% raw %} {% if ansible_hostname == "ansible-1" %} {% endraw %}'
-
-# Make the block inserted above conditional to only apply to ansible-1
-- name: Add jinja conditional end
-  lineinfile:
-    path: /tmp/tower_install/roles/nginx/templates/nginx.conf
-    insertbefore: "include(.*)/etc/nginx/mime.types;"
-    line: '{% raw %} {% endif %} {% endraw %}'
-
     # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
 - name: ensure custom facts directory exists
   file:
@@ -102,10 +75,10 @@
 
 - name: daemon-reload, enable and start code-server
   systemd:
+    name: code-server
     enabled: true
     state: started
     daemon_reload: true
-    name: code-server
 
 # if we do not have a cert we will try to work anyway
 - name: issue cert
@@ -115,8 +88,39 @@
   retries: 5
   ignore_errors: true
 
-- name: turn on tower
-  shell: ansible-tower-service start
+- name: modify nginx to support code-server
+  block:
+    - name: update nginx configuration to support code server
+      blockinfile:
+        block: "{{ lookup('template', 'nginx.conf') }}"
+        dest: /etc/nginx/nginx.conf
+        insertafter: "http {"
+
+    # Make sure we can re-run the Tower installer during a lab without killing code-server access
+    - name: update Ansible installer nginx configuration template to support code server
+      blockinfile:
+        block: "{{ lookup('template', 'nginx.conf') }}"
+        dest: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        insertafter: "http {"
+
+    # Make the block inserted above conditional to only apply to ansible-1
+    - name: Add jinja conditional start
+      lineinfile:
+        path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        insertafter: "http {"
+        line: '{% raw %} {% if ansible_hostname == "ansible-1" %} {% endraw %}'
+
+    # Make the block inserted above conditional to only apply to ansible-1
+    - name: Add jinja conditional end
+      lineinfile:
+        path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        insertbefore: "include(.*)/etc/nginx/mime.types;"
+        line: '{% raw %} {% endif %} {% endraw %}'
+
+- name: make sure Ansible Tower is started
+  service:
+    name: ansible-tower.service
+    state: started
   register: install_tower
   until: install_tower is not failed
   retries: 5

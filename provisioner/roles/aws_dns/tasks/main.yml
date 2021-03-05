@@ -1,9 +1,9 @@
 ---
-- name: REMOVE DNS ENTRIES FOR EACH TOWER NODE
+- name: remove dns entries for each tower node
   include_tasks: teardown.yml
   when: teardown|bool
 
-- name: CHECK TO SEE IF SSL CERT ALREADY APPLIED
+- name: check to see if SSL cert already applied
   uri:
     url: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/api/v2/ping/"
     method: GET
@@ -25,8 +25,10 @@
     - name: certbot for Ansible Tower
       include_tasks: tower.yml
 
-    - name: turn on tower
-      shell: ansible-tower-service start
+    - name: make sure Ansible Tower is started
+      service:
+        name: ansible-tower.service
+        state: started
       register: install_tower
       until: install_tower is not failed
       retries: 5

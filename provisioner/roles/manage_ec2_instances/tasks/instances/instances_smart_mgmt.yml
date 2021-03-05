@@ -47,5 +47,15 @@
   when: satellite_output.instance_ids is not none
 
 ## re-use RHEL workshop code
-- name: provision aws resources
+- name: provision aws rhel instances
   include_tasks: instances_rhel.yml
+
+## centos 6 nodes for potential convert2rhel scenarios
+- name: provision aws centos 6 instances
+  include_tasks: instances_centos_6.yml
+  when: (centos6 is defined) and (centos6 is not none)
+
+## centos 7 nodes for potential convert2rhel scenarios
+- name: provision aws centos 7 instances
+  include_tasks: instances_centos_7.yml
+  when: (centos7 is defined) and (centos7 is not none)

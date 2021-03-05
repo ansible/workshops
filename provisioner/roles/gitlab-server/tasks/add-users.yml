@@ -1,16 +1,30 @@
 ---
-- name: GitLab Post | Install pip
-  dnf:
-    name: python3-pip
-    state: present
+- name: GitLab post | reconfigure gitlab
+  command: gitlab-ctl reconfigure
+
+- name: GitLab post | start gitlab
+  command: gitlab-ctl start
 
 - name: GitLab Post | Install pyapi-gitlab
   dnf:
     name:
       - python3-gitlab
 
-- name: GitLab post | start gitlab
-  command: gitlab-ctl start
+- name: GitLab post | wait for gitlab to start
+  become: false
+  get_certificate:
+    host: "gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    port: 443
+  delegate_to: localhost
+  register: check_cert2
+  retries: 120
+  delay: 1
+  until: check_cert2 is not failed
+
+- name: GitLab Post | Install pip
+  dnf:
+    name: python3-pip
+    state: present
 
 - name: GitLab Post | Check if root user password is set
   uri:

@@ -9,6 +9,9 @@
     name:
       - python3-gitlab
 
+- name: GitLab post | start gitlab
+  command: gitlab-ctl start
+
 - name: GitLab Post | Check if root user password is set
   uri:
     url: https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone}}/oauth/token
@@ -65,7 +68,6 @@
       until: gitlab_access_token is success and gitlab_access_token.json.access_token is defined
       delay: 3
       retries: 60
-
   when:
     - root_user.status != 200
     - root_user.status != 301

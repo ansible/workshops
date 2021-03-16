@@ -23,3 +23,6 @@
         password: "{{ ansible_password }}"
         validate_certs: false
       delegate_to: localhost
+      register: f5networks
+      until: f5networks is not failed
+      retries: 5

@@ -436,4 +436,4 @@ The playbook should run and make the configuration changes, and the output from 
 And thats it. This exercise covered most Chocolatey related Ansible modules available (with the exception of `win_chocolatey_source` and `win_chocolatey_feature` which you can read about [here](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_feature_module.html) and [here](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_source_module.html). Hopefully you got a taste of the possibilities by using Ansible together with Chocolatey to manage your Windows packages.
 
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

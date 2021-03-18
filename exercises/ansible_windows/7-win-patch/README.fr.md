@@ -171,4 +171,4 @@ Lorsque vous y êtes invité, sélectionnez la catégories de mise à jour. Puis
 
 Après le lancement de la tache, vous pouvez voir le résultat de la tache en cours en temps réel.
 <br><br>
-[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

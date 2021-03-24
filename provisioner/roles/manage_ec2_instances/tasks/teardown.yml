@@ -409,4 +409,4 @@
         delete_instance_profile: true
       loop: "{{ range(1, student_total + 1)|list }}"
 
-  when: tower_node_aws_api_access|bool
+  when: tower_node_aws_api_access|default(false)|bool

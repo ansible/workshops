@@ -93,4 +93,4 @@
         msg: "{{ associate_iam_instance_profile }}"
       when: control_output.instance_ids is not none
 
-  when: tower_node_aws_api_access|bool
+  when: tower_node_aws_api_access|default(false)|bool

@@ -51,7 +51,7 @@
       iam_role:
         name: "VPCLockDown_{{ ec2_name_prefix }}"
         assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
-        create_instance_profile: yes
+        create_instance_profile: true
         description: VPC Lockdown role for "{{ ec2_name_prefix }}" workshop
 
     - name: set fact for VPC Lock Down role used for all automated nodes
@@ -62,14 +62,14 @@
       iam_role:
         name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
-        create_instance_profile: yes
+        create_instance_profile: true
         description: Control node instance role for "{{ ec2_name_prefix }}" workshop
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Generate IAM policy for control node IAM instance role
       iam_policy:
         iam_type: role
-        iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}" 
+        iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
         state: present
         policy_json: "{{ lookup( 'template', 'iam_vpc_lockdown_policy.json.j2') }}"
@@ -88,7 +88,7 @@
       register: associate_iam_instance_profile
       when: control_output.instance_ids is not none
 
-    - name: Check associate_iam_instance_profile 
+    - name: Check associate_iam_instance_profile
       debug:
         msg: "{{ associate_iam_instance_profile }}"
       when: control_output.instance_ids is not none

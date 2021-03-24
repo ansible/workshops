@@ -385,3 +385,33 @@
         public_ip: "{{ item['public_ip'] }}"
         state: absent
       loop: "{{ ec2_eip_by_workshop_tag['addresses'] }}"
+
+- name: Remove IAM roles & policy block
+  block:
+    - name: Remove IAM policy for control node IAM instance role
+      iam_policy:
+        iam_type: role
+        iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}" 
+        policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
+        state: absent
+        #policy_document: "{{ lookup( 'template', 'iam_vpc_lockdown_policy.json.j2') }}"
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+    - name: Remove VPC Lock Down role
+      iam_role:
+        name: "VPCLockDown_{{ ec2_name_prefix }}"
+        state: absent
+        delete_instance_profile: yes
+        #assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
+        #description: VPC Lockdown role for "{{ ec2_name_prefix }}" workshop
+
+    - name: Remove control node instance role
+      iam_role:
+        name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
+        state: absent
+        delete_instance_profile: yes
+        #assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
+        #description: Control node instance role for "{{ ec2_name_prefix }}" workshop
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+  when: tower_node_aws_api_access|bool

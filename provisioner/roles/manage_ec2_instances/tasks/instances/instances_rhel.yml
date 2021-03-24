@@ -10,6 +10,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
+    instance_profile_name: "{{ node_ec2_instance_role_name | default(omit) }}"
     instance_tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
       Workshop: "{{ ec2_name_prefix }}"
@@ -57,6 +58,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
+    instance_profile_name: "{{ node_ec2_instance_role_name | default(omit) }}"
     instance_tags:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
       Workshop: "{{ ec2_name_prefix }}"
@@ -104,6 +106,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
+    instance_profile_name: "{{ node_ec2_instance_role_name | default(omit) }}"
     instance_tags:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
       Workshop: "{{ ec2_name_prefix }}"

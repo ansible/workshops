@@ -44,3 +44,53 @@
   with_indexed_items:
     - "{{ control_output.instances }}"
   when: control_output.instance_ids is not none
+
+- name: Grant AWS API access via IAM roles & policy block
+  block:
+    - name: Create VPC Lock Down role
+      iam_role:
+        name: "VPCLockDown_{{ ec2_name_prefix }}"
+        assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
+        create_instance_profile: yes
+        description: VPC Lockdown role for "{{ ec2_name_prefix }}" workshop
+
+    - name: set fact for VPC Lock Down role used for all automated nodes
+      set_fact:
+        node_ec2_instance_role_name: "VPCLockDown_{{ ec2_name_prefix }}"
+
+    - name: Create control node instance role
+      iam_role:
+        name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
+        assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
+        create_instance_profile: yes
+        description: Control node instance role for "{{ ec2_name_prefix }}" workshop
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+    - name: Generate IAM policy for control node IAM instance role
+      iam_policy:
+        iam_type: role
+        iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}" 
+        policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
+        state: present
+        policy_json: "{{ lookup( 'template', 'iam_vpc_lockdown_policy.json.j2') }}"
+      loop: "{{ range(1, student_total + 1)|list }}"
+      loop_control:
+        index_var: loop_idx
+
+    - name: Associate IAM instance profile with control node
+      command: >
+        aws ec2 associate-iam-instance-profile
+          --iam-instance-profile Name=ControlNode_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}
+          --instance-id {{ item.1.id }}
+          --region {{ ec2_region }}
+      with_indexed_items:
+        - "{{ control_output.instances }}"
+      register: associate_iam_instance_profile
+      when: control_output.instance_ids is not none
+
+    - name: Check associate_iam_instance_profile 
+      debug:
+        msg: "{{ associate_iam_instance_profile }}"
+      when: control_output.instance_ids is not none
+
+  when: tower_node_aws_api_access|bool

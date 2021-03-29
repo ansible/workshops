@@ -70,7 +70,7 @@ Next, add the first `task` using the [bigip_virtual_server](https://docs.ansible
 {% raw %}
 ``` yaml
     - name: DELETE VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider: "{{provider}}"
         name: "vip"
         state: absent
@@ -85,7 +85,7 @@ Next, add the second `task` using the [bigip_pool](https://docs.ansible.com/ansi
 {% raw %}
 ```yaml
     - name: DELETE POOL
-      bigip_pool:
+      f5networks.f5_modules.bigip_pool:
         provider: "{{provider}}"
         name: "http_pool"
         state: absent
@@ -99,7 +99,7 @@ Finally, add the last `task` using the [bigip_node](https://docs.ansible.com/ans
 {% raw %}
 ```yaml
     - name: DELETE NODES
-      bigip_node:
+      f5networks.f5_modules.bigip_node:
         provider: "{{provider}}"
         name: "{{hostvars[item].inventory_hostname}}"
         state: absent

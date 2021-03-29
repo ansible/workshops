@@ -54,7 +54,7 @@
 ``` yaml
   tasks:
     - name: ADD POOL MEMBERS
-      bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
@@ -132,7 +132,7 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 
   tasks:
     - name: Query BIG-IP facts
-      bigip_device_info:
+      f5networks.f5_modules.bigip_device_info:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

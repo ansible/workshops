@@ -324,4 +324,4 @@ simplifying changes to variables, tasks, templates, etc.
 roles for use or reference.
 
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

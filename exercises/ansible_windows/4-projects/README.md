@@ -172,4 +172,4 @@ the possibilities of Ansible Tower. The next few lessons will help you
 move beyond a basic playbook.
 
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

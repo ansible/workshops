@@ -231,4 +231,4 @@ Vous pouvez trouver plus d'informations sur ces paramètres et d'autres dans not
 Les paramètres d'authentification sont particulièrement importants et vous devrez les revoir et décider quelle méthode convient le mieux à vos besoins.
 
 <br><br>
-[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

@@ -211,4 +211,4 @@ After the job launches, you should be redirected and can watch the
 output of the job in realtime.
 
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

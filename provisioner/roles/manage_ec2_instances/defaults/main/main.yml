@@ -184,4 +184,12 @@ ec2_info:
     username: ec2-user
     os_type: linux
     size: r5a.xlarge
+  middleware:
+    owners: 309956199498
+    size: t2.xlarge
+    os_type: linux
+    disk_space: 20
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
 debug_teardown: false

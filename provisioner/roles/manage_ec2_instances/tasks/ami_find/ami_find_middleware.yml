@@ -1,0 +1,14 @@
+---
+- name: find ami for middleware node
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info.middleware.owners }}"
+    filters:
+      name: "{{ ec2_info.middleware.filter }}"
+      architecture: "{{ ec2_info.middleware.architecture }}"
+  register: amis
+
+- name: save ami for middleware node
+  set_fact:
+    node_ami_middleware: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

@@ -53,7 +53,7 @@
 ``` yaml
   tasks:
     - name: CREATE POOL
-      bigip_pool:
+      f5networks.f5_modules.bigip_pool:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

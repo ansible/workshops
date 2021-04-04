@@ -54,7 +54,7 @@ Next, add the `task`. This task will use the `bigip-config` to save the running 
 ``` yaml
   tasks:
     - name: SAVE RUNNING CONFIG ON BIG-IP
-      bigip_config:
+      f5networks.f5_modules.bigip_config:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

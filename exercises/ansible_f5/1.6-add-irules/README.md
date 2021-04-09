@@ -82,7 +82,7 @@ Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigi
 
   tasks:
     - name: ADD iRules
-      bigip_irule:
+      f5networks.f5_modules.bigip_irule:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
@@ -122,7 +122,7 @@ Next, append the `task` to above playbook. This task will use the `bigip_virtual
 ``` yaml
 
     - name: ATTACH iRules TO VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

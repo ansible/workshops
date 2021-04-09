@@ -277,4 +277,4 @@ Vous devriez maintenant avoir un playbook complet, `site.yml` avec un seul rôle
 
 [Ansible Galaxy](https://galaxy.ansible.com) un bon référentiel de rôles à utiliser ou à référencer.
 <br><br>
-[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

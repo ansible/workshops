@@ -71,7 +71,7 @@
 {% raw %}
 ``` yaml
     - name: DELETE VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider: "{{provider}}"
         name: "vip"
         state: absent
@@ -86,7 +86,7 @@
 {% raw %}
 ```yaml
     - name: DELETE POOL
-      bigip_pool:
+      f5networks.f5_modules.bigip_pool:
         provider: "{{provider}}"
         name: "http_pool"
         state: absent
@@ -100,7 +100,7 @@
 {% raw %}
 ```yaml
     - name: DELETE NODES
-      bigip_node:
+      f5networks.f5_modules.bigip_node:
         provider: "{{provider}}"
         name: "{{hostvars[item].inventory_hostname}}"
         state: absent

@@ -168,4 +168,4 @@ Les commandes Ad-hoc peuvent être utiles à exécuter de temps en temps. L'exem
 
 ![Reboot required](images/2-adhoc-reboot-required.png)
 <br><br>
-[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

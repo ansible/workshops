@@ -72,7 +72,7 @@
 
 {% raw %}
 ```yaml
-      bigip_device_info:
+      f5networks.f5_modules.bigip_device_info:
         provider: "{{provider}}"
         gather_subset:
         - ltm-pools

@@ -82,7 +82,7 @@ when HTTP_REQUEST {
 
   tasks:
     - name: ADD iRules
-      bigip_irule:
+      f5networks.f5_modules.bigip_irule:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
@@ -121,7 +121,7 @@ when HTTP_REQUEST {
 {% raw %}
 ``` yaml
     - name: ATTACH iRules TO VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

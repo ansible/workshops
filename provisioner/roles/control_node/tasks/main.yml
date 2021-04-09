@@ -86,6 +86,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     local_follow: true
+  ignore_errors: true  # Required for testing local development
 
 - name: Create lab inventory directory
   file:

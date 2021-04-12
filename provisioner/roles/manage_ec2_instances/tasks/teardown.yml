@@ -398,9 +398,10 @@
 
     - name: Remove VPC Lock Down role
       iam_role:
-        name: "VPCLockDown_{{ ec2_name_prefix }}"
+        name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true
+      loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Remove control node instance role
       iam_role:
@@ -410,3 +411,24 @@
       loop: "{{ range(1, student_total + 1)|list }}"
 
   when: tower_node_aws_api_access|default(false)|bool
+
+- name: Delete AWS snapshots (SMART MANAGEMENT MODE)
+  block:
+    - name: Get snapshot info
+      ec2_snapshot_info:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:Workshop": "{{ ec2_name_prefix }}"
+      register: snapshots_details
+
+    - name: Delete snapshot
+      ec2_snapshot:
+        snapshot_id: "{{ item.0 }}"
+        region: "{{ ec2_region }}"
+        state: absent
+        wait: yes
+      with_together:
+        - "{{ snapshots_details.snapshots | map(attribute='snapshot_id') | list }}"
+      when:
+        - snapshots_details.snapshots|length > 0
+  when: workshop_type == 'smart_mgmt'

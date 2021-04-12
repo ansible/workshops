@@ -47,16 +47,18 @@
 
 - name: Grant AWS API access via IAM roles & policy block
   block:
+    - name: GRAB ROUTE53 ZONE ID
+      route53_zone:
+        zone: "{{ workshop_dns_zone }}"
+      register: AWSINFO
+
     - name: Create VPC Lock Down role
       iam_role:
-        name: "VPCLockDown_{{ ec2_name_prefix }}"
+        name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
         assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
         create_instance_profile: true
         description: VPC Lockdown role for "{{ ec2_name_prefix }}" workshop
-
-    - name: set fact for VPC Lock Down role used for all automated nodes
-      set_fact:
-        node_ec2_instance_role_name: "VPCLockDown_{{ ec2_name_prefix }}"
+      loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Create control node instance role
       iam_role:
@@ -86,6 +88,10 @@
       with_indexed_items:
         - "{{ control_output.instances }}"
       register: associate_iam_instance_profile
+      failed_when: '"There is an existing association for instance" not in associate_iam_instance_profile.stderr'
+      until: associate_iam_instance_profile is not failed
+      retries: 12
+      delay: 10
       when: control_output.instance_ids is not none
 
     - name: Check associate_iam_instance_profile

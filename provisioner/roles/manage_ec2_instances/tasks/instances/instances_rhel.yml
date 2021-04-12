@@ -10,7 +10,6 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
-    instance_profile_name: "{{ node_ec2_instance_role_name | default(omit) }}"
     instance_tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
       Workshop: "{{ ec2_name_prefix }}"
@@ -47,6 +46,23 @@
     - "{{ node1_output.instances }}"
   when: node1_output.instance_ids is not none
 
+- name: Associate IAM instance profile with node1
+  command: >
+    aws ec2 associate-iam-instance-profile
+      --iam-instance-profile Name=VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}
+      --instance-id {{ item.1.id }}
+      --region {{ ec2_region }}
+  with_indexed_items:
+    - "{{ node1_output.instances }}"
+  register: associate_iam_instance_profile
+  failed_when: '"There is an existing association for instance" not in associate_iam_instance_profile.stderr'
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node1_output.instance_ids is not none
+    - tower_node_aws_api_access|default(false)|bool
+
 - name: Create EC2 instances for node2
   ec2:
     assign_public_ip: true
@@ -58,7 +74,6 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
-    instance_profile_name: "{{ node_ec2_instance_role_name | default(omit) }}"
     instance_tags:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
       Workshop: "{{ ec2_name_prefix }}"
@@ -95,6 +110,23 @@
     - "{{ node2_output.instances }}"
   when: node2_output.instance_ids is not none
 
+- name: Associate IAM instance profile with node2
+  command: >
+    aws ec2 associate-iam-instance-profile
+      --iam-instance-profile Name=VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}
+      --instance-id {{ item.1.id }}
+      --region {{ ec2_region }}
+  with_indexed_items:
+    - "{{ node2_output.instances }}"
+  register: associate_iam_instance_profile
+  failed_when: '"There is an existing association for instance" not in associate_iam_instance_profile.stderr'
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node2_output.instance_ids is not none
+    - tower_node_aws_api_access|default(false)|bool
+
 - name: Create EC2 instances for node3
   ec2:
     assign_public_ip: true
@@ -106,7 +138,6 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
-    instance_profile_name: "{{ node_ec2_instance_role_name | default(omit) }}"
     instance_tags:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
       Workshop: "{{ ec2_name_prefix }}"
@@ -142,6 +173,23 @@
   with_indexed_items:
     - "{{ node3_output.instances }}"
   when: node3_output.instance_ids is not none
+
+- name: Associate IAM instance profile with node3
+  command: >
+    aws ec2 associate-iam-instance-profile
+      --iam-instance-profile Name=VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}
+      --instance-id {{ item.1.id }}
+      --region {{ ec2_region }}
+  with_indexed_items:
+    - "{{ node3_output.instances }}"
+  register: associate_iam_instance_profile
+  failed_when: '"There is an existing association for instance" not in associate_iam_instance_profile.stderr'
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node3_output.instance_ids is not none
+    - tower_node_aws_api_access|default(false)|bool
 
 # Create isolated/remote node for Adv Tower lab when cluster install
 

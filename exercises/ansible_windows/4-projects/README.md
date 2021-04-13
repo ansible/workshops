@@ -19,18 +19,18 @@ this is complete, you can create the job template.
 Creating a Job Template
 =======================
 
-Step 1:
--------
+Step 1
+------
 
 Select **Templates**
 
-Step 2:
--------
+Step 2
+------
 
 Click the ![Add](images/add.png) icon, and select Job Template
 
-Step 3:
--------
+Step 3
+------
 
 Complete the form using the following values
 
@@ -48,14 +48,14 @@ Complete the form using the following values
 
 ![Create Job Template](images/4-create-job-template.png)
 
-Step 4:
--------
+Step 4
+------
 
 Click SAVE ![Save](images/at_save.png) and then select ADD SURVEY
 ![Add](images/at_add_survey.png)
 
-Step 5:
--------
+Step 5
+------
 
 Complete the survey form with following values
 
@@ -70,18 +70,18 @@ Complete the survey form with following values
 
 ![Survey Form](images/4-survey.png)
 
-Step 6:
--------
+Step 6
+------
 
 Select ADD ![Add](images/at_add.png)
 
-Step 7:
--------
+Step 7
+------
 
 Select SAVE ![Add](images/at_save.png)
 
-Step 8:
--------
+Step 8
+------
 
 Back on the main Job Template page, select SAVE
 ![Add](images/at_save.png) again.
@@ -93,8 +93,8 @@ Now that you’ve successfully created your Job Template, you are ready to
 launch it. Once you do, you will be redirected to a job screen which is
 refreshing in real time showing you the status of the job.
 
-Step 1:
--------
+Step 1
+------
 
 Select TEMPLATES
 
@@ -103,31 +103,31 @@ Select TEMPLATES
 > Alternatively, if you haven’t navigated away from the job templates
 > creation page, you can scroll down to see all existing job templates
 
-Step 2:
--------
+Step 2
+------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 **IIS Basic Job Template**
 
-Step 3:
--------
+Step 3
+------
 
 When prompted, enter your desired test message
 
 ![Survey Prompt](images/4-survey-prompt.png)
 
-Step 4:
--------
+Step 4
+------
 
 Select **NEXT** and preview the inputs.
 
-Step 5:
--------
+Step 5
+------
 
 Select LAUNCH ![SurveyL](images/4-survey-launch.png)
 
-Step 6:
--------
+Step 6
+------
 
 Sit back, watch the magic happen
 
@@ -142,8 +142,8 @@ playbook.
 
 ![Play and Task Output](images/4-job-summary-output.png)
 
-Step 7:
--------
+Step 7
+------
 
 When the job has successfully completed, you should see a URL to your website printed at the bottom of the job output.
 

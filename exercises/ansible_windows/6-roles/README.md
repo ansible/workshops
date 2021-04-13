@@ -20,8 +20,8 @@ a role…
 Section 1: Create directory structure for your new role
 =======================================================
 
-Step 1:
--------
+Step 1
+------
 
 In Visual Studio Code, navigate to explorer and your *WORKSHOP_PROJECT* section where you previously made `iis_advanced`.
 
@@ -35,23 +35,23 @@ and selecting *New Folder*
 Now right-click **roles** and create a new folder underneath called
 `iis_simple`.
 
-Step 2:
--------
+Step 2
+------
 
 Within *iis\_simple* create new folders as follows:
 
-- defaults
+* defaults
 
-- vars
+* vars
 
-- handlers
+* handlers
 
-- tasks
+* tasks
 
-- templates
+* templates
 
-Step 3:
--------
+Step 3
+------
 
 Within each of these new folders (except templates), right-click and
 create *New File* Create a file called `main.yml` in each of these
@@ -70,8 +70,8 @@ Section 2: Breaking Your `site.yml` Playbook into the Newly Created `iis_simple`
 In this section, we will separate out the major parts of your playbook
 including `vars:`, `tasks:`, `template:`, and `handlers:`.
 
-Step 1:
--------
+Step 1
+------
 
 Make a backup copy of `site.yml`, then create a new `site.yml`.
 
@@ -80,8 +80,8 @@ Navigate to your `iis_advanced` folder, right click `site.yml`, click
 
 Create a blank new file called `site.yml` in the same folder
 
-Step 2:
--------
+Step 2
+------
 
 Update site.yml to look like to only call your role. It should look like
 below:
@@ -97,8 +97,8 @@ below:
 
 ![New site.yml](images/6-new-site.png)
 
-Step 3:
--------
+Step 3
+------
 
 Add a default variable to your role. Edit the
 `roles\iis_simple\defaults\main.yml` as follows:
@@ -115,8 +115,8 @@ Add a default variable to your role. Edit the
         path: 'C:\sites\playbooktest2'
 ```
 
-Step 4:
--------
+Step 4
+------
 
 Add some role-specific variables to your role in
 `roles\iis_simple\vars\main.yml`.
@@ -134,19 +134,13 @@ Add some role-specific variables to your role in
 > Yes… yes we did. Variables can live in quite a few places. Just to
 > name a few:
 >
-> - vars directory
->
-> - defaults directory
->
-> - group\_vars directory
->
-> - In the playbook under the `vars:` section
->
-> - In any file which can be specified on the command line using the
->     `--extra_vars` option
->
-> - On a boat, in a moat, with a goat *(disclaimer: this is a complete
->     lie)*
+> * vars directory
+> * defaults directory
+> * group\_vars directory
+> * In the playbook under the `vars:` section
+> * In any file which can be specified on the command line using the
+>   `--extra_vars` option
+> * On a boat, in a moat, with a goat *(disclaimer: this is a complete lie)*
 >
 > Bottom line, you need to read up on [variable
 > precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
@@ -156,8 +150,8 @@ Add some role-specific variables to your role in
 > defined some variables in `/vars` which have a higher precedence than
 > defaults and can’t be overridden as a default variable.
 
-Step 5:
--------
+Step 5
+------
 
 Create your role handler in `roles\iis_simple\handlers\main.yml`.
 
@@ -171,12 +165,13 @@ Create your role handler in `roles\iis_simple\handlers\main.yml`.
         start_mode: auto
 ```
 
-Step 6:
--------
+Step 6
+------
 
 Add tasks to your role in `roles\iis_simple\tasks\main.yml`.
 
 <!-- {% raw %} -->
+
 ```yaml
     ---
     # tasks file for iis_simple
@@ -225,10 +220,11 @@ Add tasks to your role in `roles\iis_simple\tasks\main.yml`.
         - http://{{ ansible_host }}:8080
         - http://{{ ansible_host }}:8081
 ```
+
 <!-- {% endraw %} -->
 
-Step 7:
--------
+Step 7
+------
 
 Add your index.html template.
 
@@ -236,6 +232,7 @@ Right-click `roles\iis_simple\templates` and create a new file called
 `index.html.j2` with the following content:
 
 <!-- {% raw %} -->
+
 ```html
     <html>
     <body>
@@ -246,6 +243,7 @@ Right-click `roles\iis_simple\templates` and create a new file called
     </body>
     </html>
 ```
+
 <!-- {% endraw %} -->
 
 Now, remember we still have a *templates* folder at the base level of
@@ -276,14 +274,14 @@ template, as we are re-using the one from Exercise 5. When we run the
 template again, it will automatically refresh from git and launch our
 new role.
 
-Step 1:
--------
+Step 1
+------
 
 Before we can modify our Job Template, you must first go resync your
 Project again. So do that now.
 
-Step 2:
--------
+Step 2
+------
 
 Select TEMPLATES
 
@@ -292,14 +290,14 @@ Select TEMPLATES
 > Alternatively, if you haven’t navigated away from the job templates
 > creation page, you can scroll down to see all existing job templates
 
-Step 3:
--------
+Step 3
+------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 **IIS Advanced** Job Template.
 
-Step 4:
--------
+Step 4
+------
 
 When prompted, enter your desired test message
 
@@ -308,7 +306,6 @@ below. Note that most of the tasks return OK because we’ve previously
 configured the servers and services are already running.
 
 ![Job output](images/6-job-output.png)
-
 
 When the job has successfully completed, you should see two URLs to your websites printed at the bottom of the job output. Verify they are still working.
 

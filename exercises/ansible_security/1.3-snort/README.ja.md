@@ -318,4 +318,4 @@ snort  : ok=3  changed=0  unreachable=0  failed=0  skipped=0  rescued=0  ignored
 
 ----
 
-[Ansible Security Automation Workshopの表紙に戻る](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

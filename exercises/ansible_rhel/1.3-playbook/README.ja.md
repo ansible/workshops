@@ -88,7 +88,7 @@ Playbook は **冪等** である必要があります。そのため、Playbook
 この Playbook により、Apache Web サーバーを含むパッケージが `node1` にインストールされます。
 
 Playbook に推奨されるディレクトリー構造についての
-[ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)
+[ベストプラクティス](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
 があります。Ansible スキルを発展させるためにも、これらのプラクティスを読んで理解することをお勧めします。とはいえ、現在の Playbook
 は非常に基本的です。複雑な構造を作ると、混乱するだけです。
 

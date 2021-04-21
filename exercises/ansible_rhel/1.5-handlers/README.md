@@ -161,7 +161,7 @@ curl: (7) Failed to connect to node1 port 80: Connection refused
 </body>
 ```
 
-Feel free to change the httpd.conf file again and run the playbook.
+Leave the setting for listen on port 8080. We'll use this in a later exercise.
 
 ### Step 3 - Simple Loops
 

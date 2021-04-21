@@ -489,4 +489,4 @@ Playbook を実行しログソースを削除します:
 
 ----
 
-[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.ja.md#section-2---ansible-security-automation-use-cases)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

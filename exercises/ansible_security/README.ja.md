@@ -22,16 +22,16 @@ Ansibleの基本的な経験のある生徒の場合:
 
 ## Section 1 - Ansible Security Automationの基礎を紹介
 
- - [演習 1.1 - ラボ環境を確認してみよう](1.1-explore)
- - [演習 1.2 - 最初のCheck Point用のPlaybookを実行してみよう](1.2-checkpoint)
- - [演習 1.3 - 最初のSnort用のPlaybookを実行してみよう](1.3-snort)
- - [演習 1.4 - 最初のIBM QRadar用Playbookを実行してみよう](1.4-qradar)
+ - [演習 1.1 - ラボ環境を確認してみよう](1.1-explore/README.ja.md)
+ - [演習 1.2 - 最初のCheck Point用のPlaybookを実行してみよう](1.2-checkpoint/README.ja.md)
+ - [演習 1.3 - 最初のSnort用のPlaybookを実行してみよう](1.3-snort/README.ja.md)
+ - [演習 1.4 - 最初のIBM QRadar用Playbookを実行してみよう](1.4-qradar/README.ja.md)
 
 ## Section 2 - Ansible Security Automationのユースケース
 
- - [演習 2.1 - Investigation Enrichment](2.1-enrich)
- - [演習 2.2 - Threat hunting](2.2-threat)
- - [演習 2.3 - Incident response](2.3-incident)
+ - [演習 2.1 - Investigation Enrichment](2.1-enrich/README.ja.md)
+ - [演習 2.2 - Threat hunting](2.2-threat/README.ja.md)
+ - [演習 2.3 - Incident response](2.3-incident/README.ja.md)
 
 ## 追加情報
 

@@ -130,4 +130,4 @@ Ansible は、あなたの環境に固有のインベントリを使用するよ
 
 ----
 
-[ここをクリックしてAnsible Security Automation Workshopに戻る](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[ここをクリックしてAnsible Security Automation Workshopに戻る](../README.ja.md)

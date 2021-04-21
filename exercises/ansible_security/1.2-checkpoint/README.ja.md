@@ -300,4 +300,4 @@ Check Point の通常の手作業による操作でどのように変更が実�
 
 ----
 
-[Ansible Security Automation Workshopの表紙に戻る](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

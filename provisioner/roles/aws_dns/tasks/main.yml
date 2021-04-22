@@ -19,7 +19,7 @@
 
 - name: create DNS entries for Automation Controller and SSL cert
   block:
-    - name: create DNS entries for each Ansible Tower node
+    - name: create DNS entries for each Ansible control node
       include_tasks: create.yml
 
     - name: configure SSL cert for Automation Controller

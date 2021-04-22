@@ -177,13 +177,23 @@
     my_tower_password: "{{ admin_password }}"
     my_tower_host: "{{ ansible_host }}"
   tasks:
-    - name: install demo
-      include_role:
-        name: "ansible.product_demos.install_demo"
-      when:
-        - demo is defined
-        - towerinstall is defined
-        - towerinstall
+    - name: install demos from ansible.product_demos collection
+      block:
+        - name: install demo
+          include_role:
+            name: "ansible.product_demos.install_demo"
+          when:
+            - demo is defined
+            - towerinstall is defined
+            - towerinstall
+      rescue:
+        - name: install demo
+          debug:
+            msg: "Demos were NOT installed"
+
+        - name: update demo_information var
+          set_fact:
+            demo_information: "Demo issue: Demos were NOT installed"
 
 - name: Alert the mothership
   hosts: localhost
@@ -214,6 +224,7 @@
           *******************
           {{dns_information}}
           {{callback_information}}
+          {{ demo_information }}
 
     - name: Print Summary Information
       debug:

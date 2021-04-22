@@ -24,7 +24,7 @@
         state: present
       register: test
 
-    - name: make sure workshop_type is set to a correct value
+    - name: make sure workshop_dns_zone is owned by your account
       assert:
         that:
           - test.zone_id is not none

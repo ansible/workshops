@@ -397,14 +397,14 @@
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Remove VPC Lock Down role
-      iam_role:
+      community.aws.iam_role:
         name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Remove control node instance role
-      iam_role:
+      community.aws.iam_role:
         name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true

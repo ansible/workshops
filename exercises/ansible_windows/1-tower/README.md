@@ -1,5 +1,4 @@
-Configuring Ansible Tower
-=========================
+# Configuring Ansible Tower
 
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
@@ -10,24 +9,22 @@ multi-tenancy, notifications, scheduling, etc. However, we are only
 going to focus on a few of the key constructs that are required for this
 workshop today.
 
-- Credentials
+* Credentials
 
-- Projects
+* Projects
 
-- Inventory
+* Inventory
 
-- Job Template
+* Job Template
 
-Logging into Tower
-==================
+## Logging into Tower
 
 Your Ansible Tower instance url and credentials were supplied to you on the page created for this workshop.
 
 Your Ansible Tower license has already been applied for you, so after
 logging in you should now see the Dashboard.
 
-Creating a Machine Credential
-=============================
+## Creating a Machine Credential
 
 Credentials are utilized by Tower for authentication when launching jobs
 against machines, synchronizing with inventory sources, and importing
@@ -38,20 +35,17 @@ credentials](http://docs.ansible.com/ansible-tower/latest/html/userguide/credent
 including machine, network, and various cloud providers. In this
 workshop, we are using a **machine** credential.
 
-Step 1:
--------
+### Step 1
 
 Select CREDENTIALS from the left hand panel under resources
 
 ![Cred](images/1-tower-credentials.png)
 
-Step 2:
--------
+### Step 2
 
 Click the ![Add](images/add.png) icon and add new credential
 
-Step 3:
--------
+### Step 3
 
 Complete the form using the following entries:
 
@@ -61,17 +55,15 @@ Complete the form using the following entries:
 | Organization | Default         |                                          |
 | Type         | Machine         |                                          |
 | Username     | student#        | **Replace # with your student number**   |
-| Password     | *****           | Replace with your student password       |
+| Password     | <password>      | Replace with your student password       |
 
 ![Add Machine Credential](images/1-tower-add-machine-credential.png)
 
-Step 4:
--------
+### Step 4
 
-Select SAVE ![Save](images/at_save.png)  
+Select SAVE ![Save](images/at_save.png)
 
-Create an SCM Credential
-========================
+## Create an SCM Credential
 
 Our first credential was to access our Windows machines. We need another
 to access our source code repository. Repeat the process as above, but
@@ -84,14 +76,13 @@ with the following details:
 | Organization | Default                          |                                            |
 | Type         | Source Control                   |                                            |
 | Username     | student#                         | Replace # with your student number         |
-| Password     | *******                          | Replace ******* with your student password |
+| Password     | <password>                       | Replace with your student password |
 
-Select SAVE ![Save](images/at_save.png)  
+Select SAVE ![Save](images/at_save.png)
 
 ![Add SCM Credential](images/1-tower-add-scm-credential.png)
 
-Creating a Project
-==================
+## Creating a Project
 
 A Project is a logical collection of Ansible playbooks, represented in
 Tower. You can manage playbooks and playbook directories by either
@@ -99,9 +90,9 @@ placing them manually under the Project Base Path on your Tower server,
 or by placing your playbooks into a source code management (SCM) system
 supported by Tower, including Git, Subversion, and Mercurial.
 
-Step 1:
--------
-A **Project** is a logical collection of Ansible playbooks, represented in Tower. 
+### Step 1
+
+A **Project** is a logical collection of Ansible playbooks, represented in Tower.
 
 You can manage playbooks and playbook directories by either placing them manually on your Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights.
 
@@ -112,8 +103,7 @@ In this environment, playbooks are stored in a git repository available on the w
 
 The repo url will be used in **Step 3**
 
-Step 2:
--------
+### Step 2
 
 Click **Projects** on the left hand panel.
 
@@ -121,8 +111,7 @@ Click **Projects** on the left hand panel.
 
 Click the ![Add](images/add.png) icon and add new project
 
-Step 3:
--------
+### Step 3
 
 Complete the form using the following entries (**using your student
 number in SCM URL**)
@@ -137,23 +126,19 @@ number in SCM URL**)
 | SCM BRANCH     |                                                                         | Intentionally blank                               |
 | SCM CREDENTIAL | Git Credential                                                          |                                                   |
 
-
 SCM UPDATE OPTIONS
 
-- [ ] Clean
-- [ ] Delete on Update
-- [x] Update Revision on Launch
-
+* [ ] Clean
+* [ ] Delete on Update
+* [x] Update Revision on Launch
 
 ![Defining a Project](images/1-tower-create-project.png)
 
-Step 4:
--------
+### Step 4
 
 Select SAVE ![Save](images/at_save.png)
 
-Step 5:
--------
+### Step 5
 
 Scroll down and validate that project has been successfully synchronized
 against the source control repo upon saving. You should see a green icon
@@ -161,8 +146,7 @@ next to the project name in the list view at the bottom of the page.
 
 ![Succesfull Sync](images/1-tower-project-success.png)
 
-Inventories
-===========
+## Inventories
 
 An inventory is a collection of hosts against which jobs may be
 launched. Inventories are divided into groups and these groups contain
@@ -173,14 +157,12 @@ providers.
 A static Inventory has already been created for you today. We will now
 take a look at this inventory to show case the various features.
 
-Step 1:
--------
+### Step 1
 
 Click **Inventories** from the left hand panel. You will see the
 preconfigured Inventory listed. Click the Inventories' name **Workshop Inventory** or the Edit button. ![Edit](images/at_edit.png)
 
-Step 2:
--------
+### Step 2
 
 You will now be viewing the Inventory. From here you can add Hosts,
 Groups, or even add Variables specific to this Inventory.
@@ -189,8 +171,7 @@ Groups, or even add Variables specific to this Inventory.
 
 We will be viewing the hosts, so click the **HOSTS** button.
 
-Step 3:
--------
+### Step 3
 
 In the Hosts view, we can see every host associated with this
 inventory. You will also see which groups a host is associated with.
@@ -200,8 +181,7 @@ playbooks on.
 
 ![Hosts View](images/1-tower-hosts-view.png)
 
-Step 4:
--------
+### Step 4
 
 If you click the **GROUPS** button and then select the **Windows** group, you can inspect variables set at the group level that will apply to all hosts in that group.
 
@@ -234,8 +214,6 @@ authenticate to our Windows host:
 
 **`ansible_winrm_transport: credssp`**
 
-
-
 If you click the **HOSTS** button, you can view the hosts belonging to the windows group. If you click the link for the host on this page, you can view the host specific variables that have been defined.
 
 ![Host Edit](images/1-tower-host-edit.png)
@@ -244,7 +222,7 @@ If you click the **HOSTS** button, you can view the hosts belonging to the windo
 
 This is the IP address of this particular server
 
-**`ansible_password`** 
+**`ansible_password`**
 
 This is the password needed to connect to this server
 

@@ -29,7 +29,7 @@
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"
     tower_verify_ssl: false
-    
+
 #### CREDENTIAL
 - name: add SSH credential into Ansible Tower
   awx.awx.tower_credential:

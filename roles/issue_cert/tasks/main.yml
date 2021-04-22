@@ -1,4 +1,24 @@
 ---
+- name: make sure Ansible Tower is online before changing tower base URL
+  service:
+    name: ansible-tower.service
+    state: started
+  register: start_tower
+  until: start_tower is not failed
+  retries: 5
+
+- name: change ansible tower base URL
+  awx.awx.tower_settings:
+    name: TOWER_URL_BASE
+    value: "https://{{ dns_name }}"
+    tower_verify_ssl: false
+    tower_host: localhost
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+  register: change_base_url
+  until: change_base_url is not failed
+  retries: 5
+
   # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
 - name: install certbot if not already installed
   dnf:
@@ -7,8 +27,13 @@
     disable_gpg_check: true
 
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-- name: turn off Ansible Tower
-  shell: ansible-tower-service stop
+- name: make sure Ansible Tower is stopped
+  service:
+    name: ansible-tower.service
+    state: stopped
+  register: stop_tower
+  until: stop_tower is not failed
+  retries: 5
 
 - name: SSL cert block
   block:
@@ -19,24 +44,39 @@
       until: issue_cert is not failed
       retries: 5
 
-    - name: MOVE SSL KEY
+    - name: Move SSL Key
       copy:
         remote_src: true
         src: "/etc/letsencrypt/live/{{ dns_name }}/privkey.pem"
         dest: /etc/tower/tower.key
 
-    - name: GRAB SPECIFIC SSL CERT
+    - name: Retrieve Specific SSL Cert
       slurp:
         src: "/etc/letsencrypt/live/{{ dns_name }}/cert.pem"
       register: intermediate_cert
 
-    - name: COMBINE SPECIFIC AND INTERMEDIATE CERT
+    - name: Combine Specific and intermediate Cert
       template:
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
+  rescue:
+    - name: make sure Ansible Tower is started
+      service:
+        name: ansible-tower.service
+        state: started
+      register: start_tower
+      until: start_tower is not failed
+      retries: 5
 
-- name: turn on tower
-  shell: ansible-tower-service start
-  register: install_tower
-  until: install_tower is not failed
+    - name: no SSL cert for Ansible Tower
+      debug:
+        msg: "SSL cert problem - no cert applied"
+
+# Turn on Ansible Tower if successful
+- name: make sure Ansible Tower is started
+  service:
+    name: ansible-tower.service
+    state: started
+  register: start_tower
+  until: start_tower is not failed
   retries: 5

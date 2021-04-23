@@ -4,22 +4,22 @@
 
 ## Table of Contents
 
-- [Objective](#objective)
-- [Guide](#guide)
-   - [Step 1: Create a Job Template](#step-1-create-a-job-template)
-   - [Step 2: Examine the playbook](#step-2-examine-the-playbook)
-   - [Step 3: Create a survey](#step-3-create-a-survey)
-   - [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
-   - [Step 5: Verify the banner](#step-5-verify-the-banner)
-- [Takeaways](#takeaways)
+* [Objective](#objective)
+* [Guide](#guide)
+  * [Step 1: Create a Job Template](#step-1-create-a-job-template)
+  * [Step 2: Examine the playbook](#step-2-examine-the-playbook)
+  * [Step 3: Create a survey](#step-3-create-a-survey)
+  * [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
+  * [Step 5: Verify the banner](#step-5-verify-the-banner)
+* [Takeaways](#takeaways)
 
-# Objective
+## Objective
 
 Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
 
-# Guide
+## Guide
 
-## Step 1: Create a Job Template
+### Step 1: Create a Job Template
 
 1. Open the web UI and click on the `Templates` link on the left menu.
 
@@ -36,15 +36,15 @@ Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/a
    |  Playbook |  `network_banner.yml` |
    |  Credential |  Workshop Credential |
 
-3. Scroll down and click the green `SAVE` button.  
+3. Scroll down and click the green `SAVE` button.
 
-
-## Step 2: Examine the playbook
+### Step 2: Examine the playbook
 
 Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
 <!-- {% raw %} -->
-```yml
+
+```yaml
 ---
 - name: set router banners
   hosts: routers
@@ -58,18 +58,20 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
       include_role:
         name: banner
 ```
-<!-- {% endraw %} -->
 
+<!-- {% endraw %} -->
 
 > Note: You can also view the Ansible Playbook here: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
 
 The role **banner** has a very simple `main.yml` file:
 
 <!-- {% raw %} -->
-```yml
+
+```yaml
 - name: configure banner
   include_tasks: "{{ ansible_network_os }}.yml"
 ```
+
 <!-- {% endraw %} -->
 
 The `ansible_network_os` variable is being used to parameterize the network OS and create a vendor neutral playbook.
@@ -77,13 +79,15 @@ The `ansible_network_os` variable is being used to parameterize the network OS a
 If you are working with a junos device, this playbook would call for a task file called `junos.yml`.  If you are using an IOS-XE device, this playbook would call for a task file called `ios.yml`. This file will in turn contain the platform specific tasks:
 
 <!-- {% raw %} -->
-```yml
+
+```yaml
 ---
 - name: add the junos banner
   junos_banner:
     text: "{{ network_banner }}"
     banner: "{{ banner_type }}"
 ```
+
 <!-- {% endraw %} -->
 
 > Note: Please observe that there are task files created for ios, nxos, eos and junos for this playbook.
@@ -94,13 +98,9 @@ Also note that we are passing in 2 variables to the task file.
 
 2. `banner_type`: This variable is populated by a variable named `net_type`
 
-
-## Step 3: Create a survey
-
+### Step 3: Create a survey
 
 In this step you will create a *"survey"* of user input form to collect input from the user and populate the values for the variables `net_banner` and `banner_type`
-
-
 
 1. Click on the blue add survey button
 
@@ -146,17 +146,17 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
 6. Click the green **SAVE** button to save the survey.  This will exit back to the main job template window.  Scroll down and click the second green **SAVE** button to exit to the job templates window.
 
-## Step 4: Launch the Job Template
+### Step 4: Launch the Job Template
 
 1. Click on the rocket ship to launch the job template.
 
    ![rocket launch](images/rocket.png)
 
-   The job will immediately prompt the user to set the banner and the type.  
+   The job will immediately prompt the user to set the banner and the type.
 
-2.  Type in the banner message you want for the routers.
+2. Type in the banner message you want for the routers.
 
-3.  Choose between `login` and `motd`.
+3. Choose between `login` and `motd`.
 
 4. Click next to see how the survey rendered the input as extra vars for the Ansible Playbook.  For this example screen shot the word ANSIBLE rendered into ASCII art.
 
@@ -168,12 +168,11 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
 Let the job run to completion.  Let the instructor know if anything fails.
 
-
-## Step 5: Verify the banner
+### Step 5: Verify the banner
 
 1. Login to one of the routers and see the banner setup
 
-   ```
+   ```sh
    [student1@ansible]$ ssh rtr4
    ```
 
@@ -183,17 +182,17 @@ Let the job run to completion.  Let the instructor know if anything fails.
 
 2. Verify on additional routers
 
-# Takeaways
+## Takeaways
 
 You have successfully demonstrated
- - Creation of a Job Template for configuring a banner on multiple network operating systems including Arista EOS, Cisco IOS and Juniper Junos.
- - Creation of a self service survey for the Job Template to fill out the `network_banner` and `banner_type` variables
- - Executing a Job Template on all four routers, loading a banner on them simultaneously
 
----
+* Creation of a Job Template for configuring a banner on multiple network operating systems including Arista EOS, Cisco IOS and Juniper Junos.
+* Creation of a self service survey for the Job Template to fill out the `network_banner` and `banner_type` variables
+* Executing a Job Template on all four routers, loading a banner on them simultaneously
 
-# Complete
+## Complete
 
 You have completed lab exercise 7
 
+---
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

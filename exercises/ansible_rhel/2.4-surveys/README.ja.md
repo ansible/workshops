@@ -12,7 +12,7 @@
   * [テンプレートの作成](#create-template)
   * [Aurvey の追加](#add-the-survey)
 * [テンプレートの起動](#launch-the-template)
-* [練習してみましょう。](#what-about-some-practice)
+* [練習してみましょう](#what-about-some-practice)
 
 ## 目的
 
@@ -30,7 +30,7 @@ Playbook の追加変数を設定しますが、ユーザーが使いやすい�
 
 * survey でジョブ **Template** を作成し、`index.html` テンプレートの値を収集します。
 
-* ジョブ **Template** の起動
+* ジョブ **Template** を起動します。
 
 さらに、このロールは、他の演習中に混ざった場合を考慮して、Apache 構成が適切に設定されていることも確認します。
 
@@ -113,7 +113,7 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github
 >
 > **まだテンプレートは実行しないでください。**
 
-#### Survey nの追加
+#### Survey の追加
 
 * Template で、**ADD SURVEY** ボタンをクリックします。
 
@@ -140,7 +140,7 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github
 
 * **+ADD** をクリックしてください。
 
-* 同様に、2 番目の **Survey Prompt** を追加します
+* 同様に、2 番目の **Survey Prompt** を追加します。
 
 <table>
   <tr>

@@ -164,4 +164,4 @@ Ansible Tower にユーザー `analyst` としてログインし、その横に�
 
 ----
 
-[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.ja.md#section-2---ansible-security-automation-use-cases)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

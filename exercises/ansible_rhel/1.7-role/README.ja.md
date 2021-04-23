@@ -361,7 +361,7 @@ tcp6       0      0 :::8080                 :::*                    LISTEN      
 ---
 **ナビゲーション**
 <br>
-[前の演習](../1.6-templates) - [次の演習](../1.7-role)
+[前の演習](../1.6-templates) - [次の演習](../2.1-intro)
 
 [こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
 に戻ります](../README.md#section-1---ansible-engine-exercises)

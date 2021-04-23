@@ -31,11 +31,11 @@ If your experience is different in scheduling these workshops, please let us kno
 
 ## Exercises
 
-- [Exercise 1 - Intro and configuration of Ansible Tower](1-tower)
-- [Exercise 2 - Ad-hoc commands](2-adhoc)
-- [Exercise 3 - Intro to playbooks](3-playbook)
-- [Exercise 4 - Ansible Tower projects](4-projects)
-- [Exercise 5 - Advanced playbooks](5-adv-playbook)
-- [Exercise 6 - Ansible roles](6-roles)
-- [Exercise 7 - Patching Windows](7-win-patch) (optional)
-- [Exercise 8 - Chocolatey](8-chocolatey) (optional)
+* [Exercise 1 - Intro and configuration of Ansible Tower](1-tower)
+* [Exercise 2 - Ad-hoc commands](2-adhoc)
+* [Exercise 3 - Intro to playbooks](3-playbook)
+* [Exercise 4 - Ansible Tower projects](4-projects)
+* [Exercise 5 - Advanced playbooks](5-adv-playbook)
+* [Exercise 6 - Ansible roles](6-roles)
+* [Exercise 7 - Patching Windows](7-win-patch) (optional)
+* [Exercise 8 - Chocolatey](8-chocolatey) (optional)

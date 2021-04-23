@@ -10,6 +10,7 @@ website_information: ""
 login_website_information: ""
 dns_information: "No errors with DNS"
 callback_information: "No issue with Ansible Tower callback"
+demo_information: "No errors with Demos"
 workshop_type: ""
 dns_type: aws
 valid_dns_type:

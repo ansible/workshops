@@ -1,5 +1,4 @@
 ---
-## re-use RHEL workshop code
 - name: verify EBS-optimized instance type selected
   lineinfile:
     path: "{{role_path}}/files/EBS_optimized_instance_types"

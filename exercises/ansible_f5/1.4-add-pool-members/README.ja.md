@@ -13,7 +13,7 @@
 
 # 目的
 
-本演習では、[BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html) を使って、演習 1.2 で作成したプール `http_pool` にWebサーバーを追加します。
+本演習では、[BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html) を使って、演習 1.3 で作成したプール `http_pool` にWebサーバーを追加します。
 
 # 解説
 
@@ -54,11 +54,11 @@
 ``` yaml
   tasks:
     - name: ADD POOL MEMBERS
-      bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         state: "present"
@@ -76,13 +76,13 @@
 - `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
+- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `state: "present"` ： プールメンバーを（削除ではなく）追加するように指定します。
-- `name: "{{hostvars[item].inventory_hostname}}"` parameter tells the module to use the `inventory_hostname` as the name (which will be node1 and node2).
 - `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（node1、node2 となります）として使うことを指示します。
 - `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
+- `port`: プールメンバーポートを指定します。
 - `pool: "http_pool"` ： Webサーバーを追加するプールとして、http_pool を指定します。
 最後に、（モジュール・パラメータではなく）タスクレベルのパラメータである、loop パラメータの指定です。
 - `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む web グループが一覧となります。
@@ -132,11 +132,11 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 
   tasks:
     - name: Query BIG-IP facts
-      bigip_device_info:
+      f5networks.f5_modules.bigip_device_info:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         gather_subset:
@@ -251,9 +251,9 @@ f5                         : ok=3    changed=0    unreachable=0    failed=0
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
-プールに二つのメンバー（node1とnode2）が含まれていることを確認します。Local Traffic -> Pools とクリックします。そして、http_pool をクリックすることでより詳細な情報を確認します。Members タブをクリックすることで全てのプールメンバーが表示されます。
+プールに二つのメンバー（node1とnode2）が含まれていることを確認します。**Local Traffic** -> **Pools** とクリックします。そして、http_pool をクリックすることでより詳細な情報を確認します。Members タブをクリックすることで全てのプールメンバーが表示されます。
 ![f5members](poolmembers.png)
 
 

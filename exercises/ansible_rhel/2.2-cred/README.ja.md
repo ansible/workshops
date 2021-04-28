@@ -1,36 +1,47 @@
-# 演習 - インベントリ、認証情報、Ad Hoc コマンド
+# ワークショップ演習 - インベントリー、認証情報、およびアドホックコマンド
 
-**Read this in other languages**:
+**その他の言語はこちらをお読みください。**:
 <br>![uk](../../../images/uk.png) [English](README.md),![japan](../../../images/japan.png)[日本語](README.ja.md),![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## 目次
 
-* [目的](#目的)
-* [ガイド](#ガイド)
-* [インベントリを調べる](#インベントリを調べる)
-* [マシンの資格情報を調べる](#マシンの資格情報を調べる)
-* [Ad Hoc コマンドを実行する](#Ad-Hoc-コマンドを実行する)
-* [チャレンジ Lab: Ad Hoc コマンド](#チャレンジ-Lab-Ad-Hoc-コマンド)
+* [目的](#objective)
+* [ガイド](#guide)
+* [インベントリーを調べる](#examine-an-inventory)
+* [マシンの認証情報を調べる](#examine-machine-credentials)
+* [アドホックコマンドの実行](#run-ad-hoc-commands)
+* [チャレンジラボ: アドホックコマンド](#challenge-lab-ad-hoc-commands)
 
-# 目的
+## 目的
 
-この演習では、Lab 環境を探索して理解します。
-- 項目と理解:
-  - Ansible Tower [**Inventory**](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
-  - Ansible Tower [**Credentials**](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html)
-- Ansible Tower Web UIを介した Ad Hoc コマンドの実行
+ラボ環境を調べて理解します。この演習では、以下を対象とします。
 
-# ガイド
+* 以下を見つけて理解:
 
-## インベントリを調べる
+  * Ansible Tower
+    [**インベントリー**](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+  * Ansible Tower
+    [**認証情報**](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html)
 
-最初に必要なのは、管理対象ホストの一覧です。これは、Ansible Engineのインベントリファイルに相当します。動的インベントリのように、それ以外にもたくさんありますが、基本から始めましょう。
+* Ansible Tower WebUI を介したアドホックコマンドの実行
 
-  - すでに Web UI を開いているはずですが、開いていない場合は **https://student\<X\>.workshopname.rhdemo.io** ("\<X\>"を学生番号に、"workshopname" を現在のワークショップ名に置き換えてください) のように URL をブラウザで指定して、`admin` としてログインしてください。パスワードは講師が教えてくれます。
+## ガイド
 
-**Workshop Inventory** が１つあります。**Workshop Inventory** をクリック後、**ホスト** ボタンをクリックします。
+### インベントリーを調べる
 
-`~/lab_inventory/hosts` のインベントリ情報は、プロビジョニングプロセスの一部として Ansible Tower Inventory に事前にロードされています。
+最初に必要なのは、管理対象ホストのインベントリーです。これは、Ansible Engine
+のインベントリファイルーに相当します。それ以外にもたくさんありますが、まずは基本から始めましょう。
+
+* すでに Web UI を開いているはずですが、開いていない場合は、指定された URL
+  をブラウザーで開きます。これは、**https://student\<X\>.workshopname.rhdemo.io** のような URL
+  です。<X\> は学習者番号に、"workshopname" は現在のワークショップの名前に変更します。`admin`
+  としてログインします。このパスワードは、インストラクターから渡されます。
+
+**Workshop Inventory** というインベントリーが現れます。**Workshop Inventory**
+をクリックして、**Hosts** ボタンをクリックします。
+
+`~/lab_inventory/hosts` のインベントリー情報は、プロビジョニング目的の一環として Ansible Tower
+インベントリーに事前にロードされていました。
 
 ```bash
 $ cat ~/lab_inventory/hosts
@@ -47,51 +58,55 @@ node3 ansible_host=44.55.66.77
 [control]
 ansible ansible_host=11.22.33.44
 ```
+
 > **警告**
 >
-> あなたのインベントリの IP アドレスは異なります。
+> 実際の環境のインベントリーでは、IP アドレスが異なることがあります。
 
-## マシンの資格情報を調べる
+### マシンの認証情報を調べる
 
-ここでは、Tower から管理ホストにアクセスするための資格情報を調べてみましょう。 この Ansible Workshop のプロビジョニングプロセスの一部として、**Workshop Credential** はすでに設定されています。
+次に、Tower から管理対象ホストにアクセスするための認証情報を調べます。この Ansible
+ワークショップのプロビジョニングプロセスの一環として、**ワークショップ資格情報**はすでに設定されています。
 
-**リソース** メニューで、**資格情報** を選択します。その後、**Workshop Credential** をクリックします。
+**RESOURCES** メニューで **Credentials** を選択します。次に、*Workshop Credential**
+をクリックします。
 
-Note the following information:
+次の情報に注意してください。
 
 <table>
   <tr>
-    <th>パラメータ</th>
-    <th>値</th>
+    <th>Parameter</th>
+    <th>Value</th>
   </tr>
   <tr>
     <td>Credential Type</td>
-    <td><code>Machine</code>- マシン資格情報は、プレイブックの ssh およびユーザレベルの特権エスカレーションアクセスを定義します。これらは、リモートホスト上でプレイブックを実行するためにジョブを送信するときに使用されます</td>
+    <td><code>Machine</code>- Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host.</td>
   </tr>
   <tr>
     <td>username</td>
-    <td><code>ec2-user</code> これは他の linux ノードのコマンドライン Ansible インベントリのユーザ名と一致します</td>
+    <td><code>ec2-user</code> which matches our command-line Ansible inventory username for the other linux nodes</td>
   </tr>
   <tr>
     <td>SSH PRIVATE KEY</td>
-    <td><code>ENCRYPTED</code> - Ansible Tower に SSH 秘密鍵を渡すと、実際には調べられないことに注意してください</td>
+    <td><code>ENCRYPTED</code> - take note that you can't actually examine the SSH private key once someone hands it over to Ansible Tower</td>
   </tr>
 </table>
 
-## Ad Hoc コマンドを実行する
+### アドホックコマンドの実行
 
-Ansible Tower から Ad Hoc コマンドを実行することも可能です。
+AnsibleTower からアドホックコマンドを実行することもできます。
 
-  - Web UI で **リソース → インベントリ → Workshop Inventory** に移動します。
+* Web UIで、**RESOURCES → Inventories → Workshop Inventory** に移動します。
 
-  - **ホスト** ボタンをクリックし、ホストビューに切り替え、ホストエントリの左側にあるボックスをチェックして3つのホストを選択します。
+* **HOSTS** ボタンをクリックしてホストビューに変更し、ホストエントリーの左側にあるボックスにチェックマークを付けて 3
+  つのホストを選択します。
 
-  - **コマンドの実行** をクリックします。 次の画面で、Ad Hoc コマンドを指定する必要があります:
+* **RUN COMMANDS**をクリックします。次の画面で、アドホックコマンドを指定する必要があります。
 
   <table>
     <tr>
-      <th>パラメータ</th>
-      <th>値</th>
+      <th>Parameter</th>
+      <th>Value</th>
     </tr>
     <tr>
       <td>MODULE</td>
@@ -103,16 +118,18 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
     </tr>
   </table>
 
-  - **起動** をクリックし、出力を確認します。
+  * ** LAUNCH **をクリックして、出力を確認します。
 
 <hr>
 
-シンプルな **ping** モジュールはオプションを必要としません。他のモジュールでは、実行するコマンドを引数として指定する必要があります。**command** モジュールを試し、Ad Hoc コマンドを使用して実行中のユーザーの user ID を見つけます。
+単純な **ping**
+モジュールにはオプションは必要ありません。他のモジュールの場合、引数として実行するコマンドを指定する必要があります。**command **
+モジュールを試して、アドホックコマンドを使用して実行中のユーザーのユーザー ID を見つけてください。
 
   <table>
     <tr>
-      <th>パラメータ</th>
-      <th>値</th>
+      <th>Parameter</th>
+      <th>Value</th>
     </tr>
     <tr>
       <td>MODULE</td>
@@ -126,16 +143,16 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
 
 > **ヒント**
 >
-> 実行するモジュールを選択した後、"Arguments" の横にある疑問符をクリックすると、Tower はモジュールのドキュメントページへのリンクを提供します。これは便利ですので試してみてください。
+> 実行するモジュールを選択します。"Arguments" の隣の疑問符をクリックすると、モジュールの docs ページへのリンクが表示されます。これは便利なのでお試しください。
 
 <hr>
 
-システムから秘密の情報を取得しようとするとどうでしょうか？ */etc/shadow* を出力してみてください。
+システムから秘密情報を取得してみるのはどうでしょうか？*/etc/shadow* を出力してみましょう。
 
 <table>
   <tr>
-    <th>パラメータ</th>
-    <th>値</th>
+    <th>Parameter</th>
+    <th>Value</th>
   </tr>
   <tr>
     <td>MODULE</td>
@@ -147,29 +164,31 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
   </tr>
 </table>
 
+> **警告**
+>
+> **エラーが発生します**
+
+最後のはうまく動作しません。すべて赤く表示されています。
+
+最後のアドホックコマンドを再実行しますが、今回は **ENABLE PRIVILEGE ESCALATION** ボックスにチェックマークを付けます。
+
+ご覧のとおり、今度は成功しました。root として実行する必要があるタスクの場合は、特権を昇格する必要があります。これは、AnsiblePlaybook
+で使用されている * become: yes** と同じです。
+
+### チャレンジラボ: アドホックコマンド
+
+さて、小チャレンジです。アドホックを実行して、パッケージ「tmux」がすべてのホストにインストールされていることを確認します。不明な場合は、上記の
+Web UI を介して、または Tower 制御ホストで `[ansible@tower ~]$ ansible-doc yum`
+を実行してドキュメントを参照してください。
 
 > **警告**
 >
-> **エラーが発生します！**
-
-おっと、最後の1つはうまくいかず、すべて赤でした。
-
-最後のアドホックコマンドを再実行しますが、今度は **ENABLE PRIVILEGE ESCALATION** チェックボックスをオンにします。
-
-ごらんの通り、今回は実行できました。rootとして実行する必要があるタスクの場合は、特権を昇格させる必要があります。これは Ansible playbook で使用されている **become: yes** と同じです。
-
-## チャレンジ Lab: Ad Hoc コマンド
-
-さて、小さなチャレンジ: Ad Hoc コマンドを実行して "tmux" パッケージがすべてのホストにインストールされていることを確認します。もし不明な場合は、上記の Web UI を利用、もしくは `[ansible@tower ~]$ ansible-doc yum` コマンドを Tower コントロールホストで実行し、ドキュメントを参照してください。
-
-> **警告**
->
-> **以下は解答です！**
+> **回答を以下に示します。**
 
 <table>
   <tr>
-    <th>パラメータ</th>
-    <th>値</th>
+    <th>Parameter</th>
+    <th>Value</th>
   </tr>
   <tr>
     <td>yum</td>
@@ -187,11 +206,12 @@ Ansible Tower から Ad Hoc コマンドを実行することも可能です。
 
 > **ヒント**
 >
-> コマンドの黄色の出力は、Ansibleが実際に何かを実行したことを示しています（ここでは、パッケージをインストールする必要がありました）。アドホックコマンドをもう一度実行すると、出力が緑色になり、パッケージが既にインストールされていることが通知されます。Ansible の黄色は、「注意してください」という意味ではありません... ;-)
+> コマンドの黄色い出力では、Ansible が実際に行ったことを示しています (ここでは、パッケージをインストールする必要がありました)。2 回目にアドホックコマンドを実行すると、出力が緑色になり、パッケージが既にインストールされていることが通知されます。そのため、Ansible での黄色の出力は、「注意」と示しているわけではありません。
 
-----
+---
 **ナビゲーション**
 <br>
-[前の演習](../2.1-intro/README.ja.md) - [次の演習](../2.3-projects/README.ja.md)
+[前の演習](../2.1-intro) - [次の演習](../2.3-projects)
 
-[ここをクリックして Ansible for Red Hat Enterprise Linux Workshop に戻ります](../README.ja.md#Section-2---Ansible-Towerの演習)
+[クリックして Ansible for Red Hat Enterprise Linux Workshop
+に戻ります](../README.md#section-2---ansible-tower-exercises)

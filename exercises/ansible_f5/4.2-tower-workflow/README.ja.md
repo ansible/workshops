@@ -3,21 +3,8 @@
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
-- [演習 4.2: ワークフローの作成](#演習-4.2-ワークフローの作成)
-  - [目次](#目次)
 - [目的](#目的)
 - [解説](#解説)
-  - [Step 1: ジョブテンプレートの準備](#Step-1-ジョブテンプレートの準備)
-  - [Step 2: ワークフローテンプレートの作成](#Step-2-ワークフローテンプレートの作成)
-  - [Step 3: ワークフロービジュアライザー](#Step-3-ワークフロービジュアライザー)
-  - [Step 4: Create nodeジョブテンプレートの追加](#Step-4-Create-nodeジョブテンプレートの追加)
-  - [Step 5: Create poolジョブテンプレートの追加](#Step-5-Create-poolジョブテンプレートの追加)
-  - [Step 6: Create virtual serverジョブテンプレートの追加](#Step-6-Create-virtual-serverジョブテンプレートの追加)
-  - [Step 7: Rollback node deployジョブテンプレートの追加](#Step-7-Rollback-node-deployジョブテンプレートの追加)
-  - [Step 8: Rollback pool deployジョブテンプレートの追加](#Step-8-Rollback-pool-deployジョブテンプレートの追加)
-  - [Step 9: Rollback virtual serverジョブテンプレートの追加](#Step-9-Rollback-virtual-serverジョブテンプレートの追加)
-  - [Step 10: ワークフローの実行](#Step-10-ワークフローの実行)
-  - [Step 11: エラー処理](#Step-11-エラー処理)
 - [まとめ](#まとめ)
 - [完了](#完了)
 
@@ -31,7 +18,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 ## Step 1: ジョブテンプレートの準備
 
-`演習 4.1` から学んだことに従い、それぞれのプレイブックを使用して次のジョブテンプレートを作成します。
+`演習 4.1` から学んだことに従い、それぞれの Playbook を使用して次のジョブテンプレートを作成します。
 
 | ジョブテンプレート名           | Playbook                 |
 |--------------------------------|--------------------------|
@@ -42,16 +29,16 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 | Rollback pool deploy           | rollback_pool_deploy.yml |
 | Rollback virtual server deploy | rollback_vs_deploy.yml   |
 
-上記とは別に、上記のテンプレートそれぞれについて、`演習 4.1`と同じテンプレートパラメータを使用します。
+上記のジョブテンプレートそれぞれについて、`演習 4.1` と同じテンプレートパラメータを使用します。
 
-| パラメータ     | 値                  |
-|----------------|---------------------|
-| 名前           |                     |
-| ジョブタイプ   | 実行                |
-| インベントリー | Workshop Inventory  |
-| プロジェクト   | Workshop Project    |
-| Playbook       |                     |
-| 認証情報       | Workshop Credential |
+| パラメータ     | 値                 |
+|----------------|--------------------|
+| 名前           |                    |
+| ジョブタイプ   | 実行               |
+| インベントリー | Workshop Inventory |
+| プロジェクト   | Workshop Project   |
+| Playbook       |                    |
+| 認証情報       | BIGIP              |
 
 **Create node** ジョブテンプレートの例を次に示します。
 
@@ -59,9 +46,9 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 ## Step 2: ワークフローテンプレートの作成
 
-1. 左側のメニューバーから **テンプレート** セクションに移動します。
+1. 左側のメニューバーから **テンプレート** をクリックします。
 
-2. 緑色のボタン![templates link](images/add.png)をクリックし、**ワークフローテンプレート** を選択します。
+2. 緑色の![templates link](images/add.png)ボタンをクリックし、**ワークフローテンプレート** を選択します。
 
 3. 以下の通りにパラメータを入力します。
 
@@ -81,19 +68,19 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 2. デフォルトでは緑色の **開始** ボタンだけが表示されています。**開始** ボタンをクリックします。
 
-3. 右側に **ノードの追加** が表示されます。前の手順で作成した`Create node`ジョブテンプレートを選択します。(あなたが名前を付けたものであれば何でも)
+3. 右側に **ノードの追加** が表示されます。前の手順で作成した `Create node` ジョブテンプレート(もしくは名前を付けたもの)を選択します。
 
    ![add a template](images/add-a-template.ja.png)
 
    `Create node`ジョブテンプレートがノードになりました。ジョブまたはワークフローテンプレートは、ノードと呼ばれるグラフのような構造を使用してリンクされます。これらのノードは、ジョブ、プロジェクトの同期、またはインベントリに同期することができます。テンプレートは、異なるワークフローの一部にしたり、同じワークフローで複数回使用することもできます。ワークフローを起動すると、グラフ構造のコピーがワークフロージョブに保存されます。
 
-## Step 4: *Create node*ジョブテンプレートの追加
+4. 緑色の **選択** ボタンをクリックします。
 
 1. **`Create node`** ジョブテンプレートを選択します。実行オプションは、**常時** を使用します。緑色の **選択** ボタンをクリックします。
 
     ![remove pool](images/create_node.ja.png)
 
-## Step 5: *Create pool*ジョブテンプレートの追加
+## Step 4: *Create pool* ジョブテンプレートの追加
 
 1. **`Create node`** ノードにカーソルを合わせ、緑色の **+** 記号をクリックします。**ノードの追加** が再び表示されます。
 
@@ -103,7 +90,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
    ![upgrade server](images/create_pool.ja.png)
 
-## Step 6: *Create virtual server*ジョブテンプレートの追加
+## Step 5: *Create virtual server* ジョブテンプレートの追加
 
 1. **`Create pool`** ノードにカーソルを合わせ、緑色の **+** 記号をクリックします。**ノードの追加** が再び表示されます。
 
@@ -113,7 +100,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
    
    ![add pool](images/create_virtualserver.ja.png)
 
-## Step 7: *Rollback node deploy*ジョブテンプレートの追加
+## Step 6: *Rollback node deploy* ジョブテンプレートの追加
 
 1. **`Create node`** ノードにカーソルを合わせ、緑色の **+** 記号をクリックします。**ノードの追加** が再び表示されます。
 
@@ -123,7 +110,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
    ![configure restore node](images/rollback_node.ja.png)
 
-## Step 8: *Rollback pool deploy*ジョブテンプレートの追加
+## Step 7: *Rollback pool deploy* ジョブテンプレートの追加
 
 1. **`Create pool`** ノードにカーソルを合わせ、緑色の **+** 記号をクリックします。**ノードの追加** が再び表示されます。
 
@@ -133,7 +120,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
    ![configure restore node](images/rollback_pool.ja.png)
 
-## Step 9: *Rollback virtual server*ジョブテンプレートの追加
+## Step 8: *Rollback virtual server* ジョブテンプレートの追加
 
 1. **`Create virtual server`** ノードにカーソルを合わせ、緑色の **+** 記号をクリックします。**ノードの追加** が再び表示されます。
 
@@ -145,7 +132,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 4. 緑色の **保存** ボタンをクリックします。
 
-## Step 10: ワークフローの実行
+## Step 9: ワークフローの実行
 
 1. **テンプレート** ウインドウに戻ります。
 
@@ -155,7 +142,7 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
     ワークフロージョブの実行中はいつでも、個々のノードをクリックして、ステータスを確認できます。
 
-## Step 11: エラー処理
+## Step 10: エラー処理
 
 次に、ロールバックが実行されるワークフローの失敗したジョブテンプレートを示します。
 
@@ -179,27 +166,29 @@ F5 BIG-IPの[Ansible Tower ワークフロー](https://docs.ansible.com/ansible-
 
 **Local Traffic**をクリックし、**Virtual Servers**をクリックします。`Rollback virtual server deploy`がキックされ、全てのBIG-IPの構成が削除されています。**Pools** および **Nodes** も同様に削除されているはずです。
 
-最後に構成を元に戻し、次の実習に備えます:
+## Step 11: クリーンアップ
 
-7. 左側のメニューバーから **テンプレート** をクリックします。`Create virtual server`テンプレートを選択します。
+1. 左側のメニューバーから **テンプレート** をクリックします。`Create virtual server` テンプレートを選択します。
 
-8. Playbookを`create_virtualserver.yml`に戻します。
+2. Playbook を `create_virtualserver.yml` に戻します。
 
-9. 下にスクロールし、緑色の **保存** ボタンをクリックします。
+3. 下にスクロールし、緑色の **保存** ボタンをクリックします。
 
-10. **Templates**ウインドウに戻り、ロケットをクリックし **Workshop Workflow** ワークフローテンプレートを再び起動します。
+4. **テンプレート** ウインドウに戻り、ロケットをクリックし **Workshop Workflow** ワークフローテンプレートを再び起動します。
+
+5. BIGIP MGMT GUI を介して仮想サーバが作成されたことを確認します。
 
 # まとめ
 
-あなたは学習しました
- - ノード、プール、および仮想サーバーを作成するワークフローテンプレートを作成しました
- - ワークフローを堅牢にし、いずれかのジョブテンプレートが失敗した場合、ロールバックしました
- - ワークフローテンプレートを起動し、**ワークフロービジュアライザー**を確認しました
+あなたは以下を学習しました
+ - ノード、プール、および仮想サーバーを作成するワークフローテンプレートの作成
+ - ワークフローを堅牢にし、いずれかのジョブテンプレートが失敗した場合のロールバック
+ - ワークフローテンプレートを起動し、**ワークフロービジュアライザー** の確認
 
 ---
 
 # 完了
 
-演習 4.2を完了しました。
+演習 4.2 を完了しました。
 
-[Ansible F5 Network Automation Workshopに戻るには、ここをクリックしてください](../README.ja.md)
+これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

@@ -1,0 +1,17 @@
+---
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: TESTWORKSHOP
+# amount of work benches to provision
+student_total: 2
+# workshop is put into rhel mode
+workshop_type: middleware
+## Optional Variables
+# password used for student account on control node
+admin_password: ansible
+# turn DNS on for control nodes, and set to type in valid_dns_type
+dns_type: aws
+# this will install Ansible Tower on all control nodes
+towerinstall: true
+create_cluster: false

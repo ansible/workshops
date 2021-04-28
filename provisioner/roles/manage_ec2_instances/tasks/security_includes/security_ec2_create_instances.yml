@@ -15,11 +15,13 @@
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "qradar"
       username: '{{ ec2_info["rhel8"]["username"] }}'
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -48,11 +50,13 @@
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "splunk"
       username: '{{ ec2_info["rhel8"]["username"] }}'
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -88,11 +92,13 @@
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "snort"
       username: '{{ ec2_info["rhel8"]["username"] }}'
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -120,11 +126,13 @@
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "attacker"
       username: '{{ ec2_info["rhel8"]["username"] }}'
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -153,11 +161,13 @@
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "checkpoint_mgmt"
       username: "{{ ec2_info.checkpoint_mgmt.username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   async: "{{ async_timeout_seconds }}"
@@ -181,11 +191,13 @@
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "windows_ws"
       username: "{{ ec2_info.windows_ws.username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   async: "{{ async_timeout_seconds }}"
@@ -206,7 +218,7 @@
   register: wait_for_ec2_instance_creation
   when: "'ansible_job_id' in item"
   until: wait_for_ec2_instance_creation.finished
-  retries: "{{ async_wait_for_retries }}"
+  retries: "{{ [async_wait_for_retries | int, 60] | max }}"
   loop:
     - "{{siem_async}}"
     - "{{snort_async}}"

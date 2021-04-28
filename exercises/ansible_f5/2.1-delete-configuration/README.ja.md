@@ -58,9 +58,9 @@
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
-          validate_certs: "alse
+          validate_certs: false
 ```
 {% endraw %}
 
@@ -71,7 +71,7 @@
 {% raw %}
 ``` yaml
     - name: DELETE VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider: "{{provider}}"
         name: "vip"
         state: absent
@@ -86,7 +86,7 @@
 {% raw %}
 ```yaml
     - name: DELETE POOL
-      bigip_pool:
+      f5networks.f5_modules.bigip_pool:
         provider: "{{provider}}"
         name: "http_pool"
         state: absent
@@ -100,7 +100,7 @@
 {% raw %}
 ```yaml
     - name: DELETE NODES
-      bigip_node:
+      f5networks.f5_modules.bigip_node:
         provider: "{{provider}}"
         name: "{{hostvars[item].inventory_hostname}}"
         state: absent
@@ -156,7 +156,7 @@ Webブラウザを使用してF5にログインし、設定内容を確認しま
 
 BIG-IPのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
 左側のメニューに移動し、構成が削除されたことを確認します。
 * Local Traffic Manager -> Virtual Server

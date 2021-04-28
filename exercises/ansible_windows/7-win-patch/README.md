@@ -19,8 +19,8 @@ available.
 To begin, we are going to create a new playbook. We will be repeating
 the steps you performed in the earlier exercises.
 
-Step 1:
--------
+Step 1
+------
 
 Within Visual Studio Code, we will now create a new directory in your
 git repository and create a new playbook file.
@@ -49,6 +49,7 @@ entire update process. This might entail creating service tickets,
 creating snapshots, or disabling monitoring.
 
 <!-- {% raw %} -->
+
 ```yaml
     ---
     - hosts: windows
@@ -59,20 +60,21 @@ creating snapshots, or disabling monitoring.
             category_names: "{{ categories | default(omit) }}"
             reboot: '{{ reboot_server | default(yes) }}'
 ```
+
 <!-- {% endraw %} -->
 
 > **Note**
 >
 > **What are we doing?**
 >
-> -   `win_updates:` This module is used for checking or installing
->     updates. We tell it to only install updates from specific
->     categories using a variable. `reboot` attribute will automatically
->     reboot the remote host if it is required and continue to install
->     updates after the reboot. We will also use a survey variable to
->     stop us from rebooting even if needed. If the reboot\_server value
->     is not specified we will set the reboot attribute to yes.
->
+> - `win_updates:` This module is used for checking or installing
+>    updates. We tell it to only install updates from specific
+>    categories using a variable. `reboot` attribute will automatically
+>    reboot the remote host if it is required and continue to install
+>    updates after the reboot. We will also use a survey variable to
+>    stop us from rebooting even if needed. If the reboot\_server value
+>    is not specified we will set the reboot attribute to yes.
+
 Section 3: Save and Commit
 ==========================
 
@@ -105,8 +107,8 @@ Next we need to create a new Job Template to run this playbook. So go to
 *Template*, click *Add* and select `Job Template` to create a new job
 template.
 
-Step 1:
--------
+Step 1
+------
 
 Complete the form using the following values
 
@@ -120,18 +122,18 @@ Complete the form using the following values
 | Playbook           | `win_updates/site.yml`     |      |
 | MACHINE CREDENTIAL | Student Account            |      |
 | LIMIT              | windows                    |      |
-| OPTIONS            | [*] ENABLE FACT CACHE      |      |
+| OPTIONS            | [\*] ENABLE FACT CACHE      |      |
 
 ![Create Job Template](images/7-win_update-template.png)
 
-Step 2:
--------
+Step 2
+------
 
 Click SAVE ![Save](images/at_save.png) and then select ADD SURVEY
 ![Add](images/at_add_survey.png)
 
-Step 3:
--------
+Step 3
+------
 
 Complete the survey form with following values
 
@@ -164,18 +166,18 @@ out the form on the left again.
 
 ![Reboot Survey Form](images/7-reboot-survey.png)
 
-Step 4:
--------
+Step 4
+------
 
 Select ADD ![Add](images/at_add.png)
 
-Step 5:
--------
+Step 5
+------
 
 Select SAVE ![Add](images/at_save.png)
 
-Step 6:
--------
+Step 6
+------
 
 Back on the main Job Template page, select SAVE
 ![Add](images/at_save.png) again.
@@ -185,8 +187,8 @@ Section 6: Running your new playbook
 
 Now let’s run it and see how it works.
 
-Step 1:
--------
+Step 1
+------
 
 Select TEMPLATES
 
@@ -195,14 +197,14 @@ Select TEMPLATES
 > Alternatively, if you haven’t navigated away from the job templates
 > creation page, you can scroll down to see all existing job templates
 
-Step 2:
--------
+Step 2
+------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 **Windows Updates** Job Template.
 
-Step 3:
--------
+Step 3
+------
 
 When prompted, enter select the update categories. Answer `Yes` to the
 *Reboot after install?* prompt and click **NEXT**.
@@ -211,4 +213,4 @@ After the job launches, you should be redirected and can watch the
 output of the job in realtime.
 
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

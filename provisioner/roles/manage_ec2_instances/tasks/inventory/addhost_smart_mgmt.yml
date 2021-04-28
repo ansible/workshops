@@ -1,0 +1,34 @@
+---
+## re-use RHEL workshop code
+- name: add rhel hosts to inventory
+  include_tasks: addhost_rhel.yml
+
+- name: add centos 6 hosts to inventory
+  include_tasks: addhost_centos_6.yml
+  when: (centos6 is defined) and (centos6 is not none)
+
+- name: add centos 7 hosts to inventory
+  include_tasks: addhost_centos_7.yml
+  when: (centos7 is defined) and (centos7 is not none)
+
+- name: grab facts for satellite node
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_satellite": "{{ec2_name_prefix}}-satellite"
+  register: satellite_node_facts
+
+- name: add satellite to group
+  add_host:
+    name: "{{ item.tags.Name }}"
+    username: "{{ item.tags.Student }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    groups: lab_hosts,managed_nodes,satellite
+  with_items:
+    - "{{ satellite_node_facts.instances }}"
+  changed_when: false

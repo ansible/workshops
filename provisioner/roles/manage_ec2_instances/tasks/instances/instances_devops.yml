@@ -17,12 +17,14 @@
       uuid: "{{ ec2_name_prefix }}"
       guid: "{{ ec2_name_prefix }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "dev_web1"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: dev_web1
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -64,12 +66,14 @@
       uuid: "{{ ec2_name_prefix }}"
       guid: "{{ ec2_name_prefix }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "dev_web2"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: dev_web2
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -111,12 +115,14 @@
       uuid: "{{ ec2_name_prefix }}"
       guid: "{{ ec2_name_prefix }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "prod_web1"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: prod_web1
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -158,12 +164,14 @@
       uuid: "{{ ec2_name_prefix }}"
       guid: "{{ ec2_name_prefix }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
       short_name: "prod_web2"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: prod_web2
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

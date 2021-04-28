@@ -10,6 +10,7 @@ website_information: ""
 login_website_information: ""
 dns_information: "No errors with DNS"
 callback_information: "No issue with Ansible Tower callback"
+demo_information: "No errors with Demos"
 workshop_type: ""
 dns_type: aws
 valid_dns_type:
@@ -25,6 +26,8 @@ valid_workshop_types:
   - windows
   - rhel_90
   - demo
+  - smart_mgmt
+  - middleware
 network_type: multivendor
 valid_network_types:
   - cisco
@@ -32,7 +35,6 @@ valid_network_types:
   - juniper
   - multivendor
 doubleup: false
-create_login_page: true
 attendance: true
 security_console: qradar
 valid_security_console_types:
@@ -40,4 +42,7 @@ valid_security_console_types:
   - qradar
 ibm_community_grid: true
 create_cluster: false
+default_tower38_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.8.0-1.tar.gz
+default_tower37_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.3-1.tar.gz
+use_manifest: false
 automation_hub: true

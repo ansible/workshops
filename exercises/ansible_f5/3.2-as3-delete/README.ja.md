@@ -45,11 +45,11 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
 - `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
 - `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
 
 ## Step 3
 
-以下を delete.yml へ **追加** してください。
+以下を `delete.yml` へ **追加** してください。  
 {% raw %}
 ```yaml
   tasks:
@@ -62,7 +62,7 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
         body_format: json
         force_basic_auth: true
         user: "{{ ansible_user }}"
-        password: "{{ ansible_ssh_pass }}"
+        password: "{{ ansible_password }}"
         validate_certs: false
       delegate_to: localhost
 ```

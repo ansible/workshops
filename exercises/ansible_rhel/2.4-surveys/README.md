@@ -9,24 +9,24 @@
 * [Guide](#guide)
 * [The Apache-configuration Role](#the-apache-configuration-role)
 * [Create a Template with a Survey](#create-a-template-with-a-survey)
-   * [Create Template](#create-template)
-   * [Add the Survey](#add-the-survey)
+  * [Create Template](#create-template)
+  * [Add the Survey](#add-the-survey)
 * [Launch the Template](#launch-the-template)
 * [What About Some Practice?](#what-about-some-practice)
 
-# Objective
+## Objective
 
 Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
 
-# Guide
+## Guide
 
 You have installed Apache on all hosts in the job you just run. Now we’re going to extend on this:
 
-- Use a proper role which has a Jinja2 template to deploy an `index.html` file.
+* Use a proper role which has a Jinja2 template to deploy an `index.html` file.
 
-- Create a job **Template** with a survey to collect the values for the `index.html` template.
+* Create a job **Template** with a survey to collect the values for the `index.html` template.
 
-- Launch the job **Template**
+* Launch the job **Template**
 
 Additionally, the role will also make sure that the Apache configuration is properly set up - in case it got mixed up during the other exercises.
 
@@ -34,14 +34,14 @@ Additionally, the role will also make sure that the Apache configuration is prop
 >
 > The survey feature only provides a simple query for data - it does not support four-eye principles, queries based on dynamic data or nested menus.
 
-## The Apache-configuration Role
+### The Apache-configuration Role
 
-The Playbook and the role with the Jinja template already exist in the Github repository **https://github.com/ansible/workshop-examples** in the directory `rhel/apache`.
+The Playbook and the role with the Jinja template already exist in the Github repository [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples) in the directory `rhel/apache`.
 
  Head over to the Github UI and have a look at the content: the playbook `apache_role_install.yml` merely references the role. The role can be found in the `roles/role_apache` subdirectory.
 
- - Inside the role, note the two variables in the `templates/index.html.j2` template file marked by `{{…​}}`\.
- - Also, check out the tasks in `tasks/main.yml` that deploy the file from the template.
+* Inside the role, note the two variables in the `templates/index.html.j2` template file marked by `{{…​}}`\.
+* Also, check out the tasks in `tasks/main.yml` that deploy the file from the template.
 
 What is this Playbook doing? It creates a file (**dest**) on the managed hosts from the template (**src**).
 
@@ -49,15 +49,15 @@ The role also deploys a static configuration for Apache. This is to make sure th
 
 Because the Playbook and role is located in the same Github repo as the `apache_install.yml` Playbook you don't have to configure a new project for this exercise.
 
-## Create a Template with a Survey
+### Create a Template with a Survey
 
 Now you create a new Template that includes a survey.
 
-### Create Template
+#### Create Template
 
-- Go to **Templates**, click the ![plus](images/green_plus.png) button and choose **Job Template**
+* Go to **Templates**, click the ![plus](images/green_plus.png) button and choose **Job Template**
 
-- Fill out the following information:
+* Fill out the following information:
 
 <table>
   <tr>
@@ -79,7 +79,7 @@ Now you create a new Template that includes a survey.
   <tr>
     <td>Project</td>
     <td>Workshop Project</td>
-  </tr>  
+  </tr>
   <tr>
     <td>PLAYBOOK</td>
     <td><code>rhel/apache/apache_role_install.yml</code></td>
@@ -91,24 +91,24 @@ Now you create a new Template that includes a survey.
   <tr>
     <td>LIMIT</td>
     <td>web</td>
-  </tr>  
+  </tr>
   <tr>
     <td>OPTIONS</td>
     <td>Enable Privilege Escalation</td>
-  </tr>          
+  </tr>
 </table>
 
-- Click **SAVE**
+* Click **SAVE**
 
 > **Warning**
 >
 > **Do not run the template yet!**
 
-### Add the Survey
+#### Add the Survey
 
-- In the Template, click the **ADD SURVEY** button
+* In the Template, click the **ADD SURVEY** button
 
-- Under **ADD SURVEY PROMPT** fill in:
+* Under **ADD SURVEY PROMPT** fill in:
 
 <table>
   <tr>
@@ -126,12 +126,12 @@ Now you create a new Template that includes a survey.
   <tr>
     <td>ANSWER TYPE</td>
     <td>Text</td>
-  </tr>         
+  </tr>
 </table>
 
-- Click **+ADD**
+* Click **+ADD**
 
-- In the same way add a second **Survey Prompt**
+* In the same way add a second **Survey Prompt**
 
 <table>
   <tr>
@@ -149,16 +149,16 @@ Now you create a new Template that includes a survey.
   <tr>
     <td>ANSWER TYPE</td>
     <td>Text</td>
-  </tr>         
+  </tr>
 </table>
 
-- Click **+ADD**
+* Click **+ADD**
 
-- Click **SAVE** for the Survey
+* Click **SAVE** for the Survey
 
-- Click **SAVE** for the Template
+* Click **SAVE** for the Template
 
-## Launch the Template
+### Launch the Template
 
 Now launch **Create index.html** job template.
 
@@ -178,9 +178,10 @@ $ curl http://22.33.44.55
 <h1>This is survey field "Second Line": line two</h1>
 </body>
 ```
+
 Note how the two variables where used by the playbook to create the content of the `index.html` file.
 
-----
+---
 **Navigation**
 <br>
 

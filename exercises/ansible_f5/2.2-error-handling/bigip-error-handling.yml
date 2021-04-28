@@ -10,21 +10,21 @@
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
           loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             lb_method: "round-robin"
@@ -32,7 +32,7 @@
             monitor_type: "and_list"
 
         - name: ADD POOL MEMBERS
-          bigip_pool_member:
+          f5networks.f5_modules.bigip_pool_member:
             provider: "{{provider}}"
             state: "present"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -42,7 +42,7 @@
           loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             destination: "{{private_ip}}"
@@ -54,19 +54,19 @@
 
       rescue:
         - name: DELETE VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             state: absent
 
         - name: DELETE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             state: absent
 
         - name: DELETE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
@@ -74,6 +74,6 @@
 
       always:
         - name: SAVE RUNNING CONFIGURATION
-          bigip_config:
+          f5networks.f5_modules.bigip_config:
             provider: "{{provider}}"
             save: true

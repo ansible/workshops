@@ -1,45 +1,6 @@
 ---
-- hostname:
-    name: "{{short_name}}"
-
-- name: Install EPEL
-  dnf:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-    state: present
-    disable_gpg_check: true
-
-# temporary fix for rhel 8.2 dnf substitution
-- name: fix EPEL repo substitution
-  replace:
-    path: "{{ item }}"
-    regexp: '\$releasever'
-    replace: '8'
-  loop:
-    # - /etc/yum.repos.d/epel-modular.repo
-    - /etc/yum.repos.d/epel.repo
-  when:
-    - ansible_distribution_major_version|int == 8
-
-- name: Install base packages
-  dnf:
-    name:
-      - vim
-      - git
-      - wget
-      - nano
-      - tree
-      - sshpass
-      - tmux
-      - python3-pip
-      - python3-devel
-      - ansible
-      - gcc
-      - bind-utils
-    state: present
-  register: dnf_check
-  until: dnf_check is not failed
-  retries: 4
-  delay: 5
+- name: Install packages
+  include_tasks: package_dependencies.yml
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
@@ -52,13 +13,6 @@
   template:
     src: vimrc.j2
     dest: "/home/{{ username }}/.vimrc"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: setup /etc/hosts file per student
-  copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
-    dest: "/etc/hosts"
     owner: "{{ username }}"
     group: "{{ username }}"
 
@@ -132,6 +86,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     local_follow: true
+  ignore_errors: true  # Required for testing local development
 
 - name: Create lab inventory directory
   file:

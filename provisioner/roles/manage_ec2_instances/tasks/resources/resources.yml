@@ -14,6 +14,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: create_vpc
   until: create_vpc is not failed
   retries: 5
@@ -41,6 +42,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
     rules: "{{ all_rules }}"
     rules_egress:
       - proto: all
@@ -49,49 +51,6 @@
   register: create_sg
   until: create_sg is not failed
   retries: 5
-
-  ### Windows Security groups
-- name: Windows | Create security group
-  ec2_group:
-    name: "{{ ec2_name_prefix }}-windows"
-    description: "Windows Workshop SG"
-    vpc_id: "{{ create_vpc.vpc.id }}"
-    region: "{{ ec2_region }}"
-    tags:
-      Username: "{{ aws_user }}"
-      Info: "Username that provisioned this-> {{ aws_user }}"
-      Skylight: "This was provisioned through the skylight provisioner"
-      Students: "{{ student_total }}"
-      Workshop_type: "{{ workshop_type }}"
-      Workshop: "{{ ec2_name_prefix }}"
-    rules:
-      - proto: tcp
-        from_port: 22
-        to_port: 22
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 80
-        to_port: 80
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 443
-        to_port: 443
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 5986
-        to_port: 5986
-        cidr_ip: "0.0.0.0/0"
-      - proto: tcp
-        from_port: 3389
-        to_port: 3389
-        cidr_ip: "0.0.0.0/0"
-      - proto: tcp
-        from_port: 8080
-        to_port: 8081
-        cidr_ip: "0.0.0.0/0"
-      - proto: all
-        cidr_ip: "{{ ec2_subnet }}"
-  when: workshop_type == 'windows' or workshop_type == 'demo'
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
@@ -108,6 +67,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: create_subnet
   when: ec2_vpc_id is undefined
   until: create_subnet is not failed
@@ -128,6 +88,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: create_subnet2
   until: create_subnet2 is not failed
   retries: 15
@@ -143,6 +104,7 @@
       Students: "Total {{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: igw
   until: igw is not failed
   retries: 15
@@ -164,6 +126,7 @@
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
+      ansible-workshops: "true"
   register: routetable
   until: routetable is not failed
   retries: 5
@@ -181,6 +144,8 @@
     name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
     state: present
     region: "{{ ec2_region }}"
+    tags:
+      ansible-workshops: "true"
   retries: 4
   delay: 15
   register: s3_result

@@ -382,5 +382,5 @@ Surveyで作成した入力画面が表示されるので、お好きなメッ�
 ![IIS site](images/5-iis-8080.png)
 
 
-[ワークショップ一覧に戻る](../readme.ja.md)
+[ワークショップ一覧に戻る](../README.ja.md)
 

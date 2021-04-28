@@ -45,7 +45,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 - ファイルの先頭の `---` はこのファイルが YAML であることを示します。
 - `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
 - `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: no` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
 
 ## Step 3
 
@@ -59,7 +59,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
 ```
@@ -74,7 +74,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -90,7 +90,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 {% raw %}
 ```yaml
         - name: CREATE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             lb_method: "round-robin"
@@ -106,7 +106,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 {% raw %}
 ```yaml
         - name: ADD POOL MEMBERS
-          bigip_pool_member:
+          f5networks.f5_modules.bigip_pool_member:
             provider: "{{provider}}"
             state: "present"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -124,7 +124,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 {% raw %}
 ```yaml
         - name: ADD VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             destination: "{{private_ip}}"
@@ -144,19 +144,19 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 ```yaml
       rescue:
         - name: DELETE VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             state: absent
 
         - name: DELETE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             state: absent
 
         - name: DELETE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
@@ -172,7 +172,7 @@ BIG-IPで設定のロールバックを実行するためのさまざまなモ�
 ```yaml
       always:
         - name: SAVE RUNNING CONFIGURATION
-          bigip_config:
+          f5networks.f5_modules.bigip_config:
             provider: "{{provider}}"
             save: true
 ```

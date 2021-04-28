@@ -24,7 +24,7 @@
 [student1@ansible ~]$ nano bigip-pool.yml
 ```
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+>`vim` と `nano` はコントロールノード上で利用可能です。RDP経由でのVisual Studio と Atom も同様です。
 
 ## Step 2:
 
@@ -53,11 +53,11 @@
 ``` yaml
   tasks:
     - name: CREATE POOL
-      bigip_pool:
+      f5networks.f5_modules.bigip_pool:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         name: "http_pool"
@@ -74,13 +74,15 @@
 - `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
+- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `name: "http_pool"` ： 作成するプールの名前を指定します。
 - `lb_method: "round-robin"`  ： 負荷分散方式を round-robin に指定します。全ての設定可能な負荷分散方式は bigip_pool モジュールのドキュメンテーションで確認できます。
 - `monitors: "/Common/http"` ： http_poolというプールはHTTPトラフィックだけを扱うことを指定します。
 - `monitor_type: "and_list"` ： 全てのモニターがチェックされるように指定します。
+
+ファイルを保存して、エディタを終了してください。
 
 ## Step 4
 
@@ -116,9 +118,9 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
-画面左のメニューからプールが確認できます。Local Traffic-> Pools とクリックします。
+画面左のメニューからプールが確認できます。**Local Traffic** -> **Pools** とクリックします。
 ![f5pool](pool.png)
 
 これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

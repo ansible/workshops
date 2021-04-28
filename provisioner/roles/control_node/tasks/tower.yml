@@ -1,7 +1,7 @@
 ---
 - name: Download Ansible Tower
   get_url:
-    url: '{{ tower_installer_url | default("https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.3-1.tar.gz") }}'
+    url: '{{ tower_installer_url | default(default_tower_url) }}'
     dest: /tmp/tower.tar.gz
 
 - name: Create directory for Ansible Tower
@@ -14,7 +14,7 @@
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
 
-- name: template inventory file for Ansible Tower Install
+- name: template inventory file for Ansible Controller Install
   template:
     src: tower_install.j2
     dest: /tmp/tower_install/inventory
@@ -57,52 +57,8 @@
       - "requests==2.6.0"
     state: latest
 
-# This is documented here: https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#preparing-a-new-custom-virtualenv
-- name: Create directory for custom venvs
-  file:
-    path: /opt/my-envs
-    state: directory
-    mode: '0755'
-
-- name: specify in Tower which directory to look for custom venvs
-  uri:
-    url: https://localhost/api/v2/settings/system/
-    method: PATCH
-    user: admin
-    password: "{{admin_password}}"
-    validate_certs: false
-    force_basic_auth: true
-    body_format: json
-    body: '{"CUSTOM_VENV_PATHS": ["/opt/my-envs/"]}'
-    status_code:
-      - 200
-
-- name: Install virtualenv via pip
-  pip:
-    name: virtualenv
-    executable: pip3
-
-- name: install ansible development branch to venv
-  pip:
-    name:
-      - git+https://github.com/ansible/ansible.git@devel
-      - psutil
-      - paramiko
-      - ncclient
-    virtualenv: /opt/my-envs/ansible_dev
-    virtualenv_command: /usr/local/bin/virtualenv
-
-- name: add student user
-  tower_user:
-    username: "{{ username }}"
-    password: "{{ admin_password }}"
-    email: fake@fake.com
-    state: present
-    superuser: true
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
-    tower_verify_ssl: false
+- name: Install venv
+  include_tasks: venv.yml
 
 - name: Post license key
   uri:
@@ -114,3 +70,24 @@
     body_format: json
     validate_certs: false
     force_basic_auth: true
+  when: not use_manifest
+
+- block:
+    - name: Load manifest into variable
+      local_action:
+        module: slurp
+        src: "{{ playbook_dir }}/manifest.zip"
+      register: manifest_file
+      become: false
+
+    - name: Post manifest file
+      uri:
+        url: https://{{ansible_host}}/api/v2/config/
+        method: POST
+        user: admin
+        password: "{{admin_password}}"
+        body: '{ "eula_accepted": true, "manifest": "{{ manifest_file.content }}" }'
+        body_format: json
+        validate_certs: false
+        force_basic_auth: true
+  when: use_manifest

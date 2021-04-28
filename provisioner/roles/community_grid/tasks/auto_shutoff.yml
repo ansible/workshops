@@ -1,0 +1,5 @@
+---
+- name: configure profile.d community_grid.sh
+  template:
+    src: auto_shutoff.j2
+    dest: /etc/profile.d/community_grid.sh

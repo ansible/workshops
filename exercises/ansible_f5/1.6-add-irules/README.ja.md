@@ -82,11 +82,11 @@ when HTTP_REQUEST {
 
   tasks:
     - name: ADD iRules
-      bigip_irule:
+      f5networks.f5_modules.bigip_irule:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         module: "ltm"
@@ -104,7 +104,7 @@ when HTTP_REQUEST {
 - `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
+- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `module: ltm` ： iRulesがBIG-IPのどの機能で使用するかを指定します。本演習では ltm を指定します。
@@ -121,11 +121,11 @@ when HTTP_REQUEST {
 {% raw %}
 ``` yaml
     - name: ATTACH iRules TO VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         name: "vip"
@@ -137,7 +137,7 @@ when HTTP_REQUEST {
 - `irules: "{{irules}}` ： Virtual ServerにアタッチするiRulesのリストです。 'irule1'と'irule2' となります。
 
 参考：[BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html)
-or [演習 1.5](./1.5-add-virtual-server/bigip-virtual-server.yml)
+or [演習 1.5](../1.5-add-virtual-server/bigip-virtual-server.yml)
 
 ファイルを保存して、エディタを終了してください。
 
@@ -180,11 +180,11 @@ lab_inventory/hosts ファイルからBIG-IPのIPアドレスを確認して、h
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
-登録されたiRulesの一覧は、画面左のメニューから辿ることで確認できます。Local Traffic -> iRules -> iRules List とクリックします。
+登録されたiRulesの一覧は、画面左のメニューから辿ることで確認できます。**Local Traffic** -> **iRules** -> **iRules List** とクリックします。
 
-Virtual Server の詳細の確認は、Local Traffic-> Virtual Servers とクリックし 'resoruces' タブを参照することで、iRulesがVirtual Serverにアタッチされていることが確認できます。
+Virtual Server の詳細の確認は、**Local Traffic** -> **Virtual Servers** とクリックし 'resoruces' タブを参照することで、iRulesがVirtual Serverにアタッチされていることが確認できます。
 ![irules](bigip-irule.png)
 
 これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)

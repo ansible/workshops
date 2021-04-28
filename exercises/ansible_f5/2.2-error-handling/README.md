@@ -43,7 +43,7 @@ Enter the following play definition into `bigip-error-handling.yml`:
 {% endraw %}
 
 - The `---` at the top of the file indicates that this is a YAML file.
-- The `hosts: f5`,  indicates the play is run only on the F5 BIG-IP device
+- The `hosts: lb`,  indicates the play is run only on the F5 BIG-IP device
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: false` disables facts gathering.  We are not using any fact variables for this playbook.
 
@@ -65,7 +65,7 @@ Add a tasks section with a set_fact for setting the provider values
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
 
@@ -90,14 +90,14 @@ Next, add the `block` stanza and the first `task`. The first task will be the bi
       provider:
         server: "{{private_ip}}"
         user: "{{ansible_user}}"
-        password: "{{ansible_ssh_pass}}"
+        password: "{{ansible_password}}"
         server_port: "8443"
         validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -125,21 +125,21 @@ Next, add the second task for bigip_pool as demonstrated in [Exercise 1.3 - Addi
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
           loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             lb_method: "round-robin"
@@ -167,21 +167,21 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
           loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             lb_method: "round-robin"
@@ -189,7 +189,7 @@ Next, add the third task.  For the third task use the bigip_pool_member as demon
             monitor_type: "and_list"
 
         - name: ADD POOL MEMBERS
-          bigip_pool_member:
+          f5networks.f5_modules.bigip_pool_member:
             provider: "{{provider}}"
             state: "present"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -219,21 +219,21 @@ Next, add the fourth task. For the fourth task use the bigip_virtual_server as d
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
           loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             lb_method: "round-robin"
@@ -241,7 +241,7 @@ Next, add the fourth task. For the fourth task use the bigip_virtual_server as d
             monitor_type: "and_list"
 
         - name: ADD POOL MEMBERS
-          bigip_pool_member:
+          f5networks.f5_modules.bigip_pool_member:
             provider: "{{provider}}"
             state: "present"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -251,7 +251,7 @@ Next, add the fourth task. For the fourth task use the bigip_virtual_server as d
           loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             destination: "{{private_ip}}"
@@ -282,21 +282,21 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
           loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             lb_method: "round-robin"
@@ -304,7 +304,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
             monitor_type: "and_list"
 
         - name: ADD POOL MEMBERS
-          bigip_pool_member:
+          f5networks.f5_modules.bigip_pool_member:
             provider: "{{provider}}"
             state: "present"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -314,7 +314,7 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
           loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             destination: "{{private_ip}}"
@@ -326,19 +326,19 @@ Next, add the **rescue** stanza.  The tasks under the `rescue` stanza will be id
 
       rescue:
         - name: DELETE VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             state: absent
 
         - name: DELETE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             state: absent
 
         - name: DELETE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
@@ -365,21 +365,21 @@ Finally add the **always** to save the running configuration.
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: "8443"
           validate_certs: "no"
 
     - name: SETUP AND GRACEFUL ROLLBACK BIG-IP CONFIGURATION
       block:
         - name: CREATE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
           loop: "{{ groups['web'] }}"
 
         - name: CREATE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             lb_method: "round-robin"
@@ -387,7 +387,7 @@ Finally add the **always** to save the running configuration.
             monitor_type: "and_list"
 
         - name: ADD POOL MEMBERS
-          bigip_pool_member:
+          f5networks.f5_modules.bigip_pool_member:
             provider: "{{provider}}"
             state: "present"
             name: "{{hostvars[item].inventory_hostname}}"
@@ -397,7 +397,7 @@ Finally add the **always** to save the running configuration.
           loop: "{{ groups['web'] }}"
 
         - name: ADD VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             destination: "{{private_ip}}"
@@ -409,27 +409,27 @@ Finally add the **always** to save the running configuration.
 
       rescue:
         - name: DELETE VIRTUAL SERVER
-          bigip_virtual_server:
+          f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
             name: "vip"
             state: absent
 
         - name: DELETE POOL
-          bigip_pool:
+          f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
             name: "http_pool"
             state: absent
 
         - name: DELETE NODES
-          bigip_node:
+          f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
           loop: "{{ groups['web'] }}"
- 
+
       always:
         - name: SAVE RUNNING CONFIGURATION
-          bigip_config:
+          f5networks.f5_modules.bigip_config:
             provider: "{{provider}}"
             save: true
 ```

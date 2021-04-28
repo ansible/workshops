@@ -1,0 +1,138 @@
+---
+- name: configure rhel workshop for webservers
+  hosts: lab_hosts
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure RHEL webservers
+      include_role:
+        name: webservers
+
+- name: configure satellite
+  hosts: satellite
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure satellite admin password
+      command: "foreman-rake permissions:reset password={{ admin_password }}"
+    - name: update hammer admin password in /root/.hammer/cli.modules.d/foreman.yml
+      lineinfile:
+        path: /root/.hammer/cli.modules.d/foreman.yml
+        regexp: 'password'
+        line: "  :password: '{{ admin_password }}'"
+    - name: configure satellite dns
+      become: false
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{workshop_dns_zone}}"
+        record: "{{username}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        type: A
+        overwrite: true
+        value: "{{ansible_host}}"
+        wait: true
+      delegate_to: localhost
+      when:
+        - dns_type is defined
+        - dns_type == 'aws'
+
+- name: configure tower virtual environments
+  hosts: control_nodes
+  become: true
+  vars:
+    tower_venv_online_installs:
+      - "apypie"
+      - "jinja2==2.11.3"
+  tasks:
+    - include_role:
+        name: redhat_cop.tower_utilities.tower_virtual_environments
+
+- name: configure tower Credentials
+  hosts: control_nodes[0]
+  gather_facts: false
+  vars:
+    tower_infra_workloads:
+      - redhat_cop.tower_configuration.credential_types
+      - redhat_cop.tower_configuration.credentials
+      - redhat_cop.tower_configuration.projects
+      - redhat_cop.tower_configuration.job_templates
+    tower_hostname: "https://{{ ansible_host }}"
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_validate_certs: false
+    tower_credential_types:
+      - name: Satellite_Collection
+        description: Credential for redhat.satellite collection
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: username
+              label: Satellite Username
+            - type: string
+              id: password
+              label: Satellite Password
+              secret: true
+            - type: string
+              id: host
+              label: Satellite Hostname
+          required:
+            - username
+            - password
+            - host
+        injectors:
+          env:
+            FOREMAN_SERVER: "{% raw %}{{ '{{host}}' }}{% endraw %}"
+            FOREMAN_USER: "{% raw %}{{ '{{username}}' }}{% endraw %}"
+            FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
+            FOREMAN_VALIDATE_CERTS: 'false'
+    tower_credentials:
+      - name: Satellite Credential
+        credential_type: Satellite_Collection
+        state: present
+        organization: Default
+        inputs:
+          host: "https://satellite.example.com"
+          username: 'admin'
+          password: "{{ admin_password }}"
+      - name: Inventory Credential
+        credential_type: Red Hat Satellite 6
+        state: present
+        organization: Default
+        inputs:
+          host: "https://satellite.example.com"
+          username: 'admin'
+          password: "{{ admin_password }}"
+    tower_projects:
+      - name: Automated Management
+        organization: Default
+        scm_update_on_launch: true
+        scm_update_cache_timeout: 3600
+        scm_type: git
+        scm_url: 'https://github.com/willtome/automated-smart-management.git'
+        scm_branch: smart_mgmt
+      - name: Fact Scan
+        organization: Default
+        scm_type: git
+        scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
+    tower_templates:
+      - name: SETUP / Satellite
+        project: Automated Management
+        playbook: setup_satellite.yml
+        inventory: Workshop Inventory
+        credentials:
+          - Satellite Credential
+      - name: SETUP / Tower
+        project: Automated Management
+        playbook: setup_tower.yml
+        inventory: Workshop Inventory
+        credentials:
+          - Tower Credential
+  tasks:
+    - name: Deploy tower-infra workloads
+      include_role:
+        name: "{{ tower_infra_vars }}"
+      loop: "{{ tower_infra_workloads }}"
+      loop_control:
+        loop_var: tower_infra_vars
+      when:
+        - tower_infra_workloads | d("") | length >0

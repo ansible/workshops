@@ -60,8 +60,8 @@
     - user_accounts
     - common
 
-- name: Configure cluster nodes with /etc/hosts
-  hosts: '*ansible-2,*ansible-3,*ansible-4'
+- name: Configure /etc/hosts
+  hosts: 'managed_nodes:control_nodes'
   gather_facts: true
   become: true
   tasks:
@@ -71,7 +71,6 @@
         dest: "/etc/hosts"
         owner: "{{ username }}"
         group: "{{ username }}"
-      when: create_cluster|bool
 
 - name: configure ansible control node
   hosts: '*ansible-1'
@@ -79,6 +78,8 @@
   become: true
   vars:
     tower_license: "{{ hostvars['localhost']['tower_license'] }}"
+    use_manifest: "{{ hostvars['localhost']['use_manifest'] }}"
+    default_tower_url: "{{ hostvars['localhost']['default_tower_url'] }}"
   pre_tasks:
     - debug:
         var: tower_license
@@ -93,6 +94,22 @@
         - towerinstall is defined
         - towerinstall
 
+- name: replicate venvs to cluster nodes
+  hosts: '*ansible-2,*ansible-3'
+  gather_facts: false
+  become: true
+  tasks:
+    - include_role:
+        name: control_node
+        tasks_from: package_dependencies
+      when: create_cluster|bool
+
+    - include_role:
+        name: control_node
+        tasks_from: venv
+      when: create_cluster|bool
+
+
 - name: add dns entires for all student control nodes
   hosts: '*ansible-1'
   become: true
@@ -105,19 +122,6 @@
         - dns_type == "aws"
         - towerinstall is defined
         - towerinstall
-  tags: control_node
-
-- name: Setup Amazon S3 Website for Student Login
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: false
-  tasks:
-    - include_role:
-        name: aws_workshop_login_page
-      when:
-        - create_login_page is defined
-        - create_login_page
   tags: control_node
 
 - name: populate ansible tower
@@ -134,7 +138,7 @@
         - towerinstall|bool
         - populatetower
 
-- name: IBM community grid
+- name: IBM community grid managed nodes
   hosts: "managed_nodes"
   become: true
   gather_facts: true
@@ -143,6 +147,20 @@
     - name: install boinc-client and register
       include_role:
         name: community_grid
+      when:
+        - ibm_community_grid is defined
+        - ibm_community_grid
+
+- name: IBM community grid control node
+  hosts: "control_nodes"
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: install boinc-client and register
+      include_role:
+        name: community_grid
+        tasks_from: auto_shutoff
       when:
         - ibm_community_grid is defined
         - ibm_community_grid
@@ -159,13 +177,23 @@
     my_tower_password: "{{ admin_password }}"
     my_tower_host: "{{ ansible_host }}"
   tasks:
-    - name: install demo
-      include_role:
-        name: "ansible.product_demos.install_demo"
-      when:
-        - demo is defined
-        - towerinstall is defined
-        - towerinstall
+    - name: install demos from ansible.product_demos collection
+      block:
+        - name: install demo
+          include_role:
+            name: "ansible.product_demos.install_demo"
+          when:
+            - demo is defined
+            - towerinstall is defined
+            - towerinstall
+      rescue:
+        - name: install demo
+          debug:
+            msg: "Demos were NOT installed"
+
+        - name: update demo_information var
+          set_fact:
+            demo_information: "Demo issue: Demos were NOT installed"
 
 - name: Alert the mothership
   hosts: localhost
@@ -188,7 +216,6 @@
           - Workshop name is {{ec2_name_prefix}}
           - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
           - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
-          - {{website_information}}
           {% if attendance %}
           - {{hostvars['attendance-host'].login_website_information | default("attendance feature is off") }}
           {% endif %}
@@ -197,6 +224,7 @@
           *******************
           {{dns_information}}
           {{callback_information}}
+          {{ demo_information }}
 
     - name: Print Summary Information
       debug:

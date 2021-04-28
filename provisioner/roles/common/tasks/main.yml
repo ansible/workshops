@@ -15,7 +15,7 @@
     - common
 
 - hostname:
-    name: "{{short_name}}"
+    name: "{{short_name}}.example.com"
 
 - meta: flush_handlers
   tags:

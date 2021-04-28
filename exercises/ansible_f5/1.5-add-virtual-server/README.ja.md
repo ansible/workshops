@@ -55,11 +55,11 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 ``` yaml
   tasks:
     - name: ADD VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         name: "vip"
@@ -80,7 +80,7 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 - `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
+- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `name: "vip"` ： vip という名前のVirtual Server を作成することを指定します。
@@ -125,7 +125,7 @@ f5                         : ok=1    changed=1    unreachable=0    failed=0
 
 BIG-IP へのログイン情報:
 - username: admin
-- password: admin
+- password: **講師から指示されます** (default is admin)
 
 Virtual Serverは画面左のメニューから辿ることで確認できます。**Local Traffic** -> **Virtual Server** とクリックします。以下のスクリーンショットを参考にしてください。
 ![f5 vip image](f5vip.png)
@@ -136,7 +136,7 @@ Virtual Serverは画面左のメニューから辿ることで確認できます
 
 >ここでは、ポート番号は 8443ではなく 443 を指定します。 例： https://X.X.X.X:443/
 
-ブラウザを再読み込みを行うたびに、**host1** と **host2** が入れかわり表示されるはずです。以下のアニメーションを参考にしてください。
+ブラウザを再読み込みを行うたびに、**node1** と **node2** が入れかわり表示されるはずです。以下のアニメーションを参考にしてください。
 ![animation](animation.gif)
 >注：ブラウザの種類によっては、アニメーションが動かない可能性があります。
 

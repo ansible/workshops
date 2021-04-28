@@ -42,7 +42,7 @@ Enter the following play definition into `disable-pool-member.yml`:
 <!-- {% raw %} -->
 ``` yaml
 ---
-- name:  Disabling a pool member
+- name: Disabling a pool member
   hosts: lb
   connection: local
   gather_facts: false
@@ -62,7 +62,7 @@ Add a tasks section and then set a fact for the provider. Once you set the provi
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
 ```
@@ -72,10 +72,10 @@ Now in the next task you can use provider as follows:
 
 <!-- {% raw %} -->
 ``` yaml
-bigip_device_info:
-  provider: "{{provider}}"
-  gather_subset:
-  - ltm-pools
+      f5networks.f5_modules.bigip_device_info:
+        provider: "{{provider}}"
+        gather_subset:
+        - ltm-pools
 ```
 <!-- {% endraw %} -->
 

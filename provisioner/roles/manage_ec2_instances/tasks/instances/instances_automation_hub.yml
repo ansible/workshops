@@ -30,4 +30,3 @@
         volume_size: "{{ ec2_info[control_type].disk_space }}"
         delete_on_termination: true
   register: hub_output
-

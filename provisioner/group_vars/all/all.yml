@@ -40,3 +40,4 @@ valid_security_console_types:
   - qradar
 ibm_community_grid: true
 create_cluster: false
+automation_hub: true

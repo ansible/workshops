@@ -55,11 +55,11 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 ``` yaml
   tasks:
     - name: ADD VIRTUAL SERVER
-      bigip_virtual_server:
+      f5networks.f5_modules.bigip_virtual_server:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
+          password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
         name: "vip"
@@ -80,7 +80,7 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
 - `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
 - `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
 - `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_ssh_pass}}"` ：　BIG-IPへログインする際のパスワードを指定します。
+- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
 - `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
 - `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
 - `name: "vip"` ： vip という名前のVirtual Server を作成することを指定します。

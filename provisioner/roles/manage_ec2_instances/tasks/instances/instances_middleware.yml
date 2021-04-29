@@ -1,0 +1,240 @@
+---
+- name: Create EC2 instances for node1
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info.middleware.size }}"
+    image: "{{ node_ami_middleware.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node1: "{{ ec2_name_prefix }}-node1"
+    instance_tags:
+      Workshop_node1: "{{ ec2_name_prefix }}-node1"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node1"
+      username: "{{ ec2_info.middleware.username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info.middleware.disk_space }}"
+        delete_on_termination: true
+  register: node1_output
+
+- name: Ensure tags are present for node1
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node1"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node1_output.instances }}"
+  when: node1_output.instance_ids is not none
+
+- name: Create EC2 instances for node2
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info.middleware.size }}"
+    image: "{{ node_ami_middleware.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node2: "{{ ec2_name_prefix }}-node2"
+    instance_tags:
+      Workshop_node2: "{{ ec2_name_prefix }}-node2"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node2"
+      username: "{{ ec2_info.middleware.username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info.middleware.disk_space }}"
+        delete_on_termination: true
+  register: node2_output
+
+- name: Ensure tags are present for node2
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node2"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node2_output.instances }}"
+  when: node2_output.instance_ids is not none
+
+- name: Create EC2 instances for node3
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info.middleware.size }}"
+    image: "{{ node_ami_middleware.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node3: "{{ ec2_name_prefix }}-node3"
+    instance_tags:
+      Workshop_node3: "{{ ec2_name_prefix }}-node3"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node3"
+      username: "{{ ec2_info.middleware.username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info.middleware.disk_space }}"
+        delete_on_termination: true
+  register: node3_output
+
+- name: Ensure tags are present for node3
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node3"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node3_output.instances }}"
+  when: node3_output.instance_ids is not none
+
+# Create isolated/remote node for Adv Tower lab when cluster install
+
+- name: Create EC2 instances for isonode
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info.middleware.size }}"
+    image: "{{ node_ami_middleware.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
+    instance_tags:
+      Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "isonode"
+      username: "{{ ec2_info.middleware.username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info.middleware.disk_space }}"
+        delete_on_termination: true
+  register: isonode_output
+  when: create_cluster|bool
+
+- name: Ensure tags are present for isonode
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-isonode"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ isonode_output.instances }}"
+  when: isonode_output.instance_ids is not none and create_cluster|bool
+
+- name: Create EC2 instances for remotenode
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info.middleware.size }}"
+    image: "{{ node_ami_middleware.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
+    instance_tags:
+      Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "remotenode"
+      username: "{{ ec2_info.middleware.username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info.middleware.disk_space }}"
+        delete_on_termination: true
+  register: remotenode_output
+  when: create_cluster|bool
+
+- name: Ensure tags are present for remotenode
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-remotenode"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ remotenode_output.instances }}"
+  when: remotenode_output.instance_ids is not none and create_cluster|bool

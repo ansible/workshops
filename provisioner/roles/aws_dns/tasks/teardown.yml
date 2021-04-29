@@ -24,3 +24,44 @@
   vars:
     records: '{{record_sets.ResourceRecordSets | selectattr("Name", "match", "student" + item|string + "." + ec2_name_prefix|lower + "." + workshop_dns_zone) | map(attribute="ResourceRecords") | list }}'
   when: records | length > 0
+
+- name: GRAB ROUTE53 INFORMATION - Satellite
+  route53_info:
+    type: A
+    query: record_sets
+    hosted_zone_id: "{{AWSINFO.zone_id}}"
+    start_record_name: "student1-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+  register: record_sets_sat
+
+- name: delete dns entries for Satellite for each student
+  become: false
+  route53:
+    state: "{{ s3_state }}"
+    zone: "{{workshop_dns_zone}}"
+    record: "student{{item}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: A
+    value: "{{ (records | first | first)['Value'] }}"
+  loop: "{{ range(1, student_total + 1)|list }}"
+  vars:
+    records: '{{record_sets_sat.ResourceRecordSets | selectattr("Name", "match", "student" + item|string + "-sat." + ec2_name_prefix|lower + "." + workshop_dns_zone) | map(attribute="ResourceRecords") | list }}'
+  when: records | length > 0
+
+- name: GRAB ROUTE53 INFORMATION - zone subdomain root
+  route53_info:
+    type: A
+    query: record_sets
+    hosted_zone_id: "{{AWSINFO.zone_id}}"
+    start_record_name: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+  register: record_sets_zone_root
+
+- name: delete dns entry for zone subdomain root
+  become: false
+  route53:
+    state: "{{ s3_state }}"
+    zone: "{{workshop_dns_zone}}"
+    record: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: A
+    value: "{{ (records | first | first)['Value'] }}"
+  vars:
+    records: '{{record_sets_zone_root.ResourceRecordSets | selectattr("Name", "match", ec2_name_prefix|lower + "." + workshop_dns_zone) | map(attribute="ResourceRecords") | list }}'
+  when: records | length > 0

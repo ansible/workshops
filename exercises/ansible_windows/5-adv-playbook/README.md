@@ -37,8 +37,8 @@ Section 1: Creating the Playbook
 To begin, we are going to create a new playbook, but it should look very
 familiar to the one you created in exercise 3
 
-Step 1:
--------
+Step 1
+------
 
 Within Visual Studio Code, create a new directory in your git repo and
 create a site.yml file.
@@ -49,7 +49,7 @@ you previously made `iis_basic`.
 ![Student Playbooks](images/5-vscode-existing-folders.png)
 
 Step 2: Create a folder called **iis_advanced** and a file called `site.yml`
------------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button
 
@@ -65,8 +65,8 @@ for creating your playbook.
 
 ![Empty site.yml](images/5-vscode-create-folders.png)
 
-Step 3:
--------
+Step 3
+------
 
 Add a play definition and some variables to your playbook. These include
 addtional packages your playbook will install on your web servers, plus
@@ -87,13 +87,14 @@ some web server specific configurations.
         iis_test_message: "Hello World!  My test IIS Server"
 ```
 
-Step 4:
--------
+Step 4
+------
 
 Add a new task called **install IIS**. After writing the playbook, click
 `File` &gt; `Save` to save your changes.
 
 <!-- {% raw %} -->
+
 ```yaml
       tasks:
         - name: Install IIS
@@ -116,6 +117,7 @@ Add a new task called **install IIS**. After writing the playbook, click
           with_items: "{{ iis_sites }}"
           notify: restart iis service
 ```
+
 <!-- {% endraw %} -->
 
 ![site.yml part 1](images/5-vscode-iis-yaml.png)
@@ -150,8 +152,8 @@ Section 2: Opening Firewall and Deploying Files
 
 After that, you will define a task to start the IIS service.
 
-Step 1:
--------
+Step 1
+------
 
 Create a `templates` directory in your project directory and create a
 template as follows:
@@ -167,6 +169,7 @@ You should now have an editor open in the right pane that can be used
 for creating your template. Enter the following details:
 
 <!-- {% raw %} -->
+
 ```html
     <html>
     <body>
@@ -177,18 +180,20 @@ for creating your template. Enter the following details:
     </body>
     </html>
 ```
+
 <!-- {% endraw %} -->
 
 ![index.html template](images/5-vscode-template.png)
 
-Step 2:
--------
+Step 2
+------
 
 Edit back your playbook, `site.yml`, by opening your firewall ports and
 writing the template. Use single quotes for `win_template` in order to
 not escape the forward slash.
 
 <!-- {% raw %} -->
+
 ```yaml
         - name: Open port for site on the firewall
           win_firewall_rule:
@@ -214,6 +219,7 @@ not escape the forward slash.
             - http://{{ ansible_host }}:8080
             - http://{{ ansible_host }}:8081
 ```
+
 <!-- {% endraw %} -->
 
 > **Note**
@@ -233,7 +239,6 @@ not escape the forward slash.
 >
 > - `debug:` Again, like in the `iis_basic` playbook, this task displays the URLs to access the sites we are creating for this exercise
 
-
 Section 3: Defining and Using Handlers
 ======================================
 
@@ -246,8 +251,8 @@ the a task. We will start with the former.
 The `handlers` block should start after a one-level indentation, that
 is, two spaces. It should align with the `tasks` block.
 
-Step 1:
--------
+Step 1
+------
 
 Define a handler.
 
@@ -304,6 +309,7 @@ intended. If not, now is the time for us to fix it up. The figure below
 shows line counts and spacing.
 
 <!-- {% raw %} -->
+
 ```yaml
     ---
     - hosts: windows
@@ -370,13 +376,14 @@ shows line counts and spacing.
             state: restarted
             start_mode: auto
 ```
+
 <!-- {% endraw %} -->
 
 Section 5: Create your Job Template
 ===================================
 
-Step 1:
--------
+Step 1
+------
 
 Before we can create our Job Template, you must first go resync your
 Project again. So do that now.
@@ -388,8 +395,8 @@ Project again. So do that now.
 > to Tower before it will become available in the Job Template playbook
 > dropdown.
 
-Step 2:
--------
+Step 2
+------
 
 To test this playbook, we need to create a new Job Template to run this
 playbook. So go to *Template* and click *Add* and select `Job Template`
@@ -407,18 +414,18 @@ Complete the form using the following values
 | PLAYBOOK    | `iis_advanced/site.yml`    |      |
 | CREDENTIAL  | Student Account            |      |
 | LIMIT       | windows                    |      |
-| OPTIONS     | [*] USE FACT CACHE         |      |
+| OPTIONS     | [\*] USE FACT CACHE         |      |
 
 ![Create Job Template](images/5-create-template.png)
 
-Step 3:
--------
+Step 3
+------
 
 Click SAVE ![Save](images/at_save.png) and then select ADD SURVEY
 ![Add](images/at_add_survey.png)
 
-Step 4:
--------
+Step 4
+------
 
 Complete the survey form with following values
 
@@ -433,18 +440,18 @@ Complete the survey form with following values
 
 ![Survey Form](images/5-survey.png)
 
-Step 5:
--------
+Step 5
+------
 
 Select ADD ![Add](images/at_add.png)
 
-Step 6:
--------
+Step 6
+------
 
 Select SAVE ![Add](images/at_save.png)
 
-Step 7:
--------
+Step 7
+------
 
 Back on the main Job Template page, select SAVE
 ![Add](images/at_save.png) again.
@@ -454,8 +461,8 @@ Section 6: Running your new playbook
 
 Now let’s run it and see how it works.
 
-Step 1:
--------
+Step 1
+------
 
 Select TEMPLATES
 
@@ -464,14 +471,14 @@ Select TEMPLATES
 > Alternatively, if you haven’t navigated away from the job templates
 > creation page, you can scroll down to see all existing job templates
 
-Step 2:
--------
+Step 2
+------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 **IIS Advanced** Job Template.
 
-Step 3:
--------
+Step 3
+------
 
 When prompted, enter your desired test message
 
@@ -482,8 +489,7 @@ When the job has successfully completed, you should see two URLs to your website
 
 ![Job output](images/5-job-output.png)
 
-
 ![IIS site](images/5-iis-8080.png)
 
 <br><br>
-[Click here to return to the Ansible for Windows Workshop](../readme.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

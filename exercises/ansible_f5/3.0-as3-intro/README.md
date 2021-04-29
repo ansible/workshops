@@ -184,7 +184,7 @@ The module [set_fact module](https://docs.ansible.com/ansible/latest/modules/set
         body_format: json
         force_basic_auth: true
         user: "{{ ansible_user }}"
-        password: "{{ ansible_ssh_pass }}"
+        password: "{{ ansible_password }}"
         validate_certs: false
       delegate_to: localhost
 ```

@@ -190,7 +190,7 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
         body_format: json
         force_basic_auth: true
         user: "{{ ansible_user }}"
-        password: "{{ ansible_ssh_pass }}"
+        password: "{{ ansible_password }}"
         validate_certs: false
       delegate_to: localhost
 ```

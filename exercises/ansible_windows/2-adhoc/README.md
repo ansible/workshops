@@ -11,8 +11,8 @@ to perform tasks on remote nodes without having to write a playbook.
 They are very useful when you simply need to do one or two things
 quickly, to many remote nodes.
 
-Step 1:
--------
+Step 1
+------
 
 To start, we will need to go to our Inventory. So click **Inventories**
 on the left panel, and then click the name of our Inventory **Workshop Inventory**. Now that you are on the Inventory Details page, we
@@ -65,8 +65,8 @@ used, as they all handle and deal with different data sets depending on
 the task. No matter which module is used, you will always see a color
 coded STATUS of either SUCCESS, FAILURE, CHANGED, or SKIPPING.
 
-Step 2:
--------
+Step 2
+------
 
 Now let’s see how we can run a PowerShell command and view the output
 using the `win_shell` module.
@@ -93,8 +93,8 @@ And run it one more time with the `Get-Process` Powershell command.
 | Arguments          | `Get-Process`   |      |
 | MACHINE CREDENTIAL | Student Account |      |
 
-Step 3:
--------
+Step 3
+------
 
 We will now take a look at your Windows nodes configuration. The `setup`
 module queries the remote host for various data and returns that data as
@@ -123,8 +123,8 @@ You will then see results like this
 
 (**Note:** If you click the three dots shown on line 23 in the above output, you will see all the facts returned by the `setup` module.)
 
-Step 4:
--------
+Step 4
+------
 
 Now, let’s install IIS using the `win_feature` module. Our arguments
 parameter is going to get a little more complex now.
@@ -141,8 +141,8 @@ changes were made earlier.
 
 ![Win\_Feature Log Details](images/2-adhoc-run-win_feature-output.png)
 
-Step 5:
--------
+Step 5
+------
 
 OK, IIS is installed now so let’s be certain it is started using the
 `win_service` module.
@@ -153,8 +153,8 @@ OK, IIS is installed now so let’s be certain it is started using the
 | Arguments          | `name=W3Svc state=started` |      |
 | MACHINE CREDENTIAL | Student Account            |      |
 
-Step 6:
--------
+Step 6
+------
 
 Finally, let’s clean up after ourselves. First, stop the IIS service.
 
@@ -164,8 +164,8 @@ Finally, let’s clean up after ourselves. First, stop the IIS service.
 | Arguments          | `name=W3Svc state=stopped` |      |
 | MACHINE CREDENTIAL | Student Account            |      |
 
-Step 7:
--------
+Step 7
+------
 
 Next, remove the IIS feature.
 
@@ -189,8 +189,6 @@ And now reboot the host.
 > wait for it to come completely back up before finishing. This way, if
 > you need to reboot the host in the middle of your playbook, the rest
 > of the playbook will not fail because the host is inaccessible.
-
-
 
 End Result
 ----------

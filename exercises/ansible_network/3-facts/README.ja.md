@@ -21,6 +21,8 @@ Ansible facts はリモートのネットワーク構成要素から取得され
 - [ios_facts モジュール](https://docs.ansible.com/ansible/latest/modules/ios_facts_module.html) の利用
 - [debug モジュール](https://docs.ansible.com/ansible/latest/modules/debug_module.html) の利用。
 
+# Guide
+
 #### Step 1
 
 コントローラーノード上で `ios_facts` モジュールと `debug` モジュールのドキュメントを確認します。

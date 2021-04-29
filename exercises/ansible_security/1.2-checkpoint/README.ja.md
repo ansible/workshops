@@ -25,7 +25,7 @@ MGMT サーバへのアクセスには Windows クライアントが必要であ
 RDP クライアントでインベントリにある `windows-ws` の IPアドレスを指定して、MGMT サーバへのアクセスを試してみてください。
 
 RDPクライアントをお持ちでない場合や、HTMLのRDPクライアントをテストしたい場合は、以下のURL( `http://<windows-wsIP>/myrtille` )をブラウザで開いてください。
-`<windows-wsIP>` を、インベントリにある Windows ワークステーションの IPアドレスに置き換えてください。ログインフィールドには、ユーザ名とパスワードのみを入力してください。他に指示がなければ、ユーザ名は **Administrator**、パスワードは **Ansible+Red*Hat19!** を利用します。他のフィールドは空のままにして、**Connect** をクリックします。
+`<windows-wsIP>` を、インベントリにある Windows ワークステーションの IPアドレスに置き換えてください。ログインフィールドには、ユーザ名とパスワードのみを入力してください。他に指示がなければ、ユーザ名は **Administrator**、パスワードはインベントリに記載されています。他のフィールドは空のままにして、**Connect** をクリックします。
 
 Google Chromeブラウザがインストールされている状態で、デフォルトのWindowsワークステーションにアクセスできるようになりました。
 
@@ -300,4 +300,4 @@ Check Point の通常の手作業による操作でどのように変更が実�
 
 ----
 
-[Ansible Security Automation Workshopの表紙に戻る](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

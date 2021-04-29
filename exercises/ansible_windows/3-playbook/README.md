@@ -1,3 +1,5 @@
+# Section 1: Creating a Directory Structure and Files for your Playbook
+
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
@@ -19,8 +21,7 @@ All of our playbooks will be stored in a single git **repository**.
 Multiple users can use the same repository and git will manage file
 conflicts and versions.
 
-Overview
-========
+## Overview
 
 Starting at this task we are going to use Visual Studio Code as our
 editor. In addition, we will use GitLab for source code control. This
@@ -28,8 +29,7 @@ will allow us to minimize development work on the linux command line.
 Other editors or source code solutions can be used, but this will show
 the general workflow.
 
-Section 1: Creating a Directory Structure and Files for your Playbook
-=====================================================================
+## Section 1: Creating a Directory Structure and Files for your Playbook
 
 There is a [best
 practice](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
@@ -57,7 +57,7 @@ section with only a README file in it.
 
 ![Student Playbooks Repo](images/3-vscode-open-folder.png)
 
-**Step 2:** Create a directory called **iis\_basic** and a file called
+**Step 2:** Create a directory called **iis_basic** and a file called
 `install_iis.yml`
 
 Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button.
@@ -70,8 +70,7 @@ for creating your playbook.
 
 ![Empty install\_iis.yml](images/3-vscode-create-folders.png)
 
-Section 2: Defining Your Play
-=============================
+## Section 2: Defining Your Play
 
 Now that you are editing `install_iis.yml`, let’s begin by defining the
 play and then understanding what each line accomplishes
@@ -82,15 +81,12 @@ play and then understanding what each line accomplishes
   hosts: windows
 ```
 
-- `---` Defines the beginning of YAML
-
-- `name: install the iis web service` This describes our play
-
-- `hosts: windows` Defines the host group in your inventory on which this
+* `---` Defines the beginning of YAML
+* `name: install the iis web service` This describes our play
+* `hosts: windows` Defines the host group in your inventory on which this
   play will run against
 
-Section 3: Adding Tasks to Your Play
-====================================
+## Section 3: Adding Tasks to Your Play
 
 Now that we’ve defined your play, let’s add some tasks to get some
 things done. Align (vertically) the **t** in `task` with the **h** in
@@ -102,6 +98,7 @@ If you want to see the entire playbook for reference, skip to the bottom
 of this exercise.
 
 <!-- {% raw %} -->
+
 ```yaml
       tasks:
        - name: install iis
@@ -123,11 +120,11 @@ of this exercise.
          debug:
            msg: "http://{{ ansible_host }}"
 ```
+
 <!-- {% endraw %} -->
 
-- `tasks:` This denotes that one or more tasks are about to be defined
-
-- `- name:` Each task requires a name which will print to standard
+* `tasks:` This denotes that one or more tasks are about to be defined
+* `- name:` Each task requires a name which will print to standard
   output when you run your playbook. Therefore, give your tasks a name
   that is short, sweet, and to the point
 
@@ -139,49 +136,53 @@ of this exercise.
       state: present
 ```
 
-- These three lines are calling the Ansible module **`win_feature`** to
+* These three lines are calling the Ansible module **`win_feature`** to
   install the IIS Web Server. [Click
   here](http://docs.ansible.com/ansible/latest/win_feature_module.html)
   to see all options for the `win_feature` module.
 
 <!-- -->
+
 ```yaml
     win_service:
       name: W3Svc
       state: started
 ```
 
-- The next few lines are using the ansible module **win\_service** to
+* The next few lines are using the ansible module **win_service** to
   start the IIS service. The `win_service` module is the preferred way
   of controlling services on remote hosts. [Click
   here](http://docs.ansible.com/ansible/latest/win_service_module.html)
   to learn more about the **`win_service`** module.
 
 <!-- {% raw %} -->
+
 ```yaml
     win_copy:
       content: "{{ iis_test_message }}"
       dest: C:\Inetpub\wwwroot\index.html
 ```
+
 <!-- {% endraw %} -->
 
-- In this task, we use the win\_copy module to create a file with
+* In this task, we use the win\_copy module to create a file with
   specific contents in it. We are getting a little more complex here
   as we are using a variable to source the contents. We won’t go into
   the variables just yet, since they will be showcased in a later
   lesson.
 
 <!-- {% raw %} -->
+
 ```yaml
     debug:
       msg: http://{{ ansible_host }}
 ```
+
 <!-- {% endraw %} -->
 
-- This task uses the `debug` module to post a message at the end of playbook execution. This particular message prints out `http://` + the variable name that contains the IP address of the host we're running the playbook on (our Windows IIS server)
+* This task uses the `debug` module to post a message at the end of playbook execution. This particular message prints out `http://` + the variable name that contains the IP address of the host we're running the playbook on (our Windows IIS server)
 
-Section 4: Saving your Playbook
-===============================
+## Section 4: Saving your Playbook
 
 Now that you’ve completed writing your playbook, it would be a shame not
 to keep it. Click `File > Save` from the menu.
@@ -235,6 +236,7 @@ You are ready to automate!
 > alignment.
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
 - name: install the iis web service
@@ -260,6 +262,8 @@ You are ready to automate!
       debug:
         msg: http://{{ ansible_host }}
 ```
+
 <!-- {% endraw %} -->
+
 <br><br>
 [Click here to return to the Ansible for Windows Workshop](../README.md)

@@ -1,0 +1,31 @@
+---
+- name: grab facts for node4 node
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
+  register: node4_node_facts
+
+- name: grab facts for node5 node
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_node5": "{{ec2_name_prefix}}-node5"
+  register: node5_node_facts
+
+- name: add hosts to groups (ANSIBLE RHEL MODE)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    username: "{{ item.tags.Student }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    groups: lab_hosts,managed_nodes
+  with_items:
+    - "{{ node4_node_facts.instances }}"
+    - "{{ node5_node_facts.instances }}"
+  changed_when: false

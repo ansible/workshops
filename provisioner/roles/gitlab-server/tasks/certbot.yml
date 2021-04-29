@@ -1,6 +1,5 @@
 ---
-
-- name: GitLab post | check to see if SSL cert already applied
+- name: GitLab pre | check to see if SSL cert already applied
   become: false
   get_certificate:
     host: "gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
@@ -11,22 +10,19 @@
   register: check_cert
 
 - block:
-    - name: GitLab post | stop gitlab
-      command: gitlab-ctl stop
-
-    - name: Install required RPM GPG keys
+    - name: GitLab pre | Install required RPM GPG keys
       rpm_key:
         state: present
         key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
       become: true
 
-    - name: GitLab post | Install EPEL
+    - name: GitLab pre | Install EPEL
       dnf:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
         state: present
 
     # temporary fix for rhel 8.2 dnf substitution
-    - name: fix EPEL repo substitution
+    - name: GitLab pre | fix EPEL repo substitution
       replace:
         path: "{{ item }}"
         regexp: '\$releasever'
@@ -37,7 +33,7 @@
       when:
         - ansible_distribution_major_version|int == 8
 
-    - name: GitLab post | Install base packages
+    - name: GitLab pre | Install base packages
       dnf:
         name:
           - python3-pip
@@ -45,28 +41,22 @@
           - certbot
         disable_gpg_check: true
 
-    - name: GitLab post | issue cert
-      shell: certbot certonly --no-bootstrap --standalone -d gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
-      register: issue_cert
-      until: issue_cert is not failed
-      retries: 5
-      ignore_errors: true
+    - name: GitLab pre | get some certs
+      block:
+        - name: GitLab pre | issue cert
+          shell: certbot certonly --no-bootstrap --standalone -d gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+          register: issue_gitlab_cert
+          until: issue_gitlab_cert is not failed
+          retries: 5
 
-    - name: GitLab post | reconfigure gitlab
-      command: gitlab-ctl reconfigure
-
-    - name: GitLab post | start gitlab
-      command: gitlab-ctl start
-
-    - name: GitLab post | wait for gitlab to start
-      become: false
-      get_certificate:
-        host: "gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-        port: 443
-      delegate_to: localhost
-      register: check_cert2
-      retries: 120
-      delay: 1
-      until: check_cert2 is not failed
+        - name: GitLab pre | use self signed cert
+          set_fact:
+            gitlab_create_self_signed_cert: false
+            gitlab_ssl_certificate: "/etc/letsencrypt/live/gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/fullchain.pem"
+            gitlab_ssl_certificate_key: "/etc/letsencrypt/live/gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
+      rescue:
+        - name: GitLab pre | use self signed cert
+          set_fact:
+            gitlab_create_self_signed_cert: true
 
   when: check_cert.cert is not defined

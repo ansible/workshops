@@ -87,18 +87,25 @@
       server_port: 8443
       server: "{{ ansible_host }}"
 
-- name: Save config and restart REST
+- name: Save Config
+  bigip_config:
+    save: true
+    provider:
+      validate_certs: "no"
+      user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
+      server: "{{ ansible_host }}"
+
+- name: Restart REST
   bigip_command:
     provider:
-      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-      transport: cli
+      validate_certs: "no"
       user: admin
+      password: "{{admin_password}}"
+      server_port: 8443
       server: "{{ ansible_host }}"
     commands:
-      - save sys config
       - restart sys service restjavad
       - restart sys service restnoded
-  register: save_config
-  until: save_config is not failed
-  retries: 5
-  delay: 10
+  ignore_errors: true

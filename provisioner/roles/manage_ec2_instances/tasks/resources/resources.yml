@@ -52,50 +52,6 @@
   until: create_sg is not failed
   retries: 5
 
-  ### Windows Security groups
-- name: Windows | Create security group
-  ec2_group:
-    name: "{{ ec2_name_prefix }}-windows"
-    description: "Windows Workshop SG"
-    vpc_id: "{{ create_vpc.vpc.id }}"
-    region: "{{ ec2_region }}"
-    tags:
-      Username: "{{ aws_user }}"
-      Info: "Username that provisioned this-> {{ aws_user }}"
-      Skylight: "This was provisioned through the skylight provisioner"
-      Students: "{{ student_total }}"
-      Workshop_type: "{{ workshop_type }}"
-      Workshop: "{{ ec2_name_prefix }}"
-      ansible-workshops: "true"
-    rules:
-      - proto: tcp
-        from_port: 22
-        to_port: 22
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 80
-        to_port: 80
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 443
-        to_port: 443
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 5986
-        to_port: 5986
-        cidr_ip: "0.0.0.0/0"
-      - proto: tcp
-        from_port: 3389
-        to_port: 3389
-        cidr_ip: "0.0.0.0/0"
-      - proto: tcp
-        from_port: 8080
-        to_port: 8081
-        cidr_ip: "0.0.0.0/0"
-      - proto: all
-        cidr_ip: "{{ ec2_subnet }}"
-  when: workshop_type == 'windows' or workshop_type == 'demo'
-
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"

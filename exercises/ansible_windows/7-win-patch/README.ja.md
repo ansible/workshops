@@ -172,5 +172,5 @@ Get-WMIObject Win32_QuickFixEngineering
 
 これで全ての演習は終了です！！  
 
-[ワークショップ一覧に戻る](../readme.ja.md)
+[ワークショップ一覧に戻る](../README.ja.md)
 

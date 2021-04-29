@@ -1,5 +1,5 @@
 ---
-- name: dns for student webpage
+- name: dns for tower node
   become: false
   route53:
     state: "{{ s3_state }}"

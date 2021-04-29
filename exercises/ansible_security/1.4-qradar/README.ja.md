@@ -305,4 +305,4 @@ Ansible が実際に何かを変更したことを確認するために、QRadar
 
 ----
 
-[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.ja.md#section-1---introduction-to-ansible-security-automation-basics)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

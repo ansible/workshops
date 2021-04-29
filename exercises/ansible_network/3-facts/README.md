@@ -4,26 +4,27 @@
 
 ## Table of Contents
 
-- [Objective](#objective)
-- [Guide](#guide)
-- [Takeaways](#takeaways)
-- [Solution](#solution)
+* [Objective](#objective)
+* [Guide](#guide)
+* [Takeaways](#takeaways)
+* [Solution](#solution)
 
-# Objective
+## Objective
 
 Demonstration use of Ansible facts on network infrastructure.
 
 Ansible facts are information derived from speaking to the remote network elements.  Ansible facts are returned in structured data (JSON) that makes it easy manipulate or modify.  For example a network engineer could create an audit report very quickly using Ansible facts and templating them into a markdown or HTML file.
 
 This exercise will cover:
-- Building an Ansible Playbook from scratch.
-- Using [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html).
-- Using the [ios_facts module](https://docs.ansible.com/ansible/latest/modules/ios_facts_module.html).
-- Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
-# Guide
+* Building an Ansible Playbook from scratch.
+* Using [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html).
+* Using the [ios_facts module](https://docs.ansible.com/ansible/latest/modules/ios_facts_module.html).
+* Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
-#### Step 1
+## Guide
+
+### Step 1
 
 On the control host read the documentation about the `ios_facts` module and the `debug` module.
 
@@ -39,14 +40,13 @@ What happens when you use `debug` without specifying any parameter?
 
 How can you limit the facts collected ?
 
-
-#### Step 2:
+### Step 2
 
 Ansible Playbooks are [**YAML** files](https://yaml.org/). YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
 
-Using your favorite text editor (`vim` and `nano` are available on the control host) create a new file called `facts.yml`:  
+Using your favorite text editor (`vim` and `nano` are available on the control host) create a new file called `facts.yml`:
 
-```
+```sh
 [student1@ansible network-workshop]$ vim facts.yml
 ```
 
@@ -60,16 +60,15 @@ Enter the following play definition into `facts.yml`:
 ```
 
 Here is an explanation of each line:
-- The first line, `---` indicates that this is a YAML file.
-- The `- name:` keyword is an optional description for this particular Ansible Playbook.
-- The `hosts:` keyword means this playbook against the group `cisco` defined in the inventory file.
-- The `gather_facts: no` is required since as of Ansible 2.8 and earlier, this only works on Linux hosts, and not network infrastructure.  We will use a specific module to gather facts for network equipment.
 
+* The first line, `---` indicates that this is a YAML file.
+* The `- name:` keyword is an optional description for this particular Ansible Playbook.
+* The `hosts:` keyword means this playbook against the group `cisco` defined in the inventory file.
+* The `gather_facts: no` is required since as of Ansible 2.8 and earlier, this only works on Linux hosts, and not network infrastructure.  We will use a specific module to gather facts for network equipment.
 
-#### Step 3
+### Step 3
 
 Next, add the first `task`. This task will use the `ios_facts` module to gather facts about each device in the group `cisco`.
-
 
 ```yaml
 ---
@@ -82,13 +81,13 @@ Next, add the first `task`. This task will use the `ios_facts` module to gather 
       ios_facts:
 ```
 
->A play is a list of tasks. Modules are pre-written code that perform the task.
+> A play is a list of tasks. Modules are pre-written code that perform the task.
 
-#### Step 4
+### Step 4
 
 Execute the Ansible Playbook:
 
-```
+```sh
 [student1@ansible network-workshop]$ ansible-playbook facts.yml
 ```
 
@@ -106,13 +105,11 @@ PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-
-#### Step 5
+### Step 5
 
 The play ran successfully and executed against the Cisco router(s). But where is the output? Re-run the playbook using the verbose `-v` flag.
 
-
-```
+```sh
 [student1@ansible network-workshop]$ ansible-playbook facts.yml -v
 Using /home/student1/.ansible.cfg as config file
 
@@ -147,16 +144,16 @@ PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-
 > Note: The output returns key-value pairs that can then be used within the playbook for subsequent tasks. Also note that all variables that start with **ansible_** are automatically available for subsequent tasks within the play.
 
-#### Step 6
+### Step 6
 
 Running a playbook in verbose mode is a good option to validate the output from a task. To work with the variables within a playbook you can use the `debug` module.
 
 Write two additional tasks that display the routers' OS version and serial number.
 
 <!-- {% raw %} -->
+
 ``` yaml
 ---
 - name: gather information from routers
@@ -175,14 +172,14 @@ Write two additional tasks that display the routers' OS version and serial numbe
       debug:
         msg: "The serial number is:{{ ansible_net_serialnum }}"
 ```
+
 <!-- {% endraw %} -->
 
-
-#### Step 8
+### Step 8
 
 Now re-run the playbook but this time do not use the `verbose` flag:
 
-```
+```sh
 [student1@ansible network-workshop]$ ansible-playbook facts.yml
 
 PLAY [gather information from routers] **************************************************************************************
@@ -202,24 +199,21 @@ PLAY RECAP *********************************************************************
 rtr1                       : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-
 Using less than 20 lines of "code" you have just automated version and serial number collection. Imagine if you were running this against your production network! You have actionable data in hand that does not go out of date.
 
-# Takeaways
+## Takeaways
 
-- The [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html) command will allow you access to documentation without an internet connection.  This documentation also matches the version of Ansible on the control node.
-- The [ios_facts module](https://docs.ansible.com/ansible/latest/modules/ios_config_module.html) gathers structured data specific for Cisco IOS.  There are relevant modules for each network platform.  For example there is a junos_facts for Juniper Junos, and a eos_facts for Arista EOS.
-- The [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) allows an Ansible Playbook to print values to the terminal window.
+* The [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html) command will allow you access to documentation without an internet connection.  This documentation also matches the version of Ansible on the control node.
+* The [ios_facts module](https://docs.ansible.com/ansible/latest/modules/ios_config_module.html) gathers structured data specific for Cisco IOS.  There are relevant modules for each network platform.  For example there is a junos_facts for Juniper Junos, and a eos_facts for Arista EOS.
+* The [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) allows an Ansible Playbook to print values to the terminal window.
 
-
-# Solution
+## Solution
 
 The finished Ansible Playbook is provided here for an answer key: [facts.yml](facts.yml).
 
----
-
-# Complete
+## Complete
 
 You have completed lab exercise 3
 
+---
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

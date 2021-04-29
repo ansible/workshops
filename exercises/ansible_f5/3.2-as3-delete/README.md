@@ -56,7 +56,7 @@ Enter the following play definition into `delete.yml`:
         body_format: json
         force_basic_auth: true
         user: "{{ ansible_user }}"
-        password: "{{ ansible_ssh_pass }}"
+        password: "{{ ansible_password }}"
         validate_certs: false
       delegate_to: localhost
 ```

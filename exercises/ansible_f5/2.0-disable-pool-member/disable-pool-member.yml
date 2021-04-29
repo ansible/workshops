@@ -15,7 +15,7 @@
           validate_certs: false
 
     - name: Query BIG-IP facts
-      bigip_device_info:
+      f5networks.f5_modules.bigip_device_info:
         provider: "{{provider}}"
         gather_subset:
           - ltm-pools
@@ -44,7 +44,7 @@
       register: member_name
 
     - name: Disable ALL pool members
-      bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         provider: "{{provider}}"
         state: "forced_offline"
         name: "{{item.split(':')[0]}}"
@@ -57,7 +57,7 @@
       when: '"all" in member_name.user_input'
 
     - name: Disable pool member {{member_name.user_input}}
-      bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         provider: "{{provider}}"
         state: "forced_offline"
         name: "{{member_name.user_input.split(':')[0]}}"

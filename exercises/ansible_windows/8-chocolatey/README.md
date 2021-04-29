@@ -292,6 +292,7 @@ Add your new playbook to your source control repo, and sync your project in Ansi
 | INVENTORY   | Workshop Inventory                               |      |
 | PROJECT     | Ansible Workshop Project                         |      |
 | PLAYBOOK    | `chocolatey/chocolatey_conguration.yml`          |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account**     |      |
 | LIMIT       | windows                                          |      |
 | OPTIONS     |                                                  |      |
 

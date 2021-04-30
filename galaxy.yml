@@ -1,0 +1,52 @@
+---
+namespace: ansible
+name: workshops
+version: 0.0.1
+readme: README.md
+
+authors:
+  - Sean Cavanaugh <seanc@redhat.com>
+
+build_ignore:
+  - assets
+  - decks
+  - demos
+  - exercises
+  - '*.tar.gz'
+  - provisioner
+  - vagrant-demo
+
+
+# A short summary description of the collection
+description: reusable content from Ansible Automation Workshops
+
+license:
+  - GPL-2.0-or-later
+
+# The path to the license file for the collection. This path is relative to the root of the collection. This key is
+# mutually exclusive with 'license'
+license_file: ''
+
+# A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
+# requirements as 'namespace' and 'name'
+tags: []
+
+# Collections that this collection requires to be installed for it to be usable. The key of the dict is the
+# collection label 'namespace.name'. The value is a version range
+# L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
+# range specifiers can be set and are separated by ','
+dependencies:
+  "awx.awx": "*"    # note: "*" selects the highest version available
+
+
+# The URL of the originating SCM repository
+repository: https://github.com/ansible/workshops
+
+# The URL to any online docs
+documentation: https://github.com/ansible/workshops/blob/devel/README.md
+
+# The URL to the homepage of the collection/project
+homepage: https://ansible.github.io/workshops/
+
+# The URL to the collection issue tracker
+issues: https://github.com/ansible/workshops/issues

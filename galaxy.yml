@@ -4,24 +4,23 @@ version: 0.0.1
 readme: README.md
 
 authors:
-- Sean Cavanaugh <seanc@redhat.com>
+  - Sean Cavanaugh <seanc@redhat.com>
 
 build_ignore:
-- assets
-- decks
-- demos
-- exercises
-- '*.tar.gz'
-- provisioner
-- vagrant-demo
-
+  - assets
+  - decks
+  - demos
+  - exercises
+  - '*.tar.gz'
+  - provisioner
+  - vagrant-demo
 
 
 # A short summary description of the collection
 description: reusable content from Ansible Automation Workshops
 
 license:
-- GPL-2.0-or-later
+  - GPL-2.0-or-later
 
 # The path to the license file for the collection. This path is relative to the root of the collection. This key is
 # mutually exclusive with 'license'

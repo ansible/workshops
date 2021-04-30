@@ -1,0 +1,25 @@
+---
+name: 📖 Documentation Issue
+description: problem with the Ansible Workshops documentation?
+labels: ["type: documentation"]
+body:
+  - type: dropdown
+    attributes:
+      label: Area
+      description: To what section of the documentation does this change primarily pertain?
+      options:
+        - Ansible Red Hat Enterprise Linux Workshop
+        - Ansible Network Automation Workshop
+        - Ansible F5 Workshop
+        - Ansible Security Automation
+        - Ansible Windows Automation Workshop
+        - Smart Management Automation Workshop
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed Changes
+      description: "Describe the issue and provide a link to the file(s) affected"
+    validations:
+      required: true

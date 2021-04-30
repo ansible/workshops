@@ -30,7 +30,6 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## Self Paced Exercises
 
-- [Vagrant Lab](vagrant-demo) - self-paced network automation exercises that can be run on your personal laptop
 - [Katacoda Labs](https://developers.redhat.com/products/ansible/getting-started) - self-paced in-browser experience on developers.redhat.com.  There is multiple lessons on Getting Started with Ansible.
 
 ## Product Demos

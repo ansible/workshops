@@ -12,3 +12,5 @@ rules:
     max-spaces-inside: 1
     level: error
   line-length: disable
+  truthy:
+    allowed-values: ['yes', 'no', 'true', 'false', 'on', 'off']

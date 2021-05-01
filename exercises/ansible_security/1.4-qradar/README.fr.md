@@ -1,5 +1,8 @@
 # Exercice 1.4 - Exécution du premier playbook IBM QRadar
 
+**Lisez ceci dans d'autres langues**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+
 ## Étape 4.1 - IBM QRadar
 
 Pour montrer comment automatiser un SIEM dans un environnement de sécurité, nous allons utiliser [IBM QRadar, community edition](https://developer.ibm.com/qradar/ce/).

@@ -4,7 +4,8 @@ Ansible is a simple yet powerful IT automation engine for application deployment
 
 In this workshop you will learn - step by step - how you can use Ansible to orchestrate 3 security investigation and response activities involving multiple security tools: an enterprise firewall (CheckPoint Next Generation Firewall), an intrusion detection system (Snort) and a SIEM (IBM QRadar).
 
-**Read this in other languages**: [![uk](../../images/uk.png) English](README.md).
+**Read this in other languages**: <br>
+[![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja.md), [![france](../../images/fr.png) Français](README.fr.md).<br>
 
 ## Time planning
 

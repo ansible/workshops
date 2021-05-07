@@ -426,7 +426,7 @@
         snapshot_id: "{{ item.0 }}"
         region: "{{ ec2_region }}"
         state: absent
-        wait: yes
+        wait: true
       with_together:
         - "{{ snapshots_details.snapshots | map(attribute='snapshot_id') | list }}"
       when:

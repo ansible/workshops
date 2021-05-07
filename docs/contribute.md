@@ -99,6 +99,26 @@ ________________________________________________________________________________
 
 To make sure this is run everytime one commits a change, and hence one is not sending a Pull Request that won't be merged, one could enable this as part of a git [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
 
+### Adding CI to a new workshop type
+
+Two sides to CI (Continuous Integration).  
+
+1. WORKSHOP SIDE:
+Example PR from Will Tome
+https://github.com/ansible/workshops/pull/1083
+
+2. CI SIDE
+
+Yanis side PR to enable that workshop testing:
+ * https://github.com/ansible/ansible-zuul-jobs/pull/778
+ * https://github.com/ansible/project-config/pull/739
+
+FAQ:
+I'm working on getting CI going to a new ansible workshop. Is it possible to exclude a directory from lint check?
+
+Yanis Guenane:
+Yes - https://github.com/ansible/workshops/blob/devel/.yamllint#L4
+
 # Contributing New Workshop Types of content
 
 - [Contribute New Workshop Topology for AWS](contribute-aws.md)

@@ -17,7 +17,7 @@
     tower_password: "{{ admin_password }}"
   register: change_base_url
   until: change_base_url is not failed
-  retries: 5
+  retries: 10
 
   # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
 - name: install certbot if not already installed

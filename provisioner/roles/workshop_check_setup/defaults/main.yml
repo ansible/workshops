@@ -5,3 +5,4 @@ collections:
   - ansible.product_demos
   - redhat_cop.tower_utilities:==0.3.2
   - redhat_cop.tower_configuration:==1.0.2
+  - community.aws

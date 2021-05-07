@@ -47,7 +47,7 @@
         name: redhat_cop.tower_utilities.tower_virtual_environments
 
 - name: configure tower Credentials
-  hosts: control_nodes[0]
+  hosts: control_nodes
   gather_facts: false
   vars:
     tower_infra_workloads:

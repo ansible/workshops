@@ -46,6 +46,23 @@
     - "{{ node4_output.instances }}"
   when: node4_output.instance_ids is not none
 
+- name: Associate IAM instance profile with node4
+  command: >
+    aws ec2 associate-iam-instance-profile
+      --iam-instance-profile Name=VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}
+      --instance-id {{ item.1.id }}
+      --region {{ ec2_region }}
+  with_indexed_items:
+    - "{{ node4_output.instances }}"
+  register: associate_iam_instance_profile
+  failed_when: '"There is an existing association for instance" not in associate_iam_instance_profile.stderr'
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node4_output.instance_ids is not none
+    - tower_node_aws_api_access|default(false)|bool
+
 - name: Create EC2 instances for node5
   ec2:
     assign_public_ip: true
@@ -92,3 +109,20 @@
   with_indexed_items:
     - "{{ node5_output.instances }}"
   when: node5_output.instance_ids is not none
+
+- name: Associate IAM instance profile with node5
+  command: >
+    aws ec2 associate-iam-instance-profile
+      --iam-instance-profile Name=VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}
+      --instance-id {{ item.1.id }}
+      --region {{ ec2_region }}
+  with_indexed_items:
+    - "{{ node5_output.instances }}"
+  register: associate_iam_instance_profile
+  failed_when: '"There is an existing association for instance" not in associate_iam_instance_profile.stderr'
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node5_output.instance_ids is not none
+    - tower_node_aws_api_access|default(false)|bool

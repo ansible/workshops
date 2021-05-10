@@ -157,7 +157,7 @@ Apache should now listen on port 8080. Easy enough to verify:
 curl: (7) Failed to connect to node1 port 80: Connection refused
 [student1@ansible ansible-files]$ curl http://node1:8080
 <body>
-<h1>This is a production webserver, take care!</h1>
+<h1>This is a development webserver, have fun!</h1>
 </body>
 ```
 

@@ -56,7 +56,7 @@ node2 ansible_host=33.44.55.66
 node3 ansible_host=44.55.66.77
 
 [control]
-ansible ansible_host=11.22.33.44
+ansible-1 ansible_host=11.22.33.44
 ```
 
 > **警告**

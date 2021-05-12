@@ -42,7 +42,7 @@ Ansible Tower は、IT 自動化のためのエンタープライズソリュー
 
 | Role                         | Inventory name |
 | -----------------------------| ---------------|
-| Ansible Control Host & Tower | ansible        |
+| Ansible Control Host & Tower | ansible-1      |
 | Managed Host 1               | node1          |
 | Managed Host 2               | node2          |
 | Managed Host 2               | node3          |

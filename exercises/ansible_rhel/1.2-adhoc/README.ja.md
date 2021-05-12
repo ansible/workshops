@@ -47,7 +47,7 @@ node2 ansible_host=<Y.Y.Y.Y>
 node3 ansible_host=<Z.Z.Z.Z>
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 Ansible
@@ -70,7 +70,7 @@ Ansible
 
 ```bash
 [student<X@>ansible ~]$ ansible web  --list-hosts
-[student<X@>ansible ~]$ ansible web,ansible --list-hosts
+[student<X@>ansible ~]$ ansible web,control --list-hosts
 [student<X@>ansible ~]$ ansible 'node*' --list-hosts
 [student<X@>ansible ~]$ ansible all --list-hosts
 ```
@@ -130,7 +130,7 @@ node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 > **ヒント**

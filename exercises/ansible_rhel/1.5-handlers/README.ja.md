@@ -61,7 +61,7 @@ node3 ansible_host=33.44.55.66
 node2 ansible_host=22.33.44.55
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 次に、`~/ansible-files/` ディレクトリーのコントロールホストで `ftpserver.yml` ファイルを作成します。
@@ -221,9 +221,12 @@ Playbook と出力の概要:
 前述のように、ループはハッシュのリストでも実行できます。ユーザーを別の追加グループに割り当てる必要があると想像してください。
 
 ```yaml
-- username: dev_user groups: ftp
-- username: qa_user groups: ftp
-- username: prod_user groups: apache
+- username: dev_user
+  groups: ftp
+- username: qa_user
+  groups: ftp
+- username: prod_user
+  groups: apache
 ```
 
 `user` モジュールには、その他のユーザーを一覧表示するためのオプションのパラメーター `groups`

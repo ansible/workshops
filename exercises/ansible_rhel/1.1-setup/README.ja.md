@@ -26,7 +26,7 @@
 
 | Role                 | Inventory name |
 | ---------------------| ---------------|
-| Ansible Control Host | ansible        |
+| Ansible Control Host | ansible-1      |
 | Managed Host 1       | node1          |
 | Managed Host 2       | node2          |
 | Managed Host 3       | node3          |

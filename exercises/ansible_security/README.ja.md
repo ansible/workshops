@@ -5,8 +5,8 @@ Ansibleはアプリケーションの展開、構成管理、オーケストレ�
 このワークショップでは、企業のファイアウォール（CheckPoint Next Generation Firewall）、侵入検知システム（Snort）、SIEM（IBM QRadar）などの複数のセキュリティツールを含む3つのセキュリティ調査・対応アクティビティをAnsibleを使ってオーケストレーションする方法をステップバイステップで学びます。
 
 
-**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
-<br>
+**Read this in other languages**: <br>
+[![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja.md), [![france](../../images/fr.png) Français](README.fr.md).<br>
 
 ## 時間配分
 

@@ -1,5 +1,8 @@
 # Exercice 2.1 - Enquête approfondie
 
+**Lisez ceci dans d'autres langues**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+
 ## Étape 1.1 - Le contexte
 
 Dans la dernière section, l'accent a été mis sur les outils individuels et sur la façon dont ils peuvent être automatisés avec Ansible. Dans le quotidien des administraeur de la sécurité, le besoin est bien plus élevé: lorsqu'un événement suspect se produit et nécessite une plus grande attention, les opérations de sécurité doivent déployer de nombreux outils pour sécuriser d'entreprise. Dans de nombreux environnements d'entreprise, les solutions de sécurité ne sont pas intégrées les unes aux autres et, dans les grandes organisations, différentes équipes sont en charge de différents aspects de la sécurité informatique, sans processus en commun. Cela conduit souvent à un travail manuel et à une interaction entre des personnes d'équipes différentes qui est sujette aux erreurs et qui est surtout lente.

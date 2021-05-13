@@ -1,0 +1,32 @@
+---
+- name: Create EC2 instances for private automation hub
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[control_type].size }}"
+    image: "{{ ansible_control_node_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: 1
+    count_tag:
+      Workshop_automation-hub: "{{ ec2_name_prefix }}-automation-hub"
+    instance_tags:
+      Workshop_automation-hub: "{{ ec2_name_prefix }}-automation-hub"
+      App: AnsibleWorkshop
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
+      Students: "{{ student_total }}"
+      username: "{{ ec2_info[control_type].username }}"
+      short_name: "automation-hub"
+      long_name: "automation-hub.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default ('') }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_info[control_type].disk_space }}"
+        delete_on_termination: true
+  register: hub_output

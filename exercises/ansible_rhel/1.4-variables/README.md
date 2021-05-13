@@ -59,7 +59,7 @@ For understanding and practice let’s do a lab. Following up on the theme "Let�
 On the ansible control host, as the `student<X>` user, create the directories to hold the variable definitions in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir host_vars group_vars
+[student<X>@ansible-1 ansible-files]$ mkdir host_vars group_vars
 ```
 
 Now create two files containing variable definitions. We’ll define a variable named `stage` which will point to different environments, `dev` or `prod`:
@@ -132,7 +132,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 * Run the Playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
 ### Step 4 - Test the Result
@@ -142,7 +142,7 @@ The Ansible Playbook copies different files as index.html to the hosts, use `cur
 For node1:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl http://node1
+[student<X>@ansible-1 ansible-files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -151,7 +151,7 @@ For node1:
 For node2:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://node2
+[student1@ansible-1 ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -160,7 +160,7 @@ For node2:
 For node3:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://node3
+[student1@ansible-1 ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -177,19 +177,19 @@ Ansible facts are variables that are automatically discovered by Ansible from a 
 To get an idea what facts Ansible collects by default, on your control node as your student user run:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup
 ```
 
 This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
 ```
 
 Or what about only looking for memory related facts:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
 ```
 
 ### Step 6 - Challenge Lab: Facts
@@ -205,8 +205,8 @@ Or what about only looking for memory related facts:
 > **Solution below\!**
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep distribution
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup|grep distribution
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
 ```
 
 ### Step 7 - Using Facts in Playbooks
@@ -234,7 +234,7 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
 Execute it to see how the facts are printed:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook facts.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook facts.yml
 
 PLAY [Output facts within a playbook] ******************************************
 
@@ -242,7 +242,7 @@ TASK [Gathering Facts] *********************************************************
 ok: [node3]
 ok: [node2]
 ok: [node1]
-ok: [ansible]
+ok: [ansible-1]
 
 TASK [Prints Ansible facts] ****************************************************
 ok: [node1] =>
@@ -251,11 +251,11 @@ ok: [node2] =>
   msg: The default IPv4 address of node2 is 172.16.30.170
 ok: [node3] =>
   msg: The default IPv4 address of node3 is 172.16.140.196
-ok: [ansible] =>
+ok: [ansible-1] =>
   msg: The default IPv4 address of ansible is 172.16.2.10
 
 PLAY RECAP *********************************************************************
-ansible                    : ok=2    changed=0    unreachable=0    failed=0
+ansible-1                  : ok=2    changed=0    unreachable=0    failed=0
 node1                      : ok=2    changed=0    unreachable=0    failed=0
 node2                      : ok=2    changed=0    unreachable=0    failed=0
 node3                      : ok=2    changed=0    unreachable=0    failed=0

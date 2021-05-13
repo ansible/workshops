@@ -1,5 +1,8 @@
 # Exercice 1.3 - Exécution du premier playbook Snort
 
+**Lisez ceci dans d'autres langues**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+
 ## Étape 3.1 - Snort
 
 Pour montrer comment automatiser un système de détection d'intrusion et de prévention d'intrusion dans un environnement de sécurité, cet atelier vous guidera dans la gestion d'une instance Snort IDS. Snort analyse le trafic réseau et le compare à un ensemble de règles donné.

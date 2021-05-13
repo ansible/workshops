@@ -24,7 +24,7 @@
 を作成することは可能ですが、最終的には複数のファイルを再利用して、整理することをお勧めします。
 
 これを行うには、Ansible Roles を使用します。ロールを作成するときは、Playbook
-を複数のパーツに分け、それらのパーツをディレクトリー構造に配置します。これについては、[ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)
+を複数のパーツに分け、それらのパーツをディレクトリー構造に配置します。これについては、[ベストプラクティス](https://docs.ansible.com/ansible/2.9_ja/user_guide/playbooks_best_practices.html)
 で詳しく説明されています。
 
 この演習では、以下について説明します。

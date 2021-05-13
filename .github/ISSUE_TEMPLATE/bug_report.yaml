@@ -1,0 +1,78 @@
+---
+name: 🐛 Bug report
+description: Fill out this issue form to help us solve your problem
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for opening an issue!
+        If you are a Red Hat employee and a workshop did not provision correctly through RHPDS (Red Hat Product Demo System) please contact GPTE for support rhpds-help@redhat.com.
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Problem Summary
+      description: >-
+        Describe the issue you are experiencing here to communicate to the
+        maintainers. Tell us what you were trying to do and what happened.
+        Provide a clear and concise description of what the problem is.  Please paste subset of playbook output (The failing task) so we can priotize and try to start troubleshooting.
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: Issue Type
+      description: >
+        What kind of issue do you want to open?
+      options:
+        - Bug
+        - Feature Request
+        - Security Issue
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Extra vars file
+      description: >-
+        Paste verbatim output of cat vars.yml (the extra vars file used to provision the workshop). For more information on the extra vars file please refer to: https://github.com/ansible/workshops/tree/devel/provisioner#setup-per-workshop
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Ansible Playbook Output
+      description: >-
+        Paste Ansible Playbook output
+  - type: markdown
+    attributes:
+      value: |
+        ## Ansible Environment
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Ansible Version
+      description: >-
+        Paste verbatim output from "ansible --version"
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Ansible Configuration
+      description: >-
+        Paste verbatim output from "ansible-config dump --only-changed"
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: Ansible Execution Node
+      description: >
+        Where is execution happening?
+      options:
+        - CLI Ansible (Ansible Core)
+        - Ansible Controller (previously known as Ansible Tower)
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Operating System
+      description: >-
+        Are you running from RHEL, Ubuntu, MacOS?  Provide details here.

@@ -3,7 +3,7 @@
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_name_prefix }}-windows"
+    group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_rhel8_gitlab']['size'] }}"
     image: "{{ win_gitlab_ami.image_id }}"
     region: "{{ ec2_region }}"
@@ -36,7 +36,7 @@
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_name_prefix }}-windows"
+    group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"
     image: "{{ win_instance_ami.image_id }}"
     region: "{{ ec2_region }}"
@@ -66,7 +66,7 @@
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_name_prefix }}-windows"
+    group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"
     image: "{{ win_instance_ami.image_id }}"
     region: "{{ ec2_region }}"

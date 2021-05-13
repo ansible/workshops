@@ -1,7 +1,7 @@
 # Red Hat Ansible Automation Platform Workshops
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md)
+<br>![uk](./images/uk.png) [English](README.md),  ![japan](./images/japan.png)[日本語](README.ja.md)
 
 Red Hat Ansible Automation Workshops
 プロジェクトは、インストラクター主導のワークショップまたは自己ペースで、Ansible の機能を効果的にデモンストレーションすることを目的としています。

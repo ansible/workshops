@@ -50,7 +50,7 @@ ssh studentX@11.22.33.44
 Then become root:
 
 ```bash
-[student<X>@ansible ~]$ sudo -i
+[student<X>@ansible-1 ~]$ sudo -i
 ```
 
 Most prerequisite tasks have already been done for you:
@@ -62,7 +62,7 @@ Most prerequisite tasks have already been done for you:
 Check Ansible has been installed correctly
 
 ```bash
-[root@ansible ~]# ansible --version
+[root@ansible-1 ~]# ansible --version
 ansible 2.7.0
 [...]
 ```
@@ -74,7 +74,7 @@ ansible 2.7.0
 Log out of the root account again:
 
 ```bash
-[root@ansible ~]# exit
+[root@ansible-1 ~]# exit
 logout
 ```
 

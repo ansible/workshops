@@ -87,14 +87,14 @@ Ansible looks for roles in a subdirectory called `roles` in the project director
 Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir roles
-[student<X>@ansible ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
+[student<X>@ansible-1 ansible-files]$ mkdir roles
+[student<X>@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
 ```
 
 Have a look at the role directories and their content:
 
 ```bash
-[student<X>@ansible ansible-files]$ tree roles
+[student<X>@ansible-1 ansible-files]$ tree roles
 ```
 
 ```text
@@ -308,13 +308,13 @@ Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles exe
 Now you are ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
 ```
 
 Run a curl command against `node2` to confirm that the role worked:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://node2:8080
+[student<X>@ansible-1 ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 

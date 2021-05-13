@@ -22,6 +22,14 @@
       name: "{{ ec2_info[control_type].filter }}"
       architecture: "{{ ec2_info[control_type].architecture }}"
   register: amis
+  tags:
+    - amis
+
+- name: Debug AMI from region
+  debug:
+    var: amis
+  tags:
+    - debug_amis
 
 - name: save ami for ansible control node
   set_fact:

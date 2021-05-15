@@ -1,3 +1,7 @@
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
+<br>
+
 This exercise aims to introduce how Ansible makes it easy to control all aspects of managing Windows software using Chocolatey. We will cover Installing, updating and uninstalling packages, managing different sources, configuring chocolatey clients and other common tasks that a system administrator would take on.
 
 So what is Chocolatey anyways? Simply put, Chocolatey is a package management system for Windows. Chocolatey aims to simplify software management, making it easier to automate your entire Windows software lifecycle.

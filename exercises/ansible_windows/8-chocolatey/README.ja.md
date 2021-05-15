@@ -1,3 +1,8 @@
+# 演習 8 - Chocolatey
+
+**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
+<br>
+
 この演習では、Chocolateyを利用してどのようにWindows上のソフトウェアを簡単に管理するかについてご紹介します。インストール、アップデートとアンインストール、異なるソースの管理、chocolateyクライアントの構成やシステム管理者が行う一般的なタスクについて取り扱います。
 
 Chocolateyとは何でしょうか。簡単に説明すると、ChocolateyはWindows用のパッケージ管理システムです。Chocolateyは、シンプルかつ簡単にWindowsソフトウェアのライフサイクル全体を自動化します。

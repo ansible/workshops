@@ -19,7 +19,7 @@
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html).
+Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more details in the [Tips and tricks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) and the [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html).
 
 This exercise will cover:
 

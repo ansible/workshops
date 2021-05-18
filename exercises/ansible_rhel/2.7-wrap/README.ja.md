@@ -132,7 +132,7 @@
 <!-- {% raw %} -->
 
 ```bash
-[student<X>@ansible ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
+[student<X>@ansible-1 ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
  [WARNING]: Consider using the get_url or uri module rather than running 'curl'.  If you need to use command because get_url or uri is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in ansible.cfg to get rid of this message.
 
 node2 | CHANGED | rc=0 >>
@@ -173,7 +173,7 @@ Tower コントロールホストから再び結果を確認します。前回�
 <!-- {% raw %} -->
 
 ```bash
-[student<X>ansible ~]$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
+[student<X>@ansible-1 ~]$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
 node3 | SUCCESS => {
     "accept_ranges": "bytes",
     "ansible_facts": {

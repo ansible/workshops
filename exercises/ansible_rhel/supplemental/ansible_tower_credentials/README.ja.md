@@ -55,7 +55,7 @@ node2 ansible_host=33.44.55.66
 node3 ansible_host=44.55.66.77
 
 [control]
-ansible ansible_host=11.22.33.44
+ansible-1 ansible_host=11.22.33.44
 ```
 > **注意**
 >
@@ -97,7 +97,7 @@ SSH 経由で Tower ホストにログインします。
   - `node1` に SSH 接続し、 `sudo -i` を実行してみます。 SSH 接続の際はパスワード入力が要求されますが、 `sudo -i` に関してはパスワードは要求されません。
 
 ```bash
-[student<X>@ansible ~]$ ssh student<X>@22.33.44.55
+[student<X>@ansible-1 ~]$ ssh student<X>@22.33.44.55
 student<X>@22.33.44.55's password:
 Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
 [student<X>@node1 ~]$ sudo -i

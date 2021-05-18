@@ -64,7 +64,7 @@ node2 ansible_host=33.44.55.66
 node3 ansible_host=44.55.66.77
 
 [control]
-ansible ansible_host=11.22.33.44
+ansible-1 ansible_host=11.22.33.44
 ```
 > **Warning**
 >
@@ -106,7 +106,7 @@ As this is an important part of your Tower setup, why not make sure that connect
 - For the SSH connection use the node password from the inventory file, `sudo -i` works without password.
 
 ```bash
-[student<X>@ansible ~]$ ssh student<X>@22.33.44.55
+[student<X>@ansible-1 ~]$ ssh student<X>@22.33.44.55
 student<X>@22.33.44.55's password:
 Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
 [student<X>@node1 ~]$ sudo -i

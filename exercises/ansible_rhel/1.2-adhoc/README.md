@@ -53,7 +53,7 @@ To reference inventory hosts, you supply a host pattern to the ansible command. 
 The most basic host pattern is the name for a single managed host listed in the inventory file. This specifies that the host will be the only one in the inventory file that will be acted upon by the ansible command. Run:
 
 ```bash
-[student<X@>ansible ~]$ ansible node1 --list-hosts
+[student<X>@ansible-1 ~]$ ansible node1 --list-hosts
   hosts (1):
     node1
 ```
@@ -61,10 +61,10 @@ The most basic host pattern is the name for a single managed host listed in the 
 An inventory file can contain a lot more information, it can organize your hosts in groups or define variables. In our example, the current inventory has the groups `web` and `control`. Run Ansible with these host patterns and observe the output:
 
 ```bash
-[student<X@>ansible ~]$ ansible web  --list-hosts
-[student<X@>ansible ~]$ ansible web,control --list-hosts
-[student<X@>ansible ~]$ ansible 'node*' --list-hosts
-[student<X@>ansible ~]$ ansible all --list-hosts
+[student<X>@ansible-1 ~]$ ansible web  --list-hosts
+[student<X>@ansible-1 ~]$ ansible web,control --list-hosts
+[student<X>@ansible-1 ~]$ ansible 'node*' --list-hosts
+[student<X>@ansible-1 ~]$ ansible all --list-hosts
 ```
 
 As you see it is OK to put systems in more than one group. For instance, a server could be both a web server and a database server. Note that in Ansible the groups are not necessarily hierarchical.

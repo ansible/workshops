@@ -28,7 +28,7 @@
 最初に、テンプレートリソースを保持するディレクトリー `templates` を `~/ansible-files/` に作成します。
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir templates
+[student<X>@ansible-1 ansible-files]$ mkdir templates
 ```
 
 その後、`~/ansible-files/templates/` ディレクトリーに、テンプレートファイル `motd-facts.j2` を作成します。
@@ -94,7 +94,7 @@ Ansible がシステムから検出したファクトに変数置き換える方
 * ファクトを見つけます。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep -i kernel
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup|grep -i kernel
        "ansible_kernel": "3.10.0-693.el7.x86_64",
 ```
 
@@ -114,13 +114,13 @@ running kernel {{ ansible_kernel }}.
 * Playbook を実行します。
 
 ```bash
-[student1@ansible ~]$ ansible-playbook motd-facts.yml
+[student<X>@ansible-1 ~]$ ansible-playbook motd-facts.yml
 ```
 
 * `node1` への SSH ログインを介して新しいメッセージを確認します。
 
 ```bash
-[student1@ansible ~]$ ssh node1
+[student<X>@ansible-1 ~]$ ssh node1
 Welcome to node1.
 RedHat 8.1
 deployed on x86_64 architecture

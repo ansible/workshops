@@ -98,8 +98,8 @@ Playbook に推奨されるディレクトリー構造についての
 というディレクトリーを作成し、そのディレクトリーにディレクトリーを変更します。
 
 ```bash
-[student<X>@ansible ~]$ mkdir ansible-files
-[student<X>@ansible ~]$ cd ansible-files/
+[student<X>@ansible-1 ~]$ mkdir ansible-files
+[student<X>@ansible-1 ~]$ cd ansible-files/
 ```
 
 以下の内容の `apache.yml` というファイルを追加します。前回の演習でも説明したように、`vi`/`vim`
@@ -163,13 +163,13 @@ Ansible Playbook は、コントロールノードで `ansible-playbook` コマ�
 Playbook を実行する前に、構文エラーをチェックすることが推奨されます。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook --syntax-check apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook --syntax-check apache.yml
 ```
 
 これで、Playbook を実行する準備が整いました。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 この出力はエラーを報告しませんが、実行されたタスクの概要と、実行内容の概要をまとめたプレイ要約を示します。また、「Gathering
@@ -178,7 +178,7 @@ Facts」というタスクもあります。これは、各プレイの開始時
 SSH で `node1` に接続し、Apache がインストールされていることを確認します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ssh node1
+[student<X>@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
@@ -196,7 +196,7 @@ Version     : 2.4.6
 アドホックコマンドで確認します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
 ```
 
 Playbook を 2 回実行し、出力を比較します。出力は「changed」から「ok」に変更され、色は黄色から緑色に変わります。さらに、「PLAY
@@ -235,7 +235,7 @@ Ansible Playbook の次の部分では、Apache アプリケーションが `nod
 つまり、2 番目のタスクにより、Apache サーバーがターゲットマシンで実行されるようにしています。拡張 Playbook を実行します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 出力に注意してください。一部のタスクは緑色で「ok」と表示されています。また、黄色で「changed」と表示されているものもあります。
@@ -254,7 +254,7 @@ Ansible Playbook の次の部分では、Apache アプリケーションが `nod
 > **赤い行と 403 ステータスが多く表示されます。**
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
+[student<X>@ansible-1 ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
 ```
 
 赤い行やエラーが多く表示されます。Apache によって提供される `web.html` ファイルがなければ、「HTTP Error 403:
@@ -263,7 +263,7 @@ Forbidden」ステータスが表示され、Ansible はエラーを報告しま
 では、Ansible を使用してシンプルな `web.html` ファイルをデプロイしてはどうでしょうか。ansible コントロールホストで、`student<X>` ユーザーとして `~/ansible-files/` にファイルリソースを保持するディレクトリー `files` を作成します。
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir files
+[student<X>@ansible-1 ansible-files]$ mkdir files
 ```
 
 次に、コントロールノードに `~/ansible-files/files/web.html` ファイルを作成します。
@@ -307,7 +307,7 @@ Playbook 構文に慣れてきたのではないでしょうか。この新し�
 拡張 Playbook を実行します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 * 出力をよく確認してみてください。
@@ -361,7 +361,7 @@ Playbook がグループ「web」を参照するように変更します。
 次に Playbook を実行します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 最後に、Apache が両方のサーバーで現在実行されているかどうかを確認します。まずは、インベントリー内のノードの IP アドレスを調べ、上記の

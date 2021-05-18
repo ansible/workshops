@@ -41,7 +41,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 | Role                         | Inventory name |
 | -----------------------------| ---------------|
-| Ansible Control Host & Tower | ansible        |
+| Ansible Control Host & Tower | ansible-1      |
 | Managed Host 1               | node1          |
 | Managed Host 2               | node2          |
 | Managed Host 2               | node3          |

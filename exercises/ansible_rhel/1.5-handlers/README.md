@@ -58,7 +58,7 @@ node3 ansible_host=33.44.55.66
 node2 ansible_host=22.33.44.55
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:
@@ -84,7 +84,7 @@ Run it and examine the output. The expected outcome: The task is skipped on node
 
 ```bash
 TASK [Install FTP server when host in ftpserver group] *******************************************
-skipping: [ansible]
+skipping: [ansible-1]
 skipping: [node1]
 skipping: [node3]
 changed: [node2]
@@ -104,7 +104,7 @@ As a an example, let’s write a playbook that:
 First we need the file Ansible will deploy, let’s just take the one from node1. Remember to replace the IP address shown in the listing below with the IP address from your individual `node1`.
 
 ```bash
-[student<X>@ansible ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+[student<X>@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 student<X>@11.22.33.44's password:
 httpd.conf
 ```
@@ -153,15 +153,15 @@ Listen 8080
 Apache should now listen on port 8080. Easy enough to verify:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://node1
+[student<X>@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
-[student1@ansible ansible-files]$ curl http://node1:8080
+[student<X>@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
-<h1>This is a production webserver, take care!</h1>
+<h1>This is a development webserver, have fun!</h1>
 </body>
 ```
 
-Feel free to change the httpd.conf file again and run the playbook.
+Leave the setting for listen on port 8080. We'll use this in a later exercise.
 
 ### Step 3 - Simple Loops
 
@@ -247,7 +247,7 @@ Check the output:
 Verify that the user `dev_user` was indeed created on `node1`:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a "id dev_user"
 node1 | CHANGED | rc=0 >>
 uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```

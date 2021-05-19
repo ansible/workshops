@@ -175,6 +175,11 @@ workshops:
         cidr_ip: 0.0.0.0/0
         rule_desc: DevOps Container Registry
   windows:
+    ports:
+      - proto: tcp
+        to_port: 8081
+        from_port: 8081
+        cidr_ip: 0.0.0.0/0
   rhel:
   rhel_90:
   smart_mgmt:

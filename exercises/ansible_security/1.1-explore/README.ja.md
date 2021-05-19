@@ -1,7 +1,7 @@
 # 演習 1.1 - ラボ環境を確認してみよう
 
-**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
-<br>
+**Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
 ## Step 1.1 - 目的
 
@@ -130,4 +130,4 @@ Ansible は、あなたの環境に固有のインベントリを使用するよ
 
 ----
 
-[ここをクリックしてAnsible Security Automation Workshopに戻る](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[ここをクリックしてAnsible Security Automation Workshopに戻る](../README.ja.md)

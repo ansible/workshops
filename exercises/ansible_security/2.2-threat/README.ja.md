@@ -1,6 +1,7 @@
 # 演習 2.2 - Threat hunting
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
 ## Step 2.1 - 背景
 
@@ -164,4 +165,4 @@ Ansible Tower にユーザー `analyst` としてログインし、その横に�
 
 ----
 
-[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.ja.md#section-2---ansible-security-automation-use-cases)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

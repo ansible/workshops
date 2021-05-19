@@ -4,8 +4,22 @@
   gather_facts: false
   become: true
   tasks:
-    - name: enable and start boinc-client
+    - name: check if boinc-client is installed
+      check_mode: true
+      package:
+        name:
+          - boinc-client
+        state: present
+      register: boinc_installed
+
+    - name: printing out if boinc-client is not installed
+      debug:
+        msg: boinc-client is not installed
+      when: boinc_installed.changed
+
+    - name: disable and stop boinc-client
       systemd:
         name: boinc-client
         state: stopped
         enabled: false
+      when: boinc_installed.changed == false

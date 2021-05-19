@@ -3,7 +3,7 @@
   block:
     - name: execute a command with tower
       uri:
-        url: https://ansible.rhdemo.io/api/v2/job_templates/23/launch/
+        url: https://ansible.demoredhat.com/api/v2/job_templates/datastudio_slack++Default/launch/
         validate_certs: false
         method: POST
         user: public

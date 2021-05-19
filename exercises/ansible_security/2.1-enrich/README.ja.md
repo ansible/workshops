@@ -1,6 +1,7 @@
 # 演習 2.1 - Investigation Enrichment
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
 ## Step 1.1 - 背景
 
@@ -16,21 +17,35 @@
 
 さらに、この Role を使用して、前回の Snort の演習の IDS ルールを変更します。未実施の場合には、次のコマンドを実行しインストールしてください: `ansible-galaxy install ansible_security.ids_rule`
 
-次に、これはセキュリティラボなので、疑わしいトラフィック、つまり攻撃が必要です。この演習の他のコンポーネントが後で反応する5秒ごとの単純なアクセスをシミュレートします。このシミュレーションを開始するには、Tower を使用します。Tower のインストールには、ユーザー、インベントリ、認証情報などがすでに入力されています。ただし、この演習では、コマンドラインに焦点を当て、物事がどのように機能しているかをよりよく示すことに注意してください。次の演習では、Tower が大きな役割を果たします。したがって、ここでは攻撃を開始するためのインターフェースのみを案内します。次の演習では、Tower の特徴と機能をより深く説明し、なぜそれが Security Automation で重要な役割を果たすのかを説明します。
+次に、これはセキュリティラボなので、疑わしいトラフィック、つまり攻撃が必要です。この演習の他のコンポーネントが後で反応する5秒ごとの単純なアクセスをシミュレートします。
 
-Tower にはブラウザからアクセスします。個人の Tower インスタンスへの URL が必要です。これは VS Code オンラインエディターの URL に似ていますが、`-code` はありません。ワークショップのページでも見つけることができます:
+Tower のインストールには、ユーザー、インベントリ、認証情報などがすでに入力されています。ただし、この演習では、コマンドラインに焦点を当て、物事がどのように機能しているかをよりよく示すことに注意してください。次の演習では、Tower が大きな役割を果たします。したがって、ここでは攻撃を開始するためのインターフェースのみを案内します。次の演習では、Tower の特徴と機能をより深く説明し、なぜそれが Security Automation で重要な役割を果たすのかを説明します。
 
-![Tower URL example](images/tower_url.png)
+VS Code オンラインエディターで、以下のコンテンツを含むホームディレクトリの `web_attack_simulation.yml` を開きます。
+
+<!-- {% raw %} -->
+```yml
+---
+- name: start attack
+  hosts: attacker
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: simulate attack every 5 seconds
+      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/web_attack_simulation"
+```
+<!-- {% endraw %} -->
+
+プレイブックを実行します:
+
+```bash
+[student<X>@ansible ansible-files]$ ansible-playbook web_attack_simulation.yml
+```
 
 > **Note**
 >
-> この URL とログイン情報は一例です。Tower の URL とログイン情報は異なります。
-
-ブラウザを開き、Tower インスタンスへのリンクを入力します。提供された student ID とパスワードを使用してログインします。左側にダッシュボードとナビゲーションバーが表示されます。
-
-![Tower dashboard](images/tower_dashboard.png)
-
-左側のナビゲーションバーで、**Templates** をクリックします。テンプレートのリストで、右にあるロケットのアイコンをクリックして、**Start web attack simulation** というテンプレートを見つけて実行します。これにより、数秒ごとに攻撃がシミュレートされます。これで Tower ブラウザのタブを閉じることができます。この演習では、これを再度必要とすることはありません。
+> 基本的にこのプレイブックでは、watch を実行する小さなデーモンを登録し、5秒ごとにコマンドを実行します。これは繰り返しのタスクを開始するにはかなり厳しい方法ですが、このラボの目的には合っています。
 
 これでステージは整いました。このユースケースが何であるかを学ぶために読んでください。
 
@@ -489,4 +504,4 @@ Playbook を実行しログソースを削除します:
 
 ----
 
-[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.ja.md#section-2---ansible-security-automation-use-cases)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

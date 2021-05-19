@@ -1,7 +1,7 @@
 # 演習 1.2 - 最初のCheck Point用のPlaybookを実行してみよう
 
-**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
-<br>
+**Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
 ## Step 2.1 - Check Point Next Generation Firewall
 
@@ -25,7 +25,7 @@ MGMT サーバへのアクセスには Windows クライアントが必要であ
 RDP クライアントでインベントリにある `windows-ws` の IPアドレスを指定して、MGMT サーバへのアクセスを試してみてください。
 
 RDPクライアントをお持ちでない場合や、HTMLのRDPクライアントをテストしたい場合は、以下のURL( `http://<windows-wsIP>/myrtille` )をブラウザで開いてください。
-`<windows-wsIP>` を、インベントリにある Windows ワークステーションの IPアドレスに置き換えてください。ログインフィールドには、ユーザ名とパスワードのみを入力してください。他に指示がなければ、ユーザ名は **Administrator**、パスワードは **Ansible+Red*Hat19!** を利用します。他のフィールドは空のままにして、**Connect** をクリックします。
+`<windows-wsIP>` を、インベントリにある Windows ワークステーションの IPアドレスに置き換えてください。ログインフィールドには、ユーザ名とパスワードのみを入力してください。他に指示がなければ、ユーザ名は **Administrator**、パスワードはインベントリに記載されています。他のフィールドは空のままにして、**Connect** をクリックします。
 
 Google Chromeブラウザがインストールされている状態で、デフォルトのWindowsワークステーションにアクセスできるようになりました。
 
@@ -98,7 +98,7 @@ Playbook は Ansible コントロールホスト上で書かれ、実行され�
 
 > **Note**
 > 
-> ファイルと今後のすべての操作は、常にホームディレクトリの**/home/student<X>**で行われます。これは演習を適切に実行するために非常に重要です。
+> ファイルと今後のすべての操作は、常にホームディレクトリの **/home/student<X>** で行われます。これは演習を適切に実行するために非常に重要です。
 
 ファイルを適切な場所に保存したら、Playbook のコードを追加することができます。まず、Playbook には名前と実行するホストが必要です。そこで、下記を追加してみましょう:
 
@@ -170,7 +170,7 @@ Playbook は Ansible コントロールホスト上で書かれ、実行され�
 
 > **Tip**
 >
-> `ansible-doc` では、`up`/down` の矢印を使って内容をスクロールし、`q` を使って終了することができます。
+> `ansible-doc` では、`up`/`down` の矢印を使って内容をスクロールし、`q` を使って終了することができます。
 
 接続元IPアドレスのホストオブジェクトを定義したのと同じように、今度は接続先IPアドレスのホストオブジェクトを追加します:
 
@@ -300,4 +300,4 @@ Check Point の通常の手作業による操作でどのように変更が実�
 
 ----
 
-[Ansible Security Automation Workshopの表紙に戻る](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

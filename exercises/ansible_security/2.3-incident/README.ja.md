@@ -1,6 +1,7 @@
 # 演習 2.3 - Incident response
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
 ## Step 3.1 - 背景
 
@@ -245,4 +246,4 @@ Ansible Security Automation を使用すると、セキュリティ組織は、�
 
 ----
 
-[こちらをクリックし、Ansible Security Automation Workshop に戻ります](../README.ja.md#section-2---ansible-security-automation-use-cases)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

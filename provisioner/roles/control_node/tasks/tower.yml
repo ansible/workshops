@@ -14,7 +14,7 @@
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
 
-- name: template inventory file for Ansible Tower Install
+- name: template inventory file for Ansible Controller Install
   template:
     src: tower_install.j2
     dest: /tmp/tower_install/inventory
@@ -59,18 +59,6 @@
 
 - name: Install venv
   include_tasks: venv.yml
-
-- name: add student user
-  tower_user:
-    username: "{{ username }}"
-    password: "{{ admin_password }}"
-    email: fake@fake.com
-    state: present
-    superuser: true
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
-    tower_verify_ssl: false
 
 - name: Post license key
   uri:

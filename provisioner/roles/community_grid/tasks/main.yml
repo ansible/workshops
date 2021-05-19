@@ -10,6 +10,9 @@
       dnf:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
         state: present
+      register: install_epel
+      until: install_epel is not failed
+      retries: 5
 
     # temporary fix for rhel 8.2 dnf substitution
     - name: fix EPEL repo substitution

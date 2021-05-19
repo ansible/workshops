@@ -1,4 +1,18 @@
 ---
+- name: verify EBS-optimized instance type selected
+  lineinfile:
+    path: "{{role_path}}/files/EBS_optimized_instance_types"
+    line: "{{ ec2_info.satellite.size }}"
+  delegate_to: localhost
+  connection: local
+  check_mode: true
+  register: ebs_optimized_instance_selected
+
+- name: enable EBS optimized instance
+  set_fact:
+    ebs_optimized_capable: true
+  when: not ebs_optimized_instance_selected.changed
+
 - name: provision satellite server
   ec2:
     assign_public_ip: true
@@ -7,6 +21,7 @@
     instance_type: "{{ ec2_info['satellite'].size }}"
     image: "{{ sat_ami.image_id }}"
     region: "{{ ec2_region }}"
+    ebs_optimized: "{{ ebs_optimized_capable | default(false) }}"
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_satellite: "{{ ec2_name_prefix }}-satellite"
@@ -17,6 +32,7 @@
       guid: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"

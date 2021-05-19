@@ -19,7 +19,7 @@
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more detail in the [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html).
+Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more details in the [Tips and tricks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) and the [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html).
 
 This exercise will cover:
 
@@ -87,14 +87,14 @@ Ansible looks for roles in a subdirectory called `roles` in the project director
 Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir roles
-[student<X>@ansible ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
+[student<X>@ansible-1 ansible-files]$ mkdir roles
+[student<X>@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
 ```
 
 Have a look at the role directories and their content:
 
 ```bash
-[student<X>@ansible ansible-files]$ tree roles
+[student<X>@ansible-1 ansible-files]$ tree roles
 ```
 
 ```text
@@ -308,13 +308,13 @@ Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles exe
 Now you are ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook test_apache_role.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
 ```
 
 Run a curl command against `node2` to confirm that the role worked:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://node2:8080
+[student<X>@ansible-1 ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 
@@ -339,6 +339,6 @@ If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 808
 ---
 **Navigation**
 <br>
-[Previous Exercise](../1.6-templates) - [Next Exercise](../1.7-role)
+[Previous Exercise](../1.6-templates) - [Next Exercise](../2.1-intro)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

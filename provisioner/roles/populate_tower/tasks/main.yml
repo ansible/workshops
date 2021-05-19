@@ -17,6 +17,19 @@
   shell: 'tower-manage inventory_import --source=/home/{{ username }}/lab_inventory/hosts --inventory-name="Workshop Inventory"'
 #### END OF INVENTORY
 
+### USER
+- name: add student user
+  awx.awx.tower_user:
+    username: "{{ username }}"
+    password: "{{ admin_password }}"
+    email: fake@fake.com
+    state: present
+    superuser: true
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "{{ ansible_host }}"
+    tower_verify_ssl: false
+
 #### CREDENTIAL
 - name: add SSH credential into Ansible Tower
   awx.awx.tower_credential:

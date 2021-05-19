@@ -214,4 +214,4 @@ Vous êtes prêt à automatiser!
 ```
 <!-- {% endraw %} -->
 <br><br>
-[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

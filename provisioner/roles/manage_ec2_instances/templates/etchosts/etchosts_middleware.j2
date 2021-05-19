@@ -1,0 +1,58 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+{% for vm in node1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{ vm.tags.short_name }}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in node2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in node3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% if centos6 is defined %}
+{% for vm in node4_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if centos7 is defined %}
+{% for vm in node5_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if create_cluster %}
+{% for vm in isonode_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if create_cluster %}
+{% for vm in remotenode_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% for vm in ansible_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{ vm.tags.short_name }}.example.com {{ vm.tags.short_name }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}
+{% endif %}
+{% endfor %}

@@ -17,21 +17,16 @@
   when:
     - not teardown
 
-- name: create DNS entries for Ansible Tower and SSL cert
+- name: create DNS entries for Automation Controller and SSL cert
   block:
-    - name: create DNS entries for each Ansible Tower node
+    - name: create DNS entries for each Ansible control node
       include_tasks: create.yml
 
-    - name: certbot for Ansible Tower
-      include_tasks: tower.yml
-
-    - name: make sure Ansible Tower is started
-      service:
-        name: ansible-tower.service
-        state: started
-      register: install_tower
-      until: install_tower is not failed
-      retries: 5
+    - name: configure SSL cert for Automation Controller
+      vars:
+        dns_name: "{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+      include_role:
+        name: "{{ playbook_dir }}/../roles/issue_cert"
   when:
     - not teardown
     - check_cert.status != 200

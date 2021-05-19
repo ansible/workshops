@@ -53,7 +53,7 @@
 ``` yaml
   tasks:
     - name: CREATE NODES
-      bigip_node:
+      f5networks.f5_modules.bigip_node:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

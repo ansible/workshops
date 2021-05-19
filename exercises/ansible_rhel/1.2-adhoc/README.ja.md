@@ -47,7 +47,7 @@ node2 ansible_host=<Y.Y.Y.Y>
 node3 ansible_host=<Z.Z.Z.Z>
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 Ansible
@@ -60,7 +60,7 @@ Ansible
 コマンドで機能する、インベントリーファイルで唯一のものとなるように指定されます。以下を実行します。
 
 ```bash
-[student<X@>ansible ~]$ ansible node1 --list-hosts
+[student<X>@ansible-1 ~]$ ansible node1 --list-hosts
   hosts (1):
     node1
 ```
@@ -69,10 +69,10 @@ Ansible
 `web` と `control` がります。Ansible をこれらのホストパターンで実行し、出力を確認します。
 
 ```bash
-[student<X@>ansible ~]$ ansible web  --list-hosts
-[student<X@>ansible ~]$ ansible web,ansible --list-hosts
-[student<X@>ansible ~]$ ansible 'node*' --list-hosts
-[student<X@>ansible ~]$ ansible all --list-hosts
+[student<X>@ansible-1 ~]$ ansible web  --list-hosts
+[student<X>@ansible-1 ~]$ ansible web,control --list-hosts
+[student<X>@ansible-1 ~]$ ansible 'node*' --list-hosts
+[student<X>@ansible-1 ~]$ ansible all --list-hosts
 ```
 
 ご覧の通り、1 つ以上のグループにシステムを追加できます。たとえば、サーバーは Web サーバーとデータベースサーバーの両方が可能です。Ansible
@@ -94,14 +94,14 @@ Ansible の動作は、Ansible の ini スタイル設定ファイルの内容�
 利用するラボ環境では、`.ansible.cfg` ファイルに、コントロールノード上の `student<X>` ユーザーのホームディレクトリーに、必要の詳細が書かれたファイルがすでに作成されています。
 
 ```bash
-[student<X>@ansible ~]$ ls -la .ansible.cfg
+[student<X>@ansible-1 ~]$ ls -la .ansible.cfg
 -rw-r--r--. 1 student<X> student<X> 231 14. Mai 17:17 .ansible.cfg
 ```
 
 ファイルの内容を出力します。
 
 ```bash
-[student<X>@ansible ~]$ cat .ansible.cfg
+[student<X>@ansible-1 ~]$ cat .ansible.cfg
 [defaults]
 stdout_callback = yaml
 connection = smart
@@ -118,7 +118,7 @@ inventory = /home/student<X>/lab_inventory/hosts
 専用のインベントリーの内容を出力します。
 
 ```bash
-[student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
+[student<X>@ansible-1 ~]$ cat /home/student<X>/lab_inventory/hosts
 [all:vars]
 ansible_user=student<X>
 ansible_ssh_pass=ansible
@@ -130,7 +130,7 @@ node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 > **ヒント**
@@ -155,7 +155,7 @@ Ansible は、`ping` モジュールを使用する必要があることを認�
 モジュールを定義します。オプションは、`-a` オプションを使用して、指定したモジュールに渡すことができます。
 
 ```bash
-[student<X>@ansible ~]$ ansible web -m ping
+[student<X>@ansible-1 ~]$ ansible web -m ping
 node2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -173,7 +173,7 @@ node2 | SUCCESS => {
 Ansible では、デフォルトで多くのモジュールを利用できます。実行するモジュールを一覧表示するには、以下を実行します。
 
 ```bash
-[student<X>@ansible ~]$ ansible-doc -l
+[student<X>@ansible-1 ~]$ ansible-doc -l
 ```
 
 > **ヒント**
@@ -183,13 +183,13 @@ Ansible では、デフォルトで多くのモジュールを利用できます
 モジュールを確認するには、次のコマンドを実行します。
 
 ```bash
-[student<X>@ansible ~]$ ansible-doc -l | grep -i user
+[student<X>@ansible-1 ~]$ ansible-doc -l | grep -i user
 ```
 
 使用例を含む特定のモジュールのヘルプを取得します。
 
 ```bash
-[student<X>@ansible ~]$ ansible-doc user
+[student<X>@ansible-1 ~]$ ansible-doc user
 ```
 
 > **ヒント**
@@ -202,7 +202,7 @@ Ansible では、デフォルトで多くのモジュールを利用できます
 コマンドの実行方法や出力のフォーマット方法を見ていきます。管理対象ホスト上で指定したコマンドを実行するだけです。
 
 ```bash
-[student<X>@ansible ~]$ ansible node1 -m command -a "id"
+[student<X>@ansible-1 ~]$ ansible node1 -m command -a "id"
 node1 | CHANGED | rc=0 >>
 uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
 ```
@@ -213,13 +213,13 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 別の例: ホストを実行しているカーネルバージョンを簡単に確認します。
 
 ```bash
-[student<X>@ansible ~]$ ansible all -m command -a 'uname -r'
+[student<X>@ansible-1 ~]$ ansible all -m command -a 'uname -r'
 ```
 
 ホストの出力は、1 行で行うのが望ましい場合もあります。
 
 ```bash
-[student<X>@ansible ~]$ ansible all -m command -a 'uname -r' -o
+[student<X>@ansible-1 ~]$ ansible all -m command -a 'uname -r' -o
 ```
 
 > **ヒント**
@@ -234,7 +234,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 以下のコマンドを実行します。ただし、**エラー発生は想定内です**。
 
 ```bash
-[student<X>@ansible ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'
+[student<X>@ansible-1 ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'
 ```
 
 説明したように、**エラー**が発生します。
@@ -261,7 +261,7 @@ uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_
 我々の環境では、`sudo` が設定されているため、`student<X>` として接続できます。このコマンドを変更して `-b` パラメーターを指定し、再度実行します。
 
 ```bash
-[student<X>@ansible ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd' -b
+[student<X>@ansible-1 ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd' -b
 ```
 
 今回は失敗しません。
@@ -286,7 +286,7 @@ node1 | CHANGED => {
 汎用の `command` モジュールとともに Ansible を使用して、motd ファイルの内容を確認します。
 
 ```bash
-[student<X>@ansible ~]$ ansible node1 -m command -a 'cat /etc/motd'
+[student<X>@ansible-1 ~]$ ansible node1 -m command -a 'cat /etc/motd'
 node1 | CHANGED | rc=0 >>
 Managed by Ansible
 ```
@@ -319,9 +319,9 @@ Managed by Ansible
 > **回答を以下に示します。**
 
 ```bash
-[student<X>@ansible ~]$ ansible-doc -l | grep -i yum
-[student<X>@ansible ~]$ ansible-doc yum
-[student<X>@ansible ~]$ ansible node1 -m yum -a 'name=squid state=latest' -b
+[student<X>@ansible-1 ~]$ ansible-doc -l | grep -i yum
+[student<X>@ansible-1 ~]$ ansible-doc yum
+[student<X>@ansible-1 ~]$ ansible node1 -m yum -a 'name=squid state=latest' -b
 ```
 
 ---

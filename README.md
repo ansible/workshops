@@ -15,22 +15,23 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 | Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel.pdf) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
-| **Ansible Network Automation Workshop** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [Deck](./decks/ansible_network.pdf) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
-| **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](./decks/ansible_f5.pdf) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
-| **Ansible Security Automation** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [Deck](./decks/ansible_security.pdf) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
-| **Ansible Windows Automation Workshop** <br> focused on automation of Microsoft Windows  | [Deck](./decks/ansible_windows.pdf) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
+| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel.pdf) <br> [Google Source](https://docs.google.com/presentation/d/13V_-MfJMslBJWGohllS9NErapClMAKY8iOP4_BI12xI) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
+| **Ansible Network Automation Workshop** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [Deck](./decks/ansible_network.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1pMnLskQjDywwglZRKXS16rPFJip94obyzND_iKzaidQ) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
+| **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](./decks/ansible_f5.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
+| **Ansible Security Automation** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [Deck](./decks/ansible_security.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1DaHZvKHORS__YoqlRIy0lf4iag7kVtg6P3GJ6sNfnsI) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
+| **Ansible Windows Automation Workshop** <br> focused on automation of Microsoft Windows  | [Deck](./decks/ansible_windows.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
 | \[WIP\] **Smart Management Automation Workshop** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | Deck | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
 
 90 minute abbreviated versions:
 
 | Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel_90.pdf) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
+| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel_90.pdf) <br> [Google Source](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
+
+*Google Source will only work for Red Hat employees.  PDFs are provided for public consumption.
 
 ## Self Paced Exercises
 
-- [Vagrant Lab](vagrant-demo) - self-paced network automation exercises that can be run on your personal laptop
 - [Katacoda Labs](https://developers.redhat.com/products/ansible/getting-started) - self-paced in-browser experience on developers.redhat.com.  There is multiple lessons on Getting Started with Ansible.
 
 ## Product Demos
@@ -39,6 +40,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## Workshop Documentation
 
+- [Workshop attendance website](docs/attendance/attendance.md)
 - [How to contribute](docs/contribute.md)
 - [How to use the AWS Lab Provisioner](provisioner/README.md)
 - [FAQ](docs/faq.md)

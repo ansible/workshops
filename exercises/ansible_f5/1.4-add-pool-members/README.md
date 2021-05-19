@@ -54,7 +54,7 @@ Next, append the first `task` to above playbook. This task will use the `bigip_p
 ``` yaml
   tasks:
     - name: ADD POOL MEMBERS
-      bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
@@ -134,7 +134,7 @@ Enter the following:
 
   tasks:
     - name: Query BIG-IP facts
-      bigip_device_info:
+      f5networks.f5_modules.bigip_device_info:
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"

@@ -61,7 +61,7 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 ``` yaml
   tasks:
     - name: COLLECT BIG-IP FACTS
-      bigip_device_facts:
+      f5networks.f5_modules.bigip_device_facts:
         gather_subset:
           - system-info
         provider:

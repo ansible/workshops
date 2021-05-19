@@ -206,6 +206,7 @@
       Index: "{{ item[0] }}"
       Student: "student{{item[0] + 1}}"
       AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{student_total}}"

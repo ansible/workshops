@@ -26,7 +26,7 @@
 
 | Role                 | Inventory name |
 | ---------------------| ---------------|
-| Ansible Control Host | ansible        |
+| Ansible Control Host | ansible-1      |
 | Managed Host 1       | node1          |
 | Managed Host 2       | node2          |
 | Managed Host 3       | node3          |
@@ -50,7 +50,7 @@ ssh studentX@11.22.33.44
 次に、root に切り替えます。
 
 ```bash
-[student<X>@ansible ~]$ sudo -i
+[student<X>@ansible-1 ~]$ sudo -i
 ```
 
 以下のような前提条件タスクの多くは既に完了しています。
@@ -62,7 +62,7 @@ ssh studentX@11.22.33.44
 Ansible が正しくインストールされていることを確認します。
 
 ```bash
-[root@ansible ~]# ansible --version
+[root@ansible-1 ~]# ansible --version
 ansible 2.7.0
 [...]
 ```
@@ -74,7 +74,7 @@ ansible 2.7.0
 root アカウントから再度ログアウトします。
 
 ```bash
-[root@ansible ~]# exit
+[root@ansible-1 ~]# exit
 logout
 ```
 

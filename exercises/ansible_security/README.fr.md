@@ -4,8 +4,8 @@ Ansible est un moteur d'automatisation informatique simple mais puissant pour le
 
 Dans cet atelier, vous apprendrez - étape par étape - comment utiliser Ansible pour orchestrer 3 activités d'enquête et de réponse de sécurité impliquant plusieurs outils de sécurité: un pare-feu d'entreprise (CheckPoint Next Generation Firewall), un système de détection d'intrusion (Snort) et un SIEM (IBM QRadar).
 
-
-**Lisez ceci dans d'autres langues**: [![uk](../../images/uk.png) English](README.md), [![france](../../images/fr.png) Français](README.fr.md)
+**Lisez ceci dans d'autres langues**: <br>
+[![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja.md), [![france](../../images/fr.png) Français](README.fr.md).<br>
 
 ## Planification du temps
 

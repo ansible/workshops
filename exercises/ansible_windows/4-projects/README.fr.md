@@ -154,4 +154,4 @@ Résultat final
 
 À ce stade de l'atelier, vous avez découvert les fonctionnalités de base d'Ansible Tower. Mais attendez… il y a plus! Vous venez de commencer à explorer les possibilités d'Ansible. Les prochaines leçons vous aideront à aller au-delà d'un simple playbook.
 <br><br>
-[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../readme.fr.md)
+[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

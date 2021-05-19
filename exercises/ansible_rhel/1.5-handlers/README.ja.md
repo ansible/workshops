@@ -61,7 +61,7 @@ node3 ansible_host=33.44.55.66
 node2 ansible_host=22.33.44.55
 
 [control]
-ansible ansible_host=44.55.66.77
+ansible-1 ansible_host=44.55.66.77
 ```
 
 次に、`~/ansible-files/` ディレクトリーのコントロールホストで `ftpserver.yml` ファイルを作成します。
@@ -88,7 +88,7 @@ ansible ansible_host=44.55.66.77
 
 ```bash
 TASK [Install FTP server when host in ftpserver group] *******************************************
-skipping: [ansible]
+skipping: [ansible-1]
 skipping: [node1]
 skipping: [node3]
 changed: [node2]
@@ -112,7 +112,7 @@ changed: [node2]
 `node1` の IP アドレスに置き換えることを忘れないでください。
 
 ```bash
-[student<X>@ansible ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+[student<X>@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 student<X>@11.22.33.44's password:
 httpd.conf
 ```
@@ -163,9 +163,9 @@ Listen 8080
 Apache はポート 8080 でリッスンするはずです。確認は簡単です。
 
 ```bash
-[student1@ansible ansible-files]$ curl http://node1
+[student<X>@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
-[student1@ansible ansible-files]$ curl http://node1:8080
+[student<X>@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -221,9 +221,12 @@ Playbook と出力の概要:
 前述のように、ループはハッシュのリストでも実行できます。ユーザーを別の追加グループに割り当てる必要があると想像してください。
 
 ```yaml
-- username: dev_user groups: ftp
-- username: qa_user groups: ftp
-- username: prod_user groups: apache
+- username: dev_user
+  groups: ftp
+- username: qa_user
+  groups: ftp
+- username: prod_user
+  groups: apache
 ```
 
 `user` モジュールには、その他のユーザーを一覧表示するためのオプションのパラメーター `groups`
@@ -262,7 +265,7 @@ Playbook を書き直して、追加のユーザー権限を持つユーザー�
 ユーザー `dev_user` が `node1` で確実に作成されたことを確認します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a "id dev_user"
 node1 | CHANGED | rc=0 >>
 uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```

@@ -256,4 +256,4 @@ Source Control アイコンをクリックし(1)、変更の内容に関する�
 [Ansible Galaxy](https://galaxy.ansible.com) には沢山の Roles が置いてあります。是非ご確認ください。  
 
 
-[ワークショップ一覧に戻る](../readme.ja.md)
+[ワークショップ一覧に戻る](../README.ja.md)

@@ -82,8 +82,8 @@ Instead, we are going to create a very simple directory structure for our playbo
 On your control host **ansible**, create a directory called `ansible-files` in your home directory and change directories into it:
 
 ```bash
-[student<X>@ansible ~]$ mkdir ansible-files
-[student<X>@ansible ~]$ cd ansible-files/
+[student<X>@ansible-1 ~]$ mkdir ansible-files
+[student<X>@ansible-1 ~]$ cd ansible-files/
 ```
 
 Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
@@ -142,13 +142,13 @@ Save your playbook and exit your editor.
 Ansible Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new Playbook it’s a good idea to check for syntax errors:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook --syntax-check apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook --syntax-check apache.yml
 ```
 
 Now you should be ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail.
@@ -156,7 +156,7 @@ The output should not report any errors but provide an overview of the tasks exe
 Connect to `node1` via SSH to make sure Apache has been installed:
 
 ```bash
-[student<X>@ansible ansible-files]$ ssh node1
+[student<X>@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
@@ -173,7 +173,7 @@ Version     : 2.4.6
 Log out of `node1` with the command `exit` so that you are back on the control host, and verify the installed package with an Ansible ad hoc command\!
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
 ```
 
 Run the Playbook a second time, and compare the output: The output changed from "changed" to "ok", and the color changed from yellow to green. Also the "PLAY RECAP" is different now. This make it easy to spot what Ansible actually did.
@@ -210,7 +210,7 @@ Again: what these lines do is easy to understand:
 Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 Note the output now: Some tasks are shown as "ok" in green and one is shown as "changed" in yellow.
@@ -221,14 +221,14 @@ Note the output now: Some tasks are shown as "ok" in green and one is shown as "
 
 ### Step 5 - Extend your Playbook: Create an web.html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the node from the inventory.
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the `node1` from the inventory.
 
 > **Warning**
 >
 > **Expect a lot of red lines and a 403 status\!**
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
+[student<X>@ansible-1 ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
 ```
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
@@ -236,7 +236,7 @@ There are a lot of red lines and an error: As long as there is not at least an `
 So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student<X>` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir files
+[student<X>@ansible-1 ansible-files]$ mkdir files
 ```
 
 Then create the file `~/ansible-files/files/web.html` on the control node:
@@ -277,7 +277,7 @@ You are getting used to the Playbook syntax, so what happens? The new task uses 
 Run your extended Playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 * Have a good look at the output
@@ -329,7 +329,7 @@ Change the Playbook to point to the group "web":
 Now run the Playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
 ```
 
 Finally check if Apache is now running on both servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the `node1` above. All output should be green.

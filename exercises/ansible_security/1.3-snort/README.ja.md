@@ -1,7 +1,7 @@
 # 演習 1.3 - 最初のSnort用のPlaybookを実行してみよう
 
-**Read this in other languages**: <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md).
-<br>
+**Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
 ## Step 3.1 - Snort
 
@@ -318,4 +318,4 @@ snort  : ok=3  changed=0  unreachable=0  failed=0  skipped=0  rescued=0  ignored
 
 ----
 
-[Ansible Security Automation Workshopの表紙に戻る](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)

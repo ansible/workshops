@@ -25,7 +25,7 @@ As an example of using templates you will change the motd file to contain host-s
 First create the directory `templates` to hold template resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir templates
+[student<X>@ansible-1 ansible-files]$ mkdir templates
 ```
 
 Then in the `~/ansible-files/templates/` directory create the template file `motd-facts.j2`:
@@ -90,7 +90,7 @@ Add a line to the template to list the current kernel of the managed node.
 * Find the fact:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep -i kernel
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup|grep -i kernel
        "ansible_kernel": "3.10.0-693.el7.x86_64",
 ```
 
@@ -110,13 +110,13 @@ running kernel {{ ansible_kernel }}.
 * Run the playbook.
 
 ```bash
-[student1@ansible ~]$ ansible-playbook motd-facts.yml
+[student<X>@ansible-1 ~]$ ansible-playbook motd-facts.yml
 ```
 
 * Verify the new message via SSH login to `node1`.
 
 ```bash
-[student1@ansible ~]$ ssh node1
+[student<X>@ansible-1 ~]$ ssh node1
 Welcome to node1.
 RedHat 8.1
 deployed on x86_64 architecture

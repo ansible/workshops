@@ -81,15 +81,15 @@
         index_var: loop_idx
 
     - name: Associate IAM instance profile with control node
-      command: >
-        aws ec2 associate-iam-instance-profile
-          --iam-instance-profile Name=ControlNode_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}
-          --instance-id {{ item.1.id }}
-          --region {{ ec2_region }}
+      community.aws.ec2_instance:
+        instance_ids: "{{ item.1.id }}"
+        region: "{{ ec2_region }}"
+        instance_role: "ControlNode_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+        state: running
+        wait: true
       with_indexed_items:
         - "{{ control_output.instances }}"
       register: associate_iam_instance_profile
-      failed_when: '"There is an existing association for instance" not in associate_iam_instance_profile.stderr'
       until: associate_iam_instance_profile is not failed
       retries: 12
       delay: 10

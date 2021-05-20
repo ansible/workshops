@@ -45,3 +45,59 @@
   with_indexed_items:
     - "{{ control_output.instances }}"
   when: control_output.instance_ids is not none
+
+- name: Grant AWS API access via IAM roles & policy block
+  block:
+    - name: GRAB ROUTE53 ZONE ID
+      route53_zone:
+        zone: "{{ workshop_dns_zone }}"
+      register: AWSINFO
+
+    - name: Create VPC Lock Down role
+      iam_role:
+        name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
+        assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
+        create_instance_profile: true
+        description: VPC Lockdown role for "{{ ec2_name_prefix }}" workshop
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+    - name: Create control node instance role
+      iam_role:
+        name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
+        assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
+        create_instance_profile: true
+        description: Control node instance role for "{{ ec2_name_prefix }}" workshop
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+    - name: Generate IAM policy for control node IAM instance role
+      iam_policy:
+        iam_type: role
+        iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
+        policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
+        state: present
+        policy_json: "{{ lookup( 'template', 'iam_vpc_lockdown_policy.json.j2') }}"
+      loop: "{{ range(1, student_total + 1)|list }}"
+      loop_control:
+        index_var: loop_idx
+
+    - name: Associate IAM instance profile with control node
+      community.aws.ec2_instance:
+        instance_ids: "{{ item.1.id }}"
+        region: "{{ ec2_region }}"
+        instance_role: "ControlNode_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+        state: running
+        wait: true
+      with_indexed_items:
+        - "{{ control_output.instances }}"
+      register: associate_iam_instance_profile
+      until: associate_iam_instance_profile is not failed
+      retries: 12
+      delay: 10
+      when: control_output.instance_ids is not none
+
+    - name: Check associate_iam_instance_profile
+      debug:
+        msg: "{{ associate_iam_instance_profile }}"
+      when: control_output.instance_ids is not none
+
+  when: tower_node_aws_api_access|default(false)|bool

@@ -1,0 +1,141 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowInstanceActions",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RebootInstances",
+                "ec2:GetPasswordData",
+                "ec2:StartInstances",
+                "ec2:CreateSnapshots",
+                "ec2:StopInstances"
+            ],
+            "Resource": [
+                "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:instance/*",
+                "arn:aws:ec2:*::snapshot/*",
+                "arn:aws:ec2:*:{{ aws_account }}:volume/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:InstanceProfile": "arn:aws:iam::{{ aws_account }}:instance-profile/VPCLockDown_{{ ec2_name_prefix }}_student{{ loop_idx + 1 }}"
+                }
+            }
+        },
+        {
+            "Sid": "EC2RunInstances",
+            "Effect": "Allow",
+            "Action": "ec2:RunInstances",
+            "Resource": [
+                "arn:aws:ec2:*:{{ aws_account }}:network-interface/*",
+                "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:instance/*",
+                "arn:aws:ec2:*:{{ aws_account }}:security-group/*",
+                "arn:aws:ec2:*:{{ aws_account }}:volume/*",
+                "arn:aws:ec2:*:{{ aws_account }}:subnet/*",
+                "arn:aws:ec2:*::image/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:InstanceProfile": "arn:aws:iam::{{ aws_account }}:instance-profile/VPCLockDown_{{ ec2_name_prefix }}_student{{ loop_idx + 1 }}"
+                }
+            }
+        },
+        {
+            "Sid": "EC2RunInstancesSubnet",
+            "Effect": "Allow",
+            "Action": "ec2:RunInstances",
+            "Resource": [
+                "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:subnet/*",
+                "arn:aws:ec2:*:{{ aws_account }}:network-interface/*",
+                "arn:aws:ec2:*:{{ aws_account }}:security-group/*",
+                "arn:aws:ec2:*:{{ aws_account }}:instance/*",
+                "arn:aws:ec2:*:{{ aws_account }}:volume/*",
+                "arn:aws:ec2:*::image/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:vpc": "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:vpc/{{ ec2_vpc_id }}"
+                }
+            }
+        },
+        {
+            "Sid": "RemainingRunInstancePermissions",
+            "Effect": "Allow",
+            "Action": "ec2:RunInstances",
+            "Resource": [
+                "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:security-group/*",
+                "arn:aws:ec2:{{ ec2_region }}::image/*",
+                "arn:aws:ec2:{{ ec2_region }}::snapshot/*",
+                "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:key-pair/*",
+                "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:network-interface/*",
+                "arn:aws:ec2:{{ ec2_region }}:{{ aws_account }}:volume/*",
+                "arn:aws:ec2:*:{{ aws_account }}:instance/*",
+                "arn:aws:ec2:*:{{ aws_account }}:subnet/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/Student": "student{{ loop_idx + 1 }}"
+                }
+            }
+        },
+        {
+            "Sid": "EC2CreateSnapshot",
+            "Effect": "Allow",
+            "Action": "ec2:CreateSnapshot",
+            "Resource": [
+                "arn:aws:ec2:*::snapshot/*",
+                "arn:aws:ec2:*:{{ aws_account }}:volume/*"
+            ]
+        },
+        {
+            "Sid": "Route53Actions",
+            "Effect": "Allow",
+            "Action": [
+                "route53:ChangeResourceRecordSets",
+                "route53:GetChange"
+            ],
+            "Resource": [
+                "arn:aws:route53:::change/*",
+                "arn:aws:route53:::hostedzone/{{ AWSINFO.zone_id }}"
+            ]
+        },
+        {
+            "Sid": "NonResourceBasedReadOnlyPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "iam:GetInstanceProfile",
+                "ec2:DescribeTags",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:CreateTags",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSnapshots",
+                "iam:ListInstanceProfiles",
+                "ec2:CreateVolume",
+                "route53:ListHostedZones",
+                "route53:ListResourceRecordSets"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "IAMPassroleToInstance",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::{{ aws_account }}:role/VPCLockDown_{{ ec2_name_prefix }}_student{{ loop_idx + 1 }}"
+        },
+        {
+            "Sid": "AttachAndDetachVolume",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DetachVolume",
+                "ec2:AttachVolume"
+            ],
+            "Resource": [
+                "arn:aws:ec2:{{ ec2_region }}:*:instance/*",
+                "arn:aws:ec2:{{ ec2_region }}:*:volume/*"
+            ]
+        }
+    ]
+}

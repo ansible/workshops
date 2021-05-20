@@ -45,7 +45,7 @@
 
 - name: add tower credential into ansible tower
   awx.awx.tower_credential:
-    host: "{{ansible_host}}"
+    host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
     username: admin
     password: "{{admin_password}}"
     name: "Tower Credential"

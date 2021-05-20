@@ -385,3 +385,50 @@
         public_ip: "{{ item['public_ip'] }}"
         state: absent
       loop: "{{ ec2_eip_by_workshop_tag['addresses'] }}"
+
+- name: Remove IAM roles & policy block
+  block:
+    - name: Remove IAM policy for control node IAM instance role
+      iam_policy:
+        iam_type: role
+        iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
+        policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
+        state: absent
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+    - name: Remove VPC Lock Down role
+      community.aws.iam_role:
+        name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
+        state: absent
+        delete_instance_profile: true
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+    - name: Remove control node instance role
+      community.aws.iam_role:
+        name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
+        state: absent
+        delete_instance_profile: true
+      loop: "{{ range(1, student_total + 1)|list }}"
+
+  when: tower_node_aws_api_access|default(false)|bool
+
+- name: Delete AWS snapshots (SMART MANAGEMENT MODE)
+  block:
+    - name: Get snapshot info
+      ec2_snapshot_info:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:Workshop": "{{ ec2_name_prefix }}"
+      register: snapshots_details
+
+    - name: Delete snapshot
+      ec2_snapshot:
+        snapshot_id: "{{ item.0 }}"
+        region: "{{ ec2_region }}"
+        state: absent
+        wait: true
+      with_together:
+        - "{{ snapshots_details.snapshots | map(attribute='snapshot_id') | list }}"
+      when:
+        - snapshots_details.snapshots|length > 0
+  when: workshop_type == 'smart_mgmt'

@@ -61,7 +61,7 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
 <!-- {% endraw %} -->
 
-> Note: You can also view the Ansible Playbook here: [https://github.com/network-automation/ansible_network_collection](https://github.com/network-automation/ansible_network_collection)
+> Note: You can also view the Ansible Playbook here: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
 
 The role **banner** has a very simple `main.yml` file:
 

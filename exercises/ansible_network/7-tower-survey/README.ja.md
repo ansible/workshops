@@ -61,7 +61,7 @@
 <!-- {% endraw %} -->
 
 
-> Note: こちらから同じ Playbook を参照できます: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
+> Note: こちらから同じ Playbook を参照できます: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
 
 このロール **banner** はシンプルな `main.yml` ファイルを持っています:
 

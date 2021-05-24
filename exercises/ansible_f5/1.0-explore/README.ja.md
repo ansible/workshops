@@ -5,7 +5,7 @@
 演習を開始する前にぜひ Ansible Slack へ参加してください！(任意)
 
 - [クリックして ansiblejp slack (日本語) へ参加](https://bit.ly/slack-ansiblejp)
-- [クリックして ansiblenetwork slack (英語) へ参加](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
+- [クリックして ansiblenetwork slack (英語) へ参加](https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw)
 
 ここでは他のネットワークエンジニアと自動化をテーマに交流することができます。
 

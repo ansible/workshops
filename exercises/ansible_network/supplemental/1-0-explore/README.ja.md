@@ -7,7 +7,7 @@
 
 - [日本のAnsibleコミュニティ](https://ansible-users.connpass.com)
 - [日本のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblejp/shared_invite/enQtNDEyOTc3OTI3OTQxLWE1NDAzM2I5MGExYzM5OGNlN2RiMjBmYTFiYzM5NzIzYzk1ZjYyMmQ5ZTAxNjA4NmQyMTdjM2MyM2UzNjM2N2E)
-- [海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtMzEyMTcxMTE5NjM3LWIyMmQ4YzNhYTA4MjA2OTRhZDQzMTZkNWZlN2E3NzhhMWQ5ZTdmNmViNjk2M2JkYzJjODhjMjVjMGUxZjc2MWE)
+- [海外のAnsibleコミュニティSlackへ参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw)
 
 
 ## Step 1

@@ -54,6 +54,10 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 - [Ansible Getting Started Guide](https://docs.ansible.com/ansible/latest/user_guide/index.html#get)
 - [Ansible Network Automation - Getting Started](https://docs.ansible.com/ansible/latest/network/getting_started/index.html)
 
+## Slack Community
+
+- [Join us on Ansible Network Slack](https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw)
+
 ## E-Books
 
 - [The Automated Enterprise](https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000002DXg8AAG)

@@ -138,8 +138,8 @@
         credentials:
           - Satellite Credential
         extra_vars:
-          refresh_satellite_manifest: no
-        ask_variables_on_launch: yes
+          refresh_satellite_manifest: false
+        ask_variables_on_launch: true
       - name: SETUP / Tower
         project: Automated Management
         playbook: setup_tower.yml

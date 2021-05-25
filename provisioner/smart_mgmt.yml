@@ -100,7 +100,7 @@
             - personal_access_token
         injectors:
           env:
-            MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"  
+            MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"
     tower_credentials:
       - name: Satellite Credential
         credential_type: Satellite_Collection

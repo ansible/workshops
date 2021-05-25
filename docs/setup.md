@@ -15,7 +15,7 @@ Here are the setup directions you have to perform one time for the [../provision
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
-3. Install the necesaaty pip modules to create the workshops
+3. Install the following pip modules needed to deploy the workshops
 
         pip install boto boto3 netaddr passlib pywinrm requests requests-credssp
 

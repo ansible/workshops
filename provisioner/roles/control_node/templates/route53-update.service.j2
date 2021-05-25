@@ -1,0 +1,9 @@
+[Unit]
+Description = Run Route53 update jobs after Tower is up
+After = ansible-tower.target
+
+[Service]
+ExecStart = /usr/local/bin/route53-update.py
+
+[Install]
+WantedBy = multi-user.target

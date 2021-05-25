@@ -1,0 +1,31 @@
+---
+- name: create oauth2 token
+  shell: >
+    awx-manage create_oauth2_token --user admin
+  register: oauth2_token
+
+- name: Set admin oauth2 token fact
+  set_fact:
+    admin_oauth2_token: "{{ oauth2_token.stdout }}"
+
+- name: Install route53-update.py in /usr/local/bin
+  template:
+    src: route53-update.py.j2
+    dest: "/usr/local/bin/route53-update.py"
+    owner: "root"
+    group: "root"
+    mode: '0744'
+
+- name: Apply route53 systemd service file
+  template:
+    src: route53-update.service.j2
+    dest: /etc/systemd/system/route53-update.service
+    owner: "{{ username }}"
+    group: wheel
+    mode: '0744'
+
+
+- name: enable route53-update service
+  systemd:
+    name: route53-update
+    enabled: true

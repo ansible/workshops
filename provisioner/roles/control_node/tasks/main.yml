@@ -136,3 +136,7 @@
     - towerinstall is defined
     - towerinstall|bool
     - check_tower.status != 200
+
+- name: Setup Route53 update service
+  include_tasks: "route53_update.yml"
+  when: tower_node_aws_api_access|default(false)|bool

@@ -15,9 +15,9 @@ Here are the setup directions you have to perform one time for the [../provision
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
-3. Install `boto` and `boto3`as well as `netaddr` and `passlib`
+3. Install the following packages using pip
 
-        pip install boto boto3 netaddr passlib
+        pip install boto boto3 netaddr passlib pywinrm requests requests-credssp
 
   **Are you using Tower?**  [Tower Instructions](#tower-instructions)
 

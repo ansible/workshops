@@ -1,0 +1,127 @@
+#!/usr/bin/python3
+# Inspiration provided by Rikesh Patel
+# https://debugthis.dev/posts/2020/03/ansible-awx-using-python-to-launch-a-job-template/
+
+import requests
+import json
+import logging
+import time
+requests.packages.urllib3.disable_warnings()
+
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
+
+retry_strategy = Retry(
+    total=10,
+    backoff_factor=1,
+    status_forcelist=[429, 500, 502, 503, 504],
+    method_whitelist=["HEAD", "GET", "OPTIONS"]
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
+http = requests.Session()
+http.mount("https://", adapter)
+http.mount("http://", adapter)
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('/var/log/route53-update.log')
+fh.setLevel(logging.DEBUG)
+# create console handler with info log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+awx_host = 'https://localhost'
+awx_job_templates_api_path = '/api/v2/job_templates'
+awx_job_templates_api_url = awx_host + awx_job_templates_api_path
+
+awx_oauth2_token = '{{ admin_oauth2_token }}'
+headers = {"User-agent": "python-awx-client", "Content-Type": "application/json","Authorization": "Bearer {}".format(awx_oauth2_token)}
+
+# define a class to encapsulate Job template info
+class JobTemplate():
+    def __init__(self,id,name,launch_url):
+        self.id=id
+        self.name=name
+        self.launch_url=launch_url
+
+# Iterate through all the job templates
+def getJobTemplate():
+    for job in job_templates_details.json()['results']:
+        job_template = JobTemplate(job['id'], job['name'], awx_host + job['related']['launch'])
+
+        if(job_template.name == run_job_template):
+            logger.info("Job template {} located.".format(job_template.name))
+            return job_template
+
+def monitorJobRun():
+    # Checking the response status code, ensures the launch was ok
+    if(response.status_code == 201):
+
+        job_status_url = awx_host + response.json()['url']
+
+        logger.info("Job launched successfully.")
+        logger.info("Job URL = {}".format(job_status_url))
+
+        logger.info("Job id = {}".format(response.json()['id']))
+        logger.info("Status = {}".format(
+            response.json()['status']))
+        logger.info(
+            "Waiting for job to complete (timeout = 5mins).")
+        timeout = time.time() + 60*5
+
+        while(True):
+            time.sleep(2)
+
+            job_response = requests.get(
+                job_status_url, headers=headers, verify=False)
+            if(job_response.json()['status'] == "new"):
+                logger.info("Job status = new.")
+            if(job_response.json()['status'] == "pending"):
+                logger.info("Job status = pending.")
+            if(job_response.json()['status'] == "waiting"):
+                logger.info("Job status = waiting.")
+            if(job_response.json()['status'] == "running"):
+                logger.info("Job status = running.")
+            if(job_response.json()['status'] == "successful"):
+                logger.info("Job status = successful.")
+                break
+            if(job_response.json()['status'] == "failed"):
+                logger.error("Job status = failed.")
+                break
+            if(job_response.json()['status'] == "error"):
+                logger.error("Job status = error.")
+                break
+            if(job_response.json()['status'] == "canceled"):
+                logger.info("Job status = canceled.")
+                break
+            if(job_response.json()['status'] == "never updated"):
+                logger.info("Job status = never updated.")
+
+            # timeout of 5m break loop
+            if time.time() > timeout:
+                logger.warning("Timeout after 5mins.")
+                break
+
+
+logger.info("Requesting list of Job templates.")
+job_templates_details = http.get(awx_job_templates_api_url, headers=headers, verify=False)
+logger.debug("Job Templates Details response status code ==> {}".format(job_templates_details.status_code))
+
+run_job_template = 'EC2 / Update Route53'
+logger.info("Searching for Job template ==> {}".format(run_job_template))
+job_template = getJobTemplate()
+response = requests.post(job_template.launch_url, headers=headers, data={}, verify=False)
+monitorJobRun()
+logger.info("Fetching Job stdout")
+time.sleep(5)
+job_stdout_response = requests.get(
+    awx_host + response.json()['related']['stdout'] + "?format=json", headers=headers, verify=False)
+print(job_stdout_response.json()['content'])

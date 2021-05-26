@@ -2,3 +2,4 @@
 workshop_type: smart_mgmt
 ibm_community_grid: false
 ec2_region: us-east-1
+tower_node_aws_api_access: true

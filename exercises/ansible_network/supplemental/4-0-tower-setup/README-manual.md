@@ -77,7 +77,7 @@ Click the `+` green button to create a new project.  Fill out the following fiel
 | Name  | Workshop Project  |
 | Organization |  Default |
 | SCM TYPE |  Git |
-| SCM URL |  https://github.com/network-automation/tower_workshop |
+| SCM URL |  https://github.com/network-automation/toolkit |
 
 Click on the Green Save button to save the new project.
 

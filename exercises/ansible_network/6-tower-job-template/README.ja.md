@@ -147,7 +147,7 @@ Youtube で確認するにはこちら  [Click Here](https://youtu.be/EQVkFaQYRi
    !
    ```
 
-  3. 残りのルーターに関してもバックアップファイルを確認してください。この演習環境はJuniper や Arista を含む複数のベンダーの機器でセットアップされています。Playbook はこのようにベンダー非依存で動くように書くことも可能です。ここで使われたPlaybookは [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop) で確認できます。
+  3. 残りのルーターに関してもバックアップファイルを確認してください。この演習環境はJuniper や Arista を含む複数のベンダーの機器でセットアップされています。Playbook はこのようにベンダー非依存で動くように書くことも可能です。ここで使われたPlaybookは [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit) で確認できます。
 
 # Takeaways
 

@@ -50,4 +50,4 @@ drwxr-xr-x. 2 awx awx   96 Jan 22 15:45 network_setup
 drwxr-xr-x. 2 awx awx  103 Jan 22 15:45 templates
 ```
 
-The Playbooks (shown as .yml files) should directly correspond to the Github repo: https://github.com/network-automation/tower_workshop
+The Playbooks (shown as .yml files) should directly correspond to the Github repo: https://github.com/network-automation/toolkit

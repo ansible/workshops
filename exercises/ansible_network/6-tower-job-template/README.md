@@ -150,7 +150,7 @@ Any **Job Template** that has been run or is currently running will show up unde
   !
   ```
 
-* Examine the remaining routers.  Your instructor may have setup multiple vendors for this exercise including Juniper and Arista.  Ansible Playbooks can be written to be vendor agnostic,  in this case we provided the Ansible Playbook via the Github repo: [https://github.com/network-automation/tower_workshop](https://github.com/network-automation/tower_workshop)
+* Examine the remaining routers.  Your instructor may have setup multiple vendors for this exercise including Juniper and Arista.  Ansible Playbooks can be written to be vendor agnostic,  in this case we provided the Ansible Playbook via the Github repo: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
 
 ## Takeaways
 

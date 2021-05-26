@@ -65,7 +65,7 @@ Ansibleは、Playbook
 Ansible コントロールホストでは、`student<X>` ユーザーとして、`~/ansible-files/` に変数定義を保持するディレクトリーを作成します。
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir host_vars group_vars
+[student<X>@ansible-1 ansible-files]$ mkdir host_vars group_vars
 ```
 
 次に、変数定義を含む 2 つのファイルを作成します。異なる環境 `dev` または `prod` を参照する `stage` を定義します。
@@ -139,7 +139,7 @@ stage: prod
 * Playbook を実行します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook deploy_index_html.yml
 ```
 
 ### Step 4 - 結果のテスト
@@ -149,7 +149,7 @@ Ansible Playbook は、さまざまなファイルを index.html としてホス
 node1:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl http://node1
+[student<X>@ansible-1 ansible-files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -158,7 +158,7 @@ node1:
 node2:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://node2
+[student<X>@ansible-1 ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -167,7 +167,7 @@ node2:
 node3:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://node3
+[student<X>@ansible-1 ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -186,19 +186,19 @@ Ansible ファクトは、管理対象ホストから Ansible によって自動
 Ansible がデフォルトで収集するファクトを把握するには、コントロールノードで、student ユーザーとして次を実行します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup
 ```
 
 多すぎる場合は、特定のファクトに出力を制限するフィルターを使用できます。使用する表現は、シェルスタイルのワイルドカードです。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
 ```
 
 あるいは、メモリ関連のファクトだけを探すのはどうでしょうか。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
 ```
 
 ### Step 6 - チャレンジラボ: ファクト
@@ -214,8 +214,8 @@ Ansible がデフォルトで収集するファクトを把握するには、コ
 > **回答を以下に示します。**
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep distribution
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup|grep distribution
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
 ```
 
 ### Step 7 - Playbook でのファクトの使用
@@ -244,7 +244,7 @@ Ansible がデフォルトで収集するファクトを把握するには、コ
 それを実行して、ファクトがどのように出力されるかを確認します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook facts.yml
+[student<X>@ansible-1 ansible-files]$ ansible-playbook facts.yml
 
 PLAY [Output facts within a playbook] ******************************************
 
@@ -252,7 +252,7 @@ TASK [Gathering Facts] *********************************************************
 ok: [node3]
 ok: [node2]
 ok: [node1]
-ok: [ansible]
+ok: [ansible-1]
 
 TASK [Prints Ansible facts] ****************************************************
 ok: [node1] =>
@@ -261,11 +261,11 @@ ok: [node2] =>
   msg: The default IPv4 address of node2 is 172.16.30.170
 ok: [node3] =>
   msg: The default IPv4 address of node3 is 172.16.140.196
-ok: [ansible] =>
+ok: [ansible-1] =>
   msg: The default IPv4 address of ansible is 172.16.2.10
 
 PLAY RECAP *********************************************************************
-ansible                    : ok=2    changed=0    unreachable=0    failed=0
+ansible-1                  : ok=2    changed=0    unreachable=0    failed=0
 node1                      : ok=2    changed=0    unreachable=0    failed=0
 node2                      : ok=2    changed=0    unreachable=0    failed=0
 node3                      : ok=2    changed=0    unreachable=0    failed=0

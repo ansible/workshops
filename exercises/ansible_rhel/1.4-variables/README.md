@@ -151,7 +151,7 @@ For node1:
 For node2:
 
 ```bash
-[student1@ansible-1 ansible-files]$ curl http://node2
+[student<X>@ansible-1 ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -160,7 +160,7 @@ For node2:
 For node3:
 
 ```bash
-[student1@ansible-1 ansible-files]$ curl http://node3
+[student<X>@ansible-1 ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>

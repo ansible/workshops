@@ -153,9 +153,9 @@ Listen 8080
 Apache should now listen on port 8080. Easy enough to verify:
 
 ```bash
-[student1@ansible-1 ansible-files]$ curl http://node1
+[student<X>@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
-[student1@ansible-1 ansible-files]$ curl http://node1:8080
+[student<X>@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>

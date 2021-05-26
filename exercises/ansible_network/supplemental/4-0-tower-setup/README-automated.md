@@ -92,7 +92,7 @@ For this exercise we are going to use an already existing Github repository and 
         name: "Workshop Project"
         organization: "Default"
         scm_type: git
-        scm_url: "https://github.com/network-automation/tower_workshop"
+        scm_url: "https://github.com/network-automation/toolkit"
         tower_username: admin
         tower_password: ansible
         tower_host: "https://{{ansible_fqdn}}"

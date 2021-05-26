@@ -88,7 +88,7 @@ ansible-1 ansible_host=44.55.66.77
 
 ```bash
 TASK [Install FTP server when host in ftpserver group] *******************************************
-skipping: [ansible]
+skipping: [ansible-1]
 skipping: [node1]
 skipping: [node3]
 changed: [node2]
@@ -112,7 +112,7 @@ changed: [node2]
 `node1` の IP アドレスに置き換えることを忘れないでください。
 
 ```bash
-[student<X>@ansible ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+[student<X>@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 student<X>@11.22.33.44's password:
 httpd.conf
 ```
@@ -163,9 +163,9 @@ Listen 8080
 Apache はポート 8080 でリッスンするはずです。確認は簡単です。
 
 ```bash
-[student1@ansible ansible-files]$ curl http://node1
+[student<X>@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
-[student1@ansible ansible-files]$ curl http://node1:8080
+[student<X>@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -265,7 +265,7 @@ Playbook を書き直して、追加のユーザー権限を持つユーザー�
 ユーザー `dev_user` が `node1` で確実に作成されたことを確認します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
+[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a "id dev_user"
 node1 | CHANGED | rc=0 >>
 uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```

@@ -15,7 +15,7 @@
 - Ansible の設定ファイル (`ansible.cfg`)を理解する。
 - `ini` 形式のインベントリーファイルを理解する。
 
-演習を開始する前にぜひSlackへ参加してみましょう。[日本のAnsibleコミュニティ](https://ansible-users.connpass.com) [日本のAnsible slack コミュニティ](https://ansiblejp.slack.com/join/shared_invite/enQtNzQwNTEyNTc2Mjc3LTRmYzBkY2FhM2RhOGIzNjVhYTczMDdiODY0YWFiMjdmMGRkNGJiZDYzN2I4M2NjZDA5MjkxYzU3ZWQyMzFhYjU) [海外のAnsible slack コミュニティ](https://join.slack.com/t/ansiblenetwork/shared_invite/enQtNTU4ODIyNzA1MDkyLThiYmQ3MmNkMWRmOTdjYjMxNzdlNDc4OTk5YTc1ZDBiNDAwOTZlZjE0NDliODJiMjJhMDBkZWM4Nzg2NjkzNDA)。参加すると他の自動化エンジニアと交流し、情報交換することが可能です。
+演習を開始する前にぜひSlackへ参加してみましょう。[日本のAnsibleコミュニティ](https://ansible-users.connpass.com) [日本のAnsible slack コミュニティ](https://ansiblejp.slack.com/join/shared_invite/enQtNzQwNTEyNTc2Mjc3LTRmYzBkY2FhM2RhOGIzNjVhYTczMDdiODY0YWFiMjdmMGRkNGJiZDYzN2I4M2NjZDA5MjkxYzU3ZWQyMzFhYjU) [海外のAnsible slack コミュニティ](https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw)。参加すると他の自動化エンジニアと交流し、情報交換することが可能です。
 
 # Diagram
 

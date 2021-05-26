@@ -1,3 +1,7 @@
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
+<br>
+
 This exercise aims to introduce how Ansible makes it easy to control all aspects of managing Windows software using Chocolatey. We will cover Installing, updating and uninstalling packages, managing different sources, configuring chocolatey clients and other common tasks that a system administrator would take on.
 
 So what is Chocolatey anyways? Simply put, Chocolatey is a package management system for Windows. Chocolatey aims to simplify software management, making it easier to automate your entire Windows software lifecycle.
@@ -245,7 +249,7 @@ Now go ahead and make sure your new playbook is in Git, and that Ansible Tower c
 | LIMIT       | windows                                          |      |
 | OPTIONS     |                                                  |      |
 
-After running the new Template, examine the `deubg` task message, and compare the versions to the ones from the `install_packages` job output. The versions should be higher as those packages were updates (the `git` package that we installed using an adhoc command will also be checked for an update - unlikely that there will be one after minutes of installation).
+After running the new Template, examine the `debug` task message, and compare the versions to the ones from the `install_packages` job output. The versions should be higher as those packages were updates (the `git` package that we installed using an adhoc command will also be checked for an update - unlikely that there will be one after minutes of installation).
 
 ![Run Job Template](images/8-update-packages-job-run-successful.png)
 

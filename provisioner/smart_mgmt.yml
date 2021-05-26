@@ -47,7 +47,7 @@
         name: redhat_cop.tower_utilities.tower_virtual_environments
 
 - name: configure tower Credentials
-  hosts: control_nodes[0]
+  hosts: control_nodes
   gather_facts: false
   vars:
     tower_infra_workloads:
@@ -85,6 +85,22 @@
             FOREMAN_USER: "{% raw %}{{ '{{username}}' }}{% endraw %}"
             FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
             FOREMAN_VALIDATE_CERTS: 'false'
+      - name: GitHub_Personal_Access_Token
+        description: Credential for GitHub repo operations automation
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: personal_access_token
+              label: Personal Access Token
+              secret: true
+              help_text: GitHub Personal Access Token
+              multiline: true
+          required:
+            - personal_access_token
+        injectors:
+          env:
+            MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"
     tower_credentials:
       - name: Satellite Credential
         credential_type: Satellite_Collection
@@ -121,6 +137,9 @@
         inventory: Workshop Inventory
         credentials:
           - Satellite Credential
+        extra_vars:
+          refresh_satellite_manifest: false
+        ask_variables_on_launch: true
       - name: SETUP / Tower
         project: Automated Management
         playbook: setup_tower.yml

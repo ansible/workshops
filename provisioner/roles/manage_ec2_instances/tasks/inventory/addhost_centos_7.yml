@@ -15,6 +15,14 @@
       "tag:Workshop_node5": "{{ec2_name_prefix}}-node5"
   register: node5_node_facts
 
+- name: grab facts for node6 node
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_node6": "{{ec2_name_prefix}}-node6"
+  register: node6_node_facts
+
 - name: add hosts to groups (ANSIBLE RHEL MODE)
   add_host:
     name: "{{ item.tags.Name }}"
@@ -28,4 +36,5 @@
   with_items:
     - "{{ node4_node_facts.instances }}"
     - "{{ node5_node_facts.instances }}"
+    - "{{ node6_node_facts.instances }}"
   changed_when: false

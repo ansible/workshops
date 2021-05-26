@@ -167,7 +167,7 @@
     name: "Workshop Project"
     organization: "REDHAT NETWORK ORGANIZATION"
     scm_type: git
-    scm_url: "https://github.com/network-automation/tower_workshop"
+    scm_url: "https://github.com/network-automation/toolkit"
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "{{ ansible_host }}"

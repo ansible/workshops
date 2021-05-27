@@ -30,8 +30,9 @@
   hosts: "managed_nodes:control_nodes:attendance"
   become: true
   gather_facts: false
-  roles:
-    - connectivity_test
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/connectivity_test"
 
 - name: Configure nginx on attendance host
   hosts: attendance
@@ -49,8 +50,9 @@
   hosts: "security_connection_check"
   become: true
   gather_facts: false
-  roles:
-    - connectivity_test
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/connectivity_test"
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"

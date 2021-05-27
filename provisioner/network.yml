@@ -5,7 +5,7 @@
   tasks:
     - name: make sure routers have ssh reachability
       include_role:
-        name: connectivity_test
+        name: "{{ playbook_dir }}/../roles/connectivity_test"
         tasks_from: routers
 
 - name: change juniper password

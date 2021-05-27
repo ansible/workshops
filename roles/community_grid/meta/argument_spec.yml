@@ -1,0 +1,15 @@
+---
+argument_specs:
+  main:
+    short_description: Set up the IBM community grid server.
+  auto_shutoff:
+    short_description: Configure automatic shutoff.
+    options:
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      workshop_type:
+        description: The type of the workshop
+        type: str
+        required: true

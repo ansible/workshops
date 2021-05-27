@@ -148,7 +148,7 @@
   tasks:
     - name: install boinc-client and register
       include_role:
-        name: community_grid
+        name: "{{ playbook_dir }}/../roles/community_grid"
       when:
         - ibm_community_grid is defined
         - ibm_community_grid
@@ -161,7 +161,7 @@
   tasks:
     - name: install boinc-client and register
       include_role:
-        name: community_grid
+        name: "{{ playbook_dir }}/../roles/community_grid"
         tasks_from: auto_shutoff
       when:
         - ibm_community_grid is defined

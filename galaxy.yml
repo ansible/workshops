@@ -37,6 +37,8 @@ tags: []
 # range specifiers can be set and are separated by ','
 dependencies:
   "awx.awx": "*"    # note: "*" selects the highest version available
+  "amazon.aws": "==1.5.0"
+  "community.aws": "==1.5.0"
 
 
 # The URL of the originating SCM repository

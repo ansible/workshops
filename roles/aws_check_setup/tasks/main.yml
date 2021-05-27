@@ -19,7 +19,7 @@
 
     - name: does route53 zone exist
       check_mode: true
-      route53_zone:
+      community.aws.route53_zone:
         zone: "{{workshop_dns_zone}}"
         state: present
       register: test
@@ -35,7 +35,7 @@
     - dns_type == "aws"
 
 - name: FIND AZ ZONE FOR REGION {{ec2_region}}
-  aws_az_info:
+  amazon.aws.aws_az_info:
     region: "{{ec2_region}}"
   register: az_names
 
@@ -57,7 +57,7 @@
     ec2_az: "{{ availability_zones[0].zone_name }}"
 
 - name: grab information about AWS user
-  aws_caller_info:
+  amazon.aws.aws_caller_info:
     region: "{{ ec2_region }}"
   register: whoami
 

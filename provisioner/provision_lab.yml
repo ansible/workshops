@@ -11,7 +11,7 @@
 
     - name: run AWS check setup if using AWS
       include_role:
-        name: aws_check_setup
+        name: "{{ playbook_dir }}/../roles/aws_check_setup"
 
 - name: Create lab instances in AWS
   hosts: localhost

@@ -5,7 +5,7 @@
 
 - name: check to see if SSL cert already applied
   become: false
-  get_certificate:
+  community.crypto.get_certificate:
     host: "{{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
     port: 443
   delegate_to: localhost
@@ -41,7 +41,7 @@
 
     - name: fail on purpose now to let user know code server failed
       debug:
-        msg: "VS code integration has failed in provisioner/roles/code_server/tasks/main.yml"
+        msg: "VS code integration has failed in roles/code_server/tasks/main.yml"
       failed_when: true
   when:
     - not teardown|bool

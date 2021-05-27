@@ -39,6 +39,7 @@ dependencies:
   "awx.awx": "*"    # note: "*" selects the highest version available
   "amazon.aws": "==1.5.0"
   "community.aws": "==1.5.0"
+  "community.crypto": "==1.6.2"
 
 
 # The URL of the originating SCM repository

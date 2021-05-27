@@ -87,7 +87,7 @@
     - role: control_node
   tasks:
     - include_role:
-        name: code_server
+        name: "{{ playbook_dir }}/../roles/code_server"
       when:
         - code_server is defined
         - code_server

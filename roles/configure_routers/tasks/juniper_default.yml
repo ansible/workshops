@@ -1,6 +1,6 @@
 ---
 - name: CHANGE PASSWORD TO WORKSHOP DEFAULT
-  cli_command:
+  ansible.netcommon.cli_command:
     command: "{{item}}"
     prompt:
       - "New password"
@@ -16,4 +16,4 @@
     - "commit"
 
 - name: TURN ON NETCONF ON PORT 830
-  junos_netconf:
+  junipernetworks.junos.junos_netconf:

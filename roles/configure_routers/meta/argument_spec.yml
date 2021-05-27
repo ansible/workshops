@@ -1,0 +1,26 @@
+---
+argument_specs:
+  main:
+    short_description: Configure routers.
+    options:
+      type:
+        type: str
+        options:
+          - core
+          - access
+        required: true
+      short_name:
+        description: The device's short name.
+        type: str
+        required: true
+      private_ip:
+        description: The device's private IP address.
+        type: str
+        required: true
+  juniper_default:
+    short_description: Set Juniper defaults.
+    options:
+      admin_password:
+        description: The appliance admin password.
+        type: str
+        required: true

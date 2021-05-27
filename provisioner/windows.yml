@@ -7,7 +7,7 @@
     - gitlab
   tasks:
     - include_role:
-        name: common
+        name: "{{ playbook_dir }}/../roles/common"
     - include_role:
         name: gitlab-server
     - include_role:

@@ -1,0 +1,34 @@
+---
+argument_specs:
+  main:
+    short_description: Common functionality.
+    options:
+      short_name:
+        description: The name of the instance.
+        type: str
+        required: true
+      ssh_port:
+        description: The SSH daemon port.
+        type: int
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+  windows:
+    short_description: Common windows functionality.
+    options:
+      dns_domain_name:
+        description: The search domain.
+        type: str
+        required: true
+      dns_server:
+        description: The system DNS server.
+        type: str
+        required: true
+      instance_loc:
+        description: Where the instance is located.
+        type: str
+        choices:
+          - ec2
+        required: true

@@ -58,7 +58,9 @@
   become: true
   roles:
     - user_accounts
-    - common
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/common"
 
 - name: Configure /etc/hosts
   hosts: 'managed_nodes:control_nodes'

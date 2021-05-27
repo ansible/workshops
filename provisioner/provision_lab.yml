@@ -116,7 +116,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: aws_dns
+        name: "{{ playbook_dir }}/../roles/aws_dns"
       when:
         - dns_type is defined
         - dns_type == "aws"

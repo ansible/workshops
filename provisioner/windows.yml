@@ -25,5 +25,6 @@
   gather_facts: true
   tags:
     - git
-  roles:
-    - gitlab-client
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/gitlab-client"

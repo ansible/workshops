@@ -206,7 +206,7 @@
   become: false
   gather_facts: false
   tasks:
-    - {include_role: {name: tower_request}, when: student_total > 9}
+    - {include_role: {name: "{{ playbook_dir }}/../roles/tower_request"}, when: student_total > 9}
 
 - name: print out information for instructor
   hosts: localhost

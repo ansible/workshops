@@ -1,0 +1,26 @@
+---
+argument_specs:
+  main:
+    short_description: Execute a feedback callback.
+    options:
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      aws_user:
+        description: The AWS user.
+        type: str
+        required: true
+      ec2_region:
+        description: The AWS EC2 region the workshop is deployed in.
+        type: str
+        required: true
+      student_total:
+        description: The total number of students for the workshop.
+        type: int
+        required: true
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: false
+        default: unknown

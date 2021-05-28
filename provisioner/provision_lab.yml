@@ -7,7 +7,7 @@
   tasks:
     - name: run pre-check role to make sure workshop will complete provisioning
       include_role:
-        name: workshop_check_setup
+        name: "{{ playbook_dir }}/../roles/workshop_check_setup"
 
     - name: run AWS check setup if using AWS
       include_role:

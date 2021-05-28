@@ -11,5 +11,6 @@
   hosts: qradar
   become: true
   gather_facts: true
-  roles:
-    - role: qradar
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/qradar"

@@ -32,7 +32,7 @@
     state: present
 
 - name: set httpd_unified (selinux)
-  seboolean:
+  ansible.posix.seboolean:
     name: "{{ item }}"
     state: true
     persistent: true

@@ -41,7 +41,7 @@
   tasks:
     - block:
         - include_role:
-            name: workshop_attendance_nginx
+            name: "{{ playbook_dir }}/../roles/workshop_attendance_nginx"
         - include_role:
             name: "{{ playbook_dir }}/../roles/workshop_attendance"
       when: attendance|bool

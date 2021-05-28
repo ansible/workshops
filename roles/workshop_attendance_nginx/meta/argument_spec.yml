@@ -1,0 +1,22 @@
+---
+argument_specs:
+  main:
+    short_description: Set up an nginx site for workshop attendance.
+    options:
+      user:
+        description: The user nginx runs under.
+        type: str
+        required: false
+        default: nginx
+      config:
+        description: Extra nginx config files to include.
+        type: list
+        elements: str
+        required: false
+        default: []
+      http_params:
+        description: Additional nginx HTTP params to apply to the server.
+        type: list
+        elements: str
+        required: false
+        default: []

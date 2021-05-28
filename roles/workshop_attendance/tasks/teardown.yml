@@ -1,11 +1,11 @@
 ---
 - name: GRAB ZONE ID
-  route53_zone:
+  community.aws.route53_zone:
     zone: "{{workshop_dns_zone}}"
   register: AWSINFO
 
 - name: GRAB ROUTE53 INFORMATION
-  route53_info:
+  community.aws.route53_info:
     type: A
     query: record_sets
     hosted_zone_id: "{{AWSINFO.zone_id}}"
@@ -15,7 +15,7 @@
 
 - name: DELETE DNS ENTRIES FOR ATTENDANCE HOST
   become: false
-  route53:
+  community.aws.route53:
     state: "{{ s3_state }}"
     zone: "{{workshop_dns_zone}}"
     record: "login.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"

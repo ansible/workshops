@@ -1,7 +1,7 @@
 ---
 - name: workshop_attendance | Create DNS record
   become: false
-  route53:
+  community.aws.route53:
     state: "{{ s3_state }}"
     zone: "{{ workshop_dns_zone }}"
     record: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"

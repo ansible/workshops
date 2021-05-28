@@ -58,7 +58,7 @@
     name: PyMySQL
 
 - name: Create a new database with name 'workshop'
-  mysql_db:
+  community.mysql.mysql_db:
     name: workshop
     state: present
 
@@ -69,7 +69,7 @@
   register: workshopsql
 
 - name: Import SQL file into workshop database
-  mysql_db:
+  community.mysql.mysql_db:
     state: import
     name: workshop
     target: /tmp/workshop.sql

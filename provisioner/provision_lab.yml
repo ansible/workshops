@@ -43,7 +43,7 @@
         - include_role:
             name: workshop_attendance_nginx
         - include_role:
-            name: workshop_attendance
+            name: "{{ playbook_dir }}/../roles/workshop_attendance"
       when: attendance|bool
 
 - name: wait for all security nodes to have SSH reachability

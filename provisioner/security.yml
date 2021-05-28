@@ -104,8 +104,9 @@
 - name: FIX CHECKPOINT MGMT SERVER
   hosts: checkpoint_mgmt
   gather_facts: false
-  roles:
-    - role: cp_fix_mgmt
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/cp_fix_mgmt"
 
 - name: SETUP CHECKPOINT ENVIRONMENT
   hosts: '*ansible-1'

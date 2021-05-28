@@ -6,7 +6,7 @@
     state: present
 
 - name: Change BIG-IP F5 mgmt password
-  bigip_command:
+  f5networks.f5_modules.bigip_command:
     provider:
       ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
       transport: cli
@@ -19,7 +19,7 @@
   delay: 10
 
 - name: Wait for API to be Ready
-  bigip_wait:
+  f5networks.f5_modules.bigip_wait:
     timeout: 300
     provider:
       validate_certs: "no"
@@ -31,8 +31,8 @@
 
 # The bigip_lx_package requires rpm installed, on macOS use brew rather than pip or it won't work
 - name: Install AS3
-  bigip_lx_package:
-    package: "{{playbook_dir}}/roles/f5_setup/files/f5-appsvcs-3.25.0-3.noarch.rpm"
+  f5networks.f5_modules.bigip_lx_package:
+    package: "{{playbook_dir}}/../roles/f5_setup/files/f5-appsvcs-3.25.0-3.noarch.rpm"
     provider:
       validate_certs: "no"
       user: admin
@@ -45,7 +45,7 @@
   retries: 2
 
 - name: Set db provision.extramb
-  bigip_sys_db:
+  f5networks.f5_modules.bigip_sys_db:
     key: provision.extramb
     value: "1024"
     provider:
@@ -56,7 +56,7 @@
       server: "{{ ansible_host }}"
 
 - name: Set db restjavad.useextramb
-  bigip_sys_db:
+  f5networks.f5_modules.bigip_sys_db:
     key: restjavad.useextramb
     value: "true"
     provider:
@@ -67,7 +67,7 @@
       server: "{{ ansible_host }}"
 
 - name: Set db restjavad.timeout
-  bigip_sys_db:
+  f5networks.f5_modules.bigip_sys_db:
     key: restjavad.timeout
     value: "180"
     provider:
@@ -78,7 +78,7 @@
       server: "{{ ansible_host }}"
 
 - name: Set httpd max-clients
-  bigip_device_httpd:
+  f5networks.f5_modules.bigip_device_httpd:
     max_clients: 20
     provider:
       validate_certs: "no"
@@ -88,7 +88,7 @@
       server: "{{ ansible_host }}"
 
 - name: Save Config
-  bigip_config:
+  f5networks.f5_modules.bigip_config:
     save: true
     provider:
       validate_certs: "no"
@@ -98,7 +98,7 @@
       server: "{{ ansible_host }}"
 
 - name: Restart REST
-  bigip_command:
+  f5networks.f5_modules.bigip_command:
     provider:
       validate_certs: "no"
       user: admin

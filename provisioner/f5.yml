@@ -11,5 +11,6 @@
   become: false
   connection: local
   gather_facts: false
-  roles:
-    - {role: f5_setup}
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/f5_setup"

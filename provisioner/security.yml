@@ -98,8 +98,9 @@
 
 - name: SETUP WINDOWS WORKSTATION
   hosts: windows
-  roles:
-    - role: windows_ws_setup
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/windows_ws_setup"
 
 - name: FIX CHECKPOINT MGMT SERVER
   hosts: checkpoint_mgmt

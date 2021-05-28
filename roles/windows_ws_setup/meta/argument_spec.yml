@@ -1,0 +1,12 @@
+---
+argument_specs:
+  main:
+    short_description: Set up Windows workstations, glue entrypoint.
+  chrome:
+    short_description: Install Chrome.
+  myrtille:
+    short_description: Install Myrtille.
+  server_mgmt:
+    short_description: Disable Server Management startup and EC2 desktop customizations.
+  smartconsole:
+    short_description: Install SmartConsole.

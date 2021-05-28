@@ -87,9 +87,10 @@
   pre_tasks:
     - debug:
         var: tower_license
-  roles:
-    - role: control_node
   tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/control_node"
+
     - include_role:
         name: "{{ playbook_dir }}/../roles/code_server"
       when:
@@ -104,12 +105,12 @@
   become: true
   tasks:
     - include_role:
-        name: control_node
+        name: "{{ playbook_dir }}/../roles/control_node"
         tasks_from: package_dependencies
       when: create_cluster|bool
 
     - include_role:
-        name: control_node
+        name: "{{ playbook_dir }}/../roles/control_node"
         tasks_from: venv
       when: create_cluster|bool
 

@@ -21,7 +21,7 @@ This can be customized!  There are three variables that you can change with your
    - `version` - points to the git [branch](https://git-scm.com/docs/git-branch) for the specified git repo.  By default this uses `master`
    - `refspec` - points to the git [refspec](https://git-scm.com/book/en/v2/Git-Internals-The-Refspec).  By default this is set to `""` (nothing).
 
-These variables are used in the `control_node` role which can found here: `provisioner/roles/control_node/tasks/main.yml`
+These variables are used in the `control_node` role which can found here: `roles/control_node/tasks/main.yml`
 
 
 ## Practical Example

@@ -1,0 +1,130 @@
+---
+argument_specs:
+  main:
+    short_description: General configuration for the control node.
+    options:
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      ansible_workshops_url:
+        description: The repository url for ansible/workshops.
+        type: str
+        required: false
+      ansible_workshops_version:
+        description: The repository version for ansible/workshops.
+        type: str
+        required: false
+      ansible_workshops_refspec:
+        description: The repository refspec for ansible/workshops.
+        type: str
+        required: false
+      exercise_src_location:
+        description: The location of the exercise in ansible/workshops.
+        type: str
+        required: false
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+      towerinstall:
+        description: Whether to install Ansible Tower.
+        type: bool
+        required: false
+        default: false
+      tower_node_aws_api_access:
+        description: Whether Ansible Tower has access ot the AWS API.
+        type: bool
+        required: false
+        default: false
+  devops:
+    short_description: Configure the devops workshop.
+    options:
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+  f5:
+    short_description: Configure the F5 workshop.
+    options:
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+  network:
+    short_description: Configure the network workshop.
+  package_dependencies:
+    short_description: Install general package dependencies for workshops.
+  route53_update:
+    short_description: Configure the Route53 update service.
+    options:
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+  security:
+    short_description: Configure the security workshp
+  tower:
+    short_description: Configure Ansible Tower.
+    options:
+      tower_installer_url:
+        description: The URL to the Ansible Tower .tar.gz installer.
+        type: str
+        required: false
+      default_tower_url:
+        description: The default URL to the Ansible Tower .tar.gz installer.
+        type: str
+        required: true
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+      tower_license:
+        description: The tower license file contents.
+        type: str
+        required: true
+      create_cluster:
+        description: Whether to create an Ansible Tower cluster.
+        type: bool
+        required: true
+      use_manifest:
+        description: Whether to use a manifest file for the license.
+        type: bool
+        required: true
+      gpgcheck:
+        description: Whether to perform GPG checking on repository packages.
+        type: int
+        required: false
+        default: 0
+        choices:
+          - 0
+          - 1
+      aw_repo_url:
+        description: The repository URL for Ansible Tower installation.
+        type: str
+        required: false
+        default: https://releases.ansible.com/ansible-tower/
+  unsupported_workshop:
+    short_description: Catch-all for unsupported workshop types.
+    options:
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+  venv:
+    short_description: Set up a virtual environment for Ansible Tower.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+  windows:
+    short_description: Set up Windows workshop prerequisites.

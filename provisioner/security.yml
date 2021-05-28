@@ -10,8 +10,8 @@
   hosts: attack:snort
   become: true
   tasks:
-    - import_role:
-        name: security_hostroutes
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/security_hostroutes"
 
 - name: Install Pre Reqs on attacker
   hosts: attack

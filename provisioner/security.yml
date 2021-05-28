@@ -91,7 +91,7 @@
             name: "ansible_security.ids_config"
         - name: import webserver role for web exploit simulation
           include_role:
-            name: "webservers"
+            name: "{{ playbook_dir }}/../roles/webservers"
         - name: import webserver attack simulation role
           include_role:
             name: "webservers_attack_simulation"

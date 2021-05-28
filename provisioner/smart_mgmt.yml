@@ -6,7 +6,8 @@
   tasks:
     - name: configure RHEL webservers
       include_role:
-        name: webservers
+        name: "{{ playbook_dir }}/../roles/webservers"
+
 
 - name: configure satellite
   hosts: satellite

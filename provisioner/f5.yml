@@ -3,8 +3,9 @@
   hosts: lab_hosts
   become: true
   gather_facts: false
-  roles:
-    - {role: webservers}
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/webservers"
 
 - name: setup f5 nodes
   hosts: f5

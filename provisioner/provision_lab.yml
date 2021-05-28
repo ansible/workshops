@@ -137,7 +137,7 @@
   tasks:
     - name: run populate_tower role
       include_role:
-        name: populate_tower
+        name: "{{ playbook_dir }}/../roles/populate_tower"
       when:
         - towerinstall is defined
         - towerinstall|bool

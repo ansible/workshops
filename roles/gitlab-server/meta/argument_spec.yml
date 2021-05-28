@@ -1,0 +1,68 @@
+---
+argument_specs:
+  main:
+    short_description: Configure the GitLab server, glue role.
+    options:
+      teardown:
+        description: Whether to execute teardown or creation.
+        type: bool
+        required: true
+  add-users:
+    short_description: Add workshop users to the GitLab server.
+    options:
+      admin_password:
+        description: The GitLab admin password.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      student_total:
+        description: The total number of students for the workshop.
+        type: int
+        required: true
+  certbot:
+    short_description: Set up certbot.
+    options:
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+  dns:
+    short_description: Create a DNS record for GitLab.
+    options:
+      s3_state:
+        description: Whether the DNS record is present or absent.
+        type: str
+        options:
+          - present
+          - absent
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+  teardown:
+    short_description: Tear down GitLab DNS entries.
+    options:
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true

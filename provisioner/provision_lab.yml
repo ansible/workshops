@@ -58,9 +58,9 @@
   hosts: "managed_nodes:control_nodes"
   gather_facts: false
   become: true
-  roles:
-    - user_accounts
   tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/user_accounts"
     - include_role:
         name: "{{ playbook_dir }}/../roles/common"
 

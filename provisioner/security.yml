@@ -94,7 +94,7 @@
             name: "{{ playbook_dir }}/../roles/webservers"
         - name: import webserver attack simulation role
           include_role:
-            name: "webservers_attack_simulation"
+            name: "{{ playbook_dir }}/../roles/webservers_attack_simulation"
 
 - name: SETUP WINDOWS WORKSTATION
   hosts: windows

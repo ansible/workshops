@@ -110,5 +110,6 @@
 
 - name: SETUP CHECKPOINT ENVIRONMENT
   hosts: '*ansible-1'
-  roles:
-    - role: cp_setup
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/cp_setup"

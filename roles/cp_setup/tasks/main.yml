@@ -64,7 +64,7 @@
       {}
 
 - name: get gw instances
-  ec2_instance_info:
+  community.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       "tag:Name": "{{ inventory_hostname|regex_replace('ansible-1', 'checkpoint_gw') }}"
@@ -73,7 +73,7 @@
   delegate_to: localhost
 
 - name: disable source_dest_checking on AWS interface
-  ec2_eni:
+  amazon.aws.ec2_eni:
     region: "{{ ec2_region }}"
     eni_id: "{{ gw_inst['instances'][0]['network_interfaces'][0]['network_interface_id'] if gw_inst['instances'][0]['network_interfaces'][0]['attachment']['device_index'] == 1 else gw_inst['instances'][0]['network_interfaces'][1]['network_interface_id'] }}"
     source_dest_check: false

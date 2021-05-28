@@ -24,8 +24,9 @@
   hosts: access,core
   connection: local
   gather_facts: false
-  roles:
-    - {role: gather_router_facts}
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/gather_router_facts"
 
 - name: configure access routers
   hosts: access

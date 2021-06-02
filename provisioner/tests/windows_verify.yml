@@ -15,7 +15,7 @@
           when: ((ansible_facts.packages['ansible'][0]['version'] is not defined) or (ansible_facts.packages['ansible'][0]['version']|string) is version("2.9.0",'<'))
 
         - name: Test access by exporting assets
-          tower_receive:
+          awx.awx.tower_receive:
             inventory:
               - all
             tower_host: "{{ inventory_hostname|regex_replace('-ansible-1', '') }}.{{ workshop_name }}.rhdemo.io"

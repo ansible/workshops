@@ -103,7 +103,7 @@ Ansible の動作は、Ansible の ini スタイル設定ファイルの内容�
 ```bash
 [student<X>@ansible-1 ~]$ cat .ansible.cfg
 [defaults]
-stdout_callback = yaml
+stdout_callback = community.general.yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False

@@ -36,7 +36,9 @@ tags: []
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
 dependencies:
-  "awx.awx": "*"    # note: "*" selects the highest version available
+  # version 19.1.0 introduced a breaking change, fix likely to be released in 19.3.0
+  # https://github.com/ansible/awx/pull/10336
+  "awx.awx": "19.0.0"
   "amazon.aws": "==1.5.0"
   "arista.eos": "==2.1.2"
   "ansible.netcommon": "==2.0.2"

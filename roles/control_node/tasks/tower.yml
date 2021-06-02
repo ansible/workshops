@@ -41,9 +41,15 @@
     password: "{{admin_password}}"
     validate_certs: false
   register: check2
-  until: check2.json is defined
-  retries: 10
-  delay: 30
+  # wait <= 10 minutes for a satisfactory result, which is
+  #   - something is returned
+  #   - instance_groups[*].capacity > 0
+  #   - instances[*].capacity > 0
+  # if capacity is 0, execution later fails with a seemingly unrelated urllib TLS version error
+  # we only check instance{s,groups}[0] because we're not clustering
+  until: check2.json is defined and check2.json.instances[0].capacity > 0 and check2.json.instance_groups[0].capacity > 0
+  retries: 60
+  delay: 10
 
 - name: Display /api/v2/ping results
   debug:

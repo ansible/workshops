@@ -7,7 +7,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: CREATE COMPUTE ORGANIZATION
@@ -17,7 +17,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 # TEAMS
@@ -29,7 +29,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: CREATE NETADMIN TEAM
@@ -40,7 +40,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: CREATE COMPUTE TIER1 TEAM
@@ -51,7 +51,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: CREATE COMPUTE TIER2 TEAM
@@ -62,7 +62,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 # USERS
@@ -77,7 +77,7 @@
     superuser: false
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: ADD USER NWADMIN
@@ -91,7 +91,7 @@
     superuser: false
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: ADD USER BOB
@@ -105,7 +105,7 @@
     superuser: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: ADD USER TINA
@@ -118,7 +118,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: ADD USER LOUISE
@@ -131,7 +131,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: ADD USER LINDA
@@ -144,7 +144,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: ADD USER GENE
@@ -157,7 +157,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 # PROJECT
@@ -170,7 +170,7 @@
     scm_url: "https://github.com/network-automation/toolkit"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 # PERMISSIONS
@@ -182,7 +182,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     validate_certs: false
 
 - name: ENSURE THAT NWADMIN IS AN ORG ADMIN
@@ -193,7 +193,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     validate_certs: false
 
 - name: ENSURE THAT NWOP BELONGS TO THE NW ORG
@@ -204,7 +204,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     validate_certs: false
 
 - name: ENSURE THAT NWOP CAN ONLY EXECUTE TEMPLATES
@@ -215,7 +215,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     validate_certs: false
 
 # REMOVE HARD CODED SSH_KEY VAR
@@ -249,7 +249,7 @@
     survey_spec: "{{ lookup('template', 'survey_spec.json') }}"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: create reload muiltivendor network template
@@ -263,7 +263,7 @@
     state: "present"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: create user job in tower
@@ -279,7 +279,7 @@
     survey_spec: "{{ lookup('template', 'user.json') }}"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: CREATE SYSTEM JOB IN TOWER
@@ -294,7 +294,7 @@
     limit: "cisco"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: CREATE TIME JOB IN TOWER
@@ -309,7 +309,7 @@
     limit: "cisco"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: Create network report job
@@ -323,7 +323,7 @@
     state: "present"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 # JOB TEMPLATE PERMISSIONS
@@ -335,7 +335,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     validate_certs: false
   loop:
     - "Network-Commands"
@@ -348,7 +348,7 @@
     state: present
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     validate_certs: false
   tags:
     - inv

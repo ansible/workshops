@@ -16,7 +16,7 @@
 
 - name: Download code-server 3 rpm
   get_url:
-    url: https://github.com/cdr/code-server/releases/download/v3.4.1/code-server-3.4.1-amd64.rpm
+    url: https://github.com/cdr/code-server/releases/download/v3.10.2/code-server-3.10.2-amd64.rpm
     dest: /tmp/code-server.rpm
     mode: '0440'
 

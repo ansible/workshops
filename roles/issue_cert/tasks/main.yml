@@ -21,7 +21,7 @@
         name: TOWER_URL_BASE
         value: "https://{{ dns_name }}"
         tower_verify_ssl: false
-        tower_host: localhost
+        tower_host: https://localhost
         tower_username: admin
         tower_password: "{{ admin_password }}"
       register: change_base_url

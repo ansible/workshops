@@ -6,7 +6,7 @@
     organization: "Default"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
   register: workshop_inventory
   until: workshop_inventory is success
@@ -27,7 +27,7 @@
     superuser: true
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 #### CREDENTIAL
@@ -40,7 +40,7 @@
     organization: "Default"
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: add tower credential into ansible tower
@@ -53,7 +53,7 @@
     organization: Default
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 #### END OF CREDENTIAL
 
@@ -64,7 +64,7 @@
     state: absent
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: remove demo credential
@@ -76,7 +76,7 @@
     organization: ""
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: remove demo inventory
@@ -86,7 +86,7 @@
     state: absent
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
 - name: remove built-in tower project
@@ -98,7 +98,7 @@
     state: absent
     tower_username: admin
     tower_password: "{{ admin_password }}"
-    tower_host: "{{ ansible_host }}"
+    tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 #### END OF REMOVE BUILT-IN DEMO CONTENT
 

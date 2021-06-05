@@ -53,6 +53,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 - [Ansible YouTube](https://youtube.com/ansibleautomation)
 - [Ansible Getting Started Guide](https://docs.ansible.com/ansible/latest/user_guide/index.html#get)
 - [Ansible Network Automation - Getting Started](https://docs.ansible.com/ansible/latest/network/getting_started/index.html)
+- [Red Hat Training and Certification for Red Hat Ansible Automation Platform](https://red.ht/aap_training)
 
 ## Slack Community
 

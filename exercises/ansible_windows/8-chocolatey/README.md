@@ -85,12 +85,13 @@ Since we will not need or use any of the facts gathered by Ansible,  we have dis
 
 Next we will add our tasks:
 
+{% raw %}
 ```yaml
   tasks:
 
   - name: Install specific versions of packages sequentially
     win_chocolatey:
-      name: "{{ item.name}}"
+      name: "{{ item.name }}"
       version: "{{ item.version }}"
     loop: "{{ choco_packages }}"
 
@@ -103,8 +104,9 @@ Next we will add our tasks:
     register: check_node_version
 
   - debug:
-      msg: Python Version is {{check_python_version.stdout}} and NodeJS version is {{check_node_version.stdout}}
+      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_python_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
 We added 4 tasks to the tasks section:
 
@@ -118,6 +120,7 @@ We added 4 tasks to the tasks section:
 
 The completed playbook `install_packages.yml` should look like this:
 
+{% raw %}
 ```yaml
 ---
 - name: Install Specific versions of packages using Chocolatey
@@ -133,7 +136,7 @@ The completed playbook `install_packages.yml` should look like this:
 
   - name: Install specific versions of packages sequentially
     win_chocolatey:
-      name: "{{ item.name}}"
+      name: "{{ item.name }}"
       version: "{{ item.version }}"
     loop: "{{ choco_packages }}"
 
@@ -146,8 +149,9 @@ The completed playbook `install_packages.yml` should look like this:
     register: check_node_version
 
   - debug:
-      msg: Python Version is {{check_python_version.stdout}} and NodeJS version is {{check_node_version.stdout}}
+      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_python_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
 Now that the playbook is ready:
 

@@ -79,13 +79,13 @@ First we will define our play:
         version: 13.0.0
       - name: python
         version: 3.6.0
-
 ```
 
 Since we will not need or use any of the facts gathered by Ansible,  we have disabled fact gathering by setting `gather_facts: false` to decrease overhead. We also defined one dictionary variable named `choco_packages` under the `vars` directive to hold the names and versions of the packages we want to install using Chocolatey.
 
 Next we will add our tasks:
 
+{% raw %}
 ```yaml
   tasks:
 
@@ -106,6 +106,7 @@ Next we will add our tasks:
   - debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
 We added 4 tasks to the tasks section:
 
@@ -119,9 +120,10 @@ We added 4 tasks to the tasks section:
 
 The completed playbook `install_packages.yml` should look like this:
 
+{% raw %}
 ```yaml
 ---
-- name: Install Specific versoins of packages using Chocolatey
+- name: Install Specific versions of packages using Chocolatey
   hosts: all
   gather_facts: false
   vars:
@@ -149,6 +151,7 @@ The completed playbook `install_packages.yml` should look like this:
   - debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
 Now that the playbook is ready:
 

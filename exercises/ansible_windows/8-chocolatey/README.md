@@ -79,7 +79,6 @@ First we will define our play:
         version: 13.0.0
       - name: python
         version: 3.6.0
-
 ```
 
 Since we will not need or use any of the facts gathered by Ansible,  we have disabled fact gathering by setting `gather_facts: false` to decrease overhead. We also defined one dictionary variable named `choco_packages` under the `vars` directive to hold the names and versions of the packages we want to install using Chocolatey.
@@ -91,7 +90,7 @@ Next we will add our tasks:
 
   - name: Install specific versions of packages sequentially
     win_chocolatey:
-      name: "{{ item.name }}"
+      name: "{{ item.name}}"
       version: "{{ item.version }}"
     loop: "{{ choco_packages }}"
 
@@ -104,7 +103,7 @@ Next we will add our tasks:
     register: check_node_version
 
   - debug:
-      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
+      msg: Python Version is {{check_python_version.stdout}} and NodeJS version is {{check_node_version.stdout}}
 ```
 
 We added 4 tasks to the tasks section:
@@ -121,7 +120,7 @@ The completed playbook `install_packages.yml` should look like this:
 
 ```yaml
 ---
-- name: Install Specific versoins of packages using Chocolatey
+- name: Install Specific versions of packages using Chocolatey
   hosts: all
   gather_facts: false
   vars:
@@ -134,7 +133,7 @@ The completed playbook `install_packages.yml` should look like this:
 
   - name: Install specific versions of packages sequentially
     win_chocolatey:
-      name: "{{ item.name }}"
+      name: "{{ item.name}}"
       version: "{{ item.version }}"
     loop: "{{ choco_packages }}"
 
@@ -147,7 +146,7 @@ The completed playbook `install_packages.yml` should look like this:
     register: check_node_version
 
   - debug:
-      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
+      msg: Python Version is {{check_python_version.stdout}} and NodeJS version is {{check_node_version.stdout}}
 ```
 
 Now that the playbook is ready:

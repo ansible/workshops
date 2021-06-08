@@ -104,7 +104,7 @@ Next we will add our tasks:
     register: check_node_version
 
   - debug:
-      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_python_version.stdout_lines[0] }}
+      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
 {% endraw %}
 
@@ -149,7 +149,7 @@ The completed playbook `install_packages.yml` should look like this:
     register: check_node_version
 
   - debug:
-      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_python_version.stdout_lines[0] }}
+      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
 {% endraw %}
 

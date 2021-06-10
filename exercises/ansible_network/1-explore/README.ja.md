@@ -72,7 +72,7 @@ ansible 2.8.1
 ```
 [student1@ansible ~]$ cat ~/.ansible.cfg
 [defaults]
-stdout_callback = yaml
+stdout_callback = community.general.yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False

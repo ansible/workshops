@@ -93,7 +93,7 @@ Output the content of the file:
 ```bash
 [student<X>@ansible-1 ~]$ cat .ansible.cfg
 [defaults]
-stdout_callback = yaml
+stdout_callback = community.general.yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False

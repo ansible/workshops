@@ -5,7 +5,7 @@
   tasks:
     - name: make sure routers have ssh reachability
       include_role:
-        name: connectivity_test
+        name: "{{ playbook_dir }}/../roles/connectivity_test"
         tasks_from: routers
 
 - name: change juniper password
@@ -16,7 +16,7 @@
   tasks:
     - name: configure juniper password
       include_role:
-        name: configure_routers
+        name: "{{ playbook_dir }}/../roles/configure_routers"
         tasks_from: juniper_default
       when: ansible_network_os == "junos"
 
@@ -24,16 +24,18 @@
   hosts: access,core
   connection: local
   gather_facts: false
-  roles:
-    - {role: gather_router_facts}
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/gather_router_facts"
 
 - name: configure access routers
   hosts: access
   connection: local
   gather_facts: false
 
-  roles:
-    - role: configure_routers
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/configure_routers"
       vars:
         type: access
 
@@ -41,9 +43,9 @@
   hosts: core
   connection: local
   gather_facts: false
-
-  roles:
-    - role: configure_routers
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/configure_routers"
       vars:
         type: core
       when:

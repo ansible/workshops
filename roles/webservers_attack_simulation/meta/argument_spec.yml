@@ -1,0 +1,4 @@
+---
+argument_specs:
+  main:
+    short_description: Prepare a webserver for attack simulation.

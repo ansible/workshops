@@ -1,0 +1,8 @@
+---
+argument_specs:
+  main:
+    short_description: Set up snort security host routes, glue entrypoint.
+  add_hostroutes_from_attacker_to_checkpoint:
+    short_description: Set up snort security host routes, attacker -> checkpoint.
+  add_hostroutes_from_snort_to_checkpoint:
+    short_description: Set up snort security host routes, Snort -> checkpoint.

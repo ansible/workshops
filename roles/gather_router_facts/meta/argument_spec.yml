@@ -1,0 +1,17 @@
+---
+argument_specs:
+  main:
+    short_description: Gather router facts.
+    options:
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      ec2_region:
+        description: The AWS EC2 region to deploy the workshop in.
+        type: str
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true

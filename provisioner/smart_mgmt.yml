@@ -6,7 +6,8 @@
   tasks:
     - name: configure RHEL webservers
       include_role:
-        name: webservers
+        name: "{{ playbook_dir }}/../roles/webservers"
+
 
 - name: configure satellite
   hosts: satellite
@@ -22,7 +23,7 @@
         line: "  :password: '{{ admin_password }}'"
     - name: configure satellite dns
       become: false
-      route53:
+      community.aws.route53:
         state: "{{ s3_state }}"
         zone: "{{workshop_dns_zone}}"
         record: "{{username}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"

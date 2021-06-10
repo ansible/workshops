@@ -7,11 +7,11 @@
   tasks:
     - name: run pre-check role to make sure workshop will complete provisioning
       include_role:
-        name: workshop_check_setup
+        name: "{{ playbook_dir }}/../roles/workshop_check_setup"
 
     - name: run AWS check setup if using AWS
       include_role:
-        name: aws_check_setup
+        name: "{{ playbook_dir }}/../roles/aws_check_setup"
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -30,8 +30,9 @@
   hosts: "managed_nodes:control_nodes:attendance"
   become: true
   gather_facts: false
-  roles:
-    - connectivity_test
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/connectivity_test"
 
 - name: Configure nginx on attendance host
   hosts: attendance
@@ -40,25 +41,28 @@
   tasks:
     - block:
         - include_role:
-            name: workshop_attendance_nginx
+            name: "{{ playbook_dir }}/../roles/workshop_attendance_nginx"
         - include_role:
-            name: workshop_attendance
+            name: "{{ playbook_dir }}/../roles/workshop_attendance"
       when: attendance|bool
 
 - name: wait for all security nodes to have SSH reachability
   hosts: "security_connection_check"
   become: true
   gather_facts: false
-  roles:
-    - connectivity_test
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/connectivity_test"
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
   gather_facts: false
   become: true
-  roles:
-    - user_accounts
-    - common
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/user_accounts"
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/common"
 
 - name: Configure /etc/hosts
   hosts: 'managed_nodes:control_nodes'
@@ -83,11 +87,12 @@
   pre_tasks:
     - debug:
         var: tower_license
-  roles:
-    - role: control_node
   tasks:
     - include_role:
-        name: code_server
+        name: "{{ playbook_dir }}/../roles/control_node"
+
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/code_server"
       when:
         - code_server is defined
         - code_server
@@ -100,12 +105,12 @@
   become: true
   tasks:
     - include_role:
-        name: control_node
+        name: "{{ playbook_dir }}/../roles/control_node"
         tasks_from: package_dependencies
       when: create_cluster|bool
 
     - include_role:
-        name: control_node
+        name: "{{ playbook_dir }}/../roles/control_node"
         tasks_from: venv
       when: create_cluster|bool
 
@@ -116,7 +121,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: aws_dns
+        name: "{{ playbook_dir }}/../roles/aws_dns"
       when:
         - dns_type is defined
         - dns_type == "aws"
@@ -132,7 +137,7 @@
   tasks:
     - name: run populate_tower role
       include_role:
-        name: populate_tower
+        name: "{{ playbook_dir }}/../roles/populate_tower"
       when:
         - towerinstall is defined
         - towerinstall|bool
@@ -146,7 +151,7 @@
   tasks:
     - name: install boinc-client and register
       include_role:
-        name: community_grid
+        name: "{{ playbook_dir }}/../roles/community_grid"
       when:
         - ibm_community_grid is defined
         - ibm_community_grid
@@ -159,7 +164,7 @@
   tasks:
     - name: install boinc-client and register
       include_role:
-        name: community_grid
+        name: "{{ playbook_dir }}/../roles/community_grid"
         tasks_from: auto_shutoff
       when:
         - ibm_community_grid is defined
@@ -201,7 +206,7 @@
   become: false
   gather_facts: false
   tasks:
-    - {include_role: {name: tower_request}, when: student_total > 9}
+    - {include_role: {name: "{{ playbook_dir }}/../roles/tower_request"}, when: student_total > 9}
 
 - name: print out information for instructor
   hosts: localhost

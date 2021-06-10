@@ -1,9 +1,0 @@
----
-- name: install demo
-  vars:
-    my_tower_username: admin
-    my_tower_password: "{{ admin_password }}"
-    my_tower_host: "https://{{ ansible_host }}"
-    demo: turn_off_community_grid
-  include_role:
-    name: "ansible.product_demos.install_demo"

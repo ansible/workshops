@@ -1,0 +1,7 @@
+---
+argument_specs:
+  main:
+    short_description: Test Ansible connectivity.
+    options:
+  routers:
+    short_description: Test port 22 connectivity on a remote machine.

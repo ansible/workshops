@@ -38,7 +38,7 @@ Use the `cat` command to view the contents of the `ansible.cfg` file.
 ```
 [student1@ansible f5-workshop]$ cat ~/.ansible.cfg
 [defaults]
-stdout_callback = yaml
+stdout_callback = community.general.yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False

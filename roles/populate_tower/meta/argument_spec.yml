@@ -1,0 +1,98 @@
+---
+argument_specs:
+  main:
+    short_description: General Ansible Tower workshop configuration.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+  f5:
+    short_description: Tower configuration for the F5 workshop.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+  network:
+    short_description: Tower configuration for the network workshop.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+  rhel:
+    short_description: Tower configuration for the RHEL workshop.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+  rhel_90:
+    short_description: Tower configuration for the RHEL 90min workshop.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+  security:
+    short_description: Tower configuration for the security workshop.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+  unsupported_workshop:
+    short_description: Catch-all for unsupported workshop types.
+    options:
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+  windows:
+    short_description: Tower configuration for the Windows workshop.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true

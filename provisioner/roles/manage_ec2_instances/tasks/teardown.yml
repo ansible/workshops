@@ -286,14 +286,14 @@
   ec2_vpc_route_table_info:
     region: "{{ ec2_region }}"
     filters:
-      vpc_id: "{{ec2_vpc_id}}"
+      vpc-id: "{{ec2_vpc_id}}"
   register: route_table_facts
 
 - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORK MODE)
   ec2_vpc_route_table_info:
     region: "{{ ec2_region }}"
     filters:
-      vpc_id: "{{ec2_vpc_id2}}"
+      vpc-id: "{{ec2_vpc_id2}}"
   register: route_table_facts2
   when:
     - workshop_type == 'networking' or workshop_type == 'network' or workshop_type == 'demo'

@@ -1,0 +1,18 @@
+---
+- name: install Chocolatey
+  chocolatey.chocolatey.win_chocolatey:
+    name: chocolatey
+    state: present
+
+- name: disable enhanced exit codes
+  chocolatey.chocolatey.win_chocolatey_feature:
+    name: useEnhancedExitCodes
+    state: disabled
+  when: ansible_version.full is version_compare('2.8', '<')
+
+- name: Install Chromium
+  chocolatey.chocolatey.win_chocolatey:
+    name: "{{ item }}"
+    ignore_checksums: true
+  with_items:
+    - chromium

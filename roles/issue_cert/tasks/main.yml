@@ -16,17 +16,43 @@
         state: present
         disable_gpg_check: true
 
+    - &tower-pinger-block
+      block:
+        - name: check Tower status
+          shell: "curl --user 'admin:{{ admin_password }}' -vkL -XGET https://localhost/api/v2/ping/"
+          register: check2
+        - name: Display /api/v2/ping results (stdout)
+          debug:
+            msg: '{{ check2.stdout }}'
+        - name: Display /api/v2/ping results (stderr)
+          debug:
+            msg: '{{ check2.stderr }}'
+
     - name: change ansible tower base URL
-      awx.awx.tower_settings:
-        name: TOWER_URL_BASE
-        value: "https://{{ dns_name }}"
-        tower_verify_ssl: false
-        tower_host: https://localhost
-        tower_username: admin
-        tower_password: "{{ admin_password }}"
-      register: change_base_url
-      until: change_base_url is not failed
-      retries: 10
+      block:
+        - &tower-baseurl-task
+          awx.awx.tower_settings:
+            name: TOWER_URL_BASE
+            value: "https://{{ dns_name }}"
+            tower_verify_ssl: false
+            tower_host: https://localhost/
+            tower_username: admin
+            tower_password: "{{ admin_password }}"
+          register: change_base_url
+          until: change_base_url is not failed
+          # tower may not be fully up yet, wait for it gratuitously
+          retries: 12
+          delay: 5
+      rescue:
+        - name: Try restarting tower
+          service:
+            name: ansible-tower.service
+            state: restarted
+
+        - *tower-pinger-block
+
+        - <<: *tower-baseurl-task
+          name: Run failed task again
 
     # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
     - name: make sure Ansible Tower is stopped

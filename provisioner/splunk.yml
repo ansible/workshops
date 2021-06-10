@@ -3,5 +3,6 @@
   hosts: splunk
   become: true
   gather_facts: true
-  roles:
-    - role: splunk_enterprise
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/splunk_enterprise"

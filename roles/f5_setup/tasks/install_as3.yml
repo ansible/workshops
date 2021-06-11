@@ -1,0 +1,36 @@
+---
+- name: Set a fact named 'provider' with BIG-IP login information
+  ansible.builtin.set_fact:
+   provider:
+    server: "{{ ansible_host }}"
+    user: "{{ ansible_user }}"
+    password: "Fishf00d!"
+    server_port: 8443
+    timeout: 300
+    validate_certs: "no"
+
+- name: Grab the AS3 version from the home directory
+  connection: local
+  ansible.builtin.shell: ls -Art ~/*.rpm | tail -n 1 | rev | cut -d/ -f 1 | rev
+  register: ls_output
+
+- name: set fact for as3_rpm
+  ansible.builtin.set_fact:
+    as3_rpm: "{{ ls_output.stdout }}"
+
+- name: install AS3 block
+  block:
+  - name: Install AS3
+    f5networks.f5_modules.bigip_lx_package:
+      package: "~/{{as3_rpm}}"
+      provider: "{{ provider }}"
+    register: install_as3
+    until: install_as3 is not failed
+    retries: 5
+  rescue:
+  - name: debug in rescue
+    debug:
+      var: install_as3
+  - assert:
+      that:
+        - "'already installed' in install_as3.msg"

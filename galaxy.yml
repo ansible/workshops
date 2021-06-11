@@ -1,11 +1,14 @@
 ---
 namespace: ansible
 name: workshops
-version: 0.0.1
+version: 0.0.2
 readme: README.md
 
 authors:
-  - Sean Cavanaugh <seanc@redhat.com>
+  - Sean Cavanaugh <seanc@redhat.com> @IPvSean
+  - Sašo Stanovnik @sstanovnik
+  - Colin McNaughton @colincloin
+  - Roland Wolters @liquidat
 
 build_ignore:
   - assets
@@ -15,6 +18,9 @@ build_ignore:
   - '*.tar.gz'
   - provisioner
   - vagrant-demo
+  - images
+  - _layouts
+  - docs
 
 
 # A short summary description of the collection

@@ -29,20 +29,11 @@
       server: "{{ ansible_host }}"
   delegate_to: localhost
 
-# The bigip_lx_package requires rpm installed, on macOS use brew rather than pip or it won't work
-- name: Install AS3
-  f5networks.f5_modules.bigip_lx_package:
-    package: "{{playbook_dir}}/../roles/f5_setup/files/f5-appsvcs-3.25.0-3.noarch.rpm"
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
-      timeout: 300
-  register: install_as3
-  until: install_as3 is not failed
-  retries: 2
+- name: retrieve AS3 RPM
+  include_tasks: retrieve_as3.yml
+
+- name: install AS3 RPM
+  include_tasks: install_as3.yml
 
 - name: Set db provision.extramb
   f5networks.f5_modules.bigip_sys_db:
@@ -93,7 +84,7 @@
     provider:
       validate_certs: "no"
       user: admin
-      password: "{{admin_password}}"
+      password: "{{ admin_password }}"
       server_port: 8443
       server: "{{ ansible_host }}"
 

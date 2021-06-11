@@ -12,6 +12,8 @@
   become: false
   connection: local
   gather_facts: false
+  vars:
+    as3_uri: "https://github.com/F5Networks/f5-appsvcs-extension/releases"
   tasks:
     - include_role:
         name: "{{ playbook_dir }}/../roles/f5_setup"

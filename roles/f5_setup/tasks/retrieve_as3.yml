@@ -1,0 +1,34 @@
+---
+- name: retrieve as3 RPM from F5
+  delegate_to: localhost
+  connection: local
+  block:
+    - name: URL provided
+      debug:
+        var: as3_uri
+
+    - name: Get latest AS3 RPM version
+      ansible.builtin.shell: curl -s {{ as3_uri }} | grep -E rpm | head -1 | cut -d "/" -f 7 | cut -d "=" -f 1 |  cut -d "\"" -f 1
+      register: as3_output
+
+    - debug:
+        var: as3_output.stdout_lines[0]
+
+    - ansible.builtin.set_fact:
+        as3_release: "{{ as3_output.stdout_lines[0] }}"
+
+    - name: Get latest AS3 RPM version
+      ansible.builtin.shell: curl -s {{ as3_uri }} | grep -E rpm | head -1 | cut -d "/" -f 6
+      register: as3_output
+
+    - debug:
+        var: as3_output.stdout_lines[0]
+
+    - ansible.builtin.set_fact:
+        as3_release_tag: "{{ as3_output.stdout_lines[0] }}"
+
+    - name: Grab AS3 RPM from github
+      ansible.builtin.get_url:
+        url: "{{ as3_uri }}/download/{{ as3_release_tag }}/{{ as3_release }}?raw=true"
+        dest: "~/"
+        validate_certs: false

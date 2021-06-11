@@ -5,6 +5,16 @@
     port: 8443
     state: present
 
+- name: Set a fact named 'provider' with BIG-IP login information
+  ansible.builtin.set_fact:
+    provider:
+      server: "{{ ansible_host }}"
+      user: "{{ ansible_user }}"
+      password: "Fishf00d!"
+      server_port: 8443
+      timeout: 300
+      validate_certs: "no"
+
 - name: Change BIG-IP F5 mgmt password
   f5networks.f5_modules.bigip_command:
     provider:
@@ -21,12 +31,7 @@
 - name: Wait for API to be Ready
   f5networks.f5_modules.bigip_wait:
     timeout: 300
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
+    provider: "{{ provider }}"
   delegate_to: localhost
 
 - name: retrieve AS3 RPM
@@ -39,63 +44,33 @@
   f5networks.f5_modules.bigip_sys_db:
     key: provision.extramb
     value: "1024"
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
+    provider: "{{ provider }}"
 
 - name: Set db restjavad.useextramb
   f5networks.f5_modules.bigip_sys_db:
     key: restjavad.useextramb
     value: "true"
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
+    provider: "{{ provider }}"
 
 - name: Set db restjavad.timeout
   f5networks.f5_modules.bigip_sys_db:
     key: restjavad.timeout
     value: "180"
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
+    provider: "{{ provider }}"
 
 - name: Set httpd max-clients
   f5networks.f5_modules.bigip_device_httpd:
     max_clients: 20
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
+    provider: "{{ provider }}"
 
 - name: Save Config
   f5networks.f5_modules.bigip_config:
     save: true
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{ admin_password }}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
+    provider: "{{ provider }}"
 
 - name: Restart REST
   f5networks.f5_modules.bigip_command:
-    provider:
-      validate_certs: "no"
-      user: admin
-      password: "{{admin_password}}"
-      server_port: 8443
-      server: "{{ ansible_host }}"
+    provider: "{{ provider }}"
     commands:
       - restart sys service restjavad
       - restart sys service restnoded

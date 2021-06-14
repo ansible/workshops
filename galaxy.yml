@@ -1,11 +1,14 @@
 ---
 namespace: ansible
 name: workshops
-version: 0.0.1
+version: 0.0.2
 readme: README.md
 
 authors:
-  - Sean Cavanaugh <seanc@redhat.com>
+  - Sean Cavanaugh <seanc@redhat.com> @IPvSean
+  - Sašo Stanovnik @sstanovnik
+  - Colin McNaughton @colincloin
+  - Roland Wolters @liquidat
 
 build_ignore:
   - assets
@@ -15,6 +18,9 @@ build_ignore:
   - '*.tar.gz'
   - provisioner
   - vagrant-demo
+  - images
+  - _layouts
+  - docs
 
 
 # A short summary description of the collection
@@ -36,7 +42,26 @@ tags: []
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
 dependencies:
-  "awx.awx": "*"    # note: "*" selects the highest version available
+  # version 19.1.0 introduced a breaking change, fix likely to be released in 19.3.0
+  # https://github.com/ansible/awx/pull/10336
+  "awx.awx": "19.0.0"
+  "amazon.aws": "==1.5.0"
+  "arista.eos": "==2.1.2"
+  "ansible.netcommon": "==2.0.2"
+  "ansible.posix": "==1.2.0"
+  "ansible.product_demos": "==1.2.7"
+  "ansible.windows": "==1.5.0"
+  "chocolatey.chocolatey": "==1.1.0"
+  "cisco.ios": "2.0.1"
+  "community.aws": "==1.5.0"
+  "community.crypto": "==1.6.2"
+  "community.general": "==3.0.2"
+  "community.mysql": "==2.1.0"
+  "community.windows": "==1.3.0"
+  "f5networks.f5_modules": "==1.9.0"
+  "junipernetworks.junos": "==2.1.0"
+  "redhat_cop.tower_configuration": "==1.0.2"
+  "redhat_cop.tower_utilities": "==0.3.2"
 
 
 # The URL of the originating SCM repository

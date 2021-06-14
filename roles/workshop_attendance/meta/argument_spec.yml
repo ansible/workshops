@@ -1,0 +1,96 @@
+---
+argument_specs:
+  main:
+    short_description: Provision the attendance host, glue entrypoint.
+    options:
+      teardown:
+        description: Whether to execute teardown or creation.
+        type: bool
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+  attendance:
+    short_description: Create the attendance webpage.
+    options:
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      admin_password:
+        description: The student's password.
+        type: str
+        required: true
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+      student_total:
+        description: The total number of students for the workshop.
+        type: int
+        required: true
+      towerinstall:
+        description: Whether to install Ansible Tower.
+        type: bool
+        required: true
+      dns_type:
+        description: The system that manages DNS, e.g. "aws"
+        type: str
+        required: true
+      create_cluster:
+        description: Whether to create an Ansible Tower cluster.
+        type: bool
+        required: true
+      code_server:
+        description: Whether to install the VS Code server.
+        type: bool
+        required: true
+  dns:
+    short_description: Provision DNS for the attendance webpage.
+    options:
+      s3_state:
+        description: Whether the DNS record is present or absent.
+        type: str
+        options:
+          - present
+          - absent
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      dns_type:
+        description: The system that manages DNS, e.g. "aws"
+        type: str
+        required: true
+  teardown:
+    short_description: Remove DNS information for the webpage.
+    options:
+      s3_state:
+        description: Whether the DNS record is present or absent.
+        type: str
+        options:
+          - present
+          - absent
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true

@@ -7,16 +7,16 @@
     - gitlab
   tasks:
     - include_role:
-        name: common
+        name: "{{ playbook_dir }}/../roles/common"
     - include_role:
-        name: gitlab-server
+        name: "{{ playbook_dir }}/../roles/gitlab-server"
     - include_role:
         name: geerlingguy.gitlab
       vars:
         gitlab_version: '13.6.7-ce.0.el8'
         gitlab_external_url: "https://gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
     - include_role:
-        name: gitlab-server
+        name: "{{ playbook_dir }}/../roles/gitlab-server"
         tasks_from: add-users
 
 - name: Configure GitLab client
@@ -25,5 +25,6 @@
   gather_facts: true
   tags:
     - git
-  roles:
-    - gitlab-client
+  tasks:
+    - include_role:
+        name: "{{ playbook_dir }}/../roles/gitlab-client"

@@ -36,3 +36,4 @@ Gemfile
 _site/*
 .tox/
 provisioner/tests/ci-common.yml
+*.gz

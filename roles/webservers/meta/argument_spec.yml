@@ -1,0 +1,24 @@
+---
+argument_specs:
+  main:
+    short_description: Set up webservers and workshop-specific config.
+    options:
+      short_name:
+        description: The short name of the instance.
+        type: str
+        required: true
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+  f5:
+    short_description: Configure webservers specific to the F5 workshop.
+  security:
+    short_description: Configure webservers specific to the security workshop.
+  unsupported_workshop:
+    short_description: Catch-all for unsupported workshop types.
+    options:
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true

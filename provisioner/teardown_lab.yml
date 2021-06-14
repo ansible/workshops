@@ -14,10 +14,10 @@
 
   tasks:
     - {include_role: {name: manage_ec2_instances}}
-    - {include_role: {name: aws_dns}, when: dns_type == "aws"}
-    - {include_role: {name: code_server}, when: code_server}
-    - {include_role: {name: gitlab-server}, when: workshop_type == "windows"}
-    - {include_role: {name: workshop_attendance}, when: attendance}
+    - {include_role: {name: "{{ playbook_dir }}/../roles/aws_dns"}, when: dns_type == "aws"}
+    - {include_role: {name: "{{ playbook_dir }}/../roles/code_server"}, when: code_server}
+    - {include_role: {name: "{{ playbook_dir }}/../roles/gitlab-server"}, when: workshop_type == "windows"}
+    - {include_role: {name: "{{ playbook_dir }}/../roles/workshop_attendance"}, when: attendance}
 
 
     - name: Remove workshop local files

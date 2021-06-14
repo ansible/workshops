@@ -1,0 +1,16 @@
+---
+- name: workshop_attendance | Create DNS record
+  become: false
+  community.aws.route53:
+    state: "{{ s3_state }}"
+    zone: "{{ workshop_dns_zone }}"
+    record: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: A
+    overwrite: true
+    value: "{{ ansible_host }}"
+    wait: false
+  delegate_to: localhost
+  register: route53_status
+  when:
+    - dns_type is defined
+    - dns_type == "aws"

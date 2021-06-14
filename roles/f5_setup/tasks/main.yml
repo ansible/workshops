@@ -1,0 +1,77 @@
+---
+- name: Wait for BIG-IP to boot up completely
+  wait_for:
+    host: "{{ ansible_host }}"
+    port: 8443
+    state: present
+
+- name: Set a fact named 'provider' with BIG-IP login information
+  ansible.builtin.set_fact:
+    provider:
+      server: "{{ ansible_host }}"
+      user: "{{ ansible_user }}"
+      password: "{{ admin_password }}"
+      server_port: 8443
+      timeout: 300
+      validate_certs: "no"
+
+- name: Change BIG-IP F5 mgmt password
+  f5networks.f5_modules.bigip_command:
+    provider:
+      ssh_keyfile: "{{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+      transport: cli
+      user: admin
+      server: "{{ ansible_host }}"
+    commands: "modify auth user admin password {{ admin_password }}"
+  register: change_password
+  until: change_password is not failed
+  retries: 5
+  delay: 10
+
+- name: Wait for API to be Ready
+  f5networks.f5_modules.bigip_wait:
+    timeout: 300
+    provider: "{{ provider }}"
+  delegate_to: localhost
+
+- name: retrieve AS3 RPM
+  include_tasks: retrieve_as3.yml
+
+- name: install AS3 RPM
+  include_tasks: install_as3.yml
+
+- name: Set db provision.extramb
+  f5networks.f5_modules.bigip_sys_db:
+    key: provision.extramb
+    value: "1024"
+    provider: "{{ provider }}"
+
+- name: Set db restjavad.useextramb
+  f5networks.f5_modules.bigip_sys_db:
+    key: restjavad.useextramb
+    value: "true"
+    provider: "{{ provider }}"
+
+- name: Set db restjavad.timeout
+  f5networks.f5_modules.bigip_sys_db:
+    key: restjavad.timeout
+    value: "180"
+    provider: "{{ provider }}"
+
+- name: Set httpd max-clients
+  f5networks.f5_modules.bigip_device_httpd:
+    max_clients: 20
+    provider: "{{ provider }}"
+
+- name: Save Config
+  f5networks.f5_modules.bigip_config:
+    save: true
+    provider: "{{ provider }}"
+
+- name: Restart REST
+  f5networks.f5_modules.bigip_command:
+    provider: "{{ provider }}"
+    commands:
+      - restart sys service restjavad
+      - restart sys service restnoded
+  ignore_errors: true

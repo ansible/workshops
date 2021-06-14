@@ -1,0 +1,17 @@
+---
+- name: install AS3 block
+  block:
+    - name: Install AS3
+      f5networks.f5_modules.bigip_lx_package:
+        package: "~/{{ as3_release }}"
+        provider: "{{ provider }}"
+      register: install_as3
+      until: install_as3 is not failed
+      retries: 5
+  rescue:
+    - name: debug in rescue
+      debug:
+        var: install_as3
+    - assert:
+        that:
+          - "'already installed' in install_as3.msg"

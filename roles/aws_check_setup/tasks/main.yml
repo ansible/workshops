@@ -1,0 +1,70 @@
+---
+- name: grab boto version
+  command: "{{ansible_python['executable']}} -c 'import boto3; print(boto3.__version__)'"
+  register: py_cmd
+
+- name: make sure we are running correct boto version
+  assert:
+    that:
+      - py_cmd.stdout is version('1.7', operator='ge')
+    msg: "boto3 >= 1.7 is required."
+
+- name: check route53 information
+  block:
+    - name: check for underscores in workshop name
+      fail:
+        msg: "Amazon AWS does not allow underscores _ for s3 websites, please see https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html"
+      when:
+        - "'_' in ec2_name_prefix"
+
+    - name: does route53 zone exist
+      check_mode: true
+      community.aws.route53_zone:
+        zone: "{{workshop_dns_zone}}"
+        state: present
+      register: test
+
+    - name: make sure workshop_dns_zone is owned by your account
+      assert:
+        that:
+          - test.zone_id is not none
+        msg:
+          - "You must have a valid route53 zone configured for workshop_dns_zone"
+          - "Right now the workshop_dns_zone is {{workshop_dns_zone}}"
+  when:
+    - dns_type == "aws"
+
+- name: FIND AZ ZONE FOR REGION {{ec2_region}}
+  amazon.aws.aws_az_info:
+    region: "{{ec2_region}}"
+  register: az_names
+
+- name: Remove any AZs in the aws_az_deny_list when defined
+  set_fact:
+    availability_zones: >-
+      {{ az_names.availability_zones | json_query(__filter_query) }}
+  vars:
+    __filter_query: >-
+      [?!contains(`{{ (aws_az_deny_list | default([])) | to_json }}`, zone_name)]
+
+- name: Output AWS Availability Zones (AZs)
+  debug:
+    var: availability_zones
+    verbosity: 2
+
+- name: SET AZ ZONE TO FIRST AVAILABLE
+  set_fact:
+    ec2_az: "{{ availability_zones[0].zone_name }}"
+
+- name: grab information about AWS user
+  amazon.aws.aws_caller_info:
+    region: "{{ ec2_region }}"
+  register: whoami
+
+- name: save username of AWS user
+  set_fact:
+    aws_user: '{{ whoami.arn.split("/")[-1] }}'
+
+- name: save account id of AWS user
+  set_fact:
+    aws_account: '{{ whoami.account }}'

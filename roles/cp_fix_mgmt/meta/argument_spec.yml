@@ -1,0 +1,4 @@
+---
+argument_specs:
+  main:
+    short_description: Fixups for the checkpoint management server.

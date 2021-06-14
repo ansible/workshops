@@ -1,0 +1,126 @@
+---
+- name: turn off tower
+  shell: ansible-tower-service stop
+
+- name: dns for coder
+  become: false
+  community.aws.route53:
+    state: "{{ s3_state }}"
+    zone: "{{workshop_dns_zone}}"
+    record: "{{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    type: A
+    overwrite: true
+    value: "{{ansible_host}}"
+  delegate_to: localhost
+  register: route53_status
+
+- name: Download code-server 3 rpm
+  get_url:
+    url: https://github.com/cdr/code-server/releases/download/v3.10.2/code-server-3.10.2-amd64.rpm
+    dest: /tmp/code-server.rpm
+    mode: '0440'
+
+- name: install code-server 3 rpm from local rpm and certbot
+  dnf:
+    name:
+      - /tmp/code-server.rpm
+      - certbot
+    state: present
+    disable_gpg_check: true
+
+- name: Apply our systemd service file (instead of RPM file)
+  template:
+    src: code-server.service.j2
+    dest: /etc/systemd/system/code-server.service
+    owner: "{{username}}"
+    group: wheel
+    mode: '0744'
+
+    # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
+- name: ensure custom facts directory exists
+  file:
+    path: "/home/{{username}}/.local/share/code-server/User/"
+    recurse: true
+    state: directory
+    owner: "{{username}}"
+
+- name: apply code server defaults
+  template:
+    src: settings.json
+    dest: "/home/{{username}}/.local/share/code-server/User/settings.json"
+    owner: "{{username}}"
+
+- name: copy extension files to host
+  copy:
+    src: files/{{ item }}
+    dest: /home/{{ username }}/.local/share/code-server/extensions/
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - bierner.markdown-preview-github-styles-0.1.6.vsix
+    - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+    - vscoss.vscode-ansible-0.5.2.vsix
+
+- name: install ansible and markdown extensions
+  become_user: "{{ username }}"
+  command: "/bin/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
+  loop:
+    - bierner.markdown-preview-github-styles-0.1.6.vsix
+    - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+    - vscoss.vscode-ansible-0.5.2.vsix
+  ignore_errors: true
+  register: install_extension
+  until: install_extension is not failed
+  retries: 5
+
+- name: daemon-reload, enable and start code-server
+  systemd:
+    name: code-server
+    enabled: true
+    state: started
+    daemon_reload: true
+
+# if we do not have a cert we will try to work anyway
+- name: issue cert
+  shell: certbot certonly --no-bootstrap --standalone -d {{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+  register: issue_cert
+  until: issue_cert is not failed
+  retries: 5
+  ignore_errors: true
+
+- name: modify nginx to support code-server
+  block:
+    - name: update nginx configuration to support code server
+      blockinfile:
+        block: "{{ lookup('template', 'nginx.conf') }}"
+        dest: /etc/nginx/nginx.conf
+        insertafter: "http {"
+
+    # Make sure we can re-run the Tower installer during a lab without killing code-server access
+    - name: update Ansible installer nginx configuration template to support code server
+      blockinfile:
+        block: "{{ lookup('template', 'nginx.conf') }}"
+        dest: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        insertafter: "http {"
+
+    # Make the block inserted above conditional to only apply to ansible-1
+    - name: Add jinja conditional start
+      lineinfile:
+        path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        insertafter: "http {"
+        line: '{% raw %} {% if ansible_hostname == "ansible-1" %} {% endraw %}'
+
+    # Make the block inserted above conditional to only apply to ansible-1
+    - name: Add jinja conditional end
+      lineinfile:
+        path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        insertbefore: "include(.*)/etc/nginx/mime.types;"
+        line: '{% raw %} {% endif %} {% endraw %}'
+
+- name: make sure Ansible Tower is started
+  service:
+    name: ansible-tower.service
+    state: started
+  register: install_tower
+  until: install_tower is not failed
+  retries: 5

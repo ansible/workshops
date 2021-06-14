@@ -1,0 +1,92 @@
+---
+argument_specs:
+  main:
+    short_description: Workshop setup and config preflight verification.
+    options:
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+      valid_workshop_types:
+        description: A list of valid workshop types.
+        type: list
+        elements: str
+        required: true
+      dns_type:
+        description: The system that manages DNS, e.g. "aws"
+        type: str
+        required: true
+      valid_dns_type:
+        description: A list of valid DNS provider types.
+        type: list
+        elements: str
+        required: true
+      network_type:
+        description: The type of the network provider.
+        type: str
+        required: true
+      valid_network_types:
+        description: A list of valid network provider types.
+        type: list
+        elements: str
+        required: true
+      security_console:
+        description: The type of the security console.
+        type: str
+        required: true
+      valid_security_console_types:
+        description: A list of valid security console types.
+        type: list
+        elements: str
+        required: true
+      admin_password:
+        description: The workshop admin password.
+        type: str
+        required: true
+      default_tower37_url:
+        description: A fallback URL for Ansible Tower 3.7.
+        type: str
+        required: false
+      default_tower38_url:
+        description: A fallback URL for Ansible Tower 3.8.
+        type: str
+        required: false
+      towerinstall:
+        description: Whether to install Ansible Tower.
+        type: bool
+        required: true
+      use_manifest:
+        description: Whether to use a manifest file for the license.
+        type: bool
+        required: true
+      tower_license_data:
+        description: Direct variable input for Ansible Tower license data.
+        type: str
+        required: false
+  network:
+    short_description: Verify workshop setup for the network workshop.
+    options:
+  security:
+    short_description: Verify workshop setup for the security workshop.
+    options:
+      windows_password:
+        description: The Windows password.
+        type: str
+        required: true
+  unsupported_workshop:
+    short_description: Catch-all for unsupported workshop types.
+    options:
+      workshop_type:
+        description: The type of the workshop.
+        type: str
+        required: true
+  windows:
+    short_description: Verify workshop setup for Windows workshops.

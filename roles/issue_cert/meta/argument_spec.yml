@@ -1,0 +1,13 @@
+---
+argument_specs:
+  main:
+    short_description: Update the Let's Encrypt SSL cert for Ansible Automation Platform for Ansible Tower.
+    options:
+      dns_name:
+        description: The base URL for Ansible Tower.
+        type: str
+        required: true
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true

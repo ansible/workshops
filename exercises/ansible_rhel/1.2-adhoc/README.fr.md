@@ -95,7 +95,7 @@ Affichez le fichier de configuration:
 ```bash
 [student<X>@ansible ~]$ cat .ansible.cfg
 [defaults]
-stdout_callback = yaml
+stdout_callback = community.general.yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False

@@ -1,0 +1,69 @@
+---
+argument_specs:
+  main:
+    short_description: Set up DNS on AWS, main entrypoint.
+    options:
+      teardown:
+        description: Whether to execute teardown or creation.
+        type: bool
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+  create:
+    short_description: Set up DNS for Ansible Tower on AWS.
+    options:
+      s3_state:
+        description: Whether the DNS record is present or absent.
+        type: str
+        options:
+          - present
+          - absent
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+  teardown:
+    short_description: Teardown AWS DNS resources.
+    options:
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      s3_state:
+        description: Whether the DNS record is present or absent.
+        type: str
+        options:
+          - present
+          - absent
+        required: true
+      student_total:
+        description: The total number of students for the workshop.
+        type: int
+        required: true

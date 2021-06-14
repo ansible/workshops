@@ -1,0 +1,21 @@
+---
+argument_specs:
+  main:
+    short_description: Configura a GitLab client.
+    options:
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      admin_password:
+        description: The GitLab  admin password.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true

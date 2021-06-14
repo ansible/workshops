@@ -1,0 +1,13 @@
+---
+argument_specs:
+  main:
+    short_description: Set up the F5 BIG-IP appliance.
+    options:
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      admin_password:
+        description: The F5 BIG-IP admin password.
+        type: str
+        required: true

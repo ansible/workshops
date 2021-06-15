@@ -7,28 +7,29 @@
       debug:
         var: as3_uri
 
-    - name: Get latest AS3 RPM version
-      ansible.builtin.shell: curl -s {{ as3_uri }} | grep -E rpm | head -1 | cut -d "/" -f 7 | cut -d "=" -f 1 |  cut -d "\"" -f 1
-      register: as3_output
+    - name: Get releases for AS3
+      ansible.builtin.uri:
+        # Translate from GitHub repo or releases URL to api URL
+        url: >-
+          {{ as3_uri | regex_replace('^https://github.com/([^/]+)/([^./]+).*', 'https://api.github.com/repos/\1/\2/releases') }}
+      register: r_get_f5_appsvcs_extension_releases
 
-    - debug:
-        var: as3_output.stdout_lines[0]
+    - name: Set facts for AS3 release with RPM version
+      ansible.builtin.set_fact:
+        as3_release: "{{ __latest_rpm_asset.name }}"
+        as3_release_tag: "{{ __latest_rpm_release.name }}"
+        as3_release_rpm_url: "{{ __latest_rpm_asset.browser_download_url }}"
+      vars:
+        __latest_rpm_release: >-
+          {{ r_get_f5_appsvcs_extension_releases.json | json_query('[?assets[?ends_with(name, `".noarch.rpm"`)]]|[0]') }}
+        __latest_rpm_asset: >-
+          {{ __latest_rpm_release | json_query('assets[?ends_with(name, `".noarch.rpm"`)]|[0]') }}
 
-    - ansible.builtin.set_fact:
-        as3_release: "{{ as3_output.stdout_lines[0] }}"
-
-    - name: Get latest AS3 RPM version
-      ansible.builtin.shell: curl -s {{ as3_uri }} | grep -E rpm | head -1 | cut -d "/" -f 6
-      register: as3_output
-
-    - debug:
-        var: as3_output.stdout_lines[0]
-
-    - ansible.builtin.set_fact:
-        as3_release_tag: "{{ as3_output.stdout_lines[0] }}"
+    - debug: var=as3_release
+    - debug: var=as3_release_tag
+    - debug: var=as3_release_rpm_url
 
     - name: Grab AS3 RPM from github
       ansible.builtin.get_url:
-        url: "{{ as3_uri }}/download/{{ as3_release_tag }}/{{ as3_release }}?raw=true"
+        url: "{{ as3_release_rpm_url }}"
         dest: "~/"
-        validate_certs: false

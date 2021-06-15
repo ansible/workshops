@@ -1,5 +1,5 @@
 ---
-- name: Download Ansible Tower
+- name: Download AAP tar.gz
   get_url:
     url: '{{ tower_installer_url | default(default_tower_url) }}'
     dest: /tmp/tower.tar.gz
@@ -7,7 +7,7 @@
 - name: Create directory for Ansible Tower
   file: path=/tmp/tower_install state=directory
 
-- name: Extract Ansible Tower install
+- name: Extract AAP tar.gz install
   unarchive:
     src: /tmp/tower.tar.gz
     dest: /tmp/tower_install
@@ -16,24 +16,24 @@
 
 - name: template inventory file for Ansible Controller Install
   template:
-    src: tower_install.j2
+    src: controller_install.j2
     dest: /tmp/tower_install/inventory
   when: create_cluster is not defined or not create_cluster|bool
 
-- name: template inventory file for Ansible Tower Install
+- name: template inventory file for Automation Controller Install
   template:
     src: tower_cluster_install.j2
     dest: /tmp/tower_install/inventory
   when: create_cluster is defined and create_cluster|bool
 
-- name: run the Ansible Tower installer
+- name: run the Automation Controller installer
   shell: ./setup.sh
   args:
     chdir: /tmp/tower_install
   async: 1400
   poll: 15
 
-- name: wait for Ansible Tower to be up
+- name: wait for Automation Controller to be up
   uri:
     url: https://localhost/api/v2/ping/
     method: GET

@@ -1,12 +1,12 @@
 ---
 - name: SSL cert block
   block:
-    - name: make sure Ansible Tower is online before changing tower base URL
+    - name: make sure Automation Controller is online before changing tower base URL
       service:
-        name: ansible-tower.service
+        name: automation-controller.service
         state: started
-      register: start_tower
-      until: start_tower is not failed
+      register: install_controller
+      until: install_controller is not failed
       retries: 5
 
     # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
@@ -44,9 +44,9 @@
           retries: 12
           delay: 5
       rescue:
-        - name: Try restarting tower
+        - name: Try restarting automation controller
           service:
-            name: ansible-tower.service
+            name: automation-controller.service
             state: restarted
 
         - *tower-pinger-block
@@ -55,12 +55,12 @@
           name: Run failed task again
 
     # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-    - name: make sure Ansible Tower is stopped
+    - name: make sure Automation Controller is stopped
       service:
-        name: ansible-tower.service
+        name: automation-controller.service
         state: stopped
-      register: stop_tower
-      until: stop_tower is not failed
+      register: stop_controller
+      until: stop_controller is not failed
       retries: 5
 
     # If this fails check out status of certbot: https://letsencrypt.status.io/
@@ -86,15 +86,15 @@
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
   rescue:
-    - name: no SSL cert for Ansible Tower
+    - name: no SSL cert for Automation Controller
       debug:
         msg: "SSL cert problem - no cert applied"
   always:
     # Turn on Ansible Controller if successful
-    - name: make sure Ansible Tower is started
+    - name: make sure Automation Controller is started
       service:
-        name: ansible-tower.service
+        name: automation-controller.service
         state: started
-      register: start_tower
-      until: start_tower is not failed
+      register: start_controller
+      until: start_controller is not failed
       retries: 5

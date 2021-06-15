@@ -1,6 +1,11 @@
 ---
-- name: turn off tower
-  shell: ansible-tower-service stop
+- name: make sure Automation Controller is stopped
+  service:
+    name: automation-controller.service
+    state: stopped
+  register: install_controller
+  until: install_controller is not failed
+  retries: 5
 
 - name: dns for coder
   become: false
@@ -103,31 +108,31 @@
         dest: /etc/nginx/nginx.conf
         insertafter: "http {"
 
-    # Make sure we can re-run the Tower installer during a lab without killing code-server access
+    # Make sure we can re-run the automation platform installer during a lab without killing code-server access
     - name: update Ansible installer nginx configuration template to support code server
       blockinfile:
         block: "{{ lookup('template', 'nginx.conf') }}"
-        dest: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        dest: /tmp/tower_install/collections/ansible_collections/ansible/automation_platform_installer/roles/nginx/templates/nginx.conf
         insertafter: "http {"
 
     # Make the block inserted above conditional to only apply to ansible-1
     - name: Add jinja conditional start
       lineinfile:
-        path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        path: /tmp/tower_install/collections/ansible_collections/ansible/automation_platform_installer/roles/nginx/templates/nginx.conf
         insertafter: "http {"
         line: '{% raw %} {% if ansible_hostname == "ansible-1" %} {% endraw %}'
 
     # Make the block inserted above conditional to only apply to ansible-1
     - name: Add jinja conditional end
       lineinfile:
-        path: /tmp/tower_install/roles/nginx/templates/nginx.conf
+        path: /tmp/tower_install/collections/ansible_collections/ansible/automation_platform_installer/roles/nginx/templates/nginx.conf
         insertbefore: "include(.*)/etc/nginx/mime.types;"
         line: '{% raw %} {% endif %} {% endraw %}'
 
-- name: make sure Ansible Tower is started
+- name: make sure Automation Controller is started
   service:
-    name: ansible-tower.service
+    name: automation-controller.service
     state: started
-  register: install_tower
-  until: install_tower is not failed
+  register: install_controller
+  until: install_controller is not failed
   retries: 5

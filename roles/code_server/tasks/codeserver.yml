@@ -56,7 +56,7 @@
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    
+
 - name: Download files for vscode
   get_url:
     url: "{{ item }}"

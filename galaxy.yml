@@ -21,6 +21,7 @@ build_ignore:
   - images
   - _layouts
   - docs
+  - files
 
 
 # A short summary description of the collection

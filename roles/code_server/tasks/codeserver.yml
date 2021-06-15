@@ -50,6 +50,13 @@
     dest: "/home/{{username}}/.local/share/code-server/User/settings.json"
     owner: "{{username}}"
 
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /home/{{ username }}/.local/share/code-server/extensions/
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    
 - name: Download files for vscode
   get_url:
     url: "{{ item }}"

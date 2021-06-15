@@ -25,7 +25,7 @@
 
 # This may look redundant, but you can't put these in a loop because the
 # ansible_user will not be templated the way you expect when running under
-# Tower/AWX
+# Controller/AWX
 
 - name: copy over ssh config file for student
   template:
@@ -115,7 +115,7 @@
     - "{{role_path}}/tasks/{{workshop_type}}.yml"
     - "{{role_path}}/tasks/unsupported_workshop.yml"
 
-- name: check to see if ansible tower is already up and running
+- name: check to see if automation controller is already up and running
   uri:
     url: https://localhost/api/v2/ping/
     method: GET
@@ -123,7 +123,7 @@
     password: "{{admin_password}}"
     validate_certs: false
     force_basic_auth: true
-  register: check_tower
+  register: check_controller
   ignore_errors: true
   failed_when: false
   when:
@@ -131,11 +131,11 @@
     - towerinstall|bool
 
 - name: install tower if knob is set
-  include_tasks: "tower.yml"
+  include_tasks: "controller.yml"
   when:
     - towerinstall is defined
     - towerinstall|bool
-    - check_tower.status != 200
+    - check_controller.status != 200
 
 - name: Setup Route53 update service
   include_tasks: "route53_update.yml"

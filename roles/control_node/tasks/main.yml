@@ -23,6 +23,21 @@
     group: "{{ username }}"
     state: directory
 
+# we need a collection to be present on the control node
+
+- name: install community.general collection
+  command:
+    cmd: ansible-galaxy collection install -f -p /home/{{ username }}/.ansible/collections/ community.general
+
+- name: fix collection ownership permissions
+  file:
+    path: /home/{{ username }}/.ansible/collections
+    state: directory
+    owner: {{ username }}
+    group: {{ username }}
+    mode: 755
+    recurse: yes
+
 # This may look redundant, but you can't put these in a loop because the
 # ansible_user will not be templated the way you expect when running under
 # Tower/AWX

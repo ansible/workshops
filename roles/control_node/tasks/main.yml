@@ -27,14 +27,14 @@
 
 - name: install community.general collection
   command:
-    cmd: ansible-galaxy collection install -f -p /home/{{ username }}/.ansible/collections/ community.general
+    cmd: "ansible-galaxy collection install -f -p /home/{{ username }}/.ansible/collections/ community.general"
 
 - name: fix collection ownership permissions
   file:
-    path: /home/{{ username }}/.ansible/collections
+    path: "/home/{{ username }}/.ansible/collections"
     state: directory
-    owner: {{ username }}
-    group: {{ username }}
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: 755
     recurse: yes
 

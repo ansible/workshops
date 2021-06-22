@@ -23,6 +23,13 @@
     group: "{{ username }}"
     state: directory
 
+- name: make sure .ansiblt is created
+  file:
+    path: "/home/{{username}}/.ansible/"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    state: directory
+
 # we need a collection to be present on the control node
 
 - name: install community.general collection

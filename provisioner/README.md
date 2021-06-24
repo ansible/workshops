@@ -92,6 +92,12 @@ For more extra_vars examples, look at the following:
 * [sample-vars-demo.yml](sample_workshops/sample-vars-demo.yml) - example for `demo` mode, aggregate of all workshop topologies
 * [sameple-vars-smart_mgmt.yml](sample_workshops/sample-vars-smart_mgmt.yml) - example for `smart_mgmt` workshop. [Read Notes](#smart-management)
 
+* Run the requirements.yml file:
+
+```bash
+ansible-galaxy collection install -r requirements.yml
+```
+
 * Run the playbook:
 
 ```bash

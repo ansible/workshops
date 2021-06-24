@@ -26,8 +26,6 @@
   register: f5networks
   loop:
     - f5networks.f5_modules
-    - community.general
     - community.docker
-    - ansible.posix
   until: f5networks is not failed
   retries: 5

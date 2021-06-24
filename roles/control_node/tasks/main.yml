@@ -23,6 +23,18 @@
     group: "{{ username }}"
     state: directory
 
+# we need a collection to be present on the control node
+
+- name: install necessary collections
+  become_user: "{{ username }}"
+  shell: "ansible-galaxy collection install {{ item }} --force-with-deps "
+  register: controlcollections
+  loop:
+    - community.general
+    - ansible.posix
+  until: controlcollections is not failed
+  retries: 5
+
 # This may look redundant, but you can't put these in a loop because the
 # ansible_user will not be templated the way you expect when running under
 # Tower/AWX

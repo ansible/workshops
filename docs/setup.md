@@ -37,7 +37,13 @@ If you haven't done so already make sure you have the repo cloned to the machine
         git clone https://github.com/ansible/workshops.git
         cd workshops/provisioner
 
-6.  Some of the workshops require certain images provided via the AWS marketplace:
+6. Run the requirements.yml file to ensure all the Ansible collection prerequisites are met.
+￼
+￼```bash
+￼ansible-galaxy collection install -r requirements.yml
+￼```
+
+7.  Some of the workshops require certain images provided via the AWS marketplace:
 
   - For Networking you will need the Cisco CSR (Cloud Services Router) [Click here](https://aws.amazon.com/marketplace/pp/B00NF48FI2/), the Arista vEOS Router [Click here](https://aws.amazon.com/marketplace/pp/B077YJYMK5/), AND the Juniper vSRX NextGen Firewall [Click here](https://aws.amazon.com/marketplace/pp/B01LYWCGDX/)
   - For F5 you will need the F5 BIG-IP [Click here](https://aws.amazon.com/marketplace/pp/B079C44MFH/)

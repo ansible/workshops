@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/webservers"
+        name: ansible.workshops.webservers
 
 - name: setup f5 nodes
   hosts: f5
@@ -16,4 +16,4 @@
     as3_uri: "https://github.com/F5Networks/f5-appsvcs-extension/releases"
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/f5_setup"
+        name: ansible.workshops.f5_setup

@@ -6,7 +6,7 @@
   tasks:
     - name: configure RHEL webservers
       include_role:
-        name: "{{ playbook_dir }}/../roles/webservers"
+        name: ansible.workshops.webservers
 
 
 - name: configure satellite

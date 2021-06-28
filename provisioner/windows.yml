@@ -7,16 +7,16 @@
     - gitlab
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/common"
+        name: ansible.workshops.common
     - include_role:
-        name: "{{ playbook_dir }}/../roles/gitlab-server"
+        name: ansible.workshops.gitlab-server
     - include_role:
-        name: "{{ playbook_dir }}/../roles/vendor_geerlingguy_gitlab"
+        name: ansible.workshops.vendor_geerlingguy_gitlab
       vars:
         gitlab_version: '13.6.7-ce.0.el8'
         gitlab_external_url: "https://gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
     - include_role:
-        name: "{{ playbook_dir }}/../roles/gitlab-server"
+        name: ansible.workshops.gitlab-server
         tasks_from: add-users
 
 - name: Configure GitLab client
@@ -27,4 +27,4 @@
     - git
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/gitlab-client"
+        name: ansible.workshops.gitlab-client

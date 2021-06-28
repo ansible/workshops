@@ -11,7 +11,7 @@
     - include_role:
         name: "{{ playbook_dir }}/../roles/gitlab-server"
     - include_role:
-        name: geerlingguy.gitlab
+        name: "{{ playbook_dir }}/../roles/vendor_geerlingguy_gitlab"
       vars:
         gitlab_version: '13.6.7-ce.0.el8'
         gitlab_external_url: "https://gitlab.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"

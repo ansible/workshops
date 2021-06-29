@@ -4,22 +4,16 @@
   gather_facts: false
   become: true
   tasks:
-    - name: check if boinc-client is installed
-      check_mode: true
-      package:
-        name:
-          - boinc-client
-        state: present
-      register: boinc_installed
+    - name: list installed packages
+      package_facts:
 
-    - name: printing out if boinc-client is not installed
+    - name: print installed packages
       debug:
-        msg: boinc-client is not installed
-      when: boinc_installed.changed
+        var: ansible_facts.packages
 
     - name: disable and stop boinc-client
       systemd:
         name: boinc-client
         state: stopped
         enabled: false
-      when: boinc_installed.changed == false
+      when: '"boinc-client" in ansible_facts.packages'

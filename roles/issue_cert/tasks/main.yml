@@ -1,13 +1,13 @@
 ---
 - name: SSL cert block
   block:
-    - name: make sure Ansible Tower is online before changing tower base URL
-      service:
-        name: ansible-tower.service
-        state: started
-      register: start_tower
-      until: start_tower is not failed
-      retries: 5
+    - name: tower vs controller start
+      block:
+        - name: tower start
+          include_tasks: "tower_start.yml"
+      rescue:
+        - name: controller start
+          include_tasks: "controller_start.yml"
 
     # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
     - name: install certbot if not already installed
@@ -44,24 +44,26 @@
           retries: 12
           delay: 5
       rescue:
-        - name: Try restarting tower
-          service:
-            name: ansible-tower.service
-            state: restarted
+        - name: tower vs controller restart
+          block:
+            - name: tower restart
+              include_tasks: "tower_restart.yml"
+          rescue:
+            - name: controller stop
+              include_tasks: "controller_restart.yml"
 
         - *tower-pinger-block
 
         - <<: *tower-baseurl-task
           name: Run failed task again
 
-    # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-    - name: make sure Ansible Tower is stopped
-      service:
-        name: ansible-tower.service
-        state: stopped
-      register: stop_tower
-      until: stop_tower is not failed
-      retries: 5
+    - name: tower vs controller stop
+      block:
+        - name: tower stop
+          include_tasks: "tower_stop.yml"
+      rescue:
+        - name: controller stop
+          include_tasks: "controller_stop.yml"
 
     # If this fails check out status of certbot: https://letsencrypt.status.io/
     - name: ISSUE CERT
@@ -86,15 +88,15 @@
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
   rescue:
-    - name: no SSL cert for Ansible Tower
+    - name: no SSL cert for Automation Controller
       debug:
         msg: "SSL cert problem - no cert applied"
   always:
     # Turn on Ansible Controller if successful
-    - name: make sure Ansible Tower is started
-      service:
-        name: ansible-tower.service
-        state: started
-      register: start_tower
-      until: start_tower is not failed
-      retries: 5
+    - name: tower vs controller start
+      block:
+        - name: tower start
+          include_tasks: "tower_start.yml"
+      rescue:
+        - name: controller start
+          include_tasks: "controller_start.yml"

@@ -31,12 +31,12 @@
         state: absent
         insertafter: "http {"
 
-    - name: Smake sure tower is on
+    - name: make sure Automation Controller is started
       service:
-        name: ansible-tower.service
+        name: automation-controller.service
         state: started
-      register: install_tower
-      until: install_tower is not failed
+      register: install_controller
+      until: install_controller is not failed
       retries: 5
 
     - name: fail on purpose now to let user know code server failed

@@ -1,7 +1,14 @@
-[tower]
+[automationcontroller]
 localhost ansible_connection=local
 
+[tower:children]
+automationcontroller
+
+[automationhub]
+
 [database]
+
+[servicescatalog_workers]
 
 [all:vars]
 admin_password='{{admin_password}}'

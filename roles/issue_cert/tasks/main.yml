@@ -1,13 +1,13 @@
 ---
 - name: SSL cert block
   block:
-    - name: make sure Automation Controller is online before changing tower base URL
-      service:
-        name: automation-controller.service
-        state: started
-      register: install_controller
-      until: install_controller is not failed
-      retries: 5
+    - name: tower vs controller start
+      block:
+        - name: tower start
+          include_tasks: "tower_start.yml"
+      rescue:
+        - name: controller start
+          include_tasks: "controller_start.yml"
 
     # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
     - name: install certbot if not already installed
@@ -44,24 +44,26 @@
           retries: 12
           delay: 5
       rescue:
-        - name: Try restarting automation controller
-          service:
-            name: automation-controller.service
-            state: restarted
+        - name: tower vs controller restart
+          block:
+            - name: tower restart
+              include_tasks: "tower_restart.yml"
+          rescue:
+            - name: controller stop
+              include_tasks: "controller_restart.yml"
 
         - *tower-pinger-block
 
         - <<: *tower-baseurl-task
           name: Run failed task again
 
-    # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-    - name: make sure Automation Controller is stopped
-      service:
-        name: automation-controller.service
-        state: stopped
-      register: stop_controller
-      until: stop_controller is not failed
-      retries: 5
+    - name: tower vs controller stop
+      block:
+        - name: tower stop
+          include_tasks: "tower_stop.yml"
+      rescue:
+        - name: controller stop
+          include_tasks: "controller_stop.yml"
 
     # If this fails check out status of certbot: https://letsencrypt.status.io/
     - name: ISSUE CERT
@@ -91,10 +93,10 @@
         msg: "SSL cert problem - no cert applied"
   always:
     # Turn on Ansible Controller if successful
-    - name: make sure Automation Controller is started
-      service:
-        name: automation-controller.service
-        state: started
-      register: start_controller
-      until: start_controller is not failed
-      retries: 5
+    - name: tower vs controller start
+      block:
+        - name: tower start
+          include_tasks: "tower_start.yml"
+      rescue:
+        - name: controller start
+          include_tasks: "controller_start.yml"

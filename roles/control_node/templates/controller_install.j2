@@ -1,6 +1,9 @@
 [automationcontroller]
 localhost ansible_connection=local
 
+[tower:children]
+automationcontroller
+
 [automationhub]
 
 [database]

@@ -61,7 +61,9 @@
       username: ec2-user
       ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
 
+# won't work for Ansible Tower right now....
 - name: add tower credential into ansible tower
+  when: controller_or_tower=="controller"
   awx.awx.credential:
     name: "Tower Credential"
     kind: "{{ controller_or_tower }}"

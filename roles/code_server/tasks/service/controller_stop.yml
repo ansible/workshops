@@ -1,0 +1,8 @@
+---
+- name: make sure Automation Controller is stopped
+  service:
+    name: automation-controller.service
+    state: stopped
+  register: install_controller
+  until: install_controller is not failed
+  retries: 5

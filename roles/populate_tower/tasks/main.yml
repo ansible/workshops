@@ -1,4 +1,21 @@
 ---
+- name: ensure tower/controller is online and working
+  uri:
+    url: https://localhost/api/v2/ping/
+    method: GET
+    user: admin
+    password: "{{ admin_password }}"
+    validate_certs: false
+    force_basic_auth: true
+  register: controller_online
+  until: controller_online is success
+  delay: 3
+  retries: 5
+
+- name: determine if controller or tower
+  set_fact:
+    controller_or_tower: "{{ 'controller' if 'Platform' in check_controller.x_api_product_name else 'tower' }}"
+
 #### INVENTORY
 - name: create workshop inventory
   awx.awx.tower_inventory:
@@ -33,28 +50,31 @@
 #### CREDENTIAL
 - name: add SSH credential into Ansible Tower
   awx.awx.tower_credential:
-    username: ec2-user
     name: "Workshop Credential"
-    ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
-    kind: ssh
+    credential_type: Machine
     organization: "Default"
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
+    inputs:
+      username: ec2-user
+      ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
 
 - name: add tower credential into ansible tower
-  awx.awx.tower_credential:
-    host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-    username: admin
-    password: "{{admin_password}}"
+  awx.awx.credential:
     name: "Tower Credential"
-    kind: tower
+    kind: "{{ controller_or_tower }}"
     organization: Default
     tower_username: admin
     tower_password: "{{ admin_password }}"
     tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
+    inputs:
+      host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+      username: admin
+      password: "{{ admin_password }}"
+
 #### END OF CREDENTIAL
 
 #### REMOVE BUILT-IN DEMO CONTENT

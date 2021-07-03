@@ -9,6 +9,10 @@
         - name: Check if ansible is installed
           package_facts:
 
+        - name: Install awxkit
+          pip:
+            name: awxkit
+
         - name: Fail if ansible is not of a recent enough version
           fail:
             msg: "Ansible is not of a recent enough version on {{ inventory_hostname }}."

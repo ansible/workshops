@@ -10,6 +10,7 @@
           package_facts:
 
         - name: Install awxkit
+          become: true
           pip:
             name: awxkit
 

@@ -1,13 +1,17 @@
 ---
+- name: determine if Automation controller
+  stat:
+    path: /etc/sysconfig/automation-controller
+  register: controller_path
+
+- name: controller or tower
+  set_fact:
+    controller_or_tower: "{{ 'controller' if controller_path.stat.exists else 'tower' }}"
+
 - name: SSL cert block
   block:
-    - name: tower vs controller start
-      block:
-        - name: tower start
-          include_tasks: "tower_start.yml"
-      rescue:
-        - name: controller start
-          include_tasks: "controller_start.yml"
+    - name: controller/tower start
+      include_tasks: "service/{{ controller_or_tower }}_start.yml"
 
     # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
     - name: install certbot if not already installed
@@ -44,29 +48,19 @@
           retries: 12
           delay: 5
       rescue:
-        - name: tower vs controller restart
-          block:
-            - name: tower restart
-              include_tasks: "tower_restart.yml"
-          rescue:
-            - name: controller stop
-              include_tasks: "controller_restart.yml"
+        - name: controller/tower restart
+          include_tasks: "service/{{ controller_or_tower }}_restart.yml"
 
         - *tower-pinger-block
 
         - <<: *tower-baseurl-task
           name: Run failed task again
 
-    - name: tower vs controller stop
-      block:
-        - name: tower stop
-          include_tasks: "tower_stop.yml"
-      rescue:
-        - name: controller stop
-          include_tasks: "controller_stop.yml"
+    - name: controller/tower stop
+      include_tasks: "service/{{ controller_or_tower }}_stop.yml"
 
     # If this fails check out status of certbot: https://letsencrypt.status.io/
-    - name: ISSUE CERT
+    - name: Issue SSL cert
       shell: certbot certonly --no-bootstrap --standalone -d {{ dns_name }} --email ansible-network@redhat.com --noninteractive --agree-tos
       register: issue_cert
       until: issue_cert is not failed
@@ -93,10 +87,5 @@
         msg: "SSL cert problem - no cert applied"
   always:
     # Turn on Ansible Controller if successful
-    - name: tower vs controller start
-      block:
-        - name: tower start
-          include_tasks: "tower_start.yml"
-      rescue:
-        - name: controller start
-          include_tasks: "controller_start.yml"
+    - name: controller/tower restart
+      include_tasks: "service/{{ controller_or_tower }}_start.yml"

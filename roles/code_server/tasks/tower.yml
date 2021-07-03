@@ -19,11 +19,3 @@
     path: /tmp/tower_install/roles/nginx/templates/nginx.conf
     insertbefore: "include(.*)/etc/nginx/mime.types;"
     line: '{% raw %} {% endif %} {% endraw %}'
-
-- name: make sure Ansible Tower is started
-  service:
-    name: ansible-tower.service
-    state: started
-  register: install_tower
-  until: install_tower is not failed
-  retries: 5

@@ -59,20 +59,8 @@
       - "admin_password cannot be set to ansible"
       - "please set a unique password for your workshop"
 
-# this needs to get fixed by yanis
-# - name: make sure packages required are installed on this control node
-#   pip:
-#     name:
-#       - ansible-tower-cli
-#   check_mode: true
-#   register: package_state
-#
-# - name: fail if previous check has changed
-#   assert:
-#     that:
-#       - package_state.changed != True
 
-- name: auto license feature for Ansible Tower
+- name: auto license feature for Tower/Controller
   block:
     - name: Check that the provided license exists
       stat:
@@ -127,6 +115,17 @@
   when:
     - towerinstall
     - not use_manifest
+
+- name: build workshop into collection
+  shell: "ansible-galaxy collection build --verbose --force --output-path build/ {{ playbook_dir }}/.."
+
+- name: install newly created collection
+  shell: "ansible-galaxy collection install --verbose --force build/*.tar.gz {{ playbook_dir }}/.."
+
+- name: Delete content & directory
+  file:
+    state: absent
+    path: build
 
 - name: check workshop specific information
   include_tasks: "{{item}}"

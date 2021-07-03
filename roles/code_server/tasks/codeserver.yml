@@ -1,30 +1,16 @@
 ---
-- block:
-    - name: make sure Ansible Tower is stopped
-      service:
-        name: ansible-tower.service
-        state: stopped
-      register: install_tower
-      until: install_tower is not failed
-      retries: 5
-  rescue:
-    - name: make sure Automation Controller is stopped
-      service:
-        name: automation-controller.service
-        state: stopped
-      register: install_controller
-      until: install_controller is not failed
-      retries: 5
+- name: stop controller/tower
+  include_tasks: "service/{{ controller_or_tower }}_stop.yml"
 
 - name: dns for coder
   become: false
   community.aws.route53:
     state: "{{ s3_state }}"
-    zone: "{{workshop_dns_zone}}"
-    record: "{{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    zone: "{{ workshop_dns_zone }}"
+    record: "{{ username }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
     type: A
     overwrite: true
-    value: "{{ansible_host}}"
+    value: "{{ ansible_host }}"
   delegate_to: localhost
   register: route53_status
 
@@ -53,16 +39,16 @@
     # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
 - name: ensure custom facts directory exists
   file:
-    path: "/home/{{username}}/.local/share/code-server/User/"
+    path: "/home/{{ username }}/.local/share/code-server/User/"
     recurse: true
     state: directory
-    owner: "{{username}}"
+    owner: "{{ username }}"
 
 - name: apply code server defaults
   template:
     src: settings.json
-    dest: "/home/{{username}}/.local/share/code-server/User/settings.json"
-    owner: "{{username}}"
+    dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
+    owner: "{{ username }}"
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
@@ -103,7 +89,7 @@
 
 # if we do not have a cert we will try to work anyway
 - name: issue cert
-  shell: certbot certonly --no-bootstrap --standalone -d {{username}}-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+  shell: certbot certonly --no-bootstrap --standalone -d {{ username }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }} --email ansible-network@redhat.com --noninteractive --agree-tos
   register: issue_cert
   until: issue_cert is not failed
   retries: 5
@@ -115,10 +101,8 @@
     dest: /etc/nginx/nginx.conf
     insertafter: "http {"
 
-- name: tower vs controller
-  block:
-    - name: tower mode
-      include_tasks: "tower.yml"
-  rescue:
-    - name: controller mode
-      include_tasks: "controller.yml"
+- name: configure nginx on controller/tower
+  include_tasks: "{{ controller_or_tower }}.yml"
+
+- name: start controller/tower
+  include_tasks: "service/{{ controller_or_tower }}_start.yml"

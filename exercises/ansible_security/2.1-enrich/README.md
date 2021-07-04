@@ -29,7 +29,7 @@ Next, since this is a security lab, we do need suspicious traffic - an attack. W
 
   tasks:
     - name: simulate attack every 5 seconds
-      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/web_attack_simulation"
+      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip'] }}/web_attack_simulation"
 ```
 <!-- {% endraw %} -->
 

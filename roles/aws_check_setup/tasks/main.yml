@@ -61,6 +61,10 @@
     region: "{{ ec2_region }}"
   register: whoami
 
+- name: print whoami
+  debug:
+    var: whoami
+
 - name: save username of AWS user
   set_fact:
     aws_user: '{{ whoami.arn.split("/")[-1] }}'

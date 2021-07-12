@@ -1,7 +1,5 @@
 ---
 collections:
-  - name: community.aws
-    version: 1.5.0
   - name: awx.awx
     version: 19.0.0
   - name: amazon.aws

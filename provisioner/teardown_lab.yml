@@ -13,21 +13,22 @@
     debug_teardown: false
 
   tasks:
-    - {include_role: {name: manage_ec2_instances}}
-    - {include_role: {name: ansible.workshops.aws_dns}, when: dns_type == "aws"}
-    - {include_role: {name: ansible.workshops.code_server}, when: code_server}
-    - {include_role: {name: ansible.workshops.gitlab_server}, when: workshop_type == "windows"}
-    - {include_role: {name: ansible.workshops.workshop_attendance}, when: attendance}
+    block:
+      - {include_role: {name: manage_ec2_instances}}
+      - {include_role: {name: ansible.workshops.aws_dns}, when: dns_type == "aws"}
+      - {include_role: {name: ansible.workshops.code_server}, when: code_server}
+      - {include_role: {name: ansible.workshops.gitlab_server}, when: workshop_type == "windows"}
+      - {include_role: {name: ansible.workshops.workshop_attendance}, when: attendance}
 
 
-    - name: Remove workshop local files
-      file:
-        dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
-        state: absent
+      - name: Remove workshop local files
+        file:
+          dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
+          state: absent
 
-  always:
-    aws_s3:
-      bucket: pr1212
-      src: boto.log
-      object: '{{ ansible_date_time.epoch }}-boto.log'
-      mode: put
+    always:
+      - aws_s3:
+          bucket: pr1212
+          src: boto.log
+          object: '{{ ansible_date_time.epoch }}-boto.log'
+          mode: put

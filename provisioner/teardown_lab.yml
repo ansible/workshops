@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   become: false
-  gather_facts: false
+  gather_facts: true
 
   vars:
     ec2_wait: false
@@ -24,3 +24,10 @@
       file:
         dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
         state: absent
+
+  always:
+    aws_s3:
+      bucket: pr1212
+      src: boto.log
+      object: '{{ ansible_date_time.epoch }}-boto.log'
+      mode: put

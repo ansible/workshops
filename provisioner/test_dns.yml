@@ -5,14 +5,6 @@
   become: false
   gather_facts: true
   tasks:
-    - name: run pre-check role to make sure workshop will complete provisioning
-      include_role:
-        name: ansible.workshops.workshop_check_setup
-
-    - name: run AWS check setup if using AWS
-      include_role:
-        name: ansible.workshops.aws_check_setup
-
     - name: GRAB ZONE ID
       community.aws.route53_zone:
         zone: "{{workshop_dns_zone}}"
@@ -20,7 +12,6 @@
 
     - name: GRAB ROUTE53 INFORMATION
       community.aws.route53_info:
-        type: A
         query: record_sets
         max_items: 300
         hosted_zone_id: "{{AWSINFO.zone_id}}"
@@ -29,7 +20,6 @@
 
     - name: I am done with your nonsense
       community.aws.route53_info:
-        type: A
         query: record_sets
         max_items: 300
         hosted_zone_id: "{{AWSINFO.zone_id}}"
@@ -38,12 +28,16 @@
 
     - name: So very done  :)
       community.aws.route53_info:
-        type: A
         query: record_sets
         max_items: 300
         hosted_zone_id: "{{AWSINFO.zone_id}}"
       register: moar_record_sets
       ignore_errors: true
 
-    - debug:
-        msg: 'I wonder if any of those worked: {{ record_sets|length }}, {{ also_record_sets|length }}, {{ moar_record_sets|length }}'
+    - name: FOOBARBAZ
+      debug:
+        msg: 'I wonder if any of those worked: {{ record_sets.ResourceRecordSets|length }}, {{ also_record_sets.ResourceRecordSets|length }}, {{ moar_record_sets.ResourceRecordSets|length }}'
+
+    - name: SPAMHAMEGGS
+      debug:
+        msg: 'Foo is: {{ record_sets.foo }}, {{ also_record_sets.foo }}, {{ moar_record_sets.foo }}'

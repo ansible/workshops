@@ -28,7 +28,7 @@
       always:
         - aws_s3:
             bucket: pr1212
-            src: boto.log
+            src: ~/boto.log
             object: '{{ ansible_date_time.epoch }}-boto.log'
             mode: put
           ignore_errors: true

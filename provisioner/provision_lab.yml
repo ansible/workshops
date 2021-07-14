@@ -12,225 +12,225 @@
     - name: run AWS check setup if using AWS
       include_role:
         name: ansible.workshops.aws_check_setup
-
-- name: Create lab instances in AWS
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: false
-  pre_tasks:
-    - name: Cluster nodes
-      set_fact:
-        control_nodes: 4
-      when: create_cluster is defined and create_cluster|bool
-  roles:
-    - manage_ec2_instances
-
-- name: wait for all nodes to have SSH reachability
-  hosts: "managed_nodes:control_nodes:attendance"
-  become: true
-  gather_facts: false
-  tasks:
-    - include_role:
-        name: ansible.workshops.connectivity_test
-
-- name: Configure nginx on attendance host
-  hosts: attendance
-  become: true
-  gather_facts: true
-  tasks:
-    - block:
-        - include_role:
-            name: ansible.workshops.workshop_attendance_nginx
-        - include_role:
-            name: ansible.workshops.workshop_attendance
-      when: attendance|bool
-
-- name: wait for all security nodes to have SSH reachability
-  hosts: "security_connection_check"
-  become: true
-  gather_facts: false
-  tasks:
-    - include_role:
-        name: ansible.workshops.connectivity_test
-
-- name: Configure common options on managed nodes and control nodes
-  hosts: "managed_nodes:control_nodes"
-  gather_facts: false
-  become: true
-  tasks:
-    - include_role:
-        name: ansible.workshops.user_accounts
-    - include_role:
-        name: ansible.workshops.common
-
-- name: Configure /etc/hosts
-  hosts: 'managed_nodes:control_nodes'
-  gather_facts: true
-  become: true
-  tasks:
-    - name: setup /etc/hosts file per student
-      copy:
-        src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
-        dest: "/etc/hosts"
-        owner: "{{ username }}"
-        group: "{{ username }}"
-
-- name: configure ansible control node
-  hosts: '*ansible-1'
-  gather_facts: true
-  become: true
-  vars:
-    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
-    use_manifest: "{{ hostvars['localhost']['use_manifest'] }}"
-    default_tower_url: "{{ hostvars['localhost']['default_tower_url'] }}"
-  pre_tasks:
-    - debug:
-        var: tower_license
-  tasks:
-    - include_role:
-        name: ansible.workshops.control_node
-
-    - include_role:
-        name: ansible.workshops.code_server
-      when:
-        - code_server is defined
-        - code_server
-        - towerinstall is defined
-        - towerinstall
-
-- name: replicate venvs to cluster nodes
-  hosts: '*ansible-2,*ansible-3'
-  gather_facts: false
-  become: true
-  tasks:
-    - include_role:
-        name: ansible.workshops.control_node
-        tasks_from: package_dependencies
-      when: create_cluster|bool
-
-    - include_role:
-        name: ansible.workshops.control_node
-        tasks_from: venv
-      when: create_cluster|bool
-
-
-- name: add dns entires for all student control nodes
-  hosts: '*ansible-1'
-  become: true
-  gather_facts: false
-  tasks:
-    - include_role:
-        name: ansible.workshops.aws_dns
-      when:
-        - dns_type is defined
-        - dns_type == "aws"
-        - towerinstall is defined
-        - towerinstall
-  tags: control_node
-
-- name: populate ansible tower
-  hosts: '*ansible-1'
-  become: true
-  gather_facts: false
-
-  tasks:
-    - name: run populate_tower role
-      include_role:
-        name: ansible.workshops.populate_tower
-      when:
-        - towerinstall is defined
-        - towerinstall|bool
-        - populatetower
-
-- name: IBM community grid managed nodes
-  hosts: "managed_nodes"
-  become: true
-  gather_facts: true
-
-  tasks:
-    - name: install boinc-client and register
-      include_role:
-        name: ansible.workshops.community_grid
-      when:
-        - ibm_community_grid is defined
-        - ibm_community_grid
-
-- name: IBM community grid control node
-  hosts: "control_nodes"
-  become: true
-  gather_facts: true
-
-  tasks:
-    - name: install boinc-client and register
-      include_role:
-        name: ansible.workshops.community_grid
-        tasks_from: auto_shutoff
-      when:
-        - ibm_community_grid is defined
-        - ibm_community_grid
-
-
-- name: include workshop_type unique setup roles
-  import_playbook: "{{workshop_type}}.yml"
-
-- name: setup demos
-  hosts: control_nodes
-  gather_facts: false
-  vars:
-    my_tower_username: admin
-    my_tower_password: "{{ admin_password }}"
-    my_tower_host: "{{ ansible_host }}"
-  tasks:
-    - name: install demos from ansible.product_demos collection
-      block:
-        - name: install demo
-          include_role:
-            name: "ansible.product_demos.install_demo"
-          when:
-            - demo is defined
-            - towerinstall is defined
-            - towerinstall
-      rescue:
-        - name: install demo
-          debug:
-            msg: "Demos were NOT installed"
-
-        - name: update demo_information var
-          set_fact:
-            demo_information: "Demo issue: Demos were NOT installed"
-
-- name: Alert the mothership
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: false
-  tasks:
-    - {include_role: {name: ansible.workshops.tower_request}, when: student_total > 9}
-
-- name: print out information for instructor
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: set facts for output
-      set_fact:
-        summary_information: |
-          PROVISIONER SUMMARY
-          *******************
-          - Workshop name is {{ec2_name_prefix}}
-          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
-          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
-          {% if attendance %}
-          - {{hostvars['attendance-host'].login_website_information | default("attendance feature is off") }}
-          {% endif %}
-
-          FAILURES
-          *******************
-          {{dns_information}}
-          {{callback_information}}
-          {{ demo_information }}
-
-    - name: Print Summary Information
-      debug:
-        msg: "{{summary_information}}"
+#
+#- name: Create lab instances in AWS
+#  hosts: localhost
+#  connection: local
+#  become: false
+#  gather_facts: false
+#  pre_tasks:
+#    - name: Cluster nodes
+#      set_fact:
+#        control_nodes: 4
+#      when: create_cluster is defined and create_cluster|bool
+#  roles:
+#    - manage_ec2_instances
+#
+#- name: wait for all nodes to have SSH reachability
+#  hosts: "managed_nodes:control_nodes:attendance"
+#  become: true
+#  gather_facts: false
+#  tasks:
+#    - include_role:
+#        name: ansible.workshops.connectivity_test
+#
+#- name: Configure nginx on attendance host
+#  hosts: attendance
+#  become: true
+#  gather_facts: true
+#  tasks:
+#    - block:
+#        - include_role:
+#            name: ansible.workshops.workshop_attendance_nginx
+#        - include_role:
+#            name: ansible.workshops.workshop_attendance
+#      when: attendance|bool
+#
+#- name: wait for all security nodes to have SSH reachability
+#  hosts: "security_connection_check"
+#  become: true
+#  gather_facts: false
+#  tasks:
+#    - include_role:
+#        name: ansible.workshops.connectivity_test
+#
+#- name: Configure common options on managed nodes and control nodes
+#  hosts: "managed_nodes:control_nodes"
+#  gather_facts: false
+#  become: true
+#  tasks:
+#    - include_role:
+#        name: ansible.workshops.user_accounts
+#    - include_role:
+#        name: ansible.workshops.common
+#
+#- name: Configure /etc/hosts
+#  hosts: 'managed_nodes:control_nodes'
+#  gather_facts: true
+#  become: true
+#  tasks:
+#    - name: setup /etc/hosts file per student
+#      copy:
+#        src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+#        dest: "/etc/hosts"
+#        owner: "{{ username }}"
+#        group: "{{ username }}"
+#
+#- name: configure ansible control node
+#  hosts: '*ansible-1'
+#  gather_facts: true
+#  become: true
+#  vars:
+#    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
+#    use_manifest: "{{ hostvars['localhost']['use_manifest'] }}"
+#    default_tower_url: "{{ hostvars['localhost']['default_tower_url'] }}"
+#  pre_tasks:
+#    - debug:
+#        var: tower_license
+#  tasks:
+#    - include_role:
+#        name: ansible.workshops.control_node
+#
+#    - include_role:
+#        name: ansible.workshops.code_server
+#      when:
+#        - code_server is defined
+#        - code_server
+#        - towerinstall is defined
+#        - towerinstall
+#
+#- name: replicate venvs to cluster nodes
+#  hosts: '*ansible-2,*ansible-3'
+#  gather_facts: false
+#  become: true
+#  tasks:
+#    - include_role:
+#        name: ansible.workshops.control_node
+#        tasks_from: package_dependencies
+#      when: create_cluster|bool
+#
+#    - include_role:
+#        name: ansible.workshops.control_node
+#        tasks_from: venv
+#      when: create_cluster|bool
+#
+#
+#- name: add dns entires for all student control nodes
+#  hosts: '*ansible-1'
+#  become: true
+#  gather_facts: false
+#  tasks:
+#    - include_role:
+#        name: ansible.workshops.aws_dns
+#      when:
+#        - dns_type is defined
+#        - dns_type == "aws"
+#        - towerinstall is defined
+#        - towerinstall
+#  tags: control_node
+#
+#- name: populate ansible tower
+#  hosts: '*ansible-1'
+#  become: true
+#  gather_facts: false
+#
+#  tasks:
+#    - name: run populate_tower role
+#      include_role:
+#        name: ansible.workshops.populate_tower
+#      when:
+#        - towerinstall is defined
+#        - towerinstall|bool
+#        - populatetower
+#
+#- name: IBM community grid managed nodes
+#  hosts: "managed_nodes"
+#  become: true
+#  gather_facts: true
+#
+#  tasks:
+#    - name: install boinc-client and register
+#      include_role:
+#        name: ansible.workshops.community_grid
+#      when:
+#        - ibm_community_grid is defined
+#        - ibm_community_grid
+#
+#- name: IBM community grid control node
+#  hosts: "control_nodes"
+#  become: true
+#  gather_facts: true
+#
+#  tasks:
+#    - name: install boinc-client and register
+#      include_role:
+#        name: ansible.workshops.community_grid
+#        tasks_from: auto_shutoff
+#      when:
+#        - ibm_community_grid is defined
+#        - ibm_community_grid
+#
+#
+#- name: include workshop_type unique setup roles
+#  import_playbook: "{{workshop_type}}.yml"
+#
+#- name: setup demos
+#  hosts: control_nodes
+#  gather_facts: false
+#  vars:
+#    my_tower_username: admin
+#    my_tower_password: "{{ admin_password }}"
+#    my_tower_host: "{{ ansible_host }}"
+#  tasks:
+#    - name: install demos from ansible.product_demos collection
+#      block:
+#        - name: install demo
+#          include_role:
+#            name: "ansible.product_demos.install_demo"
+#          when:
+#            - demo is defined
+#            - towerinstall is defined
+#            - towerinstall
+#      rescue:
+#        - name: install demo
+#          debug:
+#            msg: "Demos were NOT installed"
+#
+#        - name: update demo_information var
+#          set_fact:
+#            demo_information: "Demo issue: Demos were NOT installed"
+#
+#- name: Alert the mothership
+#  hosts: localhost
+#  connection: local
+#  become: false
+#  gather_facts: false
+#  tasks:
+#    - {include_role: {name: ansible.workshops.tower_request}, when: student_total > 9}
+#
+#- name: print out information for instructor
+#  hosts: localhost
+#  connection: local
+#  gather_facts: false
+#  tasks:
+#    - name: set facts for output
+#      set_fact:
+#        summary_information: |
+#          PROVISIONER SUMMARY
+#          *******************
+#          - Workshop name is {{ec2_name_prefix}}
+#          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
+#          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
+#          {% if attendance %}
+#          - {{hostvars['attendance-host'].login_website_information | default("attendance feature is off") }}
+#          {% endif %}
+#
+#          FAILURES
+#          *******************
+#          {{dns_information}}
+#          {{callback_information}}
+#          {{ demo_information }}
+#
+#    - name: Print Summary Information
+#      debug:
+#        msg: "{{summary_information}}"

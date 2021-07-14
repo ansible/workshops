@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   become: false
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: run pre-check role to make sure workshop will complete provisioning
       include_role:

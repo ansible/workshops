@@ -143,7 +143,7 @@ Add some role-specific variables to your role in
 > * On a boat, in a moat, with a goat *(disclaimer: this is a complete lie)*
 >
 > Bottom line, you need to read up on [variable
-> precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
+> precedence](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
 > to understand both where to define variables and which locations take
 > precedence. In this exercise, we are using role defaults to define a
 > couple of variables and these are the most malleable. After that, we

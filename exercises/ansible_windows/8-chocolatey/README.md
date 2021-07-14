@@ -116,7 +116,7 @@ We added 4 tasks to the tasks section:
 
 > **Tip**
 >
-> The `win_chocolatey` module's `name` attribute can actually take a list of packages avoiding the need for a loop, however using a loop will allow you to specify the versions of each package, and install them sequentially if order is relevant. for more information on the `win_chocolatey` module take a look at the [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html).
+> The `win_chocolatey` module's `name` attribute can actually take a list of packages avoiding the need for a loop, however using a loop will allow you to specify the versions of each package, and install them sequentially if order is relevant. for more information on the `win_chocolatey` module take a look at the [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html).
 
 The completed playbook `install_packages.yml` should look like this:
 
@@ -204,7 +204,7 @@ In Visual Studio Code, create a new file under the `chocolatey` folder with the 
 
 > **Tip**
 >
-> Information on using `all` as a value that will be set to the `name` attribute can be found in the `win_chocolatey`'s module [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html). Always check the documentation of a module that you are using for the first time, often there will be useful information that will save you a lot of work.
+> Information on using `all` as a value that will be set to the `name` attribute can be found in the `win_chocolatey`'s module [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html). Always check the documentation of a module that you are using for the first time, often there will be useful information that will save you a lot of work.
 
 The contents of `update_packages.yml` are:
 
@@ -266,7 +266,7 @@ The first module we will use is the `win_chocolatey_facts` module. This module i
 
 > **Tip**
 >
-> Read more on the `win_chocolatey_facts` in the [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_facts_module.html).
+> Read more on the `win_chocolatey_facts` in the [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_facts_module.html).
 
 So let's take a closer look at the information gathered by this module by writing a simple playbook to collect and display the collected information.
 
@@ -329,13 +329,13 @@ The `win_chocolatey_config` module can be used to manage Chocolatey configuratio
 
 > **Tip**
 >
-> Read more on the `win_chocolatey_config` in the [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_config_module.html).
+> Read more on the `win_chocolatey_config` in the [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_config_module.html).
 
 <br>
 
 > **Tip**
 >
-> Read more on Chocolatey configuration [here](https://chocolatey.org/docs/chocolatey-configuration).
+> Read more on Chocolatey configuration [here](https://docs.chocolatey.org/en-us/configuration).
 
 We will change the values of two configuration options: `cacheLocation` and `commandExecutionTimeoutSeconds`. In the output of the previous step we saw that the `cacheLocation` was unset or did not have a value configured - the default setting, and that the value for `commandExecutionTimeoutSeconds` was set to the default value of 2700. We will modify those configuration options to:
 
@@ -430,7 +430,7 @@ The playbook should run and make the configuration changes, and the output from 
 
 <br><br>
 
-And thats it. This exercise covered most Chocolatey related Ansible modules available (with the exception of `win_chocolatey_source` and `win_chocolatey_feature` which you can read about [here](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_feature_module.html) and [here](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_source_module.html). Hopefully you got a taste of the possibilities by using Ansible together with Chocolatey to manage your Windows packages.
+And thats it. This exercise covered most Chocolatey related Ansible modules available (with the exception of `win_chocolatey_source` and `win_chocolatey_feature` which you can read about [here](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_feature_module.html) and [here](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_source_module.html). Hopefully you got a taste of the possibilities by using Ansible together with Chocolatey to manage your Windows packages.
 
 <br><br>
 [Click here to return to the Ansible for Windows Workshop](../README.md)

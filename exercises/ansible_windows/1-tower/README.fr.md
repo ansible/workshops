@@ -32,7 +32,7 @@ Création d'identification machine
 Les informations d'identification sont utilisées par Tower pour l'authentification lors du lancement d'une tache, la synchronisation avec les sources d'inventaire et l'importation du contenu d'un projet à partir d'un système de contrôle de version.
 
 
-Il existe un nombre important [de type d'identification](http://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)
+Il existe un nombre important [de type d'identification](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)
 Incluant l'accès aux serveurs, réseaux, et de service infonuagique. Dans cet atelier, nous allons utilisé des identifiants **machine** .
 
 Étape 1:

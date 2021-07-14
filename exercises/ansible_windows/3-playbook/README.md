@@ -138,7 +138,7 @@ of this exercise.
 
 * These three lines are calling the Ansible module **`win_feature`** to
   install the IIS Web Server. [Click
-  here](http://docs.ansible.com/ansible/latest/win_feature_module.html)
+  here](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html)
   to see all options for the `win_feature` module.
 
 <!-- -->
@@ -152,7 +152,7 @@ of this exercise.
 * The next few lines are using the ansible module **win_service** to
   start the IIS service. The `win_service` module is the preferred way
   of controlling services on remote hosts. [Click
-  here](http://docs.ansible.com/ansible/latest/win_service_module.html)
+  here](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html)
   to learn more about the **`win_service`** module.
 
 <!-- {% raw %} -->
@@ -230,7 +230,7 @@ You are ready to automate!
 > Ansible (well, YAML really) can be a bit particular about formatting
 > especially around indentation/spacing. When you get back to the
 > office, read up on this [YAML
-> Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html) a bit more
+> Syntax](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) a bit more
 > and it will save you some headaches later. In the meantime, your
 > completed playbook should look like this. Take note of the spacing and
 > alignment.

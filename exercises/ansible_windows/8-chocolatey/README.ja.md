@@ -116,7 +116,7 @@ Ansibleによって収集されるファクトは必要ないので、オーバ�
 
 > **Tip**
 >
-> `win_chocolatey`モジュールの`name`属性は、実際にはパッケージのリストを指定できますのでloopを使う必要はありません。しかし、loopを使用することで各パッケージのバージョンを指定し、順序が関連する場合は、それらを順番にインストールすることができます。`win_chocolatey`モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html)を参照してください。.
+> `win_chocolatey`モジュールの`name`属性は、実際にはパッケージのリストを指定できますのでloopを使う必要はありません。しかし、loopを使用することで各パッケージのバージョンを指定し、順序が関連する場合は、それらを順番にインストールすることができます。`win_chocolatey`モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html)を参照してください。.
 
 `install_packages.yml` プレイブック全体はこのようになります:
 
@@ -203,7 +203,7 @@ Visual Studio Codeで、`chocolatey` フォルダの下に、「`update_packages
 
 > **Tip**
 >
-> `name` 属性にセットされる値として `all` を使用する情報は、`win_chocolatey` のモジュール[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html)にあります。初めて使うモジュールのドキュメントは必ずチェックしてください。多くの場合、作業の手間を省く有益な情報があります。
+> `name` 属性にセットされる値として `all` を使用する情報は、`win_chocolatey` のモジュール[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html)にあります。初めて使うモジュールのドキュメントは必ずチェックしてください。多くの場合、作業の手間を省く有益な情報があります。
 
 `update_packages.yml` の内容は以下のようになります:
 
@@ -265,7 +265,7 @@ Chocolatey でパッケージを管理するために実際に使用されるの
 
 > **Tip**
 >
-> 「`win_chocolatey_facts`」モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_facts_module.html)を参照してください。
+> 「`win_chocolatey_facts`」モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_facts_module.html)を参照してください。
 
 それでは、収集した情報を表示する簡単なプレイブックを作成し、収集した情報を詳しく見てみましょう。
 
@@ -329,13 +329,13 @@ Visual Studio Codeで、`chocolatey`フォルダの下に、「`chocolatey_confi
 
 > **Tip**
 >
-> `win_chocolatey_config` モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_config_module.html)を参照してください。
+> `win_chocolatey_config` モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_config_module.html)を参照してください。
 
 <br>
 
 > **Tip**
 >
-> Chocolateyの設定については [こちら](https://chocolatey.org/docs/chocolatey-configuration)を参照してください。
+> Chocolateyの設定については [こちら](https://docs.chocolatey.org/en-us/configuration)を参照してください。
 
 ここでは、2つの設定オプションの値を変更します。`cacheLocation` と `commandExecutionTimeoutSeconds` です。前のステップの出力では、`cacheLocation` が設定されていないか、デフォルトの設定である値が設定されていないことがわかりました。また、`commandExecutionTimeoutSeconds` の値はデフォルトの 2700 に設定されていました。これらの設定オプションを次のように修正します:
 
@@ -430,7 +430,7 @@ Visual Studio Codeで、`chocolatey_configuration.yml` プレイブックを編�
 
 <br><br>
 
-これで演習は完了です。 この演習では、利用可能なChocolatey関連のAnsibleモジュールのほとんどをカバーしました(ただし、`win_chocolatey_source` と `win_chocolatey_feature` については [こちら](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_feature_module.html) と [こちら](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_source_module.html) を参照してください)。 Windowsパッケージの管理にAnsibleとChocolateyを併用することで、その可能性を感じていただけたのではないでしょうか。
+これで演習は完了です。 この演習では、利用可能なChocolatey関連のAnsibleモジュールのほとんどをカバーしました(ただし、`win_chocolatey_source` と `win_chocolatey_feature` については [こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_feature_module.html) と [こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_source_module.html) を参照してください)。 Windowsパッケージの管理にAnsibleとChocolateyを併用することで、その可能性を感じていただけたのではないでしょうか。
 
 <br><br>
 [ワークショップ一覧に戻る](../README.ja.md)

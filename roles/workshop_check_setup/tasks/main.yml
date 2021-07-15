@@ -122,6 +122,22 @@
 - name: install newly created collection
   shell: "ansible-galaxy collection install --verbose --force build/*.tar.gz {{ playbook_dir }}/.."
 
+- name: What is even going on here
+  debug:
+    msg: "WATTAF"
+
+- file:
+    path: collection_repos
+    state: directory
+
+- shell: 'git clone --branch 1_5_0_route53_rr https://github.com/jillr/community.aws.git collection_repos/community.aws/'
+
+- name: build workshop into collection
+  shell: "ansible-galaxy collection build --verbose --force --output-path build/ collection_repos/community.aws/"
+
+- name: install newly created collection
+  shell: "ansible-galaxy collection install --verbose --force build/community-aws-1.5.0.tar.gz {{ playbook_dir }}/.."
+
 - name: Delete content & directory
   file:
     state: absent

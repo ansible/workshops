@@ -58,7 +58,7 @@ creating snapshots, or disabling monitoring.
         - name: Install Windows Updates
           win_updates:
             category_names: "{{ categories | default(omit) }}"
-            reboot: '{{ reboot_server | default(yes) }}'
+            reboot: '{{ reboot_server | default(true) }}'
 ```
 
 <!-- {% endraw %} -->
@@ -73,7 +73,7 @@ creating snapshots, or disabling monitoring.
 >    reboot the remote host if it is required and continue to install
 >    updates after the reboot. We will also use a survey variable to
 >    stop us from rebooting even if needed. If the reboot\_server value
->    is not specified we will set the reboot attribute to yes.
+>    is not specified we will set the reboot attribute to true.
 
 Section 3: Save and Commit
 ==========================

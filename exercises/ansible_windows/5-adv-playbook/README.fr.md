@@ -14,9 +14,9 @@ Les handlers sont la façon dont nous redémarrons les services. Vous venez de d
 Pour une compréhension complète des variables, des boucles et des handlers; consultez notre documentation Ansible sur ces sujets.
 
 
-[Les Variables Ansible Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
-[Les Boucles Ansible](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
-[Les Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
+[Les Variables Ansible Variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+[Les Boucles Ansible](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+[Les Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#handlers)
 
 Section 1: Création du Playbook
 ===============================

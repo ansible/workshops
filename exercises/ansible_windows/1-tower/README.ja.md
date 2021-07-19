@@ -22,7 +22,7 @@ Ansible Tower には、マルチテナント、通知、スケジューリング
 
 Ansible Tower は、Windows や Linux、ネットワーク機器など管理対象ノードに対するジョブの実行、AWS や VMware vCenter Server などのインベントリーソースとの情報の同期、Git などソースコード管理システムとの同期の際に必要となる個々の認証情報をあらかじめ登録した上で利用する事が出来ます。  
 
-[認証情報](http://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)にはたくさんの種類があります。  
+[認証情報](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)にはたくさんの種類があります。  
 このワークショップでは認証情報として、**マシン**と**ソースコード管理システム**の認証情報を作成し、利用します。  
 
 ### ステップ 1:  

@@ -25,11 +25,11 @@ service for those changes to take effect. We do that with a handler.
 For a full understanding of variables, loops, and handlers; check out
 our Ansible documentation on these subjects.
 [Ansible
-Variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html)
+Variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
 [Ansible
-Loops](http://docs.ansible.com/ansible/latest/playbooks_loops.html)
+Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
 [Ansible
-Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
+Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#handlers)
 
 Section 1: Creating the Playbook
 ================================

@@ -116,7 +116,7 @@ iis_test_message: "Hello World!  My test IIS Server"
 >
 > - コマンド実行の際の`--extra_vars` オプション
 >
->上記変数の定義は、場所によって優先順位が決まっています。最初からあまりいろんなところに置く必要はありませんが、こちらを一度確認しておくと良いと思います。[variable precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)。この演習では、Role の default を使用していくつかの変数を定義していますが、これらは優先順位が低いため、他の場所で記述されると置き換わります。逆に言うと、順応性がある変数とも言えます。この default より優先順位が高いのが vars で、一部をこちらで定義してみました。  
+>上記変数の定義は、場所によって優先順位が決まっています。最初からあまりいろんなところに置く必要はありませんが、こちらを一度確認しておくと良いと思います。[variable precedence](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)。この演習では、Role の default を使用していくつかの変数を定義していますが、これらは優先順位が低いため、他の場所で記述されると置き換わります。逆に言うと、順応性がある変数とも言えます。この default より優先順位が高いのが vars で、一部をこちらで定義してみました。  
 
 ### ステップ 5:
 

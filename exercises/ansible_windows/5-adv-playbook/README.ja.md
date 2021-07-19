@@ -14,7 +14,9 @@ Ansible を利用することにより、タスクをシンプルかつ簡単に
 ハンドラーについても学びます。ハンドラーとは、特定のタスクが実行されたときにのみに追加で呼び出されるタスクです。例えば、httpd サービスの設定ファイルを変更した場合にのみ httpd サービスを再起動するというようなことが簡単に実現可能です。通常だと if 文で書いたり、複雑になりがちですよね。Ansible だと極めて簡単に記述する事が出来ます。  
 
 変数、ループ、およびハンドラーを完全に理解するには、 これらのテーマに関する以下の Ansible ドキュメントをご覧ください。  
-[Ansible 変数](http://docs.ansible.com/ansible/latest/playbooks_variables.html)　[Ansible ループ](http://docs.ansible.com/ansible/latest/playbooks_loops.html)　[Ansible ハンドラー](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)  
+[Ansible 変数](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+[Ansible ループ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+[Ansible ハンドラー](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#handlers)  
   
 ## Playbook の作成
 

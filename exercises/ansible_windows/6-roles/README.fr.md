@@ -212,7 +212,7 @@ Cliquez avec le bouton droit sur `roles\iis_simple\templates` et créez un nouve
     <body>
 
       <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}
+      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
 
     </body>
     </html>

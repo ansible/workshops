@@ -16,46 +16,6 @@
   set_fact:
     controller_or_tower: "{{ 'controller' if 'Platform' in check_controller.x_api_product_name else 'tower' }}"
 
-#### INVENTORY
-- name: create workshop inventory
-  awx.awx.inventory:
-    name: "Workshop Inventory"
-    organization: "Default"
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-  register: workshop_inventory
-  until: workshop_inventory is success
-  delay: 3
-  retries: 5
-
-- name: copy inventory to awx user
-  copy:
-    src: "/home/{{ username }}/lab_inventory/hosts"
-    remote_src: true
-    dest: /var/lib/awx/hosts
-    owner: awx
-    group: awx
-
-- name: import inventory
-  become_user: awx
-  shell: 'tower-manage inventory_import --source=/var/lib/awx/hosts --inventory-name="Workshop Inventory"'
-#### END OF INVENTORY
-
-### USER
-- name: add student user
-  awx.awx.user:
-    username: "{{ username }}"
-    password: "{{ admin_password }}"
-    email: fake@fake.com
-    state: present
-    superuser: true
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
 #### CREDENTIAL
 - name: add SSH credential into Automation controller
   awx.awx.credential:
@@ -101,6 +61,77 @@
       host: "registry.redhat.io"
 #### END OF CREDENTIAL
 
+### Execution environments
+
+## Execution environments
+- name: update default EE to use credential
+  awx.awx.execution_environment:
+    name: "Default execution environment"
+    image: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+    pull: missing
+    credential: "registry.redhat.io credential"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+
+- name: Login to redhat registry
+  become_user: awx
+  containers.podman.podman_login:
+    username: '{{ redhat_username }}'
+    password: '{{ redhat_password }}'
+    registry: registry.redhat.io
+
+- name: Pull an image
+  become_user: awx
+  containers.podman.podman_image:
+    name: "{{ item }}"
+  loop:
+    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8
+    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8
+    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8
+### end of execution environments
+
+#### Inventory
+- name: create workshop inventory
+  awx.awx.inventory:
+    name: "Workshop Inventory"
+    organization: "Default"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+  register: workshop_inventory
+  until: workshop_inventory is success
+  delay: 3
+  retries: 5
+
+- name: copy inventory to awx user
+  copy:
+    src: "/home/{{ username }}/lab_inventory/hosts"
+    remote_src: true
+    dest: /var/lib/awx/hosts
+    owner: awx
+    group: awx
+
+- name: import inventory
+  become_user: awx
+  shell: 'tower-manage inventory_import --source=/var/lib/awx/hosts --inventory-name="Workshop Inventory"'
+#### end of inventory
+
+### USER
+- name: add student user
+  awx.awx.user:
+    username: "{{ username }}"
+    password: "{{ admin_password }}"
+    email: fake@fake.com
+    state: present
+    superuser: true
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+
 #### REMOVE BUILT-IN DEMO CONTENT
 - name: delete demo job template
   awx.awx.job_template:
@@ -145,17 +176,6 @@
     controller_host: "https://{{ ansible_host }}"
     validate_certs: false
 #### END OF REMOVE BUILT-IN DEMO CONTENT
-
-- name: update default EE to use credential
-  awx.awx.execution_environment:
-    name: "Default execution environment"
-    image: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
-    pull: missing
-    credential: "registry.redhat.io credential"
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
 
 - name: setup workshop specific controller information
   include_tasks: "{{item}}"

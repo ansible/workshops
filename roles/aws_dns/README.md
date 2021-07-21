@@ -7,9 +7,4 @@ Example:
 ```
 - include_role:
     name: ansible.workshops.aws_dns
-  when:
-    - dns_type is defined
-    - dns_type == "aws"
-    - towerinstall is defined
-    - towerinstall
 ```

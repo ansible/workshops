@@ -18,7 +18,7 @@ ibm_community_grid: false
 # select rhel7 or rhel8 client nodes
 rhel: rhel7
 # this will install Ansible Tower on all control nodes
-towerinstall: true
+controllerinstall: true
 # this will install VS Code web on all control nodes
 code_server: true
 # this will change the location of lab guide

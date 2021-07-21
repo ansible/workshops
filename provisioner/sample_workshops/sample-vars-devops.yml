@@ -9,6 +9,6 @@ workshop_type: 'devops'
 ## Optional Variables
 admin_password: ansible
 workshop_dns_zone: redhatgov.io
-towerinstall: true
+controllerinstall: true
 # creates HTML website for workshop
 create_cluster: false

@@ -11,6 +11,6 @@ security_console: 'qradar'
 ## Optional Variables
 admin_password: ansible
 windows_password: Ansible+Red*Hat19!20
-towerinstall: true
+controllerinstall: true
 demo: all
 create_cluster: false

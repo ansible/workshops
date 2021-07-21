@@ -139,14 +139,14 @@
   ignore_errors: true
   failed_when: false
   when:
-    - towerinstall is defined
-    - towerinstall|bool
+    - controllerinstall is defined
+    - controllerinstall|bool
 
-- name: install tower if knob is set
+- name: install controller if knob is set
   include_tasks: "controller.yml"
   when:
-    - towerinstall is defined
-    - towerinstall|bool
+    - controllerinstall is defined
+    - controllerinstall|bool
     - check_controller.status != 200
 
 - name: Setup Route53 update service

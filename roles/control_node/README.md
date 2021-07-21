@@ -9,13 +9,6 @@ Example:
   hosts: '*ansible-1'
   gather_facts: true
   become: true
-  vars:
-    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
-    use_manifest: "{{ hostvars['localhost']['use_manifest'] }}"
-    default_tower_url: "{{ hostvars['localhost']['default_tower_url'] }}"
-  pre_tasks:
-    - debug:
-        var: tower_license
   tasks:
     - include_role:
         name: ansible.workshops.control_node

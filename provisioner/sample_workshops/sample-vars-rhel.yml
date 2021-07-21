@@ -13,5 +13,5 @@ admin_password: ansible
 # turn DNS on for control nodes, and set to type in valid_dns_type
 dns_type: aws
 # this will install Ansible Tower on all control nodes
-towerinstall: true
+controllerinstall: true
 create_cluster: false

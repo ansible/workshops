@@ -1,22 +1,22 @@
 ---
-- name: Download AAP tar.gz
-  get_url:
-    url: '{{ tower_installer_url | default(default_tower_url) }}'
-    dest: /tmp/tower.tar.gz
+- name: copy AAP tar.gz
+  copy:
+    src: '{{ playbook_dir }}/aap.tar.gz'
+    dest: /tmp/aap.tar.gz
 
-- name: Create directory for Ansible Tower
-  file: path=/tmp/tower_install state=directory
+- name: Create directory for automation controller
+  file: path=/tmp/aap_install state=directory
 
 - name: Extract AAP tar.gz install
   unarchive:
-    src: /tmp/tower.tar.gz
-    dest: /tmp/tower_install
+    src: /tmp/aap.tar.gz
+    dest: /tmp/aap_install
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
 
 - name: read in inventory data to determine if tower or controller
   slurp:
-    src: "/tmp/tower_install/inventory"
+    src: "/tmp/aap_install/inventory"
   register: file_contents
 
 - name: controller or tower
@@ -26,20 +26,20 @@
 - name: template inventory file for Ansible Controller Install
   template:
     src: "{{ controller_or_tower }}_install.j2"
-    dest: /tmp/tower_install/inventory
+    dest: /tmp/aap_install/inventory
   when: create_cluster is not defined or not create_cluster|bool
 
 - name: template inventory file for Automation Controller Install
   template:
     src: tower_cluster_install.j2
-    dest: /tmp/tower_install/inventory
+    dest: /tmp/aap_install/inventory
   when: create_cluster is defined and create_cluster|bool
 
 # sean note to self... should I remove the gpgcheck=0?
 - name: run the Automation Controller installer
   shell: "./setup.sh -e gpgcheck=0"
   args:
-    chdir: /tmp/tower_install
+    chdir: /tmp/aap_install
   async: 1400
   poll: 15
 
@@ -73,37 +73,20 @@
       - "requests==2.6.0"
     state: latest
 
-- name: Install venv
-  include_tasks: venv.yml
+- name: Load manifest into variable
+  local_action:
+    module: slurp
+    src: "{{ playbook_dir }}/manifest.zip"
+  register: manifest_file
+  become: false
 
-- name: Post license key
+- name: Post manifest file
   uri:
     url: https://{{ansible_host}}/api/v2/config/
     method: POST
     user: admin
     password: "{{admin_password}}"
-    body: "{{ tower_license }}"
+    body: '{ "eula_accepted": true, "manifest": "{{ manifest_file.content }}" }'
     body_format: json
     validate_certs: false
     force_basic_auth: true
-  when: not use_manifest
-
-- block:
-    - name: Load manifest into variable
-      local_action:
-        module: slurp
-        src: "{{ playbook_dir }}/manifest.zip"
-      register: manifest_file
-      become: false
-
-    - name: Post manifest file
-      uri:
-        url: https://{{ansible_host}}/api/v2/config/
-        method: POST
-        user: admin
-        password: "{{admin_password}}"
-        body: '{ "eula_accepted": true, "manifest": "{{ manifest_file.content }}" }'
-        body_format: json
-        validate_certs: false
-        force_basic_auth: true
-  when: use_manifest

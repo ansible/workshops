@@ -1,0 +1,34 @@
+- name: Download file and force basic auth
+  get_url:
+    # url: "{{ default_platform_url }}"
+    url: "https://drive.google.com/uc?export=download&id=18DhQlWHS0pinc20wMscXKH1mTS_u1ve9"
+    dest: "{{ playbook_dir }}/aap.tar.gz"
+    mode: u=r,g-r,o=r
+    # force_basic_auth: yes
+    # url_username: "{{ redhat_username }}"
+    # url_password: "{{ redhat_password }}"
+    # force_basic_auth: yes
+
+- name: ensure workshop folder {{ ec2_name_prefix }} exists
+  file:
+    path: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
+    state: directory
+
+- name: make sure you can AAP tar.gz install
+  unarchive:
+    src: "{{ playbook_dir }}/aap.tar.gz"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/"
+    extra_opts: ['--strip-components=1', '--show-stored-names']
+
+- name: Check that the provided license exists
+  stat:
+    path: "{{ playbook_dir }}/manifest.zip"
+  register: manifest_result
+
+- debug:
+    var: manifest_result
+
+- fail:
+    msg: "Need a manifest file at {{ playbook_dir }}/manifest.zip"
+  when:
+    - not manifest_result.stat.exists

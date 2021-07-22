@@ -1,5 +1,4 @@
-
-
+---
 - name: ensure workshop folder {{ ec2_name_prefix }} exists
   file:
     path: "{{ playbook_dir }}/{{ ec2_name_prefix }}"

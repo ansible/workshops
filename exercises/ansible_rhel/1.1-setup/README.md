@@ -63,7 +63,7 @@ Check Ansible has been installed correctly
 
 ```bash
 [root@ansible-1 ~]# ansible --version
-ansible 2.7.0
+ansible [core 2.11.2]
 [...]
 ```
 
@@ -80,7 +80,7 @@ logout
 
 > **Note**
 >
-> In all subsequent exercises you should work as the student\<X\> user on the control node if not explicitly told differently.
+> In all subsequent exercises you should work as the student\<X\> user on the control host (ansible-1) if not explicitly told differently.
 
 ### Step 2 - Working the Labs
 

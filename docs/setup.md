@@ -15,9 +15,17 @@ Here are the setup directions you have to perform one time for the [../provision
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
-3. Install the following packages using pip
+3. Install the following packages using dnf
 
-        pip install boto boto3 netaddr passlib pywinrm requests requests-credssp
+```
+[root@centos ~]# dnf install python3-boto \
+python3-boto3 \
+python3-netaddr \
+python3-passlib \
+python3-pywinrm \
+python3-requests \
+python3-requests-credssp
+```
 
   **Are you using Tower?**  [Tower Instructions](#tower-instructions)
 
@@ -35,11 +43,11 @@ aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 
         git clone https://github.com/ansible/workshops.git
-        cd workshops/provisioner
+        cd workshops/
 
 6. Run the requirements.yml file to ensure all the Ansible collection prerequisites are met.
 ￼
-￼```bash
+￼```
 ￼ansible-galaxy collection install -r requirements.yml
 ￼```
 

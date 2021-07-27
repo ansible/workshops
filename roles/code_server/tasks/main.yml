@@ -17,6 +17,7 @@
       register: check_cert
       ignore_errors: true
       failed_when: false
+      when: workshop_type is defined
 
     - name: ensure tower/controller is online and working
       uri:
@@ -32,28 +33,8 @@
       set_fact:
         controller_or_tower: "{{ 'controller' if 'Platform' in check_controller.x_api_product_name else 'tower' }}"
 
-- name: perform DNS and SSL certs for code server
-  block:
-    - name: setup vscode for web browser access
-      include_tasks: "codeserver.yml"
-  rescue:
-    - debug:
-        msg: 'VS code integration has failed'
-
-    - name: remove additional nginx configuration because of failure
-      blockinfile:
-        block: "{{ lookup('template', 'nginx.conf') }}"
-        dest: /etc/nginx/nginx.conf
-        state: absent
-        insertafter: "http {"
-
-    - name: start controller/tower
-      include_tasks: "service/{{ controller_or_tower }}_start.yml"
-
-    - name: fail on purpose now to let user know code server failed
-      debug:
-        msg: "VS code integration has failed in roles/code_server/tasks/main.yml"
-      failed_when: true
+- name: setup vscode for web browser access
+  include_tasks: "codeserver.yml"
   when:
     - not teardown|bool
     - check_cert.cert is not defined

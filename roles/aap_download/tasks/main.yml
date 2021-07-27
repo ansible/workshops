@@ -50,6 +50,7 @@
     var: download_url.url
 
 - name: Download aap.tar.gz
+  delegate_to: localhost
   get_url:
     url: "{{ download_url.url }}"
     dest: "{{ playbook_dir }}/aap.tar.gz"

@@ -10,14 +10,14 @@
     that:
       - workshop_type is defined
       - workshop_type in valid_workshop_types
-    msg: "workshop_type must be defined and be one of: {{valid_workshop_types}}"
+    msg: "workshop_type must be defined and be one of: {{ valid_workshop_types }}"
 
 - name: make sure dns_type is set to a correct value
   assert:
     that:
       - dns_type is defined
       - dns_type in valid_dns_type
-    msg: "workshop_type must be defined and be one of: {{valid_dns_type}}"
+    msg: "dns_type must be defined and be one of: {{valid_dns_type}}"
 
 - name: make sure network_type is set to a correct value
   assert:

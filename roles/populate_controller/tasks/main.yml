@@ -45,52 +45,7 @@
       host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
       username: admin
       password: "{{ admin_password }}"
-
-- name: create container registry credential
-  awx.awx.credential:
-    name: registry.redhat.io credential
-    organization: Default
-    credential_type: Container Registry
-    controller_host: "https://{{ ansible_host }}"
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    validate_certs: false
-    inputs:
-      username: "{{ redhat_username }}"
-      password: "{{ redhat_password }}"
-      host: "registry.redhat.io"
 #### END OF CREDENTIAL
-
-### Execution environments
-
-## Execution environments
-- name: update default EE to use credential
-  awx.awx.execution_environment:
-    name: "Default execution environment"
-    image: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
-    pull: missing
-    credential: "registry.redhat.io credential"
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: Login to redhat registry
-  become_user: awx
-  containers.podman.podman_login:
-    username: '{{ redhat_username }}'
-    password: '{{ redhat_password }}'
-    registry: registry.redhat.io
-
-- name: Pull an image
-  become_user: awx
-  containers.podman.podman_image:
-    name: "{{ item }}"
-  loop:
-    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8
-    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8
-    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8
-### end of execution environments
 
 #### Inventory
 - name: create workshop inventory

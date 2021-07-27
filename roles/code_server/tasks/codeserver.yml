@@ -13,6 +13,7 @@
     value: "{{ ansible_host }}"
   delegate_to: localhost
   register: route53_status
+  when: workshop_type is defined
 
 - name: Download code-server 3 rpm
   get_url:
@@ -94,15 +95,25 @@
   until: issue_cert is not failed
   retries: 5
   ignore_errors: true
+  when: workshop_type is defined
 
 - name: update nginx configuration to support code server
   blockinfile:
     block: "{{ lookup('template', 'nginx.conf') }}"
     dest: /etc/nginx/nginx.conf
     insertafter: "http {"
+  when: workshop_type is defined
+
+- name: instruqt - update nginx configuration to support code server
+  blockinfile:
+    block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
+    dest: /etc/nginx/nginx.conf
+    insertbefore: "location / "
+  when: workshop_type is not defined
 
 - name: configure nginx on controller/tower
   include_tasks: "{{ controller_or_tower }}.yml"
+  when: workshop_type is defined
 
 - name: start controller/tower
   include_tasks: "service/{{ controller_or_tower }}_start.yml"

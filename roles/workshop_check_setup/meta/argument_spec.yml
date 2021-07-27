@@ -59,18 +59,10 @@ argument_specs:
         description: A fallback URL for Ansible Tower 3.8.
         type: str
         required: false
-      towerinstall:
+      controllerinstall:
         description: Whether to install Ansible Tower.
         type: bool
         required: true
-      use_manifest:
-        description: Whether to use a manifest file for the license.
-        type: bool
-        required: true
-      tower_license_data:
-        description: Direct variable input for Ansible Tower license data.
-        type: str
-        required: false
   network:
     short_description: Verify workshop setup for the network workshop.
     options:

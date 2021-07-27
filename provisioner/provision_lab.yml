@@ -5,6 +5,17 @@
   become: false
   gather_facts: true
   tasks:
+    - name: build workshop into collection
+      shell: "ansible-galaxy collection build --verbose --force --output-path build/ {{ playbook_dir }}/.."
+
+    - name: install newly created collection
+      shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz"
+
+    - name: Delete content & directory
+      file:
+        state: absent
+        path: build
+
     - name: run pre-check role to make sure workshop will complete provisioning
       include_role:
         name: ansible.workshops.workshop_check_setup
@@ -12,6 +23,10 @@
     - name: run AWS check setup if using AWS
       include_role:
         name: ansible.workshops.aws_check_setup
+
+    - name: download AAP
+      include_role:
+        name: ansible.workshops.aap_download
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -80,13 +95,6 @@
   hosts: '*ansible-1'
   gather_facts: true
   become: true
-  vars:
-    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
-    use_manifest: "{{ hostvars['localhost']['use_manifest'] }}"
-    default_tower_url: "{{ hostvars['localhost']['default_tower_url'] }}"
-  pre_tasks:
-    - debug:
-        var: tower_license
   tasks:
     - include_role:
         name: ansible.workshops.control_node
@@ -96,8 +104,8 @@
       when:
         - code_server is defined
         - code_server
-        - towerinstall is defined
-        - towerinstall
+        - controllerinstall is defined
+        - controllerinstall
 
 - name: replicate venvs to cluster nodes
   hosts: '*ansible-2,*ansible-3'
@@ -125,8 +133,8 @@
       when:
         - dns_type is defined
         - dns_type == "aws"
-        - towerinstall is defined
-        - towerinstall
+        - controllerinstall is defined
+        - controllerinstall
   tags: control_node
 
 - name: populate ansible tower
@@ -135,13 +143,13 @@
   gather_facts: false
 
   tasks:
-    - name: run populate_tower role
+    - name: run populate_controller role
       include_role:
-        name: ansible.workshops.populate_tower
+        name: ansible.workshops.populate_controller
       when:
-        - towerinstall is defined
-        - towerinstall|bool
-        - populatetower
+        - controllerinstall is defined
+        - controllerinstall|bool
+        - populatecontroller
 
 - name: IBM community grid managed nodes
   hosts: "managed_nodes"
@@ -189,8 +197,8 @@
             name: "ansible.product_demos.install_demo"
           when:
             - demo is defined
-            - towerinstall is defined
-            - towerinstall
+            - controllerinstall is defined
+            - controllerinstall
       rescue:
         - name: install demo
           debug:

@@ -72,7 +72,7 @@ admin_password: your_password123
 workshop_dns_zone: rhdemo.io
 
 # automatically installs Tower to control node
-towerinstall: true
+controllerinstall: true
 
 # IBM Community Grid - defaults to true if you don't tell the provisioner
 ibm_community_grid: false

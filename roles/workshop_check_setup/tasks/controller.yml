@@ -1,0 +1,19 @@
+---
+- name: ensure workshop folder {{ ec2_name_prefix }} exists
+  file:
+    path: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
+    state: directory
+
+
+- name: Check that the provided license exists
+  stat:
+    path: "{{ playbook_dir }}/manifest.zip"
+  register: manifest_result
+
+- debug:
+    var: manifest_result
+
+- fail:
+    msg: "Need a manifest file at {{ playbook_dir }}/manifest.zip"
+  when:
+    - not manifest_result.stat.exists

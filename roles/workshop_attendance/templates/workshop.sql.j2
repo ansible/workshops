@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `users` (
       {% else %}
         '',
       {% endif %}
-      {% if towerinstall is defined and towerinstall %}
+      {% if controllerinstall is defined and controllerinstall %}
         {% if dns_type != 'none' %}
           'https://student{{ number }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
         {% else %}
@@ -46,4 +46,3 @@ CREATE TABLE IF NOT EXISTS `users` (
     {% endif %}
   {% endfor %}
 {% endfor %}
-

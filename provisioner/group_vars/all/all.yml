@@ -4,8 +4,8 @@ code_server: true
 workshop_dns_zone: "rhdemo.io"
 s3_state: "present"
 teardown: false
-towerinstall: false
-populatetower: true
+controllerinstall: false
+populatecontroller: true
 website_information: ""
 login_website_information: ""
 dns_information: "No errors with DNS"
@@ -44,5 +44,5 @@ ibm_community_grid: false
 create_cluster: false
 default_tower38_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.8.0-1.tar.gz
 default_tower37_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.3-1.tar.gz
-use_manifest: false
 automation_hub: false
+default_platform_url: "https://drive.google.com/file/d/18DhQlWHS0pinc20wMscXKH1mTS_u1ve9/view?usp=sharing"

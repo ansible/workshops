@@ -29,7 +29,7 @@ This exercise will cover
 
 ### Step 1 - Work with your Inventory
 
-To use the ansible command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab the inventory is provided by your instructor. The inventory is an ini formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
+To use the ansible command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab the inventory is provided by your instructor. The inventory file is an ini formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
 
 ```bash
 [all:vars]
@@ -272,7 +272,7 @@ node1 | CHANGED | rc=0 >>
 Managed by Ansible
 ```
 
-Run the `ansible node1 -m copy …​` command from above again. Note:
+Run the `ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'​` command from above again. Note:
 
 * The different output color (proper terminal config provided).
 * The change from `"changed": true,` to `"changed": false,`.

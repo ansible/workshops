@@ -1,0 +1,9 @@
+---
+- name: create repo
+  yum_repository:
+    name: aap_installer
+    description: aap_installer
+    baseurl: "file:///{{ aap_dir }}/bundle/el8/repos"
+    gpgcheck: no
+  become: true
+

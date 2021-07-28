@@ -1,22 +1,34 @@
 ---
+- name: Create tmp directory to store AAP tar.gz
+  tempfile:
+    state: directory
+    suffix: "aapbundle"
+  register: tempdir
+
 - name: copy AAP tar.gz
   copy:
     src: '{{ playbook_dir }}/aap.tar.gz'
-    dest: /tmp/aap.tar.gz
+    dest: "{{ tempdir.path }}/aap.tar.gz"
 
 - name: Create directory for automation controller
-  file: path=/tmp/aap_install state=directory
+  file: 
+    path: "{{ aap_dir }}"
+    state: directory
 
 - name: Extract AAP tar.gz install
   unarchive:
-    src: /tmp/aap.tar.gz
-    dest: /tmp/aap_install
+    src: "{{ tempdir.path }}/aap.tar.gz"
+    dest: "{{ aap_dir }}"
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
 
+- name: Set AAP local repository on controller node
+  include_role:
+    name: ansible.workshops.aap_repo
+
 - name: read in inventory data to determine if tower or controller
   slurp:
-    src: "/tmp/aap_install/inventory"
+    src: "{{ aap_dir }}/inventory"
   register: file_contents
 
 - name: controller or tower
@@ -26,20 +38,20 @@
 - name: template inventory file for Ansible Controller Install
   template:
     src: "{{ controller_or_tower }}_install.j2"
-    dest: /tmp/aap_install/inventory
+    dest: "{{ aap_dir }}/inventory"
   when: create_cluster is not defined or not create_cluster|bool
 
 - name: template inventory file for Automation Controller Install
   template:
     src: tower_cluster_install.j2
-    dest: /tmp/aap_install/inventory
+    dest: "{{ aap_dir }}/inventory"
   when: create_cluster is defined and create_cluster|bool
 
 # sean note to self... should I remove the gpgcheck=0?
 - name: run the Automation Controller installer
   shell: "./setup.sh -e gpgcheck=0"
   args:
-    chdir: /tmp/aap_install
+    chdir: "{{ aap_dir }}"
   async: 1400
   poll: 15
 

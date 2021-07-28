@@ -47,3 +47,4 @@ default_tower37_url: https://releases.ansible.com/ansible-tower/setup/ansible-to
 automation_hub: false
 default_platform_url: "https://drive.google.com/file/d/18DhQlWHS0pinc20wMscXKH1mTS_u1ve9/view?usp=sharing"
 aap_dir: "/home/{{ username }}/aap_install"
+ee_image: ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0

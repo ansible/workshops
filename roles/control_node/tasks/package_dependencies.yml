@@ -29,7 +29,8 @@
       - tmux
       - python3-pip
       - python3-devel
-      - ansible
+      - ansible-core
+      - ansible-navigator
       - gcc
       - bind-utils
     state: present

@@ -50,6 +50,13 @@
     group: "{{ username }}"
     state: directory
 
+- name: Install ansible-navigator.yml in home directory
+  template:
+    src: ansible-navigator.yml.j2
+    dest: "/home/{{ username }}/.ansible-navigator.yml"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 # This may look redundant, but you can't put these in a loop because the
 # ansible_user will not be templated the way you expect when running under
 # Controller/AWX

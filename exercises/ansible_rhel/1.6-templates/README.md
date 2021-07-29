@@ -110,7 +110,7 @@ running kernel {{ ansible_kernel }}.
 * Run the playbook.
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-playbook motd-facts.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run motd-facts.yml
 ```
 
 * Verify the new message via SSH login to `node1`.

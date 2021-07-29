@@ -60,7 +60,7 @@ The various `main.yml` files contain content depending on their location in the 
 
 > **Tip**
 >
-> There are actually two directories for variables: `vars` and `default`: Default variables have the lowest precedence and usually contain default values set by the role authors and are often used when it is intended that their values will be overridden.. Variables can be set in either `vars/main.yml` or `defaults/main.yml`, but not in both places.
+> There are actually two directories for variables: `vars` and `default`. Default variables, `defaults/main.yml`, have the lowest precedence and usually contain default values set by the role authors and are often used when it is intended that their values will be overridden. Variables set in `vars/main.yml` are for variables not intended to be modified.
 
 Using roles in a Playbook is straight forward:
 
@@ -308,7 +308,7 @@ Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles exe
 Now you are ready to run your playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
 ```
 
 Run a curl command against `node2` to confirm that the role worked:

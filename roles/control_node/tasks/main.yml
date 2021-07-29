@@ -1,6 +1,7 @@
 ---
-- name: Install packages
-  include_tasks: package_dependencies.yml
+- name: common workshop setup for control node
+  include_tasks: "all_workshop.yml"
+  when: workshop_type is defined
 
 # we need a collection to be present on the control node
 
@@ -13,10 +14,6 @@
     - ansible.posix
   until: controlcollections is not failed
   retries: 5
-
-- name: common workshop setup for control node
-  include_tasks: "all_workshop.yml"
-  when: workshop_type is defined
 
 - name: check to see if automation controller is already up and running
   uri:

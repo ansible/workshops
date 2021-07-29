@@ -18,7 +18,7 @@
 
 ## Objective
 
-Ansible supports variables to store values that can be used in Playbooks. Variables can be defined in a variety of places and have a clear precedence. Ansible substitutes the variable with its value when a task is executed.
+Ansible supports variables to store values that can be used in Ansible playbooks. Variables can be defined in a variety of places and have a clear precedence. Ansible substitutes the variable with its value when a task is executed.
 
 This exercise covers variables, specifically
 
@@ -132,7 +132,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 * Run the Playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook deploy_index_html.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
 ```
 
 ### Step 4 - Test the Result
@@ -172,7 +172,7 @@ For node3:
 
 ### Step 5 - Ansible Facts
 
-Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remember the "Gathering Facts" task listed in the output of each `ansible-playbook` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
+Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remember the "Gathering Facts" task listed in the output of each `ansible-navigation` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
 
 To get an idea what facts Ansible collects by default, on your control node as your student user run:
 
@@ -234,8 +234,12 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
 Execute it to see how the facts are printed:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook facts.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run facts.yml
+```
 
+Within the text user interface (TUI) window, type `:st` to capture the following output:
+
+```bash
 PLAY [Output facts within a playbook] ******************************************
 
 TASK [Gathering Facts] *********************************************************

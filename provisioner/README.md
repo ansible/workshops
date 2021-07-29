@@ -60,6 +60,14 @@ student_total: 2
 # Set the right workshop type, like network, rhel or f5 (see above)
 workshop_type: rhel
 
+# Generate offline token to authenticate the calls to Red Hat's APIs
+# Can be accessed at https://access.redhat.com/management/api
+offline_token: "eyQ.60y_ezoosYst_FJlZfVsud9qGbDt7QRly6nhprqVEREi......XYZ"
+
+# Required for podman authentication to registry.redhat.io
+redhat_username: <redhat_username>
+redhat_password: <redhat_password>
+
 #####OPTIONAL VARIABLES
 
 # turn DNS on for control nodes, and set to type in valid_dns_type
@@ -76,6 +84,7 @@ controllerinstall: true
 
 # IBM Community Grid - defaults to true if you don't tell the provisioner
 ibm_community_grid: false
+
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).

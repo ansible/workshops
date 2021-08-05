@@ -33,6 +33,7 @@
       - ansible-navigator
       - gcc
       - bind-utils
+      - jq
     state: present
   register: dnf_check
   until: dnf_check is not failed

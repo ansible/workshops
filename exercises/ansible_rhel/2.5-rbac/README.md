@@ -7,32 +7,32 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-* [Ansible Tower Users](#ansible-tower-users)
-* [Ansible Tower Teams](#ansible-tower-teams)
+* [Ansible Automation Controller Users](#ansible-automation-controller-users)
+* [Ansible Automation Controller Teams](#ansible-automation-controller-teams)
 * [Granting Permissions](#granting-permissions)
 * [Test Permissions](#test-permissions)
 
 ## Objective
 
-You have already learned how Ansible Tower separates credentials from users. Another advantage of Ansible Tower is the user and group rights management.  This exercise demonstrates Role Based Access Control (RBAC)
+You have already learned how Ansible Automation controller separates credentials from users. Another advantage of Ansible Automation controller is the user and group rights management.  This exercise demonstrates Role Based Access Control (RBAC)
 
 ## Guide
 
-### Ansible Tower Users
+### Ansible Automation Controller Users
 
-There are three types of Tower Users:
+There are three types of Automation controller users:
 
 * **Normal User**: Have read and write access limited to the inventory and projects for which that user has been granted the appropriate roles and privileges.
 
-* **System Auditor**: Auditors implicitly inherit the read-only capability for all objects within the Tower environment.
+* **System Auditor**: Auditors implicitly inherit the read-only capability for all objects within the Automation controller environment.
 
-* **System Administrator**: Has admin, read, and write privileges over the entire Tower installation.
+* **System Administrator**: Has admin, read, and write privileges over the entire Automation controller installation.
 
 Let’s create a user:
 
-* In the Tower menu under **ACCESS** click **Users**
+* In the Automation controller menu under **Access** click **Users**
 
-* Click the green plus button
+* Click the **Add** button
 
 * Fill in the values for the new user:
 
@@ -42,11 +42,27 @@ Let’s create a user:
     <th>Value</th>
   </tr>
   <tr>
-    <td>FIRST NAME </td>
+    <td>Username</td>
+    <td>wweb</td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td>wweb@example.com</td>
+  </tr>
+  <tr>
+    <td>Password</td>
+    <td>ansible</td>
+  </tr>
+  <tr>
+    <td>Confirm Password</td>
+    <td>ansible</td>
+  </tr>
+  <tr>
+    <td>First Name</td>
     <td>Werner</td>
   </tr>
   <tr>
-    <td>LAST NAME</td>
+    <td>Last Name</td>
     <td>Web</td>
   </tr>
   <tr>
@@ -54,83 +70,67 @@ Let’s create a user:
     <td>Default</td>
   </tr>
   <tr>
-    <td>EMAIL</td>
-    <td>wweb@example.com</td>
-  </tr>
-  <tr>
-    <td>USERNAME</td>
-    <td>wweb</td>
-  </tr>
-  <tr>
-    <td>PASSWORD</td>
-    <td>ansible</td>
-  </tr>
-  <tr>
-    <td>CONFIRM PASSWORD</td>
-    <td>ansible</td>
-  </tr>
-  <tr>
-    <td>USER TYPE</td>
+    <td>User Type</td>
     <td>Normal User</td>
   </tr>
 </table>
 
-* Confirm password
+* Click **Save**
 
-* Click **SAVE**
-
-### Ansible Tower Teams
+### Ansible Automation Controller Teams
 
 A Team is a subdivision of an organization with associated users, projects, credentials, and permissions. Teams provide a means to implement role-based access control schemes and delegate responsibilities across organizations. For instance, permissions may be granted to a whole Team rather than each user on the Team.
 
 Create a Team:
 
-* In the menu go to **ACCESS → Teams**
+* In the menu go to **Access → Teams**
 
-* Click the green plus button and create a team named `Web Content`.
+* Click the **Add** button and create a team named `Web Content` within the `Default` Organization.
 
-* Click **SAVE**
+* Click **Save**
 
-Now you can add a user to the Team:
+Add a user to the team:
 
-* Switch to the Users view of the `Web Content` Team by clicking the **USERS** button.
+* Click on the team `Web Content` and click the **Access** menu item and click **Add**.
 
-* Click the green plus button, tick the box next to the `wweb` user and click **SAVE**.
+* Within the **Select a Resource Type** window, click on the **Users** resource type and click **Next**.
 
-Now click the **PERMISSIONS** button in the **TEAMS** view, you will be greeted with "No Permissions Have Been Granted".
+* Within the **Select Items from List**, select the checkbox next to the `wweb` user and click **Next**.
 
-Permissions allow to read, modify, and administer projects, inventories, and other Tower elements. Permissions can be set for different resources.
+* Within the **Select Roles to Apply**, select **Member** as the role to apply to the `wweb` user.
+
+Click **Save**.
+
+Permissions allow to read, modify, and administer projects, inventories, and other Automation controller elements. Permissions can be set for different resources.
 
 ### Granting Permissions
 
 To allow users or teams to actually do something, you have to set permissions. The user **wweb** should only be allowed to modify content of the assigned webservers.
 
-Add the permission to use the template:
+Add the permission to use the `Create index.html` template:
 
-* In the Permissions view of the Team `Web Content` click the green plus button to add permissions.
+* Within **Resources** -> **Templates**, select `Create index.html`. 
 
-* A new window opens. You can choose to set permissions for a number of resources.
+* Select **Access** from the menu and click **Add**.
 
-  * Select the resource type **JOB TEMPLATES**
+* Within the **Select a Resource Type** window, click on the **Users** resource type and click **Next**.
 
-  * Choose the `Create index.html` Template by ticking the box next to it.
+* * Within the **Select Items from List**, select the checkbox next to the `wweb` user and click **Next**.
 
-* The second part of the window opens, here you assign roles to the selected resource.
+* Within the **Select Roles to Apply**, select **Read** and **Execute** as the roles to apply to the `wweb` user.
 
-  * Choose **EXECUTE**
-
-* Click **SAVE**
+* Click **Save**
 
 ### Test Permissions
 
-Now log out of Tower’s web UI and in again as the **wweb** user.
+Now log out of Automation controller’s web UI and in again as the **wweb** user.
 
 * Go to the **Templates** view, you should notice for wweb only the `Create
-  index.html` template is listed. He is allowed to view and launch, but not to edit the Template. Just open the template and try to change it.
+  index.html` template is listed. He is allowed to view and launch, but not to edit the Template (no Edit button available).
 
-* Run the Job Template by clicking the rocket icon. Enter the survey content to your liking and launch the job.
+* Run the Job Template by clicking the rocket icon. Enter the values for the survey questions and launch the job.
 
-* In the following **Jobs** view have a good look around, note that there where changes to the host (of course…​).
+* In the following **Jobs** view have a good look around, note that there where changes to the host (as expected).
 
 Check the result: execute `curl` again on the control host to pull the content of the webserver on the IP address of `node1` (you could of course check `node2` and `node3`, too):
 
@@ -138,17 +138,17 @@ Check the result: execute `curl` again on the control host to pull the content o
 #> curl http://22.33.44.55
 ```
 
-Just recall what you have just done: You enabled a restricted user to run an Ansible Playbook
+Just recall what you have just done: You enabled a restricted user to run an Ansible playbook
 
 * Without having access to the credentials
 
-* Without being able to change the Playbook itself
+* Without being able to change the playbook itself
 
 * But with the ability to change variables you predefined\!
 
 Effectively you provided the power to execute automation to another user without handing out your credentials or giving the user the ability to change the automation code. And yet, at the same time the user can still modify things based on the surveys you created.
 
-This capability is one of the main strengths of Ansible Tower\!
+This capability is one of the main strengths of Ansible Automation controller\!
 
 ---
 **Navigation**

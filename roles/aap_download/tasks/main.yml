@@ -55,19 +55,3 @@
     url: "{{ download_url.url }}"
     dest: "{{ playbook_dir }}/aap.tar.gz"
     checksum: "sha256: {{ sha_value.json.body[1].checksum }}"
-
-# - name: Create directory for aap
-#   file:
-#     path: "{{ playbook_dir }}/aap_install"
-#     state: directory
-#
-# # requires brew install gnu-tar for macos
-# - name: test unzip of aap.tar.gz
-#   unarchive:
-#     src: "{{ playbook_dir }}/aap.tar.gz"
-#     dest: "{{ playbook_dir }}/aap_install/"
-#
-# - name: delete the unzip, not needed locally
-#   file:
-#     state: absent
-#     path: "{{ playbook_dir }}/aap_install"

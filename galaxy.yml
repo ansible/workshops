@@ -1,13 +1,14 @@
 ---
 namespace: ansible
 name: workshops
-version: 0.0.10
+version: 0.0.14
 readme: README.md
 
 authors:
   - Sean Cavanaugh <seanc@redhat.com> @IPvSean
-  - Sašo Stanovnik @sstanovnik
   - Colin McNaughton @colincloin
+  - Roger Lopez @rlopez133
+  - Sašo Stanovnik @sstanovnik
   - Roland Wolters @liquidat
 
 build_ignore:

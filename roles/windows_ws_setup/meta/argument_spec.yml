@@ -6,7 +6,17 @@ argument_specs:
     short_description: Install Chrome.
   myrtille:
     short_description: Install Myrtille.
+    options:
+      windows_ws_setup_myrtille_pkg:
+        short_description: Myrtille installation package location
+        type: str
+        required: true
   server_mgmt:
     short_description: Disable Server Management startup and EC2 desktop customizations.
   smartconsole:
     short_description: Install SmartConsole.
+    options:
+      windows_ws_setup_cp_console_pkg:
+        short_description: Check Point Smart Console installation package location
+        type: str
+        required: true

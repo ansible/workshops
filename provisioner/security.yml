@@ -44,6 +44,15 @@
     ids_install_snort_group: root
     ids_normalize_logs: false
     ids_install_snort_interface: eth1
+    # @todo Craig Brandt - changing the default ids_install role values in the file until role PR is accepted
+    ids_install_snort_pkgs:
+      - 'https://s3.amazonaws.com/ansible-security.workshop-files/daq-2.0.6-1.el7.x86_64.rpm'
+      - 'https://s3.amazonaws.com/ansible-security.workshop-files/snort-2.9.13-1.centos7.x86_64.rpm'
+      - 'libdnet'
+      - 'rsyslog'
+    ids_install_snort_community_rules_url: 'https://s3.amazonaws.com/ansible-security.workshop-files/community-rules.tar.gz'
+    ids_install_snort_registered_rules_url: 'https://s3.amazonaws.com/ansible-security.workshop-files/snortrules-snapshot-29130.tar.gz'
+    ids_install_snort_barnyard_pkg: 'https://s3.amazonaws.com/ansible-security.workshop-files/barnyard2-1.13-1.el7.x86_64.rpm'
   tasks:
     - name: Set fact vars for ids based SIEM type
       block:

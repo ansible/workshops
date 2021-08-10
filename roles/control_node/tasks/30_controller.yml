@@ -79,14 +79,14 @@
 ## Execution environments
 
 - name: Login to redhat registry
-  become_user: "{{ item }}"
   containers.podman.podman_login:
     username: '{{ redhat_username }}'
     password: '{{ redhat_password }}'
     registry: registry.redhat.io
+  become_user: "{{ item }}"
   loop:
-  - awx
-  - "{{ username }}"
+    - awx
+    - "{{ username }}"
 
 - name: Pull an image
   become_user: "{{ item[0] }}"
@@ -94,7 +94,7 @@
     name: "{{ item[1] }}"
   with_nested:
     - [ "awx", "{{ username }}" ]
-    - [ "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0" ]
+    - [ "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8" ]
 
 - name: create container registry credential
   awx.awx.credential:

@@ -146,7 +146,7 @@
 
 - name: Download Splunk from S3
   get_url:
-    url: 'https://s3.amazonaws.com/linklight.securityautomation/splunk-7.2.6-c0bf0f679ce9-Linux-x86_64.tgz'
+    url: "{{ splunk_enterprise_install_pkg }}"
     dest: /tmp/splunk.tgz
 
 - name: Git clone splunk-ansible

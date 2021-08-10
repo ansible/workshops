@@ -93,8 +93,8 @@
   containers.podman.podman_image:
     name: "{{ item[1] }}"
   with_nested:
-  - [ "awx" , "{{ username }}" ]
-  - [ "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8" , "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8" , "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8" ]
+    - [ "awx", "{{ username }}" ]
+    - [ "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0" ]
 
 - name: create container registry credential
   awx.awx.credential:

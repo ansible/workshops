@@ -16,13 +16,13 @@
 
 - name: Check if Myrtille is downloaded
   ansible.windows.win_stat:
-    path: C:\Temp\Myrtille_2.5.5_x86_x64_Setup.exe
+    path: C:\Temp\Myrtille_pkg.exe
   register: myrtille
 
 - name: Download Myrtille to specified path only if modified
   ansible.windows.win_get_url:
-    url: https://s3.amazonaws.com/linklight.securityautomation/Myrtille_2.5.5_x86_x64_Setup.exe
-    dest: C:\Temp\Myrtille_2.5.5_x86_x64_Setup.exe
+    url: "{{ windows_ws_setup_myrtille_pkg }}"
+    dest: C:\Temp\Myrtille_pkg.exe
     checksum: e95438ea3ae5f4363b43a6e2134df771c3d2a213
     force: true
   when: not myrtille.stat.exists
@@ -31,7 +31,7 @@
   retries: 5
 
 - name: Extract the binary
-  ansible.windows.win_command: Myrtille_2.5.5_x86_x64_Setup.exe -o "C:\Temp" -y
+  ansible.windows.win_command: Myrtille_pkg.exe -o "C:\Temp" -y
   args:
     chdir: C:\Temp\
     creates: C:\Temp\setup.exe

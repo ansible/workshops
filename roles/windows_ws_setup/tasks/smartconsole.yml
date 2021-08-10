@@ -39,7 +39,7 @@
 
 - name: Download SmartConsole to specified path only if modified
   ansible.windows.win_get_url:
-    url: https://s3.amazonaws.com/linklight.securityautomation/Check_Point_SmartConsole_R80_40_jumbo_HF_B416_Win.exe
+    url: "{{ windows_ws_setup_cp_console_pkg }}"
     dest: C:\Temp\SmartConsole.exe
     checksum: c8bed1481f168e2af6997dc7d5b43ce4046e01d8
     force: true

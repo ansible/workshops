@@ -1,0 +1,23 @@
+---
+ansible-navigator:
+  ansible:
+    inventories:
+    - /home/{{username}}/lab_inventory/hosts
+
+  execution-environment:
+    enabled: true
+    container-engine: podman
+    pull-policy: missing
+    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0
+
+  logging:
+    file: /home/{{username}}/.ansible-navigator/logs/ansible-navigator.log
+
+  playbook-artifact:
+    enable: True
+    replay: /tmp/artifact.json
+    save-as: /tmp/artifact.json
+  
+  mode: stdout
+
+

@@ -111,7 +111,7 @@ In case you wonder: the three dashes at the top, `---`, indicate the start of a 
 
 > **Note**
 >
-> It is a good practice to make playbooks more reusable by pointing them at `hosts: all` and limit the execution later on the command line or via Tower. But for now we simplify the process by naming hosts in the playbook directly.
+> It is a good practice to make playbooks more reusable by pointing them at `hosts: all` and limit the execution later on the command line or via automation controller. But for now we simplify the process by naming hosts in the playbook directly.
 
 As mentioned, in this a simple example we will add a whitelist entry. A simple whitelist entry consists of a source IP address, a destination IP address and the rule to allow access between those.
 
@@ -243,7 +243,7 @@ Last, we are defining the actual access rule between those two host objects. The
 Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook --syntax-check whitelist_attacker.yml
+[student<X>@ansible ansible-navigator run --eei registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0 whitelist_attacker.yml
 ```
 
 The syntax check should report no errors. If it does report an error, check the output and try to fix the problem in the playbook code.

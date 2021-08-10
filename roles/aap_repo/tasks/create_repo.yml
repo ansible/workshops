@@ -4,6 +4,5 @@
     name: aap_installer
     description: aap_installer
     baseurl: "file:///{{ aap_dir }}/bundle/el8/repos"
-    gpgcheck: no
+    gpgcheck: false
   become: true
-

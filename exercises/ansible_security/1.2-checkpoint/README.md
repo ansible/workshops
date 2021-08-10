@@ -240,10 +240,10 @@ Last, we are defining the actual access rule between those two host objects. The
 
 ## Step 2.5 - Run the playbook
 
-Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
+Playbooks are executed using the `ansible-navigator` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
 
 ```bash
-[student<X>@ansible ansible-navigator run --eei registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0 whitelist_attacker.yml
+[student<X>@ansible ansible-navigator run whitelist_attacker.yml --syntax-check --mode stdout
 ```
 
 The syntax check should report no errors. If it does report an error, check the output and try to fix the problem in the playbook code.
@@ -251,7 +251,7 @@ The syntax check should report no errors. If it does report an error, check the 
 Now you should be ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook whitelist_attacker.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run whitelist_attacker.yml --mode stdout
 
 PLAY [Whitelist attacker] *********************************************************
 

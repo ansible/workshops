@@ -351,10 +351,19 @@ a {
             </div>
         </div>
         </div>
-        {% elif workshop_type in ['rhel', 'rhel_90'] %}
+        {% elif workshop_type == "rhel" %}
         <div class="row">
             <div class="col-sm-4">
                 <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
+            </div>
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
+            </div>
+        </div>
+        {% elif workshop_type == "rhel_90" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel_90/">Ansible RHEL Exercises</a>
             </div>
             <div class="col-sm-4">
                 <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>

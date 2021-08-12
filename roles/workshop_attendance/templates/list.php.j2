@@ -52,9 +52,9 @@ if (isset($_POST['delete']) && $_POST['delete'] == intval($_POST['delete'])) {
 display_header();
 
 $students = db_fetch_assocs("SELECT * FROM `users`");
-print "<table cellpadding=3 cellspacing=0 border=1><tr><td>Name</td><td>EMail</td><td>Student</td><td>VSCode</td><td>Tower</td><td>Gitlab</td><td>Delete</td></tr>\n";
+print "<table cellpadding=3 cellspacing=0 border=1><tr><td>Name</td><td>EMail</td><td>Student</td><td>VSCode</td><td>Controller</td><td>Gitlab</td><td>Delete</td></tr>\n";
 foreach ($students as $s) {
-        print '<tr><td>' . $s['name'] . '</td><td>' . $s['email'] . '</td><td>' . $s['id'] . '</td><td><a target=_blank href="' . $s['vscode'] . '">VSCode</a></td><td><a target=_blank href="' . $s['tower'] . '">Tower</a></td><td><a target=_blank href="' . $s['gitlab'] . '">Gitlab</a></td><td align=center>' . ($s['email'] != '' ? '<form method=POST><input type=hidden name=delete value=' . $s['id'] . '><input type=submit value=Delete data-icon=delete data-iconpos=notext></a></form>' : '') . "</td></tr>\n";
+        print '<tr><td>' . $s['name'] . '</td><td>' . $s['email'] . '</td><td>' . $s['id'] . '</td><td><a target=_blank href="' . $s['vscode'] . '">VSCode</a></td><td><a target=_blank href="' . $s['Controller'] . '">Controller</a></td><td><a target=_blank href="' . $s['gitlab'] . '">Gitlab</a></td><td align=center>' . ($s['email'] != '' ? '<form method=POST><input type=hidden name=delete value=' . $s['id'] . '><input type=submit value=Delete data-icon=delete data-iconpos=notext></a></form>' : '') . "</td></tr>\n";
 }
 print "</table>";
 

@@ -46,7 +46,7 @@ The same is true for the role `ids.config`: `ansible-galaxy install ansible_secu
 Run the playbook with:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_snort_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_snort_rule.yml
 ```
 
 To have those rules generate logs, we need suspicious traffic - an attack. Again we have a playbook which simulates a simple access every few seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `sql_injection_simulation.yml` with the following content:
@@ -68,7 +68,7 @@ To have those rules generate logs, we need suspicious traffic - an attack. Again
 Run it with:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook sql_injection_simulation.yml
+[student<X>@ansible ~]$ ansible-navigator run sql_injection_simulation.yml
 ```
 
 Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar`
@@ -155,7 +155,7 @@ In your VS Code online editor, create a playbook called `incident_snort_log.yml`
 This playbook should look familiar to you, it configures Snort to send logs to QRadar, configures QRadar to accept those and enables an offense. Run it:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_snort_log.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_snort_log.yml
 ```
 
 ## Step 3.5 - Verify new configuration in QRadar
@@ -223,7 +223,7 @@ In your VS Code online editor, create a file called `incident_blacklist.yml`. No
 Run the playbook, to effectively blacklist the IP:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_blacklist.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_blacklist.yml
 ```
 
 In your QRadar UI, verify in the Log Activity tab that you do not receive any more alerts from Snort. Note that, if you would have connected the firewall to QRadar, there would actually be logs coming in from there.
@@ -241,7 +241,7 @@ As the final step, we can run the rollback playbook to undo the Snort configurat
 Execute the playbook `rollback.yml` we wrote in the last exercise to roll all changes back.
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook rollback.yml
+[student<X>@ansible ~]$ ansible-navigator run rollback.yml
 ```
 
 Note here that the playbook runs through without problems - even though we did not configure Check Point as a log source for QRadar this time! This is possible since Ansible tasks are most often idempotent: they can be run again and again, ensuring the desired state.
@@ -267,7 +267,7 @@ Ansible Security Automation is a Red Hat initiative to facilitate the integratio
 
 This is how ansible security automation can integrate three different security products, an enterprise firewall, an IDS, and a SIEM, to help security analysts and operators in investigation enrichment, threat hunting and incident response.
 
-Ansible Security Automation allows security organizations to create pre-approved automation workflows, called playbooks, that can be maintained centrally and shared across different teams. And with the help of Tower, we can even provide those automation workflows to other teams in a controlled, user friendly and simple to consume way.
+Ansible Security Automation allows security organizations to create pre-approved automation workflows, called playbooks, that can be maintained centrally and shared across different teams. And with the help of automation controller, we can even provide those automation workflows to other teams in a controlled, user friendly and simple to consume way.
 
 ----
 

@@ -36,7 +36,7 @@ Next, since this is a security lab, we do need suspicious traffic - an attack. W
 Execute the playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook web_attack_simulation.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run web_attack_simulation.yml
 ```
 
 > **Note**
@@ -292,7 +292,7 @@ If you bring all these pieces together, the full playbook `enrich_log_sources.ym
 Run the full playbook to add both log sources to QRadar:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook enrich_log_sources.yml
+[student<X>@ansible ~]$ ansible-navigator run enrich_log_sources.yml
 ```
 
 In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
@@ -390,7 +390,7 @@ In this play we provide some variables for Snort stating that we want to control
 Now execute the playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook enrich_snort_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run enrich_snort_rule.yml
 ```
 
 Let's quickly verify that the new rule was indeed added. From the terminal of your VS Code online editor, ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
@@ -497,7 +497,7 @@ While this playbook is maybe the longest you see in these entire exercises, the 
 Run the playbook to remove the log sources:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook rollback.yml
+[student<X>@ansible ~]$ ansible-navigator run rollback.yml
 ```
 
 Also, we need to kill the process which simulates the attack. For this we will use an ad-hoc Ansible command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. In a terminal of your VS Code online editor, run the following command:

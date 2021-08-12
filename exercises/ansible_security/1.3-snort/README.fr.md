@@ -183,10 +183,10 @@ Les autres variables, `ids_rules_file` et `ids_rule_state` fournissent l'emplace
 
 ## Étape 3.5 - Exécutez le playbook
 
-Il est maintenant temps d'exécuter le playbook. Appelez `ansible-playbook` avec le nom du playbook:
+Il est maintenant temps d'exécuter le playbook. Appelez `ansible-navigator` avec le nom du playbook:
 
 ```bash
-[student1@ansible ~]$ ansible-playbook add_snort_rule.yml
+[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -296,7 +296,7 @@ Et surtout, nous voulons être en mesure de voir ce qui est réellement trouvé.
 Maintenant, exécutons le playbook pour vérifier que notre règle fait partie de l'installation de Snort:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook verify_attack_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml
 
 PLAY [Verify Snort rule] **************************************************************
 

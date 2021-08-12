@@ -179,10 +179,10 @@ Role がコントロールホストにインストールされているので、
 
 ## Step 3.5 - Run the playbook
 
-いよいよPlaybookを実行する時が来ました。Playbook名を指定して `ansible-playbook` を実行します:
+いよいよPlaybookを実行する時が来ました。Playbook名を指定して `ansible-navigator` を実行します:
 
 ```bash
-[student1@ansible ~]$ ansible-playbook add_snort_rule.yml
+[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -292,7 +292,7 @@ VSCodeのオンラインエディタで、`verify_attack_rule.yml`というPlayb
 では、Playbookを実行して、ルールがSnortインストールの一部であることを確認してみましょう:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook verify_attack_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml
 
 PLAY [Verify Snort rule] **************************************************************
 

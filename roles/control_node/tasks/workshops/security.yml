@@ -1,1 +1,9 @@
 ---
+## Craig Brandt
+# @todo @craig-br This is the worst hack in recorded history. Fix security workshop EE usage
+- name: Use custom ansible-navigator config for security
+  template:
+    src: security-ansible-navigator.yml.j2
+    dest: "/home/{{ username }}/.ansible-navigator.yml"
+    owner: "{{ username }}"
+    group: "{{ username }}"

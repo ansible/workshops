@@ -19,7 +19,7 @@
 
 次に、これはセキュリティラボなので、疑わしいトラフィック、つまり攻撃が必要です。この演習の他のコンポーネントが後で反応する5秒ごとの単純なアクセスをシミュレートします。
 
-Tower のインストールには、ユーザー、インベントリ、認証情報などがすでに入力されています。ただし、この演習では、コマンドラインに焦点を当て、物事がどのように機能しているかをよりよく示すことに注意してください。次の演習では、Tower が大きな役割を果たします。したがって、ここでは攻撃を開始するためのインターフェースのみを案内します。次の演習では、Tower の特徴と機能をより深く説明し、なぜそれが Security Automation で重要な役割を果たすのかを説明します。
+controller のインストールには、ユーザー、インベントリ、認証情報などがすでに入力されています。ただし、この演習では、コマンドラインに焦点を当て、物事がどのように機能しているかをよりよく示すことに注意してください。次の演習では、controller が大きな役割を果たします。したがって、ここでは攻撃を開始するためのインターフェースのみを案内します。次の演習では、controller の特徴と機能をより深く説明し、なぜそれが Security Automation で重要な役割を果たすのかを説明します。
 
 VS Code オンラインエディターで、以下のコンテンツを含むホームディレクトリの `web_attack_simulation.yml` を開きます。
 
@@ -40,7 +40,7 @@ VS Code オンラインエディターで、以下のコンテンツを含むホ
 プレイブックを実行します:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook web_attack_simulation.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run web_attack_simulation.yml
 ```
 
 > **Note**
@@ -290,7 +290,7 @@ Playbook の文字列 `YOURSERVERNAME` をあなたの個人名に置き換え�
 Playbook を実行して、両方のログソースを QRadar に追加します:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook enrich_log_sources.yml
+[student<X>@ansible ~]$ ansible-navigator run enrich_log_sources.yml
 ```
 
 Check Point Smart Console では、左下隅に進捗状況を知らせる小さなウィンドウがポップアップ表示されることがあります。これが10%で止まっている場合は、通常は無視しても問題ありませんが、ログ・エクスポータは動作しています。
@@ -388,7 +388,7 @@ Snort サーバーを再び離れ、制御ホストに戻ってきてくださ�
 Playbook を実行します:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook enrich_snort_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run enrich_snort_rule.yml
 ```
 
 新しいルールが実際に追加されたことを簡単に確認します。VS Code オンラインエディタのターミナルから `ec2-user` ユーザとして Snort サーバに SSH 接続して、カスタムルールのディレクトリを確認します:
@@ -495,10 +495,10 @@ Playbook `rollback.yml` には次のような内容が含まれている必要�
 Playbook を実行しログソースを削除します:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook rollback.yml
+[student<X>@ansible ~]$ ansible-navigator run rollback.yml
 ```
 
-最後に、攻撃シミュレーションを停止する必要があります。student ユーザーとして Tower にログインします。**Templates** セクションで、**Stop web attack simulation** というジョブテンプレートを見つけて実行します。
+最後に、攻撃シミュレーションを停止する必要があります。student ユーザーとして controller にログインします。**Templates** セクションで、**Stop web attack simulation** というジョブテンプレートを見つけて実行します。
 
 これで演習は終了です。次の演習を続けるために、演習のリストに戻ってください。
 

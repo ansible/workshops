@@ -197,7 +197,7 @@ Les deux tâches collectent et produisent uniquement des données, elles ne chan
 
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook find_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run find_qradar_rule.yml
 
 PLAY [Find QRadar rule state] ***************************************************
 
@@ -277,7 +277,7 @@ Le playbook est maintenant terminé: il interroge QRadar pour récupérer la lis
 Après avoir terminé le playbook, exécutons-le:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook change_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run change_qradar_rule.yml
 
 PLAY [Change QRadar rule state] ***************************************************
 

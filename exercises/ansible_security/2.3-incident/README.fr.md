@@ -46,7 +46,7 @@ Il en va de même pour le rôle `ids.config`: `ansible-galaxy install ansible_se
 Exécutez le playbook avec:
 
 `` bash
-[étudiant <X> @ansible ~] $ ansible-playbook incident_snort_rule.yml
+[étudiant <X> @ansible ~] $ ansible-navigator run incident_snort_rule.yml
 `` ''
 
 Pour que ces règles génèrent des journaux, nous avons besoin d'un trafic suspect - une attaque. Encore une fois, nous avons un playbook qui simule un accès toutes les 5 secondes sur lequel les autres composants de cet exercice réagiront plus tard. Dans votre éditeur en ligne VS Code, créez le playbook `sql_injection_simulation.yml` avec le contenu suivant:
@@ -68,7 +68,7 @@ Pour que ces règles génèrent des journaux, nous avons besoin d'un trafic susp
 Exécutez-le avec:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook sql_injection_simulation.yml
+[student<X>@ansible ~]$ ansible-navigator run sql_injection_simulation.yml
 ```
 
 Nous avons également besoin de la collection QRadar. Cela a déjà été installé dans le précédent exercice QRadar. Si vous avez manqué cette partie, installez-les via: `ansible-galaxy collection install ibm.qradar`
@@ -155,7 +155,7 @@ Dans votre éditeur en ligne VS Code, créez un playbook appelé `incident_snort
 Ce manuel devrait vous être familier, il configure Snort pour envoyer des journaux à QRadar, et configure QRadar pour les accepter et les comprendre. Exécuter:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_snort_log.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_snort_log.yml
 ```
 
 ## Étape 3.5 - Vérifier la nouvelle configuration dans QRadar
@@ -223,7 +223,7 @@ Dans votre éditeur en ligne VS Code, créez un fichier appelé `incident_blackl
 Exécutez le playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_blacklist.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_blacklist.yml
 ```
 
 Dans votre interface utilisateur QRadar, vérifiez dans l'onglet `Log Activity` que vous ne recevez plus d'alertes de Snort. Notez que, si vous aviez connecté le pare-feu à QRadar, il y aurait en fait des journaux provenant de là.
@@ -241,7 +241,7 @@ Comme dernière étape, nous pouvons exécuter le playbook de restauration pour 
 Exécutez le playbook `rollback.yml` que nous avons écrit dans le dernier exercice pour annuler toutes les modifications.
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook rollback.yml
+[student<X>@ansible ~]$ ansible-navigator run rollback.yml
 ```
 
 Notez ici que le playbook fonctionne sans problème - même si nous n'avons pas configuré Check Point comme source de journal pour QRadar cette fois! Cela est possible car les tâches Ansible sont (presque) toujours idempotentes: elles peuvent être exécutées encore et encore, garantissant l'état souhaité.
@@ -266,7 +266,7 @@ Ansible Security Automation est une initiative de Red Hat visant à faciliter l'
 
 C'est ainsi que l'automatisation de la sécurité ansible peut intégrer trois produits de sécurité différents, un pare-feu d'entreprise, un IDS et un SIEM, pour aider les analystes/opérateurs de sécurité dans leurs enquêtes approfondies, la recherche de menaces et la réponse aux incidents.
 
-Ansible Security Automation permet aux organisations de sécurité de créer des workflows d'automatisation pré-approuvés, appelés playbooks, qui peuvent être gérés de manière centralisée et partagés entre différentes équipes. Et avec l'aide de Tower, nous pouvons même fournir ces workflows d'automatisation à d'autres équipes de manière contrôlée, conviviale et simple à consommer.
+Ansible Security Automation permet aux organisations de sécurité de créer des workflows d'automatisation pré-approuvés, appelés playbooks, qui peuvent être gérés de manière centralisée et partagés entre différentes équipes. Et avec l'aide de controller, nous pouvons même fournir ces workflows d'automatisation à d'autres équipes de manière contrôlée, conviviale et simple à consommer.
 
 ----
 

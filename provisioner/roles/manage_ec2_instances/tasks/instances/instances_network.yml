@@ -200,14 +200,14 @@
   when: rtr4_output.instance_ids is not none
 
 - name: grab all network interfaces for VPC 1 (NETWORK MODE)
-  ec2_eni_facts:
+  amazon.aws.ec2_eni_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ ec2_vpc_id }}"
   register: eni_facts_1
 
 - name: grab all network interfaces for VPC 2 (NETWORK MODE)
-  ec2_eni_facts:
+  amazon.aws.ec2_eni_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ ec2_vpc_id2 }}"

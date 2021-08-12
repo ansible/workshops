@@ -1,9 +1,9 @@
 ---
 ## @craig-br @todo update all populate_controller security workshop tasks to awx.awx controller modules
 ## @craig-br @todo create controller.cfg file and use in plays
+## @craig-br @todo create a var and add default value to populate_controller role
 
 # Security workshop execeution environments
-## @craig-br @todo create a var and add default value to populate_controller role
 - name: Add security workshop execution environment
   awx.awx.execution_environment:
     name: "Security workshop execution environment"

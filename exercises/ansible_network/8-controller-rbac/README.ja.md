@@ -1,6 +1,6 @@
 # Exercise 8: RBAC によるアクセスコントロール
 
-**別の言語で読む**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ Ansible Tower を利用するメリットとして、システムを利用する
 - **Organizations:** テナントを定義します。例、 *Network-org* 、 *Compute-org* 。 これは顧客の組織の内部構造を写したものになるかもしれません。
 - **Teams:** 各 organization 内で複数のチームがあるかもしれません。例えば、 *tier1-helpdesk*, *tier2-support*, *tier3-support*, *build-team* などです。
 - **Users:** 一般的にユーザーはチームに所属します。Tower でユーザーは何ができるかは **role** によって制御、定義されます。
-- **Roles:** ロールはユーザーが実行可能なアクションを定義します。この仕組みは、Lv1 ヘルプデスクのメンバー、Lv2 または上級管理者といった役割に応じたアクセス制限を設けている一般的なネットワーク組織とうまくマッピングすることができるはずです。Tower は組み込みの role セットを持っています。[documentation ](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#built-in-roles) 
+- **Roles:** ロールはユーザーが実行可能なアクションを定義します。この仕組みは、Lv1 ヘルプデスクのメンバー、Lv2 または上級管理者といった役割に応じたアクセス制限を設けている一般的なネットワーク組織とうまくマッピングすることができるはずです。Tower は組み込みの role セットを持っています。[documentation ](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#built-in-roles)
 
 より詳細な RBAC 関連の用語に関しては [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#role-based-access-controls) を参照してください。
 

@@ -8,7 +8,7 @@ ansible-navigator:
     enabled: true
     container-engine: podman
     pull-policy: missing
-    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0
+    image: 'quay.io/cbrandt/security_workshop_ee:latest'
 
   logging:
     file: /home/{{username}}/.ansible-navigator/logs/ansible-navigator.log

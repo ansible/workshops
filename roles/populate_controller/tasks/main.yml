@@ -12,10 +12,6 @@
   delay: 3
   retries: 5
 
-- name: determine if controller or tower
-  set_fact:
-    controller_or_tower: "{{ 'controller' if 'Platform' in check_controller.x_api_product_name else 'tower' }}"
-
 #### CREDENTIAL
 - name: add SSH credential into Automation controller
   awx.awx.credential:
@@ -30,12 +26,11 @@
       username: ec2-user
       ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
 
-# won't work for Ansible Tower right now....
 - name: add tower/controller credential into ansible tower
   when: controller_or_tower=="controller"
   awx.awx.credential:
     name: "Tower Credential"
-    kind: "{{ controller_or_tower }}"
+    credential_type: Red Hat Ansible Automation Platform
     organization: Default
     controller_username: admin
     controller_password: "{{ admin_password }}"
@@ -99,11 +94,12 @@
 
 - name: remove demo credential
   awx.awx.credential:
-    username: admin
     name: "Demo Credential"
-    kind: ssh
+    credential_type: Machine
     state: absent
     organization: ""
+    inputs:
+      username: admin
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"

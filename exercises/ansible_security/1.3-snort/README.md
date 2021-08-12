@@ -178,10 +178,10 @@ The other variables, `ids_rules_file` and  `ids_rule_state` provide the user def
 
 ## Step 3.5 - Run the playbook
 
-It is now time to execute the playbook. Call `ansible-playbook` with the playbook name:
+It is now time to execute the playbook. Call `ansible-navigator` with the playbook name:
 
 ```bash
-[student1@ansible ~]$ ansible-playbook add_snort_rule.yml
+[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -291,7 +291,7 @@ And most importantly, we want to be able to see what is actually found. The `ids
 Now let's execute the playbook to verify that our rule is part of the Snort installation:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook verify_attack_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml
 
 PLAY [Verify Snort rule] **************************************************************
 

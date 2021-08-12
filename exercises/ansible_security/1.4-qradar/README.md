@@ -196,7 +196,7 @@ So how do the information returned by the module actually look like? How about w
 Both tasks only collect and output data, they do not change anything. Let's quickly run the playbook to look at the returned data:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook find_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run find_qradar_rule.yml
 
 PLAY [Find QRadar rule state] ***************************************************
 
@@ -276,7 +276,7 @@ The playbook is now complete: it queries QRadar for the list of rules, and deact
 After we completed the playbook, let's execute it:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook change_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run change_qradar_rule.yml
 
 PLAY [Change QRadar rule state] ***************************************************
 

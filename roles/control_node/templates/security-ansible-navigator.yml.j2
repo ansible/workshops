@@ -1,0 +1,20 @@
+---
+ansible-navigator:
+  ansible:
+    inventories:
+    - /home/{{username}}/lab_inventory/hosts
+
+  execution-environment:
+    enabled: true
+    container-engine: podman
+    pull-policy: missing
+    image: 'quay.io/cbrandt/security_workshop_ee:latest'
+
+  logging:
+    file: /home/{{username}}/.ansible-navigator/logs/ansible-navigator.log
+
+  playbook-artifact:
+    enable: True
+    replay: /tmp/artifact.json
+    save-as: /tmp/artifact.json
+    

@@ -25,7 +25,7 @@ There are additional supplemental exercises that are [located here](supplemental
 
 ## Network Diagram
 
-![Red Hat Ansible Automation](../../images/ansible_network_diagram.png)
+![Red Hat Ansible Automation](https://github.com/ansible/workshops/blob/devel/images/ansible_network_diagram.png?raw=true)
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)
+![Red Hat Ansible Automation](https://github.com/ansible/workshops/blob/devel/images/rh-ansible-automation-platform.png?raw=true)

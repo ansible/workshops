@@ -368,7 +368,7 @@
   when: workshop_type == 'security'
   block:
     - name: Get EIP informaion
-      ec2_eip_facts:
+      ec2_eip_info:
         region: "{{ ec2_region }}"
         filters:
           "tag:Workshop": "{{ ec2_name_prefix }}"

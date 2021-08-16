@@ -1,5 +1,5 @@
 ---
-- name: Perform Checks to make sure this Playbook will complete successfully
+- name: Perform Checks to make sure this playbook will complete successfully
   hosts: localhost
   connection: local
   become: false

@@ -522,7 +522,6 @@ p img,
 code,
 pre {
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color: #000;
   font-size: 14px
 }
 
@@ -534,10 +533,6 @@ pre {
   overflow: auto;
   overflow-y: hidden;
   margin-bottom: 32px
-}
-
-table {
-  width: 100%
 }
 
 table {
@@ -995,6 +990,7 @@ footer {
 
 #login_info {
   width: 400px;
+  padding-right:100px
 }
 
 #section_title {
@@ -1003,7 +999,6 @@ footer {
 }
 
 #example_login {
-  padding-top: 5px;
 }
 
 hr {
@@ -1059,10 +1054,6 @@ pre {
     font-size: 0.7em;
     color: #fff;
     font-weight: 300;
-}
-
-section {
-    padding: 30px 0px;
 }
 
 body {

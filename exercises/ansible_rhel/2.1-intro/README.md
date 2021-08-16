@@ -1,4 +1,4 @@
-# Workshop Exercise - Introduction to Ansible Tower
+# Workshop Exercise - Introduction to Ansible Automation Controller
 
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
@@ -85,7 +85,7 @@ The web UI of Automation controller greets you with a dashboard with a graph sho
 
 The dashboard also displays real time data about the execution of tasks completed in playbooks.
 
-![Ansible Automation Controller Dashboard](images/controller_dashboard.png)
+![Ansible Automation Controller Dashboard](images/controller_dashboard.jpg)
 
 ### Concepts
 
@@ -107,7 +107,7 @@ Automation controller credentials are imported and stored encrypted in Automatio
 
 #### Templates
 
-A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. Job templates also encourage the reuse of Ansible playbook content and collaboration between teams. To execute a job, Tower requires that you first create a job template.
+A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. Job templates also encourage the reuse of Ansible playbook content and collaboration between teams. To execute a job, Automation Controller requires that you first create a job template.
 
 #### Jobs
 

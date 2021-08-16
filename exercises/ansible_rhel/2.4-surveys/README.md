@@ -90,7 +90,7 @@ Now you create a new Template that includes a survey.
   </tr>
   <tr>
     <td>Credentials</td>
-    <td>Workshop Credentials</td>
+    <td>Workshop Credential</td>
   </tr>
   <tr>
     <td>Limit</td>
@@ -102,7 +102,7 @@ Now you create a new Template that includes a survey.
   </tr>
 </table>
 
-* Click **SAVE**
+* Click **Save**
 
 > **Warning**
 >
@@ -110,7 +110,7 @@ Now you create a new Template that includes a survey.
 
 #### Add the Survey
 
-* In the Template, click the **Survey** menu button and click the **Add** button.
+* In the Template, click the **Survey** tab and click the **Add** button.
 
 * Fill out the following information:
 
@@ -157,14 +157,14 @@ In the same fashion add a second **Survey Question**
   </tr>
 </table>
 
-* Click **+Save**
+* Click **Save**
 * Click the toggle to turn the Survey questions to **On**
 
 * Click **Preview** for the Survey
 
 ### Launch the Template
 
-Now launch **Create index.html** job template by selecting the **Details** menu option and clicking the **Launch** button.
+Now launch **Create index.html** job template by selecting the **Details** tab and clicking the **Launch** button.
 
 Before the actual launch the survey will ask for **First Line** and **Second Line**. Fill in some text and click **Next**. The **Preview** window shows the values, if all is good run the Job by clicking **Launch**.
 

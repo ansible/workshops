@@ -91,7 +91,7 @@ Create a Team:
 
 Add a user to the team:
 
-* Click on the team `Web Content` and click the **Access** menu item and click **Add**.
+* Click on the team `Web Content` and click the **Access** tab and click **Add**.
 
 * Within the **Select a Resource Type** window, click on the **Users** resource type and click **Next**.
 
@@ -111,11 +111,11 @@ Add the permission to use the `Create index.html` template:
 
 * Within **Resources** -> **Templates**, select `Create index.html`. 
 
-* Select **Access** from the menu and click **Add**.
+* Select **Access** tab from the menu and click **Add**.
 
 * Within the **Select a Resource Type** window, click on the **Users** resource type and click **Next**.
 
-* * Within the **Select Items from List**, select the checkbox next to the `wweb` user and click **Next**.
+* Within the **Select Items from List**, select the checkbox next to the `wweb` user and click **Next**.
 
 * Within the **Select Roles to Apply**, select **Read** and **Execute** as the roles to apply to the `wweb` user.
 

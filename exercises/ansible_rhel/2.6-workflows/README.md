@@ -177,7 +177,7 @@ Within **Resources** -> **Templates**, click the **Add** button and choose **Add
     </tr>
     <tr>
       <td>Credentials</td>
-      <td>Workshop Credentials</td>
+      <td>Workshop Credential</td>
     </tr>
     <tr>
       <td>Limit</td>
@@ -226,7 +226,7 @@ Within **Resources** -> **Templates**, click the **Add** button and choose **Add
     </tr>
     <tr>
       <td>Credentials</td>
-      <td>Workshop Credentials</td>
+      <td>Workshop Credential</td>
     </tr>
     <tr>
       <td>Limit</td>
@@ -265,11 +265,11 @@ Click **Save**
 
 After saving the template the **Workflow Visualizer** opens to allow you to build a workflow. You can later open the **Workflow Visualizer** again by using the button on the template details page and selecting **Visualizer** from the menu.
 
-![Add Node](images/add_node.png)
-
 * Click on the **Start** button, a **Add Node|Web App Deploy** window opens. Assign an action to the node, via node type by selecting **Job Template**.
 
   ![start](images/start.png)
+
+  ![Add Node](images/add_node.png)
 
 * In this lab we’ll link our two jobs together, so select the **Web App Deploy** job template and click **Save**.
 

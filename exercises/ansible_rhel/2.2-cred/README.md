@@ -21,7 +21,7 @@ Explore and understand the lab environment.  This exercise will cover
   * Ansible Automation Controller [**Inventory**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html)
   * Ansible Automation Controller [**Credentials**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html)
 
-* Running ad hoc commands via the Ansible Tower web UI
+* Running ad hoc commands via the Ansible Automation Controller web UI
 
 ## Guide
 
@@ -29,7 +29,7 @@ Explore and understand the lab environment.  This exercise will cover
 
 The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.
 
-* You should already have the web UI open, if not: Point your browser to the URL you were given, similar to **https://student\<X\>.workshopname.demoredhat.com** (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+* You should already have the web UI open, if not: Point your browser to the URL you were given, similar to `https://student<X>.workshopname.demoredhat.com` (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
 
 There will be one inventory, the **Workshop Inventory**. Click the **Workshop Inventory** then click the **Hosts** button
 
@@ -59,7 +59,7 @@ ansible ansible_host=11.22.33.44
 
 Now we will examine the credentials to access our managed hosts from Automation controller.  As part of the provisioning process for this Ansible Workshop the **Workshop Credential** has already been setup.
 
-In the **RESOURCES** menu choose **Credentials**. Now click on the **Workshop Credential**.
+In the **Resources** menu choose **Credentials**. Now click on the **Workshop Credential**.
 
 Note the following information:
 
@@ -73,12 +73,12 @@ Note the following information:
     <td><code>Machine</code>- Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host.</td>
   </tr>
   <tr>
-    <td>username</td>
+    <td>Username</td>
     <td><code>ec2-user</code> which matches our command-line Ansible inventory username for the other Linux nodes</td>
   </tr>
   <tr>
-    <td>SSH PRIVATE KEY</td>
-    <td><code>ENCRYPTED</code> - take note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller</td>
+    <td>SSH Private Key</td>
+    <td><code>Encrypted</code> - take note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller</td>
   </tr>
 </table>
 
@@ -86,7 +86,7 @@ Note the following information:
 
 It is possible to run run ad hoc commands from Ansible Automation controller as well.
 
-* In the web UI go to **RESOURCES → Inventories → Workshop Inventory**
+* In the web UI go to **Resources → Inventories → Workshop Inventory**
 
 * Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
 
@@ -107,6 +107,12 @@ Within the **Machine Credential** window, select **Workshop Credentials** and cl
 
 The simple **ping** module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
 
+* In the web UI go to **Resources → Inventories → Workshop Inventory**
+
+* Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
+
+* Click **Run Command** button. In the next screen you have to specify the ad hoc command.
+
 Within the **Details** window, select **Module** `command`, in **Arguments** type `id` and click **Next**.
 
 Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
@@ -116,11 +122,17 @@ Within the **Machine Credential** window, select **Workshop Credentials** and cl
 
 > **Tip**
 >
-> After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
+> After choosing the module to run, Ansible Automation Controller will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
 
 <hr>
 
 How about trying to get some secret information from the system? Try to print out */etc/shadow*.
+
+* In the web UI go to **Resources → Inventories → Workshop Inventory**
+
+* Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
+
+* Click **Run Command** button. In the next screen you have to specify the ad hoc command.
 
 Within the **Details** window, select **Module** `command`, in **Arguments** type `cat /etc/shadow` and click **Next**.
 
@@ -145,6 +157,12 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 > **Warning**
 >
 > **Solution below\!**
+
+* In the web UI go to **Resources → Inventories → Workshop Inventory**
+
+* Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
+
+* Click **Run Command** button. In the next screen you have to specify the ad hoc command.
 
 Within the **Details** window, select **Module** `yum`, in **Arguments** type `name=tmux` and click **Next**.
 

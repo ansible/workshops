@@ -77,7 +77,7 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 
 ### Create the Project
 
-* Go to **RESOURCES → Projects** click the **Add** button. Fill in the form:
+* Go to **Resources → Projects** click the **Add** button. Fill in the form:
 
   <table>
     <tr>
@@ -103,12 +103,6 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
     </tr>
   </table>
 
-Now you need the URL to access the repo. Go to the Github repository mentioned above, choose the green **Clone or download** button on the right, click on **Use https** and copy the HTTPS URL.
-
-> **Note**
->
-> If there is no **Use https** to click on, but a **Use SSH**, you are fine: just copy the URL. The important thing is that you copy the URL starting with **https**.
-
  Enter the URL into the Project configuration:
 
  <table>
@@ -122,7 +116,7 @@ Now you need the URL to access the repo. Go to the Github repository mentioned a
    </tr>
    <tr>
      <td>Options</td>
-     <td>Select **Clean**, **Delete**, **Update Revision on Launch** to request a fresh copy of the repository and to update the repository when launching a job.</td>
+     <td>Select Clean, Delete, Update Revision on Launch to request a fresh copy of the repository and to update the repository when launching a job.</td>
    </tr>
  </table>
 
@@ -144,7 +138,7 @@ A job template is a definition and set of parameters for running an Ansible job.
 
 * **What** playbook to use?
 
-Okay, let’s just do that: Go to the **Templates** view, click the **Add** button and choose **Add job template**.
+Okay, let’s just do that: Go to the **Resources -> Templates** view, click the **Add** button and choose **Add job template**.
 
 > **Tip**
 >
@@ -181,7 +175,7 @@ Okay, let’s just do that: Go to the **Templates** view, click the **Add** butt
   </tr>
   <tr>
     <td>Credentials</td>
-    <td>Workshop Credentials</td>
+    <td>Workshop Credential</td>
   </tr>
   <tr>
     <td>Limit</td>
@@ -193,9 +187,9 @@ Okay, let’s just do that: Go to the **Templates** view, click the **Add** butt
   </tr>
 </table>
 
-* Click **SAVE**
+* Click **Save**
 
-You can start the job by directly clicking the blue **LAUNCH** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
+You can start the job by directly clicking the blue **Launch** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
 
 ![job details](images/job_details.png)
 ![job_run](images/job_run.png)
@@ -228,15 +222,15 @@ You have already been through all the steps needed, so try this for yourself.
 >
 > **Solution Below**
 
-* Go to **Inventories** → **Workshop Inventory**
+* Go to **Resources →  Inventories** → **Workshop Inventory**
 
-* In the **Hosts** view select all hosts and click **Run Command**
+* In the **Hosts** view select `node1`, `node2`, `node3` and click **Run Command**
 
 Within the **Details** window, select **Module** `command`, in **Arguments** type `systemctl status httpd` and click **Next**.
 
 Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
 
-Within the **Machine Credential** window, select **Workshop Credentials** and click **Launch**.
+Within the **Machine Credential** window, select **Workshop Credential** and click **Launch**.
 
 > **Tip**
 >

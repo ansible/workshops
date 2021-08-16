@@ -24,7 +24,7 @@ This is the final challenge where we try to put most of what you have learned to
 
 ### Let’s set the stage
 
-Your operations team and your application development team likes what they see in Ansible Tower. To really use it in their environment they put together these requirements:
+Your operations team and your application development team likes what they see in Ansible Automation Controller. To really use it in their environment they put together these requirements:
 
 * All webservers (`node1`, `node2` and `node3`) should go in one group
 
@@ -41,7 +41,7 @@ Your operations team and your application development team likes what they see i
 
 ### The Git Repository
 
-All code is already in place - this is a Tower lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples). There you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
+All code is already in place - this is a Automation Controller lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples). There you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
 
 Compared to the previous Apache installation role there is a major difference: there are now two versions of an `index.html` template, and a task deploying the template file which has a variable as part of the source file name:
 
@@ -114,7 +114,7 @@ There is of course more then one way to accomplish this, but here is what you sh
 
 ### Check the results
 
-This time we use the power of Ansible to check the results: execute curl to get the web content from each node, orchestrated by an ad-hoc command on the command line of your Tower control host:
+This time we use the power of Ansible to check the results: execute curl to get the web content from each node, orchestrated by an ad-hoc command on the command line of your Automation Controller host:
 
 > **Tip**
 >
@@ -155,7 +155,7 @@ Note the warning in the first line about not to use `curl` via the `command` mod
 * Add permissions to the Team `Web Content` so the Template **Create Web Content** can be executed by `wweb`.
 * Run the survey as user `wweb`
 
-Check the results again from your Tower control host. Since we got a warning last time using `curl` via the `command` module, this time we will use the dedicated `uri` module. As arguments it needs the actual URL and a flag to output the body in the results.
+Check the results again from your Automation Controller host. Since we got a warning last time using `curl` via the `command` module, this time we will use the dedicated `uri` module. As arguments it needs the actual URL and a flag to output the body in the results.
 
 <!-- {% raw %} -->
 
@@ -198,7 +198,7 @@ You have done all the required configuration steps in the lab already. If unsure
 
 ## The End
 
-Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible Tower as much as we enjoyed creating the labs.
+Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible Automation Controller as much as we enjoyed creating the labs.
 
 ----
 **Navigation**

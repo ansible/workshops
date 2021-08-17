@@ -11,7 +11,7 @@
 
 # Objective
 
-Demonstrate anothe use case of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP.
+Demonstrate another use case of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP.
 
 For this exercise, we will create a workflow for server patch management, first to disable the pool members, patch the nodes, and then enable the nodes. In parallel, we also attach an iRule to virtual server, to respond to the users when servers are under maintenance.
 
@@ -48,9 +48,9 @@ Here is one example templates configured:
 
 ## Step 2: Create a Workflow Template
 
-1. Click on the **Templates** link on the left menu.  
+1. Click on the **Templates** link on the left menu.
 
-2. Click on the green ![templates link](images/add.png) button. Select the **Workflow Template**.  
+2. Click on the green ![templates link](images/add.png) button. Select the **Workflow Template**.
 
 3. Fill out the form as follows:
 
@@ -67,15 +67,15 @@ Here is one example templates configured:
 
 ## Step 3: The Workflow Visualizer
 
-1. When you click the **SAVE** button, the **WORKFLOW VISUALIZER** should automatically open. If not click on the blue **WORKFLOW VISUALIZER** button.  
+1. When you click the **SAVE** button, the **WORKFLOW VISUALIZER** should automatically open. If not click on the blue **WORKFLOW VISUALIZER** button.
 
-2. By default only a green **START** button will appear. Click on the **START** button.  
+2. By default only a green **START** button will appear. Click on the **START** button.
 
-3. The **ADD A NODE** window will appear on the right.  
+3. The **ADD A NODE** window will appear on the right.
 
 ## Step 4: Disable node Template
 
-1. Select the **Disable node** Job Template. Use the drop down box to select run. For the **Run** parameter select **Always** from the drop down menu. 
+1. Select the **Disable node** Job Template. Use the drop down box to select run. For the **Run** parameter select **Always** from the drop down menu.
 2. Click the green **SELECT** button.
 
    ![Disable node](images/disable-node.png)
@@ -84,7 +84,7 @@ Here is one example templates configured:
 
 1. Click on the **START** button, again. The **ADD A NODE** will appear again.
 
-2. Select the **Attach iRule** job template. For the **Run** parameter select **Always** from the drop down menu.  
+2. Select the **Attach iRule** job template. For the **Run** parameter select **Always** from the drop down menu.
 
 3. Click the green **SELECT** button.
 
@@ -94,7 +94,7 @@ Here is one example templates configured:
 
 1. Hover over the **Disable node** node and click the green **+** symbol. The **ADD A NODE** will appear again.
 
-2. Select the **Patch server** job template. For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **Patch server** job template. For the **Run** parameter select **On Success** from the drop down menu.
 
 3. Click the green **SELECT** button.
 
@@ -104,7 +104,7 @@ Here is one example templates configured:
 
 1. Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A NODE** will appear again.
 
-2. Select the **Enable node** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **Enable node** job template.  For the **Run** parameter select **On Success** from the drop down menu.
 
 3. Click the green **SELECT** button.
 
@@ -114,7 +114,7 @@ Here is one example templates configured:
 
 1. Hover over the **Enable node** node and click the green **+** symbol. The **ADD A NODE** will appear again.
 
-2. Select the **Detach iRule** job template. For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **Detach iRule** job template. For the **Run** parameter select **On Success** from the drop down menu.
 
 3. Click the green **SELECT** button.
 
@@ -122,12 +122,12 @@ Here is one example templates configured:
 
 ## Step 9: Create a converged link
 
-Lastly, we create a covergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger.
+Lastly, we create a convergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger.
 
 1. Hover over the `Attach iRule to virtual server` node and click the blue chain symbol.
 
 2. Now, click on the existing `Detach iRule`. An ADD LINK window will appear. For the RUN parameter choose Always.
-   
+
    ![converge link](images/converge-link.png)
 
 3. Click the green **SAVE** button to save the new link.
@@ -151,7 +151,7 @@ Lastly, we create a covergence link, which allows the jobs running in parallel t
 
 You have
 
-- Created a workflow template that disables pool memebers, upgrade web servers, and add servers back to the pool
+- Created a workflow template that disables pool members, upgrade web servers, and add servers back to the pool
 - Attached iRule to virtual server, and user will get maintenance page during server patch
 - Launched the workflow template and explored the **VISUALIZER**
 

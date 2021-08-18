@@ -5,9 +5,18 @@ ansible-navigator:
     - /home/{{username}}/lab_inventory/hosts
 
   execution-environment:
+{% if workshop_type in ['f5'] %}
+    image: quay.io/acme_corp/f5_modules:latest
+{% endif %}
     enabled: true
     container-engine: podman
     pull-policy: missing
+{% if workshop_type in ['f5'] %}
+    volume-mounts:
+    - src: "/home/{{username}}/ansible_config"
+      dest: "/etc/ansible/"
+      label: "Z"
+{% endif %}
 
   logging:
     file: /home/{{username}}/.ansible-navigator/logs/ansible-navigator.log

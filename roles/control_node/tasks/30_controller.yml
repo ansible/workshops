@@ -96,6 +96,15 @@
     - [ "awx", "{{ username }}" ]
     - [ "quay.io/cbrandt/security_workshop_ee:latest", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0" ]
 
+- name: Pull an extra image for f5
+  become_user: "{{ item[0] }}"
+  containers.podman.podman_image:
+    name: "{{ item[1] }}"
+  with_nested:
+    - [ "awx" , "{{ username }}" ]
+    - ["quay.io/acme_corp/f5_modules:latest"]
+  when: workshop_type == "f5"
+
 - name: create container registry credential
   awx.awx.credential:
     name: registry.redhat.io credential

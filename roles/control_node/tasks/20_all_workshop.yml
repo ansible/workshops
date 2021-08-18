@@ -13,7 +13,7 @@
   when: workshop_type == "f5"
 - name: Copy file
   copy:
-    remote_src: yes
+    remote_src: true
     src: "/home/{{ username }}/.ansible.cfg"
     dest: "/home/{{ username }}/ansible_config/ansible.cfg"
   when: workshop_type == "f5"
@@ -32,7 +32,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Apply patch for runner fix #759
+- name: Apply patch for runner fix PR759
   lineinfile:
     path: /usr/lib/python3.8/site-packages/ansible_runner/config/_base.py
     regexp: ".*--userns=keep-id.*"

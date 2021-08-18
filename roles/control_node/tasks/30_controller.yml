@@ -101,7 +101,7 @@
   containers.podman.podman_image:
     name: "{{ item[1] }}"
   with_nested:
-    - [ "awx" , "{{ username }}" ]
+    - [ "awx", "{{ username }}" ]
     - ["quay.io/acme_corp/f5_modules:latest"]
   when: workshop_type == "f5"
 

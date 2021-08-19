@@ -2,21 +2,7 @@
 - name: Install ansible.cfg in home directory
   template:
     src: ansible.cfg.j2
-    dest: "/home/{{ username }}/.ansible.cfg"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Copy ansible.cfg to a custom directory
-  file:
-    path: "/home/{{ username }}/ansible_config"
-    state: directory
-  when: workshop_type == "f5"
-- name: Copy file
-  copy:
-    remote_src: true
-    src: "/home/{{ username }}/.ansible.cfg"
-    dest: "/home/{{ username }}/ansible_config/ansible.cfg"
-  when: workshop_type == "f5"
+    dest: "/etc/ansible.cfg"
 
 - name: make sure .ssh is created
   file:

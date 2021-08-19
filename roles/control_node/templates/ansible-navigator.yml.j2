@@ -11,12 +11,10 @@ ansible-navigator:
     enabled: true
     container-engine: podman
     pull-policy: missing
-{% if workshop_type in ['f5'] %}
     volume-mounts:
-    - src: "/home/{{username}}/ansible_config"
+    - src: "/etc/ansible/"
       dest: "/etc/ansible/"
       label: "Z"
-{% endif %}
 
   logging:
     file: /home/{{username}}/.ansible-navigator/logs/ansible-navigator.log

@@ -29,3 +29,11 @@
     - community.docker
   until: f5networks is not failed
   retries: 5
+
+- name: Pull an extra image for f5
+  become_user: "{{ item }}"
+  containers.podman.podman_image:
+    name: "quay.io/acme_corp/f5_modules:latest"
+  loop:
+    - "{{ username }}"
+    - awx

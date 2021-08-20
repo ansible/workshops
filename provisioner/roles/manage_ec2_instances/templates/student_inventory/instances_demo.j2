@@ -37,7 +37,7 @@ f5 ansible_host={{ vm.public_ip_address }} ansible_user=admin private_ip={{ vm.p
 {% endfor %}
 
 [routers:vars]
-ansible_ssh_private_key_file=/home/student{{item}}/.ssh/aws-private.pem
+ansible_ssh_private_key_file=~/.ssh/aws-private.pem
 
 [routers:children]
 {% if network_type == "multivendor" or network_type == "cisco" %}

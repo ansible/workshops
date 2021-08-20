@@ -8,7 +8,7 @@ ansible-navigator:
     enabled: true
     container-engine: podman
     pull-policy: missing
-    image: 'quay.io/cbrandt/security_workshop_ee:latest'
+    image: {{ security_ee }}
 
   logging:
     file: /home/{{username}}/.ansible-navigator/logs/ansible-navigator.log

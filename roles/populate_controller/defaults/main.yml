@@ -1,0 +1,3 @@
+---
+# Security workshop execution environment
+security_ee: quay.io/acme_corp/security_workshop_ee:latest

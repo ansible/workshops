@@ -1,13 +1,10 @@
 ---
-## @craig-br @todo update all populate_controller security workshop tasks to awx.awx controller modules
-## @craig-br @todo create controller.cfg file and use in plays
-## @craig-br @todo create a var and add default value to populate_controller role
 
 # Security workshop execeution environments
 - name: Add security workshop execution environment
   awx.awx.execution_environment:
     name: "Security workshop execution environment"
-    image: "quay.io/cbrandt/security_workshop_ee:latest"
+    image: "{{ security_ee }}"
     pull: missing
     controller_username: admin
     controller_password: "{{ admin_password }}"

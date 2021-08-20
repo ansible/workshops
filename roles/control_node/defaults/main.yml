@@ -1,2 +1,5 @@
 ---
 aap_dir: "/home/{{ username }}/aap_install"
+
+#Security workshop execution environment
+security_workshop_ee: 'quay.io/acme_corp/security_workshop_ee:latest'

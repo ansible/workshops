@@ -5,9 +5,7 @@ ansible-navigator:
     - /home/{{username}}/lab_inventory/hosts
 
   execution-environment:
-{% if workshop_type in ['f5'] %}
-    image: quay.io/acme_corp/f5_modules:latest
-{% endif %}
+    image: quay.io/acme_corp/{{ workshop_type }}_ee
     enabled: true
     container-engine: podman
     pull-policy: missing
@@ -23,4 +21,3 @@ ansible-navigator:
     enable: True
     replay: /tmp/artifact.json
     save-as: /tmp/artifact.json
-

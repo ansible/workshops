@@ -70,10 +70,6 @@ argument_specs:
         description: The base DNS zone for the workshop.
         type: str
         required: true
-      security_ee:
-        description: Security workshop execution environment
-        type: str
-        required: true
   unsupported_workshop:
     short_description: Catch-all for unsupported workshop types.
     options:

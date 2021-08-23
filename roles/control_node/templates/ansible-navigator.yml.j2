@@ -4,8 +4,6 @@ ansible-navigator:
     inventories:
     - /home/{{username}}/lab_inventory/hosts
 
-  mode: stdout
-  
   execution-environment:
     image: quay.io/acme_corp/{{ workshop_type }}_ee
     enabled: true

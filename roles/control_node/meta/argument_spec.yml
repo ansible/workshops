@@ -45,10 +45,6 @@ argument_specs:
         type: bool
         required: false
         default: false
-      securoty_workshop_ee:
-        description: The execution environment to use for the secueity workshop
-        type: str
-        required: true
   devops:
     short_description: Configure the devops workshop.
     options:

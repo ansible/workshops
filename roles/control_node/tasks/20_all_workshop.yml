@@ -18,8 +18,8 @@
     path: /usr/lib/python3.8/site-packages/ansible_runner/config/_base.py
     regexp: ".*--userns=keep-id.*"
     state: absent
-  
-  ## Pull specific EE for each workshop based on workshop name
+
+## Pull specific EE for each workshop based on workshop name
 - name: Pull execution environment for {{ workshop_type }} workshop
   become_user: "{{ username }}"
   containers.podman.podman_image:

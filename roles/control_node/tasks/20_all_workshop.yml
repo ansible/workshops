@@ -1,9 +1,4 @@
 ---
-- name: Install ansible.cfg in home directory
-  template:
-    src: ansible.cfg.j2
-    dest: "/etc/ansible/ansible.cfg"
-
 - name: make sure .ssh is created
   file:
     path: "/home/{{username}}/.ssh/"

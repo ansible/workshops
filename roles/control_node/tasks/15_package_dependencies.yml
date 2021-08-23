@@ -39,3 +39,11 @@
   until: dnf_check is not failed
   retries: 4
   delay: 5
+
+- name: install community collection
+  shell: "ansible-galaxy collection install {{ item }} --force-with-deps "
+  register: controlnode
+  loop:
+    - community.general
+  until: controlnode is not failed
+  retries: 5

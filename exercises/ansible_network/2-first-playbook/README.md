@@ -11,12 +11,12 @@
 
 ## Objective
 
-Use Ansible to update the configuration of routers.  This exercise will not create an Ansible Playbook, but use an existing provided one.
+Use Ansible to update the configuration of routers.  This exercise will not create an Ansible Playbook, but use an existing one that has been provided.
 
 This exercise will cover:
 
 * examining an existing Ansible Playbook
-* executing an Ansible Playbook on the command line using the `ansible-playbook` command
+* executing an Ansible Playbook on the command line using the `ansible-navigator` command
 * check mode (the `--check` parameter)
 * verbose mode (the `--verbose` or `-v` parameter)
 

@@ -537,7 +537,6 @@ pre {
 
 table {
   border: 1px solid #ccc;
-  margin-bottom: 32px;
   text-align: left
 }
 
@@ -998,11 +997,17 @@ footer {
   font-size: 25px;
 }
 
+#section_title  a {
+    color: #000000;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 #example_login {
 }
 
 hr {
-  width: 80%;
+  width: 1000%;
 }
 
 td {
@@ -1030,6 +1035,7 @@ pre {
 .student_logins {
     width:100%;
     border:1px solid #d3d3d3;
+    margin-bottom:20px;
 }
 .student_logins div {
     width:100%;

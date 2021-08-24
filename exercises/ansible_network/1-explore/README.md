@@ -50,7 +50,40 @@ For example to connect to rtr1 from the Ansible control node, type:
 
 ### Step 1
 
-Navigate to the `network-workshop` directory on the Ansible control node.  The word `ansible` indicates the hostname, and that you are on the correct host.
+<table>
+<thead>
+  <tr>
+    <th>It is highly encouraged to use Visual Studio Code to complete the workshop exercises. Visual Studio Code provides:
+    <ul>
+    <li>A file browser</li>
+    <li>A text editor with syntax highlighting</li>
+    <li>A in-browser terminal</li>
+    </ul>
+    Direct SSH access is available as a backup, or if Visual Studio Code is not sufficient to the student.  There is a short YouTube video provided if you need additional clarity: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
+</th>
+</tr>
+</thead>
+</table>
+
+- Connect to Visual Studio Code from the Workshop launch page (provided by your instructor).  The password is provided below the WebUI link.
+  ![launch page](images/launch_page.png)
+
+- Type in the provided password to connect.
+  ![login vs code](images/vscode_login.png)
+
+- Open the `network-workshop` directory in Visual Studio Code:
+  ![picture of file browser](images/vscode-networkworkshop.png)
+
+- Click on the `playbook.yml` to view the content.
+
+  ![picture of playbook](images/vscode-playbook.png)
+
+### Step 2
+
+- Open a terminal in Visual Studio Code:
+  ![picture of new terminal](images/vscode-new-terminal.png)
+
+Navigate to the `network-workshop` directory on the Ansible control node terminal. The word `ansible` indicates the hostname, and that you are on the correct host.
 
 ```bash
 [student1@ansible ~]$ cd ~/network-workshop/
@@ -63,34 +96,35 @@ Navigate to the `network-workshop` directory on the Ansible control node.  The w
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
-### Step 2
+### Step 3
 
-Run the `ansible` command with the `--version` command to look at what is configured:
+Run the `ansible-navigator` command with the `images` argument to look at execution environments configured on the control node:
 
 ```bash
-ansible [core 2.11.2]
-  config file = /home/student1/.ansible.cfg
-  configured module search path = ['/home/student1/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/lib/python3.8/site-packages/ansible
-  ansible collection location = /home/student1/.ansible/collections:/usr/share/ansible/collections
-  executable location = /usr/bin/ansible
-  python version = 3.8.6 (default, Jan 22 2021, 11:41:28) [GCC 8.4.1 20200928 (Red Hat 8.4.1-1)]
-  jinja version = 2.10.3
-  libyaml = True
+$ ansible-navigator images
 ```
 
-> Note: The ansible version you see might differ from the above output
+![ansible-navigator images](images/navigator-images.png)
 
-This command gives you information about the version of Ansible, location of the executable, version of Python, search path for the modules and location of the `ansible configuration file`.
 
-### Step 3
+> Note: The output  you see might differ from the above output
+
+This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **2** with the above example will open the `ee-supported-rhel8` execution environment:
+
+![ee main menu](images/navigator-ee-menu.png)
+
+Selecting **2** again will provide the Ansible version and collections installed on the specified EE:
+
+![ee info](images/navigator-ee-collections.png)
+
+### Step 4
 
 Use the `cat` command to view the contents of the `ansible.cfg` file.
 
 ```bash
-[student1@ansible-1 ~]$ cat ~/.ansible.cfg
+[student1@ansible-1 ~]$ cat /etc/ansible/ansible.cfg
 [defaults]
-stdout_callback = community.general.yaml
+stdout_callback = yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False
@@ -108,7 +142,7 @@ Note the following parameters within the `ansible.cfg` file:
 
 For a full listing of every configurable knob checkout the [example ansible.cfg on Github](https://github.com/ansible/ansible/blob/devel/examples/ansible.cfg)
 
-### Step 4
+### Step 5
 
 The scope of a `play` within a `playbook` is limited to the groups of hosts declared within an Ansible **inventory**. Ansible supports multiple [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) types. An inventory could be a simple flat file with a collection of hosts defined within it or it could be a dynamic script (potentially querying a CMDB backend) that generates a list of devices to run the playbook against.
 
@@ -120,7 +154,7 @@ In this lab you will work with a file based inventory written in the **ini** for
 
 ```bash
 [all:vars]
-ansible_ssh_private_key_file=/home/student1/.ssh/aws-private.pem
+ansible_ssh_private_key_file=~/.ssh/aws-private.pem
 
 [routers:children]
 cisco
@@ -164,7 +198,7 @@ rtr4
 ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
 ```
 
-### Step 5
+### Step 6
 
 In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
 
@@ -197,7 +231,7 @@ ansible_connection=network_cli
 * `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
 * `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
 
-### Step 6
+### Step 7
 
 We can also use the `ansible-navigator` TUI to explore inventory.
 

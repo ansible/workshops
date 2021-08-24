@@ -1,16 +1,5 @@
 ---
 
-# Security workshop execeution environments
-- name: Add security workshop execution environment
-  awx.awx.execution_environment:
-    name: "Security workshop execution environment"
-    image: "{{ lookup('vars', workshop_type + '_ee') }}"
-    pull: missing
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-    validate_certs: false
-
 # Teams
 - name: Create analyst team
   awx.awx.team:

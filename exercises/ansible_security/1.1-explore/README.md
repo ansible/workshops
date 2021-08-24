@@ -67,15 +67,20 @@ A new terminal will be opened in the lower part of your editor and you will be a
 
 Note that each student is assigned a student number, i.e. X and you should work as the student <X> user on the control node if not explicitly told differently.
 
-Next, proceed to check that Ansible has been installed correctly.
+Next, proceed to check that Ansible Automation Platform has been configured correctly.
 
 ```bash
-    [student<X>@ansible ~]$ ansible --version
+    [student<X>@ansible ~]$ ansible-navigator images 
 ```
 
 The result should resemble the following:
+![VS Code - Check Ansible Version](images/1-vscode-navigator_list_ee.png)
 
-![VS Code - Check Ansible Version](images/1-vscode-check-ansible-version.png)
+### Automation execution environments
+
+Execution environments provide developers and operators with a portable and maintainable environment for consistent automation execution throughout development and production.
+
+This workshop uses a custom automation execution environment called `security_ee`. Please refer to the [offical documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) for more information.
 
 > **Note**
 > 

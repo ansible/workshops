@@ -101,7 +101,7 @@ If you want to learn more about Snort rules, check out the [Snort Rule Infograph
 
  As discussed earlier, Ansible automation is described in playbooks. Playbooks consist of tasks. Each task uses a module and the module's corresponding parameters to describe the change that needs to be done or the state that is desired.
 
-Ansible releases are shipped with a set of modules, however, in Ansible 2.9 there are no modules to interact with Snort yet. For this reason we wrote a set of modules for managing Snort. This way, we can provide value without having to wait for a new Ansible release. Also, we are able to update our modules faster. This is especially important in the early life of a newly developed module.
+Ansible releases are shipped with a set of modules, however, in Ansible Core 2.11 there are no modules to interact with Snort yet. For this reason we wrote a set of modules for managing Snort, which has been included in the `security_ee` exectution environment. Using execution environments, we are able to update our modules faster. This is especially important in the early life of a newly developed module.
 
 These Snort modules are shipped as part of a "role". To better describe a role, think about how you wrote your playbook in the last section. While it is possible to write a playbook in one file as we did earlier, often writing all automation pieces in one place results in creating long, complicated playbooks. At some point you will want to reuse the automation content you wrote in your playbooks already. Therefore, you will need to organize things in a way to get multiple smaller playbooks to work together. Ansible Roles are the way we achieve this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.
 
@@ -111,21 +111,9 @@ Back to the Snort use case: as mentioned, the Snort modules are shipped as part 
 
 If you take a closer look at the role you'll see that it comes with a re-usable playbook at [tasks/snort.yml](https://github.com/ansible-security/ids_rule/blob/master/tasks/snort.yml).
 
-Let's have a look at how this playbook can be re-written to use the roles directly. To do this, we first need to download and install the role on our control host. There are several ways to do this but a very convenient way is the command line tool `ansible-galaxy`. This tool installs roles directly from the archives, Git URLs and from [Ansible Galaxy](https://galaxy.ansible.com). Ansible Galaxy is a community hub for finding and sharing Ansible content. It provides features like rating, quality testing, proper searching and so on. For example, the role mentioned above can be found in Ansible Galaxy at [ansible_security/ids_rule](https://galaxy.ansible.com/ansible_security/ids_rule).
+Let's have a look at how this playbook can be re-written to use the roles directly. As mentioned previously, the `ids_rule` role is bundled in the `security_ee` execution environment.
 
-On the command line, you can use the `ansible-galaxy` tool to download and install the `ids_rule` role with a single command. Execute the following command in a terminal of your VS Code online editor:
-
-```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule
-- downloading role 'ids_rule', owned by ansible_security
-- downloading role from https://github.com/ansible-security/ids_rule/archive/master.tar.gz
-- extracting ansible_security.ids_rule to /home/student<X>/.ansible/roles/ansible_security.ids_rule
-- ansible_security.ids_rule (master) was installed successfully
-```
-
-As you see the role is installed to the roles default path, `~/.ansible/roles/`.It was prefixed by `ansible_security`, this is the name of the project used for security roles, such as what we are using in this lab.
-
-Now that we have the role installed on our control host, we can use it in a playbook. In order to use the role, create a new file called `add_snort_rule.yml` in your VS Code online editor. Save it in the home directory of your user, and add the name `Add Snort rule` and target hosts, here `snort`. Since we need root rights to make any changes on Snort, add the `become` flag so that Ansible would take care of privilege escalation.
+In order to use the role, create a new file called `add_snort_rule.yml` in your VS Code online editor. Save it in the home directory of your user, and add the name `Add Snort rule` and target hosts, here `snort`. Since we need root rights to make any changes on Snort, add the `become` flag so that Ansible would take care of privilege escalation.
 
 ```yaml
 ---
@@ -181,7 +169,7 @@ The other variables, `ids_rules_file` and  `ids_rule_state` provide the user def
 It is now time to execute the playbook. Call `ansible-navigator` with the playbook name:
 
 ```bash
-[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml
+[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
 
 PLAY [Add Snort rule] *****************************************************************
 

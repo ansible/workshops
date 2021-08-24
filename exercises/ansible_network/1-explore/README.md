@@ -10,11 +10,7 @@
 
 ## Objective
 
-Explore and understand the lab environment.  This exercise will cover:
-
-* Determining the `ansible-core` version running on the control node
-* Locating and understanding the Ansible configuration file (`ansible.cfg`)
-* Locating and understanding an `ini` formatted inventory file
+Explore and understand the lab environment.
 
 These first few lab exercises will be exploring the command-line utilities of the Ansible Automation Platform.  This includes
 
@@ -38,17 +34,11 @@ If you need more information on new Ansible Automation Platform components bookm
 
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/ansible_network_diagram.png)
 
-There are four routers, named rtr1, rtr2, rtr3 and rtr4.  This diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (~/.ssh/config) is already setup on the control node.  This means you can SSH to any router from the control node without a login:
 
-For example to connect to rtr1 from the Ansible control node, type:
-
-```bash
-[student1@ansible ~]$ ssh rtr1
-```
 
 ## Guide
 
-### Step 1
+### Step 1 - Connecting via VS Code
 
 <table>
 <thead>
@@ -66,37 +56,41 @@ For example to connect to rtr1 from the Ansible control node, type:
 </table>
 
 - Connect to Visual Studio Code from the Workshop launch page (provided by your instructor).  The password is provided below the WebUI link.
+
   ![launch page](images/launch_page.png)
 
 - Type in the provided password to connect.
+
   ![login vs code](images/vscode_login.png)
 
 - Open the `network-workshop` directory in Visual Studio Code:
+
   ![picture of file browser](images/vscode-networkworkshop.png)
 
 - Click on the `playbook.yml` to view the content.
 
   ![picture of playbook](images/vscode-playbook.png)
 
-### Step 2
+### Step 2 - Using the Terminal
 
 - Open a terminal in Visual Studio Code:
+
   ![picture of new terminal](images/vscode-new-terminal.png)
 
-Navigate to the `network-workshop` directory on the Ansible control node terminal. The word `ansible` indicates the hostname, and that you are on the correct host.
+Navigate to the `network-workshop` directory on the Ansible control node terminal.
 
 ```bash
-[student1@ansible ~]$ cd ~/network-workshop/
-[student1@ansible network-workshop]$
-[student1@ansible network-workshop]$ pwd
+[student1@ansible-1 ~]$ cd ~/network-workshop/
+[student1@ansible-1 network-workshop]$ pwd
 /home/student1/network-workshop
+[student1@ansible-1 network-workshop]$ 
 ```
 
-* `~` - the tilde in this context is a shortcut for `/home/student1`
+* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student1`
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
-### Step 3
+### Step 3 - Examining Execution Environments
 
 Run the `ansible-navigator` command with the `images` argument to look at execution environments configured on the control node:
 
@@ -113,11 +107,14 @@ This command gives you information about all currently installed Execution Envir
 
 ![ee main menu](images/navigator-ee-menu.png)
 
-Selecting **2** again will provide the Ansible version and collections installed on the specified EE:
+Selecting `2` for `Ansible version and collections` will show us all Ansible Collections installed on that particular EE, and the version of `ansible-core`:
 
 ![ee info](images/navigator-ee-collections.png)
 
 ### Step 4
+
+### Step 5
+
 
 Use the `cat` command to view the contents of the `ansible.cfg` file.
 
@@ -142,7 +139,7 @@ Note the following parameters within the `ansible.cfg` file:
 
 For a full listing of every configurable knob checkout the [example ansible.cfg on Github](https://github.com/ansible/ansible/blob/devel/examples/ansible.cfg)
 
-### Step 5
+### Step 6
 
 The scope of a `play` within a `playbook` is limited to the groups of hosts declared within an Ansible **inventory**. Ansible supports multiple [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) types. An inventory could be a simple flat file with a collection of hosts defined within it or it could be a dynamic script (potentially querying a CMDB backend) that generates a list of devices to run the playbook against.
 
@@ -198,7 +195,7 @@ rtr4
 ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
 ```
 
-### Step 6
+### Step 7 - Understanding inventory
 
 In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
 
@@ -231,7 +228,7 @@ ansible_connection=network_cli
 * `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
 * `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
 
-### Step 7
+### Step 8 - Using ansible-navigator to explore inventory
 
 We can also use the `ansible-navigator` TUI to explore inventory.
 
@@ -247,9 +244,40 @@ Press the **Esc** key to go up a level, or you can zoom in to an individual host
 
 ![ansible-navigator host](images/ansible-navigator-rtr-1.png)
 
+### Step 8 - Connecting to network devices
+
+There are four routers, named rtr1, rtr2, rtr3 and rtr4.  The network diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (~/.ssh/config) is already setup on the control node.  This means you can SSH to any router from the control node without a login:
+
+For example to connect to rtr1 from the Ansible control node, type:
+
+```bash
+$ ssh rtr1
+```
+
+For example:
+```
+$ ssh rtr1
+Warning: Permanently added 'rtr1,35.175.115.246' (RSA) to the list of known hosts.
+
+
+
+rtr1#show ver
+Cisco IOS XE Software, Version 16.09.02
+```
+
 ## Complete
 
-You have completed lab exercise 1
+You have completed lab exercise 1!  
+
+You now understand:
+
+* How to connect to the lab environment with VS code
+* How to explore **execution environments** with `ansible-navigator`
+* Where the Ansible Navigator Configuration (`ansible-navigator.yml`) is located
+* Where the `ansible-core` configuration File (`ansible.cfg`) is located
+* Where the inventory is stored for command-line exercises
+
+
 
 ---
 [Click Here to return to the Ansible Network Automation Workshop](../README.md)

@@ -23,7 +23,7 @@
 - name: Pull execution environment for {{ workshop_type }} workshop
   become_user: "{{ username }}"
   containers.podman.podman_image:
-    name: "{{ workshop_type }}_ee"
+    name: "{{ lookup('vars', workshop_type + '_ee') }}"
 
 # This may look redundant, but you can't put these in a loop because the
 # ansible_user will not be templated the way you expect when running under

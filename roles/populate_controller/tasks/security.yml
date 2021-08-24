@@ -4,7 +4,7 @@
 - name: Add security workshop execution environment
   awx.awx.execution_environment:
     name: "Security workshop execution environment"
-    image: "{{ workshop_type }}_ee"
+    image: "{{ lookup('vars', workshop_type + '_ee') }}"
     pull: missing
     controller_username: admin
     controller_password: "{{ admin_password }}"

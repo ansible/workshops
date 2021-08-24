@@ -19,7 +19,15 @@
     regexp: ".*--userns=keep-id.*"
     state: absent
 
-## Pull specific EE for each workshop based on workshop name
+# Login into Red Hat registry
+- name: Login to redhat registry
+  containers.podman.podman_login:
+    username: '{{ redhat_username }}'
+    password: '{{ redhat_password }}'
+    registry: registry.redhat.io
+  become_user: "{{ username }}"
+
+# Pull specific EE for each workshop based on workshop name
 - name: Pull execution environment for {{ workshop_type }} workshop
   become_user: "{{ username }}"
   containers.podman.podman_image:

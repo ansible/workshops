@@ -89,18 +89,18 @@
     username: '{{ redhat_username }}'
     password: '{{ redhat_password }}'
     registry: registry.redhat.io
-  become_user: "{{ item }}"
-  loop:
-    - awx
-    - "{{ username }}"
+  become_user: "awx"
 
-- name: Pull an image
-  become_user: "{{ item[0] }}"
+
+- name: Pull supported and workshop images
+  become_user: "awx"
   containers.podman.podman_image:
-    name: "{{ item[1] }}"
-  with_nested:
-    - [ "awx", "{{ username }}" ]
-    - [ "quay.io/cbrandt/security_workshop_ee:latest", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0", "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0" ]
+    name: "{{ item }}"
+  loop:
+    - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+    - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0"
+    - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0"
+    - "{{ lookup('vars', workshop_type + '_ee') }}"
 
 - name: create container registry credential
   awx.awx.credential:

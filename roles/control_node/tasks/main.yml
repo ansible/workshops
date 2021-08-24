@@ -9,17 +9,6 @@
   include_tasks: 20_all_workshop.yml
   when: workshop_type is defined
 
-# removed by sean august 5th, 2021... not sure we need with EEs
-# - name: install necessary collections
-#   become_user: "{{ username }}"
-#   shell: "ansible-galaxy collection install {{ item }} --force-with-deps "
-#   register: controlcollections
-#   loop:
-#     - community.general
-#     - ansible.posix
-#   until: controlcollections is not failed
-#   retries: 5
-
 - name: check to see if automation controller is already up and running
   uri:
     url: https://localhost/api/v2/ping/

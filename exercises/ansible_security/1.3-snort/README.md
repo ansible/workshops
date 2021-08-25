@@ -101,7 +101,7 @@ If you want to learn more about Snort rules, check out the [Snort Rule Infograph
 
  As discussed earlier, Ansible automation is described in playbooks. Playbooks consist of tasks. Each task uses a module and the module's corresponding parameters to describe the change that needs to be done or the state that is desired.
 
-Ansible releases are shipped with a set of modules, however, in Ansible Core 2.11 there are no modules to interact with Snort yet. For this reason we wrote a set of modules for managing Snort, which has been included in the `security_ee` exectution environment. Using execution environments, we are able to update our modules faster. This is especially important in the early life of a newly developed module.
+Ansible releases are shipped with a set of modules, however, in Ansible Core 2.11 there are no modules to interact with Snort yet. For this reason we wrote a set of modules for managing Snort, which has been included in the `security_ee` execution environment. Using execution environments, we are able to update our modules faster. This is especially important in the early life of a newly developed module.
 
 These Snort modules are shipped as part of a "role". To better describe a role, think about how you wrote your playbook in the last section. While it is possible to write a playbook in one file as we did earlier, often writing all automation pieces in one place results in creating long, complicated playbooks. At some point you will want to reuse the automation content you wrote in your playbooks already. Therefore, you will need to organize things in a way to get multiple smaller playbooks to work together. Ansible Roles are the way we achieve this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.
 
@@ -166,7 +166,7 @@ The other variables, `ids_rules_file` and  `ids_rule_state` provide the user def
 
 ## Step 3.5 - Run the playbook
 
-It is now time to execute the playbook. Call `ansible-navigator` with the playbook name:
+It is now time to execute the playbook. In your VS Code online editor. In the terminal, execute the following command:
 
 ```bash
 [student1@ansible ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
@@ -205,22 +205,14 @@ snort  : ok=4  changed=2  unreachable=0  failed=0  skipped=4  rescued=0  ignored
 ```
 
 As you can see when you run this playbook, there are many tasks executed in addition to adding the rules. For instance, the role reloads the Snort service after the rule is added. Other tasks ensure that the variables are defined and verified.
+
 This yet again highlights the value of using roles. By taking advantage of roles, you are not only making your content re-usable but you can also add verification tasks and other important steps and keep them neatly hidden inside the role. The users of the role do not need to know the specifics of how Snort works in order to use this role as part of their security automation.
 
 ## Step 3.6 - Verify changes
 
 A quick way to check if the rules were written correctly is to SSH to the Snort server and look for the content of the `/etc/snort/rules/local.rules` file.
 
-Another way is to use Ansible on our control host. To do this we use a different role to verify if a Snort rule is in place. This role searches and finds existing rules in Snort and is called [ids_rule_facts](http://github.com/ansible-security/ids_rule_facts).
-To use this role, as we did previously, we install it using `ansible-galaxy`:
-
-```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule_facts
-- downloading role 'ids_rule_facts', owned by ansible_security
-- downloading role from https://github.com/ansible-security/ids_rule_facts/archive/master.tar.gz
-- extracting ansible_security.ids_rule_facts to /home/student1/.ansible/roles/ansible_security.ids_rule_facts
-- ansible_security.ids_rule_facts (master) was installed successfully
-```
+Another way is to use Ansible on our control host. To do this we use a different role to verify if a Snort rule is in place. This role searches and finds existing rules in Snort and is called [ids_rule_facts](http://github.com/ansible-security/ids_rule_facts). This role is included in the `security_ee` execution environment.
 
 In our VS Code online editor, we create a playbook, `verify_attack_rule.yml` to use it. Set the name of the playbook to something like "Verify Snort rule". The values for hosts, the IDS provider variable and the `become` flag can be set to the same as in our previous playbook.
 

@@ -80,7 +80,7 @@ The result should resemble the following:
 
 Execution environments provide developers and operators with a portable and maintainable environment for consistent automation execution throughout development and production.
 
-This workshop uses a custom automation execution environment called `security_ee`. Please refer to the [offical documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) for more information.
+This workshop uses a custom automation execution environment called `security_ee`. Please refer to the [official documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) for more information.
 
 > **Note**
 > 

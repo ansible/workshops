@@ -143,16 +143,16 @@ Save the file and exit out of editor.
 
 ## Step 6
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-irule.yml
+[student1@ansible ~]$ ansible-navigator run bigip-irule.yml
 ```
 
 # Playbook Output
 
 ```yaml
-[student1@ansible]$ ansible-playbook bigip-irule.yml
+[student1@ansible]$ ansible-navigator run bigip-irule.yml
 
 PLAY [BIG-IP SETUP] ***********************************************************
 

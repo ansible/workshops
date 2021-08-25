@@ -112,11 +112,11 @@ Save File and exit out of editor.
 ## Step 7
 The playbook will delete the virtual server, then the pool and then the nodes configured in previous exercises.
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 {% raw %}
 ```
-[student1@ansible ~]$ ansible-playbook bigip-delete-configuration.yml
+[student1@ansible ~]$ ansible-navigator run bigip-delete-configuration.yml
 ```
 {% endraw %}
 
@@ -124,7 +124,7 @@ Run the playbook - exit back into the command line of the control host and execu
 
 {% raw %}
 ```
-[student1@ansible]$ ansible-playbook bigip-delete-configuration.yml
+[student1@ansible]$ ansible-navigator run bigip-delete-configuration.yml
 
 PLAY [BIG-IP TEARDOWN] ********************************************************
 

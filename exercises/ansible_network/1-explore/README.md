@@ -122,7 +122,7 @@ Selecting `2` for `Ansible version and collections` will show us all Ansible Col
 
 ### Step 4 - Examining the ansible-navigator configuration
 
-Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible.cfg` file.  The file is located in the home directory `~/.ansible-navigator.yml`
+Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
 
 ```bash
 $ cat ~/.ansible-navigator.yml
@@ -154,10 +154,10 @@ For a full listing of every configurable knob checkout the [documentation](https
 
 The scope of a `play` within a `playbook` is limited to the groups of hosts declared within an Ansible **inventory**. Ansible supports multiple [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) types. An inventory could be a simple flat file with a collection of hosts defined within it or it could be a dynamic script (potentially querying a CMDB backend) that generates a list of devices to run the playbook against.
 
-In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
+In this lab you will work with a file based inventory written in the **ini** format. Either use Visual Studio Code to open or use the `cat` command to view the contents of the `~/lab_inventory/hosts` file.
 
 ```bash
-[student1@ansible ~]$ cat ~/lab_inventory/hosts
+$ cat ~/lab_inventory/hosts
 ```
 
 ```bash

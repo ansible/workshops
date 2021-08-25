@@ -93,10 +93,10 @@ Save the file and exit out of editor.
 
 ## Step 4
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml
 ```
 
 # Playbook Output
@@ -104,7 +104,7 @@ Run the playbook - exit back into the command line of the control host and execu
 The output will look as follows.
 
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml
 
 PLAY [BIG-IP SETUP] ************************************************************
 
@@ -150,7 +150,7 @@ Enter the following:
 
     - name: "Show members belonging to pool"
       debug: "msg={{item}}"
-      loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+      loop: "{{bigip_device_facts.ltm_pools | community.general.json_query(query_string)}}"
       vars:
         query_string: "[?name=='http_pool'].members[*].name[]"
 ```
@@ -160,15 +160,15 @@ Enter the following:
 - `query_String` will have the name of all members from pool name 'http_pool'. query_string is defined to make it easier to read the
    entire json string
 
-Execute the playbook
+Execute the playbook on the VS Code terminal
 ```
-[student1@ansible ~]$ ansible-playbook display-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run display-pool-members.yml
 ```
 
 Output
 
 ``` yaml
-[student1@ansible 1.4-add-pool-members]$ ansible-playbook display-pool-members.yml
+[student1@ansible 1.4-add-pool-members]$ ansible-navigator run display-pool-members.yml
 
 PLAY [List pool members] ******************************************************
 

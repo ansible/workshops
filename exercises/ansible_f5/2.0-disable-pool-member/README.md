@@ -132,7 +132,7 @@ Next, add a task for the objective listed below:
 HINT:
 Remember to use <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: RED">BIG-IP pool member module</a>
 
-## Step 10
+## Step 9
 Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```

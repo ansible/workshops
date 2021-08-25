@@ -7,6 +7,15 @@
 * [Objective](#objective)
 * [Diagram](#diagram)
 * [Guide](#guide)
+   * [Step 1 - Connecting via VS Code](#step-1---connecting-via-vs-code)
+   * [Step 2 - Using the Terminal](#step-2---using-the-terminal)
+   * [Step 3 - Examining Execution Environments](#step-3---examining-execution-environments)
+   * [Step 4 - Examining the ansible-navigator configuration](#step-4---examining-the-ansible-navigator-configuration)
+   * [Step 5 - Examining inventory](#step-5---examining-inventory)
+   * [Step 6 - Understanding inventory](#step-6---understanding-inventory)
+   * [Step 7 - Using ansible-navigator to explore inventory](#step-7---using-ansible-navigator-to-explore-inventory)
+   * [Step 8 - Connecting to network devices](#step-8---connecting-to-network-devices)
+* [Complete](#complete)
 
 ## Objective
 
@@ -254,7 +263,7 @@ Press the **Esc** key to go up a level, or you can zoom in to an individual host
 
 ![ansible-navigator host](images/ansible-navigator-rtr-1.png)
 
-### Step 9 - Connecting to network devices
+### Step 8 - Connecting to network devices
 
 There are four routers, named rtr1, rtr2, rtr3 and rtr4.  The network diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (`~/.ssh/config`) is already setup on the control node.  This means you can SSH to any router from the control node without a login:
 

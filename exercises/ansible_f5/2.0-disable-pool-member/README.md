@@ -125,21 +125,12 @@ HINT:
 Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: RED">debug</a> and refer <a href="../1.4-add-pool-members" style="color: RED">Exercise 1.4</a>
 
 ## Step 8
-
 Next, add a task for the objective listed below:
 
-  - Prompt the user to enter a Host:Port to disable a particular member or 'all' to disable all members
+  - Disable all members belonging to the pool
 
 HINT:
-Use the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: RED">prompts</a> module</a>
-
-## Step 9
-Next, add a task for the objective listed below:
-
-  - Read the prompt information and disable all members or a single member based on the input from the user
-
-HINT:
-Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: RED"> when conditions and loops</a> and <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: RED">BIG-IP pool member module</a>
+Remember to use <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: RED">BIG-IP pool member module</a>
 
 ## Step 10
 Run the playbook - Go back to the Terminal on VS Code server and execute the following:

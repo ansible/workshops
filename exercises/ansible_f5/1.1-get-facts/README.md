@@ -107,15 +107,15 @@ Save the file and exit out of editor.
 
 ## Step 5
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Open Terminal in the VS Code server of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml
 ```
 
 The output will look as follows.
 ``` yaml
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -195,10 +195,10 @@ Finally let's append two more tasks to get more specific info from facts gathere
 
 ## Step 7
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Save the file and use the Terminal window of VS Code on control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml
 ```
 
 # Playbook Output
@@ -207,7 +207,7 @@ The output will look as follows.
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -291,9 +291,9 @@ For this bonus exercise add the `tags: debug` paramteter (at the task level) to 
 Now re-run the playbook with the `--skip-tags-debug` command line option.
 
 ```
-ansible-playbook bigip-info.yml --skip-tags=debug
+ansible-navigator run bigip-info.yml --skip-tags=debug
 ```
 
-The Ansible Playbook will only run three tasks, skipping the `DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` task.
+The Ansible Navigator will only run three tasks, skipping the `DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` task.
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

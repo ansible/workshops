@@ -141,14 +141,6 @@ ansible-navigator:
     - src: "/etc/ansible/"
       dest: "/etc/ansible/"
       label: "Z"
-
-  logging:
-    file: /home/student1/.ansible-navigator/logs/ansible-navigator.log
-
-  playbook-artifact:
-    enable: True
-    replay: /tmp/artifact.json
-    save-as: /tmp/artifact.json
 ```
 
 Note the following parameters within the `ansible-navigator.yml` file:

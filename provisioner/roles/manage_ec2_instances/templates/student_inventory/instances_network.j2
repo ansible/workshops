@@ -1,5 +1,5 @@
-[all:vars]
-ansible_ssh_private_key_file=~/.ssh/aws-private.pem
+[routers:vars]
+ansible_user=ec2-user
 
 [routers:children]
 {% if network_type == "multivendor" or network_type == "cisco" %}
@@ -50,21 +50,18 @@ arista
 
 {% if network_type == "multivendor" or network_type == "cisco" %}
 [cisco:vars]
-ansible_user=ec2-user
 ansible_network_os=ios
 ansible_connection=network_cli
 {% endif %}
 
 {% if network_type == "multivendor" or network_type == "juniper" %}
 [juniper:vars]
-ansible_user=ec2-user
 ansible_network_os=junos
 ansible_connection=netconf
 {% endif %}
 
 {% if network_type == "multivendor" or network_type == "arista" %}
 [arista:vars]
-ansible_user=ec2-user
 ansible_network_os=eos
 ansible_connection=network_cli
 ansible_become=true

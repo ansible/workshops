@@ -7,6 +7,15 @@
 * [Objective](#objective)
 * [Diagram](#diagram)
 * [Guide](#guide)
+   * [Step 1 - Connecting via VS Code](#step-1---connecting-via-vs-code)
+   * [Step 2 - Using the Terminal](#step-2---using-the-terminal)
+   * [Step 3 - Examining Execution Environments](#step-3---examining-execution-environments)
+   * [Step 4 - Examining the ansible-navigator configuration](#step-4---examining-the-ansible-navigator-configuration)
+   * [Step 5 - Examining inventory](#step-5---examining-inventory)
+   * [Step 6 - Understanding inventory](#step-6---understanding-inventory)
+   * [Step 7 - Using ansible-navigator to explore inventory](#step-7---using-ansible-navigator-to-explore-inventory)
+   * [Step 8 - Connecting to network devices](#step-8---connecting-to-network-devices)
+* [Complete](#complete)
 
 ## Objective
 
@@ -83,7 +92,7 @@ Navigate to the `network-workshop` directory on the Ansible control node termina
 [student1@ansible-1 ~]$ cd ~/network-workshop/
 [student1@ansible-1 network-workshop]$ pwd
 /home/student1/network-workshop
-[student1@ansible-1 network-workshop]$ 
+[student1@ansible-1 network-workshop]$
 ```
 
 * `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student1`
@@ -111,42 +120,44 @@ Selecting `2` for `Ansible version and collections` will show us all Ansible Col
 
 ![ee info](images/navigator-ee-collections.png)
 
-### Step 4
+### Step 4 - Examining the ansible-navigator configuration
 
-### Step 5
-
-
-Use the `cat` command to view the contents of the `ansible.cfg` file.
+Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
 
 ```bash
-[student1@ansible-1 ~]$ cat /etc/ansible/ansible.cfg
-[defaults]
-stdout_callback = yaml
-connection = smart
-timeout = 60
-deprecation_warnings = False
-host_key_checking = False
-retry_files_enabled = False
-inventory = /home/student1/lab_inventory/hosts
-[persistent_connection]
-connect_timeout = 200
-command_timeout = 200
+$ cat ~/.ansible-navigator.yml
+---
+ansible-navigator:
+  ansible:
+    inventories:
+    - /home/student1/lab_inventory/hosts
+
+  execution-environment:
+    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
+    enabled: true
+    container-engine: podman
+    pull-policy: missing
+    volume-mounts:
+    - src: "/etc/ansible/"
+      dest: "/etc/ansible/"
+      label: "Z"
 ```
 
-Note the following parameters within the `ansible.cfg` file:
+Note the following parameters within the `ansible-navigator.yml` file:
 
-* `inventory`: shows the location of the ansible inventory being used
+* `inventories`: shows the location of the ansible inventory being used
+* `execution-environment`: where the default execution environment is set
 
-For a full listing of every configurable knob checkout the [example ansible.cfg on Github](https://github.com/ansible/ansible/blob/devel/examples/ansible.cfg)
+For a full listing of every configurable knob checkout the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/)
 
-### Step 6
+### Step 5 - Examining inventory
 
 The scope of a `play` within a `playbook` is limited to the groups of hosts declared within an Ansible **inventory**. Ansible supports multiple [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) types. An inventory could be a simple flat file with a collection of hosts defined within it or it could be a dynamic script (potentially querying a CMDB backend) that generates a list of devices to run the playbook against.
 
-In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
+In this lab you will work with a file based inventory written in the **ini** format. Either use Visual Studio Code to open or use the `cat` command to view the contents of the `~/lab_inventory/hosts` file.
 
 ```bash
-[student1@ansible ~]$ cat ~/lab_inventory/hosts
+$ cat ~/lab_inventory/hosts
 ```
 
 ```bash
@@ -195,7 +206,7 @@ rtr4
 ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
 ```
 
-### Step 7 - Understanding inventory
+### Step 6 - Understanding inventory
 
 In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
 
@@ -228,7 +239,7 @@ ansible_connection=network_cli
 * `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
 * `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
 
-### Step 8 - Using ansible-navigator to explore inventory
+### Step 7 - Using ansible-navigator to explore inventory
 
 We can also use the `ansible-navigator` TUI to explore inventory.
 
@@ -246,7 +257,7 @@ Press the **Esc** key to go up a level, or you can zoom in to an individual host
 
 ### Step 8 - Connecting to network devices
 
-There are four routers, named rtr1, rtr2, rtr3 and rtr4.  The network diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (~/.ssh/config) is already setup on the control node.  This means you can SSH to any router from the control node without a login:
+There are four routers, named rtr1, rtr2, rtr3 and rtr4.  The network diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (`~/.ssh/config`) is already setup on the control node.  This means you can SSH to any router from the control node without a login:
 
 For example to connect to rtr1 from the Ansible control node, type:
 
@@ -271,11 +282,11 @@ You have completed lab exercise 1!
 
 You now understand:
 
-* How to connect to the lab environment with VS code
+* How to connect to the lab environment with Visual Studio Code
 * How to explore **execution environments** with `ansible-navigator`
 * Where the Ansible Navigator Configuration (`ansible-navigator.yml`) is located
-* Where the `ansible-core` configuration File (`ansible.cfg`) is located
 * Where the inventory is stored for command-line exercises
+* How to use ansible-navigator TUI (Text-based user interface)
 
 
 

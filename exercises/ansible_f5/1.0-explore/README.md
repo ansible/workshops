@@ -199,15 +199,15 @@ We can also use the `ansible-navigator` TUI to explore inventory.
 
 Run the `ansible-navigator inventory` command to bring up inventory in the TUI:
 
-![ansible-navigator tui](../../ansible_network/1-explore/imagesimages/ansible-navigator.png)
+![ansible-navigator tui](../../ansible_network/1-explore/images/ansible-navigator.png)
 
 Pressing **0** or **1** on your keyboard will open groups or hosts respectively.
 
-![ansible-navigator groups](../../ansible_network/1-explore/imagesimages/ansible-navigator-groups.png)
+![ansible-navigator groups](../../ansible_network/1-explore/images/ansible-navigator-groups.png)
 
 Press the **Esc** key to go up a level, or you can zoom in to an individual host:
 
-![ansible-navigator host](../../ansible_network/1-explore/imagesimages/ansible-navigator-rtr-1.png)
+![ansible-navigator host](../../ansible_network/1-explore/images/ansible-navigator-rtr-1.png)
 
 ```
 

@@ -6,8 +6,18 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
+   * [Step 1 - Examine Ansible Playbook](#step-1---examine-ansible-playbook)
+   * [Step 2 - Execute Ansible Playbook](#step-2---execute-ansible-playbook)
+   * [Step 3 - Verify configuration on router](#step-3---verify-configuration-on-router)
+   * [Step 4 - Validate idempotency](#step-4---validate-idempotency)
+   * [Step 5 - Modify Ansible Playbook](#step-5---modify-ansible-playbook)
+   * [Step 6 - Use check mode](#step-6---use-check-mode)
+   * [Step 7 - Verify configuration is not present](#step-7---verify-configuration-is-not-present)
+   * [Step 8 - Re-run the Ansible Playbook](#step-8---re-run-the-ansible-playbook)
+   * [Step 9 - Verify configuration is applied](#step-9---verify-configuration-is-applied)
 * [Takeaways](#takeaways)
 * [Solution](#solution)
+* [Complete](#complete)
 
 ## Objective
 

@@ -19,6 +19,14 @@
     regexp: ".*--userns=keep-id.*"
     state: absent
 
+- name: add custom bashrc for student
+  template:
+    src: bashrc.j2
+    dest: /home/{{ username }}/.bashrc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0644
+
 # Login into Red Hat registry
 - name: Login to redhat registry
   containers.podman.podman_login:

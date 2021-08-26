@@ -171,7 +171,7 @@
     playbook: "cp_log.yml"
     state: "present"
     limit: "checkpoint"
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"

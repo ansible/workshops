@@ -188,7 +188,7 @@
     limit: "snort"
     credential: "Workshop Credential"
     become_enabled: true
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -203,7 +203,7 @@
     playbook: "qradar_cp_log.yml"
     state: "present"
     limit: "qradar"
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -218,7 +218,7 @@
     playbook: "qradar_snort_log.yml"
     state: "present"
     limit: "qradar"
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -233,7 +233,7 @@
     playbook: "rollback.yml"
     state: "present"
     credential: "Workshop Credential"
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -252,7 +252,7 @@
     become_enabled: true
     survey_enabled: true
     survey_spec: "{{ lookup('template', 'security_survey_ids_rule.json') }}"
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -269,7 +269,7 @@
     limit: "attacker"
     credential: "Workshop Credential"
     become_enabled: true
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -286,7 +286,7 @@
     limit: "attacker"
     credential: "Workshop Credential"
     become_enabled: true
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -301,7 +301,7 @@
     playbook: "whitelist_attacker.yml"
     state: "present"
     limit: "checkpoint"
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -316,7 +316,7 @@
     playbook: "blacklist_attacker.yml"
     state: "present"
     limit: "checkpoint"
-    execution_environment: "Security workshop execution environment"
+    execution_environment: "{{ workshop_type }} workshop execution environment"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"

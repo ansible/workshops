@@ -45,8 +45,7 @@ Navigate to the `network-workshop` directory if you are not already there.
 
 Examine the provided Ansible Playbook named `playbook.yml`.  Either open the file in Visual Studio Code or `cat` the file:
 
-```bash
-[student1@ansible network-workshop]$ cat playbook.yml
+```yaml
 ---
 - name: snmp ro/rw string configuration
   hosts: cisco

@@ -1,4 +1,4 @@
-# Exercise 5: Explore Red Hat Automation controller
+# Exercise 5: Explore Automation controller
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
@@ -20,21 +20,19 @@ Explore and understand the lab environment.  This exercise will cover
 
 ### Step 1: Login to Automation controller
 
-Open up your web browser and type in the Ansible control node's DNS name
+Return to the workshop launch page provided by your instructor.
 
-> For example if the student was assigned the student1 workbench and the workshop name was `durham-workshop` the link would be:
+Click on the link to the Automation controller webUI.  You should see a login screen similar to the follow:
 
-[https://student1.durham-workshop.rhdemo.io](https://student1.durham-workshop.rhdemo.io)
-
-> This login information has been provided by the instructor at the beginning of class.
-
-![Tower Login Window](images/login_window.png)
+Screenshot of Automation controller login window.
+![automation controller login window](images/automation_controller_login.png)
 
 * The username will be `admin`
-* password provided by instructor
+* password provided on launch page
 
 After logging in the Job Dashboard will be the default view as shown below.
-![Tower Job Dashboard](images/tower_login.png)
+
+![automation controller dashboard](images/automation_controller_dashboard.png)
 
 1. Click on the **i** information button on the top right of the user interface.
 
@@ -48,7 +46,7 @@ After logging in the Job Dashboard will be the default view as shown below.
 
 ### Step 2: Examine the Automation controller Inventory
 
-An inventory is required for Red Hat Automation controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Red Hat Automation controller can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
+An inventory is required for Automation controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Automation controller can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
 
 > More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
 
@@ -79,7 +77,7 @@ Prefer Youtube?  [Click Here](https://youtu.be/4JNbFNSUS9g)
 
 ### Step 3: Examine the Automation controller Workshop Project
 
-A project is how Ansible Playbooks are imported into Red Hat Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
+A project is how Ansible Playbooks are imported into Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
 
 > For more information on Projects in Tower, please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
 

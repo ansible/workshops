@@ -82,32 +82,33 @@ An inventory is required for Automation controller to be able to run jobs.  An i
 
 ### Step 3: Examine the Automation controller Workshop Project
 
-A project is how Ansible Playbooks are imported into Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
+A project is how Ansible Playbooks are imported into Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Automation controller, including Git and Subversion.
 
-> For more information on Projects in Tower, please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+> For more information on Projects in Automation controller, please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
 
 1. Click on the **Projects** button under **RESOURCES** on the left menu bar.
 
-    ![projects link](images/projects.png)
+   ![Workshop Project Link](images/automation_controller_projects.png)
 
-2. Under **PROJECTS** there will be two pre-configured projects, `Demo Project` and the `Workshop Project`.  Click on the `Workshop Project`.
+2. Under **PROJECTS** there will be two pre-configured projects, `Ansible official demo project` and the `Workshop Project`.  
 
     ![Workshop Project Link](images/workshop_project.png)
 
     Note that `GIT` is listed for this project.  This means this project is using Git for SCM.
 
-3. Under the `Workshop Project` click the **SCM TYPE** drop down menu
+3. Click on the `Workshop Project`.
 
-    Note that Git, Mercurial and Subversion are choices.  Return the choice to Git so that the Project continues to function correctly.
+  ![Workshop Project Detail](images/workshop_project_detail.png)
 
-![animation walkthrough Automation controller projects](images/projects.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/xRA97XTxMjA)
+    Note that Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit
+)
+
 
 ### Step 4: Examine the Automation controller Workshop Credential
 
-Credentials are utilized by Tower for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
+Credentials are utilized by Automation controller for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
 
-> For more information on Credentials in Tower please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html).
+> For more information on Credentials in Automation controller please [refer to the documentation](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
 
 1. Click on the **Credentials** button under **RESOURCES** on the left menu bar.
 
@@ -123,9 +124,6 @@ Credentials are utilized by Tower for authentication when launching **Jobs** aga
 * The **USERNAME** is set to `ec2-user`.
 * The **PASSWORD** is blank.
 * The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
-
-![animation walkthrough ansible credentials](images/credentials.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/UT0t_hlNw-c)
 
 ## Takeaways
 

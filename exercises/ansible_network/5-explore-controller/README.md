@@ -49,15 +49,15 @@ Explore and understand the lab environment.  This exercise will cover
 
 An inventory is required for Automation controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Automation controller can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
 
-> More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+> More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html)
 
 1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.
 
-    ![Inventories Button](images/inventories.png)
+    ![Inventories Button](images/automation_controller_inventories.png)
 
 2. Under Inventories there will be two inventories, the `Demo Inventory` and the `Workshop Inventory`.  Click on the `Workshop Inventory`.
 
-    ![Workshop Inventory Link](images/workshop_inventory.png)
+    ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
 
 3. Under the `Workshop Inventory` click the **HOSTS** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  Click on one of the devices.
 

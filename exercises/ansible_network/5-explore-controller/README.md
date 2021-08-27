@@ -20,27 +20,28 @@ Explore and understand the lab environment.  This exercise will cover
 
 ### Step 1: Login to Automation controller
 
-Return to the workshop launch page provided by your instructor.
+1.  Return to the workshop launch page provided by your instructor.
 
-Click on the link to the Automation controller webUI.  You should see a login screen similar to the follow:
+2.  Click on the link to the Automation controller webUI.  You should see a login screen similar to the follow:
 
-Screenshot of Automation controller login window.
+   Screenshot of Automation controller login window.
 ![automation controller login window](images/automation_controller_login.png)
 
-* The username will be `admin`
-* password provided on launch page
+   * The username will be `admin`
+   * password provided on launch page
 
-After logging in the Job Dashboard will be the default view as shown below.
 
-![automation controller dashboard](images/automation_controller_dashboard.png)
+3. After logging in the Job Dashboard will be the default view as shown below.
 
-1. Click on the **i** information button on the top right of the user interface.
+   ![automation controller dashboard](images/automation_controller_dashboard.png)
 
-    ![information button link](images/information_button.png)
+4. Click on the **?** button on the top right of the user interface and click **About**
 
-2. A window will pop up similar to the following:
+  ![about button link](images/automation_controller_about.png)
 
-    ![version info window](images/version_info.png)
+5. A window will pop up similar to the following:
+
+  ![version info window](images/automation_controller_about_info.png)
 
    Take note that both the Automation controller version and the Ansible Engine version are provided here.
 

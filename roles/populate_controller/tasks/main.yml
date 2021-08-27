@@ -1,5 +1,5 @@
 ---
-- name: ensure tower/controller is online and working
+- name: ensure controller is online and working
   uri:
     url: https://localhost/api/v2/ping/
     method: GET
@@ -26,10 +26,9 @@
       username: ec2-user
       ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
 
-- name: add tower/controller credential into ansible tower
-  when: controller_or_tower=="controller"
+- name: add controller credential into automation controller
   awx.awx.credential:
-    name: "Tower Credential"
+    name: "Controller Credential"
     credential_type: Red Hat Ansible Automation Platform
     organization: Default
     controller_username: admin

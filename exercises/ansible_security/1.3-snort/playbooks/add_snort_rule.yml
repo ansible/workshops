@@ -1,7 +1,7 @@
 ---
 - name: Add Snort rule
   hosts: snort
-  become: yes
+  become: true
 
   vars:
     ids_provider: snort

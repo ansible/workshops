@@ -119,7 +119,7 @@ In order to use the role, create a new file called `add_snort_rule.yml` in your 
 ---
 - name: Add Snort rule
   hosts: snort
-  become: yes
+  become: true
 ```
 
 Next we need to add the variables required by our playbook. The role we are using is written in a way that can work with multiple IDS providers, all the user needs to provide is the name of the IDS and the role will take care of the rest. Since we are managing a Snort IDS, we need to set the value of `ids_provider` variable to `snort`.
@@ -128,7 +128,7 @@ Next we need to add the variables required by our playbook. The role we are usin
 ---
 - name: Add Snort rule
   hosts: snort
-  become: yes
+  become: true
 
   vars:
     ids_provider: snort
@@ -144,7 +144,7 @@ Next, we need to add the tasks. Tasks are the components which make the actual c
 ---
 - name: Add Snort rule
   hosts: snort
-  become: yes
+  become: true
 
   vars:
     ids_provider: snort

@@ -37,6 +37,7 @@ Explore and understand the lab environment.  This exercise will cover
 
 4. Click on the **?** button on the top right of the user interface and click **About**
 
+
   ![about button link](images/automation_controller_about.png)
 
 5. A window will pop up similar to the following:
@@ -59,22 +60,25 @@ An inventory is required for Automation controller to be able to run jobs.  An i
 
     ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
 
-3. Under the `Workshop Inventory` click the **HOSTS** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  Click on one of the devices.
+3. Under the `Workshop Inventory` click the **Hosts** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  
+
+   ![automation controller workshop inventory hosts](images/workshop_inventory_hosts.png)
+
+4. Click on one of the devices.
+
+   ![workshop inventory hosts rtr1](images/workshop_inventory_hosts_rtr1.png)
 
      Take note of the **VARIABLES** field.  The `host_vars` are set here including the `ansible_host` variable.
 
-4. Click on the `Workshop Inventory` link at the top of the page to return the top level menu.
-
-    ![Workshop Inventory Top Link](images/workshop_inventory_top.png)
-
 5. Click on **GROUPS**.  There will be multiple groups here including `routers` and `cisco`.  Click on one of the groups.
 
+   ![workshop inventory groups](images/workshop_inventory_groups.png)
+
+6. Click on one of the groups.
+
+   ![workshop inventory group vars](images/workshop_inventory_group_vars.png)
+
      Take note of the **VARIABLES** field. The `group_vars` are set here including the `ansible_connection` and `ansible_network_os` variable.
-
-Here is a walkthrough:
-
-![animation walkthrough Automation controller](images/inventory.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/4JNbFNSUS9g)
 
 ### Step 3: Examine the Automation controller Workshop Project
 

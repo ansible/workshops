@@ -110,11 +110,11 @@ Credentials are utilized by Automation controller for authentication when launch
 
 > For more information on Credentials in Automation controller please [refer to the documentation](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
 
-1. Click on the **Credentials** button under **RESOURCES** on the left menu bar.
+1. Click on the **Credentials** button under **Resources** on the left menu bar.
 
-    ![credentials link](images/credentials.png)
+    ![credentials link](images/automation_controller_credentials.png)
 
-2. Under **CREDENTIALS** there will be three pre-configured credentials, `Demo Credential`, `Tower Credential` and the `Workshop Credentials`.  Click on the `Workshop Credential`.
+2. Under **Credentials** there will be multiple pre-configured credentials, including `Workshop Credential`, `Controller Credential` and the `registry.redhat.io credential`.  Click on the `Workshop Credential`.
 
     ![Workshop Credential Link](images/workshop_credential.png)
 

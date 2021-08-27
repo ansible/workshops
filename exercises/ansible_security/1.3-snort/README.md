@@ -271,7 +271,7 @@ And most importantly, we want to be able to see what is actually found. The `ids
 Now let's execute the playbook to verify that our rule is part of the Snort installation:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
 
 PLAY [Verify Snort rule] **************************************************************
 

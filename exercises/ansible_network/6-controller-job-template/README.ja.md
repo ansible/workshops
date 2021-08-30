@@ -15,9 +15,9 @@
 
 # Objective
 
-Ansible Tower を使ってネットワークコンフィグのバックアップを行うジョブテンプレートを確認していきます。このジョブテンプレートは4つルーターから稼働中のコンフィグを取得し、コントローラーノードの /backup 配下にタイムスタンプ付きで保存します。
+Automation controller を使ってネットワークコンフィグのバックアップを行うジョブテンプレートを確認していきます。このジョブテンプレートは4つルーターから稼働中のコンフィグを取得し、コントローラーノードの /backup 配下にタイムスタンプ付きで保存します。
 
-Ansible Tower で Playbook を実行するには **Job Template** を作成する必要があります。**Job Template** の作成には以下が必要です:
+Automation controller で Playbook を実行するには **Job Template** を作成する必要があります。**Job Template** の作成には以下が必要です:
  - ジョブの対象となる **Inventory**
  - デバイスへログインするための **Credential**
  - Playbook を含んだ **Project**
@@ -52,7 +52,7 @@ Ansible Tower で Playbook を実行するには **Job Template** を作成す�
 
 4. 2つ目の認証情報をジョブテンプレートに割り当てます。
 
-    この **Tower Credential** (認証タイプ Ansible Tower)もジョブテンプレートに追加する必要があります。これは **Network-Restore** ジョブテンプレートが使用しているプールをアップデートするために使用されます。Ansible Tower ではジョブテンプレートから、プログラマブルに Ansible Tower 自身の設定を動的に追加・更新することができます。
+    この **Tower Credential** (認証タイプ Automation controller)もジョブテンプレートに追加する必要があります。これは **Network-Restore** ジョブテンプレートが使用しているプールをアップデートするために使用されます。Automation controller ではジョブテンプレートから、プログラマブルに Automation controller 自身の設定を動的に追加・更新することができます。
 
     ![tower credential](images/tower_credential.png)
 
@@ -60,7 +60,7 @@ Ansible Tower で Playbook を実行するには **Job Template** を作成す�
 
 以下がチュートリアルです:
 
-![animation walkthrough ansible tower](images/job_template.gif)
+![animation walkthrough Automation controller](images/job_template.gif)
 Youtube で確認するにはこちら  [Click Here](https://youtu.be/EQVkFaQYRiE)
 
 
@@ -114,7 +114,7 @@ Youtube で確認するにはこちら  [Click Here](https://youtu.be/EQVkFaQYRi
 
     ![jobs link](images/jobslink.png)
 
-    この **Backup network configurations** ジョブは最も最近に起動されています(他のジョブを起動していなければ)。このジョブをクリックすると **Job Details View** へと戻ることができます。Ansible Tower は起動された全てのジョブの履歴を保存しています。
+    この **Backup network configurations** ジョブは最も最近に起動されています(他のジョブを起動していなければ)。このジョブをクリックすると **Job Details View** へと戻ることができます。Automation controller は起動された全てのジョブの履歴を保存しています。
 
 ## Step 5: Verify the backups were created
 
@@ -153,7 +153,7 @@ Youtube で確認するにはこちら  [Click Here](https://youtu.be/EQVkFaQYRi
 
 ここで確認した内容は以下となります。
  - ネットワーク設定のバックアップを行うジョブテンプレートの作成
- - Ansible Tower の UI からジョブテンプレートを起動
+ - Automation controller の UI からジョブテンプレートを起動
  - バックアップが正しく実行されたか確認
 
 ---

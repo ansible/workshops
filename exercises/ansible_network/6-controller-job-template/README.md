@@ -1,4 +1,4 @@
-# Exercise 6: Creating a Tower Job Template
+# Exercise 6: Creating an Automation controller Job Template
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
@@ -15,9 +15,9 @@
 
 ## Objective
 
-Demonstrate a network backup configuration job template for Red Hat Ansible Tower.  This job template will save the running configuration from all four routers and store them under /backup on the control node with a timestamp.
+Demonstrate a network backup configuration job template with Automation controller.  This job template will save the running configuration from all four routers and store them under /backup on the control node with a timestamp.
 
-To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**.  A **Job Template** requires:
+To run an Ansible Playbook in Automation controller we need to create a **Job Template**.  A **Job Template** requires:
 
 * An **Inventory** to run the job against
 * A **Credential** to login to devices.
@@ -29,11 +29,13 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
 
 * Open the web UI and click on the `Templates` link on the left menu.
 
-  ![templates link](images/templates.png)
+   ![templates link](images/controller_templates.png)
 
-* Click on the green ![templates link](images/add.png) button to create a new job template
+* Click on the blue **Add** button to create a new job template
 
-> Make sure to select `Job Template` and not `Workflow Template`)
+   ![templates link](images/controller_add.png)
+
+> Make sure to select `job template` and not `workflow template`)
 
 * Fill out the job template parameters as follows:
 
@@ -43,29 +45,24 @@ To run an Ansible Playbook in Ansible Tower we need to create a **Job Template**
   |  Job Type |  Run |
   |  Inventory |  Workshop Inventory |
   |  Project |  Workshop Project |
-  |  Playbook |  network_backup.yml |
+  |  Execution Environment | Default execution environment |
+  |  Playbook |  playbooks/network_backup.yml |
   |  Credential |  Workshop Credential |
 
-  Here is a screenshot of the job template parameters filled out.
-
-  ![backup job template](images/backup.png)
+  Screenshot of the job template parameters filled out:
+   ![backup job template](images/controller_backup.png)
 
 * Add a second credential to the Job Template.
 
-  The **Tower Credential** also must be added to this particular Job Template.  This is so Ansible Tower can update the pool of backups the **Network-Restore** Job Template will use. Ansible Tower can be programmatically updated with Job Templates to add or update configurations dynamically.  Select the 2nd credential by using the drop down box to select the **Ansible Tower** credential type:
+   The **Controller Credential** also must be added to this particular Job Template.  This is so Automation controller can update the pool of backups the **Network-Restore** Job Template will use. Automation controller can be programmatically updated with Job Templates to add or update configurations dynamically.  Select the 2nd credential by using the drop down box to select the **Red Hat Ansible Automation Platform** credential type:
 
-  ![switch credential type](images/ansible_tower_cred.png)
+  ![switch credential type](images/controller_cred.png)
 
   When you have both credential successfully added to the Job Template it will look like the following picture:
 
-  ![tower credential](images/tower_credential.png)
+  ![controller credential](images/controller_cred_multiple.png)
 
-* Scroll down and click the green `save` button.
-
-Here is a walkthrough:
-
-![animation walkthrough ansible tower](images/job_template.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/Vd4jyx7xGuU)
+* Scroll down and click the blue `Save` button.
 
 ### Step 2: Launch the Job Template
 
@@ -73,9 +70,9 @@ Prefer Youtube?  [Click Here](https://youtu.be/Vd4jyx7xGuU)
 
 2. Launch the `Backup network configurations` Job Template by clicking the Rocket button.
 
-    ![rocket button](images/rocket.png)
+    ![rocket button](images/controller_rocket.png)
 
-    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) can be found in the documentation.
+    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Automation controller jobs](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) can be found in the documentation.
 
 ### Step 3: Examine the Job Details View
 

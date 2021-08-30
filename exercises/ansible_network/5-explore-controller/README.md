@@ -5,12 +5,19 @@
 ## Table of Contents
 
 * [Objective](#objective)
+* [Guide](#guide)
+   * [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
+   * [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
+   * [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
+   * [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
+* [Takeaways](#takeaways)
+* [Complete](#complete)
 
 ## Objective
 
 Explore and understand the lab environment.  This exercise will cover
 
-* Determining the Ansible version running on the control node
+* Determining the Ansible Automation Platform version running on the control node
 * Locating and understanding:
   * Automation controller **Inventory**
   * Automation controller **Credentials**
@@ -37,12 +44,11 @@ Explore and understand the lab environment.  This exercise will cover
 
 4. Click on the **?** button on the top right of the user interface and click **About**
 
-
-  ![about button link](images/automation_controller_about.png)
+   ![about button link](images/automation_controller_about.png)
 
 5. A window will pop up similar to the following:
 
-  ![version info window](images/automation_controller_about_info.png)
+   ![version info window](images/automation_controller_about_info.png)
 
    Take note that both the Automation controller version and the Ansible Engine version are provided here.
 

@@ -18,13 +18,9 @@ Demonstrate use of the [BIG-IP pool module](https://docs.ansible.com/ansible/lat
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-pool.yml`.
+Using VSCode create a new file called `bigip-pool.yml` by clicking the new file icon in the left pane.
 
-```
-[student1@ansible ~]$ nano bigip-pool.yml
-```
-
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
 ## Step 2:
 

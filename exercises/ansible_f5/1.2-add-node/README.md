@@ -18,13 +18,10 @@ Demonstrate use of the [BIG-IP node module](https://docs.ansible.com/ansible/lat
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-node.yml`.
+Using VSCode create a new file called `bigip-node.yml` by clicking the new file icon in the left pane.
 
-```
-[student1@ansible ~]$ nano bigip-node.yml
-```
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
 
 ## Step 2:
 

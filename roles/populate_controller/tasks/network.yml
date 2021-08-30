@@ -1,4 +1,21 @@
 ---
+# host
+- name: Add backup server host
+  awx.awx.host:
+    name: "backup-server"
+    description: "this server is where we backup network configuration"
+    inventory: "Workshop Inventory"
+    state: present
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    variables:
+        note: in production these passwords would be encrypted in vault
+        ansible_user: "{{ username }}"
+        ansible_password: "{{ admin_password }}"
+        ansible_host: "{{ ansible_host }}"
+
 # ORGS
 - name: create network organization
   awx.awx.organization:
@@ -167,7 +184,7 @@
     name: "Workshop Project"
     organization: "Red Hat network organization"
     scm_type: git
-    scm_url: "https://github.com/network-automation/toolkit"
+    scm_url: "https://github.com/IPvSean/toolkit"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"

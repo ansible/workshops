@@ -115,7 +115,9 @@ You have
 
 ## Complete
 
-You have completed lab exercise 9
+You have completed lab exercise 9.  This concludes the Network Automation workshop.  Thank you for attending!
+
+For additional supplemental exercises check out [Supplemental Exercises](../supplemental/README.md)
 
 ---
 [Previous Exercise](../8--controller-rbac/README.md)

@@ -25,15 +25,9 @@ Demonstrate the removal of a node from the pool.  Build a Playbook that:
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `disable-pool-member.yml`.
+Using VSCode create a new file called `disable-pool-member.yml` by clicking the new file icon in the left pane.
 
-<!-- {% raw %} -->
-```
-[student1@ansible ~]$ nano disable-pool-member.yml
-```
-<!-- {% endraw %} -->
-
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
 ## Step 2:
 

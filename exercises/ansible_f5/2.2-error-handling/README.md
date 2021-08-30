@@ -17,15 +17,9 @@ Demonstrate use of the different modules to perform a rollback of the configurat
 
 ## Step 1
 
-Using your text editor of choice create a new file called `bigip-error-handling.yml`.
+Using VSCode create a new file called `bigip-error-handling.yml` by clicking the new file icon in the left pane.
 
-{% raw %}
-```
-[student1@ansible ~]$ nano bigip-error-handling.yml
-```
-{% endraw %}
-
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
 ## Step 2
 

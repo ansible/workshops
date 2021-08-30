@@ -17,15 +17,10 @@ Demonstrate use of the different modules to delete the configuration (Nodes/Pool
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-delete-configuration.yml`.
+Using VSCode create a new file called `bigip-delete-configuration.yml` by clicking the new file icon in the left pane.
 
-{% raw %}
-```
-[student1@ansible ~]$ nano bigip-delete-configuration.yml
-```
-{% endraw %}
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
 
 ## Step 2:
 
@@ -107,7 +102,7 @@ Finally, add the last `task` using the [bigip_node](https://docs.ansible.com/ans
 ```
 {% endraw %}
 
-Save File and exit out of editor.
+Save File.
 
 ## Step 7
 The playbook will delete the virtual server, then the pool and then the nodes configured in previous exercises.

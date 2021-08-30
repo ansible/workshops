@@ -66,13 +66,11 @@ If you need more information on new Ansible Automation Platform components bookm
 
   ![login vs code](../../ansible_network/1-explore/images/vscode_login.png)
 
-- Open the `network-workshop` directory in Visual Studio Code:
+- Open the `f5-workshop` directory in Visual Studio Code:
 
-  ![picture of file browser](../../ansible_network/1-explore/images/vscode-networkworkshop.png)
+  ![picture of file browser](images/vscode-f5workshop.png)
 
-- Click on the `playbook.yml` to view the content.
-
-  ![picture of playbook](../../ansible_network/1-explore/images/vscode-playbook.png)
+- From here on the left pane you can click on the individual exercise folders and then click on the `yaml` files to check the content of the files.
 
 ### Step 2 - Using the Terminal
 

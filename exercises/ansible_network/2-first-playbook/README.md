@@ -234,4 +234,6 @@ The finished Ansible Playbook is provided here for an answer key: [playbook.yml]
 You have completed lab exercise 2
 
 ---
+[Previous Exercise](../1-explore/README.md) | [Next Exercise](../3-facts/README.md)
+
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

@@ -118,4 +118,6 @@ You have
 You have completed lab exercise 9
 
 ---
+[Previous Exercise](../8--controller-rbac/README.md)
+
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

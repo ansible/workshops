@@ -145,4 +145,6 @@ You have completed lab exercise 5
 You have now examined all three components required to get started with Automation controller.  A credential, an inventory and a project.  In the next exercise we will create a job template.
 
 ---
+[Previous Exercise](../4-resource-module/README.md) | [Next Exercise](../6-controller-job-template/README.md)
+
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

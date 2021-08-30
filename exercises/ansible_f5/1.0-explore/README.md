@@ -82,9 +82,9 @@ Navigate to the `f5-workshop` directory on the Ansible control node terminal.
 
 ```bash
 [student1@ansible-1 ~]$ cd ~/f5-workshop/
-[student1@ansible-1 network-workshop]$ pwd
+[student1@ansible-1 f5-workshop]$ pwd
 /home/student1/f5-workshop
-[student1@ansible-1 network-workshop]$
+[student1@ansible-1 f5-workshop]$
 ```
 
 * `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student1`

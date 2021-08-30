@@ -16,21 +16,18 @@ Demonstrate use of the [BIG-IP Info module](https://docs.ansible.com/ansible/lat
 
 # Guide
 
+Open the VSCode terminal as explained in the explore/lab setup exercise.
 Make sure you are in the home directory
 
-```
-[student1@ansible f5-workshop]$ cd ~
-```
+![picture of file browser](images/vscode-homefolder.png)
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-info.yml`.
+Using VSCode create a new file called `bigip-info.yml` by clicking the new file icone in the left pane.
 
-```
-[student1@ansible ~]$ nano bigip-info.yml
-```
+![picture of create file icon](images/vscode-openfile_icon.png)
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+
 
 ## Step 2:
 

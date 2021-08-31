@@ -6,7 +6,7 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-  * [Step 1: Create a Job Template](#step-1-create-a-job-template)
+  * [Step 1: Create a workflow template](#step-1-create-a-workflow-template)
   * [Step 2: The Workflow Visualizer](#step-2-the-workflow-visualizer)
   * [Step 3: Add the Configure Banner Job Template](#step-3-add-the-configure-banner-job-template)
   * [Step 4: Add the Configure Network-User Job Template](#step-4-add-the-configure-network-user-job-template)
@@ -14,6 +14,7 @@
   * [Step 6: Create a converged link](#step-6-create-a-converged-link)
   * [Step 7: Run the Workflow](#step-7-run-the-workflow)
 * [Takeaways](#takeaways)
+* [Complete](#complete)
 
 ## Objective
 

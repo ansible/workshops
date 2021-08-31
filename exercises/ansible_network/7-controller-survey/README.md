@@ -6,12 +6,13 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-  * [Step 1: Create a Job Template](#step-1-create-a-job-template)
-  * [Step 2: Examine the playbook](#step-2-examine-the-playbook)
-  * [Step 3: Create a survey](#step-3-create-a-survey)
-  * [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
-  * [Step 5: Verify the banner](#step-5-verify-the-banner)
-* [Takeaways](#takeaways)
+   * [Step 1: Create a Job Template](#step-1-create-a-job-template)
+   * [Step 2: Examine the playbook](#step-2-examine-the-playbook)
+   * [Step 3: Create a survey](#step-3-create-a-survey)
+   * [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
+   * [Step 5: Verify the banner](#step-5-verify-the-banner)
+*  [Takeaways](#takeaways)
+*  [Complete](#complete)
 
 ## Objective
 

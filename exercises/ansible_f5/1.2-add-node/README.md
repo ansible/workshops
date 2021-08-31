@@ -84,7 +84,7 @@ Save the file and exit out of editor.
 Run the playbook - Go back to the Terminal on VS Code server on the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-navigator run bigip-node.yml
+[student1@ansible ~]$ ansible-navigator run bigip-node.yml --mode stdout
 ```
 
 # Playbook Output
@@ -92,7 +92,7 @@ Run the playbook - Go back to the Terminal on VS Code server on the control host
 The output will look as follows.
 
 ```yaml
-[student1@ansible]$ ansible-navigator run bigip-node.yml
+[student1@ansible]$ ansible-navigator run bigip-node.yml --mode stdout
 
 PLAY [BIG-IP SETUP] ************************************************************
 

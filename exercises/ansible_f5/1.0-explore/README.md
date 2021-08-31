@@ -123,8 +123,6 @@ ansible-navigator:
   ansible:
     inventories:
     - /home/student1/lab_inventory/hosts
-  mode: stdout
-
   execution-environment:
     image: quay.io/acme_corp/f5_ee:latest
     enabled: true

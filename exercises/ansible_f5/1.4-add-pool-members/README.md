@@ -156,7 +156,7 @@ Enter the following:
 - `query_String` will have the name of all members from pool name 'http_pool'. query_string is defined to make it easier to read the
    entire json string
 
-Execute the playbook on the VS Code terminal
+Execute the playbook in the VS Code terminal
 ```
 [student1@ansible ~]$ ansible-navigator run display-pool-members.yml --mode stdout
 ```

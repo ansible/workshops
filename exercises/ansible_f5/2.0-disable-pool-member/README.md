@@ -130,7 +130,7 @@ Remember to use <a href="https://docs.ansible.com/ansible/latest/modules/bigip_p
 Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-navigator run disable-pool-member.yml
+[student1@ansible ~]$ ansible-navigator run disable-pool-member.yml --mode stdout
 ```
 
 # Playbook Output
@@ -139,7 +139,7 @@ The output will look as follows.
 
 <!-- {% raw %} -->
 ```yaml
-[student1@ansible ~]$ ansible-navigator run disable-pool-member.yml
+[student1@ansible ~]$ ansible-navigator run disable-pool-member.yml --mode stdout
 
 PLAY [Disabling a pool member] *******************************************************************************
 

@@ -4,7 +4,20 @@
 
 ## Table of Contents
 
-
+  * [Objective](#objective)
+  * [Guide](#guide)
+    * [Step 1: Opening up Organizations](#step-1-opening-up-organizations)
+    * [Step 2: Open the network organization](#step-2-open-the-network-organization)
+    * [Step 3: Examine Teams](#step-3-examine-teams)
+    * [Step 4: Examine the Netops Team](#step-4-examine-the-netops-team)
+    * [Step 5: Login as network-admin](#step-5-login-as-network-admin)
+    * [Step 6: Understand Team Roles](#step-6-understand-team-roles)
+    * [Step 7: Job Template Permissions](#step-7-job-template-permissions)
+    * [Step 8: Login as network-operator](#step-8-login-as-network-operator)
+    * [Step 9: Launching a Job Template](#step-9-launching-a-job-template)
+    * [Bonus Step](#bonus-step)
+  * [Takeaways](#takeaways)
+  * [Complete](#complete)
 
 ## Objective
 

@@ -60,7 +60,7 @@ change it to->
 Run the playbook - Go back to the Terminal on VS Code server on the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-navigator as3.yml
+[student1@ansible ~]$ ansible-navigator as3.yml --mode stdout
 ```
 
 # Playbook Output
@@ -69,7 +69,7 @@ The output will look as follows.
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-navigator as3.yml
+[student1@ansible ~]$ ansible-navigator as3.yml --mode stdout
 
 PLAY [Linklight AS3] **********************************************************
 

@@ -231,7 +231,7 @@ Run the playbook - save and go back to the Terminal on VS Code server and execut
 
 <!-- {% raw %} -->
 ```
-[student1@ansible ~]$ ansible-navigator run as3.yml
+[student1@ansible ~]$ ansible-navigator run as3.yml --mode stdout
 ```
 <!-- {% endraw %} -->
 
@@ -241,7 +241,7 @@ The output will look as follows.
 
 <!-- {% raw %} -->
 ```yaml
-[student1@ansible ~]$ ansible-navigator run as3.yml
+[student1@ansible ~]$ ansible-navigator run as3.yml --mode stdout
 
 PLAY [Linklight AS3] **********************************************************
 

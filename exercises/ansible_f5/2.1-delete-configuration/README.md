@@ -111,7 +111,7 @@ Run the playbook - Go back to the Terminal on VS Code server and execute the fol
 
 {% raw %}
 ```
-[student1@ansible ~]$ ansible-navigator run bigip-delete-configuration.yml
+[student1@ansible ~]$ ansible-navigator run bigip-delete-configuration.yml --mode stdout
 ```
 {% endraw %}
 
@@ -119,7 +119,7 @@ Run the playbook - Go back to the Terminal on VS Code server and execute the fol
 
 {% raw %}
 ```
-[student1@ansible]$ ansible-navigator run bigip-delete-configuration.yml
+[student1@ansible]$ ansible-navigator run bigip-delete-configuration.yml --mode stdout
 
 PLAY [BIG-IP TEARDOWN] ********************************************************
 

@@ -439,7 +439,7 @@ Run the playbook - Go back to the Terminal on VS Code server and execute the fol
 
 {% raw %}
 ```
-[student1@ansible ~]$ ansible-navigator run bigip-error-handling.yml
+[student1@ansible ~]$ ansible-navigator run bigip-error-handling.yml --mode stdout
 ```
 {% endraw %}
 
@@ -447,7 +447,7 @@ Run the playbook - Go back to the Terminal on VS Code server and execute the fol
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-navigator run bigip-error-handling.yml
+[student1@ansible ~]$ ansible-navigator run bigip-error-handling.yml --mode stdout
 
 PLAY [BIG-IP SETUP] ***********************************************************
 

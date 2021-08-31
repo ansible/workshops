@@ -106,12 +106,12 @@ Save the file and exit out of editor.
 Run the playbook - Open Terminal in the VS Code server of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-navigator run bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 ```
 
 The output will look as follows.
 ``` yaml
-[student1@ansible ~]$ ansible-navigator run bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 
 PLAY [GRAB F5 FACTS] **********************************************************
 

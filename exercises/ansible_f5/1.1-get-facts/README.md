@@ -48,7 +48,6 @@ Enter the following play definition into `bigip-info.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  
 
-Do not close editor yet.
 
 ## Step 3
 
@@ -288,7 +287,7 @@ For this bonus exercise add the `tags: debug` paramteter (at the task level) to 
 Now re-run the playbook with the `--skip-tags-debug` command line option.
 
 ```
-ansible-navigator run bigip-info.yml --skip-tags=debug
+ansible-navigator run bigip-info.yml --skip-tags=debug --mode stdout
 ```
 
 The Ansible Navigator will only run three tasks, skipping the `DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` task.

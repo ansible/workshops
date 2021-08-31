@@ -66,55 +66,13 @@ Ansible comes with a lot of modules included, but as of the time of writing, Ans
 
 Collections follow a simple directory structure to provide Ansible content. If you feel reminded of Ansible roles here, this has a reason: Collections are built upon the idea of roles, but extend the concept to general Ansible content management. The collection for IBM QRadar can be found in the [ansible-security project](https://github.com/ansible-security/ibm_qradar).
 
-As roles, collections also need to be installed first before they can be used. They are installed on the machine executing Ansible,  in the case of the lab this is the control host.
+Automation execution environments can be customized to include the collections you need. An example of this is the `security_ee` custom execution environment we're using in this workshop. The custom `security_ee` execeution environment includes the `ibm.qradar` collection we will use in these exercises. 
 
-Let's install the collection for QRadar modules on your control host. In your VS Code online editor open a new terminal. Execute the command `ansible-galaxy collection --help` to verify that the collections function is working properly:
 
-```bash
-[student<X>@ansible ~]$ ansible-galaxy collection --help
-usage: ansible-galaxy collection [-h] COLLECTION_ACTION ...
-
-positional arguments:
-  COLLECTION_ACTION
-    init             Initialize new collection with the base structure of a
-                     collection.
-    build            Build an Ansible collection artifact that can be publish
-                     to Ansible Galaxy.
-    publish          Publish a collection artifact to Ansible Galaxy.
-    install          Install collection(s) from file(s), URL(s) or Ansible
-                     Galaxy
-
-optional arguments:
-  -h, --help         show this help message and exit
-```
-
-With that in mind, we can now install the collection `ibm.qradar`:
-
-```bash
-[student<X>@ansible ~]$ ansible-galaxy collection install ibm.qradar
-Process install dependency map
-Starting collection install process
-Installing 'ibm.qradar:0.0.1' to '/home/student<X>/.ansible/collections/ansible_collections/ibm/qradar'
-```
-
-Verify that the collection was installed properly:
-
-```bash
-[student<X>@ansible ~]$ ls -1 ~/.ansible/collections/ansible_collections/ibm/qradar
-docs
-LICENSE
-plugins
-README.md
-tests
-```
-
-All required files are there - especially the directory `plugins/modules` which contains the actual modules.
-
-With the collection in place, we can now start to write our playbook.
 
 > **Note**
 >
-> If you want to try this at home: please note that this collection command requires at least Ansible version 2.9!
+> Ansible Automation Platform includes 'ansible-builder` which you can use to create your own custom execution environments.
 
 ## Step 4.4 - First example playbook
 
@@ -196,7 +154,7 @@ So how do the information returned by the module actually look like? How about w
 Both tasks only collect and output data, they do not change anything. Let's quickly run the playbook to look at the returned data:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run find_qradar_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run find_qradar_rule.yml --mode stdout
 
 PLAY [Find QRadar rule state] ***************************************************
 
@@ -276,7 +234,7 @@ The playbook is now complete: it queries QRadar for the list of rules, and deact
 After we completed the playbook, let's execute it:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run change_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run change_qradar_rule.yml --mode stdout
 
 PLAY [Change QRadar rule state] ***************************************************
 

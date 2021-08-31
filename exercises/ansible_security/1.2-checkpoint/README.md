@@ -164,12 +164,12 @@ Let's start with a task to define the source object:
 As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_host`. The module is the part of Ansible which "makes it so" - the module in this case creates or modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can open a terminal in your VS Code online editor and call the help. For example, in the menu bar, click on **Terminal** > **New Terminal** and execute the following command. It will show the help for the module `checkpoint_host`:
 
 ```bash
-[student<X>@ansible ~]$ ansible-doc checkpoint_host
+[student<X>@ansible ~]$ ansible-navigator doc checkpoint_host
 ```
 
 > **Tip**
 >
-> In `ansible-doc` you can use `up`/`down` arrows to scroll through the content and `q` to exit.
+> In `ansible-navigator` you can use `up`/`down` arrows to scroll through the content and `Esc` to exit.
 
 In the same way we defined the source IP host object, we will now add the destination IP host object:
 
@@ -243,7 +243,7 @@ Last, we are defining the actual access rule between those two host objects. The
 Playbooks are executed using the `ansible-navigator` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
 
 ```bash
-[student<X>@ansible ansible-navigator run whitelist_attacker.yml --syntax-check --mode stdout
+[student<X>@ansible ~]$ ansible-navigator run whitelist_attacker.yml --syntax-check --mode stdout
 ```
 
 The syntax check should report no errors. If it does report an error, check the output and try to fix the problem in the playbook code.
@@ -251,7 +251,7 @@ The syntax check should report no errors. If it does report an error, check the 
 Now you should be ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run whitelist_attacker.yml --mode stdout
+[student<X>@ansible ~]$ ansible-navigator run whitelist_attacker.yml --mode stdout
 
 PLAY [Whitelist attacker] *********************************************************
 
@@ -296,7 +296,12 @@ Afterwards, click on the **Install Policy** button at the top of the list of pol
 As a result, in the left corner, a small window pops up informing you of the progress of the deployment of the change.
 
 As you can see, even making a small change in the configuration requires multiple clicks from the user - the more of these steps can be automated, the better.
+<br>
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+**Navigation**
+<br>
+[Next Exercise](../1.2-checkpoint/README.md)
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -19,6 +19,18 @@
     regexp: ".*--userns=keep-id.*"
     state: absent
 
+##
+# @todo @craig-br This needs immprovement. Multiple ssh-agent instances
+# are running for each bash session
+##
+- name: add custom bashrc for student
+  template:
+    src: bashrc.j2
+    dest: /home/{{ username }}/.bashrc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0644
+
 # Login into Red Hat registry
 - name: Login to redhat registry
   containers.podman.podman_login:

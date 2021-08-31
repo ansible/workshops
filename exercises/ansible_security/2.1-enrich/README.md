@@ -13,9 +13,8 @@ In comes Ansible: we use Ansible to elevate the interactions learned in the last
 
 For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
-Also we need the QRadar collection. This was installed already in the previous QRadar exercise. If you missed that part, install them via: `ansible-galaxy collection install ibm.qradar`
 
-Addtionally we will use the role to modify IDS rules from the previous Snort exercise. If you missed that, install them via: `ansible-galaxy install ansible_security.ids_rule`
+We will use the `ibm.qradar` collection and `ids_rule` role to modify IDS rules from the previous Snort exercise.
 
 Next, since this is a security lab, we do need suspicious traffic - an attack. We have a playbook which simulates a simple access every five seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `web_attack_simulation.yml` in the user home directory with the following content:
 
@@ -36,7 +35,7 @@ Next, since this is a security lab, we do need suspicious traffic - an attack. W
 Execute the playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run web_attack_simulation.yml
+[student<X>@ansible ~]$ ansible-navigator run web_attack_simulation.yml --mode stdout
 ```
 
 > **Note**
@@ -58,9 +57,9 @@ Open a new terminal in your VS Code online editor to connect to the Snort server
 After login, grep for the anomaly log entry:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
+[student<X>@ansible ~]$ ssh ec2-user@snort
 Last login: Sun Sep 22 15:38:36 2019 from 35.175.178.231
-[ec2-user@ip-172-16-115-120 ~]$ sudo grep web_attack /var/log/httpd/access_log
+[ec2-user@snort ~]$ sudo grep web_attack /var/log/httpd/access_log
 172.17.78.163 - - [22/Sep/2019:15:56:49 +0000] "GET /web_attack_simulation HTTP/1.1" 200 22 "-" "curl/7.29.0"
 ...
 ```
@@ -93,15 +92,7 @@ This means that the "host" section will appear multiple times in one playbook, a
 
 Let's start with the Snort configuration. We need Snort's log server to send the logs to the QRadar server. This can be configured with an already existing role, [ids_config](https://github.com/ansible-security/ids_config), so all we have to do is to import the role and use it with the right parameters.
 
-In a terminal of your VS Code online editor, use the `ansible-galaxy` tool to download and install the above mentioned role with a single command:
-
-```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_config
-- downloading role 'ids_config', owned by ansible_security
-- downloading role from https://github.com/ansible-security/ids_config/archive/master.tar.gz
-- extracting ansible_security.ids_config to /home/student<X>/.ansible/roles/ansible_security.ids_config
-- ansible_security.ids_config (master) was installed successfully
-```
+The `security_ee` custom execution environment inlcudes the `ids_config` role.
 
 So let's create our playbook where we use the role. In your VS Code online editor, create the file `enrich_log_sources.yml` with the following content:
 
@@ -292,7 +283,7 @@ If you bring all these pieces together, the full playbook `enrich_log_sources.ym
 Run the full playbook to add both log sources to QRadar:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run enrich_log_sources.yml
+[student<X>@ansible ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
 ```
 
 In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
@@ -331,10 +322,10 @@ As you can see the central log server was configured via Check Point's internal 
 Let's also verify that the Snort configuration in the background was successful. From the terminal of your VS Code online editor, log onto your Snort instance via SSH as the user `ec2-user`. Become root and verify the rsyslog forwarding configuration:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@22.33.44.55
+[student<X>@ansible ~]$ ssh ec2-user@snort
 Last login: Wed Sep 11 15:45:00 2019 from 11.22.33.44
-[ec2-user@ip-172-16-11-222 ~]$ sudo -i
-[root@ip-172-16-11-222 ~]# cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
+[ec2-user@snort ~]$ sudo -i
+[root@snort ~] cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
 $ModLoad imfile
 $InputFileName /var/log/snort/merged.log
 $InputFileTag ids-config-snort-alert
@@ -390,13 +381,13 @@ In this play we provide some variables for Snort stating that we want to control
 Now execute the playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run enrich_snort_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run enrich_snort_rule.yml --mode stdout
 ```
 
 Let's quickly verify that the new rule was indeed added. From the terminal of your VS Code online editor, ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
+[student<X>@ansible ~]$ ssh ec2-user@snort
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep web_attack /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_attack_simulation"; classtype:web-application-attack; sid:99000020; priority:1; rev:1;)

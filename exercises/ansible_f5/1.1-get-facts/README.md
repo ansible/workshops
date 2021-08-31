@@ -195,7 +195,7 @@ Finally let's append two more tasks to get more specific info from facts gathere
 Run the playbook - Save the file and use the Terminal window of VS Code on control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-navigator run bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 ```
 
 # Playbook Output
@@ -204,7 +204,7 @@ The output will look as follows.
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-navigator run bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 
 PLAY [GRAB F5 FACTS] **********************************************************
 

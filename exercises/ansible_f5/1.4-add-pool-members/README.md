@@ -92,7 +92,7 @@ Save the file and exit out of editor.
 Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml --mode stdout
 ```
 
 # Playbook Output
@@ -100,7 +100,7 @@ Run the playbook - Go back to the Terminal on VS Code server and execute the fol
 The output will look as follows.
 
 ```yaml
-[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml --mode stdout
 
 PLAY [BIG-IP SETUP] ************************************************************
 
@@ -158,13 +158,13 @@ Enter the following:
 
 Execute the playbook on the VS Code terminal
 ```
-[student1@ansible ~]$ ansible-navigator run display-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run display-pool-members.yml --mode stdout
 ```
 
 Output
 
 ``` yaml
-[student1@ansible 1.4-add-pool-members]$ ansible-navigator run display-pool-members.yml
+[student1@ansible 1.4-add-pool-members]$ ansible-navigator run display-pool-members.yml --mode stdout
 
 PLAY [List pool members] ******************************************************
 

@@ -35,7 +35,7 @@ This exercise will cover:
 
 * From the control node terminal, you can `ssh rtr2` and type `enable`
 
-  ```
+  ```bash
   $ ssh rtr2
   Last login: Wed Sep  1 13:44:55 2021 from 44.192.105.112
   rtr2>enable
@@ -43,7 +43,7 @@ This exercise will cover:
 
 * Use the command `show vlan` to examine the VLAN configuration:
 
-  ```
+  ```bash
   rtr2#show vlan
   VLAN  Name                             Status    Ports
   ----- -------------------------------- --------- -------------------------------
@@ -52,7 +52,7 @@ This exercise will cover:
 
 * Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
 
-  ```
+  ```bash
   rtr2#show run | s vlan
   rtr2#
   ```
@@ -67,7 +67,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * Copy the following Ansible Playbook into your `resource.yml`
 
-   ```
+   ```yaml
   ---
   - name: configure VLANs
     hosts: arista
@@ -97,7 +97,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * First lets examine the first four lines:
 
-  ```
+  ```yaml
   ---
   - name: configure VLANs
     hosts: arista
@@ -112,7 +112,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * For the second part we have one task that uses the `arista.eos.vlans`
 
-  ```
+  ```yaml
     tasks:
 
     - name: use vlans resource module
@@ -146,7 +146,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * Execute the playbook using the `ansible-navigator run`.  Since there is just one task we can use the `--mode stdout`
 
-  ```
+  ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
@@ -168,7 +168,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * Re-running the playbook will demonstrate the concept of [idempotency](https://en.wikipedia.org/wiki/Idempotence)
 
-  ```
+  ```bash
   $ ansible-navigator run resource.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************
@@ -190,7 +190,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * From the control node terminal, you can `ssh rtr2` and type `enable`
 
-  ```
+  ```bash
   $ ssh rtr2
   Last login: Wed Sep  1 13:44:55 2021 from 44.192.105.112
   rtr2>enable
@@ -198,7 +198,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * Use the command `show vlan` to examine the VLAN configuration:
 
-  ```
+  ```bash
   rtr2#show vlan
   VLAN  Name                             Status    Ports
   ----- -------------------------------- --------- -------------------------------
@@ -211,7 +211,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
 
-  ```
+  ```bash
   rtr2#sh run | s vlan
   vlan 20
      name desktops
@@ -234,7 +234,7 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 <!-- {% raw %} -->
 
-  ```
+  ```yaml
   ---
   - name: configure VLANs
     hosts: arista
@@ -266,13 +266,13 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 * Execute the playbook using the `ansible-navigator run`.
 
-  ```
+  ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
 * The output will look similar to the following:
 
-  ```
+  ```bash
   $ ansible-navigator run gathered.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************

@@ -1,8 +1,18 @@
-# Exercise 3: Ansible Network Resource Modules
+# Exercise 4: Ansible Network Resource Modules
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
 
 ## Table of Contents
+
+  * [Objective](#objective)
+  * [Guide](#guide)
+    * [Step 1 - Verify VLAN configuration](#step-1---verify-vlan-configuration)
+    * [Step 2 - Creating the Ansible Playbook](#step-2---creating-the-ansible-playbook)
+    * [Step 3 - Examine the Ansible Playbook](#step-3---examine-the-ansible-playbook)
+    * [Step 4 - Execute the Ansible Playbook](#step-4---execute-the-ansible-playbook)
+    * [Takeaways](#takeaways)
+    * [Solution](#solution)
+    * [Complete](#complete)
 
 ## Objective
 
@@ -307,6 +317,12 @@ As you can see, the resource module configured the Arista EOS network device wit
 * Resource Modules are bi-directional, meaning that they can gather facts for that specific resource, as well as apply configuration.  Even if you are not using resource modules to configure network devices, there is a lot of value for checking resource states.  
 * The bi-directional behavior also allows brown-field networks (existing networks) to quickly turn their running-configuration into structured data.  This allows network engineers to get automation up running more quickly and get quick automation victories.
 
+## Solution
+
+The finished Ansible Playbook is provided here for an answer key:
+
+-  [resource.yml](resource.yml)
+-  [gathered.yml](gathered.yml)
 
 ## Complete
 

@@ -4,10 +4,6 @@
 
 ## Table of Contents
 
-<!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:0 title:1 charForUnorderedList:* -->
-## Table of Contents
-* [Exercise 4: Ansible Network Resource Modules](#exercise-4-ansible-network-resource-modules)
-  * [Table of Contents](#table-of-contents)
   * [Objective](#objective)
   * [Guide](#guide)
     * [Step 1 - Verify VLAN configuration](#step-1---verify-vlan-configuration)
@@ -21,7 +17,6 @@
   * [Takeaways](#takeaways)
   * [Solution](#solution)
   * [Complete](#complete)
-<!-- /TOC -->
 
 ## Objective
 

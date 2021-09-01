@@ -14,7 +14,7 @@ Want the Presentation Deck?  Its right here:
 * [Exercise 1 - Exploring the lab environment](./1-explore/)
 * [Exercise 2 - Execute your first network automation playbook](./2-first-playbook/)
 * [Exercise 3 - Use Ansible facts on network devices](./3-facts/)
-* [Exercise 4 - Use Jinja to template network configurations](./4-jinja/)
+* [Exercise 4 - Ansible Network Resource Modules](./4-resource-module/)
 * [Exercise 5 - Explore the Automation controller environment](./5-explore-controller/)
 * [Exercise 6 - Create an Automation controller job template](./6-controller-job-template/)
 * [Exercise 7 - Create an Automation controller Survey](./7-controller-survey/)

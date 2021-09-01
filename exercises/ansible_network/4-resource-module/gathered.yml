@@ -1,0 +1,16 @@
+---
+- name: configure VLANs
+  hosts: arista
+  gather_facts: false
+
+  tasks:
+
+  - name: use vlans resource module
+    arista.eos.vlans:
+      state: gathered
+    register: vlan_config
+
+  - name: copy vlan_config to file
+    copy:
+      content: "{{ vlan_config | to_nice_yaml }}"
+      dest: "{{ playbook_dir }}/{{ inventory_hostname }}_vlan.yml"

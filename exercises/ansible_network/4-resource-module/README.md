@@ -4,15 +4,24 @@
 
 ## Table of Contents
 
+<!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:0 title:1 charForUnorderedList:* -->
+## Table of Contents
+* [Exercise 4: Ansible Network Resource Modules](#exercise-4-ansible-network-resource-modules)
+  * [Table of Contents](#table-of-contents)
   * [Objective](#objective)
   * [Guide](#guide)
     * [Step 1 - Verify VLAN configuration](#step-1---verify-vlan-configuration)
     * [Step 2 - Creating the Ansible Playbook](#step-2---creating-the-ansible-playbook)
     * [Step 3 - Examine the Ansible Playbook](#step-3---examine-the-ansible-playbook)
     * [Step 4 - Execute the Ansible Playbook](#step-4---execute-the-ansible-playbook)
-    * [Takeaways](#takeaways)
-    * [Solution](#solution)
-    * [Complete](#complete)
+    * [Step 5 - Verify VLAN configuration](#step-5---verify-vlan-configuration)
+    * [Step 6 - Using the gathered parameter](#step-6---using-the-gathered-parameter)
+    * [Step 7 - Execute the gathered playbook](#step-7---execute-the-gathered-playbook)
+    * [Step 8 - Examine the files](#step-8---examine-the-files)
+  * [Takeaways](#takeaways)
+  * [Solution](#solution)
+  * [Complete](#complete)
+<!-- /TOC -->
 
 ## Objective
 
@@ -190,7 +199,7 @@ As you can see in the output above there is no VLAN configuration outside of the
   PLAY RECAP *********************************************************************
   rtr2                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   rtr4                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  ```
 
 * As you can see in the output, everything will return `ok=1` indiciating that no changes were taken place.
 

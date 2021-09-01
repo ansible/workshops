@@ -15,18 +15,18 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 | Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel.pdf) <br> [Google Source](https://docs.google.com/presentation/d/13V_-MfJMslBJWGohllS9NErapClMAKY8iOP4_BI12xI) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
-| **Ansible Network Automation Workshop** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [Deck](./decks/ansible_network.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1pMnLskQjDywwglZRKXS16rPFJip94obyzND_iKzaidQ) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
-| **Ansible F5 Workshop** <br> focused on automation of F5 BIG-IP  | [Deck](./decks/ansible_f5.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
-| **Ansible Security Automation** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [Deck](./decks/ansible_security.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1DaHZvKHORS__YoqlRIy0lf4iag7kVtg6P3GJ6sNfnsI) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
-| **Ansible Windows Automation Workshop** <br> focused on automation of Microsoft Windows  | [Deck](./decks/ansible_windows.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
-| \[WIP\] **Smart Management Automation Workshop** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | Deck | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
+| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel.pdf) <br> [Google Source](https://docs.google.com/presentation/d/13V_-MfJMslBJWGohllS9NErapClMAKY8iOP4_BI12xI) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
+| **[Ansible Network Automation Workshop](./exercises/ansible_network)** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [Deck](./decks/ansible_network.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1pMnLskQjDywwglZRKXS16rPFJip94obyzND_iKzaidQ) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
+| **[Ansible F5 Workshop](./exercises/ansible_f5)** <br> focused on automation of F5 BIG-IP  | [Deck](./decks/ansible_f5.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
+| **[Ansible Security Automation](./exercises/ansible_security)** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [Deck](./decks/ansible_security.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1DaHZvKHORS__YoqlRIy0lf4iag7kVtg6P3GJ6sNfnsI) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
+| **[Ansible Windows Automation Workshop](./exercises/ansible_windows)** <br> focused on automation of Microsoft Windows  | [Deck](./decks/ansible_windows.pdf) <br> [Google Source](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
+| \[WIP\] **[Smart Management Automation Workshop](./exercises/ansible_smart_mgmt)** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | Deck | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
 
 90 minute abbreviated versions:
 
 | Workshop   | Presentation Deck  | Exercises  | Workshop Type Var   |
 |---|---|---|---|
-| **Ansible Red Hat Enterprise Linux Workshop** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel_90.pdf) <br> [Google Source](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
+| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel_90)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [Deck](./decks/ansible_rhel_90.pdf) <br> [Google Source](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
 
 *Google Source will only work for Red Hat employees.  PDFs are provided for public consumption.
 

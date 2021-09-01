@@ -124,7 +124,7 @@ The playbook runs through, takes care of installing the new rule, restarting the
 Quickly verify the new rule on the Snort instance. From a terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2user`:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
+[student<X>@ansible ~]$ ssh ec2-user@snort
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep ddos_simulation /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_simulation"; classtype:successful-dos; sid:99000010; priority:1; rev:1;)
@@ -177,4 +177,8 @@ You are done with the exercise. Turn back to the list of exercises to continue w
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-2---ansible-security-automation-use-cases)
+**Navigation**
+<br><br>
+[Previous Exercise](../2.1-enrich/README.md) | [Next Exercise](../2.3-incident/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

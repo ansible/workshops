@@ -297,4 +297,8 @@ Congratulations! You have completed the first steps of automating Snort with Ans
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+**Navigation**
+<br><br>
+[Previous Exercise](../1.2-checkpoint/README.md) | [Next Exercise](../1.4-qradar/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

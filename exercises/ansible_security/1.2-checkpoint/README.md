@@ -301,7 +301,7 @@ As you can see, even making a small change in the configuration requires multipl
 ----
 
 **Navigation**
-<br>
-[Next Exercise](../1.2-checkpoint/README.md)
+<br><br>
+[Previous Exercise](../1.1-explore/README.md) | [Next Exercise](../1.3-snort/README.md) 
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

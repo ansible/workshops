@@ -58,7 +58,7 @@ Now that you had a very first glance at QRadar, it is time to look how it can be
 
 ## Step 4.3 - QRadar modules and Ansible collections
 
-On the most basic level, Ansible automation performs tasks. Those tasks execute modules, which usually work on the corresponding targets, like an API endpoint of a special device or program.
+On the most basic level, Ansible Automation Platform performs tasks. Those tasks execute modules, which usually work on the corresponding targets, like an API endpoint of a special device or program.
 
 Ansible comes with a lot of modules included, but as of the time of writing, Ansible does not ship QRadar modules out of the box. Instead, those modules are provided as [Ansible collections](https://docs.ansible.com/ansible/devel/dev_guide/collections_tech_preview.html):
 
@@ -264,4 +264,8 @@ You are done with the first steps of automating QRadar with Ansible. Head back t
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+**Navigation**
+<br><br>
+[Previous Exercise](../1.3-snort/README.md)
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

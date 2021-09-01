@@ -141,15 +141,7 @@ Now we have to tell QRadar that there is this new Snort log source. Add the foll
 
 As you can see the collections are used here, and the only task we execute uses a module to manage log sources in QRadar. You might ask what the regex is doing in there: it changes the IP address to match the actual syslog header entry produced by Snort. Otherwise, the logs would not be properly identified by QRadar.
 
-Now we have to do the same for Check Point: we need to configure Check Point to forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager), so all we have to do is to import the role and use it with the right parameters. First, let's import the role:
-
-```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.log_manager
-- downloading role 'log_manager', owned by ansible_security
-- downloading role from https://github.com/ansible-security/log_manager/archive/master.tar.gz
-- extracting ansible_security.log_manager to /home/student<X>/.ansible/roles/ansible_security.log_manager
-- ansible_security.log_manager (master) was installed successfully
-```
+Now we have to do the same for Check Point: we need to configure Check Point to forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager). As with the `ids_config` role, the `security_ee` EE includes the `log_manager` role.
 
 Now edit again the existing playbook `enrich_log_sources.yml` where we already brought together Snort and QRadar, and add another section for Check Point:
 
@@ -311,7 +303,7 @@ Let's verify that QRadar also properly shows the log source. In the QRadar UI, c
 In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` comand:
 
 ```bash
-[student<X>@ansible ~]$ ssh admin@11.33.44.55
+[student<X>@ansible ~]$ ssh admin@checkpoint_mgmt
 [Expert@gw-77f3f6:0]# ls -l /opt/CPrt-R80/log_exporter/targets
 total 0
 drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
@@ -488,7 +480,7 @@ While this playbook is maybe the longest you see in these entire exercises, the 
 Run the playbook to remove the log sources:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run rollback.yml
+[student<X>@ansible ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
 Also, we need to kill the process which simulates the attack. For this we will use an ad-hoc Ansible command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. In a terminal of your VS Code online editor, run the following command:
@@ -507,5 +499,9 @@ If you get an error saying `Share connection to ... closed.`, don't worry: just 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 
 ----
+**Navigation**
+<br><br>
+[Next Exercise](../2.2-threat/README.md)
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-2---ansible-security-automation-use-cases)

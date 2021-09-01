@@ -4,7 +4,7 @@
 <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/col.png) [Español](README.es.md).
 <br>
 
-Ansible is simple yet powerful IT automation for application deployment, configuration management, and orchestration that you can learn quickly. In the first section of this lab you will learn to use command-line Ansible for automation from the basics up to some more advanced concepts. The second section of this lab covers Ansible Automation Platform and provide the user an overview of what Ansible Automation Controller is, how it works and what the benefit of it is.
+If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
 
 After finishing this lab you are ready to start using Ansible for your automation requirements.
 

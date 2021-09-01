@@ -1,6 +1,6 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux (90 mins)
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
+If you’re new to Ansible Automation, but want a quicker version of the original RHEL workshop, this 90-minute workshop provides you with fewer exercises, focused on cloud provisioning, converting bash/shell commands to Ansible, all the way to utilizing RHEL System Roles.
 
 ## Table of Contents
 

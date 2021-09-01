@@ -4,13 +4,7 @@
 <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md).
 <br>
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
-
-Ansible Tower is one of the components that makes up Red Hat Ansible Automation Platform and serves as the web ui, api and control node that executes Ansible playbooks.
-
-This workshop will guide students through configuring Ansible Tower to connect to the Windows instances created for this workshop. Once Ansible Tower is configured, students will then progress through exercises that highlight the simplicity of Ansible as a language for automation while introducing more complex operations.
-
-All automation for this workshop is executed from Ansible Tower and there are minimal client requirements for students to interact with the workshop such that students only need a compatible browser.
+This workshop guides you through configuring Ansible automation controller to connect to Windows Server instances for automating various operational tasks. Once Ansible automation controller is configured, you will start with automating simple tasks and then progress to more advanced use cases such as patching and leveraging third-party solutions to enhance automation (Chocolatey). There are minimal client requirements for you to interact with the workshop because you only need a compatible Web browser. This workshop has reduced requirements for Linux knowledge and other command line tools.
 
 ## Presentations
 

@@ -2,7 +2,7 @@
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
-This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, and Juniper) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
+The Ansible Network Automation workshop is a comprehensive beginners guide to automating popular network data center devices from Arista, Cisco and Juniper via Ansible playbooks. You’ll learn how to pull facts from devices, build templated network configurations, and apply these concepts at scale with Ansible automation controller. You’ll put it all together by exploring the controller’s job templates, surveys, access controls and more.
 
 ## Presentation
 

@@ -10,4 +10,4 @@ exclude:
   - "provisioner/tests"
 kramdown:
   syntax_highlighter_opts:
-    disable : true
+    disable: true

@@ -11,10 +11,10 @@
     controller_host: "https://{{ ansible_host }}"
     validate_certs: false
     variables:
-        note: in production these passwords would be encrypted in vault
-        ansible_user: "{{ username }}"
-        ansible_password: "{{ admin_password }}"
-        ansible_host: "{{ ansible_host }}"
+      note: in production these passwords would be encrypted in vault
+      ansible_user: "{{ username }}"
+      ansible_password: "{{ admin_password }}"
+      ansible_host: "{{ ansible_host }}"
 
 # ORGS
 - name: create network organization

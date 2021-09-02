@@ -8,7 +8,6 @@
       include_role:
         name: ansible.workshops.webservers
 
-
 - name: configure satellite
   hosts: satellite
   become: true
@@ -137,6 +136,7 @@
         inventory: Workshop Inventory
         credentials:
            - Tower Credential
+
   tasks:
     - name: Deploy controller-infra workloads
       include_role:

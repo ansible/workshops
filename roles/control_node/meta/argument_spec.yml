@@ -30,7 +30,7 @@ argument_specs:
       smart_mgmt_ee:
         type: str
         description: smart_mgmt workshop execution environment
-        default: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+        default: "quay.io/s4v0/ee-automated-smart-mgmt-29:1.0.2"
       username:
         description: The workshop username.
         type: str

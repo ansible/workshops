@@ -135,7 +135,7 @@
         playbook: setup_controller.yml
         inventory: Workshop Inventory
         credentials:
-           - Tower Credential
+          - Tower Credential
 
   tasks:
     - name: Deploy controller-infra workloads

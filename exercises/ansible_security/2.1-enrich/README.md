@@ -141,7 +141,7 @@ Now we have to tell QRadar that there is this new Snort log source. Add the foll
 
 As you can see the collections are used here, and the only task we execute uses a module to manage log sources in QRadar. You might ask what the regex is doing in there: it changes the IP address to match the actual syslog header entry produced by Snort. Otherwise, the logs would not be properly identified by QRadar.
 
-Now we have to do the same for Check Point: we need to configure Check Point to forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager). As with the `ids_config` role, the `security_ee` EE includes the `log_manager` role.
+Now we have to do the same for Check Point: we need to configure Check Point to forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager). As with the `ids_config` role, the `security_ee` execution environment includes `log_manager`.
 
 Now edit again the existing playbook `enrich_log_sources.yml` where we already brought together Snort and QRadar, and add another section for Check Point:
 

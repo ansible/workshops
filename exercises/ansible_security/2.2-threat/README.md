@@ -11,7 +11,7 @@ In this exercise, we imagine that we are a security operator in charge of an ent
 
 ## Step 2.2 - Preparations
 
-For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also in the Check Point SmartConsole management interface the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise in section 1. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
+For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also in the Check Point SmartConsole management interface the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise in [section 1](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
 ## Step 2.3 - Explore the controller setup
 
@@ -39,7 +39,13 @@ The stage is set now. Read on to learn what this use case is about.
 
 ## Step 2.4 - See the attack
 
-You are a security operator in charge of an enterprise firewall in a larger cooperaiton. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab. A new window opens, offering you two choices: **Audit Logs** and **Logs**. Click on **Logs** to get to the actual view of the logs:
+You are a security operator in charge of an enterprise firewall in a larger organization. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab. A new window opens, offering you two choices: **Audit Logs** and **Logs**. Click on **Logs** to get to the actual view of the logs:
+
+>**Check Point NGFW Credentials**   
+>
+> Username: `admin`   
+> Password: `admin123`   
+> 
 
 ![Check Point logs view, violation logs](images/smartconsole_violation_logs.png)
 
@@ -57,7 +63,7 @@ Seeing these violations we should start an investigation to assess if they are t
 
 However, as mentioned in many enterprise environments security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. In our scenario, the typical way for a security operator to escalate the issue and start our investigation would be to contact the security analysis team, manually sending them the firewall logs we used to identify the rule violation - and then wait for the reply. A slow, manual process.
 
-But, as shown with the last exercise, we can automate this process with Ansible! There can be pre-approved automation workflows in form of playbooks, provided via a central automation tool like Ansible controller. With such a set of Ansible playbooks, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
+But, as shown with the last exercise, we can automate this process with Ansible Automation Platform! There can be pre-approved automation workflows in form of playbooks, provided via a central automation tool like Ansible controller. With such a set of Ansible playbooks, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
 
 Let's try this out. Log out of your controller instance, and log in as the firewall user: `opsfirewall`. For the simplicity of the demo, the password is the same as for your student user. Once you have logged in and can see the dashboard, navigate to **Templates**. As you see, as the firewall administrator we can only see and execute few job templates:
 
@@ -76,6 +82,12 @@ If you click on **Jobs** on the right side you will also see that you can always
 ## Step 2.6 - Verify new configuration
 
 Let's quickly verify that the QRadar logs are now showing up. Log into the QRadar web UI. Click on **Log Activity** and verify that events are making it to QRadar from Check Point:
+
+>**QRadar Credentials**   
+>
+> Username: `admin`   
+> Password: `Ansible1!`   
+> 
 
 ![QRadar Log Activity showing logs from Check Point](images/qradar_checkpoint_logs.png)
 

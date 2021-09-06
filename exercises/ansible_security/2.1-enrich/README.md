@@ -286,10 +286,10 @@ Before that Ansible playbook was invoked, QRadar wasn’t receiving any data fro
 
 Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there are a lot of logs coming in all the time:
 
-> **Credentials**
+> **IBM Qradar Credentials**
 >
-> Username: admin   
-> Password: Ansible1!
+> Username: `admin`  
+> Password: `Ansible1!`
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png)
 

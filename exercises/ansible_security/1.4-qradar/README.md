@@ -266,6 +266,6 @@ You are done with the first steps of automating QRadar with Ansible. Head back t
 
 **Navigation**
 <br><br>
-[Previous Exercise](../1.3-snort/README.md)
+[Previous Exercise](../1.3-snort/README.md) | [Continue to Section 2](../2.1-enrich/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

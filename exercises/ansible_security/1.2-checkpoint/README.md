@@ -52,7 +52,7 @@ Next, on the left side, click on **SECURITY POLICIES** and note that there is cu
 
 ## Step 2.4 - First example playbook
 
-In Ansible, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
+In Ansible Automation Platform, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
 A playbook is a repeatable set of *plays* and *tasks*.
 

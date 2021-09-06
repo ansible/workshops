@@ -116,13 +116,16 @@ Selecting `2` for `Ansible version and collections` will show us all content col
 
 ![ee info](images/1-vscode-navigator-ee-collections.png)
 
+To return to the previous screen in `ansible-navigator`, press the `Esc` button. In our case, if you press `Esc` 3 times, you will return to the prompt.
+
+
 > **Note**
 > 
 > Please refer to the [execution environment documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) for more information.
 
-## Step 1.6 - Examine the `ansible-navigator` configuration
+## Step 1.6 - Examine the ansible-navigator configuration
 
-ither use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
+Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
 
 ```bash
 $ cat ~/.ansible-navigator.yml
@@ -202,6 +205,6 @@ You might have guessed by now this lab is pretty commandline-centric…​ So we
 ----
 **Navigation**
 <br><br>
-[Next Exercise](../1.3-snort/README.md) 
+[Next Exercise](../1.2-checkpoint/README.md) 
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

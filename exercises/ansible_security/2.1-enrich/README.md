@@ -286,6 +286,11 @@ Before that Ansible playbook was invoked, QRadar wasn’t receiving any data fro
 
 Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there are a lot of logs coming in all the time:
 
+> **Credentials**
+>
+> Username: admin   
+> Password: Ansible1!
+
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png)
 
 Many of those logs are in fact internal QRadar logs. To get a better overview, click on the drop down menu next to **Display** in the middle above the log list. Change the entry to **Raw Events**. Next, in the menu bar above that, click onto the button with the green funnel symbol and the text **Add Filter**. As **Parameter**, pick **Log Source [Indexed]**, as **Operator**, pick **Equals any of**. Then, from the list of log sources, pick **Check Point source** and click onto the small plus button on the right. Do the same for **Snort rsyslog source**, and press the button **Add Filter**:
@@ -296,9 +301,21 @@ Now the list of logs is better to analyze. Verify that events are making it to Q
 
 Also, if you change the **View** from **Real Time** to for example **Last 5 Minutes** you can even click on individual events to see more details of the data the firewall sends you.
 
-Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner, and click on **Admin** down at the bottom. In there, click on **Log Sources**. A new window opens and shows the new log sources.
+Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner
 
-![QRadar Log Sources](images/qradar_log_sources.png)
+![QRadar hamurger](images/2-qradar-hamburger.png)
+
+Then, click on **Admin** down at the bottom. 
+
+![QRadar admin](images/2-qradar-admin.png)
+
+In there, click on **Log Sources**. 
+
+![QRadar log sources](images/2-qradar-log-sources.png)
+
+A new window opens and shows the new log sources.
+
+![QRadar Log Sources](images/2-qradar-log-sources-window.png)
 
 In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` comand:
 

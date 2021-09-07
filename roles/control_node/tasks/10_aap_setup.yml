@@ -7,7 +7,7 @@
 
 - name: copy AAP tar.gz
   copy:
-    src: '{{ playbook_dir }}/aap.tar.gz'
+    src: "{{ aap_archive | default(playbook_dir + '/aap.tar.gz') }}"
     dest: "{{ tempdir.path }}/aap.tar.gz"
 
 - name: Create directory for automation controller

@@ -34,7 +34,7 @@ collections:
     version: 1.9.0
   - name: junipernetworks.junos
     version: 2.1.0
-  - name: redhat_cop.tower_configuration
-    version: 1.0.2
+  - name: redhat_cop.controller_configuration
+    version: 2.0.0
   - name: redhat_cop.tower_utilities
     version: 0.3.2

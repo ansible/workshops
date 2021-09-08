@@ -114,7 +114,7 @@ This template is a JSON representation of the Web Application.  The important pa
 
 **In Summary** the `tenant_base.j2` and `as3_template.j2` create one single JSON payload that represents a Web Application.  We will build a Playbook that will send this JSON payload to a F5 BIG-IP.
 
-**COPY THESE TEMPLATES TO YOUR WORKING DIRECTORY**
+**COPY THESE TEMPLATES TO YOUR WORKING DIRECTORY using the VSCode Terminal window**
 <!-- {% raw %} -->
 ```
 mkdir j2
@@ -124,9 +124,9 @@ cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
 
 ## Step 3:
 
-Using your text editor of choice create a new file called `as3.yml`:
+Using VSCode create a new file called `as3.yml` by clicking the new file icon in the left pane.
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
 ## Step 4:
 
@@ -227,11 +227,11 @@ Explanation of parameters:
 The rest of the parameters are for authentication to the F5 BIG-IP and fairly straight forward (similar to all BIG-IP modules).
 
 ## Step 7
-Run the playbook - save and exit back into the command line of the control host and execute the following:
+Run the playbook - save and go back to the Terminal on VS Code server and execute the following:
 
 <!-- {% raw %} -->
 ```
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator run as3.yml --mode stdout
 ```
 <!-- {% endraw %} -->
 
@@ -241,7 +241,7 @@ The output will look as follows.
 
 <!-- {% raw %} -->
 ```yaml
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator run as3.yml --mode stdout
 
 PLAY [Linklight AS3] **********************************************************
 

@@ -11,7 +11,7 @@
 
 # Objective
 
-Demonstrate the use of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP.  Workflows allow you to configure a sequence of disparate job templates (or workflow templates) that may or may not share inventory, playbooks, or permissions.
+Demonstrate the use of [Ansible Automation Controller workflow](https://docs.ansible.com/automation-controller/latest/html/userguide/workflows.html) for F5 BIG-IP.  Workflows allow you to configure a sequence of disparate job templates (or workflow templates) that may or may not share inventory, playbooks, or permissions.
 
 For this exercise we will use workflow to achieve the same as the **create_vs** job template, while at the same time adding failure handling for each job.
 
@@ -51,7 +51,7 @@ Here is the template example of **Create node**:
 
 1. Click on the **Templates** link on the left menu.  
 
-2. Click on the green ![templates link](images/add.png) button and select the **Workflow Template**.
+2. Click on the ![templates link](images/add.png) button and select the **Workflow Template**.
 
 3. Fill out the form as follows:
 
@@ -85,51 +85,51 @@ Here is the template example of **Create node**:
 
 ## Step 4: Add *Create pool* Job Template
 
-1. Hover over the **`Create node`** node and click the green **+** symbol. The **ADD A NODE** will appear again.
+1. Hover over the **`Create node`** node and click the **+** symbol. The **ADD A NODE** will appear again.
 
-2. Select the **`Create pool`** job template. For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **`Create pool`** job template. Select **On Success** from left navigator menu option called **Run type**.
 
-3. Click the green **SELECT** button.
+3. Click the **SAVE** button.
 
    ![upgrade server](images/create_pool.png)
 
 ## Step 5: Add *Create virtual server* Job Template
 
-1. Hover over the **`Create pool`**  node and click the green **+** symbol.  The **ADD A NODE** will appear again.
+1. Hover over the **`Create pool`**  node and click the **+** symbol.  The **ADD A NODE** will appear again.
 
-2. Select the **`Create virtual server`** job template.  For the **Run** parameter select **On Success** from the drop down menu.  
+2. Select the **`Create virtual server`** job template. Select **On Success** from left navigator menu option called **Run type**.  
 
-3. Click the green **SELECT** button.
+3. Click the **SAVE** button.
    
    ![add pool](images/create_virtualserver.png)
 
 ## Step 6: *Rollback node deploy* Template
 
-1. Hover over the **Create node** node and click the green **+** symbol.  The **ADD A NODE** will appear again.
+1. Hover over the **Create node** node and click the **+** symbol.  The **ADD A NODE** will appear again.
 
-2. Select the **Rollback node deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+2. Select the **Rollback node deploy** job template.  Select **On Failure** from left navigator menu option called **Run type**.  
 
-3. Click the green **SELECT** button.  
+3. Click the **SAVE** button.  
 
    ![configure restore node](images/rollback_node.png)
 
 ## Step 7: *Rollback pool deploy* Template
 
-1. Hover over the **Create pool** node and click the green **+** symbol.  The **ADD A NODE** will appear again.
+1. Hover over the **Create pool** node and click the **+** symbol.  The **ADD A NODE** will appear again.
 
-2. Select the **Rollback pool deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+2. Select the **Rollback pool deploy** job template. Select **On Failure** from left navigator menu option called **Run type**.  
 
-3. Click the green **SELECT** button.  
+3. Click the **SAVE** button.  
 
    ![configure restore node](images/rollback_pool.png)
 
 ## Step 8: *Rollback virtual server* Template
 
-1. Hover over the **Create virtual server** node and click the green **+** symbol.  The **ADD A NODE** will appear again.
+1. Hover over the **Create virtual server** node and click the **+** symbol.  The **ADD A NODE** will appear again.
 
-2. Select the **Rollback virtual server deploy** job template.  For the **Run** parameter select **On Failure** from the drop down menu.  
+2. Select the **Rollback virtual server deploy** job template.  Select **On Failure** from left navigator menu option called **Run type**.  
 
-3. Click the green **SELECT** button.  
+3. Click the **SAVE** button.   
 
    ![configure restore node](images/rollback_virtualserver.png)
 
@@ -139,7 +139,7 @@ Here is the template example of **Create node**:
 
 1. Return to the **Templates** window
 
-2. Click the rocket ship to launch the **Workshop Workflow** workflow template.
+2. Click the Launch button to launch the **Workshop Workflow** workflow template.
 
    ![workflow job launched](images/running-workflow.png)
 
@@ -159,7 +159,7 @@ Next, we will show a failed job template for the workflow, where a rollback is p
 
    The `create_virtualserver_error.yml` playbook will configure the Virtual Server, but tries to attach a pool `http_pool_error` which does not exist. Therefore, the addition of virtual server will fail, and the `Rollback virtual server deploy` node will be triggered.
 
-4. Scroll down and click the green `save` button.
+4. Scroll down and click the `save` button.
 
 5. Return to the **Templates** window, click the rocket ship to launch the **Workshop Workflow** workflow template again.
 

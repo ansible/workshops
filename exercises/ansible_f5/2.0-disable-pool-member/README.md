@@ -25,15 +25,9 @@ Demonstrate the removal of a node from the pool.  Build a Playbook that:
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `disable-pool-member.yml`.
+Using VSCode create a new file called `disable-pool-member.yml` by clicking the new file icon in the left pane.
 
-<!-- {% raw %} -->
-```
-[student1@ansible ~]$ nano disable-pool-member.yml
-```
-<!-- {% endraw %} -->
-
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
 ## Step 2:
 
@@ -125,27 +119,18 @@ HINT:
 Remember to use the <a href="https://docs.ansible.com/ansible/latest/modules/debug_module.html" style="color: RED">debug</a> and refer <a href="../1.4-add-pool-members" style="color: RED">Exercise 1.4</a>
 
 ## Step 8
-
 Next, add a task for the objective listed below:
 
-  - Prompt the user to enter a Host:Port to disable a particular member or 'all' to disable all members
+  - Disable all members belonging to the pool
 
 HINT:
-Use the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html" style="color: RED">prompts</a> module</a>
+Remember to use <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: RED">BIG-IP pool member module</a>
 
 ## Step 9
-Next, add a task for the objective listed below:
-
-  - Read the prompt information and disable all members or a single member based on the input from the user
-
-HINT:
-Remember to use <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html" style="color: RED"> when conditions and loops</a> and <a href="https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html" style="color: RED">BIG-IP pool member module</a>
-
-## Step 10
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook disable-pool-member.yml
+[student1@ansible ~]$ ansible-navigator run disable-pool-member.yml --mode stdout
 ```
 
 # Playbook Output
@@ -154,7 +139,7 @@ The output will look as follows.
 
 <!-- {% raw %} -->
 ```yaml
-[student1@ansible ~]$ ansible-playbook disable-pool-member.yml
+[student1@ansible ~]$ ansible-navigator run disable-pool-member.yml --mode stdout
 
 PLAY [Disabling a pool member] *******************************************************************************
 

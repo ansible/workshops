@@ -42,9 +42,9 @@ Login information for the BIG-IP:
 
 ## Section 4 - Ansible Tower F5  Exercises
 
- - [Exercise 4.0 - Explore the Ansible Tower](4.0-explore-tower)  
- - [Exercise 4.1 - Create an Ansible Tower job template](4.1-tower-job-template)
- - [Exercise 4.2 - Create an Ansible Tower Workflow](4.2-tower-workflow)
+ - [Exercise 4.0 - Explore the Ansible Automation Controller](4.0-explore-tower)  
+ - [Exercise 4.1 - Create an Ansible Automation Controller job template](4.1-tower-job-template)
+ - [Exercise 4.2 - Create an Ansible Automation Controller Workflow](4.2-tower-workflow)
  - [Exercise 4.3 - Create a node maintenance Workflow](4.3-tower-workflow2)
 
 

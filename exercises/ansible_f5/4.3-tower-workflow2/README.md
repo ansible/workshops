@@ -11,7 +11,7 @@
 
 # Objective
 
-Demonstrate another use case of [Ansible Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html) for F5 BIG-IP.
+Demonstrate another use case of [Ansible Automation Controller workflow](https://docs.ansible.com/automation-controller/latest/html/userguide/workflows.html) for F5 BIG-IP.
 
 For this exercise, we will create a workflow for server patch management, first to disable the pool members, patch the nodes, and then enable the nodes. In parallel, we also attach an iRule to virtual server, to respond to the users when servers are under maintenance.
 
@@ -50,7 +50,7 @@ Here is one example templates configured:
 
 1. Click on the **Templates** link on the left menu.
 
-2. Click on the green ![templates link](images/add.png) button. Select the **Workflow Template**.
+2. Click on the ![templates link](images/add.png) button. Select the **Workflow Template**.
 
 3. Fill out the form as follows:
 
@@ -75,8 +75,8 @@ Here is one example templates configured:
 
 ## Step 4: Disable node Template
 
-1. Select the **Disable node** Job Template. Use the drop down box to select run. For the **Run** parameter select **Always** from the drop down menu.
-2. Click the green **SELECT** button.
+1. Select the **Disable node** Job Template. Use the drop down box to select run. Select **Always** from left navigator menu option called **Run type**.
+2. Click the **Save** button.
 
    ![Disable node](images/disable-node.png)
 
@@ -84,39 +84,39 @@ Here is one example templates configured:
 
 1. Click on the **START** button, again. The **ADD A NODE** will appear again.
 
-2. Select the **Attach iRule** job template. For the **Run** parameter select **Always** from the drop down menu.
+2. Select the **Attach iRule** job template. Select **Always** from left navigator menu option called **Run type**.
 
-3. Click the green **SELECT** button.
+3. Click the **Save** button.
 
    ![attach irule](images/attach-irule.png)
 
 ## Step 6: Patch server Template
 
-1. Hover over the **Disable node** node and click the green **+** symbol. The **ADD A NODE** will appear again.
+1. Hover over the **Disable node** node and click the  **+** symbol. The **ADD A NODE** will appear again.
 
-2. Select the **Patch server** job template. For the **Run** parameter select **On Success** from the drop down menu.
+2. Select the **Patch server** job template. Select **On Success** from left navigator menu option called **Run type**.
 
-3. Click the green **SELECT** button.
+3. Click the **Save** button.
 
    ![upgrade server](images/patch-server.png)
 
 ## Step 7: Enable node Template
 
-1. Hover over the **Patch server** node and click the green **+** symbol.  The **ADD A NODE** will appear again.
+1. Hover over the **Patch server** node and click the  **+** symbol.  The **ADD A NODE** will appear again.
 
-2. Select the **Enable node** job template.  For the **Run** parameter select **On Success** from the drop down menu.
+2. Select the **Enable node** job template.  Select **On Success** from left navigator menu option called **Run type**.
 
-3. Click the green **SELECT** button.
+3. Click the **Save** button.
 
    ![enable node](images/enable-node.png)
 
 ## Step 8: Detach iRule Template
 
-1. Hover over the **Enable node** node and click the green **+** symbol. The **ADD A NODE** will appear again.
+1. Hover over the **Enable node** node and click the **+** symbol. The **ADD A NODE** will appear again.
 
-2. Select the **Detach iRule** job template. For the **Run** parameter select **On Success** from the drop down menu.
+2. Select the **Detach iRule** job template. Select **On Success** from left navigator menu option called **Run type**.
 
-3. Click the green **SELECT** button.
+3. Click the **Save** button.
 
    ![attach irule](images/detach-irule.png)
 
@@ -124,20 +124,19 @@ Here is one example templates configured:
 
 Lastly, we create a convergence link, which allows the jobs running in parallel to converge. In another word, when both jobs finish, `Detach iRule` node will trigger.
 
-1. Hover over the `Attach iRule to virtual server` node and click the blue chain symbol.
+1. Hover over the `Attach iRule to virtual server` node and click the chain symbol.
 
 2. Now, click on the existing `Detach iRule`. An ADD LINK window will appear. For the RUN parameter choose Always.
 
    ![converge link](images/converge-link.png)
 
-3. Click the green **SAVE** button to save the new link.
-4. Click the green **SAVE** button again to save the workflow.
+3. Click the **SAVE** button again to save the workflow.
 
 ## Step 10: Run the Workflow
 
 1. Return to the **Templates** window
 
-2. Click the rocket ship to launch the **Node maintenance workflow** template.
+2. Click the launch button to launch the **Node maintenance workflow** template.
 
    ![workflow job launched](images/running-workflow.png)
 

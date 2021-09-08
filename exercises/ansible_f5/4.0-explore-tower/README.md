@@ -1,4 +1,4 @@
-# Exercise 4.0: Explore Red Hat Ansible Tower
+# Exercise 4.0: Explore Red Hat Ansible Automation Controller
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
@@ -11,10 +11,10 @@
 
 # Objective
 
-Ansible Tower is a web-based solution where you can centralize and control your IT infrastructure with a visual dashboard, role-based access control, job scheduling, integrated notifications and graphical inventory management. Ansible Tower includes a REST API and CLI in addition to the web UI.
+Ansible Automation Controller is a web-based solution where you can centralize and control your IT infrastructure with a visual dashboard, role-based access control, job scheduling, integrated notifications and graphical inventory management. Ansible Automation Controller includes a REST API and CLI in addition to the web UI.
 
 In this lab, you will log in and perform some basic configurations that will be used in later labs to perform automation tasks against your F5 BIG-IP device.  This exercise will cover:
-- Determining the Ansible version running on the control node
+- Determining the Ansible Automation Platform version
 - Locating and understanding:
   - **Inventories**
   - **Credentials**
@@ -33,14 +33,14 @@ Open up your web browser and type in the Ansible control node's DNS name
 
 >This login information has been provided by the instructor at the beginning of class.
 
-![Tower Login Window](images/login_window.png)
+![Controller Login Window](images/login_window.png)
 - The username will be `admin`
 - password provided by instructor
 
 After logging in the Job Dashboard will be the default view as shown below.
-![Tower Job Dashboard](images/tower_login.png)
+![Controller Job Dashboard](images/tower_login.png)
 
-1. Click on the **i** information button on the top right of the user interface.
+1. Click on the **?** information button on the top right of the user interface and then click **About**.
 
    ![information button link](images/information_button.png)
 
@@ -48,13 +48,13 @@ After logging in the Job Dashboard will be the default view as shown below.
 
    ![version info window](images/version_info.png)
 
-   Take note that both the Ansible Tower version and the Ansible Engine version are provided here.
+   Take note that the Ansible Automation Controller version is provided here.
 
 ## Step 2: Examine the Inventory
 
-An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Red Hat Ansible Tower can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
+An inventory is required for Red Hat Ansible Controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Red Hat Ansible Controller can make use of an existing configuration management database (cmdb) such as ServiceNow or Infoblox DDI.
 
->More info on Inventories in respect to Ansible Tower can be found in the [documentation here](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+>More info on Inventories in respect to Ansible Controller can be found in the [documentation here](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html)
 
 1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.  
 
@@ -72,9 +72,9 @@ An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An i
 
 ## Step 3: Examine the Workshop Project
 
-A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Ansible Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial etc.
+A project is how Ansible Playbooks are imported into Red Hat Ansible Automation Controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Ansible Tower server, or by placing your playbooks into a source code management (SCM) system supported by Controler, including Git, Subversion, and Mercurial etc.
 
-> For more information on Projects in Tower, please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+> For more information on Projects in Controller, please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
 
 1. Click on the **Projects** button under **RESOURCES** on the left menu bar.  
 
@@ -94,13 +94,13 @@ A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You
 
 Credentials are utilized by the Red Hat Ansible Automation Platform for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
 
-> For more information on Credentials in Tower please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html).
+> For more information on Credentials in Automation Controller please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html).
 
 1. Click on the **Credentials** button under **RESOURCES** on the left menu bar.  
 
    ![credentials link](images/credentials.png)
 
-2. Under **CREDENTIALS** there will be two pre-configured credentials, `Workshop Credential` and `Tower Credential`.  Click on the `Workshop Credential`.  
+2. Under **CREDENTIALS** there will be two pre-configured credential, `Workshop Credential`.  Click on the `Workshop Credential`.  
 
 3. Under the `Workshop Credential` examine the following:
    
@@ -127,14 +127,14 @@ Additionally, parameters such as logging level and process forks allow for addit
 # Takeaways
 
 - Ansible needs an inventory to execute Ansible Playbooks against.  This inventory is identical to what users would use with the command line only Ansible project.  
-- Ansible Automation Platform can sync to existing SCM (source control management) including `GitHub`.  
-- Ansible Automation Platform can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Automation Platform can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
+- Ansible Automation Controller can sync to existing SCM (source control management) including `GitHub`.  
+- Ansible Automation Controller can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Automation Platform can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
 - Job Templates define the parameters that will be used when executing an Ansible playbook
 
 # Complete
 
 You have completed lab exercise 4.0
 
-You have now examined all three components required to get started with Ansible Automation Platform.  A credential, an inventory and a project.  In the next exercise we will create a job template.
+You have now examined all three components required to get started with Ansible Automation Controller.  A credential, an inventory and a project.  In the next exercise we will create a job template.
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

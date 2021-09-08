@@ -1,73 +1,90 @@
 ---
+# host
+- name: Add backup server host
+  awx.awx.host:
+    name: "backup-server"
+    description: "this server is where we backup network configuration"
+    inventory: "Workshop Inventory"
+    state: present
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    variables:
+      note: in production these passwords would be encrypted in vault
+      ansible_user: "{{ username }}"
+      ansible_password: "{{ admin_password }}"
+      ansible_host: "{{ ansible_host }}"
+
 # ORGS
-- name: CREATE NETWORK ORGANIZATION
-  awx.awx.tower_organization:
-    name: "REDHAT NETWORK ORGANIZATION"
-    description: "RedHat Network Organization"
+- name: create network organization
+  awx.awx.organization:
+    name: "Red Hat network organization"
+    description: "Red Hat Network Organization"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: CREATE COMPUTE ORGANIZATION
-  awx.awx.tower_organization:
-    name: "REDHAT COMPUTE ORGANIZATION"
-    description: "RedHat Compute Organization"
+- name: create compute organization
+  awx.awx.organization:
+    name: "Red Hat compute organization"
+    description: "Red Hat Compute Organization"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-# TEAMS
-- name: CREATE NETOPS TEAM
-  awx.awx.tower_team:
+# teams
+- name: create netops team
+  awx.awx.team:
     name: "Netops"
     description: "Network Ops Team"
-    organization: "REDHAT NETWORK ORGANIZATION"
+    organization: "Red Hat network organization"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: CREATE NETADMIN TEAM
-  awx.awx.tower_team:
+- name: create NETADMIN team
+  awx.awx.team:
     name: "Netadmin"
     description: "Network Admin Team"
-    organization: "REDHAT NETWORK ORGANIZATION"
+    organization: "Red Hat network organization"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: CREATE COMPUTE TIER1 TEAM
-  awx.awx.tower_team:
+- name: create compute TIER1 team
+  awx.awx.team:
     name: "Compute T1"
     description: "Computer T1 Team"
-    organization: "REDHAT COMPUTE ORGANIZATION"
+    organization: "Red Hat compute organization"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: CREATE COMPUTE TIER2 TEAM
-  awx.awx.tower_team:
+- name: create compute tier2 team
+  awx.awx.team:
     name: "Compute T2"
     description: "Computer T1 Team"
-    organization: "REDHAT COMPUTE ORGANIZATION"
+    organization: "Red Hat compute organization"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
 # USERS
-- name: ADD USER NWOPERATOR
-  awx.awx.tower_user:
+- name: add user nwoperator
+  awx.awx.user:
     username: network-operator
     password: "{{ admin_password }}"
     email: nwops@redhat.com
@@ -75,13 +92,13 @@
     last_name: Assimov
     state: present
     superuser: false
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: ADD USER NWADMIN
-  awx.awx.tower_user:
+- name: add user NWADMIN
+  awx.awx.user:
     username: network-admin
     password: "{{ admin_password }}"
     email: nwadmin@redhat.com
@@ -89,13 +106,13 @@
     last_name: Niven
     state: present
     superuser: false
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: ADD USER BOB
-  awx.awx.tower_user:
+- name: add user BOB
+  awx.awx.user:
     username: bbelcher
     password: "{{ admin_password }}"
     email: bbelcher@redhat.com
@@ -103,123 +120,123 @@
     last_name: Belcher
     state: present
     superuser: true
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: ADD USER TINA
-  awx.awx.tower_user:
+- name: add user TINA
+  awx.awx.user:
     username: tbelcher
     password: "{{ admin_password }}"
     email: tbelcher@redhat.com
     first_name: Tina
     last_name: Belcher
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: ADD USER LOUISE
-  awx.awx.tower_user:
+- name: add user LOUISE
+  awx.awx.user:
     username: lbelcher
     password: "{{ admin_password }}"
     email: lbelcher@redhat.com
     first_name: Louise
     last_name: Belcher
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: ADD USER LINDA
-  awx.awx.tower_user:
+- name: add user LINDA
+  awx.awx.user:
     username: libelcher
     password: "{{ admin_password }}"
     email: libelcher@redhat.com
     first_name: Linda
     last_name: Belcher
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: ADD USER GENE
-  awx.awx.tower_user:
+- name: add user GENE
+  awx.awx.user:
     username: gbelcher
     password: "{{ admin_password }}"
     email: gbelcher@redhat.com
     first_name: Gene
     last_name: Belcher
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
 # PROJECT
 # this displays warning, documented here: https://github.com/ansible/ansible/issues/60327
-- name: ADD REPO INTO TOWER
-  awx.awx.tower_project:
+- name: add repo into controller
+  awx.awx.project:
     name: "Workshop Project"
-    organization: "REDHAT NETWORK ORGANIZATION"
+    organization: "Red Hat network organization"
     scm_type: git
-    scm_url: "https://github.com/network-automation/toolkit"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    scm_url: "https://github.com/IPvSean/toolkit"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
 # PERMISSIONS
-- name: ENSURE THAT NWADMIN BELONGS TO THE NW ORG
-  awx.awx.tower_role:
+- name: ensure that nwadmin belongs to the nw org
+  awx.awx.role:
     user: network-admin
-    organization: "REDHAT NETWORK ORGANIZATION"
+    organization: "Red Hat network organization"
     role: member
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
     validate_certs: false
 
-- name: ENSURE THAT NWADMIN IS AN ORG ADMIN
-  awx.awx.tower_role:
+- name: ensure that nwadmin is an org admin
+  awx.awx.role:
     user: network-admin
-    organization: "REDHAT NETWORK ORGANIZATION"
+    organization: "Red Hat network organization"
     role: admin
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
     validate_certs: false
 
-- name: ENSURE THAT NWOP BELONGS TO THE NW ORG
-  awx.awx.tower_role:
+- name: ensure that nwop belongs to the nw org
+  awx.awx.role:
     user: network-operator
-    organization: "REDHAT NETWORK ORGANIZATION"
+    organization: "Red Hat network organization"
     role: member
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
     validate_certs: false
 
-- name: ENSURE THAT NWOP CAN ONLY EXECUTE TEMPLATES
-  awx.awx.tower_role:
+- name: ensure that nwop can only execute templates
+  awx.awx.role:
     user: network-operator
     target_team: "Netops"
     role: member
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
     validate_certs: false
 
 # REMOVE HARD CODED SSH_KEY VAR
-- name: REMOVE HARD CODED SSH KEY VAR IN INVENTORY
+- name: remove hard coded SSH key var in inventory
   uri:
     url: "https://{{ansible_host}}/api/v2/inventories/2/"
     user: "admin"
@@ -235,120 +252,120 @@
   register: result_uri
   ignore_errors: true
 
-- name: CREATE SHOW COMMAND JOB IN TOWER
-  awx.awx.tower_job_template:
+- name: create show command job in controller
+  awx.awx.job_template:
     name: "Network-Commands"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
-    playbook: "network_commands.yml"
+    playbook: "playbooks/network_commands.yml"
     credential: "Workshop Credential"
     state: "present"
     limit: "cisco"
     survey_enabled: true
     survey_spec: "{{ lookup('template', 'survey_spec.json') }}"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
 - name: create reload muiltivendor network template
-  awx.awx.tower_job_template:
+  awx.awx.job_template:
     name: "Network-Reload"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
-    playbook: "network_reload.yml"
+    playbook: "playbooks/network_reload.yml"
     credential: "Workshop Credential"
     state: "present"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: create user job in tower
-  awx.awx.tower_job_template:
+- name: create user job in controller
+  awx.awx.job_template:
     name: "Network-User"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
-    playbook: "network_user.yml"
+    playbook: "playbooks/network_user.yml"
     credential: "Workshop Credential"
     state: "present"
     survey_enabled: true
     survey_spec: "{{ lookup('template', 'user.json') }}"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: CREATE SYSTEM JOB IN TOWER
-  awx.awx.tower_job_template:
+- name: create system job in controller
+  awx.awx.job_template:
     name: "Network-System"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
-    playbook: "network_system.yml"
+    playbook: "playbooks/network_system.yml"
     credential: "Workshop Credential"
     state: "present"
     limit: "cisco"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: CREATE TIME JOB IN TOWER
-  awx.awx.tower_job_template:
+- name: create time job in controller
+  awx.awx.job_template:
     name: "Network-Time"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
-    playbook: "network_time.yml"
+    playbook: "playbooks/network_time.yml"
     credential: "Workshop Credential"
     state: "present"
     limit: "cisco"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
-- name: Create network report job
-  awx.awx.tower_job_template:
+- name: create network report job
+  awx.awx.job_template:
     name: "Network-Report"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
-    playbook: "network_report.yml"
+    playbook: "playbooks/network_report.yml"
     credential: "Workshop Credential"
     state: "present"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
 
 # JOB TEMPLATE PERMISSIONS
-- name: ENSURE THAT NWOP CAN EXECUTE BACKUP AND SHOW COMMANDS
-  awx.awx.tower_role:
+- name: ensure that nwop can execute backuip and show commands
+  awx.awx.role:
     user: network-operator
     role: execute
     job_template: "{{ item }}"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
     validate_certs: false
   loop:
     - "Network-Commands"
 
-- name: ENSURE THAT NW ORG CAN USE THE WS INV
-  awx.awx.tower_role:
+- name: ensure that nw org can use this workshop inventory
+  awx.awx.role:
     role: use
     inventory: "Workshop Inventory"
     team: "{{ item }}"
     state: present
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
     validate_certs: false
   tags:
     - inv

@@ -291,4 +291,6 @@ You now understand:
 
 
 ---
+[Next Exercise](../2-first-playbook/README.md)
+
 [Click Here to return to the Ansible Network Automation Workshop](../README.md)

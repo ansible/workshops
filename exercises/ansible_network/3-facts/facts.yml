@@ -5,7 +5,7 @@
 
   tasks:
     - name: gather router facts
-      ios_facts:
+      cisco.ios.facts:
 
     - name: display version
       debug:

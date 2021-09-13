@@ -35,9 +35,7 @@ The port **443** is incorrect.  The two RHEL web servers are only running on por
 
 ## Step 2:
 
-Using your text editor of choice open the existing jinja template `as3_template.j2` in the ~/j2 directory:
-
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+Open the existing jinja template `as3_template.j2` in the ~/j2 directory
 
 ## Step 3:
 
@@ -59,10 +57,10 @@ change it to->
 {% endraw %}
 
 ## Step 4
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Go back to the Terminal on VS Code server on the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator as3.yml --mode stdout
 ```
 
 # Playbook Output
@@ -71,7 +69,7 @@ The output will look as follows.
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator as3.yml --mode stdout
 
 PLAY [Linklight AS3] **********************************************************
 

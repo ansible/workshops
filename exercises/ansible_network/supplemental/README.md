@@ -1,21 +1,16 @@
 ## Additional Ansible Network Automation Exercises
 
-### Section 01 - Using Ansible to gather data from network devices
-- [Exercise 1.0 - Exploring the lab environment](1-0-explore)
-- [Exercise 1.1 - Writing your first playbook](1-1-first-playbook)
-- [Exercise 1.2 - Module documentation, Registering output & tags](1-2-playbook-basics)
+These are additional exercises available for students that have already completed the workshop or are seeking additional knowledge.
 
-### Section 02 - Using Ansible to configure, backup and restore
-- [Exercise 2.0 - Updating the router configurations using Ansible](2-0-config)
-- [Exercise 2.1 - Backing up the router configuration](2-1-backup/)
-- [Exercise 2.2 - Using Ansible to restore the backed up configuration](2-2-restore)
+- [Network Resource Modules - Continued ](resource) - this exercise builds on [exercise 4 - Ansible Network Resource Modules](../4-resource-module)
+- [Network Configuration with Jinja Templates](jinja) - this exercise will teach network engineers how to template network configurations using Jinja2
 
-### Section 03 - Using Ansible to parse information for reporting
-- [Exercise 3.0 - An introduction to templating with Jinja2](3-0-templates)
-- [Exercise 3.1 - Building dynamic documentation using the command parser](3-1-parser/)
 
-## Network Diagram
-![Red Hat Ansible Automation](../../../images/network_diagram.png)
+## Thank you
 
----
-![Red Hat Ansible Automation](../../../images/rh-ansible-automation-platform.png)
+Thank you for attending the Ansible Network Automation Workshop.  
+
+- For the Github source please refer to [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
+- For more information on Ansible Network Automation please refer to our website [https://www.ansible.com/use-cases/network-automation](https://www.ansible.com/use-cases/network-automation)
+
+![workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

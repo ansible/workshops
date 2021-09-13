@@ -1,4 +1,4 @@
-# Exercise 4.1: Creating a Tower Job Template
+# Exercise 4.1: Creating an Automation Controller Job Template
 
 **Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 
@@ -11,9 +11,9 @@
 
 # Objective
 
-Demonstrate a BIG-IP Virtual Server configuration job template for Red Hat Ansible Tower.  This job template will create a virtual server, a pool, and add two web servers to the pool .
+Demonstrate a BIG-IP Virtual Server configuration job template for Red Hat Ansible Automation Controller.  This job template will create a virtual server, a pool, and add two web servers to the pool .
 
-To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template**.  A **Job Template** requires:
+To run an Ansible Playbook in Ansible Automation Conrtoller, we need to create a **Job Template**.  A **Job Template** requires:
 
 - A **Credential** to login to devices.
 - An **Inventory** to run the job against
@@ -25,7 +25,7 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
 
 1. In the Ansible web UI, click on the `Projects` link under the `RESOURCES` section using the left navigation bar.
 
-2. Click on the green ![templates link](images/add.png) button to create a new project
+2. Click on the ![templates link](images/add.png) button to create a new project
 
 3. Fill out the project parameters as follows, and click `Save`
 
@@ -33,6 +33,7 @@ To run an Ansible Playbook in Ansible Tower, we need to create a **Job Template*
    |---|---|
    | NAME  | Workshop Project  |
    | ORGANIZATION | Default
+   |  Default Execution Environment | f5 workshop execution environment |
    |  SCM TYPE |  Git |
    |  SCM URL |  https://github.com/f5devcentral/ansible-tower-workshop-examples.git |
    |  Update Revision on Launch |  ✓ |
@@ -53,7 +54,10 @@ For reference, here is one of the playbooks that was imported and  will be execu
   hosts: lb
   connection: local
   gather_facts: false
-
+  
+  collections:
+    - f5networks.f5_modules
+    
   tasks:
     - name: Setting up provider values
       set_fact:
@@ -111,7 +115,7 @@ Before we can create a job we must create the credentials to authenticate to BIG
 
    ![credentials link](images/credentials.png)
 
-2. Click on the green ![templates link](images/add.png) button to create a new credentials template.
+2. Click on the ![templates link](images/add.png) button to create a new credentials template.
 
 3. Fill out the fields with the following credentials template parameters as follows:
 
@@ -133,7 +137,7 @@ Before we can create a job we must create the credentials to authenticate to BIG
 
    ![templates link](images/templates.png)
 
-2. Click on the green ![templates link](images/add.png) button to create a new job template
+2. Click on the ![templates link](images/add.png) button to create a new job template
 
    >Make sure to select **`Job Template`** and not **`Workflow Template`**
 
@@ -163,33 +167,29 @@ Before we can create a job we must create the credentials to authenticate to BIG
 
 1. Navigate back to the `Templates` window, where all Job Templates are listed.
 
-2. Launch the `create_vs` Job Template by clicking the Rocket button.
+2. Launch the `create_vs` Job Template by clicking the Launch Button.
 
    ![rocket button](images/rocket.png)
 
-   When the rocket button is clicked this will launch the job. The job will open in a new window called the **Job Details View**. More info about [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) can be found in the documentation.
+   When the launch button is clicked this will launch the job. The job will open in a new window called the **Job Details View**. More info about [Controller Jobs](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) can be found in the documentation.
 
 ## Step 5: Examine the Job Details View
 
-On the left side there is a **DETAILS pane**, on the right side there is the **Standard Out pane**.
+What you will see is the **Standard Out pane**.
 
 ![job details view](images/job_create_vs.png)
 
-1. Examine the **Details pane**    
-
-   The **Details pane** will provide information such as the timestamp for when the job started and finished, the job type (Check or Run), the user that launched the job, which Project and Ansible Playbook were used and more.
-
-   If the Job has not finished yet, the **Details Pane** will have a cancel button ![cancel button](images/cancel.png) that can be used to stop the Job.
-
-2. Examine the **Standard Out pane**
+1. Examine the **Standard Out pane**
 
    The **Standard Out pane** will display the output from the Ansible Playbook.  Every task output will match exactly what would be seen on the command line.
+   
+2. Examine the **Details tab**    
 
-3. Click on the **Expand Output** button ![expand image](images/expand.png)
+   The **Details tab** will provide information such as the timestamp for when the job started and finished, the job type (Check or Run), the user that launched the job, which Project and Ansible Playbook were used and more.
 
-   This will expand the **Standard Out pane** to take the entirety of the window.
+   If the Job has not finished yet, the **Details tab** will have a cancel button ![cancel button](images/cancel.png) that can be used to stop the Job.
 
-4. Click on a task in the **Standard Out pane** to open up structured output from that particular task.
+3. Click on a task in the **Standard Out pane** to open up structured output from that particular task.
 
    > Click on any line where there is a **changed** or **ok**
 
@@ -209,7 +209,7 @@ Any **Job Template** that has been run or is currently running will show up unde
 
    ![jobs link](images/jobslink.png)
 
-   The **`create_vs`** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Tower will save the history of every job launched.
+   The **`create_vs`** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Job Details View**.  Ansible Automation Controller will save the history of every job launched.
 
 ## Step 7: Verify the BIG-IP Virtual Server was created
 
@@ -238,7 +238,7 @@ Each time you refresh, BIG-IP will load balance the traffic between **node1** an
 
 You have successfully demonstrated
  - Creating a Job Template to deploy a Virtual Server
- - Launching a Job Template from the Ansible Tower UI
+ - Launching a Job Template from the Ansible Automation Controller UI
  - Verifying the Virtual Server is correctly created
  - Veryfying the web server is up and running
 

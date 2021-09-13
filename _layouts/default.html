@@ -11,8 +11,12 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="{{ '/assets/css/prism-vsc-dark-plus.css' | relative_url }}">
+
   </head>
   <body>
+    <script src="{{ '/assets/prism.js' | relative_url }}"></script>
+
     <div class="wrapper">
       <header>
         <div class="header-container">
@@ -26,6 +30,21 @@
           </a>
           <a class="header-link" href="{{ '/' | relative_url }}">
             Workshops Home
+          </a>
+          <a class="header-link" href="{{ '/exercises/ansible_rhel/' | relative_url }}">
+            RHEL
+          </a>
+          <a class="header-link" href="{{ '/exercises/ansible_network/' | relative_url }}">
+            Network
+          </a>
+          <a class="header-link" href="{{ '/exercises/ansible_security/' | relative_url }}">
+            Security
+          </a>
+          <a class="header-link" href="{{ '/exercises/ansible_windows/' | relative_url }}">
+            Windows
+          </a>
+          <a class="header-link" href="https://github.com/ansible/workshops/issues/new/choose">
+            Open an Issue
           </a>
         </div>
       </header>

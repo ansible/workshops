@@ -16,21 +16,18 @@ Demonstrate use of the [BIG-IP Info module](https://docs.ansible.com/ansible/lat
 
 # Guide
 
+Open the VSCode terminal as explained in the explore/lab setup exercise.
 Make sure you are in the home directory
 
-```
-[student1@ansible f5-workshop]$ cd ~
-```
+![picture of file browser](images/vscode-homefolder.png)
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-info.yml`.
+Using VSCode create a new file called `bigip-info.yml` by clicking the new file icone in the left pane.
 
-```
-[student1@ansible ~]$ nano bigip-info.yml
-```
+![picture of create file icon](images/vscode-openfile_icon.png)
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+
 
 ## Step 2:
 
@@ -51,7 +48,6 @@ Enter the following play definition into `bigip-info.yml`:
 - `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
 - `gather_facts: no` disables facts gathering.  
 
-Do not close editor yet.
 
 ## Step 3
 
@@ -107,15 +103,15 @@ Save the file and exit out of editor.
 
 ## Step 5
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Open Terminal in the VS Code server of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 ```
 
 The output will look as follows.
 ``` yaml
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -195,10 +191,10 @@ Finally let's append two more tasks to get more specific info from facts gathere
 
 ## Step 7
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Save the file and use the Terminal window of VS Code on control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 ```
 
 # Playbook Output
@@ -207,7 +203,7 @@ The output will look as follows.
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-info.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -291,9 +287,9 @@ For this bonus exercise add the `tags: debug` paramteter (at the task level) to 
 Now re-run the playbook with the `--skip-tags-debug` command line option.
 
 ```
-ansible-playbook bigip-info.yml --skip-tags=debug
+ansible-navigator run bigip-info.yml --skip-tags=debug --mode stdout
 ```
 
-The Ansible Playbook will only run three tasks, skipping the `DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` task.
+The Ansible Navigator will only run three tasks, skipping the `DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` task.
 
 You have finished this exercise.  [Click here to return to the lab guide](../README.md)

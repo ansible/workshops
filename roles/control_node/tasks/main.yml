@@ -1,6 +1,8 @@
 ---
 - name: aap setup for control node
   include_tasks: 10_aap_setup.yml
+  tags:
+    - aap_setup
 
 - name: Install packages
   include_tasks: 15_package_dependencies.yml

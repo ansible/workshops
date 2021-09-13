@@ -1,0 +1,24 @@
+---
+- name: configure VLANs
+  hosts: arista
+  gather_facts: false
+
+  tasks:
+
+  - name: use vlans resource module
+    arista.eos.vlans:
+      state: rendered
+      config:
+        - name: desktops
+          vlan_id: 20
+        - name: servers
+          vlan_id: 30
+        - name: printers
+          vlan_id: 40
+        - name: DMZ
+          vlan_id: 50
+    register: rendered_config
+
+  - name: use vlans resource module
+    debug:
+      msg: "{{ rendered_config }}"

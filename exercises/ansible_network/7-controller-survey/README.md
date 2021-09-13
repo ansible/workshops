@@ -6,16 +6,17 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-  * [Step 1: Create a Job Template](#step-1-create-a-job-template)
-  * [Step 2: Examine the playbook](#step-2-examine-the-playbook)
-  * [Step 3: Create a survey](#step-3-create-a-survey)
-  * [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
-  * [Step 5: Verify the banner](#step-5-verify-the-banner)
-* [Takeaways](#takeaways)
+   * [Step 1: Create a Job Template](#step-1-create-a-job-template)
+   * [Step 2: Examine the playbook](#step-2-examine-the-playbook)
+   * [Step 3: Create a survey](#step-3-create-a-survey)
+   * [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
+   * [Step 5: Verify the banner](#step-5-verify-the-banner)
+*  [Takeaways](#takeaways)
+*  [Complete](#complete)
 
 ## Objective
 
-Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
+Demonstrate the use of Automation controller [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
 
 ## Guide
 
@@ -23,9 +24,9 @@ Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/a
 
 1. Open the web UI and click on the `Templates` link on the left menu.
 
-   ![templates link](images/templates.png)
+   ![templates link](images/controller_templates.png)
 
-2. Click on the green `+` button to create a new job template (make sure to select `Job Template` and not `Workflow Template`)
+2. Click on the blue `Add` button and select **Add job template** to create a new job template (make sure to select `Job Template` and not `Workflow Template`)
 
    | Parameter | Value |
    |---|---|
@@ -33,10 +34,11 @@ Demonstrate the use of Ansible Tower [survey feature](https://docs.ansible.com/a
    |  Job Type |  Run |
    |  Inventory |  Workshop Inventory |
    |  Project |  Workshop Project |
-   |  Playbook |  `network_banner.yml` |
+   | Execution Environment | Default execution environment |
+   |  Playbook |  `playbooks/network_banner.yml` |
    |  Credential |  Workshop Credential |
 
-3. Scroll down and click the green `SAVE` button.
+3. Scroll down and click the blue `Save` button.
 
 ### Step 2: Examine the playbook
 
@@ -55,8 +57,7 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
       vars:
         - network_banner:  "{{ net_banner | default(None) }}"
         - banner_type: "{{ net_type | default('login') }}"
-      include_role:
-        name: banner
+      name: "../roles/banner"
 ```
 
 <!-- {% endraw %} -->
@@ -102,15 +103,19 @@ Also note that we are passing in 2 variables to the task file.
 
 In this step you will create a *"survey"* of user input form to collect input from the user and populate the values for the variables `net_banner` and `banner_type`
 
-1. Click on the blue add survey button
+1. Click on the **Survey** tab within the Network-Banner Job Template
 
-   ![add survey button](images/addsurvey.png)
+   ![add survey button](images/controller_job_survey.png)
 
-2. Fill out the fields
+2. Click the blue **Add** button
+
+   ![add survey button](images/controller_add_survey.png)
+
+3. Fill out the fields
 
    | Parameter | Value |
    |---|---|
-   | Prompt  | Please enter the banner text |
+   | Question  | Please enter the banner text |
    |  Description |  Please type into the text field the desired banner |
    |  Answer Variable Name |  `net_banner` |
    |  Answer type |  Textarea |
@@ -118,17 +123,17 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    For example:
 
-   ![workshop survey](images/survey.png)
+   ![workshop survey](images/controller_survey_q_one.png)
 
-3. Click the green `+Add` button
+4. Click the green `Add` button to create another question
 
-   ![add button](images/add.png)
+   ![add survey button](images/controller_add_survey.png)
 
-4. Next we will create a survey prompt to gather the `banner_type`. This will either be "motd" or "login" and will default to "login" per the playbook above.
+5. Next we will create a survey prompt to gather the `banner_type`. This will either be "motd" or "login" and will default to "login" per the playbook above.
 
    | Parameter               | Value                          |
    |-------------------------|--------------------------------|
-   | Prompt                  | Please enter the  banner type  |
+   | Question                | Please enter the  banner type  |
    | Description             | Please choose an option        |
    | Answer Variable Name    | `net_type`                    |
    | Answer type             | Multiple Choice(single select) |
@@ -138,19 +143,21 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    For example:
 
-   ![workshop survey](images/survey_2.png)
+   ![workshop survey](images/controller_survey_q_two.png)
 
-5. Click the green `+Add` button
+5. Click Save
 
-   ![add button](images/add.png)
+6. Click the toggle switch to activate the survey and turn it On
 
-6. Click the green **SAVE** button to save the survey.  This will exit back to the main job template window.  Scroll down and click the second green **SAVE** button to exit to the job templates window.
+   ![workshop survey toggle](images/controller_survey_toggle.png)
+
+7. Click **Back to Templates**
 
 ### Step 4: Launch the Job Template
 
 1. Click on the rocket ship to launch the job template.
 
-   ![rocket launch](images/rocket.png)
+   ![rocket launch](images/controller_launch_template.png)
 
    The job will immediately prompt the user to set the banner and the type.
 
@@ -158,13 +165,13 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
 3. Choose between `login` and `motd`.
 
-4. Click next to see how the survey rendered the input as extra vars for the Ansible Playbook.  For this example screen shot the word ANSIBLE rendered into ASCII art.
+4. Click next to see how the survey rendered the input as extra vars for the Ansible Playbook.  For this example the banner text is set as "This router was configured by Ansible".
 
-   ![survey screen](images/surveyscreen.png)
+   ![survey screen](images/controller_survey.png)
 
-5. Click the green **LAUNCH** button to kick off the job.
+5. Click the blue **Launch** button to kick off the job.
 
-   ![launch button](images/launch.png)
+   ![launch button](images/controller_launch.png)
 
 Let the job run to completion.  Let the instructor know if anything fails.
 
@@ -173,12 +180,17 @@ Let the job run to completion.  Let the instructor know if anything fails.
 1. Login to one of the routers and see the banner setup
 
    ```sh
-   [student1@ansible]$ ssh rtr4
+   [student1@ansible]$ ssh rtr1
    ```
 
-   The banner will appear on login.  Here is an example from the **ANSIBLE** shown above.
+   The banner will appear on login.  Here is an example from above:
 
-   ![terminal output screen](images/terminal_output.png)
+   ```
+   [student1@ansible-1 ~]$ ssh rtr1
+  Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
+
+  This router was configured by Ansible
+  ```
 
 2. Verify on additional routers
 
@@ -195,4 +207,6 @@ You have successfully demonstrated
 You have completed lab exercise 7
 
 ---
+[Previous Exercise](../6--controller-job-template/README.md) | [Next Exercise](../8-controller-rbac/README.md)
+
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

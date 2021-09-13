@@ -1,4 +1,4 @@
-# Exercise 5: Explore Red Hat Ansible Tower
+# Exercise 5: Explore Automation controller
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
@@ -6,117 +6,121 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-  * [Step 1: Login to Ansible Tower](#step-1-login-to-ansible-tower)
-  * [Step 2: Examine the Ansible Tower Inventory](#step-2-examine-the-ansible-tower-inventory)
-  * [Step 3: Examine the Ansible Tower Workshop Project](#step-3-examine-the-ansible-tower-workshop-project)
-  * [Step 4: Examine the Ansible Tower Workshop Credential](#step-4-examine-the-ansible-tower-workshop-credential)
+   * [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
+   * [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
+   * [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
+   * [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
 * [Takeaways](#takeaways)
+* [Complete](#complete)
 
 ## Objective
 
 Explore and understand the lab environment.  This exercise will cover
 
-* Determining the Ansible version running on the control node
+* Determining the Ansible Automation Platform version running on the control node
 * Locating and understanding:
-  * Ansible Tower **Inventory**
-  * Ansible Tower **Credentials**
-  * Ansible Tower **Projects**
+  * Automation controller **Inventory**
+  * Automation controller **Credentials**
+  * Automation controller **Projects**
 
 ## Guide
 
-### Step 1: Login to Ansible Tower
+### Step 1: Login to Automation controller
 
-Open up your web browser and type in the Ansible control node's DNS name
+1.  Return to the workshop launch page provided by your instructor.
 
-> For example if the student was assigned the student1 workbench and the workshop name was `durham-workshop` the link would be:
+2.  Click on the link to the Automation controller webUI.  You should see a login screen similar to the follow:
 
-[https://student1.durham-workshop.rhdemo.io](https://student1.durham-workshop.rhdemo.io)
+   Screenshot of Automation controller login window.
+![automation controller login window](images/automation_controller_login.png)
 
-> This login information has been provided by the instructor at the beginning of class.
+   * The username will be `admin`
+   * password provided on launch page
 
-![Tower Login Window](images/login_window.png)
 
-* The username will be `admin`
-* password provided by instructor
+3. After logging in the Job Dashboard will be the default view as shown below.
 
-After logging in the Job Dashboard will be the default view as shown below.
-![Tower Job Dashboard](images/tower_login.png)
+   ![automation controller dashboard](images/automation_controller_dashboard.png)
 
-1. Click on the **i** information button on the top right of the user interface.
+4. Click on the **?** button on the top right of the user interface and click **About**
 
-    ![information button link](images/information_button.png)
+   ![about button link](images/automation_controller_about.png)
 
-2. A window will pop up similar to the following:
+5. A window will pop up similar to the following:
 
-    ![version info window](images/version_info.png)
+   ![version info window](images/automation_controller_about_info.png)
 
-   Take note that both the Ansible Tower version and the Ansible Engine version are provided here.
+   Take note that both the Automation controller version and the Ansible Engine version are provided here.
 
-### Step 2: Examine the Ansible Tower Inventory
+### Step 2: Examine the Automation controller Inventory
 
-An inventory is required for Red Hat Ansible Tower to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Red Hat Ansible Tower can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
+An inventory is required for Automation controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Automation controller can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
 
-> More info on Inventories in respect to Ansible Tower can be found in the [documentation here](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+> More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html)
 
 1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.
 
-    ![Inventories Button](images/inventories.png)
+    ![Inventories Button](images/automation_controller_inventories.png)
 
 2. Under Inventories there will be two inventories, the `Demo Inventory` and the `Workshop Inventory`.  Click on the `Workshop Inventory`.
 
-    ![Workshop Inventory Link](images/workshop_inventory.png)
+    ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
 
-3. Under the `Workshop Inventory` click the **HOSTS** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  Click on one of the devices.
+3. Under the `Workshop Inventory` click the **Hosts** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  
+
+   ![automation controller workshop inventory hosts](images/workshop_inventory_hosts.png)
+
+4. Click on one of the devices.
+
+   ![workshop inventory hosts rtr1](images/workshop_inventory_hosts_rtr1.png)
 
      Take note of the **VARIABLES** field.  The `host_vars` are set here including the `ansible_host` variable.
 
-4. Click on the `Workshop Inventory` link at the top of the page to return the top level menu.
-
-    ![Workshop Inventory Top Link](images/workshop_inventory_top.png)
-
 5. Click on **GROUPS**.  There will be multiple groups here including `routers` and `cisco`.  Click on one of the groups.
+
+   ![workshop inventory groups](images/workshop_inventory_groups.png)
+
+6. Click on one of the groups.
+
+   ![workshop inventory group vars](images/workshop_inventory_group_vars.png)
 
      Take note of the **VARIABLES** field. The `group_vars` are set here including the `ansible_connection` and `ansible_network_os` variable.
 
-Here is a walkthrough:
+### Step 3: Examine the Automation controller Workshop Project
 
-![animation walkthrough ansible tower](images/inventory.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/4JNbFNSUS9g)
+A project is how Ansible Playbooks are imported into Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Automation controller, including Git and Subversion.
 
-### Step 3: Examine the Ansible Tower Workshop Project
-
-A project is how Ansible Playbooks are imported into Red Hat Ansible Tower.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Ansible Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
-
-> For more information on Projects in Tower, please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+> For more information on Projects in Automation controller, please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
 
 1. Click on the **Projects** button under **RESOURCES** on the left menu bar.
 
-    ![projects link](images/projects.png)
+   ![Workshop Project Link](images/automation_controller_projects.png)
 
-2. Under **PROJECTS** there will be two pre-configured projects, `Demo Project` and the `Workshop Project`.  Click on the `Workshop Project`.
+2. Under **PROJECTS** there will be two pre-configured projects, `Ansible official demo project` and the `Workshop Project`.  
 
     ![Workshop Project Link](images/workshop_project.png)
 
     Note that `GIT` is listed for this project.  This means this project is using Git for SCM.
 
-3. Under the `Workshop Project` click the **SCM TYPE** drop down menu
+3. Click on the `Workshop Project`.
 
-    Note that Git, Mercurial and Subversion are choices.  Return the choice to Git so that the Project continues to function correctly.
+  ![Workshop Project Detail](images/workshop_project_detail.png)
 
-![animation walkthrough ansible tower projects](images/projects.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/xRA97XTxMjA)
+    Note that Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit
+)
 
-### Step 4: Examine the Ansible Tower Workshop Credential
 
-Credentials are utilized by Tower for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
+### Step 4: Examine the Automation controller Workshop Credential
 
-> For more information on Credentials in Tower please [refer to the documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html).
+Credentials are utilized by Automation controller for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
 
-1. Click on the **Credentials** button under **RESOURCES** on the left menu bar.
+> For more information on Credentials in Automation controller please [refer to the documentation](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
 
-    ![credentials link](images/credentials.png)
+1. Click on the **Credentials** button under **Resources** on the left menu bar.
 
-2. Under **CREDENTIALS** there will be three pre-configured credentials, `Demo Credential`, `Tower Credential` and the `Workshop Credentials`.  Click on the `Workshop Credential`.
+    ![credentials link](images/automation_controller_credentials.png)
+
+2. Under **Credentials** there will be multiple pre-configured credentials, including `Workshop Credential`, `Controller Credential` and the `registry.redhat.io credential`.  Click on the `Workshop Credential`.
 
     ![Workshop Credential Link](images/workshop_credential.png)
 
@@ -127,21 +131,20 @@ Credentials are utilized by Tower for authentication when launching **Jobs** aga
 * The **PASSWORD** is blank.
 * The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
 
-![animation walkthrough ansible credentials](images/credentials.gif)
-Prefer Youtube?  [Click Here](https://youtu.be/UT0t_hlNw-c)
-
 ## Takeaways
 
-* Ansible Tower needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.
-* Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Ansible Tower.
-* Ansible Tower can sync to existing SCM (source control management) including Github.
-* Ansible Tower can store and encrypt credentials including SSH private keys and plain-text passwords.  Ansible Tower can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
+* Automation controller needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.
+* Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Automation controller.
+* Automation controller can sync to existing SCM (source control management) including Github.
+* Automation controller can store and encrypt credentials including SSH private keys and plain-text passwords.  Automation controller can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
 
 ## Complete
 
 You have completed lab exercise 5
 
-You have now examined all three components required to get started with Ansible Tower.  A credential, an inventory and a project.  In the next exercise we will create a job template.
+You have now examined all three components required to get started with Automation controller.  A credential, an inventory and a project.  In the next exercise we will create a job template.
 
 ---
+[Previous Exercise](../4-resource-module/README.md) | [Next Exercise](../6-controller-job-template/README.md)
+
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

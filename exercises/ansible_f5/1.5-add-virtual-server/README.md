@@ -18,13 +18,9 @@ Demonstrate use of the [BIG-IP virtual server module](https://docs.ansible.com/a
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-virtual-server.yml`.
+Using VSCode create a new file called `bigip-virtual-server.yml` by clicking the new file icon in the left pane.
 
-```
-[student1@ansible ~]$ nano bigip-virtual-server.yml
-```
-
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
 ## Step 2:
 
@@ -96,16 +92,16 @@ Save the file and exit out of editor
 
 ## Step 4
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-virtual-server.yml
+[student1@ansible ~]$ ansible-navigator run bigip-virtual-server.yml --mode stdout
 ```
 
 # Playbook Output
 
 ```yaml
-[student1@ansible]$ ansible-playbook bigip-virtual-server.yml
+[student1@ansible]$ ansible-navigator run bigip-virtual-server.yml --mode stdout
 
 PLAY [BIG-IP SETUP] ***********************************************************
 

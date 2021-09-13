@@ -8,7 +8,6 @@
       include_role:
         name: ansible.workshops.webservers
 
-
 - name: configure satellite
   hosts: satellite
   become: true
@@ -36,31 +35,20 @@
         - dns_type is defined
         - dns_type == 'aws'
 
-- name: configure tower virtual environments
-  hosts: control_nodes
-  become: true
-  vars:
-    tower_venv_online_installs:
-      - "apypie"
-      - "jinja2==2.11.3"
-  tasks:
-    - include_role:
-        name: redhat_cop.tower_utilities.tower_virtual_environments
-
-- name: configure tower Credentials
+- name: configure controller for smart_mgmt
   hosts: control_nodes
   gather_facts: false
   vars:
-    tower_infra_workloads:
-      - redhat_cop.tower_configuration.credential_types
-      - redhat_cop.tower_configuration.credentials
-      - redhat_cop.tower_configuration.projects
-      - redhat_cop.tower_configuration.job_templates
-    tower_hostname: "https://{{ ansible_host }}"
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_validate_certs: false
-    tower_credential_types:
+    controller_infra_workloads:
+      - redhat_cop.controller_configuration.credential_types
+      - redhat_cop.controller_configuration.credentials
+      - redhat_cop.controller_configuration.projects
+      - redhat_cop.controller_configuration.job_templates
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_validate_certs: false
+    controller_credential_types:
       - name: Satellite_Collection
         description: Credential for redhat.satellite collection
         kind: cloud
@@ -102,7 +90,7 @@
         injectors:
           env:
             MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"
-    tower_credentials:
+    controller_credentials:
       - name: Satellite Credential
         credential_type: Satellite_Collection
         state: present
@@ -119,19 +107,20 @@
           host: "https://satellite.example.com"
           username: 'admin'
           password: "{{ admin_password }}"
-    tower_projects:
+    controller_projects:
       - name: Automated Management
         organization: Default
         scm_update_on_launch: true
         scm_update_cache_timeout: 3600
         scm_type: git
-        scm_url: 'https://github.com/willtome/automated-smart-management.git'
-        scm_branch: smart_mgmt
+        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
+        scm_branch: aap2-29compat
+        default_environment: smart_mgmt workshop execution environment
       - name: Fact Scan
         organization: Default
         scm_type: git
         scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
-    tower_templates:
+    controller_templates:
       - name: SETUP / Satellite
         project: Automated Management
         playbook: setup_satellite.yml
@@ -141,19 +130,19 @@
         extra_vars:
           refresh_satellite_manifest: false
         ask_variables_on_launch: true
-      - name: SETUP / Tower
+      - name: SETUP / Controller
         project: Automated Management
-        playbook: setup_tower.yml
+        playbook: setup_controller.yml
         inventory: Workshop Inventory
-        # credentials:
-        #   - Tower Credential
-        # problem with tower credential since name tower->controller - sean
+        credentials:
+          - Tower Credential
+
   tasks:
-    - name: Deploy tower-infra workloads
+    - name: Deploy controller-infra workloads
       include_role:
-        name: "{{ tower_infra_vars }}"
-      loop: "{{ tower_infra_workloads }}"
+        name: "{{ controller_infra_vars }}"
+      loop: "{{ controller_infra_workloads }}"
       loop_control:
-        loop_var: tower_infra_vars
+        loop_var: controller_infra_vars
       when:
-        - tower_infra_workloads | d("") | length >0
+        - controller_infra_workloads | d("") | length >0

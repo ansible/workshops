@@ -1,6 +1,6 @@
 # Ansible Network Automation Workshop
 
-**別の言語で読む**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png) [日本語](README.ja.md).
+**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
 このコンテンツは、ネットワーク機器（Arista、Cisco、Juniper など）に対するAnsibleの機能を効果的に実証するために、インストラクター主導、ハンズオンまたは自習などのさまざまな形式でワークショップを提供する非公式の多目的ツールキットです。
 

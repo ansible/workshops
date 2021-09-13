@@ -7,4 +7,4 @@ rhel_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supp
 network_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
 rhel_90_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
 windows_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
-smart_mgmt_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:1.0.2"

@@ -11,11 +11,18 @@ In this exercise, we imagine that we are a security operator in charge of an ent
 
 ## Step 2.2 - Preparations
 
-For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also in the Check Point SmartConsole management interface the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise in [section 1](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
+As in the previous exercise, we need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
+
+1. The `whitelist_attacker.yml` playbook must have been run at least once. 
+2. Also, the logging for the attacker whitelist policy must have been activated in the Check Point SmartConsole.
+
+Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
 ## Step 2.3 - Explore the controller setup
 
-There are two more steps needed for preparation - but in contrast to the previous exercise, we will use automation controller to do them. Your automation controller installation is already populated with users, inventory, credentials and so on, and can be used directly. Let's have a look at it: Automation controller is accessed via browser. You need the URL to your personal controller instance. It is be similar to the URL for your VS Code online editor, but without the `-code`. You can also find it on your workshop page:
+There are two more steps needed for preparation - but in contrast to the previous exercise, we will use automation controller to do them. Your automation controller installation is already populated with users, inventory, credentials and so on, and can be used directly. Let's have a look at it.
+
+Automation controller is accessed via browser. You need the URL to your personal controller instance. It is be similar to the URL for your VS Code online editor, but without the `-code`. You can also find it on your workshop page:
 
 ![Controller URL example](images/controller_url.png)
 
@@ -75,7 +82,7 @@ Since we are the domain owners of the firewall, we can modify, delete and execut
 
 However, the SIEM still needs to accept logs and sort them into proper streams, called log sources in QRadar. Let's switch our perspective to the one of the security analyst. We get a call that there is something weird in the firewall and that logs are already sent into our direction. Log out of controller and log back in as the user `analyst`. Again, check out the **Templates**: again we have a different list of automation templates at our hand. We can only see and use those which are relevant to our job. Let's accept the firewall logs into our SIEM: Execute the job template **Accept firewall logs in QRadar**.
 
-After a few seconds the playbook run through, and the new security configuration is done. In contrast to the previous exercise, none of these steps required the operator or the analyst to access the command line, write playbooks or even install roles or collections. The playbooks were pre-approved and in fact accessed from within a Git repository. controller took care of the execution and the downloads of any role or collections. This substantially simplifies automation operations.
+After a few seconds the playbook run through, and the new security configuration is done. In contrast to the previous exercise, none of these steps required the operator or the analyst to access the command line, write playbooks or even install roles or collections. The playbooks were pre-approved and in fact accessed from within a Git repository. Automation controller took care of the execution and the downloads of any role or collections. This substantially simplifies automation operations.
 
 If you click on **Jobs** on the right side you will also see that you can always access the previously run jobs. This enables the teams to better track what was executed when, and what where the results. This enables transparency and clear understanding of the automation that was run.
 
@@ -83,7 +90,7 @@ If you click on **Jobs** on the right side you will also see that you can always
 
 Let's quickly verify that the QRadar logs are now showing up. Log into the QRadar web UI. Click on **Log Activity** and verify that events are making it to QRadar from Check Point:
 
->**QRadar Credentials**   
+>**IBM QRadar Credentials**   
 >
 > Username: `admin`   
 > Password: `Ansible1!`   
@@ -117,7 +124,7 @@ To decide if this violation is a false positive, we need to make sure that other
 
 ## Step 2.8 - Add Snort rule
 
-Let's add a new IDS rule. Again we will do this via a pre-approved playbook already in controller. Log out of controller, and log in as user `opsids` - the IDPS operator in charge of the IDPS. Navigate to **Templates**. There is a pre-created playbook available to add a rule to Snort. Execute it by clicking on the small rocket icon. But as you see, instead of bringing you to the jobs output, you will be faced with a survey:
+Let's add a new IDS rule. Again we will do this via a pre-approved playbook already in controller. Log out of controller, and log in as user `opsids` - the IDPS operator in charge of the IDPS. Navigate to **Templates**. There is a pre-created job template called **Add IDPS Rule** available to add a rule to Snort. Execute it by clicking on the small rocket icon. But as you see, instead of bringing you to the jobs output, you will be faced with a survey:
 
 ![Automation controller survey](images/controller_snort_survey.png)
 
@@ -133,7 +140,7 @@ As you can see we add a new snort rule matching on the parameters of the attack.
 
 The playbook runs through, takes care of installing the new rule, restarting the service and so on.
 
-Quickly verify the new rule on the Snort instance. From a terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2user`:
+Quickly verify the new rule on the Snort instance. From a terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2-user`:
 
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@snort
@@ -144,7 +151,7 @@ alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_si
 
 > **Note**
 >
-> Also, verify that the snort service is running via `systemctl status snort`. If there is a fatal error, chances are the rule you entered had an error. Remove the rules line from the file `/etc/snort/rules/local.rules` and run the playbook again.
+> Also, verify that the snort service is running via `sudo systemctl status snort`. If there is a fatal error, chances are the rule you entered had an error. Remove the rules line from the file `/etc/snort/rules/local.rules` and run the playbook again.
 
 After you have verified the rule, leave the Snort server via the command `exit`.
 
@@ -181,9 +188,9 @@ The analysts have ended their threat hunting. To reduce resource consumption and
 
 - **Roll back all changes**
 
-Log into automation controller as the user `analyst`, and execute it by clicking on the little rocket icon next to it. Soon all logging configuration is set back to normal.
+Log into automation controller as the user `analyst`, and execute the **Roll back all changes** job template by clicking on the little rocket icon next to it. Soon all logging configuration is set back to normal.
 
-Last but not least we have to stop the attack simulation. Log out of controller, and log back in as your student user. In the section **Templates**, find and execute the job template called **Stop DDOS attack simulation**.
+Last but not least we have to stop the attack simulation. Log out of controller, and log back in as your student (admin) user. In the section **Templates**, find and execute the job template called **Stop DDOS attack simulation**.
 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 

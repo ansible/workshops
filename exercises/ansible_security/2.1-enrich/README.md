@@ -11,8 +11,12 @@ In comes Ansible: we use Ansible to elevate the interactions learned in the last
 
 ## Step 1.2 - Preparations
 
-For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
+For this exercise to work properly, we'll need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
 
+1. The `whitelist_attacker.yml` playbook must have been run at least once. 
+2. Also, the logging for the attacker whitelist policy must have been activated in the Check Point SmartConsole.
+
+Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
 We will use the `ibm.qradar` collection and `ids_rule` role to modify IDS rules from the previous Snort exercise.
 
@@ -46,7 +50,7 @@ The stage is set now. Read on to learn what this use case is about.
 
 ## Step 1.3 - See the anomaly
 
-Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. From within a terminal in your VS Code online editor, ssh to the snort machine. Remember that you can look up the IP of the Snort server from the inventory file at `/home/student<X>/lab_inventory/hosts`.
+Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. From within a terminal in your VS Code online editor, ssh to the snort machine.
 
 Open a new terminal in your VS Code online editor to connect to the Snort server via SSH. 
 
@@ -135,11 +139,9 @@ Now we have to tell QRadar that there is this new Snort log source. Add the foll
         type_name: "Snort Open Source IDS"
         state: present
         description: "Snort rsyslog source"
-        identifier: "{{ hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') }}"
+        identifier: "{{ hostvars['snort']['ansible_fqdn'] }}"
 ```
 <!-- {% endraw %} -->
-
-As you can see the collections are used here, and the only task we execute uses a module to manage log sources in QRadar. You might ask what the regex is doing in there: it changes the IP address to match the actual syslog header entry produced by Snort. Otherwise, the logs would not be properly identified by QRadar.
 
 Now we have to do the same for Check Point: we need to configure Check Point to forward its logs to QRadar. This can be configured with an already existing role, [log_manager](https://github.com/ansible-security/log_manager). As with the `ids_config` role, the `security_ee` execution environment includes `log_manager`.
 
@@ -231,7 +233,7 @@ If you bring all these pieces together, the full playbook `enrich_log_sources.ym
         type_name: "Snort Open Source IDS"
         state: present
         description: "Snort rsyslog source"
-        identifier: "{{ hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') }}"
+        identifier: "{{ hostvars['snort']['ansible_fqdn'] }}"
 
 - name: Configure Check Point to send logs to QRadar
   hosts: checkpoint
@@ -286,8 +288,7 @@ Before that Ansible playbook was invoked, QRadar wasn’t receiving any data fro
 
 Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there are a lot of logs coming in all the time:
 
-> **IBM Qradar Credentials**
->
+> **IBM QRadar Credentials**  
 > Username: `admin`  
 > Password: `Ansible1!`
 
@@ -301,15 +302,11 @@ Now the list of logs is better to analyze. Verify that events are making it to Q
 
 Also, if you change the **View** from **Real Time** to for example **Last 5 Minutes** you can even click on individual events to see more details of the data the firewall sends you.
 
-Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner
+Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner and then click on **Admin** at the bottom.
 
 ![QRadar hamurger](images/2-qradar-hamburger.png)
 
-Then, click on **Admin** down at the bottom. 
-
-![QRadar admin](images/2-qradar-admin.png)
-
-In there, click on **Log Sources**. 
+In there, click on **Log Sources**.  
 
 ![QRadar log sources](images/2-qradar-log-sources.png)
 
@@ -333,8 +330,7 @@ Let's also verify that the Snort configuration in the background was successful.
 ```bash
 [student<X>@ansible ~]$ ssh ec2-user@snort
 Last login: Wed Sep 11 15:45:00 2019 from 11.22.33.44
-[ec2-user@snort ~]$ sudo -i
-[root@snort ~] cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
+[ec2-user@snort ~] sudo cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
 $ModLoad imfile
 $InputFileName /var/log/snort/merged.log
 $InputFileTag ids-config-snort-alert
@@ -453,7 +449,7 @@ The playbook `rollback.yml` should have this content:
         type_name: "Snort Open Source IDS"
         state: absent
         description: "Snort rsyslog source"
-        identifier: "{{ hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') }}"
+        identifier: "{{ hostvars['snort']['ansible_fqdn'] }}"
 
 - name: Configure Check Point to not send logs to QRadar
   hosts: checkpoint
@@ -500,25 +496,38 @@ Run the playbook to remove the log sources:
 [student<X>@ansible ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
-Also, we need to kill the process which simulates the attack. For this we will use an ad-hoc Ansible command: a single task executed via Ansible, without the need to write an entire playbook. We will use the shell module because it supports piping, and can thus chain multiple commands together. In a terminal of your VS Code online editor, run the following command:
+Also, we'll need to stop the process which simluates the web attack. Let's create a simple playbook that uses the `shell` module to stop the process running on the **attacker** machine.
+
+We are using the `shell` module because it allows us to use [piping](https://www.redhat.com/sysadmin/pipes-command-line-linux). Shell piping let's us chain multiple commands together which we need to stop the process.
+
+Let's create a new playbook called `stop_web_attack.yml` using the VS Code online editor and add the following content:
 
 <!-- {% raw %} -->
-```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
-attacker | CHANGED | rc=0 >>
+```yaml
+---
+- name: stop web attack simulation
+  hosts: attacker
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: stop web attack process
+      shell: >
+        sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2
 ```
 <!-- {% endraw %} -->
-
-The connects to the **attacker** machine with escalated privileges (`-b`) and runs the shell module there (`-m shell`). The parameter of the shell module is a chain of shell commans. We output all running processes, remove lines where grep is part of the command itself, assuming that those are not of value to us. We then filter for all commands executing watch, use awk to get the process ID and hand the process ID over to `kill`.
-
-If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
+And then, run the `stop_web_attack.yml` playbook.
+<!-- {% raw %} -->
+```bash
+[student<X>@ansible-1 ~]$ ansible-navigator run stop_web_attack.yml --mode stdout
+```
+<!-- {% endraw %} -->
 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 
 ----
 **Navigation**
 <br><br>
-[Next Exercise](../2.2-threat/README.md)
+[Previous Exercise](../1.3-snort/README.md) | [Next Exercise](../2.2-threat/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
-

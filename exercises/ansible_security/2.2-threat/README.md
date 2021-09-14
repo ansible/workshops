@@ -184,9 +184,7 @@ Log out of controller and log back in as user `opsfirewall`. Go to the **Templat
 
 ## Step 2.10 - Rollback
 
-The analysts have ended their threat hunting. To reduce resource consumption and the analysis workload it is preferable to now rollback the Check Point and Snort log configurations back to their pre-investigation state. To do so, there is pre-approved job template available to the analysts:
-
-- **Roll back all changes**
+The analysts have ended their threat hunting. To reduce resource consumption and the analysis workload it is preferable to now rollback the Check Point and Snort log configurations back to their pre-investigation state. To do so, there is pre-approved job template available to the analysts called **Roll back all changes**.
 
 Log into automation controller as the user `analyst`, and execute the **Roll back all changes** job template by clicking on the little rocket icon next to it. Soon all logging configuration is set back to normal.
 

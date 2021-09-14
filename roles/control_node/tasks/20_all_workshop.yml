@@ -59,11 +59,12 @@
 
 - name: Put ssh-key in proper spot for student
   copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    src: "{{ output_dir }}/{{ec2_name_prefix}}-private.pem"
     dest: "/home/{{ username }}/.ssh/id_rsa"
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0400
+  when: workshop_type is defined
 
 - name: clean out /tmp/workshops
   file:
@@ -97,7 +98,7 @@
 
 - name: Put student inventory in proper spot
   copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-instances.txt"
+    src: "{{ output_dir }}/{{ username }}-instances.txt"
     dest: /home/{{ username }}/lab_inventory/hosts
     owner: "{{ username }}"
     group: "{{ username }}"
@@ -105,7 +106,7 @@
 
 - name: Copy instructor inventory to student1
   copy:
-    src: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"
+    src: "{{ output_dir }}/instructor_inventory.txt"
     dest: /tmp/instructor-inventory
     owner: "{{ username }}"
     group: "{{ username }}"

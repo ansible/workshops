@@ -91,7 +91,6 @@
     registry: registry.redhat.io
   become_user: "awx"
 
-
 - name: Pull supported and workshop images
   become_user: "awx"
   containers.podman.podman_image:
@@ -100,7 +99,7 @@
     - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
     - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0"
     - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0"
-    - "{{ lookup('vars', workshop_type + '_ee') }}"
+    - "{{ lookup('vars', workshop_type | default("rhel") + '_ee') }}"
 
 - name: create container registry credential
   awx.awx.credential:

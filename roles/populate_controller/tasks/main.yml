@@ -24,7 +24,7 @@
     validate_certs: false
     inputs:
       username: ec2-user
-      ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
+      ssh_key_data: "{{ lookup('file', output_dir + '/' + ec2_name_prefix + '-private.pem') }}"
 
 - name: add controller credential into automation controller
   awx.awx.credential:

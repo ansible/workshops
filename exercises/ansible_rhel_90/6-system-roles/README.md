@@ -30,11 +30,11 @@ This exercise will use two Linux System Roles, the `timesync` and `firewall` rol
 
 ## Step 1 - Examine Ansible Project
 
-In the Ansible Tower UI navigate to Projects then click on the **Ansible official demo project**:
+In the Ansible Automation Controller UI navigate to Projects then click on the **Ansible official demo project**:
 
 ![demo project](images/demo-project.png)
 
-Take note of the Github repository that was pre-loaded into your Ansible Tower environment:
+Take note of the Github repository that was pre-loaded into your Ansible Automation Controller environment:
 
 [https://github.com/ansible/product-demos](https://github.com/ansible/product-demos)
 
@@ -98,7 +98,7 @@ vars:
 
 ## Step 4 - Launch the Ansible Job
 
-In the Ansible Tower UI navigate to **Templates**.  
+In the Ansible Automation Controller UI navigate to **Templates**.  
 
 Click on the **rocket** to launch the **SERVER / Hardening** job template:
 

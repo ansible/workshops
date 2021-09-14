@@ -11,10 +11,10 @@ You are a security operator in charge of the corporate IDS. The IDS of our choic
 
 ## Step 3.2 - Preparations
 
-We will start this exercise with an operator looking at logs in Snort. So first we need to set up a snort rule to actually generate log entries. In your VS Code online editor, create and run the playbook `incident_snort_rule.yml`:
+We will start this exercise with an operator looking at logs in Snort. So first we need to set up a snort rule to actually generate log entries. In your VS Code online editor, create the playbook `incident_snort_rule.yml`:
 
 <!-- {% raw %} -->
-```yml
+```yaml
 ---
 - name: Add ids signature for sql injection simulation
   hosts: ids
@@ -39,11 +39,12 @@ We will start this exercise with an operator looking at logs in Snort. So first 
 ```
 <!-- {% endraw %} -->
 
-To be able to execute the playbook we will use the prepared role `ids_rule` to modify IDS rules, which is included in the `security_ee` custom EE. The same is true for the role `ids.config`.
+To be able to execute the playbook we will use the prepared role `ids_rule` to modify IDS rules, which is included in the `security_ee` execution environment. The same is true for the role `ids.config`.
+
 Run the playbook with:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run incident_snort_rule.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run incident_snort_rule.yml --mode stdout
 ```
 
 To have those rules generate logs, we need suspicious traffic - an attack. Again we have a playbook which simulates a simple access every few seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `sql_injection_simulation.yml` with the following content:
@@ -68,9 +69,12 @@ Run it with:
 [student<X>@ansible ~]$ ansible-navigator run sql_injection_simulation.yml --mode stdout
 ```
 
-To let the traffic between both machines pass, two things from the first Check Point exercise need to be completed: first the playbook `whitelist_attacker.yml` must have been run. And the logging for the attacker whitelist policy must have been activated. If you missed those steps, go back to the first Check Point exercise, create and execute the playbook, follow the steps to activate the logging and come back here.
+For this exercise to work properly, we'll need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
 
-The stage is set now. Read on to learn what this use case is about.
+1. The `whitelist_attacker.yml` playbook must have been run at least once. 
+2. Also, the logging for the attacker whitelist policy must have been activated in the Check Point SmartConsole.
+
+Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
 ## Step 3.3 - Identify incident
 
@@ -141,7 +145,7 @@ In your VS Code online editor, create a playbook called `incident_snort_log.yml`
         type_name: "Snort Open Source IDS"
         state: present
         description: "Snort rsyslog source"
-        identifier: "{{ hostvars['snort']['private_ip']|regex_replace('\\.','-')|regex_replace('^(.*)$', 'ip-\\1') }}"
+        identifier: "{{ hostvars['snort']['ansible_fqdn'] }}"
 
     - name: deploy the new log sources
       qradar_deploy:
@@ -153,7 +157,7 @@ In your VS Code online editor, create a playbook called `incident_snort_log.yml`
 This playbook should look familiar to you, it configures Snort to send logs to QRadar, configures QRadar to accept those and enables an offense. Run it:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run incident_snort_log.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run incident_snort_log.yml --mode stdout
 ```
 
 ## Step 3.5 - Verify new configuration in QRadar
@@ -244,16 +248,13 @@ Execute the playbook `rollback.yml` we wrote in the last exercise to roll all ch
 
 Note here that the playbook runs through without problems - even though we did not configure Check Point as a log source for QRadar this time! This is possible since Ansible tasks are most often idempotent: they can be run again and again, ensuring the desired state.
 
-Also we need to kill the process sending out attack. From the terminal of your VS Code online editor, execute the follwing Ansible ad-hoc command:
+Also we need to kill the process simulating the attack. In the terminal, run the `stop_attack_simulation.yml` playbook.
 
 <!-- {% raw %} -->
 ```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
-attacker | CHANGED | rc=0 >>
+[student<X>@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
 ```
 <!-- {% endraw %} -->
-
-If you get an error saying `Share connection to ... closed.`, don't worry: just execute the command again.
 
 You are done with this last exercise. Congratulations!
 

@@ -500,26 +500,26 @@ Also, we'll need to stop the process which simluates the web attack. Let's creat
 
 We are using the `shell` module because it allows us to use [piping](https://www.redhat.com/sysadmin/pipes-command-line-linux). Shell piping let's us chain multiple commands together which we need to stop the process.
 
-Let's create a new playbook called `stop_web_attack.yml` using the VS Code online editor and add the following content:
+Let's create a new playbook called `stop_attack_simulation.yml` using the VS Code online editor and add the following content:
 
 <!-- {% raw %} -->
 ```yaml
 ---
-- name: stop web attack simulation
+- name: stop attack simulation
   hosts: attacker
   become: yes
   gather_facts: no
 
   tasks:
-    - name: stop web attack process
+    - name: stop attack process
       shell: >
         sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2
 ```
 <!-- {% endraw %} -->
-And then, run the `stop_web_attack.yml` playbook.
+And then, run the `stop_attack_simulation.yml` playbook.
 <!-- {% raw %} -->
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run stop_web_attack.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
 ```
 <!-- {% endraw %} -->
 

@@ -40,7 +40,7 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
 ## Section 1 - Command-line Ansible Exercises
 
 * [Exercise 1.1 - Check the Prerequisites](1.1-setup)
-* [Exercise 1.2 - Running Ad-hoc Commands](1.2-adhoc)
+* [Exercise 1.2 - The Ansible Basics](1.2-thebasics)
 * [Exercise 1.3 - Writing Your First Playbook](1.3-playbook)
 * [Exercise 1.4 - Using Variables](1.4-variables)
 * [Exercise 1.5 - Conditionals, Handlers and Loops](1.5-handlers)

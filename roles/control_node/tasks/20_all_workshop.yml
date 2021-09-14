@@ -64,7 +64,8 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0400
-
+  when: workshop_type is defined
+  
 - name: clean out /tmp/workshops
   file:
     path: /tmp/workshops

@@ -91,7 +91,6 @@
     registry: registry.redhat.io
   become_user: "awx"
 
-
 - name: Pull supported and workshop images
   become_user: "awx"
   containers.podman.podman_image:

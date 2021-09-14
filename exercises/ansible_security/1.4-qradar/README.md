@@ -11,7 +11,7 @@ The SIEM can be accessed via web UI and via REST API. In this lab the playbooks 
 
 ## Step 4.2 - Access the web UI
 
-Have a first look at the SIEM, and verify that it is actually working. Point your web browser towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the certificate is unsecure since it is self-signed. Please accept this and proceed.
+Have a first look at the SIEM, and verify that it is actually working. Point your web browser towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the certificate is insecure since it is self-signed. Please accept this and proceed.
 
 > **Note**
 >
@@ -66,7 +66,7 @@ Ansible comes with a lot of modules included, but as of the time of writing, Ans
 
 Collections follow a simple directory structure to provide Ansible content. If you feel reminded of Ansible roles here, this has a reason: Collections are built upon the idea of roles, but extend the concept to general Ansible content management. The collection for IBM QRadar can be found in the [ansible-security project](https://github.com/ansible-security/ibm_qradar).
 
-Automation execution environments can be customized to include the collections you need. An example of this is the `security_ee` custom execution environment we're using in this workshop. The custom `security_ee` execeution environment includes the `ibm.qradar` collection we will use in these exercises. 
+Automation execution environments can be customized to include the collections you need. An example of this is the `security_ee` custom execution environment we're using in this workshop. The custom `security_ee` execution environment includes the `ibm.qradar` collection we will use in these exercises. 
 
 
 
@@ -96,7 +96,7 @@ We also want to use the collections we just added. Collections can be referenced
     - ibm.qradar
 ```
 
-Next we bring in the actual tasks. The REST API of QRadar is desgined in a way that we first have to search for a proper rule to find out its ID, and then deactive the rule by referencing the given ID. For the sake of this lab, let's say the rule which creates messages based on a suspected DDoS attack. In the last section we already had a look at the QRadar rules via **Offenses** > **Rules**, and filitered them for the term **DDoS**. In the filtered list, note the first rule shown there, **"Potential DDoS Against Single Host (TCP)"**. We will use this string to search for the role using the module `qradar_rule_info`:
+Next we bring in the actual tasks. The REST API of QRadar is designed in a way that we first have to search for a proper rule to find out its ID, and then deactivate the rule by referencing the given ID. For the sake of this lab, let's say the rule which creates messages based on a suspected DDoS attack. In the last section we already had a look at the QRadar rules via **Offenses** > **Rules**, and filtered them for the term **DDoS**. In the filtered list, note the first rule shown there, **"Potential DDoS Against Single Host (TCP)"**. We will use this string to search for the role using the module `qradar_rule_info`:
 
 ```yaml
 ---
@@ -227,7 +227,7 @@ In your VS Code online editor, create a new file, `change_qradar_rule.yml` in th
 ```
 <!-- {% endraw %} -->
 
-The playbook is now complete: it queries QRadar for the list of rules, and deactives the one we are looking for.
+The playbook is now complete: it queries QRadar for the list of rules, and deactivates the one we are looking for.
 
 ## Step 4.5 - Run the playbook
 
@@ -253,7 +253,7 @@ qradar  : ok=3  changed=1  unreachable=0  failed=0  skipped=0  rescued=0  ignore
 
 As you can see, the playbook denotes a change: the rule was changed. Run the playbook again - it does not report a change anymore, since the rule is now already disabled.
 
-## Step 4.6 - Verfiy changes in UI
+## Step 4.6 - Verify changes in UI
 
 To verify that Ansible indeed changed something, we go back to the UI of QRadar. Open the QRadar IP in your web browser. Click on the **Offenses** tab, and from there on the left side click on **Rules**. The long list of rules is displayed. In the search bar on top of this list, enter the following search term: `DDoS`
 Hit enter to filter the list, so that it only shows rules which are related to DDOS. At the end, note the rule regarding potential DDOS attacks, and check the state in the **Enabled** column: it is set to **False**!

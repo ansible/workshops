@@ -96,7 +96,7 @@ This means that the "host" section will appear multiple times in one playbook, a
 
 Let's start with the Snort configuration. We need Snort's log server to send the logs to the QRadar server. This can be configured with an already existing role, [ids_config](https://github.com/ansible-security/ids_config), so all we have to do is to import the role and use it with the right parameters.
 
-The `security_ee` custom execution environment inlcudes the `ids_config` role.
+The `security_ee` custom execution environment includes the `ids_config` role.
 
 So let's create our playbook where we use the role. In your VS Code online editor, create the file `enrich_log_sources.yml` with the following content:
 
@@ -121,7 +121,7 @@ So let's create our playbook where we use the role. In your VS Code online edito
 ```
 <!-- {% endraw %} -->
 
-As you see, just like with the last time we configured Snort rules, we are re-using the role and let it do the work. We only change the behaviour of the role via the parameters: we provide the QRadar IP via variable, set the IDS provider to `snort` and define the protocol in which packages are sent as `UDP`
+As you see, just like with the last time we configured Snort rules, we are re-using the role and let it do the work. We only change the behavior of the role via the parameters: we provide the QRadar IP via variable, set the IDS provider to `snort` and define the protocol in which packages are sent as `UDP`
 
 Now we have to tell QRadar that there is this new Snort log source. Add the following play to the playbook `enrich_log_sources.yml`:
 
@@ -167,7 +167,7 @@ Note that in this snippet you have to replace `YOURSERVERNAME` with the actual s
 
 ![Check Point Gateway Name](images/check_point_gw_name.png)
 
-Replace the string `YOURSERVERNAME` in the playbook with your indididual name.
+Replace the string `YOURSERVERNAME` in the playbook with your individual name.
 
 > **Note**
 >
@@ -304,7 +304,7 @@ Also, if you change the **View** from **Real Time** to for example **Last 5 Minu
 
 Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner and then click on **Admin** at the bottom.
 
-![QRadar hamurger](images/2-qradar-hamburger.png)
+![QRadar hamburger](images/2-qradar-hamburger.png)
 
 In there, click on **Log Sources**.  
 
@@ -314,7 +314,7 @@ A new window opens and shows the new log sources.
 
 ![QRadar Log Sources](images/2-qradar-log-sources-window.png)
 
-In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` comand:
+In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` command:
 
 ```bash
 [student<X>@ansible ~]$ ssh admin@checkpoint_mgmt
@@ -345,7 +345,7 @@ Leave the Snort server again and come back to your control host.
 
 Note that so far no logs are sent from Snort to QRadar: Snort does not know yet that this traffic is noteworthy!
 
-But as a security analyst, with more data at our disposal, we finally have a better idea of what could be the cause of the anomaly in the application behaviour. We see the logs from the firewall, see who is sending traffic to who, but there's still not enough data to dismiss the event as a false positive.
+But as a security analyst, with more data at our disposal, we finally have a better idea of what could be the cause of the anomaly in the application behavior. We see the logs from the firewall, see who is sending traffic to who, but there's still not enough data to dismiss the event as a false positive.
 
 ## Step 1.7 - Add Snort signature
 
@@ -381,7 +381,7 @@ In the previous Snort exercise we already added a Snort rule with a signature to
 ```
 <!-- {% endraw %} -->
 
-In this play we provide some variables for Snort stating that we want to control any traffic on tcp. Afterwards, with the help of the `ids_rule` role we set a new rule containing the `web_attack_simulation` string as content, making it possible to identify future occurences of this behaviour.
+In this play we provide some variables for Snort stating that we want to control any traffic on tcp. Afterwards, with the help of the `ids_rule` role we set a new rule containing the `web_attack_simulation` string as content, making it possible to identify future occurrences of this behavior.
 
 Now execute the playbook:
 
@@ -406,7 +406,7 @@ Moments after the playbook has been executed, we can check in QRadar if we see O
 
 With these information at our hand, we can now finally check all offenses of this type, and verify that they are all coming only from one single host, the attacker.
 
-The next step would be to get in touch with the team responsible for that machine, and discuss the behaviour. For the purpose of the demo we assume that the team of that machine provides feedback that this behaviour is indeed wanted, and that the security alert is a false positive. Thus we can dismiss the QRadar offense.
+The next step would be to get in touch with the team responsible for that machine, and discuss the behavior. For the purpose of the demo we assume that the team of that machine provides feedback that this behavior is indeed wanted, and that the security alert is a false positive. Thus we can dismiss the QRadar offense.
 
 In the Offense view, click on the Offense, then in the menu on top on **Actions**, In the drop-down menu-click on **close**. A window will pop up where you can enter additional information and finally close the offense as a false positive.
 
@@ -496,7 +496,7 @@ Run the playbook to remove the log sources:
 [student<X>@ansible ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
-Also, we'll need to stop the process which simluates the web attack. Let's create a simple playbook that uses the `shell` module to stop the process running on the **attacker** machine.
+Also, we'll need to stop the process which simulates the web attack. Let's create a simple playbook that uses the `shell` module to stop the process running on the **attacker** machine.
 
 We are using the `shell` module because it allows us to use [piping](https://www.redhat.com/sysadmin/pipes-command-line-linux). Shell piping let's us chain multiple commands together which we need to stop the process.
 

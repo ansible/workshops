@@ -5,7 +5,7 @@
 
 ## Step 1.1 - Objective
 
-The objective of this lab is to provide you a deeper understanding and hands on experience how to automate security tools used by security operators. For that we will tackle three security use cases rather typical for the day-to-day challenges of security operatos. While all of them will interact with roughly the same toolset, each use case shows a different perspective (security analyst, firewall operator, IDS specialist) and thus a different point of view on the available tools.
+The objective of this lab is to provide you a deeper understanding and hands on experience how to automate security tools used by security operators. For that we will tackle three security use cases rather typical for the day-to-day challenges of security operators. While all of them will interact with roughly the same tool set, each use case shows a different perspective (security analyst, firewall operator, IDS specialist) and thus a different point of view on the available tools.
 
 We have set up a common set of security related tools:
 
@@ -200,7 +200,7 @@ Ansible is already configured to use the inventory specific to your environment.
 
 ## Step 1.8 - Working the Labs
 
-You might have guessed by now this lab is pretty commandline-centric…​ So we recommend that you don’t type everything manually, use copy & paste from the browser when appropriate. But stop to think and understand.
+You might have guessed by now this lab uses the command line frequently…​ So we recommend that you don’t type everything manually, use copy & paste from the browser when appropriate. But stop to think and understand.
 
 ----
 **Navigation**

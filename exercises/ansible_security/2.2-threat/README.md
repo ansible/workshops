@@ -104,15 +104,15 @@ Let's quickly verify that the QRadar logs are now showing up. Log into the QRada
 
 If the logs get drowned in QRadar's own logs, create a filter. Or click on unwanted log lines in the column **Log Source**, and pick **Filter on Log Source is not ...** to create filters on the fly to filter out unwanted traffic.
 
-Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the hamburger button in the left upper corner, and click on **Admin**. In there, click on **Log Souces**. A new window opens and shows the new log source.
+Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the hamburger button in the left upper corner, and click on **Admin**. In there, click on **Log Sources**. A new window opens and shows the new log source.
 
 ![QRadar Log Sources](images/qradar_log_sources.png)
 
 ## Step 2.7 - Offenses
 
-Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All preconfigured offense rules for this workshop are shown:
+Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All pre-configured offense rules for this workshop are shown:
 
-![QRadar Preconfigured Rules](images/qradar_preconfigured_rules.png)
+![QRadar Pre-configured Rules](images/qradar_preconfigured_rules.png)
 
 Double-click on the rule called **Ansible Workshop DDOS Rule**. The rule wizard window opens, allowing us changes to the offense rule if needed:
 

@@ -5,7 +5,7 @@
 
 ## Step 2.1 - Check Point Next Generation Firewall
 
-To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generaion Firewall (NGFW).
+To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generation Firewall (NGFW).
 
 The NGFW is usually not managed directly, but via a central security management server (MGMT). The MGMT is a central tool to manage multiple NGFWs or other security tools in one spot.
 

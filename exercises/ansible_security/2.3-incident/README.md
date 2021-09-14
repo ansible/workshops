@@ -84,7 +84,7 @@ As the security operator in charge of the corporate IDS, you routinely check the
 [student<X>@ansible ~]$ ssh ec2-user@snort
 ```
 ```bash
-[ec2-user@ip-172-16-11-22 ~]$ journalctl -u snort -f
+[ec2-user@snort ~]$ journalctl -u snort -f
 -- Logs begin at Sun 2019-09-22 14:24:07 UTC. --
 Sep 22 21:03:03 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted SQL Injection [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53376 -> 172.17.23.180:80
 Sep 22 21:03:08 ip-172-16-115-120.ec2.internal snort[22192]: [1:99000030:1] Attempted SQL Injection [Classification: Attempted Administrator Privilege Gain] [Priority: 1] {TCP} 172.17.78.163:53378 -> 172.17.23.180:80
@@ -96,7 +96,7 @@ As you see this node has just registered multiple alerts to an **Attempted Admin
 If you want a closer look at the details in the snort log, check out the content of the file `/var/log/snort/merged.log` on the Snort machine:
 
 ```bash
-[ec2-user@ip-172-16-180-99 ~]$ sudo tail -f /var/log/snort/merged.log
+[ec2-user@snort ~]$ sudo tail -f /var/log/snort/merged.log
 Accept: */*
 [...]
 GET /sql_injection_simulation HTTP/1.1
@@ -162,21 +162,35 @@ This playbook should look familiar to you, it configures Snort to send logs to Q
 
 ## Step 3.5 - Verify new configuration in QRadar
 
-Let's change our perspective briefly to the one of a security analyst: we mainly use the SIEM, and now logs are coming in from Snort. To verify that, access your QRadar UI, open the **Log Activity** tab and validate that events are now making it to QRadar from Snort.
+Let's change our perspective briefly to the one of a security analyst. We mainly use the SIEM, and now logs are coming in from Snort. To verify that, access your QRadar UI, open the **Log Activity** tab and validate that events are now making it to QRadar from Snort.
 
 ![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png)
-
-Remember that it helps to add filters to the QRadar log view to get a better overview, and that it might be necessary to change the display to **Raw Events**. Note that those logs already show the offense marker on the left side!
 
 > **Note**
 >
 > If no logs are shown, wait a bit. It might take more than a minute to show the first entries. Also, the first logs might be identified with the "default" log source (showing **SIM Generic Log DSM-7** instead of **Snort rsyslog source**) so give it some time.
 
-In the offenses tab filter the list of offenses for **Error Based SQL Injection**. Open the Offense summary to check the details of the attacker IP address previously seen in Snort logs.
+As the analyst, it's our responsibility to investigate possible security threats and, if necessary, create an incident response. In this case, the SQL Injection attack is indeed a cyberattack and we need to mitigate it as soon as possible. 
+
+To have a clearer view of the logs, change the display to **Raw Events** at the top of the Log Activity output window. 
+
+![QRadar logs view, attacker IP address](images/qradar_attacker_ip.png)
+
+> **Note**
+>
+>Remember that it helps to add filters to the QRadar log view for more consice information.   
+
+Looking closer at the **Raw Events** output, we can see that the Snort logs includes a ***Host*** entry with the IP Aaddress. This is vital information we'll need to remediate the cyber attack.
+
+> **Note**
+>
+>Note that these logs already show an offense marker on the left hand side.
+
+Open the **Offenses** tab on the top menu. We'll see a newly created offense. Open the new offense and scroll down to view the **Top 5 Annotations** section. There we will see a **SQL Injection Detected** annotation indicating that our custom **Ansible Workshop SQL Injection Rule** was triggered.
 
 ## Step 3.6 - Blacklist IP
 
-With all these information at hand, we positively identify this event as an attack. So let's stop it! We will blacklist the source IP of the attacker.
+With all these information at hand, we can now create our incident reponse. We've realized that these attacks originate from a specific IP which we previously identified in the Snort logs in the QRadar Log Activity window. So let's stop it! We will blacklist the source IP of the attacker.
 
 In a typical environment, performing this remediation would require yet another interaction with the security operators in charge of the firewalls. But we can launch an Ansible playbook to achieve the same goal in seconds rather than hours or days.
 
@@ -225,7 +239,7 @@ In your VS Code online editor, create a file called `incident_blacklist.yml`. No
 Run the playbook, to effectively blacklist the IP:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run incident_blacklist.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run incident_blacklist.yml --mode stdout
 ```
 
 In your QRadar UI, verify in the Log Activity tab that you do not receive any more alerts from Snort. Note that, if you would have connected the firewall to QRadar, there would actually be logs coming in from there.

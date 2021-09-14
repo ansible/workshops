@@ -1,9 +1,8 @@
 ---
 - name: ensure workshop folder {{ ec2_name_prefix }} exists
   file:
-    path: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
+    path: "{{ output_dir }}"
     state: directory
-
 
 - name: Check that the provided license exists
   stat:

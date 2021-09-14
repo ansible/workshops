@@ -20,19 +20,19 @@ snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 >
 > The IP addresses here are for demo purposes and will be different in your case. You have your own dedicated Snort setup in your individual lab environment.
 
-Once you find the IP address, it's time to access the Snort server. The connection uses a SSH key pre-installed on the control host, the user for the Snort server is `ec2-user`. In your VS Code online editor, open a terminal and access the snort server via:
+The connection tp the Snort server uses a SSH key pre-installed on the control host, the user for the Snort server is `ec2-user`. In your VS Code online editor, open a terminal and access the snort server via:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@22.333.44.5
+[student<X>@ansible ~]$ ssh ec2-user@snort
 Warning: Permanently added '22.333.44.5' (ECDSA) to the list of known hosts.
 Last login: Mon Aug 26 12:17:48 2019 from h-213.61.244.2.host.de.colt.net
-[ec2-user@ip-172-16-1-2 ~]$
+[ec2-user@snort ~]$
 ```
 
 To verify snort is installed and configured properly, you can call it via sudo and ask for the version:
 
 ```bash
-[ec2-user@ip-172-16-1-2 ~]$ sudo snort --version
+[ec2-user@snort ~]$ sudo snort --version
 
    ,,_     -*> Snort! <*-
   o"  )~   Version 2.9.13 GRE (Build 15013)
@@ -47,7 +47,7 @@ To verify snort is installed and configured properly, you can call it via sudo a
 Also, check if the service is actively running via `sudo systemctl`:
 
 ```bash
-[ec2-user@ip-172-16-1-2 ~]$ sudo systemctl status snort
+[ec2-user@snort ~]$ sudo systemctl status snort
 ● snort.service - Snort service
    Loaded: loaded (/etc/systemd/system/snort.service; enabled; vendor preset: disabled)
    Active: active (running) since Mon 2019-08-26 17:06:10 UTC; 1s ago
@@ -297,4 +297,8 @@ Congratulations! You have completed the first steps of automating Snort with Ans
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+**Navigation**
+<br><br>
+[Previous Exercise](../1.2-checkpoint/README.md) | [Next Exercise](../1.4-qradar/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

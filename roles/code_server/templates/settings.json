@@ -7,6 +7,6 @@
     "workbench.startupEditor": "readme",
     "telemetry.enableTelemetry": false,
     "search.smartCase": true,
-    "git.confirmSync": false
+    "git.confirmSync": false,
     "workbench.colorTheme": "Visual Studio Dark"
 }

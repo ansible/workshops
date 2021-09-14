@@ -5,7 +5,7 @@
 
 ## Step 2.1 - Check Point Next Generation Firewall
 
-To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generaion Firewall (NGFW).
+To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generation Firewall (NGFW).
 
 The NGFW is usually not managed directly, but via a central security management server (MGMT). The MGMT is a central tool to manage multiple NGFWs or other security tools in one spot.
 
@@ -52,7 +52,7 @@ Next, on the left side, click on **SECURITY POLICIES** and note that there is cu
 
 ## Step 2.4 - First example playbook
 
-In Ansible, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
+In Ansible Automation Platform, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
 A playbook is a repeatable set of *plays* and *tasks*.
 
@@ -301,7 +301,7 @@ As you can see, even making a small change in the configuration requires multipl
 ----
 
 **Navigation**
-<br>
-[Next Exercise](../1.2-checkpoint/README.md)
+<br><br>
+[Previous Exercise](../1.1-explore/README.md) | [Next Exercise](../1.3-snort/README.md) 
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

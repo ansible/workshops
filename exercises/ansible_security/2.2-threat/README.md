@@ -11,11 +11,18 @@ In this exercise, we imagine that we are a security operator in charge of an ent
 
 ## Step 2.2 - Preparations
 
-For this exercise to work properly, the playbook `whitelist_attacker.yml` must have been run at least once. Also in the Check Point SmartConsole management interface the logging for the attacker whitelist policy must have been activated. Both was done in the Check Point exercise in section 1. If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
+As in the previous exercise, we need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
+
+1. The `whitelist_attacker.yml` playbook must have been run at least once. 
+2. Also, the logging for the attacker whitelist policy must have been activated in the Check Point SmartConsole.
+
+Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
 ## Step 2.3 - Explore the controller setup
 
-There are two more steps needed for preparation - but in contrast to the previous exercise, we will use automation controller to do them. Your automation controller installation is already populated with users, inventory, credentials and so on, and can be used directly. Let's have a look at it: Automation controller is accessed via browser. You need the URL to your personal controller instance. It is be similar to the URL for your VS Code online editor, but without the `-code`. You can also find it on your workshop page:
+There are two more steps needed for preparation - but in contrast to the previous exercise, we will use automation controller to do them. Your automation controller installation is already populated with users, inventory, credentials and so on, and can be used directly. Let's have a look at it.
+
+Automation controller is accessed via browser. You need the URL to your personal controller instance. It is be similar to the URL for your VS Code online editor, but without the `-code`. You can also find it on your workshop page:
 
 ![Controller URL example](images/controller_url.png)
 
@@ -39,7 +46,13 @@ The stage is set now. Read on to learn what this use case is about.
 
 ## Step 2.4 - See the attack
 
-You are a security operator in charge of an enterprise firewall in a larger cooperaiton. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab. A new window opens, offering you two choices: **Audit Logs** and **Logs**. Click on **Logs** to get to the actual view of the logs:
+You are a security operator in charge of an enterprise firewall in a larger organization. You just found that a policy enforced by a Check Point Next Generation Firewall (NGFW), protecting your line of business applications, has been repeatedly violated. To showcase this, open the SmartConsole on your Windows workstation, access the Check Point management server and on the left side click on the **LOGS & MONITOR** tab. A new window opens, offering you two choices: **Audit Logs** and **Logs**. Click on **Logs** to get to the actual view of the logs:
+
+>**Check Point NGFW Credentials**   
+>
+> Username: `admin`   
+> Password: `admin123`   
+> 
 
 ![Check Point logs view, violation logs](images/smartconsole_violation_logs.png)
 
@@ -57,7 +70,7 @@ Seeing these violations we should start an investigation to assess if they are t
 
 However, as mentioned in many enterprise environments security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. In our scenario, the typical way for a security operator to escalate the issue and start our investigation would be to contact the security analysis team, manually sending them the firewall logs we used to identify the rule violation - and then wait for the reply. A slow, manual process.
 
-But, as shown with the last exercise, we can automate this process with Ansible! There can be pre-approved automation workflows in form of playbooks, provided via a central automation tool like Ansible controller. With such a set of Ansible playbooks, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
+But, as shown with the last exercise, we can automate this process with Ansible Automation Platform! There can be pre-approved automation workflows in form of playbooks, provided via a central automation tool like Ansible controller. With such a set of Ansible playbooks, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
 
 Let's try this out. Log out of your controller instance, and log in as the firewall user: `opsfirewall`. For the simplicity of the demo, the password is the same as for your student user. Once you have logged in and can see the dashboard, navigate to **Templates**. As you see, as the firewall administrator we can only see and execute few job templates:
 
@@ -69,13 +82,19 @@ Since we are the domain owners of the firewall, we can modify, delete and execut
 
 However, the SIEM still needs to accept logs and sort them into proper streams, called log sources in QRadar. Let's switch our perspective to the one of the security analyst. We get a call that there is something weird in the firewall and that logs are already sent into our direction. Log out of controller and log back in as the user `analyst`. Again, check out the **Templates**: again we have a different list of automation templates at our hand. We can only see and use those which are relevant to our job. Let's accept the firewall logs into our SIEM: Execute the job template **Accept firewall logs in QRadar**.
 
-After a few seconds the playbook run through, and the new security configuration is done. In contrast to the previous exercise, none of these steps required the operator or the analyst to access the command line, write playbooks or even install roles or collections. The playbooks were pre-approved and in fact accessed from within a Git repository. controller took care of the execution and the downloads of any role or collections. This substantially simplifies automation operations.
+After a few seconds the playbook run through, and the new security configuration is done. In contrast to the previous exercise, none of these steps required the operator or the analyst to access the command line, write playbooks or even install roles or collections. The playbooks were pre-approved and in fact accessed from within a Git repository. Automation controller took care of the execution and the downloads of any role or collections. This substantially simplifies automation operations.
 
 If you click on **Jobs** on the right side you will also see that you can always access the previously run jobs. This enables the teams to better track what was executed when, and what where the results. This enables transparency and clear understanding of the automation that was run.
 
 ## Step 2.6 - Verify new configuration
 
 Let's quickly verify that the QRadar logs are now showing up. Log into the QRadar web UI. Click on **Log Activity** and verify that events are making it to QRadar from Check Point:
+
+>**IBM QRadar Credentials**   
+>
+> Username: `admin`   
+> Password: `Ansible1!`   
+> 
 
 ![QRadar Log Activity showing logs from Check Point](images/qradar_checkpoint_logs.png)
 
@@ -85,15 +104,15 @@ Let's quickly verify that the QRadar logs are now showing up. Log into the QRada
 
 If the logs get drowned in QRadar's own logs, create a filter. Or click on unwanted log lines in the column **Log Source**, and pick **Filter on Log Source is not ...** to create filters on the fly to filter out unwanted traffic.
 
-Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the hamburger button in the left upper corner, and click on **Admin**. In there, click on **Log Souces**. A new window opens and shows the new log source.
+Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the hamburger button in the left upper corner, and click on **Admin**. In there, click on **Log Sources**. A new window opens and shows the new log source.
 
 ![QRadar Log Sources](images/qradar_log_sources.png)
 
 ## Step 2.7 - Offenses
 
-Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All preconfigured offense rules for this workshop are shown:
+Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All pre-configured offense rules for this workshop are shown:
 
-![QRadar Preconfigured Rules](images/qradar_preconfigured_rules.png)
+![QRadar Pre-configured Rules](images/qradar_preconfigured_rules.png)
 
 Double-click on the rule called **Ansible Workshop DDOS Rule**. The rule wizard window opens, allowing us changes to the offense rule if needed:
 
@@ -105,7 +124,7 @@ To decide if this violation is a false positive, we need to make sure that other
 
 ## Step 2.8 - Add Snort rule
 
-Let's add a new IDS rule. Again we will do this via a pre-approved playbook already in controller. Log out of controller, and log in as user `opsids` - the IDPS operator in charge of the IDPS. Navigate to **Templates**. There is a pre-created playbook available to add a rule to Snort. Execute it by clicking on the small rocket icon. But as you see, instead of bringing you to the jobs output, you will be faced with a survey:
+Let's add a new IDS rule. Again we will do this via a pre-approved playbook already in controller. Log out of controller, and log in as user `opsids` - the IDPS operator in charge of the IDPS. Navigate to **Templates**. There is a pre-created job template called **Add IDPS Rule** available to add a rule to Snort. Execute it by clicking on the small rocket icon. But as you see, instead of bringing you to the jobs output, you will be faced with a survey:
 
 ![Automation controller survey](images/controller_snort_survey.png)
 
@@ -121,10 +140,10 @@ As you can see we add a new snort rule matching on the parameters of the attack.
 
 The playbook runs through, takes care of installing the new rule, restarting the service and so on.
 
-Quickly verify the new rule on the Snort instance. From a terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2user`:
+Quickly verify the new rule on the Snort instance. From a terminal of your VS Code online editor, log in to Snort via SSH with the user `ec2-user`:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
+[student<X>@ansible ~]$ ssh ec2-user@snort
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep ddos_simulation /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_simulation"; classtype:successful-dos; sid:99000010; priority:1; rev:1;)
@@ -132,7 +151,7 @@ alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_si
 
 > **Note**
 >
-> Also, verify that the snort service is running via `systemctl status snort`. If there is a fatal error, chances are the rule you entered had an error. Remove the rules line from the file `/etc/snort/rules/local.rules` and run the playbook again.
+> Also, verify that the snort service is running via `sudo systemctl status snort`. If there is a fatal error, chances are the rule you entered had an error. Remove the rules line from the file `/etc/snort/rules/local.rules` and run the playbook again.
 
 After you have verified the rule, leave the Snort server via the command `exit`.
 
@@ -165,16 +184,18 @@ Log out of controller and log back in as user `opsfirewall`. Go to the **Templat
 
 ## Step 2.10 - Rollback
 
-The analysts have ended their threat hunting. To reduce resource consumption and the analysis workload it is preferable to now rollback the Check Point and Snort log configurations back to their pre-investigation state. To do so, there is pre-approved job template available to the analysts:
+The analysts have ended their threat hunting. To reduce resource consumption and the analysis workload it is preferable to now rollback the Check Point and Snort log configurations back to their pre-investigation state. To do so, there is pre-approved job template available to the analysts called **Roll back all changes**.
 
-- **Roll back all changes**
+Log into automation controller as the user `analyst`, and execute the **Roll back all changes** job template by clicking on the little rocket icon next to it. Soon all logging configuration is set back to normal.
 
-Log into automation controller as the user `analyst`, and execute it by clicking on the little rocket icon next to it. Soon all logging configuration is set back to normal.
-
-Last but not least we have to stop the attack simulation. Log out of controller, and log back in as your student user. In the section **Templates**, find and execute the job template called **Stop DDOS attack simulation**.
+Last but not least we have to stop the attack simulation. Log out of controller, and log back in as your student (admin) user. In the section **Templates**, find and execute the job template called **Stop DDOS attack simulation**.
 
 You are done with the exercise. Turn back to the list of exercises to continue with the next one.
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-2---ansible-security-automation-use-cases)
+**Navigation**
+<br><br>
+[Previous Exercise](../2.1-enrich/README.md) | [Next Exercise](../2.3-incident/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -70,7 +70,7 @@ ec2_info:
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel8-tower:
     owners: 309956199498
-    size: t3.medium
+    size: m4.xlarge
     os_type: linux
     disk_space: 20
     architecture: x86_64

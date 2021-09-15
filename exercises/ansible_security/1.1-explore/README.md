@@ -17,11 +17,11 @@ The exercises of the first section of this lab guide you through each individual
 
 ### Ansible Automation Platform command line utilities
 
-The first exercises will also introduce the Ansible Automation Platform command line utilities. These include:
+The first exercises will also introduce the Ansible Automation Platform features and command line utilities. These include:
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
 - [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like `ansible`, `ansible-playbook` and `ansible-doc`.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.
-- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the network collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
+- [Execution environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop because an execution environment has already been integrated into this workshop.  Execution environments are container images that can be utilized as Ansible execution.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
 
 If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
@@ -51,7 +51,7 @@ For the exercises of section 2 we need to have security incidents. Those should 
 
 ## Step 1.3 - Access the Ansible Environment
 
-All automation is done from the Ansible control host, a Red Hat Enterprise Linux machine. To make access to the control host and managing files on it easier there is a online version of VS Code editor installed directly on the control host. This way it can be accessed via a normal web browser. Commands can be executed right from the terminal within the VS Code editor.
+All automation is done from the Ansible control host, a Red Hat Enterprise Linux machine. To make access to the control host and managing files on it easier there is an online version of VS Code editor installed directly on the control host. This way it can be accessed via a normal web browser. Commands can be executed right from the terminal within the VS Code editor.
 
 <table>
 <thead>
@@ -100,10 +100,11 @@ Note that each student is assigned a student number, i.e. X and you should work 
 Next, proceed to check that Ansible Automation Platform has been configured correctly.
 
 ```bash
-    [student<X>@ansible ~]$ ansible-navigator images 
+    [student<X>@ansible-1 ~]$ ansible-navigator images 
 ```
 
-The result should resemble the following:
+The result should resemble the following:   
+
 ![VS Code - Check Ansible Version](images/1-vscode-navigator_list_ee.png)
 
 Execution environments (EEs) provide developers and operators with a portable and maintainable environment for consistent automation execution throughout development and production.
@@ -153,7 +154,7 @@ Note the following parameters within the `ansible-navigator.yml` file:
 
 > **Note**
 > 
-> For a full listing of configurations, please visit the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/).
+> For a full listing of configurations, please visit the `ansible-navigator` [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/).
 
 ## Step 1.7 - Your inventory
 

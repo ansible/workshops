@@ -19,7 +19,7 @@ If your experience is different in scheduling those workshops, please let us kno
 
 ## Lab Diagram
 
-![ansible security lab diagram](../../images/ansible_security_diagram.png?style=centreme)
+![ansible security lab diagram](../../images/ansible_security_diagram.png#centreme)
 
 ## Section 1 - Introduction to Ansible Security Automation Basics
 

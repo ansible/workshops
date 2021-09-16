@@ -1,4 +1,3 @@
 ---
 s3_state: "present"
 teardown: false
-aap_dir: "/home/{{ username }}/aap_install"

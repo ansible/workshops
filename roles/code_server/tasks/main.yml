@@ -28,10 +28,12 @@
         validate_certs: false
         force_basic_auth: true
       register: check_controller
+      when: workshop_type is defined
 
     - name: determine if controller or tower
       set_fact:
         controller_or_tower: "{{ 'controller' if 'Platform' in check_controller.x_api_product_name else 'tower' }}"
+      when: workshop_type is defined
 
 - name: setup vscode for web browser access
   include_tasks: "codeserver.yml"

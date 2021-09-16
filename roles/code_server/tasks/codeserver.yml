@@ -1,7 +1,4 @@
 ---
-- name: stop controller/tower
-  include_tasks: "service/{{ controller_or_tower }}_stop.yml"
-
 - name: dns for coder
   become: false
   community.aws.route53:
@@ -28,12 +25,6 @@
       - certbot
     state: present
     disable_gpg_check: true
-
-# solves error
-# pkg_resources.DistributionNotFound: The 'requests>=2.14.2' distribution was not found and is required by acme
-- name: Install requests python package
-  pip:
-    name: requests>=2.14.2
 
 - name: Apply our systemd service file (instead of RPM file)
   template:
@@ -73,8 +64,7 @@
   loop:
     - https://github.com/ansible/workshops/raw/devel/files/bierner.markdown-preview-github-styles-0.1.6.vsix
     - https://github.com/ansible/workshops/raw/devel/files/hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
-    - https://github.com/ansible/workshops/raw/devel/files/redhat.ansible-0.4.5.vsix
-    - https://github.com/ansible/workshops/raw/devel/files/ms-python.python-2021.9.1230869389.vsix
+    - https://github.com/ansible/workshops/raw/devel/files/vscoss.vscode-ansible-0.5.2.vsix
 
 - name: install ansible and markdown extensions
   become_user: "{{ username }}"
@@ -82,8 +72,7 @@
   loop:
     - bierner.markdown-preview-github-styles-0.1.6.vsix
     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
-    - redhat.ansible-0.4.5.vsix
-    - ms-python.python-2021.9.1230869389.vsix
+    - vscoss.vscode-ansible-0.5.2.vsix
   ignore_errors: true
   register: install_extension
   until: install_extension is not failed
@@ -95,6 +84,17 @@
     enabled: true
     state: started
     daemon_reload: true
+
+- name: "install nginx"
+  dnf:
+    name: ['nginx']
+    state: latest
+
+- name: delete all commented lines nginx.conf
+  lineinfile:
+    path: /etc/nginx/nginx.conf
+    state: absent
+    regexp: '#.*'
 
 # if we do not have a cert we will try to work anyway
 - name: issue cert
@@ -116,12 +116,18 @@
   blockinfile:
     block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
     dest: /etc/nginx/nginx.conf
-    insertbefore: "location / "
+    insertafter: "location /"
   when: workshop_type is not defined
 
-- name: configure nginx on controller/tower
-  include_tasks: "{{ controller_or_tower }}.yml"
-  when: workshop_type is defined
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
 
-- name: start controller/tower
-  include_tasks: "service/{{ controller_or_tower }}_start.yml"
+- name: "enable nginx"
+  service:
+    name: nginx
+    enabled: yes
+
+

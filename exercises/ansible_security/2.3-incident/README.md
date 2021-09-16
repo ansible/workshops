@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 2.3 - Incident response
 
 **Read this in other languages**: <br>

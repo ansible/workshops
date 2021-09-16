@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 2.2 - Threat hunting
 
 **Read this in other languages**: <br>

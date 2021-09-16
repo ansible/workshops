@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 1.2 - Executing the first Check Point playbook
 
 **Read this in other languages**: <br>

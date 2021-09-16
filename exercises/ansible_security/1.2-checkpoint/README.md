@@ -281,7 +281,7 @@ Access the Windows workstation and open the SmartConsole interface. On the right
 
 Next, on the left side, click on **SECURITY POLICIES**. Notice the additional access control policy entry in the middle of the field, compare this with when we looked at this earlier. Since the traffic is allowed now, the entry in the **Action** column is changed and has a different color.
 
-![SmartConsole Policy Entries](images/smartconsole-policy-entry.png?style=centreme
+![SmartConsole Policy Entries](images/smartconsole-policy-entry.png#centreme)
 
 Also note in the bottom left corner that there is a green bar indicating that changes were applied to the entire system.
 

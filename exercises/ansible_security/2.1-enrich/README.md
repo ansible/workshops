@@ -1,3 +1,10 @@
+<style type="text/css" rel="stylesheet">
+img[src$="centreme"] {
+  display:block;
+  margin: 0 auto;
+}
+</style>
+
 # Exercise 2.1 - Investigation Enrichment
 
 **Read this in other languages**: <br>
@@ -39,7 +46,7 @@ Next, since this is a security lab, we do need suspicious traffic - an attack. W
 Execute the playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run web_attack_simulation.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run web_attack_simulation.yml --mode stdout
 ```
 
 > **Note**
@@ -61,7 +68,7 @@ Open a new terminal in your VS Code online editor to connect to the Snort server
 After login, grep for the anomaly log entry:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@snort
+[student<X>@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Sun Sep 22 15:38:36 2019 from 35.175.178.231
 [ec2-user@snort ~]$ sudo grep web_attack /var/log/httpd/access_log
 172.17.78.163 - - [22/Sep/2019:15:56:49 +0000] "GET /web_attack_simulation HTTP/1.1" 200 22 "-" "curl/7.29.0"
@@ -165,7 +172,7 @@ Now edit again the existing playbook `enrich_log_sources.yml` where we already b
 
 Note that in this snippet you have to replace `YOURSERVERNAME` with the actual server name from your Check Point management instance, like `gw-77f3f6`. You can find the name of your individual Check Point instance by logging into your SmartConsole. It is shown in the **GATEWAYS & SERVERS** tab in the lower part of the screen underneath **Summary**:
 
-![Check Point Gateway Name](images/check_point_gw_name.png)
+![Check Point Gateway Name](images/check_point_gw_name.png?style=centreme)
 
 Replace the string `YOURSERVERNAME` in the playbook with your individual name.
 
@@ -277,7 +284,7 @@ If you bring all these pieces together, the full playbook `enrich_log_sources.ym
 Run the full playbook to add both log sources to QRadar:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
 ```
 
 In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
@@ -292,11 +299,11 @@ Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there ar
 > Username: `admin`  
 > Password: `Ansible1!`
 
-![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png)
+![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png?style=centreme)
 
 Many of those logs are in fact internal QRadar logs. To get a better overview, click on the drop down menu next to **Display** in the middle above the log list. Change the entry to **Raw Events**. Next, in the menu bar above that, click onto the button with the green funnel symbol and the text **Add Filter**. As **Parameter**, pick **Log Source [Indexed]**, as **Operator**, pick **Equals any of**. Then, from the list of log sources, pick **Check Point source** and click onto the small plus button on the right. Do the same for **Snort rsyslog source**, and press the button **Add Filter**:
 
-![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png)
+![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png?style=centreme)
 
 Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. Sometimes QRadar needs a few seconds to fully apply the new log sources. Until the new log sources are fully configured, incoming logs will have a "default" log source for unknown logs, called **SIM GENERIC LOG DSM-7**. If you see logs from this default log source, wait a minute or two. After that waiting time, the new log source configuration is properly applied and QRadar will attribute the logs to the right log source, here Check Point.
 
@@ -304,20 +311,20 @@ Also, if you change the **View** from **Real Time** to for example **Last 5 Minu
 
 Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner and then click on **Admin** at the bottom.
 
-![QRadar hamburger](images/2-qradar-hamburger.png)
+![QRadar hamburger](images/2-qradar-hamburger.png?style=centreme)
 
 In there, click on **Log Sources**.  
 
-![QRadar log sources](images/2-qradar-log-sources.png)
+![QRadar log sources](images/2-qradar-log-sources.png?style=centreme)
 
 A new window opens and shows the new log sources.
 
-![QRadar Log Sources](images/2-qradar-log-sources-window.png)
+![QRadar Log Sources](images/2-qradar-log-sources-window.png?style=centreme)
 
 In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` command:
 
 ```bash
-[student<X>@ansible ~]$ ssh admin@checkpoint_mgmt
+[student<X>@ansible-1 ~]$ ssh admin@checkpoint_mgmt
 [Expert@gw-77f3f6:0]# ls -l /opt/CPrt-R80/log_exporter/targets
 total 0
 drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
@@ -328,7 +335,7 @@ As you can see the central log server was configured via Check Point's internal 
 Let's also verify that the Snort configuration in the background was successful. From the terminal of your VS Code online editor, log onto your Snort instance via SSH as the user `ec2-user`. Become root and verify the rsyslog forwarding configuration:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@snort
+[student<X>@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Wed Sep 11 15:45:00 2019 from 11.22.33.44
 [ec2-user@snort ~] sudo cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
 $ModLoad imfile
@@ -386,13 +393,13 @@ In this play we provide some variables for Snort stating that we want to control
 Now execute the playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run enrich_snort_rule.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run enrich_snort_rule.yml --mode stdout
 ```
 
 Let's quickly verify that the new rule was indeed added. From the terminal of your VS Code online editor, ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@snort
+[student<X>@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep web_attack /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_attack_simulation"; classtype:web-application-attack; sid:99000020; priority:1; rev:1;)
@@ -402,7 +409,7 @@ alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_atta
 
 Moments after the playbook has been executed, we can check in QRadar if we see Offenses. And indeed, that is the case. Log into your QRadar UI, click on **Offenses**, and there on the left side on **All Offenses**:
 
-![QRadar Offenses](images/qradar_offenses.png)
+![QRadar Offenses](images/qradar_offenses.png?style=centreme)
 
 With these information at our hand, we can now finally check all offenses of this type, and verify that they are all coming only from one single host, the attacker.
 
@@ -493,7 +500,7 @@ While this playbook is maybe the longest you see in these entire exercises, the 
 Run the playbook to remove the log sources:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run rollback.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
 Also, we'll need to stop the process which simulates the web attack. Let's create a simple playbook that uses the `shell` module to stop the process running on the **attacker** machine.

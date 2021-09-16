@@ -1,3 +1,10 @@
+<style type="text/css" rel="stylesheet">
+img[src$="centreme"] {
+  display:block;
+  margin: 0 auto;
+}
+</style>
+
 # Exercise 2.3 - Incident response
 
 **Read this in other languages**: <br>
@@ -66,7 +73,7 @@ To have those rules generate logs, we need suspicious traffic - an attack. Again
 Run it with:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run sql_injection_simulation.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run sql_injection_simulation.yml --mode stdout
 ```
 
 For this exercise to work properly, we'll need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
@@ -81,7 +88,7 @@ Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If y
 As the security operator in charge of the corporate IDS, you routinely check the logs. From the terminal of your VS Code online editor, SSH to your snort node as the user `ec2-user` and view the logs:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@snort
+[student<X>@ansible-1 ~]$ ssh ec2-user@snort
 ```
 ```bash
 [ec2-user@snort ~]$ journalctl -u snort -f
@@ -164,7 +171,7 @@ This playbook should look familiar to you, it configures Snort to send logs to Q
 
 Let's change our perspective briefly to the one of a security analyst. We mainly use the SIEM, and now logs are coming in from Snort. To verify that, access your QRadar UI, open the **Log Activity** tab and validate that events are now making it to QRadar from Snort.
 
-![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png)
+![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png?style=centreme)
 
 > **Note**
 >
@@ -174,7 +181,7 @@ As the analyst, it's our responsibility to investigate possible security threats
 
 To have a clearer view of the logs, change the display to **Raw Events** at the top of the Log Activity output window. 
 
-![QRadar logs view, attacker IP address](images/qradar_attacker_ip.png)
+![QRadar logs view, attacker IP address](images/qradar_attacker_ip.png?style=centreme)
 
 > **Note**
 >
@@ -246,7 +253,7 @@ In your QRadar UI, verify in the Log Activity tab that you do not receive any mo
 
 Also, let's quickly verify that the new rule was added to Check Point: Access the Windows workstation and open the SmartConsole interface. On the left side, click on **SECURITY POLICIES** and note that the access control policy entry changed from **Accept** to **Drop**.
 
-![SmartConsole Blacklist Policy](images/check_point_policy_drop.png)
+![SmartConsole Blacklist Policy](images/check_point_policy_drop.png?style=centreme)
 
 You have successfully identified an attack and blocked the traffic behind the attack!
 
@@ -257,7 +264,7 @@ As the final step, we can run the rollback playbook to undo the Snort configurat
 Execute the playbook `rollback.yml` we wrote in the last exercise to roll all changes back.
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run rollback.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
 Note here that the playbook runs through without problems - even though we did not configure Check Point as a log source for QRadar this time! This is possible since Ansible tasks are most often idempotent: they can be run again and again, ensuring the desired state.

@@ -1,3 +1,10 @@
+<style type="text/css" rel="stylesheet">
+img[src$="centreme"] {
+  display:block;
+  margin: 0 auto;
+}
+</style>
+
 # Exercise 1.1 - Exploring the lab environment
 
 **Read this in other languages**: <br>
@@ -17,11 +24,11 @@ The exercises of the first section of this lab guide you through each individual
 
 ### Ansible Automation Platform command line utilities
 
-The first exercises will also introduce the Ansible Automation Platform command line utilities. These include:
+The first exercises will also introduce the Ansible Automation Platform features and command line utilities. These include:
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
 - [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like `ansible`, `ansible-playbook` and `ansible-doc`.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.
-- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the network collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
+- [Execution environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop because an execution environment has already been integrated into this workshop.  Execution environments are container images that can be utilized as Ansible execution.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
 
 If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
@@ -45,13 +52,13 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 The lab is set up individually for you. You have your own environment, own services, own virtual machines.
 
-![Red Hat Ansible Security Workshop Pod](images/diagram.png)
+![Red Hat Ansible Security Workshop Pod](images/diagram.png?style=centreme)
 
 For the exercises of section 2 we need to have security incidents. Those should happen on a **target** machine - that is Snort server. It is basically a RHEL installation with Snort installed and running a simplified web server to run attacks against.
 
 ## Step 1.3 - Access the Ansible Environment
 
-All automation is done from the Ansible control host, a Red Hat Enterprise Linux machine. To make access to the control host and managing files on it easier there is a online version of VS Code editor installed directly on the control host. This way it can be accessed via a normal web browser. Commands can be executed right from the terminal within the VS Code editor.
+All automation is done from the Ansible control host, a Red Hat Enterprise Linux machine. To make access to the control host and managing files on it easier there is an online version of VS Code editor installed directly on the control host. This way it can be accessed via a normal web browser. Commands can be executed right from the terminal within the VS Code editor.
 
 <table>
 <thead>
@@ -71,11 +78,11 @@ All automation is done from the Ansible control host, a Red Hat Enterprise Linux
 
 Let's access the Visual Studio Code. Click on the link for VS Code access from the workshop page:
 
-![VS Code Access](images/1-vscode-access.png)
+![VS Code Access](images/1-vscode-access.png?style=centreme)
 
 At this point, you will see a **Welcome** page:
 
-![VS Code - Welcome](images/1-vscode-welcome-page.png)
+![VS Code - Welcome](images/1-vscode-welcome-page.png?style=centreme)
 
 From within this environment, you can create and modify files or open a terminal and execute commands.
 
@@ -83,7 +90,7 @@ From within this environment, you can create and modify files or open a terminal
 
 So let's open a new terminal in VS Code. In the menu bar, click on **Terminal** > **New Terminal**. 
 
-![VS Code - New Terminal](images/1-vscode-new-terminal.png)
+![VS Code - New Terminal](images/1-vscode-new-terminal.png?style=centreme)
 
 A new terminal will be opened in the lower part of your editor and you will be at the command prompt. Note that most prerequisite tasks have already been done for you:
 
@@ -100,28 +107,29 @@ Note that each student is assigned a student number, i.e. X and you should work 
 Next, proceed to check that Ansible Automation Platform has been configured correctly.
 
 ```bash
-    [student<X>@ansible ~]$ ansible-navigator images 
+    [student<X>@ansible-1 ~]$ ansible-navigator images 
 ```
 
-The result should resemble the following:
-![VS Code - Check Ansible Version](images/1-vscode-navigator_list_ee.png)
+The result should resemble the following:   
+
+![VS Code - Check Ansible Version](images/1-vscode-navigator_list_ee.png?style=centreme)
 
 Execution environments (EEs) provide developers and operators with a portable and maintainable environment for consistent automation execution throughout development and production.
 
 This workshop uses a custom automation execution environment called `security_ee`. Let's have a closer look at it. We can do this by pressing the corresponding number which is **0**. Your output should look similar to the below:
 
-![ee main menu](images/1-vscode-navigator-ee-menu.png)
+![ee main menu](images/1-vscode-navigator-ee-menu.png?style=centreme)
 
 Selecting `2` for `Ansible version and collections` will show us all content collections installed on that particular EE, and the version of `ansible-core`:
 
-![ee info](images/1-vscode-navigator-ee-collections.png)
+![ee info](images/1-vscode-navigator-ee-collections.png?style=centreme)
 
 To return to the previous screen in `ansible-navigator`, press the `Esc` button. In our case, if you press `Esc` 3 times, you will return to the prompt.
 
 
 > **Note**
 > 
-> Please refer to the [execution environment documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) for more information.
+> Please refer to the [execution environment documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) for more information.   
 
 ## Step 1.6 - Examine the ansible-navigator configuration
 
@@ -153,13 +161,13 @@ Note the following parameters within the `ansible-navigator.yml` file:
 
 > **Note**
 > 
-> For a full listing of configurations, please visit the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/).
+> For a full listing of configurations, please visit the `ansible-navigator` [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/).   
 
 ## Step 1.7 - Your inventory
 
 Let's open a file in VS Code. In the menu bar, click on **File**, **Open File**. In the middle of the screen, a drop down menu opens with the available file content of the home directory of your user:
 
-![VS Code - VS Code file picker](images/1-vscode-filepicker.png)
+![VS Code - VS Code file picker](images/1-vscode-filepicker.png?style=centreme)
 
 Pick **lab_inventory**, this will immediately update the file list. In the new file list, pick **hosts**. This will open the inventory of your environment.
 

@@ -1,3 +1,10 @@
+<style type="text/css" rel="stylesheet">
+img[src$="centreme"] {
+  display:block;
+  margin: 0 auto;
+}
+</style>
+
 # Exercise 1.3 - Executing the first Snort playbook
 
 **Read this in other languages**: <br>
@@ -23,7 +30,7 @@ snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 The connection tp the Snort server uses a SSH key pre-installed on the control host, the user for the Snort server is `ec2-user`. In your VS Code online editor, open a terminal and access the snort server via:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@snort
+[student<X>@ansible-1 ~]$ ssh ec2-user@snort
 Warning: Permanently added '22.333.44.5' (ECDSA) to the list of known hosts.
 Last login: Mon Aug 26 12:17:48 2019 from h-213.61.244.2.host.de.colt.net
 [ec2-user@snort ~]$
@@ -169,7 +176,7 @@ The other variables, `ids_rules_file` and  `ids_rule_state` provide the user def
 It is now time to execute the playbook. In your VS Code online editor. In the terminal, execute the following command:
 
 ```bash
-[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
+[student1@ansible-1 ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -271,7 +278,7 @@ And most importantly, we want to be able to see what is actually found. The `ids
 Now let's execute the playbook to verify that our rule is part of the Snort installation:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
 
 PLAY [Verify Snort rule] **************************************************************
 

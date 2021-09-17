@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 1.1 - Exploring the lab environment
 
 **Read this in other languages**: <br>
@@ -52,7 +45,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 The lab is set up individually for you. You have your own environment, own services, own virtual machines.
 
-![Red Hat Ansible Security Workshop Pod](images/diagram.png?style=centreme)
+![Red Hat Ansible Security Workshop Pod](images/diagram.png#centreme)
 
 For the exercises of section 2 we need to have security incidents. Those should happen on a **target** machine - that is Snort server. It is basically a RHEL installation with Snort installed and running a simplified web server to run attacks against.
 
@@ -78,11 +71,11 @@ All automation is done from the Ansible control host, a Red Hat Enterprise Linux
 
 Let's access the Visual Studio Code. Click on the link for VS Code access from the workshop page:
 
-![VS Code Access](images/1-vscode-access.png?style=centreme)
+![VS Code Access](images/1-vscode-access.png#centreme)
 
 At this point, you will see a **Welcome** page:
 
-![VS Code - Welcome](images/1-vscode-welcome-page.png?style=centreme)
+![VS Code - Welcome](images/1-vscode-welcome-page.png#centreme)
 
 From within this environment, you can create and modify files or open a terminal and execute commands.
 
@@ -90,7 +83,7 @@ From within this environment, you can create and modify files or open a terminal
 
 So let's open a new terminal in VS Code. In the menu bar, click on **Terminal** > **New Terminal**. 
 
-![VS Code - New Terminal](images/1-vscode-new-terminal.png?style=centreme)
+![VS Code - New Terminal](images/1-vscode-new-terminal.png#centreme)
 
 A new terminal will be opened in the lower part of your editor and you will be at the command prompt. Note that most prerequisite tasks have already been done for you:
 
@@ -112,17 +105,17 @@ Next, proceed to check that Ansible Automation Platform has been configured corr
 
 The result should resemble the following:   
 
-![VS Code - Check Ansible Version](images/1-vscode-navigator_list_ee.png?style=centreme)
+![VS Code - Check Ansible Version](images/1-vscode-navigator_list_ee.png#centreme)
 
 Execution environments (EEs) provide developers and operators with a portable and maintainable environment for consistent automation execution throughout development and production.
 
 This workshop uses a custom automation execution environment called `security_ee`. Let's have a closer look at it. We can do this by pressing the corresponding number which is **0**. Your output should look similar to the below:
 
-![ee main menu](images/1-vscode-navigator-ee-menu.png?style=centreme)
+![ee main menu](images/1-vscode-navigator-ee-menu.png#centreme)
 
 Selecting `2` for `Ansible version and collections` will show us all content collections installed on that particular EE, and the version of `ansible-core`:
 
-![ee info](images/1-vscode-navigator-ee-collections.png?style=centreme)
+![ee info](images/1-vscode-navigator-ee-collections.png#centreme)
 
 To return to the previous screen in `ansible-navigator`, press the `Esc` button. In our case, if you press `Esc` 3 times, you will return to the prompt.
 
@@ -167,7 +160,7 @@ Note the following parameters within the `ansible-navigator.yml` file:
 
 Let's open a file in VS Code. In the menu bar, click on **File**, **Open File**. In the middle of the screen, a drop down menu opens with the available file content of the home directory of your user:
 
-![VS Code - VS Code file picker](images/1-vscode-filepicker.png?style=centreme)
+![VS Code - VS Code file picker](images/1-vscode-filepicker.png#centreme)
 
 Pick **lab_inventory**, this will immediately update the file list. In the new file list, pick **hosts**. This will open the inventory of your environment.
 

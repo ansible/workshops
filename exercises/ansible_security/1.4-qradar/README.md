@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 1.4 - Executing the first IBM QRadar
 
 **Read this in other languages**: <br>
@@ -28,7 +21,7 @@ In the login field, provide the username **admin** and the password **Ansible1!*
 
 You are now viewing the IBM QRadar main web interface.
 
-![QRadar main window](images/qradar-main-window.png?style=centreme)
+![QRadar main window](images/qradar-main-window.png#centreme)
 
 To get an idea of QRadar and the basic concepts, let's have a short look at the interface: in the upper part there is a navigation bar with multiple entry points into the main parts of QRadar.
 
@@ -41,7 +34,7 @@ To get an idea of QRadar and the basic concepts, let's have a short look at the 
 
 For the purpose of the demo, we will have a closer look at the **Offenses**: click on the menu item. In the new window, you will see a navigation bar on the left side to filter the offenses.
 
-![QRadar offense window](images/qradar-offense-window.png?style=centreme)
+![QRadar offense window](images/qradar-offense-window.png#centreme)
 
 > **Note**
 >
@@ -57,7 +50,7 @@ In a productive environment it is common to create more and more custom rules ov
 
 The list is filtered, and only shows few rules which are related to DDOS.
 
-![QRadar, filtered rules list](images/qradar-offenses-rules.png?style=centreme)
+![QRadar, filtered rules list](images/qradar-offenses-rules.png#centreme)
 
 Click the one called **"Potential DDoS Against Single Host (TCP)"**, note that it is enabled. This will be relevant later in this exercise.
 
@@ -265,7 +258,7 @@ As you can see, the playbook denotes a change: the rule was changed. Run the pla
 To verify that Ansible indeed changed something, we go back to the UI of QRadar. Open the QRadar IP in your web browser. Click on the **Offenses** tab, and from there on the left side click on **Rules**. The long list of rules is displayed. In the search bar on top of this list, enter the following search term: `DDoS`
 Hit enter to filter the list, so that it only shows rules which are related to DDOS. At the end, note the rule regarding potential DDOS attacks, and check the state in the **Enabled** column: it is set to **False**!
 
-![QRadar, filtered rules list showing disabled rule](images/qradar-rules-disabled.png?style=centreme)
+![QRadar, filtered rules list showing disabled rule](images/qradar-rules-disabled.png#centreme)
 
 You are done with the first steps of automating QRadar with Ansible. Head back to the exercise overview and continue with the next exercise.
 

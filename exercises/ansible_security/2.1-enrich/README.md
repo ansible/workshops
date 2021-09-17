@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 2.1 - Investigation Enrichment
 
 **Read this in other languages**: <br>
@@ -172,7 +165,7 @@ Now edit again the existing playbook `enrich_log_sources.yml` where we already b
 
 Note that in this snippet you have to replace `YOURSERVERNAME` with the actual server name from your Check Point management instance, like `gw-77f3f6`. You can find the name of your individual Check Point instance by logging into your SmartConsole. It is shown in the **GATEWAYS & SERVERS** tab in the lower part of the screen underneath **Summary**:
 
-![Check Point Gateway Name](images/check_point_gw_name.png?style=centreme)
+![Check Point Gateway Name](images/check_point_gw_name.png#centreme)
 
 Replace the string `YOURSERVERNAME` in the playbook with your individual name.
 
@@ -299,11 +292,11 @@ Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there ar
 > Username: `admin`  
 > Password: `Ansible1!`
 
-![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png?style=centreme)
+![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png#centreme)
 
 Many of those logs are in fact internal QRadar logs. To get a better overview, click on the drop down menu next to **Display** in the middle above the log list. Change the entry to **Raw Events**. Next, in the menu bar above that, click onto the button with the green funnel symbol and the text **Add Filter**. As **Parameter**, pick **Log Source [Indexed]**, as **Operator**, pick **Equals any of**. Then, from the list of log sources, pick **Check Point source** and click onto the small plus button on the right. Do the same for **Snort rsyslog source**, and press the button **Add Filter**:
 
-![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png?style=centreme)
+![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png#centreme)
 
 Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. Sometimes QRadar needs a few seconds to fully apply the new log sources. Until the new log sources are fully configured, incoming logs will have a "default" log source for unknown logs, called **SIM GENERIC LOG DSM-7**. If you see logs from this default log source, wait a minute or two. After that waiting time, the new log source configuration is properly applied and QRadar will attribute the logs to the right log source, here Check Point.
 
@@ -311,15 +304,15 @@ Also, if you change the **View** from **Real Time** to for example **Last 5 Minu
 
 Let's verify that QRadar also properly shows the log source. In the QRadar UI, click on the "hamburger button" (three horizontal bars) in the left upper corner and then click on **Admin** at the bottom.
 
-![QRadar hamburger](images/2-qradar-hamburger.png?style=centreme)
+![QRadar hamburger](images/2-qradar-hamburger.png#centreme)
 
 In there, click on **Log Sources**.  
 
-![QRadar log sources](images/2-qradar-log-sources.png?style=centreme)
+![QRadar log sources](images/2-qradar-log-sources.png#centreme)
 
 A new window opens and shows the new log sources.
 
-![QRadar Log Sources](images/2-qradar-log-sources-window.png?style=centreme)
+![QRadar Log Sources](images/2-qradar-log-sources-window.png#centreme)
 
 In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` command:
 
@@ -409,7 +402,7 @@ alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_atta
 
 Moments after the playbook has been executed, we can check in QRadar if we see Offenses. And indeed, that is the case. Log into your QRadar UI, click on **Offenses**, and there on the left side on **All Offenses**:
 
-![QRadar Offenses](images/qradar_offenses.png?style=centreme)
+![QRadar Offenses](images/qradar_offenses.png#centreme)
 
 With these information at our hand, we can now finally check all offenses of this type, and verify that they are all coming only from one single host, the attacker.
 

@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 1.2 - Executing the first Check Point playbook
 
 **Read this in other languages**: <br>
@@ -43,7 +36,7 @@ You now are accessing a default windows workstation with a Google Chrome browser
 
 Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. The IP address to enter is the one from the **checkpoint** entry of your inventory.
 
-![SmartConsole login window](images/smartconsole-login-window.png?style=centreme)
+![SmartConsole login window](images/smartconsole-login-window.png#centreme)
 
 Press the **Login** button. Afterwards you need to verify the server fingerprint by clicking the **PROCEED** button.
 
@@ -53,7 +46,7 @@ Press the **Login** button. Afterwards you need to verify the server fingerprint
 
 You are now viewing the Check Point SmartConsole management interface. There might be a Internet Explorer Warning visible upon start. This can safely be closed and is due to limitations in the way IE works.
 
-![SmartConsole main window](images/smartconsole-main-window.png?style=centreme)
+![SmartConsole main window](images/smartconsole-main-window.png#centreme)
 
 Next, on the left side, click on **SECURITY POLICIES** and note that there is currently only one rule installed: to drop all traffic. Now you have a first idea of how Check Point looks like in term of the management interface. We will interact more with it - but first we go back to the command line to learn how to write Ansible playbooks interacting with Check Point.
 
@@ -284,11 +277,11 @@ Now it's time to check if the changes really did take place and Check Point MGMT
 
 Access the Windows workstation and open the SmartConsole interface. On the right side, underneath **Object Categories**, click on **Network Objects**, then pick **Hosts**. It should list both new host entries.
 
-![SmartConsole Hosts list](images/smartconsole-hosts-list.png?style=centreme)
+![SmartConsole Hosts list](images/smartconsole-hosts-list.png#centreme)
 
 Next, on the left side, click on **SECURITY POLICIES**. Notice the additional access control policy entry in the middle of the field, compare this with when we looked at this earlier. Since the traffic is allowed now, the entry in the **Action** column is changed and has a different color.
 
-![SmartConsole Policy Entries](images/smartconsole-policy-entry.png?style=centreme
+![SmartConsole Policy Entries](images/smartconsole-policy-entry.png#centreme)
 
 Also note in the bottom left corner that there is a green bar indicating that changes were applied to the entire system.
 
@@ -296,7 +289,7 @@ Also note in the bottom left corner that there is a green bar indicating that ch
 
 To see how changes are normally performed in a typical manual interaction with Check Point, let's do a small change which will come in handy later on. By default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
 
-![SmartConsole, change logging](images/smartconsole-change-logging.png?style=centreme)
+![SmartConsole, change logging](images/smartconsole-change-logging.png#centreme)
 
 Afterwards, click on the **Install Policy** button at the top of the list of policies, confirm the dialog which opens with **Publish & Install** and in the last dialog, click **Install** again.
 

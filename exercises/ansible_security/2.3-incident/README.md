@@ -1,10 +1,3 @@
-<style type="text/css" rel="stylesheet">
-img[src$="centreme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
-
 # Exercise 2.3 - Incident response
 
 **Read this in other languages**: <br>
@@ -171,7 +164,7 @@ This playbook should look familiar to you, it configures Snort to send logs to Q
 
 Let's change our perspective briefly to the one of a security analyst. We mainly use the SIEM, and now logs are coming in from Snort. To verify that, access your QRadar UI, open the **Log Activity** tab and validate that events are now making it to QRadar from Snort.
 
-![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png?style=centreme)
+![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png#centreme)
 
 > **Note**
 >
@@ -181,7 +174,7 @@ As the analyst, it's our responsibility to investigate possible security threats
 
 To have a clearer view of the logs, change the display to **Raw Events** at the top of the Log Activity output window. 
 
-![QRadar logs view, attacker IP address](images/qradar_attacker_ip.png?style=centreme)
+![QRadar logs view, attacker IP address](images/qradar_attacker_ip.png#centreme)
 
 > **Note**
 >
@@ -253,7 +246,7 @@ In your QRadar UI, verify in the Log Activity tab that you do not receive any mo
 
 Also, let's quickly verify that the new rule was added to Check Point: Access the Windows workstation and open the SmartConsole interface. On the left side, click on **SECURITY POLICIES** and note that the access control policy entry changed from **Accept** to **Drop**.
 
-![SmartConsole Blacklist Policy](images/check_point_policy_drop.png?style=centreme)
+![SmartConsole Blacklist Policy](images/check_point_policy_drop.png#centreme)
 
 You have successfully identified an attack and blocked the traffic behind the attack!
 

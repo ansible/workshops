@@ -174,39 +174,117 @@ For node3:
 
 Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remember the "Gathering Facts" task listed in the output of each `ansible-navigator` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
 
-To get an idea what facts Ansible collects by default, on your control node as your student user run:
+To get an idea what facts Ansible collects by default, on your control node as your student user run the following playbook to get the setup details of `node1`:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup
+```yaml
+---
+- name: Capture Setup
+  hosts: node1
+  
+  tasks:
+
+    - name: Collect only facts returned by facter
+      ansible.builtin.setup:
+        gather_subset:
+        - 'all'
+      register: setup
+    
+    - debug:
+        var: setup
 ```
 
-This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard:
-
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
+[student<X>@ansible-1 ansible-files]$ cd ~
+[student<X>@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
 ```
 
-Or what about only looking for memory related facts:
+This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard within your playbook. Create a playbook labeled `setup_filter.yml` as shown below. In this example, we filter to get the `eth0` facts as well as memory details of `node1`.
+
+```yaml
+---
+- name: Capture Setup
+  hosts: node1
+  
+  tasks:
+
+    - name: Collect only specific facts
+      ansible.builtin.setup:
+        filter:
+        - 'ansible_eth0'
+        - 'ansible_*_mb'
+      register: setup
+    
+    - debug:
+        var: setup
+```
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
 ```
 
 ### Step 6 - Challenge Lab: Facts
 
-* Try to find and print the distribution (Red Hat) of your managed hosts. On one line, please.
+* Try to find and print the distribution (Red Hat) of your managed hosts using a playbook.
 
 > **Tip**
 >
-> Use grep to find the fact, then apply a filter to only print this fact.
+> Use the wildcard to find the fact within your filter, then apply a filter to only print this fact.
 
 > **Warning**
 >
 > **Solution below\!**
 
+```yaml
+---
+- name: Capture Setup
+  hosts: node1
+
+  tasks:
+
+    - name: Collect only specific facts
+      ansible.builtin.setup:
+        filter:
+        - '*distribution'
+      register: setup
+
+    - debug:
+        var: setup
+```
+
+With the wildcard in place, the output shows:
+
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup|grep distribution
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
+
+TASK [debug] *******************************************************************
+ok: [ansible] => {
+    "setup": {
+        "ansible_facts": {
+            "ansible_distribution": "RedHat"
+        },
+        "changed": false,
+        "failed": false
+    }
+}
+```
+
+With this we can conclude the variable we are looking for is labeled `ansible_distribution`.
+
+Then we can update the playbook to be explicit in its findings and change the following line:
+
+```yaml
+filter:
+- '*distribution'
+```
+
+to:
+
+```yaml
+filter:
+- 'ansible_distribution'
+```
+
+```bash
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
 ```
 
 ### Step 7 - Using Facts in Playbooks

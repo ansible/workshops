@@ -5,12 +5,12 @@
 
 <div id="section_title">
   <a data-toggle="collapse" href="#collapse2">
-    Workshop access
+    <h3>Workshop access</h3>
   </a>
 </div>
 
- <div id="collapse2" class="panel-collapse collapse">
- 
+ <div id="collapse2" class="panel-collapse collapse in">
+
 | Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
 |---	|---	|---	|---	|---	|
 | Ansible Control Host 	| ansible 	| ansible-1 	| - 	| - 	|

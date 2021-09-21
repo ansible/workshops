@@ -77,12 +77,6 @@
       </tr>
     </tbody>
   </table>
-
-  <blockquote>
-    <p><strong>Note</strong></p>
-
-  <p>The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
-  </blockquote>
 </div>
 
 ## Step 2.1 - Check Point Next Generation Firewall

@@ -81,10 +81,10 @@ There are multiple stakeholders involved in preventing security breaches and, if
 
 Let's have a brief look at some of the personas involved.
 
-| Persona 	| Task 	| Challenges 	|
+| Persona 	| Tasks 	| Challenges 	|
 |---	|---	|---	|
-| Chief Information Security Officer (CISO) 	| Manage the risk and ensure that security incidents are effectively handled. <br>Create a security ops program. 	| I have multiple teams managing security in silos. Security is not integrated into larger IT practices and landscape. 	|
-| Security Operator 	| Reduce the change delivery time. <br>Enable the escalation of potential threats. 	| I receive an increasing number of requests from Governance, SOC and ITOps that I don’t have time to review and execute. 	|
+| Chief Information Security Officer (CISO) 	| Manage the risk and ensure that security incidents are effectively handled.<br>Create a security ops program. 	| I have multiple teams managing security in silos. Security is not integrated into larger IT practices and landscape. 	|
+| Security Operator 	| Reduce the change delivery time.<br>Enable the escalation of potential threats. 	| I receive an increasing number of requests from Governance, SOC and ITOps that I don’t have time to review and execute. 	|
 | Security Analyst 	| Increase the number of events analysed and streamline the coordination of remediation processes. 	| Attacks are becoming more frequent, faster and complex. The tools I use don’t live up to expectations. 	|
 
 We will use Ansible Automation Platform to elevate the interactions learned in the last section to combine the security tools into automated workflows.

@@ -8,7 +8,7 @@
     <h3>Workshop access</h3>
   </a>
 </div>
-<table id=collapse2" class="panel-collapse collapse">
+<table id="collapse2" class="panel-collapse collapse">
   <thead>
     <tr>
       <th>Role</th>

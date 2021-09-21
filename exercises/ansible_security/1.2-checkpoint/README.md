@@ -68,9 +68,21 @@
         <td>windows_ws</td>
         <td>administrator</td>
         <td><em>Provided by Instructor</em></td>
+      <tr>
+        <td>Automation controller</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>admin</td>
+        <td><em>Provided by Instructor</em></td>
       </tr>
     </tbody>
   </table>
+
+>**Note**
+>
+> The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.
+
+
 </div>
 
 ## Step 2.1 - Check Point Next Generation Firewall

@@ -50,6 +50,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 | Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
 | Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
 | Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
+| Automation controller   | ansible   | ansible-1   | admin   | *Provided by Instructor* 	|
 
 >**Note**
 >

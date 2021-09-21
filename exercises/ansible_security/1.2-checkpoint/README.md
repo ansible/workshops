@@ -9,7 +9,7 @@
   </a>
 </div>
 
- <div id="collapse2" class="panel-collapse collapse in">
+ <div id="collapse2" class="panel-collapse collapse"></div>
 
 | Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
 |---	|---	|---	|---	|---	|
@@ -20,8 +20,6 @@
 | Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
 | Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
 | Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
-
-</div>
 
 ## Step 2.1 - Check Point Next Generation Firewall
 

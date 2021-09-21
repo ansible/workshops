@@ -3,6 +3,77 @@
 **Read this in other languages**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    <h3>Workshop access</h3>
+  </a>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 ## Step 1.1 - The Background
 
 In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow. 

@@ -9,6 +9,17 @@ The objective of this lab is to provide you a deeper understanding and hands on 
 
 We have set up a common set of security related tools:
 
+| Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
+|---	|---	|---	|---	|---	|
+| Ansible Control Host 	| ansible 	| ansible-1 	| - 	| - 	|
+| IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	|
+| Attacker 	| attacker 	| attacker 	| - 	| - 	|
+| Snort 	| snort 	| snort 	| - 	| - 	|
+| Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
+| Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
+| Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
+| Automation controller 	| ansible 	| ansible-1 	| admin 	| *Provided by Instructor* 	|
+
 ### Firewall
 - A firewall is a network security device that monitors incoming and outgoing network traffic and decides whether to allow or block specific traffic based on a defined set of security rules.
 - We will use [Check Point Next Generation Firewall](https://www.checkpoint.com/products/next-generation-firewall/) in this workshop.

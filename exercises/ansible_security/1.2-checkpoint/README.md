@@ -8,18 +8,71 @@
     <h3>Workshop access</h3>
   </a>
 </div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+ </div>
 
- <div id="collapse2" class="panel-collapse collapse"></div>
-
-| Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
-|---	|---	|---	|---	|---	|
-| Ansible Control Host 	| ansible 	| ansible-1 	| - 	| - 	|
-| IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	|
-| Attacker 	| attacker 	| attacker 	| - 	| - 	|
-| Snort 	| snort 	| snort 	| - 	| - 	|
-| Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
-| Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
-| Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
 
 ## Step 2.1 - Check Point Next Generation Firewall
 

@@ -3,6 +3,26 @@
 **Read this in other languages**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    Workshop access
+  </a>
+</div>
+
+ <div id="collapse2" class="panel-collapse collapse">
+ 
+| Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
+|---	|---	|---	|---	|---	|
+| Ansible Control Host 	| ansible 	| ansible-1 	| - 	| - 	|
+| IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	|
+| Attacker 	| attacker 	| attacker 	| - 	| - 	|
+| Snort 	| snort 	| snort 	| - 	| - 	|
+| Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
+| Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
+| Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
+
+</div>
+
 ## Step 2.1 - Check Point Next Generation Firewall
 
 To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generation Firewall (NGFW).

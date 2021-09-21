@@ -39,3 +39,4 @@ provisioner/tests/ci-common.yml
 *.gz
 provisioner/old_tower_license.json
 .cache/
+.jekyll-cache/

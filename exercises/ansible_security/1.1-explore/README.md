@@ -7,7 +7,19 @@
 
 The objective of this lab is to provide you a deeper understanding and hands on experience how to automate security tools used by security operators. For that we will tackle three security use cases rather typical for the day-to-day challenges of security operators. While all of them will interact with roughly the same tool set, each use case shows a different perspective (security analyst, firewall operator, IDS specialist) and thus a different point of view on the available tools.
 
-We have set up a common set of security related tools:
+We have set up automation controller and a common set of security related tools:
+
+| Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
+|---	|---	|---	|---	|---	|
+| Ansible Control Host 	| ansible 	| ansible-1 	| - 	| - 	|
+| IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	|
+| Attacker 	| attacker 	| attacker 	| - 	| - 	|
+| Snort 	| snort 	| snort 	| - 	| - 	|
+| Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
+| Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
+| Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
+| Automation controller 	| ansible 	| ansible-1 	| admin 	| *Provided by Instructor* 	|
+
 
 ### Firewall
 - A firewall is a network security device that monitors incoming and outgoing network traffic and decides whether to allow or block specific traffic based on a defined set of security rules.

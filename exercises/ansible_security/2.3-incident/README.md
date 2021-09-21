@@ -254,6 +254,11 @@ You have successfully identified an attack and blocked the traffic behind the at
 
 As the final step, we can run the rollback playbook to undo the Snort configuration, reducing resource consumption and the analysis workload.
 
+>**Note**
+>
+> Please ensure that you have exited out of any current ssh sessions and have your **control-node** prompt open before running the `rollback.yml` playbook.
+
+
 Execute the playbook `rollback.yml` we wrote in the last exercise to roll all changes back.
 
 ```bash

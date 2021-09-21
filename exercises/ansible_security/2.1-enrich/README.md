@@ -5,9 +5,19 @@
 
 ## Step 1.1 - The Background
 
-In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow.
+In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow. 
 
-In comes Ansible: we use Ansible to elevate the interactions learned in the last section to combine the security tools into automated workflows.
+There are multiple stakeholders involved in preventing security breaches and, if a cyber attack was successful, remediate the security intrusion as quick as possible. 
+
+Let's have a brief look at some of the personas involved.
+
+| Persona 	| Task 	| Challenges 	|  	|
+|---	|---	|---	|---	|
+| Chief Information Security Officer (CISO) 	| Manage the risk and ensure that security incidents are effectively handled. <br>Create a security ops program. 	| I have multiple teams managing security in silos. Security is not integrated into larger IT practices and landscape. 	|  	|
+| Security Operator 	| Reduce the change delivery time. <br>Enable the escalation of potential threats. 	| I receive an increasing number of requests from Governance, SOC and ITOps that I don’t have time to review and execute. 	|  	|
+| Security Analyst 	| Increase the number of events analysed and streamline the coordination of remediation processes. 	| Attacks are becoming more frequent, faster and complex. The tools I use don’t live up to expectations. 	|  	|
+
+We will use Ansible Automation Platform to elevate the interactions learned in the last section to combine the security tools into automated workflows.
 
 ## Step 1.2 - Preparations
 
@@ -279,8 +289,15 @@ Run the full playbook to add both log sources to QRadar:
 ```bash
 [student<X>@ansible-1 ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
 ```
+In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. 
 
-In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
+![Check Point progress](images/2.1-checkpoint-progress.png#centreme)
+
+>Note
+>
+>If that gets stuck at 10% you can usually safely ignore it, the log exporter works anyway.
+
+
 
 ## Step 1.6 - Verify the log source configuration
 
@@ -294,9 +311,15 @@ Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there ar
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png#centreme)
 
-Many of those logs are in fact internal QRadar logs. To get a better overview, click on the drop down menu next to **Display** in the middle above the log list. Change the entry to **Raw Events**. Next, in the menu bar above that, click onto the button with the green funnel symbol and the text **Add Filter**. As **Parameter**, pick **Log Source [Indexed]**, as **Operator**, pick **Equals any of**. Then, from the list of log sources, pick **Check Point source** and click onto the small plus button on the right. Do the same for **Snort rsyslog source**, and press the button **Add Filter**:
+Many of those logs are in fact internal QRadar logs. To get a better overview, click on the drop down menu next to **Display** in the middle above the log list. Change the entry to **Raw Events**. 
+
+Next, in the menu bar above that, click onto the button with the green funnel symbol and the text **Add Filter**. As **Parameter**, pick **Log Source [Indexed]**, as **Operator**, pick **Equals any of**. Then, from the list of log sources, pick **Check Point source** and click onto the small plus button on the right. Do the same for **Snort rsyslog source**, and press the button **Add Filter**:
 
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_filter_logs.png#centreme)
+
+>**Note**
+>
+> We will only see Check Point logs at this point. Snort logs will only appear later in QRadar once we've completed a few later steps in this exercise.
 
 Now the list of logs is better to analyze. Verify that events are making it to QRadar from Check Point. Sometimes QRadar needs a few seconds to fully apply the new log sources. Until the new log sources are fully configured, incoming logs will have a "default" log source for unknown logs, called **SIM GENERIC LOG DSM-7**. If you see logs from this default log source, wait a minute or two. After that waiting time, the new log source configuration is properly applied and QRadar will attribute the logs to the right log source, here Check Point.
 
@@ -489,6 +512,10 @@ The playbook `rollback.yml` should have this content:
 > Again, remember to replace the value of `YOURSERVERNAME` with the actual server name of your Check Point instance.
 
 While this playbook is maybe the longest you see in these entire exercises, the structure and content should already be familiar to you. Take a second to go through each task to understand what is happening.
+
+>**Note**
+>
+> Please ensure that you have exited out of any current ssh sessions and have your **control-node** prompt open before running the `rollback.yml` playbook.
 
 Run the playbook to remove the log sources:
 

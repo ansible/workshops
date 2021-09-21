@@ -86,6 +86,10 @@ After a few seconds the playbook run through, and the new security configuration
 
 If you click on **Jobs** on the right side you will also see that you can always access the previously run jobs. This enables the teams to better track what was executed when, and what where the results. This enables transparency and clear understanding of the automation that was run.
 
+>**Note**
+>
+> A job is an instance of automation controller launching a Job Template. The **Jobs** link displays a list of jobs and their statuses shown as completed successfully or failed, or as an active (running) job.
+
 ## Step 2.6 - Verify new configuration
 
 Let's quickly verify that the QRadar logs are now showing up. Log into the QRadar web UI. Click on **Log Activity** and verify that events are making it to QRadar from Check Point:
@@ -181,6 +185,11 @@ Let's quickly have a look at our SIEM QRadar: access the log activity tab. Valid
 We have determined that the host is not performing an attack and finally confirmed that the firewall policy violation is a false positive, probably caused by a misconfiguration of the whitelist group for that application. So we can whitelist the IP in the firewall to let events come through.
 
 Log out of controller and log back in as user `opsfirewall`. Go to the **Templates** overview, and launch the job template **Whitelist attacker**. A few moments later the traffic is allowed.
+
+Let's verify that QRadar properly shows the Snort log events. In the QRadar UI, click on the **Log Activity** menu at the top. You should see log entries from the **Snort rsyslog source** similar to the below.
+
+![QRadar Snort logs](images/qradar_snort_logs.png#centreme)
+
 
 ## Step 2.10 - Rollback
 

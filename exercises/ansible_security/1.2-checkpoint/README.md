@@ -34,7 +34,10 @@ You now are accessing a default windows workstation with a Google Chrome browser
 
 ## Step 2.3 - Access the SmartConsole UI
 
-Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. The IP address to enter is the one from the **checkpoint** entry of your inventory.
+Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. 
+
+Open your **lab inventory** in the online editor and look for the **firewall** inventory group. There will be a `checkpoint` entry. Use the `ansible_host` IP address to log into the SmartConsole.
+
 
 ![SmartConsole login window](images/smartconsole-login-window.png#centreme)
 

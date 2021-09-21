@@ -69,15 +69,9 @@
         <td>administrator</td>
         <td><em>Provided by Instructor</em></td>
       </tr>
-      <tr>
-        <td>Automation controller</td>
-        <td>ansible</td>
-        <td>ansible-1</td>
-        <td>admin</td>
-        <td><em>Provided by Instructor</em></td>
-      </tr>
     </tbody>
   </table>
+</div>
 
 >**Note**
 >

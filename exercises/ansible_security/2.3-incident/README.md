@@ -241,7 +241,7 @@ Let's change our perspective briefly to the one of a security analyst. We mainly
 
 ![QRadar logs view, showing logs from Snort](images/qradar_incoming_snort_logs.png#centreme)
 
-> **Note**
+>**Note**
 >
 > If no logs are shown, wait a bit. It might take more than a minute to show the first entries. Also, the first logs might be identified with the "default" log source (showing **SIM Generic Log DSM-7** instead of **Snort rsyslog source**) so give it some time.
 
@@ -251,17 +251,27 @@ To have a clearer view of the logs, change the display to **Raw Events** at the 
 
 ![QRadar logs view, attacker IP address](images/qradar_attacker_ip.png#centreme)
 
-> **Note**
+>**Note**
 >
 >Remember that it helps to add filters to the QRadar log view for more concise information.   
 
 Looking closer at the **Raw Events** output, we can see that the Snort logs includes a ***Host*** entry with the IP address. This is vital information we'll need to remediate the cyber attack.
 
-> **Note**
+>**Note**
 >
 >Note that these logs already show an offense marker on the left hand side.
 
-Open the **Offenses** tab on the top menu. We'll see a newly created offense. Open the new offense and scroll down to view the **Top 5 Annotations** section. There we will see a **SQL Injection Detected** annotation indicating that our custom **Ansible Workshop SQL Injection Rule** was triggered.
+Open the **Offenses** tab on the top menu. We'll see a newly created offense similar to the below. 
+
+![QRadar offense list](images/qradar_offense_list.png#centreme)
+
+Double-click on the new offense and in the top right hand corner, click on the **Display** dropdown menu and select **Annotations**.
+
+![QRadar Offense Display menu](images/qradar_offense_display_menu.png)
+
+ In the *Annotation section, there we will see a **SQL Injection Detected** annotation indicating that our custom **Ansible Workshop SQL Injection Rule** was triggered.
+
+![QRadar Offense Annotation](images/qradar_annotation_sql_injection.png)
 
 ## Step 3.6 - Blacklist IP
 

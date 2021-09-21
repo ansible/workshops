@@ -189,7 +189,7 @@ Let's verify that QRadar also properly shows the log source. In the QRadar UI, c
 
 ## Step 2.7 - Offenses
 
-Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All pre-configured offense rules for this workshop are shown:
+Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, Within the **Group:** drop down click select **Ansible**. All pre-configured offense rules for this workshop are shown:
 
 ![QRadar Pre-configured Rules](images/qradar_preconfigured_rules.png#centreme)
 

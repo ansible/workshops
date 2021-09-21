@@ -68,6 +68,7 @@
         <td>windows_ws</td>
         <td>administrator</td>
         <td><em>Provided by Instructor</em></td>
+      </tr>
       <tr>
         <td>Automation controller</td>
         <td>ansible</td>
@@ -77,6 +78,11 @@
       </tr>
     </tbody>
   </table>
+
+>**Note**
+>
+> The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.
+
 </div>
 
 ## Step 2.1 - Check Point Next Generation Firewall
@@ -104,7 +110,7 @@ If you do not have a RDP client available or want to test the HTML RDP client, p
 
 You now are accessing a default windows workstation with a Google Chrome browser installed.
 
-> **Note**
+>**Note**
 >
 > Directly after the login you might see a wide blue bar on the right side of the screen, about network configurations. You can safely ignore this, the question hides away if you click anywhere on the screen.
 

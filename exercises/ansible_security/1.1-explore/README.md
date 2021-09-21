@@ -41,16 +41,6 @@ The exercises of the second section of this lab are focused on the actual securi
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts and services:
 
-| Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
-|---	|---	|---	|---	|---	|
-| Ansible Control Host 	| ansible 	| ansible-1 	| - 	| - 	|
-| IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	|
-| Attacker 	| attacker 	| attacker 	| - 	| - 	|
-| Snort 	| snort 	| snort 	| - 	| - 	|
-| Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
-| Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
-| Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
-| Automation controller 	| ansible 	| ansible-1 	| admin 	| *Provided by Instructor* 	|
 
 >**Note**
 >

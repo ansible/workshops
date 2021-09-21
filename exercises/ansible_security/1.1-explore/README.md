@@ -23,9 +23,9 @@ We have set up a common set of security related tools:
 
 The exercises of the first section of this lab guide you through each individual solution mentioned above. You will learn how to access them, what they are used for and how to interact with them using Ansible. 
 
-### Ansible Automation Platform command line utilities
+The first exercises will also introduce the Ansible Automation Platform features and command line utilities. Let's have a closer look at them.
 
-The first exercises will also introduce the Ansible Automation Platform features and command line utilities. These include:
+### Ansible Automation Platform command line utilities
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
 - [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like `ansible`, `ansible-playbook` and `ansible-doc`.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.

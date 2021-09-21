@@ -77,8 +77,6 @@
 >
 > The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.
 
-</div>
-
 ## Step 2.1 - Check Point Next Generation Firewall
 
 To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generation Firewall (NGFW).

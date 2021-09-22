@@ -26,7 +26,14 @@
 - name: save ami for ansible control node
   set_fact:
     ansible_control_node_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}
+
+- name: enforce that major and minor version are at least RHEL 8.4
+  assert:
+    that:
+      - ansible_control_node_ami.name[7]|int >= 4
+      - ansible_control_node_ami.name[5]|int >= 8
+    msg: "AWS ec2 image retrieved will not work with AAP 2, we need at least RHEL 8.4"
 
 - name: Create the control clusters
   include_tasks: cluster_instances.yml

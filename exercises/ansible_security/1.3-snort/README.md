@@ -3,6 +3,81 @@
 **Read this in other languages**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    <h3>Workshop access</h3>
+  </a>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <blockquote>
+    <p><strong>Note</strong></p>
+    <p>
+    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
+  </blockquote>
+</div>
+
 ## Step 3.1 - Snort
 
 To showcase how to automate a network intrusion detection and intrusion prevention system in a security environment, this lab will take you through managing a Snort IDS instance. Snort analyzes network traffic and compares it against some given rule set.
@@ -103,17 +178,17 @@ If you want to learn more about Snort rules, check out the [Snort Rule Infograph
 
 Ansible releases are shipped with a set of modules, however, in Ansible Core 2.11 there are no modules to interact with Snort yet. For this reason we wrote a set of modules for managing Snort, which has been included in the `security_ee` execution environment. Using execution environments, we are able to update our modules faster. This is especially important in the early life of a newly developed module.
 
-These Snort modules are shipped as part of a "role". To better describe a role, think about how you wrote your playbook in the last section. While it is possible to write a playbook in one file as we did earlier, often writing all automation pieces in one place results in creating long, complicated playbooks. At some point you will want to reuse the automation content you wrote in your playbooks already. Therefore, you will need to organize things in a way to get multiple smaller playbooks to work together. Ansible Roles are the way we achieve this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.
+These Snort modules are shipped as part of a "role". To better describe a role, think about how you wrote your playbook in the last section. While it is possible to write a playbook in one file as we did earlier, often writing all automation pieces in one place results in creating long, complicated playbooks. At some point you will want to reuse the automation content you wrote in your playbooks already. Therefore, you will need to organize things in a way to get multiple smaller playbooks to work together. Ansible roles are the way we achieve this. When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.
 
 There are multiple advantages in using roles to write your automation. The most notable is that the complexity and playbook intelligence is hidden from the user. The other important advantage is that roles can be easily shared and re-used.
 
-Back to the Snort use case: as mentioned, the Snort modules are shipped as part of a role. This role is called [ids_rule](https://github.com/ansible-security/ids_rule). Open the Github repository link in the web browser, click on the [library](https://github.com/ansible-security/ids_rule/tree/master/library) path. You will find the module `snort_rule.py` there. This module shipped as a part of the ids_rule role, can create and change snort rules.
+Back to the Snort use case: as mentioned, the Snort modules are shipped as part of a role. This role is called [ids_rule](https://github.com/ansible-security/ids_rule). Open the Github repository link in the web browser, click on the [library](https://github.com/ansible-security/ids_rule/tree/master/library) path. You will find the module `snort_rule.py` there. This module shipped as a part of the `ids_rule` role, can create and change snort rules.
 
 If you take a closer look at the role you'll see that it comes with a re-usable playbook at [tasks/snort.yml](https://github.com/ansible-security/ids_rule/blob/master/tasks/snort.yml).
 
 Let's have a look at how this playbook can be re-written to use the roles directly. As mentioned previously, the `ids_rule` role is bundled in the `security_ee` execution environment.
 
-In order to use the role, create a new file called `add_snort_rule.yml` in your VS Code online editor. Save it in the home directory of your user, and add the name `Add Snort rule` and target hosts, here `snort`. Since we need root rights to make any changes on Snort, add the `become` flag so that Ansible would take care of privilege escalation.
+In order to use the role, create a new file called `add_snort_rule.yml` in your online editor. Save it in the home directory of your user, and add the name `Add Snort rule` and target hosts, here `snort`. Since we need root rights to make any changes on Snort, add the `become` flag so that Ansible would take care of privilege escalation.
 
 ```yaml
 ---
@@ -134,7 +209,16 @@ Next we need to add the variables required by our playbook. The role we are usin
     ids_provider: snort
 ```
 
-Next, we need to add the tasks. Tasks are the components which make the actual changes on the target machines. Since we are using a role, we can simply use a single step in our tasks, `include_role`, to add it to our playbook. In order to make the role suitable for our use case, we add the following task-specific variables:
+Next, we need to add the tasks. Tasks are the components which make the actual changes on the target machines. Since we are using a role, we can simply use a single step in our tasks, `include_role`, to add it to our playbook. 
+
+>Note
+>
+> The Ansible `include_role` module dynamically loads and executes a specified role as a task. Please have a look at the [include_role documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_role_module.html) for more information.
+
+
+In our case, we will use the `include_role` module to use the `ids_rule` role.
+
+In order to make the role suitable for our use case, we add the following task-specific variables:
 
 - the actual rule
 - the Snort rules file
@@ -244,6 +328,9 @@ Next, we import the role `ids_rule_facts`. We also need to provide a search stri
       vars:
         ids_rule_facts_filter: 'uricontent:"/etc/passwd"'
 ```
+>Note
+>
+> The Ansible `import_role` task loads a role and allows you to control when the role tasks run in between other tasks of the play. Please have a look at the [import_role documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/import_role_module.html) for more information.
 
 And most importantly, we want to be able to see what is actually found. The `ids_rule_facts` stores the data it collects as Ansible facts. Ansible facts are information specific to each individual host which can be used in further tasks. Therefore, we add another task to output these facts.
 

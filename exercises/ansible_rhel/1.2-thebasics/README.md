@@ -49,6 +49,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
 
 
 ```bash
+[student<X>@ansible-1 rhel_workshop]$ cd /home/student<X>
 [student<X>@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
 {
     "_meta": {

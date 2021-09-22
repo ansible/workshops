@@ -3,6 +3,81 @@
 **Read this in other languages**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    <h3>Workshop access</h3>
+  </a>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <blockquote>
+    <p><strong>Note</strong></p>
+    <p>
+    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
+  </blockquote>
+</div>
+
 ## Step 4.1 - IBM QRadar
 
 To showcase how to automate a SIEM in a security environment, this lab contains a [IBM QRadar SIEM, community edition](https://developer.ibm.com/qradar/ce/).
@@ -72,7 +147,7 @@ Automation execution environments can be customized to include the collections y
 
 > **Note**
 >
-> Ansible Automation Platform includes 'ansible-builder` which you can use to create your own custom execution environments.
+> Ansible Automation Platform includes `ansible-builder` which you can use to create your own custom execution environments. For more information on `ansible-builder` please have a look at our [blog post](https://www.ansible.com/blog/introduction-to-ansible-builder).   
 
 ## Step 4.4 - First example playbook
 
@@ -155,44 +230,8 @@ Both tasks only collect and output data, they do not change anything. Let's quic
 
 ```bash
 [student<X>@ansible-1 ~]$ ansible-navigator run find_qradar_rule.yml --mode stdout
-
-PLAY [Find QRadar rule state] ***************************************************
-
-TASK [Gathering Facts] ************************************************************
-ok: [qradar]
-
-TASK [get info about qradar rule] *************************************************
-ok: [qradar]
-
-TASK [output returned rule_info] **************************************************
-ok: [qradar] => {
-    "rule_info": {
-        "changed": false,
-        "failed": false,
-        "rules": [
-            {
-                "average_capacity": 0,
-                "base_capacity": 0,
-                "base_host_id": 0,
-                "capacity_timestamp": 0,
-                "creation_date": 1278524200032,
-                "enabled": true,
-                "id": 100065,
-                "identifier": "SYSTEM-1520",
-                "linked_rule_identifier": null,
-                "modification_date": 1566928030130,
-                "name": "Potential DDoS Against Single Host (TCP)",
-                "origin": "SYSTEM",
-                "owner": "admin",
-                "type": "FLOW"
-            }
-        ]
-    }
-}
-
-PLAY RECAP ************************************************************************
-qradar  : ok=3  changed=0  unreachable=0  failed=0  skipped=0  rescued=0  ignored=0
 ```
+![QRadar rule ID](images/1.4-qradar-id.png#centreme)
 
 As you see, the debug task `output returned rule_info` shows the content of the variable, and thus the content which was returned by the module `qradar_rule_info`. Note among those return data the key `id`, in this example with the value `100065`. This is the key we need.
 
@@ -234,7 +273,7 @@ The playbook is now complete: it queries QRadar for the list of rules, and deact
 After we completed the playbook, let's execute it:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run change_qradar_rule.yml --mode stdout
+[student<X>@ansible-1 ~]$ ansible-navigator run change_qradar_rule.yml --mode stdout
 
 PLAY [Change QRadar rule state] ***************************************************
 

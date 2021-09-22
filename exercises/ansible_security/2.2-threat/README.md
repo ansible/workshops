@@ -3,6 +3,81 @@
 **Read this in other languages**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    <h3>Workshop access</h3>
+  </a>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <blockquote>
+    <p><strong>Note</strong></p>
+    <p>
+    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
+  </blockquote>
+</div>
+
 ## Step 2.1 - The Background
 
 Threat detection and response capabilities require from a security operator typically to deploy many tools to secure an enterprise IT. Due to missing processes and a lot of manual work this is a serious challenge to proper IT security operations!
@@ -86,6 +161,10 @@ After a few seconds the playbook run through, and the new security configuration
 
 If you click on **Jobs** on the right side you will also see that you can always access the previously run jobs. This enables the teams to better track what was executed when, and what where the results. This enables transparency and clear understanding of the automation that was run.
 
+>**Note**
+>
+> A job is an instance of automation controller launching a Job Template. The **Jobs** link displays a list of jobs and their statuses shown as completed successfully or failed, or as an active (running) job.
+
 ## Step 2.6 - Verify new configuration
 
 Let's quickly verify that the QRadar logs are now showing up. Log into the QRadar web UI. Click on **Log Activity** and verify that events are making it to QRadar from Check Point:
@@ -110,7 +189,7 @@ Let's verify that QRadar also properly shows the log source. In the QRadar UI, c
 
 ## Step 2.7 - Offenses
 
-Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, next to **Group**, click on the drop down menu and select **Ansible**. All pre-configured offense rules for this workshop are shown:
+Next we want to manage offenses shown in QRadar. Currently non are generated - but are some already pre-configured for this use case? In the QRadar web UI, open the **Offenses** tab. On the left side menu, click on **Rules**. Above, Within the **Group:** drop down click select **Ansible**. All pre-configured offense rules for this workshop are shown:
 
 ![QRadar Pre-configured Rules](images/qradar_preconfigured_rules.png#centreme)
 
@@ -181,6 +260,11 @@ Let's quickly have a look at our SIEM QRadar: access the log activity tab. Valid
 We have determined that the host is not performing an attack and finally confirmed that the firewall policy violation is a false positive, probably caused by a misconfiguration of the whitelist group for that application. So we can whitelist the IP in the firewall to let events come through.
 
 Log out of controller and log back in as user `opsfirewall`. Go to the **Templates** overview, and launch the job template **Whitelist attacker**. A few moments later the traffic is allowed.
+
+Let's verify that QRadar properly shows the Snort log events. In the QRadar UI, click on the **Log Activity** menu at the top. You should see log entries from the **Snort rsyslog source** similar to the below.
+
+![QRadar Snort logs](images/qradar_snort_logs.png#centreme)
+
 
 ## Step 2.10 - Rollback
 

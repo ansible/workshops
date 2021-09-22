@@ -7,17 +7,37 @@
 
 The objective of this lab is to provide you a deeper understanding and hands on experience how to automate security tools used by security operators. For that we will tackle three security use cases rather typical for the day-to-day challenges of security operators. While all of them will interact with roughly the same tool set, each use case shows a different perspective (security analyst, firewall operator, IDS specialist) and thus a different point of view on the available tools.
 
-We have set up a common set of security related tools:
+We have set up automation controller and a common set of security related tools:
 
-- a Firewall, in this case [Check Point Next Generation Firewall](https://www.checkpoint.com/products/next-generation-firewall/)
-- a Security Information and Event Management (SIEM), here [QRadar](https://www.ibm.com/security/security-intelligence/qradar)
-- a Intrusion Detection & Prevention System, here [Snort](https://www.snort.org)
+| Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
+|---	|---	|---	|---	|---	|
+| Ansible Control Host 	| ansible 	| ansible-1 	| - 	| - 	|
+| IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	|
+| Attacker 	| attacker 	| attacker 	| - 	| - 	|
+| Snort 	| snort 	| snort 	| - 	| - 	|
+| Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	| admin 	| admin123 	|
+| Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| - 	|
+| Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	| *Provided by Instructor* 	|
+| Automation controller 	| ansible 	| ansible-1 	| admin 	| *Provided by Instructor* 	|
+
+
+### Firewall
+- A firewall is a network security device that monitors incoming and outgoing network traffic and decides whether to allow or block specific traffic based on a defined set of security rules.
+- We will use [Check Point Next Generation Firewall](https://www.checkpoint.com/products/next-generation-firewall/) in this workshop.
+
+### Security Incident and Events Management (SIEM)
+- A SIEM combines security information management (SIM) and security event management (SEM). It offers real-time monitoring and analysis of events as well as tracking and logging of security data for compliance or auditing purposes.
+- The workshop will provide you a [QRadar](https://www.ibm.com/security/security-intelligence/qradar) SIEM instance.
+
+### Intrusion Prevention and Detection System (IDPS)
+- Intrusion detection and prevention systems (IDPS) are focused on identifying possible incidents, logging information about them, attempting to stop them, and reporting them to security administrators.
+- Our workshop will provide you a [Snort](https://www.snort.org) instance for the exercises.
 
 The exercises of the first section of this lab guide you through each individual solution mentioned above. You will learn how to access them, what they are used for and how to interact with them using Ansible. 
 
-### Ansible Automation Platform command line utilities
+The first exercises will also introduce the Ansible Automation Platform features and command line utilities. Let's have a closer look at them.
 
-The first exercises will also introduce the Ansible Automation Platform features and command line utilities. These include:
+### Ansible Automation Platform command line utilities
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
 - [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like `ansible`, `ansible-playbook` and `ansible-doc`.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.
@@ -33,15 +53,10 @@ The exercises of the second section of this lab are focused on the actual securi
 
 In this lab you work in a pre-configured lab environment. You will have access to the following hosts and services:
 
-| Role                          | Inventory name |
-| ------------------------------| ---------------|
-| Ansible Control Host          | ansible        |
-| IBM QRadar                    | qradar         |
-| Attacker                      | attacker       |
-| Snort                         | snort          |
-| Check Point Management Server | checkpoint     |
-| Check Point Gateway           | -              |
-| Windows Workstation           | windows-ws     |
+
+>**Note**
+>
+> The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.
 
 The lab is set up individually for you. You have your own environment, own services, own virtual machines.
 

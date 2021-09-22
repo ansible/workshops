@@ -63,9 +63,6 @@
       - "requests==2.6.0"
     state: latest
 
-- name: Install venv
-  include_tasks: venv.yml
-
 - name: Post license key
   uri:
     url: https://{{ansible_host}}/api/v2/config/

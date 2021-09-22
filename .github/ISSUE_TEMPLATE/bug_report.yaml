@@ -1,6 +1,8 @@
 ---
 name: 🐛 Bug report
 description: Fill out this issue form to help us solve your problem
+title: ""
+issue_body: true
 body:
   - type: markdown
     attributes:
@@ -25,6 +27,7 @@ body:
         What kind of issue do you want to open?
       options:
         - Bug
+        - Documentation
         - Feature Request
         - Security Issue
   - type: textarea

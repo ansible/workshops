@@ -25,7 +25,7 @@ Ansible facts are information derived from speaking to the remote network elemen
 This exercise will cover:
 
 * Building an Ansible Playbook from scratch.
-* Using [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html).
+* Using `ansible-navigator :doc` for documentation
 * Using the [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html).
 * Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
@@ -194,7 +194,7 @@ Using less than 20 lines of "code" you have just automated version and serial nu
 
 ## Takeaways
 
-* The [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html) command will allow you access to documentation without an internet connection.  This documentation also matches the version of Ansible on the control node.
+* The `ansible-navigator :doc` command will allow you access to documentation without an internet connection.  This documentation also matches the version of Ansible on the control node.
 * The [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html) gathers structured data specific for Cisco IOS.  There are relevant modules for each network platform.  For example there is a junos_facts for Juniper Junos, and a eos_facts for Arista EOS.
 * The [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) allows an Ansible Playbook to print values to the terminal window.
 

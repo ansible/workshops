@@ -36,7 +36,7 @@ A playbook to install the Apache web server has already been committed to the di
 ```yaml
 ---
 - name: Apache server installed
-  hosts: all
+  hosts: web
 
   tasks:
   - name: latest Apache version installed
@@ -234,7 +234,7 @@ Within the **Machine Credential** window, select **Workshop Credential** and cli
 
 > **Tip**
 >
-> The output of the results is displayed once the command has completed. 
+> The output of the results is displayed once the command has completed.
 
 ---
 **Navigation**

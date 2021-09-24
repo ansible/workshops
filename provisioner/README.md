@@ -33,7 +33,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 ## Requirements
 
-* This provisioner must be run with Ansible Engine v2.8.0 or higher.
+* This provisioner must be run with `ansible-core` v2.11 or higher.
 * AWS Account (follow directions on one time setup below)
 
 ## Lab Setup

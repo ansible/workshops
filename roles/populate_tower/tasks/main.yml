@@ -1,7 +1,7 @@
 ---
 #### INVENTORY
 - name: create workshop inventory
-  awx.awx.tower_inventory:
+  tower_inventory:
     name: "Workshop Inventory"
     organization: "Default"
     tower_username: admin
@@ -19,7 +19,7 @@
 
 ### USER
 - name: add student user
-  awx.awx.tower_user:
+  tower_user:
     username: "{{ username }}"
     password: "{{ admin_password }}"
     email: fake@fake.com
@@ -32,7 +32,7 @@
 
 #### CREDENTIAL
 - name: add SSH credential into Ansible Tower
-  awx.awx.tower_credential:
+  tower_credential:
     username: ec2-user
     name: "Workshop Credential"
     ssh_key_data: "{{ lookup('file', playbook_dir +'/' + ec2_name_prefix + '/' + ec2_name_prefix + '-private.pem') }}"
@@ -44,23 +44,23 @@
     tower_verify_ssl: false
 
 ## this is not using FQCN to revert to old style for tower (versus controller)
-# - name: add tower credential into ansible tower
-#   tower_credential:
-#     host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-#     username: admin
-#     password: "{{admin_password}}"
-#     name: "Tower Credential"
-#     kind: tower
-#     organization: Default
-#     tower_username: admin
-#     tower_password: "{{ admin_password }}"
-#     tower_host: "https://{{ ansible_host }}"
-#     tower_verify_ssl: false
+- name: add controller credential into automation controller
+  tower_credential:
+    name: "Controller Credential"
+    kind: tower
+    organization: Default
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    tower_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    username: admin
+    password: "{{ admin_password }}"
+    host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 #### END OF CREDENTIAL
 
 #### REMOVE BUILT-IN DEMO CONTENT
 - name: delete demo job template
-  awx.awx.tower_job_template:
+  tower_job_template:
     name: "Demo Job Template"
     state: absent
     tower_username: admin
@@ -69,7 +69,7 @@
     tower_verify_ssl: false
 
 - name: remove demo credential
-  awx.awx.tower_credential:
+  tower_credential:
     username: admin
     name: "Demo Credential"
     kind: ssh
@@ -81,7 +81,7 @@
     tower_verify_ssl: false
 
 - name: remove demo inventory
-  awx.awx.tower_inventory:
+  tower_inventory:
     name: "Demo Inventory"
     organization: "Default"
     state: absent
@@ -91,7 +91,7 @@
     tower_verify_ssl: false
 
 - name: remove built-in tower project
-  awx.awx.tower_project:
+  tower_project:
     name: "Demo Project"
     organization: "Default"
     scm_type: git

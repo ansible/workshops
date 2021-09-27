@@ -16,6 +16,10 @@
         state: present
         disable_gpg_check: true
 
+    - name: Install requests python package
+      pip:
+        name: requests>=2.14.2
+
     - &tower-pinger-block
       block:
         - name: check Tower status

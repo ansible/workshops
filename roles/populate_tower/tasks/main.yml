@@ -44,18 +44,18 @@
     tower_verify_ssl: false
 
 ## this is not using FQCN to revert to old style for tower (versus controller)
-- name: add tower credential into ansible tower
-  tower_credential:
-    host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-    username: admin
-    password: "{{admin_password}}"
-    name: "Tower Credential"
-    kind: tower
-    organization: Default
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    tower_verify_ssl: false
+# - name: add tower credential into ansible tower
+#   tower_credential:
+#     host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+#     username: admin
+#     password: "{{admin_password}}"
+#     name: "Tower Credential"
+#     kind: tower
+#     organization: Default
+#     tower_username: admin
+#     tower_password: "{{ admin_password }}"
+#     tower_host: "https://{{ ansible_host }}"
+#     tower_verify_ssl: false
 #### END OF CREDENTIAL
 
 #### REMOVE BUILT-IN DEMO CONTENT

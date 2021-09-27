@@ -168,10 +168,10 @@ Now launch **Create index.html** job template by selecting the **Details** tab a
 
 Before the actual launch the survey will ask for **First Line** and **Second Line**. Fill in some text and click **Next**. The **Preview** window shows the values, if all is good run the Job by clicking **Launch**.
 
-After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against the IP address of your `node1`:
+After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against `node1`:
 
 ```bash
-$ curl http://22.33.44.55
+$ curl http://node1
 <body>
 <h1>Apache is running fine</h1>
 <h1>This is survey field "First Line": line one</h1>

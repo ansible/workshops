@@ -7,30 +7,30 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-* [Ansible Automation Controller Users](#ansible-automation-controller-users)
-* [Ansible Automation Controller Teams](#ansible-automation-controller-teams)
-* [Granting Permissions](#granting-permissions)
-* [Test Permissions](#test-permissions)
+* [Ansible automation controller users](#ansible-automation-controller-users)
+* [Ansible automation controller teams](#ansible-automation-controller-teams)
+* [Granting permissions](#granting-permissions)
+* [Test permissions](#test-permissions)
 
 ## Objective
 
-You have already learned how Ansible Automation controller separates credentials from users. Another advantage of Ansible Automation controller is the user and group rights management.  This exercise demonstrates Role Based Access Control (RBAC)
+You have already learned how Ansible automation controller separates credentials from users. Another advantage of Ansible automation controller is the user and group rights management.  This exercise demonstrates Role Based Access Control (RBAC)
 
 ## Guide
 
-### Ansible Automation Controller Users
+### Ansible automation controller users
 
-There are three types of Automation controller users:
+There are three types of automation controller users:
 
 * **Normal User**: Have read and write access limited to the inventory and projects for which that user has been granted the appropriate roles and privileges.
 
-* **System Auditor**: Auditors implicitly inherit the read-only capability for all objects within the Automation controller environment.
+* **System Auditor**: Auditors implicitly inherit the read-only capability for all objects within the automation controller environment.
 
-* **System Administrator**: Has admin, read, and write privileges over the entire Automation controller installation.
+* **System Administrator**: Has admin, read, and write privileges over the entire automation controller installation.
 
 Let’s create a user:
 
-* In the Automation controller menu under **Access** click **Users**
+* In the automation controller menu under **Access** click **Users**
 
 * Click the **Add** button
 
@@ -77,7 +77,7 @@ Let’s create a user:
 
 * Click **Save**
 
-### Ansible Automation Controller Teams
+### Ansible automation controller teams
 
 A Team is a subdivision of an organization with associated users, projects, credentials, and permissions. Teams provide a means to implement role-based access control schemes and delegate responsibilities across organizations. For instance, permissions may be granted to a whole Team rather than each user on the Team.
 
@@ -101,9 +101,9 @@ Add a user to the team:
 
 Click **Save**.
 
-Permissions allow to read, modify, and administer projects, inventories, and other Automation controller elements. Permissions can be set for different resources.
+Permissions allow to read, modify, and administer projects, inventories, and other automation controller elements. Permissions can be set for different resources.
 
-### Granting Permissions
+### Granting permissions
 
 To allow users or teams to actually do something, you have to set permissions. The user **wweb** should only be allowed to modify content of the assigned webservers.
 
@@ -121,9 +121,9 @@ Add the permission to use the `Create index.html` template:
 
 * Click **Save**
 
-### Test Permissions
+### Test permissions
 
-Now log out of Automation controller’s web UI and in again as the **wweb** user.
+Now log out of automation controller’s web UI and in again as the **wweb** user.
 
 * Go to the **Templates** view, you should notice for wweb only the `Create
   index.html` template is listed. He is allowed to view and launch, but not to edit the Template (no Edit button available).
@@ -132,10 +132,10 @@ Now log out of Automation controller’s web UI and in again as the **wweb** use
 
 * In the following **Jobs** view have a good look around, note that there where changes to the host (as expected).
 
-Check the result: execute `curl` again on the control host to pull the content of the webserver on the IP address of `node1` (you could of course check `node2` and `node3`, too):
+Check the result: execute `curl` again on the control host to pull the content of the webserver on `node1` (you could of course check `node2` and `node3`, too):
 
 ```bash
-#> curl http://22.33.44.55
+#> curl http://node1
 ```
 
 Just recall what you have just done: You enabled a restricted user to run an Ansible playbook
@@ -148,7 +148,7 @@ Just recall what you have just done: You enabled a restricted user to run an Ans
 
 Effectively you provided the power to execute automation to another user without handing out your credentials or giving the user the ability to change the automation code. And yet, at the same time the user can still modify things based on the surveys you created.
 
-This capability is one of the main strengths of Ansible Automation controller\!
+This capability is one of the main strengths of Ansible automation controller\!
 
 ---
 **Navigation**

@@ -43,8 +43,9 @@
     tower_host: "https://{{ ansible_host }}"
     tower_verify_ssl: false
 
+## this is not using FQCN to revert to old style for tower (versus controller)
 - name: add tower credential into ansible tower
-  awx.awx.tower_credential:
+  tower_credential:
     host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
     username: admin
     password: "{{admin_password}}"

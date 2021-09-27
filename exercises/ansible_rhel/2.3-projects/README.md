@@ -15,11 +15,11 @@
 
 ## Objective
 
-An Ansible Automation controller **Project** is a logical collection of Ansible playbooks. You can manage your playbooks by placing them into a source code management (SCM) system supported by Automation controller, including Git, Subversion, and Mercurial.
+An Ansible automation controller **Project** is a logical collection of Ansible playbooks. You can manage your playbooks by placing them into a source code management (SCM) system supported by automation controller such as Git or Subversion.
 
 This exercise covers:
 
-* Understanding and using an Ansible Automation controller Project
+* Understanding and using an Ansible automation controller Project
 * Using Ansible playbooks kept in a Git repository.
 * Creating and using an Ansible Job Template
 
@@ -73,7 +73,7 @@ A playbook to install the Apache web server has already been committed to the di
 >
 > Note the difference to other playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
 
-To configure and use this repository as a **Source Control Management (SCM)** system in Automation controller you have to create a **Project** that uses the repository
+To configure and use this repository as a **Source Control Management (SCM)** system in automation controller you have to create a **Project** that uses the repository
 
 ### Create the Project
 
@@ -128,7 +128,7 @@ After starting the sync job, go to the **Jobs** view: there is a new job for the
 
 ### Create a Job Template and Run a Job
 
-A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. So before running an Ansible **Job** from Automation controller you must create a **Job Template** that pulls together:
+A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. So before running an Ansible **Job** from automation controller you must create a **Job Template** that pulls together:
 
 * **Inventory**: On what hosts should the job run?
 

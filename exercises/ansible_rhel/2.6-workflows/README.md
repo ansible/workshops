@@ -7,11 +7,11 @@
 
 * [Objective](#objective)
 * [Guide](#guide)
-  * [Lab Scenario](#lab-scenario)
-  * [Set up Projects](#set-up-projects)
-  * [Set up Job Templates](#set-up-job-templates)
-  * [Set up the Workflow](#set-up-the-workflow)
-  * [Launch Workflow](#launch-workflow)
+  * [Lab scenario](#lab-scenario)
+  * [Set up projects](#set-up-projects)
+  * [Set up job templates](#set-up-job-templates)
+  * [Set up the workflow](#set-up-the-workflow)
+  * [Launch workflow](#launch-workflow)
 
 ## Objective
 
@@ -22,13 +22,13 @@ The basic idea of a workflow is to link multiple Job Templates together. They ma
 
 And the workflows are not even limited to Job Templates, but can also include project or inventory updates.
 
-This enables new applications for Ansible Automation controller: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory.
+This enables new applications for Ansible automation controller: different Job Templates can build upon each other. E.g. the networking team creates playbooks with their own content, in their own Git repository and even targeting their own inventory, while the operations team also has their own repos, playbooks and inventory.
 
 In this lab you’ll learn how to setup a workflow.
 
 ## Guide
 
-### Lab Scenario
+### Lab scenario
 
 You have two departments in your organization:
 
@@ -37,11 +37,11 @@ You have two departments in your organization:
 
 When there is a new Node.js server to deploy, two things need to happen:
 
-#### Web Operations Team
+#### Web operations team
 
 * `node.js` needs to be installed, the firewall needs to be opened and `node.js` should get started.
 
-#### Web Developers Team
+#### Web developers team
 
 * The most recent version of the web application needs to be deployed.
 
@@ -53,7 +53,7 @@ To make things somewhat easier for you, everything needed already exists in a Gi
 >
 > In this example we use two different branches of the same repository for the content of the separate teams. In reality, the structure of your Source Control repositories depends on a lot of factors and could be different.
 
-### Set up Projects
+### Set up projects
 
 First you have to set up the Git repo as a Project like you normally would.
 
@@ -140,7 +140,7 @@ Within **Resources** -> **Projects**, click the **Add** button to create a proje
 
 Click **Save**
 
-### Set up Job Templates
+### Set up job templates
 
 Now you have to create two Job Templates like you would for "normal" Jobs.
 
@@ -244,7 +244,7 @@ Click **Save**
 >
 > If you want to know what the Ansible Playbooks look like, check out the Github URL and switch to the appropriate branches.
 
-### Set up the Workflow
+### Set up the workflow
 
 Set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Add job template** and **Add workflow template** when adding a template.
 
@@ -269,20 +269,20 @@ After saving the template the **Workflow Visualizer** opens to allow you to buil
 
   ![start](images/start.png)
 
-  ![Add Node](images/add_node.png)
+  ![Add Nodejs](images/add_node_nodejs.png)
 
-* In this lab we’ll link our two jobs together, so select the **Web App Deploy** job template and click **Save**.
+* In this lab we’ll link our two jobs together, so select the **Node.js Deploy** job template and click **Save**.
 
-* The node gets annotated with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trashbin).
+* The node gets annotated with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).
 
   ![workflow node](images/workflow_node.png)
 
 * Hover over the node and click the (+) sign to add a new node.
 * For the **Run Type** select **On Success** (default).
-* For **Node Type** select **Job Template** and choose the **Node.js Deploy** job template. 
+* For **Node Type** select **Job Template** and choose the **Web App Deploy** job template. 
 Click **Save**.
 
-![Add Nodejs](images/add_node_nodejs.png)
+![Add Node](images/add_node.png)
 
 > **Tip**
 >
@@ -294,7 +294,7 @@ Click **Save**.
 >
 > The **Visualizer** has options for setting up more advanced workflows, please refer to the documentation.
 
-### Launch Workflow
+### Launch workflow
 
 From within the **Deploy Webapp Server** Details page, **Launch** the workflow.
 
@@ -309,8 +309,10 @@ NOTE: Where `XX` is the number of the job run.
 After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
 
 ```bash
-#> curl http://localhost/nodejs
+#> curl http://nodeX/nodejs
 ```
+
+NOTE: `X` can be replaced with the appropriate number of the node you are checking.
 
 You can also execute curl on the control host, pointing it towards the nodes and query the `nodejs` path, it should also show the simple nodejs application.
 

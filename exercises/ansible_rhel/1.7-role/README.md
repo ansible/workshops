@@ -255,9 +255,7 @@ Create the HTML content that will be served by the webserver.
 
 * Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
 
-```bash
-#> cat roles/apache_vhost/templates/vhost.conf.j2
-```
+The contents of the `vhost.conf.j2` template file are found below.
 
 <!-- {% raw %} -->
 

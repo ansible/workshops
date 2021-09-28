@@ -44,18 +44,19 @@
     tower_verify_ssl: false
 
 ## this is not using FQCN to revert to old style for tower (versus controller)
-- name: add controller credential into automation controller
-  tower_credential:
-    name: "Controller Credential"
-    kind: tower
-    organization: Default
-    tower_username: admin
-    tower_password: "{{ admin_password }}"
-    tower_host: "https://{{ ansible_host }}"
-    validate_certs: false
-    username: admin
-    password: "{{ admin_password }}"
-    host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+# - name: add controller credential into automation controller
+#   tower_credential:
+#     name: "Controller Credential"
+#     kind: tower
+#     organization: Default
+#     tower_username: admin
+#     tower_password: "{{ admin_password }}"
+#     tower_host: "https://{{ ansible_host }}"
+#     validate_certs: false
+#     username: admin
+#     password: "{{ admin_password }}"
+#     host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+# removed on 9/29 due to RHPDS outage and collection collision, see https://github.com/ansible/workshops/issues/1320
 #### END OF CREDENTIAL
 
 #### REMOVE BUILT-IN DEMO CONTENT

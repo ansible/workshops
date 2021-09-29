@@ -1,0 +1,13 @@
+{% set lookup = {'S': 'STATIC', 'L': 'LOCAL', 'C': 'CONNECTED', 'O': 'OSPF', 'B': 'BGP'} %}
+{% for group, list in route_facts | groupby('PROTOCOL') %}
+{{ lookup[group] | upper }}
+{{ '-' * lookup[group] | length }}
+{% for item in list %}
+Network: {{ item.NETWORK }}
+Nexthop_IP: {{ item.NEXTHOP_IP }}
+{% if item.NEXTHOP_IF | length > 0 %}
+Nexthop Interface: {{ item.NEXTHOP_IF }}
+{% endif %}
+Metric: {{ item.METRIC }}
+{% endfor %}
+{% endfor %}

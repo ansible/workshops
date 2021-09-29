@@ -1,0 +1,16 @@
+---
+- name: use parsed
+  hosts: arista
+  gather_facts: false
+
+  tasks:
+
+  - name: use vlans resource module
+    arista.eos.vlans:
+      state: parsed
+      running_config: "{{ lookup('file', 'backup/{{ inventory_hostname }}.txt') }}"
+    register: rendered_config
+
+  - name: print to terminal screen
+    debug:
+      msg: "{{ rendered_config }}"

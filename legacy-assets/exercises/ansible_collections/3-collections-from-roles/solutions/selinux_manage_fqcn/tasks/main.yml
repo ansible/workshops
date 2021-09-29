@@ -1,0 +1,20 @@
+---
+# tasks file for selinux_manage_fqdn
+- name: Enable SELinux enforcing mode
+  ansible.posix.selinux:
+    policy: targeted
+    state: "{{ selinux_mode }}"
+
+- name: Enable booleans
+  ansible.posix.seboolean:
+    name: "{{ item }}"
+    state: true
+    persistent: true
+  loop: "{{ sebooleans_enable }}"
+
+- name: Disable booleans
+  ansible.posix.seboolean:
+    name: "{{ item }}"
+    state: false
+    persistent: true
+  loop: "{{ sebooleans_disable }}"

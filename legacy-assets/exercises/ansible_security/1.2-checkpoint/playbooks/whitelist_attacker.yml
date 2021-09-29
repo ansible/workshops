@@ -1,0 +1,35 @@
+---
+- name: Whitelist attacker
+  hosts: checkpoint
+
+  vars:
+    source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
+    destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
+
+  tasks:
+    - name: Create source IP host object
+      checkpoint_host:
+        name: "asa-{{ source_ip }}"
+        ip_address: "{{ source_ip }}"
+
+    - name: Create destination IP host object
+      checkpoint_host:
+        name: "asa-{{ destination_ip }}"
+        ip_address: "{{ destination_ip }}"
+
+    - name: Create access rule to allow access from source to destination
+      checkpoint_access_rule:
+        auto_install_policy: true
+        auto_publish_session: true
+        layer: Network
+        position: top
+        name: "asa-accept-{{ source_ip }}-to-{{ destination_ip }}"
+        source: "asa-{{ source_ip }}"
+        destination: "asa-{{ destination_ip }}"
+        action: accept
+
+    - name: Install policy
+      cp_mgmt_install_policy:
+        policy_package: standard
+        install_on_all_cluster_members_or_fail: true
+      failed_when: false

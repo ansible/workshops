@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Ansible Automation Platform Hackaton Team
+  description: Basic builder role based on podman
+  company: Red Hat
+
+  license: Apache-2.0
+
+  min_ansible_version: 2.8
+
+
+  platforms:
+    - name: Fedora
+      versions:
+        - 31
+        - 32
+        - 33
+
+  galaxy_tags: ["demo", "podman"]
+
+dependencies: []

@@ -1,0 +1,52 @@
+---
+- name: "Disabling a pool member"
+  hosts: lb
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Setup provider
+      set_fact:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: false
+
+    - name: Query BIG-IP facts
+      f5networks.f5_modules.bigip_device_info:
+        provider: "{{provider}}"
+        gather_subset:
+          - ltm-pools
+      register: bigip_facts
+
+    - name: Display Pools available
+      debug: "msg={{item.name}}"
+      loop: "{{bigip_facts.ltm_pools}}"
+      loop_control:
+        label: "{{item.name}}"
+
+    - name: Store pool name in a variable
+      set_fact:
+        pool_name: "{{item.name}}"
+      loop: "{{bigip_facts.ltm_pools}}"
+      no_log: true
+
+    - name: "Show members belonging to pool {{pool_name}}"
+      debug: "msg={{item}}"
+      loop: "{{bigip_facts.ltm_pools | community.general.json_query(query_string)}}"
+      vars:
+        query_string: "[?name=='{{pool_name}}'].members[*].name[]"
+
+    - name: Disable ALL pool members
+      f5networks.f5_modules.bigip_pool_member:
+        provider: "{{provider}}"
+        state: "forced_offline"
+        name: "{{item.split(':')[0]}}"
+        pool: "{{pool_name}}"
+        port: "{{item.split(':')[1]}}"
+        host: "{{hostvars[item.split(':')[0]].ansible_host}}"
+      loop: "{{bigip_facts.ltm_pools | community.general.json_query(query_string)}}"
+      vars:
+        query_string: "[?name=='{{pool_name}}'].members[*].name[]"

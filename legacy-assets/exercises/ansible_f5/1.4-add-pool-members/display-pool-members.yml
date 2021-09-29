@@ -1,0 +1,27 @@
+---
+- name: "List pool members"
+  hosts: lb
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Query BIG-IP facts
+      f5networks.f5_modules.bigip_device_info:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_password}}"
+          server_port: "8443"
+          validate_certs: "no"
+        gather_subset:
+          - ltm-pools
+      register: bigip_device_facts
+
+    - name: "View complete output"
+      debug: "msg={{bigip_device_facts}}"
+
+    - name: "Show members belonging to pool"
+      debug: "msg={{item}}"
+      loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+      vars:
+        query_string: "[?name=='http_pool'].members[*].name[]"

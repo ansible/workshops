@@ -1,0 +1,18 @@
+---
+- name: BIG-IP SETUP
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: CREATE NODES
+      f5networks.f5_modules.bigip_node:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_password}}"
+          server_port: 8443
+          validate_certs: false
+        host: "{{hostvars[item].ansible_host}}"
+        name: "{{hostvars[item].inventory_hostname}}"
+      loop: "{{ groups['web'] }}"

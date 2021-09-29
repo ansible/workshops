@@ -1,0 +1,27 @@
+---
+- name: LINKLIGHT AS3
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  vars:
+    pool_members: "{{ groups['web'] }}"
+
+  tasks:
+    - name: CREATE AS3 JSON BODY
+      set_fact:
+        as3_app_body: "{{ lookup('template', 'j2/as3_template.j2', split_lines=False) }}"
+
+    - name: PUSH AS3
+      uri:
+        url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"
+        method: POST
+        body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"
+        status_code: 200
+        timeout: 300
+        body_format: json
+        force_basic_auth: true
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: false
+      delegate_to: localhost

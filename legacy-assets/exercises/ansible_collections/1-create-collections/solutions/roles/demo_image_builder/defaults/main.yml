@@ -1,0 +1,6 @@
+---
+# defaults file for redhat.demo_nginx
+friend_name: "John Doe"
+build_dir_path: "/tmp/demo_nginx_build"
+image_registry: "quay.io"
+registry_username: ""

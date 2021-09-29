@@ -1,0 +1,16 @@
+{
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.2.0",
+        "id": "testid",
+        "label": "test-label",
+        "remark": "test-remark",
+        "WorkshopExample":{
+            "class": "Tenant",
+            {{ as3_app_body }}
+        }
+    }
+}

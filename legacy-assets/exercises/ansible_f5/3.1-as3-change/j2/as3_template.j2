@@ -1,0 +1,29 @@
+"web_app": {
+    "class": "Application",
+    "template": "http",
+    "serviceMain": {
+        "class": "Service_HTTP",
+        "virtualAddresses": [
+            "{{private_ip}}"
+        ],
+        "pool": "app_pool"
+    },
+    "app_pool": {
+        "class": "Pool",
+        "monitors": [
+            "http"
+        ],
+        "members": [
+            {
+                "servicePort": 80,
+                "serverAddresses": [
+                    {% set comma = joiner(",") %}
+                    {% for mem in pool_members %}
+                        {{comma()}} "{{  hostvars[mem]['ansible_host']  }}"
+                    {% endfor %}
+
+                ]
+            }
+        ]
+    }
+}

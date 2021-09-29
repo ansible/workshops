@@ -1,0 +1,38 @@
+---
+- name: Capture student user and id
+  shell: awk -F ':' '{ print $1}' /etc/passwd | grep student
+  register: result
+
+- name: Create variable out stdout results and remove extra chars
+  set_fact:
+    student: "{{ result.stdout | regex_replace('(\r\n)','') }}"  
+
+- name: Create directory for files
+  ansible.builtin.file:
+    path: "/home/{{ student }}/{{ file_dir }}"
+    state: directory
+    owner: "{{ student }}"
+    group: "{{ student }}"
+    mode: '0755'
+
+- name: Create subdirectories for files
+  ansible.builtin.file:
+    path: "/home/{{ student }}/{{ file_dir }}/{{ item }}"
+    state: directory
+    owner: "{{ student }}"
+    group: "{{ student }}"
+    mode: '0755'
+  loop:
+    - files
+    - templates
+    - host_vars
+    - group_vars
+
+- name: Copy files to student user
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/{{ student }}/{{ file_dir }}/{{ item }}"
+    owner: "{{ student }}"
+    group: "{{ student }}"
+    mode: '0644'
+  loop: "{{ list_of_ansible_files | default([]) }}"

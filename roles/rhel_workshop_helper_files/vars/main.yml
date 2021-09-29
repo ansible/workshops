@@ -1,0 +1,25 @@
+---
+# vars file for rhel_workshop_helper_files
+
+list_of_ansible_files:
+  - files/dev_web.html
+  - host_vars/node2.yml
+  - files/prod_web.html
+  - files/web.html
+  - group_vars/web.yml
+  - templates/motd-facts.j2
+  - apache.yml
+  - check_httpd.yml
+  - package.yml
+  - service_state.yml
+  - deploy_index_html.yml
+  - setup.yml
+  - setup_filter.yml
+  - ftpserver.yml
+  - httpd_conf.yml
+  - loop_users.yml
+  - user_id.yml
+  - motd-facts.yml
+  - test_apache_role.yml
+
+file_dir: "ansible-files"

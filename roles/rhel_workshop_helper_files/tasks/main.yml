@@ -1,0 +1,4 @@
+---
+# tasks file for rhel_workshop_helper_files
+
+- ansible.builtin.include_tasks: helper_files.yml

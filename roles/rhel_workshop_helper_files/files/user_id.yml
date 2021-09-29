@@ -1,0 +1,13 @@
+---
+- name: Get user ID
+  hosts: node1
+  vars:
+    myuser: "dev_user"
+  tasks:
+    - name: Get {{ myuser }} info
+      getent:
+        database: passwd
+        key: "{{ myuser }}"
+    - debug:
+        msg: 
+          - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"

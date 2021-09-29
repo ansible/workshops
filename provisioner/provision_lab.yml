@@ -107,6 +107,10 @@
         - controllerinstall is defined
         - controllerinstall
 
+    - include_role:
+        name: ansible.workshops.rhel_workshop_helper_files
+      when: workshop_type == 'rhel'
+
 - name: replicate venvs to cluster nodes
   hosts: '*ansible-2,*ansible-3'
   gather_facts: false

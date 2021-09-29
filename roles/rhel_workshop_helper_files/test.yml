@@ -1,0 +1,8 @@
+- hosts: localhost
+  vars:
+    user: rlopez
+  tasks:
+    - name: debug specified user's home dir through ansible.env
+      debug: var=ansible_env.HOME
+      become: true
+      become_user: "{{ user }}"

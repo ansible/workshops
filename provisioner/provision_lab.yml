@@ -5,16 +5,40 @@
   become: false
   gather_facts: true
   tasks:
-    - name: build workshop into collection
-      shell: "ansible-galaxy collection build --verbose --force --output-path build/ {{ playbook_dir }}/.."
+    - name: import galaxy.yml
+      include_vars:
+        file: "{{ playbook_dir }}/../galaxy.yml"
+        name: galaxy_info
 
-    - name: install newly created collection
-      shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz"
+    - name: print galaxy info to terminal
+      debug:
+        var: galaxy_info.version
 
-    - name: Delete content & directory
-      file:
-        state: absent
-        path: build
+    - name: retrieve installed ansible.workshops collection
+      shell: ansible-galaxy collection list | grep ansible.workshops
+      register: installed_version
+
+    - name: compare galaxy.yml to installed version
+      set_fact:
+        match_galaxy_version: "{{ 'True' if galaxy_info.version in installed_version.stdout else 'False' }}"
+
+    - name: print installed galaxy version to terminal
+      debug:
+        var: match_galaxy_version
+
+    - name: install missing collections
+      when: not match_galaxy_version
+      block:
+        - name: build workshop into collection
+          shell: "ansible-galaxy collection build --verbose --force --output-path build/ {{ playbook_dir }}/.."
+
+        - name: install newly created collection
+          shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz"
+
+        - name: Delete content & directory
+          file:
+            state: absent
+            path: build
 
     - name: run pre-check role to make sure workshop will complete provisioning
       include_role:

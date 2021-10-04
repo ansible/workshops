@@ -7,6 +7,13 @@ ec2_name_prefix: TESTWORKSHOP
 student_total: 2
 # workshp runs in F5 mode
 workshop_type: f5
+# Required for AAP download https://access.redhat.com/articles/3626371
+offline_token: "234234234234234234234234234234234234234"
+# Required for podman authentication to registry.redhat.io
+redhat_username: joe@redhat.com
+redhat_password: R3dh4t!
+# DNS domain
+workshop_dns_zone: demoredhat.com
 ## Optional Variables
 # password used for student account on control node
 admin_password: ansible

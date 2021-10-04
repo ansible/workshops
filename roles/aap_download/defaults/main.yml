@@ -1,2 +1,4 @@
 ---
 app_image: "ansible-automation-platform-2.0-early-access-for-rhel-8-x86_64-files"
+# 2021-09-08
+provided_sha_value: 08e15797d4c4372a85208338f853d18a72f1ea6e49561c8271ea16ea92d005bb

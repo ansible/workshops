@@ -1,0 +1,48 @@
+controller_templates:
+  - name: "INFRASTRUCTURE / Deploy Application"
+    description: "install yum applications on Linux with a survey"
+    project: "Ansible official demo project"
+    job_type: run
+    playbook: "playbooks/infrastructure/deploy_application.yml"
+    credentials: "Workshop Credential"
+    inventory: "Workshop Inventory"
+    survey_enabled: true
+    survey:
+      name: Deploy application survey
+      description: Which application do you want to install?
+      spec:
+        - question_name: select application to be installed
+          question_description: select from drop down menu
+          required: true
+          type: multiplechoice
+          variable: application
+          min: 0
+          max: 1024
+          formattedChoices:
+          - choice: httpd
+            isDefault: true
+            id: 0
+          - choice: nginx
+            isDefault: false
+            id: 1
+          - choice: htop
+            isDefault: false
+            id: 2
+          - choice: gdb
+            isDefault: false
+            id: 3
+          new_question: false
+          default: httpd
+          choices: 'httpd
+
+            nginx
+
+            htop
+
+            gdb'
+controller_projects:
+  - name: "Ansible official demo project"
+    scm_type: git
+    scm_url: "https://github.com/ansible/product-demos"
+    description: "prescriptive demos from Red Hat Management Business Unit"
+    organization: "Default"

@@ -1,5 +1,7 @@
 ---
 # https://access.redhat.com/articles/3626371#bgenerating-an-access-tokenb-4
+#
+# equivalent of curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d grant_type=refresh_token -d client_id=rhsm-api -d refresh_token=$offline_token
 - name: Generating an access token
   uri:
     url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
@@ -16,34 +18,44 @@
 #   debug:
 #     var: temp_token.json.access_token
 
-- name: retrieving SHA for AAP download
-  uri:
-    url: https://api.access.redhat.com/management/v1/images/cset/{{ app_image }}
-    headers:
-      Content-Type: "application/json"
-      Authorization: "Bearer {{ temp_token.json.access_token }}"
-    method: GET
-    body_format: form-urlencoded
-    return_content: true
-  register: sha_value
+# deprecating this task, this SHA value can be found on access.redhat.com next to the imate name
+# - name: retrieving SHA for AAP download
+#   uri:
+#     url: https://api.access.redhat.com/management/v1/images/cset/{{ app_image }}
+#     headers:
+#       Content-Type: "application/json"
+#       Authorization: "Bearer {{ temp_token.json.access_token }}"
+#     method: GET
+#     body_format: form-urlencoded
+#     return_content: true
+#   register: sha_value
 
 # - name: display SHA checksum
 #   debug:
 #     var: sha_value
 
-- name: display SHA checksum
-  debug:
-    var: sha_value.json.body[1].checksum
+# - name: display SHA checksum
+#   debug:
+#     var: sha_value.json.body[1].checksum
+
+# - name: retrieving download link via sha_value
+#   uri:
+#     url: https://api.access.redhat.com/management/v1/images/{{ sha_value.json.body[1].checksum }}/download
+#     headers:
+#       accept: "application/json"
+#       Authorization: "Bearer {{ temp_token.json.access_token }}"
+#     method: GET
+#   register: download_url
+#   failed_when: "'bundle' not in sha_value.json.body[1].filename"
 
 - name: retrieving download link via sha_value
   uri:
-    url: https://api.access.redhat.com/management/v1/images/{{ sha_value.json.body[1].checksum }}/download
+    url: https://api.access.redhat.com/management/v1/images/{{ provided_sha_value }}/download
     headers:
       accept: "application/json"
       Authorization: "Bearer {{ temp_token.json.access_token }}"
     method: GET
   register: download_url
-  failed_when: "'bundle' not in sha_value.json.body[1].filename"
 
 - name: show download URL
   debug:
@@ -54,4 +66,4 @@
   get_url:
     url: "{{ download_url.url }}"
     dest: "{{ playbook_dir }}/aap.tar.gz"
-    checksum: "sha256: {{ sha_value.json.body[1].checksum }}"
+    checksum: "sha256: {{ provided_sha_value }}"

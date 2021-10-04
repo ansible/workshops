@@ -161,7 +161,7 @@
         - controllerinstall
   tags: control_node
 
-- name: populate ansible tower
+- name: populate automation controller
   hosts: '*ansible-1'
   become: true
   gather_facts: false
@@ -174,34 +174,6 @@
         - controllerinstall is defined
         - controllerinstall|bool
         - populatecontroller
-
-- name: IBM community grid managed nodes
-  hosts: "managed_nodes"
-  become: true
-  gather_facts: true
-
-  tasks:
-    - name: install boinc-client and register
-      include_role:
-        name: ansible.workshops.community_grid
-      when:
-        - ibm_community_grid is defined
-        - ibm_community_grid
-
-- name: IBM community grid control node
-  hosts: "control_nodes"
-  become: true
-  gather_facts: true
-
-  tasks:
-    - name: install boinc-client and register
-      include_role:
-        name: ansible.workshops.community_grid
-        tasks_from: auto_shutoff
-      when:
-        - ibm_community_grid is defined
-        - ibm_community_grid
-
 
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"

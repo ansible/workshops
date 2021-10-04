@@ -12,10 +12,17 @@ dns_type: aws
 workshop_dns_zone: rhdemo.io
 # password used for student account on control node
 admin_password: ansible
+# Required for AAP download https://access.redhat.com/articles/3626371
+offline_token: "234234234234234234234234234234234234234"
+# Required for podman authentication to registry.redhat.io
+redhat_username: joe@redhat.com
+redhat_password: R3dh4t!
+# DNS domain
+workshop_dns_zone: demoredhat.com
 ## Optional Variables
 # select rhel7 or rhel8 client nodes
 rhel: rhel7
-# this will install Ansible Tower on all control nodes
+# this will install Automation controller on all control nodes
 controllerinstall: true
 # this will install VS Code web on all control nodes
 code_server: true

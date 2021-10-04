@@ -9,6 +9,13 @@ ec2_name_prefix: TESTWORKSHOP
 student_total: 2
 # Set the right workshop type, like networking, rhel or f5 (see above)
 workshop_type: windows
+# Required for AAP download https://access.redhat.com/articles/3626371
+offline_token: "234234234234234234234234234234234234234"
+# Required for podman authentication to registry.redhat.io
+redhat_username: joe@redhat.com
+redhat_password: R3dh4t!
+# DNS domain
+workshop_dns_zone: demoredhat.com
 # OPTIONAL VARIABLES
 # creates 2 windows instances per student instead of default 1
 doubleup: false
@@ -16,6 +23,6 @@ doubleup: false
 admin_password: ansible123
 # adds a form that prompts for name and email to allocate student credentials
 attendance: false
-# automatically installs Tower to control node
+# automatically installs Automation controller to control node
 controllerinstall: true
 create_cluster: false

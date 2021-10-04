@@ -2,6 +2,8 @@
 
 If you’re new to Ansible Automation, but want a quicker version of the original RHEL workshop, this 90-minute workshop provides you with fewer exercises, focused on cloud provisioning, converting bash/shell commands to Ansible, all the way to utilizing RHEL System Roles.
 
+**This is documentation for Ansible Automation Platform 2**
+
 ## Table of Contents
 
 * [Table of Contents](#table-of-contents)

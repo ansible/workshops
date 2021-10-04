@@ -1,5 +1,7 @@
 # Ansible Workshop - Smart Management Automation
 
+**This is documentation for Ansible Automation Platform 2**
+
 In this workshop you will learn how to get the most from your Red Hat Smart Management subscription and the Ansible Automation Platform.
 
 ## Table of Contents
@@ -48,7 +50,7 @@ Open your browser and navigate to the Ansible Tower UI link provided on the atte
 
 #### **Step 2 - Create a Project**
 
-From the navigation section on the left side of the Automation Platform homepage, select **Project**. Click the green **Create** button in the top right corner. 
+From the navigation section on the left side of the Automation Platform homepage, select **Project**. Click the green **Create** button in the top right corner.
 
 Create a project using the `https://github.com/willtome/automated-smart-management.git` as the source git repository. Enable the checkbox **Update on Launch**.
 

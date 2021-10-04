@@ -12,8 +12,6 @@ dns_type: aws
 workshop_dns_zone: rhdemo.io
 # password used for student account on control node
 admin_password: ansible
-# disable ibm community grid
-ibm_community_grid: false
 ## Optional Variables
 # select rhel7 or rhel8 client nodes
 rhel: rhel7

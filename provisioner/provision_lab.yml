@@ -27,7 +27,7 @@
         var: match_galaxy_version
 
     - name: install missing collections
-      when: not match_galaxy_version
+      when: not match_galaxy_version or developer_mode
       block:
         - name: build workshop into collection
           shell: "ansible-galaxy collection build --verbose --force --output-path build/ {{ playbook_dir }}/.."

@@ -9,7 +9,8 @@ The Ansible Network Automation workshop is a comprehensive beginners guide to au
 ## Presentation
 
 Want the Presentation Deck?  Its right here:
-[Ansible Network Automation Workshop Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf)
+- [Ansible Network Automation Workshop Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf) PDF
+- [Google Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing) for Red Hat employees
 
 ## Ansible Network Automation Exercises
 

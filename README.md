@@ -3,11 +3,13 @@
 **Read this in other languages**:
 <br>![uk](/images/uk.png) [English](README.md),  ![japan](/images/japan.png)[日本語](README.ja.md)
 
+**This is documentation for Ansible Automation Platform 2**
+
 The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.
 
 ## Website
 
-- [http://ansible.github.io/workshops](http://ansible.github.io/workshops) - Check out the optional website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).  If you are already on the website please ignore this section.
+- [http://aap2.demoredhat.com](http://aap2.demoredhat.com) - Check out the optional website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).  If you are already on the website please ignore this section.
 
 ## Instructor-led Workshops
 

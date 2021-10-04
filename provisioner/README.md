@@ -112,7 +112,7 @@ testworkshop-student1-ansible
 
 ### Accessing student documentation and slides
 
-* Exercises and instructor slides are hosted at [http://ansible.github.io/workshops](http://ansible.github.io/workshops)
+* Exercises and instructor slides are hosted at [aap2.demoredhat.com](aap2.demoredhat.com)
 
 * Workbench information is stored in two places after you provision:
 

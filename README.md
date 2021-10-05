@@ -35,7 +35,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## Self Paced Exercises
 
-- [Katacoda Labs](https://developers.redhat.com/products/ansible/getting-started) - self-paced in-browser experience on developers.redhat.com.  There is multiple lessons on Getting Started with Ansible.
+- [Ansible Automation Platform Self-Paced Labs
+](https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218) - These interactive learning scenarios provide you with a pre-configured Ansible Automation Platform environment to experiment, learn, and see how the platform can help you solve real-world problems. The environment runs entirely in your browser, enabling you to learn more about our technology at your pace and time.
 
 ## Product Demos
 

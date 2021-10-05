@@ -1,5 +1,7 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux (90 mins)
 
+This is the documentation for Ansible Automation Platform 1.2.  If you are looking for Ansible Automation Platform 2, please go to [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
+
 Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
 
 ## Table of Contents

@@ -2,6 +2,8 @@
 
 **Read this in other languages**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png) [日本語](README.ja.md).
 
+This is the documentation for Ansible Automation Platform 1.2.  If you are looking for Ansible Automation Platform 2, please go to [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
+
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, and Juniper) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
 ## Presentation

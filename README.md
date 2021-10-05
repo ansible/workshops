@@ -1,7 +1,7 @@
 # Red Hat Ansible Automation Platform Workshops
 
 **Read this in other languages**:
-<br>![uk](/images/uk.png) [English](README.md),  ![japan](/images/japan.png)[日本語](README.ja.md)
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md)
 
 **This is documentation for Ansible Automation Platform 2**
 
@@ -79,4 +79,4 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 - [More E-Books on Ansible.com](https://www.ansible.com/resources/ebooks)
 
 ---
-![Red Hat Ansible Automation](images/rh-ansible-automation-platform.png)
+![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/rh-ansible-automation-platform.png)

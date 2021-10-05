@@ -107,6 +107,7 @@ $ ansible-navigator images
 
 
 > Note
+>
 > The output  you see might differ from the above output
 
 This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **2** with the above example will open the `ee-supported-rhel8` execution environment:
@@ -207,9 +208,7 @@ ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.1
 
 In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
 
-> Note:
->
-> Parent groups are declared using the `children` directive. Having nested groups allows the flexibility of assigining more specific values to variables.
+Parent groups are declared using the `children` directive. Having nested groups allows the flexibility of assigining more specific values to variables.
 
 We can associate variables to groups and hosts.
 

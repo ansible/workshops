@@ -56,6 +56,8 @@ Explore and understand the lab environment.  This exercise will cover
 
 An inventory is required for Automation controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Automation controller can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
 
+> Note:
+>
 > More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html)
 
 1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.
@@ -90,6 +92,8 @@ An inventory is required for Automation controller to be able to run jobs.  An i
 
 A project is how Ansible Playbooks are imported into Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Automation controller, including Git and Subversion.
 
+> Note:
+>
 > For more information on Projects in Automation controller, please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
 
 1. Click on the **Projects** button under **RESOURCES** on the left menu bar.
@@ -114,6 +118,8 @@ A project is how Ansible Playbooks are imported into Automation controller.  You
 
 Credentials are utilized by Automation controller for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
 
+> Note:
+>
 > For more information on Credentials in Automation controller please [refer to the documentation](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
 
 1. Click on the **Credentials** button under **Resources** on the left menu bar.

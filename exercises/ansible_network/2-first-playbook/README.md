@@ -107,7 +107,9 @@ snmp-server community ansible-private RW
 
 The `cisco.ios.config` module is idempotent. This means, a configuration change is pushed to the device if and only if that configuration does not exist on the end hosts.
 
-> Need help with Ansible Automation terminology?  Check out the [glossary here](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) for more information on terms like idempotency.
+> Need help with Ansible Automation terminology?  
+>
+> Check out the [glossary here](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) for more information on terms like idempotency.
 
 To validate the concept of idempotency, re-run the playbook:
 
@@ -123,7 +125,9 @@ PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-> Note: See that the **changed** parameter in the **PLAY RECAP** indicates 0 changes.
+> Note:
+>
+> See that the **changed** parameter in the **PLAY RECAP** indicates 0 changes.
 
 Re-running the Ansible Playbook multiple times will result in the same exact output, with **ok=1** and **change=0**.  Unless another operator or process removes or modifies the existing configuration on rtr1, this Ansible Playbook will just keep reporting **ok=1** indicating that the configuration already exists and is configured correctly on the network device.
 

@@ -35,6 +35,8 @@ To run an Ansible Playbook in Automation controller we need to create a **Job Te
 
    ![templates link](images/controller_add.png)
 
+> Note:
+>
 > Make sure to select `job template` and not `workflow template`)
 
 * Fill out the job template parameters as follows:

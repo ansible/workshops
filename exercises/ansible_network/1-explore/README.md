@@ -30,14 +30,9 @@ These first few lab exercises will be exploring the command-line utilities of th
 
 If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
 
+> Chat with us
+> Before you get started, please join us on slack! <a href="https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw">Click here to join the ansiblenetwork slack</a>.  This will allow you to chat with other network automation engineers and get help after the workshops concludes.  If the link goes stale please email <a href="mailto:ansible-network@redhat.com">Ansible Technical Marketing</a></th>
 
-<table>
-<thead>
-  <tr>
-    <th>Before you get started, please join us on slack! <a href="https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw">Click here to join the ansiblenetwork slack</a>.  This will allow you to chat with other network automation engineers and get help after the workshops concludes.  If the link goes stale please email <a href="mailto:ansible-network@redhat.com">Ansible Technical Marketing</a></th>
-  </tr>
-</thead>
-</table>
 
 ## Diagram
 
@@ -110,7 +105,8 @@ $ ansible-navigator images
 ![ansible-navigator images](images/navigator-images.png)
 
 
-> Note: The output  you see might differ from the above output
+> Note
+> The output  you see might differ from the above output
 
 This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **2** with the above example will open the `ee-supported-rhel8` execution environment:
 
@@ -210,11 +206,13 @@ ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.1
 
 In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
 
+> Note:
 > Parent groups are declared using the `children` directive. Having nested groups allows the flexibility of assigining more specific values to variables.
 
 We can associate variables to groups and hosts.
 
-> Note: A group called **all** always exists and contains all groups and hosts defined within an inventory.
+> Note:
+> A group called **all** always exists and contains all groups and hosts defined within an inventory.
 
 Host variables can be defined on the same line as the host themselves. For example for the host `rtr1`:
 

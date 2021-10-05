@@ -13,8 +13,6 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## Instructor-led Workshops
 
-
-
 6 hour workshops:
 >**Note**
 >

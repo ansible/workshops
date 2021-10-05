@@ -30,10 +30,13 @@
   until: f5networks is not failed
   retries: 5
 
-- name: Pull an extra image for f5
-  become_user: "{{ item }}"
-  containers.podman.podman_image:
-    name: "quay.io/acme_corp/f5_modules:latest"
-  loop:
-    - "{{ username }}"
-    - awx
+# sean removed on 9/30/2021... this does not exist
+# - name: Pull an extra image for f5
+#   become_user: "{{ loop_item }}"
+#   containers.podman.podman_image:
+#     name: "quay.io/acme_corp/f5_modules:latest"
+#   loop:
+#     - "{{ username }}"
+#     - awx
+#   loop_control:
+#     loop_var: loop_item

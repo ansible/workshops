@@ -8,6 +8,13 @@ student_total: 2
 workshop_type: network
 # possible values cisco, arista, juniper or multivendor
 network_type: arista
+# Required for AAP download https://access.redhat.com/articles/3626371
+offline_token: "234234234234234234234234234234234234234"
+# Required for podman authentication to registry.redhat.io
+redhat_username: joe@redhat.com
+redhat_password: R3dh4t!
+# DNS domain
+workshop_dns_zone: demoredhat.com
 ## Optional Variables
 dns_type: aws
 create_cluster: false

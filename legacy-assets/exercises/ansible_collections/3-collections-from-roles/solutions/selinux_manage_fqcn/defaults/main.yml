@@ -1,0 +1,6 @@
+---
+# defaults file for selinux_manage_fqdn
+selinux_mode: enforcing
+
+sebooleans_enable: []
+sebooleans_disable: []

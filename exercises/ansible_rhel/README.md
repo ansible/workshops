@@ -4,6 +4,9 @@
 <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/col.png) [Español](README.es.md).
 <br>
 
+**This is documentation for Ansible Automation Platform 2**
+
+
 If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
 
 After finishing this lab you are ready to start using Ansible for your automation requirements.
@@ -40,7 +43,7 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
 ## Section 1 - Command-line Ansible Exercises
 
 * [Exercise 1.1 - Check the Prerequisites](1.1-setup)
-* [Exercise 1.2 - Running Ad-hoc Commands](1.2-adhoc)
+* [Exercise 1.2 - The Ansible Basics](1.2-thebasics)
 * [Exercise 1.3 - Writing Your First Playbook](1.3-playbook)
 * [Exercise 1.4 - Using Variables](1.4-variables)
 * [Exercise 1.5 - Conditionals, Handlers and Loops](1.5-handlers)
@@ -49,7 +52,7 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
 
 ## Section 2 - Ansible Automation Platform Exercises
 
-* [Exercise 2.1 - Introduction to Tower](2.1-intro)
+* [Exercise 2.1 - Introduction to automation controller](2.1-intro)
 * [Exercise 2.2 - Inventories, credentials and ad hoc commands](2.2-cred)
 * [Exercise 2.3 - Projects & job templates](2.3-projects)
 * [Exercise 2.4 - Surveys](2.4-surveys)

@@ -1,0 +1,16 @@
+---
+- name: BIG-IP SETUP
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: SAVE RUNNING CONFIG ON BIG-IP
+      f5networks.f5_modules.bigip_config:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_password}}"
+          server_port: 8443
+          validate_certs: false
+        save: true

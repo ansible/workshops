@@ -1,9 +1,20 @@
 ---
-- name: install demo
+- name: install projects
+  when: controller_projects is defined
   vars:
-    my_tower_username: admin
-    my_tower_password: "{{ admin_password }}"
-    my_tower_host: "https://{{ ansible_host }}"
-    demo: turn_off_community_grid
+    controller_validate_certs: false
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: "admin"
+    controller_password: "{{ admin_password }}"
   include_role:
-    name: ansible.product_demos.install_demo
+    name: redhat_cop.controller_configuration.projects
+
+- name: install job templates
+  when: controller_templates is defined
+  vars:
+    controller_validate_certs: false
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: "admin"
+    controller_password: "{{ admin_password }}"
+  include_role:
+    name: redhat_cop.controller_configuration.job_templates

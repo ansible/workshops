@@ -1,0 +1,60 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show interface
+    network_os: ios
+
+- name: match sections
+  pattern_match:
+    regex: "^(\\S+) is up,"
+    match_all: true
+    match_greedy: true
+  register: section
+
+- name: match interface values
+  pattern_group:
+    - name: match name
+      pattern_match:
+        regex: "^(\\S+)"
+        content: "{{ item }}"
+      register: name
+
+    - name: match hardware
+      pattern_match:
+        regex: "Hardware is (\\S+).*"
+        content: "{{ item }}"
+      register: type
+
+    - name: match mtu
+      pattern_match:
+        regex: "MTU (\\d+)"
+        content: "{{ item }}"
+      register: mtu
+
+    - name: match description
+      pattern_match:
+        regex: "Description: (.*)"
+        content: "{{ item }}"
+      register: description
+  loop: "{{ section }}"
+  register: interfaces
+
+- name: generate json data structure
+  json_template:
+    template:
+      - key: "{{ item.name.matches.0 }}"
+        object:
+          - key: config
+            object:
+              - key: name
+                value: "{{ item.name.matches.0 }}"
+              - key: type
+                value: "{{ item.type.matches.0 }}"
+              - key: mtu
+                value: "{{ item.mtu.matches.0 }}"
+              - key: description
+                value: "{{ item.description.matches.0 }}"
+  loop: "{{ interfaces }}"
+  export: true
+  register: interface_facts

@@ -1,0 +1,34 @@
+---
+- name: BIG-IP TEARDOWN
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Setup provider
+      set_fact:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_password}}"
+          server_port: 8443
+          validate_certs: false
+
+    - name: DELETE VIRTUAL SERVER
+      f5networks.f5_modules.bigip_virtual_server:
+        provider: "{{provider}}"
+        name: "vip"
+        state: absent
+
+    - name: DELETE POOL
+      bigip_pool:
+        provider: "{{provider}}"
+        name: "http_pool"
+        state: absent
+
+    - name: DELETE NODES
+      bigip_node:
+        provider: "{{provider}}"
+        name: "{{hostvars[item].inventory_hostname}}"
+        state: absent
+      loop: "{{ groups['web'] }}"

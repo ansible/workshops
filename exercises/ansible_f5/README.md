@@ -1,4 +1,6 @@
-# Ansible Linklight - F5 Networking Workshop
+# Ansible F5 Networking Workshop
+
+**This is documentation for Ansible Automation Platform 2**
 
 ![f5workshop](../../images/ansiblef5-transparent.png)
 

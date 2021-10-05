@@ -1,7 +1,7 @@
 ---
 namespace: ansible
 name: workshops
-version: 0.0.20
+version: 0.0.23
 readme: README.md
 
 authors:
@@ -23,6 +23,7 @@ build_ignore:
   - _layouts
   - docs
   - files
+  - legacy-assets
 
 
 # A short summary description of the collection

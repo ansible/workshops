@@ -73,7 +73,8 @@
   loop:
     - https://github.com/ansible/workshops/raw/devel/files/bierner.markdown-preview-github-styles-0.1.6.vsix
     - https://github.com/ansible/workshops/raw/devel/files/hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
-    - https://github.com/ansible/workshops/raw/devel/files/vscoss.vscode-ansible-0.5.2.vsix
+    - https://github.com/ansible/workshops/raw/devel/files/redhat.ansible-0.4.5.vsix
+    - https://github.com/ansible/workshops/raw/devel/files/ms-python.python-2021.9.1230869389.vsix
 
 - name: install ansible and markdown extensions
   become_user: "{{ username }}"
@@ -81,7 +82,8 @@
   loop:
     - bierner.markdown-preview-github-styles-0.1.6.vsix
     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
-    - vscoss.vscode-ansible-0.5.2.vsix
+    - redhat.ansible-0.4.5.vsix
+    - ms-python.python-2021.9.1230869389.vsix
   ignore_errors: true
   register: install_extension
   until: install_extension is not failed

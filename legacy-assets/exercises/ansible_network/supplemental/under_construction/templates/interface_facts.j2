@@ -1,0 +1,13 @@
+{{ inventory_hostname.upper() }}
+{{ '-' *  inventory_hostname|length }}
+{% for intf in interface_facts %}
+{% for intf_key,intf_value in intf.items() %}
+{{intf_key}}:
+{% for k,v in intf_value.items() %}
+  Description: {{v.description}}
+  Name: {{v.name}}
+  MTU: {{v.mtu}}
+
+{% endfor %}
+{% endfor %}
+{% endfor %}

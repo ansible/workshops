@@ -64,6 +64,12 @@ section > blockquote {
   width: calc(100% - 80px);
 }
 
+// Centre images using ?style=centreme
+img[src*="#centreme"] {
+  display: block;
+  margin: 0 auto;
+}
+
 img {
   max-width: 100%;
 }

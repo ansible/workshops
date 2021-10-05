@@ -1,10 +1,6 @@
 ---
 - name: attempt to download specified AAP
   block:
-    - name: debug app_image to terminal - this is specified download version
-      debug:
-        msg: "{{ app_image }}"
-
     - name: setup control node for workshop type
       include_tasks: 10_download.yml
 

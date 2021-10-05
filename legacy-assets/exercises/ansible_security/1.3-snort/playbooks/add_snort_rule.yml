@@ -1,0 +1,16 @@
+---
+- name: Add Snort rule
+  hosts: snort
+  become: true
+
+  vars:
+    ids_provider: snort
+
+  tasks:
+    - name: Add snort password attack rule
+      include_role:
+        name: "ansible_security.ids_rule"
+      vars:
+        ids_rule: 'alert tcp any any -> any any (msg:"Attempted /etc/passwd Attack"; uricontent:"/etc/passwd"; classtype:attempted-user; sid:99000004; priority:1; rev:1;)'
+        ids_rules_file: '/etc/snort/rules/local.rules'
+        ids_rule_state: present

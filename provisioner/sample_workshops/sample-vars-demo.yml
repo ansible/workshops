@@ -8,6 +8,13 @@ student_total: 1
 # workshop is put into isecurity mode
 workshop_type: 'demo'
 security_console: 'qradar'
+# Required for AAP download https://access.redhat.com/articles/3626371
+offline_token: "234234234234234234234234234234234234234"
+# Required for podman authentication to registry.redhat.io
+redhat_username: joe@redhat.com
+redhat_password: R3dh4t!
+# DNS domain
+workshop_dns_zone: demoredhat.com
 ## Optional Variables
 admin_password: ansible
 windows_password: Ansible+Red*Hat19!20

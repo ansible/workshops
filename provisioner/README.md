@@ -33,7 +33,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 ## Requirements
 
-* This provisioner must be run with Ansible Engine v2.8.0 or higher.
+* This provisioner must be run with `ansible-core` v2.11 or higher.
 * AWS Account (follow directions on one time setup below)
 
 ## Lab Setup
@@ -77,13 +77,10 @@ dns_type: aws
 admin_password: your_password123
 
 # Sets the Route53 DNS zone to use for Amazon Web Services
-workshop_dns_zone: rhdemo.io
+workshop_dns_zone: demoredhat.com
 
 # automatically installs Tower to control node
 controllerinstall: true
-
-# IBM Community Grid - defaults to true if you don't tell the provisioner
-ibm_community_grid: false
 
 ```
 
@@ -113,22 +110,9 @@ ansible-playbook provision_lab.yml -e @extra_vars.yml
 testworkshop-student1-ansible
 ````
 
-### IBM Community Grid
-
-IBM’s World Community Grid is integrated into the workshops.  World Community Grid enables anyone with a Linux, Windows or Mac computer (or an Android smartphone for some projects)  to donate their unused computing power to advance scientific research on topics related to health and sustainability.
-
-By default the key, value pair is set: `ibm_community_grid: true`.  This installs the boinc-client to all Red Hat Enterprise Linux instances (except the Ansible control node).  This can be disabled by setting `ibm_community_grid: false`. By default in the Ansible Automation workshops all research progress (points and CPU time) is added to a joint Ansible account for Red Hat. If you prefer to use your own account, or another project change the following variables:
-
-```yaml
-boinc_auth: "1114316_4080087955dc198a6109a25a56817809"
-boinc_url: "www.worldcommunitygrid.org"
-```
-
-Please read this blog for more information: [https://www.ansible.com/blog/ansible-and-ibm-community-grid](https://www.ansible.com/blog/ansible-and-ibm-community-grid)
-
 ### Accessing student documentation and slides
 
-* Exercises and instructor slides are hosted at [http://ansible.github.io/workshops](http://ansible.github.io/workshops)
+* Exercises and instructor slides are hosted at [aap2.demoredhat.com](aap2.demoredhat.com)
 
 * Workbench information is stored in two places after you provision:
 
@@ -156,7 +140,7 @@ This means that each student workbench will get an individual DNS entry.  For ex
 
 The Smart Management Lab relies on a prebuilt AMI for Red Hat Satellite Server. An example for building this AMI can be found [here](https://github.com/willtome/ec2-image-build).
 
-The Smart Management Lab also requires AWS DNS to be enabled and IBM community Grid to be disabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
+The Smart Management Lab also requires AWS DNS to be enabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
 
 ## Lab Teardown
 

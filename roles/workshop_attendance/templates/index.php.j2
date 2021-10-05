@@ -87,7 +87,7 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
             alt="Red Hat Ansible"
           />
         </a>
-        <a class="header-link" href="http://ansible.github.io/workshops">
+        <a class="header-link" href="https://aap2.demoredhat.com/">
           Workshops Homepage
         </a>
       </div>
@@ -104,11 +104,11 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 <p>The Ansible network automation workshop is a comprehensive beginners guide to automating popular network data center devices from Arista, Cisco and Juniper via Ansible playbooks. You’ll learn how to pull facts from devices, build templated network configurations, and apply these concepts at scale with Ansible automation controller. You’ll put it all together by exploring the controller’s job templates, surveys, access controls and more. </p>
                 <div class="row">
                   <div class="col-sm-4">
-                      <a target=_blank href="https://ansible.github.io/workshops/exercises/ansible_network/">Network Exercises</a>
+                      <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_network">Network Exercises</a>
                   </div>
 
                   <div class="col-sm-4">
-                      <a target=_blank href="https://ansible.github.io/workshops/decks/ansible_network.pdf">Network Presentation Deck</a>
+                      <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_network.pdf">Network Presentation Deck</a>
                   </div>
 
                 </div>
@@ -117,11 +117,11 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 <p>The Ansible F5 Networking workshop provides exercises that demonstrate Ansible Automation Platform capabilities to automate the F5 BIG-IP platform. You will be exploring, configuring and managing F5 BIG-IP instances via Ansible playbooks and extending them to Ansible automation controller for enterprise use cases.</p>
                 <div class="row">
                   <div class="col-sm-4">
-                      <a target=_blank href="https://ansible.github.io/workshops/exercises/ansible_f5/">Ansible F5 Exercises</a>
+                      <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_f5">Ansible F5 Exercises</a>
                   </div>
 
                   <div class="col-sm-4">
-                      <a target=_blank href="https://ansible.github.io/workshops/decks/ansible_f5.pdf">Ansible F5 Deck</a>
+                      <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_f5.pdf">Ansible F5 Deck</a>
                   </div>
                 </div>
                 {% elif create_cluster|bool and workshop_type == "rhel" %}
@@ -137,19 +137,19 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 <p>If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.</p>
                 <div class="row">
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_rhel">Ansible RHEL Exercises</a>
                     </div>
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
                     </div>
                 </div>
                 {% elif workshop_type == 'rhel_90' %}
                 <div class="row">
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/exercises/ansible_rhel_90/">Ansible RHEL Exercises</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_rhel_90">Ansible RHEL Exercises</a>
                     </div>
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_rhel_90.pdf">Ansible Technical Deck</a>
                     </div>
                 </div>
                 {% elif workshop_type == 'security' %}
@@ -157,10 +157,10 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 <p>Get started with Ansible Security Automation by implementing automation for three security use cases: 1) orchestrating firewalls, 2) IDS and SIEM: investigating suspicious traffic on a web server, and 3) threat hunting: analyzing unusual denied accesses on a firewall and remediation of a SQL injection. After a brief introduction, you’ll tackle some of the basic concepts and show you how to use Ansible Security Automation in combination with existing third-party security solutions.</p>
                 <div class="row">
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/exercises/ansible_security/">Ansible Security Exercises</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_security">Ansible Security Exercises</a>
                     </div>
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_security.pdf">Ansible Security Deck</a>
                   </div>
                 </div>
                 {% elif workshop_type == 'windows' %}
@@ -168,10 +168,10 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 <p>This workshop guides you through configuring Ansible automation controller to connect to Windows Server instances for automating various operational tasks. Once Ansible automation controller is configured, you will start with automating simple tasks and then progress to more advanced use cases such as patching and leveraging third-party solutions to enhance automation (Chocolatey). There are minimal client requirements for you to interact with the workshop because you only need a compatible Web browser. This workshop has reduced requirements for Linux knowledge and other command line tools.</p>
                 <div class="row">
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_windows">Ansible Windows Exercises</a>
                     </div>
                     <div class="col-sm-4">
-                        <a target=_blank href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_windows.pdf">Ansible Windows Deck</a>
                   </div>
                 </div>
                 {% endif %}

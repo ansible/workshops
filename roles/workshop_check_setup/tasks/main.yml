@@ -3,7 +3,7 @@
   assert:
     that:
       - ansible_version.major >= 2
-      - ansible_version.minor >= 9
+      - ansible_version.minor >= 11
 
 - name: make sure workshop_type is set to a correct value
   assert:
@@ -17,22 +17,22 @@
     that:
       - dns_type is defined
       - dns_type in valid_dns_type
-    msg: "dns_type must be defined and be one of: {{valid_dns_type}}"
+    msg: "dns_type must be defined and be one of: {{ valid_dns_type }}"
 
 - name: make sure network_type is set to a correct value
   assert:
     that:
       - network_type is defined
       - network_type in valid_network_types
-    msg: "network_type must be defined and be one of: {{valid_network_types}}"
+    msg: "network_type must be defined and be one of: {{ valid_network_types }}"
   when: workshop_type == "networking"
 
 - name: make sure DNS name is 65 characters or less
   vars:
-    test_name: "studentXXX-code.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+    test_name: "studentXXX-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
   assert:
     that:
-      - "{{test_name|length}} <= 65"
+      - "{{ test_name|length }} <= 65"
     msg: "you must make sure your DNS name is shorter"
 
 - name: make sure security_console is set to a correct value
@@ -40,7 +40,7 @@
     that:
       - security_console is defined
       - security_console in valid_security_console_types
-    msg: "network_type must be defined and be one of: {{valid_security_console_types}}"
+    msg: "network_type must be defined and be one of: {{ valid_security_console_types }}"
   when: workshop_type == "security"
 
 - name: make sure we are not running with TESTWORKSHOP as the name so no overlap
@@ -67,5 +67,5 @@
 - name: check workshop specific information
   include_tasks: "{{item}}"
   with_first_found:
-    - "{{role_path}}/tasks/{{workshop_type}}.yml"
-    - "{{role_path}}/tasks/unsupported_workshop.yml"
+    - "{{ role_path }}/tasks/{{ workshop_type }}.yml"
+    - "{{ role_path }}/tasks/unsupported_workshop.yml"

@@ -1,0 +1,21 @@
+---
+- name: BIG-IP SETUP
+  hosts: lb
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: ADD POOL MEMBERS
+      f5networks.f5_modules.bigip_pool_member:
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_password}}"
+          server_port: 8443
+          validate_certs: false
+        state: "present"
+        name: "{{hostvars[item].inventory_hostname}}"
+        host: "{{hostvars[item].ansible_host}}"
+        port: "80"
+        pool: "http_pool"
+      loop: "{{ groups['web'] }}"

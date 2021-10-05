@@ -67,14 +67,14 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 - [The Automated Enterprise](https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000002DXg8AAG)
 
-### Ansible Security Automation
-
-  - [Simplify your security operations center](https://www.redhat.com/en/resources/security-automation-ebook?extIdCarryOver=true&sc_cid=7013a000002gyQ2AAI)
-
-### Ansible Network Automation
+### E-Books for Ansible Network Automation
 
   - [Part 1: Modernize Your Network with Red Hat](https://www.ansible.com/resources/ebooks/network-automation-for-everyone?hsLang=en-us)
   - [Part 2: Automate Your Network with Red Hat](https://www.ansible.com/resources/ebooks/automate-your-network?hsLang=en-us)
+
+### E-Books for Ansible Security Automation
+
+  - [Simplify your security operations center](https://www.redhat.com/en/resources/security-automation-ebook?extIdCarryOver=true&sc_cid=7013a000002gyQ2AAI)
 
 ---
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/rh-ansible-automation-platform.png)

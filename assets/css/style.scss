@@ -72,14 +72,14 @@ blockquote p:first-child {
     color: #fff;
 }
 
-div.notices p:first-child:before {
+blockquote p:first-child:before {
     position: absolute;
-    top: 2px;
+    top: 1px;
     color: #fff;
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    content: "\f06a";
-    left: 10px;
+    content: "\f05a";
+    left: -16px;
 }
 
 blockquote {

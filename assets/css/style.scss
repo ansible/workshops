@@ -69,15 +69,22 @@ blockquote p:first-child {
     position: relative;
     top: -28px;
     margin-bottom: -20px;
-    content: "\f06a";
-    font-weight: 900;
     color: #fff;
+}
+
+div.notices p:first-child:before {
+    position: absolute;
+    top: 2px;
+    color: #fff;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f06a";
+    left: 10px;
 }
 
 blockquote {
     font-style: normal;
 }
-
 // Centre images using ?style=centreme
 img[src*="#centreme"] {
   display: block;

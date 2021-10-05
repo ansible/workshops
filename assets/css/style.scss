@@ -62,7 +62,6 @@ section > ul, section > ol {
 
 section > blockquote {
   background: #E6F9E6;
-  width: calc(100% - 80px);
   border-top: 30px solid rgba(92, 184, 92, 0.8);
 }
 
@@ -73,6 +72,10 @@ blockquote p:first-child {
     content: "\f06a";
     font-weight: 900;
     color: #fff;
+}
+
+blockquote {
+    font-style: normal;
 }
 
 // Centre images using ?style=centreme

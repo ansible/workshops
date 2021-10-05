@@ -75,6 +75,9 @@
     - https://github.com/ansible/workshops/raw/devel/files/hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
     - https://github.com/ansible/workshops/raw/devel/files/redhat.ansible-0.4.5.vsix
     - https://github.com/ansible/workshops/raw/devel/files/ms-python.python-2021.9.1230869389.vsix
+  register: download_extension
+  until: download_extension is not failed
+  retries: 5
 
 - name: install ansible and markdown extensions
   become_user: "{{ username }}"

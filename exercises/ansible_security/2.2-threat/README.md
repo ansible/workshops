@@ -145,7 +145,7 @@ Seeing these violations we should start an investigation to assess if they are t
 
 However, as mentioned in many enterprise environments security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. In our scenario, the typical way for a security operator to escalate the issue and start our investigation would be to contact the security analysis team, manually sending them the firewall logs we used to identify the rule violation - and then wait for the reply. A slow, manual process.
 
-But, as shown with the last exercise, we can automate this process with Ansible Automation Platform! There can be pre-approved automation workflows in form of playbooks, provided via a central automation tool like Ansible controller. With such a set of Ansible playbooks, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
+But, as shown with the last exercise, we can automate this process with Ansible Automation Platform! There can be pre-approved automation workflows in form of playbooks, provided via a central automation tool like automation controller. With such a set of Ansible playbooks, every time we are in a threat hunting situation, we can automatically configure the enterprise firewall to send its events/logs to the QRadar instance that security analysts use to correlate the data and decide how to proceed with the potential threat.
 
 Let's try this out. Log out of your controller instance, and log in as the firewall user: `opsfirewall`. For the simplicity of the demo, the password is the same as for your student user. Once you have logged in and can see the dashboard, navigate to **Templates**. As you see, as the firewall administrator we can only see and execute few job templates:
 
@@ -207,7 +207,7 @@ Let's add a new IDS rule. Again we will do this via a pre-approved playbook alre
 
 ![Automation controller survey](images/controller_snort_survey.png#centreme)
 
-The playbook cannot run without further content - we have to provide the actual rule which needs to be deployed! Of course, with Snort, the rule necessary to be added depends on the actual use case and thus might be different each time. Thus this job template has a ***survey*** enabled, a method in Ansible controller to query input before execution.
+The playbook cannot run without further content - we have to provide the actual rule which needs to be deployed! Of course, with Snort, the rule necessary to be added depends on the actual use case and thus might be different each time. Thus this job template has a ***survey*** enabled, a method in automation controller to query input before execution.
 
 In this case we query the proper signature, the right Snort rule for this specific attack. Enter the following string into the field:
 

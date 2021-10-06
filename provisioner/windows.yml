@@ -12,7 +12,7 @@
     - include_role:
         name: ansible.workshops.vendor_do1jlr_gitea
       vars:
-      # server configuration: https://docs.gitea.io/en-us/config-cheat-sheet/#server-server
+        # server configuration: https://docs.gitea.io/en-us/config-cheat-sheet/#server-server
         gitea_fqdn: 'gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}'
         gitea_root_url: 'https://{{ gitea_fqdn }}'
         gitea_http_listen: '0.0.0.0'
@@ -27,15 +27,13 @@
           CERT_FILE = /etc/letsencrypt/live/gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/fullchain.pem
           KEY_FILE = /etc/letsencrypt/live/gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/privkey.pem
           LANDING_PAGE = login
-      # repo configuration: https://docs.gitea.io/en-us/config-cheat-sheet/#repository-repository
+        # repo configuration: https://docs.gitea.io/en-us/config-cheat-sheet/#repository-repository
         gitea_repository_extra_config: |
           ENABLE_PUSH_CREATE_USER = true
           DEFAULT_BRANCH = main
-
-
+  
     - include_role:
         name: ansible.workshops.gitlab_server
-    #     tasks_from: add-users
 
 - name: Configure GitLab client
   hosts: '*ansible-1'

@@ -5,5 +5,3 @@
 #     dest: /var/lib/gitea/custom/public/img/avatar_default.png
 #     owner: gitea
 #     group: gitea
-
-    

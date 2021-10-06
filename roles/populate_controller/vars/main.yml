@@ -1,3 +1,4 @@
+---
 controller_templates:
   - name: "INFRASTRUCTURE / Deploy Application"
     description: "install yum applications on Linux with a survey"

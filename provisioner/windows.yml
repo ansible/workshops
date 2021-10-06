@@ -31,7 +31,7 @@
         gitea_repository_extra_config: |
           ENABLE_PUSH_CREATE_USER = true
           DEFAULT_BRANCH = main
-  
+
     - include_role:
         name: ansible.workshops.gitlab_server
 

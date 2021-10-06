@@ -1,0 +1,34 @@
+---
+- name: "Check gitea installed version"
+  ansible.builtin.shell: "set -eo pipefail; /usr/local/bin/gitea -v | cut -d' ' -f 3"
+  args:
+    executable: /bin/bash
+  register: gitea_active_version
+  changed_when: false
+  failed_when: false
+
+- name: "Determine 'latest' version release"
+  block:
+    - name: "Get latest gitea release metadata"
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/go-gitea/gitea/releases/latest
+        return_content: true
+      register: gitea_remote_metadata
+
+    - name: "Set fact latest gitea release"
+      ansible.builtin.set_fact:
+        gitea_remote_version: "{{ gitea_remote_metadata.json.tag_name[1:] }}"
+
+    - name: "Set gitea version target (latest)"
+      ansible.builtin.set_fact:
+        gitea_version_target: "{{ gitea_remote_version }}"
+  when: gitea_version == "latest"
+
+- name: "Set gitea version target ({{ gitea_version }})"
+  ansible.builtin.set_fact:
+    gitea_version_target: "{{ gitea_version }}"
+  when: gitea_version != "latest"
+
+- name: "Generate gitea download URL"
+  ansible.builtin.set_fact:
+    gitea_dl_url: "https://github.com/go-gitea/gitea/releases/download/v{{ gitea_version_target }}/gitea-{{ gitea_version_target }}-linux-{{ gitea_arch }}"

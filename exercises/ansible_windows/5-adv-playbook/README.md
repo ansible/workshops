@@ -4,14 +4,14 @@
 
 Previous exercises showed you the basics of Ansible playbooks. In the
 next few exercises, we are going to teach some more advanced ansible
-skills that will add flexibility and power to your playbooks.
+skills that will add flexibility and power to your automation.
 
 Ansible exists to make tasks simple and repeatable. We also know that
 not all systems are exactly alike and often require some slight change
 to the way an Ansible playbook is run. Enter variables.
 
 Variables are how we deal with differences between your systems,
-allowing you to account for a change in port, IP address or directory.
+allowing you to account for a change in port, IP address or directory, etc..
 
 Loops enable us to repeat the same task over and over again. For
 example, lets say you want to start multiple services, install several
@@ -73,18 +73,18 @@ addtional packages your playbook will install on your web servers, plus
 some web server specific configurations.
 
 ```yaml
-    ---
-    - hosts: windows
-      name: This is a play within a playbook
-      vars:
-        iis_sites:
-          - name: 'Ansible Playbook Test'
-            port: '8080'
-            path: 'C:\sites\playbooktest'
-          - name: 'Ansible Playbook Test 2'
-            port: '8081'
-            path: 'C:\sites\playbooktest2'
-        iis_test_message: "Hello World!  My test IIS Server"
+---
+- name: This is a play within a playbook
+  hosts: windows
+  vars:
+    iis_sites:
+      - name: 'Ansible Playbook Test'
+        port: '8080'
+        path: 'C:\sites\playbooktest'
+      - name: 'Ansible Playbook Test 2'
+        port: '8081'
+        path: 'C:\sites\playbooktest2'
+    iis_test_message: "Hello World!  My test IIS Server"
 ```
 
 Step 4
@@ -96,26 +96,26 @@ Add a new task called **install IIS**. After writing the playbook, click
 <!-- {% raw %} -->
 
 ```yaml
-      tasks:
-        - name: Install IIS
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        state: present
 
-        - name: Create site directory structure
-          win_file:
-            path: "{{ item.path }}"
-            state: directory
-          with_items: "{{ iis_sites }}"
+    - name: Create site directory structure
+      win_file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items: "{{ iis_sites }}"
 
-        - name: Create IIS site
-          win_iis_website:
-            name: "{{ item.name }}"
-            state: started
-            port: "{{ item.port }}"
-            physical_path: "{{ item.path }}"
-          with_items: "{{ iis_sites }}"
-          notify: restart iis service
+    - name: Create IIS site
+      win_iis_website:
+        name: "{{ item.name }}"
+        state: started
+        port: "{{ item.port }}"
+        physical_path: "{{ item.path }}"
+      with_items: "{{ iis_sites }}"
+      notify: restart iis service
 ```
 
 <!-- {% endraw %} -->
@@ -171,14 +171,14 @@ for creating your template. Enter the following details:
 <!-- {% raw %} -->
 
 ```html
-    <html>
-    <body>
+<html>
+<body>
 
-      <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
+  <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
+  <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
 
-    </body>
-    </html>
+</body>
+</html>
 ```
 
 <!-- {% endraw %} -->
@@ -195,29 +195,29 @@ not escape the forward slash.
 <!-- {% raw %} -->
 
 ```yaml
-        - name: Open port for site on the firewall
-          win_firewall_rule:
-            name: "iisport{{ item.port }}"
-            enable: yes
-            state: present
-            localport: "{{ item.port }}"
-            action: Allow
-            direction: In
-            protocol: Tcp
-          with_items: "{{ iis_sites }}"
+    - name: Open port for site on the firewall
+      win_firewall_rule:
+        name: "iisport{{ item.port }}"
+        enable: yes
+        state: present
+        localport: "{{ item.port }}"
+        action: Allow
+        direction: In
+        protocol: Tcp
+      with_items: "{{ iis_sites }}"
 
-        - name: Template simple web site to iis_site_path as index.html
-          win_template:
-            src: 'index.html.j2'
-            dest: '{{ item.path }}\index.html'
-          with_items: "{{ iis_sites }}"
+    - name: Template simple web site to iis_site_path as index.html
+      win_template:
+        src: 'index.html.j2'
+        dest: '{{ item.path }}\index.html'
+      with_items: "{{ iis_sites }}"
 
-        - name: Show website addresses
-          debug:
-            msg: "{{ item }}"
-          loop:
-            - http://{{ ansible_host }}:8080
-            - http://{{ ansible_host }}:8081
+    - name: Show website addresses
+      debug:
+        msg: "{{ item }}"
+      loop:
+        - http://{{ ansible_host }}:8080
+        - http://{{ ansible_host }}:8081
 ```
 
 <!-- {% endraw %} -->
@@ -257,12 +257,12 @@ Step 1
 Define a handler.
 
 ```yaml
-      handlers:
-        - name: restart iis service
-          win_service:
-            name: W3Svc
-            state: restarted
-            start_mode: auto
+  handlers:
+    - name: restart iis service
+      win_service:
+        name: W3Svc
+        state: restarted
+        start_mode: auto
 ```
 
 > **Note**
@@ -305,76 +305,75 @@ It should take 5-30 seconds to finish the commit. The blue bar should
 stop rotating and indicate 0 problems…
 
 Now let’s take a second look to make sure everything looks the way you
-intended. If not, now is the time for us to fix it up. The figure below
-shows line counts and spacing.
+intended. If not, now is the time for us to fix it up. The playbook below should execute successfully.
 
 <!-- {% raw %} -->
 
 ```yaml
-    ---
-    - hosts: windows
-      name: This is a play within a playbook
-      vars:
-        iis_sites:
-          - name: 'Ansible Playbook Test'
-            port: '8080'
-            path: 'C:\sites\playbooktest'
-          - name: 'Ansible Playbook Test 2'
-            port: '8081'
-            path: 'C:\sites\playbooktest2'
-        iis_test_message: "Hello World!  My test IIS Server"
+---
+- hosts: windows
+  name: This is a play within a playbook
+  vars:
+    iis_sites:
+      - name: 'Ansible Playbook Test'
+        port: '8080'
+        path: 'C:\sites\playbooktest'
+      - name: 'Ansible Playbook Test 2'
+        port: '8081'
+        path: 'C:\sites\playbooktest2'
+    iis_test_message: "Hello World!  My test IIS Server"
 
-      tasks:
-        - name: Install IIS
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        state: present
 
-        - name: Create site directory structure
-          win_file:
-            path: "{{ item.path }}"
-            state: directory
-          with_items: "{{ iis_sites }}"
+    - name: Create site directory structure
+      win_file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items: "{{ iis_sites }}"
 
-        - name: Create IIS site
-          win_iis_website:
-            name: "{{ item.name }}"
-            state: started
-            port: "{{ item.port }}"
-            physical_path: "{{ item.path }}"
-          with_items: "{{ iis_sites }}"
-          notify: restart iis service
+    - name: Create IIS site
+      win_iis_website:
+        name: "{{ item.name }}"
+        state: started
+        port: "{{ item.port }}"
+        physical_path: "{{ item.path }}"
+      with_items: "{{ iis_sites }}"
+      notify: restart iis service
 
-        - name: Open port for site on the firewall
-          win_firewall_rule:
-            name: "iisport{{ item.port }}"
-            enable: yes
-            state: present
-            localport: "{{ item.port }}"
-            action: Allow
-            direction: In
-            protocol: Tcp
-          with_items: "{{ iis_sites }}"
+    - name: Open port for site on the firewall
+      win_firewall_rule:
+        name: "iisport{{ item.port }}"
+        enable: yes
+        state: present
+        localport: "{{ item.port }}"
+        action: Allow
+        direction: In
+        protocol: Tcp
+      with_items: "{{ iis_sites }}"
 
-        - name: Template simple web site to iis_site_path as index.html
-          win_template:
-            src: 'index.html.j2'
-            dest: '{{ item.path }}\index.html'
-          with_items: "{{ iis_sites }}"
+    - name: Template simple web site to iis_site_path as index.html
+      win_template:
+        src: 'index.html.j2'
+        dest: '{{ item.path }}\index.html'
+      with_items: "{{ iis_sites }}"
 
-        - name: Show website addresses
-          debug:
-            msg: "{{ item }}"
-          loop:
-            - http://{{ ansible_host }}:8080
-            - http://{{ ansible_host }}:8081
+    - name: Show website addresses
+      debug:
+        msg: "{{ item }}"
+      loop:
+        - http://{{ ansible_host }}:8080
+        - http://{{ ansible_host }}:8081
 
-      handlers:
-        - name: restart iis service
-          win_service:
-            name: W3Svc
-            state: restarted
-            start_mode: auto
+  handlers:
+    - name: restart iis service
+      win_service:
+        name: W3Svc
+        state: restarted
+        start_mode: auto
 ```
 
 <!-- {% endraw %} -->
@@ -392,7 +391,7 @@ Project again. So do that now.
 >
 > You must do this anytime you create a new *base* playbook file that
 > you will be selecting via a Job Template. The new file must be synced
-> to Tower before it will become available in the Job Template playbook
+> to Controller before it will become available in the Job Template playbook
 > dropdown.
 
 Step 2
@@ -408,53 +407,40 @@ Complete the form using the following values
 |-------------|----------------------------|------|
 | Name        | IIS Advanced               |      |
 | Description | Template for iis_advanced  |      |
-| JOB TYPE    | Run                        |      |
-| INVENTORY   | Workshop Inventory |      |
-| PROJECT     | Ansible Workshop Project   |      |
-| PLAYBOOK    | `iis_advanced/site.yml`    |      |
-| CREDENTIAL  | Student Account            |      |
-| LIMIT       | windows                    |      |
-| OPTIONS     | [\*] USE FACT CACHE         |      |
-
-![Create Job Template](images/5-create-template.png)
+| Job Type    | Run                        |      |
+| Inventory   | Workshop Inventory |      |
+| Execution Environment     | windows workshop execution environment   |      |
+| Project     | Ansible Workshop Project   |      |
+| Playbook    | `iis_advanced/site.yml`    |      |
+| Credentials  | Windows Credential            |      |
+| OPTIONS     | [\*] Enable Fact Storage         |      |
 
 Step 3
 ------
 
-Click SAVE ![Save](images/at_save.png) and then select ADD SURVEY
-![Add](images/at_add_survey.png)
+Click SAVE ![Save](images/at_save.png) and on the following page, select the **Survey** tab.
 
 Step 4
 ------
 
-Complete the survey form with following values
+Create a new survey with following values
 
 | Key                    | Value                                                    | Note |
 |------------------------|----------------------------------------------------------|------|
-| PROMPT                 | Please enter a test message for your new website         |      |
-| DESCRIPTION            | Website test message prompt                              |      |
-| ANSWER VARIABLE NAME   | `iis_test_message`                                       |      |
-| ANSWER TYPE            | Text                                                     |      |
-| MINIMUM/MAXIMUM LENGTH | Use the defaults                                         |      |
-| DEFAULT ANSWER         | Be creative, keep it clean, we’re all professionals here |      |
+| Question               | Please enter a test message for your new website         |      |
+| Description            | Website test message prompt                              |      |
+| Answer Variable Name   | `iis_test_message`                                       |      |
+| Answer Type            | Text                                                     |      |
+| Minimum/Maximum Length | Keep the defaults                                        |      |
+| Default Answer         | Be creative, keep it clean, we’re all professionals here |      |
 
 ![Survey Form](images/5-survey.png)
 
 Step 5
 ------
 
-Select ADD ![Add](images/at_add.png)
+Select SAVE ![Add](images/at_save.png) and remember to flip the **On** switch ![On switch](images/controller_on.png)
 
-Step 6
-------
-
-Select SAVE ![Add](images/at_save.png)
-
-Step 7
-------
-
-Back on the main Job Template page, select SAVE
-![Add](images/at_save.png) again.
 
 Section 6: Running your new playbook
 ====================================
@@ -488,8 +474,6 @@ the job in real time.
 When the job has successfully completed, you should see two URLs to your websites printed at the bottom of the job output.
 
 ![Job output](images/5-job-output.png)
-
-![IIS site](images/5-iis-8080.png)
 
 <br><br>
 [Click here to return to the Ansible for Windows Workshop](../README.md)

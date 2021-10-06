@@ -1,0 +1,95 @@
+---
+- name: install git packages
+  yum:
+    name:
+      - git
+    state: present
+
+- name: Check for workshop .git/config file
+  stat:
+    path: /home/{{ username }}/windows-workshop/workshop_project/.git/config
+  register: gitstat
+
+- name: print output for gitstat
+  debug:
+    msg: "{{gitstat}}"
+
+- name: Configure workshop repository
+  lineinfile:
+    name: /home/{{ username }}/windows-workshop/workshop_project/.git/config
+    line: "	url = https://{{username}}:{{admin_password|urlencode()}}@gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}/{{username}}/workshop_project.git"
+    state: present
+  check_mode: true
+  register: gitrepo
+  failed_when: false
+
+- block:
+    - name: Set git to cache credentials
+      command: git config --global credential.helper manager
+      become_user: "{{ username }}"
+
+    - name: Allow insecure git repos for self signed certificates
+      command: git config --global http.sslVerify "false"
+      become_user: "{{ username }}"
+
+    - name: Set git user
+      command: git config --global user.name "{{ username }}"
+      become_user: "{{ username }}"
+      register: git_user
+
+    - name: Set git user email
+      command: git config --global user.email "{{ username }}@{{ workshop_dns_zone }}"
+      become_user: "{{ username }}"
+
+    - name: Create project directory
+      file:
+        path: /home/{{ username }}/windows-workshop/workshop_project
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+    - name: Initialize git repo
+      command: git init
+      args:
+        chdir: /home/{{ username }}/windows-workshop/workshop_project
+      become_user: "{{ username }}"
+
+    - name: Add Git remote
+      command: git remote add origin https://{{username}}:{{admin_password|urlencode()}}@gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}/{{username}}/workshop_project.git
+      args:
+        chdir: /home/{{ username }}/windows-workshop/workshop_project
+      become_user: "{{ username }}"
+
+    # - name: Create test file
+    #   file:
+    #     path: /home/{{ username }}/windows-workshop/workshop_project/test2
+    #     state: touch
+    #     owner: "{{ username }}"
+    #     group: "{{ username }}"
+
+    - name: Create test file
+      template:
+        src: templates/README.md.j2
+        dest: /home/{{ username }}/windows-workshop/workshop_project/README.md
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+    - name: Add file to git
+      command: git add .
+      args:
+        chdir: /home/{{ username }}/windows-workshop/workshop_project
+      become_user: "{{ username }}"
+
+    - name: Commit file
+      command: git commit -m "Initial commit"
+      args:
+        chdir: /home/{{ username }}/windows-workshop/workshop_project
+      become_user: "{{ username }}"
+
+    - name: Commit file
+      command: git push origin master
+      args:
+        chdir: /home/{{ username }}/windows-workshop/workshop_project
+      become_user: "{{ username }}"
+
+  when: (gitrepo is changed) or (gitstat.stat.exists is not defined) or (not gitstat.stat.exists)

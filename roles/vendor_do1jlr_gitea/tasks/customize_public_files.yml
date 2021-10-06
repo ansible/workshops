@@ -1,0 +1,23 @@
+---
+- name: create public directory for custom public web files
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: 'u=rwX,g=rX,o='
+  with_items:
+    - "{{ gitea_custom }}/public"
+
+- name: transfer custom public web data
+  become: true
+  ansible.builtin.copy:
+    src: "{{ gitea_customize_files_path }}"
+    dest: "{{ gitea_custom }}/public/"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    directory_mode: true
+    mode: 'u=rwX,g=rX,o='
+  ignore_errors: true
+  notify: "Restart gitea"

@@ -303,7 +303,7 @@ Playbook は以下のようになっているはずです。もう一度確認�
 
 > **Note**
 >
-> 基本的には、GitLab と Ansible Tower は自動では同期されません。つまり、今回のPlaybook の存在を Ansible Tower はまだ知りません。これを教えてあげる手段が、プロジェクトの同期です。やり方は・・・、そう、Ansible Tower の GUI の左ペインでプロジェクトをクリックして、丸くなった矢印をクリックですね！！  
+> 基本的には、GitLab と Automation Controller は自動では同期されません。つまり、今回のPlaybook の存在を Automation Controller はまだ知りません。これを教えてあげる手段が、プロジェクトの同期です。やり方は・・・、そう、Automation Controller の GUI の左ペインでプロジェクトをクリックして、丸くなった矢印をクリックですね！！  
 
 ### ステップ 2:
 

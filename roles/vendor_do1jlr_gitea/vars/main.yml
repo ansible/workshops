@@ -1,0 +1,60 @@
+---
+gitea_go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'arm-6'
+  armv6l: 'arm-6'
+  armv5l: 'arm-5'
+
+gitea_arch: "{{ gitea_go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+gitea_filename: "gitea-{{ gitea_version }}.linux-{{ gitea_arch }}"
+
+gitea_variables:
+  files:
+    - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
+    - "{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
+    - "{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
+    - "{{ ansible_distribution | lower }}.yml"
+    - "{{ ansible_os_family | lower }}.yml"
+  paths:
+    - 'vars'
+
+transfer_custom_logo_logosvg:
+  files:
+    - "{{ gitea_custom_search }}/gitea_logo/logo.svg"
+    - "files/{{ inventory_hostname }}/gitea_logo/logo.svg"
+    - "files/{{ gitea_http_domain }}/gitea_logo/logo.svg"
+    - 'files/gitea_logo/logo.svg'
+
+transfer_custom_logo_logopng:
+  files:
+    - "{{ gitea_custom_search }}/gitea_logo/logo.png"
+    - "files/{{ inventory_hostname }}/gitea_logo/logo.png"
+    - "files/{{ gitea_http_domain }}/gitea_logo/logo.png"
+    - 'files/gitea_logo/logo.png'
+
+transfer_custom_logo_faviconpng:
+  files:
+    - "{{ gitea_custom_search }}/gitea_logo/favicon.png"
+    - "files/{{ inventory_hostname }}/gitea_logo/favicon.png"
+    - "files/{{ gitea_http_domain }}/gitea_logo/favicon.png"
+    - 'files/gitea_logo/favicon.png'
+
+transfer_custom_logo_appletouchiconpng:
+  files:
+    - "{{ gitea_custom_search }}/gitea_logo/apple-touch-icon.png"
+    - "files/{{ inventory_hostname }}/gitea_logo/apple-touch-icon.png"
+    - "files/{{ gitea_http_domain }}/gitea_logo/apple-touch-icon.png"
+    - 'files/gitea_logo/apple-touch-icon.png'
+
+transfer_custom_footer:
+  files:
+    - "{{ gitea_custom_search }}/gitea_footer/extra_links_footer.tmpl"
+    - "files/{{ inventory_hostname }}/gitea_footer/extra_links_footer.tmpl"
+    - "files/{{ gitea_http_domain }}/gitea_footer/extra_links_footer.tmpl"
+    - 'files/gitea_footer/extra_links_footer.tmpl'
+    - 'files/extra_links_footer.tmpl'
+
+playbook_version_number: 27  # should be int
+playbook_version_path: 'do1jlr.gitea.version'

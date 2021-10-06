@@ -1,0 +1,20 @@
+---
+name: Galaxy release
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches: ['main']
+  release:
+    types: ['created']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: galaxy
+        uses: robertdebock/galaxy-action@1.1.0
+        with:
+          galaxy_api_key: ${{ secrets.galaxy_api_key }}

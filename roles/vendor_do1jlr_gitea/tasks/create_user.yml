@@ -1,0 +1,21 @@
+---
+- name: "Create Gitea Group"
+  become: true
+  ansible.builtin.group:
+    name: "{{ gitea_group }}"
+    system: true
+    state: "present"
+
+- name: Switch shell when not using the builtin ssh server
+  set_fact:
+    gitea_shell: "/bin/bash"
+  when: "not gitea_start_ssh and gitea_shell == '/bin/false'"
+
+- name: "Create Gitea user"
+  become: true
+  ansible.builtin.user:
+    name: "{{ gitea_user }}"
+    comment: "Gitea user"
+    home: "{{ gitea_home }}"
+    shell: "{{ gitea_shell }}"
+    system: true

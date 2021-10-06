@@ -51,14 +51,14 @@ creating snapshots, or disabling monitoring.
 <!-- {% raw %} -->
 
 ```yaml
-    ---
-    - hosts: windows
-      name: This is my Windows patching playbook
-      tasks:
-        - name: Install Windows Updates
-          win_updates:
-            category_names: "{{ categories | default(omit) }}"
-            reboot: '{{ reboot_server | default(true) }}'
+---
+- hosts: windows
+  name: This is my Windows patching playbook
+  tasks:
+    - name: Install Windows Updates
+      win_updates:
+        category_names: "{{ categories | default(omit) }}"
+        reboot: '{{ reboot_server | default(true) }}'
 ```
 
 <!-- {% endraw %} -->

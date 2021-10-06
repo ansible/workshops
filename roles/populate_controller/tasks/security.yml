@@ -175,6 +175,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template sending IDPS logs to QRadar
@@ -192,6 +193,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template accepting firewall logs in QRadar
@@ -207,6 +209,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template accepting IDPS logs in QRadar
@@ -222,6 +225,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template rolling back everything
@@ -237,6 +241,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template adding DDOS IDPS rule
@@ -256,6 +261,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template adding ddos attack simulation
@@ -273,6 +279,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template stopping ddos attack simulation
@@ -290,6 +297,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template adding whitelist entry for attacker
@@ -305,6 +313,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 - name: Job template adding blacklist entry for attacker
@@ -320,6 +329,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    use_fact_cache: true
     validate_certs: false
 
 # Permissions on Job Templates

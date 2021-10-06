@@ -1,4 +1,4 @@
-# Ansible AWS training provisioner
+# Ansible Automation Workshop Provisioner
 
 The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.yml`, which is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
 
@@ -15,21 +15,21 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 ## Table Of Contents
 
-- [Ansible AWS training provisioner](#ansible-aws-training-provisioner)
-  - [Table Of Contents](#table-of-contents)
-  - [Requirements](#requirements)
-  - [Lab Setup](#lab-setup)
-    - [One Time Setup](#one-time-setup)
-    - [Setup (per workshop)](#setup-per-workshop)
-    - [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
-    - [Accessing instructor inventory](#accessing-instructor-inventory)
-    - [DNS](#dns)
-    - [Smart Management](#smart-management)
-  - [Lab Teardown](#lab-teardown)
-  - [Demos](#demos)
-  - [FAQ](#faq)
-  - [More info on what is happening](#more-info-on-what-is-happening)
-  - [Getting Help](#getting-help)
+  * [Requirements](#requirements)
+  * [Lab Setup](#lab-setup)
+    * [One Time Setup](#one-time-setup)
+    * [Setup (per workshop)](#setup-per-workshop)
+    * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
+    * [Accessing instructor inventory](#accessing-instructor-inventory)
+    * [DNS](#dns)
+    * [Smart Management](#smart-management)
+  * [Developer Mode and understanding collections](#developer-mode-and-understanding-collections)
+  * [Lab Teardown](#lab-teardown)
+  * [Demos](#demos)
+  * [FAQ](#faq)
+  * [More info on what is happening](#more-info-on-what-is-happening)
+  * [Getting Help](#getting-help)
+<!-- /TOC -->
 
 ## Requirements
 
@@ -82,6 +82,8 @@ workshop_dns_zone: demoredhat.com
 # automatically installs Tower to control node
 controllerinstall: true
 
+# forces ansible.workshops collection to install latest edits every time
+developer_mode: true
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
@@ -142,6 +144,19 @@ The Smart Management Lab relies on a prebuilt AMI for Red Hat Satellite Server. 
 
 The Smart Management Lab also requires AWS DNS to be enabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
 
+## Developer Mode and understanding collections
+
+The Ansible Workshops are actually a collection.  Every role is called using the FQCN (fully qualified collection name).  For example to setup the control node (e.g. install Automation controller) we call the role
+
+```
+- include_role:
+    name: ansible.workshops.control_node
+```
+
+This installs locally from Git (versus from Galaxy or Automation Hub).  If the galaxy.yml version **matches** your installed version, it will skip the install (speed up provisioning).  Using `developer_mode: true` if your extra_vars will force installation every time.  This is super common when you are editing a role and want to immediately see changes without publishing the collection.
+
+If you want to contribute to the workshops, check out the [contribution guide](../docs/contribute.md).
+
 ## Lab Teardown
 
 The `teardown_lab.yml` playbook deletes all the training instances as well as local inventory files.
@@ -189,7 +204,7 @@ What does the AWS provisioner take care of automatically?
 * Creation of an internet gateway for the VPC
 * Creation of route table for VPC (for reachability from internet)
 
-## Getting Help
+# Getting Help
 
 Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
 

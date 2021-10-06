@@ -62,7 +62,9 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
 <!-- {% endraw %} -->
 
-> Note: You can also view the Ansible Playbook here: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
+> Note:
+>
+> You can also view the Ansible Playbook here: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
 
 The role **banner** has a very simple `main.yml` file:
 
@@ -91,7 +93,9 @@ If you are working with a junos device, this playbook would call for a task file
 
 <!-- {% endraw %} -->
 
-> Note: Please observe that there are task files created for ios, nxos, eos and junos for this playbook.
+> Note:
+>
+> Please observe that there are task files created for ios, nxos, eos and junos for this playbook.
 
 Also note that we are passing in 2 variables to the task file.
 

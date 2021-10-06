@@ -124,6 +124,8 @@ Next, add the first `task`. This task will use the `cisco.ios.facts` module to g
       cisco.ios.facts:
 ```
 
+> Note:
+>
 > A play is a list of tasks. Modules are pre-written code that perform the task.
 
 Save the playbook.

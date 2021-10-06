@@ -13,8 +13,6 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## Instructor-led Workshops
 
-
-
 6 hour workshops:
 >**Note**
 >
@@ -37,7 +35,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## Self Paced Exercises
 
-- [Katacoda Labs](https://developers.redhat.com/products/ansible/getting-started) - self-paced in-browser experience on developers.redhat.com.  There is multiple lessons on Getting Started with Ansible.
+- [Ansible Automation Platform Self-Paced Labs
+](https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218) - These interactive learning scenarios provide you with a pre-configured Ansible Automation Platform environment to experiment, learn, and see how the platform can help you solve real-world problems. The environment runs entirely in your browser, enabling you to learn more about our technology at your pace and time.
 
 ## Product Demos
 
@@ -67,16 +66,15 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 ## E-Books
 
 - [The Automated Enterprise](https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000002DXg8AAG)
-- Ansible Security Automation
 
-  - [Simplify your security operations center](https://www.redhat.com/en/resources/security-automation-ebook?extIdCarryOver=true&sc_cid=7013a000002gyQ2AAI)
-
-- Ansible Network Automation
+### E-Books for Ansible Network Automation
 
   - [Part 1: Modernize Your Network with Red Hat](https://www.ansible.com/resources/ebooks/network-automation-for-everyone?hsLang=en-us)
   - [Part 2: Automate Your Network with Red Hat](https://www.ansible.com/resources/ebooks/automate-your-network?hsLang=en-us)
 
-- [More E-Books on Ansible.com](https://www.ansible.com/resources/ebooks)
+### E-Books for Ansible Security Automation
+
+  - [Simplify your security operations center](https://www.redhat.com/en/resources/security-automation-ebook?extIdCarryOver=true&sc_cid=7013a000002gyQ2AAI)
 
 ---
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/rh-ansible-automation-platform.png)

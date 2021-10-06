@@ -336,6 +336,6 @@ As stated previously only two of the resource modules parameters were covered in
 
 In the next exercise we will start using Automation controller.
 ---
-[Previous Exercise](../3-facts/README.md) | [Next Exercise](../5-expolore-controller/README.md)
+[Previous Exercise](../3-facts/README.md) | [Next Exercise](../5-explore-controller/README.md)
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

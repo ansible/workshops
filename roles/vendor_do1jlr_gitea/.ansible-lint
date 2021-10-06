@@ -1,0 +1,9 @@
+use_default_rules: true
+
+exclude_paths:
+  - venv/
+  - molecule/default/
+  - tests/
+
+#skip_list:
+#  - '301'

@@ -1,10 +1,10 @@
-# Configuring Ansible Tower
+# Configuring Automation Controller
 
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-There are a number of constructs in the Ansible Tower UI that enable
+There are a number of constructs in the Automation Controller UI that enable
 multi-tenancy, notifications, scheduling, etc. However, we are only
 going to focus on a few of the key constructs that are required for this
 workshop today.
@@ -17,29 +17,29 @@ workshop today.
 
 * Job Template
 
-## Logging into Tower
+## Logging into Controller
 
-Your Ansible Tower instance url and credentials were supplied to you on the page created for this workshop.
+Your Automation Controller instance url and credentials were supplied to you on the page created for this workshop.
 
-Your Ansible Tower license has already been applied for you, so after
-logging in you should now see the Dashboard.
+Your Automation Controller subscription has already been applied for you, so after
+logging in, you should now see the Dashboard.
 
 ## Creating a Machine Credential
 
-Credentials are utilized by Tower for authentication when launching jobs
+Credentials are utilized by Controller for authentication when launching jobs
 against machines, synchronizing with inventory sources, and importing
 project content from a version control system.
 
 There are many [types of
 credentials](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)
-including machine, network, and various cloud providers. In this
-workshop, we are using a **machine** credential.
+including machine, network, and various cloud providers. For this
+workshop, we are using **machine** and **source control** credentials.
 
 ### Step 1
 
 Select CREDENTIALS from the left hand panel under resources
 
-![Cred](images/1-tower-credentials.png)
+![Cred](images/1-controller-credentials.png)
 
 ### Step 2
 
@@ -51,13 +51,13 @@ Complete the form using the following entries:
 
 | Key          | Value           |                                          |
 |--------------|-----------------|------------------------------------------|
-| Name         | Student Account |                                          |
+| Name         | Windows Credential |                                          |
 | Organization | Default         |                                          |
 | Type         | Machine         |                                          |
 | Username     | student#        | **Replace # with your student number**   |
 | Password     | <password>      | Replace with your student password       |
 
-![Add Machine Credential](images/1-tower-add-machine-credential.png)
+![Add Machine Credential](images/1-controller-add-machine-credential.png)
 
 ### Step 4
 
@@ -65,41 +65,35 @@ Select SAVE ![Save](images/at_save.png)
 
 ## Create an SCM Credential
 
-Our first credential was to access our Windows machines. We need another
-to access our source code repository. Repeat the process as above, but
+Our first credential was to access our Windows machines over WinRM. We need another
+to access our source code repository where our automation projects will live. Repeat the process as above, but
 with the following details:
 
 | Key          | Value                            |                                            |
 |--------------|----------------------------------|--------------------------------------------|
 | Name         | Git Credential                   |                                            |
-| Description  | SCM credential for playbook sync |                                            |
+| Description  | SCM credential for project sync |                                            |
 | Organization | Default                          |                                            |
-| Type         | Source Control                   |                                            |
+| Credential Type         | Source Control                   |                                            |
 | Username     | student#                         | Replace # with your student number         |
 | Password     | <password>                       | Replace with your student password |
 
 Select SAVE ![Save](images/at_save.png)
 
-![Add SCM Credential](images/1-tower-add-scm-credential.png)
+![Add SCM Credential](images/1-controller-add-scm-credential.png)
 
 ## Creating a Project
 
-A Project is a logical collection of Ansible playbooks, represented in
-Tower. You can manage playbooks and playbook directories by either
-placing them manually under the Project Base Path on your Tower server,
-or by placing your playbooks into a source code management (SCM) system
-supported by Tower, including Git, Subversion, and Mercurial.
+A **Project** is a logical collection of Ansible content, represented in
+Controller. You can manage projects by placing your ansible content into a source code management (SCM) system
+supported by Controller, including Git and Subversion.
 
 ### Step 1
 
-A **Project** is a logical collection of Ansible playbooks, represented in Tower.
+In this environment, playbooks are stored in a git repository available on the workshop Gitea instance. Before a **Project** can be created in Automation Controller, the git URL for the repository is needed. In order to obtain the URL of your project, login to the Gitea instance, select your workshop project and copy the `https` url presented after clicking the "Copy" button.
 
-You can manage playbooks and playbook directories by either placing them manually on your Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights.
-
-In this environment, playbooks are stored in a git repository available on the workshop GitLab instance. Before a **Project** can be created in Ansible Tower, the git URL for the repository is needed. In order to obtain the URL to your project, login to the GitLab instance, select your workshop project and copy the `https` url presented after clicking the "Clone" button.
-
-![Proj](images/1-gitlab-project.png)
-![Clone](images/1-gitlab-clone.png)
+![Proj](images/1-gitea-project.png)
+![Clone](images/1-gitea-clone.png)
 
 The repo url will be used in **Step 3**
 
@@ -107,7 +101,7 @@ The repo url will be used in **Step 3**
 
 Click **Projects** on the left hand panel.
 
-![Proj](images/1-tower-project.png)
+![Proj](images/1-controller-project.png)
 
 Click the ![Add](images/add.png) icon and add new project
 
@@ -119,20 +113,23 @@ number in SCM URL**)
 | Key            | Value                                                                   |                                                   |
 |----------------|-------------------------------------------------------------------------|---------------------------------------------------|
 | Name           | Ansible Workshop Project                                                |                                                   |
-| Description    | Workshop playbooks                                                      |                                                   |
+| Description    | Windows Workshop Project                                                      |                                                   |
 | Organization   | Default                                                                 |                                                   |
+| Default Execution Environment    | windows workshop execution environment                                                      |                                                   |
 | SCM Type       | Git                                                                     |                                                   |
-| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | URL obtained from Step 1                          |
+| SCM URL        | https://git.**WORKSHOP**.demoredhat.com/**student#**/workshop_project.git | URL obtained from Step 1                          |
 | SCM BRANCH     |                                                                         | Intentionally blank                               |
 | SCM CREDENTIAL | Git Credential                                                          |                                                   |
 
-SCM UPDATE OPTIONS
+OPTIONS
 
 * [ ] Clean
-* [ ] Delete on Update
+* [ ] Delete
+* [ ] Track submodules
 * [x] Update Revision on Launch
+* [ ] Allow Branch Override
 
-![Defining a Project](images/1-tower-create-project.png)
+![Defining a Project](images/1-controller-create-project.png)
 
 ### Step 4
 
@@ -140,22 +137,20 @@ Select SAVE ![Save](images/at_save.png)
 
 ### Step 5
 
-Scroll down and validate that project has been successfully synchronized
-against the source control repo upon saving. You should see a green icon
-next to the project name in the list view at the bottom of the page.
+Scroll down and validate that the project has been successfully synchronized
+against the source control repository upon saving. You should see a green icon displaying "Successful"
+next to the project name in the list view. If the status does not show as "Successful", try pressing the "Sync Project" button again re-check the status.
 
-![Succesfull Sync](images/1-tower-project-success.png)
+![Succesfull Sync](images/1-controller-project-success.png)
 
 ## Inventories
 
 An inventory is a collection of hosts against which jobs may be
-launched. Inventories are divided into groups and these groups contain
-the actual hosts. Inventories may be sourced manually, by entering host
-names into Tower, or from one of Ansible Tower’s supported cloud
-providers.
+launched. Inventories are divided into groups and these groups contain hosts. Inventories may be sourced manually, by entering host
+names into Controller, or from one of Automation Controller’s supported cloud
+providers or inventory plugins from Certified Content Collections on Automation Hub.
 
-A static Inventory has already been created for you today. We will now
-take a look at this inventory to show case the various features.
+A static Inventory has already been created for you today. Let's take a look at this inventory and highlight some properties and configuration parameters.
 
 ### Step 1
 
@@ -164,10 +159,10 @@ preconfigured Inventory listed. Click the Inventories' name **Workshop Inventory
 
 ### Step 2
 
-You will now be viewing the Inventory. From here you can add Hosts,
-Groups, or even add Variables specific to this Inventory.
+You are now viewing the Inventory. From here, you can add Hosts,
+Groups, or even Variables specific to this Inventory.
 
-![Edit Inventory](images/1-tower-edit-inventory.png)
+![Edit Inventory](images/1-controller-edit-inventory.png)
 
 We will be viewing the hosts, so click the **HOSTS** button.
 
@@ -175,19 +170,18 @@ We will be viewing the hosts, so click the **HOSTS** button.
 
 In the Hosts view, we can see every host associated with this
 inventory. You will also see which groups a host is associated with.
-Hosts can be associated with multiple groups. These groups can later
-then be used to narrow down to the exact hosts we will later run our
-playbooks on.
+Hosts can be associated with multiple groups. These groups can later be used to narrow down the exact hosts we will later run our
+automation on.
 
-![Hosts View](images/1-tower-hosts-view.png)
+![Hosts View](images/1-controller-hosts-view.png)
 
 ### Step 4
 
 If you click the **GROUPS** button and then select the **Windows** group, you can inspect variables set at the group level that will apply to all hosts in that group.
 
-![Group Edit](images/1-tower-group-edit.png)
+![Group Edit](images/1-controller-group-edit.png)
 
-Today, we have already defined a handful of variables to tell Ansible how to connect to hosts in this group. You do not have to define these variables as
+Today, we have already defined a handful of variables to tell Controller how to connect to hosts in this group. You do not have to define these variables as
 a Group variable here, they could also be Host variables or reside
 directly in your Template or Playbook. However, because these variables will be the same for **ALL** windows hosts in our environment, we defined them for the entire windows group.
 
@@ -216,7 +210,7 @@ authenticate to our Windows host:
 
 If you click the **HOSTS** button, you can view the hosts belonging to the windows group. If you click the link for the host on this page, you can view the host specific variables that have been defined.
 
-![Host Edit](images/1-tower-host-edit.png)
+![Host Edit](images/1-controller-host-edit.png)
 
 **`ansible_host`**
 

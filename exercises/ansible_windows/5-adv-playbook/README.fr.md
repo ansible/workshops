@@ -324,7 +324,7 @@ Avant que nous puissions créer notre modèle de tache, vous devez d'abord recom
 
 > **Note**
 >
-> Vous devez le faire chaque fois que vous créez un nouveau fichier de playbook. Le nouveau fichier doit être synchronisé avec Tower avant qu'il ne devienne disponible dans la liste déroulante des Playbook disponibles .
+> Vous devez le faire chaque fois que vous créez un nouveau fichier de playbook. Le nouveau fichier doit être synchronisé avec Controller avant qu'il ne devienne disponible dans la liste déroulante des Playbook disponibles .
 
 Étape 2:
 -------

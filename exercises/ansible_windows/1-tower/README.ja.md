@@ -1,9 +1,9 @@
-# 演習 1 - Ansible Towerの概要と構成  
+# 演習 1 - Automation Controllerの概要と構成  
 
 **別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-Ansible Tower には、マルチテナント、通知、スケジューリングなどの機能を提供する多くのオブジェクトがあります。ここでは、ワークショップに必要な以下の重要なものに焦点を当ててご説明します。インベントリーなど、Ansible Engine でおなじみのオブジェクトもありますし、Ansible Tower 独自のオブジェクトもあります。♬  
+Automation Controller には、マルチテナント、通知、スケジューリングなどの機能を提供する多くのオブジェクトがあります。ここでは、ワークショップに必要な以下の重要なものに焦点を当ててご説明します。インベントリーなど、Ansible Engine でおなじみのオブジェクトもありますし、Automation Controller 独自のオブジェクトもあります。♬  
 
 - 認証情報  
 
@@ -13,14 +13,14 @@ Ansible Tower には、マルチテナント、通知、スケジューリング
 
 - ジョブテンプレート  
 
-## Tower へのログイン  
+## Controller へのログイン  
 
-各自に準備された Ansible Tower のインスタンス情報は講師にご確認ください。  
-演習用の Ansible Tower には既にライセンスファイルが適応されていますので、ログインするとダッシュボードが表示されます。  
+各自に準備された Automation Controller のインスタンス情報は講師にご確認ください。  
+演習用の Automation Controller には既にライセンスファイルが適応されていますので、ログインするとダッシュボードが表示されます。  
 
 ## 認証情報の作成  
 
-Ansible Tower は、Windows や Linux、ネットワーク機器など管理対象ノードに対するジョブの実行、AWS や VMware vCenter Server などのインベントリーソースとの情報の同期、Git などソースコード管理システムとの同期の際に必要となる個々の認証情報をあらかじめ登録した上で利用する事が出来ます。  
+Automation Controller は、Windows や Linux、ネットワーク機器など管理対象ノードに対するジョブの実行、AWS や VMware vCenter Server などのインベントリーソースとの情報の同期、Git などソースコード管理システムとの同期の際に必要となる個々の認証情報をあらかじめ登録した上で利用する事が出来ます。  
 
 [認証情報](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)にはたくさんの種類があります。  
 このワークショップでは認証情報として、**マシン**と**ソースコード管理システム**の認証情報を作成し、利用します。  
@@ -72,7 +72,7 @@ Ansible Tower は、Windows や Linux、ネットワーク機器など管理対�
 
 ## プロジェクトの作成   
 
-プロジェクトは、Playbook を管理する仕組みを提供します。 Playbook と Playbook ディレクトリを管理するには、Tower サーバーの /var/lib/awx/projects/ 配下に手動で配置するか、Git、Subversion、Mercurialなど、Tower でサポートされるソースコード管理（SCM）システムに Playbook を配置します。  
+プロジェクトは、Playbook を管理する仕組みを提供します。 Playbook と Playbook ディレクトリを管理するには、Controller サーバーの /var/lib/awx/projects/ 配下に手動で配置するか、Git、Subversion、Mercurialなど、Controller でサポートされるソースコード管理（SCM）システムに Playbook を配置します。  
 
 ### ステップ 1:  
 
@@ -119,7 +119,7 @@ SCM 更新オプション
 
 ## インベントリー  
 
-管理対象のホスト一覧をインベントリーと呼びます。これは Ansible Engine と同じですね。インベントリーはグループに分割することも可能で、これらのグループには実際のホストの一覧が含まれています。インベントリーには、Ansible Tower に直接ホスト接続情報を入力する静的インベントリーと、Ansible Tower でサポートされている、AWS や Azure などクラウドや、vSphere などの仮想環境からインベントリー情報を取得して登録する動的インベントリーがあります。  
+管理対象のホスト一覧をインベントリーと呼びます。これは Ansible Engine と同じですね。インベントリーはグループに分割することも可能で、これらのグループには実際のホストの一覧が含まれています。インベントリーには、Automation Controller に直接ホスト接続情報を入力する静的インベントリーと、Automation Controller でサポートされている、AWS や Azure などクラウドや、vSphere などの仮想環境からインベントリー情報を取得して登録する動的インベントリーがあります。  
 
 今回の演習では、静的インベントリーがすでに作成されています。ここで、このインベントリーを見て、その書き方について確認してみます。  
 
@@ -194,6 +194,6 @@ Windowsには様々な接続時の認証方法があります。ここでは、*
 
 ## まとめ  
 
-これで、Ansible Tower の基本設定は完了です。 演習2では、これらのホストに対し、いくつかの Ad-Hoc コマンドを実行します。  
+これで、Automation Controller の基本設定は完了です。 演習2では、これらのホストに対し、いくつかの Ad-Hoc コマンドを実行します。  
 
 [ワークショップ一覧に戻る](../README.ja.md)

@@ -72,7 +72,7 @@ Cela devrait prendre 5 à 30 secondes pour terminer la validation. La barre bleu
 Section 4: Création du modèle de tache
 ======================================
 
-Maintenant, de retour dans Tower, vous devrez resynchroniser votre projet pour que les nouveaux fichiers s'affichent.
+Maintenant, de retour dans Controller, vous devrez resynchroniser votre projet pour que les nouveaux fichiers s'affichent.
 
 Ensuite, nous devons créer un nouveau modèle de tache pour exécuter ce playbook. Allez donc dans *Modèle*, cliquez sur *Ajouter* et sélectionnez "Modèle de tache".
 

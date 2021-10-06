@@ -6,7 +6,7 @@ Un modèle est une définition et un ensemble de paramètres permettant d'exécu
 Synchroniser votre projet
 =========================
 
-Avant de pouvoir créer un modèle avec un nouveau playbook, vous devez d'abord synchroniser votre projet pour que Tower en soit informé. Pour ce faire, cliquez sur **Projets**, puis cliquez sur l'icône de synchronisation à côté de votre projet. Une fois cette opération terminée, vous pourrez créer le modèle.
+Avant de pouvoir créer un modèle avec un nouveau playbook, vous devez d'abord synchroniser votre projet pour que Controller en soit informé. Pour ce faire, cliquez sur **Projets**, puis cliquez sur l'icône de synchronisation à côté de votre projet. Une fois cette opération terminée, vous pourrez créer le modèle.
 
 
 ![Project Sync](images/4-project-sync.png)
@@ -152,6 +152,6 @@ Maintenant que IIS est installé, créez un nouveau playbook appelé *remove_iis
 Résultat final
 ==============
 
-À ce stade de l'atelier, vous avez découvert les fonctionnalités de base d'Ansible Tower. Mais attendez… il y a plus! Vous venez de commencer à explorer les possibilités d'Ansible. Les prochaines leçons vous aideront à aller au-delà d'un simple playbook.
+À ce stade de l'atelier, vous avez découvert les fonctionnalités de base d'Automation Controller. Mais attendez… il y a plus! Vous venez de commencer à explorer les possibilités d'Ansible. Les prochaines leçons vous aideront à aller au-delà d'un simple playbook.
 <br><br>
 [Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

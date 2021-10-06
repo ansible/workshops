@@ -77,7 +77,7 @@ dns_type: aws
 admin_password: your_password123
 
 # Sets the Route53 DNS zone to use for Amazon Web Services
-workshop_dns_zone: rhdemo.io
+workshop_dns_zone: demoredhat.com
 
 # automatically installs Tower to control node
 controllerinstall: true

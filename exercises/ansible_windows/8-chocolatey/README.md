@@ -12,7 +12,7 @@ The open source Chocolatey client offers basic package management functionality,
 * Package Internalizer takes the 8000+ packages that maintainers have already built for you in the Chocolatey Community Repository, and creates localized offline versions for you to use internally (including dependencies);
 * Package Synchronizer will allow you to create Chocolatey packages for applications listed in Programs and Features, and allows you to manage them like any other package.
 * Chocolatey Self-Service GUI allows end-users the ability to manage packages without requiring admin rights or elevated permissions.
-* Chocolatey Central Management is a web dashboard and API (similar to Ansible Tower) giving you that high-level overview and reporting of your entire estate of endpoints.
+* Chocolatey Central Management is a web dashboard and API (similar to Automation Controller) giving you that high-level overview and reporting of your entire estate of endpoints.
 
 *************************************************************************************************
 
@@ -160,7 +160,7 @@ Now that the playbook is ready:
 * Push the committed changes to your repository by clicking the circular arrows.
 * (Optional) Verify that your code is in git by going to GitLab using the information under **GitLab Access**.
 
-Now head back to Ansible Tower, and sync your Project so that Tower Picks up the new playbook. Click **Projects** and then click the sync icon next to your project.
+Now head back to Automation Controller, and sync your Project so that Controller Picks up the new playbook. Click **Projects** and then click the sync icon next to your project.
 
 ![Project Sync](images/8-project-sync.png)
 
@@ -188,7 +188,7 @@ Click SAVE and then Click LAUNCH to run the job. The job should run successfully
 
 > **Tip**
 >
-> By now you should be familiar with the flow of creating or editing playbooks, committing your changes and pushing them to git. You should also be comfortable with refreshing your project, creating and running job templates in Ansible Tower. Later steps will no longer list each and every step to do so.
+> By now you should be familiar with the flow of creating or editing playbooks, committing your changes and pushing them to git. You should also be comfortable with refreshing your project, creating and running job templates in Automation Controller. Later steps will no longer list each and every step to do so.
 
 ## Step 3 - Updating all installed packages
 
@@ -234,7 +234,7 @@ The contents of `update_packages.yml` are:
 
 The other tasks are there so that we can verify the versions of `nodejs` and `python` after the update task has been run. And that's it, simple right?
 
-Now go ahead and make sure your new playbook is in Git, and that Ansible Tower can see it, and then create and run a new Job template with the following values:
+Now go ahead and make sure your new playbook is in Git, and that Automation Controller can see it, and then create and run a new Job template with the following values:
 
 > **Tip**
 >
@@ -289,7 +289,7 @@ In Visual Studio Code, under the `chocolatey` folder, create a new file called `
 
 The first task uses `win_chocolatey_facts` to gather all the available information from Chocolatey on the target Windows machine, and will store this information in a variable named `ansible_chocolatey`, which is using the `debug` module to print the contents of to examine them closer.
 
-Add your new playbook to your source control repo, and sync your project in Ansible Tower, then create and run a new job template with the following values:
+Add your new playbook to your source control repo, and sync your project in Automation Controller, then create and run a new job template with the following values:
 
 | Key         | Value                                            | Note |
 |-------------|--------------------------------------------------|------|
@@ -315,7 +315,7 @@ Scroll through the output and observe the values, you can see the configuration 
 
 > **Tip**
 >
-> We really did not need to use a `debug` task just to see the information collected by the `win_chocolatey_facts` module, instead, in Ansible Tower's job output pane click on the result of running the task on the Windows target, which will open the host events dialog for that specific host, which shows information about the host affected by the selected event and the output of that event (In this case, the JSON object returned by the `win_chocolatey_facts` module run)
+> We really did not need to use a `debug` task just to see the information collected by the `win_chocolatey_facts` module, instead, in Automation Controller's job output pane click on the result of running the task on the Windows target, which will open the host events dialog for that specific host, which shows information about the host affected by the selected event and the output of that event (In this case, the JSON object returned by the `win_chocolatey_facts` module run)
 
 <br>
 
@@ -419,10 +419,10 @@ The contents of the `chocolatey_configuration.yml` playbook should now look like
       var: ansible_chocolatey.config
 ```
 
-Commit your changes and push them to source control, sync your project in Ansible Tower and run the `Chocolatey - Facts and Configuration` job template.
+Commit your changes and push them to source control, sync your project in Automation Controller and run the `Chocolatey - Facts and Configuration` job template.
 > **Tip**
 >
-> Back in [exercise 1](../1-tower), when you created the project in Ansible Tower, you checked an option to `UPDATE REVISION ON LAUNCH` - so we did not really need to refresh the project in Tower, but just in case that option was missed...
+> Back in [exercise 1](../1-tower), when you created the project in Automation Controller, you checked an option to `UPDATE REVISION ON LAUNCH` - so we did not really need to refresh the project in Controller, but just in case that option was missed...
 
 The playbook should run and make the configuration changes, and the output from the last `debug` task showing the value of the `ansible_chocolatey.config` section should reflect those changes and show the new values for `cacheLocation` and `commandExecutionTimeoutSeconds`.
 

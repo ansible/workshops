@@ -1,10 +1,10 @@
-Configuring Ansible Tower
+Configuring Automation Controller
 =========================
 
 **Lisez ceci dans d'autres langues**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
 
-Ansible Tower propose de nombreuses fonctionnalités tel que les organisations, les notifications, l'ordonnancement, etc. Cependant, aujourd'hui nous allons nous concentrer uniquement sur quelques-unes des fonctions clés qui sont nécessaires pour l'atelier.
+Automation Controller propose de nombreuses fonctionnalités tel que les organisations, les notifications, l'ordonnancement, etc. Cependant, aujourd'hui nous allons nous concentrer uniquement sur quelques-unes des fonctions clés qui sont nécessaires pour l'atelier.
 
 
 - Les indetifiants
@@ -17,19 +17,19 @@ Ansible Tower propose de nombreuses fonctionnalités tel que les organisations, 
 
 
 
-Connexion à Tower
+Connexion à Controller
 ==================
 
-L'URL de votre instance Ansible Tower ainsi que les informations d'identification vous ont été fournies sur la page créée pour cet atelier.
+L'URL de votre instance Automation Controller ainsi que les informations d'identification vous ont été fournies sur la page créée pour cet atelier.
 
-Votre licence Ansible Tower a déjà été appliquée pour vous, donc après la connexion, vous devriez directement voir le tableau de bord.
+Votre licence Automation Controller a déjà été appliquée pour vous, donc après la connexion, vous devriez directement voir le tableau de bord.
 
 
 
 Création d'identification machine
 =================================
 
-Les informations d'identification sont utilisées par Tower pour l'authentification lors du lancement d'une tache, la synchronisation avec les sources d'inventaire et l'importation du contenu d'un projet à partir d'un système de contrôle de version.
+Les informations d'identification sont utilisées par Controller pour l'authentification lors du lancement d'une tache, la synchronisation avec les sources d'inventaire et l'importation du contenu d'un projet à partir d'un système de contrôle de version.
 
 
 Il existe un nombre important [de type d'identification](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)
@@ -89,13 +89,13 @@ Cliquez sur ![Sauvegarder](images/at_save.png)
 Création d'un projet
 ====================
 
-Un projet est une collection logique de playbook Ansible. Vous pouvez gérer les playbooks Ansible en les plaçant manuellement sur votre serveur Tower, ou en plaçant vos playbooks dans un système de gestion de code source (SCM) pris en charge par Tower (Git, Subversion et Mercurial).
+Un projet est une collection logique de playbook Ansible. Vous pouvez gérer les playbooks Ansible en les plaçant manuellement sur votre serveur Controller, ou en plaçant vos playbooks dans un système de gestion de code source (SCM) pris en charge par Controller (Git, Subversion et Mercurial).
 
 
 Étape 1:
 --------
 
-Dans cet environnement, les playbooks sont stockés dans un référentiel git disponible sur l'instance GitLab de l'atelier. Avant qu'un **Projet** puisse être créé dans Ansible Tower, l'URL git du référentiel est nécessaire. Pour obtenir l'URL de votre projet, connectez-vous à l'instance GitLab, sélectionnez votre projet d'atelier et copiez l'URL `https` présentée après avoir cliqué sur le bouton *Cloner*.
+Dans cet environnement, les playbooks sont stockés dans un référentiel git disponible sur l'instance GitLab de l'atelier. Avant qu'un **Projet** puisse être créé dans Automation Controller, l'URL git du référentiel est nécessaire. Pour obtenir l'URL de votre projet, connectez-vous à l'instance GitLab, sélectionnez votre projet d'atelier et copiez l'URL `https` présentée après avoir cliqué sur le bouton *Cloner*.
 
 ![Proj](images/1-gitlab-project.png)
 ![Clone](images/1-gitlab-clone.png)
@@ -153,7 +153,7 @@ Faites défiler la page vers le bas et validez que le projet a été correctemen
 Inventaire
 ==========
 
-Un inventaire est un ensemble d'hôtes sur lesquels des taches peuvent être lancés. Les inventaires sont divisés en groupes et ces groupes contiennent des serveurs. Les inventaires peuvent être sourcés manuellement, en entrant les noms d'hôte dans Tower ou auprès de l'un des fournisseurs de cloud pris en charge par Ansible Tower.
+Un inventaire est un ensemble d'hôtes sur lesquels des taches peuvent être lancés. Les inventaires sont divisés en groupes et ces groupes contiennent des serveurs. Les inventaires peuvent être sourcés manuellement, en entrant les noms d'hôte dans Controller ou auprès de l'un des fournisseurs de cloud pris en charge par Automation Controller.
 
 Un inventaire statique a déjà été créé pour vous aujourd'hui. Nous allons maintenant jeter un œil à cet inventaire pour vous montrer les différentes fonctionnalités.
 

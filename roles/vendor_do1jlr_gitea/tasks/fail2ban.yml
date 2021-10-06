@@ -1,0 +1,28 @@
+---
+- name: Install fail2ban filter
+  become: true
+  ansible.builtin.template:
+    src: fail2ban/filter.conf.j2
+    dest: /etc/fail2ban/filter.d/gitea.conf
+    owner: root
+    group: root
+    mode: 0444
+  notify: systemctl restart fail2ban
+  when: "'fail2ban' in ansible_facts.packages"
+
+- name: Install fail2ban jail
+  become: true
+  ansible.builtin.template:
+    src: fail2ban/jail.conf.j2
+    dest: /etc/fail2ban/jail.d/gitea.conf
+    owner: root
+    group: root
+    mode: 0444
+  notify: systemctl restart fail2ban
+  when: "'fail2ban' in ansible_facts.packages"
+
+- name: warn if fail2ban is not installed
+  ansible.builtin.fail:
+    msg: "the package fail2ban is not installed. no fail2ban filters deployed."
+  when: "'fail2ban' not in ansible_facts.packages"
+  ignore_errors: true

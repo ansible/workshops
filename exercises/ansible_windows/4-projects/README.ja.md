@@ -1,9 +1,9 @@
-# 演習 4 - Ansible Tower プロジェクト・ジョブテンプレート
+# 演習 4 - Automation Controller プロジェクト・ジョブテンプレート
 
 **別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-Ansible Tower 独自のオブジェクトとして、プロジェクトとジョブテンプレートがあります。  
+Automation Controller 独自のオブジェクトとして、プロジェクトとジョブテンプレートがあります。  
 
 ## ジョブテンプレート
 
@@ -17,11 +17,11 @@ Playbook 実行に必要な以下のオブジェクトを紐づけて定義し�
 
 ## プロジェクト
 
-利用する Playbook の保存先ディレクトリを指定したものです。プロジェクトで指定するのは Playbook のディレクトリまでで、Playbook の指定はジョブテンプレートで行います。プロジェクトは、/var/lib/awx/projects/ 配下に作成され、各プロジェクトの中に Playbook が配置されます。Playbook は Ansible Tower ホストに sshで接続して /var/lib/awx/projects/<project_name>/xxx.yml という形で作成することも可能ですし、Git 等の SCM と連携して管理することも可能ですが、Playbook の品質管理やバージョン管理の面で、SCM利用を推奨しています。この演習でも、SCMを利用します。  
+利用する Playbook の保存先ディレクトリを指定したものです。プロジェクトで指定するのは Playbook のディレクトリまでで、Playbook の指定はジョブテンプレートで行います。プロジェクトは、/var/lib/awx/projects/ 配下に作成され、各プロジェクトの中に Playbook が配置されます。Playbook は Automation Controller ホストに sshで接続して /var/lib/awx/projects/<project_name>/xxx.yml という形で作成することも可能ですし、Git 等の SCM と連携して管理することも可能ですが、Playbook の品質管理やバージョン管理の面で、SCM利用を推奨しています。この演習でも、SCMを利用します。  
 
 ## プロジェクトの同期
 
-新しい Playbook でジョブテンプレートを作成する前に、最初にプロジェクトを同期して、Towerがそれを認識できるようにする必要があります。 これを行うには、**プロジェクト**をクリックし、プロジェクトの横にある同期アイコンをクリックします。 これが完了したら、ジョブテンプレートを作成することができます。  
+新しい Playbook でジョブテンプレートを作成する前に、最初にプロジェクトを同期して、Controllerがそれを認識できるようにする必要があります。 これを行うには、**プロジェクト**をクリックし、プロジェクトの横にある同期アイコンをクリックします。 これが完了したら、ジョブテンプレートを作成することができます。  
 
 ![Project Sync](images/4-project-sync.ja.jpg)
 
@@ -146,6 +146,6 @@ Surveyで作成した入力画面が表示されるので、お好きなメッ�
 
 ## まとめ
 
-演習4はこれで終了です。ここまでで、Ansible Tower のコア機能を学びました。次の演習では、高度な Playbook の演習を行います。  
+演習4はこれで終了です。ここまでで、Automation Controller のコア機能を学びました。次の演習では、高度な Playbook の演習を行います。  
 
 [ワークショップ一覧に戻る](../README.ja.md)

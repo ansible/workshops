@@ -1,0 +1,16 @@
+[Unit]
+Description=Gitea git server
+After=network.target
+
+[Service]
+User={{ gitea_user }}
+Group={{ gitea_group }}
+ExecStart=/usr/local/bin/gitea web -c /etc/gitea/gitea.ini --custom-path {{ gitea_custom }}/
+Restart=on-failure
+WorkingDirectory={{ gitea_home }}
+{% if gitea_systemd_cap_net_bind_service %}
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

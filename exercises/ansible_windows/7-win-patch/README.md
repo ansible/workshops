@@ -100,7 +100,7 @@ stop rotating and indicate 0 problems…
 Section 4: Create your Job Template
 ===================================
 
-Now, back in Tower, you will need to resync your Project so that the new
+Now, back in Controller, you will need to resync your Project so that the new
 files show up.
 
 Next we need to create a new Job Template to run this playbook. So go to

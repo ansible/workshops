@@ -1,0 +1,24 @@
+---
+name: 'Yamllint GitHub Actions'
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+  schedule:
+    - cron: '23 6 * */1 *'
+
+jobs:
+  yamllint:
+    name: 'Yamllint'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Yamllint'
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: '.'
+          yamllint_config_filepath: './.yamllint'

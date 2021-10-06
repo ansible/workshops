@@ -1,0 +1,74 @@
+---
+- block:
+    - name: Update apt cache
+      become: true
+      ansible.builtin.apt:
+        cache_valid_time: 3600
+        update_cache: true
+      register: _pre_update_apt_cache
+      until: _pre_update_apt_cache is succeeded
+      when:
+        - ansible_pkg_mgr == "apt"
+
+    - name: Install dependencies
+      become: true
+      ansible.builtin.package:
+        name: "{{ gitea_dependencies }}"
+        state: present
+      register: _install_dep_packages
+      until: _install_dep_packages is succeeded
+      retries: 5
+      delay: 2
+
+- block:
+    - name: Download gitea archive
+      ansible.builtin.get_url:
+        url: "{{ gitea_dl_url }}.xz"
+        dest: "/tmp/{{ gitea_filename }}.xz"
+        checksum: "sha256:{{ gitea_dl_url }}.xz.sha256"
+      register: _download_archive
+      until: _download_archive is succeeded
+      retries: 5
+      delay: 2
+
+    - name: Download gitea asc file
+      ansible.builtin.get_url:
+        url: "{{ gitea_dl_url }}.xz.asc"
+        dest: "/tmp/{{ gitea_filename }}.xz.asc"
+      register: _download_asc
+      until: _download_asc is succeeded
+      retries: 5
+      delay: 2
+
+    - name: Check gitea gpg key
+      ansible.builtin.command: "gpg --list-keys 0x{{ gitea_gpg_key }}"
+      register: _gitea_gpg_key_status
+      changed_when: false
+      failed_when: _gitea_gpg_key_status.rc not in (0, 2)
+
+    - name: Import gitea gpg key
+      ansible.builtin.command: "gpg --keyserver {{ gitea_gpg_server }} --recv {{ gitea_gpg_key }}"
+      register: _gitea_import_key
+      changed_when: '"imported: 1" in _gitea_import_key.stderr'
+      when: _gitea_gpg_key_status.rc != 0
+
+    - name: Check archive signature
+      ansible.builtin.command: "gpg --verify /tmp/{{ gitea_filename }}.xz.asc /tmp/{{ gitea_filename }}.xz"
+      changed_when: false
+
+    - name: Unpack gitea binary
+      ansible.builtin.command:
+        cmd: "xz -k -d /tmp/{{ gitea_filename }}.xz"
+        creates: "/tmp/{{ gitea_filename }}"
+
+    - name: Propagate gitea binary
+      become: true
+      ansible.builtin.copy:
+        src: "/tmp/{{ gitea_filename }}"
+        remote_src: true
+        dest: "/usr/local/bin/gitea"
+        mode: 0755
+        owner: root
+        group: root
+      notify: "Restart gitea"
+  when: (not gitea_version_check|bool) or (not ansible_check_mode and (gitea_active_version.stdout != gitea_version_target))

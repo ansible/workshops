@@ -1,0 +1,9 @@
+---
+# - name: set default avatar
+#   ansible.builtin.get_url:
+#     url: https://raw.githubusercontent.com/ansible/instruqt/devel/assets/icons/Product_Icon-Red_Hat-Ansible-RGB.png
+#     dest: /var/lib/gitea/custom/public/img/avatar_default.png
+#     owner: gitea
+#     group: gitea
+
+    

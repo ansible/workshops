@@ -1,0 +1,28 @@
+---
+name: Ansible Lint check
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+  schedule:
+    - cron: '42 6 * */1 *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lint Ansible Playbook
+        uses: ansible/ansible-lint-action@master
+        with:
+          targets: "."
+          # [required]
+          # Paths to ansible files (i.e., playbooks, tasks, handlers etc..)
+          args: ""
+          # [optional]

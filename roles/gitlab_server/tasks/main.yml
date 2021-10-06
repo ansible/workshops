@@ -1,12 +1,20 @@
 ---
-- name: GitLab Post | Teardown DNS
+- name: Git Post | Teardown DNS
   include_tasks: teardown.yml
   when: teardown|bool
 
-- name: GitLab Post | Create DNS records
+- name: Git Post | Create DNS records
   include_tasks: dns.yml
   when: not teardown
 
-- name: GitLab Post | Configure SSL
+- name: Git Post | Configure SSL
   include_tasks: certbot.yml
+  when: not teardown
+
+- name: Git Post | Configure Users
+  include_tasks: gitea-add-users.yml
+  when: not teardown
+
+- name: Git Post | gitea customizations
+  include_tasks: gitea-customizations.yml
   when: not teardown

@@ -1,0 +1,5 @@
+---
+gitea_dependencies:
+  - git
+  - gnupg2
+  - xz

@@ -22,6 +22,10 @@ h1, h1 * {
   line-height: 1.1;
 }
 
+h4, h5, h6 {
+  font-family: 'Red Hat Display', sans-serif;
+}
+
 a {
   color: #337ab7;
   font-weight: normal;
@@ -92,7 +96,10 @@ img[src*="#centreme"] {
 }
 
 img {
-  max-width: 100%;
+    max-width: 100%;
+    padding: 5px;
+    margin: 0px;
+    border: none;
 }
 
 // table tweaks

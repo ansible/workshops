@@ -73,9 +73,10 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   - [Part 2: Automate Your Network with Red Hat](https://www.redhat.com/en/engage/network-automation-ebook-s-202104291219)
 
 #### Other languages
-  - ![chinese](https://github.com/ansible/workshops/raw/devel/images/cn.png)[借助红帽实现网络自动化](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-zh.pdf)
-  - ![french](https://github.com/ansible/workshops/raw/devel/images/fr.png)[Automatiser votre réseau avec Red Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-fr.pdf)
-  - ![italian](https://github.com/ansible/workshops/raw/devel/images/it.png)[Automatizzare la rete con Red Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-it.pdf)
+
+  - ![chinese](https://github.com/ansible/workshops/raw/devel/images/cn.png) [借助红帽实现网络自动化](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-zh.pdf)
+  - ![french](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Automatiser votre réseau avec Red Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-fr.pdf)
+  - ![italian](https://github.com/ansible/workshops/raw/devel/images/it.png) [Automatizzare la rete con Red Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-it.pdf)
 
 ### E-Books for Ansible Security Automation
 

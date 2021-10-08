@@ -374,7 +374,7 @@ Playbook がグループ「web」を参照するように変更します。
 ---
 **ナビゲーション**
 <br>
-[前の演習](../1.2-thebasics) - [次の演習](../4-variables)
+[前の演習](../1.2-thebasics) - [次の演習](../1.4-variables)
 
 [こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
 に戻ります](../README.md#section-1---ansible-engine-exercises)

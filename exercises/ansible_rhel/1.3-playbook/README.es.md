@@ -350,6 +350,6 @@ Por último, compruebe si Apache se está ejecutando en ambos servidores. Identi
 ----
 **Navegación**
 <br>
-[Ejercicio anterior](../1.2-adhoc) - [Próximo Ejercicio](../4-variables)
+[Ejercicio anterior](../1.2-thebasics/README.es.md) - [Próximo Ejercicio](../4-variables)
 
 [Haga clic aquí para volver al Taller Ansible for Red Hat Enterprise Linux](../README.md#section-1---ansible-engine-exercises)

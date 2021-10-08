@@ -104,6 +104,6 @@ logout
 ---
 **ラビゲーション**
 <br>
-[次の演習](../1.2-adhoc)
+[次の演習](../1.2-thebasics/README.ja.md)
 <br><br>
 [こちらをクリックして、Ansible for Red Hat Enterprise Linux ワークショップに戻ります](../README.md)

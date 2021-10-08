@@ -192,7 +192,10 @@ Okay, let’s just do that: Go to the **Resources -> Templates** view, click the
 
 You can start the job by directly clicking the blue **Launch** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
 
+Job Details
 ![job details](images/job_details.png)
+
+Job Run
 ![job_run](images/job_run.png)
 
 Since this might take some time, have a closer look at all the details provided:
@@ -218,6 +221,7 @@ You have already been through all the steps needed, so try this for yourself.
 > **Tip**
 >
 > What about `systemctl status httpd`?
+
 
 > **Warning**
 >

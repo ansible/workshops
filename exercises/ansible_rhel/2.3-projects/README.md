@@ -97,7 +97,6 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
      <td>Default execution environment</td>
    </tr>
    <tr>
-   <tr>
      <td>Source Control Credential Type</td>
      <td>Git</td>
    </tr>

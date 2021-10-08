@@ -180,7 +180,7 @@ To get an idea what facts Ansible collects by default, on your control node as y
 ---
 - name: Capture Setup
   hosts: node1
-  
+
   tasks:
 
     - name: Collect only facts returned by facter
@@ -188,7 +188,7 @@ To get an idea what facts Ansible collects by default, on your control node as y
         gather_subset:
         - 'all'
       register: setup
-    
+
     - debug:
         var: setup
 ```
@@ -204,7 +204,7 @@ This might be a bit too much, you can use filters to limit the output to certain
 ---
 - name: Capture Setup
   hosts: node1
-  
+
   tasks:
 
     - name: Collect only specific facts
@@ -213,7 +213,7 @@ This might be a bit too much, you can use filters to limit the output to certain
         - 'ansible_eth0'
         - 'ansible_*_mb'
       register: setup
-    
+
     - debug:
         var: setup
 ```

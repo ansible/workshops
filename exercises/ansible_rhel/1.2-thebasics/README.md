@@ -12,7 +12,7 @@
 
 ## Objective
 
-In this exercise, we are going to explore the latest Ansible command line utility `ansible-navigator` to learn how to work with inventory files and the listing of modules when needing assistance. The goal is to familarize yourself with how `ansible-navigator` works and how it can be used to enrich your Ansible experience. 
+In this exercise, we are going to explore the latest Ansible command line utility `ansible-navigator` to learn how to work with inventory files and the listing of modules when needing assistance. The goal is to familarize yourself with how `ansible-navigator` works and how it can be used to enrich your Ansible experience.
 
 This exercise will cover
 
@@ -45,7 +45,7 @@ ansible-1 ansible_host=44.55.66.77
 
 Ansible is already configured to use the inventory specific to your environment. We will show you in the next step how that is done. For now, we will execute some simple commands to work with the inventory.
 
-To reference all the inventory hosts, you supply a pattern to the `ansible-navigator` command. `ansible-navigator inventory` has a `--list` option which can be useful for displaying all the hosts that are part of an inventory file including what groups they are assocaited with. 
+To reference all the inventory hosts, you supply a pattern to the `ansible-navigator` command. `ansible-navigator inventory` has a `--list` option which can be useful for displaying all the hosts that are part of an inventory file including what groups they are assocaited with.
 
 
 ```bash
@@ -125,7 +125,7 @@ We can clearly see that nodes: `node1`, `node2`, `node3` are part of the `web` g
 
 An inventory file can contain a lot more information, it can organize your hosts in groups or define variables. In our example, the current inventory has the groups `web` and `control`. Run Ansible with these host patterns and observe the output:
 
-Using the `ansible-navigator inventory` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output. 
+Using the `ansible-navigator inventory` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output.
 
 ```bash
 [student<X>@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
@@ -164,7 +164,13 @@ Get help for a specific module including usage examples:
 
 ---
 **Navigation**
-<br>
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../1-setup) - [Next Exercise](../3-playbook)
+{% else %}
 [Previous Exercise](../1.1-setup) - [Next Exercise](../1.3-playbook)
+{% endif %}
+<br><br>
+
+<br>
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

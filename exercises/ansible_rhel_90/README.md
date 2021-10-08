@@ -34,7 +34,7 @@ This workshop was created to last about 90 minutes and focuses more on targeting
 ## Ansible Automation Platform Exercises
 
  - [Exercise 1 - Overview of public cloud provisioning](1-setup)
- - [Exercise 2 - Converting bash/shell commands to Ansible](2-adhoc)
+ - [Exercise 2 - The Ansible Basics](2-thebasics)
  - [Exercise 3 - Deploying applications to linux hosts](3-playbook)
  - [Exercise 4 - Retrieving information from automation hosts](4-variables)
  - [Exercise 5 - Self-service IT via surveys](5-surveys)

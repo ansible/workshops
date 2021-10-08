@@ -146,6 +146,6 @@ You will soon discover that many chapters in this lab guide come with a "Challen
 ---
 **Navigation**
 <br>
-[Next Exercise](../1.2-thebasics)
+[Next Exercise](../2-thebasics)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

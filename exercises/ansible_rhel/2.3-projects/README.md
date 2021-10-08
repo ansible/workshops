@@ -79,29 +79,29 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 
 * Go to **Resources → Projects** click the **Add** button. Fill in the form:
 
-  <table>
-    <tr>
-      <th>Parameter</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>Workshop Project</td>
-    </tr>
-    <tr>
-      <td>Organization</td>
-      <td>Default</td>
-    </tr>
-    <tr>
-      <td>Default Execution Environment</td>
-      <td>Default execution environment</td>
-    </tr>
-    <tr>
-    <tr>
-      <td>Source Control Credential Type</td>
-      <td>Git</td>
-    </tr>
-  </table>
+ <table>
+   <tr>
+     <th>Parameter</th>
+     <th>Value</th>
+   </tr>
+   <tr>
+     <td>Name</td>
+     <td>Workshop Project</td>
+   </tr>
+   <tr>
+     <td>Organization</td>
+     <td>Default</td>
+   </tr>
+   <tr>
+     <td>Default Execution Environment</td>
+     <td>Default execution environment</td>
+   </tr>
+   <tr>
+   <tr>
+     <td>Source Control Credential Type</td>
+     <td>Git</td>
+   </tr>
+ </table>
 
  Enter the URL into the Project configuration:
 
@@ -144,48 +144,48 @@ Okay, let’s just do that: Go to the **Resources -> Templates** view, click the
 >
 > Remember that you can often click on magnfying glasses to get an overview of options to pick to fill in fields.
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>Install Apache</td>
-  </tr>
-  <tr>
-    <td>Job Type</td>
-    <td>Run</td>
-  </tr>
-  <tr>
-    <td>Inventory</td>
-    <td>Workshop Inventory</td>
-  </tr>
-  <tr>
-    <td>Project/td>
-    <td>Workshop Project</td>
-  </tr>
-  <tr>
-    <td>Execution Environment/td>
-    <td>Default execution environment</td>
-  </tr>
-  <tr>
-    <td>Playbook</td>
-    <td><code>rhel/apache/apache_install.yml</code></td>
-  </tr>
-  <tr>
-    <td>Credentials</td>
-    <td>Workshop Credential</td>
-  </tr>
-  <tr>
-    <td>Limit</td>
-    <td>web</td>
-  </tr>
-  <tr>
-    <td>Options</td>
-    <td>tasks need to run as root so check **Privilege Escalation**</td>
-  </tr>
-</table>
+ <table>
+   <tr>
+     <th>Parameter</th>
+     <th>Value</th>
+   </tr>
+   <tr>
+     <td>Name</td>
+     <td>Install Apache</td>
+   </tr>
+   <tr>
+     <td>Job Type</td>
+     <td>Run</td>
+   </tr>
+   <tr>
+     <td>Inventory</td>
+     <td>Workshop Inventory</td>
+   </tr>
+   <tr>
+     <td>Project</td>
+     <td>Workshop Project</td>
+   </tr>
+   <tr>
+     <td>Execution Environment</td>
+     <td>Default execution environment</td>
+   </tr>
+   <tr>
+     <td>Playbook</td>
+     <td><code>rhel/apache/apache_install.yml</code></td>
+   </tr>
+   <tr>
+     <td>Credentials</td>
+     <td>Workshop Credential</td>
+   </tr>
+   <tr>
+     <td>Limit</td>
+     <td>web</td>
+   </tr>
+   <tr>
+     <td>Options</td>
+     <td>tasks need to run as root so check **Privilege Escalation**</td>
+   </tr>
+ </table>
 
 * Click **Save**
 

@@ -355,6 +355,6 @@ Enfin, vérifiez si Apache fonctionne maintenant sur les deux serveurs. Identifi
 ----
 **Navigation**
 <br>
-[Exercise précédent](../1.2-thebasics/README.fr.md) - [Exercise suivant](../1.44-variables/README.fr.md)
+[Exercise précédent](../1.2-thebasics/README.fr.md) - [Exercise suivant](../1.4-variables/README.fr.md)
 
 [Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md)

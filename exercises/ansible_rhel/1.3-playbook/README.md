@@ -464,6 +464,6 @@ Verify if Apache is now running on all web servers (node1, node2, node3). All ou
 ---
 **Navigation**
 <br>
-[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+[Previous Exercise](../1.2-thebasics) - [Next Exercise](../4-variables)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

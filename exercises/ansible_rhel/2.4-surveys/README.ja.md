@@ -198,7 +198,7 @@ Playbook によって使用されている 2 つの変数が `index.html` ファ
 <br>
 
 {% if page.url contains 'ansible_rhel_90' %}
-[前の演習](../1.4-variables) - [次の演習](../../ansible_rhel_90/6-system-roles/)
+[前の演習](../4-variables) - [次の演習](../../ansible_rhel_90/6-system-roles/)
 {% else %}
 [前の演習](../2.3-projects) - [次の演習](../2.5-rbac)
 {% endif %}

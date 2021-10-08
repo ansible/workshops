@@ -165,7 +165,7 @@ For more information on the [Ansible navigator settings](https://github.com/ansi
 
 > **Tip**
 >
-> The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice. 
+> The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
 
 To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
@@ -194,7 +194,7 @@ The display should look something like this:
 1│OK          node1          1         True       latest Apache version installed                        yum                         4s
 ```
 
-Taking a closer look, you'll notice that each task is associated with a number. Task 1, "latest Apache version installed", had a change and used the `yum` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`. 
+Taking a closer look, you'll notice that each task is associated with a number. Task 1, "latest Apache version installed", had a change and used the `yum` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`.
 
 By pressing `0` or `1` on your keyboard, you can see further details of the task being run. If a more traditional output view is desired, type `:st` within the text user interface.
 
@@ -231,7 +231,7 @@ Log out of `node1` with the command `exit` so that you are back on the control h
   become: true
   vars:
     package: "httpd"
-  
+
   tasks:
     - name: Gather the package facts
       ansible.builtin.package_facts:
@@ -245,7 +245,7 @@ Log out of `node1` with the command `exit` so that you are back on the control h
 ```
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout 
+[student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
 ```
 
 ```bash
@@ -305,7 +305,7 @@ Thus with the second task we make sure the Apache server is indeed running on th
 [student<X>@ansible-1 ~]$ ansible-navigator run apache.yml
 ```
 
-Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow. 
+Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
 
 
 * Run the playbook a second time using `ansible-navigator` to get used to the change in the output.
@@ -319,7 +319,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
   become: true
   vars:
     package: "httpd"
-  
+
   tasks:
     - name: Check status of {{ package }} service
       service_facts:
@@ -343,7 +343,7 @@ Check that the tasks were executed correctly and Apache is accepting connections
   hosts: control
   vars:
     IP: "IP_OF_NODE1"
-  
+
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
       uri:
@@ -355,7 +355,7 @@ Check that the tasks were executed correctly and Apache is accepting connections
 > **Expect a lot of red lines and a 403 status\!**
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout 
+[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
@@ -407,13 +407,13 @@ Run your extended Playbook:
 [student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-* Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change. 
+* Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
 
 * Run the Ansible playbook check_httpd.yml using the "uri" module from above again to test Apache. The command should now return a friendly green "status: 200" line, amongst other information.
 
 ### Step 6 - Practice: Apply to Multiple Host
 
-While the above, shows the simplicity of applying changes to a particular host. What about if you want to set changes to many hosts? This is where you'll notice the real power of Ansible as it applies the same set of tasks reliably to many hosts. 
+While the above, shows the simplicity of applying changes to a particular host. What about if you want to set changes to many hosts? This is where you'll notice the real power of Ansible as it applies the same set of tasks reliably to many hosts.
 
 * So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
 
@@ -464,6 +464,6 @@ Verify if Apache is now running on all web servers (node1, node2, node3). All ou
 ---
 **Navigation**
 <br>
-[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+[Previous Exercise](../1.2-thebasics) - [Next Exercise](../4-variables)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

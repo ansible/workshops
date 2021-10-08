@@ -97,7 +97,6 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
      <td>Default execution environment</td>
    </tr>
    <tr>
-   <tr>
      <td>Source Control Credential Type</td>
      <td>Git</td>
    </tr>
@@ -122,7 +121,8 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 
 * Click **SAVE**
 
-The new Project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Sync Project** icon to the right of the Project.
+
+The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Sync Project** icon to the right of the Project.
 
 After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
 
@@ -191,7 +191,10 @@ Okay, let’s just do that: Go to the **Resources -> Templates** view, click the
 
 You can start the job by directly clicking the blue **Launch** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
 
+Job Details
 ![job details](images/job_details.png)
+
+Job Run
 ![job_run](images/job_run.png)
 
 Since this might take some time, have a closer look at all the details provided:
@@ -217,6 +220,7 @@ You have already been through all the steps needed, so try this for yourself.
 > **Tip**
 >
 > What about `systemctl status httpd`?
+
 
 > **Warning**
 >

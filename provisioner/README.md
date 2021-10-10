@@ -84,6 +84,16 @@ controllerinstall: true
 
 # forces ansible.workshops collection to install latest edits every time
 developer_mode: true
+
+# default vars for ec2 AMIs (ec2_info) are located in provisioner/roles/manage_ec2_instances/defaults/main/main.yml
+# select ec2_info AMI vars can be overwritten via ec2_xtra vars, e.g.:
+ec2_xtra:
+  satellite:
+    owners: 012345678910
+    filter: Satellite*
+    username: ec2-user
+    os_type: linux
+    size: r5b.2xlarge
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).

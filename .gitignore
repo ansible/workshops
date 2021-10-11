@@ -36,6 +36,7 @@ Gemfile
 _site/*
 .tox/
 provisioner/tests/ci-common.yml
+provisioner/workshop_collections/*
 *.gz
 provisioner/old_tower_license.json
 .cache/

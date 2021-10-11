@@ -17,7 +17,7 @@ collections:
   - name: ansible.windows
     version: 1.5.0
   - name: ansible.workshops
-    version: 0.0.3
+    version: 1.0.0
   - name: chocolatey.chocolatey
     version: 1.1.0
   - name: cisco.ios

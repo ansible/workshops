@@ -1,5 +1,5 @@
 ---
-- name: Perform Checks to make sure this playbook will complete successfully
+- name: setup collections for ansible.workshops
   hosts: localhost
   connection: local
   become: false
@@ -17,6 +17,7 @@
     - name: retrieve installed ansible.workshops collection
       shell: ansible-galaxy collection list | grep ansible.workshops
       register: installed_version
+      ignore_errors: true
 
     - name: compare galaxy.yml to installed version
       set_fact:
@@ -40,17 +41,23 @@
             state: absent
             path: build
 
-    - name: run pre-check role to make sure workshop will complete provisioning
-      include_role:
-        name: ansible.workshops.workshop_check_setup
+    - name: workshop collection final check
+      block:
+        - name: run pre-check role to make sure workshop will complete provisioning
+          include_role:
+            name: ansible.workshops.workshop_check_setup
 
-    - name: run AWS check setup if using AWS
-      include_role:
-        name: ansible.workshops.aws_check_setup
+        - name: run AWS check setup if using AWS
+          include_role:
+            name: ansible.workshops.aws_check_setup
 
-    - name: download AAP
-      include_role:
-        name: ansible.workshops.aap_download
+        - name: download AAP
+          include_role:
+            name: ansible.workshops.aap_download
+      rescue:
+        - name: Example using fail and when together
+          fail:
+            msg: If you have recieved a 'was not found' error please re-run the provisioner.  Collections can only be updated, not installed, within the same Ansible play.  If you still have an issue with your workshop setup on your control node, please open an issue on https://github.com/ansible/workshops
 
 - name: Create lab instances in AWS
   hosts: localhost

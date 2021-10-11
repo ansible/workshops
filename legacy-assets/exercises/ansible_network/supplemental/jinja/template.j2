@@ -1,4 +1,0 @@
-{% for interface,ip in nodes[inventory_hostname].items() %}
-interface {{interface}}
-  ip address {{ip}} 255.255.255.255
-{% endfor %}

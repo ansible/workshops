@@ -14,3 +14,9 @@
   when:
     - dns_type is defined
     - dns_type == "aws"
+
+- name: set information for instructor
+  set_fact:
+    login_website_information: "Auto-Assignment website located at http://{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}, instructor can see workbench assignments at http://{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}/list.php"
+  delegate_to: localhost
+  run_once: true

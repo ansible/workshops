@@ -3,16 +3,13 @@
   include_tasks: teardown.yml
   when: teardown|bool
 
-- name: Add route 53 record
-  import_tasks: dns.yml
+- name: setup DNS specific information
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "{{role_path}}/tasks/{{ dns_type }}.yml"
+    - "{{role_path}}/tasks/none.yml"
   when: not teardown
 
 - name: Configure attendance host
   import_tasks: attendance.yml
   when: not teardown
-
-- name: set information for instructor
-  set_fact:
-    login_website_information: "Auto-Assignment website located at http://{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}, instructor can see workbench assignments at http://{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}/list.php"
-  delegate_to: localhost
-  run_once: true

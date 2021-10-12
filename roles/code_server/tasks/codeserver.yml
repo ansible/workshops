@@ -74,7 +74,6 @@
     - https://github.com/ansible/workshops/raw/devel/files/bierner.markdown-preview-github-styles-0.1.6.vsix
     - https://github.com/ansible/workshops/raw/devel/files/hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
     - https://github.com/ansible/workshops/raw/devel/files/redhat.ansible-0.4.5.vsix
-    - https://github.com/ansible/workshops/raw/devel/files/ms-python.python-2021.9.1230869389.vsix
   register: download_extension
   until: download_extension is not failed
   retries: 5
@@ -86,7 +85,6 @@
     - bierner.markdown-preview-github-styles-0.1.6.vsix
     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
     - redhat.ansible-0.4.5.vsix
-    - ms-python.python-2021.9.1230869389.vsix
   ignore_errors: true
   register: install_extension
   until: install_extension is not failed

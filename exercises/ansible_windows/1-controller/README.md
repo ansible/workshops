@@ -31,7 +31,7 @@ against machines, synchronizing with inventory sources, and importing
 project content from a version control system.
 
 There are many [types of
-credentials](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)
+credentials](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#credential-types)
 including machine, network, and various cloud providers. For this
 workshop, we are using **machine** and **source control** credentials.
 

@@ -22,7 +22,7 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The ac
 If your experience is different in scheduling these workshops, please let us know and file an issue.
 
 ## Lab Diagram
-
+<!-- TODO #1375 redo workshop diagram -->
 ![ansible windows lab diagram](../../images/ansible_windows_diagram.png)
 
 ## Exercises
@@ -33,6 +33,7 @@ If your experience is different in scheduling these workshops, please let us kno
 * [Exercise 4 - Automation Controller projects](4-projects)
 * [Exercise 5 - Advanced playbooks](5-adv-playbook)
 * [Exercise 6 - Ansible roles](6-roles)
-* [Exercise 7 - Patching Windows](7-win-patch) (optional)
+<!-- TODO #1376 Update optional exercises in windows workshop -->
+<!-- * [Exercise 7 - Patching Windows](7-win-patch) (optional) -->
 <!-- * [Exercise 8 - Chocolatey](8-chocolatey) (optional)
 * [Exercise 9 - Windows Workflow](9-win-workflow) -->

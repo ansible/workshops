@@ -1,4 +1,4 @@
-Section 1: Ad-hoc commands
+Section 1: ad-hoc commands
 ==========================
 
 **Read this in other languages**:
@@ -6,7 +6,7 @@ Section 1: Ad-hoc commands
 <br>
 
 For our first exercise, we are going to run some ad-hoc commands to help
-you get a feel for how Ansible works. Ansible Ad-Hoc commands enable you
+you get a feel for how Ansible works. Ansible ad-hoc commands enable you
 to perform tasks on remote nodes without having to write a playbook.
 They are very useful when you simply need to do one or two things
 quickly, to many remote nodes.
@@ -19,7 +19,7 @@ on the left panel, and then click the name of our Inventory **Workshop Inventory
 will need to go select our Host. So click **HOSTS**.
 
 Next to each host is a checkbox. Check the box next to each host you
-want to run an Ad-Hoc Command on. You will then see the **RUN COMMANDS**
+want to run an ad-hoc Command on. You will then see the **RUN COMMANDS**
 button become enabled. Click it now.
 
 ![Run Command](images/2-adhoc-run-command.png)
@@ -35,7 +35,7 @@ authentication to the host.
 Fill out this form as follows
 
 | Key                | Value           | Note                                                            |
-|--------------------|-----------------|-----------------------------------------------------------------|
+| ------------------ | --------------- | --------------------------------------------------------------- |
 | Module             | `win_ping`      |                                                                 |
 | Arguments          |                 | Intentionally blank                                             |
 | Limit              |                 | This will be pre-filled out for you with the hosts you selected |
@@ -193,7 +193,7 @@ And now reboot the host.
 End Result
 ----------
 
-Ad-hoc commands may be useful to run once in a while. However, as automation continues to grow within an environment, they are used less and less often. In the IIS example above, this could have (should have) been written out in a playbook instead of executed through a laborious series of ad-hoc commands. This interaction with ad-hoc commands seems to mimic running individual commands from a CLI. Additional exercises will really make this clear.
+ad-hoc commands may be useful to run once in a while. However, as automation continues to grow within an environment, they are used less and less often. In the IIS example above, this could have (should have) been written out in a playbook instead of executed through a laborious series of ad-hoc commands. This interaction with ad-hoc commands seems to mimic running individual commands from a CLI. Additional exercises will really make this clear.
 
 *Also, did you catch this?* When a task is performed on a Windows server, Ansible is smart enough to know whether a reboot is required after executing that task. The below is part of the output of the command to remove the IIS feature. The output of this task can be used in subsequent tasks, like whether or not to reboot before continuing.
 

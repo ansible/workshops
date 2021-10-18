@@ -55,7 +55,7 @@
           include_role:
             name: ansible.workshops.aap_download
       rescue:
-        - name: Example using fail and when together
+        - name: Not found error?  Try to re-run
           fail:
             msg: If you have recieved a 'was not found' error please re-run the provisioner.  Collections can only be updated, not installed, within the same Ansible play.  If you still have an issue with your workshop setup on your control node, please open an issue on https://github.com/ansible/workshops
 

@@ -64,12 +64,25 @@
       - "requests==2.6.0"
     state: latest
 
-- name: Load manifest into variable
-  local_action:
-    module: slurp
-    src: "{{ playbook_dir }}/manifest.zip"
-  register: manifest_file
-  become: false
+- name: load license block
+  block:
+    - name: check for base64 variable first
+      copy:
+        dest: '{{ playbook_dir }}/manifest.zip'
+        content: '{{ base64_manifest | b64decode }}'
+      delegate_to: localhost
+      become: false
+  rescue:
+    - name: unable to load base64_manifest
+      debug:
+        msg: 'No base64_manifest variable found, trying to open manifest.zip'
+  always:
+    - name: Load manifest into variable
+      local_action:
+        module: slurp
+        src: "{{ playbook_dir }}/manifest.zip"
+      register: manifest_file
+      become: false
 
 - name: Post manifest file
   uri:

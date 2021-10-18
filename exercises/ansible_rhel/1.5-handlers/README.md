@@ -245,6 +245,7 @@ Check the output:
 
 Verify that the user `dev_user` was indeed created on `node1` using the following playbook:
 
+{% raw %}
 ```yaml
 ---
 - name: Get user ID
@@ -257,9 +258,10 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
         database: passwd
         key: "{{ myuser }}"
     - debug:
-        msg: 
+        msg:
           - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
 ```
+{% endraw %}
 
 ```bash
 $ ansible-navigator run user_id.yml -m stdout

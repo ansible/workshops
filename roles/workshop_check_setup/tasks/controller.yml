@@ -20,8 +20,8 @@
         msg: checking for variable base64_manifest
     - name: fail if there is also no base64_manifest
       fail:
-        msg: no manifest.zip file found and no base64_manifest var found
+        msg: no manifest.zip file found and no base64_manifest variable found
       when: base64_manifest is not defined
     - name: Rescue worked, base64 var found
       debug:
-        msg: The base64 bar base64_manifest was located
+        msg: The variable base64_manifest was located

@@ -185,6 +185,6 @@ You have completed lab exercise 9.  This concludes the Network Automation worksh
 For additional supplemental exercises check out [Supplemental Exercises](../supplemental/README.md)
 
 ---
-[Previous Exercise](../8--controller-rbac/README.md)
+[Previous Exercise](../8-controller-rbac/README.md)
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

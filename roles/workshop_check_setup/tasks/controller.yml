@@ -4,15 +4,24 @@
     path: "{{ output_dir }}"
     state: directory
 
-- name: Check that the provided license exists
-  stat:
-    path: "{{ playbook_dir }}/manifest.zip"
-  register: manifest_result
-
-- debug:
-    var: manifest_result
-
-- fail:
-    msg: "Need a manifest file at {{ playbook_dir }}/manifest.zip"
-  when:
-    - not manifest_result.stat.exists
+- name: check license block
+  block:
+    - name: Check that the manifest.zip exists
+      stat:
+        path: "{{ playbook_dir }}/manifest.zip"
+      register: manifest_result
+    - fail:
+        msg: "Need a manifest file at {{ playbook_dir }}/manifest.zip"
+      when:
+        - not manifest_result.stat.exists
+  rescue:
+    - name: checking for base64_manifest since no manifest.zip found
+      debug:
+        msg: checking for variable base64_manifest
+    - name: fail if there is also no base64_manifest
+      fail:
+        msg: no manifest.zip file found and no base64_manifest var found
+      when: base64_manifest is not defined
+    - name: Rescue worked, base64 var found
+      debug:
+        msg: The base64 bar base64_manifest was located

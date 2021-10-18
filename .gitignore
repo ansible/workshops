@@ -12,6 +12,7 @@ bak/
 *.BAK
 *.DS_Store
 *.pem
+*.log
 instructor_inventory.txt
 provisioner/tower_license.json
 provisioner/manifest.zip

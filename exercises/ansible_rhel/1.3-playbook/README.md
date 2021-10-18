@@ -312,6 +312,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
 * Use an Ansible playbook labeled service_state.yml to make sure the Apache (httpd) service is running on `node1`, e.g. with: `systemctl status httpd`.
 
+{% raw %}
 ```yaml
 ---
 - name: Check Status
@@ -330,6 +331,8 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 ```
 
 ```bash
+{% endraw %}
+
 [student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
 ```
 
@@ -464,6 +467,11 @@ Verify if Apache is now running on all web servers (node1, node2, node3). All ou
 ---
 **Navigation**
 <br>
-[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
 
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
+{% else %}
+[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+{% endif %}
+<br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

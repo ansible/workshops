@@ -9,5 +9,5 @@
         database: passwd
         key: "{{ myuser }}"
     - debug:
-        msg: 
+        msg:
           - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"

@@ -20,18 +20,18 @@ controller_templates:
           min: 0
           max: 1024
           formattedChoices:
-          - choice: httpd
-            isDefault: true
-            id: 0
-          - choice: nginx
-            isDefault: false
-            id: 1
-          - choice: htop
-            isDefault: false
-            id: 2
-          - choice: gdb
-            isDefault: false
-            id: 3
+            - choice: httpd
+              isDefault: true
+              id: 0
+            - choice: nginx
+              isDefault: false
+              id: 1
+            - choice: htop
+              isDefault: false
+              id: 2
+            - choice: gdb
+              isDefault: false
+              id: 3
           new_question: false
           default: httpd
           choices: 'httpd

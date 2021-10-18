@@ -9,7 +9,6 @@ student_total: 2
 workshop_type: smart_mgmt
 # define DNS zone. AWS DNS required
 dns_type: aws
-workshop_dns_zone: rhdemo.io
 # password used for student account on control node
 admin_password: ansible
 # Required for AAP download https://access.redhat.com/articles/3626371

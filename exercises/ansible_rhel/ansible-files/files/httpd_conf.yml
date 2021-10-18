@@ -8,7 +8,7 @@
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
-        - restart_apache
+      - restart_apache
   handlers:
     - name: restart_apache
       service:

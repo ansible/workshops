@@ -35,5 +35,5 @@ If your experience is different in scheduling these workshops, please let us kno
 * [Exercise 6 - Ansible roles](6-roles)
 <!-- TODO #1376 Update optional exercises in windows workshop -->
 <!-- * [Exercise 7 - Patching Windows](7-win-patch) (optional) -->
-<!-- * [Exercise 8 - Chocolatey](8-chocolatey) (optional)
-* [Exercise 9 - Windows Workflow](9-win-workflow) -->
+<!-- * [Exercise 8 - Chocolatey](8-chocolatey) (optional) -->
+<!-- * [Exercise 9 - Windows Workflow](9-win-workflow) -->

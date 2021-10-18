@@ -95,8 +95,50 @@ ec2_xtra:
     os_type: linux
     size: r5b.2xlarge
 ```
+### Automation controller license
 
-If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
+In order to use Automation controller (i.e. `controllerinstall: true`), which is the default behavior (as seen in group_vars/all.yml) you need to have a valid subscription via a `manifest.zip` file.  To retrieve your manifest.zip file you need to download it from access.redhat.com.  
+
+- Here is a video by Colin McNaughton to help you retrieve your manifest.zip:
+ [https://youtu.be/FYtilnsk7sM](https://youtu.be/FYtilnsk7sM).
+- If you need to get a temporary license, get a trial here [http://red.ht/try_ansible](http://red.ht/try_ansible).
+
+**How do you use the manifest.zip with the workshop?**
+
+There are currently two ways to integrate your license file with the workshop:
+
+1. Put the manifest.zip file into provisioner folder
+
+  The first way is to make sure your license/manifest has the exact name `manifest.zip` and put it into the same folder as the `provision_lab.yml` playbook (e.g.) `<your-path>/workshops/provisioner/manifest.zip`
+
+2. Turn the manifest.zip into a variable
+
+  The second way is to turn the `manifest.zip `into a base64 variable.
+
+    This allows the `manifest.zip` to be treated like an Ansible variable so that it can work with CI systems like Github Actions or Zuul.  This also makes it easier to work with Automation controller, in case you are spinning up a workshop using Automation controller itself.
+
+  To do this use the `base64` command to encode the manifest:
+
+  ```
+  base64 manifest.zip > base64_platform_manifest.txt
+  ```
+  Take the output of this command and set it to a variable `base64_manifest` in your extra_vars file.
+
+  e.g.
+  ```
+  base64_manifest: 2342387234872dfsdlkjf23148723847dkjfskjfksdfj
+  ```
+
+  >**Note**
+  >
+  >The manifest.zip is substantially larger than the tower.license file, so the base64_manifest base64 might be several hundred lines long if you have text wrapping in your editor.
+
+  >**Note**
+  >
+  >base64 is not encryption, if you require encryption you need to work within your CI system or Automation controller to encrypt the base64 encoded manifest.zip.
+
+
+### Additional examples
 
 For more extra_vars examples, look at the following:
 

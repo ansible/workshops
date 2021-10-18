@@ -1,7 +1,7 @@
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
   - name: latest Apache version installed
     yum:

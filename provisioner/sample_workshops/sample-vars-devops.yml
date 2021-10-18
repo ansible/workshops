@@ -12,7 +12,6 @@ offline_token: "234234234234234234234234234234234234234"
 redhat_username: joe@redhat.com
 redhat_password: R3dh4t!
 # DNS domain
-workshop_dns_zone: demoredhat.com
 ## Optional Variables
 admin_password: ansible
 workshop_dns_zone: redhatgov.io

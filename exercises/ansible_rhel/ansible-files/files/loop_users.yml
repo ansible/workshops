@@ -9,6 +9,6 @@
         name: "{{ item }}"
         state: present
       loop:
-         - dev_user
-         - qa_user
-         - prod_user
+        - dev_user
+        - qa_user
+        - prod_user

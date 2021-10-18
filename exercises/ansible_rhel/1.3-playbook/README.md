@@ -312,6 +312,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
 * Use an Ansible playbook labeled service_state.yml to make sure the Apache (httpd) service is running on `node1`, e.g. with: `systemctl status httpd`.
 
+{% raw %}
 ```yaml
 ---
 - name: Check Status
@@ -330,6 +331,8 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 ```
 
 ```bash
+{% endraw %}
+
 [student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
 ```
 

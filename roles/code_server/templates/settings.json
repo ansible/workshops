@@ -8,5 +8,7 @@
     "telemetry.enableTelemetry": false,
     "search.smartCase": true,
     "git.confirmSync": false,
-    "workbench.colorTheme": "Visual Studio Dark"
+    "workbench.colorTheme": "Visual Studio Dark",
+    "ansible.ansibleLint.enabled": false,
+    "ansible.ansible.useFullyQualifiedCollectionNames": true
 }

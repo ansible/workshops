@@ -244,6 +244,6 @@ If time permits, log back in as the network-admin and add another show command y
 You have completed lab exercise 8
 
 ---
-[Previous Exercise](../7--controller-survey/README.md) | [Next Exercise](../9-controller-workflow/README.md)
+[Previous Exercise](../7-controller-survey/) | [Next Exercise](../9-controller-workflow/README.md)
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

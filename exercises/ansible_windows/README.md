@@ -27,7 +27,7 @@ If your experience is different in scheduling these workshops, please let us kno
 
 ## Exercises
 
-* [Exercise 1 - Intro and configuration of Automation Controller](1-tower)
+* [Exercise 1 - Intro and configuration of Automation Controller](1-controller)
 * [Exercise 2 - Ad-hoc commands](2-adhoc)
 * [Exercise 3 - Intro to playbooks](3-playbook)
 * [Exercise 4 - Automation Controller projects](4-projects)

@@ -104,6 +104,13 @@
     registry: registry.redhat.io
   become_user: "awx"
 
+- name: Mod containers.conf to utilize max of 10 parallel threads
+  become_user: "awx"
+  lineinfile:
+    path: /var/lib/awx/.config/containers/containers.conf
+    line: 'image_parallel_copies=10'
+    insertafter: EOF
+
 - name: Pull supported images
   become_user: "awx"
   containers.podman.podman_image:
@@ -112,12 +119,20 @@
     - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
     - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0"
     - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0"
+  register: podman_pull_supported
+  until: podman_pull_supported is not failed
+  retries: 5
+  delay: 15
 
 - name: Pull workshop images
   become_user: "awx"
   containers.podman.podman_image:
     name: "{{ lookup('vars', workshop_type + '_ee') }}"
   when: workshop_type is defined
+  register: podman_pull_workshop
+  until: podman_pull_workshop is not failed
+  retries: 5
+  delay: 15
 
 - name: create container registry credential
   awx.awx.credential:

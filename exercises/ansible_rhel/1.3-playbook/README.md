@@ -338,20 +338,23 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
 ### Step 5 - Extend your Playbook: Create an web.html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node. Make sure to replace the **\<IP\>** with the IP for the `node1` from the inventory.
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node to `node1`. 
 
+{% raw %}
 ```yaml
 ---
 - name: Check URL
   hosts: control
   vars:
-    IP: "IP_OF_NODE1"
+    node: "node1"
 
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
       uri:
-        url: "http://{{ IP }}"
+        url: "http://{{ node }}"
+
 ```
+{% endraw %}
 
 > **Warning**
 >

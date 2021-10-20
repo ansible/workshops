@@ -3,7 +3,7 @@
   hosts: control
   vars:
     node: "node1"
-  
+
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
       uri:

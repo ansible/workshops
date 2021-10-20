@@ -4,7 +4,7 @@
   become: true
   vars:
     package: "httpd"
-  
+
   tasks:
     - name: Check status of {{ package }} service
       service_facts:

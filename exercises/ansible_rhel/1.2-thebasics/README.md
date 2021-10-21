@@ -140,27 +140,50 @@ Using the `ansible-navigator inventory` command, we can also run commands that p
 
 ### Step 2 - Listing Modules and Getting Help
 
-Ansible comes with a lot of modules by default. To list all modules run:
+Ansible Automation Platform comes with multiple supported Execution Environments (EEs).  These EEs come with bundled supported collections that contain supported content, including modules.  To browse your available modules first enter interactive mode:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator doc -l -m stdout
+$ ansible-navigator
 ```
+
+![picture of ansible-navigator](images/interactive-mode.png)
 
 > **Tip**
 >
-> In `ansible-navigator doc` leave by pressing the button `q`. Use the `up`/`down` arrows to scroll through the content.
+> In `ansible-navigator` exit by pressing the button `ESC`.
 
-To find a module try e.g.:
-
-```bash
-[student<X>@ansible-1 ~]$ ansible-navigator doc -l -m stdout | grep -i user
-```
-
-Get help for a specific module including usage examples:
+First browse a collection by typing `:collections`
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator doc user -m stdout
+$ :collections
 ```
+
+![picture of ansible-navigator](images/interactive-collections.png)
+
+To browse the content for a specific collections, type the corresponding number.  For example in the example screenshot above the number `0` corresponds to `amazon.aws` collection.  To zoom into collection type the number `0`.
+
+```bash
+$ 0
+```
+
+![picture of ansible-navigator](images/interactive-aws.png)
+
+
+Get help for a specific module including usage by zooming in further.  For example the module `ec2_tag` corresponds to `24`.
+
+```bash
+$ :24
+```
+
+Scrolling down using the arrow keys or page-up and page-down can show us documentation and examples.
+
+![picture of ansible-navigator](images/interactive-ec2-tag.png)
+
+You can also skip directly to a particular module by simply typing `:doc namespace.collection.module-name`.  For example typing `:doc amazon.aws.ec2_tag` would skip directly to the final page shown above.
+
+> **Tip**
+>
+> Different execution environments can have access to different collections, and different versions of those collections.  By using the built-in documentation you know that it will be accurate for that particular version of the collection.
 
 ---
 **Navigation**

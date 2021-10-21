@@ -222,8 +222,9 @@ Version     : 2.4.37
 [...]
 ```
 
-Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled package.yml\!
+Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`
 
+{% raw %}
 ```yaml
 ---
 - name: Check packages
@@ -243,6 +244,8 @@ Log out of `node1` with the command `exit` so that you are back on the control h
       when: "package in ansible_facts.packages"
 
 ```
+{% endraw %}
+
 
 ```bash
 [student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
@@ -338,7 +341,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
 ### Step 5 - Extend your Playbook: Create an web.html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node to `node1`. 
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node to `node1`.
 
 {% raw %}
 ```yaml

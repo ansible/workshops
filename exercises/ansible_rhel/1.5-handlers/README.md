@@ -121,7 +121,7 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
-        - restart_apache
+      - restart_apache
   handlers:
     - name: restart_apache
       service:
@@ -282,7 +282,7 @@ ok: [node1] => {
 }
 
 PLAY RECAP *********************************************************************
-node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 ---
 **Navigation**

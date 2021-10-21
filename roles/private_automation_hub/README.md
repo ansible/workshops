@@ -1,15 +1,18 @@
-# Control Node Role
+# Private Automation Hub Role
 
-This role will setup control nodes for Ansible Automation Workshops (same for all workshop types)
+This role will setup Private Automation Hub on the designated host.  This requires a file aap.tar.gz (see the aap_download role)
 
 Example:
 
 ```
-- name: configure ansible control node
-  hosts: '*ansible-1'
+- name: configure private automation hub
+  hosts: 'automation_hub'
   gather_facts: true
   become: true
   tasks:
     - include_role:
-        name: ansible.workshops.control_node
+        name: ansible.workshops.private_automation_hub
+      when:
+        - automation_hub is defined
+        - automation_hub
 ```

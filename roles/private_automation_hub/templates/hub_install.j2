@@ -1,0 +1,28 @@
+[automationcontroller]
+
+[automationhub]
+{{ ansible_host }} ansible_connection=localhost
+
+[database]
+
+[servicescatalog_workers]
+
+[all:vars]
+admin_password='{{admin_password}}'
+
+pg_host=''
+pg_port=''
+
+pg_database='awx'
+pg_username='awx'
+pg_password='{{admin_password}}'
+pg_sslmode='prefer'  # set to 'verify-full' for client-side enforced SSL
+automationhub_admin_password='{{ admin_password }}'
+automationhub_pg_database='automationhub'
+automationhub_pg_username='automationhub'
+automationhub_pg_password='{{ admin_password }}'
+automationhub_pg_sslmode='prefer'
+
+gpgcheck='{{ gpgcheck | default(1)}}'
+aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'
+ignore_preflight_errors = True

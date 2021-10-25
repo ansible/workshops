@@ -8,6 +8,7 @@
 [servicescatalog_workers]
 
 [all:vars]
+no_log=false
 admin_password='{{admin_password}}'
 
 pg_host=''
@@ -15,14 +16,22 @@ pg_port=''
 
 pg_database='awx'
 pg_username='awx'
-pg_password='{{admin_password}}'
+pg_password='{{ admin_password }}'
 pg_sslmode='prefer'  # set to 'verify-full' for client-side enforced SSL
+
+registry_url='registry.redhat.io'
+registry_username='{{ redhat_username }}'
+registry_password='{{ redhat_password }}'
+
 automationhub_admin_password='{{ admin_password }}'
+
+automationhub_pg_host=''
+automationhub_pg_port=''
+
 automationhub_pg_database='automationhub'
 automationhub_pg_username='automationhub'
 automationhub_pg_password='{{ admin_password }}'
 automationhub_pg_sslmode='prefer'
 
 gpgcheck='{{ gpgcheck | default(1)}}'
-aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'
 ignore_preflight_errors = True

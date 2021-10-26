@@ -1,8 +1,15 @@
 ---
 - name: aap setup
-  include_tasks: 10_aap_setup.yml
+  include_tasks: "10_aap_setup.yml"
   tags:
     - aap_setup
 
 - name: install hub
   include_tasks: "30_hub.yml"
+
+- name: setup DNS specific information
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "{{ role_path }}/tasks/40_dns/{{ dns_type }}.yml"
+    - "{{ role_path }}/tasks/40_dns/none.yml"
+  when: not teardown

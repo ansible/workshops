@@ -1,0 +1,43 @@
+---
+- name: teardown retrieve exact correct IP
+  become: false
+  when: teardown
+  block:
+    - name: retrieve route53 zone id
+      community.aws.route53_zone:
+        zone: "{{ workshop_dns_zone }}"
+      register: AWSINFO
+
+    - name: retrieve route53 record_sets
+      community.aws.route53_info:
+        type: A
+        query: record_sets
+        hosted_zone_id: "{{ AWSINFO.zone_id }}"
+        start_record_name: "hub.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+      register: record_sets
+
+    - name: "private_automation_hub | delete DNS record"
+      community.aws.route53:
+        state: absent
+        zone: "{{ workshop_dns_zone }}"
+        record: "hub.{{ec2_name_prefix|lower}}.{{ workshop_dns_zone }}"
+        type: A
+        overwrite: true
+        value: "{{ record_sets.list[0].ResourceRecords[0].Value }}"
+        wait: false
+      delegate_to: localhost
+      register: route53_status
+
+- name: "private_automation_hub | create DNS record"
+  become: false
+  when: not teardown
+  community.aws.route53:
+    state: present
+    zone: "{{ workshop_dns_zone }}"
+    record: "hub.{{ec2_name_prefix|lower}}.{{ workshop_dns_zone }}"
+    type: A
+    overwrite: true
+    value: "{{ ansible_host }}"
+    wait: false
+  delegate_to: localhost
+  register: route53_status

@@ -311,8 +311,27 @@ function display_student($student) {
   </table>
   {% endif %}
   </div>
-
   {% if workshop_type == 'devops' %} Lab Guide: <a target=_blank href="http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}';
+    print '<div id="hub_info">
+    {% if automation_hub is defined and automation_hub %}
+    <div id="section_title">Private automation Hub</div>
+    To login to the Private Automation Hub WebUI use the following credentials:<br>
+    <table>
+      <tr>
+    <td>WebUI link:
+    <td><a target=_blank href="' . $student['hub'] . '">' . $student['hub'] . '</a></td>
+      </tr>
+      <tr>
+        <td>username:</td>
+        <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+      </tr>
+      <tr>
+        <td>password:</td>
+        <td><code>{{ admin_password }}</code></td>
+      </tr>
+    </table>
+    {% endif %}
+    </div>';
   {% if workshop_type == "windows" %}
   {% else %}
   print '<div id="section_title"><a data-toggle="collapse" href="#collapse1">SSH access-></a></div><div id="collapse1" class="panel-collapse collapse">

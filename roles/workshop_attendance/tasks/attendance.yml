@@ -67,6 +67,11 @@
   pip:
     name: PyMySQL
 
+- name: make sure any previous runs 'workshop' database is reset
+  community.mysql.mysql_db:
+    name: workshop
+    state: absent
+
 - name: Create a new database with name 'workshop'
   community.mysql.mysql_db:
     name: workshop
@@ -83,4 +88,3 @@
     state: import
     name: workshop
     target: /tmp/workshop.sql
-  when: workshopsql.changed

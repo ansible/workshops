@@ -74,6 +74,8 @@
     - {include_role: {name: ansible.workshops.code_server}, when: code_server}
     - {include_role: {name: ansible.workshops.gitlab_server}, when: workshop_type == "windows"}
     - {include_role: {name: ansible.workshops.workshop_attendance}, when: attendance}
+    - {include_role: {name: ansible.workshops.private_automation_hub}, when: automation_hub}
+
 
 
     - name: Remove workshop local files

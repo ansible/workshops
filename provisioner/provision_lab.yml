@@ -138,6 +138,17 @@
         - controllerinstall is defined
         - controllerinstall
 
+- name: configure private automation hub
+  hosts: 'automation_hub'
+  gather_facts: true
+  become: true
+  tasks:
+    - include_role:
+        name: ansible.workshops.private_automation_hub
+      when:
+        - automation_hub is defined
+        - automation_hub
+
 - name: replicate venvs to cluster nodes
   hosts: '*ansible-2,*ansible-3'
   gather_facts: false

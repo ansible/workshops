@@ -1,5 +1,5 @@
 ---
-- name: grab facts for attendance host
+- name: grab facts for hub host
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
@@ -7,7 +7,7 @@
       "tag:Workshop_automation-hub": "{{ec2_name_prefix}}-automation-hub"
   register: automation_hub_host_facts
 
-- name: Add new instance to host group
+- name: Add automation hub instance to host group
   add_host:
     hostname: 'automation-hub-host'
     short_name: "{{ item.tags.short_name }}"

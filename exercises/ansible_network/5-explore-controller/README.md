@@ -50,7 +50,6 @@ Explore and understand the lab environment.  This exercise will cover
 
    ![version info window](images/automation_controller_about_info.png)
 
-   Take note that both the Automation controller version and the Ansible Engine version are provided here.
 
 ### Step 2: Examine the Automation controller Inventory
 

@@ -99,7 +99,7 @@ A project is how Ansible Playbooks are imported into Automation controller.  You
 
    ![Workshop Project Link](images/automation_controller_projects.png)
 
-2. Under **PROJECTS** there will be two pre-configured projects, `Ansible official demo project` and the `Workshop Project`.  
+2. Under **PROJECTS** there will be a `Workshop Project`.  
 
     ![Workshop Project Link](images/workshop_project.png)
 

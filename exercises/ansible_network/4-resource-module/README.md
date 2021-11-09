@@ -281,7 +281,7 @@ As you can see, the resource module configured the Arista EOS network device wit
 * Execute the playbook using the `ansible-navigator run`.
 
   ```bash
-  $ ansible-navigator run resource.yml --mode stdout
+  $ ansible-navigator run gathered.yml --mode stdout
   ```
 
 * The output will look similar to the following:

@@ -63,7 +63,7 @@ An inventory is required for Automation controller to be able to run jobs.  An i
 
     ![Inventories Button](images/automation_controller_inventories.png)
 
-2. Under Inventories there will be two inventories, the `Demo Inventory` and the `Workshop Inventory`.  Click on the `Workshop Inventory`.
+2. Under Inventories click on the `Workshop Inventory`.
 
     ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
 

@@ -121,7 +121,7 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
-        - restart_apache
+      - restart_apache
   handlers:
     - name: restart_apache
       service:

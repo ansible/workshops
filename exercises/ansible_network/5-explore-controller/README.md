@@ -50,7 +50,6 @@ Explore and understand the lab environment.  This exercise will cover
 
    ![version info window](images/automation_controller_about_info.png)
 
-   Take note that both the Automation controller version and the Ansible Engine version are provided here.
 
 ### Step 2: Examine the Automation controller Inventory
 
@@ -64,7 +63,7 @@ An inventory is required for Automation controller to be able to run jobs.  An i
 
     ![Inventories Button](images/automation_controller_inventories.png)
 
-2. Under Inventories there will be two inventories, the `Demo Inventory` and the `Workshop Inventory`.  Click on the `Workshop Inventory`.
+2. Under Inventories click on the `Workshop Inventory`.
 
     ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
 
@@ -100,7 +99,7 @@ A project is how Ansible Playbooks are imported into Automation controller.  You
 
    ![Workshop Project Link](images/automation_controller_projects.png)
 
-2. Under **PROJECTS** there will be two pre-configured projects, `Ansible official demo project` and the `Workshop Project`.  
+2. Under **PROJECTS** there will be a `Workshop Project`.  
 
     ![Workshop Project Link](images/workshop_project.png)
 

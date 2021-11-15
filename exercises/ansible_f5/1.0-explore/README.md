@@ -131,7 +131,6 @@ ansible-navigator:
     volume-mounts:
     - src: "/etc/ansible/"
       dest: "/etc/ansible/"
-      label: "Z"
 ```
 
 Note the following parameters within the `ansible-navigator.yml` file:

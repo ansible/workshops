@@ -1,13 +1,13 @@
 ---
 - name: change password to workshop default
   ansible.netcommon.cli_command:
-    command: "{{item}}"
+    command: "{{ item }}"
     prompt:
       - "New password"
       - "Retype new password"
     answer:
-      - "{{admin_password}}1"
-      - "{{admin_password}}1"
+      - "{{ admin_password }}1"
+      - "{{ admin_password }}1"
     check_all: true
   loop:
     - "configure"

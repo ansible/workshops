@@ -151,6 +151,7 @@
   register: s3_result
   until:
     - s3_result.failed == false
+  when: dns_type == "aws"
 
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:

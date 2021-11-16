@@ -18,10 +18,22 @@
     - name: checking for base64_manifest since no manifest.zip found
       debug:
         msg: checking for variable base64_manifest
+
+    - when:
+        - base64_manifest is not defined
+        - aws_workshops_data.base64_manifest is defined
+      block:
+        - name: Set the manifest to the secret
+          set_fact:
+            base64_manifest: "{{ aws_workshops_data.base64_manifest }}"
+
     - name: fail if there is also no base64_manifest
       fail:
         msg: no manifest.zip file found and no base64_manifest variable found
-      when: base64_manifest is not defined
+      when:
+        - base64_manifest is not defined
+        - aws_workshops_data.base64_manifest is not defined
+
     - name: Rescue worked, base64 var found
       debug:
         msg: The variable base64_manifest was located

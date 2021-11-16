@@ -33,8 +33,12 @@
         - name: build workshop into collection
           shell: "ansible-galaxy collection build --verbose --force --output-path build/ {{ playbook_dir }}/.."
 
+        # - name: install newly created collection
+        #   shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz"
+
         - name: install newly created collection
-          shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz"
+          shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz -p {{ playbook_dir }}/workshop_collections"
+
 
         - name: Delete content & directory
           file:

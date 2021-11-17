@@ -16,7 +16,7 @@
 
 # Objectif
 
-Démontrez l'utilisation des [questionnaires](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys) dans Ansible Tower. Les questionnaires définissent des variables supplémentaires pour le playbook, comme le fait de «Demander des variables supplémentaires», mais de manière conviviale par questions et réponses. Les questionnaires permettent également de valider les entrées des utilisateurs.
+Démontrez l'utilisation des [questionnaires](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys) dans Ansible Tower. Les questionnaires définissent des variables supplémentaires pour le playbook, comme le fait de «Demander des variables supplémentaires», mais de manière conviviale par des questions et des réponses. Les questionnaires permettent également de valider les entrées des utilisateurs.
 
 # Guide
 
@@ -34,9 +34,9 @@ De plus, le rôle s'assurera également que la configuration d'Apache est correc
 >
 > La fonction de questionnaire ne fournit qu'une simple requête de données - elle ne prend pas en charge les principes à quatre yeux, les requêtes basées sur des données dynamiques ou des menus imbriqués.
 
-## Utilisation d un rôle externe
+## Utilisation du role de configuration Apache
 
-Le Playbook et le rôle sont déjà disponible dans le référentiel Github **https://github.com/ansible/workshop-examples** dans le répertoire `rhel/apache`**`.
+Le Playbook et le rôle sont déjà disponible dans le référentiel Github **https://github.com/ansible/workshop-examples** dans le répertoire `rhel/apache`.
 
  Rendez-vous sur l'interface utilisateur de Github et jetez un œil au contenu: le playbook `apache_role_install.yml` fait simplement référence au rôle. Le rôle peut être trouvé dans le sous-répertoire `roles/role_apache`.
 
@@ -47,11 +47,11 @@ Que fait ce Playbook? Il crée un fichier (**dest**) sur les hôtes gérés à p
 
 Le rôle déploie également une configuration statique pour Apache. Il s'agit de s'assurer que toutes les modifications effectuées dans les chapitres précédents sont écrasées et que vos exemples fonctionnent correctement.
 
-Étant donné que le Playbook et le rôle se trouvent dans le même référentiel Github que le Playbook `apache_install.yml`, vous n'avez pas à configurer un nouveau projet pour cet exercice.
+Étant donné que le Playbook et le rôle se trouvent dans le même référentiel Github que `apache_install.yml`, vous n'avez pas à configurer un nouveau projet pour cet exercice.
 
 ## Création d un questionnaire
 
-Vous créez maintenant un nouveau modèle qui inclut un forulaire.
+Vous créez maintenant un nouveau modèle qui inclut un questionnaire.
 
 ### Création d un modèle
 

@@ -31,7 +31,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 | Workshop   | Public Deck  | Red Hat Internal | Exercises  | Workshop Type Var   |
 |---|---|---|---|---|
-| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel_90)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel_90.pdf) | [Google Source](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
+| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel_90)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel_90.pdf) | [Google Source](https://docs.google.com/presentation/d/1PY1uMh76ChJ0l4v4EANkzwWGXOIT4ktzyu2QOE2MKIk) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
 
 ## Self Paced Exercises
 

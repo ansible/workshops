@@ -4,12 +4,12 @@
 
 All slides are currently managed internally at Red Hat Ansible with Google Slides. **Google Slides decks can only be accessed by Red Hat employees. For external access to decks, please use the pdf versions shown above.**
 
-- [Ansible Network Automation](https://docs.google.com/presentation/d/1pMnLskQjDywwglZRKXS16rPFJip94obyzND_iKzaidQ)
+- [Ansible Network Automation](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ)
 - [Ansible F5 Automation](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84)
-- [Ansible RHEL Automation](https://docs.google.com/presentation/d/13V_-MfJMslBJWGohllS9NErapClMAKY8iOP4_BI12xI)
-- [Ansible RHEL_90 Automation](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y)
+- [Ansible RHEL Automation](https://docs.google.com/presentation/d/1O2Gj5r_fhjM5Pi5FizrZRInmZ37IlpeKPTP6jSZxEKs)
+- [Ansible RHEL_90 Automation](https://docs.google.com/presentation/d/1PY1uMh76ChJ0l4v4EANkzwWGXOIT4ktzyu2QOE2MKIk)
 - [Ansible Windows Automation](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE)
-- [Ansible Security Automation](https://docs.google.com/presentation/d/1DaHZvKHORS__YoqlRIy0lf4iag7kVtg6P3GJ6sNfnsI)
+- [Ansible Security Automation](https://docs.google.com/presentation/d/19gVCBz1BmxC15tDDj-FUlUd_jUUUKay81E8F24cyUjk)
 - [Ansible Best Practices](https://docs.google.com/presentation/d/1khWEuTXGQbJ-hQ4cneigDgAJ__tPccch7Q5Xqj1rkio)
 
 **Why use Google Slides?**

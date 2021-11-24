@@ -9,3 +9,16 @@ network_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-s
 rhel_90_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
 windows_ee: "quay.io/acme_corp/windows_ee:latest"
 smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:1.0.4"
+
+
+# EE registry name used in installer and EE controller credential
+ee_registry_name: registry.redhat.io
+
+# EEs to download for awx user
+ee_images:
+  - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.1"
+  - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.1"
+  - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.1"
+
+# Default EE that uses the registry credential (Default execution environment)
+ee_default_image: "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.1"

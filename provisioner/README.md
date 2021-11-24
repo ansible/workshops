@@ -94,6 +94,28 @@ ec2_xtra:
     username: ec2-user
     os_type: linux
     size: r5b.2xlarge
+
+# Registry name to download execution environments
+# Default: registry.redhat.io
+# ee_registry_name: registry.redhat.io
+
+## 
+# List of execution environments to download during controller installation:
+# Default:
+# ee_images:
+#   - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.1"
+#   - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.1"
+#   - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.1"
+##
+# ee_images:
+
+##
+# "Default execution environment" for controller
+# Default:
+# ee_default_image: "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.1"
+##
+# ee_default_image:
+
 ```
 ### Automation controller license
 

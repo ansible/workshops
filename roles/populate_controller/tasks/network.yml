@@ -26,6 +26,8 @@
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"
     validate_certs: false
+    galaxy_credentials:
+      - "Ansible Galaxy"
 
 - name: create compute organization
   awx.awx.organization:
@@ -36,6 +38,8 @@
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"
     validate_certs: false
+    galaxy_credentials:
+      - "Ansible Galaxy"
 
 # teams
 - name: create netops team

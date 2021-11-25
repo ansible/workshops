@@ -56,12 +56,22 @@
   debug:
     msg: '{{ check2.json }}'
 
-- name: install ansible-tower-cli and requests
+#- name: install ansible-tower-cli and requests
+#  become: true
+#  pip:
+#    name:
+#      - ansible-tower-cli
+#      - "requests==2.6.0"
+#    state: latest
+
+# Certbot dependancy / acme, needs later version of requests library than task above^^
+- name: install ansible-tower-cli and requests >2.14
   become: true
-  pip:
+  ansible.builtin.pip:
     name:
       - ansible-tower-cli
-      - "requests==2.6.0"
+      - "requests==2.14.2"
+    executable: '/usr/bin/pip3.6'
     state: latest
 
 - name: load license block

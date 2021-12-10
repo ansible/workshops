@@ -12,3 +12,9 @@
     - name: check if aap.tar.gz exists
       ansible.builtin.stat:
         path: "{{ playbook_dir }}/aap.tar.gz"
+     register: stat_var
+
+    - name: fail if file aap.tar.gz not found
+      fail:
+        msg: "This host has already had this playbook run against it"
+      when: not stat_var.stat.exists

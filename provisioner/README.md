@@ -115,7 +115,7 @@ There are currently two ways to integrate your license file with the workshop:
 
   The second way is to turn the `manifest.zip `into a base64 variable.
 
-    This allows the `manifest.zip` to be treated like an Ansible variable so that it can work with CI systems like Github Actions or Zuul.  This also makes it easier to work with Automation controller, in case you are spinning up a workshop using Automation controller itself.
+  This allows the `manifest.zip` to be treated like an Ansible variable so that it can work with CI systems like Github Actions or Zuul.  This also makes it easier to work with Automation controller, in case you are spinning up a workshop using Automation controller itself.
 
   To do this use the `base64` command to encode the manifest:
 

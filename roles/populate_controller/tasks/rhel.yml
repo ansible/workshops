@@ -8,13 +8,4 @@
     controller_password: "{{ admin_password }}"
   include_role:
     name: redhat_cop.controller_configuration.projects
-
-- name: install job templates
-  when: controller_templates is defined
-  vars:
-    controller_validate_certs: false
-    controller_hostname: "https://{{ ansible_host }}"
-    controller_username: "admin"
-    controller_password: "{{ admin_password }}"
-  include_role:
     name: redhat_cop.controller_configuration.job_templates

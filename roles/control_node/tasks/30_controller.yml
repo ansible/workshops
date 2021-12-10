@@ -1,16 +1,7 @@
 ---
-- name: read in inventory data to determine if tower or controller
-  slurp:
-    src: "{{ aap_dir }}/inventory"
-  register: file_contents
-
-- name: controller or tower
-  set_fact:
-    controller_or_tower: "{{ 'controller' if 'automationcontroller' in file_contents['content'] | b64decode else 'tower' }}"
-
 - name: template inventory file for Ansible Controller Install
   template:
-    src: "{{ controller_or_tower }}_install.j2"
+    src: "controller_install.j2"
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is not defined or not create_cluster|bool
 

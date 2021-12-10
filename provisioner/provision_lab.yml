@@ -39,7 +39,6 @@
         - name: install newly created collection
           shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz -p {{ playbook_dir }}/workshop_collections"
 
-
         - name: Delete content & directory
           file:
             state: absent

@@ -100,7 +100,7 @@ Within the **Machine Credential** window, select **Workshop Credentials** and cl
 
 > **Tip**
 >
-> The output of the results is displayed once the command has completed. 
+> The output of the results is displayed once the command has completed.
 >
 
 <hr>
@@ -164,7 +164,7 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 
 * Click **Run Command** button. In the next screen you have to specify the ad hoc command.
 
-Within the **Details** window, select **Module** `yum`, in **Arguments** type `name=tmux` and click **Next**.
+Within the **Details** window, select **Module** `yum`, in **Arguments** type `name=tmux`, check **Enable privilege escalation** and click **Next**.
 
 Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
 

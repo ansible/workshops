@@ -7,5 +7,7 @@
     controller_username: "admin"
     controller_password: "{{ admin_password }}"
   include_role:
-    name: redhat_cop.controller_configuration.projects
-    name: redhat_cop.controller_configuration.job_templates
+    name: '{{ item }}'
+  loop:
+    - 'redhat_cop.controller_configuration.projects'
+    - 'redhat_cop.controller_configuration.job_templates'

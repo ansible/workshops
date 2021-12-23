@@ -5,13 +5,17 @@
 
 ## Table Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-  * [Lab scenario](#lab-scenario)
-  * [Set up projects](#set-up-projects)
-  * [Set up job templates](#set-up-job-templates)
-  * [Set up the workflow](#set-up-the-workflow)
-  * [Launch workflow](#launch-workflow)
+- [Workshop Exercise - Workflows](#workshop-exercise---workflows)
+  - [Table Contents](#table-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Lab scenario](#lab-scenario)
+      - [Web operations team](#web-operations-team)
+      - [Web developers team](#web-developers-team)
+    - [Set up projects](#set-up-projects)
+    - [Set up job templates](#set-up-job-templates)
+    - [Set up the workflow](#set-up-the-workflow)
+    - [Launch workflow](#launch-workflow)
 
 ## Objective
 
@@ -39,11 +43,13 @@ When there is a new Node.js server to deploy, two things need to happen:
 
 #### Web operations team
 
-* `node.js` needs to be installed, the firewall needs to be opened and `node.js` should get started.
+* `httpd`, `firewalld`, and `node.js` need to be installed, `SELinux` settings configured, the firewall needs to be opened, and `httpd` and `node.js` should get started.
 
 #### Web developers team
 
-* The most recent version of the web application needs to be deployed.
+* The most recent version of the web application needs to be deployed and `node.js` needs to be restarted.
+
+In other words, the Web operations team prepares a server for application deployment, and the Web developers team deploys the application on the server.
 
 ---
 

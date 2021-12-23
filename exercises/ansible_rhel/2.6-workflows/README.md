@@ -285,15 +285,17 @@ A new node is shown, connected to the **START** button with the name of the job 
 
 Hover over the node and click the (+) sign to add a new node.
 * For the **Run Type** select **On Success** (default) and click **Next**.
-* For **Node Type** select **Job Template** (default) and choose the **Node.js Deploy** job template. Click **Save**.
-
-  ![Add Nodejs](images/add_node_nodejs.png)
 
 > **Tip**
 >
-> The type allows for more complex workflows. You could lay out different execution paths for successful and for failed playbook runs.
+> The run type allows for more complex workflows. You could lay out different execution paths for successful and for failed playbook runs.
 
-* Click **Save** in the top right corner of the **Visualizier** view.
+* For **Node Type** select **Job Template** (default) and choose the **Node.js Deploy** job template. 
+* Click **Save**.
+
+  ![Add Nodejs](images/add_node_nodejs.png)
+
+Click **Save** in the top right corner of the **Visualizier** view.
 
 > **Tip**
 >

@@ -313,15 +313,15 @@ NOTE: Where `XX` is the number of the job run.
 
 ![jobs view of workflow](images/job_workflow.png)
 
-After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
+After the job was finished, check if everything worked fine: from your control host run the following curl command against `node1`, `node2` and `node3`. The output of each curl command should be `Hello World`.
 
 ```bash
-#> curl http://nodeX/nodejs
+[student<X>@ansible-1 ansible-files]$ curl http://nodeX/nodejs
+Hello World
 ```
 
-NOTE: `X` can be replaced with the appropriate number of the node you are checking.
+NOTE: `X` should be replaced with the appropriate number of the node you are checking.
 
-You can also execute curl on the control host, pointing it towards the nodes and query the `nodejs` path, it should also show the simple nodejs application.
 
 ---
 **Navigation**

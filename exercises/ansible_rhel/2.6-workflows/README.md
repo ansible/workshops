@@ -252,7 +252,7 @@ Click **Save**
 
 ### Set up the workflow
 
-Set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Add job template** and **Add workflow template** when adding a template.
+Workflows are configured in the **Templates** view, you might have noticed you can choose between **Add job template** and **Add workflow template** when adding a template.
 
 Within **Resources** -> **Templates**, click the **Add** button and choose **Add workflow template**:
 
@@ -273,7 +273,7 @@ After saving the template the **Workflow Visualizer** opens to allow you to buil
 
   ![start](images/start.png)
 
-Click on the **Start** button, a **Add Node** window opens. Assign an action to the node, via node type by selecting **Job Template**.
+Click on the **Start** button, an **Add Node** window opens. Assign an action to the node, via node type by selecting **Job Template**.
 
 Select the **Web App Deploy** job template and click **Save**.
 

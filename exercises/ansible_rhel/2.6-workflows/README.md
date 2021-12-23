@@ -279,7 +279,7 @@ Select the **Web App Deploy** job template and click **Save**.
 
   ![Add Node](images/add_node.png)
 
-A new node is shown, connect to the **START** button with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).
+A new node is shown, connected to the **START** button with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).
 
   ![workflow node](images/workflow_node.png)
 

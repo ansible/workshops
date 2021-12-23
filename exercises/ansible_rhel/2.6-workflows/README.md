@@ -275,18 +275,17 @@ After saving the template the **Workflow Visualizer** opens to allow you to buil
 
 Click on the **Start** button, a **Add Node** window opens. Assign an action to the node, via node type by selecting **Job Template**.
 
-In this lab we’ll link our two jobs together, so select the **Web App Deploy** job template and click **Save**.
+Select the **Web App Deploy** job template and click **Save**.
 
   ![Add Node](images/add_node.png)
 
-* The node gets annotated with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).
+A new node is shown, connect to the **START** button with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).
 
   ![workflow node](images/workflow_node.png)
 
-* Hover over the node and click the (+) sign to add a new node.
-* For the **Run Type** select **On Success** (default).
-* For **Node Type** select **Job Template** and choose the **Node.js Deploy** job template. 
-Click **Save**.
+Hover over the node and click the (+) sign to add a new node.
+* For the **Run Type** select **On Success** (default) and click **Next**.
+* For **Node Type** select **Job Template** (default) and choose the **Node.js Deploy** job template. Click **Save**.
 
   ![Add Nodejs](images/add_node_nodejs.png)
 

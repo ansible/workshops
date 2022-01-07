@@ -85,6 +85,9 @@ controllerinstall: true
 # forces ansible.workshops collection to install latest edits every time
 developer_mode: true
 
+# SHA value of targeted AAP bundle setup files. Default AAP 2.1 bundle setup
+provided_sha_value: ea2843fae672274cb1b32447c9a54c627aa5bdf5577d9a6c7f957efe68be8c01
+
 # default vars for ec2 AMIs (ec2_info) are located in provisioner/roles/manage_ec2_instances/defaults/main/main.yml
 # select ec2_info AMI vars can be overwritten via ec2_xtra vars, e.g.:
 ec2_xtra:

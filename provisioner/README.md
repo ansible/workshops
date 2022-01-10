@@ -85,7 +85,7 @@ controllerinstall: true
 # forces ansible.workshops collection to install latest edits every time
 developer_mode: true
 
-# SHA value of targeted AAP bundle setup files. Default AAP 2.1 bundle setup
+# SHA value of targeted AAP bundle setup files.
 provided_sha_value: ea2843fae672274cb1b32447c9a54c627aa5bdf5577d9a6c7f957efe68be8c01
 
 # Automation controller install setup command. Default: "./setup.sh -e gpgcheck=0" if undefined or empty

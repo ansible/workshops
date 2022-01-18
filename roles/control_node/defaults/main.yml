@@ -14,11 +14,11 @@ smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:1.0.4"
 # EE registry name used in installer and EE controller credential
 ee_registry_name: registry.redhat.io
 
-# EEs to download for awx user
+# List of execution environments to download during controller installation:
 ee_images:
-  - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.1"
-  - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.1"
-  - "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.1"
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-29-rhel8:latest"
+   - "{{ ee_registry_name }}/ee-supported-rhel8:latest"
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-minimal-rhel8:latest"
 
 # Default EE that uses the registry credential (Default execution environment)
 ee_default_image: "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.1"

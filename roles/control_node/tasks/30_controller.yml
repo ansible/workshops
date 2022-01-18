@@ -1,16 +1,7 @@
 ---
-- name: read in inventory data to determine if tower or controller
-  slurp:
-    src: "{{ aap_dir }}/inventory"
-  register: file_contents
-
-- name: controller or tower
-  set_fact:
-    controller_or_tower: "{{ 'controller' if 'automationcontroller' in file_contents['content'] | b64decode else 'tower' }}"
-
 - name: template inventory file for Ansible Controller Install
   template:
-    src: "{{ controller_or_tower }}_install.j2"
+    src: "controller_install.j2"
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is not defined or not create_cluster|bool
 
@@ -56,12 +47,22 @@
   debug:
     msg: '{{ check2.json }}'
 
-- name: install ansible-tower-cli and requests
+#- name: install ansible-tower-cli and requests
+#  become: true
+#  pip:
+#    name:
+#      - ansible-tower-cli
+#      - "requests==2.6.0"
+#    state: latest
+
+# Certbot dependancy / acme, needs later version of requests library than task above^^
+- name: install ansible-tower-cli and requests >2.14
   become: true
-  pip:
+  ansible.builtin.pip:
     name:
       - ansible-tower-cli
-      - "requests==2.6.0"
+      - "requests==2.14.2"
+    executable: '/usr/bin/pip3.6'
     state: latest
 
 - name: load license block

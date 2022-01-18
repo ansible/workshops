@@ -42,8 +42,8 @@ $ ansible-navigator
 screenshot of `ansible-navigator`:
 ![ansible-navigator interactive mode](images/ansible-navigator-interactive.png)
 
-In the above screenshot on line **9** we can see:
-
+In the above screenshot we can see a line for module or plugin documentation:
+ 
 ```
 `:doc <plugin>`                 Review documentation for a module or plugin
  ```

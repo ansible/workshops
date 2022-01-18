@@ -39,11 +39,13 @@ When there is a new Node.js server to deploy, two things need to happen:
 
 #### Web operations team
 
-* `node.js` needs to be installed, the firewall needs to be opened and `node.js` should get started.
+* `httpd`, `firewalld`, and `node.js` need to be installed, `SELinux` settings configured, the firewall needs to be opened, and `httpd` and `node.js` should get started.
 
 #### Web developers team
 
-* The most recent version of the web application needs to be deployed.
+* The most recent version of the web application needs to be deployed and `node.js` needs to be restarted.
+
+In other words, the Web operations team prepares a server for application deployment, and the Web developers team deploys the application on the server.
 
 ---
 
@@ -246,7 +248,7 @@ Click **Save**
 
 ### Set up the workflow
 
-Set up the workflow. Workflows are configured in the **Templates** view, you might have noticed you can choose between **Add job template** and **Add workflow template** when adding a template.
+Workflows are configured in the **Templates** view, you might have noticed you can choose between **Add job template** and **Add workflow template** when adding a template.
 
 Within **Resources** -> **Templates**, click the **Add** button and choose **Add workflow template**:
 
@@ -265,30 +267,31 @@ Click **Save**
 
 After saving the template the **Workflow Visualizer** opens to allow you to build a workflow. You can later open the **Workflow Visualizer** again by using the button on the template details page and selecting **Visualizer** from the menu.
 
-* Click on the **Start** button, a **Add Node|Web App Deploy** window opens. Assign an action to the node, via node type by selecting **Job Template**.
-
   ![start](images/start.png)
 
-  ![Add Nodejs](images/add_node_nodejs.png)
+Click on the **Start** button, an **Add Node** window opens. Assign an action to the node, via node     type by selecting **Job Template**.
 
-* In this lab we’ll link our two jobs together, so select the **Node.js Deploy** job template and click **Save**.
+Select the **Web App Deploy** job template and click **Save**.
 
-* The node gets annotated with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).
+  ![Add Node](images/add_node.png)
+
+A new node is shown, connected to the **START** button with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).
 
   ![workflow node](images/workflow_node.png)
 
-* Hover over the node and click the (+) sign to add a new node.
-* For the **Run Type** select **On Success** (default).
-* For **Node Type** select **Job Template** and choose the **Web App Deploy** job template. 
-Click **Save**.
-
-![Add Node](images/add_node.png)
+Hover over the node and click the (+) sign to add a new node.
+* For the **Run Type** select **On Success** (default) and click **Next**.
 
 > **Tip**
 >
-> The type allows for more complex workflows. You could lay out different execution paths for successful and for failed playbook runs.
+> The run type allows for more complex workflows. You could lay out different execution paths for successful and for failed playbook runs.
 
-* Click **Save** in the top right corner of the **Visualizier** view.
+* For **Node Type** select **Job Template** (default) and choose the **Node.js Deploy** job template.
+Click **Save**.
+
+  ![Add Nodejs](images/add_node_nodejs.png)
+
+Click **Save** in the top right corner of the **Visualizier** view.
 
 > **Tip**
 >
@@ -306,15 +309,15 @@ NOTE: Where `XX` is the number of the job run.
 
 ![jobs view of workflow](images/job_workflow.png)
 
-After the job was finished, check if everything worked fine: log into `node1`, `node2` or `node3` from your control host and run:
+After the job was finished, check if everything worked fine: from your control host run the following curl command against `node1`, `node2` and `node3`. The output of each curl command should be `Hello World`.
 
 ```bash
-#> curl http://nodeX/nodejs
+[student<X>@ansible-1 ansible-files]$ curl http://nodeX/nodejs
+Hello World
 ```
 
-NOTE: `X` can be replaced with the appropriate number of the node you are checking.
+NOTE: `X` should be replaced with the appropriate number of the node you are checking.
 
-You can also execute curl on the control host, pointing it towards the nodes and query the `nodejs` path, it should also show the simple nodejs application.
 
 ---
 **Navigation**

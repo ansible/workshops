@@ -102,7 +102,7 @@
   containers.podman.podman_login:
     username: '{{ redhat_username }}'
     password: '{{ redhat_password }}'
-    registry: registry.redhat.io
+    registry: '{{ ee_registry_name }}'
   become_user: "awx"
 
 - name: Mod containers.conf to utilize max of 10 parallel threads
@@ -116,10 +116,7 @@
   become_user: "awx"
   containers.podman.podman_image:
     name: "{{ item }}"
-  loop:
-    - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
-    - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0"
-    - "registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0"
+  loop: "{{ ee_images }}"
   register: podman_pull_supported
   until: podman_pull_supported is not failed
   retries: 5
@@ -137,7 +134,7 @@
 
 - name: create container registry credential
   awx.awx.credential:
-    name: registry.redhat.io credential
+    name: '{{ ee_registry_name }} credential'
     organization: Default
     credential_type: Container Registry
     controller_host: "https://{{ ansible_host }}"
@@ -147,12 +144,12 @@
     inputs:
       username: "{{ redhat_username }}"
       password: "{{ redhat_password }}"
-      host: "registry.redhat.io"
+      host: "{{ ee_registry_name }}"
 
 - name: update default EE to use credential
   awx.awx.execution_environment:
     name: "Default execution environment"
-    image: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+    image: "{{ ee_default_image }}"
     pull: missing
     credential: "registry.redhat.io credential"
     controller_username: admin

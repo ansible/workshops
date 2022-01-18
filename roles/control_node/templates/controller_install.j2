@@ -21,3 +21,7 @@ pg_sslmode='prefer'  # set to 'verify-full' for client-side enforced SSL
 gpgcheck='{{ gpgcheck | default(1)}}'
 aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'
 ignore_preflight_errors = True
+
+registry_url='{{ ee_registry_name }}'
+registry_username='{{ redhat_username }}'
+registry_password='{{ redhat_password }}'

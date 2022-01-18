@@ -17,7 +17,7 @@ ee_registry_name: registry.redhat.io
 # List of execution environments to download during controller installation:
 ee_images:
    - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-29-rhel8:latest"
-   - "{{ ee_registry_name }}/ee-supported-rhel8:latest"
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-supported-rhel8:latest"
    - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-minimal-rhel8:latest"
 
 # Default EE that uses the registry credential (Default execution environment)

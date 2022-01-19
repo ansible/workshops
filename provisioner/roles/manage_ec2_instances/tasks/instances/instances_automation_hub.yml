@@ -24,7 +24,7 @@
       short_name: "automation-hub"
       long_name: "automation-hub.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default ('') }}"
       ansible-workshops: "true"
-      owner: "{{ aws_user }}"      
+      owner: "{{ aws_user }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

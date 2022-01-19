@@ -76,8 +76,6 @@
     - {include_role: {name: ansible.workshops.workshop_attendance}, when: attendance}
     - {include_role: {name: ansible.workshops.private_automation_hub}, when: automation_hub}
 
-
-
     - name: Remove workshop local files
       file:
         dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}"

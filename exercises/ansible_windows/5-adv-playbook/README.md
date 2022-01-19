@@ -412,7 +412,7 @@ Complete the form using the following values
 | Execution Environment     | windows workshop execution environment   |      |
 | Project     | Ansible Workshop Project   |      |
 | Playbook    | `iis_advanced/site.yml`    |      |
-| Credentials  | Windows Credential            |      |
+| Credentials  | Workshop Credential            |      |
 | OPTIONS     | [\*] Enable Fact Storage         |      |
 
 Step 3

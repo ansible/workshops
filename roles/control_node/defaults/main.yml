@@ -21,6 +21,6 @@ ee_images:
    - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-minimal-rhel8:latest"
 
 # Default EE that uses the registry credential (Default execution environment)
-ee_default_image: "{{ ee_registry_name }}/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.1"
+ee_default_image: "{{ ee_registry_name }}/ansible-automation-platform-21/ee-supported-rhel8:latest"
 # Controller install command
 controller_install_command: "./setup.sh -e gpgcheck=0"

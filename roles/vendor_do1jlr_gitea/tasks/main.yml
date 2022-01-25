@@ -1,0 +1,56 @@
+---
+- name: perform optional versionscheck
+  ansible.builtin.include_tasks: versioncheck.yml
+  when: submodules_versioncheck|bool
+
+- name: Gather installed packages for checks later on
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Gather variables for each operating system
+  ansible.builtin.include_vars: "{{ lookup('first_found', gitea_variables) }}"
+
+- name: Gather versioning information
+  ansible.builtin.include_tasks: set_version.yml
+
+- name: backup gitea before update
+  ansible.builtin.include_tasks: backup.yml
+  when: gitea_backup_on_upgrade|bool
+
+- name: create gitea user and role
+  ansible.builtin.include_tasks: create_user.yml
+
+- name: install or update gitea
+  ansible.builtin.include_tasks: install.yml
+
+- name: Create directorys
+  ansible.builtin.include_tasks: directory.yml
+
+- name: setup gitea systemd service
+  ansible.builtin.include_tasks: install_systemd.yml
+  when: ansible_service_mgr == "systemd"
+
+- name: generate JWT Secrets if undefined
+  ansible.builtin.include_tasks: jwt_secrets.yml
+
+- name: generate gitea secrets if undefined
+  ansible.builtin.include_tasks: gitea_secrets.yml
+
+- name: configure gitea
+  ansible.builtin.include_tasks: configure.yml
+
+- name: deploy optional fail2ban rules
+  ansible.builtin.include_tasks: fail2ban.yml
+  when: gitea_fail2ban_enabled|bool
+
+- name: optionally customize gitea
+  ansible.builtin.include_tasks: customize_logo.yml
+  when: gitea_customize_logo|bool
+
+- name: optionally customize footer
+  ansible.builtin.include_tasks: customize_footer.yml
+  when: gitea_customize_footer|bool
+
+- name: optionally deploy public files
+  ansible.builtin.include_tasks: customize_public_files.yml
+  when: gitea_customize_files|bool

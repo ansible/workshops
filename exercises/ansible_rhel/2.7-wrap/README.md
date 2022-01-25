@@ -24,7 +24,7 @@ This is the final challenge where we try to put most of what you have learned to
 
 ### Let’s set the stage
 
-Your operations team and your application development team likes what they see in Ansible Tower. To really use it in their environment they put together these requirements:
+Your operations team and your application development team likes what they see in Ansible automation controller. To really use it in their environment they put together these requirements:
 
 * All webservers (`node1`, `node2` and `node3`) should go in one group
 
@@ -41,7 +41,7 @@ Your operations team and your application development team likes what they see i
 
 ### The Git Repository
 
-All code is already in place - this is a Tower lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples). There you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
+All code is already in place - this is a automation controller lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples). There you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
 
 Compared to the previous Apache installation role there is a major difference: there are now two versions of an `index.html` template, and a task deploying the template file which has a variable as part of the source file name:
 
@@ -88,33 +88,90 @@ Compared to the previous Apache installation role there is a major difference: t
 
 ### Prepare Inventory
 
-There is of course more then one way to accomplish this, but here is what you should do:
+There is of course more then one way to accomplish this, but for the purposes of this lab, we will use Ansible automation controller.
 
-* Make sure all hosts are in the inventory group `Webserver`.
-* Define a variable `stage` with the value `dev` for the `Webserver` inventory:
+Within **Resources** -> **Inventories** and select 'Workshop Inventory'.
 
-  * Add `stage: dev` to the inventory `Webserver` by putting it into the **VARIABLES** field beneath the three start-yaml dashes.
+Within the **Groups** tab, click the **Add** button and create a new inventory group labeled `Webserver` and click **Save**.
 
-* In the same way add a variable `stage: prod` but this time only for `node2` (by clicking the hostname) so that it overrides the inventory variable.
+Within the **Details** tab of the `Webserver` group, click on **Edit**. Within the **Variables** textbox define a variable labeled `stage` with the value `dev` and click **Save**.
 
+Within the **Details** tab of the `Webserver` inventory, click the **Hosts** tab, click the **Add** button and **Add existing host**. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
+
+```yaml
+---
+stage: dev
+```
+
+Within **Resources** -> **Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
+
+
+Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save**.
+
+```yaml
+---
+ansible_host: <IP_of_node2>
+stage: prod
+```
 > **Tip**
 >
 > Make sure to keep the three dashes that mark the YAML start and the `ansible_host` line in place\!
 
 ### Create the Template
 
-* Create a new **Job Template** named `Create Web Content` that
+Within **Resources** -> **Templates**, select the **Add** button and **Add job template** as follows:
 
-  * targets the `Webserver` inventory
-  * uses the Playbook `rhel/apache/webcontent.yml` from the **Workshop Project** Project
-  * Defines two variables: `dev_content: default dev content` and `prod_content: default prod content` in the **EXTRA VARIABLES FIELD**
-  * Uses `Workshop Credentials` and runs with privilege escalation
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>Create Web Content</td>
+    </tr>
+    <tr>
+      <td>Job Type</td>
+      <td>Run</td>
+    </tr>
+    <tr>
+      <td>Inventory</td>
+      <td>Workshop Inventory</td>
+    </tr>
+    <tr>
+      <td>Project</td>
+      <td>Workshop Project</td>
+    </tr>
+    <tr>
+      <td>Execution Environment</td>
+      <td>Default execution environment</td>
+    </tr>
+    <tr>
+      <td>Playbook</td>
+      <td>rhel/apache/webcontent.yml</td>
+    </tr>
+    <tr>
+      <td>Credentials</td>
+      <td>Workshop Credential</td>
+    </tr>
+    <tr>
+      <td>Variables</td>
+      <td>dev_content: "default dev content", prod_content: "default prod content"</td>
+    </tr>
+    <tr>
+      <td>Options</td>
+      <td>Privilege Escalation</td>
+    </tr>
+  </table>
 
-* Save and run the template
+Click **Save**.
 
-### Check the results
+Run the template by clicking the **Launch** button.
 
-This time we use the power of Ansible to check the results: execute curl to get the web content from each node, orchestrated by an ad-hoc command on the command line of your Tower control host:
+
+### Check the Results
+
+This time we use the power of Ansible to check the results: execute uri to get the web content from each node, orchestrated by an Ansible playbook labeled `check_url.yml`
 
 > **Tip**
 >
@@ -122,68 +179,113 @@ This time we use the power of Ansible to check the results: execute curl to get 
 
 <!-- {% raw %} -->
 
+```yaml
+---
+- name: Check URL results
+  hosts: web
+
+  tasks:
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      uri:
+        url: "http://{{ ansible_host }}"
+        return_content: yes
+      register: content
+
+    - debug:
+       var: content.content
+```
+
 ```bash
-[student<X>@ansible-1 ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
- [WARNING]: Consider using the get_url or uri module rather than running 'curl'.  If you need to use command because get_url or uri is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in ansible.cfg to get rid of this message.
+[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+```
 
-node2 | CHANGED | rc=0 >>
-<body>
-<h1>This is a production webserver, take care!</h1>
-prod wweb
-</body>
+Snippet of output:
 
-node1 | CHANGED | rc=0 >>
-<body>
-<h1>This is a development webserver, have fun!</h1>
-dev wweb
-</body>
-
-node3 | CHANGED | rc=0 >>
-<body>
-<h1>This is a development webserver, have fun!</h1>
-dev wweb
-</body>
+```bash
+TASK [debug] *******************************************************************
+ok: [node1] => {
+    "content.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
+}
+ok: [node2] => {
+    "content.content": "<body>\n<h1>This is a production webserver, take care!</h1>\nprod wweb</body>\n"
+}
+ok: [node3] => {
+    "content.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
+}
 ```
 
 <!-- {% endraw %} -->
 
-Note the warning in the first line about not to use `curl` via the `command` module since there are better modules right within Ansible. We will come back to that in the next part.
-
 ### Add Survey
 
-* Add a survey to the Template to allow changing the variables `dev_content` and `prod_content`
-* Add permissions to the Team `Web Content` so the Template **Create Web Content** can be executed by `wweb`.
-* Run the survey as user `wweb`
+* Add a Survey to the template to allow changing the variables `dev_content` and `prod_content`.
+** In the Template, click the **Survey** tab and click the **Add** button.
+** Fill out the following information:
 
-Check the results again from your Tower control host. Since we got a warning last time using `curl` via the `command` module, this time we will use the dedicated `uri` module. As arguments it needs the actual URL and a flag to output the body in the results.
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Question</td>
+    <td>What should the value of dev_content be?</td>
+  </tr>
+  <tr>
+    <td>Answer Variable Name</td>
+    <td>dev_content</td>
+  </tr>
+  <tr>
+    <td>Answer Type</td>
+    <td>Text</td>
+  </tr>
+</table>
+
+* Click **Save**
+* Click the **Add** button
+
+In the same fashion add a second **Survey Question**
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Question</td>
+    <td>What should the value of prod_content be?</td>
+  </tr>
+  <tr>
+    <td>Answer Variable Name</td>
+    <td>prod_content</td>
+  </tr>
+  <tr>
+    <td>Answer Type</td>
+    <td>Text</td>
+  </tr>
+</table>
+
+* Click **Save**
+* Click the toggle to turn the Survey questions to **On**
+
+* Click **Preview** for the Survey
+
+* Add permissions to the team `Web Content` so the template **Create Web Content** can be executed by `wweb`.
+* Within the **Resources** -> **Templates**, click **Create Web Content** and add **Access** to the user `wweb` the ability to execute the template.
+  * **Select a Resource Type** -> click **Users**, click **Next**.
+  * **Select Items from List** -> select the checkbox `wweb`, click **Next**.
+  * **Select Roles to Apply** -> select the checkbox **Execute** and click **Save**.
+* Run the survey as user `wweb`
+  * Logout of the user `admin` of your Ansible automation controller.
+  * Login as `wweb` and go to **Resources** -> **Templates** and run the **Create Web Content** template.
+
+Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 
 <!-- {% raw %} -->
 
+
 ```bash
-[student<X>@ansible-1 ~]$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
-node3 | SUCCESS => {
-    "accept_ranges": "bytes",
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    },
-    "changed": false,
-    "connection": "close",
-    "content": "<body>\n<h1>This is a development webserver, have fun!</h1>\nwerners dev content\n</body>\n",
-    "content_length": "87",
-    "content_type": "text/html; charset=UTF-8",
-    "cookies": {},
-    "cookies_string": "",
-    "date": "Tue, 29 Oct 2019 11:14:24 GMT",
-    "elapsed": 0,
-    "etag": "\"57-5960ab74fc401\"",
-    "last_modified": "Tue, 29 Oct 2019 11:14:12 GMT",
-    "msg": "OK (87 bytes)",
-    "redirected": false,
-    "server": "Apache/2.4.6 (Red Hat Enterprise Linux)",
-    "status": 200,
-    "url": "http://18.205.236.208"
-}
-[...]
+[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 <!-- {% endraw %} -->
@@ -198,11 +300,11 @@ You have done all the required configuration steps in the lab already. If unsure
 
 ## The End
 
-Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible Tower as much as we enjoyed creating the labs.
+Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible automation controller as much as we enjoyed creating the labs.
 
 ----
 **Navigation**
 <br>
 [Previous Exercise](../2.6-workflows)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-automation-controller-exercises)

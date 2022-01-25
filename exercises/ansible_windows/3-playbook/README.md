@@ -4,27 +4,27 @@
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-Let’s begin by writing our first ansible **playbook**. The playbook is
+Let’s get started writing our first ansible **playbook**! The playbook is
 where you list the steps you would like to automate into a repeatable
-set of **plays** and **tasks**. To begin we will setup our directory
+set of **plays** and **tasks**. To begin, we will setup our directory
 structure for storing our playbooks. This directory structure will sync
 with a **source control management** (SCM) system to version our
-playbooks. We will be using **git** as out SCM.
+playbooks. We will be using **git** as our SCM.
 
-A playbook can have multiple plays and a play can have one or multiple
+A playbook can have multiple plays and a play can have one or more
 tasks. The goal of a **play** is to map a group of hosts. The goal of a
 **task** is to implement modules against those hosts.
 
-For our first playbook, we are only going to write 1 play and 3 tasks.
+For our first playbook, we are only going to write one play with three tasks.
 
 All of our playbooks will be stored in a single git **repository**.
 Multiple users can use the same repository and git will manage file
-conflicts and versions.
+conflicts and versions. In this environment, each student has sole access to a private repository.
 
 ## Overview
 
 Starting at this task we are going to use Visual Studio Code as our
-editor. In addition, we will use GitLab for source code control. This
+editor. In addition, we will use Gitea for source code control. This
 will allow us to minimize development work on the linux command line.
 Other editors or source code solutions can be used, but this will show
 the general workflow.
@@ -43,7 +43,7 @@ our playbook, and add just a couple of files.
 
 **Step 1:**
 
-Open Visual Studio Code
+Open Visual Studio Code.
 
 For this lab, we have already created a clone of your Git repository for
 you.
@@ -138,7 +138,7 @@ of this exercise.
 
 * These three lines are calling the Ansible module **`win_feature`** to
   install the IIS Web Server. [Click
-  here](http://docs.ansible.com/ansible/latest/win_feature_module.html)
+  here](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html)
   to see all options for the `win_feature` module.
 
 <!-- -->
@@ -152,7 +152,7 @@ of this exercise.
 * The next few lines are using the ansible module **win_service** to
   start the IIS service. The `win_service` module is the preferred way
   of controlling services on remote hosts. [Click
-  here](http://docs.ansible.com/ansible/latest/win_service_module.html)
+  here](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html)
   to learn more about the **`win_service`** module.
 
 <!-- {% raw %} -->
@@ -230,7 +230,7 @@ You are ready to automate!
 > Ansible (well, YAML really) can be a bit particular about formatting
 > especially around indentation/spacing. When you get back to the
 > office, read up on this [YAML
-> Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html) a bit more
+> Syntax](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) a bit more
 > and it will save you some headaches later. In the meantime, your
 > completed playbook should look like this. Take note of the spacing and
 > alignment.

@@ -1,0 +1,14 @@
+---
+- name: Ensure users
+  hosts: node1
+  become: true
+
+  tasks:
+    - name: Ensure three users are present
+      user:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - dev_user
+        - qa_user
+        - prod_user

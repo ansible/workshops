@@ -1,0 +1,33 @@
+---
+- name: check if aap.tar.gz exists
+  stat:
+    path: "{{ playbook_dir }}/aap.tar.gz"
+    checksum_algorithm: sha256
+  register: stat_var
+
+- name: attempt to download specified AAP
+  block:
+    - name: setup control node for workshop type
+      include_tasks: 10_download.yml
+  when: not stat_var.stat.exists or (stat_var.stat.exists and (stat_var.stat.checksum != provided_sha_value))
+
+  rescue:
+    - name: aap_download role has entered rescue stanza
+      debug:
+        msg: "download from access.redhat.com has failed, attempting to see if there is a cached aap.tar.gz file"
+
+    - name: fail if file aap.tar.gz not found
+      fail:
+        msg: "There was no app.tar.gz file found to install AAP"
+      when: not stat_var.stat.exists
+
+- name: check if aap.tar.gz again (post download)
+  stat:
+    path: "{{ playbook_dir }}/aap.tar.gz"
+    checksum_algorithm: sha256
+  register: stat_var
+
+- name: Verify sha256sum of aap.tar.gz
+  fail:
+    msg: "Failure, sha256sum does not match"
+  when: stat_var.stat.checksum != provided_sha_value

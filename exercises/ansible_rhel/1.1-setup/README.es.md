@@ -97,6 +97,6 @@ Pronto descubrirá que muchos capítulos de esta guía de laboratorio vienen con
 ----
 **Navegación**
 <br>
-[Próximo Ejercicio](../1.2-adhoc/README.es.md)
+[Próximo Ejercicio](../1.2-thebasics/README.es.md)
 
 [Haga clic aquí para volver al Taller Ansible for Red Hat Enterprise Linux](../README.es.md#section-1---ansible-engine-exercises)

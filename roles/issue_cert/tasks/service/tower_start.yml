@@ -1,0 +1,8 @@
+---
+- name: make sure Ansible Tower is online before changing base URL
+  service:
+    name: ansible-tower.service
+    state: started
+  register: start_tower
+  until: start_tower is not failed
+  retries: 5

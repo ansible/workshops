@@ -14,7 +14,9 @@ Ansible を利用することにより、タスクをシンプルかつ簡単に
 ハンドラーについても学びます。ハンドラーとは、特定のタスクが実行されたときにのみに追加で呼び出されるタスクです。例えば、httpd サービスの設定ファイルを変更した場合にのみ httpd サービスを再起動するというようなことが簡単に実現可能です。通常だと if 文で書いたり、複雑になりがちですよね。Ansible だと極めて簡単に記述する事が出来ます。  
 
 変数、ループ、およびハンドラーを完全に理解するには、 これらのテーマに関する以下の Ansible ドキュメントをご覧ください。  
-[Ansible 変数](http://docs.ansible.com/ansible/latest/playbooks_variables.html)　[Ansible ループ](http://docs.ansible.com/ansible/latest/playbooks_loops.html)　[Ansible ハンドラー](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)  
+[Ansible 変数](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+[Ansible ループ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+[Ansible ハンドラー](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#handlers)  
   
 ## Playbook の作成
 
@@ -125,7 +127,7 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 <body>
 
   <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-  <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}
+  <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
 
 </body>
 </html>
@@ -301,7 +303,7 @@ Playbook は以下のようになっているはずです。もう一度確認�
 
 > **Note**
 >
-> 基本的には、GitLab と Ansible Tower は自動では同期されません。つまり、今回のPlaybook の存在を Ansible Tower はまだ知りません。これを教えてあげる手段が、プロジェクトの同期です。やり方は・・・、そう、Ansible Tower の GUI の左ペインでプロジェクトをクリックして、丸くなった矢印をクリックですね！！  
+> 基本的には、GitLab と Automation Controller は自動では同期されません。つまり、今回のPlaybook の存在を Automation Controller はまだ知りません。これを教えてあげる手段が、プロジェクトの同期です。やり方は・・・、そう、Automation Controller の GUI の左ペインでプロジェクトをクリックして、丸くなった矢印をクリックですね！！  
 
 ### ステップ 2:
 

@@ -1,0 +1,8 @@
+---
+- name: make sure Automation Controller is online before changing base URL
+  service:
+    name: automation-controller.service
+    state: started
+  register: install_controller
+  until: install_controller is not failed
+  retries: 5

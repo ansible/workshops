@@ -1,2 +1,4 @@
 ---
 windows_async_timeout: 1000
+windows_ws_setup_myrtille_pkg: 'https://s3.amazonaws.com/ansible-security.workshop-files/Myrtille_2.5.5_x86_x64_Setup.exe'
+windows_ws_setup_cp_console_pkg: 'https://s3.amazonaws.com/ansible-security.workshop-files/Check_Point_SmartConsole_R80_40_jumbo_HF_B416_Win.exe'

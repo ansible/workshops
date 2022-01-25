@@ -10,7 +10,7 @@ Playbook には1つ以上のプレイがあり、プレイには1つまたは複
 
 最初の Playbook では、1つのプレイと3つのタスクを記述します。  
 
-今回の演習では、全ての Playbook は単一のGit **リポジトリ**に保存されています。Git の様な SCM は、複数のユーザーが同じリポジトリを使用できるため、Playbook の品質とバージョンを管理に有用です。Ansible Tower では簡単に SCM と連携する事が出来ます。  
+今回の演習では、全ての Playbook は単一のGit **リポジトリ**に保存されています。Git の様な SCM は、複数のユーザーが同じリポジトリを使用できるため、Playbook の品質とバージョンを管理に有用です。Automation Controller では簡単に SCM と連携する事が出来ます。  
 
 ## 概要
 
@@ -18,7 +18,7 @@ Playbook には1つ以上のプレイがあり、プレイには1つまたは複
 
 ### ステップ 1: Playbook のディレクトリ構造とファイルの作成
 
-Playbook のディレクトリ構造としては、[ベストプラクティス](http://docs.ansible.com/ansible/playbooks_best_practices.html)があります。Ansible の技術を習得する際には学習しておくことを強くお勧めします。ただこの演習で利用する Playbook は非常に基本的なものですので複雑なディレクトリ構造は必要ありません。  
+Playbook のディレクトリ構造としては、[ベストプラクティス](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)があります。Ansible の技術を習得する際には学習しておくことを強くお勧めします。ただこの演習で利用する Playbook は非常に基本的なものですので複雑なディレクトリ構造は必要ありません。  
 
 この演習ではまず、シンプルなディレクトリ構造を作成し、そこに Playbook 及び、関連するいくつかのファイルを追加します。  
 
@@ -103,7 +103,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
       state: present
 ```
 
-- 上記 3 行は、Ansible モジュール **`win_feature`**　を使って IIS Web サーバーをインストールしています。`win_feature` モジュールのすべてのオプションを表示します。win_feature モジュール詳細は[こちら](http://docs.ansible.com/ansible/latest/win_feature_module.html)をご参照ください。  
+- 上記 3 行は、Ansible モジュール **`win_feature`**　を使って IIS Web サーバーをインストールしています。`win_feature` モジュールのすべてのオプションを表示します。win_feature モジュール詳細は[こちら](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html)をご参照ください。  
 
 
 <!-- -->
@@ -113,7 +113,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
       state: started
 ```
 
-- 続くいくつかの行で、Ansible モジュール **win_service** を使って IIS サービスを起動しています。この win_service モジュールは windows ホストのサービス管理するために有用なモジュールです。win_service モジュール詳細は[こちら](http://docs.ansible.com/ansible/latest/win_service_module.html)をご参照ください。  
+- 続くいくつかの行で、Ansible モジュール **win_service** を使って IIS サービスを起動しています。この win_service モジュールは windows ホストのサービス管理するために有用なモジュールです。win_service モジュール詳細は[こちら](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html)をご参照ください。  
  
 
 <!-- {% raw %} -->
@@ -124,7 +124,7 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
 ```
 <!-- {% endraw %} -->
 
-- このタスクでは、win_copy モジュールを使用して、特定のコンテンツを含むファイルを対象ノードにコピーしています。 ここでは、変数を使用してコンテンツを取得しているため、少し表現が複雑になっています。変数については、後のレッスンで説明いたします。ここでは Ansible Tower から リモートホストに ファイル名 index.html としてファイルをコピーしていることだけ理解いただければ大丈夫です！    
+- このタスクでは、win_copy モジュールを使用して、特定のコンテンツを含むファイルを対象ノードにコピーしています。 ここでは、変数を使用してコンテンツを取得しているため、少し表現が複雑になっています。変数については、後のレッスンで説明いたします。ここでは Automation Controller から リモートホストに ファイル名 index.html としてファイルをコピーしていることだけ理解いただければ大丈夫です！    
 
 <!-- {% raw %} -->
 ```yaml
@@ -169,7 +169,7 @@ Playbook の記述が完了しましたので、保存しましょう。
 
 > **Note**
 >
-> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。YAML の書き方は、[こちら](http://docs.ansible.com/ansible/YAMLSyntax.html)をご確認ください。上記で完成した Playbook は次のようになります。スペースに特に注意してください。
+> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。YAML の書き方は、[こちら](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html)をご確認ください。上記で完成した Playbook は次のようになります。スペースに特に注意してください。
 
 <!-- {% raw %} -->
 ```yaml

@@ -18,20 +18,16 @@
 
 This exercise covers using Ansible to build two Apache web servers on Red Hat Enterprise Linux. This exercise covers the following Ansible fundamentals:
 
-* Understanding Ansible Module parameters
+* Understanding Ansible module parameters
 * Understanding and using the following modules
   * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
   * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
   * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
-* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible Modules can be idempotent
+* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible modules can be idempotent
 
 ## Guide
 
-While Ansible ad hoc commands are useful for simple operations, they are not suited for complex configuration management or orchestration scenarios. For such use cases *playbooks* are the way to go.
-
 Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
-
-A playbook is where you can take some of those ad-hoc commands you just ran and put them into a repeatable set of *plays* and *tasks*.
 
 A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, like the modules in the previous chapter. The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
 
@@ -51,9 +47,9 @@ There are some important concepts:
 
 * **hosts**: the managed hosts to perform the tasks on
 
-* **tasks**: the operations to be performed by invoking Ansible modules and passing them the necessary options.
+* **tasks**: the operations to be performed by invoking Ansible modules and passing them the necessary options
 
-* **become**: privilege escalation in Playbooks, same as using `-b` in the ad hoc command.
+* **become**: privilege escalation in playbooks
 
 > **Warning**
 >
@@ -67,7 +63,7 @@ A Playbook should be **idempotent**, so if a Playbook is run once to put the hos
 
 ### Step 2 - Creating a Directory Structure and File for your Playbook
 
-Enough theory, it’s time to create your first Ansible Playbook. In this lab you create a playbook to set up an Apache web server in three steps:
+Enough theory, it’s time to create your first Ansible playbook. In this lab you create a playbook to set up an Apache web server in three steps:
 
 1. Install httpd package
 2. Enable/start httpd service
@@ -139,21 +135,77 @@ Save your playbook and exit your editor.
 
 ### Step 3 - Running the Playbook
 
-Ansible Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new Playbook it’s a good idea to check for syntax errors:
+With the introduction of Ansible Automation Platform 2, several new key components are being introduced as a part of the overall developer experience. Execution environments have been introduced to provide predictable environments to be used during automation runtime. All collection dependencies are contained within the execution environment to ensure that automation created in development environments runs the same as in production environments.
+
+What do you find within an execution environment?
+
+* RHEL UBI 8
+* Ansible 2.9 or Ansible Core 2.11
+* Python 3.8
+* Any content Collections
+* Collection python or binary dependencies.
+
+Why use execution environments?
+
+They provide a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, Automation execution environments are container images that allow for easier administration of Ansible by the platform administrator.
+
+Considering the shift towards containerized execution of automation, automation development workflow and tooling that existed before Ansible Automation Platform 2 have had to be reimagined. In short, `ansible-navigator` replaces `ansible-playbook` and other `ansible-*` command line utilities.
+
+With this change, Ansible playbooks are executed using the `ansible-navigator` command on the control node.
+
+The prerequisites and best practices for using `ansible-navigator` have been done for you within this lab.
+
+These include:
+* Installing the `ansible-navigator` package
+* Creating a default settings `/home/student<X>/.ansible-navigator.yml` for all your projects (optional)
+* All execution environment (EE) logs are stored within `/home/student<X>/.ansible-navigator/logs/ansible-navigator.log`
+* Playbook artifacts are saved under `/tmp/artifact.json`
+
+For more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst)
+
+> **Tip**
+>
+> The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
+
+To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook --syntax-check apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml
 ```
 
-Now you should be ready to run your playbook:
+> **Tip**
+>
+> The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student<X>/lab_inventory/hosts`
+
+When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+  PLAY NAME                        OK  CHANGED    UNREACHABLE      FAILED    SKIPPED    IGNORED    IN PROGRESS     TASK COUNT          PROGRESS
+0│Apache server installed           2        1              0           0          0          0              0              2          COMPLETE
 ```
 
-The output should not report any errors but provide an overview of the tasks executed and a play recap summarizing what has been done. There is also a task called "Gathering Facts" listed there: this is an built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail.
+If you notice, prior to the play name `Apache server installed`, you'll see a `0`. By pressing the `0` key on your keyboard, you will be provided a new window view displaying the different tasks that ran for the playbook completion. In this example, those tasks included the "Gathering Facts" and "latest Apache version installed". The "Gathering Facts" is a built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail. The "latest Apache version installed" was the task created within the `apache.yml` file that installed `httpd`.
 
-Connect to `node1` via SSH to make sure Apache has been installed:
+The display should look something like this:
+
+```bash
+  RESULT      HOST	NUMBER      CHANGED       TASK                                                   TASK ACTION           DURATION
+0│OK          node1          0        False       Gathering Facts                                        gather_facts                1s
+1│OK          node1          1         True       latest Apache version installed                        yum                         4s
+```
+
+Taking a closer look, you'll notice that each task is associated with a number. Task 1, "latest Apache version installed", had a change and used the `yum` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`.
+
+By pressing `0` or `1` on your keyboard, you can see further details of the task being run. If a more traditional output view is desired, type `:st` within the text user interface.
+
+Once you've completed, reviewing your Ansible playbook, you can exit out of the TUI via the Esc key on your keyboard.
+
+> **Tip**
+>
+> The Esc key only takes you back to the previous screen. Once at the main overview screen an additional Esc key will take you back to the terminal window.
+
+
+Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ ssh node1
@@ -164,23 +216,65 @@ Managed by Ansible
 Use the command `rpm -qi httpd` to verify httpd is installed:
 
 ```bash
-[student<X>@node1 ~]$ rpm -qi httpd
+[ec2-user@node1 ~]$ rpm -qi httpd
 Name        : httpd
-Version     : 2.4.6
+Version     : 2.4.37
 [...]
 ```
 
-Log out of `node1` with the command `exit` so that you are back on the control host, and verify the installed package with an Ansible ad hoc command\!
+Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`
+
+{% raw %}
+```yaml
+---
+- name: Check packages
+  hosts: node1
+  become: true
+  vars:
+    package: "httpd"
+
+  tasks:
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Check whether a {{ package }}  is installed
+      ansible.builtin.debug:
+        msg: "{{ package }} {{ ansible_facts.packages[ package ][0].version }} is installed!"
+      when: "package in ansible_facts.packages"
+
+```
+{% endraw %}
+
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
+[student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
 ```
 
-Run the Playbook a second time, and compare the output: The output changed from "changed" to "ok", and the color changed from yellow to green. Also the "PLAY RECAP" is different now. This make it easy to spot what Ansible actually did.
+```bash
+
+PLAY [Check packages] **********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ansible]
+
+TASK [Gather the package facts] ************************************************
+ok: [ansible]
+
+TASK [Check whether a httpd  is installed] *************************************
+ok: [ansible] => {
+    "msg": "httpd 2.4.37 is installed!"
+}
+
+PLAY RECAP *********************************************************************
+ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+Run the the `ansible-navigator run apache.yml` playbook for a second time, and compare the output. The output "CHANGED" now shows `0` instead of `1` and the color changed from yellow to green. This makes it easier to spot when changes have occured when running the Ansible playbook.
 
 ### Step 4 - Extend your Playbook: Start & Enable Apache
 
-The next part of the Ansible Playbook makes sure the Apache application is enabled and started on `node1`.
+The next part of the Ansible playbook makes sure the Apache application is enabled and started on `node1`.
 
 On the control host, as your student user, edit the file `~/ansible-files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
 
@@ -201,34 +295,76 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
       state: started
 ```
 
-Again: what these lines do is easy to understand:
+What exactly did we do?
 
-* a second task is created and named
+* a second task named "Apache enabled and running" is created
 * a module is specified (`service`)
-* parameters for the module are supplied
+* The module `service` takes the name of the service (`httpd`), if it should be permanently set (`enabled`), and its current state (`started`)
+
 
 Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run apache.yml
 ```
 
-Note the output now: Some tasks are shown as "ok" in green and one is shown as "changed" in yellow.
+Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
 
-* Use an Ansible ad hoc command again to make sure Apache has been enabled and started, e.g. with: `systemctl status httpd`.
 
-* Run the Playbook a second time to get used to the change in the output.
+* Run the playbook a second time using `ansible-navigator` to get used to the change in the output.
+
+* Use an Ansible playbook labeled service_state.yml to make sure the Apache (httpd) service is running on `node1`, e.g. with: `systemctl status httpd`.
+
+{% raw %}
+```yaml
+---
+- name: Check Status
+  hosts: node1
+  become: true
+  vars:
+    package: "httpd"
+
+  tasks:
+    - name: Check status of {{ package }} service
+      service_facts:
+      register: service_state
+
+    - debug:
+        var: service_state.ansible_facts.services["{{ package }}.service"].state
+```
+
+```bash
+{% endraw %}
+
+[student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
+```
 
 ### Step 5 - Extend your Playbook: Create an web.html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in an ad hoc command from the control node. Make sure to replace the **\<IP\>** with the IP for the `node1` from the inventory.
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node to `node1`.
+
+{% raw %}
+```yaml
+---
+- name: Check URL
+  hosts: control
+  vars:
+    node: "node1"
+
+  tasks:
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      uri:
+        url: "http://{{ node }}"
+
+```
+{% endraw %}
 
 > **Warning**
 >
 > **Expect a lot of red lines and a 403 status\!**
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
+[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
@@ -247,7 +383,7 @@ Then create the file `~/ansible-files/files/web.html` on the control node:
 </body>
 ```
 
-You already used Ansible’s `copy` module to write text supplied on the commandline into a file. Now you’ll use the module in your Playbook to actually copy a file:
+In a previous example, you used Ansible’s `copy` module to write text supplied on the command line into a file. Now you’ll use the module in your playbook to copy a file.
 
 On the control node as your student user edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
 
@@ -272,21 +408,21 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
       dest: /var/www/html/index.html
 ```
 
-You are getting used to the Playbook syntax, so what happens? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
+What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
 
 Run your extended Playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-* Have a good look at the output
+* Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
 
-* Run the ad hoc command  using the "uri" module from further above again to test Apache: The command should now return a friendly green "status: 200" line, amongst other information.
+* Run the Ansible playbook check_httpd.yml using the "uri" module from above again to test Apache. The command should now return a friendly green "status: 200" line, amongst other information.
 
 ### Step 6 - Practice: Apply to Multiple Host
 
-This was nice but the real power of Ansible is to apply the same set of tasks reliably to many hosts.
+While the above, shows the simplicity of applying changes to a particular host. What about if you want to set changes to many hosts? This is where you'll notice the real power of Ansible as it applies the same set of tasks reliably to many hosts.
 
 * So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
 
@@ -303,7 +439,7 @@ node3 ansible_host=33.44.55.66
 >
 > The IP addresses shown here are just examples, your nodes will have different IP addresses.
 
-Change the Playbook to point to the group "web":
+Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 ```yaml
 ---
@@ -326,21 +462,22 @@ Change the Playbook to point to the group "web":
       dest: /var/www/html/index.html
 ```
 
-Now run the Playbook:
+Now run the playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-Finally check if Apache is now running on both servers. Identify the IP addresses of the nodes in your inventory first, and afterwards use them each in the ad hoc command with the uri module as we already did with the `node1` above. All output should be green.
-
-> **Tip**
->
-> An alternative way to verify that Apache is running on both servers is to use the command `ansible node2,node3 -m uri -a "url=http://localhost/"`.
+Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.
 
 ---
 **Navigation**
 <br>
-[Previous Exercise](../1.2-adhoc) - [Next Exercise](../1.4-variables)
 
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
+{% else %}
+[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+{% endif %}
+<br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

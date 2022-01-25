@@ -1,0 +1,159 @@
+---
+# gitea version
+# Use 'latest' to auto-update; upgrading past role version may lead to errors.
+gitea_version: '1.15.3'
+gitea_version_check: true
+gitea_gpg_key: '7C9E68152594688862D62AF62D9AE806EC1592E2'
+gitea_gpg_server: 'hkps://keys.openpgp.org'
+gitea_backup_on_upgrade: false
+gitea_backup_location: "{{ gitea_home }}/backups/"
+submodules_versioncheck: false
+
+# gitea in the linux world
+gitea_group: 'gitea'
+gitea_home: '/var/lib/gitea'
+gitea_shell: '/bin/false'
+gitea_systemd_cap_net_bind_service: false
+
+# Overall (DEFAULT)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#overall-default
+gitea_app_name: 'Gitea'
+gitea_user: 'gitea'
+gitea_run_mode: 'prod'
+gitea_fqdn: 'localhost'
+
+# Repository (repository)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#repository-repository
+gitea_repository_root: "{{ gitea_home }}/repos"
+gitea_force_private: false
+gitea_user_repo_limit: '-1'
+gitea_disable_http_git: false
+gitea_default_branch: 'main'
+gitea_default_private: 'last'
+gitea_repository_extra_config: ''
+gitea_repository_upload_extra_config: ''
+
+# UI (ui)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#ui-ui
+gitea_show_user_email: false
+gitea_theme_default: 'gitea'
+gitea_themes: 'gitea,arc-green'
+gitea_ui_extra_config: ''
+
+# Server (server)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#server-server
+gitea_protocol: 'http'
+gitea_http_domain: "{{ gitea_fqdn }}"
+gitea_root_url: "http://{{ gitea_fqdn }}:3000"
+gitea_http_listen: '127.0.0.1'
+gitea_http_port: '3000'
+# gitea_http_letsencrypt_mail: 'mail@example.com'
+gitea_start_ssh: true
+gitea_ssh_domain: "{{ gitea_fqdn }}"
+gitea_ssh_port: '2222'
+gitea_ssh_listen: '0.0.0.0'
+gitea_offline_mode: true
+gitea_lfs_server_enabled: false
+gitea_lfs_content_path: "{{ gitea_home }}/data/lfs"
+gitea_lfs_jwt_secret: ''
+gitea_server_extra_config: ''
+
+# Database (database)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#database-database
+gitea_db_type: 'sqlite3'
+gitea_db_host: '127.0.0.0:3306'
+gitea_db_name: 'root'
+gitea_db_user: 'gitea'
+gitea_db_password: 'lel'
+gitea_db_ssl: 'disable'
+gitea_db_path: "{{ gitea_home }}/data/gitea.db"
+gitea_db_log_sql: false
+gitea_database_extra_config: ''
+
+# Indexer (indexer)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#indexer-indexer
+gitea_repo_indexer_enabled: false
+gitea_repo_indexer_include: ''
+gitea_repo_indexer_exclude: ''
+gitea_repo_exclude_vendored: true
+gitea_repo_indexer_max_file_size: '1048576'
+gitea_indexer_extra_config: ''
+
+# Security (security)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#security-security
+gitea_secret_key: ''
+gitea_internal_token: ''
+gitea_disable_git_hooks: true
+gitea_password_check_pwn: false
+gitea_security_extra_config: ''
+
+# Service (service)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#service-service
+gitea_disable_registration: false
+gitea_register_email_confirm: false
+gitea_require_signin: true
+gitea_default_keep_mail_private: true
+gitea_enable_captcha: true
+gitea_show_registration_button: true
+gitea_only_allow_external_registration: false
+gitea_enable_notify_mail: false
+gitea_auto_watch_new_repos: true
+gitea_service_extra_config: ''
+
+# Mailer [mailer]
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#mailer-mailer
+gitea_mailer_enabled: false
+gitea_mailer_host: 'localhost:25'
+gitea_mailer_skip_verify: false
+gitea_mailer_tls_enabled: true
+gitea_mailer_from: "noreply@{{ gitea_http_domain }}"
+gitea_mailer_user: ''
+gitea_mailer_password: ''
+gitea_subject_prefix: ''
+gitea_mailer_type: smtp
+gitea_mailer_extra_config: ''
+
+# Session (session)
+# -> https://docs.gitea.io/en-us/config-cheat-sheet/#session-session
+gitea_session_provider: 'file'
+gitea_session_extra_config: ''
+
+# Picture (picture)
+gitea_disable_gravatar: true
+gitea_picture_extra_config: ''
+
+# Issue and pull request attachments (attachment)
+gitea_attachment_enabled: true
+gitea_attachment_extra_config: ''
+
+# Log (log)
+gitea_log_systemd: false
+gitea_log_level: 'Warn'
+gitea_log_extra_config: ''
+
+# Metrics (metrics)
+gitea_metrics_enabled: false
+gitea_metrics_token: ''
+
+# OAuth2 (oauth2)
+gitea_oauth2_enabled: true
+gitea_oauth2_jwt_secret: ''
+gitea_oauth2_extra_config: ''
+
+# additional gitea config
+gitea_extra_config: ""
+
+# fail2ban
+gitea_fail2ban_enabled: false
+gitea_fail2ban_jail_maxretry: '10'
+gitea_fail2ban_jail_findtime: '3600'
+gitea_fail2ban_jail_bantime: '900'
+gitea_fail2ban_jail_action: 'iptables-allports'
+
+# gitea customisation
+gitea_custom_search: "files/host_files/{{ inventory_hostname }}/gitea"
+gitea_customize_logo: false
+gitea_custom: "{{ gitea_home }}/custom"
+gitea_customize_footer: false
+gitea_customize_files: false
+gitea_customize_files_path: "{{ gitea_custom_search }}/gitea_files"

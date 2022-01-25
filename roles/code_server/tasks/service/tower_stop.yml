@@ -1,0 +1,8 @@
+---
+- name: make sure Ansible Tower is stopped
+  service:
+    name: ansible-tower.service
+    state: stopped
+  register: install_tower
+  until: install_tower is not failed
+  retries: 5

@@ -1,8 +1,8 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux (90 mins)
 
-This is the documentation for Ansible Automation Platform 1.2.  If you are looking for Ansible Automation Platform 2, please go to [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
+If you’re new to Ansible Automation, but want a quicker version of the original RHEL workshop, this 90-minute workshop provides you with fewer exercises, focused on cloud provisioning, converting bash/shell commands to Ansible, all the way to utilizing RHEL System Roles.
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
+**This is documentation for Ansible Automation Platform 2**
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ This workshop was created to last about 90 minutes and focuses more on targeting
 ## Ansible Automation Platform Exercises
 
  - [Exercise 1 - Overview of public cloud provisioning](1-setup)
- - [Exercise 2 - Converting bash/shell commands to Ansible](2-adhoc)
+ - [Exercise 2 - The Ansible Basics](2-thebasics)
  - [Exercise 3 - Deploying applications to linux hosts](3-playbook)
  - [Exercise 4 - Retrieving information from automation hosts](4-variables)
  - [Exercise 5 - Self-service IT via surveys](5-surveys)

@@ -48,6 +48,16 @@
     src: templates/index.php.j2
     dest: /usr/share/nginx/html/index.php
 
+- name: Copy files over to attendance node
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/share/nginx/html/{{ item }}"
+  loop:
+    - redhat-ansible-logo.svg
+    - redhat-logo.svg
+    - style.css
+    - favicon.ico
+
 - name: Copy list file to server
   template:
     src: templates/list.php.j2
@@ -56,6 +66,11 @@
 - name: Install PyMySQL
   pip:
     name: PyMySQL
+
+- name: make sure any previous runs 'workshop' database is reset
+  community.mysql.mysql_db:
+    name: workshop
+    state: absent
 
 - name: Create a new database with name 'workshop'
   community.mysql.mysql_db:
@@ -73,4 +88,3 @@
     state: import
     name: workshop
     target: /tmp/workshop.sql
-  when: workshopsql.changed

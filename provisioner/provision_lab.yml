@@ -1,17 +1,27 @@
 ---
-- name: Perform Checks to make sure this Playbook will complete successfully
+- name: initial check setup
   hosts: localhost
   connection: local
   become: false
   gather_facts: true
   tasks:
-    - name: run pre-check role to make sure workshop will complete provisioning
-      include_role:
-        name: "{{ playbook_dir }}/../roles/workshop_check_setup"
+    - name: workshop collection final check
+      block:
+        - name: run pre-check role to make sure workshop will complete provisioning
+          include_role:
+            name: ../roles/workshop_check_setup
 
-    - name: run AWS check setup if using AWS
-      include_role:
-        name: "{{ playbook_dir }}/../roles/aws_check_setup"
+        - name: run AWS check setup if using AWS
+          include_role:
+            name: ../roles/aws_check_setup
+
+        - name: download AAP
+          include_role:
+            name: ../roles/aap_download
+      rescue:
+        - name: Error with setup
+          fail:
+            msg: The provisioner has failed during initial check_setup, please scroll up to see exact error.  Open an issue on https://github.com/ansible/workshops/issues
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -32,7 +42,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/connectivity_test"
+        name: ../roles/connectivity_test
 
 - name: Configure nginx on attendance host
   hosts: attendance
@@ -41,9 +51,9 @@
   tasks:
     - block:
         - include_role:
-            name: "{{ playbook_dir }}/../roles/workshop_attendance_nginx"
+            name: ../roles/workshop_attendance_nginx
         - include_role:
-            name: "{{ playbook_dir }}/../roles/workshop_attendance"
+            name: ../roles/workshop_attendance
       when: attendance|bool
 
 - name: wait for all security nodes to have SSH reachability
@@ -52,7 +62,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/connectivity_test"
+        name: ../roles/connectivity_test
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
@@ -60,9 +70,9 @@
   become: true
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/user_accounts"
+        name: ../roles/user_accounts
     - include_role:
-        name: "{{ playbook_dir }}/../roles/common"
+        name: ../roles/common
 
 - name: Configure /etc/hosts
   hosts: 'managed_nodes:control_nodes'
@@ -80,24 +90,28 @@
   hosts: '*ansible-1'
   gather_facts: true
   become: true
-  vars:
-    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
-    use_manifest: "{{ hostvars['localhost']['use_manifest'] }}"
-    default_tower_url: "{{ hostvars['localhost']['default_tower_url'] }}"
-  pre_tasks:
-    - debug:
-        var: tower_license
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/control_node"
+        name: ../roles/control_node
 
     - include_role:
-        name: "{{ playbook_dir }}/../roles/code_server"
+        name: ../roles/code_server
       when:
         - code_server is defined
         - code_server
-        - towerinstall is defined
-        - towerinstall
+        - controllerinstall is defined
+        - controllerinstall
+
+- name: configure private automation hub
+  hosts: 'automation_hub'
+  gather_facts: true
+  become: true
+  tasks:
+    - include_role:
+        name: ../roles/private_automation_hub
+      when:
+        - automation_hub is defined
+        - automation_hub
 
 - name: replicate venvs to cluster nodes
   hosts: '*ansible-2,*ansible-3'
@@ -105,12 +119,12 @@
   become: true
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/control_node"
+        name: ../roles/control_node
         tasks_from: package_dependencies
       when: create_cluster|bool
 
     - include_role:
-        name: "{{ playbook_dir }}/../roles/control_node"
+        name: ../roles/control_node
         tasks_from: venv
       when: create_cluster|bool
 
@@ -121,55 +135,27 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: "{{ playbook_dir }}/../roles/aws_dns"
+        name: ../roles/aws_dns
       when:
         - dns_type is defined
         - dns_type == "aws"
-        - towerinstall is defined
-        - towerinstall
+        - controllerinstall is defined
+        - controllerinstall
   tags: control_node
 
-- name: populate ansible tower
+- name: populate automation controller
   hosts: '*ansible-1'
   become: true
   gather_facts: false
 
   tasks:
-    - name: run populate_tower role
+    - name: run populate_controller role
       include_role:
-        name: "{{ playbook_dir }}/../roles/populate_tower"
+        name: ../roles/populate_controller
       when:
-        - towerinstall is defined
-        - towerinstall|bool
-        - populatetower
-
-- name: IBM community grid managed nodes
-  hosts: "managed_nodes"
-  become: true
-  gather_facts: true
-
-  tasks:
-    - name: install boinc-client and register
-      include_role:
-        name: "{{ playbook_dir }}/../roles/community_grid"
-      when:
-        - ibm_community_grid is defined
-        - ibm_community_grid
-
-- name: IBM community grid control node
-  hosts: "control_nodes"
-  become: true
-  gather_facts: true
-
-  tasks:
-    - name: install boinc-client and register
-      include_role:
-        name: "{{ playbook_dir }}/../roles/community_grid"
-        tasks_from: auto_shutoff
-      when:
-        - ibm_community_grid is defined
-        - ibm_community_grid
-
+        - controllerinstall is defined
+        - controllerinstall|bool
+        - populatecontroller
 
 - name: include workshop_type unique setup roles
   import_playbook: "{{workshop_type}}.yml"
@@ -189,8 +175,8 @@
             name: "ansible.product_demos.install_demo"
           when:
             - demo is defined
-            - towerinstall is defined
-            - towerinstall
+            - controllerinstall is defined
+            - controllerinstall
       rescue:
         - name: install demo
           debug:
@@ -206,7 +192,7 @@
   become: false
   gather_facts: false
   tasks:
-    - {include_role: {name: "{{ playbook_dir }}/../roles/tower_request"}, when: student_total > 9}
+    - {include_role: {name: ../roles/tower_request}, when: student_total > 9}
 
 - name: print out information for instructor
   hosts: localhost

@@ -12,6 +12,7 @@ bak/
 *.BAK
 *.DS_Store
 *.pem
+*.log
 instructor_inventory.txt
 provisioner/tower_license.json
 provisioner/manifest.zip
@@ -36,4 +37,10 @@ Gemfile
 _site/*
 .tox/
 provisioner/tests/ci-common.yml
+provisioner/workshop_collections/*
 *.gz
+provisioner/old_tower_license.json
+.cache/
+.jekyll-cache/
+.venv
+.devcontainer

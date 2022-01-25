@@ -75,11 +75,13 @@ Add a line to the template to list the current kernel of the managed node.
 
 > **Tip**
 >
-> Do a `grep -i` for kernel
+> filter for kernel
+
+> Run the newly created playbook to find the fact name. 
 
 * Change the template to use the fact you found.
 
-* Run the Playbook again.
+* Run the motd playbook again.
 
 * Check motd by logging in to node1
 
@@ -89,10 +91,42 @@ Add a line to the template to list the current kernel of the managed node.
 
 * Find the fact:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup|grep -i kernel
-       "ansible_kernel": "3.10.0-693.el7.x86_64",
+```yaml
+---
+- name: Capture Kernel Version
+  hosts: node1
+
+  tasks:
+
+    - name: Collect only kernel facts
+      ansible.builtin.setup:
+        filter:
+        - '*kernel'
+      register: setup
+
+    - debug:
+        var: setup
 ```
+
+With the wildcard in place, the output shows:
+
+```bash
+
+TASK [debug] *******************************************************************
+ok: [node1] => {
+    "setup": {
+        "ansible_facts": {
+            "ansible_kernel": "4.18.0-305.12.1.el8_4.x86_64"
+        },
+        "changed": false,
+        "failed": false
+    }
+} 
+```
+
+With this we can conclude the variable we are looking for is labeled `ansible_kernel`.
+
+Then we can update the motd-facts.j2 template to include `ansible_kernel` as part of its message.
 
 * Modify the template `motd-facts.j2`:
 
@@ -110,7 +144,7 @@ running kernel {{ ansible_kernel }}.
 * Run the playbook.
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-playbook motd-facts.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
 ```
 
 * Verify the new message via SSH login to `node1`.
@@ -120,7 +154,7 @@ running kernel {{ ansible_kernel }}.
 Welcome to node1.
 RedHat 8.1
 deployed on x86_64 architecture
-running kernel 4.18.0-147.8.1.el8_1.x86_64.
+running kernel 4.18.0-305.12.1.el8_4.x86_64.
 ```
 
 ---

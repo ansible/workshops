@@ -13,7 +13,7 @@ Chocolateyとは何でしょうか。簡単に説明すると、ChocolateyはWin
 * Package Internalizer は、Chocolatey Community Repositoryでメンテナが既に構築した8000以上のパッケージを取得し、内部で使用するためのローカライズされたオフラインバージョンを作成します（依存関係を含む）。
 * Package Synchronizer は、プログラムと機能に掲載されているアプリケーションの Chocolatey パッケージを作成し、他のパッケージと同様に管理することができます。
 * Chocolatey Self-Service GUI では、エンドユーザが管理者権限や昇格権限を必要とせずにパッケージを管理することができます。
-* Chocolatey Central Management は Web ダッシュボードと API (Ansible Tower に似ています) で、エンドポイント全体のハイレベルな概要とレポートを提供します。
+* Chocolatey Central Management は Web ダッシュボードと API (Automation Controller に似ています) で、エンドポイント全体のハイレベルな概要とレポートを提供します。
 
 *************************************************************************************************
 
@@ -116,7 +116,7 @@ Ansibleによって収集されるファクトは必要ないので、オーバ�
 
 > **Tip**
 >
-> `win_chocolatey`モジュールの`name`属性は、実際にはパッケージのリストを指定できますのでloopを使う必要はありません。しかし、loopを使用することで各パッケージのバージョンを指定し、順序が関連する場合は、それらを順番にインストールすることができます。`win_chocolatey`モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html)を参照してください。.
+> `win_chocolatey`モジュールの`name`属性は、実際にはパッケージのリストを指定できますのでloopを使う必要はありません。しかし、loopを使用することで各パッケージのバージョンを指定し、順序が関連する場合は、それらを順番にインストールすることができます。`win_chocolatey`モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html)を参照してください。.
 
 `install_packages.yml` プレイブック全体はこのようになります:
 
@@ -158,7 +158,7 @@ Ansibleによって収集されるファクトは必要ないので、オーバ�
 * 丸い矢印をクリックして、Commitされた変更をリポジトリにPushします。
 * (任意) コードがgitに追加されていることを確認するには、「**GitLab Access**」の情報を使ってGitLabにアクセスします。
 
-次に、Ansible Towerに戻り、プロジェクトを同期してTower が新しいプレイブックをピックアップするようにします。「**プロジェクト**」をクリックし、プロジェクトの横にある「同期」アイコンをクリックします。
+次に、Automation Controllerに戻り、プロジェクトを同期してController が新しいプレイブックをピックアップするようにします。「**プロジェクト**」をクリックし、プロジェクトの横にある「同期」アイコンをクリックします。
 
 
 ![プロジェクトの同期](images/8-project-sync.png)
@@ -187,7 +187,7 @@ Ansibleによって収集されるファクトは必要ないので、オーバ�
 
 > **Tip**
 >
-> ここまでくると、プレイブックの作成や編集、変更のコミット、gitへのプッシュといった流れに慣れてきたはずです。また、プロジェクトを更新したり、Ansible Tower でジョブテンプレートを作成して実行したりすることにも慣れているはずです。以降の手順では、それらの各ステップのリストはなくなります。
+> ここまでくると、プレイブックの作成や編集、変更のコミット、gitへのプッシュといった流れに慣れてきたはずです。また、プロジェクトを更新したり、Automation Controller でジョブテンプレートを作成して実行したりすることにも慣れているはずです。以降の手順では、それらの各ステップのリストはなくなります。
 
 ## ステップ 3 - インストールされているパッケージをすべてアップデートする
 
@@ -203,7 +203,7 @@ Visual Studio Codeで、`chocolatey` フォルダの下に、「`update_packages
 
 > **Tip**
 >
-> `name` 属性にセットされる値として `all` を使用する情報は、`win_chocolatey` のモジュール[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html)にあります。初めて使うモジュールのドキュメントは必ずチェックしてください。多くの場合、作業の手間を省く有益な情報があります。
+> `name` 属性にセットされる値として `all` を使用する情報は、`win_chocolatey` のモジュール[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html)にあります。初めて使うモジュールのドキュメントは必ずチェックしてください。多くの場合、作業の手間を省く有益な情報があります。
 
 `update_packages.yml` の内容は以下のようになります:
 
@@ -234,7 +234,7 @@ Visual Studio Codeで、`chocolatey` フォルダの下に、「`update_packages
 
 他のタスクは、アップデートタスクが実行された後に、`nodejs`と`python`のバージョンを確認するためにあります。それだけです、簡単ですね。
 
-次に、新しいプレイブックがGitに登録され、Ansible Towerに表示されていることを確認してから、以下の値で新しいジョブテンプレートを作成して実行します:
+次に、新しいプレイブックがGitに登録され、Automation Controllerに表示されていることを確認してから、以下の値で新しいジョブテンプレートを作成して実行します:
 
 > **Tip**
 >
@@ -265,7 +265,7 @@ Chocolatey でパッケージを管理するために実際に使用されるの
 
 > **Tip**
 >
-> 「`win_chocolatey_facts`」モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_facts_module.html)を参照してください。
+> 「`win_chocolatey_facts`」モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_facts_module.html)を参照してください。
 
 それでは、収集した情報を表示する簡単なプレイブックを作成し、収集した情報を詳しく見てみましょう。
 
@@ -288,7 +288,7 @@ Visual Studio Codeで、`chocolatey`フォルダの下に、「`chocolatey_confi
 
 最初のタスクでは、`win_chocolatey_facts` を使用して、対象となる Windows マシン上の Chocolatey から利用可能なすべての情報を収集し、この情報を `ansible_chocolatey` という変数に格納し、`debug` モジュールを使用してその内容を表示して詳しく調べます。
 
-新しいプレイブックをソースコントロールのリポジトリに追加し、Ansible Towerでプロジェクトを同期してから、以下の値で新しいジョブテンプレートを作成して実行します。
+新しいプレイブックをソースコントロールのリポジトリに追加し、Automation Controllerでプロジェクトを同期してから、以下の値で新しいジョブテンプレートを作成して実行します。
 
 | Key            | Value                                              | Note |
 |----------------|----------------------------------------------------|------|
@@ -315,7 +315,7 @@ Visual Studio Codeで、`chocolatey`フォルダの下に、「`chocolatey_confi
 > **Tip**
 >
 > `win_chocolatey_facts` モジュールが収集した情報を見るために、`debug` タスクを使う必要は本当にありませんでした。
-代わりに、Ansible Tower のジョブ出力ペインで、Windows ターゲットでタスクを実行した結果をクリックすると、その特定のホストのホストイベントダイアログが開き、選択したイベントの影響を受けるホストに関する情報と、そのイベントの出力が表示されます（この場合、`win_chocolatey_facts` モジュールの実行によって返された JSON オブジェクトです）。
+代わりに、Automation Controller のジョブ出力ペインで、Windows ターゲットでタスクを実行した結果をクリックすると、その特定のホストのホストイベントダイアログが開き、選択したイベントの影響を受けるホストに関する情報と、そのイベントの出力が表示されます（この場合、`win_chocolatey_facts` モジュールの実行によって返された JSON オブジェクトです）。
 
 <br>
 
@@ -329,13 +329,13 @@ Visual Studio Codeで、`chocolatey`フォルダの下に、「`chocolatey_confi
 
 > **Tip**
 >
-> `win_chocolatey_config` モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_config_module.html)を参照してください。
+> `win_chocolatey_config` モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_config_module.html)を参照してください。
 
 <br>
 
 > **Tip**
 >
-> Chocolateyの設定については [こちら](https://chocolatey.org/docs/chocolatey-configuration)を参照してください。
+> Chocolateyの設定については [こちら](https://docs.chocolatey.org/en-us/configuration)を参照してください。
 
 ここでは、2つの設定オプションの値を変更します。`cacheLocation` と `commandExecutionTimeoutSeconds` です。前のステップの出力では、`cacheLocation` が設定されていないか、デフォルトの設定である値が設定されていないことがわかりました。また、`commandExecutionTimeoutSeconds` の値はデフォルトの 2700 に設定されていました。これらの設定オプションを次のように修正します:
 
@@ -419,10 +419,10 @@ Visual Studio Codeで、`chocolatey_configuration.yml` プレイブックを編�
       var: ansible_chocolatey.config
 ```
 
-変更をコミットしてソースコントロールにプッシュし、Ansible Towerでプロジェクトを同期させ、「`Chocolatey - Facts and Configuration`」ジョブテンプレートを実行します。
+変更をコミットしてソースコントロールにプッシュし、Automation Controllerでプロジェクトを同期させ、「`Chocolatey - Facts and Configuration`」ジョブテンプレートを実行します。
 > **Tip**
 >
-> [演習 1](../1-tower)で、 Ansible Towerでプロジェクトを作成した際に「`起動時のリビジョン更新`」にチェックをいれました。ですので、プロジェクトを更新する必要はありません。しかし、もしこのチェックを忘れていた場合は……。
+> [演習 1](../1-tower)で、 Automation Controllerでプロジェクトを作成した際に「`起動時のリビジョン更新`」にチェックをいれました。ですので、プロジェクトを更新する必要はありません。しかし、もしこのチェックを忘れていた場合は……。
 
 プレイブックが実行されて設定が変更され、最後の `debug` タスクの出力である `ansible_chocolatey.config` セクションの値に変更が反映され、`cacheLocation` と `commandExecutionTimeoutSeconds` の新しい値が表示されるはずです。
 
@@ -430,7 +430,7 @@ Visual Studio Codeで、`chocolatey_configuration.yml` プレイブックを編�
 
 <br><br>
 
-これで演習は完了です。 この演習では、利用可能なChocolatey関連のAnsibleモジュールのほとんどをカバーしました(ただし、`win_chocolatey_source` と `win_chocolatey_feature` については [こちら](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_feature_module.html) と [こちら](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_source_module.html) を参照してください)。 Windowsパッケージの管理にAnsibleとChocolateyを併用することで、その可能性を感じていただけたのではないでしょうか。
+これで演習は完了です。 この演習では、利用可能なChocolatey関連のAnsibleモジュールのほとんどをカバーしました(ただし、`win_chocolatey_source` と `win_chocolatey_feature` については [こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_feature_module.html) と [こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_source_module.html) を参照してください)。 Windowsパッケージの管理にAnsibleとChocolateyを併用することで、その可能性を感じていただけたのではないでしょうか。
 
 <br><br>
 [ワークショップ一覧に戻る](../README.ja.md)

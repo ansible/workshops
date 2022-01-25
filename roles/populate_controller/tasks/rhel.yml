@@ -1,0 +1,13 @@
+---
+- name: install projects
+  when: controller_projects is defined
+  vars:
+    controller_validate_certs: false
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: "admin"
+    controller_password: "{{ admin_password }}"
+  include_role:
+    name: '{{ item }}'
+  loop:
+    - 'redhat_cop.controller_configuration.projects'
+    - 'redhat_cop.controller_configuration.job_templates'

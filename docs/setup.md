@@ -5,7 +5,7 @@ Here are the setup directions you have to perform one time for the [../provision
 # Table Of Contents
 
 - [Setup](#setup)
-- [Tower Instructions](#tower-instructions)
+- [Automation Controller Instructions](#controller-instructions)
 
 # Setup
 
@@ -15,11 +15,19 @@ Here are the setup directions you have to perform one time for the [../provision
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
-3. Install the following packages using pip
+3. Install the following packages using dnf
 
-        pip install boto boto3 netaddr passlib pywinrm requests requests-credssp
+```
+[root@centos ~]# dnf install python3-boto \
+python3-boto3 \
+python3-netaddr \
+python3-passlib \
+python3-pywinrm \
+python3-requests \
+python3-requests-credssp
+```
 
-  **Are you using Tower?**  [Tower Instructions](#tower-instructions)
+  **Are you using Automation Controller (formerly Ansible Tower)?**  [Automation Controller Instructions](#controller-instructions)
 
 4. Set your Access Key ID and Secret Access Key from Step 2 under ~/.aws/credentials
 
@@ -35,24 +43,30 @@ aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 
         git clone https://github.com/ansible/workshops.git
-        cd workshops/provisioner
+        cd workshops/
 
-6.  Some of the workshops require certain images provided via the AWS marketplace:
+6. Run the requirements.yml file to ensure all the Ansible collection prerequisites are met.
+￼
+￼```
+￼ansible-galaxy collection install -r requirements.yml
+￼```
+
+7.  Some of the workshops require certain images provided via the AWS marketplace:
 
   - For Networking you will need the Cisco CSR (Cloud Services Router) [Click here](https://aws.amazon.com/marketplace/pp/B00NF48FI2/), the Arista vEOS Router [Click here](https://aws.amazon.com/marketplace/pp/B077YJYMK5/), AND the Juniper vSRX NextGen Firewall [Click here](https://aws.amazon.com/marketplace/pp/B01LYWCGDX/)
   - For F5 you will need the F5 BIG-IP [Click here](https://aws.amazon.com/marketplace/pp/B079C44MFH/)
   - For the security workshop the [Check Point CloudGuard Security Management](https://aws.amazon.com/marketplace/pp/B07KSBV1MM?qid=1613741711380&sr=0-2&ref_=srh_res_product_title) and the [Check Point CloudGuard Network Security](https://aws.amazon.com/marketplace/pp/B07LB3YN9P?ref_=aws-mp-console-subscription-detail-byol)
 
-# Tower Instructions
+# Automation Controller Instructions
 
-Are you using Red Hat Ansible Tower to provision Ansible Automation Workshops? (e.g. is your control node Ansible Tower?)  Make sure to use umask for the installation of boto3 on the control node.
+Are you using Red Hat Ansible Automation Controller to provision Ansible Automation Workshops? (e.g. is your control node Ansible Automation Controller?)  Make sure to use umask for the installation of boto3 on the control node.
 https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html
 
 ```
 [user@centos ~]$ sudo -i
 [root@centos ~]# source /var/lib/awx/venv/ansible/bin/activate
 [root@centos ~]# umask 0022
-[root@centos ~]# pip install --upgrade boto3
+[root@centos ~]# dnf install -y python3-boto3
 [root@centos ~]# deactivate
 ```
 

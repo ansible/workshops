@@ -1,5 +1,7 @@
 # Ansible Collections Workshop
 
+**This is documentation for Ansible Automation Platform 2**
+
 This workshop is a step by step series of exercises to demonstrate
 features and benefits of Ansible Collections, a unique distribution
 format of Ansible content that can be used to package and distribute

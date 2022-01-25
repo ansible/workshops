@@ -39,7 +39,7 @@ Modifiez votre site.yml et ajoutez une définition et quelques tâches à votre 
         - name: Install Windows Updates
           win_updates:
             category_names: "{{ categories | default(omit) }}"
-            reboot: '{{ reboot_server | default(yes) }}'
+            reboot: '{{ reboot_server | default(true) }}'
 ```
 <!-- {% endraw %} -->
 
@@ -47,7 +47,7 @@ Modifiez votre site.yml et ajoutez une définition et quelques tâches à votre 
 >
 > **What are we doing?**
 >
-> -   `win_updates:` Ce module est utilisé pour vérifier ou installer des mises à jour. Nous lui demandons d'installer uniquement les mises à jour de catégories spécifiques à l'aide d'une variable. L'attribut `reboot` redémarrera automatiquement l'hôte distant s'il est requis et continuera à installer les mises à jour après le redémarrage. Nous utiliserons également une variable d'enquête pour nous empêcher de redémarrer quand c'est nécessaire. Si la valeur reboot_server n'est pas spécifiée, nous définirons l'attribut par defaut pour reboot sur `yes`.
+> -   `win_updates:` Ce module est utilisé pour vérifier ou installer des mises à jour. Nous lui demandons d'installer uniquement les mises à jour de catégories spécifiques à l'aide d'une variable. L'attribut `reboot` redémarrera automatiquement l'hôte distant s'il est requis et continuera à installer les mises à jour après le redémarrage. Nous utiliserons également une variable d'enquête pour nous empêcher de redémarrer quand c'est nécessaire. Si la valeur reboot_server n'est pas spécifiée, nous définirons l'attribut par defaut pour reboot sur true.
 
 
 Section 3: Enregistrer et valider
@@ -72,7 +72,7 @@ Cela devrait prendre 5 à 30 secondes pour terminer la validation. La barre bleu
 Section 4: Création du modèle de tache
 ======================================
 
-Maintenant, de retour dans Tower, vous devrez resynchroniser votre projet pour que les nouveaux fichiers s'affichent.
+Maintenant, de retour dans Controller, vous devrez resynchroniser votre projet pour que les nouveaux fichiers s'affichent.
 
 Ensuite, nous devons créer un nouveau modèle de tache pour exécuter ce playbook. Allez donc dans *Modèle*, cliquez sur *Ajouter* et sélectionnez "Modèle de tache".
 

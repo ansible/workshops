@@ -1,10 +1,8 @@
 # Ansible Workshop - Ansible Security Automation
 
-This is the documentation for Ansible Automation Platform 1.2.  If you are looking for Ansible Automation Platform 2, please go to [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
+**This is documentation for Ansible Automation Platform 2**
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly. Ansible Security Automation is our expansion deeper into the security use case. The goal is to provide a more efficient, streamlined way for security teams to automate their various processes for the identification, search, and response to security events.
-
-In this workshop you will learn - step by step - how you can use Ansible to orchestrate 3 security investigation and response activities involving multiple security tools: an enterprise firewall (CheckPoint Next Generation Firewall), an intrusion detection system (Snort) and a SIEM (IBM QRadar).
+Get started with Ansible Security Automation by implementing automation for three security use cases: 1) orchestrating firewalls, 2) IDS and SIEM: investigating suspicious traffic on a web server, and 3) threat hunting: analyzing unusual denied accesses on a firewall and remediation of a SQL injection. After a brief introduction, this workshop will guide you through basic concepts and show you how to use Ansible security automation in combination with existing third-party security solutions.
 
 **Read this in other languages**: <br>
 [![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja.md), [![france](../../images/fr.png) Français](README.fr.md).<br>
@@ -19,11 +17,11 @@ Given students with basic experience with Ansible:
 - the first exercise takes roughly one hour
 - the second exercise takes roughly two hours
 
-If your experience is different in schedulung those workshops, please let us know and fill an issue.
+If your experience is different in scheduling those workshops, please let us know and fill an issue.
 
 ## Lab Diagram
 
-![ansible rhel lab diagram](../../images/ansible_security_diagram.png)
+![ansible security lab diagram](../../images/ansible_security_diagram.png#centreme)
 
 ## Section 1 - Introduction to Ansible Security Automation Basics
 

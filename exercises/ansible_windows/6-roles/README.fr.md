@@ -126,7 +126,7 @@ Ajoutez des variables spécifiques au rôle à votre rôle dans `roles\iis_simpl
 >
 > - Dans n'importe quel fichier qui peut être spécifié sur la ligne de commande en utilisant l'option `--extra_vars` 
 >
-> En bout de ligne, vous devriez lire la documentation sur les [variables](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) pour comprendre où définir les variables et quels emplacements ont la priorité. Dans cet exercice, nous utilisons les valeurs par défaut des rôles pour définir quelques variables et celles-ci sont les plus malléables. Après cela, nous avons défini certaines variables dans `/vars` qui ont une priorité plus élevée que les valeurs par défaut et ne peuvent pas être remplacées en tant que variable par défaut.
+> En bout de ligne, vous devriez lire la documentation sur les [variables](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) pour comprendre où définir les variables et quels emplacements ont la priorité. Dans cet exercice, nous utilisons les valeurs par défaut des rôles pour définir quelques variables et celles-ci sont les plus malléables. Après cela, nous avons défini certaines variables dans `/vars` qui ont une priorité plus élevée que les valeurs par défaut et ne peuvent pas être remplacées en tant que variable par défaut.
 
 Étape 5:
 --------
@@ -212,7 +212,7 @@ Cliquez avec le bouton droit sur `roles\iis_simple\templates` et créez un nouve
     <body>
 
       <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}
+      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
 
     </body>
     </html>

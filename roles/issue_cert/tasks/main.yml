@@ -1,13 +1,17 @@
 ---
+- name: determine if Automation controller
+  stat:
+    path: /etc/sysconfig/automation-controller
+  register: controller_path
+
+- name: controller or tower
+  set_fact:
+    controller_or_tower: "{{ 'controller' if controller_path.stat.exists else 'tower' }}"
+
 - name: SSL cert block
   block:
-    - name: make sure Ansible Tower is online before changing tower base URL
-      service:
-        name: ansible-tower.service
-        state: started
-      register: start_tower
-      until: start_tower is not failed
-      retries: 5
+    - name: controller/tower start
+      include_tasks: "service/{{ controller_or_tower }}_start.yml"
 
     # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
     - name: install certbot if not already installed
@@ -15,6 +19,11 @@
         name: certbot
         state: present
         disable_gpg_check: true
+    # solves error
+    # pkg_resources.DistributionNotFound: The 'requests>=2.14.2' distribution was not found and is required by acme
+    - name: Install requests python package
+      pip:
+        name: requests>=2.14.2
 
     - name: Install requests python package
       pip:
@@ -48,27 +57,19 @@
           retries: 12
           delay: 5
       rescue:
-        - name: Try restarting tower
-          service:
-            name: ansible-tower.service
-            state: restarted
+        - name: controller/tower restart
+          include_tasks: "service/{{ controller_or_tower }}_restart.yml"
 
         - *tower-pinger-block
 
         - <<: *tower-baseurl-task
           name: Run failed task again
 
-    # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
-    - name: make sure Ansible Tower is stopped
-      service:
-        name: ansible-tower.service
-        state: stopped
-      register: stop_tower
-      until: stop_tower is not failed
-      retries: 5
+    - name: controller/tower stop
+      include_tasks: "service/{{ controller_or_tower }}_stop.yml"
 
     # If this fails check out status of certbot: https://letsencrypt.status.io/
-    - name: ISSUE CERT
+    - name: Issue SSL cert
       shell: certbot certonly --no-bootstrap --standalone -d {{ dns_name }} --email ansible-network@redhat.com --noninteractive --agree-tos
       register: issue_cert
       until: issue_cert is not failed
@@ -90,15 +91,10 @@
         src: combined_cert.j2
         dest: /etc/tower/tower.cert
   rescue:
-    - name: no SSL cert for Ansible Tower
+    - name: no SSL cert for Automation Controller
       debug:
         msg: "SSL cert problem - no cert applied"
   always:
     # Turn on Ansible Controller if successful
-    - name: make sure Ansible Tower is started
-      service:
-        name: ansible-tower.service
-        state: started
-      register: start_tower
-      until: start_tower is not failed
-      retries: 5
+    - name: controller/tower restart
+      include_tasks: "service/{{ controller_or_tower }}_start.yml"

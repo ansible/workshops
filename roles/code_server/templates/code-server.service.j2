@@ -4,13 +4,18 @@ After=network.target
 
 [Service]
 Type=simple
-User={{username}}
-WorkingDirectory=/home/{{username}}
+User={{ username }}
+WorkingDirectory=/home/{{ username }}
 Restart=on-failure
 RestartSec=10
+{% if workshop_type is defined %}
 Environment="PASSWORD={{admin_password}}"
 
 ExecStart=/bin/code-server
+{% else %}
+ExecStart=/bin/code-server --auth none
+{% endif %}
+
 ExecStop=/bin/kill -s QUIT $MAINPID
 
 

@@ -1,10 +1,14 @@
 [defaults]
-stdout_callback = community.general.yaml
+stdout_callback = yaml
 connection = smart
 timeout = 60
 deprecation_warnings = False
+action_warnings = False
+system_warnings = False
 host_key_checking = False
+collections_on_ansible_version_mismatch = ignore
 retry_files_enabled = False
+interpreter_python = auto_silent
 inventory = /home/{{username}}/lab_inventory/hosts
 [persistent_connection]
 connect_timeout = 200

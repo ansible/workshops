@@ -22,6 +22,11 @@ h1, h1 * {
   line-height: 1.1;
 }
 
+h4, h5, h6 {
+  font-family: 'Red Hat Display', sans-serif;
+  margin-top: 0px;
+}
+
 a {
   color: #337ab7;
   font-weight: normal;
@@ -61,11 +66,41 @@ section > ul, section > ol {
 }
 
 section > blockquote {
-  width: calc(100% - 80px);
+  background: #E6F9E6;
+  border-top: 30px solid rgba(92, 184, 92, 0.8);
+}
+
+blockquote p:first-child {
+    position: relative;
+    top: -28px;
+    margin-bottom: -20px;
+    color: #fff;
+}
+
+blockquote p:first-child:before {
+    position: absolute;
+    top: 1px;
+    color: #fff;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f05a";
+    left: -16px;
+}
+
+blockquote {
+    font-style: normal;
+}
+// Centre images using ?style=centreme
+img[src*="#centreme"] {
+  display: block;
+  margin: 0 auto;
 }
 
 img {
-  max-width: 100%;
+    max-width: 100%;
+    padding: 0px;
+    margin: 0px;
+    border: none;
 }
 
 // table tweaks

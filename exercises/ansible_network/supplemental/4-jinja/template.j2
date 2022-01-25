@@ -1,4 +1,0 @@
-{% for key,value in nodes[inventory_hostname].iteritems() %}
-interface {{ key }}
-  ip address {{ value }} 255.255.255.255
-{% endfor %}

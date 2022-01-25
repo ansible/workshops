@@ -9,37 +9,37 @@ $login_pass = "{{ admin_password }}";
 $mydb="workshop";
 
 try {
-	$db = new \PDO("mysql:host=$sql_server;port=$port;dbname=$mydb;charset=utf8", $sql_user, $sql_pass);
+  $db = new \PDO("mysql:host=$sql_server;port=$port;dbname=$mydb;charset=utf8", $sql_user, $sql_pass);
 } catch(PDOException $e) {
-	echo "Could not connect to the database\n";
-	exit;
+  echo "Could not connect to the database\n";
+  exit;
 }
 
 if (!$db) {
-	echo "Could not connect to the database\n";
-	exit;
+  echo "Could not connect to the database\n";
+  exit;
 }
 
 session_start();
 
 if (!isset($_SESSION['pass'])) {
-	if (!isset($_POST['pass'])) {
-		display_header();
-		display_form();
-		display_footer ();
-		exit;
-	} else {
-		if ($_POST['pass'] != $login_pass) {
-			sleep(2);
-			display_header();
-			print '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Unauthorized</font>';
-			display_form();
-			display_footer ();
-			exit;
-		} else {
-			$_SESSION['pass'] = $_POST['pass'];
-		}
-	}
+  if (!isset($_POST['pass'])) {
+    display_header();
+    display_form();
+    display_footer ();
+    exit;
+  } else {
+    if ($_POST['pass'] != $login_pass) {
+      sleep(2);
+      display_header();
+      print '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Unauthorized</font>';
+      display_form();
+      display_footer ();
+      exit;
+    } else {
+      $_SESSION['pass'] = $_POST['pass'];
+    }
+  }
 }
 
 if (isset($_POST['delete']) && $_POST['delete'] == intval($_POST['delete'])) {
@@ -52,9 +52,9 @@ if (isset($_POST['delete']) && $_POST['delete'] == intval($_POST['delete'])) {
 display_header();
 
 $students = db_fetch_assocs("SELECT * FROM `users`");
-print "<table cellpadding=3 cellspacing=0 border=1><tr><td>Name</td><td>EMail</td><td>Student</td><td>VSCode</td><td>Tower</td><td>Gitlab</td><td>Delete</td></tr>\n";
+print "<table cellpadding=3 cellspacing=0 border=1><tr><td>Name</td><td>EMail</td><td>Student</td><td>VSCode</td><td>Automation controller</td><td>Gitlab</td><td>Delete</td></tr>\n";
 foreach ($students as $s) {
-        print '<tr><td>' . $s['name'] . '</td><td>' . $s['email'] . '</td><td>' . $s['id'] . '</td><td><a target=_blank href="' . $s['vscode'] . '">VSCode</a></td><td><a target=_blank href="' . $s['tower'] . '">Tower</a></td><td><a target=_blank href="' . $s['gitlab'] . '">Gitlab</a></td><td align=center>' . ($s['email'] != '' ? '<form method=POST><input type=hidden name=delete value=' . $s['id'] . '><input type=submit value=Delete data-icon=delete data-iconpos=notext></a></form>' : '') . "</td></tr>\n";
+        print '<tr><td>' . $s['name'] . '</td><td>' . $s['email'] . '</td><td>' . $s['id'] . '</td><td><a target=_blank href="' . $s['vscode'] . '">VSCode</a></td><td><a target=_blank href="' . $s['controller'] . '">Controller</a></td><td><a target=_blank href="' . $s['gitlab'] . '">Gitlab</a></td><td align=center>' . ($s['email'] != '' ? '<form method=POST><input type=hidden name=delete value=' . $s['id'] . '><input type=submit value=Delete data-icon=delete data-iconpos=notext></a></form>' : '') . "</td></tr>\n";
 }
 print "</table>";
 
@@ -64,80 +64,80 @@ display_footer ();
 
 
 function display_form() {
-	print "  <div data-role='main' class='ui-content'>
-	    <div data-role='collapsible' data-collapsed='false'>
-	      <h1>Please login</h1>
-	      <p>";
-	print "<form action='/list.php' method=POST enctype='multipart/form-data'>";
-	print "<table><tr><td></td><td><input type=password name=pass size=20></td></tr>";
-	print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
-	print "</p>";
+  print "  <div data-role='main' class='ui-content'>
+      <div data-role='collapsible' data-collapsed='false'>
+        <h1>Please login</h1>
+        <p>";
+  print "<form action='/list.php' method=POST enctype='multipart/form-data'>";
+  print "<table><tr><td></td><td><input type=password name=pass size=20></td></tr>";
+  print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
+  print "</p>";
 }
 
 function sql_clean_username($text) {
-	$text = str_replace(array("\\"), "\\\\", $text);
-	$text = str_replace(array("%", '/', "'", '"', '|'), '', $text);
-	return $text;
+  $text = str_replace(array("\\"), "\\\\", $text);
+  $text = str_replace(array("%", '/', "'", '"', '|'), '', $text);
+  return $text;
 }
 
 function db_execute($query) {
-	global $db;
-	$stmt = $db->query($query);
-	return $db->lastInsertId();
+  global $db;
+  $stmt = $db->query($query);
+  return $db->lastInsertId();
 }
 
 function db_execute_prepare($query, $data) {
-	global $db;
-	$stmt = $db->prepare($query);
-	$stmt->execute($data);
-	return $db->lastInsertId();
+  global $db;
+  $stmt = $db->prepare($query);
+  $stmt->execute($data);
+  return $db->lastInsertId();
 }
 
 function db_fetch_cell($query, $cell) {
-	global $db;
-	$stmt = $db->query($query);
-	if (!$stmt) return false;
-	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
-	if (!isset($results[$cell])) return false;
-	return $results[$cell];
+  global $db;
+  $stmt = $db->query($query);
+  if (!$stmt) return false;
+  $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+  if (!isset($results[$cell])) return false;
+  return $results[$cell];
 }
 
 function db_fetch_assoc($query) {
-	global $db;
-	$stmt = $db->query($query);
-	if ($stmt) {
-		$results = $stmt->fetch(\PDO::FETCH_ASSOC);
-		return $results;
-	} else {
-		return false;
-	}
+  global $db;
+  $stmt = $db->query($query);
+  if ($stmt) {
+    $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $results;
+  } else {
+    return false;
+  }
 }
 
 function db_fetch_assoc_prepare($query, $data) {
-	global $db;
-	$stmt = $db->prepare($query);
-	$stmt->execute($data);
-	$results = $stmt->fetch(\PDO::FETCH_ASSOC);
-	return $results;
+  global $db;
+  $stmt = $db->prepare($query);
+  $stmt->execute($data);
+  $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+  return $results;
 }
 
 function db_fetch_assocs($query) {
-	global $db;
-	$stmt = $db->query($query);
-	if ($stmt) {
-		$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-		return $results;
-	} else {
-		return false;
-	}
+  global $db;
+  $stmt = $db->query($query);
+  if ($stmt) {
+    $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $results;
+  } else {
+    return false;
+  }
 }
 
 function db_fetch_assocs_prepare($query, $data) {
-	global $db;
-	$stmt = $db->prepare($query);
-	$stmt->execute($data);
-	$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-	return $results;
+  global $db;
+  $stmt = $db->prepare($query);
+  $stmt->execute($data);
+  $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  return $results;
 }
 
 

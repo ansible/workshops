@@ -4,15 +4,9 @@
 <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md).
 <br>
 
-This is the documentation for Ansible Automation Platform 1.2.  If you are looking for Ansible Automation Platform 2, please go to [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
+**This is documentation for Ansible Automation Platform 2**
 
-Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
-
-Ansible Tower is one of the components that makes up Red Hat Ansible Automation Platform and serves as the web ui, api and control node that executes Ansible playbooks.
-
-This workshop will guide students through configuring Ansible Tower to connect to the Windows instances created for this workshop. Once Ansible Tower is configured, students will then progress through exercises that highlight the simplicity of Ansible as a language for automation while introducing more complex operations.
-
-All automation for this workshop is executed from Ansible Tower and there are minimal client requirements for students to interact with the workshop such that students only need a compatible browser.
+This workshop guides you through configuring Ansible automation controller to connect to Windows Server instances for automating various operational tasks. Once Ansible automation controller is configured, you will start with automating simple tasks and then progress to more advanced use cases such as patching and leveraging third-party solutions to enhance automation (Chocolatey). There are minimal client requirements for you to interact with the workshop because you only need a compatible Web browser. This workshop has reduced requirements for Linux knowledge and other command line tools.
 
 ## Presentations
 
@@ -28,16 +22,18 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The ac
 If your experience is different in scheduling these workshops, please let us know and file an issue.
 
 ## Lab Diagram
-
+<!-- TODO #1375 redo workshop diagram -->
 ![ansible windows lab diagram](../../images/ansible_windows_diagram.png)
 
 ## Exercises
 
-* [Exercise 1 - Intro and configuration of Ansible Tower](1-tower)
+* [Exercise 1 - Intro and configuration of Automation Controller](1-controller)
 * [Exercise 2 - Ad-hoc commands](2-adhoc)
 * [Exercise 3 - Intro to playbooks](3-playbook)
-* [Exercise 4 - Ansible Tower projects](4-projects)
+* [Exercise 4 - Automation Controller projects](4-projects)
 * [Exercise 5 - Advanced playbooks](5-adv-playbook)
 * [Exercise 6 - Ansible roles](6-roles)
-* [Exercise 7 - Patching Windows](7-win-patch) (optional)
-* [Exercise 8 - Chocolatey](8-chocolatey) (optional)
+<!-- TODO #1376 Update optional exercises in windows workshop -->
+<!-- * [Exercise 7 - Patching Windows](7-win-patch) (optional) -->
+<!-- * [Exercise 8 - Chocolatey](8-chocolatey) (optional) -->
+<!-- * [Exercise 9 - Windows Workflow](9-win-workflow) -->

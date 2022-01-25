@@ -7,33 +7,33 @@
 
 Les capacités de détection et de réponse aux menaces nécessitent généralement d'un opérateur de sécurité qu'il déploie de nombreux outils pour sécuriser l'informatique de l'entreprise. En raison de processus manquants et de nombreux travaux manuels, cela représente un réel défi pour les opérations de sécurité informatique!
 
-Dans cet exercice, nous imaginons que nous sommes un opérateur de sécurité en charge d'un pare-feu d'entreprise dans une grande organisation. Le produit pare-feu utilisé ici est le pare-feu Check Point Next Generation. Nous mettrons un accent particulier sur l'interaction entre les différentes équipes dans cet exercice - et comment ces interactions peuvent être rationalisées avec[Ansible Tower](https://www.ansible.com/products/tower).
+Dans cet exercice, nous imaginons que nous sommes un opérateur de sécurité en charge d'un pare-feu d'entreprise dans une grande organisation. Le produit pare-feu utilisé ici est le pare-feu Check Point Next Generation. Nous mettrons un accent particulier sur l'interaction entre les différentes équipes dans cet exercice - et comment ces interactions peuvent être rationalisées avec[automation controller](https://docs.ansible.com/automation.html).
 
 ## Étape 2.2 - Préparatifs
 
 Pour que cet exercice fonctionne correctement, le playbook `whitelist_attacker.yml` doit avoir été exécuté au moins une fois. Toujours dans l'interface de gestion de Check Point SmartConsole, la journalisation de la stratégie de liste d'autorisation de l'attaquant doit avoir été activée. Les deux ont été effectués dans l'exercice Check Point de la section 1. Si vous avez manqué les étapes, retournez-y, exécutez le playbook, suivez les étapes pour activer la journalisation et revenez ici.
 
-## Étape 2.3 - Explorez la configuration d'Ansibe tower
+## Étape 2.3 - Explorez la configuration d'automation controller
 
-Il y a deux autres étapes nécessaires pour la préparation - mais contrairement à l'exercice précédent, nous allons utiliser Tower pour les faire. Votre installation Tower est déjà remplie d'utilisateurs, d'inventaire, d'informations d'identification, etc., et peut être utilisée directement. Jetons-y un œil: Tower est accessible via un navigateur. Vous avez besoin de l'URL de votre instance Tower personnelle. Elle est similaire à l'URL de votre éditeur en ligne VS Code, mais sans le `-code`. Vous pouvez également le retrouver sur votre page atelier:
+Il y a deux autres étapes nécessaires pour la préparation - mais contrairement à l'exercice précédent, nous allons utiliser controller pour les faire. Votre installation controller est déjà remplie d'utilisateurs, d'inventaire, d'informations d'identification, etc., et peut être utilisée directement. Jetons-y un œil: Controller est accessible via un navigateur. Vous avez besoin de l'URL de votre instance controller personnelle. Elle est similaire à l'URL de votre éditeur en ligne VS Code, mais sans le `-code`. Vous pouvez également le retrouver sur votre page atelier:
 
-![Tower URL example](images/tower_url.png)
+![Controller URL example](images/controller_url.png)
 
 > **Remarque**
 >
-> Cette URL et ces informations de connexion ne sont qu'un exemple. L'URL de votre instance d'Ansible tower et vos informations de connexion seront différentes.
+> Cette URL et ces informations de connexion ne sont qu'un exemple. L'URL de votre instance d'automation controller et vos informations de connexion seront différentes.
 
-Ouvrez votre navigateur et entrez le lien vers votre instance Tower. Connectez-vous avec votre nom d'utilisateur et le mot de passe qui vous a été fourni. Vous êtes accueilli avec un tableau de bord et une barre de navigation sur le côté gauche.
+Ouvrez votre navigateur et entrez le lien vers votre instance controller. Connectez-vous avec votre nom d'utilisateur et le mot de passe qui vous a été fourni. Vous êtes accueilli avec un tableau de bord et une barre de navigation sur le côté gauche.
 
-![Tower dashboard](images/tower_dashboard.png)
+![Controller dashboard](images/controller_dashboard.png)
 
 Sur le côté gauche, cliquez sur **Templates**. Une liste de tous les modèles de tâche déjà configurés s'affiche. Un modèle de tâche est une définition et un ensemble de paramètres permettant d'exécuter une tâche Ansible. Il définit l'inventaire, les informations d'identification, le playbook, les limites, les droits d'eélévation de prévilège, etc. qui sont nécessaires pour exécuter l'automatisation. Dans cette liste, recherchez l'entrée appelée **Blacklist attacker**, et cliquez sur le symbole de la fusée à droite:
 
-![Blacklist attacker](images/tower_blacklist.png)
+![Blacklist attacker](images/controller_blacklist.png)
 
 Ce clic vous amènera à l'aperçu du travail, montrant l'avancement en direct de l'exécution de la tâche d'automatisation et un résumé de tous les paramètres qui sont pertinents. Avec cette exécution d'automatisation, nous avons modifié la stratégie existante dans le pare-feu pour supprimer les paquets transitant entre les deux machines.
 
-Maintenant, tout ce dont nous avons besoin est l'attaque. Contrairement au dernier exercice, nous n'écrirons pas et n'exécuterons pas de playbook, mais utiliserons à nouveau Tower pour lancer l'attaque. Dans la barre de navigation sur le côté gauche, cliquez sur **Modèles**. Dans la liste des modèles, recherchez et exécutez celui appelé **Start DDOS attack simulation** en cliquant sur l'icône de fusée à droite. Cela garantira que toutes les quelques secondes, une attaque est simulée.
+Maintenant, tout ce dont nous avons besoin est l'attaque. Contrairement au dernier exercice, nous n'écrirons pas et n'exécuterons pas de playbook, mais utiliserons à nouveau controller pour lancer l'attaque. Dans la barre de navigation sur le côté gauche, cliquez sur **Modèles**. Dans la liste des modèles, recherchez et exécutez celui appelé **Start DDOS attack simulation** en cliquant sur l'icône de fusée à droite. Cela garantira que toutes les quelques secondes, une attaque est simulée.
 
 L'environnement est maintenant prête. Lisez la suite pour savoir de quoi parle ce cas d'utilisation.
 
@@ -58,9 +58,9 @@ En voyant ces violations, nous devrions ouvrir une enquête pour évaluer si ell
 
 Cependant, comme mentionné dans de nombreux environnements d'entreprise, les solutions de sécurité ne sont pas intégrées les unes aux autres et, dans les grandes organisations, différentes équipes sont en charge de différents aspects de la sécurité informatique, sans processus en commun. Dans notre scénario, la manière habituelle pour un opérateur de sécurité d'intensifier le problème et de démarrer notre enquête serait de contacter l'équipe d'analyse de sécurité, en lui envoyant manuellement les journaux de pare-feu que nous avons utilisés pour identifier la violation de la règle, puis d'attendre la réponse. Un processus lent et manuel.
 
-Mais, comme indiqué dans le dernier exercice, nous pouvons automatiser ce processus avec Ansible! Il peut y avoir des workflows d'automatisation pré-approuvés sous forme de playbooks, fournis via un outil d'automatisation central comme Ansible Tower. Avec un tel ensemble de playbooks Ansible, chaque fois que nous sommes dans une situation de chasse aux menaces, nous pouvons configurer automatiquement le pare-feu d'entreprise pour envoyer ses événements/journaux à l'instance QRadar que les analystes de sécurité utilisent pour corréler les données et décider comment procéder avec le menace potentielle.
+Mais, comme indiqué dans le dernier exercice, nous pouvons automatiser ce processus avec Ansible! Il peut y avoir des workflows d'automatisation pré-approuvés sous forme de playbooks, fournis via un outil d'automatisation central comme automation controller. Avec un tel ensemble de playbooks Ansible, chaque fois que nous sommes dans une situation de chasse aux menaces, nous pouvons configurer automatiquement le pare-feu d'entreprise pour envoyer ses événements/journaux à l'instance QRadar que les analystes de sécurité utilisent pour corréler les données et décider comment procéder avec le menace potentielle.
 
-Essayons cela. Déconnectez-vous de votre instance Tower et reconnectez-vous en tant qu'utilisateur du pare-feu: `opsfirewall`. Pour la simplicité de la démo, le mot de passe est le même que pour votre utilisateur étudiant. Une fois que vous êtes connecté et que vous pouvez voir le tableau de bord, accédez à **Templates**. Comme vous le voyez, en tant qu'administrateur de pare-feu, nous ne pouvons voir et exécuter que quelques modèles de travail:
+Essayons cela. Déconnectez-vous de votre instance controller et reconnectez-vous en tant qu'utilisateur du pare-feu: `opsfirewall`. Pour la simplicité de la démo, le mot de passe est le même que pour votre utilisateur étudiant. Une fois que vous êtes connecté et que vous pouvez voir le tableau de bord, accédez à **Templates**. Comme vous le voyez, en tant qu'administrateur de pare-feu, nous ne pouvons voir et exécuter que quelques modèles de travail:
 
 - **Blacklist attacker**
 - **Send firewall logs to QRadar**
@@ -68,9 +68,9 @@ Essayons cela. Déconnectez-vous de votre instance Tower et reconnectez-vous en 
 
 Étant donné que nous sommes les propriétaires de domaine du pare-feu, nous pouvons modifier, supprimer et exécuter ces modèles de travail. Exécutons le modèle **Send firewall logs to QRadar** en cliquant sur le petit icône de fusée à droite. L'exécution de la tâche prend quelques secondes. Du point de vue de l'opérateur du pare-feu, nous avons maintenant reconfiguré le pare-feu pour envoyer des journaux au SIEM central.
 
-Cependant, le SIEM doit toujours accepter les journaux et les trier en flux appropriés, appelés sources de journal dans QRadar. Passons notre point de vue à celui de l'analyste de sécurité. Nous recevons un appel disant qu'il y a quelque chose de bizarre dans le pare-feu et que les journaux sont déjà envoyés dans notre direction. Déconnectez-vous de Tower et reconnectez-vous en tant qu'utilisateur `analyst`. Encore une fois, consultez les **Templates**: encore une fois, nous avons une liste différente de modèles d'automatisation à portée de main. nous ne pouvons voir et utiliser que ceux qui sont pertinents pour notre travail. Acceptons les journaux de pare-feu dans notre SIEM: Exécutez le modèle de tâche **Accept firewall logs in QRadar**.
+Cependant, le SIEM doit toujours accepter les journaux et les trier en flux appropriés, appelés sources de journal dans QRadar. Passons notre point de vue à celui de l'analyste de sécurité. Nous recevons un appel disant qu'il y a quelque chose de bizarre dans le pare-feu et que les journaux sont déjà envoyés dans notre direction. Déconnectez-vous de controller et reconnectez-vous en tant qu'utilisateur `analyst`. Encore une fois, consultez les **Templates**: encore une fois, nous avons une liste différente de modèles d'automatisation à portée de main. nous ne pouvons voir et utiliser que ceux qui sont pertinents pour notre travail. Acceptons les journaux de pare-feu dans notre SIEM: Exécutez le modèle de tâche **Accept firewall logs in QRadar**.
 
-Au bout de quelques secondes, le playbook est exécuté et la nouvelle configuration de sécurité est terminée. Contrairement à l'exercice précédent, aucune de ces étapes n'a obligé l'opérateur ou l'analyste à accéder à la ligne de commande, à écrire des playbooks ou même à installer des rôles ou des collections. Les playbooks ont été pré-approuvés et ils sont accessibles à partir d'un dépôt Git. Tower s'est occupé de l'exécution et des téléchargements de tout rôle ou collection. Cela simplifie considérablement les opérations d'automatisation.
+Au bout de quelques secondes, le playbook est exécuté et la nouvelle configuration de sécurité est terminée. Contrairement à l'exercice précédent, aucune de ces étapes n'a obligé l'opérateur ou l'analyste à accéder à la ligne de commande, à écrire des playbooks ou même à installer des rôles ou des collections. Les playbooks ont été pré-approuvés et ils sont accessibles à partir d'un dépôt Git. controller s'est occupé de l'exécution et des téléchargements de tout rôle ou collection. Cela simplifie considérablement les opérations d'automatisation.
 
 Si vous cliquez sur **Tâches** sur le côté left, vous verrez également que vous pouvez toujours accéder aux travaux exécutés précédemment. Cela permet aux équipes de mieux suivre ce qui a été exécuté quand et où les résultats. Cela permet une transparence et une compréhension claire de l'automatisation qui a été exécutée.
 
@@ -106,11 +106,11 @@ Pour décider si cette violation est un faux positif, nous devons nous assurer q
 
 ## Étape 2.8 - Ajouter une règle Snort
 
-Ajoutons une nouvelle règle dans notre  IDS. Encore une fois, nous le ferons via un playbook pré-approuvé déjà dans Tower. Déconnectez-vous de Tower et reconnectez-vous en tant qu'utilisateur «opsids» - IDPS en charge de l'IDPS. Accédez à **Modèles**. Un playbook pré-créé est disponible pour ajouter une règle à Snort. Exécutez-le en cliquant sur la petite fusée. Mais comme vous le voyez, au lieu de vous amener à la sortie des emplois, vous serez confronté à une enquête:
+Ajoutons une nouvelle règle dans notre  IDS. Encore une fois, nous le ferons via un playbook pré-approuvé déjà dans controller. Déconnectez-vous de controller et reconnectez-vous en tant qu'utilisateur «opsids» - IDPS en charge de l'IDPS. Accédez à **Modèles**. Un playbook pré-créé est disponible pour ajouter une règle à Snort. Exécutez-le en cliquant sur la petite fusée. Mais comme vous le voyez, au lieu de vous amener à la sortie des emplois, vous serez confronté à une enquête:
 
-![Enquête Ansible Tower](images/tower_snort_survey.png)
+![Enquête automation controller](images/controller_snort_survey.png)
 
-Le playbook ne peut pas fonctionner sans autre contenu - nous devons fournir la règle réelle qui doit être déployée! Bien sûr, avec Snort, la règle à ajouter dépend du cas d'utilisation réel et peut donc être différente à chaque fois. Ainsi, ce modèle de tâche dispose d'un **questionnaire**, c'est une méthode dans Ansible Tower pour interroger les entrées avant l'exécution.
+Le playbook ne peut pas fonctionner sans autre contenu - nous devons fournir la règle réelle qui doit être déployée! Bien sûr, avec Snort, la règle à ajouter dépend du cas d'utilisation réel et peut donc être différente à chaque fois. Ainsi, ce modèle de tâche dispose d'un **questionnaire**, c'est une méthode dans automation controller pour interroger les entrées avant l'exécution.
 
 Dans ce cas, nous recherchons une signature appropriée via une règle Snort pour cette attaque spécifique. Entrez la chaîne suivante dans le champ:
 
@@ -137,18 +137,18 @@ alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_si
 
 Après avoir vérifié la règle, quittez le serveur Snort via la commande `exit`.
 
-Ensuite, nous voulons également que l'IDPS envoie des journaux à QRadar au cas où la règle aurait un succès. Nous pourrions simplement exécuter un modèle de tâche correspondant en tant qu'utilisateur `opsids`. Mais cette fois, nous voulons prendre un chemin différent: au lieu que l'opérateur IDPS exécute le playbook préparé, nous voulons montrer comment Ansible Tower peut déléguer de tels droits d'exécution à d'autres sans les laisser prendre le contrôle du domaine.
+Ensuite, nous voulons également que l'IDPS envoie des journaux à QRadar au cas où la règle aurait un succès. Nous pourrions simplement exécuter un modèle de tâche correspondant en tant qu'utilisateur `opsids`. Mais cette fois, nous voulons prendre un chemin différent: au lieu que l'opérateur IDPS exécute le playbook préparé, nous voulons montrer comment automation controller peut déléguer de tels droits d'exécution à d'autres sans les laisser prendre le contrôle du domaine.
 
 Imaginez que l'équipe d'analystes et l'équipe d'opérateurs IDPS se soient mises d'accord sur un playbook prédéfini pour transmettre les journaux de l'IDPS à QRadar. Étant donné que l'équipe IDPS a été impliquée dans la création de ce playbook et l'a accepté, elle le fournit à l'équipe d'analystes pour l'exécuter à tout moment, sans aucune implication supplémentaire.
 
-Déconnectez-vous de Tower et reconnectez-vous en tant qu'utilisateur `analyst`. Dans la section **Modèles**, il existe plusieurs playbooks:
+Déconnectez-vous de controller et reconnectez-vous en tant qu'utilisateur `analyst`. Dans la section **Modèles**, il existe plusieurs playbooks:
 
 - **Accept firewall logs in QRadar**
 - **Accept IDPS logs in QRadar**
 - **Roll back all changes**
 - **Send IDPS logs to QRadar**
 
-Seuls les deux modèles **Accept...** appartiennent à l'analyste et peuvent être modifiés ou par exemple supprimés comme indiqué par l'icône de la petite poubelle. Le modèle de tâche **Send IDPS logs to QRadar** est fourni par l'équipe IDPS uniquement pour les droits d'exécution, et ne peut donc pas être modifié ou supprimé - uniquement exécuté. De cette façon, le droit d'exécuter l'automatisation est accordé au-delà des limites de l'équipe - tandis que le droit de le modifier ou de le changer appartient à l'équipe qui a la connaissance du domaine, ici l'équipe IDPS. Notez également les informations d'identification: l'accès à l'IDPS nécessite des clés SSH. Ils sont référencés dans le modèle de tâche, mais l'utilisateur `analyst` ne peut pas rechercher leur contenu dans la section **Credentials** de Tower. De cette façon, une séparation du droit d'exécuter l'automatisation du droit d'accéder à la machine cible est assurée.
+Seuls les deux modèles **Accept...** appartiennent à l'analyste et peuvent être modifiés ou par exemple supprimés comme indiqué par l'icône de la petite poubelle. Le modèle de tâche **Send IDPS logs to QRadar** est fourni par l'équipe IDPS uniquement pour les droits d'exécution, et ne peut donc pas être modifié ou supprimé - uniquement exécuté. De cette façon, le droit d'exécuter l'automatisation est accordé au-delà des limites de l'équipe - tandis que le droit de le modifier ou de le changer appartient à l'équipe qui a la connaissance du domaine, ici l'équipe IDPS. Notez également les informations d'identification: l'accès à l'IDPS nécessite des clés SSH. Ils sont référencés dans le modèle de tâche, mais l'utilisateur `analyst` ne peut pas rechercher leur contenu dans la section **Credentials** de controller. De cette façon, une séparation du droit d'exécuter l'automatisation du droit d'accéder à la machine cible est assurée.
 
 Exécutez maintenant les deux modèles de travail **Accept IDPS logs in QRadar** et **Send IDPS logs to QRadar** en appuyant sur la petite icône de fusée à côté des modèles.
 
@@ -162,7 +162,7 @@ Jetons un coup d'œil à notre SIEM QRadar: accédez à l'onglet d'activité du 
 
 Nous avons déterminé que l'hôte n'effectue pas d'attaque et avons finalement confirmé que la violation de la politique de pare-feu est un faux positif, probablement dû à une mauvaise configuration du groupe de liste d'autorisation pour cette application. Nous pouvons donc ajouter à la liste d'autorisation l'IP dans le pare-feu pour laisser passer les événements.
 
-Déconnectez-vous de Tower et reconnectez-vous en tant qu'utilisateur `opsfirewall`. Accédez à la vue d'ensemble **Modèles** et lancez le modèle de tâche **Whitelist attacker**. Quelques instants plus tard, le trafic est autorisé.
+Déconnectez-vous de controller et reconnectez-vous en tant qu'utilisateur `opsfirewall`. Accédez à la vue d'ensemble **Modèles** et lancez le modèle de tâche **Whitelist attacker**. Quelques instants plus tard, le trafic est autorisé.
 
 ## Étape 2.10 - Restauration
 
@@ -170,9 +170,9 @@ Les analystes ont mis fin à leur chasse aux menaces. Pour réduire la consommat
 
 **Roll back all changes**
 
-Connectez-vous à Ansible Tower en tant qu'utilisateur `analyst`, et exécutez-le en cliquant sur la petite icône de fusée à côté. Toute la configuration de journalisation est revenue à la normale.
+Connectez-vous à automation controller en tant qu'utilisateur `analyst`, et exécutez-le en cliquant sur la petite icône de fusée à côté. Toute la configuration de journalisation est revenue à la normale.
 
-Enfin, nous devons arrêter la simulation d'attaque. Déconnectez-vous de Tower et reconnectez-vous en tant qu'utilisateur student. Dans la section **Modèles**, recherchez et exécutez le modèle de travail appelé **Stop DDOS attack simulation**.
+Enfin, nous devons arrêter la simulation d'attaque. Déconnectez-vous de controller et reconnectez-vous en tant qu'utilisateur student. Dans la section **Modèles**, recherchez et exécutez le modèle de travail appelé **Stop DDOS attack simulation**.
 
 Vous avez terminé l'exercice. Revenez à la liste des exercices pour continuer avec le suivant.
 

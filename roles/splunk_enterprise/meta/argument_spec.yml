@@ -23,3 +23,7 @@ argument_specs:
         description: Whether to execute teardown or creation.
         type: bool
         required: true
+      splunk_enterprise_install_pkg:
+        description: Splunk Enterprise installation package location
+        type: str
+        required: true

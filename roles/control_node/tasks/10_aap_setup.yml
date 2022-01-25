@@ -1,0 +1,34 @@
+---
+- name: Create tmp directory to store AAP tar.gz
+  tempfile:
+    state: directory
+    suffix: "aapbundle"
+  register: tempdir
+
+- name: copy AAP tar.gz
+  copy:
+    src: "{{ aap_archive | default(playbook_dir + '/aap.tar.gz') }}"
+    dest: "{{ tempdir.path }}/aap.tar.gz"
+
+- name: Create directory for automation controller
+  file:
+    path: "{{ aap_dir }}"
+    state: directory
+
+- name: Extract AAP tar.gz install
+  unarchive:
+    src: "{{ tempdir.path }}/aap.tar.gz"
+    dest: "{{ aap_dir }}"
+    remote_src: true
+    extra_opts: ['--strip-components=1', '--show-stored-names']
+
+- name: Set AAP local repository on controller node
+  include_role:
+    name: ../../roles/aap_repo
+
+- name: Install vimrc in home directory
+  template:
+    src: vimrc.j2
+    dest: "/home/{{ username }}/.vimrc"
+    owner: "{{ username }}"
+    group: "{{ username }}"

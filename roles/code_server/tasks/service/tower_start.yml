@@ -1,0 +1,8 @@
+---
+- name: make sure Ansible Tower is started
+  service:
+    name: ansible-tower.service
+    state: started
+  register: install_tower
+  until: install_tower is not failed
+  retries: 5

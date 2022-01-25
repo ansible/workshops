@@ -67,318 +67,117 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
 ?>
 <!DOCTYPE html>
 <html>
-<font face="verdana,sans,arial">
-<style>
-
-#control_node {
-  display: flex;
-}
-
-#login_info {
-  width: 400px;
-}
-
-#section_title {
-  font-weight: bold;
-  font-size: 25px;
-}
-
-#example_login {
-  padding-top: 5px;
-}
-
-hr {
-  width: 80%;
-}
-
-td {
-  padding: 5px;
-  border-bottom: 1px solid #cccccc;
-}
-
-pre {
-  background: black;
-  color: #fff !important;
-  width: 100%;
-  padding: 5px;
-  max-width: 600px;
-  margin: 10px 0 10px 0;
-}
-
-.content{
-         margin: 10px;
-}
-
-.header{
-  border-bottom: 1px solid #494a5a;
-}
-
-.student_logins {
-    width:100%;
-    border:1px solid #d3d3d3;
-}
-.student_logins div {
-    width:100%;
-}
-.student_logins .header {
-    background-color:#d3d3d3;
-    padding: 2px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.student_logins .studentx {
-    padding : 5px;
-}
-
-.studentinfo {
-         margin: 10px;
-}
-
-.linklightfooter {
-    background-color: #212121;
-    padding: 80px 0px;
-    font-size: 0.7em;
-    color: #fff;
-    font-weight: 300;
-}
-
-section {
-    padding: 30px 0px;
-}
-
-body {
-  line-height: 1.5;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.theme-dark,
-.theme-dark *{
-    color: #fff;
-}
-
-.theme-bg-gray{
-    background-color: #cac8c8;
-}
-
-.theme-bg-darkgray{
-    background-color: #a2a1a1;
-}
-
-.btn {
-    border-radius: 0px;
-    text-align: center;
-    padding: 10px 20px;
-    margin-bottom: 0px;
-}
-
-.btn.btn-block {
-    display: block;
-}
-
-.btn.btn-primary,
-.btn.btn-secondary {
-    background-color: #a2a1a1;
-    color: #fff;
-    padding: 30px;
-}
-
-.btn.btn-secondary {
-    background-color: #cac8c8;
-}
-
-.btn.btn-ghost{
-    border: 1px solid #fff;
-    color: #fff;
-    background: transparent;
-}
-
-
-.page-header {
-    background: #c00;
-    color: #fff;
-    text-align: center;
-}
-
-.page-header h1 {
-    font-size: 21px;
-    text-transform: uppercase;
-    font-weight: 400;
-}
-
-.page-header h2 {
-    font-size: 1em;
-    font-weight: 300;
-}
-
-
-.main-content h1{
-    color: #333;
-}
-
-.main-content h2{
-    color: #cc0000;
-}
-
-.main-content h3, .main-content h4, .main-content h5, .main-content h6 {
-    color: #c00;
-}
-
-
-footer.site-footer{
-    background-color: #212121;
-    padding: 80px 0px;
-    font-size: 0.7em;
-    color: #fff;
-    font-weight: 300;
-}
-
-
-
-@media screen and (min-width: 768px){
-
-    .page-header h1 {
-        font-size: 24px;
-    }
-
-    .main-content {
-        font-size: 1.125rem;
-    }
-}
-
-
-
-/* theme overrides */
-
-@media screen and (max-width: 42em){
-    .main-content {
-        padding: 2rem 0px;
-        font-size: 1rem;
-    }
-}
-
-@media screen and (max-width: 64em) and (min-width: 42em){
-    .main-content {
-        padding: 2rem 0px;
-        font-size: 1rem;
-    }
-}
-
-@media screen and (min-width: 64em){
-    .main-content {
-        max-width: none;
-        font-size: 1.1rem;
-    }
-}
-
-a {
-  test-decoration: none;
-}
-
-</style>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Overpass:300,400,700” rel="stylesheet”>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-
-    <section class="page-header">
-      <div class="container">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-              <h1 class="project-name">Red Hat Ansible Automation Platform<br/><strong class="text-nowrap">Technical Workshops</strong></h1>
-              <h2>The Ansible Workshops project is intended to effectively demonstrate the capabilities of Red Hat Ansible Automation Platform through instructor-led workshops and self-paced exercises.</h2>
-
-                <a target=_blank href="https://github.com/ansible/workshops" class="btn btn-ghost">View on GitHub</a><br><br>
-
-              <h1>Workshop Name: {{ec2_name_prefix}}</h1>
-
-            </div>
-        </div>
+  <div class="wrapper">
+    <header>
+      <div class="header-container">
+        <a href="https://ansible.com">
+          <img
+            class="header-logo"
+            src="redhat-ansible-logo.svg"
+            title="Red Hat Ansible"
+            alt="Red Hat Ansible"
+          />
+        </a>
+        <a class="header-link" href="https://aap2.demoredhat.com/">
+          Workshops Homepage
+        </a>
       </div>
-    </section>
+    </header>
 
-<section class="main-content">
 <section>
+  <h1>Workshop Name: {{ec2_name_prefix}}</h1>
+  <p> This is the workshop launch page.  If you require more information please refer to this <a href="https://youtu.be/Y_Gx4ZBfcuk">YouTube video</a>.</p>
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                {% if workshop_type in ['network', 'f5'] %}
-                <h2>Network Automation Workshops</h2>
-                <p>These workshops are focused on networking platforms like Arista, Cisco, Juniper and F5.</p>
+                {% if workshop_type == 'network' %}
+                <h2>Ansible Automation Platform + Network</h2>
+                <p>The Ansible network automation workshop is a comprehensive beginners guide to automating popular network data center devices from Arista, Cisco and Juniper via Ansible playbooks. You’ll learn how to pull facts from devices, build templated network configurations, and apply these concepts at scale with Ansible automation controller. You’ll put it all together by exploring the controller’s job templates, surveys, access controls and more. </p>
+                <div class="row">
+                  <div class="col-sm-4">
+                      <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_network">Network Exercises</a>
+                  </div>
+
+                  <div class="col-sm-4">
+                      <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_network.pdf">Network Presentation Deck</a>
+                  </div>
+
+                </div>
+                {% elif workshop_type == "f5" %}
+                <h2>Ansible Automation Platform + F5</h2>
+                <p>The Ansible F5 Networking workshop provides exercises that demonstrate Ansible Automation Platform capabilities to automate the F5 BIG-IP platform. You will be exploring, configuring and managing F5 BIG-IP instances via Ansible playbooks and extending them to Ansible automation controller for enterprise use cases.</p>
+                <div class="row">
+                  <div class="col-sm-4">
+                      <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_f5">Ansible F5 Exercises</a>
+                  </div>
+
+                  <div class="col-sm-4">
+                      <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_f5.pdf">Ansible F5 Deck</a>
+                  </div>
+                </div>
                 {% elif create_cluster|bool and workshop_type == "rhel" %}
-                <h2>Ansible Tower Advanced Workshops</h2>
-                <p>These workshops are focused on using advanced features of Ansible Tower like clustering.</p>
-                {% elif workshop_type in ['rhel'] %}
-                <h2>Ansible Automation Workshops</h2>
-                <p>These workshops are focused on getting started with Ansible Engine and Ansible Tower in automating Linux platforms like RHEL (Red Hat Enterprise Linux).</p>
-                {% elif workshop_type in ['security'] %}
-                <h2>Security Automation Workshops</h2>
-                <p>These workshops are focused on automating security platforms like Snort, Check Point and Splunk Enterprise Security.</p>
-                {% elif workshop_type in ['windows'] %}
-                <h2>Windows Automation Workshops</h2>
-                <p>These workshops are focused on automating Microsoft Windows.</p>
+                <h2>Automation controller Advanced Workshops</h2>
+                <p>These workshops are focused on using advanced features of automation controller like clustering.</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://red.ht/advanced_tower">Automation controller Advanced Exercises</a>
+                    </div>
+                </div>
+                {% elif workshop_type == 'rhel' %}
+                <h2>Ansible Automation Platform + RHEL</h2>
+                <p>If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_rhel">Ansible RHEL Exercises</a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
+                    </div>
+                </div>
+                {% elif workshop_type == 'rhel_90' %}
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_rhel_90">Ansible RHEL Exercises</a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_rhel_90.pdf">Ansible Technical Deck</a>
+                    </div>
+                </div>
+                {% elif workshop_type == 'security' %}
+                <h2>Ansible Automation Workshop + Security</h2>
+                <p>Get started with Ansible Security Automation by implementing automation for three security use cases: 1) orchestrating firewalls, 2) IDS and SIEM: investigating suspicious traffic on a web server, and 3) threat hunting: analyzing unusual denied accesses on a firewall and remediation of a SQL injection. After a brief introduction, you’ll tackle some of the basic concepts and show you how to use Ansible Security Automation in combination with existing third-party security solutions.</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_security">Ansible Security Exercises</a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_security.pdf">Ansible Security Deck</a>
+                  </div>
+                </div>
+                {% elif workshop_type == 'windows' %}
+                <h2>Ansible Automation Platform + Windows</h2>
+                <p>This workshop guides you through configuring Ansible automation controller to connect to Windows Server instances for automating various operational tasks. Once Ansible automation controller is configured, you will start with automating simple tasks and then progress to more advanced use cases such as patching and leveraging third-party solutions to enhance automation (Chocolatey). There are minimal client requirements for you to interact with the workshop because you only need a compatible Web browser. This workshop has reduced requirements for Linux knowledge and other command line tools.</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_windows">Ansible Windows Exercises</a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_windows.pdf">Ansible Windows Deck</a>
+                  </div>
+                </div>
                 {% endif %}
             </div>
         </div>
-        {% if workshop_type == "network" %}
-        <div class="row">
-          <div class="col-sm-4">
-              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_network/">Ansible Network Exercises</a>
-          </div>
 
-          <div class="col-sm-4">
-              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_network.pdf">Ansible Network Deck</a>
-          </div>
-
-        </div>
-        {% elif workshop_type == "f5" %}
-        <div class="row">
-          <div class="col-sm-4">
-              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_f5/">Ansible F5 Exercises</a>
-          </div>
-
-          <div class="col-sm-4">
-              <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_f5.pdf">Ansible F5 Deck</a>
-          </div>
-
-        {% elif create_cluster|bool and workshop_type == "rhel" %}
-        <div class="row">
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://red.ht/advanced_tower">Ansible Tower Advanced Exercises</a>
-            </div>
-        </div>
-        </div>
-        {% elif workshop_type in ['rhel', 'rhel_90'] %}
-        <div class="row">
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
-            </div>
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_rhel.pdf">Ansible Technical Deck</a>
-            </div>
-        </div>
-        {% elif workshop_type == "security" %}
-        <div class="row">
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_security/">Ansible Security Exercises</a>
-            </div>
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_security.pdf">Ansible Security Deck</a>
-          </div>
-        </div>
-        {% elif workshop_type == "windows" %}
-        <div class="row">
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/exercises/ansible_windows/">Ansible Windows Exercises</a>
-            </div>
-            <div class="col-sm-4">
-                <a target=_blank class="btn btn-secondary btn-block" href="https://ansible.github.io/workshops/decks/ansible_windows.pdf">Ansible Windows Deck</a>
-          </div>
-        </div>
-        {% endif %}
 <br><br>
 
     </div>
@@ -414,12 +213,27 @@ if (isset($student['id'])) {
 
 </section>
 
-<div class="linklightfooter">
-  <div class="container">
-  <p>Red Hat, the Shadowman logo, Ansible, and Ansible Tower are trademarks or registered trademarks of Red Hat, Inc. or its subsidiaries in the United States and other countries.
-
-  All other parts of Ansible Automation Workshops are made available under the terms of the MIT License</p>
+<footer>
+  <div class="footer-container">
+    <a href="https://redhat.com">
+      <img
+        class="footer-logo"
+        src="redhat-logo.svg"
+        title="Red Hat"
+        alt="Red Hat"
+      />
+    </a>
+    <p class="footer-copyright">Copyright © 2021 Red Hat, Inc.</p>
+    <div class="footer-linkContainer">
+      <a href="https://www.redhat.com/en/about/privacy-policy" class="footer-link">Privacy statement</a>
+      <span class="footer-linkSpacer">|</span>
+      <a href="https://www.ansible.com/security?hsLang=en-us" class="footer-link">Security disclosure</a>
+      <span class="footer-linkSpacer">|</span>
+      <a href="https://www.redhat.com/en/about/all-policies-guidelines" class="footer-link">All policies and guidelines</a>
+    </div>
   </div>
+</footer>
+
 </div>
 
 </body>
@@ -440,22 +254,22 @@ function display_student($student) {
   To login to Visual Studio Code via your web browser please go here:<br>
   <table>
     <tr>
-      <td>UI link:</td>
+      <td>WebUI link:</td>
       <td>{% if workshop_type == 'windows' %}<a target=_blank href='" . $student['vscode'] . "'>" . $student['vscode_display'] . "</a>{% else %}<a target=_blank href='" . $student['vscode_display'] . "'>" . $student['vscode_display'] . "</a>{% endif %}</td>
     </tr>
     <tr>
       <td>password:</td>
       <td><code>" . $student['password'] . "</code></td>
     </tr>
-  </table><br>";
+  </table>";
 
   {% endif %}
   {% if workshop_type == "windows" %}
-  print '<div id="section_title">GitLab access</div>
-  To login to GitLab via your web browser please go here:<br>
+  print '<div id="section_title">Git access</div>
+  To login to the git server via your web browser please go here:<br>
   <table>
     <tr>
-      <td>UI link:</td>
+      <td>WebUI link:</td>
       <td><a target=_blank href="' . $student['gitlab'] . '">' . $student['gitlab'] . '</a></td>
     </tr>
     <tr>
@@ -469,10 +283,59 @@ function display_student($student) {
   </table><br>';
 
   {% endif %}
+  print '<div id="tower_info">
+  {% if controllerinstall is defined and controllerinstall %}
+  <div id="section_title">Automation controller</div>
+  To login to the Automation controller WebUI use the following credentials:<br>
+  <table>
+  {% if dns_type != 'none' %}
+    <tr>
+  <td>WebUI link:</td>
+  <td><a target=_blank href="https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
+    </tr>
+  {% endif %}
+  {% if dns_type == 'none' %}
+    <tr>
+  <td>UI link:
+  <td><a target=_blank href="https://' . $student['ip'] . '">https://' . $student['ip'] . '</a></td>
+    </tr>
+  {% endif %}
+    <tr>
+      <td>username:</td>
+      <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>{{admin_password}}</code></td>
+    </tr>
+  </table>
+  {% endif %}
+  </div>
+  {% if workshop_type == 'devops' %} Lab Guide: <a target=_blank href="http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}';
+    print '<div id="hub_info">
+    {% if automation_hub is defined and automation_hub %}
+    <div id="section_title">Private automation Hub</div>
+    To login to the Private Automation Hub WebUI use the following credentials:<br>
+    <table>
+      <tr>
+    <td>WebUI link:
+    <td><a target=_blank href="' . $student['hub'] . '">' . $student['hub'] . '</a></td>
+      </tr>
+      <tr>
+        <td>username:</td>
+        <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+      </tr>
+      <tr>
+        <td>password:</td>
+        <td><code>{{ admin_password }}</code></td>
+      </tr>
+    </table>
+    {% endif %}
+    </div>';
   {% if workshop_type == "windows" %}
   {% else %}
-  print '<div id="section_title">SSH access</div>
-  To login to the Ansible Control Node use the following for SSH access:<br>
+  print '<div id="section_title"><a data-toggle="collapse" href="#collapse1">SSH access-></a></div><div id="collapse1" class="panel-collapse collapse">
+  As a backup option if VS Code Terminal is not sufficient, you can directly SSH to your control node:<br>
   <div id="control_node">
   <div id="login_info">
   <table>
@@ -498,41 +361,8 @@ function display_student($student) {
   {% endif %}
   </div>
   </div>
-  <hr>';
+  </div>';
   {% endif %}
-
-  print '<div id="tower_info">
-  {% if towerinstall is defined and towerinstall %}
-  <div id="section_title">Ansible Tower access</div>
-  To login to the Ansible Tower UI use the following credentials:<br>
-  <table>
-  {% if dns_type != 'none' %}
-    <tr>
-  <td>UI link:</td>
-  <td><a target=_blank href="https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
-    </tr>
-  {% endif %}
-  {% if dns_type == 'none' %}
-    <tr>
-  <td>UI link:
-  <td><a target=_blank href="https://' . $student['ip'] . '">https://' . $student['ip'] . '</a></td>
-    </tr>
-  {% endif %}
-    <tr>
-      <td>username:</td>
-      <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
-    </tr>
-    <tr>
-      <td>password:</td>
-      <td><code>{{admin_password}}</code></td>
-    </tr>
-  </table>
-  {% endif %}
-  </div>
-
-  {% if workshop_type in ['devops'] %} Lab Guide: <a target=_blank href="http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}
-      </div>
-    </div>';
 
   print "</div></div>";
 

@@ -38,7 +38,7 @@ argument_specs:
         description: The total number of students for the workshop.
         type: int
         required: true
-      towerinstall:
+      controllerinstall:
         description: Whether to install Ansible Tower.
         type: bool
         required: true

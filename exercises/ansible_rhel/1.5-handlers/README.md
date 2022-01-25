@@ -105,7 +105,6 @@ First we need the file Ansible will deploy, let’s just take the one from node1
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
-student<X>@11.22.33.44's password:
 httpd.conf
 ```
 
@@ -122,7 +121,7 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
-        - restart_apache
+      - restart_apache
   handlers:
     - name: restart_apache
       service:
@@ -244,14 +243,47 @@ Check the output:
 
 * Again the task is listed once, but three changes are listed. Each loop with its content is shown.
 
-Verify that the user `dev_user` was indeed created on `node1`:
+Verify that the user `dev_user` was indeed created on `node1` using the following playbook:
+
+{% raw %}
+```yaml
+---
+- name: Get user ID
+  hosts: node1
+  vars:
+    myuser: "dev_user"
+  tasks:
+    - name: Get {{ myuser }} info
+      getent:
+        database: passwd
+        key: "{{ myuser }}"
+    - debug:
+        msg:
+          - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
+```
+{% endraw %}
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a "id dev_user"
-node1 | CHANGED | rc=0 >>
-uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
-```
+$ ansible-navigator run user_id.yml -m stdout
 
+PLAY [Get user ID] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Get dev_user info] *******************************************************
+ok: [node1]
+
+TASK [debug] *******************************************************************
+ok: [node1] => {
+    "msg": [
+        "dev_user uid: 1002"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 ---
 **Navigation**
 <br>

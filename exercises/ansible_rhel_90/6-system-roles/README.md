@@ -17,9 +17,9 @@
 
 The goal of this exercise is to understand and use pre-existing content in the forms of roles and collections from Automation Hub and Ansible Galaxy.
 
-- Understand and use [Linux System Roles](https://linux-system-roles.github.io/).
+- Understand and use [Linux System Roles](https://linux-system-roles.github.io/) and [RHEL System Roles Collection](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles)
   - Use [firewall role](https://galaxy.ansible.com/linux-system-roles/firewall) to configure the firewall
-  - Use the [timesync role](https://galaxy.ansible.com/linux-system-roles/timesync) to configure NTP
+  - Use the [timesync role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) to configure NTP from the RHEL System Roles Collection.
 - Use a pre-populated Ansible Survey to configure the RHEL web hosts
 
 # Guide
@@ -30,17 +30,17 @@ This exercise will use two Linux System Roles, the `timesync` and `firewall` rol
 
 ## Step 1 - Examine Ansible Project
 
-In the Ansible Tower UI navigate to Projects then click on the **Ansible official demo project**:
+In the Ansible Automation Controller UI navigate to Projects then click on the **Ansible official demo project**:
 
 ![demo project](images/demo-project.png)
 
-Take note of the Github repository that was pre-loaded into your Ansible Tower environment:
+Take note of the Github repository that was pre-loaded into your Ansible Automation Controller environment:
 
 [https://github.com/ansible/product-demos](https://github.com/ansible/product-demos)
 
 ## Step 2 - Examine the Ansible Playbook
 
-Open the repository linked above in your web browser. Navigate to **playbooks/03_hardening.yml**
+Open the repository linked above in your web browser. Navigate to **playbooks/security/hardening.yml**
 
 Take note of these two tasks:
 
@@ -53,10 +53,10 @@ Take note of these two tasks:
 - name: Configure Timesync
   when: harden_time | bool
   include_role:
-    name: linux-system-roles.timesync
+    name: redhat.rhel_system_roles.timesync
 ```
 
-There are two tasks that include a role.  If you have trouble distinguishing a role that comes directly from Ansible Galaxy versus a role that is in an Ansible Collection this nomenclature should help you:
+There are two tasks that include a role and a role from a collection respectively.  If you have trouble distinguishing a role that comes directly from Ansible Galaxy versus a role that is in an Ansible Collection this nomenclature should help you:
 
 <table>
 <tr>
@@ -83,7 +83,7 @@ vars:
     state: 'disabled'
 ```
 
-- [timesync system role](https://galaxy.ansible.com/linux-system-roles/timesync) - will install NTP or chrony depending on your OS version, configure them, and make sure the system clock for the Linux host is synchronized.  Optional parameters can be set to specify specific parameters:
+- [timesync system role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) from the RHEL System Roles Collection - will install NTP or chrony depending on your OS version, configure them, and make sure the system clock for the Linux host is synchronized.  Optional parameters can be set to specify specific parameters:
 
 ```
 vars:
@@ -98,7 +98,7 @@ vars:
 
 ## Step 4 - Launch the Ansible Job
 
-In the Ansible Tower UI navigate to **Templates**.  
+In the Ansible Automation Controller UI navigate to **Templates**.  
 
 Click on the **rocket** to launch the **SERVER / Hardening** job template:
 

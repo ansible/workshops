@@ -2,11 +2,11 @@
 # Makefile for ansible/workshops
 #
 # useful targets
-#   make show-tranlsated-folder -- show list of exercices with localisation enabled
-#   make generate-po ------------- generate language specfic po file
-#   make needs-translation ------- generate list of file with unstranlated or fuzzy string for a specific language
+#   make show-translated-folder -- show list of exercises with localization enabled
+#   make generate-po ------------- generate language specific po file
+#   make needs-translation ------- generate list of file with untranslated or fuzzy string for a specific language
 #   make apply-translation ------- Take PO file as entry and generate a localized README.<locale>.md file
-#   make clean-translation ------- Removes the locales/ folder in each exercice folder
+#   make clean-translation ------- Removes the locales/ folder in each exercise folder
 #
 ########################################################
 

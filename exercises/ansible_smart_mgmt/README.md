@@ -1,6 +1,6 @@
 # Ansible Workshop - Smart Management Automation
 
-This is the documentation for Ansible Automation Platform 1.2.  If you are looking for Ansible Automation Platform 2, please go to [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
+**This is documentation for Ansible Automation Platform 2**
 
 In this workshop you will learn how to get the most from your Red Hat Smart Management subscription and the Ansible Automation Platform.
 

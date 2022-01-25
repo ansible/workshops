@@ -12,7 +12,7 @@ The open source Chocolatey client offers basic package management functionality,
 * Package Internalizer takes the 8000+ packages that maintainers have already built for you in the Chocolatey Community Repository, and creates localized offline versions for you to use internally (including dependencies);
 * Package Synchronizer will allow you to create Chocolatey packages for applications listed in Programs and Features, and allows you to manage them like any other package.
 * Chocolatey Self-Service GUI allows end-users the ability to manage packages without requiring admin rights or elevated permissions.
-* Chocolatey Central Management is a web dashboard and API (similar to Ansible Tower) giving you that high-level overview and reporting of your entire estate of endpoints.
+* Chocolatey Central Management is a web dashboard and API (similar to Automation Controller) giving you that high-level overview and reporting of your entire estate of endpoints.
 
 *************************************************************************************************
 
@@ -116,7 +116,7 @@ We added 4 tasks to the tasks section:
 
 > **Tip**
 >
-> The `win_chocolatey` module's `name` attribute can actually take a list of packages avoiding the need for a loop, however using a loop will allow you to specify the versions of each package, and install them sequentially if order is relevant. for more information on the `win_chocolatey` module take a look at the [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html).
+> The `win_chocolatey` module's `name` attribute can actually take a list of packages avoiding the need for a loop, however using a loop will allow you to specify the versions of each package, and install them sequentially if order is relevant. for more information on the `win_chocolatey` module take a look at the [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html).
 
 The completed playbook `install_packages.yml` should look like this:
 
@@ -160,7 +160,7 @@ Now that the playbook is ready:
 * Push the committed changes to your repository by clicking the circular arrows.
 * (Optional) Verify that your code is in git by going to GitLab using the information under **GitLab Access**.
 
-Now head back to Ansible Tower, and sync your Project so that Tower Picks up the new playbook. Click **Projects** and then click the sync icon next to your project.
+Now head back to Automation Controller, and sync your Project so that Controller Picks up the new playbook. Click **Projects** and then click the sync icon next to your project.
 
 ![Project Sync](images/8-project-sync.png)
 
@@ -188,7 +188,7 @@ Click SAVE and then Click LAUNCH to run the job. The job should run successfully
 
 > **Tip**
 >
-> By now you should be familiar with the flow of creating or editing playbooks, committing your changes and pushing them to git. You should also be comfortable with refreshing your project, creating and running job templates in Ansible Tower. Later steps will no longer list each and every step to do so.
+> By now you should be familiar with the flow of creating or editing playbooks, committing your changes and pushing them to git. You should also be comfortable with refreshing your project, creating and running job templates in Automation Controller. Later steps will no longer list each and every step to do so.
 
 ## Step 3 - Updating all installed packages
 
@@ -204,7 +204,7 @@ In Visual Studio Code, create a new file under the `chocolatey` folder with the 
 
 > **Tip**
 >
-> Information on using `all` as a value that will be set to the `name` attribute can be found in the `win_chocolatey`'s module [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_module.html). Always check the documentation of a module that you are using for the first time, often there will be useful information that will save you a lot of work.
+> Information on using `all` as a value that will be set to the `name` attribute can be found in the `win_chocolatey`'s module [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html). Always check the documentation of a module that you are using for the first time, often there will be useful information that will save you a lot of work.
 
 The contents of `update_packages.yml` are:
 
@@ -234,7 +234,7 @@ The contents of `update_packages.yml` are:
 
 The other tasks are there so that we can verify the versions of `nodejs` and `python` after the update task has been run. And that's it, simple right?
 
-Now go ahead and make sure your new playbook is in Git, and that Ansible Tower can see it, and then create and run a new Job template with the following values:
+Now go ahead and make sure your new playbook is in Git, and that Automation Controller can see it, and then create and run a new Job template with the following values:
 
 > **Tip**
 >
@@ -266,7 +266,7 @@ The first module we will use is the `win_chocolatey_facts` module. This module i
 
 > **Tip**
 >
-> Read more on the `win_chocolatey_facts` in the [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_facts_module.html).
+> Read more on the `win_chocolatey_facts` in the [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_facts_module.html).
 
 So let's take a closer look at the information gathered by this module by writing a simple playbook to collect and display the collected information.
 
@@ -289,7 +289,7 @@ In Visual Studio Code, under the `chocolatey` folder, create a new file called `
 
 The first task uses `win_chocolatey_facts` to gather all the available information from Chocolatey on the target Windows machine, and will store this information in a variable named `ansible_chocolatey`, which is using the `debug` module to print the contents of to examine them closer.
 
-Add your new playbook to your source control repo, and sync your project in Ansible Tower, then create and run a new job template with the following values:
+Add your new playbook to your source control repo, and sync your project in Automation Controller, then create and run a new job template with the following values:
 
 | Key         | Value                                            | Note |
 |-------------|--------------------------------------------------|------|
@@ -315,7 +315,7 @@ Scroll through the output and observe the values, you can see the configuration 
 
 > **Tip**
 >
-> We really did not need to use a `debug` task just to see the information collected by the `win_chocolatey_facts` module, instead, in Ansible Tower's job output pane click on the result of running the task on the Windows target, which will open the host events dialog for that specific host, which shows information about the host affected by the selected event and the output of that event (In this case, the JSON object returned by the `win_chocolatey_facts` module run)
+> We really did not need to use a `debug` task just to see the information collected by the `win_chocolatey_facts` module, instead, in Automation Controller's job output pane click on the result of running the task on the Windows target, which will open the host events dialog for that specific host, which shows information about the host affected by the selected event and the output of that event (In this case, the JSON object returned by the `win_chocolatey_facts` module run)
 
 <br>
 
@@ -329,13 +329,13 @@ The `win_chocolatey_config` module can be used to manage Chocolatey configuratio
 
 > **Tip**
 >
-> Read more on the `win_chocolatey_config` in the [docs](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_config_module.html).
+> Read more on the `win_chocolatey_config` in the [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_config_module.html).
 
 <br>
 
 > **Tip**
 >
-> Read more on Chocolatey configuration [here](https://chocolatey.org/docs/chocolatey-configuration).
+> Read more on Chocolatey configuration [here](https://docs.chocolatey.org/en-us/configuration).
 
 We will change the values of two configuration options: `cacheLocation` and `commandExecutionTimeoutSeconds`. In the output of the previous step we saw that the `cacheLocation` was unset or did not have a value configured - the default setting, and that the value for `commandExecutionTimeoutSeconds` was set to the default value of 2700. We will modify those configuration options to:
 
@@ -419,10 +419,10 @@ The contents of the `chocolatey_configuration.yml` playbook should now look like
       var: ansible_chocolatey.config
 ```
 
-Commit your changes and push them to source control, sync your project in Ansible Tower and run the `Chocolatey - Facts and Configuration` job template.
+Commit your changes and push them to source control, sync your project in Automation Controller and run the `Chocolatey - Facts and Configuration` job template.
 > **Tip**
 >
-> Back in [exercise 1](../1-tower), when you created the project in Ansible Tower, you checked an option to `UPDATE REVISION ON LAUNCH` - so we did not really need to refresh the project in Tower, but just in case that option was missed...
+> Back in [exercise 1](../1-tower), when you created the project in Automation Controller, you checked an option to `UPDATE REVISION ON LAUNCH` - so we did not really need to refresh the project in Controller, but just in case that option was missed...
 
 The playbook should run and make the configuration changes, and the output from the last `debug` task showing the value of the `ansible_chocolatey.config` section should reflect those changes and show the new values for `cacheLocation` and `commandExecutionTimeoutSeconds`.
 
@@ -430,7 +430,7 @@ The playbook should run and make the configuration changes, and the output from 
 
 <br><br>
 
-And thats it. This exercise covered most Chocolatey related Ansible modules available (with the exception of `win_chocolatey_source` and `win_chocolatey_feature` which you can read about [here](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_feature_module.html) and [here](https://docs.ansible.com/ansible/latest/modules/win_chocolatey_source_module.html). Hopefully you got a taste of the possibilities by using Ansible together with Chocolatey to manage your Windows packages.
+And thats it. This exercise covered most Chocolatey related Ansible modules available (with the exception of `win_chocolatey_source` and `win_chocolatey_feature` which you can read about [here](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_feature_module.html) and [here](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_source_module.html). Hopefully you got a taste of the possibilities by using Ansible together with Chocolatey to manage your Windows packages.
 
 <br><br>
 [Click here to return to the Ansible for Windows Workshop](../README.md)

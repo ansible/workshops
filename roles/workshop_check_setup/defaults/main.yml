@@ -1,2 +1,2 @@
 ---
-use_manifest: false
+output_dir: "{{ playbook_dir }}/{{ ec2_name_prefix }}"

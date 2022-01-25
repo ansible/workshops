@@ -196,7 +196,7 @@ VS Code Online エディタで、ユーザのホームディレクトリに `fin
 どちらのタスクもデータを収集して出力するだけで、何かを変更することはありません。すぐに Playbook を実行して、返されたデータを見てみます:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook find_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run find_qradar_rule.yml
 
 PLAY [Find QRadar rule state] ***************************************************
 
@@ -276,7 +276,7 @@ Playbook が完成しました: それは QRadar にルールのリストを照�
 Playbook を完成させたら、実行してみます:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook change_qradar_rule.yml
+[student<X>@ansible ansible-files]$ ansible-navigator run change_qradar_rule.yml
 
 PLAY [Change QRadar rule state] ***************************************************
 

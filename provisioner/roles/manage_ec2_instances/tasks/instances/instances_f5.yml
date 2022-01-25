@@ -132,7 +132,7 @@
 ############## eni check ##############
 
 - name: grab all network interfaces for VPC 1 (F5 MODE)
-  ec2_eni_facts:
+  amazon.aws.ec2_eni_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ ec2_vpc_id }}"

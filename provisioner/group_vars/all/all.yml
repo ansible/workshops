@@ -4,12 +4,12 @@ code_server: true
 workshop_dns_zone: "rhdemo.io"
 s3_state: "present"
 teardown: false
-towerinstall: false
-populatetower: true
+controllerinstall: true
+populatecontroller: true
 website_information: ""
 login_website_information: ""
 dns_information: "No errors with DNS"
-callback_information: "No issue with Ansible Tower callback"
+callback_information: "No issue with Ansible Controller callback"
 demo_information: "No errors with Demos"
 workshop_type: ""
 dns_type: aws
@@ -40,9 +40,8 @@ security_console: qradar
 valid_security_console_types:
   - splunk
   - qradar
-ibm_community_grid: false
 create_cluster: false
 default_tower38_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.8.0-1.tar.gz
 default_tower37_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.3-1.tar.gz
-use_manifest: false
-automation_hub: true
+automation_hub: false
+developer_mode: false

@@ -116,7 +116,7 @@ iis_test_message: "Hello World!  My test IIS Server"
 >
 > - コマンド実行の際の`--extra_vars` オプション
 >
->上記変数の定義は、場所によって優先順位が決まっています。最初からあまりいろんなところに置く必要はありませんが、こちらを一度確認しておくと良いと思います。[variable precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)。この演習では、Role の default を使用していくつかの変数を定義していますが、これらは優先順位が低いため、他の場所で記述されると置き換わります。逆に言うと、順応性がある変数とも言えます。この default より優先順位が高いのが vars で、一部をこちらで定義してみました。  
+>上記変数の定義は、場所によって優先順位が決まっています。最初からあまりいろんなところに置く必要はありませんが、こちらを一度確認しておくと良いと思います。[variable precedence](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)。この演習では、Role の default を使用していくつかの変数を定義していますが、これらは優先順位が低いため、他の場所で記述されると置き換わります。逆に言うと、順応性がある変数とも言えます。この default より優先順位が高いのが vars で、一部をこちらで定義してみました。  
 
 ### ステップ 5:
 
@@ -200,7 +200,7 @@ index.htmlテンプレートを追加します。
 <body>
 
   <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-  <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}
+  <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
 
 </body>
 </html>
@@ -225,7 +225,7 @@ Source Control アイコンをクリックし(1)、変更の内容に関する�
 
 ### ステップ 1:
 
-上記で編集した内容は、ジョブテンプレート実行と共に自動的にプロジェクトの更新として実行されます。このため、改めてプロジェクトで同期をかける必要はないのですが、一応演習ですので、プロジェクトで更新作業を行っておきましょう。Ansible Tower の左ペインでプロジェクトをクリックして、円形の更新アイコンをクリックします。  
+上記で編集した内容は、ジョブテンプレート実行と共に自動的にプロジェクトの更新として実行されます。このため、改めてプロジェクトで同期をかける必要はないのですが、一応演習ですので、プロジェクトで更新作業を行っておきましょう。Automation Controller の左ペインでプロジェクトをクリックして、円形の更新アイコンをクリックします。  
 
 ### ステップ 2:
 

@@ -3,9 +3,84 @@
 **Read this in other languages**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    <h3>Workshop access</h3>
+  </a>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <blockquote>
+    <p><strong>Note</strong></p>
+    <p>
+    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
+  </blockquote>
+</div>
+
 ## Step 2.1 - Check Point Next Generation Firewall
 
-To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generaion Firewall (NGFW).
+To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generation Firewall (NGFW).
 
 The NGFW is usually not managed directly, but via a central security management server (MGMT). The MGMT is a central tool to manage multiple NGFWs or other security tools in one spot.
 
@@ -24,19 +99,22 @@ The Windows workstation can be reached via Remote Desktop Protocol (RDP). We rec
 
 Test the access to the MGMT server now by pointing your RDP client to the `windows-ws` IP in your inventory.
 
-If you do not have a RDP client available or want to test the HTML RDP client, please open the following URL in your browser: `http://<windows-wsIP>/myrtille`. Be sure to replace `<windows-wsIP>` with the IP for the Windows workstation from your inventory. In the login field, only provide the user name and the password: The user name is **Administrator**, the password is provided in the inventory. Leave the other fields empty, and click on **Connect**.
+If you do not have a RDP client available or want to test the HTML RDP client, please open the following URL in your browser: `https://<windows-wsIP>/myrtille`. Be sure to replace `<windows-wsIP>` with the IP for the Windows workstation from your inventory. In the login field, only provide the user name and the password: The user name is **Administrator**, the password is provided in the inventory. Leave the other fields empty, and click on **Connect**.
 
 You now are accessing a default windows workstation with a Google Chrome browser installed.
 
-> **Note**
+>**Note**
 >
 > Directly after the login you might see a wide blue bar on the right side of the screen, about network configurations. You can safely ignore this, the question hides away if you click anywhere on the screen.
 
 ## Step 2.3 - Access the SmartConsole UI
 
-Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. The IP address to enter is the one from the **checkpoint** entry of your inventory.
+Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. 
 
-![SmartConsole login window](images/smartconsole-login-window.png)
+Open your **lab inventory** in the online editor and look for the **firewall** inventory group. There will be a `checkpoint` entry. Use the `ansible_host` IP address to log into the SmartConsole.
+
+
+![SmartConsole login window](images/smartconsole-login-window.png#centreme)
 
 Press the **Login** button. Afterwards you need to verify the server fingerprint by clicking the **PROCEED** button.
 
@@ -46,13 +124,13 @@ Press the **Login** button. Afterwards you need to verify the server fingerprint
 
 You are now viewing the Check Point SmartConsole management interface. There might be a Internet Explorer Warning visible upon start. This can safely be closed and is due to limitations in the way IE works.
 
-![SmartConsole main window](images/smartconsole-main-window.png)
+![SmartConsole main window](images/smartconsole-main-window.png#centreme)
 
 Next, on the left side, click on **SECURITY POLICIES** and note that there is currently only one rule installed: to drop all traffic. Now you have a first idea of how Check Point looks like in term of the management interface. We will interact more with it - but first we go back to the command line to learn how to write Ansible playbooks interacting with Check Point.
 
 ## Step 2.4 - First example playbook
 
-In Ansible, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
+In Ansible Automation Platform, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
 A playbook is a repeatable set of *plays* and *tasks*.
 
@@ -111,7 +189,7 @@ In case you wonder: the three dashes at the top, `---`, indicate the start of a 
 
 > **Note**
 >
-> It is a good practice to make playbooks more reusable by pointing them at `hosts: all` and limit the execution later on the command line or via Tower. But for now we simplify the process by naming hosts in the playbook directly.
+> It is a good practice to make playbooks more reusable by pointing them at `hosts: all` and limit the execution later on the command line or via automation controller. But for now we simplify the process by naming hosts in the playbook directly.
 
 As mentioned, in this a simple example we will add a whitelist entry. A simple whitelist entry consists of a source IP address, a destination IP address and the rule to allow access between those.
 
@@ -164,12 +242,12 @@ Let's start with a task to define the source object:
 As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_host`. The module is the part of Ansible which "makes it so" - the module in this case creates or modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can open a terminal in your VS Code online editor and call the help. For example, in the menu bar, click on **Terminal** > **New Terminal** and execute the following command. It will show the help for the module `checkpoint_host`:
 
 ```bash
-[student<X>@ansible ~]$ ansible-doc checkpoint_host
+[student<X>@ansible-1 ~]$ ansible-navigator doc checkpoint_host
 ```
 
 > **Tip**
 >
-> In `ansible-doc` you can use `up`/`down` arrows to scroll through the content and `q` to exit.
+> In `ansible-navigator` you can use `up`/`down` arrows to scroll through the content and `Esc` to exit.
 
 In the same way we defined the source IP host object, we will now add the destination IP host object:
 
@@ -240,10 +318,10 @@ Last, we are defining the actual access rule between those two host objects. The
 
 ## Step 2.5 - Run the playbook
 
-Playbooks are executed using the `ansible-playbook` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
+Playbooks are executed using the `ansible-navigator` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook --syntax-check whitelist_attacker.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --syntax-check --mode stdout
 ```
 
 The syntax check should report no errors. If it does report an error, check the output and try to fix the problem in the playbook code.
@@ -251,7 +329,7 @@ The syntax check should report no errors. If it does report an error, check the 
 Now you should be ready to run your playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook whitelist_attacker.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --mode stdout
 
 PLAY [Whitelist attacker] *********************************************************
 
@@ -277,11 +355,11 @@ Now it's time to check if the changes really did take place and Check Point MGMT
 
 Access the Windows workstation and open the SmartConsole interface. On the right side, underneath **Object Categories**, click on **Network Objects**, then pick **Hosts**. It should list both new host entries.
 
-![SmartConsole Hosts list](images/smartconsole-hosts-list.png)
+![SmartConsole Hosts list](images/smartconsole-hosts-list.png#centreme)
 
 Next, on the left side, click on **SECURITY POLICIES**. Notice the additional access control policy entry in the middle of the field, compare this with when we looked at this earlier. Since the traffic is allowed now, the entry in the **Action** column is changed and has a different color.
 
-![SmartConsole Policy Entries](images/smartconsole-policy-entry.png)
+![SmartConsole Policy Entries](images/smartconsole-policy-entry.png#centreme)
 
 Also note in the bottom left corner that there is a green bar indicating that changes were applied to the entire system.
 
@@ -289,14 +367,19 @@ Also note in the bottom left corner that there is a green bar indicating that ch
 
 To see how changes are normally performed in a typical manual interaction with Check Point, let's do a small change which will come in handy later on. By default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
 
-![SmartConsole, change logging](images/smartconsole-change-logging.png)
+![SmartConsole, change logging](images/smartconsole-change-logging.png#centreme)
 
 Afterwards, click on the **Install Policy** button at the top of the list of policies, confirm the dialog which opens with **Publish & Install** and in the last dialog, click **Install** again.
 
 As a result, in the left corner, a small window pops up informing you of the progress of the deployment of the change.
 
 As you can see, even making a small change in the configuration requires multiple clicks from the user - the more of these steps can be automated, the better.
+<br>
 
 ----
 
-[Click Here to return to the Ansible Security Automation Workshop](../README.md#section-1---introduction-to-ansible-security-automation-basics)
+**Navigation**
+<br><br>
+[Previous Exercise](../1.1-explore/README.md) | [Next Exercise](../1.3-snort/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

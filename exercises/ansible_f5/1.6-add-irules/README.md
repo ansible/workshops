@@ -18,13 +18,9 @@ Demonstrate use of the [BIG-IP irule module](https://docs.ansible.com/ansible/la
 
 ## Step 1:
 
-Using your text editor of choice create a new file called `bigip-irule.yml`.
+Using VSCode create a new file called `bigip-irule.yml` by clicking the new file icon in the left pane.
 
-```
-[student1@ansible ~]$ nano bigip-irule.yml
-```
-
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+![picture of create file icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
 ## Step 2:
 
@@ -51,23 +47,19 @@ Save and Exit out of editor.
 
 Create two dummy irules with the names 'irule1' and 'irule2'
 
+Content for `irule1`
 ```
-[student1@ansible ~]$ nano irule1
-
 when HTTP_REQUEST {
     log local0. "Accessing iRule1"
 }
-
 ```
 Save the file
 
+Content for `irule2`
 ```
-[student1@ansible ~]$ nano irule2
-
 when HTTP_REQUEST {
     log local0. "Accessing iRule2"
 }
-
 ```
 Save the file
 
@@ -112,7 +104,6 @@ Next, re-open `bigip-irule.yml` and add the `task`. This task will use the `bigi
 - The `validate_certs: "no"` parameter tells the module to not validate SSL certificates.  This is just used for demonstration purposes since this is a lab.
 - `loop:` tells the task to loop over the provided list.  The list in this case is the list of iRules.
 
-Do not exit the file yet.
 
 ## Step 5
 
@@ -139,20 +130,20 @@ Next, append the `task` to above playbook. This task will use the `bigip_virtual
 Details of [BIG-IP virtual_Server module](https://docs.ansible.com/ansible/latest/modules/bigip_irule_module.html)
 or reference [Exercise 1.5](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.5-add-virtual-server/bigip-virtual-server.yml)
 
-Save the file and exit out of editor.
+Save the file.
 
 ## Step 6
 
-Run the playbook - exit back into the command line of the control host and execute the following:
+Run the playbook - Go back to the Terminal on VS Code server and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-irule.yml
+[student1@ansible ~]$ ansible-navigator run bigip-irule.yml --mode stdout
 ```
 
 # Playbook Output
 
 ```yaml
-[student1@ansible]$ ansible-playbook bigip-irule.yml
+[student1@ansible]$ ansible-navigator run bigip-irule.yml --mode stdout
 
 PLAY [BIG-IP SETUP] ***********************************************************
 

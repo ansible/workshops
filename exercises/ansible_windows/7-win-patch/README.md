@@ -51,14 +51,14 @@ creating snapshots, or disabling monitoring.
 <!-- {% raw %} -->
 
 ```yaml
-    ---
-    - hosts: windows
-      name: This is my Windows patching playbook
-      tasks:
-        - name: Install Windows Updates
-          win_updates:
-            category_names: "{{ categories | default(omit) }}"
-            reboot: '{{ reboot_server | default(yes) }}'
+---
+- hosts: windows
+  name: This is my Windows patching playbook
+  tasks:
+    - name: Install Windows Updates
+      win_updates:
+        category_names: "{{ categories | default(omit) }}"
+        reboot: '{{ reboot_server | default(true) }}'
 ```
 
 <!-- {% endraw %} -->
@@ -73,7 +73,7 @@ creating snapshots, or disabling monitoring.
 >    reboot the remote host if it is required and continue to install
 >    updates after the reboot. We will also use a survey variable to
 >    stop us from rebooting even if needed. If the reboot\_server value
->    is not specified we will set the reboot attribute to yes.
+>    is not specified we will set the reboot attribute to true.
 
 Section 3: Save and Commit
 ==========================
@@ -100,7 +100,7 @@ stop rotating and indicate 0 problems…
 Section 4: Create your Job Template
 ===================================
 
-Now, back in Tower, you will need to resync your Project so that the new
+Now, back in Controller, you will need to resync your Project so that the new
 files show up.
 
 Next we need to create a new Job Template to run this playbook. So go to

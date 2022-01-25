@@ -1,0 +1,35 @@
+---
+- set_fact:
+    userid: "{{ inventory_hostname | regex_replace('[^0-9]', '') }}"
+
+- name: Add win_shell/win_feature/win_reboot to allowed adhoc modules
+  awx.awx.tower_settings:
+    name: AD_HOC_COMMANDS
+    value:
+      - 'command'
+      - 'shell'
+      - 'ping'
+      - 'setup'
+      - 'win_ping'
+      - 'win_service'
+      - 'win_updates'
+      - 'win_group'
+      - 'win_user'
+      - 'win_shell'
+      - 'win_feature'
+      - 'win_reboot'
+      - 'win_chocolatey'
+    validate_certs: false
+    tower_password: "{{ admin_password }}"
+    tower_username: "{{ username }}"
+    tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
+  register: adhoc_commands
+  until: adhoc_commands is success
+  delay: 3
+  retries: 60
+
+- name: Disable GIT Cert validation
+  lineinfile:
+    path: /etc/tower/settings.py
+    regexp: 'GIT_SSL_NO_VERIFY'
+    line: "AWX_TASK_ENV['GIT_SSL_NO_VERIFY'] = 'True'"

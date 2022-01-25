@@ -1,4 +1,6 @@
-# Ansible Linklight - F5 Networking Workshop
+# Ansible F5 Networking Workshop
+
+**This is documentation for Ansible Automation Platform 2**
 
 ![f5workshop](../../images/ansiblef5-transparent.png)
 
@@ -42,11 +44,11 @@ Login information for the BIG-IP:
  - [Exercise 3.1 - Operational Change with AS3](3.1-as3-change)
  - [Exercise 3.2 - Deleting a Web Application](3.2-as3-delete)
 
-## Section 4 - Ansible Tower F5  Exercises
+## Section 4 - Ansible Controller F5  Exercises
 
- - [Exercise 4.0 - Explore the Ansible Tower](4.0-explore-tower)  
- - [Exercise 4.1 - Create an Ansible Tower job template](4.1-tower-job-template)
- - [Exercise 4.2 - Create an Ansible Tower Workflow](4.2-tower-workflow)
+ - [Exercise 4.0 - Explore the Ansible Automation Controller](4.0-explore-tower)  
+ - [Exercise 4.1 - Create an Ansible Automation Controller job template](4.1-tower-job-template)
+ - [Exercise 4.2 - Create an Ansible Automation Controller Workflow](4.2-tower-workflow)
  - [Exercise 4.3 - Create a node maintenance Workflow](4.3-tower-workflow2)
 
 

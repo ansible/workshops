@@ -143,7 +143,7 @@ Add some role-specific variables to your role in
 > * On a boat, in a moat, with a goat *(disclaimer: this is a complete lie)*
 >
 > Bottom line, you need to read up on [variable
-> precedence](http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
+> precedence](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
 > to understand both where to define variables and which locations take
 > precedence. In this exercise, we are using role defaults to define a
 > couple of variables and these are the most malleable. After that, we
@@ -238,7 +238,7 @@ Right-click `roles\iis_simple\templates` and create a new file called
     <body>
 
       <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}
+      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
 
     </body>
     </html>

@@ -38,7 +38,7 @@ Playbook 編集用のエディターが右ペインに開きます。
     - name: Install Windows Updates
       win_updates:
         category_names: "{{ categories | default(omit) }}"
-        reboot: '{{ reboot_server | default(yes) }}'
+        reboot: '{{ reboot_server | default(true) }}'
 ```
 <!-- {% endraw %} -->
 
@@ -46,7 +46,7 @@ Playbook 編集用のエディターが右ペインに開きます。
 >
 > **上記の説明**
 >
-> -   `win_updates:` このモジュールは、Windows 端末の新規パッチの確認またはインストールに使用されます。変数を使用して特定のカテゴリの更新のみをインストールするように指示しています。`reboot`属性は、必要に応じてリモートホストを自動的に再起動し再起動後も更新のインストールを続行します。 また、必要に応じて Survey を使って再起動を停止することも可能です。reboot_server 値が指定されていない場合、再起動属性をyesに設定します。変数が二つありますが、こちらは、Ansible Tower の Survey で入力します。
+> -   `win_updates:` このモジュールは、Windows 端末の新規パッチの確認またはインストールに使用されます。変数を使用して特定のカテゴリの更新のみをインストールするように指示しています。`reboot`属性は、必要に応じてリモートホストを自動的に再起動し再起動後も更新のインストールを続行します。 また、必要に応じて Survey を使って再起動を停止することも可能です。reboot_server 値が指定されていない場合、再起動属性を true に設定します。変数が二つありますが、こちらは、Automation Controller の Survey で入力します。
 
 ## 保存とコミット
 
@@ -69,7 +69,7 @@ Source Control アイコンをクリックし (1)、変更内容例えば *Addin
 
 ## ジョブテンプレートの作成
 
-Ansible Tower の GUI に戻ってプロジェクトの同期を行います。理由は・・・、もうお分かりですね？  
+Automation Controller の GUI に戻ってプロジェクトの同期を行います。理由は・・・、もうお分かりですね？  
 
 次に、この Playbook を実行する新しいジョブテンプレートを作成する必要があります。*テンプレート*に移動して*追加*をクリックし、`ジョブテンプレート`を選択して新しいジョブテンプレートを作成します。
 

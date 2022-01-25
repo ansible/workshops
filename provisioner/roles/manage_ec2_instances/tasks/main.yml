@@ -1,4 +1,9 @@
 ---
+- name: overwrite select ec2_info vars if ec2_xtra vars are provided
+  set_fact:
+    ec2_info: '{{ ec2_info|combine(ec2_xtra) }}'
+  when: (ec2_xtra is defined) and (ec2_xtra is not none)
+
 - include_tasks: teardown.yml
   when: teardown|bool
 

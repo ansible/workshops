@@ -1,0 +1,10 @@
+---
+- name: workshop_attendance | Create DNS record
+  debug:
+    msg: "No DNS is being used, reverting to IP address information"
+
+- name: set information for instructor
+  set_fact:
+    login_website_information: "Auto-Assignment website located at http://{{ ansible_host }}, instructor can see workbench assignments at http://{{ ansible_host }}/list.php"
+  delegate_to: localhost
+  run_once: true

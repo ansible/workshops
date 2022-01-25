@@ -34,7 +34,7 @@ The goal of this exercise is to understand Red Hat Insights, and use Ansible to 
   - Guidance at your fingertips
   - Resolution at scale with Red Hat Ansible Automation Platform
 
-Effectively Red Hat Insights will identify security, compliance and configuration risks, and use Ansible Automation Platform to automate and implment the fixes.  There is no need to create your own Ansible Playbooks, Red Hat Insights will provide those to Ansible Tower.
+Effectively Red Hat Insights will identify security, compliance and configuration risks, and use Ansible Automation Platform to automate and implment the fixes.  There is no need to create your own Ansible Playbooks, Red Hat Insights will provide those to Automation controller.
 
 ## Step 2 - Create a cloud.redhat.com account
 
@@ -82,7 +82,7 @@ Luckily both of these two things can be done in one spot:
 
 ## Step 4 - Launch the Ansible Job
 
-You now have a Red Hat account, and an active subscription to use Red Hat Insights!  Open up the Ansible Tower UI again.
+You now have a Red Hat account, and an active subscription to use Red Hat Insights!  Open up the Automation controller UI again.
 
 - Navigate to templates
 - Click on the Rocket and launch the **SERVER / Red Hat Insights** Job

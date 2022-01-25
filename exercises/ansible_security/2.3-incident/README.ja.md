@@ -48,12 +48,12 @@ Playbook を実行できるようにするため `ids_rule` に、前回の Snor
 Playbook を実行します:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_snort_rule.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_snort_rule.yml
 ```
 
-これらのルールでログを生成するには、疑わしいトラフィック、つまり攻撃が必要です。繰り返しになりますが、Tower を介して攻撃シミュレーションを開始できます。ブラウザを開き、Tower インスタンスへのリンクを入力します。提供された student ID とパスワードを使用してログインします。
+これらのルールでログを生成するには、疑わしいトラフィック、つまり攻撃が必要です。繰り返しになりますが、automation controller を介して攻撃シミュレーションを開始できます。ブラウザを開き、automation controller インスタンスへのリンクを入力します。提供された student ID とパスワードを使用してログインします。
 
-左側のナビゲーションバーで、**Templates** をクリックします。テンプレートのリストで、右のロケットアイコンをクリックして、**Start SQL injection simulation** と呼ばれるテンプレートを見つけて実行します。これにより、数秒ごとに攻撃がシミュレートされます。これでTower ブラウザタブを閉じることができます。この演習では、これを再度必要とすることはありません。
+左側のナビゲーションバーで、**Templates** をクリックします。テンプレートのリストで、右のロケットアイコンをクリックして、**Start SQL injection simulation** と呼ばれるテンプレートを見つけて実行します。これにより、数秒ごとに攻撃がシミュレートされます。これでautomation controller ブラウザタブを閉じることができます。この演習では、これを再度必要とすることはありません。
 
 また、QRadar コレクションも必要です。これは前回の QRadar 演習で既にインストールされています。その部分を見逃した場合は、次の方法でインストールしてください。`ansible-galaxy collection install ibm.qradar`
 
@@ -139,7 +139,7 @@ VS Code オンラインエディタで、`incident_snort_log.yml` という Play
 この Playbook は見慣れているはずです。Snort が QRadar にログを送信するように設定し、QRadar がログを受信するように設定し、Offence を有効にします。それを実行してください:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_snort_log.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_snort_log.yml
 ```
 
 ## Step 3.5 - QRadar の新しい設定を確認する
@@ -207,7 +207,7 @@ VS Code オンラインエディタで `incident_blacklist.yml` というファ�
 Playbookを実行し、IP アドレスを効果的にブラックリストに登録します:
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook incident_blacklist.yml
+[student<X>@ansible ~]$ ansible-navigator run incident_blacklist.yml
 ```
 
 QRadar UI の、**Log Activity** タブで Snort からのアラートを受信していないことを確認してください。ファイアウォールを QRadar に接続した場合、実際にはそこからログが入ってくることに注意してください。
@@ -225,12 +225,12 @@ QRadar UI の、**Log Activity** タブで Snort からのアラートを受信�
 前の演習で書いた Playbook `rollback.yml` を実行して、すべての変更をロールバックします。
 
 ```bash
-[student<X>@ansible ~]$ ansible-playbook rollback.yml
+[student<X>@ansible ~]$ ansible-navigator run rollback.yml
 ```
 
 今回は QRadar のログソースとして Check Point を設定していませんが、Playbook は問題なく実行されることに注目してください。Ansible のタスクの多くは冪等性があるので、タスクを何度も実行しても、目的の状態を確保することができます。
 
-最後に、攻撃シミュレーションを停止する必要があります。student ユーザーとして Tower にログインします。**Templates** セクションで、**Stop sql injection simulation** と呼ばれるジョブテンプレートを見つけて実行します。
+最後に、攻撃シミュレーションを停止する必要があります。student ユーザーとして automation controller にログインします。**Templates** セクションで、**Stop sql injection simulation** と呼ばれるジョブテンプレートを見つけて実行します。
 
 これで最後の練習は終了です。おめでとう！
 
@@ -242,7 +242,7 @@ Ansible Security Automation は、共通のオープンな自動化言語であ�
 
 Ansible Security Automation は、エンタープライズファイアウォール、IDS、SIEM の3つの異なるセキュリティ製品を統合して、セキュリティアナリストやオペレータがInvestigation Enrichment、Threat hunting、Incident response に役立ちます。
 
-Ansible Security Automation を使用すると、セキュリティ組織は、事前承認された Playbook と呼ばれる自動化ワークフローを作成できます。また、Ansible Tower のサポートにより、これらの自動化ワークフローを、制御されたユーザーフレンドリーで使いやすい方法で他のチームに提供することもできます。
+Ansible Security Automation を使用すると、セキュリティ組織は、事前承認された Playbook と呼ばれる自動化ワークフローを作成できます。また、automation controller のサポートにより、これらの自動化ワークフローを、制御されたユーザーフレンドリーで使いやすい方法で他のチームに提供することもできます。
 
 ----
 

@@ -1,4 +1,4 @@
-# Ansible AWS training provisioner
+# Ansible Automation Workshop Provisioner
 
 The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.yml`, which is an automated lab setup for Ansible training on AWS (Amazon Web Services).  Set the `workshop_type` variable below to provision the corresponding workshop.
 
@@ -15,25 +15,25 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 ## Table Of Contents
 
-- [Ansible AWS training provisioner](#ansible-aws-training-provisioner)
-  - [Table Of Contents](#table-of-contents)
-  - [Requirements](#requirements)
-  - [Lab Setup](#lab-setup)
-    - [One Time Setup](#one-time-setup)
-    - [Setup (per workshop)](#setup-per-workshop)
-    - [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
-    - [Accessing instructor inventory](#accessing-instructor-inventory)
-    - [DNS](#dns)
-    - [Smart Management](#smart-management)
-  - [Lab Teardown](#lab-teardown)
-  - [Demos](#demos)
-  - [FAQ](#faq)
-  - [More info on what is happening](#more-info-on-what-is-happening)
-  - [Getting Help](#getting-help)
+  * [Requirements](#requirements)
+  * [Lab Setup](#lab-setup)
+    * [One Time Setup](#one-time-setup)
+    * [Setup (per workshop)](#setup-per-workshop)
+    * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
+    * [Accessing instructor inventory](#accessing-instructor-inventory)
+    * [DNS](#dns)
+    * [Smart Management](#smart-management)
+  * [Developer Mode and understanding collections](#developer-mode-and-understanding-collections)
+  * [Lab Teardown](#lab-teardown)
+  * [Demos](#demos)
+  * [FAQ](#faq)
+  * [More info on what is happening](#more-info-on-what-is-happening)
+  * [Getting Help](#getting-help)
+<!-- /TOC -->
 
 ## Requirements
 
-* This provisioner must be run with Ansible Engine v2.8.0 or higher.
+* This provisioner must be run with `ansible-core` v2.11 or higher.
 * AWS Account (follow directions on one time setup below)
 
 ## Lab Setup
@@ -60,6 +60,14 @@ student_total: 2
 # Set the right workshop type, like network, rhel or f5 (see above)
 workshop_type: rhel
 
+# Generate offline token to authenticate the calls to Red Hat's APIs
+# Can be accessed at https://access.redhat.com/management/api
+offline_token: "eyQ.60y_ezoosYst_FJlZfVsud9qGbDt7QRly6nhprqVEREi......XYZ"
+
+# Required for podman authentication to registry.redhat.io
+redhat_username: <redhat_username>
+redhat_password: <redhat_password>
+
 #####OPTIONAL VARIABLES
 
 # turn DNS on for control nodes, and set to type in valid_dns_type
@@ -69,16 +77,88 @@ dns_type: aws
 admin_password: your_password123
 
 # Sets the Route53 DNS zone to use for Amazon Web Services
-workshop_dns_zone: rhdemo.io
+workshop_dns_zone: demoredhat.com
 
 # automatically installs Tower to control node
-towerinstall: true
+controllerinstall: true
 
-# IBM Community Grid - defaults to true if you don't tell the provisioner
-ibm_community_grid: false
+# forces ansible.workshops collection to install latest edits every time
+developer_mode: true
+
+# SHA value of targeted AAP bundle setup files.
+provided_sha_value: ea2843fae672274cb1b32447c9a54c627aa5bdf5577d9a6c7f957efe68be8c01
+
+# Automation controller install setup command. Default: "./setup.sh -e gpgcheck=0" if undefined or empty
+controller_install_command: './setup.sh -e gpgcheck=0'
+
+# default vars for ec2 AMIs (ec2_info) are located in provisioner/roles/manage_ec2_instances/defaults/main/main.yml
+# select ec2_info AMI vars can be overwritten via ec2_xtra vars, e.g.:
+ec2_xtra:
+  satellite:
+    owners: 012345678910
+    filter: Satellite*
+    username: ec2-user
+    os_type: linux
+    size: r5b.2xlarge
+
+# Registry name to download execution environments
+ee_registry_name: registry.redhat.io
+
+# List of execution environments to download during controller installation:
+ee_images:
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-29-rhel8:latest"
+   - "{{ ee_registry_name }}/ee-supported-rhel8:latest"
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-minimal-rhel8:latest"
+
+# "Default execution environment" for controller
+ee_default_image: "{{ ee_registry_name }}/ee-supported-rhel8:latest"
+
+
 ```
+### Automation controller license
 
-If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
+In order to use Automation controller (i.e. `controllerinstall: true`), which is the default behavior (as seen in group_vars/all.yml) you need to have a valid subscription via a `manifest.zip` file.  To retrieve your manifest.zip file you need to download it from access.redhat.com.  
+
+- Here is a video by Colin McNaughton to help you retrieve your manifest.zip:
+ [https://youtu.be/FYtilnsk7sM](https://youtu.be/FYtilnsk7sM).
+- If you need to get a temporary license, get a trial here [http://red.ht/try_ansible](http://red.ht/try_ansible).
+
+**How do you use the manifest.zip with the workshop?**
+
+There are currently two ways to integrate your license file with the workshop:
+
+1. Put the manifest.zip file into provisioner folder
+
+  The first way is to make sure your license/manifest has the exact name `manifest.zip` and put it into the same folder as the `provision_lab.yml` playbook (e.g.) `<your-path>/workshops/provisioner/manifest.zip`
+
+2. Turn the manifest.zip into a variable
+
+  The second way is to turn the `manifest.zip `into a base64 variable.
+
+  This allows the `manifest.zip` to be treated like an Ansible variable so that it can work with CI systems like Github Actions or Zuul.  This also makes it easier to work with Automation controller, in case you are spinning up a workshop using Automation controller itself.
+
+  To do this use the `base64` command to encode the manifest:
+
+  ```
+  base64 manifest.zip > base64_platform_manifest.txt
+  ```
+  Take the output of this command and set it to a variable `base64_manifest` in your extra_vars file.
+
+  e.g.
+  ```
+  base64_manifest: 2342387234872dfsdlkjf23148723847dkjfskjfksdfj
+  ```
+
+  >**Note**
+  >
+  >The manifest.zip is substantially larger than the tower.license file, so the base64_manifest base64 might be several hundred lines long if you have text wrapping in your editor.
+
+  >**Note**
+  >
+  >base64 is not encryption, if you require encryption you need to work within your CI system or Automation controller to encrypt the base64 encoded manifest.zip.
+
+
+### Additional examples
 
 For more extra_vars examples, look at the following:
 
@@ -104,22 +184,9 @@ ansible-playbook provision_lab.yml -e @extra_vars.yml
 testworkshop-student1-ansible
 ````
 
-### IBM Community Grid
-
-IBM’s World Community Grid is integrated into the workshops.  World Community Grid enables anyone with a Linux, Windows or Mac computer (or an Android smartphone for some projects)  to donate their unused computing power to advance scientific research on topics related to health and sustainability.
-
-By default the key, value pair is set: `ibm_community_grid: true`.  This installs the boinc-client to all Red Hat Enterprise Linux instances (except the Ansible control node).  This can be disabled by setting `ibm_community_grid: false`. By default in the Ansible Automation workshops all research progress (points and CPU time) is added to a joint Ansible account for Red Hat. If you prefer to use your own account, or another project change the following variables:
-
-```yaml
-boinc_auth: "1114316_4080087955dc198a6109a25a56817809"
-boinc_url: "www.worldcommunitygrid.org"
-```
-
-Please read this blog for more information: [https://www.ansible.com/blog/ansible-and-ibm-community-grid](https://www.ansible.com/blog/ansible-and-ibm-community-grid)
-
 ### Accessing student documentation and slides
 
-* Exercises and instructor slides are hosted at [http://ansible.github.io/workshops](http://ansible.github.io/workshops)
+* Exercises and instructor slides are hosted at [aap2.demoredhat.com](aap2.demoredhat.com)
 
 * Workbench information is stored in two places after you provision:
 
@@ -147,7 +214,20 @@ This means that each student workbench will get an individual DNS entry.  For ex
 
 The Smart Management Lab relies on a prebuilt AMI for Red Hat Satellite Server. An example for building this AMI can be found [here](https://github.com/willtome/ec2-image-build).
 
-The Smart Management Lab also requires AWS DNS to be enabled and IBM community Grid to be disabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
+The Smart Management Lab also requires AWS DNS to be enabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
+
+## Developer Mode and understanding collections
+
+The Ansible Workshops are actually a collection.  Every role is called using the FQCN (fully qualified collection name).  For example to setup the control node (e.g. install Automation controller) we call the role
+
+```
+- include_role:
+    name: ansible.workshops.control_node
+```
+
+This installs locally from Git (versus from Galaxy or Automation Hub).  If the galaxy.yml version **matches** your installed version, it will skip the install (speed up provisioning).  Using `developer_mode: true` if your extra_vars will force installation every time.  This is super common when you are editing a role and want to immediately see changes without publishing the collection.
+
+If you want to contribute to the workshops, check out the [contribution guide](../docs/contribute.md).
 
 ## Lab Teardown
 
@@ -196,7 +276,7 @@ What does the AWS provisioner take care of automatically?
 * Creation of an internet gateway for the VPC
 * Creation of route table for VPC (for reachability from internet)
 
-## Getting Help
+# Getting Help
 
 Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.
 

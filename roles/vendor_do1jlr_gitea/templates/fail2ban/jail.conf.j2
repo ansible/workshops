@@ -1,0 +1,9 @@
+[gitea]
+enabled = true
+port = http,https
+filter = gitea
+logpath = {{ gitea_home }}/log/gitea.log
+maxretry = {{ gitea_fail2ban_jail_maxretry }}
+findtime = {{ gitea_fail2ban_jail_findtime }}
+bantime = {{ gitea_fail2ban_jail_bantime }}
+action = {{ gitea_fail2ban_jail_action }}

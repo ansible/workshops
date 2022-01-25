@@ -5,7 +5,7 @@
     ansible_become: true
     ansible_become_method: enable
   ansible.netcommon.cli_config:
-    config: "{{ lookup('template', 'templates/{{ansible_network_os}}_{{type}}.j2') }}"
+    config: "{{ lookup('template', 'templates/{{ ansible_network_os }}_{{ type }}.j2') }}"
   register: cli_config_result
   until: cli_config_result is success
   retries: 10

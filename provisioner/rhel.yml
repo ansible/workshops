@@ -6,4 +6,4 @@
   tasks:
     - name: configure RHEL webservers
       include_role:
-        name: "{{ playbook_dir }}/../roles/webservers"
+        name: ../roles/webservers

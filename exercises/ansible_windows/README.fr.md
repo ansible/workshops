@@ -6,11 +6,11 @@
 
 Ansible est un moteur d'automatisation informatique simple mais puissant pour le déploiement d'applications, la gestion de la configuration et l'orchestration que vous pouvez apprendre rapidement.
 
-Ansible Tower est l'un des composants de la plate-forme d'automatisation Red Hat Ansible et sert d'interface utilisateur Web, d'api et de nœud de contrôle qui exécute les playbooks Ansible.
+Automation Controller est l'un des composants de la plate-forme d'automatisation Red Hat Ansible et sert d'interface utilisateur Web, d'api et de nœud de contrôle qui exécute les playbooks Ansible.
 
-Cet atelier guidera les étudiants dans la configuration d'Ansible Tower pour se connecter aux instances Windows créées pour cet atelier. Une fois qu'Ansible Tower est configuré, les étudiants progresseront ensuite à travers des exercices qui mettent en évidence la simplicité d'Ansible comme langage d'automatisation tout en introduisant des opérations plus complexes.
+Cet atelier guidera les étudiants dans la configuration d'Automation Controller pour se connecter aux instances Windows créées pour cet atelier. Une fois qu'Automation Controller est configuré, les étudiants progresseront ensuite à travers des exercices qui mettent en évidence la simplicité d'Ansible comme langage d'automatisation tout en introduisant des opérations plus complexes.
 
-Toute l'automatisation de cet atelier est exécutée à partir d'Ansible Tower et les seuls exigences pour les étudiants est d'avoir un navigateur web compatible.
+Toute l'automatisation de cet atelier est exécutée à partir d'Automation Controller et les seuls exigences pour les étudiants est d'avoir un navigateur web compatible.
 
 ## Présentations
 
@@ -28,10 +28,10 @@ Si votre expérience est différente dans la planification de ces ateliers, veui
 
 ## Exercices
 
-- [Exercise 1 - Introduction et configuration de Ansible Tower](1-tower/README.fr.md)
+- [Exercise 1 - Introduction et configuration de Automation Controller](1-tower/README.fr.md)
 - [Exercise 2 - Les commandes Ad-hoc](2-adhoc/README.fr.md)
 - [Exercise 3 - Les playbooks](3-playbook/README.fr.md)
-- [Exercise 4 - Les projets Ansible Tower](4-projects/README.fr.md)
+- [Exercise 4 - Les projets Automation Controller](4-projects/README.fr.md)
 - [Exercise 5 - Utilisation avancée des playbooks](5-adv-playbook/README.fr.md)
 - [Exercise 6 - Les rôles Ansible](6-roles/README.fr.md)
 - [Exercise 7 - Patching Windows](7-win-patch/README.fr.md) (optional)

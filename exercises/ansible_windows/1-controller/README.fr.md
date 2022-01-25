@@ -40,7 +40,7 @@ Incluant l'accès aux serveurs, réseaux, et de service infonuagique. Dans cet a
 
 Sélectionnez *INFORMATIONS D’IDENTIFICATION* dans le panneau de gauche sous *RESSOURCES*
 
-![Cred](images/1-tower-credentials.png)
+![Cred](images/1-controller-credentials.png)
 
 Étape 2:
 --------
@@ -60,7 +60,7 @@ Remplissez les champs avec les valeurs suivantes:
 | Username     | student#        | **Replace # with your student number**   |
 | Password     | *****           | Replace with your student password       |
 
-![Add Machine Credential](images/1-tower-add-machine-credential.png)
+![Add Machine Credential](images/1-controller-add-machine-credential.png)
 
 Étape 4:
 --------
@@ -84,7 +84,7 @@ L'identifiant precedement créé permet d'accéder à nos machines Windows. Nous
 
 Cliquez sur ![Sauvegarder](images/at_save.png)   
 
-![Add SCM Credential](images/1-tower-add-scm-credential.png)
+![Add SCM Credential](images/1-controller-add-scm-credential.png)
 
 Création d'un projet
 ====================
@@ -107,7 +107,7 @@ L'URL du dépôt git sera utilisé dans **Étape 3**
 
 Cliquez sur **Projets** dans le panneau de gauche.
 
-![Proj](images/1-tower-project.png)
+![Proj](images/1-controller-project.png)
 
 Cliquez sur l'icone ![Plus](images/add.png) pour ajouter un nouveau projet.
 
@@ -136,7 +136,7 @@ Options de mise à jour SCM
 - [ ] Autoriser le remplacement de la branche
 
 
-![Defining a Project](images/1-tower-create-project.png)
+![Defining a Project](images/1-controller-create-project.png)
 
 Étape 4:
 -------
@@ -148,7 +148,7 @@ Cliquez sur ![enregistrer](images/at_save.png)
 
 Faites défiler la page vers le bas et validez que le projet a été correctement synchronisé avec le référentiel de contrôle de source. Vous devriez voir une icône verte à côté du nom du projet dans la liste des projets en bas de page.
 
-![Succesfull Sync](images/1-tower-project-success.png)
+![Succesfull Sync](images/1-controller-project-success.png)
 
 Inventaire
 ==========
@@ -170,7 +170,7 @@ Cliquez sur **Inventaires** dans le panneau de gauche. Vous verrez l'inventaire 
 
 Vous allez maintenant voir l'inventaire. De là, vous pouvez ajouter des hôtes, des groupes ou même ajouter des variables spécifiques à cet inventaire.
 
-![Edit Inventory](images/1-tower-edit-inventory.png)
+![Edit Inventory](images/1-controller-edit-inventory.png)
 
 Nous allons voir les hôtes, cliquez sur le bouton **HÔTES**.
 
@@ -180,14 +180,14 @@ Nous allons voir les hôtes, cliquez sur le bouton **HÔTES**.
 Dans la vue Hôtes, nous pouvons voir tous les hôtes associés à cet inventaire. Vous verrez également à quels groupes un hôte est associé. Les hôtes peuvent être associés à plusieurs groupes. Ces groupes peuvent ensuite être utilisés pour se limiter aux hôtes exacts sur lesquels nous exécuterons plus tard nos playbooks.
 
 
-![Hosts View](images/1-tower-hosts-view.png)
+![Hosts View](images/1-controller-hosts-view.png)
 
 Étape 4:
 -------
 
 Si vous cliquez sur le bouton **GROUPES**, puis sélectionnez le groupe **Windows**, vous pouvez voir les variables définies au niveau du groupe qui s'appliqueront à tous les hôtes de ce groupe.
 
-![Group Edit](images/1-tower-group-edit.png)
+![Group Edit](images/1-controller-group-edit.png)
 
 Aujourd'hui, nous avons déjà défini une poignée de variables pour indiquer à Ansible comment se connecter aux hôtes de ce groupe. Vous n'avez pas besoin de définir ces variables en tant que variables de groupe ici, elles peuvent également être des variables hôtes ou résider directement dans votre modèle ou votre playbook. Cependant, comme ces variables seront les mêmes pour **TOUS** les hôtes Windows de notre environnement, nous les avons définies pour l'ensemble du groupe Windows.
 
@@ -209,7 +209,7 @@ Windows propose diverses méthodes d'authentification que nous pouvons utiliser 
 
 Si vous cliquez sur le bouton **HÔTES**, vous pouvez afficher les hôtes appartenant au groupe Windows. Si vous cliquez sur le lien de l'hôte sur cette page, vous pouvez afficher les variables spécifiques à l'hôte qui ont été définies.
 
-![Host Edit](images/1-tower-host-edit.png)
+![Host Edit](images/1-controller-host-edit.png)
 
 **`ansible_host`**
 

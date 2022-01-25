@@ -5,5 +5,5 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: ansible.workshops.devops
+        name: ../../roles/devops
       when: workshop_type == "devops"

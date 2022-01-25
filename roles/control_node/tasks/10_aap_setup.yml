@@ -24,7 +24,7 @@
 
 - name: Set AAP local repository on controller node
   include_role:
-    name: ansible.workshops.aap_repo
+    name: ../../roles/aap_repo
 
 - name: Install vimrc in home directory
   template:

@@ -6,7 +6,7 @@
   tasks:
     - name: configure RHEL webservers
       include_role:
-        name: ansible.workshops.webservers
+        name: ../roles/webservers
 
 - name: configure satellite
   hosts: satellite
@@ -309,5 +309,5 @@
         until: workshop_job_templates05.json.status == "successful"
         delay: 20 # Every 20 seconds
         retries: 180 # 1hour 60*60/20
-        
+
       when: provision_mode == "demo"

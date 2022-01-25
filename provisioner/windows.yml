@@ -7,10 +7,10 @@
     - gitlab
   tasks:
     - include_role:
-        name: ansible.workshops.common
+        name: ../roles/common
 
     - include_role:
-        name: ansible.workshops.vendor_do1jlr_gitea
+        name: ../roles/vendor_do1jlr_gitea
       vars:
         # server configuration: https://docs.gitea.io/en-us/config-cheat-sheet/#server-server
         gitea_fqdn: 'gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}'
@@ -33,7 +33,7 @@
           DEFAULT_BRANCH = main
 
     - include_role:
-        name: ansible.workshops.gitlab_server
+        name: ../roles/gitlab_server
 
 - name: Configure GitLab client
   hosts: '*ansible-1'
@@ -43,4 +43,4 @@
     - git
   tasks:
     - include_role:
-        name: ansible.workshops.gitlab_client
+        name: ../roles/gitlab_client

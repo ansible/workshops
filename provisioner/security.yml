@@ -4,14 +4,14 @@
   become: true
   tasks:
     - include_role:
-        name: ansible.workshops.security_eth1
+        name: ../roles/security_eth1
 
 - name: Setup host route for attack simulator
   hosts: attack:snort
   become: true
   tasks:
     - include_role:
-        name: ansible.workshops.security_hostroutes
+        name: ../roles/security_hostroutes
 
 - name: Install Pre Reqs on attacker
   hosts: attack
@@ -100,26 +100,26 @@
             name: "ansible_security.ids_config"
         - name: import webserver role for web exploit simulation
           include_role:
-            name: ansible.workshops.webservers
+            name: ../roles/webservers
         - name: import webserver attack simulation role
           include_role:
-            name: ansible.workshops.webservers_attack_simulation
+            name: ../roles/webservers_attack_simulation
 
 - name: SETUP WINDOWS WORKSTATION
   hosts: windows
   tasks:
     - include_role:
-        name: ansible.workshops.windows_ws_setup
+        name: ../roles/windows_ws_setup
 
 - name: FIX CHECKPOINT MGMT SERVER
   hosts: checkpoint_mgmt
   gather_facts: false
   tasks:
     - include_role:
-        name: ansible.workshops.cp_fix_mgmt
+        name: ../roles/cp_fix_mgmt
 
 - name: SETUP CHECKPOINT ENVIRONMENT
   hosts: '*ansible-1'
   tasks:
     - include_role:
-        name: ansible.workshops.cp_setup
+        name: ../roles/cp_setup

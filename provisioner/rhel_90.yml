@@ -6,4 +6,4 @@
   tasks:
     - name: configure RHEL webservers
       include_role:
-        name: ansible.workshops.webservers
+        name: ../roles/webservers

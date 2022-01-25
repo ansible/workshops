@@ -13,4 +13,4 @@
   gather_facts: true
   tasks:
     - include_role:
-        name: ansible.workshops.qradar
+        name: ../roles/qradar

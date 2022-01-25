@@ -5,4 +5,4 @@
   gather_facts: true
   tasks:
     - include_role:
-        name: ansible.workshops.splunk_enterprise
+        name: ../roles/splunk_enterprise

@@ -1,66 +1,27 @@
 ---
-- name: setup collections for ansible.workshops
+- name: initial check setup
   hosts: localhost
   connection: local
   become: false
   gather_facts: true
   tasks:
-    - name: import galaxy.yml
-      include_vars:
-        file: "{{ playbook_dir }}/../galaxy.yml"
-        name: galaxy_info
-
-    - name: print galaxy info to terminal
-      debug:
-        var: galaxy_info.version
-
-    - name: retrieve installed ansible.workshops collection
-      shell: ansible-galaxy collection list | grep ansible.workshops
-      register: installed_version
-      ignore_errors: true
-
-    - name: compare galaxy.yml to installed version
-      set_fact:
-        match_galaxy_version: "{{ 'True' if galaxy_info.version in installed_version.stdout else 'False' }}"
-
-    - name: print installed galaxy version to terminal
-      debug:
-        var: match_galaxy_version
-
-    - name: install missing collections
-      when: not match_galaxy_version or developer_mode
-      block:
-        - name: build workshop into collection
-          shell: "ansible-galaxy collection build --verbose --force --output-path build/ {{ playbook_dir }}/.."
-
-        # - name: install newly created collection
-        #   shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz"
-
-        - name: install newly created collection
-          shell: "ansible-galaxy collection install --verbose --force-with-deps build/*.tar.gz -p {{ playbook_dir }}/workshop_collections"
-
-        - name: Delete content & directory
-          file:
-            state: absent
-            path: build
-
     - name: workshop collection final check
       block:
         - name: run pre-check role to make sure workshop will complete provisioning
           include_role:
-            name: ansible.workshops.workshop_check_setup
+            name: ../roles/workshop_check_setup
 
         - name: run AWS check setup if using AWS
           include_role:
-            name: ansible.workshops.aws_check_setup
+            name: ../roles/aws_check_setup
 
         - name: download AAP
           include_role:
-            name: ansible.workshops.aap_download
+            name: ../roles/aap_download
       rescue:
-        - name: Not found error?  Try to re-run
+        - name: Error with setup
           fail:
-            msg: If you have recieved a 'was not found' error please re-run the provisioner.  Collections can only be updated, not installed, within the same Ansible play.  If you still have an issue with your workshop setup on your control node, please open an issue on https://github.com/ansible/workshops
+            msg: The provisioner has failed during initial check_setup, please scroll up to see exact error.  Open an issue on https://github.com/ansible/workshops/issues
 
 - name: Create lab instances in AWS
   hosts: localhost
@@ -81,7 +42,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: ansible.workshops.connectivity_test
+        name: ../roles/connectivity_test
 
 - name: Configure nginx on attendance host
   hosts: attendance
@@ -90,9 +51,9 @@
   tasks:
     - block:
         - include_role:
-            name: ansible.workshops.workshop_attendance_nginx
+            name: ../roles/workshop_attendance_nginx
         - include_role:
-            name: ansible.workshops.workshop_attendance
+            name: ../roles/workshop_attendance
       when: attendance|bool
 
 - name: wait for all security nodes to have SSH reachability
@@ -101,7 +62,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: ansible.workshops.connectivity_test
+        name: ../roles/connectivity_test
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
@@ -109,9 +70,9 @@
   become: true
   tasks:
     - include_role:
-        name: ansible.workshops.user_accounts
+        name: ../roles/user_accounts
     - include_role:
-        name: ansible.workshops.common
+        name: ../roles/common
 
 - name: Configure /etc/hosts
   hosts: 'managed_nodes:control_nodes'
@@ -131,10 +92,10 @@
   become: true
   tasks:
     - include_role:
-        name: ansible.workshops.control_node
+        name: ../roles/control_node
 
     - include_role:
-        name: ansible.workshops.code_server
+        name: ../roles/code_server
       when:
         - code_server is defined
         - code_server
@@ -147,7 +108,7 @@
   become: true
   tasks:
     - include_role:
-        name: ansible.workshops.private_automation_hub
+        name: ../roles/private_automation_hub
       when:
         - automation_hub is defined
         - automation_hub
@@ -158,12 +119,12 @@
   become: true
   tasks:
     - include_role:
-        name: ansible.workshops.control_node
+        name: ../roles/control_node
         tasks_from: package_dependencies
       when: create_cluster|bool
 
     - include_role:
-        name: ansible.workshops.control_node
+        name: ../roles/control_node
         tasks_from: venv
       when: create_cluster|bool
 
@@ -174,7 +135,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: ansible.workshops.aws_dns
+        name: ../roles/aws_dns
       when:
         - dns_type is defined
         - dns_type == "aws"
@@ -190,7 +151,7 @@
   tasks:
     - name: run populate_controller role
       include_role:
-        name: ansible.workshops.populate_controller
+        name: ../roles/populate_controller
       when:
         - controllerinstall is defined
         - controllerinstall|bool
@@ -231,7 +192,7 @@
   become: false
   gather_facts: false
   tasks:
-    - {include_role: {name: ansible.workshops.tower_request}, when: student_total > 9}
+    - {include_role: {name: ../roles/tower_request}, when: student_total > 9}
 
 - name: print out information for instructor
   hosts: localhost

@@ -25,6 +25,10 @@
       pip:
         name: requests>=2.14.2
 
+    - name: Install requests python package
+      pip:
+        name: requests>=2.14.2
+
     - &tower-pinger-block
       block:
         - name: check Tower status

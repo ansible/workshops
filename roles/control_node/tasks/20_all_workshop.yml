@@ -79,7 +79,7 @@
     clone: true
     dest: /tmp/workshops
     repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
-    version: '{{ ansible_workshops_version | default("master") }}'
+    version: '{{ ansible_workshops_version | default("main") }}'
     refspec: '{{ ansible_workshops_refspec | default("") }}'
     force: true
 

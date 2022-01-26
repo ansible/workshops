@@ -29,7 +29,7 @@ Automation Controller は、Red Hat Ansible Automation Platform を構成する�
 
 ## 演習内容
 
-- [演習 1 - Automation Controllerの概要と構成](1-tower/README.ja.md)
+- [演習 1 - Automation Controllerの概要と構成](1-controller/README.ja.md)
 - [演習 2 - アドホックコマンド](2-adhoc/README.ja.md)
 - [演習 3 - playbook 概要](3-playbook/README.ja.md)
 - [演習 4 - Automation Controller プロジェクト](4-projects/README.ja.md)

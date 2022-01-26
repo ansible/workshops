@@ -20,7 +20,7 @@
     - name: does route53 zone exist
       check_mode: true
       community.aws.route53_zone:
-        zone: "{{workshop_dns_zone}}"
+        zone: "{{ workshop_dns_zone }}"
         state: present
       register: test
 
@@ -34,9 +34,9 @@
   when:
     - dns_type == "aws"
 
-- name: FIND AZ ZONE FOR REGION {{ec2_region}}
+- name: Find available AZ for region {{ec2_region}}
   amazon.aws.aws_az_info:
-    region: "{{ec2_region}}"
+    region: "{{ ec2_region }}"
   register: az_names
 
 - name: Remove any AZs in the aws_az_deny_list when defined

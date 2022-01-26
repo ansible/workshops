@@ -47,7 +47,7 @@ Automation Controller は、Windows や Linux、ネットワーク機器など�
 | ユーザー名     | student#        | **# の部分は各自の番号に置き換えてください** |  
 | パスワード     | *****           | student password に置き換えてください        |  
 
-![マシン認証情報の追加](images/1-tower-add-machine-credential.ja.jpg)  
+![マシン認証情報の追加](images/1-controller-add-machine-credential.ja.jpg)  
 
 ### ステップ 4:  
 
@@ -68,7 +68,7 @@ Automation Controller は、Windows や Linux、ネットワーク機器など�
 
 ![Save](images/at_save.ja.jpg) をクリック    
 
-![Add SCM Credential](images/1-tower-add-scm-credential.ja.jpg)  
+![Add SCM Credential](images/1-controller-add-scm-credential.ja.jpg)  
 
 ## プロジェクトの作成   
 
@@ -78,7 +78,7 @@ Automation Controller は、Windows や Linux、ネットワーク機器など�
 
 左パネルで **プロジェクト** をクリックします。  
 
-![Proj](images/1-tower-project.ja.jpg)  
+![Proj](images/1-controller-project.ja.jpg)  
 
 ### ステップ 2:  
 
@@ -105,7 +105,7 @@ SCM 更新オプション
 - [x] 起動時のリビジョン更新  
 
 
-![Defining a Project](images/1-tower-create-project.ja.jpg)  
+![Defining a Project](images/1-controller-create-project.ja.jpg)  
 
 ### ステップ 4:  
 
@@ -115,7 +115,7 @@ SCM 更新オプション
 
 下にスクロールして、プロジェクトの保存時に、Git に対して正常に同期されたことを確認します。ページ下部のリストビューで、プロジェクト名の左横に緑色の丸が表示されていることを確認します。  
 
-![Succesfull Sync](images/1-tower-project-success.ja.jpg)  
+![Succesfull Sync](images/1-controller-project-success.ja.jpg)  
 
 ## インベントリー  
 
@@ -132,7 +132,7 @@ SCM 更新オプション
 
 インベントリーの内容が表示されています。ここからホストやグループや変数など、このインベントリーに関する情報を追加する事が出来ます。  
 
-![Edit Inventory](images/1-tower-edit-inventory.ja.jpg)  
+![Edit Inventory](images/1-controller-edit-inventory.ja.jpg)  
 
 **ホスト** ボタンをクリックすると対象ホストがリスト表示されます。  
 
@@ -141,13 +141,13 @@ SCM 更新オプション
 ホストビューでは、このインベントリーに関連付けられているすべてのホストが確認できます。また、ホストが関連付けられているグループも表示されます。  
 ホストは複数のグループに関連付けることができます。Playbook の実行はこのインベントリー全体でも可能ですし、このグループを指定した実行も可能です。    
 
-![Hosts View](images/1-tower-hosts-view.ja.jpg)  
+![Hosts View](images/1-controller-hosts-view.ja.jpg)  
 
 ### ステップ 4:  
 
 **グループ** ボタンをクリックし **Windows** を選択すると、このグループに対して適応している変数を見る事が出来ます。Windows の場合は接続に WinRM を利用しますので、その情報とポート番号などが記載されています。    
 
-![Group Edit](images/1-tower-group-edit.ja.jpg)  
+![Group Edit](images/1-controller-group-edit.ja.jpg)  
 
 この演習では、特定のホスト（この例では Windows ホスト）に接続する方法を『グループ内の変数』として定義しました。ただ、必ずここに記載しないといけない、というわけではなく、ホスト毎の変数として定義することも出来ますし、テンプレートや、Playbook の中に定義することも可能です。    
 
@@ -173,7 +173,7 @@ Windowsには様々な接続時の認証方法があります。ここでは、*
 
 **ホスト** ボタンをクリックすると windows グループに所属するホスト一覧が表示されます。このページでホストのリンクをクリックすると、定義されているホスト固有の変数を確認する事が出来ます。  
 
-![Host Edit](images/1-tower-host-edit.ja.jpg)  
+![Host Edit](images/1-controller-host-edit.ja.jpg)  
 
 **`ansible_host`**  
 

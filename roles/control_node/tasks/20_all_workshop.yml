@@ -36,8 +36,11 @@
   containers.podman.podman_login:
     username: '{{ redhat_username }}'
     password: '{{ redhat_password }}'
-    registry: registry.redhat.io
+    registry: '{{ ee_registry_name }}'
   become_user: "{{ username }}"
+  register: login_registry
+  until: login_registry is not failed
+  retries: 5
 
 # Pull specific EE for each workshop based on workshop name
 - name: Pull execution environment for {{ workshop_type }} workshop

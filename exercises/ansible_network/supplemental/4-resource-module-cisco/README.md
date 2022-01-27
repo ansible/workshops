@@ -1,8 +1,6 @@
-# Exercise 4: Ansible Network Resource Modules
+# Exercise 4: Ansible Network Resource Modules - Cisco Example
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
-
-If you are using an **all Cisco workbench** (all four routers are Cisco IOS routers) please [switch to these directions](../supplemental/4-resource-module-cisco/README.md).
 
 ## Table of Contents
 
@@ -28,52 +26,51 @@ Ansible network resource modules simplify and standardize how you manage differe
 
 Network resource modules provide a consistent experience across different network devices.  This means you will get an identical experience across multiple vendors.  For example the **VLANs** module will work identically for the following modules:
 
-* `arista.eos.vlans`
-* `cisco.ios.vlans`
-* `cisco.nxos.vlans`
-* `cisco.iosxr.vlans`
-* `junipernetworks.junos.vlans`
+* `arista.eos.snmp_server`
+* `cisco.ios.snmp_server`
+* `cisco.nxos.snmp_server`
+* `cisco.iosxr.snmp_server`
+* `junipernetworks.junos.snmp_server`
 
-Configuring [VLANs](https://en.wikipedia.org/wiki/Virtual_LAN) on network devices is an extremely common task, and mis-configurations can cause headaches and outages.  VLAN configurations also tend to be identical across multiple network switches resulting in a perfect use case for automation.
+Configuring [SNMP](https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol) on network devices is an extremely common task, and mis-configurations can cause headaches and monitoring issues.  SNMP  configurations also tend to be identical across multiple network switches resulting in a perfect use case for automation.
 
 This exercise will cover:
 
-* Configuring VLANs on Arista EOS
-* Building an Ansible Playbook using the [arista.eos.vlans module](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html).
+* Configuring SNMP on Cisco IOS
+* Building an Ansible Playbook using the [arista.eos.snmp_server module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_snmp_server_module.html#ansible-collections-cisco-ios-ios-snmp-server-module).
 * Understanding the `state: merged`
 * Understanding the `state: gathered`
 
 ## Guide
 
-### Step 1 - Verify VLAN configuration
+### Step 1 - Verify SNMP configuration
 
-* Login to an Arista switch and verify the current VLAN configuration.
+* Login to an Cisco IOS router and verify the current SNMP configuration.
 
 * From the control node terminal, you can `ssh rtr2` and type `enable`
 
   ```bash
-  $ ssh rtr2
-  Last login: Wed Sep  1 13:44:55 2021 from 44.192.105.112
-  rtr2>enable
+  [student1@ansible-1 ~]$ ssh rtr1
+
+
+  rtr1#
   ```
 
-* Use the command `show vlan` to examine the VLAN configuration:
+* Use the command `show snmp` to examine the SNMP configuration:
 
   ```bash
-  rtr2#show vlan
-  VLAN  Name                             Status    Ports
-  ----- -------------------------------- --------- -------------------------------
-  1     default                          active   
+  rtr1#show snmp
+  %SNMP agent not enabled
   ```
 
-* Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
+* Use the `show run | s snmp` to examine the SNMP running-configuration on the Cisco device:
 
   ```bash
-  rtr2#show run | s vlan
-  rtr2#
+  rtr1#sh run | s snmp
+  rtr1#
   ```
 
-As you can see in the output above there is no VLAN configuration outside of the default VLAN 1 (which is not assigned any ports).
+As you can see in the output above there is no SNMP configuration on the Cisco router.
 
 ### Step 2 - Creating the Ansible Playbook
 
@@ -91,23 +88,19 @@ As you can see in the output above there is no VLAN configuration outside of the
 
     tasks:
 
-    - name: use vlans resource module
-      arista.eos.vlans:
-        state: merged
-        config:
-          - name: desktops
-            vlan_id: 20
-          - name: servers
-            vlan_id: 30
-          - name: printers
-            vlan_id: 40
-          - name: DMZ
-            vlan_id: 50
-   ```
-
-* Setup will look similar to the following in Visual Studio Code:
-
-   ![picture of vs code setup](images/setup_vs_code.png)
+      - name: Override commands with provided configuration
+        cisco.ios.snmp_server:
+          config:
+            location: 'Durham'
+            packet_size: 500
+            communities:
+              - acl_v4: acl_uq
+                name: Durham-community
+                rw: true
+              - acl_v4: acl_uq
+                name: ChapelHill-community
+                rw: true                
+```
 
 ### Step 3 - Examine the Ansible Playbook
 

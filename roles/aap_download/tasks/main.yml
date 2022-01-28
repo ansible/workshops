@@ -5,7 +5,10 @@
     checksum_algorithm: sha256
   register: stat_var
 
-- name: attempt to download specified AAP
+- name: attempt to download specified AAP if we don't already have it
+  when:
+    - not stat_var.stat.exists
+    - stat_var.stat.checksum | default("") != provided_sha_value
   block:
     - name: download aap.tar.gz from access.redhat.com
       include_tasks: 10_download.yml

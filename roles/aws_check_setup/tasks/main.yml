@@ -34,7 +34,7 @@
   when:
     - dns_type == "aws"
 
-- name: Find available AZ for region {{ec2_region}}
+- name: Find available AZ for region {{ ec2_region }}
   amazon.aws.aws_az_info:
     region: "{{ ec2_region }}"
   register: az_names

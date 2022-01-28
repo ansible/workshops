@@ -12,7 +12,7 @@ smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:1.0.4"
 
 
 # EE registry name used in installer and EE controller credential
-ee_registry_name: registry.redhat.io
+ee_registry_name: "registry.redhat.io"
 
 # List of execution environments to download during controller installation:
 ee_images:

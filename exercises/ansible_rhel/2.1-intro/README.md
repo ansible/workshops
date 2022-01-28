@@ -5,15 +5,15 @@
 
 ## Table Contents
 
-- [What's New in Ansible automation controller 4.0](#whats-new-in-ansible-automation-controller-40)
-- [Why was Ansible Tower renamed to automation controller?](#why-was-ansible-tower-renamed-to-automation-controller)
-- [Who is automation controller for?](#who-is-automation-controller-for)
-- [Objective](#objective)
-- [Guide](#guide)
-- [Why Ansible automation controller?](#why-ansible-automation-controller)
-- [Your Ansible automation controller lab environment](#your-ansible-automation-controller-lab-environment)
-- [Dashboard](#dashboard)
-- [Concepts](#concepts)
+* [What's New in Ansible automation controller 4.0](#whats-new-in-ansible-automation-controller-40)
+* [Why was Ansible Tower renamed to automation controller?](#why-was-ansible-tower-renamed-to-automation-controller)
+* [Who is automation controller for?](#who-is-automation-controller-for)
+* [Objective](#objective)
+* [Guide](#guide)
+* [Why Ansible automation controller?](#why-ansible-automation-controller)
+* [Your Ansible automation controller lab environment](#your-ansible-automation-controller-lab-environment)
+* [Dashboard](#dashboard)
+* [Concepts](#concepts)
 
 ## What's New in Ansible automation controller 4.0
 

@@ -4,14 +4,14 @@
 
 ## Table of Contents
 
-- [Objective](#objective)
-- [Guide](#guide)
-   - [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
-   - [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
-   - [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
-   - [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
-- [Takeaways](#takeaways)
-- [Complete](#complete)
+* [Objective](#objective)
+* [Guide](#guide)
+   * [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
+   * [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
+   * [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
+   * [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
+* [Takeaways](#takeaways)
+* [Complete](#complete)
 
 ## Objective
 

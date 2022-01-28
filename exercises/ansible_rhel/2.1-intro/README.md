@@ -5,22 +5,15 @@
 
 ## Table Contents
 
-- [Workshop Exercise - Introduction to Ansible automation controller](#workshop-exercise---introduction-to-ansible-automation-controller)
-  - [Table Contents](#table-contents)
-  - [What's New in Ansible automation controller 4.0](#whats-new-in-ansible-automation-controller-40)
-    - [Why was Ansible Tower renamed to automation controller?](#why-was-ansible-tower-renamed-to-automation-controller)
-    - [Who is automation controller for?](#who-is-automation-controller-for)
-  - [Objective](#objective)
-  - [Guide](#guide)
-    - [Why Ansible automation controller?](#why-ansible-automation-controller)
-    - [Your Ansible automation controller lab environment](#your-ansible-automation-controller-lab-environment)
-    - [Dashboard](#dashboard)
-    - [Concepts](#concepts)
-      - [Projects](#projects)
-      - [Inventories](#inventories)
-      - [Credentials](#credentials)
-      - [Templates](#templates)
-      - [Jobs](#jobs)
+- [What's New in Ansible automation controller 4.0](#whats-new-in-ansible-automation-controller-40)
+- [Why was Ansible Tower renamed to automation controller?](#why-was-ansible-tower-renamed-to-automation-controller)
+- [Who is automation controller for?](#who-is-automation-controller-for)
+- [Objective](#objective)
+- [Guide](#guide)
+- [Why Ansible automation controller?](#why-ansible-automation-controller)
+- [Your Ansible automation controller lab environment](#your-ansible-automation-controller-lab-environment)
+- [Dashboard](#dashboard)
+- [Concepts](#concepts)
 
 ## What's New in Ansible automation controller 4.0
 

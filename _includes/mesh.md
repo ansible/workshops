@@ -1,0 +1,5 @@
+As part of the Ansible Automation Platform 2.1 release, we introduced one of the most long-awaited features: automation mesh.  Automation mesh is an overlay network intended to ease the distribution of work across a large and dispersed collection of workers. Mesh nodes establish peer-to-peer connections with each other across your existing networks bringing automation closer to the endpoints that need it. 
+
+This distributed design enables you to reliably and consistently automate at scale, across on-premises environments, the hybrid cloud, and to the edge. It delivers flexible design options, from single-site deployments to fault-tolerant platform installations spanning the globe, with a security-first approach.
+
+Automation mesh is already configured and ready to use in your workshop environment. Please try our hands-on, interactive labs to learn more about automation mesh and other Ansible Automation Platform features.

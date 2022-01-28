@@ -75,16 +75,6 @@
         src: "/etc/letsencrypt/live/hub.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
         dest: /etc/pulp/certs/pulp_webserver.crt
 
-    # - name: Retrieve Specific SSL Cert
-    #   slurp:
-    #     src: "/etc/letsencrypt/live/hub.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/cert.pem"
-    #   register: intermediate_cert
-
-    # - name: Combine Specific and intermediate Cert
-    #   template:
-    #     src: combined_cert.j2
-    #     dest: /etc/pulp/certs/pulp_webserver.crt
-
   rescue:
     - name: no SSL cert for private automation hub
       debug:
@@ -100,3 +90,4 @@
       service:
         name: pulpcore-api.service
         state: restarted
+    

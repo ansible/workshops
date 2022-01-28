@@ -1,0 +1,93 @@
+---
+- name: SSL cert block
+  block:
+
+    - name: Add EPEL repo for RHEL 8
+      yum_repository:
+        name: epel
+        description: EPEL for Enterprise Linux 8
+        baseurl: https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/
+        enabled: true
+        gpgcheck: false
+      when: ansible_distribution_major_version|int == 8
+
+    - name: install snapd
+      dnf:
+        name: snapd
+        state: present
+        disable_gpg_check: true
+
+    - name: start snapd
+      service:
+        name: snapd
+        state: started
+
+    - name: create link for snap dir
+      file:
+        src: /var/lib/snapd/snap
+        dest: /snap
+        state: link
+
+    - name: install certbot
+      command: snap install --classic certbot
+
+    - name: add certbot in $PATH
+      file:
+        src: /snap/bin/certbot
+        dest: /usr/bin/certbot
+        state: link
+
+    - name: install python requests
+      pip:
+        name: requests>=2.14.2
+
+    - name: stop private automation hub
+      service:
+        name: pulpcore-api.service
+        state: stopped
+      register: stop_hub
+      until: stop_hub is not failed
+      retries: 5
+    
+    - name: stop nginx
+      service:
+        name: nginx
+        state: stopped
+      register: stop_nginx
+      until: stop_nginx is not failed
+      retries: 5
+
+    - name: issue ssl cert
+      shell: certbot certonly --no-bootstrap --standalone -d hub.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+      register: ssl_cert
+      until: ssl_cert is not failed
+      retries: 5
+
+    - name: Move SSL Key
+      copy:
+        remote_src: true
+        src: "/etc/letsencrypt/live/hub.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
+        dest: /etc/pulp/certs/pulp_webserver.key
+
+    - name: move ssl cert
+      copy:
+        remote_src: true
+        src: "/etc/letsencrypt/live/hub.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
+        dest: /etc/pulp/certs/pulp_webserver.crt
+
+  rescue:
+    - name: no SSL cert for private automation hub
+      debug:
+        msg: "SSL cert problem - no cert applied"
+  
+  always:
+    - name: nginx restart
+      service:
+        name: nginx
+        state: restarted
+
+    - name: private automation hub restart
+      service:
+        name: pulpcore-api.service
+        state: restarted
+    

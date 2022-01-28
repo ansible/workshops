@@ -14,3 +14,7 @@
   with_first_found:
     - "{{ role_path }}/tasks/40_dns/{{ dns_type }}.yml"
     - "{{ role_path }}/tasks/40_dns/none.yml"
+
+- name: setup ssl cert
+  include_tasks: "50_ssl.yml"
+  when: not teardown

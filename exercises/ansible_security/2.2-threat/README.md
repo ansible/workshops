@@ -105,6 +105,8 @@ Automation controller is accessed via browser. You need the URL to your personal
 >
 > This URL and login information are just an example. Your controller URL and login information will be different.
 
+{% include mesh.md %}
+
 Open your browser and enter the link to your automation controller instance. Log-in with your student ID and the password provided to you. You are greeted with a dashboard and a navigation bar on the left side.
 
 ![Automation controller dashboard](images/controller_dashboard.png#centreme)

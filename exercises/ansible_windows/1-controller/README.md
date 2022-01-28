@@ -232,5 +232,7 @@ Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html).
 The authentication settings are particularly important and you will need
 to review them and decide which method is best for your needs.
 
+{% include mesh.md %}
+
 <br><br>
 [Click here to return to the Ansible for Windows Workshop](../README.md)

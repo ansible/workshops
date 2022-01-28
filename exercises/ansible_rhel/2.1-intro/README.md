@@ -5,15 +5,22 @@
 
 ## Table Contents
 
-* [What's New in Ansible automation controller 4.0](#whats-new-in-ansible-automation-controller-40)
-* [Why was Ansible Tower renamed to automation controller?](#why-was-ansible-tower-renamed-to-automation-controller)
-* [Who is automation controller for?](#who-is-automation-controller-for)
-* [Objective](#objective)
-* [Guide](#guide)
-* [Why Ansible automation controller?](#why-ansible-automation-controller)
-* [Your Ansible automation controller lab environment](#your-ansible-automation-controller-lab-environment)
-* [Dashboard](#dashboard)
-* [Concepts](#concepts)
+- [Workshop Exercise - Introduction to Ansible automation controller](#workshop-exercise---introduction-to-ansible-automation-controller)
+  - [Table Contents](#table-contents)
+  - [What's New in Ansible automation controller 4.0](#whats-new-in-ansible-automation-controller-40)
+    - [Why was Ansible Tower renamed to automation controller?](#why-was-ansible-tower-renamed-to-automation-controller)
+    - [Who is automation controller for?](#who-is-automation-controller-for)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Why Ansible automation controller?](#why-ansible-automation-controller)
+    - [Your Ansible automation controller lab environment](#your-ansible-automation-controller-lab-environment)
+    - [Dashboard](#dashboard)
+    - [Concepts](#concepts)
+      - [Projects](#projects)
+      - [Inventories](#inventories)
+      - [Credentials](#credentials)
+      - [Templates](#templates)
+      - [Jobs](#jobs)
 
 ## What's New in Ansible automation controller 4.0
 
@@ -35,6 +42,8 @@ All automation team members interact with or rely on automation controller, eith
 These roles are not necessarily dedicated to a person or team. Many organizations assign multiple roles to people or outsource specific automation tasks based on their needs.
 
 Automation operators are typically the primary individuals who interact directly with the automation controller, based on their responsibilities.
+
+{% include mesh.md %}
 
 ## Objective
 

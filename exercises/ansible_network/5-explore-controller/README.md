@@ -4,14 +4,16 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
-   * [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
-   * [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
-   * [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
-* [Takeaways](#takeaways)
-* [Complete](#complete)
+- [Exercise 5: Explore Automation controller](#exercise-5-explore-automation-controller)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
+    - [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
+    - [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
+    - [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
+  - [Takeaways](#takeaways)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -135,6 +137,8 @@ Credentials are utilized by Automation controller for authentication when launch
 * The **USERNAME** is set to `ec2-user`.
 * The **PASSWORD** is blank.
 * The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
+  
+{% include mesh.md %}
 
 ## Takeaways
 

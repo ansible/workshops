@@ -1,53 +1,66 @@
-# 演習 3 - Playbook 概要
+# ステップ 1 - Playbook 用のディレクトリー構造とファイルの作成
 
-**Read this in other languages**:
+**他の言語でもお読みいただけます**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-この演習では、初めての Ansible Playbook を書いてみましょう。 Playbook は、実際の作業を記述する **タスク** と、タスクの実行条件などを記述する **プレイ** のセットで構成されます。このセットは Playbook 内で繰り返すことも可能です。まず、Playbook を保存するためのディレクトリ構造をセットアップします。このディレクトリ構造は、**ソースコード管理**(SCM)システムと同期して、Playbook のバージョンや品質を管理します。 この演習では、SCM として**Git**を使用します。  
+最初の Ansible ** Playbook **を作成することから始めましょう。Playbook には、自動化するステップを **plays** と
+**tasks** の繰り返し可能なセットにリストする場所です。まず、Playbook
+を保存するためのディレクトリー構造を設定します。このディレクトリー構造は、**SCM** (source control management)
+システムと同期して、プレイブックをバージョン管理します。SCM として **git** を使用します。
 
-Playbook には1つ以上のプレイがあり、プレイには1つまたは複数のタスクがあります。 **プレイ**の目的の1つは、タスクを実行するホストのグループを記述することです。 **タスク**の目標は、それらのホストに対してモジュールを実行することです。  
+1 つの Playbook には、複数のプレイを含めることができ、単一または複数のタスクを指定できます。*play*
+の目的は、ホストのグループをマッピングすることです。*task* の目的は、それらのホストにモジュールを実装することです。
 
-最初の Playbook では、1つのプレイと3つのタスクを記述します。  
+最初の Playbook では、1 つの play で 3 つのタスクのみを記述します。
 
-今回の演習では、全ての Playbook は単一のGit **リポジトリ**に保存されています。Git の様な SCM は、複数のユーザーが同じリポジトリを使用できるため、Playbook の品質とバージョンを管理に有用です。Automation Controller では簡単に SCM と連携する事が出来ます。  
+すべてのプレイブックは、1 つの git **repository** に保存されます。
+複数のユーザーが同じリポジトリーを使用することができ、ファイルの競合やバージョンは git
+が管理します。この環境では、各生徒はプライベートなリポジトリーに単独でアクセスできます。
 
 ## 概要
 
-この演習では、エディターとして Visual Studio Code を使ってみましょう。さらに、ソースコード管理に GitLab を使用します。これにより、Linuxコマンドラインを理解していなくても開発作業が楽に行えます。他のエディターまたはソースコードソリューションを使用することももちろん可能です。  
+このタスクから始めて、エディターとして Visual StudioCode を使用します。さらに、ソースコード管理には Gitea
+を使用します。これにより、Linux
+コマンドラインでの開発作業を最小限に抑えることができます。他のエディターまたはソースコードソリューションを使用できますが、これは一般的なワークフローを示しています。
 
-### ステップ 1: Playbook のディレクトリ構造とファイルの作成
+## ステップ 1 - Playbook 用のディレクトリー構造とファイルの作成
 
-Playbook のディレクトリ構造としては、[ベストプラクティス](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)があります。Ansible の技術を習得する際には学習しておくことを強くお勧めします。ただこの演習で利用する Playbook は非常に基本的なものですので複雑なディレクトリ構造は必要ありません。  
+Playbook の望ましいディレクトリー構造については、[ベストプラクティス]
+(https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
+があります。Ansible のスキルを向上させるために、これらのプラクティスを読んで理解することを強くお勧めします。とはいえ、今回の Playbook
+は非常に基本的なものなので、複雑なディレクトリー構造は必要ありません。
 
-この演習ではまず、シンプルなディレクトリ構造を作成し、そこに Playbook 及び、関連するいくつかのファイルを追加します。  
+代わりに、Playbook 用に非常に簡単なディレクトリー構造を作成し、いくつかのファイルを追加します。
 
-### ステップ 2: Visual Studio Code への接続
+**ステップ 1:**
 
-Visual Studio Code を開きます。  
+Visual Studio Code を開きます。
 
-この演習では、あらかじめ各自の Git リポジトリはクローン済みです。  
-VS Code へのアクセス先と認証情報を確認し接続を完了します。  
+このラボでは、Git リポジトリーのクローンをすでに作成しています。
+
+アクセスするには、ワークショップページ から VS CodeAccess のリンクをクリックします。
 
 ![VS Code Access](images/3-vscode-access.png)
 
-Explorer サイドバーは、READMEファイルのみを含む *WORKSHOP_PROJECT* セクションとなっています。  
+Explorer サイドバーのこの時点で、README ファイルのみを含む* WORKSHOP_PROJECT *セクションが必要です。
 
 ![Student Playbooks Repo](images/3-vscode-open-folder.png)
 
-### ステップ 3: ディレクトリーと Playbook の作成
+**ステップ 2:** **iis_basic** というディレクトリーと
+`install_iis.yml` というファイルを作成します。
 
-*WORKSHOP_PROJECT* セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。  
-`iis_basic`という名前のフォルダーを作成します。次に作成した新しいフォルダーを右クリックして、`install_iis.yml`というファイルを作成します。  
+*WORKSHOP_PROJECT* セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`iis_basic`
+というフォルダーを作成します。次に、そのフォルダーをクリックして選択します。作成した新しいフォルダを右クリックして、`install_iis.yml`
+というファイルを作成します。
 
-作成すると右ペインに編集可能なエディタが表示されます。ここに Playbook を記述していきます。♬  
+これで、Playbook の作成に使用できるエディターが右側のペインで開いているはずです。
 
 ![Empty install\_iis.yml](images/3-vscode-create-folders.png)
 
-### ステップ 4: プレイの定義
+## セクション 2: プレイの定義
 
-`install_iis.yml`を編集します。まずプレイを記述してみましょう。  
-次に、各行の意味をご説明します。  
+`install_iis.yml` を編集しているので、まずプレイを定義してから、各行が何を達成するかを理解しましょう。
 
 ```yaml
 ---
@@ -55,45 +68,46 @@ Explorer サイドバーは、READMEファイルのみを含む *WORKSHOP_PROJEC
   hosts: windows
 ```
 
-- `---` YAMLであることを示しています。  
+* `---` YAMLの始まりを定義します
+* `name: install the iis web service` ここでは、プレイを説明します。
+* `hosts: windows` このプレイが実行されるインベントリ内のホストグループを定義します
 
-- `name: install the iis web service` プレイに対する名前です。  
+## セクション 3: プレイにタスクを追加する
 
-- `hosts: windows` このプレイが実行されるインベントリ内のホストグループを定義します  
-
-### ステップ 5: プレイに対するタスクの記述
-
-次に、いくつかのタスクを追加します。（タスク）の**t**をhost`hosts`の**h**に（垂直に）位置合わせします。  
-YAML ファイルではスペースはとても重要です。タブを使ってはいけません。  
-Playbook 全体は一番下にありますので必要に応じてご参照ください。  
+プレイを定義したので、いくつかのタスクを追加して、いくつかのことを実行しましょう。`task` の **t**を `hosts` の **h** に
+(垂直に) 揃えます。これは重要です。実際、すべての Playbook
+ステートメントがここに示されている方法で整列されていることを確認する必要があります。また、インデントにはスペースを使用する必要があります。タブは有効な
+YAML 構文ではありません。Playbook 全体を参照用に表示する場合は、この演習の最後にスキップしてください。
 
 <!-- {% raw %} -->
+
 ```yaml
-  tasks:
-   - name: install iis
-     win_feature:
-       name: Web-Server
-       state: present
-       
-   - name: start iis service
-     win_service:
-       name: W3Svc
-       state: started
+      tasks:
+       - name: install iis
+         win_feature:
+           name: Web-Server
+           state: present
 
-   - name: Create website index.html
-     win_copy:
-       content: "{{ iis_test_message }}"
-       dest: C:\Inetpub\wwwroot\index.html
+       - name: start iis service
+         win_service:
+           name: W3Svc
+           state: started
 
-   - name: Show website address
-     debug:
-       msg: "http://{{ ansible_host }}"
+       - name: Create website index.html
+         win_copy:
+           content: "{{ iis_test_message }}"
+           dest: C:\Inetpub\wwwroot\index.html
+
+       - name: Show website address
+         debug:
+           msg: "http://{{ ansible_host }}"
 ```
+
 <!-- {% endraw %} -->
 
-- `tasks:` タスクが記述されていることを示しています。  
-
-- `- name:` Playbook の実行時に標準出力に表示される名前です。短くて分かりやすい名前が良いと思います。♬
+* `tasks:` これは、1 つ以上のタスクが定義されようとしていることを示します
+* `- name:` 各タスクには、Playbook
+  を実行したときに標準出力に出力される名前が必要です。したがって、タスクには短く、わかりやすい名前を付けてください
 
 <!-- -->
 
@@ -103,75 +117,99 @@ Playbook 全体は一番下にありますので必要に応じてご参照く�
       state: present
 ```
 
-- 上記 3 行は、Ansible モジュール **`win_feature`**　を使って IIS Web サーバーをインストールしています。`win_feature` モジュールのすべてのオプションを表示します。win_feature モジュール詳細は[こちら](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html)をご参照ください。  
-
+* これらの3行は、IIS WebサーバーをインストールするためのAnsibleモジュール **`win_feature`**
+  を呼び出しています。`win_feature` モジュールのすべてのオプションを見るには
+  [ここをクリック](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html)
+  します。
 
 <!-- -->
+
 ```yaml
     win_service:
       name: W3Svc
       state: started
 ```
 
-- 続くいくつかの行で、Ansible モジュール **win_service** を使って IIS サービスを起動しています。この win_service モジュールは windows ホストのサービス管理するために有用なモジュールです。win_service モジュール詳細は[こちら](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html)をご参照ください。  
- 
+* 次の数行は、Ansible モジュール **win_service** を使用して IIS サービスを開始しています。`win_service`
+  モジュールは、リモートホスト上のサービスを制御するための推奨される方法です。**`win_service`**
+  モジュールの詳細は、[ここをクリック](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html)
+  してください。
 
 <!-- {% raw %} -->
+
 ```yaml
     win_copy:
       content: "{{ iis_test_message }}"
       dest: C:\Inetpub\wwwroot\index.html
 ```
+
 <!-- {% endraw %} -->
 
-- このタスクでは、win_copy モジュールを使用して、特定のコンテンツを含むファイルを対象ノードにコピーしています。 ここでは、変数を使用してコンテンツを取得しているため、少し表現が複雑になっています。変数については、後のレッスンで説明いたします。ここでは Automation Controller から リモートホストに ファイル名 index.html としてファイルをコピーしていることだけ理解いただければ大丈夫です！    
+* このタスクでは、win\_copy
+  モジュールを使用して、特定の内容を含むファイルを作成します。変数を使用してコンテンツを取得しているため、ここではもう少し複雑になっています。変数については後のレッスンで紹介するため、まだ説明しません。
 
 <!-- {% raw %} -->
+
 ```yaml
     debug:
       msg: http://{{ ansible_host }}
 ```
+
 <!-- {% endraw %} -->
 
-- このタスクは `debug` モジュールを利用しています。debug は、変数など特定の内容を出力するためのモジュールです。ここでは、`http://` に続いて、IISをインストールした対象ホストのアドレスを出力するよう構成されています。Ansible 実行後にすぐ対象ホストにブラウザでアクセス出来て便利ですよね。♬  
+* このタスクは、`debug` モジュールを使用して、Playbook
+  の実行の最後にメッセージを投稿します。この特定のメッセージは、`http://` + 変数名 (Windows IIS server で
+  Playbook を実行しているホストの IP アドレスを含む) を出力します。
 
+## セクション 4: Playbook の保存
 
-### ステップ 6: Playbook の保存
+Playboook の作成が完了しても保存しなければ意味がありません
+メニューから `File > Save` をクリックします。
 
-Playbook の記述が完了しましたので、保存しましょう。  
-左上から `File > Save` をクリックします。  
+これで OK です。これで `install_iis.yml` という完全に記述された Playbook ができました。
 
-これはするべきです。これで `install_iis.yml` の Playbook ができました。
-
-でもまだ終わってません！！！ **ローカル**コピーから**Git**への変更（コミット）が必要です。以下に示すように、[Source Code]アイコンをクリックします（ページの一番左の中央にある青い円に1が表示されていることが確認できます）
+まだ終わりではありません。**ローカル** コピーから **git**
+への変更をコミットしていません。以下に示すように、ソースコードアイコンをクリックします (ページの左端の中央に、\#1 が含まれる青い円があります)。
 
 ![Git Commit](images/3-vscode-click-commit.png)
 
-サイドバーの上部にあるテキストボックスに*Adding install _iis.yml* など変更内容を入力した上で、上部の`Commit`をクリックします。このメッセージは、バージョンを比較するときに他の人（自分を含む）が何が変更されているかをよりよく理解できるように、行った変更を説明することを目的としています。  
+サイドバーの上部にあるテキストボックスに、*Adding install\_iis.yml*
+などのコミットメッセージを入力します。コミットするには、上のチェックボックスをクリックしてください。このメッセージは、バージョンを比較するときに他の人
+(自分を含む) が何が変更されているかをよりよく理解できるように、行った変更を説明することを目的としています。
 
 ![Git Commit install\_iis.yml](images/3-vscode-commit.png)
 
-次に、コミットした変更をリポジトリにプッシュする必要があります。  
+次に、コミットされた変更をリポジトリーにプッシュする必要があります。
 
-左下の青いバーで、円形矢印を含むセクションをクリックして、変更をプッシュします。  
+左下の青いバーで、円形の矢印が含まれているセクションをクリックして、変更をプッシュします。
 
 ![Git Push Origin](images/3-vscode-push.png)
 
-プッシュするのに30秒程度かかる場合があります。 最初のプッシュの後、git fetch を定期的に実行するかどうかを尋ねるポップアップメッセージが表示される場合があります。**Yes** or **No** どちらを選択いただいてもかまいません。  
+プッシュするのに 30 秒ほどかかる場合があります。最初のプッシュ後、定期的に gitfetch
+を実行するかどうかを尋ねるポップアップメッセージが表示される場合があります。git リポジトリで作業しているのはあなただけなので、**Yes** または
+**No** をクリックできます。
 
 ![Git Push Origin](images/3-vscode-push-initial-pop-up.png)
 
-コードがgitにあることを検証したい場合は、GitLabに接続して確認してみましょう。  
+コードが git にあることを検証することに興味がある場合は、GitLab に接続して確認できます。ワークショップページに戻り、**GitLab
+Access** の下のリンクをクリックしてユーザー名とパスワードをメモします。
 
 ![GitLab access](images/3-vscode-gitlab-access.png)
 
-これで最初の Playbook は完成です♬  
+自動化の準備が整いました。
 
-> **Note**
+> **注意**
 >
-> Ansible（実際、YAML）は、特にインデント/スペースの周りの書式設定に少しこだわりがあります。YAML の書き方は、[こちら](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html)をご確認ください。上記で完成した Playbook は次のようになります。スペースに特に注意してください。
+> Ansible (実際には YAML) はフォーマットがやや特殊と感じられるかもしれません。
+> 特にインデント/間隔の周りが特殊です。オフィスに戻って
+> この [YAML
+構文](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) を少し読んだときの
+> 煩わしさが軽減されます。
+> 完成した Playbook は、次のようになります。スペースと
+> アライメントには特に注意が必要です。
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
 - name: install the iis web service
@@ -197,6 +235,8 @@ Playbook の記述が完了しましたので、保存しましょう。
       debug:
         msg: http://{{ ansible_host }}
 ```
+
 <!-- {% endraw %} -->
 
-[ワークショップ一覧に戻る](../README.ja.md)
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../README.md)

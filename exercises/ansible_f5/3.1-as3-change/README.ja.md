@@ -1,61 +1,53 @@
-# 演習 3.1 - AS3 による変更運用
+# 演習 3.1 - AS3 での操作変更
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbook の出力](#Playbookの出力)
-- [解答](#解答)
-- [確認](#確認)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[ソリューション](#solution)
 
 # 目的
 
-既存のWeb Application AS3テンプレートを変更します。既存のテンプレートには問題があり、serviceMainが赤色で表示されています。この問題を修正します。
-
+既存の Web アプリケーション AS3 テンプレートを変更する方法を説明します。既存のテンプレートに問題があり、serviceMain が赤で表示されています。何が悪いのでしょうか?  
 ![serviceMain-offline.png](serviceMain-offline.png)
 
+# ガイド
 
-# 解説
+## ステップ 1:
 
-## Step 1:
+何が問題かを調べます。Web ブラウザーで F5 にログインし、設定された内容を確認します。
 
-問題を特定します。WebブラウザからF5にログインして、設定内容を確認します。
-
-  1. `ServiceMain` をクリックして、ダウン状態となっている理由を確認します。
-  2. テーブルの `Availability` フィールドを参照します。
+  1. `ServiceMain` をクリックし、そのダウンしている理由を確認します。
+  2. 表の `Availability` フィールドに注目します。
 
 ![pool-nodes-down.png](pool-nodes-down.png)
 
-  3. `Local Traffic` の` Pools` をクリックします。
+  3. `Local Traffic` セクションで `Pools` をクリックします。
   4. `app_pool` をクリックします。
-  5. `Members` ボタンをクリックします。
-
+  5. `Members` ボタンをクリックします
 
 ![443](443.png)
 
-原因はポート **443** です。2台のRHEL Webサーバはポート80のみで稼働するので、これがダウン状態の原因です。
+ポート **443** は正しくありません。2 つの RHEL Web サーバーはポート 80
+でのみ実行されます。これが、それらがダウンしている理由となっています。
 
-## Step 2:
+## ステップ 2:
 
-テキストエディタで `j2/as3_template.j2` ファイルを編集します:
+~/j2 ディレクトリーの既存の jinja テンプレート `as3_template.j2` を開きます。
 
->`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
+## ステップ 3:
 
-## Step 3:
+ポート **443** の場所を探し、これをポート **80** に変更します。
 
-ポート **443** をポート **80** に変更します。
-
-この行を->
-
+この行は、以下のようになっています->
 {% raw %}
 ``` json
                 "servicePort": 443,
 ```
 {% endraw %}
 
-以下のように変更します->
+これを以下のように変更します->
 
 {% raw %}
 ``` json
@@ -63,52 +55,56 @@
 ```
 {% endraw %}
 
-## Step 4
-
-Playbook の実行 - コマンドラインへ戻ったら以下のコマンドでPlaybookを実行してください:
+## ステップ 4
+Playbook を実行します。コントロールホストの VS Code サーバーのターミナルに戻り、以下を実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator as3.yml --mode stdout
 ```
 
-# Playbookの出力
+# Playbook の出力
 
-以下は出力の例となります。
+出力は次のようになります。
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator as3.yml --mode stdout
 
-PLAY [Linklight AS3] ***********************************************************
+PLAY [Linklight AS3] **********************************************************
 
-TASK [Create AS3 JSON Body] ****************************************************
+TASK [Create AS3 JSON Body] ***************************************************
 ok: [f5]
 
-TASK [Push AS3] ****************************************************************
+TASK [Push AS3] ***************************************************************
 ok: [f5]
 
-PLAY RECAP *********************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}
 
-# 解答
+# ソリューション
 
-修正した Jinja2 テンプレートは [as3_template.j2](./j2/as3_template.j2) から参照できます。
+修正した Jinja テンプレートが、回答キーとしてここで提供されています。
+[as3_template.j2](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.1-as3-change/j2/as3_template.j2)
+を表示するには、ここをクリックしてください。
 
-# 確認
+# ソリューションの確認
 
-Webブラウザを使用してF5にログインし、設定内容を確認します。F5ロードバランサーのIP情報を `lab_inventory/hosts` ファイルから取得し、https://X.X.X.X:8443/のように入力します。
+Web ブラウザーで F5 にログインし、設定された内容を確認します。lab_inventory/hosts ファイルから F5 ロードバランサーの
+IP 情報を取得し、https://X.X.X.X:8443/ のように入力します。
 
 ![f5 gui as3](as3-fix.gif)
 
-1. 左側のメニューにある `Local Traffic` をクリックします。
-2. `Virtual Servers` をクリックします。
-3. 右側の `Partition` という名前のドロップダウンメニューをクリックして、`WorkshopExample` を選択します。
+1. 左側のメニューで Local Traffic をクリックします
+2. Virtual Servers をクリックします。
+3. 右上の `Partition` というドロップダウンメニューをクリックし、WorkshopExample を選択します
 4. 仮想サーバー `serviceMain` が表示されます。
-5. この仮想サーバーは緑色（`Available (Enabled) - The virtual server is available`）で表示されます。
-6. `app_pool` の `Pools` で、両方のWebサーバの `service_port` がポート **80** に設定されていることを確認します。
+5. 今回は緑で表示されます (`Available (Enabled) - The virtual server is available`)
+6. `Pools` セクションの `app_pool` で、両方の Web サーバーの `service_port` がポート **80**
+   に設定されていることを確認します。
 
 ----
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+You have finished this exercise.  [Click here to return to the lab
+guide](../README.md)

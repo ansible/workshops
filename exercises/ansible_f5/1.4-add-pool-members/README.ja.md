@@ -1,35 +1,30 @@
-# 演習 1.4 - メンバーをプールへ追加
+# 演習 1.4: F5 でのプールへのメンバーの追加
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbook の出力](#Playbookの出力)
-- [出力のパース](#出力のパース)
-- [解答](#解答)
-- [確認](#確認)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[出力の解釈](#output-parsing)  - [ソリューション](#solution)  -
+[ソリューションの確認](#verifying-the-solution)
 
 # 目的
 
-本演習では、[BIG-IP pool member module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_member_module.html) を使って、演習 1.3 で作成したプール `http_pool` にWebサーバーを追加します。
+[BIG-IP プールメンバーモジュール](https://docs.ansible.com/ansible/latest/modules/bigip_pool_module.html) を使用して、Web サーバーノードを前の演習で作成したロードバランシングプール `http_pool` に結びつける方法を説明します。  
 
-# 解説
+# ガイド
 
-## Step 1:
+## ステップ 1:
 
-テキストエディタを使って、`bigip-pool-members.yml` というファイルを新規作成します。
+VSCode を使用して、左側のペインの新規ファイルアイコンをクリックして、`bigip-pool-members.yml`
+という名前の新しいファイルを作成します。
 
-```
-[student1@ansible ~]$ nano bigip-pool-members.yml
-```
+![picture of create file
+icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
->`vim` と `nano` はコントロールノード上で利用可能です。RDP経由でのVisual Studio と Atom も同様です。
+## ステップ 2:
 
-## Step 2:
-
-`bigip-pool-members.yml` へ、以下のプレイブック定義を記述します :
+次のプレイ定義を `bigip-pool-members.yml` に入力します。
 
 ``` yaml
 ---
@@ -39,16 +34,17 @@
   gather_facts: false
 ```
 
-- このファイルの最初の `---` は、このファイルがYAMLであることを示します。
-- `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
-- `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
-- `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
+- ファイル上部の `---` は、これが YAML ファイルであることを示しています。  - `hosts: lb` は、プレイが lb
+グループでのみ実行されることを示します。技術的には、F5 デバイスは 1 つだけしか存在しませんが、複数あれば、それぞれが同時に設定されます。  -
+`connection: local` は、（自身に SSH 接続するのではなく）ローカルで実行するように Playbook に指示します  -
+`gather_facts: false` はファクト収集を無効にします。この Playbook では、ファクト変数を使用しません。
 
-まだエディタを閉じないでください。
+まだエディターを終了しないでください。
 
-## Step 3
+## ステップ 3
 
-次に、タスクを追加します。このタスクは、`bigip_pool_member` モジュールを使用して、BIG-IP上に、２つの RHEL （Webサーバー）をプールメンバーとして設定します。
+次に、最初の `task` を上記の Playbook に追加します。このタスクは、`bigip_pool_member` モジュールを使用して 2
+つの RHEL Web サーバーを BIG-IP F5 ロードバランサー上のノードとして設定します。
 
 {% raw %}
 ``` yaml
@@ -70,39 +66,42 @@
 ```
 {% endraw %}
 
+タスク内の各行の説明: - `name: ADD POOL MEMBERS` は、ターミナル出力に表示されるユーザー定義の説明です。  -
+`bigip_pool_member:` は、使用するモジュールをタスクに指示します。
 
-- `name: ADD POOL MEMBERS` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
-- `bigip_pool_member:` ：　使用するモジュールを宣言しています。
-- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
-- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
-- `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
-- `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
-- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
-- `state: "present"` ： プールメンバーを（削除ではなく）追加するように指定します。
-- `name: "{{hostvars[item].inventory_hostname}}"` ： `inventory_hostname` をホスト名（node1、node2 となります）として使うことを指示します。
-- `host: "{{hostvars[item].ansible_host}}"` ：　モジュールへインベントリに登録済みのWebサーバーのIPアドレスを追加します。
-- `port`: プールメンバーポートを指定します。
-- `pool: "http_pool"` ： Webサーバーを追加するプールとして、http_pool を指定します。
-最後に、（モジュール・パラメータではなく）タスクレベルのパラメータである、loop パラメータの指定です。
-- `loop:` ：　与えられた一覧に対してタスクをループ実行することを指定します。この演習では、二つのRHELホストを含む web グループが一覧となります。
+次に、モジュールパラメータが来ます - `server: "{{private_ip}}"` パラメーターは、F5 BIG-IP IP
+アドレスに接続するようにモジュールに指示します。このアドレスは、インベントリーの変数 `private_ip` として保存されます -
+`provider:` パラメーターは、BIG-IP の接続詳細のグループです。  - `user: "{{ansible_user}}"`
+パラメーターは、F5 BIG-IP デバイスにログインするためのユーザー名をモジュールに指示します - `password:
+"{{ansible_password}}"` パラメーターは、F5 BIG-IP デバイスにログインするためのパスワードをモジュールに指示します -
+`server_port: 8443` パラメーターは、F5 BIG-IP デバイスに接続するためのポートをモジュールに指示します - `state:
+"present"` パラメーターは、これを削除するのではなく追加することをモジュールに指示します。  - `name:
+"{{hostvars[item].inventory_hostname}}"` パラメーターは、名前に `inventory_hostname`
+(node1 および node2) を使用するようにモジュールに指示します。  - `host:
+"{{hostvars[item].ansible_host}}"` パラメーターは、すでにインベントリーに定義されている Web サーバーの IP
+アドレスを追加するようにモジュールに指示します。  - `port` パラメーターは、プールメンバーのポートを指示します。  - `pool:
+"http_pool"` パラメーターは、このノードを http_pool という名前のプールに配置するようにモジュールに指示します -
+`validate_certs: "no"` パラメーターは、SSL
+証明書を検証しないようにモジュールに指示します。これはラボなので、デモ目的のためにのみ使用されます。最後に、タスクレベルの loop
+パラメーターが来ます (モジュールパラメーターではなく、タスクレベルのパラメーターです)。 - `loop:`
+は、指定されたリストをループオーバーするようにタスクに指示します。ここでは、リストは 2 つの RHEL ホストが含まれるグループ Web です。
 
-ファイルを保存して、エディタを終了してください。
+ファイルを保存して、エディターを終了します。
 
-## Step 4
+## ステップ 4
 
-プレイブックの実行 - コントロールホストのコマンドラインで以下を実行します。
+Playbook を実行します。VS Code サーバーのターミナルに戻り、以下を実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml --mode stdout
 ```
 
 # Playbook の出力
 
-出力は以下のようになります。
+出力は次のようになります。
 
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool-members.yml --mode stdout
 
 PLAY [BIG-IP SETUP] ************************************************************
 
@@ -113,16 +112,18 @@ changed: [f5] => (item=node2)
 PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
-# 出力のパース
+# 出力の解釈
 
-bigip_device_facts モジュールを使って、BIG-IPに設定されたプールメンバー情報を確認してみましょう。 [JSON query](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter) は強力なフィルタリングツールです。演習を進める前に確認してみましょう。
+bigip_device_info を使用して BIG-IP 上のプールメンバーを収集してみましょう。[JSON
+クエリー](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter)
+は、使用できる強力なフィルターです。先に進む前に確認してください。
 
 {% raw %}
 ```
 [student1@ansible ~]$ nano display-pool-members.yml
 ```
 
-以下を記述します:
+以下の設定を入力します。
 ```yaml
 ---
 - name: "List pool members"
@@ -148,24 +149,24 @@ bigip_device_facts モジュールを使って、BIG-IPに設定されたプー�
 
     - name: "Show members belonging to pool"
       debug: "msg={{item}}"
-      loop: "{{bigip_device_facts.ltm_pools | json_query(query_string)}}"
+      loop: "{{bigip_device_facts.ltm_pools | community.general.json_query(query_string)}}"
       vars:
         query_string: "[?name=='http_pool'].members[*].name[]"
 ```
 {% endraw %}
 
-- `vars:` ： モジュール内部で利用されるクエリ文字列を定義しています。
-- `query_String` ： 'http_pool' というプールに含まれる全てのプールメンバーの名前を取得します。query_string を設定することで JSON の可読性が向上します。
+- モジュールの `vars:` は、モジュール自体で使用される変数 query_string を定義します。
+- `query_String` は、プール名 'http_pool' からのすべてのメンバーの名前を持ちます。json 文字列全体の読み取りを容易にするために、query_string が定義されます
 
-プレイブックの実行
+VS Code ターミナルでの Playbook の実行
 ```
-[student1@ansible ~]$ ansible-playbook display-pool-members.yml
+[student1@ansible ~]$ ansible-navigator run display-pool-members.yml --mode stdout
 ```
 
 出力
 
-```yaml
-[student1@ansible ~]$ ansible-playbook display-pool-members.yml
+``` yaml
+[student1@ansible 1.4-add-pool-members]$ ansible-navigator run display-pool-members.yml --mode stdout
 
 PLAY [List pool members] ******************************************************
 
@@ -239,22 +240,24 @@ ok: [f5] => (item=node2:80) =>
   msg: node2:80
 
 PLAY RECAP ********************************************************************
-f5                         : ok=3    changed=0    unreachable=0    failed=0
+f5                         : ok=3    changed=1    unreachable=0    failed=0
+
 ```
 
-# 解答
-完成形のAnsible Playbook はこちらから参照可能です。 [bigip-pool-members.yml](./bigip-pool-members.yml).
+# ソリューション
+完成した Ansible Playbook
+が、回答キーとしてここで提供されています。[bigip-pool-members.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.4-add-pool-members/bigip-pool-members.yml)
+を表示するには、ここをクリックしてください。
 
-# 確認
+# ソリューションの確認
 
-ブラウザでBIG-IPへログインして設定されたものを確認してみましょう。lab_inventory/hosts ファイルからBIG-IPのIPアドレスを確認して、https://X.X.X.X:8443/ のようにアクセスします。
+Web ブラウザーで F5 にログインし、設定された内容を確認します。lab_inventory/hosts ファイルから F5 ロードバランサーの
+IP 情報を取得し、https://X.X.X.X:8443/ のように入力します。
 
-BIG-IP へのログイン情報:
-- username: admin
-- password: **講師から指示されます** (default is admin)
+BIG-IP のログイン情報: - ユーザー名: admin - パスワード: **インストラクターから提供**、デフォルトは ansible
 
-プールに二つのメンバー（node1とnode2）が含まれていることを確認します。**Local Traffic** -> **Pools** とクリックします。そして、http_pool をクリックすることでより詳細な情報を確認します。Members タブをクリックすることで全てのプールメンバーが表示されます。
+プールには 2 つのメンバー（node1 および node2）が表示されるようになります。Local Traffic をクリックし、続いて Pools をクリックします。http_pool をクリックして、より詳細な情報を取得します。中央の Members タブをクリックし、すべてのメンバーを一覧表示します。
 ![f5members](poolmembers.png)
 
-
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+You have finished this exercise.  [Click here to return to the lab
+guide](../README.md)

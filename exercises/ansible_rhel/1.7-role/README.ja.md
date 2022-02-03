@@ -1,21 +1,21 @@
-# ワークショップ演習: ロール: Playbook を再利用可能にする
+# ワークショップ演習 - ロール: Playbook を再利用可能にする
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
 * [目的](#objective)
 * [ガイド](#guide)
-  * [Step 1 - Ansible
-    ロール構造を理解する](#step-1---understanding-the-ansible-role-structure)
-  * [Step 2 -
+  * [ステップ 1 - Ansible
+    ロール構造について](#step-1---understanding-the-ansible-role-structure)
+  * [ステップ 2 -
     基本的なロールディレクトリー構造の作成](#step-2---create-a-basic-role-directory-structure)
-  * [Step 3 - タスクファイルの作成](#step-3---create-the-tasks-file)
-  * [Step 4 - ハンドラーの作成](#step-4---create-the-handler)
-  * [Step 5 - web.html と vhost
+  * [ステップ 3 - タスクファイルの作成](#step-3---create-the-tasks-file)
+  * [ステップ 4 - ハンドラーの作成](#step-4---create-the-handler)
+  * [ステップ 5 - web.html と vhost
     設定ファイルテンプレートの作成](#step-5---create-the-webhtml-and-vhost-configuration-file-template)
-  * [Step 6 - ロールのテスト](#step-6---test-the-role)
+  * [ステップ 6 - ロールのテスト](#step-6---test-the-role)
 * [トラブルシューティング問題](#troubleshooting-problems)
 
 ## 目的
@@ -24,7 +24,10 @@
 を作成することは可能ですが、最終的には複数のファイルを再利用して、整理することをお勧めします。
 
 これを行うには、Ansible Roles を使用します。ロールを作成するときは、Playbook
-を複数のパーツに分け、それらのパーツをディレクトリー構造に配置します。これについては、 [Tips and tricks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) および [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html) で詳しく説明されています。
+を複数のパーツに分け、それらのパーツをディレクトリー構造に配置します。これについては、[ヒントとコツ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
+および [Ansible
+設定の例](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html)
+で詳しく説明されています。
 
 この演習では、以下について説明します。
 
@@ -35,7 +38,7 @@
 
 ## ガイド
 
-### Step 1 - Ansible Role 構造の概要
+### ステップ 1 - Ansible ロール構造について
 
 ロールは、定義されたディレクトリ構造に従います。ロールは、最上位ディレクトリーによって名前が付けられます。一部のサブディレクトリーには、`main.yml`
 という YAML ファイルが含まれています。ファイルとテンプレートのサブディレクトリーには、YAML
@@ -70,7 +73,7 @@ apache/
 
 > **ヒント**
 >
-> `vars` と `default` には、実際には 2 つのディレクトリーがあります。デフォルトの変数には最も低い優先度が付けられます。また、ロールの作成者によって設定されたデフォルト値が含まれます。これは、これらの値のオーバーライドが意図されているときに使用されます。変数は、`vars/main.yml` や `defaults/main.yml` (いずれか 1 つ) で設定できます。
+> `vars` と `default` には、実際には 2 つのディレクトリーがあります。デフォルトの変数 `defaults/main.yml` には最も低い優先度が付けられます。また、ロールの作成者によって設定されたデフォルト値が含まれます。これは、これらの値のオーバーライドが意図されているときに使用されます。`vars/main.yml` で設定されている変数は、変更しないことを想定した変数です。
 
 Playbook でのロールの使用は簡単です。
 
@@ -87,7 +90,7 @@ Playbook でのロールの使用は簡単です。
 に含まれます。ロール内のコピー、スクリプト、テンプレート、またはインクルードタスクは、*絶対パス名または相対パス名なしで*関連するファイル、テンプレート、またはタスクを参照できます。Ansible
 は、それらの使用に基づいて、ロールのファイル、テンプレート、またはタスクで検索します。
 
-### Step 2 - 基本的なロールディレクトリー構造の作成
+### ステップ 2 - 基本的なロールディレクトリー構造の作成
 
 Ansible は、プロジェクト内の `roles` というサブディレクトリーを探します。これは、Ansible
 構成でオーバーライドできます。各ロールには独自のディレクトリーがあります。新しいロールの作成を容易にするには、`ansible-galaxy`
@@ -132,7 +135,7 @@ roles/
         └── main.yml
 ```
 
-### Step 3 - タスクファイルの作成
+### ステップ 3 - タスクファイルの作成
 
 ロールのタスクサブディレクトリーの `main.yml` は、以下を行う必要があります。
 
@@ -244,7 +247,7 @@ vhost ディレクトリーは、`file` モジュールで作成/確認される
 
 <!-- {% endraw %} -->
 
-### Step 4 - ハンドラーの作成
+### ステップ 4 - ハンドラーの作成
 
 `roles/apache_vhost/handlers/main.yml` ファイルにハンドラーを作成し、テンプレートタスクで通知されたときに
 httpd を再起動します。
@@ -258,7 +261,7 @@ httpd を再起動します。
     state: restarted
 ```
 
-### Step 5 - web.html と vhost 構成ファイルテンプレートの作成
+### ステップ 5 - web.html と vhost 設定ファイルテンプレートの作成
 
 Web サーバーによってサービスされる HTML コンテンツを作成します。
 
@@ -270,9 +273,7 @@ Web サーバーによってサービスされる HTML コンテンツを作成�
 
 * ロールの `templates` サブディレクトリーに `vhost.conf.j2` テンプレートを作成します。
 
-```bash
-#> cat roles/apache_vhost/templates/vhost.conf.j2
-```
+`vhost.conf.j2` テンプレートファイルの内容を以下に示します。
 
 <!-- {% raw %} -->
 
@@ -296,7 +297,7 @@ Web サーバーによってサービスされる HTML コンテンツを作成�
 
 <!-- {% endraw %} -->
 
-### Step 6 - ロールのテスト
+### ステップ 6 - ロールのテスト
 
 `node2` に対してロールをテストする準備が整いました。ただし、役割をノードに直接割り当てることはできないため、最初に役割とホストを接続する
 Playbook を作成します。ファイル `test_apache_role.yml` をディレクトリー `~/ansible-files`
@@ -328,7 +329,7 @@ Playbook を作成します。ファイル `test_apache_role.yml` をディレ�
 これで、Playbook を実行する準備が整いました。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
 ```
 
 `node2` に curl コマンドを実行して、ロールが動作したことを確認します。
@@ -362,5 +363,5 @@ tcp6       0      0 :::8080                 :::*                    LISTEN      
 <br>
 [前の演習](../1.6-templates) - [次の演習](../2.1-intro)
 
-[こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -1,21 +1,52 @@
-# ワークショップ演習 - Ansible Tower の概要
+# ワークショップ演習 - Ansible 自動コントローラーの概要
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
+* [Ansible 自動コントローラー 4.0
+  の新機能](#whats-new-in-ansible-automation-controller-40)
+* [Ansible Tower
+  が自動コントローラーに改名された理由](#why-was-ansible-tower-renamed-to-automation-controller)
+* [自動コントローラーのユーザー](#who-is-automation-controller-for)
 * [目的](#objective)
 * [ガイド](#guide)
-* [Ansible Tower を使う理由](#why-ansible-tower)
-* [使用する Ansible Tower ラボ環境](#your-ansible-tower-lab-environment)
+* [Ansible 自動コントローラーを使う理由](#why-ansible-automation-controller)
+* [Ansible
+  自動コントローラーラボ環境](#your-ansible-automation-controller-lab-environment)
 * [ダッシュボード](#dashboard)
-* [コンセプト]（＃concepts）
+* [コンセプト](#concepts)
+
+## Ansible 自動コントローラー 4.0 の新機能
+
+Ansible Automation Platform 2 は、Red Hat
+の信頼できるエンタープライズテクノロジーの専門家による次回の進化版です。Ansible Automation Platform 2
+リリースには、自動コントローラー 4.0、改善、および名前が変更された Ansible Tower が含まれます。
+
+コントローラーは、企業全体で自動化を定義、操作、および委譲するための標準化された方法を提供します。これにより、自動化チームが迅速にスケーリングおよび配信できる、新たなテクノロジーと強化されたアーキテクチャーが導入されました。
+
+### Ansible Tower が自動コントローラーに改名された理由
+
+Ansible Automation Platform 2 は進化し続けるため、特定の機能は、以前は Ansible Tower
+と知ったものから切り離されたもの（将来のリリースで分離される）から切り離されました。これらの拡張機能および Ansible Automation
+Platform スイート内の全体の位置を反映させることは理にかなっています。
+
+### 自動コントローラーの対象ユーザー
+すべての自動化チームのメンバーが対話したり、直接的または間接的に自動化コントローラーに依存します。
+
+* 自動化作成者は Ansible Playbook、ロール、およびモジュールを開発します。
+* 自動化アーキテクトはチーム全体で自動化を促進し、IT プロセスと合理化に合わせます。
+* 自動化オペレーターは、自動化プラットフォームおよびフレームワークが機能することを確認します。
+
+これらのロールは、必ずしも人やチーム専用のものであるわけではありません。多くの組織は、複数のロールをユーザーに割り当てるか、または必要に応じて特定の自動化タスクを実行します。
+
+Automation Operator は通常、責任に基づいて自動化コントローラーと直接対話する主要な個人です。
 
 ## 目的
 
-この演習では、Red Hat Ansible Automation Platform によって提供される機能の実行を含む、AnsibleTower
-の概要を説明します。次のような AnsibleTower の基本を対象とします。
+以下の演習では、Red Hat Ansible
+自動コントローラーによって提供される機能の実行を含む、自動コントローラーの概要を説明します。次のような自動コントローラーの基本を対象とします。
 
 * ジョブテンプレート
 * プロジェクト
@@ -25,37 +56,38 @@
 
 ## ガイド
 
-### Ansible Tower を使う理由
+### 自動コントローラーに移動します。
 
-Ansible Tower は、IT 自動化のためのエンタープライズソリューションを提供する Web ベースの UI です。
+自動コントローラーは、IT 自動化のためのエンタープライズソリューションを提供する Web ベースの UI です。
 
 * これには、ユーザーフレンドリーなダッシュボードがあります
 * 自動化、視覚的管理、監視機能を追加して Ansible を補佐
 * 管理者にユーザーアクセス制御を提供
+* 自動化コントローラーオブジェクトおよびコンポーネントの個別の _view_ および _edit_ パースペクティブを提供します。
 * インベントリーをグラフィカルに監視し、さまざまなリソースと同期
 * RESTfulAPI が利用可
 * その他いろいろ...
 
-### Ansible Tower ラボ環境
+### Ansible 自動コントローラーラボ環境
 
 このラボでは、事前設定されたラボ環境で作業します。ここでは、以下のホストにアクセスできます。
 
-| Role                         | Inventory name |
-| -----------------------------| ---------------|
-| Ansible Control Host & Tower | ansible-1      |
-| Managed Host 1               | node1          |
-| Managed Host 2               | node2          |
-| Managed Host 2               | node3          |
+| Role                                          | Inventory name |
+| --------------------------------------------- | ---------------|
+| Ansible control host & automation controller  | ansible-1      |
+| Managed Host 1                                | node1          |
+| Managed Host 2                                | node2          |
+| Managed Host 2                                | node3          |
 
-このラボの Ansible Tower
-は、個別にセットアップされています。作業を行うマシンへの適切なアクセス権があることを確認してください。Ansible Tower
-は、すでにインストールされてライセンス付与が行われています。Web UI は、HTTP/HTTPS でアクセスできます。
+このラボの Ansible
+自動コントローラーは、個別にセットアップされています。作業を行うマシンへの適切なアクセス権があることを確認してください。Ansible
+自動コントローラーは、すでにインストールされてライセンス付与が行われています。Web UI は、HTTP/HTTPS でアクセスできます。
 
 ### ダッシュボード
 
-タワーを最初に見てみましょう。指定の URL にブラウザでアクセスします。この URL は `https://student<X>.workshopname.rhdemo.io` のようなもので、`<X>` は、学習者番号に置き換え、`workshopname` は、現在のワークショップ名に置き換えます。次に `admin` としてログインします。このパスワードは、インストラクターから渡されます。
+自動コントローラーを最初に見てみましょう。指定の URL にブラウザでアクセスします。この URL は `https://student<X>.<workshopname>.demoredhat.com` のようなもので、`<X>` は、学習者番号に置き換え、`workshopname` は、現在のワークショップ名に置き換えます。次に `admin` としてログインします。このパスワードは、インストラクターから渡されます。
 
-Ansible TowerのWeb UI では、次を示すグラフのあるダッシュボードが表示されます。
+自動コントローラーのWeb UI では、次を示すグラフのあるダッシュボードが表示されます。
 
 * 最近のジョブのアクティビティー
 * 管理対象ホストの数
@@ -63,46 +95,45 @@ Ansible TowerのWeb UI では、次を示すグラフのあるダッシュボー
 
 このダッシュボードには、Playbook で完了したタスクの実行に関するリアルタイムデータも表示されます。
 
-![Ansible Tower ダッシュボード](images/dashboard.png)
+![Ansible 自動コントロ−ラーダッシュボード](images/controller_dashboard.jpg)
 
 ### コンセプト
 
-自動化に Ansible Tower を使用する方法を詳しく説明する前に、いくつかの概念と命名規則について理解しておく必要があります。
+Ansible 自動コントローラーを使用する方法を詳しく説明する前に、いくつかの概念と命名規則について理解しておく必要があります。
 
 #### プロジェクト
 
-プロジェクトは、Ansible Tower にある Ansible Playbook の論理的なコレクションです。これらの Playbook
-は、Ansible インスタンス、または Tower でサポートされているソースコードバージョン管理システムにあります。
+プロジェクトは、Ansible 自動コントローラーにある Ansible Playbook の論理的なコレクションです。これらの Playbook
+は、Ansible インスタンス、または自動コントローラーでサポートされているソースコードバージョン管理システムにあります。
 
 #### インベントリー
 
 インベントリーは、ジョブを起動できるホストのコレクションです (Ansible
-インベントリーファイルと同様)。インベントリーはグループに分類され、それらのグループには実際のホストが含まれます。グループは、ホスト名を Tower
-に入力して手動で取得することも、Ansible Tower
-のサポートされるクラウドプロバイダーや動的インベントリースクリプトから取得することもできます。
+インベントリーファイルと同様)。インベントリーはグループに分類され、それらのグループには実際のホストが含まれます。グループは、ホスト名を
+自動コントローラーに入力して手動で取得することも、Ansible
+自動コントローラーのサポートされるクラウドプロバイダーや動的インベントリースクリプトから取得することもできます。
 
 #### 認証情報
 
-認証情報は、ジョブをマシンに対して起動したり、インベントリーソースと同期したり、プロジェクトのコンテンツをバージョン管理システムからインポートしたりする際の認証に使用されます。認証情報は、設定で見つかります。
+認証情報は、ジョブをマシンに対して起動したり、インベントリーソースと同期したり、プロジェクトのコンテンツをバージョン管理システムからインポートしたりする際の認証に自動コントローラーに使用されます。認証情報は、設定で見つかります。
 
-Tower の認証情報は、Tower
-にインポートおよび暗号化されて保存されます。コマンドラインにおいてプレーンテキストで取得することはできません。実際に認証情報をユーザーに公開することなく、これらの認証情報を使用する機能をユーザーとチームに付与できます。
+自動コントローラーの認証情報は、自動コントローラーにインポートおよび暗号化されて保存されます。コマンドラインにおいてプレーンテキストで取得することはできません。実際に認証情報をユーザーに公開することなく、これらの認証情報を使用する機能をユーザーとチームに付与できます。
 
 #### テンプレート
 
 ジョブテンプレートは、Ansible
 ジョブを実行するための定義であり、パラメーターセットでもあります。ジョブテンプレートは同じジョブを何度も実行する場合に便利です。また、ジョブテンプレートは
-Ansible playbook コンテンツの再利用およびチーム間のコラボレーションを促進します。ジョブを実行するには、Tower
-ではジョブテンプレートを先に作成する必要があります。
+Ansible playbook
+コンテンツの再利用およびチーム間のコラボレーションを促進します。ジョブを実行するには、自動コントローラーではジョブテンプレートを先に作成する必要があります。
 
 #### ジョブ
 
-ジョブは、Ansible Playbook をホストのインベントリーに対して起動する Tower のインスタンスです。
+ジョブは、Ansible Playbook をホストのインベントリーに対して起動する自動コントローラーのインスタンスです。
 
 ---
 **ナビゲーション**
 <br>
 [前の演習](../1.7-role) - [次の演習](../2.2-cred)
 
-[クリックして Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md#section-2---ansible-tower-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../README.md#section-2---ansible-tower-exercises)

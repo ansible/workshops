@@ -1,19 +1,36 @@
-# Exercise 3.0 - Jinja2 によるテンプレート処理のご紹介
+# Exercise 3.0 - An introduction to templating with Jinja2
 
-一般的に言えば、ネットワーク自動化について言及する時、具体的にはネットワーク装置の構成管理にフォーカスされがちです。
-このラボでは Ansible を活用して現状確認と動的なドキュメント生成を行う方法についても学習していきます。
 
-これにより同じ情報を使用してレポートやドキュメントを作成することが可能となり、キーボードが好きなネットワークエンジニアのニーズに答えることが出来ます。そしてネットワークエンジニアが作ったネットワークの状態に対するレポートを、マネージャー層が理解する必要がある場合においてもWebページであれば一目瞭然です。
+Generally speaking, when one talks about network automation the focus is
+specifically around configuration management of devices. In this lab you
+will learn how to use Ansible as a tool to generate living, dynamic
+documentation.
 
-Python で使われている [Jinja2](http://jinja.pocoo.org/docs/2.10/) は、とてもパワフルなテンプレートエンジンです。Ansible では Jinja2 のネイティブ実装を採用しています。Jinja2 を使うことで変数の操作や、論理構造の実装が可能になります。Ansible の `template` モジュールと組み合わせることで、自動化に取り組むエンジニアが動的なレポート生成する場合において強力なツールとなることでしょう。
+This allows the ability to generate reports and documents, using the same
+information and can cater to the needs of a hands-on-keyboard network
+engineer to a manager who needs to understand the state of the network with
+a glance of a web-page!
 
-このラボでは、`template` モジュールを使ってネットワーク装置から収集したデータを Jinja2 テンプレートと一緒に処理する方法を学習していきます。`template` モジュールを使って Markdown ファイルとして出力します。
+
+[Jinja2](http://jinja.pocoo.org/docs/2.10/) is a powerful templating engine
+for Python. There is native integration of Jinja2 with Ansible. Jinja2
+allows for manipulating variables and implementing logical constructs. In
+combination with the Ansible `template` module, the automation engineer has
+a powerful tool at their disposal to generate live or dynamic reports.
+
+
+In this lab you will learn how to use the `template` module to pass
+collected data from devices to a Jinja2 template. The template module then
+renders the output as a `markdown` file.
+
+
 
 #### Step 1
 
-まず最初に `router_report.yml` というファイル名の新しい Playbook を作っていきましょう。最初に次の内容を Playbook に記述してください。
+Create a new playbook called `router_report.yml` and add the following play
+definition to it:
 
-{% raw %}
+
 ``` yaml
 ---
 - name: GENERATE OS REPORT FROM ROUTERS
@@ -21,14 +38,14 @@ Python で使われている [Jinja2](http://jinja.pocoo.org/docs/2.10/) は、�
   connection: network_cli
   gather_facts: no
 ```
-{% endraw %}
 
 
 #### Step 2
 
-`ios_facts` モジュールを使って facts を収集するタスクを追加します。これまでのラボで、このモジュールを使用した演習を思い出してください。
+Add a task that collects the facts using the `ios_facts` module. Recollect
+that we used this module in an earlier lab.
 
-{% raw %}
+
 ``` yaml
 ---
 - name: GENERATE OS REPORT FROM ROUTERS
@@ -41,16 +58,20 @@ Python で使われている [Jinja2](http://jinja.pocoo.org/docs/2.10/) は、�
       ios_facts:
 
 ```
-{% endraw %}
 
-> **facts** モジュールは実行時に **ansible_net_version** と **ansible_net_serial_number** の変数を自動的に設定する事を思い出してください。これを検証するには `-v` オプションを付けて verbose モードで Playbook を実行してください。
+> Recall that the **facts** modules automatically populate the **ansible_net_version** and **ansible_net_serial_number** variables within the play. You can validate this by running the playbook in verbose mode.
+
+
+
 
 #### Step 3
 
-ここでは debug モジュールか verbose モードで出力結果を画面で見るのではなく、次のように template モジュールを使って新しいタスクを追加していきます。
+Rather than using debug or verbose mode to display the output on the screen,
+go ahead and add a new task using the template module as follows:
 
-{% raw %}
+
 ``` yaml
+{%raw%}
 ---
 - name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
@@ -71,39 +92,52 @@ Python で使われている [Jinja2](http://jinja.pocoo.org/docs/2.10/) は、�
       template:
         src: os_report.j2
         dest: reports/{{ inventory_hostname }}.md
-
+{%endraw%}
 ```
-{% endraw %}
 
-ここで少しタスクを詳しく解説していきましょう。`template` モジュールには `os_report.j2` の値を持つ `src` パラメーターがあります。次からのステップでは、このファイルを Jinja2 テンプレート形式で作っていきます。`dest` パラメーターで指定した任意のファイル名でレポートファイルを生成します。
+
+
+Let's break this task down a bit. The `template` module has a `src`
+parameter that has a value of `os_report.j2`. In the next few steps, we will
+create this file. This will be the Jinja2 template, used to generate the
+desired report. The `dest` parameter specifies the destination file name to
+render the report into.
 
 
 #### Step 4
 
-次のステップでは Jinja2 テンプレートを作っていきましょう。Ansible はカレントの作業ディレクトリの中に `templates` ディレクトリがあるかを自動的に探します。ベストプラクティスとしては `templates` ディレクトリにテンプレートファイルを作成することです。
 
-`vi` や `nano`、もしくはお好みのテキストエディターを使って `templates` の中にある `os_report.j2` を作成してください。ファイルの内容としては次のとおりです。
+The next step is to create a Jinja2 template. Ansible will look for the
+template file in the current working directory and within a directory called
+`templates` automatically. Convention/best-practice is to create the
+template file within the templates directory.
 
-```shell
-[student1@ansible networking-workshop]$ vim templates/os_report.j2
-```
+Using `vi`, `nano` or another text editor, go ahead and create the file
+called `os_report.j2` under the `templates` directory. Add the following
+into the template file:
 
-{% raw %}
+
+{%raw%}
 ``` python
+
+
 {{ inventory_hostname.upper() }}
 ---
 {{ ansible_net_serialnum }} : {{ ansible_net_version }}
+
+
+
 ```
-{% endraw %}
+{%endraw%}  
+This file simply contains some of the variables we have been using in our
+playbooks until now.
 
-このファイルには、今までの演習の Playbook で使用した変数が含まれています。
-
-> 注記: データ型のための Python 組み込みのメソッドは、Jinja2 からネイティブに使用できます。これにより書式設定などの操作が非常に簡単になります。
+> Note: Python inbuilt methods for datatypes are available natively in Jinja2 making it very easy to manipulate the formatting etc.
 
 
 #### Step 5
 
-では、Playbook を実行してみましょう。
+With this in place, go ahead and run the playbook:
 
 ``` shell
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_report.yml
@@ -132,15 +166,17 @@ rtr3                       : ok=2    changed=1    unreachable=0    failed=0
 rtr4                       : ok=2    changed=1    unreachable=0    failed=0   
 
 [student1@ansible networking-workshop]$
+
 ```
 
 
 #### Step 6
 
-Playbook を実行した後、reports ディレクトリに次のファイルが生成されます。
+After the playbook run, you should see the following files appear in the
+reports directory:
+
 
 ``` shell
-[student1@ansible networking-workshop]$ tree reports
 reports/
 ├── rtr1.md
 ├── rtr2.md
@@ -148,9 +184,10 @@ reports/
 └── rtr4.md
 
 0 directories, 4 files
+
 ```
 
-例として、1つレポートの中身を確認してみましょう。
+The contents of one of them for example:
 
 ``` shell
 [student1@ansible networking-workshop]$ cat reports/rtr4.md
@@ -166,10 +203,15 @@ RTR4
 
 #### Step 7
 
-データが取れたことは良いことですが、これらの個々のルーターレポートを1つのレポートに結合する方が良いでしょう。それを行うための新しいタスクを追記していきます。
 
-{% raw %}
+While it is nice to have the data, it would be even better to consolidate
+all these individual router reports into a single document. Let's add a new
+task to do that
+
+
+
 ``` yaml
+{%raw%}
 ---
 - name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
@@ -197,17 +239,22 @@ RTR4
         dest: network_os_report.md
       delegate_to: localhost
       run_once: yes
-
+{%endraw%}
 ```
-{% endraw %}
 
-ここでは `assemble` モジュールを使います。`src` パラメーターで結合するファイルを含むディレクトリを指定し、`dest` パラメーターで生成する先のファイルを指定します。
 
-> 注記: **delegate_to** を使用して、ローカルで実行する必要のあるタスクを指定できます。**run_once** の指示により与えられたタスクが一度だけ実行されることを保証します。
+Here we are using the `assemble` module. The `src` parameter specifies the
+directory that contain file fragments that need to be consolidated and the
+`dest` parameter provides the file to render the fragments into.
+
+> Note: The **delegate_to** can be used to specify tasks that need to be executed locally. The **run_once** directive will ensure that the given task is executed only once.
+
+
+
 
 #### Step 8
 
-それでは Playbook を実行してみましょう。
+Go ahead and run the playbook.
 
 ``` shell
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts router_report.yml
@@ -239,42 +286,62 @@ rtr3                       : ok=2    changed=1    unreachable=0    failed=0
 rtr4                       : ok=2    changed=1    unreachable=0    failed=0   
 
 [student1@ansible networking-workshop]$
+
 ```
+
+
 
 #### Step 9
 
-`network_os_report.md` という新しいファイルが作られました。Playbook が格納されているディレクトリのルートに作られます。中身を確認してみましょう。
+A new file called `network_os_report.md` will now be available in the
+playbook root. Use the `cat` command to view it's contents:
+
 
 ``` shell
 [student1@ansible networking-workshop]$ cat network_os_report.md
+
 
 RTR1
 ---
 9YJXS2VD3Q7 : 16.08.01a
 
+
+
 RTR2
 ---
 9QHUCH0VZI9 : 16.08.01a
+
+
 
 RTR3
 ---
 9ZGJ5B1DL14 : 16.08.01a
 
+
+
 RTR4
 ---
 9TCM27U9TQG : 16.08.01a
 
+[student1@ansible networking-workshop]$
+
 ```
 
-> 注記: Markdown ファイルは HTML のように整形して表示することが可能です
+> Note: Markdown files can be rendered visually as HTML
 
-ここでポイントです。3つの小さなタスクによって、あなたが管理するネットワーク上の IOS を搭載するすべての装置からレポートを得ることができました。これは簡単な例ですが、他に何か拡張する際の原則は変わりません。たとえば、デバイスの `show` コマンドの出力に依存する状態レポートやダッシュボードを作成することができます。
+At this point, with 3 small tasks, you have an OS report on all the IOS
+devices in your network. This is a simple example but the principle remains
+as you expand upon the capabilities.  For example, you can build status
+reports and dashboards that rely on the output of device show commands.
 
-この演習で体感頂いたように、Ansibleは、構成管理以外のネットワーク自動化はもちろんのこと、ドキュメントやレポートの生成などに用途を拡張するためのツールと手法も提供します。
+Ansible provides the tools and methods to extend network automation beyond
+configuration management to more robust capabilities, such as, generating
+documentation and or reports.
 
 # Complete
 
-ラボの Exercise 3.0 が完了しました。
+You have completed lab exercise 3.0
 
 ---
-[Ansible Linklight - Networking Workshop に戻るにはクリックしてください](../../README.ja.md)
+[Click Here to return to the Ansible Linklight - Networking
+Workshop](../../README.md)

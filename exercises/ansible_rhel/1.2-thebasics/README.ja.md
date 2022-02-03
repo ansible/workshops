@@ -1,39 +1,38 @@
-# ワークショップ演習 - アドホックコマンドの実行
+# ワークショップ演習 - Ansible の基本
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
 * [目的](#objective)
 * [ガイド](#guide)
-* [Step 1 - インベントリの操作](#step-1---work-with-your-inventory)
-* [Step 2 - Ansible 設定](#step-2---the-ansible-configuration-files)
-* [Step 3 - ホストに ping を実行](#step-3---ping-a-host)
-* [Step 4 - モジュールの一覧とヘルプの利用](#step-4---listing-modules-and-getting-help)
-* [Step 5 - コマンドモジュールの使用:](#step-5---use-the-command-module)
-* [Step 6 - コピーモジュールとパーミッション](#step-6---the-copy-module-and-permissions)
-* [チャレンジラボ: モジュール](#challenge-lab-modules)
+* [ステップ 1 - インベントリの操作](#step-1---work-with-your-inventory)
+* [ステップ 2 - モジュールの一覧表示とヘルプの利用](#step-2---listing-modules-and-getting-help)
 
 ## 目的
 
-最初の演習では、Ansible の動作の感じをつかむために、いくつかアドホックコマンドを実行します。Ansible Ad-Hoc
-コマンドでは、playbook を使わずにリモートノードでタスクを実行できます。これらは、1 つまたは 2
-つのことを素早く頻繁に多くのリモートノードに行う必要がある場合に便利です
+この演習では、最新の Ansible コマンドラインユーティリティー`ansible-navigator`
+を使用して、インベントリーファイルの操作方法や、サポートが必要な場合のモジュールの一覧表示について学びます。その目的は、`ansible-navigator`
+がどのように機能するか、また、Ansible の経験を豊かにするためにどのように使用できるかを理解することです。
 
 この演習の内容
 
-* Ansible 設定ファイルの確認と理解 (`ansible.cfg`)
+* インベントリーファイルの使用
 * `ini` 形式のインベントリーファイルの場所の確認と理解
-* アドホックコマンドの実行
+* モジュールの一覧表示と、モジュール使用の際のヘルプの利用
 
 ## ガイド
 
-### Step 1 - インベントリーの操作
+### ステップ 1 - インベントリーの操作
 
-ホストの管理に ansible
-コマンドを使用するには、インベントリーファイルを指定する必要があります。このファイルは、コントロールノードから管理されるホストの一覧を定義します。このラボでは、インベントリーはインストラクターから渡されます。このインベントリーは
-ini 形式のファイルです。このファイルでは、グループで並び替えられたホストの一覧があります。また、変数いくつか指定しています。
+インベントリーファイルとは、コントロールマシンが管理するノードを特定するためのテキストファイルです。管理対象となるノードには、そのノードのホスト名や
+IP
+アドレスのリストを含めることができます。インベントリーファイルでは、大かっこ（[]）の中にホストグループ名を宣言することで、ノードをグループにまとめることができます。
+
+ホストの管理に `ansible-navigator`
+コマンドを使用するには、インベントリーファイルを指定する必要があります。このファイルは、コントロールノードから管理されるホストの一覧を定義します。このラボでは、インベントリーはインストラクターから渡されます。このインベントリーファイルは
+`ini` 形式のファイルです。このファイルでは、グループで並び替えられたホストの一覧があります。また、変数いくつか指定しています。
 
 ```bash
 [all:vars]
@@ -53,281 +52,168 @@ ansible-1 ansible_host=44.55.66.77
 Ansible
 はすでに、お使いの環境に固有のインベントリーを使用するように設定されています。これを行うための次の手順を説明します。この事典では、簡単なコマンドをいくつか実行して、インベントリーの操作を行います。
 
-インベントリーホストを参照するには、ansible コマンドにホストパターンを指定します。Ansible には `--list-hosts`
-オプションがあります。これは、ansible コマンドでホストパターンが参照する管理対象ホストの明確化に役立ちます。
+To reference all the inventory hosts, you supply a pattern to the
+`ansible-navigator` command. `ansible-navigator inventory` has a `--list`
+option which can be useful for displaying all the hosts that are part of an
+inventory file including what groups they are associated with.
 
-最も基本的なホストパターンは、インベントリーファイルに一覧されている単一の管理対象ホストの名前です。これにより、そのホストが、ansible
-コマンドで機能する、インベントリーファイルで唯一のものとなるように指定されます。以下を実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible node1 --list-hosts
-  hosts (1):
-    node1
+[student<X>@ansible-1 rhel_workshop]$ cd /home/student<X>
+[student<X>@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
+{
+    "_meta": {
+        "hostvars": {
+            "ansible-1": {
+                "ansible_host": "3.236.186.92",
+                "ansible_port": 22,
+                "ansible_ssh_pass": "password",
+                "ansible_user": "student1"
+            },
+            "node1": {
+                "ansible_host": "3.239.234.187",
+                "ansible_port": 22,
+                "ansible_ssh_pass": "password",
+                "ansible_user": "student1"
+            },
+            "node2": {
+                "ansible_host": "75.101.228.151",
+                "ansible_port": 22,
+                "ansible_ssh_pass": "password",
+                "ansible_user": "student1"
+            },
+            "node3": {
+                "ansible_host": "100.27.38.142",
+                "ansible_port": 22,
+                "ansible_ssh_pass": "password",
+                "ansible_user": "student1"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "control",
+            "ungrouped",
+            "web"
+        ]
+    },
+    "control": {
+        "hosts": [
+            "ansible-1"
+        ]
+    },
+    "web": {
+        "hosts": [
+            "node1",
+            "node2",
+            "node3"
+        ]
+    }
+}
+
 ```
+
+注記: `-m` は `--mode` の略で、テキストベースのユーザーインターフェース (TUI)
+を使用する代わりに、モードを標準出力に切り替えることができます。
+
+`--list` が冗長すぎる場合は、`--graph` のオプションを使用して、より補正されたバージョンの `--list`
+を提供することができます。
+
+```bash
+[student1@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
+@all:
+  |--@control:
+  |  |--ansible-1
+  |--@ungrouped:
+  |--@web:
+  |  |--node1
+  |  |--node2
+  |  |--node3
+
+```
+
+ノード `node1`、`node2`、`node3` が `web` グループの一部であることを明確に確認することができます。`ansible-1`
+は `control` グループの一部であることが分かります。
+
 
 インベントリーファイルにはより多くの情報が含まれます。また、このファイルは、グループでホストを整理したり、変数を定義したりできます。この例では、現在のインベントリーにグループ
 `web` と `control` がります。Ansible をこれらのホストパターンで実行し、出力を確認します。
 
-```bash
-[student<X>@ansible-1 ~]$ ansible web  --list-hosts
-[student<X>@ansible-1 ~]$ ansible web,control --list-hosts
-[student<X>@ansible-1 ~]$ ansible 'node*' --list-hosts
-[student<X>@ansible-1 ~]$ ansible all --list-hosts
-```
+`ansible-navigator inventory` コマンドを使用して、1
+つのホストまたはグループに情報を提供するコマンドを実行することもできます。たとえば、以下のコマンドを実行すると出力が表示されます。
 
-ご覧の通り、1 つ以上のグループにシステムを追加できます。たとえば、サーバーは Web サーバーとデータベースサーバーの両方が可能です。Ansible
-では、グループが必ずしも階層階層にあるわけではないことに注意してください。
+```bash
+[student<X>@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
+[student<X>@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
+[student<X>@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
+```
 
 > **ヒント**
 >
 > このイベントリーには、その他のデータを含めることができます。たとえば、標準以外の SSH ポートで実行するホストがある場合は、コロン付きのホスト名の後にポート番号を指定できます。あるいは、Ansible 固有の名前を定義して、真の IP またはホスト名に参照するようにできます。
 
-### Step 2 - Ansible 設定ファイル
 
-Ansible の動作は、Ansible の ini スタイル設定ファイルの内容を変更してカスタマイズできます。Ansible
-は、コントロールノードの利用可能な複数の場所から設定ファイルを選択します。[ドキュメント](https://docs.ansible.com/ansible/latest/reference_appendices/config.html).
+### ステップ 2 - モジュールの一覧表示とヘルプの利用
+
+Ansible Automation Platform には、サポートされる複数の実行環境 (EE) が同梱されています。これらの EE
+には、モジュールを含む、サポートされているコンテンツが含まれるバンドルされたサポート対象のコレクションが同梱されています。利用可能なモジュールを参照するには、最初にインタラクティブモードに入ります。
+
+```bash
+$ ansible-navigator
+```
+
+![picture of ansible-navigator](images/interactive-mode.png)
 
 > **ヒント**
 >
-> 推奨される方法としては、Ansible コマンドを実行するディレクトリーに `ansible.cfg` ファイルを作成します。このディレクトリーは、イベントリーや Playbook などの Ansible プロジェクトによって使用されるファイルも含まれます。別の方法としては、`.ansible.cfg` をホームディレクトリーに作成します。
+> 終了するには、`ansible-navigator` で `ESC` ボタンを押します。
 
-利用するラボ環境では、`.ansible.cfg` ファイルに、コントロールノード上の `student<X>` ユーザーのホームディレクトリーに、必要の詳細が書かれたファイルがすでに作成されています。
-
-```bash
-[student<X>@ansible-1 ~]$ ls -la .ansible.cfg
--rw-r--r--. 1 student<X> student<X> 231 14. Mai 17:17 .ansible.cfg
-```
-
-ファイルの内容を出力します。
+まず、`:collections` と入力してコレクションを参照します
 
 ```bash
-[student<X>@ansible-1 ~]$ cat .ansible.cfg
-[defaults]
-stdout_callback = community.general.yaml
-connection = smart
-timeout = 60
-deprecation_warnings = False
-host_key_checking = False
-retry_files_enabled = False
-inventory = /home/student<X>/lab_inventory/hosts
+$ :collections
 ```
 
-設定フラグは複数存在しますが、ここで重要ではありません。ただし、最後の行 (インベントリーの場所など)
-には注意してください。これにより、以前のコマンドから、Ansible がどのマシンに接続するかを判断できます。
+![picture of ansible-navigator](images/interactive-collections.png)
 
-専用のインベントリーの内容を出力します。
+特定のコレクションのコンテンツを参照するには、対応する番号を入力します。たとえば、上記のスクリーンショットの例では、数字 `0` は
+`amazon.aws` コレクションに対応します。コレクションタイプにズームインするには、番号 `0` を入力します。
 
 ```bash
-[student<X>@ansible-1 ~]$ cat /home/student<X>/lab_inventory/hosts
-[all:vars]
-ansible_user=student<X>
-ansible_ssh_pass=ansible
-ansible_port=22
-
-[web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
-
-[control]
-ansible-1 ansible_host=44.55.66.77
+$ 0
 ```
+
+![picture of ansible-navigator](images/interactive-aws.png)
+
+
+さらにズームすることで、使用など特定のモジュールに関するヘルプを利用します。たとえば、モジュール `ec2_tag` は `24` に対応します。
+
+```bash
+$ :24
+```
+
+矢印キーまたはページアップとページダウンを使用してスクロールダウンすると、ドキュメントと例が表示されます。
+
+![picture of ansible-navigator](images/interactive-ec2-tag.png)
+
+`:doc namespace.collection.module-name`
+を入力して、特定のモジュールに直接ジャンプすることもできます。たとえば、`:doc amazon.aws.ec2_tag`
+を入力すると、上記の最後のページに直接ジャンプします。
 
 > **ヒント**
 >
-> 各学習者には個別のラボ環境があります。上記の IP アドレスはサンプル用のものです。個々の環境の実際の IP アドレスは異なります。その他の場合には、**\<X\>** を実際の学習者番号に置き換えてください。
-
-### Step 3 - ホストへの ping の実行
-
-> **警告**
->
-> **学習者ユーザーのホームディレクトリー `.ansible.cfg` からコマンドを実行することを忘れないでください。このディレクトリーに `/home/student<X>` があります。これがないと、Ansible は、使用するインベントリーを見つけられません。**
-
-まずは、ホストに ping を実行するという基本的なことから始めます。これには、Ansible `ping` モジュールを使用します。`ping`
-モジュールでは、ターゲットホストが応答するかどうかを確認できます。実際には、管理対象ホストに接続し、小さなスクリプトを実行して、結果を収集します。これにより、管理対象ホストが到達可能で、Ansible
-がその環境で適切にコマンドを実行できるかどうかを確認できます。
-
-> **ヒント**
->
-> モジュールは、特定のタスクを行うためにデザインされたツールと考えてください。
-
-Ansible は、`ping` モジュールを使用する必要があることを認識していなければなりません。`-m` オプションは、使用する Ansible
-モジュールを定義します。オプションは、`-a` オプションを使用して、指定したモジュールに渡すことができます。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible web -m ping
-node2 | SUCCESS => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    },
-    "changed": false,
-    "ping": "pong"
-}
-[...]
-```
-
-各ノードが正常な実行と実際の結果 (ここでは「pong」) を報告します。
-
-### Step 4 - モジュールの一覧表示とヘルプの利用
-
-Ansible では、デフォルトで多くのモジュールを利用できます。実行するモジュールを一覧表示するには、以下を実行します。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible-doc -l
-```
-
-> **ヒント**
->
-> `ansible-doc` で、`q` ボタンを押して終了します。`up`/`down` 矢印を使用してコンテンツをスクロールします。
-
-モジュールを確認するには、次のコマンドを実行します。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible-doc -l | grep -i user
-```
-
-使用例を含む特定のモジュールのヘルプを取得します。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible-doc user
-```
-
-> **ヒント**
->
-> 必須のオプションは、`ansible-doc` では "=" でマークされています。
-
-### Step 5 - コマンドモジュールの使用
-
-次に、`command` モジュールを使用して、お約束の Linux
-コマンドの実行方法や出力のフォーマット方法を見ていきます。管理対象ホスト上で指定したコマンドを実行するだけです。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible node1 -m command -a "id"
-node1 | CHANGED | rc=0 >>
-uid=1001(student1) gid=1001(student1) Gruppen=1001(student1) Kontext=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
-```
-
-この場合、このモジュールは `command` と呼ばれ、`-a` で渡されるオプションは、実行する実際のコマンドです。`all`
-ホストパターンを使用して、すべての管理対象ホストでこのアドホックコマンドの実行を試行してください。
-
-別の例: ホストを実行しているカーネルバージョンを簡単に確認します。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible all -m command -a 'uname -r'
-```
-
-ホストの出力は、1 行で行うのが望ましい場合もあります。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible all -m command -a 'uname -r' -o
-```
-
-> **ヒント**
->
-> 多くの Linux コマンドのように、`ansible` では、長いオプションを短くすることもできます (例: `ansible web --module-name ping` は `ansible web -m ping` と同じ)。ワークショップでは、短い形式を使用します。
-
-### Step 6 - コピーモジュールとパーミッション
-
-`copy` モジュールを使用して、`node1` でアドホックコマンドを実行し、`/etc/motd`
-ファイルの内容を変更します。**この場合、コンテンツはオプションを介してモジュールに送信されます**。
-
-以下のコマンドを実行します。ただし、**エラー発生は想定内です**。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'
-```
-
-説明したように、**エラー**が発生します。
-
-```bash
-    node1 | FAILED! => {
-        "changed": false,
-        "checksum": "a314620457effe3a1db7e02eacd2b3fe8a8badca",
-        "failed": true,
-        "msg": "Destination /etc not writable"
-    }
-```
-
-アドホックコマンドの出力では、**FAILED**が赤く表示されます。なぜでしょうか。これは、ユーザー**student\<X\>** による、motd ファイルへの書き込みが許可されていないためです。
-
-この場合、権限昇格が必要となります。また、`sudo` を正しく設定することが重要というリマインダーでもあります。root
-としてコマンドを実行するには、`-b` (become) パラメーターを指定して `sudo` を実行するように Ansible
-に命令する必要があるのです。
-
-> **ヒント**
->
-> Ansible は、SSH と同じように、現在のユーザー名 (student\<X\>) を使用してマシンへの接続を行います。リモートユーザー名をオーバーライドするには、`-u` パラメーターを使用できます。
-
-我々の環境では、`sudo` が設定されているため、`student<X>` として接続できます。このコマンドを変更して `-b` パラメーターを指定し、再度実行します。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible node1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd' -b
-```
-
-今回は失敗しません。
-
-```text
-node1 | CHANGED => {
-    "changed": true,
-    "checksum": "4458b979ede3c332f8f2128385df4ba305e58c27",
-    "dest": "/etc/motd",
-    "gid": 0,
-    "group": "root",
-    "md5sum": "65a4290ee5559756ad04e558b0e0c4e3",
-    "mode": "0644",
-    "owner": "root",
-    "secontext": "system_u:object_r:etc_t:s0",
-    "size": 19,
-    "src": "/home/student1/.ansible/tmp/ansible-tmp-1557857641.21-120920996103312/source",
-    "state": "file",
-    "uid": 0
-```
-
-汎用の `command` モジュールとともに Ansible を使用して、motd ファイルの内容を確認します。
-
-```bash
-[student<X>@ansible-1 ~]$ ansible node1 -m command -a 'cat /etc/motd'
-node1 | CHANGED | rc=0 >>
-Managed by Ansible
-```
-
-上記の `ansible node1 -m copy …​` コマンドを再度実行します。注記:
-
-* 異なる出力色 (正しいターミナル設定が指定されています)。
-* `"changed": true,` から `"changed": false,` への変更。
-* 最初の行は、`SUCCESS` ではなく、`CHANGED` を示します。
-
-> **ヒント**
->
-> これにより、変更や、Ansible の実際の動作の確認が容易になります。
-
-### チャレンジラボ: モジュール
-
-* `ansible-doc` の使用
-
-  * Yum を使用してソフトウェアパッケージを管理するモジュールを見つけます。
-  * モジュールのヘルプ例を参照して、最新バージョンのパッケージのインストール方法を説明します。
-
-* Ansible のアドホックコマンドを実行して、`node1` に最新の squid パッケージをインストールします。
-
-> **ヒント**
->
-> 上記のアドホックコマンドをテンプレートしてコピーして、モジュールとオプションを変更します。
-
-> **警告**
->
-> **回答を以下に示します。**
-
-```bash
-[student<X>@ansible-1 ~]$ ansible-doc -l | grep -i yum
-[student<X>@ansible-1 ~]$ ansible-doc yum
-[student<X>@ansible-1 ~]$ ansible node1 -m yum -a 'name=squid state=latest' -b
-```
+> 実行環境によって、アクセスできるコレクションおよびそのコレクションのバージョンが異なります。組み込みのドキュメントを使用して、コレクションのその特定のバージョンに対して正確であることが分かります。
 
 ---
-**ナビゲーション**
-<br>
-[前の演習](../1.1-setup) - [次の演習](../1.3-playbook)
+**Navigation**
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../1-setup) - [Next Exercise](../3-playbook)
+{% else %}
+[Previous Exercise](../1.1-setup) - [Next Exercise](../1.3-playbook)
+{% endif %}
+<br><br>
 
-[こちらをクリックして、Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md)
+<br>
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../README.md)

@@ -1,35 +1,27 @@
 # 演習 3.2 - Web アプリケーションの削除
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbook の出力](#Playbookの出力)
-- [解答](#解答)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[ソリューション](#solution)
 
 # 目的
 
-AS3および `uri` モジュールによりWebアプリケーションを削除します。
+AS3 および uri モジュールを使用して Web アプリケーションを削除する方法を説明します。
 
-# 解説
+# ガイド
 
-## Step 1:
+## ステップ 1:
 
-テキストエディタで新規ファイル `delete.yml` を作成します:
+お好みのテキストエディターを使用して、`delete.yml` という名前の新規ファイルを作成します。
 
-{% raw %}
-```
-[student1@ansible ~]$ nano delete.yml
-```
-{% endraw %}
+>RDP 経由の Visual Studio および Atom に加えて、`vim` および `nano` がコントロールノードで利用できます。
 
->`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
+## ステップ 2:
 
-## Step 2:
-
-以下の play 定義を `delete.yml` に追加してください:
+次のプレイ定義を `delete.yml` に入力します。
 
 {% raw %}
 ``` yaml
@@ -42,16 +34,16 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 ```
 {% endraw %}
 
-- ファイルの先頭の `---` はこのファイルが YAML であることを示します。
-- `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
-- `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+- ファイル上部の `---` は、これが YAML ファイルであることを示しています。  - `hosts: lb` は、プレイが lb
+グループでのみ実行されることを示します。技術的には、F5 デバイスは 1 つだけしか存在しませんが、複数あれば、それぞれが同時に設定されます。  -
+`connection: local` は、（自身に SSH 接続するのではなく）ローカルで実行するように Playbook に指示します  -
+`gather_facts: false` はファクト収集を無効にします。この Playbook では、ファクト変数を使用しません。
 
-## Step 3
+## ステップ 3
 
-以下を `delete.yml` へ **追加** してください。  
+以下を delete.yml Playbook に **追加します**。  
 {% raw %}
-```yaml
+``` yaml
   tasks:
     - name: PUSH AS3
       uri:
@@ -68,42 +60,43 @@ AS3および `uri` モジュールによりWebアプリケーションを削除�
 ```
 {% endraw %}
 
-前の演習から変更したパラメータは以下の3つだけです。
-- `url` が変更され、最後が `declare` ではなく、テナント名（ここでは `WorkshopExample` ）になっています。
-- `method` が POST から DELETE に変更されています。
-- `body` が削除されています。ここでは、テナント全体を削除するだけなので必要ありません。
+前回の演習から変更されたパラメーターは 3 つのみです。  - `url` は変更になりました。`declare` で終わる代わりに、テナント名の
+`WorkshopExample` で終わります。  - `method` は POST から DELETE に変更されています。  - `body`
+は削除されています。このテナント全体を削除するだけなので、必要ありません。
 
-## Step 4
-
-Playbook の実行 - コマンドラインへ戻ったら以下のコマンドでPlaybookを実行してください:
+## ステップ 4
+Playbook を実行します。コントロールホストのコマンドラインに戻り、以下を実行します。
 
 ```
 [student1@ansible ~]$ ansible-playbook delete.yml
 ```
 
-# Playbookの出力
+# Playbook の出力
 
-出力例は以下となります。
+出力は次のようになります。
 
 {% raw %}
 ```yaml
 [student1@ansible ~]$ ansible-playbook delete.yml
 
-PLAY [LINKLIGHT AS3] ***********************************************************
+PLAY [LINKLIGHT AS3] **********************************************************
 
-TASK [PUSH AS3] ********************************************************************************
+TASK [PUSH AS3] ***************************************************************
 ok: [f5]
 
-PLAY RECAP ********************************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=1    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}
 
-# 解答
+# ソリューション
 
-完成したPlaybookのサンプルは [delete.yml](./delete.yml) から参照できます。
+完成した Ansible Playbook
+が、回答キーとしてここで提供されています。[delete.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.2-as3-delete/delete.yml)
+を表示するには、ここをクリックしてください。
 
-Web UIにログインして、 `Partition` が削除されていることを確認します。
+Web UI にログインし、`Partition` が削除されていることを確認します。
 
 ---
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+You have finished this exercise.  [Click here to return to the lab
+guide](../README.md)

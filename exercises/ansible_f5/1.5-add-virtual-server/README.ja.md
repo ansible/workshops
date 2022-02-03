@@ -1,36 +1,34 @@
-# 演習 1.5 - Virtual Server の追加
+# 演習 1.5: bigip_virtual_server モジュールの使用
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbook の出力](#Playbookの出力)
-- [解答](#解答)
-- [確認](#確認)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[ソリューション](#solution)  - [ソリューションの確認](#verifying-the-solution)
 
 # 目的
 
-本演習では、[BIG-IP virtual server module](https://docs.ansible.com/ansible/latest/modules/bigip_virtual_server_module.html) を使って、BIG-IPにVirtual Server を設定します。Virtual Server とは、IPとポート番号の組み合わせです。
+[BIG-IP
+仮想サーバーモジュール](https://docs.ansible.com/ansible/latest/modules/bigip_virtual_server_module.html)
+を使用して BIG-IP 上で仮想サーバーを設定する方法を説明します。仮想サーバーは IP:Port の組み合わせです。
 
-# 解説
+# ガイド
 
-## Step 1:
+## ステップ 1:
 
-テキストエディタを使って、`bigip-virtual-server.yml` というファイルを新規作成します。
+VSCode を使用して、左側のペインの新規ファイルアイコンをクリックして、`bigip-virtual-server.yml`
+という名前の新しいファイルを作成します。
 
-```
-[student1@ansible ~]$ nano bigip-virtual-server.yml
-```
+![picture of create file
+icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
->`vim` と `nano` はコントロールノード上で利用可能です。RDP経由でのVisual Studio と Atom も同様です。
+## ステップ 2:
 
-## Step 2:
+Ansible Playbook は **YAML** ファイルです。YAML
+は構造化されたエンコーディング形式であり、人間が非常に読みやすくなっています (JSON 形式のサブセットとは異なり)。
 
-Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは構造化されたフォーマットで、非常に読み易いものです。
-
-以下の定義を `bigip-virtual-server.yml` に入力します :
+次のプレイ定義を `bigip-virtual-server.yml` に入力します。
 
 ``` yaml
 ---
@@ -40,18 +38,20 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
   gather_facts: false
 ```
 
-- このファイルの最初の `---` は、このファイルがYAMLであることを示します。
-- `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
-- `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
-- `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
+- ファイル上部の `---` は、これが YAML ファイルであることを示しています。  - `hosts: f5` は、プレイが F5 BIG-IP
+デバイスでのみ実行されることを示します。  - `connection: local` は、（自身に SSH
+接続するのではなく）ローカルで実行するように Playbook に指示します  - `gather_facts: no`
+はファクト収集を無効にします。この Playbook では、ファクト変数を使用しません。
 
-まだエディタを閉じないでください。
+まだエディターを終了しないでください。
 
-## Step 3
+## ステップ 3
 
-次に、タスクを追加します。このタスクは、`bigip-virtual-server` モジュールを使用して、BIG-IP上にVirtual Server を設定します。
+次に、`task` を上記の Playbook に追加します。このタスクは、`bigip-virtual-server` を使用して BIG-IP
+上で仮想サーバーを設定します。
 
-{% raw %}
+<!-- {% raw %} -->
+
 ``` yaml
   tasks:
     - name: ADD VIRTUAL SERVER
@@ -71,78 +71,87 @@ Ansible のプレイブックは **YAML** 形式のファイルです。YAMLは�
         snat: "Automap"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
->プレイブックは一連のタスクから成ります。タスクとモジュールは1：1の関係性があります。モジュールは、Ansible API やansible / ansible-playbook から利用可能で、再利用可能なスタンドアロンスクリプトです。実行結果は、JSON文字列として標準出力へ出力されます。
+>プレイはタスクのリストです。タスクとモジュールには 1:1 の相関があります。Ansible モジュールは再利用可能なスタンドアロンのスクリプトで、Ansible API または ansibleやansible-playbook プログラムで使用できます。これらは、終了する前に JSON 文字列を stdout に出力して Ansible に情報を返します。
 
-- `name: ADD VIRTUAL SERVER` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
-- `bigip_virtual_server:` ：　使用するモジュールを宣言しています。
-- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
-- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
-- `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
-- `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
-- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
-- `name: "vip"` ： vip という名前のVirtual Server を作成することを指定します。
-- `destination"` ： Virtual Server にIPアドレスを指定します。
-- `port` ： Virtual Server がリッスンするポート番号を指定します。
-- `enabled_vlans` ： Virtual Server が有効化されるVLANを指定します。
-- `all_profiles` ： Virtual Server に全てのプロファイルをアサインします。
-- `pool` ： Virtual Server に紐づけられるプールを指定します。
-- `snat` ： Source NAT の指定をします。本演習では、Automap を設定しています。これにより、後段のWebサーバーへ送られるトラフィック（パケット）の送信元IPはBIG-IP自身のIPとなります。
+- `name: ADD VIRTUAL SERVER` は、ターミナル出力に表示されるユーザー定義の説明です。  -
+`bigip_virtual_server:` は、使用するモジュールをタスクに指示します。  - `server: "{{private_ip}}"`
+パラメーターは、F5 BIG-IP IP アドレスに接続するようにモジュールに指示します。このアドレスは、インベントリーの変数 `private_ip`
+として保存されます - `provider:` パラメーターは、BIG-IP の接続詳細のグループです。  - `user:
+"{{ansible_user}}"` パラメーターは、F5 BIG-IP デバイスにログインするためのユーザー名をモジュールに指示します -
+`password: "{{ansible_password}}"` パラメーターは、F5 BIG-IP
+デバイスにログインするためのパスワードをモジュールに指示します - `server_port: 8443` パラメーターは、F5 BIG-IP
+デバイスに接続するためのポートをモジュールに指示します - `name: "vip"` パラメーターは、vip
+という名前の仮想サーバーを作成するようにモジュールに指示します - `destination"` パラメーターは、仮想サーバーに割り当てる IP
+アドレスをモジュールに指示します - `port` パラメーターは、仮想サーバーがリッスンするポートをモジュールに指示します -
+`enabled_vlans` パラメーターは、仮想サーバーが有効なすべての vlan をモジュールに指示します - `all_profiles`
+パラメーターは、仮想サーバーに割り当てられるすべてのプロファイルをモジュールに指示します - `pool`
+パラメーターは、仮想サーバーに割り当てられるプールをモジュールに指示します - `snat`
+パラメーターは、ソースネットワークアドレスをモジュールに指示します。このモジュールでは、自動マッピングされるように割り当てます。したがって、バックエンドサーバーに送信されるリクエストのソースアドレスは、BIG-IP
+の自己 ip アドレスです - `validate_certs: "no"` パラメーターは、SSL
+証明書を検証しないようにモジュールに指示します。これはラボなので、デモ目的のためにのみ使用されます。
 
-ファイルを保存して、エディタを終了してください。
+ファイルを保存して、エディターを終了します
 
-## Step 4
+## ステップ 4
 
-プレイブックの実行 - コントロールホストのコマンドラインで以下を実行します。
+Playbook を実行します。VS Code サーバーのターミナルに戻り、以下を実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-virtual-server.yml
+[student1@ansible ~]$ ansible-navigator run bigip-virtual-server.yml --mode stdout
 ```
 
 # Playbook の出力
 
 ```yaml
-[student1@ansible]$ ansible-playbook bigip-virtual-server.yml
+[student1@ansible]$ ansible-navigator run bigip-virtual-server.yml --mode stdout
 
-PLAY [BIG-IP SETUP]*************************************************************
+PLAY [BIG-IP SETUP] ***********************************************************
 
-TASK [ADD VIRTUAL SERVER] ******************************************************
+TASK [ADD VIRTUAL SERVER] *****************************************************
 changed: [f5]
 
-PLAY RECAP *********************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
-# 解答
+# ソリューション
 
-完成形のAnsible Playbook はこちらから参照可能です。 [bigip-virtual-server.yml](./bigip-virtual-server.yml).
+完成した Ansible Playbook
+が、回答キーとしてここで提供されています。[bigip-virtual-server.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.5-add-virtual-server/bigip-virtual-server.yml)
+を表示するには、ここをクリックしてください。
 
-# 確認
+# ソリューションの確認
 
-ブラウザでBIG-IPへログインして設定されたものを確認してみましょう。lab_inventory/hosts ファイルからBIG-IPのIPアドレスを確認して、https://X.X.X.X:8443/ のようにアクセスします。
+設定した **仮想サーバー** を表示するには、Web ブラウザーを使用して F5 ロードバランサーにログインします。  
 
-BIG-IP へのログイン情報:
-- username: admin
-- password: **講師から指示されます** (default is admin)
+>`/home/studentX/networking_workshop/lab_inventory/hosts` ファイルから F5 ロードバランサーの IP 情報を取得し、https://X.X.X.X:8443/ のように入力します。
 
-Virtual Serverは画面左のメニューから辿ることで確認できます。**Local Traffic** -> **Virtual Server** とクリックします。以下のスクリーンショットを参考にしてください。
-![f5 vip image](f5vip.png)
+BIG-IP のログイン情報: - ユーザー名: admin - パスワード: **インストラクターから提供**、デフォルトは ansible
 
-## Webサーバーの確認
+ロードバランサーの仮想サーバーは、左側のメニューからナビゲーションして探すことができます。**Local Traffic**
+をクリックしてから、**Virtual Server** をクリックします。以下のスクリーンショットを参照してください。![f5 vip
+image](f5vip.png)
 
-それぞれのWebサーバー上ではApache HTTPD が実行されています。演習 1.1 から 1.5 までで、このWebサーバーからなるプールの負荷分散のセットアップが完了します。ブラウザで、BIG-IPのパブリックIPにアクセスします：
+## Web サーバーの確認
 
->ここでは、ポート番号は 8443ではなく 443 を指定します。 例： https://X.X.X.X:443/
+各 RHEL Web サーバーでは、すでに apache が実行されています。演習 1.1 から 1.5 では、Web
+サーバーのプールのロードバランサーを正常に設定しました。Web ブラウザーで F5 ロードバランサーのパブリック IP を開きます。
 
-ブラウザを再読み込みを行うたびに、**node1** と **node2** が入れかわり表示されるはずです。以下のアニメーションを参考にしてください。
+>今回は、ポート 8443 の代わりに 443 を使用します (例: https://X.X.X.X:443/)
+
+ホストをリフレッシュするたびに、**node1** と **node2** が切り替わります。ホストフィールドが変更されるアニメーションを、以下に示します。
 ![animation](animation.gif)
->注：ブラウザの種類によっては、アニメーションが動かない可能性があります。
+>アニメーションは特定のブラウザーでは機能しない可能性があります。
 
-## もう一つの確認方法
+## その他の検証方法
 
-ブラウザを使用する代わりに、コントロールノードのコマンドラインを使うことも可能です。`curl` コマンドを `--insecure` と `--silent` オプションをつけて、BIG-IPのパブリックIP:443 に対して実行します。出力結果を、割り当てられたstudent 番号（例：student5）を使って grep コマンドにかけることで確認しやすくなります。
+ブラウザーウィンドウを使用する代わりに、Ansible コントロールノードでコマンドラインを使用することもできます。**ansible_host**
+で、`--insecure` および `--silent` コマンドライン引数と組み合わせて `curl` コマンドを使用して、F5
+ロードバランサーのパブリック IP またはプライベート IP アドレスにアクセスします。ウェブサイト全体がコマンドラインで読み込まれるため、`|
+grep` を使用して該当するワークベンチに割り当てられた学生番号を検索することを推奨します (例: student5 の場合は `| grep
+student5`)
 
 ```
 [studentX@ansible ~]$ curl https://172.16.26.136:443 --insecure --silent | grep studentX
@@ -153,4 +162,5 @@ Virtual Serverは画面左のメニューから辿ることで確認できます
     <p>F5TEST-studentX-node1</p>
 ```
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+You have finished this exercise.  [Click here to return to the lab
+guide](../README.md)

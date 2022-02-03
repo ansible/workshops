@@ -1,165 +1,178 @@
-# Exercise 6: ジョブテンプレートの作成
+# 演習 6: 自動コントローラージョブテンプレートの作成
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
-## Table of Contents
+## 目次
 
-- [Objective](#objective)
-- [Guide](#guide)
-   - [Step 1: Create a Job Template](#step-1-create-a-job-template)
-   - [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
-   - [Step 3: Examine the Job Details View](#step-3-examine-the-job-details-view)
-   - [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
-   - [Step 5: Verify the backups were created](#step-5-verify-the-backups-were-created)
-- [Takeaways](#takeaways)
+* [目的](#objective)
+* [ガイド](#guide)
+  * [ステップ 1: ジョブテンプレートの作成](#step-1-create-a-job-template)
+  * [ステップ 2: ジョブテンプレートの起動](#step-2-launch-the-job-template)
+  * [ステップ 3: ジョブ詳細ビューの検証](#step-3-examine-the-job-details-view)
+  * [ステップ 4: ジョブウィンドウの検証](#step-4-examine-the-jobs-window)
+  * [ステップ 5: バックアップが作成されたことの確認](#step-5-verify-the-backups-were-created)
+* [重要なこと](#takeaways)
 
-# Objective
+## 目的
 
-Automation controller を使ってネットワークコンフィグのバックアップを行うジョブテンプレートを確認していきます。このジョブテンプレートは4つルーターから稼働中のコンフィグを取得し、コントローラーノードの /backup 配下にタイムスタンプ付きで保存します。
+自動コントローラーでネットワークバックアップ構成ジョブテンプレートをデモンストレーションします。このジョブテンプレートは、4
+つのルーターすべてから実行中の構成を保存し、タイムスタンプ付きでコントロールノードの /backup の下に保存します。
 
-Automation controller で Playbook を実行するには **Job Template** を作成する必要があります。**Job Template** の作成には以下が必要です:
- - ジョブの対象となる **Inventory**
- - デバイスへログインするための **Credential**
- - Playbook を含んだ **Project**
+自動コントローラーで Ansible Playbook を実行するには、**ジョブテンプレート** を作成する必要があります。**ジョブテンプレート**
+には以下が必要です。
 
-# Guide
+* ジョブを実行するための **インベントリー**
+* デバイスにログインするための **認証情報**。
+* Ansible Playbook を含む **プロジェクト**
 
-## Step 1: Create a Job Template
+## ガイド
 
-1.  左のメニューから `Templates` を選択します。
+### ステップ 1: ジョブテンプレートの作成
 
-    ![templates link](images/templates.png)
+* Web UI を開き、左側のメニューの `Templates` リンクをクリックします。
 
-2. グリーンのボタン ![templates link](images/add.png) をクリックしてジョブテンプレートを作成します。
+   ![templates link](images/controller_templates.png)
 
-    >作成には `Job Template` を選択します。`Workflow Template` ではありません。
+* 青い **Add** ボタンをクリックして、新しいジョブテンプレートを作成します。
 
-3. 以下のジョブテンプレートのパラメーターを入力します:
+   ![templates link](images/controller_add.png)
 
-    | Parameter | Value |
-    |---|---|
-    | Name  | Backup network configurations  |
-    |  Job Type |  Run |
-    |  Inventory |  Workshop Inventory |
-    |  Project |  Workshop Project |
-    |  Playbook |  network_backup.yml |
-    |  Credential |  Workshop Credential |
+> 注記:
+>
+> `workflow template` ではなく必ず `job template` を選択してください
 
+* 次のようにジョブテンプレートパラメータを入力します。
 
-    入力した状態の画面は以下になります。
+  | Parameter | Value |
+  |---|---|
+  | Name  | Backup network configurations  |
+  |  Job Type |  Run |
+  |  Inventory |  Workshop Inventory |
+  |  Project |  Workshop Project |
+  |  Execution Environment | Default execution environment |
+  |  Playbook |  playbooks/network_backup.yml |
+  |  Credential |  Workshop Credential |
 
-    ![backup job template](images/backup.png)
+  記入されたジョブテンプレートパラメータのスクリーンショット:
+   ![backup job template](images/controller_backup.png)
 
-4. 2つ目の認証情報をジョブテンプレートに割り当てます。
+* ジョブテンプレートに 2 番目の認証情報を追加します。
 
-    この **Tower Credential** (認証タイプ Automation controller)もジョブテンプレートに追加する必要があります。これは **Network-Restore** ジョブテンプレートが使用しているプールをアップデートするために使用されます。Automation controller ではジョブテンプレートから、プログラマブルに Automation controller 自身の設定を動的に追加・更新することができます。
+   **コントローラー認証情報** もこのジョブテンプレートに追加する必要があります。これは、自動コントローラーが **Network-Restore** ジョブテンプレートが使用するバックアップのプールを更新できるようにするためです。自動コントローラーは、ジョブテンプレートを使用してプログラムで更新し、構成を動的に追加または更新できます。ドロップダウンボックスを使用して 2 番目の認証情報を選択し、**Red Hat Ansible Automation Platform** 認証情報タイプを選択します。
 
-    ![tower credential](images/tower_credential.png)
+  ![switch credential type](images/controller_cred.png)
 
-5. 画面を下方向へスクロールしてグリーンの `save` ボタンをクリックします。
+  両方の認証情報がジョブテンプレートに正常に追加されると、次の図のようになります。
 
-以下がチュートリアルです:
+  ![controller credential](images/controller_cred_multiple.png)
 
-![animation walkthrough Automation controller](images/job_template.gif)
-Youtube で確認するにはこちら  [Click Here](https://youtu.be/EQVkFaQYRiE)
+* 下にスクロールして、青い `Save` ボタンをクリックします。
 
+### ステップ 2: ジョブテンプレートの起動
 
-## Step 2: Launch the Job Template
+1. すべてのジョブテンプレートが一覧表示されている `Templates` ウィンドウに戻ります。
 
-1. `Templates` 画面へと戻ります。ここでは全てのジョブテンプレートのリストが表示されます。
+2. ロケットボタンをクリックして、`Backup network configurations` ジョブテンプレートを起動します。
 
-2. ジョブテンプレート `Backup network configurations` のロケットボタンをクリックしてジョブを起動します。
+    ![rocket button](images/controller_rocket.png)
 
-    ![rocket button](images/rocket.png)
+    ロケットボタンをクリックすると、ジョブが起動します。このジョブは、**Job Details View** と呼ばれる新しいウィンドウで開きます。[自動コントローラージョブ](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) の詳細は、ドキュメントをご覧ください。
 
-    ロケットボタンをクリックするとジョブが起動されます。ジョブが起動されると **Job Details View** という新しい画面が起動します。ジョブについての詳細の情報は [Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html) から参照できます。
+### ステップ 3: ジョブの検証
 
-## Step 3: Examine the Job Details View
+ジョブテンプレートを実行すると、自動的に [Standard Out
+ウィンドウ](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html#standard-out)
+が開きます
 
-画面の左側は **Details pane** で、右側は **Standard Out pane** です。
+![job details view](images/controller_job_output.png)
 
-![job details view](images/jobfinish.png)
+1. *Standard Out ウィンドウ** を調べます
 
-1.  **Details pane** を確認します。
+   Standard Out ウィンドウには、Ansible Playbook からの出力が表示されます。すべてのタスク出力は、コマンドラインに表示されるものと正確に一致します。
 
-    **Details pane** ではジョブの起動、終了時間や、ジョブのタイプ(Check / Run)、ジョブを起動したユーザー、どのプロジェクトのどのPlaybookが使われているか等が確認できます。
+2. **Standard Out pane** でタスクをクリックして、その特定のタスクからの構造化された出力を開きます。
 
-    もし、ジョブが実行中であれば **Details Pane** にはキャンセルボタン ![cancel button](images/cancel.png) が表示され、これを使うとジョブを停止することができます。
+   > **changed** または **ok** がある行をクリックします
 
-2.  **Standard Out pane** を確認します。
+   ![task details window](images/controller_details.png)
 
-    **Standard Out pane** には Playbook の出力が表示されます。この内容はコマンドラインで実行したものと同じです。
+3. **Details** タブをクリックして、**Details ウィンドウ** を開きます。
 
-3.  **Expand Output** ![expand image](images/expand.png) ボタンをクリックします。
+   **Details ウィンドウ** には、ジョブの開始と終了のタイムスタンプ、ジョブの種類 (チェックまたは実行)、ジョブを開始したユーザー、使用された Project とAnsible Playbook などの情報が表示されます。
 
-    **Standard Out pane** が表示領域が拡大します。
+   ジョブがまだ終了していない場合、**Details ウィンドウ** には **Cancel Job** ボタンがあり、ジョブを停止するために使用できます。
 
-4.  **Standard Out pane** の中から特定タスクの出力部分をクリックすると、タスクが出力する構造化されたデータを表示できます。
+### ステップ 4: ジョブウィンドウを調べます
 
-    > **changed** または **ok** となっている好きな行をクリックしてください。
+実行済みまたは現在実行中の **ジョブテンプレート** は、**Jobs** ウィンドウの下に表示されます。
 
-    ![task details window](images/task_details.png)
+1. 左側のメニューのジョブボタンをクリックします。
 
-## Step 4: Examine the Jobs window
+   ![jobs button](images/controller_jobs.png)
 
-起動された、もしくは起動中の **Job Template** は **Jobs** ウインドに全て表示されます。
+   ジョブリンクには、ジョブの一覧とそれらのステータスが表示 (正常に完了、失敗、またはアクティブ (実行中の) ジョブとして表示) されます。この画面から実行できるアクションには、特定のジョブの詳細および標準出力、ジョブの起動、またはジョブの削除が含まれます。
 
-1. 左メニューから Jobs ボタンをクリックします。
+2. **Backup network configurations** ジョブをクリックします
 
-    ![jobs button](images/jobs.png)
+   ![jobs link](images/controller_jobs_link.png)
 
-    この Jobs 画面はジョブの一覧と成功、失敗、実行中といったジョブの状態を表示します。この画面からは、特定ジョブの詳細、出力結果、再実行、ジョブの削除が行えます。
+   **Backup network configurations** ジョブは最新のものでした (より多くのジョブを起動していない場合に限る)。このジョブをクリックして、**Standard Out ウィンドウ** に戻ります。自動コントローラーは、開始されたすべてのジョブの履歴を保存します。
 
-2. **Backup network configurations** ジョブをクリックします。
+### ステップ 5: バックアップが作成されたことを確認する
 
-    ![jobs link](images/jobslink.png)
+* Ansible コントロールノードのコマンドライン `ls /backup` で、タイムスタンプ付きのフォルダー
+  (または複数のバックアップを作成した場合はフォルダー) を表示します
 
-    この **Backup network configurations** ジョブは最も最近に起動されています(他のジョブを起動していなければ)。このジョブをクリックすると **Job Details View** へと戻ることができます。Automation controller は起動された全てのジョブの履歴を保存しています。
+  ```sh
+  [student1@ansible-1 ~]$ ls /backup
+  2021-08-31-12-58  2021-08-31-13-04  2021-08-31-13-11
+  ```
 
-## Step 5: Verify the backups were created
+  `ls` は、Linux オペレーティングシステムのコンピュータファイルを一覧表示するコマンドです。
 
-1. コントローラーノード上で `ls /backup` コマンドを実行してタイムスタンプが付加されたディレクトリを確認します(もし複数回ジョブテンプレートを実行した場合は複数のディレクトリが存在します）
+* Visual Studio Code で `/backup` を開くか、または `cat`
+  コマンドを使用して、タイムスタンプ付きのネットワークデバイスの 1 つのコンテンツを表示します
 
-   ```
-   [student1@ansible ~]$ ls /backup
-   2019-07-09-18-42  2019-07-09-19-18
-   ```
+  ```sh
+  [student1@ansible-1 ~]$ cat /backup/2021-08-31-1
+  2021-08-31-12-58/ 2021-08-31-13-04/ 2021-08-31-13-11/
+  [student1@ansible-1 ~]$ cat /backup/2021-08-31-12-58/rtr1.txt
+  Building configuration...
 
-   - `ls` コマンドはファイルの一覧を表示します
+  Current configuration : 5072 bytes
+  !
+  ! Last configuration change at 12:53:30 UTC Tue Aug 31 2021 by ec2-user
+  !
+  version 16.9
+  service timestamps debug datetime msec
+  service timestamps log datetime msec
+  platform qfp utilization monitor load 80
+  no platform punt-keepalive disable-kernel-core
+  platform console virtual
+  !
+  hostname rtr1
+  ```
 
-2. `cat` コマンドでバックアップされたネットワークデバイスの内容を確認します。
+* 残りのルーターを調べます。インストラクターは、ジュニパーやアリスタなど、この演習用に複数のベンダーを設定している場合があります。Ansible
+  Playbook はベンダーに依存しないように作成できます。この場合、Github リポジトリ
+  [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
+  を介して Ansible Playbook を提供しました。
 
-   ```
-   [student1@ansible ~]$ cat /backup/2019-07-09-18-42/rtr1
+## 重要なこと
 
-   Current configuration : 5625 bytes
-   !
-   ! Last configuration change at 02:44:24 UTC Wed Jul 3 2019 by ec2-user
-   !
-   version 16.9
-   service tcp-keepalives-in
-   service tcp-keepalives-out
-   service timestamps debug datetime msec
-   service timestamps log datetime msec
-   service password-encryption
-   !
-   ! [[REST OF OUTPUT REMOVED FOR BREVITY]]
-   !
-   ```
+デモンストレーションに成功しました
 
-  3. 残りのルーターに関してもバックアップファイルを確認してください。この演習環境はJuniper や Arista を含む複数のベンダーの機器でセットアップされています。Playbook はこのようにベンダー非依存で動くように書くことも可能です。ここで使われたPlaybookは [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit) で確認できます。
+* ネットワーク構成をバックアップするためのジョブテンプレートの作成
+* 自動コントローラー UI からのジョブテンプレートの起動
+* バックアップが正しく保存されていることの確認
 
-# Takeaways
+## 完了
 
-ここで確認した内容は以下となります。
- - ネットワーク設定のバックアップを行うジョブテンプレートの作成
- - Automation controller の UI からジョブテンプレートを起動
- - バックアップが正しく実行されたか確認
+ラボ演習 6 を完了しました
 
 ---
+[前の演習](../5-explore-controller/README.md) |
+[次の演習](../7-controller-survey/README.md)
 
-# Complete
-
-以上で exercise 6 は終了です。
-
-[Click here to return to the Ansible Network Automation Workshop](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../README.md)

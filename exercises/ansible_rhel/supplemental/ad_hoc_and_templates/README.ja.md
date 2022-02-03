@@ -1,35 +1,45 @@
-# 演習 1.8 - ボーナスラボ  
+# Ad Hoc Commands, Templates and Variables
 
 **Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [ステップ 1.8.1 - ボーナスラボ: アドホックコマンド](#ステップ-181---ボーナスラボ-アドホックコマンド)
-* [ステップ 1.8.2 - ボーナスラボ: テンプレートと変数](#ステップ-182---ボーナスラボ-テンプレートと変数)
-   * [変数を定義します:](#変数を定義します)
-   * [テンプレートを準備します](#テンプレートを準備します)
-   * [Playbook を作成します。](#playbook-を作成します)
-   * [実行し確認します](#実行し確認します)
+* [Step 1 - Bonus Lab: Ad Hoc Commands](#step-1---bonus-lab-ad-hoc-commands)
+* [Step 2 - Bonus Lab: Templates and
+  Variables](#step-2---bonus-lab-templates-and-variables)
+   * [Define the variables:](#define-the-variables)
+   * [Prepare the template:](#prepare-the-template)
+   * [Create the Playbook](#create-the-playbook)
+   * [Run and test](#run-and-test)
 
-あなたは既にラボを完了しています・・・、が、さらに先に進みたい方は是非このボーナスラボにチャレンジしてみてください。  
+You have finished the lab already. But it doesn’t have to end here. We
+prepared some slightly more advanced bonus labs for you to follow through if
+you like. So if you are done with the labs and still have some time, here
+are some more labs for you:
 
-## ステップ 1.8.1 - ボーナスラボ: アドホックコマンド  
+## Step 1 - Bonus Lab: Ad Hoc Commands
 
-アドホックコマンドを使って、適当なコメント付きで新しいユーザー "testuser"　を `node1` と `node3` に作成します。`node2` に作成してはいけません。実行後、想定通り作成できていることも確認します。  
+Create a new user "testuser" on `node1` and `node3` with a comment using an
+ad hoc command, make sure that it is not created on `node2`!
 
-  - `ansible-doc user` を使ってモジュールのパラメータを確認します。  
+  - Find the parameters for the appropriate module using `ansible-doc user`
+    (leave with `q`)
 
-  - アドホックコマンドを使ってコメント "Test D User" 付きのユーザーを作成します。  
+  - Use an Ansible ad hoc command to create the user with the comment "Test
+    D User"
 
-  - "command" モジュールを使ってユーザー ID を見つけます。  
+  - Use the "command" module with the proper invocation to find the userid
 
-  - ユーザーとユーザーのティレクトリを削除し、ユーザーが削除されたことを確認します。
+  - Delete the user and its directories, then check that the user has been
+    deleted
 
-> **ヒント**
+> **Tip**
 >
-> 権限昇格の記述を忘れないこと！  
+> Remember privilege escalation…​
 
-> **答えは以下の通り**  
+> **Warning**
+>
+> **Solution below\!**
 
-コマンドは次のようになります。  
+Your commands could look like these:
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ ansible-doc -l | grep -i user
@@ -41,59 +51,67 @@
 [student<X>@ansible-1 ansible-files]$ ansible web -m command -a " id testuser" -b
 ```
 
-## ステップ 1.8.2 - ボーナスラボ: テンプレートと変数  
+## Step 2 - Bonus Lab: Templates and Variables
 
-皆さんは今までのラボで、Ansibleのテンプレート、変数、そしてハンドラについての基本を既に学んでいます。これらすべてを組み合わせてみましょう。  
+You have learned the basics about Ansible templates, variables and
+handlers. Let’s combine all of these.
 
-`httpd.conf` のリッスンポートを都度 vi 等で編集してコピーするのではなく、変数としてテンプレートの中で定義し、その変数の値を変数ファイルを使って与える方法について考えてみます。  
+Instead of editing and copying `httpd.conf` why don’t you just define a
+variable for the listen port and use it in a template? Here is your job:
 
+  - Define a variable `listen_port` for the `web` group with the value
+    `8080` and another for `node2` with the value `80` using the proper
+    files.
 
-  - `listen_port` に変数を埋め込んだ `httpd.conf` ファイルを作成し、 `httpd.conf.j2` テンプレートを使って各 node に送付します。  
+  - Copy the `httpd.conf` file into the template `httpd.conf.j2` that uses
+    the `listen_port` variable instead of the hard-coded port number.
 
-  - `web` グループのリッスンポートとして `8080` 、 `node2` のリッスンポートとして `80` を取るように変数ファイルを作成します。
+  - Write a Playbook that deploys the template and restarts Apache on
+    changes using a handler.
 
-  - ハンドラーを使っ、`httpd.conf` に変更があった場合のみ Apache サービスを再起動する Playbook を作成します。  
+  - Run the Playbook and test the result using `curl`.
 
-  - Playbook を実行し、結果を `curl` コマンドで確認します。  
-
-> **ヒント**  
+> **Tip**
 >
-> `group_vars`と`host_vars` ディレクトリを覚えていますか？ そうでない場合は、「演習1.4 変数を使ってみる」の章を参照してください。
+> Remember the `group_vars` and `host_vars` directories? If not, refer to the chapter "Ansible Variables".
 
 
-> **回答は以下の通り**
+> **Warning**
+>
+> **Solution below\!**
 
-### 変数を定義します:  
+### Define the variables:
 
 
-グループ変数を定義する `group_vars/web` に以下を記述します  
+Add this line to `group_vars/web`:
 
 ```ini
 listen_port: 8080
 ```
 
-node2 は設定が異なるので、ホスト変数を定義する `host_vars/node2` に以下を記述します  
+Add this line to `host_vars/node2`:
 
 ```ini
 listen_port: 80
 ```
-### テンプレートを準備します  
+### Prepare the template:
 
-  - node1 から `httpd.conf` を `httpd.conf.j2` としてコピーします。以前の演習でダウンロードしたファイルを "mv" で再利用してもOKです。  
+  - Copy `httpd.conf` to `httpd.conf.j2`
 
-  - コピーした `httpd.conf.j2` の "Listen" の項目を以下の通り変数 `listen_port` として定義しなおします。  
+  - Edit the "Listen" directive in `httpd.conf.j2` to make it look like
+    this:
 
 <!-- {% raw %} -->
 ```ini
 [...]
 Listen {{ listen_port }}
-[]...]
+[...]
 ```
 <!-- {% endraw %} -->
 
-### Playbook を作成します。
+### Create the Playbook
 
-Playbook `apache_config_tpl.yml` を以下の内容で作成します。  
+Create a playbook called `apache_config_tpl.yml`:
 
 ```yaml
 ---
@@ -114,9 +132,10 @@ Playbook `apache_config_tpl.yml` を以下の内容で作成します。
         state: restarted
 ```
 
-### 実行し確認します  
+### Run and test
 
-まずは playbook を実行し、curl コマンドで、 `node1` と `node3` にポート `8080` そして `node2` にポート `80` で接続してみます。  
+First run the playbook itself, then run curl against `node1` with port
+`8080` and `node2` with port `80`.
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ ansible-playbook apache_config_tpl.yml
@@ -132,4 +151,6 @@ Playbook `apache_config_tpl.yml` を以下の内容で作成します。
 ```
 
 ----
-[Ansible Engine ワークショップ表紙に戻る](../../README.ja.md#section-1---ansible-engineの演習)
+
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../../README.md#section-1---ansible-engine-exercises)

@@ -1,34 +1,32 @@
-# 演習 1.3 - プールの追加
+# 演習 1.3 - ロードバランシングプールの追加
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbook の出力](#Playbookの出力)
-- [解答](#解答)
-- [確認](#確認)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[ソリューション](#solution)  - [ソリューションの確認](#verifying-the-solution)
 
 # 目的
 
-本演習では、[BIG-IP pool module](https://docs.ansible.com/ansible/latest/modules/bigip_pool_module.html) を使って、BIG-IPへ負荷分散プール（省略して「プール」と表記する場合もあります）の設定を行います。負荷分散プールとは、トラフィックの受信および負荷分散を行うための論理的なデバイス（例：Webサーバー）の集合です。
+[BIG-IP
+プールモジュール](https://docs.ansible.com/ansible/latest/modules/bigip_pool_module.html)
+を使用して BIG-IP
+デバイスでロードバランシングプールを設定する方法を説明します。ロードバランシングプールは、トラフィックを受信して処理するためにグループ化する、Web
+サーバーなどのデバイスの論理セットです。
 
-# 解説
+# ガイド
 
-## Step 1:
+## ステップ 1:
 
-テキストエディタを使って `bigip-pool.yml` というファイルを新規作成します。
+VSCode を使用して、左側のペインの新規ファイルアイコンをクリックして、`bigip-pool.yml` という名前の新しいファイルを作成します。
 
-```
-[student1@ansible ~]$ nano bigip-pool.yml
-```
+![picture of create file
+icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
->`vim` と `nano` はコントロールノード上で利用可能です。RDP経由でのVisual Studio と Atom も同様です。
+## ステップ 2:
 
-## Step 2:
-
-`bigip-pool.yml` へ、以下のプレイブック定義を記述します。
+次のプレイ定義を `bigip-pool.yml` に入力します。
 
 ``` yaml
 ---
@@ -38,18 +36,20 @@
   gather_facts: false
 ```
 
-- このファイルの最初の `---` は、このファイルがYAMLであることを示します。
-- `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
-- `connection: local` で、このプレイブックが（自分自身にSSH接続をするのではなく）ローカル実行されることを指示しています。
-- `gather_facts: false` で、FACTの収集を無効化します。このプレイブックではFACT変数を使用しません。  
+- ファイル上部の `---` は、これが YAML ファイルであることを示しています。  - `hosts: lb` は、プレイが lb
+グループでのみ実行されることを示します。技術的には、F5 デバイスは 1 つだけしか存在しませんが、複数あれば、それぞれが同時に設定されます。  -
+`connection: local` は、（自身に SSH 接続するのではなく）ローカルで実行するように Playbook に指示します  -
+`gather_facts: false` はファクト収集を無効にします。この Playbook では、ファクト変数を使用しません。
 
-まだエディタを閉じないでください。
+まだエディターを終了しないでください。
 
-## Step 3
+## ステップ 3
 
-次に、タスクを追加します。このタスクは、`bigip_pool` モジュールを使用して、BIG-IP上に、http_poolという名前のプールを設定します。
+次に、最初の `task` を上記の Playbook に追加します。このタスクは、`bigip_pool` モジュールを使用して 2 つの RHEL
+Web サーバーを BIG-IP F5 ロードバランサー上のノードとして設定します。
 
-{% raw %}
+<!-- {% raw %} -->
+
 ``` yaml
   tasks:
     - name: CREATE POOL
@@ -64,40 +64,40 @@
         lb_method: "round-robin"
         monitors: "/Common/http"
         monitor_type: "and_list"
-
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
-- `name: CREATE POOL` ：　ユーザーが定義する説明文です。これは実行時に端末に表示されることになります。
-- `bigip_pool:` ： 使用するモジュールを宣言しています。
-- `provider:` ：　BIG-IP の詳細な接続情報のオブジェクト。
-- `server: "{{private_ip}}"` ：　接続先となるBIG-IPのIPアドレスを指定します。これはインベントリ内で `private_ip` として登録されているものです。
-- `user: "{{ansible_user}}"` ：　BIG-IP へログインするユーザー名を指定します。
-- `password: "{{ansible_password}}"` ：　BIG-IPへログインする際のパスワードを指定します。
-- `server_port: 8443` ：　BIG-IPへ接続する際のポート番号を指定します。
-- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
-- `name: "http_pool"` ： 作成するプールの名前を指定します。
-- `lb_method: "round-robin"`  ： 負荷分散方式を round-robin に指定します。全ての設定可能な負荷分散方式は bigip_pool モジュールのドキュメンテーションで確認できます。
-- `monitors: "/Common/http"` ： http_poolというプールはHTTPトラフィックだけを扱うことを指定します。
-- `monitor_type: "and_list"` ： 全てのモニターがチェックされるように指定します。
+- `name: CREATE POOL` は、ターミナル出力に表示されるユーザー定義の説明です。  - `bigip_pool:`
+は、使用するモジュールをタスクに指示します。  - `server: "{{private_ip}}"` パラメーターは、F5 BIG-IP IP
+アドレスに接続するようにモジュールに指示します。このアドレスは、インベントリーの変数 `private_ip` として保存されます -
+`provider:` パラメーターは、BIG-IP の接続詳細のグループです。  - `user: "{{ansible_user}}"`
+パラメーターは、F5 BIG-IP デバイスにログインするためのユーザー名をモジュールに指示します - `password:
+"{{ansible_password}}"` パラメーターは、F5 BIG-IP デバイスにログインするためのパスワードをモジュールに指示します -
+`server_port: 8443` パラメーターは、F5 BIG-IP デバイスに接続するためのポートをモジュールに指示します - `name:
+"http_pool"` パラメーターは、http_pool という名前のプールを作成するようにモジュールに指示します - `lb_method:
+"round-robin"` パラメーターは、負荷分散方法がラウンドロビンであることをモジュールに指示します。方法の全リストは、bigip_pool
+のドキュメントページに記載されています。  - `monitors: "/Common/http"` パラメーターは、http_pool が http
+トラフィックだけを対象とすることをモジュールに指示します。  - `monitor_type: "and_list"`
+は、すべてのモニターが確認されるようにします。  - `validate_certs: false` パラメーターは、SSL
+証明書を検証しないようにモジュールに指示します。これはラボなので、デモ目的のためにのみ使用されます。
 
-ファイルを保存して、エディタを終了してください。
+ファイルを保存して、エディターを終了します
 
-## Step 4
+## ステップ 4
 
-プレイブックの実行 - コントロールホストのコマンドラインで以下を実行します。
+Playbook を実行します。コントロールホストの VS Code サーバーのターミナルに戻り、以下を実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-pool.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool.yml --mode stdout
 ```
 
 # Playbook の出力
 
-出力は以下のようになります。
+出力は次のようになります。
 
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-pool.yml
+[student1@ansible ~]$ ansible-navigator run bigip-pool.yml --mode stdout
 
 PLAY [BIG-IP SETUP] ************************************************************
 
@@ -108,19 +108,21 @@ PLAY RECAP *********************************************************************
 f5                         : ok=1    changed=1    unreachable=0    failed=0
 ```
 
-# 解答
+# ソリューション
 
-完成形のAnsible Playbook はこちらから参照可能です。[bigip-pool.yml](./bigip-pool.yml).
+完成した Ansible Playbook
+が、回答キーとしてここで提供されています。[bigip-pool.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.3-add-pool/bigip-pool.yml)
+を表示するには、ここをクリックしてください。
 
-# 確認
+# ソリューションの確認
 
-ブラウザでBIG-IPへログインして設定されたものを確認してみましょう。lab_inventory/hosts ファイルからBIG-IPのIPアドレスを確認して、https://X.X.X.X:8443/ のようにアクセスします。
+Web ブラウザーで F5 にログインし、設定された内容を確認します。lab_inventory/hosts ファイルから F5 ロードバランサーの
+IP 情報を取得し、https://X.X.X.X:8443/ のように入力します。
 
-BIG-IP へのログイン情報:
-- username: admin
-- password: **講師から指示されます** (default is admin)
+BIG-IP のログイン情報: - ユーザー名: admin - パスワード: **インストラクターから提供、デフォルトは ansible**
 
-画面左のメニューからプールが確認できます。**Local Traffic** -> **Pools** とクリックします。
+ロードバランサーのプールは、左側のメニューからナビゲーションして探すことができます。Local Traffic をクリックし、続いて Pools をクリックします。
 ![f5pool](pool.png)
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+You have finished this exercise.  [Click here to return to the lab
+guide](../README.md)

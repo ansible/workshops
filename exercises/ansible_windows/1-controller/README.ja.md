@@ -1,199 +1,224 @@
-# 演習 1 - Automation Controllerの概要と構成  
+# Automation Controller の設定
 
-**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-Automation Controller には、マルチテナント、通知、スケジューリングなどの機能を提供する多くのオブジェクトがあります。ここでは、ワークショップに必要な以下の重要なものに焦点を当ててご説明します。インベントリーなど、Ansible Engine でおなじみのオブジェクトもありますし、Automation Controller 独自のオブジェクトもあります。♬  
+Automation Controller UI
+には、マルチテナンシー、通知、スケジューリングなどを可能にする多くの構成要素があります。ただし、今日このワークショップに必要ないくつかの主要な構成要素にのみ焦点を当てます。
 
-- 認証情報  
+* 認証情報
 
-- プロジェクト  
+* プロジェクト
 
-- インベントリー  
+* インベントリー
 
-- ジョブテンプレート  
+* ジョブテンプレート
 
-## Controller へのログイン  
+## Controller へのログイン
 
-各自に準備された Automation Controller のインスタンス情報は講師にご確認ください。  
-演習用の Automation Controller には既にライセンスファイルが適応されていますので、ログインするとダッシュボードが表示されます。  
+Automation Controller インスタンスの URL と認証情報は、このワークショップ用に作成されたページで提供されました。
 
-## 認証情報の作成  
+Automation Controller のサブスクリプションはすでに適用されていますので、ログインするとダッシュボードが表示されます。
 
-Automation Controller は、Windows や Linux、ネットワーク機器など管理対象ノードに対するジョブの実行、AWS や VMware vCenter Server などのインベントリーソースとの情報の同期、Git などソースコード管理システムとの同期の際に必要となる個々の認証情報をあらかじめ登録した上で利用する事が出来ます。  
+## マシンの認証情報
 
-[認証情報](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types)にはたくさんの種類があります。  
-このワークショップでは認証情報として、**マシン**と**ソースコード管理システム**の認証情報を作成し、利用します。  
+認証情報は、マシンに対するジョブの起動、インベントリーソースとの同期、バージョンコントロールシステムからのプロジェクトコンテンツのインポートの際に、Controller
+が認証のために使用します。
 
-### ステップ 1:  
+[認証情報の種類](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#credential-types)
+には、マシン、ネットワーク、各種クラウドプロバイダーが含まれます。このワークショップでは、**マシン** および **ソースコントロール**
+の認証情報を使用しています。
 
-左側のパネルから「認証情報」を選択します  
+### ステップ 1
 
-![Cred](images/1-tower-credentials.ja.jpg)  
+リソースの下の左側のパネルから CREDENTIALS を選択します
 
-### ステップ 2:  
+![Cred](images/1-controller-credentials.png)
 
-![Add](images/add.ja.jpg) アイコンをクリックして新しい認証情報を追加します。  
+### ステップ 2
 
-### ステップ 3:  
+![追加](images/add.png) アイコンをクリックして新しい認証情報を追加します。
 
-次のエントリを使用してフォームに入力します。  
+### ステップ 3
 
-| キー           | 値              |                                              |  
-|----------------|-----------------|----------------------------------------------|  
-| 名前           | Student Account |                                              |  
-| 組織           | Default         |                                              |  
-| 認証情報タイプ | マシン          |                                              |  
-| ユーザー名     | student#        | **# の部分は各自の番号に置き換えてください** |  
-| パスワード     | *****           | student password に置き換えてください        |  
+次のエントリーを使用してフォームに記入します。
 
-![マシン認証情報の追加](images/1-controller-add-machine-credential.ja.jpg)  
+| Key          | Value           |                                          |
+|--------------|-----------------|------------------------------------------|
+| Name         | Windows Credential |                                          |
+| Organization | Default         |                                          |
+| Type         | Machine         |                                          |
+| Username     | student#        | **Replace # with your student number**   |
+| Password     | <password>      | Replace with your student password       |
 
-### ステップ 4:  
+![マシン認証情報の追加](images/1-controller-add-machine-credential.png)
 
-![Save](images/at_save.ja.jpg) をクリック    
+### ステップ 4
 
-## SCM 認証情報の作成  
+SAVE ![保存](images/at_save.png) を選択
 
-最初の認証情報は、Windowsマシンにアクセスするためのものです。次に、ソースコードリポジトリ (Git) にアクセスするための認証情報を作成してみます。以下の情報を参考に、先ほどと同じように作成してみてください。  
+## SCM 認証情報の作成
 
-| キー          | 値                            |                                            |  
-|--------------|----------------------------------|--------------------------------------------|  
-| 名前         | Git Credential                   |                                            |  
-| 説明  | SCM credential for playbook sync |                                            |  
-| 組織 | Default                          |                                            |  
-| 認証情報タイプ | ソースコントロール                   |                                            |  
-| ユーザー名     | student#                         |  **# の部分は各自の番号に置き換えてください**    |  
-| パスワード     | *******                          | student password に置き換えてください |  
+最初のクレデンシャルは、Win RM で Windows
+マシンにアクセスするためのものでした。今回は、自動化プロジェクトが置かれるソースコードリポジトリーにアクセスするために、別の認証情報が必要です。上記のプロセスを繰り返しますが、詳細は以下の通りです。
 
-![Save](images/at_save.ja.jpg) をクリック    
+| Key          | Value                            |                                            |
+|--------------|----------------------------------|--------------------------------------------|
+| Name         | Git Credential                   |                                            |
+| Description  | SCM credential for project sync |                                            |
+| Organization | Default                          |                                            |
+| Credential Type         | Source Control                   |                                            |
+| Username     | student#                         | Replace # with your student number         |
+| Password     | <password>                       | Replace with your student password |
 
-![Add SCM Credential](images/1-controller-add-scm-credential.ja.jpg)  
+SAVE ![保存](images/at_save.png) を選択
 
-## プロジェクトの作成   
+![SCM 認証情報の追加](images/1-controller-add-scm-credential.png)
 
-プロジェクトは、Playbook を管理する仕組みを提供します。 Playbook と Playbook ディレクトリを管理するには、Controller サーバーの /var/lib/awx/projects/ 配下に手動で配置するか、Git、Subversion、Mercurialなど、Controller でサポートされるソースコード管理（SCM）システムに Playbook を配置します。  
+## プロジェクトの作成
 
-### ステップ 1:  
+**プロジェクト** とは、Controller で表現される Ansible コンテンツの論理的な集合体のことです。プロジェクトは、Git や
+Subversion など、Controller がサポートするソースコード管理 (SCM) システムに Ansible
+コンテンツを配置することで管理できます。
 
-左パネルで **プロジェクト** をクリックします。  
+### ステップ 1
 
-![Proj](images/1-controller-project.ja.jpg)  
+この環境では、プレイブックはワークショップの Gitea インスタンスで利用可能な git リポジトリーに保存されます。Automation
+Controller で **プロジェクト** を作成する前に、リポジトリーの git URL が必要です。プロジェクトの URL
+を取得するには、Gitea インスタンスにログインし、ワークショップのプロジェクトを選択し、"Copy"
+ボタンをクリックした後に表示される`https`の URL をコピーします。
 
-### ステップ 2:  
+![Proj](images/1-gitea-project.png)  ![Clone](images/1-gitea-clone.png)
 
-![Add](images/add.ja.jpg) アイコンをクリックし、新規プロジェクトを作成します。  
+リポジトリーの URL は **ステップ 3** で使用されます
 
-### ステップ 3:  
+### ステップ 2
 
-次のエントリを使用してフォームに入力します (**SCM URL の欄にはこのワークショップ名（英数字4文字）と各自の Studente 番号を使ってください**)  
-オプションでは**起動時のリビジョン更新**にチェックを入れます。  
+左側のパネルで **Project** をクリックします。
 
-| キー            | 値                                                                   |                                                   |  
-|----------------|-------------------------------------------------------------------------|---------------------------------------------------|  
-| 名前           | Ansible Workshop Project                                                |                                                   |  
-| 説明    | Workshop playbooks                                                      |                                                   |  
-| 組織   | Default                                                                 |                                                   |  
-| SCM タイプ       | Git                                                                     |                                                   |  
-| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | **WORKSHOP と student# は今回のワークショップ名（英数字4文字）と各自のStudent番号に変更ください** |  
-| SCM ブランチ     |                                                                         | 空欄のまま                               |  
-| SCM 認証情報 | Git Credential                                                          |                                                   |  
-SCM 更新オプション  
+![Proj](images/1-controller-project.png)
 
-- [ ] クリーニング   
-- [ ] 更新時のデプロイ  
-- [x] 起動時のリビジョン更新  
+![追加](images/add.png) アイコンをクリックして新しいプロジェクトを追加します。
 
+### ステップ 3
 
-![Defining a Project](images/1-controller-create-project.ja.jpg)  
+次のエントリーを使用してフォームに記入します (**SCM URL の学習者番号を使用**)
 
-### ステップ 4:  
+| Key            | Value                                                                   |                                                   |
+|----------------|-------------------------------------------------------------------------|---------------------------------------------------|
+| Name           | Ansible Workshop Project                                                |                                                   |
+| Description    | Windows Workshop Project                                                      |                                                   |
+| Organization   | Default                                                                 |                                                   |
+| Default Execution Environment    | windows workshop execution environment                                                      |                                                   |
+| SCM Type       | Git                                                                     |                                                   |
+| SCM URL        | https://git.**WORKSHOP**.demoredhat.com/**student#**/workshop_project.git | URL obtained from Step 1                          |
+| SCM BRANCH     |                                                                         | Intentionally blank                               |
+| SCM CREDENTIAL | Git Credential                                                          |                                                   |
 
-![Save](images/at_save.ja.jpg)　をクリックします。  
+オプション
 
-### ステップ 5:  
+* [ ] クリーニング
+* [ ] 削除
+* [ ] トラックモジュールの追跡
+* [x] 起動時のリビジョン更新
+* [ ] ブランチ上書きの許可
 
-下にスクロールして、プロジェクトの保存時に、Git に対して正常に同期されたことを確認します。ページ下部のリストビューで、プロジェクト名の左横に緑色の丸が表示されていることを確認します。  
+![Defining a Project](images/1-controller-create-project.png)
 
-![Succesfull Sync](images/1-controller-project-success.ja.jpg)  
+### ステップ 4
 
-## インベントリー  
+SAVE ![保存](images/at_save.png) を選択
 
-管理対象のホスト一覧をインベントリーと呼びます。これは Ansible Engine と同じですね。インベントリーはグループに分割することも可能で、これらのグループには実際のホストの一覧が含まれています。インベントリーには、Automation Controller に直接ホスト接続情報を入力する静的インベントリーと、Automation Controller でサポートされている、AWS や Azure などクラウドや、vSphere などの仮想環境からインベントリー情報を取得して登録する動的インベントリーがあります。  
+### ステップ 5
 
-今回の演習では、静的インベントリーがすでに作成されています。ここで、このインベントリーを見て、その書き方について確認してみます。  
+スクロールダウンして、保存時にプロジェクトがソースコントロールリポジトリーに対して正常に同期されたことを確認します。リストビューのプロジェクト名の横に
+Successful と表示された緑色のアイコンが表示されているはずです。ステータスが Successful
+と表示されない場合は、プロジェクトの同期ボタンを再度押してステータスを確認してください。
 
-### ステップ 1:  
+![同期成功](images/1-controller-project-success.png)
 
-左側のパネルで **インベントリー** をクリックします。事前に作成されたインベントリー情報が見えます。    
-**Workshop Inventory** という名前のインベントリーもしくは編集アイコン ![Edit](images/at_edit.png)　をクリックします。    
+## インベントリー
 
-### ステップ 2:  
+インベントリーとは、ジョブを起動するためのホストの集合体です。インベントリーはグループに分けられ、そのグループにはホストが含まれます。インベントリーは、ホスト名を
+Controller に入力して手動で作成したり、Automation Controller がサポートしているクラウドプロバイダーや
+Automation Hub の Certified Content Collections にあるインベントリープラグインから作成することができます。
 
-インベントリーの内容が表示されています。ここからホストやグループや変数など、このインベントリーに関する情報を追加する事が出来ます。  
+静的なインベントリーがすでに作成されています。このインベントリーを見て、いくつかのプロパティーと設定パラメーターを紹介しましょう。
 
-![Edit Inventory](images/1-controller-edit-inventory.ja.jpg)  
+### ステップ 1
 
-**ホスト** ボタンをクリックすると対象ホストがリスト表示されます。  
+左側のパネルから **Inventories** をクリックします。事前設定されたインベントリが一覧表示されます。インベントリーの名前
+**Workshop Inventory** または Edit ボタンをクリックします。![編集](images/at_edit.png)
 
-### ステップ 3:  
+### ステップ 2
 
-ホストビューでは、このインベントリーに関連付けられているすべてのホストが確認できます。また、ホストが関連付けられているグループも表示されます。  
-ホストは複数のグループに関連付けることができます。Playbook の実行はこのインベントリー全体でも可能ですし、このグループを指定した実行も可能です。    
+現在、インベントリーが表示されています。ここから、このインベントリーに固有のホスト、グループ、さらには変数を追加することができます。
 
-![Hosts View](images/1-controller-hosts-view.ja.jpg)  
+![インベントリーの編集](images/1-tower-edit-inventory.png)
 
-### ステップ 4:  
+ホストを表示するので、**HOSTS** ボタンをクリックします。
 
-**グループ** ボタンをクリックし **Windows** を選択すると、このグループに対して適応している変数を見る事が出来ます。Windows の場合は接続に WinRM を利用しますので、その情報とポート番号などが記載されています。    
+### ステップ 3
 
-![Group Edit](images/1-controller-group-edit.ja.jpg)  
+ホストビューでは、このインベントリーに関連付けられているすべてのホストを確認できます。また、ホストが関連付けられているグループも表示されます。ホストは複数のグループに関連付けることができます。これらのグループは、後で自動化を実行する正確なホストに絞り込むために後で使用できます。
 
-この演習では、特定のホスト（この例では Windows ホスト）に接続する方法を『グループ内の変数』として定義しました。ただ、必ずここに記載しないといけない、というわけではなく、ホスト毎の変数として定義することも出来ますし、テンプレートや、Playbook の中に定義することも可能です。    
+![ホストビュー](images/1-controller-hosts-view.png)
 
-各変数の意味については以下の通りです。  
+### ステップ 4
 
-Ansible はデフォルトでは ssh での接続を試みます。Windows では ssh ではなく、WinRM での接続となりますので、その旨 Ansible に教えてあげる必要があります。その手段が、ansible_connection という変数です。    
-[WinRM](https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html).  
+**GROUPS** ボタンをクリックしてから **Windows**
+グループを選択すると、そのグループ内のすべてのホストに適用されるグループレベルで設定された変数を検査できます。
 
-**`ansible_connection: winrm`**  
+![Group Edit](images/1-controller-group-edit.png)
 
-また、AnsibleにWinRM SSLポート5986に接続するよう指示します（非SSLポートで、暗号化されないポート番号は5985です）    
+今日、このグループのホストに接続する方法を Controller
+に指示するために、いくつかの変数をすでに定義しました。ここでこれらの変数をグループ変数として定義する必要はありません。ホスト変数にすることも、テンプレートまたは
+Playbook に直接存在させることもできます。ただし、これらの変数は環境内の **すべて** のWindows
+ホストで同じであるため、Windows グループ全体で定義しました。
 
-**`ansible_port: 5986`**  
+デフォルトでは、Ansible は SSH を使用して任意のホストに接続しようとするため、Windows の場合は、別の接続方法 (この場合は
+[WinRM])(https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html)
+を使用するように指示する必要があります。
 
-また、演習環境では適切な証明書ストアのセットアップがないため、Ansibleに WinRM 証明書を無視するように指示します。    
+**`ansible_connection: winrm`**
 
-**`ansible_winrm_server_cert_validation: ignore`**  
+また、Ansible に WinRM SSL ポート 5986 に接続するように指示します (非 SSL ポートは 5985
+で実行されますが、暗号化されていません)。
 
-Windowsには様々な接続時の認証方法があります。ここでは、**CredSSP** を使用して Windows ホストへの認証を行うよう Ansible に指示します。  
+**`ansible_port: 5986`**
 
-**`ansible_winrm_transport: credssp`**  
+また、ラボには適切な証明書ストアが設定されていないため、WinRM 証明書を無視するように Ansible に指示します。
 
+**`ansible_winrm_server_cert_validation: ignore`**
 
-**ホスト** ボタンをクリックすると windows グループに所属するホスト一覧が表示されます。このページでホストのリンクをクリックすると、定義されているホスト固有の変数を確認する事が出来ます。  
+Windows には、接続に利用できるさまざまな認証方法もあります。ここでは、Ansible に **CredSSP**
+トランスポートメソッドを使用して Windows ホストへの認証を行うように指示します。
 
-![Host Edit](images/1-controller-host-edit.ja.jpg)  
+**`ansible_winrm_transport: credssp`**
 
-**`ansible_host`**  
+**HOSTS** ボタンをクリックすると、windows
+グループに属するホストを表示できます。このページのホストのリンクをクリックすると、定義されているホスト固有の変数を表示できます。
 
-このサーバーのIPアドレスを定義する変数です。  
+![ホスト編集](images/1-controller-host-edit.png)
 
-**`ansible_password`**   
+**`ansible_host`**
 
-このサーバーに接続するためのパスワードを定義する変数です。  
+これは、この特定のサーバーの IP アドレスです
 
-**`ansible_user`**  
+**`ansible_password`**
 
-このサーバーに接続するためのユーザーを定義する変数です。  
+これは、このサーバーに接続するために必要なパスワードです
 
-これらの変数はホスト固有であるため、グループレベルではなくホストレベルで定義されています。  
+**`ansible_user`**
 
-その他の設定については [Windows Guides](https://docs.ansible.com/ansible/latest/user_guide/windows.html) をご参照ください。  
-認証設定は特に重要であり、それらを確認して、ニーズに合わせて最適な方法を決定する必要があります。  
+これは、Ansible がこのサーバーに接続するためにパスワードとともに使用するユーザー名です
 
-## まとめ  
+これらの変数は非常にホスト固有であるため、グループレベルではなくホストレベルで定義されています。
 
-これで、Automation Controller の基本設定は完了です。 演習2では、これらのホストに対し、いくつかの Ad-Hoc コマンドを実行します。  
+これらの設定やその他の設定の詳細については、[Windows
+ガイド](https://docs.ansible.com/ansible/latest/user_guide/windows.html)
+を参照してください。認証設定は特に重要であり、それらを確認して、ニーズに最適な方法を決定する必要があります。
 
-[ワークショップ一覧に戻る](../README.ja.md)
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../README.md)

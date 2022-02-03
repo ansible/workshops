@@ -1,11 +1,13 @@
-# Exercise 2.2 - バックアップしたコンフィグでRouterをリストアしてみよう
+# Exercise 2.2 - Using Ansible to restore the backed up configuration
 
-ここまでの演習で、4つのCiscoルータのコンフィグをバックアップする方法を学びました。
-この演習では、どのようにリストアをするのか？を学習します。
-バックアップファイルは、Anisbleノードの`backup`ディレクトリへ格納されています。
+
+In the previous lab you learned how to backup the configuration of the 4
+cisco routers. In this lab you will learn how to restore the
+configuration. The backups had been saved into a local directory called
+`backup`.
+
 
 ```
-[student1@ansible networking-workshop]$ tree backup
 backup
 ├── rtr1.config
 ├── rtr1_config.2018-06-07@20:36:05
@@ -15,18 +17,20 @@ backup
 ├── rtr3_config.2018-06-07@20:36:04
 ├── rtr4.config
 └── rtr4_config.2018-06-07@20:36:06
+
 ```
 
 
-我々の目的は、"最後に動いていた状態のバックアップ"をルータへ適用するということです。
-
+Our objective is to apply this "last known good configuraion backup" to the
+routers.
 
 #### Step 1
 
-いずれかのルータ(ここでは`rtr1`を例)の設定を、マニュアルで変更してみましょう。
-ルータ上で、新しいloopback interfaceを設定します。
 
-`ssh rtr1`コマンドを実行して`rtr1`へログインし、以下の通りにコンフィグを追加します。
+On one of the routers (`rtr1`) manually make a change. For instance add a
+new loopback interface.
+
+Log into `rtr1` using the `ssh rtr1` command and add the following:
 
 ```
 rtr1#config terminal
@@ -38,7 +42,7 @@ rtr1#
 
 ```
 
-新しく作成されたloopback interfaceを確認してみましょう。
+Now verify the newly created Loopback Interface
 
 ```
 rtr1#sh run interface loopback 101
@@ -54,11 +58,12 @@ rtr1#
 ```
 #### Step 2
 
-Step 1では、マニュアルオペレーションによって想定外の変更がNetwork機器上に発生したことをシミュレーションしました。
-この変更はリバートされる必要があります。
-そのためには、新しいplaybookを作成し、直前の演習で取得したバックアップを適用できるようにしましょう。
+Step 1 simulates our "Out of process/band" changes on the network. This
+change needs to be reverted. So let's write a new playbook to apply the
+backup we collected from our previous lab to achieve this.
 
-新しく`restore_config.yml`というファイルを作成し、新しいplayを以下のように定義します。
+Create a file called `restore_config.yml` using your favorite text editor
+and add the following play definition:
 
 ``` yaml
 ---
@@ -72,10 +77,11 @@ Step 1では、マニュアルオペレーションによって想定外の変�
 
 #### Step 3
 
-以前にバックアップしたファイルをルータにコピーするタスクを記述します。
+Write the task to copy over the previously backed up configuration file to
+the routers.
 
-{%raw%}
 ``` yaml
+{%raw%}
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -85,17 +91,16 @@ Step 1では、マニュアルオペレーションによって想定外の変�
   tasks:
     - name: COPY RUNNING CONFIG TO ROUTER
       command: scp ./backup/{{inventory_hostname}}.config  {{inventory_hostname}}:/{{inventory_hostname}}.config
-```
-{%endraw%}
 
-> Note: **inventory_hostname**変数の利用方法に注意してください。
-> インベントリーファイル内でciscoグループに定義されているそれぞれのデバイスへ、このタスクによって各デバイスのbootflash上へバックアップコンフィグが直接SCPでコピーされ渡されます。
+{%endraw%}
+```
+
+> Note the use of the **inventory_hostname** variable. For each device in the inventory file under the cisco group, this task will secure copy (scp) over the file that corresponds to the device name onto the bootflash: of the CSR devices.
 
 
 #### Step 4
 
-続いてplaybookを実行してみましょう。
-
+Go ahead and run the playbook.
 
 ```
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts restore_config.yml
@@ -116,14 +121,16 @@ rtr4                       : ok=1    changed=1    unreachable=0    failed=0
 
 [student1@ansible networking-workshop]$
 
+
+
 ```
 
 
 #### Step 5
 
-ルータへログインして、ファイルがコピーされたことを確認してみましょう。
+Log into the routers to check that the file has been copied over
 
-> Note bootflash:/ディレクトリの一番下に**rtr1.config**があるはずです。
+> Note **rtr1.config** at the bottom of the bootflash:/ directory
 
 ```
 [student1@ansible networking-workshop]$ ssh rtr1
@@ -166,12 +173,14 @@ rtr1#
 
 #### Step 6
 
-かつて動いていたはずのコンフィグが送付先のデバイス上にあることが確認できました。
-新しいtaskをplaybookへ追加して、running-configをコピーしたものに入れ替えましょう。
+Now that the known good configuration is on the destination devices, add a
+new task to the playbook to replace the running configuration with the one
+we copied over.
 
 
-{%raw%}
+
 ``` yaml
+{%raw%}
 ---
 - name: RESTORE CONFIGURATION
   hosts: cisco
@@ -186,16 +195,17 @@ rtr1#
       ios_command:
         commands:
           - config replace flash:{{inventory_hostname}}.config force
-```
-{%endraw%}
 
-> Note: Cisco機器が持っている**archive**機能を利用していることに注意してください。
-> config replaceコマンドは全てのコンフィグの入れ替えを実施せず、差分のみを更新します。
+{%endraw%}
+```
+
+
+> Note: Here we take advantage of Cisco's **archive** feature. The config replace will only update the differences to the router and not really a full config replace.
 
 
 #### Step 7
 
-アップデートされたplaybookを実行してみましょう。
+Let's run the updated playbook:
 
 ```
 
@@ -230,10 +240,15 @@ rtr4                       : ok=2    changed=1    unreachable=0    failed=0
 #### Step 8
 
 
-我々がマニュアルオペレーションによるミスで**Step 1**にて追加してしまったインターフェースが存在していないことを確認してみてください。
+
+Validate that the new loopback interface we added in **Step 1** is no longer
+on the device.
+
 
 ```
 [student1@ansible networking-workshop]$ ssh rtr1
+
+
 
 rtr1#sh ip int br
 Interface              IP-Address      OK? Method Status                Protocol
@@ -243,7 +258,8 @@ Loopback1              10.1.1.101      YES manual up                    up
 Tunnel0                10.100.100.1    YES manual up                    up      
 Tunnel1                10.200.200.1    YES manual up                    up      
 VirtualPortGroup0      192.168.35.101  YES TFTP   up                    up      
-
+rtr1#sh run inter
+rtr1#sh run interface Loo
 rtr1#sh run interface Loopback 101
                                ^
 % Invalid input detected at '^' marker.
@@ -252,13 +268,14 @@ rtr1#
 
 ```
 
-上記の出力結果は、Loopback 101 interfaceがもはや存在していないことを示しています。
-あなたはCiscoルータのコンフィグのバックアップと、リストア作業の自動化に成功しました！
+The output above shows that the Loopback 101 interface is no longer present,
+you have successfully backed up and restored configurations on your Cisco
+routers!
 
 # Complete
 
-お疲れ様でした。
-以上でlab exercise 2.2 は終了です。
+You have completed lab exercise 2.2
 
 ---
-[ここをクリックすると Ansible Linklight - Networking Workshop へ戻ります](../../README.ja.md)
+[Click Here to return to the Ansible Linklight - Networking
+Workshop](../../README.md)

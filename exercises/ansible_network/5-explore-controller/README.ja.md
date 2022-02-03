@@ -1,147 +1,176 @@
-# Exercise 5: Ansible Tower 環境の確認
+# 演習 5: 自動コントローラーの探索
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
-## Table of Contents
+## 目次
 
-- [Objective](#objective)
-- [Guide](#guide)
-   - [Step 1: Login to Ansible Tower](#step-1-login-to-ansible-tower)
-   - [Step 2: Examine the Ansible Tower Inventory](#step-2-examine-the-ansible-tower-inventory)
-   - [Step 3: Examine the Ansible Tower Workshop Project](#step-3-examine-the-ansible-tower-workshop-project)
-   - [Step 4: Examine the Ansible Tower Workshop Credential](#step-4-examine-the-ansible-tower-workshop-credential)
-- [Takeaways](#takeaways)
+* [目的](#objective)
+* [ガイド](#guide)
+   * [ステップ 1: 自動コントローラーへのログイン](#step-1-login-to-automation-controller)
+   * [ステップ 2:
+     自動コントローラーインベントリーの検証](#step-2-examine-the-automation-controller-inventory)
+   * [ステップ 3:
+     自動コントローラーワークショッププロジェクトの検証](#step-3-examine-the-automation-controller-workshop-project)
+   * [ステップ 4:
+     自動コントローラーワークショップ認証情報の検証](#step-4-examine-the-automation-controller-workshop-credential)
+* [重要なこと](#takeaways)
+* [完了](#complete)
 
-# Objective
+## 目的
 
-演習環境を確認します。本演習は以下を含みます。
-- コントローラーノード上の Ansible バージョンを確認します。
-- 以下について確認します:
-  - Ansible Tower の **インベントリー**
-  - Ansible Tower の **クレデンシャル**
-  - Ansible Tower の **プロジェクト**
+ラボ環境を調べて理解します。この演習では、以下を対象とします。
 
-# Guide
+* コントロールノードで実行されている Ansible Automation Platform バージョンの判別
+* 以下を見つけて理解:
+  * 自動コントローラー **インベントリー**
+  * 自動コントローラー **認証情報**
+  * 自動コントローラー **プロジェクト**
 
-## Step 1: Login to Ansible Tower
+## ガイド
 
-ブラウザでコントローラーノードのDNS名にアクセスしてください。
+### ステップ 1: 自動コントローラーへのログイン
 
->例えば、受講者に作業環境 student1 が割り当てられており、ワークショップ名が `durham-workshop` の場合にリンクは以下になります:
+1.  インストラクターが提供するワークショップの起動ページに戻ります。
 
-    **https://student1.durham-workshop.rhdemo.io**
+2.  自動コントローラーの Web UI へのリンクをクリックします。以下のようなログイン画面が表示されるはずです。
 
->このログイン情報はワークショップの開始時に講師から提供されています。
+   自動コントローラーログイン画面のスクリーンショット。
+![automation controller login window](images/automation_controller_login.png)
 
-![Tower Login Window](images/login_window.png)
-- ユーザー名は `admin`
-- パスワードは講師から提供されます。
-
-ログインすると、以下のようなジョブダッシュボードがデフォルトで表示されます。
-![Tower Job Dashboard](images/tower_login.png)
-
-1.  画面右上の **i** ボタンをクリックします。
-
-    ![information button link](images/information_button.png)
-
-2.  以下のようなウインドウがポップアップします:
-
-    ![version info window](images/version_info.png)
-
-    ここで Ansible Tower と Ansible Engine のバージョンを確認することができます。
+   * ユーザー名は `admin` です
+   * 起動ページで指定されたパスワード
 
 
-## Step 2: Examine the Ansible Tower Inventory
+3. ジョブダッシュボードにログインすると、以下に示すようにデフォルトのビューになります。
 
-Ansible Tower でジョブを実行するためにはインベントリーが必要となります。インベントリーは先の演習で登場したインベントリーフェイルと同様のもので、ジョブの実行対象となるホストの一覧です。また、Red Hat Ansible Tower では、ServiceNow や Infoblox DDI のような構成管理データベース（CMDB）と連携することも可能です。
+   ![automation controller dashboard](images/automation_controller_dashboard.png)
 
->Ansible Tower のインベントリーに関する詳細情報は [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html) から参照できます。
+4. ユーザーインターフェイスの右上にある **?** ボタンをクリックし、**About** をクリックします。
 
-1. 左側のメニューから **RESOURCES** の下の **Inventories** をクリックします。
+   ![about button link](images/automation_controller_about.png)
 
-    ![Inventories Button](images/inventories.png)
+5. 次のようなウィンドウがポップアップ表示されます。
 
-2. インベントリーには `Demo Inventory` と `Workshop Inventory` の2つがあるはずです。`Workshop Inventory` をクリックします。
-
-    ![Workshop Inventory Link](images/workshop_inventory.png)
-
-3. `Workshop Inventory` から上部の **HOSTS** ボタンを選択します。ここには rtr1 から rtr4 のホストが登録されています。1つのデバイスをクリックしてください。
-
-     **VARIABLES** フィールドに注目してください。`ansible_host` 変数を含めて `host_vars`はここに設定されています。
-
-4. 画面上部の `Workshop Inventory` リンクをクリックしてトップレベルメニューへと戻ります。
-
-    ![Workshop Inventory Top Link](images/workshop_inventory_top.png)
-
-5. 次に **GROUPS** を選択します。`routers` や `cisco` などの複数のグループが確認できるはずです。1つのグループをクリックします。
-
-     **VARIABLES** フィールドに注目してください。 `ansible_connection` や `ansible_network_os` 変数といった `group_vars` はここに設定されています。
-
-ここでのチュートリアル動画は以下になります:
-
-![animation walkthrough ansible tower](images/inventory.gif)
-Youtube でも確認できます  [Click Here](https://youtu.be/4JNbFNSUS9g)
+   ![version info window](images/automation_controller_about_info.png)
 
 
-## Step 3: Examine the Ansible Tower Workshop Project
+### ステップ 2: 自動コントローラーインベントリーの検証
 
-プロジェクトは Ansible Tower に Playbook をどのようにインポートするかを定義します。Playbook と関連するディレクトリを手動で Ansible Tower Server 上で管理することもできますし、Playbook を格納した Git や Subversion、Merucial のようなソースコード管理システム(SCM)を利用することも可能です。
+自動コントローラーがジョブを実行できるようにするには、インベントリーが必要です。インベントリーは、Ansible
+インベントリーファイルと同じように、ジョブを起動できる一連のホストのコレクションです。さらに、自動コントローラーは、ServiceNow
+やInfoblox DDI などの既存の設定管理データベース (cmdb) を利用できます。
 
-> プロジェクトに関するより詳細な情報は [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html) を参照してください。
+> 注記:
+>
+> 自動コントローラーに関するインベントリーの詳細は、[このドキュメント](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html) を参照してください。
 
-1. 左メニューバーの **RESOURCES** の下の **Projects** ボタンをクリックします。
+1. 左側のメニューバーの **RESOURCES** の下にある **Inventories** ボタンをクリックします。
 
-    ![projects link](images/projects.png)
+    ![Inventories Button](images/automation_controller_inventories.png)
 
-2. **PROJECTS** には事前設定された2つのプロジェクト `Demo Project` と `Workshop Project` があるはずです。ここでは `Workshop Project` を選択します。
+2. Inventories で `Workshop Inventory` をクリックします。
+
+    ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
+
+3. `Workshop Inventory` で、上部の **Hosts** ボタンをクリックします。ここには、rtr1 から rtr4 の 4
+   つのホストと、Ansible コントロールノードがあります。
+
+   ![automation controller workshop inventory hosts](images/workshop_inventory_hosts.png)
+
+4. これらのデバイスの 1 つをクリックします。
+
+   ![workshop inventory hosts rtr1](images/workshop_inventory_hosts_rtr1.png)
+
+     **VARIABLES** フィールドに注意してください。`host_vars` は、`ansible_host` 変数を含めてここで設定されます。
+
+5. **GROUPS** をクリックします。ここには、`routers` と `cisco` を含む複数のグループがあります。これらのグループの 1
+   つをクリックします。
+
+   ![workshop inventory groups](images/workshop_inventory_groups.png)
+
+6. これらのグループの 1 つをクリックします。
+
+   ![workshop inventory group vars](images/workshop_inventory_group_vars.png)
+
+     **VARIABLES** フィールドに注意してください。`group_vars` は、`ansible_connection` および `ansible_network_os` 変数を含めてここで設定されます。
+
+### ステップ 3: 自動コントローラーワークショッププロジェクトの検証
+
+プロジェクトは、Ansible Playbook が自動コントローラーにインポートされる仕組みです。Playbook および Playbook
+ディレクトリーを自動コントローラーサーバーのプロジェクトのベースパスに手動で配置するか、自動コントローラーがサポートするソースコード管理 (SCM)
+システム (例: Git、Subversion) に Playbook を配置することで、Playbook と Playbook
+ディレクトリーを管理できます。
+
+> 注記:
+>
+> 自動コントローラーのプロジェクトの詳細については、[ドキュメントを参照してください](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
+
+1. 左側のメニューバーの **RESOURCES** の下にある **Projects** ボタンをクリックします。
+
+   ![Workshop Project Link](images/automation_controller_projects.png)
+
+2. **PROJECTS** の下に `Workshop Project` があります。
 
     ![Workshop Project Link](images/workshop_project.png)
 
-    このプロジェクトでは `GIT` が選択されていることに注目してください。これは、このプロジェクトにおいてSCMとしてGITが利用されることを意味します。
+    このプロジェクトには `GIT` がリストされていることに注意してください。これは、このプロジェクトが SCM に Git を使用していることを意味します。
 
-3. `Workshop Project` の中からドロップダウンメニューの **SCM TYPE** をクリックします。
+3. `Workshop Project` をクリックします。
 
-    Git や Mercurial、Subversion などが選択できることを確認します。このあとの演習を正しく進めるために、選択は Git へと戻しておいてください。
+  ![Workshop Project Detail](images/workshop_project_detail.png)
 
-![animation walkthrough ansible tower projects](images/projects.gif)
-Youtube でも確認できます  [Click Here](https://youtu.be/xRA97XTxMjA)
+    ソースコントロールの URL が [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit
+) に設定されていることに注意してください。
 
-## Step 4: Examine the Ansible Tower Workshop Credential
 
-クレデンシャルは認証情報を管理し、 Tower での **Jobs** を起動する時の対象マシンに対してやインベントリーソースの同期、SCMを使ったプロジェクトの同期に利用されます。このワークショップでは、ネットワークデバイスへの認証にクレデンシャルが必要になります。
+### ステップ 4: 自動コントローラーワークショップ認証情報の検証
 
-> クレデンシャルに関するより詳細な情報は [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html) を参照してください。
+認証情報は、**Jobs**
+をマシンに対して起動したり、インベントリーソースと同期したり、プロジェクトのコンテンツをバージョン管理システムからインポートしたりする際の認証用に、自動コントローラーによって使用されます。ワークショップでは、ネットワークデバイスへの認証に認証情報が必要です。
 
-1. 左メニューバーの **RESOURCES** の下の **Credentials** ボタンをクリックします。
+> 注記:
+>
+> 自動コントローラーの認証情報の詳細は、[ドキュメントを参照してください](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html)。
 
-    ![credentials link](images/credentials.png)
+1. 左側のメニューバーの **Resources** の下にある **Credentials** ボタンをクリックします。
 
-2. **CREDENTIALS** には事前設定された3つのクレデンシャル `Demo Credential`、`Tower Credntial` と `Workshop Credentials` があるはずです。ここでは `Workshop Credential` を選択します。
+    ![credentials link](images/automation_controller_credentials.png)
 
-    ![Workshop Credential Link](images/workshop_credential.png)
+2. **Credentials** には、`Workshop Credential`、`Controller Credential`、および
+   `registry.redhat.io credential` を含む複数の事前設定された認証情報があります。`Workshop
+   Credential` をクリックします。
 
-3. `Workshop Credential` の以下を確認してください:
-    - **CREDENTIAL TYPE** は **Machine** に設定されています。
-    - **USERNAME** には `ec2-user` が入力されています。
-    - **PASSWORD** はブランクです。
-    - **SSH PRIVATE KEY** は設定されており、**ENCRYPTED** と隠蔽されています。
+    ![ワークショップ認証情報のリンク](images/workshop_credential.png)
 
-![animation walkthrough ansible credentials](images/credentials.gif)
-Youtube でも確認できます [Click Here](https://youtu.be/UT0t_hlNw-c)
+3. `Workshop Credential` で以下を確認します。
 
-# Takeaways
+* **CREDENTIAL TYPE**は **Machine* 認証情報です。
+* **USERNAME** は `ec2-user` に設定されています。
+* **PASSWORD** は空白です。
+* **SSH PRIVATE KEY** はすでに構成されており、**ENCRYPTED** されています。
 
-- Ansible Tower は Playbook を実行するのにインベントリーが必要になります。このインベントリーは、コマンドラインからPlaybookを実行したときのものと同じです。
-- この演習では Tower のインベントリーは事前設定されていましたが、既存のコマンドライン用インベントリーをインポートすることも簡単です。[こちらの blog ](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) ではいくつかの既存インベントリーを Ansible Tower へインポートする方法が紹介されています。
-- Ansible Tower は GitHub などの既存SCM(ソースコード管理システム)と同期することが可能です。
-- Ansible Tower は SSH秘密鍵やログイン用パスワードを暗号化して保存することが可能です。その他にも、CyberArk や HashiCorp の Vault など、既存の認証情報管理システムと連携することも可能です。
+## 重要なこと
+
+* 自動コントローラーは、Ansible Playbook
+  を再度実行するためのインベントリーが必要です。このインベントリーは、ユーザーがコマンドラインのみの Ansible
+  プロジェクトで使用するものと同じです。
+* このワークショップではすでにインベントリーが設定されていますが、既存の Ansible Automation
+  インベントリーをインポートするのは簡単です。既存のインベントリーを自動コントローラーに簡単に取り込むその他の方法については、[このブログポスト](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower)
+  をご覧ください。
+* 自動コントローラーは、Github を含む既存の SCM (ソース管理) と同期できます。
+* 自動コントローラーは、SSH 秘密鍵やプレーンテキストパスワードなどの資格情報を保存および暗号化できます。自動コントローラーは、HashiCorp
+  の CyberArk や Vault などの既存の資格情報ストレージシステムと同期することもできます。
+
+## 完了
+
+ラボ演習 5 を完了しました
+
+これで、自動コントローラーの使用を開始するために必要な認証情報、インベントリー、およびプロジェクトの 3
+つのコンポーネントすべてを調べました。次の演習では、ジョブテンプレートを作成します。
 
 ---
+[前の演習](../4-resource-module/README.md) |
+[次の演習](../6-controller-job-template/README.md)
 
-# Complete
-
-以上で exercise 5 は終了です。
-
-これで Ansible Tower を利用するために必要な3つのコンポーネント（クレデンシャル、インベントリー、プロジェクト）を確認できました。次の演習ではジョブテンプレートを作成していきます。
-
-[Click here to return to the Ansible Network Automation Workshop](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../README.md)

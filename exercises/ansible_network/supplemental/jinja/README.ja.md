@@ -1,46 +1,65 @@
-# Exercise 4 - Jinja2 template を使ったネットワーク設定
+# Supplemental - Network Configuration with Jinja Templates
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
 ## Table of Contents
 
-- [Objective](#objective)
-- [Guide](#guide)
-- [Takeaways](#takeaways)
-- [Solution](#solution)
+* [Objective](#objective)
+* [Guide](#guide)
+   * [Step 1 - Creating group vars](#step-1---creating-group-vars)
+   * [Step 2 - Creating Jinja2 template](#step-2---creating-jinja2-template)
+   * [Step 3 - Exploring the Jinja2
+     template](#step-3---exploring-the-jinja2-template)
+   * [Step 4 - Create a playbook](#step-4---create-a-playbook)
+   * [Step 5 - Execute the Ansible
+     Playbook](#step-5---execute-the-ansible-playbook)
+   * [Step 6 - Verify configuration](#step-6---verify-configuration)
+* [Takeaways](#takeaways)
+* [Solution](#solution)
+* [Complete](#complete)
 
-# Objective
+## Objective
 
-ネットワーク構成をテンプレート化して機器に送ります。
+Demonstration templating a network configuration and pushing it a device
 
-- 必要となるIPアドレスをグループ[変数](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html) にストアして利用する。
-- [Jinja2 template lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html) を利用する。
-- [cli_config モジュール](https://docs.ansible.com/ansible/latest/modules/cli_config_module.html) を利用してネットワーク自動化を確認する。
+* Use and understand group
+  [variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+  to store the IP addresses we want.
+* Use the [Jinja2 template lookup
+  plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html)
+* Demonstrate use of the network automation [cli_config
+  module](https://docs.ansible.com/ansible/latest/modules/cli_config_module.html)
 
-# Guide
+## Guide
 
-#### Step 1
+### Step 1 - Creating group vars
 
-このステップでは Ansible の変数を作成して Playbook の中で利用します。この演習では以下のIPアドレスを rtr1 と rtr2 のループバックアドレスとして利用します:
+This step will cover creating Ansible variables for use in an Ansible
+Playbook. This exercise will use the following IP address schema for
+loopbacks addresses on rtr1 and rtr2:
 
-Device  | Loopback100 IP |
------------- | ------------- |
-rtr1  | 192.168.100.1/32 |
-rtr2  | 192.168.100.2/32 |
+Device | Loopback100 IP | ------------ | ------------- | rtr1 |
+192.168.100.1/32 | rtr2 | 192.168.100.2/32 |
 
-変数の情報は host_vars と group_vars に格納することができます。この演習のために `group_vars` という名前のディレクトリを作成します:
+Variable information can be stored in `host_vars` and `group_vars`.  For
+this exercise create a folder named `group_vars`:
 
-```bash
-[student1@ansible network-workshop]$ mkdir ~/network-workshop/group_vars
-```
+- Create a new folder called `group_vars`.  Right click on the Explorer
+toolbar on the left side of Visual Studio Code and select **New Folder**
 
-そしてこのディレクトリ内に `all.yml` という名前のファイルを好きなエディタで作成してください。コントローラーノードでは vim か nano がインストールされています。
+   ![new folder](images/ansible-navigator-new-folder.png)
 
-```
-[student1@ansible network-workshop]$ nano group_vars/all.yml
-```
+- Create a new file called `all.yml`.  Right click on the Explorer toolbar
+on the left side of Visual Studio Code and select **New File** inside the
+`group_vars` directory.
 
-インターフェースとIPアドレスの情報は Playbook から利用できるように、変数として上記のファイルに格納されている必要があります。上記のテーブル表を格納するためにシンプルな YAML の辞書データを作ることから始めます。トップレベルの変数(例えば `nodes`)を使用し、`inventory_hostname` に基づいて検索可能となるよう以下のように定義します:
+   ![new file](images/ansible-navigator-new-file.png)
+
+The interface and IP address information above must be stored as variables
+so that the Ansible playbook can use it. Start by making a simple YAML
+dictionary that stores the table listed above. Use a top level variable
+(e.g. `nodes`) so that a lookup can be performed based on the
+`inventory_hostname`:
 
 ```yaml
 nodes:
@@ -50,82 +69,108 @@ nodes:
     Loopback100: "192.168.100.2"
 ```
 
-group_vars/all.yml ファイルに上記の YAML 辞書データを記入して保存します。
+Copy the YAML dictionary we created above into the `group_vars/all.yml` file
+and save the file.
 
->全てのデバイスはデフォルトで **all** グループの一部です。もし **cisco** グループを作成し、このグループにしか所属しないデバイスがあったとしても、この変数にはアクセスすることができます。
+> All devices are part of the group **all** by default.  If we create a group named **cisco** only network devices belonging to that group would be able to access those variables.
 
-#### Step 2
+### Step 2 - Creating Jinja2 template
 
-`template.j2` という名前のファイルを作成します:
+Create a new file called `template.j2` in the `network-workshop` directory.
+Right click on the Explorer toolbar on the left side of Visual Studio Code
+and select **New File**.  The directory stucture will look like this:
 
 ```
-[student1@ansible network-workshop]$ nano template.j2
+├── group_vars
+│   └── all.yml
+├── template.j2
 ```
 
-以下を template.j2 ファイルに記述します:
+Copy the following into the template.j2 file:
 
 <!-- {% raw %} -->
+
 ```yaml
 {% for interface,ip in nodes[inventory_hostname].items() %}
 interface {{interface}}
   ip address {{ip}} 255.255.255.255
 {% endfor %}
 ```
+
 <!-- {% endraw %} -->
 
+Save the file.
 
-ファイルを保存します。
+### Step 3 - Exploring the Jinja2 template
 
-#### Step 3
-
-このステップでは新しく作成された template.j2 ファイルの各行について詳しく説明します。
+This step will explain and elaborate on each part of the newly created
+template.j2 file.
 
 <!-- {% raw %} -->
+
 ```yaml
 {% for interface,ip in nodes[inventory_hostname].items() %}
 ```
+
 <!-- {% endraw %} -->
 
 <!-- {% raw %} -->
-- Jinja テンプレートの中ではコード部分は `{%` と `%}` でエスケープされます。`for` はループ処理の開始をプログラムに指示します。`interface,ip` は、辞書形式を `interface` という名前のキーと、`ip` という名前の値に分解します。
+
+* Pieces of code in a Jinja template are escaped with `{%` and `%}`.  The
+  `interface,ip` breaks down the dictionary into a key named `interface` and
+  a value named `ip`.
+
 <!-- {% endraw %} -->
 
-- `nodes[inventory_hostname]` は辞書形式で、`group_vars/all.yml` ファイルの中を検索します。**inventory_hostname** はインベントリーファイルの中で設定されたホスト名が入ります。Playbookが `rtr1` に対して実行されるときには inventory_hostname は `rtr1` となり、`rtr2` に対して実行されるときには inventory_hostname は `rtr2` となり、その他も同様です。
+* The `nodes[inventory_hostname]` does a dictionary lookup in the
+  `group_vars/all.yml` file.  The **inventory_hostname** is the name of the
+  hostname as configured in Ansible's inventory host file.  When the
+  playbook is executed against `rtr1` inventory_hostname will be `rtr1`,
+  when the playbook is executed against `rtr2`, the inventory_hostname will
+  be `rtr2` and so forth.
 
->変数 inventory_hostname は自動的に提供される [magic variable](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts) です。
+> The inventory_hostname variable is considered a [magic variable](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts) which is automatically provided.
 
-- `items()` キーワードは辞書形式のリストを返します。この場合は、辞書形式のキーはインターフェース名 (例 Loopback100) で、値は IP アドレス (例 192.168.100.1)となります。
+* The keyword `items()` returns a list of dictionaries.  In this case the
+  dictionary's key is the interface name (e.g. Loopback100) and the value is
+  an IP address (e.g. 192.168.100.1)
 
 <!-- {% raw %} -->
+
 ```yaml
 interface {{interface}}
   ip address {{ip}} 255.255.255.255
 ```
+
 <!-- {% endraw %} -->
 
-- 変数は次のように中括弧で表現します: `{{ variable_here }}`  この場合、変数名のキーと値はループの中に存在しています。ループの外側でこの2つの変数は存在しません。それぞれの繰り返しで変数の値は、元の変数値に基づいて再割当てされます。
+* Variables are rendered with the curly braces like this: `{{ variable_here
+  }}` In this case the variable name key and value only exist in the context
+  of the loop.  Outside of the loop those two variables don't exist.  Each
+  iteration will re-assign the variable name to new values based on what we
+  have in our variables.
 
-最終行:
+Finally:
+
 <!-- {% raw %} -->
-```
+
+```yaml
 {% endfor %}
 ```
+
 <!-- {% endraw %} -->
 
-- Jinja の中ではループの終了が必要となります。
+* In Jinja we need to specify the end of the loop.
 
-#### Step 4
+### Step 4 - Create a playbook
 
-config.yml という Playbook を作成します:
-
-```
-[student1@ansible network-workshop]$ nano config.yml
-```
-
-以下を config.yml へと記述します:
+- Create a new Ansible Playbook file called `config.yml`.  Right click on
+the Explorer toolbar on the left side of Visual Studio Code and select **New
+File** .  Either copy the playbook below or type this in:
 
 <!-- {% raw %} -->
-```
+
+```yaml
 ---
 - name: configure network devices
   hosts: rtr1,rtr2
@@ -135,64 +180,81 @@ config.yml という Playbook を作成します:
       cli_config:
         config: "{{ lookup('template', 'template.j2') }}"
 ```
+
 <!-- {% endraw %} -->
 
-- この Playbook は *configure device with config* と名付けられた1つのタスクを持ちます。
-- **cli_config** モジュールはベンダー非依存です。このモジュールは Arista、Cisco、Juniper に対して同じように動作します。このモジュールは **network_cli** コネクションプラグインを利用しているときにのみ動作します。
-- cli_config モジュールは1つのパラメーターが必要で、ここでは **config** です。ここには lookup プラグインで検索されるフラットファイルを指定しています。利用可能な lookup プラグインはこちらです [visit the documentation](https://docs.ansible.com/ansible/latest/plugins/lookup.html)  
-- template lookup プラグインは2つのパラメーターを必要とします。プラグインのタイプである *template* と対応したテンプレート名の *template.j2* です。
+* This Ansible Playbook has one task named *configure device with config*
+* The **cli_config** module is vendor agnostic.  This module will work
+  identically for an Arista, Cisco and Juniper device.  This module only
+  works with the **network_cli** connection plugin.
+* The cli_config module only requires one parameter, in this case **config**
+  which can point to a flat file, or in this case uses the lookup plugin.
+  For a list of all available lookup plugins [visit the
+  documentation](https://docs.ansible.com/ansible/latest/plugins/lookup.html)
+* Using the template lookup plugin requires two parameters, the plugin type
+  *template* and the corresponding template name *template.j2*.
 
-#### Step 5
+### Step 5 - Execute the Ansible Playbook
 
-Playbook を実行します:
+Use the `ansible-navigator` command to execute the playbook:
 
 ```
 [student1@ansible network-workshop]$ ansible-playbook config.yml
 ```
 
-出力は以下のようになるはずです。
+The output will look similar to the following:.
 
 ```
-[student1@ansible ~]$ ansible-playbook config.yml
+[student1@ansible-1 network-workshop]$ ansible-navigator run config.yml --mode stdout
 
-PLAY [rtr1,rtr2] ********************************************************************************
+PLAY [configure network devices] ***********************************************
 
-TASK [configure device with config] ********************************************************************************
+TASK [configure device with config] ********************************************
 changed: [rtr1]
 changed: [rtr2]
 
-PLAY RECAP ********************************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+PLAY RECAP *********************************************************************
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
-#### Step 6
+### Step 6 - Verify configuration
 
-`show ip int br` コマンドを実行して、ネットワークデバイスに設定されたIPアドレスを確認します。
+Use the command `show ip int br` to verify the IP addresses have been
+confirmed on the network devices.
 
-```
+```sh
 [student1@ansible network-workshop]$ ssh rtr1
 
 rtr1#show ip int br | include Loopback100
 Loopback100            192.168.100.1   YES manual up                    up
 ```
 
-# Takeaways
+## Takeaways
 
-- [Jinja2 template lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html) はデバイスのコンフィグをテンプレート化することが可能です。
-- `*os_config` (例 ios_config) と cli_config モジュールは Jinja2 テンプレートを読み込み、機器に直接プッシュすることが可能です。もしコントローラーノード上で単純にコンフィグファイルを記述したい場合は [template モジュール](https://docs.ansible.com/ansible/latest/modules/template_module.html) が利用できます。
-- 変数は一般的に group_vars と host_vars に格納されています。この演習では group_vars を利用しました。
+* The [Jinja2 template lookup
+  plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html) can
+  allow us to template out a device configuration.
+* The `config` (e.g. `cisco.ios.config`, `arista.eos.config`) and cli_config
+  modules can source a jinja2 template file, and push directly to a device.
+  If you want to just render a configuration locally on the control node,
+  use the [template
+  module](https://docs.ansible.com/ansible/latest/modules/template_module.html).
+* Variables are mostly commonly stored in `group_vars` and `host_vars`.
+  This short example only used group_vars.
 
-# Solution
+## Solution
 
-完成したPlaybookはここから参照できます: [config.yml](config.yml).
+The finished Ansible Playbook is provided here for an answer key:
+[config.yml](config.yml).
 
-完成したJinja2 templateはここから参照できます: [template.j2](template.j2).
+The provided Ansible Jinja2 template is provided here:
+[template.j2](template.j2).
+
+## Complete
+
+You have completed this lab exercise
 
 ---
-
-# Complete
-
-以上で exercise 4 は終了です。
-
-[Click here to return to the Ansible Network Automation Workshop](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../../README.md)

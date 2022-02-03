@@ -1,36 +1,29 @@
-# 演習 2.1 - モジュールの組み合わせを使用してBIG-IPの構成を削除する
+# 演習 2.1: モジュールの組み合わせを使用した BIG-IP 上での設定の削除
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbook の出力](#Playbookの出力)
-- [解答](#解答)
-- [確認](#確認)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[ソリューション](#solution)  - [ソリューションの確認](#verifying-the-solution)
 
 # 目的
 
-異なるモジュールを使用して、BIG-IPの構成(ノード/プール/仮想サーバ)を削除します。
+さまざまなモジュールを使用して BIG-IP 上で設定 (ノード/プール/仮想サーバー) を削除する方法を説明します。
+# ガイド
 
-# 解説
+## ステップ 1:
 
-## Step 1:
+VSCode を使用して、左側のペインの新規ファイルアイコンをクリックして、`bigip-delete-configuration.yml`
+という名前の新しいファイルを作成します。
 
-テキストエディタで新規ファイル `bigip-delete-configuration.yml` を作成します:
+![picture of create file
+icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
-{% raw %}
-```
-[student1@ansible ~]$ nano bigip-delete-configuration.yml
-```
-{% endraw %}
 
->`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
+## ステップ 2:
 
-## Step 2:
-
-以下の play 定義を `bigip-delete-configuration.yml` に追加してください:
+次のプレイ定義を `bigip-delete-configuration.yml` に入力します。
 
 {% raw %}
 ``` yaml
@@ -40,18 +33,17 @@
   connection: local
   gather_facts: false
 ```
-{% endraw %}
-- ファイルの先頭の `---` はこのファイルが YAML であることを示します。
-- `hosts: lb` はこのプレイブックが lb グループのみで実行されることを示しています。 本演習では、BIG-IP機器は１つだけですが、もし複数台が設定されている場合には同時に設定されます。
-- `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+{% endraw %} - ファイル上部の `---` は、これが YAML ファイルであることを示しています。  - `hosts: f5`
+は、プレイが F5 BIG-IP デバイスでのみ実行されることを示します。  - `connection: local` は、（自身に SSH
+接続するのではなく）ローカルで実行するように Playbook に指示します  - `gather_facts: false`
+はファクト収集を無効にします。この Playbook では、ファクト変数を使用しません。
 
-## Step 3
+## ステップ 3
 
-プロバイダ値を設定するために `set_fact` を含む tasks を追加します。
+プロバイダー値を設定する set_fact で tasks セクションを追加します。
 
 {% raw %}
-```yaml
+``` yaml
   tasks:
     - name: Setup provider
       set_fact:
@@ -64,9 +56,12 @@
 ```
 {% endraw %}
 
-## Step 4
+## ステップ 4
 
-次に、[bigip_virtual_server](https://docs.ansible.com/ansible/latest/modules/bigip_virtual_server_module.html) を使用してタスクを追加します。このタスクは、[演習 1.5 - virtual server の追加](../1.5-add-virtual-server/README.ja.md) と同じです。 `state:absent` は、F5BIG-IP ロードバランサから構成を削除します。
+次に、[bigip_virtual_server](https://docs.ansible.com/ansible/latest/modules/bigip_virtual_server_module.html)
+を使用して、最初の `task` を追加します。このタスクは [演習 1.5 -
+仮想サーバーの追加](../1.5-add-virtual-server/README.md) と同じですが、**state**
+パラメーターが追加されています。`state: absent` は、F5 BIG-IP ロードバランサーから設定を削除します。
 
 {% raw %}
 ``` yaml
@@ -76,12 +71,14 @@
         name: "vip"
         state: absent
 ```
-{% endraw %}
-- `state: absent` はモジュールに設定を削除するように指示するパラメータです。
+{% endraw %} - `state: absent` は、設定を削除するようにモジュールに指示するパラメーターです。
 
-## Step 5
+## ステップ 5
 
-次に、[bigip_pool](https://docs.ansible.com/ansible/latest/modules/bigip_pool_module.html) を使用して2番目のタスクを追加します。このタスクは[演習 1.3 - プールの追加](../1.3-add-pool/README.ja.md) に **state** パラメーター `absent` をつけたものと同じです。
+次に、[bigip_pool](https://docs.ansible.com/ansible/latest/modules/bigip_pool_module.html)
+を使用して、2 番目の `task` を追加します。このタスクは [演習 1.3 -
+ロードバランシングプールの追加](../1.3-add-pool/README.md) と同じですが、**state** パラメーターが追加され
+`absent` に設定されています。
 
 {% raw %}
 ```yaml
@@ -93,9 +90,12 @@
 ```
 {% endraw %}
 
-## Step 6
+## ステップ 6
 
-最後に、[bigip_node](https://docs.ansible.com/ansible/latest/modules/bigip_node_module.html) を使用して最後のタスクを追加します。このタスクは、[演習 1.2 - F5 BIG-IP へのノード追加](../1.2-add-node/README.ja.md) に **state** パラメーター `absent` をつけたものと同じです。
+最後に、[bigip_node](https://docs.ansible.com/ansible/latest/modules/bigip_node_module.html)
+を使用して、最後の `task` を追加します。このタスクは [演習 1.2 - F5 BIG-IP
+へのノードの追加](../1.2-add-node/README.md) と同じですが、**state** パラメーターが追加され `absent`
+に設定されています。
 
 {% raw %}
 ```yaml
@@ -107,60 +107,65 @@
       loop: "{{ groups['web'] }}"
 ```
 {% endraw %}
-上記のPlaybookは、仮想サーバ、プール、前の実習で構成したノードの順に削除します。
 
-## Step 7
+ファイルを保存します。
 
-Playbook の実行 - コマンドラインへ戻ったら以下のコマンドでPlaybookを実行してください:
+## ステップ 7
+Playbook は、以前の演習で設定した仮想サーバーを削除してからプールを削除し、その後にノードを削除します。
+
+Playbook を実行します。VS Code サーバーのターミナルに戻り、以下を実行します。
 
 {% raw %}
 ```
-[student1@ansible ~]$ ansible-playbook bigip-delete-configuration.yml
+[student1@ansible ~]$ ansible-navigator run bigip-delete-configuration.yml --mode stdout
 ```
 {% endraw %}
 
-# Playbookの出力
+# Playbook の出力
 
 {% raw %}
 ```
-[student1@ansible]$ ansible-playbook bigip-delete-configuration.yml
+[student1@ansible]$ ansible-navigator run bigip-delete-configuration.yml --mode stdout
 
-PLAY [BIG-IP TEARDOWN] **************************************************************************************************************************************
+PLAY [BIG-IP TEARDOWN] ********************************************************
 
-TASK [Setup provider] ***************************************************************************************************************************************
+TASK [Setup provider] *********************************************************
 ok: [f5]
 
-TASK [DELETE VIRTUAL SERVER] ********************************************************************************************************************************
+TASK [DELETE VIRTUAL SERVER] **************************************************
 changed: [f5]
 
-TASK [DELETE POOL] *********************************************************************************************************************************
+TASK [DELETE POOL] ************************************************************
 changed: [f5]
 
-TASK [DELETE NODES] *************************************************************************************************************************************
+TASK [DELETE NODES] ***********************************************************
 changed: [f5] => (item=node1)
 changed: [f5] => (item=node2)
 
-PLAY RECAP **************************************************************************************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=4    changed=3    unreachable=0    failed=0
 
 ```
 {% endraw %}
 
-# 解答
+# ソリューション
 
-完成したPlaybookのサンプルは [bigip-delete-configuration.yml](./bigip-delete-configuration.yml) から参照できます。
+完成した Ansible Playbook
+が、回答キーとしてここで提供されています。[bigip-delete-configuration.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/2.1-delete-configuration/bigip-delete-configuration.yml)
+を表示するには、ここをクリックしてください。
 
-# 確認
+# ソリューションの確認
 
-Webブラウザを使用してF5にログインし、設定内容を確認します。F5ロードバランサーのIP情報を `lab_inventory/hosts` ファイルから取得し、https://X.X.X.X:8443/のように入力します。
+Web ブラウザーで F5 にログインし、設定された内容を確認します。lab_inventory/hosts ファイルから F5 ロードバランサーの
+IP 情報を取得し、https://X.X.X.X:8443/ のように入力します。
 
-BIG-IPのログイン情報:
-- username: admin
-- password: **講師から指示されます** (default is admin)
+BIG-IP のログイン情報: - ユーザー名: admin - パスワード: **インストラクターから提供、デフォルトは ansible**
 
-左側のメニューに移動し、構成が削除されたことを確認します。
+左側のメニューでナビゲートし、設定が削除されていることを確認します
 * Local Traffic Manager -> Virtual Server
 * Local Traffic Manager -> Pool
 * Local Traffic Manager -> Node
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+ここでの演習を完了しました。  
+
+[Click here to return to the lab guide](../README.md)

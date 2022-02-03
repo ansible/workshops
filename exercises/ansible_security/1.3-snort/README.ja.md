@@ -1,38 +1,116 @@
-# 演習 1.3 - 最初のSnort用のPlaybookを実行してみよう
+# 演習 1.3 - 最初の Snort Playbook の実行
 
-**Read this in other languages**: <br>
+**他の言語でもお読みいただけます**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
-## Step 3.1 - Snort
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    <h3>Workshop access</h3>
+  </a>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <blockquote>
+    <p><strong>Note</strong></p>
+    <p>
+    ワークショップには、Red Hat Enterprise Linux ホストにログインするための事前設定された SSH キーが含まれているので、ログイン用のユーザー名とパスワードは必要ありません。</p>
+  </blockquote>
+</div>
 
-セキュリティ環境でネットワーク侵入検知および侵入防止システムを自動化する方法を紹介するために、このラボでは Snort IDS インスタンスの管理方法を説明します。Snort はネットワークトラフィックを分析し、与えられたルールセットと比較します。
-このラボでは、Red Hat Enterprise Linux マシンに Snort をインストールし、SSH 経由で RHEL ノードにアクセスすることで Ansible が Snort を操作します。
+## ステップ 3.1 - Snort
 
-## Step 3.2 - Snortサーバーにアクセスする
+セキュリティー環境でのネットワーク侵入検出および侵入防止システムを自動化する方法を紹介するために、このラボでは、Snort IDS
+インスタンスの管理について説明します。Snort はネットワークトラフィックを分析し、これを特定のルールセットと比較します。このラボでは、Snort は
+Red Hat Enterprise Linux マシンにインストールされ、Ansible は SSH 経由で RHEL
+ノードにアクセスして対話します。
 
-Snortに接続するためには、インストールされているマシンのIPアドレスを見つける必要があります。Snort マシンの IP アドレスは、インベントリファイル `~/lab_inventory/hosts` を調べることで取得できます。VS Code のオンラインエディタで、メニューバーの **File** > **Open File...** をクリックして、ファイル `/home/student<X>/lab_inventory/hosts` を開きます。snort のエントリを検索して、以下のようなエントリを見つけてください:
+## ステップ 3.2 - Snort サーバーへのアクセス
+
+Snort インストールに接続するには、インストールされているマシンの IP アドレスを確認する必要があります。続いて、Snort マシンの IP アドレスを取得するには、インベントリーファイル `~/lab_inventory/hosts` に関する情報を検索します。VS Code のオンラインエディターで、メニューバーの **File** > **Open File...** をクリックして `/home/student<X>/lab_inventory/hosts` ファイルを開き、以下のような snort のエントリーを検索して確認します。
 
 ```bash
 snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 ```
 
-> **NOTE**
+> **注記**
 >
-> ここに記載されているIPアドレスはデモ用のものであり、あなた用のものとは異なります。あなたのラボ環境には、あなた専用のSnort環境が用意されています。
+> ここに記載されている IP アドレスはデモ目的のもので、お客様のケースとは異なります。お使いのラボ環境には、専用の Snort セットアップがあります。
 
-IPアドレスを見つけたら、Snortサーバにアクセスします。接続には、コントロールホストにプリインストールされているSSHキーを使用します。VS Code のオンラインエディタでターミナルを開き、Snortサーバにアクセスします:
+Snort サーバーへの接続は、制御ホストに事前にインストールされた SSH 鍵を使用します。Snort サーバーのユーザーは `ec2-user`
+です。VS Code のオンラインエディターでターミナルを開き、以下のように snort サーバーにアクセスします。
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@22.333.44.5
+[student<X>@ansible-1 ~]$ ssh ec2-user@snort
 Warning: Permanently added '22.333.44.5' (ECDSA) to the list of known hosts.
 Last login: Mon Aug 26 12:17:48 2019 from h-213.61.244.2.host.de.colt.net
-[ec2-user@ip-172-16-1-2 ~]$
+[ec2-user@snort ~]$
 ```
 
-Snortが正しくインストールされ設定されているかどうかを確認するには、sudo経由で呼び出してバージョンを確認することができます:
+snort が正しくインストールされ、設定されていることを確認するには、sudo で呼び出してバージョンを要求します。
 
 ```bash
-[ec2-user@ip-172-16-1-2 ~]$ sudo snort --version
+[ec2-user@snort ~]$ sudo snort --version
 
    ,,_     -*> Snort! <*-
   o"  )~   Version 2.9.13 GRE (Build 15013)
@@ -44,10 +122,10 @@ Snortが正しくインストールされ設定されているかどうかを確
            Using ZLIB version: 1.2.7
 ```
 
-また、`sudo systemctl` でサービスがアクティブに動作しているか確認してください:
+また、サービスが `sudo systemctl` 経由でアクティブに実行されているかどうかを確認します。
 
 ```bash
-[ec2-user@ip-172-16-1-2 ~]$ sudo systemctl status snort
+[ec2-user@snort ~]$ sudo systemctl status snort
 ● snort.service - Snort service
    Loaded: loaded (/etc/systemd/system/snort.service; enabled; vendor preset: disabled)
    Active: active (running) since Mon 2019-08-26 17:06:10 UTC; 1s ago
@@ -57,107 +135,122 @@ Snortが正しくインストールされ設定されているかどうかを確
 [...]
 ```
 
-> **NOTE**
+> **注記**
 >
-> Snort サービスが起動していないことがあります。このデモ環境では問題ありませんが、その場合は `systemctl restart snort` で再起動してもういちど状態を確認してください。実行状態になっているはずです。
+> snort サービスが実行されていない可能性があります。このデモ環境では問題ありませんが、もし実行されていない場合は、`systemctl restart snort` で再起動し、再度ステータスを確認してください。実行されているはずです。
 
-`CTRL` と `D` を押すか、コマンドラインで `exit` と入力して Snort サーバを終了します。これ以降の操作はすべて Ansible コントロールホストから Ansible を介して行われます。
+Snort サーバーを終了するには、`CTRL` および `D` を押すか、コマンドラインで `exit`
+と入力します。追加の対話はすべて、Ansible コントロールホストから Ansible 経由で行われます。
 
-## Step 3.3 - シンプルなSnortルール
+## ステップ 3.3: Snort の簡単なルール
 
-Snortのもっとも基本的な機能として、Snort はいくつかのルールを読み込んで、それに従って動作します。このラボでは、Snort の簡単な例を使って、Ansible を使ってこの設定を自動化する方法を紹介します。このセッションでは、Snort のルールの詳細や、大規模なセットアップに伴う複雑さまで体験することはできませんが、シンプルなルールの基本的な構造を理解することで、自分が何を自動化しているのかを意識するのに役立ちます。
+最も基本的なキャパシティーでは、Snort はいくつかのルールを読み取り、それらに従って動作することで機能します。このラボでは、Snort
+の簡単な例を使用して、Ansible でこの設定を自動化する方法を紹介します。このセッションは、Snort
+ルールの詳細や大規模な設定に伴う複雑さについては扱いませんが、簡単なルールの基本構造を理解することで、何を自動化するのかを認識することができます。
 
-ルールは、ルールヘッダーとルールオプションで構成され、ファイルに保存されます。
+ルールはルールヘッダーとルールオプションで構成され、ファイルに保存されます。
 
-Snortのルールヘッダーは以下のように分かれています:
+Snort のルールヘッダーは以下のように分かれています。
 
-- アクション
-- TCP のような対象のプロトコル
-- IPアドレスやポートなどの接続元情報
-- IPアドレスやポートなどの接続先情報
+- アクション - TCP などを探すプロトコル - IP やポートなどのソース情報 - IP やポートなどの宛先情報
 
-Snortルールのオプションは、`;`で区切られたキーワードで、以下のように指定することができます:
+Snort ルールオプションは `;` で区切られたキーワードで、以下のようになります。
 
-- ルールがマッチしたときに出力するメッセージ
-- ルールの一意の識別子であるSID
-- 疑わしい文字列などのパケットペイロードの中で検索するコンテンツ
-- バイナリデータをチェックするためのバイトテスト
-- ルールのリビジョン
-- 「priority」と呼ばれる攻撃の深刻度
-- 他のルールとよりよくグループ化するための「classtype」と呼ばれるあらかじめ定義された攻撃タイプ
-- その他
+- ルールが一致するときに出力するメッセージ - SID (ルールの一意識別子)、パケットペイロードで検索するコンテンツ (疑わしい文字列など) -
+バイナリーデータを確認するバイトテスト - ルールのリビジョン - "priority" と呼ばれる攻撃の重大度 -
+ルールを他のルールとより適切にグループ化するための "classtype" と呼ばれる事前に定義された攻撃タイプ - その他。
 
-すべてのオプションが必須というわけではなく、既存のデフォルト値を上書きするだけのものもあります。
+すべてのオプションが必須ではなく、既存のデフォルト値を上書きするだけのものもあります。
 
-Snortルールの概要は以下の通りです:
+Snort ルールの概要は以下のようになります。
 
 ```
 [action][protocol][sourceIP][sourceport] -> [destIP][destport] ( [Rule options] )
 ```
 
-Snortのルールについて詳しく知りたい場合は、[Snort Rule Infographic](https://www.snort.org/documents/snort-rule-infographic)や、[Snort Users Manual (PDF)](https://www.snort.org/documents/snort-users-manual)をご覧ください。実際の Snort ルールを見たい場合は、ラボの Snort インストールにアクセスして `/etc/snort/rules` ディレクトリの内容を見ることもできます。
+Snort ルールの詳細は、[Snort Rule
+Infographic](https://www.snort.org/documents/snort-rule-infographic) または
+Snort Users Manual
+(PDF)](https://www.snort.org/documents/snort-users-manual). を確認してください。また、実際の
+Snort のルールを確認したい場合は、ラボの Snort インストールにアクセスして、`/etc/snort/rules`
+ディレクトリーの内容を見ることもできます。
 
-## Step 3.4 - Playbookの例
+## ステップ 3.4: Playbook の例
 
- 前述したように、Ansible の自動化は Playbook で記述されています。Playbook は Task で構成されています。各Taskは、Module とModule に対応するパラメータを使用して、実行する必要のある変更や望ましい状態を記述します。
+前述したように、Ansible の自動化については Playbook で説明されています。Playbook はタスクで構成されています。各タスクは、モジュールとモジュールの対応するパラメーターを使用して、必要な変更や、必要な状態を記述します。
 
-Ansible のリリースには Module が同梱されていますが、Ansible 2.9 では Snort と対話するためのモジュールはまだありません。このため、Snortを管理するためのモジュール群を書きました。このようにして、新しいAnsibleのリリースを待たずに価値を提供することができます。また、Moduleの更新作業も早くなりました。これは、新しく開発されたModuleの初期の段階では特に重要です。
+Ansible リリースにはモジュールのセットが同梱されていますが、Ansible Core 2.11 には、Snort
+と対話するためのモジュールがまだありません。このため、Snort を管理するためのモジュールのセットを作成し、`security_ee`
+実行環境に含めました。実行環境を使用すると、モジュールの更新時間が短縮されます。これは、新たに開発されたモジュールの初期段階で特に重要です。
 
-これらのSnort Moduleは「Role」の一部として出荷されます。Role をよりよく記述するために、最後のセクションで自分の Playbook をどのように書いたかを考えてみましょう。以前行ったように1つのファイルに Playbook を書くことは可能ですが、多くの場合ですべての自動化のピースを1つの場所に書くことは、長くて複雑な Playbook をつくることになります。一方で、最終的にPlaybook に書いた自動化の部品を再利用したくなる場合もあります。したがって、複数のより小さく、よりシンプルな Playbook が一緒に動作するように整理する必要があります。Roleは、それを実現する方法です。Roleを作成するときは、プレイブックを部品に分解し、それらの部品をディレクトリ構造に配置します。
+これらの Snort モジュールは "role" の一部として同梱されます。ロールをよりよく説明するには、最後のセクションで Playbook
+をどのように書いたかを考えてみましょう。Playbook は以前のように 1 つのファイルに書くことができますが、多くの場合、すべての自動化部分を 1
+つの場所に書くと、長くて複雑な Playbook が作成されます。ある時点で、すでに Playbook
+に書いた自動化コンテンツを再利用したくなるでしょう。したがって、複数の小さな Playbook
+を組み合わせて連携させるためには、これらを整理する必要があります。これを実現する方法が Ansible ロールです。ロールを作成すると、Playbook
+が複数のパーツに分けられ、それらのパーツはディレクトリー構造に置かれます。
 
-Role を使って自動化を実施することには、複数のメリットがあります。最も注目すべきは、複雑さとプレイブックのインテリジェンスがユーザーから隠されていることです。もう一つの重要な利点は、Role を簡単に共有して再利用できることです。
+ロールを使用して自動化を作成する利点は複数あります。最も注目すべき点は、複雑さと Playbook
+のインテリジェンスがユーザーから非表示になっていることです。もう 1 つの重要な利点は、ロールを簡単に共有して再利用できることです。
 
-Snortのユースケースに戻ります。前述の通り、Snort Module は Role の一部として出荷されます。このRoleは[ids_rule](https://github.com/ansible-security/ids_rule)と呼ばれています。WebブラウザでGithubリポジトリのリンクを開き、[library](https://github.com/ansible-security/ids_rule/tree/master/library)のパスをクリックします。そこには `snort_rule.py` という Module があります。この Module は ids_rule Role の一部として出荷され、snort ルールを作成したり変更したりすることができます。
+Snort の使用例に戻ります。前述のように、Snort モジュールはロールの一部として出荷されます。このロールは
+[ids_rule](https://github.com/ansible-security/ids_rule). と呼ばれます。Web ブラウザーで
+Github
+リポジトリーのリンクを開き、[library](https://github.com/ansible-security/ids_rule/tree/master/library)
+パスをクリックします。そこには、モジュール `snort_rule.py` があります。`ids_rule`
+ロールの一部として出荷されたこのモジュールは、snort のルールを作成および変更することができます。
 
-Role を詳しく見てみると、[tasks/snort.yml](https://github.com/ansible-security/ids_rule/blob/master/tasks/snort.yml)に再利用可能な Playbook が付属していることがわかります。
+ロールの詳細を確認すると、[tasks/snort.yml](https://github.com/ansible-security/ids_rule/blob/master/tasks/snort.yml).
+に再利用可能な Playbook が付属していることがわかります。
 
-この Playbook がどのように書き換えてRoleを直接使えるようになるか見てみましょう。まず、コントロールホストに Role をダウンロードしてインストールする必要があります。これには様々な方法がありますが、非常に便利なのは `ansible-galaxy` というコマンドラインツールです。このツールは、アーカイブやGitのURL、[Ansible Galaxy](https://galaxy.ansible.com)から直接Roleをインストールします。Ansible Galaxy は、Ansible のコンテンツを見つけて共有するためのコミュニティハブです。レーティング、品質テスト、適切な検索などの機能を提供しています。例えば、上記のRoleはAnsible Galaxyの[ansible_security/ids_rule](https://galaxy.ansible.com/ansible_security/ids_rule)にあります。
+ここでは、この Playbook を書き換えて、ロールを直接使用する方法を見てみましょう。前述の通り、`ids_rule` ロールは
+`security_ee` 実行環境にバンドルされています。
 
-コマンドラインでは、`ansible-galaxy` ツールを使って `ids_rule` Role をダウンロードしてインストールすることができます。VSCodeオンラインエディタのターミナルで以下のコマンドを実行します:
-
-```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule
-- downloading role 'ids_rule', owned by ansible_security
-- downloading role from https://github.com/ansible-security/ids_rule/archive/master.tar.gz
-- extracting ansible_security.ids_rule to /home/student<X>/.ansible/roles/ansible_security.ids_rule
-- ansible_security.ids_rule (master) was installed successfully
-```
-
-
-ご覧のように、Role はデフォルトパスである `~/.ansible/roles/` にインストールされ、プレフィックスとして `ansible_security` が付けられています。これは、このラボで使用しているものなど、security roleに使用されるプロジェクトの名前です。
-
-Role がコントロールホストにインストールされているので、Playbook で使用することができます。Role を使用するためには、VSCodeのオンラインエディタで `add_snort_rule.yml` という名前の新しいファイルを作成します。これをユーザのホームディレクトリに保存し、`Add Snort rule`という名前と対象となるホストを追加します。Snort上で変更を行うにはroot権限が必要なので、`become`フラグを追加して、Ansibleが特権昇格に対処できるようにします。
+ロールを使用するには、オンラインエディターで `add_snort_rule.yml`
+という名前の新しいファイルを作成します。これをユーザーのホームディレクトリーに保存して、名前 `Add Snort rule` とターゲットホストを
+`snort` に追加します。Snort で変更を行うために root 権限が必要なため、Ansible が権限昇格を処理するように `become`
+フラグを追加します。
 
 ```yaml
 ---
 - name: Add Snort rule
   hosts: snort
-  become: yes
+  become: true
 ```
 
-次に、Playbookに必要な変数を追加する必要があります。私たちが使用しているRoleは、複数のIDSプロバイダで動作するように書かれています。ユーザが提供する必要があるのはIDSの名前だけで、Roleは残りの部分を担当します。Snort IDSを管理しているので、`ids_provider` 変数の値を `snort` に設定する必要があります。
+次に、Playbook で必要な変数を追加する必要があります。使用するロールは、複数の IDS プロバイダーと連携できる方法で書かれており、ユーザーが
+IDS の名前を入力するだけで、あとはロールが処理してくれます。ここでは Snort IDS を管理しているので、`ids_provider`
+変数の値を `snort` に設定する必要があります。
 
 ```yaml
 ---
 - name: Add Snort rule
   hosts: snort
-  become: yes
+  become: true
 
   vars:
     ids_provider: snort
 ```
 
-次に、Taskを追加する必要があります。Taskは、ターゲットマシン上で実際の変更を行うコンポーネントです。Roleを使用しているので、Taskの `include_role` を使ってシンプルな手順でPlaybookに追加することができます。私たちのユースケースに適したRoleを作るために、以下のTask固有の変数を追加します:
+次にタスクを追加する必要があります。タスクはターゲットマシンで実際の変更を加えるコンポーネントです。ここではロールを使用しているため、タスクの中の 1
+つのステップ `include_role` を使用するだけで、Playbook に追加することができます。
 
-- 実際のルール定義
-- Snortのルールファイル
-- ルールの状態(present/absent)
+>注記
+>
+> Ansible `include_role` モジュールは、指定されたロールをタスクとして動的に読み込み、実行します。詳細は、 [include_role documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_role_module.html) を参照してください.
+
+
+ここでは、`include_role` モジュールを使用して `ids_rule` ロールを使用します。
+
+ユースケースに適したロールにするためには、以下のタスク固有の変数を追加します。
+
+- 実際のルール - Snort ルールファイル (present または absent のルールの状態)
 
 ```yaml
 ---
 - name: Add Snort rule
   hosts: snort
-  become: yes
+  become: true
 
   vars:
     ids_provider: snort
@@ -172,17 +265,18 @@ Role がコントロールホストにインストールされているので、
         ids_rule_state: present
 ```
 
-ルールヘッダは `alert tcp any any -> any any any` となっているので、任意のソースから任意の宛先への tcp トラフィックのアラートを作成します。
-ルールオプションは、ルールがマッチした際の人間が読めるSnortメッセージを定義します。これは `content` の専門化されたバージョンであり、URIの解析を簡単にします。`classtype` は `attempted-user` に設定され、これは「ユーザの特権獲得の試み」のデフォルトクラスです。SIDは、ユーザー定義のルールに十分な高い値が設定されています。優先度は `1` で、最後にこれはこのルールの最初のバージョンなので、リビジョンを `1` に設定します。
+ここで何が起こっているのかを簡単に見てみましょう。ルールヘッダーは `alert tcp any any -> any any` なので、任意のソースから任意の宛先に tcp トラフィックに対するアラートを作成します。
+ルールオプションは、ルールが一致した場合に、人間が判読できる Snort メッセージを定義します。`uricontent` は、`content` の特殊バージョンで、URI の分析を容易にします。`classtype` は、"attempted user privilege gain" のデフォルトクラスである `attempted-user` に設定されます。SID は、ユーザー定義のルールに十分な高い値に設定されています。優先順位は `1` で、最後に、このルールの最初のバージョンであるため、リビジョンを `1` に設定します。
 
-他の変数 `ids_rules_file` と `ids_rule_state` は、ユーザ定義のルールファイルの場所を指定し、ルールがまだ存在しない場合にはルールを作成すべきであることを示します(`present`)。
+他の変数 `ids_rules_file` および `ids_rule_state`
+は、ルールファイルのユーザー定義の場所を提供し、ルールが存在しない場合にルールを作成する必要があることを示します(`present`)。
 
-## Step 3.5 - Run the playbook
+## ステップ 3.5: Playbook の実行
 
-いよいよPlaybookを実行する時が来ました。Playbook名を指定して `ansible-navigator` を実行します:
+VS Code のオンラインエディターで、Playbook を実行します。ターミナルで以下のコマンドを実行します。
 
 ```bash
-[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml
+[student1@ansible-1 ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -217,25 +311,25 @@ PLAY RECAP *********************************************************************
 snort  : ok=4  changed=2  unreachable=0  failed=0  skipped=4  rescued=0  ignored=0
 ```
 
-このPlaybookを実行するとわかるように、ルールの追加とともに実行されるTaskがたくさんあります。たとえば、ルールが追加された後、RoleはSnortサービスをリロードします。その他のTaskでは、変数の定義と検証を確実に行います。
-これは、Roleを使うことの価値を改めて強調しています。Roleを活用することで、コンテンツを再利用可能なものにするだけでなく、検証Taskなどの重要なステップを追加し、Roleの中にすっきりと隠しておくことができます。このRoleのユーザは、セキュリティ自動化の一部としてこのRoleを使用するために、Snortがどのように動作するか詳細を知る必要がありません。
+この Playbook の実行時に分かるように、ルールの追加に加えて多数のタスクが実行されます。たとえば、ロールは、ルールの追加後に Snort
+サービスを再読み込みします。その他のタスクでは、変数の定義と検証が行われることを確認します。
 
-## Step 3.6 - 変更を検証する
+このことからも、ロールを使用することの価値がわかります。ロールを活用することで、コンテンツを再利用できるようになるだけでなく、検証タスクやその他の重要なステップを追加して、それらをロールの中にきちんと隠しておくことができます。このロールのユーザーは、セキュリティー自動化の一環としてこのロールを使用するために、Snort
+の仕組みの詳細を知る必要はありません。
 
-ルールが正しく書かれているかどうかを確認する簡単な方法は、SnortサーバにSSHして `/etc/snort/rules/local.rules` ファイルの内容を確認することです。 
+## ステップ 3.6: 変更の確認
 
-もう一つの方法は、コントロールホストでAnsibleを使用することです。これを行うには、別の Roleを使用してSnortルールがあるかどうかを確認します。[ids_rule_facts](htithub.com/ansible-security/ids_rule_facts)というRoleは、Snortの既存のルールを検索して見つけます。
-このRoleを使うには、先ほどと同じように `ansible-galaxy` を使ってインストールします:
+ルールが正しく書き込まれたかどうかを確認する簡単な方法は、Snort サーバーに SSH
+で接続し、`/etc/snort/rules/local.rules` ファイルの内容を確認することです。
 
-```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule_facts
-- downloading role 'ids_rule_facts', owned by ansible_security
-- downloading role from https://github.com/ansible-security/ids_rule_facts/archive/master.tar.gz
-- extracting ansible_security.ids_rule_facts to /home/student1/.ansible/roles/ansible_security.ids_rule_facts
-- ansible_security.ids_rule_facts (master) was installed successfully
-```
+もう 1 つの方法は、コントロールホストで Ansible を使用することです。そのためには、Snort
+のルールがあるかどうかを検証するために、別のロールを使います。このロールは Snort
+で既存のルールを検索し、[ids_rule_facts](http://github.com/ansible-security/ids_rule_facts).
+と呼ばれます。このロールは、`security_ee` 実行環境に含まれています。
 
-VSCodeのオンラインエディタで、`verify_attack_rule.yml`というPlaybookを作成します。Playbookの名前を「Verify Snort rule」などに設定します。hosts、IDSプロバイダの変数、`become`フラグの値は、前回のPlaybookと同じように設定することができます。
+VS Code のオンラインエディターで、Playbook `verify_attack_rule.yml`
+を作成し、これを使用します。Playbook の名前を "Verify Snort rule" などのように設定します。ホスト、IDS
+プロバイダー変数、および `become` フラグの値は、以前の Playbook と同じ値に設定できます。
 
 ```yaml
 ---
@@ -247,7 +341,9 @@ VSCodeのオンラインエディタで、`verify_attack_rule.yml`というPlayb
     ids_provider: snort
 ```
 
-次に、`ids_rule_facts` Role をインポートします。また、探しているルールを特定するための検索文字列を提供する必要があります。この例では、作成したルールを考慮すると、この目的では `uricontent` ルールオプションを使用するのがよいでしょう。
+次に、ロール `ids_rule_facts`
+をインポートします。また、検索文字列を指定して、検索するルールを識別する必要があります。この例では、作成したルールを考慮すると、`uricontent`
+ルールオプションをこの目的で使用することが理にかなっています。
 
 ```yaml
 ---
@@ -265,8 +361,13 @@ VSCodeのオンラインエディタで、`verify_attack_rule.yml`というPlayb
       vars:
         ids_rule_facts_filter: 'uricontent:"/etc/passwd"'
 ```
+>注記
+>
+> Ansible `import_role` タスクは、ロールを読み込み、プレイの他のタスク間でロールタスクが実行されるタイミングを制御できます。詳細は、[import_role documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/import_role_module.html) を参照してください。
 
-そして何よりも、実際に発見されたものを見られるようにしたいです。ids_rule_facts` は収集したデータを Ansible のFactとして保存します。Ansible のFactは、個々のホストに固有の情報であり、更なるTaskで使用することができます。そこで、これらのFactを出力するための別のTaskを追加します。
+そして最も重要なのは、実際に見つかったものを確認できるようにすることです。`ids_rule_facts` は、収集したデータを Ansible
+ファクトとして保存します。Ansible
+ファクトは、個々のホストに固有の情報であり、今後のタスクで利用することができます。そこで、これらのファクトを出力するために、別のタスクを追加します。
 
 ```yaml
 ---
@@ -289,10 +390,10 @@ VSCodeのオンラインエディタで、`verify_attack_rule.yml`というPlayb
         var: ansible_facts.ids_rules
 ```
 
-では、Playbookを実行して、ルールがSnortインストールの一部であることを確認してみましょう:
+次に、Playbook を実行して、ルールが Snort インストールに含まれていることを確認します。
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
 
 PLAY [Verify Snort rule] **************************************************************
 
@@ -312,10 +413,14 @@ PLAY RECAP *********************************************************************
 snort  : ok=3  changed=0  unreachable=0  failed=0  skipped=0  rescued=0  ignored=0
 ```
 
-最後のタスクは、Roleで見つけたルールを出力します。見ての通り、以前に追加したルールです。
+最後のタスクは、ロールによって見つかったルールを出力します。ご覧のように、以前に追加したのはルールです。
 
-おめでとうございます！これで Ansible で Snort を自動化する最初のステップが完了しました。演習の概要に戻り、次のステップに進みます。
+おめでとうございます。Ansible で Snort を自動化する最初のステップを完了しました。演習の概要に戻り、次のステップに進みます。
 
 ----
 
-[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)
+**Navigation**
+<br><br>
+[Previous Exercise](../1.2-checkpoint/README.md) | [Next Exercise](../1.4-qradar/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

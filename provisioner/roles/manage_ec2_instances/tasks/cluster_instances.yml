@@ -41,7 +41,6 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
-      instance-state-name: running
       "tag:Workshop_ansible": "{{ ec2_name_prefix }}-ansible-{{ sequence }}"
   register: control_output
 

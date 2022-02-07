@@ -1,29 +1,41 @@
-# Exercise 2 - 最初のPlaybook
+# 演習 2 - 初めての Ansible プレイブック
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
-## Table of Contents
+## 目次
 
-- [Objective](#objective)
-- [Guide](#guide)
-- [Takeaways](#takeaways)
-- [Solution](#solution)
+* [目的](#objective)
+* [ガイド](#guide)
+   * [ステップ 1 - Ansible Playbook の検証](#step-1---examine-ansible-playbook)
+   * [ステップ 2 - Ansible Playbook の実行](#step-2---execute-ansible-playbook)
+   * [ステップ 3 - ルーターの設定の確認](#step-3---verify-configuration-on-router)
+   * [ステップ 4 - べき等性の検証](#step-4---validate-idempotency)
+   * [ステップ 5 - Ansible Playbook の変更](#step-5---modify-ansible-playbook)
+   * [ステップ 6 - チェックモードの使用](#step-6---use-check-mode)
+   * [ステップ 7 - 設定が存在しないことの確認](#step-7---verify-configuration-is-not-present)
+   * [ステップ 8 - Ansible Playbook の再実行](#step-8---re-run-the-ansible-playbook)
+   * [ステップ 9 - 設定が適用されていることの確認](#step-9---verify-configuration-is-applied)
+* [重要なこと](#takeaways)
+* [ソリューション](#solution)
+* [完了](#complete)
 
-# Objective
+## 目的
 
-ルーター設定の更新にAnsibleを利用します。この演習ではPlaybookは作成せずに、準備されたものを利用します。
+Ansible を使用して、ルーターの構成を更新します。この演習では、Ansible Playbook は作成しませんが、提供されている既存の
+Playbook を使用します。
 
-この演習は以下を含みます。
-- 既存のPlaybookを確認します。
-- Playbook を `ansible-playbook` コマンドを使って実行します。
-- check mode (`--check` オプション)
-- verbose mode (`--verbose` or `-v` オプション)
+この演習では、以下について説明します。
 
-# Guide
+* 既存の AnsiblePlaybook の検証
+* `ansible-navigator` コマンドを使用したコマンドラインでの AnsiblePlaybook の実行
+* チェックモード (`--check` パラメーター)
+* 詳細モード (`--verbose` または `-v` パラメーター)
 
-#### Step 1
+## ガイド
 
-`network-workshop` ディレクトリを移動してください（別のディレクトリにいる場合）
+### ステップ 1 - Ansible Playbook の検証
+
+`network-workshop` ディレクトリーに移動していない場合は、移動します。
 
 ```bash
 [student1@ansible ~]$ cd ~/network-workshop/
@@ -32,10 +44,10 @@
 /home/student1/network-workshop
 ```
 
-演習用に提供される `playbook.yml`を確認します。好きなエディタでこのファイルを開いてください。以下の例では `cat` コマンドを利用しています。
+`playbook.yml` という名前の提供された Ansible Playbook を調べます。Visual Studio Code
+でファイルを開くか、または `cat` でファイルの中身を表示します。
 
-```
-[student1@ansible network-workshop]$ cat playbook.yml
+```yaml
 ---
 - name: snmp ro/rw string configuration
   hosts: cisco
@@ -44,28 +56,30 @@
   tasks:
 
     - name: ensure that the desired snmp strings are present
-      ios_config:
+      cisco.ios.config:
         commands:
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
 ```
 
- - `cat` - ファイルの内容を確認するコマンド
- - `playbook.yml` - 演習で提供されるPlaybook
+* `cat` - ファイルの内容を表示できる Linux コマンド
+* `playbook.yml` - 提供された Ansible Playbook
 
-次の演習でPlaybookの詳細については確認します。ここではこのPlaybookで2つのCisco IOS-XEコマンドが実行されることが確認できれば十分です。
+次の演習では、Ansible Playbook のコンポーネントについて詳しく説明します。今のところ、このハンドブックが 2 つの
+CiscoIOS-XE コマンドを実行することを確認するだけで十分です。
 
-```
+```sh
 snmp-server community ansible-public RO
 snmp-server community ansible-private RW
 ```
 
-#### Step 3
+### ステップ 2 - Ansible Playbook の実行
 
-`ansible-playbook` コマンドを使ってこのPlaybookを実行します:
+`ansible-navigator` コマンドを使用して Playbook を実行します。完全なコマンドは ``ansible-navigator
+run playbook.yml --mode stdout`` です
 
 ```bash
-[student1@ansible network-workshop]$ ansible-playbook playbook.yml
+[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -73,12 +87,19 @@ TASK [ensure that the desired snmp strings are present] ************************
 changed: [rtr1]
 
 PLAY RECAP *********************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[student1@ansible-1 network-workshop]$
 ```
 
-#### Step 4
+* `--mode stdout` - デフォルトでは、`ansible-navigator` は対話モードで実行されます。デフォルトの動作は
+  `ansible-navigator.yml` を変更することで変更できます。Playbook
+  が長くなり複数のホストが関係するようになると、対話モードではデータをリアルタイムに「ズームイン」し、絞り込み、さまざまな Ansible
+  コンポーネント間の移動を行うことができます。このタスクは、1 つのホストで 1 つのタスクのみを実行するため、`stdout` で十分です。
 
-このPlaybookの動きを確認します。`rtr1`へログインし、Cisco IOS-XE上で実行中のコンフィグを確認します。
+### ステップ 3 - ルーターの設定の確認
+
+Ansible Playbook が機能したことを確認します。`rtr1` にログインし、CiscoIOS-XE デバイスで実行設定を確認します。
 
 ```bash
 [student1@ansible network-workshop]$ ssh rtr1
@@ -88,51 +109,51 @@ snmp-server community ansible-public RO
 snmp-server community ansible-private RW
 ```
 
+### ステップ 4 - べき等性の検証
 
-#### Step 5
+`cisco.ios.config`
+モジュールはべき等です。つまり、構成の変更は、その構成がエンドホストに存在しない場合にのみ、デバイスにプッシュされます。
 
-`ios_config` モジュールは冪等性を持ちます。つまり、コンフィグの変更がエンドホストに存在しない場合にだけ、コンフィグがデバイスにプッシュされることを意味します。
+> Ansible Automation の用語についてサポートが必要ですか?  
+>
+> べき等性などの用語について詳しく知るには、[用語集](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) を確認してください。
 
->Ansible Automation の用語（冪等性のような単語）の説明が必要な場合は [glossary](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) で確認することができます。
-
-冪等性を確認するには、Playbookを再実行します:
+冪等性の概念を検証するには、Playbook を再実行します。
 
 ```bash
-[student1@ansible network-workshop]$  ansible-playbook playbook.yml
+[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
-PLAY [snmp ro/rw string configuration] **************************************************************************************
+PLAY [snmp ro/rw string configuration] *****************************************
 
-TASK [ensure that the desired snmp strings are present] *********************************************************************
+TASK [ensure that the desired snmp strings are present] ************************
 ok: [rtr1]
 
-PLAY RECAP ******************************************************************************************************************
+PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
-[student1@ansible network-workshop]$
 ```
 
-> Note: **PLAY RECAP** の中の **changed** パラメーターが changed=0 であることを確認してください。
+> 注意:
+>
+> **PLAY RECAP** の **changed** パラメーターが変更がないことを示していることを確認してください。
 
-このPlaybookを複数回実行しても、結果は **ok=1** **change=0** と毎回同じになります。別のオペレーターやプロセスが rtr1 の設定を削除、変更をしない限り、このPlaybookはネットワークデバイス上で正しく設定が投入されていることを示す **ok=1** を通知し続けます。
+Ansible Playbook を複数回再実行すると、**ok=1** と **change=0**
+で、まったく同じ出力になります。別のオペレーターまたはプロセスが rtr1 の既存の設定を削除または変更しない限り、この AnsiblePlaybook
+は **ok=1** を報告し続け、設定が既に存在し、ネットワークデバイスで正しく構成されていることを示します。
 
+### ステップ 5 - Ansible Playbook の変更
 
-#### Step 6
+次に、タスクを更新して、`ansible-test` という名前の SNMPRO コミュニティ文字列をもう 1 つ追加します。
 
-ここで `ansible-test` というコミュニティ名を追加するようにタスクを更新します。
-
-```
+```sh
 snmp-server community ansible-test RO
 ```
 
-好きなテキストエディタで `playbook.yml` を開いて、コマンドを追加します:
+Visual Studio Code を使用して `playbook.yml` ファイルを開き、コマンドを追加します。
 
-```bash
-[student1@ansible network-workshop]$ nano playbook.yml
-```
 
-Playbookは以下のようになります:
+Ansible Playbook は次のようになります。
 
-``` yaml
+```yaml
 ---
 - name: snmp ro/rw string configuration
   hosts: cisco
@@ -141,43 +162,40 @@ Playbookは以下のようになります:
   tasks:
 
     - name: ensure that the desired snmp strings are present
-      ios_config:
+      cisco.ios.config:
         commands:
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
           - snmp-server community ansible-test RO
 ```
 
-#### Step 7
+必ず、変更を加えた `playbook.yml` を保存します。
 
-ここでは、このPlaybookを実行してデバイスのコンフィグを更新する代わりに、`--check` オプションと `-v(--verbose)` の冗長出力モードを組み合わせて実行します。
+### ステップ 6 - チェックモードの使用
 
+ただし、今回は、Playbook を実行して変更をデバイスにプッシュする代わりに、`--check` フラグを `-v`
+または冗長モードフラグと組み合わせて使用して実行します。
 
 ```bash
-[student1@ansible network-workshop]$ ansible-playbook playbook.yml --verbose --check
-Using /home/student1/.ansible.cfg as config file
+[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout --check -v
+Using /etc/ansible/ansible.cfg as config file
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
 TASK [ensure that the desired snmp strings are present] ************************
-changed: [rtr1] => changed=true
-  ansible_facts:
-    discovered_interpreter_python: /usr/bin/python
-  banners: {}
-  commands:
-  - snmp-server community ansible-test RO
-  updates:
-  - snmp-server community ansible-test RO
+changed: [rtr1] => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"], "updates": ["snmp-server community ansible-test RO"], "warnings": ["To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"]}
 
 PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-`--check` と `--verbose` を組み合わせると、実際にデバイス対して更新を行うことなく、どのような変更が行われるのかを確認することができます。これは、実際に更新を行う前に、変更内容を検証するのに最適な方法です。
+`--check` モードと `--verbose`
+フラグを組み合わせると、実際に変更をプッシュすることなく、エンドデバイスにデプロイされる正確な変更が表示されます。これは、デバイスをプッシュする前に、デバイスにプッシュしようとしている変更を検証するための優れた手法です。
 
-#### Step 8
+### ステップ 7 - 設定が存在しないことの確認
 
-`ansible-test` コミュニティが作成されていないことを確認します。`rtr1` へログインして、コンフィグ内容を確認してください。
+Ansible Playbook が `ansible-test` コミュニティーを適用していないことを確認します。`rtr1`
+にログインし、CiscoIOS-XE デバイスの実行設定を確認します。
 
 ```bash
 [student1@ansible network-workshop]$ ssh rtr1
@@ -187,26 +205,26 @@ snmp-server community ansible-public RO
 snmp-server community ansible-private RW
 ```
 
+### ステップ 8 - Ansible Playbook の再実行
 
-#### Step 9
-
-最後に、このPlaybookを `-v` `--check` オプションなしで再実行して、更新をプッシュします。
+最後に、変更をプッシュするために、`-v` または `--check` フラグを指定せずにこの Playbook を再実行します。
 
 ```bash
-[student1@ansible network-workshop]$ ansible-playbook playbook.yml
+[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
 TASK [ensure that the desired snmp strings are present] ************************
 changed: [rtr1]
 
-PLAY RECAP ******************************************************************************************************************
+PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-#### Step 10
+### ステップ 9 - 設定が適用されていることの確認
 
-Playbookが設定した `ansible-test` コミュニティを確認します。`rtr1` へログインして、コンフィグ内容を確認してください。
+Ansible Playbook が **ansible-test** コミュニティーを適用したことを確認します。`rtr1`
+にログインし、CiscoIOS-XE デバイスの実行設定を確認します。
 
 ```bash
 [student1@ansible network-workshop]$ ssh rtr1
@@ -217,21 +235,26 @@ snmp-server community ansible-private RW
 snmp-server community ansible-test RO
 ```
 
-# Takeaways
+## 重要なこと
 
-- ***os_config** (例えば ios_config) モジュールは冪等性を持ち、ステートフルです。
-- **check mode** はリモートシステムを変更せずにPlaybookを確認できる。
-- **verbose mode** は端末に多くの情報を表示し、そこにはどのようなコマンドが適用されるかが含まれている。
-- Playbook は設定を強制するために **Red Hat Ansible Tower** からスケジュールすることが可能です。例えば、特定のネットワークに1日1回Playbookを実行するなどです。また **check mode** と組み合わせ利用すると、ネットワークの設定が変更されたり削除された場合に、それを確認したりレポートすることも可能になります。
+* **config** (例：cisco.ios.config) モジュールはべき等であり、ステートフルであることを意味します
+* **check mode** により、Ansible Playbook がリモートシステムに変更を加えなくなります
+* **verbose mode** を使用すると、適用されるコマンドを含め、ターミナルウィンドウへの出力をより多く表示できます。
+* この AnsiblePlaybook は、構成を実施するために **自動コントローラー** でスケジュールできます。たとえば、これは、Ansible
+  Playbook を特定のネットワークに対して 1 日 1 回実行できることを意味します。**check mode**と
+  組み合わせると、ネットワーク上で設定が欠落しているか変更されているかどうかを確認して報告する、読み取り専用の Ansible Playbook
+  となります。
 
-# Solution
+## ソリューション
 
-完成したPlaybookはここから参照できます: [playbook.yml](../playbook.yml).
+こちらには、完成した Ansible Playbook があります [playbook.yml](../playbook.yml)。
+
+## 完了
+
+ラボ演習 2 を完了しました
 
 ---
+[前の演習](../1-explore/README.md) | [次の演習](../3-facts/README.md)
 
-# Complete
-
-以上で exercise 2 は終了です。
-
-[Click here to return to the Ansible Network Automation Workshop](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../README.md)

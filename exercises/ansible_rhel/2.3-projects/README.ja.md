@@ -1,7 +1,7 @@
 # ワークショップ演習 - プロジェクトとジョブテンプレート
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
@@ -15,13 +15,12 @@
 
 ## 目的
 
-Ansible Tower **Project** は、AnsiblePlaybook
-の論理的なコレクションです。プレイブックは、Git、Subversion、Mercurial などのTower がサポートするソースコード管理
-(SCM) システムに配置することで管理できます。
+Ansible 自動コントローラー **Project** は、AnsiblePlaybook の論理的なコレクションです。Playbook
+は、Git、Subversion などの自動コントローラーがサポートするソースコード管理 (SCM) システムに配置することで管理できます。
 
 この演習では、以下について説明します。
 
-* AnsibleTower プロジェクトの概要と利用
+* Ansible 自動コントローラープロジェクトの概要と利用
 * Git リポジトリーに保存されている AnsiblePlaybook の使用
 * Ansible ジョブテンプレートの作成と使用
 
@@ -39,7 +38,7 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
 ```yaml
 ---
 - name: Apache server installed
-  hosts: all
+  hosts: web
 
   tasks:
   - name: latest Apache version installed
@@ -76,61 +75,58 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
 >
 > 作成した Playbook の違いをメモしてください。最も重要なのは、`become` がなく、`hosts` が `all` に設定されていることです。
 
-Tower で **Source Control Management (SCM)**
+自動コントローラーで **Source Control Management (SCM)**
 として、このレポジトリーを設定して使用するには、このレポジトリーを使用する **Project** を作成する必要があります。
 
 ### プロジェクトの作成
 
-* サイドメニュービューで **RESOURCES → Projects** に移動し、緑色の **+**
-  ボタンをクリックします。フォームを記入します。
-
-  <table>
-    <tr>
-      <th>Parameter</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>NAME</td>
-      <td>Workshop Project</td>
-    </tr>
-    <tr>
-      <td>ORGANIZATION</td>
-      <td>Default</td>
-    </tr>
-    <tr>
-      <td>SCM TYPE</td>
-      <td>Git</td>
-    </tr>
-  </table>
-
-次に、リポジトリーにアクセスするための URL が必要になります。上記の Github リポジトリーに移動し、右側にある緑色の **Clone or
-download** ボタンを選択し、**Use https** をクリックして、HTTPS URL をコピーします。
-
-> **注意**
->
-> クリックする **Use https** がなく、**Use SSH** がある場合でも問題ありません。URL をコピーしてください。**https** で始まる URL をコピーすることが重要です。
-
-Project 構成に URL を入力します。
+* **Resources → Projects** に移動します。フォームで **Add** ボタンをクリックします。フォームを記入します。
 
  <table>
    <tr>
-     <th>Parameter</th>
-     <th>Value</th>
+     <th>パラメーター</th>
+     <th>値</th>
    </tr>
    <tr>
-     <td>SCM URL</td>
+     <td>Name</td>
+     <td>Workshop Project</td>
+   </tr>
+   <tr>
+     <td>Organization</td>
+     <td>Default</td>
+   </tr>
+   <tr>
+     <td>Default Execution Environment</td>
+     <td>Default execution environment</td>
+   </tr>
+   <tr>
+     <td>Source Control Credential Type</td>
+     <td>Git</td>
+   </tr>
+ </table>
+
+ Project 構成に URL を入力します。
+
+ <table>
+   <tr>
+     <th>パラメーター</th>
+     <th>値</th>
+   </tr>
+   <tr>
+     <td>Source Control URL</td>
      <td><code>https://github.com/ansible/workshop-examples.git</code></td>
    </tr>
    <tr>
-     <td>SCM UPDATE OPTIONS</td>
-     <td>Tick the first three boxes to always get a fresh copy of the repository and to update the repository when launching a job</td>
+     <td>Options</td>
+     <td>Select Clean, Delete, Update Revision on Launch to request a fresh copy of the repository and to update the repository when launching a job.</td>
    </tr>
  </table>
 
 * **SAVE** をクリックします。
 
+
 新しい Project は、作成後に自動的に同期されます。ただし、これを手動で行うこともできます。**Projects**
-ビューに移動し、プロジェクトの右側にある円形の矢印 *Get latest SCM revision** アイコンをクリックして、プロジェクトを Git
+ビューに移動し、プロジェクトの右側にある円形の矢印 *Sync Project** アイコンをクリックして、プロジェクトを Git
 リポジトリーと再度同期します。
 
 同期ジョブを開始した後、**Jobs** ビューに移動します。Git リポジトリーを更新するための新しいジョブがあります。
@@ -138,7 +134,7 @@ Project 構成に URL を入力します。
 ### ジョブテンプレートの作成とジョブの実行
 
 ジョブテンプレートは、Ansible
-ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。したがって、Tower から
+ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。したがって、自動コントローラーから
 Ansible **Job**を実行する前に、まとめる **Job Template** を作成する必要があります。
 
 * **Inventory**: ジョブが実行するホスト
@@ -149,59 +145,64 @@ Ansible **Job**を実行する前に、まとめる **Job Template** を作成�
 
 * **What** 使用する Playbook
 
-実際にやってみましょう。**Templates** ビューに移動して、![plus](images/green_plus.png)
-ボタンをクリックし、**Job Template** を選択します。
+実際にやってみましょう。**Resources -> Templates** ビューに移動して、*Add** button and choose ** ボタンをクリックし、**Add job template** を選択します。
 
 > **ヒント**
 >
 > フィールドへの記入を選ぶにあたり、オプションの概要を得るには拡大鏡をクリックすることができます。
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>NAME</td>
-    <td>Install Apache</td>
-  </tr>
-  <tr>
-    <td>JOB TYPE</td>
-    <td>Run</td>
-  </tr>
-  <tr>
-    <td>INVENTORY</td>
-    <td>Workshop Inventory</td>
-  </tr>
-  <tr>
-    <td>PROJECT</td>
-    <td>Workshop Project</td>
-  </tr>
-  <tr>
-    <td>PLAYBOOK</td>
-    <td><code>rhel/apache/apache_install.yml</code></td>
-  </tr>
-  <tr>
-    <td>CREDENTIAL</td>
-    <td>Workshop Credentials</td>
-  </tr>
-  <tr>
-    <td>LIMIT</td>
-    <td>web</td>
-  </tr>
-  <tr>
-    <td>OPTIONS</td>
-    <td>tasks need to run as root so check **Enable privilege escalation**</td>
-  </tr>
-</table>
+ <table>
+   <tr>
+     <th>パラメーター</th>
+     <th>値</th>
+   </tr>
+   <tr>
+     <td>Name</td>
+     <td>Install Apache</td>
+   </tr>
+   <tr>
+     <td>Job Type</td>
+     <td>Run</td>
+   </tr>
+   <tr>
+     <td>Inventory</td>
+     <td>Workshop Inventory</td>
+   </tr>
+   <tr>
+     <td>Project</td>
+     <td>Workshop Project</td>
+   </tr>
+   <tr>
+     <td>Execution Environment</td>
+     <td>Default execution environment</td>
+   </tr>
+   <tr>
+     <td>Playbook</td>
+     <td><code>rhel/apache/apache_install.yml</code></td>
+   </tr>
+   <tr>
+     <td>Credentials</td>
+     <td>Workshop Credential</td>
+   </tr>
+   <tr>
+     <td>Limit</td>
+     <td>web</td>
+   </tr>
+   <tr>
+     <td>Options</td>
+     <td>tasks need to run as root so check **Privilege Escalation**</td>
+   </tr>
+ </table>
 
-* **SAVE** をクリックします。
+* **Save** をクリックします。
 
-青い **LAUNCH** ボタンを直接クリックするか、Job Templates
+青い **Launch** ボタンを直接クリックするか、Job Templates
 の概要でロケットをクリックすると、ジョブを開始できます。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook
 の実行をリアルタイムで追跡できます。
 
-![ジョブの実行](images/job_overview.png)
+ジョブの詳細 ![job details](images/job_details.png)
+
+ジョブの実行 ![job_run](images/job_run.png)
 
 これには時間がかかる場合があるため、提供されているすべての詳細を詳しく調べてください。
 
@@ -211,13 +212,14 @@ Ansible **Job**を実行する前に、まとめる **Job Template** を作成�
 
 * また、開始時間と終了時間の実行時間が記録されるため、ジョブの実行が実際にどのくらいの時間であったかがわかります。
 
-* 右側には、Playbook
+* **Output** を選択すると、Playbook
   の実行の出力が表示されます。タスクの下のノードをクリックして、各ノードの各タスクの詳細情報が表示されていることを確認します。
 
-ジョブが終了したら、メインの **Jobs** ビューに移動します。すべてのジョブがここに一覧表示されます。Playbook が実行される前に、SCM
-更新が開始されていたことがわかります。これは、起動時に **Project** 用に構成した Git アップデートです。
+ジョブが終了したら、メインの **Jobs** ビューに移動します。すべてのジョブがここに一覧表示されます。Playbook
+が実行される前に、Source Control Update が開始されていたことがわかります。これは、起動時に **Project** 用に構成した
+Git アップデートです。
 
-### チャレンジラボ: 結果を確認する
+### チャレンジラボ: 結果のチェック
 
 小チャレンジ:
 
@@ -229,41 +231,32 @@ Ansible **Job**を実行する前に、まとめる **Job Template** を作成�
 >
 > `systemctl status httpd` はどうでしょうか。
 
+
 > **警告**
 >
 > **回答を以下に示します**
 
-* **Inventories** → **Workshop Inventory** に移動します
+* **Resources → Inventories** → **Workshop Inventory** に移動します。
 
-* **HOSTS** ビューでは、すべてのホストを表示して、**RUN COMMANDS** をクリックします。
+* **Host** ビューでは、`node1`、`node2`、`node3` を選択して、**Run Command** をクリックします。
 
-* 以下に記入してください。
+**Details** ウィンドウで、**Arguments** `systemctl status httpd` で **Module**
+`command` を選択し、**次へ** をクリックします。
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>MODULE</td>
-    <td>command</td>
-  </tr>
-  <tr>
-    <td>ARGUMENTS</td>
-    <td>systemctl status httpd</td>
-  </tr>
-  <tr>
-    <td>MACHINE CREDENTIALS</td>
-    <td>Workshop Credentials</td>
-  </tr>
-</table>
+**Execution Environment** ウィンドウで **Default execution environment**
+を選択し、**Next** をクリックします。
 
-* **LAUNCH** をクリックします
+**Machine Credential**ウィンドウで、**Workshop Credential** を選択し、**Launch**
+をクリックします。
+
+> **ヒント**
+>
+> 結果の出力は、コマンドが完了すると表示されます。
 
 ---
 **ナビゲーション**
 <br>
 [前の演習](../2.2-cred) - [次の演習](../2.4-surveys)
 
-[クリックして Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md#section-2---ansible-tower-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../README.md#section-2---ansible-tower-exercises)

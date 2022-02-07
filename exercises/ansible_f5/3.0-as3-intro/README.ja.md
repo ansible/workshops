@@ -1,48 +1,55 @@
-# 演習 3.0 - AS3の概要
+# 演習 3.0 - AS3 の概要
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbook の出力](#Playbookの出力)
-- [解答](#解答)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[ソリューション](#solution)
 
 # 目的
 
-F5 AS3 を使った virtual server 構築(Section 1 Ansible F5 Exercisesで学んだもの)のデモンストレーション
+仮想サーバー（セクション 1 Ansible F5 の演習とまったく同じ）を F5 AS3 でビルドする方法を説明します。
 
-  - AS3([Application Services 3 拡張](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/3/userguide/about-as3.html)) の宣言型モデルについて学習します。AS3 を徹底的に学ぶことはこの演習の意図ではありませんが、概念をいくらか紹介して、それがAnsible Playbook と、どのように簡単な統合がなされているかを示すだけです。
-  - [set_fact モジュール](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html) について学びます。
-  - [uri モジュール](https://docs.ansible.com/ansible/latest/modules/uri_module.html) について学びます。
+  - AS3 ([Application Services 3
+    エクステンション](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/3/userguide/about-as3.html))
+    宣言モデルについて学びます。この演習は、AS3 について完全に学習することを目的としてはいません。コンセプトの概要と Ansible
+    Playbook と簡単に統合できることを説明するだけです。
+  - [set_fact
+    モジュール](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html)
+    について学びます
+  - [uri
+    モジュール](https://docs.ansible.com/ansible/latest/modules/uri_module.html)
+    について学びます
 
+# ガイド
 
-# Guide
+#### 次に進む前に、BIG-IP 設定がクリーンであることを確認し、演習 [2.1-delete-configuration](../2.1-delete-configuration/README.md) を実行します。
 
-#### BIG-IP の設定がクリーンになっていることを確認し、次に進む前に [演習 2.1 - コンフィグの削除](../2.1-delete-configuration/README.ja.md)  を必ず実行してください。
+## ステップ 1:
 
-## Step 1:
+F5 BIG-IP で AS3 が有効になっていることを確認します。  
 
-お使いの F5 BIG-IP は AS3 が有効になっている事を確認してください。
-
-  1. Webブラウザーから F5 BIG-IP にログインします。
-  2. 左側のメニューから iApps ボタンをクリックします。
+  1. Web ブラウザーを使用して F5 BIG-IP にログインします。
+  2. 左側のメニューの iApps ボタンをクリックします。
   3. `Package Management LX` のリンクをクリックします。
-  4. `f5-appsvcs` がインストールされている事を確認します。
+  4. `f5-appsvcs` がインストールされていることを確認します。
 
-これでうまくいかない場合は、インストラクターに助けを求めましょう。
+このようにならない場合は、インストラクターにお問い合わせください。
 
 ![f5 gui](f5-appsvcs.gif)
 
-## Step 2:
+## ステップ 2:
 
-Playbook を作り始める前に、AS3 がどのように動くのか理解する必要があります。AS3 は F5 BIG-IP を API 呼び出しを行う際に JSON テンプレートを渡す必要があります。この演習のテンプレートは提供されます。受講者は、すべてのパラメーターについて完全に理解する必要はありません。また、ゼロからテンプレートを作れる必要はありません。
-これらは2つのパートに分かれています。
+Playbook の構築を開始する前に、AS3 の仕組みを理解することが重要です。AS3 では、F5 BIG-IP への API コールとして渡される
+JSON
+テンプレートが必要です。この演習では、**テンプレートが用意されています**。すべてのパラメーターを完全に理解したり、これらのテンプレートをゼロから作成したりする必要はありません。テンプレートは、以下の
+2 つの部分で構成されます。
 
 1. `tenant_base.j2`
 
-```yaml
+<!-- {% raw %} -->
+``` yaml
 {
     "class": "AS3",
     "action": "deploy",
@@ -60,19 +67,21 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
     }
 }
 ```
+<!-- {% endraw %} -->
 
- `tenant_base` は標準テンプレートです。F5 Networks が自社の顧客に対して提供しています。もっとも重要なパートとしては:
+ `tenant_base` は、F5 ネットワークが顧客に提供する標準テンプレートです。理解すべき重要な部分は以下のとおりです。
 
-  - `"WorkshopExample": {` - これは Tenant の名前です。AS3 は 特別な WebApp のための Tenant を作ります。WebApp は、今回の場合、virtual server を示します。2つの Web サーバーに対してロードバランスします。
-  - `"class": "Tenant",` - `WorkshopExample` は Tenant であることを示します。
-  - `as3_app_body` - これは現在の WebApp に対する 2つ目の Jinja2 テンプレートの名前を示す変数です。
+  - `"WorkshopExample"` - これはテナントの名前です。AS3 はこの特定の WebApp
+    のテナントを作成します。ここでは、WebApp は 2 つの Web サーバー間で負荷分散を行う仮想サーバーです。
+  - `"class": "Tenant"` - これは、`WorkshopExample` がテナントであることを示しています。
+  - `as3_app_body` - これは、実際の WebApp である 2 番目の jinja2 テンプレートを参照する変数です。
 
 ----
 
 2. `as3_template.j2`
 
-{% raw %}
-```yaml
+<!-- {% raw %} -->
+``` yaml
 "web_app": {
     "class": "Application",
     "template": "http",
@@ -103,41 +112,37 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
     }
 }
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
-このテンプレートは Web アプリケーションに対する JSON の表記です。ここのパートで重要な点としては、
+このテンプレートは、Web アプリケーションの JSON 表現です。注意すべき重要な部分は以下のとおりです。
 
-- 今回の virtual server の名前は `serviceMain` です。
-  - 以前の演習のタスクで行ったようにテンプレートの中で変数を使用できます。この場合、virtual IP address は、定義したインベントリー中に定義されている private_ip です。
-- `app_pool` という名前の Pool があります。
-  - Jinja2 テンプレートはループ処理を使用して、すべての Pool member (これは web servers グループを指しています)を取得できます。
+- `serviceMain` という名前の仮想サーバーがあります。
+  - テンプレートは、前の演習のタスクと同様に変数を使用できます。この場合、仮想 IP アドレスはインベントリーからの private_ip
+    になります。
+- `app_pool` という名前のプールがあります
+  - jinja2 テンプレートは、ループを使用してすべてのプールメンバーを取得できます（以下で説明される Web サーバーグループを参照します）。
 
-**要約**
-`tenant_base.j2` と `as3_template.j2` の2つのテンプレートファイルは、Web アプリケーションのための1つの JSON ペイロードを作ります。次に Playbook を構築することで F5 BIG-IP に対して、この JSON ペイロードを送ります。
+**要約すると**、`tenant_base.j2` および `as3_template.j2` は、Web アプリケーションを表す単一の JSON ペイロードを作成します。この JSON ペイロードを F5 BIG-IP に送信する Playbook を構築します。
 
-**これらのテンプレートを作業ディレクトリにコピーしてください。**
-
+**VSCode のターミナルウィンドウを使用して、これらのテンプレートを作業用ディレクトリーにコピーしてください**
+<!-- {% raw %} -->
 ```
-[student1@ansible ~]$ mkdir j2
-[student1@ansible ~]$ cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
+mkdir j2
+cp ~/f5-workshop/3.0-as3-intro/j2/* j2/
 ```
+<!-- {% endraw %} -->
 
-## Step 3:
+## ステップ 3:
 
-テキストエディターを使って `as3.yml` という名前でファイルを作成します。
+VSCode を使用して、左側のペインの新規ファイルアイコンをクリックして、`as3.yml` という名前の新しいファイルを作成します。
 
-{% raw %}
-```
-[student1@ansible ~]$ nano as3.yml
-```
-{% endraw %}
+![picture of create file
+icon](../1.1-get-facts/images/vscode-openfile_icon.png)
 
-> コントロールノードでは `vim` と `nano`、また、RDP 経由では Visual Studio と Atom が利用可能です。
+## ステップ 4:
 
-## Step 4:
-
-以下の定義を Playbook `as3.yml` の先頭に入力してください:
-
+次のプレイ定義を `as3.yml` に入力します。
+<!-- {% raw %} -->
 ``` yaml
 ---
 - name: LINKLIGHT AS3
@@ -148,38 +153,39 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
   vars:
     pool_members: "{{ groups['web'] }}"
 ```
-- `---` はファイルの先頭である事を示します。このファイルは YAML ファイルです。
-- `hosts: lb` は lb グループに属するホストに対してのみ処理を実行するという意味です。F5 デバイスは今回1つだけですが、しかし、複数台ある場合には複数台を同時に指定できます。
-- `connection: local` を指定することで　Playbook がローカル実行されます。(SSHで接続せず)
-- `gather_facts: false` を指定することで facts の収集を無効化します。これは今回の Playbook 中で、facts を何も利用しないためです。
+<!-- {% endraw %} -->
 
-以下のセクションは
-```
-  vars:
-    pool_members: "{{ groups['web'] }}"
-```
-... `pool_members` と呼ばれる変数を定義し、web グループを値として指定します。workbench に2台のWebサーバーがあり、`pool_members` の値を参照することで2台のWebサーバーのリストを取得することができます。
+- ファイル上部の `---` は、これが YAML ファイルであることを示しています。  - `hosts: lb` は、プレイが lb
+グループでのみ実行されることを示します。技術的には、F5 デバイスは 1 つだけしか存在しませんが、複数あれば、それぞれが同時に設定されます。  -
+`connection: local` は、（自身に SSH 接続するのではなく）ローカルで実行するように Playbook に指示します  -
+`gather_facts: false` はファクト収集を無効にします。この Playbook では、ファクト変数を使用しません。
 
-## Step 5
+- `vars` セクションは、`pool_members` という名前の変数を Web グループに設定します。ワークベンチには `node1` と
+`node2` の 2 つの Web があります。つまり、`pool_members` 変数は 2 つの Web のリストを参照します。
 
-**追記** 次のタスクをPlaybook `as3.yml` の後ろに追記します。
+## ステップ 5
 
-```yaml
+以下を as3.yml Playbook に **追加します**。  
+
+<!-- {% raw %} -->
+``` yaml
   tasks:
     - name: CREATE AS3 JSON BODY
       set_fact:
         as3_app_body: "{{ lookup('template', 'j2/as3_template.j2', split_lines=False) }}"
 ```
+<!-- {% endraw %} -->
 
-この [set_fact モジュール](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html) は、Playbook 内のタスクにおいて使用できる変数を作成(再定義)することができます。これにより新しい facts を動的に作成することができます。今回の場合、 [template lookup プラグイン](https://docs.ansible.com/ansible/latest/plugins/lookup/template.html) を使用します。このタスクには以下の内容を記述しています。
-  1. 表示用にJinja2 テンプレート `j2/as3_template.j2` が提供されている
-  2. `as3_app_body` という新しい fact を作成する(中身はJSON 形式のテキスト)
+モジュール [set_fact モジュール](https://docs.ansible.com/ansible/latest/modules/set_fact_module.html) により、Playbook はプレイ内のタスクとして変数を作成（または上書き）できます。これを使用して、プレイのその時点まで存在していなかったファクトを新たにその場で動的に作成することができます。この場合、[テンプレートルックアッププラグイン](https://docs.ansible.com/ansible/latest/plugins/lookup/template.html) が使用されます。このタスクは、
+  1. 提供された j2/as3_template.j2 jinja テンプレートをレンダリングします。
+  2. JSON テキストのみである `as3_app_body` という名前の新しいファクトを作成します。
 
-## Step 6
+## ステップ 6
 
-**追記** 以下は as3.yml の Playbook に追記します。このタスクは uri モジュールを使い、HTTP および HTTPS Web サービスと対話するためのものです。Digest認証、Basic認証、および WSSE HTTP 認証メカニズムをサポートします。このモジュールは非常に一般的で非常に使いやすいです。このワークショップの演習環境をプロビジョニングした Playbook の中でで uri モジュールを使って、Red Hat Ansible Tower の設定や、ライセンス登録を行っています。
+以下を as3.yml Playbook に **追加します**。このタスクは、HTTP および HTTPS Web サービスとの対話に使用される uri モジュールを使用し、Digest、Basic、および WSSE HTTP 認証メカニズムをサポートします。このモジュールは非常に一般的で、非常に簡単に使用できます。ワークショップ自体（ワークベンチをプロビジョニングした Playbook）は uri モジュールを使用して Red Hat Ansible Tower の設定とライセンスを行います。
 
-```yaml
+<!-- {% raw %} -->
+``` yaml
     - name: PUSH AS3
       uri:
         url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"
@@ -194,84 +200,93 @@ Playbook を作り始める前に、AS3 がどのように動くのか理解す�
         validate_certs: false
       delegate_to: localhost
 ```
+<!-- {% endraw %} -->
 
-パラメーターの説明:
+パラメーターの説明：
 
 <table>
   <tr>
-    <th>パラメータ</th>
+    <th>パラメーター</th>
     <th>説明</th>
 
   </tr>
   <tr>
     <td><code>- name: PUSH AS3</code></td>
-    <td>Playbook task の説明です。ターミナルに表示されます。</td>
+    <td>Playbook タスクの人間用の説明、ターミナルウィンドウに出力します</td>
   </tr>
   <tr>
     <td><code>uri:</code></td>
-    <td><a href="https://docs.ansible.com/ansible/latest/modules/uri_module.html">uri module</a> を呼び出します。</td>
+    <td>このタスクは <a href="https://docs.ansible.com/ansible/latest/modules/uri_module.html">uri モード</a> を呼び出しています</td>
   </tr>
   <tr>
     <td><code>url: "https://{{ ansible_host }}:8443/mgmt/shared/appsvcs/declare"</code></td>
-    <td>AS3 の web URL (API) です。</td>
+    <td>AS3 の Web URL (API)</td>
   </tr>
   <tr>
     <td><code>method: POST</code></td>
-    <td>HTTP リクエストメソッドは大文字である必要があります。モジュールドキュメントのページに全てのオプションリストがあります。<code>DELETE</code> や <code>POST</code> が使用できます。</td>
+    <td>リクエストの HTTP メソッド、大文字でなければなりません。モジュールのドキュメントページに、すべてのオプションのリストが記載されています。<code>POST</code> ではなく <code>DELETE</code> とすることもできます</td>
   </tr>
   <tr>
     <td><code>body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"</code></td>
-    <td>これにより、結合されたテンプレート (<code>tenant_base.j2</code> や <code>as3_template.j2</code> を含む) が送信され、APIリクエストの本文として渡されます。</td>
+    <td>このパラメーターは組み合わせたテンプレート (<code>as3_template.j2</code> が含まれる <code>tenant_base.j2</code>) を送信し、API リクエストのボディーとして渡されます。</td>
   </tr>
   <tr>
     <td><code>status_code: 200</code></td>
-    <td>リクエストの成功を示す有効な数値の<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP ステータスコード</a>。ステータスコードのカンマ区切りリストにすることもできます。200は正常を意味します。これは、HTTPリクエストが成功した場合の標準的な応答です。</td>
+    <td>リクエストが成功したことを表す、有効な数値の <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP ステータスコード</a>。ステータスコードのコンマ区切りリストとすることもできます。200 は OK を意味し、成功した HTTP リクエストに対する標準的な応答です</td>
   </tr>
 </table>
 
-残りのパラメーターは、F5 BIG-IP への認証するためのもので、かなり簡単です。(すべての BIG-IP モジュールで共通)
+残りのパラメーターは、F5 BIG-IP への認証用で、非常に簡単です（すべての BIG-IP モジュールと同様）。
 
-## Step 7
-Playbook を実行します - コントロールホストのコマンドラインに戻って次のコマンドを実行します。
+## ステップ 7
+Playbook を実行します。保存して VS Code サーバーのターミナルに戻り、以下を実行します。
 
+<!-- {% raw %} -->
 ```
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator run as3.yml --mode stdout
 ```
+<!-- {% endraw %} -->
 
-# Playbookの出力
+# Playbook の出力
 
-実行時の出力結果は次のようになります。
+出力は次のようになります。
 
+<!-- {% raw %} -->
 ```yaml
-[student1@ansible ~]$ ansible-playbook as3.yml
+[student1@ansible ~]$ ansible-navigator run as3.yml --mode stdout
 
-PLAY [Linklight AS3] ***********************************************************
+PLAY [Linklight AS3] **********************************************************
 
-TASK [Create AS3 JSON Body] ****************************************************
+TASK [Create AS3 JSON Body] ***************************************************
 ok: [f5]
 
-TASK [Push AS3] ****************************************************************
+TASK [Push AS3] ***************************************************************
 ok: [f5]
 
-PLAY RECAP *********************************************************************
+PLAY RECAP ********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
+<!-- {% endraw %} -->
 
-# 解答
+# ソリューション
 
-Ansible Playbookが完了したら、Answer キーが提供されます。こちらをクリック！ [as3.yml](./as3.yml).
+完成した Ansible Playbook
+が、回答キーとしてここで提供されています。[as3.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/3.0-as3-intro/as3.yml)
+を表示するには、ここをクリックしてください。
 
-# 解答の確認
+# ソリューションの確認
 
-Webブラウザーから F5 BIG-IP にログインして、設定が行われている事を確認しましょう。lab_inventory/hosts というインベントリファイルから F5 ロードバランサーのIP情報を取得してください。ブラウザーには「https://X.X.X.X:8443/」のような感じで HTTPS にて 8443 ポートにアクセスします。
+Web ブラウザーで F5 にログインし、設定された内容を確認します。lab_inventory/hosts ファイルから F5 ロードバランサーの
+IP 情報を取得し、https://X.X.X.X:8443/ のように入力します。
 
 ![f5 gui as3](f5-as3.gif)
 
-1. 左側のメニューから Local Traffic をクリックします。
-2. 次に Virtual Servers をクリックします。
-3. 右側の上部の `Partition` のドロップダウンメニューを開き、WorkshopExample を選択します。
-4. Virtual Server `serviceMain` を開きます。
+1. 左側のメニューで Local Traffic をクリックします
+2. Virtual Servers をクリックします。
+3. 右上の `Partition` というドロップダウンメニューをクリックし、WorkshopExample を選択します
+4. 仮想サーバー `serviceMain` が表示されます。
 
 ----
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+You have finished this exercise.  [Click here to return to the lab
+guide](../README.md)

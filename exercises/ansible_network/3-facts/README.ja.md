@@ -1,56 +1,111 @@
-# Exercise 3: Ansible Facts の利用
+# 演習 3: Ansible ファクト
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
-## Table of Contents
+## 目次
 
-- [Objective](#objective)
-- [Guide](#guide)
-- [Takeaways](#takeaways)
-- [Solution](#solution)
+* [目的](#objective)
+* [ガイド](#guide)
+   * [ステップ 1 - ドキュメントの使用](#step-1---using-documentation)
+   * [ステップ 2 - プレイの作成](#step-2---creating-the-play)
+   * [ステップ 3 - ファクトタスクの作成](#step-3---create-the-facts-task)
+   * [ステップ 4 - Playbook の実行](#step-4---executing-the-playbook)
+   * [ステップ 5 - デバッグモジュールの使用](#step-5---using-debug-module)
+   * [ステップ 6 - stdout の使用](#step-6---using-stdout)
+* [重要なこと](#takeaways)
+* [ソリューション](#solution)
+* [完了](#complete)
 
-# Objective
+## 目的
 
-ネットワーク機器に対する Ansible facts の利用を説明します。
+ネットワークインフラストラクチャでの Ansible ファクトのデモンストレーション使用。
 
-Ansible facts はリモートのネットワーク構成要素から取得される情報です。Ansible facts は利用が容易な構造化(JSON)されたデータを返します。例えば、Ansible Facts と Template 機能を使うと迅速にMarkdownやHTML形式の監査レポートを作成することが可能です。
+Ansible ファクトは、リモートネットワーク要素との会話から得られた情報です。Ansible ファクトは構造化データ (JSON)
+で返されるため、操作や変更が簡単になります。たとえば、ネットワークエンジニアは、Ansible
+ファクトを使用して監査レポートを非常に迅速に作成し、それらをマークダウンまたは HTML ファイルにテンプレート化できます。
 
-この演習は以下を含みます。:
-- Playbookをスクラッチから作成します。
-- [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html) の利用
-- [ios_facts モジュール](https://docs.ansible.com/ansible/latest/modules/ios_facts_module.html) の利用
-- [debug モジュール](https://docs.ansible.com/ansible/latest/modules/debug_module.html) の利用。
+この演習では、以下について説明します。
 
-# Guide
+* Ansible Playbook のゼロからの作成。
+* ドキュメントへの `ansible-navigator :doc` の使用
+* [cisco.ios.facts
+  モジュール](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html)
+  の使用。
+* [デバッグモジュール](https://docs.ansible.com/ansible/latest/modules/debug_module.html)
+  の使用。
 
-#### Step 1
+## ガイド
 
-コントローラーノード上で `ios_facts` モジュールと `debug` モジュールのドキュメントを確認します。
+### ステップ 1 - ドキュメントの使用
+
+端末で `ansible-navigator` インタラクティブモードに入ります
 
 ```bash
-[student1@ansible network-workshop]$ ansible-doc debug
+$ ansible-navigator
 ```
 
-`debug` を任意のパラメーター無しで利用するとどうなるか確認してください。
+`ansible-navigator` のスクリーンショット: ![ansible-navigator interactive
+mode](images/ansible-navigator-interactive.png)
+
+上記のスクリーンショットでは、モジュールまたはプラグインドキュメントの行を確認できます。
+ 
+```
+`:doc <plugin>`                 Review documentation for a module or plugin
+ ```
+
+`:doc debug` と入力して `debug` モジュールを検証しましょう。
 
 ```bash
-[student1@ansible network-workshop]$ ansible-doc ios_facts
+:doc debug
 ```
 
-収集する Facts 情報に制限を書ける方法を確認してください。
+`ansible-navigator :doc debug` のスクリーンショット: ![ansible-navigator interactive
+mode doc](images/ansible-navigator-doc.png)
 
+`debug`
+モジュールのドキュメントが対話式ターミナルセッションに表示されました。これは、[docs.ansible.com](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html).
+で表示されるまったく同じドキュメントの YAML 表現です。例は、モジュールのドキュメントから Ansible Playbook
+に直接カットアンドペーストできます。
 
-#### Step 2:
-
-Playbooks は [**YAML**](https://yaml.org/) 形式です。YAML は構造化されたフォーマットで可読性に優れます（JSON と違って）
-
-好きなエディタを使って新しいファイル `facts.yml` を作成してください (`vim` と `nano` がコントローラーホストで利用可能です) :
+ビルドされていないモジュールを参照する場合、以下の 3 つの重要なフィールドがあります。
 
 ```
-[student1@ansible network-workshop]$ vim facts.yml
+namespace.collection.module
+```
+例:
+```
+cisco.ios.facts
 ```
 
-`facts.yml` に以下の Play 定義を入力します:
+用語の説明: - **namespace** (例: **cisco**) - namespace
+は複数のコレクションをグループ化します。**cisco** namespace には、**ios**、**nxos**、**iosxr**
+を含む複数のコレクションが含まれます。 - **collection** (例: **ios**) - collection
+は、Playbook、ロール、モジュール、プラグインを含む Ansible コンテンツのディストリビューション形式です。**ios**
+コレクションには、Cisco IOS/IOS-XE の全モジュールが含まれます。 - **module** (例: facts) -
+モジュールは、Playbook タスクで使用できるコードの分散ユニットです。たとえば、**facts**
+モジュールは、指定されたそのシステムに関する構造化データを返します。
+
+**Esc** キーを押してメインメニューに戻ります。`cisco.ios.facts` モジュールで `:doc` コマンドを繰り返します。
+
+```bash
+:doc cisco.ios.facts
+```
+
+Playbook で facts モジュールを使用します。
+
+### ステップ 2 - プレイの作成
+
+Ansible Playbook は [**YAML** ファイル](https://yaml.org/) です。YAML
+は構造化されたエンコーディング形式であり、人間が非常に読みやすくなっています (サブセットとは異なり、JSON 形式) 。
+
+Visual Studio コードで新規ファイルを作成します: ![vscode new
+file](images/vscode_new_file.png)
+
+分かりやすくするために、Playbook に `facts.yml` という名前を付けます: ![vscode save
+file](images/vscode_save_as.png)
+
+
+次のプレイ定義を `facts.yml` に入力します。
 
 ```yaml
 ---
@@ -59,17 +114,18 @@ Playbooks は [**YAML**](https://yaml.org/) 形式です。YAML は構造化さ�
   gather_facts: no
 ```
 
-各行の意味:
-- 1行目の `---` は、これが YAML ファイルであることを示します。
-- `- name:` キーはこのPlaybookの説明を記述しています。
-- `hosts:` キーは、このPlaybookがインベントリーファイル内の `cisco` グループを対象することを意味します。
-- `gather_facts: no` は Ansible 2.8 か以前のバージョンから必要となります。自動で Fact を収集する機能ですが、この機能は Linux ホストのみで利用可能で、ネットワーク環境では利用できません。ネットワーク環境では別の方法で Facts の収集を行います。
+各行の説明は次のとおりです。
 
+* 最初の行の `---` は、これが YAML ファイルであることを示しています。
+* `- name:` キーワードは、この Ansible Playbookのオプションの説明です。
+* `hosts:` キーワードは、インベントリーファイルで定義されたグループ `cisco` に対するこのプレイブックを意味します。
+* `gather_facts: no` は必要ありません。これは、Ansible 2.8 以前では、これは Linux
+  ホストでのみ機能し、ネットワークインフラストラクチャーでは機能しないためです。特定のモジュールを使用して、ネットワーク機器の事実を収集します。
 
-#### Step 3
+### ステップ 3 - ファクトタスクの作成
 
-次に最初の `task` を追加します。このタスクでは `cisco` グループ内の各デバイスから `ios_facts` モジュールを使って Facts を収集します。
-
+次に、最初の `task` を追加します。このタスクでは、`cisco.ios.facts` モジュールを使用して、グループ `cisco`
+内の各デバイスに関するファクトを収集します。
 
 ```yaml
 ---
@@ -79,84 +135,47 @@ Playbooks は [**YAML**](https://yaml.org/) 形式です。YAML は構造化さ�
 
   tasks:
     - name: gather router facts
-      ios_facts:
+      cisco.ios.facts:
 ```
 
->play は task のリストです。モジュールは事前に準備されたプログラムでタスクから実行されます。
+> 注記:
+>
+> プレイはタスクのリストです。モジュールは、そのタスクを実行する、事前に記述されたコードです。
 
-#### Step 4
+Playbook を保存します。
 
-この Playbook を実行します:
+### ステップ 4 - Playbook の実行
 
-```
-[student1@ansible network-workshop]$ ansible-playbook facts.yml
-```
+`ansible-navigator` を実行して Ansible Playbook を実行します。
 
-出力は以下のようになるはずです。
-
-```bash
-[student1@ansible network-workshop]$ ansible-playbook facts.yml
-
-PLAY [gather information from routers] *****************************************
-
-TASK [gather router facts] *****************************************************
-ok: [rtr1]
-
-PLAY RECAP ******************************************************************************************************************
-rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```sh
+$ ansible-navigator run facts.yml
 ```
 
+これにより、Playbook が対話する間に対話セッションが開きます。
 
-#### Step 5
+facts.yml のスクリーンショット: ![ansible-navigator run
+facts.yml](images/ansible-navigator-facts.png)
 
-この play は Cisco ルーターに対して実行されて成功したはずです。しかし、出力はどこへ行ったのでしょうか？この playbook を冗長出力モードの `-v` オプションをつけて再実行してください。
+Playbook の出力をズームするには、**0** を押して、ホスト中心ビューを表示します。ホストは 1 つしかないため、オプションは 1
+つのみです。
 
+ズームインのスクリーンショット: ![ansible-navigator zoom
+hosts](images/ansible-navigator-hosts.png)
 
-```
-[student1@ansible network-workshop]$ ansible-playbook facts.yml -v
-Using /home/student1/.ansible.cfg as config file
+**rtr1** の詳細出力を表示するには、**0** をあと 1 回押してモジュールの戻り値をズームします。
 
-PLAY [gather information from routers] *****************************************
+モジュールデータへのズームインのスクリーンショット: ![ansible-navigator zoom
+module](images/ansible-navigator-module.png)
 
-TASK [gather router facts] *****************************************************
-ok: [rtr1] => changed=false
-  ansible_facts:
-    ansible_net_all_ipv4_addresses:
-    - 192.168.35.101
-    - 172.16.129.86
-    - 192.168.1.101
-    - 10.1.1.101
-    - 10.200.200.1
-    - 10.100.100.1
-.
-.
- <output truncated for readability>
-.
-.
-    ansible_net_iostype: IOS-XE
-    ansible_net_memfree_mb: 1853993
-    ansible_net_memtotal_mb: 2180495
-    ansible_net_neighbors: {}
-    ansible_net_python_version: 2.7.5
-    ansible_net_serialnum: 91Y8URJWFPU
-    ansible_net_system: ios
-    ansible_net_version: 16.09.02
-    discovered_interpreter_python: /usr/bin/python
+スクロールダウンして、Cisco ネットワークデバイスから収集したファクトを表示できます。
 
-PLAY RECAP *********************************************************************
-rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+### ステップ 5 - デバッグモジュールの使用
 
-
-> Note: 出力は後続のタスクで使用できる key-value のペアで返されます。ここで取得された **ansible_** で始まる全ての変数は、同じ play 内の後続のタスクで自動的に利用可能になります。
-
-#### Step 6
-
-Playbook を冗長モードで実行するのは変数を確認するのに便利です。変数をPlaybookで利用するには `debug` モジュールが利用できます。
-
-2つのタスクを追加し、ルーターのOSバージョンとシリアルナンバーを表示します。
+ルーターの OS バージョンとシリアル番号を表示する 2 つの追加タスクを記述します。
 
 <!-- {% raw %} -->
+
 ``` yaml
 ---
 - name: gather information from routers
@@ -165,7 +184,7 @@ Playbook を冗長モードで実行するのは変数を確認するのに便�
 
   tasks:
     - name: gather router facts
-      ios_facts:
+      cisco.ios.facts:
 
     - name: display version
       debug:
@@ -175,51 +194,44 @@ Playbook を冗長モードで実行するのは変数を確認するのに便�
       debug:
         msg: "The serial number is:{{ ansible_net_serialnum }}"
 ```
+
 <!-- {% endraw %} -->
 
+### ステップ 6 - stdout の使用
 
-#### Step 8
+次に、`ansible-navigator` と `--mode stdout` を使用して Playbook を再実行します
 
-では `冗長出力モード` オプションを利用せずに、再度Playbookを実行します:
+完全なコマンドは `ansible-navigator run facts.yml --mode stdout` です
 
-```
-[student1@ansible network-workshop]$ ansible-playbook facts.yml
-
-PLAY [gather information from routers] **************************************************************************************
-
-TASK [gather router facts] **************************************************************************************************
-ok: [rtr1]
-
-TASK [display version] ******************************************************************************************************
-ok: [rtr1] =>
-  msg: 'The IOS version is: 16.09.02'
-
-TASK [display serial number] ************************************************************************************************
-ok: [rtr1] =>
-  msg: The serial number is:91Y8URJWFPU
-
-PLAY RECAP ******************************************************************************************************************
-rtr1                       : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+stdout を使用した ansible-navigator のスクリーンショット: ![ansible-navigator stdout
+screenshot](images/ansible-navigator-facts-stdout.png)
 
 
-20行以下の "code" を使ってバージョンとシリアルナンバーの収集を自動化しました。このPlaybookを本番ネットワークに対して実行することを想像してください。古くなったデータではなく、最新の利用可能なデータを入手することができます。
+20 行未満の "code"
+を使用すると、バージョンとシリアル番号の収集が自動化されます。これを本番ネットワークに対して実行していたと想像してみてください。古くなっていない実用的なデータが手元にあります。
 
-# Takeaways
+## 重要なこと
 
-- [ansible-doc](https://docs.ansible.com/ansible/latest/cli/ansible-doc.html) コマンドはインターネット接続なしにドキュメントを確認できます。このドキュメントはコントローラーノードのAnsibleバージョンと同じです。
-- [ios_facts モジュール](https://docs.ansible.com/ansible/latest/modules/ios_config_module.html) は Cisco IOS から構造化されたデータを収集します。それぞれのネットワークプラットフォームごとに関連するモジュールがあります。例えば、 `junos_fact` は Juniper Junos のためのモジュールで、`eos_fact` は Arista EOS用です。
-- [debug モジュール](https://docs.ansible.com/ansible/latest/modules/debug_module.html) はPlaybookから端末に値を表示することができます。
+* `ansible-navigator :doc`
+  コマンドを使用すると、インターネットに接続していなくてもドキュメントにアクセスできます。このドキュメントは、コントロールノードの Ansible
+  のバージョンとも一致します。
+* https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html)
+  は、Cisco IOS に固有の構造化データを収集します。各ネットワークプラットフォームに関連するモジュールがあります。たとえば、Juniper
+  Junos には junos_facts があり、AristaEOS には eos_facts があります。
+* [デバッグモジュール](https://docs.ansible.com/ansible/latest/modules/debug_module.html)
+  を使用すると、Ansible Playbook でターミナルウィンドウに値を出力できます。
 
+## ソリューション
 
-# Solution
+完成した AnsiblePlaybook は、回答キーとしてここに提供されています: [facts.yml](facts.yml)。
 
-完成したPlaybookはここから参照できます: [facts.yml](facts.yml).
+## 完了
+
+ラボ演習 3 を完了しました
 
 ---
+[前の演習](../2-first-playbook/README.md) |
+[次の演習](../4-resource-module/README.md)
 
-# Complete
-
-以上で exercise 3 は終了です。
-
-[Click here to return to the Ansible Network Automation Workshop](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../README.md)

@@ -1,41 +1,46 @@
 # Red Hat Ansible Automation Platform Workshops
 
-**Read this in other languages**:
-<br>![uk](./images/uk.png) [English](README.md),  ![japan](./images/japan.png)[日本語](README.ja.md)
+**他の言語でもお読みいただけます**:
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md)
 
 Red Hat Ansible Automation Workshops
-プロジェクトは、インストラクター主導のワークショップまたは自己ペースで、Ansible の機能を効果的にデモンストレーションすることを目的としています。
+プロジェクトは、インストラクター主導のワークショップまたは自己ペースの演習で、Ansible
+の機能を効果的にデモンストレーションすることを目的としています。
 
 ## Web サイト
 
-- [http://ansible.github.io/workshops](http://ansible.github.io/workshops) -
-[Github ページ](https://pages.github.com/) を使用してマークダウンファイルから自動的にレンダリングされるオプションの
-Web サイトをご覧ください。既に Web サイトを閲覧している場合は、このセクションは無視してください。
+- [http://aap2.demoredhat.com](http://aap2.demoredhat.com) - [Github
+ページ](https://pages.github.com/) を使用してマークダウンファイルから自動的にレンダリングされるオプションの Web
+サイトをご覧ください。既に Web サイトを閲覧している場合は、このセクションは無視してください。
 
 ## インストラクター主導のワークショップ
 
 6 時間のワークショップ:
+>**注記**
+>
+>Google Source は Red Hat 従業員の場合にのみ機能します。一般向けには、PDF が提供されます。
 
-| ワークショップ   | プレゼンテーションデッキ  | 演習  | Workshop Type Var   |
-|---|---|---|---|
-| **Ansible Red Hat Enterprise Linux ワークショップ** <br> 主に Red Hat Enterprise Linux のような自動化 Linux プラットフォーム | [Deck](./decks/ansible_rhel.pdf) | [演習](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
-| **Ansible Network Automation ワークショップ** <br>主に Arista、Cisco、Juniper  | [Deck](./decks/ansible_network.pdf) | [演習](./exercises/ansible_network)  | `workshop_type: network`  |
-| **Ansible F5 ワークショップ** <br> 主に F5 BIG-IP の自動化 | [Deck](./decks/ansible_f5.pdf) | [演習](./exercises/ansible_f5)   | `workshop_type: f5` |
-| **Ansible Security 自動化** <br> 主に Check Point Firewall、IBM QRadar や IDS Snort  | [Deck](./decks/ansible_security.pdf) | [演習](./exercises/ansible_security)   | `workshop_type: security` |
-| **Ansible Windows Automation ワークショップ** <br>  主に Microsoft Windows の自動化 | [Deck](./decks/ansible_windows.pdf) | [演習](./exercises/ansible_windows)   | `workshop_type: windows` |
+| Workshop   | Public Deck | Red Hat Internal  | Exercises  | Workshop Type Var   |
+|---|---|---|---|---|
+| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel.pdf) | [Google Source](https://docs.google.com/presentation/d/1O2Gj5r_fhjM5Pi5FizrZRInmZ37IlpeKPTP6jSZxEKs/edit?usp=sharing) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
+| **[Ansible Network Automation Workshop](./exercises/ansible_network)** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [PDF](./decks/ansible_network.pdf) | [Google Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
+| **[Ansible F5 Workshop](./exercises/ansible_f5)** <br> focused on automation of F5 BIG-IP  | [PDF](./decks/ansible_f5.pdf) | [Google Source](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
+| **[Ansible Security Automation](./exercises/ansible_security)** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [PDF](./decks/ansible_security.pdf) | [Google Source](https://docs.google.com/presentation/d/19gVCBz1BmxC15tDDj-FUlUd_jUUUKay81E8F24cyUjk/edit?usp=sharing) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
+| **[Ansible Windows Automation Workshop](./exercises/ansible_windows)** <br> focused on automation of Microsoft Windows  | [PDF](./decks/ansible_windows.pdf) | [Google Source](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
+| \[WIP\] **[Smart Management Automation Workshop](./exercises/ansible_smart_mgmt)** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | - | - | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
 
 90 分の短縮バージョン:
 
-| ワークショップ   | プレゼンテーションデッキ  | 演習  | Workshop Type Var   |
-|---|---|---|---|
-| **Ansible Red Hat Enterprise Linux ワークショップ** <br> 主に Red Hat Enterprise Linux の自動化 | [Deck](./decks/ansible_rhel_90.pdf) | [演習](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
+| Workshop   | Public Deck  | Red Hat Internal | Exercises  | Workshop Type Var   |
+|---|---|---|---|---|
+| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel_90)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel_90.pdf) | [Google Source](https://docs.google.com/presentation/d/1PY1uMh76ChJ0l4v4EANkzwWGXOIT4ktzyu2QOE2MKIk) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
 
 ## 自己ペースの演習
 
-- [Vagrant Lab](vagrant-demo) - 個人のラップトップで実行できる自己ペースのネットワーク自動化演習 - [Katacoda
-ラボ](https://developers.redhat.com/products/ansible/getting-started) -
-developers.redhat.com での自己ペースのブラウザーで行える演習。Ansible をはじめる (Getting Started
-with Ansible) には、複数のレッスンがあります。
+- [Ansible Automation Platform 自己ペースラボ
+](https://www.redhat.com/ja/engage/redhat-ansible-automation-202108061218) -
+このインタラクティブな学習シナリオが提供する事前設定済みの Ansible Automation Platform
+環境により、プラットフォームが実際の問題の解決にどのように役立つかを体験し、学習し、理解することができます。この環境はすべてご自分のブラウザーで実行されるので、お好きな時にご自分のペースで弊社のテクノロジーをより詳しく知ることができます。
 
 ## 製品デモ
 
@@ -44,7 +49,8 @@ with Ansible) には、複数のレッスンがあります。
 
 ## ワークショップのドキュメント
 
-- [貢献方法](docs/contribute.md)  - [AWS Lab Provisioner
+- [ワークショップ参加用 Web サイト](docs/attendance/attendance.md)  -
+[貢献方法](docs/contribute.md)  - [AWS Lab Provisioner
 の使い方](provisioner/README.md)  - [FAQ](docs/faq.md)  -
 [リリースプロセス](docs/release.md)
 
@@ -54,27 +60,45 @@ with Ansible) には、複数のレッスンがあります。
 のトライアルサブスクリプションの取得](http://red.ht/try_ansible)  - [Ansible Blog - The Inside
 Playbook](https://www.ansible.com/blog)  - [Ansible
 YouTube](https://youtube.com/ansibleautomation)  - [Ansible
-入門ガイド](https://docs.ansible.com/ansible/latest/user_guide/index.html#get)  -
-[Ansible Network Automation -
-入門](https://docs.ansible.com/ansible/latest/network/getting_started/index.html)
+スタートガイド](https://docs.ansible.com/ansible/latest/user_guide/index.html#get)
+- [Ansible Network Automation -
+スタートガイド](https://docs.ansible.com/ansible/latest/network/getting_started/index.html)
+- [Red Hat Ansible Automation Platform 向け Red Hat
+トレーニングと認定資格](https://red.ht/aap_training)
+
+## Slack コミュニティー
+
+- [Ansible Network Slack
+に参加する](https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw)
 
 ## 電子書籍
 
 - [The Automated
 Enterprise](https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000002DXg8AAG)
-- Ansible Security Automation
+
+### Ansible Network Automation 向け電子書籍
+
+  - [パート 1: Red Hat
+    によるネットワークの近代化](https://www.ansible.com/resources/ebooks/network-automation-for-everyone?hsLang=en-us)
+  - [パート 2: Red Hat
+    によるネットワークの自動化](https://www.redhat.com/en/engage/network-automation-ebook-s-202104291219)
+
+#### その他の言語
+
+  - ![chinese](https://github.com/ansible/workshops/raw/devel/images/cn.png)
+    [借助红帽实现网络自动化](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-zh.pdf)
+  - ![french](https://github.com/ansible/workshops/raw/devel/images/fr.png)
+    [Automatiser votre réseau avec Red
+    Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-fr.pdf)
+  - ![italian](https://github.com/ansible/workshops/raw/devel/images/it.png)
+    [Automatizzare la rete con Red
+    Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-it.pdf)
+
+### Ansible Security Automation 向け電子書籍
 
   - [Simplify your security operations
     center](https://www.redhat.com/en/resources/security-automation-ebook?extIdCarryOver=true&sc_cid=7013a000002gyQ2AAI)
 
-- Ansible ネットワークオートメーション
-
-  - [Part 1: Red Hat
-    によるネットワークの近代化](https://www.ansible.com/resources/ebooks/network-automation-for-everyone?hsLang=en-us)
-  - [Part 2: Red Hat
-    によるネットワークの自動化](https://www.ansible.com/resources/ebooks/automate-your-network?hsLang=en-us)
-
-- [Ansible.com のその他電子書籍](https://www.ansible.com/resources/ebooks)
-
 ---
-![Red Hat Ansible Automation](images/rh-ansible-automation-platform.png)
+![Red Hat Ansible
+Automation](https://github.com/ansible/workshops/raw/devel/images/rh-ansible-automation-platform.png)

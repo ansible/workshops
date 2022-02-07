@@ -1,7 +1,7 @@
-# 演習 - アンケート
+# 演習 - Survey
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
@@ -10,14 +10,14 @@
 * [Apache-configuration ロール](#the-apache-configuration-role)
 * [Survey によるテンプレートの作成](#create-a-template-with-a-survey)
   * [テンプレートの作成](#create-template)
-  * [Aurvey の追加](#add-the-survey)
+  * [Survey の追加](#add-the-survey)
 * [テンプレートの起動](#launch-the-template)
 * [練習してみましょう](#what-about-some-practice)
 
 ## 目的
 
-Ansible Tower Survey [survey
-機能](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys)
+Ansible 自動コントローラー [survey
+機能](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys)
 の使用のデモンストレーションを行います。Survey は、「Prompt for Extra Variables (追加変数のプロンプト)」と同様に
 Playbook の追加変数を設定しますが、ユーザーが使いやすい質問と回答を使ってこれを実行します。また、Survey
 ではユーザー入力を検証することもできます。
@@ -32,7 +32,7 @@ Playbook の追加変数を設定しますが、ユーザーが使いやすい�
 
 * ジョブ **Template** を起動します。
 
-さらに、このロールは、他の演習中に混ざった場合を考慮して、Apache 構成が適切に設定されていることも確認します。
+さらに、この演習のために Apache の設定が適切に設定されていることを確認する役割もあります。
 
 > **ヒント**
 >
@@ -40,10 +40,11 @@ Playbook の追加変数を設定しますが、ユーザーが使いやすい�
 
 ### Apache-configuration ロール
 
-Jinja テンプレートの Playbook とロールが、ディレクトリー `rhel/apache` の Github
-レポジトリーに既に存在します。[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-exampleshttps://github.com/ansible/workshop-examples)
+Jinja2 テンプレートの Playbook とロールが、ディレクトリー `rhel/apache` の Github リポジトリー
+[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
+に既に存在します。
 
-Github UI にアクセスして、コンテンツを確認します。Playbook `apache_role_install.yml` は単にロールを参照します。ロールは、`roles/role_apache` サブディレクトリーにあります。
+ Github UI にアクセスして、コンテンツを確認します。Playbook `apache_role_install.yml` は単にロールを参照します。ロールは、`roles/role_apache` サブディレクトリーにあります。
 
 * ロール内で、`{{…​}}` でマークされている `templates/index.html.j2` テンプレートファイルの 2
   つの変数をメモします。
@@ -63,26 +64,26 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github
 
 #### テンプレートの作成
 
-* **Templates** に移動し、![plus](images/green_plus.png) ボタンをクリックして、**Job
-  Template** を選択します。
+* **Resources → Templates** に移動し、**Add** ボタンをクリックして、**Add job template**
+  を選択します。
 
 * 次の情報を入力します。
 
 <table>
   <tr>
-    <th>Parameter</th>
-    <th>Value</th>
+    <th>パラメーター</th>
+    <th>値</th>
   </tr>
   <tr>
-    <td>NAME</td>
+    <td>Name</td>
     <td>Create index.html</td>
   </tr>
   <tr>
-    <td>JOB TYPE</td>
+    <td>Job Type</td>
     <td>Run</td>
   </tr>
   <tr>
-    <td>INVENTORY</td>
+    <td>Inventory</td>
     <td>Workshop Inventory</td>
   </tr>
   <tr>
@@ -90,24 +91,28 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github
     <td>Workshop Project</td>
   </tr>
   <tr>
-    <td>PLAYBOOK</td>
+    <td>Eecution Environment</td>
+    <td>Default execution environment</td>
+  </tr>
+  <tr>
+    <td>Playbook</td>
     <td><code>rhel/apache/apache_role_install.yml</code></td>
   </tr>
   <tr>
-    <td>CREDENTIAL</td>
-    <td>Workshop Credentials</td>
+    <td>Credentials</td>
+    <td>Workshop Credential</td>
   </tr>
   <tr>
-    <td>LIMIT</td>
+    <td>Limit</td>
     <td>web</td>
   </tr>
   <tr>
-    <td>OPTIONS</td>
-    <td>Enable Privilege Escalation</td>
+    <td>Options</td>
+    <td>Privilege Escalation</td>
   </tr>
 </table>
 
-* **SAVE** をクリックします。
+* **Save** をクリックします。
 
 > **警告**
 >
@@ -115,75 +120,72 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github
 
 #### Survey の追加
 
-* Template で、**ADD SURVEY** ボタンをクリックします。
+* テンプレートで **Survey** タブをクリックして、**Add** ボタンをクリックします。
 
-* **ADD SURVEY PROMPT**の下に、次のように入力します。
+* 次の情報を入力します。
 
 <table>
   <tr>
-    <th>Parameter</th>
-    <th>Value</th>
+    <th>パラメーター</th>
+    <th>値</th>
   </tr>
   <tr>
-    <td>PROMPT</td>
+    <td>Question</td>
     <td>First Line</td>
   </tr>
   <tr>
-    <td>ANSWER VARIABLE NAME</td>
-    <td><code>first_line</code></td>
+    <td>Answer Variable Name</td>
+    <td>first_line</td>
   </tr>
   <tr>
-    <td>ANSWER TYPE</td>
+    <td>Answer Type</td>
     <td>Text</td>
   </tr>
 </table>
 
-* **+ADD** をクリックしてください。
+* **Save** をクリックします。
+* **追加** ボタンをクリックします。
 
-* 同様に、2 番目の **Survey Prompt** を追加します。
+同じ方法で、2 番目の **Survey Question** を追加します。
 
 <table>
   <tr>
-    <th>Parameter</th>
-    <th>Value</th>
+    <th>パラメーター</th>
+    <th>値</th>
   </tr>
   <tr>
-    <td>PROMPT</td>
+    <td>Question</td>
     <td>Second Line</td>
   </tr>
   <tr>
-    <td>ANSWER VARIABLE NAME</td>
-    <td><code>second_line</code></td>
+    <td>Answer Variable Name</td>
+    <td>second_line</td>
   </tr>
   <tr>
-    <td>ANSWER TYPE</td>
+    <td>Answer Type</td>
     <td>Text</td>
   </tr>
 </table>
 
-* **+ADD** をクリックしてください。
+* **Save** をクリックします。
+* トグルをクリックして Survey の質問を **On** に切り替えます。
 
-* Survey の **SAVE** をクリックします。
-
-* Template の **SAVE** をクリックします。
+* Survey の **Preview** をクリックします。
 
 ### テンプレートの起動
 
-次に、**Create index.html** ジョブテンプレートを起動します。
+**Details** タブを選択し、**Launch** ボタンをクリックしてジョブテンプレートの作成 **Create index.html**
+を起動します。
 
 実際に起動する前に、Survey により、**First Line** と **Second Line**
-が求められます。テキストを入力して、**Next** をクリックします。次のウィンドウに値が表示されます。問題がなければ、**Launch**
+が求められます。テキストを入力して、**Preview** をクリックします。次のウィンドウに値が表示されます。問題がなければ、**Launch**
 をクリックしてジョブを実行します。
 
-> **ヒント**
->
-> 2 つの survey 行が **Extra Variables** としてジョブの左にどのように表示されているかに注意してください。
-
-ジョブが完了したら、Apache ホームページを確認します。コントロールホストの SSH コンソールで、`node1` の IP アドレスに対して
-`curl` を実行します。
+ジョブが完了したら、Apache ホームページを確認します。コントロールホストの SSH コンソールで、`node1` の以下に対して `curl`
+を実行します。
 
 ```bash
-$ curl http://22.33.44.55
+$ curl http://node1
 <body>
 <h1>Apache is running fine</h1>
 <h1>This is survey field "First Line": line one</h1>
@@ -198,9 +200,9 @@ Playbook によって使用されている 2 つの変数が `index.html` ファ
 <br>
 
 {% if page.url contains 'ansible_rhel_90' %}
-[前の演習](../4-variables) - [次の演習](../../ansible_rhel_90/6-system-roles/)
+[Previous Exercise](../4-variables) - [Next Exercise](../../ansible_rhel_90/6-system-roles/)
 {% else %}
-[前の演習](../2.3-projects) - [次の演習](../2.5-rbac)
+[Previous Exercise](../2.3-projects) - [Next Exercise](../2.5-rbac)
 {% endif %}
 <br><br>
-[こちらをクリックして、Ansible for Red Hat Enterprise Linux Workshop に戻ります](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

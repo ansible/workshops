@@ -1,28 +1,28 @@
 # ワークショップ演習 - 条件、ハンドラー、ループ
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
 * [目的](#objective)
 * [ガイド](#guide)
-  * [Step 1 - 条件](#step-1---conditionals)
-  * [Step 2 - ハンドラー](#step-2---handlers)
-  * [Step 3 - シンプルループ](#step-3---simple-loops)
-  * [Step 4 - ハッシュのループ](#step-4---loops-over-hashes)
+  * [ステップ 1 - 条件](#step-1---conditionals)
+  * [ステップ 2 - ハンドラー](#step-2---handlers)
+  * [ステップ 3 - 簡単なループ](#step-3---simple-loops)
+  * [ステップ 4 - ハッシュのループ](#step-4---loops-over-hashes)
 
 ## 目的
 
 3 つの基本的な Ansible 機能は次のとおりです。
 
-* [Conditionals](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
-* [Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
-* [Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+* [条件](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
+* [ハンドラー](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
+* [ループ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
 
 ## ガイド
 
-### Step 1 - 条件
+### ステップ 1 - 条件
 
 Ansible は条件を使用して、特定の条件が満たされたときにタスクまたは再生を実行できます。
 
@@ -31,14 +31,14 @@ Ansible は条件を使用して、特定の条件が満たされたときにタ
 
 |      |                                                                        |
 | ---- | ---------------------------------------------------------------------- |
-| \==  | 2 つのオブジェクトが等しいかを比較します。                                     |
-| \!=  | 2 つのオブジェクトが等しくないかどうかを比較します。                                   |
-| \>   | 左側が右側よりも大きい場合に真になります。        |
-| \>=  | 左側が右側よりも小さい場合に真になります。       |
-| \<   | 左側が右側よりも小さい場合に真になります。          |
-| \<= | 左側が右側と等しいか、右側よりも小さい場合に真になります。   |
+| \==  | Compares two objects for equality.                                     |
+| \!=  | Compares two objects for inequality.                                   |
+| \>   | true if the left hand side is greater than the right hand side.        |
+| \>=  | true if the left hand side is greater or equal to the right hand side. |
+| \<   | true if the left hand side is lower than the right hand side.          |
+| \<= | true if the left hand side is lower or equal to the right hand side.   |
 
-詳細は、以下のドキュメントを参照してください。<http://jinja.pocoo.org/docs/2.10/templates/> 
+詳細は、以下のドキュメントを参照してください。<http://jinja.pocoo.org/docs/2.10/templates/>
 
 例として、FTP
 サーバーをインストールしたいと思っていますが、「ftpserver」インベントリーグループにあるホストにのみにインストールしたいとします。
@@ -94,7 +94,7 @@ skipping: [node3]
 changed: [node2]
 ```
 
-### Step 2 - ハンドラー
+### ステップ 2 - ハンドラー
 
 タスクがシステムに変更を加える場合は時折、その他の単一のタスクまたは複数タスクを実行しなければならない場合があります。たとえば、サービスの設定ファイルを変更すると、変更した構成の有効化にサービスを再起動しなければならないことがあります。
 
@@ -113,7 +113,6 @@ changed: [node2]
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
-student<X>@11.22.33.44's password:
 httpd.conf
 ```
 
@@ -131,7 +130,7 @@ httpd.conf
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
-        - restart_apache
+      - restart_apache
   handlers:
     - name: restart_apache
       service:
@@ -167,13 +166,13 @@ Apache はポート 8080 でリッスンするはずです。確認は簡単で�
 curl: (7) Failed to connect to node1 port 80: Connection refused
 [student<X>@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
-<h1>This is a production webserver, take care!</h1>
+<h1>This is a development webserver, have fun!</h1>
 </body>
 ```
 
-httpd.conf ファイルを自由に再度変更して、playbook を実行してください。
+8080 番ポートでリッスンする設定のままにします。後でこれを使用します。
 
-### Step 3 - 簡単なループ
+### ステップ 3 - 簡単なループ
 
 ループを使用すると、同じタスクを何度も繰り返すことができます。たとえば、複数のユーザーを作成するとします。Ansibleループを使用することで、1
 つのタスクでそれを行うことができます。ループは、基本的なリスト以上のものを繰り返すこともできます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらを反復処理することもできます。ループの詳細については、[Ansible
@@ -216,17 +215,14 @@ Playbook と出力の概要:
 
 <!-- {% endraw %} -->
 
-### Step 4 - ハッシュのループ
+### ステップ 4: ハッシュのループ
 
 前述のように、ループはハッシュのリストでも実行できます。ユーザーを別の追加グループに割り当てる必要があると想像してください。
 
 ```yaml
-- username: dev_user
-  groups: ftp
-- username: qa_user
-  groups: ftp
-- username: prod_user
-  groups: apache
+- username: dev_user groups: ftp
+- username: qa_user groups: ftp
+- username: prod_user groups: apache
 ```
 
 `user` モジュールには、その他のユーザーを一覧表示するためのオプションのパラメーター `groups`
@@ -262,18 +258,51 @@ Playbook を書き直して、追加のユーザー権限を持つユーザー�
 
 * ここでも、タスクは 1 回リストされていますが、3 つの変更がリストされています。各ループとその内容が表示されます。
 
-ユーザー `dev_user` が `node1` で確実に作成されたことを確認します。
+以下の Playbook を使用して、`dev_user` が `node1` で作成されたことを確認します。
+
+{% raw %}
+```yaml
+---
+- name: Get user ID
+  hosts: node1
+  vars:
+    myuser: "dev_user"
+  tasks:
+    - name: Get {{ myuser }} info
+      getent:
+        database: passwd
+        key: "{{ myuser }}"
+    - debug:
+        msg:
+          - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
+```
+{% endraw %}
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a "id dev_user"
-node1 | CHANGED | rc=0 >>
-uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
-```
+$ ansible-navigator run user_id.yml -m stdout
 
+PLAY [Get user ID] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Get dev_user info] *******************************************************
+ok: [node1]
+
+TASK [debug] *******************************************************************
+ok: [node1] => {
+    "msg": [
+        "dev_user uid: 1002"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 ---
 **ナビゲーション**
 <br>
 [前の演習](../1.4-variables) - [次の演習](../1.6-templates)
 
-[こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../README.md#section-1---ansible-engine-exercises)

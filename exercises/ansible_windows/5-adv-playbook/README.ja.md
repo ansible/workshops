@@ -1,56 +1,66 @@
-# 演習 5 - 高度な Playbook 
-
-**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-これまでの演習で、Ansible Playbook の書き方の基本を学びました。これを発展させてさらに柔軟性に富んだパワフルな Playbook の書き方について学んでいきましょう。♬  
+前の演習では、Ansible Playbook の基本を説明しました。次のいくつかの演習では、自動化に柔軟性とパワーを追加する、より高度な
+ansible スキルをいくつか紹介します。
 
-Ansible を利用することにより、タスクをシンプルかつ簡単に繰り返すことが可能になります。ただ、ちょっと考えていただければ分かると思いますが、全てのシステムが同じ設定というわけではなく、Playbook 実行の際、システムごとの柔軟性が必要になることもよくあります。この様な場合に対応するため、 Ansible では、非常に柔軟性に富んだ利用しやすい変数の機能が備わっています。  
+Ansible の存在意義は、タスクをシンプルかつ繰り返し可能にすることです。すべてのシステムが完全に同じであるとは限らず、Ansible
+Playbook の実行の仕組みを少し変更しなければならいことは理解しています。そこで変数を使用します。
 
-変数は、システム間の違いを吸収する手段を提供します。例えば、ポート、IPアドレス、またはディレクトリなどをシステムに毎に柔軟に変更することができます。  
+変数は、システム間の違いに対処する方法です。これにより、ポート、IP アドレス、またはディレクトリーなどの変更を考慮に入れることができます。
 
-ループを使用すると同じタスクを何度も繰り返すことができます。たとえば、複数のサービスを開始したり、複数の機能をインストールしたり、複数のディレクトリを作成したりする事が出来ます。Ansible ループを使用すると、1つのタスクでそれを実行できます。  
+ループでは、同じタスクを何度も繰り返すことができます。たとえば、複数のサービスの起動、複数の機能のインストール、複数のディレクトリーの作成を行いたいとします。Ansible
+ループを使用することで、1 つのタスクでこれらすべてを行うことができます。
 
-ハンドラーについても学びます。ハンドラーとは、特定のタスクが実行されたときにのみに追加で呼び出されるタスクです。例えば、httpd サービスの設定ファイルを変更した場合にのみ httpd サービスを再起動するというようなことが簡単に実現可能です。通常だと if 文で書いたり、複雑になりがちですよね。Ansible だと極めて簡単に記述する事が出来ます。  
+ハンドラーは、サービスを再起動する方法です。新しい設定ファイルをデプロイし、新しいパッケージをインストールしましたでしょうか。その場合、これらの変更を有効にするためにサービスの再起動が必要となる場合があります。これはハンドラーを使用して行います。
 
-変数、ループ、およびハンドラーを完全に理解するには、 これらのテーマに関する以下の Ansible ドキュメントをご覧ください。  
-[Ansible 変数](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
-[Ansible ループ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
-[Ansible ハンドラー](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#handlers)  
-  
-## Playbook の作成
+変数、ループ、ハンドラーの詳細については、これらのテーマに関する Ansible のドキュメントをご覧ください。  [Ansible
+Variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html
+[Ansible
+Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html
+[Ansible
+Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#handlers
 
-まず最初に新しい Playbook を作成します。演習3で作成したものに近いので問題なく理解できると思います。  
+セクション 1: Playbook の作成
+=====================================
 
-### ステップ 1:
+まず、新しい Playbook を作成しますが、演習 3 で作成したものに非常によく似ていると思います。
 
-Visual Studio Code 内で、gitリポジトリに新しいディレクトリを作成し、`site.yml` ファイルを作成します。  
-以前に「iis_basic」ディレクトリを作成した*WORKSHOP_PROJECT*が存在していると思います。  
+ステップ 1
+--------------
 
-![Student Playbooks](images/5-vscode-existing-folders.png)
+Visual Studio Code 内で、git リポジトリーに新しいディレクトリーを作成し、site.yml ファイルを作成します。
 
-### ステップ 2: フォルダーとファイルの作成
+Explorer で、以前に `iis_basic` を作成した場所に *WORKSHOP_PROJECT* セクションがあるはずです。
 
-*WORKSHOP_PROJECT*セクションにカーソルを合わせ、*New Folder*ボタンをクリックします。  
+![学習者 Playbooks](images/5-vscode-existing-folders.png)
 
-「iis_advanced」と入力してEnterキーを押します。  
+ステップ 2: **iis_advanced** というフォルダーと `site.yml` というファイルを作成します
+------------------------------------------------------------------------
 
-`iis_advanced`フォルダーを右クリックし、*New_File*を選択します。  
+*WORKSHOP_PROJECT* セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。
 
-`site.yml` と入力します。  
+`iis_advanced` と入力し、Enter キーを押します。次に、そのフォルダーをクリックして選択します。
 
-Playbook 編集用のエディターが右ペインに開きます。  
+`iis_advanced` フォルダーを右クリックし、*New File* を選択します。
+
+`site.yml` と入力し、Enter キーを押します。
+
+これで、Playbook の作成に使用できるエディターが右側のペインで開いているはずです。
 
 ![Empty site.yml](images/5-vscode-create-folders.png)
 
-### ステップ 3:
+ステップ 3
+--------------
 
-Playbook のプレイの中にいくつかの変数を定義します。これには後程タスクの中で利用する Web サーバーに対する固有の構成情報が含まれています。  
+プレイ定義といくつかの変数を Playbook に追加します。これらには、Playbook が Web
+サーバーにインストールする追加のパッケージに加えて、いくつかの Web サーバー固有の設定が含まれます。
 
 ```yaml
 ---
-- hosts: windows
-  name: This is a play within a playbook
+- name: This is a play within a playbook
+  hosts: windows
   vars:
     iis_sites:
       - name: 'Ansible Playbook Test'
@@ -62,17 +72,21 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
     iis_test_message: "Hello World!  My test IIS Server"
 ```
 
-### ステップ 4:
+ステップ 4
+--------------
 
-**install IIS**という新しいタスクを追加します。Playbook を書いた後、`ファイル` &gt; `保存`をクリックして変更を保存します。  
+**install IIS** という新しいタスクを追加します。Playbook を作成したら `File` &gt; `Save`
+をクリックして変更を保存します。
 
 <!-- {% raw %} -->
+
 ```yaml
   tasks:
     - name: Install IIS
       win_feature:
         name: Web-Server
         state: present
+
     - name: Create site directory structure
       win_file:
         path: "{{ item.path }}"
@@ -88,40 +102,58 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
       with_items: "{{ iis_sites }}"
       notify: restart iis service
 ```
+
 <!-- {% endraw %} -->
 
 ![site.yml part 1](images/5-vscode-iis-yaml.png)
 
-> **ヒント**
+> **注意**
 >
-> - `vars:` 変数名と値に関する定義を行うことを宣言しています。    
+> **ここで起きていることを説明します。**
 >
-> - `iis_sites` iis_sitesという名前のリスト型変数を定義しています。その下の、`name` `port` `path` は iis_sites の下位の階層の変数を定義しています。  
+> - `vars:` Ansible に、次のものが
+>  変数名であることを指示しています。
 >
-> - `win_file:` ファイル、ディレクトリ、およびシンボリックリンクを作成、変更、削除するために使用されるモジュールです。  
+> - `iis_sites`: iis \ _sites というリストタイプの変数を定義しています
+>   これに続くのは、関連した変数を持つ各サイトの
+>   リストです
 >
-> - `{{ item }}` 変数 iis_sites に対して変数の値を変化させながらタスクがループされます。ここでは、プレイで定義した `name`, `port`, `path` にそれぞれ2回、異なる値が入りながらループが実行されます。
+> - `win_file:`: このモジュールは、ファイル、ディレクトリー、シンボリックリンクの作成、変更、削除に
+>   使用されます。
 >
-> - `with_items: "{{ iis_sites }}` Ansible によるループの書き方の1つです。変数 iis_sites が持つ値を入力しながらループを実行するという意味です。ループ内での変数は、`{{ item }}` で、この中に定義された値が入ります。  
+>  - `{{ item }}` これがリストアイテムに広がることを Ansible に伝えています
+>   各アイテムには、`name`、`port`、`path` などの
+>   いくつかの変数があります。
 >
-> - `notify: restart iis service` これはハンドラーに関する内容ですので、後述します。  
+> - `with_items: "{{ iis_sites }}` これは、
+>   Ansible に、`iis_sites` においてすべての `item` に、このタスクを実行するように指示する
+>   ループです。
+>
+> - `notify: restart iis service` このステートメントは `handler` なので、
+>   セクション 3 で説明します。
 
-## Firewall の開放とファイルの送付
+セクション 2: ファイアウォールを開いてファイルを展開する
+==================================================================================
 
-その後、IISサービスを開始するタスクを定義します。
+その後、IIS サービスを開始するタスクを定義します。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-**iis_advanced folder** がハイライトされていることを確認して、*WORKSHOP_PROJECT* にカーソルを当て、*New Folder* ボタンをクリックします。  
+プロジェクトディレクトリーに `templates` ディレクトリーを作成し、次のようにテンプレートを作成します。
 
-`templates` と入力します。次に、この *templates* ホルダーを右クリックして *New File* ボタンを選択します。  
+** iis_advanced folder** が強調表示されていることを確認してから、*WORKSHOP_PROJECT*
+セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。
 
-`index.html.j2` と入力します。  
+`templates` と入力し、Enter キーを押します。*templates* フォルダーを右クリックし、*New File*
+ボタンをクリックします。
 
-テンプレート作成用のエディターが右ペインに開きます。次の様に入力します。
+`index.html.j2` と入力し、Enter キーを押します。
 
+これで、テンプレートの作成に使用できるエディターが右側のペインで開いているはずです。次の詳細を入力します。
 
 <!-- {% raw %} -->
+
 ```html
 <html>
 <body>
@@ -132,15 +164,19 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
 </body>
 </html>
 ```
+
 <!-- {% endraw %} -->
 
 ![index.html template](images/5-vscode-template.png)
 
-### ステップ 2:
+ステップ 2
+--------------
 
-ファイアウォールのポートの開放と、テンプレートによるファイル作成を行う様に Playbook `site.yml`を編集します。スラッシュをエスケープしないために、 `win_template`に一重引用符を使用しましょう。  
+ファイアウォールポートを開いてテンプレートを作成することにより、Playbook `site.yml`
+を編集し直します。スラッシュをエスケープしないように、`win_template` には一重引用符を使用してください。
 
 <!-- {% raw %} -->
+
 ```yaml
     - name: Open port for site on the firewall
       win_firewall_rule:
@@ -166,28 +202,39 @@ Playbook のプレイの中にいくつかの変数を定義します。これ�
         - http://{{ ansible_host }}:8080
         - http://{{ ansible_host }}:8081
 ```
+
 <!-- {% endraw %} -->
 
-> **ヒント**
+> **注意**
 >
-> **上記の解説です**
+> **では、実際に書いたものを詳しく見ていきます。**
 >
-> - `win_firewall_rule:` ファイアウォールルールを作成、変更、および更新するために使用されるモジュールです。AWSの場合、通信に影響を与える可能性のあるセキュリティグループルールもあります。今回の演習では、ポート開放を行っています。    
+> - `win_firewall_rule:` このモジュールは、ファイアフォールルールの作成、変更、および
+>   更新に使用されます。AWS の場合は、次の点にも注意してください。
+>   通信に影響を与える可能性のあるセキュリティグループルール。この例では、
+>   そのポートのルールを開きました。
 >
-> - `win_template:` jinja2テンプレートを使ってファイルを作成し、対象ホストにファイルをコピーしています。    
+> - `win_template:` このモジュールは、jinja2 テンプレートが
+>   使用およびデプロイされていることを指定します。
 >
-> - テンプレートの中では、変数に値が入力されファイルコピーが行われます。  
+> - テンプレート式内 (フィルター) のデータを変換するために
+> Ansible で使用されます。
 >
-> - `debug:` `iis_basic` 同様、この Playbook も最後に Web サイトの URL を表示するように構成されています。    
+> - `debug:` 繰り返しになりますが、`iis_basic` Playbook のように、このタスクは、この演習用に作成しているサイトにアクセスするための URL を表示します
 
+セクション 3: ハンドラーの定義と使用
+====================================================
 
-## ハンドラーの利用
+設定ファイルのデプロイ、新しいパッケージのインストールなど、サービス/プロセスを再起動する必要がある理由はいくつもあります。このセクションには、実際には
+2 つのパートがあります。Playbook にハンドラーを追加し、タスクの後にハンドラーを呼び出します。前者から始めます。
 
-Ansible には便利な機能として、ハンドラーという機能が備わっています。一つの "場合分け" と考えていただいて大丈夫です。例えば、構成ファイルの更新、新しいパッケージのインストールなど、多くの場合、サービス/プロセスの再起動が必要となります。この様な場合、特定のタスクに Notify を記述しておき、後ろにハンドラーとして追加のタスクを記述しておきます。そうすると、Notifyのタスクが実行された時にのみハンドラーで記述されたタスクが実行されるという動作が簡単に実現できます。    
+`handlers` ブロックは、1 レベルのインデント、つまり 2 つのスペースの後に開始する必要があります。`tasks`
+ブロックと整列する必要があります。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-ハンドラーの定義
+ハンドラーを定義します。
 
 ```yaml
   handlers:
@@ -198,35 +245,47 @@ Ansible には便利な機能として、ハンドラーという機能が備わ
         start_mode: auto
 ```
 
-> **ヒント**
->>
-> - `handler:` notify を受けて実行されるということを除いては、ハンドラーはタスク様に記述されます。  
+> **注意**
 >
-> - `notify: restart iis service` notity は、`win_iis_website` に追記されていますのでこのタスクが実行されたときに限り、`restart iis service` で記述されたハンドラーが呼び出されて実行されるという動きになります。  
+> **後者を語らずして、前者を始めることはできません。**
+>
+> - `handler:` これは **play** に `tasks:` が
+>   終了していて、`handlers:` を定義していることを指示します。その下のすべては、
+>   他のタスクと同じように見えます。つまり、名前、
+>   モジュール、およびそのモジュールのオプションを指定します。これが、ハンドラーの
+>   定義です。
+>
+> - `notify: restart iis service` ...そして、ここからがようやく後者の部分です。
+>   `notify` ステートメントは、名前によるハンドラーの呼び出しです。
+>   明らかですね。
+>   `win_iis_website` タスクに `notify` ステートメントを追加したことには既にお気づきでしょう。
+>   これがその理由です。
 
-## コミットと動作確認
+セクション 4: コミットとレビュー
+==============================================
 
-改良された新しい Playbook の完成です♪  
-早速、変更を保存し、GitLabにコミットしましょう。  
+新しく改良された Playbook が完成しました。ただし、ソースコード管理への変更をコミットする必要があることを忘れないでください。
 
-`File` をクリックし、`Save All` を選択。編集したファイルを保存します。
+`File` → `Save All` をクリックして、書き込んだファイルを保存します
 
 ![site.yml part 2](images/5-vscode-iis-yaml.png)
 
-Source Control アイコンをクリックし (1)、変更内容を記述し (2)、上部のチェックをクリックします (3)。  
+ソースコードアイコン (1) をクリックし、*Adding advanced playbook* (2)
+などのコミットメッセージを入力して、上のチェックボックス (3) をクリックします。
 
 ![Commit site.yml](images/5-commit.png)
 
-左下の青いバーの矢印をクリックして、gitlabに同期します。 プロンプトが表示されたら、`OK`をクリックしてコミットをプッシュおよびプルします。
+左下の青いバーの矢印をクリックして、gitlab に同期します。プロンプトが表示されたら、`OK` をクリックしてコミットをプッシュおよびプルします。
 
 ![Push to Gitlab.yml](images/5-push.png)
 
-コミットが完了するまでに5〜30秒かかります。 青いバーは回転を停止し、問題が0であることを確認します...　　
+コミットが完了するまで 5〜30 秒かかります。青いバーは回転を停止し、問題がないことを示しています...。
 
-Playbook は以下のようになっているはずです。もう一度確認してみましょう。  
-もし間違っていれば修正してみてください。特に、スペースには要注意です。  
+今一度、自分の意図した通りになっているかどうかを確認してみましょう。もしそうでなければ、今こそ修正する時です。以下の playbook
+は正常に実行されるはずです。
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
 - hosts: windows
@@ -252,7 +311,7 @@ Playbook は以下のようになっているはずです。もう一度確認�
         path: "{{ item.path }}"
         state: directory
       with_items: "{{ iis_sites }}"
-      
+
     - name: Create IIS site
       win_iis_website:
         name: "{{ item.name }}"
@@ -278,7 +337,7 @@ Playbook は以下のようになっているはずです。もう一度確認�
         src: 'index.html.j2'
         dest: '{{ item.path }}\index.html'
       with_items: "{{ iis_sites }}"
-      
+
     - name: Show website addresses
       debug:
         msg: "{{ item }}"
@@ -293,96 +352,104 @@ Playbook は以下のようになっているはずです。もう一度確認�
         state: restarted
         start_mode: auto
 ```
+
 <!-- {% endraw %} -->
 
-## ジョブテンプレートの作成
+セクション 5: ジョブテンプレートの作成
+=======================================================
 
-### ステップ 1:
+ステップ 1
+--------------
 
-ジョブテンプレートを作成する前に、最初にプロジェクトを再同期する必要があります。そこからやりましょう！  
+ジョブテンプレートを作成する前に、まずプロジェクトを再同期する必要があります。これを行います。
 
-> **Note**
+> **注意**
 >
-> 基本的には、GitLab と Automation Controller は自動では同期されません。つまり、今回のPlaybook の存在を Automation Controller はまだ知りません。これを教えてあげる手段が、プロジェクトの同期です。やり方は・・・、そう、Automation Controller の GUI の左ペインでプロジェクトをクリックして、丸くなった矢印をクリックですね！！  
+> ジョブテンプレートから選択する新しい *ベース* Playbook ファイルを作成するときは、
+> 常にこれを行う必要があります。新しいファイルは、
+> ジョブテンプレート Playbook ドロップダウンで利用可能になる前に Controller に
+> 同期する必要があります。
 
-### ステップ 2:
+ステップ 2
+--------------
 
-この Playbook をテストするには、この Playbook を実行する新しいジョブテンプレートを作成する必要があります。*テンプレート*に移動して*＋*をクリックし、`ジョブテンプレート`を選択して2番目のジョブテンプレートを作成します。入力値は以下の通りです。  
+この Playbook をテストするには、この Playbook
+を実行するための新しいジョブテンプレートを作成する必要があります。したがって、*Template* に移動し、*Add* をクリックして、`Job
+Template` を選択し、2 番目のジョブテンプレートを作成します。
 
-| キー         | 値                      | 備考 |
+次の値を使用してフォームに記入します
+
+| Key         | Value                      | Note |
 |-------------|----------------------------|------|
-| 名前        | IIS Advanced               |      |
-| 説明 | Template for iis_advanced  |      |
-| ジョブタイプ    | 実行                        |      |
-| インベントリー   | Workshop Inventory |      |
-| プロジェクト     | Ansible Workshop Project   |      |
-| PLAYBOOK    | `iis_advanced/site.yml`    |      |
-| 認証情報  | Student Account            |      |
-| 制限       | windows                    |      |
-| オプション     | [*] ファクトキャッシュの有効化にチェック         |      |
+| Name        | IIS Advanced               |      |
+| Description | Template for iis_advanced  |      |
+| Job Type    | Run                        |      |
+| Inventory   | Workshop Inventory |      |
+| Execution Environment     | windows workshop execution environment   |      |
+| Project     | Ansible Workshop Project   |      |
+| Playbook    | `iis_advanced/site.yml`    |      |
+| Credentials  | Workshop Credential            |      |
+| OPTIONS     | [\*] Enable Fact Storage         |      |
 
-![Create Job Template](images/5-create-template.ja.jpg)  
+ステップ 3
+--------------
 
-### ステップ 3:
+SAVE ![保存](images/at_save.png) をクリックし、以下のページで **Survey** タブを選択します。
 
-![Add](images/at_save.ja.jpg) をクリックした上で、SURVEY の追加をクリック ![Add](images/at_add_survey.ja.jpg)  
+ステップ 4
+--------------
 
-### ステップ 4:
+以下の値を使用して新規 survey を作成します。
 
-Survey に以下を入力します。  
-
-| キー                    | 値                                                    | 備考 |
+| Key                    | Value                                                    | Note |
 |------------------------|----------------------------------------------------------|------|
-| プロンプト                 |  	新しい Web サイト用のテストメッセージを入力します         |      |
-| 説明            | Webサイトのテストメッセージ入力画面                             |      |
-| 回答の変数名   | `iis_test_message`                                       |      |
-| 回答のタイプ            | テキスト                                                     |      |
-| 最大長 | デフォルトのまま                                         |      |
-| デフォルトの応答         | Be creative, keep it clean, we're all professionals here |      |
+| Question               | Please enter a test message for your new website         |      |
+| Description            | Website test message prompt                              |      |
+| Answer Variable Name   | `iis_test_message`                                       |      |
+| Answer Type            | Text                                                     |      |
+| Minimum/Maximum Length | Keep the defaults                                        |      |
+| Default Answer         | Be creative, keep it clean, we’re all professionals here |      |
 
-![Survey Form](images/5-survey.ja.jpg)  
+![Survey ファーム](images/5-survey.png)
 
-### ステップ 5:
+ステップ 5
+--------------
 
-![Add](images/at_add.png) をクリックします。
+SAVE ![追加](images/at_save.png) を選択し、**On** スイッチを入れることを忘れないでください ![On
+switch](images/controller_on.png) を選択します。
 
-### ステップ 6:
--------
 
-![Add](images/at_save.ja.jpg) をクリックします。
+セクション 6: 新しいプレイブックの実行
+=======================================================
 
-### ステップ 7:
+それを実行して、どのように機能するかを見てみましょう。
 
-ジョブテンプレートの画面に戻るので、保存をクリックします。
+ステップ 1
+--------------
 
-## 作成した playbook を起動
+テンプレートを選択します
 
-作成した Playbook を実行して、動くかどうか確認してみましょう。  
-
-### ステップ 1:
-
-テンプレートを選択します。  
-
-> **ヒント**
+> **注意**
 >
-> ジョブテンプレートの作成ページから移動していない場合は、下にスクロールして既存のすべてのジョブテンプレートを表示することも可能です  
+> あるいは、ジョブテンプレートから移動していない場合
+> 作成ページでは、下にスクロールして既存のすべてのジョブテンプレートを表示できます
 
-### ステップ 2:
+ステップ 2
+--------------
 
-**IIS Advanced**の右端にあるロケットアイコン ![Add](images/at_launch_icon.png) をクリックします。  
+**IIS Advanced** ジョブテンプレートのロケットアイコン！[追加](images/at_launch_icon.png)
+をクリックします。
 
-### ステップ 3:
+ステップ 3
+--------------
 
-Surveyで作成した入力画面が表示されるので、お好きなメッセージ(英語)を入力してください。♪
+プロンプトが表示されたら、目的のテストメッセージを入力します
 
-起動するとジョブ画面が表示され、出力をリアルタイムで見ることができます。  
+起動後、リダイレクトされ、ジョブの出力をリアルタイムで監視できます。
 
-ジョブが正常に完了すると、ジョブ出力の下部にWebサイトへの2つのURLが出力されます。  
+ジョブが正常に完了すると、ジョブ出力の下部に Web サイトへの 2 つの URL が出力されます。
 
 ![Job output](images/5-job-output.png)
 
-![IIS site](images/5-iis-8080.png)
-
-
-[ワークショップ一覧に戻る](../README.ja.md)
-
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../README.md)

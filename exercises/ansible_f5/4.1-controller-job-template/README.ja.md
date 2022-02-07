@@ -1,46 +1,53 @@
-# 演習 4.1: Tower ジョブテンプレートの作成
+# 演習 4.1: 自動コントローラージョブテンプレートの作成
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
-- [目的](#目的)
-- [解説](#解説)
-- [まとめ](#まとめ)
-- [完了](#完了)
+
+- [目的](#objective)  - [ガイド](#guide)  - [重要なこと](#takeaways)  -
+[完了](#complete)
 
 # 目的
 
-Red Hat Ansible Tower の BIG-IP 仮想サーバー構成ジョブテンプレートをデモします。このジョブテンプレートは、仮想サーバーとプールを作成し、2つの Web サーバーをプールに追加します。
+Red Hat Ansible 自動コントローラー向けの BIG-IP
+仮想サーバー設定ジョブテンプレートについてを説明します。このジョブテンプレートは仮想サーバーとプールを作成し、2 つの Web
+サーバーをプールに追加します。
 
-Ansible Tower で Ansible Playbook を実行するには、**ジョブテンプレート** を作成する必要があります。**ジョブテンプレート** には以下が必要です。
+Ansible 自動コントローラーで Ansible Playbook を実行するには、**ジョブテンプレート**
+を作成する必要があります。**ジョブテンプレート** には以下が必要です。
 
- - デバイスにログインするための **認証情報**
- - ジョブを実行するための **インベントリー**
- - Playbook が含まれる **プロジェクト**
+- デバイスにログインするための **認証情報**。  - ジョブ実行の対象となる **インベントリー** - Ansible Playbook
+が含まれる **プロジェクト**
 
-# 解説
-## Step 1: プロジェクトを作成する
-1. Web UI を開き、左側のメニューバーから **リソース** セクションの下にある **プロジェクト** をクリックします。
+# ガイド
 
-2. 緑色の![templates link](images/add.png)ボタンをクリックして、新しくプロジェクトを作成します。
+## ステップ 1: プロジェクトの作成
 
-3. 以下の通りにパラメータを入力し、**保存** をクリックします。 
+1. Ansible Web UI で、左側のナビゲーションバーを使用して `RESOURCES` セクションの `Projects`
+   リンクをクリックします。
 
-    | パラメータ             | 値                                                                  |
-    |------------------------|---------------------------------------------------------------------|
-    | 名前                   | Workshop Project                                                    |
-    | 組織                   | Default                                                             |
-    | SCM タイプ             | Git                                                                 |
-    | SCMURL                 | https://github.com/f5devcentral/ansible-tower-workshop-examples.git |
-    | 起動時のリビジョン更新 | ✓                                                                   |
+2. ![templates link](images/add.png) ボタンをクリックして、新規プロジェクトを作成します
 
-> Note: ご使用の環境には、追加のプロジェクトがセットアップされている場合があります。各プロジェクトは、Ansible Playbook のリポジトリを表します。複数のプロジェクトがあるのは正常です。
+3. 以下のようにプロジェクトパラメーターを入力し、`Save` をクリックします
 
-![workshop_project link](images/workshop_project.ja.png)
+   | Parameter | Value |
+   |---|---|
+   | NAME  | Workshop Project  |
+   | ORGANIZATION | Default
+   |  Default Execution Environment | f5 workshop execution environment |
+   |  SCM TYPE |  Git |
+   |  SCM URL |  https://github.com/f5devcentral/ansible-tower-workshop-examples.git |
+   |  Update Revision on Launch |  ✓ |
 
-すべての Playbook は https://github.com/f5devcentral/ansible-tower-workshop-examples から入手でき、各 Playbook を確認することができます。
+**注記**: お使いの環境では、他にもプロジェクトが設定されている場合があります。各プロジェクトは、Ansible Playbook のリポジトリーを表しています。複数のプロジェクトがあっても全く問題ありません。
 
-参考に、インポートされている、このラボの後半で実行される Playbook の一つを次に示します。
+![workshop_project link](images/workshop_project.png)
+
+すべての Playbook
+はhttps://github.com/f5devcentral/ansible-tower-workshop-examples で公開されており、各
+Playbook の背景を把握することができます。
+
+参照として、インポートされた Playbook の 1 つで、このラボで後ほど実行される Playbook を以下に示します。
 
 **`create_vs.yml`**
 
@@ -50,7 +57,10 @@ Ansible Tower で Ansible Playbook を実行するには、**ジョブテンプ�
   hosts: lb
   connection: local
   gather_facts: false
-
+  
+  collections:
+    - f5networks.f5_modules
+    
   tasks:
     - name: Setting up provider values
       set_fact:
@@ -100,141 +110,144 @@ Ansible Tower で Ansible Playbook を実行するには、**ジョブテンプ�
         msg: "The VIP (Virtual IP) is https://{{ansible_host}}"
 ```
 
-## Step 2: BIG-IP 認証情報の作成
-ジョブを作成する前に、BIG-IP に対して認証するための資格情報を作成する必要があります。
+## ステップ 2: BIGIP 認証情報の作成
 
-1. Web UI を開き、左側のメニューバーから **リソース** セクションの下にある **認証情報** をクリックします。
+ジョブを作成する前に、BIGIP に対して認証するために認証情報を作成する必要があります。
 
-   ![credentials link](images/credentials.ja.png)
+1. Web UI を開き、左側のナビゲーションバーを使用して `RESOURCES` セクションの `Credentials`
+   リンクをクリックします。
 
-2. 緑色の![templates link](images/add.png) ボタンをクリックし、新しく認証情報テンプレートを作成します。
+   ![credentials link](images/credentials.png)
 
-3. 以下の通りに、認証情報パラメータをフィールドに入力します。
+2. ![templates link](images/add.png) ボタンをクリックして、新規認証情報テンプレートを作成します
 
-| パラメータ     | 値           |
-|----------------|--------------|
-| 名前           | BIGIP        |
-| 認証情報タイプ | ネットワーク |
-| ユーザ名       | admin        |
-| パスワード     |              |
+3. 以下のように、以下の認証情報テンプレートパラメーターでフィールドに入力します。
 
-NOTE: パスワードは、学生ラボ情報が含まれているWebページのワークベンチ情報セクションにあります。パスワードがわからない場合は、講師に相談してください。
+   | Parameter | Value |
+   |---|---|
+   | NAME  | BIGIP |
+   | CREDENTIAL TYPE | Network |
+   | USERNAME | admin |
+   | PASSWORD |  |
+   |
 
-4. **保存** をクリックします。
+   **注記**: パスワードは、受講者のラボ情報が含まれる Web ページの Workbench Information セクションに記載されています。パスワードが不明な場合は、インストラクターにお尋ねください。
 
-## Step 3: ジョブテンプレートの作成
-1. Web UI を開き、左側のメニューバーから **リソース** セクションの下にある **テンプレート** をクリックします。
+4. SAVE をクリックします
 
-   ![template link](images/templates.ja.png)
+## ステップ 3: ジョブテンプレートの作成
 
-2. 緑色の![templates link](images/add.png) ボタンをクリックし、新しくジョブテンプレートを作成します。
+1. Web UI を開き、左側のナビゲーションバーを使用して `RESOURCES` セクションの `Templates` リンクをクリックします。
 
-3. 以下の通りにパラメータを入力します。
+   ![テンプレートリンク](images/templates.png)
 
-| パラメータ     | 値                 |
-|----------------|--------------------|
-| 名前           | create_vs          |
-| ジョブタイプ   | 実行               |
-| インベントリー | Workshop Inventory |
-| プロジェクト   | Workshop Project   |
-| Playbook       | create_vs.yml      |
-| 認証情報       | BIGIP              |
+2. ![templates link](images/add.png) ボタンをクリックして、新しいジョブテンプレートを作成します
 
-認証情報タイプから `ネットワーク` を選択し、次に `BIGIP` を選択します。
+   >**`Workflow Template`** ではなく必ず **`Job Template`** を選択してください
 
-   ![network credential](images/network.ja.png)
+3. 次のようにジョブテンプレートパラメータを入力します。
 
-これは、パラメータが入力されたジョブテンプレートのスクリーンショットです。
+   | Parameter | Value |
+   |---|---|
+   | NAME  | create_vs |
+   | JOB TYPE | Run |
+   | INVENTORY | Workshop Inventory |
+   | PROJECT | Workshop Project |
+   | PLAYBOOK | create_vs.yml |
+   | CREDENTIALS | BIGIP |
+   |
 
-   ![create_vs job template](images/create_vs.ja.png)
+   **CREDENTIAL TYPE** で `Network` を選択し、次に `BIGIP` を選択します。
 
-4. 下にスクロールして、緑色の **保存** ボタンをクリックします。
+   ![network credential](images/network.png)
 
-## Step 4: ジョブテンプレートの起動
+   パラメータが入力されたジョブテンプレートのスクリーンショットを以下に示します。
 
-1. 全てのテンプレートが一覧表示されている **テンプレート** ウインドウに戻ります。
+   ![create_vs job template](images/create_vs.png)
+      
+4. 下にスクロールして、緑色の `SAVE` ボタンをクリックします。
 
-2. ロケットボタンを押して、`create_vs` を起動します。
+## ステップ 4: ジョブテンプレートの起動
 
-    ![rocket button](images/rocket.png)
+1. すべてのジョブテンプレートが一覧表示されている `Templates` ウィンドウに戻ります。
 
-    ロケットボタンをクリックすると、ジョブが起動します。**ジョブ詳細表示** という新しいウインドウを開き確認します。[Tower Jobs](https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html)の詳細については、ドキュメントを参照してください。
+2. Launch ボタンをクリックして、`create_vs` ジョブテンプレートを起動します。
 
-## Step 5: ジョブ詳細表示の確認
+   ![rocket ボタン](images/rocket.png)
 
-左側には **詳細ペイン** があり、右側には **標準出力ペイン** があります。
+   起動ボタンをクリックすると、ジョブが起動します。このジョブは、**Job Details View** と呼ばれる新しいウィンドウで開きます。[コントローラージョブ](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) の詳細は、ドキュメントをご覧ください。
 
-![job details view](images/job_create_vs.ja.png)
+## ステップ 5: ジョブの詳細ビューの検証
 
-1. **詳細ペイン** を確認します。
+**Standard Out ウィンドウ** が表示されます。
 
-    **詳細ペイン**は、ジョブの開始と終了時のタイムスタンプのような情報や、ジョブの種類(チェックや実行)、ジョブを起動したユーザ、プロジェクトや Ansible Playbook 等の情報を提供します。
+![job details view](images/job_create_vs.png)
 
-    ジョブがまだ終了していない場合、**詳細ペイン** にはキャンセル![cancel button](images/cancel.png)ボタンがあり、ジョブを停止するために使用することができます。
+1. *Standard Out ウィンドウ** を調べます
 
-2. **標準出力ペイン** を確認します。
+   **Standard Out ウィンドウ** には、Ansible Playbook からの出力が表示されます。すべてのタスク出力は、コマンドラインに表示されるものと正確に一致します。
+   
+2. **Details タブ** を調べます
 
-    **標準出力ペイン** は、Ansible Playbook の出力を表示します。全ての Task の出力は、コマンドラインの出力と全く同じです。
+   **Details タブ** には、ジョブの開始と終了のタイムスタンプ、ジョブの種類 (チェックまたは実行)、ジョブを開始したユーザー、使用された Project と Ansible Playbook などの情報が表示されます。
 
-3. **出力の展開** ![expand image](images/expand.png) ボタンをクリックします。
+   ジョブがまだ終了していない場合、**Details タブ** にはキャンセルボタン ![cancel button](images/cancel.png) があり、ジョブを停止するために使用できます。
 
-    これにより、**標準出力ペイン** が拡張され、ウインドウ全体が表示されます。
+3. **Standard Out pane** でタスクをクリックして、その特定のタスクからの構造化された出力を開きます。
 
-4. **標準出力ペイン** の中から Task をクリックし、特定の Task から構造化された出力を開きます。
+   > **changed** または **ok** がある行をクリックします
 
-    > 任意の **changed** もしくは **ok** がある行をクリックします。
+   ![task details window](images/task_details.png)
 
-    ![task details window](images/task_details.png)
+## ステップ 6: ジョブウィンドウを調べます
 
-## Step 6: ジョブウインドウの確認
+実行済みまたは現在実行中の **ジョブテンプレート** は、**VIEWS --> Jobs** ウィンドウの下に表示されます。
 
-実行完了もしくは実行中の **ジョブテンプレート** は **ジョブ** ウインドウに表示されます。
+1. 左側のメニューのジョブボタンをクリックします。
 
-1. Web UI で、左側のメニューバーから **ジョブ** ボタンをクリックします。
+   ![ジョブボタン](images/jobs.png)
 
-    ![jobs button](images/jobs.ja.png)
+   ジョブリンクには、ジョブの一覧とそれらのステータスが表示 (正常に完了、失敗、またはアクティブ (実行中の) ジョブとして表示) されます。この画面から実行できるアクションには、特定のジョブの詳細および標準出力、ジョブの起動、またはジョブの削除が含まれます。
 
-    ジョブウインドウには、ジョブのリストとそのステータスが表示され、正常に完了したか失敗したか、またはアクティブな（実行中の）ジョブが表示されます。この画面から実行できるアクションには、特定のジョブの詳細と標準出力の表示、ジョブの再起動、ジョブの削除などがあります。
+2. **`create_vs`** ジョブをクリックします
 
-2. **`create_vs`** ジョブをクリックします。
+   ![jobs link](images/jobslink.png)
 
-    ![jobs link](images/jobslink.ja.png)
+   **`create_vs`** ジョブは最新のものでした (より多くのジョブを起動していない場合に限る)。このジョブをクリックして、**Job Details View** に戻ります。Ansible 自動コントローラーは、開始されたすべてのジョブの履歴を保存します。
 
-    その **`create_vs`** のジョブは最新です(他の演習を先に進めていない限り)。 このジョブをクリックし、**ジョブ詳細表示** に移動します。Ansible Tower は起動されたすべてのジョブの履歴を保存します。
+## ステップ 7: BIG-IP 仮想サーバーが作成されたことの確認
 
-## Step 7: BIG-IP 仮想サーバー作成確認
+Web ブラウザーで F5 BIG-IP にログインし、設定された内容を確認します。BIG-IP のログイン情報は以下のとおりです。
 
-Web ブラウザーから F5 BIG-IP にログインし、構成内容を確認します。  
-BIG-IPのログイン情報:
+- ユーザー名: admin - パスワード: インストラクターから提供、デフォルトは ansible
 
-- username: admin
-- password: **講師から指示されます** (default is admin)
+ロードバランサーの仮想サーバーは、左側のメニューからナビゲーションして探すことができます。**Local Traffic**
+をクリックしてから、**Virtual Servers** をクリックします。以下のスクリーンショットを参照してください。
 
-左側のメニューに、Virtual Servers を見つけることができます。**Local Traffic** をクリックし、**Virtual Servers** をクリックします。以下のスクリーンショットを参照してください。
 ![vip link](images/vip.png)
 
-## Step 8: Web サーバの確認
+## ステップ 8: Web サーバーの確認
 
-２つの RHEL Web サーバは、それぞれ既に Apache が起動しています。Web ブラウザーから F5 ロードバランサーのパブリック IP アドレスを開きます。
+2 つの RHEL Web サーバーのそれぞれでは、すでに apache が実行されています。Web ブラウザーで F5 ロードバランサーのパブリック
+IP を開きます。
 
->今回は8443ではなく443を使用します。例: https://X.X.X.X:443/
+>今回は、ポート 8443 の代わりに 443 を使用します (例: https://X.X.X.X:443/)
 
-以下に示すように、更新するたびに BIG-IP は node1 と node2 間のトラフィックの負荷を分散します:
-![node1 link](images/node1.png)
-![node2 link](images/node2.png)
+リフレッシュするたびに、BIG-IP は以下に示すように **node1** と **node2** の間でトラフィックの負荷分散を行います。
 
-# まとめ
+![node1 link](images/node1.png)  ![node2 link](images/node2.png)
 
-デモに成功しました
- - 仮想サーバーを展開するためのジョブテンプレートの作成
- - Ansible Tower UI からのジョブテンプレートの起動
- - 仮想サーバーが正しく作成されていることの確認
- - Web サーバーが稼働中であることの確認
+# 重要なこと
 
----
+以下のことができるようになりました
+ - ジョブテンプレートの作成して仮想サーバーをデプロイする
+ - Ansible 自動コントローラー UI からジョブテンプレートを起動する
+ - 仮想サーバーが正しく作成されたことを確認する
+ - Web サーバーが稼働していることを確認する
 
 # 完了
 
-演習4.1を完了しました。
+ラボ演習 4.1 を完了しました
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../README.md)

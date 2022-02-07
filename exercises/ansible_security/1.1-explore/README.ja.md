@@ -1,95 +1,219 @@
-# 演習 1.1 - ラボ環境を確認してみよう
+# 演習 1.1 - ラボ環境の調査
 
-**Read this in other languages**: <br>
+**他の言語でもお読みいただけます**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
-## Step 1.1 - 目的
+## ステップ 1.1 - 目的
 
-このラボの目的は、セキュリティオペレーターが使用するセキュリティツールを自動化する方法をより深く理解し、実際に体験してもらうことです。そのために、セキュリティ担当者の日々の課題に典型的な3つのセキュリティユースケースに取り組みます。これらのユースケースはすべてほぼ同じツールセットを使用しますが、それぞれのユースケースは異なる視点（セキュリティアナリスト、ファイアウォールオペレーター、IDS スペシャリスト）を示しており、利用可能なツールについての異なる視点を示しています。
+このラボの目的は、セキュリティーオペレーターが使用するセキュリティーツールを自動化する方法をより深く理解し、実際に体験していただくことです。そのために、セキュリティーオペレーターの日常的な課題として典型的な
+3 つのセキュリティーユースケースに取り組みます。これらのケースでは、ほぼ同じツールセットを使用しますが、それぞれのユースケースでは、異なる視点
+(セキュリティーアナリスト、ファイアウォールオペレーター、IDS スペシャリスト) を紹介するため、利用可能なツールに対する視点も異なってきます。
 
-セキュリティ関連の一般的なツールをセットアップします:
+自動化コントローラーと、セキュリティー関連ツールの共通セットをセットアップしています。
 
-- ファイアウォール、今回は [Check Point Next Generation Firewall](https://www.checkpoint.com/products/next-generation-firewall/)を使用します。
-- セキュリティ情報とイベント管理（SIEM）、今回は [QRadar](https://www.ibm.com/security/security-intelligence/qradar)を使用します。
-- 侵入検知・防止システム、今回は [Snort](https://www.snort.org)を使用します。
+| Role 	| Inventory name 	| Hostname 	| Username 	| Password 	|
+|---	|---	|---	|---	|---	| | Ansible Control Host 	| ansible 	| ansible-1 	|
+- 	| - 	| | IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	| |
+Attacker 	| attacker 	| attacker 	| - 	| - 	| | Snort 	| snort 	| snort 	| -
+	| - 	| | Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	|
+admin 	| admin123 	| | Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| -
+	| | Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	|
+*Provided by Instructor* 	| | Automation controller 	| ansible 	| ansible-1
+	| admin 	| *Provided by Instructor* 	|
 
-このラボの最初のセクションの演習では、上記の個々のソリューションについて説明します。これらのソリューションにアクセスする方法、それらが何のために使用されているのか、そして Ansibleを使用してそれらとどのように対話するのかを学びます。
 
-このラボの 2 番目のセクションの演習では、実際のセキュリティ運用のユースケースに焦点を当てています。課題を設定し、状況を解決するためにどのようなタスクを手動で行う必要があるかを説明した後、ラボでは Ansible を使用してタスクを自動化するための手順を説明します。
+### ファイアウォール
+-
+ファイアウォールとは、送受信されるネットワークトラフィックを監視し、定義されたセキュリティールールに基づいて特定のトラフィックを許可するかブロックするかを決定するネットワークセキュリティーデバイスです。
+- このワークショップでは、[Check Point Next Generation
+Firewall](https://www.checkpoint.com/products/next-generation-firewall/)
+を使用します。
 
-## Step 1.2 - ラボのアーキテクチャ、NodesとServices
+### Security Incident and Events Management (SIEM)
+- SIEM は、セキュリティー情報管理 (SIM) とセキュリティーイベント管理 (SEM)
+を組み合わせたものです。イベントのリアルタイム監視および分析だけでなく、コンプライアンスまたは監査目的でセキュリティーデータの追跡およびロギングを提供します。本ワークショップでは、[QRadar](https://www.ibm.com/security/security-intelligence/qradar)
+SIEM インスタンスを用意しています。
 
-このラボでは、事前に設定されたラボ環境で作業を行います。以下のホストとサービスにアクセスすることができます:
+### Intrusion Prevention and Detection System (IDPS)
+- 侵入検知防止システム (IDPS)
+は、起こりうるインシデントを特定し、それに関する情報をログに記録し、その阻止を試み、セキュリティー管理者にこれらを報告することに重点を置いています。
+- 本ワークショップでは、演習用の [Snort](https://www.snort.org) インスタンスを用意しています。
 
-| Role                          | Inventory name |
-| ------------------------------| ---------------|
-| Ansible Control Host          | ansible        |
-| IBM QRadar                    | qradar         |
-| Attacker                      | attacker       |
-| Snort                         | snort          |
-| Check Point Management Server | checkpoint     |
-| Check Point Gateway           | -              |
-| Windows Workstation           | windows-ws     |
+このラボの最初のセクションの演習では、上述の個々のソリューションについて説明します。これらのソリューションへのアクセス方法、使用目的、および
+Ansible を使用した対話方法を学びます。
 
-ラボはあなたのために個別に設定されます。あなたは自分用の環境、自分用のサービス、自分用の仮想マシンを持ちます。
+最初の演習では、Ansible Automation Platform
+の機能やコマンドラインユーティリティーについても紹介します。これらをより詳しく見てみましょう。
 
-![Red Hat Ansible Security Workshop Pod](images/diagram.png)
+### Ansible Automation Platform コマンドラインユーティリティー
 
-セクション2の演習では、セキュリティインシデントを発生させる必要があります。これらのインシデントは、**ターゲット**のマシン（Snortサーバ）で発生しなければなりません。基本的には、SnortがインストールされたRHELのインストール作業で、攻撃を実行するための簡易ウェブサーバを実行しています。
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) -
+Ansible 自動化コンテンツを実行および開発するためのコマンドラインユーティリティーとテキストベースのユーザーインターフェース (TUI)。  -
+[ansible-core](https://docs.ansible.com/core.html) - Ansible Automation
+Platform
+を支えるフレームワーク、言語、機能を提供する基本的な実行ファイルです。また、`ansible`、`ansible-playbook`、`ansible-doc`
+などのさまざまな cli ツールも含まれています。Ansible Core は、無料でオープンソースの Ansible
+を提供する上流のコミュニティーと、Red Hat が提供する下流のエンタープライズ自動化製品である Ansible Automation
+Platform との橋渡しの役割を果たします。  -
+[実行環境](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html)
+- このワークショップでは特に取り上げません。なぜなら、実行環境はすでにこのワークショップに組み込まれているからです。実行環境とは、Ansible
+の実行環境として利用できるコンテナーイメージのことです。  -
+[ansible-builder](https://github.com/ansible/ansible-builder) -
+このワークショップでは特に取り上げませんが、`ansible-builder`
+は実行環境の構築プロセスを自動化するためのコマンドラインユーティリティです。
 
-## Step 1.3 - Ansible環境へのアクセス
+Ansible Automation Platformの新しいコンポーネントに関する情報が必要な場合は、このランディングページをブックマークしてください
+[https://red.ht/AAP-20](https://red.ht/AAP-20)
 
-すべての自動化は、Red Hat Enterprise Linux マシンである Ansible コントロールノードから行われます。コントロールホストへのアクセスやファイルの管理を容易にするために、コントロールノードに直接インストールされた VSCodeエディタのオンライン版があります。この方法では、通常のWebブラウザからアクセスすることができます。コマンドは、VSCodeエディタ内のターミナルから直接実行することができます。
 
-Visual Studio Codeにアクセスしてみましょう。ワークショップページからVS Codeにアクセスするためのリンクをクリックします:
+このラボの第 2
+セクションの演習は、実際のセキュリティー運用のユースケースに焦点を当てています。つまり、特定の課題を解決しなければならない状況で、通常は、上記のソリューションの
+1
+つだけでなく、いくつかを組み合わせて使用することになります。課題を設定し、その状況を解決するために手動で行わなければならない作業を説明した後、Ansible
+を使ってその作業を自動化する手順をラボで説明します。
 
-![VS Code Access](images/1-vscode-access.png)
+## ステップ 1.2 - ラボ、ノード、およびサービスのアーキテクチャー
 
-この時点で、**Welcome** ページが表示されます:
+このラボでは、事前設定されたラボ環境で作業します。ここでは、以下のホストとサービスにアクセスできます。
 
-![VS Code - Welcome](images/1-vscode-welcome-page.png)
 
-この環境の中から、ファイルの作成や変更、ターミナルを開いてコマンドを実行することができます。
+>**注記**
+>
+> ワークショップには、Red Hat Enterprise Linux ホストにログインするための事前設定された SSH キーが含まれ、ログインにユーザー名とパスワードは必要ありません。
 
-## Step 1.4 - VSCodeでターミナルを開いて使用する
+ラボは個別にセットアップされています。独自の環境、独自のサービス、独自の仮想マシンがあります。
 
-VS Codeで新しいターミナルを開いてみましょう。メニューバーの「**Terminal** > **New Terminal**」をクリックします。
+![Red Hat Ansible Security Workshop Pod](images/diagram.png#centreme)
 
-![VS Code - New Terminal](images/1-vscode-new-terminal.png)
+セクション 2 の演習では、セキュリティーインシデントが必要です。これらは、**target** マシン、つまり Snort
+サーバー上で発生する必要があります。基本的には、RHEL に Snort をインストールし、攻撃を行うための簡易 Web サーバーを実行させます。
 
-エディタの下部に新しいターミナルが開き、コマンドプロンプトが表示されます。ほとんどの前提条件のタスクはすでに完了していることに注意してください。
+## ステップ 1.3 - Ansible 環境へのアクセス
 
-  - Ansibleはインストールされています
+すべての自動化は、Ansible コントロールホスト（Red Hat Enterprise Linux
+マシン）から行われます。コントロールホストへのアクセスやファイルの管理を容易にするために、オンライン版の VS Code
+エディターがコントロールホストに直接インストールされています。これにより、通常の Web ブラウザーでアクセスできるようになっています。コマンドは、VS
+Code エディター内のターミナルから直接実行できます。
 
-  - SSH接続と鍵の設定
+<table>
+<thead>
+  <tr>
+    <th>ワークショップの演習には、Visual Studio Codeの使用が強く推奨されます。Visual Studio Codeは以下を提供します。
+    <ul>
+    <li> ファイルブラウザ</li>
+    <li>構文強調表示の機能付きテキストエディタ</li>
+    <li>ブラウザ内ターミナル</li>
+    </ul>
+    バックアップとして、あるいはVisual Studio Codeでは不十分な場合には、SSHによる直接アクセスが可能です。さらなる説明が必要な場合は、短い YouTube ビデオが用意されています。<a href="https://youtu.be/Y_Gx4ZBfcuk"> Ansible Workshops - ワークベンチ環境へのアクセス</a>
+</th>
+</tr>
+</thead>
+</table>
 
-  - root権限を必要とするコマンドを実行するために `sudo` が管理ホスト上で設定されています。
 
-各生徒には生徒番号、つまりXが割り当てられていることに注意してください。明示的に異なることを指示されていない場合は、コントロールノード上で「student<X>」ユーザとして動作する必要があります。
+Visual Studio Code にアクセスしてみましょう。ワークショップページから VS Code アクセスのリンクをクリックします。
 
-次に、Ansibleがただしくインストールされているか確認します。
+![VS Code Access](images/1-vscode-access.png#centreme)
+
+この時点で、**Welcome** ページが表示されます。
+
+![VS Code - Welcome](images/1-vscode-welcome-page.png#centreme)
+
+この環境内では、ファイルの作成や変更のほか、ターミナルを開いてコマンドを実行することができます。
+
+## ステップ 1.4: VS Code でターミナルを開いて使用する
+
+では、VS Code で新しいターミナルを開いてみましょう。メニューバーで、**Terminal** > **New Terminal** をクリックします。 
+
+![VS Code - New Terminal](images/1-vscode-new-terminal.png#centreme)
+
+エディターの下位部分に新しいターミナルが開き、コマンドプロンプトが表示されます。前提条件とされる多くのタスクがすでに完了している点に留意してください。
+
+  - Ansible ソフトウェアのインストール
+
+  - SSH 接続および鍵の設定
+
+  - root 権限が必要なコマンドを実行できるように、`sudo` が管理対象ホストで設定されています。
+
+各受講者には受講者番号 (X など) が割り当てられており、明示的に指示されない限り、コントロールノードで受講者 <X> ユーザーとして作業する必要があることに注意してください。
+
+## ステップ 1.5: 自動化実行環境の検証
+
+次に進み、Ansible Automation Platform が正しく設定されていることを確認します。
 
 ```bash
-    [student<X>@ansible ~]$ ansible --version
+    [student<X>@ansible-1 ~]$ ansible-navigator images 
 ```
 
-結果は以下のようになるはずです:
+結果は以下のようになります。   
 
-![VS Code - Check Ansible Version](images/1-vscode-check-ansible-version.png)
+![VS Code - Check Ansible
+Version](images/1-vscode-navigator_list_ee.png#centreme)
 
-> **Note**
+実行環境 (EE) は、開発から実稼働まで、一貫して自動化を実行するための移植可能および保守可能な環境を開発者およびオペレーターに提供します。
+
+このワークショップは、`security_ee` と呼ばれるカスタム自動化実行環境を使用します。では、詳しく見るために、対応する番号 (**0**)
+を押します。出力は以下のようになります。
+
+![ee main menu](images/1-vscode-navigator-ee-menu.png#centreme)
+
+`Ansible version and collections` に `2` を選択すると、その特定の EE
+にインストールされたすべてのコンテンツコレクションと、`ansible-core` のバージョンが表示されます。
+
+![ee info](images/1-vscode-navigator-ee-collections.png#centreme)
+
+`ansible-navigator` の以前の画面に戻るには、`Esc` ボタンを押します。今回の例では、`Esc` を 3
+回押すとプロンプトに戻ります。
+
+
+> **注記**
 > 
-> Ansibleは構成管理をシンプルにしています。Ansibleはデータベースや実行デーモンを必要とせず、ラップトップ上で簡単に実行できます。管理されているホストでは、実行エージェントは必要ありません。
+> 詳細は、[execution environment documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) を参照してください。   
 
-## Step 1.5 - あなたのインベントリ
+## ステップ 1.6 - ansible-navigator 設定の検証
 
-VSCodeでファイルを開いてみましょう。メニューバーで「**File** > **Open File**」をクリックします。 画面中央のドロップダウンメニューが開き、ユーザーのホームディレクトリの利用可能なファイルの内容が表示されます:
+Visual Studio Code を使用して `ansible-navigator.yml` ファイルを開くか、`cat`
+コマンドを使用してファイルの内容を表示します。このファイルはホームディレクトリーにあります。
 
-![VS Code - VS Code file picker](images/1-vscode-filepicker.png)
+```bash
+$ cat ~/.ansible-navigator.yml
+---
+ansible-navigator:
+  ansible:
+    inventories:
+    - /home/student1/lab_inventory/hosts
 
-「**lab_inventory**」を選ぶと、すぐにファイルリストが更新されます。新しいファイルリストで「**hosts**」をピックしてください。これであなたの環境のインベントリが開きます。
+  execution-environment:
+    image: quay.io/acme_corp/security_ee:latest
+    enabled: true
+    container-engine: podman
+    pull-policy: missing
+    volume-mounts:
+    - src: "/etc/ansible/"
+      dest: "/etc/ansible/"
+```
 
-ご覧のように、あなたの環境のインベントリは以下のリストのような静的なini型ファイルで提供されています。ここで提供されているIPアドレスは単なる例であり、あなたのラボ環境では異なることに注意してください:
+`ansible-navigator.yml` ファイル内の次のパラメータに注意してください。
+
+* `inventories`: 使用されている Ansible インベントリーの場所を示します
+* `execution-environment`: デフォルトの実行環境が設定されている場所
+
+> **注記**
+> 
+> 設定の完全な一覧については、`ansible-navigator` [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/). を参照してください。   
+
+## ステップ 1.7: インベントリー
+
+VS Codeでファイルを開いてみましょう。メニューバーで、**File**、**Open File**
+をクリックします。画面の中央でドロップダウンメニューが開き、ユーザーのホームディレクトリーにある利用可能なファイルの内容が表示されます。
+
+![VS Code - VS Code file picker](images/1-vscode-filepicker.png#centreme)
+
+**lab_inventory** を選択すると、ファイル一覧がすぐに更新されます。新規のファイル一覧で **hosts**
+を選択します。これにより、お使いの環境のインベントリーが開きます。
+
+ご覧のように、環境のインベントリーは静的な ini-type ファイルで提供されます。ここでは、以下の一覧のようになっています。ここで提供される IP
+アドレスは単なる一例であり、ラボ環境では異なる点に注意してください。
 
 ```ini
 [all:vars]
@@ -116,18 +240,23 @@ checkpoint ansible_host=44.55.66.77 ansible_user=admin private_ip=192.168.4.5 an
 windows-ws ansible_host=55.66.77.88 ansible_user=Administrator ansible_pass=RedHat19! ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore private_ip=192.168.5.6
 ```
 
-すべてのIPアドレスはあなたの環境に固有のものです。演習で特定のマシンへのアクセスを要求されたときはいつでも、コントロールノードのインベントリでIPを調べることができます。
+すべての IP アドレスは、お使いの環境に固有のものです。演習で特定のマシンへのアクセスを求められた場合、コントロールホストのインベントリーでいつでも
+IP を調べることができます。
 
-Ansible は、あなたの環境に固有のインベントリを使用するようにすでに設定されています。上の例のように、インベントリにはホスト名と IP アドレスだけではありません。特にWindowsワークステーションの場合は、さらにいくつかのパラメータが設定されています。
+Ansible は、お客様の環境に特化したインベントリーを使用するようにすでに設定されています。上の例で示したように、インベントリーにはホスト名や IP
+アドレス以外の情報も含まれています。特に、Windows ワークステーションの場合は、さらにいくつかのパラメーターが設定されています。
 
-> **Note**
+> **注記**
 > 
-> ラボ内のすべてのホストに SSH や WinRM 経由でアクセスできるわけではありません。いくつかのホストはREST API、RDPまたはWebブラウザを介してアクセスします。演習では、各ノードの種類について詳細に説明し、リソースにアクセスする方法をステップバイステップで示します。
+> ラボ内のすべてのホストが SSH または WinRM 経由でアクセスできるわけではありません。一部のホストは、REST API、RDP、または Web ブラウザー経由でアクセスします。演習では、各ノードタイプが詳細に説明され、リソースにアクセスする方法がステップごとに表示されます。
 
-## Step 1.6 - ラボを利用する
+## ステップ 1.8 - ラボでの作業
 
-このラボはコマンドライン中心のラボなので、すべてを手入力せず、ブラウザからコピー＆ペーストすることをお勧めします。しかし、実行前によく考えて理解することをおすすめします。
+もうお分かりかもしれませんが、このラボではコマンドラインを頻繁に使用します。...したがって、すべてを手動で入力するのではなく、必要に応じてブラウザーからのコピー＆ペーストを使用することをお勧めします。ただし、一度手を止めて考え、理解を深めるようにしてください。
 
 ----
-
-[ここをクリックしてAnsible Security Automation Workshopに戻る](../README.ja.md)
+**Navigation**
+<br><br>
+[Next Exercise](../1.2-checkpoint/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

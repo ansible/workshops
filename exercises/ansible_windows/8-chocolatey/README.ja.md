@@ -1,73 +1,91 @@
-# 演習 8 - Chocolatey
-
-**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
 <br>
 
-この演習では、Chocolateyを利用してどのようにWindows上のソフトウェアを簡単に管理するかについてご紹介します。インストール、アップデートとアンインストール、異なるソースの管理、chocolateyクライアントの構成やシステム管理者が行う一般的なタスクについて取り扱います。
+この演習は、Ansible が Chocolatey を使用した Windows
+ソフトウェアの管理のすべての側面を簡単に制御できるようにする方法を紹介することを目的としています。パッケージのインストール、更新、アンインストール、さまざまなソースの管理、chocolatey
+クライアントの構成、およびシステム管理者が実行するその他の一般的なタスクについて説明します。
 
-Chocolateyとは何でしょうか。簡単に説明すると、ChocolateyはWindows用のパッケージ管理システムです。Chocolateyは、シンプルかつ簡単にWindowsソフトウェアのライフサイクル全体を自動化します。
+Chocolatey とは何でしょうか。簡単に言えば、Chocolatey は Windows 用のパッケージ管理システムです。Chocolatey
+は、ソフトウェア管理を簡素化し、Windows ソフトウェアライフサイクル全体の自動化を容易にすることを目的としています。
 
-オープンソース版のChocolateyクライアントは基本的なパッケージ管理が可能ですが、Chocolatey For Businessスイートでは先進的な管理を提供しています。以下にいくつかピックアップします。
+オープンソースの Chocolatey クライアントは基本的なパッケージ管理機能を提供し、Chocolatey For Business
+スイートは高度な機能セットを提供します。いくつかのハイライトを次に示します。
 
-* Package Builder では、任意の EXE、MSI、ZIP、スクリプトを、わずか5秒でChocolatey パッケージに自動的に変換することができます (インストーラのサイレント引数も計算してくれます)。
-* Package Internalizer は、Chocolatey Community Repositoryでメンテナが既に構築した8000以上のパッケージを取得し、内部で使用するためのローカライズされたオフラインバージョンを作成します（依存関係を含む）。
-* Package Synchronizer は、プログラムと機能に掲載されているアプリケーションの Chocolatey パッケージを作成し、他のパッケージと同様に管理することができます。
-* Chocolatey Self-Service GUI では、エンドユーザが管理者権限や昇格権限を必要とせずにパッケージを管理することができます。
-* Chocolatey Central Management は Web ダッシュボードと API (Automation Controller に似ています) で、エンドポイント全体のハイレベルな概要とレポートを提供します。
+* Package Builder を使用すると、EXE、MSI、zip、またはスクリプトを取得して、わずか 5 秒で自動的に Chocolatey
+  パッケージに変換できます (インストーラーのサイレント引数を把握できます)。
+* Package Internalizer は、メンテナが Chocolatey Community Repository で既に構築した 8000
+  以上のパッケージを取得し、内部で使用するためのローカライズされたオフラインバージョンを作成します (依存関係を含む)。
+* Package Synchronizer を使用すると、Programs and Features
+  にリストされているアプリケーション用のChocolatey パッケージを作成し、他のパッケージと同じように管理できます。
+* Chocolatey セルフサービス GUI を使用すると、エンドユーザーは管理者権限や昇格された権限を必要とせずにパッケージを管理できます。
+* Chocolatey Central Management は、Web ダッシュボードと API (Automation Controller
+  に類似) であり、エンドポイントの資産全体の高レベルの概要とレポートを提供します。
 
 *************************************************************************************************
 
 # セクション 1: `win_chocolatey` モジュール
 
-## ステップ 1 - アドホックコマンドでパッケージをインストールする
+## ステップ 1: アドホックコマンドを使用してパッケージをインストールする
 
-まず最初に、アドホックコマンドで `win_chocolatey` モジュールを利用して、`git` をインストールします。`win_chocolatey` モジュールは、Chocolateyを利用してWindows上のパッケージを管理します。 
+まず、アドホックコマンドを使用して、`win_chocolatey` モジュールを使用して `git` をインストールします。`win_chocolatey` モジュールは、Chocolatey を使用して Windows システム上のパッケージを管理するために使用されます。
 <br>
-まず、左側の「**インベントリー**」をクリックし、「**Workshop Inventory**」を選択します。インベントリの詳細ページに移動しますが、対象となるホストを選択する必要があります。ですので、まず「**ホスト**」をクリックします。
+まず、左側のパネルの **Inventories** をクリックしてから、インベントリー **Workshop Inventory** の名前をクリックします。Inventory Details ページが表示されたので、ホストを選択する必要があります。したがって、**HOSTS** をクリックします。
 
-各ホストの隣にチェックボックスがあります。アドホックコマンドを実行したいホストの隣のチェックボックスを選択します。 すると「**コマンドの実行**」ボタンが有効化されますので、クリックします。
+各ホストの横にはチェックボックスがあります。アドホックコマンドを実行する各ホストの横にあるチェックボックスをオンにします。次に、**RUN
+COMMANDS** ボタンが有効になります。今すぐクリックしてください。
 
-![コマンドの実行](images/8-chocolatey-run-command.png)
+![Run Command](images/8-chocolatey-run-command.png)
 
-ボタンをクリックすると「**コマンドの実行**」ウィンドウが表示されます。ここで各ホストに対して単一のタスクを実行できます。
+これにより、**Execute Command** ウィンドウがポップアップ表示されます。ここから、ホストに対して単一のタスクを実行できます。
 
-以下の通りに入力します:
+このフォームに次のように記入します。
 
 | Key                | Value                    | Note                                                            |
 |--------------------|--------------------------|-----------------------------------------------------------------|
-| モジュール         | `win_chocolatey`         |                                                                 |
-| 引数               | `name=git state=present` | パッケージの名前と状態                                          |
-| 制限               |                          | 選択したホストがあらかじめ入力されています                      |
-| マシンの認証情報   | Student Account          |                                                                 |
+| MODULE             | `win_chocolatey`         |                                                                 |
+| ARGUMENTS          | `name=git state=present` | The name and state of the package                               |
+| LIMIT              |                          | This will be pre-filled out for you with the hosts you selected |
+| MACHINE CREDENTIAL |Student Account     |                                                                 |
 
-![win_chocolateyの実行](images/8-chocolatey-run-win_chocolatey.png)
+![Run Win\_Chocolatey](images/8-chocolatey-run-win_chocolatey.png)
 
-「**実行**」をクリックすると、ジョブの実行ログに遷移します。
+**LAUNCH** をクリックすると、ジョブログにリダイレクトされます。
 
-ジョブ出力では、以下のような実行結果を確認できます:
+ジョブの出力には、次のような結果が表示されます。
 
-![win_chocolateyのジョブ出力](images/8-chocolatey-run-win_chocolatey-result.png)
+![Win\_Chocolatey Job
+Output](images/8-chocolatey-run-win_chocolatey-result.png)
 
-Changedが表示されれば、`git` が正しくインストールされています。Chocolateyクライアントが存在しないという警告も表示されていますので、タスクの実行時にクライアントもインストールされています。以降のタスクでは `win_chocolatey` モジュールはクライアントを検知し、あらたにインストールせずに既存のクライアントを使用します。検証するために、「**詳細**」セクションのロケットアイコンをクリックして、ジョブを再実行します。すると、警告が表示されず、（多くのAnsibleモジュールと同様に) `win_chocolatey` モジュールはべき等性が担保されているため、変更は加えられずsuccessとして表示されます。また、前回は2つのパッケージをインストールしましたが、今回は何もインストールしていないため、タスクの実行時間もより短くなります。
+出力は、`git` がインストールされたことを示す CHANGED ステータスを報告していることがわかります。結果には、Chocolatey
+クライアントがシステムにないという警告も表示されるため、このタスク実行の一部としてインストールされました。`win_chocolatey`
+モジュールを使用する将来のタスクは、クライアントを検出し、何もインストールせずに使用する必要があります。確認するには、**DETAILS**
+セクションのロケットアイコンをクリックしてジョブを再実行します。出力に警告が表示されず、変更も報告されません。ただし、`win_chocolatey`
+(多くの Ansible モジュールと同様) モジュールが冪等 (以前の実行が 2
+つのパッケージをインストールしましたが、これはなにもインストールしないため、実行時間は短くなります) であるため、代わりに SUCCESS
+ステータスが報告されます。
 
-![win_chocolatey ジョブの再実行](images/8-chocolatey-rerun-win_chocolatey-result.png)
+![Win\_Chocolatey re run Job
+Output](images/8-chocolatey-rerun-win_chocolatey-result.png)
 
-このような感じで `git` がインストールされました。
+そのようにして、`git` がインストールされています。
 
-## ステップ 2 - 特定のバージョンの複数のパッケージをインストールする
+## ステップ 2: 特定のバージョンの複数のパッケージをインストールする
 
-前のステップではひとつのパッケージをアドホックにインストールしましたが、実際にはパッケージのインストールを複数のステップの中のひとつとして含めることの方が多いでしょう。また、複数のパッケージ（場合によっては特定のバージョンのパッケージも）をインストールしたい場合もあるでしょう。この演習では、まさにそれを行います。
+最後のステップでは、アドホックな方法で 1 つのパッケージをインストールしました。ただし、実際には、マルチステッププレイの 1
+つのステップとしてパッケージのインストールを含めることをお勧めします。また、複数のパッケージ (場合によってはそのパッケージの特定のバージョン)
+をインストールすることも考えられます。この演習では、これを行います。
 
-まずは、Visual Studio Codeに戻ります。「*WORKSHOP_PROJECT*」セクションの下に 「**chocolatey**」という名前のディレクトリを作成して
-「`install_packages.yml`」というファイルを作成します。
+まずは Visual StudioCode に戻ります。*WORKSHOP_PROJECT* セクションの下に **chocolatey**
+というディレクトリーと `install_packages.yml` というファイルを作成します。
 
-これで、右ペインにPlaybookの作成に使用できるエディタが表示されます。
+これで、Playbook の作成に使用できるエディターが右側のペインで開いているはずです。
 
 <!-- TODO: INSERT Image of Empty text editor here-->
 <!-- ![Empty install\_packages.yml](images/8-vscode-create-install_playbook.png) -->
 ![Empty install\_packages.yml](images/8-chocolatey-empty-install_packages-editor.png)
 
-まずはプレイを定義します:
+まず、プレイを定義します。
 
 ```yaml
 ---
@@ -80,13 +98,15 @@ Changedが表示されれば、`git` が正しくインストールされてい�
         version: 13.0.0
       - name: python
         version: 3.6.0
-
 ```
 
-Ansibleによって収集されるファクトは必要ないので、オーバーヘッドを減らすために、`gather_facts: false` と設定してファクト収集を無効にしました。また、`vars` ディレクティブで `choco_packages` という名前の辞書変数を定義し、Chocolateyを使ってインストールしたいパッケージの名前とバージョンを格納しました。
+Ansible によって収集されたファクトは必要ないか使用しないため、オーバーヘッドを減らすために `gather_facts: false`
+を設定してファクト収集を無効にしました。また、Chocolatey を使用してインストールするパッケージの名前とバージョンを保持するために、`vars`
+ディレクティブの下に `choco_packages` という名前の1つの辞書変数を定義しました。
 
-次にタスクを追加します:
+次に、タスクを追加します。
 
+{% raw %}
 ```yaml
   tasks:
 
@@ -107,22 +127,26 @@ Ansibleによって収集されるファクトは必要ないので、オーバ�
   - debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
-4つのタスクをtasksセクションに追加します:
+タスクセクションに 4 つのタスクを追加しました。
 
-* 最初のタスクは、`win_chocolatey`モジュールを使用し、`choco_packages`変数をループして、指定されたバージョンの各製品をインストールします。
-* 2番目と3番目のタスクは、`win_command`モジュールを使用して、それぞれ `python` と `node` のバージョンをチェックするコマンドを実行し、それぞれの出力を登録します。
-* 最後の4つ目のタスクでは、`debug`モジュールを使用して、ステップ2と3で収集した情報を含むメッセージを表示します。
+* 最初のタスクは `win_chocolatey` モジュールを使用し、`choco_packages`
+  変数をループして、指定されたバージョンの各製品をインストールします
+* 2 番目と 3 番目のタスクは、`win_command` モジュールを使用してコマンドを実行し、それぞれ `python` と `node`
+  のバージョンをチェックして、それぞれの出力を登録します。
+* 4 番目の最後のタスクでは、`debug` モジュールを使用して、手順 2 と 3 で収集した情報を含むメッセージを表示しました。
 
-> **Tip**
+> **ヒント**
 >
-> `win_chocolatey`モジュールの`name`属性は、実際にはパッケージのリストを指定できますのでloopを使う必要はありません。しかし、loopを使用することで各パッケージのバージョンを指定し、順序が関連する場合は、それらを順番にインストールすることができます。`win_chocolatey`モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html)を参照してください。.
+> `win_chocolatey` モジュールの `name` 属性は、実際にはループの必要性を回避してパッケージのリストを取得できますが、ループを使用すると、各パッケージのバージョンを指定し、順序が適切な場合はそれらを順番にインストールできます。`win_chocolatey` モジュールの詳細は、[docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html を参照してください。
 
-`install_packages.yml` プレイブック全体はこのようになります:
+完成した Playbook `install_packages.yml` は次のようになります。
 
+{% raw %}
 ```yaml
 ---
-- name: Install Specific versoins of packages using Chocolatey
+- name: Install Specific versions of packages using Chocolatey
   hosts: all
   gather_facts: false
   vars:
@@ -150,62 +174,73 @@ Ansibleによって収集されるファクトは必要ないので、オーバ�
   - debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
-これでPlaybookは準備完了です:
+これで Playbook の準備ができました。
 
-* メニューから `File > Save` をクリックしてファイルを保存します(もしくはCtrl+Sを押します)。
-* gitに変更をCommitします - *Adding install\_packages.yml* のような関連性のあるコミットメッセージを使用します。
-* 丸い矢印をクリックして、Commitされた変更をリポジトリにPushします。
-* (任意) コードがgitに追加されていることを確認するには、「**GitLab Access**」の情報を使ってGitLabにアクセスします。
+* メニューから `File > Save` をクリックして (または Ctrl+S で) 作業内容を保存します。
+* 変更を git にコミットします。*Adding install\_packages.yml* などの関連するコミットメッセージを使用します。
+* 円形の矢印をクリックして、コミットされた変更をリポジトリにプッシュします。
+* (オプション) **GitLab Access** の下の情報を使用して GitLab に移動し、コードが git であることを確認します。
 
-次に、Automation Controllerに戻り、プロジェクトを同期してController が新しいプレイブックをピックアップするようにします。「**プロジェクト**」をクリックし、プロジェクトの横にある「同期」アイコンをクリックします。
-
+次に、Automation Controller に戻り、プロジェクトを同期して、Controller が新しい Playbook
+を使うようにします。**Projects** をクリックしてから、プロジェクトの横にある同期アイコンをクリックします。
 
 ![プロジェクトの同期](images/8-project-sync.png)
 
-これが完了したら、新しいジョブテンプレートを作成します。**テンプレート**を選択し、![追加](images/add.png)アイコンをクリックし、ジョブテンプレートを選択します。新しいジョブテンプレートには、以下の値を使用します:
+これが完了したら、新しいジョブテンプレートを作成します。**Templates** を選択し、![追加](images/add.png)
+アイコンをクリックして、ジョブテンプレートを選択します。新しいテンプレートには次の値を使用します。
 
-| Key            | Value                                            | Note |
-|----------------|--------------------------------------------------|------|
-| 名前           | Chocolatey - Install Packages                    |      |
-| 説明           | Template for the install_packages playbook       |      |
-| ジョブタイプ   | 実行                                             |      |
-| インベントリー | Workshop Inventory                               |      |
-| プロジェクト   | Ansible Workshop Project                         |      |
-| PLAYBOOK       | `chocolatey/install_packages.yml`                |      |
-| 認証情報       | タイプ: **マシン**. 名前: **Student Account**    |      |
-| 制限           | windows                                          |      |
-| オプション     |                                                  |      |
+| Key         | Value                                            | Note |
+|-------------|--------------------------------------------------|------|
+| Name        | Chocolatey - Install Packages                    |      |
+| Description | Template for the install_packages playbook       |      |
+| JOB TYPE    | Run                                              |      |
+| INVENTORY   | Workshop Inventory                               |      |
+| PROJECT     | Ansible Workshop Project                         |      |
+| PLAYBOOK    | `chocolatey/install_packages.yml`                |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account**     |      |
+| LIMIT       | windows                                          |      |
+| OPTIONS     |                                                  |      |
 
 <br>
 
 ![ジョブテンプレートの作成](images/8-create-install-packages-job-template.png)
 
-「保存」をクリックした後に、「実行」をクリックしてジョブを実行します。 ジョブが正常に完了し、ループ処理で変数に指定したパッケージがインストールされているはずです。
+SAVE、LAUNCH の順にクリックして、ジョブを実行します。ジョブは正常に実行され、変数で指定されたパッケージの Ansible
+ループとインストールを確認できるはずです。
 
 ![ジョブテンプレートの実行](images/8-install-packages-job-run-successful.png)
 
-> **Tip**
+> **ヒント**
 >
-> ここまでくると、プレイブックの作成や編集、変更のコミット、gitへのプッシュといった流れに慣れてきたはずです。また、プロジェクトを更新したり、Automation Controller でジョブテンプレートを作成して実行したりすることにも慣れているはずです。以降の手順では、それらの各ステップのリストはなくなります。
+> これで、Playbook の作成または編集、変更のコミット、および git へのプッシュのフローが理解できたと思います。また、プロジェクトの更新、Automation Controller でのジョブテンプレートの作成と実行にも慣れたことでしょう。後のステップでは、各ステップを省略します。
 
-## ステップ 3 - インストールされているパッケージをすべてアップデートする
+## ステップ 3: インストールされているすべてのパッケージを更新する
 
-`win_chocolatey` モジュールは、単にパッケージをインストールするだけではなく、パッケージをアンインストールしたり、アップデートしたりするのにも使われます。モジュールが行うアクションは、`state` パラメータに渡す値に基づいています。渡せるオプションには次のようなものがあります:
+`win_chocolatey`
+モジュールは、パッケージをインストールするだけでなく、パッケージのアンインストールおよび更新にも使用されます。モジュールが実行するアクションは、`state`
+パラメーターに渡す値に基づいています。渡すことができるオプションには、次のものがあります。
 
-* `present`: パッケージがインストールされていることを保証する。
-* `absent` : パッケージがインストールされていないことを保証する。
-* `latest`: 最新のバージョンのパッケージがインストールされていることを保証する。
+* `present`: パッケージがインストールされていることを確認します。
+* `absent`: パッケージがインストールされていないことを確認します。
+* `latest`: パッケージが利用可能な最新バージョンにインストールされていることを確認します。
 
-前回のプレイブックでは、`state` の値を明示的に定義していなかったため、パッケージをインストールする際のstateパラメータの設定値としてデフォルトの `present` が使用されていました。意図的に古いバージョンのパッケージをインストールしてしまったため、今度はそれらのパッケージをアップデートします。
+前回のプレイブックでは `state` の値を明示的に定義および設定していなかったため、パッケージをインストールするための state
+パラメーターの設定値としてデフォルト値の `present`
+が使用されました。ただし、意図的に古いバージョンのパッケージをインストールしたため、それらのパッケージを更新する必要があります。
 
-Visual Studio Codeで、`chocolatey` フォルダの下に、「`update_packages.yml`」という名前で新しいファイルを作成します。このプレイブックでは、`win_chocolatey`モジュールを使用して、`state`パラメータの値として「`latest`」を指定したプレイを作成します。Chocolateyによって以前にインストールされたすべてのパッケージを更新したいので、`name`パラメータには特定のパッケージ名を指定せず、代わりに「`all`」という値を使用します。
+Visual Studio Code で、`chocolatey` フォルダーの下に `update_packages.yml`
+という名前の新しいファイルを作成します。この Playbook では、`latest` パラメータに値として渡された `state` を使用して
+`win_chocolatey` モジュールを使用するプレイを作成します。Chocolatey
+によって以前にインストールされたすべてのパッケージを更新するため、`name` パラメーターには特定のパッケージ名を指定せずに、値 `all`
+を使用します。
 
-> **Tip**
+> **ヒント**
 >
-> `name` 属性にセットされる値として `all` を使用する情報は、`win_chocolatey` のモジュール[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html)にあります。初めて使うモジュールのドキュメントは必ずチェックしてください。多くの場合、作業の手間を省く有益な情報があります。
+> `name` 属性に設定される値として `all` を使用する方法に関する情報は、`win_chocolatey` のモジュール [docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_module.html) にあります。初めて使用するモジュールのドキュメントを常に確認してください。多くの場合、多くの作業を節約するのに役立つ情報があります。
 
-`update_packages.yml` の内容は以下のようになります:
+`update_packages.yml` の内容は次のとおりです。
 
 ```yaml
 ---
@@ -231,45 +266,54 @@ Visual Studio Codeで、`chocolatey` フォルダの下に、「`update_packages
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
 
+他のタスクは、更新タスクの実行後に `nodejs` と `python` のバージョンを確認できるようにするためにあります。簡単です。
 
-他のタスクは、アップデートタスクが実行された後に、`nodejs`と`python`のバージョンを確認するためにあります。それだけです、簡単ですね。
+次に、新しい Playbook が Git にあり、Automation Controller
+がそれを認識できることを確認してから、次の値を使用して新しいジョブテンプレートを作成して実行します。
 
-次に、新しいプレイブックがGitに登録され、Automation Controllerに表示されていることを確認してから、以下の値で新しいジョブテンプレートを作成して実行します:
-
-> **Tip**
+> **ヒント**
 >
-> ほぼすべてがパッケージをインストールするために作成した最初のジョブテンプレートと同じですので、`テンプレート` のページで「`Chocolatey - Install Packages`」テンプレートの隣にある ![ジョブテンプレートのコピー](images/8-copy.png) アイコンをクリックすることでコピーすることができます。 これでテンプレートのコピーが作成されるので、テンプレートの名前をクリックして編集し、名前、説明、実行するプレイブックを変更することができます。また、プレイブックを1から作成することもできますので、お好みでお選びください。
+> ほぼすべてが、パッケージをインストールするために作成した最初のジョブテンプレートと同様です。`Tempates` に移動し、`Chocolatey - Install Packages` テンプレートの隣の ![コピー](images/8-copy.png) アイコンをクリックすると、そのジョブテンプレートを `copy` できます。これにより、そのテンプレートのコピーが作成されます。その名前をクリックして編集し、実行する名前、説明、および Playbook に変更を加えることができます。Playbook は最初から作成することもできます。
 
-| Key             | Value                                            | Note |
-|-----------------|--------------------------------------------------|------|
-| 名前            | Chocolatey - Update Packages                     |      |
-| 説明            | Template for the update_packages playbook        |      |
-| ジョブタイプ    | 実行                                             |      |
-| インベントリー  | Workshop Inventory                               |      |
-| プロジェクト    | Ansible Workshop Project                         |      |
-| PLAYBOOK        | `chocolatey/update_packages.yml`                 |      |
-| 認証情報        | タイプ: **マシン**. 名前: **Student Account**    |      |
-| 制限            | windows                                          |      |
-| オプション      |                                                  |      |
+| Key         | Value                                            | Note |
+|-------------|--------------------------------------------------|------|
+| Name        | Chocolatey - Update Packages                     |      |
+| Description | Template for the update_packages playbook        |      |
+| JOB TYPE    | Run                                              |      |
+| INVENTORY   | Workshop Inventory                               |      |
+| PROJECT     | Ansible Workshop Project                         |      |
+| PLAYBOOK    | `chocolatey/update_packages.yml`                 |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account**     |      |
+| LIMIT       | windows                                          |      |
+| OPTIONS     |                                                  |      |
 
-新しいテンプレートを実行した後、`debug` タスクメッセージを調べて、`install_packages` ジョブの出力から得られたバージョンと比較してください。これらのパッケージはアップデートされているので、バージョンは新しくなっているはずです（アドホックコマンドでインストールした `git` パッケージもアップデートがあるかどうかチェックされますが、インストールして数分後にアップデートがあるとは思えません）。
+新しいテンプレートを実行した後、`debug` タスクメッセージを調べて、バージョンを `install_packages`
+ジョブ出力からのものと比較します。これらのパッケージは更新であるため、バージョンは高くなるはずです (アドホックコマンドを使用してインストールした
+`git` パッケージも更新がチェックされます。インストールの数分後に更新される可能性はほとんどありません)。
+
 ![ジョブテンプレートの実行](images/8-update-packages-job-run-successful.png)
 
-# セクション 2: Chocolateyのファクトと設定
+# セクション 2: Chocolatey のファクトと設定
 
-Chocolatey でパッケージを管理するために実際に使用されるのは `win_chocolatey` モジュールですが、Ansible で使用できる唯一の Chocolatey モジュールではありません。この演習では、そのうちの2つを見てみましょう。「`win_chocolatey_facts`」と「`win_chocolatey_config`」です。
+`win_chocolatey` モジュールは Chocolatey でパッケージを管理するために実際に使用されるものですが、Ansible
+で使用できる Chocolatey モジュールはこれだけではなく、Windows ターゲットで Chocolatey
+を管理および構成するのに役立つ他のモジュールがあります。この演習では、`win_chocolatey_facts` と
+`win_chocolatey_config` の 2 つを見ていきます。
 
-## ステップ 1 - Chocolateyのファクトの収集
+## ステップ 1: Chocolatey ファクトの収集
 
-最初に使用するモジュールは、「`win_chocolatey_facts`」モジュールです。このモジュールは、Chocolateyからインストールされたパッケージ、設定、機能、ソースなどの情報を収集するために使用します。これらの情報は、レポート生成などのタスクや、他のタスクで定義された条件分岐などに役立ちます。
+最初に使用するモジュールは `win_chocolatey_facts`
+モジュールです。このモジュールは、インストールされたパッケージ、設定、機能、ソースなどの情報を Chocolatey
+から収集するために使用されます。これは、レポート生成としてのタスク、または他のタスクで定義された条件に役立ちます。
 
-> **Tip**
->
-> 「`win_chocolatey_facts`」モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_facts_module.html)を参照してください。
+> **ヒント** > 
 
-それでは、収集した情報を表示する簡単なプレイブックを作成し、収集した情報を詳しく見てみましょう。
+> 詳細は、[docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_facts_module.html). の `win_chocolatey_facts` を参照してください。
 
-Visual Studio Codeで、`chocolatey`フォルダの下に、「`chocolatey_configuration.yml`」という新しいファイルを作成します。そのファイルの内容は以下のようにします。
+それでは、収集した情報を収集して表示するための簡単な Playbook を作成して、このモジュールによって収集された情報を詳しく見ていきましょう。
+
+Visual Studio Code の `chocolatey` フォルダーの下に、`chocolatey_configuration.yml`
+という名前の新しいファイルを作成します。そのファイルの内容は次のようになります。
 
 ```yaml
 ---
@@ -286,63 +330,76 @@ Visual Studio Codeで、`chocolatey`フォルダの下に、「`chocolatey_confi
       var: ansible_chocolatey
 ```
 
-最初のタスクでは、`win_chocolatey_facts` を使用して、対象となる Windows マシン上の Chocolatey から利用可能なすべての情報を収集し、この情報を `ansible_chocolatey` という変数に格納し、`debug` モジュールを使用してその内容を表示して詳しく調べます。
+最初のタスクは、`win_chocolatey_facts` を使用してターゲット Windows マシン上の Chocolatey
+から利用可能なすべての情報を収集し、この情報を `ansible_chocolatey` という名前の変数に格納します。この変数は、`debug`
+モジュールを使用して内容を出力して詳細を調べます。
 
-新しいプレイブックをソースコントロールのリポジトリに追加し、Automation Controllerでプロジェクトを同期してから、以下の値で新しいジョブテンプレートを作成して実行します。
+新しい Playbook をソース管理リポジトリに追加し、Automation Controller で
+プロジェクトを同期してから、次の値を使用して新しいジョブテンプレートを作成して実行します。
 
-| Key            | Value                                              | Note |
-|----------------|----------------------------------------------------|------|
-| 名前           | Chocolatey - Facts and configuration               |      |
-| 説明           | Template for the chocolatey_configuration playbook |      |
-| ジョブタイプ   | 実行                                               |      |
-| インベントリー | Workshop Inventory                                 |      |
-| プロジェクト   | Ansible Workshop Project                           |      |
-| PLAYBOOK       | `chocolatey/chocolatey_conguration.yml`            |      |
-| 認証情報       | タイプ: **Machine**. 名前: **Student Account**     |      |
-| 制限           | windows                                            |      |
-| オプション     |                                                    |      |
+| Key         | Value                                            | Note |
+|-------------|--------------------------------------------------|------|
+| Name        | Chocolatey - Facts and configuration             |      |
+| Description | Template for the chocolatey_configuration playbook |      |
+| JOB TYPE    | Run                                              |      |
+| INVENTORY   | Workshop Inventory                               |      |
+| PROJECT     | Ansible Workshop Project                         |      |
+| PLAYBOOK    | `chocolatey/chocolatey_conguration.yml`          |      |
+| CREDENTIAL  | Type: **Machine**. Name: **Student Account**     |      |
+| LIMIT       | windows                                          |      |
+| OPTIONS     |                                                  |      |
 
 <br>
 
-ジョブの出力には、最初のタスクで収集した `ansible_chocolatey` 変数の内容が表示されます。
+ジョブの出力には、最初のタスクで収集された `ansible_chocolatey` 変数の内容が表示されます。
 
 ![ジョブテンプレートの実行](images/8-chocolatey-configuration-job-run-1-successful.png)
 
-出力をスクロールして値を確認すると、Windows ターゲット上の Chocolatey クライアントの構成、有効な機能と無効な機能、インストールされているパッケージ (以前の演習でインストールしたパッケージが確認できますか？)、およびパッケージをインストールしているソース (これについては後で詳しく説明します) がわかります。これらの情報はJSON形式なので、オブジェクトツリーをたどって個々の値にアクセスできることに注意してください。例えば、インストールされたパッケージのレポートを作成するために、インストールされたパッケージの情報だけに興味がある場合は、`ansible_chocolatey.packages`キーを使ってこれらの値にアクセスできます。
+出力をスクロールして値を確認すると、Windows ターゲットでの Chocolatey
+クライアントの設定、有効および無効な機能、インストールされているパッケージ
+(前の演習でインストールしたパッケージが表示されているでしょうか)、およびソースが表示されます。そこからパッケージをインストールします
+(これについては後で詳しく説明します)。この情報は JSON
+形式であるため、オブジェクトツリーをトラバースすることで個々の値にアクセスできることに注意してください。たとえば、インストールされたパッケージに関する情報のみに関心があり、たとえばインストールされたパッケージのレポートを生成する場合は、`ansible_chocolatey.packages`
+キーを使用してそれらの値にアクセスできます。
 
 <br>
 
-> **Tip**
+> **ヒント**
 >
-> `win_chocolatey_facts` モジュールが収集した情報を見るために、`debug` タスクを使う必要は本当にありませんでした。
-代わりに、Automation Controller のジョブ出力ペインで、Windows ターゲットでタスクを実行した結果をクリックすると、その特定のホストのホストイベントダイアログが開き、選択したイベントの影響を受けるホストに関する情報と、そのイベントの出力が表示されます（この場合、`win_chocolatey_facts` モジュールの実行によって返された JSON オブジェクトです）。
+> `win_chocolatey_facts` モジュールによって収集された情報を表示するためだけに `debug` タスクを使用する必要はありませんでした。代わりに、Ansible Tower のジョブ出力ペインで、Windows ターゲットでタスクを実行した結果をクリックします。これにより、その特定のホストのホストイベントダイアログが開きます。選択したイベントの影響を受けるホストとそのイベントの出力に関する情報が表示されます (この場合、`win_chocolatey_facts` モジュールによって返される JSON オブジェクトが実行されます)
 
 <br>
 
-## ステップ 2 - Chocolateyの設定
+## ステップ 2: Chocolatey を構成する
 
-前のステップでは、Windows ターゲット上の Chocolatey クライアントの設定を `win_chocolatey_facts` モジュールを使って収集できることを確認しましたが、これらの設定を変更したい場合はどうすればよいでしょうか。そのためのモジュールが用意されています。
+前の手順で、`win_chocolatey_facts` モジュールを使用して Windows ターゲット上の Chocolatey
+クライアントの構成を収集できることを確認しました。では、これらの構成を変更する場合はどうでしょうか。そのためのモジュールが存在します。
 
-`win_chocolatey_config`モジュールは、設定オプションの値を変更したり、すべての設定を解除したりして、Chocolateyの設定を管理することができます。
+`win_chocolatey_config`
+モジュールを使用して、設定オプションの値を変更するか、それらをすべてまとめて設定解除することにより、Chocolatey 設定を管理できます。
 
 <br>
 
-> **Tip**
+> **ヒント** > 
+
+> 詳細は、[docs](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_config_module.html の `win_chocolatey_config` を参照してください。
+
+<br>
+
+> **ヒント**
 >
-> `win_chocolatey_config` モジュールの詳細については、[ドキュメント](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_config_module.html)を参照してください。
+> 詳細は、 Chocolatey の設定 [こちら](https://docs.chocolatey.org/en-us/configurationを参照してください。
 
-<br>
+`cacheLocation` と `commandExecutionTimeoutSeconds` の 2
+つの設定オプションの値を変更します。前の手順の出力では、`cacheLocation`
+が設定されていないか、値が構成されていないことがわかりました。これはデフォルト設定であり、`commandExecutionTimeoutSeconds`
+の値がデフォルト値の 2700 に設定されています。これらの設定オプションを変更します。
 
-> **Tip**
->
-> Chocolateyの設定については [こちら](https://docs.chocolatey.org/en-us/configuration)を参照してください。
+* `cacheLocation` を `C:\ChocoCache` に設定します。
+* `commandExecutionTimeoutSeconds` を 1 時間または `3600` 秒に設定します。
 
-ここでは、2つの設定オプションの値を変更します。`cacheLocation` と `commandExecutionTimeoutSeconds` です。前のステップの出力では、`cacheLocation` が設定されていないか、デフォルトの設定である値が設定されていないことがわかりました。また、`commandExecutionTimeoutSeconds` の値はデフォルトの 2700 に設定されていました。これらの設定オプションを次のように修正します:
-
-* `cacheLocation` を `C:\ChocoCache`に設定
-* `commandExecutionTimeoutSeconds` を1時間もしくは `3600` 秒に設定
-
-Visual Studio Codeで、`chocolatey_configuration.yml` プレイブックを編集し以下のタスクを追加します:
+Visual Studio Codeで、`chocolatey_configuration.yml` Playbook
+を編集して、次のタスクを追加します。
 
 ```yaml
   - name: Create a directory for the new Chocolatey caching directory
@@ -370,15 +427,15 @@ Visual Studio Codeで、`chocolatey_configuration.yml` プレイブックを編�
       var: ansible_chocolatey.config
 ```
 
-これらの新しいタスクは以下を実行します:
+これらの新しいタスクは、以下を実行します。
 
-* `win_file` モジュールを使用し `C:\ChocoCache` ディレクトリを作成
-* 新しく作成した `win_chocolatey_config` ディレクトリを使用するように `cacheLocation` の値を変更
-* `commandExecutionTimeoutSeconds` を `3600`に変更
-* 設定値を変更した後にChocolateyファクトを再収集
-* 最後に更新したChocolateyファクトの`config` セクションを表示
+* `win_file` モジュールを使用してディレクトリー `C:\ChocoCache` を作成します。
+* `cacheLocation` を使用して、`win_chocolatey_config` の値を新たに作成されたディレクトリーに変更します。
+* `commandExecutionTimeoutSeconds` の値を `3600` に変更します。
+* 設定値を変更した後、Chocolatey ファクトを再収集します。
+* そして最後に、刷新された Chocolatey ファクトの`config`の部分を出力します。
 
-これで、`chocolatey_configuration.yml` プレイブックの内容は以下のようになります:
+`chocolatey_configuration.yml` Playbook の内容は以下のようになります。
 
 ```yaml
 ---
@@ -419,18 +476,25 @@ Visual Studio Codeで、`chocolatey_configuration.yml` プレイブックを編�
       var: ansible_chocolatey.config
 ```
 
-変更をコミットしてソースコントロールにプッシュし、Automation Controllerでプロジェクトを同期させ、「`Chocolatey - Facts and Configuration`」ジョブテンプレートを実行します。
-> **Tip**
+変更をコミットしてソース管理にプッシュし、Automation Controller でプロジェクトを同期して、`Chocolatey - Facts and Configuration` ジョブテンプレートを実行します。
+> **ヒント**
 >
-> [演習 1](../1-tower)で、 Automation Controllerでプロジェクトを作成した際に「`起動時のリビジョン更新`」にチェックをいれました。ですので、プロジェクトを更新する必要はありません。しかし、もしこのチェックを忘れていた場合は……。
+> [演習 1](../1-tower) で Automation Controller でプロジェクトを作成したときに、`UPDATE REVISION ON LAUNCH` のオプションをチェックしたので、Controller でプロジェクトを更新する必要はありませんでした。しかし、そのオプションをチェックしていない場合を想定しています。
 
-プレイブックが実行されて設定が変更され、最後の `debug` タスクの出力である `ansible_chocolatey.config` セクションの値に変更が反映され、`cacheLocation` と `commandExecutionTimeoutSeconds` の新しい値が表示されるはずです。
+Playbook を実行して設定を変更し、`ansible_chocolatey.config` セクションの値を示す最後の `debug`
+タスクからの出力にそれらの変更を反映し、`cacheLocation` と `commandExecutionTimeoutSeconds`
+の新しい値を表示する必要があります。
 
 ![ジョブテンプレートの実行](images/8-chocolatey-configuration-job-run-2-successful.png)
 
 <br><br>
 
-これで演習は完了です。 この演習では、利用可能なChocolatey関連のAnsibleモジュールのほとんどをカバーしました(ただし、`win_chocolatey_source` と `win_chocolatey_feature` については [こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_feature_module.html) と [こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_source_module.html) を参照してください)。 Windowsパッケージの管理にAnsibleとChocolateyを併用することで、その可能性を感じていただけたのではないでしょうか。
+これで終わりです。今回の演習では、Chocolatey に関連する Ansible モジュールの多くをカバーしました
+(ただし、`win_chocolatey_source`と`win_chocolatey_feature` については
+[こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_feature_module.htmlと
+[こちら](https://docs.ansible.com/ansible/latest/collections/chocolatey/chocolatey/win_chocolatey_source_module.html)
+を参照してください) 願わくば、Ansible と Chocolatey を組み合わせて Windows
+パッケージを管理することで、その可能性を味わっていただきたいと思います。
 
 <br><br>
-[ワークショップ一覧に戻る](../README.ja.md)
+[Click here to return to the Ansible for Windows Workshop](../README.md)

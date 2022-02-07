@@ -1,151 +1,148 @@
-# 演習 4 - Automation Controller プロジェクト・ジョブテンプレート
-
-**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-Automation Controller 独自のオブジェクトとして、プロジェクトとジョブテンプレートがあります。  
+ジョブテンプレートは、Ansible
+ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。
 
-## ジョブテンプレート
+プロジェクトの同期
+===========================
 
-Playbook 実行に必要な以下のオブジェクトを紐づけて定義したものです。  
+新しいプレイブックを使用してジョブテンプレートを作成する前に、Controller
+がそれを認識できるように、まずプロジェクトを同期する必要があります。これを行うには、Controller にアクセスし、**Projects**
+をクリックしてから、プロジェクトの横にある同期アイコンをクリックします。これが完了したら、ジョブテンプレートを作成できます。
 
-・管理対象ホストの一覧（インベントリ）  
-・管理対象ホストの認証情報（ホスト認証情報）  
-・起動するAnsible Playbook（プロジェクト / Playbook）  
+![プロジェクト同期](images/4-project-sync.png)
 
-ジョブテンプレートを作成・実行すると、管理対象ホストに対して Playbook が実行されます。  
+ジョブテンプレートの作成
+====================================
 
-## プロジェクト
+ステップ 1
+--------------
 
-利用する Playbook の保存先ディレクトリを指定したものです。プロジェクトで指定するのは Playbook のディレクトリまでで、Playbook の指定はジョブテンプレートで行います。プロジェクトは、/var/lib/awx/projects/ 配下に作成され、各プロジェクトの中に Playbook が配置されます。Playbook は Automation Controller ホストに sshで接続して /var/lib/awx/projects/<project_name>/xxx.yml という形で作成することも可能ですし、Git 等の SCM と連携して管理することも可能ですが、Playbook の品質管理やバージョン管理の面で、SCM利用を推奨しています。この演習でも、SCMを利用します。  
+**Templates** を選択します
 
-## プロジェクトの同期
+ステップ 2
+--------------
 
-新しい Playbook でジョブテンプレートを作成する前に、最初にプロジェクトを同期して、Controllerがそれを認識できるようにする必要があります。 これを行うには、**プロジェクト**をクリックし、プロジェクトの横にある同期アイコンをクリックします。 これが完了したら、ジョブテンプレートを作成することができます。  
+![追加](images/add.png) アイコンをクリックして、ジョブテンプレートを選択します。
 
-![Project Sync](images/4-project-sync.ja.jpg)
+ステップ 3
+--------------
 
+次の値を使用してフォームに記入します
 
-## ジョブテンプレートの作成
-
-### ステップ 1:
-
-左側のメニューから**テンプレート**をクリックします。  
-
-### ステップ 2:
-
-次に、右側にある緑色の **＋** アイコンをクリックし、**ジョブテンプレート** を選択します。  
-
-### ステップ 3:
-
-ジョブテンプレート作成画面が立ち上がりますので、以下を参考に作成ください。  
-
-| キー         | 値                                        | 備考 |
+| Key         | Value                                        | Note |
 |-------------|----------------------------------------------|------|
-| 名前        | IIS Basic Job Template                       |      |
-| 説明 | Template for the iis-basic playbook          |      |
-| ジョブタイプ    | 実行                                          |      |
-| インベントリー   | Workshop Inventory                   |      |
-| プロジェクト     | Ansible Workshop Project                     |      |
+| Name        | IIS Basic Job Template                       |      |
+| Description | Template for the iis-basic playbook          |      |
+| JOB TYPE    | Run                                          |      |
+| INVENTORY   | Workshop Inventory                   |      |
+| PROJECT     | Ansible Workshop Project                     |      |
+| Execution Environment | windows workshop execution environment             |      |
 | PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
-| 認証情報  | 認証情報タイプ: **マシン**. 名前: **Student Account** |      |
-| 制限       | windows                                      |      |
-| オプション     | [*] ファクトキャッシュの有効化にチェック       |      |
+| CREDENTIAL  | Name: **Windows Credential** |      |
+| LIMIT       | windows                                      |      |
+| OPTIONS     | [*] ENABLE FACT STORAGE                        |      |
 
-![Create Job Template](images/4-create-job-template.ja.jpg)
+![ジョブテンプレートの作成](images/4-create-job-template.png)
 
-### ステップ 4:
+ステップ 4
+--------------
 
-![Save](images/at_save.ja.jpg) をクリックし、![Add](images/at_add_survey.ja.jpg) をクリックします。  
+SAVE ![保存](images/at_save.png) をクリックします。表示されたページで、**Survey** タブを選択し、**Add**
+ボタンを押します ![Survey の作成](images/4-create-survey.png)
 
+ステップ 5
+--------------
 
-### ステップ 5:
+次の値を使用して survey フォームに記入します
 
-以下の値を参考に、Surveyを完成させてください。  
-
-| キー                    | 値                                                      | 備考             |
+| Key                    | Value                                                      | Note             |
 |------------------------|------------------------------------------------------------|------------------|
-| プロンプト                 | 新しい Web サイト用のテストメッセージを入力します          |                  |
-| 説明            | Webサイトのテストメッセージ入力画面                                |                  |
-| 回答の変数名   | `iis_test_message`                                         |                  |
-| 回答タイプ            | テキスト                                                       |                  |
-| 最大長 |                                                            | デフォルトのまま |
-| デフォルトの応答         | *Be creative, keep it clean, we're all professionals here* |                  |  
+| PROMPT                 | Please enter a test message for your new website           |                  |
+| DESCRIPTION            | Website test message prompt                                |                  |
+| ANSWER VARIABLE NAME   | `iis_test_message`                                         |                  |
+| ANSWER TYPE            | Text                                                       |                  |
+| MINIMUM/MAXIMUM LENGTH |                                                            | Use the defaults |
+| DEFAULT ANSWER         | *Be creative, keep it clean, we’re all professionals here* |                  |
 
-![Survey Form](images/4-survey.ja.jpg)
+Survey の設定後に、**保存** をクリックします。生成されるページで、作成した Survey を有効にします。
 
-### ステップ 6:
+![survey の作成](images/4-survey-created.png)
 
-![Add](images/at_add.png) をクリックします。  
 
-### ステップ 7:
+ジョブテンプレートの実行
+====================================
 
-![Add](images/at_save.ja.jpg) をクリックします。  
+ジョブテンプレートが正常に作成されたので、起動する準備が整いました。起動すると、ジョブのステータスを示す、リアルタイムで更新されるジョブ画面にリダイレクトされます。
 
-### ステップ 8:
+ステップ 1
+--------------
 
-先ほどのジョブテンプレート作成画面に戻りますので、保存ボタンをクリックします。  
-　　
-　　
-## ジョブテンプレートの起動
+テンプレートを選択します
 
-ここまでの演習でジョブテンプレートの作成が完了しました。早速起動してみましょう。♬  
-ジョブテンプレートを実行するとジョブのステータスがリアルタイムで更新されるジョブ画面にリダイレクトされます。  
 
-### ステップ 1:
+ステップ 2
+--------------
 
-テンプレートをクリックします。  
+**IIS Basic Job Template** のロケットアイコン！![追加](images/at_launch_icon.png)
+をクリックします
 
-> **ヒント**
->
-> ジョブテンプレートの作成ページから移動していない場合は、下にスクロールして既存のすべてのジョブテンプレートを表示することも可能です  
+ステップ 3
+--------------
 
-### ステップ 2:
+プロンプトが表示されたら、目的のテストメッセージを入力します
 
-**IIS Basic Job Template**の右端にあるロケットアイコン ![Add](images/at_launch_icon.png) をクリックします。  
+！[Survey プロンプト](images / 4-survey-prompt.png)
 
-### ステップ 3:
+ステップ 4
+--------------
 
-Surveyで作成した入力画面が表示されるので、お好きなメッセージ(英語)を入力してください。♪  
+**NEXT** を選択し、入力をプレビューします。
 
-![Survey Prompt](images/4-survey-prompt.ja.jpg)
+ステップ 5
+--------------
 
-### ステップ 4:
+LAUNCH ![SurveyL](images/4-survey-launch.png) を選択します
 
-**次へ** をクリックします。  
+ステップ 6
+--------------
 
-### ステップ 5:
+リラックスしながら、魔法を拝見しましょう
 
-![SurveyL](images/4-survey-launch.ja.jpg)  
-起動ボタンをクリックしてジョブテンプレートを起動します。  
+再度ジョブログページが表示されます。**詳細** タブを選択すると、他の詳細間で Playbook に渡した変数が表示されます。
 
-### ステップ 6:
+![ジョブサマリー](images/4-job-summary-details.png)
 
-ジョブの画面にリダイレクトされます。ジョブのステータス（保留中、実行中、完了など）や、だれがいつ、どのインベントリーに対して実行しているかなどが確認できます。  
+次に、Playbook のプレイと各タスクの詳細を確認できます。
 
-![Job Summary](images/4-job-summary-details.ja.jpg)
+![プレイとタスク出力](images/4-job-summary-output.png)
 
-また、実際に動作しているジョブのステータスが表示されていることが分かります。  
+ステップ 7
+--------------
 
-![Play and Task Output](images/4-job-summary-output.ja.jpg)
+ジョブが正常に完了すると、ジョブ出力の下部に Web サイトへの URL が出力されます。
 
-### ステップ 7:
+すべてが問題なければ、このようなものが表示されるはずです。メッセージは当然、独自のカスタムが表示されます。
 
-ジョブが正常に完了すると、ジョブ出力の下部にWebサイトへのURLが印刷されます。  
-アドレスに接続すると、以下のようなものが表示されます。  
+![カスタムテストメッセージを含む新しい Web サイト](images/4-website-output.png)
 
-![New Website with Personalized Test Message](images/4-website-output.png)
+追加クレジット
+=====================
 
-### 追加演習
+IIS がインストールされたので、*remove\_iis.yml* という新しい Playbook を作成して、IIS を停止および削除します。
 
-ここまでで IISをインストールしましたので、*remove_iis.yml*という新しい Playbook を作成してIISを停止および削除します。  
+**ヒント:** まず、`win_service` モジュールを使って、`W3Svc` サービスを停止します。
+その後、`win_feature` モジュールを使用して `Web-Server` サービスを削除します。
+オプションとして、`win_file` モジュールを使用してインデックスページを削除します。
 
-**ヒント：**  
+結果
+======
 
-最初に `win_service` モジュールを使用して `W3Svc` サービスを停止。次に `win_feature` モジュールを使用して `Web-Server` サービスを削除します。 オプションで、`win_file` モジュールを使用してインデックスページを削除すれば完璧ですね♪  
+ワークショップのこの時点で、Ansible Controller
+のコア機能を体験しました。しかし、待ってください。まだまだあります。これは、Automation Controller
+でできることの一部にすぎません。次のいくつかのレッスンは、基本的な Playbook からの発展に役立ちます。
 
-## まとめ
-
-演習4はこれで終了です。ここまでで、Automation Controller のコア機能を学びました。次の演習では、高度な Playbook の演習を行います。  
-
-[ワークショップ一覧に戻る](../README.ja.md)
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../README.md)

@@ -1,16 +1,16 @@
-# Exercise 2.1 - Routerのコンフィグをバックアップしてみよう
+# Exercise 2.1 - Backing up the router configuration
 
 
-このシナリオでは、Ciscoルータの設定をバックアップするためのプレイブックを作成します。 
-その後の演習で、このバックアップされたコンフィグを利用してデバイスを正常な状態にリストアします。
+In this realistic scenario, you will create a playbook to back-up Cisco
+router configurations. In subsequent labs we will use this backed up
+configuration, to restore devices to their known good state.
 
-> Note: おそらく、ほとんどすべてのNetworkチームにおいて、このようなDay 2 オペレーション手順が存在しているのではないでしょうか。
-> この演習のコンテンツをほとんどそのまま再利用することで、みなさんの環境にも適用できるかもしれません。
+> Note: Since this is a common day 2 operation for most network teams, you can pretty much re-use most of this content for your environment with minimum changes.
 
 #### Step 1
 
-`backup.yml`という新しいファイルを作成し、以下と同じようにplayを定義してください。
-(これまでの章と同じく好きなエディタを用いてください)
+Create a new file called `backup.yml` using your favorite text editor and
+add the following play definition:
 
 ``` yaml
 ---
@@ -23,12 +23,14 @@
 
 #### Step 2
 
-`ios_config`モジュールを用いて、新しいtaskを記述します。
-このタスクは`cisco`グループと定義された全ての機器からバックアップを取得するという内容です。
+Use the `ios_config` Ansible module to write a new task. This task should
+back up the configuration of all devices defined in `cisco` group.
 
-`backup` パラメータは自動的に`backup`というディレクトリをplaybookと同一のフォルダに作成し、バックアップが実行されたタイムスタンプを付けてコンフィグレーションのバックアップを保存します。
+The `backup` parameter automatically creates a directory called `backup`
+within the playbook root and saves a time-stamped backup of the running
+configuration.
 
-> Note: **ansible-doc ios_config** コマンドを実行するか、**docs.ansible.com**を確認することで、モジュールの利用方法を確認できます。
+> Note: Use **ansible-doc ios_config** or check out **docs.ansible.com** for help on the module usage.
 
 
 ``` yaml
@@ -45,14 +47,14 @@
       register: config_output
 ```
 
-なぜ、このタスクの中で`config_output`という変数を定義しているのでしょうか？
 
-**Step 5**にてそれが明らかになります。
+Why are we capturing the output of this task into a variable called
+`config_output`? **Step 5** will reveal this.
 
 
 #### Step 3
 
-playbookを実行して、次に進みましょう。
+Go ahead and run the playbook:
 
 ``` shell
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts backup.yml
@@ -78,7 +80,8 @@ rtr4                       : ok=1    changed=0    unreachable=0    failed=0
 
 #### Step 4
 
-プレイブックは `backup`というディレクトリを作成しました。次にこのディレクトリの内容をリストします。
+The playbook should now have created a directory called `backup`. Now, list
+the contents of this directory:
 
 
 ``` shell
@@ -92,19 +95,22 @@ total 1544
 
 ```
 
-任意のバックアップされたファイルをエディターなどで開いて、きちんとバックアップが取れているのかを検証してみてください。
+Feel free to open up these files using a text editor (`vim` & `nano` work as
+well) to validate their content.
 
 #### Step 5
 
-この先、バックアップしたコンフィグをリストア用途で用いるかもしれません。
-バックアップしたファイルを機器名称でリネームしておきましょう。
+Since we will be using the backed up configurations as a source to restore
+the configuration. Let's rename them to reflect the device name.
 
-**Step 2**において、タスクの出力結果を`config_output`という変数名称に取り込んでいました。
-この変数には、バックアップしたファイルの名前が含まれています。
+In **Step 2** you captured the output of the task into a variable called
+`config_output`. This variable contains the name of the backup file. Use the
+`copy` Ansible module to make a copy of this file.
 
-`copy`モジュールを用いて、このファイルのコピーを作成してみましょう。
+
 
 ``` yaml
+{%raw%}
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -121,12 +127,15 @@ total 1544
       copy:
         src: "{{config_output.backup_path}}"
         dest: "./backup/{{inventory_hostname}}.config"
+{%endraw%}
 ```
 
 
 #### Step 6
 
-再度playbookを実行してみます。
+Re-run the playbook.
+
+
 
 ``` shell
 [student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts backup.yml
@@ -157,7 +166,7 @@ rtr4                       : ok=2    changed=1    unreachable=0    failed=0
 
 #### Step 7
 
-もう一度 `backup`ディレクトリの内容をリストしてみましょう。
+Once again list the contents of the `backup` directory:
 
 ``` shell
 [student1@ansible networking-workshop]$ ls -l backup
@@ -174,13 +183,16 @@ total 3088
 
 ```
 
-ディレクトリには別のバックアップされたコンフィグファイルがありますが、デバイスの名前のみが反映されたファイルがあるということに注意してください。
+Notice that the directory now has another backed-up configuration but one
+that reflects the device's name.
+
 
 
 #### Step 8
 
-
-取得したファイルの内容でそれぞれのデバイスを手動でリストアしようとすると、コンフィグにエラーが発生する行が2箇所あります。
+If we were to try and manually restore the contents of this file to the
+respective device there are two lines in the configuration that will raise
+errors:
 
 ``` shell
 Building configuration...
@@ -188,12 +200,14 @@ Building configuration...
 Current configuration with default configurations exposed : 393416 bytes
 
 ```
+These lines have to be "cleaned up" to have a restorable configuration.
 
-これらの邪魔な行を避けてリストア可能なコンフィグとするためには、"クリーンナップ"を実行する必要があります。
+Write a new task using Ansible's `lineinfile` module to remove the first
+line.
 
-Ansibleの`lineinfile` モジュールを利用して新しいタスクを作成することで、最初の行を削除することができます。
 
 ``` yaml
+{%raw%}
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -216,19 +230,24 @@ Ansibleの`lineinfile` モジュールを利用して新しいタスクを作成
         path: "./backup/{{inventory_hostname}}.config"
         line: "Building configuration..."
         state: absent
+{%endraw%}
 ```
 
-> Note: モジュールのパラメータ **line** は、指定されたファイルにおいて"Building configuration ..."と一致している行があるかを検索し、`absent`(不在/欠けている)状態にします。
+
+> Note: The module parameter **line** is matching an exact line in the configuration file "Building configuration..."
 
 
 #### Step 9
 
-playbookを実行する前に、もう一つタスクを追加し、２つ目の不要な行("Current configuration ...etc")を削除する必要があります。  
-しかし、この行には可変データ(バイト数)があるので、先ほどのように`lineinfile`モジュールと`line`パラメータを用いることはできません。  
-その代わりに、 `regexp`パラメータを使用して正規表現で照合し、ファイル内の行を削除します：
+Before we run the playbook, we need to add one more task to remove the
+second line "Current configuration ...etc". Since this line has a variable
+entity (the number of bytes), we cannot use the `line` parameter of the
+`lineinfile` module. Instead, we'll use the `regexp` parameter to match on
+regular expressions and remove the line in the file:
 
 
 ``` yaml
+{%raw%}
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -257,12 +276,13 @@ playbookを実行する前に、もう一つタスクを追加し、２つ目の
         path: "./backup/{{inventory_hostname}}.config"
         regexp: 'Current configuration.*'
         state: absent
+{%endraw%}                          
 ```
 
 
 #### Step 10
 
-では、playbookを実行してみましょう。
+Now run the playbook.
 
 
 ``` shell
@@ -307,8 +327,8 @@ rtr4                       : ok=4    changed=3    unreachable=0    failed=0
 
 #### Step 11
 
-エディタを利用してファイルの中を確認してみましょう。
-先ほどまであった最初の2行が削除されているはずです。
+Use an editor to view the cleaned up files. The first 2 lines that we
+cleaned up in the earlier tasks should be absent:
 
 ``` shell
 [student1@ansible networking-workshop]$ head -n 10 backup/rtr1.config
@@ -322,15 +342,16 @@ no service log backtrace
 no service config
 no service exec-callback
 no service nagle
+[student1@ansible networking-workshop]$
 
 ```
 
-> Note: **head** というunixコマンドは引数で指定されたn行目までを表示します。
+> Note: The **head** unix command will display the first N lines specified as an argument.
 
 # Complete
 
-お疲れ様でした。
-以上でlab exercise 2.1 は終了です。
+You have completed lab exercise 2.1
 
 ---
-[ここをクリックすると Ansible Linklight - Networking Workshop へ戻ります](../../README.ja.md)
+[Click Here to return to the Ansible Linklight - Networking
+Workshop](../../README.md)

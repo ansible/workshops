@@ -1,67 +1,161 @@
-# 演習 1.2 - 最初のCheck Point用のPlaybookを実行してみよう
+# 演習 1.2 - 最初の Check Point 用 Playbook の実行
 
-**Read this in other languages**: <br>
+**他の言語でもお読みいただけます**: <br>
 [![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
 
-## Step 2.1 - Check Point Next Generation Firewall
+<div id="section_title">
+  <a data-toggle="collapse" href="#collapse2">
+    <h3>Workshop access</h3>
+  </a>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Inventory name</th>
+        <th>Hostname</th>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ansible Control Host</td>
+        <td>ansible</td>
+        <td>ansible-1</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>IBM QRadar</td>
+        <td>qradar</td>
+        <td>qradar</td>
+        <td>admin</td>
+        <td>Ansible1!</td>
+      </tr>
+      <tr>
+        <td>Attacker</td>
+        <td>attacker</td>
+        <td>attacker</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Snort</td>
+        <td>snort</td>
+        <td>snort</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Check Point Management Server</td>
+        <td>checkpoint</td>
+        <td>checkpoint_mgmt</td>
+        <td>admin</td>
+        <td>admin123</td>
+      </tr>
+      <tr>
+        <td>Check Point Gateway</td>
+        <td>-</td>
+        <td>checkpoint_gw</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Windows Workstation</td>
+        <td>windows-ws</td>
+        <td>windows_ws</td>
+        <td>administrator</td>
+        <td><em>Provided by Instructor</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <blockquote>
+    <p><strong>Note</strong></p>
+    <p>
+    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
+  </blockquote>
+</div>
 
-このラボでは、セキュリティ環境でファイアウォールを自動化する方法を紹介するために、Check Point Next Generaion Firewall (NGFW) を使用します。
+## ステップ 2.1 - Check Point Next Generation Firewall
 
-NGFW は通常、直接管理するのではなく、中央セキュリティ管理サーバ(MGMT) を介して管理します。MGMT は、複数の NGFW や他のセキュリティ・ツールを一箇所で管理するためのツールです。
+セキュリティー環境でファイアウォールを自動化する方法を紹介するため、このラボには Check Point Next Generation
+Firewall (NGFW) が含まれます。
 
-MGMTとのやりとりには複数の方法があります。私たちのラボでは、以下の2つの方法が重要になります。
+通常、NGFW は直接管理されず、中央のセキュリティー管理サーバー (MGMT) を介して管理されます。MGMT は、1 つのスポットで複数の NGFW
+またはその他のセキュリティーツールを管理する主要なツールです。
 
-- API: Ansible はほとんどの場合、API を使用して動作します。
-- Windows クライアント: ユーザーのインタラクションは Windows クライアントで行われます
+MGMT と対話する方法は複数あります。このラボでは、以下の 2 つの方法が重要となります。
 
-このラボでは、私たちが書くPlaybookはバックグラウンドでAPIと対話します。すべてのアクションは、WindowsクライアントのUIで検証されます。
+- API: Ansible は主に API と連携します。 - Windows クライアント: ユーザー対話は Windows
+クライアントで行われます。
 
-## Step 2.2 - WindowsワークステーションからCheck Point MGMTサーバーにアクセスする
+このラボでは、作成する Playbook はバックグラウンドで API と対話します。すべてのアクションは Windows クライアント UI
+で検証されます。
 
-MGMT サーバへのアクセスには Windows クライアントが必要であり、ラボの参加者全員が Windows 環境にアクセスできるとは限らないため、本ラボでは Windows ワークステーションを用意しています。
+## ステップ 2.2 - Windows ワークステーションを介した Check Point MGMT サーバーへのアクセス
 
-このWindowsワークステーションは、リモートデスクトッププロトコル(RDP)を介してアクセスすることができます。利用可能な場合は、ネイティブのRDPクライアントを使用することをお勧めします。使用できない場合でも、ラボの参加者がブラウザを介してワークステーションにアクセスできるように、ワークステーションには HTML RDPクライアントが用意されています。
+MGMT サーバーにアクセスするには Windows クライアントが必要ですが、ラボの受講者全員が Windows
+環境にアクセスできるか確認できないため、このラボの一部として Windows ワークステーションをプロビジョニングしました。
 
-RDP クライアントでインベントリにある `windows-ws` の IPアドレスを指定して、MGMT サーバへのアクセスを試してみてください。
+Windows ワークステーションは Remote Desktop Protocol (RDP)
+経由でアクセスすることができます。利用可能な場合は、ネイティブの RDP
+クライアントを使用することを推奨しています。利用可能でない場合は、ラボの参加者がブラウザー経由でワークステーションにアクセスできるようにする HTML
+RDP クライアントがワークステーションに搭載されています。
 
-RDPクライアントをお持ちでない場合や、HTMLのRDPクライアントをテストしたい場合は、以下のURL( `http://<windows-wsIP>/myrtille` )をブラウザで開いてください。
-`<windows-wsIP>` を、インベントリにある Windows ワークステーションの IPアドレスに置き換えてください。ログインフィールドには、ユーザ名とパスワードのみを入力してください。他に指示がなければ、ユーザ名は **Administrator**、パスワードはインベントリに記載されています。他のフィールドは空のままにして、**Connect** をクリックします。
+RDP クライアントをインベントリーの `windows-ws` IP にポイントして、MGMT サーバーへのアクセスをテストします。
 
-Google Chromeブラウザがインストールされている状態で、デフォルトのWindowsワークステーションにアクセスできるようになりました。
+RDP クライアントが利用できない場合や、HTML RDP クライアントをテストする必要がある場合は、ブラウザーで `https://<windows-wsIP>/myrtille` の URL を開いてください。`<windows-wsIP>` は、インベントリーの Windows ワークステーションの IP に置き換えます。ログインフィールドでは、ユーザー名とパスワードのみを指定します。ユーザー名は **Administrator** で、パスワードはインベントリーに記載されています。他のフィールドは空のままにして、**Connect** をクリックします。
 
-> **Note**
+これで、Google Chrome ブラウザーがインストールされたデフォルトの Windows ワークステーションにアクセスできるようになりました。
+
+>**注記**
 >
-> ログイン後すぐに、画面の右側にネットワーク設定の青いバーが表示される場合があります。画面上のどこかをクリックすると非表示になりますが、これを無視しても問題ありません。
+> ログインした直後に、画面の右側に、ネットワーク設定に関する幅広い青いバーが表示されることがあります。これは無視しても問題ありません。画面のどこかをクリックすると、この質問は非表示になります。
 
-## Step 2.3 - SmartConsole UIにアクセスする
+## ステップ 2.3: SmartConsole UI へのアクセス
 
-デスクトップアイコンから Check Point SmartConsole を起動します。次のウィンドウでは、ユーザ名に `admin`、パスワードに `admin123` を指定します。入力するIPアドレスは、インベントリの **checkpoint** のものを使用します。
+デスクトップアイコンから Check Point SmartConsole を起動します。以下のウィンドウでは、ユーザー名に `admin`
+を使用し、パスワードに `admin123` を使用します (特に指示がない場合)。
 
-![SmartConsole login window](images/smartconsole-login-window.png)
+オンラインエディターで **lab inventory** を開き、**firewall**
+インベントリーグループを検索します。`checkpoint` エントリーがあるはずです。`ansible_host` IP アドレスを使用して
+SmartConsole にログインします。
 
-**Login** ボタンを押します。その後、**PROCEED** ボタンをクリックしてサーバーのフィンガープリントを検証する必要があります。
 
-> **Note**
+![SmartConsole login window](images/smartconsole-login-window.png#centreme)
+
+**Login** ボタンを押します。その後、**PROCEED** ボタンをクリックして、サーバーのフィンガープリントを確認する必要があります。
+
+> **注記**
 >
-> 本番環境では、まずサーバのフィンガープリントを把握し、表示されたフィンガープリントがサーバのものと同一であることを確認してから作業を進める必要があります。今回のデモ環境では、一時的なインスタンスを使用しているため、フィンガープリントは問題ないと推定することができます。
+> 実稼働環境では、まずサーバーのフィンガープリントを把握し、表示されたフィンガープリントがサーバーのものと同一であることを確認してから作業を進めることになります。短期間のインスタンスを使用したこのデモセットアップでは、フィンガープリントが良好であると想定できます。
 
-これで、Check Point SmartConsole の管理インターフェイスが表示されました。起動時に Internet Explorer の警告が表示される場合があります。これは、IEの動作に制限があるためで、安全に閉じることができます。
+これで Check Point SmartConsole 管理インターフェースが表示されます。起動時に Internet Explorer
+の警告が表示される可能性があります。これは、IE の動作の制限によるもので、安全に閉じることができます。
 
-![SmartConsole main window](images/smartconsole-main-window.png)
+![SmartConsole main window](images/smartconsole-main-window.png#centreme)
 
-次に、左側の **SECURITY POLICIES** をクリックし、現在インストールされているルール(すべてのトラフィックをdropする)が1つだけあることを確認します。これで、Check Point の管理インターフェイスがおおよそどうなっているのかがわかりました。後でもっと深く触ることになりますが、まずはコマンドラインに戻って、Check Point を操作する Ansible Playbookの書き方を学びましょう。
+次に、左側で **SECURITY POLICIES** をクリックし、現在インストールされているルールは 1 つだけ
+(すべてのトラフィックをドロップするルール) であることに注意してください。これで、管理インターフェースの観点から Check Point
+がどのように見えるかについての概要がわかりました。Check Point との対話はもっとありますが、その前にコマンドラインに戻って、Check
+Point と対話する Ansible Playbook の作成方法について学びます。
 
-## Step 2.4 - 最初のサンプルPlaybook
+## ステップ 2.4 - 最初の Playbook の例
 
-Ansible では、自動化はPlaybookで記述されています。Playbook とは、管理されているホストに実装するために必要な設定や手順を記述したファイルです。Playbookは、長くて複雑な管理タスクを、予測可能で成功した結果が得られる簡単に再現可能なルーチンに変えることができます。
+Ansible Automation Platform では、自動化は Playbook で説明されています。Playbook
+は、管理対象ホストに実装するための必要な設定またはステップを記述するファイルです。Playbook
+は、長くて複雑な管理タスクを、簡単に反復できるルーチンに変え、結果を予測して成功させることができます。
 
-Playbookは、再実行可能な *Play* と *Task* のセットです。
+Playbook は、*plays* および *tasks* の反復可能なセットです。
 
-Playbook は複数の Play を持つことができ、Play は1つまたは複数の Task を持つことができます。Task は1つまたは複数の *Module* で構成され、Module は実際の作業を行うコンポーネントです。
+Playbook は複数のプレイを持つことができ、1 つのプレイは 1 つまたは複数のタスクを持つことができます。タスクは 1 つ以上の
+*modules* で構成されており、モジュールは実際の作業を行うコンポーネントです。
 
-*Play* の目的はホストのグループをマップすることです。 *Task* の目標は、それらのホストに対して Module を実行することです。
+*play* の目的は、ホストのグループをマッピングすることです。*task* の目的は、それらのホストに対してモジュールを実装することです。
 
-Ansible にあまり慣れていない方は、以下の Playbook の例をご覧ください:
+Ansible に慣れていない場合は、以下の Playbook の例を参照してください。
 
 ```yaml
 ---
@@ -90,17 +184,20 @@ Ansible にあまり慣れていない方は、以下の Playbook の例をご�
 
 > **ヒント**
 >
-> 例えるなら、Ansible Moduleが作業場にある工具だとすると、Inventoryは材料であり、Playbook は指示書です。
+> ここで、わかりやすい例えを紹介します。Ansible モジュールがワークショップのツールだとすると、インベントリーは材料で、Playbook は指示書になります。
 
-ここでは、Check Point の設定を変更するための Playbook を書いてみましょう。まず、ファイアウォールの設定に whiltelist エントリを追加して、特定のマシンから別のマシンへのトラフィックを許可する簡単な例から始めます。この例では、**attacker** というマシンから **snort** というマシンにトラフィックを送信できるようにします。
+次に、Check Point の設定を変更するための Playbook
+を作成します。まずは、ファイアウォール設定にホワイトリストエントリーを追加して、特定のマシンから別のマシンにトラフィックを許可する簡単な例から始めます。この例では、**attacker**
+というマシンから **snort** マシンへのトラフィック送信を許可します。
 
-Playbook は Ansible コントロールホスト上で書かれ、実行されます。Playbook の言語は [YAML](https://en.wikipedia.org/wiki/YAML) です。ブラウザでVS Codeのオンラインエディタにアクセスします。メニューバーの **File** -> **New File** をクリックします。新しい空のファイルが開きます。続ける前に、保存しておきましょう。メニューバーの **File** -> **Save As...** をクリックします。ドロップダウンメニューが開き、**lab_inventory** ディレクトリの **Untitled-1** というファイル名が表示されます。このファイル名を`whitelist_attacker.yml`に変更し、**lab_inventory** ディレクトリを削除して、絶対パスでのファイル名が `/home/student<X>/whitelist_attacker.yml` となるようにしてください。`<X>` には割り当てられた生徒IDが入ります。
+Playbook は Ansible コントロールホストで書かれ、実行されます。Playbook が書かれている言語は [YAML](https://en.wikipedia.org/wiki/YAML). です。ブラウザーで、VS Code のオンラインエディターにアクセスします。メニューバーで、**File** -> **New File** をクリックします。新しい空のファイルが開きます。続行する前にこれを保存しましょう。再びメニューバーで、**File** -> **Save As...** をクリックします。ドロップダウンメニューが開き、**lab_inventory** ディレクトリーにファイル名 **Untitled-1** が表示されます。これを `whitelist_attacker.yml` に変更し、**lab_inventory** ディレクトリーを削除して、完全なファイル名 `/home/student<X>/whitelist_attacker.yml` が表示されるようにします。ここで、`<X>` は、各自割り当てられた受講者 ID になります。
 
-> **Note**
-> 
-> ファイルと今後のすべての操作は、常にホームディレクトリの **/home/student<X>** で行われます。これは演習を適切に実行するために非常に重要です。
+> **注記**
+>
+> ファイルおよび今後のすべての操作は、常にホームディレクトリー **/home/student\<X>** で実行するようにしてください。これは、演習を正しく実行する上で重要となります。
 
-ファイルを適切な場所に保存したら、Playbook のコードを追加することができます。まず、Playbook には名前と実行するホストが必要です。そこで、下記を追加してみましょう:
+ファイルを適切な場所に保存したら、Playbook コードを追加することができます。まず、Playbook
+には名前と実行するホストが必要です。では、これらを追加してみましょう。
 
 ```yaml
 ---
@@ -108,15 +205,19 @@ Playbook は Ansible コントロールホスト上で書かれ、実行され�
   hosts: checkpoint
 ```
 
-3つのダッシュ(`---`)が先頭にあることを不思議に感じるかもしれませんが、これはYAMLファイルの先頭であることを表します。
+上部の 3 つのダッシュ (`---`) は、YAML ファイルの開始を示しています。
 
-> **Note**
+> **注記**
 >
-> Playbook 内で `hosts: all` を指定して再利用性を高め、後からコマンドラインや controller 経由で対象を制限するのは良い練習になります。しかし今のところは、Playbookのホストに直接ホスト名を指定することでプロセスを単純化しています。
+> Playbook を `hosts: all` にポイントして、後でコマンドラインまたは自動化コントローラーを介して実行を制限することにより、Playbook をより再利用可能にすることをお勧めします。しかし今のところは、Playbook で直接ホストに名前を付けることでプロセスを簡素化します。
 
-前述したように、この簡単な例ではホワイトリストのエントリを追加します。シンプルなホワイトリストのエントリは、送信元 IP アドレス、送信先 IP アドレス、およびそれらの間のアクセスを許可するルールで構成されています。
+前述したように、ここでは簡単な例としてホワイトリストエントリーを追加します。シンプルなホワイトリストエントリーは、送信元 IP アドレス、送信先 IP
+アドレス、それらの間のアクセスを許可するルールで構成されています。
 
-このために、送信元と送信先のIPアドレスを変数として Playbook に追加します。Ansible はインベントリからすべてのマシンを把握し、IPアドレスはインベントリに記載されているので、それらの情報を対応するホストの [変数](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html) として参照すればよいだけです:
+そのため、送信元と送信先の IP を変数として Playbook に追加します。Ansible はインベントリーからすべてのマシンを認識しており、IP
+はインベントリーに記載されているため、これらの情報を対応するホストの
+[variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+として参照することができます。
 
 <!-- {% raw %} -->
 ```yaml
@@ -130,19 +231,21 @@ Playbook は Ansible コントロールホスト上で書かれ、実行され�
 ```
 <!-- {% endraw %} -->
 
-ご覧のように、変数は中括弧でマークされています。2番目のプライベート IP を使用していることに注目してください。これらの IP はアプリケーショントラフィックのために FW を介して特別にルーティングされたネットワークに属しています。最初のプライベート IP は管理ネットワークに属します。変数は、Playbook を通して使用される別の(短い)変数を定義するために使用されます。これは、実行からデータを切り離すための一般的な方法です。
+ご覧のように、変数は中括弧で囲まれています。2 番目のプライベート IP
+を使用していることに注意してください。これらは、アプリケーショントラフィックのために FW
+を介して特別にルーティングされるネットワークに属しています。最初のプライベート IP
+は、管理ネットワークに属しています。これらの変数は、それぞれがさらに別の (短い) 変数を定義するために使用され、Playbook
+全体で使用されます。これは、データを実行から切り離すための一般的な方法です。
 
-> **Note**
+> **注記**
 >
-> 空白とインデントがこの資料に記述されている通りになっていることを確認してください。YAMLはインデントや空白に非常に敏感で、Playbook を実行する際のほとんどのエラーは間違ったインデントによるものです。
+> 空白文字とインデントが正確に表示されていることを確認してください。YAML はこの点に厳しく、Playbook の実行時のエラーの多くはインデントが間違っていることが原因です。
 
-次に、Task を追加する必要があります。tasks セクションは、ターゲットマシン上の実際の変更を行う場所です。今回は、以下の3つのステップを実行します:
+次にタスクを追加する必要があります。タスクセクションでは、ターゲットマシン上での実際の変更が行われます。この場合、これは 3 つのステップで行われます。
 
-- 最初に、source オブジェクトを作成します
-- 次に、destination オブジェクトを作成します
-- 最後に、これら2つのオブジェクト間のアクセスルールを作成します
+- 最初に、ソースオブジェクトを作成します。次に、宛先オブジェクトを作成します。最後に、これら 2 つのオブジェクト間のアクセスルールを作成します。
 
-まずは source オブジェクトを定義するところからはじめましょう: 
+ソースオブジェクトを定義するタスクから始めましょう。
 
 <!-- {% raw %} -->
 ```yaml
@@ -162,17 +265,17 @@ Playbook は Ansible コントロールホスト上で書かれ、実行され�
 ```
 <!-- {% endraw %} -->
 
-ご覧のように、Task 自体には名前があり、Module を参照しています（ここでは `checkpoint_hosts`）。 Module は Ansible の「変更を行う」部分で、ここでは Check Point のホストオブジェクトのエントリを作成したり、変更したりします。この Module にはパラメータがあり、ここでは `name` と `ip_address` を指定します。各 Module には個別のパラメータがあり、必須のものと任意のものがあります。モジュールに関する詳細な情報を確認するには、VSCodeでターミナルを開き、ヘルプを呼び出すことができます。メニューバーの **Terminal** > **New Terminal** をクリックして、以下のコマンドを実行します。すると、 `checkpoint_host` のヘルプが表示されます。
+ご覧のとおり、タスク自体にはプレイ自体と同様に名前が付いており、モジュールを参照しています (ここでは`checkpoint_host`)。モジュールは「それを実現する」 Ansible の一部です。この場合のモジュールは、CheckPoint でホストオブジェクトエントリーを作成または変更します。モジュールにはパラメーターがあり、`name` と `ip_address` がそれにあたります。各モジュールには個別のパラメーターがあり、多くの場合、パラメーターの中には必須のものとオプションのものがあります。モジュールに関する詳細な情報を得るには、VS Code オンラインエディタでターミナルを開き、ヘルプを呼び出すことができます。たとえば、メニューバーで **Terminal** > **New Terminal** をクリックし、以下のコマンドを実行します。これにより、モジュール `checkpoint_host` のヘルプが表示されます。
 
 ```bash
-[student<X>@ansible ~]$ ansible-doc checkpoint_host
+[student<X>@ansible-1 ~]$ ansible-navigator doc checkpoint_host
 ```
 
-> **Tip**
+> **ヒント**
 >
-> `ansible-doc` では、`up`/`down` の矢印を使って内容をスクロールし、`q` を使って終了することができます。
+> `ansible-navigator` で、`up`/`down` の矢印を使用してコンテンツをスクロールし、`Esc` を使用して終了します。
 
-接続元IPアドレスのホストオブジェクトを定義したのと同じように、今度は接続先IPアドレスのホストオブジェクトを追加します:
+ソース IP ホストオブジェクトを定義したのと同じ方法で、宛先 IP ホストオブジェクトを追加します。
 
 <!-- {% raw %} -->
 ```yaml
@@ -197,7 +300,12 @@ Playbook は Ansible コントロールホスト上で書かれ、実行され�
 ```
 <!-- {% endraw %} -->
 
-最後に、これら2つのホストオブジェクト間に実際のアクセスルールを定義します。ルールを実際に適用する必要がありますが、これには2つの方法があります。 Task 単位で、Module パラメータ `auto_install_policy: yes` で指定する方法と、`cp_mgmt_install_policy` モジュールで最終的な専用の Task として指定する方法です。この Playbook では、モジュラー方式の柔軟性を強調するために、両方を示しています。しかし、Module がすでに適用プロセスを開始している場合、最後のインストールポリシー Module が失敗する可能性があるので、起こりうるエラーを無視するための特別なフラグ `failed_when: false` を追加します:
+最後に、これらの 2 つのホストオブジェクト間で、実際のアクセスルールを定義しています。ルールを適用する必要がありますが、これには 2
+つの方法があります。モジュールパラメーター `auto_install_policy: yes`
+を介して示されるタスクごとのベースへの適用、またはモジュール `cp_mgmt_install_policy`
+を持つ最終的な専用タスクとしての適用のいずれかになります。この Playbook
+では、モジュール式アプローチの柔軟性を強調するために、どちらも紹介しています。ただし、モジュールがすでに適用プロセスを開始している場合、最後のインストールポリシーモジュールが失敗する可能性があるため、エラーの可能性を無視するための特別なフラグを追加しています(`failed_when:
+false`)。
 
 <!-- {% raw %} -->
 ```yaml
@@ -239,20 +347,20 @@ Playbook は Ansible コントロールホスト上で書かれ、実行され�
 ```
 <!-- {% endraw %} -->
 
-## Step 2.5 - Playbookを実行する
+## ステップ 2.5 - Playbook の実行
 
-Playbook はコントロールノードの `ansible-navigator` コマンドを使って実行します。新しい Playbook を実行する前に、構文エラーをチェックすることをおすすめします。VSCode オンラインエディタで、メニューバーの **Terminal** -> **New Terminal** をクリックします。ターミナルで、以下のコマンドを実行します:
+Playbook は、コントロールノードで `ansible-navigator` コマンドを使用して実行されます。新しい Playbook を実行する前に、構文エラーを確認することが推奨されます。VS Code のオンラインエディターのメニューバーで、**Terminal** -> **New Terminal** をクリックします。ターミナルで以下のコマンドを実行します。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run --syntax-check --mode stdout whitelist_attacker.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --syntax-check --mode stdout
 ```
 
-構文チェックではエラーが報告されないはずです。エラーが報告された場合は、出力をチェックし、Playbookを見直して問題を修正してみてください。
+構文チェックでは、エラーは報告されないはずです。エラーが報告された場合は出力を確認し、Playbook コードで問題の修正を試みてください。
 
-これで Playbook を実行する準備が整いました:
+これで、Playbook を実行する準備が整いました。
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run whitelist_attacker.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --mode stdout
 
 PLAY [Whitelist attacker] *********************************************************
 
@@ -272,32 +380,47 @@ PLAY RECAP *********************************************************************
 checkpoint  : ok=4 changed=3 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 ```
 
-## Step 2.6 - UIで変更を確認する
+## ステップ 2.6 - UI での変更の確認
 
-ここで、変更が本当に行われたかどうか、Check Point MGMTサーバの設定が変更されたかどうかを確認してみましょう。
+次に、この変更が実際に行われ、Check Point MGMT サーバーの設定が変更されたかどうかを確認します。
 
-Windows ワークステーションにアクセスし、SmartConsole インタフェースを開きます。右側の **Object Categories** の下の **Network Objects** をクリックし、**Hosts** を選択します。新しいホストエントリの両方がリストアップされているはずです。
+Windows ワークステーションにアクセスし、SmartConsole インターフェースを開きます。右側の **Object Categories**
+の下で **Network Objects** をクリックしてから、**Hosts** を選択します。両方の新しいホストエントリーが表示されます。
 
-![SmartConsole Hosts list](images/smartconsole-hosts-list.png)
+![SmartConsole Hosts list](images/smartconsole-hosts-list.png#centreme)
 
-次に、左側の **SECURITY POLICIES** をクリックします。フィールドの中央にアクセス制御ポリシーのエントリが追加されていることを確認してください。トラフィックが許可されるようになったので、**Action** 列のエントリが変更され、色が変わっています。
+次に、左側の **SECURITY POLICIES**
+をクリックします。フィールドの中央に追加されたアクセス制御ポリシーのエントリーに注目して、先ほど見たときと比較してください。トラフィックが許可されるようになったので、**Action**
+列のエントリーが変更され、色が変わっています。
 
-![SmartConsole Policy Entries](images/smartconsole-policy-entry.png)
+![SmartConsole Policy
+Entries](images/smartconsole-policy-entry.png#centreme)
 
-また、左下には、システム全体に変更が適用されたことを示す緑色のバーがあることにも注意してください。
+また、左下隅には、システム全体に変更が適用されることを示す緑色のバーが表示されていることに注意してください。
 
-## Step 2.7 - 新しいポリシーのロギングを有効化する
+## ステップ 2.7 - 新しいポリシーのロギングをオンにする
 
-Check Point の通常の手作業による操作でどのように変更が実行されるかを確認するために、後で便利な小さな変更を行ってみましょう。デフォルトでは、Check Point は新しいルールのロギングを有効にしません。新しいポリシーのロギングを有効にしてみましょう。メイン・ウィンドウの左側にある **SECURITY POLICIES** をクリックします。両方のルールがリストされています。列の **Track** で、新しく作成したルールの **None** エントリの上にマウスを置きます。その上で右クリックし、表示されるボックスで **Log** を選択します。
+Check Point との通常の手動対話で変更がどのように実行されるかを確認するには、後で便利な小さな変更を行います。デフォルトでは、Check
+Point
+は新しいルールのロギングをオンにしません。ここでは、新しいポリシーのロギングをアクティブ化してみましょう。メインウィンドウの左側で、**SECURITY
+POLICIES** をクリックします。両方のルールが一覧表示されています。。**Track** 列で、新しく作成したルールの **None**
+エントリー上にマウスをかざします。これを右クリックし、表示されるボックスで **Log** を選択します。
 
-![SmartConsole, change logging](images/smartconsole-change-logging.png)
+![SmartConsole, change
+logging](images/smartconsole-change-logging.png#centreme)
 
-その後、ポリシーのリストの一番上にある **Install Policy** ボタンをクリックし、**Publish & Install** と表示されるダイアログを確認し、最後のダイアログで **Install** を再度クリックします。
+その後、ポリシー一覧の上部にある **Install Policy** ボタンをクリックして、**Publish & Install**
+で開いたダイアログを確認し、最後のダイアログで **Install** を再度クリックします。
 
-その結果、左側に小さなウィンドウがポップアップし、変更の進捗状況を知らせてくれます。
+その結果、左隅に、変更のデプロイメントの進捗状況を通知する小さなウィンドウがポップアップします。
 
-ご覧のように、設定の小さな変更でも、ユーザーが何度もクリックする必要があります。これらのステップを自動化できたほうがよいですね。
+このように、設定を少し変更するだけでも、ユーザーは何度もクリックしなければなりません。これらのステップをより多く自動化できるほど、結果は良くなります。
+<br>
 
 ----
 
-[Ansible Security Automation Workshopの表紙に戻る](../README.ja.md)
+**Navigation**
+<br><br>
+[Previous Exercise](../1.1-explore/README.md) | [Next Exercise](../1.3-snort/README.md) 
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

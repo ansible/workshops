@@ -135,6 +135,8 @@ Credentials are utilized by Automation controller for authentication when launch
 * The **USERNAME** is set to `ec2-user`.
 * The **PASSWORD** is blank.
 * The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
+  
+{% include mesh.md %}
 
 ## Takeaways
 

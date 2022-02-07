@@ -36,6 +36,8 @@ These roles are not necessarily dedicated to a person or team. Many organization
 
 Automation operators are typically the primary individuals who interact directly with the automation controller, based on their responsibilities.
 
+{% include mesh.md %}
+
 ## Objective
 
 The following exercise will provide an Ansible automation controller overview including going through features that are provided by the Red Hat Ansible Automation Platform.  This will cover automation controller fundamentals such as:

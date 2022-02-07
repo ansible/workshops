@@ -48,7 +48,7 @@
       register: stop_hub
       until: stop_hub is not failed
       retries: 5
-    
+
     - name: stop nginx
       service:
         name: nginx
@@ -79,7 +79,7 @@
     - name: no SSL cert for private automation hub
       debug:
         msg: "SSL cert problem - no cert applied"
-  
+
   always:
     - name: nginx restart
       service:
@@ -90,4 +90,3 @@
       service:
         name: pulpcore-api.service
         state: restarted
-    

@@ -154,160 +154,158 @@
 
   tasks:
 
-    - block:
-      - name: Run SETUP / Satellite job template
-        awx.awx.job_launch:
-          job_template: "SETUP / Satellite"
-          extra_vars:
-            refresh_satellite_manifest: true
-          controller_username: admin
-          controller_password: "{{ admin_password }}"
-          controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-        register: setupsatjob
+    - when: provision_mode == "workshop"
+      block:
+        - name: Run SETUP / Satellite job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Satellite"
+            extra_vars:
+              refresh_satellite_manifest: true
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupsatjob
 
-      - name: "Check API until SETUP / Satellite job is successful"
-        ansible.builtin.uri:
-          url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
-          user: admin
-          password: "{{ admin_password }}"
-          force_basic_auth: true
-          method: GET
-          return_content: true
-          status_code: 200
-          validate_certs: false
-        register: workshop_job_templates01
-        until: workshop_job_templates01.json.status == "successful"
-        delay: 20 # Every 20 seconds
-        retries: 180 # 1hour 60*60/20
+        - name: "Check API until SETUP / Satellite job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
 
-      when: provision_mode == "workshop"
+    - when: provision_mode == "demo"
+      block:
+        - name: Run SETUP / Satellite job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Satellite"
+            extra_vars:
+              refresh_satellite_manifest: true
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupsatjob
 
-    - block:
-      - name: Run SETUP / Satellite job template
-        awx.awx.job_launch:
-          job_template: "SETUP / Satellite"
-          extra_vars:
-            refresh_satellite_manifest: true
-          controller_username: admin
-          controller_password: "{{ admin_password }}"
-          controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-        register: setupsatjob
+        - name: "Check API until SETUP / Satellite job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
 
-      - name: "Check API until SETUP / Satellite job is successful"
-        ansible.builtin.uri:
-          url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
-          user: admin
-          password: "{{ admin_password }}"
-          force_basic_auth: true
-          method: GET
-          return_content: true
-          status_code: 200
-          validate_certs: false
-        register: workshop_job_templates01
-        until: workshop_job_templates01.json.status == "successful"
-        delay: 20 # Every 20 seconds
-        retries: 180 # 1hour 60*60/20
+        - name: Run SETUP / Controller job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Controller"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupcontroljob
 
-      - name: Run SETUP / Controller job template
-        awx.awx.job_launch:
-          job_template: "SETUP / Controller"
-          controller_username: admin
-          controller_password: "{{ admin_password }}"
-          controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-        register: setupcontroljob
+        - name: "Check API until SETUP / Controller job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates02
+          until: workshop_job_templates02.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
 
-      - name: "Check API until SETUP / Controller job is successful"
-        ansible.builtin.uri:
-          url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
-          user: admin
-          password: "{{ admin_password }}"
-          force_basic_auth: true
-          method: GET
-          return_content: true
-          status_code: 200
-          validate_certs: false
-        register: workshop_job_templates02
-        until: workshop_job_templates02.json.status == "successful"
-        delay: 20 # Every 20 seconds
-        retries: 180 # 1hour 60*60/20
+        - name: Run SATELLITE / RHEL - Publish Content View job template
+          awx.awx.job_launch:
+            job_template: "SATELLITE / RHEL - Publish Content View"
+            extra_vars:
+              env: Dev
+              content_view: RHEL7
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: rhelpubcvjob01
 
-      - name: Run SATELLITE / RHEL - Publish Content View job template
-        awx.awx.job_launch:
-          job_template: "SATELLITE / RHEL - Publish Content View"
-          extra_vars:
-            env: Dev
-            content_view: RHEL7
-          controller_username: admin
-          controller_password: "{{ admin_password }}"
-          controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-        register: rhelpubcvjob01
+        - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob01.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates03
+          until: workshop_job_templates03.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
 
-      - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
-        ansible.builtin.uri:
-          url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob01.id }}/?format=json"
-          user: admin
-          password: "{{ admin_password }}"
-          force_basic_auth: true
-          method: GET
-          return_content: true
-          status_code: 200
-          validate_certs: false
-        register: workshop_job_templates03
-        until: workshop_job_templates03.json.status == "successful"
-        delay: 20 # Every 20 seconds
-        retries: 180 # 1hour 60*60/20
+        - name: Run SATELLITE / RHEL - Promote Content View job template
+          awx.awx.job_launch:
+            job_template: "SATELLITE / RHEL - Promote Content View"
+            extra_vars:
+              content_view: RHEL7
+              current_lifecycle_environment: RHEL7_Dev
+              lifecycle_environment: RHEL7_QA
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: rhelpromotecvjob01
 
-      - name: Run SATELLITE / RHEL - Promote Content View job template
-        awx.awx.job_launch:
-          job_template: "SATELLITE / RHEL - Promote Content View"
-          extra_vars:
-            content_view: RHEL7
-            current_lifecycle_environment: RHEL7_Dev
-            lifecycle_environment: RHEL7_QA
-          controller_username: admin
-          controller_password: "{{ admin_password }}"
-          controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-        register: rhelpromotecvjob01
+        - name: "Check API until SATELLITE / RHEL - Promote Content View job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpromotecvjob01.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates04
+          until: workshop_job_templates04.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
 
-      - name: "Check API until SATELLITE / RHEL - Promote Content View job is successful"
-        ansible.builtin.uri:
-          url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpromotecvjob01.id }}/?format=json"
-          user: admin
-          password: "{{ admin_password }}"
-          force_basic_auth: true
-          method: GET
-          return_content: true
-          status_code: 200
-          validate_certs: false
-        register: workshop_job_templates04
-        until: workshop_job_templates04.json.status == "successful"
-        delay: 20 # Every 20 seconds
-        retries: 180 # 1hour 60*60/20
+        - name: Run SATELLITE / RHEL - Publish Content View job template
+          awx.awx.job_launch:
+            job_template: "SATELLITE / RHEL - Publish Content View"
+            extra_vars:
+              env: Dev
+              content_view: RHEL7
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: rhelpubcvjob02
 
-      - name: Run SATELLITE / RHEL - Publish Content View job template
-        awx.awx.job_launch:
-          job_template: "SATELLITE / RHEL - Publish Content View"
-          extra_vars:
-            env: Dev
-            content_view: RHEL7
-          controller_username: admin
-          controller_password: "{{ admin_password }}"
-          controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-        register: rhelpubcvjob02
-
-      - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
-        ansible.builtin.uri:
-          url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob02.id }}/?format=json"
-          user: admin
-          password: "{{ admin_password }}"
-          force_basic_auth: true
-          method: GET
-          return_content: true
-          status_code: 200
-          validate_certs: false
-        register: workshop_job_templates05
-        until: workshop_job_templates05.json.status == "successful"
-        delay: 20 # Every 20 seconds
-        retries: 180 # 1hour 60*60/20
-
-      when: provision_mode == "demo"
+        - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob02.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates05
+          until: workshop_job_templates05.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20

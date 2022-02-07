@@ -1,0 +1,144 @@
+---
+controller_hosts:
+  - name: "backup-server"
+    description: "this server is where we backup network configuration"
+    inventory: "Workshop Inventory"
+    variables:
+      note: in production these passwords would be encrypted in vault
+      ansible_user: "{{ username }}"
+      ansible_password: "{{ admin_password }}"
+      ansible_host: "{{ ansible_host }}"
+controller_organizations:
+  - name: "Red Hat network organization"
+    description: "Red Hat Network Organization"
+    galaxy_credentials:
+      - "Ansible Galaxy"
+  - name: "Red Hat compute organization"
+    description: "Red Hat Compute Organization"
+    galaxy_credentials:
+      - "Ansible Galaxy"
+controller_teams:
+  - name: "Netops"
+    description: "Network Ops Team"
+    organization: "Red Hat network organization"
+  - name: "Netadmin"
+    description: "Network Admin Team"
+    organization: "Red Hat network organization"
+  - name: "Compute T1"
+    description: "Computer T1 Team"
+    organization: "Red Hat compute organization"
+  - name: "Compute T2"
+    description: "Computer T2 Team"
+    organization: "Red Hat compute organization"
+controller_user_accounts:
+  - user: network-operator
+    is_superuser: false
+    password: "{{ admin_password }}"
+    email: nwops@redhat.com
+    first_name: Issac
+    last_name: Assimov
+  - user: network-admin
+    is_superuser: false
+    password: "{{ admin_password }}"
+    email: nwadmin@redhat.com
+    first_name: Larry
+    last_name: Niven
+  - user: bbelcher
+    is_superuser: true
+    password: "{{ admin_password }}"
+    email: bbelcher@redhat.com
+    first_name: Bob
+    last_name: Belcher
+  - user: tbelcher
+    password: "{{ admin_password }}"
+    email: tbelcher@redhat.com
+    first_name: Tina
+    last_name: Belcher
+  - user: lbelcher
+    password: "{{ admin_password }}"
+    email: lbelcher@redhat.com
+    first_name: Louise
+    last_name: Belcher
+  - user: libelcher
+    password: "{{ admin_password }}"
+    email: libelcher@redhat.com
+    first_name: Linda
+    last_name: Belcher
+  - user: gbelcher
+    password: "{{ admin_password }}"
+    email: gbelcher@redhat.com
+    first_name: Gene
+    last_name: Belcher
+controller_projects:
+  - name: "Workshop Project"
+    organization: "Red Hat network organization"
+    scm_type: git
+    scm_url: "https://github.com/IPvSean/toolkit"
+controller_roles:
+  - user: network-admin
+    organization: "Red Hat network organization"
+    role: member
+  - user: network-admin
+    organization: "Red Hat network organization"
+    role: admin
+  - user: network-operator
+    organization: "Red Hat network organization"
+    role: member
+  - user: network-operator
+    target_team: "Netops"
+    role: member
+  - role: use
+    inventory: "Workshop Inventory"
+    team: Netops
+  - role: use
+    inventory: "Workshop Inventory"
+    team: Netadmin
+  - user: network-operator
+    role: execute
+    job_template: "Network-Commands"
+controller_templates:
+  - name: "Network-Commands"
+    description: "adhoc cisco commands"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "playbooks/network_commands.yml"
+    credential: "Workshop Credential"
+    limit: "cisco"
+    survey_enabled: true
+    survey_spec: "{{ lookup('template', 'survey_spec.json') }}"
+  - name: "Network-Reload"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "playbooks/network_reload.yml"
+    credential: "Workshop Credential"
+  - name: "Network-User"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "playbooks/network_user.yml"
+    credential: "Workshop Credential"
+    state: "present"
+    survey_enabled: true
+    survey_spec: "{{ lookup('template', 'user.json') }}"
+  - name: "Network-Time"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "playbooks/network_time.yml"
+    credential: "Workshop Credential"
+    limit: "cisco"
+  - name: "Network-Report"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "playbooks/network_report.yml"
+    credential: "Workshop Credential"
+  - name: "Network-System"
+    job_type: "run"
+    inventory: "Workshop Inventory"
+    project: "Workshop Project"
+    playbook: "playbooks/network_system.yml"
+    credential: "Workshop Credential"
+    limit: "cisco"

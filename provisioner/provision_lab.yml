@@ -147,7 +147,6 @@
   hosts: '*ansible-1'
   become: true
   gather_facts: false
-
   tasks:
     - name: run populate_controller role
       include_role:

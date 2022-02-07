@@ -1,4 +1,11 @@
 ---
+controller_projects:
+  - name: "Ansible official demo project"
+    scm_type: git
+    scm_url: "https://github.com/ansible/product-demos"
+    description: "prescriptive demos from Red Hat Management Business Unit"
+    organization: "Default"
+
 controller_templates:
   - name: "INFRASTRUCTURE / Deploy Application"
     description: "install yum applications on Linux with a survey"
@@ -41,9 +48,3 @@ controller_templates:
             htop
 
             gdb'
-controller_projects:
-  - name: "Ansible official demo project"
-    scm_type: git
-    scm_url: "https://github.com/ansible/product-demos"
-    description: "prescriptive demos from Red Hat Management Business Unit"
-    organization: "Default"

@@ -1,16 +1,17 @@
 ---
 - name: Create EC2 instances for node4
-  ec2:
-    assign_public_ip: true
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos7].size }}"
-    image: "{{ node_ami_centos7.image_id }}"
+    image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_node4: "{{ ec2_name_prefix }}-node4"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node4": "{{ ec2_name_prefix }}-node4"
+    tags:
       Workshop_node4: "{{ ec2_name_prefix }}-node4"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -27,15 +28,22 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: "{{ ec2_info[centos7].disk_space }}"
-        delete_on_termination: true
+        ebs:
+          volume_type: gp2
+          volume_size: "{{ ec2_info[centos7].disk_space }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag them all
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_node4": "{{ ec2_name_prefix }}-node4"
   register: node4_output
 
 - name: Ensure tags are present for node4
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node4"
@@ -44,11 +52,11 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node4_output.instances }}"
-  when: node4_output.instance_ids is not none
+  when: node4_output.instances|length > 0
 
 - name: Associate IAM instance profile with node4
-  community.aws.ec2_instance:
-    instance_ids: "{{ item.1.id }}"
+  ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
     state: running
@@ -60,21 +68,23 @@
   retries: 12
   delay: 10
   when:
-    - node4_output.instance_ids is not none
+  when:
+    - node4_output.instances|length > 0
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node5
-  ec2:
-    assign_public_ip: true
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos7].size }}"
-    image: "{{ node_ami_centos7.image_id }}"
+    image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_node5: "{{ ec2_name_prefix }}-node5"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node5": "{{ ec2_name_prefix }}-node5"
+    tags:
       Workshop_node5: "{{ ec2_name_prefix }}-node5"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -91,15 +101,22 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: "{{ ec2_info[centos7].disk_space }}"
-        delete_on_termination: true
+        ebs:
+          volume_type: gp2
+          volume_size: "{{ ec2_info[centos7].disk_space }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag them all
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_node5": "{{ ec2_name_prefix }}-node5"
   register: node5_output
 
 - name: Ensure tags are present for node5
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node5"
@@ -108,11 +125,11 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node5_output.instances }}"
-  when: node5_output.instance_ids is not none
+  when: node5_output.instances|length > 0
 
 - name: Associate IAM instance profile with node5
-  community.aws.ec2_instance:
-    instance_ids: "{{ item.1.id }}"
+  ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
     state: running
@@ -124,21 +141,22 @@
   retries: 12
   delay: 10
   when:
-    - node5_output.instance_ids is not none
+    - node5_output.instances|length > 0
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node6
-  ec2:
-    assign_public_ip: true
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos7].size }}"
-    image: "{{ node_ami_centos7.image_id }}"
+    image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_node6: "{{ ec2_name_prefix }}-node6"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node6": "{{ ec2_name_prefix }}-node6"
+    tags:
       Workshop_node6: "{{ ec2_name_prefix }}-node6"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -155,15 +173,22 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: "{{ ec2_info[centos7].disk_space }}"
-        delete_on_termination: true
+        ebs:
+          volume_type: gp2
+          volume_size: "{{ ec2_info[centos7].disk_space }}"
+          delete_on_termination: true
+
+- name: grab node6 instance ids to tag them all
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_node6": "{{ ec2_name_prefix }}-node6"
   register: node6_output
 
 - name: Ensure tags are present for node6
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node6"
@@ -172,11 +197,11 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node6_output.instances }}"
-  when: node6_output.instance_ids is not none
+  when: node6_output.instances|length > 0
 
 - name: Associate IAM instance profile with node6
-  community.aws.ec2_instance:
-    instance_ids: "{{ item.1.id }}"
+  ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
     state: running
@@ -188,5 +213,5 @@
   retries: 12
   delay: 10
   when:
-    - node6_output.instance_ids is not none
+    - node6_output.instances|length > 0
     - tower_node_aws_api_access|default(false)|bool

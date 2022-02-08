@@ -37,6 +37,7 @@
   amazon.aws.aws_az_info:
     region: "{{ ec2_region }}"
   register: az_names
+  until: az_names is not failed
 
 - name: Remove any AZs in the aws_az_deny_list when defined
   set_fact:

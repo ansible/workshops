@@ -1,16 +1,19 @@
 ---
 - name: Provision attendance host
-  ec2:
-    assign_public_ip: true
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['attendance_host']['size'] }}"
-    image: "{{ attendance_host_ami.image_id }}"
+    image_id: "{{ attendance_host_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: 1
-    count_tag:
-      Workshop_attendance: "{{ ec2_name_prefix }}-attendance"
-    instance_tags:
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_ansible": "{{ ec2_name_prefix }}-attendance"
+    tags:
       Workshop_attendance: "{{ ec2_name_prefix }}-attendance"
       Name: "{{ ec2_name_prefix }}-attendance"
       App: AnsibleWorkshop
@@ -25,6 +28,4 @@
       long_name: "attendance-host.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
       username: "{{ ec2_info['attendance_host']['username'] }}"
       ansible-workshops: "true"
-    wait: "{{ ec2_wait }}"
-    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   register: attendance_output

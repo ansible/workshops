@@ -73,7 +73,7 @@ controller_projects:
   - name: "Workshop Project"
     organization: "Red Hat network organization"
     scm_type: git
-    scm_url: "https://github.com/IPvSean/toolkit"
+    scm_url: "https://github.com/network-automation/toolkit"
 controller_roles:
   - user: network-admin
     organization: "Red Hat network organization"

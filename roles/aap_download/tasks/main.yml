@@ -12,7 +12,6 @@
   block:
     - name: download aap.tar.gz from access.redhat.com
       include_tasks: 10_download.yml
-  when: not stat_var.stat.exists or (stat_var.stat.exists and (stat_var.stat.checksum != provided_sha_value))
 
   rescue:
     - name: aap_download role has entered rescue stanza

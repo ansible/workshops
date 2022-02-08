@@ -32,10 +32,11 @@ ec2_info:
     filter: "junos-vsrx3-x86-*byol*"
     volume:
       - device_name: /dev/sda1
-        volume_type: io1
-        iops: 1000
-        volume_size: 40
-        delete_on_termination: true
+        ebs:
+          volume_type: io1
+          iops: 1000
+          volume_size: 40
+          delete_on_termination: true
   cisco:
     size: t2.medium
     ami: "{{cisco_ami | default(omit)}}"

@@ -33,20 +33,12 @@
           delete_on_termination: true
   register: control_output
 
-- name: print control_output
-  debug:
-    msg: "{{ control_output }}"
-
 - name: grab instance ids to tag them all
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       "tag:Workshop_ansible": "{{ ec2_name_prefix }}-ansible-{{ sequence }}"
   register: control_output
-
-- name: print control_output
-  debug:
-    msg: "{{ control_output }}"
 
 - name: Ensure tags are present
   ec2_tag:
@@ -98,7 +90,7 @@
         index_var: loop_idx
 
     - name: Associate IAM instance profile with control node
-      community.aws.ec2_instance:
+      ec2_instance:
         instance_ids: "{{ item.1.id }}"
         region: "{{ ec2_region }}"
         instance_role: "ControlNode_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"

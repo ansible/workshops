@@ -1,1 +1,1 @@
-localhost   ansible_python_interpreter="/usr/bin/env python" ansible_connection=local
+localhost ansible_connection=local ansible_python_interpreter=/usr/local/bin/python3.9

@@ -10,7 +10,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
-    instance_tags:
+    tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
@@ -59,7 +59,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
-    instance_tags:
+    tags:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
@@ -108,7 +108,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
-    instance_tags:
+    tags:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
@@ -157,7 +157,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node4: "{{ ec2_name_prefix }}-node4"
-    instance_tags:
+    tags:
       Workshop_node4: "{{ ec2_name_prefix }}-node4"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"

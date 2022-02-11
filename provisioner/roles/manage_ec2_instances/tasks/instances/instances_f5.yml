@@ -1,17 +1,18 @@
 ---
 ############## f5 node ##############
-- name: Create EC2 instances for f5 node (F5 MODE)
-  ec2:
-    assign_public_ip: true
+- name: Create EC2 instances for f5 node (workshop_type f5)
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info.f5node.size }}"
-    image: "{{ f5_ami.image_id }}"
+    image_id: "{{ f5_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_f5: "{{ ec2_name_prefix }}-f5"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_f5": "{{ ec2_name_prefix }}-f5"
+    tags:
       Workshop_f5: "{{ ec2_name_prefix }}-f5"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -27,12 +28,22 @@
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  register: f5_test
+
+- debug:
+    msg: "{{ f5_test }}"
+
+- name: grab instance ids to tag f5 node
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_f5": "{{ ec2_name_prefix }}-f5"
   register: f5_output
 
-- name: Ensure tags are present for f5 node (F5 MODE)
+- name: Ensure tags are present for f5 node (workshop_type f5)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-f5"
@@ -43,18 +54,19 @@
     - "{{ f5_output.instances }}"
   when: f5_output.instances is not none
 
-- name: Create EC2 instances for node1 node in VPC (F5 MODE)
-  ec2:
-    assign_public_ip: true
+- name: Create EC2 instances for node1 node in VPC (workshop_type f5)
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info.rhel8.size }}"
-    image: "{{ node1_ami.image_id }}"
+    image_id: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_node1: "{{ ec2_name_prefix }}-node1"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
+    tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -70,12 +82,18 @@
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+
+- name: grab instance ids to tag node1
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
   register: node1_output
 
-- name: Ensure tags are present for node1 node (F5 MODE)
+- name: Ensure tags are present for node1 node (workshop_type f5)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node1"
@@ -86,18 +104,19 @@
     - "{{ node1_output.instances }}"
   when: node1_output.instance_ids is not none
 
-- name: Create EC2 instances for node2 node in VPC (F5 MODE)
-  ec2:
-    assign_public_ip: true
+- name: Create EC2 instances for node2 node in VPC (workshop_type f5)
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info.rhel8.size }}"
-    image: "{{ node1_ami.image_id }}"
+    image_id: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_node2: "{{ ec2_name_prefix }}-node2"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
+    tags:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -113,12 +132,18 @@
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+
+- name: grab instance ids to tag node1
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
   register: node2_output
 
-- name: Ensure tags are present for node2 node (F5 MODE)
+- name: Ensure tags are present for node2 node (workshop_type f5)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node2"
@@ -131,14 +156,14 @@
 
 ############## eni check ##############
 
-- name: grab all network interfaces for VPC 1 (F5 MODE)
+- name: grab all network interfaces for VPC 1 (workshop_type f5)
   amazon.aws.ec2_eni_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ ec2_vpc_id }}"
   register: eni_facts_1
 
-- name: Disable Source/Dest check on instance {{ ec2_vpc_id }} (F5 MODE)
+- name: Disable Source/Dest check on instance {{ ec2_vpc_id }} (workshop_type f5)
   ec2_eni:
     eni_id: "{{ item['network_interface_id'] }}"
     region: "{{ ec2_region }}"

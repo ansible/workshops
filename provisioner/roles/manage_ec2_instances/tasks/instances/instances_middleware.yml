@@ -10,7 +10,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
-    instance_tags:
+    tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -58,7 +58,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
-    instance_tags:
+    tags:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -106,7 +106,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
-    instance_tags:
+    tags:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -156,7 +156,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
-    instance_tags:
+    tags:
       Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
@@ -203,7 +203,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
-    instance_tags:
+    tags:
       Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"

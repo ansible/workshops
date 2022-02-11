@@ -3,11 +3,10 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
-      instance-state-name: running
       "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible*"
   register: ansible_node_facts
 
-- name: add ansible node to control_nodes and managed_nodes group
+- name: add ansible node to control_nodes group
   add_host:
     name: "{{ item.tags.Name }}"
     username: "{{ item.tags.Student }}"

@@ -1,6 +1,6 @@
 # 演習 - Linux システムロール
 
-**他の言語でもお読みいただけます**: ![uk](../../../images/uk.png) [English](README.md)
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
 ## 目次
 

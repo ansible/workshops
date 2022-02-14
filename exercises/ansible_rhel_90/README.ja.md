@@ -1,52 +1,47 @@
-# Ansible Workshop - Ansible for Red Hat Enterprise Linux (90 mins)
+# Ansible ワークショップ - Ansible for Red Hat Enterprise Linux (90 分)
 
-If you’re new to Ansible Automation, but want a quicker version of the
-original RHEL workshop, this 90-minute workshop provides you with fewer
-exercises, focused on cloud provisioning, converting bash/shell commands to
-Ansible, all the way to utilizing RHEL System Roles.
+Ansible Automation に慣れていないが、オリジナルの RHEL ワークショップの速習バージョンをご希望の場合、この 90
+分間のワークショップは、演習の数を減らし、クラウドのプロビジョニング、bash/shell コマンドの Ansible への変換、RHEL
+システムロール使用の全般に焦点を当てています。
 
-**This is documentation for Ansible Automation Platform 2**
+**これは Ansible Automation Platform 2 のドキュメントです**
 
-## Table of Contents
+## 目次
 
-* [Table of Contents](#table-of-contents)
-* [Presentations](#presentations)
-* [Time planning](#time-planning)
-* [Lab Diagram](#lab-diagram)
-* [Ansible Automation Platform
-  Exercises](#ansible-automation-platform-exercises)
+* [目次](#table-of-contents)
+* [プレゼンテーション](#presentations)
+* [タイムテーブル](#time-planning)
+* [ラボダイアグラム](#lab-diagram)
+* [Ansible Automation Platform の演習](#ansible-automation-platform-exercises)
 
-## Presentations
+## プレゼンテーション
 
-The exercises are self explanatory and guide the participants through the
-entire lab. All concepts are explained when they are introduced.
+演習は読むだけで理解できるもので、ラボ全体を通して受講者をガイドします。すべての概念は、それぞれの演習で説明されています。
 
-There is an optional presentation available to support the workshops and
-explain Automation, the basics of Ansible and the topics of the exercises in
-more detail: [Ansible RHEL Automation](../../decks/ansible_rhel_90.pdf)
-[Google source - Red Hat
-only](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y/edit?usp=sharing)
+ワークショップをサポートし、Automation、Ansible
+の基本、および演習に関するトピックをより詳しく説明するためのオプションのプレゼンテーションが用意されています: [Ansible RHEL
+Automation](../../decks/ansible_rhel_90.pdf)  [Google Source - Red Hat
+社内限](https://docs.google.com/presentation/d/143JtFwmz469ucKNbB4L5T-PtKfurjpcOmCICzSbwm3Y/edit?usp=sharing)
 
-Also have a look at our Ansible Best Practices Deck: [Ansible Best
-Practices](../../decks/ansible_best_practices.pdf)
+弊社の Ansible ベストプラクティスに関する資料もご確認ください: [Ansible
+ベストプラクティス](../../decks/ansible_best_practices.pdf)
 
-## Time planning
+## タイムテーブル
 
-This workshop was created to last about 90 minutes and focuses more on
-targeting every day use cases to apply automation.
+このワークショップは、約 90 分の学習時間用に作成され、自動化を適用する日々のユースケースに重点を置いています。
 
-## Lab Diagram
+## ラボダイアグラム
 
 ![ansible rhel lab diagram](../../images/rhel_lab_diagram.png)
 
-## Ansible Automation Platform Exercises
+## Ansible Automation Platform の演習
 
- - [Exercise 1 - Overview of public cloud provisioning](1-setup)
- - [Exercise 2 - The Ansible Basics](2-thebasics)
- - [Exercise 3 - Deploying applications to linux hosts](3-playbook)
- - [Exercise 4 - Retrieving information from automation hosts](4-variables)
- - [Exercise 5 - Self-service IT via surveys](5-surveys)
- - [Exercise 6 - Overview of system roles for RHEL](6-system-roles)
+ - [演習 1 - パブリッククラウドプロビジョニングの概要](1-setup/README.ja.md)
+ - [演習 2 - Ansible の基本](2-thebasics/README.ja.md)
+ - [演習 3 - Linux ホストへのアプリケーションのデプロイ](3-playbook/README.ja.md)
+ - [演習 4: 自動化ホストからの情報の取得](4-variables/README.ja.md)
+ - [演習 5 - サーベイを使用した IT セルフサービス](5-surveys/README.ja.md)
+ - [演習 6 - RHEL のシステムロールの概要](6-system-roles/README.ja.md)
 
 ---
 ![Red Hat Ansible

@@ -25,7 +25,7 @@
     exact_count: "{{ student_total }}"
     count_tag:
       Workshop_satellite: "{{ ec2_name_prefix }}-satellite"
-    instance_tags:
+    tags:
       Workshop_satellite: "{{ ec2_name_prefix }}-satellite"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -43,9 +43,10 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: 500
-        delete_on_termination: true
+        ebs:
+          volume_type: gp2
+          volume_size: 500
+          delete_on_termination: true
   register: satellite_output
 
 - name: Ensure tags are present for satellite

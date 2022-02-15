@@ -1,4 +1,10 @@
 ---
+- name: load automation controller vars for specific workshop type
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{role_path}}/vars/{{ workshop_type }}.yml"
+    - "{{role_path}}/vars/unsupported_workshop.yml"
+
 - name: ensure controller is online and working
   uri:
     url: https://localhost/api/v2/ping/

@@ -1,16 +1,19 @@
 ---
 - name: WINDOWS | GitLab | Launch Instance
-  ec2:
-    assign_public_ip: true
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_rhel8_gitlab']['size'] }}"
-    image: "{{ win_gitlab_ami.image_id }}"
+    image_id: "{{ win_gitlab_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: 1
-    count_tag:
-      Workshop_gitlab: "{{ ec2_name_prefix }}-gitlab"
-    instance_tags:
+    state: running
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_gitlab": "{{ ec2_name_prefix }}-gitlab"
+    tags:
       Workshop_gitlab: "{{ ec2_name_prefix }}-gitlab"
       Name: "{{ ec2_name_prefix }}-gitlab"
       App: AnsibleWorkshop
@@ -32,18 +35,24 @@
     user_data: "{{ lookup('template', 'skylight_gitlab_userdata.j2') }}"
   register: gitlab_output
 
+- debug:
+    msg: "{{ gitlab_output }}"
+
 - name: WINDOWS | Create instance 1
-  ec2:
-    assign_public_ip: true
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"
-    image: "{{ win_instance_ami.image_id }}"
+    image_id: "{{ win_instance_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
-    instance_tags:
+    state: running
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_instance1": "{{ ec2_name_prefix }}-instance1"
+    tags:
       Workshop_instance1: "{{ ec2_name_prefix }}-instance1"
       App: AnsibleWorkshop
       Workshop: "{{ ec2_name_prefix }}"
@@ -63,17 +72,20 @@
   register: instance1_output
 
 - name: WINDOWS | Create instance 2
-  ec2:
-    assign_public_ip: true
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"
-    image: "{{ win_instance_ami.image_id }}"
+    image_id: "{{ win_instance_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_instance2: "{{ ec2_name_prefix }}-instance2"
-    instance_tags:
+    state: running
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_instance2": "{{ ec2_name_prefix }}-instance2"
+    tags:
       Workshop_instance2: "{{ ec2_name_prefix }}-instance2"
       App: AnsibleWorkshop
       Workshop: "{{ ec2_name_prefix }}"
@@ -94,11 +106,18 @@
   when: doubleup|bool
 
 ### tag student workbench
+- name: instance1 info gathering
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_instance1": "{{ ec2_name_prefix }}-instance1"
+  register: instance1_info
 
 - name: WINDOWS | Ensure tags are present for instance 1
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-instance1"
@@ -106,13 +125,21 @@
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
-    - "{{ instance1_output.instances }}"
-  when: instance1_output.instance_ids is not none
+    - "{{ instance1_info.instances }}"
+  when: instance1_info.instances|length > 0
+
+- name: instance2 info gathering
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_instance2": "{{ ec2_name_prefix }}-instance2"
+  register: instance2_info
 
 - name: WINDOWS | Ensure tags are present for instance 2
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-instance2"
@@ -120,7 +147,7 @@
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
-    - "{{ instance2_output.instances }}"
+    - "{{ instance2_info.instances }}"
   when:
     - doubleup|bool
-    - instance2_output.instance_ids is not none
+    - instance2_info.instance_ids is not none

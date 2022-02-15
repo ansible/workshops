@@ -10,6 +10,7 @@
     msg: "boto3 >= 1.7 is required."
 
 - name: check route53 information
+  when: dns_type == "aws"
   block:
     - name: check for underscores in workshop name
       fail:
@@ -31,13 +32,12 @@
         msg:
           - "You must have a valid route53 zone configured for workshop_dns_zone"
           - "Right now the workshop_dns_zone is {{workshop_dns_zone}}"
-  when:
-    - dns_type == "aws"
 
 - name: Find available AZ for region {{ ec2_region }}
   amazon.aws.aws_az_info:
     region: "{{ ec2_region }}"
   register: az_names
+  until: az_names is not failed
 
 - name: Remove any AZs in the aws_az_deny_list when defined
   set_fact:

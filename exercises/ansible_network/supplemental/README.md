@@ -3,6 +3,7 @@
 These are additional exercises available for students that have already completed the workshop or are seeking additional knowledge.
 
 - [Network Resource Modules - Continued ](resource) - this exercise builds on [exercise 4 - Ansible Network Resource Modules](../4-resource-module)
+- [Cisco SNMP resource module](4-resource-module-cisco) - this exercise repeats exercise 4 with a focus on Cisco and the SNMP module. 
 - [Network Configuration with Jinja Templates](jinja) - this exercise will teach network engineers how to template network configurations using Jinja2
 
 

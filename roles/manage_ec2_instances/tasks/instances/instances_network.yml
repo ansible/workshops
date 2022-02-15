@@ -8,19 +8,22 @@
   when: network_type != "multivendor"
 
 ############## Router 1 ##############
-- name: Create EC2 instances for rtr1 node (NETWORK MODE)
-  ec2:
-    assign_public_ip: true
+- name: Create EC2 instances for rtr1 node (workshop_type network)
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rtr1_type].size }}"
-    image: "{{ ec2_info[rtr1_type].ami.image_id }}"
+    image_id: "{{ ec2_info[rtr1_type].ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     user_data: ''
-    count_tag:
-      Workshop_rtr1: "{{ ec2_name_prefix }}-rtr1"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr1": "{{ ec2_name_prefix }}-rtr1"
+    tags:
       Workshop_rtr1: "{{ ec2_name_prefix }}-rtr1"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -34,17 +37,24 @@
       short_name: "rtr1"
       ansible_network_os: "{{ ec2_info[rtr1_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
-      group: core
+      security_group: core
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes: "{{ec2_info[rtr1_type].volume | default(omit)}}"
+
+- name: grab instance ids to tag rtr1
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr1": "{{ ec2_name_prefix }}-rtr1"
   register: rtr1_output
 
-- name: Ensure tags are present for rtr1 node (NETWORK MODE)
+- name: Ensure tags are present for rtr1 node (workshop_type network)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{item.0 + 1}}-rtr1"
@@ -53,22 +63,25 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ rtr1_output.instances }}"
-  when: rtr1_output.instance_ids is not none
+  when: rtr1_output.instances|length > 0
 
 ############## Router 2 ##############
-- name: Create EC2 instances for rtr2 node in VPC-2 (NETWORK MODE)
-  ec2:
-    assign_public_ip: true
+- name: Create EC2 instances for rtr2 node in VPC-2 (workshop_type network)
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group2 }}"
+    security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr2_type].size }}"
-    image: "{{ ec2_info[rtr2_type].ami.image_id }}"
+    image_id: "{{ ec2_info[rtr2_type].ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     user_data: ''
-    count_tag:
-      Workshop_rtr2: "{{ ec2_name_prefix }}-rtr2"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr2": "{{ ec2_name_prefix }}-rtr2"
+    tags:
       Workshop_rtr2: "{{ ec2_name_prefix }}-rtr2"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -82,17 +95,24 @@
       short_name: "rtr2"
       ansible_network_os: "{{ ec2_info[rtr2_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
-      group: core
+      security_group: core
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id2 }}"
     volumes: "{{ ec2_info[rtr2_type].volume | default(omit) }}"
+
+- name: grab instance ids to tag rtr2
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr2": "{{ ec2_name_prefix }}-rtr2"
   register: rtr2_output
 
-- name: Ensure tags are present for rtr2 node (NETWORK MODE)
+- name: Ensure tags are present for rtr2 node (workshop_type network)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-rtr2"
@@ -101,22 +121,25 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ rtr2_output.instances }}"
-  when: rtr2_output.instance_ids is not none
+  when: rtr2_output.instances|length > 0
 
 ############## Router 3 ##############
-- name: Create EC2 instances for rtr3 node (NETWORK MODE)
-  ec2:
-    assign_public_ip: true
+- name: Create EC2 instances for rtr3 node (workshop_type network)
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ec2_info[rtr3_type].size }}"
-    image: "{{ ec2_info[rtr3_type].ami.image_id }}"
+    image_id: "{{ ec2_info[rtr3_type].ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     user_data: ''
-    count_tag:
-      Workshop_rtr3: "{{ ec2_name_prefix }}-rtr3"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr3": "{{ ec2_name_prefix }}-rtr3"
+    tags:
       Workshop_rtr3: "{{ ec2_name_prefix }}-rtr3"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -130,17 +153,24 @@
       short_name: "rtr3"
       ansible_network_os: "{{ ec2_info[rtr3_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
-      group: access
+      security_group: access
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes: "{{ ec2_info[rtr3_type].volume | default(omit) }}"
+
+- name: grab instance ids to tag rtr3
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr3": "{{ ec2_name_prefix }}-rtr3"
   register: rtr3_output
 
-- name: Ensure tags are present for rtr3 node (NETWORK MODE)
+- name: Ensure tags are present for rtr3 node (workshop_type network)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-rtr3"
@@ -149,22 +179,25 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ rtr3_output.instances }}"
-  when: rtr3_output.instance_ids is not none
+  when: rtr3_output.instances|length > 0
 
 ############## Router 4 ##############
-- name: Create EC2 instances for rtr4 node in VPC-2 (NETWORK MODE)
-  ec2:
-    assign_public_ip: true
+- name: Create EC2 instances for rtr4 node in VPC-2 (workshop_type network)
+  ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group2 }}"
+    security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr4_type].size }}"
-    image: "{{ ec2_info[rtr4_type].ami.image_id }}"
+    image_id: "{{ ec2_info[rtr4_type].ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     user_data: ''
-    count_tag:
-      Workshop_rtr4: "{{ ec2_name_prefix }}-rtr4"
-    instance_tags:
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr4": "{{ ec2_name_prefix }}-rtr4"
+    tags:
       Workshop_rtr4: "{{ ec2_name_prefix }}-rtr4"
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -178,17 +211,24 @@
       short_name: "rtr4"
       ansible_network_os: "{{ ec2_info[rtr4_type].os }}"
       username: "{{ ec2_info[rtr1_type].username }}"
-      group: access
+      security_group: access
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id2 }}"
     volumes: "{{ ec2_info[rtr4_type].volume | default(omit) }}"
+
+- name: grab instance ids to tag rtr4
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_rtr4": "{{ ec2_name_prefix }}-rtr4"
   register: rtr4_output
 
-- name: Ensure tags are present for rtr4 node (NETWORK MODE)
+- name: Ensure tags are present for rtr4 node (workshop_type network)
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-rtr4"
@@ -197,23 +237,23 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ rtr4_output.instances }}"
-  when: rtr4_output.instance_ids is not none
+  when: rtr4_output.instances|length > 0
 
-- name: grab all network interfaces for VPC 1 (NETWORK MODE)
+- name: grab all network interfaces for VPC 1 (workshop_type network)
   amazon.aws.ec2_eni_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ ec2_vpc_id }}"
   register: eni_facts_1
 
-- name: grab all network interfaces for VPC 2 (NETWORK MODE)
+- name: grab all network interfaces for VPC 2 (workshop_type network)
   amazon.aws.ec2_eni_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ ec2_vpc_id2 }}"
   register: eni_facts_2
 
-- name: Disable Source/Dest check on instance {{ec2_vpc_id1}} (NETWORK MODE)
+- name: Disable Source/Dest check on instance {{ec2_vpc_id1}} (workshop_type network)
   ec2_eni:
     eni_id: "{{ item['network_interface_id'] }}"
     region: "{{ ec2_region }}"

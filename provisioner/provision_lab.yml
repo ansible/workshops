@@ -28,13 +28,13 @@
   connection: local
   become: false
   gather_facts: false
-  pre_tasks:
+  tasks:
     - name: Cluster nodes
       set_fact:
         control_nodes: 4
       when: create_cluster is defined and create_cluster|bool
-  roles:
-    - manage_ec2_instances
+    - include_role:
+        name: ../roles/manage_ec2_instances
 
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes:attendance"
@@ -147,7 +147,6 @@
   hosts: '*ansible-1'
   become: true
   gather_facts: false
-
   tasks:
     - name: run populate_controller role
       include_role:

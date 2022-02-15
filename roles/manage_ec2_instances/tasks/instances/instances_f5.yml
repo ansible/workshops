@@ -8,9 +8,11 @@
     image_id: "{{ f5_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     network:
       assign_public_ip: true
     filters:
+      instance-state-name: running
       "tag:Workshop_f5": "{{ ec2_name_prefix }}-f5"
     tags:
       Workshop_f5: "{{ ec2_name_prefix }}-f5"
@@ -37,6 +39,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_f5": "{{ ec2_name_prefix }}-f5"
   register: f5_output
 
@@ -65,6 +68,7 @@
     network:
       assign_public_ip: true
     filters:
+
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
     tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
@@ -87,6 +91,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
   register: node1_output
 
@@ -115,6 +120,7 @@
     network:
       assign_public_ip: true
     filters:
+      instance-state-name: running
       "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
     tags:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
@@ -137,6 +143,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
   register: node2_output
 

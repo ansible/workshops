@@ -7,9 +7,11 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     network:
       assign_public_ip: true
     filters:
+      instance-state-name: running
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
     tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
@@ -42,6 +44,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
   register: node1_output
 
@@ -86,7 +89,9 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
     tags:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
@@ -115,6 +120,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
   register: node2_output
 
@@ -159,7 +165,9 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_node3": "{{ ec2_name_prefix }}-node3"
     tags:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
@@ -188,6 +196,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node3": "{{ ec2_name_prefix }}-node3"
   register: node3_output
 
@@ -234,7 +243,9 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_isonode": "{{ ec2_name_prefix }}-isonode"
     tags:
       Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
@@ -262,6 +273,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_isonode": "{{ ec2_name_prefix }}-isonode"
   register: isonode_output
   when: create_cluster|bool
@@ -290,7 +302,9 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_remotenode": "{{ ec2_name_prefix }}-remotenode"
     tags:
       Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
@@ -317,6 +331,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_remotenode": "{{ ec2_name_prefix }}-remotenode"
   register: remotenode_output
   when: create_cluster|bool

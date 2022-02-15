@@ -5,6 +5,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_gitlab": "{{ec2_name_prefix}}-gitlab"
   register: gitlab_node_facts
 
@@ -12,6 +13,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_instance1": "{{ec2_name_prefix}}-instance1"
   register: instance1_node_facts
 
@@ -19,6 +21,7 @@
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_instance2": "{{ec2_name_prefix}}-instance2"
   register: instance2_node_facts
   when:

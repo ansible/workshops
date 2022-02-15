@@ -12,7 +12,7 @@
     network:
       assign_public_ip: true
     filters:
-      "tag:Workshop_ansible": "{{ ec2_name_prefix }}-attendance"
+      "tag:Workshop_attendance": "{{ ec2_name_prefix }}-attendance"
     tags:
       Workshop_attendance: "{{ ec2_name_prefix }}-attendance"
       Name: "{{ ec2_name_prefix }}-attendance"

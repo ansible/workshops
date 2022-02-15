@@ -168,13 +168,13 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
 
-PLAY [configure SNMP] **********************************************************
+  PLAY [configure SNMP] **********************************************************
 
-TASK [use snmp resource module] ***************************
-changed: [rtr1]
+  TASK [use snmp resource module] ***************************
+  changed: [rtr1]
 
-PLAY RECAP *********************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  PLAY RECAP *********************************************************************
+  rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
 * Re-running the playbook will demonstrate the concept of [idempotency](https://en.wikipedia.org/wiki/Idempotence)

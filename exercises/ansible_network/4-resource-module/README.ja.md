@@ -268,8 +268,6 @@ VLAN（デフォルトの vLAN 1 を含む）があります。
 
 * `gathered.yml` という名前の新しい Playbook を作成します。
 
-<!-- {% raw %} -->
-
   ```yaml
   ---
   - name: configure VLANs
@@ -288,7 +286,6 @@ VLAN（デフォルトの vLAN 1 を含む）があります。
         content: "{{ vlan_config | to_nice_yaml }}"
         dest: "{{ playbook_dir }}/{{ inventory_hostname }}_vlan.yml"
   ```
-  <!-- {% endraw %} -->
 
 * `state: merged` が `gathered`
   に切り替えられていることを除き、最初のタスクは同一です。設定で読み取っているので（ネットワークデバイスに適用する代わりに）、`config`

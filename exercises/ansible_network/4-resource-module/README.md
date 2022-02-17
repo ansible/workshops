@@ -248,8 +248,6 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 * Create a new playbook named `gathered.yml`
 
-<!-- {% raw %} -->
-
   ```yaml
   ---
   - name: configure VLANs
@@ -268,7 +266,6 @@ As you can see, the resource module configured the Arista EOS network device wit
         content: "{{ vlan_config | to_nice_yaml }}"
         dest: "{{ playbook_dir }}/{{ inventory_hostname }}_vlan.yml"
   ```
-  <!-- {% endraw %} -->
 
 * The first task is identical except the `state: merged` has been switched to `gathered`, the `config` is no longer needed since we are reading in the configuration (verus applying it to the network device), and we are using the `register` to save the output from the module into a variable named `vlan_config`
 

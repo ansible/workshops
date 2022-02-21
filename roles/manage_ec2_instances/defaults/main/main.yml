@@ -73,7 +73,7 @@ ec2_info:
     owners: 309956199498
     size: m4.xlarge
     os_type: linux
-    disk_space: 20
+    disk_space: 40
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user

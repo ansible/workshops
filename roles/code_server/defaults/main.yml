@@ -2,3 +2,5 @@
 s3_state: "present"
 teardown: false
 aap_dir: "/home/{{ username }}/aap_install"
+codeserver_url: https://github.com/coder/code-server/releases/download/v4.0.1/code-server-4.0.1-amd64.rpm
+codeserver_rescue_url: https://github.com/coder/code-server/releases/download/v4.0.1/code-server-4.0.1-amd64.rpm

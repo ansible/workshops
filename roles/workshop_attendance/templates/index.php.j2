@@ -311,7 +311,6 @@ function display_student($student) {
     </tr>
   </table>
   {% endif %}
-
   {% if workshop_type == "smart_mgmt" %}
   <div id="section_title">Red Hat Satellite </div>
   To login to the Satellite WebUI use the following credentials:<br>
@@ -339,10 +338,6 @@ function display_student($student) {
   </table>
   {% endif %}
   </div>
-
-
-
-
   {% if workshop_type == 'devops' %} Lab Guide: <a target=_blank href="http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888">http://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8888</a><br>{% endif %}';
     print '<div id="hub_info">
     {% if automation_hub is defined and automation_hub %}

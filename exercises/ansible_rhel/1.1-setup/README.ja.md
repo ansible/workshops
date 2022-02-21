@@ -166,7 +166,7 @@ ansible-navigator:
 
 <br>
 
-{% if page.url contains 'ansible_rhel_90' %}
+{% if page.url contains 'ansible_rhel' %}
 [Next Exercise](../2-thebasics)
 {% else %}
 [Next Exercise](../1.2-thebasics)

@@ -206,7 +206,7 @@ $ :24
 
 ---
 **Navigation**
-{% if page.url contains 'ansible_rhel_90' %}
+{% if page.url contains 'ansible_rhel' %}
 [Previous Exercise](../1-setup) - [Next Exercise](../3-playbook)
 {% else %}
 [Previous Exercise](../1.1-setup) - [Next Exercise](../1.3-playbook)

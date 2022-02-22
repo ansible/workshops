@@ -1,6 +1,6 @@
 ---
 - name: WINDOWS | GitLab | Launch Instance
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_rhel8_gitlab']['size'] }}"
@@ -39,7 +39,7 @@
     msg: "{{ gitlab_output }}"
 
 - name: WINDOWS | Create instance 1
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"
@@ -72,7 +72,7 @@
   register: instance1_output
 
 - name: WINDOWS | Create instance 2
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['skylight_windows_instance']['size'] }}"

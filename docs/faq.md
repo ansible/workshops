@@ -157,6 +157,30 @@ objc[43678]: +[__NSPlaceholderDate initialize] may have been in progress in anot
 $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ```
 
+
+
+
+## Problem Unsupported parameters for (ec2_instance)
+
+```
+fatal: [localhost]: FAILED! => changed=false
+  msg: 'Unsupported parameters for (ec2_instance) module: exact_count. Supported parameters include: image_id, launch_template, validate_certs, aws_access_key (access_key, ec2_access_key), instance_role, key_name, detailed_monitoring, security_token (access_token, aws_security_token), vpc_subnet_id (subnet_id), user_data, aws_secret_key (ec2_secret_key, secret_key), aws_ca_bundle, image, termination_protection, tower_callback, name, security_group, filters, tags, wait_timeout, debug_botocore_endpoint_logs, cpu_options, region (aws_region, ec2_region), profile (aws_profile), placement_group, network, instance_type, instance_ids, wait, ebs_optimized, aws_config, tenancy, availability_zone, instance_initiated_shutdown_behavior, volumes, state, cpu_credit_specification, ec2_url (aws_endpoint_url, endpoint_url), security_groups, purge_tags.'
+```
+
+### Solution
+
+Upgrade to latest amazon.aws collection
+
+```
+(feb21) ➜  provisioner git:(gh-pages) ✗ ansible-galaxy collection install amazon.aws --force
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/download/amazon-aws-3.1.1.tar.gz to /Users/sean/.ansible/tmp/ansible-local-455329b9s_xbx/tmpg_s_guol/amazon-aws-3.1.1-6d_pudvk
+Installing 'amazon.aws:3.1.1' to '/Users/sean/.ansible/collections/ansible_collections/amazon/aws'
+amazon.aws:3.1.1 was installed successfully
+```
+
 ## Getting Help
 
 Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.

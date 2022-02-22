@@ -9,7 +9,7 @@
 
 ############## Router 1 ##############
 - name: Create EC2 instances for rtr1 node (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rtr1_type].size }}"
@@ -67,7 +67,7 @@
 
 ############## Router 2 ##############
 - name: Create EC2 instances for rtr2 node in VPC-2 (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr2_type].size }}"
@@ -125,7 +125,7 @@
 
 ############## Router 3 ##############
 - name: Create EC2 instances for rtr3 node (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ec2_info[rtr3_type].size }}"
@@ -183,7 +183,7 @@
 
 ############## Router 4 ##############
 - name: Create EC2 instances for rtr4 node in VPC-2 (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr4_type].size }}"

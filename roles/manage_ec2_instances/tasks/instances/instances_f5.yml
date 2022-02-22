@@ -1,7 +1,7 @@
 ---
 ############## f5 node ##############
 - name: Create EC2 instances for f5 node (workshop_type f5)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info.f5node.size }}"
@@ -58,7 +58,7 @@
   when: f5_output.instances is not none
 
 - name: Create EC2 instances for node1 node in VPC (workshop_type f5)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info.rhel8.size }}"
@@ -110,7 +110,7 @@
   when: node1_output.instance_ids is not none
 
 - name: Create EC2 instances for node2 node in VPC (workshop_type f5)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info.rhel8.size }}"

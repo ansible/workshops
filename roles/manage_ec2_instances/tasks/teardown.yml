@@ -86,7 +86,7 @@
 
 # retrieve instances for VPC 2
 - name: grab vpc2 node facts for workshop
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       "vpc-id": "{{ec2_vpc_id2}}"
@@ -102,7 +102,7 @@
 
 # Destroy VPC 1 instances
 - name: destroy EC2 instances
-  ec2:
+  amazon.aws.ec2_instance:
     region: "{{ ec2_region }}"
     state: absent
     instance_ids: "{{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list }}"
@@ -118,7 +118,7 @@
 
 # Destroy VPC 2 instances for network automation
 - name: destroy EC2 instances (VPC2)
-  ec2:
+  amazon.aws.ec2_instance:
     region: "{{ ec2_region }}"
     state: absent
     instance_ids: "{{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list }}"
@@ -149,14 +149,14 @@
       when: debug_teardown
 
     - name: Delete dangling ENIs from for {{ ec2_name_prefix }}-vpc
-      ec2_eni:
+      amazon.aws.ec2_eni:
         region: "{{ ec2_region }}"
         eni_id: "{{item['id']}}"
         state: absent
       loop: "{{dangling_eni_info['network_interfaces']}}"
 
     - name: Get subnet1 eni_info
-      ec2_eni_info:
+      amazon.aws.ec2_eni_info:
         region: "{{ ec2_region }}"
         filters:
           "tag:Subnet": '{{ ec2_name_prefix }}-subnet1'
@@ -168,7 +168,7 @@
       when: debug_teardown
 
     - name: Delete subnet1 for {{ ec2_name_prefix }}-vpc
-      ec2_vpc_subnet:
+      amazon.aws.ec2_vpc_subnet:
         region: "{{ ec2_region }}"
         az: "{{ec2_az}}"
         vpc_id: "{{ec2_vpc_id}}"
@@ -176,7 +176,7 @@
         state: absent
 
     - name: Get subnet2 eni_info
-      ec2_eni_info:
+      amazon.aws.ec2_eni_info:
         region: "{{ ec2_region }}"
         filters:
           "tag:Subnet": '{{ ec2_name_prefix }}-subnet2'
@@ -188,7 +188,7 @@
       when: debug_teardown
 
     - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc
-      ec2_vpc_subnet:
+      amazon.aws.ec2_vpc_subnet:
         region: "{{ ec2_region }}"
         az: "{{ec2_az}}"
         vpc_id: "{{ec2_vpc_id}}"
@@ -197,7 +197,7 @@
   when: workshop_type == 'security' or workshop_type == 'demo'
 
 - name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }}
-  ec2_group:
+  amazon.aws.ec2_group:
     name: "{{ec2_security_group}}"
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id}}"
@@ -209,7 +209,7 @@
 
 ### Additional Windows sgs added in resources_windows.yml
 - name: Deleted EC2 security groups for VPC vpc-{{ ec2_name_prefix }} (WINDOWS MODE)
-  ec2_group:
+  amazon.aws.ec2_group:
     name: "{{ item }}"
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id}}"
@@ -225,7 +225,7 @@
 
 # Delete security group for vpc-2
 - name: Deleted EC2 security group for VPC-2 vpc-{{ ec2_name_prefix }} (NETWORK MODE)
-  ec2_group:
+  amazon.aws.ec2_group:
     name: "{{ec2_security_group2}}"
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id2}}"
@@ -239,7 +239,7 @@
 
 # delete ec2_subnet for vpc-1
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc
-  ec2_vpc_subnet:
+  amazon.aws.ec2_vpc_subnet:
     region: "{{ ec2_region }}"
     az: "{{ec2_az}}"
     vpc_id: "{{ec2_vpc_id}}"
@@ -248,7 +248,7 @@
 
 # delete ec2_subnet2 for vpc-1
 - name: Delete subnet2 for {{ ec2_name_prefix }}-vpc
-  ec2_vpc_subnet:
+  amazon.aws.ec2_vpc_subnet:
     region: "{{ ec2_region }}"
     az: "{{ec2_az}}"
     vpc_id: "{{ec2_vpc_id}}"
@@ -257,7 +257,7 @@
 
 # delete ec2_network_vpc2 for vpc-2
 - name: Delete subnet for {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
-  ec2_vpc_subnet:
+  amazon.aws.ec2_vpc_subnet:
     region: "{{ ec2_region }}"
     az: "{{ec2_az}}"
     vpc_id: "{{ec2_vpc_id2}}"
@@ -268,13 +268,13 @@
     - vpc_net_facts2.vpcs|length > 0
 
 - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
-  ec2_vpc_igw:
+  amazon.aws.ec2_vpc_igw:
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id}}"
     state: absent
 
 - name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }} (NETWORK MODE)
-  ec2_vpc_igw:
+  amazon.aws.ec2_vpc_igw:
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id2}}"
     state: absent
@@ -283,14 +283,14 @@
     - vpc_net_facts2.vpcs|length > 0
 
 - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
-  ec2_vpc_route_table_info:
+  amazon.aws.ec2_vpc_route_table_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ec2_vpc_id}}"
   register: route_table_facts
 
 - name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }} vpc2 (NETWORK MODE)
-  ec2_vpc_route_table_info:
+  amazon.aws.ec2_vpc_route_table_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ec2_vpc_id2}}"
@@ -300,7 +300,7 @@
     - vpc_net_facts2.vpcs|length > 0
 
 - name: vpc public subnet route table is deleted
-  ec2_vpc_route_table:
+  amazon.aws.ec2_vpc_route_table:
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id}}"
     route_table_id: "{{item.id}}"
@@ -310,7 +310,7 @@
   when: item.associations == []
 
 - name: vpc public subnet route table is deleted (VPC2) (NETWORK MODE)
-  ec2_vpc_route_table:
+  amazon.aws.ec2_vpc_route_table:
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id2}}"
     route_table_id: "{{item.id}}"
@@ -327,7 +327,7 @@
     ec2_key_name: "{{ ec2_name_prefix }}-key"
 
 - name: delete ssh key pair for workshop {{ ec2_name_prefix }}
-  ec2_key:
+  amazon.aws.ec2_key:
     name: "{{ec2_key_name}}"
     region: "{{ ec2_region }}"
     state: absent
@@ -346,14 +346,14 @@
 
 # delete VPCS
 - name: delete AWS VPC {{ ec2_name_prefix }}
-  ec2_vpc_net:
+  amazon.aws.ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc"
     cidr_block: "{{ ec2_subnet }}"
     region: "{{ ec2_region }}"
     state: absent
 
 - name: delete AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
-  ec2_vpc_net:
+  amazon.aws.ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc2"
     cidr_block: "{{ ec2_network_vpc2 }}"
     region: "{{ ec2_region }}"
@@ -364,7 +364,7 @@
 # This is unfortunately something we have to do by tag data because even though
 # the EIP claims to be associated with a VPC, you can't actually query them by
 # VPC ID
-- name: Handle EIP cleanup (SECURITY MODE)
+- name: Handle EIP cleanup (workshop_type security)
   when: workshop_type == 'security'
   block:
     - name: Get EIP informaion
@@ -412,7 +412,7 @@
 
   when: tower_node_aws_api_access|default(false)|bool
 
-- name: Delete AWS snapshots (SMART MANAGEMENT MODE)
+- name: Delete AWS snapshots (workshop_type SMART MANAGEMENT)
   block:
     - name: Get snapshot info
       ec2_snapshot_info:

@@ -1,6 +1,6 @@
 ---
 - name: Create EC2 instances for node1
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
@@ -63,7 +63,7 @@
   when: node1_output.instances|length > 0
 
 - name: Associate IAM instance profile with node1
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -80,7 +80,7 @@
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node2
-  ec2_instance:
+  amazon.aws.ec2_instance:
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -139,7 +139,7 @@
   when: node2_output.instances|length > 0
 
 - name: Associate IAM instance profile with node2
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -156,7 +156,7 @@
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node3
-  ec2_instance:
+  amazon.aws.ec2_instance:
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -215,7 +215,7 @@
   when: node3_output.instances|length > 0
 
 - name: Associate IAM instance profile with node3
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -234,7 +234,7 @@
 # Create isolated/remote node for Adv Tower lab when cluster install
 
 - name: Create EC2 instances for isonode
-  ec2_instance:
+  amazon.aws.ec2_instance:
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -293,7 +293,7 @@
   when: create_cluster|bool and isonode_output.instances|length > 0
 
 - name: Create EC2 instances for remotenode
-  ec2_instance:
+  amazon.aws.ec2_instance:
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"

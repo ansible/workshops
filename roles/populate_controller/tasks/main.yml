@@ -134,14 +134,14 @@
 #### END OF REMOVE BUILT-IN DEMO CONTENT
 
 # Workshop specific execution environments
-- name: Add security workshop execution environment
+- name: Add specific workshop execution environment
   awx.awx.execution_environment:
     name: "{{ workshop_type }} workshop execution environment"
     image: "{{ lookup('vars', workshop_type + '_ee') }}"
     pull: missing
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    controller_host: "https://{{ ansible_host }}"
     validate_certs: false
 
 - name: setup workshop specific controller information

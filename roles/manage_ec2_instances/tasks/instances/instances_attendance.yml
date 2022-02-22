@@ -1,6 +1,6 @@
 ---
 - name: Provision attendance host
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['attendance_host']['size'] }}"

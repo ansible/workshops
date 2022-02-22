@@ -113,22 +113,6 @@
         - automation_hub is defined
         - automation_hub
 
-- name: replicate venvs to cluster nodes
-  hosts: '*ansible-2,*ansible-3'
-  gather_facts: false
-  become: true
-  tasks:
-    - include_role:
-        name: ../roles/control_node
-        tasks_from: package_dependencies
-      when: create_cluster|bool
-
-    - include_role:
-        name: ../roles/control_node
-        tasks_from: venv
-      when: create_cluster|bool
-
-
 - name: add dns entires for all student control nodes
   hosts: '*ansible-1'
   become: true

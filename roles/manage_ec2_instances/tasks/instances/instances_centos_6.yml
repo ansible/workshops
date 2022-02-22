@@ -1,6 +1,6 @@
 ---
 - name: Create EC2 instances for node7
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos6].size }}"
@@ -55,7 +55,7 @@
   when: node7_output.instances|length > 0
 
 - name: Associate IAM instance profile with node7
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -72,7 +72,7 @@
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node8
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos6].size }}"
@@ -127,7 +127,7 @@
   when: node8_output.instances|length > 0
 
 - name: Associate IAM instance profile with node8
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -144,7 +144,7 @@
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node9
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos6].size }}"
@@ -199,7 +199,7 @@
   when: node9_output.instances|length > 0
 
 - name: Associate IAM instance profile with node9
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"

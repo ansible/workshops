@@ -1,6 +1,6 @@
 ---
 - name: Create EC2 instances for private automation hub
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[control_type].size }}"

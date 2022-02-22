@@ -2,6 +2,9 @@
 {% if ssh_port is defined %}
 ansible_port={{ ssh_port }}
 {% endif %}
+ec2_name_prefix={{ ec2_name_prefix }}
+workshop_type={{ workshop_type }}
+admin_password={{ admin_password }}
 ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
 
 {% if automation_hub %}
@@ -17,27 +20,27 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 [student{{ number }}]
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} username=student{{ number }}
 {% endif %}
 {% endfor %}
 {% for host in rtr1_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }}
+{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }} ansible_connection=network_cli
 {% endif %}
 {% endfor %}
 {% for host in rtr2_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }}
+{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }} ansible_connection=network_cli ansible_become=true ansible_become_method=enable
 {% endif %}
 {% endfor %}
 {% for host in rtr3_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }}
+{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }} ansible_connection=netconf
 {% endif %}
 {% endfor %}
 {% for host in rtr4_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }}
+{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }} ansible_connection=network_cli ansible_become=true ansible_become_method=enable
 {% endif %}
 {% endfor %}
 {% endfor %}

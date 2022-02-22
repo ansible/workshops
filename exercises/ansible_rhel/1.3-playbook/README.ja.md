@@ -1,21 +1,21 @@
-# ワークショップ演習 - はじめての Playbook を書く
+# ワークショップ演習 - はじめての Playbook の作成
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
 * [目的](#objective)
 * [ガイド](#guide)
-  * [Step 1 - Playbook の基本](#step-1---playbook-basics)
-  * [Step 2 - Playbook
-    のディレクトリー構造とファイルの作成](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
-  * [Step 3 - Playbook の実行](#step-3---running-the-playbook)
-  * [Step 4 - Playbook の拡張: Apache
+  * [ステップ 1 - Playbook の基本](#step-1---playbook-basics)
+  * [ステップ 2 - Playbook
+    用のディレクトリー構造とファイルの作成](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
+  * [スッテプ 3 - Playbook の実行](#step-3---running-the-playbook)
+  * [ステップ 4 - Playbook の拡張: Apache
     の起動と有効化](#step-4---extend-your-playbook-start--enable-apache)
-  * [Step 5 - Playbook の拡張: web.html
+  * [ステップ 5 - Playbook の拡張: web.html
     の作成](#step-5---extend-your-playbook-create-an-indexhtml)
-  * [Step 6 - 練習: 複数ホストへの適用](#step-6---practice-apply-to-multiple-host)
+  * [ステップ 6 - 練習: 複数ホストへの適用](#step-6---practice-apply-to-multiple-host)
 
 ## 目的
 
@@ -26,20 +26,17 @@
 * 以下のモジュールの概要および使用
   * [yum
     モジュール](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
-  * [サービスモジュール](https://docs.ansible.com/ansible/latest/modules/service_module.html)
-  * [コピーモジュール](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
-* [冪等](https://en.wikipedia.org/wiki/Idempotence) と、Ansible モジュールの冪等について
+  * [サービス
+    module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+  * [copy
+    モジュール](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
+* [べき等性](https://en.wikipedia.org/wiki/Idempotence) の概要および Ansible
+  モジュールのべき等性について
 
 ## ガイド
 
-Ansible
-アドホックコマンドは単純な操作に便利ですが、複雑な設定管理やオーケストレーションのシナリオには適していません。このようなユースケースには、*Playbooks*
-を使用します。
-
 Playbook は、管理ホストに実装する必要な設定または手順を記述するファイルです。Playbook
 は、長く複雑な管理タスクを、予測できる成功する結果で、簡単に繰り返し可能なルーチンに変更できます。
-
-Playbook は、実行するアドホックコマンドの一部を取り、*plays* および *tasks* の反復可能なセットに配置できます。
 
 1 つの Playbook には複数のプレイを含めることができ、単一または複数のタスクを指定できます。1つのタスクでは、前章のモジュールのように
 *module* が呼び出されます。*play* の目的は、ホストのグループをマッピングすることです。*task*
@@ -49,7 +46,7 @@ Playbook は、実行するアドホックコマンドの一部を取り、*play
 >
 >良い例を紹介します。Ansible モジュールがワークショップでのツールであるとすれば、インベントリーは素材で、Playbook は指示書のようなものです。
 
-### Step 1 - Playbook の基本
+### ステップ 1 - Playbook の基本
 
 Playbook は YAML 形式で記述されたテキストファイルなので、以下が必要になります。
 
@@ -61,9 +58,9 @@ Playbook は YAML 形式で記述されたテキストファイルなので、�
 
 * **hosts**: タスクを実行する管理対象ホスト
 
-* **tasks**: Ansible モジュールを呼び出して必要なオプションを渡すことで実行される操作。
+* **tasks**: Ansible モジュールを呼び出して必要なオプションを渡すことで実行される操作
 
-* **become**: アドホックコマンドで `-b` を指定するのと同じように、Playbook での権限昇格。
+* **become**: Playbook における特権昇格
 
 > **警告**
 >
@@ -76,7 +73,7 @@ Playbook は **冪等** である必要があります。そのため、Playbook
 >
 > 多くの Ansible モジュールは冪等です。そのため、この作業は比較的簡単です。
 
-### Step 2 - Playbook 用のディレクトリー構造とファイルの作成
+### ステップ 2 - Playbook 用のディレクトリー構造とファイルの作成
 
 実践的な説明に移ります。はじめての Ansible Playbook を作成してみましょう。このラボでは、以下の 3 つの手順で Apache Web
 サーバーをセットアップする Playbook を作成します。
@@ -141,7 +138,7 @@ Playbook に推奨されるディレクトリー構造についての
 
 > **ヒント**
 >
-> Playbook は YAML で記述されているため、行やキーワードを調整することが重要になります。`task` の *t* は、`become` の *b* に垂直にそろえるようにしてください。Ansible に慣れてきたら、[YAML 構文](http://docs.ansible.com/ansible/YAMLSyntax.html) を勉強するとよいでしょう。
+> Playbook は YAML で記述されているため、行やキーワードを調整することが重要になります。`task` の *t* は、`become` の *b* に垂直にそろえるようにしてください。Ansible に慣れてきたら、[YAML 構文](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) を勉強するとよいでしょう。
 
 追加した行:
 
@@ -157,25 +154,95 @@ Playbook に推奨されるディレクトリー構造についての
 
 Playbook を保存し、エディターを終了します。
 
-### Step 3 - Playbook の実行
+### ステップ 3 - Playbook の実行
 
-Ansible Playbook は、コントロールノードで `ansible-playbook` コマンドを使用して実行されます。新しい
-Playbook を実行する前に、構文エラーをチェックすることが推奨されます。
+Ansible Automation Platform 2
+の導入に伴い、開発者の体験全体の一部として、いくつかの新しいキーコンポーネントが導入されています。実行環境は、オートメーションの実行時に使用する予測可能な環境を提供するために導入されました。すべてのコレクションの依存関係は実行環境に含まれ、開発環境で作成されたオートメーションが本番環境と同じように実行されることを確実にしています。
+
+実行環境内で何が見つかるものについて
+
+* RHEL UBI 8
+* Ansible 2.9 または Ansible Core 2.11
+* Python 3.8
+* コンテンツコレクションについて
+* Python またはバイナリーの依存関係のコレクション。
+
+実行環境について
+
+オートメーションが実行される環境を定義、構築、配布するための標準的な方法を提供します。一言で言えば、オートメーションの実行環境とは、プラットフォームの管理者が
+Ansible の管理を容易にするためのコンテナイメージです。
+
+自動化の実行がコンテナー化されていくことを考えると、Ansible Automation Platform 2
+以前に存在していた自動化開発のワークフローやツールは、再構築する必要があります。つまり、`ansible-navigator`
+は、`ansible-playbook` やその他の`ansible-*` コマンドラインユーティリティーに取って代わります。
+
+この変更により、Ansible Playbook はコントロールノードの `ansible-navigator` コマンドを使用して実行されます。
+
+`ansible-navigator` を使用するための前提条件およびベストプラクティスが、このラボで行われています。
+
+これらには以下が含まれます。
+* `ansible-navigator` パッケージのインストール
+* 全プロジェクトに対するデフォルト設定 `/home/student<X>/.ansible-navigator.yml` の作成（オプション）
+* すべての実行環境(EE)ログは `/home/student<X>/.ansible-navigator/logs/ansible-navigator.log` 内に保存されます
+* Playbook アーティファクトは `/tmp/artifact.json` 下に保存されます
+
+[Ansible
+ナビゲーター設定](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst)
+の詳細
+
+> **ヒント**
+>
+ansible-navigato rのパラメーターは、ユーザーの環境に合わせて変更することができます。現在の設定では、すべてのプロジェクトにデフォルトの`ansible-navigator.yml` を使用していますが、プロジェクトごとに特定の`ansible-navigator.yml` を作成することができ、これは推奨される方法です。
+
+Playbook を実行するには、`ansible-navigator run <playbook>` コマンドを使用します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook --syntax-check apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml
 ```
 
-これで、Playbook を実行する準備が整いました。
+> **ヒント** (英語)
+>
+既存の`ansible-navigator.yml` ファイルでは、インベントリファイルの場所が指定されています。これが`ansible-navigator.yml` ファイル内で設定されていない場合、プレイブックを実行するコマンドは次のようになります。 `ansible-navigator run apache.yml -i /home/student<X>/lab_inventory/hosts`
+
+Playbook の実行時に、現在実行中の Playbook
+に関する他の情報間でプレイ名を表示するテキストユーザーインターフェース(TUI)が表示されます。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+  PLAY NAME                        OK  CHANGED    UNREACHABLE      FAILED    SKIPPED    IGNORED    IN PROGRESS     TASK COUNT          PROGRESS
+0│Apache server installed           2        1              0           0          0          0              0              2          COMPLETE
 ```
 
-この出力はエラーを報告しませんが、実行されたタスクの概要と、実行内容の概要をまとめたプレイ要約を示します。また、「Gathering
-Facts」というタスクもあります。これは、各プレイの開始時に自動的に実行される組み込みタスクです。これは、管理対象ノードの情報を収集します。詳細は、後の演習で扱います。
+お気づきかもしれませんが、play 名 `Apache server installed` の前に`0` が表示されています。キーボードの `0`
+キーを押すと、Playbook 完了までに実行されたさまざまなタスクを表示する新しいウィンドウビューが表示されます。この例では、「Gathering
+Facts」と「latest Apache version installed」のタスクが表示されています。「Gathering Facts」は、各
+play
+の開始時に自動的に実行されるビルトインタスクです。管理対象のノードに関する情報を収集します。この後の演習では、これについて詳しく説明します。「latest
+Apache version installed」は、`apache.yml` ファイル内に作成されたタスクで、`httpd`
+をインストールするものでした。
 
-SSH で `node1` に接続し、Apache がインストールされていることを確認します。
+表示は以下のようになります。
+
+```bash
+  RESULT      HOST	NUMBER      CHANGED       TASK                                                   TASK ACTION           DURATION
+0│OK          node1          0        False       Gathering Facts                                        gather_facts                1s
+1│OK          node1          1         True       latest Apache version installed                        yum                         4s
+```
+
+よく見ると、各タスクには番号がついています。タスク1の「latest Apache version installed」は、変更があり、`yum`
+モジュールを使用しています。この場合の変更点は、ホスト`node1` に Apache (`httpd` パッケージ) をインストールしたことです。
+
+キーボードで`0` または`1`
+を押すと、実行中のタスクの詳細を見ることができます。より伝統的な出力表示が必要な場合は、テキストユーザーインターフェースで `:st`
+と入力してください。
+
+Ansible Playbook を確認してから、キーボードの Esc キーを使用して TUI から終了できます。
+
+> **ヒント**
+>
+Esc キーは前の画面に戻るだけです。メインの概要画面でEscキーを押すと、ターミナルウィンドウに戻ります。
+
+
+Playbook が完了したら、SSH で `node1` に接続し、Apache がインストールされていることを確認します。
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ ssh node1
@@ -186,23 +253,67 @@ Managed by Ansible
 `rpm -qi httpd` コマンドを使用して、httpd がインストールされていることを確認します。
 
 ```bash
-[student<X>@node1 ~]$ rpm -qi httpd
+[ec2-user@node1 ~]$ rpm -qi httpd
 Name        : httpd
-Version     : 2.4.6
+Version     : 2.4.37
 [...]
 ```
 
 コントロールホストに戻るように `exit` コマンドで `node1` からログアウトし、インストールしたパッケージを Ansible
-アドホックコマンドで確認します。
+playbook ラベル付き `package.yml` で確認します。
+
+{% raw %}
+```yaml
+---
+- name: Check packages
+  hosts: node1
+  become: true
+  vars:
+    package: "httpd"
+
+  tasks:
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Check whether a {{ package }}  is installed
+      ansible.builtin.debug:
+        msg: "{{ package }} {{ ansible_facts.packages[ package ][0].version }} is installed!"
+      when: "package in ansible_facts.packages"
+
+```
+{% endraw %}
+
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
+[student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
 ```
 
-Playbook を 2 回実行し、出力を比較します。出力は「changed」から「ok」に変更され、色は黄色から緑色に変わります。さらに、「PLAY
-RECAP」が変わりました。これにより、Ansible の実際の内容を簡単に識別できるようになります。
+```bash
 
-### Step 4 - Playbook の拡張: Apache の起動と有効化
+PLAY [Check packages] **********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ansible]
+
+TASK [Gather the package facts] ************************************************
+ok: [ansible]
+
+TASK [Check whether a httpd  is installed] *************************************
+ok: [ansible] => {
+    "msg": "httpd 2.4.37 is installed!"
+}
+
+PLAY RECAP *********************************************************************
+ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+`ansible-navigator run apache.yml` Playbook を 2
+回ずつ実行し、出力を比較します。出力「CHANGED」には `0` ではなく `1`
+が表示され、色が黄色から緑色に変更されます。これにより、Ansible Playbook
+の実行時に変更が生じると、その変更を簡単に配置できるようになります。
+
+### ステップ 4 - Playbook の拡張: Apache の起動と有効化
 
 Ansible Playbook の次の部分では、Apache アプリケーションが `node1` で有効化されて起動するようにします。
 
@@ -226,35 +337,80 @@ Ansible Playbook の次の部分では、Apache アプリケーションが `nod
       state: started
 ```
 
-これらの行で実行されることは、簡単に理解できます。
+何を行ったのでしょうか?
 
-* 次のタスクが作成され、名前が付けられます。
+* 「Apache enabled and running」という名前の 2 番目のタスクが作成されます。
 * モジュールが指定されます (`service`)
-* モジュールのパラメーターが指定されます
+* モジュール `service` はサービス名 (`httpd`) を取ります。これを永続的に設定する必要がある場合は
+  (`enabled`)、および現在の状態 (`started`) を使用します。
+
 
 つまり、2 番目のタスクにより、Apache サーバーがターゲットマシンで実行されるようにしています。拡張 Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run apache.yml
 ```
 
-出力に注意してください。一部のタスクは緑色で「ok」と表示されています。また、黄色で「changed」と表示されているものもあります。
+この出力では、プレイに `1` "CHANGED" が表示されますが、`0` を押してプレイの出力に入ることができます。そのタスク 2「Apache
+enabled and running」は、"CHANGED" 値が True に設定され、黄色でで強調表示されているタスクでした。
 
-* Ansible のアドホックコマンドを使用して、Apache が有効化され、起動していることを確認します (例: `systemctl status
-  httpd`)。
 
-* 出力内の変更に慣れるためにも、Playbook を再び実行してみてください。
+* 出力内の変更に慣れるためにも、`ansible-navigator` を使用して Playbook を再び実行してみてください。
 
-### Step 5 - Playbook: web.html の作成
+* service_state.yml というラベルのついた Ansible Playbook を使って、Apache（httpd）サービスが
+  `node1`、例えば `systemctl status httpd` で実行されていることを確認します。
 
-タスクが正しく実行され、Apache が接続を受け入れることを確認します。コントロールノードのアドホックコマンドで Ansible の `uri` モジュールを使用して HTTP リクエストを作成します。**\<IP\>** は、インベントリーから `ノード1` の IP に置き換えてください。
+{% raw %}
+```yaml
+---
+- name: Check Status
+  hosts: node1
+  become: true
+  vars:
+    package: "httpd"
+
+  tasks:
+    - name: Check status of {{ package }} service
+      service_facts:
+      register: service_state
+
+    - debug:
+        var: service_state.ansible_facts.services["{{ package }}.service"].state
+```
+
+```bash
+{% endraw %}
+
+[student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
+```
+
+### ステップ 5 - Playbook の拡張: web.html の作成
+
+タスクが正しく実行され、Apache が接続を受け入れることを確認します。check_httpd.yml という名前の Playbook の
+Ansible の `uri` モジュールを使用して、コントロールノードから `node1` に HTTP リクエストを作成します。
+
+{% raw %}
+```yaml
+---
+- name: Check URL
+  hosts: control
+  vars:
+    node: "node1"
+
+  tasks:
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      uri:
+        url: "http://{{ node }}"
+
+```
+{% endraw %}
 
 > **警告**
 >
 > **赤い行と 403 ステータスが多く表示されます。**
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
+[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
 赤い行やエラーが多く表示されます。Apache によって提供される `web.html` ファイルがなければ、「HTTP Error 403:
@@ -274,8 +430,8 @@ Forbidden」ステータスが表示され、Ansible はエラーを報告しま
 </body>
 ```
 
-Ansible の `copy` モジュールを使用してコマンドラインに出力されたテキストをファイルに書き込みました。次は、Playbook
-でモジュールを使用してファイルを実際にコピーします。
+以前の例では、Ansible の `copy` モジュールを使用してコマンドラインに出力されたテキストをファイルに書き込みました。次は、Playbook
+でモジュールを使用してファイルをコピーします。
 
 コントロールノードで、ファイル `~/ansible-files/apache.yml` を編集して、`copy`
 モジュールを使用して新しいタスクを追加します。以下のようになります。
@@ -301,23 +457,24 @@ Ansible の `copy` モジュールを使用してコマンドラインに出力�
       dest: /var/www/html/index.html
 ```
 
-Playbook 構文に慣れてきたのではないでしょうか。この新しいタスクは、`copy`
+この新しいコピータスクで何が起きるのでしょうか。この新しいタスクは、`copy`
 モジュールを使用し、コピー操作のソースオプションおよび宛先オプションをパラメーターとして定義します。
 
 拡張 Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-* 出力をよく確認してみてください。
+* 出力を確認し、「CHANGED」と、その変更に関連するタスクが変更されたことに注意してください。
 
-* 上記の「uri」モジュールを再度使用してアドホックコマンドを実行し、Apache
+* 上記の「uri」モジュールを再度使用して playbook (check_httpd.yml) を実行し、Apache
   をテストします。これで、このコマンドは、その他の情報とともに正常の「status: 200」の行が返されるはずです。
 
-### Step 6 - 複数のホストに適用
+### ステップ 6 - 練習: 複数ホストへの適用
 
-単一のホストへの操作もよいのですが、Ansible の真の力は、複数の同じタスクを多数のホストに確実に適用できることです。
+上記では、特定のホストに変更を加えることを簡単に説明しました。では、多くのホストに変更を加えたい場合はどうでしょうか。ここで Ansible
+の真価が発揮されます。Ansible は、同じタスクセットを多くのホストに確実に適用します。
 
 * そのため、`node1` **と** `node2` **と** `node3`で実行するように apache.yml Playbook
   を変更するのはどうでしょうか。
@@ -335,7 +492,7 @@ node3 ansible_host=33.44.55.66
 >
 > こちらに表示される IP アドレスは例です。実際のノードの IP アドレスは異なります。
 
-Playbook がグループ「web」を参照するように変更します。
+Playbook の `hosts` パラメーターを、`web` ではなく `node1` を参照するように変更します。
 
 ```yaml
 ---
@@ -361,20 +518,20 @@ Playbook がグループ「web」を参照するように変更します。
 次に Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-最後に、Apache が両方のサーバーで現在実行されているかどうかを確認します。まずは、インベントリー内のノードの IP アドレスを調べ、上記の
-`node1` ですで行ったように uri モジュールを使用して、各アドホックコマンドに使用します。
-
-> **ヒント**
->
->Apache が両方のサーバーで実行されていることを確認する代替方法は `ansible node2,node3 -m uri -a "url=http://localhost/"` コマンドを使用することです。
+Apache がすべての Web
+サーバー（node1、node2、node3）で実行されているかどうかを確認します。すべての出力が緑色である必要があります。
 
 ---
 **ナビゲーション**
 <br>
-[前の演習](../1.2-thebasics) - [次の演習](../1.4-variables)
 
-[こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md#section-1---ansible-engine-exercises)
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
+{% else %}
+[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+{% endif %}
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

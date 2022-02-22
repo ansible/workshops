@@ -1,220 +1,266 @@
-# Exercise 8: RBAC によるアクセスコントロール
+# 演習 8: 自動コントローラーの RBAC について
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
-## Table of Contents
+## 目次
 
-- [Objective](#Objective)
-- [Guide](#Guide)
-  - [Step 1: Login as network-admin](#step-1-login-as-network-admin)
-  - [Step 2: Open the NETWORK ORGANIZATION](#step-2-open-the-network-organization)
-  - [Step 3: Examine Teams](#step-3-examine-teams)
-  - [Step 4: Examine the Netops Team](#step-4-examine-the-netops-team)
-  - [Step 5: Login as network-admin](#step-5-login-as-network-admin)
-  - [Step 6: Understand Team Roles](#step-6-understand-team-roles)
-  - [Step 7: Job Template Permissions](#step-7-job-template-permissions)
-  - [Step 8: Login as network-operator](#Step-8-login-as-network-operator)
-  - [Step 9: Launching a Job Template](#step-9-launching-a-job-template)
-  - [Bonus Step](#bonus-step)
-- [Takeaways](#takeaways)
+  * [目的](#objective)
+  * [ガイド](#guide)
+    * [ステップ 1: 組織を開く](#step-1-opening-up-organizations)
+    * [ステップ 2: ネットワーク組織を開く](#step-2-open-the-network-organization)
+    * [ステップ 3: チームの検証](#step-3-examine-teams)
+    * [ステップ 4: Netops チームの検証](#step-4-examine-the-netops-team)
+    * [ステップ 5: network-admin としてのログイン](#step-5-login-as-network-admin)
+    * [ステップ 6: チームのロールについて](#step-6-understand-team-roles)
+    * [ステップ 7: ジョブテンプレートのパーミッション](#step-7-job-template-permissions)
+    * [ステップ 8: network-operator としてのログイン](#step-8-login-as-network-operator)
+    * [ステップ 9: ジョブテンプレートの起動](#step-9-launching-a-job-template)
+    * [ボーナスステップ](#bonus-step)
+  * [重要なこと](#takeaways)
+  * [完了](#complete)
 
+## 目的
 
-# Objective
+自動コントローラーを使用する主な利点の 1 つは、システムを使用するユーザーを制御できることです。この演習の目的は、ロールベースのアクセス制御
+([RBAC](https://docs.ansible.com/automation-controller/latest/html/userguide/security.html#role-based-access-controls))
+を理解することです。自動コントローラー管理者は、これを使用してテナント、チーム、ロールを定義し、ユーザーをそれらのロールに関連付けることができます。これにより、組織は自動化システムを保護し、コンプライアンスの目標と要件を満たすことができます。
 
-Ansible Tower を利用するメリットとして、システムを利用するユーザーのコントロールがあります。 この演習の目的は、管理者が定義できるテナント、チーム、ロールと、これらの役割に割り当てるユーザーを使って、ロールベースのアクセス制御([RBAC](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#role-based-access-controls))を理解することです。これは組織にセキュアな自動化システムとコンプライアンス要件の達成をサポートします。
+## ガイド
 
-# Guide
+自動コントローラーの用語をいくつか確認しましょう。
 
-いくつかの Ansible Tower 用語を確認します:
+* **組織:** たとえば、*Network-org*、*Compute-org*
+  などのテナンシーを定義します。これは、顧客の組織の内部組織構造を反映している可能性があります。
+* **チーム:**
+  各組織内には、複数のチームが存在する場合があります。たとえば、*tier1-helpdesk*、*tier2-support*、*tier3-support*、*build-team*
+  などです。
+* **チーム:** ユーザーは通常、チームに属しています。自動コントローラー内でユーザーが実行できることは、**ロール**
+  を使用して制御/定義されます。
+* **ロール:** ロールは、ユーザーが実行できるアクションを定義します。これは、ユーザーがレベル 1 のヘルプデスク担当者、レベル
+  2、または上級管理者のいずれであるかに基づいてアクセスが制限されている一般的なネットワーク組織に非常にうまく対応できます。自動コントローラー
+  [ドキュメント](https://docs.ansible.com/automation-controller/latest/html/userguide/security.html#built-in-roles)
+  は、一連の組み込みロールを定義します。
 
-- **Organizations:** テナントを定義します。例、 *Network-org* 、 *Compute-org* 。 これは顧客の組織の内部構造を写したものになるかもしれません。
-- **Teams:** 各 organization 内で複数のチームがあるかもしれません。例えば、 *tier1-helpdesk*, *tier2-support*, *tier3-support*, *build-team* などです。
-- **Users:** 一般的にユーザーはチームに所属します。Tower でユーザーは何ができるかは **role** によって制御、定義されます。
-- **Roles:** ロールはユーザーが実行可能なアクションを定義します。この仕組みは、Lv1 ヘルプデスクのメンバー、Lv2 または上級管理者といった役割に応じたアクセス制限を設けている一般的なネットワーク組織とうまくマッピングすることができるはずです。Tower は組み込みの role セットを持っています。[documentation ](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#built-in-roles)
+### ステップ 1: 組織を開く
 
-より詳細な RBAC 関連の用語に関しては [documentation](https://docs.ansible.com/ansible-tower/latest/html/userguide/security.html#role-based-access-controls) を参照してください。
+* **admin** ユーザーで自動コントローラーにログインします。
 
+  | Parameter | Value |
+  |---|---|
+  | username  | `admin`  |
+  |  password|  provided by instructor |
 
-## Step 1: Opening up Organizations
+* **admin** ユーザーとしてログインしていることを確認します。
 
-1. Tower へ **admin** ユーザーでログインします。
+  ![admin user](images/step_1.png)
 
-   | Parameter | Value |
-   |---|---|
-   | username  | `admin`  |
-   |  password|  講師から指示があります |
+* **Access** セクションで、**Organizations** をクリックします
 
-2. **admin** としてログインしたことを確認してください。
+  *admin* ユーザーとして、自動コントローラー用に設定されたすべての組織を表示できます。
 
-   ![admin user](images/RBAC_2.png)
+  <table>
+  <thead>
+    <tr>
+      <th>注記: このワークショップでは、組織、チーム、およびユーザーが自動入力されました</th>
+    </tr>
+  </thead>
+  </table>
 
-3. 左メニューから **ACCESS** の下の **Organizations** をクリックします。
+* 組織を調べます
 
-   *admin* ユーザーの時には、Tower 上で構成されている全ての組織を確認できます:
+  2 つの組織があります (デフォルト以外):
 
-   >Note: 組織、チーム、ユーザーは演習のために自動作成されています。
+  * **Red Hat compute organization**
+  * **Red Hat network organization**
 
-4. 組織の確認
+   ![organizations image](images/step1-organizations.png)
 
-   2つの組織が作成されています(他はデフォルトで存在している組織です):
+   <table>
+   <thead>
+     <tr>
+       <th>このページには、それに関連するすべてのチーム、ユーザー、インベントリ、プロジェクト、およびジョブテンプレートの概要が表示されます。組織レベルの管理者が構成されている場合は、それも表示されます。</th>
+     </tr>
+   </thead>
+   </table>
 
-   1. **RED HAT COMPUTE ORGANIZATION**
-   2. **RED HAT NETWORK ORGANIZATION**
 
-   ![organizations image](images/RBAC_3.png)
+### ステップ 2: ネットワーク組織を開く
 
-   >このページでは、組織に割り当てられている全てのチーム、ユーザー、インベントリー、プロジェクト、ジョブテンプレートのサマリーが確認できます。他のユーザーでも、組織レベルの管理者権限が設定されている場合には同じ画面を確認することができます。
+1. **Red Hat network organization** をクリックします。
 
-## Step 2: Open the NETWORK ORGANIZATION
+   これにより、組織の詳細を表示するセクションが表示されます。
 
-1. **RED HAT NETWORK ORGANIZATION** をクリックしてください。
+   ![network organization image](images/step2-network_org.png)
 
-   組織の詳細を表示する画面が表示されます。
+2. **Access** タブをクリックして、この組織に関連付けられているユーザーを表示します。
 
-   ![network organization image](images/RBAC_4.png)
+   <table>
+   <thead>
+    <tr>
+      <th><b>network-admin</b> と <b>network-operator</b> ユーザーの両方がこの組織に関連付けられていることを確認します。</th>
+    </tr>
+   </thead>
+   </table>
 
-2. **USERS** をクリックすると、この組織に割り当てられているユーザーを確認できます。
+### ステップ 3: チームの検証
 
-   >**network-admin** と **network-operator** ユーザーの両方がこの組織に割り当てられていることを確認します。
+1. サイドバーの **Teams** をクリックします
 
-## Step 3: Examine Teams
+   ![image identifying teams](images/step3_teams.png)
 
-1. サイドバーの **TEAMS** をクリックします。
+2. チームを調べます。自動コントローラー管理者は、利用可能なすべてのチームを表示できます。4 つのチームがあります。
 
-   ![image identifying teams](images/RBAC_5.png )
+   * Compute T1
+   * Compute T2
+   * Netadmin
+   * Netops
 
-2. チームを確認します。Ansible Tower 管理者は全ての有効なチームを確認できます。ここでは4つのチームが存在します:
+   ![teams window image](images/step3_teams_view.png)
 
-     1. Compute T1
-     2. Compute T2
-     3. Netadmin
-     4. Netops
+### ステップ 4: Netops チームの検証
 
-   ![teams window image](images/RBAC_6.png )
+* **Netops** チームをクリックしてから、**Access** タブをクリックします。2 人の特定のユーザーに注意してください。
 
-## Step 4: Examine the Netops Team
+  * network-admin
+  * network-operator
 
-1. **Netops** チームをクリックし、その後に **USERS** ボタンをクリックします。ここには2つの特定ユーザーがいることに注意してください:
+  ![image showing users](images/step_4.png)
 
-   1. network-admin
-   2. network-operator
+* 次の 2 つの点に注意してください。
 
-   ![image showing users](images/RBAC_7.png )
+  * **network-admin** ユーザーには、**Red Hat network organization** の管理者権限があります。
+  * **network-operator** は、単に Netops チームのメンバーです。これらの各ユーザーについて詳しく調べ、ロールを理解します
 
-2. 以下の2つを確認します:
+### ステップ 5: network-admin としてのログイン
 
-   1. **network-admin** ユーザーは **RED HAT NETWORK ORGANIZATION** の管理者権限を持っています。
-   2. **network-operator** は Netops チームの一般メンバーです。ロールについ理解するために、それぞれのユーザーでログインします。
+* 自動コントローラー UI の右上隅にある admin ボタンをクリックして、管理者ユーザーからログアウトします。
 
+   ![logout image](images/step5_logout.png)
 
-## Step 5: Login as network-admin
+* **network-admin** ユーザーでシステムにログインします。
 
-1. Tower 右上の電源アイコンボタンをクリックして admin をログアウトします:
+  | Parameter | Value |
+  |---|---|
+  | username  | network-admin  |
+  |  password|  provided by instructor |
 
-   電源アイコン: ![power symbol image](images/logout.png)
+* **network-admin** ユーザーとしてログインしていることを確認します。
 
-2. **network-admin** ユーザーで再ログインします。
+  ![picture of network admin](images/step5_network-admin.png)
 
-   | Parameter | Value |
-   |---|---|
-   | username  | network-admin  |
-   |  password|  講師から指示があります |
+* サイドバーの **Organization** リンクをクリックします。
 
-3. **network-admin** でログインしていることを確認してください。
+  自分が管理者である組織 **Red Hat network organization** のみを表示できることに気付くでしょう。
 
-   ![picture of network admin](images/RBAC_1.png)
+  次の 2 つの組織はもう表示されません。
 
-4. サイドバーから **Organizations** をクリックします。
+  * Red Hat compute organization
+  * Default
 
-   自分が管理者である **REDHAT NETWORK ORGANIZATION** のみが確認できることに注目してください。
+* ボーナスステップ: これをネットワークオペレーターユーザーとして試してください (network-admin と同じパスワード)。
 
-   以下の2つの組織は表示されません:
-    - REDHAT COMPUTE ORGANIZATION
-    - Default
+   * network-operator と network-admin の違いは?
+   * ネットワーク事業者として、他のユーザーを表示できるか。
+   * 新しいユーザーを追加したり、ユーザーの資格情報を編集したりできるか。
 
-5. オプション: network-operator ユーザーで同じ手順を実行します(パスワードは network-admin と同じです)。
+### ステップ 6: チームのロールについて
 
-   - どのような違いが確認できるでしょうか？
-   - network-operator は他のユーザーを確認できますか？
-   - 新しいユーザーを追加したり、資格情報の編集を行えますか？
+1. さまざまなロール、つまり RBAC がどのように適用されるかを理解するには、**admin**
+   ユーザーとしてログアウトしてから再度ログインします。
 
-## Step 6: Understand Team Roles
+2. **インベントリー** に移動し、**Workshop Inventory** をクリックします
 
-1. ロールの違いと RBAC の割当てを理解するために、**admin** ユーザーでログインし直します。
+3. **Access** ボタンをクリックします。
 
-2. **Inventories** へ移動し、 **Workshop Inventory** をクリックします。
+   ![workshop inventory window](images/step6_inventory.png)
 
-3. **PERMISSIONS** ボタンをクリックします。
+4. 各ユーザーに割り当てられているパーミッションを調べます
 
-   ![workshop inventory window](images/RBAC_8.png )
+   ![permissions window](images/step6_inventory_access.png)
 
-4.  それぞれのユーザーへの権限の割当てを確認します。
+   <table>
+   <thead>
+     <tr>
+       <th>注記: <b>network-admin</b> および <b>network-operator</b> ユーザーに割り当てられた <b>ロール</b>。*<b>Use</b> ロールを割り当てることにより、<b>network-operator</b> ユーザーにこの特定のインベントリを使用する権限が付与されます。</th>
+     </tr>
+   </thead>
+   </table>
 
-   ![permissions window](images/RBAC_9.png )
 
-   **network-admin** と **network-operator** ユーザーに割り当てられた **TEAM ROLE** に注意してください。 **network-operator** は **USE** ロールを割り当てられたことで、このインベントリーを使用する権限を得ています。
 
-## Step 7: Job Template Permissions
+### ステップ 7: ジョブテンプレートのパーミッション
 
-1. 左メニューから **Templates** をクリックします。
+1. 左側のメニューの **Template** ボタンをクリックします
 
-2. **Network-Commands** ジョブを選択します。
+2. **Netowork-Commands** ジョブテンプレートをクリックします
 
-3. 上部の **PERMISSIONS** ボタンをクリックします。
+3. 上部の **Access** ボタンをクリックします
 
-   ![permissions window](images/RBAC_10.png )
+   ![permissions window](images/step7_job_template_access.png)
 
-   >先と同じユーザーがジョブテンプレートに対しては異なるロールを持っていることに注意してください。Ansible Tower では「誰が何にアクセス可能か」を操作の粒度で指定できることに注目してください。この例では、network-admin は **Network-Commands** を更新(**ADMIN**)できますが、network-operator は実行(**EXECUTE**) しかできません。
+   <table>
+   <thead>
+     <tr>
+       <th>注記: 同じユーザーがジョブテンプレートに対して異なるロールを持ちます。これは、「誰が何にアクセスできるか」を制御することにおいて、自動コントローラーを使用して運用者が導入できる粒度を強調しています。この例では、network-adminは <b>Network-Commands</b> ジョブテンプレートを更新 (<b>管理</b>) できますが、network-operator はそれを <b>実行</b> することしかできません。</th>
+     </tr>
+   </thead>
+   </table>
 
+### ステップ 8: network-operator としてのログイン
 
-## Step 8: Login as network-operator
+最後に、RBAC の動作を確認します。
 
-最後に操作を実行して RBAC を確認します。
-
-1. admin からログアウトし、**network-operator** ユーザーでログインし直します。
+1. admin でログアウトし、**network-operator** ユーザーとして再度ログインします。
 
    | Parameter | Value |
    |---|---|
    | username  | `network-operator`  |
-   |  password|  講師から指示されます |
+   |  password|  provided by instructor |
 
-2. **Templates** へ移動し、**Network-Commands** をクリックします。
+2. **Templates** に移動し、**Network-Commands** ジョブテンプレートをクリックします。
 
-   ![network commands job template](images/RBAC_11.png )
+   ![network commands job template](images/step8_operator.png)
 
-3. ここで、 *network-operator* ユーザーはどのフィールドも変更できないことに注目してください。
+   <table>
+   <thead>
+     <tr>
+       <th><b>network-operator</b> ユーザーは、どのフィールドも変更できないことに注意してください。<b>Edit</b> ボタンは利用できなくなります。</th>
+     </tr>
+   </thead>
+   </table>
 
+### ステップ 9: ジョブテンプレートの起動
 
-## Step 9: Launching a Job Template
+1. **Launch** ボタンをクリックして、**Network-Commands** テンプレートを起動します。
 
-1. `network-operator` ユーザーでログインしていることを確認します。
+4. 事前設定された show コマンドの 1 つを選択できるダイアログボックスが表示されます。
 
-2. サイドバーの **Templates** を再びクリックします。
+   ![pre configured survey image](images/step9_survey.png)
 
-3. 今回は **Network-Commands** のロケットアイコンをクリックしてジョブを起動します:
+5. 先に進んでコマンドを選択し、** Next** に続いて **Launch** をクリックして、実行中の Playbook
+   と表示されている結果を確認します。
 
-   ![click the rocket icon](images/RBAC_12.png )
+### ボーナスステップ
 
-4. 事前設定された、show コマンドを1つ選択するプロンプトが表示されます。
+時間があれば、network-admin として再度ログインし、オペレーターに実行させたい別の show
+コマンドを追加します。これは、network-admin ユーザーの *Admin*
+ロールでジョブテンプレートを編集/更新する方法を確認するのにも役立ちます。
 
-   ![pre configured survey image](images/RBAC_13.png )
+## 重要なこと
 
-5. 1つのコマンドを選択して、**Next** 、 **Launch** と選択し Playbook が実行され結果が表示されることを確認します。
+* 自動コントローラーの強力な RBAC
+  機能を使用すると、オペレーターがシステム自体にアクセスせずに、本番システムで所定のコマンドを実行できるアクセスを簡単に制限できることがわかります。
+* 自動コントローラーは、複数の組織、複数のチーム、およびユーザーに対応できます。ユーザーは、必要に応じて複数のチームや組織に属することもできます。この演習で説明されていないことは、自動コントローラーでユーザーを管理する必要がないことです。[エンタープライズ認証](https://docs.ansible.com/automation-controller/latest/html/administration/ent_auth.html)
+  を使用できます。これは、Active Directory、LDAP、RADIUS、SAML、および TACACS+ を含みます。
+* 例外が必要な場合 (ユーザーはアクセスが必要ですが、チーム全体は必要ありません)、これも可能です。RBAC
+  の粒度は、個々のユーザーの資格情報、インベントリー、またはジョブテンプレートにまで及ぶ可能性があります。
 
-## Bonus Step
+## 完了
 
-時間に余裕があれば、network-admin でログインし直して、オペレーターに実行してもらいたい好きな show コマンドを追加してください。これは、 network-admin の *Admin* ロールがジョブテンプレートの編集と更新を許可していることを確認するのに役立ちます。
-
-# Takeaways
-
- - Ansible Tower の RBAC 機能を使うことで、運用オペレーターが商用環境へのアクセスを必要とせずに、許可されたコマンドだけを実行をさせることが簡単に行なえます。
- - Ansible Tower は複数の組織、チーム、ユーザーをサポートしています。ユーザーは必要に応じて、複数の組織とチームに所属することができます。この演習ではカバーされていませんが、Ansible Tower は Active Directory, LDAP, RADIUS, SAML, TACACS+ などの [enterprise authentication](https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html) を使うと Tower でユーザー管理を行う必要はなくなります。
- - 例外的なアクセス権(ユーザーはアクセスできるが、このユーザーが属するチームはアクセスできない等)にも対応可能です。RBAC の粒度は個別のユーザーに対してクレデンシャル、インベントリー、ジョブテンプレートまで落とし込めます。
+ラボ演習 8 を完了しました
 
 ---
+[前の演習](../7-controller-survey/) | [次の演習](../9-controller-workflow/README.md)
 
-# Complete
-
-以上で exercise 8 は終了です。
-
-[Click here to return to the Ansible Network Automation Workshop](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../README.md)

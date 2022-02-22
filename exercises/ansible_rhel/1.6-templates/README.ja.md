@@ -1,14 +1,14 @@
 # ワークショップ演習 - テンプレート
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
 * [目的](#objective)
 * [ガイド](#guide)
-* [Step 1 - Playbooks でのテンプレートの使用](#step-1---using-templates-in-playbooks)
-* [Step 2 - チャレンジラボ](#step-2---challenge-lab)
+* [ステップ 1 - Playbooks でのテンプレートの使用](#step-1---using-templates-in-playbooks)
+* [ステップ 2 - チャレンジラボ](#step-2---challenge-lab)
 
 ## 目的
 
@@ -18,7 +18,7 @@
 
 ## ガイド
 
-### Step 1 - Playbook でのテンプレートの使用
+### ステップ 1 - Playbooks でのテンプレートの使用
 
 ファイルのテンプレートが作成されると、`template`
 モジュールを使用して管理対象ホストに展開できます。これは、制御ノードから管理対象ホストへのローカルファイルの転送に対応しています。
@@ -71,19 +71,21 @@ deployed on {{ ansible_architecture }} architecture.
 
 Ansible がシステムから検出したファクトに変数置き換える方法を確認してください。
 
-### Step 2 - チャレンジラボ
+### ステップ 2 - チャレンジラボ
 
 テンプレートに行を追加して、管理対象ノードの現在のカーネルを一覧表示します。
 
 * 「Ansible ファクト」の章で学習したコマンドを使用して、カーネルバージョンを含むファクトを見つけます。
 
-> **ヒント**
+> *ヒント**
 >
-> カーネルについて `grep -i` を実行します
+> カーネルのフィルター
+
+> 新規作成された Playbook を実行してファクト名を検索します。 
 
 * テンプレートを変更して、見つけたファクトを使用します。
 
-* 再び Playbook を実行します。
+* 再び motd Playbook を実行します。
 
 * node1 にログインして motd を確認します
 
@@ -93,10 +95,42 @@ Ansible がシステムから検出したファクトに変数置き換える方
 
 * ファクトを見つけます。
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible node1 -m setup|grep -i kernel
-       "ansible_kernel": "3.10.0-693.el7.x86_64",
+```yaml
+---
+- name: Capture Kernel Version
+  hosts: node1
+
+  tasks:
+
+    - name: Collect only kernel facts
+      ansible.builtin.setup:
+        filter:
+        - '*kernel'
+      register: setup
+
+    - debug:
+        var: setup
 ```
+
+ワイルドカードが導入されると、出力は以下のようになります。
+
+```bash
+
+TASK [debug] *******************************************************************
+ok: [node1] => {
+    "setup": {
+        "ansible_facts": {
+            "ansible_kernel": "4.18.0-305.12.1.el8_4.x86_64"
+        },
+        "changed": false,
+        "failed": false
+    }
+} 
+```
+
+これにより、検索する変数に `ansible_kernel` というラベルが付けられます。
+
+次に、motd-facts.j2 テンプレートを更新して、メッセージの一部として `ansible_kernel` を含めることができます。
 
 * テンプレート `motd-facts.j2` 変更します。
 
@@ -114,7 +148,7 @@ running kernel {{ ansible_kernel }}.
 * Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-playbook motd-facts.yml
+[student<X>@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
 ```
 
 * `node1` への SSH ログインを介して新しいメッセージを確認します。
@@ -124,7 +158,7 @@ running kernel {{ ansible_kernel }}.
 Welcome to node1.
 RedHat 8.1
 deployed on x86_64 architecture
-running kernel 4.18.0-147.8.1.el8_1.x86_64.
+running kernel 4.18.0-305.12.1.el8_4.x86_64.
 ```
 
 ---
@@ -132,5 +166,5 @@ running kernel 4.18.0-147.8.1.el8_1.x86_64.
 <br>
 [前の演習](../1.5-handlers) - [次の演習](../1.7-role)
 
-[こちらをクリックして Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../README.md#section-1---ansible-engine-exercises)

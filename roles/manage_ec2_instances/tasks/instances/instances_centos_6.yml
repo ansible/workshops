@@ -1,0 +1,216 @@
+---
+- name: Create EC2 instances for node7
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[centos6].size }}"
+    image_id: "{{ node_ami_centos6.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node7": "{{ ec2_name_prefix }}-node7"
+    tags:
+      Workshop_node7: "{{ ec2_name_prefix }}-node7"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node7"
+      username: "{{ ec2_info[centos6].username }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: gp2
+          volume_size: "{{ ec2_info[centos6].disk_space }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag them all
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      tag:Workshop_node7": "{{ ec2_name_prefix }}-node7"
+  register: node7_output
+
+- name: Ensure tags are present for node7
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node7"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node7_output.instances }}"
+  when: node7_output.instances|length > 0
+
+- name: Associate IAM instance profile with node7
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ node7_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node7_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+- name: Create EC2 instances for node8
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[centos6].size }}"
+    image_id: "{{ node_ami_centos6.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node8": "{{ ec2_name_prefix }}-node8"
+    tags:
+      Workshop_node8: "{{ ec2_name_prefix }}-node8"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node8"
+      username: "{{ ec2_info[centos6].username }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: gp2
+          volume_size: "{{ ec2_info[centos6].disk_space }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag them all
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_node8": "{{ ec2_name_prefix }}-node8"
+  register: node8_output
+
+- name: Ensure tags are present for node8
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node8"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node8_output.instances }}"
+  when: node8_output.instances|length > 0
+
+- name: Associate IAM instance profile with node8
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ node8_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node8_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+- name: Create EC2 instances for node9
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[centos6].size }}"
+    image_id: "{{ node_ami_centos6.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    network:
+      assign_public_ip: true
+    filters:
+      "tag:Workshop_node9": "{{ ec2_name_prefix }}-node9"
+    tags:
+      Workshop_node9: "{{ ec2_name_prefix }}-node9"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "node9"
+      username: "{{ ec2_info[centos6].username }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: gp2
+          volume_size: "{{ ec2_info[centos6].disk_space }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag them all
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Workshop_node9": "{{ ec2_name_prefix }}-node9"
+  register: node9_output
+
+- name: Ensure tags are present for node9
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node9"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node9_output.instances }}"
+  when: node9_output.instances|length > 0
+
+- name: Associate IAM instance profile with node9
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ node9_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - node9_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool

@@ -1,0 +1,16 @@
+---
+- name: retrieve SNMP config
+  hosts: cisco
+  gather_facts: false
+
+  tasks:
+
+  - name: use SNMP resource module
+    cisco.ios.snmp_server:
+      state: gathered
+    register: snmp_config
+
+  - name: copy snmp_config to file
+    copy:
+      content: "{{ snmp_config | to_nice_yaml }}"
+      dest: "{{ playbook_dir }}/{{ inventory_hostname }}_snmp.yml"

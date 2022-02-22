@@ -1,42 +1,36 @@
-# 演習 1.1 - Ansible による F5 BIG-IP の情報収集
+# 演習 1.1: bigip_device_info モジュールの使用
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
 
-- [目的](#目的)
-- [解説](#解説)
-- [Playbookの出力](#playbookの出力)
-- [解答](#解答)
-- [より深く](#より深く)
+- [目的](#objective)  - [ガイド](#guide)  - [Playbook の出力](#playbook-output)  -
+[ソリューション](#solution)  - [より高度な操作のために](#going-further)
 
 # 目的
 
-[BIG-IP Facts module](https://docs.ansible.com/ansible/latest/modules/bigip_device_facts_module.html) を使って F5 BIG-IP 機器から情報を取得し、[debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) でターミナルに情報を表示します。
+[BIG-IP Info module](https://docs.ansible.com/ansible/latest/collections/f5networks/f5_modules/bigip_device_info_module.html) を使用して F5 BIG-IP デバイスからファクト（便利な情報）を取得し、[debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) を使用してターミナルウィンドウに表示する方法を説明します。  
 
-# 解説
+# ガイド
 
-ホームディレクトリにいることを確認してください。
+探索/ラボセットアップ演習で説明されているように、 VSCode ターミナルを開きます。ホームディレクトリーにいることを確認してください
 
-```
-[student1@ansible f5-workshop]$ cd ~
-```
+![picture of file browser](images/vscode-homefolder.png)
 
-## Step 1:
+## ステップ 1:
 
-テキストエディタを使って `bigip-facts.yml` ファイルを作成します。
+VSCode を使用して、左側のペインの新規ファイルアイコンをクリックして、`bigip-info.yml` という名前の新しいファイルを作成します。
 
-```
-[student1@ansible ~]$ nano bigip-facts.yml
-```
+![picture of create file icon](images/vscode-openfile_icon.png)
 
->`vim` と`nano` がコントールノードで利用できます。もしくは RDP で接続して Visual Studio と Atom を利用することも可能です。
 
-## Step 2:
 
-Ansible の playbook は **YAML** ファイルです。YAML は構造化されたエンコードで人にとって読みやすい形式です(JSON と違い・・・)
+## ステップ 2:
 
-以下の play 定義を `bigip-facts.yml` に追加してください:
+Ansible Playbook は **YAML** ファイルです。YAML
+は構造化されたエンコーディング形式であり、人間が非常に読みやすくなっています (JSON 形式のサブセットとは異なり)。
+
+次のプレイ定義を `bigip-info.yml` に入力します。
 
 ``` yaml
 ---
@@ -46,22 +40,22 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
   gather_facts: false
 ```
 
-- ファイルの先頭の `---` はこのファイルが YAML であることを示します。
-- `hosts: f5` はこの play が F5 BIG-IP 機器のグループに対して実行されることを示します。
-- `connection: local` は Playbook がローカル実行されることを示します。
-- `gather_facts: false` Fact 情報の収集を無効にします。この演習では Playbook の中で Fact 情報を利用しません。
+- ファイル上部の `---` は、これが YAML ファイルであることを示しています。
+- `hosts: f5` は、プレイが F5 BIG-IP デバイスでのみ実行されることを示します
+- `connection: local` は、（自身に SSH 接続するのではなく）ローカルで実行するように Playbook に指示します
+- `gather_facts: no` はファクト収集を無効にします。
 
-まだエディタを閉じないでください。
 
-## Step 3
+## ステップ 3
 
-次に最初の `task` を追加します。 このタスクでは `device_facts` モジュールを利用して BIG-IP から情報を取得します。
+次に、最初の `task` を追加します。このタスクは、`bigip_device_info` モジュールを使用して BIG-IP
+デバイスから有用な情報を取得します。
 
 {% raw %}
 ``` yaml
   tasks:
     - name: COLLECT BIG-IP FACTS
-      f5networks.f5_modules.bigip_device_facts:
+      f5networks.f5_modules.bigip_device_info:
         gather_subset:
           - system-info
         provider:
@@ -74,22 +68,26 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 ```
 {% endraw %}
 
->`play` はタスクのリストです。タスクとリストは1：1の関係を持ちます。Ansible モジュールは再利用可能で、Ansible API、`ansible` `ansible-playbook` コマンドから利用できるスタンドアローンなスクリプトです。実行されたモジュールは Ansible に JSON 形式の文字列を返します。
+>プレイはタスクのリストです。タスクとモジュールには 1:1 の相関があります。Ansible モジュールは再利用可能なスタンドアロンのスクリプトで、Ansible API または ansibleやansible-playbook プログラムで使用できます。これらは、終了する前に JSON 文字列を stdout に出力して Ansible に情報を返します。
 
-- `name: COLLECT BIG-IP FACTS` は利用者が定義するタスクの説明文で、この内容がターミナルに表示されます。
-- `bigip_device_facts:` はタスクで使用されるモジュール名を指定します。`register` 以外のモジュールパラメーターはドキュメントページで説明されています。
-- `gather_subset: system_info` モジュールのパラメーターです。モジュールに対してシステムレベルの情報のみを取得するように指示します。
-- `provider:` BIG-IP の詳細な接続情報のオブジェクト。
-- `server: "{{private_ip}}"` モジュールのパラメーターです。モジュールがどのBIG-IPのIPアドレスに接続するかを指定します。ここではインベントリーで定義された`private_ip`が指定されています。
-- `user: "{{ansible_user}}"` モジュールのパラメーターです。BIP-IPにログインするユーザー名を設定しています。
-- `password: "{{ansible_password}}"` モジュールのパラメーターです。BIG-IPにログインするパスワードを指定します。
-- `server_port: 8443` モジュールのパラメーターです。BIP-IPに接続する際のポート番号を指定します。
-- `validate_certs: false` ： （あくまで演習用ラボなので）SSL証明書の検証を行わないように設定します。
-- `register: device_facts` このタスクで取得された情報を変数 `device_facts` へ格納するように指示しています。
+- `name: COLLECT BIG-IP FACTS` は、ターミナル出力に表示されるユーザー定義の説明です。  -
+`bigip_device_info:` は、使用するモジュールをタスクに指示します。`register`
+以外は、すべてモジュールのドキュメントページで定義されるモジュールパラメーターです。  - `gather_subset: system_info`
+パラメーターは、システムレベルの情報だけを取得することをモジュールに指示します。  - `provider:` パラメーターは、BIG-IP
+の接続詳細のグループです。  - `server: "{{private_ip}}"` パラメーターは、F5 BIG-IP IP
+アドレスに接続するようにモジュールに指示します。このアドレスは、インベントリーの変数 `private_ip` として保存されます - `user:
+"{{ansible_user}}"` パラメーターは、F5 BIG-IP デバイスにログインするためのユーザー名をモジュールに指示します -
+`password: "{{ansible_password}}"` パラメーターは、F5 BIG-IP
+デバイスにログインするためのパスワードをモジュールに指示します - `server_port: 8443` パラメーターは、F5 BIG-IP
+デバイスに接続するためのポートをモジュールに指示します。8443
+は、このラボで使用されるポートです。ただし、デプロイメントによって異なる場合があります。  - `validate_certs: false`
+パラメーターは、SSL 証明書を検証しないようにモジュールに指示します。これはラボなので、デモ目的のためにのみ使用されます。  - `register:
+device_facts` は、出力を変数 bigip_device_info に保存するようにタスクに指示します
 
-## Step 4
+## ステップ 4
 
-次に2つ目の `task` を追加します。 このタスクでは `debug` モジュールを使って、register された `bigip_device_facts variable` 変数の値を出力します。
+次に、2 番目の `task` を上記に追加します。このタスクは `debug` モジュールを使用して、ファクトを登録した device_facts
+変数からの出力を出力します。
 
 {% raw %}
 ```yaml
@@ -99,23 +97,23 @@ Ansible の playbook は **YAML** ファイルです。YAML は構造化され�
 ```
 {% endraw %}
 
-- `name: COMPLETE BIG-IP SYSTEM INFORMATION` はユーザーが指定するタスクの説明文です。この内容がターミナルへ表示されます。
-- `debug:` タスクで使用するモジュール指定しています。
-- `var: device_facts` モジュールのパラメーターです。`device_facts` 変数の値を出力するように指定しています。
+- `name: COMPLETE BIG-IP SYSTEM INFORMATION` は、ターミナル出力に表示されるユーザー定義の説明です。  -
+`debug:` は、デバッグモジュールを使用するようにタスクに指示します。  - `var: device_facts`
+パラメーターは、モジュールに変数 bigip_device_info を表示するように指示します。
 
-ファイルを保存して、エディタを終了してください。
+ファイルを保存して、エディターを終了します。
 
-## Step 5
+## ステップ 5
 
-Playbook の実行 - コマンドラインへ戻ったら以下のコマンドでPlaybookを実行してください:
+Playbook を実行します。コントロールホストの VS Code サーバーでターミナルを開き、以下を実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 ```
 
-出力は以下のようになります。
-```yaml
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+出力は次のようになります。
+``` yaml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -171,12 +169,13 @@ ok: [f5] =>
 PLAY RECAP ********************************************************************
 f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
-## Step 6
+## ステップ 6
 
-最後に、2つのタスクを追加して取得したファクト情報から特定の情報を取得します。
+最後に、収集したファクトからさらに具体的な情報を取得するために、上記の Playbook にさらに 2 つのタスクを追加します。
 
 {% raw %}
 ```yaml
+
     - name: DISPLAY ONLY THE MAC ADDRESS
       debug:
         var: device_facts['system_info']['base_mac_address']
@@ -187,28 +186,28 @@ f5                         : ok=2    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}
 
+- `var: device_facts['system_info']['base_mac_address']` は、Big-IP デバイスの
+Management IP の MAC アドレスを表示します -
+`device_facts['system_info']['product_version']` は、BIG-IP
+デバイスの製品バージョンを表示します。
 
-- `var: device_facts['system_info']['base_mac_address']` BIG-IP のMACアドレスを取得します。
-- `var: device_facts['system_info']['product_version']` BIG-IP のバージョン情報を取得します。
+>bigip_device_info モジュールは構造化データで有用な情報を返すため、正規表現やフィルターを使用せずに特定の情報を簡単に取得することができます。ファクトモジュールは、特定のデバイス情報を取得するための非常に強力なツールです。取得した情報は、後続のタスクや、動的なドキュメント（レポート、csv ファイル、マークダウン）の作成に使用できます。
 
->`bigip_device_facts` モジュールは構造化されたデータを返すため、やっかいな正規表現やフィルターを使わずに必要な情報へと簡単にアクセスできます。Fact モジュールは後続のタスクに渡すデータを取得したり、動的なドキュメント作成(報告書, csv ファイル, markdown)するためにとても有益です。
+## ステップ 7
 
-
-## Step 7
-
-Playbook の実行 - コマンドラインへ戻ったら以下のコマンドでPlaybookを実行してください:
+Playbook を実行します。ファイルを保存し、コントロールホストの VS Code のターミナルウィンドウを使用し、以下を実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 ```
 
-# Playbookの出力
+# Playbook の出力
 
-以下のような出力となるはずです。
+出力は次のようになります。
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml
+[student1@ansible ~]$ ansible-navigator run bigip-info.yml --mode stdout
 
 PLAY [GRAB F5 FACTS] **********************************************************
 
@@ -274,14 +273,15 @@ f5                         : ok=4    changed=0    unreachable=0    failed=0
 ```
 {% endraw %}
 
+# ソリューション
 
-# 解答
+完成した Ansible Playbook
+が、回答キーとしてここで提供されています。[bigip-info.yml](https://github.com/network-automation/linklight/blob/master/exercises/ansible_f5/1.1-get-facts/bigip-info.yml)
+を表示するには、ここをクリックしてください。
 
-完成したPlaybookのサンプルは [bigip-facts.yml](./bigip-facts.yml) から参照できます。
+# より高度な操作のために
 
-# より深く
-
-オプション演習で `tags: debug` パラメーターを１つの debug タスクに追加してみましょう。
+この追加演習では、`tags: debug` パラメーター（タスクレベルで）を既存のデバッグタスクに追加します。
 
 ```yaml
     - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
@@ -290,12 +290,14 @@ f5                         : ok=4    changed=0    unreachable=0    failed=0
       tags: debug
 ```
 
-`--skip-tags=debug` オプションをつけてコマンドを実行します。
+`--skip-tags-debug` コマンドラインオプションを使用して、Playbook を再実行します。
 
 ```
-[student1@ansible ~]$ ansible-playbook bigip-facts.yml --skip-tags=debug
+ansible-navigator run bigip-info.yml --skip-tags=debug --mode stdout
 ```
 
-`DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` タスクがスキップされ、３つのタスクの結果が表示されたはずです。
+Ansible Navigator は、`DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION` タスクを省略して 3
+つのタスクのみを実行します。
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+You have finished this exercise.  [Click here to return to the lab
+guide](../README.md)

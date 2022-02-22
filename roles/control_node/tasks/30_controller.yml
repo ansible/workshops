@@ -5,7 +5,7 @@
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is not defined or not create_cluster|bool
 
-- name: template inventory file for Automation Controller Install
+- name: template inventory file for Automation Controller Install cluster
   template:
     src: tower_cluster_install.j2
     dest: "{{ aap_dir }}/inventory"

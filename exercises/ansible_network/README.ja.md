@@ -1,35 +1,42 @@
-# Ansible Network Automation Workshop
+# Ansible Network Automation ワークショップ
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
-このコンテンツは、ネットワーク機器（Arista、Cisco、Juniper など）に対するAnsibleの機能を効果的に実証するために、インストラクター主導、ハンズオンまたは自習などのさまざまな形式でワークショップを提供する非公式の多目的ツールキットです。
+**これは Ansible Automation Platform 2 のドキュメントです**
 
-## Presentation
-プレゼン資料が必要な場合はこちらになります：
-[Ansible Network Automation Workshop Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf)
+Ansible Network Automation ワークショップは、総合的な初心者向けガイドで、Ansible Playbook
+を介して、Arista、Cisco、Juniper
+からの一般的なネットワークデータセンターデバイスの自動化を行います。デバイスからファクトをプルし、テンプレート化されたネットワーク設定を構築し、これらの概念を
+Ansible
+自動コントローラーで大規模に適用する方法を学びます。コントローラーのジョブテンプレート、サーベイ、アクセス制御などを確認し、一括して学習します。
 
-## Ansible Network Automation Exercises
+## プレゼンテーション
 
-- [Exercise 1 - ラボ環境の確認](./1-explore/README.ja.md)
-- [Exercise 2 - 最初の Playbook](./2-first-playbook/README.ja.md)
-- [Exercise 3 - Ansible facts の利用](./3-facts/README.ja.md)
-- [Exercise 4 - Jinja2 template を使ったネットワーク設定](./4-jinja/README.ja.md)
-- [Exercise 5 - Automation controller 環境の確認](./5-explore-controller/README.ja.md)
-- [Exercise 6 - ジョブテンプレートの作成](./6-controller-job-template/README.ja.md)
-- [Exercise 7 - Survey の作成](./7-controller-survey/README.ja.md)
-- [Exercise 8 - RBAC によるアクセスコントロール](./8-controller-rbac/README.ja.md)
-- [Exercise 9 - ワークフローの作成](./9-controller-workflow/README.ja.md)
+プレゼンテーションの資料が必要ですか? ここから入手いただけます: - [Ansible Network Automation
+ワークショップ資料](https://ansible.github.io/workshops/decks/ansible_network.pdf)
+PDF - [Google
+Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing)
+(Red Hat 社内用)
 
-補足の追加演習(昔の演習)は[こちら](supplemental/README.ja.md)。
+## Ansible Network Automation の演習
 
-## Network Diagram
-![Red Hat Ansible Automation](../../images/network_diagram.png)
+* [演習 1 - ラボ環境の調査](./1-explore/README.ja.md)
+* [演習 2 - はじめてのネットワーク自動化 Playbook の実行](./2-first-playbook/README.ja.md)
+* [演習 3 - ネットワークデバイスの Ansible ファクトの使用](./3-facts/README.ja.md)
+* [演習 4 - Ansible ネットワークリソースモジュール](./4-resource-module/README.ja.md)
+* [演習 5 - 自動コントローラー環境の調査](./5-explore-controller/README.ja.md)
+* [演習 6 - 自動コントローラージョブテンプレートの作成](./6-controller-job-template/README.ja.md)
+* [演習 7 - 自動コントローラー Survey の作成](./7-controller-survey/README.ja.md)
+* [演習 8 - ロールベースのアクセス制御 (RBAC) 機能の使用](./8-controller-rbac/README.ja.md)
+* [演習 9 - 自動コントローラーワークフローの作成](./9-controller-workflow/README.ja.md)
 
-## Additional information
- - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
- - [List of Networking Ansible Modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html)
- - [Module Maintenance & Support](http://docs.ansible.com/ansible/latest/modules_support.html)
- - [Network Automation GitHub Repo](https://github.com/network-automation)
+追加の演習が [こちら](supplemental/README.ja.md) に用意されています。
 
- ---
- ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)
+## ネットワークダイアグラム
+
+![Red Hat Ansible
+Automation](https://github.com/ansible/workshops/blob/devel/images/ansible_network_diagram.png?raw=true)
+
+---
+![Red Hat Ansible
+Automation](https://github.com/ansible/workshops/blob/devel/images/rh-ansible-automation-platform.png?raw=true)

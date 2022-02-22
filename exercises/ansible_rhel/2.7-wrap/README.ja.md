@@ -1,7 +1,7 @@
 # ワークショップ演習 - まとめ
 
-**その他の言語はこちらをお読みください。**
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
 
 ## 目次
 
@@ -22,9 +22,10 @@
 
 ## ガイド
 
-### ステージを設定しましょう
+### ステージの設定
 
-運営チームとアプリケーション開発チームは、AnsibleTower の機能を気に入っています。実際の環境で使用するために、要件を次にまとめました。
+運営チームとアプリケーション開発チームは、Ansible
+自動コントローラーの機能を気に入っています。実際の環境で使用するために、要件を次にまとめました。
 
 * すべてのウェブサーバー (`node1`、`node2`、`node3`) を 1 つのグループに入れる必要があります
 
@@ -40,12 +41,11 @@
 
 * コンテンツライター `wweb` には、dev サーバーと prod サーバーのコンテンツを変更するための調査にアクセスできる必要があります。
 
-### Git レポジトリー
+### Git リポジトリー
 
-すべてのコードはすでに配置されています。これは Tower
-ラボですから。[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
-にある** Workshop Project ** git リポジトリを確認してください。そこに Playbook `role_webcontent`
-があります。これは、ロール `webcontent.yml` を呼び出します。
+すべてのコードはすでに配置されています。これは自動コントローラーラボですから。[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
+にある **Workshop Project** git リポジトリを確認してください。そこに Playbook `webcontent.yml`
+があります。これは、ロール `role_webcontent` を呼び出します。
 
 以前の Apache インストールのロールと比較すると、大きな違いがあります。現在、2つのバージョンの `index.html`
 テンプレート、およびソースファイル名の一部として変数を持つテンプレートファイルをデプロイするタスクがあります。
@@ -93,110 +93,214 @@
 
 ### インベントリーの準備
 
-もちろん、これを達成する方法は複数ありますが、次のことを行う必要があります。
+これを実行する方法は 1 つありますが、このラボでは Ansible 自動化コントローラーを使用します。
 
-* すべてのホストがインベントリグループ `Webserver` に含まれていることを確認してください。
-* `Webserver` インベントリーに値 `stage` で変数 `dev` を定義します。
+**Resources** -> **Inventories** 内で、「Workshop Inventory」を選択します。
 
-  * 開始用の 3 つのダッシュ (---) の下の **VARIABLES** で、インベントリー `Webserver` に `stage:
-    dev` を追加します。
+**Groups** タブで、**Add** ボタンをクリックして、`Webserver`
+というラベルが付けられた新規インベントリーグループを作成し、**Save** をクリックします。
 
-* 同じように、変数 `stage: prod` を追加しますが、今回は、`node2` に対してのみ行います
-  (ホスト名をクリック)。インベントリー変数が上書きされます。
+`Webserver` グループの **Details** タブで、**Edit** をクリックします。**Variables**
+テキストボックスでは、`stage` という値を持つ変数 `dev` を定義し、**Save** をクリックします。
 
+`Webserver` インベントリーの **Details** タブで、**ホスト** タブをクリックし、**Add** および **Add
+existing host** ボタンをクリックします。`Webserver`
+インベントリーに含まれるホストとして、`node1`、`node2`、および `node3` を選択します。
+
+```yaml
+---
+stage: dev
+```
+
+**Resources** -> **Inventories** 内で、`Workshop` インベントリーを選択します。また、`Hosts` タブをクリックして、`node2` をクリックします。`Edit` をクリックし、**Variables** ウィンドウで `stage: prod` 変数を追加します。これは、Playbook の実行時に変数にアクセスする方法により、インベントリー変数を上書きします。
+
+
+**Variables** テキストボックスで、`stage` という値を持つ `prod` というラベルが付いた変数を定義し、**Save**
+をクリックします。
+
+```yaml
+---
+ansible_host: <IP_of_node2>
+stage: prod
+```
 > **ヒント**
 >
 > YAML の開始をマークする 3 つのダッシュと `ansible_host` の行を所定の位置に配置するようにしてください。
 
-### テンプレートの作成。
+### テンプレートの作成
 
-* 以下ような新しい `Create Web Content` という **Job Template** を作成します。
+**Resources** -> **Templates** 内で、**Add** ボタンと **Add job template* を以下のように選択します。
 
-  * `Webserver` インベントリーを対象
-  * **Workshop Project** プロジェクトから Playbook `rhel/apache/webcontent.yml` を使用
-  * 2 つの変数 `dev_content: default dev content` と `prod_content: default prod
-    content` を **EXTRA VARIABLES FIELD** に定義します。
-  * `Workshop Credentials` を使用して、特権昇格で実行します。
+  <table>
+    <tr>
+      <th>パラメーター</th>
+      <th>値</th>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>Create Web Content</td>
+    </tr>
+    <tr>
+      <td>Job Type</td>
+      <td>Run</td>
+    </tr>
+    <tr>
+      <td>Inventory</td>
+      <td>Workshop Inventory</td>
+    </tr>
+    <tr>
+      <td>Project</td>
+      <td>Workshop Project</td>
+    </tr>
+    <tr>
+      <td>Execution Environment</td>
+      <td>Default execution environment</td>
+    </tr>
+    <tr>
+      <td>Playbook</td>
+      <td>rhel/apache/webcontent.yml</td>
+    </tr>
+    <tr>
+      <td>Credentials</td>
+      <td>Workshop Credential</td>
+    </tr>
+    <tr>
+      <td>Variables</td>
+      <td>dev_content: "default dev content", prod_content: "default prod content"</td>
+    </tr>
+    <tr>
+      <td>Options</td>
+      <td>Privilege Escalation</td>
+    </tr>
+  </table>
 
-* テンプレートを保存して実行します。
+**保存** をクリックします。
 
-### 結果を確認します。
+**Launch** ボタンをクリックしてテンプレートを実行します。
 
-今回は、Ansible の機能で、結果の確認を行います。curl を実行して、各ノードから Web コンテンツを取得しすると、Tower
-コントロールホストのコマンドラインで、アドホックコマンドで調整されます。
+
+### 結果の確認
+
+今回は、Ansible パワーを使って結果を確認します。各ノードから Web コンテンツを取得するために uri を実行し、Ansible
+Playbook (`check_url.yml`) によってオーケストレーションされます。
 
 > **ヒント**
 >
-> インベントリーグループの各ノードにアクセスするために、URL に `ansible_host` 変数を使用しています。 
+> インベントリーグループの各ノードにアクセスするために、URL に `ansible_host` 変数を使用しています。
 
 <!-- {% raw %} -->
 
+```yaml
+---
+- name: Check URL results
+  hosts: web
+
+  tasks:
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      uri:
+        url: "http://{{ ansible_host }}"
+        return_content: yes
+      register: content
+
+    - debug:
+       var: content.content
+```
+
 ```bash
-[student<X>@ansible-1 ~]$ ansible web -m command -a "curl -s http://{{ ansible_host }}"
- [WARNING]: Consider using the get_url or uri module rather than running 'curl'.  If you need to use command because get_url or uri is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in ansible.cfg to get rid of this message.
+[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+```
 
-node2 | CHANGED | rc=0 >>
-<body>
-<h1>This is a production webserver, take care!</h1>
-prod wweb
-</body>
+出力のスニペット:
 
-node1 | CHANGED | rc=0 >>
-<body>
-<h1>This is a development webserver, have fun!</h1>
-dev wweb
-</body>
-
-node3 | CHANGED | rc=0 >>
-<body>
-<h1>This is a development webserver, have fun!</h1>
-dev wweb
-</body>
+```bash
+TASK [debug] *******************************************************************
+ok: [node1] => {
+    "content.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
+}
+ok: [node2] => {
+    "content.content": "<body>\n<h1>This is a production webserver, take care!</h1>\nprod wweb</body>\n"
+}
+ok: [node3] => {
+    "content.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
+}
 ```
 
 <!-- {% endraw %} -->
 
-`command` モジュールから `curl` を使用しないことについての最初の行の警告に注目してください。Ansible
-には、より優れたモジュールがあるため、これについては次のパートで説明します。
-
 ### Survey の追加
 
-* Template に survey を追加して、変数 `dev_content` と `prod_content` を変更できるようにします。
+* Survey をテンプレートに追加して、変数 `dev_content` および `prod_content` の変更を可能にします。
+** テンプレートでは、**Survey** タブをクリックして、**Add** ボタンをクリックします。
+** 以下の情報を確認してください。
+
+<table>
+  <tr>
+    <th>パラメーター</th>
+    <th>値</th>
+  </tr>
+  <tr>
+    <td>Question</td>
+    <td>What should the value of dev_content be?</td>
+  </tr>
+  <tr>
+    <td>Answer Variable Name</td>
+    <td>dev_content</td>
+  </tr>
+  <tr>
+    <td>Answer Type</td>
+    <td>Text</td>
+  </tr>
+</table>
+
+* **Save** をクリックします。
+* **追加** ボタンをクリックします。
+
+同じ方法で、2 番目の **Survey Question** を追加します。
+
+<table>
+  <tr>
+    <th>パラメーター</th>
+    <th>値</th>
+  </tr>
+  <tr>
+    <td>Question</td>
+    <td>What should the value of prod_content be?</td>
+  </tr>
+  <tr>
+    <td>Answer Variable Name</td>
+    <td>prod_content</td>
+  </tr>
+  <tr>
+    <td>Answer Type</td>
+    <td>Text</td>
+  </tr>
+</table>
+
+* **Save** をクリックします。
+* トグルをクリックして Survey の質問を **On** に切り替えます。
+
+* Survey の **Preview** をクリックします。
+
 * Team `Web Content` にパーミッションを追加すると、Template **Create Web Content** が `wweb`
   で実行できます。
+* **Resources** -> **Templates** 内で、*Create Web Content** をクリックし、ユーザー `wweb`
+  に **Access** を追加し、テンプレートを実行します。
+  * **Select a Resource Type** -> **Users**をクリックし、**Next** をクリックします。
+  * **Select Items from List** -> `wweb` チェックボックスを選択して、**Next** をクリックします。
+  * **Select Roles to Apply** -> **Excute** チェックボックスを選択して、**Save** をクリックします。
 * ユーザー `wweb` として survey を実行します。
+  * Ansible 自動コントローラーのユーザー `admin` からログアウトします。
+  * `wweb` としてログインし、**Resources** -> **Templates** に移動して、**Create Web
+    Content** テンプレートを実行します。
 
-Tower コントロールホストから再び結果を確認します。前回は、`command` モジュールから `curl`
-を使用して警告を受けたため、今回は専用の `uri` モジュールを使用します。これは引数として実際の URL
-とフラグを使用し、今回は結果の本文を出力します。
+オートメーションコントローラーのホストから再度結果を確認します。ここでは、専用の`uri` モジュールを Ansible Playbook
+内で使用します。引数として、実際の URL と、結果に本文を出力するためのフラグが必要です。
 
 <!-- {% raw %} -->
 
+
 ```bash
-[student<X>@ansible-1 ~]$ ansible web -m uri -a "url=http://{{ ansible_host }}/ return_content=yes"
-node3 | SUCCESS => {
-    "accept_ranges": "bytes",
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    },
-    "changed": false,
-    "connection": "close",
-    "content": "<body>\n<h1>This is a development webserver, have fun!</h1>\nwerners dev content\n</body>\n",
-    "content_length": "87",
-    "content_type": "text/html; charset=UTF-8",
-    "cookies": {},
-    "cookies_string": "",
-    "date": "Tue, 29 Oct 2019 11:14:24 GMT",
-    "elapsed": 0,
-    "etag": "\"57-5960ab74fc401\"",
-    "last_modified": "Tue, 29 Oct 2019 11:14:12 GMT",
-    "msg": "OK (87 bytes)",
-    "redirected": false,
-    "server": "Apache/2.4.6 (Red Hat Enterprise Linux)",
-    "status": 200,
-    "url": "http://18.205.236.208"
-}
-[...]
+[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 <!-- {% endraw %} -->
@@ -211,12 +315,12 @@ node3 | SUCCESS => {
 
 ## 終わり
 
-おめでとうございます。ラボを完了しました。我々がラボの構築を楽しめたように、Ansible Tower を楽しんでいただければ光栄です。
+おめでとうございます。ラボを完了しました。我々がラボの構築を楽しめたように、Ansible 自動コントローラーを楽しんでいただければ光栄です。
 
 ----
 **ナビゲーション**
 <br>
 [前の演習](../2.6-workflows)
 
-[クリックして Ansible for Red Hat Enterprise Linux Workshop
-に戻ります](../README.md#section-2---ansible-tower-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../README.md#section-2---ansible-automation-controller-exercises)

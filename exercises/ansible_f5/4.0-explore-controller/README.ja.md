@@ -1,141 +1,159 @@
-# 演習 4.0: Red Hat Ansible Tower環境の確認
+# 演習 4.0: Red Hat Ansible 自動コントローラーの調査
 
-**Read this in other languages**: ![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます** :![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png) [日本語](README.ja.md).
 
 ## 目次
-- [目的](#目的)
-- [解説](#解説)
-- [まとめ](#まとめ)
-- [完了](#完了)
+
+- [目的](#objective)  - [ガイド](#guide)  - [重要なこと](#takeaways)  -
+[完了](#complete)
 
 # 目的
 
-Ansible Tower は、ビジュアルダッシュボード、ロールベースのアクセス制御、ジョブスケジューリング、統合通知、グラフィカルなインベントリーマネジメントを使用して IT インフラストラクチャを一元管理および制御できる Web ベースのソリューションです。Ansible Tower には、WebUI に加えて RESTAPI と CLI が含まれています。
+Ansible 自動コントローラーは Web
+ベースのソリューションで、視覚的なダッシュボード、ロールベースのアクセス制御、ジョブスケジューリング、統合された通知、およびグラフィカルな在庫管理を使用して、IT
+インフラストラクチャを一元化および制御することができます。Ansible 自動コントローラーには、Web UI に加えて、REST API および
+CLI が含まれています。
 
-このラボでは、Tower にログインして、F5 BIG-IP デバイスに対し自動化タスクを実行するために後のラボで使用されるいくつかの基本的な構成を実行します。この演習では、以下について説明します。
-- コントロールノードで実行されている Ansible バージョンの確認
-- 配置と理解:
+このラボでは、ログインして、基本的な設定を実行します。この後のラボでこの設定を使用して、F5 BIG-IP デバイスに対して自動化タスクを実行します。この演習では、以下の項目について説明します。
+- Ansible Automation Platform バージョンの判別
+- 以下を見つけて理解:
   - **インベントリー**
   - **認証情報**
   - **プロジェクト**
   - **テンプレート**
 
-# 解説
+# ガイド
 
-## Step 1: Ansible Automation Platform へログイン
+## ステップ 1: Ansible Automation Platform へのログイン
 
-Webブラウザーを開き、Ansible コントロールノードの DNS 名を入力します。
+Web ブラウザーを開き、Ansible コントロールノードの DNS 名を入力します
 
->たとえば、student1 ワークベンチが割り当てられ、ワークショップ名が `durham-workshop` の場合には、次のようになります:
+> たとえば、学習者に student1 ワークベンチが割り当てられ、そのワークショップ名が `durham-workshop` の場合、リンクは次のようになります。
 
-**https://student1.durham-workshop.rhdemo.io**
+    **https://student1.durham-workshop.rhdemo.io**
 
->このログイン情報は、講師から提供されます。
+>このログイン情報は、クラスの開始時にインストラクターによって提供されます。
 
-![Tower Login Window](images/login_window.ja.png)
-- ユーザ名: `admin`
-- パスワード: 講師から指示されたパスワード
+![Controller Login Window](images/login_window.png)  - ユーザー名は `admin` -
+パスワードはインストラクターから提供
 
-ログイン後、ジョブダッシュボードは以下のようにデフォルトの表示になります。
-![Tower Job Dashboard](images/tower_login.ja.png)
+ジョブダッシュボードにログインすると、以下に示すようにデフォルトのビューになります。  ![Controller Job
+Dashboard](images/tower_login.png)
 
-1.  ユーザーインターフェースの右上にある **i** 情報ボタンをクリックします。
+1. ユーザーインターフェイスの右上にある **?** 情報ボタンをクリックし、続いて **About** をクリックします。
 
-    ![information button link](images/information_button.png)
+   ![information button link](images/information_button.png)
 
-2.  次のようなウィンドウがポップアップ表示されます。
+2. 次のようなウィンドウがポップアップ表示されます。
 
-    ![version info window](images/version_info.png)
+   ![version info window](images/version_info.png)
 
-    ここでは、Ansible Tower バージョンと Ansible Engine バージョンの両方が表示されていることに注意してください。
+   Ansible 自動コントローラーのバージョンがここで提供されることに注意してください。
 
+## ステップ 2: インベントリーの検証
 
-## Step 2: インベントリーの確認
+Red Hat Ansible Controller がジョブを実行できるようにするには、インベントリーが必要です。インベントリーは、Ansible
+インベントリーファイルと同じように、ジョブを起動できる一連のホストのコレクションです。さらに、Red Hat Ansible Controller
+は、ServiceNow やInfoblox DDI などの既存の設定管理データベース (cmdb) を利用できます。
 
-Red Hat Ansible Tower がジョブを実行できるようにするには、インベントリーが必要です。インベントリーは Ansible インベントリーファイルと同じように、ジョブを起動するホストのコレクションです。さらに Red Hat Ansible Tower は ServiceNow や Infoblox DDI などの既存の構成管理データベース (cmdb) を利用できます。
+>Ansible Controller に関するインベントリーに関する情報は、[このドキュメント](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html) を参照してください。
 
->Ansible Tower に関するインベントリーの詳細については、 [こちらのドキュメントをご覧ください](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+1. 左側のメニューバーの **RESOURCES** の下にある **Inventories** ボタンをクリックします。
 
-1. 左側のメニューバーの **リソース** の下にある **インベントリー** ボタンをクリックします。
+   ![Inventory ボタン](images/inventories.png)
 
-    ![Inventories Button](images/inventories.ja.png)
+2. **Inventories** セクションで `Workshop Inventory` をクリックします。
 
-2. **インベントリー** の中にある `Workshop Inventory` をクリックしてください。
+3. `Workshop Inventory` セクションの上部にある **HOSTS**
+   ボタンをクリックします。ここで設定するホストが表示されます。いずれかのデバイスをクリックします。
 
-3. `Workshop Inventory` の枠の中にある 上部の **ホスト** ボタンをクリックします。ここには構成されたホストが表示されます。ホストの1つをクリックします。
+4. ページ上部の `Workshop Inventory` リンクをクリックして、トップレベルのメニューに戻ります。
 
-4. ページ上部にある `Workshop Inventory` をクリックし、トップレベルのメニューに戻ります。
+5. **GROUPS** をクリックします。ここでは、ホストのグループを設定できます。
+   
+   ![Inventory](images/inventory.png)
 
-5. **グループ** をクリックします。ここではホストのグループを設定できます。
-    ![Inventory](images/inventory.ja.png)
+## ステップ 3: ワークショッププロジェクトの検証
 
+プロジェクトは、Ansible Playbook が Red Hat Ansible 自動コントローラーにインポートされる仕組みです。Playbook
+および Playbook ディレクトリーを Ansible Tower サーバーのプロジェクトのベースパスに手動で配置するか、Controler
+がサポートするソースコード管理 (SCM) システム (例: Git、Subversion、Mercurial 等) に Playbook
+を配置することで、Playbook と Playbook ディレクトリーを管理できます。
 
-## Step 3: プロジェクトの確認
+> Controller のプロジェクトの詳細については、[ドキュメントを参照してください](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
 
-プロジェクトは、Ansible Playbook を Red Hat Ansible Tower にインポートする方法です。Playbook と Playbook ディレクトリを管理するには、Ansible Tower サーバーの Project Base Path に手動で配置するか、Git、Subversion、Mercurial などのTower がサポートするソースコード管理（SCM）システムに Playbook を配置することで管理できます。
+1. 左側のメニューバーの **RESOURCES** の下にある **Projects** ボタンをクリックします。
 
-> Tower のプロジェクトの詳細については [こちらをご覧ください](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+   ![projects link](images/projects.png)
 
-1. 左側のメニューバーの **リソース** の下にある **プロジェクト** ボタンをクリックします。
+2. **PROJECTS** セクションには、事前に設定されたプロジェクト `Ansible official demo project` が 1
+   つあります。オブジェクトをクリックしてこれを開きます。
 
-    ![projects link](images/projects.ja.png)
+   このプロジェクトには `Git` がリストされていることに注意してください。これは、このプロジェクトが SCM に `Git` を使用していることを意味します。
 
-2. **プロジェクト** の下には事前に準備された `Ansible official demo project` が一つあります。オブジェクトをクリックして開きます。
+   ![project link](images/project.png)
 
-    `GIT`がこのプロジェクトにリストされていることに注意してください。これは、このプロジェクトがSCMに`Git`を使用していることを意味します。
+3. `Ansible official demo project` セクションで、**SCM TYPE** ドロップダウンメニューをクリックします
 
-![project link](images/project.ja.png)
+   Git、Mercurial、Subversion が選択肢であることに注意してください。プロジェクトが引き続き正しく機能するように、選択を Git に戻します。
 
-3. `Ansible official demo project` の下の **SCM タイプ** ドロップダウンメニューをクリックしてください。
+## ステップ 4: ワークションプの認証情報の検証
 
-    Git、Mercurial、Subversion が選択肢の一部であることに注意してください。プロジェクトが引き続き正しく機能するように、Git を選択します。
+認証情報は、**Jobs**
+をマシンに対して起動したり、インベントリーソースと同期したり、プロジェクトのコンテンツをバージョン管理システムからインポートしたりする際の認証用に、Red
+Hat Ansible Automation Platform
+によって使用されます。ワークショップでは、ネットワークデバイスへの認証に認証情報が必要です。
 
-## Step 4: 認証情報の確認
+> 自動コントローラーの認証情報の詳細は、[ドキュメントを参照してください](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html)。
 
-認証情報は Red Hat Ansible Automation Platform によって、マシンに対して **ジョブ** を起動するときの認証、インベントリソースとの同期、およびバージョン管理システムからのプロジェクトコンテンツのインポートに使用されます。ワークショップでは、ネットワークデバイスを認証するための資格情報が必要です。
+1. 左側のメニューバーの **RESOURCES** の下にある **Credentials** ボタンをクリックします。
 
-> Tower に関する認証情報の詳細については、 [こちらのドキュメントをご覧ください](https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html).
+   ![credentials link](images/credentials.png)
 
-1. 左側のメニューバーの **リソース** の下にある **認証情報** ボタンをクリックします。
+2. **CREDENTIALS** セクションには、2 つの事前に設定された認証情報 `Workshop Credential`
+   があります。`Workshop Credential` をクリックします。
 
-    ![credentials link](images/credentials.ja.png)
+3. `Workshop Credential` で以下を確認します。
+   
+   - **CREDENTIAL TYPE** が `Machine` 認証情報である。
+   - **USERNAME** が `ec2-user` に設定されている。
+   - **PASSWORD** が `blank` である。この認証情報はパスワードの代わりにキーを使用します。
+   - **SSH PRIVATE KEY** がすでに設定され、`ENCRYPTED` である。
 
-2. **認証情報** の下には、事前に構成された認証情報の `Workshop Credential` と `Tower Credential` があります。`Workshop Credential` をクリックします。
+   ![credential](images/credential.png)
 
-3. `Workshop Credential` の中で次のことを確認します。
-    - **認証情報タイプ**: マシン
-    - **ユーザー名**: `ec2-user`
-    - **パスワード**: `blank` です。この資格情報は、パスワードの代わりにキーを使用しています。
-    - **SSH 秘密鍵**: 既に `暗号化` され設定されています。
+## ステップ 5: ジョブテンプレートの検証
 
-![credential](images/credential.ja.png)
+テンプレートまたはジョブテンプレートは、Ansible Playbook
+の実行時に使用されるパラメーターを定義します。これらのパラメーターには、使用するプロジェクトやインベントリーなど、前述の要素が含まれます。さらに、ログレベルやプロセスフォークなどのパラメーターにより、Playbook
+の実行をさらに細かく設定することができます。
 
-## Step 5: テンプレートの確認
+1. 左側のメニューバーの **RESOURCES** セクションにある **Templates** ボタンをクリックします。
 
-テンプレートまたはジョブテンプレートは、Ansible Playbook を実行するときに使用されるパラメーターを定義します。これらのパラメーターには、使用するプロジェクトやインベントリーなど、前述の機能が含まれています。さらに、ロギングレベルやプロセスフォークなどのパラメーターにより、Playbook の実行方法をさらに細かく設定できます。
+   ![テンプレートリンク](images/templates.png)
 
-1. 左側のメニューバーの **リソース** の下にある **テンプレート** ボタンをクリックします。
+2. **TEMPLATES** セクションには、少なくとも 1 つ事前に設定されたジョブテンプレート `INFRASTRUCTURE / Turn
+   off IBM Community Grid` があります。オブジェクトをクリックしてこれを開きます。
 
-    ![templates link](images/templates.ja.png)
+   ![template link](images/template.png)
 
-2. **テンプレート** の下には、事前に構成された`INFRASTRUCTURE / Turn off IBM Community Grid` があります。オブジェクトをクリックします。
+# 重要なこと
 
-
-![template link](images/template.ja.png)
-
-# まとめ
-
-- Ansible Automation Platform は、Ansible Playbook を実行するためのインベントリーが必要です。このインベントリーは、コマンドラインの Ansibleで使用するものと同じです
-- Ansible Automation Platform は、`GitHub`を含むSCM(source control management)と同期できます
-- Ansible Automation Platform は、SSH 秘密鍵やプレーンテキストのパスワードを含む資格情報を保存および暗号化できます。Ansible Automation Platform は、HashiCorp の CyberArk や Vault などの既存の認証情報ストレージシステムと同期することもできます
-- ジョブテンプレートは、Ansible Playbook を実行するときに使用されるパラメーターを定義します
-
----
+- Ansible には、Ansible Playbook
+  を実行する対象としてのインベントリーが必要です。このインベントリーは、ユーザーがコマンドラインのみの Ansible
+  プロジェクトで使用するものと同じです。
+- Ansible 自動コントローラーは、`GitHub` を含む既存の SCM (ソースコード管理) と同期できます。
+- Ansible 自動コントローラーは、SSH 秘密鍵やプレーンテキストパスワードなどの認証情報を保存および暗号化できます。Ansible
+Automation Platform は、CyberArk や HashiCorp Vault
+などの既存の認証情報ストレージシステムと同期することもできます - ジョブテンプレートは、Ansible Playbook
+の実行時に使用されるパラメーターを定義します
 
 # 完了
 
-演習 4.0 が完了しました。
+ラボ演習 4.0 を完了しました
 
-これで、Ansible AutomationPlatform の使用を開始するために必要な3つのコンポーネントすべてを確認しました。インベントリー、プロジェクトおよび認証情報です。次の演習では、ジョブテンプレートを作成します。
+これで、Ansible 自動コントローラーの使用を開始するために必要な認証情報、インベントリー、およびプロジェクトの 3
+つのコンポーネントすべてを調べました。次の演習では、ジョブテンプレートを作成します。
 
-これで本演習は終わりです。[演習ガイドへ戻る](../README.ja.md)
+[Click here to return to the Ansible Network Automation
+Workshop](../README.md)

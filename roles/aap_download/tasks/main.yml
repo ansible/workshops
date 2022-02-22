@@ -1,14 +1,12 @@
 ---
-- name: check if aap.tar.gz already has been downloaded
+- name: check if aap.tar.gz exists
   stat:
     path: "{{ playbook_dir }}/aap.tar.gz"
     checksum_algorithm: sha256
   register: stat_var
 
 - name: attempt to download specified AAP if we don't already have it
-  when:
-    - not stat_var.stat.exists
-    - stat_var.stat.checksum != provided_sha_value
+  when: stat_var.stat.checksum | default("") != provided_sha_value
   block:
     - name: download aap.tar.gz from access.redhat.com
       include_tasks: 10_download.yml
@@ -16,8 +14,20 @@
   rescue:
     - name: aap_download role has entered rescue stanza
       debug:
-        msg: "automatic download from access.redhat.com has failed"
+        msg: "download from access.redhat.com has failed, attempting to see if there is a cached aap.tar.gz file"
 
     - name: fail if file aap.tar.gz not found
       fail:
-        msg: "You need to manually download Red Hat Ansible Automation Platform 2.1 from https://access.redhat.com/downloads/content/480/ver=2.1/rhel---8/2.1/x86_64/product-software with SHA {{ provided_sha_value }}"
+        msg: "There was no app.tar.gz file found to install AAP"
+      when: not stat_var.stat.exists
+
+- name: check if aap.tar.gz again (post download)
+  stat:
+    path: "{{ playbook_dir }}/aap.tar.gz"
+    checksum_algorithm: sha256
+  register: stat_var
+
+- name: Verify sha256sum of aap.tar.gz
+  fail:
+    msg: "Failure, sha256sum does not match"
+  when: stat_var.stat.checksum != provided_sha_value

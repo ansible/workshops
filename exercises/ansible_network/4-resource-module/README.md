@@ -2,6 +2,8 @@
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
 
+If you are using an **all Cisco workbench** (all four routers are Cisco IOS routers) please [switch to these directions](../supplemental/4-resource-module-cisco/README.md).
+
 ## Table of Contents
 
   * [Objective](#objective)

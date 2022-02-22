@@ -1,0 +1,196 @@
+---
+ec2_name_prefix: TRAINING
+ec2_region: us-east-1
+ec2_wait: true
+# need to circle back and fix this for teardown - sean
+ec2_az: "{{ec2_region}}a"
+ec2_subnet: "172.16.0.0/16"
+ec2_subnet2: "172.17.0.0/16"
+ec2_network_vpc2: "172.18.0.0/16"
+ssh_port: 22
+create_cluster: false
+## The default is multivendor, 1 x Cisco, 2 x Arista, 1 x Juniper
+##
+##   VPC1       VPC2
+##  (rtr1)  -   (rtr2)
+##    |           |
+##  (rtr3)  -   (rtr4)
+##
+control_type: "rhel8-tower"
+rtr1_type: "cisco"
+rtr2_type: "arista"
+rtr3_type: "juniper"
+rtr4_type: "arista"
+rhel: "rhel8"
+# additional info needed by AWS ec2 modules
+ec2_info:
+  juniper:
+    size: c4.xlarge
+    ami: "{{juniper_ami | default(omit)}}"
+    os: junos
+    username: ec2-user
+    filter: "junos-vsrx3-x86-*byol*"
+    volume:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: io1
+          iops: 1000
+          volume_size: 40
+          delete_on_termination: true
+  cisco:
+    size: t2.medium
+    ami: "{{cisco_ami | default(omit)}}"
+    os: ios
+    username: ec2-user
+  arista:
+    size: c5.xlarge
+    ami: "{{arista_ami | default(omit)}}"
+    os: eos
+    username: ec2-user
+    filter: "*VEOSRouter*"
+  checkpoint_mgmt:
+    owners: 679593333241
+    filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'
+    architecture: x86_64
+    size: m5.xlarge
+    ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
+    username: admin
+  checkpoint_gw:
+    owners: 679593333241
+    filter: 'Check Point CloudGuard IaaS GW*BYOL*R80.40*'
+    architecture: x86_64
+    size: c5.large
+    ami: "{{ checkpoint_gw_ami| default(omit) }}"
+    username: admin
+  windows_ws:
+    owners: 679593333241
+    filter: 'Windows_Server-2016-English-Full-Base*'
+    size: m5.xlarge
+    ami: "{{ windows_ws_ami| default(omit) }}"
+    username: Administrator
+  # Look for owner 309956199498 to find official Red Hat AMIs
+  rhel8-tower:
+    owners: 309956199498
+    size: m4.xlarge
+    os_type: linux
+    disk_space: 40
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
+  rhel8:
+    owners: 309956199498
+    size: t3.micro
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
+  rhel7:
+    owners: 309956199498
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-7.9_HVM*'
+    username: ec2-user
+    python_interpreter: '/usr/bin/python'
+  rhel68:
+    owners: 309956199498
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-6.8_HVM_GA*'
+    username: ec2-user
+    python_interpreter: '/usr/bin/python'
+  centos78:
+    owners: 125523088429
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'CentOS*7.8*x86_64'
+    username: centos
+    python_interpreter: '/usr/bin/python'
+  centos79:
+    owners: 125523088429
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'CentOS*7.9*x86_64'
+    username: centos
+    python_interpreter: '/usr/bin/python'
+  f5node:
+    owners: 679593333241
+    size: t2.large
+    os_type: linux
+    disk_space: 40
+    architecture: x86_64
+    filter: 'F5 BIGIP-16.0.*PAYG-Best 25Mbps*'
+    username: admin
+  splunk_enterprise:
+    owners: 309956199498
+    size: c4.4xlarge
+    os_type: linux
+    disk_space: 200
+    architecture: x86_64
+    filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
+    username: ec2-user
+    python_interpreter: '/usr/bin/python'
+  netapp:
+    owners: 679593333241
+    size: t2.medium
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'OnCommand_Cloud_Manager_3.7.0_Marketplace*'
+    username: ec2-user
+  qradar:
+    owners: 721066863947
+    size: t2.2xlarge
+    os_type: linux
+    disk_space: 300
+    architecture: x86_64
+    filter: 'AnsibleSecurity-QRadarCE*'
+    username: ec2-user
+    python_interpreter: '/usr/bin/python'
+  skylight_windows_ws:
+    filter: 'Windows_Server-2016-English-Full-Base*'
+    size: t3.medium
+  skylight_windows_instance:
+    filter: 'Windows_Server-2019-English-Core-Base*'
+    size: t3.medium
+  skylight_rhel7_gitlab:
+    filter: 'RHEL-7.6_HVM_GA*x86_64*'
+    size: t2.xlarge
+    username: ec2-user
+  skylight_rhel8_gitlab:
+    owners: 309956199498
+    filter: 'RHEL-8*HVM-*Hourly*'
+    size: t2.xlarge
+    username: ec2-user
+    architecture: x86_64
+  attendance_host:
+    owners: 309956199498
+    size: t3.micro
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
+  satellite:
+    owners: 551178754270
+    filter: Satellite*
+    username: ec2-user
+    os_type: linux
+    size: r5a.xlarge
+  middleware:
+    owners: 309956199498
+    size: t2.xlarge
+    os_type: linux
+    disk_space: 20
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
+debug_teardown: false

@@ -1,0 +1,27 @@
+---
+- name: configure SNMP
+  hosts: network
+  gather_facts: false
+  vars:
+    cfg:
+      location: 'Durham'
+      communities:
+        - acl_v4: acl_uq
+          name: Durham-community
+          rw: true
+        - acl_v4: acl_uq
+          name: ChapelHill-community
+          rw: true
+
+  tasks:
+    - name: use snmp resource module [cisco]
+      cisco.ios.snmp_server:
+        state: merged
+        config: "{{ cfg }}"
+      when: ('ios' in ansible_network_os)
+
+    - name: use snmp resource module [arista]
+      arista.eos.snmp_server:
+        state: merged
+        config: "{{ cfg }}"
+      when: ('eos' in ansible_network_os)

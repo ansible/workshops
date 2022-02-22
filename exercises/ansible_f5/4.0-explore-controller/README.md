@@ -21,6 +21,8 @@ In this lab, you will log in and perform some basic configurations that will be 
   - **Projects**
   - **Templates**
 
+{% include mesh.md %}
+
 # Guide
 
 ## Step 1: Login to the Ansible Automation Platform

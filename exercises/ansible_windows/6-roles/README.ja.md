@@ -1,259 +1,301 @@
-# 演習 6 - Ansible Roles
-
-**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-このワークショップ全体で行ったように、1つの Playbook として記述することは可能ですが、Ansible を使っていると、有用な Playbook を他から再利用したいと考えるようになります。  
+このワークショップを通して行ったように、1 つのファイルで Playbook
+を作成することは可能です。ただし、最終的には複数のファイルを再利用して、整理することをお勧めします。
 
-Ansible Roles はこの手段を提供します。Roles を作成すると、Playbook をパーツが分解され、それらのパーツがディレクトリ構造に配置されます。これは Playbook 管理のベストプラクティスと考えられており、Ansible を使っていく上で多くの時間を節約できます。  
+これを行うには、Ansible Roles を使用します。ロールを作成するときは、Playbook
+を複数のパーツに分け、それらのパーツをディレクトリー構造に配置します。これはベストプラクティスとして考えられており、将来多くの時間を節約することができます。
 
-この演習では、作成した Playbook を Role に作り変えます。  
+この演習では、作成したばかりの Playbook を使用して、ロールにリファクタリングします。
 
-まず、iis-basic-playbookがどのように複数の Role に分解されるかを見てみましょう…  
+まず、iis-basic-playbook がどのように役割に分解されるかを見てみましょう...
 
-## Role のためのディレクトリーの作成
+セクション 1: 新しい役割のディレクトリー構造の作成
+=========================================================================
 
-### ステップ 1:
+ステップ 1
+--------------
 
-Visual Studio Codeで、エクスプローラーと以前に `iis_advanced` を作成した*WORKSHOP_PROJECT*セクションに移動します。  
+Visual Studio Code で、エクスプローラーと、以前に作成した `iis_advanced` *WORKSHOP_PROJECT*
+セクションに移動します。
 
 ![iis\_advanced](images/6-vscode-existing-folders.png)
 
-**iis_advanced** フォルダーを選択します。  
+**iis_advanced** フォルダーを選択します。
 
-**iis_advanced** を右クリックして *New Folder* を選択、**roles** という名前のフォルダーを作成します。   
+**iis_advanced** を右クリックし、*New Folder* を選択して、**roles** というディレクトリーを作成します。
 
-**roles** を右クリックし、その下に `iis_simple` という新しいフォルダーを作成します。　　
+次に、**role** を右クリックして、その下に `iis_simple` という名前の新しいフォルダーを作成します。
 
-### ステップ 2:  
+ステップ 2
+--------------
 
-*iis\_simple* の下にさらに以下の新しいフォルダーを作成します:
+*iis\_simple* 内に、次のように新しいフォルダーを作成します。
 
-- defaults
+* defaults
 
-- vars
+* vars
 
-- handlers
+* handlers
 
-- tasks
+* tasks
 
-- templates
+* templates
 
-### ステップ 3:  
+ステップ 3
+--------------
 
-templates フォルダーを除く各フォルダーに、`main.yml`という名前のファイルを作成します。これは基本的な Roles のフォルダー構造であり、main.yml はロールが各セクションで使用するデフォルトのファイルになります。
+これら各新しいフォルダー (テンプレートを除く) で、右クリックして *New File* を作成します。これらの各フォルダーに `main.yml`
+というファイルを作成します。個別のテンプレートファイルを作成するため、テンプレートではこれを行いません。これは基本的なロール構造であり、main.yml
+はロールが各セクションで使用するデフォルトのファイルになります。
 
-完成した構造は次のようになります。  
+完成した構造は次のようになります。
 
-![Role Structure](images/6-create-role.png)
+![ロール構造](images/6-create-role.png)
 
-## Playbook の Role 化
+セクション 2: `site.yml` Playbook を、新しく作成された `iis_simple` ロールに分割
+=====================================================================================================
 
-このセクションでは、`vars：`、`tasks：`、`template：`、`handlers：`など、Playbook の主要部分を分解し Role 化します。  
+このセクションでは、`vars:`、`tasks:`、`template:`、`handlers:` などの Playbook の主要部分を分離します。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-元の `site.yml` のバックアップを作成した後、新しく `site.yml`を作成します。  
+`site.yml` のバックアップコピーを作成してから、新しい `site.yml` を作成します。
 
-`iis_advanced` フォルダーで、`site.yml`を右クリックし、`rename`を選択、`site.yml.backup`に変更します。  
+`iis_advanced` ディレクトリーに移動し、`site.yml` を右クリックして `rename` をクリックし、これを
+`site.yml.backup` と指定します。
 
-同じフォルダーに`site.yml` を新たに作成します。  
+同じフォルダーに `site.yml` という名前の空の新しいファイルを作成します
 
-### ステップ 2:
+ステップ 2
+--------------
 
-site.ymlを編集して、iis_simple という名の Role を呼び出すようにします。以下のようになります。  
-
-```yaml
----
-- hosts: windows
-  name: This is my role-based playbook
-  
-  roles:
-    - iis_simple
-```
-
-![New site.yml](images/6-new-site.png)
-
-### ステップ 3:
-
-デフォルト変数をロールに追加します。 `roles \ iis_simple \ defaults \ main.yml`を次のように編集します：
+site.yml を更新して、自分のロールのみを呼び出すようにします。以下のようになります。
 
 ```yaml
----
-# defaults file for iis_simple
-iis_sites:
-  - name: 'Ansible Playbook Test'
-    port: '8080'
-    path: 'C:\sites\playbooktest'
-  - name: 'Ansible Playbook Test 2'
-    port: '8081'
-    path: 'C:\sites\playbooktest2'
+    ---
+    - hosts: windows
+      name: This is my role-based playbook
+
+      roles:
+        - iis_simple
 ```
 
-### ステップ 4:
+![新しい site.yml](images/6-new-site.png)
 
-`roles \ iis_simple \ vars \ main.yml`のロールにいくつかのロール固有の変数を追加します。  
+ステップ 3
+--------------
+
+デフォルト変数をロールに追加します。以下のように `roles\iis_simple\defaults\main.yml` を編集します。
 
 ```yaml
----
-# vars file for iis_simple
-iis_test_message: "Hello World!  My test IIS Server"
+    ---
+    # defaults file for iis_simple
+    iis_sites:
+      - name: 'Ansible Playbook Test'
+        port: '8080'
+        path: 'C:\sites\playbooktest'
+      - name: 'Ansible Playbook Test 2'
+        port: '8081'
+        path: 'C:\sites\playbooktest2'
 ```
 
-> **ヒント**
->
-> **変数を違う場所に置く？？**
->
-> はい！ Ansible では、変数はいろんな場所に置く事が出来ます。ほんの一例をあげると:  
->
-> - vars フォルダー
->
-> - defaults フォルダー
->
-> - group\_vars フォルダー
->
-> - Playbook の `vars:` の中
->
-> - コマンド実行の際の`--extra_vars` オプション
->
->上記変数の定義は、場所によって優先順位が決まっています。最初からあまりいろんなところに置く必要はありませんが、こちらを一度確認しておくと良いと思います。[variable precedence](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)。この演習では、Role の default を使用していくつかの変数を定義していますが、これらは優先順位が低いため、他の場所で記述されると置き換わります。逆に言うと、順応性がある変数とも言えます。この default より優先順位が高いのが vars で、一部をこちらで定義してみました。  
+ステップ 4
+--------------
 
-### ステップ 5:
-
-次に、ハンドラーを Role 化してみましょう。編集するファイルは、`roles\iis_simple\handlers\main.yml` です。  
+`roles\iis_simple\vars\main.yml` のロールにいくつかのロール固有の変数を追加します。
 
 ```yaml
----
-# handlers file for iis_simple
-- name: restart iis service
-  win_service:
-    name: W3Svc
-    state: restarted
-    start_mode: auto
+    ---
+    # vars file for iis_simple
+    iis_test_message: "Hello World!  My test IIS Server"
 ```
 
-### ステップ 6:
+> **注意**
+>
+> **では...、2 つの別々の場所に、変数を配置しました。**
+>
+> そうです。変数は、さまざまな場所に配置して使用できます。
+> いくつか例を挙げます。
+>
+> * vars ディレクトリー
+> * defaults ディレクトリー
+> * group\_vars ディレクトリー
+> * Playbook の `vars:` セクション
+> * `--extra_vars` オプションを使用して、
+>   コマンドラインで指定できるファイル
+> * いなかのおばあちゃんのおうち *(ウソですので注意してください)*
+>
+> 詳しくは [変数
+> 優先順位](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) をお読みください。
+> 変数と、優先順位を受け入れる場所の両方を
+> 理解できます。この演習では、ロールのデフォルトを使用して
+> いくつかの変数を定義します。これらは、発展させることができます。その後、
+> デフォルトよりも優先度の高い `/vars` にいくつか変数を定義しました。
+> これは、デフォルト変数として上書きできません。
 
-タスクの Role 化はこちらを編集します。 `roles\iis_simple\tasks\main.yml`  
+ステップ 5
+--------------
+
+`roles\iis_simple\handlers\main.yml` にロールハンドラーを作成します。
+
+```yaml
+    ---
+    # handlers file for iis_simple
+    - name: restart iis service
+      win_service:
+        name: W3Svc
+        state: restarted
+        start_mode: auto
+```
+
+ステップ 6
+--------------
+
+`roles\iis_simple\tasks\main.yml` のロールにタスクを追加します。
 
 <!-- {% raw %} -->
+
 ```yaml
----
-# tasks file for iis_simple
+    ---
+    # tasks file for iis_simple
 
-- name: Install IIS
-  win_feature:
-    name: Web-Server
-    state: present
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        state: present
 
-- name: Create site directory structure
-  win_file:
-    path: "{{ item.path }}"
-    state: directory
-  with_items: "{{ iis_sites }}"
+    - name: Create site directory structure
+      win_file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items: "{{ iis_sites }}"
 
-- name: Create IIS site
-  win_iis_website:
-    name: "{{ item.name }}"
-    state: started
-    port: "{{ item.port }}"
-    physical_path: "{{ item.path }}"
-  with_items: "{{ iis_sites }}"
-  notify: restart iis service
+    - name: Create IIS site
+      win_iis_website:
+        name: "{{ item.name }}"
+        state: started
+        port: "{{ item.port }}"
+        physical_path: "{{ item.path }}"
+      with_items: "{{ iis_sites }}"
+      notify: restart iis service
 
-- name: Open port for site on the firewall
-  win_firewall_rule:
-    name: "iisport{{ item.port }}"
-    enable: yes
-    state: present
-    localport: "{{ item.port }}"
-    action: Allow
-    direction: In
-    protocol: Tcp
-  with_items: "{{ iis_sites }}"
+    - name: Open port for site on the firewall
+      win_firewall_rule:
+        name: "iisport{{ item.port }}"
+        enable: yes
+        state: present
+        localport: "{{ item.port }}"
+        action: Allow
+        direction: In
+        protocol: Tcp
+      with_items: "{{ iis_sites }}"
 
-- name: Template simple web site to iis_site_path as index.html
-  win_template:
-    src: 'index.html.j2'
-    dest: '{{ item.path }}\index.html'
-  with_items: "{{ iis_sites }}"
-  
-- name: Show website addresses
-  debug:
-    msg: "{{ item }}"
-  loop:
-    - http://{{ ansible_host }}:8080
-    - http://{{ ansible_host }}:8081
+    - name: Template simple web site to iis_site_path as index.html
+      win_template:
+        src: 'index.html.j2'
+        dest: '{{ item.path }}\index.html'
+      with_items: "{{ iis_sites }}"
+
+    - name: Show website addresses
+      debug:
+        msg: "{{ item }}"
+      loop:
+        - http://{{ ansible_host }}:8080
+        - http://{{ ansible_host }}:8081
 ```
+
 <!-- {% endraw %} -->
 
-### ステップ 7:
+ステップ 7
+--------------
 
+index.html テンプレートを追加します。
 
-index.htmlテンプレートを追加します。  
-
-`roles\iis_simple\templates` を右クリックして`index.html.j2` という名前の新しいファイルを作成、さらに、そのファイルを以下の通り編集してください。  
+`roles\iis_simple\templates` を右クリックして、以下のない用で `index.html.j2`
+という新しいファイルを作成します。
 
 <!-- {% raw %} -->
+
 ```html
-<html>
-<body>
+    <html>
+    <body>
 
-  <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
-  <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
+      <p align=center><img src='http://docs.ansible.com/images/logo.png' align=center>
+      <h1 align=center>{{ ansible_hostname }} --- {{ iis_test_message }}</h1>
 
-</body>
-</html>
+    </body>
+    </html>
 ```
+
 <!-- {% endraw %} -->
 
-さて、iiadvanced レベルに以前の演習で作成した*templates*フォルダーがまだ残っていると思います。これを削除しておきましょう。右クリックして選択し、削除します。  
+この Playbook のベースレベルにはまだ *templates* フォルダーがあるので、ここで削除します。それを右クリックして、*Delete*
+を選択します。
 
-### ステップ 8: コミット
+ステップ 8: コミット
+----------------------------
 
-File → Save All をクリックして、すべてのファイルが保存されていることを確認します。  
+File → Save All をクリックして、すべてのファイルが保存されるようにします。
 
-Source Control アイコンをクリックし(1)、変更の内容に関するコメント、例えば、 `Adding iis_simple role` を入力し(2)、上部の Commit アイコンをクリックします(3)。  
+以下に示すように、ソースコードアイコンをクリックします (1)。
+
+`Adding iis_simple role` (2) のようなコミットメッセージを入力し、上のチェックボックスをクリックします (3)。
 
 ![Commit iis\_simple\_role](images/6-commit.png)
 
-左下の青いバーにある`synchronize changes` ボタンをクリックします。これは問題なく終了することを確認します。  
+左下の青いバーにある `synchronize changes` ボタンをクリックします。これも問題なく戻るはずです。
 
-## Role ベースの新しい Playbook の実行
+セクション 3: 新しい Playbook の実行
+===============================================
 
-元の Playbook をロールに正常に分離できたので、実行してどのように機能するかを見てみましょう。演習5と同じ site.yml を再利用しているため、新しいジョブテンプレートを作成する必要はありません。演習5で作成したジョブテンプレートを再度実行してみてください。GitLab から自動的に更新され、新しい Roles 含む Playbook が起動します。
+元の Playbook をロールに正常に分離したので、それを実行して、どのように機能するかを見てみましょう。演習 5
+のテンプレートを再利用しているため、新しいテンプレートを作成する必要はありません。このテンプレートを再度実行すると、git
+から自動的に更新され、新しい役割が開始されます。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-上記で編集した内容は、ジョブテンプレート実行と共に自動的にプロジェクトの更新として実行されます。このため、改めてプロジェクトで同期をかける必要はないのですが、一応演習ですので、プロジェクトで更新作業を行っておきましょう。Automation Controller の左ペインでプロジェクトをクリックして、円形の更新アイコンをクリックします。  
+ジョブテンプレートを変更する前に、まずプロジェクトを再同期する必要があります。これを行います。
 
-### ステップ 2:
+ステップ 2
+--------------
 
-テンプレートを選択します。  
+テンプレートを選択します
 
-> **ヒント**
+> **注意**
 >
-> ジョブテンプレートの作成ページから移動していない場合は、下にスクロールして既存のすべてのジョブテンプレートを表示することも可能です  
+> あるいは、ジョブテンプレートから移動していない場合
+> 作成ページでは、下にスクロールして既存のすべてのジョブテンプレートを表示できます
 
-### ステップ 3:
+ステップ 3
+--------------
 
-**IIS Advanced** の右端にあるロケットのアイコン ![Add](images/at_launch_icon.png) をクリックし、ジョブテンプレートを起動します。  
+**IIS Advanced** ジョブテンプレートのロケットアイコン！[追加](images/at_launch_icon.png)
+をクリックします。
 
-### ステップ 4:
+ステップ 4
+--------------
 
-プロンプトが表示されたら、お好きなテストメッセージを入力してください。♬  
+プロンプトが表示されたら、目的のテストメッセージを入力します
 
-成功すると、標準出力は次の図のようになります。 サーバーとサービスが既に実行されていることを以前に構成したため、ほとんどのタスクはOKを返します。  
+成功すると、標準出力は次の図のようになります。以前にサーバーを設定し、サービスは既に実行中であるため、ほとんどのタスクは OK
+を返すことに注意してください。
 
-![Job output](images/6-job-output.png)  
+![ジョブ出力](images/6-job-output.png)
 
-ジョブが正常に完了すると、ジョブ出力の下部にWebサイトへの2つのURLが出力されます。  
+ジョブが正常に完了すると、ジョブ出力の下部に Web サイトへの 2 つの URL が出力されます。それらがまだ機能していることを確認します。
 
-## まとめ
+セクション 5: レビュー
+===============================
 
-これで、 `iis_simple`と呼ばれる1つのロールを持つ Playbook ` site.yml`が完成しました。Playbook を Role 化することの利点は、Playbook を再利用しやすくするだけでなく、変数、タスク、テンプレートなどの変更を簡単にできることです。  
+これで、`site.yml` という単一の役割を持つ完全な Playbook `iis_simple` ができました。Playbook
+をロールに構造化する利点は、Playbook に再利用性を追加できるだけでなく、変数、タスク、テンプレートなどへの変更を簡素化できることです。
 
-[Ansible Galaxy](https://galaxy.ansible.com) には沢山の Roles が置いてあります。是非ご確認ください。  
+[Ansible Galaxy](https://galaxy.ansible.com) は、使用または参照するための役割の優れたリポジトリーです。
 
-
-[ワークショップ一覧に戻る](../README.ja.md)
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../README.md)

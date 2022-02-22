@@ -1,35 +1,47 @@
-# 演習 7 - Windows パッチ管理
-
-**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-## Playbook の作成
+セクション 1 - Playbook の作成
+======================================
 
-Windwos のパッチ管理は、Ansible で Windows ホストを管理する際の大きなユースケースの一つです。Ansible では、`win_updates` モジュールを使って Windows Update の確認またはインストールが行われます。このモジュールは、Windows に元々組み込まれている、Window Update サービスを利用します。これは、各端末から更新をダウンロードするための WSUS やオンラインの Windows Update サーバーなどの パッチのリポジトリが引き続き必要ということを示しています。Windows Update の設定が自動的にダウンロードするがインストールはしないように構成されている場合は、更新を`検索`するよう指示することで、モジュールを使用して更新をステージングすることもできます。各パッチをホワイトリストまたはブラックリストに登録する機能もあります。たとえば、利用可能なすべての更新ではなく、1つの特定のセキュリティ更新のみをインストールするように指示することも可能です。  
+`win_updates` モジュールは、Windows Update の確認またはインストールに使用されます。このモジュールは、組み込みの
+Windows Update サービスを利用して機能します。つまり、更新プログラムをダウンロードするには、WSUS やオンラインの Windows
+Update Server などのバックエンドシステムが必要です。サーバーの Windows Update
+設定が自動的にダウンロードされてもインストールされないように設定されている場合は、このモジュールを利用して、更新を `search`
+するように指示することで、更新をステージングすることもできます。更新を許可リストまたは拒否リストに登録する機能もあります。たとえば、利用可能なすべての更新プログラムではなく、特定のセキュリティ更新プログラムを
+1 つだけインストールするように指示できます。
 
-最初に、新しい Playbook を作成します。 以前の演習で実行した手順を繰り返します。  
+まず、新しい Playbook を作成します。前の演習で実行した手順を繰り返します。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-Visual Studio Code を使って、Git リポジトリに新しいフォルダーを作成し、新しい Playbook を作成します。  
+Visual Studio Code 内で、git リポジトリーに新しいディレクトリーを作成し、新しい Playbook ファイルを作成します。
 
-以前に「iis_basic」ディレクトリを作成した WORKSHOP_PROJECT が存在していると思います。  
+Explorer アコーディオンには、以前に iis\_basic を作成した *student\＃* セクションが必要です。
 
-![Student Playbooks](images/7-vscode-existing-folders.png)
+![学習者 Playbooks](images/7-vscode-existing-folders.png)
 
-WORKSHOP_PROJECT セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`win_updates` と入力します。  
+*WORKSHOP_PROJECT* セクションにカーソルを合わせ、*New Folder* ボタンをクリックします。`win_updates`
+と入力し、Enter キーを押します。
 
-次に、`win_updates` フォルダーを右クリックして、*New File* を選択、`site.yml` と入力します。  
+次に、`win_updates` フォルダーを右クリックし、*新規ファイル* ボタンをクリックします。`site.yml` と入力して Enter
+キーを押します。
 
-Playbook 編集用のエディターが右ペインに開きます。  
+これで、Playbook の作成に使用できるエディターが右側のペインで開いているはずです。
 
 ![Empty site.yml](images/7-create-win_updates.png)
 
-## Playbook の作成
+セクション 2: Playbook を書く
+=====================================
 
-作成した site.yml を編集し、Playbook にプレイの定義といくつかのタスクを追加します。これは、Windows Update を実行するための非常に基本的な Playbook です。一般的には、更新プロセスを実行するためにはさらに多くのタスク、例えば、サービスチケットの作成、バックアップの作成、または監視の無効化などが必要になる場合があります。そういった今回の演習では含まれていません。もちろん、別途他システムを Ansible と連携、または Ansible から操作することにより、全自動で行うことも可能です。  
+site.yml を編集し、プレイ定義といくつかのタスクを Playbook に追加します。これは、Windows Update
+をインストールするための非常に基本的な Playbook
+を形成します。通常、更新プロセス全体を実行するには、さらに多くのタスクが必要になります。これには、サービスチケットの作成、スナップショットの作成、または監視の無効化が含まれる場合があります。
 
 <!-- {% raw %} -->
+
 ```yaml
 ---
 - hosts: windows
@@ -40,137 +52,150 @@ Playbook 編集用のエディターが右ペインに開きます。
         category_names: "{{ categories | default(omit) }}"
         reboot: '{{ reboot_server | default(true) }}'
 ```
+
 <!-- {% endraw %} -->
 
-> **ヒント**
+> **注意*
 >
-> **上記の説明**
+> ***内容を説明します。**
 >
-> -   `win_updates:` このモジュールは、Windows 端末の新規パッチの確認またはインストールに使用されます。変数を使用して特定のカテゴリの更新のみをインストールするように指示しています。`reboot`属性は、必要に応じてリモートホストを自動的に再起動し再起動後も更新のインストールを続行します。 また、必要に応じて Survey を使って再起動を停止することも可能です。reboot_server 値が指定されていない場合、再起動属性を true に設定します。変数が二つありますが、こちらは、Automation Controller の Survey で入力します。
+> - - `win_updates:` このモジュールは、更新のチェックまたはインストールに
+>    使用されます。変数を使用して、特定のカテゴリーからのアップデートのみをインストールするように
+>    指示します。必要であれば `reboot` 属性はリモートホストを自動的に
+>    再起動し、再起動後に更新をインストールします。
+>    また、survey 変数を使用して、必要であっても
+>    再起動しないようにすることができます。reboot\_server 値が
+>    指定されていない場合は、再起動属性を yes に設定します。
 
-## 保存とコミット
+セクション 3: 保存してコミット
+===========================================
 
-改良された新しい Playbook の完成です♪  
-早速、変更を保存し、GitLabにコミットしましょう。  
+Playbook が完成しました。ただし、ソースコード管理への変更をコミットする必要があることを忘れないでください。
 
-`File` をクリックし、`Save` を選択。編集したファイルを保存します。  
+`File` → `Save All` をクリックして、書き込んだファイルを保存します
 
 ![site.yml](images/7-win_update-playbook.png)
 
-Source Control アイコンをクリックし (1)、変更内容例えば *Adding windows update playbook* を記述し (2)、上部の Commit ボタンをクリックします (3)。  
+ソースコードアイコン (1) をクリックし、*Adding windows update playbook* (2)
+などのコミットメッセージを入力して、上のチェックボックス (3) をクリックします。
 
-![Commit site.yml](images/7-win_update-commit.png)
+![site.yml のコミット](images/7-win_update-commit.png)
 
-左下の青いバーの矢印をクリックして、gitlab に同期します。  
+左下の青いバーの矢印をクリックして、gitlab に同期します。
 
 ![Push to Gitlab.yml](images/7-push.png)
 
-コミットが完了するまでに5〜30秒かかります。 青いバーは回転を停止し、問題が0であることを確認します...　
+コミットが完了するまで 5〜30 秒かかります。青いバーは回転を停止し、問題がないことを示しています...。
 
-## ジョブテンプレートの作成
+セクション 4: ジョブテンプレートの作成
+=======================================================
 
-Automation Controller の GUI に戻ってプロジェクトの同期を行います。理由は・・・、もうお分かりですね？  
+ここで、Controller に戻り、新しいファイルが表示されるようにプロジェクトを再同期する必要があります。
 
-次に、この Playbook を実行する新しいジョブテンプレートを作成する必要があります。*テンプレート*に移動して*追加*をクリックし、`ジョブテンプレート`を選択して新しいジョブテンプレートを作成します。
+次に、この Playbook を実行するための新しいジョブテンプレートを作成する必要があります。したがって、*Template* に移動し、*Add*
+をクリックして `Job Template` を選択し、新しいジョブテンプレートを作成します。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-次の値を使用してフォームに入力します。  
+次の値を使用してフォームに記入します
 
-| キー                | 値                      | 備考 |
+| Key                | Value                      | Note |
 |--------------------|----------------------------|------|
-| 名前               | Windows Updates            |      |
-| 説明        |                            |      |
-| ジョブタイプ           | 実行                        |      |
-| インベントリー          | Workshop Inventory |      |
-| プロジェクト            | Ansible Workshop Project   |      |
-| PLAYBOOK           | `win_updates/site.yml`     |      |
-| 認証情報 | Student Account            |      |
-| 制限              | windows                    |      |
-| オプション            | [*] ファクトキャッシュの有効化にチェック      |      |
+| NAME               | Windows Updates            |      |
+| DESCRIPTION        |                            |      |
+| JOB TYPE           | Run                        |      |
+| INVENTORY          | Workshop Inventory |      |
+| PROJECT            | Ansible Workshop Project   |      |
+| Playbook           | `win_updates/site.yml`     |      |
+| MACHINE CREDENTIAL | Student Account            |      |
+| LIMIT              | windows                    |      |
+| OPTIONS            | [\*] ENABLE FACT CACHE      |      |
 
-![Create Job Template](images/7-win_update-template.ja.jpg)
+![Create Job Template](images/7-win_update-template.png)
 
-### ステップ 2:
+ステップ 2
+--------------
 
-![Save](images/at_save.ja.jpg) をクリックし、ADD SURVEY ![Add](images/at_add_survey.ja.jpg) をクリックします。  
+SAVE ![保存](images/at_save.png) をクリックして、ADD SURVEY
+![追加](images/at_add_survey.png) を選択します。
 
-### ステップ 3:
+ステップ 3
+--------------
 
-Survey画面に以下を入力します。
+次の値を使用して survey フォームに記入します
 
-| キー                     | 値                                                                                                                                                  | 備考                                         |
+| Key                     | Value                                                                                                                                                  | Note                                         |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| プロンプト                  | カテゴリー                                                                                                                                             |                                              |
-| 説明             | どのカテゴリーのパッチをインストール？                                                                                                                           |                                              |
-| 回答の変数名    | categories                                                                                                                                             |                                              |
-| 回答タイプ             | 複数の選択 (複数の選択)                                                                                                                      | ***単一* 選択のオプションもあります** |
-| 複数選択のオプション |  Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |                                              |
-| デフォルトの応答          |  CriticalUpdates<br>SecurityUpdates                                                                                                                       |                                              |
-| 必須                | チェック                                                                                                                                               |                                              |
+| PROMPT                  | Categories                                                                                                                                             |                                              |
+| DESCRIPTION             | Which Categories to install?                                                                                                                           |                                              |
+| ANSWER VARIABLE NAME    | categories                                                                                                                                             |                                              |
+| ANSWER TYPE             | Multiple Choice (multiple select)                                                                                                                      | **There's also a *single* selection option** |
+| MULTIPLE CHOICE OPTIONS |  Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |                                              |
+| DEFAULT ANSWER          |  CriticalUpdates<br>SecurityUpdates                                                                                                                       |                                              |
+| REQUIRED                | Selected                                                                                                                                               |                                              |
 |                         |                                                                                                                                                        |                                              |
 
-![Category Survey Form](images/7-category-survey.ja.jpg)
+![カテゴリー survey フォーム](images/7-category-survey.png)
 
-入力が完了したら![Add](images/at_add.png) をクリックします。今作成した Survey 内容が右に追加されます。さらに、もう一つ Survey を追加します。  
+完了したら、ADD ![追加](images/at_add.png)
+ボタンをクリックします。新しいフィールドが右側に表示されます。次に、左側のフォームにもう一度入力して、別のフィールドを追加します。
 
-| キー                     | 値                                                   | 備考 |
+| Key                     | Value                                                   | Note |
 |-------------------------|---------------------------------------------------------|------|
-| プロンプト                  | Reboot after install?                                   |      |
-| 説明             | If the server needs to reboot, then do so after install |      |
-| 回答の変数名    | `reboot_server`                                         |      |
-| 回答タイプ             | 複数の選択 (単一の選択)                         |      |
-| 複数選択のオプション | Yes<br>No                                               |      |
-| デフォルトの応答          | Yes                                                     |      |
-| 必須                | チェック                                                |      |
+| PROMPT                  | Reboot after install?                                   |      |
+| DESCRIPTION             | If the server needs to reboot, then do so after install |      |
+| ANSWER VARIABLE NAME    | `reboot_server`                                         |      |
+| ANSWER TYPE             | Multiple Choice (single select)                         |      |
+| MULTIPLE CHOICE OPTIONS | Yes<br>No                                               |      |
+| DEFAULT ANSWER          | Yes                                                     |      |
+| REQUIRED                | Selected                                                |      |
 
-![Reboot Survey Form](images/7-reboot-survey.ja.jpg)
+![再起動 Survey フォーム](images/7-reboot-survey.png)
 
-### ステップ 4:
+ステップ 4
+--------------
 
-![Add](images/at_add.png)をクリックします。  
+ADD を選択します ![追加](images/at_add.png)
 
-### ステップ 5:
+ステップ 5
+--------------
 
-![Add](images/at_save.ja.jpg)をクリックします。  
+SAVE を選択します ![追加](images/at_save.png)
 
-### ステップ 6:
+ステップ 6
+--------------
 
-ジョブテンプレート画面に戻りますので、![Add](images/at_save.ja.jpg) をクリックします。  
+メインのジョブテンプレートページに戻り、もう一度 SAVE ![追加](images/at_save.png) を選択します。
 
-### playbook の起動
+セクション 6: 新しいプレイブックの実行
+=======================================================
 
-作成した Playbook を実行して、動くかどうか確認してみましょう♬  
+それを実行して、どのように機能するかを見てみましょう。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-テンプレートを選択します。  
+テンプレートを選択します
 
-> **ヒント**
+> **注意**
 >
-> ジョブテンプレートの作成ページから移動していない場合は、下にスクロールして既存のすべてのジョブテンプレートを表示することも可能です  
+> あるいは、ジョブテンプレートから移動していない場合
+> 作成ページでは、下にスクロールして既存のすべてのジョブテンプレートを表示できます
 
-### ステップ 2:
+ステップ 2
+--------------
 
-**Windows Updates**の右端にあるロケットアイコン ![Add](images/at_launch_icon.png) をクリックします！  
+**Windows Updates** ジョブテンプレートのロケットアイコン ![追加](images/at_launch_icon.png)
+をクリックします。
 
-### ステップ 3:
+ステップ 3
+--------------
 
-プロンプトが表示されたらUpdateのカテゴリーを選択し、さらに、*reboot after install?* に `Yes` を選択して、**次へ**をクリックします。  
+プロンプトが表示されたら、更新カテゴリを選択して入力します。*Reboot after install?* プロンプトに `Yes`
+と答えて、**Next** をクリックします。
 
-ジョブが起動したら、リダイレクトされ、ジョブの出力をリアルタイムで見ることができます。  
+ジョブの起動後、リダイレクトされ、ジョブの出力をリアルタイムで監視できます。
 
-### オプション演習:
-
-Windows 環境にインストール済みのパッチ一覧は PowerShell の以下のコマンドで取得可能です。  
-
-```
-Get-WMIObject Win32_QuickFixEngineering
-```
-
-これをアドホックコマンドで実行してみましょう。やり方は・・・、もう大丈夫ですね？♬  
-
-これで全ての演習は終了です！！  
-
-[ワークショップ一覧に戻る](../README.ja.md)
-
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../README.md)

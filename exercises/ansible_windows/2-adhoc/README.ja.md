@@ -1,156 +1,303 @@
-# 演習 2 - アドホックコマンド  
+セクション 1: アドホックコマンド
+==============================================
 
-**別の言語で読む**:![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+**他の言語でもお読みいただけます**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-この演習では、いくつかのアドホックコマンドを実行して、Ansibleがどのように機能するかを理解します。 Ansible アドホックコマンドを使用すると、Playbook を作成しなくてもリモートノードでタスクを実行できます。多くのリモートノードに対して1つまたは2つのことを簡単に行う必要がある場合に非常に便利です。  
+最初の演習では、Ansible の動作の感じをつかむために、いくつかアドホックコマンドを実行します。Ansible Ad-Hoc
+コマンドでは、playbook を使わずにリモートノードでタスクを実行できます。これらは、1 つまたは 2
+つのことを素早く多くのリモートノードに行う必要がある場合に便利です。
 
-### ステップ 1:
+ステップ 1
+--------------
 
-左パネルの **インベントリー**をクリックし、インベントリ **Workshop Inventory** をクリックします。  
-インベントリーの詳細が表示されたら**ホスト**をクリックします。  
+まず、インベントリーに移動する必要があります。したがって、左側のパネルの **Inventories** をクリックしてから、インベントリーの
+**Workshop Inventory** の名前をクリックします。Inventory Details
+ページが表示されたため、ホストを選択する必要があります。したがって、**HOSTS** をクリックします。
 
-各ホストの横にはチェックボックスがあります。アドホックコマンドを実行する Windows グループに属するホストの横にあるチェックボックスをオンにします。**コマンドの実行** ボタンが有効になったことを確認し、クリックします。  
+各ホストの横には、チェックボックスがあります。アドホックコマンドを実行したい各ホストの横にあるチェックボックスにチェックを入れます。**Run
+Command** ボタンを選択します。
 
-![Run Command](images/2-adhoc-run-command.ja.jpg)
+![コマンド実行](images/2-adhoc-run-command.png)
 
-**コマンドの実行** ウィンドウが表示されます。ここからアドホックコマンドを実行する事が出来ます。  
+これにより、**Execute Command** ウィンドウがポップアップ表示されます。ここから、ホストに対して単一のタスクを実行できます。
 
+まずは基本的なことから始めましょう。ホストに ping を実行します。`win_ping` モジュールは、Windows
+ホストが応答することを確認します。これは従来の *ping* ではありませんが、実際にはホストへの接続と認証の両方を検証します。
 
-まずは簡単なことから始めましょう♪  
-ホストへの ping です。 `win_ping` モジュールは、Windows ホストが応答することを確認します。これは一般的に知られているネットワークの*ping*ではなく、Ansible のターゲットホストへ接続と認証の両方を検証します。
+このフォームに次のように記入してください
 
+| Key                   | Value                                  | Note                                                           |
+| --------------------- | -------------------------------------- | -------------------------------------------------------------- |
+| Module                | `win_ping`                             |                                                                |
+| Arguments             |                                        | Intentionally blank                                            |
+| Limit                 |                                        | This should display the host you selected in the previous step |
 
-下記を入力ください。  
+**NEXT** ボタンをクリックします。
 
-| キー                | 値           | 備考                                                            |
-|--------------------|-----------------|-----------------------------------------------------------------|
-| モジュール             | `win_ping`      |                                                                 |
-| 引数         |                 | 空欄のままでOKです                                             |
-| 制限              |                 | 選択したホストが自動で入力されます |
-| マシンの認証情報 | Student Account |                                                                 |
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
 
-![Run Win\_Ping](images/2-adhoc-run-win_ping.ja.jpg)
+**NEXT** ボタンをクリックします。
 
-**起動** をクリックするとジョブ表示に切り替わります。Ansible Towerのすべてのジョブと実行内容は保存されます。これらのログは自動でローテーションする形式をとっていますが、Splunk や ELK などの別のログシステムに自動的にエクスポートすることもできます。  
-
-以下の通りログには、誰が、どのホストに対して、いつ、ジョブを実行したかなどの情報が含まれます。  
-
-![Win\_Ping Log Details](images/2-adhoc-run-win_ping-success.ja.jpg)
-
-また、実際の出力結果が表示されます。接続が成功した場合、次のような結果が表示されます。
-
-![Win\_Ping Log Details](images/2-adhoc-run-win_ping-output.ja.jpg)
-
-結果表示は、使用するモジュールによって異なります。タスクに応じて異なるデータセットを処理するためです。ただ、使用されているモジュールに関係なく、常に成功、失敗、変更、スキップのいずれかの色分けされたステータスが表示されます。これは共通です。  
-
-### ステップ 2:
-
-次に、`win_shell` モジュールを使用して PowerShell コマンドを実行し、出力を表示する方法を見てみましょう。
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
 
 
-| キー                | 値           | 備考 |
-|--------------------|-----------------|------|
-| モジュール             | `win_shell`     |      |
-| 引数          | `Get-Service`   |      |
-| マシンの認証情報 | Student Account |      |
+**LAUNCH** をクリックすると、ジョブログにリダイレクトされます。Automation Controller
+のすべてのジョブとアクションは記録され、保存されます。これらのログは、Splunk や ELK
+などの他のログシステムに自動的にエクスポートすることもできます。
+
+出力タブはデフォルトで表示されます。タスクによって生成された出力が表示されます。
+
+![Win\_Ping 出力](images/2-adhoc-run-win_ping-output.png)
+
+詳細タブには、タスクがいつ、誰によって、どのような認証情報で実行され、どのホストが影響を受けたかという情報が表示されます。
+
+![Win\_Ping 詳細](images/2-adhoc-run-win_ping-details.png)
+
+返される結果は、使用するモジュールによって異なります。これらはすべて、タスクに応じて異なるデータセットを処理および処理するためです。どのモジュールを使用する場合でも、SUCCESS、FAILURE、CHANGED、または
+SKIPPING のいずれかの色分けされたステータスが常に表示されます。
+
+ステップ 2
+--------------
+
+次に、PowerShell コマンドを実行し、`win_shell` モジュールを使用して出力を表示する方法を見てみましょう。
+
+もう 1 度フォームに入力しましょう。ただし、今回は `win_shell` モジュールを使用して `Get-Service` Powershell
+コマンドを実行します。
+
+| Key       | Value         | Note                                                           |
+| --------- | ------------- | -------------------------------------------------------------- |
+| Module    | `win_shell`   |                                                                |
+| Arguments | `Get-Service` |                                                                |
+| Limit     |               | This should display the host you selected in the previous step |
 
 
-ジョブを起動し、結果を確認してみましょう。Powershell コマンドが返した内容が直接表示されていることが分かります。この表示内容を変数に保存し、Ansible Playbook 内で利用することも可能です。  
+**NEXT** ボタンをクリックします。
 
-今度は引数に `Get-Process` を入力し、Powershell コマンドを実行してみましょう.
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
 
-| キー                | 値           | 備考 |
-|--------------------|-----------------|------|
-| モジュール             | `win_shell`     |      |
-| 引数          | `Get-Process`   |      |
-| マシン認証情報 | Student Account |      |
+**NEXT** ボタンをクリックします。
 
-### ステップ 3:
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
 
-次に、Ansible の強力な機能の1つである、対象ノードのファクト情報について演習してみましょう。今回の演習では、Windows ノードの構成を確認します。利用するのは、`setup` モジュールです。このモジュールはリモートホストからさまざまなデータを取得し、そのデータを Ansible ファクトとして返します。ファクトには、OSバージョン、ハードウェア構成、その他のデータポイントなどターゲットノードに関する様々な情報が含まれてており、この情報を基にタスク実行の要否を判断したり、OSバージョンに基づいたパッケージ名を決定したりなど、Playbook 内で様々な形で再利用することが可能です。  
+ジョブを起動し、結果を表示します。Powershell コマンドが返したものの直接出力が返されることがわかります。このデータは変数に保存でき、後で
+Ansible Playbook 内で直接解析できます。
 
-デフォルトで、 `setup` モジュールはすべての Playbook の先頭で自動的に実行されます。このため、このファクト情報は常に Playbook で利用可能です。
+そして、`Get-Process` Powershell コマンドを使用してもう 1 度実行します。
 
-早速 `setup` モジュールを実行して出力を見てみましょう。下記情報を使用して**コマンド実行**を行います。
+| Key       | Value         | Note                                                           |
+| --------- | ------------- | -------------------------------------------------------------- |
+| Module    | `win_shell`   |                                                                |
+| Arguments | `Get-Process` |                                                                |
+| Limit     |               | This should display the host you selected in the previous step |
 
-| キー                | 値           | 備考                |
-|--------------------|-----------------|---------------------|
-| モジュール             | `setup`         |                     |
-| 引数          |                 | 空欄のまま |
-| マシンの認証情報 | Student Account |                     |
 
-実行すると以下のような結果が確認できます。  
+**NEXT** ボタンをクリックします。
 
-![Setup Log Details](images/2-adhoc-run-setup-output.ja.jpg)
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
 
-(**Note:** 上記の出力の23行目に表示されている3つのドットをクリックすると、`setup` モジュールによって返されたすべてのファクトが表示されます)
+**NEXT** ボタンをクリックします。
 
-### ステップ 4:
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
 
-では、`win_feature` モジュールを使用して IIS をインストールしましょう。引数は、もう少し複雑になります。
+ステップ 3
+--------------
 
-| キー                | 値                           | 備考|
-|--------------------|---------------------------------|------|
-| モジュール             | `win_feature`                   |      |
-| 引数          | `name=Web-Server state=present` |      |
-| マシンの認証情報 | Student Account                 |      |
+ここからは、Windows ノードの構成を見ていきます。`setup` モジュールは、リモートホストにさまざまなデータを照会し、そのデータを
+Ansible
+ファクトとして返します。このデータは、オペレーティングシステムのバージョンやハードウェアの構成などを確認するのに役立ちます。これをプレイブックで利用することで、タスクを実行するかどうかを判断したり、OS
+のバージョンに応じてパッケージの名前を決定したりすることができます。
 
-ログテキストがオレンジ色になっていることがわかります。これは、システムに変更が加えられたことを示しており、緑は変更が加えられていないことを示しています。
+`setup` モジュールは、設定されていない限り、すべてのプレイブックの先頭で自動的に実行されるため、このデータは常に Playbook
+で利用できます。
 
-![Win\_Feature Log Details](images/2-adhoc-run-win_feature-output.ja.jpg)
+先に進み、`setup` モジュールを実行して出力を確認しましょう。**EXECUTE COMMAND** フォームにこの情報をもう一度入力します。
 
-### ステップ 5:
+| Key       | Value   | Note                                                           |
+| --------- | ------- | -------------------------------------------------------------- |
+| Module    | `setup` |                                                                |
+| Arguments |         | Intentionally blank                                            |
+| Limit     |         | This should display the host you selected in the previous step |
 
-IIS がインストールされたので、 `win_service` モジュールを使用して開始されていることを確認してみます。  
 
-| キー                | 値                      | 備考 |
-|--------------------|----------------------------|------|
-| モジュール             | `win_service`              |      |
-| 引数         | `name=W3Svc state=started` |      |
-| マシンの認証情報 | Student Account            |      |
+**NEXT** ボタンをクリックします。
 
-### ステップ 6:
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
 
-最後に、インストールした IIS をクリーンアップしましょう。まず、IIS サービスを止めます。  
+**NEXT** ボタンをクリックします。
 
-| キー                | 値                      | 備考 |
-|--------------------|----------------------------|------|
-| モジュール             | `win_service`              |      |
-| 引数          | `name=W3Svc state=stopped` |      |
-| マシンの認証情報 | Student Account            |      |
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
 
-### ステップ 7:
+以下のような出力が表示されるはずです。
 
-次に、IIS をアンインストールします。  
+![セットアップログの詳細](images/2-adhoc-run-setup-output.png)
 
-| キー                | 値                          | 備考 |
-|--------------------|--------------------------------|------|
-| モジュール             | `win_feature`                  |      |
-| 引数          | `name=Web-Server state=absent` |      |
-| マシンの認証情報 | Student Account                |      |
+(**注意:** 上記の出力の 21 行目に示されている 3 つのドットをクリックすると、`setup`
+モジュールによって返されるすべてのファクトが表示されます。)
 
-そして、ホストをリブートします。
+ステップ 4
+--------------
 
-| キー                | 値           | 備考                |
-|--------------------|-----------------|---------------------|
-| モジュール             | `win_reboot`    |                     |
-| 引数          |                 | 空欄のまま |
-| マシンの認証情報 | Student Account |                     |
+それでは、`win_feature` モジュールを使用して IIS をインストールしましょう。引数パラメーターはもう少し複雑になります。
 
-> **ヒント**
+| Key       | Value                           | Note                                                           |
+| --------- | ------------------------------- | -------------------------------------------------------------- |
+| Module    | `win_feature`                   |                                                                |
+| Arguments | `name=Web-Server state=present` |                                                                |
+| Limit     |                                 | This should display the host you selected in the previous step |
+
+
+**NEXT** ボタンをクリックします。
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+**NEXT** ボタンをクリックします。
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+
+ログテキストがオレンジ色になっていることがわかります。これは、システムに変更が加えられたことを示しています。一方、グリーンは以前に変更が行われていないことを示しています。
+
+![Win\_Feature Log Details](images/2-adhoc-run-win_feature-output.png)
+
+ステップ 5
+--------------
+
+さて、IIS がインストールされたので、`win_service` モジュールを使用して開始されていることを確認しましょう。
+
+| Key       | Value                      | Note                                                           |
+| --------- | -------------------------- | -------------------------------------------------------------- |
+| Module    | `win_service`              |                                                                |
+| Arguments | `name=W3Svc state=started` |                                                                |
+| Limit     |                            | This should display the host you selected in the previous step |
+
+
+**NEXT** ボタンをクリックします。
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+**NEXT** ボタンをクリックします。
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+
+
+ステップ 6
+--------------
+
+最後に、クリーンアップを行います。まず、IIS サービスを停止します。
+
+| Key       | Value                      | Note                                                           |
+| --------- | -------------------------- | -------------------------------------------------------------- |
+| Module    | `win_service`              |                                                                |
+| Arguments | `name=W3Svc state=stopped` |                                                                |
+| Limit     |                            | This should display the host you selected in the previous step |
+
+
+**NEXT** ボタンをクリックします。
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+**NEXT** ボタンをクリックします。
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
+
+ステップ 7
+--------------
+
+次に、IIS 機能を削除します。
+
+| Key       | Value                          | Note                                                           |
+| --------- | ------------------------------ | -------------------------------------------------------------- |
+| Module    | `win_feature`                  |                                                                |
+| Arguments | `name=Web-Server state=absent` |                                                                |
+| Limit     |                                | This should display the host you selected in the previous step |
+
+
+**NEXT** ボタンをクリックします。
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+**NEXT** ボタンをクリックします。
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
+
+そして、ホストを再起動します。
+
+| Key       | Value        | Note                                                           |
+| --------- | ------------ | -------------------------------------------------------------- |
+| Module    | `win_reboot` |                                                                |
+| Arguments |              | Intentionally blank                                            |
+| Limit     |              | This should display the host you selected in the previous step |
+
+
+**NEXT** ボタンをクリックします。
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+**NEXT** ボタンをクリックします。
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
+
+> **注意**
 >
-> この `win_reboot` モジュールはマシンをリブートさせ、終了する前の状態に完全に戻るのを待ちます。例えば Playbook の途中でホストを再起動する必要がある場合、ホストにアクセスできなくて Playbook の残りの部分の失敗になる事はありません。便利ですね。♬    
+> `win_reboot` モジュールはマシンを再起動させ、その後
+> 終了する前に、完全に元に戻るのを待ちます。この場合、
+> Playbook の途中でホストを再起動する必要があり、Playbook の残りは、
+> ホストにアクセスできないため、失敗しません。
 
+結果
+------
 
+アドホックコマンドは、時折実行すると便利な場合があります。ただし、自動化が環境内で成長し続けるにつれて、自動化の使用頻度はますます少なくなっています。上記の
+IIS の例では、面倒な一連のアドホックコマンドを介して実行するのではなく、Playbook
+に書き出すことができたはずです。このアドホックコマンドとの相互作用は、CLI
+からの個々のコマンドの実行を模倣しているように見えます。追加の演習で、これがより明確になります。
 
-## まとめ
-
-アドホックコマンドは、本当の意味でアドホックに実行する際に役に立ちます。逆に、皆さんもこの演習でちょっと感じたかもしれませんが、環境内で自動化が大きくなると、アドホックコマンドの実行は面倒になってきます。上記の IIS の例では、本来は、面倒な一連のアドホックコマンド実行ではなく、Playbook 化して実行する方が良かったと思います。アドホックコマンド利用は、CLIからの個々のコマンドの実行に似ていますよね。これは Playbook を使った演習で、より明確になります。
-
-*こんなコメントを確認しましたか？* Windows サーバーでタスクが実行されると、Ansible はそのタスクを実行した後の再起動の要否も同時に取得可能です。以下は、IIS 機能を削除するコマンドの出力の一部です。このタスクの出力は、続行する前に再起動するかどうかが含まれており、ここを確認の後、rebbot_required = true なら、後続のタスクでリブートを実行するようなことも可能です。  
+*お気づきでしょうか。*タスクが Windows サーバーで実行される場合、Ansible は、そのタスクの実行後に再起動が必要かどうかをスマートに認識しています。以下は、IIS 機能を削除するコマンドの出力の一部です。このタスクの出力は、続行する前に再起動するかどうかなど、後続のタスクで使用できます。
 
 ![Reboot required](images/2-adhoc-reboot-required.png)
-
-
-[ワークショップ一覧に戻る](../README.ja.md)
+<br><br>
+[Click here to return to the Ansible for Windows Workshop](../README.md)

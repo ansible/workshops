@@ -1,106 +1,191 @@
-# Exercise 1 - ラボ環境の確認
+# 演習 1 - ラボ環境の探索
 
-**別の言語で読む**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md)
 
-## Table of Contents
+## 目次
 
-- [Objective](#objective)
-- [Diagram](#diagram)
-- [Guide](#guide)
+* [目的](#objective)
+* [図](#diagram)
+* [ガイド](#guide)
+   * [ステップ 1 - VS Code を使用した接続](#step-1---connecting-via-vs-code)
+   * [ステップ 2 - ターミナルの使用](#step-2---using-the-terminal)
+   * [ステップ 3 - 実行環境の検証](#step-3---examining-execution-environments)
+   * [ステップ 4 - ansible-navigator
+     設定の検証](#step-4---examining-the-ansible-navigator-configuration)
+   * [ステップ 5 - インベントリーの検証](#step-5---examining-inventory)
+   * [ステップ 6 - インベントリーについて](#step-6---understanding-inventory)
+   * [ステップ 7 - ansible-navigator
+     を使用したインベントリーの探索](#step-7---using-ansible-navigator-to-explore-inventory)
+   * [ステップ 8 - ネットワークデバイスへの接続](#step-8---connecting-to-network-devices)
+* [完了](#complete)
 
-# Objective
+## 目的
 
-ラボ環境を確認して理解します。この演習は以下を含みます。
-- コントロールノードで稼働する Ansible バージョンを確認します。
-- Ansible の設定ファイル (`ansible.cfg`)を理解する。
-- `ini` 形式のインベントリーファイルを理解する。
+ラボ環境を調べて理解します。
 
-演習を開始する前にぜひSlackへ参加してみましょう。[日本のAnsibleコミュニティ](https://ansible-users.connpass.com) [日本のAnsible slack コミュニティ](https://ansiblejp.slack.com/join/shared_invite/enQtNzQwNTEyNTc2Mjc3LTRmYzBkY2FhM2RhOGIzNjVhYTczMDdiODY0YWFiMjdmMGRkNGJiZDYzN2I4M2NjZDA5MjkxYzU3ZWQyMzFhYjU) [海外のAnsible slack コミュニティ](https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw)。参加すると他の自動化エンジニアと交流し、情報交換することが可能です。
+この最初のいくつかのラボ演は、Ansible Automation Platform
+のコマンドラインユーティリティーを使用します。これには、以下が含まれます。
 
-# Diagram
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) -
+Ansible オートメーションコンテンツを実行・開発するためのコマンドラインユーティリティとテキストベースのユーザーインターフェース（TUI）。-
+[ansible-core](https://docs.ansible.com/core.html) - Ansible Automation
+Platform
+を支えるフレームワーク、言語、機能を提供する基本的な実行ファイルです。また、`ansible`、`ansible-playbook`、`ansible-doc`
+などのさまざまなクリエートツールも含まれています。Ansible Coreは、無料でオープンソースのAnsibleを提供する上流のコミュニティと、Red
+Hatが提供する下流のエンタープライズオートメーション製品であるAnsible Automation Platformとの橋渡しの役割を果たします。-
+[実行環境](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html)
+- このワークショップでは特に取り上げません。なぜなら、ビルトインの Ansible 実行環境には、Red
+Hatがサポートするすべてのコレクションがすでに含まれており、このワークショップで使用するすべてのネットワークコレクションも含まれているからです。実行環境とは、Ansible
+の実行環境として利用できるコンテナイメージです。-
+[ansible-builder](https://github.com/ansible/ansible-builder) -
+このワークショップでは特に取り上げませんが、`ansible-builder`
+は実行環境の構築プロセスを自動化するためのコマンドラインユーティリティです。
 
-![Red Hat Ansible Automation Lab Diagram](../../../images/network_diagram.png)
+Ansible Automation Platformの新しいコンポーネントに関する情報が必要な場合は、このランディングページをブックマークしてください
+[https://red.ht/AAP-20](https://red.ht/AAP-20)
 
-この環境には rtr1, rtr2, rtr3, rtr4 と名付けられた4つのルーターがあります。[この図](../README.ja.md)はワークショップ中にいつでも参照できます。SSH設定ファイル (~/.ssh/config)は設定済みで、コントローラーノードから各ルーターへ簡単に接続できるようになっています。
+> チャットでコミュニケーションしましょう
+>
+> 始める前に、slack にご参加ください! <a href="https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw">ansiblenetwork slack に参加するには、こちらをクリック</a>。これにより、他のネットワーク自動化エンジニアとチャットしたり、ワークショップの終了後にサポートを受けたりすることができます。リンクが古くなっている場合は、<a href="mailto:ansible-network@redhat.com">Ansible テクニカルマーケティング</a></th> にメールでご連絡ください。
 
-例えば、コントローラーノードから rtr1 へ接続する場合は、以下のように入力します:
+
+## 図
+
+![Red Hat Ansible
+Automation](https://github.com/ansible/workshops/raw/devel/images/ansible_network_diagram.png)
+
+
+
+## ガイド
+
+### ステップ 1 - VS Code を使用した接続
+
+<table>
+<thead>
+  <tr>
+    <th>ワークショップの演習には、Visual Studio Codeの使用が強く推奨されます。Visual Studio Codeは以下を提供します。
+    <ul>
+    <li> ファイルブラウザ</li>
+    <li>構文強調表示の機能付きテキストエディタ</li>
+    <li>ブラウザ内ターミナル</li>
+    </ul>
+    バックアップとして、あるいはVisual Studio Codeでは不十分な場合には、SSHによる直接アクセスが可能です。さらなる説明が必要な場合は、短い YouTube ビデオが用意されています。<a href="https://youtu.be/Y_Gx4ZBfcuk"> Ansible Workshops - ワークベンチ環境へのアクセス</a>
+</th>
+</tr>
+</thead>
+</table>
+
+- ワークショップの起動ページ（講師が用意したもの）からVisual Studio
+Codeに接続します。パスワードは、WebUIのリンクの下に記載されています。
+
+  ![launch page](images/launch_page.png)
+
+- 接続する提供されたパスワードを入力します。
+
+  ![login vs code](images/vscode_login.png)
+
+- Visual Studio Code で `network-workshop` ディレクトリーを開きます。
+
+  ![picture of file browser](images/vscode-networkworkshop.png)
+
+- `playbook.yml` をクリックしてコンテンツを表示します。
+
+  ![picture of playbook](images/vscode-playbook.png)
+
+### ステップ 2 - ターミナルの使用
+
+- Visual Studio Code でターミナルを開きます。
+
+  ![picture of new terminal](images/vscode-new-terminal.png)
+
+Ansible コントロールノードターミナルで `network-workshop` ディレクトリーに移動します。
 
 ```bash
-[student1@ansible ~]$ ssh rtr1
-```
-
-この環境ではユーザー名、パスワードを入力する必要はありません。
-
-# Guide
-
-## Step 1
-
-コントローラーノードの `network-workshop` ディレクトリへ移動します。プロンプトの `ansible` はホスト名を示し、これは正しいノード上にいることを示しています。
-
-```
-[student1@ansible ~]$ cd ~/network-workshop/
-[student1@ansible network-workshop]$
-[student1@ansible network-workshop]$ pwd
+[student1@ansible-1 ~]$ cd ~/network-workshop/
+[student1@ansible-1 network-workshop]$ pwd
 /home/student1/network-workshop
-```
- - `~` - チルダはホームディレクトリ `/home/student1` の短縮表記
- - `cd` - ディレクトリを移動するコマンド
- - `pwd` - 現在のディレクトリを表示するコマンドで、フルパスが表示されます。
-
-## Step 2
-
-`ansible` コマンドを `--version` オプションをつけて実行すると、Ansible に関する情報を確認することができます:
-
-```
-[student1@ansible ~]$ ansible --version
-ansible 2.8.1
-  config file = /home/student1/.ansible.cfg
-  configured module search path = [u'/home/student1/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/lib/python2.7/site-packages/ansible
-  executable location = /usr/bin/ansible
-  python version = 2.7.5 (default, Jun 11 2019, 12:19:05) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
+[student1@ansible-1 network-workshop]$
 ```
 
-> Note: Ansibleのバージョンは上記の表示と異なる場合があります。
+* `~` - このコンテキストでのチルダは `/home/student1` のショートカットです
+* `cd` - ディレクトリーを変更する Linux コマンド
+* `pwd` - 作業ディレクトリーを印刷するための Linux コマンド。これにより、現在の作業ディレクトリーへのフルパスが表示されます。
 
-このコマンドはAnsibleのバージョン、実行ファイルの場所、Pythonのバージョン、モジュールの検索パスと `ansible の設定ファイル` の場所を表示します。
+### ステップ 3 - 実行環境の検証
 
-## Step 3
-
-`cat` コマンドで `ansible.cfg` ファイルの内容を確認します(実際の環境の値とは異なる部分があるかもしれませんが演習には影響はありません)。
-
-```
-[student1@ansible ~]$ cat ~/.ansible.cfg
-[defaults]
-stdout_callback = community.general.yaml
-connection = smart
-timeout = 60
-deprecation_warnings = False
-host_key_checking = False
-retry_files_enabled = False
-inventory = /home/student1/lab_inventory/hosts
-[persistent_connection]
-connect_timeout = 60
-command_timeout = 60
-```
-
-`ansible.cfg` に含まれる以下の値に注意してください:
-
- - `inventory`: Ansibleインベントリーファイルの場所が示されます。
-
-## Step 4
-
-`playbook` の `play` のスコープは **インベントリー** で宣言されたグループに制限されます。Ansible は複数の [インベントリー](http://docs.ansible.com/ansible/latest/intro_inventory.html) タイプをサポートしています。インベントリーはPlaybookの対象となるホストの一覧を持つシンプルなフラットファイルです。それ以外に、ホストの一覧を返すスクリプト（裏側でCMDBに問い合わせを行う）も利用可能です。
-
-この演習では **ini** 形式で記述されたファイルベースのインベントリーを利用します。`cat` コマンドを利用して演習環境のインベントリーを確認してみます。
+`ansible-navigator` 引数を指定して `images` コマンドを実行し、コントロールノードに設定された実行環境を確認します。
 
 ```bash
-[student1@ansible ~]$ cat ~/lab_inventory/hosts
+$ ansible-navigator images
 ```
 
+![ansible-navigator images](images/navigator-images.png)
+
+
+> 注記
+>
+> 表示される出力は、上記の出力とは異なる場合があります
+
+このコマンドは、現在インストールされているすべての実行環境（略してEE）に関する情報を提供します。対応する番号を押すことで、EE
+を調べることができます。例えば、上記の例で **2** を押すと、`ee-supported-rhel8` の実行環境が表示されます。
+
+![ee メインメニュー](images/navigator-ee-menu.png)
+
+`2` に `Ansible version and collections` を選択すると、その特定の EE にインストールされたすべての
+Ansible Collections と、`ansible-core` のバージョンが表示されます。
+
+![ee info](images/navigator-ee-collections.png)
+
+### ステップ 4 - ansible-navigator 設定の検証
+
+Visual Studio Code を使用して `ansible-navigator.yml` ファイルを開くか、`cat`
+コマンドを使用してファイルの内容を表示します。このファイルはホームディレクトリーにあります。
+
+```bash
+$ cat ~/.ansible-navigator.yml
+---
+ansible-navigator:
+  ansible:
+    inventories:
+    - /home/student1/lab_inventory/hosts
+
+  execution-environment:
+    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
+    enabled: true
+    container-engine: podman
+    pull-policy: missing
+    volume-mounts:
+    - src: "/etc/ansible/"
+      dest: "/etc/ansible/"
 ```
+
+`ansible-navigator.yml` ファイル内の次のパラメータに注意してください。
+
+* `inventories`: 使用されている Ansible インベントリーの場所を示します
+* `execution-environment`: デフォルトの実行環境が設定されている場所
+
+設定可能なすべての knob
+の詳細な一覧については、[ドキュメント](https://ansible-navigator.readthedocs.io/en/latest/settings/)
+を参照してください。
+
+### ステップ 5 - インベントリーの検証
+
+`playbook` 内の `play` の範囲は、Ansible **inventory**
+内で宣言されたホストのグループに制限されます。Ansible は複数の
+[インベントリー](http://docs.ansible.com/ansible/latest/intro_inventory.html)
+タイプに対応しています。インベントリーは、その中で定義されたホストのコレクションが含まれるシンプルなファイルや、Playbook
+を実行するデバイスのリストを生成する動的スクリプト (CMDBバックエンドのクエリーを行うものなど) が考えられます。
+
+このラボでは、**ini** 形式で記述されたファイルベースのインベントリーを操作します。Visual Studio Code を使用して
+`~/lab_inventory/hosts` ファイルを開くか、`cat` コマンドを使用してファイルの内容を表示します。
+
+```bash
+$ cat ~/lab_inventory/hosts
+```
+
+```bash
 [all:vars]
-ansible_ssh_private_key_file=/home/student1/.ssh/aws-private.pem
+ansible_ssh_private_key_file=~/.ssh/aws-private.pem
 
 [routers:children]
 cisco
@@ -144,45 +229,108 @@ rtr4
 ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
 ```
 
-## Step 5
+### ステップ 6 - インベントリーについて
 
-上記の出力では、すべての `[ ]` はグループを定義しています。例えば `[dc1]` はホスト `rtr1` と `rtr3` を含むグループです。グループは _ネスト_ することが可能です。`[routers]` グループは `[cisco]` の親グループになります。
+上記の出力では、すべての `[ ]` がグループを定義しています。たとえば、`[dc1]` は、ホスト `rtr1` と `rtr3`
+を含むグループです。グループは _ネスト_ することもできます。グループ `[routers]` はグループ `[cisco]` の親グループです
 
-> 親グループは `children` ディレクティブを使って宣言されます。ネストされたグループを用いると、柔軟な変数割当が可能となります。
+親グループは、`children`
+ディレクティブを使用して宣言されます。ネストされたグループがあると、より具体的な値を変数に柔軟に割り当てることができます。
 
+グループとホストには、変数を関連付けることができます。
 
-> Note: **all** というグループは常に存在し、インベントリー内で定義された全てのグループとホストを含みます。
+> 注記:
+>
+> ** all ** というグループは常に存在し、インベントリ内で定義されたすべてのグループとホストが含まれます。
 
+ホスト変数は、ホスト自体と同じ行で定義できます。たとえば、ホスト `rtr1` の場合:
 
-変数をグループやホストへと割り当てることが可能です。
-
-ホスト変数はホスト自身の定義と同じ行で定義できます。例えば、`rtr1` では:
-
-```
+```sh
 rtr1 ansible_host=18.222.121.247 private_ip=172.16.129.86
 ```
 
- - `rtr1` - Ansibleが使う名前で、DNSと連携する必要はありません。
- - `ansible_host` - Ansibleが接続に利用するIPアドレス。指定しない場合は、名前をDNSへ問い合わせます。
- - `private_ip` - ユーザーが定義した [ホスト変数](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables) で、この値をPlaybook内で使うことができるようになります。もしくは、全く無視してしまっても問題ありません。
+* `rtr1` - Ansible が使用する名前。これは DNS に依存できますが、必須では必要ありません
+* `ansible_host` - ansible が使用する IP アドレス。設定されていない場合は、デフォルトで DNS になります
+* `private_ip` - この値は ansible によって予約されていないため、デフォルトで
+  [ホスト変数](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables)
+  になります。この変数は、Playbook で使用することも、完全に無視することもできます。
 
-グループ変数は `vars` ディレクティブで宣言できます。グループ変数を使うと、複数のホストに共通の値を柔軟に指定できます。グループ変数は `[group_name:vars]` セクション以下で定義されます。例として `cisco` を見てみます:
+グループ変数グループは、`vars`
+ディレクティブを使用して宣言されます。グループを持つことで、共通の変数を複数のホストに柔軟に割り当てることができます。`[group_name:vars]`
+セクションで複数のグループ変数を定義できます。たとえば、グループ `cisco` を見てください。
 
-```
+```sh
 [cisco:vars]
 ansible_user=ec2-user
 ansible_network_os=ios
 ansible_connection=network_cli
 ```
 
- - `ansible_user` - Ansibleがこのホスト/グループにログインするために利用するユーザー名で、設定されていない場合はデフォルトでPlaybookを実行したユーザーの名前が利用されます。
- - `ansible_network_os` - この次に定義されている `network_cli` コネクションタイプが利用される場合にこの定義は必須となります。
- - `ansible_connection` - この変数は [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) をこのグループに設定します。これは `netconf`, `httpapi` `network_cli` など対象のネットワークプラットフォームがサポートしている形式を設定します。
+* `ansible_user` - ユーザー ansible
+  は、このホストへのログインに使用されます。設定されていない場合は、デフォルトで、プレイブックの実行元のユーザーになります。
+* `ansible_network_os` - この変数は、後で説明するように、play 定義内で `network_cli`
+  接続タイプを使用するときに必要です。
+* `ansible_connection` - この変数は、このグループの
+  [接続プラグイン](https://docs.ansible.com/ansible/latest/plugins/connection.html)
+  を設定します。これは、この特定のネットワークプラットフォームがサポートするものに応じて、`netconf`、`httpapi`、`network_cli`
+  などの値に設定できます。
+
+### ステップ 7 - ansible-navigator を使用したインベントリーの探索
+
+`ansible-navigator` TUI を使用してインベントリーを調べることもできます。
+
+`ansible-navigator inventory` コマンドを実行して、TUI にインベントリーを取り込みます。
+
+![ansible-navigator tui](images/ansible-navigator.png)
+
+キーボードで **0** または **1** を押すと、それぞれグループまたはホストが開きます。
+
+![ansible-navigator groups](images/ansible-navigator-groups.png)
+
+**Esc** キーを押して、上のレベルに移動することができます。または、個々のホストにズームできます。
+
+![ansible-navigator host](images/ansible-navigator-rtr-1.png)
+
+### ステップ 8 - ネットワークデバイスへの接続
+
+ラボ環境には、rtr1、rtr2、rtr3、rtr4 という名前の 4
+つのルーターがあります。ネットワークの図は、[ネットワーク自動化ワークショップの目次](../README.md) でいつでも利用できます。SSH
+設定ファイル (`~/.ssh/config`)
+はすでにコントロールノードにセットアップされています。したがって、コントロールノードから任意のルーターにログインせずに SSH で接続できます。
+
+たとえば、Ansible コントロールノードから rtr1 に接続するには、次のように入力します。
+
+```bash
+$ ssh rtr1
+```
+
+例:
+```
+$ ssh rtr1
+Warning: Permanently added 'rtr1,35.175.115.246' (RSA) to the list of known hosts.
 
 
-# Complete
 
-以上で exercise 1 は終了です。
+rtr1#show ver
+Cisco IOS XE Software, Version 16.09.02
+```
+
+## 完了
+
+ラボ演習 1 を完了しました!  
+
+以下の内容について理解できるようになりました。
+
+* Visual Studio Code を使用してラボ環境に接続する方法
+* `ansible-navigator` を使用して **実行環境** を調べる方法
+* Ansible Navigator 設定 (`ansible-navigator.yml`) が保管される場所
+* インベントリーがコマンドライン演習用に保存されている場所
+* ansible-navigator TUI（テキストベースのユーザーインターフェース）の使用方法
+
+
 
 ---
-[Click Here to return to the Ansible Network Automation Workshop](../README.ja.md)
+[次の演習](../2-first-playbook/README.md)
+
+[Click Here to return to the Ansible Network Automation
+Workshop](../README.md)

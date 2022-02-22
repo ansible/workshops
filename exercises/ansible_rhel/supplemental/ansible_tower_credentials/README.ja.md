@@ -1,46 +1,71 @@
-# 演習 2.2 - インベントリー、認証情報、アドホックコマンド
+# Exercise 2.2 - Inventories, credentials and ad hoc commands
 
 **Read this in other languages**: ![uk](../../../../images/uk.png) [English](README.md),  ![japan](../../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md).
 
-* [インベントリーの作成](#インベントリーの作成)
-* [マシンの認証情報](#マシンの認証情報)
-* [マシン認証情報の作成](#マシン認証情報の作成)
-* [アドホックコマンドの実行](#アドホックコマンドの実行)
-* [チャレンジラボ: アドホックコマンド](#チャレンジラボ-アドホックコマンド)
+* [Create an Inventory](#create-an-inventory)
+* [Machine Credentials](#machine-credentials)
+* [Configure Machine Credentials](#configure-machine-credentials)
+* [Run Ad Hoc Commands](#run-ad-hoc-commands)
+* [Challenge Lab: Ad Hoc Commands](#challenge-lab-ad-hoc-commands)
 
-## インベントリーの作成
+## Create an Inventory
 
-まず必要なのは、管理対象ホストの一覧です。これは Ansible Engine のインベントリーファイルに相当します。インベントリーにはダイナミックインベントリーなど、高度なものもありますが、まずは基本的なところから始めてみましょう。  
+Let’s get started with: The first thing we need is an inventory of your
+managed hosts. This is the equivalent of an inventory file in Ansible
+Engine. There is a lot more to it (like dynamic inventories) but let’s start
+with the basics.
 
-  - ブラウザで **https://student<X\>.<abcd\>.rhdemo.io** に接続しログインします。  
-  <X\> <abcd\> に関しては環境ごとにユニークな値です。講師の指示に基づき入力してください。  
-  ユーザーは `admin` パスワードは講師より指示があります。  
+  - You should already have the web UI open, if not: Point your browser to
+    the URL you were given, similar to
+    **https://student\<X\>.workshopname.rhdemo.io** (replace "\<X\>" with
+    your student number and "workshopname" with the name of your current
+    workshop) and log in as `admin`. The password will be provided by the
+    instructor.
 
-インベントリの作成は以下のように行います。  
+Create the inventory:
 
-  - 左側のWeb UIメニューで、**インベントリー** をクリックし、右端の ![plus](images/green_plus.png) ボタンをクリック。表示されるプルダウンの中から、インベントリーを選択します。  
+  - In the web UI menu on the left side, go to **RESOURCES** →
+    **Inventories**, click the ![plus](images/green_plus.png) button on the
+    right side and choose **Inventory**.
 
-  - **名前:** Workshop Inventory  
+  <table>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>NAME</td>
+      <td>Workshop Inventory</td>
+    </tr>
+    <tr>
+      <td>ORGANIZATION</td>
+      <td>Default</td>
+    </tr>
+  </table>
 
-  - **組織:** Default  
+  - Click **SAVE**
 
-  - **保存** をクリック  
+Now there will be two inventories, the **Demo Inventory** and the **Workshop
+Inventory**. In the **Workshop Inventory** click the **Hosts** button, it
+will be empty since we have not added any hosts there.
 
-ブラウザ下部に、利用可能なインベントリーが表示されていますので確認してみましょう。 Ansible Tower にあらかじめ作成されている **Demo Inventory** と、今作成した **Workshop Inventory** の2つが存在していることが分かります。ブラウザ上部に戻って、 **Workshop Inventory** の中にある **ホスト** ボタンをクリックすると、まだホストを 1 台も登録していないのでリストが空であることが分かります。  
+So let's add some hosts. First we need to have the list of all hosts which
+are accessible to you within this lab. These can be found in an inventory on
+the ansible control node on which Tower is installed. You'll find the
+password for the SSH connection there as well.
 
-早速ホストを追加してみましょう。まず、登録するためのホスト一覧を取得する必要があります。このラボ環境では、Tower がインストールされている ansible Control Host & Tower 上のインベントリーファイルに利用可能なホスト一覧が記述されていますのでそちらを確認してみます。  
+Login to your Tower control host via SSH:
 
-Tower サーバーに SSH でログインします。  
-
-> **注意**
+> **Warning**
 >
-> student\<X\> の \<X\> の部分は、各自与えられた Student 番号を入力ください。また、11.22.33.44の部分は、各自与えられた、ansible Control Hot & Tower の IP アドレスを入力ください。  
+> Replace **workshopname** by the workshop name provided to you, and the **X** in student**X** by the student number provided to you.
 
 ```bash
-ssh student<X>@11.22.33.44
+ssh student<X>@student<X>.workshopname.rhdemo.io
 ```
 
-インベントリーファイルの場所は、Tower ホスト上の、 `~/lab_inventory/hosts` です。 cat で確認してみましょう。
+You can find the inventory information at `~/lab_inventory/hosts`. Output
+them with `cat`, they should look like:
 
 ```bash
 $ cat ~/lab_inventory/hosts
@@ -57,44 +82,58 @@ node3 ansible_host=44.55.66.77
 [control]
 ansible-1 ansible_host=11.22.33.44
 ```
-> **注意**
+> **Warning**
 >
-> 表示される IP アドレスは各自固有のものになっていますので、上記とは異なります。  
+> In your inventory the IP addresses will be different.
 
-node1、node2 などのホストの名前と IP addresses を控えておいてください。これらの情報を以下の手順で Tower のインベントリーに登録していきます。  
+Note the names for the nodes and the IP addresses, we will use them to fill
+the inventory in Tower now:
 
-  - Tower のインベントリービューで **Workshop Inventory** をクリックします  
+  - In the inventory view of Tower click on your **Workshop Inventory**
 
-  -  **ホスト** をクリックします  
+  - Click on the **HOSTS** button
 
-  -  ![plus](images/green_plus.png) ボタンをクリックします  
+  - To the right click the ![plus](images/green_plus.png) button.
 
-  - **ホスト名** `node1`  
+  - **HOST NAME:** `node1`
 
-  - **変数** 3つのハイフン `---` の下（2行目）に、 `ansible_host: 22.33.44.55` を入力します。 IP アドレス、`22.33.44.55` については、先ほど `node1` について確認した IP アドレスに置き換えてください。記述方法についても注意してください。コロン **:** と IP アドレスの間にはスペースが必要です。また、インベントリーファイルで利用するような **=** で記述してはいけません。  
+  - **Variables:** Under the three dashes `---`, enter `ansible_host:
+    22.33.44.55` in a new line. Make sure to enter your specific IP address
+    for your `node1` from the inventory looked up above, and note that the
+    variable definition has a colon **:** and a space between the values,
+    not an equal sign **=** like in the inventory file.
 
-  -  **保存** をクリックします  
+  - Click **SAVE**
 
-  -  **ホスト** に戻って `node2` と `node3` を上記と同様の手順で追加します。  
+  - Go back to **HOSTS** and repeat to add `node2` as a second host and
+    `node3` as a third node. Make sure that for each node you enter the
+    right IP addresses.
 
-これで Tower で管理する 3 台のホストに対するインベントリーファイルの作成が完了です?  
+You have now created an inventory with three managed hosts.
 
-## マシンの認証情報
+## Machine Credentials
 
-Ansible Tower は、ホストやクラウド等の認証情報をユーザーに開示せずに利用可能にするという優れた機能を持っています。 Tower がインベントリー登録したリモートホスト上でジョブを実行できるようにするには、リモートホストの認証情報を設定する必要があります。
+One of the great features of Ansible Tower is to make credentials usable to
+users without making them visible. To allow Tower to execute jobs on remote
+hosts, you must configure connection credentials.
 
-> **メモ**
+> **Note**
 >
-> これは Tower が持っている重要な機能の一つ **認証情報の分離の機能です**\! 認証情報はホストやインベントリーの設定とは別で強固に管理することが可能です。
+> This is one of the most important features of Tower: **Credential Separation**\! Credentials are defined separately and not with the hosts or inventory settings.
 
-Tower の重要な機能なので、まずはコマンドラインでラボ環境について確認してみましょう。
+As this is an important part of your Tower setup, why not make sure that
+connecting to the managed nodes from Tower is working?
 
-SSH 経由で Tower ホストにログインします。
+ To access the Tower host via SSH do the following:
 
-  - Tower コントローラーへ SSH でログインします: `ssh student<X>@student<X>.workshopname.rhdemo.io`
-  - \<X\> の部分と、workshopname は各自のものに置き換えてください。
-
-  - `node1` に SSH 接続し、 `sudo -i` を実行してみます。 SSH 接続の際はパスワード入力が要求されますが、 `sudo -i` に関してはパスワードは要求されません。
+- Login to your Tower control host via SSH: `ssh
+  student<X>@student<X>.workshopname.rhdemo.io`
+- Replace **workshopname** by the workshop name provided to you, and the
+  `<X>` in `student<X>` by the student number provided to you.
+- From Tower SSH into `node1` or one of the other nodes (look up the IP
+  addresses from the inventory) and execute `sudo -i`.
+- For the SSH connection use the node password from the inventory file,
+  `sudo -i` works without password.
 
 ```bash
 [student<X>@ansible-1 ~]$ ssh student<X>@22.33.44.55
@@ -104,102 +143,120 @@ Last login: Thu Jul  4 14:47:04 2019 from 11.22.33.44
 [root@node1 ~]#
 ```
 
-これはどういう意味でしょう？  
+What does this mean?
 
-  - **student<X\>** は、インベントリーで指定した管理対象ホストにパスワードベースの SSH で接続可能  
+  - Tower user **student\<X>** can connect to the managed hosts with
+    password based SSH
 
-  - **student<X\>** は、 `sudo`  による権限昇格で、**root** としてコマンド実行が可能  
+  - User **student\<X>** can execute commands on the managed hosts as
+    **root** with `sudo`
 
-## マシン認証情報の作成  
+## Configure Machine Credentials
 
-では早速 Tower で認証情報を作成してみましょう。 Tower　左側のメニューから **認証情報** をクリックします。  
+Now we will configure the credentials to access our managed hosts from
+Tower. In the **RESOURCES** menu choose **Credentials**. Now:
 
- ![plus](images/green_plus.png) ボタンをクリックします。  
+Click the ![plus](images/green_plus.png) button to add new credentials
 
-  - **名前:** Workshop Credentials  
+  - **NAME:** Workshop Credentials
 
-  - **組織:** Default  
+  - **ORGANIZATION:** Default
 
-  - **認証情報タイプ:** 虫眼鏡をクリックして **マシン** を選択し、**選択**  をクリックします  
+  - **CREDENTIAL TYPE:** Click on the magnifying glass, pick **Machine** and
+    click ![plus](images/select.png)
 
-  - **ユーザー名:** student\<X\> - いつもの通り、 **\<X\>** は各自に割り当てられた番号を入力ください  
+  - **USERNAME:** student\<X\> - make sure to replace the **\<X\>** with
+    your actual student number!
 
-  - **パスワード:** 講師から指示があります。
+  - **PASSWORD:** Enter the password from the inventory file.
 
-  - **保存** をクリックします
+  - **PRIVILEGE ESCALATION METHOD:** sudo
 
-  - パスワード部分が暗号化され表示されないことを確認します
+  - Click **SAVE**
 
-> **ヒント**
+  - Go back to the **RESOURCES** → **Credentials** → **Workshop
+    Credentials** and note that the password is not visible.
+
+> **Tip**
 >
-> Tower では、入力フィールドの横に虫眼鏡アイコンが表示されているときにはクリックすると選択リストが開きます。  
+> Whenever you see a magnifiying glass icon next to an input field, clicking it will open a list to choose from.
 
-これで、後でインベントリーホストに使用する資格情報を設定できました。
+You have now setup credentials to use later for your inventory hosts.
 
-## アドホックコマンドの実行
+## Run Ad Hoc Commands
 
-Ansible Engine で実行したアドホックコマンドを Tower でも実行してみましょう。
+As you’ve probably done with Ansible before you can run ad hoc commands from
+Tower as well.
 
-  - 左の選択メニューから、**インベントリー** → **Workshop Inventory**
+  - In the web UI go to **RESOURCES → Inventories → Workshop Inventory**
 
-  - **ホスト** ボタンをクリックし、登録したホスト一覧を表示し、`オン` の左にあるチェックボックスを全てのホストでチェックします  
+  - Click the **HOSTS** button to change into the hosts view and select the
+    three hosts by ticking the boxes to the left of the host entries.
 
-  - **コマンドの実行** をクリックします。さらに次の画面でアドホックコマンドを下記の通り指定していきます。  
+  - Click **RUN COMMANDS**. In the next screen you have to specify the ad
+    hoc command:
 
-      - **モジュール** 欄で **ping** を選択  
+      - As **MODULE** choose **ping**
 
-      - **マシンの認証情報** 欄で **Workshop Credentials** を選択  
+      - For **MACHINE CREDENTIAL** click the magnifying glass icon and
+        select **Workshop Credentials**.
 
-      - **起動** をクリックし、出力を確認します  
+      - Click **LAUNCH**, and watch the output.
 
-シンプルな **ping** モジュールにはオプションは必要ありません。しかしながら、他のモジュールの場合、実行には引数が必要な場合があります。次にこのケースを確認してみましょう。先ほどと同様の手順で、今度は **command** モジュールを使って実行中のユーザーのユーザー ID を確認してみます。  
+The simple **ping** module doesn’t need options. For other modules you need
+to supply the command to run as an argument. Try the **command** module to
+find the userid of the executing user using an ad hoc command.
 
-- **モジュール:** command  
+- **MODULE:** command
 
-- **引数:** id  
+- **ARGUMENTS:** id
 
-マシンの認証情報も入力して実行の上表示内容を確認します。  
-
-> **ヒント**  
+> **Tip**
 >
-> 「引数」の横にある疑問符をクリックすると、モジュールのドキュメントページへのリンクが表示されます。とっても便利ですね。♪  
+> After choosing the module to run, Tower will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
 
-次に、/etc/shadow のファイルの中身を確認するコマンドを発行してみましょう  
+How about trying to get some secret information from the system? Try to
+print out */etc/shadow*.
 
-- **モジュール:** command  
+- **MODULE:** command
 
-- **引数:** cat /etc/shadow  
+- **ARGUMENTS:** cat /etc/shadow
 
-> **注意**  
+> **Warning**
 >
-> **エラーが発生ます**  
+> **Expect an error\!**
 
-失敗します、何故でしょう？  
+Oops, the last one didn’t went well, all red.
 
-理由は、そう、権限昇格が必要なのです。もう一度戻って、 **権限昇格の有効化** にチェックを入れて実行してみてください。  
+Re-run the last ad hoc command but this time tick the **ENABLE PRIVILEGE
+ESCALATION** box.
 
-今回はうまくいきました。 root 権限で実行する必要があるタスクの場合、権限昇格を有効化する必要があります。これは、 Playbook  の記述でもよく見かける　**become: yes**  と同じです。  
+As you see, this time it worked. For tasks that have to run as root you need
+to escalate the privileges. This is the same as the **become: yes** you’ve
+probably used often in your Ansible Playbooks.
 
-## チャレンジラボ: アドホックコマンド  
+## Challenge Lab: Ad Hoc Commands
 
-アドホックコマンドを使って、node1, node2 node3 にパッケージ「tmux」をインストールしてください。  
+Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is
+installed on all hosts. If unsure, consult the documentation either via the
+web UI as shown above or by running `[ansible@tower ~]$ ansible-doc yum` on
+your Tower control host.
 
-> **ヒント**  
+> **Warning**
 >
-> **yum** モジュールを利用します。使い方は `[ansible@tower ~]$ ansible-doc yum` などで確認してみてください。  
+> **Solution below\!**
 
-> **回答**  
+  - **MODULE:** yum
 
-  - **モジュール:** yum  
+  - **ARGUMENTS:** name=tmux
 
-  - **引数:** name=tmux  
+  - Tick **ENABLE PRIVILEGE ESCALATION**
 
-  - **権限昇格の有効化:** チェックします  
-
-> **ヒント**
+> **Tip**
 >
-> コマンドの黄色の出力は、Ansibleが実際に何かを実行したことを示しています（ここでは、パッケージがインストールされてなかったのでインストールを実行しました）。アドホックコマンドを再度実行すると、出力が緑色になり、パッケージが既にインストールされていることが通知されます。Ansible   の黄色は「注意」を意味するわけではありません…;-)。ご注意を…? ;-).
+> The yellow output of the command indicates Ansible has actually done something (here it needed to install the package). If you run the ad hoc command a second time, the output will be green and inform you that the package was already installed. So yellow in Ansible doesn’t mean "be careful"…​ ;-).
 
 ----
 
-[Ansible Tower ワークショップ表紙に戻る](../../README.ja.md#section-2---ansible-towerの演習)
+[Click here to return to the Ansible for Red Hat Enterprise Linux
+Workshop](../../README.md#section-2---ansible-tower-exercises)

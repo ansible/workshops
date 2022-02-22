@@ -1,0 +1,18 @@
+---
+- name: populate automation controller
+  hosts: '*ansible-1'
+  become: true
+  gather_facts: false
+  vars:
+    ec2_name_prefix: feb21
+    workshop_type: network
+    admin_password: sean>colin
+    username: "student1"
+  tasks:
+    - name: run populate_controller role
+      include_role:
+        name: ../roles/populate_controller
+      when:
+        - controllerinstall is defined
+        - controllerinstall|bool
+        - populatecontroller

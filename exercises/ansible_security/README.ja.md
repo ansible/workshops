@@ -1,41 +1,45 @@
-# Ansible Workshop - Ansible Security Automation
+# Ansible ワークショップ - Ansible Security Automation
 
-Ansibleはアプリケーションの展開、構成管理、オーケストレーションなどで利用できるシンプルでパワフルな自動化エンジンであり、すぐに習得することができます。 Ansible Security Automationは、セキュリティのユースケースをさらに深く掘り下げた拡張版です。その目的は、セキュリティを担当するチームにおけるセキュリティイベントの識別、検索、および対応のためのさまざまなプロセスを自動化し、より効率的で合理化された方法を提供することです。
+**これは Ansible Automation Platform 2 のドキュメントです**
 
-このワークショップでは、企業のファイアウォール（CheckPoint Next Generation Firewall）、侵入検知システム（Snort）、SIEM（IBM QRadar）などの複数のセキュリティツールを含む3つのセキュリティ調査・対応アクティビティをAnsibleを使ってオーケストレーションする方法をステップバイステップで学びます。
+3 つのセキュリティーユースケースの自動化を実装することで、Ansible Security Automation を使い始めましょう。3
+つのユースケースとは、1) ファイアウォールのオーケストレーション、2) IDS と SIEM (Web サーバー上の疑わしいトラフィックの調査)、3)
+脅威ハンティング (ファイアウォール上の異常なアクセス拒否の分析と SQL インジェクションの修復)
+になります。このワークショップでは、簡単な紹介の後、基本的なコンセプトを説明し、Ansible Security Automation
+を既存のサードパーティーのセキュリティーソリューションと組み合わせて使用する方法を紹介します。
 
-
-**Read this in other languages**: <br>
+**他の言語でもお読みいただけます**: <br>
 [![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja.md), [![france](../../images/fr.png) Français](README.fr.md).<br>
 
-## 時間配分
+## ワークショップの平均時間
 
-ワークショップの実施に必要な時間は、参加者の数、参加者がどれだけ Linux に精通しているか、そしてその間にどれだけの議論が行われるか、といった複数の要因に大きく左右されます。
+ワークショップに必要な時間は、参加者の数、参加者がどれだけ Linux
+に精通しているか、ワークショップの間にどれだけの議論が行われるかなど、複数の要因に大きく左右されます。
 
-Ansibleの基本的な経験のある生徒の場合:
+Ansible に関する基本的な経験者の場合
 
-- introduction はおおよそ30分程度かかります
-- 最初の演習はおおよそ1時間程度かかります
-- 2番目の演習はおおよそ2時間程度かかります
+- 概要には約 30 分かかります。最初の演習には約 1 時間かかります。2 番目の演習には約 2 時間かかります。
 
-もし実際の感覚とこのワークショップのスケジュールが異なる場合、Issue で知らせてください。
+これらのワークショップのスケジューリングが異なる場合は、Red Hat までご連絡ください。
 
-## Section 1 - Ansible Security Automationの基礎を紹介
+## ラボダイアグラム
 
- - [演習 1.1 - ラボ環境を確認してみよう](1.1-explore/README.ja.md)
- - [演習 1.2 - 最初のCheck Point用のPlaybookを実行してみよう](1.2-checkpoint/README.ja.md)
- - [演習 1.3 - 最初のSnort用のPlaybookを実行してみよう](1.3-snort/README.ja.md)
- - [演習 1.4 - 最初のIBM QRadar用Playbookを実行してみよう](1.4-qradar/README.ja.md)
+![ansible security lab
+diagram](../../images/ansible_security_diagram.png#centreme)
 
-## Section 2 - Ansible Security Automationのユースケース
+## セクション 1 - Ansible Security Automation の基本について
 
- - [演習 2.1 - Investigation Enrichment](2.1-enrich/README.ja.md)
- - [演習 2.2 - Threat hunting](2.2-threat/README.ja.md)
- - [演習 2.3 - Incident response](2.3-incident/README.ja.md)
+ - [演習 1.1 - ラボ環境の調査](1.1-explore)
+ - [演習 1.2 - 最初の Check Point 用 Playbook の実行](1.2-checkpoint)
+ - [演習 1.3 - 最初の Snort Playbook の実行](1.3-snort)
+ - [演習 1.4 - 最初の IBM QRadar Playbook の実行](1.4-qradar)
 
-## 追加情報
+## セクション 2 - Ansible Security Automation のユースケース
 
- - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
+ - [演習 2.1 - 調査の強化](2.1-enrich)
+ - [演習 2.2 - 脅威ハンティング](2.2-threat)
+ - [演習 2.3 - インシデントレスポンス](2.3-incident)
 
 ---
-![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)
+![Red Hat Ansible
+Automation](../../images/rh-ansible-automation-platform.png)

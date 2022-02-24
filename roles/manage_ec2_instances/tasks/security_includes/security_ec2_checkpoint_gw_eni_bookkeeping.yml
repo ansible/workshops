@@ -160,17 +160,17 @@
 ###########################################################################
 
 - name: Create EC2 instances for Check Point CloudGuard Gateway
-  ec2:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     instance_type: "{{ec2_info.checkpoint_gw.size }}"
-    image: "{{ec2_info.checkpoint_gw.ami.image_id}}"
+    image_id: "{{ec2_info.checkpoint_gw.ami.image_id}}"
     region: "{{ ec2_region }}"
     user_data: "{{ lookup('template', 'gaia-ftw-user-data.sh.j2') }}"
     wait: "{{ ec2_wait }}"
     network_interfaces:
       - "{{ item[0]['interface']['id'] }}"
       - "{{ item[1]['interface']['id'] }}"
-    instance_tags:
+    tags:
       ansible-workshops: "true"
   async: "{{ async_timeout_seconds }}"
   poll: 0

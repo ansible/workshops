@@ -14,17 +14,19 @@
   when: not ebs_optimized_instance_selected.changed
 
 - name: provision satellite server
-  ec2:
-    assign_public_ip: true
+  amazon.aws.ec2_instance:
+    network:
+      assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
+    security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['satellite'].size }}"
-    image: "{{ sat_ami.image_id }}"
+    image_id: "{{ sat_ami.image_id }}"
     region: "{{ ec2_region }}"
-    ebs_optimized: "{{ ebs_optimized_capable | default(false) }}"
     exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_satellite: "{{ ec2_name_prefix }}-satellite"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_satellite": "{{ ec2_name_prefix }}-satellite"
     tags:
       Workshop_satellite: "{{ ec2_name_prefix }}-satellite"
       Workshop: "{{ ec2_name_prefix }}"
@@ -34,7 +36,7 @@
       AWS_USERNAME: "{{ aws_user }}"
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
       Students: "{{ student_total }}"
       short_name: "satellite"
       username: "{{ ec2_info[rhel].username }}"
@@ -44,15 +46,25 @@
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
-          volume_size: 500
+          volume_type: "{{ ec2_info['satellite'].disk_volume_type }}"
+          volume_size: "{{ ec2_info['satellite'].disk_space }}"
+          iops: "{{ ec2_info['satellite'].disk_iops }}"
+          throughput: "{{ ec2_info['satellite'].disk_throughput }}"
           delete_on_termination: true
+    ebs_optimized: "{{ ebs_optimized_capable | default(false) }}"
+
+- name: grab instance ids to tag each satellite
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_satellite": "{{ ec2_name_prefix }}-satellite"
   register: satellite_output
 
 - name: Ensure tags are present for satellite
   ec2_tag:
     region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
+    resource: "{{ item.1.instance_id }}"
     state: present
     tags:
       Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-satellite"
@@ -61,7 +73,7 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ satellite_output.instances }}"
-  when: satellite_output.instance_ids is not none
+  when: satellite_output.instances|length > 0
 
 ## re-use RHEL workshop code
 - name: provision aws rhel instances

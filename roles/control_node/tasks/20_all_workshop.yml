@@ -115,7 +115,7 @@
     dest: /tmp/instructor-inventory
     owner: "{{ username }}"
     group: "{{ username }}"
-  when: '"student1" in inventory_hostname'
+  when: '"student1-ansible-1" in inventory_hostname'
 
 - name: setup control node for workshop type
   include_tasks: "{{item}}"

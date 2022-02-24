@@ -73,7 +73,10 @@ ec2_info:
     owners: 309956199498
     size: m4.xlarge
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 40
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
@@ -81,7 +84,10 @@ ec2_info:
     owners: 309956199498
     size: t3.micro
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
@@ -89,7 +95,10 @@ ec2_info:
     owners: 309956199498
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-7.9_HVM*'
     username: ec2-user
@@ -98,7 +107,10 @@ ec2_info:
     owners: 309956199498
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-6.8_HVM_GA*'
     username: ec2-user
@@ -107,7 +119,10 @@ ec2_info:
     owners: 125523088429
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'CentOS*7.8*x86_64'
     username: centos
@@ -116,7 +131,10 @@ ec2_info:
     owners: 125523088429
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'CentOS*7.9*x86_64'
     username: centos
@@ -175,7 +193,10 @@ ec2_info:
     owners: 309956199498
     size: t3.micro
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
@@ -184,6 +205,11 @@ ec2_info:
     filter: Satellite*
     username: ec2-user
     os_type: linux
+    disk_volume_type: gp3
+    disk_space: 500
+    disk_iops: 4000
+    disk_throughput: 375
+    architecture: x86_64
     size: r5a.xlarge
   middleware:
     owners: 309956199498

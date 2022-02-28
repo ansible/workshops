@@ -1,8 +1,7 @@
 ---
 name: 🐛 Bug report
 description: Fill out this issue form to help us solve your problem
-title: ""
-issue_body: true
+title: "Bug report for Ansible Workshops"
 body:
   - type: markdown
     attributes:

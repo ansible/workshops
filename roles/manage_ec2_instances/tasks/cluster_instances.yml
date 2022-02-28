@@ -30,8 +30,10 @@
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[control_type].disk_volume_type }}"
           volume_size: "{{ ec2_info[control_type].disk_space }}"
+          iops: "{{ ec2_info[control_type].disk_iops }}"
+          throughput: "{{ ec2_info[control_type].disk_throughput }}"
           delete_on_termination: true
   register: control_output
 
@@ -94,7 +96,7 @@
 
     - name: Associate IAM instance profile with control node
       ec2_instance:
-        instance_ids: "{{ item.1.id }}"
+        instance_ids: "{{ item.1.instance_id }}"
         region: "{{ ec2_region }}"
         instance_role: "ControlNode_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
         state: running

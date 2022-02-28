@@ -45,3 +45,4 @@ provisioner/old_tower_license.json
 .venv
 .devcontainer
 provisioner/sean-demo.yml
+!requirements.txt

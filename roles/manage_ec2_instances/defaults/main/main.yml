@@ -68,6 +68,10 @@ ec2_info:
     size: m5.xlarge
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator
+    disk_volume_type: gp3
+    disk_space: 30
+    disk_iops: 3000
+    disk_throughput: 125
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel8-tower:
     owners: 309956199498
@@ -151,7 +155,10 @@ ec2_info:
     owners: 309956199498
     size: c4.4xlarge
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 200
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
     username: ec2-user
@@ -168,7 +175,10 @@ ec2_info:
     owners: 721066863947
     size: t2.2xlarge
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 300
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'AnsibleSecurity-QRadarCE*'
     username: ec2-user

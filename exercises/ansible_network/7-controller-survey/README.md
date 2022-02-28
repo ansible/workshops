@@ -57,7 +57,8 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
       vars:
         - network_banner:  "{{ net_banner | default(None) }}"
         - banner_type: "{{ net_type | default('login') }}"
-      name: "../roles/banner"
+      include_role:
+        name: "../roles/banner"
 ```
 
 <!-- {% endraw %} -->

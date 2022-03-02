@@ -46,4 +46,3 @@
   rescue:
     - name: RESCUE RETRY - Import Check Point GW ENI Bookkeeping
       import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_checkpoint_gw_eni_bookkeeping.yml"
-

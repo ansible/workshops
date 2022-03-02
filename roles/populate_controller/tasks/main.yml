@@ -72,6 +72,9 @@
 - name: import inventory
   become_user: awx
   shell: 'tower-manage inventory_import --source=/var/lib/awx/hosts --inventory-name="Workshop Inventory"'
+  register: import_inventory
+  until: import_inventory is not failed
+  retries: 5
 #### end of inventory
 
 ### USER

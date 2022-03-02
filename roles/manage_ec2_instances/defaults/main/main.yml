@@ -42,12 +42,27 @@ ec2_info:
     ami: "{{cisco_ami | default(omit)}}"
     os: ios
     username: ec2-user
+    volume:
+      - device_name: /dev/xvda
+        ebs:
+          volume_type: gp3
+          iops: 1000
+          throughput: 125
+          volume_size: 8
+          delete_on_termination: true
   arista:
     size: c5.xlarge
     ami: "{{arista_ami | default(omit)}}"
     os: eos
     username: ec2-user
     filter: "*VEOSRouter*"
+    volume:
+      - device_name: /dev/xvda
+        ebs:
+          volume_type: gp3
+          iops: 1000
+          throughput: 125
+          volume_size: 8
   checkpoint_mgmt:
     owners: 679593333241
     filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'

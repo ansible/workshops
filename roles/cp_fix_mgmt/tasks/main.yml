@@ -1,6 +1,10 @@
 ---
 - name: ensure API settings
   command: mgmt_cli -r true set api-settings accepted-api-calls-from "All IP addresses" --domain 'System Data'
+  register: set_api
+  until: set_api is not failed
+  retries: 5
+  delay: 10
 
 - name: api restart
   command: api restart

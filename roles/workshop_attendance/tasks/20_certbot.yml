@@ -1,0 +1,7 @@
+---
+# If this fails check out status of certbot: https://letsencrypt.status.io/
+- name: Issue SSL cert
+  shell: certbot certonly --no-bootstrap --standalone -d {{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }} --email ansible-network@redhat.com --noninteractive --agree-tos
+  register: issue_cert
+  until: issue_cert is not failed
+  retries: 5

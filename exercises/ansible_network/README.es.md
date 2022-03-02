@@ -8,27 +8,27 @@ El taller Ansible Network Automation es una guía comprensiva para principiantes
 Aprenderás cómo obtener los datos de configuración (`facts`) desde los dispositivos, crear configuraciones de red desde plantillas y aplicar estos conceptos a escala con el controlador de automatización de Ansible. Verás cómo todo se interconecta explorando el controlador de trabajos de plantilla (`job templates`), encuestas (`surveys`) control de acceso y más.
 
 
-## Presentation
+## Presentación
 
-Want the Presentation Deck?  Its right here:
+¿Quieres obtener la presentación? Está justo aquí:
 - [Ansible Network Automation Workshop Deck](https://ansible.github.io/workshops/decks/ansible_network.pdf) PDF
-- [Google Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing) for Red Hat employees
+- [Google Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing) para empleados de Red Hat.
 
-## Ansible Network Automation Exercises
+## Ejercicios de Automatización de Red con Ansible (Ansible Network Automation)
 
-* [Exercise 1 - Exploring the lab environment](./1-explore/)
-* [Exercise 2 - Execute your first network automation playbook](./2-first-playbook/)
-* [Exercise 3 - Use Ansible facts on network devices](./3-facts/)
-* [Exercise 4 - Ansible Network Resource Modules](./4-resource-module/)
-* [Exercise 5 - Explore the Automation controller environment](./5-explore-controller/)
-* [Exercise 6 - Create an Automation controller job template](./6-controller-job-template/)
-* [Exercise 7 - Create an Automation controller Survey](./7-controller-survey/)
-* [Exercise 8 - Using the Role Based Access Control (RBAC) feature](./8-controller-rbac/)
-* [Exercise 9 - Create an Automation controller Workflow](./9-controller-workflow)
+* [Ejercicio 1 - Explorando el entorno de red](./1-explore/)
+* [Ejercicio 2 - Ejecuta tu primer playbook de automatización de red](./2-first-playbook/)
+* [Ejercicio 3 - Use Ansible facts en dispositivos de red](./3-facts/)
+* [Ejercicio 4 - Módulos de Recursos de Ansible Network](./4-resource-module/)
+* [Ejercicio 5 - Explora el entorno del controlador de Automatización](./5-explore-controller/)
+* [Ejercicio 6 - Crea una plantilla de controlador de Automatización](./6-controller-job-template/)
+* [Ejercicio 7 - Crea una encusta (`survey`) de controlador de Automatización](./7-controller-survey/)
+* [Ejercicio 8 - Usando la funcionalidad de Control de Acceso Basado en Roles (RBAC)](./8-controller-rbac/)
+* [Ejercicio 9 - Crea un flujo de trabajo de controlador de Automatización](./9-controller-workflow)
 
-There are additional supplemental exercises that are [located here](supplemental/).
+Aquí [located here](supplemental/) podrás encontrar ejercicios adicionales.
 
-## Network Diagram
+## Diagram de Red
 
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/blob/devel/images/ansible_network_diagram.png?raw=true)
 

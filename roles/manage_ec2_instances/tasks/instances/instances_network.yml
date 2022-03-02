@@ -13,7 +13,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rtr1_type].size }}"
-    image_id: "{{ ec2_info[rtr1_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr1_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     state: running
@@ -71,7 +71,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr2_type].size }}"
-    image_id: "{{ ec2_info[rtr2_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr2_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     state: running
@@ -129,7 +129,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ec2_info[rtr3_type].size }}"
-    image_id: "{{ ec2_info[rtr3_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr3_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     state: running
@@ -187,7 +187,7 @@
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr4_type].size }}"
-    image_id: "{{ ec2_info[rtr4_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr4_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     state: running

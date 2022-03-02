@@ -156,6 +156,10 @@
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
     validate_certs: false
+  register: add_repo
+  until: add_repo is not failed
+  retries: 5
+  delay: 10
 
 - name: Wait for update to finish
   pause:

@@ -1,18 +1,4 @@
 ---
-- name: Install MySQL, PHP, Git
-  yum:
-    name:
-      - mariadb-server
-      - php
-      - php-fpm
-      - php-mysqlnd
-      - php-pdo
-      - python36
-      - git
-      - rsync
-    state: present
-  notify: restart nginx
-
 - name: Enable TCP port 9000 for php-fpm
   lineinfile:
     path: /etc/php-fpm.d/www.conf

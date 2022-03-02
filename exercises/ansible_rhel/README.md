@@ -1,7 +1,7 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
 **Read this in other languages**:
-<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/col.png) [Español](README.es.md).
+<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/es.png) [Español](README.es.md).
 <br>
 
 **This is documentation for Ansible Automation Platform 2**
@@ -13,12 +13,14 @@ After finishing this lab you are ready to start using Ansible for your automatio
 
 ## Table of Contents
 
-* [Presentations](#presentations)
-* [Time planning](#time-planning)
-* [Lab Diagram](#lab-diagram)
-* [Section 1 - Command-line Ansible Exercises](#section-1---command-line-ansible-exercises)
-* [Section 2 - Ansible Automation Platform Exercises](#section-2---ansible-automation-platform-exercises)
-* [Supplemental Exercises](#supplemental-exercises)
+- [Ansible Workshop - Ansible for Red Hat Enterprise Linux](#ansible-workshop---ansible-for-red-hat-enterprise-linux)
+  - [Table of Contents](#table-of-contents)
+  - [Presentations](#presentations)
+  - [Time planning](#time-planning)
+  - [Lab Diagram](#lab-diagram)
+  - [Section 1 - Command-line Ansible Exercises](#section-1---command-line-ansible-exercises)
+  - [Section 2 - Ansible Automation Platform Exercises](#section-2---ansible-automation-platform-exercises)
+  - [Supplemental Exercises](#supplemental-exercises)
 
 ## Presentations
 

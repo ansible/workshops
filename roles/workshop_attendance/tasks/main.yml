@@ -3,13 +3,23 @@
   include_tasks: teardown.yml
   when: teardown|bool
 
-- name: setup DNS specific information
-  include_tasks: "{{ item }}"
-  with_first_found:
-    - "{{role_path}}/tasks/{{ dns_type }}.yml"
-    - "{{role_path}}/tasks/none.yml"
-  when: not teardown
+- name: setup attendance instance
+  block:
+    - name: setup DNS specific information
+      include_tasks: "{{ item }}"
+      with_first_found:
+        - "{{role_path}}/tasks/{{ dns_type }}.yml"
+        - "{{role_path}}/tasks/none.yml"
+            
+    - name: install package dependencies for attendance instance
+      include_tasks: 10_package_dependencies.yml
 
-- name: Configure attendance host
-  import_tasks: attendance.yml
+    - name: retrieve SSL cert
+      include_tasks: 20_certbot.yml
+
+    - name: install and configure nginx on attendance node
+      include_tasks: 30_nginx.yml
+
+    - name: Configure attendance host
+      import_tasks: 40_attendance.yml
   when: not teardown

@@ -7,6 +7,7 @@
     image_id: "{{ ansible_control_node_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: 1
+    state: running
     network:
       assign_public_ip: true
     filters:

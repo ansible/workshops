@@ -18,6 +18,7 @@
     exact_count: "{{ student_total }}"
     state: running
     user_data: ''
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -76,6 +77,7 @@
     exact_count: "{{ student_total }}"
     state: running
     user_data: ''
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -134,6 +136,7 @@
     exact_count: "{{ student_total }}"
     state: running
     user_data: ''
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -192,6 +195,7 @@
     exact_count: "{{ student_total }}"
     state: running
     user_data: ''
+    state: running
     network:
       assign_public_ip: true
     filters:

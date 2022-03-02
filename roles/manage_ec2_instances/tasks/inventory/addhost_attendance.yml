@@ -7,7 +7,8 @@
       "tag:Workshop_attendance": "{{ec2_name_prefix}}-attendance"
   register: attendance_host_facts
 
-- name: Add new instance to host group
+-
+- name: Add attendance instance to host group
   add_host:
     hostname: 'attendance-host'
     short_name: "{{ item.tags.short_name }}"

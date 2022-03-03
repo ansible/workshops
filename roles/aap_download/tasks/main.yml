@@ -29,10 +29,9 @@
 
 - name: Debug checksum issue
   debug:
-    msg: "sha256sum is {{ stat_var.stat.checksum }}"
-    # msg: 
-    #   - "Desired checksum is {{ provided_sha_value }}"
-    #   - "sha256sum is {{ stat_var.stat.checksum }}"
+    msg: 
+      - "Desired checksum is {{ provided_sha_value }}"
+      - "sha256sum is {{ stat_var.stat.checksum }}"
 
 # - name: Verify sha256sum of aap.tar.gz
 #   fail:

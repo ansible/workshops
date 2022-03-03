@@ -92,7 +92,11 @@ Have a first look at the SIEM, and verify that it is actually working. Point you
 
 > **Note**
 >
-> In a production environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purpose we accept the risk in this case.
+> In a production environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purpose we accept the risk in this case.  
+
+> **Note**
+>
+> It is recommended to use Mozilla Firefox with the QRadar web UI.  For more information on this limitation please reference [workshop issue 1536](https://github.com/ansible/workshops/issues/1536) 
 
 In the login field, provide the username **admin** and the password **Ansible1!** if not provided otherwise. Press the **Login** button.
 
@@ -139,11 +143,13 @@ On the most basic level, Ansible Automation Platform performs tasks. Those tasks
 
 Ansible comes with a lot of modules included, but as of the time of writing, Ansible does not ship QRadar modules out of the box. Instead, those modules are provided as [Ansible collections](https://docs.ansible.com/ansible/devel/dev_guide/collections_tech_preview.html):
 
+> **Note**
+>
 > *Collections are a distribution format for Ansible content. They can be used to package and distribute playbooks, roles, modules, and plugins. You can publish and use collections through Ansible Galaxy.*
 
 Collections follow a simple directory structure to provide Ansible content. If you feel reminded of Ansible roles here, this has a reason: Collections are built upon the idea of roles, but extend the concept to general Ansible content management. The collection for IBM QRadar can be found in the [ansible-security project](https://github.com/ansible-security/ibm_qradar).
 
-Automation execution environments can be customized to include the collections you need. An example of this is the `security_ee` custom execution environment we're using in this workshop. The custom `security_ee` execution environment includes the `ibm.qradar` collection we will use in these exercises. 
+Automation execution environments can be customized to include the collections you need. An example of this is the `security_ee` custom execution environment we're using in this workshop. The custom `security_ee` execution environment includes the `ibm.qradar` collection we will use in these exercises.
 
 
 

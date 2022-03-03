@@ -96,7 +96,7 @@ Have a first look at the SIEM, and verify that it is actually working. Point you
 
 > **Note**
 >
-> It is recommended to use Mozilla Firefox with the QRadar web UI.  For more information on this limitation please reference [workshop issue 1536](https://github.com/ansible/workshops/issues/1536) 
+> It is recommended to use Mozilla Firefox with the QRadar web UI.  For more information on this limitation please reference [workshop issue 1536](https://github.com/ansible/workshops/issues/1536)
 
 In the login field, provide the username **admin** and the password **Ansible1!** if not provided otherwise. Press the **Login** button.
 
@@ -125,6 +125,8 @@ Offenses are messages or events generated based upon findings in log messages or
 
 To say it with the words of the official documentation:
 
+> **Note**
+>
 > *Rules, sometimes called correlation rules are applied to events, flows, or offenses to search for or detect anomalies. If all the conditions of a test are met, the rule generates response. ([QRadar documentation](https://www.ibm.com/support/knowledgecenter/en/SS42VS_7.3.2/com.ibm.qradar.doc/c_qradar_rul_mgt.html))*
 
 In a productive environment it is common to create more and more custom rules over time. But for now, let's have a look at the rules which are already installed on the system: in the **Offenses** window, on the left side in the navigation bar, click on **Rules**. A long list of rules is displayed. In the search bar on top of this list, enter the following search term: `DDoS` Hit enter afterwards to filter the list.

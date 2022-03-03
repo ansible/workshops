@@ -204,6 +204,10 @@ ec2_info:
   skylight_windows_instance:
     filter: 'Windows_Server-2019-English-Core-Base*'
     size: t3.medium
+    disk_volume_type: gp3
+    disk_space: 30
+    disk_iops: 3000
+    disk_throughput: 125
   skylight_rhel7_gitlab:
     filter: 'RHEL-7.6_HVM_GA*x86_64*'
     size: t2.xlarge
@@ -214,6 +218,10 @@ ec2_info:
     size: t2.xlarge
     username: ec2-user
     architecture: x86_64
+    disk_volume_type: gp3
+    disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
   attendance_host:
     owners: 309956199498
     size: t3.micro

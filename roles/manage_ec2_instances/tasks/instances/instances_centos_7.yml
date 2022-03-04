@@ -39,7 +39,7 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag node4
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -47,7 +47,7 @@
   register: node4_output
 
 - name: Ensure tags are present for node4
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -117,7 +117,7 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag them all
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -125,7 +125,7 @@
   register: node5_output
 
 - name: Ensure tags are present for node5
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -195,7 +195,7 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag node6
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -203,7 +203,7 @@
   register: node6_output
 
 - name: Ensure tags are present for node6
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present

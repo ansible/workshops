@@ -42,12 +42,27 @@ ec2_info:
     ami: "{{cisco_ami | default(omit)}}"
     os: ios
     username: ec2-user
+    volume:
+      - device_name: /dev/xvda
+        ebs:
+          volume_type: gp3
+          iops: 1000
+          throughput: 125
+          volume_size: 8
+          delete_on_termination: true
   arista:
     size: c5.xlarge
     ami: "{{arista_ami | default(omit)}}"
     os: eos
     username: ec2-user
     filter: "*VEOSRouter*"
+    volume:
+      - device_name: /dev/xvda
+        ebs:
+          volume_type: gp3
+          iops: 1000
+          throughput: 125
+          volume_size: 8
   checkpoint_mgmt:
     owners: 679593333241
     filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'
@@ -68,12 +83,19 @@ ec2_info:
     size: m5.xlarge
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator
+    disk_volume_type: gp3
+    disk_space: 30
+    disk_iops: 3000
+    disk_throughput: 125
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel8-tower:
     owners: 309956199498
     size: m4.xlarge
     os_type: linux
-    disk_space: 20
+    disk_volume_type: gp3
+    disk_space: 40
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
@@ -81,7 +103,10 @@ ec2_info:
     owners: 309956199498
     size: t3.micro
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
@@ -89,7 +114,10 @@ ec2_info:
     owners: 309956199498
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-7.9_HVM*'
     username: ec2-user
@@ -98,7 +126,10 @@ ec2_info:
     owners: 309956199498
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-6.8_HVM_GA*'
     username: ec2-user
@@ -107,7 +138,10 @@ ec2_info:
     owners: 125523088429
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'CentOS*7.8*x86_64'
     username: centos
@@ -116,7 +150,10 @@ ec2_info:
     owners: 125523088429
     size: t2.medium
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'CentOS*7.9*x86_64'
     username: centos
@@ -125,7 +162,10 @@ ec2_info:
     owners: 679593333241
     size: t2.large
     os_type: linux
-    disk_space: 40
+    disk_volume_type: gp3
+    disk_space: 80
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'F5 BIGIP-16.0.*PAYG-Best 25Mbps*'
     username: admin
@@ -133,7 +173,10 @@ ec2_info:
     owners: 309956199498
     size: c4.4xlarge
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 200
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
     username: ec2-user
@@ -150,7 +193,10 @@ ec2_info:
     owners: 721066863947
     size: t2.2xlarge
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 300
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'AnsibleSecurity-QRadarCE*'
     username: ec2-user
@@ -161,6 +207,10 @@ ec2_info:
   skylight_windows_instance:
     filter: 'Windows_Server-2019-English-Core-Base*'
     size: t3.medium
+    disk_volume_type: gp3
+    disk_space: 30
+    disk_iops: 3000
+    disk_throughput: 125
   skylight_rhel7_gitlab:
     filter: 'RHEL-7.6_HVM_GA*x86_64*'
     size: t2.xlarge
@@ -171,11 +221,18 @@ ec2_info:
     size: t2.xlarge
     username: ec2-user
     architecture: x86_64
+    disk_volume_type: gp3
+    disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
   attendance_host:
     owners: 309956199498
     size: t3.micro
     os_type: linux
+    disk_volume_type: gp3
     disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
@@ -184,6 +241,11 @@ ec2_info:
     filter: Satellite*
     username: ec2-user
     os_type: linux
+    disk_volume_type: gp3
+    disk_space: 500
+    disk_iops: 4000
+    disk_throughput: 375
+    architecture: x86_64
     size: r5a.xlarge
   middleware:
     owners: 309956199498

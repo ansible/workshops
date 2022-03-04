@@ -1,6 +1,6 @@
 ---
 - name: Create Subnet2 ENI async attacker (SECURITY MODE)
-  ec2_eni:
+  amazon.aws.ec2_eni:
     instance_id: '{{ item[1] }}'
     subnet_id: '{{ ec2_vpc_subnet2_id }}'
     state: present
@@ -16,7 +16,7 @@
   when: attacker_output['instance_ids'] is not none
 
 - name: Create Subnet2 ENI async snort (SECURITY MODE)
-  ec2_eni:
+  amazon.aws.ec2_eni:
     instance_id: '{{ item[1] }}'
     subnet_id: '{{ ec2_vpc_subnet2_id }}'
     state: present
@@ -50,7 +50,7 @@
   loop: "{{ ('results' in ec2_subnet2_eni_snort_async) | ternary(ec2_subnet2_eni_snort_async['results'], []) }}"
 
 - name: Ensure Subnet2 ENI Tags async attacker (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['interface']['id'] }}"
     state: present
@@ -71,7 +71,7 @@
   register: ec2_subnet2_eni_tags_attacker_async
 
 - name: Ensure Subnet2 ENI Tags async snort (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['interface']['id'] }}"
     state: present

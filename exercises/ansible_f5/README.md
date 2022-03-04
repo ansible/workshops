@@ -8,8 +8,6 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
 
 **Read this in other languages**: ![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png) [日本語](README.ja.md).
 
-This is the documentation for Ansible Automation Platform 1.2.  If you are looking for Ansible Automation Platform 2, please go to [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
-
 ## Presentation
 Want the Presentation Deck?  Its right here:
 [Ansible F5 Workshop Deck](../../decks/ansible_f5.pdf)

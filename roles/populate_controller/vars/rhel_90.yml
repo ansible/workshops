@@ -1,3 +1,4 @@
+---
 controller_projects:
   - name: "Ansible official demo project"
     scm_type: git

@@ -6,27 +6,27 @@
 - name: Create EC2 Block - SECURITY MODE
   block:
     - name: Import Create EC2 Tasks
-      import_tasks: security_includes/security_ec2_create_instances.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_create_instances.yml"
   rescue:
     - name: RESCUE RETRY - Import Create EC2 Tasks
-      import_tasks: security_includes/security_ec2_create_instances.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_create_instances.yml"
 
 
 - name: EC2 Tags Block - SECURITY MODE
   block:
     - name: Import EC2 Tags Tasks
-      import_tasks: security_includes/security_ec2_tags.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_tags.yml"
   rescue:
     - name: RESCUE RETRY - Import EC2 Tags Tasks
-      import_tasks: security_includes/security_ec2_tags.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_tags.yml"
 
 - name: Create EC2 Subnet2 ENI - SECURITY MODE
   block:
     - name: Import EC2 Subnet2 ENI
-      import_tasks: security_includes/security_ec2_subnet2_eni.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_subnet2_eni.yml"
   rescue:
     - name: RESCUE RETRY - Import EC2 Subnet2 ENI
-      import_tasks: security_includes/security_ec2_subnet2_eni.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_subnet2_eni.yml"
 
 
 ###############################################################################
@@ -42,7 +42,7 @@
 - name: Create EC2 Check Point GW with ENI bookkeeping- SECURITY MODE
   block:
     - name: Import Check Point GW ENI Bookkeeping
-      import_tasks: security_includes/security_ec2_checkpoint_gw_eni_bookkeeping.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_checkpoint_gw_eni_bookkeeping.yml"
   rescue:
     - name: RESCUE RETRY - Import Check Point GW ENI Bookkeeping
-      import_tasks: security_includes/security_ec2_checkpoint_gw_eni_bookkeeping.yml
+      import_tasks: "{{ role_path }}/tasks/security_includes/security_ec2_checkpoint_gw_eni_bookkeeping.yml"

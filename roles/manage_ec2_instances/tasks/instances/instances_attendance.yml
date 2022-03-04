@@ -1,6 +1,6 @@
 ---
 - name: Provision attendance host
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info['attendance_host']['size'] }}"
@@ -11,7 +11,9 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     network:
       assign_public_ip: true
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_attendance": "{{ ec2_name_prefix }}-attendance"
     tags:
       Workshop_attendance: "{{ ec2_name_prefix }}-attendance"
@@ -28,4 +30,12 @@
       long_name: "attendance-host.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
       username: "{{ ec2_info['attendance_host']['username'] }}"
       ansible-workshops: "true"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
   register: attendance_output

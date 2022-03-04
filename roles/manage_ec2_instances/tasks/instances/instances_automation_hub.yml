@@ -1,12 +1,13 @@
 ---
 - name: Create EC2 instances for private automation hub
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[control_type].size }}"
     image_id: "{{ ansible_control_node_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: 1
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -31,7 +32,9 @@
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[control_type].disk_volume_type }}"
           volume_size: "{{ ec2_info[control_type].disk_space }}"
+          iops: "{{ ec2_info[control_type].disk_iops }}"
+          throughput: "{{ ec2_info[control_type].disk_throughput }}"
           delete_on_termination: true
   register: hub_output

@@ -273,6 +273,7 @@ Now lets return to using read-only parameters.  These parameters do not modify t
 
 * The playbook will look like the following:
 
+{% raw %}
   ```yaml
   - name: use vlans resource module
     arista.eos.vlans:
@@ -292,6 +293,7 @@ Now lets return to using read-only parameters.  These parameters do not modify t
     debug:
       msg: "{{ rendered_config }}"
   ```
+  {% endraw %}
 
 * Execute the playbook using the `ansible-navigator run`.
 
@@ -362,6 +364,7 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
 
 * First lets backup a configuration.  Here is a simple playbook for doing a configuration backup.  The playbook is [backup.yml](backup.yml).
 
+{% raw %}
   ```yaml
   ---
   - name: backup config
@@ -376,6 +379,7 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
         backup_options:
           filename: "{{ inventory_hostname }}.txt"
   ```
+{% endraw %}
 
 * Execute the playbook:
 
@@ -392,6 +396,7 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
 
 * Now modify the `resource.yml` playbook to use the `parsed` playbook:
 
+{% raw %}
   ```yaml
   ---
   - name: use parsed
@@ -410,6 +415,7 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
       debug:
         msg: "{{ parsed_config }}"
   ```
+{% endraw %}
 
 * There is a couple additional changes:
 

@@ -1,0 +1,18 @@
+{
+    "name": "",
+    "description": "",
+    "spec": [
+        {
+            "question_name": "What is the IP address of your NTP server?",
+            "question_description": "Please enter a IPv4 address",
+            "required": true,
+            "type": "text",
+            "variable": "ntp_server",
+            "min": 0,
+            "max": 1024,
+            "default": "216.239.35.0",
+            "choices": "",
+            "new_question": true
+        }
+    ]
+}

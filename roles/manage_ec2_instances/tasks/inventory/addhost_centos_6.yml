@@ -1,6 +1,6 @@
 ---
 - name: grab facts for node7 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -8,7 +8,7 @@
   register: node7_node_facts
 
 - name: grab facts for node8 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -16,7 +16,7 @@
   register: node8_node_facts
 
 - name: grab facts for node9 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

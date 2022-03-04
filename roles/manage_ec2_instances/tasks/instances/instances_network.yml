@@ -9,15 +9,15 @@
 
 ############## Router 1 ##############
 - name: Create EC2 instances for rtr1 node (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rtr1_type].size }}"
-    image_id: "{{ ec2_info[rtr1_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr1_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     user_data: ''
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -44,7 +44,7 @@
     volumes: "{{ec2_info[rtr1_type].volume | default(omit)}}"
 
 - name: grab instance ids to tag rtr1
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -52,7 +52,7 @@
   register: rtr1_output
 
 - name: Ensure tags are present for rtr1 node (workshop_type network)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -67,11 +67,11 @@
 
 ############## Router 2 ##############
 - name: Create EC2 instances for rtr2 node in VPC-2 (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr2_type].size }}"
-    image_id: "{{ ec2_info[rtr2_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr2_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     state: running
@@ -102,7 +102,7 @@
     volumes: "{{ ec2_info[rtr2_type].volume | default(omit) }}"
 
 - name: grab instance ids to tag rtr2
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -110,7 +110,7 @@
   register: rtr2_output
 
 - name: Ensure tags are present for rtr2 node (workshop_type network)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -125,15 +125,15 @@
 
 ############## Router 3 ##############
 - name: Create EC2 instances for rtr3 node (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ec2_info[rtr3_type].size }}"
-    image_id: "{{ ec2_info[rtr3_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr3_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     user_data: ''
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -160,7 +160,7 @@
     volumes: "{{ ec2_info[rtr3_type].volume | default(omit) }}"
 
 - name: grab instance ids to tag rtr3
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -168,7 +168,7 @@
   register: rtr3_output
 
 - name: Ensure tags are present for rtr3 node (workshop_type network)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -183,15 +183,15 @@
 
 ############## Router 4 ##############
 - name: Create EC2 instances for rtr4 node in VPC-2 (workshop_type network)
-  ec2_instance:
+  amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group2 }}"
     instance_type: "{{ ec2_info[rtr4_type].size }}"
-    image_id: "{{ ec2_info[rtr4_type].ami.image_id }}"
+    image_id: "{{ lookup('vars', rtr4_type ~ '_ami')['image_id'] }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     user_data: ''
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -218,7 +218,7 @@
     volumes: "{{ ec2_info[rtr4_type].volume | default(omit) }}"
 
 - name: grab instance ids to tag rtr4
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -226,7 +226,7 @@
   register: rtr4_output
 
 - name: Ensure tags are present for rtr4 node (workshop_type network)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -254,7 +254,7 @@
   register: eni_facts_2
 
 - name: Disable Source/Dest check on instance {{ec2_vpc_id1}} (workshop_type network)
-  ec2_eni:
+  amazon.aws.ec2_eni:
     eni_id: "{{ item['network_interface_id'] }}"
     region: "{{ ec2_region }}"
     source_dest_check: false

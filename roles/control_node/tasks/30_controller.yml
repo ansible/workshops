@@ -5,7 +5,7 @@
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is not defined or not create_cluster|bool
 
-- name: template inventory file for Automation Controller Install
+- name: template inventory file for Automation Controller Install cluster
   template:
     src: tower_cluster_install.j2
     dest: "{{ aap_dir }}/inventory"
@@ -73,11 +73,11 @@
         content: '{{ base64_manifest | b64decode }}'
       delegate_to: localhost
       become: false
-  rescue:
+      when: base64_manifest is defined
     - name: unable to load base64_manifest
       debug:
         msg: 'No base64_manifest variable found, trying to open manifest.zip'
-  always:
+      when: base64_manifest is undefined
     - name: Load manifest into variable
       local_action:
         module: slurp

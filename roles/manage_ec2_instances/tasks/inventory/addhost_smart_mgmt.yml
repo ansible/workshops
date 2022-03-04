@@ -12,7 +12,7 @@
   when: (centos7 is defined) and (centos7 is not none)
 
 - name: grab facts for satellite node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

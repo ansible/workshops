@@ -1,0 +1,8 @@
+ansible-core>=2.11
+paramiko==2.8.1
+boto3
+netaddr
+passlib
+requests
+pywinrm
+requests-credssp

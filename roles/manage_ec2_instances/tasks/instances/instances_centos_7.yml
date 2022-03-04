@@ -1,15 +1,17 @@
 ---
 - name: Create EC2 instances for node4
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    network:
+      assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos7].size }}"
     image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    network:
-      assign_public_ip: true
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_node4": "{{ ec2_name_prefix }}-node4"
     tags:
       Workshop_node4: "{{ ec2_name_prefix }}-node4"
@@ -24,24 +26,28 @@
       Students: "{{ student_total }}"
       short_name: "node4"
       username: "{{ ec2_info[centos7].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[centos7].disk_volume_type }}"
           volume_size: "{{ ec2_info[centos7].disk_space }}"
+          iops: "{{ ec2_info[centos7].disk_iops }}"
+          throughput: "{{ ec2_info[centos7].disk_throughput }}"
           delete_on_termination: true
 
-- name: grab instance ids to tag them all
-  ec2_instance_info:
+- name: grab instance ids to tag node4
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node4": "{{ ec2_name_prefix }}-node4"
   register: node4_output
 
 - name: Ensure tags are present for node4
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -55,7 +61,7 @@
   when: node4_output.instances|length > 0
 
 - name: Associate IAM instance profile with node4
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -68,21 +74,22 @@
   retries: 12
   delay: 10
   when:
-  when:
     - node4_output.instances|length > 0
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node5
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    network:
+      assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos7].size }}"
     image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    network:
-      assign_public_ip: true
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_node5": "{{ ec2_name_prefix }}-node5"
     tags:
       Workshop_node5: "{{ ec2_name_prefix }}-node5"
@@ -97,24 +104,28 @@
       Students: "{{ student_total }}"
       short_name: "node5"
       username: "{{ ec2_info[centos7].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[centos7].disk_volume_type }}"
           volume_size: "{{ ec2_info[centos7].disk_space }}"
+          iops: "{{ ec2_info[centos7].disk_iops }}"
+          throughput: "{{ ec2_info[centos7].disk_throughput }}"
           delete_on_termination: true
 
 - name: grab instance ids to tag them all
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node5": "{{ ec2_name_prefix }}-node5"
   register: node5_output
 
 - name: Ensure tags are present for node5
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -128,7 +139,7 @@
   when: node5_output.instances|length > 0
 
 - name: Associate IAM instance profile with node5
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -145,16 +156,18 @@
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node6
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    network:
+      assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[centos7].size }}"
     image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    network:
-      assign_public_ip: true
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_node6": "{{ ec2_name_prefix }}-node6"
     tags:
       Workshop_node6: "{{ ec2_name_prefix }}-node6"
@@ -169,24 +182,28 @@
       Students: "{{ student_total }}"
       short_name: "node6"
       username: "{{ ec2_info[centos7].username }}"
+      ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[centos7].disk_volume_type }}"
           volume_size: "{{ ec2_info[centos7].disk_space }}"
+          iops: "{{ ec2_info[centos7].disk_iops }}"
+          throughput: "{{ ec2_info[centos7].disk_throughput }}"
           delete_on_termination: true
 
-- name: grab node6 instance ids to tag them all
-  ec2_instance_info:
+- name: grab instance ids to tag node6
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
+      instance-state-name: running
       "tag:Workshop_node6": "{{ ec2_name_prefix }}-node6"
   register: node6_output
 
 - name: Ensure tags are present for node6
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -200,7 +217,7 @@
   when: node6_output.instances|length > 0
 
 - name: Associate IAM instance profile with node6
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"

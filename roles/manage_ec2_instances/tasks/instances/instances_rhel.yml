@@ -1,6 +1,9 @@
 ---
 - name: Create EC2 instances for node1
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
     instance_type: "{{ ec2_info[rhel].size }}"
@@ -8,8 +11,6 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     state: running
-    network:
-      assign_public_ip: true
     filters:
       instance-state-name: running
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
@@ -32,8 +33,10 @@
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
           volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
           delete_on_termination: true
   register: sean_test
 
@@ -41,7 +44,7 @@
     msg: "{{ sean_test }}"
 
 - name: grab instance ids to tag node1
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -49,7 +52,7 @@
   register: node1_output
 
 - name: Ensure tags are present for node1
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -63,7 +66,7 @@
   when: node1_output.instances|length > 0
 
 - name: Associate IAM instance profile with node1
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -80,7 +83,8 @@
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node2
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    state: running
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -112,12 +116,14 @@
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
           volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
           delete_on_termination: true
 
 - name: grab instance ids to tag node2
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -125,7 +131,7 @@
   register: node2_output
 
 - name: Ensure tags are present for node2
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -139,7 +145,7 @@
   when: node2_output.instances|length > 0
 
 - name: Associate IAM instance profile with node2
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -156,7 +162,8 @@
     - tower_node_aws_api_access|default(false)|bool
 
 - name: Create EC2 instances for node3
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    state: running
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -188,12 +195,14 @@
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
           volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
           delete_on_termination: true
 
 - name: grab instance ids to tag node3
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -201,7 +210,7 @@
   register: node3_output
 
 - name: Ensure tags are present for node3
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -215,7 +224,7 @@
   when: node3_output.instances|length > 0
 
 - name: Associate IAM instance profile with node3
-  ec2_instance:
+  amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
     region: "{{ ec2_region }}"
     instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
@@ -234,7 +243,8 @@
 # Create isolated/remote node for Adv Tower lab when cluster install
 
 - name: Create EC2 instances for isonode
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    state: running
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -264,13 +274,15 @@
     volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_type: gp2
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
           volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
           delete_on_termination: true
   when: create_cluster|bool
 
 - name: grab instance ids to tag isonode
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -279,7 +291,7 @@
   when: create_cluster|bool
 
 - name: Ensure tags are present for isonode
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -293,7 +305,8 @@
   when: create_cluster|bool and isonode_output.instances|length > 0
 
 - name: Create EC2 instances for remotenode
-  ec2_instance:
+  amazon.aws.ec2_instance:
+    state: running
     network:
       assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -322,13 +335,16 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
       - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: "{{ ec2_info[rhel].disk_space }}"
-        delete_on_termination: true
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
   when: create_cluster|bool
 
 - name: grab instance ids to tag isonode
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -337,7 +353,7 @@
   when: create_cluster|bool
 
 - name: Ensure tags are present for remotenode
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present

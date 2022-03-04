@@ -49,11 +49,8 @@
   become: true
   gather_facts: true
   tasks:
-    - block:
-        - include_role:
-            name: ../roles/workshop_attendance_nginx
-        - include_role:
-            name: ../roles/workshop_attendance
+    - include_role:
+        name: ../roles/workshop_attendance
       when: attendance|bool
 
 - name: wait for all security nodes to have SSH reachability
@@ -112,22 +109,6 @@
       when:
         - automation_hub is defined
         - automation_hub
-
-- name: replicate venvs to cluster nodes
-  hosts: '*ansible-2,*ansible-3'
-  gather_facts: false
-  become: true
-  tasks:
-    - include_role:
-        name: ../roles/control_node
-        tasks_from: package_dependencies
-      when: create_cluster|bool
-
-    - include_role:
-        name: ../roles/control_node
-        tasks_from: venv
-      when: create_cluster|bool
-
 
 - name: add dns entires for all student control nodes
   hosts: '*ansible-1'
@@ -207,7 +188,7 @@
           - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
           - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
           {% if attendance %}
-          - {{hostvars['attendance-host'].login_website_information | default("attendance feature is off") }}
+          - {{hostvars['attendance-host'].login_website_information | default("attendance feature is not functioning") }}
           {% endif %}
 
           FAILURES

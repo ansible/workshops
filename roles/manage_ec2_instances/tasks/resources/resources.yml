@@ -1,7 +1,7 @@
 ---
 # Security workshop needs a second subnet inside the VPC
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc
-  ec2_vpc_net:
+  amazon.aws.ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc"
     cidr_block:
       - "{{ec2_subnet}}"
@@ -30,7 +30,7 @@
     file: "{{playbook_dir}}/{{ec2_name_prefix}}/aws_rules.yml"
 
 - name: Create EC2 security group for VPC named {{ ec2_name_prefix }}-vpc
-  ec2_group:
+  amazon.aws.ec2_group:
     name: "{{ ec2_name_prefix }}-insecure_all"
     description: all ports open
     region: "{{ ec2_region }}"
@@ -52,7 +52,7 @@
   retries: 5
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
-  ec2_vpc_subnet:
+  amazon.aws.ec2_vpc_subnet:
     region: "{{ ec2_region }}"
     az: "{{ ec2_az }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
@@ -72,7 +72,7 @@
   retries: 15
 
 - name: Create subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
-  ec2_vpc_subnet:
+  amazon.aws.ec2_vpc_subnet:
     region: "{{ ec2_region }}"
     az: "{{ ec2_az }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
@@ -92,7 +92,7 @@
   retries: 15
 
 - name: vpc internet gateway is present for {{ create_vpc.vpc.id }}
-  ec2_vpc_igw:
+  amazon.aws.ec2_vpc_igw:
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
     tags:
@@ -108,7 +108,7 @@
   retries: 15
 
 - name: vpc public subnet route table is present for {{ create_vpc.vpc.id }}
-  ec2_vpc_route_table:
+  amazon.aws.ec2_vpc_route_table:
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
     subnets:
@@ -136,7 +136,7 @@
     ec2_vpc_subnet2_id: "{{ create_subnet2.subnet.id }}"
 
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
-  ec2_key:
+  amazon.aws.ec2_key:
     name: "{{ ec2_name_prefix }}-key"
     region: "{{ ec2_region }}"
   register: create_key

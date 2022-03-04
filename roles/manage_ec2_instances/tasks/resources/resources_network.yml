@@ -1,6 +1,6 @@
 ---
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
-  ec2_vpc_net:
+  amazon.aws.ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc2"
     cidr_block: "{{ ec2_network_vpc2 }}"
     region: "{{ ec2_region }}"
@@ -16,7 +16,7 @@
   retries: 5
 
 - name: Create EC2 security group 2 for VPC named {{ ec2_name_prefix }}-vpc (NETWORK MODE)
-  ec2_group:
+  amazon.aws.ec2_group:
     name: "{{ ec2_name_prefix }}-insecure_all2"
     description: all ports open
     region: "{{ ec2_region }}"
@@ -69,7 +69,7 @@
   retries: 5
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc2 (NETWORK MODE)
-  ec2_vpc_subnet:
+  amazon.aws.ec2_vpc_subnet:
     region: "{{ ec2_region }}"
     az: "{{ ec2_az }}"
     vpc_id: "{{create_vpc2.vpc.id}}"
@@ -87,7 +87,7 @@
   when: ec2_vpc_id2 is undefined
 
 - name: vpc internet gateway is present for {{ create_vpc2.vpc.id }} (NETWORK MODE)
-  ec2_vpc_igw:
+  amazon.aws.ec2_vpc_igw:
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc2.vpc.id }}"
     tags:
@@ -102,7 +102,7 @@
   when: ec2_vpc_id2 is undefined
 
 - name: vpc public subnet route table is present for {{ create_vpc2.vpc.id }} (NETWORK MODE)
-  ec2_vpc_route_table:
+  amazon.aws.ec2_vpc_route_table:
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc2.vpc.id }}"
     subnets:

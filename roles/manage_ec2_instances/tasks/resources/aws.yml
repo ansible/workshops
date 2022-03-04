@@ -1,6 +1,6 @@
 ---
 - name: s3 bucket for persistent storage of ec2 key exists
-  s3_bucket:
+  amazon.aws.s3_bucket:
     name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
     state: present
     region: "{{ ec2_region }}"
@@ -12,7 +12,7 @@
   until: s3_result.failed == false
 
 - name: Store SSH Key Pair
-  aws_s3:
+  amazon.aws.aws_s3:
     bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
     mode: put
     object: "{{ec2_name_prefix}}-private.pem"
@@ -22,7 +22,7 @@
   when: create_key.changed
 
 - name: Save Private key from S3 Bucket when not generating it
-  aws_s3:
+  amazon.aws.aws_s3:
     bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
     mode: get
     object: "{{ ec2_name_prefix }}-private.pem"

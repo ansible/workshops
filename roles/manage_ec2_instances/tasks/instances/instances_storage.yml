@@ -1,6 +1,6 @@
 ---
 - name: find ami for netapp
-  ec2_ami_info:
+  amazon.aws.ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[netapp].owners }}"
     filters:

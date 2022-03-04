@@ -54,7 +54,7 @@
     ebs_optimized: "{{ ebs_optimized_capable | default(false) }}"
 
 - name: grab instance ids to tag each satellite
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -62,7 +62,7 @@
   register: satellite_output
 
 - name: Ensure tags are present for satellite
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present

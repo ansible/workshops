@@ -1,6 +1,6 @@
 ---
 - name: Get the VPC ID for {{ ec2_name_prefix }}
-  ec2_vpc_net_info:
+  amazon.aws.ec2_vpc_net_info:
     filters:
       "tag:Name": "{{ ec2_name_prefix }}-vpc"
     region: "{{ ec2_region }}"
@@ -13,7 +13,7 @@
 
 
 - name: Get the VPC ID 2 for {{ ec2_name_prefix }} (NETWORK MODE)
-  ec2_vpc_net_info:
+  amazon.aws.ec2_vpc_net_info:
     filters:
       "tag:Name": "{{ ec2_name_prefix }}-vpc2"
     region: "{{ ec2_region }}"
@@ -137,7 +137,7 @@
 - name: Cleanup subnets for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
   block:
     - name: Get left ENI
-      ec2_eni_info:
+      amazon.aws.ec2_eni_info:
         region: "{{ ec2_region }}"
         filters:
           "vpc-id": '{{ ec2_vpc_id }}'
@@ -333,7 +333,7 @@
     state: absent
 
 - name: delete s3 bucket for persistent storage of ec2 key
-  s3_bucket:
+  amazon.aws.s3_bucket:
     name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
     state: absent
     region: "{{ ec2_region }}"
@@ -368,7 +368,7 @@
   when: workshop_type == 'security'
   block:
     - name: Get EIP informaion
-      ec2_eip_info:
+      amazon.aws.ec2_eip_info:
         region: "{{ ec2_region }}"
         filters:
           "tag:Workshop": "{{ ec2_name_prefix }}"
@@ -380,7 +380,7 @@
       when: debug_teardown
 
     - name: Release EIPs
-      ec2_eip:
+      amazon.aws.ec2_eip:
         region: "{{ ec2_region }}"
         public_ip: "{{ item['public_ip'] }}"
         state: absent
@@ -389,7 +389,7 @@
 - name: Remove IAM roles & policy block
   block:
     - name: Remove IAM policy for control node IAM instance role
-      iam_policy:
+      community.aws.iam_policy:
         iam_type: role
         iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
@@ -415,14 +415,14 @@
 - name: Delete AWS snapshots (workshop_type SMART MANAGEMENT)
   block:
     - name: Get snapshot info
-      ec2_snapshot_info:
+      amazon.aws.ec2_snapshot_info:
         region: "{{ ec2_region }}"
         filters:
           "tag:Workshop": "{{ ec2_name_prefix }}"
       register: snapshots_details
 
     - name: Delete snapshot
-      ec2_snapshot:
+      amazon.aws.ec2_snapshot:
         snapshot_id: "{{ item.0 }}"
         region: "{{ ec2_region }}"
         state: absent

@@ -44,7 +44,7 @@
     msg: "{{ f5_test }}"
 
 - name: grab instance ids to tag f5 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -52,7 +52,7 @@
   register: f5_output
 
 - name: Ensure tags are present for f5 node (workshop_type f5)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -105,7 +105,7 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag node1
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -113,7 +113,7 @@
   register: node1_output
 
 - name: Ensure tags are present for node1 node (workshop_type f5)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -165,8 +165,8 @@
           throughput: "{{ ec2_info['rhel8'].disk_throughput }}"
           delete_on_termination: true
 
-- name: grab instance ids to tag node2
-  ec2_instance_info:
+- name: grab instance ids to tag node1
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -174,7 +174,7 @@
   register: node2_output
 
 - name: Ensure tags are present for node2 node (workshop_type f5)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -197,7 +197,7 @@
   register: eni_facts_1
 
 - name: Disable Source/Dest check on instance {{ ec2_vpc_id }} (workshop_type f5)
-  ec2_eni:
+  amazon.aws.ec2_eni:
     eni_id: "{{ item['network_interface_id'] }}"
     region: "{{ ec2_region }}"
     source_dest_check: false

@@ -15,7 +15,7 @@
   when: workshop_type == 'network' or workshop_type == 'demo'
 
 - name: find ami for ansible control node
-  ec2_ami_info:
+  amazon.aws.ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info[control_type].owners }}"
     filters:

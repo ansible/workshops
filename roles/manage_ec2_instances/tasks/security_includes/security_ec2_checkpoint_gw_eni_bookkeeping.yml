@@ -7,7 +7,7 @@
 # operations.
 #
 - name: Create Subnet1 ENI async checkpoint_gw (SECURITY MODE)
-  ec2_eni:
+  amazon.aws.ec2_eni:
     subnet_id: '{{ ec2_vpc_subnet_id }}'
     security_groups:
       - '{{ ec2_security_group }}'
@@ -20,7 +20,7 @@
   register: ec2_subnet1_eni_checkpoint_gw_async
 
 - name: Create Subnet2 ENI async checkpoint_gw (SECURITY MODE)
-  ec2_eni:
+  amazon.aws.ec2_eni:
     subnet_id: '{{ ec2_vpc_subnet2_id }}'
     state: present
     region: '{{ ec2_region }}'
@@ -40,7 +40,7 @@
   loop: "{{ ('results' in ec2_subnet1_eni_checkpoint_gw_async) | ternary(ec2_subnet1_eni_checkpoint_gw_async['results'], []) }}"
 
 - name: Create EIP async for checkpoint_gw Subnet1 ENI (SECURITY MODE)
-  ec2_eip:
+  amazon.aws.ec2_eip:
     in_vpc: true
     region: "{{ ec2_region }}"
     device_id: "{{ item['interface']['id'] }}"
@@ -69,7 +69,7 @@
   loop: "{{ ('results' in ec2_subnet1_eip_checkpoint_gw_async) | ternary(ec2_subnet1_eip_checkpoint_gw_async['results'], []) }}"
 
 - name: Ensure Subnet1 EIP Tags async checkpoint_gw (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['allocation_id'] }}"
     state: present
@@ -93,7 +93,7 @@
   register: ec2_subnet1_eni_tags_checkpoint_gw_async
 
 - name: Ensure Subnet1 ENI Tags async checkpoint_gw (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['interface']['id'] }}"
     state: present
@@ -116,7 +116,7 @@
   register: ec2_subnet1_eni_tags_checkpoint_gw_async
 
 - name: Ensure Subnet2 ENI Tags async checkpoint_gw (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['interface']['id'] }}"
     state: present
@@ -194,7 +194,7 @@
 
 ############## Check Point CloudGuard IaaS Gateway ##############
 - name: Ensure tags are present for Check Point CloudGuard Gateway node (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{item[1]['instance_ids'][0]}}"
     state: present

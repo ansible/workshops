@@ -1,6 +1,6 @@
 ---
 - name: grab facts for node1 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -8,7 +8,7 @@
   register: node1_node_facts
 
 - name: grab facts for node2 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -16,7 +16,7 @@
   register: node2_node_facts
 
 - name: grab facts for node3 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -24,7 +24,7 @@
   register: node3_node_facts
 
 - name: grab facts for isonode
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -33,7 +33,7 @@
   when: create_cluster|bool
 
 - name: grab facts for remotenode node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

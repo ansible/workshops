@@ -38,7 +38,7 @@
   register: control_output
 
 - name: grab instance ids to tag them all
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -46,7 +46,7 @@
   register: control_output
 
 - name: Ensure tags are present
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -68,7 +68,7 @@
       register: AWSINFO
 
     - name: Create VPC Lock Down role
-      iam_role:
+      community.aws.iam_role:
         name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
         assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
         create_instance_profile: true
@@ -76,7 +76,7 @@
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Create control node instance role
-      iam_role:
+      community.aws.iam_role:
         name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
         create_instance_profile: true
@@ -84,7 +84,7 @@
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Generate IAM policy for control node IAM instance role
-      iam_policy:
+      community.aws.iam_policy:
         iam_type: role
         iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
@@ -95,7 +95,7 @@
         index_var: loop_idx
 
     - name: Associate IAM instance profile with control node
-      ec2_instance:
+      amazon.aws.ec2_instance:
         instance_ids: "{{ item.1.instance_id }}"
         region: "{{ ec2_region }}"
         instance_role: "ControlNode_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"

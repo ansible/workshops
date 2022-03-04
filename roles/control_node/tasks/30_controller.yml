@@ -73,11 +73,11 @@
         content: '{{ base64_manifest | b64decode }}'
       delegate_to: localhost
       become: false
-  rescue:
+      when: base64_manifest is defined
     - name: unable to load base64_manifest
       debug:
         msg: 'No base64_manifest variable found, trying to open manifest.zip'
-  always:
+      when: base64_manifest is undefined
     - name: Load manifest into variable
       local_action:
         module: slurp

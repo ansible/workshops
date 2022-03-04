@@ -162,7 +162,10 @@ ec2_info:
     owners: 679593333241
     size: t2.large
     os_type: linux
-    disk_space: 40
+    disk_volume_type: gp3
+    disk_space: 80
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'F5 BIGIP-16.0.*PAYG-Best 25Mbps*'
     username: admin

@@ -131,7 +131,7 @@
 
 ### tag student workbench
 - name: instance1 info gathering
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -139,7 +139,7 @@
   register: instance1_info
 
 - name: WINDOWS | Ensure tags are present for instance 1
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -153,7 +153,7 @@
   when: instance1_info.instances|length > 0
 
 - name: instance2 info gathering
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -161,7 +161,7 @@
   register: instance2_info
 
 - name: WINDOWS | Ensure tags are present for instance 2
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present

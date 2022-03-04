@@ -44,7 +44,7 @@
     msg: "{{ sean_test }}"
 
 - name: grab instance ids to tag node1
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -52,7 +52,7 @@
   register: node1_output
 
 - name: Ensure tags are present for node1
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -123,7 +123,7 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag node2
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -131,7 +131,7 @@
   register: node2_output
 
 - name: Ensure tags are present for node2
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -202,7 +202,7 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag node3
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -210,7 +210,7 @@
   register: node3_output
 
 - name: Ensure tags are present for node3
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -282,7 +282,7 @@
   when: create_cluster|bool
 
 - name: grab instance ids to tag isonode
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -291,7 +291,7 @@
   when: create_cluster|bool
 
 - name: Ensure tags are present for isonode
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -344,7 +344,7 @@
   when: create_cluster|bool
 
 - name: grab instance ids to tag isonode
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -353,7 +353,7 @@
   when: create_cluster|bool
 
 - name: Ensure tags are present for remotenode
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present

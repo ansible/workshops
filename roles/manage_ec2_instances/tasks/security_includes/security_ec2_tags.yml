@@ -1,6 +1,6 @@
 ---
 - name: Ensure tags are present for splunk
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['instance_id'] }}"
     state: present
@@ -19,7 +19,7 @@
     - (security_console == 'splunk') and (siem_output['instance_ids'] is not none)
 
 - name: Ensure tags are present for qradar
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['instance_id'] }}"
     state: present
@@ -45,7 +45,7 @@
   when: security_console == 'qradar'
 
 - name: Ensure tags are present for snort
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['instance_id'] }}"
     state: present
@@ -63,7 +63,7 @@
   when: snort_output['instance_ids'] is not none
 
 - name: Ensure tags are present for attack simulation node
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['instance_id'] }}"
     state: present
@@ -82,7 +82,7 @@
 
 ############## Check Point CloudGuard IaaS Security Management ##############
 - name: Ensure tags are present for Check Point CloudGuard Security Management node (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['instance_id'] }}"
     state: present
@@ -102,7 +102,7 @@
 ############## Windows Workstation ##############
 
 - name: Ensure tags are present for Windows Workstation (SECURITY MODE)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item[1]['instance_id'] }}"
     state: present

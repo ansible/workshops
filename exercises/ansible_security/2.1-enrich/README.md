@@ -1,7 +1,10 @@
-# Exercise 2.1 - Investigation Enrichment
+# 2.1 Investigation Enrichment
 
-**Read this in other languages**: <br>
-[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+<!-- **Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br> -->
+
+- TOC
+{:toc}
 
 <div id="section_title">
   <a data-toggle="collapse" href="#collapse2">
@@ -78,7 +81,7 @@
   </blockquote>
 </div>
 
-## Step 1.1 - The Background
+## 2.1.1 The Background
 
 In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow. 
 
@@ -94,7 +97,7 @@ Let's have a brief look at some of the personas involved.
 
 We will use Ansible Automation Platform to elevate the interactions learned in the last section to combine the security tools into automated workflows.
 
-## Step 1.2 - Preparations
+## 2.1.2 Preparations
 
 For this exercise to work properly, we'll need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
 
@@ -133,7 +136,7 @@ Execute the playbook:
 
 The stage is set now. Read on to learn what this use case is about.
 
-## Step 1.3 - See the anomaly
+## 2.1.3 See the anomaly
 
 Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. From within a terminal in your VS Code online editor, ssh to the snort machine.
 
@@ -161,7 +164,7 @@ You can log off from the Snort server by executing the command `exit` or pressin
 
 As a security analyst you know that anomalies can be the sign of a breach or other serious causes. You decide to investigate. Right now, you do not have enough information about the anomaly to dismiss it as a false positive. So you need to collect more data points - like from the firewall and the IDS. Going through the logs of the firewall and IDS manually takes a lot of time. In large organizations, the security analyst might not even have the necessary access rights and needs to contact the teams  responsible for both the enterprise firewall and the IDS, asking them to manually go through the respective logs and directly check for anomalies on their own and then reply with the results. This operation could take hours or even days.
 
-## Step 1.4 - Write playbook to create new log sources
+## 2.1.4 Write playbook to create new log sources
 
 If you use a SIEM, things are better: you can collect and analyze logs centrally. In our case the SIEM is QRadar. QRadar has the ability to collect logs from other systems and search them for suspicious activities. So how do we analyze logs in QRadar? Before we can look at these logs we need to stream them into QRadar. This happens in two steps: first we need to configure the sources - here Check Point and Snort - to forward their logs to QRadar. And second we have to add those systems as log sources to QRadar.
 
@@ -357,7 +360,7 @@ If you bring all these pieces together, the full playbook `enrich_log_sources.ym
 >
 > Remember to replace the value `YOURSERVERNAME` with your actual server name as mentioned further above.
 
-## Step 1.5 - Run playbooks to enable log forwarding
+## 2.1.5 Run playbooks to enable log forwarding
 
 Run the full playbook to add both log sources to QRadar:
 
@@ -374,7 +377,7 @@ In Check Point SmartConsole you might even see a little window pop up in the bot
 
 
 
-## Step 1.6 - Verify the log source configuration
+## 2.1.6 Verify the log source configuration
 
 Before that Ansible playbook was invoked, QRadar wasn’t receiving any data from Snort or Check Point. Immediately after, without any further intervention by us as security analyst, Check Point logs start to appear in the QRadar log overview.
 
@@ -445,7 +448,7 @@ Note that so far no logs are sent from Snort to QRadar: Snort does not know yet 
 
 But as a security analyst, with more data at our disposal, we finally have a better idea of what could be the cause of the anomaly in the application behavior. We see the logs from the firewall, see who is sending traffic to who, but there's still not enough data to dismiss the event as a false positive.
 
-## Step 1.7 - Add Snort signature
+## 2.1.7 Add Snort signature
 
 To decide if this anomaly is a false positive, as a security analyst you need to exclude any potential attack. Given the data at your disposal you decide to implement a new signature on the IDS to get alert logs if such traffic is detected again.
 
@@ -496,7 +499,7 @@ Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_attack_simulation"; classtype:web-application-attack; sid:99000020; priority:1; rev:1;)
 ```
 
-## Step 1.8 - Identify and close the Offense
+## 2.1.8 Identify and close the Offense
 
 Moments after the playbook has been executed, we can check in QRadar if we see Offenses. And indeed, that is the case. Log into your QRadar UI, click on **Offenses**, and there on the left side on **All Offenses**:
 
@@ -508,7 +511,7 @@ The next step would be to get in touch with the team responsible for that machin
 
 In the Offense view, click on the Offense, then in the menu on top on **Actions**, In the drop-down menu-click on **close**. A window will pop up where you can enter additional information and finally close the offense as a false positive.
 
-## Step 1.9 - Rollback
+## 2.1.9 Rollback
 
 In the final step, we will rollback all configuration changes to their pre-investigation state, reducing resource consumption and the analysis workload for us and our fellow security analysts. Also we need to stop the attack simulation.
 

@@ -66,6 +66,7 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     state: running
+    network:
       assign_public_ip: true
     filters:
     filters:

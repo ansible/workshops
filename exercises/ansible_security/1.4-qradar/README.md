@@ -1,7 +1,9 @@
-# Exercise 1.4 - Executing the first IBM QRadar
+# 1.4 Executing the first IBM QRadar
 
-**Read this in other languages**: <br>
-[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+<!-- **Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br> -->
+- TOC
+{:toc}
 
 <div id="section_title">
   <a data-toggle="collapse" href="#collapse2">
@@ -78,13 +80,13 @@
   </blockquote>
 </div>
 
-## Step 4.1 - IBM QRadar
+## 1.4.1 IBM QRadar
 
 To showcase how to automate a SIEM in a security environment, this lab contains a [IBM QRadar SIEM, community edition](https://developer.ibm.com/qradar/ce/).
 
 The SIEM can be accessed via web UI and via REST API. In this lab the playbooks we write will be interacting with the API in the background. All actions will be verified in the web UI.
 
-## Step 4.2 - Access the web UI
+## 1.4.2 Access the web UI
 
 Have a first look at the SIEM, and verify that it is actually working. Point your web browser towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the certificate is insecure since it is self-signed. Please accept this and proceed.
 
@@ -131,7 +133,7 @@ Click the one called **"Potential DDoS Against Single Host (TCP)"**, note that i
 
 Now that you had a very first glance at QRadar, it is time to look how it can be automated by Ansible.
 
-## Step 4.3 - QRadar modules and Ansible collections
+## 1.4.3 QRadar modules and Ansible collections
 
 On the most basic level, Ansible Automation Platform performs tasks. Those tasks execute modules, which usually work on the corresponding targets, like an API endpoint of a special device or program.
 
@@ -149,7 +151,7 @@ Automation execution environments can be customized to include the collections y
 >
 > Ansible Automation Platform includes `ansible-builder` which you can use to create your own custom execution environments. For more information on `ansible-builder` please have a look at our [blog post](https://www.ansible.com/blog/introduction-to-ansible-builder).   
 
-## Step 4.4 - First example playbook
+## 1.4.4 First example playbook
 
 In our first example to interface with QRadar we are going to enable/disable a rule. It is a rather small but common change and shows how Ansible and QRadar interact. We will do this in two steps: first we find the rule we want to change, afterwards we apply the change.
 
@@ -268,7 +270,7 @@ In your VS Code online editor, create a new file, `change_qradar_rule.yml` in th
 
 The playbook is now complete: it queries QRadar for the list of rules, and deactivates the one we are looking for.
 
-## Step 4.5 - Run the playbook
+## 1.4.5 Run the playbook
 
 After we completed the playbook, let's execute it:
 
@@ -292,7 +294,7 @@ qradar  : ok=3  changed=1  unreachable=0  failed=0  skipped=0  rescued=0  ignore
 
 As you can see, the playbook denotes a change: the rule was changed. Run the playbook again - it does not report a change anymore, since the rule is now already disabled.
 
-## Step 4.6 - Verify changes in UI
+## 1.4.6 Verify changes in UI
 
 To verify that Ansible indeed changed something, we go back to the UI of QRadar. Open the QRadar IP in your web browser. Click on the **Offenses** tab, and from there on the left side click on **Rules**. The long list of rules is displayed. In the search bar on top of this list, enter the following search term: `DDoS`
 Hit enter to filter the list, so that it only shows rules which are related to DDOS. At the end, note the rule regarding potential DDOS attacks, and check the state in the **Enabled** column: it is set to **False**!

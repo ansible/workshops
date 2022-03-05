@@ -4,69 +4,68 @@
 
 ## Índice
 
-- [Ejercicio 1 - Explorando el entorno de laboratorio](#ejercicio-1---explorando-el-entorno-de-laboratorio)
-  - [Índice](#índice)
-  - [Objective](#objective)
-  - [Diagram](#diagram)
-  - [Guide](#guide)
-    - [Step 1 - Connecting via VS Code](#step-1---connecting-via-vs-code)
-    - [Step 2 - Using the Terminal](#step-2---using-the-terminal)
-    - [Step 3 - Examining Execution Environments](#step-3---examining-execution-environments)
-    - [Step 4 - Examining the ansible-navigator configuration](#step-4---examining-the-ansible-navigator-configuration)
-    - [Step 5 - Examining inventory](#step-5---examining-inventory)
-    - [Step 6 - Understanding inventory](#step-6---understanding-inventory)
-    - [Step 7 - Using ansible-navigator to explore inventory](#step-7---using-ansible-navigator-to-explore-inventory)
-    - [Step 8 - Connecting to network devices](#step-8---connecting-to-network-devices)
-  - [Complete](#complete)
+* [Objetivo](#objective)
+* [Diagrama](#diagram)
+* [Guía](#guide)
+   * [Paso 1 - Connectar vía VS Code](#step-1---connecting-via-vs-code)
+   * [Paso 2 - Usando la Terminal](#step-2---using-the-terminal)
+   * [Paso 3 - Examinando los Entornos de Ejecución ](#step-3---examining-execution-environments)
+   * [Paso 4 - Examinando la configuración de ansible-navigator](#step-4---examining-the-ansible-navigator-configuration)
+   * [Paso 5 - Examinando el inventorio](#step-5---examining-inventory)
+   * [Paso 6 - Comprendiendo el inventorio](#step-6---understanding-inventory)
+   * [Paso 7 - Usando ansible-navigator para explorar el inventorio](#step-7---using-ansible-navigator-to-explore-inventory)
+   * [Paso 8 - Connectándose a dispositivos de red](#step-8---connecting-to-network-devices)
+* [Completo](#complete)
 
-## Objective
+## Objetivo
 
-Explore and understand the lab environment.
+Explorar y comprender el entorno de laboratorio.
 
-These first few lab exercises will be exploring the command-line utilities of the Ansible Automation Platform.  This includes
+Estos primeros ejercicios de laboratorio consistirán en explorar las utilidades de línea de comando de Ansible Automation Platform.
+Esto incluye:
 
-- [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
-- [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like `ansible`, `ansible-playbook` and `ansible-doc`.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.
-- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the network collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
-- [ansible-builder](https://github.com/ansible/ansible-builder) - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) - una utilidad de línea de comando e interfaz de usuario basado en texto (TUI) para ejecutar y desarrollar contenido de automatización de Ansible.
+- [ansible-core](https://docs.ansible.com/core.html) - el ejecutable que provee el marco, lenguaje y funciones que componen Ansible Automation Platform. También incluye varias utilidades de línea de comandos como `ansible`, `ansible-playbook` y `ansible-doc`.  Ansible Core actúa como el puente entre la comunidad upstream y los contenidos open source y gratuítos de Ansible además de conectarlo con la oferta empresarial de automatización downstream de Red Hat, el producto Ansible Automation Platform.
+- [Entornos de Ejecución](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - no cubiertos específicamente en este taller puesto que el entorno de Ansible Execution Environments ya está incluído en todas las colecciones soportadas de Red Hat que comprenden todas las colecciones de red utilizadas en este taller. Los Entornos de Ejecución son imágenes de contenedores que pueden ser usadas como ejecuciones de Ansible.
+- [ansible-builder](https://github.com/ansible/ansible-builder) - como el anterior, no cubierto específicamente en este taller, `ansible-builder` es una utilidad de línea de comando para automatizar el proceso de creación de Entornos de Ejecución.
 
-If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
+Si necesitaás más informacion sobre los nuevos componentes de Ansible Automation Platform, añáde esta página [https://red.ht/AAP-20](https://red.ht/AAP-20) a tus marcadores.
 
-> Chat with us
+> Chatea con nosotros
 >
-> Before you get started, please join us on slack! <a href="https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw">Click here to join the ansiblenetwork slack</a>.  This will allow you to chat with other network automation engineers and get help after the workshops concludes.  If the link goes stale please email <a href="mailto:ansible-network@redhat.com">Ansible Technical Marketing</a></th>
+> Antes de comenzar, por favor, únete a nosotros en slack <a href="https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw">Haz click aquí para unirte al canal de slack ansiblenetwork</a>. Esto te permitirá chatear con otros ingeniero de automatización de redes y obtener ayuda una vez concluídos los talleres. Si el enlace no funcionase, por favor envíanos un email a <a href="mailto:ansible-network@redhat.com">Ansible Technical Marketing</a></th>
 
 
-## Diagram
+## Diagrama
 
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/ansible_network_diagram.png)
 
 
 
-## Guide
+## Guía
 
-### Step 1 - Connecting via VS Code
+### Paso 1 - Connectar vía VS Code
 
 <table>
 <thead>
   <tr>
-    <th>It is highly encouraged to use Visual Studio Code to complete the workshop exercises. Visual Studio Code provides:
+    <th> Se recomienda el uso de Visual Studio Code para completar los ejercicios. Visual Studio Code provee:
     <ul>
-    <li>A file browser</li>
-    <li>A text editor with syntax highlighting</li>
-    <li>A in-browser terminal</li>
+    <li>Un explorador de ficheros</li>
+    <li>Un editor de texto con sintaxis resaltada</li>
+    <li>Una terminal embebida</li>
     </ul>
-    Direct SSH access is available as a backup, or if Visual Studio Code is not sufficient to the student.  There is a short YouTube video provided if you need additional clarity: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
+    El acceso directo por SSH está disponible como backup, o si Visual Studio Code no fuera suficiente para el estudiante.  Aquí hay un pequeño vídeo de YouTube (en inglés) en caso de necesitar más claridad: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
 </th>
 </tr>
 </thead>
 </table>
 
-- Connect to Visual Studio Code from the Workshop launch page (provided by your instructor).  The password is provided below the WebUI link.
+- Conéctate a Visual Studio Code desde la página inicial del taller (provista por el instructor). La password se provee bajo el enlace de WebUI.
 
   ![launch page](images/launch_page.png)
 
-- Type in the provided password to connect.
+- Introduce la contraseña que se te ha provisto para poder ingresar.
 
   ![login vs code](images/vscode_login.png)
 

@@ -7,7 +7,7 @@
 * [Objetivo](#objective)
 * [Diagrama](#diagram)
 * [Guía](#guide)
-   * [Paso 1 - Connectar vía VS Code](#paso-1---conectar-vía-vs-code)
+   * [Paso 1 - Connectar vía VS Code](#step-1---connecting-via-vs-code)
    * [Paso 2 - Usando la Terminal](#step-2---using-the-terminal)
    * [Paso 3 - Examinando los Entornos de Ejecución ](#step-3---examining-execution-environments)
    * [Paso 4 - Examinando la configuración de ansible-navigator](#step-4---examining-the-ansible-navigator-configuration)

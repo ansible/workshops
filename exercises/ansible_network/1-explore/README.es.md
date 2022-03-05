@@ -11,9 +11,9 @@
    * [Paso 2 - Usando la Terminal](#step-2---using-the-terminal)
    * [Paso 3 - Examinando los Entornos de Ejecución ](#step-3---examining-execution-environments)
    * [Paso 4 - Examinando la configuración de ansible-navigator](#step-4---examining-the-ansible-navigator-configuration)
-   * [Paso 5 - Examinando el inventorio](#step-5---examining-inventory)
-   * [Paso 6 - Comprendiendo el inventorio](#step-6---understanding-inventory)
-   * [Paso 7 - Usando ansible-navigator para explorar el inventorio](#step-7---using-ansible-navigator-to-explore-inventory)
+   * [Paso 5 - Examinando el inventario](#step-5---examining-inventory)
+   * [Paso 6 - Comprendiendo el inventario](#step-6---understanding-inventory)
+   * [Paso 7 - Usando ansible-navigator para explorar el inventario](#step-7---using-ansible-navigator-to-explore-inventory)
    * [Paso 8 - Connectándose a dispositivos de red](#step-8---connecting-to-network-devices)
 * [Completo](#complete)
 
@@ -69,21 +69,21 @@ Si necesitaás más informacion sobre los nuevos componentes de Ansible Automati
 
   ![login vs code](images/vscode_login.png)
 
-- Open the `network-workshop` directory in Visual Studio Code:
+- Abre el directorio `network-workshop` en Visual Studio Code:
 
   ![picture of file browser](images/vscode-networkworkshop.png)
 
-- Click on the `playbook.yml` to view the content.
+- Haz click en el finchero `playbook.yml` para ver el contenido.
 
   ![picture of playbook](images/vscode-playbook.png)
 
-### Step 2 - Using the Terminal
+### Paso 2 - Usando la Terminal
 
-- Open a terminal in Visual Studio Code:
+- Abre una terminal en Visual Studio Code:
 
   ![picture of new terminal](images/vscode-new-terminal.png)
 
-Navigate to the `network-workshop` directory on the Ansible control node terminal.
+Navega hasta el directorio `network-workshop` en la terminal del nodo de control de Ansible.
 
 ```bash
 [student1@ansible-1 ~]$ cd ~/network-workshop/
@@ -92,13 +92,13 @@ Navigate to the `network-workshop` directory on the Ansible control node termina
 [student1@ansible-1 network-workshop]$
 ```
 
-* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student1`
-* `cd` - Linux command to change directory
-* `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
+* `~` - la tilde en este contexto es un atajo para el directorio, ej. `/home/student1`
+* `cd` - comando de Linux para cambiar de directorio.
+* `pwd` - comando de Linux para mostrar el directorio de trabajo. Con esto, se mostrará el `path` completo al directorio de trabajo actual.
 
-### Step 3 - Examining Execution Environments
+### Paso 3 - Examinando los Entornos de Ejecución
 
-Run the `ansible-navigator` command with the `images` argument to look at execution environments configured on the control node:
+Ejecuta el comando `ansible-navigator` con el argumento `images` para ver los entornos de ejecución configurados en el nodo de control:
 
 ```bash
 $ ansible-navigator images
@@ -107,21 +107,21 @@ $ ansible-navigator images
 ![ansible-navigator images](images/navigator-images.png)
 
 
-> Note
+> Nota
 >
-> The output  you see might differ from the above output
+> La salida mostrada puede diferir de la anteriomente mostrada
 
-This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **2** with the above example will open the `ee-supported-rhel8` execution environment:
+Este comando da información sobre todos los Entornos de Ejecución actualmente instalados (EE para abreviar). Investiga un EE pulsando el número correspondiente. Por ejemplo, pulsando **2** con el ejemplo anterior, abrirá el EE `ee-supported-rhel8`:
 
 ![ee main menu](images/navigator-ee-menu.png)
 
-Selecting `2` for `Ansible version and collections` will show us all Ansible Collections installed on that particular EE, and the version of `ansible-core`:
+Seleccionar `2` para `Ansible version and collections` mostrará todas las Colecciones de Ansible (Ansible Collections) instaladas para ese EE en particular, y la versión de `ansible-core`:
 
 ![ee info](images/navigator-ee-collections.png)
 
-### Step 4 - Examining the ansible-navigator configuration
+### Paso 4 - Examinando la configuración de ansible-navigator
 
-Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
+Ejecuta tanto Visual Studio Code como el comando `cat` para ver el contenido del fichero `ansible-navigator.yml`. El fichero se encuentra en el directorio home:
 
 ```bash
 $ cat ~/.ansible-navigator.yml
@@ -141,14 +141,14 @@ ansible-navigator:
       dest: "/etc/ansible/"
 ```
 
-Note the following parameters within the `ansible-navigator.yml` file:
+Fíjate en los siguientes parámetros del fichero `ansible-navigator.yml`:
 
-* `inventories`: shows the location of the ansible inventory being used
-* `execution-environment`: where the default execution environment is set
+* `inventories`: muestra la ubicación del inventario de ansible actualmente en uso.
+* `execution-environment`: dónde está configurado el entorno de ejecución por defecto.
 
-For a full listing of every configurable knob checkout the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/)
+Para ver un listado completo con todas las opciones configurables, consulta la [documentación](https://ansible-navigator.readthedocs.io/en/latest/settings/)
 
-### Step 5 - Examining inventory
+### Paso 5 - Examinando el inventario
 
 The scope of a `play` within a `playbook` is limited to the groups of hosts declared within an Ansible **inventory**. Ansible supports multiple [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) types. An inventory could be a simple flat file with a collection of hosts defined within it or it could be a dynamic script (potentially querying a CMDB backend) that generates a list of devices to run the playbook against.
 
@@ -204,7 +204,7 @@ rtr4
 ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
 ```
 
-### Step 6 - Understanding inventory
+### Paso 6 - Comprendiendo el inventario
 
 In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
 
@@ -239,7 +239,7 @@ ansible_connection=network_cli
 * `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
 * `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
 
-### Step 7 - Using ansible-navigator to explore inventory
+### Paso 7 - Usando ansible-navigator para explorar el inventario
 
 We can also use the `ansible-navigator` TUI to explore inventory.
 
@@ -255,7 +255,7 @@ Press the **Esc** key to go up a level, or you can zoom in to an individual host
 
 ![ansible-navigator host](images/ansible-navigator-rtr-1.png)
 
-### Step 8 - Connecting to network devices
+### Paso 8 - Connectándose a dispositivos de red
 
 There are four routers, named rtr1, rtr2, rtr3 and rtr4.  The network diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (`~/.ssh/config`) is already setup on the control node.  This means you can SSH to any router from the control node without a login:
 

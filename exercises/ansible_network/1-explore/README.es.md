@@ -150,9 +150,9 @@ Para ver un listado completo con todas las opciones configurables, consulta la [
 
 ### Paso 5 - Examinando el inventario
 
-The scope of a `play` within a `playbook` is limited to the groups of hosts declared within an Ansible **inventory**. Ansible supports multiple [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) types. An inventory could be a simple flat file with a collection of hosts defined within it or it could be a dynamic script (potentially querying a CMDB backend) that generates a list of devices to run the playbook against.
+El alcance de un `play` dentro de un `playbook` está limitado a los grupos de máquinas declarados en el **inventario** de Ansible. Ansible sorpota múltiples tipos de [inventarios](http://docs.ansible.com/ansible/latest/intro_inventory.html). Un inventario puede ser un simple fichero en claro con una colección de máquinas definidas en él o un script dinámico (que potencialmente consulte a un backend CMDB) que genere una lista de dispositivos contra los que ejecutar el playbook.
 
-In this lab you will work with a file based inventory written in the **ini** format. Either use Visual Studio Code to open or use the `cat` command to view the contents of the `~/lab_inventory/hosts` file.
+En este ejercicio trabajarás con un inventario basado en fichero en formato **ini**. Usa tanto Visual Studio Code o el comando `cat` para ver el contenido del fichero `~/lab_inventory/hosts`.
 
 ```bash
 $ cat ~/lab_inventory/hosts

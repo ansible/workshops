@@ -4,18 +4,20 @@
 
 ## Índice
 
-* [Objetivo](#objective)
-* [Diagrama](#diagram)
-* [Guía](#guide)
-   * [Paso 1 - Connectar vía VS Code](#step-1---connecting-via-vs-code)
-   * [Paso 2 - Usando la Terminal](#step-2---using-the-terminal)
-   * [Paso 3 - Examinando los Entornos de Ejecución ](#step-3---examining-execution-environments)
-   * [Paso 4 - Examinando la configuración de ansible-navigator](#step-4---examining-the-ansible-navigator-configuration)
-   * [Paso 5 - Examinando el inventario](#step-5---examining-inventory)
-   * [Paso 6 - Comprendiendo el inventario](#step-6---understanding-inventory)
-   * [Paso 7 - Usando ansible-navigator para explorar el inventario](#step-7---using-ansible-navigator-to-explore-inventory)
-   * [Paso 8 - Connectándose a dispositivos de red](#step-8---connecting-to-network-devices)
-* [Completo](#complete)
+- [Ejercicio 1 - Explorando el entorno de laboratorio](#ejercicio-1---explorando-el-entorno-de-laboratorio)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Diagrama](#diagrama)
+  - [Guía](#guía)
+    - [Paso 1 - Connectar vía VS Code](#paso-1---connectar-vía-vs-code)
+    - [Paso 2 - Usando la Terminal](#paso-2---usando-la-terminal)
+    - [Paso 3 - Examinando los Entornos de Ejecución](#paso-3---examinando-los-entornos-de-ejecución)
+    - [Paso 4 - Examinando la configuración de ansible-navigator](#paso-4---examinando-la-configuración-de-ansible-navigator)
+    - [Paso 5 - Examinando el inventario](#paso-5---examinando-el-inventario)
+    - [Paso 6 - Comprendiendo el inventario](#paso-6---comprendiendo-el-inventario)
+    - [Paso 7 - Usando ansible-navigator para explorar el inventario](#paso-7---usando-ansible-navigator-para-explorar-el-inventario)
+    - [Paso 8 - Connectándose a dispositivos de red](#paso-8---connectándose-a-dispositivos-de-red)
+  - [Complete](#complete)
 
 ## Objetivo
 
@@ -206,27 +208,29 @@ ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.1
 
 ### Paso 6 - Comprendiendo el inventario
 
-In the above output every `[ ]` defines a group. For example `[dc1]` is a group that contains the hosts `rtr1` and `rtr3`. Groups can also be _nested_. The group `[routers]` is a parent group to the group `[cisco]`
+En la salida anterior, cada `[ ]` define un grupo. Por ejemplo, `[dc1]` es el grupo que contiene las máquinas `rtr1` y `rtr3`.
+Los grupos también pueden ser _anidados_. El grupo `[routers]` es el padre del grupo `[cisco]`.
 
-Parent groups are declared using the `children` directive. Having nested groups allows the flexibility of assigining more specific values to variables.
+Los grupos padres se declaran usando la directiva `children`.  Tener grupos anidados provee la flexibilidad de asignar valores más específicos a las variables.
 
-We can associate variables to groups and hosts.
+Podemos asociar variablea tanto a grupos como a máquinas.
 
-> Note:
+> Nota:
 >
-> A group called **all** always exists and contains all groups and hosts defined within an inventory.
+> El grupo llamado **all** siempre existe y contiene a todos los grupos y todas las máquinas definidas dentro de un inventario.
 
-Host variables can be defined on the same line as the host themselves. For example for the host `rtr1`:
+Las variables de máquinas también pueden definirse en la misma línea que define a la máquina. Por ejemplo, la máquina `rtr1`:
 
 ```sh
 rtr1 ansible_host=18.222.121.247 private_ip=172.16.129.86
 ```
 
-* `rtr1` - The name that Ansible will use.  This can but does not have to rely on DNS
-* `ansible_host` - The IP address that ansible will use, if not configured it will default to DNS
-* `private_ip` - This value is not reserved by ansible so it will default to a [host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables).  This variable can be used by playbooks or ignored completely.
+* `rtr1` - El nombre que Ansible usará. Puede pero no tiene por qué depender el nombre DNS.
+* `ansible_host` - La dirección IP que Ansible usará, si no se configura, buscará en el DNS por defecto.
+* `private_ip` - Este valor no está reservado por Ansible, así que por defecto, tomará el valor de la [variable host](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables). Esta variable puede usarse en playbooks o ignorarse por completo.
 
-Group variables groups are declared using the `vars` directive. Having groups allows the flexibility of assigning common variables to multiple hosts. Multiple group variables can be defined under the `[group_name:vars]` section. For example look at the group `cisco`:
+Los grupos de variables de grupo se declaran usando la directiva
+ `vars`. Tener grupos permite la flexibilidad de asignar variables comunes a múltiples hosts. Se pueden definir múltiples variables de grupo bajo la sección `[group_name:vars]`. Por ejemplo, echa un vistazo al grupo `cisco`:
 
 ```sh
 [cisco:vars]
@@ -235,9 +239,9 @@ ansible_network_os=ios
 ansible_connection=network_cli
 ```
 
-* `ansible_user` - The user ansible will be used to login to this host, if not configured it will default to the user the playbook is run from
-* `ansible_network_os` - This variable is necessary while using the `network_cli` connection type within a play definition, as we will see shortly.
-* `ansible_connection` - This variable sets the [connection plugin](https://docs.ansible.com/ansible/latest/plugins/connection.html) for this group.  This can be set to values such as `netconf`, `httpapi` and `network_cli` depending on what this particular network platform supports.
+* `ansible_user` - El usuario de Ansible que se usará para haver login en esta máquina. Si no está configurado tomará el valor por defecto del usuario en el playbook desde el que se está ejecutando.
+* `ansible_network_os` - Esta variable es necesaria mientras se usa el tipo de conexión `network_cli` dentro de una definición de `play`, como veremos en breve.
+* `ansible_connection` - Esta variable configura el [plugin de conexión](https://docs.ansible.com/ansible/latest/plugins/connection.html) para el grupo. Puede configurarse a los valores como `netconf`, `httpapi` y `network_cli` dependiendo de lo que soporte este tipo de plataforma de red en particular.
 
 ### Paso 7 - Usando ansible-navigator para explorar el inventario
 

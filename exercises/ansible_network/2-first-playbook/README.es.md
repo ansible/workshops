@@ -19,22 +19,22 @@
 * [Solución](#solución)
 * [Completado](#completado)
 
-## Objective
+## Objetivo
 
-Use Ansible to update the configuration of routers.  This exercise will not create an Ansible Playbook, but use an existing one that has been provided.
+Usaremos Ansible para actualizar la configuración de los enrutadores. Este ejercicio no creará un Playbook de Ansible, sino que utilizará uno existente que ya ha sido provisto.
 
-This exercise will cover:
+Este ejercicio cubrirá:
 
-* examining an existing Ansible Playbook
-* executing an Ansible Playbook on the command line using the `ansible-navigator` command
-* check mode (the `--check` parameter)
-* verbose mode (the `--verbose` or `-v` parameter)
+* Examinar un Playbook de Ansible existente
+* Ejecutar un Playbook de Ansible en la línea de comandos usando el comando `ansible-navigator`
+* Usar el modo de validación (el parámetro `--check`)
+* Usar el modo de verboso (parámetros `--verbose` o `-v`)
 
-## Guide
+## Guía
 
 ### Paso 1 - Examinar un Playbook de Ansible
 
-Navigate to the `network-workshop` directory if you are not already there.
+Navega hasta el directorio `network-workshop` si es que no estás ya allí.
 
 ```bash
 [student1@ansible ~]$ cd ~/network-workshop/
@@ -43,7 +43,7 @@ Navigate to the `network-workshop` directory if you are not already there.
 /home/student1/network-workshop
 ```
 
-Examine the provided Ansible Playbook named `playbook.yml`.  Either open the file in Visual Studio Code or `cat` the file:
+Examina el Playbook de Ansible existente llamado `playbook.yml`. Tanto con Visual Studio Code o con el comando `cat` sobre el fichero:
 
 ```yaml
 ---
@@ -60,10 +60,10 @@ Examine the provided Ansible Playbook named `playbook.yml`.  Either open the fil
           - snmp-server community ansible-private RW
 ```
 
-* `cat` - Linux command allowing us to view file contents
-* `playbook.yml` - provided Ansible Playbook
+* `cat` - Comando de Linux que permite ver el contenido de un fichero
+* `playbook.yml` - Playbook de Ansible provisto
 
-We will explore in detail the components of an Ansible Playbook in the next exercise.  It is suffice for now to see that this playbook will run two Cisco IOS-XE commands
+Exploraremos en detalle los componentes de un Playbook de Ansible en el siguiente ejercicio. Por ahora, es suficiente con observar que este playbook ejecutará dos comandos Cisco IOS-XE.
 
 ```sh
 snmp-server community ansible-public RO

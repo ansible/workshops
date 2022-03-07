@@ -245,17 +245,17 @@ ansible_connection=network_cli
 
 ### Paso 7 - Usando ansible-navigator para explorar el inventario
 
-We can also use the `ansible-navigator` TUI to explore inventory.
+También se puede usar la utilidad TUI, `ansible-navigator` para explorar el inventario.
 
-Run the `ansible-navigator inventory` command to bring up inventory in the TUI:
+Ejecuta el comando `ansible-navigator inventory` para mostrar el inventario en la TUI:
 
 ![ansible-navigator tui](images/ansible-navigator.png)
 
-Pressing **0** or **1** on your keyboard will open groups or hosts respectively.
+Pulsa **0** o **1** en el teclado, para mostrar los grupos o máquinas respectivamente.
 
 ![ansible-navigator groups](images/ansible-navigator-groups.png)
 
-Press the **Esc** key to go up a level, or you can zoom in to an individual host:
+Pulsa la tecla **Esc** para subir un nivel o para hacer zoom en una máquina en particular:
 
 ![ansible-navigator host](images/ansible-navigator-rtr-1.png)
 

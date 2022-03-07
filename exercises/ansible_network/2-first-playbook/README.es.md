@@ -72,7 +72,8 @@ snmp-server community ansible-private RW
 
 ### Paso 2 - Ejecutar un Playbook de Ansible
 
-Run the playbook using the `ansible-navigator` command.  The full command is:
+Ejecuta el playbook usando el comando `ansible-navigator`. El comando completo es:
+
 ```ansible-navigator run playbook.yml --mode stdout```
 
 ```bash
@@ -89,7 +90,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 [student1@ansible-1 network-workshop]$
 ```
 
-* `--mode stdout` - By default `ansible-navigator` will run in interactive mode.  The default behavior can be modified by modifying the `ansible-navigator.yml`.  As playbooks get longer and involve multiple hosts the interactive mode allows you to "zoom in" on data in real-time, filter it, and navigate between various Ansible components.  Since this task only ran one task on one host the `stdout` is sufficient.
+* `--mode stdout` - Por defecto, `ansible-navigator` se ejecutará en modo interactivo. El comportamiento por defecto puede modificarse cambiando el fichero the `ansible-navigator.yml`. A medida que los playbooks crecen e incluyen a múltiples máquinas, el modo interactivo permite "hacer zoom" sobre los datos en tiempo real, filtrarlos y navergar entre varios componentes de Ansible. Puesto que esta tarea sólo se ejecutó en una máquina la salida `stdout` es suficiente.
 
 ### Paso 3 - Verificar la configuración de un enrutador
 

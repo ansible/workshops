@@ -261,15 +261,15 @@ Pulsa la tecla **Esc** para subir un nivel o para hacer zoom en una máquina en 
 
 ### Paso 8 - Connectándose a dispositivos de red
 
-There are four routers, named rtr1, rtr2, rtr3 and rtr4.  The network diagram is always available on the [network automation workshop table of contents](../README.md).  The SSH configuration file (`~/.ssh/config`) is already setup on the control node.  This means you can SSH to any router from the control node without a login:
+Hay 4 ruters llamados rtr1, rtr2, rtr3 y rtr4. El diagrama de red está siempre disponible en [network automation workshop table of contents](../README.md). El fichero de configuración de SSH (`~/.ssh/config`) está ya configurado en el nodo de control is already setup on the control node. Es decir, puedes hacer SSH a cualquier ruter desde el nodo de control sin necesidad de login:
 
-For example to connect to rtr1 from the Ansible control node, type:
+Por ejemplo, conectate a rtr1 desde el nodo de control de Ansible haciendo:
 
 ```bash
 $ ssh rtr1
 ```
 
-For example:
+Por ejemplo:
 ```
 $ ssh rtr1
 Warning: Permanently added 'rtr1,35.175.115.246' (RSA) to the list of known hosts.
@@ -280,21 +280,21 @@ rtr1#show ver
 Cisco IOS XE Software, Version 16.09.02
 ```
 
-## Complete
+## Completado
 
-You have completed lab exercise 1!  
+¡Felicidades, has completado el ejercicio de laboratorio 1!  
 
-You now understand:
+Ahora ya sabes:
 
-* How to connect to the lab environment with Visual Studio Code
-* How to explore **execution environments** with `ansible-navigator`
-* Where the Ansible Navigator Configuration (`ansible-navigator.yml`) is located
-* Where the inventory is stored for command-line exercises
-* How to use ansible-navigator TUI (Text-based user interface)
+* Cómo conectarte al entorno de laboratorio usando Visual Studio Code
+* Cómo explorar los **entornos de ejecución** usando `ansible-navigator`
+* Dónde se encuentra la configuración del navegador de Ansible (`ansible-navigator.yml`)
+* Dónde se encuentra el inventario para poder realizar los ejercicios de línea de comandos
+* Cómo usar el comando `ansible-navigator`y su interfaz TUI (interfaz de usuario basada en texto).
 
 
 
 ---
-[Next Exercise](../2-first-playbook/README.md)
+[Próximo ejercicio](../2-first-playbook/README.es.md)
 
-[Click Here to return to the Ansible Network Automation Workshop](../README.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

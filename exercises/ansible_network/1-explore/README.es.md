@@ -261,7 +261,7 @@ Pulsa la tecla **Esc** para subir un nivel o para hacer zoom en una máquina en 
 
 ### Paso 8 - Connectándose a dispositivos de red
 
-Hay 4 ruters llamados rtr1, rtr2, rtr3 y rtr4. El diagrama de red está siempre disponible en [network automation workshop table of contents](../README.md). El fichero de configuración de SSH (`~/.ssh/config`) está ya configurado en el nodo de control is already setup on the control node. Es decir, puedes hacer SSH a cualquier ruter desde el nodo de control sin necesidad de login:
+Hay 4 enrutadors llamados rtr1, rtr2, rtr3 y rtr4. El diagrama de red está siempre disponible en [network automation workshop table of contents](../README.md). El fichero de configuración de SSH (`~/.ssh/config`) está ya configurado en el nodo de control is already setup on the control node. Es decir, puedes hacer SSH a cualquier enrutador desde el nodo de control sin necesidad de login:
 
 Por ejemplo, conectate a rtr1 desde el nodo de control de Ansible haciendo:
 

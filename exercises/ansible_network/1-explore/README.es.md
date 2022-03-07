@@ -4,20 +4,18 @@
 
 ## Índice
 
-- [Ejercicio 1 - Explorando el entorno de laboratorio](#ejercicio-1---explorando-el-entorno-de-laboratorio)
-  - [Índice](#índice)
-  - [Objetivo](#objetivo)
-  - [Diagrama](#diagrama)
-  - [Guía](#guía)
-    - [Paso 1 - Connectar vía VS Code](#paso-1---connectar-vía-vs-code)
-    - [Paso 2 - Usando la Terminal](#paso-2---usando-la-terminal)
-    - [Paso 3 - Examinando los Entornos de Ejecución](#paso-3---examinando-los-entornos-de-ejecución)
-    - [Paso 4 - Examinando la configuración de ansible-navigator](#paso-4---examinando-la-configuración-de-ansible-navigator)
-    - [Paso 5 - Examinando el inventario](#paso-5---examinando-el-inventario)
-    - [Paso 6 - Comprendiendo el inventario](#paso-6---comprendiendo-el-inventario)
-    - [Paso 7 - Usando ansible-navigator para explorar el inventario](#paso-7---usando-ansible-navigator-para-explorar-el-inventario)
-    - [Paso 8 - Connectándose a dispositivos de red](#paso-8---connectándose-a-dispositivos-de-red)
-  - [Completado](#complete)
+* [Objetivo](#objetivo)
+* [Diagrama](#diagrama)
+* [Guía](#guía)
+   * [Paso 1 - Connectar vía VS Code](#paso-1---connectar-vía-vs-code)
+   * [Paso 2 - Usando la Terminal](#paso-2---usando-la-terminal)
+   * [Paso 3 - Examinando los Entornos de Ejecución](#paso-3---examinando-los-entornos-de-ejecución)
+   * [Paso 4 - Examinando la configuración de ansible-navigator](#paso-4---examinando-la-configuración-de-ansible-navigator)
+   * [Paso 5 - Examinando el inventario](#paso-5---examinando-el-inventario)
+   * [Paso 6 - Comprendiendo el inventario](#paso-6---comprendiendo-el-inventario)
+   * [Paso 7 - Usando ansible-navigator para explorar el inventario](#paso-7---usando-ansible-navigator-para-explorar-el-inventario)
+   * [Paso 8 - Connectándose a dispositivos de red](#paso-8---connectándose-a-dispositivos-de-red)
+* [Completado](#complete)
 
 ## Objetivo
 

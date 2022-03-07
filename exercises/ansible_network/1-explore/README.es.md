@@ -17,7 +17,7 @@
     - [Paso 6 - Comprendiendo el inventario](#paso-6---comprendiendo-el-inventario)
     - [Paso 7 - Usando ansible-navigator para explorar el inventario](#paso-7---usando-ansible-navigator-para-explorar-el-inventario)
     - [Paso 8 - Connectándose a dispositivos de red](#paso-8---connectándose-a-dispositivos-de-red)
-  - [Complete](#complete)
+  - [Completado](#complete)
 
 ## Objetivo
 

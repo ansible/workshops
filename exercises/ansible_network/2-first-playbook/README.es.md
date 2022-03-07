@@ -1,23 +1,23 @@
-# Exercise 2 - First Ansible Playbook
+# Ejercicio 2 - Primer Playbook de Ansible
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
-## Table of Contents
+## Índice
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1 - Examine Ansible Playbook](#step-1---examine-ansible-playbook)
-   * [Step 2 - Execute Ansible Playbook](#step-2---execute-ansible-playbook)
-   * [Step 3 - Verify configuration on router](#step-3---verify-configuration-on-router)
-   * [Step 4 - Validate idempotency](#step-4---validate-idempotency)
-   * [Step 5 - Modify Ansible Playbook](#step-5---modify-ansible-playbook)
-   * [Step 6 - Use check mode](#step-6---use-check-mode)
-   * [Step 7 - Verify configuration is not present](#step-7---verify-configuration-is-not-present)
-   * [Step 8 - Re-run the Ansible Playbook](#step-8---re-run-the-ansible-playbook)
-   * [Step 9 - Verify configuration is applied](#step-9---verify-configuration-is-applied)
-* [Takeaways](#takeaways)
-* [Solution](#solution)
-* [Complete](#complete)
+* [Objetivo](#objective)
+* [Guía](#guide)
+   * [Paso 1 - Examinar un Playbook de Ansible](#Paso-1---examinar-un-playbook-de-ansible)
+   * [Paso 2 - Ejecutar un Playbook de Ansible](#Paso-2---ejecutar-un-playbook-de-ansible)
+   * [Paso 3 - Verificar la configuración de un enrutador](#Paso-3---verificar-la-configuración-de-un-enrutador)
+   * [Paso 4 - Validar la idempotencia](#Paso-4---validar-la-idempotencia)
+   * [Paso 5 - Modificar un Playbook de Ansible](#Paso-5---modificar-un-playbook-de-ansible)
+   * [Paso 6 - Usar el modo de validación](#Paso-6---usar-el-modo-de-validación)
+   * [Paso 7 - Verificar que la configuración no está presente](#Paso-7---verificar-que-la-configuración-no-está-presente)
+   * [Paso 8 - Re-ejecutar un Playbook de Ansible](#Paso-8---re-run-the-ansible-playbook)
+   * [Paso 9 - Verificar que la configuracion se ha aplicado](#Paso-9---re-ejecutar-un-playbook-de-ansible)
+* [Consejos a recordar](#consejos-a-recordar)
+* [Solución](#solución)
+* [Completado](#completado)
 
 ## Objective
 
@@ -32,7 +32,7 @@ This exercise will cover:
 
 ## Guide
 
-### Step 1 - Examine Ansible Playbook
+### Paso 1 - Examinar un Playbook de Ansible
 
 Navigate to the `network-workshop` directory if you are not already there.
 
@@ -70,7 +70,7 @@ snmp-server community ansible-public RO
 snmp-server community ansible-private RW
 ```
 
-### Step 2 - Execute Ansible Playbook
+### Paso 2 - Ejecutar un Playbook de Ansible
 
 Run the playbook using the `ansible-navigator` command.  The full command is:
 ```ansible-navigator run playbook.yml --mode stdout```
@@ -91,7 +91,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 
 * `--mode stdout` - By default `ansible-navigator` will run in interactive mode.  The default behavior can be modified by modifying the `ansible-navigator.yml`.  As playbooks get longer and involve multiple hosts the interactive mode allows you to "zoom in" on data in real-time, filter it, and navigate between various Ansible components.  Since this task only ran one task on one host the `stdout` is sufficient.
 
-### Step 3 - Verify configuration on router
+### Paso 3 - Verificar la configuración de un enrutador
 
 Verify that the Ansible Playbook worked.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
 
@@ -103,7 +103,7 @@ snmp-server community ansible-public RO
 snmp-server community ansible-private RW
 ```
 
-### Step 4 - Validate idempotency
+### Paso 4 - Validar la idempotencia
 
 The `cisco.ios.config` module is idempotent. This means, a configuration change is pushed to the device if and only if that configuration does not exist on the end hosts.
 
@@ -131,7 +131,7 @@ rtr1                       : ok=1    changed=0    unreachable=0    failed=0    s
 
 Re-running the Ansible Playbook multiple times will result in the same exact output, with **ok=1** and **change=0**.  Unless another operator or process removes or modifies the existing configuration on rtr1, this Ansible Playbook will just keep reporting **ok=1** indicating that the configuration already exists and is configured correctly on the network device.
 
-### Step 5 - Modify Ansible Playbook
+### Paso 5 - Modificar un Playbook de Ansible
 
 Now update the task to add one more SNMP RO community string named `ansible-test`.
 
@@ -162,7 +162,7 @@ The Ansible Playbook will now look like this:
 
 Make sure to save the `playbook.yml` with the change.
 
-### Step 6 - Use check mode
+### Paso 6 - Usar el modo de validación
 
 This time however, instead of running the playbook to push the change to the device, execute it using the `--check` flag in combination with the `-v` or verbose mode flag:
 
@@ -181,7 +181,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 
 The `--check` mode in combination with the `--verbose` flag will display the exact changes that will be deployed to the end device without actually pushing the change. This is a great technique to validate the changes you are about to push to a device before pushing it.
 
-### Step 7 - Verify configuration is not present
+### Paso 7 -  Verificar que la configuración no está presente
 
 Verify that the Ansible Playbook did not apply the `ansible-test` community.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
 
@@ -193,7 +193,7 @@ snmp-server community ansible-public RO
 snmp-server community ansible-private RW
 ```
 
-### Step 8 - Re-run the Ansible Playbook
+### Paso 8 - Re-run the Ansible Playbook
 
 Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
 
@@ -209,7 +209,7 @@ PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-### Step 9 - Verify configuration is applied
+### Paso 9 - Re-ejecutar un Playbook de Ansible
 
 Verify that the Ansible Playbook applied **ansible-test** community.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
 
@@ -222,18 +222,18 @@ snmp-server community ansible-private RW
 snmp-server community ansible-test RO
 ```
 
-## Takeaways
+## Consejos a recordar
 
 * the **config** (e.g. cisco.ios.config) modules are idempotent, meaning they are stateful
 * **check mode** ensures the Ansible Playbook does not make any changes on the remote systems
 * **verbose mode** allows us to see more output to the terminal window, including which commands would be applied
 * This Ansible Playbook could be scheduled in **Automation controller** to enforce the configuration.  For example this could mean the Ansible Playbook could be run once a day for a particular network.  In combination with **check mode** this could just be a read only Ansible Playbook that sees and reports if configuration is missing or modified on the network.
 
-## Solution
+## Solución
 
 The finished Ansible Playbook is provided here for an answer key: [playbook.yml](../playbook.yml).
 
-## Complete
+## Completado
 
 You have completed lab exercise 2
 

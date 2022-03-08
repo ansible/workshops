@@ -213,7 +213,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 
 ### Paso 9 - Re-ejecutar un Playbook de Ansible
 
-Verify that the Ansible Playbook applied **ansible-test** community.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
+Verifiquemos que el Playbook de Ansible aplicó la comunidad **ansible-test**. Entra en `rtr1` y verifica la configuración en ejecución del dispositivo Cisco IOS-XE.
 
 ```bash
 [student1@ansible network-workshop]$ ssh rtr1
@@ -226,20 +226,20 @@ snmp-server community ansible-test RO
 
 ## Consejos a recordar
 
-* the **config** (e.g. cisco.ios.config) modules are idempotent, meaning they are stateful
-* **check mode** ensures the Ansible Playbook does not make any changes on the remote systems
-* **verbose mode** allows us to see more output to the terminal window, including which commands would be applied
-* This Ansible Playbook could be scheduled in **Automation controller** to enforce the configuration.  For example this could mean the Ansible Playbook could be run once a day for a particular network.  In combination with **check mode** this could just be a read only Ansible Playbook that sees and reports if configuration is missing or modified on the network.
+* Los módulos **config** (ej. cisco.ios.config) son idempotentes, es decir que son, con estado.
+* **check mode** asegura que el Playbook de Ansible no aplica ningún cambio en los sistemas remotos.
+* **verbose mode** permite ver una salida más detallada en la terminal, incluyendo qué comandos se aplicarán.
+* Este Playbook de Ansible puede programarse en el **Automation controller** para reforzar la configuración. Por ejemplo, podría significar que el Playbook de Ansible se ejecutara una vez al día para una red en particular. En combinación con **check mode** se puede crear un Playbook de Ansible que observa y reporta si la configuración está ausente o modificada en la red.
 
 ## Solución
 
-The finished Ansible Playbook is provided here for an answer key: [playbook.yml](../playbook.yml).
+El Playbook de Ansible completo se puede encontrar en: [playbook.yml](../playbook.yml).
 
 ## Completado
 
-You have completed lab exercise 2
+¡Felicidades, has completado el ejercicio de laboratorio 2!  
 
 ---
-[Previous Exercise](../1-explore/README.md) | [Next Exercise](../3-facts/README.md)
+[Ejercicio Anterior](../1-explore/README.es.md) | [Próximo ejercicio](../3-facts/README.md)
 
-[Click here to return to the Ansible Network Automation Workshop](../README.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

@@ -199,4 +199,4 @@
 
     - name: Print Summary Information
       debug:
-        msg: "{{summary_information}}"
+        msg: "{{ summary_information }}"

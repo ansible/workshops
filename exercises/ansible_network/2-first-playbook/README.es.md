@@ -4,20 +4,22 @@
 
 ## Índice
 
-* [Objetivo](#objective)
-* [Guía](#guide)
-   * [Paso 1 - Examinar un Playbook de Ansible](#Paso-1---examinar-un-playbook-de-ansible)
-   * [Paso 2 - Ejecutar un Playbook de Ansible](#Paso-2---ejecutar-un-playbook-de-ansible)
-   * [Paso 3 - Verificar la configuración de un enrutador](#Paso-3---verificar-la-configuración-de-un-enrutador)
-   * [Paso 4 - Validar la idempotencia](#Paso-4---validar-la-idempotencia)
-   * [Paso 5 - Modificar un Playbook de Ansible](#Paso-5---modificar-un-playbook-de-ansible)
-   * [Paso 6 - Usar el modo de validación](#Paso-6---usar-el-modo-de-validación)
-   * [Paso 7 - Verificar que la configuración no está presente](#Paso-7---verificar-que-la-configuración-no-está-presente)
-   * [Paso 8 - Re-ejecutar un Playbook de Ansible](#Paso-8---re-run-the-ansible-playbook)
-   * [Paso 9 - Verificar que la configuracion se ha aplicado](#Paso-9---re-ejecutar-un-playbook-de-ansible)
-* [Consejos a recordar](#consejos-a-recordar)
-* [Solución](#solución)
-* [Completado](#completado)
+- [Ejercicio 2 - Primer Playbook de Ansible](#ejercicio-2---primer-playbook-de-ansible)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Guía](#guía)
+    - [Paso 1 - Examinar un Playbook de Ansible](#paso-1---examinar-un-playbook-de-ansible)
+    - [Paso 2 - Ejecutar un Playbook de Ansible](#paso-2---ejecutar-un-playbook-de-ansible)
+    - [Paso 3 - Verificar la configuración de un enrutador](#paso-3---verificar-la-configuración-de-un-enrutador)
+    - [Paso 4 - Validar la idempotencia](#paso-4---validar-la-idempotencia)
+    - [Paso 5 - Modificar un Playbook de Ansible](#paso-5---modificar-un-playbook-de-ansible)
+    - [Paso 6 - Usar el modo de validación](#paso-6---usar-el-modo-de-validación)
+    - [Paso 7 -  Verificar que la configuración no está presente](#paso-7----verificar-que-la-configuración-no-está-presente)
+    - [Paso 8 - Re-run the Ansible Playbook](#paso-8---re-run-the-ansible-playbook)
+    - [Paso 9 - Re-ejecutar un Playbook de Ansible](#paso-9---re-ejecutar-un-playbook-de-ansible)
+  - [Consejos a recordar](#consejos-a-recordar)
+  - [Solución](#solución)
+  - [Completado](#completado)
 
 ## Objetivo
 
@@ -106,13 +108,13 @@ snmp-server community ansible-private RW
 
 ### Paso 4 - Validar la idempotencia
 
-The `cisco.ios.config` module is idempotent. This means, a configuration change is pushed to the device if and only if that configuration does not exist on the end hosts.
+El módulo `cisco.ios.config` es idempotente. Esto significa, que un cambio de configuración se envía al dispositivo sí y sólo sí, la configuación no existe ya en las máquinas de destino.
 
-> Need help with Ansible Automation terminology?  
+> ¿Necesitas ayuda con la terminología de Automatización Ansible?  
 >
-> Check out the [glossary here](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) for more information on terms like idempotency.
+> Échale un vistazo al [glosario aquí](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) para más información sobre términos como idempotencia.
 
-To validate the concept of idempotency, re-run the playbook:
+Para verificar el concepto de idempotencia, vuelve a ejecutar el playbook:
 
 ```bash
 [student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
@@ -126,11 +128,11 @@ PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-> Note:
+> Nota:
 >
-> See that the **changed** parameter in the **PLAY RECAP** indicates 0 changes.
+> Observa el parámetro **changed** en la salida **PLAY RECAP** indica 0 cambios efectuados.
 
-Re-running the Ansible Playbook multiple times will result in the same exact output, with **ok=1** and **change=0**.  Unless another operator or process removes or modifies the existing configuration on rtr1, this Ansible Playbook will just keep reporting **ok=1** indicating that the configuration already exists and is configured correctly on the network device.
+Al volver a ejecutar un Playbook de Ansible en múltiples ocasiones, la salida será siempre la misma, con los parámetros **ok=1** y **change=0**. A menos que otro operador o proceso elimine o modifique la configuración existente en rtr1, este Playbook de Ansible siempre devolverá **ok=1** indicando así, que la configuración ya existía y está correctamente configurada en el dispositivo de red.
 
 ### Paso 5 - Modificar un Playbook de Ansible
 

@@ -197,7 +197,7 @@ snmp-server community ansible-private RW
 
 ### Paso 8 - Re-ejecutar the Ansible Playbook
 
-Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
+Finalmente, re-ejecutaremos el playbook otra vez sin los parámetros `-v` o `--check` para enviar los cambios al dispositivo.
 
 ```bash
 [student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout

@@ -9,15 +9,15 @@
       block:
         - name: run pre-check role to make sure workshop will complete provisioning
           include_role:
-            name: workshop_check_setup
+            name: ../roles/workshop_check_setup
 
         - name: run AWS check setup if using AWS
           include_role:
-            name: aws_check_setup
+            name: ../roles/aws_check_setup
 
         - name: download AAP
           include_role:
-            name: aap_download
+            name: ../roles/aap_download
       rescue:
         - name: Error with setup
           fail:
@@ -34,7 +34,7 @@
         control_nodes: 4
       when: create_cluster is defined and create_cluster|bool
     - include_role:
-        name: manage_ec2_instances
+        name: ../roles/manage_ec2_instances
 
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes:attendance"
@@ -42,7 +42,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: connectivity_test
+        name: ../roles/connectivity_test
 
 - name: Configure nginx on attendance host
   hosts: attendance
@@ -50,7 +50,7 @@
   gather_facts: true
   tasks:
     - include_role:
-        name: workshop_attendance
+        name: ../roles/workshop_attendance
       when: attendance|bool
 
 - name: wait for all security nodes to have SSH reachability
@@ -59,7 +59,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: connectivity_test
+        name: ../roles/connectivity_test
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
@@ -67,9 +67,9 @@
   become: true
   tasks:
     - include_role:
-        name: user_accounts
+        name: ../roles/user_accounts
     - include_role:
-        name: common
+        name: ../roles/common
 
 - name: Configure /etc/hosts
   hosts: 'managed_nodes:control_nodes'
@@ -89,10 +89,10 @@
   become: true
   tasks:
     - include_role:
-        name: control_node
+        name: ../roles/control_node
 
     - include_role:
-        name: code_server
+        name: ../roles/code_server
       when:
         - code_server is defined
         - code_server
@@ -105,7 +105,7 @@
   become: true
   tasks:
     - include_role:
-        name: private_automation_hub
+        name: ../roles/private_automation_hub
       when:
         - automation_hub is defined
         - automation_hub
@@ -116,7 +116,7 @@
   gather_facts: false
   tasks:
     - include_role:
-        name: aws_dns
+        name: ../roles/aws_dns
       when:
         - dns_type is defined
         - dns_type == "aws"
@@ -131,7 +131,7 @@
   tasks:
     - name: run populate_controller role
       include_role:
-        name: populate_controller
+        name: ../roles/populate_controller
       when:
         - controllerinstall is defined
         - controllerinstall|bool
@@ -172,7 +172,7 @@
   become: false
   gather_facts: false
   tasks:
-    - {include_role: {name: tower_request}, when: student_total > 9}
+    - {include_role: {name: ../roles/tower_request}, when: student_total > 9}
 
 - name: print out information for instructor
   hosts: localhost
@@ -199,4 +199,4 @@
 
     - name: Print Summary Information
       debug:
-        msg: "{{summary_information}}"
+        msg: "{{ summary_information }}"

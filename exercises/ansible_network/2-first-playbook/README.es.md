@@ -136,16 +136,15 @@ Al volver a ejecutar un Playbook de Ansible en múltiples ocasiones, la salida s
 
 ### Paso 5 - Modificar un Playbook de Ansible
 
-Now update the task to add one more SNMP RO community string named `ansible-test`.
+Ahora vamos a actualizar la tarea para añadir una cadena de comunidad SNMP RO llamada `ansible-test`.
 
 ```sh
 snmp-server community ansible-test RO
 ```
 
-Use Visual Studio Code to open the `playbook.yml` file to add the command:
+Usa Visual Studio Code para abrir el ficheo `playbook.yml` y añadir el comando:
 
-
-The Ansible Playbook will now look like this:
+El Playbook de Ansible quedará así:
 
 ```yaml
 ---
@@ -163,7 +162,7 @@ The Ansible Playbook will now look like this:
           - snmp-server community ansible-test RO
 ```
 
-Make sure to save the `playbook.yml` with the change.
+Asegurate de guardar el fichero `playbook.yml` con los cambios.
 
 ### Paso 6 - Usar el modo de validación
 

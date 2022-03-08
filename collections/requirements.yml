@@ -1,19 +1,34 @@
 ---
 collections:
-  - name: community.aws
-  - name: awx.awx
   - name: amazon.aws
-    version: >=3.1.1
-  - name: ansible.posix
-  - name: ansible.product_demos
-  - name: ansible.windows
-  - name: chocolatey.chocolatey
-  - name: community.crypto
-  - name: community.general
-  - name: community.mysql
-  - name: community.windows
-  - name: f5networks.f5_modules
-  - name: redhat_cop.controller_configuration
-  - name: redhat_cop.tower_utilities
-  - name: containers.podman
+    version: 3.1.1
   - name: ansible.network
+    version: 1.2.0
+  - name: ansible.posix
+    version: 1.3.0
+  - name: ansible.product_demos
+    version: 1.2.13
+  - name: ansible.windows
+    version: 1.9.0
+  - name: awx.awx
+    version: 19.4.0
+  - name: chocolatey.chocolatey
+    version: 1.2.0
+  - name: community.aws
+    version: 3.1.0
+  - name: community.crypto
+    version: 2.2.3
+  - name: community.general
+    version: 4.5.0
+  - name: community.mysql
+    version: 3.1.1
+  - name: community.windows
+    version: 1.9.0
+  - name: containers.podman
+    version: 1.9.1
+  - name: f5networks.f5_modules
+    version: 1.15.0
+  - name: redhat_cop.controller_configuration
+    version: 2.1.1
+  - name: redhat_cop.tower_utilities
+    version: 2.0.1

@@ -213,7 +213,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 
 ### Paso 9 - Re-ejecutar un Playbook de Ansible
 
-Verify that the Ansible Playbook applied **ansible-test** community.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
+Verifiquemos que el Playbook de Ansible aplicó la comunidad **ansible-test**. Entra en `rtr1` y verifica la configuración en ejecución del dispositivo Cisco IOS-XE.
 
 ```bash
 [student1@ansible network-workshop]$ ssh rtr1

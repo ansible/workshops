@@ -166,7 +166,7 @@ Asegurate de guardar el fichero `playbook.yml` con los cambios.
 
 ### Paso 6 - Usar el modo de validación
 
-This time however, instead of running the playbook to push the change to the device, execute it using the `--check` flag in combination with the `-v` or verbose mode flag:
+Esta vez, sin embargo, en vez de ejecutar el playbook para enviar un cambio al dispositivo, se ejecutará usando el parámetro `--check` junto con `-v` para tener una salida más verbosa:
 
 ```bash
 [student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout --check -v
@@ -181,7 +181,7 @@ PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-The `--check` mode in combination with the `--verbose` flag will display the exact changes that will be deployed to the end device without actually pushing the change. This is a great technique to validate the changes you are about to push to a device before pushing it.
+El modo `--check` en combinación con `--verbose` mostrará los cambios exactos que serán desplegados en el dispositivo final sin en realidad, enviarlos. Ésta es una forma estupenda de validar los cambios a realizar antes de enviarlos al dispositivo.
 
 ### Paso 7 -  Verificar que la configuración no está presente
 

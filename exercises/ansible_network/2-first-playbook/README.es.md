@@ -15,7 +15,7 @@
     - [Paso 5 - Modificar un Playbook de Ansible](#paso-5---modificar-un-playbook-de-ansible)
     - [Paso 6 - Usar el modo de validación](#paso-6---usar-el-modo-de-validación)
     - [Paso 7 -  Verificar que la configuración no está presente](#paso-7----verificar-que-la-configuración-no-está-presente)
-    - [Paso 8 - Re-run the Ansible Playbook](#paso-8---re-run-the-ansible-playbook)
+    - [Paso 8 - Re-ejecutar the Ansible Playbook](#paso-8---re-ejecutar-the-ansible-playbook)
     - [Paso 9 - Re-ejecutar un Playbook de Ansible](#paso-9---re-ejecutar-un-playbook-de-ansible)
   - [Consejos a recordar](#consejos-a-recordar)
   - [Solución](#solución)
@@ -185,7 +185,7 @@ El modo `--check` en combinación con `--verbose` mostrará los cambios exactos 
 
 ### Paso 7 -  Verificar que la configuración no está presente
 
-Verify that the Ansible Playbook did not apply the `ansible-test` community.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
+Verifiquemos quel el Playbook de Ansible no ha aplicado la comunidad `ansible-test`. Entra en `rtr1` y verifica la configuración en ejecución del dispositivo Cisco IOS-XE.
 
 ```bash
 [student1@ansible network-workshop]$ ssh rtr1
@@ -195,7 +195,7 @@ snmp-server community ansible-public RO
 snmp-server community ansible-private RW
 ```
 
-### Paso 8 - Re-run the Ansible Playbook
+### Paso 8 - Re-ejecutar the Ansible Playbook
 
 Finally re-run this playbook again without the `-v` or `--check` flag to push the changes.
 

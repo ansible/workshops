@@ -3,7 +3,7 @@ collections:
   - name: community.aws
   - name: awx.awx
   - name: amazon.aws
-    version: 3.1.1
+    version: >=3.1.1
   - name: ansible.posix
   - name: ansible.product_demos
   - name: ansible.windows

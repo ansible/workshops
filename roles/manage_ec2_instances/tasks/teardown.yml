@@ -368,7 +368,7 @@
   when: workshop_type == 'security'
   block:
     - name: Get EIP informaion
-      amazon.aws.ec2_eip_info:
+      community.aws.ec2_eip_info:
         region: "{{ ec2_region }}"
         filters:
           "tag:Workshop": "{{ ec2_name_prefix }}"
@@ -380,7 +380,7 @@
       when: debug_teardown
 
     - name: Release EIPs
-      amazon.aws.ec2_eip:
+      community.aws.ec2_eip:
         region: "{{ ec2_region }}"
         public_ip: "{{ item['public_ip'] }}"
         state: absent

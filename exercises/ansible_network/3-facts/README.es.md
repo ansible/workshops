@@ -18,31 +18,31 @@
 
 ## Objetivo
 
-Demonstration use of Ansible facts on network infrastructure.
+Demostración del uso de los hechos de Ansible (en adelante, Ansible facts) en una infraestructura de red.
 
-Ansible facts are information derived from speaking to the remote network elements.  Ansible facts are returned in structured data (JSON) that makes it easy manipulate or modify.  For example a network engineer could create an audit report very quickly using Ansible facts and templating them into a markdown or HTML file.
+Los hechos de Ansible (facts) son información derivada de la comunicación con elementos de red remotos. Los 'facts' son devueltos en forma de datos estructurados (JSON) lo que hace que sean fácilmente manipulables o modificables. Por ejemplo, un ingeniero de red podría crear un reporte de auditoría muy rápidamente usando los 'facts' de Ansible y creando una plantilla en un fichero markdown o HTML.
 
-This exercise will cover:
+Este ejercicio cubrirá:
 
-* Building an Ansible Playbook from scratch.
-* Using `ansible-navigator :doc` for documentation
-* Using the [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html).
-* Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
+* Crear un Playbook de Ansible desde cero.
+* Usar `ansible-navigator :doc` para la búsqueda de documentación
+* Usar el módulo [cisco.ios.facts](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html).
+* Usar el módulo [debug](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
 ## Guía
 
 ### Paso 1 - Usando la documentación
 
-Enter the `ansible-navigator` interactive mode on the terminal
+Ejecuta el comando `ansible-navigator` en modo interactivo en la terminal
 
 ```bash
 $ ansible-navigator
 ```
 
-screenshot of `ansible-navigator`:
+pantallazo de `ansible-navigator`:
 ![ansible-navigator interactive mode](images/ansible-navigator-interactive.png)
 
-In the above screenshot we can see a line for module or plugin documentation:
+En el pantallazo anterior se puede ver una línea por cada documentación de módulo o plugin:
  
 ```
 `:doc <plugin>`                 Review documentation for a module or plugin
@@ -54,33 +54,33 @@ Lets example the `debug` module by typing `:doc debug`
 :doc debug
 ```
 
-screenshot of `ansible-navigator :doc debug`:
+pantallazo de `ansible-navigator :doc debug`:
 ![ansible-navigator interactive mode doc](images/ansible-navigator-doc.png)
 
-The documentation for the `debug` module is now displayed in you interactive terminal session.  This is a YAML representation of the same exact documentation you would see on [docs.ansible.com](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html).  Examples can be cut and paste directly from the module documentation into your Ansible Playbook.
+La documentación para el módulo de `debug` se muestra en la sesión de terminal interactiva. Es una representación en YAML de la misma documentación que está disponible en [docs.ansible.com](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html). Los ejemplos pueden ser copiados y pegados directamente del módulo de documentación en un Playbook de Ansible.
 
-When referring to a non-built in module, there is three important fields:
+Cuando nos referimos a un módulo no embebido, hay tres campos importantes:
 
 ```
 namespace.collection.module
 ```
-For example:
+Por ejemplo:
 ```
 cisco.ios.facts
 ```
 
-Explanation of terms:
-- **namespace** - example **cisco** - A namespace is grouping of multiple collections.  The **cisco** namespace contains multiple collections including **ios**, **nxos**, and **iosxr**.
-- **collection** - example **ios** - A collection is a distribution format for Ansible content that can include playbooks, roles, modules, and plugins.  The **ios** collection contains all the modules for Cisco IOS/IOS-XE
-- **module** - example facts - Modules are discrete units of code that can be used in a playbook task. For example the **facts** modules will return structured data about that specified system.
+Explicación de términos:
+- **namespace** - ejemplo **cisco** - Un espacio de nombres ('namespace') es una agrupación de colecciones múltiples. El espacio de nombres **cisco** contiene múltiples colecciones, incluyendo **ios**, **nxos**, e **iosxr**.
+- **collection** - ejemplo **ios** - Una colección es  es un formato de distribución para contenido de Ansible que incluye playbooks, roles, módulos, y plugins. La colección **ios** contiene todos los módulos del Cisco IOS/IOS-XE.
+- **module** - ejemplo 'facts' - Los módulos son unidades discretas de código que puede usarse en una tarea de un playbook. Por ejemplo, los módulos de **facts** devolverán datos estructurados acerca de un determinado sistema.
 
-Press the **Esc** key to return to the main menu.  Try repeating the `:doc` command with the `cisco.ios.facts` module.
+Pulsa la tecla **Esc** para volver al menú principal. Intenta repetir el comando `:doc` con el módulo `cisco.ios.facts`.
 
 ```bash
 :doc cisco.ios.facts
 ```
 
-We will be using the facts module in our playbook.
+Usaremos el módulo 'facts' en nuestro playbook.
 
 ### Paso 2 - Creando el play
 

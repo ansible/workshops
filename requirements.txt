@@ -1,8 +1,9 @@
 ansible-core>=2.11
 paramiko==2.8.1
-boto3
-netaddr
-passlib
-requests
-pywinrm
-requests-credssp
+boto3==1.21.15
+netaddr==0.8.0
+passlib==1.7.4
+requests==2.22.0
+pywinrm==0.4.1
+requests-credssp==1.2.0
+ipaddr==2.2.0

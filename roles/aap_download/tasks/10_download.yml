@@ -14,26 +14,12 @@
       refresh_token: "{{ offline_token }}"
   register: temp_token
 
-# - name: show temp_token only
-#   debug:
-#     var: temp_token.json.access_token
-
-- name: retrieving download link via sha_value
-  uri:
-    url: https://api.access.redhat.com/management/v1/images/{{ provided_sha_value }}/download
-    headers:
-      accept: "application/json"
-      Authorization: "Bearer {{ temp_token.json.access_token }}"
-    method: GET
-  register: download_url
-
-- name: show download URL
-  debug:
-    var: download_url.url
-
 - name: Download aap.tar.gz
   delegate_to: localhost
   get_url:
-    url: "{{ download_url.url }}"
+    url: "https://api.access.redhat.com/management/v1/images/{{ provided_sha_value }}/download"
+    headers:
+      accept: "application/json"
+      Authorization: "Bearer {{ temp_token.json.access_token }}"
     dest: "{{ playbook_dir }}/aap.tar.gz"
     checksum: "sha256: {{ provided_sha_value }}"

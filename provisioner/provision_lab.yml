@@ -5,8 +5,8 @@
   become: false
   gather_facts: true
   environment:
-    AWS_ACCESS_KEY_ID: "{{ aws_access_key_id | lookup('env', 'AWS_ACCESS_KEY_ID') }}"
-    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key | lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+    AWS_ACCESS_KEY_ID: "{{ aws_access_key_id | default(lookup('env', 'AWS_ACCESS_KEY_ID')) }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key | default(lookup('env', 'AWS_SECRET_ACCESS_KEY')) }}"
   tasks:
     - name: workshop collection final check
       block:
@@ -32,8 +32,8 @@
   become: false
   gather_facts: false
   environment:
-    AWS_ACCESS_KEY_ID: "{{ aws_access_key_id | lookup('env', 'AWS_ACCESS_KEY_ID') }}"
-    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key | lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+    AWS_ACCESS_KEY_ID: "{{ aws_access_key_id | default(lookup('env', 'AWS_ACCESS_KEY_ID')) }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key | default(lookup('env', 'AWS_SECRET_ACCESS_KEY')) }}"
   tasks:
     - name: Cluster nodes
       set_fact:

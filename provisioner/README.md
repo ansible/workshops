@@ -42,6 +42,17 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 [For One Time Setup - click here](../docs/setup.md)
 
+## Ansible-Navigator
+
+If you are going to use ansible-navigator and the workshop execution environment you need to set your AWS environment variables.
+
+```
+export export AWS_ACCESS_KEY_ID=AKIA6ABLAH1223VBD3W
+export AWS_SECRET_ACCESS_KEY=zh6gFREbvblahblahblahfXIC5nZr51OgdKECaSIMBi9Kc
+```
+
+To make this permanent you can set this to your `~/.bash_rc`
+
 ### Setup (per workshop)
 
 * Define the following variables in a file passed in using `-e @extra_vars.yml`

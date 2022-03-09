@@ -15,10 +15,19 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 ## Table Of Contents
 
+<!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:0 title:1 charForUnorderedList:* -->
+## Table of Contents
+* [Ansible Automation Workshop Provisioner](#ansible-automation-workshop-provisioner)
+  * [Table Of Contents](#table-of-contents)
   * [Requirements](#requirements)
   * [Lab Setup](#lab-setup)
     * [One Time Setup](#one-time-setup)
+  * [Ansible-Navigator](#ansible-navigator)
+    * [1. AWS Creds for Execution Environments](#1-aws-creds-for-execution-environments)
+    * [2. Running Ansible-Navigator from the project root](#2-running-ansible-navigator-from-the-project-root)
     * [Setup (per workshop)](#setup-per-workshop)
+    * [Automation controller license](#automation-controller-license)
+    * [Additional examples](#additional-examples)
     * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
     * [Accessing instructor inventory](#accessing-instructor-inventory)
     * [DNS](#dns)
@@ -28,13 +37,17 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
   * [Demos](#demos)
   * [FAQ](#faq)
   * [More info on what is happening](#more-info-on-what-is-happening)
-  * [Getting Help](#getting-help)
+* [Getting Help](#getting-help)
 <!-- /TOC -->
 
 ## Requirements
 
-* This provisioner must be run with `ansible-core` v2.11 or higher.
-* AWS Account (follow directions on one time setup below)
+* You can either use an execution environment (preferred) or install all the requirements into a virtual environment
+  * Required collections are listed in [requirements.yml](../collections/requirements.yml)
+  * Required Python packages are listed in [requirements.txt](../requirements.txt)
+  * `ansible-navigator` if you are going to use execution environments
+
+* AWS Account (follow directions in one time setup below)
 
 ## Lab Setup
 
@@ -44,14 +57,28 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 
 ## Ansible-Navigator
 
-If you are going to use ansible-navigator and the workshop execution environment you need to set your AWS environment variables.
+If you are going to use ansible-navigator and the workshop execution environment there are two (2) differences from ansible-playbook method used previously:
+
+### 1. AWS Creds for Execution Environments
+
+You need to set your AWS credentials as environment variables.  This is because the execution environment will not have access to your ~/.aws/credentials file.  This is preferred anyway because it matches the behavior in Automation controller.
 
 ```
 export export AWS_ACCESS_KEY_ID=AKIA6ABLAH1223VBD3W
 export AWS_SECRET_ACCESS_KEY=zh6gFREbvblahblahblahfXIC5nZr51OgdKECaSIMBi9Kc
 ```
 
-To make this permanent you can set this to your `~/.bash_rc`
+To make environment variables permanent and persistent you can set this to your `~/.bash_rc`.  See Red Hat Knowledge Base article: [https://access.redhat.com/solutions/157293](https://access.redhat.com/solutions/157293)
+
+### 2. Running Ansible-Navigator from the project root
+
+You must run from the project root rather than the `/provisioner` folder.  This is so all the files in the Git project are mounted, not just the provisioner folder.  This is also best practice because it matches the behavior in Automation controller.
+
+For example:
+
+```
+ansible-navigator run provisioner/provision_lab.yml -e @provisioner/extra_vars.yml
+```
 
 ### Setup (per workshop)
 

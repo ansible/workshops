@@ -6,3 +6,4 @@ passlib
 requests
 pywinrm
 requests-credssp
+ipaddr

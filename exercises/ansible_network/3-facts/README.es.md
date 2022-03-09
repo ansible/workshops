@@ -84,16 +84,15 @@ Usaremos el módulo 'facts' en nuestro playbook.
 
 ### Paso 2 - Creando el play
 
-Ansible Playbooks are [**YAML** files](https://yaml.org/). YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
+Los ficheros de Playbook de Ansible están en [**YAML** files](https://yaml.org/). YAML es un formato de codificación estructurado que, además, es extremadamente leíble por los humanos (al contrario que su subconjunto - el formato JSON)
 
-Create a new file in Visual Studio code:
+Crea un nuevo fichero en Visual Studio Code:
 ![vscode new file](images/vscode_new_file.png)
 
-For simplicity please name the playbook: `facts.yml`:
+Para simplificar, llama al fichero de playbook: `facts.yml`:
 ![vscode save file](images/vscode_save_as.png)
 
-
-Enter the following play definition into `facts.yml`:
+Inserta el siguiente play dentro del fichero `facts.yml`:
 
 ```yaml
 ---
@@ -102,12 +101,12 @@ Enter the following play definition into `facts.yml`:
   gather_facts: no
 ```
 
-Here is an explanation of each line:
+Expliquemos cada línea:
 
-* The first line, `---` indicates that this is a YAML file.
-* The `- name:` keyword is an optional description for this particular Ansible Playbook.
-* The `hosts:` keyword means this playbook against the group `cisco` defined in the inventory file.
-* The `gather_facts: no` is required since as of Ansible 2.8 and earlier, this only works on Linux hosts, and not network infrastructure.  We will use a specific module to gather facts for network equipment.
+* La primera línea, `---` indica que es un fichero YAML.
+* La palabra clave `- name:` es una descipción opcional para el Playbook de Ansible en particular.
+* La palabra clave `hosts:` significa este playbook se ejecutará en el grupo `cisco` definido en el archivo de inventario.
+* La directiva `gather_facts: no` se requiere desde Ansible 2.8 y anteriores, sólo funciona en hosts Linux, y no en una infraestructura de red. La usaremos en un módulo específico para obtener los 'facts' para un dispositivo de red.
 
 ### Paso 3 - Crear la tarea de facts
 

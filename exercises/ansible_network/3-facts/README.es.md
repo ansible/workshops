@@ -1,22 +1,22 @@
-# Exercise 3: Ansible Facts
+# Ejercicio 3: Ansible Facts
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](../../images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
-## Table of Contents
+## Índice
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1 - Using documentation](#step-1---using-documentation)
-   * [Step 2 - Creating the play](#step-2---creating-the-play)
-   * [Step 3 - Create the facts task](#step-3---create-the-facts-task)
-   * [Step 4 - Executing the playbook](#step-4---executing-the-playbook)
-   * [Step 5 - Using debug module](#step-5---using-debug-module)
-   * [Step 6 - Using stdout](#step-6---using-stdout)
-* [Takeaways](#takeaways)
-* [Solution](#solution)
-* [Complete](#complete)
+* [Objetivo](#objetivo)
+* [Guía](#guía)
+   * [Paso 1 - Usando la documentación](#Paso-1---usando-la-documentación)
+   * [Paso 2 - Creando el play](#Paso-2---creando-el-play)
+   * [Paso 3 - Crear la tarea de facts](#Paso-3---crear-la-tarea-de-facts)
+   * [Paso 4 - Ejecutando el playbook](#Paso-4---ejecutando-el-playbook)
+   * [Paso 5 - Usando el módulo de debug](#Paso-5---usando-el-módulo-de-debug)
+   * [Paso 6 - Usando la salida estándar stdout](#Paso-6---usando-la-salida-estándar-stdout)
+* [Consejos a recordar](#consejos-a-recordar)
+* [Solución](#solución)
+* [Completado](#completado)
 
-## Objective
+## Objetivo
 
 Demonstration use of Ansible facts on network infrastructure.
 
@@ -29,9 +29,9 @@ This exercise will cover:
 * Using the [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html).
 * Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
-## Guide
+## Guía
 
-### Step 1 - Using documentation
+### Paso 1 - Usando la documentación
 
 Enter the `ansible-navigator` interactive mode on the terminal
 
@@ -82,7 +82,7 @@ Press the **Esc** key to return to the main menu.  Try repeating the `:doc` comm
 
 We will be using the facts module in our playbook.
 
-### Step 2 - Creating the play
+### Paso 2 - Creando el play
 
 Ansible Playbooks are [**YAML** files](https://yaml.org/). YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
 
@@ -109,7 +109,7 @@ Here is an explanation of each line:
 * The `hosts:` keyword means this playbook against the group `cisco` defined in the inventory file.
 * The `gather_facts: no` is required since as of Ansible 2.8 and earlier, this only works on Linux hosts, and not network infrastructure.  We will use a specific module to gather facts for network equipment.
 
-### Step 3 - Create the facts task
+### Paso 3 - Crear la tarea de facts
 
 Next, add the first `task`. This task will use the `cisco.ios.facts` module to gather facts about each device in the group `cisco`.
 
@@ -130,7 +130,7 @@ Next, add the first `task`. This task will use the `cisco.ios.facts` module to g
 
 Save the playbook.
 
-### Step 4 - Executing the playbook
+### Paso 4 - Ejecutando el playbook
 
 Execute the Ansible Playbook by running `ansible-navigator`:
 
@@ -155,7 +155,7 @@ Screenshot of zooming into module data:
 
 You can scroll down to view any facts that were collected from the Cisco network device.
 
-### Step 5 - Using debug module
+### Paso 5 - Usando el módulo de debug
 
 Write two additional tasks that display the routers' OS version and serial number.
 
@@ -182,7 +182,7 @@ Write two additional tasks that display the routers' OS version and serial numbe
 
 <!-- {% endraw %} -->
 
-### Step 6 - Using stdout
+### Paso 6 - Usando la salida estándar stdout
 
 Now re-run the playbook using the `ansible-navigator` and the `--mode stdout`
 
@@ -194,17 +194,17 @@ Screenshot of ansible-navigator using stdout:
 
 Using less than 20 lines of "code" you have just automated version and serial number collection. Imagine if you were running this against your production network! You have actionable data in hand that does not go out of date.
 
-## Takeaways
+## Consejos a recordar
 
 * The `ansible-navigator :doc` command will allow you access to documentation without an internet connection.  This documentation also matches the version of Ansible on the control node.
 * The [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html) gathers structured data specific for Cisco IOS.  There are relevant modules for each network platform.  For example there is a junos_facts for Juniper Junos, and a eos_facts for Arista EOS.
 * The [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) allows an Ansible Playbook to print values to the terminal window.
 
-## Solution
+## Solución
 
 The finished Ansible Playbook is provided here for an answer key: [facts.yml](facts.yml).
 
-## Complete
+## Completado
 
 You have completed lab exercise 3
 

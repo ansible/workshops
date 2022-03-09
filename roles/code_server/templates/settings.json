@@ -10,5 +10,8 @@
     "git.confirmSync": false,
     "workbench.colorTheme": "Visual Studio Dark",
     "ansible.ansibleLint.enabled": false,
-    "ansible.ansible.useFullyQualifiedCollectionNames": true
+    "ansible.ansible.useFullyQualifiedCollectionNames": true,
+    "files.associations": {
+        "*.yml": "ansible"
+    }
 }

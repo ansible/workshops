@@ -40,7 +40,7 @@
   loop: "{{ ('results' in ec2_subnet1_eni_checkpoint_gw_async) | ternary(ec2_subnet1_eni_checkpoint_gw_async['results'], []) }}"
 
 - name: Create EIP async for checkpoint_gw Subnet1 ENI (SECURITY MODE)
-  amazon.aws.ec2_eip:
+  community.aws.ec2_eip:
     in_vpc: true
     region: "{{ ec2_region }}"
     device_id: "{{ item['interface']['id'] }}"

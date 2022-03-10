@@ -46,3 +46,6 @@ provisioner/old_tower_license.json
 .devcontainer
 provisioner/sean-demo.yml
 !requirements.txt
+execution_environment/context/Containerfile
+execution_environment/context/_build/requirements.txt
+execution_environment/context/_build/requirements.yml

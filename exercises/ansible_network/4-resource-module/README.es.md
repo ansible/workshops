@@ -22,11 +22,11 @@ If you are using an **all Cisco workbench** (all four routers are Cisco IOS rout
 
 ## Objetivo
 
-Demonstration use of [Ansible Network Resource Modules](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)
+Demostración de uso de los [Módulos de recursos de red de Ansible](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)
 
-Ansible network resource modules simplify and standardize how you manage different network devices. Network devices separate configuration into sections (such as interfaces and VLANs) that apply to a network service.
+Los módulos de recursos de red de Ansible simplifican y estandarizan cómo gestionar diferentes dispositivos de red. Los dispositivos de red separan la configuración en secciones (tales como interfaces y VLANs) que aplican a un servicio de red.
 
-Network resource modules provide a consistent experience across different network devices.  This means you will get an identical experience across multiple vendors.  For example the **VLANs** module will work identically for the following modules:
+Los módulos de recursos de red proveen una experiencia consistente a través de diferentes dispositivos de red. Esto significa, que se obtendrá una experiencia idéntica en distintos provedores. Por ejemplo, el módulo **VLANs** trabajará identicamente para los siguientes módulos:
 
 * `arista.eos.vlans`
 * `cisco.ios.vlans`
@@ -34,14 +34,15 @@ Network resource modules provide a consistent experience across different networ
 * `cisco.iosxr.vlans`
 * `junipernetworks.junos.vlans`
 
-Configuring [VLANs](https://en.wikipedia.org/wiki/Virtual_LAN) on network devices is an extremely common task, and mis-configurations can cause headaches and outages.  VLAN configurations also tend to be identical across multiple network switches resulting in a perfect use case for automation.
+Configurar las [VLANs](https://en.wikipedia.org/wiki/Virtual_LAN) en dispositivos de red es una tarea extremadamente común, y los errores de configuración pueden causar muchos dolores de cabeza y apagones.
+Las configuracions VLAN también tienden a ser idénticas a través de múltiples switches de red, lo que resulta en el caso de uso perfecto para la automatización.
 
-This exercise will cover:
+Este ejercicio cubirá:
 
-* Configuring VLANs on Arista EOS
-* Building an Playbook de Ansible using the [arista.eos.vlans module](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html).
-* Understanding the `state: merged`
-* Understanding the `state: gathered`
+* Configurar las VLANs en Arista EOS
+* Crear un Playbook de Ansible usando el [módulo arista.eos.vlans](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html).
+* Comprender el estado `state: merged`
+* Comprender el estado `state: gathered`
 
 ## Guía
 

@@ -48,9 +48,9 @@ Este ejercicio cubirá:
 
 ### Paso 1 - Verificar la configuración VLAN
 
-* Login to an Arista switch and verify the current VLAN configuration.
+* Haz login en un switch Arista y verifica la configuración actual de la VLAN.
 
-* From the control node terminal, you can `ssh rtr2` and type `enable`
+* Desde la terminal del nodo de control, haz `ssh rtr2` y escribe `enable`
 
   ```bash
   $ ssh rtr2
@@ -58,7 +58,7 @@ Este ejercicio cubirá:
   rtr2>enable
   ```
 
-* Use the command `show vlan` to examine the VLAN configuration:
+* Usa el comando `show vlan` para examinar la configuración VLAN:
 
   ```bash
   rtr2#show vlan
@@ -67,14 +67,14 @@ Este ejercicio cubirá:
   1     default                          active   
   ```
 
-* Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
+* Usa el comando  `show run | s vlan` para examinar la configuración en ejecución de VLAN en el dispositivo Arista:
 
   ```bash
   rtr2#show run | s vlan
   rtr2#
   ```
 
-As you can see in the output above there is no VLAN configuration outside of the default VLAN 1 (which is not assigned any ports).
+Como puedes ver en la salida anterior, no hay configuración VLAN fuera de la VLAN 1 por defecto (que no tiene asignado ningún puerto).
 
 ### Paso 2 - Crear el Playbook de Ansible 
 

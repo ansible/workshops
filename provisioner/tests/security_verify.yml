@@ -40,12 +40,12 @@
         - name: Fail if eth0 is not in 172.16. or eth1 is not in 172.17.
           fail:
             msg: "IP address setup on ethX is not right on {{ inventory_hostname }}."
-          when: (((hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] | ansible.netcommon.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] | ansible.netcommon.ipaddr('172.17.0.0/16') | string) is not search('172')))
+          when: (((hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] | ansible.utils.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] | ansible.utils.ipaddr('172.17.0.0/16') | string) is not search('172')))
 
         - name: Fail if private_ip is not in 172.16. or private_ip2 is not in 172.17.
           fail:
             msg: "IP address setup on ethX is not right on {{ inventory_hostname }}."
-          when: (((hostvars[inventory_hostname]['private_ip'] | ansible.netcommon.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['private_ip2'] | ansible.netcommon.ipaddr('172.17.0.0/16') | string) is not search('172')))
+          when: (((hostvars[inventory_hostname]['private_ip'] | ansible.utils.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['private_ip2'] | ansible.utils.ipaddr('172.17.0.0/16') | string) is not search('172')))
 
       when: '"attack" in inventory_hostname'
 
@@ -63,12 +63,12 @@
         - name: Fail if eth0 is not in 172.16. or eth1 is not in 172.17.
           fail:
             msg: "IP address setup on ethX is not right on {{ inventory_hostname }}."
-          when: (((hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] | ansible.netcommon.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] | ansible.netcommon.ipaddr('172.17.0.0/16') | string) is not search('172')))
+          when: (((hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] | ansible.utils.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] | ansible.utils.ipaddr('172.17.0.0/16') | string) is not search('172')))
 
         - name: Fail if private_ip is not in 172.16. or private_ip2 is not in 172.17.
           fail:
             msg: "IP address setup on ethX is not right on {{ inventory_hostname }}."
-          when: (((hostvars[inventory_hostname]['private_ip'] | ansible.netcommon.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['private_ip2'] | ansible.netcommon.ipaddr('172.17.0.0/16') | string) is not search('172')))
+          when: (((hostvars[inventory_hostname]['private_ip'] | ansible.utils.ipaddr('172.16.0.0/16') | string) is not search('172')) or ((hostvars[inventory_hostname]['private_ip2'] | ansible.utils.ipaddr('172.17.0.0/16') | string) is not search('172')))
       when: '"snort" in inventory_hostname'
 
     - name: Check Point - Windows part

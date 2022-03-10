@@ -37,6 +37,6 @@ router bgp {{ device[short_name].local_as }}
  address-family ipv4
   neighbor {{ device[neighbor].bgp_tunnel_ip }} activate
   network 192.168.{{site}}.{{site}} mask 255.255.255.255
-  network {{ (device[short_name].ospf_tunnel_ip ~ '/24') | ansible.netcommon.ipaddr('network') }} mask 255.255.255.0
+  network {{ (device[short_name].ospf_tunnel_ip ~ '/24') | ansible.utils.ipaddr('network') }} mask 255.255.255.0
   network 10.200.200.0 mask 255.255.255.0
-  network {{ (private_ip ~ '/16') | ansible.netcommon.ipaddr('network') }}/16
+  network {{ (private_ip ~ '/16') | ansible.utils.ipaddr('network') }}/16

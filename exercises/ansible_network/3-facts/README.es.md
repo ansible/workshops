@@ -158,7 +158,7 @@ Puedes avanzar hacia abajo para ver cualquier 'fact' que haya sido obtenido del 
 
 ### Paso 5 - Usando el módulo de debug
 
-Write two additional tasks that display the routers' OS version and serial number.
+Escribe dos tareas adicionales que mostrarán la versión del SO y el número de serie del enrutador.
 
 <!-- {% raw %} -->
 

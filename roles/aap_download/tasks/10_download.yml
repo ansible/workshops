@@ -13,6 +13,9 @@
       client_id: "rhsm-api"
       refresh_token: "{{ offline_token }}"
   register: temp_token
+  until: temp_token is not failed
+  retries: 15
+  delay: 20
 
 - name: Download aap.tar.gz
   delegate_to: localhost
@@ -23,3 +26,7 @@
       Authorization: "Bearer {{ temp_token.json.access_token }}"
     dest: "{{ playbook_dir }}/aap.tar.gz"
     checksum: "sha256: {{ provided_sha_value }}"
+  register: download_aap_tarball
+  until: download_aap_tarball is not failed
+  retries: 15
+  delay: 20

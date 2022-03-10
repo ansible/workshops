@@ -185,31 +185,30 @@ Escribe dos tareas adicionales que mostrarán la versión del SO y el número de
 
 ### Paso 6 - Usando la salida estándar stdout
 
-Now re-run the playbook using the `ansible-navigator` and the `--mode stdout`
+Ahora, vuelve a ejecutar el playbook usando el comando `ansible-navigator` y el modificador `--mode stdout`
 
-The full command is: `ansible-navigator run facts.yml --mode stdout`
+El comando completo es: `ansible-navigator run facts.yml --mode stdout`
 
-Screenshot of ansible-navigator using stdout:
+Pantallazo de ansible-navigator usando la salida estándar:
 ![ansible-navigator stdout screenshot](images/ansible-navigator-facts-stdout.png)
 
-
-Using less than 20 lines of "code" you have just automated version and serial number collection. Imagine if you were running this against your production network! You have actionable data in hand that does not go out of date.
+Usando menos de 20 líneas de "código" has sido capaz de automatizar la obtención de la versión y el número de serie. ¡Imagina si estuvieras ejecutando esto en tu entorno de producción de red! Ahora tienes datos sobre los que poder ejecutar acciones y que no se quedan desactualizados.
 
 ## Consejos a recordar
 
-* The `ansible-navigator :doc` command will allow you access to documentation without an internet connection.  This documentation also matches the version of Ansible on the control node.
-* The [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html) gathers structured data specific for Cisco IOS.  There are relevant modules for each network platform.  For example there is a junos_facts for Juniper Junos, and a eos_facts for Arista EOS.
-* The [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) allows an Ansible Playbook to print values to the terminal window.
+* El comando `ansible-navigator :doc` nos permitirá acceder la documentación sin una conexión de red. Esta documentación también concuerda con la versión de Ansible en el nodo de control.
+* El [módulo cisco.ios.facts](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html) obtiene datos estructurados específicos para Cisco IOS. Existen módulos relevantes para cada plataforma de red. Por ejemplo, existe un `junos_facts` para Juniper Junos, y un `eos_facts` para Arista EOS.
+* El [módulo de debug](https://docs.ansible.com/ansible/latest/modules/debug_module.html) permite a un Playbook de Ansible imprimir los valores en la terminal.
 
 ## Solución
 
-The finished Ansible Playbook is provided here for an answer key: [facts.yml](facts.yml).
+El Playbook de Ansible completo se provee aquí: [facts.yml](facts.yml).
 
 ## Completado
 
-You have completed lab exercise 3
+¡Felicidades, has completado el ejercicio de laboratorio 3!
 
 ---
-[Previous Exercise](../2-first-playbook/README.md) | [Next Exercise](../4-resource-module/README.md)
+[Ejercicio Anterior](../2-first-playbook/README.es.md) | [Próximo ejercicio](../4-resource-module/README.es.md)
 
-[Click here to return to the Ansible Network Automation Workshop](../README.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

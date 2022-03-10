@@ -64,7 +64,7 @@ If you are going to use ansible-navigator and the workshop execution environment
 You need to set your AWS credentials as environment variables.  This is because the execution environment will not have access to your ~/.aws/credentials file.  This is preferred anyway because it matches the behavior in Automation controller.
 
 ```
-export export AWS_ACCESS_KEY_ID=AKIA6ABLAH1223VBD3W
+export AWS_ACCESS_KEY_ID=AKIA6ABLAH1223VBD3W
 export AWS_SECRET_ACCESS_KEY=zh6gFREbvblahblahblahfXIC5nZr51OgdKECaSIMBi9Kc
 ```
 

@@ -4,17 +4,19 @@
 
 ## Índice
 
-* [Objetivo](#objetivo)
-* [Guía](#guía)
-   * [Paso 1 - Usando la documentación](#Paso-1---usando-la-documentación)
-   * [Paso 2 - Creando el play](#Paso-2---creando-el-play)
-   * [Paso 3 - Crear la tarea de facts](#Paso-3---crear-la-tarea-de-facts)
-   * [Paso 4 - Ejecutando el playbook](#Paso-4---ejecutando-el-playbook)
-   * [Paso 5 - Usando el módulo de debug](#Paso-5---usando-el-módulo-de-debug)
-   * [Paso 6 - Usando la salida estándar stdout](#Paso-6---usando-la-salida-estándar-stdout)
-* [Consejos a recordar](#consejos-a-recordar)
-* [Solución](#solución)
-* [Completado](#completado)
+- [Ejercicio 3: Ansible Facts](#ejercicio-3-ansible-facts)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Guía](#guía)
+    - [Paso 1 - Usando la documentación](#paso-1---usando-la-documentación)
+    - [Paso 2 - Creando el play](#paso-2---creando-el-play)
+    - [Paso 3 - Crear la tarea de facts](#paso-3---crear-la-tarea-de-facts)
+    - [Paso 4 - Ejecutando el playbook](#paso-4---ejecutando-el-playbook)
+    - [Paso 5 - Usando el módulo de debug](#paso-5---usando-el-módulo-de-debug)
+    - [Paso 6 - Usando la salida estándar stdout](#paso-6---usando-la-salida-estándar-stdout)
+  - [Consejos a recordar](#consejos-a-recordar)
+  - [Solución](#solución)
+  - [Completado](#completado)
 
 ## Objetivo
 
@@ -110,7 +112,7 @@ Expliquemos cada línea:
 
 ### Paso 3 - Crear la tarea de facts
 
-Next, add the first `task`. This task will use the `cisco.ios.facts` module to gather facts about each device in the group `cisco`.
+Ahora, añade la primera tarea usando la directiva `task`. Esta tarea usará el módulo `cisco.ios.facts` para obtener los hechos ('facts')  sobre cada dispositivo del grupo `cisco`.
 
 ```yaml
 ---
@@ -123,11 +125,11 @@ Next, add the first `task`. This task will use the `cisco.ios.facts` module to g
       cisco.ios.facts:
 ```
 
-> Note:
+> Nota:
 >
-> A play is a list of tasks. Modules are pre-written code that perform the task.
+> Un 'play' es una lista de tareas. Los módulos son código ya escrito que lleva a cabo una tarea.
 
-Save the playbook.
+Guarda el playbook.
 
 ### Paso 4 - Ejecutando el playbook
 

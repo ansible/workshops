@@ -74,15 +74,15 @@ Este ejercicio cubirá:
   rtr2#
   ```
 
-Como puedes ver en la salida anterior, no hay configuración VLAN fuera de la VLAN 1 por defecto (que no tiene asignado ningún puerto).
+Como se puede observar en la salida anterior, no hay configuración VLAN fuera de la VLAN 1 por defecto (que no tiene asignado ningún puerto).
 
 ### Paso 2 - Crear el Playbook de Ansible 
 
-*  Create a new file in Visual Studio Code named `resource.yml`
+*  Crea un nuevo fichero en Visual Studio Code llamado `resource.yml`
 
-   ![new file](images/Paso1_new_file.png)
+   ![new file](images/Step1_new_file.png)
 
-* Copy the following Playbook de Ansible into your `resource.yml`
+* Copia el siguiente Playbook de Ansible en tu fichero `resource.yml`
 
    ```yaml
   ---
@@ -106,7 +106,7 @@ Como puedes ver en la salida anterior, no hay configuración VLAN fuera de la VL
             vlan_id: 50
    ```
 
-* Setup will look similar to the following in Visual Studio Code:
+* La configuración será similar a la siguiente en Visual Studio Code:
 
    ![picture of vs code setup](images/setup_vs_code.png)
 

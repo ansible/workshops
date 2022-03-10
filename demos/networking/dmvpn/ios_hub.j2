@@ -13,13 +13,13 @@ crypto ipsec transform-set {{ dmvpn_transform_set | default('xform')}} esp-aes 2
  mode transport
 !
 router ospf 1
- network {{ dmvpn_network | ipaddr('network')}} 0.0.0.255 area 1
+ network {{ dmvpn_network | ansible.netcommon.ipaddr('network')}} 0.0.0.255 area 1
 !
 crypto ipsec profile {{ dmvpn_ipsec_profile | default('ipsec-prof')}}
  set transform-set {{ dmvpn_transform_set | default('xform')}}
 !
 interface Tunnel2
- ip address {{ dmvpn_network | ipaddr(254) | ipaddr('address') }} {{ dmvpn_network | ipaddr('netmask') }}
+ ip address {{ dmvpn_network | ansible.netcommon.ipaddr(254) | ansible.netcommon.ipaddr('address') }} {{ dmvpn_network | ansible.netcommon.ipaddr('netmask') }}
  no ip redirects
  ip mtu 1400
  ip ospf network broadcast

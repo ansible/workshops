@@ -76,8 +76,8 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.netcommon.ipaddr('172.16.0.0/16')|first }}"
-        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.netcommon.ipaddr('172.17.0.0/16')|first }}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.16.0.0/16')|first }}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
           - security_connection_check
@@ -111,8 +111,8 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.netcommon.ipaddr('172.16.0.0/16')|first }}"
-        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.netcommon.ipaddr('172.17.0.0/16')|first }}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.16.0.0/16')|first }}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
           - security_connection_check
@@ -164,8 +164,8 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.netcommon.ipaddr('172.16.0.0/16')|first }}"
-        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.netcommon.ipaddr('172.17.0.0/16')|first }}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.16.0.0/16')|first }}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
           - checkpoint

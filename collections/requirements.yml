@@ -2,6 +2,8 @@
 collections:
   - name: amazon.aws
     version: 3.1.1
+  - name: ansible.utils
+    version: 2.5.2
   - name: ansible.network
     version: 1.2.0
   - name: ansible.posix

@@ -4,23 +4,23 @@
 
 If you are using an **all Cisco workbench** (all four routers are Cisco IOS routers) please [switch to these directions](../supplemental/4-resource-module-cisco/README.md).
 
-## Table of Contents
+## Índice
 
-  * [Objective](#objective)
-  * [Guide](#guide)
-    * [Step 1 - Verify VLAN configuration](#step-1---verify-vlan-configuration)
-    * [Step 2 - Creating the Ansible Playbook](#step-2---creating-the-ansible-playbook)
-    * [Step 3 - Examine the Ansible Playbook](#step-3---examine-the-ansible-playbook)
-    * [Step 4 - Execute the Ansible Playbook](#step-4---execute-the-ansible-playbook)
-    * [Step 5 - Verify VLAN configuration](#step-5---verify-vlan-configuration)
-    * [Step 6 - Using the gathered parameter](#step-6---using-the-gathered-parameter)
-    * [Step 7 - Execute the gathered playbook](#step-7---execute-the-gathered-playbook)
-    * [Step 8 - Examine the files](#step-8---examine-the-files)
-  * [Takeaways](#takeaways)
-  * [Solution](#solution)
-  * [Complete](#complete)
+  * [Objetivo](#objetivo)
+  * [Guía](#guía)
+    * [Paso 1 - Verificar la configuración VLAN](#Paso-1---verificar-la-configuración-VLAN)
+    * [Paso 2 - Crear el Playbook de Ansible](#Paso-2---crear-el-playbook-de-ansible)
+    * [Paso 3 - Examinar Playbook de Ansible](#Paso-3---examinar-el-playbook-de-ansible)
+    * [Paso 4 - Ejecutar el Playbook de Ansible](#Paso-4---execute-the-ansible-playbook)
+    * [Paso 5 - Verificar la configuración VLAN](#Paso-5---verificar-la-configuración-VLAN)
+    * [Paso 6 - Usando los parámetros obtenidos](#Paso-6---usando-los-parámetros-obtenidos)
+    * [Paso 7 - Ejecutar el playbook obtenido](#Paso-7---ejecutar-el-playbook-obtenido)
+    * [Paso 8 - Examinar los ficheros](#Paso-8---examinar-los-ficheros)
+  * [Consejos a recordar](#consejos-a-recordar)
+  * [Solución](#solución)
+  * [Completado](#completado)
 
-## Objective
+## Objetivo
 
 Demonstration use of [Ansible Network Resource Modules](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)
 
@@ -39,13 +39,13 @@ Configuring [VLANs](https://en.wikipedia.org/wiki/Virtual_LAN) on network device
 This exercise will cover:
 
 * Configuring VLANs on Arista EOS
-* Building an Ansible Playbook using the [arista.eos.vlans module](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html).
+* Building an Playbook de Ansible using the [arista.eos.vlans module](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html).
 * Understanding the `state: merged`
 * Understanding the `state: gathered`
 
-## Guide
+## Guía
 
-### Step 1 - Verify VLAN configuration
+### Paso 1 - Verificar la configuración VLAN
 
 * Login to an Arista switch and verify the current VLAN configuration.
 
@@ -75,13 +75,13 @@ This exercise will cover:
 
 As you can see in the output above there is no VLAN configuration outside of the default VLAN 1 (which is not assigned any ports).
 
-### Step 2 - Creating the Ansible Playbook
+### Paso 2 - Crear el Playbook de Ansible 
 
 *  Create a new file in Visual Studio Code named `resource.yml`
 
-   ![new file](images/step1_new_file.png)
+   ![new file](images/Paso1_new_file.png)
 
-* Copy the following Ansible Playbook into your `resource.yml`
+* Copy the following Playbook de Ansible into your `resource.yml`
 
    ```yaml
   ---
@@ -109,7 +109,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
    ![picture of vs code setup](images/setup_vs_code.png)
 
-### Step 3 - Examine the Ansible Playbook
+### Paso 3 - Examinar Playbook de Ansible
 
 * First lets examine the first four lines:
 
@@ -158,7 +158,7 @@ As you can see in the output above there is no VLAN configuration outside of the
     Only two of these parameters will be covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.md).
   * `config:` - this is the supplied VLAN configuration.  It is a list of dictionaries. The most important takeaway is that if the module was change from `arista.eos.vlans` to `junipernetworks.junos.vlans` it would work identically.  This allows network engineers to focus on the network (e.g. VLAN configuration) versus the vendor syntax and implementation.
 
-### Step 4 - Execute the Ansible Playbook
+### Paso 4 - Ejecutar el Playbook de Ansible
 
 * Execute the playbook using the `ansible-navigator run`.  Since there is just one task we can use the `--mode stdout`
 
@@ -200,7 +200,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * As you can see in the output, everything will return `ok=1` indiciating that no changes were taken place.
 
-### Step 5 - Verify VLAN configuration
+### Paso 5 - Verificar la configuración VLAN
 
 * Login to an Arista switch and verify the current VLAN configuration.
 
@@ -244,7 +244,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 As you can see, the resource module configured the Arista EOS network device with the supplied configuration.  There are now five total VLANs (including the default vLAN 1).
 
-### Step 6 - Using the gathered parameter
+### Paso 6 - Usando los parámetros obtenidos
 
 * Create a new playbook named `gathered.yml`
 
@@ -278,7 +278,7 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 * The `playbook_dir` and `inventory_hostname` are special varaible also referred to as [magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html).  The `playbook_dir` simply means the directory we executed the playbook from, and the `inventory_hostname` is the name of the device in our inventory.  This means the file will be saved as `~/network-workshop/rtr2_vlan.yml` and `~/network-workshop/rtr4_vlan.yml` for the two arista devices.
 
-### Step 7 - Execute the gathered playbook
+### Paso 7 - Ejecutar el playbook obtenido
 
 * Execute the playbook using the `ansible-navigator run`.
 
@@ -306,15 +306,15 @@ As you can see, the resource module configured the Arista EOS network device wit
   rtr4                       : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
 
-### Step 8 - Examine the files
+### Paso 8 - Examinar los ficheros
 
 * Open the newly created files that `gathered` the VLAN confgiuration from the Arista network devices.
 
 * The two files were saved to `~/network-workshop/rtr2_vlan.yml` and `~/network-workshop/rtr4_vlan.yml` for the two arista devices.
 
-* Here is a screenshot:
+* Here is a pantallazo:
 
-  ![examine vlan yml](images/step8_examine.png)
+  ![examine vlan yml](images/Paso8_examine.png)
 
 ## Takeaways
 
@@ -325,7 +325,7 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 ## Solution
 
-The finished Ansible Playbook is provided here for an answer key:
+The finished Playbook de Ansible is provided here for an answer key:
 
 -  [resource.yml](resource.yml)
 -  [gathered.yml](gathered.yml)
@@ -338,6 +338,6 @@ As stated previously only two of the resource modules parameters were covered in
 
 In the next exercise we will start using Automation controller.
 ---
-[Previous Exercise](../3-facts/README.md) | [Next Exercise](../5-explore-controller/README.md)
+[Ejercicio Anterior](../3-facts/README.es.md) | [Próximo ejercicio](../5-explore-controller/README.es.md)
 
-[Click here to return to the Ansible Network Automation Workshop](../README.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

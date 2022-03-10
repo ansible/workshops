@@ -133,28 +133,28 @@ Guarda el playbook.
 
 ### Paso 4 - Ejecutando el playbook
 
-Execute the Ansible Playbook by running `ansible-navigator`:
+Ejecuta el Playbook de Ansible usando el comando `ansible-navigator`:
 
 ```sh
 $ ansible-navigator run facts.yml
 ```
 
-This will open an interactive session while the playbook interacts:
+Esto abrirá una sesión interactiva mientras el playbook se ejecuta:
 
-Screenshot of facts.yml:
+Pantallazo de facts.yml:
 ![ansible-navigator run facts.yml](images/ansible-navigator-facts.png)
 
-To zoom into the playbook output we can press **0** which will show us a host-centric view.  Since there is only one host, there is just one option.
+Para ampliar la salida del playbook, pulsaremos **0** que nos mostrará una vista centrada en el host. Puesto que sólo hay un host, sólo hay una opción.
 
-Screenshot of zooming in:
+Pantallazo de la ampliación:
 ![ansible-navigator zoom hosts](images/ansible-navigator-hosts.png)
 
-To see the verbose output of **rtr1** press **0** one more time to zoom into the module return values.
+Para ver la salida verbosa de **rtr1** pulsa **0** otra vez para ampliar los valores de retorno del módulo.
 
-Screenshot of zooming into module data:
+Pantallazo de la ampliación dentro del módulo 'data':
 ![ansible-navigator zoom module](images/ansible-navigator-module.png)
 
-You can scroll down to view any facts that were collected from the Cisco network device.
+Puedes avanzar hacia abajo para ver cualquier 'fact' que haya sido obtenido del dispositivo de red Cisco.
 
 ### Paso 5 - Usando el módulo de debug
 

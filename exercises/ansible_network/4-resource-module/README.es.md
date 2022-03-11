@@ -202,9 +202,9 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 ### Paso 5 - Verificar la configuración VLAN
 
-* Login to an Arista switch and verify the current VLAN configuration.
+* Haz login en un switch Arista y verifica la configuración VLAN actual.
 
-* From the control node terminal, you can `ssh rtr2` and type `enable`
+* En la terminal del nodo de control, ejecuta `ssh rtr2` y posteriormente, teclea `enable`.
 
   ```bash
   $ ssh rtr2
@@ -212,7 +212,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   rtr2>enable
   ```
 
-* Use the command `show vlan` to examine the VLAN configuration:
+* Usa el comando `show vlan` para examinar la configuración VLAN:
 
   ```bash
   rtr2#show vlan
@@ -225,7 +225,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   50    DMZ                              active  
   ```
 
-* Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
+* Usa el comando `show run | s vlan` para examinar la configuración en ejecución VLAN del dispositivo Arista:
 
   ```bash
   rtr2#sh run | s vlan
@@ -242,7 +242,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
      name DMZ
   ```
 
-As you can see, the resource module configured the Arista EOS network device with the supplied configuration.  There are now five total VLANs (including the default vLAN 1).
+Como puede observarse, el módulo de recursos está configurado en el dispositivo de red Arista EOS con la configuración propuesta. Ahora hay cinco VLANs en total (incluyendo la VLAN 1 por defecto).
 
 ### Paso 6 - Usando los parámetros obtenidos
 

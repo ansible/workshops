@@ -75,13 +75,7 @@ Now in the next task you can use provider as follows:
 
 You DO NOT need to pass the server_ip/user/password etc. for each module going forward
 
-``` yaml
----
-- name: "Disabling a pool member"
-  hosts: lb
-  gather_facts: false
-  connection: local
-```
+
 
 ## Step 4
 
@@ -139,26 +133,26 @@ The output will look as follows.
 
 <!-- {% raw %} -->
 ```yaml
-[student1@ansible ~]$ ansible-navigator run disable-pool-member.yml --mode stdout
+[student1@ansible-1 ~]$ ansible-navigator run disable-pool-member.yml --mode stdout
 
-PLAY [Disabling a pool member] *******************************************************************************
+PLAY [Disabling a pool member] *************************************************
 
-TASK [Setup provider] *******************************************************************************
+TASK [Setup provider] **********************************************************
 ok: [f5]
 
-TASK [Query BIG-IP facts] *****************************************************
-changed: [f5]
+TASK [Query BIG-IP facts] ******************************************************
+ok: [f5]
 
-TASK [Display Pools available] ************************************************
+TASK [Display Pools available] *************************************************
 ok: [f5] => (item=http_pool) => {
     "msg": "http_pool"
 }
 
-TASK [Store pool name in a variable] ******************************************
+TASK [Store pool name in a variable] *******************************************
 ok: [f5] => (item=None)
 ok: [f5]
 
-TASK [Show members belonging to pool http_pool] *******************************
+TASK [Show members belonging to pool http_pool] ********************************
 ok: [f5] => (item=node1:80) => {
     "msg": "node1:80"
 }
@@ -166,21 +160,12 @@ ok: [f5] => (item=node2:80) => {
     "msg": "node2:80"
 }
 
-TASK [pause] ******************************************************************
-[pause]
-To disable a particular member enter member with format member_name:port
-To disable all members of the pool enter 'all':
-node1:80
+TASK [Disable ALL pool members] ************************************************
+ok: [f5] => (item=node1:80)
+ok: [f5] => (item=node2:80)
 
-TASK [Disable ALL pool members] ***********************************************
-skipping: [f5] => (item=node1:80)
-skipping: [f5] => (item=node2:80)
-
-TASK [Disable pool member node1:80] *******************************************************************************
-changed: [f5]
-
-PLAY RECAP *******************************************************************************
-f5                         : ok=7    changed=2    unreachable=0    failed=0
+PLAY RECAP *********************************************************************
+f5                         : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 <!-- {% endraw %} -->
 

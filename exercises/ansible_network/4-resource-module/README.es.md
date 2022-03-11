@@ -112,7 +112,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 ### Paso 3 - Examinar Playbook de Ansible
 
-* First lets examine the first four lines:
+* Primero, vamos a examinar las últimas cuatro líneas:
 
   ```yaml
   ---
@@ -121,13 +121,12 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
     gather_facts: false
   ```
 
-  * The `---` designates this is a [YAML](https://en.wikipedia.org/wiki/YAML) file which is what we write playbooks in.
-  * `name` is the description of what this playbook does.
-  * `hosts: arista` will execute this playbook only on the Arista network devices.
-  * `gather_facts: false` this will disable fact gathering for this play, by default this is turned on.
+  * `---` designa que es un fichero [YAML](https://en.wikipedia.org/wiki/YAML), que es el lenguaje en el que se escriben los playbooks.
+  * `name` es el es el nombre descriptivo de lo que hace el playbook.
+  * `hosts: arista` ejecutará este playbook sólo en los dispositivos de red Arista.
+  * `gather_facts: false` deshabilitará la recolección de 'facts' en este play, por defecto está habilitado.
 
-
-* For the second part we have one task that uses the `arista.eos.vlans`
+* En la segunda parte, sólo tenemos una tarea que usa `arista.eos.vlans`
 
   ```yaml
     tasks:
@@ -146,8 +145,8 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
             vlan_id: 50
   ```
 
-  * `name:` - just like the play, each task has a description for that particular task
-  * `state: merged` - This is the default behavior of resource modules.  This will simply enforce that the supplied configuration exists on the network device.  There is actually seven parameters possible for resource modules:
+  * `name:` Al igual que en el playbook, es el nombre descriptivo que cada tarea tiene.
+  * `state: merged` Es el comportamiento por defecto de los módulos de recursos. Simplemente reforzará que exista la configuración propuesta en el dispositivo de red. Hay siete parámetros posibles para los módulos de recursos:
     * merged
     * replaced
     * overridden
@@ -156,8 +155,8 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
     * gathered
     * parsed
 
-    Only two of these parameters will be covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.md).
-  * `config:` - this is the supplied VLAN configuration.  It is a list of dictionaries. The most important takeaway is that if the module was change from `arista.eos.vlans` to `junipernetworks.junos.vlans` it would work identically.  This allows network engineers to focus on the network (e.g. VLAN configuration) versus the vendor syntax and implementation.
+    Sólo dos de estos parámetros se cubrirán en este ejercicio, pero se pueden ver más en los [ejercicios complementarios](../supplemental/README.md).
+  * `config:` configuración VLAN propuesta. Es una lista de diccionarios Lo más importante a recordar es que si el módulo ha cambiado de `arista.eos.vlans` a `junipernetworks.junos.vlans` funcionará de manera idéntica. Esto permitirá a los ingenieros de red enfocarse en la red en sí (ej. configuración VLAN) en vez de en la sintáxis del fabricante y su implementación.
 
 ### Paso 4 - Ejecutar el Playbook de Ansible
 

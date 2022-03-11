@@ -1,60 +1,41 @@
-# Ansible Workshop - Smart Management Automation
+# Automated Smart Management Workshop
 
-**This is documentation for Ansible Automation Platform 2**
-
-In this workshop you will learn how to get the most from your Red Hat Smart Management subscription and the Ansible Automation Platform.
+In this workshop, you will learn how to get the most from Red Hat Smart Management in concert with Red Hat Ansible Automation Platform.
 
 ## Table of Contents
+- [Use Cases](#use-cases)
+- [Lab Diagram](#lab-diagram)
+- [Guide](#guide)
 
-# Table of Contents
-- [Ansible Workshop - Smart Management Automation](#ansible-workshop---smart-management-automation)
-  - [Table of Contents](#table-of-contents)
-- [Table of Contents](#table-of-contents-1)
-  - [Lab Diagram](#lab-diagram)
-  - [Lab Setup](#lab-setup)
-    - [Objective](#objective)
-    - [Guide](#guide)
-      - [Your Lab Environment](#your-lab-environment)
-      - [**Step 1 - Setup Ansible Tower**](#step-1---setup-ansible-tower)
-      - [**Step 2 - Create a Project**](#step-2---create-a-project)
-      - [**Step 3 - Create Job Template**](#step-3---create-job-template)
-  - [Config Management](#config-management)
-  - [Security and Compliance](#security-and-compliance)
-
+## Use Cases
+This workshop focuses on 3 main customer pain points:
+- Compliance (OpenSCAP Scanning) and Vulnerability Management
+- Patch/Package Management
+- CentOS to RHEL conversion + upgrade
 
 ## Lab Diagram
-## Lab Setup
+![automated smart management lab diagram](../../images/ansible_smart_mgmt_diagram.png#centreme)
 
-### Objective
-- Configure Activation Keys and Lifecycle environments
-- Register Servers to Satellite Server
+### Environment
 
-### Guide
-#### Your Lab Environment
+| Role                    | Inventory name |
+| ------------------------| ---------------|
+| Automation controller   | ansible-1      |
+| Satellite Server        | satellite      |
+| Managed Host 1 - RHEL   | node1          |
+| Managed Host 2 - RHEL   | node2          |
+| Managed Host 3 - RHEL   | node3          |
+| Managed Host 4 - CentOS | node4          |
+| Managed Host 5 - CentOS | node5          |
+| Managed Host 6 - CentOS | node6          |
 
-In this lab you'll work in a pre-configured lab environment. You will have access to the following hosts:
 
-| Role                 | Inventory name |
-| ---------------------| ---------------|
-| Automation Platform  | ansible-1      |
-| Satellite Server     | satellite      |
-| Managed Host 1       | node1          |
-| Managed Host 2       | node2          |
-| Managed Host 3       | node3          |
 
-#### **Step 1 - Setup Ansible Tower**
+## Guide
+Workshop Presentation: [Partner Content Hub](http://redhat-partner.highspot.com)<br>
+*You will need a Red Hat Partner Connect account/login to access. Don't have one? Click [here](https://connect.redhat.com/en/support)*
 
-Login to the Automation Platform:
-
-Open your browser and navigate to the Ansible Tower UI link provided on the attendance page. Login with the username `admin` and the password from your attendance page.
-
-#### **Step 2 - Create a Project**
-
-From the navigation section on the left side of the Automation Platform homepage, select **Project**. Click the green **Create** button in the top right corner.
-
-Create a project using the `https://github.com/willtome/automated-smart-management.git` as the source git repository. Enable the checkbox **Update on Launch**.
-
-#### **Step 3 - Create Job Template**
-
-## Config Management
-## Security and Compliance
+* [Exercise 0: Configuring the Lab Environment](0-setup)
+* [Exercise 1: Compliance / Vulnerability Management](1-compliance)
+* [Exercise 2: Patch Management / OS](2-patching)
+* [Exercise 3: CentOS to RHEL conversion + upgrade](3-convert2rhel)

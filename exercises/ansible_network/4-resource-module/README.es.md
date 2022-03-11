@@ -160,13 +160,13 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 ### Paso 4 - Ejecutar el Playbook de Ansible
 
-* Execute the playbook using the `ansible-navigator run`.  Since there is just one task we can use the `--mode stdout`
+* Ejecuta el playbook usando el comando `ansible-navigator run`. Puesto que sólo contiene una tarea, podemos usar el parámetro `--mode stdout`.
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* La salida debe ser similar a:
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
@@ -182,7 +182,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   rtr4                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
 
-* Re-running the playbook will demonstrate the concept of [idempotency](https://en.wikipedia.org/wiki/Idempotence)
+* Vuelve a ejecutar el playbook para demostrar el concepto de [idempotencia](https://en.wikipedia.org/wiki/Idempotence)
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
@@ -198,7 +198,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   rtr4                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
-* As you can see in the output, everything will return `ok=1` indiciating that no changes were taken place.
+* Como se puede observar en la salida anterior, todo devolverá `ok=1` indicando que no se han llevado a cabo cambios.
 
 ### Paso 5 - Verificar la configuración VLAN
 

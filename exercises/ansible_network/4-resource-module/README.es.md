@@ -246,7 +246,7 @@ Como puede observarse, el módulo de recursos está configurado en el dispositiv
 
 ### Paso 6 - Usando los parámetros obtenidos
 
-* Create a new playbook named `gathered.yml`
+* Creat un nuevo playbook llamdo `gathered.yml`
 
 <!-- {% raw %} -->
 
@@ -270,13 +270,13 @@ Como puede observarse, el módulo de recursos está configurado en el dispositiv
   ```
   <!-- {% endraw %} -->
 
-* The first task is identical except the `state: merged` has been switched to `gathered`, the `config` is no longer needed since we are reading in the configuration (verus applying it to the network device), and we are using the `register` to save the output from the module into a variable named `vlan_config`
+* La primera tarea es idéntica, sólo que `state: merged` se ha cambiado por  `gathered`, la directiva `config` ya no es necesaria puesto que estamos leyendo la configuración (en vez de aplicandola a un dispositivo de red), y usamos `register` para guardar la salida del módulo en una variable llamada `vlan_config`.
 
-* The second task is copying the `vlan_config` variable to a flat-file.  The double currly brackets denotes that this is a variable.  
+* En la seguna tarea, se copia el contenido de la variable `vlan_config` a un fichero de texto plano. Las doble llaves denotan que se trata de una variable.  
 
-*  The `| to_nice_yaml` is a [filter](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), that will transform the JSON output (default) to YAML.
+* El `| to_nice_yaml` es un [filter](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), que convertirá la salida JSON (por defecto)a YAML.
 
-* The `playbook_dir` and `inventory_hostname` are special varaible also referred to as [magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html).  The `playbook_dir` simply means the directory we executed the playbook from, and the `inventory_hostname` is the name of the device in our inventory.  This means the file will be saved as `~/network-workshop/rtr2_vlan.yml` and `~/network-workshop/rtr4_vlan.yml` for the two arista devices.
+* El `playbook_dir` y `inventory_hostname` son variables especiales, también llamadas [variables mágicas](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html). El `playbook_dir` simplemente signifca el directorio desde donde se ha ejecutado el playbook, y el `inventory_hostname` es el nombre del dispositivo en nuestro inventario. Esto significa que se guardará como `~/network-workshop/rtr2_vlan.yml` y `~/network-workshop/rtr4_vlan.yml` para los dos dispositivos arista.
 
 ### Paso 7 - Ejecutar el playbook obtenido
 

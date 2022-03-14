@@ -280,13 +280,13 @@ Como puede observarse, el módulo de recursos está configurado en el dispositiv
 
 ### Paso 7 - Ejecutar el playbook obtenido
 
-* Execute the playbook using the `ansible-navigator run`.
+* Ejecuta el playbook usando el comando `ansible-navigator run`.
 
   ```bash
   $ ansible-navigator run gathered.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* La salida debe ser similar a ésta:
 
   ```bash
   $ ansible-navigator run gathered.yml --mode stdout

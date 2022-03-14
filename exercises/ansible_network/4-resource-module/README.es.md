@@ -308,35 +308,36 @@ Como puede observarse, el módulo de recursos está configurado en el dispositiv
 
 ### Paso 8 - Examinar los ficheros
 
-* Open the newly created files that `gathered` the VLAN confgiuration from the Arista network devices.
+* Abre los nuevos ficheros que la directiva `gathered` ha generado de la configuración VLAN de los dispositivos de red Arista.
 
-* The two files were saved to `~/network-workshop/rtr2_vlan.yml` and `~/network-workshop/rtr4_vlan.yml` for the two arista devices.
+* Los dos ficheros se han guardado como `~/network-workshop/rtr2_vlan.yml` y `~/network-workshop/rtr4_vlan.yml` para los dos dispositivos arista.
 
-* Here is a pantallazo:
+* Aquí se puede ver un pantallazo:
 
   ![examine vlan yml](images/Paso8_examine.png)
 
-## Takeaways
+## Consejos a recordar
 
-* Resource modules have a simple data structure that can be transformed to the network device syntax.  In this case the VLAN dictionary is transformed into the Arista EOS network device syntax.
-* Resource modules are Idempotent, and can be configured to check device state.
-* Resource Modules are bi-directional, meaning that they can gather facts for that specific resource, as well as apply configuration.  Even if you are not using resource modules to configure network devices, there is a lot of value for checking resource states.  
-* The bi-directional behavior also allows brown-field networks (existing networks) to quickly turn their running-configuration into structured data.  This allows network engineers to get automation up running more quickly and get quick automation victories.
+* Los módulos de recursos tienen una estructura de datos simple que puede transformarse a la sintáxis de los dispositivos de red. En este caso, el diccionario VLAN se transforma en sintáxis de dispositivo de red Arista EOS.
+* Los módulos de recursos son idempotentes, y se pueden configuar para comprobar el estado de un dispositivo de red.
+* Los módulos de recursos son bi-direccionales, es decir, que pueden obtener 'facts' para un recurso específico al igual que aplicar configuración. Incluso si no se usan módulos de recursos para configurar dispositivos de red, proveen de enorme valor a la hora de comprobar estados de los recursos.
+* El comportamiento bi-direccional también nos permite que redes ya existentes puedan cambiar rápidamente su configuración en ejecución a datos estructurados. Esto permite a los ingenieros de red que la automatización esté funcionando mucho más rápido.
 
-## Solution
+## Solución
 
-The finished Playbook de Ansible is provided here for an answer key:
+El playbook de Ansible completo se puede obtener aquí:
 
 -  [resource.yml](resource.yml)
 -  [gathered.yml](gathered.yml)
 
-## Complete
+## Completado
 
-You have completed lab exercise 4
+¡Felicidades, has completado el ejercicio de laboratorio 4!
 
-As stated previously only two of the resource modules parameters were covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.md).
+Tal y como se explicó anteriormente, sólo dos de los parámetros de los módulos de recursos han sido cubiertos en este ejercicio, pero hay ejercicios adicionales en [ejercicios adicionales](../supplemental/README.md).
 
-In the next exercise we will start using Automation controller.
+En el siguiente ejercicio empezaremos a utilizar el controlador de automatización (Automation controller).
+
 ---
 [Ejercicio Anterior](../3-facts/README.es.md) | [Próximo ejercicio](../5-explore-controller/README.es.md)
 

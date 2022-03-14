@@ -314,7 +314,7 @@ Como puede observarse, el módulo de recursos está configurado en el dispositiv
 
 * Aquí se puede ver un pantallazo:
 
-  ![examine vlan yml](images/Paso8_examine.png)
+  ![examine vlan yml](images/step8_examine.png)
 
 ## Consejos a recordar
 

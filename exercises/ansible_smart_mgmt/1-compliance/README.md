@@ -40,7 +40,7 @@ Now we will start configuring a compliance policy that we can use to scan our RH
 
 -   In Satellite hover over 'Hosts' from the menu on the left side pane, and then click on 'Policies'
 
--   Click on the "New Policy" button, and fill out the details as followed in step 3. 
+-   Click on the "New Policy" button, and fill out the details as followed in step 3.
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP.png)
 
@@ -78,7 +78,7 @@ Now we will start configuring our Satellite server to be able to manage a compli
 
 ![aap_dashboard](images/1-compliance-aap2-dashboard.png)
 
-#### 5\. Configure and launch an Ansible Automation Platform template to run an OpenSCAP scan. 
+#### 5\. Configure and launch an Ansible Automation Platform template to run an OpenSCAP scan.
 
 This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``` policy that we configured on Satellite.
 
@@ -92,7 +92,7 @@ This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``
 
         Inventory: RHEL7 Development (Click the magnifying glass icon to select.)
 
-        Project: Automated Management (Click the magnifying glass icon to select.)
+        Project: Automated Management (Click the magnifying glass icon to select.)
         
         Execution Environment: smart_mgmt workshop execution environment (Click the magnifying glass icon to select.)
 
@@ -105,7 +105,7 @@ This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``
 
         ---
         HOSTS: node1.example.com
-        Policy_scan: 
+        Policy_scan:
           - PCI_Compliance
 
 ![aap_template](images/1-compliance-aap2-template1.png)
@@ -114,7 +114,7 @@ This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``
 
 ![aap_output](images/1-compliance-aap2-OpenSCAP_Configure-output1.png)
 
-#### 6\. Navigate back to Satellite to examine the Asset Reporting File (ARF). 
+#### 6\. Navigate back to Satellite to examine the Asset Reporting File (ARF).
 
 -   Hover over 'Hosts' from the side pane menu and then click on 'Reports'.
 
@@ -169,13 +169,13 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
         Inventory: RHEL7 Development (Click the magnifying glass icon to select.)
 
-        Project: Automated Management (Click the magnifying glass icon to select.)
+        Project: Automated Management (Click the magnifying glass icon to select.)
         
         Execution Environment: smart_mgmt workshop execution environment (Click the magnifying glass icon to select.)
 
         Playbook: configure_openscap.yml (Click the magnifying glass icon to select.)
 
-        Project: Automated Management 
+        Project: Automated Management
 
         Credentials: Credentials: Satellite Credential, Workshop Credential (Click the magnifying glass icon to select.) 
                 NOTE: In this new menu. Select the Workshop Credential radio button button. The 'Selected Category' for this is 'Machine'. Next, use the drop-down menu again to select Satellite_Collection. You will choose the Satellite Credential. This will provide you with two sets of credentials. Choosing 'Select' will save your changes and exit the menu.
@@ -184,7 +184,7 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
         ---
         HOSTS: all
-        Policy_scan: 
+        Policy_scan:
           - PCI_Compliance
           - STIG_Compliance
 
@@ -194,11 +194,11 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
 ![aap_output](images/1-compliance-aap2-OpenSCAP_Configure-output2-fix.png)
 
-#### 8\. Navigate back to Satellite to examine the Asset Reporting File (ARF). 
+#### 8\. Navigate back to Satellite to examine the Asset Reporting File (ARF).
 
 -   Hover over "Hosts" from the menu on the left side of the screen, and then click on "Reports".
 
--   Notice that we've now easily scaled to six scans, 2 scans of each node for PCI_Compliance and for STIG_Compliance. 
+-   Notice that we've now easily scaled to six scans, 2 scans of each node for PCI_Compliance and for STIG_Compliance.
 
 ![aap_arf](images/1-compliance-aap2-Satellite_ARF-Final.png)
 
@@ -207,4 +207,4 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 #### 9\. End Lab
 
 -   You have finished the lab.
--   Continue to [Exercise 2: Patch Management / OS](https://github.com/redhat-partner-tech/partner-tech-days-march2021/blob/main/integrated-mgmt-workshop/exercises/2-patching/automated-patch-management.md), OR [Return to the main workshop page](https://github.com/redhat-partner-tech/partner-tech-days-march2021/tree/main/integrated-mgmt-workshop#guide)
+-   Continue to [Exercise 2: Patch Management / OS](../2-patching/README.md), OR [Return to the main workshop page](../README.md)

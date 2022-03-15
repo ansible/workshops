@@ -40,8 +40,8 @@ Things to consider if doing this in dev/test/stage-beta/prod:
 
 Ok, let's get started...  
 
-Pre-requisites 
----------------
+Pre-requisites
+--------------
 
 -   Exercise 0 : Lab Setup
 
@@ -69,7 +69,7 @@ Note that in the following steps that are being performed on AAP, at any time, o
 **Steps:**<br>
 #### 1\. Logging into the Ansible Automation Platform (AAP)
 
--   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>* 
+-   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>*
 
 ![login screen](images/4-convert2rhel-aap2-login.png)
 

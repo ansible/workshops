@@ -1,7 +1,7 @@
 Automated Smart Management Workshop: Automating Patch Management
 ================================================================
 
-In this part of the workshop, we will learn how to leverage the use of workflows in Ansible Automation Platform to orchestrate patch management for several linux servers . Automating patch management reduces human error and improves configuration and patch accuracy. Additionally, automation provides capabilities to reduce the manual input associated with identifying, testing and patching systems. 
+In this part of the workshop, we will learn how to leverage the use of workflows in Ansible Automation Platform to orchestrate patch management for several linux servers . Automating patch management reduces human error and improves configuration and patch accuracy. Additionally, automation provides capabilities to reduce the manual input associated with identifying, testing and patching systems.
 
 Environment
 -----------
@@ -10,8 +10,8 @@ Environment
 
 -   3 x Red Hat Enterprise Linux clients v7.9
 
-Pre-requisites 
----------------
+Pre-requisites
+--------------
 
 -   Exercise 0 : Lab Setup
 
@@ -64,7 +64,7 @@ At this point your workflow should resemble the following:
 
 ![workflow factscan](images/2-patching-aap2-workflow-factscan.png)
 
--   There are two more nodes to add to this workflow.  Hover the 'SATELLITE / RHEL - Publish Content View' node and click the GRAY +. Then, 'On Success' add Job Template 'SATELLITE / RHEL - Promote Content View'. There is a survey attached that requires variables for content view, current lifecycle environment, and next lifecycle environment. For the purpose of this lab we're going to promote Dev to QA. 
+-   There are two more nodes to add to this workflow. Hover the 'SATELLITE / RHEL - Publish Content View' node and click the GRAY +. Then, 'On Success' add Job Template 'SATELLITE / RHEL - Promote Content View'. There is a survey attached that requires variables for content view, current lifecycle environment, and next lifecycle environment. For the purpose of this lab we're going to promote Dev to QA.
 
 -   Select RHEL7 for 'Content View'
 
@@ -84,7 +84,7 @@ Your workflow should resemble the following:
 
 You can now save and exit the workflow template.
 
-#### 3\. Logging into Satellite 
+#### 3\. Logging into Satellite
 
 -   Use a web browser on your computer to access the Satellite GUI via the link found in the Environment above
 
@@ -96,7 +96,7 @@ You can now save and exit the workflow template.
 
 #### 4\. Exploring the Satellite host configuration
 
--   Hover over 'Hosts' and select 'Content Hosts'. Observe the multiple security, bug fix, enhancements and package updates available for each server, which will vary depending on the date of when the workshop takes place. Further, take note of the life cycle environment 
+-   Hover over 'Hosts' and select 'Content Hosts'. Observe the multiple security, bug fix, enhancements and package updates available for each server, which will vary depending on the date of when the workshop takes place. Further, take note of the life cycle environment.
 
 ![Satellite content hosts](images/2-patching-aap2-Satellite-contenthosts.png)
 
@@ -107,9 +107,9 @@ You can now save and exit the workflow template.
 
 #### 5\. Navigate back to Ansible and let's launch the workflow job
 
--   Click on Templates to locate the 'SATELLITE / Patching Workflow' template. You can either click on the rocketship to the right of the template or select the template and select LAUNCH. (they do the same thing). 
+-   Click on Templates to locate the 'SATELLITE / Patching Workflow' template. You can either click on the rocketship to the right of the template or select the template and select LAUNCH. (they do the same thing).
 
--   Observe the job kicking off in Ansible. 
+-   Observe the job kicking off in Ansible.
 
 ![AAP Workflow in progress](images/2-patching-aap2-workflow-in-progress.png)
 
@@ -128,3 +128,4 @@ You can now save and exit the workflow template.
 #### 7\. End Lab
 
 -   You have finished the lab.
+-   Continue to [Exercise 3: CentOS/RHEL migration and upgrade](../3-convert2rhel/README.md), OR [Return to the main workshop page](../README.md)

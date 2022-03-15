@@ -3,7 +3,7 @@ Automated Smart Management Workshop: Configuring the Lab Environment
 
 Objective
 ---------
-The objective of this exercise is to setup the lab environemnt following an Infrastructure as Code process. This exercise will require you to launch (9) playbooks. The playbooks accomplish the following:
+The objective of this exercise is to setup the lab environemnt following an Infrastructure as Code process. This exercise will require you to launch (9) playbooks. The playbooks accomplish the following:
 
 -   Populate Ansible Controller with an inventory source, add templates, as well as an additional project.
 -   Publish RHEL7 dev content view in Satellite 
@@ -29,7 +29,7 @@ Exercise
 
 #### 1\. Logging into the Ansible Automation Platform (AAP)
 
--   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>* 
+-   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>*
 
 ![login screen](images/0-setup-aap2-login.png)
 
@@ -49,7 +49,7 @@ This step demonstrates the execution of job templates. You will be working with 
 
 > **NOTE** Notice that the **SETUP / Satellite** job has already been completed for you.
 
-First, you will need to run the **SETUP / Controller** job template. 
+First, you will need to run the **SETUP / Controller** job template.
 
 -   Select **Templates** and click on the![launch](images/0-setup-aap2-launch.png)to the right of the **SETUP / Controller** job template.
 
@@ -174,11 +174,11 @@ Next, login to Satellite to perform verification.
 
 #### 3\. Login to Satellite and validate your Environment
 
- ![](https://lh4.googleusercontent.com/xQc7AudiblHnV7vKVFv0_055wfoeODtDltSS1_C6yV_ppF3rmfN_B78dw-Lo-OvN2ey5aE20UkuxnqYPgtmwQ0pqDdXuHqZZ4yI1rV0_E8PaFeLJHBuTR2FngYQwtutxRzpOSrEe)
+![](https://lh4.googleusercontent.com/xQc7AudiblHnV7vKVFv0_055wfoeODtDltSS1_C6yV_ppF3rmfN_B78dw-Lo-OvN2ey5aE20UkuxnqYPgtmwQ0pqDdXuHqZZ4yI1rV0_E8PaFeLJHBuTR2FngYQwtutxRzpOSrEe)
 
 -   Use a web browser on your computer to access the Satellite GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>*. Once you have logged in you will see the main Monitor page.
 
--   Click on **Hosts** -> **All Hosts** to validate that three RHEL7 and three CentOS7 server nodes are registered to Satellite. 
+-   Click on **Hosts** -> **All Hosts** to validate that three RHEL7 and three CentOS7 server nodes are registered to Satellite.
 
 ![](https://lh3.googleusercontent.com/h2t4H08gu0eTk44nR3tmLiBIIfdls5dZH0gVpxQJLm9VOeSj9F3fq2llRNgfxetM61TCPeWYBx9WFlNqKEfhJDQZ1U3Y_-WDkHQT_3WlaX7Yjjb9eern8spRuGkEfwofdeotfbkq)
 
@@ -189,4 +189,4 @@ Next, login to Satellite to perform verification.
 #### 4\. End of exercise
 
 -   You have finished this exercise
--   Continue to [Exercise 1: Compliance / Vulnerability Management](https://github.com/redhat-partner-tech/partner-tech-days-march2021/blob/aap2/integrated-mgmt-workshop/exercises/1-compliance/openscap-exercise.md), OR [Return to the main workshop page](https://github.com/redhat-partner-tech/partner-tech-days-march2021/tree/aap2/integrated-mgmt-workshop)
+-   Continue to [Exercise 1: Compliance / Vulnerability Management](../1-compliance/README.md), OR [Return to the main workshop page](../README.md)

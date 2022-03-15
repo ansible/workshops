@@ -35,7 +35,7 @@ This workshop focuses on 3 main customer pain points:
 Workshop Presentation: [Partner Content Hub](http://redhat-partner.highspot.com)<br>
 *You will need a Red Hat Partner Connect account/login to access. Don't have one? Click [here](https://connect.redhat.com/en/support)*
 
-* [Exercise 0: Configuring the Lab Environment](0-setup)
-* [Exercise 1: Compliance / Vulnerability Management](1-compliance)
-* [Exercise 2: Patch Management / OS](2-patching)
-* [Exercise 3: CentOS to RHEL conversion + upgrade](3-convert2rhel)
+* [Exercise 0: Configuring the Lab Environment](0-setup/README.md)
+* [Exercise 1: Compliance / Vulnerability Management](1-compliance/README.md)
+* [Exercise 2: Patch Management / OS](2-patching/README.md)
+* [Exercise 3: CentOS to RHEL conversion + upgrade](3-convert2rhel/README.md)

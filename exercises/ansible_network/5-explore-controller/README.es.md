@@ -15,38 +15,37 @@
 
 ## Objetivo
 
-Explore and understand the lab environment.  This exercise will cover
+Explorar y comprender el entorno de laboratorio. Este ejecicio se cubrirá:
 
-* Determining the Ansible Automation Platform version running on the control node
-* Locating and understanding:
-  * Automation controller **Inventory**
-  * Automation controller **Credentials**
-  * Automation controller **Projects**
+* Determinar la versión en ejecución de Ansible Automation Platform en el nodo de control
+* Ubicar y comprender:
+  * El **Inventario** del controlador de Automatización
+  * Las **Credentiales** del controlador de Automatización
+  * Los **Proyectos** del controlador de Automatización
 
 ## Guía
 
 ### Paso 1: Entrando en el controlador de Automatización, Automation controller
 
-1.  Return to the workshop launch page provided by your instructor.
+1.  Vuelve al taller y lanza la página que el instructor te ha indicado.
 
-2.  Click on the link to the Automation controller webUI.  You should see a login screen similar to the follow:
+2.  Haz click en el enlace a la webUI del controlador de Automatización. Deberías ver una pantalla similar a la siguiente:
 
-   Screenshot of Automation controller login window.
+   Pantallazo de la ventana de entrada al controlador de Automatización.
 ![automation controller login window](images/automation_controller_login.png)
 
-   * The username will be `admin`
-   * password provided on launch page
+   * El usuario es `admin`
+   * La password se obtiene en la página de inicio
 
-
-3. After logging in the Job Dashboard will be the default view as shown below.
+3. Después de haber entrado en el tablero de trabajos "Job" se ve la vista por defecto:
 
    ![automation controller dashboard](images/automation_controller_dashboard.png)
 
-4. Click on the **?** button on the top right of the user interface and click **About**
+4. Haz click en el botón **?** arriba a la derecha y haz click en **About**
 
    ![about button link](images/automation_controller_about.png)
 
-5. A window will pop up similar to the following:
+5. Una ventana aparecerá similar a ésta:
 
    ![version info window](images/automation_controller_about_info.png)
 

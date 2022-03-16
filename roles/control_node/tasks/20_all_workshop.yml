@@ -64,7 +64,7 @@
 
 - name: Put ssh-key in proper spot for student
   copy:
-    src: "{{ output_dir }}/{{ec2_name_prefix}}-private.pem"
+    src: "{{ output_dir }}/{{ ec2_name_prefix }}-private.pem"
     dest: "/home/{{ username }}/.ssh/id_rsa"
     owner: "{{ username }}"
     group: "{{ username }}"

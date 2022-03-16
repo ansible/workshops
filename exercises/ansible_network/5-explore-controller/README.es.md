@@ -88,29 +88,27 @@ Se requiere un inventario para que el controlador de Automatización sea capaz d
 
 ### Paso 3: Examinar el Inventario del Controlador de Automatización
 
-A project is how Ansible Playbooks are imported into Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Automation controller, including Git and Subversion.
+Un proyecto es la forma en cómo los Playbooks de Ansible se importan en el controlador de Automatización. Se pueden gestionar playbooks y directorios de playbooks poniéndolos manualmente bajo el path base al proyecto en el servidor del controlador de Automatización, or poniendo los playbooks en un gestor de código fuente (SCM) soportado por controlador de Automatización, incluyendo Git y Subversion.
 
-> Note:
+> Nota:
 >
-> For more information on Projects in Automation controller, please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
+> Más información sobre proyectos en el controlador de automatización puede consultarse en la [documentación aquí](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
 
-1. Click on the **Projects** button under **RESOURCES** on the left menu bar.
+1. Haz click en el botón **Projects** bajo **RESOURCES** en el menú de la izquierda.
 
    ![Workshop Project Link](images/automation_controller_projects.png)
 
-2. Under **PROJECTS** there will be a `Workshop Project`.  
+2. Bajo **PROJECTS** aparecerá `Workshop Project`.  
 
     ![Workshop Project Link](images/workshop_project.png)
 
-    Note that `GIT` is listed for this project.  This means this project is using Git for SCM.
+    Observa que `GIT` aparece listado para este proyecto. Esto significa que este proyecto está usando Git como SCM.
 
-3. Click on the `Workshop Project`.
+3. Haz click en `Workshop Project`.
 
   ![Workshop Project Detail](images/workshop_project_detail.png)
 
-    Note that Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit
-)
-
+    Observa que la URL de "Source Control" está configurada como [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
 
 ### Paso 4: Examinar la Credencial del Controlador de Automatización
 

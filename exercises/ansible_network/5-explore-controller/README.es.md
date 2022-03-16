@@ -151,4 +151,4 @@ Ahora ya has examinando los tres componentes requeridos para comenzar a trabajar
 ---
 [Ejercicio Anterior](../4-resource-module/README.es.md) | [Próximo ejercicio](../6-controller-job-template/README.es.md)
 
-[Click here to return to the Ansible Network Automation Workshop](../README.es.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

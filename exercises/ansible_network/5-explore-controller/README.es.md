@@ -112,43 +112,43 @@ Un proyecto es la forma en cómo los Playbooks de Ansible se importan en el cont
 
 ### Paso 4: Examinar la Credencial del Controlador de Automatización
 
-Credentials are utilized by Automation controller for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
+Las credenciales son utilizadas por el controlador de automatización para autenticar cuando se lanzan los trabajos (**Jobs**) contra las máquinas, sincronizándose con fuentes de inventarios e importando el contenido de los proyectos desde un sistema de control de versiones. Para este taller, necesitamos una credencial para autenticar los dispositivos de red.
 
-> Note:
+> Nota:
 >
-> For more information on Credentials in Automation controller please [refer to the documentation](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
+> Más información sobre credenciales en el controlador de automatización puede consultarse en la [documentación aquí](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
 
-1. Click on the **Credentials** button under **Resources** on the left menu bar.
+1. Haz click en el botón **Credentials** bajo **Resources** en el menú de la izquierda.
 
     ![credentials link](images/automation_controller_credentials.png)
 
-2. Under **Credentials** there will be multiple pre-configured credentials, including `Workshop Credential`, `Controller Credential` and the `registry.redhat.io credential`.  Click on the `Workshop Credential`.
+2. Bajo **Credentials** se mostrarán múltiples credenciales pre configuradas, incluyendo `Workshop Credential`, `Controller Credential` y la credencial `registry.redhat.io credential`. Haz click en `Workshop Credential`.
 
     ![Workshop Credential Link](images/workshop_credential.png)
 
-3. Under the `Workshop Credential` examine the following:
+3. Bajo `Workshop Credential` examina lo siguiente:
 
-* The **CREDENTIAL TYPE** is a **Machine** credential.
-* The **USERNAME** is set to `ec2-user`.
-* The **PASSWORD** is blank.
-* The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
+* **CREDENTIAL TYPE** es credencial de tipo máquina (**Machine**).
+* **USERNAME** está configurado como `ec2-user`.
+* **PASSWORD** está en blanco.
+* **SSH PRIVATE KEY** ya está configurada y está encriptada (**ENCRYPTED**).
   
 {% include mesh.md %}
 
-## Takeaways
+## Consejos a recordar
 
-* Automation controller needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.
-* Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Automation controller.
-* Automation controller can sync to existing SCM (source control management) including Github.
-* Automation controller can store and encrypt credentials including SSH private keys and plain-text passwords.  Automation controller can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
+* El controlador de automatización necesita un inventario para poder ejecutar Playbooks de Ansible. Este inventario es idéntico al que se usa para proyectos de Ansible de línea de comandos.
+* Aunque en este taller el inventario estaba configurado, importarlo de un de un inventario ya existente de Ansible es fácil. Puedes leer [este blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) para aprender otras formas fáciles de importar un inventario en el controlador de Automatización.
+* El controlador de Automatización se puede sincronizar con un gestor de control de código fuente (SCM), Github incluído.
+* El controlador de Automatización puede almacenar y encriptar credenciales, incluyendo claves privadas SSH y claves en texto plano. El controlador de Automatización puede igualmente, sincronizarse con sistemas existentes de almacenamiento de credenciales, tales como CyberArk y Vault de HashiCorp.
 
-## Complete
+## Completado
 
-You have completed lab exercise 5
+¡Felicidades, has completado el ejercicio de laboratorio 5!
 
-You have now examined all three components required to get started with Automation controller.  A credential, an inventory and a project.  In the next exercise we will create a job template.
+Ahora ya has examinando los tres componentes requeridos para comenzar a trabajar con el controlador de Automatización. Una credencial, un inventario y un proyecto. En el siguiente ejercicio crearemos una plantilla de trabajo (job template).
 
 ---
-[Previous Exercise](../4-resource-module/README.md) | [Next Exercise](../6-controller-job-template/README.md)
+[Ejercicio Anterior](../4-resource-module/README.es.md) | [Próximo ejercicio](../6-controller-job-template/README.es.md)
 
-[Click here to return to the Ansible Network Automation Workshop](../README.md)
+[Click here to return to the Ansible Network Automation Workshop](../README.es.md)

@@ -1,0 +1,66 @@
+---
+# retrieve instances for VPC 1
+- name: grab vpc node facts for workshop
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "vpc-id": "{{ ec2_vpc_id }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+  register: all_workshop_vpc_nodes
+
+- name: debug all_workshop_vpc_nodes
+  debug:
+    var: all_workshop_vpc_nodes
+  when: debug_teardown
+
+# retrieve instances for VPC 2
+- name: grab vpc2 node facts for workshop
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "vpc-id": "{{ ec2_vpc_id }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+  register: all_workshop_vpc2_nodes
+  when: ec2_vpc_id2 is defined
+
+- name: debug all_workshop_vpc2_nodes
+  debug:
+    var: all_workshop_vpc2_nodes
+  when:
+    - debug_teardown
+    - ec2_vpc_id2 is defined
+
+# Destroy VPC 1 instances
+- name: destroy EC2 instances
+  amazon.aws.ec2_instance:
+    region: "{{ ec2_region }}"
+    state: absent
+    instance_ids: "{{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list }}"
+    wait: true
+    wait_timeout: "{{ student_total * 300 | int}}"
+  register: result_ec2_destroy
+  when: all_workshop_vpc_nodes.instances
+
+- name: debug result_ec2_destroy
+  debug:
+    var: result_ec2_destroy
+  when: debug_teardown
+
+# Destroy VPC 2 instances for network automation
+- name: destroy EC2 instances (VPC2)
+  amazon.aws.ec2_instance:
+    region: "{{ ec2_region }}"
+    state: absent
+    instance_ids: "{{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list }}"
+    wait: true
+    wait_timeout: "{{ student_total * 300 | int}}"
+  register: result_ec2_destroy2
+  when:
+    - ec2_vpc_id2 is defined
+    - all_workshop_vpc2_nodes.instances
+
+- name: debug result_ec2_destroy2
+  debug:
+    var: result_ec2_destroy2
+  when: debug_teardown
+

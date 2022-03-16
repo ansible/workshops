@@ -4,10 +4,22 @@
     ec2_info: '{{ ec2_info|combine(ec2_xtra) }}'
   when: (ec2_xtra is defined) and (ec2_xtra is not none)
 
-- include_tasks: teardown.yml
+- name: teardown workshop infrastructure
+  block:
+    - include_tasks: teardown_includes/teardown_prep.yml
+
+    - include_tasks: teardown_includes/teardown_student_instances.yml
+      loop: "{{ range(1, student_total + 1, 1) | list }}"
+
+    - include_tasks: teardown_includes/teardown_student_until.yml
+
+    - include_tasks: teardown_includes/teardown_misc_instances.yml
+
+    - include_tasks: teardown_includes/teardown_remaining.yml
   when: teardown|bool
 
 - name: provision aws resources and instances
   include_tasks: provision.yml
   tags: provisioned
   when: not teardown|bool
+

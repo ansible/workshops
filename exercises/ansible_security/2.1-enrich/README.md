@@ -104,6 +104,8 @@ So let's write such a playbook which first configures the log sources - Snort an
 
 As usual, the playbook needs a name and the hosts it should be executed on. Since we are working on different machines in this workflow, we will separate the playbook into different "[plays](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#playbook-language-example)":
 
+> **Note**
+>
 > The goal of a play is to map a group of hosts to some well defined roles, represented by things ansible calls tasks. At a basic level, a task is nothing more than a call to an ansible module.
 
 This means that the "host" section will appear multiple times in one playbook, and each section has a dedicated task list.

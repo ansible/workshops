@@ -1,4 +1,4 @@
-# Exercise 6: Creating an controlador de Automatización Job Template
+# Ejercicio 6: Crear plantillas de trabajo (Job Templates) en el controlador de Automatización
 
 **Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
@@ -8,7 +8,7 @@
 * [Guía](#guía)
   * [Paso 1: Crear una plantilla de trabajo, Job Template](#Paso-1-crear-una-plantilla-de-trabajo-job-template)
   * [Paso 2: Lanzar una plantilla de trabajo, Job Template](#Paso-2-lanzar-una-plantilla-de-traabjo-job-template)
-  * [Paso 3: Examinar la vista de detalles del trabajo, Job Details View](#Paso-3-examinar-la-vista-de-detalles-del-trabajo-job-details-view)
+  * [Paso 3: Examinar los detalles del trabajo, Job Details View](#Paso-3-examinar-los-detalles-del-trabajo-job-details-view)
   * [Paso 4: Examinar la ventana de trabajos, Jobs](#Paso-4-examinar-la-ventana-de-trabajos-jobs)
   * [Paso 5: Verificar que la copia de seguridad se ha creado](#Paso-5-verificar-que-la-copia-de-seguridad-se-ha-creado)
 * [Consejos a recordar](#consejos-a-recordar)
@@ -16,31 +16,31 @@
 
 ## Objetivo
 
-Demonstrate a network backup configuration job template with controlador de Automatización.  This job template will save the running configuration from all four routers and store them under /backup on the control node with a timestamp.
+Demostrar una plantilla de trabajo de configuración de copia de seguridad de red con el controlador de Automatización. Esta plantilla de trabajo nos guardará la configuración en ejecución de nuestros cuatro enrutadores y los almacenará en `/backup` del nodo de control con una marca de tiempo.
 
-To run an Ansible Playbook in controlador de Automatización we need to create a **Job Template**.  A **Job Template** requires:
+Para ejecutar un Playbook de Ansible en el controlador de Automatización necesitamos crear una plantilla de trabajo (**Job Template**). Una plantilla de trabajo (**Job Template**) requiere:
 
-* An **Inventory** to run the job against
-* A **Credential** to login to devices.
-* A **Project** which contains Ansible Playbooks
+* Un **Inventario** contra el que poder ejecutar los trabajos.
+* Una **Credencial** para entrar en los dispositivos.
+* Un **Proyecto** que contie Playbooks de Ansible.
 
-## Guide
+## Guía
 
-### Paso 1: Create a Job Template
+### Paso 1: Crear una plantilla de trabajo, Job Template
 
-* Open the web UI and click on the `Templates` link on the left menu.
+* Abre la web UI y haz click en el enlace `Templates` en el menú de la izquierda.
 
    ![templates link](images/controller_templates.png)
 
-* Click on the blue **Add** button to create a new job template
+* Haz click en el botón azul **Add** para crear una nueva plantilla de trabajo.
 
    ![templates link](images/controller_add.png)
 
-> Note:
+> Nota:
 >
-> Make sure to select `job template` and not `workflow template`)
+> Asegúrate de seleccionar `job template` y no `workflow template`
 
-* Fill out the job template parameters as follows:
+* Rellena los parámetros de la plantilla de trabajo como sigue:
 
   | Parameter | Value |
   |---|---|
@@ -52,81 +52,81 @@ To run an Ansible Playbook in controlador de Automatización we need to create a
   |  Playbook |  playbooks/network_backup.yml |
   |  Credential |  Workshop Credential |
 
-  Pantallazo of the job template parameters filled out:
+  Pantallazo de los parámetros de la plantilla de trabajo rellenos:
    ![backup job template](images/controller_backup.png)
 
-* Add a second credential to the Job Template.
+* Añade una segunda credencial a la plantilla de trabajo (Job Template).
 
-   The **Controller Credential** also must be added to this particular Job Template.  This is so controlador de Automatización can update the pool of backups the **Network-Restore** Job Template will use. controlador de Automatización can be programmatically updated with Job Templates to add or update configurations dynamically.  Select the 2nd credential by using the drop down box to select the **Red Hat Ansible Automation Platform** credential type:
+   La credencial llamada **Controller Credential** también ha de ser añadida a esta particular plantilla de trabajo (Job Template). Lo hacemos para que el controlador de Automatización pueda actualizar los recursos de copias de seguridad que la plantilla de trabajo llamada **Network-Restore** utilizará. El controlador de Automatización se puede actualizar con plantillas de trabajo para añadir o actualizar configuraciones dinámicamente. Seleccciona la segunda credencial del menú desplegable para elegir la credencial de tipo **Red Hat Ansible Automation Platform**:
 
   ![switch credential type](images/controller_cred.png)
 
-  When you have both credential successfully added to the Job Template it will look like the following picture:
+  Cuando ambas credenciales se hayan añadido a la plantilla de trabajo, verás algo similar a la imágen:
 
   ![controller credential](images/controller_cred_multiple.png)
 
-* Scroll down and click the blue `Save` button.
+* Baja y haz click en el botón azul `Save`.
 
-### Paso 2: Launch the Job Template
+### Paso 2: Lanzar una plantilla de trabajo, Job Template
 
-1. Navigate back to the `Templates` window, where all Job Templates are listed.
+1. Navega hasta la ventana `Templates`, donde aparecerán todas las plantillas de trabajo (Job Templates).
 
-2. Launch the `Backup network configurations` Job Template by clicking the Rocket button.
+2. Lanza la plantilla de trabajo `Backup network configurations` haciendo click en el botón del cohete.
 
     ![rocket button](images/controller_rocket.png)
 
-    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [controlador de Automatización jobs](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) can be found in the documentation.
+    Cuando el botón del cohete se pulsa, lanzará el trabajo. El trabajo se abrirá en una nueva ventana llamada **Job Details View**. Más información sobre los [trabajos en el controlador de Automatización](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) se pueden encontrar en la documentación.
 
-### Paso 3: Examine the Job
+### Paso 3: Examinar los detalles del trabajo, Job Details View
 
-After executing the Job Template it will automatically open the [Standard Out pane](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html#standard-out)
+Después de ejecutar la plantilla de trabajo, se abrirá automáticamente el [panel de salida estándar](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html#standard-out)
 
 ![job details view](images/controller_job_output.png)
 
-1. Examine the **Standard Out pane**
+1. Examina el **panel de salida estándar**
 
-   The Standard Out pane will display the output from the Ansible Playbook.  Every task output will match exactly what would be seen on the command line.
+   El panel de salida estándar mostrará la salida del Plyabook de Ansible. Cada salida de tarea será idéntica de lo que hubiera sido en la línea de comandos.
 
-2. Click on a task in the **Standard Out pane** to open up structured output from that particular task.
+2. Haz click en la tarea en el **panel de salida estándar** para abrir la salida de una tarea en particular de manera estructurada.
 
-   > Click on any line where there is a **changed** or **ok**
+   > Haz click en cualquier línea donde aparezca **changed** u **ok**
 
    ![task details window](images/controller_details.png)
 
-3. Click on the **Details**  tab to open the **Details pane**
+3. Haz click en la pestaña **Details** para abrir el **panel de detalles**
 
-   The **Details pane** will information such as the timestamp for when the job started and finished, the job type (Check or Run), the user that launched the job, which Project and Ansible Playbook were used and more.
+   El **panel de detalles** mostrará información como las marcas de tiempo para el inicio y fin del trabajo, el tipo de trabajo (Check or Run), el usuario que lanzó el trabajo, qué proyecto y qué Playbook de Ansible fueron usados y más.
 
-   If the Job has not finished yet, the **Details Pane** will have a **Cancel Job** button that can be used to stop the Job.
+   Si el trabajo aún no ha terminado, el **panel de detalles** mostrará un botón **Cancel Job** que puede usarse para parar la ejecución del trabajo.
 
-### Paso 4: Examine the Jobs window
+### Paso 4: Examinar la ventana de trabajos, Jobs
 
-Any **Job Template** that has been run or is currently running will show up under the **Jobs** window.
+Cualquier **Job Template** (plantill de trabajo) que se ha ejecutado o se está ejecutando aparecerá bajo la ventana **Jobs** (trabajos).
 
-1. Click the Jobs button the left menu.
+1. Haz click en el botón **Jobs** en el menú de la izquierda.
 
    ![jobs button](images/controller_jobs.png)
 
-   The Jobs link displays a list of jobs and their status–shown as completed successfully or failed, or as an active (running) job. Actions you can take from this screen include viewing the details and standard output of a particular job, relaunch jobs, or remove jobs.
+   El enlace **Jobs** muestra una lista de trabajos y su estado como completado, existoso o fallado, o como trabajo en ejecución (running). Las acciones que puedes ejecutar en esta pantalla incluyen ver los detalles y la salida estándar de un trabajo en particular, re-lanzar trabajos o borrar trabajos.
 
-2. Click on the **Backup network configurations** Job
+2. Haz click en el trabajo **Backup network configurations**.
 
    ![jobs link](images/controller_jobs_link.png)
 
-   The **Backup network configurations** job was the most recent (unless you have been launching more jobs).  Click on this job to return to the **Standard Out pane**.  controlador de Automatización will save the history of every job launched.
+   El trabajo **Backup network configurations** ha sido el más reciente en ser ejecutado (a no ser que hayas lanzado más trabajos). Haz click en este trabajo para volver al **panel de salida estándar**. El controlador de Automatización guardará un histórico por cada trabajo lanzado.
 
-### Paso 5: Verify the backups were created
+### Paso 5: Verificar que la copia de seguridad se ha creado
 
-* On the Ansible control node command line `ls /backup` to view the time stamped folder (or folders if you created multiple backups)
+* En la línea de comandos del nodo de control de Ansible escribe `ls /backup` para ver el directorio con la marca de tiempo (o directorios si has creado múltiples copias de seguridad).
 
   ```sh
   [student1@ansible-1 ~]$ ls /backup
   2021-08-31-12-58  2021-08-31-13-04  2021-08-31-13-11
   ```
 
-  `ls` is a command to list computer files in Linux operating systems
+  `ls` es el comando para listar ficheros en sistemas operativos Linux.
 
-* Either open `/backup` with Visual Studio Code or use the `cat` command to view the contents of one of the time stamped network devices
+* Abre `/backup` con Visual Studio Code o usando el comando `cat` para ver lso contenidos de alguno de los dispositivos de red con marca de tiempo:
 
   ```sh
   [student1@ansible-1 ~]$ cat /backup/2021-08-31-1
@@ -148,19 +148,19 @@ Any **Job Template** that has been run or is currently running will show up unde
   hostname rtr1
   ```
 
-* Examine the remaining routers.  Your instructor may have setup multiple vendors for this exercise including Juniper and Arista.  Ansible Playbooks can be written to be vendor agnostic,  in this case we provided the Ansible Playbook via the Github repo: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
+* Examina los enrutadores restantes. El instructor debe de haber configurado múltiples fabricantes para este ejercicio, incluyendo Juniper y Arista. Los Playbooks de Ansible se pueden escribir para ser agnósticos al fabricante, en este caso proveemos el Playbook de Ansible vía un repo de Github: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
 
-## Takeaways
+## Consejos a recordar
 
-You have successfully demonstrated
+Has probado existosamente lo siguiente:
 
-* Creating a Job Template for backing up network configurations
-* Launching a Job Template from the controlador de Automatización UI
-* Verifying the backups are correctly stored
+* Crear una plantilla de trabajo (Job Template) para realizar copias de seguridad de configuraciones de red.
+* Lanzar una plantilla de trabajo (Job Template) desde la interfaz gráfica del controlador de Automatización.
+* Verificar que las copias de seguridad se han guardado correctamente.
 
 ## Completado
 
-You have completed lab exercise 6
+¡Felicidades, has completado el ejercicio de laboratorio 6!
 
 ---
 [Ejercicio Anterior](../5-explore-controller/README.es.md) | [Próximo ejercicio](../7-controller-survey/README.es.md)

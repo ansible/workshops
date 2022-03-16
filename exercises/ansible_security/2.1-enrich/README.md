@@ -9,9 +9,9 @@
 
 ## 2.1.1 The Background
 
-In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow. 
+In the last section the focus was on single tools and how they can be automated with Ansible. In the daily operation of security practitioners the need is one step higher: when something suspicious happens and needs further attention, security operations need to deploy many tools to secure an enterprise IT. In many enterprise environments, security solutions are not integrated with each other and, in large organizations, different teams are in charge of different aspects of IT security, with no processes in common. That often leads to manual work and interaction between people of different teams which is error prone and above all, slow.
 
-There are multiple stakeholders involved in preventing security breaches and, if a cyber attack was successful, remediate the security intrusion as quick as possible. 
+There are multiple stakeholders involved in preventing security breaches and, if a cyber attack was successful, remediate the security intrusion as quick as possible.
 
 Let's have a brief look at some of the personas involved.
 
@@ -27,7 +27,7 @@ We will use Ansible Automation Platform to elevate the interactions learned in t
 
 For this exercise to work properly, we'll need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
 
-1. The `whitelist_attacker.yml` playbook must have been run at least once. 
+1. The `whitelist_attacker.yml` playbook must have been run at least once.
 2. Also, the logging for the attacker whitelist policy must have been activated in the Check Point SmartConsole.
 
 Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
@@ -66,11 +66,11 @@ The stage is set now. Read on to learn what this use case is about.
 
 Imagine you are a security analyst in an enterprise. You were just informed of an anomaly in an application. From within a terminal in your VS Code online editor, ssh to the snort machine.
 
-Open a new terminal in your VS Code online editor to connect to the Snort server via SSH. 
+Open a new terminal in your VS Code online editor to connect to the Snort server via SSH.
 
 > **Note**
 >
-> As the login user for the Snort server, you need to use `ec2-user` 
+> As the login user for the Snort server, you need to use `ec2-user`
 
 After login, grep for the anomaly log entry:
 
@@ -293,7 +293,7 @@ Run the full playbook to add both log sources to QRadar:
 ```bash
 [student<X>@ansible-1 ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
 ```
-In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress. 
+In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress.
 
 ![Check Point progress](images/2.1-checkpoint-progress.png#centreme)
 
@@ -309,13 +309,18 @@ Before that Ansible playbook was invoked, QRadar wasn’t receiving any data fro
 
 Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there are a lot of logs coming in all the time:
 
-> **IBM QRadar Credentials**  
+> **IBM QRadar Credentials**
+>
 > Username: `admin`  
 > Password: `Ansible1!`
 
+> **Note**
+>
+> It is recommended to use Mozilla Firefox with the QRadar web UI.  For more information on this limitation please reference [workshop issue 1536](https://github.com/ansible/workshops/issues/1536)
+
 ![QRadar Log Activity showing logs from Snort and Check Point](images/qradar_log_activity.png#centreme)
 
-Many of those logs are in fact internal QRadar logs. To get a better overview, click on the drop down menu next to **Display** in the middle above the log list. Change the entry to **Raw Events**. 
+Many of those logs are in fact internal QRadar logs. To get a better overview, click on the drop down menu next to **Display** in the middle above the log list. Change the entry to **Raw Events**.
 
 Next, in the menu bar above that, click onto the button with the green funnel symbol and the text **Add Filter**. As **Parameter**, pick **Log Source [Indexed]**, as **Operator**, pick **Equals any of**. Then, from the list of log sources, pick **Check Point source** and click onto the small plus button on the right. Do the same for **Snort rsyslog source**, and press the button **Add Filter**:
 

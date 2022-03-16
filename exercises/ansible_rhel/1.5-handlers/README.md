@@ -44,11 +44,6 @@ As an example you would like to install an FTP server, but only on hosts that ar
 To do that, first edit the inventory to add another group, and place `node2` in it. Make sure that that IP address of `node2` is always the same when `node2` is listed. Edit the inventory `~/lab_inventory/hosts` to look like the following listing:
 
 ```ini
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=ansible
-ansible_port=22
-
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55

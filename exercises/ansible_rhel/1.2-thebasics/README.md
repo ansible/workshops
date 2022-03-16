@@ -29,11 +29,6 @@ An inventory file is a text file that specifices the nodes that will be managed 
 To use the `ansible-navigator` command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab, the inventory is provided by your instructor. The inventory file is an `ini` formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
 
 ```bash
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=PASSWORD
-ansible_port=22
-
 [web]
 node1 ansible_host=<X.X.X.X>
 node2 ansible_host=<Y.Y.Y.Y>
@@ -55,28 +50,15 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
     "_meta": {
         "hostvars": {
             "ansible-1": {
-                "ansible_host": "3.236.186.92",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
-            },
+                "ansible_host": "3.236.186.92"            },
             "node1": {
-                "ansible_host": "3.239.234.187",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
+                "ansible_host": "3.239.234.187"
             },
             "node2": {
-                "ansible_host": "75.101.228.151",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
+                "ansible_host": "75.101.228.151"
             },
             "node3": {
-                "ansible_host": "100.27.38.142",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
+                "ansible_host": "100.27.38.142"
             }
         }
     },

@@ -47,11 +47,6 @@ Ansible は条件を使用して、特定の条件が満たされたときにタ
 がリストされたときと常に同じになるようにしてください。以下のリストのようにインベントリー `~/lab_inventory/hosts` を編集します。
 
 ```ini
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=ansible
-ansible_port=22
-
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55

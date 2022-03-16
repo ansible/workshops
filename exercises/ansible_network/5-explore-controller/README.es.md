@@ -52,39 +52,39 @@ Explorar y comprender el entorno de laboratorio. Este ejecicio se cubrirá:
 
 ### Paso 2: Examinar el Inventario del Controlador de Automatización
 
-An inventory is required for Automation controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Automation controller can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
+Se requiere un inventario para que el controlador de Automatización sea capaz de ejecutar trabajos. Un inventario es una colección de máquinas contra los que ejecutar trabajos, de igual manera que lo es un fichero de inventario de Ansible. Además, el controlador de automatización puede usar una base de datos de gestión de configuración (cmdb) ya existente tales como ServiceNow o Infoblox DDI.
 
-> Note:
+> Nota:
 >
-> More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html)
+> Más información sobre inventarios en el controlador de automatización puede consultarse en la [documentación aquí](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html)
 
-1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.
+1. Haz click en el botón **Inventories** bajo **RESOURCES** en la barra de menú de la izquierda.
 
     ![Inventories Button](images/automation_controller_inventories.png)
 
-2. Under Inventories click on the `Workshop Inventory`.
+2. Bajo Inventarios, haz click en `Workshop Inventory`.
 
     ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
 
-3. Under the `Workshop Inventory` click the **Hosts** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  
+3. Bajo `Workshop Inventory` haz click en el botón **Hosts** en la parte de arriba.  Aparecerán cuatro hosts, de rtr1 a rtr4 además del nodo de control de ansible control.
 
    ![automation controller workshop inventory hosts](images/workshop_inventory_hosts.png)
 
-4. Click on one of the devices.
+4. Haz click en alguno de los dispositivos.
 
    ![workshop inventory hosts rtr1](images/workshop_inventory_hosts_rtr1.png)
 
      Take note of the **VARIABLES** field.  The `host_vars` are set here including the `ansible_host` variable.
 
-5. Click on **GROUPS**.  There will be multiple groups here including `routers` and `cisco`.  Click on one of the groups.
+5. Haz click en **GROUPS**. Aparecerán múltiples grupos incluyendo `routers` y `cisco`. Haz click en alguno de los grupos.
 
    ![workshop inventory groups](images/workshop_inventory_groups.png)
 
-6. Click on one of the groups.
+6. Haz click en alguno de los grupos.
 
    ![workshop inventory group vars](images/workshop_inventory_group_vars.png)
 
-     Take note of the **VARIABLES** field. The `group_vars` are set here including the `ansible_connection` and `ansible_network_os` variable.
+     Fíjate en el campo **VARIABLES**. Las variables de grupo, `group_vars`, se han definido aquí incluyendo las variables `ansible_connection` y `ansible_network_os`.
 
 ### Paso 3: Examinar el Inventario del Controlador de Automatización
 

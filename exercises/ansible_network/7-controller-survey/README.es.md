@@ -182,13 +182,13 @@ Espera a que la ejecución del trabajo concluya. Por favor, índicale al instruc
 
 ### Paso 5: Verificar la mensaje de bienvenida o banner
 
-1. Login to one of the routers and see the banner setup
+* Entra en uno de los enrutadores para observar la configuración de la pantalla de bienvenida:
 
    ```sh
    [student1@ansible]$ ssh rtr1
    ```
 
-   The banner will appear on login.  Here is an example from above:
+   La pantalla de bienvenida aparecerá justo al entra. Como por ejemplo:
 
    ```
    [student1@ansible-1 ~]$ ssh rtr1
@@ -197,9 +197,9 @@ Espera a que la ejecución del trabajo concluya. Por favor, índicale al instruc
   This router was configured by Ansible
   ```
 
-2. Verify on additional routers
+* Verifícalo en los otros enrutadores
 
-## Takeaways
+## Consejos a recordar
 
 You have successfully demonstrated
 
@@ -207,11 +207,11 @@ You have successfully demonstrated
 * Creation of a self service survey for the Job Template to fill out the `network_banner` and `banner_type` variables
 * Executing a Job Template on all four routers, loading a banner on them simultaneously
 
-## Complete
+## Completado
 
-You have completed lab exercise 7
+¡Felicidades, has completado el ejercicio de laboratorio 7!
 
 ---
-[Previous Exercise](../6--controller-job-template/README.md) | [Next Exercise](../8-controller-rbac/README.md)
+[Ejercicio Anterior](../6--controller-job-template/README.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
 
-[Haz click here to return to the Ansible Network Automation Workshop](../README.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

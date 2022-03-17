@@ -34,20 +34,20 @@ Observemos alguna terminología del controlador de Automatización:
 
 ### Paso 1: Explorando las organizaciones
 
-* Entra to controlador de Automatización with the **admin** user.
+* Entra al controlador de Automatización con el usuario **admin**.
 
   | Parameter | Value |
   |---|---|
   | username  | `admin`  |
   |  password|  provided by instructor |
 
-* Confirm that you are logged in as the **admin** user.
+* Confirma que has entrado como el usuario **admin**.
 
   ![admin user](images/step_1.png)
 
-* Under the **Access** section, Haz click on **organizacións**
+* Bajo la sección **Access**, haz click en **Organizations**
 
-  As the *admin* user, you will be able to view all organizacións configured for controlador de Automatización:
+  Como el usuario *admin*, podrás ver todas las organizaciones configuradas en el  controlador de Automatización:
 
   <table>
   <thead>
@@ -57,19 +57,19 @@ Observemos alguna terminología del controlador de Automatización:
   </thead>
   </table>
 
-* Examine the organizacións
+* Examina las organizaciones
 
-  There are 2 organizacións (other than Default):
+  Hay 2 organizaciones (además de la por defecto, Default):
 
-  * **Red Hat compute organización**
-  * **Red Hat network organización**
+  * **Red Hat compute organization**
+  * **Red Hat network organization**
 
    ![organizacións image](images/step1-organizations.png)
 
    <table>
    <thead>
      <tr>
-       <th>Observe that this page gives you a summary of all the teams, users, inventories, projects and job templates associated with it. If a organización level admin is configure you will see that as well.</th>
+       <th>Observa que esta página muestra un resumen de todos los equipos, usuarios, inventarios, proyectos y plantillas de trabajo asociadas con ellas. Si un administrador de nivel de organización se ha configurado, también se mostrará.</th>
      </tr>
    </thead>
    </table>
@@ -77,7 +77,7 @@ Observemos alguna terminología del controlador de Automatización:
 
 ### Paso 2: Explorando las organizaciones de red
 
-1. Haz click on the **Red Hat network organización**.
+1. Haz click on the **Red Hat network organization**.
 
    This brings up a section that displays the details of the organización.
 

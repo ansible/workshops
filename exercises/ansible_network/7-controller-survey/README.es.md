@@ -16,17 +16,17 @@
 
 ## Objetivo
 
-Demonstrate the use of controlador de Automatización [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
+Demostrar el uso de la [funcionalidad encuesta o survey](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys) del controlador de Automatización. Las encuestas (o surveys) configuran las variables extra para un playbook de forma similar a como el ‘Prompt for Extra Variables’ lo hace, pero de una manera amigable de pregunta y respuesta para el usuario. Las encuestas (o surveys) también proveen de validación de entrada de usuario.
 
 ## Guía
 
 ### Paso 1: Create a Job Template
 
-1. Open the web UI and Haz click on the `Templates` link on the left menu.
+1. Abre la web UI y Haz click en el enlace `Templates` del menú de la izquierda.
 
    ![templates link](images/controller_templates.png)
 
-2. Haz click on the blue `Add` button and select **Add job template** to create a new job template (make sure to select `Job Template` and not `Workflow Template`)
+2. Haz click en el botón azul `Add` y seleccion **Add job template** para crear una nueva plantilla de trabajo o job template. (Asegúrate de seleccionar `Job Template` y no `Workflow Template`)
 
    | Parameter | Value |
    |---|---|
@@ -38,7 +38,7 @@ Demonstrate the use of controlador de Automatización [survey feature](https://d
    |  Playbook |  `playbooks/network_banner.yml` |
    |  Credential |  Workshop Credential |
 
-3. Scroll down and Haz click the blue `Save` button.
+3. Baja y haz click en el botón azul `Save`.
 
 ### Paso 2: Examinar el playbook
 

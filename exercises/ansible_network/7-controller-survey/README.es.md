@@ -10,7 +10,7 @@
    * [Paso 2: Examinar el playbook](#Paso-2-examinar-el-playbook)
    * [Paso 3: Crear una encuesta o survey](#Paso-3-crear-una-encuesta-survey)
    * [Paso 4: Lanzar una plantilla de trabajo](#Paso-4-lanzar-una-plantilla-de-trabajo)
-   * [Paso 5: Verificar la pancarta o banner](#Paso-5-verificar-la-pancarta-o-banner)
+   * [Paso 5: Verificar la mensaje de bienvenida o banner](#Paso-5-verificar-la-mensaje de bienvenida-o-banner)
 * [Consejos a recordar](#consejos-a-recordar)
 * [Completado](#completado)
 
@@ -160,27 +160,27 @@ En este paso crearás una encuesta o *"survey"* de usuario de entrada para recog
 
 ### Paso 4: Lanzar una plantilla de trabajo
 
-1. Haz click on the rocket ship to launch the job template.
+1. Haz click en el icono del cohete para lanzar la plantilla de trabajo.
 
    ![rocket launch](images/controller_launch_template.png)
 
-   The job will immediately prompt the user to set the banner and the type.
+   El trabajo pedirá inmediatamente al usuario que indique el mensaje de bienvenida (banner) y el tipo.
 
-2. Type in the banner message you want for the routers.
+2. Escribe el mensaje de bienvenida que deseas para los enrutadores.
 
-3. Choose between `login` and `motd`.
+3. Elige entre `login` y `motd`.
 
-4. Haz click next to see how the survey rendered the input as extra vars for the Ansible Playbook.  For this example the banner text is set as "This router was configured by Ansible".
+4. Haz click en el botón `next` para ver cómo la encuesta ha transformado esta entrada de variables extra en el Playbook de Ansible. Por ejemplo, el mensaje de bienvenida existente es "This router was configured by Ansible".
 
    ![survey screen](images/controller_survey.png)
 
-5. Haz click the blue **Launch** button to kick off the job.
+5. Haz click en el botón azul **Launch** para lanzar el trabajo.
 
    ![launch button](images/controller_launch.png)
 
-Let the job run to completion.  Let the instructor know if anything fails.
+Espera a que la ejecución del trabajo concluya. Por favor, índicale al instructor si hay algún problema.
 
-### Paso 5: Verificar la pancarta o banner
+### Paso 5: Verificar la mensaje de bienvenida o banner
 
 1. Login to one of the routers and see the banner setup
 

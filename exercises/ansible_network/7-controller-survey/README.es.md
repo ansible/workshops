@@ -42,7 +42,7 @@ Demostrar el uso de la [funcionalidad encuesta o survey](https://docs.ansible.co
 
 ### Paso 2: Examinar el playbook
 
-Here is what the  `network_banner.yml` Ansible Playbook looks like:
+Observa el Playbook de Ansible `network_banner.yml`:
 
 <!-- {% raw %} -->
 
@@ -63,11 +63,11 @@ Here is what the  `network_banner.yml` Ansible Playbook looks like:
 
 <!-- {% endraw %} -->
 
-> Note:
+> Nota:
 >
-> You can also view the Ansible Playbook here: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
+> También puedes consultar el Playbook de Ansible aquí: [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
 
-The role **banner** has a very simple `main.yml` file:
+El rol **banner** tiene un fichero `main.yml` muy simple:
 
 <!-- {% raw %} -->
 
@@ -78,9 +78,9 @@ The role **banner** has a very simple `main.yml` file:
 
 <!-- {% endraw %} -->
 
-The `ansible_network_os` variable is being used to parameterize the network OS and create a vendor neutral playbook.
+La variable `ansible_network_os` se usa para parametrizar el SO de red y crear un playbook agnóstico al fabricante.
 
-If you are working with a junos device, this playbook would call for a task file called `junos.yml`.  If you are using an IOS-XE device, this playbook would call for a task file called `ios.yml`. This file will in turn contain the platform specific tasks:
+Si has creado la red con un dispositivo junos, este playbook bucará un fichero de tareas llamado `junos.yml`. Si estás usando un dispositivo IOS-XE, este playbook buscará un fichero de tareas llamado `ios.yml`. Este fichero contendrá las tareas específicas de la plataforma:
 
 <!-- {% raw %} -->
 
@@ -94,15 +94,15 @@ If you are working with a junos device, this playbook would call for a task file
 
 <!-- {% endraw %} -->
 
-> Note:
+> Nota:
 >
-> Please observe that there are task files created for ios, nxos, eos and junos for this playbook.
+> Por favor, observa que hay distintos ficheros de tareas creados para ios, nxos, eos y junos en este playbook.
 
-Also note that we are passing in 2 variables to the task file.
+Observa también que se pasan dos variables al fichero de tareas.
 
-1. `network_banner`: This variable is populated using the `net_banner` variable
+1. `network_banner`: Esta variable toma el valor usando el de la variable `net_banner`.
 
-2. `banner_type`: This variable is populated by a variable named `net_type`
+2. `banner_type`: Esta variable toma el valor usando el de la variable `net_type`.
 
 ### Paso 3: Crear una Encuesta o Survey
 

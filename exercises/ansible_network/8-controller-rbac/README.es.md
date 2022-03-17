@@ -25,12 +25,12 @@ Uno de los de usar el controlador de Automatización es el control sobre los usu
 
 ## Guía
 
-Lets review some controlador de Automatización terminology:
+Observemos alguna terminología del controlador de Automatización:
 
-* **organizacións:** Defines a tenancy for example *Network-org*, *Compute-org*. This might be reflective of internal organizaciónal structure of the customer's organización.
-* **Teams:** Within each organización, there may be more than one team. For instance *tier1-helpdesk*, *tier2-support*, *tier3-support*, *build-team* etc.
-* **Users:** Users typically belong to teams. What the user can do within controlador de Automatización is controlled/defined using **roles**
-* **Roles:** Roles define what actions a user may perform. This can map very nicely to typical network organizacións that have restricted access based on whether the user is a Level-1 helpdesk person, Level-2 or senior admin. controlador de Automatización [documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/security.html#built-in-roles)defines a set of built-in roles.
+* **Organizations:** Define un proyecto, como por ejemplo *Network-org*, *Compute-org*. Esto podría usarse para reflejar la estructura organizativa interna de la organización del cliente.
+* **Teams:** Dentro de cada organización, pueden existir más de un equipo. Por ejemplo *tier1-helpdesk*, *tier2-support*, *tier3-support*, *build-team* etc.
+* **Users:** Los usuarios típicamente pertenecen a equipos. Lo que el usuario puede hacer dentro del controlador de Automatización está controlado/definido mediante **roles**.
+* **Roles:** Los roles definen qué acciones puede hacer un usuario. Esto se puede mapear claramente a organizaciones de red que tiene acceso restringido basado en si el usuario es una persona de soporte de Nivel-1, Nivel-2 o un administrador sénior. La [documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/security.html#built-in-roles) del controlador de Automatización define un conjunto de roles pre establecidos.
 
 ### Paso 1: Explorando las organizaciones
 
@@ -43,7 +43,7 @@ Lets review some controlador de Automatización terminology:
 
 * Confirm that you are logged in as the **admin** user.
 
-  ![admin user](images/Paso_1.png)
+  ![admin user](images/step_1.png)
 
 * Under the **Access** section, Haz click on **organizacións**
 

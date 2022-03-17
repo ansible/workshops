@@ -106,17 +106,17 @@ Observa también que se pasan dos variables al fichero de tareas.
 
 ### Paso 3: Crear una Encuesta o Survey
 
-In this Paso you will create a *"survey"* of user input form to collect input from the user and populate the values for the variables `net_banner` and `banner_type`
+En este paso crearás una encuesta o *"survey"* de usuario de entrada para recoger la entrada del usuario y asignar los valores de las variables `net_banner` y `banner_type`.
 
-1. Haz click on the **Survey** tab within the Network-Banner Job Template
+1. Haz click en la pestaña **Survey** dentro de la template de trabajo `Network-Banner`
 
    ![add survey button](images/controller_job_survey.png)
 
-2. Haz click the blue **Add** button
+2. Haz click en el botón azul **Add**.
 
    ![add survey button](images/controller_add_survey.png)
 
-3. Fill out the fields
+3. Rellena los siguientes campos:
 
    | Parameter | Value |
    |---|---|
@@ -126,15 +126,15 @@ In this Paso you will create a *"survey"* of user input form to collect input fr
    |  Answer type |  Textarea |
    |  Required |  Checkmark |
 
-   For example:
+   Por ejemplo:
 
    ![workshop survey](images/controller_survey_q_one.png)
 
-4. Haz click the green `Add` button to create another question
+4. Haz click en el botón verde `Add` para añadir otra pregunta.
 
    ![add survey button](images/controller_add_survey.png)
 
-5. Next we will create a survey prompt to gather the `banner_type`. This will either be "motd" or "login" and will default to "login" per the playbook above.
+5. A continuación, crearemos un indicador de encuesta para recopilar el `banner_type`. Los valores pueden ser "motd" o "login" siendo por defecto "login" para seguir el playbook anterior.
 
    | Parameter               | Value                          |
    |-------------------------|--------------------------------|
@@ -146,13 +146,13 @@ In this Paso you will create a *"survey"* of user input form to collect input fr
    | default answer          | login                          |
    | Required                | Checkmark                      |
 
-   For example:
+   Por ejemplo:
 
    ![workshop survey](images/controller_survey_q_two.png)
 
-5. Haz click Save
+5. Haz click en Save
 
-6. Haz click the toggle switch to activate the survey and turn it On
+6. Haz click en el interruptor para activar la encuesta, dejándolo en **On**
 
    ![workshop survey toggle](images/controller_survey_toggle.png)
 

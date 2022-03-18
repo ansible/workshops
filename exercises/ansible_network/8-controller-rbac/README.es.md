@@ -196,23 +196,23 @@ Observemos alguna terminología del controlador de Automatización:
 
 ### Paso 8: Entrar como operador de red
 
-Finally, to see the RBAC in action!
+Y por fin, vamos a ver RBAC en acción.
 
-1. Log out at admin and log back in as the **network-operator** user.
+1. Cierra la sesión de admin y vuelve a entrar como usuario **network-operator**.
 
    | Parameter | Value |
    |---|---|
    | username  | `network-operator`  |
    |  password|  provided by instructor |
 
-2. Navigate to **Templates** and Haz click on the **Network-Commands** Job Template.
+2. Navega hasta **Templates** y haz click en la plantilla de trabajo **Network-Commands**.
 
    ![network commands job template](images/step8_operator.png)
 
    <table>
    <thead>
      <tr>
-       <th>Note that, as the <b>network-operator</b> user, you will have no ability to change any of the fields.  The <b>Edit</b> button is no longer available.</th>
+       <th>Observa que, como el usuario <b>network-operator</b>, no podrás cambiar ninguno de los campos. El botón <b>Edit</b> ya no aparecerá disponible.</th>
      </tr>
    </thead>
    </table>

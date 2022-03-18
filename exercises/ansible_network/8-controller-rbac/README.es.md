@@ -124,35 +124,35 @@ Observemos alguna terminología del controlador de Automatización:
 
 ### Paso 5: Entrar como administrador de red
 
-* Log out from the admin user by Haz clicking the admin button in the top right corner of the controlador de Automatización UI:
+* Cierra la sesión del usuario admin haciendo click en el botón admin en la esquina superior derecha de la interfaz de usuario del controlador de Automatización:
 
    ![logout image](images/step5_logout.png)
 
-* Entra to the system with the **network-admin** user.
+* Entra al sistema con el usuario **network-admin**.
 
   | Parameter | Value |
   |---|---|
   | username  | network-admin  |
   |  password|  provided by instructor |
 
-* Confirm that you are logged in as the **network-admin** user.
+* Confirma que has entrado como el usuario **network-admin**.
 
   ![picture of network admin](images/step5_network-admin.png)
 
-* Haz click on the **organizacións** link on the sidebar.
+* Haz click el link de la barra lateral **organizations**.
 
-  You will notice that you only have visibility to the organización you are an admin of, the **Red Hat network organización**.
+  Observarás que la visibilidad es la de la organización que estás administrando, **Red Hat network organización**.
 
-  The following two organizacións are not seen anymore:
+  Las siguientes dos organizacionesre ya no son visibles:
 
   * Red Hat compute organización
   * Default
 
-* Bonus Paso: Try this as the network-operator user (same password as network-admin).
+* Bonus: Repite los pasos como el usuario network-operator (misma password que network-admin).
 
-   * What is the difference between network-operator and network-admin?
-   * As the network operator are you able to view other users?
-   * Are you able to add a new user or edit user credentials?
+   * ¿Qué diferencias observas entre network-operator y network-admin? 
+   * Como operador de red, ¿eres capaz de ver otros usuarios?
+   * ¿Eres capaz de añadir un usuario o de editar sus credenciales?
 
 ### Paso 6: Comprender los Roles de Equipo
 

@@ -176,21 +176,20 @@ Observemos alguna terminología del controlador de Automatización:
    </thead>
    </table>
 
-
 ### Paso 7: Job Template Permissions
 
-1. Haz click on the **Templates** button in the left menu
+1. Haz click en el botón **Templates** en el menú de la izquierda
 
-2. Haz click on the **Network-Commands** Job Template
+2. Haz click en la plantilla de trabajo **Network-Commands**
 
-3. Haz click on the **Access** button at the top
+3. Haz click en el botón **Access** en la barra superior
 
    ![permissions window](images/step7_job_template_access.png)
 
    <table>
    <thead>
      <tr>
-       <th>Note: the same users have different roles for the job template. This highlights the granularity operators can introduce with controlador de Automatización in controlling "Who gets access to what". In this example, the network-admin can update (<b>Admin</b>) the <b>Network-Commands</b> job template, whereas the network-operator can only <b>Execute</b> it.</th>
+       <th>Nota: los mismos usuarios tienen roles diferentes para una plantilla de trabajo. Con esto se subraya la granularidad que los operadores pueden introducir con el controlador de Automatización para decidir "quién accede a qué". En este ejemplo, el usuario network-admin (<b>Admin</b>) puede actualizar la plantilla de trabajo <b>Network-Commands</b>, mientras que el que el network-operator sólo puede ejecutarlo, <b>Execute</b>.</th>
      </tr>
    </thead>
    </table>

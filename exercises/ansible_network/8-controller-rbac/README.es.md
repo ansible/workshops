@@ -239,7 +239,7 @@ Si dispones de tiempo, vuelve a entrar como el usuario network-admin y añade ot
 
 ## Completado
 
-¡Felicidades, has completado el ejercicio de laboratorio 7!
+¡Felicidades, has completado el ejercicio de laboratorio 8!
 
 ---
 [Ejercicio Anterior](../7-controller-survey/README.es.md) | [Próximo ejercicio](../9-controller-workflow/README.es.md)

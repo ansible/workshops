@@ -219,29 +219,29 @@ Y por fin, vamos a ver RBAC en acción.
 
 ### Paso 9: Lauzar una plantilla de trabajo
 
-1. Launch the **Network-Commands** template by Haz clicking on the **Launch** button:
+1. Lanza la plantilla **Network-Commands** haciendo click en el botón **Launch**.
 
-4. You will be prompted by a dialog-box that lets you choose one of the pre-configured show commands.
+2. Aparecerá un diálogo que te permitirá elegir uno de los comandos pre configurados:
 
    ![pre configured survey image](images/step9_survey.png)
 
-5. Go ahead and choose a command and Haz click **Next** and then **Launch** to see the playbook being executed and the results being displayed.
+3. Selecciona un comando y haz click **Next** y luego en **Launch** para ver la ejecución del playbook y su salida.
 
 ### Bonus
 
-If time permits, log back in as the network-admin and add another show command you would like the operator to run. This will also help you see how the *Admin* Role of the network-admin user allows you to edit/update the job template.
+Si dispones de tiempo, vuelve a entrar como el usuario network-admin y añade otro comando que te gustaría que el operador pueda ejecutar. Así podrás ver cómo el rol *Admin* del usuario network-admin te permite editar o actualizar plantillas de trabajo.
 
 ## Consejos a recordar
 
-* Using controlador de Automatización's powerful RBAC feature, you can see it is easy to restrict access to operators to run prescribed commands on production systems without requiring them to have access to the systems themselves.
-* controlador de Automatización can support multiple organizacións, multiple Teams and users.  Users can even belong to multiple Teams and organizacións if needed.  Something not covered in this exercise is that we do not need to manage users in controlador de Automatización, we can use [enterprise authentication](https://docs.ansible.com/automation-controller/latest/html/administration/ent_auth.html) including Active Directory, LDAP, RADIUS, SAML and TACACS+.
-* If there needs to be an exception (a user needs access but not his entire team) this is also possible.  The granularity of RBAC can be down to the credential, inventory or Job Template for an individual user.
+* El uso de RBAC es una caracteristica poderosa del controlador de Automatización, como se puede observar, es fácil restringir acceso a operadores para ejecutar comandos en sistemas de producción sin que ello requiera acceso a dichos sistemas.
+* El controlador de Automatización puede albergar múltiples organizaciones, múltiples equipos y usuarios. Los usuarios pueden incluso pertenecer a múltiples equipos y organizaciones, si es necesario. Algo que no hemos cubierto en este ejercicio es que no es necesario gestionar usuarios en el controlador de Automatización, simplemente, podemos utilizar un [servidor de autenticación empresarial](https://docs.ansible.com/automation-controller/latest/html/administration/ent_auth.html) incluyendo Active Directory, LDAP, RADIUS, SAML y TACACS+.
+* En caso de necesitar una excepción (un usuario necesita acceso pero no su equipo completo) también es posible implementarlo. La granularidad de RBAC puede llegar hasta el nivel de credencial, inventario o plantilla de trabajo para un usuario particular.
 
-## Complete
+## Completado
 
-You have completed lab exercise 8
+¡Felicidades, has completado el ejercicio de laboratorio 7!
 
 ---
-[Previous Exercise](../7-controller-survey/) | [Next Exercise](../9-controller-workflow/README.md)
+[Ejercicio Anterior](../7-controller-survey/README.es.md) | [Próximo ejercicio](../9-controller-workflow/README.es.md)
 
-[Haz click here to return to the Ansible Network Automation Workshop](../README.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

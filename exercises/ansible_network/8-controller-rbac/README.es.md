@@ -77,29 +77,29 @@ Observemos alguna terminología del controlador de Automatización:
 
 ### Paso 2: Explorando las organizaciones de red
 
-1. Haz click on the **Red Hat network organization**.
+1. Haz click en **Red Hat network organization**.
 
-   This brings up a section that displays the details of the organización.
+   Se mostrará una sección que presenta los detalles de la organización.
 
    ![network organización image](images/step2-network_org.png)
 
-2. Haz click on the **Access** tab to see users associated with this organización.
+2. Haz click en la pestaña **Access** para ver los usuarios asociados con esta organización.
 
    <table>
    <thead>
     <tr>
-      <th>Observe that both the <b>network-admin</b> and <b>network-operator</b> users are associated with this organización.</th>
+      <th>Observa que tanto el usuario <b>network-admin</b> como <b>network-operator</b> están asociados a esta organización.</th>
     </tr>
    </thead>
    </table>
 
 ### Paso 3: Examinar los equipos
 
-1. Haz click on **Teams** in the sidebar
+1. Haz click en **Teams** en la barra lateral.
 
    ![image identifying teams](images/step3_teams.png)
 
-2. Examine the teams.  The controlador de Automatización admin  will be able to see all available teams.  There are four teams:
+2. Examina los equipos. El administrador del controlador de Automatización podrá ver los equipos disponibles. Hay cuatro equipos:
 
    * Compute T1
    * Compute T2

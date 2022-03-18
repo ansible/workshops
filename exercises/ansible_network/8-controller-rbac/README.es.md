@@ -1,4 +1,4 @@
-# Ejercicio 8: Understanding RBAC in controlador de Automatización
+# Ejercicio 8: Comprendiendo RBAC en el controlador de Automatización
 
 **Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 

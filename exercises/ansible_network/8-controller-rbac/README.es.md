@@ -156,26 +156,25 @@ Observemos alguna terminología del controlador de Automatización:
 
 ### Paso 6: Comprender los Roles de Equipo
 
-1. To understand how different roles and therefore RBACs may be applied, log out and log back in as the **admin** user.
+1. Para comprender los diferentes roles, y por tanto, cómo se aplica el RBAC, cierra la sesión y entra otra vez como el usuario **admin**.
 
-2. Navigate to **Inventories** and Haz click on the  **Workshop Inventory**
+2. Navega hasta **Inventories** y haz click en  **Workshop Inventory**
 
-3. Haz click on the **Access** button
+3. Haz click en el botón **Access**
 
    ![workshop inventory window](images/step6_inventory.png)
 
-4. Examine the permissions assigned to each user
+4. Examina los permisos asignados a cada usuario
 
    ![permissions window](images/step6_inventory_access.png)
 
    <table>
    <thead>
      <tr>
-       <th>Note: <b>ROLES</b> assigned for the <b>network-admin</b> and <b>network-operator</b> users. By assigning the <b>Use</b> Role, the <b>network-operator</b> user has been granted permission to use this particular inventory.</th>
+       <th>Nota: Observa los <b>ROLES</b> asignados para los usuarios <b>network-admin</b> y <b>network-operator</b>. Mediante el rol <b>Use</b>, el usuario <b>network-operator</b> ha obtenido permiso para ver este inventario en particular.</th>
      </tr>
    </thead>
    </table>
-
 
 
 ### Paso 7: Job Template Permissions

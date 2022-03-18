@@ -110,17 +110,17 @@ Observemos alguna terminología del controlador de Automatización:
 
 ### Paso 4: Examinar los equipos de operaciones de red
 
-* Haz click on the **Netops** Team and then Haz click on the **Access** tab. Take note  to two particular users:
+* Haz click el equipo **Netops** y luego Haz click en la pestaña **Access**. Observa dos usuarios en particular:
 
   * network-admin
   * network-operator
 
   ![image showing users](images/step_4.png)
 
-* Observe the following two points:
+* Observa los siguientes dos puntos:
 
-  * The **network-admin** user has administrative privileges for the **Red Hat network organización**
-  * The **network-operator** is simply a member of the Netops team. We will dive into each of these users to understand the roles
+  * El usuario **network-admin** tiene privilegios de administrador para la **organización Red Hat network**
+  * El usuario **network-operator** es un miembro del equipo Netops. Profundizaremos en ésto para entender los roles.
 
 ### Paso 5: Entrar como administrador de red
 

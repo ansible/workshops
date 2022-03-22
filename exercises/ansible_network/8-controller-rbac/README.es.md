@@ -1,4 +1,4 @@
-# Exercise 8: Understanding RBAC in controlador de Automatización
+# Ejercicio 8: Comprendiendo RBAC en el controlador de Automatización
 
 **Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
@@ -239,7 +239,7 @@ Si dispones de tiempo, vuelve a entrar como el usuario network-admin y añade ot
 
 ## Completado
 
-¡Felicidades, has completado el ejercicio de laboratorio 7!
+¡Felicidades, has completado el ejercicio de laboratorio 8!
 
 ---
 [Ejercicio Anterior](../7-controller-survey/README.es.md) | [Próximo ejercicio](../9-controller-workflow/README.es.md)

@@ -33,11 +33,6 @@ Este ejercicio cubrirá
 Para utilizar el comando ansible para la administración de hosts, debe proporcionar un archivo de inventario que defina una lista de hosts que se administrarán desde el nodo de control. En este laboratorio, el inventario lo proporciona el instructor. El inventario es un archivo con formato ini que enumera los hosts, ordenados en grupos, además de proporcionar algunas variables. Se parece a esto:
 
 ```bash
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=PASSWORD
-ansible_port=22
-
 [web]
 node1 ansible_host=<X.X.X.X>
 node2 ansible_host=<Y.Y.Y.Y>
@@ -109,11 +104,6 @@ Salida del contenido de su archivo de inventario dedicado:
 
 ```bash
 [student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
-[all:vars]
-ansible_user=student<X>
-ansible_ssh_pass=ansible
-ansible_port=22
-
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55

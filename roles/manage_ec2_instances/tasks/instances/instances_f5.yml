@@ -30,13 +30,21 @@
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/xvda
+        ebs:
+          volume_type: "{{ ec2_info['f5node'].disk_volume_type }}"
+          volume_size: "{{ ec2_info['f5node'].disk_space }}"
+          iops: "{{ ec2_info['f5node'].disk_iops }}"
+          throughput: "{{ ec2_info['f5node'].disk_throughput }}"
+          delete_on_termination: true
   register: f5_test
 
 - debug:
     msg: "{{ f5_test }}"
 
 - name: grab instance ids to tag f5 node
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -44,7 +52,7 @@
   register: f5_output
 
 - name: Ensure tags are present for f5 node (workshop_type f5)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -55,7 +63,7 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ f5_output.instances }}"
-  when: f5_output.instances is not none
+  when: f5_output.instances|length > 0
 
 - name: Create EC2 instances for node1 node in VPC (workshop_type f5)
   amazon.aws.ec2_instance:
@@ -65,10 +73,11 @@
     image_id: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     network:
       assign_public_ip: true
     filters:
-
+      instance-state-name: running
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
     tags:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
@@ -86,9 +95,17 @@
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info['rhel8'].disk_volume_type }}"
+          volume_size: "{{ ec2_info['rhel8'].disk_space }}"
+          iops: "{{ ec2_info['rhel8'].disk_iops }}"
+          throughput: "{{ ec2_info['rhel8'].disk_throughput }}"
+          delete_on_termination: true
 
 - name: grab instance ids to tag node1
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -96,7 +113,7 @@
   register: node1_output
 
 - name: Ensure tags are present for node1 node (workshop_type f5)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -107,7 +124,7 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node1_output.instances }}"
-  when: node1_output.instance_ids is not none
+  when: node1_output.instances|length > 0
 
 - name: Create EC2 instances for node2 node in VPC (workshop_type f5)
   amazon.aws.ec2_instance:
@@ -117,6 +134,7 @@
     image_id: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    state: running
     network:
       assign_public_ip: true
     filters:
@@ -138,9 +156,17 @@
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info['rhel8'].disk_volume_type }}"
+          volume_size: "{{ ec2_info['rhel8'].disk_space }}"
+          iops: "{{ ec2_info['rhel8'].disk_iops }}"
+          throughput: "{{ ec2_info['rhel8'].disk_throughput }}"
+          delete_on_termination: true
 
 - name: grab instance ids to tag node1
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -148,7 +174,7 @@
   register: node2_output
 
 - name: Ensure tags are present for node2 node (workshop_type f5)
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -159,7 +185,7 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ node2_output.instances }}"
-  when: node2_output.instance_ids is not none
+  when: node2_output.instances|length > 0
 
 ############## eni check ##############
 
@@ -171,7 +197,7 @@
   register: eni_facts_1
 
 - name: Disable Source/Dest check on instance {{ ec2_vpc_id }} (workshop_type f5)
-  ec2_eni:
+  amazon.aws.ec2_eni:
     eni_id: "{{ item['network_interface_id'] }}"
     region: "{{ ec2_region }}"
     source_dest_check: false

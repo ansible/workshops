@@ -1,90 +1,19 @@
-# Exercise 2.3 - Incident response
+{% include sec_workshop_credentials.md %}
+# 2.3 Incident response
 
-**Read this in other languages**: <br>
-[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+<!-- **Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br> -->
 
-<div id="section_title">
-  <a data-toggle="collapse" href="#collapse2">
-    <h3>Workshop access</h3>
-  </a>
-</div>
-<div id="collapse2" class="panel-collapse collapse">
-  <table>
-    <thead>
-      <tr>
-        <th>Role</th>
-        <th>Inventory name</th>
-        <th>Hostname</th>
-        <th>Username</th>
-        <th>Password</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Ansible Control Host</td>
-        <td>ansible</td>
-        <td>ansible-1</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>IBM QRadar</td>
-        <td>qradar</td>
-        <td>qradar</td>
-        <td>admin</td>
-        <td>Ansible1!</td>
-      </tr>
-      <tr>
-        <td>Attacker</td>
-        <td>attacker</td>
-        <td>attacker</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Snort</td>
-        <td>snort</td>
-        <td>snort</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Check Point Management Server</td>
-        <td>checkpoint</td>
-        <td>checkpoint_mgmt</td>
-        <td>admin</td>
-        <td>admin123</td>
-      </tr>
-      <tr>
-        <td>Check Point Gateway</td>
-        <td>-</td>
-        <td>checkpoint_gw</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Windows Workstation</td>
-        <td>windows-ws</td>
-        <td>windows_ws</td>
-        <td>administrator</td>
-        <td><em>Provided by Instructor</em></td>
-      </tr>
-    </tbody>
-  </table>
-  <blockquote>
-    <p><strong>Note</strong></p>
-    <p>
-    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
-  </blockquote>
-</div>
+- TOC
+{:toc}
 
-## Step 3.1 - Background
+## 2.3.1 Background
 
 In this exercise we will focus on threat detection and response capabilities. As usual, security operators need a set of tools in enterprise IT to perform this task.
 
 You are a security operator in charge of the corporate IDS. The IDS of our choice is Snort.
 
-## Step 3.2 - Preparations
+## 2.3.2 Preparations
 
 We will start this exercise with an operator looking at logs in Snort. So first we need to set up a snort rule to actually generate log entries. In your VS Code online editor, create the playbook `incident_snort_rule.yml`:
 
@@ -151,7 +80,7 @@ For this exercise to work properly, we'll need to make sure a few steps in the p
 
 Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
 
-## Step 3.3 - Identify incident
+## 2.3.3 Identify incident
 
 As the security operator in charge of the corporate IDS, you routinely check the logs. From the terminal of your VS Code online editor, SSH to your snort node as the user `ec2-user` and view the logs:
 
@@ -181,7 +110,7 @@ Accept: */*
 ```
 Besides some weird characters you will see the actual malformed "attack" of the user in the form of the string `sql_injection_simulation`. Leave the Snort server with the command `exit` .
 
-## Step 3.4 - Create and run a playbook to forward logs to QRadar
+## 2.3.4 Create and run a playbook to forward logs to QRadar
 
 To better analyze this incident it is crucial to correlate the data with other sources. For this we want to feed the logs into our SIEM, QRadar.
 
@@ -235,7 +164,7 @@ This playbook should look familiar to you, it configures Snort to send logs to Q
 [student<X>@ansible-1 ~]$ ansible-navigator run incident_snort_log.yml --mode stdout
 ```
 
-## Step 3.5 - Verify new configuration in QRadar
+## 2.3.5 Verify new configuration in QRadar
 
 Let's change our perspective briefly to the one of a security analyst. We mainly use the SIEM, and now logs are coming in from Snort. To verify that, access your QRadar UI, open the **Log Activity** tab and validate that events are now making it to QRadar from Snort.
 
@@ -273,7 +202,7 @@ Double-click on the new offense and in the top right hand corner, click on the *
 
 ![QRadar Offense Annotation](images/qradar_annotation_sql_injection.png)
 
-## Step 3.6 - Blacklist IP
+## 2.3.6 Blacklist IP
 
 With all these information at hand, we can now create our incident response. We've realized that these attacks originate from a specific IP which we previously identified in the Snort logs in the QRadar Log Activity window. So let's stop it! We will blacklist the source IP of the attacker.
 
@@ -335,7 +264,7 @@ Also, let's quickly verify that the new rule was added to Check Point: Access th
 
 You have successfully identified an attack and blocked the traffic behind the attack!
 
-## Step 3.7 - Roll back
+## 2.3.7 Roll back
 
 As the final step, we can run the rollback playbook to undo the Snort configuration, reducing resource consumption and the analysis workload.
 
@@ -362,7 +291,7 @@ Also we need to kill the process simulating the attack. In the terminal, run the
 
 You are done with this last exercise. Congratulations!
 
-## Step 3.8 - Wrap it all up
+## 2.3.8 Wrap it all up
 
 It happens that the job of a CISO and her team is difficult even if they have in place all necessary tools, because the tools don’t integrate with each other. When there is a security breach, an analyst has to perform a triage, chasing all relevant piece of information across the entire infrastructure, taking days to understand what’s going on and ultimately perform any sort of remediation.
 

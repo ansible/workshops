@@ -8,7 +8,7 @@ All slides are currently managed internally at Red Hat Ansible with Google Slide
 - [Ansible F5 Automation](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84)
 - [Ansible RHEL Automation](https://docs.google.com/presentation/d/1O2Gj5r_fhjM5Pi5FizrZRInmZ37IlpeKPTP6jSZxEKs)
 - [Ansible RHEL_90 Automation](https://docs.google.com/presentation/d/1PY1uMh76ChJ0l4v4EANkzwWGXOIT4ktzyu2QOE2MKIk)
-- [Ansible Windows Automation](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE)
+- [Ansible Windows Automation](https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE)
 - [Ansible Security Automation](https://docs.google.com/presentation/d/19gVCBz1BmxC15tDDj-FUlUd_jUUUKay81E8F24cyUjk)
 - [Ansible Best Practices](https://docs.google.com/presentation/d/1khWEuTXGQbJ-hQ4cneigDgAJ__tPccch7Q5Xqj1rkio)
 

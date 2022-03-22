@@ -1,84 +1,19 @@
-# Exercise 1.2 - Executing the first Check Point playbook
+{% include sec_workshop_credentials.md %}
+# 1.2 Executing the first Check Point playbook
 
-**Read this in other languages**: <br>
-[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+<!-- **Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br> -->
+- [1.2 Executing the first Check Point playbook](#12-executing-the-first-check-point-playbook)
+  - [1.2.1 Check Point Next Generation Firewall](#121-check-point-next-generation-firewall)
+  - [1.2.2 Accessing the Check Point MGMT server via a Windows workstation](#122-accessing-the-check-point-mgmt-server-via-a-windows-workstation)
+  - [1.2.3 Access the SmartConsole UI](#123-access-the-smartconsole-ui)
+  - [1.2.4 First example playbook](#124-first-example-playbook)
+  - [1.2.5 Run the playbook](#125-run-the-playbook)
+  - [1.2.6 Verify changes in UI](#126-verify-changes-in-ui)
+  - [1.2.7 Turn on Logging for the new policy](#127-turn-on-logging-for-the-new-policy)
+<br>
 
-<div id="section_title">
-  <a data-toggle="collapse" href="#collapse2">
-    <h3>Workshop access</h3>
-  </a>
-</div>
-<div id="collapse2" class="panel-collapse collapse">
-  <table>
-    <thead>
-      <tr>
-        <th>Role</th>
-        <th>Inventory name</th>
-        <th>Hostname</th>
-        <th>Username</th>
-        <th>Password</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Ansible Control Host</td>
-        <td>ansible</td>
-        <td>ansible-1</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>IBM QRadar</td>
-        <td>qradar</td>
-        <td>qradar</td>
-        <td>admin</td>
-        <td>Ansible1!</td>
-      </tr>
-      <tr>
-        <td>Attacker</td>
-        <td>attacker</td>
-        <td>attacker</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Snort</td>
-        <td>snort</td>
-        <td>snort</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Check Point Management Server</td>
-        <td>checkpoint</td>
-        <td>checkpoint_mgmt</td>
-        <td>admin</td>
-        <td>admin123</td>
-      </tr>
-      <tr>
-        <td>Check Point Gateway</td>
-        <td>-</td>
-        <td>checkpoint_gw</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Windows Workstation</td>
-        <td>windows-ws</td>
-        <td>windows_ws</td>
-        <td>administrator</td>
-        <td><em>Provided by Instructor</em></td>
-      </tr>
-    </tbody>
-  </table>
-  <blockquote>
-    <p><strong>Note</strong></p>
-    <p>
-    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
-  </blockquote>
-</div>
-
-## Step 2.1 - Check Point Next Generation Firewall
+## 1.2.1 Check Point Next Generation Firewall
 
 To showcase how to automate the firewall in a security environment, this lab contains a Check Point Next Generation Firewall (NGFW).
 
@@ -91,7 +26,7 @@ There are multiple ways to interact with the MGMT. In our lab, two ways are impo
 
 In this lab the playbooks we write will be interacting with the API in the background. All actions will be verified in the Windows client UI.
 
-## Step 2.2 - Accessing the Check Point MGMT server via a Windows workstation
+## 1.2.2 Accessing the Check Point MGMT server via a Windows workstation
 
 Since access to the MGMT server requires a Windows client and we cannot be sure that each and every lab student has access to a Windows environment, we have provisioned a Windows workstation as part of this lab.
 
@@ -107,7 +42,7 @@ You now are accessing a default windows workstation with a Google Chrome browser
 >
 > Directly after the login you might see a wide blue bar on the right side of the screen, about network configurations. You can safely ignore this, the question hides away if you click anywhere on the screen.
 
-## Step 2.3 - Access the SmartConsole UI
+## 1.2.3 Access the SmartConsole UI
 
 Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. 
 
@@ -128,7 +63,7 @@ You are now viewing the Check Point SmartConsole management interface. There mig
 
 Next, on the left side, click on **SECURITY POLICIES** and note that there is currently only one rule installed: to drop all traffic. Now you have a first idea of how Check Point looks like in term of the management interface. We will interact more with it - but first we go back to the command line to learn how to write Ansible playbooks interacting with Check Point.
 
-## Step 2.4 - First example playbook
+## 1.2.4 First example playbook
 
 In Ansible Automation Platform, automation is described in playbooks. Playbooks are files which describe the desired configurations or steps to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
@@ -316,7 +251,7 @@ Last, we are defining the actual access rule between those two host objects. The
 ```
 <!-- {% endraw %} -->
 
-## Step 2.5 - Run the playbook
+## 1.2.5 Run the playbook
 
 Playbooks are executed using the `ansible-navigator` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
 
@@ -349,7 +284,7 @@ PLAY RECAP *********************************************************************
 checkpoint  : ok=4 changed=3 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 ```
 
-## Step 2.6 - Verify changes in UI
+## 1.2.6 Verify changes in UI
 
 Now it's time to check if the changes really did take place and Check Point MGMT server's configuration was altered.
 
@@ -363,7 +298,7 @@ Next, on the left side, click on **SECURITY POLICIES**. Notice the additional ac
 
 Also note in the bottom left corner that there is a green bar indicating that changes were applied to the entire system.
 
-## Step 2.7 - Turn on Logging for the new policy
+## 1.2.7 Turn on Logging for the new policy
 
 To see how changes are normally performed in a typical manual interaction with Check Point, let's do a small change which will come in handy later on. By default, Check Point does not turn on logging for new rules. Let's activate the logging for our new policy. On the left side of the main window, click on **SECURITY POLICIES**. There are both rules listed. In the column **Track**, hover with your mouse over the **None** entry of our newly created rule. Right click on it, and in the box appearing pick **Log**.
 

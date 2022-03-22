@@ -162,7 +162,10 @@ ec2_info:
     owners: 679593333241
     size: t2.large
     os_type: linux
-    disk_space: 40
+    disk_volume_type: gp3
+    disk_space: 80
+    disk_iops: 3000
+    disk_throughput: 125
     architecture: x86_64
     filter: 'F5 BIGIP-16.0.*PAYG-Best 25Mbps*'
     username: admin
@@ -204,6 +207,10 @@ ec2_info:
   skylight_windows_instance:
     filter: 'Windows_Server-2019-English-Core-Base*'
     size: t3.medium
+    disk_volume_type: gp3
+    disk_space: 30
+    disk_iops: 3000
+    disk_throughput: 125
   skylight_rhel7_gitlab:
     filter: 'RHEL-7.6_HVM_GA*x86_64*'
     size: t2.xlarge
@@ -214,6 +221,10 @@ ec2_info:
     size: t2.xlarge
     username: ec2-user
     architecture: x86_64
+    disk_volume_type: gp3
+    disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
   attendance_host:
     owners: 309956199498
     size: t3.micro
@@ -245,3 +256,6 @@ ec2_info:
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
 debug_teardown: false
+
+# Issue #1594
+ansible_async_dir: "/tmp/.ansible_async"

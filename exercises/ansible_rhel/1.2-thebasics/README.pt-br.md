@@ -21,11 +21,6 @@ Em nosso primeiro exercício, executaremos alguns comandos ad-hoc para ajudá-lo
 Para usar o comando ansible para gerenciamento de host, é necessário fornecer um arquivo de inventário que defina uma lista de hosts a serem gerenciados a partir do nó de controle. Neste laboratório, o inventário é fornecido pelo seu instrutor. O inventário é um arquivo listando seus hosts, classificando em grupos, além de fornecer algumas variáveis. É parecido com isso:
 
 ```bash
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=PASSWORD
-ansible_port=22
-
 [web]
 node1 ansible_host=<X.X.X.X>
 node2 ansible_host=<Y.Y.Y.Y>
@@ -97,11 +92,6 @@ Saída de conteúdo do seu inventário dedicado:
 
 ```bash
 [student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
-[all:vars]
-ansible_user=student<X>
-ansible_ssh_pass=ansible
-ansible_port=22
-
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55

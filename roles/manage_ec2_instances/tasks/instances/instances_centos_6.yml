@@ -47,7 +47,7 @@
   register: node7_output
 
 - name: Ensure tags are present for node7
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -117,14 +117,14 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag them all
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       "tag:Workshop_node8": "{{ ec2_name_prefix }}-node8"
   register: node8_output
 
 - name: Ensure tags are present for node8
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present
@@ -194,7 +194,7 @@
           delete_on_termination: true
 
 - name: grab instance ids to tag node9
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -202,7 +202,7 @@
   register: node9_output
 
 - name: Ensure tags are present for node9
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.instance_id }}"
     state: present

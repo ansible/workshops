@@ -2,7 +2,7 @@
 ################### Get workshop nodes info ###################
 
 - name: grab facts for Gitlab
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -10,7 +10,7 @@
   register: gitlab_node_facts
 
 - name: grab facts for instance 1
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -18,7 +18,7 @@
   register: instance1_node_facts
 
 - name: grab facts for instance 2
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -30,7 +30,7 @@
 ################### Get Passwords ###################
 
 - name: Windows | Obtain windows passwords for instance1
-  ec2_win_password:
+  community.aws.ec2_win_password:
     region: '{{ ec2_region }}'
     instance_id: "{{ item.instance_id }}"
     key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
@@ -41,7 +41,7 @@
   when: instance1_node_facts is defined
 
 - name: Windows | Obtain windows passwords for instance2
-  ec2_win_password:
+  community.aws.ec2_win_password:
     region: '{{ ec2_region }}'
     instance_id: "{{ item.instance_id }}"
     key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"

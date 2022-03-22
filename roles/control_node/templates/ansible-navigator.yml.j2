@@ -12,3 +12,6 @@ ansible-navigator:
     volume-mounts:
     - src: "/etc/ansible/"
       dest: "/etc/ansible/"
+    - src: {{ '/tmp/' + workshop_type + '/'}}
+      dest: {{ '/tmp/' + workshop_type + '/' }}
+    

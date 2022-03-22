@@ -11,7 +11,9 @@
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     network:
       assign_public_ip: true
+    state: running
     filters:
+      instance-state-name: running
       "tag:Workshop_attendance": "{{ ec2_name_prefix }}-attendance"
     tags:
       Workshop_attendance: "{{ ec2_name_prefix }}-attendance"

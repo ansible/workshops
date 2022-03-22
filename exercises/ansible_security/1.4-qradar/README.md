@@ -1,96 +1,28 @@
-# Exercise 1.4 - Executing the first IBM QRadar
+{% include sec_workshop_credentials.md %}
+# 1.4 Executing the first IBM QRadar
 
-**Read this in other languages**: <br>
-[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br>
+<!-- **Read this in other languages**: <br>
+[![uk](../../../images/uk.png) English](README.md),  [![japan](../../../images/japan.png) 日本語](README.ja.md), [![france](../../../images/fr.png) Français](README.fr.md).<br> -->
+- TOC
+{:toc}
 
-<div id="section_title">
-  <a data-toggle="collapse" href="#collapse2">
-    <h3>Workshop access</h3>
-  </a>
-</div>
-<div id="collapse2" class="panel-collapse collapse">
-  <table>
-    <thead>
-      <tr>
-        <th>Role</th>
-        <th>Inventory name</th>
-        <th>Hostname</th>
-        <th>Username</th>
-        <th>Password</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Ansible Control Host</td>
-        <td>ansible</td>
-        <td>ansible-1</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>IBM QRadar</td>
-        <td>qradar</td>
-        <td>qradar</td>
-        <td>admin</td>
-        <td>Ansible1!</td>
-      </tr>
-      <tr>
-        <td>Attacker</td>
-        <td>attacker</td>
-        <td>attacker</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Snort</td>
-        <td>snort</td>
-        <td>snort</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Check Point Management Server</td>
-        <td>checkpoint</td>
-        <td>checkpoint_mgmt</td>
-        <td>admin</td>
-        <td>admin123</td>
-      </tr>
-      <tr>
-        <td>Check Point Gateway</td>
-        <td>-</td>
-        <td>checkpoint_gw</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Windows Workstation</td>
-        <td>windows-ws</td>
-        <td>windows_ws</td>
-        <td>administrator</td>
-        <td><em>Provided by Instructor</em></td>
-      </tr>
-    </tbody>
-  </table>
-  <blockquote>
-    <p><strong>Note</strong></p>
-    <p>
-    The workshop includes preconfigured SSH keys to log into Red Hat Enterprise Linux hosts and don't need a username and password to log in.</p>
-  </blockquote>
-</div>
-
-## Step 4.1 - IBM QRadar
+## 1.4.1 IBM QRadar
 
 To showcase how to automate a SIEM in a security environment, this lab contains a [IBM QRadar SIEM, community edition](https://developer.ibm.com/qradar/ce/).
 
 The SIEM can be accessed via web UI and via REST API. In this lab the playbooks we write will be interacting with the API in the background. All actions will be verified in the web UI.
 
-## Step 4.2 - Access the web UI
+## 1.4.2 Access the web UI
 
 Have a first look at the SIEM, and verify that it is actually working. Point your web browser towards `https://<qradar-IP>`, where `<qradar-IP>` is the IP address for the `qradar` entry in your `siem` section of your inventory. Next you will be faced with a warning that the certificate is insecure since it is self-signed. Please accept this and proceed.
 
 > **Note**
 >
-> In a production environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purpose we accept the risk in this case.
+> In a production environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purpose we accept the risk in this case.  
+
+> **Note**
+>
+> It is recommended to use Mozilla Firefox with the QRadar web UI.  For more information on this limitation please reference [workshop issue 1536](https://github.com/ansible/workshops/issues/1536)
 
 In the login field, provide the username **admin** and the password **Ansible1!** if not provided otherwise. Press the **Login** button.
 
@@ -119,6 +51,8 @@ Offenses are messages or events generated based upon findings in log messages or
 
 To say it with the words of the official documentation:
 
+> **Note**
+>
 > *Rules, sometimes called correlation rules are applied to events, flows, or offenses to search for or detect anomalies. If all the conditions of a test are met, the rule generates response. ([QRadar documentation](https://www.ibm.com/support/knowledgecenter/en/SS42VS_7.3.2/com.ibm.qradar.doc/c_qradar_rul_mgt.html))*
 
 In a productive environment it is common to create more and more custom rules over time. But for now, let's have a look at the rules which are already installed on the system: in the **Offenses** window, on the left side in the navigation bar, click on **Rules**. A long list of rules is displayed. In the search bar on top of this list, enter the following search term: `DDoS` Hit enter afterwards to filter the list.
@@ -131,17 +65,19 @@ Click the one called **"Potential DDoS Against Single Host (TCP)"**, note that i
 
 Now that you had a very first glance at QRadar, it is time to look how it can be automated by Ansible.
 
-## Step 4.3 - QRadar modules and Ansible collections
+## 1.4.3 QRadar modules and Ansible collections
 
 On the most basic level, Ansible Automation Platform performs tasks. Those tasks execute modules, which usually work on the corresponding targets, like an API endpoint of a special device or program.
 
 Ansible comes with a lot of modules included, but as of the time of writing, Ansible does not ship QRadar modules out of the box. Instead, those modules are provided as [Ansible collections](https://docs.ansible.com/ansible/devel/dev_guide/collections_tech_preview.html):
 
+> **Note**
+>
 > *Collections are a distribution format for Ansible content. They can be used to package and distribute playbooks, roles, modules, and plugins. You can publish and use collections through Ansible Galaxy.*
 
 Collections follow a simple directory structure to provide Ansible content. If you feel reminded of Ansible roles here, this has a reason: Collections are built upon the idea of roles, but extend the concept to general Ansible content management. The collection for IBM QRadar can be found in the [ansible-security project](https://github.com/ansible-security/ibm_qradar).
 
-Automation execution environments can be customized to include the collections you need. An example of this is the `security_ee` custom execution environment we're using in this workshop. The custom `security_ee` execution environment includes the `ibm.qradar` collection we will use in these exercises. 
+Automation execution environments can be customized to include the collections you need. An example of this is the `security_ee` custom execution environment we're using in this workshop. The custom `security_ee` execution environment includes the `ibm.qradar` collection we will use in these exercises.
 
 
 
@@ -149,7 +85,7 @@ Automation execution environments can be customized to include the collections y
 >
 > Ansible Automation Platform includes `ansible-builder` which you can use to create your own custom execution environments. For more information on `ansible-builder` please have a look at our [blog post](https://www.ansible.com/blog/introduction-to-ansible-builder).   
 
-## Step 4.4 - First example playbook
+## 1.4.4 First example playbook
 
 In our first example to interface with QRadar we are going to enable/disable a rule. It is a rather small but common change and shows how Ansible and QRadar interact. We will do this in two steps: first we find the rule we want to change, afterwards we apply the change.
 
@@ -268,7 +204,7 @@ In your VS Code online editor, create a new file, `change_qradar_rule.yml` in th
 
 The playbook is now complete: it queries QRadar for the list of rules, and deactivates the one we are looking for.
 
-## Step 4.5 - Run the playbook
+## 1.4.5 Run the playbook
 
 After we completed the playbook, let's execute it:
 
@@ -292,7 +228,7 @@ qradar  : ok=3  changed=1  unreachable=0  failed=0  skipped=0  rescued=0  ignore
 
 As you can see, the playbook denotes a change: the rule was changed. Run the playbook again - it does not report a change anymore, since the rule is now already disabled.
 
-## Step 4.6 - Verify changes in UI
+## 1.4.6 Verify changes in UI
 
 To verify that Ansible indeed changed something, we go back to the UI of QRadar. Open the QRadar IP in your web browser. Click on the **Offenses** tab, and from there on the left side click on **Rules**. The long list of rules is displayed. In the search bar on top of this list, enter the following search term: `DDoS`
 Hit enter to filter the list, so that it only shows rules which are related to DDOS. At the end, note the rule regarding potential DDOS attacks, and check the state in the **Enabled** column: it is set to **False**!

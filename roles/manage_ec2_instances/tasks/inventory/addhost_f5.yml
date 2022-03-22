@@ -1,6 +1,6 @@
 ---
 - name: grab facts for f5 node (workshop_type f5)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -22,7 +22,7 @@
   with_items: "{{ f5_node_facts.instances }}"
 
 - name: grab facts for node1 node (workshop_type f5)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -45,7 +45,7 @@
   with_items: "{{ f5_node1_node_facts.instances }}"
 
 - name: grab facts for node2 node (workshop_type f5)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

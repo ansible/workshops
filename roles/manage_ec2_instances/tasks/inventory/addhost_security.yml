@@ -3,7 +3,7 @@
   when: security_console == 'splunk'
   block:
     - name: grab facts for splunknode (SECURITY MODE)
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
@@ -32,7 +32,7 @@
   when: security_console == 'qradar'
   block:
     - name: grab facts for qradarnode (SECURITY MODE)
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
@@ -60,7 +60,7 @@
 - name: MANAGE ATTACK SIMULATION EC2 INSTANCES (SECURITY MODE)
   block:
     - name: grab facts for attack simulation node (SECURITY MODE)
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
@@ -76,8 +76,8 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
-        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.16.0.0/16')|first }}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
           - security_connection_check
@@ -85,7 +85,7 @@
       loop: "{{ attacker_node_facts.instances|flatten(levels=1) }}"
 
 - name: grab facts for Check Point CloudGuard Security Management (SECURITY MODE)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -95,7 +95,7 @@
 - name: MANAGE SNORT EC2 INSTANCES (SECURITY MODE)
   block:
     - name: grab facts for snort node (SECURITY MODE)
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
@@ -111,8 +111,8 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
-        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.16.0.0/16')|first }}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
           - security_connection_check
@@ -123,7 +123,7 @@
 - name: MANAGE CHECK POINT EC2 INSTANCES (SECURITY MODE)
   block:
     - name: grab facts for Check Point CloudGuard Security Management (SECURITY MODE)
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
@@ -148,7 +148,7 @@
       loop: "{{ checkpoint_node_facts.instances|flatten(levels=1) }}"
 
     - name: grab facts for Check Point NGFW (SECURITY MODE)
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
@@ -164,8 +164,8 @@
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.16.0.0/16')|first }}"
-        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ipaddr('172.17.0.0/16')|first }}"
+        private_ip: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.16.0.0/16')|first }}"
+        private_ip2: "{{ item['network_interfaces']|map(attribute='private_ip_address')|list|ansible.utils.ipaddr('172.17.0.0/16')|first }}"
         groups:
           - security
           - checkpoint
@@ -175,7 +175,7 @@
 - name: MANAGE WINDOWS EC2 INSTANCES (SECURITY MODE)
   block:
     - name: grab facts for Windows workstation for Check Point (SECURITY MODE)
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running

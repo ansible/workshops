@@ -1,6 +1,6 @@
 ---
 - name: grab facts for control_nodes
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

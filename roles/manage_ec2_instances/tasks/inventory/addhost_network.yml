@@ -1,6 +1,6 @@
 ---
 - name: grab facts for rtr1 node (NETWORK MODE)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -8,7 +8,7 @@
   register: rtr1_node_facts
 
 - name: grab facts for rtr2 node (NETWORK MODE)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -16,7 +16,7 @@
   register: rtr2_node_facts
 
 - name: grab facts for rtr3 node (NETWORK MODE)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
@@ -24,7 +24,7 @@
   register: rtr3_node_facts
 
 - name: grab facts for rtr4 node (NETWORK MODE)
-  ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running

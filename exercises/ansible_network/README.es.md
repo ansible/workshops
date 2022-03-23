@@ -18,7 +18,7 @@ Aprenderás cómo obtener los datos de configuración (`facts`) desde los dispos
 
 * [Ejercicio 1 - Explorando el entorno de red](./1-explore/README.es.md)
 * [Ejercicio 2 - Ejecuta tu primer playbook de automatización de red](./2-first-playbook/README.es.md)
-* [Ejercicio 3 - Use Ansible facts en dispositivos de red](./3-factsREADME.es.md/)
+* [Ejercicio 3 - Use Ansible facts en dispositivos de red](./3-facts/README.es.md/)
 * [Ejercicio 4 - Módulos de Recursos de Ansible Network](./4-resource-module/README.es.md)
 * [Ejercicio 5 - Explora el entorno del controlador de Automatización](./5-explore-controller/README.es.md)
 * [Ejercicio 6 - Crea una plantilla de controlador de Automatización](./6-controller-job-template/README.es.md)

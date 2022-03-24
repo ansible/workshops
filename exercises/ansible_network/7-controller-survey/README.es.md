@@ -1,6 +1,6 @@
 # Ejercicio 7: Crear una Encuesta (Survey)
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
 ## Índice
 
@@ -9,7 +9,7 @@
    * [Paso 1: Crear una plantilla de trabajo](#Paso-1-crear-una-plantilla-de-trabajo)
    * [Paso 2: Examinar el playbook](#Paso-2-examinar-el-playbook)
    * [Paso 3: Crear una encuesta o survey](#Paso-3-crear-una-encuesta-survey)
-   * [Paso 4: Lanzar una plantilla de trabajo](#Paso-4-lanzar-una-plantilla-de-trabajo)
+   * [Paso 4: Ejecutar una plantilla de trabajo](#Paso-4-ejecutar-una-plantilla-de-trabajo)
    * [Paso 5: Verificar la mensaje de bienvenida o banner](#Paso-5-verificar-la-mensaje de bienvenida-o-banner)
 * [Consejos a recordar](#consejos-a-recordar)
 * [Completado](#completado)
@@ -20,7 +20,7 @@ Demostrar el uso de la [funcionalidad encuesta o survey](https://docs.ansible.co
 
 ## Guía
 
-### Paso 1: Create a Job Template
+### Paso 1: Crear una plantilla de trabajo
 
 1. Abre la web UI y Haz click en el enlace `Templates` del menú de la izquierda.
 
@@ -158,9 +158,9 @@ En este paso crearás una encuesta o *"survey"* de usuario de entrada para recog
 
 7. Haz click **Back to Templates**
 
-### Paso 4: Lanzar una plantilla de trabajo
+### Paso 4: Ejecutar una plantilla de trabajo
 
-1. Haz click en el icono del cohete para lanzar la plantilla de trabajo.
+1. Haz click en el icono del cohete para ejecutar la plantilla de trabajo.
 
    ![rocket launch](images/controller_launch_template.png)
 
@@ -201,11 +201,11 @@ Espera a que la ejecución del trabajo concluya. Por favor, índicale al instruc
 
 ## Consejos a recordar
 
-You have successfully demonstrated
+Has probado existosamente lo siguiente:
 
-* Creation of a Job Template for configuring a banner on multiple network operating systems including Arista EOS, Cisco IOS and Juniper Junos.
-* Creation of a self service survey for the Job Template to fill out the `network_banner` and `banner_type` variables
-* Executing a Job Template on all four routers, loading a banner on them simultaneously
+* La creación de una plantilla de trabajo para configurar un mensaje de bienvenida en múltiples sistemas operativos de red, incluyendo Arista EOS, Cisco IOS y Juniper Junos.
+* La creación de una encuesta personalizada para la plantilla de trabajo para introducir los valores de las variables `network_banner` y `banner_type`.
+* Ejecutar una plantilla de trabajo en los cuatro enrutadores, cargando el mensaje de bienvenida simultáneamente.
 
 ## Completado
 

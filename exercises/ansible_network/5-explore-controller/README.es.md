@@ -37,7 +37,7 @@ Explorar y comprender el entorno de laboratorio. Este ejecicio se cubrirá:
    * El usuario es `admin`
    * La password se obtiene en la página de inicio
 
-3. Después de haber entrado en el tablero de trabajos "Job" se ve la vista por defecto:
+3. Después de haber entrado en el tablero de trabajos "Jobs" se ve la vista por defecto:
 
    ![automation controller dashboard](images/automation_controller_dashboard.png)
 

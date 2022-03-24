@@ -1,6 +1,6 @@
 # Ejercicio 8: Comprendiendo RBAC en el controlador de Automatización
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
 ## Índice
 
@@ -14,7 +14,7 @@
   * [Paso 6: Comprender los Roles de Equipo](#Paso-6-comprender-los-roles-de-equipo)
   * [Paso 7: Job Template Permissions](#Paso-7-job-template-permissions)
   * [Paso 8: Entrar como operador de red](#Paso-8-entrar-como-operador-de-red)
-  * [Paso 9: Lauzar una plantilla de trabajo](#Paso-9-launching-a-job-template)
+  * [Paso 9: Ejecutar una plantilla de trabajo](#Paso-9-ejecutar-una-plantilla-de-trabajo)
   * [Bonus](#bonus)
 * [Consejos a recordar](#consejos-a-recordar)
 * [Completado](#completado)
@@ -52,7 +52,7 @@ Observemos alguna terminología del controlador de Automatización:
   <table>
   <thead>
     <tr>
-      <th>Note: The orgs, teams and users were auto-populated for this workshop</th>
+      <th>Nota: Las organizaciones, equipos y usuarios han sido pre configuraods para este taller.</th>
     </tr>
   </thead>
   </table>
@@ -217,9 +217,9 @@ Y por fin, vamos a ver RBAC en acción.
    </thead>
    </table>
 
-### Paso 9: Lauzar una plantilla de trabajo
+### Paso 9: Ejecutar una plantilla de trabajo
 
-1. Lanza la plantilla **Network-Commands** haciendo click en el botón **Launch**.
+1. Ejecuta la plantilla **Network-Commands** haciendo click en el botón **Launch**.
 
 2. Aparecerá un diálogo que te permitirá elegir uno de los comandos pre configurados:
 

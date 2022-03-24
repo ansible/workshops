@@ -180,11 +180,11 @@ Ahora ya sabes:
 
 ## Complete
 
-¡Felicidades, has completado el ejercicio de laboratorio 7!
+¡Felicidades, has completado el ejercicio de laboratorio 9!
 
 Esto concluye el taller de Automatización de Red, ¡gracias por haber atendido!
 
-Si quieres ejercicios adicionales, puedes buscar en [Supplemental Exercises](../supplemental/README.md)
+Si quieres ejercicios adicionales, puedes buscar en [Supplemental Exercises](../supplemental/README.es.md)
 
 ---
 [Ejercicio Anterior](../8-controller-rbac/README.es.md)

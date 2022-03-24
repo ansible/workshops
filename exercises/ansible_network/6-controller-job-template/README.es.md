@@ -126,7 +126,7 @@ Cualquier **Job Template** (plantill de trabajo) que se ha ejecutado o se está 
 
   `ls` es el comando para listar ficheros en sistemas operativos Linux.
 
-* Abre `/backup` con Visual Studio Code o usando el comando `cat` para ver lso contenidos de alguno de los dispositivos de red con marca de tiempo:
+* Abre `/backup` con Visual Studio Code o usando el comando `cat` para ver los contenidos de alguno de los dispositivos de red con marca de tiempo:
 
   ```sh
   [student1@ansible-1 ~]$ cat /backup/2021-08-31-1

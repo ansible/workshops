@@ -4,19 +4,17 @@
 
 ## Índice
 
-- [Ejercicio 3: Ansible Facts](#ejercicio-3-ansible-facts)
-  - [Índice](#índice)
-  - [Objetivo](#objetivo)
-  - [Guía](#guía)
-    - [Paso 1 - Usando la documentación](#paso-1---usando-la-documentación)
-    - [Paso 2 - Creando el play](#paso-2---creando-el-play)
-    - [Paso 3 - Crear la tarea de facts](#paso-3---crear-la-tarea-de-facts)
-    - [Paso 4 - Ejecutando el playbook](#paso-4---ejecutando-el-playbook)
-    - [Paso 5 - Usando el módulo de debug](#paso-5---usando-el-módulo-de-debug)
-    - [Paso 6 - Usando la salida estándar stdout](#paso-6---usando-la-salida-estándar-stdout)
-  - [Consejos a recordar](#consejos-a-recordar)
-  - [Solución](#solución)
-  - [Completado](#completado)
+- [Objetivo](#objetivo)
+- [Guía](#guía)
+  - [Paso 1 - Usando la documentación](#paso-1---usando-la-documentación)
+  - [Paso 2 - Creando el play](#paso-2---creando-el-play)
+  - [Paso 3 - Crear la tarea de facts](#paso-3---crear-la-tarea-de-facts)
+  - [Paso 4 - Ejecutando el playbook](#paso-4---ejecutando-el-playbook)
+  - [Paso 5 - Usando el módulo de debug](#paso-5---usando-el-módulo-de-debug)
+  - [Paso 6 - Usando la salida estándar stdout](#paso-6---usando-la-salida-estándar-stdout)
+- [Consejos a recordar](#consejos-a-recordar)
+- [Solución](#solución)
+- [Completado](#completado)
 
 ## Objetivo
 

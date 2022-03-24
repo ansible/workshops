@@ -38,7 +38,7 @@
     - {include_role: {name: ../roles/code_server}, when: code_server}
     - {include_role: {name: ../roles/gitlab_server}, when: workshop_type == "windows"}
     - {include_role: {name: ../roles/workshop_attendance}, when: attendance}
-    - {include_role: {name: ../roles/private_automation_hub}, when: automation_hub}
+    - {include_role: {name: ../roles/private_automation_hub}, when: automation_hub|bool}
 
     - name: Remove workshop local files
       file:

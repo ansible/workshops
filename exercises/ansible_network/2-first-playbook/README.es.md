@@ -240,6 +240,6 @@ El Playbook de Ansible completo se puede encontrar en: [playbook.yml](../playboo
 ¡Felicidades, has completado el ejercicio de laboratorio 2!  
 
 ---
-[Ejercicio Anterior](../1-explore/README.es.md) | [Próximo ejercicio](../3-facts/README.md)
+[Ejercicio Anterior](../1-explore/README.es.md) | [Próximo ejercicio](../3-facts/README.es.md)
 
 [Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

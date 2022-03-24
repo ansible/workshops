@@ -108,7 +108,7 @@
         name: ../roles/private_automation_hub
       when:
         - automation_hub is defined
-        - automation_hub
+        - automation_hub|bool
 
 - name: add dns entires for all student control nodes
   hosts: '*ansible-1'

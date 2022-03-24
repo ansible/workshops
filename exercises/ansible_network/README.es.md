@@ -28,7 +28,7 @@ Aprenderás cómo obtener los datos de configuración (`facts`) desde los dispos
 
 [Aquí](supplemental/README.es.md) podrás encontrar ejercicios adicionales.
 
-## Diagram de Red
+## Diagrama de Red
 
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/blob/devel/images/ansible_network_diagram.png?raw=true)
 

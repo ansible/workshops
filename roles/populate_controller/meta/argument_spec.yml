@@ -67,6 +67,17 @@ argument_specs:
         type: str
         description: rhel_90 workshop execution environment
         default: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+  edge:
+    short_description: Tower configuration for the Edge workshop.
+    options:
+      admin_password:
+        description: The Ansible Tower admin password.
+        type: str
+        required: true
+      edge_ee:
+        type: str
+        description: rhel workshop execution environment
+        default: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
   security:
     short_description: Tower configuration for the security workshop.
     options:

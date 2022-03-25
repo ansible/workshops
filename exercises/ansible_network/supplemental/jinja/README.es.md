@@ -1,24 +1,24 @@
-# Supplemental - Network Configuration with Jinja Templates
+# Adicional - Configuración de Red con Plantillas Jinja
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), [日本語](README.ja.md),![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png), [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
-## Table of Contents
+## Índice
 
-- [Supplemental - Network Configuration with Jinja Templates](#supplemental---network-configuration-with-jinja-templates)
-  - [Table of Contents](#table-of-contents)
-  - [Objective](#objective)
+- [Adicional - Configuración de Red con Plantillas Jinja](#adicional---configuración-de-red-con-plantillas-jinja)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
   - [Guide](#guide)
-    - [Step 1 - Creating group vars](#step-1---creating-group-vars)
-    - [Step 2 - Creating Jinja2 template](#step-2---creating-jinja2-template)
-    - [Step 3 - Exploring the Jinja2 template](#step-3---exploring-the-jinja2-template)
-    - [Step 4 - Create a playbook](#step-4---create-a-playbook)
-    - [Step 5 - Execute the Ansible Playbook](#step-5---execute-the-ansible-playbook)
-    - [Step 6 - Verify configuration](#step-6---verify-configuration)
-  - [Takeaways](#takeaways)
-  - [Solution](#solution)
-  - [Complete](#complete)
+    - [Paso 1 - Crear variables de grupo](#paso-1---crear-variables-de-grupo)
+    - [Paso 2 - Crear plantillas Jinja2](#paso-2---crear-plantillas-jinja2)
+    - [Paso 3 - Explorar la plantilla Jinja2](#paso-3---explorar-la-plantilla-jinja2)
+    - [Paso 4 - Crear un playbook](#paso-4---crear-un-playbook)
+    - [Paso 5 - Ejecutar el Playbook de Ansible](#paso-5---ejecutar-el-playbook-de-ansible)
+    - [Paso 6 - Verificar la configuración](#paso-6---verificar-la-configuración)
+  - [Consejos a recordar](#consejos-a-recordar)
+  - [Solución](#solución)
+  - [Completado](#completado)
 
-## Objective
+## Objetivo
 
 Demonstration templating a network configuration and pushing it a device
 
@@ -28,9 +28,9 @@ Demonstration templating a network configuration and pushing it a device
 
 ## Guide
 
-### Step 1 - Creating group vars
+### Paso 1 - Crear variables de grupo
 
-This step will cover creating Ansible variables for use in an Ansible Playbook. This exercise will use the following IP address schema for loopbacks addresses on rtr1 and rtr2:
+This Paso will cover creating Ansible variables for use in an Ansible Playbook. This exercise will use the following IP address schema for loopbacks addresses on rtr1 and rtr2:
 
 Device  | Loopback100 IP |
 ------------ | ------------- |
@@ -61,7 +61,7 @@ Copy the YAML dictionary we created above into the `group_vars/all.yml` file and
 
 > All devices are part of the group **all** by default.  If we create a group named **cisco** only network devices belonging to that group would be able to access those variables.
 
-### Step 2 - Creating Jinja2 template
+### Paso 2 - Crear plantillas Jinja2
 
 Create a new file called `template.j2` in the `network-workshop` directory.  Right click on the Explorer toolbar on the left side of Visual Studio Code and select **New File**.  The directory stucture will look like this:
 
@@ -86,9 +86,9 @@ interface {{interface}}
 
 Save the file.
 
-### Step 3 - Exploring the Jinja2 template
+### Paso 3 - Explorar la plantilla Jinja2
 
-This step will explain and elaborate on each part of the newly created template.j2 file.
+This Paso will explain and elaborate on each part of the newly created template.j2 file.
 
 <!-- {% raw %} -->
 
@@ -133,7 +133,7 @@ Finally:
 
 * In Jinja we need to specify the end of the loop.
 
-### Step 4 - Create a playbook
+### Paso 4 - Crear un playbook
 
 - Create a new Ansible Playbook file called `config.yml`.  Right click on the Explorer toolbar on the left side of Visual Studio Code and select **New File** .  Either copy the playbook below or type this in:
 
@@ -157,7 +157,7 @@ Finally:
 * The cli_config module only requires one parameter, in this case **config** which can point to a flat file, or in this case uses the lookup plugin.  For a list of all available lookup plugins [visit the documentation](https://docs.ansible.com/ansible/latest/plugins/lookup.html)
 * Using the template lookup plugin requires two parameters, the plugin type *template* and the corresponding template name *template.j2*.
 
-### Step 5 - Execute the Ansible Playbook
+### Paso 5 - Ejecutar el Playbook de Ansible
 
 Use the `ansible-navigator` command  to execute the playbook:
 
@@ -181,7 +181,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
-### Step 6 - Verify configuration
+### Paso 6 - Verificar la configuración
 
 Use the command `show ip int br` to verify the IP addresses have been confirmed on the network devices.
 
@@ -192,21 +192,21 @@ rtr1#show ip int br | include Loopback100
 Loopback100            192.168.100.1   YES manual up                    up
 ```
 
-## Takeaways
+## Consejos a recordar
 
 * The [Jinja2 template lookup plugin](https://docs.ansible.com/ansible/latest/plugins/lookup.html) can allow us to template out a device configuration.
 * The `config` (e.g. `cisco.ios.config`, `arista.eos.config`) and cli_config modules can source a jinja2 template file, and push directly to a device.  If you want to just render a configuration locally on the control node, use the [template module](https://docs.ansible.com/ansible/latest/modules/template_module.html).
 * Variables are mostly commonly stored in `group_vars` and `host_vars`.  This short example only used group_vars.
 
-## Solution
+## Solución
 
 The finished Ansible Playbook is provided here for an answer key: [config.yml](config.yml).
 
 The provided Ansible Jinja2 template is provided here: [template.j2](template.j2).
 
-## Complete
+## Completado
 
-You have completed this lab exercise
+¡Felicidades, has completado este ejercicio de laboratorio!
 
 ---
 [Click here to return to the Ansible Network Automation Workshop](../../README.md)

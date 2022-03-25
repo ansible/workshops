@@ -35,11 +35,6 @@ IP
 `ini` 形式のファイルです。このファイルでは、グループで並び替えられたホストの一覧があります。また、変数いくつか指定しています。
 
 ```bash
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=PASSWORD
-ansible_port=22
-
 [web]
 node1 ansible_host=<X.X.X.X>
 node2 ansible_host=<Y.Y.Y.Y>
@@ -65,28 +60,16 @@ inventory file including what groups they are associated with.
     "_meta": {
         "hostvars": {
             "ansible-1": {
-                "ansible_host": "3.236.186.92",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
+                "ansible_host": "3.236.186.92"
             },
             "node1": {
-                "ansible_host": "3.239.234.187",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
+                "ansible_host": "3.239.234.187"
             },
             "node2": {
-                "ansible_host": "75.101.228.151",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
+                "ansible_host": "75.101.228.151"
             },
             "node3": {
-                "ansible_host": "100.27.38.142",
-                "ansible_port": 22,
-                "ansible_ssh_pass": "password",
-                "ansible_user": "student1"
+                "ansible_host": "100.27.38.142"
             }
         }
     },

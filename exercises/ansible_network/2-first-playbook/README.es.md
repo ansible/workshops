@@ -142,7 +142,7 @@ Ahora vamos a actualizar la tarea para añadir una cadena de comunidad SNMP RO l
 snmp-server community ansible-test RO
 ```
 
-Usa Visual Studio Code para abrir el ficheo `playbook.yml` y añadir el comando:
+Usa Visual Studio Code para abrir el ficheo `playbook.yml` y añadir el comando anterior.
 
 El Playbook de Ansible quedará así:
 
@@ -162,7 +162,7 @@ El Playbook de Ansible quedará así:
           - snmp-server community ansible-test RO
 ```
 
-Asegurate de guardar el fichero `playbook.yml` con los cambios.
+Asegúrate de guardar el fichero `playbook.yml` con los cambios.
 
 ### Paso 6 - Usar el modo de validación
 
@@ -227,9 +227,9 @@ snmp-server community ansible-test RO
 ## Consejos a recordar
 
 * Los módulos **config** (ej. cisco.ios.config) son idempotentes, es decir que son, con estado.
-* **check mode** asegura que el Playbook de Ansible no aplica ningún cambio en los sistemas remotos.
-* **verbose mode** permite ver una salida más detallada en la terminal, incluyendo qué comandos se aplicarán.
-* Este Playbook de Ansible puede programarse en el **Automation controller** para reforzar la configuración. Por ejemplo, podría significar que el Playbook de Ansible se ejecutara una vez al día para una red en particular. En combinación con **check mode** se puede crear un Playbook de Ansible que observa y reporta si la configuración está ausente o modificada en la red.
+* El **modo 'check'** asegura que el Playbook de Ansible no aplica ningún cambio en los sistemas remotos.
+* El **modo 'verbose'** permite ver una salida más detallada en la terminal, incluyendo qué comandos se aplicarán.
+* Este Playbook de Ansible puede programarse en el **Automation controller** para reforzar la configuración. Por ejemplo, podría significar que el Playbook de Ansible se ejecutara una vez al día para una red en particular. En combinación con el **modo 'check'** se puede crear un Playbook de Ansible que observa y reporta si la configuración está ausente o modificada en la red.
 
 ## Solución
 
@@ -240,6 +240,6 @@ El Playbook de Ansible completo se puede encontrar en: [playbook.yml](../playboo
 ¡Felicidades, has completado el ejercicio de laboratorio 2!  
 
 ---
-[Ejercicio Anterior](../1-explore/README.es.md) | [Próximo ejercicio](../3-facts/README.md)
+[Ejercicio Anterior](../1-explore/README.es.md) | [Próximo ejercicio](../3-facts/README.es.md)
 
 [Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

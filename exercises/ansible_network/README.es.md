@@ -1,6 +1,6 @@
 # Ansible Network Automation Workshop
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](../../images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
 **Esta es la documentación de Ansible Automation Platform 2**
 
@@ -16,17 +16,17 @@ Aprenderás cómo obtener los datos de configuración (`facts`) desde los dispos
 
 ## Ejercicios de Automatización de Red con Ansible (Ansible Network Automation)
 
-* [Ejercicio 1 - Explorando el entorno de red](./1-explore/)
-* [Ejercicio 2 - Ejecuta tu primer playbook de automatización de red](./2-first-playbook/)
-* [Ejercicio 3 - Use Ansible facts en dispositivos de red](./3-facts/)
-* [Ejercicio 4 - Módulos de Recursos de Ansible Network](./4-resource-module/)
-* [Ejercicio 5 - Explora el entorno del controlador de Automatización](./5-explore-controller/)
-* [Ejercicio 6 - Crea una plantilla de controlador de Automatización](./6-controller-job-template/)
-* [Ejercicio 7 - Crea una encusta (`survey`) de controlador de Automatización](./7-controller-survey/)
-* [Ejercicio 8 - Usando la funcionalidad de Control de Acceso Basado en Roles (RBAC)](./8-controller-rbac/)
-* [Ejercicio 9 - Crea un flujo de trabajo de controlador de Automatización](./9-controller-workflow)
+* [Ejercicio 1 - Explorando el entorno de red](./1-explore/README.es.md)
+* [Ejercicio 2 - Ejecuta tu primer playbook de automatización de red](./2-first-playbook/README.es.md)
+* [Ejercicio 3 - Use Ansible facts en dispositivos de red](./3-facts/README.es.md/)
+* [Ejercicio 4 - Módulos de Recursos de Ansible Network](./4-resource-module/README.es.md)
+* [Ejercicio 5 - Explora el entorno del controlador de Automatización](./5-explore-controller/README.es.md)
+* [Ejercicio 6 - Crea una plantilla de controlador de Automatización](./6-controller-job-template/README.es.md)
+* [Ejercicio 7 - Crea una encusta (`survey`) de controlador de Automatización](./7-controller-survey/README.es.md)
+* [Ejercicio 8 - Usando la funcionalidad de Control de Acceso Basado en Roles (RBAC)](./8-controller-rbac/README.es.md)
+* [Ejercicio 9 - Crea un flujo de trabajo de controlador de Automatización](./9-controller-workflow/README.es.md)
 
-Aquí [located here](supplemental/) podrás encontrar ejercicios adicionales.
+[Aquí](supplemental/README.es.md) podrás encontrar ejercicios adicionales.
 
 ## Diagram de Red
 

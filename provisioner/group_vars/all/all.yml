@@ -8,7 +8,7 @@ controllerinstall: true
 populatecontroller: true
 website_information: ""
 login_website_information: ""
-dns_information: "No errors with DNS"
+dns_information: ""
 callback_information: "No issue with Ansible Controller callback"
 demo_information: "No errors with Demos"
 workshop_type: ""

@@ -11,6 +11,10 @@ argument_specs:
         type: str
         description: security workshop execution environment
         default: "quay.io/acme_corp/security_ee:latest"
+      edge_ee:
+        type: str
+        description: security workshop execution environment
+        default: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
       rhel_ee:
         type: str
         description: rhel workshop execution environment

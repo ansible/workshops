@@ -1,0 +1,52 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+{% for vm in imagebuilder1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in pulp1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in fdo1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in hmi1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{ vm.tags.short_name }}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in hmi2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in hmi3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% if create_cluster %}
+{% for vm in remotenode_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% for vm in ansible_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{ vm.tags.short_name }}.example.com {{ vm.tags.short_name }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}
+{% endif %}
+{% endfor %}

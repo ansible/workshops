@@ -1,0 +1,604 @@
+---
+- name: Create EC2 instances for pulp
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_pulp1": "{{ ec2_name_prefix }}-pulp1"
+    tags:
+      Workshop_pulp1: "{{ ec2_name_prefix }}-pulp1"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "pulp1"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+  register: sean_test
+
+- debug:
+    msg: "{{ sean_test }}"
+
+- name: grab instance ids to tag pulp1
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_pulp1": "{{ ec2_name_prefix }}-pulp1"
+  register: pulp1_output
+
+- name: Ensure tags are present for pulp1
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-pulp1"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ pulp1_output.instances }}"
+  when: pulp1_output.instances|length > 0
+
+- name: Associate IAM instance profile with pulp1
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ pulp1_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - pulp1_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+- name: Create EC2 instances for FDO
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_fdo1": "{{ ec2_name_prefix }}-fdo1"
+    tags:
+      Workshop_fdo1: "{{ ec2_name_prefix }}-fdo1"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "fdo1"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag fdo1
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_fdo1": "{{ ec2_name_prefix }}-fdo1"
+  register: fdo1_output
+
+- name: Ensure tags are present for fdo1
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-fdo1"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ fdo1_output.instances }}"
+  when: fdo1_output.instances|length > 0
+
+- name: Associate IAM instance profile with fdo1
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ fdo1_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - fdo1_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+- name: Create EC2 instances for Image Builder
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_imagebuilder1": "{{ ec2_name_prefix }}-imagebuilder1"
+    tags:
+      Workshop_imagebuilder1: "{{ ec2_name_prefix }}-imagebuilder1"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "imagebuilder1"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag imagebuilder1
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_imagebuilder1": "{{ ec2_name_prefix }}-imagebuilder1"
+  register: imagebuilder1_output
+
+- name: Ensure tags are present for imagebuilder1
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-imagebuilder1"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ imagebuilder1_output.instances }}"
+  when: imagebuilder1_output.instances|length > 0
+
+- name: Associate IAM instance profile with imagebuilder1
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ imagebuilder1_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - imagebuilder1_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+- name: Create EC2 instances for hmi1
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_hmi1": "{{ ec2_name_prefix }}-hmi1"
+    tags:
+      Workshop_hmi1: "{{ ec2_name_prefix }}-hmi1"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "hmi1"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag hmi1
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_hmi1": "{{ ec2_name_prefix }}-hmi1"
+  register: hmi1_output
+
+- name: Ensure tags are present for hmi1
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-hmi1"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ hmi1_output.instances }}"
+  when: hmi1_output.instances|length > 0
+
+- name: Associate IAM instance profile with hmi1
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ hmi1_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - hmi1_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+- name: Create EC2 instances for hmi2
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_hmi2": "{{ ec2_name_prefix }}-hmi2"
+    tags:
+      Workshop_hmi2: "{{ ec2_name_prefix }}-hmi2"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "hmi2"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag hmi2
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_hmi2": "{{ ec2_name_prefix }}-hmi2"
+  register: hmi2_output
+
+- name: Ensure tags are present for hmi2
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-hmi2"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ hmi2_output.instances }}"
+  when: hmi2_output.instances|length > 0
+
+- name: Associate IAM instance profile with hmi2
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ hmi2_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - hmi2_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+- name: Create EC2 instances for hmi3
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_hmi3": "{{ ec2_name_prefix }}-hmi3"
+    tags:
+      Workshop_hmi3: "{{ ec2_name_prefix }}-hmi3"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "hmi3"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+
+- name: grab instance ids to tag hmi3
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_hmi3": "{{ ec2_name_prefix }}-hmi3"
+  register: hmi3_output
+
+- name: Ensure tags are present for hmi3
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-hmi3"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ hmi3_output.instances }}"
+  when: hmi3_output.instances|length > 0
+
+- name: Associate IAM instance profile with hmi3
+  amazon.aws.ec2_instance:
+    instance_ids: "{{ item.1.instance_id }}"
+    region: "{{ ec2_region }}"
+    instance_role: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item.0 + 1 }}"
+    state: running
+    wait: true
+  with_indexed_items:
+    - "{{ hmi3_output.instances }}"
+  register: associate_iam_instance_profile
+  until: associate_iam_instance_profile is not failed
+  retries: 12
+  delay: 10
+  when:
+    - hmi3_output.instances|length > 0
+    - tower_node_aws_api_access|default(false)|bool
+
+# Create isolated/remote node for Adv Tower lab when cluster install
+
+- name: Create EC2 instances for isonode
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_isonode": "{{ ec2_name_prefix }}-isonode"
+    tags:
+      Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "isonode"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+  when: create_cluster|bool
+
+- name: grab instance ids to tag isonode
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_isonode": "{{ ec2_name_prefix }}-isonode"
+  register: isonode_output
+  when: create_cluster|bool
+
+- name: Ensure tags are present for isonode
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-isonode"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ isonode_output.instances }}"
+  when: create_cluster|bool and isonode_output.instances|length > 0
+
+- name: Create EC2 instances for remotenode
+  amazon.aws.ec2_instance:
+    state: running
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[rhel].size }}"
+    image_id: "{{ node_ami_rhel.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_remotenode": "{{ ec2_name_prefix }}-remotenode"
+    tags:
+      Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: "remotenode"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+  when: create_cluster|bool
+
+- name: grab instance ids to tag isonode
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_remotenode": "{{ ec2_name_prefix }}-remotenode"
+  register: remotenode_output
+  when: create_cluster|bool
+
+- name: Ensure tags are present for remotenode
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-remotenode"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ remotenode_output.instances }}"
+  when: create_cluster|bool and remotenode_output.instances|length > 0

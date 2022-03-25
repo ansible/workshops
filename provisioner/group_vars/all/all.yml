@@ -28,6 +28,7 @@ valid_workshop_types:
   - demo
   - smart_mgmt
   - middleware
+  - edge
 network_type: multivendor
 valid_network_types:
   - cisco

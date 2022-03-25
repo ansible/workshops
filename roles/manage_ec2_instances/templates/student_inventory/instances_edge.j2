@@ -1,0 +1,52 @@
+[all:vars]
+ansible_user=student{{ item }}
+ansible_ssh_pass={{ admin_password }}
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+[control]
+{% for vm in ansible_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+ansible ansible_host={{ vm.public_ip_address }} private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+{% endif %}
+{% endfor %}
+
+[pulp]
+{% for vm in pulp1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+pulp1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} 
+{% endif %}
+{% endfor %}
+
+[fdo]
+{% for vm in fdo1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+fdo1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} 
+{% endif %}
+{% endfor %}
+
+[imagebuilder]
+{% for vm in fdo1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+imagebuilder1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} 
+{% endif %}
+{% endfor %}
+
+[hmi]
+{% for vm in hmi1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+hmi1 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} 
+{% endif %}
+{% endfor %}
+{% for vm in hmi2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+hmi2 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} 
+{% endif %}
+{% endfor %}
+{% for vm in hmi3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+hmi3 ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} 
+{% endif %}
+{% endfor %}
+

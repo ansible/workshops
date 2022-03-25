@@ -1,0 +1,10 @@
+---
+- name: Install pulp all-in-one-container
+  hosts: pulp
+  become: true
+  tasks:
+    - name: test ping
+      ping:
+    #    - include_role:
+    #    name: ../roles/containerize_pulp
+

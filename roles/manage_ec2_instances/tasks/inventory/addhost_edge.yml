@@ -74,7 +74,9 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: pulp,managed_nodes
+    groups:
+      - pulp
+      - managed_nodes
   with_items:
     - "{{ pulp1_node_facts.instances }}"
   changed_when: false
@@ -88,9 +90,11 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: fdo,managed_nodes
+    groups:
+      - fdo
+      - managed_nodes
   with_items:
-    - "{{ fdo1.instances }}"
+    - "{{ fdo1_node_facts.instances }}"
   changed_when: false
 
 - name: add imagebuilder1 to groups (ANSIBLE EDGE MODE)
@@ -102,7 +106,9 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: hmi,managed_nodes
+    groups: 
+      - hmi
+      - managed_nodes
   with_items:
     - "{{ imagebuilder1_node_facts.instances }}"
   changed_when: false
@@ -116,7 +122,9 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: hmi,managed_nodes
+    groups:
+      - hmi
+      - managed_nodes
   with_items:
     - "{{ hmi1_node_facts.instances }}"
     - "{{ hmi2_node_facts.instances }}"
@@ -132,7 +140,9 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: lab_hosts,managed_nodes
+    groups:
+      - lab_hosts
+      - managed_nodes
   with_items:
     - "{{ isonode_node_facts.instances }}"
     - "{{ remotenode_node_facts.instances }}"

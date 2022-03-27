@@ -1,4 +1,4 @@
-# Ejercic 9: Crear un flujo de trabajo (Workflow)
+# Ejercicio 9: Crear un flujo de trabajo (Workflow)
 
 **Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 

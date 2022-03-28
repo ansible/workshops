@@ -1,0 +1,9 @@
+---
+# handlers file for container_lifecycle
+
+- name: restart container service
+  ansible.builtin.systemd:
+    name: "afiot-{{ service_name }}"
+    state: restarted
+    daemon_reload: yes
+  when: (( initial_start is defined ) and ( not initial_start['changed'] )) or ( initial_start is undefined )

@@ -1,0 +1,133 @@
+---
+# tasks file for container_lifecycle
+
+# FIXME: properly handle template config changes
+
+- name: Gather information about the current running container
+  containers.podman.podman_container_info:
+    name: "containerized-{{ service_name }}"
+  register: pre_install_container_info
+
+- name: Install Transction
+  block:
+    - name: pull down container image
+      containers.podman.podman_image:
+        name: "{{ container_image }}"
+        tag: "{{ container_tag }}"
+      when: (not pre_install_container_info['containers']) or ((pre_install_container_info['containers'][0]['Name'] == "containerized-" + service_name) and pre_install_container_info['containers'][0]['ImageName'] != container_image + ":" + container_tag)
+
+    - name: template the systemd service unit file
+      ansible.builtin.template:
+        src: "templates/systemd_unit.j2"
+        dest: "{{ systemd_units_dir }}/containerized-{{ service_name }}.service"
+      notify: restart container service
+
+    - name: template the systemd health check timer unit file
+      ansible.builtin.template:
+        src: "templates/systemd_timer.j2"
+        dest: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.timer"
+      notify: restart container service
+
+    - name: template the systemd health check service unit file
+      ansible.builtin.template:
+        src: "templates/systemd_timer.j2"
+        dest: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.service"
+      notify: restart container service
+
+    - name: deamon reload systemd and start our service
+      ansible.builtin.systemd:
+        name: "containerized-{{service_name}}"
+        state: started
+        enabled: yes
+        daemon_reload: yes
+      register: initial_start
+  rescue:
+    - name: override container_tag for rollback
+      set_fact:
+        container_tag: "{{ pre_install_container_info['containers'][0]['ImageName']|split(':')[-1] }}"
+
+    - name: template the systemd service unit file
+      ansible.builtin.template:
+        src: "templates/systemd_unit.j2"
+        dest: "{{ systemd_units_dir }}/containerized-{{ service_name }}.service"
+
+    - name: template the systemd health check timer unit file
+      ansible.builtin.template:
+        src: "templates/systemd_timer.j2"
+        dest: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.timer"
+
+    - name: template the systemd health check service unit file
+      ansible.builtin.template:
+        src: "templates/systemd_timer.j2"
+        dest: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.service"
+
+    - name: deamon reload systemd and start our service
+      ansible.builtin.systemd:
+        name: "containerized-{{service_name}}"
+        state: started
+        enabled: yes
+        daemon_reload: yes
+  when:
+    - container_state in ["present", "installed"]
+
+
+- name: Uninstall Transction
+  block:
+    - name: stop service
+      ansible.builtin.systemd:
+        name: "containerized-{{service_name}}"
+        state: stopped
+        enabled: no
+
+    - name: remove container image
+      containers.podman.podman_image:
+        name: "{{ container_image }}"
+        tag: "{{ container_tag }}"
+        state: absent
+
+    - name: check for systemd service unit file
+      ansible.builtin.stat:
+        path: "{{ systemd_units_dir }}/containerized-{{ service_name }}.service"
+      register: ssuf_st
+
+    - name: remove systemd service unit file
+      ansible.builtin.file:
+        path: "{{ systemd_units_dir }}/containerized-{{ service_name }}.service"
+        state: "absent"
+      when: ssuf_st['stat']['exists']
+
+    - name: check for systemd health check timer unit file
+      ansible.builtin.stat:
+        path: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.timer"
+      register: shctuf_st
+
+    - name: remove systemd health check timer unit file
+      ansible.builtin.file:
+        path: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.timer"
+        state: "absent"
+      when: shctuf_st['stat']['exists']
+
+    - name: template the systemd health check service unit file
+      ansible.builtin.template:
+        src: "templates/systemd_timer.j2"
+        dest: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.service"
+
+    - name: check for systemd health check service unit file
+      ansible.builtin.stat:
+        path: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.service"
+      register: shcsuf_st
+
+    - name: remove systemd health check service unit file
+      ansible.builtin.file:
+        path: "{{ systemd_units_dir }}/containerized-{{ service_name }}-healthcheck.service"
+        state: "absent"
+      when: shcsuf_st['stat']['exists']
+
+    - name: deamon reload systemd to remove unit files from index
+      ansible.builtin.systemd:
+        daemon_reload: yes
+  when:
+    - container_state in ["absent", "uninstalled"]
+    - pre_install_container_info['containers']
+
+

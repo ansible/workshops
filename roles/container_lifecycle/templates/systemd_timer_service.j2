@@ -1,0 +1,6 @@
+[Unit]
+Description=podman healthcheck run afiot-{{ service_name }}
+
+[Service]
+ExecStart=
+ExecStart=@/usr/bin/podman "/usr/bin/podman" "healthcheck" "run" "afiot-{{ service_name}}"

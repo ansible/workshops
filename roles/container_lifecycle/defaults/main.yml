@@ -1,0 +1,20 @@
+---
+# defaults file for container_lifecycle
+
+systemd_units_dir: "/etc/systemd/system/"
+
+container_service_name: ""
+
+container_state: "installed"
+
+container_image: ""
+
+container_tag: ""
+
+container_port_mapping: ""
+
+container_healthcheck: ""
+
+container_healthcheck_interval: "30s"
+
+container_healthcheck_retries: 5

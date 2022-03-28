@@ -1,0 +1,7 @@
+[Unit]
+Description=podman healthcheck run afiot-{{ service_name }}
+
+[Timer]
+OnUnitInactiveSec={{ container_healthcheck_interval }}
+AccuracySec=1s
+RemainAfterElapse=no

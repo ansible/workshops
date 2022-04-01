@@ -65,17 +65,19 @@ Para ejecutar un Playbook de Ansible en el controlador de Automatización necesi
 
   ![controller credential](images/controller_cred_multiple.png)
 
+* Haz click en la cajita `Escalate Privileges`.
+
 * Baja y haz click en el botón azul `Save`.
 
 ### Paso 2: Lanzar una plantilla de trabajo, Job Template
 
 1. Navega hasta la ventana `Templates`, donde aparecerán todas las plantillas de trabajo (Job Templates).
 
-2. Lanza la plantilla de trabajo `Backup network configurations` haciendo click en el botón del cohete.
+2. Ejecuta la plantilla de trabajo `Backup network configurations` haciendo click en el botón del cohete.
 
     ![rocket button](images/controller_rocket.png)
 
-    Cuando el botón del cohete se pulsa, lanzará el trabajo. El trabajo se abrirá en una nueva ventana llamada **Job Details View**. Más información sobre los [trabajos en el controlador de Automatización](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) se pueden encontrar en la documentación.
+    Cuando el botón del cohete se pulsa, ejecutará el trabajo. El trabajo se abrirá en una nueva ventana llamada **Job Details View**. Más información sobre los [trabajos en el controlador de Automatización](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) se pueden encontrar en la documentación.
 
 ### Paso 3: Examinar los detalles del trabajo, Job Details View
 
@@ -126,7 +128,7 @@ Cualquier **Job Template** (plantill de trabajo) que se ha ejecutado o se está 
 
   `ls` es el comando para listar ficheros en sistemas operativos Linux.
 
-* Abre `/backup` con Visual Studio Code o usando el comando `cat` para ver lso contenidos de alguno de los dispositivos de red con marca de tiempo:
+* Abre `/backup` con Visual Studio Code o usando el comando `cat` para ver los contenidos de alguno de los dispositivos de red con marca de tiempo:
 
   ```sh
   [student1@ansible-1 ~]$ cat /backup/2021-08-31-1

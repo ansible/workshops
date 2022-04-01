@@ -80,7 +80,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 *  Crea un nuevo fichero en Visual Studio Code llamado `resource.yml`
 
-   ![new file](images/Step1_new_file.png)
+   ![new file](images/step1_new_file.png)
 
 * Copia el siguiente Playbook de Ansible en tu fichero `resource.yml`
 
@@ -112,7 +112,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 ### Paso 3 - Examinar Playbook de Ansible
 
-* Primero, vamos a examinar las últimas cuatro líneas:
+* Primero, vamos a examinar las primeras cuatro líneas:
 
   ```yaml
   ---
@@ -146,7 +146,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   ```
 
   * `name:` Al igual que en el playbook, es el nombre descriptivo que cada tarea tiene.
-  * `state: merged` Es el comportamiento por defecto de los módulos de recursos. Simplemente reforzará que exista la configuración propuesta en el dispositivo de red. Hay siete parámetros posibles para los módulos de recursos:
+  * `state: merged` Es el comportamiento por defecto de los módulos de recursos. Simplemente reforzará que exista la configuración propuesta en el dispositivo de red. Hay siete valores posibles para este parámetro del módulo de recursos:
     * merged
     * replaced
     * overridden
@@ -155,8 +155,8 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
     * gathered
     * parsed
 
-    Sólo dos de estos parámetros se cubrirán en este ejercicio, pero se pueden ver más en los [ejercicios complementarios](../supplemental/README.md).
-  * `config:` configuración VLAN propuesta. Es una lista de diccionarios Lo más importante a recordar es que si el módulo ha cambiado de `arista.eos.vlans` a `junipernetworks.junos.vlans` funcionará de manera idéntica. Esto permitirá a los ingenieros de red enfocarse en la red en sí (ej. configuración VLAN) en vez de en la sintáxis del fabricante y su implementación.
+    Sólo dos de estos valores se cubrirán en este ejercicio, pero se pueden ver más en los [ejercicios complementarios](../supplemental/README.md).
+  * `config:` configuración VLAN propuesta. Es una lista de diccionarios. Lo más importante a recordar es que si el módulo ha cambiado de `arista.eos.vlans` a `junipernetworks.junos.vlans` funcionará de manera idéntica. Esto permitirá a los ingenieros de red enfocarse en la red en sí (ej. configuración VLAN) en vez de en la sintáxis del fabricante y su implementación.
 
 ### Paso 4 - Ejecutar el Playbook de Ansible
 
@@ -274,7 +274,7 @@ Como puede observarse, el módulo de recursos está configurado en el dispositiv
 
 * En la seguna tarea, se copia el contenido de la variable `vlan_config` a un fichero de texto plano. Las doble llaves denotan que se trata de una variable.  
 
-* El `| to_nice_yaml` es un [filter](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), que convertirá la salida JSON (por defecto)a YAML.
+* El `| to_nice_yaml` es un [filtro](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), que convertirá la salida JSON (por defecto) a YAML.
 
 * El `playbook_dir` y `inventory_hostname` son variables especiales, también llamadas [variables mágicas](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html). El `playbook_dir` simplemente signifca el directorio desde donde se ha ejecutado el playbook, y el `inventory_hostname` es el nombre del dispositivo en nuestro inventario. Esto significa que se guardará como `~/network-workshop/rtr2_vlan.yml` y `~/network-workshop/rtr4_vlan.yml` para los dos dispositivos arista.
 

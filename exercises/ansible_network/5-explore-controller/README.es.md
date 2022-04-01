@@ -37,7 +37,7 @@ Explorar y comprender el entorno de laboratorio. Este ejecicio se cubrirá:
    * El usuario es `admin`
    * La password se obtiene en la página de inicio
 
-3. Después de haber entrado en el tablero de trabajos "Job" se ve la vista por defecto:
+3. Después de haber entrado en el tablero de trabajos "Jobs" se ve la vista por defecto:
 
    ![automation controller dashboard](images/automation_controller_dashboard.png)
 
@@ -74,7 +74,7 @@ Se requiere un inventario para que el controlador de Automatización sea capaz d
 
    ![workshop inventory hosts rtr1](images/workshop_inventory_hosts_rtr1.png)
 
-     Take note of the **VARIABLES** field.  The `host_vars` are set here including the `ansible_host` variable.
+     Observa el campo **VARIABLES**. Verás que `host_vars` están configuradas, incluyendo la variable `ansible_host`.
 
 5. Haz click en **GROUPS**. Aparecerán múltiples grupos incluyendo `routers` y `cisco`. Haz click en alguno de los grupos.
 

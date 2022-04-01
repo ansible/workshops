@@ -1,0 +1,45 @@
+---
+# retrieve instances for VPC 1
+- name: grab vpc node facts for student{{ student_total }} instances
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "vpc-id": "{{ ec2_vpc_id }}"
+      "tag:Student": "student{{ student_total }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+  register: final_workshop_vpc_nodes
+
+- name: debug final_workshop_vpc_nodes
+  debug:
+    var: final_workshop_vpc_nodes
+  when: debug_teardown
+
+# retrieve instances for VPC 1
+- name: poll until last student nodes are terminated - VPC 1
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "vpc-id": "{{ ec2_vpc_id }}"
+      "tag:Student": "student{{ student_total }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+      instance-state-name: [ "running", "shutting-down", "stopping", "stopped" ]
+  register: all_workshop_vpc_nodes
+  until: all_workshop_vpc_nodes.instances|length == 0
+  retries: 36
+  delay: 10
+
+# retrieve instances for VPC 2
+- name: poll until last student nodes are terminated - VPC 2
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "vpc-id": "{{ ec2_vpc_id2 }}"
+      "tag:Student": "student{{ student_total }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+      instance-state-name: [ "running", "shutting-down", "stopping", "stopped" ]
+  register: all_workshop_vpc2_nodes
+  when: ec2_vpc_id2 is defined
+  until: all_workshop_vpc2_nodes.instances|length == 0
+  retries: 36
+  delay: 10
+

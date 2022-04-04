@@ -92,11 +92,11 @@ Le module `setup` s'exécutera automatiquement au début de chaque playbook, à 
 Allons de l'avant et exécutons le module `setup` pour regarder la sortie. Remplissez à nouveau le formulaire **Exécuter des commandes** avec ces informations.
 
 
-| Clé                | Valeur          | Note                |
-|--------------------|-----------------|---------------------|
-| Module             | `setup`         |                     |
-| Arguments          |                 | Intentionally blank |
-| MACHINE CREDENTIAL | Student Account |                     |
+| Key       | Value   | Note                                                           |
+| --------- | ------- | -------------------------------------------------------------- |
+| Module    | `setup` |                                                                |
+| Arguments |         | Intentionally blank                                            |
+| Limit     |         | This should display the host you selected in the previous step |
 
 Vous verrez alors des résultats comme celui-ci
 
@@ -109,11 +109,23 @@ Vous verrez alors des résultats comme celui-ci
 
 Maintenant, installons IIS en utilisant le module `win_feature`. Notre paramètre d'arguments va devenir un peu plus complexe maintenant.
 
-| Clé                | Valeur                          | Note |
-|--------------------|---------------------------------|------|
-| Module             | `win_feature`                   |      |
-| Arguments          | `name=Web-Server state=present` |      |
-| MACHINE CREDENTIAL | Student Account                 |      |
+| Key       | Value                           | Note                                                           |
+| --------- | ------------------------------- | -------------------------------------------------------------- |
+| Module    | `win_feature`                   |                                                                |
+| Arguments | `name=Web-Server state=present` |                                                                |
+| Limit     |                                 | This should display the host you selected in the previous step |
+
+Cliquez sur le bouton **Next** 
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le bouton **Next** 
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
 
 Vous remarquerez que le texte du journal est désormais orange. C'est pour indiquer qu'une modification a été apportée au système par rapport au vert qui montre qu'aucune modification n'a été apportée plus tôt.
 

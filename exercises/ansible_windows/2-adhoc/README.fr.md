@@ -43,7 +43,6 @@ Cliquez sur le bout **Next**
 | ------------------ | ------------------- | ---- |
 | Machine credential | Workshop Credential |      |
 |                    |                     |      |
-|
 
 
 Une fois que vous avez cliqué sur **LANCEMENT**, vous serez redirigé vers le page dexécution de la tache. Chaque tâche et action dans Ansible Controller est enregistrée et stockée. Ces journaux peuvent être être exportés automatiquement vers un autre système de journalisation tel que Splunk ou ELK.

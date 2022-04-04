@@ -6,6 +6,7 @@
     - name: retrieve route53 zone id
       community.aws.route53_zone:
         zone: "{{ workshop_dns_zone }}"
+      delegate_to: localhost
       register: AWSINFO
 
     - name: retrieve route53 record_sets
@@ -14,6 +15,7 @@
         query: record_sets
         hosted_zone_id: "{{ AWSINFO.zone_id }}"
         start_record_name: "hub.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+      delegate_to: localhost
       register: record_sets
 
     - name: "private_automation_hub | delete DNS record"

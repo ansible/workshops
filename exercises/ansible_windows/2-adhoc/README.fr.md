@@ -137,11 +137,25 @@ Nettoyons maintenant tout ce qui vient d'être fait.
 
 Tout d'abord, arrêtez le service IIS.
 
-| Clé                | Valeur                     | Note |
-|--------------------|----------------------------|------|
-| Module             | `win_service`              |      |
-| Arguments          | `name=W3Svc state=stopped` |      |
-| MACHINE CREDENTIAL | Student Account            |      |
+| Key       | Value                      | Note                                                           |
+| --------- | -------------------------- | -------------------------------------------------------------- |
+| Module    | `win_service`              |                                                                |
+| Arguments | `name=W3Svc state=stopped` |                                                                |
+| Limit     |                            | This should display the host you selected in the previous step |
+
+
+Cliquez sur le bouton **Next** 
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le bouton **Next** 
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
 
 Étape 7:
 --------

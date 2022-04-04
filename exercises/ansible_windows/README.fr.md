@@ -25,6 +25,9 @@ Cela dit, les exercices eux-mêmes devraient prendre environ 4 à 5 heures. La p
 
 Si votre expérience est différente dans la planification de ces ateliers, veuillez nous en informer.
 
+## Lab Diagram
+![ansible windows lab diagram](../../images/ansible_windows_diagram.png)
+
 
 ## Exercices
 

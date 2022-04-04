@@ -1,4 +1,7 @@
 ---
+- name: redhat subscription
+  include_tasks: "5_redhat_sub.yml"
+
 - name: aap setup
   include_tasks: "10_aap_setup.yml"
   tags:

@@ -415,6 +415,6 @@ Une fois la tâche terminé, vous devriez voir deux URL de vos sites Web affich�
 ![Job output](images/5-job-output.png)
 
 
-![IIS site](images/5-iis-8080.png)
+
 <br><br>
 [Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

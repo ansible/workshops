@@ -91,12 +91,24 @@ Le module `setup` s'exécutera automatiquement au début de chaque playbook, à 
 
 Allons de l'avant et exécutons le module `setup` pour regarder la sortie. Remplissez à nouveau le formulaire **Exécuter des commandes** avec ces informations.
 
+| Key       | Value   | Note                                                           |
+| --------- | ------- | -------------------------------------------------------------- |
+| Module    | `setup` |                                                                |
+| Arguments |         | Intentionally blank                                            |
+| Limit     |         | This should display the host you selected in the previous step |
 
-| Clé                | Valeur          | Note                |
-|--------------------|-----------------|---------------------|
-| Module             | `setup`         |                     |
-| Arguments          |                 | Intentionally blank |
-| MACHINE CREDENTIAL | Student Account |                     |
+Cliquez syr le bouton **Next** 
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le bouton **Next**
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
 
 Vous verrez alors des résultats comme celui-ci
 

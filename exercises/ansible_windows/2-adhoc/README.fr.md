@@ -65,22 +65,49 @@ Voyons maintenant comment exécuter une commande PowerShell et afficher la sorti
 
 Remplissons à nouveau le formulaire, mais cette fois, utilisez le module `win_shell` pour exécuter la commande Powershell `Get-Service`.
 
-| Clé                | Valeur          | Note |
-|--------------------|-----------------|------|
-| Module             | `win_shell`     |      |
-| Arguments          | `Get-Service`   |      |
-| MACHINE CREDENTIAL | Student Account |      |
+| Key       | Value         | Note                                                           |
+| --------- | ------------- | -------------------------------------------------------------- |
+| Module    | `win_shell`   |                                                                |
+| Arguments | `Get-Service` |                                                                |
+| Limit     |               | This should display the host you selected in the previous step |
+
+Cliquez sur le bouton **Next**
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le button **Next**
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
+
 
 Lancez la tache et affichez les résultats. Vous verrez qu'il renvoie le résultat de la commande Powershell envoyé. Ces données peuvent être stockées dans une variable et analysées directement dans votre playbook Ansible ultérieurement.
 
 Exécutez une nouvelle commande Ad-hoc avec la commande Powershell `Get-Process`.
 
+| Key       | Value         | Note                                                           |
+| --------- | ------------- | -------------------------------------------------------------- |
+| Module    | `win_shell`   |                                                                |
+| Arguments | `Get-Process` |                                                                |
+| Limit     |               | This should display the host you selected in the previous step |
 
-| Clé                | Valeur          | Note |
-|--------------------|-----------------|------|
-| Module             | `win_shell`     |      |
-| Arguments          | `Get-Process`   |      |
-| MACHINE CREDENTIAL | Student Account |      |
+
+Cliquez sur le bouton **Next** 
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le button **Next**
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
 
 Étape 3:
 --------

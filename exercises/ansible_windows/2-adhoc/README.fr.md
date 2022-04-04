@@ -124,11 +124,25 @@ Vous remarquerez que le texte du journal est désormais orange. C'est pour indiq
 
 OK, IIS est installé maintenant, alors assurez-vous qu'il est démarré à l'aide du module `service`.
 
-| Clé                | Valeur                     | Note |
-|--------------------|----------------------------|------|
-| Module             | `win_service`              |      |
-| Arguments          | `name=W3Svc state=started` |      |
-| MACHINE CREDENTIAL | Student Account            |      |
+| Key       | Value                      | Note                                                           |
+| --------- | -------------------------- | -------------------------------------------------------------- |
+| Module    | `win_service`              |                                                                |
+| Arguments | `name=W3Svc state=started` |                                                                |
+| Limit     |                            | This should display the host you selected in the previous step | 
+
+Cliquez sur le bouton **Next** 
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le bouton **Next**
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+
+
 
 Étape 6:
 --------

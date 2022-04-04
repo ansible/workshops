@@ -63,7 +63,7 @@ Remplissez le formulaire avec les valeurs suivantes
 | MINIMUM/MAXIMUM LENGTH |                                                            | Use the defaults |
 | DEFAULT ANSWER         | *Be creative, keep it clean, we’re all professionals here* |                  |
 
-![Survey Form](images/4-survey.png)
+![Survey creating](images/4-survey-created.png)
 
 Étape 6:
 --------

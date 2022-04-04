@@ -148,20 +148,48 @@ Tout d'abord, arrêtez le service IIS.
 
 Ensuite, supprimez IIS.
 
+| Key       | Value                          | Note                                                           |
+| --------- | ------------------------------ | -------------------------------------------------------------- |
+| Module    | `win_feature`                  |                                                                |
+| Arguments | `name=Web-Server state=absent` |                                                                |
+| Limit     |                                | This should display the host you selected in the previous step |
 
-| Clé                | Valeur                         | Note |
-|--------------------|--------------------------------|------|
-| Module             | `win_feature`                  |      |
-| Arguments          | `name=Web-Server state=absent` |      |
-| MACHINE CREDENTIAL | Student Account                |      |
+
+Cliquez sur le bouton **Next** 
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le bouton **Next**
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
+
 
 Et enfin, redémarrez l'hôte.
 
-| Clé                | Valeur          | Note                |
-|--------------------|-----------------|---------------------|
-| Module             | `win_reboot`    |                     |
-| Arguments          |                 | Intentionally blank |
-| MACHINE CREDENTIAL | Student Account |                     |
+| Key       | Value        | Note                                                           |
+| --------- | ------------ | -------------------------------------------------------------- |
+| Module    | `win_reboot` |                                                                |
+| Arguments |              | Intentionally blank                                            |
+| Limit     |              | This should display the host you selected in the previous step |
+
+
+Cliquez sur le bouton **Next**
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le bouton **Next**
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |                    
 
 > **Remarque**
 Le module `win_reboot` provoquera le redémarrage de la machine, puis attendra qu'elle revienne complètement avant de terminer. De cette façon, si vous devez redémarrer l'hôte au milieu de votre playbook, le reste du playbook n'échouera pas car l'hôte est inaccessible.

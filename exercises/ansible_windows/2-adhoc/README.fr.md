@@ -28,8 +28,8 @@ Remplissez le formulaire comme suit:
 | Key                   | Value                                  | Note                                                           |
 | --------------------- | -------------------------------------- | -------------------------------------------------------------- |
 | Module                | `win_ping`                             |                                                                |
-| Arguments             |                                        | Intentionally blank                                            |
-| Limit                 |                                        | This should display the host you selected in the previous step |                       
+| Arguments             |                                        | Intentionnellement vide                                          |
+| Limit                 |                                        | Devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |                       
 
 Cliquez sur le bouton **Next** 
 

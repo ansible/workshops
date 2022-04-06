@@ -218,7 +218,7 @@ Ensuite, supprimez IIS.
 | --------- | ------------------------------ | -------------------------------------------------------------- |
 | Module    | `win_feature`                  |                                                                |
 | Arguments | `name=Web-Server state=absent` |                                                                |
-| Limit     |                                | This should display the host you selected in the previous step |
+| Limit     |                                | Cela devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |
 
 
 Cliquez sur le bouton **Next** 
@@ -240,8 +240,8 @@ Et enfin, redémarrez l'hôte.
 | Key       | Value        | Note                                                           |
 | --------- | ------------ | -------------------------------------------------------------- |
 | Module    | `win_reboot` |                                                                |
-| Arguments |              | Intentionally blank                                            |
-| Limit     |              | This should display the host you selected in the previous step |
+| Arguments |              | Intentionnellement vide                                            |
+| Limit     |              | Cela devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |
 
 
 Cliquez sur le bouton **Next**

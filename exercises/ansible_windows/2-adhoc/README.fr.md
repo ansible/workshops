@@ -139,7 +139,7 @@ Maintenant, installons IIS en utilisant le module `win_feature`. Notre paramètr
 | --------- | ------------------------------- | -------------------------------------------------------------- |
 | Module    | `win_feature`                   |                                                                |
 | Arguments | `name=Web-Server state=present` |                                                                |
-| Limit     |                                 | This should display the host you selected in the previous step |
+| Limit     |                                 | Cela devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |
 
 Cliquez sur le bouton **Next** 
 

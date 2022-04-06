@@ -193,7 +193,7 @@ Tout d'abord, arrêtez le service IIS.
 | --------- | -------------------------- | -------------------------------------------------------------- |
 | Module    | `win_service`              |                                                                |
 | Arguments | `name=W3Svc state=stopped` |                                                                |
-| Limit     |                            | This should display the host you selected in the previous step |
+| Limit     |                            | Cela devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |
 
 
 Cliquez sur le bouton **Next** 

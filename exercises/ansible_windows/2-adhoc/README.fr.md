@@ -68,7 +68,7 @@ Remplissons à nouveau le formulaire, mais cette fois, utilisez le module `win_s
 | --------- | ------------- | -------------------------------------------------------------- |
 | Module    | `win_shell`   |                                                                |
 | Arguments | `Get-Service` |                                                                |
-| Limit     |               | This should display the host you selected in the previous step |
+| Limit     |               | Cela devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |
 
 Cliquez sur le bouton **Next**
 

@@ -153,10 +153,9 @@ Faites défiler la page vers le bas et validez que le projet a été correctemen
 Inventaire
 ==========
 
-Un inventaire est un ensemble d'hôtes sur lesquels des taches peuvent être lancés. Les inventaires sont divisés en groupes et ces groupes contiennent des serveurs. Les inventaires peuvent être sourcés manuellement, en entrant les noms d'hôte dans Controller ou auprès de l'un des fournisseurs de cloud pris en charge par Automation Controller.
+Un inventaire est un ensemble d'hôtes sur lesquels des tâches peuvent être lancés. Les inventaires sont divisés en groupes et ces groupes contiennent des hôtes. Les inventaires peuvent être entrer manuellement, en entrant des noms d'hôte dans Controller, ou obtenu automaiquement à partir de l'un des fournisseurs de cloud pris en charge par Automation Controller ou grace a des plug-ins d'inventaire disponible dans les collections Ansible sur Automation Hub. 
 
-Un inventaire statique a déjà été créé pour vous aujourd'hui. Nous allons maintenant jeter un œil à cet inventaire pour vous montrer les différentes fonctionnalités.
-
+Un inventaire statique a déjà été créé pour vous. Nous allons maintenant jeter un œil à cet inventaire pour vous montrer les différentes fonctionnalités.
 
 Étape 1:
 --------

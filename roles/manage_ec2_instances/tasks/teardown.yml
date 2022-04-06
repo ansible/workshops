@@ -411,6 +411,7 @@
       loop: "{{ range(1, student_total + 1)|list }}"
 
   when: tower_node_aws_api_access|default(false)|bool
+  ignore_errors: true
 
 - name: Delete AWS snapshots (workshop_type SMART MANAGEMENT)
   block:

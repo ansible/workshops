@@ -1,0 +1,7 @@
+---
+- name: Register and subscribe
+  community.general.redhat_subscription:
+    state: "{{ state }}"
+    username: "{{ redhat_username }}"
+    password: "{{ redhat_password }}"
+    auto_attach: true

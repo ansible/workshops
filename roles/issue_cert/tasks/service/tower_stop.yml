@@ -1,8 +1,0 @@
----
-- name: make sure Ansible Tower is stopped
-  service:
-    name: ansible-tower.service
-    state: stopped
-  register: stop_tower
-  until: stop_tower is not failed
-  retries: 5

@@ -333,25 +333,24 @@ Pour tester ce playbook, nous devons créer un nouveau modèle de tâche. Allez 
 
 Remplissez le formulaire en utilisant les valeurs suivantes
 
-| Clé         | Valeur                     | Note |
+| Key         | Value                      | Note |
 |-------------|----------------------------|------|
-| Nom         | IIS Advanced               |      |
+| Name        | IIS Advanced               |      |
 | Description | Template for iis_advanced  |      |
-| JOB TYPE    | Run                        |      |
-| INVENTORY   | Workshop Inventory |      |
-| PROJECT     | Ansible Workshop Project   |      |
-| PLAYBOOK    | `iis_advanced/site.yml`    |      |
-| CREDENTIAL  | Student Account            |      |
-| LIMIT       | windows                    |      |
-| OPTIONS     | [*] USE FACT CACHE         |      |
+| Job Type    | Run                        |      |
+| Inventory   | Workshop Inventory |      |
+| Execution Environment     | windows workshop execution environment   |      |
+| Project     | Ansible Workshop Project   |      |
+| Playbook    | `iis_advanced/site.yml`    |      |
+| Credentials  | Workshop Credential            |      |
+| OPTIONS     | [\*] Enable Fact Storage         |      |
 
-![Create Job Template](images/5-create-template.png)
 
 Étape 3:
 -------
 
-Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un qustionnaire`
-![Add](images/at_add_survey.png)
+Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un questionnaire`
+!
 
 Étape 4:
 -------
@@ -372,17 +371,8 @@ Remplissez le formulaire avec les valeurs suivantes
 Étape 5:
 -------
 
-Selectionnez `ADD` ![Add](images/at_add.png)
+Select SAVE ![Add](images/at_save.png) et n'oubliez pas de mettre la switch à **On** ![On switch](images/controller_on.png)
 
-Étape 6:
--------
-
-Selectionnez `ENREGISTRER` ![Add](images/at_save.png)
-
-Étape 7:
--------
-
-De retour sur la page principale du modèle de travail, sélectionnez `ENREGISTRER` ![Add](images/at_save.png) again.
 
 Section 6: Lancez votre nouveau playbook
 ========================================
@@ -415,6 +405,6 @@ Une fois la tâche terminé, vous devriez voir deux URL de vos sites Web affich�
 ![Job output](images/5-job-output.png)
 
 
-![IIS site](images/5-iis-8080.png)
+
 <br><br>
 [Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

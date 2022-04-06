@@ -34,12 +34,12 @@ Remplissez le formulaire en utilisant les valeurs suivantes
 | Name        | IIS Basic Job Template                       |      |
 | Description | Template for the iis-basic playbook          |      |
 | JOB TYPE    | Run                                          |      |
-| INVENTORY   | Workshop Inventory                   |      |
+| INVENTORY   | Workshop Inventory                           |      |
 | PROJECT     | Ansible Workshop Project                     |      |
 | PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
 | CREDENTIAL  | Type: **Machine**. Name: **Student Account** |      |
 | LIMIT       | windows                                      |      |
-| OPTIONS     | [*] ENABLE FACT CACHE                        |      |
+| OPTIONS     | [*] ENABLE FACT STORAGE                      |      |
 
 ![Create Job Template](images/4-create-job-template.png)
 
@@ -47,7 +47,7 @@ Remplissez le formulaire en utilisant les valeurs suivantes
 --------
 
 Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un qustionnaire`
-![Add](images/at_add_survey.png)
+![Create Survey](images/4-create-survey.png)
 
 Étape 5:
 --------
@@ -63,23 +63,8 @@ Remplissez le formulaire avec les valeurs suivantes
 | MINIMUM/MAXIMUM LENGTH |                                                            | Use the defaults |
 | DEFAULT ANSWER         | *Be creative, keep it clean, we’re all professionals here* |                  |
 
-![Survey Form](images/4-survey.png)
+![Survey creating](images/4-survey-created.png)
 
-Étape 6:
---------
-
-Selectionnez `ADD` ![Add](images/at_add.png)
-
-Étape 7:
---------
-
-Selectionnez `ENREGISTRER` ![Add](images/at_save.png)
-
-Étape 8:
---------
-
-De retour sur la page principale du modèle de travail, sélectionnez ENREGISTRER
-![Add](images/at_save.png) again.
 
 Lancer une tâche
 ================

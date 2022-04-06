@@ -18,6 +18,24 @@
         - name: Error with setup
           fail:
             msg: The provisioner has failed during initial check_setup, please scroll up to see exact error.  Open an issue on https://github.com/ansible/workshops/issues
+    - name: load automation hub into inventory
+      include_role:
+        name: ../roles/manage_ec2_instances
+        tasks_from: inventory/addhost_automation_hub.yml
+
+- name: configure private automation hub
+  hosts: 'automation_hub'
+  gather_facts: true
+  become: true
+  vars:
+    teardown: true
+    state: absent
+  tasks:
+    - include_role:
+        name: ../roles/private_automation_hub
+      when:
+        - automation_hub is defined
+        - automation_hub|bool
 
 - name: Destroy lab instances in AWS
   hosts: localhost
@@ -38,7 +56,6 @@
     - {include_role: {name: ../roles/code_server}, when: code_server}
     - {include_role: {name: ../roles/gitlab_server}, when: workshop_type == "windows"}
     - {include_role: {name: ../roles/workshop_attendance}, when: attendance}
-    - {include_role: {name: ../roles/private_automation_hub}, when: automation_hub}
 
     - name: Remove workshop local files
       file:

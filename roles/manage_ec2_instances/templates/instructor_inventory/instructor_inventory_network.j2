@@ -7,7 +7,7 @@ workshop_type={{ workshop_type }}
 admin_password={{ admin_password }}
 ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
 
-{% if automation_hub %}
+{% if automation_hub|bool %}
 [automation_hub]
 {%   for host in hostvars %}
 {%     if "automation-hub" in host %}

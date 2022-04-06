@@ -1,5 +1,0 @@
----
-- name: Try restarting ansible tower
-  service:
-    name: ansible-tower.service
-    state: restarted

@@ -4,25 +4,23 @@
 
 ## Índice
 
-- [Ejercicio 3: Ansible Facts](#ejercicio-3-ansible-facts)
-  - [Índice](#índice)
-  - [Objetivo](#objetivo)
-  - [Guía](#guía)
-    - [Paso 1 - Usando la documentación](#paso-1---usando-la-documentación)
-    - [Paso 2 - Creando el play](#paso-2---creando-el-play)
-    - [Paso 3 - Crear la tarea de facts](#paso-3---crear-la-tarea-de-facts)
-    - [Paso 4 - Ejecutando el playbook](#paso-4---ejecutando-el-playbook)
-    - [Paso 5 - Usando el módulo de debug](#paso-5---usando-el-módulo-de-debug)
-    - [Paso 6 - Usando la salida estándar stdout](#paso-6---usando-la-salida-estándar-stdout)
-  - [Consejos a recordar](#consejos-a-recordar)
-  - [Solución](#solución)
-  - [Completado](#completado)
+- [Objetivo](#objetivo)
+- [Guía](#guía)
+  - [Paso 1 - Usando la documentación](#paso-1---usando-la-documentación)
+  - [Paso 2 - Creando el play](#paso-2---creando-el-play)
+  - [Paso 3 - Crear la tarea de facts](#paso-3---crear-la-tarea-de-facts)
+  - [Paso 4 - Ejecutando el playbook](#paso-4---ejecutando-el-playbook)
+  - [Paso 5 - Usando el módulo de debug](#paso-5---usando-el-módulo-de-debug)
+  - [Paso 6 - Usando la salida estándar stdout](#paso-6---usando-la-salida-estándar-stdout)
+- [Consejos a recordar](#consejos-a-recordar)
+- [Solución](#solución)
+- [Completado](#completado)
 
 ## Objetivo
 
-Demostración del uso de los hechos de Ansible (en adelante, Ansible facts) en una infraestructura de red.
+Demostración del uso de los hechos de Ansible (en adelante, `Ansible facts`) en una infraestructura de red.
 
-Los hechos de Ansible (facts) son información derivada de la comunicación con elementos de red remotos. Los 'facts' son devueltos en forma de datos estructurados (JSON) lo que hace que sean fácilmente manipulables o modificables. Por ejemplo, un ingeniero de red podría crear un reporte de auditoría muy rápidamente usando los 'facts' de Ansible y creando una plantilla en un fichero markdown o HTML.
+Los hechos de Ansible (`facts`) son información derivada de la comunicación con elementos de red remotos. Los 'facts' son devueltos en forma de datos estructurados (JSON) lo que hace que sean fácilmente manipulables o modificables. Por ejemplo, un ingeniero de red podría crear un reporte de auditoría muy rápidamente usando los 'facts' de Ansible y creando una plantilla en un fichero markdown o HTML.
 
 Este ejercicio cubrirá:
 
@@ -50,13 +48,14 @@ En el pantallazo anterior se puede ver una línea por cada documentación de mó
 `:doc <plugin>`                 Review documentation for a module or plugin
  ```
 
-Lets example the `debug` module by typing `:doc debug`
+Veamos por ejemplo el módulo `debug` escribiendo `:doc debug` en la terminal:
 
 ```bash
 :doc debug
 ```
 
-pantallazo de `ansible-navigator :doc debug`:
+Este es un pantallazo de la salida del comando `ansible-navigator :doc debug`:
+
 ![ansible-navigator interactive mode doc](images/ansible-navigator-doc.png)
 
 La documentación para el módulo de `debug` se muestra en la sesión de terminal interactiva. Es una representación en YAML de la misma documentación que está disponible en [docs.ansible.com](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html). Los ejemplos pueden ser copiados y pegados directamente del módulo de documentación en un Playbook de Ansible.
@@ -86,9 +85,9 @@ Usaremos el módulo 'facts' en nuestro playbook.
 
 ### Paso 2 - Creando el play
 
-Los ficheros de Playbook de Ansible están en [**YAML** files](https://yaml.org/). YAML es un formato de codificación estructurado que, además, es extremadamente leíble por los humanos (al contrario que su subconjunto - el formato JSON)
+Los ficheros de Playbook de Ansible están en escritos en [**YAML**](https://yaml.org/). YAML es un formato de codificación estructurado que, además, es extremadamente leíble por los humanos (al contrario que su subconjunto - el formato JSON)
 
-Crea un nuevo fichero en Visual Studio Code:
+Crea un nuevo fichero en Visual Studio Code: 
 ![vscode new file](images/vscode_new_file.png)
 
 Para simplificar, llama al fichero de playbook: `facts.yml`:

@@ -3,7 +3,7 @@
 ansible_port={{ ssh_port }}
 {% endif %}
 
-{% if automation_hub %}
+{% if automation_hub|bool %}
 [automation_hub]
 {%   for host in hostvars %}
 {%     if "automation-hub" in host %}

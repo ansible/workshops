@@ -1,4 +1,4 @@
-Configuring Automation Controller
+Configuration de Automation Controller
 =========================
 
 **Lisez ceci dans d'autres langues**:
@@ -7,7 +7,7 @@ Configuring Automation Controller
 Automation Controller propose de nombreuses fonctionnalités tel que les organisations, les notifications, l'ordonnancement, etc. Cependant, aujourd'hui nous allons nous concentrer uniquement sur quelques-unes des fonctions clés qui sont nécessaires pour l'atelier.
 
 
-- Les indetifiants
+- Les indentifiants
 
 - Les projets
 
@@ -97,8 +97,8 @@ Un projet est une collection logique de playbook Ansible. Vous pouvez gérer les
 
 Dans cet environnement, les playbooks sont stockés dans un référentiel git disponible sur l'instance GitLab de l'atelier. Avant qu'un **Projet** puisse être créé dans Automation Controller, l'URL git du référentiel est nécessaire. Pour obtenir l'URL de votre projet, connectez-vous à l'instance GitLab, sélectionnez votre projet d'atelier et copiez l'URL `https` présentée après avoir cliqué sur le bouton *Cloner*.
 
-![Proj](images/1-gitlab-project.png)
-![Clone](images/1-gitlab-clone.png)
+![Proj](images/1-gitea-project.png)
+![Clone](images/1-gitea-clone.png)
 
 L'URL du dépôt git sera utilisé dans **Étape 3**
 

@@ -309,7 +309,7 @@ ansible                    : ok=3    changed=0    unreachable=0    failed=0    s
 ```
 
 `ansible-navigator run apache.yml` Playbook を 2
-回ずつ実行し、出力を比較します。出力「CHANGED」には `0` ではなく `1`
+回ずつ実行し、出力を比較します。出力「CHANGED」には `1` ではなく 0`
 が表示され、色が黄色から緑色に変更されます。これにより、Ansible Playbook
 の実行時に変更が生じると、その変更を簡単に配置できるようになります。
 

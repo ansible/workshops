@@ -121,8 +121,8 @@ Allons de l'avant et exécutons le module `setup` pour regarder la sortie. Rempl
 | Key       | Value   | Note                                                           |
 | --------- | ------- | -------------------------------------------------------------- |
 | Module    | `setup` |                                                                |
-| Arguments |         | Intentionally blank                                            |
-| Limit     |         | This should display the host you selected in the previous step |
+| Arguments |         | Intentionnellement vide                                            |
+| Limit     |         | Cela devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |
 
 Vous verrez alors des résultats comme celui-ci
 

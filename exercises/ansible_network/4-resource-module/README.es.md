@@ -80,7 +80,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 *  Crea un nuevo fichero en Visual Studio Code llamado `resource.yml`
 
-   ![new file](images/Step1_new_file.png)
+   ![new file](images/step1_new_file.png)
 
 * Copia el siguiente Playbook de Ansible en tu fichero `resource.yml`
 
@@ -112,7 +112,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 ### Paso 3 - Examinar Playbook de Ansible
 
-* First lets examine the first four lines:
+* Primero, vamos a examinar las primeras cuatro líneas:
 
   ```yaml
   ---
@@ -121,13 +121,12 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
     gather_facts: false
   ```
 
-  * The `---` designates this is a [YAML](https://en.wikipedia.org/wiki/YAML) file which is what we write playbooks in.
-  * `name` is the description of what this playbook does.
-  * `hosts: arista` will execute this playbook only on the Arista network devices.
-  * `gather_facts: false` this will disable fact gathering for this play, by default this is turned on.
+  * `---` designa que es un fichero [YAML](https://en.wikipedia.org/wiki/YAML), que es el lenguaje en el que se escriben los playbooks.
+  * `name` es el es el nombre descriptivo de lo que hace el playbook.
+  * `hosts: arista` ejecutará este playbook sólo en los dispositivos de red Arista.
+  * `gather_facts: false` deshabilitará la recolección de 'facts' en este play, por defecto está habilitado.
 
-
-* For the second part we have one task that uses the `arista.eos.vlans`
+* En la segunda parte, sólo tenemos una tarea que usa `arista.eos.vlans`
 
   ```yaml
     tasks:
@@ -146,8 +145,8 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
             vlan_id: 50
   ```
 
-  * `name:` - just like the play, each task has a description for that particular task
-  * `state: merged` - This is the default behavior of resource modules.  This will simply enforce that the supplied configuration exists on the network device.  There is actually seven parameters possible for resource modules:
+  * `name:` Al igual que en el playbook, es el nombre descriptivo que cada tarea tiene.
+  * `state: merged` Es el comportamiento por defecto de los módulos de recursos. Simplemente reforzará que exista la configuración propuesta en el dispositivo de red. Hay siete valores posibles para este parámetro del módulo de recursos:
     * merged
     * replaced
     * overridden
@@ -156,18 +155,18 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
     * gathered
     * parsed
 
-    Only two of these parameters will be covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.md).
-  * `config:` - this is the supplied VLAN configuration.  It is a list of dictionaries. The most important takeaway is that if the module was change from `arista.eos.vlans` to `junipernetworks.junos.vlans` it would work identically.  This allows network engineers to focus on the network (e.g. VLAN configuration) versus the vendor syntax and implementation.
+    Sólo dos de estos valores se cubrirán en este ejercicio, pero se pueden ver más en los [ejercicios complementarios](../supplemental/README.md).
+  * `config:` configuración VLAN propuesta. Es una lista de diccionarios. Lo más importante a recordar es que si el módulo ha cambiado de `arista.eos.vlans` a `junipernetworks.junos.vlans` funcionará de manera idéntica. Esto permitirá a los ingenieros de red enfocarse en la red en sí (ej. configuración VLAN) en vez de en la sintáxis del fabricante y su implementación.
 
 ### Paso 4 - Ejecutar el Playbook de Ansible
 
-* Execute the playbook using the `ansible-navigator run`.  Since there is just one task we can use the `--mode stdout`
+* Ejecuta el playbook usando el comando `ansible-navigator run`. Puesto que sólo contiene una tarea, podemos usar el parámetro `--mode stdout`.
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* La salida debe ser similar a:
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
@@ -183,7 +182,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   rtr4                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
 
-* Re-running the playbook will demonstrate the concept of [idempotency](https://en.wikipedia.org/wiki/Idempotence)
+* Vuelve a ejecutar el playbook para demostrar el concepto de [idempotencia](https://en.wikipedia.org/wiki/Idempotence)
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
@@ -199,13 +198,13 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   rtr4                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
-* As you can see in the output, everything will return `ok=1` indiciating that no changes were taken place.
+* Como se puede observar en la salida anterior, todo devolverá `ok=1` indicando que no se han llevado a cabo cambios.
 
 ### Paso 5 - Verificar la configuración VLAN
 
-* Login to an Arista switch and verify the current VLAN configuration.
+* Haz login en un switch Arista y verifica la configuración VLAN actual.
 
-* From the control node terminal, you can `ssh rtr2` and type `enable`
+* En la terminal del nodo de control, ejecuta `ssh rtr2` y posteriormente, teclea `enable`.
 
   ```bash
   $ ssh rtr2
@@ -213,7 +212,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   rtr2>enable
   ```
 
-* Use the command `show vlan` to examine the VLAN configuration:
+* Usa el comando `show vlan` para examinar la configuración VLAN:
 
   ```bash
   rtr2#show vlan
@@ -226,7 +225,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
   50    DMZ                              active  
   ```
 
-* Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
+* Usa el comando `show run | s vlan` para examinar la configuración en ejecución VLAN del dispositivo Arista:
 
   ```bash
   rtr2#sh run | s vlan
@@ -243,11 +242,11 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
      name DMZ
   ```
 
-As you can see, the resource module configured the Arista EOS network device with the supplied configuration.  There are now five total VLANs (including the default vLAN 1).
+Como puede observarse, el módulo de recursos está configurado en el dispositivo de red Arista EOS con la configuración propuesta. Ahora hay cinco VLANs en total (incluyendo la VLAN 1 por defecto).
 
 ### Paso 6 - Usando los parámetros obtenidos
 
-* Create a new playbook named `gathered.yml`
+* Creat un nuevo playbook llamdo `gathered.yml`
 
 <!-- {% raw %} -->
 
@@ -271,23 +270,23 @@ As you can see, the resource module configured the Arista EOS network device wit
   ```
   <!-- {% endraw %} -->
 
-* The first task is identical except the `state: merged` has been switched to `gathered`, the `config` is no longer needed since we are reading in the configuration (verus applying it to the network device), and we are using the `register` to save the output from the module into a variable named `vlan_config`
+* La primera tarea es idéntica, sólo que `state: merged` se ha cambiado por  `gathered`, la directiva `config` ya no es necesaria puesto que estamos leyendo la configuración (en vez de aplicandola a un dispositivo de red), y usamos `register` para guardar la salida del módulo en una variable llamada `vlan_config`.
 
-* The second task is copying the `vlan_config` variable to a flat-file.  The double currly brackets denotes that this is a variable.  
+* En la seguna tarea, se copia el contenido de la variable `vlan_config` a un fichero de texto plano. Las doble llaves denotan que se trata de una variable.  
 
-*  The `| to_nice_yaml` is a [filter](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), that will transform the JSON output (default) to YAML.
+* El `| to_nice_yaml` es un [filtro](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), que convertirá la salida JSON (por defecto) a YAML.
 
-* The `playbook_dir` and `inventory_hostname` are special varaible also referred to as [magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html).  The `playbook_dir` simply means the directory we executed the playbook from, and the `inventory_hostname` is the name of the device in our inventory.  This means the file will be saved as `~/network-workshop/rtr2_vlan.yml` and `~/network-workshop/rtr4_vlan.yml` for the two arista devices.
+* El `playbook_dir` y `inventory_hostname` son variables especiales, también llamadas [variables mágicas](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html). El `playbook_dir` simplemente signifca el directorio desde donde se ha ejecutado el playbook, y el `inventory_hostname` es el nombre del dispositivo en nuestro inventario. Esto significa que se guardará como `~/network-workshop/rtr2_vlan.yml` y `~/network-workshop/rtr4_vlan.yml` para los dos dispositivos arista.
 
 ### Paso 7 - Ejecutar el playbook obtenido
 
-* Execute the playbook using the `ansible-navigator run`.
+* Ejecuta el playbook usando el comando `ansible-navigator run`.
 
   ```bash
   $ ansible-navigator run gathered.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* La salida debe ser similar a ésta:
 
   ```bash
   $ ansible-navigator run gathered.yml --mode stdout
@@ -309,35 +308,36 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 ### Paso 8 - Examinar los ficheros
 
-* Open the newly created files that `gathered` the VLAN confgiuration from the Arista network devices.
+* Abre los nuevos ficheros que la directiva `gathered` ha generado de la configuración VLAN de los dispositivos de red Arista.
 
-* The two files were saved to `~/network-workshop/rtr2_vlan.yml` and `~/network-workshop/rtr4_vlan.yml` for the two arista devices.
+* Los dos ficheros se han guardado como `~/network-workshop/rtr2_vlan.yml` y `~/network-workshop/rtr4_vlan.yml` para los dos dispositivos arista.
 
-* Here is a pantallazo:
+* Aquí se puede ver un pantallazo:
 
-  ![examine vlan yml](images/Paso8_examine.png)
+  ![examine vlan yml](images/step8_examine.png)
 
-## Takeaways
+## Consejos a recordar
 
-* Resource modules have a simple data structure that can be transformed to the network device syntax.  In this case the VLAN dictionary is transformed into the Arista EOS network device syntax.
-* Resource modules are Idempotent, and can be configured to check device state.
-* Resource Modules are bi-directional, meaning that they can gather facts for that specific resource, as well as apply configuration.  Even if you are not using resource modules to configure network devices, there is a lot of value for checking resource states.  
-* The bi-directional behavior also allows brown-field networks (existing networks) to quickly turn their running-configuration into structured data.  This allows network engineers to get automation up running more quickly and get quick automation victories.
+* Los módulos de recursos tienen una estructura de datos simple que puede transformarse a la sintáxis de los dispositivos de red. En este caso, el diccionario VLAN se transforma en sintáxis de dispositivo de red Arista EOS.
+* Los módulos de recursos son idempotentes, y se pueden configuar para comprobar el estado de un dispositivo de red.
+* Los módulos de recursos son bi-direccionales, es decir, que pueden obtener 'facts' para un recurso específico al igual que aplicar configuración. Incluso si no se usan módulos de recursos para configurar dispositivos de red, proveen de enorme valor a la hora de comprobar estados de los recursos.
+* El comportamiento bi-direccional también nos permite que redes ya existentes puedan cambiar rápidamente su configuración en ejecución a datos estructurados. Esto permite a los ingenieros de red que la automatización esté funcionando mucho más rápido.
 
-## Solution
+## Solución
 
-The finished Playbook de Ansible is provided here for an answer key:
+El playbook de Ansible completo se puede obtener aquí:
 
 -  [resource.yml](resource.yml)
 -  [gathered.yml](gathered.yml)
 
-## Complete
+## Completado
 
-You have completed lab exercise 4
+¡Felicidades, has completado el ejercicio de laboratorio 4!
 
-As stated previously only two of the resource modules parameters were covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.md).
+Tal y como se explicó anteriormente, sólo dos de los parámetros de los módulos de recursos han sido cubiertos en este ejercicio, pero hay ejercicios adicionales en [ejercicios adicionales](../supplemental/README.md).
 
-In the next exercise we will start using Automation controller.
+En el siguiente ejercicio empezaremos a utilizar el controlador de automatización (Automation controller).
+
 ---
 [Ejercicio Anterior](../3-facts/README.es.md) | [Próximo ejercicio](../5-explore-controller/README.es.md)
 

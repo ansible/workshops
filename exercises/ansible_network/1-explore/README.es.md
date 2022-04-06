@@ -211,7 +211,7 @@ Los grupos también pueden ser _anidados_. El grupo `[routers]` es el padre del 
 
 Los grupos padres se declaran usando la directiva `children`.  Tener grupos anidados provee la flexibilidad de asignar valores más específicos a las variables.
 
-Podemos asociar variablea tanto a grupos como a máquinas.
+Podemos asociar variables tanto a grupos como a máquinas.
 
 > Nota:
 >
@@ -223,7 +223,7 @@ Las variables de máquinas también pueden definirse en la misma línea que defi
 rtr1 ansible_host=18.222.121.247 private_ip=172.16.129.86
 ```
 
-* `rtr1` - El nombre que Ansible usará. Puede pero no tiene por qué depender el nombre DNS.
+* `rtr1` - El nombre que Ansible usará. Puede pero no tiene por qué depender del nombre DNS.
 * `ansible_host` - La dirección IP que Ansible usará, si no se configura, buscará en el DNS por defecto.
 * `private_ip` - Este valor no está reservado por Ansible, así que por defecto, tomará el valor de la [variable host](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables). Esta variable puede usarse en playbooks o ignorarse por completo.
 
@@ -237,9 +237,9 @@ ansible_network_os=ios
 ansible_connection=network_cli
 ```
 
-* `ansible_user` - El usuario de Ansible que se usará para haver login en esta máquina. Si no está configurado tomará el valor por defecto del usuario en el playbook desde el que se está ejecutando.
+* `ansible_user` - El usuario de Ansible que se usará para hacer login en esta máquina. Si no está configurado tomará el valor por defecto del usuario en el playbook desde el que se está ejecutando.
 * `ansible_network_os` - Esta variable es necesaria mientras se usa el tipo de conexión `network_cli` dentro de una definición de `play`, como veremos en breve.
-* `ansible_connection` - Esta variable configura el [plugin de conexión](https://docs.ansible.com/ansible/latest/plugins/connection.html) para el grupo. Puede configurarse a los valores como `netconf`, `httpapi` y `network_cli` dependiendo de lo que soporte este tipo de plataforma de red en particular.
+* `ansible_connection` - Esta variable configura el [plugin de conexión](https://docs.ansible.com/ansible/latest/plugins/connection.html) para el grupo. Puede configurarse a los valores `netconf`, `httpapi` y `network_cli` dependiendo de lo que soporte este tipo de plataforma de red en particular.
 
 ### Paso 7 - Usando ansible-navigator para explorar el inventario
 
@@ -259,7 +259,7 @@ Pulsa la tecla **Esc** para subir un nivel o para hacer zoom en una máquina en 
 
 ### Paso 8 - Connectándose a dispositivos de red
 
-Hay 4 enrutadors llamados rtr1, rtr2, rtr3 y rtr4. El diagrama de red está siempre disponible en [network automation workshop table of contents](../README.md). El fichero de configuración de SSH (`~/.ssh/config`) está ya configurado en el nodo de control is already setup on the control node. Es decir, puedes hacer SSH a cualquier enrutador desde el nodo de control sin necesidad de login:
+Hay 4 enrutadores llamados rtr1, rtr2, rtr3 y rtr4. El diagrama de red está siempre disponible en [network automation workshop table of contents](../README.md). El fichero de configuración de SSH (`~/.ssh/config`) está ya configurado en el nodo de control. Es decir, puedes hacer SSH a cualquier enrutador desde el nodo de control sin necesidad de login:
 
 Por ejemplo, conectate a rtr1 desde el nodo de control de Ansible haciendo:
 

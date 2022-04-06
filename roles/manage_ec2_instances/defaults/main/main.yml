@@ -256,3 +256,6 @@ ec2_info:
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
 debug_teardown: false
+
+# Issue #1594
+ansible_async_dir: "/tmp/.ansible_async"

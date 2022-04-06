@@ -25,26 +25,36 @@ Commençons par quelque chose de vraiment basique - pinger un hôte. Le module `
 
 Remplissez le formulaire comme suit:
 
-| Clé                | Valeur          | Note                                                            |
-|--------------------|-----------------|-----------------------------------------------------------------|
-| Module             | `win_ping`      |                                                                 |
-| Arguments          |                 | Intentionally blank                                             |
-| Limit              |                 | This will be pre-filled out for you with the hosts you selected |
-| MACHINE CREDENTIAL | Student Account |                                                                 |
+| Key                   | Value                                  | Note                                                           |
+| --------------------- | -------------------------------------- | -------------------------------------------------------------- |
+| Module                | `win_ping`                             |                                                                |
+| Arguments             |                                        | Intentionally blank                                            |
+| Limit                 |                                        | This should display the host you selected in the previous step |                       
 
-![Run Win\_Ping](images/2-adhoc-run-win_ping.png)
+Cliquez sur le bouton **Next** 
+
+| Key                   | Value                                  | Note |
+| --------------------- | -------------------------------------- | ---- |
+| Execution environment | windows workshop execution environment |      |
+
+Cliquez sur le bout **Next** 
+
+| Key                | Value               | Note |
+| ------------------ | ------------------- | ---- |
+| Machine credential | Workshop Credential |      |
+|                    |                     |      |
+|
 
 
-Une fois que vous avez cliqué sur **LANCEMENT**, vous serez redirigé vers le page dexécution de la tache. Chaque tâche et action dans Ansible Tower est enregistrée et stockée. Ces journaux peuvent être être exportés automatiquement vers un autre système de journalisation tel que Splunk ou ELK.
+Une fois que vous avez cliqué sur **LANCEMENT**, vous serez redirigé vers le page dexécution de la tache. Chaque tâche et action dans Ansible Controller est enregistrée et stockée. Ces journaux peuvent être être exportés automatiquement vers un autre système de journalisation tel que Splunk ou ELK.
 
-La partie de gauche de la page vous montre les détails de la tache. Cela inclut des informations telles que *qui* a lancé le travail, *sur quels hôtes* et *quand*.
+L'onglet de sortie est affiché par défaut. Toute sortie générée par la tâche est affichée ici.
 
+![Win\_Ping output](images/2-adhoc-run-win_ping-output.png)
 
-![Win\_Ping Log Details](images/2-adhoc-run-win_ping-success.png)
+L'onglet détails vous montre les détails de la tache. Cela inclut des informations telles que *qui* a lancé le travail, *sur quels hôtes* et *quand*.
 
-La partie de droite vous montre la sortie réelle de la commande. Si votre connexion a réussi, vous devriez voir un résultat comme celui-ci.
-
-![Win\_Ping Log Details](images/2-adhoc-run-win_ping-output.png)
+![Win\_Ping details](images/2-adhoc-run-win_ping-details.png)
 
 Les résultats renvoyés seront différents selon le module utilisé, car ils gèrent et traitent différents ensembles de données en fonction de la tâche. Quel que soit le module utilisé, vous verrez toujours un STATUS tel que SUCCÈS, ÉCHEC, CHANGÉ ou SAUT.
 

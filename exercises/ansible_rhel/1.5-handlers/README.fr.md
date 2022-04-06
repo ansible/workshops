@@ -44,11 +44,6 @@ Pour plus d'informations à ce sujet, veuillez vous référer à la documentatio
 Pour ce faire, modifiez d'abord l'inventaire pour ajouter un autre groupe et placez `node2` dedans. Assurez-vous que l'adresse IP de `node2` est toujours la même lorsque `node2` est répertorié. Modifiez l'inventaire `~/lab_inventory/hosts` pour qu'il ressemble à la liste suivante:
 
 ```ini
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=ansible
-ansible_port=22
-
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55

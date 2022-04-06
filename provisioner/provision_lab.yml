@@ -108,7 +108,7 @@
         name: ../roles/private_automation_hub
       when:
         - automation_hub is defined
-        - automation_hub
+        - automation_hub|bool
 
 - name: add dns entires for all student control nodes
   hosts: '*ansible-1'
@@ -184,17 +184,17 @@
         summary_information: |
           PROVISIONER SUMMARY
           *******************
-          - Workshop name is {{ec2_name_prefix}}
-          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
-          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
+          - Workshop name is {{ ec2_name_prefix }}
+          - Instructor inventory is located at  {{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt
+          - Private key is located at {{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem
           {% if attendance %}
-          - {{hostvars['attendance-host'].login_website_information | default("attendance feature is not functioning") }}
+          - {{ hostvars['attendance-host'].login_website_information | default("attendance feature is not functioning") }}
           {% endif %}
 
           FAILURES
           *******************
-          {{dns_information}}
-          {{callback_information}}
+          {{ dns_information }}
+          {{ callback_information }}
           {{ demo_information }}
 
     - name: Print Summary Information

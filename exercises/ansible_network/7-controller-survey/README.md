@@ -1,6 +1,6 @@
 # Exercise 7: Creating a Survey
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
 ## Table of Contents
 
@@ -130,11 +130,13 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    ![workshop survey](images/controller_survey_q_one.png)
 
-4. Click the green `Add` button to create another question
+4. Click `Save`
+
+5. Click the blue `Add` button back in the **Survey** tab to create another question
 
    ![add survey button](images/controller_add_survey.png)
 
-5. Next we will create a survey prompt to gather the `banner_type`. This will either be "motd" or "login" and will default to "login" per the playbook above.
+6. Next we will create a survey prompt to gather the `banner_type`. This will either be "motd" or "login" and will default to "login" per the playbook above.
 
    | Parameter               | Value                          |
    |-------------------------|--------------------------------|
@@ -150,13 +152,13 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    ![workshop survey](images/controller_survey_q_two.png)
 
-5. Click Save
+7. Click `Save`
 
-6. Click the toggle switch to activate the survey and turn it On
+8. Ensure the toggle switch is set to `Survey Enabled`
 
    ![workshop survey toggle](images/controller_survey_toggle.png)
 
-7. Click **Back to Templates**
+9. Click **Back to Templates**
 
 ### Step 4: Launch the Job Template
 

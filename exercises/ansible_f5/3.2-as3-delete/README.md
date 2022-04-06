@@ -71,7 +71,7 @@ There is only three parameters that have changed from the previous exercise.
 Run the playbook - exit back into the command line of the control host and execute the following:
 
 ```
-[student1@ansible ~]$ ansible-playbook delete.yml
+[student1@ansible ~]$ ansible-navigator run delete.yml --mode stdout
 ```
 
 # Playbook Output
@@ -80,7 +80,7 @@ The output will look as follows.
 
 {% raw %}
 ```yaml
-[student1@ansible ~]$ ansible-playbook delete.yml
+[student1@ansible ~]$ ansible-navigator run delete.yml --mode stdout
 
 PLAY [LINKLIGHT AS3] **********************************************************
 

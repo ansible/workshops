@@ -1,2 +1,5 @@
 ---
 output_dir: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
+
+# Issue #1594
+ansible_async_dir: "/tmp/.ansible_async"

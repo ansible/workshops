@@ -72,7 +72,7 @@ Maintenant, nous que nous avons le fichier `install_iis.yml`, commençons par é
 
 - `---` Définit le début du fichier YAML
 
-- `name: install the iis web service` Cela décrit notre jeu
+- `name: install the iis web service` Cela décrit notre play
 
 - `hosts: windows` Définit le groupe d'hôtes de votre inventaire sur lequel ce play se déroulera
 

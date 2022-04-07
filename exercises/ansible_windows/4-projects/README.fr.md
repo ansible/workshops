@@ -29,17 +29,18 @@ Cliquez sur l'icone ![plus](images/add.png), et selectionnez `Modèle de tache`
 
 Remplissez le formulaire en utilisant les valeurs suivantes
 
-| Clé         | Valeur                                       | Note |
+| Key         | Value                                        | Note |
 |-------------|----------------------------------------------|------|
 | Name        | IIS Basic Job Template                       |      |
 | Description | Template for the iis-basic playbook          |      |
 | JOB TYPE    | Run                                          |      |
-| INVENTORY   | Workshop Inventory                           |      |
+| INVENTORY   | Workshop Inventory                   |      |
 | PROJECT     | Ansible Workshop Project                     |      |
+| Execution Environment | windows workshop execution environment             |      |
 | PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Student Account** |      |
+| CREDENTIAL  | Name: **Windows Credential** |      |
 | LIMIT       | windows                                      |      |
-| OPTIONS     | [*] ENABLE FACT STORAGE                      |      |
+| OPTIONS     | [*] ENABLE FACT STORAGE                        |      |
 
 ![Create Job Template](images/4-create-job-template.png)
 

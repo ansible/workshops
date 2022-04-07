@@ -99,8 +99,6 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 ```
 <!-- {% endraw %} -->
 
-![site.yml part 1](images/5-vscode-iis-yaml.png)
-
 > **Remarque**
 >
 > **Que se passe-t-il ici!?**

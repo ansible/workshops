@@ -52,7 +52,7 @@ Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajoute
 Étape 5:
 --------
 
-Remplissez le formulaire avec les valeurs suivantes
+Remplissez le formulaire avec les valeurs suivantes et activez le questionnaire. 
 
 | Clé                    | Valeur                                                     | Note             |
 |------------------------|------------------------------------------------------------|------------------|

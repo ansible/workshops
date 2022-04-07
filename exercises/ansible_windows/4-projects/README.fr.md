@@ -105,10 +105,9 @@ Sélectionnez LANCER ![SurveyL](images/4-survey-launch.png)
 Étape 6:
 --------
 
-Asseyez-vous, regardez la magie se produire
+Regardez la magie se produire :) 
 
-L'une des premières choses que vous remarquerez est la section récapitulative. Cela vous donne des détails sur votre travail, tels que qui l'a lancé, quel playbook est exécuté, et quel est son statut (soit en attente, en cours d'exécution ou terminé).
-
+Une fois de plus, une page de journal des travaux devrait s'afficher. La sélection de l'onglet Détails devrait vous montrer la variable que vous avez transmise au playbook, ainsi que d'autres détails.
 
 ![Job Summary](images/4-job-summary-details.png)
 

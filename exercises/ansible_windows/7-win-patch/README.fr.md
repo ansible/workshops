@@ -28,7 +28,7 @@ Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui peut ê
 Section 2: Ecrire votre Playbook
 ================================
 
-Modifiez votre site.yml et ajoutez une définition et quelques tâches à votre playbook. Cela couvrira un playbook très basique pour l'installation des mises à jour Windows. En règle générale, vous auriez encore plus de tâches pour accomplir l'ensemble du processus de mise à jour. Cela peut impliquer la création de tickets de service, la création d'instantanés ou la désactivation de la surveillance.
+Modifiez le fichier site.yml et ajoutez une définition et quelques tâches à votre playbook. Cela couvrira un playbook très basique pour l'installation des mises à jour Windows. En règle générale, vous auriez encore plus de tâches pour accomplir l'ensemble du processus de mise à jour. Cela peut impliquer la création de tickets de service, la création d'instantanés (snapshot) ou la désactivation de la surveillance. 
 
 <!-- {% raw %} -->
 ```yaml
@@ -45,9 +45,9 @@ Modifiez votre site.yml et ajoutez une définition et quelques tâches à votre 
 
 > **Note**
 >
-> **What are we doing?**
+> **Que faisons-nous ici ?**
 >
-> -   `win_updates:` Ce module est utilisé pour vérifier ou installer des mises à jour. Nous lui demandons d'installer uniquement les mises à jour de catégories spécifiques à l'aide d'une variable. L'attribut `reboot` redémarrera automatiquement l'hôte distant s'il est requis et continuera à installer les mises à jour après le redémarrage. Nous utiliserons également une variable d'enquête pour nous empêcher de redémarrer quand c'est nécessaire. Si la valeur reboot_server n'est pas spécifiée, nous définirons l'attribut par defaut pour reboot sur true.
+> -   `win_updates:` Ce module est utilisé pour vérifier ou installer des mises à jour. Nous lui demandons d'installer uniquement les mises à jour de catégories spécifiques à l'aide d'une variable. L'attribut `reboot` redémarrera automatiquement l'hôte distant s'il est requis et continuera à installer les mises à jour après le redémarrage. Nous utiliserons également une variable modifiable via un formulaire pour nous permettre d'empécher le rédemarrage quand c'est nécessaire. Si la valeur reboot_server n'est pas spécifiée, nous définirons l'attribut par defaut à true.
 
 
 Section 3: Enregistrer et valider

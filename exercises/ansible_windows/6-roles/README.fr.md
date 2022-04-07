@@ -272,9 +272,9 @@ Une fois le travail terminé, vous devriez voir deux URL de vos sites Web affich
 Section 5: Review
 =================
 
-Vous devriez maintenant avoir un playbook complet, `site.yml` avec un seul rôle appelé `iis_simple`. L'avantage de structurer votre playbook en rôles est que vous pouvez désormais le réutiliser facilement dans vos playbooks afin que simplifier les modifications apportées aux variables, tâches, modèles, etc.
+Vous devriez maintenant avoir un playbook complet, `site.yml` avec un seul rôle appelé `iis_simple`. L'avantage de structurer votre playbook en rôles est que vous pouvez désormais le réutiliser facilement dans vos playbooks asin que simplifier les modifications des variables, tâches, templates, etc.
 
 
-[Ansible Galaxy](https://galaxy.ansible.com) un bon référentiel de rôles à utiliser ou à référencer.
+[Ansible Galaxy](https://galaxy.ansible.com) un bon référentiel de rôles à utiliser.
 <br><br>
 [Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

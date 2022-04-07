@@ -120,7 +120,7 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 Section 2: Ouverture du pare-feu et déploiement de fichiers
 ===========================================================
 
-Après cela, vous allez définire une tâche pour démarrer le service IIS.
+Vous allez maintenant définir une tâche pour démarrer le service IIS.
 
 Étape 1:
 -------

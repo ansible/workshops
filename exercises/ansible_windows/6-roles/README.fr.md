@@ -8,9 +8,6 @@ déconstruisez votre playbook en plusieurs parties pour les mettres dans des ré
 
 Pour cet exercice, vous allez prendre le playbook que vous venez d'écrire et le refactoriser en un rôle.
 
-Commençons tout de suite avec le playook `iis-basic`.
-
-
 
 Section 1: Créez une structure de répertoires pour votre nouveau rôle
 =====================================================================

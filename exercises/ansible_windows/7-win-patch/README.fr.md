@@ -18,7 +18,7 @@ Dans l'Explorer, vous devriez avoir le repertoire où vous avez précédemment c
 
 ![Student Playbooks](images/7-vscode-existing-folders.png)
 
-Passez la souris sur la section *WORKSHOP_PROJECT* et cliquez sur le bouton *Nouveau dossier*. Tapez `win_updates` et appuyez sur Entrée.
+Allez sur la section *WORKSHOP_PROJECT* et cliquez sur le bouton *Nouveau dossier*. Tapez `win_updates` et appuyez sur Entrée.
 
 Maintenant, cliquez sur le dossier `win_updates` et cliquez sur le bouton *Nouveau fichier*. Tapez `site.yml` et appuyez sur Entrée.
 

@@ -29,10 +29,6 @@
         force_basic_auth: true
       register: check_controller
 
-    - name: determine if controller or tower
-      set_fact:
-        controller_or_tower: "{{ 'controller' if 'Platform' in check_controller.x_api_product_name else 'tower' }}"
-
 - name: setup vscode for web browser access
   include_tasks: "codeserver.yml"
   when:

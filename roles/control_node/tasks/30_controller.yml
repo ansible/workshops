@@ -11,7 +11,6 @@
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is defined and create_cluster|bool
 
-# sean note to self... should I remove the gpgcheck=0?
 - name: run the Automation Controller installer
   shell: "{{ controller_install_command }}"
   args:

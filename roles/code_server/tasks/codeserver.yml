@@ -114,11 +114,16 @@
   ignore_errors: true
   when: workshop_type is defined
 
+# - name: update nginx configuration to support code server
+#   blockinfile:
+#     block: "{{ lookup('template', 'nginx.conf') }}"
+#     dest: /etc/nginx/nginx.conf
+#     insertafter: "http {"
+#
 - name: update nginx configuration to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx.conf') }}"
+  ansible.builtin.template:
+    src: full_nginx.conf
     dest: /etc/nginx/nginx.conf
-    insertafter: "http {"
   when: workshop_type is defined
 
 - name: instruqt - update nginx configuration to support code server

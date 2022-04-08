@@ -25,9 +25,7 @@ Pour commencer, nous allons créer un playbook, il devrait sembler très familie
 
 Étape 1:
 --------
-Dans Visual Studio Code, créez un nouveau répertoire dans votre dépôt git et créez un fichier site.yml.
-
-Dans l'accordéon Explorer, vous devriez avoir une section *WORKSHOP_PROJECT* où vous avez précédemment créé `iis_basic`.
+Dans Visual Studio Code, dans l'accordéon Explorer, vous devriez avoir une section *WORKSHOP_PROJECT* où vous avez précédemment créé `iis_basic`.
 
 ![Student Playbooks](images/5-vscode-existing-folders.png)
 

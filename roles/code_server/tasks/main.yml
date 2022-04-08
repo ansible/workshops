@@ -19,7 +19,7 @@
       failed_when: false
       when: workshop_type is defined
 
-    - name: ensure tower/controller is online and working
+    - name: ensure Automation controller is online and working
       uri:
         url: https://localhost/api/v2/ping/
         method: GET

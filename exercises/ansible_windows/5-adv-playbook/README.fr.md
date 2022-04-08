@@ -125,15 +125,15 @@ Après cela, vous allez définire une tâche pour démarrer le service IIS.
 Étape 1:
 -------
 
-Créez un répertoire `templates` dans votre répertoire de projet et créez un modèle comme suit:
+Créez un répertoire `templates` dans votre répertoire de projet et créez une template jinja2 comme suit:
 
 Assurez-vous que votre `dossier iis_advanced` est mis en surbrillance, puis survolez la section *WORKSHOP_PROJECT* et cliquez sur le bouton *Nouveau dossier*
 
-Tapez `modèles` et appuyez sur Entrée. Cliquez avec le bouton droit sur le dossier *modèles* et cliquez sur le bouton *Nouveau fichier*.
+Tapez `templates` et appuyez sur Entrée. Cliquez avec le bouton droit sur le dossier *templates* et cliquez sur le bouton *Nouveau fichier*.
 
 Tapez `index.html.j2` et appuyez sur Entrée.
 
-Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui pourra être utilisé pour créer votre modèle. Saisissez les informations suivantes:
+Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui pourra être utilisé pour créer votre template. Saisissez les informations suivantes:
 
 <!-- {% raw %} -->
 ```html

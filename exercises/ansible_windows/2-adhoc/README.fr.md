@@ -84,7 +84,7 @@ Cliquez sur le button **Next**
 |                    |                     |      |
 
 
-Lancez la tache et affichez les résultats. Vous verrez qu'il renvoie le résultat de la commande Powershell envoyé. Ces données peuvent être stockées dans une variable et analysées directement dans votre playbook Ansible ultérieurement.
+Lancez la tache et affichez les résultats. Vous verrez qu'il renvoie le résultat de la commande Powershell. Ces données peuvent être stockées dans une variable et analysées directement dans votre playbook Ansible ultérieurement.
 
 Exécutez une nouvelle commande Ad-hoc avec la commande Powershell `Get-Process`.
 
@@ -92,7 +92,7 @@ Exécutez une nouvelle commande Ad-hoc avec la commande Powershell `Get-Process`
 | --------- | ------------- | -------------------------------------------------------------- |
 | Module    | `win_shell`   |                                                                |
 | Arguments | `Get-Process` |                                                                |
-| Limit     |               | This should display the host you selected in the previous step |
+| Limit     |               | Cela devrait afficher l'hôte que vous avez sélectionné à l'étape précédente |
 
 
 Cliquez sur le bouton **Next** 

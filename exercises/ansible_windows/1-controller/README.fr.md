@@ -95,7 +95,7 @@ Un projet est une collection logique de playbook Ansible. Vous pouvez gérer les
 Étape 1:
 --------
 
-Dans cet environnement, les playbooks sont stockés dans un référentiel git disponible sur l'instance GitLab de l'atelier. Avant qu'un **Projet** puisse être créé dans Automation Controller, l'URL git du référentiel est nécessaire. Pour obtenir l'URL de votre projet, connectez-vous à l'instance GitLab, sélectionnez votre projet d'atelier et copiez l'URL `https` présentée après avoir cliqué sur le bouton *Cloner*.
+Dans cet environnement, les playbooks sont stockés dans un référentiel git disponible sur l'instance GitLab de l'atelier. Avant qu'un **Projet** puisse être créé dans Automation Controller, l'URL git du référentiel est nécessaire. Pour obtenir l'URL de votre projet, connectez-vous à l'instance GitLab, sélectionnez votre projet d'atelier et copiez l'URL `https` présentée après avoir cliqué sur le bouton *Copy*.
 
 ![Proj](images/1-gitea-project.png)
 ![Clone](images/1-gitea-clone.png)

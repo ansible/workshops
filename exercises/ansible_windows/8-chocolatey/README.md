@@ -180,14 +180,14 @@ Once this is complete, we will create a new job template. Select **Templates** a
 |-------------|--------------------------------------------------|------|
 | Name        | Chocolatey - Install Packages                    |      |
 | Description | Template for the install_packages playbook       |      |
-| JOB TYPE    | Run                                              |      |
-| INVENTORY   | Workshop Inventory                               |      |
-| PROJECT     | Ansible Workshop Project                         |      |
+| Job Type    | Run                                              |      |
+| Inventory   | Workshop Inventory                               |      |
+| Project     | Ansible Workshop Project                         |      |
 | Execution Environment | windows workshop execution environment             |      |
-| PLAYBOOK    | `chocolatey/install_packages.yml`                |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Workshop Credential**     |      |
-| LIMIT       | windows                                          |      |
-| OPTIONS     |                                                  |      |
+| Playbook    | `chocolatey/install_packages.yml`                |      |
+| Credential  | Type: **Machine**. Name: **Workshop Credential**     |      |
+| Limit       | windows                                          |      |
+| Options     |                                                  |      |
 
 <br>
 
@@ -255,14 +255,14 @@ Now go ahead and make sure your new playbook is in Git, and that Automation Cont
 |-------------|--------------------------------------------------|------|
 | Name        | Chocolatey - Update Packages                     |      |
 | Description | Template for the update_packages playbook        |      |
-| JOB TYPE    | Run                                              |      |
-| INVENTORY   | Workshop Inventory                               |      |
-| PROJECT     | Ansible Workshop Project                         |      |
+| Job Type    | Run                                              |      |
+| Inventory   | Workshop Inventory                               |      |
+| Project     | Ansible Workshop Project                         |      |
 | Execution Environment | windows workshop execution environment             |      |
-| PLAYBOOK    | `chocolatey/update_packages.yml`                 |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Workshop Credential**     |      |
-| LIMIT       | windows                                          |      |
-| OPTIONS     |                                                  |      |
+| Playbook    | `chocolatey/update_packages.yml`                 |      |
+| Credential  | Type: **Machine**. Name: **Workshop Credential**     |      |
+| Limit       | windows                                          |      |
+| Options     |                                                  |      |
 
 After running the new Template, examine the `debug` task message, and compare the versions to the ones from the `install_packages` job output. The versions should be higher as those packages were updates (the `git` package that we installed using an adhoc command will also be checked for an update - unlikely that there will be one after minutes of installation).
 
@@ -274,7 +274,7 @@ Even though the `win_chocolatey` module is what actually is used to manage packa
 
 ## Step 1 - Gathering Chocolatey facts
 
-The first module we will use is the `win_chocolatey_facts` module. This module is used to gather information from Chocolatey, such as installed packages, configuration, features and sources, which is useful for tasks suck as report generation, or conditionals defined on other tasks.
+The first module we will use is the `win_chocolatey_facts` module from the `chocolatey.chocolatey` collection. This module is used to gather information from Chocolatey, such as installed packages, configuration, features and sources, which is useful for tasks suck as report generation, or conditionals defined on other tasks.
 
 > **Tip**
 >
@@ -307,14 +307,14 @@ Add your new playbook to your source control repo, and sync your project in Auto
 |-------------|--------------------------------------------------|------|
 | Name        | Chocolatey - Facts and configuration             |      |
 | Description | Template for the chocolatey_configuration playbook |      |
-| JOB TYPE    | Run                                              |      |
-| INVENTORY   | Workshop Inventory                               |      |
-| PROJECT     | Ansible Workshop Project                         |      |
+| Job Type    | Run                                              |      |
+| Inventory   | Workshop Inventory                               |      |
+| Project     | Ansible Workshop Project                         |      |
 | Execution Environment | windows workshop execution environment             |      |
-| PLAYBOOK    | `chocolatey/chocolatey_conguration.yml`          |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Workshop Credential**     |      |
-| LIMIT       | windows                                          |      |
-| OPTIONS     |                                                  |      |
+| Playbook    | `chocolatey/chocolatey_conguration.yml`          |      |
+| Credential  | Type: **Machine**. Name: **Workshop Credential**     |      |
+| Limit       | windows                                          |      |
+| Options     |                                                  |      |
 
 <br>
 

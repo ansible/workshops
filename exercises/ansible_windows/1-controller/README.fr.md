@@ -116,17 +116,16 @@ Cliquez sur l'icone ![Plus](images/add.png) pour ajouter un nouveau projet.
 
 Remplissez le formulaire en utilisant les entrées suivantes ( **en utilisant votre numéro d'étudiant dans l'URL SCM** )
 
-
-| Clé            | Valeur                                                                  |                                                   |
+| Key            | Value                                                                   |                                                   |
 |----------------|-------------------------------------------------------------------------|---------------------------------------------------|
-| Nom            | Ansible Workshop Project                                                |                                                   |
-| Description    | Workshop playbooks                                                      |                                                   |
-| Organisation   | Default                                                                 |                                                   |
+| Name           | Ansible Workshop Project                                                |                                                   |
+| Description    | Windows Workshop Project                                                      |                                                   |
+| Organization   | Default                                                                 |                                                   |
+| Default Execution Environment    | windows workshop execution environment                                                      |                                                   |
 | SCM Type       | Git                                                                     |                                                   |
-| SCM URL        | https://gitlab.**WORKSHOP**.rhdemo.io/**student#**/workshop_project.git | URL obtained from Step 1                          |
-| SCM BRANCH     |                                                                         | Intentionally blank                               |
+| SCM URL        | https://git.**WORKSHOP**.demoredhat.com/**student#**/workshop_project.git | URL obtenu de l'étape 1                          |
+| SCM BRANCH     |                                                                         | laissez vide                               |
 | SCM CREDENTIAL | Git Credential                                                          |                                                   |
-
 
 Options de mise à jour SCM
 

@@ -57,7 +57,7 @@ Click the **Next** button
 | Machine credential | Workshop Credential |      |
 |                    |                     |      |
 
-Click the **Next** button, and once you click **LAUNCH** you will be redirected to the Job log. 
+Click the **Next** button, and once you click **LAUNCH** you will be redirected to the Job log.
 
 ![Win\_Chocolatey Job Output](images/8-chocolatey-run-win_chocolatey-result.png)
 

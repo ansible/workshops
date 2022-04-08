@@ -1,4 +1,5 @@
 ---
+username: 'ec2-user'
 common_node_config_options:
   - dest: /etc/ssh/sshd_config
     regexp: '^#?Port'
@@ -16,8 +17,8 @@ common_node_config_options:
     validate: sshd -t -f %s
 
   - dest: /etc/sudoers
-    regexp: '^{{ username }}'
-    line: '{{ username }} ALL=(ALL) NOPASSWD: ALL'
+    regexp: "^{{ username }}"
+    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
     validate: visudo -cf %s
 
   - dest: /etc/sudoers

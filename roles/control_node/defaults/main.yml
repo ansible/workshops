@@ -1,4 +1,5 @@
 ---
+username: "ec2-user"
 aap_dir: "/home/{{ username }}/aap_install"
 output_dir: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
 # workshop execution environments

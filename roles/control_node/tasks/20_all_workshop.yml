@@ -1,10 +1,11 @@
 ---
 - name: make sure .ssh is created
   file:
-    path: "/home/{{username}}/.ssh/"
+    path: "/home/{{ username }}/.ssh/"
     owner: "{{ username }}"
     group: "{{ username }}"
     state: directory
+  when: workshop_type is defined
 
 - name: Install ansible-navigator.yml in home directory
   template:
@@ -12,6 +13,7 @@
     dest: "/home/{{ username }}/.ansible-navigator.yml"
     owner: "{{ username }}"
     group: "{{ username }}"
+  when: workshop_type is defined
 
 - name: Apply patch for runner fix PR759
   lineinfile:
@@ -30,6 +32,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0644
+  when: workshop_type is defined
 
 # Login into Red Hat registry
 - name: Login to redhat registry
@@ -41,6 +44,7 @@
   register: login_registry
   until: login_registry is not failed
   retries: 5
+  when: workshop_type is defined
 
 # Pull specific EE for each workshop based on workshop name
 - name: Pull execution environment for {{ workshop_type }} workshop
@@ -50,6 +54,8 @@
   register: podman_pull
   until: podman_pull is not failed
   retries: 5
+  when: workshop_type is defined
+
 # This may look redundant, but you can't put these in a loop because the
 # ansible_user will not be templated the way you expect when running under
 # Controller/AWX
@@ -61,6 +67,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0700
+  when: workshop_type is defined
 
 - name: Put ssh-key in proper spot for student
   copy:
@@ -95,11 +102,13 @@
     group: "{{ username }}"
     local_follow: true
   ignore_errors: true  # Required for testing local development
+  when: workshop_type is defined
 
 - name: Create lab inventory directory
   file:
     state: directory
     path: /home/{{ username }}/lab_inventory
+  when: workshop_type is defined
 
 - name: Put student inventory in proper spot
   copy:

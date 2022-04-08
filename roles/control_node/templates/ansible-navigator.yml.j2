@@ -2,7 +2,7 @@
 ansible-navigator:
   ansible:
     inventories:
-    - /home/{{username}}/lab_inventory/hosts
+    - /home/{{ username }}/lab_inventory/hosts
 
   execution-environment:
     image: {{ lookup('vars', workshop_type + '_ee') }}
@@ -14,4 +14,3 @@ ansible-navigator:
       dest: "/etc/ansible/"
     - src: {{ '/tmp/' + workshop_type + '/'}}
       dest: {{ '/tmp/' + workshop_type + '/' }}
-    

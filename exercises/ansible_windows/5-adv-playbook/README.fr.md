@@ -109,7 +109,7 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 >
 > - `iis_sites` Vous définissez une variable de type liste
 >
-> - `file`  Ce module permet de créer, modifier, supprimer des fichiers.
+> - `win_file`  Ce module permet de créer, modifier, supprimer des fichiers.
 >
 > - `{{ item }}` Vous dites à Ansible qu'il utilisera l'élément de la liste. Chaque élément a plusieurs variables comme `nom`, `port` et `path`
 >

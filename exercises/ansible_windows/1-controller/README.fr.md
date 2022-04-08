@@ -13,7 +13,7 @@ Automation Controller propose de nombreuses fonctionnalités tel que les organis
 
 - Les inventaires 
 
-- Et les modèles.
+- Et les modèles
 
 
 

@@ -46,7 +46,7 @@ Remplissez le formulaire en utilisant les valeurs suivantes
 Étape 4:
 --------
 
-Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un qustionnaire`
+Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un questionnaire (survey)`
 ![Create Survey](images/4-create-survey.png)
 
 Étape 5:

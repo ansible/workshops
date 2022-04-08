@@ -69,7 +69,7 @@ Remplissez le formulaire avec les valeurs suivantes
 Lancer une tâche
 ================
 
-Maintenant que vous avez créé votre modèle de travail avec succès, vous êtes prêt à le lancer. Une fois que vous le faites, vous serez redirigé vers un écran de tâche qui est rafraîchissant en temps réel et vous montre l'état de la tâche.
+Maintenant que vous avez créé votre modèle de travail avec succès, vous êtes prêt à le lancer. Une fois que vous le faites, vous serez redirigé vers un écran de tâche qui est rafraîchi en temps réel et vous montre l'état de la tâche.
 
 Étape 1:
 --------

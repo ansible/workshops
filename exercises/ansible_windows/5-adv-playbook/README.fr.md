@@ -21,7 +21,7 @@ Pour une compréhension complète des variables, des boucles et des handlers; co
 Section 1: Création du Playbook
 ===============================
 
-Pour commencer, nous allons créer un playbook, il devrait sembler très familier à celui que vous avez créé dans l'exercice 3
+Pour commencer, nous allons créer un playbook, il va ressembler à celui que vous avez créé dans l'exercice 3
 
 Étape 1:
 --------

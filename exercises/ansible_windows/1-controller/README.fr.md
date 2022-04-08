@@ -172,7 +172,7 @@ Vous allez maintenant voir l'inventaire. De là, vous pouvez ajouter des hôtes,
 
 ![Edit Inventory](images/1-controller-edit-inventory.png)
 
-Nous allons voir les hôtes, cliquez sur le bouton **HÔTES**.
+Nous allons voir les hôtes incluant dans cet inventaire, cliquez sur le bouton **HÔTES**.
 
 Étape 3:
 --------
@@ -189,7 +189,7 @@ Si vous cliquez sur le bouton **GROUPES**, puis sélectionnez le groupe **Window
 
 ![Group Edit](images/1-controller-group-edit.png)
 
-Aujourd'hui, nous avons déjà défini une poignée de variables pour indiquer à Ansible comment se connecter aux hôtes de ce groupe. Vous n'avez pas besoin de définir ces variables en tant que variables de groupe ici, elles peuvent également être des variables hôtes ou résider directement dans votre modèle ou votre playbook. Cependant, comme ces variables seront les mêmes pour **TOUS** les hôtes Windows de notre environnement, nous les avons définies pour l'ensemble du groupe Windows.
+Nous avons déjà défini une poignée de variables pour indiquer à Ansible comment se connecter aux hôtes de ce groupe. Vous n'avez pas besoin de définir ces variables en tant que variables de groupe ici, elles peuvent également être définies sur les hôtes spécifiques ou résider directement dans votre template ou votre playbook. Cependant, comme ces variables seront les mêmes pour **TOUS** les hôtes Windows de notre environnement, nous les avons définies pour l'ensemble du groupe Windows.
 
 Par défaut, Ansible tentera d'utiliser SSH pour se connecter à n'importe quel hôte, donc pour Windows, nous devons lui dire d'utiliser une méthode de connexion différente, dans ce cas, [WinRM](https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html).
 

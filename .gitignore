@@ -49,3 +49,4 @@ provisioner/sean-demo.yml
 execution_environment/context/Containerfile
 execution_environment/context/_build/requirements.txt
 execution_environment/context/_build/requirements.yml
+provisioner/packer/manifest.zip

@@ -38,3 +38,4 @@
     dest: "/home/{{ username }}/.vimrc"
     owner: "{{ username }}"
     group: "{{ username }}"
+  when: workshop_type is defined

@@ -259,3 +259,9 @@ debug_teardown: false
 
 # Issue #1594
 ansible_async_dir: "/tmp/.ansible_async"
+
+pre_build_controller_ami:
+  ap-northeast-1: ami-03d31ba6351d7b468
+  ap-southeast-1: ami-08684e30290b9409e
+  eu-central-1: ami-01e8bf4dc63f8a847
+  us-east-1: ami-0a27c9386391d6f48

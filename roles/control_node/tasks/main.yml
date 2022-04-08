@@ -34,6 +34,22 @@
     - controllerinstall|bool
     - check_controller.status != 200
 
+- name: change admin password
+  awx.awx.user:
+    username: "admin"
+    password: "{{ admin_password }}"
+    state: present
+    superuser: true
+    controller_username: admin
+    controller_password: "R3dh4t1!"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+  when:
+    - controllerinstall is defined
+    - controllerinstall|bool
+    - check_controller.status == 200
+    - pre_build|bool
+
 - name: Setup Route53 update service
   include_tasks: 40_route53_update.yml
   when: tower_node_aws_api_access|default(false)|bool

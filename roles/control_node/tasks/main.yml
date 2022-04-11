@@ -34,16 +34,8 @@
     - controllerinstall|bool
     - check_controller.status != 200
 
-- name: change admin password
-  awx.awx.user:
-    username: "admin"
-    password: "{{ admin_password }}"
-    state: present
-    superuser: true
-    controller_username: admin
-    controller_password: "R3dh4t1!"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
+- name: make sure password is set on Automation controller
+  include_tasks: "35_controller_pre_build.yml"
   when:
     - controllerinstall is defined
     - controllerinstall|bool

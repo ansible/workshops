@@ -10,7 +10,6 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     filters:
       instance-state-name: running
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
@@ -93,7 +92,6 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     filters:
       instance-state-name: running
       "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
@@ -172,7 +170,6 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     filters:
       instance-state-name: running
       "tag:Workshop_node3": "{{ ec2_name_prefix }}-node3"
@@ -253,7 +250,6 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     filters:
       instance-state-name: running
       "tag:Workshop_isonode": "{{ ec2_name_prefix }}-isonode"
@@ -315,7 +311,6 @@
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
-    state: running
     filters:
       instance-state-name: running
       "tag:Workshop_remotenode": "{{ ec2_name_prefix }}-remotenode"

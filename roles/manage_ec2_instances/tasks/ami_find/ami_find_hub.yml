@@ -1,5 +1,5 @@
 ---
-- name: Get attendance host ami
+- name: Get private automation hub ami
   ec2_ami_info:
     region: "{{ ec2_region }}"
     owners: "{{ ec2_info['private_automation_hub'].owners }}"
@@ -8,7 +8,7 @@
       architecture: "{{ ec2_info['private_automation_hub'].architecture }}"
   register: amis
 
-- name: Save attendance host ami
+- name: Save private automation hub ami
   set_fact:
     ansible_hub_node_ami: >
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

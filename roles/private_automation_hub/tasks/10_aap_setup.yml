@@ -1,9 +1,4 @@
 ---
-- name: install required collection
-  command: "ansible-galaxy collection install {{ item }}"
-  loop:
-    - community.general
-
 - name: Create tmp directory to store AAP tar.gz
   tempfile:
     state: directory

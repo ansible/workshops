@@ -1,5 +1,5 @@
 ---
-- name: set ami for attendance host
+- name: set ami for hub host
   import_tasks: 'ami_find/ami_find_hub.yml'
 
 - name: create automation hub host

@@ -4,14 +4,33 @@ In this workshop, you will learn how to get the most from Red Hat Smart Manageme
 
 ## Table of Contents
 - [Use Cases](#use-cases)
+- [Presentations](#presentations)
+- [Time planning](#time-planning)
 - [Lab Diagram](#lab-diagram)
-- [Guide](#guide)
+- [Workshop Exercises](#Workshop-Exercises)
 
 ## Use Cases
 This workshop focuses on 3 main customer pain points:
 - Compliance (OpenSCAP Scanning) and Vulnerability Management
 - Patch/Package Management
 - CentOS to RHEL conversion + upgrade
+
+## Presentations
+
+The exercises are self explanatory and guide the participants through the entire lab. All concepts are explained when they are introduced.
+
+There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail.  Workshop presentation is WIP and will be added soon.
+
+Also have a look at our Ansible Best Practices Deck:
+[Ansible Best Practices](../../decks/ansible_best_practices.pdf)
+
+## Time planning
+
+The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
+
+Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds ~1 hour.
+
+
 
 ## Lab Diagram
 ![automated smart management lab diagram](../../images/ansible_smart_mgmt_diagram.png#centreme)

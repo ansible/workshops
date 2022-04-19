@@ -16,12 +16,12 @@ The objective of this exercise is to setup the lab environemnt following an Infr
 
 Environment
 ---------
-> **NOTE** The following are *example* URLs. Your student lab URLs and credentials are provided from the workshops homepage after you signed in with your Name and Email address.
+> **NOTE** The following are *example* URLs. Your student lab URLs will be different.
 * Ansible Automation Platform URL<br>
     * **Example:** `https://student1.01d1.example.opentlc.com`
-    * Ansible Automation Platform login/password from the workshops homepage.
+    * Ansible Automation Platform login/password
 * Satellite URL<br>
-    * **Example:** `https://student1-sat.01d1.example.opentlc.com` (Note the -sat added to the URL)
+    * **Example:** `https://student1.01d1.example.opentlc.com` (Note the -sat added to the URL)
     * Satellite login/password (same as above)
 
 > **NOTE** There are a number of warnings (such as [DEPRECATION WARNING]) in the playbook run output - these can be safely ignored for the purposes of this workshop.
@@ -29,10 +29,9 @@ Environment
 Exercise
 --------
 
-#### 1\. Logging into the Ansible Automation Platform (AAP)
+## 1\. Logging into the Ansible Automation Platform (AAP)
 
--   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the username and password provided in your "Workbench Information"
-on your "Workshops Homepage".
+-   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>*
 
 ![login screen](images/0-setup-aap2-login.png)
 
@@ -40,7 +39,7 @@ on your "Workshops Homepage".
 
 -   Use the side pane menu on the left to select **Projects** and review the two projects named **Automated Management** and **Fact Scan**. These projects, along with the Workshop Inventory (**Inventories** -> **Workshop Inventory**) have been set up for you during the provisioning of the lab environment.
 
-#### 2\. Launch Ansible job templates
+## 2\. Launch Ansible job templates
 
 This step demonstrates the execution of job templates. You will be working with various templates as the workshop progresses, however, this step utilizes seven templates to initialize the lab environment configuration.
 
@@ -127,19 +126,17 @@ You will be taken to the **EC2 / Set instance tags based on Satellite(Foreman) f
 
 Next, run the **EC2 / Set instance tag - AnsibleGroup** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
 
-You will be taken to the **EC2 / Set instance tag - AnsibleGroup** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 1 min to complete.
-
 ![ansiblegroups-ec2-tags](images/0-setup-aap2-initial-inventory.png)
 
-#### 3\. Dynamic inventories - understanding inventories populated via dynamic sources
+## 3\. Dynamic inventories - understanding inventories populated via dynamic sources
 
 > **NOTE** Before running the dynamic inventory update templates in the upcoming steps, first navigate to the Inventories location in AAP and review the following inventories:
 >
->     - ALL Development => Hosts
->     - CentOS7 Development => Hosts
->     - RHEL7 Development => Hosts
+>     - ALL Development => HOSTS
+>     - CentOS7 Development => HOSTS
+>     - RHEL7 Development => HOSTS
 >      
->    Note that these inventories have yet to be populated.  Also, while you are in each of these inventories, click on the "Sources" button and review how each of these dynamic source inventories are configured, taking note of the "SOURCE VARIABLES" section to gain an understanding on how the resultant hosts and groups for that particular inventory are populated.
+>    Note that these inventories have yet to be populated.  Also, while you are in each of these inventories, click on the "SOURCES" button and review how each of these dynamic source inventories are configured, taking note of the "SOURCE VARIABLES" section to gain an understanding on how the resultant hosts and groups for that particular inventory are populated.
 
 Next, go back to Templates and run the **CONTROLLER / Update inventories via dynamic sources** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
 
@@ -173,7 +170,7 @@ Run the **CONTROLLER / Update inventories via dynamic sources** job template by 
 
 ![centos-inventory-complete](images/0-setup-aap2-centos-inventory-complete.png)
 
-#### 4\. Dynamic inventories - review inventories populated via dynamic sources - Updated
+## 4\. Dynamic inventories - review inventories populated via dynamic sources - Updated
 
 > **NOTE** Now that the dynamic inventory update templates have been executed, navigate to the Inventories location in AAP and review the following inventories:
 >
@@ -181,11 +178,11 @@ Run the **CONTROLLER / Update inventories via dynamic sources** job template by 
 >     - CentOS7 Development => HOSTS
 >     - RHEL7 Development => HOSTS
 >      
->    Review how the resultant hosts and groups are defined from information based on tags set from earlier Satellite job template queries.  Take the time to click on a host and look at the variables that have been collected and defined in the "Variables" section.
+>    Review how the resultant hosts and groups are defined from information based on tags set from earlier Satellite job template queries.
 
 Next, login to Satellite to perform verification.
 
-#### 5\. Login to Satellite and validate your Environment
+## 5\. Login to Satellite and validate your Environment
 
 ![](https://lh4.googleusercontent.com/xQc7AudiblHnV7vKVFv0_055wfoeODtDltSS1_C6yV_ppF3rmfN_B78dw-Lo-OvN2ey5aE20UkuxnqYPgtmwQ0pqDdXuHqZZ4yI1rV0_E8PaFeLJHBuTR2FngYQwtutxRzpOSrEe)
 

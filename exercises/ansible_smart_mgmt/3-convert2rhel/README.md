@@ -2,16 +2,17 @@ Automated Smart Management Workshop: CentOS/RHEL migration and upgrade
 ----------------------------------------------------------------------
 
 **Introduction**<br>
-This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). While we only show this process for a few systems, it can be scaled to a larger number of physical, virtual or cloud hosts using content repos provided by [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) (included in [Red Hat Smart Management](https://www.redhat.com/en/technologies/management/smart-management)). The conversion process will be driven with automation built and run using [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible).
+This use-case will focus on conversion and migration from older CentOS versions to RHEL 8.x while maintaining a 3 tier application stack (do no harm). While we only show this process for a few systems, it can be scaled to a larger number of physical, virtual or cloud hosts using content repos provided by [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) (included in [Red Hat Smart Management](https://www.redhat.com/en/technologies/management/smart-management)). The upgrade process will be driven with automation built and run using [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible).
 
 **Environment**
 - Satellite 6.x, Ansible Automation Platform 4.x
 - 3x CentOS 7 instances
 - 3x RHEL 7  instances
 
-**Exercise Scenario**
-- Exercise: Convert CentOS 7 to RHEL 7
-
+**Upgrade Scenario**
+- Exercise: Convert CentOS 7 to RHEL 7, then upgrade to RHEL 8
+    - Covers CentOS 7 to RHEL 7 conversion
+    - RHEL 7 to RHEL 8 upgrade
 
 Overview
 -----------------------------------------------------------------
@@ -24,6 +25,7 @@ Overview
     - [Converting from CentOS to RHEL with Convert2RHEL and Satellite](https://www.redhat.com/en/blog/converting-centos-rhel-convert2rhel-and-satellite) (March 2020)
     - [Convert2RHEL: How to update RHEL-like systems in place to subscribe to RHEL](https://www.redhat.com/en/blog/convert2rhel-how-update-rhel-systems-place-subscribe-rhel) (Jan 2020)
 - Verify functionality of the application stack post RHEL conversion.
+- Lastly, we will perform an in-place upgrade RHEL 7 to 8 (WIP)
 
 Things to consider if doing this in dev/test/stage-beta/prod:
 - Commercial and/or in-house developed application version(s) support with the host OS
@@ -56,11 +58,11 @@ Exercise:
 **Login to your Satellite & AAP UI's**
 > **NOTE** The following are *example* URLs. Your student lab URLs will be different.
 * Ansible Automation Platform URL<br>
-    Example: https://student1.{random}.example.opentlc.com*
+    Example: https://student{x}.{random}.example.opentlc.com*
 * Satellite URL<br>
-    Example: https://student1-sat.{random}.example.opentlc.com (Note the -sat added to the URL)*
+    Example: https://student{x}-sat.{random}.example.opentlc.com (Note the -sat added to the URL)*
 
-Note that in the following steps that are being performed on AAP, at any time, over on the Satellite console, review the registered hosts via clicking Hosts => All Hosts.  Refresh the Hosts page to see changes as they occur a result from the automation being performed via AAP.
+Note that in the following steps that are being performed on AAP, at any time, over on the Satellite console, review the registered hosts via clicking Hosts => All Hosts.  Refresh the Hosts page to see changes as they occur a result from the automation being peformed via AAP.
 
 **Steps:**<br>
 #### 1\. Logging into the Ansible Automation Platform (AAP)
@@ -173,17 +175,17 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 -   Use the side pane menu on the left to select **Templates**.
 
 -   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
-    - Select "CentOS7" for Inventory To Update
-    - Select "Dev" for Choose Environment
-    - Click **Next**, confirm prompted values, then click **Launch**
-    - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
+	  - Select "CentOS7" for Inventory To Update
+      - select "Dev" for Choose Environment
+      - Click **Next**, confirm prompted values, then click **Launch**
+      - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
 ![centos-inventory](images/4-convert2rhel-centos-inventory.png)
 
 -   Use the side pane menu on the left to select **Templates**.
 
 -   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
     - template CONTROLLER / Update inventories via dynamic sources
-    - Select "RHEL7" for Inventory To Update
+	  - Select "RHEL7" for Inventory To Update
       - select "Dev" for Choose Environment
       - Click **Next**, confirm prompted values, then click **Launch**
     - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
@@ -195,7 +197,7 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 #### 10\. Create student credential
 -   Use the side pane menu on the left to select **Credentials**.
 -   Click **Add**
-    - Name: Student Credential
+	  - Name: Student Credential
       - Organization: Default
       - Credential Type: Machine
       - Username: student1 (example shown, use your assigned student name/number)
@@ -221,9 +223,6 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
     - Selecting launch will take you to the **Jobs > CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development** output window. This will take approximately 30 secs to complete.
 
 ![3tier-smoketest-3](images/4-convert2rhel-3tier-smoketest-3.png)
-
-
-The Three Tier App smoke test template should have completed successfully, which shows that we were able to complete the migration from CentOS 7 to RHEL 7, and when that process finished, our 3 tier application still functioned.
 
 > **EXTRA CREDIT - Convert2RHEL workflow template**
 Create a workflow template incorporating the above standalone templates into a complete CentOS to RHEL conversion workflow!

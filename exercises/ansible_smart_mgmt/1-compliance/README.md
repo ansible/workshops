@@ -1,7 +1,7 @@
 Automated Smart Management Workshop: Configuring and performing an OpenSCAP Scan
 ================================================================================
 
-In this exercise, we will learn how to configure and perform an OpenSCAP scan using playbooks in Ansible Automation Platform 2 with Satellite. When running multiple Red Hat Enterprise Linux systems, it's important to keep all of these systems compliant with a meaningful security policy and perform security scans often. OpenSCAP is an open source project that is used by government agencies, corporations, as well as e-commerce (just to name a few examples). OpenSCAP provides tools for automated vulnerability checking. Satellite can be loaded with RPM packages for SCAP workbench v1.2.0-8 which will provide scanning capabilities. Satellite is also loaded with the SCAP security guide v0.1.54-3 for RHEL7 and CentOS devices which provides the appropriate XCCDF benchmarks for PCI and STIG compliance for the purpose of this exercise. This exercise will focus on RHEL systems, CentOS will be out of scope.
+In this exercise, we will learn how to configure and perform an OpenSCAP scan using playbooks in Ansible Automation Platform 2 with Ansible and Satellite. When running multiple Red Hat Enterprise Linux systems, it's important to keep all of these systems compliant with a meaningful security policy and perform security scans often. OpenSCAP is an open source project that is used by government agencies, corporations, as well as e-commerce (just to name a few examples). OpenSCAP provides tools for automated vulnerability checking. Satellite can be loaded with RPM packages for SCAP workbench v1.2.0-8 which will provide scanning capabilities. Satellite is also loaded with the SCAP security guide v0.1.54-3 for RHEL7 and CentOS devices which provides the appropriate XCCDF benchmarks for PCI and STIG compliance for the purpose of this exercise. This exercise will focus on RHEL systems, CentOS will be out of scope.
 
 Environment
 -----------
@@ -99,11 +99,9 @@ This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``
 
         Playbook: configure_openscap.yml (Click drop-down to select.)
 
-        Credentials: Workshop Credential, and Satellite Credential
-        (Click the magnifying glass icon to select.)
+        Credentials: Workshop Credential, and Satellite Credential (Click the magnifying glass icon to select.)
           NOTE: In this new menu. Select the Workshop Credential radio button
-          button. The 'Selected Category' for this is 'Machine'. Next, use the
-          'Selected Category' drop-down menu again to select Satellite_Collection.
+          button. The 'Selected Category' for this is 'Machine'. Next, use the 'Selected Category' drop-down menu again to select Satellite_Collection.
           You will choose the Satellite Credential. This will provide you with
           two sets of credentials. Choosing 'Select' will save your changes
           and exit the menu.
@@ -192,11 +190,9 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
 ![aap_template](images/1-compliance-aap2-template2-fix.png)
 
-- Leave the rest of the fields blank or as they are, and click 'Save'. You can then select 'Launch' to deploy the job template.
+-   Leave the rest of the fields blank or as they are, and click 'Save'. You can then select 'Launch' to deploy the job template.
 
-- Selecting launch will take you to the **Jobs > SATELLITE / Compliance - OpenSCAP_Configure** output window. This will take approximately 5 mins to complete.  Wait for the job template to complete before proceeding to the next step.
-
-- Selecting launch will take you to the **Jobs > SATELLITE / Compliance - OpenSCAP_Configure** output window. This will take approximately 5 mins to complete.  Wait for the job template to complete before proceeding to the next step.
+Selecting launch will take you to the **Jobs > SATELLITE / Compliance - OpenSCAP_Configure** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 5 mins to complete.  Wait for the job template to complete before proceeding to the next step.
 
 ![aap_output](images/1-compliance-aap2-OpenSCAP_Configure-output2-fix.png)
 

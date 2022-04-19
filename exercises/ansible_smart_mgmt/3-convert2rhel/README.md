@@ -173,7 +173,7 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 -   Use the side pane menu on the left to select **Templates**.
 
 -   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
-	  - Select "CentOS7" for Inventory To Update
+    - Select "CentOS7" for Inventory To Update
     - Select "Dev" for Choose Environment
     - Click **Next**, confirm prompted values, then click **Launch**
     - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
@@ -183,7 +183,7 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 
 -   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
     - template CONTROLLER / Update inventories via dynamic sources
-	  - Select "RHEL7" for Inventory To Update
+    - Select "RHEL7" for Inventory To Update
       - select "Dev" for Choose Environment
       - Click **Next**, confirm prompted values, then click **Launch**
     - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
@@ -195,7 +195,7 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 #### 10\. Create student credential
 -   Use the side pane menu on the left to select **Credentials**.
 -   Click **Add**
-	  - Name: Student Credential
+    - Name: Student Credential
       - Organization: Default
       - Credential Type: Machine
       - Username: student1 (example shown, use your assigned student name/number)

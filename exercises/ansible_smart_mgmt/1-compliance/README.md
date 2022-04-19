@@ -196,6 +196,8 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
 - Selecting launch will take you to the **Jobs > SATELLITE / Compliance - OpenSCAP_Configure** output window. This will take approximately 5 mins to complete.  Wait for the job template to complete before proceeding to the next step.
 
+Selecting launch will take you to the **Jobs > SATELLITE / Compliance - OpenSCAP_Configure** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 5 mins to complete.  Wait for the job template to complete before proceeding to the next step.
+
 ![aap_output](images/1-compliance-aap2-OpenSCAP_Configure-output2-fix.png)
 
 #### 8\. Navigate back to Satellite to examine the Asset Reporting File (ARF).

@@ -29,7 +29,7 @@ Environment
 Exercise
 --------
 
-#### 1\. Logging into the Ansible Automation Platform (AAP)
+## 1\. Logging into the Ansible Automation Platform (AAP)
 
 -   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the username and password provided in your "Workbench Information"
 on your "Workshops Homepage".
@@ -40,7 +40,7 @@ on your "Workshops Homepage".
 
 -   Use the side pane menu on the left to select **Projects** and review the two projects named **Automated Management** and **Fact Scan**. These projects, along with the Workshop Inventory (**Inventories** -> **Workshop Inventory**) have been set up for you during the provisioning of the lab environment.
 
-#### 2\. Launch Ansible job templates
+## 2\. Launch Ansible job templates
 
 This step demonstrates the execution of job templates. You will be working with various templates as the workshop progresses, however, this step utilizes seven templates to initialize the lab environment configuration.
 

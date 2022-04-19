@@ -62,7 +62,7 @@ Exercise:
 * Satellite URL<br>
     Example: https://student{x}-sat.{random}.example.opentlc.com (Note the -sat added to the URL)*
 
-Note that in the following steps that are being performed on AAP, at any time, over on the Satellite console, review the registered hosts via clicking Hosts => All Hosts.  Refresh the Hosts page to see changes as they occur a result from the automation being peformed via AAP.
+Note that in the following steps that are being performed on AAP, at any time, over on the Satellite console, review the registered hosts via clicking Hosts => All Hosts.  Refresh the Hosts page to see changes as they occur a result from the automation being performed via AAP.
 
 **Steps:**<br>
 #### 1\. Logging into the Ansible Automation Platform (AAP)
@@ -176,9 +176,9 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 
 -   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
 	  - Select "CentOS7" for Inventory To Update
-      - select "Dev" for Choose Environment
-      - Click **Next**, confirm prompted values, then click **Launch**
-      - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
+    - Select "Dev" for Choose Environment
+    - Click **Next**, confirm prompted values, then click **Launch**
+    - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
 ![centos-inventory](images/4-convert2rhel-centos-inventory.png)
 
 -   Use the side pane menu on the left to select **Templates**.
@@ -223,6 +223,9 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
     - Selecting launch will take you to the **Jobs > CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development** output window. This will take approximately 30 secs to complete.
 
 ![3tier-smoketest-3](images/4-convert2rhel-3tier-smoketest-3.png)
+
+
+The Three Tier App smoke test template should have completed successfully, which shows that we were able to complete the migration from CentOS 7 to RHEL 7, and when that process finished, our 3 tier application still functioned.
 
 > **EXTRA CREDIT - Convert2RHEL workflow template**
 Create a workflow template incorporating the above standalone templates into a complete CentOS to RHEL conversion workflow!

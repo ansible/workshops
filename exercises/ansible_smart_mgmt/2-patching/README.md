@@ -64,7 +64,7 @@ At this point your workflow should resemble the following:
 
 ![workflow factscan](images/2-patching-aap2-workflow-factscan.png)
 
--   There are two more nodes to add to this workflow. Hover the 'SATELLITE / RHEL - Publish Content View' node and click the +. Then, 'On Success' add Job Template 'SATELLITE / RHEL - Promote Content View', and leave 'Convergence' to 'Any' again. There is a survey attached that requires variables for content view, current lifecycle environment, and next lifecycle environment. For the purpose of this lab we're going to promote Dev to QA.
+-   There are two more nodes to add to this workflow. Hover the 'SATELLITE / RHEL - Publish Content View' node and click the + icon. In the pop-up window, select 'On Success' and then Next.  Add the 'SATELLITE / RHEL - Promote Content View' Job Template, and leave 'Convergence' to 'Any' again. There is a survey attached that requires variables for content view, current lifecycle environment, and next lifecycle environment. For the purpose of this lab we're going to promote Dev to QA.
 
 -   Select RHEL7 for 'Content View'
 
@@ -74,7 +74,7 @@ At this point your workflow should resemble the following:
 
 Click 'Next'. You will then need to 'Save' the preview.
 
--   Add the last node by hovering over 'SATELLITE / RHEL- Promote Content View' and selecting the +. In the pop-up window, select 'On Success', and then Next. Add the 'SERVER / RHEL7 - Patch' Job Template, leave 'Convergence' to 'Any' again and select Next. This template also has a survey attached. You will need to select from drop-down list 'Select Environment' the environment you would like to patch. Choose 'RHEL7_Dev'. The 'Check' drop-down is a selection that tells server_patch.yml whether or not to apply updates to the servers in our inventory. Since we want to apply the patches, we will select 'No'. Click 'Next' at the bottom of the window and click 'Save'.
+-   Add the last node by hovering over 'SATELLITE / RHEL- Promote Content View' and selecting the + icon. In the pop-up window, select 'On Success', and then Next. Add the 'SERVER / RHEL7 - Patch' Job Template, leave 'Convergence' to 'Any' again and select Next. This template also has a survey attached. You will need to select from drop-down list 'Select Environment' the environment you would like to patch. Choose 'RHEL7_Dev'. The 'Check' drop-down is a selection that tells server_patch.yml whether or not to apply updates to the servers in our inventory. Since we want to apply the patches, we will select 'No'. Click 'Next' at the bottom of the window and click 'Save'.
 
 -   Before we can finish the workflow we need to link 'SERVER / RHEL7 - Fact Scan' to 'SERVER / RHEL7 - Patch' and coverage on success. Hover over 'SERVER / RHEL7 - Fact Scan' and click on the chain icon. Then click to the right of the 'SERVER / RHEL7 - Patch' node to link. You will be promoted on the right side pane menu to to Run 'On Success'. Click 'Save'. You will then need to click on the 'SERVER / RHEL7 - Patch', edit the node and select 'ALL' from the CONVERGENCE drop-down. Continue with Next, Next and Save.
 

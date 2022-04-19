@@ -2,11 +2,11 @@ Automated Smart Management Workshop: CentOS/RHEL migration and upgrade
 ----------------------------------------------------------------------
 
 **Introduction**<br>
-This use-case will focus on conversion and migration from older CentOS versions to RHEL 8.3 (latest version as of Feb 2020). While we only show this process for a few systems, however, it can be scaled to a larger number of physical, virtual or cloud hosts using content repos provided by [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) (included in [Red Hat Smart Management](https://www.redhat.com/en/technologies/management/smart-management)). The upgrade process will be driven with automation built and run using [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible).
+This use-case will focus on conversion and migration from older CentOS versions to RHEL 8.x while maintaining a 3 tier application stack (do no harm). While we only show this process for a few systems, it can be scaled to a larger number of physical, virtual or cloud hosts using content repos provided by [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) (included in [Red Hat Smart Management](https://www.redhat.com/en/technologies/management/smart-management)). The upgrade process will be driven with automation built and run using [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible).
 
 **Environment**
-- Satellite 6.8, Ansible Automation Platform 4.0.0
-- 3x CentOS 7 instances 
+- Satellite 6.x, Ansible Automation Platform 4.x
+- 3x CentOS 7 instances
 - 3x RHEL 7  instances
 
 **Upgrade Scenario**
@@ -33,9 +33,9 @@ Things to consider if doing this in dev/test/stage-beta/prod:
 - Network connection and network time synchonizations
 
 
-| **A Note about using Satellite vs. Ansible Automation Platform for this...**<br>  | 
-| ------------- | 
-| Out of the box, Satellite 6 supports [RHEL systems roles](https://access.redhat.com/articles/3050101) (a collection of Ansible Roles) for a limited set of administration tasks. An Ansible Automation Platform subscription is need to execute more complex Ansible jobs, such as OS conversions and upgrades. Using these two solutions together ensures you have the best tool for the job for:<br>- Content Management (Satellite)<br>- OS Patching & Standardized Operating Environments (Satellite)<br>- Provisioning: OS, Infra Services and Applications/Other (Satellite and/or Ansible Automation Platform)<br>- Configuration of Infra and Apps (Ansible Automation Platform)<br><br>Reference: [Scope of Support for Ansible Components included with Red Hat Satellite 6](https://access.redhat.com/articles/3616041) |
+| **A Note about using Satellite vs. Ansible Automation Platform for this...**<br>  |
+| ------------- |
+| Out of the box, Satellite 6 supports [RHEL systems roles](https://access.redhat.com/articles/3050101) (a collection of Ansible Roles) for a limited set of administration tasks. Satellite can be used to do OS conversions and upgrades, however an Ansible Automation Platform Subscription is required to execute complicated OS conversions and upgrades that require logic to meet up-time requirements.  Using these two solutions together ensures you have the best tool for the job for:<br>- Content Management (Satellite)<br>- OS Patching & Standardized Operating Environments (Satellite)<br>- Provisioning: OS, Infra Services and Applications/Other (Satellite and/or Ansible Automation Platform)<br>- Configuration of Infra and Apps (Ansible Automation Platform)<br><br>Reference: [Converting CentOS to RHEL with Red Hat Satellite 6](https://www.redhat.com/en/blog/steps-converting-centos-linux-convert2rhel-and-red-hat-satellite) and [Leapp Upgrade with Satellite 6](https://www.redhat.com/en/blog/leapp-upgrade-using-red-hat-satellite-6)|
 
 
 Ok, let's get started...  
@@ -43,7 +43,7 @@ Ok, let's get started...
 Pre-requisites
 --------------
 
--   Exercise 0 : Lab Setup
+-   Exercise 0: Lab Setup
 
 -   Organization to be used = Default Organization
 
@@ -58,11 +58,9 @@ Exercise:
 **Login to your Satellite & AAP UI's**
 > **NOTE** The following are *example* URLs. Your student lab URLs will be different.
 * Ansible Automation Platform URL<br>
-    * *Example: https://student1.smrtmgmt013.mw01.redhatpartnertech.net*
-* Ansible Automation Platform login/password 
-* Satellite URL<br> 
-    * *Example: https://student1-sat.smrtmgmt013.mw01.redhatpartnertech.net (Note the -sat added to the URL)*
-* Satellite login/password (same as above)
+    Example: https://student{x}.{random}.example.opentlc.com*
+* Satellite URL<br>
+    Example: https://student{x}-sat.{random}.example.opentlc.com (Note the -sat added to the URL)*
 
 Note that in the following steps that are being performed on AAP, at any time, over on the Satellite console, review the registered hosts via clicking Hosts => All Hosts.  Refresh the Hosts page to see changes as they occur a result from the automation being peformed via AAP.
 
@@ -79,7 +77,7 @@ Note that in the following steps that are being performed on AAP, at any time, o
 
 -   Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONVERT2RHEL / 96 - Three Tier App deployment** to launch the job.
+-   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 96 - Three Tier App deployment** to launch the job.  This will take ~2 minutes to complete.
 
 ![3tier-install](images/4-convert2rhel-3tier-install.png)
 
@@ -87,13 +85,13 @@ Note that in the following steps that are being performed on AAP, at any time, o
 
 -   Use the side pane menu on the left to select **Templates**.
 
--   Click ![copy template](images/4-convert2rhel-copy-template-icon.png)to the right of **CONVERT2RHEL / 01 - Take node snapshot** to copy the template.
+-   Click ![copy template](images/4-convert2rhel-copy-template-icon.png) to the right of **CONVERT2RHEL / 01 - Take node snapshot** to copy the template.
 
 ![template-copy](images/4-convert2rhel-template-copy.png)
 
 -   Click the newly created job template **CONVERT2RHEL / 01 - Take node snapshot @ some-timestamp**
 
--   Click **Edit** at the bottom left. 
+-   Click **Edit** at the bottom left.
     - Edit the name to **CONVERT2RHEL / 01 - Take node snapshot / CentOS7 Development**
     - In the **Variables** section, within *tags* remove:
 
@@ -109,30 +107,36 @@ Note that in the following steps that are being performed on AAP, at any time, o
 
 - Review the changes, then at the bottom left, click **Save**
 - Verify the template name change, as well as the tag adjustments in the **Variables** section then click **Launch**
+- Selecting launch will take you to the **Jobs > CONVERT2RHEL / 01 - Take node snapshot / CentOS7 Development** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 5 mins to complete.
 
 ![centos-snapshot](images/4-convert2rhel-centos-snapshot.png)
 
 #### 4\. Verify three tier application functionality on CentOS nodes - pre Centos update
 
--   Use the side pane menu on the left to select **Templates**.
+- Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to launch the job.
+- Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to launch the job.
+- Selecting launch will take you to the **Jobs > CONVERT2RHEL / 97 - Three Tier App smoke test** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 30 secs to complete.
 
 ![3tier-smoketest](images/4-convert2rhel-3tier-smoketest.png)
 
 #### 5\. Upgrade CentOS nodes to latest version
 
--   Use the side pane menu on the left to select **Templates**.
+- Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONVERT2RHEL / 02 - Upgrade OS to latest release** to launch the job.
+- Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 02 - Upgrade OS to latest release** to launch the job.
+
+- Selecting launch will take you to the **Jobs > CONVERT2RHEL / 02 - Upgrade OS to latest release** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 6 mins to complete.
 
 ![centos-update](images/4-convert2rhel-centos-update.png)
 
 #### 6\. Verify three tier application functionality on CentOS nodes - post Centos update, pre Convert2RHEL
 
--   Use the side pane menu on the left to select **Templates**.
+- Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to launch the job.
+- Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to launch the job.
+
+- Selecting launch will take you to the **Jobs > CONVERT2RHEL / 97 - Three Tier App smoke test** output window. This will take approximately 30 secs to complete.
 
 ![3tier-smoketest-2](images/4-convert2rhel-3tier-smoketest-2.png)
 
@@ -140,10 +144,14 @@ Note that in the following steps that are being performed on AAP, at any time, o
 
 -   Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONVERT2RHEL / 03 - convert2rhel** to launch the job.
+-   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 03 - convert2rhel** to launch the job.
 
       - choose LE group to convert CentOS7_Dev
       - choose LE target RHEL7_Dev
+
+
+- Selecting launch will take you to the **Jobs > CONVERT2RHEL / 03 - convert2rhel** output window. This will take approximately 11 mins to complete.
+
 > **NOTE** with some pre-configuration, any combination is possible
 ![conversion-select](images/4-convert2rhel-conversion-select.png)
 - click **Next** to continue
@@ -151,29 +159,40 @@ Note that in the following steps that are being performed on AAP, at any time, o
 - confirm CentOS and RHEL LE variables set via survey selections and click **Launch**
 ![conversion-complete](images/4-convert2rhel-conversion-complete.png)
 
+If you look in Satellite now (**Hosts > All Hosts**), you will see that all CentOS notes have been converted to RHEL 7.9 nodes.
+
+![3tier-smoketest-2](images/4-convert2rhel-converstion-complete.png)
+
 #### 8\. Query Satellite to get post conversion node-related details, set EC2 instance tags based on these details
 -   Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **EC2 / Set instance tags based on Satellite(Foreman) facts** to launch the job.
+-   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **EC2 / Set instance tags based on Satellite(Foreman) facts** to launch the job.
 ![instance-tags](images/4-convert2rhel-instance-tags.png)
+
+- Selecting launch will take you to the **Jobs > EC2 / Set instance tags based on Satellite(Foreman) facts** output window. This will take approximately 30 secs to complete.
 
 #### 9\. Update inventories via dynamic sources
 -   Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
+-   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
 	  - Select "CentOS7" for Inventory To Update
       - select "Dev" for Choose Environment
       - Click **Next**, confirm prompted values, then click **Launch**
+      - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
 ![centos-inventory](images/4-convert2rhel-centos-inventory.png)
 
 -   Use the side pane menu on the left to select **Templates**.
 
--   Click ![launch](images/4-convert2rhel-aap2-launch.png)to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
+-   Click ![launch](images/4-convert2rhel-aap2-launch.png) to the right of **CONTROLLER / Update inventories via dynamic sources** to launch the job.
     - template CONTROLLER / Update inventories via dynamic sources
 	  - Select "RHEL7" for Inventory To Update
       - select "Dev" for Choose Environment
       - Click **Next**, confirm prompted values, then click **Launch**
-![rhel-inventory](images/4-convert2rhel-rhel-inventory.png)
+    - Selecting launch will take you to the **Jobs > CONTROLLER / Update inventories via dynamic sources** output window. This will take approximately 30 secs to complete.
+    ![rhel-inventory](images/4-convert2rhel-rhel-inventory.png)
+
+    - If you look in **Inventories > RHEL7 Development** you will now see that nodes[1-6] are in the inventory.
+    ![rhel-inventory](images/4-convert2rhel-converstion-hosts.png)  
 
 #### 10\. Create student credential
 -   Use the side pane menu on the left to select **Credentials**.
@@ -189,18 +208,19 @@ Note that in the following steps that are being performed on AAP, at any time, o
 #### 11\. Copy template CONVERT2RHEL / 97 - Three Tier App smoke test to template CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development
 -   Use the side pane menu on the left to select **Templates**.
 
--   Click ![copy template](images/4-convert2rhel-copy-template-icon.png)to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to copy the template.
+-   Click ![copy template](images/4-convert2rhel-copy-template-icon.png) to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to copy the template.
 
 ![template-copy](images/4-convert2rhel-template-copy-2.png)
 
 -   Click the newly created job template **CONVERT2RHEL / 97 - Three Tier App smoke test @ some-timestamp**
 
--   Click **Edit** at the bottom left. 
+-   Click **Edit** at the bottom left.
     - Edit the name to **CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development**
-    - Click ![lookup](images/4-convert2rhel-lookup-icon.png)under Inventory and select the radio button for **RHEL7 Development**, followed by **Select**.
-    - Click ![lookup](images/4-convert2rhel-lookup-icon.png)under Credentials and select the radio button for **Student Credential**, followed by **Select**.
+    - Click ![lookup](images/4-convert2rhel-lookup-icon.png) under Inventory and select the radio button for **RHEL7 Development**, followed by **Select**.
+    - Click ![lookup](images/4-convert2rhel-lookup-icon.png) under Credentials and select the radio button for **Student Credential**, followed by **Select**.
     - Review the changes, then scroll down and on the bottom left, click **Save**
     - Click **Launch** to run the new job template **CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development**
+    - Selecting launch will take you to the **Jobs > CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development** output window. This will take approximately 30 secs to complete.
 
 ![3tier-smoketest-3](images/4-convert2rhel-3tier-smoketest-3.png)
 

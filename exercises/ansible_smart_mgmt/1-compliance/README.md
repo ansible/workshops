@@ -99,9 +99,11 @@ This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``
 
         Playbook: configure_openscap.yml (Click drop-down to select.)
 
-        Credentials: Workshop Credential, and Satellite Credential (Click the magnifying glass icon to select.)
+        Credentials: Workshop Credential, and Satellite Credential
+        (Click the magnifying glass icon to select.)
           NOTE: In this new menu. Select the Workshop Credential radio button
-          button. The 'Selected Category' for this is 'Machine'. Next, use the 'Selected Category' drop-down menu again to select Satellite_Collection.
+          button. The 'Selected Category' for this is 'Machine'. Next, use the
+          'Selected Category' drop-down menu again to select Satellite_Collection.
           You will choose the Satellite Credential. This will provide you with
           two sets of credentials. Choosing 'Select' will save your changes
           and exit the menu.

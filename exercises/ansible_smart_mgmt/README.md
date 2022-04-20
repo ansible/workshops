@@ -45,9 +45,7 @@ Also have a look at our Ansible Best Practices Deck:
 
 The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
 
-Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds ~1 hour.
-
-
+Having said that, the exercises themselves should take roughly 4 hours. Each lab takes roughly 30-45 minutes. The accompanying presentation itself adds ~1 hour.
 
 ## Lab Diagram
 ![automated smart management lab diagram](../../images/ansible_smart_mgmt_diagram.png#centreme)

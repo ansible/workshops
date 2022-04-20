@@ -16,12 +16,12 @@ The objective of this exercise is to setup the lab environemnt following an Infr
 
 Environment
 ---------
-> **NOTE** The following are *example* URLs. Your student lab URLs will be different.
+> **NOTE** The following are *example* URLs. Your student lab URLs and credentials are provided from the workshops homepage after you signed in with your Name and Email address.
 * Ansible Automation Platform URL<br>
     * **Example:** `https://student1.01d1.example.opentlc.com`
-    * Ansible Automation Platform login/password
+    * Ansible Automation Platform login/password from the workshops homepage.
 * Satellite URL<br>
-    * **Example:** `https://student1.01d1.example.opentlc.com` (Note the -sat added to the URL)
+    * **Example:** `https://student1-sat.01d1.example.opentlc.com` (Note the -sat added to the URL)
     * Satellite login/password (same as above)
 
 > **NOTE** There are a number of warnings (such as [DEPRECATION WARNING]) in the playbook run output - these can be safely ignored for the purposes of this workshop.

@@ -2,17 +2,16 @@ Automated Smart Management Workshop: CentOS/RHEL migration and upgrade
 ----------------------------------------------------------------------
 
 **Introduction**<br>
-This use-case will focus on conversion and migration from older CentOS versions to RHEL 8.x while maintaining a 3 tier application stack (do no harm). While we only show this process for a few systems, it can be scaled to a larger number of physical, virtual or cloud hosts using content repos provided by [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) (included in [Red Hat Smart Management](https://www.redhat.com/en/technologies/management/smart-management)). The upgrade process will be driven with automation built and run using [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible).
+This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). While we only show this process for a few systems, it can be scaled to a larger number of physical, virtual or cloud hosts using content repos provided by [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) (included in [Red Hat Smart Management](https://www.redhat.com/en/technologies/management/smart-management)). The conversion process will be driven with automation built and run using [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible).
 
 **Environment**
 - Satellite 6.x, Ansible Automation Platform 4.x
 - 3x CentOS 7 instances
 - 3x RHEL 7  instances
 
-**Upgrade Scenario**
-- Exercise: Convert CentOS 7 to RHEL 7, then upgrade to RHEL 8
-    - Covers CentOS 7 to RHEL 7 conversion
-    - RHEL 7 to RHEL 8 upgrade
+**Exercise Scenario**
+- Exercise: Convert CentOS 7 to RHEL 7
+
 
 Overview
 -----------------------------------------------------------------
@@ -25,7 +24,6 @@ Overview
     - [Converting from CentOS to RHEL with Convert2RHEL and Satellite](https://www.redhat.com/en/blog/converting-centos-rhel-convert2rhel-and-satellite) (March 2020)
     - [Convert2RHEL: How to update RHEL-like systems in place to subscribe to RHEL](https://www.redhat.com/en/blog/convert2rhel-how-update-rhel-systems-place-subscribe-rhel) (Jan 2020)
 - Verify functionality of the application stack post RHEL conversion.
-- Lastly, we will perform an in-place upgrade RHEL 7 to 8 (WIP)
 
 Things to consider if doing this in dev/test/stage-beta/prod:
 - Commercial and/or in-house developed application version(s) support with the host OS
@@ -58,9 +56,9 @@ Exercise:
 **Login to your Satellite & AAP UI's**
 > **NOTE** The following are *example* URLs. Your student lab URLs will be different.
 * Ansible Automation Platform URL<br>
-    Example: https://student{x}.{random}.example.opentlc.com*
+    Example: https://student1.{random}.example.opentlc.com*
 * Satellite URL<br>
-    Example: https://student{x}-sat.{random}.example.opentlc.com (Note the -sat added to the URL)*
+    Example: https://student1-sat.{random}.example.opentlc.com (Note the -sat added to the URL)*
 
 Note that in the following steps that are being performed on AAP, at any time, over on the Satellite console, review the registered hosts via clicking Hosts => All Hosts.  Refresh the Hosts page to see changes as they occur a result from the automation being performed via AAP.
 

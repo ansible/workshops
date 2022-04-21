@@ -63,6 +63,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## E-Books
 
+- [Red Hat Ansible Automation Platform: A beginner’s guide](https://www.redhat.com/en/engage/redhat-ansible-automation-20220412)
 - [The Automated Enterprise](https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000002DXg8AAG)
 
 ### E-Books for Ansible Network Automation
@@ -70,7 +71,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   - [Part 1: Modernize Your Network with Red Hat](https://www.ansible.com/resources/ebooks/network-automation-for-everyone?hsLang=en-us)
   - [Part 2: Automate Your Network with Red Hat](https://www.redhat.com/en/engage/network-automation-ebook-s-202104291219)
 
-#### Other languages
+#### Other languages for Network Automation
 
   - ![chinese](https://github.com/ansible/workshops/raw/devel/images/cn.png) [借助红帽实现网络自动化](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-zh.pdf)
   - ![french](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Automatiser votre réseau avec Red Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-fr.pdf)

@@ -87,23 +87,22 @@ Remplissez le formulaire en utilisant les valeurs suivantes
 | DESCRIPTION        |                            |      |
 | JOB TYPE           | Run                        |      |
 | INVENTAIRE         | Workshop Inventory |      |
-| PROJET             | Ansible Workshop Project   |      |
+| PROJET             | Ansible Workshop Project   |      | 
+| Execution Environnment             | windowws workshop environnement   |      |
 | Playbook           | `win_updates/site.yml`     |      |
-| MACHINE CREDENTIAL | Student Account            |      |
+| CREDENTIAL | Student Account            |      |
 | LIMIT              | windows                    |      |
-| OPTIONS            | [*] ENABLE FACT CACHE      |      |
-
-![Create Job Template](images/7-win_update-template.png)
+| OPTIONS            | [*] ENABLE FACT STORAGE      |      |
 
 Étape 2:
 --------
 
-Cliquez sur ENREGISTRER ![Save](images/at_save.png) puis sélectionnez AJOUTER UN QUESTIONNAIRE ![Add](images/at_add_survey.png)
+Cliquez sur ENREGISTRER ![Save](images/at_save.png) puis cliquez sur Survey en haut à droite !
 
 Étape 3:
 --------
 
-Remplissez le questionnaire avec les valeurs suivantes
+Cliquez sur Ass et remplissez le questionnaire avec les valeurs suivantes
 
 | Clé                     | Valeur                                                                                                                                                 | Note                                         |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
@@ -116,9 +115,9 @@ Remplissez le questionnaire avec les valeurs suivantes
 | REQUIRED                | Selected                                                                                                                                               |                                              |
 |                         |                                                                                                                                                        |                                              |
 
-![Category Survey Form](images/7-category-survey.png)
 
-Une fois terminé, cliquez sur le bouton ![Add](images/at_add.png). Vous verrez votre nouveau champ à droite. Ajoutez maintenant un autre champ en remplissant à nouveau le formulaire .
+Une fois terminé, cliquez sur le bouton save. 
+Ajoutez une second questionnaire avec ces valeurs : 
 
 | Clé                     | Valeur                                                  | Note |
 |-------------------------|---------------------------------------------------------|------|
@@ -130,23 +129,8 @@ Une fois terminé, cliquez sur le bouton ![Add](images/at_add.png). Vous verrez 
 | DEFAULT ANSWER          | Yes                                                     |      |
 | REQUIRED                | Selected                                                |      |
 
-![Reboot Survey Form](images/7-reboot-survey.png)
+Cliquez sur Save, n'oubliez pas d'activer le formulaire ! 
 
-Étape 4:
---------
-
-Cliquez sur `Add` ![Add](images/at_add.png)
-
-Étape 5:
---------
-
-Cliquez sur `ENREGISTRER` ![Add](images/at_save.png)
-
-Étape 6:
---------
-
-De retour sur la page principale du modèle de travail, sélectionnez `ENREGISTRER`
-![Add](images/at_save.png) again.
 
 Section 6: lancer votre nouveau playbook
 ========================================

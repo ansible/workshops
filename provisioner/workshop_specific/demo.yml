@@ -1,0 +1,19 @@
+---
+- name: wait for routers to have ssh reachability
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: demo-mode workshop type
+      debug:
+        msg: "This workshop is demo mode! Including all workshop variants"
+
+- import_playbook: rhel.yml
+
+- import_playbook: network.yml
+
+- import_playbook: f5.yml
+
+- import_playbook: windows.yml
+
+- import_playbook: security.yml

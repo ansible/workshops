@@ -17,6 +17,7 @@ create_cluster: false
 ##  (rtr3)  -   (rtr4)
 ##
 control_type: "rhel8-tower"
+hub_type: "private_automation_hub"
 rtr1_type: "cisco"
 rtr2_type: "arista"
 rtr3_type: "juniper"
@@ -24,6 +25,17 @@ rtr4_type: "arista"
 rhel: "rhel8"
 # additional info needed by AWS ec2 modules
 ec2_info:
+  private_automation_hub:
+    owners: 309956199498
+    size: m4.xlarge
+    os_type: linux
+    disk_volume_type: gp3
+    disk_space: 40
+    disk_iops: 3000
+    disk_throughput: 125
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
   juniper:
     size: c4.xlarge
     ami: "{{juniper_ami | default(omit)}}"
@@ -259,3 +271,9 @@ debug_teardown: false
 
 # Issue #1594
 ansible_async_dir: "/tmp/.ansible_async"
+
+pre_build_controller_ami:
+  ap-northeast-1: ami-03d31ba6351d7b468
+  ap-southeast-1: ami-08684e30290b9409e
+  eu-central-1: ami-01e8bf4dc63f8a847
+  us-east-1: ami-0a27c9386391d6f48

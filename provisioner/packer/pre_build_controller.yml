@@ -1,0 +1,28 @@
+---
+- name: initial check setup
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+  tasks:
+    - name: download AAP
+      include_role:
+        name: ../../roles/aap_download
+
+- name: configures automation controller node
+  hosts: all
+  gather_facts: true
+  become: true
+  vars:
+    dns_type: none
+    controllerinstall: true
+    code_server: true
+  tasks:
+    - include_role:
+        name: ../../roles/connectivity_test
+    - include_role:
+        name: ../../roles/common
+    - include_role:
+        name: ../../roles/control_node
+    - include_role:
+        name: ../../roles/code_server

@@ -21,13 +21,11 @@ Pour une compréhension complète des variables, des boucles et des handlers; co
 Section 1: Création du Playbook
 ===============================
 
-Pour commencer, nous allons créer un playbook, il devrait sembler très familier à celui que vous avez créé dans l'exercice 3
+Pour commencer, nous allons créer un playbook, il va ressembler à celui que vous avez créé dans l'exercice 3
 
 Étape 1:
 --------
-Dans Visual Studio Code, créez un nouveau répertoire dans votre dépôt git et créez un fichier site.yml.
-
-Dans l'accordéon Explorer, vous devriez avoir une section *WORKSHOP_PROJECT* où vous avez précédemment créé `iis_basic`.
+Dans Visual Studio Code, dans l'accordéon Explorer, vous devriez avoir une section *WORKSHOP_PROJECT* où vous avez précédemment créé `iis_basic`.
 
 ![Student Playbooks](images/5-vscode-existing-folders.png)
 
@@ -99,8 +97,6 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 ```
 <!-- {% endraw %} -->
 
-![site.yml part 1](images/5-vscode-iis-yaml.png)
-
 > **Remarque**
 >
 > **Que se passe-t-il ici!?**
@@ -109,7 +105,7 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 >
 > - `iis_sites` Vous définissez une variable de type liste
 >
-> - `file`  Ce module permet de créer, modifier, supprimer des fichiers.
+> - `win_file`  Ce module permet de créer, modifier, supprimer des fichiers.
 >
 > - `{{ item }}` Vous dites à Ansible qu'il utilisera l'élément de la liste. Chaque élément a plusieurs variables comme `nom`, `port` et `path`
 >
@@ -120,20 +116,20 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 Section 2: Ouverture du pare-feu et déploiement de fichiers
 ===========================================================
 
-Après cela, vous allez définire une tâche pour démarrer le service IIS.
+Vous allez maintenant définir une tâche pour démarrer le service IIS.
 
 Étape 1:
 -------
 
-Créez un répertoire `templates` dans votre répertoire de projet et créez un modèle comme suit:
+Créez un répertoire `templates` dans votre répertoire de projet et créez une template jinja2 comme suit:
 
 Assurez-vous que votre `dossier iis_advanced` est mis en surbrillance, puis survolez la section *WORKSHOP_PROJECT* et cliquez sur le bouton *Nouveau dossier*
 
-Tapez `modèles` et appuyez sur Entrée. Cliquez avec le bouton droit sur le dossier *modèles* et cliquez sur le bouton *Nouveau fichier*.
+Tapez `templates` et appuyez sur Entrée. Cliquez avec le bouton droit sur le dossier *templates* et cliquez sur le bouton *Nouveau fichier*.
 
 Tapez `index.html.j2` et appuyez sur Entrée.
 
-Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui pourra être utilisé pour créer votre modèle. Saisissez les informations suivantes:
+Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui pourra être utilisé pour créer votre template. Saisissez les informations suivantes:
 
 <!-- {% raw %} -->
 ```html
@@ -333,25 +329,24 @@ Pour tester ce playbook, nous devons créer un nouveau modèle de tâche. Allez 
 
 Remplissez le formulaire en utilisant les valeurs suivantes
 
-| Clé         | Valeur                     | Note |
+| Key         | Value                      | Note |
 |-------------|----------------------------|------|
-| Nom         | IIS Advanced               |      |
+| Name        | IIS Advanced               |      |
 | Description | Template for iis_advanced  |      |
-| JOB TYPE    | Run                        |      |
-| INVENTORY   | Workshop Inventory |      |
-| PROJECT     | Ansible Workshop Project   |      |
-| PLAYBOOK    | `iis_advanced/site.yml`    |      |
-| CREDENTIAL  | Student Account            |      |
-| LIMIT       | windows                    |      |
-| OPTIONS     | [*] USE FACT CACHE         |      |
+| Job Type    | Run                        |      |
+| Inventory   | Workshop Inventory |      |
+| Execution Environment     | windows workshop execution environment   |      |
+| Project     | Ansible Workshop Project   |      |
+| Playbook    | `iis_advanced/site.yml`    |      |
+| Credentials  | Workshop Credential            |      |
+| OPTIONS     | [\*] Enable Fact Storage         |      |
 
-![Create Job Template](images/5-create-template.png)
 
 Étape 3:
 -------
 
-Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un qustionnaire`
-![Add](images/at_add_survey.png)
+Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un questionnaire`
+!
 
 Étape 4:
 -------
@@ -372,17 +367,8 @@ Remplissez le formulaire avec les valeurs suivantes
 Étape 5:
 -------
 
-Selectionnez `ADD` ![Add](images/at_add.png)
+Select SAVE ![Add](images/at_save.png) et n'oubliez pas de mettre la switch à **On** ![On switch](images/controller_on.png)
 
-Étape 6:
--------
-
-Selectionnez `ENREGISTRER` ![Add](images/at_save.png)
-
-Étape 7:
--------
-
-De retour sur la page principale du modèle de travail, sélectionnez `ENREGISTRER` ![Add](images/at_save.png) again.
 
 Section 6: Lancez votre nouveau playbook
 ========================================
@@ -415,6 +401,6 @@ Une fois la tâche terminé, vous devriez voir deux URL de vos sites Web affich�
 ![Job output](images/5-job-output.png)
 
 
-![IIS site](images/5-iis-8080.png)
+
 <br><br>
 [Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

@@ -14,19 +14,28 @@
   include_tasks: resources/resources_{{workshop_type}}.yml
   when: workshop_type == 'network' or workshop_type == 'demo'
 
-- name: find ami for ansible control node
-  amazon.aws.ec2_ami_info:
-    region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[control_type].owners }}"
-    filters:
-      name: "{{ ec2_info[control_type].filter }}"
-      architecture: "{{ ec2_info[control_type].architecture }}"
-  register: amis
+- name: find ami if no ami provided
+  when: not pre_build|bool
+  block:
+    - name: find ami for ansible control node
+      amazon.aws.ec2_ami_info:
+        region: "{{ ec2_region }}"
+        owners: "{{ ec2_info[control_type].owners }}"
+        filters:
+          name: "{{ ec2_info[control_type].filter }}"
+          architecture: "{{ ec2_info[control_type].architecture }}"
+      register: amis
 
-- name: save ami for ansible control node
+    - name: save ami for ansible control node
+      set_fact:
+        ansible_control_node_ami: >
+          {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}
+
+- name: save ami for ansible control node pre_build
+  when: pre_build|bool
   set_fact:
-    ansible_control_node_ami: >
-      {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}
+    ansible_control_node_ami:
+      image_id: "{{ pre_build_controller_ami[ec2_region] }}"
 
 - name: enforce that major and minor version are at least RHEL 8.4
   assert:
@@ -34,6 +43,7 @@
       - ansible_control_node_ami.name[7]|int >= 4
       - ansible_control_node_ami.name[5]|int >= 8
     msg: "AWS ec2 image retrieved will not work with AAP 2, we need at least RHEL 8.4"
+  when: not pre_build|bool
 
 - name: Create the control clusters
   include_tasks: cluster_instances.yml

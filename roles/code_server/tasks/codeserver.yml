@@ -1,6 +1,6 @@
 ---
-- name: stop controller/tower
-  include_tasks: "service/{{ controller_or_tower }}_stop.yml"
+- name: stop controller
+  include_tasks: "service/controller_stop.yml"
 
 - name: dns for coder
   become: false
@@ -114,11 +114,16 @@
   ignore_errors: true
   when: workshop_type is defined
 
+# - name: update nginx configuration to support code server
+#   blockinfile:
+#     block: "{{ lookup('template', 'nginx.conf') }}"
+#     dest: /etc/nginx/nginx.conf
+#     insertafter: "http {"
+#
 - name: update nginx configuration to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx.conf') }}"
+  ansible.builtin.template:
+    src: full_nginx.conf
     dest: /etc/nginx/nginx.conf
-    insertafter: "http {"
   when: workshop_type is defined
 
 - name: instruqt - update nginx configuration to support code server
@@ -128,9 +133,9 @@
     insertbefore: "location / "
   when: workshop_type is not defined
 
-- name: configure nginx on controller/tower
-  include_tasks: "{{ controller_or_tower }}.yml"
+- name: configure nginx on Automation controller
+  include_tasks: "controller.yml"
   when: workshop_type is defined
 
-- name: start controller/tower
-  include_tasks: "service/{{ controller_or_tower }}_start.yml"
+- name: start Automation controller
+  include_tasks: "service/controller_start.yml"

@@ -1,0 +1,14 @@
+---
+- name: Get private automation hub ami
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info['private_automation_hub'].owners }}"
+    filters:
+      name: "{{ ec2_info['private_automation_hub'].filter }}"
+      architecture: "{{ ec2_info['private_automation_hub'].architecture }}"
+  register: amis
+
+- name: Save private automation hub ami
+  set_fact:
+    ansible_hub_node_ami: >
+      {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

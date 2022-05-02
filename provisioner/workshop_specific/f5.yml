@@ -1,0 +1,19 @@
+---
+- name: configure f5 workshops for webservers node1 and node2
+  hosts: lab_hosts
+  become: true
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: ../roles/webservers
+
+- name: setup f5 nodes
+  hosts: f5
+  become: false
+  connection: local
+  gather_facts: false
+  vars:
+    as3_uri: "https://github.com/F5Networks/f5-appsvcs-extension/releases"
+  tasks:
+    - include_role:
+        name: ../roles/f5_setup

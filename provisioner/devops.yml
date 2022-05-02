@@ -1,9 +1,0 @@
----
-- name: CONFIGURE WORKSHOP WEBSERVERS FOR DEVOPS
-  hosts: lab_hosts
-  become: true
-  gather_facts: false
-  tasks:
-    - include_role:
-        name: ../../roles/devops
-      when: workshop_type == "devops"

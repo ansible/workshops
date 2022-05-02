@@ -8,9 +8,6 @@ déconstruisez votre playbook en plusieurs parties pour les mettres dans des ré
 
 Pour cet exercice, vous allez prendre le playbook que vous venez d'écrire et le refactoriser en un rôle.
 
-Commençons tout de suite avec le playook `iis-basic`.
-
-
 
 Section 1: Créez une structure de répertoires pour votre nouveau rôle
 =====================================================================
@@ -126,7 +123,7 @@ Ajoutez des variables spécifiques au rôle à votre rôle dans `roles\iis_simpl
 >
 > - Dans n'importe quel fichier qui peut être spécifié sur la ligne de commande en utilisant l'option `--extra_vars` 
 >
-> En bout de ligne, vous devriez lire la documentation sur les [variables](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) pour comprendre où définir les variables et quels emplacements ont la priorité. Dans cet exercice, nous utilisons les valeurs par défaut des rôles pour définir quelques variables et celles-ci sont les plus malléables. Après cela, nous avons défini certaines variables dans `/vars` qui ont une priorité plus élevée que les valeurs par défaut et ne peuvent pas être remplacées en tant que variable par défaut.
+> En bout de ligne, vous devriez lire la documentation sur les [variables](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) pour comprendre où définir les variables et quels emplacements ont la priorité. Dans cet exercice, nous utilisons les valeurs par défaut des rôles pour définir quelques variables et celles-ci sont les plus malléables. Après cela, nous avons défini une variable dans `/vars` qui ont une priorité plus élevée que les valeurs par défaut.
 
 Étape 5:
 --------
@@ -272,9 +269,9 @@ Une fois le travail terminé, vous devriez voir deux URL de vos sites Web affich
 Section 5: Review
 =================
 
-Vous devriez maintenant avoir un playbook complet, `site.yml` avec un seul rôle appelé `iis_simple`. L'avantage de structurer votre playbook en rôles est que vous pouvez désormais le réutiliser facilement dans vos playbooks afin que simplifier les modifications apportées aux variables, tâches, modèles, etc.
+Vous devriez maintenant avoir un playbook complet, `site.yml` avec un seul rôle appelé `iis_simple`. L'avantage de structurer votre playbook en rôles est que vous pouvez désormais le réutiliser facilement dans vos playbooks asin que simplifier les modifications des variables, tâches, templates, etc.
 
 
-[Ansible Galaxy](https://galaxy.ansible.com) un bon référentiel de rôles à utiliser ou à référencer.
+[Ansible Galaxy](https://galaxy.ansible.com) un bon référentiel de rôles à utiliser.
 <br><br>
 [Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

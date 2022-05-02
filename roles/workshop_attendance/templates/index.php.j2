@@ -174,6 +174,24 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                         <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_windows.pdf">Ansible Windows Deck</a>
                   </div>
                 </div>
+                {% elif workshop_type == 'smart_mgmt' %}
+                <h2>Ansible Automation Platform + Satellite</h2>
+                <p>The Automate Smart Management Workshop is a half-day, hands-on workshop covering Red Hat Ansible Automation Platform, Red Hat Satellite, Red Hat Enterprise Linux and CentOS Linux. Attendees will learn how to use Ansible to automate configuration of Red Hat Ansible Automation Platform controller and Red Hat Satellite, and acquire the skills needed to implement Ansible Automation at their organizations. This workshop is comprised of 4 areas of focus:</p>
+                <ul>
+                  <li>How to implement Infrastructure as Code automation with Red Hat solutions</li>
+                  <li>Compliance (OpenSCAP Scanning) and Vulnerability Management</li>
+                  <li>OS Patch/Package Management at scale</li>
+                  <li>CentOS to RHEL conversion at scale</li>
+                </ul>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_smart_mgmt">Automate Smart Management Exercises</a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_smart_mgmt.pdf">Automate Smart Management Deck</a>
+                  </div>
+                </div>
                 {% endif %}
             </div>
         </div>

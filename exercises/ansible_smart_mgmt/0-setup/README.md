@@ -6,7 +6,7 @@ Objective
 The objective of this exercise is to setup the lab environemnt following an Infrastructure as Code process. This exercise will require you to launch (9) playbooks. The playbooks accomplish the following:
 
 -   Populate Ansible Controller with an inventory source, add templates, as well as an additional project.
--   Publish RHEL7 dev content view in Satellite 
+-   Publish RHEL7 dev content view in Satellite
 -   Register servers to the Satellite installation - RHEL7
 -   Register servers to the Satellite installation - CentOS7
 -   Populate dynamic inventories - RHEL7
@@ -16,20 +16,23 @@ The objective of this exercise is to setup the lab environemnt following an Infr
 
 Environment
 ---------
-> **NOTE** The following are *example* URLs. Your student lab URLs will be different.
+> **NOTE** The following are *example* URLs. Your student lab URLs and credentials are provided from the workshops homepage after you signed in with your Name and Email address.
 * Ansible Automation Platform URL<br>
-    * **Example:** `https://student1.smrtmgmt013.mw01.redhatpartnertech.net`
-    * Ansible Automation Platform login/password 
-* Satellite URL<br> 
-    * **Example:** `https://student1-sat.smrtmgmt013.mw01.redhatpartnertech.net` (Note the -sat added to the URL)
+    * **Example:** `https://student1.01d1.example.opentlc.com`
+    * Ansible Automation Platform login/password from the workshops homepage.
+* Satellite URL<br>
+    * **Example:** `https://student1-sat.01d1.example.opentlc.com` (Note the -sat added to the URL)
     * Satellite login/password (same as above)
+
+> **NOTE** There are a number of warnings (such as [DEPRECATION WARNING]) in the playbook run output - these can be safely ignored for the purposes of this workshop.
 
 Exercise
 --------
 
 #### 1\. Logging into the Ansible Automation Platform (AAP)
 
--   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>*
+-   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the username and password provided in your "Workbench Information"
+on your "Workshops Homepage".
 
 ![login screen](images/0-setup-aap2-login.png)
 
@@ -51,11 +54,11 @@ This step demonstrates the execution of job templates. You will be working with 
 
 First, you will need to run the **SETUP / Controller** job template.
 
--   Select **Templates** and click on the![launch](images/0-setup-aap2-launch.png)to the right of the **SETUP / Controller** job template.
-
-![control-complete](images/0-setup-aap2-setup-control-complete.png)
+-   Click on the ![launch](images/0-setup-aap2-launch.png) to the right of the **SETUP / Controller** job template.
 
 You will be taken to the **Jobs > SETUP / Controller** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 2 mins to complete.
+
+![control-complete](images/0-setup-aap2-setup-control-complete.png)
 
 > **NOTE** Please allow the **SETUP / Controller** job to run to completion before proceeding to execution of the next template.
 
@@ -63,22 +66,26 @@ When complete, you will see a successful status as well as a play recap at the b
 
 -   Navigate back to **Templates** on the left side pane.
 
-The **SETUP / Controller** job will create multiple job templates that will be useful throughout the remainder of this workshop. 
+The **SETUP / Controller** job will create multiple job templates that will be useful throughout the remainder of this workshop.
 
 ![templates-iac](images/0-setup-aap2-templates-iac.png)
 
 Now that we have several more templates at our disposal we will need to run four more of these in order to complete setup.
 
-Run the **SATELLITE / RHEL - Publish Content View** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch. When prompted by the survey for the content view to publish, from the drop down menu, select **RHEL7**
+Run the **SATELLITE / RHEL - Publish Content View** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch. When prompted by the survey for the content view to publish, from the drop down menu, select **RHEL7**
 -   Select **Next** to review the setting for the job run, then click **Launch** the run the job template.
+
+You will be taken to the **Jobs > SATELLITE / RHEL - Publish Content View** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 1 min to complete.
 
 ![publish-cv-rhel](images/0-setup-aap2-publish-cv-rhel.png)
 
-Next, run the **CONVERT2RHEL / 01 - Take node snapshot** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch.
+Next, go back to Templates and run the **CONVERT2RHEL / 01 - Take node snapshot** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
+
+You will be taken to the **CONVERT2RHEL / 01 - Take node snapshot** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 7 mins to complete.
 
 ![node-snapshot-complete](images/0-setup-aap2-node-snapshot-complete.png)
 
-Next, run the **SERVER / RHEL7 - Register** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch.
+Next, go back to Templates and run the **SERVER / RHEL7 - Register** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
 
 -   You will be presented with a survey. Fill this out as follows:
 
@@ -90,9 +97,11 @@ Next, run the **SERVER / RHEL7 - Register** job template by clicking the![launch
 
 -   Select **Launch** to run the job template.
 
+You will be taken to the **SERVER / RHEL7 - Register** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 1 min to complete.
+
 ![rhel-register-complete](images/0-setup-aap2-rhel-register-complete.png)
 
-Run the **SERVER / CentOS7 - Register** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch.
+Next, go back to Templates and run the **SERVER / CentOS7 - Register** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
 
 -   You will be presented with a survey. Fill this out as follows:
 
@@ -104,30 +113,35 @@ Run the **SERVER / CentOS7 - Register** job template by clicking the![launch](im
 
 -   Select **Launch** to run the job template.
 
+You will be taken to the **SERVER / CentOS7 - Register** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 1 min to complete.
+
 ![centos-register-complete](images/0-setup-aap2-centos-register-complete.png)
 
-Run the **EC2 / Set instance tags based on Satellite(Foreman) facts** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch.
+Next, go back to Templates and run the **EC2 / Set instance tags based on Satellite(Foreman) facts** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
+
+You will be taken to the **EC2 / Set instance tags based on Satellite(Foreman) facts** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 1 min to complete.
 
 ![satellite-ec2-tags](images/0-setup-aap2-satellite-ec2-tags.png)
 
 > **NOTE** For the following job template, review the **Variables** section of the template, paying particular note to the **group_tag_map** variable.  A mapping of nodes to group names is defined.  EC2 tags for these group names will be assigned to the nodes defined and this will be utilized later via dynamic inventory building to construct Ansible inventory groups containing the nodes defined, ie. "frontends", "apps", "appdbs".
 
-Next, run the **EC2 / Set instance tag - AnsibleGroup** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch.
+Next, run the **EC2 / Set instance tag - AnsibleGroup** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
 
-![ansiblegroups-ec2-tags](images/0-setup-aap2-ansiblegroups-ec2-tags.png)
+You will be taken to the **EC2 / Set instance tag - AnsibleGroup** output window where you will be able to follow each task executed as part of the playbook. This will take approximately 1 min to complete.
 
-Dynamic inventories - understanding inventories populated via dynamic sources
-------------
+![ansiblegroups-ec2-tags](images/0-setup-aap2-initial-inventory.png)
+
+#### 3\. Dynamic inventories - understanding inventories populated via dynamic sources
 
 > **NOTE** Before running the dynamic inventory update templates in the upcoming steps, first navigate to the Inventories location in AAP and review the following inventories:
 >
->     - ALL Development => HOSTS
->     - CentOS7 Development => HOSTS
->     - RHEL7 Development => HOSTS
+>     - ALL Development => Hosts
+>     - CentOS7 Development => Hosts
+>     - RHEL7 Development => Hosts
 >      
->    Note that these inventories have yet to be populated.  Also, while you are in each of these inventories, click on the "SOURCES" button and review how each of these dynamic source inventories are configured, taking note of the "SOURCE VARIABLES" section to gain an understanding on how the resultant hosts and groups for that particular inventory are populated.
+>    Note that these inventories have yet to be populated.  Also, while you are in each of these inventories, click on the "Sources" button and review how each of these dynamic source inventories are configured, taking note of the "SOURCE VARIABLES" section to gain an understanding on how the resultant hosts and groups for that particular inventory are populated.
 
-Run the **CONTROLLER / Update inventories via dynamic sources** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch.
+Next, go back to Templates and run the **CONTROLLER / Update inventories via dynamic sources** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
 
 -   You will be presented with a survey. Fill this out as follows:
 
@@ -135,15 +149,15 @@ Run the **CONTROLLER / Update inventories via dynamic sources** job template by 
 
 -   Select **Next** to proceed to the survey response confirmation.
 
--   Review Extra Variables
+-   Review Extra Variables (you will need to scroll to the bottom of the survey)
 
 ![rhel-inventory-confirm](images/0-setup-aap2-rhel-inventory-confirm.png)
 
--   then select **Launch** to run the job template.
+-   then select **Launch** to run the job template.  This should take less than 30 seconds to run.
 
 ![rhel-inventory-complete](images/0-setup-aap2-rhel-inventory-complete.png)
 
-Run the **CONTROLLER / Update inventories via dynamic sources** job template by clicking the![launch](images/0-setup-aap2-launch.png)to launch.
+Run the **CONTROLLER / Update inventories via dynamic sources** job template by clicking the ![launch](images/0-setup-aap2-launch.png) to launch.
 
 -   You will be presented with a survey. Fill this out as follows:
 
@@ -159,8 +173,7 @@ Run the **CONTROLLER / Update inventories via dynamic sources** job template by 
 
 ![centos-inventory-complete](images/0-setup-aap2-centos-inventory-complete.png)
 
-Dynamic inventories - review inventories populated via dynamic sources
-------------
+#### 4\. Dynamic inventories - review inventories populated via dynamic sources - Updated
 
 > **NOTE** Now that the dynamic inventory update templates have been executed, navigate to the Inventories location in AAP and review the following inventories:
 >
@@ -168,11 +181,11 @@ Dynamic inventories - review inventories populated via dynamic sources
 >     - CentOS7 Development => HOSTS
 >     - RHEL7 Development => HOSTS
 >      
->    Review how the resultant hosts and groups are defined from information based on tags set from earlier Satellite job template queries.
+>    Review how the resultant hosts and groups are defined from information based on tags set from earlier Satellite job template queries.  Take the time to click on a host and look at the variables that have been collected and defined in the "Variables" section.
 
 Next, login to Satellite to perform verification.
 
-#### 3\. Login to Satellite and validate your Environment
+#### 5\. Login to Satellite and validate your Environment
 
 ![](https://lh4.googleusercontent.com/xQc7AudiblHnV7vKVFv0_055wfoeODtDltSS1_C6yV_ppF3rmfN_B78dw-Lo-OvN2ey5aE20UkuxnqYPgtmwQ0pqDdXuHqZZ4yI1rV0_E8PaFeLJHBuTR2FngYQwtutxRzpOSrEe)
 
@@ -184,7 +197,7 @@ Next, login to Satellite to perform verification.
 
 -   Click on **Content** -> **Content Views** -> **RHEL7** to verify that all Dev, QA and Prod environments are accounted for.
 
-![](https://lh4.googleusercontent.com/AWbPrWmlXnm6ALxRs45Q-7LGnyA9muQiM_wWRqBUcU3OUwg1c26OML0YGywUL_5eivJK7F5e1NlwCvKDrIBDr8qflTut1KNIUsOUuQgpl6dkpHJ3mFjsKh3sg01NP5CJYn3HHGQa)
+![rhel7-content-views](images/0-setup-aap2-centos-content-views.png)
 
 #### 4\. End of exercise
 

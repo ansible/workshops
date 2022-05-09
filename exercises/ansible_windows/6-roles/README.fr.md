@@ -21,9 +21,9 @@ Dans Visual Studio Code, accédez à l'explorateur et à la section *WORKSHOP_PR
 
 Sélectionnez le dossier **iis_advanced**.
 
-Créez un répertoire appelé **rôles** en cliquant avec le bouton droit sur **iis_advanced** et en sélectionnant *Nouveau dossier*
+Créez un répertoire appelé **roles** en cliquant avec le bouton droit sur **iis_advanced** et en sélectionnant *Nouveau dossier*
 
-Maintenant, faites un clic droit sur **rôles** et créez un nouveau dossier appelé `iis_simple`.
+Maintenant, faites un clic droit sur **roles** et créez un nouveau dossier appelé `iis_simple`.
 
 Étape 2:
 --------

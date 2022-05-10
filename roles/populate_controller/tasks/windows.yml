@@ -20,9 +20,9 @@
       - 'win_reboot'
       - 'win_chocolatey'
     validate_certs: false
-    tower_password: "{{ admin_password }}"
-    tower_username: "{{ username }}"
-    tower_host: https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}
+    controller_password: "{{ admin_password }}"
+    controller_username: "{{ student }}"
+    controller_host: "https://{{ ansible_host }}"
   register: adhoc_commands
   until: adhoc_commands is success
   delay: 3

@@ -60,7 +60,8 @@
 - name: add nodes for cluster lab to groups (ANSIBLE RHEL MODE)
   add_host:
     name: "{{ item.tags.Name }}"
-    username: "{{ item.tags.Student }}"
+    username: "{{ student_user }}"
+    student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ item.tags.username }}"

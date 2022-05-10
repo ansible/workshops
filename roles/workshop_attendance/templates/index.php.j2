@@ -386,7 +386,7 @@ function display_student($student) {
   <table>
     <tr>
       <td>username:</td>
-      <td><code>student' . $student['id'] . '</code></td>
+      <td><code>{{ student_user }}</code></td>
     </tr>
     <tr>
       <td>password:</td>
@@ -399,10 +399,10 @@ function display_student($student) {
   </table>
   </div>
   <div id="example_login">
-  <pre><code>ssh student' . $student['id'] . '@' . $student['ip'] . '</code></pre>
+  <pre><code>ssh {{ student_user }}@' . $student['ip'] . '</code></pre>
   {% if dns_type != 'none' %}
   DNS: student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}<br>
-  <pre><code>ssh student' . $student['id'] . '@student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</code></pre>
+  <pre><code>ssh {{ student_user }}@student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</code></pre>
   {% endif %}
   </div>
   </div>

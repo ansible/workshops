@@ -1,0 +1,27 @@
+---
+username: "ec2-user"
+aap_dir: "/home/{{ username }}/aap_install"
+output_dir: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
+# workshop execution environments
+f5_ee: "quay.io/acme_corp/f5_ee:latest"
+security_ee: "quay.io/acme_corp/security_ee:latest"
+rhel_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+network_ee: "quay.io/ansible/network-ee:latest"
+rhel_90_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+windows_ee: "quay.io/acme_corp/windows_ee:latest"
+smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:latest"
+
+
+# EE registry name used in installer and EE controller credential
+ee_registry_name: "registry.redhat.io"
+
+# List of execution environments to download during controller installation:
+ee_images:
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-29-rhel8:latest"
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-supported-rhel8:latest"
+   - "{{ ee_registry_name }}/ansible-automation-platform-21/ee-minimal-rhel8:latest"
+
+# Default EE that uses the registry credential (Default execution environment)
+ee_default_image: "{{ ee_registry_name }}/ansible-automation-platform-21/ee-supported-rhel8:latest"
+# Controller install command
+controller_install_command: "./setup.sh -e gpgcheck=0"

@@ -36,6 +36,8 @@
   retries: 60
   delay: 10
 
+
+
 - name: Display /api/v2/ping results
   debug:
     msg: '{{ check2.json }}'
@@ -104,6 +106,16 @@
   loop: "{{ ee_images }}"
   register: podman_pull_supported
   until: podman_pull_supported is not failed
+  retries: 5
+  delay: 15
+
+- name: Pull workshop images
+  become_user: "awx"
+  containers.podman.podman_image:
+    name: "{{ lookup('vars', workshop_type + '_ee') }}"
+  when: workshop_type is defined
+  register: podman_pull_workshop
+  until: podman_pull_workshop is not failed
   retries: 5
   delay: 15
 

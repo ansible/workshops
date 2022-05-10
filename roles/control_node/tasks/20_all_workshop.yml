@@ -5,15 +5,6 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     state: directory
-  when: workshop_type is defined
-
-- name: Install ansible-navigator.yml in home directory
-  template:
-    src: ansible-navigator.yml.j2
-    dest: "/home/{{ username }}/.ansible-navigator.yml"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: workshop_type is defined
 
 - name: Apply patch for runner fix PR759
   lineinfile:
@@ -32,7 +23,6 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0644
-  when: workshop_type is defined
 
 # Login into Red Hat registry
 - name: Login to redhat registry
@@ -44,21 +34,6 @@
   register: login_registry
   until: login_registry is not failed
   retries: 5
-  when: workshop_type is defined
-
-# Pull specific EE for each workshop based on workshop name
-- name: Pull execution environment for {{ workshop_type }} workshop
-  become_user: "{{ username }}"
-  containers.podman.podman_image:
-    name: "{{ lookup('vars', workshop_type + '_ee') }}"
-  register: podman_pull
-  until: podman_pull is not failed
-  retries: 5
-  when: workshop_type is defined
-
-# This may look redundant, but you can't put these in a loop because the
-# ansible_user will not be templated the way you expect when running under
-# Controller/AWX
 
 - name: copy over ssh config file for student
   template:
@@ -67,67 +42,3 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0700
-  when: workshop_type is defined
-
-- name: Put ssh-key in proper spot for student
-  copy:
-    src: "{{ output_dir }}/{{ ec2_name_prefix }}-private.pem"
-    dest: "/home/{{ username }}/.ssh/id_rsa"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0400
-  when: workshop_type is defined
-
-- name: clean out /tmp/workshops
-  file:
-    path: /tmp/workshops
-    state: absent
-
-- name: Clone workshops repo
-  git:
-    accept_hostkey: true
-    clone: true
-    dest: /tmp/workshops
-    repo: '{{ ansible_workshops_url | default("https://github.com/ansible/workshops.git") }}'
-    version: '{{ ansible_workshops_version | default("main") }}'
-    refspec: '{{ ansible_workshops_refspec | default("") }}'
-    force: true
-
-- name: Move relevant exercises to correct location
-  copy:
-    src: '{{ "/tmp/workshops/" + exercise_src_location | default("exercises/ansible_" + workshop_type) + "/" }}'
-    dest: '{{ "/home/" + username + "/" + exercise_dest_location | default(workshop_type + "-workshop") }}'
-    remote_src: true
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    local_follow: true
-  ignore_errors: true  # Required for testing local development
-  when: workshop_type is defined
-
-- name: Create lab inventory directory
-  file:
-    state: directory
-    path: /home/{{ username }}/lab_inventory
-  when: workshop_type is defined
-
-- name: Put student inventory in proper spot
-  copy:
-    src: "{{ output_dir }}/{{ username }}-instances.txt"
-    dest: /home/{{ username }}/lab_inventory/hosts
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: username in inventory_hostname
-
-- name: Copy instructor inventory to student1
-  copy:
-    src: "{{ output_dir }}/instructor_inventory.txt"
-    dest: /tmp/instructor-inventory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: '"student1-ansible-1" in inventory_hostname'
-
-- name: setup control node for workshop type
-  include_tasks: "{{item}}"
-  with_first_found:
-    - "{{role_path}}/tasks/workshops/{{workshop_type}}.yml"
-    - "{{role_path}}/tasks/workshops/unsupported_workshop.yml"

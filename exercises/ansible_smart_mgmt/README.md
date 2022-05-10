@@ -11,7 +11,7 @@ In this workshop, you will learn how to get the most from Red Hat Smart Manageme
 
 ## Use Cases
 
-This workshop focuses on 3 main customer pain points:
+This workshop currently focuses on 3 main customer pain points:
 - Compliance (OpenSCAP Scanning) and Vulnerability Management
 - Patch/Package Management
 - CentOS to RHEL conversion
@@ -21,7 +21,7 @@ This workshop focuses on 3 main customer pain points:
 
 The exercises are self explanatory and guide the participants through the entire lab. All concepts are explained when they are introduced.
 
-There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail.  Workshop presentation is WIP and will be added soon.
+There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail.  Workshop presentation is located at [Automated Smart Management Workshop](https://aap2.demoredhat.com/decks/ansible_smart_mgmt.pdf).
 
 Also have a look at our Ansible Best Practices Deck:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)

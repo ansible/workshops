@@ -1,6 +1,0 @@
-[ansible-stable-29-prerelease-nightly]
-name=ansible-stable-29-prerelease-nightly
-baseurl=https://releases.ansible.com/ansible/rpm/nightly/stable-2.9/epel-7-x86_64/
-enabled=yes
-gpgcheck=no
-

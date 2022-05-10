@@ -4,7 +4,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
+      "tag:Workshop_rtr1": "{{ ec2_name_prefix }}-rtr1"
   register: rtr1_node_facts
 
 - name: grab facts for rtr2 node (NETWORK MODE)
@@ -12,7 +12,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_rtr2": "{{ec2_name_prefix}}-rtr2"
+      "tag:Workshop_rtr2": "{{ ec2_name_prefix }}-rtr2"
   register: rtr2_node_facts
 
 - name: grab facts for rtr3 node (NETWORK MODE)
@@ -20,7 +20,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_rtr3": "{{ec2_name_prefix}}-rtr3"
+      "tag:Workshop_rtr3": "{{ ec2_name_prefix }}-rtr3"
   register: rtr3_node_facts
 
 - name: grab facts for rtr4 node (NETWORK MODE)
@@ -28,7 +28,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_rtr4": "{{ec2_name_prefix}}-rtr4"
+      "tag:Workshop_rtr4": "{{ ec2_name_prefix }}-rtr4"
   register: rtr4_node_facts
 
 - name: ADD RTR1 ROUTERS TO INVENTORY
@@ -56,9 +56,9 @@
     username: "{{ item.tags.Student }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
-    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    private_ip: "{{item.private_ip_address}}"
-    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ ec2_name_prefix }}-private.pem"
+    private_ip: "{{ item.private_ip_address }}"
+    ansible_network_os: "{{ item.tags.ansible_network_os }}"
     groups:
       - routers
       - core
@@ -72,9 +72,9 @@
     username: "{{ item.tags.Student }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
-    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    private_ip: "{{item.private_ip_address}}"
-    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ ec2_name_prefix }}-private.pem"
+    private_ip: "{{ item.private_ip_address }}"
+    ansible_network_os: "{{ item.tags.ansible_network_os }}"
     groups:
       - routers
       - access
@@ -88,9 +88,9 @@
     username: "{{ item.tags.Student }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
-    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    private_ip: "{{item.private_ip_address}}"
-    ansible_network_os: "{{item.tags.ansible_network_os}}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+    private_ip: "{{ item.private_ip_address }}"
+    ansible_network_os: "{{ item.tags.ansible_network_os }}"
     groups:
       - routers
       - access

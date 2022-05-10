@@ -1,4 +1,5 @@
 ---
+student_user: student
 admin_password: ansible
 code_server: true
 workshop_dns_zone: "rhdemo.io"

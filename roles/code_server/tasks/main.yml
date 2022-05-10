@@ -10,7 +10,7 @@
     - name: check to see if SSL cert already applied
       become: false
       community.crypto.get_certificate:
-        host: "{{ username }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+        host: "{{ student }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
         port: 443
       delegate_to: localhost
       run_once: true

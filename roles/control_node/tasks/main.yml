@@ -6,11 +6,9 @@
 
 - name: Install packages
   include_tasks: 15_package_dependencies.yml
-  when: not pre_build|bool
 
 - name: common workshop setup for control node
   include_tasks: 20_all_workshop.yml
-  when: workshop_type is defined
 
 - name: check to see if automation controller is already up and running
   uri:
@@ -33,15 +31,3 @@
     - controllerinstall is defined
     - controllerinstall|bool
     - check_controller.status != 200
-
-- name: make sure password is set on Automation controller
-  include_tasks: "35_controller_pre_build.yml"
-  when:
-    - controllerinstall is defined
-    - controllerinstall|bool
-    - check_controller.status == 200
-    - pre_build|bool
-
-- name: Setup Route53 update service
-  include_tasks: 40_route53_update.yml
-  when: tower_node_aws_api_access|default(false)|bool

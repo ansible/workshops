@@ -1,4 +1,4 @@
-#### This workbench is for {{ student }} ####
+#### This workbench is for {{ student | default('student') }} ####
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@     ############     m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@     ################   m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -12,8 +12,8 @@
 @@@@@@@@@@@     ####################     m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@     #############     m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#### This workbench is for {{ student }} ####
-- Public FQDN: {{ student }}.{{ ec2_name_prefix|default("ansible") }}.{{ workshop_dns_zone|default("demo") }}
+#### This workbench is for {{ student | default('student') }} ####
+- Public FQDN: {{ student | default('student') }}.{{ ec2_name_prefix|default("ansible") }}.{{ workshop_dns_zone|default("demo") }}
 — Local FQDN: {{ ansible_fqdn }}
 — Distro: {{ ansible_distribution }} {{ ansible_distribution_version }} {{ ansible_distribution_release }}
 — Virtual: {{ 'YES' if ansible_virtualization_role == 'guest' else 'NO' }}

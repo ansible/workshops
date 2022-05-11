@@ -17,7 +17,8 @@
 - hostname:
     name: "{{ short_name|default('automation-controller') }}.example.com"
 
-- template:
+- name: template out motd
+  template:
     src: motd.j2
     dest: /etc/motd
 

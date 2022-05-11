@@ -7,10 +7,10 @@
     - gitlab
   tasks:
     - include_role:
-        name: ../roles/common
+        name: ../../roles/common
 
     - include_role:
-        name: ../roles/vendor_do1jlr_gitea
+        name: ../../roles/vendor_do1jlr_gitea
       vars:
         # server configuration: https://docs.gitea.io/en-us/config-cheat-sheet/#server-server
         gitea_fqdn: 'gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}'
@@ -43,4 +43,4 @@
     - git
   tasks:
     - include_role:
-        name: ../roles/gitlab_client
+        name: ../../roles/gitlab_client

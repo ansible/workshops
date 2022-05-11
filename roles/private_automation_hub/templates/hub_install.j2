@@ -1,7 +1,11 @@
 [automationcontroller]
 
 [automationhub]
+{% if workshop_type is defined %}
 {{ ansible_host }} ansible_connection=local
+{% else %}
+automationhub ansible_connection=local
+{% endif %}
 
 [database]
 

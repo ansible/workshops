@@ -33,7 +33,7 @@
           DEFAULT_BRANCH = main
 
     - include_role:
-        name: ../roles/gitlab_server
+        name: ../../roles/gitlab_server
 
 - name: Configure GitLab client
   hosts: '*ansible-1'

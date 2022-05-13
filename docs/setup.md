@@ -37,6 +37,7 @@ Here are the setup directions you have to perform one time for the [workshop pro
 
 | package  | `dnf`   | `pip`  |
 |---|---|---|
+| [git](https://git.kernel.org/pub/scm/git/git.git) | `git` | N/A |
 | [ansible-core](https://docs.ansible.com/core.html) 2.11 or newer | `ansible-core` | `ansible-core` |
 | [boto3](https://aws.amazon.com/sdk-for-python/) - required for `amazon.aws` collection | `python3-boto3` | `boto3` |
 | [netaddr](https://netaddr.readthedocs.io/en/latest/)| `python3-netaddr` | `netaddr` |

@@ -102,7 +102,7 @@ If you haven't done so already make sure you have the repo cloned to the machine
 ## 6. Run the requirements.yml file to ensure all the Ansible collection prerequisites are met.
 ￼
 ￼```
-￼ansible-galaxy collection install -r requirements.yml
+￼ansible-galaxy collection install -r collections/requirements.yml
 ￼```
 
 ## 7.  Subscribe to AWS marketplace images

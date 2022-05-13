@@ -6,7 +6,7 @@
     msg: "windows_password must be set for security automation workshop"
 
 - name: required roles
-  shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+  shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./workshop_specific/roles/"
   async: 600
   poll: 0
   loop:

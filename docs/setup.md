@@ -73,7 +73,7 @@ The windows workshops will also require pywinrm and requests-credssp
 
 | package  | `dnf`   | `pip`  |
 |---|---|---|
-| [pywinrm](https://github.com/diyan/pywinrm)| `python3-pywinrm` | `pywinrm`
+| [pywinrm](https://github.com/diyan/pywinrm)| `python3-winrm` | `pywinrm`
 | [requests-credssp](https://pypi.org/project/requests-credssp/)| `python3-requests-credssp` | `requests-credssp` |
 
 

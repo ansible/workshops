@@ -1,4 +1,8 @@
 ---
+- name: Set host private ip to ip of the machine
+  set_fact:
+    __host_private_ip: '{{ ansible_default_ipv4["address"] }}'
+
 - name: template inventory file for Ansible Controller Install
   template:
     src: "hub_install.j2"
@@ -9,5 +13,5 @@
   shell: "./setup.sh -e gpgcheck=0"
   args:
     chdir: "{{ aap_dir }}"
-  async: 1400
+  async: 2000
   poll: 15

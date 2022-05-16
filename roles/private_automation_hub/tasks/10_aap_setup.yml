@@ -21,3 +21,15 @@
     dest: "{{ aap_dir }}"
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
+
+- name: Read group vars file
+  ansible.builtin.shell: "cat {{ aap_dir }}/group_vars/all"
+  register: __read_results
+
+- name: Parse the yaml into variable
+  set_fact:
+    __aap_global_vars: "{{ __read_results.stdout | from_yaml }}"
+
+- name: Register the aap version
+  set_fact:
+    __aap_version: "{{ __aap_global_vars.automation_platform_version }}"

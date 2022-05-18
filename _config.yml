@@ -1,5 +1,6 @@
 ---
 theme: jekyll-theme-minimal
+markdown: GFM
 include:
   - "provisioner/README.md"
 exclude:
@@ -9,6 +10,6 @@ exclude:
   - "provisioner/inventory"
   - "provisioner/tests"
   - "legacy-assets"
-kramdown:
-  syntax_highlighter_opts:
-    disable: true
+# kramdown:
+#   syntax_highlighter_opts:
+#     disable: true

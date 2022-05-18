@@ -223,6 +223,7 @@ not escape the forward slash.
 <!-- {% endraw %} -->
 
 
+   > ## Note
    > **So… what did I just write?**
    >
    > - `win_firewall_rule:` This module is used to create, modify, and

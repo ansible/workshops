@@ -5,3 +5,13 @@
   register: issue_cert
   until: issue_cert is not failed
   retries: 5
+
+- name: Retrieve Specific SSL cert
+  slurp:
+    src: "/etc/letsencrypt/live/{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}/cert.pem"
+  register: intermediate_cert
+
+- name: Combine Specific and intermediate cert
+  template:
+    src: combined_cert.j2
+    dest: /etc/letsencrypt/live/{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}/combined.cert

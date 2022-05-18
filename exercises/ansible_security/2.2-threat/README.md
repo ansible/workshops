@@ -17,7 +17,7 @@ In this exercise, we imagine that we are a security operator in charge of an ent
 
 As in the previous exercise, we need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
 
-1. The `whitelist_attacker.yml` playbook must have been run at least once. 
+1. The `whitelist_attacker.yml` playbook must have been run at least once.
 2. Also, the logging for the attacker whitelist policy must have been activated in the Check Point SmartConsole.
 
 Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
@@ -58,7 +58,7 @@ You are a security operator in charge of an enterprise firewall in a larger orga
 >
 > Username: `admin`   
 > Password: `admin123`   
-> 
+>
 
 ![Check Point logs view, violation logs](images/smartconsole_violation_logs.png#centreme)
 
@@ -104,7 +104,11 @@ Let's quickly verify that the QRadar logs are now showing up. Log into the QRada
 >
 > Username: `admin`   
 > Password: `Ansible1!`   
-> 
+>
+
+> **Note**
+>
+> It is recommended to use Mozilla Firefox with the QRadar web UI.  For more information on this limitation please reference [workshop issue 1536](https://github.com/ansible/workshops/issues/1536)
 
 ![QRadar Log Activity showing logs from Check Point](images/qradar_checkpoint_logs.png#centreme)
 
@@ -211,6 +215,6 @@ You are done with the exercise. Turn back to the list of exercises to continue w
 
 **Navigation**
 <br><br>
-[Previous Exercise](../2.1-enrich/README.md) | [Next Exercise](../2.3-incident/README.md) 
+[Previous Exercise](../2.1-enrich/README.md) | [Next Exercise](../2.3-incident/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

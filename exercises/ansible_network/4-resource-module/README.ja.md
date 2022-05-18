@@ -1,6 +1,6 @@
 # 演習 4: Ansible ネットワークリソースモジュール
 
-**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
 If you are using an **all Cisco workbench** (all four routers are Cisco IOS
 routers) please [switch to these
@@ -262,7 +262,7 @@ Ansible
   ```
 
 リソースモジュールは、指定された設定で Arista EOS ネットワークデバイスを設定したことが分かります。現在、合計 5 つの
-VLAN（デフォルトの vLAN 1 を含む）があります。
+VLAN（デフォルトの VLAN 1 を含む）があります。
 
 ### ステップ 6 - 収集したパラメーターの使用
 

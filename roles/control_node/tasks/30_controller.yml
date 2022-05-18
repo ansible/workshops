@@ -11,7 +11,6 @@
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is defined and create_cluster|bool
 
-# sean note to self... should I remove the gpgcheck=0?
 - name: run the Automation Controller installer
   shell: "{{ controller_install_command }}"
   args:
@@ -37,23 +36,9 @@
   retries: 60
   delay: 10
 
-- name: Install ansible.cfg in home directory
-  template:
-    src: ansible.cfg.j2
-    dest: "/etc/ansible/ansible.cfg"
-
-
 - name: Display /api/v2/ping results
   debug:
     msg: '{{ check2.json }}'
-
-# - name: install ansible-tower-cli and requests
-#   become: true
-#   pip:
-#     name:
-#       - ansible-tower-cli
-#       - "requests==2.6.0"
-#     state: latest
 
 # Certbot dependancy / acme, needs later version of requests library than task above^^
 - name: install ansible-tower-cli and requests >2.14
@@ -119,16 +104,6 @@
   loop: "{{ ee_images }}"
   register: podman_pull_supported
   until: podman_pull_supported is not failed
-  retries: 5
-  delay: 15
-
-- name: Pull workshop images
-  become_user: "awx"
-  containers.podman.podman_image:
-    name: "{{ lookup('vars', workshop_type + '_ee') }}"
-  when: workshop_type is defined
-  register: podman_pull_workshop
-  until: podman_pull_workshop is not failed
   retries: 5
   delay: 15
 

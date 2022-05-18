@@ -75,7 +75,7 @@ Run it with:
 
 For this exercise to work properly, we'll need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
 
-1. The `whitelist_attacker.yml` playbook must have been run at least once. 
+1. The `whitelist_attacker.yml` playbook must have been run at least once.
 2. Also, the logging for the attacker whitelist policy must have been activated in the Check Point SmartConsole.
 
 Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If you missed the steps, go back there, execute the playbook, follow the steps to activate the logging and come back here.
@@ -174,9 +174,13 @@ Let's change our perspective briefly to the one of a security analyst. We mainly
 >
 > If no logs are shown, wait a bit. It might take more than a minute to show the first entries. Also, the first logs might be identified with the "default" log source (showing **SIM Generic Log DSM-7** instead of **Snort rsyslog source**) so give it some time.
 
-As the analyst, it's our responsibility to investigate possible security threats and, if necessary, create an incident response. In this case, the SQL Injection attack is indeed a cyber attack and we need to mitigate it as soon as possible. 
+> **Note**
+>
+> It is recommended to use Mozilla Firefox with the QRadar web UI.  For more information on this limitation please reference [workshop issue 1536](https://github.com/ansible/workshops/issues/1536)
 
-To have a clearer view of the logs, change the display to **Raw Events** at the top of the Log Activity output window. 
+As the analyst, it's our responsibility to investigate possible security threats and, if necessary, create an incident response. In this case, the SQL Injection attack is indeed a cyber attack and we need to mitigate it as soon as possible.
+
+To have a clearer view of the logs, change the display to **Raw Events** at the top of the Log Activity output window.
 
 ![QRadar logs view, attacker IP address](images/qradar_attacker_ip.png#centreme)
 
@@ -190,7 +194,7 @@ Looking closer at the **Raw Events** output, we can see that the Snort logs incl
 >
 >Note that these logs already show an offense marker on the left hand side.
 
-Open the **Offenses** tab on the top menu. We'll see a newly created offense similar to the below. 
+Open the **Offenses** tab on the top menu. We'll see a newly created offense similar to the below.
 
 ![QRadar offense list](images/qradar_offense_list.png#centreme)
 

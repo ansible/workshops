@@ -33,11 +33,6 @@ Pour utiliser Ansible, vous devez fournir un fichier d'inventaire qui définit u
 Par exemple:
 
 ```bash
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=PASSWORD
-ansible_port=22
-
 [web]
 node1 ansible_host=<X.X.X.X>
 node2 ansible_host=<Y.Y.Y.Y>
@@ -110,11 +105,6 @@ Affichez le fichier d'inventaire
 
 ```bash
 [student<X>@ansible ~]$ cat /home/student<X>/lab_inventory/hosts
-[all:vars]
-ansible_user=student<X>
-ansible_ssh_pass=ansible
-ansible_port=22
-
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55

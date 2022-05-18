@@ -1,0 +1,23 @@
+- name: set password
+  block:
+    - name: change admin password
+      awx.awx.user:
+        username: "admin"
+        password: "{{ admin_password }}"
+        state: present
+        superuser: true
+        controller_username: admin
+        controller_password: "R3dh4t1!"
+        controller_host: "https://{{ ansible_host }}"
+        validate_certs: false
+  rescue:
+    - name: change admin password
+      awx.awx.user:
+        username: "admin"
+        password: "{{ admin_password }}"
+        state: present
+        superuser: true
+        controller_username: admin
+        controller_password: "{{ admin_password }}"
+        controller_host: "https://{{ ansible_host }}"
+        validate_certs: false

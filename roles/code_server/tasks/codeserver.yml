@@ -1,13 +1,13 @@
 ---
-- name: stop controller/tower
-  include_tasks: "service/{{ controller_or_tower }}_stop.yml"
+- name: stop controller
+  include_tasks: "service/controller_stop.yml"
 
 - name: dns for coder
   become: false
   community.aws.route53:
     state: "{{ s3_state }}"
     zone: "{{ workshop_dns_zone }}"
-    record: "{{ username }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+    record: "{{ student }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
     type: A
     overwrite: true
     value: "{{ ansible_host }}"
@@ -47,7 +47,7 @@
   template:
     src: code-server.service.j2
     dest: /etc/systemd/system/code-server.service
-    owner: "{{username}}"
+    owner: "{{ username }}"
     group: wheel
     mode: '0744'
 
@@ -107,7 +107,7 @@
 
 # if we do not have a cert we will try to work anyway
 - name: issue cert
-  shell: certbot certonly --no-bootstrap --standalone -d {{ username }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }} --email ansible-network@redhat.com --noninteractive --agree-tos
+  shell: certbot certonly --no-bootstrap --standalone -d {{ student }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }} --email ansible-network@redhat.com --noninteractive --agree-tos
   register: issue_cert
   until: issue_cert is not failed
   retries: 5
@@ -115,10 +115,9 @@
   when: workshop_type is defined
 
 - name: update nginx configuration to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx.conf') }}"
+  ansible.builtin.template:
+    src: full_nginx.conf
     dest: /etc/nginx/nginx.conf
-    insertafter: "http {"
   when: workshop_type is defined
 
 - name: instruqt - update nginx configuration to support code server
@@ -128,9 +127,9 @@
     insertbefore: "location / "
   when: workshop_type is not defined
 
-- name: configure nginx on controller/tower
-  include_tasks: "{{ controller_or_tower }}.yml"
+- name: configure nginx on Automation controller
+  include_tasks: "controller.yml"
   when: workshop_type is defined
 
-- name: start controller/tower
-  include_tasks: "service/{{ controller_or_tower }}_start.yml"
+- name: start Automation controller
+  include_tasks: "service/controller_start.yml"

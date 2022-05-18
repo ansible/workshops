@@ -4,96 +4,96 @@
 
 ## Índice
 
-* [Objetivo](#objetivo)
-* [Guía](#guía)
-   * [Paso 1 - Usando la documentación](#Paso-1---usando-la-documentación)
-   * [Paso 2 - Creando el play](#Paso-2---creando-el-play)
-   * [Paso 3 - Crear la tarea de facts](#Paso-3---crear-la-tarea-de-facts)
-   * [Paso 4 - Ejecutando el playbook](#Paso-4---ejecutando-el-playbook)
-   * [Paso 5 - Usando el módulo de debug](#Paso-5---usando-el-módulo-de-debug)
-   * [Paso 6 - Usando la salida estándar stdout](#Paso-6---usando-la-salida-estándar-stdout)
-* [Consejos a recordar](#consejos-a-recordar)
-* [Solución](#solución)
-* [Completado](#completado)
+- [Objetivo](#objetivo)
+- [Guía](#guía)
+  - [Paso 1 - Usando la documentación](#paso-1---usando-la-documentación)
+  - [Paso 2 - Creando el play](#paso-2---creando-el-play)
+  - [Paso 3 - Crear la tarea de facts](#paso-3---crear-la-tarea-de-facts)
+  - [Paso 4 - Ejecutando el playbook](#paso-4---ejecutando-el-playbook)
+  - [Paso 5 - Usando el módulo de debug](#paso-5---usando-el-módulo-de-debug)
+  - [Paso 6 - Usando la salida estándar stdout](#paso-6---usando-la-salida-estándar-stdout)
+- [Consejos a recordar](#consejos-a-recordar)
+- [Solución](#solución)
+- [Completado](#completado)
 
 ## Objetivo
 
-Demonstration use of Ansible facts on network infrastructure.
+Demostración del uso de los hechos de Ansible (en adelante, `Ansible facts`) en una infraestructura de red.
 
-Ansible facts are information derived from speaking to the remote network elements.  Ansible facts are returned in structured data (JSON) that makes it easy manipulate or modify.  For example a network engineer could create an audit report very quickly using Ansible facts and templating them into a markdown or HTML file.
+Los hechos de Ansible (`facts`) son información derivada de la comunicación con elementos de red remotos. Los 'facts' son devueltos en forma de datos estructurados (JSON) lo que hace que sean fácilmente manipulables o modificables. Por ejemplo, un ingeniero de red podría crear un reporte de auditoría muy rápidamente usando los 'facts' de Ansible y creando una plantilla en un fichero markdown o HTML.
 
-This exercise will cover:
+Este ejercicio cubrirá:
 
-* Building an Ansible Playbook from scratch.
-* Using `ansible-navigator :doc` for documentation
-* Using the [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html).
-* Using the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
+* Crear un Playbook de Ansible desde cero.
+* Usar `ansible-navigator :doc` para la búsqueda de documentación
+* Usar el módulo [cisco.ios.facts](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html).
+* Usar el módulo [debug](https://docs.ansible.com/ansible/latest/modules/debug_module.html).
 
 ## Guía
 
 ### Paso 1 - Usando la documentación
 
-Enter the `ansible-navigator` interactive mode on the terminal
+Ejecuta el comando `ansible-navigator` en modo interactivo en la terminal
 
 ```bash
 $ ansible-navigator
 ```
 
-screenshot of `ansible-navigator`:
+pantallazo de `ansible-navigator`:
 ![ansible-navigator interactive mode](images/ansible-navigator-interactive.png)
 
-In the above screenshot we can see a line for module or plugin documentation:
+En el pantallazo anterior se puede ver una línea por cada documentación de módulo o plugin:
  
 ```
 `:doc <plugin>`                 Review documentation for a module or plugin
  ```
 
-Lets example the `debug` module by typing `:doc debug`
+Veamos por ejemplo el módulo `debug` escribiendo `:doc debug` en la terminal:
 
 ```bash
 :doc debug
 ```
 
-screenshot of `ansible-navigator :doc debug`:
+Este es un pantallazo de la salida del comando `ansible-navigator :doc debug`:
+
 ![ansible-navigator interactive mode doc](images/ansible-navigator-doc.png)
 
-The documentation for the `debug` module is now displayed in you interactive terminal session.  This is a YAML representation of the same exact documentation you would see on [docs.ansible.com](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html).  Examples can be cut and paste directly from the module documentation into your Ansible Playbook.
+La documentación para el módulo de `debug` se muestra en la sesión de terminal interactiva. Es una representación en YAML de la misma documentación que está disponible en [docs.ansible.com](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html). Los ejemplos pueden ser copiados y pegados directamente del módulo de documentación en un Playbook de Ansible.
 
-When referring to a non-built in module, there is three important fields:
+Cuando nos referimos a un módulo no embebido, hay tres campos importantes:
 
 ```
 namespace.collection.module
 ```
-For example:
+Por ejemplo:
 ```
 cisco.ios.facts
 ```
 
-Explanation of terms:
-- **namespace** - example **cisco** - A namespace is grouping of multiple collections.  The **cisco** namespace contains multiple collections including **ios**, **nxos**, and **iosxr**.
-- **collection** - example **ios** - A collection is a distribution format for Ansible content that can include playbooks, roles, modules, and plugins.  The **ios** collection contains all the modules for Cisco IOS/IOS-XE
-- **module** - example facts - Modules are discrete units of code that can be used in a playbook task. For example the **facts** modules will return structured data about that specified system.
+Explicación de términos:
+- **namespace** - ejemplo **cisco** - Un espacio de nombres ('namespace') es una agrupación de colecciones múltiples. El espacio de nombres **cisco** contiene múltiples colecciones, incluyendo **ios**, **nxos**, e **iosxr**.
+- **collection** - ejemplo **ios** - Una colección es  es un formato de distribución para contenido de Ansible que incluye playbooks, roles, módulos, y plugins. La colección **ios** contiene todos los módulos del Cisco IOS/IOS-XE.
+- **module** - ejemplo 'facts' - Los módulos son unidades discretas de código que puede usarse en una tarea de un playbook. Por ejemplo, los módulos de **facts** devolverán datos estructurados acerca de un determinado sistema.
 
-Press the **Esc** key to return to the main menu.  Try repeating the `:doc` command with the `cisco.ios.facts` module.
+Pulsa la tecla **Esc** para volver al menú principal. Intenta repetir el comando `:doc` con el módulo `cisco.ios.facts`.
 
 ```bash
 :doc cisco.ios.facts
 ```
 
-We will be using the facts module in our playbook.
+Usaremos el módulo 'facts' en nuestro playbook.
 
 ### Paso 2 - Creando el play
 
-Ansible Playbooks are [**YAML** files](https://yaml.org/). YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
+Los ficheros de Playbook de Ansible están en escritos en [**YAML**](https://yaml.org/). YAML es un formato de codificación estructurado que, además, es extremadamente leíble por los humanos (al contrario que su subconjunto - el formato JSON)
 
-Create a new file in Visual Studio code:
+Crea un nuevo fichero en Visual Studio Code: 
 ![vscode new file](images/vscode_new_file.png)
 
-For simplicity please name the playbook: `facts.yml`:
+Para simplificar, llama al fichero de playbook: `facts.yml`:
 ![vscode save file](images/vscode_save_as.png)
 
-
-Enter the following play definition into `facts.yml`:
+Inserta el siguiente play dentro del fichero `facts.yml`:
 
 ```yaml
 ---
@@ -102,16 +102,16 @@ Enter the following play definition into `facts.yml`:
   gather_facts: no
 ```
 
-Here is an explanation of each line:
+Expliquemos cada línea:
 
-* The first line, `---` indicates that this is a YAML file.
-* The `- name:` keyword is an optional description for this particular Ansible Playbook.
-* The `hosts:` keyword means this playbook against the group `cisco` defined in the inventory file.
-* The `gather_facts: no` is required since as of Ansible 2.8 and earlier, this only works on Linux hosts, and not network infrastructure.  We will use a specific module to gather facts for network equipment.
+* La primera línea, `---` indica que es un fichero YAML.
+* La palabra clave `- name:` es una descipción opcional para el Playbook de Ansible en particular.
+* La palabra clave `hosts:` significa este playbook se ejecutará en el grupo `cisco` definido en el archivo de inventario.
+* La directiva `gather_facts: no` se requiere desde Ansible 2.8 y anteriores, sólo funciona en hosts Linux, y no en una infraestructura de red. La usaremos en un módulo específico para obtener los 'facts' para un dispositivo de red.
 
 ### Paso 3 - Crear la tarea de facts
 
-Next, add the first `task`. This task will use the `cisco.ios.facts` module to gather facts about each device in the group `cisco`.
+Ahora, añade la primera tarea usando la directiva `task`. Esta tarea usará el módulo `cisco.ios.facts` para obtener los hechos ('facts')  sobre cada dispositivo del grupo `cisco`.
 
 ```yaml
 ---
@@ -124,40 +124,40 @@ Next, add the first `task`. This task will use the `cisco.ios.facts` module to g
       cisco.ios.facts:
 ```
 
-> Note:
+> Nota:
 >
-> A play is a list of tasks. Modules are pre-written code that perform the task.
+> Un 'play' es una lista de tareas. Los módulos son código ya escrito que lleva a cabo una tarea.
 
-Save the playbook.
+Guarda el playbook.
 
 ### Paso 4 - Ejecutando el playbook
 
-Execute the Ansible Playbook by running `ansible-navigator`:
+Ejecuta el Playbook de Ansible usando el comando `ansible-navigator`:
 
 ```sh
 $ ansible-navigator run facts.yml
 ```
 
-This will open an interactive session while the playbook interacts:
+Esto abrirá una sesión interactiva mientras el playbook se ejecuta:
 
-Screenshot of facts.yml:
+Pantallazo de facts.yml:
 ![ansible-navigator run facts.yml](images/ansible-navigator-facts.png)
 
-To zoom into the playbook output we can press **0** which will show us a host-centric view.  Since there is only one host, there is just one option.
+Para ampliar la salida del playbook, pulsaremos **0** que nos mostrará una vista centrada en el host. Puesto que sólo hay un host, sólo hay una opción.
 
-Screenshot of zooming in:
+Pantallazo de la ampliación:
 ![ansible-navigator zoom hosts](images/ansible-navigator-hosts.png)
 
-To see the verbose output of **rtr1** press **0** one more time to zoom into the module return values.
+Para ver la salida verbosa de **rtr1** pulsa **0** otra vez para ampliar los valores de retorno del módulo.
 
-Screenshot of zooming into module data:
+Pantallazo de la ampliación dentro del módulo 'data':
 ![ansible-navigator zoom module](images/ansible-navigator-module.png)
 
-You can scroll down to view any facts that were collected from the Cisco network device.
+Puedes avanzar hacia abajo para ver cualquier 'fact' que haya sido obtenido del dispositivo de red Cisco.
 
 ### Paso 5 - Usando el módulo de debug
 
-Write two additional tasks that display the routers' OS version and serial number.
+Escribe dos tareas adicionales que mostrarán la versión del SO y el número de serie del enrutador.
 
 <!-- {% raw %} -->
 
@@ -184,31 +184,30 @@ Write two additional tasks that display the routers' OS version and serial numbe
 
 ### Paso 6 - Usando la salida estándar stdout
 
-Now re-run the playbook using the `ansible-navigator` and the `--mode stdout`
+Ahora, vuelve a ejecutar el playbook usando el comando `ansible-navigator` y el modificador `--mode stdout`
 
-The full command is: `ansible-navigator run facts.yml --mode stdout`
+El comando completo es: `ansible-navigator run facts.yml --mode stdout`
 
-Screenshot of ansible-navigator using stdout:
+Pantallazo de ansible-navigator usando la salida estándar:
 ![ansible-navigator stdout screenshot](images/ansible-navigator-facts-stdout.png)
 
-
-Using less than 20 lines of "code" you have just automated version and serial number collection. Imagine if you were running this against your production network! You have actionable data in hand that does not go out of date.
+Usando menos de 20 líneas de "código" has sido capaz de automatizar la obtención de la versión y el número de serie. ¡Imagina si estuvieras ejecutando esto en tu entorno de producción de red! Ahora tienes datos sobre los que poder ejecutar acciones y que no se quedan desactualizados.
 
 ## Consejos a recordar
 
-* The `ansible-navigator :doc` command will allow you access to documentation without an internet connection.  This documentation also matches the version of Ansible on the control node.
-* The [cisco.ios.facts module](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html) gathers structured data specific for Cisco IOS.  There are relevant modules for each network platform.  For example there is a junos_facts for Juniper Junos, and a eos_facts for Arista EOS.
-* The [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) allows an Ansible Playbook to print values to the terminal window.
+* El comando `ansible-navigator :doc` nos permitirá acceder la documentación sin una conexión de red. Esta documentación también concuerda con la versión de Ansible en el nodo de control.
+* El [módulo cisco.ios.facts](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html) obtiene datos estructurados específicos para Cisco IOS. Existen módulos relevantes para cada plataforma de red. Por ejemplo, existe un `junos_facts` para Juniper Junos, y un `eos_facts` para Arista EOS.
+* El [módulo de debug](https://docs.ansible.com/ansible/latest/modules/debug_module.html) permite a un Playbook de Ansible imprimir los valores en la terminal.
 
 ## Solución
 
-The finished Ansible Playbook is provided here for an answer key: [facts.yml](facts.yml).
+El Playbook de Ansible completo se provee aquí: [facts.yml](facts.yml).
 
 ## Completado
 
-You have completed lab exercise 3
+¡Felicidades, has completado el ejercicio de laboratorio 3!
 
 ---
-[Previous Exercise](../2-first-playbook/README.md) | [Next Exercise](../4-resource-module/README.md)
+[Ejercicio Anterior](../2-first-playbook/README.es.md) | [Próximo ejercicio](../4-resource-module/README.es.md)
 
-[Click here to return to the Ansible Network Automation Workshop](../README.md)
+[Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

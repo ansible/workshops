@@ -1,4 +1,5 @@
 ---
+student_user: student
 admin_password: ansible
 code_server: true
 workshop_dns_zone: "rhdemo.io"
@@ -8,7 +9,7 @@ controllerinstall: true
 populatecontroller: true
 website_information: ""
 login_website_information: ""
-dns_information: "No errors with DNS"
+dns_information: ""
 callback_information: "No issue with Ansible Controller callback"
 demo_information: "No errors with Demos"
 workshop_type: ""
@@ -41,7 +42,6 @@ valid_security_console_types:
   - splunk
   - qradar
 create_cluster: false
-default_tower38_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.8.0-1.tar.gz
-default_tower37_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.3-1.tar.gz
 automation_hub: false
 developer_mode: false
+pre_build: false

@@ -5,10 +5,10 @@
 
 - name: check to see if SSL cert already applied
   uri:
-    url: "https://{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/api/v2/ping/"
+    url: "https://{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/api/v2/ping/"
     method: GET
     user: admin
-    password: "{{admin_password}}"
+    password: "{{ admin_password }}"
     validate_certs: true
     force_basic_auth: true
   register: check_cert
@@ -24,9 +24,9 @@
 
     - name: configure SSL cert for Automation Controller
       vars:
-        dns_name: "{{username}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        dns_name: "{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
       include_role:
-        name: ../../roles/issue_cert
+        name: "{{ playbook_dir|dirname }}/roles/issue_cert"
   when:
     - not teardown
     - check_cert.status != 200

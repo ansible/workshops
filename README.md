@@ -22,8 +22,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 | **[Ansible Network Automation Workshop](./exercises/ansible_network)** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [PDF](./decks/ansible_network.pdf) | [Google Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
 | **[Ansible F5 Workshop](./exercises/ansible_f5)** <br> focused on automation of F5 BIG-IP  | [PDF](./decks/ansible_f5.pdf) | [Google Source](https://docs.google.com/presentation/d/1eSZHx_tVZ59U-nAYysehEXsSAJgLBr9SrgpjOfLUg84) | [Exercises](./exercises/ansible_f5)   | `workshop_type: f5` |
 | **[Ansible Security Automation](./exercises/ansible_security)** <br> focused on automation of security tools like Check Point Firewall, IBM QRadar and the IDS Snort  | [PDF](./decks/ansible_security.pdf) | [Google Source](https://docs.google.com/presentation/d/19gVCBz1BmxC15tDDj-FUlUd_jUUUKay81E8F24cyUjk/edit?usp=sharing) | [Exercises](./exercises/ansible_security)   | `workshop_type: security` |
-| **[Ansible Windows Automation Workshop](./exercises/ansible_windows)** <br> focused on automation of Microsoft Windows  | [PDF](./decks/ansible_windows.pdf) | [Google Source](https://docs.google.com/presentation/d/1fGHBNpkvXBfwBC385QswcSOBz0xNzDxEc8ZhbuyIoAE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
-| \[WIP\] **[Smart Management Automation Workshop](./exercises/ansible_smart_mgmt)** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | - | - | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
+| **[Ansible Windows Automation Workshop](./exercises/ansible_windows)** <br> focused on automation of Microsoft Windows  | [PDF](./decks/ansible_windows.pdf) | [Google Source](https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
+| **[Smart Management Automation Workshop](./exercises/ansible_smart_mgmt)** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | [PDF](./decks/ansible_smart_mgmt.pdf) | [Google Source](https://docs.google.com/presentation/d/135lid9AeSioN4bJexBbv9q0fkJwDibpUQg8aeYjxzTY) | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
 
 90 minute abbreviated versions:
 
@@ -63,6 +63,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## E-Books
 
+- [Red Hat Ansible Automation Platform: A beginner’s guide](https://www.redhat.com/en/engage/redhat-ansible-automation-20220412)
 - [The Automated Enterprise](https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000002DXg8AAG)
 
 ### E-Books for Ansible Network Automation
@@ -70,7 +71,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   - [Part 1: Modernize Your Network with Red Hat](https://www.ansible.com/resources/ebooks/network-automation-for-everyone?hsLang=en-us)
   - [Part 2: Automate Your Network with Red Hat](https://www.redhat.com/en/engage/network-automation-ebook-s-202104291219)
 
-#### Other languages
+#### Other languages for Network Automation
 
   - ![chinese](https://github.com/ansible/workshops/raw/devel/images/cn.png) [借助红帽实现网络自动化](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-zh.pdf)
   - ![french](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Automatiser votre réseau avec Red Hat](https://www.redhat.com/rhdc/managed-files/ma-network-automation-technical-e-book-f28378-202104-a4-fr.pdf)

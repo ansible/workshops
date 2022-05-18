@@ -1,0 +1,311 @@
+---
+- name: configure rhel workshop for webservers
+  hosts: lab_hosts
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure RHEL webservers
+      include_role:
+        name: ../../roles/webservers
+
+- name: configure satellite
+  hosts: satellite
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure satellite admin password
+      command: "foreman-rake permissions:reset password={{ admin_password }}"
+    - name: update hammer admin password in /root/.hammer/cli.modules.d/foreman.yml
+      lineinfile:
+        path: /root/.hammer/cli.modules.d/foreman.yml
+        regexp: 'password'
+        line: "  :password: '{{ admin_password }}'"
+    - name: configure satellite dns
+      become: false
+      community.aws.route53:
+        state: "{{ s3_state }}"
+        zone: "{{workshop_dns_zone}}"
+        record: "{{username}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        type: A
+        overwrite: true
+        value: "{{ansible_host}}"
+        wait: true
+      delegate_to: localhost
+      when:
+        - dns_type is defined
+        - dns_type == 'aws'
+
+- name: configure controller for smart_mgmt
+  hosts: control_nodes
+  gather_facts: false
+  vars:
+    controller_infra_workloads:
+      - redhat_cop.controller_configuration.credential_types
+      - redhat_cop.controller_configuration.credentials
+      - redhat_cop.controller_configuration.projects
+      - redhat_cop.controller_configuration.job_templates
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_validate_certs: false
+    controller_credential_types:
+      - name: Satellite_Collection
+        description: Credential for redhat.satellite collection
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: username
+              label: Satellite Username
+            - type: string
+              id: password
+              label: Satellite Password
+              secret: true
+            - type: string
+              id: host
+              label: Satellite Hostname
+          required:
+            - username
+            - password
+            - host
+        injectors:
+          env:
+            FOREMAN_SERVER: "{% raw %}{{ '{{host}}' }}{% endraw %}"
+            FOREMAN_USER: "{% raw %}{{ '{{username}}' }}{% endraw %}"
+            FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
+            FOREMAN_VALIDATE_CERTS: 'false'
+      - name: GitHub_Personal_Access_Token
+        description: Credential for GitHub repo operations automation
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: personal_access_token
+              label: Personal Access Token
+              secret: true
+              help_text: GitHub Personal Access Token
+              multiline: true
+          required:
+            - personal_access_token
+        injectors:
+          env:
+            MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"
+    controller_credentials:
+      - name: Satellite Credential
+        credential_type: Satellite_Collection
+        state: present
+        organization: Default
+        inputs:
+          host: "https://satellite.example.com"
+          username: 'admin'
+          password: "{{ admin_password }}"
+      - name: Inventory Credential
+        credential_type: Red Hat Satellite 6
+        state: present
+        organization: Default
+        inputs:
+          host: "https://satellite.example.com"
+          username: 'admin'
+          password: "{{ admin_password }}"
+    controller_projects:
+      - name: Automated Management
+        organization: Default
+        scm_update_on_launch: true
+        scm_update_cache_timeout: 3600
+        scm_type: git
+        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
+        scm_branch: aap2-29compat
+        default_environment: smart_mgmt workshop execution environment
+      - name: Fact Scan
+        organization: Default
+        scm_type: git
+        scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
+    controller_templates:
+      - name: SETUP / Satellite
+        project: Automated Management
+        playbook: setup_satellite.yml
+        inventory: Workshop Inventory
+        credentials:
+          - Satellite Credential
+        extra_vars:
+          refresh_satellite_manifest: false
+        ask_variables_on_launch: true
+      - name: SETUP / Controller
+        project: Automated Management
+        playbook: setup_controller.yml
+        inventory: Workshop Inventory
+        credentials:
+          - Controller Credential
+
+  tasks:
+    - name: Deploy controller-infra workloads
+      include_role:
+        name: "{{ controller_infra_vars }}"
+      loop: "{{ controller_infra_workloads }}"
+      loop_control:
+        loop_var: controller_infra_vars
+      when:
+        - controller_infra_workloads | d("") | length >0
+
+- name: Final workshop preparations
+  hosts: control_nodes
+  become: true
+  gather_facts: true
+
+  tasks:
+
+    - when: provision_mode == "workshop"
+      block:
+        - name: Run SETUP / Satellite job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Satellite"
+            extra_vars:
+              refresh_satellite_manifest: true
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupsatjob
+
+        - name: "Check API until SETUP / Satellite job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+    - when: provision_mode == "demo"
+      block:
+        - name: Run SETUP / Satellite job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Satellite"
+            extra_vars:
+              refresh_satellite_manifest: true
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupsatjob
+
+        - name: "Check API until SETUP / Satellite job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run SETUP / Controller job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Controller"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupcontroljob
+
+        - name: "Check API until SETUP / Controller job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates02
+          until: workshop_job_templates02.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run SATELLITE / RHEL - Publish Content View job template
+          awx.awx.job_launch:
+            job_template: "SATELLITE / RHEL - Publish Content View"
+            extra_vars:
+              env: Dev
+              content_view: RHEL7
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: rhelpubcvjob01
+
+        - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob01.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates03
+          until: workshop_job_templates03.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run SATELLITE / RHEL - Promote Content View job template
+          awx.awx.job_launch:
+            job_template: "SATELLITE / RHEL - Promote Content View"
+            extra_vars:
+              content_view: RHEL7
+              current_lifecycle_environment: RHEL7_Dev
+              lifecycle_environment: RHEL7_QA
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: rhelpromotecvjob01
+
+        - name: "Check API until SATELLITE / RHEL - Promote Content View job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpromotecvjob01.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates04
+          until: workshop_job_templates04.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run SATELLITE / RHEL - Publish Content View job template
+          awx.awx.job_launch:
+            job_template: "SATELLITE / RHEL - Publish Content View"
+            extra_vars:
+              env: Dev
+              content_view: RHEL7
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: rhelpubcvjob02
+
+        - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob02.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates05
+          until: workshop_job_templates05.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20

@@ -1,6 +1,7 @@
 # 演習 3: Ansible ファクト
 
-**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](../../images/es.png) [Español](README.es.md)
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md)
+
 
 ## 目次
 
@@ -77,13 +78,10 @@ namespace.collection.module
 cisco.ios.facts
 ```
 
-用語の説明: - **namespace** (例: **cisco**) - namespace
-は複数のコレクションをグループ化します。**cisco** namespace には、**ios**、**nxos**、**iosxr**
-を含む複数のコレクションが含まれます。 - **collection** (例: **ios**) - collection
-は、Playbook、ロール、モジュール、プラグインを含む Ansible コンテンツのディストリビューション形式です。**ios**
-コレクションには、Cisco IOS/IOS-XE の全モジュールが含まれます。 - **module** (例: facts) -
-モジュールは、Playbook タスクで使用できるコードの分散ユニットです。たとえば、**facts**
-モジュールは、指定されたそのシステムに関する構造化データを返します。
+用語の説明: 
+- **namespace** (例: **cisco**) - namespaceは複数のコレクションをグループ化します。**cisco** namespace には、**ios**、**nxos**、**iosxr**を含む複数のコレクションが含まれます。 
+- **collection** (例: **ios**) - collectionは、Playbook、ロール、モジュール、プラグインを含む Ansible コンテンツのディストリビューション形式です。**ios**コレクションは、Cisco IOS/IOS-XE の全モジュールが含まれます。 
+- **module** (例: facts) - モジュールは、Playbook タスクで使用できるコードの分散ユニットです。たとえば、**facts**モジュールは、指定されたそのシステムに関する構造化データを返します。
 
 **Esc** キーを押してメインメニューに戻ります。`cisco.ios.facts` モジュールで `:doc` コマンドを繰り返します。
 
@@ -215,7 +213,7 @@ screenshot](images/ansible-navigator-facts-stdout.png)
 * `ansible-navigator :doc`
   コマンドを使用すると、インターネットに接続していなくてもドキュメントにアクセスできます。このドキュメントは、コントロールノードの Ansible
   のバージョンとも一致します。
-* https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html)
+* [cisco.ios.facts モジュール](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html)
   は、Cisco IOS に固有の構造化データを収集します。各ネットワークプラットフォームに関連するモジュールがあります。たとえば、Juniper
   Junos には junos_facts があり、AristaEOS には eos_facts があります。
 * [デバッグモジュール](https://docs.ansible.com/ansible/latest/modules/debug_module.html)
@@ -223,7 +221,7 @@ screenshot](images/ansible-navigator-facts-stdout.png)
 
 ## ソリューション
 
-完成した AnsiblePlaybook は、回答キーとしてここに提供されています: [facts.yml](facts.yml)。
+完成した Ansible Playbook は、回答キーとしてここに提供されています: [facts.yml](facts.yml)。
 
 ## 完了
 

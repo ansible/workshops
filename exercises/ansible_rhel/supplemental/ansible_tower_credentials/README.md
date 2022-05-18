@@ -53,11 +53,6 @@ You can find the inventory information at `~/lab_inventory/hosts`. Output them w
 
 ```bash
 $ cat ~/lab_inventory/hosts
-[all:vars]
-ansible_user=student<X>
-ansible_ssh_pass=PASSWORD
-ansible_port=22
-
 [web]
 node1 ansible_host=22.33.44.55
 node2 ansible_host=33.44.55.66

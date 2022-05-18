@@ -43,11 +43,6 @@ Como ejemplo, le gustaría instalar un servidor FTP, pero solo en hosts que se e
 Para ello, primero edite el inventario para agregar otro grupo y coloque `node2` en él. Aseegurese que esa dirección IP del `node2` es siempre la misma cuando lista el `node2`. Edite el inventario `~/lab_inventory/hosts` para que se parezca a la siguiente lista:
 
 ```ini
-[all:vars]
-ansible_user=student1
-ansible_ssh_pass=ansible
-ansible_port=22
-
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55

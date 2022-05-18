@@ -1,5 +1,5 @@
 ---
-theme: jekyll-theme-minimal
+theme: jekyll-theme-dinky
 include:
   - "provisioner/README.md"
 exclude:

@@ -83,7 +83,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
 * Copy the following Ansible Playbook into your `resource.yml`
 
-   ```yaml
+  ```yaml
   ---
   - name: configure VLANs
     hosts: arista

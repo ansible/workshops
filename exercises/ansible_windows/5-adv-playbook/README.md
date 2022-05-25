@@ -225,18 +225,9 @@ not escape the forward slash.
 
    > ## Note
    > **So… what did I just write?**
-   >
-   > - `win_firewall_rule:` This module is used to create, modify, and
-   >   update firewall rules. Note in the case of AWS there are also
-   >   security group rules which may impact communication. We’ve opened
-   >   these for the ports in this example.
-   >
-   > - `win_template:` This module specifies that a jinja2 template is
-   >   being used and deployed.
-   >
-   > - used in Ansible to transform data inside a template expression,
-   >   i.e. filters.
-   >
+   > - `win_firewall_rule:` This module is used to create, modify, and update firewall rules. Note in the case of AWS there are also security group rules which may impact communication. We’ve opened these for the ports in this example.
+   > - `win_template:` This module specifies that a jinja2 template is being used and deployed.
+   > - `with_items:` used in Ansible to transform data inside a template expression, i.e. filters.
    > - `debug:` Again, like in the `iis_basic` playbook, this task displays the URLs to access the sites we are creating for this exercise
 
 Section 3: Defining and Using Handlers

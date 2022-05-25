@@ -369,6 +369,7 @@ Before we can create our Job Template, you must first go resync your
 Project again. So do that now.
 
 > **Note**
+>
 > You must do this anytime you create a new *base* playbook file that
 > you will be selecting via a Job Template. The new file must be synced
 > to Controller before it will become available in the Job Template playbook

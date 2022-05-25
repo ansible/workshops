@@ -225,9 +225,13 @@ not escape the forward slash.
 
    > ## Note
    > **So… what did I just write?**
-   > - `win_firewall_rule:` This module is used to create, modify, and update firewall rules. Note in the case of AWS there are also security group rules which may impact communication. We’ve opened these for the ports in this example.
-   > - `win_template:` This module specifies that a jinja2 template is being used and deployed.
-   > - `with_items:` used in Ansible to transform data inside a template expression, i.e. filters.
+   >
+   > - `win_firewall_rule:` This module is used to create, modify, and update firewall rules. Note in the case of AWS there are also security group rules which may impact communication. We’ve opened
+   >   these for the ports in this example.
+   > - `win_template:` This module specifies that a jinja2 template is
+   >   being used and deployed.
+   > - `with_items:` used in Ansible to transform data inside a template expression,
+   >   i.e. filters.
    > - `debug:` Again, like in the `iis_basic` playbook, this task displays the URLs to access the sites we are creating for this exercise
 
 Section 3: Defining and Using Handlers
@@ -257,15 +261,12 @@ Define a handler.
 ```
 
 > **Note**
->
 > **You can’t have a former if you don’t mention the latter**
->
 > - `handler:` This is telling the **play** that the `tasks:` are
 >   over, and now we are defining `handlers:`. Everything below that
 >   looks the same as any other task, i.e. you give it a name, a
 >   module, and the options for that module. This is the definition of
 >   a handler.
->
 > - `notify: restart iis service` …and here is your latter. Finally!
 >   The `notify` statement is the invocation of a handler by name.
 >   Quite the reveal, we know. You already noticed that you’ve added a

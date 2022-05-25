@@ -217,7 +217,6 @@ not escape the forward slash.
    > **Note**
    >
    > **So… what did I just write?**
-   >
    > - `win_firewall_rule:` This module is used to create, modify, and update firewall rules. Note in the case of AWS there are also security group rules which may impact communication. We’ve opened
    >   these for the ports in this example.
    > - `win_template:` This module specifies that a jinja2 template is
@@ -252,7 +251,6 @@ Define a handler.
         start_mode: auto
 ```
 
-> **Note**
 > **You can’t have a former if you don’t mention the latter**
 > - `handler:` This is telling the **play** that the `tasks:` are
 >   over, and now we are defining `handlers:`. Everything below that
@@ -372,7 +370,6 @@ Before we can create our Job Template, you must first go resync your
 Project again. So do that now.
 
 > **Note**
->
 > You must do this anytime you create a new *base* playbook file that
 > you will be selecting via a Job Template. The new file must be synced
 > to Controller before it will become available in the Job Template playbook
@@ -437,7 +434,6 @@ Step 1
 Select TEMPLATES
 
 > **Note**
->
 > Alternatively, if you haven’t navigated away from the job templates
 > creation page, you can scroll down to see all existing job templates
 

@@ -434,6 +434,7 @@ Step 1
 Select TEMPLATES
 
 > **Note**
+>
 > Alternatively, if you haven’t navigated away from the job templates
 > creation page, you can scroll down to see all existing job templates
 

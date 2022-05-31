@@ -102,7 +102,7 @@ Cliquez sur ENREGISTRER ![Save](images/at_save.png) puis cliquez sur Survey en h
 Étape 3:
 --------
 
-Cliquez sur Ass et remplissez le questionnaire avec les valeurs suivantes
+Cliquez sur Ajouter ou ADD et remplissez le questionnaire avec les valeurs suivantes
 
 | Clé                     | Valeur                                                                                                                                                 | Note                                         |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|

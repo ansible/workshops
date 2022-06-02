@@ -97,7 +97,7 @@ Ansible
 
 * 以下の Ansible Playbook を `resource.yml` にコピーします。
 
-   ```yaml
+  ```yaml
   ---
   - name: configure VLANs
     hosts: arista

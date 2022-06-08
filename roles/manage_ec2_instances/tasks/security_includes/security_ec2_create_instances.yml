@@ -82,10 +82,10 @@
   register: splunk_async
 
 - set_fact:
-    siem_async: "{{splunk_async}}"
+    siem_async: "{{ splunk_async }}"
   when: security_console == 'splunk'
 - set_fact:
-    siem_async: "{{qradar_async}}"
+    siem_async: "{{ qradar_async }}"
   when: security_console == 'qradar'
 
 - name: Create EC2 instances for snort
@@ -257,20 +257,20 @@
   until: wait_for_ec2_instance_creation.finished
   retries: "{{ [async_wait_for_retries | int, 60] | max }}"
   loop:
-    - "{{siem_async}}"
-    - "{{snort_async}}"
-    - "{{attacker_async}}"
-    - "{{checkpoint_mgmt_async}}"
-    - "{{windows_ws_async}}"
+    - "{{ siem_async }}"
+    - "{{ snort_async }}"
+    - "{{ attacker_async }}"
+    - "{{ checkpoint_mgmt_async }}"
+    - "{{ windows_ws_async }}"
 
 # BOOK KEEPING FOR ABOVE async_status
 #   NOTE: Order matters here and must match the above task
 - set_fact:
-    siem_output: "{{wait_for_ec2_instance_creation['results'][0]}}"
-    snort_output: "{{wait_for_ec2_instance_creation['results'][1]}}"
-    attacker_output: "{{wait_for_ec2_instance_creation['results'][2]}}"
-    checkpoint_mgmt_output: "{{wait_for_ec2_instance_creation['results'][3]}}"
-    windows_ws_output: "{{wait_for_ec2_instance_creation['results'][4]}}"
+    siem_output: "{{ wait_for_ec2_instance_creation['results'][0] }}"
+    snort_output: "{{ wait_for_ec2_instance_creation['results'][1] }}"
+    attacker_output: "{{ wait_for_ec2_instance_creation['results'][2] }}"
+    checkpoint_mgmt_output: "{{ wait_for_ec2_instance_creation['results'][3] }}"
+    windows_ws_output: "{{ wait_for_ec2_instance_creation['results'][4] }}"
 
     ###
     ###########################################################################

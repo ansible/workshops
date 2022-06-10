@@ -1,0 +1,9 @@
+---
+- name: start sql injection simulation
+  hosts: attacker
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: simulate sql injection attack every 5 seconds
+      shell: "/sbin/daemonize /usr/bin/watch -n 5 curl -m 2 -s http://{{ hostvars['snort']['private_ip2'] }}/sql_injection_simulation"

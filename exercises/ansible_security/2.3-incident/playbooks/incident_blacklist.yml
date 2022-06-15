@@ -19,8 +19,8 @@
 
     - name: Create access rule to deny access from source to destination
       checkpoint_access_rule:
-        auto_install_policy: yes
-        auto_publish_session: yes
+        auto_install_policy: true
+        auto_publish_session: true
         layer: Network
         position: top
         name: "asa-accept-{{ source_ip }}-to-{{ destination_ip }}"
@@ -31,5 +31,5 @@
     - name: Install policy
       cp_mgmt_install_policy:
         policy_package: standard
-        install_on_all_cluster_members_or_fail: yes
+        install_on_all_cluster_members_or_fail: true
       failed_when: false

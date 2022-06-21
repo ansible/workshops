@@ -1,16 +1,14 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
 **Leer esto en otros idiomas**:
-<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/es.png) [Español](README.es.md).
+<br>![uk](../../images/uk.png) [English](README.md), ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/es.png) [Español](README.es.md).
 <br>
 
-Ansible es un motor de automatización de TI simple pero potente para la implementación de aplicaciones, la administración de la configuración y la orquestación que puede aprender rápidamente.
+**La siguiente es documentación para Ansible Automation Platform 2**
 
-En la primera sección de este laboratorio aprenderá a utilizar Ansible Engine para la automatización desde lo básico hasta algunos conceptos más avanzados.
+Si eres nuevo con la plataforma Ansible Automation, este taller consiste en dos partes: 1) empezando con lo básico de entendimiento en actividades fundamentales con línea de comandos y 2) aplicar lo aprendido para implementar Ansible Automation Controller a casos de uso de su empresa. Empezarás por escribir tu primer playbook de Ansible, trabajar con plantillas Jinja, e implementar roles de alto nivel de Ansible. Después podrás empezar a trabajar con Automation Controller, entender la gestión de inventarios y credenciales, proyectos, plantillas de ejecución de tareas, encuestas o formularios, flujos de trabajo y más.
 
-La segunda sección de este laboratorio cubre Tower y proporciona al usuario una visión general de lo que es Tower, cómo funciona y cuál es su beneficio.
-
-Después de terminar este laboratorio, está listo para comenzar a usar Ansible para sus requisitos de automatización.
+Después de haber terminado el laboratorio estarás listo para iniciar a utilizar Anisble para tus requisitos de automatización.
 
 ## Presentaciones
 
@@ -32,33 +30,34 @@ Si su experiencia es diferente al programar estos talleres, por favor háganoslo
 
 ## Sección 1 - Ejercicios de Ansible Engine
 
- - [Ejercicio 1.1 - Validación de los pre-requisitos](1.1-setup/README.es.md)
- - [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc/README.es.md)
- - [Ejercicio 1.3 - Escribir su primer Playbook](1.3-playbook/README.es.md)
- - [Ejercicio 1.4 - Uso de Variables](1.4-variables/README.es.md)
- - [Ejercicio 1.5 - Condicionales, controladores y bucles](1.5-handlers/README.es.md)
- - [Ejercicio 1.6 - Plantillas](1.6-templates/README.es.md)
- - [Ejercicio 1.7 - Roles](1.7-role/README.es.md)
+- [Ejercicio 1.1 - Validación de los pre-requisitos](1.1-setup/README.es.md)
+- [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc/README.es.md)
+- [Ejercicio 1.3 - Escribir su primer Playbook](1.3-playbook/README.es.md)
+- [Ejercicio 1.4 - Uso de Variables](1.4-variables/README.es.md)
+- [Ejercicio 1.5 - Condicionales, controladores y bucles](1.5-handlers/README.es.md)
+- [Ejercicio 1.6 - Plantillas](1.6-templates/README.es.md)
+- [Ejercicio 1.7 - Roles](1.7-role/README.es.md)
 
 ## Sección 2 - Ejercicios de Ansible Tower
 
- - [Ejercicio 2.1 - Introducción a Tower](2.1-intro/README.es.md)
- - [Ejercicio 2.2 - Inventarios, credenciales y comandos ad hoc](2.2-cred/README.es.md)
- - [Ejercicio 2.3 - Proyectos y plantillas de trabajo](2.3-projects/README.es.md)
- - [Ejercicio 2.4 - Encuestas](2.4-surveys/README.es.md)
- - [Ejercicio 2.5 - Control de acceso basado en roles](2.5-rbac/README.es.md)
- - [Ejercicio 2.6 - Flujos de trabajo](2.6-workflows/README.es.md)
- - [Ejercicio 2.7 - Conclusión](2.7-wrap/README.es.md)
+- [Ejercicio 2.1 - Introducción a Tower](2.1-intro/README.es.md)
+- [Ejercicio 2.2 - Inventarios, credenciales y comandos ad hoc](2.2-cred/README.es.md)
+- [Ejercicio 2.3 - Proyectos y plantillas de trabajo](2.3-projects/README.es.md)
+- [Ejercicio 2.4 - Encuestas](2.4-surveys/README.es.md)
+- [Ejercicio 2.5 - Control de acceso basado en roles](2.5-rbac/README.es.md)
+- [Ejercicio 2.6 - Flujos de trabajo](2.6-workflows/README.es.md)
+- [Ejercicio 2.7 - Conclusión](2.7-wrap/README.es.md)
 
-##  Ejercicios Suplementarios
+## Ejercicios Suplementarios
 
-También hay una serie de ejercicios que van más allá de nuestro contenido normal del taller.  Por favor, echa un vistazo a nuestros ejercicios suplementarios si quieres más contenido para aprender.
+También hay una serie de ejercicios que van más allá de nuestro contenido normal del taller. Por favor, echa un vistazo a nuestros ejercicios suplementarios si quieres más contenido para aprender.
 
- - [Ejercicios Suplementarios](supplemental)
+- [Ejercicios Suplementarios](supplemental)
 
 ## Información adicional
 
- - [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
+- [Ansible Getting Started](http://docs.ansible.com/ansible/latest/intro_getting_started.html)
 
 ---
+
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

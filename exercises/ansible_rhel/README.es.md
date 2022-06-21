@@ -10,6 +10,17 @@ Si eres nuevo con la plataforma Ansible Automation, este taller consiste en dos 
 
 Después de haber terminado el laboratorio estarás listo para iniciar a utilizar Anisble para tus requisitos de automatización.
 
+## Tabla de Contenido
+
+- [Ansible Workshop - Ansible para Red Hat Enterprise Linux](#ansible-workshop---ansible-para-red-hat-enterprise-linux)
+  - [Tabla de Contenido](#tabla-de-contenido)
+  - [Presentations](#presentaciones)
+  - [Time planning](#planificacion-del-tiempo)
+  - [Lab Diagram](#lab-diagram)
+  - [Sección 1 - Ejercicios de Ansible en línea de comandos](#seccion-1---ejercicios-de-ansible-en-linea-de-comandos)
+  - [Sección 2 - Ejercicios de Ansible Automation Platform](#seccion-2---ejercicios-de-ansible-automation-platform)
+  - [Ejercicios Adicionales](#ejercicios-adicionales)
+
 ## Presentaciones
 
 Los ejercicios son autoexplicativos y guían a los participantes a través de todo el laboratorio. Todos los conceptos se explican cuando se introducen.
@@ -28,7 +39,7 @@ Dicho esto, los ejercicios en sí deben tomar aproximadamente 4-5 horas. La prim
 
 Si su experiencia es diferente al programar estos talleres, por favor háganoslo saber y presente un problema.
 
-## Sección 1 - Ejercicios de Ansible Engine
+## Sección 1 - Ejercicios de Ansible en línea de comandos
 
 - [Ejercicio 1.1 - Validación de los pre-requisitos](1.1-setup/README.es.md)
 - [Ejercicio 1.2 - Ejecución de comandos Ad-hoc](1.2-adhoc/README.es.md)
@@ -38,7 +49,7 @@ Si su experiencia es diferente al programar estos talleres, por favor háganoslo
 - [Ejercicio 1.6 - Plantillas](1.6-templates/README.es.md)
 - [Ejercicio 1.7 - Roles](1.7-role/README.es.md)
 
-## Sección 2 - Ejercicios de Ansible Tower
+## Sección 2 - Ejercicios de Ansible Automation Platform
 
 - [Ejercicio 2.1 - Introducción a Tower](2.1-intro/README.es.md)
 - [Ejercicio 2.2 - Inventarios, credenciales y comandos ad hoc](2.2-cred/README.es.md)
@@ -48,7 +59,7 @@ Si su experiencia es diferente al programar estos talleres, por favor háganoslo
 - [Ejercicio 2.6 - Flujos de trabajo](2.6-workflows/README.es.md)
 - [Ejercicio 2.7 - Conclusión](2.7-wrap/README.es.md)
 
-## Ejercicios Suplementarios
+## Ejercicios Adicionales
 
 También hay una serie de ejercicios que van más allá de nuestro contenido normal del taller. Por favor, echa un vistazo a nuestros ejercicios suplementarios si quieres más contenido para aprender.
 

@@ -7,7 +7,7 @@ f5_ee: "quay.io/acme_corp/f5_ee:latest"
 security_ee: "quay.io/acme_corp/security_ee:latest"
 rhel_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
 network_ee: "quay.io/ansible/network-ee:latest"
-rhel_90_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+rhel_90_ee: "quay.io/acme_corp/rhel_90_ee:latest"
 windows_ee: "quay.io/acme_corp/windows_ee:latest"
 smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:latest"
 

@@ -22,7 +22,7 @@ argument_specs:
       rhel_90_ee:
         type: str
         description: rhel_90 workshop execution environment
-        default: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+        default: "quay.io/acme_corp/rhel_90_ee:latest"
       windows_ee:
         type: str
         description: windows workshop execution environment

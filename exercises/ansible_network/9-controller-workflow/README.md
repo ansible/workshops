@@ -111,17 +111,17 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 2.  For the **Run type** select **On Success** from the drop down menu.  Press the blue **Next** button.
 
-   ![add second node](images/step3_add_node.png)
+    ![add second node](images/step3_add_node.png)
 
 3. Select the **Network-User** Job Template.  
 
-   ![select network user job](images/step4_add_node.png)
+    ![select network user job](images/step4_add_node.png)
 
 4. Fill out the survey (or just let it default to configure the `ansible` user
 
 5. Click **Next** and **Save**
 
-   ![configure user node](images/step4_final.png)
+    ![configure user node](images/step4_final.png)
 
 ### Step 5: Add the Network-Restore Job Template
 
@@ -129,17 +129,17 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 2. Select **On Failure** for Run type
 
-   ![on failure run type](images/step5_on_failure.png)
+    ![on failure run type](images/step5_on_failure.png)
 
    * Click Next
 
 3. Select the **Network-Restore** job template.
 
-   ![add restore](images/step5_add_node_restore.png)
+    ![add restore](images/step5_add_node_restore.png)
 
 4. Select a rollback date and click **Next** and **Save**
 
-   ![configure restore node](images/step5_final.png)
+    ![configure restore node](images/step5_final.png)
 
 
 ### Step 6: Create a converged link
@@ -148,13 +148,13 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 2. Now, double click on the existing **Network-Restore**.  A **Add Link** window will appear.  For the **RUN** parameter choose **On Failure**.
 
-   ![on fail](images/step6_on_fail.png)
+    ![on fail](images/step6_on_fail.png)
 
    *  Click Save
 
 3. Now your workflow should look like the following:
 
-   ![restore node](images/step6_complete_workflow.png)
+    ![restore node](images/step6_complete_workflow.png)
 
 4. Click Save to exit the visualizer.
 
@@ -162,11 +162,11 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 1. Click Launch button.
 
-   ![launch workflow](images/step7_launch.png)
+    ![launch workflow](images/step7_launch.png)
 
 2. Watch the **Workshop Workflow**.
 
-   ![workflow job launched](images/step7_final.png)
+    ![workflow job launched](images/step7_final.png)
 
    At any time during the workflow job you can select an individual job template by clicking on the node to see the status.
 

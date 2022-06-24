@@ -4,7 +4,8 @@ ansible-navigator:
     image: quay.io/acme_corp/workshop_ee
     enabled: true
     container-engine: podman
-    pull-policy: missing
+    pull:
+      policy: missing
     environment-variables:
       pass:
         - AWS_ACCESS_KEY_ID

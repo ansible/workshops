@@ -165,7 +165,7 @@ project](https://github.com/ansible-security/ibm_qradar). にあります。
 
 > **注記**
 >
-> Ansible Automation Platform には、独自のカスタム実行環境を作成するために使用できる `ansible-builder` が含まれています。`ansible-builder` の詳細は、[blog post](https://www.ansible.com/blog/introduction-to-ansible-builder). を参照してください。   
+> Ansible Automation Platform には、独自のカスタム実行環境を作成するために使用できる `ansible-builder` が含まれています。`ansible-builder` の詳細は、[blog post](https://www.ansible.com/blog/introduction-to-ansible-builder). を参照してください。
 
 ## ステップ 4.4 - 最初の Playbook の例
 
@@ -203,7 +203,7 @@ VS Code のオンラインエディターで、ユーザーのホームディレ
   tasks:
     - name: get info about qradar rule
       qradar_rule_info:
-        name: "DDoS Attack Detected"
+        name: "Potential DDoS Against Single Host (TCP)"
 ```
 
 このモジュールは多くの情報を返しますが、その中には実際にロールを無効にするために必要な ID も含まれています。ここでは、`register`
@@ -219,7 +219,7 @@ VS Code のオンラインエディターで、ユーザーのホームディレ
   tasks:
     - name: get info about qradar rule
       qradar_rule_info:
-        name: "DDoS Attack Detected"
+        name: "Potential DDoS Against Single Host (TCP)"
       register: rule_info
 ```
 

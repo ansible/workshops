@@ -98,7 +98,7 @@ Doing this manually requires a lot of work on multiple machines, which again tak
 
 > **Note**
 >
-> Why don't we add those logs to QRadar permanently? The reason is that many log systems are licensed/paid by the amount of logs they consume, making it expansive pushing non-necessary logs in there. Also, if too many logs are in there it becomes harder to analyse the data properly and in a timely manner.
+> Why don't we add those logs to QRadar permanently? The reason is that many log systems are licensed/paid by the amount of logs they consume, making it expensive pushing non-necessary logs in there. Also, if too many logs are in there it becomes harder to analyse the data properly and in a timely manner.
 
 So let's write such a playbook which first configures the log sources - Snort and Check Point - to send the logs to QRadar, and afterwards add those log sources to QRadar so that it is aware of them.
 
@@ -313,7 +313,7 @@ Log onto the QRadar web UI. Click on **Log Activity**. As you will see, there ar
 
 > **IBM QRadar Credentials**
 >
-> Username: `admin`  
+> Username: `admin`
 > Password: `Ansible1!`
 
 > **Note**
@@ -340,7 +340,7 @@ Let's verify that QRadar also properly shows the log source. In the QRadar UI, c
 
 ![QRadar hamburger](images/2-qradar-hamburger.png#centreme)
 
-In there, click on **Log Sources**.  
+In there, click on **Log Sources**.
 
 ![QRadar log sources](images/2-qradar-log-sources.png#centreme)
 

@@ -36,8 +36,6 @@
   retries: 60
   delay: 10
 
-
-
 - name: Display /api/v2/ping results
   debug:
     msg: '{{ check2.json }}'

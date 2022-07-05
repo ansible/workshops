@@ -68,10 +68,10 @@
     - name: run user_accounts and common roles
       when: not pre_build|bool
       block:
-      - include_role:
-          name: ../roles/user_accounts
-      - include_role:
-          name: ../roles/common
+        - include_role:
+            name: ../roles/user_accounts
+        - include_role:
+            name: ../roles/common
 
 - name: Configure /etc/hosts
   hosts: 'managed_nodes:control_nodes'

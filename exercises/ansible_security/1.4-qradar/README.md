@@ -18,7 +18,7 @@ Have a first look at the SIEM, and verify that it is actually working. Point you
 
 > **Note**
 >
-> In a production environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purpose we accept the risk in this case.  
+> In a production environment, accepting a insecure certificate would not be an option. Since the lab setup is only short lived and solely serves a demo purpose we accept the risk in this case.
 
 > **Note**
 >
@@ -83,7 +83,7 @@ Automation execution environments can be customized to include the collections y
 
 > **Note**
 >
-> Ansible Automation Platform includes `ansible-builder` which you can use to create your own custom execution environments. For more information on `ansible-builder` please have a look at our [blog post](https://www.ansible.com/blog/introduction-to-ansible-builder).   
+> Ansible Automation Platform includes `ansible-builder` which you can use to create your own custom execution environments. For more information on `ansible-builder` please have a look at our [blog post](https://www.ansible.com/blog/introduction-to-ansible-builder).
 
 ## 1.4.4 First example playbook
 
@@ -119,7 +119,7 @@ Next we bring in the actual tasks. The REST API of QRadar is designed in a way t
   tasks:
     - name: get info about qradar rule
       qradar_rule_info:
-        name: "DDoS Attack Detected"
+        name: "Potential DDoS Against Single Host (TCP)"
 ```
 
 This module returns a lot of information, among those the ID we need to actually disable the role. Let's register the returned information into a variable with the help of the `register` keyword. It is directly used with the module itself. This enables us to use the content of the variable in the next task.
@@ -134,7 +134,7 @@ This module returns a lot of information, among those the ID we need to actually
   tasks:
     - name: get info about qradar rule
       qradar_rule_info:
-        name: "DDoS Attack Detected"
+        name: "Potential DDoS Against Single Host (TCP)"
       register: rule_info
 ```
 

@@ -109,7 +109,7 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 >
 > - `{{ item }}` Vous dites à Ansible qu'il utilisera l'élément de la liste. Chaque élément a plusieurs variables comme `nom`, `port` et `path`
 >
-> - `with_items: "{{ iis_sites }}` Ceci est la boucle qui va itérer sur chaque éléments de la variable `iss_sites`  
+> - `with_items: "{{ iis_sites }}` Ceci est la boucle qui va itérer sur chaque éléments de la variable `iis_sites`  
 >
 > - `notify: restart iis service` Cette instruction est un `handler`, nous y reviendrons dans la section 3
 

@@ -24,7 +24,6 @@
     group: wheel
     mode: '0744'
 
-
 - name: enable route53-update service
   systemd:
     name: route53-update

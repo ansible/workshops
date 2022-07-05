@@ -273,7 +273,7 @@ debug_teardown: false
 ansible_async_dir: "/tmp/.ansible_async"
 
 pre_build_controller_ami:
-  ap-northeast-1: ami-03d31ba6351d7b468
-  ap-southeast-1: ami-08684e30290b9409e
-  eu-central-1: ami-01e8bf4dc63f8a847
-  us-east-1: ami-0a27c9386391d6f48
+  ap-northeast-1: ami-0c7666c8109ab40fc
+  ap-southeast-1: ami-0af123816f89436a0
+  eu-central-1: ami-0069016c463bc83b2
+  us-east-1: ami-086cb6f0c9057acd1

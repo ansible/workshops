@@ -17,7 +17,13 @@
     dns_type: none
     controllerinstall: true
     code_server: true
+    username: student
+    student: "{{ username }}"
   tasks:
+    - include_role:
+        name: ../../roles/user_accounts
+    - include_role:
+        name: ../../roles/common
     - include_role:
         name: ../../roles/connectivity_test
     - include_role:

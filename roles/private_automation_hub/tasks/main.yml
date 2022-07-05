@@ -8,6 +8,14 @@
     - aap_setup
   when: not teardown
 
+- name: AAP Signing bits included?
+  set_fact:
+    aap_signing_bits_included: "{{ aap_version is version('2.2.0', '>=') }}"
+
+- name: Setup signing
+  include_tasks: "20_setup_signing.yml"
+  when: not teardown and enable_signing and aap_signing_bits_included
+
 - name: install hub
   include_tasks: "30_hub.yml"
   when: not teardown

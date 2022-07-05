@@ -84,7 +84,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 * Copia el siguiente Playbook de Ansible en tu fichero `resource.yml`
 
-   ```yaml
+  ```yaml
   ---
   - name: configure VLANs
     hosts: arista

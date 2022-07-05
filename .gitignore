@@ -27,6 +27,9 @@ demos/servicenow/private.yml
 !exercises/ansible_rhel/1.4-variables/files/prod_web.html
 demos/servicenow/closed_loop_incident_mgmt/input_vars.yaml
 demos/servicenow/closed_loop_incident_mgmt/snow_demo2/snow_vars.yaml
+provisioner/workshop_specific/roles/ansible_security.ids_config/
+provisioner/workshop_specific/roles/ansible_security.ids_install/
+provisioner/workshop_specific/roles/geerlingguy.repo-epel/
 provisioner/roles/ansible_security.ids_config/
 provisioner/roles/ansible_security.ids_install/
 provisioner/roles/geerlingguy.repo-epel/

@@ -1,0 +1,151 @@
+---
+- name: template inventory file for Ansible Controller Install
+  template:
+    src: "controller_install.j2"
+    dest: "{{ aap_dir }}/inventory"
+  when: create_cluster is not defined or not create_cluster|bool
+
+- name: template inventory file for Automation Controller Install cluster
+  template:
+    src: tower_cluster_install.j2
+    dest: "{{ aap_dir }}/inventory"
+  when: create_cluster is defined and create_cluster|bool
+
+- name: run the Automation Controller installer
+  shell: "{{ controller_install_command }}"
+  args:
+    chdir: "{{ aap_dir }}"
+  async: 1400
+  poll: 15
+
+- name: wait for Automation Controller to be up
+  uri:
+    url: https://localhost/api/v2/ping/
+    method: GET
+    user: admin
+    password: "{{admin_password}}"
+    validate_certs: false
+  register: check2
+  # wait <= 10 minutes for a satisfactory result, which is
+  #   - something is returned
+  #   - instance_groups[*].capacity > 0
+  #   - instances[*].capacity > 0
+  # if capacity is 0, execution later fails with a seemingly unrelated urllib TLS version error
+  # we only check instance{s,groups}[0] because we're not clustering
+  until: check2.json is defined and check2.json.instances[0].capacity > 0 and check2.json.instance_groups[0].capacity > 0
+  retries: 60
+  delay: 10
+
+
+
+- name: Display /api/v2/ping results
+  debug:
+    msg: '{{ check2.json }}'
+
+# Certbot dependancy / acme, needs later version of requests library than task above^^
+- name: install ansible-tower-cli and requests >2.14
+  become: true
+  ansible.builtin.pip:
+    name:
+      - ansible-tower-cli
+      - "requests==2.14.2"
+    executable: '/usr/bin/pip3.6'
+    state: latest
+
+- name: load license block
+  block:
+    - name: check for base64 variable first
+      copy:
+        dest: '{{ playbook_dir }}/manifest.zip'
+        content: '{{ base64_manifest | b64decode }}'
+      delegate_to: localhost
+      become: false
+      when: base64_manifest is defined
+    - name: unable to load base64_manifest
+      debug:
+        msg: 'No base64_manifest variable found, trying to open manifest.zip'
+      when: base64_manifest is undefined
+    - name: Load manifest into variable
+      local_action:
+        module: slurp
+        src: "{{ playbook_dir }}/manifest.zip"
+      register: manifest_file
+      become: false
+
+- name: Post manifest file
+  uri:
+    url: https://{{ ansible_host }}/api/v2/config/
+    method: POST
+    user: admin
+    password: "{{admin_password}}"
+    body: '{ "eula_accepted": true, "manifest": "{{ manifest_file.content }}" }'
+    body_format: json
+    validate_certs: false
+    force_basic_auth: true
+
+## Execution environments
+
+- name: Login to redhat registry
+  containers.podman.podman_login:
+    username: '{{ redhat_username }}'
+    password: '{{ redhat_password }}'
+    registry: '{{ ee_registry_name }}'
+  become_user: "awx"
+
+- name: Mod containers.conf to utilize max of 10 parallel threads
+  become_user: "awx"
+  lineinfile:
+    path: /var/lib/awx/.config/containers/containers.conf
+    line: 'image_parallel_copies=10'
+    insertafter: EOF
+
+- name: Pull supported images
+  become_user: "awx"
+  containers.podman.podman_image:
+    name: "{{ item }}"
+  loop: "{{ ee_images }}"
+  register: podman_pull_supported
+  until: podman_pull_supported is not failed
+  retries: 5
+  delay: 15
+
+- name: Pull workshop images
+  become_user: "awx"
+  containers.podman.podman_image:
+    name: "{{ lookup('vars', workshop_type + '_ee') }}"
+  when: workshop_type is defined
+  register: podman_pull_workshop
+  until: podman_pull_workshop is not failed
+  retries: 5
+  delay: 15
+
+- name: create container registry credential
+  awx.awx.credential:
+    name: '{{ ee_registry_name }} credential'
+    organization: Default
+    credential_type: Container Registry
+    controller_host: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    validate_certs: false
+    inputs:
+      username: "{{ redhat_username }}"
+      password: "{{ redhat_password }}"
+      host: "{{ ee_registry_name }}"
+
+- name: update default EE to use credential
+  awx.awx.execution_environment:
+    name: "Default execution environment"
+    image: "{{ ee_default_image }}"
+    pull: missing
+    credential: "registry.redhat.io credential"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+  register: ee_check
+  until: ee_check is not failed
+  retries: 4
+  delay: 5
+
+### end of execution environments

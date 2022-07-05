@@ -6,7 +6,7 @@
   tasks:
     - name: configure RHEL webservers
       include_role:
-        name: ../roles/webservers
+        name: ../../roles/webservers
 
 - name: configure satellite
   hosts: satellite

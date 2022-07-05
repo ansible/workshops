@@ -80,7 +80,7 @@
 ### USER
 - name: add student user
   awx.awx.user:
-    username: "{{ username }}"
+    username: "{{ student }}"
     password: "{{ admin_password }}"
     email: fake@fake.com
     state: present

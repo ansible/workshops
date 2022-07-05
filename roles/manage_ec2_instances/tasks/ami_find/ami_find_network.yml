@@ -7,7 +7,7 @@
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:
-          name: "cisco-CSR-.16.09.02-BYOL*"
+          name: "cisco-CSR-.16.09.01-BYOL*"
           architecture: "x86_64"
       register: cisco_ami_list
 

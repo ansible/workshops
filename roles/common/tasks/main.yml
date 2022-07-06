@@ -15,7 +15,12 @@
     - common
 
 - hostname:
-    name: "{{short_name}}.example.com"
+    name: "{{ short_name|default('automation-controller') }}.example.com"
+
+- name: template out motd
+  template:
+    src: motd.j2
+    dest: /etc/motd
 
 - meta: flush_handlers
   tags:

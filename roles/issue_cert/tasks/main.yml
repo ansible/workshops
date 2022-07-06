@@ -1,9 +1,4 @@
 ---
-- name: determine if Automation controller
-  stat:
-    path: /etc/sysconfig/automation-controller
-  register: controller_path
-
 - name: SSL cert block
   block:
     - name: controller start
@@ -49,7 +44,7 @@
             tower_password: "{{ admin_password }}"
           register: change_base_url
           until: change_base_url is not failed
-          # tower may not be fully up yet, wait for it gratuitously
+          # controller may not be fully up yet, wait for it gratuitously
           retries: 12
           delay: 5
       rescue:

@@ -42,7 +42,7 @@ Complete the form using the following values
 | INVENTORY   | Workshop Inventory                   |      |
 | PROJECT     | Ansible Workshop Project                     |      |
 | Execution Environment | windows workshop execution environment             |      |
-| PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
+| PLAYBOOK    | `iis_basic/install_iis.yml`                  |      |
 | CREDENTIAL  | Name: **Windows Credential** |      |
 | LIMIT       | windows                                      |      |
 | OPTIONS     | [*] ENABLE FACT STORAGE                        |      |

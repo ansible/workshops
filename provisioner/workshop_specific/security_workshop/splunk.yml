@@ -1,0 +1,8 @@
+---
+- name: INSTALL AND CONFIGURE SPLUNK ENTERPRISE
+  hosts: splunk
+  become: true
+  gather_facts: true
+  tasks:
+    - include_role:
+        name: ../../../roles/splunk_enterprise

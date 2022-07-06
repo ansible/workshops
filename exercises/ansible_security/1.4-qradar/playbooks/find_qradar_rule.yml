@@ -1,0 +1,15 @@
+---
+- name: Find QRadar rule state
+  hosts: qradar
+  collections:
+    - ibm.qradar
+
+  tasks:
+    - name: get info about qradar rule
+      qradar_rule_info:
+        name: "Potential DDoS Against Single Host (TCP)"
+      register: rule_info
+
+    - name: output returned rule_info
+      debug:
+        var: rule_info

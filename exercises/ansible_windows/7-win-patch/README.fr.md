@@ -18,7 +18,7 @@ Dans l'Explorer, vous devriez avoir le repertoire où vous avez précédemment c
 
 ![Student Playbooks](images/7-vscode-existing-folders.png)
 
-Passez la souris sur la section *WORKSHOP_PROJECT* et cliquez sur le bouton *Nouveau dossier*. Tapez `win_updates` et appuyez sur Entrée.
+Allez sur la section *WORKSHOP_PROJECT* et cliquez sur le bouton *Nouveau dossier*. Tapez `win_updates` et appuyez sur Entrée.
 
 Maintenant, cliquez sur le dossier `win_updates` et cliquez sur le bouton *Nouveau fichier*. Tapez `site.yml` et appuyez sur Entrée.
 
@@ -28,7 +28,7 @@ Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui peut ê
 Section 2: Ecrire votre Playbook
 ================================
 
-Modifiez votre site.yml et ajoutez une définition et quelques tâches à votre playbook. Cela couvrira un playbook très basique pour l'installation des mises à jour Windows. En règle générale, vous auriez encore plus de tâches pour accomplir l'ensemble du processus de mise à jour. Cela peut impliquer la création de tickets de service, la création d'instantanés ou la désactivation de la surveillance.
+Modifiez le fichier site.yml et ajoutez une définition et quelques tâches à votre playbook. Cela couvrira un playbook très basique pour l'installation des mises à jour Windows. En règle générale, vous auriez encore plus de tâches pour accomplir l'ensemble du processus de mise à jour. Cela peut impliquer la création de tickets de service, la création d'instantanés (snapshot) ou la désactivation de la surveillance. 
 
 <!-- {% raw %} -->
 ```yaml
@@ -45,9 +45,9 @@ Modifiez votre site.yml et ajoutez une définition et quelques tâches à votre 
 
 > **Note**
 >
-> **What are we doing?**
+> **Que faisons-nous ici ?**
 >
-> -   `win_updates:` Ce module est utilisé pour vérifier ou installer des mises à jour. Nous lui demandons d'installer uniquement les mises à jour de catégories spécifiques à l'aide d'une variable. L'attribut `reboot` redémarrera automatiquement l'hôte distant s'il est requis et continuera à installer les mises à jour après le redémarrage. Nous utiliserons également une variable d'enquête pour nous empêcher de redémarrer quand c'est nécessaire. Si la valeur reboot_server n'est pas spécifiée, nous définirons l'attribut par defaut pour reboot sur true.
+> -   `win_updates:` Ce module est utilisé pour vérifier ou installer des mises à jour. Nous lui demandons d'installer uniquement les mises à jour de catégories spécifiques à l'aide d'une variable. L'attribut `reboot` redémarrera automatiquement l'hôte distant s'il est requis et continuera à installer les mises à jour après le redémarrage. Nous utiliserons également une variable modifiable via un formulaire pour nous permettre d'empécher le rédemarrage quand c'est nécessaire. Si la valeur reboot_server n'est pas spécifiée, nous définirons l'attribut par defaut à true.
 
 
 Section 3: Enregistrer et valider
@@ -87,23 +87,22 @@ Remplissez le formulaire en utilisant les valeurs suivantes
 | DESCRIPTION        |                            |      |
 | JOB TYPE           | Run                        |      |
 | INVENTAIRE         | Workshop Inventory |      |
-| PROJET             | Ansible Workshop Project   |      |
+| PROJET             | Ansible Workshop Project   |      | 
+| Execution Environnment             | windowws workshop environnement   |      |
 | Playbook           | `win_updates/site.yml`     |      |
-| MACHINE CREDENTIAL | Student Account            |      |
+| CREDENTIAL | Student Account            |      |
 | LIMIT              | windows                    |      |
-| OPTIONS            | [*] ENABLE FACT CACHE      |      |
-
-![Create Job Template](images/7-win_update-template.png)
+| OPTIONS            | [*] ENABLE FACT STORAGE      |      |
 
 Étape 2:
 --------
 
-Cliquez sur ENREGISTRER ![Save](images/at_save.png) puis sélectionnez AJOUTER UN QUESTIONNAIRE ![Add](images/at_add_survey.png)
+Cliquez sur ENREGISTRER ![Save](images/at_save.png) puis cliquez sur Survey en haut à droite !
 
 Étape 3:
 --------
 
-Remplissez le questionnaire avec les valeurs suivantes
+Cliquez sur Ajouter ou ADD et remplissez le questionnaire avec les valeurs suivantes
 
 | Clé                     | Valeur                                                                                                                                                 | Note                                         |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
@@ -116,9 +115,9 @@ Remplissez le questionnaire avec les valeurs suivantes
 | REQUIRED                | Selected                                                                                                                                               |                                              |
 |                         |                                                                                                                                                        |                                              |
 
-![Category Survey Form](images/7-category-survey.png)
 
-Une fois terminé, cliquez sur le bouton ![Add](images/at_add.png). Vous verrez votre nouveau champ à droite. Ajoutez maintenant un autre champ en remplissant à nouveau le formulaire .
+Une fois terminé, cliquez sur le bouton save. 
+Ajoutez une second questionnaire avec ces valeurs : 
 
 | Clé                     | Valeur                                                  | Note |
 |-------------------------|---------------------------------------------------------|------|
@@ -130,23 +129,8 @@ Une fois terminé, cliquez sur le bouton ![Add](images/at_add.png). Vous verrez 
 | DEFAULT ANSWER          | Yes                                                     |      |
 | REQUIRED                | Selected                                                |      |
 
-![Reboot Survey Form](images/7-reboot-survey.png)
+Cliquez sur Save, n'oubliez pas d'activer le formulaire ! 
 
-Étape 4:
---------
-
-Cliquez sur `Add` ![Add](images/at_add.png)
-
-Étape 5:
---------
-
-Cliquez sur `ENREGISTRER` ![Add](images/at_save.png)
-
-Étape 6:
---------
-
-De retour sur la page principale du modèle de travail, sélectionnez `ENREGISTRER`
-![Add](images/at_save.png) again.
 
 Section 6: lancer votre nouveau playbook
 ========================================

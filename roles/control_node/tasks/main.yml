@@ -9,7 +9,6 @@
 
 - name: common workshop setup for control node
   include_tasks: 20_all_workshop.yml
-  when: workshop_type is defined
 
 - name: check to see if automation controller is already up and running
   uri:
@@ -32,7 +31,3 @@
     - controllerinstall is defined
     - controllerinstall|bool
     - check_controller.status != 200
-
-- name: Setup Route53 update service
-  include_tasks: 40_route53_update.yml
-  when: tower_node_aws_api_access|default(false)|bool

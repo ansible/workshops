@@ -285,6 +285,8 @@ ansible-playbook teardown_lab.yml -e @extra_vars.yml
 ansible-playbook teardown_lab.yml -e @extra_vars.yml -e debug_teardown=true
 ```
 
+Note: Replace `ansible-playbook` with `ansible-navigator run` if using `ansible-navigator`.
+
 ## Demos
 
 There is a variable you can pass in within your extra_vars named `demo`.  When this keyword is defined it will install the specified demo from the Github repository [https://github.com/ansible/product-demos](https://github.com/ansible/product-demos).h

@@ -67,6 +67,10 @@
           "tag:Workshop_attacker": "{{ec2_name_prefix}}-attacker"
       register: attacker_node_facts
 
+    - name: debug attacker_node_facts
+      debug:
+        var: attacker_node_facts
+
     - name: ADD ATTACK SIMULATION NODE TO INVENTORY
       add_host:
         name: "{{ item.tags.Name }}"
@@ -89,7 +93,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_checkpoint_gw": "{{ec2_name_prefix}}-checkpoint"
+      "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint_gw"
   register: checkpoint_gw_facts
 
 - name: MANAGE SNORT EC2 INSTANCES (SECURITY MODE)
@@ -152,7 +156,7 @@
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
-          "tag:Workshop_checkpoint_gw": "{{ec2_name_prefix}}-checkpoint"
+          "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint_gw"
       register: checkpoint_gw_node_facts
 
     - name: ADD Check Point NGFW TO INVENTORY

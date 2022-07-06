@@ -10,7 +10,7 @@
     - name: check to see if SSL cert already applied
       become: false
       community.crypto.get_certificate:
-        host: "{{ username }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+        host: "{{ student }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
         port: 443
       delegate_to: localhost
       run_once: true
@@ -19,7 +19,7 @@
       failed_when: false
       when: workshop_type is defined
 
-    - name: ensure tower/controller is online and working
+    - name: ensure Automation controller is online and working
       uri:
         url: https://localhost/api/v2/ping/
         method: GET
@@ -28,10 +28,6 @@
         validate_certs: false
         force_basic_auth: true
       register: check_controller
-
-    - name: determine if controller or tower
-      set_fact:
-        controller_or_tower: "{{ 'controller' if 'Platform' in check_controller.x_api_product_name else 'tower' }}"
 
 - name: setup vscode for web browser access
   include_tasks: "codeserver.yml"

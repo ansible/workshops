@@ -19,7 +19,7 @@ Plusieurs utilisateurs peuvent utiliser le même référentiel et git gérera le
 Aperçu
 ======
 
-À partir de maintenant, nous allons utiliser Visual Studio Code comme éditeur. Aussi, nous utiliserons GitLab pour le contrôle du code source. Cela nous permettra de minimiser le travail de développement sur la ligne de commande linux.
+À partir de maintenant, nous allons utiliser Visual Studio Code comme éditeur. Aussi, nous utiliserons Gitea pour le contrôle du code source. Cela nous permettra de minimiser le travail de développement sur la ligne de commande linux.
 D'autres éditeurs ou solutions de code source pourait aussi être utilisés.
 
 
@@ -72,7 +72,7 @@ Maintenant, nous que nous avons le fichier `install_iis.yml`, commençons par é
 
 - `---` Définit le début du fichier YAML
 
-- `name: install the iis web service` Cela décrit notre jeu
+- `name: install the iis web service` Cela décrit notre play
 
 - `hosts: windows` Définit le groupe d'hôtes de votre inventaire sur lequel ce play se déroulera
 

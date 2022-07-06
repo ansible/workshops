@@ -1,7 +1,32 @@
 ---
+- name: debug the specific instance_ids
+  debug:
+    var: item.1.instance_id
+  with_indexed_items:
+    - '{{ attacker_instances.instances }}'
+
+- name: debug the specific instance_ids length
+  debug:
+    msg: "attacker_instances.instances|length-> {{ attacker_instances.instances|length }}"
+
+- name: debug the attacker_ami network_interfaces length
+  debug:
+    msg: "item.1.network_interfaces|length-> {{ item.1.network_interfaces|length }}"
+  with_indexed_items:
+    - '{{ attacker_instances.instances }}'
+
+- name: debug the specific network interface information
+  debug:
+    msg:
+      - "item.1.network_interfaces[1]-> {{ item.1.network_interfaces[1] }}"
+      - "item.1.network_interfaces[1].attachment.status-> {{ item.1.network_interfaces[1].attachment.status }}"
+  with_indexed_items:
+    - '{{ attacker_instances.instances }}'
+  when: item.1.network_interfaces|length > 1
+
 - name: Create Subnet2 ENI async attacker (SECURITY MODE)
   amazon.aws.ec2_eni:
-    instance_id: '{{ item[1] }}'
+    instance_id: '{{ item.1.instance_id }}'
     subnet_id: '{{ ec2_vpc_subnet2_id }}'
     state: present
     region: '{{ ec2_region }}'
@@ -9,15 +34,24 @@
     attached: true
     device_index: 1
   with_indexed_items:
-    - '{{ attacker_output["instance_ids"] }}'
+    - '{{ attacker_instances.instances }}'
   async: "{{ async_timeout_seconds }}"
   poll: 0
   register: ec2_subnet2_eni_attacker_async
-  when: attacker_output['instance_ids'] is not none
+  when:
+    - attacker_instances.instances|length > 0
+    - item.1.network_interfaces[1] is not defined
+    - item.1.network_interfaces|length < 2
+
+- name: debug the snort network_interfaces length
+  debug:
+    msg: "item.1.network_interfaces|length-> {{ item.1.network_interfaces|length }}"
+  with_indexed_items:
+    - '{{ snort_instances.instances }}'
 
 - name: Create Subnet2 ENI async snort (SECURITY MODE)
   amazon.aws.ec2_eni:
-    instance_id: '{{ item[1] }}'
+    instance_id: '{{ item.1.instance_id }}'
     subnet_id: '{{ ec2_vpc_subnet2_id }}'
     state: present
     region: '{{ ec2_region }}'
@@ -25,11 +59,14 @@
     attached: true
     device_index: 1
   with_indexed_items:
-    - '{{ snort_output["instance_ids"] }}'
+    - '{{ snort_instances.instances }}'
   async: "{{ async_timeout_seconds }}"
   poll: 0
   register: ec2_subnet2_eni_snort_async
-  when: snort_output['instance_ids'] is not none
+  when:
+    - snort_instances.instances|length > 0
+    - item.1.network_interfaces[1] is not defined
+    - item.1.network_interfaces|length < 2
 
 - name: Wait for async 2nd net iface creation to complete (attacker)
   async_status:
@@ -91,13 +128,27 @@
   poll: 0
   register: ec2_subnet2_eni_tags_snort_async
 
+# adam miller method
+# - name: Wait for async tag creation to complete (subnet2)
+#   async_status:
+#     jid: "{{ item['ansible_job_id'] }}"
+#   register: wait_for_ec2_tag_creation
+#   when: "'ansible_job_id' in item"
+#   until: wait_for_ec2_tag_creation.finished
+#   retries: "{{ async_wait_for_retries }}"
+#   loop: >
+#     {{ ('results' in ec2_subnet2_eni_tags_attacker_async) | ternary(ec2_subnet2_eni_tags_attacker_async['results'], []) }}
+#     + {{ ('results' in ec2_subnet2_eni_snort_async) | ternary(ec2_subnet2_eni_snort_async['results'], []) }}
+
+
+# new method by sean cavanaugh
 - name: Wait for async tag creation to complete (subnet2)
   async_status:
-    jid: "{{ item['ansible_job_id'] }}"
+    jid: "{{ item.results[0].ansible_job_id }}"
   register: wait_for_ec2_tag_creation
-  when: "'ansible_job_id' in item"
+  when: "item.results[0].ansible_job_id is defined"
   until: wait_for_ec2_tag_creation.finished
-  retries: "{{ async_wait_for_retries }}"
-  loop: >
-    {{ ('results' in ec2_subnet2_eni_tags_attacker_async) | ternary(ec2_subnet2_eni_tags_attacker_async['results'], []) }}
-    + {{ ('results' in ec2_subnet2_eni_snort_async) | ternary(ec2_subnet2_eni_snort_async['results'], []) }}
+  retries: "{{ [async_wait_for_retries | int, 60] | max }}"
+  loop:
+    - "{{ ec2_subnet2_eni_tags_attacker_async }}"
+    - "{{ ec2_subnet2_eni_snort_async }}"

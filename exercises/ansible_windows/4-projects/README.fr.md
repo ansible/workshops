@@ -29,30 +29,31 @@ Cliquez sur l'icone ![plus](images/add.png), et selectionnez `Modèle de tache`
 
 Remplissez le formulaire en utilisant les valeurs suivantes
 
-| Clé         | Valeur                                       | Note |
+| Key         | Value                                        | Note |
 |-------------|----------------------------------------------|------|
 | Name        | IIS Basic Job Template                       |      |
 | Description | Template for the iis-basic playbook          |      |
 | JOB TYPE    | Run                                          |      |
 | INVENTORY   | Workshop Inventory                   |      |
 | PROJECT     | Ansible Workshop Project                     |      |
+| Execution Environment | windows workshop execution environment             |      |
 | PLAYBOOK    | `iis-basic/install_iis.yml`                  |      |
-| CREDENTIAL  | Type: **Machine**. Name: **Student Account** |      |
+| CREDENTIAL  | Name: **Windows Credential** |      |
 | LIMIT       | windows                                      |      |
-| OPTIONS     | [*] ENABLE FACT CACHE                        |      |
+| OPTIONS     | [*] ENABLE FACT STORAGE                        |      |
 
 ![Create Job Template](images/4-create-job-template.png)
 
 Étape 4:
 --------
 
-Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un qustionnaire`
-![Add](images/at_add_survey.png)
+Cliquez sur `ENREGISTRER` ![Save](images/at_save.png) puis sélectionnez `Ajouter un questionnaire (survey)`
+![Create Survey](images/4-create-survey.png)
 
 Étape 5:
 --------
 
-Remplissez le formulaire avec les valeurs suivantes
+Remplissez le formulaire avec les valeurs suivantes et activez le questionnaire. 
 
 | Clé                    | Valeur                                                     | Note             |
 |------------------------|------------------------------------------------------------|------------------|
@@ -63,28 +64,13 @@ Remplissez le formulaire avec les valeurs suivantes
 | MINIMUM/MAXIMUM LENGTH |                                                            | Use the defaults |
 | DEFAULT ANSWER         | *Be creative, keep it clean, we’re all professionals here* |                  |
 
-![Survey Form](images/4-survey.png)
+![Survey creating](images/4-survey-created.png)
 
-Étape 6:
---------
-
-Selectionnez `ADD` ![Add](images/at_add.png)
-
-Étape 7:
---------
-
-Selectionnez `ENREGISTRER` ![Add](images/at_save.png)
-
-Étape 8:
---------
-
-De retour sur la page principale du modèle de travail, sélectionnez ENREGISTRER
-![Add](images/at_save.png) again.
 
 Lancer une tâche
 ================
 
-Maintenant que vous avez créé votre modèle de travail avec succès, vous êtes prêt à le lancer. Une fois que vous le faites, vous serez redirigé vers un écran de tâche qui est rafraîchissant en temps réel et vous montre l'état de la tâche.
+Maintenant que vous avez créé votre modèle de travail avec succès, vous êtes prêt à le lancer. Une fois que vous le faites, vous serez redirigé vers un écran de tâche qui est rafraîchi en temps réel et vous montre l'état de la tâche.
 
 Étape 1:
 --------
@@ -120,10 +106,9 @@ Sélectionnez LANCER ![SurveyL](images/4-survey-launch.png)
 Étape 6:
 --------
 
-Asseyez-vous, regardez la magie se produire
+Regardez la magie se produire :) 
 
-L'une des premières choses que vous remarquerez est la section récapitulative. Cela vous donne des détails sur votre travail, tels que qui l'a lancé, quel playbook est exécuté, et quel est son statut (soit en attente, en cours d'exécution ou terminé).
-
+Une fois de plus, une page de journal des travaux devrait s'afficher. La sélection de l'onglet Détails devrait vous montrer la variable que vous avez transmise au playbook, ainsi que d'autres détails.
 
 ![Job Summary](images/4-job-summary-details.png)
 

@@ -1,0 +1,14 @@
+%echo Generating a basic OpenPGP key
+Key-Type: default
+Key-Length: 4096
+Subkey-Type: default
+Subkey-Length: default
+Name-Real: {{gpg_key_user_name}}
+Name-Comment: with no passphrase
+Name-Email: {{gpg_key_user_email}}
+Expire-Date: 0
+%no-ask-passphrase
+%no-protection
+# Do a commit here, so that we can later print "done" :-)
+%commit
+%echo done

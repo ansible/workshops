@@ -1,0 +1,21 @@
+---
+- name: Add ids signature for sql injection simulation
+  hosts: ids
+  become: true
+
+  vars:
+    ids_provider: snort
+    protocol: tcp
+    source_port: any
+    source_ip: any
+    dest_port: any
+    dest_ip: any
+
+  tasks:
+    - name: Add snort sql injection rule
+      include_role:
+        name: "ansible_security.ids_rule"
+      vars:
+        ids_rule: 'alert {{protocol}} {{source_ip}} {{source_port}} -> {{dest_ip}} {{dest_port}}  (msg:"Attempted SQL Injection"; uricontent:"/sql_injection_simulation"; classtype:attempted-admin; sid:99000030; priority:1; rev:1;)'
+        ids_rules_file: '/etc/snort/rules/local.rules'
+        ids_rule_state: present

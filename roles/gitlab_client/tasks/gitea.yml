@@ -17,7 +17,7 @@
 - name: Configure workshop repository
   lineinfile:
     name: /home/{{ username }}/windows-workshop/workshop_project/.git/config
-    line: "	url = https://{{username}}:{{admin_password|urlencode()}}@gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}/{{username}}/workshop_project.git"
+    line: "	url = https://{{ student }}:{{admin_password|urlencode()}}@gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}/{{ student }}/workshop_project.git"
     state: present
   check_mode: true
   register: gitrepo
@@ -55,7 +55,7 @@
       become_user: "{{ username }}"
 
     - name: Add Git remote
-      command: git remote add origin https://{{username}}:{{admin_password|urlencode()}}@gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}/{{username}}/workshop_project.git
+      command: git remote add origin https://{{ student }}:{{admin_password|urlencode()}}@gitlab.{{ec2_name_prefix}}.{{workshop_dns_zone}}/{{ student }}/workshop_project.git
       args:
         chdir: /home/{{ username }}/windows-workshop/workshop_project
       become_user: "{{ username }}"

@@ -1,0 +1,52 @@
+---
+- name: wait for routers to have ssh reachability
+  hosts: "routers"
+  gather_facts: false
+  tasks:
+    - name: make sure routers have ssh reachability
+      include_role:
+        name: ../../roles/connectivity_test
+        tasks_from: routers
+
+- name: change juniper password
+  hosts: routers
+  gather_facts: false
+  vars:
+    ansible_connection: network_cli
+  tasks:
+    - name: configure juniper password
+      include_role:
+        name: ../../roles/configure_routers
+        tasks_from: juniper_default
+      when: ansible_network_os == "junos"
+
+- name: gather aws facts for routers
+  hosts: access,core
+  connection: local
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: ../../roles/gather_router_facts
+
+- name: configure access routers
+  hosts: access
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: ../../roles/configure_routers
+      vars:
+        type: access
+
+- name: configure core routers
+  hosts: core
+  connection: local
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: ../../roles/configure_routers
+      vars:
+        type: core
+      when:
+        - ansible_network_os == "ios" or ansible_network_os == "eos"

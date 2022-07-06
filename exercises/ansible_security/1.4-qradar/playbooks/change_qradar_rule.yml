@@ -1,0 +1,16 @@
+---
+- name: Change QRadar rule state
+  hosts: qradar
+  collections:
+    - ibm.qradar
+
+  tasks:
+    - name: get info about qradar rule
+      qradar_rule_info:
+        name: "Potential DDoS Against Single Host (TCP)"
+      register: rule_info
+
+    - name: disable rule by id
+      qradar_rule:
+        state: disabled
+        id: "{{ rule_info.rules[0]['id'] }}"

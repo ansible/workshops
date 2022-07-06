@@ -63,13 +63,15 @@
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
-  gather_facts: false
   become: true
   tasks:
-    - include_role:
-        name: ../roles/user_accounts
-    - include_role:
-        name: ../roles/common
+    - name: run user_accounts and common roles
+      when: not pre_build|bool
+      block:
+        - include_role:
+            name: ../roles/user_accounts
+        - include_role:
+            name: ../roles/common
 
 - name: Configure /etc/hosts
   hosts: 'managed_nodes:control_nodes'
@@ -78,7 +80,7 @@
   tasks:
     - name: setup /etc/hosts file per student
       copy:
-        src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+        src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
         dest: "/etc/hosts"
         owner: "{{ username }}"
         group: "{{ username }}"
@@ -90,6 +92,10 @@
   tasks:
     - include_role:
         name: ../roles/control_node
+      when: not pre_build|bool
+
+    - include_role:
+        name: ../roles/control_node_always
 
     - include_role:
         name: ../roles/code_server
@@ -138,7 +144,7 @@
         - populatecontroller
 
 - name: include workshop_type unique setup roles
-  import_playbook: "{{workshop_type}}.yml"
+  import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"
 
 - name: setup demos
   hosts: control_nodes

@@ -1,0 +1,11 @@
+---
+- name: Configure nginx on attendance host
+  hosts: attendance
+  become: true
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: auto
+  tasks:
+    - include_role:
+        name: ../roles/workshop_attendance
+      when: attendance|bool

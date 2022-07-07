@@ -10,7 +10,7 @@
 
 - name: AAP Signing bits included?
   set_fact:
-    aap_signing_bits_included: "{{ aap_version is version('2.2.0', '>=') }}"
+    aap_signing_bits_included: "{{ __aap_version is version('2.2.0', '>=') }}"
 
 - name: Setup signing
   include_tasks: "20_setup_signing.yml"

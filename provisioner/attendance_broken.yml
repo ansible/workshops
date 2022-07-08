@@ -30,8 +30,6 @@
   become: true
   gather_facts: true
   tasks:
-    - name: Install EPEL
-      dnf:
-        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-        state: present
-        disable_gpg_check: true
+    - include_role:
+        name: ../roles/workshop_attendance
+      when: attendance|bool

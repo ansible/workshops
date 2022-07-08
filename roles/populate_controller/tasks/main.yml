@@ -42,7 +42,7 @@
     controller_host: "https://{{ ansible_host }}"
     validate_certs: false
     inputs:
-      host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+      host: "{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
       username: admin
       password: "{{ admin_password }}"
 #### END OF CREDENTIAL

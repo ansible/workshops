@@ -26,7 +26,7 @@
 - name: add hosts to groups (ANSIBLE RHEL MODE)
   add_host:
     name: "{{ item.tags.Name }}"
-    student_user: "{{ item.tags.Student }}"
+    username: "{{ student_user }}"
     student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"

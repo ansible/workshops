@@ -11,7 +11,6 @@
   add_host:
     hostname: 'attendance-host'
     short_name: "{{ item.tags.short_name }}"
-    ansible_python_interpreter: "{{ ansible_playbook_python }}"
     username: "{{ item.tags.username }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"

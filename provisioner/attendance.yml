@@ -2,7 +2,6 @@
 - name: localhost playbook
   hosts: localhost
   gather_facts: false
-  connection: local
   tasks:
     - name: grab facts for attendance host
       amazon.aws.ec2_instance_info:

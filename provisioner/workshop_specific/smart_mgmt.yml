@@ -23,7 +23,7 @@
     - name: configure satellite dns
       become: false
       community.aws.route53:
-        state: "{{ s3_state }}"
+        state: present
         zone: "{{workshop_dns_zone}}"
         record: "{{student}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: A

@@ -23,9 +23,9 @@
     - name: configure satellite dns
       become: false
       community.aws.route53:
-        state: "{{ s3_state }}"
+        state: present
         zone: "{{workshop_dns_zone}}"
-        record: "{{username}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        record: "{{student}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
         type: A
         overwrite: true
         value: "{{ansible_host}}"
@@ -163,12 +163,12 @@
               refresh_satellite_manifest: true
             controller_username: admin
             controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: setupsatjob
 
         - name: "Check API until SETUP / Satellite job is successful"
           ansible.builtin.uri:
-            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
             user: admin
             password: "{{ admin_password }}"
             force_basic_auth: true
@@ -190,12 +190,12 @@
               refresh_satellite_manifest: true
             controller_username: admin
             controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: setupsatjob
 
         - name: "Check API until SETUP / Satellite job is successful"
           ansible.builtin.uri:
-            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
             user: admin
             password: "{{ admin_password }}"
             force_basic_auth: true
@@ -213,12 +213,12 @@
             job_template: "SETUP / Controller"
             controller_username: admin
             controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: setupcontroljob
 
         - name: "Check API until SETUP / Controller job is successful"
           ansible.builtin.uri:
-            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
             user: admin
             password: "{{ admin_password }}"
             force_basic_auth: true
@@ -239,12 +239,12 @@
               content_view: RHEL7
             controller_username: admin
             controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: rhelpubcvjob01
 
         - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
           ansible.builtin.uri:
-            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob01.id }}/?format=json"
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob01.id }}/?format=json"
             user: admin
             password: "{{ admin_password }}"
             force_basic_auth: true
@@ -266,12 +266,12 @@
               lifecycle_environment: RHEL7_QA
             controller_username: admin
             controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: rhelpromotecvjob01
 
         - name: "Check API until SATELLITE / RHEL - Promote Content View job is successful"
           ansible.builtin.uri:
-            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpromotecvjob01.id }}/?format=json"
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpromotecvjob01.id }}/?format=json"
             user: admin
             password: "{{ admin_password }}"
             force_basic_auth: true
@@ -292,12 +292,12 @@
               content_view: RHEL7
             controller_username: admin
             controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: rhelpubcvjob02
 
         - name: "Check API until SATELLITE / RHEL - Publish Content View job is successful"
           ansible.builtin.uri:
-            url: "https://{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob02.id }}/?format=json"
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ rhelpubcvjob02.id }}/?format=json"
             user: admin
             password: "{{ admin_password }}"
             force_basic_auth: true

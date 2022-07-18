@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `users` (
       {% if hostvars[host].student is defined and "student" + number | string == hostvars[host].student %}
       INSERT INTO `users` (`id`, `ip`, `vscode`, `vscode_display`, `gitlab`, `hub`, `controller`, `username`, `password`) VALUES ({{ number }},'{{ hostvars[host].ansible_host }}',
       {% if workshop_type == "windows" %}
-        'https://student{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/?folder=vscode-remote%3A%2F%2Fstudent{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}%2Fhome%2Fstudent{{ number }}%2Fwindows-workshop%2Fworkshop_project',
+        'https://student{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/?folder=vscode-remote%3A%2F%2Fstudent{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}%2Fhome%2Fstudent%2Fwindows-workshop%2Fworkshop_project',
       {% else %}
         'https://student{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
       {% endif %}

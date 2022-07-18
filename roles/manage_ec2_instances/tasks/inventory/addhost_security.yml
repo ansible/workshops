@@ -16,6 +16,7 @@
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
+        student: "{{ item.tags.Student }}"
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
@@ -40,11 +41,12 @@
       register: qradar_node_facts
 
     - name: ADD QRADAR NODE TO INVENTORY
-      add_host:
+      ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
+        student: "{{ item.tags.Student }}"
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
@@ -72,11 +74,12 @@
         var: attacker_node_facts
 
     - name: ADD ATTACK SIMULATION NODE TO INVENTORY
-      add_host:
+      ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
+        student: "{{ item.tags.Student }}"
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
@@ -93,7 +96,7 @@
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint_gw"
+      "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint"
   register: checkpoint_gw_facts
 
 - name: MANAGE SNORT EC2 INSTANCES (SECURITY MODE)
@@ -107,11 +110,12 @@
       register: snort_node_facts
 
     - name: ADD SNORT NODE TO INVENTORY
-      add_host:
+      ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
+        student: "{{ item.tags.Student }}"
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
@@ -135,11 +139,12 @@
       register: checkpoint_node_facts
 
     - name: ADD Check Point CloudGuard Security Management TO INVENTORY
-      add_host:
+      ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
+        student: "{{ item.tags.Student }}"
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
@@ -156,15 +161,16 @@
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
-          "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint_gw"
+          "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint"
       register: checkpoint_gw_node_facts
 
     - name: ADD Check Point NGFW TO INVENTORY
-      add_host:
+      ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
+        student: "{{ item.tags.Student }}"
         ansible_user: "{{ item.tags.username }}"
         ansible_port: "{{ ssh_port }}"
         ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
@@ -187,11 +193,12 @@
       register: windows_node_facts
 
     - name: ADD WINDOWS WORKSTATION TO INVENTORY
-      add_host:
+      ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         ansible_user: Administrator
+        student: "{{ item.tags.Student }}"
         ansible_password: "{{ windows_password }}"
         ansible_port: 5986
         ansible_connection: winrm

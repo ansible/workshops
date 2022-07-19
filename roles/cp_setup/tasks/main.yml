@@ -1,6 +1,6 @@
 ---
 - name: login, get SID
-  uri:
+  ansible.builtin.uri:
     url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_mgmt')]['private_ip'] }}/web_api/login"
     method: POST
     body:
@@ -14,7 +14,7 @@
   delay: 10
 
 - name: Add NGFW to MGMT
-  uri:
+  ansible.builtin.uri:
     url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_mgmt')]['private_ip'] }}/web_api/add-simple-gateway"
     validate_certs: false
     method: POST
@@ -52,7 +52,7 @@
           topology: external
 
 - name: Publish
-  uri:
+  ansible.builtin.uri:
     url: "https://{{ hostvars[inventory_hostname|regex_replace('ansible-1', 'checkpoint_mgmt')]['private_ip'] }}/web_api/publish"
     validate_certs: false
     method: POST
@@ -64,7 +64,7 @@
       {}
 
 - name: get gw instances
-  community.aws.ec2_instance_info:
+  amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       "tag:Name": "{{ inventory_hostname|regex_replace('ansible-1', 'checkpoint_gw') }}"

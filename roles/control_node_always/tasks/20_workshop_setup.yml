@@ -1,4 +1,9 @@
 ---
+- name: template out motd
+  template:
+    src: motd.j2
+    dest: /etc/motd
+
 - name: template ansible-navigator.yml into home directory
   template:
     src: ansible-navigator.yml.j2

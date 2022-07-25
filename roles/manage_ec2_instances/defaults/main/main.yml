@@ -41,7 +41,6 @@ ec2_info:
     ami: "{{ juniper_ami | default(omit) }}"
     os: junos
     username: ec2-user
-    filter: "junos-vsrx3-x86-*byol*"
     filter: "junos-vsrx3-x86-64-20.4R2-S1-byol*"
     volume:
       - device_name: /dev/sda1

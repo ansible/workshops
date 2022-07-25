@@ -1,5 +1,6 @@
 ---
 theme: jekyll-theme-dinky
+markdown: GFM
 include:
   - "provisioner/README.md"
 exclude:

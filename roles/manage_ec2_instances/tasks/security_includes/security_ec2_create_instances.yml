@@ -191,7 +191,7 @@
       Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
       Students: "{{ student_total }}"
       username: "{{ ec2_info['checkpoint_mgmt']['username'] }}"
-      short_name: "qradar"
+      short_name: "checkpoint_mgmt"
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
     network:

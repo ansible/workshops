@@ -38,10 +38,10 @@ ec2_info:
     username: ec2-user
   juniper:
     size: c4.xlarge
-    ami: "{{juniper_ami | default(omit)}}"
+    ami: "{{ juniper_ami | default(omit) }}"
     os: junos
     username: ec2-user
-    filter: "junos-vsrx3-x86-*byol*"
+    filter: "junos-vsrx3-x86-64-20.4R2-S1-byol*"
     volume:
       - device_name: /dev/sda1
         ebs:
@@ -51,7 +51,7 @@ ec2_info:
           delete_on_termination: true
   cisco:
     size: t2.medium
-    ami: "{{cisco_ami | default(omit)}}"
+    ami: "{{ cisco_ami | default(omit) }}"
     os: ios
     username: ec2-user
     volume:
@@ -64,7 +64,7 @@ ec2_info:
           delete_on_termination: true
   arista:
     size: c5.xlarge
-    ami: "{{arista_ami | default(omit)}}"
+    ami: "{{ arista_ami | default(omit) }}"
     os: eos
     username: ec2-user
     filter: "*VEOSRouter*"

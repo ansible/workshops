@@ -152,7 +152,7 @@
       Students: "{{ student_total }}"
       short_name: "rtr3"
       ansible_network_os: "{{ ec2_info[rtr3_type].os }}"
-      username: "{{ ec2_info[rtr1_type].username }}"
+      username: "{{ ec2_info[rtr3_type].username }}"
       security_group: access
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"

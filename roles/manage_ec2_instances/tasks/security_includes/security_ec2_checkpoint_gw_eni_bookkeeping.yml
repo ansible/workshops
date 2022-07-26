@@ -39,11 +39,6 @@
   retries: "{{ async_wait_for_retries }}"
   loop: "{{ ('results' in ec2_subnet1_eni_checkpoint_gw_async) | ternary(ec2_subnet1_eni_checkpoint_gw_async['results'], []) }}"
 
-- name: debug for sean
-  debug:
-    var: item
-  loop: "{{ wait_eni1_creation_checkpoint_gw['results'] }}"
-
 - name: Create EIP async for checkpoint_gw Subnet1 ENI (SECURITY MODE)
   community.aws.ec2_eip:
     in_vpc: true
@@ -164,22 +159,8 @@
 # END ENI / EIP creation and book keeping
 ###########################################################################
 
-- name: grab info for Check Point CloudGuard Gateway
-  amazon.aws.ec2_instance_info:
-    region: "{{ ec2_region }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint_gw"
-  register: checkpoint_gw_tag_me
-
-- name: debug checkpoint_gw
-  debug:
-    var: checkpoint_gw_tag_me
-
-#no reason to go async if there is only ever 1 instance... sean
 - name: Create EC2 instances for Check Point CloudGuard Gateway
   amazon.aws.ec2_instance:
-    state: running
     key_name: "{{ ec2_name_prefix }}-key"
     instance_type: "{{ ec2_info['checkpoint_gw']['size'] }}"
     image_id: "{{ checkpoint_gw_ami['image_id'] }}"
@@ -190,26 +171,61 @@
       interfaces:
         - id: "{{ item[0]['interface']['id'] }}"
         - id: "{{ item[1]['interface']['id'] }}"
-    filters:
-      instance-state-name: running
-      "tag:Workshop_checkpoint_gw": "{{ ec2_name_prefix }}-checkpoint_gw"
     tags:
-      Name: "{{ ec2_name_prefix }}-student1-checkpoint_gw"
-      Workshop_checkpoint_gw: "{{ec2_name_prefix}}-checkpoint_gw"
-      Workshop: "{{ ec2_name_prefix }}"
-      uuid: "{{ ec2_name_prefix }}"
-      guid: "{{ ec2_name_prefix }}"
-      Student: "student1"
-      AWS_USERNAME: "{{ aws_user }}"
-      owner: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
-      short_name: "checkpoint_gw"
-      username: "{{ec2_info.checkpoint_gw.username}}"
       ansible-workshops: "true"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
   register: checkpoint_gw_async
   with_together:
     - "{{ wait_eni1_creation_checkpoint_gw['results'] }}"
     - "{{ wait_eni2_creation_checkpoint_gw['results'] }}"
-  when: checkpoint_gw_tag_me.instances|length == 0
+
+- name: Wait for async instance creation to complete (checkpoint_gw)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_checkpoint_gw_ec2_instance_creation
+  when: "'ansible_job_id' in item"
+  until: wait_for_checkpoint_gw_ec2_instance_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  loop: "{{checkpoint_gw_async['results']}}"
+
+- set_fact:
+    checkpoint_gw_output: "{{wait_for_checkpoint_gw_ec2_instance_creation['results']}}"
+
+############## Check Point CloudGuard IaaS Gateway ##############
+- name: Ensure tags are present for Check Point CloudGuard Gateway node (SECURITY MODE)
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{item[1]['instance_ids'][0]}}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-checkpoint_gw"
+      Workshop_checkpoint_gw: "{{ec2_name_prefix}}-checkpoint"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Index: "{{ item[0] }}"
+      Student: "student{{item[0] + 1}}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{student_total}}"
+      short_name: "checkpoint_gw"
+      username: "{{ec2_info.checkpoint_gw.username}}"
+      ansible-workshops: "true"
+  with_indexed_items:
+    - "{{ checkpoint_gw_output }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: ensure_tags_checkpoint_gw_async
+  when: checkpoint_gw_output.instance_ids is not none
+
+- name: Wait for async tag creation to complete (checkpoint_gw)
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  register: wait_for_ec2_tag_creation
+  until: wait_for_ec2_tag_creation.finished
+  retries: "{{ async_wait_for_retries }}"
+  when: "'ansible_job_id' in item"
+  loop: "{{ ('results' in ensure_tags_checkpoint_gw_async) | ternary(ensure_tags_checkpoint_gw_async['results'], []) }}"

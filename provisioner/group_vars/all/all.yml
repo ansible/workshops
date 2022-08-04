@@ -44,4 +44,4 @@ valid_security_console_types:
 create_cluster: false
 automation_hub: false
 developer_mode: false
-pre_build: false
+pre_build: true

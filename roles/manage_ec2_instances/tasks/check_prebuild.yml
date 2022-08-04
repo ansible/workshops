@@ -1,0 +1,18 @@
+---
+- name: make sure we have access to pre_build AMI
+  block:
+    - name: check if we have access to AMI
+      amazon.aws.ec2_ami_info:
+        region: "{{ ec2_region }}"
+        image_ids: "{{ pre_build_controller_ami[ec2_region] }}"
+  rescue:
+    - name: AWS AMI Access is not available
+      debug:
+        msg: "You do not have access to the pre_build AMI for region {{ ec2_region }}.  Reverting to filter lookups"
+    - name: turning pre_build off
+      set_fact:
+        pre_build: false
+    - name: fail if we can't overwrite pre_build var
+      fail:
+        msg: "Cannot overwrite pre_build var, did you send as an extra_var?  Try setting pre_build to false or opening an issue on github.com/ansible/workshops"
+      when: pre_build

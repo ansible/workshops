@@ -7,6 +7,9 @@
 - include_tasks: teardown.yml
   when: teardown|bool
 
+- name: check if we have access to pre_build AMI images
+  include_tasks: check_prebuild.yml
+
 - name: provision aws resources and instances
   include_tasks: provision.yml
   tags: provisioned

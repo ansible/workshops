@@ -1,0 +1,15 @@
+---
+- name: initial check setup
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+  tasks:
+    - name: run AWS check setup if using AWS
+      include_role:
+        name: ../roles/manage_ec2_instances
+        tasks_from: check_prebuild.yml
+
+    - name: print out pre_build var
+      debug:
+        var: pre_build

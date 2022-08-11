@@ -78,13 +78,13 @@ In this lab you work in a pre-configured lab environment. You will have access t
 Navigate to the `rhel-workshop` directory on the Ansible control node terminal.
 
 ```bash
-[student<X>@ansible-1 ~]$ cd ~/rhel-workshop/
-[student<X>@ansible-1 rhel-workshop]$ pwd
-/home/student<X>/rhel-workshop
-[student<X>@ansible-1 rhel-workshop]$
+[student@ansible-1 ~]$ cd ~/rhel-workshop/
+[student@ansible-1 rhel-workshop]$ pwd
+/home/student/rhel-workshop
+[student@ansible-1 rhel-workshop]$
 ```
 
-* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student<X>`
+* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student`
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
@@ -118,14 +118,16 @@ $ cat ~/.ansible-navigator.yml
 ---
 ansible-navigator:
   ansible:
-    inventories:
-    - /home/student<X>/lab_inventory/hosts
+    inventory:
+      entries:
+      - /home/student/lab_inventory/hosts
 
   execution-environment:
     image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
     enabled: true
     container-engine: podman
-    pull-policy: missing
+    pull:
+      policy: missing
     volume-mounts:
     - src: "/etc/ansible/"
       dest: "/etc/ansible/"

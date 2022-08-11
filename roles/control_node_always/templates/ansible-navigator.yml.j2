@@ -1,16 +1,16 @@
 ---
 ansible-navigator:
   ansible:
-    inventories:
-    - /home/{{ username }}/lab_inventory/hosts
+    inventory:
+      entries:
+      - /home/{{ username }}/lab_inventory/hosts
 
   execution-environment:
     image: {{ lookup('vars', workshop_type + '_ee') }}
     enabled: true
     container-engine: podman
-    pull-policy: missing
+    pull:
+      policy: missing
     volume-mounts:
     - src: "/etc/ansible/"
       dest: "/etc/ansible/"
-    - src: {{ '/tmp/' + workshop_type + '/'}}
-      dest: {{ '/tmp/' + workshop_type + '/' }}

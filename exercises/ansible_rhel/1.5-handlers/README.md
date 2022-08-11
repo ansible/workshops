@@ -99,7 +99,7 @@ As a an example, let’s write a playbook that:
 First we need the file Ansible will deploy, let’s just take the one from node1. Remember to replace the IP address shown in the listing below with the IP address from your individual `node1`.
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+[student@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 httpd.conf
 ```
 
@@ -147,11 +147,11 @@ Listen 8080
 Apache should now listen on port 8080. Easy enough to verify:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node1
+[student@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
-[student<X>@ansible-1 ansible-files]$ curl http://node1:8080
+[student@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
-<h1>This is a development webserver, have fun!</h1>
+<h1>Apache is running fine</h1>
 </body>
 ```
 

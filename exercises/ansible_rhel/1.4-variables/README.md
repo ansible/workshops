@@ -56,10 +56,10 @@ The recommended practice to provide variables in the inventory is to define them
 
 For understanding and practice let’s do a lab. Following up on the theme "Let’s build a web server. Or two. Or even more…​", you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
-On the ansible control host, as the `student<X>` user, create the directories to hold the variable definitions in `~/ansible-files/`:
+On the ansible control host, as the `student` user, create the directories to hold the variable definitions in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir host_vars group_vars
+[student@ansible-1 ansible-files]$ mkdir host_vars group_vars
 ```
 
 Now create two files containing variable definitions. We’ll define a variable named `stage` which will point to different environments, `dev` or `prod`:
@@ -132,7 +132,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 * Run the Playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
 ```
 
 ### Step 4 - Test the Result
@@ -142,7 +142,7 @@ The Ansible Playbook copies different files as index.html to the hosts, use `cur
 For node1:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node1
+[student@ansible-1 ansible-files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -151,7 +151,7 @@ For node1:
 For node2:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node2
+[student@ansible-1 ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -160,7 +160,7 @@ For node2:
 For node3:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node3
+[student@ansible-1 ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -194,8 +194,8 @@ To get an idea what facts Ansible collects by default, on your control node as y
 ```
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ cd ~
-[student<X>@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
+[student@ansible-1 ansible-files]$ cd ~
+[student@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
 ```
 
 This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard within your playbook. Create a playbook labeled `setup_filter.yml` as shown below. In this example, we filter to get the `eth0` facts as well as memory details of `node1`.
@@ -219,7 +219,7 @@ This might be a bit too much, you can use filters to limit the output to certain
 ```
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
 ```
 
 ### Step 6 - Challenge Lab: Facts
@@ -284,7 +284,7 @@ filter:
 ```
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
 ```
 
 ### Step 7 - Using Facts in Playbooks
@@ -312,7 +312,7 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
 Execute it to see how the facts are printed:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run facts.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run facts.yml
 ```
 
 Within the text user interface (TUI) window, type `:st` to capture the following output:

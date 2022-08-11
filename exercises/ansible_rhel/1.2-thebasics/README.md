@@ -24,7 +24,7 @@ This exercise will cover
 
 ### Step 1 - Work with your Inventory
 
-An inventory file is a text file that specifices the nodes that will be managed by the control machine. The nodes to be managed may include a list of hostnames or IP addresses of those nodes. The inventory file allows for nodes to be organized into groups by declaring a host group name within square brackets ([]).
+An inventory file is a text file that specifies the nodes that will be managed by the control machine. The nodes to be managed may include a list of hostnames or IP addresses of those nodes. The inventory file allows for nodes to be organized into groups by declaring a host group name within square brackets ([]).
 
 To use the `ansible-navigator` command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab, the inventory is provided by your instructor. The inventory file is an `ini` formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
 
@@ -44,8 +44,8 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
 
 
 ```bash
-[student<X>@ansible-1 rhel_workshop]$ cd /home/student<X>
-[student<X>@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
+[student@ansible-1 rhel_workshop]$ cd /home/student
+[student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
 {
     "_meta": {
         "hostvars": {
@@ -90,7 +90,7 @@ NOTE: `-m` is short for `--mode` which allows for the mode to be switched to sta
 If the `--list` is too verbose, the option of `--graph` can be used to provide a more condensed version of `--list`.
 
 ```bash
-[student1@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
+[student@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
 @all:
   |--@control:
   |  |--ansible-1
@@ -110,9 +110,9 @@ An inventory file can contain a lot more information, it can organize your hosts
 Using the `ansible-navigator inventory` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output.
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
-[student<X>@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
-[student<X>@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
+[student@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
+[student@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
+[student@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
 ```
 
 > **Tip**

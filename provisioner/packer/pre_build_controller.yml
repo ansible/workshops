@@ -20,6 +20,12 @@
     username: student
     student: "{{ username }}"
   tasks:
+    - name: print out ansible_host var
+      debug:
+        var: hostvars.controller
+    - name: print ipv4 address
+      debug:
+        var: ansible_default_ipv4.address
     - include_role:
         name: ../../roles/user_accounts
     - include_role:

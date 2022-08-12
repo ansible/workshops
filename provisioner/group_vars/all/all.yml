@@ -1,4 +1,5 @@
 ---
+workshop_version: aug11-2022
 student_user: student
 admin_password: ansible
 code_server: true

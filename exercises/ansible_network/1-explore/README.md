@@ -85,13 +85,13 @@ If you need more information on new Ansible Automation Platform components bookm
 Navigate to the `network-workshop` directory on the Ansible control node terminal.
 
 ```bash
-[student1@ansible-1 ~]$ cd ~/network-workshop/
-[student1@ansible-1 network-workshop]$ pwd
-/home/student1/network-workshop
-[student1@ansible-1 network-workshop]$
+[student@ansible-1 ~]$ cd ~/network-workshop/
+[student@ansible-1 network-workshop]$ pwd
+/home/student/network-workshop
+[student@ansible-1 network-workshop]$
 ```
 
-* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student1`
+* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student`
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
@@ -128,7 +128,7 @@ $ cat ~/.ansible-navigator.yml
 ansible-navigator:
   ansible:
     inventories:
-    - /home/student1/lab_inventory/hosts
+    - /home/student/lab_inventory/hosts
 
   execution-environment:
     image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
@@ -200,7 +200,7 @@ rtr2
 rtr4
 
 [control]
-ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
+ansible ansible_host=13.58.149.157 ansible_user=student private_ip=172.16.240.184
 ```
 
 ### Step 6 - Understanding inventory

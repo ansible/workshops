@@ -52,6 +52,11 @@
     - hostname:
         name: "{{ short_name|default('node') }}.example.com"
 
+    - name: setup /etc/hosts file per student
+      copy:
+        src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
+        dest: "/etc/hosts"
+
 - name: Configure nginx on attendance host
   hosts: attendance
   become: true
@@ -74,23 +79,18 @@
   gather_facts: true
   become: true
   tasks:
-    - name: run user_accounts and common roles
-      when: not pre_build|bool
-      block:
-        - name: configure user accounts
-          include_role:
-            name: ../roles/user_accounts
+    - name: configure user accounts
+      include_role:
+        name: ../roles/user_accounts
 
-        - name: configure common role
-          include_role:
-            name: ../roles/common
+    - name: configure common role
+      include_role:
+        name: ../roles/common
 
     - name: setup /etc/hosts file per student
       copy:
         src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
         dest: "/etc/hosts"
-        owner: "{{ username }}"
-        group: "{{ username }}"
 
     - name: configure control_node role
       include_role:

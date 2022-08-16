@@ -8,8 +8,8 @@
 
 - name: configure sudoers
   ansible.builtin.template:
-    src: sshd_config.conf
-    dest: /etc/ssh/sshd_config
+    src: sudoers.conf
+    dest: /etc/sudoers
     validate: "visudo -cf %s"
   notify: restart ssh
 

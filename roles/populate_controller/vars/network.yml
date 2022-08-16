@@ -5,7 +5,7 @@ controller_hosts:
     inventory: "Workshop Inventory"
     variables:
       note: in production these passwords would be encrypted in vault
-      ansible_user: "{{ username }}"
+      ansible_user: "ec2-user"
       ansible_password: "{{ admin_password }}"
       ansible_host: "{{ ansible_host }}"
 controller_organizations:

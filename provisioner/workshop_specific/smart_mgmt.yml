@@ -24,11 +24,11 @@
       become: false
       community.aws.route53:
         state: present
-        zone: "{{workshop_dns_zone}}"
-        record: "{{student}}-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
+        zone: "{{ workshop_dns_zone }}"
+        record: "{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
         type: A
         overwrite: true
-        value: "{{ansible_host}}"
+        value: "{{ ansible_host }}"
         wait: true
       delegate_to: localhost
       when:
@@ -127,6 +127,7 @@
         inventory: Workshop Inventory
         credentials:
           - Satellite Credential
+          - Workshop Credential
         extra_vars:
           refresh_satellite_manifest: false
         ask_variables_on_launch: true

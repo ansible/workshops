@@ -1,6 +1,4 @@
 [all:vars]
-ansible_user=student{{ item }}
-ansible_ssh_pass={{ admin_password }}
 {% if ssh_port is defined -%}
 ansible_port={{ ssh_port }}
 {% endif %}

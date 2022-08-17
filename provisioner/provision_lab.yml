@@ -44,6 +44,19 @@
     - include_role:
         name: ../roles/connectivity_test
 
+- name: configure host names on managed nodes
+  hosts: "managed_nodes"
+  become: true
+  gather_facts: false
+  tasks:
+    - hostname:
+        name: "{{ short_name|default('node') }}.example.com"
+
+    - name: setup /etc/hosts file per student
+      copy:
+        src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
+        dest: "/etc/hosts"
+
 - name: Configure nginx on attendance host
   hosts: attendance
   become: true
@@ -61,49 +74,58 @@
     - include_role:
         name: ../roles/connectivity_test
 
-- name: Configure common options on managed nodes and control nodes
-  hosts: "managed_nodes:control_nodes"
-  become: true
-  tasks:
-    - name: run user_accounts and common roles
-      when: not pre_build|bool
-      block:
-        - include_role:
-            name: ../roles/user_accounts
-        - include_role:
-            name: ../roles/common
-
-- name: Configure /etc/hosts
-  hosts: 'managed_nodes:control_nodes'
+- name: Configure common options and control nodes
+  hosts: "control_nodes"
   gather_facts: true
   become: true
   tasks:
+    - name: configure user accounts
+      include_role:
+        name: ../roles/user_accounts
+
+    - name: configure common role
+      include_role:
+        name: ../roles/common
+
     - name: setup /etc/hosts file per student
       copy:
         src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
         dest: "/etc/hosts"
-        owner: "{{ username }}"
-        group: "{{ username }}"
 
-- name: configure ansible control node
-  hosts: '*ansible-1'
-  gather_facts: true
-  become: true
-  tasks:
-    - include_role:
+    - name: configure control_node role
+      include_role:
         name: ../roles/control_node
       when: not pre_build|bool
 
-    - include_role:
+    - name: configure control_node_always role
+      include_role:
         name: ../roles/control_node_always
 
-    - include_role:
+    - name: install and configure code server
+      include_role:
         name: ../roles/code_server
       when:
         - code_server is defined
         - code_server
         - controllerinstall is defined
         - controllerinstall
+
+    - name: add dns entires for all student control nodes
+      include_role:
+        name: ../roles/aws_dns
+      when:
+        - dns_type is defined
+        - dns_type == "aws"
+        - controllerinstall is defined
+        - controllerinstall
+
+    - name: run populate_controller role
+      include_role:
+        name: ../roles/populate_controller
+      when:
+        - controllerinstall is defined
+        - controllerinstall|bool
+        - populatecontroller
 
 - name: configure private automation hub
   hosts: 'automation_hub'
@@ -115,33 +137,6 @@
       when:
         - automation_hub is defined
         - automation_hub|bool
-
-- name: add dns entires for all student control nodes
-  hosts: '*ansible-1'
-  become: true
-  gather_facts: false
-  tasks:
-    - include_role:
-        name: ../roles/aws_dns
-      when:
-        - dns_type is defined
-        - dns_type == "aws"
-        - controllerinstall is defined
-        - controllerinstall
-  tags: control_node
-
-- name: populate automation controller
-  hosts: '*ansible-1'
-  become: true
-  gather_facts: false
-  tasks:
-    - name: run populate_controller role
-      include_role:
-        name: ../roles/populate_controller
-      when:
-        - controllerinstall is defined
-        - controllerinstall|bool
-        - populatecontroller
 
 - name: include workshop_type unique setup roles
   import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"

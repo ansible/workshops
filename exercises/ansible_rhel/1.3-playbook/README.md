@@ -78,8 +78,8 @@ Instead, we are going to create a very simple directory structure for our playbo
 On your control host **ansible**, create a directory called `ansible-files` in your home directory and change directories into it:
 
 ```bash
-[student<X>@ansible-1 ~]$ mkdir ansible-files
-[student<X>@ansible-1 ~]$ cd ansible-files/
+[student@ansible-1 ~]$ mkdir ansible-files
+[student@ansible-1 ~]$ cd ansible-files/
 ```
 
 Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
@@ -157,8 +157,8 @@ The prerequisites and best practices for using `ansible-navigator` have been don
 
 These include:
 * Installing the `ansible-navigator` package
-* Creating a default settings `/home/student<X>/.ansible-navigator.yml` for all your projects (optional)
-* All execution environment (EE) logs are stored within `/home/student<X>/.ansible-navigator/logs/ansible-navigator.log`
+* Creating a default settings `/home/student/.ansible-navigator.yml` for all your projects (optional)
+* All execution environment (EE) logs are stored within `/home/student/.ansible-navigator/logs/ansible-navigator.log`
 * Playbook artifacts are saved under `/tmp/artifact.json`
 
 For more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst)
@@ -170,12 +170,12 @@ For more information on the [Ansible navigator settings](https://github.com/ansi
 To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
 ```
 
 > **Tip**
 >
-> The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student<X>/lab_inventory/hosts`
+> The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student/lab_inventory/hosts`
 
 When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
 
@@ -208,7 +208,7 @@ Once you've completed, reviewing your Ansible playbook, you can exit out of the 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ssh node1
+[student@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
@@ -248,7 +248,7 @@ Log out of `node1` with the command `exit` so that you are back on the control h
 
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
 ```
 
 ```bash
@@ -305,7 +305,7 @@ What exactly did we do?
 Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run apache.yml
+[student@ansible-1 ~]$ ansible-navigator run apache.yml
 ```
 
 Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
@@ -336,7 +336,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 ```bash
 {% endraw %}
 
-[student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
+[student@ansible-1 ~]$ ansible-navigator run service_state.yml
 ```
 
 ### Step 5 - Extend your Playbook: Create an web.html
@@ -364,15 +364,15 @@ Check that the tasks were executed correctly and Apache is accepting connections
 > **Expect a lot of red lines and a 403 status\!**
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student<X>` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir files
+[student@ansible-1 ansible-files]$ mkdir files
 ```
 
 Then create the file `~/ansible-files/files/web.html` on the control node:
@@ -413,7 +413,7 @@ What does this new copy task do? The new task uses the `copy` module and defines
 Run your extended Playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
 * Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
@@ -465,7 +465,7 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 Now run the playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
 Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.

@@ -21,7 +21,7 @@
 - name: BLOCK FOR ARISTA AMI
   block:
     - name: find ami for arista (NETWORKING MODE)
-      ec2_ami_info:
+      amazon.aws.ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:

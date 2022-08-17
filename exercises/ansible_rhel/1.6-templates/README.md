@@ -25,7 +25,7 @@ As an example of using templates you will change the motd file to contain host-s
 First create the directory `templates` to hold template resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir templates
+[student@ansible-1 ansible-files]$ mkdir templates
 ```
 
 Then in the `~/ansible-files/templates/` directory create the template file `motd-facts.j2`:
@@ -77,7 +77,7 @@ Add a line to the template to list the current kernel of the managed node.
 >
 > filter for kernel
 
-> Run the newly created playbook to find the fact name. 
+> Run the newly created playbook to find the fact name.
 
 * Change the template to use the fact you found.
 
@@ -121,7 +121,7 @@ ok: [node1] => {
         "changed": false,
         "failed": false
     }
-} 
+}
 ```
 
 With this we can conclude the variable we are looking for is labeled `ansible_kernel`.
@@ -144,13 +144,13 @@ running kernel {{ ansible_kernel }}.
 * Run the playbook.
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
 ```
 
 * Verify the new message via SSH login to `node1`.
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh node1
+[student@ansible-1 ~]$ ssh node1
 Welcome to node1.
 RedHat 8.1
 deployed on x86_64 architecture

@@ -19,3 +19,4 @@
 — Virtual: {{ 'YES' if ansible_virtualization_role == 'guest' else 'NO' }}
 — CPUs: {{ ansible_processor_vcpus }}
 — RAM: {{ (ansible_memtotal_mb / 1000) | round(1) }}GB
+- Workshop Version {{ workshop_version }}

@@ -97,7 +97,7 @@ Since we will not need or use any of the facts gathered by Ansible,  we have dis
 
 Next we will add our tasks:
 
-
+{% raw %}
 ```yaml
   tasks:
 
@@ -118,6 +118,7 @@ Next we will add our tasks:
   - ansible.builtin.debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
 
 We added 4 tasks to the tasks section:
@@ -132,6 +133,7 @@ We added 4 tasks to the tasks section:
 
 The completed playbook `install_packages.yml` should look like this:
 
+{% raw %}
 ```yaml
 ---
 - name: Install Specific versions of packages using Chocolatey
@@ -162,6 +164,7 @@ The completed playbook `install_packages.yml` should look like this:
   - ansible.builtin.debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
 Now that the playbook is ready:
 
@@ -219,6 +222,7 @@ In Visual Studio Code, create a new file under the `chocolatey` folder with the 
 
 The contents of `update_packages.yml` are:
 
+{% raw %}
 ```yaml
 ---
 - name: Update all packages using Chocolatey
@@ -242,6 +246,7 @@ The contents of `update_packages.yml` are:
   - ansible.builtin.debug:
       msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }}
 ```
+{% endraw %}
 
 The other tasks are there so that we can verify the versions of `nodejs` and `python` after the update task has been run. And that's it, simple right?
 

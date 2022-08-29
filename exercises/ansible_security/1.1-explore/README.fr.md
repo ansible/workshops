@@ -64,12 +64,12 @@ Un nouveau terminal sera ouvert dans la partie inférieure de votre éditeur et 
 
    - `sudo` a été configuré sur les hôtes gérés pour exécuter des commandes qui nécessitent des privilèges root.
 
-Notez que chaque étudiant se voit attribuer un numéro d'étudiant, c'est-à-dire X et vous devez travailler en tant qu'utilisateur student<X> sur le nœud de contrôle s'il n'est pas explicitement indiqué différemment.
+Notez que chaque étudiant se voit attribuer un numéro d'étudiant, c'est-à-dire X et vous devez travailler en tant qu'utilisateur student sur le nœud de contrôle s'il n'est pas explicitement indiqué différemment.
 
 Ensuite, vérifiez que Ansible a été installé correctement.
 
 ```bash
-    [student<X>@ansible ~]$ ansible --version
+    [student@ansible ~]$ ansible --version
 ```
 
 Le résultat devrait ressembler à ce qui suit:
@@ -92,7 +92,7 @@ Comme vous le voyez, l'inventaire de votre environnement est fourni dans un fich
 
 ```ini
 [all:vars]
-ansible_user=student1
+ansible_user=student
 ansible_ssh_pass=ansible
 ansible_port=22
 

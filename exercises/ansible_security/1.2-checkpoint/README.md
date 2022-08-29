@@ -44,7 +44,7 @@ You now are accessing a default windows workstation with a Google Chrome browser
 
 ## 1.2.3 Access the SmartConsole UI
 
-Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise. 
+Launch the Check Point SmartConsole via the desktop icon. In the following window, as username use `admin` and as password `admin123` if not instructed otherwise.
 
 Open your **lab inventory** in the online editor and look for the **firewall** inventory group. There will be a `checkpoint` entry. Use the `ansible_host` IP address to log into the SmartConsole.
 
@@ -106,11 +106,11 @@ If you are not very familiar with Ansible, see the following example of a playbo
 
 We will now write a playbook to change the configuration of the Check Point setup. We will start with a simple example where we will add a whiltelist entry in the firewall configuration to allow traffic from a certain machine to another. In our example we will allow the machine called **attacker** to send traffic to our machine **snort**.
 
-The playbook will be written and run on the Ansible control host. The language the playbook is written in is [YAML](https://en.wikipedia.org/wiki/YAML). In your browser, access the VS Code online editor. In the menu bar, click on **File** -> **New File**. A new, empty file opens. Before we continue, let's save it. Again in the menu bar, click on **File** -> **Save As...**. The drop down menu opens suggesting the filename **Untitled-1** in the directory **lab_inventory**. Change this to `whitelist_attacker.yml` and remove the directory **lab_inventory** so that the full filename is: `/home/student<X>/whitelist_attacker.yml` where `<X>` is the student id assigned to you.
+The playbook will be written and run on the Ansible control host. The language the playbook is written in is [YAML](https://en.wikipedia.org/wiki/YAML). In your browser, access the VS Code online editor. In the menu bar, click on **File** -> **New File**. A new, empty file opens. Before we continue, let's save it. Again in the menu bar, click on **File** -> **Save As...**. The drop down menu opens suggesting the filename **Untitled-1** in the directory **lab_inventory**. Change this to `whitelist_attacker.yml` and remove the directory **lab_inventory** so that the full filename is: `/home/student/whitelist_attacker.yml`.
 
 > **Note**
 >
-> Make sure that the file, and all future operations, are always done in the home directory, **/home/student\<X>**. This is crucial for the proper execution of the exercises.
+> Make sure that the file, and all future operations, are always done in the home directory, **/home/student**. This is crucial for the proper execution of the exercises.
 
 once we have saved the file in the proper place, we can add our playbook code. First, a playbook needs a name and the hosts it should be executed on. So let's add those:
 
@@ -177,7 +177,7 @@ Let's start with a task to define the source object:
 As you can see, the task itself has a name - just like the play itself - and references a module, here `checkpoint_host`. The module is the part of Ansible which "makes it so" - the module in this case creates or modifies host object entries in Check Point. The module has parameters, here `name` and `ip_address`. Each module has individual parameters, often some of them are required while others are optional. To get more information about a module, you can open a terminal in your VS Code online editor and call the help. For example, in the menu bar, click on **Terminal** > **New Terminal** and execute the following command. It will show the help for the module `checkpoint_host`:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator doc checkpoint_host
+[student@ansible-1 ~]$ ansible-navigator doc checkpoint_host
 ```
 
 > **Tip**
@@ -256,7 +256,7 @@ Last, we are defining the actual access rule between those two host objects. The
 Playbooks are executed using the `ansible-navigator` command on the control node. Before you run a new playbook it’s a good idea to check for syntax errors. In your VS Code online editor, in the menu bar click on **Terminal** -> **New Terminal**. In the terminal, execute the following command:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --syntax-check --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --syntax-check --mode stdout
 ```
 
 The syntax check should report no errors. If it does report an error, check the output and try to fix the problem in the playbook code.
@@ -264,7 +264,7 @@ The syntax check should report no errors. If it does report an error, check the 
 Now you should be ready to run your playbook:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run whitelist_attacker.yml --mode stdout
 
 PLAY [Whitelist attacker] *********************************************************
 
@@ -315,6 +315,6 @@ As you can see, even making a small change in the configuration requires multipl
 
 **Navigation**
 <br><br>
-[Previous Exercise](../1.1-explore/README.md) | [Next Exercise](../1.3-snort/README.md) 
+[Previous Exercise](../1.1-explore/README.md) | [Next Exercise](../1.3-snort/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

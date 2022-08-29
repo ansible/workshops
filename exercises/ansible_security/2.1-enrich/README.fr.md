@@ -36,7 +36,7 @@ Ensuite, comme il s'agit d'un atelier de sécurité, nous avons besoin d'un traf
 Exécutez le playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-navigator run web_attack_simulation.yml
+[student@ansible ansible-files]$ ansible-navigator run web_attack_simulation.yml
 ```
 
 > **Remarque**
@@ -47,12 +47,12 @@ Les prérequis sont maintenant établis. Lisez la suite pour savoir de quoi parl
 
 ## Étape 1.3 - L'anomalie
 
-Imaginez que vous êtes analyste de sécurité dans une entreprise. Vous venez d'être informé d'une anomalie dans une application. Depuis un terminal de votre éditeur en ligne VS Code, connectez vous via ssh à la machine snort. N'oubliez pas que vous pouvez rechercher l'IP du serveur Snort à partir du fichier d'inventaire dans `/home/student<X>/lab_inventory/hosts`.
+Imaginez que vous êtes analyste de sécurité dans une entreprise. Vous venez d'être informé d'une anomalie dans une application. Depuis un terminal de votre éditeur en ligne VS Code, connectez vous via ssh à la machine snort. N'oubliez pas que vous pouvez rechercher l'IP du serveur Snort à partir du fichier d'inventaire dans `/home/student/lab_inventory/hosts`.
 
 Ouvrez un nouveau terminal dans votre éditeur en ligne VS Code pour vous connecter au serveur Snort via SSH. Remarque: Pour l'utilisateur de connexion, vous devez utiliser `ec2-user`! Après la connexion, executez la la commande `grep` ci-dessous:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
+[student@ansible ~]$ ssh ec2-user@11.22.33.44
 Last login: Sun Sep 22 15:38:36 2019 from 35.175.178.231
 [ec2-user@ip-172-16-115-120 ~]$ sudo grep web_attack /var/log/httpd/access_log
 172.17.78.163 - - [22/Sep/2019:15:56:49 +0000] "GET /web_attack_simulation HTTP/1.1" 200 22 "-" "curl/7.29.0"
@@ -92,10 +92,10 @@ Commençons par la configuration de Snort. Nous avons besoin d'envoyer les journ
 Dans un terminal de votre éditeur en ligne VS Code, utilisez l'outil `ansible-galaxy` pour télécharger et installer le rôle mentionné ci-dessus avec une seule commande:
 
 ```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_config
+[student@ansible ~]$ ansible-galaxy install ansible_security.ids_config
 - downloading role 'ids_config', owned by ansible_security
 - downloading role from https://github.com/ansible-security/ids_config/archive/master.tar.gz
-- extracting ansible_security.ids_config to /home/student<X>/.ansible/roles/ansible_security.ids_config
+- extracting ansible_security.ids_config to /home/student/.ansible/roles/ansible_security.ids_config
 - ansible_security.ids_config (master) was installed successfully
 ```
 
@@ -150,10 +150,10 @@ Maintenant, nous devons faire de même pour Check Point: nous devons configurer 
 [log_manager](https://github.com/ansible-security/log_manager), donc tout ce que nous avons à faire est d'importer le rôle et de l'utiliser avec les bons paramètres. D'abord, importons le rôle:
 
 ```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.log_manager
+[student@ansible ~]$ ansible-galaxy install ansible_security.log_manager
 - downloading role 'log_manager', owned by ansible_security
 - downloading role from https://github.com/ansible-security/log_manager/archive/master.tar.gz
-- extracting ansible_security.log_manager to /home/student<X>/.ansible/roles/ansible_security.log_manager
+- extracting ansible_security.log_manager to /home/student/.ansible/roles/ansible_security.log_manager
 - ansible_security.log_manager (master) was installed successfully
 ```
 
@@ -318,7 +318,7 @@ Vérifions que QRadar affiche également correctement les journaux. Dans l'inter
 Dans Check Point, le moyen le plus simple de vérifier que les journaux sont correctement configurés est via la ligne de commande. Depuis le terminal de votre éditeur en ligne VS Code, utilisez SSH pour vous connecter à l'IP du serveur de gestion Check Point avec l'administrateur et émettez la commande `ls` suivante:
 
 ```bash
-[student<X>@ansible ~]$ ssh admin@11.33.44.55
+[student@ansible ~]$ ssh admin@11.33.44.55
 [Expert@gw-77f3f6:0]# ls -l /opt/CPrt-R80/log_exporter/targets
 total 0
 drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
@@ -329,7 +329,7 @@ Comme vous pouvez le voir, Check Point a bien la nouvelle configuration en place
 Vérifions également que la configuration Snort a réussi. Depuis le terminal de votre éditeur en ligne VS Code, connectez-vous à votre instance Snort via SSH en tant qu'utilisateur «ec2-user». Devenez root et vérifiez la configuration de rsyslog:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@22.33.44.55
+[student@ansible ~]$ ssh ec2-user@22.33.44.55
 Last login: Wed Sep 11 15:45:00 2019 from 11.22.33.44
 [ec2-user@ip-172-16-11-222 ~]$ sudo -i
 [root@ip-172-16-11-222 ~]# cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
@@ -388,13 +388,13 @@ Dans ce play, nous fournissons quelques variables à Snort indiquant que nous vo
 Exécutez maintenant le playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run enrich_snort_rule.yml
+[student@ansible ~]$ ansible-navigator run enrich_snort_rule.yml
 ```
 
 Vérifions rapidement que la nouvelle règle a bien été ajoutée. Depuis le terminal de votre éditeur en ligne VS Code, ssh vers le serveur Snort en tant qu'utilisateur ec2 et jetez un œil au répertoire des règles personnalisées:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
+[student@ansible ~]$ ssh ec2-user@11.22.33.44
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep web_attack /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_attack_simulation"; classtype:web-application-attack; sid:99000020; priority:1; rev:1;)
@@ -496,14 +496,14 @@ Exécutez le playbook pour supprimer les sources de journal:
 
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run rollback.yml
+[student@ansible ~]$ ansible-navigator run rollback.yml
 ```
 
 De plus, nous devons quitter le processus qui simule l'attaque. Pour cela, nous utiliserons une commande Ad-hoc d'Ansible: une seule tâche exécutée via Ansible, sans avoir besoin d'écrire un playbook entier. Nous utiliserons le module shell car il prend en charge les `pipes` et peut donc chaîner plusieurs commandes ensemble. Dans un terminal de votre éditeur en ligne VS Code, exécutez la commande suivante:
 
 <!-- {% raw %} -->
 ```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
+[student@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
 attacker | CHANGED | rc=0 >>
 ```
 <!-- {% endraw %} -->

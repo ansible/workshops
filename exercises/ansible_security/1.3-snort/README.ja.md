@@ -87,7 +87,7 @@ Red Hat Enterprise Linux マシンにインストールされ、Ansible は SSH 
 
 ## ステップ 3.2 - Snort サーバーへのアクセス
 
-Snort インストールに接続するには、インストールされているマシンの IP アドレスを確認する必要があります。続いて、Snort マシンの IP アドレスを取得するには、インベントリーファイル `~/lab_inventory/hosts` に関する情報を検索します。VS Code のオンラインエディターで、メニューバーの **File** > **Open File...** をクリックして `/home/student<X>/lab_inventory/hosts` ファイルを開き、以下のような snort のエントリーを検索して確認します。
+Snort インストールに接続するには、インストールされているマシンの IP アドレスを確認する必要があります。続いて、Snort マシンの IP アドレスを取得するには、インベントリーファイル `~/lab_inventory/hosts` に関する情報を検索します。VS Code のオンラインエディターで、メニューバーの **File** > **Open File...** をクリックして `/home/student/lab_inventory/hosts` ファイルを開き、以下のような snort のエントリーを検索して確認します。
 
 ```bash
 snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
@@ -101,7 +101,7 @@ Snort サーバーへの接続は、制御ホストに事前にインストー�
 です。VS Code のオンラインエディターでターミナルを開き、以下のように snort サーバーにアクセスします。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Warning: Permanently added '22.333.44.5' (ECDSA) to the list of known hosts.
 Last login: Mon Aug 26 12:17:48 2019 from h-213.61.244.2.host.de.colt.net
 [ec2-user@snort ~]$
@@ -276,7 +276,7 @@ IDS の名前を入力するだけで、あとはロールが処理してくれ�
 VS Code のオンラインエディターで、Playbook を実行します。ターミナルで以下のコマンドを実行します。
 
 ```bash
-[student1@ansible-1 ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -298,7 +298,7 @@ TASK [ansible_security.ids_rule : verify required variable ids_rule_state is def
 skipping: [snort]
 
 TASK [ansible_security.ids_rule : include ids_provider tasks] *************************
-included: /home/student1/.ansible/roles/ansible_security.ids_rule/tasks/snort.yml for
+included: /home/student/.ansible/roles/ansible_security.ids_rule/tasks/snort.yml for
 snort
 
 TASK [ansible_security.ids_rule : snort_rule] *****************************************
@@ -393,7 +393,7 @@ VS Code のオンラインエディターで、Playbook `verify_attack_rule.yml`
 次に、Playbook を実行して、ルールが Snort インストールに含まれていることを確認します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
 
 PLAY [Verify Snort rule] **************************************************************
 
@@ -421,6 +421,6 @@ snort  : ok=3  changed=0  unreachable=0  failed=0  skipped=0  rescued=0  ignored
 
 **Navigation**
 <br><br>
-[Previous Exercise](../1.2-checkpoint/README.md) | [Next Exercise](../1.4-qradar/README.md) 
+[Previous Exercise](../1.2-checkpoint/README.md) | [Next Exercise](../1.4-qradar/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -71,7 +71,7 @@ Comme les rôles, les collections doivent également être installées avant de 
 Installons la collection de modules QRadar sur votre hôte de contrôle. Dans votre éditeur en ligne VS Code, ouvrez un nouveau terminal. Exécutez la commande `ansible-galaxy collection --help` pour vérifier que la fonction collections fonctionne correctement:
 
 ```bash
-[student<X>@ansible ~]$ ansible-galaxy collection --help
+[student@ansible ~]$ ansible-galaxy collection --help
 usage: ansible-galaxy collection [-h] COLLECTION_ACTION ...
 
 positional arguments:

@@ -15,11 +15,11 @@
 |---	|---	|---	|---	|---	| | Ansible Control Host 	| ansible 	| ansible-1 	|
 - 	| - 	| | IBM QRadar 	| qradar 	| qradar 	| admin 	| Ansible1! 	| |
 Attacker 	| attacker 	| attacker 	| - 	| - 	| | Snort 	| snort 	| snort 	| -
-	| - 	| | Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	|
+  | - 	| | Check Point Management Server 	| checkpoint 	| checkpoint_mgmt 	|
 admin 	| admin123 	| | Check Point Gateway 	| - 	| checkpoint_gw 	| - 	| -
-	| | Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	|
+  | | Windows Workstation 	| windows-ws 	| windows_ws 	| administrator 	|
 *Provided by Instructor* 	| | Automation controller 	| ansible 	| ansible-1
-	| admin 	| *Provided by Instructor* 	|
+  | admin 	| *Provided by Instructor* 	|
 
 
 ### ファイアウォール
@@ -123,7 +123,7 @@ Visual Studio Code にアクセスしてみましょう。ワークショップ�
 
 ## ステップ 1.4: VS Code でターミナルを開いて使用する
 
-では、VS Code で新しいターミナルを開いてみましょう。メニューバーで、**Terminal** > **New Terminal** をクリックします。 
+では、VS Code で新しいターミナルを開いてみましょう。メニューバーで、**Terminal** > **New Terminal** をクリックします。
 
 ![VS Code - New Terminal](images/1-vscode-new-terminal.png#centreme)
 
@@ -142,7 +142,7 @@ Visual Studio Code にアクセスしてみましょう。ワークショップ�
 次に進み、Ansible Automation Platform が正しく設定されていることを確認します。
 
 ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator images 
+    [student@ansible-1 ~]$ ansible-navigator images
 ```
 
 結果は以下のようになります。   
@@ -167,7 +167,7 @@ Version](images/1-vscode-navigator_list_ee.png#centreme)
 
 
 > **注記**
-> 
+>
 > 詳細は、[execution environment documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) を参照してください。   
 
 ## ステップ 1.6 - ansible-navigator 設定の検証
@@ -181,7 +181,7 @@ $ cat ~/.ansible-navigator.yml
 ansible-navigator:
   ansible:
     inventories:
-    - /home/student1/lab_inventory/hosts
+    - /home/student/lab_inventory/hosts
 
   execution-environment:
     image: quay.io/acme_corp/security_ee:latest
@@ -199,7 +199,7 @@ ansible-navigator:
 * `execution-environment`: デフォルトの実行環境が設定されている場所
 
 > **注記**
-> 
+>
 > 設定の完全な一覧については、`ansible-navigator` [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/). を参照してください。   
 
 ## ステップ 1.7: インベントリー
@@ -217,7 +217,7 @@ VS Codeでファイルを開いてみましょう。メニューバーで、**Fi
 
 ```ini
 [all:vars]
-ansible_user=student1
+ansible_user=student
 ansible_ssh_pass=ansible
 ansible_port=22
 
@@ -247,7 +247,7 @@ Ansible は、お客様の環境に特化したインベントリーを使用す
 アドレス以外の情報も含まれています。特に、Windows ワークステーションの場合は、さらにいくつかのパラメーターが設定されています。
 
 > **注記**
-> 
+>
 > ラボ内のすべてのホストが SSH または WinRM 経由でアクセスできるわけではありません。一部のホストは、REST API、RDP、または Web ブラウザー経由でアクセスします。演習では、各ノードタイプが詳細に説明され、リソースにアクセスする方法がステップごとに表示されます。
 
 ## ステップ 1.8 - ラボでの作業
@@ -257,6 +257,6 @@ Ansible は、お客様の環境に特化したインベントリーを使用す
 ----
 **Navigation**
 <br><br>
-[Next Exercise](../1.2-checkpoint/README.md) 
+[Next Exercise](../1.2-checkpoint/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

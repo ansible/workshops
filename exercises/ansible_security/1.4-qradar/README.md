@@ -165,7 +165,7 @@ So how do the information returned by the module actually look like? How about w
 Both tasks only collect and output data, they do not change anything. Let's quickly run the playbook to look at the returned data:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run find_qradar_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run find_qradar_rule.yml --mode stdout
 ```
 ![QRadar rule ID](images/1.4-qradar-id.png#centreme)
 
@@ -179,7 +179,7 @@ How do we get the key when it is in this structure? First, it is in the segment 
 
 So, let's write a new playbook where we provide this as a value to the module which can disable the rule, `qradar_rule`.
 
-In your VS Code online editor, create a new file, `change_qradar_rule.yml` in the home directory `/home/student<X>/`. Add the name and target hosts, here `qradar`.
+In your VS Code online editor, create a new file, `change_qradar_rule.yml` in the home directory `/home/student/`. Add the name and target hosts, here `qradar`.
 
 <!-- {% raw %} -->
 ```yaml
@@ -209,7 +209,7 @@ The playbook is now complete: it queries QRadar for the list of rules, and deact
 After we completed the playbook, let's execute it:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run change_qradar_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run change_qradar_rule.yml --mode stdout
 
 PLAY [Change QRadar rule state] ***************************************************
 

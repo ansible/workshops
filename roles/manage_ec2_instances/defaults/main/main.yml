@@ -67,7 +67,7 @@ ec2_info:
     ami: "{{ arista_ami | default(omit) }}"
     os: eos
     username: ec2-user
-    filter: "*VEOSRouter*"
+    filter: "*4.27.3F*"
     volume:
       - device_name: /dev/xvda
         ebs:

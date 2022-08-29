@@ -197,7 +197,7 @@ Let the job run to completion.  Let the instructor know if anything fails.
    Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
 
    This router was configured by Ansible
-  ```
+   ```
 
 2. Verify on additional routers
 

@@ -192,10 +192,10 @@ Espera a que la ejecución del trabajo concluya. Por favor, índicale al instruc
 
    ```
    [student1@ansible-1 ~]$ ssh rtr1
-  Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
+   Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
 
-  This router was configured by Ansible
-  ```
+   This router was configured by Ansible
+   ```
 
 * Verifícalo en los otros enrutadores
 

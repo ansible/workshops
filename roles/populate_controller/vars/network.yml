@@ -107,12 +107,14 @@ controller_templates:
     limit: "cisco"
     survey_enabled: true
     survey: "{{ lookup('template', 'survey_spec.json') }}"
+    execution_environment: "network workshop execution environment"
   - name: "Network-Reload"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
     playbook: "playbooks/network_reload.yml"
     credentials: "Workshop Credential"
+    execution_environment: "network workshop execution environment"
   - name: "Network-User"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -122,6 +124,7 @@ controller_templates:
     state: "present"
     survey_enabled: true
     survey: "{{ lookup('template', 'user.json') }}"
+    execution_environment: "network workshop execution environment"
   - name: "Network-Time"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -131,12 +134,14 @@ controller_templates:
     limit: "cisco"
     survey_enabled: true
     survey: "{{ lookup('template', 'network_time.json') }}"
+    execution_environment: "network workshop execution environment"
   - name: "Network-Report"
     job_type: "run"
     inventory: "Workshop Inventory"
     project: "Workshop Project"
     playbook: "playbooks/network_report.yml"
     credentials: "Workshop Credential"
+    execution_environment: "network workshop execution environment"
   - name: "Network-System"
     job_type: "run"
     inventory: "Workshop Inventory"
@@ -146,3 +151,4 @@ controller_templates:
     limit: "cisco"
     survey_enabled: true
     survey: "{{ lookup('template', 'system.json') }}"
+    execution_environment: "network workshop execution environment"

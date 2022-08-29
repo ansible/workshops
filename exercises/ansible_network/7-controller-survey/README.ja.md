@@ -202,10 +202,10 @@ junos デバイスを使用している場合、この Playbook は `junos.yml` 
 
    ```
    [student1@ansible-1 ~]$ ssh rtr1
-  Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
+   Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
 
-  This router was configured by Ansible
-  ```
+   This router was configured by Ansible
+   ```
 
 2. 追加のルーターでの確認
 

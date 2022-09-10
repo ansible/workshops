@@ -212,6 +212,6 @@ Has probado existosamente lo siguiente:
 ¡Felicidades, has completado el ejercicio de laboratorio 7!
 
 ---
-[Ejercicio Anterior](../6--controller-job-template/README.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
+[Ejercicio Anterior](../6-controller-job-template/README.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
 
 [Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

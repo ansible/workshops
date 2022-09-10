@@ -223,8 +223,7 @@ junos デバイスを使用している場合、この Playbook は `junos.yml` 
 ラボ演習 7 を完了しました
 
 ---
-[前の演習](../6--controller-job-template/README.md) |
-[次の演習](../8-controller-rbac/README.md)
+[前の演習](../6-controller-job-template/README.ja.md) |
+[次の演習](../8-controller-rbac/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

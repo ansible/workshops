@@ -188,6 +188,6 @@ You have completed lab exercise
 ----
 **Navigation**
 <br>
-[Previous Exercise](../5-surveys) - [Next Exercise](../7-insights)
+[Previous Exercise](../5-surveys)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -262,8 +262,6 @@ Version     : 2.4.37
 コントロールホストに戻るように `exit` コマンドで `node1` からログアウトし、インストールしたパッケージを Ansible
 playbook ラベル付き `package.yml` で確認します。
 
-
-
 {% raw %}
 ```yaml
 ---

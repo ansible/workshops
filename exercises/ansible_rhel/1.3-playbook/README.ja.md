@@ -10,7 +10,7 @@
   * [ステップ 1 - Playbook の基本](#step-1---playbook-basics)
   * [ステップ 2 - Playbook
     用のディレクトリー構造とファイルの作成](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
-  * [スッテプ 3 - Playbook の実行](#step-3---running-the-playbook)
+  * [ステップ 3 - Playbook の実行](#step-3---running-the-playbook)
   * [ステップ 4 - Playbook の拡張: Apache
     の起動と有効化](#step-4---extend-your-playbook-start--enable-apache)
   * [ステップ 5 - Playbook の拡張: web.html
@@ -262,6 +262,8 @@ Version     : 2.4.37
 コントロールホストに戻るように `exit` コマンドで `node1` からログアウトし、インストールしたパッケージを Ansible
 playbook ラベル付き `package.yml` で確認します。
 
+
+
 {% raw %}
 ```yaml
 ---
@@ -357,7 +359,7 @@ enabled and running」は、"CHANGED" 値が True に設定され、黄色でで
 
 * 出力内の変更に慣れるためにも、`ansible-navigator` を使用して Playbook を再び実行してみてください。
 
-* service_state.yml というラベルのついた Ansible Playbook を使って、Apache（httpd）サービスが
+* service_state.yml というラベルのついた Ansible Playbook を使って、Apache（httpd）サービスが TODO:
   `node1`、例えば `systemctl status httpd` で実行されていることを確認します。
 
 {% raw %}

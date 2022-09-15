@@ -259,8 +259,7 @@ Version     : 2.4.37
 [...]
 ```
 
-コントロールホストに戻るように `exit` コマンドで `node1` からログアウトし、インストールしたパッケージを Ansible
-playbook ラベル付き `package.yml` で確認します。
+コントロールホストに戻るように `exit` コマンドで `node1` からログアウトし、package.ymlと名前を付けたAnsible Playbookを作成、実行し、インストールしたパッケージを確認します。
 
 {% raw %}
 ```yaml
@@ -357,8 +356,7 @@ enabled and running」は、"CHANGED" 値が True に設定され、黄色でで
 
 * 出力内の変更に慣れるためにも、`ansible-navigator` を使用して Playbook を再び実行してみてください。
 
-* service_state.yml というラベルのついた Ansible Playbook を使って、Apache（httpd）サービスが
-  `node1`、例えば `systemctl status httpd` で実行されていることを確認します。
+* service_state.yml と名前を付けた Ansible Playbook を作成、実行し、`node1` 上で Apache（httpd）サービスが実行されていることを確認します（`systemctl status httpd` と同じように）。
 
 {% raw %}
 ```yaml
@@ -386,8 +384,8 @@ enabled and running」は、"CHANGED" 値が True に設定され、黄色でで
 
 ### ステップ 5 - Playbook の拡張: web.html の作成
 
-タスクが正しく実行され、Apache が接続を受け入れることを確認します。check_httpd.yml という名前の Playbook の
-Ansible の `uri` モジュールを使用して、コントロールノードから `node1` に HTTP リクエストを作成します。
+タスクが正しく実行され、Apache が接続を受け入れることを確認します。
+Ansible の `uri` モジュールを使用して、コントロールノードから `node1` に HTTP リクエストを作成する、check_httpd.yml という名前の Playbook を作成、実行します。
 
 {% raw %}
 ```yaml

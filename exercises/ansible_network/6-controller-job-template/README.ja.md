@@ -171,8 +171,7 @@
 ラボ演習 6 を完了しました
 
 ---
-[前の演習](../5-explore-controller/README.md) |
-[次の演習](../7-controller-survey/README.md)
+[前の演習](../5-explore-controller/README.ja.md) |
+[次の演習](../7-controller-survey/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

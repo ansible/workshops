@@ -196,10 +196,9 @@
 
 ラボ演習 9 を完了しました。これでネットワーク自動化ワークショップは終了です。ご参加いただきありがとうございました!
 
-追加の演習については、[追加の演習](../supplemental/README.md) を参照してください。
+追加の演習については、[追加の演習](../supplemental/README.ja.md) を参照してください。
 
 ---
-[前の演習](../8-controller-rbac/README.md)
+[前の演習](../8-controller-rbac/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

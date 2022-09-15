@@ -48,7 +48,7 @@ To be able to execute the playbook we will use the prepared role `ids_rule` to m
 Run the playbook with:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run incident_snort_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run incident_snort_rule.yml --mode stdout
 ```
 
 To have those rules generate logs, we need suspicious traffic - an attack. Again we have a playbook which simulates a simple access every few seconds on which the other components in this exercise will later on react to. In your VS Code online editor, create the playbook `sql_injection_simulation.yml` with the following content:
@@ -70,7 +70,7 @@ To have those rules generate logs, we need suspicious traffic - an attack. Again
 Run it with:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run sql_injection_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run sql_injection_simulation.yml --mode stdout
 ```
 
 For this exercise to work properly, we'll need to make sure a few steps in the previous [Check Point exercises](../1.2-checkpoint/README.md) have been completed:
@@ -85,7 +85,7 @@ Both were done in the [Check Point exercises](../1.2-checkpoint/README.md). If y
 As the security operator in charge of the corporate IDS, you routinely check the logs. From the terminal of your VS Code online editor, SSH to your snort node as the user `ec2-user` and view the logs:
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 ```
 ```bash
 [ec2-user@snort ~]$ journalctl -u snort -f
@@ -161,7 +161,7 @@ In your VS Code online editor, create a playbook called `incident_snort_log.yml`
 This playbook should look familiar to you, it configures Snort to send logs to QRadar, configures QRadar to accept those and enables an offense. Run it:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run incident_snort_log.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run incident_snort_log.yml --mode stdout
 ```
 
 ## 2.3.5 Verify new configuration in QRadar
@@ -257,7 +257,7 @@ In your VS Code online editor, create a file called `incident_blacklist.yml`. No
 Run the playbook, to effectively blacklist the IP:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run incident_blacklist.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run incident_blacklist.yml --mode stdout
 ```
 
 In your QRadar UI, verify in the Log Activity tab that you do not receive any more alerts from Snort. Note that, if you would have connected the firewall to QRadar, there would actually be logs coming in from there.
@@ -280,7 +280,7 @@ As the final step, we can run the rollback playbook to undo the Snort configurat
 Execute the playbook `rollback.yml` we wrote in the last exercise to roll all changes back.
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
 Note here that the playbook runs through without problems - even though we did not configure Check Point as a log source for QRadar this time! This is possible since Ansible tasks are most often idempotent: they can be run again and again, ensuring the desired state.
@@ -289,7 +289,7 @@ Also we need to kill the process simulating the attack. In the terminal, run the
 
 <!-- {% raw %} -->
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
 ```
 <!-- {% endraw %} -->
 

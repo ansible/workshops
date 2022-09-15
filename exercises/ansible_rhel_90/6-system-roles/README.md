@@ -138,7 +138,7 @@ $ sudo systemctl status chronyd.service
 
 Here is the full output:
 ```
-[student1@ansible ~]$ sudo systemctl status chronyd.service
+[student@ansible ~]$ sudo systemctl status chronyd.service
 ● chronyd.service - NTP client/server
    Loaded: loaded (/usr/lib/systemd/system/chronyd.service; enabled; vendor preset: enabled)
    Active: active (running) since Tue 2020-04-21 14:37:14 UTC; 13h ago
@@ -188,6 +188,6 @@ You have completed lab exercise
 ----
 **Navigation**
 <br>
-[Previous Exercise](../5-surveys) - [Next Exercise](../7-insights)
+[Previous Exercise](../5-surveys)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

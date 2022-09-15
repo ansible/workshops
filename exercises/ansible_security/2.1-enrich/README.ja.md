@@ -136,7 +136,7 @@ Playbook を用意し、この演習の他のコンポーネントが後に反�
 Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run web_attack_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run web_attack_simulation.yml --mode stdout
 ```
 
 > **注記**
@@ -154,12 +154,12 @@ VS Code オンラインエディターで新しいターミナルを開き、SSH
 
 > **注記**
 >
-> Snort サーバーのログインユーザーとして、`ec2-user` を使用する必要があります。 
+> Snort サーバーのログインユーザーとして、`ec2-user` を使用する必要があります。
 
 ログイン後、異常なログエントリーに対して grep を実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Sun Sep 22 15:38:36 2019 from 35.175.178.231
 [ec2-user@snort ~]$ sudo grep web_attack /var/log/httpd/access_log
 172.17.78.163 - - [22/Sep/2019:15:56:49 +0000] "GET /web_attack_simulation HTTP/1.1" 200 22 "-" "curl/7.29.0"
@@ -403,7 +403,7 @@ REST API のタイムアウトにより発生する可能性があるため、�
 完全な Playbook を実行して、両方のログソースを QRadar に追加します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
 ```
 Check Point SmartConsole では、進捗状況を知らせる小さなウィンドウが、左下隅にポップアップ表示されるされることもあります。
 
@@ -473,7 +473,7 @@ Check Point で、ログソースが設定されているかどうかを確認�
 `ls` コマンドを実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh admin@checkpoint_mgmt
+[student@ansible-1 ~]$ ssh admin@checkpoint_mgmt
 [Expert@gw-77f3f6:0]# ls -l /opt/CPrt-R80/log_exporter/targets
 total 0
 drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
@@ -486,7 +486,7 @@ drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
 ユーザーとして SSH で Snort インスタンスにログインします。root になり、rsyslog の転送設定を確認します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Wed Sep 11 15:45:00 2019 from 11.22.33.44
 [ec2-user@snort ~] sudo cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
 $ModLoad imfile
@@ -551,14 +551,14 @@ Ansible Playbook を使って、数時間や数日ではなく数秒で、同じ
 それでは、Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run enrich_snort_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run enrich_snort_rule.yml --mode stdout
 ```
 
 新しいルールが実際に追加されたことをすぐに確認してみましょう。VS Code オンラインエディターのターミナルから、Snort サーバーに
 `ec2-user` として ssh で接続、カスタムルールのディレクトリーを見てみます。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep web_attack /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_attack_simulation"; classtype:web-application-attack; sid:99000020; priority:1; rev:1;)
@@ -672,7 +672,7 @@ Playbook `rollback.yml` には、以下の内容が必要です。
 Playbook を実行してログソースを削除します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
 また、Web 攻撃をシミュレートするプロセスを停止する必要があります。`shell` モジュールを使用して **attacker**
@@ -702,7 +702,7 @@ VS Code オンラインエディターを使用して `stop_attack_simulation.ym
 次に、`stop_attack_simulation.yml` Playbook を実行します。
 <!-- {% raw %} -->
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
 ```
 <!-- {% endraw %} -->
 

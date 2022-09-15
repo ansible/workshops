@@ -10,7 +10,7 @@ Dans ce laboratoire, Snort est installé sur une machine Red Hat Enterprise Linu
 
 ## Étape 3.2 - Accès au serveur Snort
 
-Afin de se connecter à l'installation Snort, nous devons trouver l'adresse IP de la machine sur laquelle il est installé. Vous pouvez ensuite obtenir l'adresse IP de la machine Snort en recherchant les informations sur le fichier d'inventaire `~/lab_inventory/hosts`. Dans votre éditeur en ligne VS Code, dans la barre de menu, cliquez sur **Fichier**> **Ouvrir un fichier ...** et ouvrez le fichier `/home/student<X>/lab_inventory/hosts`. Recherchez et trouvez l'entrée pour snort qui ressemble à ceci:
+Afin de se connecter à l'installation Snort, nous devons trouver l'adresse IP de la machine sur laquelle il est installé. Vous pouvez ensuite obtenir l'adresse IP de la machine Snort en recherchant les informations sur le fichier d'inventaire `~/lab_inventory/hosts`. Dans votre éditeur en ligne VS Code, dans la barre de menu, cliquez sur **Fichier**> **Ouvrir un fichier ...** et ouvrez le fichier `/home/student/lab_inventory/hosts`. Recherchez et trouvez l'entrée pour snort qui ressemble à ceci:
 
 ```bash
 snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
@@ -23,7 +23,7 @@ snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 Une fois que vous avez trouvé l'adresse IP, il est temps d'accéder au serveur Snort. La connexion utilise une clé SSH préinstallée sur l'hôte de contrôle, l'utilisateur du serveur Snort est «ec2-user». Dans votre éditeur en ligne VS Code, ouvrez un terminal et accédez au serveur Snort via:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@22.333.44.5
+[student@ansible ~]$ ssh ec2-user@22.333.44.5
 Warning: Permanently added '22.333.44.5' (ECDSA) to the list of known hosts.
 Last login: Mon Aug 26 12:17:48 2019 from h-213.61.244.2.host.de.colt.net
 [ec2-user@ip-172-16-1-2 ~]$
@@ -115,10 +115,10 @@ Voyons comment ce playbook peut être réécrit pour utiliser les rôles directe
 
 Via la ligne de commande, vous pouvez utiliser l'outil `ansible-galaxy` pour télécharger et installer le rôle `ids_rule` avec une seule commande. Exécutez la commande suivante dans un terminal de votre éditeur en ligne VS Code:
 ```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule
+[student@ansible ~]$ ansible-galaxy install ansible_security.ids_rule
 - downloading role 'ids_rule', owned by ansible_security
 - downloading role from https://github.com/ansible-security/ids_rule/archive/master.tar.gz
-- extracting ansible_security.ids_rule to /home/student<X>/.ansible/roles/ansible_security.ids_rule
+- extracting ansible_security.ids_rule to /home/student/.ansible/roles/ansible_security.ids_rule
 - ansible_security.ids_rule (master) was installed successfully
 ```
 
@@ -172,11 +172,11 @@ Ensuite, nous devons ajouter les tâches. Les tâches sont les composants qui ef
 
 Jetons un coup d'œil à ce qui se passe ici. l'en-tête de la règle est `alert tcp any any -> any any`, nous créons donc une alerte pour le trafic tcp depuis n'importe quelle source vers n'importe quelle destination.
 Les options de règle définissent :
-- un message Snort lisible par l'homme si et quand la règle trouve une correspondance. 
-- `uricontent` qui est une version spécialisée de `content` qui facilite l'analyse des URI. 
-- `classtype` est défini sur `attempted-user` qui est la classe par défaut pour «tentative de gain de privilèges utilisateur». 
-- SID est défini sur une valeur suffisamment élevée pour les règles définies par l'utilisateur. 
-- La priorité est `1` 
+- un message Snort lisible par l'homme si et quand la règle trouve une correspondance.
+- `uricontent` qui est une version spécialisée de `content` qui facilite l'analyse des URI.
+- `classtype` est défini sur `attempted-user` qui est la classe par défaut pour «tentative de gain de privilèges utilisateur».
+- SID est défini sur une valeur suffisamment élevée pour les règles définies par l'utilisateur.
+- La priorité est `1`
 - et enfin puisque c'est la première version de cette règle, nous avons mis la révision à `1`.
 
 Les autres variables, `ids_rules_file` et `ids_rule_state` fournissent l'emplacement défini par l'utilisateur pour le fichier de règles et indiquent que la règle doit être créée si elle n'existe pas déjà (`présente`).
@@ -186,7 +186,7 @@ Les autres variables, `ids_rules_file` et `ids_rule_state` fournissent l'emplace
 Il est maintenant temps d'exécuter le playbook. Appelez `ansible-navigator` avec le nom du playbook:
 
 ```bash
-[student1@ansible ~]$ ansible-navigator run add_snort_rule.yml
+[student@ansible ~]$ ansible-navigator run add_snort_rule.yml
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -208,7 +208,7 @@ TASK [ansible_security.ids_rule : verify required variable ids_rule_state is def
 skipping: [snort]
 
 TASK [ansible_security.ids_rule : include ids_provider tasks] *************************
-included: /home/student1/.ansible/roles/ansible_security.ids_rule/tasks/snort.yml for
+included: /home/student/.ansible/roles/ansible_security.ids_rule/tasks/snort.yml for
 snort
 
 TASK [ansible_security.ids_rule : snort_rule] *****************************************
@@ -232,10 +232,10 @@ Une autre façon consiste à utiliser Ansible sur notre hôte de contrôle. Pour
 Pour utiliser ce rôle, comme nous l'avons fait précédemment, nous l'installons en utilisant `ansible-galaxy`:
 
 ```bash
-[student<X>@ansible ~]$ ansible-galaxy install ansible_security.ids_rule_facts
+[student@ansible ~]$ ansible-galaxy install ansible_security.ids_rule_facts
 - downloading role 'ids_rule_facts', owned by ansible_security
 - downloading role from https://github.com/ansible-security/ids_rule_facts/archive/master.tar.gz
-- extracting ansible_security.ids_rule_facts to /home/student1/.ansible/roles/ansible_security.ids_rule_facts
+- extracting ansible_security.ids_rule_facts to /home/student/.ansible/roles/ansible_security.ids_rule_facts
 - ansible_security.ids_rule_facts (master) was installed successfully
 ```
 
@@ -296,7 +296,7 @@ Et surtout, nous voulons être en mesure de voir ce qui est réellement trouvé.
 Maintenant, exécutons le playbook pour vérifier que notre règle fait partie de l'installation de Snort:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run verify_attack_rule.yml
+[student@ansible ~]$ ansible-navigator run verify_attack_rule.yml
 
 PLAY [Verify Snort rule] **************************************************************
 

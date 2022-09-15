@@ -68,7 +68,7 @@ Pour que ces règles génèrent des journaux, nous avons besoin d'un trafic susp
 Exécutez-le avec:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run sql_injection_simulation.yml
+[student@ansible ~]$ ansible-navigator run sql_injection_simulation.yml
 ```
 
 Nous avons également besoin de la collection QRadar. Cela a déjà été installé dans le précédent exercice QRadar. Si vous avez manqué cette partie, installez-les via: `ansible-galaxy collection install ibm.qradar`
@@ -155,7 +155,7 @@ Dans votre éditeur en ligne VS Code, créez un playbook appelé `incident_snort
 Ce manuel devrait vous être familier, il configure Snort pour envoyer des journaux à QRadar, et configure QRadar pour les accepter et les comprendre. Exécuter:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run incident_snort_log.yml
+[student@ansible ~]$ ansible-navigator run incident_snort_log.yml
 ```
 
 ## Étape 3.5 - Vérifier la nouvelle configuration dans QRadar
@@ -190,7 +190,7 @@ Dans votre éditeur en ligne VS Code, créez un fichier appelé `incident_blackl
     source_ip: "{{ hostvars['attacker']['private_ip2'] }}"
     destination_ip: "{{ hostvars['snort']['private_ip2'] }}"
 
-  tasks: 
+  tasks:
     - name: Create source IP host object
       checkpoint_host:
         name: "asa-{{ source_ip }}"
@@ -223,7 +223,7 @@ Dans votre éditeur en ligne VS Code, créez un fichier appelé `incident_blackl
 Exécutez le playbook:
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run incident_blacklist.yml
+[student@ansible ~]$ ansible-navigator run incident_blacklist.yml
 ```
 
 Dans votre interface utilisateur QRadar, vérifiez dans l'onglet `Log Activity` que vous ne recevez plus d'alertes de Snort. Notez que, si vous aviez connecté le pare-feu à QRadar, il y aurait en fait des journaux provenant de là.
@@ -241,7 +241,7 @@ Comme dernière étape, nous pouvons exécuter le playbook de restauration pour 
 Exécutez le playbook `rollback.yml` que nous avons écrit dans le dernier exercice pour annuler toutes les modifications.
 
 ```bash
-[student<X>@ansible ~]$ ansible-navigator run rollback.yml
+[student@ansible ~]$ ansible-navigator run rollback.yml
 ```
 
 Notez ici que le playbook fonctionne sans problème - même si nous n'avons pas configuré Check Point comme source de journal pour QRadar cette fois! Cela est possible car les tâches Ansible sont (presque) toujours idempotentes: elles peuvent être exécutées encore et encore, garantissant l'état souhaité.
@@ -249,7 +249,7 @@ Notez ici que le playbook fonctionne sans problème - même si nous n'avons pas 
 Nous devons également tuer le processus d'envoi de l'attaque. Depuis le terminal de votre éditeur en ligne VS Code, exécutez la commande ad-hoc Ansible suivante:
 <!-- {% raw %} -->
 ```bash
-[student1@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
+[student@ansible ~]$ ansible attacker -b -m shell -a "sleep 2;ps -ef | grep -v grep | grep -w /usr/bin/watch | awk '{print $2}'|xargs kill &>/dev/null; sleep 2"
 attacker | CHANGED | rc=0 >>
 ```
 <!-- {% endraw %} -->

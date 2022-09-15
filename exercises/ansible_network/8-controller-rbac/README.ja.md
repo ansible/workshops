@@ -34,7 +34,7 @@
 * **チーム:**
   各組織内には、複数のチームが存在する場合があります。たとえば、*tier1-helpdesk*、*tier2-support*、*tier3-support*、*build-team*
   などです。
-* **チーム:** ユーザーは通常、チームに属しています。自動コントローラー内でユーザーが実行できることは、**ロール**
+* **ユーザー:** ユーザーは通常、チームに属しています。自動コントローラー内でユーザーが実行できることは、**ロール**
   を使用して制御/定義されます。
 * **ロール:** ロールは、ユーザーが実行できるアクションを定義します。これは、ユーザーがレベル 1 のヘルプデスク担当者、レベル
   2、または上級管理者のいずれであるかに基づいてアクセスが制限されている一般的なネットワーク組織に非常にうまく対応できます。自動コントローラー
@@ -260,7 +260,6 @@
 ラボ演習 8 を完了しました
 
 ---
-[前の演習](../7-controller-survey/) | [次の演習](../9-controller-workflow/README.md)
+[前の演習](../7-controller-survey/README.ja.md) | [次の演習](../9-controller-workflow/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

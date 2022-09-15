@@ -16,7 +16,6 @@
     path: "/home/{{ username }}/.ssh"
     state: directory
     mode: '700'
-  when:  workshop_type == "smart_mgmt"
 
 - name: Put ssh-key in proper spot for student
   copy:

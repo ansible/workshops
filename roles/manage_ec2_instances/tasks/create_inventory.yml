@@ -18,6 +18,7 @@
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
     private_ip: "{{item.private_ip_address}}"
+    pre_build: "{{ pre_build }}"
     groups:
       - control_nodes
   with_items: "{{ ansible_node_facts.instances }}"

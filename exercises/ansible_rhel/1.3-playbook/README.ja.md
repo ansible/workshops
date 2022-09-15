@@ -26,8 +26,8 @@
 * 以下のモジュールの概要および使用
   * [yum
     モジュール](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
-  * [サービス
-    module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+  * [service
+    モジュール](https://docs.ansible.com/ansible/latest/modules/service_module.html)
   * [copy
     モジュール](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
 * [べき等性](https://en.wikipedia.org/wiki/Idempotence) の概要および Ansible
@@ -359,7 +359,7 @@ enabled and running」は、"CHANGED" 値が True に設定され、黄色でで
 
 * 出力内の変更に慣れるためにも、`ansible-navigator` を使用して Playbook を再び実行してみてください。
 
-* service_state.yml というラベルのついた Ansible Playbook を使って、Apache（httpd）サービスが TODO:
+* service_state.yml というラベルのついた Ansible Playbook を使って、Apache（httpd）サービスが
   `node1`、例えば `systemctl status httpd` で実行されていることを確認します。
 
 {% raw %}

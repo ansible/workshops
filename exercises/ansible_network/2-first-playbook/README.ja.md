@@ -255,7 +255,6 @@ snmp-server community ansible-test RO
 ラボ演習 2 を完了しました
 
 ---
-[前の演習](../1-explore/README.md) | [次の演習](../3-facts/README.md)
+[前の演習](../1-explore/README.ja.md) | [次の演習](../3-facts/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

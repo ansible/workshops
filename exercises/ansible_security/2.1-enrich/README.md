@@ -53,7 +53,7 @@ Next, since this is a security lab, we do need suspicious traffic - an attack. W
 Execute the playbook:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run web_attack_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run web_attack_simulation.yml --mode stdout
 ```
 
 > **Note**
@@ -75,7 +75,7 @@ Open a new terminal in your VS Code online editor to connect to the Snort server
 After login, grep for the anomaly log entry:
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Sun Sep 22 15:38:36 2019 from 35.175.178.231
 [ec2-user@snort ~]$ sudo grep web_attack /var/log/httpd/access_log
 172.17.78.163 - - [22/Sep/2019:15:56:49 +0000] "GET /web_attack_simulation HTTP/1.1" 200 22 "-" "curl/7.29.0"
@@ -293,7 +293,7 @@ If you bring all these pieces together, the full playbook `enrich_log_sources.ym
 Run the full playbook to add both log sources to QRadar:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run enrich_log_sources.yml --mode stdout
 ```
 In Check Point SmartConsole you might even see a little window pop up in the bottom left corner informing you about the progress.
 
@@ -351,7 +351,7 @@ A new window opens and shows the new log sources.
 In Check Point the easiest way to verify that the log source is set is indeed via command line. From the terminal of your VS Code online editor, use SSH to log into the Check Point management server IP with the user admin and issue the following `ls` command:
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh admin@checkpoint_mgmt
+[student@ansible-1 ~]$ ssh admin@checkpoint_mgmt
 [Expert@gw-77f3f6:0]# ls -l /opt/CPrt-R80/log_exporter/targets
 total 0
 drwxr-xr-x 6 admin root 168 Sep 16 11:23 syslog-22.33.44.55
@@ -362,7 +362,7 @@ As you can see the central log server was configured via Check Point's internal 
 Let's also verify that the Snort configuration in the background was successful. From the terminal of your VS Code online editor, log onto your Snort instance via SSH as the user `ec2-user`. Become root and verify the rsyslog forwarding configuration:
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Wed Sep 11 15:45:00 2019 from 11.22.33.44
 [ec2-user@snort ~] sudo cat /etc/rsyslog.d/ids_confg_snort_rsyslog.conf
 $ModLoad imfile
@@ -420,13 +420,13 @@ In this play we provide some variables for Snort stating that we want to control
 Now execute the playbook:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run enrich_snort_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run enrich_snort_rule.yml --mode stdout
 ```
 
 Let's quickly verify that the new rule was indeed added. From the terminal of your VS Code online editor, ssh to the Snort server as `ec2-user` and have a look into the directory of custom rules:
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep web_attack /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted Web Attack"; uricontent:"/web_attack_simulation"; classtype:web-application-attack; sid:99000020; priority:1; rev:1;)
@@ -531,7 +531,7 @@ While this playbook is maybe the longest you see in these entire exercises, the 
 Run the playbook to remove the log sources:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
 Also, we'll need to stop the process which simulates the web attack. Let's create a simple playbook that uses the `shell` module to stop the process running on the **attacker** machine.
@@ -557,7 +557,7 @@ Let's create a new playbook called `stop_attack_simulation.yml` using the VS Cod
 And then, run the `stop_attack_simulation.yml` playbook.
 <!-- {% raw %} -->
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
 ```
 <!-- {% endraw %} -->
 

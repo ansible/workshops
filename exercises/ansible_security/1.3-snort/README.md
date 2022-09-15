@@ -14,7 +14,7 @@ In this lab, Snort is installed on a Red Hat Enterprise Linux machine and Ansibl
 
 ## 1.3.2. Accessing the Snort server
 
-In order to connect to the Snort installation, we need to to find the IP address of the machine it is installed on. You can then get the IP address of the Snort machine by looking up the information on the inventory file `~/lab_inventory/hosts`. In your VS Code online editor, in the menu bar click on **File** > **Open File...** and open the file `/home/student<X>/lab_inventory/hosts`. Search and find the entry for snort which looks like this:
+In order to connect to the Snort installation, we need to to find the IP address of the machine it is installed on. You can then get the IP address of the Snort machine by looking up the information on the inventory file `~/lab_inventory/hosts`. In your VS Code online editor, in the menu bar click on **File** > **Open File...** and open the file `/home/student/lab_inventory/hosts`. Search and find the entry for snort which looks like this:
 
 ```bash
 snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
@@ -27,7 +27,7 @@ snort ansible_host=22.333.44.5 ansible_user=ec2-user private_ip=172.16.1.2
 The connection tp the Snort server uses a SSH key pre-installed on the control host, the user for the Snort server is `ec2-user`. In your VS Code online editor, open a terminal and access the snort server via:
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Warning: Permanently added '22.333.44.5' (ECDSA) to the list of known hosts.
 Last login: Mon Aug 26 12:17:48 2019 from h-213.61.244.2.host.de.colt.net
 [ec2-user@snort ~]$
@@ -138,7 +138,7 @@ Next we need to add the variables required by our playbook. The role we are usin
     ids_provider: snort
 ```
 
-Next, we need to add the tasks. Tasks are the components which make the actual changes on the target machines. Since we are using a role, we can simply use a single step in our tasks, `include_role`, to add it to our playbook. 
+Next, we need to add the tasks. Tasks are the components which make the actual changes on the target machines. Since we are using a role, we can simply use a single step in our tasks, `include_role`, to add it to our playbook.
 
 >Note
 >
@@ -182,7 +182,7 @@ The other variables, `ids_rules_file` and  `ids_rule_state` provide the user def
 It is now time to execute the playbook. In your VS Code online editor. In the terminal, execute the following command:
 
 ```bash
-[student1@ansible-1 ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run add_snort_rule.yml --mode stdout
 
 PLAY [Add Snort rule] *****************************************************************
 
@@ -204,7 +204,7 @@ TASK [ansible_security.ids_rule : verify required variable ids_rule_state is def
 skipping: [snort]
 
 TASK [ansible_security.ids_rule : include ids_provider tasks] *************************
-included: /home/student1/.ansible/roles/ansible_security.ids_rule/tasks/snort.yml for
+included: /home/student/.ansible/roles/ansible_security.ids_rule/tasks/snort.yml for
 snort
 
 TASK [ansible_security.ids_rule : snort_rule] *****************************************
@@ -287,7 +287,7 @@ And most importantly, we want to be able to see what is actually found. The `ids
 Now let's execute the playbook to verify that our rule is part of the Snort installation:
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run verify_attack_rule.yml --mode stdout
 
 PLAY [Verify Snort rule] **************************************************************
 
@@ -315,6 +315,6 @@ Congratulations! You have completed the first steps of automating Snort with Ans
 
 **Navigation**
 <br><br>
-[Previous Exercise](../1.2-checkpoint/README.md) | [Next Exercise](../1.4-qradar/README.md) 
+[Previous Exercise](../1.2-checkpoint/README.md) | [Next Exercise](../1.4-qradar/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

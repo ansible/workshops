@@ -251,7 +251,7 @@ VS Code のオンラインエディターで、ユーザーのホームディレ
 どちらのタスクもデータを収集して出力するだけで、何も変更しません。さっそく Playbook を実行し、返ってきたデータを見てみましょう。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run find_qradar_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run find_qradar_rule.yml --mode stdout
 ```
 ![QRadar rule ID](images/1.4-qradar-id.png#centreme)
 
@@ -271,7 +271,7 @@ VS Code のオンラインエディターで、ユーザーのホームディレ
 
 では、これをモジュールに値として提供し、ルール `qradar_rule` を無効にできる新しい Playbook を作成してみましょう。
 
-VS Code のオンラインエディターで、ホームディレクトリー `/home/student<X>/` に新しいファイル `change_qradar_rule.yml` を作成します。ここ `qradar` に名前およびターゲットホストを追加します。
+VS Code のオンラインエディターで、ホームディレクトリー `/home/student/` に新しいファイル `change_qradar_rule.yml` を作成します。ここ `qradar` に名前およびターゲットホストを追加します。
 
 <!-- {% raw %} -->
 ```yaml
@@ -301,7 +301,7 @@ VS Code のオンラインエディターで、ホームディレクトリー `/
 Playbook が完了したら、これを実行してみましょう。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run change_qradar_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run change_qradar_rule.yml --mode stdout
 
 PLAY [Change QRadar rule state] ***************************************************
 

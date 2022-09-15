@@ -102,13 +102,13 @@ Codeに接続します。パスワードは、WebUIのリンクの下に記載�
 Ansible コントロールノードターミナルで `network-workshop` ディレクトリーに移動します。
 
 ```bash
-[student1@ansible-1 ~]$ cd ~/network-workshop/
-[student1@ansible-1 network-workshop]$ pwd
-/home/student1/network-workshop
-[student1@ansible-1 network-workshop]$
+[student@ansible-1 ~]$ cd ~/network-workshop/
+[student@ansible-1 network-workshop]$ pwd
+/home/student/network-workshop
+[student@ansible-1 network-workshop]$
 ```
 
-* `~` - このコンテキストでのチルダは `/home/student1` のショートカットです
+* `~` - このコンテキストでのチルダは `/home/student` のショートカットです
 * `cd` - ディレクトリーを変更する Linux コマンド
 * `pwd` - 作業ディレクトリーを印刷するための Linux コマンド。これにより、現在の作業ディレクトリーへのフルパスが表示されます。
 
@@ -148,7 +148,7 @@ $ cat ~/.ansible-navigator.yml
 ansible-navigator:
   ansible:
     inventories:
-    - /home/student1/lab_inventory/hosts
+    - /home/student/lab_inventory/hosts
 
   execution-environment:
     image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
@@ -227,7 +227,7 @@ rtr2
 rtr4
 
 [control]
-ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
+ansible ansible_host=13.58.149.157 ansible_user=student private_ip=172.16.240.184
 ```
 
 ### ステップ 6 - インベントリーについて
@@ -331,7 +331,6 @@ Cisco IOS XE Software, Version 16.09.02
 
 
 ---
-[次の演習](../2-first-playbook/README.md)
+[次の演習](../2-first-playbook/README.ja.md)
 
-[Click Here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

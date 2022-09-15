@@ -151,7 +151,7 @@ Point Next Generation Firewall (NGFW)
 >
 > Username: `admin`   
 > Password: `admin123`   
-> 
+>
 
 ![Check Point logs view, violation
 logs](images/smartconsole_violation_logs.png#centreme)
@@ -220,7 +220,7 @@ Activity** をクリックし、Check Point から QRadar にイベントが送�
 >
 > Username: `admin`   
 > Password: `Ansible1!`   
-> 
+>
 
 ![QRadar Log Activity showing logs from Check
 Point](images/qradar_checkpoint_logs.png#centreme)
@@ -290,7 +290,7 @@ Snort インスタンスで新しいルールをすばやく確認します。VS
 ユーザーを使用して SSH 経由で Snort にログインします。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep ddos_simulation /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_simulation"; classtype:successful-dos; sid:99000010; priority:1; rev:1;)
@@ -369,6 +369,6 @@ Activity** メニューをクリックします。以下のような **Snort rsy
 
 **Navigation**
 <br><br>
-[Previous Exercise](../2.1-enrich/README.md) | [Next Exercise](../2.3-incident/README.md) 
+[Previous Exercise](../2.1-enrich/README.md) | [Next Exercise](../2.3-incident/README.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

@@ -86,13 +86,13 @@ Si necesitaás más informacion sobre los nuevos componentes de Ansible Automati
 Navega hasta el directorio `network-workshop` en la terminal del nodo de control de Ansible.
 
 ```bash
-[student1@ansible-1 ~]$ cd ~/network-workshop/
-[student1@ansible-1 network-workshop]$ pwd
-/home/student1/network-workshop
-[student1@ansible-1 network-workshop]$
+[student@ansible-1 ~]$ cd ~/network-workshop/
+[student@ansible-1 network-workshop]$ pwd
+/home/student/network-workshop
+[student@ansible-1 network-workshop]$
 ```
 
-* `~` - la tilde en este contexto es un atajo para el directorio, ej. `/home/student1`
+* `~` - la tilde en este contexto es un atajo para el directorio, ej. `/home/student`
 * `cd` - comando de Linux para cambiar de directorio.
 * `pwd` - comando de Linux para mostrar el directorio de trabajo. Con esto, se mostrará el `path` completo al directorio de trabajo actual.
 
@@ -129,7 +129,7 @@ $ cat ~/.ansible-navigator.yml
 ansible-navigator:
   ansible:
     inventories:
-    - /home/student1/lab_inventory/hosts
+    - /home/student/lab_inventory/hosts
 
   execution-environment:
     image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
@@ -201,7 +201,7 @@ rtr2
 rtr4
 
 [control]
-ansible ansible_host=13.58.149.157 ansible_user=student1 private_ip=172.16.240.184
+ansible ansible_host=13.58.149.157 ansible_user=student private_ip=172.16.240.184
 ```
 
 ### Paso 6 - Comprendiendo el inventario

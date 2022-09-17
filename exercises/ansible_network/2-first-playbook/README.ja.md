@@ -39,10 +39,10 @@ Playbook を使用します。
 `network-workshop` ディレクトリーに移動していない場合は、移動します。
 
 ```bash
-[student1@ansible ~]$ cd ~/network-workshop/
-[student1@ansible network-workshop]$
-[student1@ansible network-workshop]$ pwd
-/home/student1/network-workshop
+[student@ansible ~]$ cd ~/network-workshop/
+[student@ansible network-workshop]$
+[student@ansible network-workshop]$ pwd
+/home/student/network-workshop
 ```
 
 `playbook.yml` という名前の提供された Ansible Playbook を調べます。Visual Studio Code
@@ -80,7 +80,7 @@ snmp-server community ansible-private RW
 run playbook.yml --mode stdout`` です
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -90,7 +90,7 @@ changed: [rtr1]
 PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-[student1@ansible-1 network-workshop]$
+[student@ansible-1 network-workshop]$
 ```
 
 * `--mode stdout` - デフォルトでは、`ansible-navigator` は対話モードで実行されます。デフォルトの動作は
@@ -103,7 +103,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 Ansible Playbook が機能したことを確認します。`rtr1` にログインし、CiscoIOS-XE デバイスで実行設定を確認します。
 
 ```bash
-[student1@ansible network-workshop]$ ssh rtr1
+[student@ansible network-workshop]$ ssh rtr1
 
 rtr1#show run | i snmp
 snmp-server community ansible-public RO
@@ -122,7 +122,7 @@ snmp-server community ansible-private RW
 冪等性の概念を検証するには、Playbook を再実行します。
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -178,7 +178,7 @@ Ansible Playbook は次のようになります。
 または冗長モードフラグと組み合わせて使用して実行します。
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout --check -v
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout --check -v
 Using /etc/ansible/ansible.cfg as config file
 
 PLAY [snmp ro/rw string configuration] *****************************************
@@ -199,7 +199,7 @@ Ansible Playbook が `ansible-test` コミュニティーを適用していな�
 にログインし、CiscoIOS-XE デバイスの実行設定を確認します。
 
 ```bash
-[student1@ansible network-workshop]$ ssh rtr1
+[student@ansible network-workshop]$ ssh rtr1
 
 rtr1#show run | i snmp
 snmp-server community ansible-public RO
@@ -211,7 +211,7 @@ snmp-server community ansible-private RW
 最後に、変更をプッシュするために、`-v` または `--check` フラグを指定せずにこの Playbook を再実行します。
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -228,7 +228,7 @@ Ansible Playbook が **ansible-test** コミュニティーを適用したこと
 にログインし、CiscoIOS-XE デバイスの実行設定を確認します。
 
 ```bash
-[student1@ansible network-workshop]$ ssh rtr1
+[student@ansible network-workshop]$ ssh rtr1
 
 rtr1#sh run | i snmp
 snmp-server community ansible-public RO

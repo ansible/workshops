@@ -187,13 +187,13 @@ Let the job run to completion.  Let the instructor know if anything fails.
 1. Login to one of the routers and see the banner setup
 
    ```sh
-   [student1@ansible]$ ssh rtr1
+   [student@ansible]$ ssh rtr1
    ```
 
    The banner will appear on login.  Here is an example from above:
 
    ```bash
-   [student1@ansible-1 ~]$ ssh rtr1
+   [student@ansible-1 ~]$ ssh rtr1
    Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
 
    This router was configured by Ansible

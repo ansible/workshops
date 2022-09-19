@@ -132,7 +132,7 @@ There are two parts to this exercise:
 * The output will look similar to the following:
 
   ```bash
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************
 
@@ -335,7 +335,7 @@ generate the configuration:
 * The output will look like the following:
 
   ```bash
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************
 
@@ -468,7 +468,7 @@ already a backup performed.
 * The output will look like the following:
 
   ```yaml
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [use parsed] **************************************************************
 

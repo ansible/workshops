@@ -195,13 +195,13 @@ junos デバイスを使用している場合、この Playbook は `junos.yml` 
 1. ルーターの 1 つにログインして、バナーの設定を確認します
 
    ```sh
-   [student1@ansible]$ ssh rtr1
+   [student@ansible]$ ssh rtr1
    ```
 
    ログイン時にバナーが表示されます。上記の例を以下に示します。
 
    ```
-   [student1@ansible-1 ~]$ ssh rtr1
+   [student@ansible-1 ~]$ ssh rtr1
    Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
 
    This router was configured by Ansible

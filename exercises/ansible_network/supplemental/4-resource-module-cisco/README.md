@@ -52,7 +52,7 @@ This exercise will cover:
 * From the control node terminal, you can `ssh rtr2` and type `enable`
 
   ```bash
-  [student1@ansible-1 ~]$ ssh rtr1
+  [student@ansible-1 ~]$ ssh rtr1
 
 
   rtr1#

@@ -122,7 +122,7 @@ There are two parts to this exercise:
 * The output will look similar to the following:
 
   ```bash
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************
 
@@ -303,7 +303,7 @@ Now lets return to using read-only parameters.  These parameters do not modify t
 * The output will look like the following:
 
   ```bash
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************
 
@@ -432,7 +432,7 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
 * The output will look like the following:
 
   ```yaml
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [use parsed] **************************************************************
 

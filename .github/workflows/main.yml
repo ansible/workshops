@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Kick off Automation controller job
     steps:
-      - name: workshop_job_provision:
+      - name: Workshop Provision
         id: workshop_provision
         uses: ansible-cloud/aap_controller_action@v2.0.0
         with:

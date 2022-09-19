@@ -18,9 +18,7 @@
 
 ## 目的
 
-Ansibleは、Playbook
-で使用できる値を格納するための変数をサポートしています。変数はさまざまな場所で定義でき、明確な優先順位があります。Ansible
-は、タスクの実行時に変数をその値に置き換えます。
+Ansibleは、Playbook で使用できる値を格納するための変数をサポートしています。変数はさまざまな場所で定義でき、明確な優先順位があります。Ansible は、タスクの実行時に変数をその値に置き換えます。
 
 この演習では、特に以下についての変数について説明します。
 
@@ -45,11 +43,9 @@ Ansibleは、Playbook
 
 変数とその値は、インベントリー、追加ファイル、コマンドラインなどのさまざまな場所で定義できます。
 
-インベントリーで変数を使う場合は、`host_vars` と `group_vars` という名前の 2
-つのディレクトリーにあるファイルで変数を定義することが推奨されます。
+インベントリーで変数を使う場合は、`host_vars` と `group_vars` という名前の 2 つのディレクトリーにあるファイルで変数を定義することが推奨されます。
 
-* グループ「servers」の変数を定義するために、変数定義のある `group_vars/servers.yml` という YAML
-  ファイルが作成されます。
+* グループ「servers」の変数を定義するために、変数定義のある `group_vars/servers.yml` という YAML ファイルが作成されます。
 * ホスト `node1` 専用の変数を定義するために、変数定義のある `host_vars/node1.yml` ファイルが作成されます。
 
 > **ヒント**
@@ -58,14 +54,12 @@ Ansibleは、Playbook
 
 ### ステップ 1 - 変数ファイルの作成
 
-理解を深め練習するためにも、ラボをみていきましょう。「Webサーバーを構築しましょう。1 つまたは 2
-つ。またはそれ以上…」というテーマに続いて、`index.html` を変更し、サーバーがデプロイされている開発環境 (dev / prod)
-を表示します。
+理解を深め練習するためにも、ラボをみていきましょう。「Webサーバーを構築しましょう。1 つまたは 2 つ。またはそれ以上…」というテーマに続いて、`index.html` を変更し、サーバーがデプロイされている開発環境 (dev / prod)を表示します。
 
 Ansible コントロールホストでは、`student<X>` ユーザーとして、`~/ansible-files/` に変数定義を保持するディレクトリーを作成します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir host_vars group_vars
+[student@ansible-1 ansible-files]$ mkdir host_vars group_vars
 ```
 
 次に、変数定義を含む 2 つのファイルを作成します。異なる環境 `dev` または `prod` を参照する `stage` を定義します。
@@ -86,8 +80,7 @@ stage: prod
 
 これはなんでしょうか。
 
-* `web` グループのサーバーすべてには、値 `dev` を持つ `stage`
-  が定義されています。そのため、デフォルトでは、開発環境のメンバーとしてフラグを立てます。
+* `web` グループのサーバーすべてには、値 `dev` を持つ `stage` が定義されています。そのため、デフォルトでは、開発環境のメンバーとしてフラグを立てます。
 * サーバー `node2` については、これはオーバーライドされ、ホストは実稼働サーバーとしてフラグが立てられます。
 
 ### ステップ 2: web.html ファイルの作成
@@ -139,7 +132,7 @@ stage: prod
 * Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
 ```
 
 ### ステップ 4 - 結果のテスト
@@ -149,7 +142,7 @@ Ansible Playbook は、さまざまなファイルを index.html としてホス
 node1:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node1
+[student@ansible-1 ansible-files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -158,7 +151,7 @@ node1:
 node2:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node2
+[student@ansible-1 ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -167,7 +160,7 @@ node2:
 node3:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node3
+[student@ansible-1 ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -179,12 +172,9 @@ node3:
 
 ### ステップ 5: Ansible ファクト
 
-Ansible ファクトは、管理対象ホストから Ansible によって自動的に検出される変数です。それぞれの `ansible-navigator`
-実行の出力にリストされている「ファクトの収集」タスクを覚えていますか？その時点で、管理対象ノードごとにファクトが収集されます。ファクトは、`setup`
-モジュールでプルできます。これらには、管理者が再利用できる変数に格納された有用な情報が含まれています。
+Ansible ファクトは、管理対象ホストから Ansible によって自動的に検出される変数です。それぞれの `ansible-navigator` 実行の出力にリストされている「ファクトの収集」タスクを覚えていますか？その時点で、管理対象ノードごとにファクトが収集されます。ファクトは、`setup` モジュールでプルできます。これらには、管理者が再利用できる変数に格納された有用な情報が含まれています。
 
-Ansible がデフォルトで収集する情報を把握するために、学習者ユーザーとしてコントロールノード上で以下の Playbook を実行し、`node1`
-のセットアップの詳細を確認します。
+Ansible がデフォルトで収集する情報を把握するために、学習者ユーザーとしてコントロールノード上で以下の Playbook を実行し、`node1` のセットアップの詳細を確認します。
 
 ```yaml
 ---
@@ -204,13 +194,11 @@ Ansible がデフォルトで収集する情報を把握するために、学習
 ```
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ cd ~
-[student<X>@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
+[student@ansible-1 ansible-files]$ cd ~
+[student@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
 ```
 
-これはビットが大きすぎる可能性があり、フィルターを使用して出力を特定のファクトに制限することができます。式は Playbook
-内でシェルスタイルのワイルドカードです。この例では、`setup_filter.yml` というラベルが付けられた Playbook
-を作成します。この例では、`eth0` ファクトを取得し、`node1` のメモリー詳細を取得するようにフィルターします。
+これはビットが大きすぎる可能性があり、フィルターを使用して出力を特定のファクトに制限することができます。式は Playbook 内でシェルスタイルのワイルドカードです。この例では、`setup_filter.yml` というラベルが付けられた Playbook を作成します。この例では、`eth0` ファクトを取得し、`node1` のメモリー詳細を取得するようにフィルターします。
 
 ```yaml
 ---
@@ -231,7 +219,7 @@ Ansible がデフォルトで収集する情報を把握するために、学習
 ```
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
 ```
 
 ### ステップ 6 - チャレンジラボ: ファクト
@@ -296,13 +284,12 @@ filter:
 ```
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
 ```
 
 ### ステップ 7 - Playbook でのファクトの使用
 
-もちろん、ファクトは、正しい名前を使用して、変数のように Playbook
-で使用できます。このプレイブックを次のように、`~/ansible-files/` ディレクトリーに `facts.yml` として作成します。
+もちろん、ファクトは、正しい名前を使用して、変数のように Playbook で使用できます。このプレイブックを次のように、`~/ansible-files/` ディレクトリーに `facts.yml` として作成します。
 
 <!-- {% raw %} -->
 
@@ -325,7 +312,7 @@ filter:
 それを実行して、ファクトがどのように出力されるかを確認します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run facts.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run facts.yml
 ```
 
 テキストユーザーインターフェース(TUI)ウィンドウ内で、以下の出力をキャプチャーするために `:st` と入力します。

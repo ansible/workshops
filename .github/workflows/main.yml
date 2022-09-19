@@ -1,0 +1,41 @@
+on:
+  pull_request_target:
+
+jobs:
+  automation_controller_job:
+    runs-on: ubuntu-latest
+    name: Kick off Automation controller job
+    steps:
+      - name: workshop_job_provision:
+        id: workshop_provision
+        uses: ansible-cloud/aap_controller_action@v2.0.0
+        with:
+          controller_host: ${{ secrets.CONTROLLER_HOST }}
+          controller_username: ${{ secrets.CONTROLLER_USERNAME }}
+          controller_password: ${{ secrets.CONTROLLER_PASSWORD }}
+          job_template: "Workshop Provision Job"
+          controller_project: "Ansible Workshops Project"
+          extra_vars: "ec2_name_prefix=github-action-test-sep19"
+          validate_certs: false
+        env:
+          pull_request_event: ${{ github.event.pull_request.number }}
+      - name: Adding markdown
+        run: |
+          echo "### Ansible Automation Platform - Job Output :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo ""  >> $GITHUB_STEP_SUMMARY
+          job_output=`cat job_output.txt`
+          echo "$job_output" >> $GITHUB_STEP_SUMMARY
+          echo ""  >> $GITHUB_STEP_SUMMARY
+          echo "```\n$job_output\n```" >> $GITHUB_STEP_SUMMARY
+          echo "End of Automation controller output" >> $GITHUB_STEP_SUMMARY
+      - name: Workshop Teardown
+        if: always()
+        id: workshop_teardown
+        uses: ansible-cloud/aap_controller_action@v2.0.0
+        with:
+          controller_host: ${{ secrets.CONTROLLER_HOST }}
+          controller_username: ${{ secrets.CONTROLLER_USERNAME }}
+          controller_password: ${{ secrets.CONTROLLER_PASSWORD }}
+          job_template: "Workshop teardown Job"
+          extra_vars: "ec2_name_prefix=github-action-test-sep19"
+          validate_certs: false

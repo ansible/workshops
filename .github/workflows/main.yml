@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Workshop Provision
         id: workshop_provision
-        uses: ansible-cloud/aap_controller_action@v2.0.0
+        uses: ansible-cloud/aap_controller_action@v2.1.6
         with:
           controller_host: ${{ secrets.CONTROLLER_HOST }}
           controller_username: ${{ secrets.CONTROLLER_USERNAME }}

@@ -203,9 +203,10 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 -   Click **Edit** at the bottom left.
     - Edit the name to **Converted RHEL Credential**
     - Change the username from "ec2-user" to "centos"
--   Click **Save**
 
 ![converted-RHEL-credential](images/4-convert2rhel-workshop-credential.png)
+
+-   Click **Save**
 
 #### 11\. Copy template CONVERT2RHEL / 97 - Three Tier App smoke test to template CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development
 -   Use the side pane menu on the left to select **Templates**.

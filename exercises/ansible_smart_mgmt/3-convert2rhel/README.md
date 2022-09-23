@@ -192,18 +192,21 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
     - If you look in **Inventories > RHEL7 Development** you will now see that nodes[1-6] are in the inventory.
     ![rhel-inventory](images/4-convert2rhel-converstion-hosts.png)  
 
-#### 10\. Create student credential
+#### 10\. Create a converted RHEL credential
 -   Use the side pane menu on the left to select **Credentials**.
--   Click **Add**
-    - Name: Student Credential
-      - Organization: Default
-      - Credential Type: Machine
-      - Username: student1 (example shown, use your assigned student name/number)
-      - Password: same password as Ansible Automation Platform login/password
--   Click **Save**
-![student-credential](images/4-convert2rhel-student-credential.png)
+-   Click ![copy template](images/4-convert2rhel-copy-template-icon.png) to the right of **Workshop Credential** to copy the credential.
 
-#### 11\. Copy template CONVERT2RHEL / 97 - Three Tier App smoke test to template CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development
+![credential-copy](images/4-convert2rhel-workshop-credential-copy.png)
+
+-   Click the newly created credential **Workshop Credential @ some-timestamp**
+
+-   Click **Edit** at the bottom left.
+    - Edit the name to **Converted RHEL Credential**
+    - Change the username from "ec2-user" to "centos"
+-   Click **Save**
+![converted-RHEL-credential](images/4-convert2rhel-workshop-credential.png)
+
+#### 11\. C}opy template CONVERT2RHEL / 97 - Three Tier App smoke test to template CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development
 -   Use the side pane menu on the left to select **Templates**.
 
 -   Click ![copy template](images/4-convert2rhel-copy-template-icon.png) to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to copy the template.
@@ -215,7 +218,7 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 -   Click **Edit** at the bottom left.
     - Edit the name to **CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development**
     - Click ![lookup](images/4-convert2rhel-lookup-icon.png) under Inventory and select the radio button for **RHEL7 Development**, followed by **Select**.
-    - Click ![lookup](images/4-convert2rhel-lookup-icon.png) under Credentials and select the radio button for **Student Credential**, followed by **Select**.
+    - Click ![lookup](images/4-convert2rhel-lookup-icon.png) under Credentials and select the radio button for **Converted RHEL Credential**, followed by **Select**.
     - Review the changes, then scroll down and on the bottom left, click **Save**
     - Click **Launch** to run the new job template **CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development**
     - Selecting launch will take you to the **Jobs > CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development** output window. This will take approximately 30 secs to complete.

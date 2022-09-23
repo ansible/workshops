@@ -206,7 +206,7 @@ If you look in Satellite now (**Hosts > All Hosts**), you will see that all Cent
 -   Click **Save**
 ![converted-RHEL-credential](images/4-convert2rhel-workshop-credential.png)
 
-#### 11\. C}opy template CONVERT2RHEL / 97 - Three Tier App smoke test to template CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development
+#### 11\. Copy template CONVERT2RHEL / 97 - Three Tier App smoke test to template CONVERT2RHEL / 97 - Three Tier App smoke test / RHEL7 Development
 -   Use the side pane menu on the left to select **Templates**.
 
 -   Click ![copy template](images/4-convert2rhel-copy-template-icon.png) to the right of **CONVERT2RHEL / 97 - Three Tier App smoke test** to copy the template.

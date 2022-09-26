@@ -201,7 +201,7 @@ There are two parts to this exercise:
   rtr2(config-vlan-100)#name artisanal
   ```
 
-*  We can assume that someone has created this VLAN outside of automation (e.g. they hand-crafted a VLAN i.e. artisanal VLAN)  This is referred to as "out of band" network changes.  This is very common in the network industry because a network engineer solved a problem, but then never documented or circled back to remove this configuration.  This manual cofiguration change does not match best practices or their documented policy.  This could cause issues where someone tries to use this VLAN in the future, and not aware of this configuration.
+*  We can assume that someone has created this VLAN outside of automation (e.g. they hand-crafted a VLAN i.e. artisanal VLAN)  This is referred to as "out of band" network changes.  This is very common in the network industry because a network engineer solved a problem, but then never documented or circled back to remove this configuration.  This manual configuration change does not match best practices or their documented policy.  This could cause issues where someone tries to use this VLAN in the future, and not aware of this configuration.
 
   ```bash
   rtr2#show vlan

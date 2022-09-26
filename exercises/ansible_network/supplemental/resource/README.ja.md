@@ -9,7 +9,7 @@
     * [ステップ 2 - Playbook の実行](#step-2---run-the-playbook)
     * [ステップ 3 - Playbook の変更](#step-3---modify-the-playbook)
     * [ステップ 4 - replaced に変更した Playbook を実行する](#step-4---run-replaced-playbook) 
-    * [ステップ 5 - rtr2 にVLANを追加する](#step-5---add-a-vlan-to-rtr2)
+    * [ステップ 5 - rtr2 に VLAN を追加する](#step-5---add-a-vlan-to-rtr2)
     * [ステップ 6 - overridden パラメーターの使用](#step-6---use-overridden-parameter)
     * [ステップ 7 - rendered パラメーターの使用](#step-7---using-rendered-parameter)
     * [ステップ 8 - parsed パラメーターの使用](#step-8---using-the-parsed-parameter)
@@ -190,7 +190,7 @@
   ```
 * rtr2 のコンフィグを確認すると `state suspend` がなくなっています。`replaced` は、指定された設定を (指定された VLAN に対して) 強制します。これは、`state: suspend` が指定されておらず、VLAN のデフォルトではないため、ネットワークデバイスから `state suspend` が削除されることを意味します。
 
-### ステップ 5 - rtr2 にVLANを追加する
+### ステップ 5 - rtr2 に VLAN を追加する
 
 * `rtr2`に vlan 100 を追加します。
 

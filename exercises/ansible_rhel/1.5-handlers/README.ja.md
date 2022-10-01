@@ -151,7 +151,7 @@ Apache はポート 8080 でリッスンするはずです。確認は簡単で�
 curl: (7) Failed to connect to node1 port 80: Connection refused
 [student@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
-<h1>This is a development webserver, have fun!</h1>
+<h1>Apache is running fine</h1>
 </body>
 ```
 

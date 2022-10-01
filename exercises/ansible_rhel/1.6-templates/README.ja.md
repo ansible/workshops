@@ -25,7 +25,7 @@
 最初に、テンプレートリソースを保持するディレクトリー `templates` を `~/ansible-files/` に作成します。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir templates
+[student@ansible-1 ansible-files]$ mkdir templates
 ```
 
 その後、`~/ansible-files/templates/` ディレクトリーに、テンプレートファイル `motd-facts.j2` を作成します。
@@ -121,7 +121,7 @@ ok: [node1] => {
         "changed": false,
         "failed": false
     }
-} 
+}
 ```
 
 これにより、検索する変数に `ansible_kernel` というラベルが付けられます。

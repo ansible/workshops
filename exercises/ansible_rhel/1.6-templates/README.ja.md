@@ -12,16 +12,13 @@
 
 ## 目的
 
-この演習では、Jinja2 テンプレートについて説明します。Ansible は Jinja2
-テンプレートを使用して、ファイルが管理対象ホストに配布される前にファイルを変更します。Jinja2は、Python
-で最も使用されているテンプレートエンジンの1つです (<http://jinja.pocoo.org/>)。
+この演習では、Jinja2 テンプレートについて説明します。Ansible は Jinja2 テンプレートを使用して、ファイルが管理対象ホストに配布される前にファイルを変更します。Jinja2は、Python で最も使用されているテンプレートエンジンの1つです (<http://jinja.pocoo.org/>)。
 
 ## ガイド
 
 ### ステップ 1 - Playbooks でのテンプレートの使用
 
-ファイルのテンプレートが作成されると、`template`
-モジュールを使用して管理対象ホストに展開できます。これは、制御ノードから管理対象ホストへのローカルファイルの転送に対応しています。
+ファイルのテンプレートが作成されると、`template` モジュールを使用して管理対象ホストに展開できます。これは、制御ノードから管理対象ホストへのローカルファイルの転送に対応しています。
 
 テンプレートの使用例として、ホスト固有のデータを含むように motd ファイルを変更します。
 
@@ -45,8 +42,7 @@ deployed on {{ ansible_architecture }} architecture.
 
 このテンプレートファイルには、後でコピーされる基本的なテキストが含まれています。また、ターゲットマシンで個別に置き換えられる変数も含まれています。
 
-次に、このテンプレートを使用するための Playbook が必要です。`~/ansible-files/` ディレクトリーで、Playbook
-`motd-facts.yml` を作成します。
+次に、このテンプレートを使用するための Playbook が必要です。`~/ansible-files/` ディレクトリーで、Playbook `motd-facts.yml` を作成します。
 
 ```yaml
 ---
@@ -148,13 +144,13 @@ running kernel {{ ansible_kernel }}.
 * Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
 ```
 
 * `node1` への SSH ログインを介して新しいメッセージを確認します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh node1
+[student@ansible-1 ~]$ ssh node1
 Welcome to node1.
 RedHat 8.1
 deployed on x86_64 architecture
@@ -166,5 +162,4 @@ running kernel 4.18.0-305.12.1.el8_4.x86_64.
 <br>
 [前の演習](../1.5-handlers) - [次の演習](../1.7-role)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux
-Workshop](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

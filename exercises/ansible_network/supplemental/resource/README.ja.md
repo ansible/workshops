@@ -1,55 +1,47 @@
-# Supplemental Exercise: Ansible Network Resource Modules
+# 追加の演習: Ansible ネットワークリソースモジュール
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
+**他の言語でもお読みいただけます**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
-## Table of Contents
+## 目次
 
-  * [Objective](#objective)
-    * [Step 1 - Manually modify the Arista
-      configuration](#step-1---manually-modify-the-arista-configuration)
-    * [Step 2 - Run the playbook](#step-2---run-the-playbook)
-    * [Step 3 - Modify the playbook](#step-3---modify-the-playbook)
-    * [Step 4 - Run replaced playbook](#step-4---run-replaced-playbook)
-    * [Step 5 - Add a VLAN to rtr2](#step-5---add-a-vlan-to-rtr2)
-    * [Step 6 - Use overridden
-      parameter](#step-6---use-overridden-parameter)
-    * [Step 7 - using rendered
-      parameter](#step-7---using-rendered-parameter)
-    * [Step 8 - Using the parsed
-      parameter](#step-8---using-the-parsed-parameter)
-  * [Takeaways](#takeaways)
-  * [Solution](#solution)
-  * [Complete](#complete)
+  * [目的](#objective)
+    * [ステップ 1 - Arista のコンフィグを手動で変更する](#step-1---manually-modify-the-arista-configuration)
+    * [ステップ 2 - Playbook の実行](#step-2---run-the-playbook)
+    * [ステップ 3 - Playbook の変更](#step-3---modify-the-playbook)
+    * [ステップ 4 - replaced に変更した Playbook を実行する](#step-4---run-replaced-playbook) 
+    * [ステップ 5 - rtr2 に VLAN を追加する](#step-5---add-a-vlan-to-rtr2)
+    * [ステップ 6 - overridden パラメーターの使用](#step-6---use-overridden-parameter)
+    * [ステップ 7 - rendered パラメーターの使用](#step-7---using-rendered-parameter)
+    * [ステップ 8 - parsed パラメーターの使用](#step-8---using-the-parsed-parameter)
+  * [重要なこと](#takeaways)
+  * [ソリューション](#solution)
+  * [完了](#complete)
 
-## Objective
+## 目的
 
-Demonstration use of [Ansible Network Resource
-Modules](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)
+[Ansible ネットワークリソースモジュール](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)のデモ使用
 
-This exercise builds upon [exercise 4 - Ansible Network Resource
-Modules](../../4-resource-module/).  Please complete that exercise before
-starting this one.
+この演習は [演習 4 - Ansible ネットワークリソースモジュール](../../4-resource-module/README.ja.md)に基づいています。 演習を始める前に、演習 4 を完了させてください。
 
-There are two parts to this exercise:
+この演習には 2 つのパートがあります。
 
-1.  Cover additional configuration `state` parameters:
+1. 設定用の `state` パラメーターを扱います
 
   * `replaced`
   * `overridden`
 
-  and contrast them to what we saw with `merged`.
+  さらに `merged` で確認したものと対比します。
 
-2. Cover additional read-only `state` parameters
+2. 読み取り専用の `state` パラメーターを扱います
 
   * `rendered`
   * `parsed`
 
-  and contrast them to the `gathered` parameter.
+  さらに `gathered` パラメーターと比較します。
 
-### Step 1 - Manually modify the Arista configuration
+### ステップ 1 - Arista のコンフィグを手動で変更する
 
-* Login to an Arista switch.  We are assuming the configuration from
-  exercise 4 is already applied
+* Arista スイッチにログインします。演習 4 のコンフィグが既に適用されていることを前提としています。
 
   ```bash
   vlan 20
@@ -65,7 +57,7 @@ There are two parts to this exercise:
      name DMZ
   ```
 
-* From the control node terminal, you can `ssh rtr2` and type `enable`
+* コントロールノードのターミナルから、`ssh rtr2` に続いて `enable` と入力します。
 
   ```bash
   $ ssh rtr2
@@ -73,14 +65,13 @@ There are two parts to this exercise:
   rtr2>enable
   ```
 
-* Use the command `configure terminal` to manually edit the Arista
-  configuration:
+* `configure terminal` コマンドを使用して、手動でAristaのコンフィグを変更します。
 
   ```bash
   rtr2#configure terminal
   rtr2(config)#
   ```
-* Now configure vlan 50 to `state suspend`
+* ここで vlan 50 を `state suspend` に設定します。
 
   ```bash
   rtr2(config)#vlan 50
@@ -91,7 +82,7 @@ There are two parts to this exercise:
   rtr2(config-vlan-50)#state suspend
   ```
 
-* Save the configuration
+* コンフィグを保存します。
 
   ```bash
   rtr2(config-vlan-50)#exit
@@ -100,7 +91,7 @@ There are two parts to this exercise:
   Copy completed successfully.
   ```
 
-* Examine the configuration
+* コンフィグを確認します。
 
   ```bash
   rtr2#sh run | s vlan
@@ -118,18 +109,17 @@ There are two parts to this exercise:
      state suspend
   ```
 
-  * The running-configuration no longer matches our playbook! vlan 50 is now
-    in state suspend.
+  * running-configuration は Playbook と一致しなくなりました! vlan 50 は現在 suspend という状態です。
 
-### Step 2 - Run the playbook
+### ステップ 2 - Playbook の実行
 
-* Execute the playbook using the `ansible-navigator run`.
+* `ansible-navigator run` コマンドを使用して、Playbook を実行します。
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* 以下のように表示されます。
 
   ```bash
   [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
@@ -145,17 +135,13 @@ There are two parts to this exercise:
   rtr4                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
   ```
 
-* The playbook did **NOT** modify the configuration.  The `state: merged`
-  only enforces that the config provided exists on the network device.  Lets
-  contrast this to `replaced`.  If you login to the Arista network device
-  the `state: suspend` will still be there.
+* Playbook はコンフィグを変更しませんでした。 `state: merged` は、指定された構成がネットワークデバイスに存在することのみを強制します。Arista デバイスにログインすると、まだ `state suspend` が表示されます。
 
-### Step 3 - Modify the playbook
+### ステップ 3 - Playbook の変更
 
-* Modify the `resource.yml` playbook so that `state: merged` is now `state:
-  replaced`
+* Playbook `resource.yml` を変更して、`state: merged` を `state: replaced` にします。
 
-* The playbook should look like the following:
+* Playbook は以下のようになります。
 
   ```yaml
   ---
@@ -179,16 +165,15 @@ There are two parts to this exercise:
             vlan_id: 50
   ```
 
-### Step 4 - Run replaced playbook
+### ステップ 4 - replaced に変更した Playbook を実行する
 
-* Execute the playbook using the `ansible-navigator run`.  Since there is
-  just one task we can use the `--mode stdout`
+* `ansible-navigator run` コマンドを使用して Playbook を実行します。 タスクは 1 つしかないので、`--mode stdout` を使用できます。
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* 以下のように表示されます。
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
@@ -203,14 +188,11 @@ There are two parts to this exercise:
   rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   rtr4                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
-* Now examine the config on rtr2, the `state: suspend` is now gone.
-  Replaced will enforce (for the specified VLANs) the supplied
-  configurations.  This means that since `state: suspend` was not supplied,
-  and NOT the default for a VLAN, it will remove it from the network device.
+* rtr2 のコンフィグを確認すると `state suspend` がなくなっています。`replaced` は、指定された設定を (指定された VLAN に対して) 強制します。これは、`state: suspend` が指定されておらず、VLAN のデフォルトではないため、ネットワークデバイスから `state suspend` が削除されることを意味します。
 
-### Step 5 - Add a VLAN to rtr2
+### ステップ 5 - rtr2 に VLAN を追加する
 
-* Create vlan 100 on `rtr2`
+* `rtr2`に vlan 100 を追加します。
 
   ```bash
   rtr2(config)#vlan 100
@@ -219,14 +201,7 @@ There are two parts to this exercise:
   rtr2(config-vlan-100)#name artisanal
   ```
 
-*  We can assume that someone has created this VLAN outside of automation
-   (e.g. they hand-crafted a VLAN i.e. artisanal VLAN)  This is referred to
-   as "out of band" network changes.  This is very common in the network
-   industry because a network engineer solved a problem, but then never
-   documented or circled back to remove this configuration.  This manual
-   cofiguration change does not match best practices or their documented
-   policy.  This could cause issues where someone tries to use this VLAN in
-   the future, and not aware of this configuration.
+* 誰かが自動化の外でこの VLAN を作成したと想定できます (たとえば、VLAN を手作業で作成した、今回の場合 artisanal VLAN)。これは、アウトオブバンドのネットワークの変更と呼ばれます。これはネットワーク業界で非常によくあることで、ネットワークエンジニアが問題を解決した後、文書化したり、この設定を削除するために周到に準備したりすることがなかったからです。この手動による構成の変更は、ベストプラクティスや文書化されたポリシーと一致しません。これにより、誰かが将来この VLAN を使用しようとして、この設定を認識しないという問題が発生する可能性があります。
 
   ```bash
   rtr2#show vlan
@@ -240,11 +215,11 @@ There are two parts to this exercise:
   100   artisanal                        active   
   ```
 
-* Re-run the playbook again.  The VLAN 100 is NOT removed.
+* Playbook を再実行します。VLAN 100 は削除されません。
 
-### Step 6 - Use overridden parameter
+### ステップ 6 - overridden パラメーターの使用
 
-* Modify the playbook again, this time using the `state: overridden`
+* 再度 Playbook を変更します。今回は `state: overridden` を使用します。
 
     ```yaml
     ---
@@ -267,12 +242,12 @@ There are two parts to this exercise:
             - name: DMZ
               vlan_id: 50
     ```
-* Execute the playbook using the `ansible-navigator run`.
+* `ansible-navigator run` コマンドを使用して、Playbook を実行します。
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
-* Login back into the `rtr2` device and examine the VLANs
+* デバイス `rtr2` にログインして、VLAN を確認します。
   ```bash
   rtr2#show vlan
   VLAN  Name                             Status    Ports
@@ -284,29 +259,21 @@ There are two parts to this exercise:
   50    DMZ                              active
   ```
 
-* The artisanal VLAN 100 has been removed! Now the same resource modules can
-  be used to not only configure network devices, but enforce which VLANs are
-  configured.  This is referred to as policy enforcement, and a huge part of
-  configuration management.  Going from `merged` to `replaced` to
-  `overridden` will often match the automation journey for a network team as
-  they gain more and more confidence with automation.
+* artisanal VLAN 100 が削除されました! 同じリソースモジュールを使用して、ネットワークデバイスを設定するだけでなく、どの VLAN を構成するかを強制することもできます。これはポリシーの適用と呼ばれ、構成管理の大部分を占めます。 `merged` から `replaced`、`overridden` への移行は、ネットワークチームが自動化にますます自信を持てるようになるにつれて、多くの場合、自動化ジャーニーと一致します。
 
-### Step 7 - using rendered parameter
+### ステップ 7 - rendered パラメーターの使用
 
-Now lets return to using read-only parameters.  These parameters do not
-modify the configuration on a network device.  In exercise 4, we used the
-`state: gathered` to retrieve the VLAN configuration from the Arista network
-device.  This time we will use `rendered` to get the Arista commands that
-generate the configuration:
+ここで、読み取り専用パラメーターの使用に戻りましょう。これらのパラメーターは、ネットワークデバイスの設定を変更しません。演習 4 では、`state: gathered` を使用して、Arista ネットワークデバイスから VLAN の設定を取得しました。今回は、`rendered` を使用して、Arista の設定コマンドを取得します。
 
-* Modify the `resource.yml` playbook to `state: rendered`
+* Playbook `resource.yml` を変更して、`state: rendered` します。
 
-* Register the output from the task to a variable named `rendered_config`
+* タスクの実行結果を変数 `rendered_config` に登録します。
 
-* Add a `debug` task to print the output to the terminal window
+* ターミナルウィンドウに出力するために `debug` タスクを追加します。
 
-* The playbook will look like the following:
+* Playbook は以下のようになります。
 
+{% raw %}
   ```yaml
   - name: use vlans resource module
     arista.eos.vlans:
@@ -323,16 +290,17 @@ generate the configuration:
     register: rendered_config
 
   - name: use vlans resource module
-    debug:
-      msg: "{{ rendered_config }}"
+      debug:
+        msg: "{{ rendered_config }}"
   ```
+  {% endraw %}
 
-* Execute the playbook using the `ansible-navigator run`.
+* `ansible-navigator run` コマンドを使用して、Playbook を実行します。
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
 
-* The output will look like the following:
+* 以下のように表示されます。
 
   ```bash
   [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
@@ -388,20 +356,15 @@ generate the configuration:
   rtr4                       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
 
-* Specifically the `rendered` key will display the Arista commands that are
-  used to generate the configuration! This allows network automators to know
-  exactly what commands would be run and executed before they actually run
-  automation to apply the commands.
+* `rendered` キーでは、設定の生成に使用される Arista コマンドが表示されます!これにより、ネットワーク自動化担当者は、実際に自動化を実行してコマンドを適用する前に、どのコマンドが実行されるかを正確に知ることができます。
 
-### Step 8 - Using the parsed parameter
+### ステップ 8 - parsed パラメーターの使用
 
-Finally lets cover the parsed parameter.  This parameter is used when a
-existing file contains the network device configuration.  Imagine there was
-already a backup performed.
+最後に、`parsed` パラメーターについて説明します。このパラメーターは、既存のファイルにネットワークデバイスのコンフィグが含まれている場合に使用されます。すでにバックアップが実行されている場合を想像してください。
 
-* First lets backup a configuration.  Here is a simple playbook for doing a
-  configuration backup.  The playbook is [backup.yml](backup.yml).
+* まずコンフィグをバックアップします。コンフィグをバックアップするシンプルな Playbook はこちらです。 [backup.yml](backup.yml) 
 
+{% raw %}
   ```yaml
   ---
   - name: backup config
@@ -416,22 +379,24 @@ already a backup performed.
         backup_options:
           filename: "{{ inventory_hostname }}.txt"
   ```
+{% endraw %}
 
-* Execute the playbook:
+* Playbook を実行します。
 
   ```bash
   $ ansible-navigator run backup.yml --mode stdout
   ```
 
-* Verify the backups were created:
+* バックアップファイルが生成されたことを確認します。
 
   ```bash
   $ ls backup
   rtr2.txt  rtr4.txt
   ```
 
-* Now modify the `resource.yml` playbook to use the `parsed` playbook:
+* ここで、 `parsed` を使用するように Playbook `resource.yml` を変更します。
 
+{% raw %}
   ```yaml
   ---
   - name: use parsed
@@ -450,22 +415,21 @@ already a backup performed.
       debug:
         msg: "{{ parsed_config }}"
   ```
+{% endraw %}
 
-* There is a couple additional changes:
+* いくつか追加の変更があります
 
-  * instead of `config` we are using `running-config` and pointing to the
-    backup file.
-  * We are registering the output from the module to `parsed_config`
-    varaible
-  * We are using the debug module to print the `parsed_config` variable
+  * `config` の代わりに `running-config` を利用してバックアップファイルを指定しています。
+  * モジュールの実行結果を`parsed_config` 変数に登録しています。
+  * debug モジュールを使用して `parsed_config` 変数を出力しています。
 
-* Execute the playbook:
+* Playbook を実行します。
 
     ```bash
     $ ansible-navigator run resource.yml --mode stdout
     ```
 
-* The output will look like the following:
+* 以下のように表示されます。
 
   ```yaml
   [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
@@ -545,8 +509,7 @@ already a backup performed.
   rtr4                       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
 
-* In the output above you will see that the flat-file backup was parsed into
-  structured data:
+* 上記の出力では、フラットファイル形式のバックアップが、構造化データにパースされていることがわかります。
 
   ```json
   "parsed": [
@@ -557,47 +520,41 @@ already a backup performed.
       }
   ```
 
-* The default output is JSON but can be easily transformed into YAML.
+* デフォルトの出力は JSON ですが、YAML に簡単に変換できます。
 
-## Takeaways
+## 重要なこと
 
-We covered two additional configuration `state` parameters:
+追加の設定用 `state` パラメーターについて扱いました:
 
-  * `replaced` - enforced config for specified VLANs
-  * `overridden`- enforced config for ALL vlans
+  * `replaced` - 指定された VLAN を矯正
+  * `overridden`- すべての VLAN を矯正
 
-Going from `merged` to `replaced` to `overridden` follows the automation adoption journey as network teams gain more confidence with automation.  
+`merged` から `replaced` 、`overridden` へと移行することは、ネットワークチームが自動化により自信を深めるにつれて、自動化ジャーニーをたどります。
 
-We covered additional read-only `state` parameters
+読み取り専用の `state` パラメーターについても扱いました。
 
-  * `rendered` - shows commands that would generate the desired
-    configuration
-  * `parsed` - turned a flat-file configuration (such as a backup) into
-    structured data (versus modifying the actual device)
+  * `rendered` - 希望するコンフィギュレーションを生成するコマンドを表示しまK
+  * `parsed` - フラットファイルの設定（バックアップなど）を構造化されたデータに変換（実機は変更せず）
 
-These allow network automators to use resource modules in additional
-scenarios, such as disconnected environments. Network resource modules
-provide a consistent experience across different network devices.
+これらにより、ネットワーク自動化ツールは、切断された環境などのシナリオでリソースモジュールを使用できます。ネットワークリソースモジュールは、異なるネットワークデバイス間で一貫したエクスペリエンスを提供します。
 
-The [documentation
-guide](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)
-provided additional info of using network resource modules.
+[ネットワークリソースモジュールのドキュメント]((https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)には、更に情報が掲載されています。
 
-## Solution
+## ソリューション
 
-The finished Ansible Playbook is provided here for an answer key:
+完成した Ansible Playbook は、回答キーとしてここで提供されています。
 
-- [overridden.yml](overridden.yml)  - [backup.yml](backup.yml)  -
-[parsed.yml](parsed.yml)
+-  [overridden.yml](overridden.yml)
+-  [backup.yml](backup.yml)
+-  [parsed.yml](parsed.yml)
 
 
-## Complete
+## 完了
 
-You have completed the supplemental lab!
+追加の演習を完了しました!
 
 
 ---
-[Click here to return to supplemental exercises](../README.md)
+[追加の演習に戻る](../README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../../README.md)
+[Ansible Network Automation ワークショップに戻る](../../README.ja.md)

@@ -51,7 +51,7 @@
 
 ```html
 <body>
-<h1>これは開発 Web サーバーです。お楽しみください!</h1>
+<h1>This is a development webserver, have fun!</h1>
 {{ dev_content }}
 </body>
 ```

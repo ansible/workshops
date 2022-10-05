@@ -8,7 +8,7 @@
     type: A
     overwrite: true
     value: "{{ ansible_host }}"
-    wait: false
+    wait: true
   delegate_to: localhost
   register: route53_status
   when:

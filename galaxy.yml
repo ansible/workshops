@@ -1,7 +1,7 @@
 ---
 namespace: ansible
 name: workshops
-version: 1.0.14
+version: 1.0.15
 readme: README.md
 
 authors:

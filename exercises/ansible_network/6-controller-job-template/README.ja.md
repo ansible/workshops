@@ -124,7 +124,7 @@
   (または複数のバックアップを作成した場合はフォルダー) を表示します
 
   ```sh
-  [student1@ansible-1 ~]$ ls /backup
+  [student@ansible-1 ~]$ ls /backup
   2021-08-31-12-58  2021-08-31-13-04  2021-08-31-13-11
   ```
 
@@ -134,9 +134,9 @@
   コマンドを使用して、タイムスタンプ付きのネットワークデバイスの 1 つのコンテンツを表示します
 
   ```sh
-  [student1@ansible-1 ~]$ cat /backup/2021-08-31-1
+  [student@ansible-1 ~]$ cat /backup/2021-08-31-1
   2021-08-31-12-58/ 2021-08-31-13-04/ 2021-08-31-13-11/
-  [student1@ansible-1 ~]$ cat /backup/2021-08-31-12-58/rtr1.txt
+  [student@ansible-1 ~]$ cat /backup/2021-08-31-12-58/rtr1.txt
   Building configuration...
 
   Current configuration : 5072 bytes

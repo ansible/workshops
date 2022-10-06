@@ -50,6 +50,7 @@
         type: A
         overwrite: true
         value: "{{ansible_host}}"
+        wait: true
       delegate_to: localhost
       when:
         - check_cert is failed

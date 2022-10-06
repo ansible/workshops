@@ -122,7 +122,7 @@ Cualquier **Job Template** (plantill de trabajo) que se ha ejecutado o se está 
 * En la línea de comandos del nodo de control de Ansible escribe `ls /backup` para ver el directorio con la marca de tiempo (o directorios si has creado múltiples copias de seguridad).
 
   ```sh
-  [student1@ansible-1 ~]$ ls /backup
+  [student@ansible-1 ~]$ ls /backup
   2021-08-31-12-58  2021-08-31-13-04  2021-08-31-13-11
   ```
 
@@ -131,9 +131,9 @@ Cualquier **Job Template** (plantill de trabajo) que se ha ejecutado o se está 
 * Abre `/backup` con Visual Studio Code o usando el comando `cat` para ver los contenidos de alguno de los dispositivos de red con marca de tiempo:
 
   ```sh
-  [student1@ansible-1 ~]$ cat /backup/2021-08-31-1
+  [student@ansible-1 ~]$ cat /backup/2021-08-31-1
   2021-08-31-12-58/ 2021-08-31-13-04/ 2021-08-31-13-11/
-  [student1@ansible-1 ~]$ cat /backup/2021-08-31-12-58/rtr1.txt
+  [student@ansible-1 ~]$ cat /backup/2021-08-31-12-58/rtr1.txt
   Building configuration...
 
   Current configuration : 5072 bytes

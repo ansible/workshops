@@ -1,6 +1,6 @@
 # Supplemental Exercise: Ansible Network Resource Modules
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
+**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
 
 ## Table of Contents
 
@@ -122,7 +122,7 @@ There are two parts to this exercise:
 * The output will look similar to the following:
 
   ```bash
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************
 
@@ -135,7 +135,7 @@ There are two parts to this exercise:
   rtr4                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
   ```
 
-* The playbook did **NOT** modify the configuration.  The `state: merged` only enforces that the config provided exists on the network device.  Lets contrast this to `replaced`.  If you login to the Arista network device the `state: suspend` will still be there.
+* The playbook did **NOT** modify the configuration.  The `state: merged` only enforces that the config provided exists on the network device.  Lets contrast this to `replaced`.  If you login to the Arista network device the `state suspend` will still be there.
 
 ### Step 3 - Modify the playbook
 
@@ -188,7 +188,7 @@ There are two parts to this exercise:
   rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   rtr4                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
-* Now examine the config on rtr2, the `state: suspend` is now gone.  Replaced will enforce (for the specified VLANs) the supplied configurations.  This means that since `state: suspend` was not supplied, and NOT the default for a VLAN, it will remove it from the network device.
+* Now examine the config on rtr2, the `state suspend` is now gone.  Replaced will enforce (for the specified VLANs) the supplied configurations.  This means that since `state: suspend` was not supplied, and NOT the default for a VLAN, it will remove it from the network device.
 
 ### Step 5 - Add a VLAN to rtr2
 
@@ -201,7 +201,7 @@ There are two parts to this exercise:
   rtr2(config-vlan-100)#name artisanal
   ```
 
-*  We can assume that someone has created this VLAN outside of automation (e.g. they hand-crafted a VLAN i.e. artisanal VLAN)  This is referred to as "out of band" network changes.  This is very common in the network industry because a network engineer solved a problem, but then never documented or circled back to remove this configuration.  This manual cofiguration change does not match best practices or their documented policy.  This could cause issues where someone tries to use this VLAN in the future, and not aware of this configuration.
+*  We can assume that someone has created this VLAN outside of automation (e.g. they hand-crafted a VLAN i.e. artisanal VLAN)  This is referred to as "out of band" network changes.  This is very common in the network industry because a network engineer solved a problem, but then never documented or circled back to remove this configuration.  This manual configuration change does not match best practices or their documented policy.  This could cause issues where someone tries to use this VLAN in the future, and not aware of this configuration.
 
   ```bash
   rtr2#show vlan
@@ -303,7 +303,7 @@ Now lets return to using read-only parameters.  These parameters do not modify t
 * The output will look like the following:
 
   ```bash
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [configure VLANs] *********************************************************
 
@@ -432,7 +432,7 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
 * The output will look like the following:
 
   ```yaml
-  [student1@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
+  [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
 
   PLAY [use parsed] **************************************************************
 

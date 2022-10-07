@@ -1,0 +1,63 @@
+
+[all:vars]
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+{% endif %}
+
+{% if automation_hub|bool %}
+[automation_hub]
+{%   for host in hostvars %}
+{%     if "automation-hub" in host %}
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_port=22 ansible_user=ec2-user ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+{%     endif %}
+{%   endfor %}
+{% endif %}
+
+[control_nodes:vars]
+ansible_port=22
+ansible_user=ec2-user
+ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+
+[control_nodes]
+{%   for host in hostvars %}
+{%     if "ansible" in host %}
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }}
+{%     endif %}
+{%   endfor %}
+
+[gitlab:vars]
+ansible_port=22
+ansible_user={{ ec2_info['skylight_rhel8_gitlab']['username'] }}
+ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+
+{%   for host in hostvars %}
+{%     if "gitlab" in host %}
+[gitlab]
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }}
+{%     endif %}
+{%   endfor %}
+
+{% if attendance %}
+[attendance]
+{%   for host in hostvars %}
+{%     if "attendance-host" in host %}
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_port=22 ansible_user=ec2-user ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+{%     endif %}
+{%   endfor %}
+{% endif %}
+
+{% for user in range(1,student_total + 1) %}
+[student{{ user }}]
+{%   for host in hostvars %}
+{%     if "student" + user|string + "-" in host -%}
+{%       if "windc" in host -%}
+{%       elif "gitlab" in host -%}
+{%       elif "docs" in host -%}
+{%       elif "ansible" in host %}
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }}
+{%       else %}
+{{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_user={{ hostvars[host].ansible_user }} ansible_password="{{ hostvars[host].ansible_password }}" student="{{ hostvars[host].student }}"
+{%       endif %}
+{%     endif %}
+{%   endfor %}
+{% endfor %}

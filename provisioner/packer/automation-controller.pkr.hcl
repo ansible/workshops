@@ -29,7 +29,7 @@ source "amazon-ebs" "automation_controller_source" {
   ssh_interface        = "public_ip"
   communicator         = "ssh"
   iam_instance_profile = "seanpacker"
-  ami_regions = ["us-east-1","eu-central-1","ap-northeast-1", "ap-southeast-1","us-east-2"]
+  ami_regions = ["us-east-1"]
   launch_block_device_mappings {
     device_name = "/dev/sda1"
     volume_size = "40"

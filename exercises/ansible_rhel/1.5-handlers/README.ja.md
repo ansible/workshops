@@ -5,12 +5,12 @@
 
 ## 目次
 
-* [目的](#objective)
-* [ガイド](#guide)
-  * [ステップ 1 - 条件](#step-1---conditionals)
-  * [ステップ 2 - ハンドラー](#step-2---handlers)
-  * [ステップ 3 - 簡単なループ](#step-3---simple-loops)
-  * [ステップ 4 - ハッシュのループ](#step-4---loops-over-hashes)
+* [目的](#目的)
+* [ガイド](#ガイド)
+  * [ステップ 1 - 条件](#ステップ-1---条件)
+  * [ステップ 2 - ハンドラー](#ステップ-2---ハンドラー)
+  * [ステップ 3 - 簡単なループ](#ステップ-3---簡単なループ)
+  * [ステップ 4 - ハッシュのループ](#ステップ-4---ハッシュのループ)
 
 ## 目的
 
@@ -26,8 +26,7 @@
 
 Ansible は条件を使用して、特定の条件が満たされたときにタスクまたは再生を実行できます。
 
-条件を実装するには、`when`
-ステートメントを使用します。その後にテストする条件が続きます。条件は、たとえば比較のような利用可能なオペレーターのひとつを使って表現します。
+条件を実装するには、`when` ステートメントを使用します。その後にテストする条件が続きます。条件は、たとえば比較のような利用可能なオペレーターのひとつを使って表現します。
 
 |      |                                                                        |
 | ---- | ---------------------------------------------------------------------- |
@@ -40,11 +39,9 @@ Ansible は条件を使用して、特定の条件が満たされたときにタ
 
 詳細は、以下のドキュメントを参照してください。<http://jinja.pocoo.org/docs/2.10/templates/>
 
-例として、FTP
-サーバーをインストールしたいと思っていますが、「ftpserver」インベントリーグループにあるホストにのみにインストールしたいとします。
+例として、FTP サーバーをインストールしたいと思っていますが、「ftpserver」インベントリーグループにあるホストにのみにインストールしたいとします。
 
-これを行うには、インベントリーを編集して別のグループを追加し、`node2` を配置します。`node2` の IP アドレスは、`node2`
-がリストされたときと常に同じになるようにしてください。以下のリストのようにインベントリー `~/lab_inventory/hosts` を編集します。
+これを行うには、インベントリーを編集して別のグループを追加し、`node2` を配置します。`node2` の IP アドレスは、`node2` がリストされたときと常に同じになるようにしてください。以下のリストのようにインベントリー `~/lab_inventory/hosts` を編集します。
 
 ```ini
 [web]
@@ -78,8 +75,7 @@ ansible-1 ansible_host=44.55.66.77
 >
 > これで、Ansible Playbook の実行方法をご理解いただけたと思いますので、これからは説明を少し簡潔にしていき、作成して実行するというスタイルにします。
 
-そして、それを実行して結果を検証します。予期される結果: このタスクは、node1、node3、ansible ホスト (コントロールホスト)
-ではスキップされます。これは、インベントリーファイルの ftpserver グループに存在しないためです。
+そして、それを実行して結果を検証します。予期される結果: このタスクは、node1、node3、ansible ホスト (コントロールホスト)ではスキップされます。これは、インベントリーファイルの ftpserver グループに存在しないためです。
 
 ```bash
 TASK [Install FTP server when host in ftpserver group] *******************************************
@@ -93,26 +89,21 @@ changed: [node2]
 
 タスクがシステムに変更を加える場合は時折、その他の単一のタスクまたは複数タスクを実行しなければならない場合があります。たとえば、サービスの設定ファイルを変更すると、変更した構成の有効化にサービスを再起動しなければならないことがあります。
 
-ここで、Ansible
-のハンドラーが機能します。ハンドラーは、「notify」ステートメントを使用して明示的に呼び出された場合にのみトリガーされる非アクティブなタスクと見なすことができます。詳細は、[Ansible
-ハンドラー](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change)
-のドキュメントをご覧ください。
+ここで、Ansible のハンドラーが機能します。ハンドラーは、「notify」ステートメントを使用して明示的に呼び出された場合にのみトリガーされる非アクティブなタスクと見なすことができます。詳細は、[Ansible ハンドラー](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change) のドキュメントをご覧ください。
 
 例として、次のような playbook を作成しましょう。
 
 * `web` グループのすべてのホスト上で Apache の設定ファイル `/etc/httpd/conf/httpd.conf` を管理
 * ファイルが変更されたときに Apache を再起動
 
-まず、Ansible がデプロイするファイルが必要です。node1 からファイルを取得しましょう。以下のリストに示されている IP アドレスは、個人の
-`node1` の IP アドレスに置き換えることを忘れないでください。
+まず、Ansible がデプロイするファイルが必要です。node1 からファイルを取得しましょう。以下のリストに示されている IP アドレスは、個人の `node1` の IP アドレスに置き換えることを忘れないでください。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+[student@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 httpd.conf
 ```
 
-次に、Playbook `httpd_conf.yml` を作成します。ディレクトリー `~/ansible-files`
-にいることを確認してください。
+次に、Playbook `httpd_conf.yml` を作成します。ディレクトリー `~/ansible-files` にいることを確認してください。
 
 ```yaml
 ---
@@ -140,8 +131,7 @@ httpd.conf
 
 <hr>
 
-playbook を実行します。このファイルではまだ何も変更していないので `changed`
-の行は出力に表示されません。もちろん、ハンドラーは起動していません。
+playbook を実行します。このファイルではまだ何も変更していないので `changed` の行は出力に表示されません。もちろん、ハンドラーは起動していません。
 
 * 今すぐ、`~/ansible-files/files/httpd.conf` の `Listen 80` を以下に変更します。
 
@@ -157,11 +147,11 @@ Listen 8080
 Apache はポート 8080 でリッスンするはずです。確認は簡単です。
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://node1
+[student@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
-[student<X>@ansible-1 ansible-files]$ curl http://node1:8080
+[student@ansible-1 ansible-files]$ curl http://node1:8080
 <body>
-<h1>This is a development webserver, have fun!</h1>
+<h1>Apache is running fine</h1>
 </body>
 ```
 
@@ -169,14 +159,9 @@ curl: (7) Failed to connect to node1 port 80: Connection refused
 
 ### ステップ 3 - 簡単なループ
 
-ループを使用すると、同じタスクを何度も繰り返すことができます。たとえば、複数のユーザーを作成するとします。Ansibleループを使用することで、1
-つのタスクでそれを行うことができます。ループは、基本的なリスト以上のものを繰り返すこともできます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらを反復処理することもできます。ループの詳細については、[Ansible
-Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
-のドキュメントをご覧ください。
+ループを使用すると、同じタスクを何度も繰り返すことができます。たとえば、複数のユーザーを作成するとします。Ansibleループを使用することで、1 つのタスクでそれを行うことができます。ループは、基本的なリスト以上のものを繰り返すこともできます。たとえば、対応するグループを持つユーザーのリストがある場合、ループはそれらを反復処理することもできます。ループの詳細については、[Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) のドキュメントをご覧ください。
 
-ループ機能のデモとして、`node1` で 3 つの新しいユーザーをつくります。この作業用に、お使いの学習者ユーザーとしてコントロールノードの
-`~/ansible-files` に `loop_users.yml` ファイルを作成します。`user`
-モジュールを使用して、ユーザーアカウントを生成します。
+ループ機能のデモとして、`node1` で 3 つの新しいユーザーをつくります。この作業用に、お使いの学習者ユーザーとしてコントロールノードの `~/ansible-files` に `loop_users.yml` ファイルを作成します。`user` モジュールを使用して、ユーザーアカウントを生成します。
 
 <!-- {% raw %} -->
 
@@ -204,25 +189,25 @@ Playbook と出力の概要:
 <!-- {% raw %} -->
 
 * この名前はユーザーモジュールに直接指定されません。代わりに、パラメーター `name` 用の `{{ item }}` と呼ばれる変数のみがあります
-* `loop` キーワードは実際のユーザー名をリストします。これらは、Playbook を実際に実行しているときに `{{ item }}`
-  を置き換えます。
+* `loop` キーワードは実際のユーザー名をリストします。これらは、Playbook を実際に実行しているときに `{{ item }}` を置き換えます。
 * 実行中、タスクは1回だけリストされますが、その下に 3 つの変更がリストされます。
 
 <!-- {% endraw %} -->
 
-### ステップ 4: ハッシュのループ
+### ステップ 4 - ハッシュのループ
 
 前述のように、ループはハッシュのリストでも実行できます。ユーザーを別の追加グループに割り当てる必要があると想像してください。
 
 ```yaml
-- username: dev_user groups: ftp
-- username: qa_user groups: ftp
-- username: prod_user groups: apache
+- username: dev_user
+  groups: ftp
+- username: qa_user
+  groups: ftp
+- username: prod_user
+  groups: apache
 ```
 
-`user` モジュールには、その他のユーザーを一覧表示するためのオプションのパラメーター `groups`
-があります。ハッシュでアイテムを参照するには、`{{ item }}` キーワードが、サブキーを参照する必要があります (例: `{{
-item.groups }}`)。
+`user` モジュールには、その他のユーザーを一覧表示するためのオプションのパラメーター `groups` があります。ハッシュでアイテムを参照するには、`{{ item }}` キーワードが、サブキーを参照する必要があります (例: `{{item.groups }}`)。
 
 Playbook を書き直して、追加のユーザー権限を持つユーザーを作成しましょう。
 
@@ -299,5 +284,4 @@ node1                      : ok=3    changed=0    unreachable=0    failed=0    s
 <br>
 [前の演習](../1.4-variables) - [次の演習](../1.6-templates)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux
-Workshop](../README.md#section-1---ansible-engine-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

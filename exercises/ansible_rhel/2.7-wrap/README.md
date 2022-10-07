@@ -197,7 +197,7 @@ This time we use the power of Ansible to check the results: execute uri to get t
 ```
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 Snippet of output:
@@ -286,7 +286,7 @@ Check the results again from your automation controller host. We will use the de
 
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 <!-- {% endraw %} -->

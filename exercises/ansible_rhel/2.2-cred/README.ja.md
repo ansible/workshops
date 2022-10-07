@@ -5,12 +5,12 @@
 
 ## 目次
 
-* [目的](#objective)
-* [ガイド](#guide)
-* [インベントリーの検証](#examine-an-inventory)
-* [マシンの認証情報の検証](#examine-machine-credentials)
-* [アドホックコマンドの実行](#run-ad-hoc-commands)
-* [チャレンジラボ: アドホックコマンド](#challenge-lab-ad-hoc-commands)
+* [目的](#目的)
+* [ガイド](#ガイド)
+* [インベントリーの検証](#インベントリーの検証)
+* [マシンの認証情報の検証](#マシンの認証情報の検証)
+* [アドホックコマンドの実行](#アドホックコマンドの実行)
+* [チャレンジラボ: アドホックコマンド](#チャレンジラボ-アドホックコマンド)
 
 ## 目的
 
@@ -18,10 +18,8 @@
 
 * 以下を見つけて理解:
 
-  * Ansible 自動コントローラー
-    [**インベントリー**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html)
-  * Ansible 自動コントローラー
-    [**認証情報**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html)
+  * Ansible 自動コントローラー [**インベントリー**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html)
+  * Ansible 自動コントローラー [**認証情報**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html)
 
 * Ansible 自動コントローラー WebUI を介したアドホックコマンドの実行
 
@@ -29,19 +27,13 @@
 
 ### インベントリーの検証
 
-最初に必要なのは、管理対象ホストのインベントリーです。これは、Ansible Engine
-のインベントリファイルーに相当します。それ以外にもたくさんありますが、まずは基本から始めましょう。
+最初に必要なのは、管理対象ホストのインベントリーです。これは、Ansible Engine のインベントリファイルーに相当します。それ以外にもたくさんありますが、まずは基本から始めましょう。
 
-* すでに Web UI を開いているはずですが、開いていない場合は、指定された URL
-  をブラウザーで開きます。これは、`https://student<X>.workshopname.demoredhat.com` のような URL
-  です。<X\> は学習者番号に、"workshopname" は現在のワークショップの名前に変更します。`admin`
-  としてログインします。このパスワードは、インストラクターから渡されます。
+* すでに Web UI を開いているはずですが、開いていない場合は、指定された URL をブラウザーで開きます。これは、`https://student.workshopname.demoredhat.com` のような URL です。"workshopname" は現在のワークショップの名前に変更します。`admin` としてログインします。このパスワードは、インストラクターから渡されます。
 
-**Workshop Inventory** というインベントリーが現れます。**Workshop Inventory**
-をクリックして、**Hosts** ボタンをクリックします。
+**Workshop Inventory** というインベントリーが現れます。**Workshop Inventory** をクリックして、**Hosts** ボタンをクリックします。
 
-`~/lab_inventory/hosts` のインベントリー情報は、プロビジョニング目的の一環として Ansible
-自動コントローラーインベントリーに事前にロードされていました。
+`~/lab_inventory/hosts` のインベントリー情報は、プロビジョニング目的の一環として Ansible 自動コントローラーインベントリーに事前にロードされていました。
 
 ```bash
 $ cat ~/lab_inventory/hosts
@@ -60,11 +52,9 @@ ansible ansible_host=11.22.33.44
 
 ### マシンの認証情報の検証
 
-次に、自動コントローラーから管理対象ホストにアクセスするための認証情報を調べます。この Ansible
-ワークショップのプロビジョニングプロセスの一環として、**ワークショップ資格情報**はすでに設定されています。
+次に、自動コントローラーから管理対象ホストにアクセスするための認証情報を調べます。この Ansible ワークショップのプロビジョニングプロセスの一環として、**ワークショップ資格情報**はすでに設定されています。
 
-**Resource** メニューで **Credentials** を選択します。次に、*Workshop Credential**
-をクリックします。
+**Resource** メニューで **Credentials** を選択します。次に、*Workshop Credential** をクリックします。
 
 次の情報に注意してください。
 
@@ -99,11 +89,9 @@ Ansible 自動コントローラーからアドホックコマンドを実行す
 
 **Details** ウィンドウで、**Module** `ping` を選択し、**Next** をクリックします。
 
-**Execution Environment** ウィンドウで **Default execution environment**
-を選択し、**Next** をクリックします。
+**Execution Environment** ウィンドウで **Default execution environment** を選択し、**Next** をクリックします。
 
-**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch**
-をクリックします。
+**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch** をクリックします。
 
 > **ヒント**
 >
@@ -112,9 +100,7 @@ Ansible 自動コントローラーからアドホックコマンドを実行す
 
 <hr>
 
-単純な **ping**
-モジュールにはオプションは必要ありません。他のモジュールの場合、引数として実行するコマンドを指定する必要があります。**command **
-モジュールを試して、アドホックコマンドを使用して実行中のユーザーのユーザー ID を見つけてください。
+単純な **ping** モジュールにはオプションは必要ありません。他のモジュールの場合、引数として実行するコマンドを指定する必要があります。**command** モジュールを試して、アドホックコマンドを使用して実行中のユーザーのユーザー ID を見つけてください。
 
 * Web UIで、**Resource → Inventories → Workshop Inventory** に移動します。
 
@@ -122,14 +108,11 @@ Ansible 自動コントローラーからアドホックコマンドを実行す
 
 * **Run Command** ボタンをクリックします。次の画面で、アドホックコマンドを指定する必要があります。
 
-**Details** ウィンドウで、**Arguments** タイプ `id` で **Module** `command`
-を選択し、**Next** をクリックします。
+**Details** ウィンドウで、**Arguments** タイプ `id` で **Module** `command` を選択し、**Next** をクリックします。
 
-**Execution Environment** ウィンドウで **Default execution environment**
-を選択し、**Next** をクリックします。
+**Execution Environment** ウィンドウで **Default execution environment** を選択し、**Next** をクリックします。
 
-**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch**
-をクリックします。
+**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch** をクリックします。
 
 
 > **ヒント**
@@ -146,14 +129,11 @@ Ansible 自動コントローラーからアドホックコマンドを実行す
 
 * **Run Command** ボタンをクリックします。次の画面で、アドホックコマンドを指定する必要があります。
 
-**Details** ウィンドウで、**Arguments** `cat /etc/shadow` で **Module** `command`
-を選択し、**次へ** をクリックします。
+**Details** ウィンドウで、**Arguments** `cat /etc/shadow` で **Module** `command` を選択し、**次へ** をクリックします。
 
-**Execution Environment** ウィンドウで **Default execution environment**
-を選択し、**Next** をクリックします。
+**Execution Environment** ウィンドウで **Default execution environment** を選択し、**Next** をクリックします。
 
-**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch**
-をクリックします。
+**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch** をクリックします。
 
 > **警告**
 >
@@ -163,15 +143,11 @@ Ansible 自動コントローラーからアドホックコマンドを実行す
 
 最後のアドホックコマンドを再実行しますが、今回は **Enable privilege escalation** にチェックマークを付けます。
 
-ご覧のとおり、今度は成功しました。`root`
-として実行する必要があるタスクの場合は、特権を昇格する必要があります。これは、AnsiblePlaybook で使用されている * become:
-yes** と同じです。
+ご覧のとおり、今度は成功しました。`root` として実行する必要があるタスクの場合は、特権を昇格する必要があります。これは、AnsiblePlaybook で使用されている **become:yes** と同じです。
 
 ### チャレンジラボ: アドホックコマンド
 
-さて、小チャレンジです。アドホックを実行して、パッケージ「tmux」がすべてのホストにインストールされていることを確認します。不明な場合は、上記の
-Web UI を介して、または自動コントローラー制御ホストで `[ansible@controller ~]$ ansible-doc yum`
-を実行してドキュメントを参照してください。
+さて、小チャレンジです。アドホックを実行して、パッケージ「tmux」がすべてのホストにインストールされていることを確認します。不明な場合は、上記の Web UI を介して、または自動コントローラー制御ホストで `[ansible@controller ~]$ ansible-doc yum` を実行してドキュメントを参照してください。
 
 > **警告**
 >
@@ -183,14 +159,11 @@ Web UI を介して、または自動コントローラー制御ホストで `[a
 
 * **Run Command** ボタンをクリックします。次の画面で、アドホックコマンドを指定する必要があります。
 
-**Details** ウィンドウで、**Module** `yum` を選択し、**Arguments** タイプ `name=tmux` で
-**Enable privilege escalation** をチェックし、**Next** をクリックします。
+**Details** ウィンドウで、**Module** `yum` を選択し、**Arguments** タイプ `name=tmux` で **Enable privilege escalation** をチェックし、**Next** をクリックします。
 
-**Execution Environment** ウィンドウで **Default execution environment**
-を選択し、**Next** をクリックします。
+**Execution Environment** ウィンドウで **Default execution environment** を選択し、**Next** をクリックします。
 
-**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch**
-をクリックします。
+**Machine Credential**ウィンドウで、**Workshop Credentials** を選択し、**Launch** をクリックします。
 
 
 
@@ -203,5 +176,4 @@ Web UI を介して、または自動コントローラー制御ホストで `[a
 <br>
 [前の演習](../2.1-intro) - [次の演習](../2.3-projects)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux
-Workshop](../README.md#section-2---ansible-tower-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

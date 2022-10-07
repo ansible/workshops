@@ -50,7 +50,8 @@ Ansible はすでに、お使いの環境に固有のインベントリーを使
     "_meta": {
         "hostvars": {
             "ansible-1": {
-                "ansible_host": "3.236.186.92"            },
+                "ansible_host": "3.236.186.92"
+            },
             "node1": {
                 "ansible_host": "3.239.234.187"
             },

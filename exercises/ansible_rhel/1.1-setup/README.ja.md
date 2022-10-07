@@ -27,7 +27,7 @@
 - [実行環境](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - このワークショップでは特に取り上げません。なぜなら、ビルトインの Ansible 実行環境には、Red Hatがサポートするすべてのコレクションがすでに含まれており、このワークショップで使用するすべてのコレクションも含まれているからです。実行環境とは、Ansible の実行環境として利用できるコンテナイメージです。
 - [ansible-builder](https://github.com/ansible/ansible-builder) - このワークショップでは特に取り上げませんが、`ansible-builder` は実行環境の構築プロセスを自動化するためのコマンドラインユーティリティです。
 
-Ansible Automation Platformの新しいコンポーネントに関する情報が必要な場合は、このランディングページをブックマークしてください [htzdftps://red.ht/AAP-20](https://red.ht/AAP-20)
+Ansible Automation Platformの新しいコンポーネントに関する情報が必要な場合は、このランディングページをブックマークしてください [https://red.ht/AAP-20](https://red.ht/AAP-20)
 
 ## ガイド
 

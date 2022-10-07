@@ -5,14 +5,14 @@
 
 ## 目次
 
-* [目的](#objective)
-* [ガイド](#guide)
-   * [ラボ環境](#your-lab-environment)
-   * [ステップ 1 - 環境へのアクセス](#step-1---access-the-environment)
-   * [ステップ 2 - ターミナルの使用](#step-2---using-the-terminal)
-   * [ステップ 3 - 実行環境の検証](#step-3---examining-execution-environments)
-   * [ステップ 4 - ansible-navigator設定の検証](#step-4---examining-the-ansible-navigator-configuration)
-   * [ステップ 5 - チャレンジラボ](#step-5---challenge-labs)
+* [目的](#目的)
+* [ガイド](#ガイド)
+   * [ラボ環境](#ラボ環境)
+   * [ステップ 1 - 環境へのアクセス](#ステップ-1---環境へのアクセス)
+   * [ステップ 2 - ターミナルの使用](#ステップ-2---ターミナルの使用)
+   * [ステップ 3 - 実行環境の検証](#ステップ-3---実行環境の検証)
+   * [ステップ 4 - ansible-navigator 設定の検証](#ステップ-4---ansible-navigator-設定の検証)
+   * [ステップ 5 - チャレンジラボ](#ステップ-5---チャレンジラボ)
 
 ## 目的
 

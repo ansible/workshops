@@ -5,15 +5,15 @@
 
 ## 目次
 
-* [Ansible 自動コントローラー 4.0 の新機能](#whats-new-in-ansible-automation-controller-40)
-* [Ansible Tower が自動コントローラーに改名された理由](#why-was-ansible-tower-renamed-to-automation-controller)
-* [自動コントローラーのユーザー](#who-is-automation-controller-for)
-* [目的](#objective)
-* [ガイド](#guide)
-* [Ansible 自動コントローラーを使う理由](#why-ansible-automation-controller)
-* [Ansible 自動コントローラーラボ環境](#your-ansible-automation-controller-lab-environment)
-* [ダッシュボード](#dashboard)
-* [コンセプト](#concepts)
+* [Ansible 自動コントローラー 4.0 の新機能](#ansible-自動コントローラー-40-の新機能)
+* [Ansible Tower が自動コントローラーに改名された理由](#ansible-tower-が自動コントローラーに改名された理由)
+* [自動コントローラーの対象ユーザー](#自動コントローラーの対象ユーザー)
+* [目的](#目的)
+* [ガイド](#ガイド)
+* [Ansible 自動コントローラーを使う理由](#ansible-自動コントローラーを使う理由)
+* [Ansible 自動コントローラーラボ環境](#ansible-自動コントローラーラボ環境)
+* [ダッシュボード](#ダッシュボード)
+* [コンセプト](#コンセプト)
 
 ## Ansible 自動コントローラー 4.0 の新機能
 
@@ -48,7 +48,7 @@ Automation Operator は通常、責任に基づいて自動化コントローラ
 
 ## ガイド
 
-### 自動コントローラーに移動します。
+### Ansible 自動コントローラーを使う理由
 
 自動コントローラーは、IT 自動化のためのエンタープライズソリューションを提供する Web ベースの UI です。
 

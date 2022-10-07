@@ -5,15 +5,15 @@
 
 ## 目次
 
-* [目的](#objective)
-* [ガイド](#guide)
-  * [ステップ 1 - Ansible ロール構造について](#step-1---understanding-the-ansible-role-structure)
-  * [ステップ 2 - 基本的なロールディレクトリー構造の作成](#step-2---create-a-basic-role-directory-structure)
-  * [ステップ 3 - タスクファイルの作成](#step-3---create-the-tasks-file)
-  * [ステップ 4 - ハンドラーの作成](#step-4---create-the-handler)
-  * [ステップ 5 - web.html と vhost 設定ファイルテンプレートの作成](#step-5---create-the-webhtml-and-vhost-configuration-file-template)
-  * [ステップ 6 - ロールのテスト](#step-6---test-the-role)
-* [トラブルシューティング問題](#troubleshooting-problems)
+* [目的](#目的)
+* [ガイド](#ガイド)
+  * [ステップ 1 - Ansible ロール構造について](#ステップ-1---ansible-ロール構造について)
+  * [ステップ 2 - 基本的なロールディレクトリー構造の作成](#ステップ-2---基本的なロールディレクトリー構造の作成)
+  * [ステップ 3 - タスクファイルの作成](#ステップ-3---タスクファイルの作成)
+  * [ステップ 4 - ハンドラーの作成](#ステップ-4---ハンドラーの作成)
+  * [ステップ 5 - web.html と vhost 設定ファイルテンプレートの作成](#ステップ-5---webhtml-と-vhost-設定ファイルテンプレートの作成)
+  * [ステップ 6 - ロールのテスト](#ステップ-6---ロールのテスト)
+* [トラブルシューティング問題](#トラブルシューティング問題)
 
 ## 目的
 
@@ -318,7 +318,7 @@ simple vhost index
 
 おめでとうございます。これでこの演習は終わりです。
 
-## 問題のトラブルシューティング
+## トラブルシューティング問題
 
 最後の curl は動作しましたか？ netstat コマンドを実行すると、Web サーバーが動作しているポートを確認できます。
 

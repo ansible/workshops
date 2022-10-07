@@ -5,14 +5,13 @@
 
 ## 目次
 
-* [目的](#objective)
-* [ガイド](#guide)
-* [Apache-configuration ロール](#the-apache-configuration-role)
-* [Survey によるテンプレートの作成](#create-a-template-with-a-survey)
-  * [テンプレートの作成](#create-template)
-  * [Survey の追加](#add-the-survey)
-* [テンプレートの起動](#launch-the-template)
-* [練習してみましょう](#what-about-some-practice)
+* [目的](#目的)
+* [ガイド](#ガイド)
+* [Apache-configuration ロール](#apache-configuration-ロール)
+* [Survey を持つテンプレートの作成](#survey-を持つテンプレートの作成)
+  * [テンプレートの作成](#テンプレートの作成)
+  * [Survey の追加](#survey-の追加)
+* [テンプレートの起動](#テンプレートの起動)
 
 ## 目的
 

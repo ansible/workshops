@@ -5,14 +5,14 @@
 
 ## 目次
 
-* [目的](#objective)
-* [ガイド](#guide)
-  * [ステップ 1 - Playbook の基本](#step-1---playbook-basics)
-  * [ステップ 2 - Playbook 用のディレクトリー構造とファイルの作成](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
-  * [ステップ 3 - Playbook の実行](#step-3---running-the-playbook)
-  * [ステップ 4 - Playbook の拡張: Apacheの起動と有効化](#step-4---extend-your-playbook-start--enable-apache)
-  * [ステップ 5 - Playbook の拡張: web.htmlの作成](#step-5---extend-your-playbook-create-an-indexhtml)
-  * [ステップ 6 - 練習: 複数ホストへの適用](#step-6---practice-apply-to-multiple-host)
+* [目的](#目的)
+* [ガイド](#ガイド)
+  * [ステップ 1 - Playbook の基本](#ステップ-1---playbook-の基本)
+  * [ステップ 2 - Playbook 用のディレクトリー構造とファイルの作成](#ステップ-2---playbook-用のディレクトリー構造とファイルの作成)
+  * [ステップ 3 - Playbook の実行](#ステップ-3---playbook-の実行)
+  * [ステップ 4 - Playbook の拡張: Apache の起動と有効化](#ステップ-4---playbook-の拡張-apache-の起動と有効化)
+  * [ステップ 5 - Playbook の拡張: web.html の作成](#ステップ-5---playbook-の拡張-webhtml-の作成)
+  * [ステップ 6 - 練習: 複数ホストへの適用](#ステップ-6---練習-複数ホストへの適用)
 
 ## 目的
 

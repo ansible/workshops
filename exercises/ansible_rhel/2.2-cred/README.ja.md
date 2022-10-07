@@ -29,7 +29,7 @@
 
 最初に必要なのは、管理対象ホストのインベントリーです。これは、Ansible Engine のインベントリファイルーに相当します。それ以外にもたくさんありますが、まずは基本から始めましょう。
 
-* すでに Web UI を開いているはずですが、開いていない場合は、指定された URL をブラウザーで開きます。これは、`https://student<X>.workshopname.demoredhat.com` のような URL です。<X\> は学習者番号に、"workshopname" は現在のワークショップの名前に変更します。`admin` としてログインします。このパスワードは、インストラクターから渡されます。
+* すでに Web UI を開いているはずですが、開いていない場合は、指定された URL をブラウザーで開きます。これは、`https://student.workshopname.demoredhat.com` のような URL です。"workshopname" は現在のワークショップの名前に変更します。`admin` としてログインします。このパスワードは、インストラクターから渡されます。
 
 **Workshop Inventory** というインベントリーが現れます。**Workshop Inventory** をクリックして、**Hosts** ボタンをクリックします。
 

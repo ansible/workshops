@@ -56,7 +56,7 @@ Ansibleは、Playbook で使用できる値を格納するための変数をサ�
 
 理解を深め練習するためにも、ラボをみていきましょう。「Webサーバーを構築しましょう。1 つまたは 2 つ。またはそれ以上…」というテーマに続いて、`index.html` を変更し、サーバーがデプロイされている開発環境 (dev / prod)を表示します。
 
-Ansible コントロールホストでは、`student<X>` ユーザーとして、`~/ansible-files/` に変数定義を保持するディレクトリーを作成します。
+Ansible コントロールホストでは、`student` ユーザーとして、`~/ansible-files/` に変数定義を保持するディレクトリーを作成します。
 
 ```bash
 [student@ansible-1 ansible-files]$ mkdir host_vars group_vars

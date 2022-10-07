@@ -157,8 +157,8 @@ Ansible Automation Platform 2 の導入に伴い、開発者の体験全体の�
 
 これらには以下が含まれます。
 * `ansible-navigator` パッケージのインストール
-* 全プロジェクトに対するデフォルト設定 `/home/student<X>/.ansible-navigator.yml` の作成（オプション）
-* すべての実行環境(EE)ログは `/home/student<X>/.ansible-navigator/logs/ansible-navigator.log` 内に保存されます
+* 全プロジェクトに対するデフォルト設定 `/home/student/.ansible-navigator.yml` の作成（オプション）
+* すべての実行環境(EE)ログは `/home/student/.ansible-navigator/logs/ansible-navigator.log` 内に保存されます
 * Playbook アーティファクトは `/tmp/artifact.json` 下に保存されます
 
 [Ansible ナビゲーター設定](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst) の詳細
@@ -175,7 +175,7 @@ Playbook を実行するには、`ansible-navigator run <playbook>` コマンド
 
 > **ヒント**
 >
-既存の`ansible-navigator.yml` ファイルでは、インベントリファイルの場所が指定されています。これが`ansible-navigator.yml` ファイル内で設定されていない場合、プレイブックを実行するコマンドは次のようになります。 `ansible-navigator run apache.yml -i /home/student<X>/lab_inventory/hosts`
+既存の`ansible-navigator.yml` ファイルでは、インベントリファイルの場所が指定されています。これが`ansible-navigator.yml` ファイル内で設定されていない場合、プレイブックを実行するコマンドは次のようになります。 `ansible-navigator run apache.yml -i /home/student/lab_inventory/hosts`
 
 Playbook の実行時に、現在実行中の Playbook に関する他の情報間でプレイ名を表示するテキストユーザーインターフェース(TUI)が表示されます。
 
@@ -364,7 +364,7 @@ Ansible Playbook の次の部分では、Apache アプリケーションが `nod
 > **赤い行と 403 ステータスが多く表示されます。**
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
 赤い行やエラーが多く表示されます。Apache によって提供される `web.html` ファイルがなければ、「HTTP Error 403: Forbidden」ステータスが表示され、Ansible はエラーを報告します。

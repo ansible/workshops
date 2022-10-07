@@ -320,19 +320,19 @@ Congratulations! You have successfully completed this exercise!
 
 ## Troubleshooting problems
 
-Did the final curl work?  You can see what ports the web server is running by using the netstat command:
+Did the final curl work?  You can see what ports the web server is running by using the ss command:
 
 ```bash
-#> sudo netstat -tulpn
+#> sudo ss -tulpn | grep httpd
 ```
 
 There should be a line like this:
 
 ```bash
-tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
+tcp   LISTEN 0      511                *:8080               *:*    users:(("httpd",pid=182567,fd=4),("httpd",pid=182566,fd=4),("httpd",pid=182565,fd=4),("httpd",pid=182552,fd=4))
 ```
 
-If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](../1.5-handlers)
+Pay close attention to the fifth column of the above output. It should be `*:8080`. If it is `*:80` instead or if it is not working, then make sure that the `/etc/httpd/conf/httpd.conf` file has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](../1.5-handlers)
 
 ---
 **Navigation**

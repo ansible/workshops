@@ -343,16 +343,16 @@ simple vhost index
 
 ## 問題のトラブルシューティング
 
-最後の curl は動作しましたか？ netstat コマンドを実行すると、Web サーバーが動作しているポートを確認できます。
+最後の curl は動作しましたか？ ss コマンドを実行すると、Web サーバーが動作しているポートを確認できます。
 
 ```bash
-#> sudo netstat -tulpn
+#> sudo ss -tulpn | grep httpd
 ```
 
 次のような行があるはずです。
 
 ```bash
-tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
+tcp   LISTEN 0      511                *:8080               *:*    users:(("httpd",pid=182567,fd=4),("httpd",pid=182566,fd=4),("httpd",pid=182565,fd=4),("httpd",pid=182552,fd=4))
 ```
 
 これが機能していない場合は、`/etc/httpd/conf/httpd.conf` に `Listen 8080`

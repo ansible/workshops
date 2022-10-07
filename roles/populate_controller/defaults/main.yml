@@ -8,3 +8,4 @@ network_ee: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-s
 rhel_90_ee: "quay.io/acme_corp/rhel_90_ee:latest"
 windows_ee: "quay.io/acme_corp/windows_ee:latest"
 smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:latest"
+configascode_ee: "registry.redhat.io/ansible-automation-platform-21/ee-minimal-rhel8:latest"

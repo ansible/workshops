@@ -46,10 +46,10 @@ provisioner/old_tower_license.json
 .cache/
 .jekyll-cache/
 .venv
-.devcontainer
 provisioner/sean-demo.yml
 !requirements.txt
 execution_environment/context/Containerfile
 execution_environment/context/_build/requirements.txt
 execution_environment/context/_build/requirements.yml
 provisioner/packer/manifest.zip
+*-artifact-*.json

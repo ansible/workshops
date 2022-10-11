@@ -58,7 +58,7 @@
       retries: 5
 
     - name: issue ssl cert
-      shell: certbot certonly --no-bootstrap --standalone -d hub.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+      shell: certbot certonly --no-bootstrap --standalone -d hub-{{ student }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
       register: ssl_cert
       until: ssl_cert is not failed
       retries: 5

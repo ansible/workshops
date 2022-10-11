@@ -10,3 +10,9 @@
 {{ vm.private_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
 {% endif %}
 {% endfor %}
+
+{% for vm in automation_hub_host_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.Student}}-automationhub.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}

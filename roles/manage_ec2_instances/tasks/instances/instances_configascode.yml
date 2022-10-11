@@ -86,6 +86,9 @@
           delete_on_termination: true
   register: hub_output
 
+- debug:
+    msg: "{{ hub_output }}"
+
 - name: Ensure tags are present for hubnode
   amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
@@ -98,3 +101,4 @@
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
     - "{{ hub_output.instances }}"
+  when: hub_output.instances is defined

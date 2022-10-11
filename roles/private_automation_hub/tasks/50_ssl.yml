@@ -66,13 +66,13 @@
     - name: Move SSL Key
       copy:
         remote_src: true
-        src: "/etc/letsencrypt/live/hub.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
+        src: "/etc/letsencrypt/live/hub-{{ student }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
         dest: /etc/pulp/certs/pulp_webserver.key
 
     - name: move ssl cert
       copy:
         remote_src: true
-        src: "/etc/letsencrypt/live/hub.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
+        src: "/etc/letsencrypt/live/hub-{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
         dest: /etc/pulp/certs/pulp_webserver.crt
 
   rescue:

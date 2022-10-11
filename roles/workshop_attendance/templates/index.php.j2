@@ -342,6 +342,24 @@ function display_student($student) {
     </tr>
   </table>
   {% endif %}
+  {% if workshop_type == "configascode" %}
+  <div id="section_title">Private automation hub</div>
+  To login to the Private automation hub WebUI use the following credentials:<br>
+  <table>
+    <tr>
+  <td>WebUI link:</td>
+  <td><a target=_blank href="https://hub-student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://hub-student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
+    </tr>
+    <tr>
+      <td>username:</td>
+      <td><code>admin</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>{{admin_password}}</code></td>
+    </tr>
+  </table>
+  {% endif %}
   {% if workshop_type == "smart_mgmt" %}
   <div id="section_title">Red Hat Satellite </div>
   To login to the Satellite WebUI use the following credentials:<br>

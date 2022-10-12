@@ -7,7 +7,7 @@ ansible_port={{ ssh_port }}
 {% if automation_hub|bool %}
 [automation_hub]
 {%   for host in hostvars %}
-{%     if "automation-hub" in host %}
+{%     if "automationhub" in host %}
 {{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_port=22 ansible_user=ec2-user ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
 {%     endif %}
 {%   endfor %}
@@ -54,6 +54,7 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 {%       elif "gitlab" in host -%}
 {%       elif "docs" in host -%}
 {%       elif "ansible" in host %}
+{%       elif "automationhub" in host %}
 {{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }}
 {%       else %}
 {{ host|replace(ec2_name_prefix + "-", "") }} ansible_host={{ hostvars[host].ansible_host }} ansible_user={{ hostvars[host].ansible_user }} ansible_password="{{ hostvars[host].ansible_password }}" student="{{ hostvars[host].student }}"

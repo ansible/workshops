@@ -1,7 +1,7 @@
 ---
 namespace: ansible
 name: workshops
-version: 1.0.13
+version: 1.0.15
 readme: README.md
 
 authors:
@@ -14,18 +14,23 @@ authors:
   - Anshul Behl <abehl@redhat.com>
 
 build_ignore:
+  - .git
   - assets
+  - collections
   - decks
   - demos
-  - exercises
-  - '*.tar.gz'
-  - provisioner
-  - vagrant-demo
-  - images
-  - _layouts
   - docs
+  - execution_environment
+  - exercises
   - files
-
+  - images
+  - provisioner
+  - '*.tar.gz'
+  - vagrant-demo
+  - _layouts
+  - '*.png'
+  - '*.gif'
+  - '*.pdf'
 
 # A short summary description of the collection
 description: reusable content from Ansible Automation Workshops

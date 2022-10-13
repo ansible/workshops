@@ -119,7 +119,7 @@ Any **Job Template** that has been run or is currently running will show up unde
 * On the Ansible control node command line `ls /backup` to view the time stamped folder (or folders if you created multiple backups)
 
   ```sh
-  [student1@ansible-1 ~]$ ls /backup
+  [student@ansible-1 ~]$ ls /backup
   2021-08-31-12-58  2021-08-31-13-04  2021-08-31-13-11
   ```
 
@@ -128,9 +128,9 @@ Any **Job Template** that has been run or is currently running will show up unde
 * Either open `/backup` with Visual Studio Code or use the `cat` command to view the contents of one of the time stamped network devices
 
   ```sh
-  [student1@ansible-1 ~]$ cat /backup/2021-08-31-1
+  [student@ansible-1 ~]$ cat /backup/2021-08-31-1
   2021-08-31-12-58/ 2021-08-31-13-04/ 2021-08-31-13-11/
-  [student1@ansible-1 ~]$ cat /backup/2021-08-31-12-58/rtr1.txt
+  [student@ansible-1 ~]$ cat /backup/2021-08-31-12-58/rtr1.txt
   Building configuration...
 
   Current configuration : 5072 bytes

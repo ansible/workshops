@@ -24,12 +24,12 @@ valid_workshop_types:
   - rhel
   - devops
   - security
-  - storage
   - windows
   - rhel_90
   - demo
   - smart_mgmt
   - middleware
+  - configascode
 network_type: multivendor
 valid_network_types:
   - cisco

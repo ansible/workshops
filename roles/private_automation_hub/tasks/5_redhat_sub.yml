@@ -5,3 +5,6 @@
     username: "{{ redhat_username }}"
     password: "{{ redhat_password }}"
     auto_attach: true
+  register: task_register_var
+  until: task_register_var is not failed
+  retries: 5

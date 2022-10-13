@@ -11,6 +11,12 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Create .ssh directory if it does not exist
+  file:
+    path: "/home/{{ username }}/.ssh"
+    state: directory
+    mode: '700'
+
 - name: Put ssh-key in proper spot for student
   copy:
     src: "{{ output_dir }}/{{ ec2_name_prefix }}-private.pem"

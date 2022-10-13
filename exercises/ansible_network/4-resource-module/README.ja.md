@@ -172,7 +172,7 @@ Ansible
     * gathered
     * parsed
 
-    この演習では、これらのパラメーターの中の 2 つのみについて説明しますが、それ以外に [追加の演習](../supplemental/README.md) に説明があります。
+    この演習では、これらのパラメーターの中の 2 つのみについて説明しますが、それ以外に [追加の演習](../supplemental/README.ja.md) に説明があります。
   * `config:` - これは提供された VLAN 設定です。これはディクショナリーのリストです。最も重要なのは、モジュールが `arista.eos.vlans` から `junipernetworks.junos.vlans` に変更されると、同じ動作になることです。これにより、ネットワークエンジニアは、ベンダー構文や実装よりもネットワーク（VLAN 設定など）にフォーカスできるようになります。
 
 ### ステップ 4 - Ansible Playbook の実行
@@ -366,11 +366,10 @@ VLAN（デフォルトの VLAN 1 を含む）があります。
 ラボ演習 4 を完了しました
 
 前述したように、この演習では 2 つのリソースモジュールパラメーターのみが対象ですが、それ以外に
-[追加の演習](../supplemental/README.md) に説明があります。
+[追加の演習](../supplemental/README.ja.md) に説明があります。
 
 次の演習では、自動コントローラーの使用を開始します。
 ---
-[前の演習](../3-facts/README.md) | [次の演習](../5-explore-controller/README.md)
+[前の演習](../3-facts/README.ja.md) | [次の演習](../5-explore-controller/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

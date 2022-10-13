@@ -123,7 +123,7 @@ Playbook を実行できるようにするために、準備したロール `ids
 以下を入力し、Playbook を実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run incident_snort_rule.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run incident_snort_rule.yml --mode stdout
 ```
 
 これらのルールがログを生成するためには、疑わしいトラフィック、つまり攻撃が必要です。ここでも、数秒ごとに単純なアクセスをシミュレートする
@@ -147,7 +147,7 @@ Playbook `sql_injection_simulation.yml` を作成します。
 以下を入力し、実行します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run sql_injection_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run sql_injection_simulation.yml --mode stdout
 ```
 
 この演習が正しく動作するには、前の [Check Point 演習](../1.2-checkpoint/README.md)
@@ -166,7 +166,7 @@ Playbook `sql_injection_simulation.yml` を作成します。
 オンラインエディターのターミナルから、ユーザー `ec2-user` として snort ノードに SSH 接続し、ログを確認します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ec2-user@snort
+[student@ansible-1 ~]$ ssh ec2-user@snort
 ```
 ```bash
 [ec2-user@snort ~]$ journalctl -u snort -f
@@ -249,7 +249,7 @@ VS Code オンラインエディターで、以下のように `incident_snort_l
 を設定して、オフェンスを有効にします。実行してみてください。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run incident_snort_log.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run incident_snort_log.yml --mode stdout
 ```
 
 ## ステップ 3.5: QRadar で新しい設定を確認する
@@ -352,7 +352,7 @@ VS Code オンラインエディターで、`incident_blacklist.yml` という�
 Playbook を実行し、IP を実質的にブラックリストに指定します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run incident_blacklist.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run incident_blacklist.yml --mode stdout
 ```
 
 QRadar UI で、Log Activity タブで Snort からアラートを受信しなくなったことを確認します。ファイアウォールを QRadar
@@ -379,7 +379,7 @@ Policy](images/check_point_policy_drop.png#centreme)
 前回の演習で書いた Playbook `rollback.yml` を実行して、すべての変更を戻します。
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run rollback.yml --mode stdout
 ```
 
 今回、QRadar のログソースとして Check Point を設定していないにもかかわらず、Playbook
@@ -391,7 +391,7 @@ Playbook を実行します。
 
 <!-- {% raw %} -->
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
+[student@ansible-1 ~]$ ansible-navigator run stop_attack_simulation.yml --mode stdout
 ```
 <!-- {% endraw %} -->
 

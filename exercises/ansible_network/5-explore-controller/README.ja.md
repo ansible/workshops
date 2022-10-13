@@ -170,8 +170,7 @@
 つのコンポーネントすべてを調べました。次の演習では、ジョブテンプレートを作成します。
 
 ---
-[前の演習](../4-resource-module/README.md) |
-[次の演習](../6-controller-job-template/README.md)
+[前の演習](../4-resource-module/README.ja.md) |
+[次の演習](../6-controller-job-template/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

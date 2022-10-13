@@ -185,13 +185,13 @@ Espera a que la ejecución del trabajo concluya. Por favor, índicale al instruc
 * Entra en uno de los enrutadores para observar la configuración de la pantalla de bienvenida:
 
    ```sh
-   [student1@ansible]$ ssh rtr1
+   [student@ansible]$ ssh rtr1
    ```
 
    La pantalla de bienvenida aparecerá justo al entra. Como por ejemplo:
 
    ```
-   [student1@ansible-1 ~]$ ssh rtr1
+   [student@ansible-1 ~]$ ssh rtr1
    Warning: Permanently added 'rtr1,3.237.253.154' (RSA) to the list of known hosts.
 
    This router was configured by Ansible
@@ -212,6 +212,6 @@ Has probado existosamente lo siguiente:
 ¡Felicidades, has completado el ejercicio de laboratorio 7!
 
 ---
-[Ejercicio Anterior](../6--controller-job-template/README.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
+[Ejercicio Anterior](../6-controller-job-template/README.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
 
 [Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

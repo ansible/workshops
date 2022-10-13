@@ -1,12 +1,13 @@
 ---
 ansible-navigator:
   execution-environment:
-    image: quay.io/acme_corp/workshop_ee
+    image: quay.io/acme_corp/workshop_ee:latest
     enabled: true
-    container-engine: podman
+    container-engine: auto
     pull:
-      policy: missing
+      policy: tag
     environment-variables:
       pass:
         - AWS_ACCESS_KEY_ID
         - AWS_SECRET_ACCESS_KEY
+        - AWS_SESSION_TOKEN

@@ -228,8 +228,7 @@ screenshot](images/ansible-navigator-facts-stdout.png)
 ラボ演習 3 を完了しました
 
 ---
-[前の演習](../2-first-playbook/README.md) |
-[次の演習](../4-resource-module/README.md)
+[前の演習](../2-first-playbook/README.ja.md) |
+[次の演習](../4-resource-module/README.ja.md)
 
-[Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+[Ansible Network Automation ワークショップに戻る](../README.ja.md)

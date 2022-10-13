@@ -36,10 +36,10 @@
   community.aws.route53:
     state: present
     zone: "{{ workshop_dns_zone }}"
-    record: "hub.{{ec2_name_prefix|lower}}.{{ workshop_dns_zone }}"
+    record: "hub-{{ student }}.{{ec2_name_prefix|lower}}.{{ workshop_dns_zone }}"
     type: A
     overwrite: true
     value: "{{ ansible_host }}"
-    wait: false
+    wait: true
   delegate_to: localhost
   register: route53_status

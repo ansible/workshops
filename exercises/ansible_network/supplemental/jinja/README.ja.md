@@ -199,13 +199,13 @@ File** .  Either copy the playbook below or type this in:
 Use the `ansible-navigator` command to execute the playbook:
 
 ```
-[student1@ansible network-workshop]$ ansible-playbook config.yml
+[student@ansible network-workshop]$ ansible-playbook config.yml
 ```
 
 The output will look similar to the following:.
 
 ```
-[student1@ansible-1 network-workshop]$ ansible-navigator run config.yml --mode stdout
+[student@ansible-1 network-workshop]$ ansible-navigator run config.yml --mode stdout
 
 PLAY [configure network devices] ***********************************************
 
@@ -224,7 +224,7 @@ Use the command `show ip int br` to verify the IP addresses have been
 confirmed on the network devices.
 
 ```sh
-[student1@ansible network-workshop]$ ssh rtr1
+[student@ansible network-workshop]$ ssh rtr1
 
 rtr1#show ip int br | include Loopback100
 Loopback100            192.168.100.1   YES manual up                    up

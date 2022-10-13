@@ -39,10 +39,10 @@ Este ejercicio cubrirá:
 Navega hasta el directorio `network-workshop` si es que no estás ya allí.
 
 ```bash
-[student1@ansible ~]$ cd ~/network-workshop/
-[student1@ansible network-workshop]$
-[student1@ansible network-workshop]$ pwd
-/home/student1/network-workshop
+[student@ansible ~]$ cd ~/network-workshop/
+[student@ansible network-workshop]$
+[student@ansible network-workshop]$ pwd
+/home/student/network-workshop
 ```
 
 Examina el Playbook de Ansible existente llamado `playbook.yml`. Tanto con Visual Studio Code o con el comando `cat` sobre el fichero:
@@ -79,7 +79,7 @@ Ejecuta el playbook usando el comando `ansible-navigator`. El comando completo e
 ```ansible-navigator run playbook.yml --mode stdout```
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -89,7 +89,7 @@ changed: [rtr1]
 PLAY RECAP *********************************************************************
 rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
-[student1@ansible-1 network-workshop]$
+[student@ansible-1 network-workshop]$
 ```
 
 * `--mode stdout` - Por defecto, `ansible-navigator` se ejecutará en modo interactivo. El comportamiento por defecto puede modificarse cambiando el fichero the `ansible-navigator.yml`. A medida que los playbooks crecen e incluyen a múltiples máquinas, el modo interactivo permite "hacer zoom" sobre los datos en tiempo real, filtrarlos y navergar entre varios componentes de Ansible. Puesto que esta tarea sólo se ejecutó en una máquina la salida `stdout` es suficiente.
@@ -99,7 +99,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 Verify that the Ansible Playbook worked.  Login to `rtr1` and check the running configuration on the Cisco IOS-XE device.
 
 ```bash
-[student1@ansible network-workshop]$ ssh rtr1
+[student@ansible network-workshop]$ ssh rtr1
 
 rtr1#show run | i snmp
 snmp-server community ansible-public RO
@@ -117,7 +117,7 @@ El módulo `cisco.ios.config` es idempotente. Esto significa, que un cambio de c
 Para verificar el concepto de idempotencia, vuelve a ejecutar el playbook:
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -169,7 +169,7 @@ Asegúrate de guardar el fichero `playbook.yml` con los cambios.
 Esta vez, sin embargo, en vez de ejecutar el playbook para enviar un cambio al dispositivo, se ejecutará usando el parámetro `--check` junto con `-v` para tener una salida más verbosa:
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout --check -v
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout --check -v
 Using /etc/ansible/ansible.cfg as config file
 
 PLAY [snmp ro/rw string configuration] *****************************************
@@ -188,7 +188,7 @@ El modo `--check` en combinación con `--verbose` mostrará los cambios exactos 
 Verifiquemos quel el Playbook de Ansible no ha aplicado la comunidad `ansible-test`. Entra en `rtr1` y verifica la configuración en ejecución del dispositivo Cisco IOS-XE.
 
 ```bash
-[student1@ansible network-workshop]$ ssh rtr1
+[student@ansible network-workshop]$ ssh rtr1
 
 rtr1#show run | i snmp
 snmp-server community ansible-public RO
@@ -200,7 +200,7 @@ snmp-server community ansible-private RW
 Finalmente, re-ejecutaremos el playbook otra vez sin los parámetros `-v` o `--check` para enviar los cambios al dispositivo.
 
 ```bash
-[student1@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
+[student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
 PLAY [snmp ro/rw string configuration] *****************************************
 
@@ -216,7 +216,7 @@ rtr1                       : ok=1    changed=1    unreachable=0    failed=0    s
 Verifiquemos que el Playbook de Ansible aplicó la comunidad **ansible-test**. Entra en `rtr1` y verifica la configuración en ejecución del dispositivo Cisco IOS-XE.
 
 ```bash
-[student1@ansible network-workshop]$ ssh rtr1
+[student@ansible network-workshop]$ ssh rtr1
 
 rtr1#sh run | i snmp
 snmp-server community ansible-public RO

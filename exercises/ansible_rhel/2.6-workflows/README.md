@@ -312,7 +312,7 @@ NOTE: Where `XX` is the number of the job run.
 After the job was finished, check if everything worked fine: from your control host run the following curl command against `node1`, `node2` and `node3`. The output of each curl command should be `Hello World`.
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl http://nodeX/nodejs
+[student@ansible-1 ansible-files]$ curl http://nodeX/nodejs
 Hello World
 ```
 

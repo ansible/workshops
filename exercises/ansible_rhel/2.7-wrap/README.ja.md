@@ -5,16 +5,16 @@
 
 ## 目次
 
-* [目的](#objective)
-* [ガイド](#guide)
-  * [ステージの設定](#lets-set-the-stage)
-  * [Git リポジトリー](#the-git-repository)
-  * [インベントリーの準備](#prepare-inventory)
-  * [テンプレートの作成](#create-the-template)
-  * [結果の確認](#check-the-results)
-  * [Survey の追加](#add-survey)
-  * [ソリューション](#solution)
-* [終わり](#the-end)
+* [目的](#目的)
+* [ガイド](#ガイド)
+  * [ステージの設定](#ステージの設定)
+  * [Git リポジトリー](#git-リポジトリー)
+  * [インベントリーの準備](#インベントリーの準備)
+  * [テンプレートの作成](#テンプレートの作成)
+  * [結果の確認](#結果の確認)
+  * [Survey の追加](#survey-の追加)
+  * [ソリューション](#ソリューション)
+* [終わり](#終わり)
 
 ## 目的
 
@@ -24,13 +24,11 @@
 
 ### ステージの設定
 
-運営チームとアプリケーション開発チームは、Ansible
-自動コントローラーの機能を気に入っています。実際の環境で使用するために、要件を次にまとめました。
+運営チームとアプリケーション開発チームは、Ansible 自動コントローラーの機能を気に入っています。実際の環境で使用するために、要件を次にまとめました。
 
 * すべてのウェブサーバー (`node1`、`node2`、`node3`) を 1 つのグループに入れる必要があります
 
-* Web サーバーは開発目的または本番環境で使用できるため、それに応じて「stage dev」または「stage
-  prod」としてフラグを立てる方法が必要です。
+* Web サーバーは開発目的または本番環境で使用できるため、それに応じて「stage dev」または「stage prod」としてフラグを立てる方法が必要です。
 
   * 現在、`node1` と `node3` が開発システムとして使用され、`node2` が稼働環境となっています。
 
@@ -43,12 +41,9 @@
 
 ### Git リポジトリー
 
-すべてのコードはすでに配置されています。これは自動コントローラーラボですから。[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
-にある **Workshop Project** git リポジトリを確認してください。そこに Playbook `webcontent.yml`
-があります。これは、ロール `role_webcontent` を呼び出します。
+すべてのコードはすでに配置されています。これは自動コントローラーラボですから。[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples) にある **Workshop Project** git リポジトリを確認してください。そこに Playbook `webcontent.yml` があります。これは、ロール `role_webcontent` を呼び出します。
 
-以前の Apache インストールのロールと比較すると、大きな違いがあります。現在、2つのバージョンの `index.html`
-テンプレート、およびソースファイル名の一部として変数を持つテンプレートファイルをデプロイするタスクがあります。
+以前の Apache インストールのロールと比較すると、大きな違いがあります。現在、2つのバージョンの `index.html` テンプレート、およびソースファイル名の一部として変数を持つテンプレートファイルをデプロイするタスクがあります。
 
 `dev_index.html.j2`
 
@@ -56,7 +51,7 @@
 
 ```html
 <body>
-<h1>これは開発 Web サーバーです。お楽しみください!</h1>
+<h1>This is a development webserver, have fun!</h1>
 {{ dev_content }}
 </body>
 ```
@@ -97,26 +92,22 @@
 
 **Resources** -> **Inventories** 内で、「Workshop Inventory」を選択します。
 
-**Groups** タブで、**Add** ボタンをクリックして、`Webserver`
-というラベルが付けられた新規インベントリーグループを作成し、**Save** をクリックします。
+**Groups** タブで、**Add** ボタンをクリックして、`Webserver` というラベルが付けられた新規インベントリーグループを作成し、**Save** をクリックします。
 
-`Webserver` グループの **Details** タブで、**Edit** をクリックします。**Variables**
-テキストボックスでは、`stage` という値を持つ変数 `dev` を定義し、**Save** をクリックします。
-
-`Webserver` インベントリーの **Details** タブで、**ホスト** タブをクリックし、**Add** および **Add
-existing host** ボタンをクリックします。`Webserver`
-インベントリーに含まれるホストとして、`node1`、`node2`、および `node3` を選択します。
+`Webserver` グループの **Details** タブで、**Edit** をクリックします。**Variables** テキストボックスでは、`stage` という値を持つ変数 `dev` を定義し、**Save** をクリックします。
 
 ```yaml
 ---
 stage: dev
 ```
 
+`Webserver` インベントリーの **Details** タブで、**ホスト** タブをクリックし、**Add** および **Add existing host** ボタンをクリックします。`Webserver` インベントリーに含まれるホストとして、`node1`、`node2`、および `node3` を選択します。
+
+
 **Resources** -> **Inventories** 内で、`Workshop` インベントリーを選択します。また、`Hosts` タブをクリックして、`node2` をクリックします。`Edit` をクリックし、**Variables** ウィンドウで `stage: prod` 変数を追加します。これは、Playbook の実行時に変数にアクセスする方法により、インベントリー変数を上書きします。
 
 
-**Variables** テキストボックスで、`stage` という値を持つ `prod` というラベルが付いた変数を定義し、**Save**
-をクリックします。
+**Variables** テキストボックスで、`stage` という値を持つ `prod` というラベルが付いた変数を定義し、**Save** をクリックします。
 
 ```yaml
 ---
@@ -181,8 +172,7 @@ stage: prod
 
 ### 結果の確認
 
-今回は、Ansible パワーを使って結果を確認します。各ノードから Web コンテンツを取得するために uri を実行し、Ansible
-Playbook (`check_url.yml`) によってオーケストレーションされます。
+今回は、Ansible パワーを使って結果を確認します。各ノードから Web コンテンツを取得するために uri を実行し、Ansible Playbook (`check_url.yml`) によってオーケストレーションされます。
 
 > **ヒント**
 >
@@ -207,7 +197,7 @@ Playbook (`check_url.yml`) によってオーケストレーションされま�
 ```
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 出力のスニペット:
@@ -281,26 +271,22 @@ ok: [node3] => {
 
 * Survey の **Preview** をクリックします。
 
-* Team `Web Content` にパーミッションを追加すると、Template **Create Web Content** が `wweb`
-  で実行できます。
-* **Resources** -> **Templates** 内で、*Create Web Content** をクリックし、ユーザー `wweb`
-  に **Access** を追加し、テンプレートを実行します。
+* Team `Web Content` にパーミッションを追加すると、Template **Create Web Content** が `wweb` で実行できます。
+* **Resources** -> **Templates** 内で、*Create Web Content** をクリックし、ユーザー `wweb` に **Access** を追加し、テンプレートを実行します。
   * **Select a Resource Type** -> **Users**をクリックし、**Next** をクリックします。
   * **Select Items from List** -> `wweb` チェックボックスを選択して、**Next** をクリックします。
   * **Select Roles to Apply** -> **Excute** チェックボックスを選択して、**Save** をクリックします。
 * ユーザー `wweb` として survey を実行します。
   * Ansible 自動コントローラーのユーザー `admin` からログアウトします。
-  * `wweb` としてログインし、**Resources** -> **Templates** に移動して、**Create Web
-    Content** テンプレートを実行します。
+  * `wweb` としてログインし、**Resources** -> **Templates** に移動して、**Create Web Content** テンプレートを実行します。
 
-オートメーションコントローラーのホストから再度結果を確認します。ここでは、専用の`uri` モジュールを Ansible Playbook
-内で使用します。引数として、実際の URL と、結果に本文を出力するためのフラグが必要です。
+オートメーションコントローラーのホストから再度結果を確認します。ここでは、専用の`uri` モジュールを Ansible Playbook 内で使用します。引数として、実際の URL と、結果に本文を出力するためのフラグが必要です。
 
 <!-- {% raw %} -->
 
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 <!-- {% endraw %} -->
@@ -322,5 +308,4 @@ ok: [node3] => {
 <br>
 [前の演習](../2.6-workflows)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux
-Workshop](../README.md#section-2---ansible-automation-controller-exercises)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-automation-controller-exercises)

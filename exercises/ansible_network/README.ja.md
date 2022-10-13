@@ -12,11 +12,9 @@ Ansible
 
 ## プレゼンテーション
 
-プレゼンテーションの資料が必要ですか? ここから入手いただけます: - [Ansible Network Automation
-ワークショップ資料](https://ansible.github.io/workshops/decks/ansible_network.pdf)
-PDF - [Google
-Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing)
-(Red Hat 社内用)
+プレゼンテーションの資料が必要ですか? ここから入手いただけます:
+- [Ansible Network Automationワークショップ資料](https://ansible.github.io/workshops/decks/ansible_network.pdf) PDF
+- [GoogleSource](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing)(Red Hat 社内用)
 
 ## Ansible Network Automation の演習
 

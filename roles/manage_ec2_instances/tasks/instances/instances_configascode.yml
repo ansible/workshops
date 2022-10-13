@@ -1,0 +1,104 @@
+---
+- name: Config as code | Gitea | Launch Instance
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['skylight_rhel8_gitlab']['size'] }}"
+    image_id: "{{ win_gitlab_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: 1
+    state: running
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_gitlab": "{{ ec2_name_prefix }}-gitlab"
+    tags:
+      Workshop_gitlab: "{{ ec2_name_prefix }}-gitlab"
+      Name: "{{ ec2_name_prefix }}-gitlab"
+      App: AnsibleWorkshop
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: 'gitlab'
+      long_name: "gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
+      username: "{{ ec2_info['skylight_rhel8_gitlab']['username'] }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info['skylight_rhel8_gitlab'].disk_volume_type }}"
+          volume_size: "{{ ec2_info['skylight_rhel8_gitlab'].disk_space }}"
+          iops: "{{ ec2_info['skylight_rhel8_gitlab'].disk_iops }}"
+          throughput: "{{ ec2_info['skylight_rhel8_gitlab'].disk_throughput }}"
+          delete_on_termination: true
+    user_data: "{{ lookup('template', 'skylight_gitlab_userdata.j2') }}"
+  register: gitlab_output
+
+- debug:
+    msg: "{{ gitlab_output }}"
+
+- name: Create EC2 instances for private automation hub
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info[hub_type].size }}"
+    image_id: "{{ ansible_hub_node_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    network:
+      assign_public_ip: true
+    filters:
+      instance-state-name: running
+      "tag:Workshop_automation-hub": "{{ ec2_name_prefix }}-automationhub"
+    tags:
+      Name: "{{ ec2_name_prefix }}-hub"
+      Workshop_automation-hub: "{{ ec2_name_prefix }}-automationhub"
+      App: AnsibleWorkshop
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
+      Students: "{{ student_total }}"
+      username: "{{ ec2_info[hub_type].username }}"
+      short_name: "automation-hub"
+      ansible-workshops: "true"
+      owner: "{{ aws_user }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[hub_type].disk_volume_type }}"
+          volume_size: "{{ ec2_info[hub_type].disk_space }}"
+          iops: "{{ ec2_info[hub_type].disk_iops }}"
+          throughput: "{{ ec2_info[hub_type].disk_throughput }}"
+          delete_on_termination: true
+  register: hub_output
+
+- debug:
+    msg: "{{ hub_output }}"
+
+- name: Ensure tags are present for hubnode
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-automationhub"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ hub_output.instances }}"
+  when: hub_output.instances is defined

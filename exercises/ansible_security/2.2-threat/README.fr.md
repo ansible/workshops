@@ -125,7 +125,7 @@ Le playbook fonctionne, s'occupe de l'installation de la nouvelle règle, du red
 Vérifiez rapidement la nouvelle règle sur l'instance Snort. Depuis un terminal de votre éditeur en ligne VS Code, connectez-vous à Snort via SSH avec l'utilisateur `ec2user`:
 
 ```bash
-[student<X>@ansible ~]$ ssh ec2-user@11.22.33.44
+[student@ansible ~]$ ssh ec2-user@11.22.33.44
 Last login: Fri Sep 20 15:09:40 2019 from 54.85.79.232
 [ec2-user@snort ~]$ sudo grep ddos_simulation /etc/snort/rules/local.rules
 alert tcp any any -> any any  (msg:"Attempted DDoS Attack"; uricontent:"/ddos_simulation"; classtype:successful-dos; sid:99000010; priority:1; rev:1;)

@@ -14,8 +14,8 @@ looking for Ansible Automation Platform 2, please go to
 [http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
 
 ## プレゼンテーション
-プレゼンテーションの資料が必要ですか? ここから入手いただけます: [Ansible F5 Workshop
-Deck](../../decks/ansible_f5.pdf)
+プレゼンテーションの資料が必要ですか? ここから入手いただけます:
+[Ansible F5 WorkshopDeck](../../decks/ansible_f5.pdf)
 
 ## 図
 ![f5 diagram](../../images/ansible_f5_diagram.png)

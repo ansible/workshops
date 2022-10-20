@@ -439,7 +439,7 @@ node3 ansible_host=33.44.55.66
 >
 > こちらに表示される IP アドレスは例です。実際のノードの IP アドレスは異なります。
 
-Playbook の `hosts` パラメーターを、`web` ではなく `node1` を参照するように変更します。
+Playbook の `hosts` パラメーターを、`node1` ではなく `web` を参照するように変更します。
 
 ```yaml
 ---

@@ -58,7 +58,7 @@
       retries: 5
 
     - name: issue ssl cert
-      shell: certbot certonly --no-bootstrap --standalone -d hub-{{ student }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
+      shell: certbot certonly --no-bootstrap --standalone -d hub-{{ student | default('student') }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} --email ansible-network@redhat.com --noninteractive --agree-tos
       register: ssl_cert
       until: ssl_cert is not failed
       retries: 5
@@ -66,13 +66,13 @@
     - name: Move SSL Key
       copy:
         remote_src: true
-        src: "/etc/letsencrypt/live/hub-{{ student }}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
+        src: "/etc/letsencrypt/live/hub-{{ student | default('student')}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}/privkey.pem"
         dest: /etc/pulp/certs/pulp_webserver.key
 
     - name: move ssl cert
       copy:
         remote_src: true
-        src: "/etc/letsencrypt/live/hub-{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
+        src: "/etc/letsencrypt/live/hub-{{ student | default('student') }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
         dest: /etc/pulp/certs/pulp_webserver.crt
 
   rescue:

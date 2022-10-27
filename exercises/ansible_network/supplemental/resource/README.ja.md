@@ -538,7 +538,7 @@
 
 これらにより、ネットワーク自動化ツールは、切断された環境などのシナリオでリソースモジュールを使用できます。ネットワークリソースモジュールは、異なるネットワークデバイス間で一貫したエクスペリエンスを提供します。
 
-[ネットワークリソースモジュールのドキュメント]((https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)には、更に情報が掲載されています。
+[ネットワークリソースモジュールのドキュメント](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)には、更に情報が掲載されています。
 
 ## ソリューション
 

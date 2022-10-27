@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `users` (
         'https://student{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
       {% endif %}
         'https://student{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
-      {% if workshop_type == "windows" %}
+      {% if workshop_type == "windows" or workshop_type == "configascode" %}
         'https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
       {% else %}
         '',

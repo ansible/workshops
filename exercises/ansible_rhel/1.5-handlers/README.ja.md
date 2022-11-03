@@ -254,7 +254,7 @@ Playbook を書き直して、追加のユーザー権限を持つユーザー�
         key: "{{ myuser }}"
     - debug:
         msg:
-          - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
+          - "{{ myuser }} uid: {{ getent_passwd[myuser].1 }}"
 ```
 {% endraw %}
 

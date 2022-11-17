@@ -192,6 +192,9 @@
           - Private key is located at {{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem
           {% if attendance %}
           - {{ hostvars['attendance-host'].login_website_information | default("attendance feature is not functioning") }}
+          {% if rhpds_info_output | default(false) | bool %}
+          - Admin password: {{ admin_password }}
+          {% endif %}
           {% endif %}
 
           FAILURES

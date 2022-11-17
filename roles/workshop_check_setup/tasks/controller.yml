@@ -19,12 +19,12 @@
           and manifest_download_password.
 
     - name: Download manifest.zip
-        ansible.builtin.get_url:
-          url: "{{ manifest_download_url }}"
-          dest: "{{ playbook_dir }}/manifest.zip"
-          username: "{{ manifest_download_user }}"
-          password: "{{ manifest_download_password }}"
-          force_basic_auth: true
+      ansible.builtin.get_url:
+        url: "{{ manifest_download_url }}"
+        dest: "{{ playbook_dir }}/manifest.zip"
+        username: "{{ manifest_download_user }}"
+        password: "{{ manifest_download_password }}"
+        force_basic_auth: true
 
 - name: check license block
   block:

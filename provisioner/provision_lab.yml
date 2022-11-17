@@ -208,6 +208,5 @@
     - name: Print Summary Information
       when: rhpds_info_output | default(false) | bool
       debug:
-        msg: "user.info: {{ item }}"
-      with_items: "{{ summary_information.splitlines() }}"
+        msg: "user.info: {{ summary_information }}"
 

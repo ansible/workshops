@@ -188,8 +188,10 @@
           PROVISIONER SUMMARY
           *******************
           - Workshop name is {{ ec2_name_prefix }}
+          {% if not rhpds_info_output | default(false) | bool %}
           - Instructor inventory is located at  {{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt
           - Private key is located at {{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem
+          {% endif %}
           {% if attendance %}
           - {{ hostvars['attendance-host'].login_website_information | default("attendance feature is not functioning") }}
           {% if rhpds_info_output | default(false) | bool %}
@@ -197,11 +199,13 @@
           {% endif %}
           {% endif %}
 
+          {% if not rhpds_info_output | default(false) | bool %}
           FAILURES
           *******************
           {{ dns_information }}
           {{ callback_information }}
           {{ demo_information }}
+          {% endif %}
 
     - name: Print Summary Information
       when: not rhpds_info_output | default(false) | bool

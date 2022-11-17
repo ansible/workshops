@@ -254,7 +254,7 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
         key: "{{ myuser }}"
     - debug:
         msg:
-          - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
+          - "{{ myuser }} uid: {{ getent_passwd[myuser].1 }}"
 ```
 {% endraw %}
 

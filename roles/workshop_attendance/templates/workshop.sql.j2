@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `users` (
       {% endif %}
       {% if automation_hub is defined and automation_hub|bool %}
         {% if dns_type != 'none' %}
-          'https://hub.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
+          'https://hub-student.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
         {% else %}
           'https://{{ hostvars["automation-hub-host"].ansible_host }}',
         {% endif %}

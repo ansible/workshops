@@ -4,6 +4,17 @@
     path: "{{ output_dir }}"
     state: directory
 
+- name: Download manifest.zip
+  when:
+    - manifest_download_url is defined
+    - manifest_download_user is defined
+    - manifest_download_password is defined
+  ansible.builtin.get_url:
+    url: "{{ manifest_download_url }}"
+    dest: "{{ playbook_dir }}/manifest.zip"
+    username: "{{ manifest_download_user }}"
+    password: "{{ manifest_download_password }}"
+
 - name: check license block
   block:
     - name: Check that the manifest.zip exists

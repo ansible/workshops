@@ -201,5 +201,13 @@
           {{ demo_information }}
 
     - name: Print Summary Information
+      when: rhpds_info_output|default(False) == False
       debug:
         msg: "{{ summary_information }}"
+
+    - name: Print Summary Information
+      when: rhpds_info_output|default(False) == True
+      debug:
+        msg: "user.info: {{ item }}"
+      loop: "{{ summary_information }}"
+

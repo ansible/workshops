@@ -205,6 +205,17 @@ These are the ways to integrate your license file with the workshop:
   manifest_download_password: password
   ```
 
+### Automating the download of aap.tar.gz 
+
+If you have the aap.tar.gz tarball in a secure URL, you can automate the downloading of it by specifying the following variables.
+Note that the tarball specified in the URL must match the SHA value defined in provided_sha_value
+
+  ```
+  aap_download_url: https://www.example.com/protected/aap.tar.gz
+  aap_download_user: username
+  aap_download_password: password
+  ```
+
 ### Additional examples
 
 For more extra_vars examples, look at the following:

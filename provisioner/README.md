@@ -163,7 +163,7 @@ In order to use Automation controller (i.e. `controllerinstall: true`), which is
 
 **How do you use the manifest.zip with the workshop?**
 
-There are currently two ways to integrate your license file with the workshop:
+These are the ways to integrate your license file with the workshop:
 
 1. Put the manifest.zip file into provisioner folder
 
@@ -195,6 +195,15 @@ There are currently two ways to integrate your license file with the workshop:
   >
   >base64 is not encryption, if you require encryption you need to work within your CI system or Automation controller to encrypt the base64 encoded manifest.zip.
 
+3. Download the manifest.zip from a URL
+
+  If you specify the following variables, the provisioner will download the manifest.zip from an authenticated URL:
+
+  ```
+  manifest_download_url: https://www.example.com/protected/manifest.zip
+  manifest_download_user: username
+  manifest_download_password: password
+  ```
 
 ### Additional examples
 

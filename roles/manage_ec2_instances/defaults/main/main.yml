@@ -179,7 +179,7 @@ ec2_info:
     disk_iops: 3000
     disk_throughput: 125
     architecture: x86_64
-    filter: 'F5 BIGIP-16.0.*PAYG-Best 25Mbps*'
+    filter: 'F5 BIGIP-16.1.*PAYG-Best 25Mbps*'
     username: admin
   splunk_enterprise:
     owners: 309956199498

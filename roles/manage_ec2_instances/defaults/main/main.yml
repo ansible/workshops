@@ -37,7 +37,7 @@ ec2_info:
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
   juniper:
-    size: c4.xlarge
+    size: c5.xlarge
     ami: "{{ juniper_ami | default(omit) }}"
     os: junos
     username: ec2-user

@@ -57,7 +57,7 @@ Remplissez le formulaire avec les valeurs suivantes et activez le questionnaire.
 
 | Clé                    | Valeur                                                     | Note             |
 |------------------------|------------------------------------------------------------|------------------|
-| PROMPT                 | Please enter a test message for your new website           |                  |
+| QUESTION               | Please enter a test message for your new website           |                  |
 | DESCRIPTION            | Website test message prompt                                |                  |
 | ANSWER VARIABLE NAME   | `iis_test_message`                                         |                  |
 | ANSWER TYPE            | Text                                                       |                  |
@@ -66,6 +66,9 @@ Remplissez le formulaire avec les valeurs suivantes et activez le questionnaire.
 
 ![Survey creating](images/4-survey-created.png)
 
+> **Remarque**
+> Assurez-vous que l'option Survey Enabled est activé comme ceci:
+![Survey Enable](images/4-survey-enabled.png)
 
 Lancer une tâche
 ================

@@ -106,6 +106,12 @@
   when:
     - aws_cli_destroy_ec2|default(false)|bool
 
+- debug:
+    msg: "AWS_ACCESS_KEY: '{{ lookup('env','AWS_ACCESS_KEY') }}'"
+
+- debug:
+    msg: "AWS_SECRET_KEY: '{{ lookup('env','AWS_SECRET_KEY') }}'"
+
 # Destroy VPC 1 instances
 - name: destroy EC2 instances
   amazon.aws.ec2_instance:
@@ -128,7 +134,8 @@
   environment:
     AWS_ACCESS_KEY_ID: "{{ lookup('env','AWS_ACCESS_KEY') }}"
     AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_KEY') }}"
-  ansible.builtin.command: aws --region {{ ec2_region }} ec2 terminate-instances --instance-ids {{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list | join(' ') }}
+    AWS_DEFAULT_REGION: "{{ ec2_region }}"
+  ansible.builtin.command: aws ec2 terminate-instances --instance-ids {{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list | join(' ') }}
   when:
     - all_workshop_vpc_nodes.instances
     - aws_cli_destroy_ec2|default(false)|bool
@@ -156,7 +163,8 @@
   environment:
     AWS_ACCESS_KEY_ID: "{{ lookup('env','AWS_ACCESS_KEY') }}"
     AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_KEY') }}"
-  ansible.builtin.command: aws --region {{ ec2_region }} ec2 terminate-instances --instance-ids {{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list | join(' ') }}
+    AWS_DEFAULT_REGION: "{{ ec2_region }}"
+  ansible.builtin.command: aws ec2 terminate-instances --instance-ids {{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list | join(' ') }}
   when:
     - all_workshop_vpc2_nodes.instances
     - aws_cli_destroy_ec2|default(false)|bool

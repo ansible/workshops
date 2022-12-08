@@ -22,10 +22,24 @@
       include_role:
         name: ../roles/manage_ec2_instances
         tasks_from: inventory/addhost_automation_hub.yml
+    - name: check if pem exists
+      ansible.builtin.stat:
+        path: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+      register: pem_check
+    - name: set pemexist bool to true if pem exists
+      ansible.builtin.set_fact:
+        pemexist: true
+      when:
+        - pem_check.stat.exists
+    - name: set pemexist bool to false if pem does not exist
+      ansible.builtin.set_fact:
+        pemexist: false
+      when:
+        - not pem_check.stat.exists
 
 - name: configure private automation hub
   hosts: 'automation_hub'
-  gather_facts: false
+  gather_facts: {{ pem_exist }}
   become: true
   vars:
     teardown: true

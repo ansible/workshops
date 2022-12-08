@@ -25,7 +25,7 @@
 
 - name: configure private automation hub
   hosts: 'automation_hub'
-  gather_facts: true
+  gather_facts: false
   become: true
   vars:
     teardown: true

@@ -100,6 +100,12 @@
     - debug_teardown
     - ec2_vpc_id2 is defined
 
+- name: Install AWS CLI
+  ansible.builtin.pip:
+    name: awscli
+  when:
+    - aws_cli_destroy_ec2|default(false)|bool
+
 # Destroy VPC 1 instances
 - name: destroy EC2 instances
   amazon.aws.ec2_instance:
@@ -109,12 +115,22 @@
     wait: true
     wait_timeout: "{{ student_total * 300 | int}}"
   register: result_ec2_destroy
-  when: all_workshop_vpc_nodes.instances
+  when:
+    - all_workshop_vpc_nodes.instances
+    - not aws_cli_destroy_ec2|default(false)|bool
 
 - name: debug result_ec2_destroy
   debug:
     var: result_ec2_destroy
   when: debug_teardown
+
+- name: destroy EC2 instances with AWS CLI
+  environment:
+    AWS_DEFAULT_REGION: "{{ ec2_region }}"
+  ansible.builtin.command: aws ec2 terminate-instances --instance-ids {{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list | join(' ') }}
+  when:
+    - all_workshop_vpc_nodes.instances
+    - aws_cli_destroy_ec2|default(false)|bool
 
 # Destroy VPC 2 instances for network automation
 - name: destroy EC2 instances (VPC2)
@@ -128,11 +144,21 @@
   when:
     - ec2_vpc_id2 is defined
     - all_workshop_vpc2_nodes.instances
+    - not aws_cli_destroy_ec2|default(false)|bool
 
 - name: debug result_ec2_destroy2
   debug:
     var: result_ec2_destroy2
   when: debug_teardown
+
+- name: destroy EC2 instances with AWS CLI (VPC2)
+  environment:
+    AWS_DEFAULT_REGION: "{{ ec2_region }}"
+  ansible.builtin.command: aws ec2 terminate-instances --instance-ids {{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list | join(' ') }}
+  when:
+    - ec2_vpc_id2 is defined
+    - all_workshop_vpc2_nodes.instances
+    - aws_cli_destroy_ec2|default(false)|bool
 
 - name: Cleanup subnets for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
   block:

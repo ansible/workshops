@@ -26,6 +26,10 @@
 - name: configure private automation hub
   hosts: 'automation_hub'
   gather_facts: false
+  become: true
+  vars:
+    teardown: true
+    state: absent
   tasks:
     - name: check if pem exists
       ansible.builtin.stat:
@@ -41,18 +45,9 @@
         - pem_check is defined
         - pem_check.stat is defined
         - pem_check.stat.exists
-
-- name: configure private automation hub
-  hosts: 'automation_hub'
-  gather_facts: false
-  become: true
-  vars:
-    teardown: true
-    state: absent
-  tasks:
     - name: gather_facts if pemexist
       ansible.builtin.setup:
-      when: "{{ pemexist|default(false)|bool }}"
+      when: pemexist|default(false)|bool
     - include_role:
         name: ../roles/private_automation_hub
       when:

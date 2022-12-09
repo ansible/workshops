@@ -204,8 +204,8 @@
           - Admin password: {{ admin_password }}
           {% endif %}
           {% endif %}
-          {% if not rhpds_info_output | default(false) | bool %}
 
+          {% if not rhpds_info_output | default(false) | bool %}
           FAILURES
           ===================
           {{ dns_information }}

@@ -240,8 +240,8 @@
           messages: >-
             {%- if user_info_yaml is file -%}
             {{ lookup('file', user_info_yaml) | from_yaml | default([], true) }}
-            {%- elif summary_informationz is defined -%}
-            [ "{{ summary_informationz }}" ]
+            {%- elif summary_information is defined -%}
+            {{ [ summary_information ] }}
             {%- else -%}
             []
             {%- endif -%}

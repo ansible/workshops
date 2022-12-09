@@ -191,7 +191,7 @@
       set_fact:
         summary_information: |
           PROVISIONER SUMMARY
-          *******************
+          ===================
           - Workshop name is {{ ec2_name_prefix }}
           {% if not rhpds_info_output | default(false) | bool %}
           - Instructor inventory is located at  {{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt
@@ -203,10 +203,10 @@
           - Admin password: {{ admin_password }}
           {% endif %}
           {% endif %}
-
           {% if not rhpds_info_output | default(false) | bool %}
+
           FAILURES
-          *******************
+          ===================
           {{ dns_information }}
           {{ callback_information }}
           {{ demo_information }}
@@ -245,7 +245,7 @@
           messages: >-
             {%- if user_info_yaml is file -%}
             {{ lookup('file', user_info_yaml) | from_yaml | default([], true) }}
-            {%- if summary_information is defined -%}
+            {%- elif summary_information is defined -%}
             [ {{ summary_information }} ]
             {%- else -%}
             []

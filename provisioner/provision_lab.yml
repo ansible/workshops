@@ -192,6 +192,7 @@
         summary_information: |
           PROVISIONER SUMMARY
           ===================
+
           - Workshop name is {{ ec2_name_prefix }}
           {% if not rhpds_info_output | default(false) | bool %}
           - Instructor inventory is located at  {{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt
@@ -222,41 +223,41 @@
       debug:
         msg: "user.info: {{ summary_information }}"
 
-    #- name: Attempt RHPDS completion callback
-    #  when:
-    #  - agnosticd_callback_url != ''
-    #  - agnosticd_callback_token != ''
-    #  vars:
-    #    user_body_yaml: "{{ output_dir ~ '/user-body.yaml' }}"
-    #    user_data_yaml: "{{ output_dir ~ '/user-data.yaml' }}"
-    #    user_info_yaml: "{{ output_dir ~ '/user-info.yaml' }}"
-    #  uri:
-    #    url: "{{ agnosticd_callback_url }}"
-    #    method: POST
-    #    body_format: json
-    #    body:
-    #      event: complete
-    #      message_body: >-
-    #        {%- if user_body_yaml is file -%}
-    #        {{ lookup('file', user_body_yaml) | from_yaml | default([], true) }}
-    #        {%- else -%}
-    #        []
-    #        {%- endif -%}
-    #      messages: >-
-    #        {%- if user_info_yaml is file -%}
-    #        {{ lookup('file', user_info_yaml) | from_yaml | default([], true) }}
-    #        {%- elif summary_information is defined -%}
-    #        {{ [ summary_information ] }}
-    #        {%- else -%}
-    #        []
-    #        {%- endif -%}
-    #      data: >-
-    #        {%- if user_data_yaml is file -%}
-    #        {{ lookup('file', user_data_yaml) | from_yaml | default({}, true) }}
-    #        {%- else -%}
-    #        {}
-    #        {%- endif -%}
-    #    headers:
-    #      Authorization: Bearer {{ agnosticd_callback_token }}
-    #  # Best effort
-    #  ignore_errors: true
+    - name: Attempt RHPDS completion callback
+      when:
+      - agnosticd_callback_url != ''
+      - agnosticd_callback_token != ''
+      vars:
+        user_body_yaml: "{{ output_dir ~ '/user-body.yaml' }}"
+        user_data_yaml: "{{ output_dir ~ '/user-data.yaml' }}"
+        user_info_yaml: "{{ output_dir ~ '/user-info.yaml' }}"
+      uri:
+        url: "{{ agnosticd_callback_url }}"
+        method: POST
+        body_format: json
+        body:
+          event: complete
+          message_body: >-
+            {%- if user_body_yaml is file -%}
+            {{ lookup('file', user_body_yaml) | from_yaml | default([], true) }}
+            {%- else -%}
+            []
+            {%- endif -%}
+          messages: >-
+            {%- if user_info_yaml is file -%}
+            {{ lookup('file', user_info_yaml) | from_yaml | default([], true) }}
+            {%- elif summary_information is defined -%}
+            {{ [ summary_information ] }}
+            {%- else -%}
+            []
+            {%- endif -%}
+          data: >-
+            {%- if user_data_yaml is file -%}
+            {{ lookup('file', user_data_yaml) | from_yaml | default({}, true) }}
+            {%- else -%}
+            {}
+            {%- endif -%}
+        headers:
+          Authorization: Bearer {{ agnosticd_callback_token }}
+      # Best effort
+      ignore_errors: true

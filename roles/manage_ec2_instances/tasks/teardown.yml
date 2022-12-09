@@ -106,6 +106,7 @@
   when:
     - aws_cli_destroy_ec2|default(false)|bool
     - all_workshop_vpc_nodes.instances or all_workshop_vpc2_nodes.instances
+
 # Destroy VPC 1 instances
 - name: destroy EC2 instances
   amazon.aws.ec2_instance:

@@ -39,7 +39,7 @@
         pemexist: true
       when:
         - pem_check is defined
-        - 'stat' in pem_check
+        - pem_check.stat is defined
         - pem_check.stat.exists
 
 - name: configure private automation hub

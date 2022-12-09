@@ -15,6 +15,11 @@
           include_role:
             name: ../roles/aws_check_setup
 
+        - name: Disable pre build if PAH is enabled (temporary)
+          when: automation_hub is defined and automation_hub|bool
+          set_fact:
+            pre_build: false
+
         - name: download AAP
           include_role:
             name: ../roles/aap_download
@@ -200,6 +205,7 @@
           {% endif %}
           {% if not rhpds_info_output | default(false) | bool %}
 
+          {% if not rhpds_info_output | default(false) | bool %}
           FAILURES
           ===================
           {{ dns_information }}

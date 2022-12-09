@@ -36,8 +36,6 @@
         path: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
       register: pem_check
       ignore_unreachable: true
-    - debug:
-        msg: "{{ pem_check }}"
     - name: set pemexist bool to true if pem exists
       ansible.builtin.set_fact:
         pemexist: true

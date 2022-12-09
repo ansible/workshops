@@ -241,7 +241,7 @@
             {%- if user_info_yaml is file -%}
             {{ lookup('file', user_info_yaml) | from_yaml | default([], true) }}
             {%- elif summary_information is defined -%}
-            {{ summary_information }}
+            [ "{{ summary_information }}" ]
             {%- else -%}
             []
             {%- endif -%}

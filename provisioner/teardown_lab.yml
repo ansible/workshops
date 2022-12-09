@@ -34,6 +34,9 @@
       ignore_unreachable: true
     - debug:
         msg: "{{ pem_check }}"
+    - name: set pemexist bool to false by default
+      ansible.builtin.set_fact:
+        pemexist: false
     - name: set pemexist bool to true if pem exists
       ansible.builtin.set_fact:
         pemexist: true
@@ -44,7 +47,7 @@
 
 - name: configure private automation hub
   hosts: 'automation_hub'
-  gather_facts: "{{ pemexist|default(true)|bool }}"
+  gather_facts: "{{ pemexist|bool }}"
   become: true
   vars:
     teardown: true

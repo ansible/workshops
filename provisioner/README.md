@@ -215,7 +215,10 @@ Note that the tarball specified in the URL must match the SHA value defined in p
   aap_download_user: username
   aap_download_password: password
   ```
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> abdbf8d5 (add function to download aap tarball from specified url)
 
 ### Additional examples
 

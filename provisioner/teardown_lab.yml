@@ -38,16 +38,13 @@
       ansible.builtin.set_fact:
         pemexist: true
       when:
+        - pem_check is defined
+        - stat in pem_check
         - pem_check.stat.exists
-    - name: set pemexist bool to false if pem does not exist
-      ansible.builtin.set_fact:
-        pemexist: false
-      when:
-        - not pem_check.stat.exists
 
 - name: configure private automation hub
   hosts: 'automation_hub'
-  gather_facts: "{{ pemexist }}"
+  gather_facts: "{{ pemexist|default(true)|bool }}"
   become: true
   vars:
     teardown: true

@@ -105,7 +105,7 @@
     name: awscli
   when:
     - aws_cli_destroy_ec2|default(false)|bool
-    - all_workshop_vpc_nodes.instances or ( all_workshop_vpc2_nodes and all_workshop_vpc2_nodes.instances )
+    - all_workshop_vpc_nodes.instances or ( ec2_vpc_id2 is defined and all_workshop_vpc2_nodes.instances )
 
 # Destroy VPC 1 instances
 - name: destroy EC2 instances

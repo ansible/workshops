@@ -32,7 +32,6 @@
       when:
         - record_sets is defined
         - record_sets.list | length > 0
-        - record_sets.list[0].ResourceRecords | length > 0
 
 - name: "private_automation_hub | create DNS record"
   become: false

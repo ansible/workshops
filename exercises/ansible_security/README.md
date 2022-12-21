@@ -5,7 +5,7 @@
 Get started with Ansible Security Automation by implementing automation for three security use cases: 1) orchestrating firewalls, 2) IDS and SIEM: investigating suspicious traffic on a web server, and 3) threat hunting: analyzing unusual denied accesses on a firewall and remediation of a SQL injection. After a brief introduction, this workshop will guide you through basic concepts and show you how to use Ansible security automation in combination with existing third-party security solutions.
 
 **Read this in other languages**: <br>
-[![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja.md), [![france](../../images/fr.png) Français](README.fr.md).<br>
+[![uk](../../images/uk.png) English](README.md),  [![japan](../../images/japan.png) 日本語](README.ja.md), [![france](../../images/fr.png) Français](README.fr.md), ![Español](../../images/es.png) [Español](README.es.md).<br>
 
 ## Time planning
 

@@ -1,7 +1,8 @@
 ---
 # https://access.redhat.com/articles/3626371#bgenerating-an-access-tokenb-4
 #
-# equivalent of curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d grant_type=refresh_token -d client_id=rhsm-api -d refresh_token=$offline_token
+# equivalent of 
+# curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d grant_type=refresh_token -d client_id=rhsm-api -d refresh_token=$offline_token
 - name: Generating an access token
   uri:
     url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
@@ -17,6 +18,9 @@
   retries: 15
   delay: 20
 
+# example sha: 0046367b76d7c3aca0d311a05935acd667438dfe9640db16f5027952d46dc470
+# curl -H "Authorization: Bearer $token"  "https://api.access.redhat.com/management/v1/images/{{ provided_sha_value }}/download"
+# curl -H "Authorization: Bearer $token"  "https://api.access.redhat.com/management/v1/images/0046367b76d7c3aca0d311a05935acd667438dfe9640db16f5027952d46dc470/download"
 - name: Download aap.tar.gz
   delegate_to: localhost
   get_url:

@@ -38,7 +38,7 @@ source "amazon-ebs" "automation_controller_source" {
     iops = "3000"
     throughput = "125"
   }
-  tags = {
+  run_tags = {
     "Name" = "packer-build"
     "owner" = "seanc"
   }

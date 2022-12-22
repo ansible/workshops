@@ -8,7 +8,7 @@
   block:
     - name: Check that the manifest.zip exists
       stat:
-        path: "{{ playbook_dir }}/manifest.zip"
+        path: "/home/runner/files/manifest.zip"
       register: manifest_result
     - fail:
         msg: "Need a manifest file at {{ playbook_dir }}/manifest.zip"

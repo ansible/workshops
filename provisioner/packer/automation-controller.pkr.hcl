@@ -51,6 +51,6 @@ build {
       user = "ec2-user"
       inventory_file_template = "controller ansible_host={{ .Host }} ansible_user={{ .User }} ansible_port={{ .Port }}\n"
       extra_arguments = local.extra_args
-
+      use_proxy = false
     }
 }

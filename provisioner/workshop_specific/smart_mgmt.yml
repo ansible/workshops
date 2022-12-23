@@ -70,10 +70,14 @@
             - host
         injectors:
           env:
-            FOREMAN_SERVER: "{% raw %}{{ '{{host}}' }}{% endraw %}"
-            FOREMAN_USER: "{% raw %}{{ '{{username}}' }}{% endraw %}"
-            FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
-            FOREMAN_VALIDATE_CERTS: 'false'
+            FOREMAN_SERVER: !unsafe '{{ host }}'
+            FOREMAN_USER: !unsafe '{{ username }}'
+            FOREMAN_PASSWORD: !unsafe '{{ password }}'
+            FOREMAN_VALIDATE_CERTS: !unsafe 'false'
+#            FOREMAN_SERVER: "{% raw %}{{ '{{host}}' }}{% endraw %}"
+#            FOREMAN_USER: "{% raw %}{{ '{{username}}' }}{% endraw %}"
+#            FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
+#            FOREMAN_VALIDATE_CERTS: 'false'
       - name: GitHub_Personal_Access_Token
         description: Credential for GitHub repo operations automation
         kind: cloud
@@ -89,7 +93,8 @@
             - personal_access_token
         injectors:
           env:
-            MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"
+            MY_PA_TOKEN: !unsafe '{{ personal_access_token }}'
+#            MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"
     controller_credentials:
       - name: Satellite Credential
         credential_type: Satellite_Collection
@@ -113,7 +118,8 @@
         scm_update_on_launch: true
         scm_update_cache_timeout: 3600
         scm_type: git
-        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
+        scm_url: 'https://github.com/bdumont01/automated-smart-management.git'
+#        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
         scm_branch: aap2-29compat
         default_environment: smart_mgmt workshop execution environment
       - name: Fact Scan

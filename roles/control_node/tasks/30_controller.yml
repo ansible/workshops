@@ -66,7 +66,7 @@
     - name: Load manifest into variable
       local_action:
         module: slurp
-        src: "home/runner/files/manifest1.zip"
+        src: '/home/runner/files/manifest.zip'
       register: manifest_file
       become: false
 

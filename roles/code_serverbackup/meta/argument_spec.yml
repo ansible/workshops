@@ -1,0 +1,69 @@
+---
+argument_specs:
+  main:
+    short_description: Set up the code server, main entrypoint.
+    options:
+      teardown:
+        description: Whether to execute teardown or creation.
+        type: bool
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+  codeserver:
+    short_description: Provision the code server.
+    options:
+      s3_state:
+        description: Whether the DNS record is present or absent.
+        type: str
+        options:
+          - present
+          - absent
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      username:
+        description: The workshop username.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      admin_password:
+        description: The code server admin password.
+        type: str
+        required: true
+  teardown:
+    short_description: Teardown the code server.
+    options:
+      s3_state:
+        description: Whether the DNS record is present or absent.
+        type: str
+        options:
+          - present
+          - absent
+        required: true
+      workshop_dns_zone:
+        description: The base DNS zone for the workshop.
+        type: str
+        required: true
+      ec2_name_prefix:
+        description: A prefix for EC2 and DNS resources.
+        type: str
+        required: true
+      student_total:
+        description: The total number of students for the workshop.
+        type: int
+        required: true

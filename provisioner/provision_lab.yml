@@ -111,6 +111,7 @@
         - code_server
         - controllerinstall is defined
         - controllerinstall
+        - not pre_build|bool
 
     - name: add dns entires for all student control nodes
       include_role:
@@ -142,32 +143,6 @@
 
 - name: include workshop_type unique setup roles
   import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"
-
-- name: setup demos
-  hosts: control_nodes
-  gather_facts: false
-  vars:
-    my_tower_username: admin
-    my_tower_password: "{{ admin_password }}"
-    my_tower_host: "{{ ansible_host }}"
-  tasks:
-    - name: install demos from ansible.product_demos collection
-      block:
-        - name: install demo
-          include_role:
-            name: "ansible.product_demos.install_demo"
-          when:
-            - demo is defined
-            - controllerinstall is defined
-            - controllerinstall
-      rescue:
-        - name: install demo
-          debug:
-            msg: "Demos were NOT installed"
-
-        - name: update demo_information var
-          set_fact:
-            demo_information: "Demo issue: Demos were NOT installed"
 
 - name: Alert the mothership
   hosts: localhost
@@ -204,7 +179,6 @@
           *******************
           {{ dns_information }}
           {{ callback_information }}
-          {{ demo_information }}
           {% endif %}
 
     - name: Print Summary Information

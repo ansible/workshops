@@ -1,20 +1,26 @@
 ---
 # "admin" is reserved by gitea
-- name: Git Post| use gitea cli to create instructor user
-  shell: >
-    /usr/local/bin/gitea -c /etc/gitea/gitea.ini admin user create
-    --username instructor
-    --password {{ admin_password }}
-    --email instructor@example.com
-    --must-change-password=false
-  become_user: gitea
+# sean removed Jan5 2023
+# - name: Git Post| use gitea cli to create instructor user
+#   shell: >
+#     /usr/local/bin/gitea -c /etc/gitea/gitea.ini admin user create
+#     --username instructor
+#     --password {{ admin_password }}
+#     --email instructor@example.com
+#     --must-change-password=false
+#   become_user: gitea
 
+# sean modified password line to accept special characters like > based on docs https://docs.gitea.io/en-us/config-cheat-sheet/
 - name: Git Post | use gitea cli to create student user(s)
   shell: >
     /usr/local/bin/gitea -c /etc/gitea/gitea.ini admin user create
     --username student{{ item }}
-    --password {{ admin_password }}
+    --password """{{ admin_password }}"""
     --email student{{ item }}@example.com
     --must-change-password=false
   with_sequence: count="{{ student_total }}"
   become_user: gitea
+  register: gitearesult
+  failed_when:
+    - gitearesult.rc == 0
+    - '"user already exists" not in gitearesult.stdout'

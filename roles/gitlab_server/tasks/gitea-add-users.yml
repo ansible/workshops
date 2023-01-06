@@ -22,5 +22,5 @@
   become_user: gitea
   register: gitearesult
   failed_when:
-    - gitearesult.rc == 0
+    - '"successfully created" not in gitearesult.stdout'
     - '"user already exists" not in gitearesult.stdout'

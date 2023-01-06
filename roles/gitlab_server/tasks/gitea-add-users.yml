@@ -10,9 +10,27 @@
 #     --must-change-password=false
 #   become_user: gitea
 
+- name: Make sure gitea is correctly running and connecting
+  block:
+    - name: Waits for port 443 on gitea to listen
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host }}"
+        port: 443
+        timeout: 30
+  rescue:
+    - name: Restart gitea service
+      ansible.builtin.service:
+        name: gitea
+        state: restarted
+    - name: Waits for port 443 on gitea to listen
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host }}"
+        port: 443
+        timeout: 30
+
 # sean modified password line to accept special characters like > based on docs https://docs.gitea.io/en-us/config-cheat-sheet/
 - name: Git Post | use gitea cli to create student user(s)
-  shell: >
+  ansible.builtin.shell: >
     /usr/local/bin/gitea -c /etc/gitea/gitea.ini admin user create
     --username student{{ item }}
     --password """{{ admin_password }}"""

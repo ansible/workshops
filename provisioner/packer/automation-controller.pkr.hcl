@@ -38,6 +38,10 @@ source "amazon-ebs" "automation_controller_source" {
     iops = "3000"
     throughput = "125"
   }
+  run_tags = {
+    "Name" = "packer-build"
+    "owner" = "seanc"
+  }
 }
 
 
@@ -51,6 +55,6 @@ build {
       user = "ec2-user"
       inventory_file_template = "controller ansible_host={{ .Host }} ansible_user={{ .User }} ansible_port={{ .Port }}\n"
       extra_arguments = local.extra_args
-
+      use_proxy = false
     }
 }

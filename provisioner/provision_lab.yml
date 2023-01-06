@@ -111,6 +111,7 @@
         - code_server
         - controllerinstall is defined
         - controllerinstall
+        - not pre_build|bool
 
     - name: add dns entires for all student control nodes
       include_role:
@@ -143,32 +144,6 @@
 - name: include workshop_type unique setup roles
   import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"
 
-- name: setup demos
-  hosts: control_nodes
-  gather_facts: false
-  vars:
-    my_tower_username: admin
-    my_tower_password: "{{ admin_password }}"
-    my_tower_host: "{{ ansible_host }}"
-  tasks:
-    - name: install demos from ansible.product_demos collection
-      block:
-        - name: install demo
-          include_role:
-            name: "ansible.product_demos.install_demo"
-          when:
-            - demo is defined
-            - controllerinstall is defined
-            - controllerinstall
-      rescue:
-        - name: install demo
-          debug:
-            msg: "Demos were NOT installed"
-
-        - name: update demo_information var
-          set_fact:
-            demo_information: "Demo issue: Demos were NOT installed"
-
 - name: Alert the mothership
   hosts: localhost
   connection: local
@@ -188,18 +163,31 @@
           PROVISIONER SUMMARY
           *******************
           - Workshop name is {{ ec2_name_prefix }}
+          {% if not rhpds_info_output | default(false) | bool %}
           - Instructor inventory is located at  {{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt
           - Private key is located at {{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem
+          {% endif %}
           {% if attendance %}
           - {{ hostvars['attendance-host'].login_website_information | default("attendance feature is not functioning") }}
+          {% if rhpds_info_output | default(false) | bool %}
+          - Admin password: {{ admin_password }}
+          {% endif %}
           {% endif %}
 
+          {% if not rhpds_info_output | default(false) | bool %}
           FAILURES
           *******************
           {{ dns_information }}
           {{ callback_information }}
-          {{ demo_information }}
+          {% endif %}
 
     - name: Print Summary Information
+      when: not rhpds_info_output | default(false) | bool
       debug:
         msg: "{{ summary_information }}"
+
+    - name: Print Summary Information
+      when: rhpds_info_output | default(false) | bool
+      debug:
+        msg: "user.info: {{ summary_information }}"
+

@@ -89,12 +89,6 @@
     state: started
     daemon_reload: true
 
-# - name: update nginx configuration to support code server
-#   ansible.builtin.template:
-#     src: automation-controller.nginx.conf
-#     dest: /etc/nginx/conf.d/automation-controller.nginx.conf
-#   when: workshop_type is defined
-
 - name: instruqt - update nginx configuration to support code server
   blockinfile:
     block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
@@ -108,7 +102,3 @@
     block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
     dest: "{{ aap_dir }}/collections/ansible_collections/ansible/automation_platform_installer/roles/automationcontroller/templates/automation-controller.nginx.conf.j2"
     insertafter: "http {"
-
-# - name: configure nginx on Automation controller
-#   include_tasks: "controller.yml"
-#   when: workshop_type is defined

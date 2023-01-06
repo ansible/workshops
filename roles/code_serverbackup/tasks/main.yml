@@ -1,12 +1,16 @@
 ---
+- name: remove dns entries for each vs code instance
+  include_tasks: teardown.yml
+  when: teardown|bool
+
 - name: setup check for code server
   when:
     - not teardown
   block:
-    - name: Check to see if SSL cert already applied
+    - name: check to see if SSL cert already applied
       become: false
       community.crypto.get_certificate:
-        host: "{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/editor"
+        host: "{{ student }}-code.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
         port: 443
       delegate_to: localhost
       run_once: true
@@ -15,7 +19,7 @@
       failed_when: false
       when: workshop_type is defined
 
-    - name: Ensure Automation controller is online and working
+    - name: ensure Automation controller is online and working
       uri:
         url: https://localhost/api/v2/ping/
         method: GET

@@ -1,19 +1,25 @@
 ---
-- name: configure sshd_config
+- name: Configure sshd_config
   ansible.builtin.template:
     src: sshd_config.conf
     dest: /etc/ssh/sshd_config
     validate: "sshd -t -f %s"
   notify: restart ssh
 
-- name: configure sudoers
+- name: Configure sudoers
   ansible.builtin.template:
     src: sudoers.conf
     dest: /etc/sudoers
     validate: "visudo -cf %s"
   notify: restart ssh
 
-- hostname:
+- name: Configure cloud.cfg
+  ansible.builtin.template:
+    src: cloud.cfg
+    dest: /etc/cloud/cloud.cfg
+
+- name: configure hostname
+  ansible.builtin.hostname:
     name: "{{ short_name|default('automation-controller') }}.example.com"
 
 - meta: flush_handlers

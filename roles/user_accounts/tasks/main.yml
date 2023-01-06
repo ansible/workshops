@@ -1,6 +1,6 @@
 ---
 - name: Create User Group
-  group:
+  ansible.builtin.group:
     name: "{{ username }}"
     state: present
   tags:
@@ -8,7 +8,7 @@
     - users
 
 - name: Create User Account
-  user:
+  ansible.builtin.user:
     createhome: true
     group: "{{ username }}"
     name: "{{ username }}"

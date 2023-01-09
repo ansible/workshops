@@ -4,7 +4,7 @@
 {% if workshop_type is defined %}
 {{ ansible_host }} ansible_connection=local
 {% else %}
-automationhub ansible_connection=local
+{{ ansible_default_ipv4.address }} ansible_connection=local
 {% endif %}
 
 [database]
@@ -39,3 +39,18 @@ automationhub_pg_sslmode='prefer'
 
 gpgcheck='{{ gpgcheck | default(1)}}'
 ignore_preflight_errors = True
+
+{% if enable_signing == true %}
+automationhub_create_default_container_signing_service = True
+automationhub_create_default_collection_signing_service = True
+automationhub_auto_sign_collections = True
+automationhub_require_content_approval = True
+automationhub_collection_signing_service_key = {{ aap_dir }}/galaxy_signing_service.gpg
+automationhub_collection_signing_service_script = {{ aap_dir }}/signing_service.sh  
+automationhub_container_signing_service_key = {{ aap_dir }}/galaxy_signing_service.gpg
+automationhub_container_signing_service_script = {{ aap_dir }}/signing_service_container.sh
+{% endif %}
+
+{% if seed_validated_content == true %}
+automationhub_seed_collections=True
+{% endif %}

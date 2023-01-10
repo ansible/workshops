@@ -283,4 +283,12 @@ pre_build_controller_ami:
   us-west-1: ami-0d40bd706ce33b28e
   us-west-2: ami-0825b716c68c09981
 pre_build_hub_ami:
+  ap-northeast-1: ami-0e10c305c74ebe2c4
+  ap-southeast-1: ami-0b8c588fe02c19ce6
+  eu-central-1: ami-029abcf986bb7184b
+  eu-west-1: ami-00bef767b6ca8c984
+  eu-west-2: ami-011c00be5f944ee31
   us-east-1: ami-010a11c3f9fb72abf
+  us-east-2: ami-08241f088dd7ba4c0
+  us-west-1: ami-0f382a9cddf149608
+  us-west-2: ami-07bf564f45ff71e62

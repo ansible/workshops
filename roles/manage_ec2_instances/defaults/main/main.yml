@@ -282,3 +282,5 @@ pre_build_controller_ami:
   us-east-2: ami-0bc2d6ec98bf4d8b0
   us-west-1: ami-0d40bd706ce33b28e
   us-west-2: ami-0825b716c68c09981
+pre_build_hub_ami:
+  us-east-1: ami-010a11c3f9fb72abf

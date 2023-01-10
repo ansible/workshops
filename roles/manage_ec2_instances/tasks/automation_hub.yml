@@ -1,6 +1,15 @@
 ---
-- name: set ami for hub host
-  import_tasks: 'ami_find/ami_find_hub.yml'
+- name: Find ami if no ami provided for hub
+  when: not pre_build|bool
+  block:
+    - name: set ami for hub host
+      import_tasks: 'ami_find/ami_find_hub.yml'
+
+- name: save ami for ansible hub node pre_build
+  when: pre_build|bool
+  set_fact:
+    ansible_hub_node_ami:
+      image_id: "{{ pre_build_hub_ami[ec2_region] }}"
 
 - name: create automation hub host
   import_tasks: 'instances/instances_automation_hub.yml'

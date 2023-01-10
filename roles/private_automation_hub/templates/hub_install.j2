@@ -1,11 +1,7 @@
 [automationcontroller]
 
 [automationhub]
-{% if workshop_type is defined %}
-{{ ansible_host }} ansible_connection=local
-{% else %}
 {{ ansible_default_ipv4.address }} ansible_connection=local
-{% endif %}
 
 [database]
 

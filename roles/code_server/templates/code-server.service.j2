@@ -9,7 +9,7 @@ WorkingDirectory=/home/{{ username }}
 Restart=on-failure
 RestartSec=10
 {% if workshop_type is defined %}
-Environment="PASSWORD={{admin_password}}"
+Environment="PASSWORD={{ admin_password }}"
 
 ExecStart=/bin/code-server
 {% else %}

@@ -53,7 +53,6 @@
   tasks:
     - {include_role: {name: ../roles/manage_ec2_instances}}
     - {include_role: {name: ../roles/aws_dns}, when: dns_type == "aws"}
-    - {include_role: {name: ../roles/code_server}, when: code_server}
     - {include_role: {name: ../roles/gitlab_server}, when: workshop_type == "windows"}
     - {include_role: {name: ../roles/workshop_attendance}, when: attendance}
 

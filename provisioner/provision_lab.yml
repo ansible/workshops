@@ -111,7 +111,6 @@
         - code_server
         - controllerinstall is defined
         - controllerinstall
-        - not pre_build|bool
 
     - name: add dns entires for all student control nodes
       include_role:

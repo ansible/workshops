@@ -1,32 +1,12 @@
 ---
-- name: setup check for code server
-  when:
-    - not teardown
-  block:
-    - name: Check to see if SSL cert already applied
-      become: false
-      community.crypto.get_certificate:
-        host: "{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/editor"
-        port: 443
-      delegate_to: localhost
-      run_once: true
-      register: check_cert
-      ignore_errors: true
-      failed_when: false
-      when: workshop_type is defined
-
-    - name: Ensure Automation controller is online and working
-      uri:
-        url: https://localhost/api/v2/ping/
-        method: GET
-        user: admin
-        password: "{{ admin_password }}"
-        validate_certs: false
-        force_basic_auth: true
-      register: check_controller
-
+- name: debug it 
+  ansible.builtin.debug:
+    var: pre_build
+    
 - name: setup vscode for web browser access
   include_tasks: "codeserver.yml"
-  when:
-    - not teardown|bool
-    - check_cert.cert is not defined
+  when: not pre_build|bool
+
+- name: setup vscode everytime
+  include_tasks: "codeserver_always.yml"
+  when: pre_build|bool

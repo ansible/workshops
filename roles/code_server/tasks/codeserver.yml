@@ -89,16 +89,15 @@
     state: started
     daemon_reload: true
 
-- name: instruqt - update nginx configuration to support code server
+- name: editor block - update nginx configuration to support code server
   blockinfile:
     block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
     dest: /etc/nginx/conf.d/automation-controller.nginx.conf
     insertbefore: "location / "
-  when: workshop_type is not defined
 
 # Make sure we can re-run the automation platform installer during a lab without killing code-server access
 - name: update Ansible installer nginx configuration template to support code server
   blockinfile:
     block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
     dest: "{{ aap_dir }}/collections/ansible_collections/ansible/automation_platform_installer/roles/automationcontroller/templates/automation-controller.nginx.conf.j2"
-    insertafter: "http {"
+    insertbefore: "location / "

@@ -11,5 +11,4 @@
 
 - name: setup ssl cert
   include_tasks: "50_ssl.yml"
-  when: pre_build or automation_hub | bool and
-        not teardown
+  when: automation_hub | bool and not teardown|bool

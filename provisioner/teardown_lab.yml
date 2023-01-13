@@ -25,12 +25,27 @@
 
 - name: configure private automation hub
   hosts: 'automation_hub'
-  gather_facts: true
+  gather_facts: false
   become: true
   vars:
     teardown: true
     state: absent
   tasks:
+    - name: check if pem exists
+      ansible.builtin.stat:
+        path: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+      register: pem_check
+      ignore_unreachable: true
+    - name: set pemexist bool to true if pem exists
+      ansible.builtin.set_fact:
+        pemexist: true
+      when:
+        - pem_check is defined
+        - pem_check.stat is defined
+        - pem_check.stat.exists
+    - name: gather_facts if pemexist
+      ansible.builtin.setup:
+      when: pemexist|default(false)|bool
     - include_role:
         name: ../roles/private_automation_hub
       when:
@@ -55,6 +70,42 @@
     - {include_role: {name: ../roles/aws_dns}, when: dns_type == "aws"}
     - {include_role: {name: ../roles/gitlab_server}, when: workshop_type == "windows"}
     - {include_role: {name: ../roles/workshop_attendance}, when: attendance}
+    - name: Attempt RHPDS completion callback
+      when:
+      - agnosticd_callback_url != ''
+      - agnosticd_callback_token != ''
+      vars:
+        user_body_yaml: "{{ output_dir ~ '/user-body.yaml' }}"
+        user_data_yaml: "{{ output_dir ~ '/user-data.yaml' }}"
+        user_info_yaml: "{{ output_dir ~ '/user-info.yaml' }}"
+      uri:
+        url: "{{ agnosticd_callback_url }}"
+        method: POST
+        body_format: json
+        body:
+          event: complete
+          message_body: >-
+            {%- if user_body_yaml is file -%}
+            {{ lookup('file', user_body_yaml) | from_yaml | default([], true) }}
+            {%- else -%}
+            []
+            {%- endif -%}
+          messages: >-
+            {%- if user_info_yaml is file -%}
+            {{ lookup('file', user_info_yaml) | from_yaml | default([], true) }}
+            {%- else -%}
+            []
+            {%- endif -%}
+          data: >-
+            {%- if user_data_yaml is file -%}
+            {{ lookup('file', user_data_yaml) | from_yaml | default({}, true) }}
+            {%- else -%}
+            {}
+            {%- endif -%}
+        headers:
+          Authorization: Bearer {{ agnosticd_callback_token }}
+      # Best effort
+      ignore_errors: true
 
     - name: Remove workshop local files
       file:

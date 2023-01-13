@@ -185,7 +185,6 @@
           ===================
           {{ dns_information }}
           {{ callback_information }}
-          {{ demo_information }}
           {% endif %}
 
     - name: Print Summary Information

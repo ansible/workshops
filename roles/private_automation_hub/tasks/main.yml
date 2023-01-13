@@ -1,4 +1,3 @@
----
 - name: Configure Hub node
   include_tasks: "1_configurehub.yml"
   when: not teardown|bool

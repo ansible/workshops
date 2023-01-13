@@ -18,4 +18,3 @@
     private_ip: "{{ item.private_ip_address }}"
     groups: automation_hub
   with_items: "{{ automation_hub_host_facts.instances }}"
-  when: workshop_type != "configascode"

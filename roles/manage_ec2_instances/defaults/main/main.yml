@@ -37,7 +37,7 @@ ec2_info:
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
   juniper:
-    size: c4.xlarge
+    size: c5.xlarge
     ami: "{{ juniper_ami | default(omit) }}"
     os: junos
     username: ec2-user
@@ -179,7 +179,7 @@ ec2_info:
     disk_iops: 3000
     disk_throughput: 125
     architecture: x86_64
-    filter: 'F5 BIGIP-16.0.*PAYG-Best 25Mbps*'
+    filter: 'F5 BIGIP-*PAYG-Best 25Mbps*'
     username: admin
   splunk_enterprise:
     owners: 309956199498
@@ -273,8 +273,22 @@ debug_teardown: false
 ansible_async_dir: "/tmp/.ansible_async"
 
 pre_build_controller_ami:
-  ap-northeast-1: ami-0da78e70d7075db05
-  ap-southeast-1: ami-0ecb7b04fbe934e87
-  eu-central-1: ami-0a44f9797a563dff2
-  us-east-1: ami-0ba0a698149352312
-  us-east-2: ami-0fd82a1c6df3b5781
+  ap-northeast-1: ami-0c4230e426c9f94de
+  ap-southeast-1: ami-0afa88d581e851805
+  eu-central-1: ami-0f9b780494fafdb26
+  eu-west-1: ami-0c907512035602d94
+  eu-west-2: ami-08846e44b9cd553b4
+  us-east-1: ami-03444888d0fa75fe0
+  us-east-2: ami-09906d1caf7f02052
+  us-west-1: ami-0dab0229dff674a15
+  us-west-2: ami-0be692f9f0aefee71
+pre_build_hub_ami:
+  ap-northeast-1: ami-0e10c305c74ebe2c4
+  ap-southeast-1: ami-0b8c588fe02c19ce6
+  eu-central-1: ami-029abcf986bb7184b
+  eu-west-1: ami-00bef767b6ca8c984
+  eu-west-2: ami-011c00be5f944ee31
+  us-east-1: ami-010a11c3f9fb72abf
+  us-east-2: ami-08241f088dd7ba4c0
+  us-west-1: ami-0f382a9cddf149608
+  us-west-2: ami-07bf564f45ff71e62

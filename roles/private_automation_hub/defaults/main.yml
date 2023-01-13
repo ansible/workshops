@@ -3,6 +3,8 @@ aap_dir: "/home/{{ username }}/aap_install"
 output_dir: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
 state: present
 teardown: false
-enable_signing: false
+enable_signing: true
 gpg_key_user_name: "Joe Tester"
 gpg_key_user_email: "joe@foo.bar"
+seed_validated_content: false
+pre_build: false

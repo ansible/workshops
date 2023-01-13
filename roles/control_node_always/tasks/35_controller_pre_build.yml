@@ -1,4 +1,9 @@
 ---
+- name: Start service automation-controller-service, if not started
+  ansible.builtin.service:
+    name: automation-controller
+    state: started
+
 - name: set password
   block:
     - name: change admin password
@@ -9,7 +14,7 @@
         superuser: true
         controller_username: admin
         controller_password: "R3dh4t1!"
-        controller_host: "https://{{ ansible_host }}"
+        controller_host: "https://localhost"
         validate_certs: false
   rescue:
     - name: change admin password
@@ -20,5 +25,5 @@
         superuser: true
         controller_username: admin
         controller_password: "{{ admin_password }}"
-        controller_host: "https://{{ ansible_host }}"
+        controller_host: "https://localhost"
         validate_certs: false

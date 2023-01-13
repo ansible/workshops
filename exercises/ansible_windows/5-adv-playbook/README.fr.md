@@ -9,14 +9,14 @@ Les variables sont la façon dont nous traitons les différences entre vos syst�
 
 Les boucles nous permettent de répéter la même tâche encore et encore. Par exemple, supposons que vous souhaitiez démarrer plusieurs services, installer plusieurs fonctionnalités ou créer plusieurs répertoires. En utilisant une boucle ansible, vous pouvez le faire en une seule tâche.
 
-Les handlers sont la façon dont nous redémarrons les services. Vous venez de déployer un nouveau fichier de configuration, d'installer un nouveau package? Si tel est le cas, vous devrez peut-être redémarrer un service pour que ces modifications prennent effet. Nous le faisons avec un handler.
+Parfois, vous souhaitez qu'une tâche ne s'exécute que lorsqu'une modification est apportée à une machine. Par exemple, vous souhaiterez peut-être redémarrer un service si une tâche met à jour la configuration de ce service, mais pas si la configuration est inchangée. Ansible utilise les *handlers* pour répondre à ce cas d'utilisation. Les *handlers* sont des tâches qui ne s'exécutent que lorsqu'elles sont notifiées.
 
 Pour une compréhension complète des variables, des boucles et des handlers; consultez notre documentation Ansible sur ces sujets.
 
 
 [Les Variables Ansible Variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
 [Les Boucles Ansible](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
-[Les Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#handlers)
+[Les Handlers](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#handlers)
 
 Section 1: Création du Playbook
 ===============================
@@ -97,21 +97,14 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 ```
 <!-- {% endraw %} -->
 
-> **Remarque**
->
 > **Que se passe-t-il ici!?**
->
-> - `vars:` Vous avez dit à Ansible que la prochaine chose qu'il verra sera des variable
->
-> - `iis_sites` Vous définissez une variable de type liste
->
-> - `win_file`  Ce module permet de créer, modifier, supprimer des fichiers.
->
-> - `{{ item }}` Vous dites à Ansible qu'il utilisera l'élément de la liste. Chaque élément a plusieurs variables comme `nom`, `port` et `path`
->
-> - `with_items: "{{ iis_sites }}` Ceci est la boucle qui va itérer sur chaque éléments de la variable `iis_sites`  
->
-> - `notify: restart iis service` Cette instruction est un `handler`, nous y reviendrons dans la section 3
+> * `vars:` Vous avez dit à Ansible que la prochaine chose qu'il verra sera des variable
+> * `iis_sites` Vous définissez une variable de type liste
+> * `win_file`  Ce module permet de créer, modifier, supprimer des fichiers.
+> * `{{ item }}` Vous dites à Ansible qu'il utilisera l'élément de la liste. Chaque élément a plusieurs variables comme `nom`, `port` et `path`
+> * `with_items: "{{ iis_sites }}` Ceci est la boucle qui va itérer sur chaque éléments de la variable `iis_sites`
+> * `notify: restart iis service` Cette instruction est un `handler`, nous y reviendrons dans la section 3
+
 
 Section 2: Ouverture du pare-feu et déploiement de fichiers
 ===========================================================
@@ -179,15 +172,11 @@ Modifiez votre playbook, `site.yml`, pour ouvrire les ports de votre pare-feu. U
 ```
 <!-- {% endraw %} -->
 
-> **Remarque**
->
+
 > **Alors… qu'est-ce que je viens d'écrire?**
->
-> - `win_firewall_rule:` Ce module est utilisé pour créer, modifier et mettre à jour des règles de pare-feu. Notez que dans le cas d'AWS, il existe également des règles de groupe de sécurité qui peuvent avoir un impact sur la communication. Nous les avons ouverts dans cet exemple.
->
-> - `win_template:` Ce module spécifie qu'un modèle jinja2 est utilisé et déployé.
->
-> - `debug:` Encore une fois, comme dans le playbook `iis_basic`, cette tâche affiche les URL pour accéder aux sites que nous créons pour cet exercice
+> * `win_firewall_rule:` Ce module est utilisé pour créer, modifier et mettre à jour des règles de pare-feu. Notez que dans le cas d'AWS, il existe également des règles de groupe de sécurité qui peuvent avoir un impact sur la communication. Nous les avons ouverts dans cet exemple.
+> * `win_template:` Ce module spécifie qu'un modèle jinja2 est utilisé et déployé.
+> * `debug:` Encore une fois, comme dans le playbook `iis_basic`, cette tâche affiche les URL pour accéder aux sites que nous créons pour cet exercice
 
 
 Section 3: Définition et utilisation des handlers
@@ -213,12 +202,9 @@ Définir un handler.
             start_mode: auto
 ```
 
-> **Remarque**
 > **L'un ne va pas sans l'autre**
->
-> - `handler:` Cela indique au **play** que les `tâches:` sont terminées, et maintenant nous définissons les `handlers:`. Tout ce qui se trouve en dessous ressemble à n'importe quelle autre tâche, c'est-à-dire que vous lui donnez un nom, un module et les options de ce module mais Il s'agit de la définition des handlers.
->
-> - `notify: restart iis service` Finalement, l'instruction `notify` est l'invocation d'un handler par son nom. Vous avez déjà remarqué que nous avons ajouté une instruction `notify` à la tâche `win_iis_website`, vous savez maintenant pourquoi.
+> * `handler:` Cela indique au **play** que les `tâches:` sont terminées, et maintenant nous définissons les `handlers:`. Tout ce qui se trouve en dessous ressemble à n'importe quelle autre tâche, c'est-à-dire que vous lui donnez un nom, un module et les options de ce module mais Il s'agit de la définition des handlers.
+> * `notify: restart iis service` Finalement, l'instruction `notify` est l'invocation d'un handler par son nom. Vous avez déjà remarqué que nous avons ajouté une instruction `notify` à la tâche `win_iis_website`, vous savez maintenant pourquoi.
 
 Section 4: Valider et réviser
 =============================
@@ -319,7 +305,6 @@ Section 5: Créez un modèle de tache
 Avant que nous puissions créer notre modèle de tache, vous devez d'abord recommencer la resynchronisation de votre projet. Faites-le maintenant.
 
 > **Note**
->
 > Vous devez le faire chaque fois que vous créez un nouveau fichier de playbook. Le nouveau fichier doit être synchronisé avec Controller avant qu'il ne devienne disponible dans la liste déroulante des Playbook disponibles .
 
 Étape 2:
@@ -381,7 +366,6 @@ Maintenant, exécutons-le et voyons comment cela fonctionne.
 Selectionnez `Modèles`
 
 > **Remarque**
->
 > Sinon, si vous n'avez pas quitté la page de création de modèles de travail, vous pouvez faire défiler vers le bas pour voir tous les modèles de tâche existants
 
 Étape 2:

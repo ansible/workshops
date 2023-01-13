@@ -1,20 +1,44 @@
 ---
 # "admin" is reserved by gitea
-- name: Git Post| use gitea cli to create instructor user
-  shell: >
-    /usr/local/bin/gitea -c /etc/gitea/gitea.ini admin user create
-    --username instructor
-    --password {{ admin_password }}
-    --email instructor@example.com
-    --must-change-password=false
-  become_user: gitea
+# sean removed Jan5 2023
+# - name: Git Post| use gitea cli to create instructor user
+#   shell: >
+#     /usr/local/bin/gitea -c /etc/gitea/gitea.ini admin user create
+#     --username instructor
+#     --password {{ admin_password }}
+#     --email instructor@example.com
+#     --must-change-password=false
+#   become_user: gitea
 
+- name: Make sure gitea is correctly running and connecting
+  block:
+    - name: Waits for port 443 on gitea to listen
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host }}"
+        port: 443
+        timeout: 30
+  rescue:
+    - name: Restart gitea service
+      ansible.builtin.service:
+        name: gitea
+        state: restarted
+    - name: Waits for port 443 on gitea to listen
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host }}"
+        port: 443
+        timeout: 30
+
+# sean modified password line to accept special characters like > based on docs https://docs.gitea.io/en-us/config-cheat-sheet/
 - name: Git Post | use gitea cli to create student user(s)
-  shell: >
+  ansible.builtin.shell: >
     /usr/local/bin/gitea -c /etc/gitea/gitea.ini admin user create
     --username student{{ item }}
-    --password {{ admin_password }}
+    --password """{{ admin_password }}"""
     --email student{{ item }}@example.com
     --must-change-password=false
   with_sequence: count="{{ student_total }}"
   become_user: gitea
+  register: gitearesult
+  failed_when:
+    - '"successfully created" not in gitearesult.stdout'
+    - '"user already exists" not in gitearesult.stdout'

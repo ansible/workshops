@@ -87,7 +87,7 @@
       become_user: "{{ username }}"
 
     - name: Commit file
-      command: git config --global --unset credential.helper; git push origin master
+      command: git push origin master
       args:
         chdir: /home/{{ username }}/windows-workshop/workshop_project
       become_user: "{{ username }}"

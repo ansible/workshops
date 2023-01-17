@@ -30,15 +30,15 @@ Maintenant, faites un clic droit sur **roles** et créez un nouveau dossier appe
 
 Dans *iis_simple*, créez de nouveaux dossiers comme suit:
 
-- defaults
+* defaults
 
-- vars
+* vars
 
-- handlers
+* handlers
 
-- tasks
+* tasks
 
-- templates
+* templates
 
 Étape 3:
 --------
@@ -113,15 +113,11 @@ Ajoutez des variables spécifiques au rôle à votre rôle dans `roles\iis_simpl
 >
 > Oui… oui nous l'avons fait. Les variables peuvent être assignées à plusieurs endroits. Juste pour en nommer quelques-uns:
 >
-> - Le repertoire vars 
->
-> - Le repertoire defaults 
->
-> - Le repertoire group_vars 
->
-> - Dans le playbook dans la section `vars:` 
->
-> - Dans n'importe quel fichier qui peut être spécifié sur la ligne de commande en utilisant l'option `--extra_vars` 
+> * Le repertoire vars 
+> * Le repertoire defaults 
+> * Le repertoire group_vars 
+> * Dans le playbook dans la section `vars:` 
+> * Dans n'importe quel fichier qui peut être spécifié sur la ligne de commande en utilisant l'option `--extra_vars` 
 >
 > En bout de ligne, vous devriez lire la documentation sur les [variables](https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) pour comprendre où définir les variables et quels emplacements ont la priorité. Dans cet exercice, nous utilisons les valeurs par défaut des rôles pour définir quelques variables et celles-ci sont les plus malléables. Après cela, nous avons défini une variable dans `/vars` qui ont une priorité plus élevée que les valeurs par défaut.
 

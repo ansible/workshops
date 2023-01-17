@@ -4,6 +4,11 @@
     src: "signing_service.sh"
     dest: "{{ aap_dir }}"
 
+- name: Copy container signing script to the PAH server
+  copy:
+    src: "signing_service_container.sh"
+    dest: "{{ aap_dir }}"
+
 - name: Create a gpg key description from template
   template:
     src: "gpg.txt.j2"

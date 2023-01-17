@@ -13,6 +13,7 @@
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: admin
+    student: "{{ item.tags.Student }}"
     ansible_password: admin
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
@@ -32,8 +33,9 @@
 - name: add node1 to groups (workshop_type f5)
   add_host:
     name: "{{ item.tags.Name }}"
+    username: "{{ student_user }}"
+    student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
-    username: "{{ item.tags.Student }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
@@ -55,8 +57,9 @@
 - name: add node2 to groups (workshop_type f5)
   add_host:
     name: "{{ item.tags.Name }}"
+    username: "{{ student_user }}"
+    student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
-    username: "{{ item.tags.Student }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"

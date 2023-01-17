@@ -7,12 +7,5 @@
         image_ids: "{{ pre_build_controller_ami[ec2_region] }}"
   rescue:
     - name: AWS AMI Access is not available
-      debug:
-        msg: "You do not have access to the pre_build AMI for region {{ ec2_region }}.  Reverting to filter lookups"
-    - name: turning pre_build off
-      set_fact:
-        pre_build: false
-    - name: fail if we can't overwrite pre_build var
       fail:
-        msg: "Cannot overwrite pre_build var, did you send as an extra_var?  Try setting pre_build to false or opening an issue on github.com/ansible/workshops"
-      when: pre_build
+        msg: "You do not have access to the pre_build AMI for region {{ ec2_region }}.  Please re-run with pre_build set to false"

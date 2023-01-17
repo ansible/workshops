@@ -1,33 +1,14 @@
----
-- name: redhat subscription
-  include_tasks: "5_redhat_sub.yml"
-  when: pemexist|default(false)|bool
-
-- name: aap setup
-  include_tasks: "10_aap_setup.yml"
-  tags:
-    - aap_setup
-  when: not teardown
-
-- name: AAP Signing bits included?
-  set_fact:
-    aap_signing_bits_included: "{{ __aap_version is version('2.2.0', '>=')  }}"
-  when: not teardown
-
-- name: Setup signing
-  include_tasks: "20_setup_signing.yml"
-  when: not teardown and enable_signing and aap_signing_bits_included
-
-- name: install hub
-  include_tasks: "30_hub.yml"
-  when: not teardown
+- name: Configure Hub node
+  include_tasks: "1_configurehub.yml"
+  when: not teardown|bool
 
 - name: setup DNS specific information
   include_tasks: "{{ item }}"
   with_first_found:
     - "{{ role_path }}/tasks/40_dns/{{ dns_type }}.yml"
     - "{{ role_path }}/tasks/40_dns/none.yml"
+  when: pre_build or automation_hub | bool
 
 - name: setup ssl cert
   include_tasks: "50_ssl.yml"
-  when: not teardown
+  when: automation_hub | bool and not teardown|bool

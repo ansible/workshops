@@ -62,7 +62,7 @@ Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui peut ê
 Section 2: Definir votre Play
 =============================
 
-Maintenant, nous que nous avons le fichier `install_iis.yml`, commençons par écrire le play et comprendre ce que chaque ligne accomplit
+Maintenant que nous avons le fichier `install_iis.yml`, commençons par écrire le play et comprendre ce que chaque ligne accomplit
 
 ```yaml
     ---
@@ -70,11 +70,11 @@ Maintenant, nous que nous avons le fichier `install_iis.yml`, commençons par é
       hosts: windows
 ```
 
-- `---` Définit le début du fichier YAML
+* `---` Définit le début du fichier YAML
 
-- `name: install the iis web service` Cela décrit notre play
+* `name: install the iis web service` Cela décrit notre play
 
-- `hosts: windows` Définit le groupe d'hôtes de votre inventaire sur lequel ce play se déroulera
+* `hosts: windows` Définit le groupe d'hôtes de votre inventaire sur lequel ce play se déroulera
 
 Section 3: Ajout de tâches à votre play
 =======================================
@@ -87,30 +87,30 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
 <!-- {% raw %} -->
 ```yaml
       tasks:
-       - name: install iis
+        - name: install iis
          win_feature:
            name: Web-Server
            state: present
 
-       - name: start iis service
+        - name: start iis service
          win_service:
            name: W3Svc
            state: started
 
-       - name: Create website index.html
+        - name: Create website index.html
          win_copy:
            content: "{{ iis_test_message }}"
            dest: C:\Inetpub\wwwroot\index.html
 
-       - name: Show website address
+        - name: Show website address
          debug:
            msg: "http://{{ ansible_host }}"
 ```
 <!-- {% endraw %} -->
 
-- `tasks:` Cela signifie qu'une ou plusieurs tâches sont sur le point d'être définies
+* `tasks:` Cela signifie qu'une ou plusieurs tâches sont sur le point d'être définies
 
-- `- name:` Chaque tâche nécessite un nom qui s'affichera sur la sortie standard lorsque vous exécutez votre playbook. Par conséquent, donnez à vos tâches un nom court, simple et précis
+* `- name:` Chaque tâche nécessite un nom qui s'affichera sur la sortie standard lorsque vous exécutez votre playbook. Par conséquent, donnez à vos tâches un nom court, simple et précis
 
 <!-- -->
 
@@ -120,7 +120,7 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
       state: present
 ```
 
-- Ces trois lignes appellent le module Ansible `win_feature` pour installer le serveur Web IIS. [Cliquez ici](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html) pour voir les options disponibles du module `win_feature`.
+* Ces trois lignes appellent le module Ansible `win_feature` pour installer le serveur Web IIS. [Cliquez ici](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html) pour voir les options disponibles du module `win_feature`.
 
 <!-- -->
 ```yaml
@@ -129,7 +129,7 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
       state: started
 ```
 
-- Les lignes suivantes utilisent le module ansible `win_service` pour démarrer le service IIS. Le module `win_service` est le meilleur moyen pour contrôler les services sur les hôtes distants.[Cliquez ici](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html) pour voir les options disponibles du module `win_service`.
+* Les lignes suivantes utilisent le module ansible `win_service` pour démarrer le service IIS. Le module `win_service` est le meilleur moyen pour contrôler les services sur les hôtes distants.[Cliquez ici](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html) pour voir les options disponibles du module `win_service`.
 
 <!-- {% raw %} -->
 ```yaml
@@ -139,7 +139,7 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
 ```
 <!-- {% endraw %} -->
 
-- Dans cette tâche, nous utilisons le module `win_copy` pour créer un fichier avec un contenu spécifique. Nous ajoutons un peu de complexité ici car nous utilisons une variable comme contenu d'un fichier. Nous ne détaillerons pas l'utilisation des variables pour l'instant, car elles seront présentées dans une leçon ultérieure.
+* Dans cette tâche, nous utilisons le module `win_copy` pour créer un fichier avec un contenu spécifique. Nous ajoutons un peu de complexité ici car nous utilisons une variable comme contenu d'un fichier. Nous ne détaillerons pas l'utilisation des variables pour l'instant, car elles seront présentées dans une leçon ultérieure.
 
 <!-- {% raw %} -->
 ```yaml
@@ -148,7 +148,7 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
 ```
 <!-- {% endraw %} -->
 
-- Cette tâche utilise le module `debug` pour afficher un message à la fin de l'exécution du playbook. Ce message affiche `http://` + le nom de la variable qui contient l'adresse IP de l'hôte sur lequel nous exécutons le playbook (notre serveur Windows IIS)
+* Cette tâche utilise le module `debug` pour afficher un message à la fin de l'exécution du playbook. Ce message affiche `http://` + le nom de la variable qui contient l'adresse IP de l'hôte sur lequel nous exécutons le playbook (notre serveur Windows IIS)
 
 Section 4: Sauvegarder votre Playbook
 =====================================

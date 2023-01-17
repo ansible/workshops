@@ -1,0 +1,11 @@
+---
+- name: make sure we have access to pre_build hub AMI
+  block:
+    - name: check if we have access to AMI
+      amazon.aws.ec2_ami_info:
+        region: "{{ ec2_region }}"
+        image_ids: "{{ pre_build_hub_ami[ec2_region] }}"
+  rescue:
+    - name: AWS AMI Access is not available
+      fail:
+        msg: "You do not have access to the pre_build hub AMI for region {{ ec2_region }}.  Please re-run with pre_build set to false"

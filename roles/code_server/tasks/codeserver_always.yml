@@ -1,0 +1,15 @@
+---
+- name: Apply our systemd service file (instead of RPM file)
+  ansible.builtin.template:
+    src: code-server.service.j2
+    dest: /etc/systemd/system/code-server.service
+    owner: "{{ username }}"
+    group: wheel
+    mode: '0744'
+
+- name: daemon-reload, enable and start code-server
+  ansible.builtin.systemd:
+    name: code-server
+    enabled: true
+    state: restarted
+    daemon_reload: true

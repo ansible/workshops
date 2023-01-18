@@ -26,12 +26,6 @@
     password: "{{ admin_password }}"
     validate_certs: false
   register: check2
-  # wait <= 10 minutes for a satisfactory result, which is
-  #   - something is returned
-  #   - instance_groups[*].capacity > 0
-  #   - instances[*].capacity > 0
-  # if capacity is 0, execution later fails with a seemingly unrelated urllib TLS version error
-  # we only check instance{s,groups}[0] because we're not clustering
   until: check2.json is defined and check2.json.instances[0].capacity > 0 and check2.json.instance_groups[0].capacity > 0
   retries: 60
   delay: 10
@@ -41,13 +35,14 @@
     msg: '{{ check2.json }}'
 
 # Certbot dependancy / acme, needs later version of requests library than task above^^
-- name: install ansible-tower-cli and requests >2.14
+- name: install awxkit and requests >2.14
   become: true
   ansible.builtin.pip:
     name:
-      - ansible-tower-cli
+      - awxkit
+      - yamllint
       - "requests==2.14.2"
-    executable: '/usr/bin/pip3.6'
+    executable: '/usr/bin/pip3.9'
     state: latest
 
 - name: load license block
@@ -83,15 +78,6 @@
   register: license_controller
   until: license_controller is not failed
   retries: 5
-
-# - name: Set the license using a file
-#   awx.awx.license:
-#     manifest: "{{ playbook_dir }}/manifest.zip"
-#     validate_certs: false
-#     controller_username: admin
-#   register: license_controller
-#   until: license_controller is not failed
-#   retries: 5
 
 ## Execution environments
 

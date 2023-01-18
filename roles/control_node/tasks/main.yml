@@ -4,12 +4,6 @@
   tags:
     - aap_setup
 
-- name: Install packages
-  include_tasks: 15_package_dependencies.yml
-
-- name: common workshop setup for control node
-  include_tasks: 20_all_workshop.yml
-
 - name: check to see if automation controller is already up and running
   uri:
     url: https://localhost/api/v2/ping/
@@ -26,8 +20,16 @@
     - controllerinstall|bool
 
 - name: install controller if knob is set
-  include_tasks: "30_controller.yml"
+  include_tasks: "12_controller.yml"
   when:
     - controllerinstall is defined
     - controllerinstall|bool
     - check_controller.status != 200
+
+- name: Install packages
+  include_tasks: 15_package_dependencies.yml
+
+- name: common workshop setup for control node
+  include_tasks: 20_all_workshop.yml
+
+

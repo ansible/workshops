@@ -46,6 +46,7 @@ create_cluster: false
 automation_hub: false
 developer_mode: false
 pre_build: true
+agnosticd_callback_url: ""
 
 # workshop execution environments
 f5_ee: "quay.io/acme_corp/f5_ee:latest"

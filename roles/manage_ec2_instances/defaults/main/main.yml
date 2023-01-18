@@ -273,15 +273,15 @@ debug_teardown: false
 ansible_async_dir: "/tmp/.ansible_async"
 
 pre_build_controller_ami:
-  ap-northeast-1: ami-0c4230e426c9f94de
-  ap-southeast-1: ami-0afa88d581e851805
-  eu-central-1: ami-0f9b780494fafdb26
-  eu-west-1: ami-0c907512035602d94
-  eu-west-2: ami-08846e44b9cd553b4
-  us-east-1: ami-03444888d0fa75fe0
-  us-east-2: ami-09906d1caf7f02052
-  us-west-1: ami-0dab0229dff674a15
-  us-west-2: ami-0be692f9f0aefee71
+  ap-northeast-1: ami-06ad1ea5c12a0d0f7
+  ap-southeast-1: ami-08e2518f0780bc79b
+  eu-central-1: ami-0e57d040faf5ebda8
+  eu-west-1: ami-0d45c3f4b5d801aa5
+  eu-west-2: ami-0d9c98a8a71cfb0e7
+  us-east-1: ami-01a0a95922d7386db
+  us-east-2: ami-0ef29e3299cf26819
+  us-west-1: ami-0009710aa9b69790e
+  us-west-2: ami-0b0d02e3c1d09fd4c
 pre_build_hub_ami:
   ap-northeast-1: ami-0e10c305c74ebe2c4
   ap-southeast-1: ami-0b8c588fe02c19ce6

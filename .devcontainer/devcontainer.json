@@ -11,7 +11,8 @@
 			"enableNonRootDocker": "true",
 			"moby": "true"
 		},
-		"ghcr.io/devcontainers/features/python:1": {}
+		"ghcr.io/devcontainers/features/python:1": {},
+		"ghcr.io/devcontainers/features/aws-cli:1": {}
 	},
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

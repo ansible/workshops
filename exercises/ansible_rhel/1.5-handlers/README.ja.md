@@ -41,19 +41,35 @@ Ansible は条件を使用して、特定の条件が満たされたときにタ
 
 例として、FTP サーバーをインストールしたいと思っていますが、「ftpserver」インベントリーグループにあるホストにのみにインストールしたいとします。
 
-これを行うには、インベントリーを編集して別のグループを追加し、`node2` を配置します。`node2` の IP アドレスは、`node2` がリストされたときと常に同じになるようにしてください。以下のリストのようにインベントリー `~/lab_inventory/hosts` を編集します。
+これを行うには、インベントリーを編集して別のグループを追加し、`node2` を配置します。追加するセクションは以下のとおりです。
+
+``` ini
+[ftpserver]
+node2
+```
+
+それらの行を追加するために `~/lab_inventory/hosts` を編集します。 完了すると、以下のリストのような表示になります。
+
+
+
+> **ヒント**
+> 
+> ansible_host 変数はノードに対して一度だけ指定する必要があります。
+> 他のグループへノードを追加する場合、再度変数を指定する必要はありません。
+
+**重要** 以下の例をコピー&ペーストしないでください。 ファイルを編集して、上記の行を追加するだけです。
 
 ```ini
 [web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
+node1 ansible_host=xx.xx.xx.xx
+node2 ansible_host=xx.xx.xx.xx
+node3 ansible_host=xx.xx.xx.xx
 
 [ftpserver]
-node2 ansible_host=22.33.44.55
+node2
 
 [control]
-ansible-1 ansible_host=44.55.66.77
+ansible-1 ansible_host=xx.xx.xx.xx
 ```
 
 次に、`~/ansible-files/` ディレクトリーのコントロールホストで `ftpserver.yml` ファイルを作成します。

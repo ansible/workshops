@@ -1,0 +1,26 @@
+---
+- block:
+    - name: redhat subscription
+      include_tasks: "5_redhat_sub.yml"
+
+    - name: aap setup
+      include_tasks: "10_aap_setup.yml"
+      tags:
+        - aap_setup
+  
+  when: not pre_build|bool
+
+- block:
+    - name: AAP Signing bits included?
+      set_fact:
+        aap_signing_bits_included: "{{ __aap_version is version('2.2.0', '>=')  }}"
+
+    - name: Setup signing
+      include_tasks: "20_setup_signing.yml"
+
+  when: not pre_build|bool and
+        enable_signing|bool
+
+- name: install hub
+  include_tasks: "30_hub.yml"
+  when: not pre_build|bool

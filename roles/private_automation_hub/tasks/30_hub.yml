@@ -13,5 +13,5 @@
   shell: "./setup.sh -e gpgcheck=0"
   args:
     chdir: "{{ aap_dir }}"
-  async: 2000
+  async: 5000
   poll: 15

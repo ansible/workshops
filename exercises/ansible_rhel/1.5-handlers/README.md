@@ -41,19 +41,33 @@ For more on this, please refer to the documentation: <http://jinja.pocoo.org/doc
 
 As an example you would like to install an FTP server, but only on hosts that are in the "ftpserver" inventory group.
 
-To do that, first edit the inventory to add another group, and place `node2` in it. Make sure that that IP address of `node2` is always the same when `node2` is listed. Edit the inventory `~/lab_inventory/hosts` to look like the following listing:
+To do that, first edit the inventory to add another group, and place `node2` in it. The section to add looks like this:
+
+``` ini
+[ftpserver]
+node2
+```
+
+Edit the inventory `~/lab_inventory/hosts` to add those lines.  When you are done, it will look similar to the following listing:
+
+> **Tip**
+>
+> The ansible_host variable only needs to be specified once for a node.  When adding a node to other groups, you do not need to
+> specify the variable again.  
+
+**Important** Do not copy/paste the example below.  Just edit the file to add the above lines.
 
 ```ini
 [web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
+node1 ansible_host=xx.xx.xx.xx
+node2 ansible_host=xx.xx.xx.xx
+node3 ansible_host=xx.xx.xx.xx
 
 [ftpserver]
-node2 ansible_host=22.33.44.55
+node2
 
 [control]
-ansible-1 ansible_host=44.55.66.77
+ansible-1 ansible_host=xx.xx.xx.xx
 ```
 
 Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:

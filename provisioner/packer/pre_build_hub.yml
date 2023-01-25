@@ -1,0 +1,35 @@
+---
+- name: Initial check setup
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+  tasks:
+    - name: Download AAP
+      ansible.builtin.include_role:
+        name: ../../roles/aap_download
+
+- name: Configures automation hub node
+  hosts: all
+  gather_facts: true
+  become: true
+  vars:
+    dns_type: none
+    controllerinstall: false
+    automation_hub: true
+    code_server: true
+    username: student
+    student: "{{ username }}"
+  tasks:
+    - name: Print out ansible_host var
+      ansible.builtin.include_vars:
+        file: "../group_vars/all/all.yml"
+ #   - name: Print out ansible_host var
+ #     ansible.builtin.debug:
+ #       var: hostvars.controller
+    - name: Print ipv4 address
+      ansible.builtin.debug:
+        var: ansible_default_ipv4.address
+    - name: Configure hub node
+      ansible.builtin.include_role:
+        name: ../../roles/private_automation_hub

@@ -21,6 +21,9 @@ workshop_dns_zone: demoredhat.com
 ## Optional Variables
 # select rhel7 or rhel8 client nodes
 rhel: rhel7
+# select centos78 or centos79 client nodes for convert2rhel
+# refer to https://wiki.centos.org/Cloud/AWS for available minor releases
+centos7: centos78
 # this will install Automation controller on all control nodes
 controllerinstall: true
 # this will install VS Code web on all control nodes

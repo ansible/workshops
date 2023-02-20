@@ -75,6 +75,13 @@
         src: "/etc/letsencrypt/live/hub-{{ student | default('student') }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
         dest: /etc/pulp/certs/pulp_webserver.crt
 
+
+    - name: replace URL in pulp settings
+      replace:
+        path: /etc/pulp/settings.py
+        regexp: "{{ '([0-9]{1,3}[\\.]){3}[0-9]{1,3}' }}"
+        replace: "hub-{{ student | default('student') }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+
   rescue:
     - name: no SSL cert for private automation hub
       debug:

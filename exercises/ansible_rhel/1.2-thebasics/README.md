@@ -1,16 +1,14 @@
-# Workshop Exercise - The Ansible Basics
+# Workshop Exercise - The Ansible Basics <!-- omit in toc -->
 
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-- [Workshop Exercise - The Ansible Basics](#workshop-exercise---the-ansible-basics)
-  - [Table of Contents](#table-of-contents)
-  - [Objective](#objective)
-  - [Guide](#guide)
-    - [Step 1 - Work with your Inventory](#step-1---work-with-your-inventory)
-    - [Step 2 - Listing Modules and Getting Help](#step-2---listing-modules-and-getting-help)
+- [Objective](#objective)
+- [Guide](#guide)
+  - [Step 1 - Work with your Inventory](#step-1---work-with-your-inventory)
+  - [Step 2 - Listing Modules and Getting Help](#step-2---listing-modules-and-getting-help)
 
 ## Objective
 

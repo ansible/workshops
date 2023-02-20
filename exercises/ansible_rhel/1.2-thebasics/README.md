@@ -5,10 +5,12 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-* [Step 1 - Work with your Inventory](#step-1---work-with-your-inventory)
-* [Step 2 - Listing Modules and Getting Help](#step-2---listing-modules-and-getting-help)
+- [Workshop Exercise - The Ansible Basics](#workshop-exercise---the-ansible-basics)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Work with your Inventory](#step-1---work-with-your-inventory)
+    - [Step 2 - Listing Modules and Getting Help](#step-2---listing-modules-and-getting-help)
 
 ## Objective
 
@@ -122,7 +124,13 @@ Using the `ansible-navigator inventory` command, we can also run commands that p
 
 ### Step 2 - Listing Modules and Getting Help
 
-Ansible Automation Platform comes with multiple supported Execution Environments (EEs).  These EEs come with bundled supported collections that contain supported content, including modules.  To browse your available modules first enter interactive mode:
+Ansible Automation Platform comes with multiple supported Execution Environments (EEs).  These EEs come with bundled supported collections that contain supported content, including modules.
+
+> **Tip**
+>
+> In `ansible-navigator` exit by pressing the button `ESC`.
+
+To browse your available modules first enter interactive mode:
 
 ```bash
 $ ansible-navigator
@@ -130,14 +138,10 @@ $ ansible-navigator
 
 ![picture of ansible-navigator](images/interactive-mode.png)
 
-> **Tip**
->
-> In `ansible-navigator` exit by pressing the button `ESC`.
-
 First browse a collection by typing `:collections`
 
 ```bash
-$ :collections
+:collections
 ```
 
 ![picture of ansible-navigator](images/interactive-collections.png)
@@ -145,7 +149,7 @@ $ :collections
 To browse the content for a specific collections, type the corresponding number.  For example in the example screenshot above the number `0` corresponds to `amazon.aws` collection.  To zoom into collection type the number `0`.
 
 ```bash
-$ 0
+0
 ```
 
 ![picture of ansible-navigator](images/interactive-aws.png)
@@ -154,7 +158,7 @@ $ 0
 Get help for a specific module including usage by zooming in further.  For example the module `ec2_tag` corresponds to `24`.
 
 ```bash
-$ :24
+:24
 ```
 
 Scrolling down using the arrow keys or page-up and page-down can show us documentation and examples.

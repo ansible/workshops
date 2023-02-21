@@ -4,15 +4,17 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1: Create a Job Template](#step-1-create-a-job-template)
-   * [Step 2: Examine the playbook](#step-2-examine-the-playbook)
-   * [Step 3: Create a survey](#step-3-create-a-survey)
-   * [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
-   * [Step 5: Verify the banner](#step-5-verify-the-banner)
-*  [Takeaways](#takeaways)
-*  [Complete](#complete)
+- [Exercise 7: Creating a Survey](#exercise-7-creating-a-survey)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1: Create a Job Template](#step-1-create-a-job-template)
+    - [Step 2: Examine the playbook](#step-2-examine-the-playbook)
+    - [Step 3: Create a survey](#step-3-create-a-survey)
+    - [Step 4: Launch the Job Template](#step-4-launch-the-job-template)
+    - [Step 5: Verify the banner](#step-5-verify-the-banner)
+  - [Takeaways](#takeaways)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -34,7 +36,7 @@ Demonstrate the use of Automation controller [survey feature](https://docs.ansib
    |  Job Type |  Run |
    |  Inventory |  Workshop Inventory |
    |  Project |  Workshop Project |
-   | Execution Environment | Default execution environment |
+   |  Execution Environment | network workshop execution environment |
    |  Playbook |  `playbooks/network_banner.yml` |
    |  Credential |  Workshop Credential |
 

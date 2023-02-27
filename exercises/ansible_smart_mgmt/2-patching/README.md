@@ -1,6 +1,10 @@
 Automated Smart Management Workshop: Automating Patch Management
 ================================================================
 
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 In this part of the workshop, we will learn how to leverage the use of workflows in Ansible Automation Platform to orchestrate patch management for several linux servers . Automating patch management reduces human error and improves configuration and patch accuracy. Additionally, automation provides capabilities to reduce the manual input associated with identifying, testing and patching systems.  Using Automation Platform enables more complicated patching scenarios.
 
 Environment

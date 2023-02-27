@@ -1,5 +1,9 @@
 # Automated Smart Management Workshop
 
+**Read this in other languages**:
+<br>![uk](../../images/uk.png) [English](README.md), ![france](../../images/fr.png) [Français](README.fr.md).
+<br>
+
 In this workshop, you will learn how to get the most from Red Hat Smart Management in concert with Red Hat Ansible Automation Platform.
 
 ## Table of Contents

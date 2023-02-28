@@ -110,7 +110,7 @@ $ ansible-navigator images
 >
 > The output  you see might differ from the above output
 
-This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **2** with the above example will open the `ee-supported-rhel8` execution environment:
+This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **0** with the above example will open the `network-ee` execution environment:
 
 ![ee main menu](images/navigator-ee-menu.png)
 
@@ -131,7 +131,7 @@ ansible-navigator:
     - /home/student/lab_inventory/hosts
 
   execution-environment:
-    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
+    image: quay.io/acme_corp/network-ee:latest
     enabled: true
     container-engine: podman
     pull-policy: missing

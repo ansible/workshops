@@ -2,8 +2,8 @@
 controller_projects:
   - name: "Ansible official demo project"
     scm_type: git
-    scm_url: "https://github.com/ansible/product-demos"
-    description: "prescriptive demos from Red Hat Management Business Unit"
+    scm_url: "https://github.com/RedHatGov/product-demos"
+    description: "prescriptive demos from Red Hat"
     organization: "Default"
 
 controller_templates:

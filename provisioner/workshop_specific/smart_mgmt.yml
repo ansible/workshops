@@ -120,7 +120,7 @@
         scm_type: git
         scm_url: 'https://github.com/bdumont01/automated-smart-management.git'
 #        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
-        scm_branch: aap2-29compat
+        scm_branch: insights
         default_environment: smart_mgmt workshop execution environment
       - name: Fact Scan
         organization: Default

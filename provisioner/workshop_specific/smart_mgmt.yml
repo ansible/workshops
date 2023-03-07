@@ -71,13 +71,9 @@
         injectors:
           env:
             FOREMAN_SERVER: !unsafe '{{ host }}'
-            FOREMAN_USER: !unsafe '{{ username }}'
+            FOREMAN_USER: !unsafe '{{ username}}'
             FOREMAN_PASSWORD: !unsafe '{{ password }}'
-            FOREMAN_VALIDATE_CERTS: !unsafe 'false'
-#            FOREMAN_SERVER: "{% raw %}{{ '{{host}}' }}{% endraw %}"
-#            FOREMAN_USER: "{% raw %}{{ '{{username}}' }}{% endraw %}"
-#            FOREMAN_PASSWORD: "{% raw %}{{ '{{password}}' }}{% endraw %}"
-#            FOREMAN_VALIDATE_CERTS: 'false'
+            FOREMAN_VALIDATE_CERTS: 'false'
       - name: GitHub_Personal_Access_Token
         description: Credential for GitHub repo operations automation
         kind: cloud
@@ -94,7 +90,6 @@
         injectors:
           env:
             MY_PA_TOKEN: !unsafe '{{ personal_access_token }}'
-#            MY_PA_TOKEN: "{% raw %}{{ '{{ personal_access_token }}' }}{% endraw %}"
     controller_credentials:
       - name: Satellite Credential
         credential_type: Satellite_Collection

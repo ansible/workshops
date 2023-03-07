@@ -140,34 +140,14 @@
         - automation_hub is defined
         - automation_hub|bool
 
+    - name: Change hub password
+      ansible.builtin.shell: 'PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager reset-admin-password --password """{{ admin_password }}"""'
+      when:
+        - pre_build is defined
+        - pre_build|bool
+
 - name: include workshop_type unique setup roles
   import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"
-
-- name: setup demos
-  hosts: control_nodes
-  gather_facts: false
-  vars:
-    my_tower_username: admin
-    my_tower_password: "{{ admin_password }}"
-    my_tower_host: "{{ ansible_host }}"
-  tasks:
-    - name: install demos from ansible.product_demos collection
-      block:
-        - name: install demo
-          include_role:
-            name: "ansible.product_demos.install_demo"
-          when:
-            - demo is defined
-            - controllerinstall is defined
-            - controllerinstall
-      rescue:
-        - name: install demo
-          debug:
-            msg: "Demos were NOT installed"
-
-        - name: update demo_information var
-          set_fact:
-            demo_information: "Demo issue: Demos were NOT installed"
 
 - name: Alert the mothership
   hosts: localhost
@@ -186,20 +166,72 @@
       set_fact:
         summary_information: |
           PROVISIONER SUMMARY
-          *******************
+          ===================
+
           - Workshop name is {{ ec2_name_prefix }}
+          {% if not rhpds_info_output | default(false) | bool %}
           - Instructor inventory is located at  {{ playbook_dir }}/{{ ec2_name_prefix }}/instructor_inventory.txt
           - Private key is located at {{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem
+          {% endif %}
           {% if attendance %}
           - {{ hostvars['attendance-host'].login_website_information | default("attendance feature is not functioning") }}
+          {% if rhpds_info_output | default(false) | bool %}
+          - Admin password: {{ admin_password }}
+          {% endif %}
           {% endif %}
 
+          {% if not rhpds_info_output | default(false) | bool %}
           FAILURES
-          *******************
+          ===================
           {{ dns_information }}
           {{ callback_information }}
-          {{ demo_information }}
+          {% endif %}
 
     - name: Print Summary Information
+      when: not rhpds_info_output | default(false) | bool
       debug:
         msg: "{{ summary_information }}"
+
+    - name: Print Summary Information
+      when: rhpds_info_output | default(false) | bool
+      debug:
+        msg: "user.info: {{ summary_information }}"
+
+    - name: Attempt RHPDS completion callback
+      when:
+      - agnosticd_callback_url != ''
+      - agnosticd_callback_token != ''
+      vars:
+        user_body_yaml: "{{ output_dir ~ '/user-body.yaml' }}"
+        user_data_yaml: "{{ output_dir ~ '/user-data.yaml' }}"
+        user_info_yaml: "{{ output_dir ~ '/user-info.yaml' }}"
+      uri:
+        url: "{{ agnosticd_callback_url }}"
+        method: POST
+        body_format: json
+        body:
+          event: complete
+          message_body: >-
+            {%- if user_body_yaml is file -%}
+            {{ lookup('file', user_body_yaml) | from_yaml | default([], true) }}
+            {%- else -%}
+            []
+            {%- endif -%}
+          messages: >-
+            {%- if user_info_yaml is file -%}
+            {{ lookup('file', user_info_yaml) | from_yaml | default([], true) }}
+            {%- elif summary_information is defined -%}
+            {{ [ summary_information ] }}
+            {%- else -%}
+            []
+            {%- endif -%}
+          data: >-
+            {%- if user_data_yaml is file -%}
+            {{ lookup('file', user_data_yaml) | from_yaml | default({}, true) }}
+            {%- else -%}
+            {}
+            {%- endif -%}
+        headers:
+          Authorization: Bearer {{ agnosticd_callback_token }}
+      # Best effort
+      ignore_errors: true

@@ -10,6 +10,10 @@
 - name: check if we have access to pre_build AMI images
   include_tasks: check_prebuild.yml
 
+- name: check if we have access to pre_build hub AMI images
+  include_tasks: check_prebuild_hub.yml
+  when: automation_hub|bool and pre_build|bool
+
 - name: provision aws resources and instances
   include_tasks: provision.yml
   tags: provisioned

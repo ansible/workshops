@@ -4,6 +4,28 @@
     path: "{{ output_dir }}"
     state: directory
 
+- name: Download manifest.zip
+  when:
+    - manifest_download_url is defined
+  block:
+    - name: Enforce use of user/password for manifest download
+      ansible.builtin.assert:
+        that:
+          - manifest_download_url.startswith('https://')
+          - manifest_download_user is defined
+          - manifest_download_password is defined
+        fail_msg: >-
+          manifest_download_url must be secure and requires manifest_download_user
+          and manifest_download_password.
+
+    - name: Download manifest.zip
+      ansible.builtin.get_url:
+        url: "{{ manifest_download_url }}"
+        dest: "{{ playbook_dir }}/manifest.zip"
+        username: "{{ manifest_download_user }}"
+        password: "{{ manifest_download_password }}"
+        force_basic_auth: true
+
 - name: check license block
   block:
     - name: Check that the manifest.zip exists

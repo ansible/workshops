@@ -105,6 +105,7 @@ Next we will add our tasks:
     chocolatey.chocolatey.win_chocolatey:
       name: "{{ item.name }}"
       version: "{{ item.version }}"
+      force: yes
     loop: "{{ choco_packages }}"
 
   - name: Check python version
@@ -151,6 +152,7 @@ The completed playbook `install_packages.yml` should look like this:
     chocolatey.chocolatey.win_chocolatey:
       name: "{{ item.name }}"
       version: "{{ item.version }}"
+      force: yes
     loop: "{{ choco_packages }}"
 
   - name: Check python version

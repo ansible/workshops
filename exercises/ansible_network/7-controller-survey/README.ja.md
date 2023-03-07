@@ -39,7 +39,7 @@ Playbook の追加変数を設定しますが、ユーザーが使いやすい�
    |  Job Type |  Run |
    |  Inventory |  Workshop Inventory |
    |  Project |  Workshop Project |
-   | Execution Environment | Default execution environment |
+   | Execution Environment | network workshop execution environment |
    |  Playbook |  `playbooks/network_banner.yml` |
    |  Credential |  Workshop Credential |
 

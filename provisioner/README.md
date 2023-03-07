@@ -32,6 +32,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
     * [Accessing instructor inventory](#accessing-instructor-inventory)
     * [DNS](#dns)
     * [Smart Management](#smart-management)
+    * [devcontainer(optional)](#devcontainer)
   * [Developer Mode and understanding collections](#developer-mode-and-understanding-collections)
   * [Lab Teardown](#lab-teardown)
   * [Demos](#demos)
@@ -163,7 +164,7 @@ In order to use Automation controller (i.e. `controllerinstall: true`), which is
 
 **How do you use the manifest.zip with the workshop?**
 
-There are currently two ways to integrate your license file with the workshop:
+These are the ways to integrate your license file with the workshop:
 
 1. Put the manifest.zip file into provisioner folder
 
@@ -195,6 +196,26 @@ There are currently two ways to integrate your license file with the workshop:
   >
   >base64 is not encryption, if you require encryption you need to work within your CI system or Automation controller to encrypt the base64 encoded manifest.zip.
 
+3. Download the manifest.zip from a URL
+
+  If you specify the following variables, the provisioner will download the manifest.zip from an authenticated URL:
+
+  ```
+  manifest_download_url: https://www.example.com/protected/manifest.zip
+  manifest_download_user: username
+  manifest_download_password: password
+  ```
+
+### Automating the download of aap.tar.gz 
+
+If you have the aap.tar.gz tarball in a secure URL, you can automate the downloading of it by specifying the following variables.
+Note that the tarball specified in the URL must match the SHA value defined in provided_sha_value
+
+  ```
+  aap_download_url: https://www.example.com/protected/aap.tar.gz
+  aap_download_user: username
+  aap_download_password: password
+  ```
 
 ### Additional examples
 
@@ -253,6 +274,12 @@ This means that each student workbench will get an individual DNS entry.  For ex
 The Smart Management Lab relies on a prebuilt AMI for Red Hat Satellite Server. An example for building this AMI can be found [here](https://github.com/willtome/ec2-image-build).
 
 The Smart Management Lab also requires AWS DNS to be enabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
+
+### devcontainer
+
+For convenience, a devcontainer has been configured for use within this project. This setup allows workshop developers to run the workspace along with provisioner within a Docker container. The devcontainer has support for docker-in-docker so that `ansible-navigator` can run against the workshop execution environment to provision workshops. 
+
+See the `devcontainer.json` in the `.devcontainer` directory at the top level of this repository. For more information regarding devcontainers, see [here](https://code.visualstudio.com/docs/devcontainers/containers).
 
 ## Developer Mode and understanding collections
 

@@ -1,44 +1,49 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/ubuntu
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
 {
-	"name": "Ubuntu",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick an Ubuntu version: jammy / ubuntu-22.04, focal / ubuntu-20.04, bionic /ubuntu-18.04
-		// Use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon.
-		"args": { "VARIANT": "ubuntu-22.04" }
-	},
+	"name": "Docker in Docker",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
 
-		// Configure tool-specific properties.
-		"customizations": {
-			// Configure properties specific to VS Code.
-			"vscode": {
-				// Set *default* container specific settings.json values on container create.
-				"settings": { 
-					"ansible.executionEnvironment.image": "quay.io/acme_corp/workshop_ee:latest",
-					"ansible.ansible.useFullyQualifiedCollectionNames" : true,
-					"ansible.ansibleLint.enabled" : true
-				},
-				// Add the IDs of extensions you want installed when the container is created.
-				"extensions": [
-					"ms-python.python",
-					"redhat.ansible"
-				]
-			}
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest",
+			"enableNonRootDocker": "true",
+			"moby": "true"
 		},
+		"ghcr.io/devcontainers/features/python:1": {},
+		"ghcr.io/devcontainers/features/aws-cli:1": {}
+	},
+	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip3 install --user ansible-navigator",
+	// "postCreateCommand": "pip install ansible-navigator",
+	"postCreateCommand": "pip install -r ${containerWorkspaceFolder}/requirements.txt",
 
-	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode",
-	"features": {
-		"docker-in-docker": "latest",
-		"github-cli": "latest",
-		"aws-cli": "latest",
-		"sshd": "latest",
-		"python": "3.9"
-	}
+	// VS Code extensions to install
+	// "extensions": ["redhat.ansible"],
+
+	// Configure tool-specific properties.
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": { 
+                "ansible.executionEnvironment.image": "quay.io/acme_corp/workshop_ee:latest",
+                "ansible.ansible.useFullyQualifiedCollectionNames" : true,
+                "ansible.ansibleLint.enabled" : true
+            },
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "ms-python.python",
+                "redhat.ansible"
+            ]
+        }
+    }
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+
 }

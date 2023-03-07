@@ -1,10 +1,12 @@
 ---
-- name: configure hostname
-  hostname:
-    name: "{{short_name}}"
+- name: Configure hostname
+  ansible.builtin.hostname:
+    name: "{{ short_name }}"
+  register: config_webservers
+  until: config_webservers is not failed
 
-- name: setup workshop specific webserver information
-  include_tasks: "{{item}}"
+- name: Setup workshop specific webserver information
+  include_tasks: "{{ item }}"
   with_first_found:
-    - "{{role_path}}/tasks/{{workshop_type}}.yml"
-    - "{{role_path}}/tasks/unsupported_workshop.yml"
+    - "{{ role_path }}/tasks/{{ workshop_type }}.yml"
+    - "{{ role_path }}/tasks/unsupported_workshop.yml"

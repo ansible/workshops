@@ -1,15 +1,15 @@
 ---
-- name: initial check setup
+- name: Initial check setup
   hosts: localhost
   connection: local
   become: false
   gather_facts: true
   tasks:
-    - name: download AAP
-      include_role:
+    - name: Download AAP
+      ansible.builtin.include_role:
         name: ../../roles/aap_download
 
-- name: configures automation controller node
+- name: Configures automation controller node
   hosts: all
   gather_facts: true
   become: true
@@ -20,21 +20,26 @@
     username: student
     student: "{{ username }}"
   tasks:
-    - name: print out ansible_host var
-      debug:
+    - name: Print out ansible_host var
+      ansible.builtin.include_vars:
+        file: "../group_vars/all/all.yml" 
+    - name: Print out ansible_host var
+      ansible.builtin.debug:
         var: hostvars.controller
-    - name: print ipv4 address
-      debug:
+    - name: Print ipv4 address
+      ansible.builtin.debug:
         var: ansible_default_ipv4.address
-    - include_role:
+    - name: Include user accounts
+      ansible.builtin.include_role:
         name: ../../roles/user_accounts
-    - include_role:
+    - name: Include common role
+      ansible.builtin.include_role:
         name: ../../roles/common
-    - include_role:
+    - name: Establish connetivity to managed nodes
+      ansible.builtin.include_role:
         name: ../../roles/connectivity_test
-    - include_role:
-        name: ../../roles/common
-    - include_role:
+    - name: Configure control node
+      ansible.builtin.include_role:
         name: ../../roles/control_node
     - include_role:
         name: ../../roles/code_server

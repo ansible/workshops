@@ -47,7 +47,7 @@ To run an Ansible Playbook in Automation controller we need to create a **Job Te
   |  Job Type |  Run |
   |  Inventory |  Workshop Inventory |
   |  Project |  Workshop Project |
-  |  Execution Environment | Default execution environment |
+  |  Execution Environment | network workshop execution environment |
   |  Playbook |  playbooks/network_backup.yml |
   |  Credential |  Workshop Credential |
 

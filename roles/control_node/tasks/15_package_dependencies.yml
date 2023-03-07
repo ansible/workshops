@@ -19,6 +19,7 @@
       - python3-devel
       - ansible-core
       - ansible-navigator
+      - ansible-lint
       - gcc
       - bind-utils
       - jq

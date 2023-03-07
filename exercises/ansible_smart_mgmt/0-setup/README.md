@@ -1,6 +1,10 @@
 Automated Smart Management Workshop: Configuring the Lab Environment
 ====================================================================
 
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+<br>
+
 Objective
 ---------
 The objective of this exercise is to setup the lab environemnt following an Infrastructure as Code process. This exercise will require you to launch (9) playbooks. The playbooks accomplish the following:

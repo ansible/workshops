@@ -4,18 +4,18 @@
   become: true
   tasks:
 
-  - name: latest Apache version installed
-    yum:
+  - name: Latest Apache version installed
+    ansible.builtin.yum:
       name: httpd
       state: latest
 
   - name: Apache enabled and running
-    service:
+    ansible.builtin.service:
       name: httpd
       enabled: true
-      state: started
+      state: started  
 
-  - name: copy index.html
-    copy:
+  - name: Copy index.html
+    ansible.builtin.copy:
       src: web.html
       dest: /var/www/html/index.html

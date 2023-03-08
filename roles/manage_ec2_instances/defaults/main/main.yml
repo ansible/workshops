@@ -167,7 +167,7 @@ ec2_info:
     disk_iops: 3000
     disk_throughput: 125
     architecture: x86_64
-    filter: 'CentOS*7.9*x86_64'
+    filter: 'CentOS*7*x86_64*'
     username: centos
     python_interpreter: '/usr/bin/python'
   f5node:

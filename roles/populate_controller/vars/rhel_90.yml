@@ -5,6 +5,7 @@ controller_projects:
     scm_url: "https://github.com/RedHatGov/product-demos"
     description: "prescriptive demos from Red Hat"
     organization: "Default"
+    scm_branch: "movin_on_up"
 
 controller_templates:
   - name: "SECURITY / Hardening"
@@ -12,8 +13,8 @@ controller_templates:
     project: "Ansible official demo project"
     job_type: "run"
     inventory: "Workshop Inventory"
-    playbook: "playbooks/security/hardening.yml"
-    credential: "Workshop Credential"
+    playbook: "linux/hardening.yml"
+    credentials: "Workshop Credential"
     survey_enabled: true
     execution_environment: "rhel_90 workshop execution environment"
     survey:
@@ -22,7 +23,7 @@ controller_templates:
       spec:
         - question_name: 'Enter host to configure'
           type: text
-          variable: HOSTS
+          variable: _hosts
           required: false
         - question_name: Configure Firewall?
           type: multiplechoice

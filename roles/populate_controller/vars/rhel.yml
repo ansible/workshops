@@ -5,13 +5,14 @@ controller_projects:
     scm_url: "https://github.com/RedHatGov/product-demos"
     description: "prescriptive demos from Red Hat"
     organization: "Default"
+    scm_branch: "movin_on_up"
 
 controller_templates:
   - name: "INFRASTRUCTURE / Deploy Application"
     description: "install yum applications on Linux with a survey"
     project: "Ansible official demo project"
     job_type: run
-    playbook: "playbooks/infrastructure/deploy_application.yml"
+    playbook: "linux/deploy_application.yml"
     credentials: "Workshop Credential"
     inventory: "Workshop Inventory"
     survey_enabled: true

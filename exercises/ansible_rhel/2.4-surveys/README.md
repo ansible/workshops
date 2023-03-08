@@ -8,6 +8,7 @@
 * [Objective](#objective)
 * [Guide](#guide)
 * [The Apache-configuration Role](#the-apache-configuration-role)
+* [Create the Project](#create-the-project)
 * [Create a Template with a Survey](#create-a-template-with-a-survey)
   * [Create Template](#create-template)
   * [Add the Survey](#add-the-survey)
@@ -47,7 +48,7 @@ What is this playbook doing? It creates a file (**dest**) on the managed hosts f
 
 The role deploys a static configuration for Apache. This is to make sure that all changes done in the previous chapters are overwritten and your examples work properly.
 
-To configure and use this repository as a **Source Control Management (SCM)** system in automation controller you have to create a **Project** that uses the repository
+Because the playbook and role is located in the same Github repo as the `apache_install.yml` playbook you don't have to configure a new project for this exercise.
 
 ### Create the Project
 
@@ -209,8 +210,9 @@ In the same fashion add a second **Survey Question**
 </table>
 
 * Click **Save**
+* Click the toggle to turn the Survey questions to **On**
 
-* Click the toggle to turn the Survey questions to **Survey Enabled**
+* Click **Preview** for the Survey
 
 ### Launch the Template
 

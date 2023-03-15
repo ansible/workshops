@@ -147,7 +147,7 @@ This part of the exercise is much less prescriptive and is designed to provide t
 
 ![inventory-general-information](images/4-setupinsights-inventory-general.png)
 
-    - Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host
+- Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host
 
 ![host-vulnerability-information](images/4-setupinsights-host-vulnerabilities.png)
 

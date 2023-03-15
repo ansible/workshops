@@ -216,6 +216,82 @@ At this point a playbook has been created on is available in the Remediations se
 
 -   Upon successful login, you will be able to see the Ansible Automation Platform dashboard.
 
+The Remediation playbooks from Insights are consumed by AAP through the use of a specific type of Project.  We set this project up for you during the Setup / Insights job run.  Let's sync this project with Insights to pull down the latest playbooks.
+
+Before doing the sync let's look at the Insights Credential that was also setup during the Setup / Insights job run.
+
+- Navigate to Resources -> Credentials and select the Insights Credential
+
+![insights-credential](images/4-setupinsights-credential.png)
+
+- Click Edit
+
+![insights-credential-edit](images/4-setupinsights-credential-edit.png)
+
+- Observe that the credential type is Insights and the user name is the Portal Account user name you entered as one of the prerequisites
+
+- The Portal Account password you entered has been encrypted and cannot be retrieved
+
+- Navigate to Resources -> Projects and click on Insights Project
+
+- Note that the last job status says "Successful" but the project has not been sync'd since we created the Remedition Playbook in Step 4.
+
+- Click Sync and wait for the last job status return to "Successful".  The Remediation Playbook we created is not included in the Insights Project on AAP
+
+- Let's create a Job Template that uses this playbook.  Navigate to Resources -> Templates.  
+
+- Click the BLUE 'Add' drop-down icon and select 'Add job template' from the drop-down selection menu. Fill out the details as follows:
+
+        Name: Insights / Remediation - CVE-2023-22809
+
+        Job Type: Run
+
+        Inventory: Workshop Inventory (Click the magnifying glass icon to select.)
+
+        Project: Insights Project (Click the magnifying glass icon to select.)
+
+        Execution Environment: insights execution environment (Click the
+        magnifying glass icon to select.)
+
+        Playbook: cve-2023-22809-(uuid).yml (Click drop-down to select.)
+
+        Credentials: Workshop Credential (Click drop-down to select.)
+
+![insights-template](images/4-setupinsights-insights-template.png)
+
+- Wait for the Job Template to return a "Successful" status
+
+![insights-template-complete](images/4-setupinsights-insights-template-complete.png)
+
+- As you can see in the screenshot above the vulnerable package(s) was updated, system was rebooted and the insights-client was run again.  Let's go validate that the Remediation playbook eliminated the vulnerability.
+
+ #### 6\. Verify Remediation on Red Hat Insights
+
+    Login to console.redhat.com using portal account credentials
+
+-   Select Red Hat Enterprise Linux -> Red Hat Insights
+
+-   This will bring you to the Overview page which depicts a dashboard of the hosts that are registered to Insights
+
+-   First verify that the Remediation was run.  Navigate to Toolkit -> Remediations.  
+
+-   Verify that the remediation playbook created earlier shows a green checkmark under "Complete actions"
+
+![insights-playbook-complete](images/4-setupinsights-remediation-playbook-complete.png)
+
+-   Navigate to Vulnerability -> CVE's and search for the CVE you targeted in this remediation and click into it.  In this example it is CVE-2023-22809.
+
+![insights-remediation-complete](images/4-setupinsights-cve-remediation-complete.png)
+
+-   Verify that node1 no longer shows up as a vulnerable system
+
+This completes this exercise.
+
+
+
+
+
+
 
 
 

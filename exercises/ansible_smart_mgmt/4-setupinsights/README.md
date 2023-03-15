@@ -123,7 +123,7 @@ Exercise:
 
 -   A successful workflow run will show the following:
 
-![workflow complete](images/4-setupinsights-workflow-template.png)
+![workflow complete](images/4-setupinsights-workflow-complete.png)
 
 #### 3\. Explore Insights
 

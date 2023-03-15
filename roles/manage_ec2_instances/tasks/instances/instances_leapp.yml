@@ -24,7 +24,7 @@
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
-      short_name: lookup('community.general.random_pet')
+      short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
@@ -106,7 +106,7 @@
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
-      short_name: lookup('community.general.random_pet')
+      short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"

@@ -92,14 +92,44 @@ Exercise:
     - Insights - Create Insights Credential - Creates the AAP Insights Credential using your portal account information
     - Insights - Create Insights Project - Creates an Insights Project in AAP that allows execution of any remediation automated created in Insights 
 
--   Prior to executing the workflow job template you MUST add variables to the template :
+-   Prior to executing the workflow job template you MUST add variables to the template.  To do that:
 
 
 -   Click ![pencil](images/4-setupinsights-pencil.png) to the right of **Setup / Insights**.  This will open the edit details window as shown below:
 
-![setup-insights](images/4-convert2rhel-3tier-install.png)
+![setup-insights](images/4-setupinsights-variables.png)
 
--   Add the following variables captured during the pre-requisites
+-   Add the following variables captured during the pre-requisites:
+
+    - manifest_name
+    - offline_token
+    - rhsm_org_id
+    - insights_user
+    - insights_password
+
+-   Once the variables are entered click Save
+
+-   Then click Launch
+
+-   Since we are registering hosts to Satellite during this workflow you will be presented with this screen
+
+![complete survey](4-setupinsights-survey.png)
+
+- Enter the information as follows:
+    - Server Name or Pattern - node
+    - Choose Environment - Dev
+
+-   Click Next and then Launch and watch the workflow complete (Note - you may click on each job template being executed to see the details of that job template run)
+
+-   A successful workflow run will show the following:
+
+![workflow complete](4-setupinsights-workflow-complete.png)
+
+
+
+
+
+
 
 
 #### 3\. Take CentOS node snapshot (optional, however, recommended for this exercise)

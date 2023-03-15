@@ -6,7 +6,7 @@ Automated Smart Management Workshop: Setup and Demo Insights
 <br>
 
 **Introduction**<br>
-This use-case will focus on connecting an individuals Red Hat Portal Account to the Automated Smart Management Workshop environment for the purposes of demostrating Insights functionality at the end of the workshop.  
+This use-case will focus on connecting an individual's Red Hat Portal Account to the Automated Smart Management Workshop environment for the purposes of demonstrating Insights functionality at the end of the workshop.  
 
 This exercise is primarily targeted for a Red Hat SA to deliver a demo of the Insights services, though any individual with a Red Hat Portal Account, the appropriate account permissions and other prerequiistes could run through this exercise.
 
@@ -16,7 +16,8 @@ This exercise is perscriptive in its setup, yet open-ended in its implementation
 - Satellite 6.x 
 - Ansible Automation Platform 4.x
 - 3x RHEL 7  instances
-- Red Hat Portal Account
+- Red Hat Portal Account with 2 availble Red Hat RHEL Instanced-based Subscriptions 
+    - Please note - that this lab will consume 2 subscriptions for the duration of this workshop
 
 **Exercise Scenario**
 - Exercise: Setup Insights
@@ -28,11 +29,12 @@ Overview
 **Summary**<br>
 - Insights is a hosted service on console.redhat.com.  In order to access this service you need a Red Hat Portal Account
 - Since accounts are associated with subscriptions sharing an account widely could cause us to lose control of the account and subscription consumption
-- Therefore this exercise will require the use of a personal portal account
+- Therefore this exercise will require the use of a personal portal account and will require 2 RHEL Subscriptions
+
 
 Ok, let's get started...  
 
-Pre-requisites
+Prerequisites
 --------------
 
 -   Exercise 0: Lab Setup
@@ -99,7 +101,7 @@ Exercise:
 
 ![setup-insights](images/4-setupinsights-variables.png)
 
--   Add the following variables captured during the pre-requisites:
+-   Add the following variables captured during the prerequisites:
 
     - manifest_name
     - offline_token
@@ -125,6 +127,40 @@ Exercise:
 
 ![workflow complete](images/4-setupinsights-workflow-complete.png)
 
-#### 3\. Explore Insights
+#### 3\. Explore Insights on console.redhat.com
 
-This part of the exercise is much less persciptive and is designed to provide the student with some general guidance to get started.   
+This part of the exercise is much less prescriptive and is designed to provide the student with some general guidance to get started.  This exercise will look at console.redhat.com
+
+-   Login to console.redhat.com using portal account credentials
+
+-   Select Red Hat Enterprise Linux -> Red Hat Insights
+
+-   This will bring you to the Overview page which depicts a dashboard of the hosts that are registered to Insights
+
+    - Explore this dashboard noting that each box addresses an Insights Service
+
+-   Click on Inventory
+
+    - Note that the hosts registered during the Setup / Insights Workflow Template job run are present at the top of the list
+
+    - Click into each host to see the details of each host on the General Information tab
+
+![inventory-general-information](images/4-setupinsights-inventory-general.png)
+
+    - Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host
+
+![host-vulnerability-information](images/4-setupinsights-host-vulnerabilities.png)
+
+- Let's now look at all hosts associated with a Service.  In this example let's use Vulnerability service
+
+    - On the left hand navigation pane click on Vulnerability -> CVEs.  This view will show the vulnerabilities for all systems registered to Red Hat Insights
+
+![account-vulnerability-information](images/4-setupinsights-account-vulnerabilities.png)
+
+- Navigate around the Insights services to gain more understanding of Red Hat Insights.
+
+
+
+
+-   
+

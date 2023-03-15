@@ -185,6 +185,17 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                         <a target=_blank href="https://github.com/sean-m-sullivan/ansiblefest2022_configuration_as_code/">Workshop Git Repo</a>
                   </div>
                 </div>
+                {% elif workshop_type == 'leapp' %}
+                <h2>Ansible Automation Platform + LEAPP</h2>
+                <p>If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_leapp">Ansible LEAPP Exercises</a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_leapp.pdf">Ansible Technical Deck</a>
+                    </div>
+                </div>
                 {% elif workshop_type == 'smart_mgmt' %}
                 <h2>Ansible Automation Platform + Satellite</h2>
                 <p>The Automate Smart Management Workshop is a half-day, hands-on workshop covering Red Hat Ansible Automation Platform, Red Hat Satellite, Red Hat Enterprise Linux and CentOS Linux. Attendees will learn how to use Ansible to automate configuration of Red Hat Ansible Automation Platform controller and Red Hat Satellite, and acquire the skills needed to implement Ansible Automation at their organizations. This workshop is comprised of 4 areas of focus:</p>

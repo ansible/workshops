@@ -30,6 +30,7 @@ valid_workshop_types:
   - smart_mgmt
   - middleware
   - configascode
+  - leapp
 network_type: multivendor
 valid_network_types:
   - cisco
@@ -57,6 +58,7 @@ rhel_90_ee: "quay.io/acme_corp/rhel_90_ee:latest"
 windows_ee: "quay.io/acme_corp/windows_ee:latest"
 smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:latest"
 configascode_ee: "registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest"
+leapp_ee: "registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:1.0.0-208"
 
 # EE registry name used in installer and EE controller credential
 ee_registry_name: "registry.redhat.io"

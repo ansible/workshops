@@ -1,5 +1,5 @@
 ---
-- name: Create EC2 instances for node1
+- name: Create EC2 instances for rhel7 node1
   amazon.aws.ec2_instance:
     state: running
     network:
@@ -24,7 +24,7 @@
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
-      short_name: "node1"
+      short_name: lookup('community.general.random_pet')
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"
@@ -106,7 +106,7 @@
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
       Students: "{{ student_total }}"
-      short_name: "node2"
+      short_name: lookup('community.general.random_pet')
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
     wait: "{{ ec2_wait }}"

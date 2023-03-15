@@ -149,6 +149,8 @@ This part of the exercise is much less prescriptive and is designed to provide t
 
 - Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host
 
+- Note that on the right most column labeled Remediation you will see Playbook listed on many of these vulnerabilities.  This indicates that an Ansible Playbook has been created to correct this issue.  In the next exercise we will demonstrate how to do that.
+
 ![host-vulnerability-information](images/4-setupinsights-host-vulnerabilities.png)
 
 - Let's now look at all hosts associated with a Service.  In this example let's use Vulnerability service
@@ -159,8 +161,68 @@ This part of the exercise is much less prescriptive and is designed to provide t
 
 - Navigate around the Insights services to gain more understanding of Red Hat Insights.
 
+#### 4\. Prepare to Remediate a Vulnerability 
+
+Now that you have some familiarity with the Insights Services let's go correct an issue.  In this example it will be a specific vulnerability
+
+- Navigatate back to Inventory and click into node1.example.com
+
+- Click on the Vulnerability tab.  
+
+- Select any Vulnerability listed that has a Playbook listed in the Remediation column.  For this example we will choose "CVE-2023-22809"
+
+- Click on the box to the left of the CVE name and notice that the Remediate button becomes active.  This indicates that a Remediation can be created for this vulnerability
+
+![remediate-button-active](images/4-setupinsights-remediate-button.png)
+
+- Click on the Remediate button.  This will take you into a wizard that will allow you to create a playbook to correct the identified remediation.
+
+    - Select Create new playbook and give it a name.  In this example we chose to name the playbook after the name of the vulnerability
+
+![select-playbook](images/4-setupinsights-select-playbook.png)    
+
+    - Click Next and you will be presented with the systems that will be included as hosts in this Ansible playbook.  You have the option at this point to remove systems if you choose
+
+![review-systems](images/4-setupinsights-review-systems.png)
+
+    - Select Next and you are presented with a Remediation Review screen.  Please note that in order to correct this vulnerability a reboot is required.  If you desire to reboot later, select "turn off autoreboot"
+
+![remediation-review](images/4-setupinsights-remediation-review.png)
+
+    - Click Submit and a playbook would have been created for you.  
+    
+![playbook-created](images/4-setupinsights-playbook-created.png)
+    
+    
+At this point a playbook has been created on is available in the Remediations section of Insights.  Let's go there next
+
+    - Click on Return to Application or close the window above
+
+    - Select Tookkit -> Remediations.  Note here that the playbook you created in the step above is available.  
+
+    - At this point you have several options available to you, including:
+
+        1. Download the playbook and execute it from an Ansible node in your environment
+        2. If this host is covered by a Smart Management subscription and you have either the Cloud Connector configured on Satellite or Red Hat Connector configured
+        3. Execute the playbook using the Ansible Project that we created during the setup of this lab
+
+    - In this example we will execute the Remediation through the Ansible Automation Platform
+
+#### 5\. Execute a Remediation Using AAP
+
+-  Navigate back to the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>*
+
+![login screen](images/4-setupinsights-aap2-login.png)
+
+-   Upon successful login, you will be able to see the Ansible Automation Platform dashboard.
 
 
 
--   
+
+
+
+
+
+
+
 

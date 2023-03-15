@@ -2,10 +2,10 @@
 - name: find ami for rhel7 node
   ec2_ami_info:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel].owners }}"
+    owners: "{{ ec2_info[rhel7].owners }}"
     filters:
-      name: "{{ ec2_info[rhel].filter }}"
-      architecture: "{{ ec2_info[rhel].architecture }}"
+      name: "{{ ec2_info[rhel7].filter }}"
+      architecture: "{{ ec2_info[rhel7].architecture }}"
   register: rhel7amis
 
 - name: save rhel7 ami details
@@ -16,10 +16,10 @@
 - name: find ami for rhel8 node
   ec2_ami_info:
     region: "{{ ec2_region }}"
-    owners: "{{ ec2_info[rhel].owners }}"
+    owners: "{{ ec2_info[rhel8].owners }}"
     filters:
-      name: "{{ ec2_info[rhel].filter }}"
-      architecture: "{{ ec2_info[rhel].architecture }}"
+      name: "{{ ec2_info[rhel8].filter }}"
+      architecture: "{{ ec2_info[rhel8].architecture }}"
   register: rhel7amis
 
 - name: save rhel8 ami details

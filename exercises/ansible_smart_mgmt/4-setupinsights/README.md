@@ -1,4 +1,4 @@
-Automated Smart Management Workshop: Setup and Demo Insights
+Automated Smart Management Workshop: Insights Environment Setup 
 ----------------------------------------------------------------------
 
 **Read this in other languages**:

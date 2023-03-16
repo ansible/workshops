@@ -1,19 +1,19 @@
 Automated Smart Management Workshop: Explore Insights
 ----------------------------------------------------------------------
 
-**Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Français](README.fr.md).
-<br>
 
 **Introduction**<br>
 This use-case will focus on exploring some of the services available on Red Hat Insights at console.redhat.com.  
 
 Prerequisites
---------------
+-----------------------------------------------------------------
 
 -   Exercise 0: Lab Setup
 
 -   Exercise 4: Insights Setup
+
+Exercise
+-----------------------------------------------------------------
 
 #### Explore Insights on console.redhat.com
 

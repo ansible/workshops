@@ -1,10 +1,6 @@
 Automated Smart Management Workshop: Insights Environment Setup 
 ----------------------------------------------------------------------
 
-**Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Français](README.fr.md).
-<br>
-
 **Introduction**<br>
 This use-case will focus on connecting an individual's Red Hat Portal Account to the Automated Smart Management Workshop environment for the purposes of demonstrating Insights functionality at the end of the workshop.  
 

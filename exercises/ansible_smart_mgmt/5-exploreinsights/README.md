@@ -37,7 +37,8 @@ This exercise is much less prescriptive and is designed to provide the student w
 
 - Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host
 
-> **NOTE** The right most column labeled Remediation you will see Playbook listed on many of these vulnerabilities.  This indicates that an Ansible Playbook has been created to correct this issue.  In the next exercise we will demonstrate how to do that.
+> **NOTE** The right most column labeled Remediation you will see Playbook listed on many of these vulnerabilities.  This indicates that an Ansible Playbook has been created to correct this issue.  In the next exercise we will demonstrate how to use AAP with this playbook to address the vulnerability.
+
 
 ![host-vulnerability-information](images/5-exploreinsights-host-vulnerabilities.png)
 

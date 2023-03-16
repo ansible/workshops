@@ -18,6 +18,16 @@
   delay: 3
   retries: 5
 
+# Disable collections requirements.yml and rely on only EEs
+- name: Turn off AWX_COLLECTIONS_ENABLED on controller
+  awx.awx.settings:
+    name: AWX_COLLECTIONS_ENABLED
+    value: false
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    
 #### CREDENTIAL
 - name: add SSH credential into Automation controller
   awx.awx.credential:

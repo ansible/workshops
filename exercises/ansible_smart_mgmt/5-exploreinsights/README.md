@@ -17,9 +17,9 @@ Exercise
 
 #### Explore Insights on console.redhat.com
 
-This exercise is much less prescriptive and is designed to provide the student with some general guidance to get started.  This exercise will look at console.redhat.com
+This exercise is much less prescriptive and is designed to provide the student with some general guidance to get started.  Please feel free to explore all of the available Red Hat Insights Services
 
--   Login to console.redhat.com using portal account credentials
+-   Login to console.redhat.com using portal account credentials - https://console.redhat.com
 
 -   Select Red Hat Enterprise Linux -> Red Hat Insights
 
@@ -31,13 +31,13 @@ This exercise is much less prescriptive and is designed to provide the student w
 
     - Note that the hosts registered during the Setup / Insights Workflow Template job run are present at the top of the list
 
-    - Click into each host to see the details of each host on the General Information tab
+    - Click into each host to see the details of each host on the General Information tab. An representative sample is provided using node1.example.com.
 
 ![inventory-general-information](images/5-exploreinsights-inventory-general.png)
 
 - Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host
 
-- Note that on the right most column labeled Remediation you will see Playbook listed on many of these vulnerabilities.  This indicates that an Ansible Playbook has been created to correct this issue.  In the next exercise we will demonstrate how to do that.
+> **NOTE** The right most column labeled Remediation you will see Playbook listed on many of these vulnerabilities.  This indicates that an Ansible Playbook has been created to correct this issue.  In the next exercise we will demonstrate how to do that.
 
 ![host-vulnerability-information](images/5-exploreinsights-host-vulnerabilities.png)
 

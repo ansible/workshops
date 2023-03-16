@@ -113,8 +113,7 @@
         scm_update_on_launch: true
         scm_update_cache_timeout: 3600
         scm_type: git
-        scm_url: 'https://github.com/bdumont01/automated-smart-management.git'
-#        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
+        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
         scm_branch: insights
         default_environment: smart_mgmt workshop execution environment
       - name: Fact Scan
@@ -156,32 +155,32 @@
 
   tasks:
 
-#    - when: provision_mode == "workshop"
-#      block:
-#        - name: Run SETUP / Satellite job template
-#          awx.awx.job_launch:
-#            job_template: "SETUP / Satellite"
-#            extra_vars:
-#              refresh_satellite_manifest: true
-#            controller_username: admin
-#            controller_password: "{{ admin_password }}"
-#            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-#          register: setupsatjob
+    - when: provision_mode == "workshop"
+      block:
+        - name: Run SETUP / Satellite job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Satellite"
+            extra_vars:
+              refresh_satellite_manifest: true
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupsatjob
 
-#        - name: "Check API until SETUP / Satellite job is successful"
-#          ansible.builtin.uri:
-#            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
-#            user: admin
-#            password: "{{ admin_password }}"
-#            force_basic_auth: true
-#            method: GET
-#            return_content: true
-#            status_code: 200
-#            validate_certs: false
-#          register: workshop_job_templates01
-#          until: workshop_job_templates01.json.status == "successful"
-#          delay: 20  # Every 20 seconds
-#          retries: 180  # 1hour 60*60/20
+        - name: "Check API until SETUP / Satellite job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
 
     - when: provision_mode == "demo"
       block:

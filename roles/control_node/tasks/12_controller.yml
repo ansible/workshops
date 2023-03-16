@@ -61,7 +61,7 @@
     - name: Load manifest into variable
       local_action:
         module: slurp
-        src: '/home/runner/files/manifest.zip'
+        src: '{{ playbook_dir }}/manifest.zip'
       register: manifest_file
       become: false
 

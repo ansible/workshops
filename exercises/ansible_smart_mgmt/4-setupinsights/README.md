@@ -24,8 +24,8 @@ Overview
 
 **Summary**<br>
 - Insights is a hosted service on console.redhat.com.  In order to access this service you need a Red Hat Portal Account
-- Since accounts are associated with subscriptions sharing an account widely could cause us to lose control of the account and subscription consumption
-- Therefore this exercise will require the use of a personal portal account and will require 2 RHEL Subscriptions
+- Since accounts are associated with subscriptions sharing an account widely could cause a lost of control of the account and subscription consumption
+- Therefore this exercise will require the use of a the users portal account and will require 2 RHEL Subscriptions
 
 
 Ok, let's get started...  
@@ -37,7 +37,7 @@ Prerequisites
 
 -   Information required for executing this exercise
 
-    - Manifest created in your portal account targeted to Satellite 6.10 with appropriate subscriptions including a minimum of 2 RHEL Instance-based subscriptions with Smart Management and 1 Satellite Infrastructure subscription
+    - Manifest created in your portal account targeted to Satellite 6.12 with appropriate subscriptions including a minimum of 2 RHEL Instance-based subscriptions with Smart Management and 1 Satellite Infrastructure subscription
         - Record the name ⇒ manifest_name 
 
     - Offline Token for accessing the Subscription Manager API
@@ -74,7 +74,7 @@ Exercise:
 
 -   Scroll down to find **Setup / Insights**.
 
--   Note that it has the this template is a workflow template as indicated by the visualizer icon and type = Workflow Job Template
+> **NOTE** This template is a workflow template as indicated by the visualizer icon and type = Workflow Job Template
 
 ![Setup Insight](images/4-setupinsights-workflow-template.png)
 
@@ -84,13 +84,13 @@ Exercise:
 
 - This workflow job template executes the following job templates
 
-    - Insights / Replace Satellite Manifest - Replaces the Satellite manifest in the workshop with one that attaches to your account
+    - Insights / Replace Satellite Manifest - Replaces the Satellite manifest in the workshop with one that attaches to your Red Hat Portal Account
     - Server /RHEL7 - Register - Registers the hosts to Satellite
-    - Insights / Install and Register - Installs Insights and registers the 3 RHEL hosts to Insights.  It also runs the Insights Compliance role which installs the openscap packages on the host
+    - Insights / Install and Register - Installs Insights and registers the 3 RHEL hosts to Insights.  It also runs the Insights Compliance role which installs the openscap packages on the hosts
     - Insights - Create Insights Credential - Creates the AAP Insights Credential using your portal account information
-    - Insights - Create Insights Project - Creates an Insights Project in AAP that allows execution of any remediation automated created in Insights 
+    - Insights - Create Insights Project - Creates an Insights Project in AAP that provides a project for remediation playbooks created in Insights to be consumed by AAP
 
--   Prior to executing the workflow job template you MUST add variables to the template.  To do that:
+> **NOTE** Prior to executing the workflow job template you **MUST** add variables to the template.  To do that:
 
 
 -   Click ![pencil](images/4-setupinsights-pencil.png) to the right of **Setup / Insights**.  This will open the edit details window as shown below:
@@ -117,10 +117,12 @@ Exercise:
     - Server Name or Pattern - node
     - Choose Environment - Dev
 
--   Click Next and then Launch and watch the workflow complete (Note - you may click on each job template being executed to see the details of that job template run)
+-   Click Next and then Launch and watch the workflow complete
+
+> **NOTE** You may click on each job template being executed to see the details of that job template run)
 
 -   A successful workflow run will show the following:
 
 ![workflow complete](images/4-setupinsights-workflow-complete.png)
 
-At this point in the exercise you the Ansible Smart Management Workshop is now connected to your Red Hat Portal Account and is configured to support demonstrating Insights.
+At this point in the exercise the Ansible Smart Management Workshop is now connected to your Red Hat Portal Account and is configured to support demonstrating Insights.

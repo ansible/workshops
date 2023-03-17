@@ -20,7 +20,7 @@ This workshop currently focuses on 3 main customer pain points:
 - Patch/Package Management
 - CentOS to RHEL conversion
 - (WIP) RHEL 7 > 8/9
-- Insights
+- Vulnerability Management with Insights
 
 ## Presentations
 

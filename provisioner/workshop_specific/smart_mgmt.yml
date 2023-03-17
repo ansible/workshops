@@ -114,7 +114,7 @@
         scm_update_cache_timeout: 3600
         scm_type: git
         scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
-        scm_branch: insights
+        scm_branch: aap2-29compat
         default_environment: smart_mgmt workshop execution environment
       - name: Fact Scan
         organization: Default

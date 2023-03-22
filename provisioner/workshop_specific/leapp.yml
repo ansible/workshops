@@ -7,3 +7,111 @@
     - name: configure RHEL webservers
       include_role:
         name: ../../roles/webservers
+
+- name: configure controller for leapp
+  hosts: control_nodes
+  gather_facts: false
+  vars:
+    controller_infra_workloads:
+      - redhat_cop.controller_configuration.credential_types
+      - redhat_cop.controller_configuration.credentials
+      - redhat_cop.controller_configuration.projects
+      - redhat_cop.controller_configuration.job_templates
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_validate_certs: false
+    controller_credential_types:
+      - name: Satellite_Collection
+        description: Credential for redhat.satellite collection
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: username
+              label: Satellite Username
+            - type: string
+              id: password
+              label: Satellite Password
+              secret: true
+            - type: string
+              id: host
+              label: Satellite Hostname
+          required:
+            - username
+            - password
+            - host
+        injectors:
+          env:
+            FOREMAN_SERVER: !unsafe '{{ host }}'
+            FOREMAN_USER: !unsafe '{{ username}}'
+            FOREMAN_PASSWORD: !unsafe '{{ password }}'
+            FOREMAN_VALIDATE_CERTS: 'false'
+      - name: GitHub_Personal_Access_Token
+        description: Credential for GitHub repo operations automation
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: personal_access_token
+              label: Personal Access Token
+              secret: true
+              help_text: GitHub Personal Access Token
+              multiline: true
+          required:
+            - personal_access_token
+        injectors:
+          env:
+            MY_PA_TOKEN: !unsafe '{{ personal_access_token }}'
+    controller_projects:
+      - name: Project Leapp
+        organization: Default
+        scm_update_on_launch: true
+        scm_update_cache_timeout: 3600
+        scm_type: git
+        scm_url: 'https://github.com/heatmiser/ansible-leapp.git'
+        scm_branch: project-dev
+        default_environment: leapp workshop execution environment
+      - name: Product Demos
+        organization: Default
+        scm_type: git
+        scm_url: 'https://github.com/ansible/product-demos.git'
+        default_environment: leapp workshop execution environment
+    controller_templates:
+      - name: Fact Scan
+        project: Product Demos
+        playbook: linux/fact_scan.yml
+        inventory: Workshop Inventory
+        limit: web
+        credentials:
+          - Workshop Credential
+        extra_vars:
+          refresh_satellite_manifest: false
+        ask_variables_on_launch: true
+      - name: OS Update
+        project: Project Leapp
+        playbook: pkgs_full_update.yml
+        inventory: Workshop Inventory
+        limit: web
+        credentials:
+          - Workshop Credential
+      - name: Leapp Analysis
+        project: Project Leapp
+        playbook: analysis.yml
+        inventory: Workshop Inventory
+        limit: web
+        credentials:
+          - Workshop Credential
+        extra_vars:
+          leapp_upgrade_type: connected
+        ask_variables_on_launch: true
+
+  tasks:
+    - name: Deploy controller-infra workloads
+      include_role:
+        name: "{{ controller_infra_vars }}"
+      loop: "{{ controller_infra_workloads }}"
+      loop_control:
+        loop_var: controller_infra_vars
+      when:
+        - controller_infra_workloads | d("") | length >0

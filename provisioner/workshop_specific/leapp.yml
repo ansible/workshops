@@ -105,7 +105,21 @@
         extra_vars:
           leapp_upgrade_type: connected
         ask_variables_on_launch: true
-
+      - name: Snapshot Instance
+        project: Project Leapp
+        playbook: snapshot_instance.yml
+        inventory: Workshop Inventory
+        limit: ansible-1
+        credentials:
+          - Workshop Credential
+        extra_vars:
+          snapshot: aws
+          ec2_region: "{{ workshop_ec2_region }}"
+          instances:
+            tags:
+              guid: "{{ ec2_name_prefix }}"
+              Student: student1
+              operating_system: rhel
   tasks:
     - name: Deploy controller-infra workloads
       include_role:

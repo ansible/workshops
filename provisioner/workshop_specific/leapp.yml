@@ -118,7 +118,7 @@
           instances:
             tags:
               guid: "{{ ec2_name_prefix }}"
-              Student: "{{ lookup('env', 'AWX_HOST').split('.')[0] | urlsplit('hostname') }}"
+              Student: student1
               operating_system: rhel
       - name: Instance Details
         project: Project Leapp
@@ -132,7 +132,7 @@
           instances:
             tags:
               guid: "{{ ec2_name_prefix }}"
-              Student: "{{ lookup('env', 'AWX_HOST').split('.')[0] | urlsplit('hostname') }}"
+              Student: student1
               operating_system: rhel
 
   tasks:

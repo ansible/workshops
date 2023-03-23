@@ -114,7 +114,21 @@
           - Workshop Credential
         extra_vars:
           snapshot: aws
-          ec2_region: "{{ workshop_ec2_region }}"
+          ec2_region: "{{ ec2_region }}"
+          instances:
+            tags:
+              guid: "{{ ec2_name_prefix }}"
+              Student: student1
+              operating_system: rhel
+      - name: Instance Details
+        project: Project Leapp
+        playbook: instance_details.yml
+        inventory: Workshop Inventory
+        limit: ansible-1
+        credentials:
+          - Workshop Credential
+        extra_vars:
+          ec2_region: "{{ ec2_region }}"
           instances:
             tags:
               guid: "{{ ec2_name_prefix }}"

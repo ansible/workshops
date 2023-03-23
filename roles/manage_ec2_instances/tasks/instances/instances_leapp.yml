@@ -27,6 +27,7 @@
       short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
+      operating_system: rhel
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -109,6 +110,7 @@
       short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
+      operating_system: rhel
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

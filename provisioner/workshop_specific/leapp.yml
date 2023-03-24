@@ -105,6 +105,16 @@
         extra_vars:
           leapp_upgrade_type: connected
         ask_variables_on_launch: true
+      - name: Leapp Upgrade
+        project: Project Leapp
+        playbook: upgrade.yml
+        inventory: Workshop Inventory
+        limit: web
+        credentials:
+          - Workshop Credential
+        extra_vars:
+          leapp_upgrade_type: connected
+        ask_variables_on_launch: true
       - name: Snapshot Instance
         project: Project Leapp
         playbook: snapshot_instance.yml

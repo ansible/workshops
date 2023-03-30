@@ -31,7 +31,7 @@ This exercise is much less prescriptive and is designed to provide the student w
 
     - Note that the hosts registered during the Setup / Insights Workflow Template job run are present at the top of the list
 
-    - Click into each host to see the details of each host on the General Information tab. An representative sample is provided using node1.example.com.
+    - Click into each host to see the details of each host on the General Information tab. A representative sample is provided using node1.example.com.
 
 ![inventory-general-information](images/5-exploreinsights-inventory-general.png)
 

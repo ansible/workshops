@@ -24,8 +24,8 @@ Overview
 
 **Summary**<br>
 - Insights is a hosted service on console.redhat.com.  In order to access this service you need a Red Hat Portal Account
-- Since accounts are associated with subscriptions sharing an account widely could cause a lost of control of the account and subscription consumption
-- Therefore this exercise will require the use of a the users portal account and will require 2 RHEL Subscriptions
+- Since accounts are associated with subscriptions, sharing an account widely could cause a lost of control of the account and subscription consumption
+- Therefore this exercise will require the use of a users portal account and will require 2 RHEL Subscriptions
 
 
 Ok, let's get started...  

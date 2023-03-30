@@ -33,7 +33,7 @@ Ok, let's get started...
 Prerequisites
 --------------
 
--   Exercise 0: Lab Setup
+> **NOTE** These instructions assume that the Ansible Controller is setup.  This can be done in one of two ways:  1) Complete Exercies 0 - Lab Setup or 2) Run Setup / Controller.
 
 -   Information required for executing this exercise
 
@@ -41,11 +41,11 @@ Prerequisites
         - Record the name ⇒ manifest_name 
 
     - Offline Token for accessing the Subscription Manager API
-        - Access.redhat.com -> Subscriptions -> Manage -> RHSM API Tokens - Generate Token ⇒ offline_token
+        - access.redhat.com -> Subscriptions -> Manage -> RHSM API Tokens - Generate Token ⇒ offline_token
 
     - Your Organization ID 
-        - Access.redhat.com -> Subscriptions -> Manager -> Activation Keys ⇒ rhsm_org_id OR
-        - Console.redhat.com -> Settings -> Remote Host Configuration -> Activation Keys⇒ rhsm_org_id
+        - access.redhat.com -> Subscriptions -> Manage -> Activation Keys ⇒ rhsm_org_id OR
+        - console.redhat.com -> Settings -> Remote Host Configuration -> Activation Keys⇒ rhsm_org_id
 
     - Red Hat Account username and password
         - username ⇒ insights_user

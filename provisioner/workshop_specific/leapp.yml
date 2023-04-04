@@ -69,8 +69,8 @@
         scm_update_on_launch: true
         scm_update_cache_timeout: 3600
         scm_type: git
-        scm_url: 'https://github.com/heatmiser/ansible-leapp.git'
-        scm_branch: project-dev
+        scm_url: 'https://github.com/redhat-partner-tech/leapp-project'
+        scm_branch: main
         default_environment: leapp workshop execution environment
       - name: Product Demos
         organization: Default
@@ -115,6 +115,13 @@
         extra_vars:
           leapp_upgrade_type: connected
         ask_variables_on_launch: true
+      - name: Rectify RHEL7
+        project: Project Leapp
+        playbook: rectify_rhel7.yml
+        inventory: Workshop Inventory
+        limit: rhel7
+        credentials:
+          - Workshop Credential
       - name: Snapshot Instance
         project: Project Leapp
         playbook: snapshot_instance.yml
@@ -130,6 +137,26 @@
               guid: "{{ ec2_name_prefix }}"
               Student: student1
               operating_system: rhel
+      - name: Snapshot Instance / Revert
+        project: Project Leapp
+        playbook: snapshot_revert.yml
+        inventory: Workshop Inventory
+        limit: ansible-1
+        credentials:
+          - Workshop Credential
+        extra_vars:
+          snapshot: aws
+          ec2_region: "{{ ec2_region }}"
+          instances:
+            tags:
+              guid: "{{ ec2_name_prefix }}"
+              Student: student1
+              operating_system: rhel
+          snapshots:
+            tags:
+              Workshop: "{{ ec2_name_prefix }}"
+              Student: student1
+              Environment: leapp
       - name: Instance Details
         project: Project Leapp
         playbook: instance_details.yml
@@ -153,4 +180,63 @@
         loop_var: controller_infra_vars
       when:
         - controller_infra_workloads | d("") | length >0
+
+- name: Final workshop preparations
+  hosts: control_nodes
+  become: true
+  gather_facts: true
+
+  tasks:
+
+    - when: provision_mode == "workshop"
+      block:
+        - name: Run OS Update job template
+          awx.awx.job_launch:
+            job_template: "OS Update"
+            extra_vars:
+              refresh_satellite_manifest: true
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: osupdatejob
+
+        - name: "Check API until OS Update job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ osupdatejob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_template01
+          until: workshop_job_template01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+    - when: provision_mode == "demo"
+      block:
+        - name: Run Fact Scan job template
+          awx.awx.job_launch:
+            job_template: "Fact Scan"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: factscanjob
+
+        - name: "Check API until Fact Scan job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ factscanjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: demo_job_template01
+          until: demo_job_template01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
 ...

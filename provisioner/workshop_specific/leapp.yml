@@ -16,6 +16,8 @@
       - redhat_cop.controller_configuration.credential_types
       - redhat_cop.controller_configuration.credentials
       - redhat_cop.controller_configuration.projects
+      - redhat_cop.controller_configuration.inventories
+      - redhat_cop.controller_configuration.inventory_sources
       - redhat_cop.controller_configuration.job_templates
     controller_hostname: "https://{{ ansible_host }}"
     controller_username: admin
@@ -150,12 +152,12 @@
           instances:
             tags:
               guid: "{{ ec2_name_prefix }}"
-              Student: student1
+              Student: "{{ student }}"
               operating_system: rhel
           snapshots:
             tags:
               Workshop: "{{ ec2_name_prefix }}"
-              Student: student1
+              Student: "{{ student }}"
               Environment: leapp
       - name: Instance Details
         project: Project Leapp
@@ -169,8 +171,101 @@
           instances:
             tags:
               guid: "{{ ec2_name_prefix }}"
-              Student: student1
+              Student: "{{ student }}"
               operating_system: rhel
+    controller_inventories:
+      - name: rhel7
+        organization: Default
+        variables:
+          instances:
+            tags:
+              guid: "{{ ec2_name_prefix }}"
+              Student: "{{ student }}"
+              operating_system: rhel
+              os_major_version: 7
+      - name: rhel8
+        organization: Default
+        variables:
+          instances:
+            tags:
+              guid: "{{ ec2_name_prefix }}"
+              Student: "{{ student }}"
+              operating_system: rhel
+              os_major_version: 8
+      - name: rhel9
+        organization: Default
+        variables:
+          instances:
+            tags:
+              guid: "{{ ec2_name_prefix }}"
+              Student: "{{ student }}"
+              operating_system: rhel
+              os_major_version: 9
+    controller_inventory_sources:
+      - name: EC2 Dynamic Source - rhel7
+        inventory: rhel7
+        source: ec2
+        source_vars:
+          regions:
+            - "{{ workshop_ec2_region }}"
+          filters:
+              guid: "{{ ec2_name_prefix }}"
+              Student: "{{ student }}"
+              operating_system: rhel
+              os_major_version: 7
+          hostnames:
+            - tag:NodeName
+            - tag:Name
+            - private-dns-name
+          compose:
+            # set the ansible_host variable to connect with the private IP address without changing the hostname
+            ansible_host: private_ip_address
+        overwrite: true
+        update_on_launch: false
+        update_cache_timeout: 0
+      - name: EC2 Dynamic Source - rhel8
+        inventory: rhel8
+        source: ec2
+        source_vars:
+          regions:
+            - "{{ workshop_ec2_region }}"
+          filters:
+              guid: "{{ ec2_name_prefix }}"
+              Student: "{{ student }}"
+              operating_system: rhel
+              os_major_version: 8
+          hostnames:
+            - tag:NodeName
+            - tag:Name
+            - private-dns-name
+          compose:
+            # set the ansible_host variable to connect with the private IP address without changing the hostname
+            ansible_host: private_ip_address
+        overwrite: true
+        update_on_launch: false
+        update_cache_timeout: 0
+      - name: EC2 Dynamic Source - rhel9
+        inventory: rhel9
+        source: ec2
+        source_vars:
+          regions:
+            - "{{ workshop_ec2_region }}"
+          filters:
+              guid: "{{ ec2_name_prefix }}"
+              Student: "{{ student }}"
+              operating_system: rhel
+              os_major_version: 9
+          hostnames:
+            - tag:NodeName
+            - tag:Name
+            - private-dns-name
+          compose:
+            # set the ansible_host variable to connect with the private IP address without changing the hostname
+            ansible_host: private_ip_address
+        overwrite: true
+        update_on_launch: false
+        update_cache_timeout: 0
+  
   tasks:
     - name: Deploy controller-infra workloads
       include_role:

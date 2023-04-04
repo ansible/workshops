@@ -280,6 +280,16 @@
         update_cache_timeout: 0
   
   tasks:
+    # Allow projects to pull collections via collections/requirements.yml
+    - name: Turn on AWX_COLLECTIONS_ENABLED on controller
+      awx.awx.settings:
+        name: AWX_COLLECTIONS_ENABLED
+        value: true
+        controller_username: admin
+        controller_password: "{{ admin_password }}"
+        controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+        validate_certs: false
+
     - name: Deploy controller-infra workloads
       include_role:
         name: "{{ controller_infra_vars }}"

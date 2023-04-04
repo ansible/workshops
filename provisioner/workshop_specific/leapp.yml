@@ -74,15 +74,10 @@
         scm_url: 'https://github.com/redhat-partner-tech/leapp-project'
         scm_branch: main
         default_environment: leapp workshop execution environment
-      - name: Product Demos
-        organization: Default
-        scm_type: git
-        scm_url: 'https://github.com/ansible/product-demos.git'
-        default_environment: leapp workshop execution environment
     controller_templates:
       - name: Fact Scan
-        project: Product Demos
-        playbook: linux/fact_scan.yml
+        project: Project Leapp
+        playbook: fact_scan.yml
         inventory: Workshop Inventory
         limit: web
         use_fact_cache: true

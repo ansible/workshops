@@ -15,6 +15,22 @@
       "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
   register: node2_node_facts
 
+- name: grab facts for node3 node
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
+  register: node3_node_facts
+
+- name: grab facts for node4 node
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
+  register: node4_node_facts
+
 - name: grab facts for isonode
   amazon.aws.ec2_instance_info:
     region: "{{ ec2_region }}"
@@ -47,6 +63,40 @@
   with_items:
     - "{{ node1_node_facts.instances }}"
     - "{{ node2_node_facts.instances }}"
+    - "{{ node3_node_facts.instances }}"
+    - "{{ node4_node_facts.instances }}"
+  changed_when: false
+
+- name: add rhel7 hosts to rhel7 group (ANSIBLE RHEL MODE)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    username: "{{ student_user }}"
+    student: "{{ item.tags.Student }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    groups: rhel7_hosts
+  with_items:
+    - "{{ node1_node_facts.instances }}"
+    - "{{ node2_node_facts.instances }}"
+  changed_when: false
+
+- name: add rhel8 hosts to rhel8 group (ANSIBLE RHEL MODE)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    username: "{{ student_user }}"
+    student: "{{ item.tags.Student }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    groups: rhel8_hosts
+  with_items:
+    - "{{ node3_node_facts.instances }}"
+    - "{{ node4_node_facts.instances }}"
   changed_when: false
 
 - name: add nodes for cluster lab to groups (ANSIBLE RHEL MODE)

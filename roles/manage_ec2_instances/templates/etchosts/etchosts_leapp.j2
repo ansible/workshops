@@ -13,6 +13,18 @@
 {% endif %}
 {% endfor %}
 
+{% for vm in node3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{ vm.tags.short_name }}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
+{% for vm in node4_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{ vm.tags.short_name }}
+{% endif %}
+{% endfor %}
+
 {% if centos6 is defined %}
 {% for vm in node7_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}

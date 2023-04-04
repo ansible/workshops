@@ -9,6 +9,16 @@
 {{ vm.tags.short_name }} ansible_host={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
+{% for vm in node3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.short_name }} ansible_host={{ vm.private_ip_address }}
+{% endif %}
+{% endfor %}
+{% for vm in node4_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.tags.short_name }} ansible_host={{ vm.private_ip_address }}
+{% endif %}
+{% endfor %}
 
 [control]
 {% for vm in ansible_node_facts.instances %}

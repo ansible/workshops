@@ -217,7 +217,7 @@
         source: ec2
         source_vars:
           regions:
-            - "{{ workshop_ec2_region }}"
+            - "{{ ec2_region }}"
           filters:
               guid: "{{ ec2_name_prefix }}"
               Student: "{{ student }}"
@@ -238,7 +238,7 @@
         source: ec2
         source_vars:
           regions:
-            - "{{ workshop_ec2_region }}"
+            - "{{ ec2_region }}"
           filters:
               guid: "{{ ec2_name_prefix }}"
               Student: "{{ student }}"
@@ -259,7 +259,7 @@
         source: ec2
         source_vars:
           regions:
-            - "{{ workshop_ec2_region }}"
+            - "{{ ec2_region }}"
           filters:
               guid: "{{ ec2_name_prefix }}"
               Student: "{{ student }}"

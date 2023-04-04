@@ -219,10 +219,10 @@
           regions:
             - "{{ ec2_region }}"
           filters:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-              os_major_version: 7
+              tag:guid: "{{ ec2_name_prefix }}"
+              tag:Student: "{{ student }}"
+              tag:operating_system: rhel
+              tag:os_major_version: 7
           hostnames:
             - tag:NodeName
             - tag:Name
@@ -240,10 +240,10 @@
           regions:
             - "{{ ec2_region }}"
           filters:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-              os_major_version: 8
+              tag:guid: "{{ ec2_name_prefix }}"
+              tag:Student: "{{ student }}"
+              tag:operating_system: rhel
+              tag:os_major_version: 8
           hostnames:
             - tag:NodeName
             - tag:Name
@@ -261,10 +261,10 @@
           regions:
             - "{{ ec2_region }}"
           filters:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-              os_major_version: 9
+              tag:guid: "{{ ec2_name_prefix }}"
+              tag:Student: "{{ student }}"
+              tag:operating_system: rhel
+              tag:os_major_version: 9
           hostnames:
             - tag:NodeName
             - tag:Name

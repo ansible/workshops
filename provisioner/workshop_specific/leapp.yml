@@ -106,6 +106,8 @@
           - Workshop Credential
         extra_vars:
           leapp_upgrade_type: connected
+          leapp_metadata_url: https://host.location/leapp-data-21.tar.gz
+          leapp_repos_enabled: []
         ask_variables_on_launch: true
       - name: Leapp Upgrade
         project: Project Leapp
@@ -116,7 +118,15 @@
           - Workshop Credential
         extra_vars:
           leapp_upgrade_type: connected
+          leapp_repos_enabled: []
         ask_variables_on_launch: true
+      - name: Leapp Analysis
+        project: Project Leapp
+        playbook: analysis.yml
+        inventory: Workshop Inventory
+        limit: web
+        credentials:
+          - Workshop Credential
       - name: Rectify RHEL7
         project: Project Leapp
         playbook: rectify_rhel7.yml

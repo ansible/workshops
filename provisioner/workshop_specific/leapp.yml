@@ -301,8 +301,6 @@
         - name: Run OS Update job template
           awx.awx.job_launch:
             job_template: "OS Update"
-            extra_vars:
-              refresh_satellite_manifest: true
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"

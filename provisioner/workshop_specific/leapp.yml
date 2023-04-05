@@ -368,6 +368,31 @@
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 
+        - name: Run Update inventories via dynamic sources job template
+          awx.awx.job_launch:
+            job_template: "Update inventories via dynamic sources"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            extra_vars:
+              rhel_inventory_name: rhel7
+          register: update_inventories_job1
+
+        - name: "Check API until Update inventories via dynamic sources RHEL7 job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ update_inventories_job1.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_template03
+          until: workshop_job_template03.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
     - when: provision_mode == "demo"
       block:
         - name: Run Fact Scan job template

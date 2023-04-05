@@ -178,6 +178,25 @@
               guid: "{{ ec2_name_prefix }}"
               Student: "{{ student }}"
               operating_system: rhel
+      - name: Update inventories via dynamic sources
+        project: Project Leapp
+        playbook: inventory_source_update.yml
+        inventory: Workshop Inventory
+        credentials:
+          - Controller Credential
+        survey_enabled: true
+        survey:
+          name: ''
+          description: ''
+          spec:
+            - question_name: Select inventory to update
+              type: multiplechoice
+              variable: rhel_inventory_name
+              choices:
+                - rhel7
+                - rhel8
+                - rhel9
+              required: true
     controller_inventories:
       - name: rhel7
         organization: Default

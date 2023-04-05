@@ -322,6 +322,29 @@
 
     - when: provision_mode == "workshop"
       block:
+        - name: Run Snapshot Instance job template
+          awx.awx.job_launch:
+            job_template: "Snapshot Instance"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: snapshot_instance_job
+
+        - name: "Check API until Snapshot Instance job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ snapshot_instance_job.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_template01
+          until: workshop_job_template01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
         - name: Run OS Update job template
           awx.awx.job_launch:
             job_template: "OS Update"
@@ -340,8 +363,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: workshop_job_template01
-          until: workshop_job_template01.json.status == "successful"
+          register: workshop_job_template02
+          until: workshop_job_template02.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 

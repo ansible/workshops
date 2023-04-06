@@ -19,6 +19,10 @@
       name: "{{ ec2_info['satellite'].filter }}"
   register: sat_amis
 
+- name: debug amis
+  debug:
+    msg: "{{ sat_amis }}"
+
 - name: save ami for satellite
   set_fact:
     sat_ami: >

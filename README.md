@@ -30,6 +30,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 | Workshop   | Public Deck  | Red Hat Internal | Exercises  | Workshop Type Var   |
 |---|---|---|---|---|
 | **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel_90)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel_90.pdf) | [Google Source](https://docs.google.com/presentation/d/1PY1uMh76ChJ0l4v4EANkzwWGXOIT4ktzyu2QOE2MKIk) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
+ **[Ansible Network Automation Workshop](./exercises/ansible_network)** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [PDF](./decks/ansible_network_90.pdf) | [Google Source](https://docs.google.com/presentation/d/10QhALqWVwsZ1GYfzxAejsKmBB2QeoWo_SNkB1RnzcQo/edit?usp=sharing) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
 
 ## Self Paced Exercises
 

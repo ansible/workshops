@@ -14,10 +14,10 @@
   vars:
     controller_infra_workloads:
       - redhat_cop.controller_configuration.credential_types
-      - redhat_cop.controller_configuration.credentials
+      # - redhat_cop.controller_configuration.credentials
       - redhat_cop.controller_configuration.projects
-      - redhat_cop.controller_configuration.inventories
-      - redhat_cop.controller_configuration.inventory_sources
+      # - redhat_cop.controller_configuration.inventories
+      # - redhat_cop.controller_configuration.inventory_sources
       - redhat_cop.controller_configuration.job_templates
     controller_hostname: "https://{{ ansible_host }}"
     controller_username: admin
@@ -75,224 +75,14 @@
         scm_branch: main
         default_environment: leapp workshop execution environment
     controller_templates:
-      - name: Fact Scan
+      - name: SETUP / Controller
         project: Project Leapp
-        playbook: fact_scan.yml
+        playbook: controller_iac.yml
         inventory: Workshop Inventory
-        limit: web
-        use_fact_cache: true
-        credentials:
-          - Workshop Credential
-        extra_vars:
-          _hosts: all
-      - name: OS Update
-        project: Project Leapp
-        playbook: pkgs_full_update.yml
-        inventory: Workshop Inventory
-        limit: web
-        credentials:
-          - Workshop Credential
-      - name: Leapp Analysis
-        project: Project Leapp
-        playbook: analysis.yml
-        inventory: Workshop Inventory
-        limit: web
-        credentials:
-          - Workshop Credential
-        extra_vars:
-          leapp_upgrade_type: connected
-          leapp_metadata_url: https://host.location/leapp-data-21.tar.gz
-          leapp_repos_enabled: []
-        ask_variables_on_launch: true
-      - name: Leapp Upgrade
-        project: Project Leapp
-        playbook: upgrade.yml
-        inventory: Workshop Inventory
-        limit: web
-        credentials:
-          - Workshop Credential
-        extra_vars:
-          leapp_upgrade_type: connected
-          leapp_repos_enabled: []
-        ask_variables_on_launch: true
-      - name: Leapp Analysis
-        project: Project Leapp
-        playbook: analysis.yml
-        inventory: Workshop Inventory
-        limit: web
-        credentials:
-          - Workshop Credential
-      - name: Rectify RHEL7
-        project: Project Leapp
-        playbook: rectify_rhel7.yml
-        inventory: Workshop Inventory
-        limit: rhel7
-        credentials:
-          - Workshop Credential
-      - name: Snapshot Instance
-        project: Project Leapp
-        playbook: snapshot_instance.yml
-        inventory: Workshop Inventory
-        limit: ansible-1
-        credentials:
-          - Workshop Credential
-        extra_vars:
-          snapshot: aws
-          ec2_region: "{{ ec2_region }}"
-          instances:
-            tags:
-              guid: "{{ ec2_name_prefix }}"
-              Student: student1
-              operating_system: rhel
-      - name: Snapshot Instance / Revert
-        project: Project Leapp
-        playbook: snapshot_revert.yml
-        inventory: Workshop Inventory
-        limit: ansible-1
-        credentials:
-          - Workshop Credential
-        extra_vars:
-          snapshot: aws
-          ec2_region: "{{ ec2_region }}"
-          instances:
-            tags:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-          snapshots:
-            tags:
-              Workshop: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              Environment: leapp
-      - name: Instance Details
-        project: Project Leapp
-        playbook: instance_details.yml
-        inventory: Workshop Inventory
-        limit: ansible-1
-        credentials:
-          - Workshop Credential
-        extra_vars:
-          ec2_region: "{{ ec2_region }}"
-          instances:
-            tags:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-      - name: Update inventories via dynamic sources
-        project: Project Leapp
-        playbook: inventory_source_update.yml
-        inventory: Workshop Inventory
+        execution_environment: Default execution environment
         credentials:
           - Controller Credential
-        survey_enabled: true
-        survey:
-          name: ''
-          description: ''
-          spec:
-            - question_name: Select inventory to update
-              type: multiplechoice
-              variable: rhel_inventory_name
-              choices:
-                - rhel7
-                - rhel8
-                - rhel9
-              required: true
-    controller_inventories:
-      - name: rhel7
-        organization: Default
-        variables:
-          instances:
-            tags:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-              os_major_version: 7
-      - name: rhel8
-        organization: Default
-        variables:
-          instances:
-            tags:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-              os_major_version: 8
-      - name: rhel9
-        organization: Default
-        variables:
-          instances:
-            tags:
-              guid: "{{ ec2_name_prefix }}"
-              Student: "{{ student }}"
-              operating_system: rhel
-              os_major_version: 9
-    controller_inventory_sources:
-      - name: EC2 Dynamic Source - rhel7
-        inventory: rhel7
-        source: ec2
-        source_vars:
-          regions:
-            - "{{ ec2_region }}"
-          filters:
-              tag:guid: "{{ ec2_name_prefix }}"
-              tag:Student: "{{ student }}"
-              tag:operating_system: rhel
-              tag:os_major_version: 7
-          hostnames:
-            - tag:short_name
-            - tag:NodeName
-            - tag:Name
-            - private-dns-name
-          compose:
-            # set the ansible_host variable to connect with the private IP address without changing the hostname
-            ansible_host: private_ip_address
-        overwrite: true
-        update_on_launch: false
-        update_cache_timeout: 0
-      - name: EC2 Dynamic Source - rhel8
-        inventory: rhel8
-        source: ec2
-        source_vars:
-          regions:
-            - "{{ ec2_region }}"
-          filters:
-              tag:guid: "{{ ec2_name_prefix }}"
-              tag:Student: "{{ student }}"
-              tag:operating_system: rhel
-              tag:os_major_version: 8
-          hostnames:
-            - tag:short_name
-            - tag:NodeName
-            - tag:Name
-            - private-dns-name
-          compose:
-            # set the ansible_host variable to connect with the private IP address without changing the hostname
-            ansible_host: private_ip_address
-        overwrite: true
-        update_on_launch: false
-        update_cache_timeout: 0
-      - name: EC2 Dynamic Source - rhel9
-        inventory: rhel9
-        source: ec2
-        source_vars:
-          regions:
-            - "{{ ec2_region }}"
-          filters:
-              tag:guid: "{{ ec2_name_prefix }}"
-              tag:Student: "{{ student }}"
-              tag:operating_system: rhel
-              tag:os_major_version: 9
-          hostnames:
-            - tag:short_name
-            - tag:NodeName
-            - tag:Name
-            - private-dns-name
-          compose:
-            # set the ansible_host variable to connect with the private IP address without changing the hostname
-            ansible_host: private_ip_address
-        overwrite: true
-        update_on_launch: false
-        update_cache_timeout: 0
-  
+
   tasks:
     # Allow projects to pull collections via collections/requirements.yml
     - name: Turn on AWX_COLLECTIONS_ENABLED on controller
@@ -317,11 +107,32 @@
   hosts: control_nodes
   become: true
   gather_facts: true
-
   tasks:
-
     - when: provision_mode == "workshop"
       block:
+        - name: Run SETUP / Controller job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Controller"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupcontroljob
+
+        - name: "Check API until SETUP / Controller job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
         - name: Run Snapshot Instance job template
           awx.awx.job_launch:
             job_template: "Snapshot Instance"
@@ -340,8 +151,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: workshop_job_template01
-          until: workshop_job_template01.json.status == "successful"
+          register: workshop_job_template02
+          until: workshop_job_template02.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 
@@ -363,8 +174,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: workshop_job_template02
-          until: workshop_job_template02.json.status == "successful"
+          register: workshop_job_template03
+          until: workshop_job_template03.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 
@@ -388,8 +199,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: workshop_job_template03
-          until: workshop_job_template03.json.status == "successful"
+          register: workshop_job_template04
+          until: workshop_job_template04.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 
@@ -403,7 +214,7 @@
               rhel_inventory_name: rhel8
           register: update_inventories_rhel8
 
-        - name: "Check API until Update inventories via dynamic sources RHEL7 job is successful"
+        - name: "Check API until Update inventories via dynamic sources RHEL8 job is successful"
           ansible.builtin.uri:
             url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ update_inventories_rhel8.id }}/?format=json"
             user: admin
@@ -413,8 +224,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: workshop_job_template04
-          until: workshop_job_template04.json.status == "successful"
+          register: workshop_job_template05
+          until: workshop_job_template05.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 

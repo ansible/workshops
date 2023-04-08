@@ -135,7 +135,7 @@
 
         - name: Run Snapshot Instance job template
           awx.awx.job_launch:
-            job_template: "Snapshot Instance"
+            job_template: "LEAPP / Snapshot Instance"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -158,7 +158,7 @@
 
         - name: Run OS Update job template
           awx.awx.job_launch:
-            job_template: "OS Update"
+            job_template: "LEAPP / OS Update"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -181,7 +181,7 @@
 
         - name: Run Update inventories via dynamic sources job template - RHEL7
           awx.awx.job_launch:
-            job_template: "Update inventories via dynamic sources"
+            job_template: "UTILITY / Update inventories via dynamic sources"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -206,7 +206,7 @@
 
         - name: Run Update inventories via dynamic sources job template - RHEL8
           awx.awx.job_launch:
-            job_template: "Update inventories via dynamic sources"
+            job_template: "UTILITY / Update inventories via dynamic sources"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -233,7 +233,7 @@
       block:
         - name: Run Fact Scan job template
           awx.awx.job_launch:
-            job_template: "Fact Scan"
+            job_template: "UTILITY / Fact Scan"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"

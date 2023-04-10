@@ -6,7 +6,7 @@ ec2_name_prefix: TESTWORKSHOP
 # amount of work benches to provision
 student_total: 2
 # workshop is put into rhel mode
-workshop_type: leapp
+workshop_type: 
 # Required for AAP download https://access.redhat.com/articles/3626371
 offline_token: "234234234234234234234234234234234234234"
 # Required for podman authentication to registry.redhat.io

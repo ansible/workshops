@@ -192,7 +192,7 @@ workshops:
         rule_desc: gitea
   rhel:
   rhel_90:
-  leapp:
+  :
   smart_mgmt:
     ports:
       - proto: tcp

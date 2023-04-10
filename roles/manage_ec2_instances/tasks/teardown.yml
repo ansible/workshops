@@ -440,7 +440,7 @@
   when: tower_node_aws_api_access|default(false)|bool
   ignore_errors: true
 
-- name: Delete AWS snapshots (workshop_type SMART MANAGEMENT or LEAPP)
+- name: Delete AWS snapshots (workshop_type SMART MANAGEMENT or RIPU)
   block:
     - name: Get snapshot info
       amazon.aws.ec2_snapshot_info:
@@ -459,4 +459,4 @@
         - "{{ snapshots_details.snapshots | map(attribute='snapshot_id') | list }}"
       when:
         - snapshots_details.snapshots|length > 0
-  when: workshop_type == 'smart_mgmt' or workshop_type == 'leapp'
+  when: workshop_type == 'smart_mgmt' or workshop_type == 'ripu'

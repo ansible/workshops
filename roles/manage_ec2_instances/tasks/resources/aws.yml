@@ -4,6 +4,7 @@
     name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
     state: present
     region: "{{ ec2_region }}"
+    acl: "private"
     tags:
       ansible-workshops: "true"
   retries: 4

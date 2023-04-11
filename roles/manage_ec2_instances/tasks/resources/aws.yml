@@ -10,6 +10,34 @@
   delay: 15
   register: s3_result
   until: s3_result.failed == false
+  vars:
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "AllowS3BucketPermissions",
+            "Effect": "Allow",
+            "Action": [
+              "s3:PutBucketOwnershipControls",
+              "s3:PutObject",
+              "s3:GetObject"
+            ],
+            "Resource": [
+              "arn:aws:s3:::{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private",
+              "arn:aws:s3:::{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private/*"
+            ]
+          }
+        ]
+      }
+
+- name: Set IAM policy on S3 bucket
+  amazon.aws.iam_policy:
+    name: "{{ ec2_name_prefix|lower }}-s3-policy"
+    policy: "{{ policy }}"
+    state: present
+    region: "{{ ec2_region }}"
+  when: s3_result.changed
 
 - name: Store SSH Key Pair
   amazon.aws.aws_s3:

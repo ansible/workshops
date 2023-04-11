@@ -7,6 +7,21 @@
         "Service": "ec2.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
-    }
+    },
+    {
+      "Action": [
+          "s3:PutObject",
+          "s3:PutObjectAcl",
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:DeleteObject"
+      ],
+      "Resource": [
+          "arn:aws:s3:::{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private",
+          "arn:aws:s3:::{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private/*"
+      ],
+      "Effect": "Allow",
+      "Principal": "*"
+  }
   ]
 }

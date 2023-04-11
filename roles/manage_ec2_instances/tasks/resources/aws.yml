@@ -4,6 +4,7 @@
     name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
     state: present
     region: "{{ ec2_region }}"
+    # delete_public_access: true
     tags:
       ansible-workshops: "true"
   retries: 4
@@ -12,17 +13,18 @@
   until: s3_result.failed == false
 
 - name: Store SSH Key Pair
-  amazon.aws.aws_s3:
+  amazon.aws.s3_object:
     bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
     mode: put
     object: "{{ec2_name_prefix}}-private.pem"
     src: "{{ playbook_dir }}/{{ ec2_name_prefix|lower }}/{{ ec2_name_prefix|lower }}-private.pem"
     encrypt: true
     region: "{{ ec2_region }}"
+    permission: []
   when: create_key.changed
 
 - name: Save Private key from S3 Bucket when not generating it
-  amazon.aws.aws_s3:
+  amazon.aws.s3_object:
     bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
     mode: get
     object: "{{ ec2_name_prefix }}-private.pem"

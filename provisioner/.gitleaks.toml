@@ -1,0 +1,9 @@
+[allowlist]
+  description = "allow list for ansible workshops"
+  paths = [
+    "provisioner/roles/windows-ad-controller/defaults/main.yml",
+    "provisioner/group_vars/windows.yml",
+    "provisioner/roles/control_node/vars/windows.yml",
+    "provisioner/roles/populate_tower/vars/windows.yml",
+    "provisioner/roles/windows-ad-controller/defaults/main.yml"
+  ]

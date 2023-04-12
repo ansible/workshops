@@ -128,7 +128,7 @@ $ ansible-navigator images
 > 表示される出力は、上記の出力とは異なる場合があります
 
 このコマンドは、現在インストールされているすべての実行環境（略してEE）に関する情報を提供します。対応する番号を押すことで、EE
-を調べることができます。例えば、上記の例で **2** を押すと、`ee-supported-rhel8` の実行環境が表示されます。
+を調べることができます。例えば、上記の例で **0** を押すと、`network-ee` の実行環境が表示されます。
 
 ![ee メインメニュー](images/navigator-ee-menu.png)
 
@@ -151,7 +151,7 @@ ansible-navigator:
     - /home/student/lab_inventory/hosts
 
   execution-environment:
-    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
+    image: quay.io/acme_corp/network-ee:latest
     enabled: true
     container-engine: podman
     pull-policy: missing

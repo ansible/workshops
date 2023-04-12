@@ -1,5 +1,9 @@
 # Automated Smart Management Workshop
 
+**Read this in other languages**:
+<br>![uk](../../images/uk.png) [English](README.md), ![france](../../images/fr.png) [Français](README.fr.md).
+<br>
+
 In this workshop, you will learn how to get the most from Red Hat Smart Management in concert with Red Hat Ansible Automation Platform.
 
 ## Table of Contents
@@ -16,6 +20,7 @@ This workshop currently focuses on 3 main customer pain points:
 - Patch/Package Management
 - CentOS to RHEL conversion
 - (WIP) RHEL 7 > 8/9
+- Vulnerability Management with Insights
 
 ## Presentations
 
@@ -56,3 +61,6 @@ Having said that, the exercises themselves should take roughly 4 hours. Each lab
 * [Exercise 1: Compliance / Vulnerability Management](1-compliance/README.md)
 * [Exercise 2: Patch Management / OS](2-patching/README.md)
 * [Exercise 3: CentOS to RHEL conversion](3-convert2rhel/README.md)
+* [Exercise 4: Setup Insights](4-setupinsights/README.md)
+* [Exercise 5: Explore Insights](5-exploreinsights/README.md)
+* [Exercise 6: Remediate Vulnerability](6-remediatevulnerability/README.md)

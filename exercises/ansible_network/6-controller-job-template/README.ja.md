@@ -49,7 +49,7 @@
   |  Job Type |  Run |
   |  Inventory |  Workshop Inventory |
   |  Project |  Workshop Project |
-  |  Execution Environment | Default execution environment |
+  |  Execution Environment | network workshop execution environment |
   |  Playbook |  playbooks/network_backup.yml |
   |  Credential |  Workshop Credential |
 

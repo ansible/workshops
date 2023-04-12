@@ -148,6 +148,8 @@
   hosts: control_nodes
   gather_facts: false
   vars:
+    smart_mgmt_project_scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
+    smart_mgmt_project_scm_branch: 'aap2-29compat'
     controller_infra_workloads:
       - redhat_cop.controller_configuration.credential_types
       - redhat_cop.controller_configuration.credentials
@@ -222,8 +224,8 @@
         scm_update_on_launch: true
         scm_update_cache_timeout: 3600
         scm_type: git
-        scm_url: 'https://github.com/redhat-partner-tech/automated-smart-management.git'
-        scm_branch: aap2-29compat-dev
+        scm_url: "{{ smart_mgmt_project_scm_url }}"
+        scm_branch: "{{ smart_mgmt_project_scm_branch }}"
         default_environment: smart_mgmt workshop execution environment
       - name: Fact Scan
         organization: Default

@@ -135,29 +135,6 @@
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 
-        - name: Run OS Update job template
-          awx.awx.job_launch:
-            job_template: "EXERCISE / OS Update"
-            controller_username: admin
-            controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-          register: osupdatejob
-
-        - name: "Check API until OS Update job is successful"
-          ansible.builtin.uri:
-            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ osupdatejob.id }}/?format=json"
-            user: admin
-            password: "{{ admin_password }}"
-            force_basic_auth: true
-            method: GET
-            return_content: true
-            status_code: 200
-            validate_certs: false
-          register: workshop_job_template02
-          until: workshop_job_template02.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
-
         - name: Run Update inventories via dynamic sources job template - RHEL7
           awx.awx.job_launch:
             job_template: "UTILITY / Update inventories via dynamic sources"
@@ -178,8 +155,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: workshop_job_template03
-          until: workshop_job_template03.json.status == "successful"
+          register: workshop_job_template02
+          until: workshop_job_template02.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 
@@ -203,6 +180,31 @@
             return_content: true
             status_code: 200
             validate_certs: false
+          register: workshop_job_template03
+          until: workshop_job_template03.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run OS Update job template - RHEL7
+          awx.awx.job_launch:
+            job_template: "EXERCISE / OS Update"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            extra_vars:
+              rhel_inventory_group: rhel7
+          register: osupdatejob
+
+        - name: "Check API until RHEL7 OS Update job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ osupdatejob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
           register: workshop_job_template04
           until: workshop_job_template04.json.status == "successful"
           delay: 20  # Every 20 seconds
@@ -210,6 +212,29 @@
 
     - when: provision_mode == "demo"
       block:
+        - name: Run SETUP / Controller job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Controller"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupcontroljob
+
+        - name: "Check API until SETUP / Controller job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
         - name: Run Fact Scan job template
           awx.awx.job_launch:
             job_template: "UTILITY / Fact Scan"
@@ -228,8 +253,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: demo_job_template01
-          until: demo_job_template01.json.status == "successful"
+          register: workshop_job_templates02
+          until: workshop_job_templates02.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 180  # 1hour 60*60/20
 ...

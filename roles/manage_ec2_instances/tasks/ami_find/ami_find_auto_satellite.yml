@@ -1,0 +1,25 @@
+---
+## re-use RHEL workshop code
+- name: find ami for rhel
+  include_tasks: ami_find_rhel.yml
+
+- name: find ami for centos 6
+  include_tasks: ami_find_centos_6.yml
+  when: (centos6 is defined) and (centos6 is not none)
+
+- name: find ami for centos 7
+  include_tasks: ami_find_centos_7.yml
+  when: (centos7 is defined) and (centos7 is not none)
+
+- name: find ami for satellite
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ec2_info['satellite'].owners }}"
+    filters:
+      name: "{{ ec2_info['satellite'].filter }}"
+  register: sat_amis
+
+- name: save ami for satellite
+  set_fact:
+    sat_ami: >
+      {{ sat_amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}

@@ -11,6 +11,11 @@
 - name: configure satellite
   hosts: satellite
   become: true
+  become_method: sudo
+  environment:
+    LANG: en_US.UTF-8
+    LC_ALL: en_US.UTF-8
+    TERM: linux
   gather_facts: false
   tasks:
     - name: configure satellite admin password
@@ -34,6 +39,110 @@
       when:
         - dns_type is defined
         - dns_type == 'aws'
+    - name: create letsencrypt subdirectories
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0750
+      with_items:
+        - /etc/letsencrypt
+        - /var/lib/letsencrypt
+    - name: make sure httpd is stopped
+      service:
+        name: httpd.service
+        state: stopped
+      register: stop_httpd
+      until: stop_httpd is not failed
+      retries: 5
+    # If this fails check out status of certbot: https://letsencrypt.status.io/
+    - name: try to issue SSL certificate
+      block:
+        - name: Issue SSL cert
+          shell: >
+            podman run -it --rm --name certbot \
+                -v "/etc/letsencrypt:/etc/letsencrypt" \
+                -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+                -p 80:80 \
+                -p 443:443 \
+                docker.io/certbot/certbot:latest certonly \
+                --key-type rsa \
+                --rsa-key-size 4096 \
+                --no-bootstrap \
+                --standalone \
+                -d {{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }} \
+                --email ansible-network@redhat.com \
+                --noninteractive \
+                --agree-tos
+          register: issue_sat_cert
+          until: issue_sat_cert is not failed
+          retries: 5
+      rescue:
+        - name: error with SSL cert
+          debug:
+            msg: "Unable to retrieve SSL cert, ERROR, continuing on without cert..."
+
+        - name: append dns_information failure
+          set_fact:
+            dns_information:
+              - "{{ dns_information }}"
+              - "The Lets Encrypt certbot failed for the satellite node, please check https://letsencrypt.status.io/ to make sure the service is running"
+    - name: download LetsEncrypt R3 cert
+      get_url:
+        url: https://letsencrypt.org/certs/lets-encrypt-r3.pem
+        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+        mode: 0644
+        checksum: sha256:177e1b8fc43b722b393f4200ff4d92e32deeffbb76fef5ee68d8f49c88cf9d32
+        group: root
+        owner: root
+    - name: download LetsEncrypt root X1 cert
+      get_url:
+        url: https://letsencrypt.org/certs/isrgrootx1.pem
+        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+        mode: 0644
+        checksum: sha256:22b557a27055b33606b6559f37703928d3e4ad79f110b407d04986e1843543d1
+        group: root
+        owner: root
+    - name: retrieve LetsEncrypt R3 cert
+      slurp:
+        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/lets-encrypt-r3.pem"
+      register: intermediate_cert
+    - name: retrieve LetsEncrypt root X1 cert
+      slurp:
+        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/isrgrootx1.pem"
+      register: root_cert
+    - name: combine R3 and root X1 certs to create LetsEncrypt CA bundle
+      template:
+        src: cert_bundle.j2
+        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/letsencrypt-ca-bundle.pem"
+    - name: start httpd
+      service:
+        name: httpd.service
+        state: started
+      register: start_httpd
+      until: start_httpd is not failed
+      retries: 5
+    - name: set original gold image hostname via hostnamectl
+      command: >-
+        hostnamectl set-hostname satellite.example.com
+    - name: change satellite hostname
+      shell: >-
+        satellite-change-hostname {{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}
+        -u admin -p {{ admin_password }} --skip-dns --assumeyes
+      register: satellite_change_hostname
+      #until: "'Success!' in satellite_change_hostname.stdout"
+      failed_when: '"Success!" not in satellite_change_hostname.stdout'
+    - name: update satellite with LetsEncrypt cert
+      shell: >-
+        satellite-installer --scenario satellite
+        --certs-server-cert "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/fullchain.pem"
+        --certs-server-key "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+        --certs-server-ca-cert "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/letsencrypt-ca-bundle.pem"
+        --certs-update-server --certs-update-server-ca
+      register: satellite_update_cert
+      #until: "'Success!' in satellite_update_cert.stdout"
+      failed_when: '"Success!" not in satellite_update_cert.stdout'
 
 - name: configure controller for smart_mgmt
   hosts: control_nodes
@@ -98,7 +207,7 @@
         state: present
         organization: Default
         inputs:
-          host: "https://satellite.example.com"
+          host: "https://{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
           username: 'admin'
           password: "{{ admin_password }}"
       - name: Inventory Credential
@@ -106,7 +215,7 @@
         state: present
         organization: Default
         inputs:
-          host: "https://satellite.example.com"
+          host: "https://{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
           username: 'admin'
           password: "{{ admin_password }}"
     controller_projects:

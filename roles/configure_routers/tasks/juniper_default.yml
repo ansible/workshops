@@ -14,6 +14,9 @@
     - "rollback"
     - "set system root-authentication plain-text-password"
     - "commit"
+  register: change_password
+  until: change_password is success
+  retries: 5
 
 - name: turn on netconf on port 830
   junipernetworks.junos.junos_netconf:

@@ -181,10 +181,10 @@
             - host
         injectors:
           env:
-            FOREMAN_SERVER: !unsafe '{{ host }}'
-            FOREMAN_USER: !unsafe '{{ username}}'
-            FOREMAN_PASSWORD: !unsafe '{{ password }}'
-            FOREMAN_VALIDATE_CERTS: 'false'
+            SATELLITE_SERVER_URL: !unsafe '{{ host }}'
+            SATELLITE_USERNAME: !unsafe '{{ username}}'
+            SATELLITE_PASSWORD: !unsafe '{{ password }}'
+            SATELLITE_VALIDATE_CERTS: 'false'
       - name: GitHub_Personal_Access_Token
         description: Credential for GitHub repo operations automation
         kind: cloud

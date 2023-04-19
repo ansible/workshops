@@ -252,7 +252,10 @@
         inventory: Workshop Inventory
         credentials:
           - Controller Credential
-        execution_environment: Default execution environment
+        execution_environment: auto_satellite controller iac execution environment
+    controller_execution_environments:
+      - name: auto_satellite controller iac execution environment
+        image: quay.io/s4v0/ee-automated-smart-mgmt-aap2-dev:latest
 
   tasks:
     - name: Deploy controller-infra workloads

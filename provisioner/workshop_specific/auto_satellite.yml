@@ -149,7 +149,7 @@
   gather_facts: false
   vars:
     auto_satellite_project_scm_url: 'https://github.com/redhat-partner-tech/automated-satellite.git'
-    auto_satellite_project_scm_branch: 'main'
+    auto_satellite_project_scm_branch: 'aap2'
     controller_infra_workloads:
       - redhat_cop.controller_configuration.credential_types
       - redhat_cop.controller_configuration.credentials

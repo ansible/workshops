@@ -388,6 +388,22 @@ function display_student($student) {
   <td><a target=_blank href="https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
     </tr>
   {% endif %}
+  {% if dns_type == 'none' %}
+    <tr>
+  <td>UI link:
+  <td><a target=_blank href="https://' . $student['ip'] . '">https://' . $student['ip'] . '</a></td>
+    </tr>
+  {% endif %}
+    <tr>
+      <td>username:</td>
+      <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>{{admin_password}}</code></td>
+    </tr>
+  </table>
+  {% endif %}
   {% if workshop_type == "auto_satellite" %}
   <div id="section_title">Red Hat Satellite </div>
   To login to the Satellite WebUI use the following credentials:<br>

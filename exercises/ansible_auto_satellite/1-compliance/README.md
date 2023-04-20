@@ -117,7 +117,7 @@ This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``
 
         ---
         HOSTS: node1.example.com
-        Policy_scan:
+        policy_name:
           - PCI_Compliance
 
 ![aap_template](images/1-compliance-aap2-template1.png)
@@ -190,7 +190,7 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
         ---
         HOSTS: all
-        Policy_scan:
+        policy_name:
           - PCI_Compliance
           - STIG_Compliance
 

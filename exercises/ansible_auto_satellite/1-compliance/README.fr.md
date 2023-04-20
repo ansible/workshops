@@ -115,7 +115,7 @@ Cette étape nous permettra de scanner un seul hôte rhel7 avec la politique ```
 
         ---
         HOSTS: node1.example.com
-        Policy_scan:
+        policy_name:
           - PCI_Compliance
 
 ![aap_template](images/1-compliance-aap2-template1.png)
@@ -189,7 +189,7 @@ Cette étape élargira notre analyse OpenSCAP pour ajouter un autre profil de co
 
         ---
         HOSTS: all
-        Policy_scan:
+        policy_name:
           - PCI_Compliance
           - STIG_Compliance
 

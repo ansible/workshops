@@ -4,9 +4,6 @@
     name: 
       - cockpit
       - cockpit-system
-      - cockpit-packagekit
-      - cockpit-machines
-      - cockpit-leapp
     state: present
 
 - name: Enable and start cockpit console service

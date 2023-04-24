@@ -12,6 +12,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 | Ansible Windows Automation  | `workshop_type: windows`    |
 | Ansible Demo Mode  | `workshop_type: demo`    |
 | Smart Management Workshop | `workshop_type: smart_mgmt` |
+| Automated Satellite Workshop | `workshop_type: auto_satellite` |
 
 ## Table Of Contents
 
@@ -32,6 +33,7 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
     * [Accessing instructor inventory](#accessing-instructor-inventory)
     * [DNS](#dns)
     * [Smart Management](#smart-management)
+    * [Automated Satellite](#satellite)
     * [devcontainer(optional)](#devcontainer)
   * [Developer Mode and understanding collections](#developer-mode-and-understanding-collections)
   * [Lab Teardown](#lab-teardown)
@@ -229,7 +231,8 @@ For more extra_vars examples, look at the following:
 * [sample-vars-rhel-90.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 * [sample-vars-rhel-90.yml](sample_workshops/sample-vars-rhel-90.yml) - example for `rhel_90` workshop, meant to be taught in 90 minutes
 * [sample-vars-demo.yml](sample_workshops/sample-vars-demo.yml) - example for `demo` mode, aggregate of all workshop topologies
-* [sameple-vars-smart_mgmt.yml](sample_workshops/sample-vars-smart_mgmt.yml) - example for `smart_mgmt` workshop. [Read Notes](#smart-management)
+* [sample-vars-smart_mgmt.yml](sample_workshops/sample-vars-smart_mgmt.yml) - example for `smart_mgmt` workshop. [Read Notes](#smart-management)
+* [sample-vars-auto_satellite.yml](sample_workshops/sample-vars-auto_satellite.yml) - example for `auto_satellite` workshop. [Read Notes](#automated-satellite)
 
 * Run the playbook:
 
@@ -275,6 +278,11 @@ The Smart Management Lab relies on a prebuilt AMI for Red Hat Satellite Server. 
 
 The Smart Management Lab also requires AWS DNS to be enabled. See [sample vars](./sample_workshops/sample-vars-smart_mgmt.yml) for required configuration.
 
+### Automated Satellite
+
+The Automated Satellite Lab relies on a prebuilt AMI for Red Hat Satellite Server. An example for building this AMI can be found [here](https://github.com/heatmiser/packer-ansible-ec2/tree/satellite-6.12).
+
+The Automated Satellite Lab also requires AWS DNS to be enabled. See [sample vars](./sample_workshops/sample-vars-auto_satellite.yml) for required configuration.
 ### devcontainer
 
 For convenience, a devcontainer has been configured for use within this project. This setup allows workshop developers to run the workspace along with provisioner within a Docker container. The devcontainer has support for docker-in-docker so that `ansible-navigator` can run against the workshop execution environment to provision workshops. 

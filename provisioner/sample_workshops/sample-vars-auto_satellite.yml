@@ -1,0 +1,32 @@
+---
+# region where the nodes will live
+ec2_region: us-east-1
+# name prefix for all the VMs
+ec2_name_prefix: TESTWORKSHOP
+# amount of work benches to provision
+student_total: 2
+# workshop is put into rhel mode
+workshop_type: auto_satellite
+# define DNS zone. AWS DNS required
+dns_type: aws
+# password used for student account on control node
+admin_password: ansible
+# Required for AAP download https://access.redhat.com/articles/3626371
+offline_token: "234234234234234234234234234234234234234"
+# Required for podman authentication to registry.redhat.io
+redhat_username: joe@redhat.com
+redhat_password: R3dh4t!
+# DNS domain
+workshop_dns_zone: demoredhat.com
+## Optional Variables
+# select rhel7 or rhel8 client nodes
+rhel: rhel7
+# this will install Automation controller on all control nodes
+controllerinstall: true
+# this will install VS Code web on all control nodes
+code_server: true
+# this will change the location of lab guide
+# ansible_workshops_url: https://github.com/ansible/workshops
+# ansible_workshops_version: auto_satellite
+tower_node_aws_api_access: true
+...

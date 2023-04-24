@@ -204,6 +204,18 @@ workshops:
         from_port: 9090
         cidr_ip: 0.0.0.0/0
         rule_desc: SCAP reports
+  auto_satellite:
+    ports:
+      - proto: tcp
+        to_port: 5647
+        from_port: 5647
+        cidr_ip: 0.0.0.0/0
+        rule_desc: katello-agent
+      - proto: tcp
+        to_port: 9090
+        from_port: 9090
+        cidr_ip: 0.0.0.0/0
+        rule_desc: SCAP reports
   network:
     ports:
       - proto: tcp

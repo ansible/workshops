@@ -203,6 +203,24 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                         <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_smart_mgmt.pdf">Automate Smart Management Deck</a>
                   </div>
                 </div>
+                {% elif workshop_type == 'auto_satellite' %}
+                <h2>Ansible Automation Platform + Satellite</h2>
+                <p>The Automate Smart Management Workshop is a half-day, hands-on workshop covering Red Hat Ansible Automation Platform, Red Hat Satellite, Red Hat Enterprise Linux and CentOS Linux. Attendees will learn how to use Ansible to automate configuration of Red Hat Ansible Automation Platform controller and Red Hat Satellite, and acquire the skills needed to implement Ansible Automation at their organizations. This workshop is comprised of 4 areas of focus:</p>
+                <ul>
+                  <li>How to implement Infrastructure as Code automation with Red Hat solutions</li>
+                  <li>Compliance (OpenSCAP Scanning) and Vulnerability Management</li>
+                  <li>OS Patch/Package Management at scale</li>
+                  <li>CentOS to RHEL conversion at scale</li>
+                </ul>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_auto_satellite">Automate Smart Management Exercises</a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a target=_blank href="https://aap2.demoredhat.com/decks/ansible_auto_satellite.pdf">Automate Smart Management Deck</a>
+                  </div>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -361,6 +379,32 @@ function display_student($student) {
   </table>
   {% endif %}
   {% if workshop_type == "smart_mgmt" %}
+  <div id="section_title">Red Hat Satellite </div>
+  To login to the Satellite WebUI use the following credentials:<br>
+  <table>
+  {% if dns_type != 'none' %}
+    <tr>
+  <td>WebUI link:</td>
+  <td><a target=_blank href="https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}">https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}</a></td>
+    </tr>
+  {% endif %}
+  {% if dns_type == 'none' %}
+    <tr>
+  <td>UI link:
+  <td><a target=_blank href="https://' . $student['ip'] . '">https://' . $student['ip'] . '</a></td>
+    </tr>
+  {% endif %}
+    <tr>
+      <td>username:</td>
+      <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>{{admin_password}}</code></td>
+    </tr>
+  </table>
+  {% endif %}
+  {% if workshop_type == "auto_satellite" %}
   <div id="section_title">Red Hat Satellite </div>
   To login to the Satellite WebUI use the following credentials:<br>
   <table>

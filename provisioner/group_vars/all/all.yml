@@ -28,6 +28,7 @@ valid_workshop_types:
   - rhel_90
   - demo
   - smart_mgmt
+  - auto_satellite
   - middleware
   - configascode
 network_type: multivendor
@@ -56,6 +57,7 @@ network_ee: "quay.io/acme_corp/network-ee:latest"
 rhel_90_ee: "quay.io/acme_corp/rhel_90_ee:latest"
 windows_ee: "quay.io/acme_corp/windows_ee:latest"
 smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:latest"
+auto_satellite_ee: "quay.io/s4v0/ee-automated-satellite-aap2:latest"
 configascode_ee: "registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest"
 
 # EE registry name used in installer and EE controller credential

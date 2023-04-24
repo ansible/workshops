@@ -1,0 +1,90 @@
+---
+- name: verify EBS-optimized instance type selected
+  lineinfile:
+    path: "{{role_path}}/files/EBS_optimized_instance_types"
+    line: "{{ ec2_info.satellite.size }}"
+  delegate_to: localhost
+  connection: local
+  check_mode: true
+  register: ebs_optimized_instance_selected
+
+- name: enable EBS optimized instance
+  set_fact:
+    ebs_optimized_capable: true
+  when: not ebs_optimized_instance_selected.changed
+
+- name: provision satellite server
+  amazon.aws.ec2_instance:
+    network:
+      assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['satellite'].size }}"
+    image_id: "{{ sat_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_satellite": "{{ ec2_name_prefix }}-satellite"
+    tags:
+      Workshop_satellite: "{{ ec2_name_prefix }}-satellite"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
+      Students: "{{ student_total }}"
+      short_name: "satellite"
+      username: "{{ ec2_info[rhel].username }}"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info['satellite'].disk_volume_type }}"
+          volume_size: "{{ ec2_info['satellite'].disk_space }}"
+          iops: "{{ ec2_info['satellite'].disk_iops }}"
+          throughput: "{{ ec2_info['satellite'].disk_throughput }}"
+          delete_on_termination: true
+    ebs_optimized: "{{ ebs_optimized_capable | default(false) }}"
+
+- name: grab instance ids to tag each satellite
+  amazon.aws.ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_satellite": "{{ ec2_name_prefix }}-satellite"
+  register: satellite_output
+
+- name: Ensure tags are present for satellite
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.instance_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-satellite"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ satellite_output.instances }}"
+  when: satellite_output.instances|length > 0
+
+## re-use RHEL workshop code
+- name: provision aws rhel instances
+  include_tasks: instances_rhel.yml
+
+## centos 6 nodes for potential convert2rhel scenarios
+- name: provision aws centos 6 instances
+  include_tasks: instances_centos_6.yml
+  when: (centos6 is defined) and (centos6 is not none)
+
+## centos 7 nodes for potential convert2rhel scenarios
+- name: provision aws centos 7 instances
+  include_tasks: instances_centos_7.yml
+  when: (centos7 is defined) and (centos7 is not none)

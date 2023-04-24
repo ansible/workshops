@@ -1,4 +1,0 @@
----
-- name: print to terminal
-  debug:
-    msg: "Nothing to do, dns_type is none"

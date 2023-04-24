@@ -54,3 +54,4 @@ execution_environment/context/_build/requirements.yml
 provisioner/packer/manifest.zip
 *-artifact-*.json
 provisioner/test.yml
+provisioner/colin.yml

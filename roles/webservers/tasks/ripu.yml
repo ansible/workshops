@@ -1,0 +1,16 @@
+---
+- name: Install cockpit console
+  ansible.builtin.package:
+    name: 
+      - cockpit
+      - cockpit-system
+      - cockpit-packagekit
+      - cockpit-machines
+      - cockpit-leapp
+    state: present
+
+- name: Enable and start cockpit console service
+  ansible.builtin.service:
+    name: cockpit.socket
+    enabled: true
+    state: started

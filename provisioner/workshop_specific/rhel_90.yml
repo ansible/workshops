@@ -5,5 +5,21 @@
   gather_facts: false
   tasks:
     - name: configure RHEL webservers
-      include_role:
+      ansible.builtin.include_role:
         name: ../../roles/webservers
+
+- name: configure control node for rhel 90
+  hosts: "control_nodes"
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Check if the folder exists
+      ansible.builtin.stat:
+        path: /home/student/rhel_90-workshop
+      register: dest_folder
+      become: yes
+
+    - name: Rename dir
+      become: yes
+      ansible.builtin.shell: mv /home/student/rhel_90-workshop /home/student/rhel-workshop
+      when: dest_folder.stat.exists

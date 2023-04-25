@@ -87,7 +87,7 @@ all:
 
 ```
 
-NOTE: These are hostnames do not have https:// or things will fail
+NOTE: These are hostnames do not have 'https://' or things will fail
 
 Further documentation for those who are interested to learn more see:
 

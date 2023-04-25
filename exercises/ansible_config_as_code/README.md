@@ -1,128 +1,36 @@
-# Exercise 1: Using the debug module
+# Ansible Workshop - Configuration as Code for Ansible Automation Platform 2
 
-## Table of Contents
+<!-- **Read this in other languages**:
+<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md).
+<br> -->
 
-- [Objective](#objective)
-- [Guide](#guide)
-- [Playbook Output](#playbook-output)
-- [Solution](#solution)
+## **This is documentation for Ansible Automation Platform 2**
 
-# Objective
+Configuration as Code(CasC) is the way to maintain all your infrastructure.
 
-Demonstrate the use of the [debug module](https://docs.ansible.com/ansible/latest/modules/debug_module.html) to display a variable to the terminal window.
+This workshop will provide code to demonstrate how to use CasC to maintain all aspects of AAP. The provided code will be a starting point, and will guide the user through how to utilize the code, and make it their own. This session will cover configuring controller, private automation hub, execution environments, and custom collections as well as the creation of workflows without the GUI as an example to follow along. These principles will help to prevent drift in configuration, allow changes to require approval before implementation, and help to maintain both a development and prod deployment.
 
-# Guide
+## Presentations
 
-## Step 1:
+The presenter deck is available here:
+[Configuration as Code](../../decks/config_as_code.pdf)
 
-Using your text editor of choice create a new file called `debug.yml`.
+## Time planning
 
-```
-[student1@ansible ~]$ nano debug.yml
-```
+The time required to do the workshops strongly depends on a couple factors: the number of participants and how much discussions are done in between.
 
->`vim` and `nano` are available on the control node, as well as Visual Studio and Atom via RDP
+Having said that, the exercises themselves should take roughly 1-3 hours. The accompanying presentation itself adds 10 minutes.
 
-## Step 2:
+If your experience is different in scheduling these workshops, please let us know and file an issue.
 
-Ansible playbooks are **YAML** files. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format).
+## Lab Diagram
 
-Enter the following play definition into `debug.yml`:
+![config as code lab diagram](../../images/config_as_code_diagram.png)
 
-``` yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  connection: local
-  gather_facts: no
-```
+## Exercises
 
-- The `---` at the top of the file indicates that this is a YAML file.
-- Always give your playbooks and tasks good, descriptive names. These names form part of the playbook output.
-- The `hosts: localhost`,  indicates the play is run only on the Ansible control node
-- `connection: local` tells the Playbook to run locally (rather than SSHing to itself)
-- `gather_facts: no` disables facts gathering.  We are not using any fact variables for this playbook.
-
-> One of the most common errors in YAML files is caused by incorrect spacing. See [Yaml Files in a Nutshell]https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/getting_started_with_kubernetes/yaml_in_a_nutshell for a good overview of YAML files.
-
-## Step 3
-
-Next, add the variables section `vars`. There will be one variable called `test_variable`.  The variable will have a string `"my test variable"`.
-
-```yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  gather_facts: no
-
-  vars:
-    test_variable: "my test variable"
-```
-
-## Step 4
-
-Next, add the first `task`. This task will use the `debug` module to print out the variable `test_variable`.
-
-``` yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  connection: local
-  gather_facts: no
-
-  vars:
-    test_variable: "my test variable"
-
-  tasks:
-    - name: DISPLAY TEST_VARIABLE
-      debug:
-        var: test_variable
-```
-
->A play is a list of tasks. Tasks and modules have a 1:1 correlation.  Ansible modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible or ansible-playbook programs. They return information to ansible by printing a JSON string to stdout before exiting.
-
-## Step 5
-
-Run the playbook - exit back into the command line of the control host and execute the following:
-
-```
-[student1@ansible ~]$ ansible-playbook debug.yml
-```
-# Playbook Output
-
-The output will look as follows.
-
-```yaml
-[student1@ansible ~]$ ansible-playbook debug.yml
-
-PLAY [SIMPLE DEBUG PLAYBOOK] *******************************************************************************
-
-TASK [DISPLAY TEST_VARIABLE] *******************************************************************************
-ok: [localhost] => {
-    "test_variable": "my test variable"
-}
-
-PLAY RECAP *************************************************************************************************
-localhost                  : ok=1    changed=0    unreachable=0    failed=0
-```
-> Notice that the names you gave the play and task appear in this output. This is especially important when you have longer playbooks that include multiple tasks.
-
-# Solution
-The finished Ansible Playbook is provided here for an Answer key.
-
-```yaml
----
-- name: SIMPLE DEBUG PLAYBOOK
-  hosts: localhost
-  gather_facts: no
-
-  vars:
-    test_variable: "my test variable"
-
-  tasks:
-    - name: DISPLAY TEST_VARIABLE
-      debug:
-        var: test_variable
-```
-
-You have finished this exercise.  [Click here to return to the lab guide](../README.md)
+* [Exercise 0 - Setting up](./0-setup/README.md)
+* [Exercise 1 - Building an Execution Environment](./1-ee/README.md)
+* [Exercise 2 - Configure Private Automation Hub](./2-pah/README.md)
+* [Exercise 3 - Configure Controller](./3-controller/README.md)
+<!-- * [Exercise 4 - Automation Controller projects](./4-workflows/README.md) -->

@@ -11,7 +11,6 @@
   },
 {% for vm in node2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{% if 'student' + item == vm.tags.Student %}
   "{{ vm.tags.short_name }}" : {
     "visible" : true,
     "color" : "#67d300",

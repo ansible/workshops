@@ -8,7 +8,7 @@
       include_role:
         name: ../../roles/webservers
 
-- name: configure controller for ripu
+- name: Configure controller for ripu
   hosts: control_nodes
   gather_facts: false
   vars:
@@ -86,24 +86,6 @@
           - Controller Credential
 
   tasks:
-    - name: Install cockpit console
-      ansible.builtin.package:
-        name: 
-          - cockpit
-          - cockpit-system
-        state: present
-
-    - name: Setup cockpit/machines.d/99-webui.json file per student
-      ansible.builtin.copy:
-        src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-99-webui.json"
-        dest: "/etc/cockpit/machines.d/99-webui.json"
-
-    - name: Enable and start cockpit console service
-      ansible.builtin.service:
-        name: cockpit.socket
-        enabled: true
-        state: started
-
     # Allow projects to pull collections via collections/requirements.yml
     - name: Turn on AWX_COLLECTIONS_ENABLED on controller
       awx.awx.settings:
@@ -128,6 +110,24 @@
   become: true
   gather_facts: true
   tasks:
+    - name: Install cockpit console
+      ansible.builtin.package:
+        name: 
+          - cockpit
+          - cockpit-system
+        state: present
+
+    - name: Setup cockpit/machines.d/99-webui.json file per student
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-99-webui.json"
+        dest: "/etc/cockpit/machines.d/99-webui.json"
+
+    - name: Enable and start cockpit console service
+      ansible.builtin.service:
+        name: cockpit.socket
+        enabled: true
+        state: started
+
     - when: provision_mode == "workshop"
       block:
         - name: Run SETUP / Controller job template

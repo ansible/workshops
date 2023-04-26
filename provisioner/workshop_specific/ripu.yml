@@ -86,6 +86,19 @@
           - Controller Credential
 
   tasks:
+    - name: Install cockpit console
+      ansible.builtin.package:
+        name: 
+          - cockpit
+          - cockpit-system
+        state: present
+
+    - name: Enable and start cockpit console service
+      ansible.builtin.service:
+        name: cockpit.socket
+        enabled: true
+        state: started
+
     # Allow projects to pull collections via collections/requirements.yml
     - name: Turn on AWX_COLLECTIONS_ENABLED on controller
       awx.awx.settings:

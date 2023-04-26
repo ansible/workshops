@@ -93,6 +93,11 @@
           - cockpit-system
         state: present
 
+    - name: Setup cockpit/machines.d/99-webui.json file per student
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-99-webui.json"
+        dest: "/etc/cockpit/machines.d/99-webui.json"
+
     - name: Enable and start cockpit console service
       ansible.builtin.service:
         name: cockpit.socket

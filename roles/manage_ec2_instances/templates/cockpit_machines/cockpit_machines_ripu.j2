@@ -1,0 +1,43 @@
+{
+{% for vm in node1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+  "{{ vm.tags.short_name }} : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "{{ vm.tags.short_name }}"
+{% endif %}
+{% endfor %}
+  },
+{% for vm in node2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{% if 'student' + item == vm.tags.Student %}
+  "{{ vm.tags.short_name }} : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "{{ vm.tags.short_name }}"
+{% endif %}
+{% endfor %}
+  },
+{% for vm in node3_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+  "{{ vm.tags.short_name }} : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "{{ vm.tags.short_name }}"
+{% endif %}
+{% endfor %}
+  },
+{% for vm in node4_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+  "{{ vm.tags.short_name }} : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "{{ vm.tags.short_name }}"
+{% endif %}
+{% endfor %}
+  }
+}

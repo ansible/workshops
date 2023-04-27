@@ -110,6 +110,12 @@
   become: true
   gather_facts: true
   tasks:
+    - name: check for updates
+      yum:
+        name: '*'
+        state: latest
+        exclude: kernel*
+
     - name: Install cockpit console
       ansible.builtin.package:
         name: 

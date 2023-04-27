@@ -1,6 +1,7 @@
 # Ansible Workshop - Configuration as Code for Ansible Automation Platform 2
 
-<!-- **Read this in other languages**:
+<!-- TODO
+**Read this in other languages**:
 <br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md).
 <br> -->
 
@@ -23,9 +24,10 @@ Having said that, the exercises themselves should take roughly 1-3 hours. The ac
 
 If your experience is different in scheduling these workshops, please let us know and file an issue.
 
+<!-- TODO
 ## Lab Diagram
 
-![config as code lab diagram](../../images/config_as_code_diagram.png)
+![config as code lab diagram](../../images/config_as_code_diagram.png) -->
 
 ## Exercises
 
@@ -33,4 +35,5 @@ If your experience is different in scheduling these workshops, please let us kno
 * [Exercise 1 - Building an Execution Environment](./1-ee/README.md)
 * [Exercise 2 - Configure Private Automation Hub](./2-pah/README.md)
 * [Exercise 3 - Configure Controller](./3-controller/README.md)
-<!-- * [Exercise 4 - Automation Controller projects](./4-workflows/README.md) -->
+<!-- Add in future
+* [Exercise 4 - Automation Controller projects](./4-workflows/README.md) -->

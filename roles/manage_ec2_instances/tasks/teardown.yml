@@ -459,4 +459,4 @@
         - "{{ snapshots_details.snapshots | map(attribute='snapshot_id') | list }}"
       when:
         - snapshots_details.snapshots|length > 0
-  when: workshop_type == 'smart_mgmt' or workshop_type == 'ripu'
+  when: workshop_type == 'smart_mgmt' or workshop_type == 'auto_satellite' or workshop_type == 'ripu'

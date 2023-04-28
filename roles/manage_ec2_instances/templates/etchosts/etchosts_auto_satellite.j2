@@ -1,0 +1,7 @@
+{% include 'etchosts_rhel.j2' %}
+
+{% for vm in satellite_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+{{ vm.private_ip_address }} {{vm.tags.short_name}}.example.com {{vm.tags.short_name}}
+{% endif %}
+{% endfor %}

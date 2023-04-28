@@ -31,6 +31,10 @@ argument_specs:
         type: str
         description: smart_mgmt workshop execution environment
         default: "quay.io/s4v0/ee-automated-smart-mgmt-29:latest"
+      auto_satellite_ee:
+        type: str
+        description: auto_satellite workshop execution environment
+        default: "quay.io/s4v0/ee-automated-satellite-aap2:latest"
       ripu_ee:
         type: str
         description:  ripu workshop execution environment

@@ -1,0 +1,83 @@
+name: Release Ansible Collection
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version (e.g., 1.0.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: deploy
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible-core
+
+    - name: Set release version
+      run: |
+        if [[ ${{ github.event_name }} == 'workflow_dispatch' ]]; then
+          export NEW_VERSION=${{ github.event.inputs.release_version }}
+        else
+          export NEW_VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+        fi
+        echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+    - name: Create and push tag if workflow_dispatch
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "github-actions@users.noreply.github.com"
+        git tag $NEW_VERSION
+        git push origin $NEW_VERSION
+
+    - name: Update galaxy.yml with new version
+      run: yq eval -i '.version = env(NEW_VERSION)' galaxy.yml
+
+    - name: Build Ansible Collection
+      run: ansible-galaxy collection build
+
+    - name: Extract namespace and collection name from galaxy.yml
+      run: |
+        echo "NAMESPACE=$(yq eval '.namespace' galaxy.yml)" >> $GITHUB_ENV
+        echo "COLLECTION=$(yq eval '.name' galaxy.yml)" >> $GITHUB_ENV
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.NEW_VERSION }}
+        release_name: Release ${{ env.NEW_VERSION }}
+
+    - name: Upload Collection to GitHub Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./${{ env.NAMESPACE }}-${{ env.COLLECTION }}-${{ env.NEW_VERSION }}.tar.gz
+        asset_name: ${{ env.NAMESPACE }}-${{ env.COLLECTION }}-${{ env.NEW_VERSION }}.tar.gz
+        asset_content_type: application/gzip
+
+    - name: Publish to Ansible Galaxy
+      id: publish_to_galaxy
+      run: ansible-galaxy collection publish ./$NAMESPACE-$COLLECTION-$NEW_VERSION.tar.gz --api-key=${{ secrets.GALAXY_TOKEN }}

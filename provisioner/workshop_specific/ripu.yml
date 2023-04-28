@@ -176,7 +176,9 @@
       become_method: su
       #become_flags: '--login'
       become_exe: sudo su -
-      shell: whoami
+      #shell: whoami
+      shell: >
+        ssh-keyscan -tecdsa-sha2-nistp256 {{ item.tags.short_name }} >> ~/.ssh/known_hosts
       #lineinfile:
       #  dest: /home/student/.ssh/known_hosts
       #  create: yes

@@ -175,11 +175,13 @@
       become_user: student
       become_method: su
       become_flags: '--login'
-      lineinfile:
-        dest: /home/student/.ssh/known_hosts
-        create: yes
-        state: present
-        line: "{{ lookup('pipe', 'ssh-keyscan -tecdsa-sha2-nistp256 ' + item.tags.short_name) }}"
+      shell: >-
+        hostname; whoami
+      #lineinfile:
+      #  dest: /home/student/.ssh/known_hosts
+      #  create: yes
+      #  state: present
+      #  line: "{{ lookup('pipe', 'ssh-keyscan -tecdsa-sha2-nistp256 ' + item.tags.short_name) }}"
       with_items:
         - "{{ node1_node_facts.instances }}"
         - "{{ node2_node_facts.instances }}"

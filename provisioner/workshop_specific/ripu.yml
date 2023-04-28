@@ -134,6 +134,38 @@
         enabled: true
         state: started
 
+    - name: Grab ec2_instance_info for node1
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
+      register: node1_node_facts
+
+    - name: Grab ec2_instance_info for node2
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
+      register: node2_node_facts
+
+    - name: Grab ec2_instance_info for node3
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
+      register: node3_node_facts
+
+    - name: Grab ec2_instance_info for node4
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
+      register: node4_node_facts
+
     - name: Populate ssh host keys to known_hosts
       become: yes
       become_user: student

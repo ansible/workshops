@@ -128,6 +128,18 @@
         src: "{{ playbook_dir }}/../{{ ec2_name_prefix }}/{{ student }}-99-webui.json"
         dest: "/etc/cockpit/machines.d/99-webui.json"
 
+    - name: Copy controller key to cockpit 
+      ansible.builtin.copy:
+        src: "/etc/tower/tower.key"
+        dest: "/etc/cockpit/ws-certs.d/00-signed.key"
+        remote_src: true
+
+    - name: Copy controller cert to cockpit 
+      ansible.builtin.copy:
+        src: "/etc/tower/tower.cert"
+        dest: "/etc/cockpit/ws-certs.d/00-signed.cert"
+        remote_src: true
+
     - name: Enable and start cockpit console service
       ansible.builtin.service:
         name: cockpit.socket

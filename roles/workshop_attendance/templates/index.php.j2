@@ -448,7 +448,7 @@ function display_student($student) {
   {% if dns_type != 'none' %}
     <tr>
   <td>WebUI link:</td>
-  <td><a target=_blank href="https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:9090">https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:9090</a></td>
+  <td><a target=_blank href="https://student' . $student['id'] . '.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:9090">https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:9090</a></td>
     </tr>
   {% endif %}
   {% if dns_type == 'none' %}

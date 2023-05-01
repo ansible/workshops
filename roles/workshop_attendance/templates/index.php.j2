@@ -187,7 +187,7 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 </div>
                 {% elif workshop_type == 'ripu' %}
                 <h2>Ansible Automation Platform + RIPU</h2>
-                <p>If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.</p>
+                <p>This workshop will introduce a comprehensive approach to automate in-place upgrades for Red Hat Enterprise Linux (RHEL). The solution uses Ansible Automation to enable upgrades to be executed at enterprise scale across a large estate of RHEL hosts. The workshop demonstrates how to use an example of this approach to perform upgrades from RHEL7 to RHEL8 and from RHEL8 to RHEL9. You will also learn about how this solution can be customized to meet the special requirements of your enterprise environment.</p>
                 <div class="row">
                     <div class="col-sm-4">
                         <a target=_blank href="https://aap2.demoredhat.com/exercises/ansible_ripu">Ansible RIPU Exercises</a>
@@ -434,6 +434,32 @@ function display_student($student) {
     <tr>
       <td>username:</td>
       <td><code>{% if workshop_type == "windows" %}student' . $student['id'] . '{% else %}admin{% endif %}</code></td>
+    </tr>
+    <tr>
+      <td>password:</td>
+      <td><code>{{admin_password}}</code></td>
+    </tr>
+  </table>
+  {% endif %}
+  {% if workshop_type == "ripu" %}
+  <div id="section_title">Automation controller web console</div>
+  To login to the RHEL web console on the AAP2 controller use the following credentials:<br>
+  <table>
+  {% if dns_type != 'none' %}
+    <tr>
+  <td>WebUI link:</td>
+  <td><a target=_blank href="https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:9090">https://student' . $student['id'] . '-sat.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:9090</a></td>
+    </tr>
+  {% endif %}
+  {% if dns_type == 'none' %}
+    <tr>
+  <td>UI link:
+  <td><a target=_blank href="https://' . $student['ip'] . ':9090">https://' . $student['ip'] . ':9090</a></td>
+    </tr>
+  {% endif %}
+    <tr>
+      <td>username:</td>
+      <td><code>student</code></td>
     </tr>
     <tr>
       <td>password:</td>

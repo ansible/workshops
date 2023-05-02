@@ -8,3 +8,4 @@ requests==2.22.0
 pywinrm==0.4.1
 requests-credssp==1.2.0
 ipaddr==2.2.0
+petname==2.6

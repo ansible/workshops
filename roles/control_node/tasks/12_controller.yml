@@ -34,17 +34,6 @@
   debug:
     msg: '{{ check2.json }}'
 
-# Certbot dependancy / acme, needs later version of requests library than task above^^
-- name: install awxkit and requests >2.14
-  become: true
-  ansible.builtin.pip:
-    name:
-      - awxkit
-      - yamllint
-      - "requests==2.14.2"
-    executable: '/usr/bin/pip3.9'
-    state: latest
-
 - name: load license block
   block:
     - name: check for base64 variable first

@@ -1,0 +1,90 @@
+[all:vars]
+{% if ssh_port is defined %}
+ansible_port={{ ssh_port }}
+ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+{% endif %}
+
+{% for number in range(1,student_total + 1) %}
+[student{{ number }}]
+{% for host in ansible_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node1_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node2_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node3_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node4_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% if centos7 is defined %}
+{% for host in node4_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node5_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node6_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if centos6 is defined %}
+{% for host in node7_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node8_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node9_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if satellite_node_facts is defined %}
+{% for host in satellite_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+
+{% if automation_hub|bool %}
+[automation_hub]
+{%   for host in automation_hub_host_facts.instances %}
+{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_port=22 ansible_user=ec2-user
+{%   endfor %}
+{% endif %}
+
+{% if attendance %}
+[attendance]
+{% for host in attendance_host_facts.instances %}
+{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user=ec2-user
+{%   endfor %}
+{% endif %}

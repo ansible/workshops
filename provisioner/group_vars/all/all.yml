@@ -31,6 +31,7 @@ valid_workshop_types:
   - auto_satellite
   - middleware
   - configascode
+  - ripu
 network_type: multivendor
 valid_network_types:
   - cisco
@@ -59,6 +60,7 @@ windows_ee: "quay.io/acme_corp/windows_ee:latest"
 smart_mgmt_ee: "quay.io/s4v0/ee-automated-smart-mgmt-29:latest"
 auto_satellite_ee: "quay.io/s4v0/ee-automated-satellite-aap2:latest"
 configascode_ee: "registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest"
+ripu_ee: "registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:1.0.0-208"
 
 # EE registry name used in installer and EE controller credential
 ee_registry_name: "registry.redhat.io"

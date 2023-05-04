@@ -1,0 +1,10 @@
+---
+- name: setup inventory
+  include_tasks: "inventory/addhost_{{workshop_type}}.yml"
+
+################### Write 99-webui.json ##################
+- name: Generate student 99-webui.json
+  template:
+    src: "cockpit_machines/cockpit_machines_{{workshop_type}}.j2"
+    dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-99-webui.json"
+  with_sequence: count="{{ student_total }}"

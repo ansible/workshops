@@ -24,10 +24,8 @@ Having said that, the exercises themselves should take roughly 1-3 hours. The ac
 
 If your experience is different in scheduling these workshops, please let us know and file an issue.
 
-<!-- TODO
 ## Lab Diagram
-
-![config as code lab diagram](../../images/config_as_code_diagram.png) -->
+![ansible config as code lab diagram](../../images/ansible_config_as_code_diagram.png)
 
 ## Exercises
 

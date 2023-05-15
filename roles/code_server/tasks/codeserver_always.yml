@@ -1,4 +1,18 @@
 ---
+- name: Replace add_header X-Frame-Options DENY with CSP frame-ancestors self in automation-controller.nginx.conf
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/conf.d/automation-controller.nginx.conf
+    regexp: '^(.*)add_header X-Frame-Options \"DENY\"\;'
+    line: >-
+      \1add_header Content-Security-Policy "frame-ancestors 'self';";
+    backrefs: yes
+    owner: root
+    group: root
+    mode: '0644'
+  register: add_header_csp
+  retries: 10
+  until: add_header_csp is not changed
+
 - name: Apply our systemd service file (instead of RPM file)
   ansible.builtin.template:
     src: code-server.service.j2

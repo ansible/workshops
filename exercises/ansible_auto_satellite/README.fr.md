@@ -15,10 +15,11 @@ Dans cet atelier, vous apprendrez à tirer le meilleur parti de Red Hat Satellit
 
 ## Cas d'utilisation
 
-Cet atelier se concentre actuellement sur ces trois points sensibles de gestion d'un parc linux :
+Cet atelier se concentre actuellement sur ces quatre points sensibles de gestion d'un parc linux :
 - Conformité (OpenSCAP Scanning) et gestion de la vulnérabilité
 - Gestion des Patches/Paquetages
 - Conversion CentOS vers RHEL
+- Gestion de la vulnérabilité avec Insights
 
 ## Présentations
 

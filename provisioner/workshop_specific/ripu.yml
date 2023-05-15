@@ -1,0 +1,351 @@
+---
+- name: configure ripu workshop for webservers
+  hosts: lab_hosts
+  become: true
+  gather_facts: false
+  tasks:
+    - name: configure RHEL webservers
+      include_role:
+        name: ../../roles/webservers
+
+- name: Configure controller for ripu
+  hosts: control_nodes
+  gather_facts: false
+  vars:
+    ripu_project_scm_url: 'https://github.com/redhat-partner-tech/leapp-project'
+    ripu_project_scm_branch: 'main'
+    controller_infra_workloads:
+      - redhat_cop.controller_configuration.credential_types
+      # - redhat_cop.controller_configuration.credentials
+      - redhat_cop.controller_configuration.projects
+      # - redhat_cop.controller_configuration.inventories
+      # - redhat_cop.controller_configuration.inventory_sources
+      - redhat_cop.controller_configuration.job_templates
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_validate_certs: false
+    controller_credential_types:
+      - name: Satellite_Collection
+        description: Credential for redhat.satellite collection
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: username
+              label: Satellite Username
+            - type: string
+              id: password
+              label: Satellite Password
+              secret: true
+            - type: string
+              id: host
+              label: Satellite Hostname
+          required:
+            - username
+            - password
+            - host
+        injectors:
+          env:
+            FOREMAN_SERVER: !unsafe '{{ host }}'
+            FOREMAN_USER: !unsafe '{{ username}}'
+            FOREMAN_PASSWORD: !unsafe '{{ password }}'
+            FOREMAN_VALIDATE_CERTS: 'false'
+      - name: GitHub_Personal_Access_Token
+        description: Credential for GitHub repo operations automation
+        kind: cloud
+        inputs:
+          fields:
+            - type: string
+              id: personal_access_token
+              label: Personal Access Token
+              secret: true
+              help_text: GitHub Personal Access Token
+              multiline: true
+          required:
+            - personal_access_token
+        injectors:
+          env:
+            MY_PA_TOKEN: !unsafe '{{ personal_access_token }}'
+    controller_projects:
+      - name: Project Leapp
+        organization: Default
+        scm_update_on_launch: true
+        scm_update_cache_timeout: 3600
+        scm_type: git
+        scm_url: "{{ ripu_project_scm_url }}"
+        scm_branch: "{{ ripu_project_scm_branch }}"
+        default_environment: ripu workshop execution environment
+    controller_templates:
+      - name: SETUP / Controller
+        project: Project Leapp
+        playbook: controller_iac.yml
+        inventory: Workshop Inventory
+        execution_environment: Default execution environment
+        credentials:
+          - Controller Credential
+
+  tasks:
+    # Allow projects to pull collections via collections/requirements.yml
+    - name: Turn on AWX_COLLECTIONS_ENABLED on controller
+      awx.awx.settings:
+        name: AWX_COLLECTIONS_ENABLED
+        value: true
+        controller_username: admin
+        controller_password: "{{ admin_password }}"
+        controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+        validate_certs: false
+
+    - name: Deploy controller-infra workloads
+      include_role:
+        name: "{{ controller_infra_vars }}"
+      loop: "{{ controller_infra_workloads }}"
+      loop_control:
+        loop_var: controller_infra_vars
+      when:
+        - controller_infra_workloads | d("") | length >0
+
+- name: Final workshop preparations
+  hosts: control_nodes
+  become: true
+  gather_facts: true
+  tasks:
+    - name: check for updates
+      yum:
+        name: '*'
+        state: latest
+        exclude: kernel*
+
+    - name: Install cockpit console
+      ansible.builtin.package:
+        name: 
+          - cockpit
+          - cockpit-system
+        state: present
+
+    - name: Setup cockpit/machines.d/99-webui.json file per student
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../{{ ec2_name_prefix }}/{{ student }}-99-webui.json"
+        dest: "/etc/cockpit/machines.d/99-webui.json"
+
+    - name: Copy controller key to cockpit 
+      ansible.builtin.copy:
+        src: "/etc/tower/tower.key"
+        dest: "/etc/cockpit/ws-certs.d/00-signed.key"
+        remote_src: true
+
+    - name: Copy controller cert to cockpit 
+      ansible.builtin.copy:
+        src: "/etc/tower/tower.cert"
+        dest: "/etc/cockpit/ws-certs.d/00-signed.cert"
+        remote_src: true
+
+    - name: Enable and start cockpit console service
+      ansible.builtin.service:
+        name: cockpit.socket
+        enabled: true
+        state: started
+
+    - name: Grab ec2_instance_info for node1
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
+      delegate_to: localhost
+      register: node1_node_facts
+
+    - name: Grab ec2_instance_info for node2
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
+      delegate_to: localhost
+      register: node2_node_facts
+
+    - name: Grab ec2_instance_info for node3
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
+      delegate_to: localhost
+      register: node3_node_facts
+
+    - name: Grab ec2_instance_info for node4
+      amazon.aws.ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
+      delegate_to: localhost
+      register: node4_node_facts
+
+    - name: Populate ssh host keys to known_hosts
+      become: yes
+      become_user: student
+      become_method: su
+      become_exe: sudo su -
+      shell: >
+        ssh-keyscan -tecdsa-sha2-nistp256 {{ item.tags.short_name }} >> ~/.ssh/known_hosts
+      #Circle back to lineinfile...  
+      #lineinfile:
+      #  dest: /home/student/.ssh/known_hosts
+      #  create: yes
+      # state: present
+      #  line: "{{ lookup('pipe', 'ssh-keyscan -tecdsa-sha2-nistp256 ' + item.tags.short_name) }}"
+      with_items:
+        - "{{ node1_node_facts.instances }}"
+        - "{{ node2_node_facts.instances }}"
+        - "{{ node3_node_facts.instances }}"
+        - "{{ node4_node_facts.instances }}"
+
+    - when: provision_mode == "workshop"
+      block:
+        - name: Run SETUP / Controller job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Controller"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupcontroljob
+
+        - name: "Check API until SETUP / Controller job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run Update inventories via dynamic sources job template - RHEL7
+          awx.awx.job_launch:
+            job_template: "UTILITY / Update inventories via dynamic sources"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            extra_vars:
+              rhel_inventory_group: rhel7
+          register: update_inventories_rhel7
+
+        - name: "Check API until Update inventories via dynamic sources RHEL7 job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ update_inventories_rhel7.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_template02
+          until: workshop_job_template02.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run Update inventories via dynamic sources job template - RHEL8
+          awx.awx.job_launch:
+            job_template: "UTILITY / Update inventories via dynamic sources"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            extra_vars:
+              rhel_inventory_group: rhel8
+          register: update_inventories_rhel8
+
+        - name: "Check API until Update inventories via dynamic sources RHEL8 job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ update_inventories_rhel8.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_template03
+          until: workshop_job_template03.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run AUTO / Patch OS to latest job template - RHEL7
+          awx.awx.job_launch:
+            job_template: "AUTO / Patch OS to latest"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            extra_vars:
+              rhel_inventory_group: rhel7
+          register: osupdatejob
+
+        - name: "Check API until AUTO / Patch OS to latest job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ osupdatejob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_template04
+          until: workshop_job_template04.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+    - when: provision_mode == "demo"
+      block:
+        - name: Run SETUP / Controller job template
+          awx.awx.job_launch:
+            job_template: "SETUP / Controller"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupcontroljob
+
+        - name: "Check API until SETUP / Controller job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+
+        - name: Run Fact Scan job template
+          awx.awx.job_launch:
+            job_template: "UTILITY / Fact Scan"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: factscanjob
+
+        - name: "Check API until Fact Scan job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ factscanjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates02
+          until: workshop_job_templates02.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 180  # 1hour 60*60/20
+...

@@ -35,6 +35,10 @@ argument_specs:
         type: str
         description: auto_satellite workshop execution environment
         default: "quay.io/s4v0/ee-automated-satellite-aap2:latest"
+      ripu_ee:
+        type: str
+        description: ripu workshop execution environment
+        default: "registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:1.0.0-208"
       username:
         description: The workshop username.
         type: str

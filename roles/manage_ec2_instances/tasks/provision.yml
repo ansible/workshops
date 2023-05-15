@@ -71,3 +71,7 @@
 
 - name: create instructor_inventory, and student files
   include_tasks: create_inventory.yml
+
+- name: create cockpit/machines.d webui definition file
+  include_tasks: cockpit_machines.yml
+  when: workshop_type == "ripu"

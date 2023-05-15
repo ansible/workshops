@@ -12,3 +12,10 @@
 - name: setup ssl cert
   include_tasks: "50_ssl.yml"
   when: automation_hub | bool and not teardown|bool
+
+- name: install podman
+  dnf:
+    name: podman
+    state: present
+    disable_gpg_check: true
+  when: automation_hub | bool and not teardown|bool

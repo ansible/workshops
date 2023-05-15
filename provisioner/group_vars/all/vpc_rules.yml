@@ -192,6 +192,13 @@ workshops:
         rule_desc: gitea
   rhel:
   rhel_90:
+  ripu:
+    ports:
+      - proto: tcp
+        to_port: 9090
+        from_port: 9090
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Cockpit console
   smart_mgmt:
     ports:
       - proto: tcp

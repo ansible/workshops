@@ -1,0 +1,28 @@
+---
+- name: Install packages for ripu pets
+  ansible.builtin.package:
+    name:
+      - at
+      - cockpit
+      - cockpit-system
+      - git
+    state: present
+
+- name: Enable and start cockpit console service
+  ansible.builtin.service:
+    name: cockpit.socket
+    enabled: true
+    state: started
+
+- name: Enable and start atd
+  ansible.builtin.service:
+    name: atd.service
+    enabled: true
+    state: started
+
+- name: Leapp custom actor repository
+  ansible.builtin.yum_repository:
+    name: leapp-supplements
+    description: Leapp custom actors for workshop demo
+    baseurl: https://people.redhat.com/bmader/leapp-supplements-demo/RHEL/$releasever/$basearch
+    gpgcheck: false

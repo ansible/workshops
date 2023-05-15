@@ -15,11 +15,10 @@ In this workshop, you will learn how to get the most from Red Hat Satellite in c
 
 ## Use Cases
 
-This workshop currently focuses on 3 main customer pain points:
+This workshop currently focuses on 4 main customer pain points:
 - Compliance (OpenSCAP Scanning) and Vulnerability Management
 - Patch/Package Management
 - CentOS to RHEL conversion
-- (WIP) RHEL 7 > 8/9
 - Vulnerability Management with Insights
 
 ## Presentations

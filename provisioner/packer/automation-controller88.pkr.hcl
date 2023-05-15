@@ -10,7 +10,7 @@ local "extra_args" {
 data "amazon-ami" "automation_controller" {
   filters = {
     virtualization-type = "hvm"
-    name                = "RHEL-9.2*HVM-*Hourly*"
+    name                = "RHEL-8*HVM-*Hourly*"
     root-device-type    = "ebs"
     "architecture": "x86_64"
   }

@@ -1,0 +1,7 @@
+- name: GigabitEthernet0/1
+  address_family:
+    - afi: ipv4
+      process:
+        id: 10
+        area_id: 30
+

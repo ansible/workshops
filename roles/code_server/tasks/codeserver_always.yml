@@ -1,16 +1,15 @@
 ---
-- name: editor block - update nginx configuration to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
-    dest: /etc/nginx/conf.d/automation-controller.nginx.conf
-    insertbefore: "location / "
+- name: Verify presence of automation-controller.nginx.conf
+  ansible.builtin.stat:
+    path: /etc/nginx/conf.d/automation-controller.nginx.conf
+  register: automation_controller_nginx_conf_file
 
-# Make sure we can re-run the automation platform installer during a lab without killing code-server access
-- name: update Ansible installer nginx configuration template to support code server
-  blockinfile:
-    block: "{{ lookup('template', 'nginx_instruqt.conf') }}"
-    dest: "{{ aap_dir }}/collections/ansible_collections/ansible/automation_platform_installer/roles/automationcontroller/templates/automation-controller.nginx.conf.j2"
-    insertbefore: "location / "
+- name: Copy /etc/nginx/nginx.conf file on controller to conf.d/automation-controller.nginx.conf
+  ansible.builtin.copy:
+    src: /etc/nginx/nginx.conf
+    dest: /etc/nginx/conf.d/automation-controller.nginx.conf
+    remote_src: yes
+  when: not automation_controller_nginx_conf_file.stat.exists
 
 - name: Replace add_header X-Frame-Options DENY with CSP frame-ancestors self in automation-controller.nginx.conf
   ansible.builtin.lineinfile:

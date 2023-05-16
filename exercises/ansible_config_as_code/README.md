@@ -33,5 +33,3 @@ If your experience is different in scheduling these workshops, please let us kno
 * [Exercise 1 - Building an Execution Environment](./1-ee/README.md)
 * [Exercise 2 - Configure Private Automation Hub](./2-pah/README.md)
 * [Exercise 3 - Configure Controller](./3-controller/README.md)
-<!-- Add in future
-* [Exercise 4 - Automation Controller projects](./4-workflows/README.md) -->

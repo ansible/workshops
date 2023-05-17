@@ -122,7 +122,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
   become: true
   tasks:
   - name: copy web.html
-    copy:
+    ansible.builtin.copy:
       src: "{{ stage }}_web.html"
       dest: /var/www/html/index.html
 ```
@@ -189,7 +189,7 @@ To get an idea what facts Ansible collects by default, on your control node as y
         - 'all'
       register: setup
 
-    - debug:
+    - ansible.builtin.debug:
         var: setup
 ```
 
@@ -247,7 +247,7 @@ This might be a bit too much, you can use filters to limit the output to certain
         - '*distribution'
       register: setup
 
-    - debug:
+    - ansible.builtin.debug:
         var: setup
 ```
 
@@ -299,7 +299,7 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
   hosts: all
   tasks:
   - name: Prints Ansible facts
-    debug:
+    anisble.builtin.debug:
       msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
 ```
 

@@ -4,8 +4,6 @@
     path: /etc/nginx/conf.d/automation-controller.nginx.conf
   register: automation_controller_nginx_conf_file
 
-  when: not automation_controller_nginx_conf_file.stat.exists
-
 - name: Replace add_header X-Frame-Options DENY with CSP frame-ancestors self in automation-controller.nginx.conf
   ansible.builtin.lineinfile:
     path: /etc/nginx/conf.d/automation-controller.nginx.conf

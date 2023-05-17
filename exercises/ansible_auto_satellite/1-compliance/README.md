@@ -98,7 +98,7 @@ This step will allow us to scan a single rhel7 host with the ```PCI_Compliance``
 
         Project: Automated Management (Click the magnifying glass icon to select.)
 
-        Execution Environment: smart_mgmt workshop execution environment (Click the
+        Execution Environment: auto_satellite workshop execution environment (Click the
         magnifying glass icon to select.)
 
         Playbook: configure_openscap.yml (Click drop-down to select.)

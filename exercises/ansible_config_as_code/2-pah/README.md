@@ -71,7 +71,7 @@ Further documentation for those who are interested to learn more see:
 
 ## Step 4
 
-Create a file `group_vars/all/ah_groups.yml` and add `ah_groups` list with one (1) item in it with the `name` of `admin` who's `perms` are `all` and `state` is `present`.
+Create a file `group_vars/all/ah_groups.yml` and add `ah_groups` list with one (1) item in it with the `name` of `admin and `state` is `present. Do not set permisions.
 If you need more information follow the documentation link below.
 
 Further documentation for those who are interested to learn more see:

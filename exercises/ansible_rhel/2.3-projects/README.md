@@ -40,30 +40,30 @@ A playbook to install the Apache web server has already been committed to the di
 
   tasks:
   - name: latest Apache version installed
-    yum:
+    ansible.builtin.yum:
       name: httpd
       state: latest
 
   - name: latest firewalld version installed
-    yum:
+    ansible.builtin.yum:
       name: firewalld
       state: latest
 
   - name: firewalld enabled and running
-    service:
+    ansible.builtin.service:
       name: firewalld
       enabled: true
       state: started
 
   - name: firewalld permits http service
-    firewalld:
+    ansible.builtin.firewalld:
       service: http
       permanent: true
       state: enabled
       immediate: yes
 
   - name: Apache enabled and running
-    service:
+    ansible.builtin.service:
       name: httpd
       enabled: true
       state: started

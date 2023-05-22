@@ -110,7 +110,7 @@ Now that we've defined the play, let's add a task to get something done. We will
   become: yes
   tasks:
   - name: latest Apache version installed
-    yum:
+    ansible.builtin.yum:
       name: httpd
       state: latest
 ```
@@ -285,11 +285,11 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
   become: yes
   tasks:
   - name: latest Apache version installed
-    yum:
+    ansible.builtin.yum:
       name: httpd
       state: latest
   - name: Apache enabled and running
-    service:
+    ansible.builtin.service:
       name: httpd
       enabled: true
       state: started
@@ -326,10 +326,10 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
   tasks:
     - name: Check status of {{ package }} service
-      service_facts:
+      ansible.builtin.service_facts:
       register: service_state
 
-    - debug:
+    - ansible.builtin.debug:
         var: service_state.ansible_facts.services["{{ package }}.service"].state
 ```
 
@@ -353,7 +353,7 @@ Check that the tasks were executed correctly and Apache is accepting connections
 
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
-      uri:
+      ansible.builtin.uri:
         url: "http://{{ node }}"
 
 ```
@@ -394,16 +394,16 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
   become: yes
   tasks:
   - name: latest Apache version installed
-    yum:
+    ansible.builtin.yum:
       name: httpd
       state: latest
   - name: Apache enabled and running
-    service:
+    ansible.builtin.service:
       name: httpd
       enabled: true
       state: started
   - name: copy web.html
-    copy:
+    ansible.builtin.copy:
       src: web.html
       dest: /var/www/html/index.html
 ```
@@ -448,16 +448,16 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
   become: yes
   tasks:
   - name: latest Apache version installed
-    yum:
+    ansible.builtin.yum:
       name: httpd
       state: latest
   - name: Apache enabled and running
-    service:
+    ansible.builtin.service:
       name: httpd
       enabled: true
       state: started
   - name: copy web.html
-    copy:
+    ansible.builtin.copy:
       src: web.html
       dest: /var/www/html/index.html
 ```

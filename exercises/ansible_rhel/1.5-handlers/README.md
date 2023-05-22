@@ -79,7 +79,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
   become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
-      yum:
+      ansible.builtin.um:
         name: vsftpd
         state: latest
       when: inventory_hostname in groups["ftpserver"]
@@ -126,14 +126,14 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
   become: true
   tasks:
   - name: Copy Apache configuration file
-    copy:
+    ansible.builtin.copy:
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
       - restart_apache
   handlers:
     - name: restart_apache
-      service:
+      ansible.builtin.service:
         name: httpd
         state: restarted
 ```
@@ -187,7 +187,7 @@ To show the loops feature we will generate three new users on `node1`. For that,
 
   tasks:
     - name: Ensure three users are present
-      user:
+      ansible.builtin.user:
         name: "{{ item }}"
         state: present
       loop:
@@ -235,7 +235,7 @@ Let's rewrite the playbook to create the users with additional user rights:
 
   tasks:
     - name: Ensure three users are present
-      user:
+      ansible.builtin.user:
         name: "{{ item.username }}"
         state: present
         groups: "{{ item.groups }}"
@@ -263,10 +263,10 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
     myuser: "dev_user"
   tasks:
     - name: Get {{ myuser }} info
-      getent:
+      ansible.builtin.getent:
         database: passwd
         key: "{{ myuser }}"
-    - debug:
+    - ansible.builtin.debug:
         msg:
           - "{{ myuser }} uid: {{ getent_passwd[myuser].1 }}"
 ```

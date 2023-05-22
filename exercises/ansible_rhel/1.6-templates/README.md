@@ -50,7 +50,7 @@ Next we need a playbook to use this template. In the `~/ansible-files/` director
   hosts: node1
   become: true
   tasks:
-    - template:
+    - ansible.builtin.template:
         src: motd-facts.j2
         dest: /etc/motd
         owner: root
@@ -104,7 +104,7 @@ Add a line to the template to list the current kernel of the managed node.
         - '*kernel'
       register: setup
 
-    - debug:
+    - ansible.builtin.debug:
         var: setup
 ```
 

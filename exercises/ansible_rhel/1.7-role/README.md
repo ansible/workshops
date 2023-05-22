@@ -136,12 +136,12 @@ Edit the `roles/apache_vhost/tasks/main.yml` file:
 ```yaml
 ---
 - name: install httpd
-  yum:
+  ansible.builtin.yum:
     name: httpd
     state: latest
 
 - name: start and enable httpd service
-  service:
+  ansible.builtin.service:
     name: httpd
     state: started
     enabled: true
@@ -160,12 +160,12 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
 
 ```yaml
 - name: ensure vhost directory is present
-  file:
+  ansible.builtin.file:
     path: "/var/www/vhosts/{{ ansible_hostname }}"
     state: directory
 
 - name: deliver html content
-  copy:
+  ansible.builtin.copy:
     src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
@@ -178,7 +178,7 @@ The last task we add uses the template module to create the vhost configuration 
 
 ```yaml
 - name: template vhost file
-  template:
+  ansible.builtin.template:
     src: vhost.conf.j2
     dest: /etc/httpd/conf.d/vhost.conf
     owner: root
@@ -197,28 +197,28 @@ The full `tasks/main.yml` file is:
 ```yaml
 ---
 - name: install httpd
-  yum:
+  ansible.builtin.yum:
     name: httpd
     state: latest
 
 - name: start and enable httpd service
-  service:
+  ansible.builtin.service:
     name: httpd
     state: started
     enabled: true
 
 - name: ensure vhost directory is present
-  file:
+  ansible.builtin.file:
     path: "/var/www/vhosts/{{ ansible_hostname }}"
     state: directory
 
 - name: deliver html content
-  copy:
+  ansible.builtin.copy:
     src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 
 - name: template vhost file
-  template:
+  ansible.builtin.template:
     src: vhost.conf.j2
     dest: /etc/httpd/conf.d/vhost.conf
     owner: root
@@ -238,7 +238,7 @@ Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart
 ---
 # handlers file for roles/apache_vhost
 - name: restart_httpd
-  service:
+  ansible.builtin.service:
     name: httpd
     state: restarted
 ```
@@ -290,14 +290,14 @@ You are ready to test the role against `node2`. But since a role cannot be assig
   become: true
 
   pre_tasks:
-    - debug:
+    - ansible.builtin.debug:
         msg: 'Beginning web server configuration.'
 
   roles:
     - apache_vhost
 
   post_tasks:
-    - debug:
+    - ansible.builtin.debug:
         msg: 'Web server has been configured.'
 ```
 

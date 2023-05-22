@@ -43,8 +43,8 @@ repos:
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: 'https://github.com/ansible-community/ansible-lint.git'
-    rev: v6.6.1
+  - repo: 'https://github.com/ansible/ansible-lint.git'
+    rev: v6.16.2
     hooks:
       - id: ansible-lint
         pass_filenames: false

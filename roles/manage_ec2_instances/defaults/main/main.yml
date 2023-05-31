@@ -16,7 +16,7 @@ create_cluster: false
 ##    |           |
 ##  (rtr3)  -   (rtr4)
 ##
-control_type: "rhel8-tower"
+control_type: "rhel9-controller"
 hub_type: "private_automation_hub"
 rtr1_type: "cisco"
 rtr2_type: "arista"
@@ -100,6 +100,17 @@ ec2_info:
     disk_iops: 3000
     disk_throughput: 125
   # Look for owner 309956199498 to find official Red Hat AMIs
+  rhel9-controller:
+    owners: 309956199498
+    size: m4.xlarge
+    os_type: linux
+    disk_volume_type: gp3
+    disk_space: 40
+    disk_iops: 3000
+    disk_throughput: 125
+    architecture: x86_64
+    filter: 'RHEL-9*HVM-*Hourly*'
+    username: ec2-user
   rhel8-tower:
     owners: 309956199498
     size: m4.xlarge

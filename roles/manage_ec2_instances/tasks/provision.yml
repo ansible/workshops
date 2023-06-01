@@ -37,13 +37,25 @@
     ansible_control_node_ami:
       image_id: "{{ pre_build_controller_ami[ec2_region] }}"
 
-- name: enforce that major and minor version are at least RHEL 8.4
+- name: enforce major and minor version are at least RHEL 8.4
   assert:
     that:
       - ansible_control_node_ami.name[7]|int >= 4
       - ansible_control_node_ami.name[5]|int >= 8
     msg: "AWS ec2 image retrieved will not work with AAP 2, we need at least RHEL 8.4"
-  when: not pre_build|bool
+  when:
+    - not pre_build|bool
+    - control_type == "rhel8-tower"
+
+- name: enforce major and minor version are at least RHEL 9.2
+  assert:
+    that:
+      - ansible_control_node_ami.name[7]|int >= 2
+      - ansible_control_node_ami.name[5]|int >= 9
+    msg: "AWS ec2 image retrieved will not work with AAP 2, we need at least RHEL 9.2"
+  when:
+    - not pre_build|bool
+    - control_type == "rhel9-controller"
 
 - name: Create the control clusters
   include_tasks: cluster_instances.yml

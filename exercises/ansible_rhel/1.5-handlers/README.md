@@ -1,16 +1,19 @@
-# Workshop Exercise - Conditionals, Handlers and Loops
+<!-- omit in toc -->
+# Workshop Exercise - Conditionals, Handlers and Loops 
 
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-## Table of Contents
+<!-- omit in toc -->
+## Table of Contents 
 
-* [Objective](#objective)
-* [Guide](#guide)
-  * [Step 1 - Conditionals](#step-1---conditionals)
-  * [Step 2 - Handlers](#step-2---handlers)
-  * [Step 3 - Simple Loops](#step-3---simple-loops)
-  * [Step 4 - Loops over hashes](#step-4---loops-over-hashes)
+
+- [Objective](#objective)
+- [Guide](#guide)
+  - [Step 1 - Conditionals](#step-1---conditionals)
+  - [Step 2 - Handlers](#step-2---handlers)
+  - [Step 3 - Simple Loops](#step-3---simple-loops)
+  - [Step 4 - Loops over hashes](#step-4---loops-over-hashes)
 
 ## Objective
 
@@ -79,7 +82,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
   become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
-      ansible.builtin.um:
+      ansible.builtin.yum:
         name: vsftpd
         state: latest
       when: inventory_hostname in groups["ftpserver"]

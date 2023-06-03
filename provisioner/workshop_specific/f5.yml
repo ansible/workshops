@@ -1,5 +1,5 @@
 ---
-- name: configure f5 workshops for webservers node1 and node2
+- name: Configure f5 workshops for webservers node1 and node2
   hosts: lab_hosts
   become: true
   gather_facts: false
@@ -7,7 +7,7 @@
     - include_role:
         name: ../../roles/webservers
 
-- name: setup f5 nodes
+- name: Setup f5 nodes
   hosts: f5
   become: false
   connection: local
@@ -17,3 +17,25 @@
   tasks:
     - include_role:
         name: ../../roles/f5_setup
+
+- name: Configure containers.conf for student user account
+  hosts: control_nodes
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Ensure .config/containers directory is present in student home directory
+      ansible.builtin.file:
+        path: "/home/student/.config/containers"
+        state: directory
+        owner: student
+        group: student
+        mode: 0755
+
+    - name: Copy containers.conf
+      ansible.builtin.copy:
+        src: containers.conf
+        dest: /home/student/.config/containers/containers.conf
+        owner: student
+        group: student
+        mode: 0644

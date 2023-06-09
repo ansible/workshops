@@ -79,7 +79,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
   become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
-      ansible.builtin.um:
+      ansible.builtin.yum:
         name: vsftpd
         state: latest
       when: inventory_hostname in groups["ftpserver"]

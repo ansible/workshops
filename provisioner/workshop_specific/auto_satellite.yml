@@ -299,7 +299,7 @@
           register: workshop_job_templates01
           until: workshop_job_templates01.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          retries: 45  # 15 minutes 15*60/20
 
     - when: provision_mode == "demo"
       block:
@@ -326,7 +326,7 @@
           register: workshop_job_templates01
           until: workshop_job_templates01.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          retries: 45  # 15 minutes 15*60/20
 
         - name: Run SETUP / Controller job template
           awx.awx.job_launch:
@@ -349,7 +349,7 @@
           register: workshop_job_templates02
           until: workshop_job_templates02.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          retries: 15  # 5 minutes 5*60/20
 
         - name: Run SATELLITE / RHEL - Publish Content View job template
           awx.awx.job_launch:
@@ -375,7 +375,7 @@
           register: workshop_job_templates03
           until: workshop_job_templates03.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          retries: 10  # 3.33 minutes 3.33*60/20
 
         - name: Run SATELLITE / RHEL - Promote Content View job template
           awx.awx.job_launch:
@@ -401,8 +401,8 @@
             validate_certs: false
           register: workshop_job_templates04
           until: workshop_job_templates04.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          delay: 15  # Every 15 seconds
+          retries: 8  # 2 minutes 2*60/15
 
         - name: Run SATELLITE / RHEL - Publish Content View job template
           awx.awx.job_launch:
@@ -428,4 +428,4 @@
           register: workshop_job_templates05
           until: workshop_job_templates05.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          retries: 10  # 3.33 minutes 3.33*60/20

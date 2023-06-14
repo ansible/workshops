@@ -2,14 +2,13 @@
 - name: SSL cert block
   block:
 
-    - name: Add EPEL repo for RHEL 8
+    - name: Add EPEL repo for RHEL 9
       yum_repository:
         name: epel
-        description: EPEL for Enterprise Linux 8
+        description: EPEL for Enterprise Linux 9
         baseurl: https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/
         enabled: true
         gpgcheck: false
-      when: ansible_distribution_major_version|int == 8
 
     - name: install snapd
       dnf:

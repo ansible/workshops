@@ -14,6 +14,8 @@ redhat_username: joe@redhat.com
 redhat_password: R3dh4t!
 # DNS domain
 workshop_dns_zone: demoredhat.com
+# Utilize RHEL9 webserver nodes
+rhel: rhel9
 ## Optional Variables
 # password used for student account on control node
 admin_password: ansible

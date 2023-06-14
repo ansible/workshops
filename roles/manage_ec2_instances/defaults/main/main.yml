@@ -122,6 +122,17 @@ ec2_info:
     architecture: x86_64
     filter: 'RHEL-8*HVM-*Hourly*'
     username: ec2-user
+  rhel9:
+    owners: 309956199498
+    size: t3.micro
+    os_type: linux
+    disk_volume_type: gp3
+    disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
+    architecture: x86_64
+    filter: 'RHEL-9*HVM-*Hourly*'
+    username: ec2-user
   rhel8:
     owners: 309956199498
     size: t3.micro

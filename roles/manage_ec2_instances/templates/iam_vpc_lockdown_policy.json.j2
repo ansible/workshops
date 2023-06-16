@@ -88,6 +88,20 @@
             ]
         },
         {
+            "Sid": "EC2DeleteSnapshot",
+            "Effect": "Allow",
+            "Action": "ec2:DeleteSnapshot",
+            "Resource": [
+                "arn:aws:ec2:*::snapshot/*",
+                "arn:aws:ec2:*:{{ aws_account }}:volume/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/Student": "student{{ loop_idx + 1 }}"
+                }
+            }
+        },
+        {
             "Sid": "Route53Actions",
             "Effect": "Allow",
             "Action": [

@@ -72,7 +72,7 @@
     resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node1-ebs"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node1"
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       guid: "{{ ec2_name_prefix }}"
@@ -166,7 +166,7 @@
     resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node2-ebs"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node2"
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       guid: "{{ ec2_name_prefix }}"
@@ -260,7 +260,7 @@
     resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node3-ebs"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node3"
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       guid: "{{ ec2_name_prefix }}"
@@ -354,7 +354,7 @@
     resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node4-ebs"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node4"
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       guid: "{{ ec2_name_prefix }}"

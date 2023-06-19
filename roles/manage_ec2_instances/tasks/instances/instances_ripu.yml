@@ -29,7 +29,7 @@
       ansible-workshops: "true"
       operating_system: rhel
       os_major_version: 7
-      Student: "student{{ item.0 + 1 }}"
+      Student: "{{ student }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -114,7 +114,7 @@
       ansible-workshops: "true"
       operating_system: rhel
       os_major_version: 7
-      Student: "student{{ item.0 + 1 }}"
+      Student: "{{ student }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -195,7 +195,7 @@
       ansible-workshops: "true"
       operating_system: rhel
       os_major_version: 8
-      Student: "student{{ item.0 + 1 }}"
+      Student: "{{ student }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -276,7 +276,7 @@
       ansible-workshops: "true"
       operating_system: rhel
       os_major_version: 8
-      Student: "student{{ item.0 + 1 }}"
+      Student: "{{ student }}"
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:

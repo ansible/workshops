@@ -52,9 +52,6 @@
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
   register: node1_output
 
-- debug:
-    msg: "{{ node1_output }}"
-
 - name: Ensure tags are present for node1
   amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
@@ -65,6 +62,20 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node1_output.instances }}"
+  when: node1_output.instances|length > 0
+
+- name: Ensure tags are present for node1 ebs volume
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node1-ebs"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node1_output.instances }}"
   when: node1_output.instances|length > 0
@@ -149,6 +160,20 @@
     - "{{ node2_output.instances }}"
   when: node2_output.instances|length > 0
 
+- name: Ensure tags are present for node2 ebs volume
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node2-ebs"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      guid: "{{ ec2_name_prefix }}"
+  with_indexed_items:
+    - "{{ node2_output.instances }}"
+  when: node2_output.instances|length > 0
+
 - name: Associate IAM instance profile with node2
   amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
@@ -229,6 +254,20 @@
     - "{{ node3_output.instances }}"
   when: node3_output.instances|length > 0
 
+- name: Ensure tags are present for node3 ebs volume
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node3-ebs"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      guid: "{{ ec2_name_prefix }}"
+  with_indexed_items:
+    - "{{ node3_output.instances }}"
+  when: node3_output.instances|length > 0
+
 - name: Associate IAM instance profile with node3
   amazon.aws.ec2_instance:
     instance_ids: "{{ item.1.instance_id }}"
@@ -305,6 +344,20 @@
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ node4_output.instances }}"
+  when: node4_output.instances|length > 0
+
+- name: Ensure tags are present for node4 ebs volume
+  amazon.aws.ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.block_device_mappings[0].ebs.volume_id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node4-ebs"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      guid: "{{ ec2_name_prefix }}"
   with_indexed_items:
     - "{{ node4_output.instances }}"
   when: node4_output.instances|length > 0

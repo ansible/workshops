@@ -1,0 +1,42 @@
+---
+- name: Provision attendance host
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['attendance_host']['size'][list_count|int] }}"
+    image_id: "{{ attendance_host_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: 1
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    network:
+      assign_public_ip: true
+    state: running
+    filters:
+      instance-state-name: running
+      "tag:Workshop_attendance": "{{ ec2_name_prefix }}-attendance"
+    tags:
+      Workshop_attendance: "{{ ec2_name_prefix }}-attendance"
+      Name: "{{ ec2_name_prefix }}-attendance"
+      App: AnsibleWorkshop
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Linklight: "This was provisioned through the linklight provisioner"
+      Students: "{{ student_total }}"
+      short_name: 'attendance-host'
+      long_name: "attendance-host.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
+      username: "{{ ec2_info['attendance_host']['username'] }}"
+      ansible-workshops: "true"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info[rhel].disk_volume_type }}"
+          volume_size: "{{ ec2_info[rhel].disk_space }}"
+          iops: "{{ ec2_info[rhel].disk_iops }}"
+          throughput: "{{ ec2_info[rhel].disk_throughput }}"
+          delete_on_termination: true
+  register: attendance_output
+...

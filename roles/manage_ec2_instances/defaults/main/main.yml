@@ -102,7 +102,9 @@ ec2_info:
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel9-controller:
     owners: 309956199498
-    size: m4.xlarge
+    size:
+      - m5a.xlarge
+      - m4.xlarge
     os_type: linux
     disk_volume_type: gp3
     disk_space: 40
@@ -113,7 +115,9 @@ ec2_info:
     username: ec2-user
   rhel8-tower:
     owners: 309956199498
-    size: m4.xlarge
+    size:
+      - m5a.xlarge
+      - m4.xlarge
     os_type: linux
     disk_volume_type: gp3
     disk_space: 40
@@ -124,7 +128,9 @@ ec2_info:
     username: ec2-user
   rhel9:
     owners: 309956199498
-    size: t3.micro
+    size:
+      - t3a.micro
+      - t3.micro
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10
@@ -135,7 +141,9 @@ ec2_info:
     username: ec2-user
   rhel8:
     owners: 309956199498
-    size: t3.micro
+    size:
+      - t3a.micro
+      - t3.micro
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10
@@ -146,7 +154,9 @@ ec2_info:
     username: ec2-user
   rhel7:
     owners: 309956199498
-    size: t2.medium
+    size:
+      - t3a.medium
+      - t2.medium
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10
@@ -170,7 +180,9 @@ ec2_info:
     python_interpreter: '/usr/bin/python'
   centos78:
     owners: 125523088429
-    size: t2.medium
+    size:
+      - t3a.medium
+      - t2.medium
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10
@@ -182,7 +194,9 @@ ec2_info:
     python_interpreter: '/usr/bin/python'
   centos79:
     owners: 125523088429
-    size: t2.medium
+    size:
+      - t3a.medium
+      - t2.medium
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10
@@ -194,7 +208,10 @@ ec2_info:
     python_interpreter: '/usr/bin/python'
   f5node:
     owners: 679593333241
-    size: t2.large
+    size:
+      - t3a.large
+      - t3.large
+      - t2.large
     os_type: linux
     disk_volume_type: gp3
     disk_space: 80
@@ -217,7 +234,10 @@ ec2_info:
     python_interpreter: '/usr/bin/python'
   netapp:
     owners: 679593333241
-    size: t2.medium
+    size:
+      - t3a.medium
+      - t3.medium
+      - t2.medium
     os_type: linux
     disk_space: 10
     architecture: x86_64
@@ -261,7 +281,9 @@ ec2_info:
     disk_throughput: 125
   attendance_host:
     owners: 309956199498
-    size: t3.micro
+    size:
+      - t3a.micro
+      - t3.micro
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10
@@ -280,7 +302,10 @@ ec2_info:
     disk_iops: 4000
     disk_throughput: 375
     architecture: x86_64
-    size: r5a.xlarge
+    size:
+      - r5a.xlarge
+      - r5.xlarge
+      - r5b.xlarge
   middleware:
     owners: 309956199498
     size: t2.xlarge

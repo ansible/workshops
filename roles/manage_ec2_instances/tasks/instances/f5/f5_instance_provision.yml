@@ -4,7 +4,7 @@
   amazon.aws.ec2_instance:
     key_name: "{{ ec2_name_prefix }}-key"
     security_group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info.f5node.size }}"
+    instance_type: "{{ ec2_info.f5node.size[list_count|int] }}"
     image_id: "{{ f5_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"

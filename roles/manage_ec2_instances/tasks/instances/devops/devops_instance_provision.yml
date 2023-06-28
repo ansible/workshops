@@ -4,7 +4,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel].size }}"
+    instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -53,7 +53,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel].size }}"
+    instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node2_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -102,7 +102,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel].size }}"
+    instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node3_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
@@ -151,7 +151,7 @@
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel].size }}"
+    instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node4_ami.image_id }}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"

@@ -17,7 +17,7 @@
     - name: All instance sizes attempted fail task via when
       ansible.builtin.fail:
         msg: All instance sizes attempted.
-      when: list_count | int == ( ec2_info['f5']['size'] | length | int ) - 1
+      when: list_count | int == ( ec2_info['f5node']['size'] | length | int ) - 1
 
     - name: Instrument list count
       ansible.builtin.debug:

@@ -1,7 +1,7 @@
 ---
 - name: F5 instance size list length
   ansible.builtin.debug:
-    msg: "RHEL instance size list length: {{ ec2_info[f5].size | length }}"
+    msg: "RHEL instance size list length: {{ ec2_info[f5node].size | length }}"
 
 - name: Initialize/reset list count
   ansible.builtin.set_fact:

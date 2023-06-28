@@ -209,9 +209,9 @@ ec2_info:
   f5node:
     owners: 679593333241
     size:
-      - t3a.large
       - t3.large
       - t2.large
+      - m3.large
     os_type: linux
     disk_volume_type: gp3
     disk_space: 80

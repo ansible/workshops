@@ -13,51 +13,14 @@
     netapp_ami: >
       {{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
-- name: Create EC2 instances for netapp
-  ec2:
-    assign_public_ip: true
-    key_name: "{{ ec2_name_prefix }}-key"
-    group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ netapp_ami.image_id }}"
-    region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
-    count_tag:
-      Workshop_netapp: "{{ ec2_name_prefix }}-netapp"
-    tags:
-      Workshop_netapp: "{{ ec2_name_prefix }}-netapp"
-      Workshop: "{{ ec2_name_prefix }}"
-      uuid: "{{ ec2_name_prefix }}"
-      guid: "{{ ec2_name_prefix }}"
-      AWS_USERNAME: "{{ aws_user }}"
-      owner: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
-      short_name: "netapp"
-      username: "{{ ec2_info[rhel].username }}"
-      ansible-workshops: "true"
-    wait: "{{ ec2_wait }}"
-    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    volumes:
-      - device_name: /dev/sda1
-        ebs:
-          volume_type: gp2
-          volume_size: "{{ ec2_info[rhel].disk_space }}"
-          delete_on_termination: true
-  register: netapp_output
+- name: RHEL instance size list length
+  ansible.builtin.debug:
+    msg: "RHEL instance size list length: {{ ec2_info[rhel].size | length }}"
 
-- name: Ensure tags are present for netapp_output
-  ec2_tag:
-    region: "{{ ec2_region }}"
-    resource: "{{ item.1.id }}"
-    state: present
-    tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-netapp"
-      Index: "{{ item[0] }}"
-      Student: "student{{ item.0 + 1 }}"
-      launch_time: "{{ item.1.launch_time }}"
-      ansible-workshops: "true"
-  with_indexed_items:
-    - "{{ netapp_output.instances }}"
-  when: netapp_output.instance_ids is not none
+- name: Initialize/reset list count
+  ansible.builtin.set_fact:
+    list_count: "reset"
+
+- name: Call Storage retry tasks include
+  ansible.builtin.include_tasks: storage/storage_loop.yml
+...

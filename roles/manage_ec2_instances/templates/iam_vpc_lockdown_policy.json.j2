@@ -88,6 +88,35 @@
             ]
         },
         {
+            "Sid": "EC2DeleteSnapshot",
+            "Effect": "Allow",
+            "Action": "ec2:DeleteSnapshot",
+            "Resource": [
+                "arn:aws:ec2:*::snapshot/*",
+                "arn:aws:ec2:*:{{ aws_account }}:volume/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/Student": "student{{ loop_idx + 1 }}",
+                    "ec2:ResourceTag/guid": "{{ ec2_name_prefix }}"
+                }
+            }
+        },
+        {
+            "Sid": "EC2DeleteVolume",
+            "Effect": "Allow",
+            "Action": "ec2:DeleteVolume",
+            "Resource": [
+                "arn:aws:ec2:*:{{ aws_account }}:volume/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/Student": "student{{ loop_idx + 1 }}",
+                    "ec2:ResourceTag/guid": "{{ ec2_name_prefix }}"
+                }
+            }
+        },
+        {
             "Sid": "Route53Actions",
             "Effect": "Allow",
             "Action": [

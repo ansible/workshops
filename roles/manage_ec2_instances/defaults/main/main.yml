@@ -34,7 +34,7 @@ ec2_info:
     disk_iops: 3000
     disk_throughput: 125
     architecture: x86_64
-    filter: 'RHEL-8*HVM-*Hourly*'
+    filter: 'RHEL-9*HVM-*Hourly*'
     username: ec2-user
   juniper:
     size: c5.xlarge

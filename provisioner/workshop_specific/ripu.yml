@@ -223,8 +223,8 @@
             validate_certs: false
           register: workshop_job_templates01
           until: workshop_job_templates01.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          delay: 15  # Every 15 seconds
+          retries: 16  # 4 minutes 4*60/15
 
         - name: Run Update inventories via dynamic sources job template - RHEL7
           awx.awx.job_launch:
@@ -248,8 +248,8 @@
             validate_certs: false
           register: workshop_job_template02
           until: workshop_job_template02.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          delay: 15  # Every 15 seconds
+          retries: 10  # 2.5 minutes 2.5*60/15
 
         - name: Run Update inventories via dynamic sources job template - RHEL8
           awx.awx.job_launch:
@@ -273,8 +273,8 @@
             validate_certs: false
           register: workshop_job_template03
           until: workshop_job_template03.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          delay: 15  # Every 15 seconds
+          retries: 10  # 2.5 minutes 2.5*60/15
 
         - name: Run Update inventories via dynamic sources job template - ALL_rhel
           awx.awx.job_launch:
@@ -298,12 +298,12 @@
             validate_certs: false
           register: workshop_job_template04
           until: workshop_job_template04.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          delay: 15  # Every 15 seconds
+          retries: 10  # 2.5 minutes 2.5*60/15
 
-        - name: Run AUTO / Patch OS to latest job template - RHEL7
+        - name: Run OS / Patch OS to latest job template - RHEL7
           awx.awx.job_launch:
-            job_template: "AUTO / Patch OS to latest"
+            job_template: "OS / Patch OS to latest"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -311,7 +311,7 @@
               rhel_inventory_group: rhel7
           register: osupdatejob
 
-        - name: "Check API until AUTO / Patch OS to latest job is successful"
+        - name: "Check API until OS / Patch OS to latest job is successful"
           ansible.builtin.uri:
             url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ osupdatejob.id }}/?format=json"
             user: admin
@@ -324,7 +324,7 @@
           register: workshop_job_template05
           until: workshop_job_template05.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          retries: 45  # 15 minutes 15*60/20
 
     - when: provision_mode == "demo"
       block:
@@ -348,8 +348,8 @@
             validate_certs: false
           register: workshop_job_templates01
           until: workshop_job_templates01.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          delay: 15  # Every 15 seconds
+          retries: 16  # 4 minutes 4*60/15
 
         - name: Run Fact Scan job template
           awx.awx.job_launch:
@@ -371,6 +371,6 @@
             validate_certs: false
           register: workshop_job_templates02
           until: workshop_job_templates02.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 180  # 1hour 60*60/20
+          delay: 15  # Every 15 seconds
+          retries: 20  # 5 minutes 5*60/15
 ...

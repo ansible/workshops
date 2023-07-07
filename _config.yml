@@ -12,6 +12,7 @@ exclude:
   - "provisioner/provision_lab.yml"
   - "provisioner/teardown_lab.yml"
   - "provisioner/workshop_specific"
+  - "exercises/ansible_f5"
 kramdown:
   syntax_highlighter_opts:
     disable: true

@@ -20,7 +20,7 @@ Further documentation for those who are interested to learn more see:
 Install our ee_utilities collection and containers.podman using `ansible-galaxy` command.
 
 ```console
-ansible-galaxy collection install infra.ee_utilities containers.podman community.general
+ansible-galaxy collection install infra.ee_utilities:2.0.8 containers.podman community.general
 ```
 
 Further documentation for those who are interested to learn more see:

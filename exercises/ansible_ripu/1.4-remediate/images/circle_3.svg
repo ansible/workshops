@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="4.5mm"
+   height="4.5mm"
+   viewBox="0 0 4.5 4.5"
+   version="1.1"
+   id="svg323"
+   sodipodi:docname="circle_1.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview325"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="10.35098"
+     inkscape:cx="47.773255"
+     inkscape:cy="18.017618"
+     inkscape:current-layer="g2928" />
+  <defs
+     id="defs320" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-63.744986,-123.02931)">
+    <g
+       id="g2928"
+       transform="matrix(0.1636954,0,0,0.1636954,55.919734,113.37342)">
+      <circle
+         style="fill:#8080ff;fill-opacity:1;stroke-width:2.684"
+         id="path341"
+         cx="61.548779"
+         cy="72.731956"
+         r="13.745041" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:17.3333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:2.684"
+         x="61.244091"
+         y="78.694511"
+         id="text2355"><tspan
+           sodipodi:role="line"
+           id="tspan2353"
+           x="61.244091"
+           y="78.694511"
+           style="font-size:17.3333px">3</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -13,6 +13,7 @@ body:
         - Ansible F5 Workshop
         - Ansible Security Automation
         - Ansible Windows Automation Workshop
+        - RHEL In-place Upgrade Automation Workshop
         - Smart Management Automation Workshop
         - Other
     validations:

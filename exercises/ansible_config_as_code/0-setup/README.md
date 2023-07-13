@@ -6,7 +6,7 @@ In this section we will show you step by step how to add pre commit linting to a
 
 If you are using the Workshop, a Workshop project should be available in your VSCode for you to push to the Workshop Gitea server. Create the files in this project folder.
 
-NOTE: If when you click on the Explorer tab that looks like two pieces of paper and you see "Open Folder" click on that. In the popup window click windows-workshop/workshop_project/ (full path is: `/home/student/windows-workshop/workshop_project`) then click "ok". If prompted select the check box and "Yes, I trust the authors" option. You should now see a readme that has a typo saying Welcome to Windows Automation workshop.
+<mark style="background-color: yellow">NOTE: If when you click on the Explorer tab that looks like two pieces of paper and you see "Open Folder" click on that. In the popup window click windows-workshop/workshop_project/ (full path is: `/home/student/windows-workshop/workshop_project`) then click "ok". If prompted select the check box and "Yes, I trust the authors" option. You should now see a readme that has a typo saying Welcome to Windows Automation workshop.</mark>
 
 ## Step 1
 

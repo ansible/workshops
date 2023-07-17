@@ -3,9 +3,9 @@
   hosts: web
   become: true
   tasks:
-
+      
   - name: Latest Apache version installed
-    ansible.builtin.yum:
+    ansible.builtin.dnf:
       name: httpd
       state: latest
 

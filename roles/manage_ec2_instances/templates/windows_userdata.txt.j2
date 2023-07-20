@@ -20,7 +20,7 @@ Set-MpPreference -DisableRealtimeMonitoring $true
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 # Enable WinRM
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/stable-2.15/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile C:\ConfigureRemotingForAnsible.ps1
+Invoke-WebRequest -Uri https://gpte-public.s3.amazonaws.com/CI+Assets/Ansible+Windows+Workshop/ConfigureRemotingForAnsible.ps1 -OutFile C:\ConfigureRemotingForAnsible.ps1
 C:\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
 
 # Set Administrator Password

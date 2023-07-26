@@ -3,7 +3,7 @@
   hosts: web
   become: true
   tasks:
-      
+
   - name: Latest Apache version installed
     ansible.builtin.dnf:
       name: httpd
@@ -13,7 +13,7 @@
     ansible.builtin.service:
       name: httpd
       enabled: true
-      state: started  
+      state: started
 
   - name: Copy index.html
     ansible.builtin.copy:

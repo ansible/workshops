@@ -212,8 +212,6 @@ In the same fashion add a second **Survey Question**
 * Click **Save**
 * Click the toggle to turn the Survey questions to **On**
 
-* Click **Preview** for the Survey
-
 ### Launch the Template
 
 Now launch **Create index.html** job template by selecting the **Details** tab and clicking the **Launch** button.

@@ -77,12 +77,12 @@ play and then understanding what each line accomplishes
 
 ```yaml
 ---
-- name: install the iis web service
+- name: Install the iis web service
   hosts: windows
 ```
 
 * `---` Defines the beginning of YAML
-* `name: install the iis web service` This describes our play
+* `name: Install the iis web service` This describes our play
 * `hosts: windows` Defines the host group in your inventory on which this
   play will run against
 
@@ -100,25 +100,25 @@ of this exercise.
 <!-- {% raw %} -->
 
 ```yaml
-      tasks:
-       - name: install iis
-         win_feature:
-           name: Web-Server
-           state: present
+  tasks:
+    - name: Install iis
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
 
-       - name: start iis service
-         win_service:
-           name: W3Svc
-           state: started
+    - name: Start iis service
+      ansible.windows.win_service:
+        name: W3Svc
+        state: started
 
-       - name: Create website index.html
-         win_copy:
-           content: "{{ iis_test_message }}"
-           dest: C:\Inetpub\wwwroot\index.html
+    - name: Create website index.html
+      ansible.windows.win_copy:
+        content: "{{ iis_test_message }}"
+        dest: C:\Inetpub\wwwroot\index.html
 
-       - name: Show website address
-         debug:
-           msg: "http://{{ ansible_host }}"
+    - name: Show website address
+      ansible.builtin.debug:
+        msg: http://{{ ansible_host }}
 ```
 
 <!-- {% endraw %} -->
@@ -131,9 +131,10 @@ of this exercise.
 <!-- -->
 
 ```yaml
-    win_feature:
-      name: Web-Server
-      state: present
+    - name: Install iis
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
 ```
 
 * These three lines are calling the Ansible module **`win_feature`** to
@@ -144,9 +145,10 @@ of this exercise.
 <!-- -->
 
 ```yaml
-    win_service:
-      name: W3Svc
-      state: started
+    - name: Start iis service
+      ansible.windows.win_service:
+        name: W3Svc
+        state: started
 ```
 
 * The next few lines are using the ansible module **win_service** to
@@ -158,9 +160,10 @@ of this exercise.
 <!-- {% raw %} -->
 
 ```yaml
-    win_copy:
-      content: "{{ iis_test_message }}"
-      dest: C:\Inetpub\wwwroot\index.html
+    - name: Create website index.html
+      ansible.windows.win_copy:
+        content: "{{ iis_test_message }}"
+        dest: C:\Inetpub\wwwroot\index.html
 ```
 
 <!-- {% endraw %} -->
@@ -174,8 +177,9 @@ of this exercise.
 <!-- {% raw %} -->
 
 ```yaml
-    debug:
-      msg: http://{{ ansible_host }}
+    - name: Show website address
+      ansible.builtin.debug:
+        msg: http://{{ ansible_host }}
 ```
 
 <!-- {% endraw %} -->
@@ -239,27 +243,27 @@ You are ready to automate!
 
 ```yaml
 ---
-- name: install the iis web service
+- name: Install the iis web service
   hosts: windows
 
   tasks:
-    - name: install iis
-      win_feature:
+    - name: Install iis
+      ansible.windows.win_feature:
         name: Web-Server
         state: present
 
-    - name: start iis service
-      win_service:
+    - name: Start iis service
+      ansible.windows.win_service:
         name: W3Svc
         state: started
 
     - name: Create website index.html
-      win_copy:
+      ansible.windows.win_copy:
         content: "{{ iis_test_message }}"
         dest: C:\Inetpub\wwwroot\index.html
 
     - name: Show website address
-      debug:
+      ansible.builtin.debug:
         msg: http://{{ ansible_host }}
 ```
 

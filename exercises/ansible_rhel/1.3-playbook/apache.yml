@@ -3,19 +3,19 @@
   hosts: web
   become: true
   tasks:
-      
-  - name: Latest Apache version installed
-    ansible.builtin.dnf:
-      name: httpd
-      state: latest
 
-  - name: Apache enabled and running
-    ansible.builtin.service:
-      name: httpd
-      enabled: true
-      state: started
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
 
-  - name: Copy index.html
-    ansible.builtin.copy:
-      src: web.html
-      dest: /var/www/html/index.html
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: '644'

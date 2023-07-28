@@ -5,14 +5,16 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-  * [Step 1 - Playbook Basics](#step-1---playbook-basics)
-  * [Step 2 - Creating a Directory Structure and File for your Playbook](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
-  * [Step 3 - Running the Playbook](#step-3---running-the-playbook)
-  * [Step 4 - Extend your Playbook: Start &amp; Enable Apache](#step-4---extend-your-playbook-start--enable-apache)
-  * [Step 5 - Extend your Playbook: Create an web.html](#step-5---extend-your-playbook-create-an-indexhtml)
-  * [Step 6 - Practice: Apply to Multiple Host](#step-6---practice-apply-to-multiple-host)
+- [Workshop Exercise - Writing Your First Playbook](#workshop-exercise---writing-your-first-playbook)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Playbook Basics](#step-1---playbook-basics)
+    - [Step 2 - Creating a Directory Structure and File for your Playbook](#step-2---creating-a-directory-structure-and-file-for-your-playbook)
+    - [Step 3 - Running the Playbook](#step-3---running-the-playbook)
+    - [Step 4 - Extend your Playbook: Start \& Enable Apache](#step-4---extend-your-playbook-start--enable-apache)
+    - [Step 5 - Extend your Playbook: Create an web.html](#step-5---extend-your-playbook-create-an-webhtml)
+    - [Step 6 - Practice: Apply to Multiple Host](#step-6---practice-apply-to-multiple-host)
 
 ## Objective
 
@@ -20,7 +22,7 @@ This exercise covers using Ansible to build two Apache web servers on Red Hat En
 
 * Understanding Ansible module parameters
 * Understanding and using the following modules
-  * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
+  * [dnf module](https://docs.ansible.com/ansible/latest/modules/dnf_module.html)
   * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
   * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
 * Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible modules can be idempotent
@@ -101,7 +103,7 @@ This shows one of Ansible’s strengths: The Playbook syntax is easy to read and
 >
 > You obviously need to use privilege escalation to install a package or run any other task that requires root permissions. This is done in the Playbook by `become: yes`.
 
-Now that we've defined the play, let's add a task to get something done. We will add a task in which yum will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
+Now that we've defined the play, let's add a task to get something done. We will add a task in which dnf will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
 
 ```yaml
 ---
@@ -109,10 +111,10 @@ Now that we've defined the play, let's add a task to get something done. We will
   hosts: node1
   become: yes
   tasks:
-  - name: latest Apache version installed
-    ansible.builtin.yum:
-      name: httpd
-      state: latest
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
 ```
 
 > **Tip**
@@ -122,7 +124,7 @@ Now that we've defined the play, let's add a task to get something done. We will
 In the added lines:
 
 * We started the tasks part with the keyword `tasks:`.
-* A task is named and the module for the task is referenced. Here it uses the `yum` module.
+* A task is named and the module for the task is referenced. Here it uses the `dnf` module.
 * Parameters for the module are added:
   * `name:` to identify the package name
   * `state:` to define the wanted state of the package
@@ -184,17 +186,17 @@ When running the playbook, you'll be displayed a text user interface (TUI) that 
 0│Apache server installed           2        1              0           0          0          0              0              2          COMPLETE
 ```
 
-If you notice, prior to the play name `Apache server installed`, you'll see a `0`. By pressing the `0` key on your keyboard, you will be provided a new window view displaying the different tasks that ran for the playbook completion. In this example, those tasks included the "Gathering Facts" and "latest Apache version installed". The "Gathering Facts" is a built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail. The "latest Apache version installed" was the task created within the `apache.yml` file that installed `httpd`.
+If you notice, prior to the play name `Apache server installed`, you'll see a `0`. By pressing the `0` key on your keyboard, you will be provided a new window view displaying the different tasks that ran for the playbook completion. In this example, those tasks included the "Gathering Facts" and "Install Apache". The "Gathering Facts" is a built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail. The "Install Apache" was the task created within the `apache.yml` file that installed `httpd`.
 
 The display should look something like this:
 
 ```bash
   RESULT      HOST	NUMBER      CHANGED       TASK                                                   TASK ACTION           DURATION
 0│OK          node1          0        False       Gathering Facts                                        gather_facts                1s
-1│OK          node1          1         True       latest Apache version installed                        yum                         4s
+1│OK          node1          1         True       Install Apache                        dnf                         4s
 ```
 
-Taking a closer look, you'll notice that each task is associated with a number. Task 1, "latest Apache version installed", had a change and used the `yum` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`.
+Taking a closer look, you'll notice that each task is associated with a number. Task 1, "Install Apache", had a change and used the `dnf` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`.
 
 By pressing `0` or `1` on your keyboard, you can see further details of the task being run. If a more traditional output view is desired, type `:st` within the text user interface.
 
@@ -282,17 +284,18 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    ansible.builtin.yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    ansible.builtin.service:
-      name: httpd
-      enabled: true
-      state: started
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
 ```
 
 What exactly did we do?
@@ -391,21 +394,24 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    ansible.builtin.yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    ansible.builtin.service:
-      name: httpd
-      enabled: true
-      state: started
-  - name: copy web.html
-    ansible.builtin.copy:
-      src: web.html
-      dest: /var/www/html/index.html
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: '644'
 ```
 
 What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
@@ -445,21 +451,25 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 ---
 - name: Apache server installed
   hosts: web
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    ansible.builtin.yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    ansible.builtin.service:
-      name: httpd
-      enabled: true
-      state: started
-  - name: copy web.html
-    ansible.builtin.copy:
-      src: web.html
-      dest: /var/www/html/index.html
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: '644'
+
 ```
 
 Now run the playbook:

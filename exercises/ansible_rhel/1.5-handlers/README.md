@@ -124,18 +124,21 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
 
 ```yaml
 ---
-- name: manage httpd.conf
+- name: Manage httpd.conf
   hosts: web
   become: true
   tasks:
-  - name: Copy Apache configuration file
-    ansible.builtin.copy:
-      src: httpd.conf
-      dest: /etc/httpd/conf/
-    notify:
-      - restart_apache
+
+    - name: Copy Apache configuration file
+      ansible.builtin.copy:
+        src: httpd.conf
+        dest: /etc/httpd/conf/
+        mode: '644'
+      notify:
+        - Restart_apache
+
   handlers:
-    - name: restart_apache
+    - name: Restart_apache
       ansible.builtin.service:
         name: httpd
         state: restarted

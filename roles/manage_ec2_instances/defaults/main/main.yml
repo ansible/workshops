@@ -96,8 +96,8 @@ ec2_info:
     owners: 679593333241
     filter: 'Windows_Server-2016-English-Full-Base*'
     size:
-      - m5a.xlarge
       - m5.xlarge
+      - m5a.xlarge
       - r5.xlarge
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator
@@ -255,8 +255,8 @@ ec2_info:
   qradar:
     owners: 721066863947
     size:
-      - t3a.2xlarge
       - t3.2xlarge
+      - t3a.2xlarge
       - t2.2xlarge
     os_type: linux
     disk_volume_type: gp3

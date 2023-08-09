@@ -80,9 +80,9 @@ ec2_info:
     filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'
     architecture: x86_64
     size:
-      - m5a.xlarge
       - m5.xlarge
-      - r5.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
     ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
     username: admin
   checkpoint_gw:

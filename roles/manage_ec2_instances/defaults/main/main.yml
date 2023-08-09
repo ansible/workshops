@@ -97,7 +97,7 @@ ec2_info:
     filter: 'Windows_Server-2016-English-Full-Base*'
     size:
       - m5.xlarge
-      - m5a.xlarge
+      - m6i.xlarge
       - r5.xlarge
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator

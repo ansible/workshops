@@ -1,0 +1,34 @@
+---
+- name: Create EC2 instances for Check Point CloudGuard Security Management
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['checkpoint_mgmt']['size'][list_count|int] }}"
+    image_id: "{{ checkpoint_mgmt_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    user_data: "{{ lookup('template', 'gaia-mgmt-ftw-user-data.sh.j2') }}"
+    state: running
+    filters:
+      "tag:Workshop_checkpoint_mgmt": "{{ ec2_name_prefix }}-checkpoint"
+      instance-state-name: running
+    tags:
+      Workshop_checkpoint_mgmt: "{{ ec2_name_prefix }}-checkpoint"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
+      Students: "{{ student_total }}"
+      username: "{{ ec2_info['checkpoint_mgmt']['username'] }}"
+      short_name: "checkpoint_mgmt"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    network:
+      assign_public_ip: true
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: checkpoint_mgmt_async
+...

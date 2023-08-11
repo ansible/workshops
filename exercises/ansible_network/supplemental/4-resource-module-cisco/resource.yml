@@ -1,12 +1,12 @@
 ---
-- name: configure SNMP
+- name: Configure SNMP
   hosts: cisco
   gather_facts: false
 
   tasks:
 
-    - name: use snmp resource module
-      cisco.ios.snmp_server:
+    - name: Use snmp resource module
+      cisco.ios.ios_snmp_server:
         state: merged
         config:
           location: 'Durham'

@@ -4,17 +4,19 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1 - Using documentation](#step-1---using-documentation)
-   * [Step 2 - Creating the play](#step-2---creating-the-play)
-   * [Step 3 - Create the facts task](#step-3---create-the-facts-task)
-   * [Step 4 - Executing the playbook](#step-4---executing-the-playbook)
-   * [Step 5 - Using debug module](#step-5---using-debug-module)
-   * [Step 6 - Using stdout](#step-6---using-stdout)
-* [Takeaways](#takeaways)
-* [Solution](#solution)
-* [Complete](#complete)
+- [Exercise 3: Ansible Facts](#exercise-3-ansible-facts)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Using documentation](#step-1---using-documentation)
+    - [Step 2 - Creating the play](#step-2---creating-the-play)
+    - [Step 3 - Create the facts task](#step-3---create-the-facts-task)
+    - [Step 4 - Executing the playbook](#step-4---executing-the-playbook)
+    - [Step 5 - Using debug module](#step-5---using-debug-module)
+    - [Step 6 - Using stdout](#step-6---using-stdout)
+  - [Takeaways](#takeaways)
+  - [Solution](#solution)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -97,7 +99,7 @@ Enter the following play definition into `facts.yml`:
 
 ```yaml
 ---
-- name: gather information from routers
+- name: Gather information from routers
   hosts: cisco
   gather_facts: no
 ```
@@ -111,17 +113,17 @@ Here is an explanation of each line:
 
 ### Step 3 - Create the facts task
 
-Next, add the first `task`. This task will use the `cisco.ios.facts` module to gather facts about each device in the group `cisco`.
+Next, add the first `task`. This task will use the `cisco.ios.ios_facts` module to gather facts about each device in the group `cisco`.
 
 ```yaml
 ---
-- name: gather information from routers
+- name: Gather information from routers
   hosts: cisco
-  gather_facts: no
+  gather_facts: false
 
   tasks:
-    - name: gather router facts
-      cisco.ios.facts:
+    - name: Gather router facts
+      cisco.ios.ios_facts:
 ```
 
 > Note:
@@ -163,20 +165,20 @@ Write two additional tasks that display the routers' OS version and serial numbe
 
 ``` yaml
 ---
-- name: gather information from routers
+- name: Gather information from routers
   hosts: cisco
-  gather_facts: no
+  gather_facts: false
 
   tasks:
-    - name: gather router facts
-      cisco.ios.facts:
+    - name: Gather router facts
+      cisco.ios.ios_facts:
 
-    - name: display version
-      debug:
+    - name: Display version
+      ansible.builtin.debug:
         msg: "The IOS version is: {{ ansible_net_version }}"
 
-    - name: display serial number
-      debug:
+    - name: Display serial number
+      ansible.builtin.debug:
         msg: "The serial number is:{{ ansible_net_serialnum }}"
 ```
 

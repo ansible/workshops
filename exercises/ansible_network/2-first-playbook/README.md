@@ -6,20 +6,22 @@ Don't have a workshop environment? Try this exercise on our zero cost [sandbox e
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1 - Examine Ansible Playbook](#step-1---examine-ansible-playbook)
-   * [Step 2 - Execute Ansible Playbook](#step-2---execute-ansible-playbook)
-   * [Step 3 - Verify configuration on router](#step-3---verify-configuration-on-router)
-   * [Step 4 - Validate idempotency](#step-4---validate-idempotency)
-   * [Step 5 - Modify Ansible Playbook](#step-5---modify-ansible-playbook)
-   * [Step 6 - Use check mode](#step-6---use-check-mode)
-   * [Step 7 - Verify configuration is not present](#step-7---verify-configuration-is-not-present)
-   * [Step 8 - Re-run the Ansible Playbook](#step-8---re-run-the-ansible-playbook)
-   * [Step 9 - Verify configuration is applied](#step-9---verify-configuration-is-applied)
-* [Takeaways](#takeaways)
-* [Solution](#solution)
-* [Complete](#complete)
+- [Exercise 2 - First Ansible Playbook](#exercise-2---first-ansible-playbook)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Examine Ansible Playbook](#step-1---examine-ansible-playbook)
+    - [Step 2 - Execute Ansible Playbook](#step-2---execute-ansible-playbook)
+    - [Step 3 - Verify configuration on router](#step-3---verify-configuration-on-router)
+    - [Step 4 - Validate idempotency](#step-4---validate-idempotency)
+    - [Step 5 - Modify Ansible Playbook](#step-5---modify-ansible-playbook)
+    - [Step 6 - Use check mode](#step-6---use-check-mode)
+    - [Step 7 - Verify configuration is not present](#step-7---verify-configuration-is-not-present)
+    - [Step 8 - Re-run the Ansible Playbook](#step-8---re-run-the-ansible-playbook)
+    - [Step 9 - Verify configuration is applied](#step-9---verify-configuration-is-applied)
+  - [Takeaways](#takeaways)
+  - [Solution](#solution)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -49,17 +51,17 @@ Examine the provided Ansible Playbook named `playbook.yml`.  Either open the fil
 
 ```yaml
 ---
-- name: snmp ro/rw string configuration
+- name: SNMP ro/rw string configuration
   hosts: cisco
-  gather_facts: no
+  gather_facts: false
 
   tasks:
-
-    - name: ensure that the desired snmp strings are present
-      cisco.ios.config:
+    - name: Ensure that the desired snmp strings are present
+      cisco.ios.ios_config:
         commands:
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
+
 ```
 
 * `cat` - Linux command allowing us to view file contents
@@ -80,9 +82,9 @@ Run the playbook using the `ansible-navigator` command.  The full command is:
 ```bash
 [student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
-PLAY [snmp ro/rw string configuration] *****************************************
+PLAY [SNMP ro/rw string configuration] *****************************************
 
-TASK [ensure that the desired snmp strings are present] ************************
+TASK [Ensure that the desired snmp strings are present] ************************
 changed: [rtr1]
 
 PLAY RECAP *********************************************************************
@@ -118,9 +120,9 @@ To validate the concept of idempotency, re-run the playbook:
 ```bash
 [student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
-PLAY [snmp ro/rw string configuration] *****************************************
+PLAY [SNMP ro/rw string configuration] *****************************************
 
-TASK [ensure that the desired snmp strings are present] ************************
+TASK [Ensure that the desired snmp strings are present] ************************
 ok: [rtr1]
 
 PLAY RECAP *********************************************************************
@@ -148,14 +150,13 @@ The Ansible Playbook will now look like this:
 
 ```yaml
 ---
-- name: snmp ro/rw string configuration
+- name: SNMP ro/rw string configuration
   hosts: cisco
-  gather_facts: no
+  gather_facts: false
 
   tasks:
-
-    - name: ensure that the desired snmp strings are present
-      cisco.ios.config:
+    - name: Ensure that the desired snmp strings are present
+      cisco.ios.ios_config:
         commands:
           - snmp-server community ansible-public RO
           - snmp-server community ansible-private RW
@@ -172,9 +173,9 @@ This time however, instead of running the playbook to push the change to the dev
 [student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout --check -v
 Using /etc/ansible/ansible.cfg as config file
 
-PLAY [snmp ro/rw string configuration] *****************************************
+PLAY [SNMP ro/rw string configuration] *****************************************
 
-TASK [ensure that the desired snmp strings are present] ************************
+TASK [Ensure that the desired snmp strings are present] ************************
 changed: [rtr1] => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "banners": {}, "changed": true, "commands": ["snmp-server community ansible-test RO"], "updates": ["snmp-server community ansible-test RO"], "warnings": ["To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"]}
 
 PLAY RECAP *********************************************************************
@@ -202,9 +203,9 @@ Finally re-run this playbook again without the `-v` or `--check` flag to push th
 ```bash
 [student@ansible-1 network-workshop]$ ansible-navigator run playbook.yml --mode stdout
 
-PLAY [snmp ro/rw string configuration] *****************************************
+PLAY [SNMP ro/rw string configuration] *****************************************
 
-TASK [ensure that the desired snmp strings are present] ************************
+TASK [Ensure that the desired snmp strings are present] ************************
 changed: [rtr1]
 
 PLAY RECAP *********************************************************************

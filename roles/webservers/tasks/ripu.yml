@@ -26,3 +26,4 @@
     description: Leapp custom actors for workshop demo
     baseurl: https://people.redhat.com/bmader/leapp-supplements-demo/RHEL/$releasever/$basearch
     gpgcheck: false
+    enabled: false

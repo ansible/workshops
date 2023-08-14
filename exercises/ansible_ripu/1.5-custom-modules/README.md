@@ -65,7 +65,7 @@ There is a collection of example custom actor at the GitHub repo [oamg/leapp-sup
 - Now we will install the RPM package that provides our custom actor. Run the following command on your pet app server:
 
   ```
-  sudo yum -y install leapp-upgrade-\*-supplements
+  sudo yum -y --enablerepo=leapp-supplements install leapp-upgrade-\*-supplements
   ```
 
   > **Note**

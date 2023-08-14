@@ -1,5 +1,5 @@
 ---
-- name: configure SNMP
+- name: Configure SNMP
   hosts: network
   gather_facts: false
   vars:
@@ -14,14 +14,14 @@
           rw: true
 
   tasks:
-    - name: use snmp resource module [cisco]
-      cisco.ios.snmp_server:
+    - name: Use snmp resource module [cisco]
+      cisco.ios.ios_snmp_server:
         state: merged
         config: "{{ cfg }}"
       when: ('ios' in ansible_network_os)
 
-    - name: use snmp resource module [arista]
-      arista.eos.snmp_server:
+    - name: Use snmp resource module [arista]
+      arista.eos.eos_snmp_server:
         state: merged
         config: "{{ cfg }}"
       when: ('eos' in ansible_network_os)

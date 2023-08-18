@@ -6,19 +6,22 @@ If you are using an **all Cisco workbench** (all four routers are Cisco IOS rout
 
 ## Table of Contents
 
-  * [Objective](#objective)
-  * [Guide](#guide)
-    * [Step 1 - Verify VLAN configuration](#step-1---verify-vlan-configuration)
-    * [Step 2 - Creating the Ansible Playbook](#step-2---creating-the-ansible-playbook)
-    * [Step 3 - Examine the Ansible Playbook](#step-3---examine-the-ansible-playbook)
-    * [Step 4 - Execute the Ansible Playbook](#step-4---execute-the-ansible-playbook)
-    * [Step 5 - Verify VLAN configuration](#step-5---verify-vlan-configuration)
-    * [Step 6 - Using the gathered parameter](#step-6---using-the-gathered-parameter)
-    * [Step 7 - Execute the gathered playbook](#step-7---execute-the-gathered-playbook)
-    * [Step 8 - Examine the files](#step-8---examine-the-files)
-  * [Takeaways](#takeaways)
-  * [Solution](#solution)
-  * [Complete](#complete)
+- [Exercise 4: Ansible Network Resource Modules](#exercise-4-ansible-network-resource-modules)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Verify VLAN configuration](#step-1---verify-vlan-configuration)
+    - [Step 2 - Creating the Ansible Playbook](#step-2---creating-the-ansible-playbook)
+    - [Step 3 - Examine the Ansible Playbook](#step-3---examine-the-ansible-playbook)
+    - [Step 4 - Execute the Ansible Playbook](#step-4---execute-the-ansible-playbook)
+    - [Step 5 - Verify VLAN configuration](#step-5---verify-vlan-configuration)
+    - [Step 6 - Using the gathered parameter](#step-6---using-the-gathered-parameter)
+    - [Step 7 - Execute the gathered playbook](#step-7---execute-the-gathered-playbook)
+    - [Step 8 - Examine the files](#step-8---examine-the-files)
+  - [Takeaways](#takeaways)
+  - [Solution](#solution)
+  - [Complete](#complete)
+  - [In the next exercise we will start using Automation controller.](#in-the-next-exercise-we-will-start-using-automation-controller)
 
 ## Objective
 
@@ -85,25 +88,25 @@ As you can see in the output above there is no VLAN configuration outside of the
 
   ```yaml
   ---
-  - name: configure VLANs
+  - name: Configure VLANs
     hosts: arista
     gather_facts: false
 
     tasks:
 
-    - name: use vlans resource module
-      arista.eos.vlans:
-        state: merged
-        config:
-          - name: desktops
-            vlan_id: 20
-          - name: servers
-            vlan_id: 30
-          - name: printers
-            vlan_id: 40
-          - name: DMZ
-            vlan_id: 50
-   ```
+      - name: Use vlans resource module
+        arista.eos.eos_vlans:
+          state: merged
+          config:
+            - name: desktops
+              vlan_id: 20
+            - name: servers
+              vlan_id: 30
+            - name: printers
+              vlan_id: 40
+            - name: DMZ
+              vlan_id: 50
+  ```
 
 * Setup will look similar to the following in Visual Studio Code:
 
@@ -115,7 +118,7 @@ As you can see in the output above there is no VLAN configuration outside of the
 
   ```yaml
   ---
-  - name: configure VLANs
+  - name: Configure VLANs
     hosts: arista
     gather_facts: false
   ```
@@ -126,23 +129,23 @@ As you can see in the output above there is no VLAN configuration outside of the
   * `gather_facts: false` this will disable fact gathering for this play, by default this is turned on.
 
 
-* For the second part we have one task that uses the `arista.eos.vlans`
+* For the second part we have one task that uses the `arista.eos.eos_vlans`
 
   ```yaml
     tasks:
 
-    - name: use vlans resource module
-      arista.eos.vlans:
-        state: merged
-        config:
-          - name: desktops
-            vlan_id: 20
-          - name: servers
-            vlan_id: 30
-          - name: printers
-            vlan_id: 40
-          - name: DMZ
-            vlan_id: 50
+      - name: Use vlans resource module
+        arista.eos.eos_vlans:
+          state: merged
+          config:
+            - name: desktops
+              vlan_id: 20
+            - name: servers
+              vlan_id: 30
+            - name: printers
+              vlan_id: 40
+            - name: DMZ
+              vlan_id: 50
   ```
 
   * `name:` - just like the play, each task has a description for that particular task
@@ -248,25 +251,25 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 * Create a new playbook named `gathered.yml`
 
-<!-- {% raw %} -->
-
+  <!-- {% raw %} -->
   ```yaml
   ---
-  - name: configure VLANs
+  - name: Configure VLANs
     hosts: arista
     gather_facts: false
 
     tasks:
 
-    - name: use vlans resource module
-      arista.eos.vlans:
-        state: gathered
-      register: vlan_config
+      - name: Use vlans resource module
+        arista.eos.eos_vlans:
+          state: gathered
+        register: vlan_config
 
-    - name: copy vlan_config to file
-      copy:
-        content: "{{ vlan_config | to_nice_yaml }}"
-        dest: "{{ playbook_dir }}/{{ inventory_hostname }}_vlan.yml"
+      - name: Copy vlan_config to file
+        ansible.builtin.copy:
+          content: "{{ vlan_config | to_nice_yaml }}"
+          dest: "{{ playbook_dir }}/{{ inventory_hostname }}_vlan.yml"
+          mode: "644"
   ```
   <!-- {% endraw %} -->
 
@@ -291,13 +294,13 @@ As you can see, the resource module configured the Arista EOS network device wit
   ```bash
   $ ansible-navigator run gathered.yml --mode stdout
 
-  PLAY [configure VLANs] *********************************************************
+  PLAY [Configure VLANs] *********************************************************
 
-  TASK [use vlans resource module] ***********************************************
+  TASK [Use vlans resource module] ***********************************************
   ok: [rtr4]
   ok: [rtr2]
 
-  TASK [copy vlan_config to file] ************************************************
+  TASK [Copy vlan_config to file] ************************************************
   changed: [rtr2]
   changed: [rtr4]
 

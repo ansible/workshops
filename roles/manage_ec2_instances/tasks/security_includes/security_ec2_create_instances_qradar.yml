@@ -1,0 +1,42 @@
+---
+- name: Create EC2 instances for qradar
+  amazon.aws.ec2_instance:
+    key_name: "{{ ec2_name_prefix }}-key"
+    security_group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['qradar']['size'][list_count|int] }}"
+    image_id: "{{ qradar_ami['image_id'] }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    state: running
+    filters:
+      "tag:Workshop_qradar": "{{ ec2_name_prefix }}-qradar"
+      instance-state-name: running
+    tags:
+      Workshop_qradar: "{{ ec2_name_prefix }}-qradar"
+      Workshop: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      owner: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
+      Students: "{{ student_total }}"
+      username: '{{ ec2_info["qradar"]["username"] }}'
+      short_name: "qradar"
+      ansible-workshops: "true"
+    wait: "{{ ec2_wait }}"
+    network:
+      assign_public_ip: true
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_type: "{{ ec2_info['qradar']['disk_volume_type'] }}"
+          volume_size: "{{ ec2_info['qradar']['disk_space'] }}"
+          iops: "{{ ec2_info['qradar']['disk_iops'] }}"
+          throughput: "{{ ec2_info['qradar']['disk_throughput'] }}"
+          delete_on_termination: true
+  when: security_console == 'qradar'
+  async: "{{ async_timeout_seconds }}"
+  poll: 0
+  register: qradar_async
+...

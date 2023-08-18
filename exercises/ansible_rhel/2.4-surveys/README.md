@@ -210,9 +210,7 @@ In the same fashion add a second **Survey Question**
 </table>
 
 * Click **Save**
-* Click the toggle to turn the Survey questions to **On**
-
-* Click **Preview** for the Survey
+* Click the **Survey Enabled** toggle button to turn on the Survey questions
 
 ### Launch the Template
 

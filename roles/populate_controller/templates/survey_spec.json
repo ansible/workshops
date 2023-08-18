@@ -7,7 +7,7 @@
             "question_description": "Restricted list of commands executable by operator",
             "required": true,
             "type": "multiplechoice",
-            "variable": "tower_input",
+            "variable": "controller_input",
             "min": 0,
             "max": 1024,
             "default": "show version",

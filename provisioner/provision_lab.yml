@@ -164,7 +164,7 @@
     - name: Include tower_request role if student total is greater than 9
       ansible.builtin.include_role:
         name: ../roles/tower_request}
-      when: student_total > 9}
+      when: student_total > 9
 
 - name: Print out information for instructor
   hosts: localhost
@@ -172,7 +172,7 @@
   gather_facts: false
   tasks:
     - name: Set facts for output
-      set_fact:
+      ansible.builtin.set_fact:
         summary_information: |
           PROVISIONER SUMMARY
           ===================

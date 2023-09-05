@@ -83,15 +83,15 @@ controller_credential_types:
       env:
         AH_PASSWORD: !unsafe "{{ password }}"
         AH_USERNAME: !unsafe "{{ username }}"
-        AH_HOST: !unsafe "{{ hostname }}"
-        AH_API_TOKEN: !unsafe "{{ token }}"
-        AH_VERIFY_SSL: !unsafe "{{ verify_ssl }}"
+        AH_HOST: # Insert appropriate variable from above here
+        AH_API_TOKEN: !unsafe # Insert appropriate variable from above here
+        AH_VERIFY_SSL: !unsafe # Insert appropriate variable from above here
       extra_vars:
         ah_password: !unsafe "{{ password }}"
         ah_username: !unsafe "{{ username }}"
-        ah_host: !unsafe "{{ hostname }}"
-        ah_token: !unsafe "{{ token }}"
-        ah_validate_certs: !unsafe "{{ verify_ssl }}"
+        ah_host: # Insert appropriate variable from above here
+        ah_token: # Insert appropriate variable from above here
+        ah_validate_certs: # Insert appropriate variable from above here
 
   - name: ssh_priv_file
     kind: cloud
@@ -349,6 +349,7 @@ Create a playbook `playbooks/controller_config.yml` and copy all this into the f
 
     # probably not optimal but works, looking for better solutions
     - name: Figuring out AH token
+      when: ah_token is not defined or ah_token['token'] is defined
       block:
         - name: Authenticate and get an API token from Automation Hub
           infra.ah_configuration.ah_token:
@@ -362,8 +363,7 @@ Create a playbook `playbooks/controller_config.yml` and copy all this into the f
         - name: Fixing format
           ansible.builtin.set_fact:
             ah_token: "{{ ah_token['token'] }}"
-          when: r_ah_token['changed']
-      when: ah_token is not defined or ah_token['token'] is defined
+          when: r_ah_token['changed'] # noqa: no-handler
 
     - name: Include credential_types role
       ansible.builtin.include_role:

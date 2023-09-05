@@ -1,0 +1,14 @@
+---
+controller_inventory_sources:
+  - name: controller_config_source
+    organization: config_as_code
+    source: scm
+    source_project: config_as_code
+    source_path: "inventory.yml"
+    inventory: config_as_code
+    credential: ""
+    overwrite: true
+    overwrite_vars: true
+    update_on_launch: false
+    update_cache_timeout: 0
+...

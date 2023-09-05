@@ -4,11 +4,14 @@ In this section we will show you step by step how to build an Execution Environm
 
 ## Step 1
 
-Ensure that you have `ansible-core`, `ansible-lint`, and `ansible-builder`, and `podman` installed on your machine. The versions that are listed are the ones last tested with this workshop.
+This lab uses `ansible-core`, `ansible-lint`, and `ansible-builder`, and `podman`. They should be pre-installed on your machine. The versions that are listed are the ones last tested with this workshop.
 
-```console
-sudo dnf install ansible-core-2.14.2 ansible-lint-6.8.2 ansible-builder-1.2.0 podman-3:4.4.1
-```
+The following are exepcted to be installed already
+ansible-core 2.15.0
+ansible-builder 3.0.0
+ansible-lint 6.17.0
+podman 4.4.1
+
 
 Further documentation for those who are interested to learn more see:
 
@@ -54,6 +57,10 @@ ah_validate_certs: false
 ee_registry_username: "{{ ah_username }}"
 ee_registry_password: "{{ ah_password }}"
 ee_registry_dest: "{{ ah_host }}"
+
+ee_base_registry: "{{ ah_host }}"
+ee_base_registry_username: "{{ ah_username }}"
+ee_base_registry_password: "{{ ah_password }}"
 ...
 
 ```
@@ -190,8 +197,6 @@ ee_list:
             version: 2.0.2
           - name: infra.ee_utilities
             version: 3.1.2
-          - name: infra.aap_utilities
-            version: 2.3.0
           - name: awx.awx
             version: 22.4.0
           - name: containers.podman
@@ -199,6 +204,7 @@ ee_list:
           - name: community.general
             version: 7.3.0
 
+ee_base_image: "{{ ah_host }}/ee-minimal-rhel8:latest"
 ee_image_push: true
 ee_prune_images: false
 ee_create_ansible_config: false

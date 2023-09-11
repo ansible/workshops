@@ -1,0 +1,131 @@
+---
+- name: Playbook to configure ansible controller post installation
+  hosts: all
+  vars_files:
+    - "../vault.yml"
+  connection: local
+  tasks:
+    - name: Include setting role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.settings
+      when: controller_settings is defined
+
+    - name: Include organization role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.organizations
+      vars:
+        assign_galaxy_credentials_to_org: false
+        assign_default_ee_to_org: false
+      when: controller_organizations is defined
+
+    - name: Include labels role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.labels
+      when: controller_labels is defined
+
+    - name: Include users role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.users
+      vars:
+        controller_configuration_users_secure_logging: true
+      when: controller_user_accounts is defined
+
+    - name: Include teams role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.teams
+      when: controller_teams is defined
+
+    # probably not optimal but works, looking for better solutions
+    - name: Figuring out AH token
+      block:
+        - name: Authenticate and get an API token from Automation Hub
+          infra.ah_configuration.ah_token:
+            ah_host: "{{ ah_host | default(groups['automationhub'][0]) }}"
+            ah_username: "{{ ah_token_username | default('admin') }}"
+            ah_password: "{{ ah_token_password }}"
+            ah_path_prefix: 'galaxy'  # this is for private automation hub
+            ah_verify_ssl: false
+          register: r_ah_token
+
+        - name: Fixing format
+          ansible.builtin.set_fact:
+            ah_token: "{{ ah_token['token'] }}"
+          when: r_ah_token['changed']
+      when: ah_token is not defined or ah_token['token'] is defined
+
+    - name: Include credential_types role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.credential_types
+      when: controller_credential_types is defined
+
+    - name: Include credential role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.credentials
+      vars:
+        controller_configuration_credentials_secure_logging: true
+      when: controller_credentials is defined
+
+    - name: Include credential_input_sources role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.credential_input_sources
+      when: controller_credential_input_sources is defined
+
+    - name: Include execution_environments role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.execution_environments
+      when: controller_execution_environments is defined
+
+    - name: Include organizations role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.organizations
+      when: controller_organizations is defined
+
+    - name: Include projects role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.projects
+      when: controller_projects is defined
+
+    - name: Include inventories role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.inventories
+      when: controller_inventories is defined
+
+    - name: Include inventory_sources role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.inventory_sources
+      when: controller_inventory_sources is defined
+
+    - name: Include inventory_source_update role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.inventory_source_update
+
+    - name: Include groups role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.groups
+      when: controller_groups is defined
+
+    - name: Include applications role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.applications
+      when: controller_applications is defined
+
+    - name: Include job_templates role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.job_templates
+      when: controller_templates is defined
+
+    - name: Include workflow_job_templates role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.workflow_job_templates
+      when: controller_workflows is defined
+
+    - name: Include schedules role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.schedules
+      when: controller_schedules is defined
+
+    - name: Include roles role
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.roles
+      when: controller_roles is defined
+...

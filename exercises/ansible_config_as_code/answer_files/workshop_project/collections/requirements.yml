@@ -1,0 +1,8 @@
+---
+collections:
+  - name: infra.controller_configuration
+  - name: infra.ah_configuration
+  - name: infra.ee_utilities
+  - name: infra.aap_utilities
+  - name: awx.awx
+...

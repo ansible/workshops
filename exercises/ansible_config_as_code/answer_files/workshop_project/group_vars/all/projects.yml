@@ -1,0 +1,14 @@
+---
+controller_projects:
+  - name: config_as_code
+    description: execution environments configurations
+    organization: config_as_code
+    scm_type: git
+    scm_url: https://github.com/redhat-cop/aap_configuration_template.git
+    scm_branch: ""
+    scm_clean: true
+    scm_update_on_launch: true
+    scm_credential: "git"
+    update_project: true
+    wait: true
+...

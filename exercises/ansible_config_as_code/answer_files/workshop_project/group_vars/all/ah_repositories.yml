@@ -1,0 +1,23 @@
+---
+ah_collection_remotes:
+  - name: community-infra
+    url: https://beta-galaxy.ansible.com/
+    requirements:
+      - name: infra.ee_utilities
+      - name: infra.controller_configuration
+      - name: infra.aap_utilities
+      - name: containers.podman
+      - name: awx.awx
+
+ah_collection_repositories:
+  - name: community-infra-repo
+    description: "description of community-infra repository"
+    pulp_labels:
+      pipeline: "approved"
+    distribution:
+      state: present
+    remote: community-infra
+
+ah_configuration_collection_repository_sync_async_delay: 5
+ah_configuration_collection_repository_sync_async_retries: 150
+...

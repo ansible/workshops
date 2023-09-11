@@ -53,18 +53,18 @@ Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui peut ê
 Ajoutez les paramêtres de votre playbook ainsi que quelques variables. Ceux-ci incluent des packages supplémentaires que vous installerez sur votre serveur Web, ainsi que certaines configurations spécifiques au serveur Web.
 
 ```yaml
-    ---
-    - hosts: windows
-      name: This is a play within a playbook
-      vars:
-        iis_sites:
-          - name: 'Ansible Playbook Test'
-            port: '8080'
-            path: 'C:\sites\playbooktest'
-          - name: 'Ansible Playbook Test 2'
-            port: '8081'
-            path: 'C:\sites\playbooktest2'
-        iis_test_message: "Hello World!  My test IIS Server"
+---
+- name: This is a play within a playbook
+  hosts: windows
+  vars:
+    iis_sites:
+      - name: 'Ansible Playbook Test'
+        port: '8080'
+        path: 'C:\sites\playbooktest'
+      - name: 'Ansible Playbook Test 2'
+        port: '8081'
+        path: 'C:\sites\playbooktest2'
+    iis_test_message: "Hello World!  My test IIS Server"
 ```
 
 Étape 4:
@@ -74,26 +74,26 @@ Ajoutez une nouvelle tâche appelée **installer IIS**. Après avoir écrit le p
 
 <!-- {% raw %} -->
 ```yaml
-      tasks:
-        - name: Install IIS
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: Install IIS
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
 
-        - name: Create site directory structure
-          win_file:
-            path: "{{ item.path }}"
-            state: directory
-          with_items: "{{ iis_sites }}"
+    - name: Create site directory structure
+      ansible.windows.win_file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items: "{{ iis_sites }}"
 
-        - name: Create IIS site
-          win_iis_website:
-            name: "{{ item.name }}"
-            state: started
-            port: "{{ item.port }}"
-            physical_path: "{{ item.path }}"
-          with_items: "{{ iis_sites }}"
-          notify: restart iis service
+    - name: Create IIS site
+      community.windows.win_iis_website:
+        name: "{{ item.name }}"
+        state: started
+        port: "{{ item.port }}"
+        physical_path: "{{ item.path }}"
+      with_items: "{{ iis_sites }}"
+      notify: restart iis service
 ```
 <!-- {% endraw %} -->
 
@@ -146,29 +146,29 @@ Modifiez votre playbook, `site.yml`, pour ouvrire les ports de votre pare-feu. U
 
 <!-- {% raw %} -->
 ```yaml
-        - name: Open port for site on the firewall
-          win_firewall_rule:
-            name: "iisport{{ item.port }}"
-            enable: yes
-            state: present
-            localport: "{{ item.port }}"
-            action: Allow
-            direction: In
-            protocol: Tcp
-          with_items: "{{ iis_sites }}"
+    - name: Open port for site on the firewall
+      community.windows.win_firewall_rule:
+        name: "iisport{{ item.port }}"
+        enable: true
+        state: present
+        localport: "{{ item.port }}"
+        action: Allow
+        direction: In
+        protocol: Tcp
+      with_items: "{{ iis_sites }}"
 
-        - name: Template simple web site to iis_site_path as index.html
-          win_template:
-            src: 'index.html.j2'
-            dest: '{{ item.path }}\index.html'
-          with_items: "{{ iis_sites }}"
+    - name: Template simple web site to iis_site_path as index.html
+      ansible.windows.win_template:
+        src: 'index.html.j2'
+        dest: '{{ item.path }}\index.html'
+      with_items: "{{ iis_sites }}"
 
-        - name: Show website addresses
-          debug:
-            msg: "{{ item }}"
-          loop:
-            - http://{{ ansible_host }}:8080
-            - http://{{ ansible_host }}:8081
+    - name: Show website addresses
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop:
+        - http://{{ ansible_host }}:8080
+        - http://{{ ansible_host }}:8081
 ```
 <!-- {% endraw %} -->
 
@@ -229,71 +229,72 @@ Jetons maintenant un deuxième coup d'œil pour nous assurer que tout ressemble 
 
 <!-- {% raw %} -->
 ```yaml
-    ---
-    - hosts: windows
-      name: This is a play within a playbook
-      vars:
-        iis_sites:
-          - name: 'Ansible Playbook Test'
-            port: '8080'
-            path: 'C:\sites\playbooktest'
-          - name: 'Ansible Playbook Test 2'
-            port: '8081'
-            path: 'C:\sites\playbooktest2'
-        iis_test_message: "Hello World!  My test IIS Server"
+---
+- hosts: windows
+  name: This is a play within a playbook
+  vars:
+    iis_sites:
+      - name: 'Ansible Playbook Test'
+        port: '8080'
+        path: 'C:\sites\playbooktest'
+      - name: 'Ansible Playbook Test 2'
+        port: '8081'
+        path: 'C:\sites\playbooktest2'
+    iis_test_message: "Hello World!  My test IIS Server"
 
-      tasks:
-        - name: Install IIS
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: Install IIS
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
 
-        - name: Create site directory structure
-          win_file:
-            path: "{{ item.path }}"
-            state: directory
-          with_items: "{{ iis_sites }}"
+    - name: Create site directory structure
+      ansible.windows.win_file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items: "{{ iis_sites }}"
 
-        - name: Create IIS site
-          win_iis_website:
-            name: "{{ item.name }}"
-            state: started
-            port: "{{ item.port }}"
-            physical_path: "{{ item.path }}"
-          with_items: "{{ iis_sites }}"
-          notify: restart iis service
+    - name: Create IIS site
+      community.windows.win_iis_website:
+        name: "{{ item.name }}"
+        state: started
+        port: "{{ item.port }}"
+        physical_path: "{{ item.path }}"
+      with_items: "{{ iis_sites }}"
+      notify: restart iis service
 
-        - name: Open port for site on the firewall
-          win_firewall_rule:
-            name: "iisport{{ item.port }}"
-            enable: yes
-            state: present
-            localport: "{{ item.port }}"
-            action: Allow
-            direction: In
-            protocol: Tcp
-          with_items: "{{ iis_sites }}"
+    - name: Open port for site on the firewall
+      community.windows.win_firewall_rule:
+        name: "iisport{{ item.port }}"
+        enable: true
+        state: present
+        localport: "{{ item.port }}"
+        action: Allow
+        direction: In
+        protocol: Tcp
+      with_items: "{{ iis_sites }}"
 
-        - name: Template simple web site to iis_site_path as index.html
-          win_template:
-            src: 'index.html.j2'
-            dest: '{{ item.path }}\index.html'
-          with_items: "{{ iis_sites }}"
+    - name: Template simple web site to iis_site_path as index.html
+      ansible.windows.win_template:
+        src: 'index.html.j2'
+        dest: '{{ item.path }}\index.html'
+      with_items: "{{ iis_sites }}"
 
-        - name: Show website addresses
-          debug:
-            msg: "{{ item }}"
-          loop:
-            - http://{{ ansible_host }}:8080
-            - http://{{ ansible_host }}:8081
+    - name: Show website addresses
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop:
+        - http://{{ ansible_host }}:8080
+        - http://{{ ansible_host }}:8081
 
-      handlers:
-        - name: restart iis service
-          win_service:
-            name: W3Svc
-            state: restarted
-            start_mode: auto
+  handlers:
+    - name: restart iis service
+      ansible.windows.win_service:
+        name: W3Svc
+        state: restarted
+        start_mode: auto
 ```
+
 <!-- {% endraw %} -->
 
 Section 5: Créez un modèle de tache

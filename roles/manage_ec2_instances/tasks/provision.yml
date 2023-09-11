@@ -47,9 +47,6 @@
       set_fact:
         ansible_control_node_ami: >
           {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}  
-  # set_fact:
-  #   ansible_control_node_ami:
-  #     image_id: "{{ pre_build_controller_ami[ec2_region] }}"
 
 - name: enforce major and minor version are at least RHEL 8.4
   assert:

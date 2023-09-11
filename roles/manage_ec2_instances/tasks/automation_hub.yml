@@ -7,9 +7,7 @@
 
 - name: save ami for ansible hub node pre_build
   when: pre_build|bool
-  set_fact:
-    ansible_hub_node_ami:
-      image_id: "{{ pre_build_hub_ami[ec2_region] }}"
+  import_tasks: 'ami_find/ami_find_hub_prebuild.yml'
 
 - name: create automation hub host
   import_tasks: 'instances/instances_automation_hub.yml'

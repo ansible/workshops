@@ -1,9 +1,4 @@
 ---
-# old way
-# - set_fact:
-#     ansible_hub_node_ami:
-#       image_id: "{{ pre_build_hub_ami[ec2_region] }}"
-
 - name: Get private automation hub ami
   ec2_ami_info:
     region: "{{ ec2_region }}"

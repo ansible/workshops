@@ -33,9 +33,20 @@
 
 - name: save ami for ansible control node pre_build
   when: pre_build|bool
-  set_fact:
-    ansible_control_node_ami:
-      image_id: "{{ pre_build_controller_ami[ec2_region] }}"
+  block:
+    - name: find ami for ansible control node
+      amazon.aws.ec2_ami_info:
+        region: "{{ ec2_region }}"
+        owners: "962147768365"
+        filters:
+          name: "automation_controller*"
+          architecture: "x86_64"
+      register: amis
+
+    - name: save ami for ansible control node
+      set_fact:
+        ansible_control_node_ami: >
+          {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}  
 
 - name: enforce major and minor version are at least RHEL 8.4
   assert:

@@ -194,7 +194,7 @@ ee_list:
           - name: infra.controller_configuration
             version: 2.5.1
           - name: infra.ah_configuration
-            version: 2.0.2
+            version: 2.0.3
           - name: infra.ee_utilities
             version: 3.1.2
           - name: awx.awx
@@ -211,6 +211,9 @@ ee_create_ansible_config: false
 ee_pull_collections_from_hub: false
 ...
 ```
+
+{% endraw %}
+
 
 Further documentation for those who are interested to learn more see:
 

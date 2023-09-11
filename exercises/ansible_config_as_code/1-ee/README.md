@@ -194,7 +194,7 @@ ee_list:
           - name: infra.controller_configuration
             version: 2.5.1
           - name: infra.ah_configuration
-            version: 2.0.2
+            version: 2.0.3
           - name: infra.ee_utilities
             version: 3.1.2
           - name: awx.awx

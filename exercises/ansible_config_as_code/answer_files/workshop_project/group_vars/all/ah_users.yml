@@ -1,0 +1,11 @@
+---
+ah_token_username: "ah_token_user"
+ah_users:
+  - username: "{{ ah_token_username }}"
+    groups:
+      - "admin"
+    append: true
+    is_superuser: true
+    password: "{{ ah_token_password }}"
+    state: "present"
+...

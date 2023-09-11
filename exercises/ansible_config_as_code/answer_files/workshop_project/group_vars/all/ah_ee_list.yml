@@ -1,0 +1,25 @@
+---
+ee_list:
+  - name: "config_as_code"
+    dependencies:
+      galaxy:
+        collections:
+          - name: infra.controller_configuration
+            version: 2.5.1
+          - name: infra.ah_configuration
+            version: 2.0.3
+          - name: infra.ee_utilities
+            version: 3.1.2
+          - name: awx.awx
+            version: 22.4.0
+          - name: containers.podman
+            version: 1.10.3
+          - name: community.general
+            version: 7.3.0
+
+ee_base_image: "{{ ah_host }}/ee-minimal-rhel8:latest"
+ee_image_push: true
+ee_prune_images: false
+ee_create_ansible_config: false
+ee_pull_collections_from_hub: false
+...

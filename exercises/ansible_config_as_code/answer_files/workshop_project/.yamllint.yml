@@ -1,0 +1,29 @@
+---
+extends: default
+
+ignore: |
+  changelogs
+  vault.yml
+rules:
+  # 80 chars should be enough, but don't fail if a line is longer
+  line-length: disable
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: -1
+  document-end:
+    present: true
+  document-start:
+    present: true
+  indentation:
+    level: error
+    # Require indentation https://redhat-cop.github.io/automation-good-practices/#_yaml_and_jinja2_syntax
+    spaces: 2
+    indent-sequences: true
+    check-multi-line-strings: false
+  truthy:
+    level: error
+    # Allow only YAML 1.2 booleans https://redhat-cop.github.io/automation-good-practices/#_yaml_and_jinja2_syntax
+    allowed-values:
+      - 'true'
+      - 'false'
+...

@@ -159,6 +159,12 @@ Further documentation for more hooks that can be added can be found here:
 
 ## Step 5
 
+In your VSCode at the bottom left corner is a `gear`, click it and select `Settings`. Roughly the 5th option down should be `Editor: Render Whitespace` change it from `none` to `all`. This will help you visualize all the whitespace when you are working with documents.
+
+![render whitespace setting](images/render_whitespace.png)
+
+## Step 6
+
 Commit your current work so far. (note we won't mention it again but you should commit and push at the end of each section)
 
 ```console

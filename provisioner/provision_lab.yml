@@ -1,28 +1,29 @@
 ---
-- name: initial check setup
+- name: Initial check setup
   hosts: localhost
   connection: local
   become: false
   gather_facts: true
+
   tasks:
-    - name: workshop collection final check
+    - name: Workshop collection final check
       block:
-        - name: run pre-check role to make sure workshop will complete provisioning
-          include_role:
+        - name: Run pre-check role to make sure workshop will complete provisioning
+          ansible.builtin.include_role:
             name: ../roles/workshop_check_setup
 
-        - name: run AWS check setup if using AWS
-          include_role:
+        - name: Run AWS check setup if using AWS
+          ansible.builtin.include_role:
             name: ../roles/aws_check_setup
 
-        - name: download AAP
-          include_role:
+        - name: Download AAP bundle installer
+          ansible.builtin.include_role:
             name: ../roles/aap_download
           when: not pre_build|bool
 
       rescue:
         - name: Error with setup
-          fail:
+          ansible.builtin.fail:
             msg: The provisioner has failed during initial check_setup, please scroll up to see exact error.  Open an issue on https://github.com/ansible/workshops/issues
 
 - name: Create lab instances in AWS
@@ -32,30 +33,32 @@
   gather_facts: false
   tasks:
     - name: Cluster nodes
-      set_fact:
+      ansible.builtin.set_fact:
         control_nodes: 4
       when: create_cluster is defined and create_cluster|bool
-    - include_role:
+    - ansible.builtin.include_role:
         name: ../roles/manage_ec2_instances
 
-- name: wait for all nodes to have SSH reachability
+- name: Wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes:attendance"
   become: true
   gather_facts: false
+
   tasks:
-    - include_role:
+    - ansible.builtin.include_role:
         name: ../roles/connectivity_test
 
-- name: configure host names on managed nodes
+- name: Configure host names on managed nodes
   hosts: "managed_nodes"
   become: true
   gather_facts: false
   tasks:
-    - hostname:
+    - name: Set hostname
+      ansible.builtin.hostname:
         name: "{{ short_name|default('node') }}.example.com"
 
-    - name: setup /etc/hosts file per student
-      copy:
+    - name: Setup /etc/hosts file per student
+      ansible.builtin.copy:
         src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
         dest: "/etc/hosts"
 
@@ -64,16 +67,18 @@
   become: true
   gather_facts: true
   tasks:
-    - include_role:
+    - name: Include workshop_attendance role
+      ansible.builtin.include_role:
         name: ../roles/workshop_attendance
       when: attendance|bool
 
-- name: wait for all security nodes to have SSH reachability
+- name: Wait for all security nodes to have SSH reachability
   hosts: "security_connection_check"
   become: true
   gather_facts: false
   tasks:
-    - include_role:
+    - name: Include connectivity_test role
+      ansible.builtin.include_role:
         name: ../roles/connectivity_test
 
 - name: Configure common options and control nodes
@@ -81,30 +86,30 @@
   gather_facts: true
   become: true
   tasks:
-    - name: configure user accounts
-      include_role:
+    - name: Include user_accounts role
+      ansible.builtin.include_role:
         name: ../roles/user_accounts
 
-    - name: configure common role
-      include_role:
+    - name: Include common role
+      ansible.builtin.include_role:
         name: ../roles/common
 
-    - name: setup /etc/hosts file per student
-      copy:
+    - name: Setup /etc/hosts file per student
+      ansible.builtin.copy:
         src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
         dest: "/etc/hosts"
 
-    - name: configure control_node role
-      include_role:
+    - name: Include control_node role
+      ansible.builtin.include_role:
         name: ../roles/control_node
       when: not pre_build|bool
 
-    - name: configure control_node_always role
-      include_role:
+    - name: Include control_node_always role
+      ansible.builtin.include_role:
         name: ../roles/control_node_always
 
-    - name: install and configure code server
-      include_role:
+    - name: Install and configure code server using code_server role
+      ansible.builtin.include_role:
         name: ../roles/code_server
       when:
         - code_server is defined
@@ -112,8 +117,8 @@
         - controllerinstall is defined
         - controllerinstall
 
-    - name: add dns entires for all student control nodes
-      include_role:
+    - name: Add dns entries for all student control nodes using aws_dns role
+      ansible.builtin.include_role:
         name: ../roles/aws_dns
       when:
         - dns_type is defined
@@ -121,21 +126,22 @@
         - controllerinstall is defined
         - controllerinstall
 
-    - name: run populate_controller role
-      include_role:
+    - name: Include populate_controller role
+      ansible.builtin.include_role:
         name: ../roles/populate_controller
       when:
         - controllerinstall is defined
         - controllerinstall|bool
         - populatecontroller
 
-- name: configure private automation hub
+- name: Configure private automation hub
   hosts: 'automation_hub'
   gather_facts: true
   become: true
   tasks:
-    - include_role:
-        name: ../roles/private_automation_hub
+    - name: Include private_automation_hub role
+      include_role:
+          name: ../roles/private_automation_hub
       when:
         - automation_hub is defined
         - automation_hub|bool
@@ -146,8 +152,8 @@
         - pre_build is defined
         - pre_build|bool
 
-- name: include workshop_type unique setup roles
-  import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"
+- name: Include workshop_type unique setup roles
+  ansible.builtin.import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"
 
 - name: Alert the mothership
   hosts: localhost
@@ -155,15 +161,18 @@
   become: false
   gather_facts: false
   tasks:
-    - {include_role: {name: ../roles/tower_request}, when: student_total > 9}
+    - name: Include tower_request role if student total is greater than 9
+      ansible.builtin.include_role:
+        name: ../roles/tower_request}
+      when: student_total > 9
 
-- name: print out information for instructor
+- name: Print out information for instructor
   hosts: localhost
   connection: local
   gather_facts: false
   tasks:
-    - name: set facts for output
-      set_fact:
+    - name: Set facts for output
+      ansible.builtin.set_fact:
         summary_information: |
           PROVISIONER SUMMARY
           ===================
@@ -189,12 +198,12 @@
 
     - name: Print Summary Information
       when: not rhpds_info_output | default(false) | bool
-      debug:
+      ansible.builtin.debug:
         msg: "{{ summary_information }}"
 
     - name: Print Summary Information
       when: rhpds_info_output | default(false) | bool
-      debug:
+      ansible.builtin.debug:
         msg: "user.info: {{ summary_information }}"
 
     - name: Attempt RHPDS completion callback
@@ -205,7 +214,7 @@
         user_body_yaml: "{{ output_dir ~ '/user-body.yaml' }}"
         user_data_yaml: "{{ output_dir ~ '/user-data.yaml' }}"
         user_info_yaml: "{{ output_dir ~ '/user-info.yaml' }}"
-      uri:
+      ansible.builtin.uri:
         url: "{{ agnosticd_callback_url }}"
         method: POST
         body_format: json

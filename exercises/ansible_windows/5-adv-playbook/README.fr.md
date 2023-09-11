@@ -288,7 +288,7 @@ Jetons maintenant un deuxième coup d'œil pour nous assurer que tout ressemble 
         - http://{{ ansible_host }}:8081
 
   handlers:
-    - name: Restart iis service
+    - name: restart iis service
       ansible.windows.win_service:
         name: W3Svc
         state: restarted

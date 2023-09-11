@@ -244,7 +244,7 @@ Define a handler.
 
 ```yaml
   handlers:
-    - name: Restart iis service
+    - name: restart iis service
       ansible.windows.win_service:
         name: W3Svc
         state: restarted
@@ -351,7 +351,7 @@ intended. If not, now is the time for us to fix it up. The playbook below should
         - http://{{ ansible_host }}:8081
 
   handlers:
-    - name: Restart iis service
+    - name: restart iis service
       ansible.windows.win_service:
         name: W3Svc
         state: restarted

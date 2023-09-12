@@ -203,6 +203,8 @@ ee_list:
             version: 1.10.3
           - name: community.general
             version: 7.3.0
+    options:
+      package_manager_path: /usr/bin/microdnf
 
 ee_base_image: "{{ ah_host }}/ee-minimal-rhel8:latest"
 ee_image_push: true

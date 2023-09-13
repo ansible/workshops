@@ -13,6 +13,7 @@ exclude:
   - "provisioner/teardown_lab.yml"
   - "provisioner/workshop_specific"
   - "exercises/ansible_f5"
+  - "exercises/ansible_config_as_code/answer_files/workshop_project/playbooks/"
 kramdown:
   syntax_highlighter_opts:
     disable: true

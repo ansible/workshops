@@ -8,7 +8,7 @@
   tasks:
     - name: Include collection remote role
       ansible.builtin.include_role:
-        name: infra.ah_configuration. # Insert Collection Name here 
+        name: infra.ah_configuration.collection_remote
 
     - name: Include collection repository role
       ansible.builtin.include_role:
@@ -24,5 +24,5 @@
 
     - name: Include user role
       ansible.builtin.include_role:
-        name: infra.ah_configuration. # Insert Collection Name here  
+        name: infra.ah_configuration.user
 ...

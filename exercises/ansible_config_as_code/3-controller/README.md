@@ -33,6 +33,7 @@ controller_execution_environments:
 ![execution_environments supported](images/ee_supportedv3.png)
 ![execution_environments minimal](images/ee_minimalv2.png)
 ![execution_environments 2.9](images/ee_29v2.png)
+![execution_environments 2.9](images/ee_config_as_code.png)
 
 Further documentation for those who are interested to learn more see:
 
@@ -83,15 +84,15 @@ controller_credential_types:
       env:
         AH_PASSWORD: !unsafe "{{ password }}"
         AH_USERNAME: !unsafe "{{ username }}"
-        AH_HOST: # Insert appropriate variable from above here
+        AH_HOST: !unsafe # Insert appropriate variable from above here
         AH_API_TOKEN: !unsafe # Insert appropriate variable from above here
         AH_VERIFY_SSL: !unsafe # Insert appropriate variable from above here
       extra_vars:
         ah_password: !unsafe "{{ password }}"
         ah_username: !unsafe "{{ username }}"
-        ah_host: # Insert appropriate variable from above here
-        ah_token: # Insert appropriate variable from above here
-        ah_validate_certs: # Insert appropriate variable from above here
+        ah_host: !unsafe # Insert appropriate variable from above here
+        ah_token: !unsafe # Insert appropriate variable from above here
+        ah_validate_certs: !unsafe # Insert appropriate variable from above here
 
   - name: ssh_priv_file
     kind: cloud
@@ -138,7 +139,7 @@ Further documentation for those who are interested to learn more see:
 
 ## Step 5
 
-Create a file `group_vars/all/credentials.yml` and add the required information to the list `controller_credentials` to configure the UI to look like the screenshot
+Create a file `group_vars/all/credentials.yml` and add the required information to the list `controller_credentials` to configure the UI to look like the screenshot. Make it to look like the screenshot, but make sure to use parameters for the values. DO NOT PASTE YOUR CLEARTEST CREDENTIALS!
 
 {% raw %}
 
@@ -203,7 +204,7 @@ controller_credentials:
       username: student
       password: "{{ machine_pass }}"
 
-  - name: git
+  - name: github
     credential_type: Source Control
     organization: config_as_code
     description: git
@@ -276,7 +277,7 @@ controller_inventory_sources:
 ...
 ```
 
-![inventory_source](images/inventory_source.png)
+![inventory_source](images/inventory_source_v2.png)
 
 Further documentation for those who are interested to learn more see:
 
@@ -454,10 +455,11 @@ Create a `collections/requirements.yml` file and add these collections to pull a
 ---
 collections:
   - name: infra.controller_configuration
+    version: 2.5.1
   - name: infra.ah_configuration
-  - name: infra.ee_utilities
-  - name: infra.aap_utilities
+    version: 2.0.3
   - name: awx.awx
+    version: 22.4.0
 ...
 ```
 

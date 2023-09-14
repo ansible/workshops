@@ -215,6 +215,8 @@ ee_pull_collections_from_hub: false
 {% endraw %}
 
 
+=======
+
 Further documentation for those who are interested to learn more see:
 
 - [YAML lists and more](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html)

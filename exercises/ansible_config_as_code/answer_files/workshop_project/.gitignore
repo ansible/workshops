@@ -1,0 +1,4 @@
+.password
+ansible.cfg
+ansible-navigator.log
+*.json

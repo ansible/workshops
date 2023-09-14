@@ -1,0 +1,15 @@
+---
+all:
+  children:
+    automationcontroller:
+      hosts:
+        student1.aug30.demoredhat.com:
+
+    automationhub:
+      hosts:
+        hub-student1.aug30.demoredhat.com:
+
+    builder:
+      hosts:
+        student1.aug30.demoredhat.com:
+...

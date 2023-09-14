@@ -1,0 +1,5 @@
+localhost ansible_connection=local
+
+
+[automationhub]
+hub-student1.aug30.demoredhat.com

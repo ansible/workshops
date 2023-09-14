@@ -56,13 +56,10 @@ You may want to install a different application, for example, an actual applicat
 
   > **Note**
   >
-  > If you want to take a shortcut as an alternative to manually running all the commands in the procedure below, you may use this single command to run a bash script that will run the same commands to install and start the example application:
+  > The procedure below steps though the commands required to _manually_ install and start the example application. This is done very much to mock how older traditional apps are deployed in the enterprise. If you want to take a shortcut as an alternative to manually running a bunch of commands, you can launch the "PETS / App Install" job template to deploy the example app.
   >
-  > ```
-  > curl -s https://people.redhat.com/bmader/petapp.sh | bash
-  > ```
+  > If the app install job is successful, you can skip ahead to [Step 3 - Test the Pet Application](#step-3---test-the-pet-application).
   >
-  > If the script is successful, you may skip ahead to [Step 3 - Test the Pet Application](#step-3---test-the-pet-application).
 
 - The first step in our app install procedure is to install a Java JDK. We'll use a 3rd-party one just for fun!
 
@@ -180,6 +177,11 @@ Right now, our application was started manually. We need to configure the app so
   ```
   echo '@reboot cd $HOME/spring-petclinic && ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql >> $HOME/app.log 2>&1' | crontab -
   ```
+
+  > **NOTE**
+  >
+  > If you deployed the example app using the "PETS / App Install" playbook job, you can skip the command above because the reboot cron entry was automatically created.
+  >
 
 - Now reboot the server to verify this works:
 

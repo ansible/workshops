@@ -1,16 +1,16 @@
 ---
-- name: gather information from routers
+- name: Gather information from routers
   hosts: cisco
   gather_facts: false
 
   tasks:
-    - name: gather router facts
-      cisco.ios.facts:
+    - name: Gather router facts
+      cisco.ios.ios_facts:
 
-    - name: display version
-      debug:
+    - name: Display version
+      ansible.builtin.debug:
         msg: "The IOS version is: {{ ansible_net_version }}"
 
-    - name: display serial number
-      debug:
+    - name: Display serial number
+      ansible.builtin.debug:
         msg: "The serial number is:{{ ansible_net_serialnum }}"

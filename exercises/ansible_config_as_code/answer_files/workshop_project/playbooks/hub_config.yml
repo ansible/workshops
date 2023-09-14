@@ -1,0 +1,28 @@
+---
+- name: Configure private automation hub after installation
+  hosts: all
+  gather_facts: false
+  connection: local
+  vars_files:
+    - "../vault.yml"
+  tasks:
+    - name: Include collection remote role
+      ansible.builtin.include_role:
+        name: infra.ah_configuration. # Insert Collection Name here 
+
+    - name: Include collection repository role
+      ansible.builtin.include_role:
+        name: infra.ah_configuration.collection_repository
+
+    - name: Include collection repository role
+      ansible.builtin.include_role:
+        name: infra.ah_configuration.collection_repository_sync
+
+    - name: Include group role
+      ansible.builtin.include_role:
+        name: infra.ah_configuration.group
+
+    - name: Include user role
+      ansible.builtin.include_role:
+        name: infra.ah_configuration. # Insert Collection Name here  
+...

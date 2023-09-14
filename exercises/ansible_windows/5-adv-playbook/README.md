@@ -98,18 +98,18 @@ Add a new task called **install IIS**. After writing the playbook, click
 ```yaml
   tasks:
     - name: Install IIS
-      win_feature:
+      ansible.windows.win_feature:
         name: Web-Server
         state: present
 
     - name: Create site directory structure
-      win_file:
+      ansible.windows.win_file:
         path: "{{ item.path }}"
         state: directory
       with_items: "{{ iis_sites }}"
 
     - name: Create IIS site
-      win_iis_website:
+      community.windows.win_iis_website:
         name: "{{ item.name }}"
         state: started
         port: "{{ item.port }}"
@@ -188,9 +188,9 @@ not escape the forward slash.
 
 ```yaml
     - name: Open port for site on the firewall
-      win_firewall_rule:
+      community.windows.win_firewall_rule:
         name: "iisport{{ item.port }}"
-        enable: yes
+        enable: true
         state: present
         localport: "{{ item.port }}"
         action: Allow
@@ -199,13 +199,13 @@ not escape the forward slash.
       with_items: "{{ iis_sites }}"
 
     - name: Template simple web site to iis_site_path as index.html
-      win_template:
+      ansible.windows.win_template:
         src: 'index.html.j2'
         dest: '{{ item.path }}\index.html'
       with_items: "{{ iis_sites }}"
 
     - name: Show website addresses
-      debug:
+      ansible.builtin.debug:
         msg: "{{ item }}"
       loop:
         - http://{{ ansible_host }}:8080
@@ -245,7 +245,7 @@ Define a handler.
 ```yaml
   handlers:
     - name: restart iis service
-      win_service:
+      ansible.windows.win_service:
         name: W3Svc
         state: restarted
         start_mode: auto
@@ -307,18 +307,18 @@ intended. If not, now is the time for us to fix it up. The playbook below should
 
   tasks:
     - name: Install IIS
-      win_feature:
+      ansible.windows.win_feature:
         name: Web-Server
         state: present
 
     - name: Create site directory structure
-      win_file:
+      ansible.windows.win_file:
         path: "{{ item.path }}"
         state: directory
       with_items: "{{ iis_sites }}"
 
     - name: Create IIS site
-      win_iis_website:
+      community.windows.win_iis_website:
         name: "{{ item.name }}"
         state: started
         port: "{{ item.port }}"
@@ -327,9 +327,9 @@ intended. If not, now is the time for us to fix it up. The playbook below should
       notify: restart iis service
 
     - name: Open port for site on the firewall
-      win_firewall_rule:
+      community.windows.win_firewall_rule:
         name: "iisport{{ item.port }}"
-        enable: yes
+        enable: true
         state: present
         localport: "{{ item.port }}"
         action: Allow
@@ -338,13 +338,13 @@ intended. If not, now is the time for us to fix it up. The playbook below should
       with_items: "{{ iis_sites }}"
 
     - name: Template simple web site to iis_site_path as index.html
-      win_template:
+      ansible.windows.win_template:
         src: 'index.html.j2'
         dest: '{{ item.path }}\index.html'
       with_items: "{{ iis_sites }}"
 
     - name: Show website addresses
-      debug:
+      ansible.builtin.debug:
         msg: "{{ item }}"
       loop:
         - http://{{ ansible_host }}:8080
@@ -352,7 +352,7 @@ intended. If not, now is the time for us to fix it up. The playbook below should
 
   handlers:
     - name: restart iis service
-      win_service:
+      ansible.windows.win_service:
         name: W3Svc
         state: restarted
         start_mode: auto

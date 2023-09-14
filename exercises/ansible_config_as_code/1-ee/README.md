@@ -4,11 +4,14 @@ In this section we will show you step by step how to build an Execution Environm
 
 ## Step 1
 
-Ensure that you have `ansible-core`, `ansible-lint`, and `ansible-builder`, and `podman` installed on your machine.
+This lab uses `ansible-core`, `ansible-lint`, and `ansible-builder`, and `podman`. They should be pre-installed on your machine. The versions that are listed are the ones last tested with this workshop.
 
-```console
-sudo dnf install ansible-core ansible-lint ansible-builder podman
-```
+The following are exepcted to be installed already
+ansible-core 2.15.0
+ansible-builder 3.0.0
+ansible-lint 6.17.0
+podman 4.4.1
+
 
 Further documentation for those who are interested to learn more see:
 
@@ -17,10 +20,10 @@ Further documentation for those who are interested to learn more see:
 
 ## Step 2
 
-Install our ee_utilities collection and containers.podman using `ansible-galaxy` command.
+Install our ee_utilities collection and containers.podman using `ansible-galaxy` command. Make sure the versions are correct.
 
 ```console
-ansible-galaxy collection install infra.ee_utilities:2.0.8 containers.podman community.general
+ansible-galaxy collection install infra.ee_utilities:3.1.2 containers.podman:1.10.3 community.general:7.3.0
 ```
 
 Further documentation for those who are interested to learn more see:
@@ -54,6 +57,10 @@ ah_validate_certs: false
 ee_registry_username: "{{ ah_username }}"
 ee_registry_password: "{{ ah_password }}"
 ee_registry_dest: "{{ ah_host }}"
+
+ee_base_registry: "{{ ah_host }}"
+ee_base_registry_username: "{{ ah_username }}"
+ee_base_registry_password: "{{ ah_password }}"
 ...
 
 ```
@@ -98,8 +105,6 @@ Further documentation for those who are interested to learn more see:
 
 Create a vault file `vault.yml` and **YOU WILL NEED TO FILL THESE IN** with the correct passwords for each variable. Currently they are set to the description of what you should be updating them too.
 
-{% raw %}
-
 ```yaml
 ---
 vault_pass: 'the password to decrypt this vault'
@@ -115,7 +120,6 @@ student_account: 'this is the account under Git Access on your workbench informa
 
 NOTE: the easiest way to do this is have all passwords be the provided password.
 
-{% endraw %}
 
 Create a `.password` file **We do not recommend you do this outside of lab environment** put your generated password in this file. Even though we are not committing this file into git because we have it in our ignore list, we do not recommend putting passwords in plain text ever, this is just to simplify/speed up the lab.
 
@@ -178,22 +182,38 @@ Create a file `group_vars/all/ah_ee_list.yml` where we will create a list called
 
 which the role will loop over and for each item in this list it will create and publish an EE using the provided variables.
 
+{% raw %}
+
 ```yaml
 ---
 ee_list:
   - name: "config_as_code"
-    collections:
-      - name: infra.controller_configuration
-      - name: infra.ah_configuration
-      - name: infra.ee_utilities
-      - name: infra.aap_utilities
-      - name: awx.awx
+    dependencies:
+      galaxy:
+        collections:
+          - name: infra.controller_configuration
+            version: 2.5.1
+          - name: infra.ah_configuration
+            version: 2.0.3
+          - name: infra.ee_utilities
+            version: 3.1.2
+          - name: awx.awx
+            version: 22.4.0
+          - name: containers.podman
+            version: 1.10.3
+          - name: community.general
+            version: 7.3.0
 
+ee_base_image: "{{ ah_host }}/ee-minimal-rhel8:latest"
 ee_image_push: true
 ee_prune_images: false
 ee_create_ansible_config: false
+ee_pull_collections_from_hub: false
 ...
 ```
+
+{% endraw %}
+
 
 Further documentation for those who are interested to learn more see:
 

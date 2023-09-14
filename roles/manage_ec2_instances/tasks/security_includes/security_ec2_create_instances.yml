@@ -1,85 +1,17 @@
 ---
-- name: Create EC2 instances for qradar
-  amazon.aws.ec2_instance:
-    key_name: "{{ ec2_name_prefix }}-key"
-    security_group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info['qradar']['size'] }}"
-    image_id: "{{ qradar_ami['image_id'] }}"
-    region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
-    state: running
-    filters:
-      "tag:Workshop_qradar": "{{ ec2_name_prefix }}-qradar"
-      instance-state-name: running
-    tags:
-      Workshop_qradar: "{{ ec2_name_prefix }}-qradar"
-      Workshop: "{{ ec2_name_prefix }}"
-      Workshop_type: "{{ workshop_type }}"
-      AWS_USERNAME: "{{ aws_user }}"
-      owner: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total }}"
-      username: '{{ ec2_info["rhel8"]["username"] }}'
-      short_name: "qradar"
-      ansible-workshops: "true"
-    wait: "{{ ec2_wait }}"
-    network:
-      assign_public_ip: true
-    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    volumes:
-      - device_name: /dev/sda1
-        ebs:
-          volume_type: "{{ ec2_info['qradar']['disk_volume_type'] }}"
-          volume_size: "{{ ec2_info['qradar']['disk_space'] }}"
-          iops: "{{ ec2_info['qradar']['disk_iops'] }}"
-          throughput: "{{ ec2_info['qradar']['disk_throughput'] }}"
-          delete_on_termination: true
-  when: security_console == 'qradar'
-  async: "{{ async_timeout_seconds }}"
-  poll: 0
-  register: qradar_async
+- name: Initialize/reset list count
+  ansible.builtin.set_fact:
+    list_count: "reset"
 
-- name: Create EC2 instances for splunk
-  amazon.aws.ec2_instance:
-    key_name: "{{ ec2_name_prefix }}-key"
-    security_group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info['splunk_enterprise']['size'] }}"
-    image_id: "{{ splunk_ami['image_id'] }}"
-    region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
-    state: running
-    filters:
-      "tag:Workshop_splunk": "{{ ec2_name_prefix }}-splunk"
-      instance-state-name: running
-    tags:
-      Workshop_splunk: "{{ ec2_name_prefix }}-splunk"
-      Workshop: "{{ ec2_name_prefix }}"
-      Workshop_type: "{{ workshop_type }}"
-      AWS_USERNAME: "{{ aws_user }}"
-      owner: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total }}"
-      username: '{{ ec2_info["rhel8"]["username"] }}'
-      short_name: "splunk"
-      ansible-workshops: "true"
-    wait: "{{ ec2_wait }}"
-    network:
-      assign_public_ip: true
-    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    volumes:
-      - device_name: /dev/sda1
-        ebs:
-          volume_type: "{{ ec2_info['splunk_enterprise']['disk_volume_type'] }}"
-          volume_size: "{{ ec2_info['splunk_enterprise']['disk_space'] }}"
-          iops: "{{ ec2_info['splunk_enterprise']['disk_iops'] }}"
-          throughput: "{{ ec2_info['splunk_enterprise']['disk_throughput'] }}"
-          delete_on_termination: true
-  when: security_console == 'splunk'
-  async: "{{ async_timeout_seconds }}"
-  poll: 0
-  register: splunk_async
+- name: Call qradar retry tasks include
+  ansible.builtin.include_tasks: security_ec2_create_loop_qradar.yml
+
+- name: Initialize/reset list count
+  ansible.builtin.set_fact:
+    list_count: "reset"
+
+- name: Call splunk retry tasks include
+  ansible.builtin.include_tasks: security_ec2_create_loop_splunk.yml
 
 - set_fact:
     siem_async: "{{ splunk_async }}"
@@ -99,82 +31,26 @@
 - name: Call snort retry tasks include
   ansible.builtin.include_tasks: security_ec2_create_loop_snort.yml
 
+- name: Initialize/reset list count
+  ansible.builtin.set_fact:
+    list_count: "reset"
+
 - name: Call attack sim retry tasks include
   ansible.builtin.include_tasks: security_ec2_create_loop_attacksim.yml
 
-- name: Create EC2 instances for Check Point CloudGuard Security Management
-  amazon.aws.ec2_instance:
-    key_name: "{{ ec2_name_prefix }}-key"
-    security_group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info['checkpoint_mgmt']['size'] }}"
-    image_id: "{{ checkpoint_mgmt_ami['image_id'] }}"
-    region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
-    user_data: "{{ lookup('template', 'gaia-mgmt-ftw-user-data.sh.j2') }}"
-    state: running
-    filters:
-      "tag:Workshop_checkpoint_mgmt": "{{ ec2_name_prefix }}-checkpoint"
-      instance-state-name: running
-    tags:
-      Workshop_checkpoint_mgmt: "{{ ec2_name_prefix }}-checkpoint"
-      Workshop: "{{ ec2_name_prefix }}"
-      Workshop_type: "{{ workshop_type }}"
-      AWS_USERNAME: "{{ aws_user }}"
-      owner: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total }}"
-      username: "{{ ec2_info['checkpoint_mgmt']['username'] }}"
-      short_name: "checkpoint_mgmt"
-      ansible-workshops: "true"
-    wait: "{{ ec2_wait }}"
-    network:
-      assign_public_ip: true
-    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-  async: "{{ async_timeout_seconds }}"
-  poll: 0
-  register: checkpoint_mgmt_async
+- name: Initialize/reset list count
+  ansible.builtin.set_fact:
+    list_count: "reset"
 
-- name: Create EC2 instances for Windows Workstation (SECURITY MODE)
-  amazon.aws.ec2_instance:
-    key_name: "{{ ec2_name_prefix }}-key"
-    security_group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info['windows_ws']['size'] }}"
-    image_id: "{{ windows_ws_ami['image_id'] }}"
-    region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
-    state: running
-    user_data: "{{ lookup('template', 'windows_userdata.txt.j2') }}"
-    filters:
-      "tag:Workshop_windows": "{{ ec2_name_prefix }}-windows"
-      instance-state-name: running
-    tags:
-      Workshop_windows: "{{ ec2_name_prefix }}-windows"
-      Workshop: "{{ ec2_name_prefix }}"
-      Workshop_type: "{{ workshop_type }}"
-      AWS_USERNAME: "{{ aws_user }}"
-      owner: "{{ aws_user }}"
-      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total }}"
-      username: "{{ ec2_info['windows_ws']['username'] }}"
-      short_name: "windows_ws"
-      ansible-workshops: "true"
-    wait: "{{ ec2_wait }}"
-    network:
-      assign_public_ip: true
-    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    volumes:
-      - device_name: /dev/sda1
-        ebs:
-          volume_type: "{{ ec2_info['windows_ws'].disk_volume_type }}"
-          volume_size: "{{ ec2_info['windows_ws'].disk_space }}"
-          iops: "{{ ec2_info['windows_ws'].disk_iops }}"
-          throughput: "{{ ec2_info['windows_ws'].disk_throughput }}"
-          delete_on_termination: true
-  async: "{{ async_timeout_seconds }}"
-  poll: 0
-  register: windows_ws_async
+- name: Call Check Point CloudGuard Security Management retry tasks include
+  ansible.builtin.include_tasks: security_ec2_create_loop_checkpoint_mgmt.yml
+
+- name: Initialize/reset list count
+  ansible.builtin.set_fact:
+    list_count: "reset"
+
+- name: Call Windows Workstation (SECURITY MODE) retry tasks include
+  ansible.builtin.include_tasks: security_ec2_create_loop_windows_ws.yml
 
 ###########################################################################
 ### THIS IS A BIT OF A HACK AND REQUIRES BOOK KEEPING BUT IT'S FAST
@@ -208,3 +84,4 @@
 
     ###
     ###########################################################################
+...

@@ -79,7 +79,10 @@ ec2_info:
     owners: 679593333241
     filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'
     architecture: x86_64
-    size: m5.xlarge
+    size:
+      - m5.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
     ami: "{{ checkpoint_mgmt_ami| default(omit) }}"
     username: admin
   checkpoint_gw:
@@ -92,7 +95,10 @@ ec2_info:
   windows_ws:
     owners: 679593333241
     filter: 'Windows_Server-2016-English-Full-Base*'
-    size: m5.xlarge
+    size:
+      - m5.xlarge
+      - m6i.xlarge
+      - r5.xlarge
     ami: "{{ windows_ws_ami| default(omit) }}"
     username: Administrator
     disk_volume_type: gp3
@@ -222,7 +228,10 @@ ec2_info:
     username: admin
   splunk_enterprise:
     owners: 309956199498
-    size: c4.4xlarge
+    size:
+      - c5a.4xlarge
+      - c5.4xlarge
+      - c4.4xlarge
     os_type: linux
     disk_volume_type: gp3
     disk_space: 200
@@ -245,7 +254,10 @@ ec2_info:
     username: ec2-user
   qradar:
     owners: 721066863947
-    size: t2.2xlarge
+    size:
+      - t3.2xlarge
+      - t3a.2xlarge
+      - t2.2xlarge
     os_type: linux
     disk_volume_type: gp3
     disk_space: 300
@@ -329,6 +341,7 @@ pre_build_controller_ami:
   us-east-2: ami-0ef29e3299cf26819
   us-west-1: ami-0009710aa9b69790e
   us-west-2: ami-0b0d02e3c1d09fd4c
+  
 pre_build_hub_ami:
   ap-northeast-1: ami-0e10c305c74ebe2c4
   ap-southeast-1: ami-0b8c588fe02c19ce6

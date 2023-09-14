@@ -6,19 +6,22 @@
 <!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:0 title:1 charForUnorderedList:* -->
 ## Table of Contents
 
-  * [Objective](#objective)
-  * [Guide](#guide)
-    * [Step 1 - Verify SNMP configuration](#step-1---verify-snmp-configuration)
-    * [Step 2 - Creating the Ansible Playbook](#step-2---creating-the-ansible-playbook)
-    * [Step 3 - Examine the Ansible Playbook](#step-3---examine-the-ansible-playbook)
-    * [Step 4 - Execute the Ansible Playbook](#step-4---execute-the-ansible-playbook)
-    * [Step 5 - Verify SNMP configuration](#step-5---verify-snmp-configuration)
-    * [Step 6 - Using the gathered parameter](#step-6---using-the-gathered-parameter)
-    * [Step 7 - Execute the gathered playbook](#step-7---execute-the-gathered-playbook)
-    * [Step 8 - Examine the files](#step-8---examine-the-files)
-  * [Takeaways](#takeaways)
-  * [Solution](#solution)
-  * [Complete](#complete)
+- [Exercise 4: Ansible Network Resource Modules - Cisco Example](#exercise-4-ansible-network-resource-modules---cisco-example)
+  - [Table of Contents](#table-of-contents)
+  - [Table of Contents](#table-of-contents-1)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Verify SNMP configuration](#step-1---verify-snmp-configuration)
+    - [Step 2 - Creating the Ansible Playbook](#step-2---creating-the-ansible-playbook)
+    - [Step 3 - Examine the Ansible Playbook](#step-3---examine-the-ansible-playbook)
+    - [Step 4 - Execute the Ansible Playbook](#step-4---execute-the-ansible-playbook)
+    - [Step 5 - Verify SNMP configuration](#step-5---verify-snmp-configuration)
+    - [Step 6 - Using the gathered parameter](#step-6---using-the-gathered-parameter)
+    - [Step 7 - Execute the gathered playbook](#step-7---execute-the-gathered-playbook)
+    - [Step 8 - Examine the files](#step-8---examine-the-files)
+  - [Takeaways](#takeaways)
+  - [Solution](#solution)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -84,16 +87,16 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
 
    ```yaml
   ---
-  - name: configure SNMP
+  - name: Configure SNMP
     hosts: cisco
     gather_facts: false
 
     tasks:
 
-      - name: use snmp resource module
-        cisco.ios.snmp_server:
-          state: merged          
-          config:            
+      - name: Use snmp resource module
+        cisco.ios.ios_snmp_server:
+          state: merged
+          config:
             location: 'Durham'
             packet_size: 500
             communities:
@@ -102,7 +105,7 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
                 rw: true
               - acl_v4: acl_uq
                 name: ChapelHill-community
-                rw: true                
+                rw: true
    ```
 
 ### Step 3 - Examine the Ansible Playbook
@@ -125,10 +128,10 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
 * For the second part we have one task that uses the `cisco.ios.snmp_server`
 
   ```yaml
-    tasks:
+  tasks:
 
-    - name: use snmp resource module
-      cisco.ios.snmp_server:
+    - name: Use snmp resource module
+      cisco.ios.ios_snmp_server:
         state: merged
         config:
           location: 'Durham'
@@ -139,7 +142,8 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
               rw: true
             - acl_v4: acl_uq
               name: ChapelHill-community
-              rw: true   
+              rw: true
+
   ```
 
   * `name:` - just like the play, each task has a description for that particular task
@@ -168,9 +172,9 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
 
-  PLAY [configure SNMP] **********************************************************
+  PLAY [Configure SNMP] **********************************************************
 
-  TASK [use snmp resource module] ***************************
+  TASK [Use snmp resource module] ***************************
   changed: [rtr1]
 
   PLAY RECAP *********************************************************************
@@ -182,7 +186,7 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
 
-  PLAY [configure SNMP] **********************************************************
+  PLAY [Configure SNMP] **********************************************************
 
   TASK [Override commands with provided configuration] ***************************
   ok: [rtr1]
@@ -249,21 +253,22 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
 
   ```yaml
   ---
-  - name: retrieve SNMP config
+  - name: Retrieve SNMP config
     hosts: cisco
     gather_facts: false
 
     tasks:
 
-    - name: use SNMP resource module
-      cisco.ios.snmp_server:
-        state: gathered
-      register: snmp_config
+      - name: Use SNMP resource module
+        cisco.ios.ios_snmp_server:
+          state: gathered
+        register: snmp_config
 
-    - name: copy snmp_config to file
-      copy:
-        content: "{{ snmp_config | to_nice_yaml }}"
-        dest: "{{ playbook_dir }}/{{ inventory_hostname }}_snmp.yml"
+      - name: Copy snmp_config to file
+        ansible.builtin.copy:
+          content: "{{ snmp_config | to_nice_yaml }}"
+          dest: "{{ playbook_dir }}/{{ inventory_hostname }}_snmp.yml"
+          mode: "644"
   ```
   <!-- {% endraw %} -->
 
@@ -288,12 +293,12 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
   ```bash
   $ ansible-navigator run gathered.yml --mode stdout
 
-  PLAY [retrieve SNMP config] ****************************************************
+  PLAY [Retrieve SNMP config] ****************************************************
 
-  TASK [use SNMP resource module] ************************************************
+  TASK [Use SNMP resource module] ************************************************
   ok: [rtr1]
 
-  TASK [copy snmp_config to file] ************************************************
+  TASK [Copy snmp_config to file] ************************************************
   changed: [rtr1]
 
   PLAY RECAP *********************************************************************

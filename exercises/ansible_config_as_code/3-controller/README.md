@@ -40,15 +40,59 @@ Further documentation for those who are interested to learn more see:
 
 ## Step 3
 
-Create a file `group_vars/all/credential_types.yml` and add the required information to the list `controller_credential_types` to create also credential type called `automation_hub` with the values from the screenshot.
+Create a file `group_vars/all/credential_types.yml` where we will create a list called `controller_credential_types` that has 5 variables per item which are:
 
-Make sure to keep the ssh_priv_file credential type.
+- `name` this is required and will be what the credential type will be called
+- `description` this is the description of the credential type
+- `kind` The type of credential type being added. Note that only cloud and net can be used for creating credential types.
+- `inputs` Enter inputs using either JSON or YAML syntax. Refer to the Ansible controller documentation for example syntax. These will be the fields in the GUI that prompt the user for input.
+- `injectors` Enter injectors using either JSON or YAML syntax. Refer to the Ansible controller documentation for example syntax. These are the variables that will then be useable in a job.
+
+which the role will loop over and for each item in this list it will create custom credential types for use in the controller.
 
 {% raw %}
 
 ```yaml
 ---
 controller_credential_types:
+  - name: automation_hub
+    description: automation hub
+    kind: cloud
+    inputs:
+      fields:
+        - id: verify_ssl
+          type: boolean
+          label: Verify SSL
+        - id: hostname
+          type: string
+          label: Hostname
+        - id: username
+          type: string
+          label: Username
+        - id: password
+          type: string
+          label: Password
+          secret: true
+        - id: token
+          type: string
+          label: Token
+          secret: true
+      required:
+        - hostname
+    injectors:
+      env:
+        AH_PASSWORD: !unsafe "{{ password }}"
+        AH_USERNAME: !unsafe "{{ username }}"
+        AH_HOST: # Insert appropriate variable from above here
+        AH_API_TOKEN: !unsafe # Insert appropriate variable from above here
+        AH_VERIFY_SSL: !unsafe # Insert appropriate variable from above here
+      extra_vars:
+        ah_password: !unsafe "{{ password }}"
+        ah_username: !unsafe "{{ username }}"
+        ah_host: # Insert appropriate variable from above here
+        ah_token: # Insert appropriate variable from above here
+        ah_validate_certs: # Insert appropriate variable from above here
+
   - name: ssh_priv_file
     kind: cloud
     description: creates temp ssh priv key to use (cannot have passphrase)
@@ -69,9 +113,6 @@ controller_credential_types:
 ```
 
 {% endraw %}
-
-![credential_type_input](images/cred_type_inputv2.png)
-![credential_type_injector](images/cred_type_injectorv2.png)
 
 Further documentation for those who are interested to learn more see:
 
@@ -308,6 +349,7 @@ Create a playbook `playbooks/controller_config.yml` and copy all this into the f
 
     # probably not optimal but works, looking for better solutions
     - name: Figuring out AH token
+      when: ah_token is not defined or ah_token['token'] is defined
       block:
         - name: Authenticate and get an API token from Automation Hub
           infra.ah_configuration.ah_token:
@@ -321,8 +363,7 @@ Create a playbook `playbooks/controller_config.yml` and copy all this into the f
         - name: Fixing format
           ansible.builtin.set_fact:
             ah_token: "{{ ah_token['token'] }}"
-          when: r_ah_token['changed']
-      when: ah_token is not defined or ah_token['token'] is defined
+          when: r_ah_token['changed'] # noqa: no-handler
 
     - name: Include credential_types role
       ansible.builtin.include_role:

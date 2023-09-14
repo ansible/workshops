@@ -65,9 +65,9 @@ Section 2: Definir votre Play
 Maintenant que nous avons le fichier `install_iis.yml`, commençons par écrire le play et comprendre ce que chaque ligne accomplit
 
 ```yaml
-    ---
-    - name: install the iis web service
-      hosts: windows
+---
+- name: Install the iis web service
+  hosts: windows
 ```
 
 * `---` Définit le début du fichier YAML
@@ -86,26 +86,27 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
 
 <!-- {% raw %} -->
 ```yaml
-      tasks:
-        - name: install iis
-         win_feature:
-           name: Web-Server
-           state: present
+  tasks:
+    - name: Install iis
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
 
-        - name: start iis service
-         win_service:
-           name: W3Svc
-           state: started
+    - name: Start iis service
+      ansible.windows.win_service:
+        name: W3Svc
+        state: started
 
-        - name: Create website index.html
-         win_copy:
-           content: "{{ iis_test_message }}"
-           dest: C:\Inetpub\wwwroot\index.html
+    - name: Create website index.html
+      ansible.windows.win_copy:
+        content: "{{ iis_test_message }}"
+        dest: C:\Inetpub\wwwroot\index.html
 
-        - name: Show website address
-         debug:
-           msg: "http://{{ ansible_host }}"
+    - name: Show website address
+      ansible.builtin.debug:
+        msg: http://{{ ansible_host }}
 ```
+
 <!-- {% endraw %} -->
 
 * `tasks:` Cela signifie qu'une ou plusieurs tâches sont sur le point d'être définies
@@ -115,27 +116,30 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
 <!-- -->
 
 ```yaml
-    win_feature:
-      name: Web-Server
-      state: present
+    - name: Install iis
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
 ```
 
 * Ces trois lignes appellent le module Ansible `win_feature` pour installer le serveur Web IIS. [Cliquez ici](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html) pour voir les options disponibles du module `win_feature`.
 
 <!-- -->
 ```yaml
-    win_service:
-      name: W3Svc
-      state: started
+    - name: Start iis service
+      ansible.windows.win_service:
+        name: W3Svc
+        state: started
 ```
 
 * Les lignes suivantes utilisent le module ansible `win_service` pour démarrer le service IIS. Le module `win_service` est le meilleur moyen pour contrôler les services sur les hôtes distants.[Cliquez ici](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_service_module.html) pour voir les options disponibles du module `win_service`.
 
 <!-- {% raw %} -->
 ```yaml
-    win_copy:
-      content: "{{ iis_test_message }}"
-      dest: C:\Inetpub\wwwroot\index.html
+    - name: Create website index.html
+      ansible.windows.win_copy:
+        content: "{{ iis_test_message }}"
+        dest: C:\Inetpub\wwwroot\index.html
 ```
 <!-- {% endraw %} -->
 
@@ -143,8 +147,9 @@ Si vous souhaitez voir l'intégralité du play pour référence, passez au bas d
 
 <!-- {% raw %} -->
 ```yaml
-    debug:
-      msg: http://{{ ansible_host }}
+    - name: Show website address
+      ansible.builtin.debug:
+        msg: http://{{ ansible_host }}
 ```
 <!-- {% endraw %} -->
 
@@ -188,29 +193,29 @@ Vous êtes prêt à automatiser!
 
 <!-- {% raw %} -->
 ```yaml
-    ---
-    - name: install the iis web service
-      hosts: windows
+---
+- name: Install the iis web service
+  hosts: windows
 
-      tasks:
-        - name: install iis
-          win_feature:
-            name: Web-Server
-            state: present
+  tasks:
+    - name: Install iis
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
 
-        - name: start iis service
-          win_service:
-            name: W3Svc
-            state: started
+    - name: Start iis service
+      ansible.windows.win_service:
+        name: W3Svc
+        state: started
 
-        - name: Create website index.html
-          win_copy:
-            content: "{{ iis_test_message }}"
-            dest: C:\Inetpub\wwwroot\index.html
+    - name: Create website index.html
+      ansible.windows.win_copy:
+        content: "{{ iis_test_message }}"
+        dest: C:\Inetpub\wwwroot\index.html
 
-        - name: Show website address
-          debug:
-            msg: http://{{ ansible_host }}
+    - name: Show website address
+      ansible.builtin.debug:
+        msg: http://{{ ansible_host }}
 ```
 <!-- {% endraw %} -->
 <br><br>

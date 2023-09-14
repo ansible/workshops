@@ -18,7 +18,7 @@ Create a file `group_vars/all/ah_repositories.yml` you will need to add `infra.a
 ---
 ah_collection_remotes:
   - name: community-infra
-    url: https://beta-galaxy.ansible.com/
+    url: https://galaxy.ansible.com/
     requirements:
       - name: infra.ee_utilities
       - name: infra.aap_utilities
@@ -48,7 +48,7 @@ Further documentation for those who are interested to learn more see:
 
 {% raw %}
 
-Create a file `group_vars/all/ah_users.yml` make sure this user has `is_superuser` set to `true` and their `password` is set to `"{{ ah_token_password }}"`.
+Create a file `group_vars/all/ah_users.yml` make sure this user has their `password` set to `"{{ ah_token_password }}"`.
 
 ```yaml
 ---
@@ -59,6 +59,7 @@ ah_users:
       - "admin"
     append: true
     state: "present"
+    is_superuser: true
 ...
 
 ```

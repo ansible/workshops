@@ -155,17 +155,6 @@
 - name: Include workshop_type unique setup roles
   ansible.builtin.import_playbook: "{{ playbook_dir }}/workshop_specific/{{ workshop_type }}.yml"
 
-- name: Alert the mothership
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: false
-  tasks:
-    - name: Include tower_request role if student total is greater than 9
-      ansible.builtin.include_role:
-        name: ../roles/tower_request}
-      when: student_total > 9
-
 - name: Print out information for instructor
   hosts: localhost
   connection: local

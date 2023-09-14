@@ -19,11 +19,23 @@
   args:
     chdir: "{{ aap_dir }}"
 
+- name: Get stats of the galaxy_signing_service.gpg
+  ansible.builtin.stat:
+    path: "{{ aap_dir }}/galaxy_signing_service.gpg"
+  register: private_galaxy_signing_service
+
 - name: GPG export private key
   ansible.builtin.shell: "gpg --output {{ aap_dir }}/galaxy_signing_service.gpg --armor --export-secret-key"
+  when: not private_galaxy_signing_service.stat.exists
+
+- name: Get stat of galaxy_signing_service.asc
+  ansible.builtin.stat:
+    path: "/home/{{ username }}/galaxy_signing_service.asc"
+  register: public_galaxy_signing_service
 
 - name: GPG export public key
   ansible.builtin.shell: "gpg --output /home/{{ username }}/galaxy_signing_service.asc --armor --export"
+  when: not public_galaxy_signing_service.stat.exists
 
 - name: Delete default gpg vault
   file:

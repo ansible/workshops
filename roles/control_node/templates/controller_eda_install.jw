@@ -1,0 +1,39 @@
+[automationcontroller]
+{{ ansible_default_ipv4.address }} ansible_connection=local
+
+[automationedacontroller]
+{{ ansible_default_ipv4.address }} ansible_connection=local
+
+[database]
+{{ ansible_default_ipv4.address }} ansible_connection=local
+
+
+[all:vars]
+admin_password='{{ admin_password }}'
+automationcontroller_client_max_body_size='20M'
+
+pg_host='{{ ansible_default_ipv4.address }}'
+pg_port='5432'
+
+pg_database='awx'
+pg_username='awx'
+pg_password='{{ admin_password }}'
+pg_sslmode='prefer'
+
+gpgcheck='{{ gpgcheck | default(1) }}'
+aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'
+ignore_preflight_errors = True
+
+registry_url='{{ ee_registry_name }}'
+registry_username='{{ redhat_username }}'
+registry_password='{{ redhat_password }}'
+
+controller_hostname='controller.replaceme.example.com'
+automationedacontroller_hostname='eda.replaceme.example.com'
+
+automationedacontroller_admin_password='{{ admin_password }}'
+automationedacontroller_pg_host='{{ ansible_default_ipv4.address }}'
+automationedacontroller_pg_port=5432
+automationedacontroller_pg_database='automationedacontroller'
+automationedacontroller_pg_username='automationedacontroller'
+automationedacontroller_pg_password='{{ admin_password }}'

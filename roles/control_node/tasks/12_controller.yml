@@ -11,6 +11,12 @@
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is defined and create_cluster|bool
 
+- name: template inventory file for Ansible Controller and EDA Install
+  template:
+    src: "controller_install.j2"
+    dest: "{{ aap_dir }}/inventory"
+  when: create_cluster | default(false) | bool == false and eda_controller | default(false) | bool == true
+
 - name: run the Automation Controller installer
   shell: "{{ controller_install_command }}"
   args:

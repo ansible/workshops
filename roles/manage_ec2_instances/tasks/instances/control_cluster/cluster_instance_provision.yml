@@ -73,7 +73,7 @@
         assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
         create_instance_profile: true
         description: VPC Lockdown role for "{{ ec2_name_prefix }}" workshop
-      loop: "{{ range(1, student_total + 1)|list }}"
+      loop: "{{ range(1, student_total|int + 1)|list }}"
 
     - name: Create control node instance role
       community.aws.iam_role:
@@ -81,7 +81,7 @@
         assume_role_policy_document: "{{ lookup('file','AssumeRole_policy.json') }}"
         create_instance_profile: true
         description: Control node instance role for "{{ ec2_name_prefix }}" workshop
-      loop: "{{ range(1, student_total + 1)|list }}"
+      loop: "{{ range(1, student_total|int + 1)|list }}"
 
     - name: Generate IAM policy for control node IAM instance role
       community.aws.iam_policy:
@@ -90,7 +90,7 @@
         policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
         state: present
         policy_json: "{{ lookup( 'template', 'iam_vpc_lockdown_policy.json.j2') }}"
-      loop: "{{ range(1, student_total + 1)|list }}"
+      loop: "{{ range(1, student_total|int + 1)|list }}"
       loop_control:
         index_var: loop_idx
 

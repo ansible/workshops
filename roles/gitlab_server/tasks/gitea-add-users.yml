@@ -36,7 +36,7 @@
     --password """{{ admin_password }}"""
     --email student{{ item }}@example.com
     --must-change-password=false
-  with_sequence: count="{{ student_total }}"
+  with_sequence: count="{{ student_total|int}}"
   become_user: gitea
   register: gitearesult
   failed_when:

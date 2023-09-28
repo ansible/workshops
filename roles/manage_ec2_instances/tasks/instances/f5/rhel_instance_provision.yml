@@ -6,7 +6,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ f5_rhel_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int}}"
     state: running
     network:
       assign_public_ip: true
@@ -23,7 +23,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int}}"
       short_name: node1
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
@@ -67,7 +67,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ f5_rhel_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int}}"
     state: running
     network:
       assign_public_ip: true
@@ -84,7 +84,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner for F5 workshop"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int}}"
       short_name: node2
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"

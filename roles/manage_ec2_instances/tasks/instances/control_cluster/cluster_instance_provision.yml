@@ -6,7 +6,7 @@
     instance_type: "{{ ec2_info[control_type].size[list_count|int] }}"
     image_id: "{{ ansible_control_node_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int}}"
     state: running
     filters:
       "tag:Workshop_ansible": "{{ ec2_name_prefix }}-ansible-{{ sequence }}"
@@ -19,7 +19,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int}}"
       username: "{{ ec2_info[control_type].username }}"
       short_name: "ansible-{{ sequence }}"
       ansible-workshops: "true"

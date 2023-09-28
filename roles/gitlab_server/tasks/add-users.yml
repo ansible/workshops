@@ -125,7 +125,7 @@
         "skip_confirmation": true
       }
   register: create_user
-  with_sequence: count="{{ student_total }}"
+  with_sequence: count="{{ student_total|int}}"
 
 - name: GitLab Post | Get local user information via API
   uri:
@@ -138,5 +138,5 @@
     headers:
       Content-Type: application/json
       Authorization: Bearer {{ gitlab_access_token.json.access_token }}
-  with_sequence: count="{{ student_total }}"
+  with_sequence: count="{{ student_total|int}}"
   register: gitlab_local_users

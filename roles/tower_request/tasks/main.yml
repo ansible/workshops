@@ -15,7 +15,7 @@
             ec2_name_prefix: "{{ ec2_name_prefix }}"
             aws_user: "{{ aws_user }}"
             ec2_region: "{{ ec2_region }}"
-            student_total: "{{ student_total }}"
+            student_total: "{{ student_total|int }}"
             workshop_type: "{{ workshop_type }}"
         body_format: json
   rescue:

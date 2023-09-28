@@ -31,13 +31,13 @@
   template:
     src: "student_inventory/instances_{{workshop_type}}.j2"
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
-  with_sequence: count="{{ student_total }}"
+  with_sequence: count="{{ student_total|int }}"
 
 - name: Generate student etchosts
   template:
     src: "etchosts/etchosts_{{workshop_type}}.j2"
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
-  with_sequence: count="{{ student_total }}"
+  with_sequence: count="{{ student_total|int }}"
 
 - name: Generate instructor inventory
   template:

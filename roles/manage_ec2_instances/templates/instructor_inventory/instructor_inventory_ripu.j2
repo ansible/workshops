@@ -4,7 +4,7 @@ ansible_port={{ ssh_port }}
 ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
 {% endif %}
 
-{% for number in range(1,student_total + 1) %}
+{% for number in range(1,student_total|int + 1) %}
 [student{{ number }}]
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}

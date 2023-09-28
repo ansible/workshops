@@ -12,7 +12,7 @@
         query: record_sets
         hosted_zone_id: "{{AWSINFO.zone_id}}"
         start_record_name: "student1.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
-        max_items: "{{student_total|int}}"
+        max_items: "{{ student_total|int }}"
       register: record_sets
 
     - name: DELETE DNS ENTRIES FOR EACH STUDENT

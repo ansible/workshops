@@ -9,7 +9,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ node_ami_rhel7.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     filters:
       instance-state-name: running
       "tag:Workshop_node1": "{{ ec2_name_prefix }}-node1"
@@ -23,7 +23,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
@@ -107,7 +107,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ node_ami_rhel7.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     filters:
       instance-state-name: running
       "tag:Workshop_node2": "{{ ec2_name_prefix }}-node2"
@@ -121,7 +121,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
@@ -201,7 +201,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ node_ami_rhel8.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     filters:
       instance-state-name: running
       "tag:Workshop_node3": "{{ ec2_name_prefix }}-node3"
@@ -215,7 +215,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
@@ -295,7 +295,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ node_ami_rhel8.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     filters:
       instance-state-name: running
       "tag:Workshop_node4": "{{ ec2_name_prefix }}-node4"
@@ -309,7 +309,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "{{ lookup('community.general.random_pet') }}"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
@@ -391,7 +391,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     filters:
       instance-state-name: running
       "tag:Workshop_isonode": "{{ ec2_name_prefix }}-isonode"
@@ -403,7 +403,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "isonode"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"
@@ -452,7 +452,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image_id: "{{ node_ami_rhel.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     filters:
       instance-state-name: running
       "tag:Workshop_remotenode": "{{ ec2_name_prefix }}-remotenode"
@@ -464,7 +464,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "remotenode"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"

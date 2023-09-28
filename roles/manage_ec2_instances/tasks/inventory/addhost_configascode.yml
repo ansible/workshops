@@ -52,7 +52,7 @@
     state: absent
     instance_ids: "{{ generic_hub_host_facts.instances | map(attribute='instance_id') | list }}"
     wait: true
-    wait_timeout: "{{ student_total|int* 300 | int}}"
+    wait_timeout: "{{ student_total|int * 300 | int}}"
   register: result_ec2_destroy
 
 - name: Add automation hub instance to host group

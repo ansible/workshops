@@ -25,7 +25,7 @@
       owner: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: 'gitlab'
       long_name: "gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
       username: "{{ ec2_info['skylight_rhel8_gitlab']['username'] }}"
@@ -53,7 +53,7 @@
     instance_type: "{{ ec2_info[hub_type].size }}"
     image_id: "{{ ansible_hub_node_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     state: running
     network:
       assign_public_ip: true
@@ -69,7 +69,7 @@
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       username: "{{ ec2_info[hub_type].username }}"
       short_name: "automation-hub"
       ansible-workshops: "true"

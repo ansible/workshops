@@ -8,7 +8,7 @@
     instance_type: "{{ ec2_info[centos7].size[list_count|int] }}"
     image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     state: running
     filters:
       instance-state-name: running
@@ -23,7 +23,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "node4"
       username: "{{ ec2_info[centos7].username }}"
       ansible-workshops: "true"
@@ -86,7 +86,7 @@
     instance_type: "{{ ec2_info[centos7].size[list_count|int] }}"
     image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     state: running
     filters:
       instance-state-name: running
@@ -101,7 +101,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "node5"
       username: "{{ ec2_info[centos7].username }}"
       ansible-workshops: "true"
@@ -164,7 +164,7 @@
     instance_type: "{{ ec2_info[centos7].size[list_count|int] }}"
     image_id: "{{ node_ami_centos7.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     state: running
     filters:
       instance-state-name: running
@@ -179,7 +179,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "node6"
       username: "{{ ec2_info[centos7].username }}"
       ansible-workshops: "true"

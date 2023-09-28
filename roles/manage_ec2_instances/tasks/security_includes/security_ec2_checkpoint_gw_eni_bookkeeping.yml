@@ -78,7 +78,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       Subnet: '{{ ec2_name_prefix }}-subnet1'
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -102,7 +102,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       Subnet: '{{ ec2_name_prefix }}-subnet1'
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -125,7 +125,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       Subnet: '{{ ec2_name_prefix }}-subnet2'
       Workshop: "{{ ec2_name_prefix }}"
       uuid: "{{ ec2_name_prefix }}"
@@ -210,7 +210,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "checkpoint_gw"
       username: "{{ec2_info.checkpoint_gw.username}}"
       ansible-workshops: "true"

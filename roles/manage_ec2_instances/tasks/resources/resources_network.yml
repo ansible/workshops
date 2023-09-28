@@ -8,7 +8,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       ansible-workshops: "true"
   register: create_vpc2
   when: ec2_vpc_id2 is undefined
@@ -25,7 +25,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       ansible-workshops: "true"
     rules:
       - proto: 47
@@ -79,7 +79,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       ansible-workshops: "true"
   register: create_subnet2
   until: create_subnet2 is not failed
@@ -94,7 +94,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "Total {{student_total|int}}"
+      Students: "Total {{ student_total|int }}"
       ansible-workshops: "true"
   register: igw2
   until: igw2 is not failed
@@ -114,7 +114,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total|int}}"
+      Students: "{{ student_total|int }}"
       ansible-workshops: "true"
   register: routetablenetworking
   until: routetablenetworking is not failed

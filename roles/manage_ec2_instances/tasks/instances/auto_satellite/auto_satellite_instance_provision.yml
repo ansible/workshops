@@ -8,7 +8,7 @@
     instance_type: "{{ ec2_info['satellite'].size[list_count|int] }}"
     image_id: "{{ sat_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total|int}}"
+    exact_count: "{{ student_total|int }}"
     state: running
     filters:
       instance-state-name: running
@@ -23,7 +23,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total|int}}"
+      Students: "{{ student_total|int }}"
       short_name: "satellite"
       username: "{{ ec2_info[rhel].username }}"
       ansible-workshops: "true"

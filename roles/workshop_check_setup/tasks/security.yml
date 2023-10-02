@@ -8,20 +8,6 @@
 - name: Install required roles
   community.general.ansible_galaxy_install:
     type: role
-    name: "{{ item }}"
+    requirements_file: "{{ role_path }}/files/security_requirements.yml"
     dest: ./workshop_specific/roles/
-  async: 600
-  poll: 0
-  loop:
-    - 'geerlingguy.repo-epel'
-    - 'ansible_security.ids_config'
-    - 'ansible_security.ids_install'
   register: required_role_loop_out
-
-- name: Install required roles | Async
-  ansible.builtin.async_status:
-    jid: "{{ item['ansible_job_id'] }}"
-  loop: "{{ required_role_loop_out['results'] }}"
-  register: job_result
-  until: job_result.finished
-  retries: 30

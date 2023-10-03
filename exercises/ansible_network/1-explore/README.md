@@ -4,18 +4,20 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Diagram](#diagram)
-* [Guide](#guide)
-   * [Step 1 - Connecting via VS Code](#step-1---connecting-via-vs-code)
-   * [Step 2 - Using the Terminal](#step-2---using-the-terminal)
-   * [Step 3 - Examining Execution Environments](#step-3---examining-execution-environments)
-   * [Step 4 - Examining the ansible-navigator configuration](#step-4---examining-the-ansible-navigator-configuration)
-   * [Step 5 - Examining inventory](#step-5---examining-inventory)
-   * [Step 6 - Understanding inventory](#step-6---understanding-inventory)
-   * [Step 7 - Using ansible-navigator to explore inventory](#step-7---using-ansible-navigator-to-explore-inventory)
-   * [Step 8 - Connecting to network devices](#step-8---connecting-to-network-devices)
-* [Complete](#complete)
+- [Exercise 1 - Exploring the lab environment](#exercise-1---exploring-the-lab-environment)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Diagram](#diagram)
+  - [Guide](#guide)
+    - [Step 1 - Connecting via VS Code](#step-1---connecting-via-vs-code)
+    - [Step 2 - Using the Terminal](#step-2---using-the-terminal)
+    - [Step 3 - Examining Execution Environments](#step-3---examining-execution-environments)
+    - [Step 4 - Examining the ansible-navigator configuration](#step-4---examining-the-ansible-navigator-configuration)
+    - [Step 5 - Examining inventory](#step-5---examining-inventory)
+    - [Step 6 - Understanding inventory](#step-6---understanding-inventory)
+    - [Step 7 - Using ansible-navigator to explore inventory](#step-7---using-ansible-navigator-to-explore-inventory)
+    - [Step 8 - Connecting to network devices](#step-8---connecting-to-network-devices)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -123,18 +125,20 @@ Selecting `2` for `Ansible version and collections` will show us all Ansible Col
 Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
 
 ```bash
-$ cat ~/.ansible-navigator.yml
+$ cat .ansible-navigator.yml 
 ---
 ansible-navigator:
   ansible:
-    inventories:
-    - /home/student/lab_inventory/hosts
+    inventory:
+      entries:
+      - /home/student/lab_inventory/hosts
 
   execution-environment:
     image: quay.io/acme_corp/network-ee:latest
     enabled: true
     container-engine: podman
-    pull-policy: missing
+    pull:
+      policy: missing
     volume-mounts:
     - src: "/etc/ansible/"
       dest: "/etc/ansible/"

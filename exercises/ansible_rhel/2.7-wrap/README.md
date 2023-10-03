@@ -5,16 +5,18 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-  * [Let’s set the stage](#lets-set-the-stage)
-  * [The Git Repository](#the-git-repository)
-  * [Prepare Inventory](#prepare-inventory)
-  * [Create the Template](#create-the-template)
-  * [Check the results](#check-the-results)
-  * [Add Survey](#add-survey)
-  * [Solution](#solution)
-* [The End](#the-end)
+- [Workshop Exercise - Wrap up](#workshop-exercise---wrap-up)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Let’s set the stage](#lets-set-the-stage)
+    - [The Git Repository](#the-git-repository)
+    - [Prepare Inventory](#prepare-inventory)
+    - [Create the Template](#create-the-template)
+    - [Check the Results](#check-the-results)
+    - [Add Survey](#add-survey)
+    - [Solution](#solution)
+  - [The End](#the-end)
 
 ## Objective
 
@@ -101,8 +103,7 @@ Within the **Details** tab of the `Webserver` group, click on **Edit**. Within t
 stage: dev
 ```
 
-Within the **Details** tab of the `Webserver` inventory, click the **Hosts** tab, click the **Add** button and **Add existing host**. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
-
+Within the **Details** tab of the `Webserver` group, click the **Hosts** tab, click the **Add** button and **Add existing host**. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
 
 Within **Resources** -> **Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
 

@@ -5,14 +5,16 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Your Lab Environment](#your-lab-environment)
-   * [Step 1 - Access the Environment](#step-1---access-the-environment)
-   * [Step 2 - Using the Terminal](#step-2---using-the-terminal)
-   * [Step 3 - Examining Execution Environments](#step-3---examining-execution-environments)
-   * [Step 4 - Examining the ansible-navigator configuration](#step-4---examining-the-ansible-navigator-configuration)
-   * [Step 5 - Challenge Labs](#step-5---challenge-labs)
+- [Workshop Exercise - Check the Prerequisites](#workshop-exercise---check-the-prerequisites)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Your Lab Environment](#your-lab-environment)
+    - [Step 1 - Access the Environment](#step-1---access-the-environment)
+    - [Step 2 - Using the Terminal](#step-2---using-the-terminal)
+    - [Step 3 - Examining Execution Environments](#step-3---examining-execution-environments)
+    - [Step 4 - Examining the ansible-navigator configuration](#step-4---examining-the-ansible-navigator-configuration)
+    - [Step 5 - Challenge Labs](#step-5---challenge-labs)
 
 ## Objective
 
@@ -138,7 +140,7 @@ Note the following parameters within the `ansible-navigator.yml` file:
 * `inventories`: shows the location of the ansible inventory being used
 * `execution-environment`: where the default execution environment is set
 
-For a full listing of every configurable knob checkout the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/)
+For a full listing of every configurable knob checkout the [documentation](https://ansible.readthedocs.io/projects/navigator/settings/)
 
 ### Step 5 - Challenge Labs
 

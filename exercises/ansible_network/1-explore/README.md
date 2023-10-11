@@ -275,6 +275,10 @@ rtr1#show ver
 Cisco IOS XE Software, Version 16.09.02
 ```
 
+>**Note**
+>
+> The workshops have just been upgraded to Red Hat Enterprise Linux 9 which is using a newer more secure [system-wide cryptographic policy](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening).  If you hit the issue `no mutual signature supported` for a Cisco network device, please run the command `sudo update-crypto-policies --set LEGACY` and exit/restart your terminal so the policy will take effect.  This will be fixed in a future workshop release.  Please open issues on https://github.com/ansible/workshops
+
 ## Complete
 
 You have completed lab exercise 1!  

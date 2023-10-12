@@ -1,0 +1,12 @@
+---
+- name: Print out pre_build var
+  ansible.builtin.debug:
+    var: pre_build
+    
+- name: setup vscode for web browser access
+  include_tasks: "codeserver.yml"
+  when: not pre_build|bool
+
+- name: setup vscode everytime
+  include_tasks: "codeserver_always.yml"
+  when: pre_build|bool

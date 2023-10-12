@@ -1,4 +1,15 @@
 ---
+- name: configure control node for rhel 90
+  hosts: "control_nodes"
+  become: true
+  gather_facts: false
+  tasks:
+  - name: Configure crypto policies
+    include_role:
+      name: rhel-system-roles.crypto_policies
+    vars:
+      - crypto_policies_policy: LEGACY
+
 - name: wait for routers to have ssh reachability
   hosts: "routers"
   gather_facts: false

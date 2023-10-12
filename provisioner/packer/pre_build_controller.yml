@@ -41,5 +41,5 @@
     - name: Configure control node
       ansible.builtin.include_role:
         name: ../../roles/control_node
-    - include_role:
-        name: ../../roles/code_server
+    # - include_role:
+    #     name: ../../roles/code_server

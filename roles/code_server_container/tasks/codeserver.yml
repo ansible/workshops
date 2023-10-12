@@ -1,0 +1,56 @@
+---
+- name: Pull code-server image
+  containers.podman.podman_image:
+    name: "{{ item }}"
+  register: podman_pull
+  until: podman_pull is not failed
+  retries: 5
+  delay: 15
+
+# source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
+# - name: ensure custom facts directory exists
+#   ansible.builtin.file:
+#     path: "/home/{{ username }}/.local/share/code-server/User/"
+#     recurse: true
+#     state: directory
+#     owner: "{{ username }}"
+
+# - name: Apply code server defaults
+#   ansible.builtin.template:
+#     src: settings.json
+#     dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
+#     owner: "{{ username }}"
+
+# - name: Create a directory if it does not exist
+#   ansible.builtin.file:
+#     path: /home/{{ username }}/.local/share/code-server/extensions/
+#     state: directory
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+
+# - name: Download files for vscode
+#   ansible.builtin.get_url:
+#     url: "{{ item }}"
+#     dest: /home/{{ username }}/.local/share/code-server/extensions/
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+#   loop:
+#     - https://github.com/ansible/workshops/raw/devel/files/bierner.markdown-preview-github-styles-0.1.6.vsix
+#     - https://github.com/ansible/workshops/raw/devel/files/hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+#     - https://github.com/ansible/workshops/raw/devel/files/redhat.ansible-0.4.5.vsix
+#   register: download_extension
+#   until: download_extension is not failed
+#   retries: 5
+
+# - name: install ansible and markdown extensions
+#   become_user: "{{ username }}"
+#   ansible.builtin.command: "/bin/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
+#   loop:
+#     - bierner.markdown-preview-github-styles-0.1.6.vsix
+#     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+#     - redhat.ansible-0.4.5.vsix
+#   ignore_errors: true
+#   register: install_extension
+#   until: install_extension is not failed
+#   retries: 5
+

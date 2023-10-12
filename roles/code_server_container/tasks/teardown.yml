@@ -1,0 +1,6 @@
+---
+- name: delete DNS specific information
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "{{ role_path }}/tasks/dns/{{ dns_type }}.yml"
+    - "{{ role_path }}/tasks/dns/none.yml"

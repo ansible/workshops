@@ -11,12 +11,41 @@
     dest: "{{ aap_dir }}/inventory"
   when: create_cluster is defined and create_cluster|bool
 
+- name: Copy manifest.zip to {{ app_dir }}
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/manifest.zip"
+    dest: "{{ aap_dir }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
+
+- name: Create {{ aap_dir }}/config directory
+  ansible.builtin.file:
+    path: "{{ aap_dir }}/config"
+    state: directory
+    mode: '0755'
+
+- name: Copy users.yml to {{ aap_dir }}/config
+  ansible.builtin.copy:
+    src: "users.yml"
+    dest: "{{ aap_dir }}/config"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
+
 - name: run the Automation Controller installer
+  become: true
+  become_user: ec2-user
+  environment:
+    ANSIBLE_COLLECTIONS_PATH: "{{ aap_dir }}/collections"
   shell: "{{ controller_install_command }}"
   args:
     chdir: "{{ aap_dir }}"
   async: 1400
   poll: 15
+
+# - name: run the Automation Controller installer
+#   ansible.builtin.import_playbook: ansible.containerized_installer.install
 
 - name: wait for Automation Controller to be up
   uri:
@@ -34,65 +63,65 @@
   debug:
     msg: '{{ check2.json }}'
 
-- name: load license block
-  block:
-    - name: check for base64 variable first
-      copy:
-        dest: '{{ playbook_dir }}/manifest.zip'
-        content: '{{ base64_manifest | b64decode }}'
-      delegate_to: localhost
-      become: false
-      when: base64_manifest is defined
-    - name: unable to load base64_manifest
-      debug:
-        msg: 'No base64_manifest variable found, trying to open manifest.zip'
-      when: base64_manifest is undefined
-    - name: Load manifest into variable
-      local_action:
-        module: slurp
-        src: "{{ playbook_dir }}/manifest.zip"
-      register: manifest_file
-      become: false
+# - name: load license block
+#   block:
+#     - name: check for base64 variable first
+#       copy:
+#         dest: '{{ playbook_dir }}/manifest.zip'
+#         content: '{{ base64_manifest | b64decode }}'
+#       delegate_to: localhost
+#       become: false
+#       when: base64_manifest is defined
+#     - name: unable to load base64_manifest
+#       debug:
+#         msg: 'No base64_manifest variable found, trying to open manifest.zip'
+#       when: base64_manifest is undefined
+#     - name: Load manifest into variable
+#       local_action:
+#         module: slurp
+#         src: "{{ playbook_dir }}/manifest.zip"
+#       register: manifest_file
+#       become: false
 
-- name: Post manifest file
-  uri:
-    url: https://localhost/api/v2/config/
-    method: POST
-    user: admin
-    password: "{{ admin_password }}"
-    body: '{ "eula_accepted": true, "manifest": "{{ manifest_file.content }}" }'
-    body_format: json
-    validate_certs: false
-    force_basic_auth: true
-  register: license_controller
-  until: license_controller is not failed
-  retries: 5
+# - name: Post manifest file
+#   uri:
+#     url: https://localhost/api/v2/config/
+#     method: POST
+#     user: admin
+#     password: "{{ admin_password }}"
+#     body: '{ "eula_accepted": true, "manifest": "{{ manifest_file.content }}" }'
+#     body_format: json
+#     validate_certs: false
+#     force_basic_auth: true
+#   register: license_controller
+#   until: license_controller is not failed
+#   retries: 5
 
 ## Execution environments
 
-- name: Login to redhat registry
-  containers.podman.podman_login:
-    username: '{{ redhat_username }}'
-    password: '{{ redhat_password }}'
-    registry: '{{ ee_registry_name }}'
-  become_user: "awx"
+# - name: Login to redhat registry
+#   containers.podman.podman_login:
+#     username: '{{ redhat_username }}'
+#     password: '{{ redhat_password }}'
+#     registry: '{{ ee_registry_name }}'
+#   become_user: "awx"
 
-- name: Mod containers.conf to utilize max of 10 parallel threads
-  become_user: "awx"
-  lineinfile:
-    path: /var/lib/awx/.config/containers/containers.conf
-    line: 'image_parallel_copies=10'
-    insertafter: EOF
+# - name: Mod containers.conf to utilize max of 10 parallel threads
+#   become_user: "awx"
+#   lineinfile:
+#     path: /var/lib/awx/.config/containers/containers.conf
+#     line: 'image_parallel_copies=10'
+#     insertafter: EOF
 
-- name: Pull supported images
-  become_user: "awx"
-  containers.podman.podman_image:
-    name: "{{ item }}"
-  loop: "{{ ee_images }}"
-  register: podman_pull_supported
-  until: podman_pull_supported is not failed
-  retries: 5
-  delay: 15
+# - name: Pull supported images
+#   become_user: "awx"
+#   containers.podman.podman_image:
+#     name: "{{ item }}"
+#   loop: "{{ ee_images }}"
+#   register: podman_pull_supported
+#   until: podman_pull_supported is not failed
+#   retries: 5
+#   delay: 15
 
 - name: create container registry credential
   awx.awx.credential:

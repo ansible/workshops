@@ -1,0 +1,28 @@
+[automationcontroller]
+{{ ansible_default_ipv4.address }} ansible_connection=local
+
+[automationhub]
+
+[database]
+
+[servicescatalog_workers]
+
+[all:vars]
+admin_password='{{admin_password}}'
+automationcontroller_client_max_body_size='20M'
+
+pg_host=''
+pg_port=''
+
+pg_database='awx'
+pg_username='awx'
+pg_password='{{admin_password}}'
+pg_sslmode='prefer'  # set to 'verify-full' for client-side enforced SSL
+
+gpgcheck='{{ gpgcheck | default(1)}}'
+aw_repo_url='{{ aw_repo_url | default("https://releases.ansible.com/ansible-tower/") }}'
+ignore_preflight_errors = True
+
+registry_url='{{ ee_registry_name }}'
+registry_username='{{ redhat_username }}'
+registry_password='{{ redhat_password }}'

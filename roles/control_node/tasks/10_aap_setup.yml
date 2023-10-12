@@ -1,38 +1,59 @@
 ---
 - name: Create tmp directory to store AAP tar.gz
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
     suffix: "aapbundle"
   register: tempdir
 
-- name: copy AAP tar.gz
-  copy:
+- name: Copy AAP tar.gz
+  ansible.builtin.copy:
     src: "{{ aap_archive | default(playbook_dir + '/aap.tar.gz') }}"
     dest: "{{ tempdir.path }}/aap.tar.gz"
 
 - name: Create directory for automation controller
-  file:
+  ansible.builtin.file:
     path: "{{ aap_dir }}"
     state: directory
 
 - name: Extract AAP tar.gz install
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ tempdir.path }}/aap.tar.gz"
     dest: "{{ aap_dir }}"
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
 
-- name: Set AAP local repository on controller node
-  yum_repository:
-    name: aap_installer
-    description: aap_installer
-    baseurl: "file:///{{ aap_dir }}/bundle/packages/el8/repos/"
-    gpgcheck: false
-  become: true
+# - name: Set AAP local repository on controller node
+#   ansible.builtin.yum_repository:
+#     name: aap_installer
+#     description: aap_installer
+#     baseurl: "file:///{{ aap_dir }}/bundle/packages/el8/repos/"
+#     gpgcheck: false
+#   become: true
 
 - name: Install vimrc in home directory
-  template:
+  ansible.builtin.template:
     src: vimrc.j2
     dest: "/home/{{ username }}/.vimrc"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+# - name: Register as user {{ redhat_username }} and auto-subscribe to available content.
+#   community.general.redhat_subscription:
+#     state: present
+#     username: "{{ redhat_username }}"
+#     password: "{{ redhat_password }}"
+#     auto_attach: true
+#   register: redhat_sub
+#   until: redhat_sub is not failed
+#   retries: 4
+#   delay: 5
+
+- name: Install ansible-core
+  dnf:
+    name:
+      - ansible-core
+    state: present
+  register: dnf_check
+  until: dnf_check is not failed
+  retries: 4
+  delay: 5

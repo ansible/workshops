@@ -1,7 +1,8 @@
 ---
 username: "ec2-user"
-aap_dir: "/home/{{ username }}/aap_install"
+aap_dir: "/home/ec2-user/aap_install"
 output_dir: "{{ playbook_dir }}/{{ ec2_name_prefix }}"
 
 # Controller install command
-controller_install_command: "./setup.sh -e gpgcheck=0"
+# controller_install_command: "./setup.sh -e gpgcheck=0"
+controller_install_command: "ansible-playbook -i inventory ansible.containerized_installer.install -e gpgcheck=0"

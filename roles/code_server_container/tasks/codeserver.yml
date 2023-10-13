@@ -43,9 +43,9 @@
     ports:
       - "8080:8080"
     volumes:
-      - "{{ ansible_env.HOME }}/code-server-config:/home/coder/.config:Z"
-      - "{{ ansible_env.HOME }}/code-server-project:/home/coder/project:Z"
-      - "{{ ansible_env.HOME }}/oct13.demoredhat.com:/home/coder/certs:Z"
+      - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
+      - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
+      - "/home/{{ username }}/oct13.demoredhat.com:/home/coder/certs:Z"
     env:
       DOCKER_USER: "{{ ansible_env.USER }}"
       PASSWORD: "{{ admin_password }}"

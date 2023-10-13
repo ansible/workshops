@@ -1,6 +1,6 @@
 ---
 - name: Pull code-server image
-  become_user: awx
+  become_user: "{{ username }}"
   containers.podman.podman_image:
     name: "docker.io/codercom/code-server:latest"
   register: podman_pull
@@ -9,7 +9,7 @@
   delay: 15
 
 - name: Create code-server directories
-  become_user: awx
+  become_user: "{{ username }}"
   file:
     path: "{{ item }}"
     state: directory
@@ -19,7 +19,7 @@
     - "{{ ansible_env.HOME }}/code-server-project"
 
 - name: Ensure code-server container is running
-  become_user: awx
+  become_user: "{{ username }}"
   containers.podman.podman_container:
     name: code-server
     image: codercom/code-server:latest
@@ -35,7 +35,7 @@
     tty: yes
 
 - name: Ensure code-server container is started
-  become_user: awx
+  become_user: "{{ username }}"
   containers.podman.podman_container:
     name: code-server
     image: codercom/code-server:latest

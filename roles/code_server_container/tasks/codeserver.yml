@@ -44,7 +44,7 @@
     volumes:
       - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
       - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
-      - "/home/{{ username }}/oct13.demoredhat.com:/home/coder/certs:Z"
+      - "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}:/home/coder/certs:Z"
     env:
       DOCKER_USER: "{{ username }}"
       PASSWORD: "{{ admin_password }}"

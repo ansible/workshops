@@ -32,7 +32,6 @@
     volumes:
       - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
       - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
-    tty: yes
 
 - name: Ensure code-server container is started
   become_user: "{{ username }}"

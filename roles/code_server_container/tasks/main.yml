@@ -8,7 +8,7 @@
 - name: Ensure code-server container is absent (deleted)
   containers.podman.podman_container:
     name: code-server
-    state: absent    
+    state: absent
 
 - name: Setup SSL for the code-server container  
   include_tasks: "dns.yml"

@@ -15,8 +15,8 @@
     state: directory
     mode: '0777'
   loop:
-    - "{{ ansible_env.HOME }}/code-server-config"
-    - "{{ ansible_env.HOME }}/code-server-project"
+    - "/home/{{ username }}/code-server-config"
+    - "/home/{{ username }}/code-server-project"
 
 - name: Ensure code-server container is running
   become_user: "{{ username }}"
@@ -30,8 +30,8 @@
       DOCKER_USER: "{{ ansible_env.USER }}"
       PASSWORD: "{{ admin_password }}"
     volumes:
-      - "{{ ansible_env.HOME }}/code-server-config:/home/coder/.config:Z"
-      - "{{ ansible_env.HOME }}/code-server-project:/home/coder/project:Z"
+      - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
+      - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
     tty: yes
 
 - name: Ensure code-server container is started

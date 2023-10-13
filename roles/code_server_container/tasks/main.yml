@@ -1,12 +1,20 @@
 ---
-- name: Print out pre_build var
+- name: Print out pre_build var and dns_type
   ansible.builtin.debug:
-    var: pre_build
-    
+    msg: 
+      - pre_build: "{{ pre_build | default('none set') }}"
+      - dns_type: "{{ dns_type | default('none set') }}"
+
+- name: Ensure code-server container is absent (deleted)
+  containers.podman.podman_container:
+    name: code-server
+    state: absent    
+
+- name: Setup SSL for the code-server container  
+  include_tasks: "dns.yml"
+  when:
+    - dns_type is defined
+    - dns_type != "none"
+
 - name: setup vscode for web browser access
   include_tasks: "codeserver.yml"
-  when: not pre_build|bool
-
-- name: setup vscode everytime
-  include_tasks: "codeserver_always.yml"
-  when: pre_build|bool

@@ -14,7 +14,6 @@
   gather_facts: true
   become: true
   vars:
-    dns_type: none
     controllerinstall: true
     code_server: true
     username: student
@@ -41,5 +40,5 @@
     - name: Configure control node
       ansible.builtin.include_role:
         name: ../../roles/control_node
-    # - include_role:
-    #     name: ../../roles/code_server
+    - include_role:
+        name: ../../roles/code_server_container

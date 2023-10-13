@@ -1,11 +1,57 @@
 ---
 - name: Pull code-server image
   containers.podman.podman_image:
-    name: "{{ item }}"
+    name: "docker.io/codercom/code-server:latest"
   register: podman_pull
   until: podman_pull is not failed
   retries: 5
   delay: 15
+
+- name: Create code-server directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0777'
+  loop:
+    - "{{ ansible_env.HOME }}/code-server-config"
+    - "{{ ansible_env.HOME }}/code-server-project"
+
+- name: Ensure code-server container is running
+  ansible.builtin.podman_container:
+    name: code-server
+    image: codercom/code-server:latest
+    state: started
+    ports:
+      - "8080:8080"
+    env:
+      DOCKER_USER: "{{ ansible_env.USER }}"
+      PASSWORD: "{{ admin_password }}"
+    volumes:
+      - "{{ ansible_env.HOME }}/code-server-config:/home/coder/.config:Z"
+      - "{{ ansible_env.HOME }}/code-server-project:/home/coder/project:Z"
+    tty: yes
+
+- name: Ensure code-server container is started
+  containers.podman.podman_container:
+    name: code-server
+    image: codercom/code-server:latest
+    state: started
+    ports:
+      - "8080:8080"
+    volumes:
+      - "{{ ansible_env.HOME }}/code-server-config:/home/coder/.config:Z"
+      - "{{ ansible_env.HOME }}/code-server-project:/home/coder/project:Z"
+      - "{{ ansible_env.HOME }}/oct13.demoredhat.com:/home/coder/certs:Z"
+    env:
+      DOCKER_USER: "{{ ansible_env.USER }}"
+      PASSWORD: "{{ admin_password }}"
+    command:
+      - "--cert"
+      - "/home/coder/certs/cert.pem"
+      - "--cert-key"
+      - "/home/coder/certs/privkey.pem"
+  when:
+    - dns_type is defined
 
 # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
 # - name: ensure custom facts directory exists

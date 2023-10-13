@@ -16,4 +16,5 @@
     group: "{{ username }}"
     mode: preserve
     follow: yes
+    remote_src: true
     directory_mode: '0755'

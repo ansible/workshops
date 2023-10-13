@@ -8,6 +8,7 @@
     mode: '0755'
 
 - name: Copy all certs to ec2-user directory so the code-server container can use it
+  become: true
   ansible.builtin.copy:
     src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
     dest: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"

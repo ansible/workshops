@@ -17,7 +17,7 @@
     - "{{ ansible_env.HOME }}/code-server-project"
 
 - name: Ensure code-server container is running
-  ansible.builtin.podman_container:
+  containers.podman.podman_container:
     name: code-server
     image: codercom/code-server:latest
     state: started

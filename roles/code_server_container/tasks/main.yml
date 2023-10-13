@@ -6,6 +6,7 @@
       - dns_type: "{{ dns_type | default('none set') }}"
 
 - name: Ensure code-server container is absent (deleted)
+  become_user: awx
   containers.podman.podman_container:
     name: code-server
     state: absent

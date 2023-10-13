@@ -27,7 +27,7 @@
     ports:
       - "8080:8080"
     env:
-      DOCKER_USER: "{{ ansible_env.USER }}"
+      DOCKER_USER: "{{ username }}"
       PASSWORD: "{{ admin_password }}"
     volumes:
       - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
@@ -46,7 +46,7 @@
       - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
       - "/home/{{ username }}/oct13.demoredhat.com:/home/coder/certs:Z"
     env:
-      DOCKER_USER: "{{ ansible_env.USER }}"
+      DOCKER_USER: "{{ username }}"
       PASSWORD: "{{ admin_password }}"
     command:
       - "--cert"

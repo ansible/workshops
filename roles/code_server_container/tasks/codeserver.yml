@@ -56,6 +56,7 @@
       - "/home/coder/certs/privkey.pem"
   when:
     - dns_type is defined
+    - dns_type != "none"
 
 # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
 # - name: ensure custom facts directory exists

@@ -32,8 +32,11 @@
     volumes:
       - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
       - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
+  when:
+    - dns_type is defined
+    - dns_type == "none"
 
-- name: Ensure code-server container is started
+- name: Ensure code-server container is running with DNS
   become_user: "{{ username }}"
   containers.podman.podman_container:
     name: code-server

@@ -11,7 +11,7 @@
   become: true
   become_user: root
   ansible.builtin.copy:
-    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/"
     dest: "/home/ec2-user/"
     owner: "{{ username }}"
     group: "{{ username }}"

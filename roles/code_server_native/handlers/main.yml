@@ -1,3 +1,4 @@
+---
 - name: Restart code-server
   ansible.builtin.systemd:
     name: "code-server@{{ username }}"

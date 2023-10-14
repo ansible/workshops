@@ -1,5 +1,5 @@
 [automationcontroller]
-automation-controller.example.com ansible_connection=local
+{{ short_name }} ansible_connection=local
 
 [automationhub]
 
@@ -8,10 +8,9 @@ automation-controller.example.com ansible_connection=local
 [servicescatalog_workers]
 
 [database]
-automation-controller.example.com ansible_connection=local
+{{ short_name }} ansible_connection=local
 
 [all:vars]
-automationcontroller_client_max_body_size='20M'
 controller_admin_password='{{ admin_password }}'
 controller_pg_host=automation-controller.example.com
 controller_pg_password='{{admin_password}}'

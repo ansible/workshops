@@ -14,6 +14,8 @@
       password: "{{ admin_password }}"
     dest: "/home/{{ username }}/.config/code-server/config.yaml"
     mode: '0644'
+  notify:
+  - Restart code-server
 
 - name: Download code-server RPM
   ansible.builtin.get_url:

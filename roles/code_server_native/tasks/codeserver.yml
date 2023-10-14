@@ -1,0 +1,80 @@
+---
+- name: Ensure code-server configuration directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/code-server"
+    state: directory
+    mode: '0755'
+
+- name: Ensure code-server config.yaml configuration is set
+  ansible.builtin.copy:
+    content: |
+      bind-addr: 0.0.0.0:8080
+      cert: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
+      cert-key: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+    dest: "/home/{{ username }}/.config/code-server/config.yaml"
+    mode: '0644'
+
+- name: Download code-server RPM
+  ansible.builtin.get_url:
+    url: "https://github.com/coder/code-server/releases/download/v4.17.1/code-server-4.17.1-amd64.rpm"
+    dest: "/tmp/code-server.rpm"
+    mode: '0755'
+
+- name: Install code-server
+  ansible.builtin.yum:
+    name: "/tmp/code-server.rpm"
+    state: present
+
+- name: Enable and start code-server for student
+  ansible.builtin.systemd:
+    name: "code-server@{{ username }}"
+    enabled: yes
+    state: started
+
+# source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
+# - name: ensure custom facts directory exists
+#   ansible.builtin.file:
+#     path: "/home/{{ username }}/.local/share/code-server/User/"
+#     recurse: true
+#     state: directory
+#     owner: "{{ username }}"
+
+# - name: Apply code server defaults
+#   ansible.builtin.template:
+#     src: settings.json
+#     dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
+#     owner: "{{ username }}"
+
+# - name: Create a directory if it does not exist
+#   ansible.builtin.file:
+#     path: /home/{{ username }}/.local/share/code-server/extensions/
+#     state: directory
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+
+# - name: Download files for vscode
+#   ansible.builtin.get_url:
+#     url: "{{ item }}"
+#     dest: /home/{{ username }}/.local/share/code-server/extensions/
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+#   loop:
+#     - https://github.com/ansible/workshops/raw/devel/files/bierner.markdown-preview-github-styles-0.1.6.vsix
+#     - https://github.com/ansible/workshops/raw/devel/files/hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+#     - https://github.com/ansible/workshops/raw/devel/files/redhat.ansible-0.4.5.vsix
+#   register: download_extension
+#   until: download_extension is not failed
+#   retries: 5
+
+# - name: install ansible and markdown extensions
+#   become_user: "{{ username }}"
+#   ansible.builtin.command: "/bin/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
+#   loop:
+#     - bierner.markdown-preview-github-styles-0.1.6.vsix
+#     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+#     - redhat.ansible-0.4.5.vsix
+#   ignore_errors: true
+#   register: install_extension
+#   until: install_extension is not failed
+#   retries: 5
+

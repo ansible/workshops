@@ -11,6 +11,7 @@
       bind-addr: 0.0.0.0:8080
       cert: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
       cert-key: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+      password: "{{ admin_password }}"
     dest: "/home/{{ username }}/.config/code-server/config.yaml"
     mode: '0644'
 

@@ -76,6 +76,8 @@
           register: issue_controller_cert
           until: issue_controller_cert is not failed
           retries: 5
+          become: true
+          become_method: sudo
       rescue:
         - name: error with SSL cert
           debug:

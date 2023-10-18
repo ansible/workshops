@@ -117,14 +117,14 @@
         group: root
         owner: root
     - name: Symlink LetsEncrypt CA bundle to /etc/tower/tower.cert
-      ansible.builtin.file:
+      ansible.builtin.copy:
         src: "/etc/letsencrypt/live/{{ dns_name }}/fullchain.pem"
         dest: /etc/tower/tower.cert
         owner: root
         group: awx
         remote_src: true
     - name: Symlink LetsEncrypt generated private key to /etc/tower/tower.key
-      ansible.builtin.file:
+      ansible.builtin.copy:
         src: "/etc/letsencrypt/live/{{ dns_name }}/privkey.pem"
         dest: /etc/tower/tower.key
         owner: root

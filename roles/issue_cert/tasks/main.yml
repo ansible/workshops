@@ -122,16 +122,14 @@
         dest: /etc/tower/tower.cert
         owner: root
         group: awx
-        state: link
-
+        remote_src: true
     - name: Symlink LetsEncrypt generated private key to /etc/tower/tower.key
       ansible.builtin.file:
         src: "/etc/letsencrypt/live/{{ dns_name }}/privkey.pem"
         dest: /etc/tower/tower.key
         owner: root
         group: awx
-        state: link
-
+        remote_src: true
   rescue:
     - name: no SSL cert for Automation Controller
       debug:

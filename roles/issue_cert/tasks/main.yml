@@ -118,7 +118,7 @@
         owner: root
     - name: Symlink LetsEncrypt CA bundle to /etc/tower/tower.cert
       ansible.builtin.file:
-        src: "/etc/letsencrypt/live/{{ dns_name }}/letsencrypt-ca-bundle.pem"
+        src: "/etc/letsencrypt/live/{{ dns_name }}/fullchain.pem"
         dest: /etc/tower/tower.cert
         owner: root
         group: awx

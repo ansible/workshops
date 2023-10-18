@@ -47,8 +47,8 @@
       file:
         path: "{{ item }}"
         state: directory
-        owner: awx
-        group: awx
+        owner: root
+        group: root
         mode: 0750
       with_items:
         - /etc/letsencrypt
@@ -76,9 +76,6 @@
           register: issue_controller_cert
           until: issue_controller_cert is not failed
           retries: 5
-          become: true
-          become_method: sudo
-          become_user: awx
       rescue:
         - name: error with SSL cert
           debug:
@@ -95,16 +92,16 @@
         dest: "/etc/letsencrypt/live/{{ dns_name }}"
         mode: 0644
         checksum: sha256:177e1b8fc43b722b393f4200ff4d92e32deeffbb76fef5ee68d8f49c88cf9d32
-        group: awx
-        owner: awx
+        group: root
+        owner: root
     - name: download LetsEncrypt root X1 cert
       get_url:
         url: https://letsencrypt.org/certs/isrgrootx1.pem
         dest: "/etc/letsencrypt/live/{{ dns_name }}"
         mode: 0644
         checksum: sha256:22b557a27055b33606b6559f37703928d3e4ad79f110b407d04986e1843543d1
-        group: awx
-        owner: awx
+        group: root
+        owner: root
     - name: retrieve LetsEncrypt R3 cert
       slurp:
         src: "/etc/letsencrypt/live/{{ dns_name }}/lets-encrypt-r3.pem"
@@ -117,8 +114,8 @@
       template:
         src: cert_bundle.j2
         dest: "/etc/letsencrypt/live/{{ dns_name }}/letsencrypt-ca-bundle.pem"
-        group: awx
-        owner: awx
+        group: root
+        owner: root
     - name: Symlink LetsEncrypt CA bundle to /etc/tower/tower.cert
       ansible.builtin.file:
         src: "/etc/letsencrypt/live/{{ dns_name }}/letsencrypt-ca-bundle.pem"

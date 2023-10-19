@@ -99,23 +99,23 @@
         src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ student }}-etchosts.txt"
         dest: "/etc/hosts"
 
-    - name: Include control_node role
-      ansible.builtin.include_role:
-        name: ../roles/control_node
-      when: not pre_build|bool
-
-    - name: Include control_node_always role
-      ansible.builtin.include_role:
-        name: ../roles/control_node_always
-
-    # - name: Install and configure code server using code_server role
+    # - name: Include control_node role
     #   ansible.builtin.include_role:
-    #     name: ../roles/code_server
-    #   when:
-    #     - code_server is defined
-    #     - code_server
-    #     - controllerinstall is defined
-    #     - controllerinstall
+    #     name: ../roles/control_node
+    #   when: not pre_build|bool
+
+    # - name: Include control_node_always role
+    #   ansible.builtin.include_role:
+    #     name: ../roles/control_node_always
+
+    - name: Install and configure code server using code_server role
+      ansible.builtin.include_role:
+        name: ../roles/code_server_native
+      when:
+        - code_server is defined
+        - code_server
+        - controllerinstall is defined
+        - controllerinstall
 
     - name: Add dns entries for all student control nodes using aws_dns role
       ansible.builtin.include_role:

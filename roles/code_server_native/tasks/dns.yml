@@ -1,18 +1,18 @@
 ---
 - name: Ensure cert directory exists
   ansible.builtin.file:
-    path: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+    path: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: '0755'
 
-- name: Copy all certs to ec2-user directory so the code-server container can use it
+- name: Copy all certs to user directory directory so the code-server container can use it
   become: true
   become_user: root
   ansible.builtin.copy:
     src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/"
-    dest: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/"
+    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/"
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: preserve

@@ -1,8 +1,23 @@
 ---
-- name: Start service automation-controller-service, if not started
-  ansible.builtin.service:
-    name: automation-controller
+- name: check user
+  debug: 
+    msg: "{{ ansible_user_id }}"
+
+- name: check user
+  become: true
+  become_user: "{{ run_commands_user }}"
+  debug: 
+    msg: "{{ ansible_user_id }}"
+
+- name: Make sure Automation Controller is online before changing base URL
+  become: true
+  become_user: "{{ run_commands_user }}"
+  containers.podman.podman_container:
+    name: automation-controller-web
     state: started
+  register: controller_online
+  until: controller_online is not failed
+  retries: 5
 
 - name: set password
   block:

@@ -18,7 +18,15 @@
     code_server: true
     username: student
     student: "{{ username }}"
+    short_name: "ansible-1"
   tasks:
+    - name: Set hostname
+      ansible.builtin.hostname:
+        name: "{{ short_name|default('ansible-1') }}"
+    - name: Setup /etc/hosts file per student
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/etchosts.j2"
+        dest: "/etc/hosts"
     - name: Print out ansible_host var
       ansible.builtin.include_vars:
         file: "../group_vars/all/all.yml" 
@@ -41,4 +49,4 @@
       ansible.builtin.include_role:
         name: ../../roles/control_node
     - include_role:
-        name: ../../roles/code_server_container
+        name: ../../roles/code_server_native

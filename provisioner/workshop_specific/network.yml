@@ -1,12 +1,12 @@
 ---
-- name: configure control node for rhel 90
+- name: configure control node for legacy crypto
   hosts: "control_nodes"
   become: true
   gather_facts: false
   tasks:
   - name: Configure crypto policies
     include_role:
-      name: rhel-system-roles.crypto_policies
+      name: redhat.rhel_system_roles.crypto_policies
     vars:
       - crypto_policies_policy: LEGACY
 

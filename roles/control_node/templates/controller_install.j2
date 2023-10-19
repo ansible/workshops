@@ -12,7 +12,7 @@
 
 [all:vars]
 controller_admin_password='{{ admin_password }}'
-controller_pg_host=automation-controller.example.com
+controller_pg_host={{ short_name }}
 controller_pg_password='{{admin_password}}'
 
 postgresql_admin_username=postgres

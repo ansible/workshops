@@ -22,8 +22,8 @@
   ansible.builtin.copy:
     content: |
       bind-addr: 0.0.0.0:8080
-      cert: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
-      cert-key: "/home/ec2-user/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+      cert: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
+      cert-key: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
       password: "{{ admin_password }}"
     dest: "/home/{{ username }}/.config/code-server/config.yaml"
     mode: '0644'
@@ -41,6 +41,7 @@
   ansible.builtin.yum:
     name: "/tmp/code-server.rpm"
     state: present
+    disable_gpg_check: true
   when: not pre_build|bool
 
 - name: Enable and start code-server for student

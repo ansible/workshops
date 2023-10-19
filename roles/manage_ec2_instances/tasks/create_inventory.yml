@@ -12,6 +12,7 @@
     name: "{{ item.tags.Name }}"
     username: "{{ student_user }}"
     student: "{{ item.tags.Student }}"
+    student_number: "{{ item.tags.Index|int + 1 }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ item.tags.username }}"

@@ -37,17 +37,6 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-# - name: Register as user {{ redhat_username }} and auto-subscribe to available content.
-#   community.general.redhat_subscription:
-#     state: present
-#     username: "{{ redhat_username }}"
-#     password: "{{ redhat_password }}"
-#     auto_attach: true
-#   register: redhat_sub
-#   until: redhat_sub is not failed
-#   retries: 4
-#   delay: 5
-
 - name: Install ansible-core
   dnf:
     name:

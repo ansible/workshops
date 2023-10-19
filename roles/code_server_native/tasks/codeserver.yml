@@ -19,11 +19,14 @@
     - dns_type == "none"  
 
 - name: Ensure code-server config.yaml configuration is set | DNS on
+  when:
+    - dns_type is defined
+    - dns_type == "aws"  
   ansible.builtin.copy:
     content: |
       bind-addr: 0.0.0.0:8080
-      cert: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
-      cert-key: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+      cert: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/cert.pem"
+      cert-key: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/privkey.pem"
       password: "{{ admin_password }}"
     dest: "/home/{{ username }}/.config/code-server/config.yaml"
     mode: '0644'

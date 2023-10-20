@@ -153,6 +153,7 @@
           instance-state-name: running
           "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
       delegate_to: localhost
+      become: false
       register: node1_node_facts
 
     - name: Grab ec2_instance_info for node2
@@ -162,6 +163,7 @@
           instance-state-name: running
           "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
       delegate_to: localhost
+      become: false
       register: node2_node_facts
 
     - name: Grab ec2_instance_info for node3
@@ -171,6 +173,7 @@
           instance-state-name: running
           "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
       delegate_to: localhost
+      become: false
       register: node3_node_facts
 
     - name: Grab ec2_instance_info for node4
@@ -180,6 +183,7 @@
           instance-state-name: running
           "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
       delegate_to: localhost
+      become: false
       register: node4_node_facts
 
     - name: Populate ssh host keys to known_hosts

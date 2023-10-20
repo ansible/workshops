@@ -70,7 +70,7 @@
     controller_projects:
       - name: Project Leapp
         organization: Default
-        scm_update_on_launch: true
+        scm_update_on_launch: false
         scm_update_cache_timeout: 3600
         scm_type: git
         scm_url: "{{ ripu_project_scm_url }}"

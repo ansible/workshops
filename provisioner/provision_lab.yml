@@ -108,21 +108,21 @@
       ansible.builtin.include_role:
         name: ../roles/control_node_always
 
-    - name: Install and configure code server using code_server role
-      ansible.builtin.include_role:
-        name: ../roles/code_server_native
-      when:
-        - code_server is defined
-        - code_server
-        - controllerinstall is defined
-        - controllerinstall
-
     - name: Add dns entries for all student control nodes using aws_dns role
       ansible.builtin.include_role:
         name: ../roles/aws_dns
       when:
         - dns_type is defined
         - dns_type == "aws"
+        - controllerinstall is defined
+        - controllerinstall
+
+    - name: Install and configure code server using code_server role
+      ansible.builtin.include_role:
+        name: ../roles/code_server_native
+      when:
+        - code_server is defined
+        - code_server
         - controllerinstall is defined
         - controllerinstall
 

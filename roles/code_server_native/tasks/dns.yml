@@ -7,15 +7,22 @@
     group: "{{ username }}"
     mode: '0755'
 
-- name: Copy all certs to user directory directory so the code-server container can use it
+- name: Copy cert.pem to student
   become: true
   become_user: root
   ansible.builtin.copy:
-    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/"
-    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/"
+    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
+    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: preserve
-    follow: yes
     remote_src: true
-    directory_mode: '0755'
+
+- name: Copy privkey.pem to student
+  become: true
+  become_user: root
+  ansible.builtin.copy:
+    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    remote_src: true

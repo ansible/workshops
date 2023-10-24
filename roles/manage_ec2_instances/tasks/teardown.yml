@@ -395,7 +395,7 @@
   when: workshop_type == 'security'
   block:
     - name: Get EIP informaion
-      community.aws.ec2_eip_info:
+      amazon.aws.ec2_eip_info:
         region: "{{ ec2_region }}"
         filters:
           "tag:Workshop": "{{ ec2_name_prefix }}"
@@ -407,7 +407,7 @@
       when: debug_teardown
 
     - name: Release EIPs
-      community.aws.ec2_eip:
+      amazon.aws.ec2_eip:
         region: "{{ ec2_region }}"
         public_ip: "{{ item['public_ip'] }}"
         state: absent
@@ -416,7 +416,7 @@
 - name: Remove IAM roles & policy block
   block:
     - name: Remove IAM policy for control node IAM instance role
-      community.aws.iam_policy:
+      amazon.aws.iam_policy:
         iam_type: role
         iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
@@ -424,14 +424,14 @@
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Remove VPC Lock Down role
-      community.aws.iam_role:
+      amazon.aws.iam_role:
         name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Remove control node instance role
-      community.aws.iam_role:
+      amazon.aws.iam_role:
         name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true

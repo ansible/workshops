@@ -1,9 +1,13 @@
 ---
-- name: check user
+- name: debug run_commands_user
+  debug:
+    msg: "run_commands_user: {{ run_commands_user }}"
+
+- name: check normal user
   debug: 
     msg: "{{ ansible_user_id }}"
 
-- name: check user
+- name: check user with run_commands_user
   become: true
   become_user: "{{ run_commands_user }}"
   debug: 

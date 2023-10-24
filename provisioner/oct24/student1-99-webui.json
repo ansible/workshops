@@ -1,0 +1,26 @@
+{
+  "rested-fawn" : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "rested-fawn"
+  },
+  "fluent-bengal" : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "fluent-bengal"
+  },
+  "picked-mantis" : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "picked-mantis"
+  },
+  "tops-mouse" : {
+    "visible" : true,
+    "color" : "#67d300",
+    "user" : "ec2-user",
+    "address" : "tops-mouse"
+  }
+}

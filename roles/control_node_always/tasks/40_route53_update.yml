@@ -1,12 +1,29 @@
 ---
-- name: create oauth2 token
-  shell: >
-    awx-manage create_oauth2_token --user admin
-  register: oauth2_token
+# - name: create oauth2 token
+#   shell: >
+#     awx-manage create_oauth2_token --user admin
+#   register: oauth2_token
+
+- name: Create OAuth2 token for admin
+  awx.awx.tower_token:
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://localhost"
+    validate_certs: false
+    scope: "write"  # or "read" depending on your needs
+  register: token_result
+
+- name: Print token_result to terminal
+  debug: 
+    var: token_result
+
+- name: Print token_result.ansible_facts.controller_token.token to terminal
+  debug: 
+    var: token_result.ansible_facts.controller_token.token
 
 - name: Set admin oauth2 token fact
   set_fact:
-    admin_oauth2_token: "{{ oauth2_token.stdout }}"
+    admin_oauth2_token: "{{ token_result.ansible_facts.controller_token.token }}"
 
 - name: Install route53-update.py in /usr/local/bin
   template:

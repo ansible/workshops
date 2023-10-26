@@ -1,0 +1,89 @@
+---
+- name: use COP controller_configuration collection
+  vars:
+    controller_validate_certs: false
+    controller_hostname: "https://{{ ansible_host }}"
+    controller_username: "admin"
+    controller_password: "{{ admin_password }}"
+  include_role:
+    name: '{{ setup_controller }}'
+  loop:
+    - 'redhat_cop.controller_configuration.groups'
+  loop_control:
+    loop_var: setup_controller
+    
+- name: Debug the student number via the username var
+  ansible.builtin.debug: 
+    msg:
+     - "student: {{ student_number }}"
+     - "{{ groups['lab_hosts'] }}"
+
+- name: Filter hosts containing student number
+  ansible.builtin.set_fact:
+    student_hosts: "{{ groups['lab_hosts'] | select('search', student_number ~ '-') | list }}"
+    student_control_nodes: "{{ groups['control_nodes'] | select('search', student_number ~ '-') | list }}"
+
+- name: Debug hosts for 
+  ansible.builtin.debug:
+    msg:
+      - "{{ student_hosts }}"
+      - "{{ student_control_nodes }}"
+
+- name: Add devices into controller inventory
+  awx.awx.host:
+    name: "{{ hostvars[item].short_name }}"
+    enabled: true
+    inventory: "Workshop Inventory"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    variables:
+      ansible_host: "{{ hostvars[item].private_ip }}"
+  loop: "{{ student_hosts }}"
+
+- name: Add devices into controller inventory
+  awx.awx.host:
+    name: "{{ hostvars[item].short_name }}"
+    enabled: true
+    inventory: "Workshop Inventory"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    variables:
+      ansible_host: "{{ hostvars[item].private_ip }}"
+  loop: "{{ student_control_nodes }}"
+
+- name: Get list of hosts by short_names
+  ansible.builtin.set_fact:
+    web_short_names: "{{ groups['lab_hosts'] | map('extract', hostvars) | map(attribute='short_name') | list }}"
+    control_short_names: "{{ groups['control_nodes'] | map('extract', hostvars) | map(attribute='short_name') | list }}"
+
+- name: Print host short_names list to terminal
+  debug: 
+    var: web_short_names
+
+- name: Add web hosts to the web group
+  awx.awx.group:
+    name: web
+    inventory: "Workshop Inventory"
+    hosts: "{{ web_short_names }}"
+    preserve_existing_hosts: True
+    preserve_existing_children: True
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+
+- name: Add web hosts to the web group
+  awx.awx.group:
+    name: control
+    inventory: "Workshop Inventory"
+    hosts: "{{ control_short_names }}"
+    preserve_existing_hosts: True
+    preserve_existing_children: True
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false

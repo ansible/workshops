@@ -114,5 +114,5 @@
 - name: setup workshop specific controller information
   include_tasks: "{{item}}"
   with_first_found:
-    - "{{role_path}}/tasks/{{workshop_type}}.yml"
-    - "{{role_path}}/tasks/unsupported_workshop.yml"
+    - "{{ role_path }}/tasks/{{ workshop_type }}.yml"
+    - "{{ role_path }}/tasks/unsupported_workshop.yml"

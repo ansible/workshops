@@ -1,0 +1,6 @@
+---
+controller_groups:
+  - name: control
+    inventory: "Workshop Inventory"
+  - name: web
+    inventory: "Workshop Inventory"

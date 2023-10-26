@@ -7,11 +7,16 @@
   debug: 
     msg: "{{ ansible_user_id }}"
 
-- name: check user with run_commands_user
+- name: run whoami command
   become: true
   become_user: "{{ run_commands_user }}"
+  command: 
+    cmd: "whoami"
+  register: whoami
+
+- name: debug the whoami user
   debug: 
-    msg: "{{ ansible_user_id }}"
+    msg: "{{ whoami }}"
 
 - name: Make sure Automation Controller is online before changing base URL
   become: true

@@ -4,6 +4,7 @@
     path: "/home/{{ username }}/.config/code-server"
     state: directory
     mode: '0755'
+  when: not pre_build|bool
 
 - name: Ensure code-server config.yaml configuration is set | DNS off
   ansible.builtin.copy:
@@ -60,12 +61,14 @@
     recurse: true
     state: directory
     owner: "{{ username }}"
+  when: not pre_build|bool
 
 - name: Apply code server defaults
   ansible.builtin.template:
     src: settings.json
     dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
     owner: "{{ username }}"
+  when: not pre_build|bool
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
@@ -73,6 +76,7 @@
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+  when: not pre_build|bool
 
 - name: Download files for vscode
   ansible.builtin.get_url:
@@ -87,6 +91,7 @@
   register: download_extension
   until: download_extension is not failed
   retries: 5
+  when: not pre_build|bool
 
 - name: install ansible and markdown extensions
   become_user: "{{ username }}"
@@ -99,4 +104,5 @@
   register: install_extension
   until: install_extension is not failed
   retries: 5
+  when: not pre_build|bool
 

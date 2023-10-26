@@ -416,7 +416,7 @@
 - name: Remove IAM roles & policy block
   block:
     - name: Remove IAM policy for control node IAM instance role
-      amazon.aws.iam_policy:
+      community.aws.iam_policy:
         iam_type: role
         iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
@@ -424,14 +424,14 @@
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Remove VPC Lock Down role
-      amazon.aws.iam_role:
+      community.aws.iam_role:
         name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true
       loop: "{{ range(1, student_total + 1)|list }}"
 
     - name: Remove control node instance role
-      amazon.aws.iam_role:
+      community.aws.iam_role:
         name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true

@@ -11,116 +11,95 @@
   loop:
     - 'redhat_cop.controller_configuration.hosts'
     - 'redhat_cop.controller_configuration.organizations'
-  loop_control:
-    loop_var: setup_controller
-
-- name: add user nwoperator
-  awx.awx.user:
-    username: network-operator
-    password: "{{ admin_password }}"
-    email: nwops@redhat.com
-    first_name: Issac
-    last_name: Assimov
-    state: present
-    superuser: false
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: add user NWADMIN
-  awx.awx.user:
-    username: network-admin
-    password: "{{ admin_password }}"
-    email: nwadmin@redhat.com
-    first_name: Larry
-    last_name: Niven
-    state: present
-    superuser: false
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: add user BOB
-  awx.awx.user:
-    username: bbelcher
-    password: "{{ admin_password }}"
-    email: bbelcher@redhat.com
-    first_name: Bob
-    last_name: Belcher
-    state: present
-    superuser: true
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: add user TINA
-  awx.awx.user:
-    username: tbelcher
-    password: "{{ admin_password }}"
-    email: tbelcher@redhat.com
-    first_name: Tina
-    last_name: Belcher
-    state: present
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: add user LOUISE
-  awx.awx.user:
-    username: lbelcher
-    password: "{{ admin_password }}"
-    email: lbelcher@redhat.com
-    first_name: Louise
-    last_name: Belcher
-    state: present
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: add user LINDA
-  awx.awx.user:
-    username: libelcher
-    password: "{{ admin_password }}"
-    email: libelcher@redhat.com
-    first_name: Linda
-    last_name: Belcher
-    state: present
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: add user GENE
-  awx.awx.user:
-    username: gbelcher
-    password: "{{ admin_password }}"
-    email: gbelcher@redhat.com
-    first_name: Gene
-    last_name: Belcher
-    state: present
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: use COP controller_configuration collection
-  when: controller_projects is defined
-  vars:
-    controller_validate_certs: false
-    controller_hostname: "https://{{ ansible_host }}"
-    controller_username: "admin"
-    controller_password: "{{ admin_password }}"
-  include_role:
-    name: '{{ setup_controller }}'
-  loop:
+    - 'redhat_cop.controller_configuration.users'  
     - 'redhat_cop.controller_configuration.teams'
     - 'redhat_cop.controller_configuration.projects'
     - 'redhat_cop.controller_configuration.job_templates'
     - 'redhat_cop.controller_configuration.roles'
+    - 'redhat_cop.controller_configuration.groups'
   loop_control:
     loop_var: setup_controller
+
+- name: Debug the student number via the username var
+  ansible.builtin.debug: 
+    msg:
+     - "student: {{ student_number }}"
+     - "{{ groups['routers'] }}"
+
+- name: Filter hosts containing student number
+  ansible.builtin.set_fact:
+    student_hosts: "{{ groups['routers'] | select('search', student_number ~ '-') | list }}"
+
+- name: Debug hosts for 
+  ansible.builtin.debug:
+    msg: "{{ student_hosts }}"
+  
+- name: Add devices into controller inventory
+  awx.awx.host:
+    name: "{{ hostvars[item].short_name }}"
+    enabled: true
+    inventory: "Workshop Inventory"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    variables:
+      ansible_host: "{{ hostvars[item].ansible_host }}"
+      private_ip: "{{ hostvars[item].private_ip }}"
+  loop: "{{ student_hosts }}"
+
+- name: Filter hosts where ansible_network_os is set to 'ios'
+  ansible.builtin.set_fact:
+    # cisco_routers: "{{ hostvars|dictsort|selectattr('0', 'in', student_hosts)|selectattr('1.ansible_network_os', 'eq', 'ios')|map(attribute='0') }}"
+    cisco_routers_short_names: "{{ hostvars|dictsort|selectattr('0', 'in', groups.routers)|selectattr('1.ansible_network_os', 'eq', 'ios')|map(attribute='0')|map('extract', hostvars, 'short_name')|list }}"
+    arista_routers: "{{ hostvars|dictsort|selectattr('0', 'in', student_hosts)|selectattr('1.ansible_network_os', 'eq', 'eos')|map(attribute='0')|map('extract', hostvars, 'short_name')|list }}"
+    juniper_routers: "{{ hostvars|dictsort|selectattr('0', 'in', student_hosts)|selectattr('1.ansible_network_os', 'eq', 'junos')|map(attribute='0')|map('extract', hostvars, 'short_name')|list }}"
+
+# - name: Filter hosts where ansible_network_os is set to 'ios'
+#   set_fact:
+#     cisco_routers: "{{ cisco_routers | default([]) + [item] }}"
+#   loop: "{{ groups['routers'] }}"
+#   when: hostvars[item]['ansible_network_os'] == 'ios'
+
+- name: Debug the routers
+  debug:
+    msg: 
+      - "cisco_routers_short_names: {{ cisco_routers_short_names }}"
+      - "arista_routers: {{ arista_routers }}"
+      - "juniper_routers: {{ juniper_routers }}"
+
+- name: Add hosts to group cisco
+  awx.awx.group:
+    name: cisco
+    inventory: "Workshop Inventory"
+    hosts: "{{ cisco_routers_short_names }}"
+    preserve_existing_hosts: True
+    preserve_existing_children: True
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false    
+
+- name: Add hosts to juniper
+  awx.awx.group:
+    name: juniper
+    inventory: "Workshop Inventory"
+    hosts: "{{ juniper_routers }}"
+    preserve_existing_hosts: True
+    preserve_existing_children: True
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false    
+
+- name: Add hosts to arista
+  awx.awx.group:
+    name: arista
+    inventory: "Workshop Inventory"
+    hosts: "{{ arista_routers }}"
+    preserve_existing_hosts: True
+    preserve_existing_children: True
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false    

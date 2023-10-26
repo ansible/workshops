@@ -34,13 +34,13 @@
 - name: save ami for ansible control node pre_build
   when: pre_build|bool
   block:
-    - name: find ami for ansible control node
+    - name: find ami for ansible control node with pre_build image
       amazon.aws.ec2_ami_info:
         region: "{{ ec2_region }}"
-        owners: "962147768365"
+        owners: "{{ ec2_info.control_type_pre_build.owners }}"
         filters:
-          name: "automation_controller*"
-          architecture: "x86_64"
+          name: "{{ ec2_info.control_type_pre_build.filter }}"
+          architecture: "{{ ec2_info.control_type_pre_build.architecture }}"
       register: amis
 
     - name: save ami for ansible control node
@@ -48,6 +48,9 @@
         ansible_control_node_ami: >
           {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}  
 
+    - name: check if we have access to pre_build AMI images
+      include_tasks: check_prebuild.yml
+  
 - name: enforce major and minor version are at least RHEL 8.4
   assert:
     that:
@@ -87,6 +90,10 @@
 ## find AMI - amazon machine images dynamically
 - name: find correct AMI
   include_tasks: 'ami_find/ami_find_{{ workshop_type }}.yml'
+
+- name: check if we have access to pre_build hub AMI images
+  include_tasks: check_prebuild_hub.yml
+  when: automation_hub|bool and pre_build|bool
 
 ## Instance creation
 - name: provision workshop instances

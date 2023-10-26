@@ -1,0 +1,109 @@
+---
+- name: Pull code-server image
+  become_user: "{{ username }}"
+  containers.podman.podman_image:
+    name: "docker.io/codercom/code-server:latest"
+  register: podman_pull
+  until: podman_pull is not failed
+  retries: 5
+  delay: 15
+
+- name: Create code-server directories
+  become_user: "{{ username }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0777'
+  loop:
+    - "/home/{{ username }}/code-server-config"
+    - "/home/{{ username }}/code-server-project"
+
+- name: Ensure code-server container is running
+  become_user: "{{ username }}"
+  containers.podman.podman_container:
+    name: code-server
+    image: codercom/code-server:latest
+    state: started
+    ports:
+      - "8080:8080"
+    env:
+      DOCKER_USER: "{{ username }}"
+      PASSWORD: "{{ admin_password }}"
+    volumes:
+      - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
+      - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
+  when:
+    - dns_type is defined
+    - dns_type == "none"
+
+- name: Ensure code-server container is running with DNS
+  become_user: "{{ username }}"
+  containers.podman.podman_container:
+    name: code-server
+    image: codercom/code-server:latest
+    state: started
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/home/{{ username }}/code-server-config:/home/coder/.config:Z"
+      - "/home/{{ username }}/code-server-project:/home/coder/project:Z"
+      - "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}:/home/coder/certs:Z"
+    env:
+      DOCKER_USER: "{{ username }}"
+      PASSWORD: "{{ admin_password }}"
+    command:
+      - "--cert"
+      - "/home/coder/certs/cert.pem"
+      - "--cert-key"
+      - "/home/coder/certs/privkey.pem"
+  when:
+    - dns_type is defined
+    - dns_type != "none"
+
+# source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
+# - name: ensure custom facts directory exists
+#   ansible.builtin.file:
+#     path: "/home/{{ username }}/.local/share/code-server/User/"
+#     recurse: true
+#     state: directory
+#     owner: "{{ username }}"
+
+# - name: Apply code server defaults
+#   ansible.builtin.template:
+#     src: settings.json
+#     dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
+#     owner: "{{ username }}"
+
+# - name: Create a directory if it does not exist
+#   ansible.builtin.file:
+#     path: /home/{{ username }}/.local/share/code-server/extensions/
+#     state: directory
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+
+# - name: Download files for vscode
+#   ansible.builtin.get_url:
+#     url: "{{ item }}"
+#     dest: /home/{{ username }}/.local/share/code-server/extensions/
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+#   loop:
+#     - https://github.com/ansible/workshops/raw/devel/files/bierner.markdown-preview-github-styles-0.1.6.vsix
+#     - https://github.com/ansible/workshops/raw/devel/files/hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+#     - https://github.com/ansible/workshops/raw/devel/files/redhat.ansible-0.4.5.vsix
+#   register: download_extension
+#   until: download_extension is not failed
+#   retries: 5
+
+# - name: install ansible and markdown extensions
+#   become_user: "{{ username }}"
+#   ansible.builtin.command: "/bin/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
+#   loop:
+#     - bierner.markdown-preview-github-styles-0.1.6.vsix
+#     - hnw.vscode-auto-open-markdown-preview-0.0.4.vsix
+#     - redhat.ansible-0.4.5.vsix
+#   ignore_errors: true
+#   register: install_extension
+#   until: install_extension is not failed
+#   retries: 5
+

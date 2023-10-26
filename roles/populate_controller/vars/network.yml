@@ -3,11 +3,18 @@ controller_hosts:
   - name: "backup-server"
     description: "this server is where we backup network configuration"
     inventory: "Workshop Inventory"
+    enabled: true
     variables:
       note: in production these passwords would be encrypted in vault
       ansible_user: "ec2-user"
       ansible_password: "{{ admin_password }}"
       ansible_host: "{{ ansible_host }}"
+  - name: "ansible-1"
+    description: "control node where AAP is running"
+    inventory: "Workshop Inventory"
+    enabled: true
+    variables:
+      ansible_user: "ec2-user"    
 controller_organizations:
   - name: "Red Hat network organization"
     description: "Red Hat Network Organization"
@@ -152,3 +159,35 @@ controller_templates:
     survey_enabled: true
     survey: "{{ lookup('template', 'system.json') }}"
     execution_environment: "network workshop execution environment"
+controller_groups:
+  - name: cisco
+    inventory: "Workshop Inventory"
+    variables:
+      ansible_network_os: ios
+      ansible_connection: network_cli
+  - name: arista
+    inventory: "Workshop Inventory"
+    variables:
+      ansible_network_os: eos
+      ansible_connection: network_cli
+      ansible_become: true
+      ansible_become_method: enable
+  - name: juniper
+    inventory: "Workshop Inventory"
+    variables:
+      ansible_network_os: junos
+      ansible_connection: netconf
+  - name: routers
+    inventory: "Workshop Inventory"
+    children:
+      - cisco
+      - arista
+      - juniper
+  - name: network
+    inventory: "Workshop Inventory"
+    children:
+      - routers
+    variables:
+      restore_inventory: "Workshop Inventory"
+      restore_credential: "Workshop Credential"
+      restore_project: "Workshop Project"

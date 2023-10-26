@@ -1,9 +1,24 @@
 ---
 - name: check if aap.tar.gz exists
-  stat:
+  debug:
+    msg: "{{ playbook_dir }}/aap.tar.gz"
+
+- name: Check if aap.tar.gz exists with stat module
+  ansible.builtin.stat:
     path: "{{ playbook_dir }}/aap.tar.gz"
     checksum_algorithm: sha256
   register: stat_var
+
+- name: Print out stat_var 
+  ansible.builtin.debug:
+    msg: "stat_var: {{ stat_var }}"
+
+- name: Check if aap.tar.gz exists with stat module for symbolic link
+  ansible.builtin.stat:
+    path: "{{ stat_var.stat.lnk_source }}"
+    checksum_algorithm: sha256
+  register: stat_var
+  when: stat_var.stat.checksum is undefined
 
 - name: attempt to download specified AAP from specified URL if we don't already have it
   when:
@@ -37,6 +52,13 @@
     checksum_algorithm: sha256
   register: stat_var
 
+- name: Check if aap.tar.gz exists with stat module for symbolic link
+  ansible.builtin.stat:
+    path: "{{ stat_var.stat.lnk_source }}"
+    checksum_algorithm: sha256
+  register: stat_var
+  when: stat_var.stat.checksum is undefined
+  
 - name: Verify sha256sum of aap.tar.gz
   fail:
     msg: "Failure, sha256sum does not match"

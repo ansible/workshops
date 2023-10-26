@@ -1,0 +1,11 @@
+---
+- name: Build Packer Image for Automation controller
+  hosts: localhost
+  gather_facts: false
+  tasks: 
+
+    - name: Build and push the box using Packer.
+      async: 1500
+      poll: 5
+      command: >
+        packer build --force automation-controller.pkr.hcl

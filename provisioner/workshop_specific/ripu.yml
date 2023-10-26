@@ -16,10 +16,7 @@
     ripu_project_scm_branch: 'main'
     controller_infra_workloads:
       - redhat_cop.controller_configuration.credential_types
-      # - redhat_cop.controller_configuration.credentials
       - redhat_cop.controller_configuration.projects
-      # - redhat_cop.controller_configuration.inventories
-      # - redhat_cop.controller_configuration.inventory_sources
       - redhat_cop.controller_configuration.job_templates
     controller_hostname: "https://{{ ansible_host }}"
     controller_username: admin
@@ -130,13 +127,13 @@
 
     - name: Copy controller key to cockpit 
       ansible.builtin.copy:
-        src: "/etc/tower/tower.key"
+        src: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/privkey.pem"
         dest: "/etc/cockpit/ws-certs.d/00-signed.key"
         remote_src: true
 
     - name: Copy controller cert to cockpit 
       ansible.builtin.copy:
-        src: "/etc/tower/tower.cert"
+        src: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/cert.pem"
         dest: "/etc/cockpit/ws-certs.d/00-signed.cert"
         remote_src: true
 
@@ -153,6 +150,7 @@
           instance-state-name: running
           "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
       delegate_to: localhost
+      become: false
       register: node1_node_facts
 
     - name: Grab ec2_instance_info for node2
@@ -162,6 +160,7 @@
           instance-state-name: running
           "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
       delegate_to: localhost
+      become: false
       register: node2_node_facts
 
     - name: Grab ec2_instance_info for node3
@@ -171,6 +170,7 @@
           instance-state-name: running
           "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
       delegate_to: localhost
+      become: false
       register: node3_node_facts
 
     - name: Grab ec2_instance_info for node4
@@ -180,6 +180,7 @@
           instance-state-name: running
           "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
       delegate_to: localhost
+      become: false
       register: node4_node_facts
 
     - name: Populate ssh host keys to known_hosts
@@ -225,6 +226,37 @@
           until: workshop_job_templates01.json.status == "successful"
           delay: 15  # Every 15 seconds
           retries: 16  # 4 minutes 4*60/15
+
+        - name: Retrieve execution environment named "ripu workshop"
+          vars:
+            awx_url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            awx_username: admin
+            awx_password: "{{ admin_password }}"
+          set_fact:
+            ee_details: "{{ lookup('awx.awx.controller_api', 'execution_environments', host=awx_url, username=awx_username, password=awx_password, verify_ssl=False, query_params={'name': 'ripu workshop execution environment'}, return_values=True) }}"
+          register: ee_retrieve
+          until: ee_retrieve is not failed
+
+        - name: debug ee_details
+          debug:
+            var: ee_details
+
+        - name: Extract image from execution environment details
+          set_fact:
+            ee_image: "{{ ee_details.image | default('registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:1.0.0-208') }}"
+
+        - name: Print execution environment image to terminal
+          debug:
+            var: ee_image
+
+        - name: Add EE to the controller instance
+          awx.awx.execution_environment:
+            name: "ripu workshop execution environment"
+            image: "{{ ee_image }}"
+            credential: registry.redhat.io credential
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
 
         - name: Run Update inventories via dynamic sources job template - RHEL7
           awx.awx.job_launch:

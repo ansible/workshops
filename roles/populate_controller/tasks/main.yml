@@ -71,21 +71,21 @@
   delay: 3
   retries: 5
 
-- name: copy inventory to awx user
-  copy:
-    src: "/home/{{ username }}/lab_inventory/hosts"
-    remote_src: true
-    dest: /var/lib/awx/hosts
-    owner: awx
-    group: awx
+# - name: copy inventory to awx user
+#   copy:
+#     src: "/home/{{ username }}/lab_inventory/hosts"
+#     remote_src: true
+#     dest: "/home/{{ run_commands_user }}"
+#     owner: "{{ run_commands_user }}"
+#     group: "{{ run_commands_user }}"
 
-- name: import inventory
-  become_user: awx
-  shell: 'tower-manage inventory_import --source=/var/lib/awx/hosts --inventory-name="Workshop Inventory"'
-  register: import_inventory
-  until: import_inventory is not failed
-  retries: 5
-#### end of inventory
+# - name: import inventory
+#   become_user: "{{ run_commands_user }}"
+#   shell: 'awx-manage inventory_import --source=/home/{{ run_commands_user }}/hosts --inventory-name="Workshop Inventory"'
+#   register: import_inventory
+#   until: import_inventory is not failed
+#   retries: 5
+# #### end of inventory
 
 ### USER
 - name: add student user
@@ -99,52 +99,6 @@
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"
     validate_certs: false
-
-#### REMOVE BUILT-IN DEMO CONTENT
-- name: delete demo job template
-  awx.awx.job_template:
-    name: "Demo Job Template"
-    state: absent
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: remove demo credential
-  awx.awx.credential:
-    name: "Demo Credential"
-    credential_type: Machine
-    state: absent
-    organization: ""
-    inputs:
-      username: admin
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: remove demo inventory
-  awx.awx.inventory:
-    name: "Demo Inventory"
-    organization: "Default"
-    state: absent
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-
-- name: remove built-in demo project
-  awx.awx.project:
-    name: "Demo Project"
-    organization: "Default"
-    scm_type: git
-    scm_url: "https://github.com/ansible/ansible-tower-samples"
-    state: absent
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
-    validate_certs: false
-#### END OF REMOVE BUILT-IN DEMO CONTENT
 
 # Workshop specific execution environments
 - name: Add specific workshop execution environment
@@ -160,5 +114,5 @@
 - name: setup workshop specific controller information
   include_tasks: "{{item}}"
   with_first_found:
-    - "{{role_path}}/tasks/{{workshop_type}}.yml"
-    - "{{role_path}}/tasks/unsupported_workshop.yml"
+    - "{{ role_path }}/tasks/{{ workshop_type }}.yml"
+    - "{{ role_path }}/tasks/unsupported_workshop.yml"

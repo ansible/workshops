@@ -1,8 +1,18 @@
 ---
-- name: make sure Automation Controller is stopped
-  service:
-    name: automation-controller.service
+# - name: make sure Automation Controller is stopped
+#   service:
+#     name: automation-controller.service
+#     state: stopped
+#   register: stop_controller
+#   until: stop_controller is not failed
+#   retries: 5
+
+- name: Make sure Automation Controller is stopped
+  become: true
+  become_user: "{{ run_commands_user }}"
+  containers.podman.podman_container:
+    name: automation-controller-web
     state: stopped
-  register: stop_controller
-  until: stop_controller is not failed
+  register: install_controller
+  until: install_controller is not failed
   retries: 5

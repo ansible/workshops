@@ -3,7 +3,7 @@ workshop_version: aug11-2022
 student_user: student
 admin_password: ansible
 code_server: true
-workshop_dns_zone: "rhdemo.io"
+workshop_dns_zone: "demoredhat.com"
 s3_state: "present"
 teardown: false
 controllerinstall: true

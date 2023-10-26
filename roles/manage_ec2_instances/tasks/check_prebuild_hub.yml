@@ -1,10 +1,15 @@
 ---
 - name: make sure we have access to pre_build hub AMI
   block:
+    - name: print AMI to terminal window
+      debug: 
+        var: ansible_hub_node_ami
+
     - name: check if we have access to AMI
       amazon.aws.ec2_ami_info:
         region: "{{ ec2_region }}"
-        image_ids: "{{ pre_build_hub_ami[ec2_region] }}"
+        image_ids: 
+          - "{{ ansible_hub_node_ami.image_id }}"
   rescue:
     - name: AWS AMI Access is not available
       fail:

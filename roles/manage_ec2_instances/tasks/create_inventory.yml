@@ -12,12 +12,13 @@
     name: "{{ item.tags.Name }}"
     username: "{{ student_user }}"
     student: "{{ item.tags.Student }}"
+    student_number: "{{ item.tags.Index|int + 1 }}"
     short_name: "{{ item.tags.short_name }}"
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    private_ip: "{{item.private_ip_address}}"
+    private_ip: "{{ item.private_ip_address }}"
     pre_build: "{{ pre_build }}"
     groups:
       - control_nodes

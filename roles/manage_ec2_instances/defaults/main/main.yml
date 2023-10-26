@@ -25,6 +25,19 @@ rtr4_type: "arista"
 rhel: "rhel8"
 # additional info needed by AWS ec2 modules
 ec2_info:
+  control_type_pre_build:
+    owners: 962147768365
+    architecture: x86_64
+    filter: 'automation_controller*'
+    # username: ec2-user
+    # size:
+    #   - m5a.xlarge
+    #   - m4.xlarge
+    # os_type: linux
+    # disk_volume_type: gp3
+    # disk_space: 40
+    # disk_iops: 3000
+    # disk_throughput: 125
   private_automation_hub:
     owners: 309956199498
     size: m4.xlarge
@@ -331,20 +344,8 @@ debug_teardown: false
 # Issue #1594
 ansible_async_dir: "/tmp/.ansible_async"
 
-control_type_pre_build:
-  owners: 962147768365
-  architecture: x86_64
-  filter: 'automation_controller*'
-  username: ec2-user
-  # size:
-  #   - m5a.xlarge
-  #   - m4.xlarge
-  # os_type: linux
-  # disk_volume_type: gp3
-  # disk_space: 40
-  # disk_iops: 3000
-  # disk_throughput: 125
-  
+
+
 # pre_build_controller_ami:
 #   ap-northeast-1: ami-06ad1ea5c12a0d0f7
 #   ap-southeast-1: ami-08e2518f0780bc79b

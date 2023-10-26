@@ -1,7 +1,7 @@
 ---
 - set_fact:
-    async_timeout_seconds: "{{ student_total * 60 }}"
-    async_wait_for_retries: "{{ student_total * 10 }}"
+    async_timeout_seconds: "{{ student_total|int * 60 }}"
+    async_wait_for_retries: "{{ student_total|int * 10 }}"
 
 - name: Create EC2 Block - SECURITY MODE
   block:

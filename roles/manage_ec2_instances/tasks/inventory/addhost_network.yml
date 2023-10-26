@@ -40,7 +40,7 @@
     username: "{{ item.tags.Student }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
-    ansible_network_cli_ssh_type: paramiko
+    # ansible_network_cli_ssh_type: libssh
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ ec2_name_prefix|lower }}/{{ ec2_name_prefix|lower }}-private.pem"
     private_ip: "{{ item.private_ip_address }}"
     ansible_network_os: "{{ item.tags.ansible_network_os }}"

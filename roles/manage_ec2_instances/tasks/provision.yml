@@ -37,10 +37,10 @@
     - name: find ami for ansible control node
       amazon.aws.ec2_ami_info:
         region: "{{ ec2_region }}"
-        owners: "962147768365"
+        owners: "{{ ec2_info[control_type_pre_build].owners }}"
         filters:
-          name: "automation_controller*"
-          architecture: "x86_64"
+          name: "{{ ec2_info[control_type_pre_build].filter }}"
+          architecture: "{{ ec2_info[control_type_pre_build].architecture }}"
       register: amis
 
     - name: save ami for ansible control node

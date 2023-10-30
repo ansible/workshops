@@ -7,7 +7,7 @@
     instance_type: "{{ ec2_info.middleware.size }}"
     image: "{{ node_ami_middleware.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
     tags:
@@ -20,7 +20,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "node1"
       username: "{{ ec2_info.middleware.username }}"
       ansible-workshops: "true"
@@ -55,7 +55,7 @@
     instance_type: "{{ ec2_info.middleware.size }}"
     image: "{{ node_ami_middleware.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
     tags:
@@ -68,7 +68,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "node2"
       username: "{{ ec2_info.middleware.username }}"
       ansible-workshops: "true"
@@ -103,7 +103,7 @@
     instance_type: "{{ ec2_info.middleware.size }}"
     image: "{{ node_ami_middleware.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
     tags:
@@ -116,7 +116,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "node3"
       username: "{{ ec2_info.middleware.username }}"
       ansible-workshops: "true"
@@ -153,7 +153,7 @@
     instance_type: "{{ ec2_info.middleware.size }}"
     image: "{{ node_ami_middleware.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
     tags:
@@ -164,7 +164,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "isonode"
       username: "{{ ec2_info.middleware.username }}"
       ansible-workshops: "true"
@@ -200,7 +200,7 @@
     instance_type: "{{ ec2_info.middleware.size }}"
     image: "{{ node_ami_middleware.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
     tags:
@@ -211,7 +211,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "remotenode"
       username: "{{ ec2_info.middleware.username }}"
       ansible-workshops: "true"

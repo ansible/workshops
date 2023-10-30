@@ -1,0 +1,8 @@
+---
+roles:
+  - name: ansible_security.ids_config
+    src: https://github.com/ansible-security/ids_config
+  - name: ansible_security.ids_install
+    src: https://github.com/ansible-security/ids_install
+  - name: geerlingguy.repo-epel
+    src: https://github.com/geerlingguy/ansible-role-repo-epel

@@ -22,7 +22,7 @@
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Ansible_Workshops: "This was provisioned through the ansible workshops provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       username: "{{ ec2_info[hub_type].username }}"
       short_name: "automation-hub"
       long_name: "automation-hub.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default ('') }}"

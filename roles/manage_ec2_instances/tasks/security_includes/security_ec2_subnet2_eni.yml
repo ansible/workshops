@@ -96,7 +96,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total|int }}"
       Subnet: '{{ ec2_name_prefix }}-subnet2'
       Workshop: "{{ec2_name_prefix}}"
       ansible-workshops: "true"
@@ -117,7 +117,7 @@
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{student_total}}"
+      Students: "{{ student_total|int }}"
       Subnet: '{{ ec2_name_prefix }}-subnet2'
       Workshop: "{{ec2_name_prefix}}"
       ansible-workshops: "true"

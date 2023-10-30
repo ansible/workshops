@@ -27,3 +27,35 @@
     baseurl: https://people.redhat.com/bmader/leapp-supplements-demo/RHEL/$releasever/$basearch
     gpgcheck: false
     enabled: false
+
+- name: Gather distribution and distribution_major_version facts
+  ansible.builtin.setup:
+    gather_subset:
+      - '!all'
+      - distribution
+      - distribution_major_version
+
+- name: Code block for sshd_config modification on RHEL7 nodes
+  block:
+    - name: Set PasswordAuthentication no in sshd_config
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: "PasswordAuthentication no"
+
+    - name: restart ssh
+      service:
+        name: sshd
+        state: restarted
+
+    - name: Wait 400 seconds (using ansible.builtin.wait_for)
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host }}"
+        timeout: 400
+        port: 22
+      vars:
+        ansible_connection: local
+
+  when:
+    - ansible_distribution == 'RedHat'
+    - ansible_distribution_major_version|int == 7

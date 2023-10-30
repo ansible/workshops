@@ -46,7 +46,7 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 {%   endfor %}
 {% endif %}
 
-{% for user in range(1,student_total + 1) %}
+{% for user in range(1,student_total|int + 1) %}
 [student{{ user }}]
 {%   for host in hostvars %}
 {%     if "student" + user|string + "-" in host -%}

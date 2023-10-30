@@ -114,7 +114,7 @@
     state: absent
     instance_ids: "{{ all_workshop_vpc_nodes.instances | map(attribute='instance_id') | list }}"
     wait: true
-    wait_timeout: "{{ student_total * 300 | int}}"
+    wait_timeout: "{{ student_total|int * 300 | int}}"
   register: result_ec2_destroy
   when:
     - all_workshop_vpc_nodes.instances
@@ -140,7 +140,7 @@
     state: absent
     instance_ids: "{{ all_workshop_vpc2_nodes.instances | map(attribute='instance_id') | list }}"
     wait: true
-    wait_timeout: "{{ student_total * 300 | int}}"
+    wait_timeout: "{{ student_total|int * 300 | int}}"
   register: result_ec2_destroy2
   when:
     - ec2_vpc_id2 is defined
@@ -421,21 +421,21 @@
         iam_name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         policy_name: "IAMPolicy_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
-      loop: "{{ range(1, student_total + 1)|list }}"
+      loop: "{{ range(1, student_total|int + 1)|list }}"
 
     - name: Remove VPC Lock Down role
       community.aws.iam_role:
         name: "VPCLockDown_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true
-      loop: "{{ range(1, student_total + 1)|list }}"
+      loop: "{{ range(1, student_total|int + 1)|list }}"
 
     - name: Remove control node instance role
       community.aws.iam_role:
         name: "ControlNode_{{ ec2_name_prefix }}_student{{ item }}"
         state: absent
         delete_instance_profile: true
-      loop: "{{ range(1, student_total + 1)|list }}"
+      loop: "{{ range(1, student_total|int + 1)|list }}"
 
   when: tower_node_aws_api_access|default(false)|bool
   ignore_errors: true

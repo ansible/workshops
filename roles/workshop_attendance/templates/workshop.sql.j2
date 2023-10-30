@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-{% for number in range(1, student_total + 1) %}
+{% for number in range(1, student_total|int + 1) %}
   {% for host in groups['control_nodes'] %}
     {% if hostvars[host].student is defined and "student" + number | string == hostvars[host].student %}
       {% if hostvars[host].student is defined and "student" + number | string == hostvars[host].student %}

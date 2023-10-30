@@ -7,7 +7,7 @@
     instance_type: "{{ ec2_info.f5node.size[list_count|int] }}"
     image_id: "{{ f5_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     state: running
     network:
       assign_public_ip: true
@@ -24,7 +24,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       username: "{{ ec2_info.f5node.username }}"
       short_name: "f5"
       ansible-workshops: "true"

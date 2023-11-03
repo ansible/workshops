@@ -1,7 +1,7 @@
 # Atelier Ansible - Ansible pour Red Hat Enterprise Linux (90 mins)
 
 **Lisez ceci dans d'autres langues**:
-<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md)
+<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md)
 <br>
 
 Si vous débutez avec Ansible Automation, mais préférez une version plus rapide de l'atelier pour RHEL original, cet atelier de 90 minutes vous propose moins d'exercices avec un focus sur le provisionnement cloud, la conversion de commands bash/shell vers Ansible, jusqu'à l'utilisation des roles systèmes RHEL (rhel-system-roles).

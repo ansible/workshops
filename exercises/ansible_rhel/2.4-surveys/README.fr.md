@@ -76,7 +76,7 @@ Le rôle déploie également une configuration statique pour Apache. Il s'agit d
    </tr>
  </table>
 
- Renseignez l'URL dans la configuration du Porjet: 
+ Renseignez l'URL dans la configuration du Projet: 
  
  <table>
    <tr>

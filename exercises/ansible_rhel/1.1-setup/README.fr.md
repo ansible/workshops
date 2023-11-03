@@ -113,7 +113,7 @@ Sélectionner `2` pour `Ansible version and collections` affiche les collections
 
 ### Etape 4 - Examiner la configuration de ansible-navigator
 
-Au choix, utilisez Visual Studio Code ou la commande `cat` pour voir le contenu du fichier `ansible-navigator.yml`. Le fichier est situé dnas le répertoire home:
+Au choix, utilisez Visual Studio Code ou la commande `cat` pour voir le contenu du fichier `ansible-navigator.yml`. Le fichier est situé dans le répertoire home:
 
 ```bash
 $ cat ~/.ansible-navigator.yml
@@ -150,12 +150,6 @@ Certains chapitres de cet atelier comportent une section "Défi". Ces labs sont 
 **Navigation**
 
 <br>
-
-{% if page.url contains 'ansible_rhel_90' %}
-[Next Exercise](../2-thebasics/README.fr.md)
-{% else %}
-[Next Exercise](../1.2-thebasics/README.fr.md)
-{% endif %}
-<br><br>
+[Exercice suivant](../1.2-thebasics/README.fr.md)
 
 [Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md#section-1---ansible-engine-exercises)

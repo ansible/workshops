@@ -150,6 +150,7 @@ Certains chapitres de cet atelier comportent une section "Défi". Ces labs sont 
 **Navigation**
 
 <br>
+
 [Exercice suivant](../1.2-thebasics/README.fr.md)
 
 [Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md#section-1---ansible-engine-exercises)

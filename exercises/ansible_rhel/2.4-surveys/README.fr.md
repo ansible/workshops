@@ -111,27 +111,27 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
 
 <table>
   <tr>
-    <th>Parameter</th>
-    <th>Value</th>
+    <th>Paramètre</th>
+    <th>Valeur</th>
   </tr>
   <tr>
-    <td>Name</td>
-    <td>Create index.html</td>
+    <td>Nom</td>
+    <td>Créer index.html</td>
   </tr>
   <tr>
-    <td>Job Type</td>
+    <td>Type de travail</td>
     <td>Run</td>
   </tr>
   <tr>
-    <td>Inventory</td>
+    <td>Inventaire</td>
     <td>Workshop Inventory</td>
   </tr>
   <tr>
-    <td>Project</td>
+    <td>Projet</td>
     <td>Workshop Project</td>
   </tr>
   <tr>
-    <td>Eecution Environment</td>
+    <td>Environnement d'Exécution</td>
     <td>Default execution environment</td>
   </tr>
   <tr>
@@ -139,24 +139,24 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
     <td><code>rhel/apache/apache_role_install.yml</code></td>
   </tr>
   <tr>
-    <td>Credentials</td>
+    <td>Information d'identification</td>
     <td>Workshop Credential</td>
   </tr>
   <tr>
-    <td>Limit</td>
+    <td>Limite</td>
     <td>web</td>
   </tr>
   <tr>
     <td>Options</td>
-    <td>Privilege Escalation</td>
+    <td>Elévation de Privilèges coché</td>
   </tr>
 </table>
 
-* Click **Save**
+* Cliquer sur **Enregistrer**
 
-> **Warning**
+> **Attention**
 >
-> **Do not run the template yet!**
+> **Ne pas lancer le travail pour le moment!**
 
 #### Ajouter le Questionnaire
 

@@ -160,63 +160,63 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
 
 #### Ajouter le Questionnaire
 
-* In the Template, click the **Survey** tab and click the **Add** button.
+* Dans le Modèle, cliquer sur l'onglet **Questionnaire** puis cliquer sur **Ajouter**.
 
-* Fill out the following information:
+* Saisissez les informations suivantes:
 
 <table>
   <tr>
-    <th>Parameter</th>
-    <th>Value</th>
+    <th>Paramètre</th>
+    <th>Valeur</th>
   </tr>
   <tr>
     <td>Question</td>
     <td>First Line</td>
   </tr>
   <tr>
-    <td>Answer Variable Name</td>
+    <td>Nom de la Variable de réponse</td>
     <td>first_line</td>
   </tr>
   <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
+    <td>Type de réponse</td>
+    <td>Texte</td>
   </tr>
 </table>
 
-* Click **Save**
-* Click the **Add** button
+* Cliquer sur **Enregistrer**
+* Cliquer sur le bouton **Ajouter**
 
-In the same fashion add a second **Survey Question**
+De la même manière, ajouter une deuxième **Question**
 
 <table>
   <tr>
-    <th>Parameter</th>
-    <th>Value</th>
+    <th>Paramètre</th>
+    <th>Valeur</th>
   </tr>
   <tr>
     <td>Question</td>
     <td>Second Line</td>
   </tr>
   <tr>
-    <td>Answer Variable Name</td>
+    <td>Nom de la Variable de réponse</td>
     <td>second_line</td>
   </tr>
   <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
+    <td>Type de réponse</td>
+    <td>Texte</td>
   </tr>
 </table>
 
-* Click **Save**
-* Click the **Survey Enabled** toggle button to turn on the Survey questions
+* Cliquer sur **Enregistrer**
+* Cliquer sur le bouton **Questionnaire activé** pour activer les questions
 
 ### Lancer le Modèle
 
-Now launch **Create index.html** job template by selecting the **Details** tab and clicking the **Launch** button.
+Maintenant, lancez le modèe de travail **Créer index.html** en sélectionnant l'onglet **Détails** et en cliquant sur le bouton **Lancer**.
 
-Before the actual launch the survey will ask for **First Line** and **Second Line**. Fill in some text and click **Next**. The **Preview** window shows the values, if all is good run the Job by clicking **Launch**.
+Avant le lancement, le questionnaire va demander à renseigner **First Line** et **Second Line**. Renseignez du texte dans les champs proposés et cliquer sur **Suivant**. La fenêtre **Aperçu** montre les valeurs. Si tout est conforme, lancer le travail en cliquant sur **Lancer**.
 
-After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against `node1`:
+Quand le travail est terminé, vérifiez la page d'accueil Apache. Dans la console SSH sur l'hôte de contrôle, exécutez `curl` sur `node1`:
 
 ```bash
 $ curl http://node1
@@ -227,7 +227,7 @@ $ curl http://node1
 </body>
 ```
 
-Note how the two variables where used by the playbook to create the content of the `index.html` file.
+Notez les deux variables utilisées par le playbook pour créer le contenu du fichier `index.html`.
 
 ---
 **Navigation**

@@ -37,12 +37,12 @@ Cet atelier a été pensé pour durer environ 90 minutes et est plus focalisé s
 
 ## Exercices sur Ansible Automation Platform
 
- - [Exercice 1 - Overview of public cloud provisioning](1-setup/README.fr.md)
- - [Exercice 2 - The Ansible Basics](2-thebasics/README.fr.md)
- - [Exercice 3 - Deploying applications to linux hosts](3-playbook/README.fr.md)
- - [Exercice 4 - Retrieving information from automation hosts](4-variables/README.fr.md)
- - [Exercice 5 - Self-service IT via surveys](5-surveys/README.fr.md)
- - [Exercice 6 - Overview of system roles for RHEL](6-system-roles/README.fr.md)
+ - [Exercice 1 - Aperçu du déploiement sur le cloud public](1-setup/README.fr.md)
+ - [Exercice 2 - Les bases Ansible](2-thebasics/README.fr.md)
+ - [Exercice 3 - Deployer des applications sur Linux](3-playbook/README.fr.md)
+ - [Exercice 4 - Récupérer des informations sur les hôtes](4-variables/README.fr.md)
+ - [Exercice 5 - Self-service via les Questionnaires](5-surveys/README.fr.md)
+ - [Exercice 6 - Aperçu des rôles système pour RHEL](6-system-roles/README.fr.md)
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

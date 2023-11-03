@@ -1,7 +1,7 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux (90 mins)
 
 **Read this in other languages**:
-<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md)
+<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../images/fr.png) [Français](README.fr.md)
 <br>
 
 If you’re new to Ansible Automation, but want a quicker version of the original RHEL workshop, this 90-minute workshop provides you with fewer exercises, focused on cloud provisioning, converting bash/shell commands to Ansible, all the way to utilizing RHEL System Roles.

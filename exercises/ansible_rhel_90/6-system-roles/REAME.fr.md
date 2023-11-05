@@ -18,12 +18,12 @@
 
 # Objectif
 
-The goal of this exercise is to understand and use pre-existing content in the forms of roles and collections from Automation Hub and Ansible Galaxy.
+Le but de cet exercice est de comprendre et utiliser du contenu déjàe xistant sous la forme de rôles et de collections en provenance du Automation Hub et de Ansible Galaxy.
 
-- Understand and use [Linux System Roles](https://linux-system-roles.github.io/) and [RHEL System Roles Collection](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles)
-  - Use [firewall role](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/) to configure the firewall
-  - Use the [timesync role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) to configure NTP from the RHEL System Roles Collection.
-- Use a pre-populated Ansible Survey to configure the RHEL web hosts
+- Comprendre et utiliser les [Rôles Systèmes Linux](https://linux-system-roles.github.io/) et la [Collection RHEL System Roles](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles)
+  - Utiliser le [rôle firewall](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/) pour configurer le pare-feu
+  - Utiliser le [rôle timesync](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) pour configurer NTP depuis la Collection RHEL System Roles
+- Utiliser un Questionnaire Ansible pré-rempli pour configurer les hôtes web RHEL 
 
 # Guide
 

@@ -1,4 +1,4 @@
-# Exercice - Rôles Systèmes Linux 
+# Exercice - Rôles Système Linux 
 
 **Lisez ceci dans d'autres langues**: 
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md)
@@ -6,13 +6,13 @@
 
 ## Table des matières
 
-- [Exercice - Rôles Sytèmes Linux](#exercice---rôles-systèmes-linux)
+- [Exercice - Rôles Système Linux](#exercice---rôles-système-linux)
   - [Table des matières](#table-des-matières)
 - [Objectif](#objectif)
 - [Guide](#guide)
   - [Etape 1 - Examiner le Projet Ansible](#etape-1---examiner-le-projet-ansible)
   - [Etape 2 - Examiner le Playbook Ansible](#etape-2---examinee-le-playbook-ansible)
-  - [Etape 3 - Examiner les Rôles Systèmes Linux](#etape-3---examiner-les-roles-sytèmes-linux)
+  - [Etape 3 - Examiner les Rôles Système Linux](#etape-3---examiner-les-roles-sytème-linux)
   - [Etape 4 - Lancer le Travail Ansible](#etape-4---lancer-le-travail-ansible)
   - [Etape 5 - Vérifier la configuration](#etape-5---vérifier-la-configuration)
 
@@ -20,16 +20,16 @@
 
 Le but de cet exercice est de comprendre et utiliser du contenu déjà existant sous la forme de rôles et de collections en provenance du Automation Hub et de Ansible Galaxy.
 
-- Comprendre et utiliser les [Rôles Systèmes Linux](https://linux-system-roles.github.io/) et la [Collection RHEL System Roles](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles)
+- Comprendre et utiliser les [Rôles Système Linux](https://linux-system-roles.github.io/) et la [Collection RHEL System Roles](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles)
   - Utiliser le [rôle firewall](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/) pour configurer le pare-feu
   - Utiliser le [rôle timesync](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) pour configurer NTP depuis la Collection RHEL System Roles
 - Utiliser un Questionnaire Ansible pré-rempli pour configurer les hôtes web RHEL 
 
 # Guide
 
-Les Rôles Sytèmes Linux créent une interface utilisateur cohérente pour fournir les paramètres à un sous-système qui n'est pas dépendant d'une implémentation particulière. Par exemple, assigner un adrese IP a une interface réseau devrait être un concept générique séparé des implementations particulières telles que les scripts init pour le réseau, NetworkManager, ou bien systemd-networkd.
+Les Rôles Sytème Linux créent une interface utilisateur cohérente pour fournir les paramètres à un sous-système qui n'est pas dépendant d'une implémentation particulière. Par exemple, assigner un adrese IP a une interface réseau devrait être un concept générique séparé des implementations particulières telles que les scripts init pour le réseau, NetworkManager, ou bien systemd-networkd.
 
-Cet exercice utilise deux Rôles Sytèmes Linux, les rôles `timesync` et `firewall`.
+Cet exercice utilise deux Rôles Sytème Linux, les rôles `timesync` et `firewall`.
 
 ## Etape 1 - Examiner le Projet Ansible
 
@@ -75,7 +75,7 @@ Il y a deux tâches qui incluent un rôle et un rôle de collection respectiveme
   </tr>
 </table>
 
-## Etape 3 - Examiner les Rôles Systèmes Linux
+## Etape 3 - Examiner les Rôles Système Linux
 
 Les Playbooks Ansible sont simples. Ils utilisent juste les Playbooks Ansible pré-construits fournis par Ansible Galaxy et le Automation Hub. Ils ont été préinstallés pour l'atelier.
 

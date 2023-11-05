@@ -27,27 +27,27 @@ Le but de cet exercice est de comprendre et utiliser du contenu déjàe xistant 
 
 # Guide
 
-Linux System Roles create a consistent user interface to provide settings to a given subsystem that is abstract from any particular implementation. For example, assigning an IP Address to a network interface should be a generic concept separate from any particular implementations such as init networking scripts, NetworkManager, or systemd-networkd.
+Les Rôles Sytèmes Linux créent une interface utilisateur cohérente pour fournir les paramètres à un sous-système qui n'est pas dépendant d'une implémentation particulière. Par exemple, assigner un adrese IP a une interface réseau devrait être un concept générique séparé des implementations particulières telles que les scripts init pour le réseau, NetworkManager, ou bien systemd-networkd.
 
-This exercise will use two Linux System Roles, the `timesync` and `firewall` roles.
+Cet exercice utilise deux Rôles Sytèmes Linux, les rôles `timesync` et `firewall`.
 
-## Step 1 - Examine Ansible Project
+## Etape 1 - Examiner le Projet Ansible
 
-In the Ansible Automation Controller UI navigate to Projects then click on the **Ansible official demo project**:
+Dans l'interface utilisateur du Contrôleur Ansible Automation, naviguez vers **Projets** et cliquez sur **Ansible official demo project**:
 
 ![demo project](images/demo-project.png)
 
-Take note of the Github repository that was pre-loaded into your Ansible Automation Controller environment:
+Notez le référentiel Github qui a été pré-chargé dans l'environnement de votre Contrôleur Ansible Automation:
 
 [https://github.com/ansible/product-demos](https://github.com/ansible/product-demos)
 
-## Step 2 - Examine the Ansible Playbook
+## Etape 2 - Examiner le Playbook Ansible
 
-Open the repository linked above in your web browser. Navigate to **linux/hardening.yml**
+Ouvrez le référentiel fourni en lien ci-dessus dans votre navigateur. Cliquez sur **linux/hardening.yml**
 
-The full URL is: [https://github.com/ansible/product-demos/blob/main/linux/hardening.yml](https://github.com/ansible/product-demos/blob/main/linux/hardening.yml)
+L'URL complète est: [https://github.com/ansible/product-demos/blob/main/linux/hardening.yml](https://github.com/ansible/product-demos/blob/main/linux/hardening.yml)
 
-Take note of these two tasks:
+Notez ces deux tâches:
 
 ```
 - name: Configure Firewall
@@ -61,7 +61,7 @@ Take note of these two tasks:
     name: redhat.rhel_system_roles.timesync
 ```
 
-There are two tasks that include a role and a role from a collection respectively.  If you have trouble distinguishing a role that comes directly from Ansible Galaxy versus a role that is in an Ansible Collection this nomenclature should help you:
+Il y a deux tâches qui incluent un rôle et un rôle de collection respectivement. Si vous avez du mal à distinguer un rôle en provenance directe de Ansible Galaxy, par rapport à un rôle en provenance d'une collection, cette nomenclature devrait vous aider:
 
 <table>
 <tr>
@@ -75,11 +75,11 @@ There are two tasks that include a role and a role from a collection respectivel
   </tr>
 </table>
 
-## Step 3 - Examine the Linux System Roles
+## Etape 3 - Examiner les Rôles Systèmes Linux
 
-The Ansible Playbooks are simple.  They just use the pre-built Ansible Playbooks provided by Ansible Galaxy and Automation Hub.  These were pre-installed for this Ansible Workshop.
+Les Playbooks Ansible sont simples. Ils utilisent juste les Playbooks Ansible pré-construits fournis par Ansible Galaxy et le Automation Hub. Ils ont été préinstallés pour l'atelier.
 
-- [firewall system role](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/)  - by default this installs firewalld, python3-firewall.  Optional parameters can be sent such as what service to open:
+- [Rôle Système firewall](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/)  - par défaut, il installe firewalld, et python3-firewall. Des paramètres optionnels peuvent être définis tels que le service à ouvrir:
 
 ```
 vars:
@@ -88,7 +88,7 @@ vars:
     state: 'disabled'
 ```
 
-- [timesync system role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) from the RHEL System Roles Collection - will install NTP or chrony depending on your OS version, configure them, and make sure the system clock for the Linux host is synchronized.  Optional parameters can be set to specify specific parameters:
+- [Rôle Système timesync](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) depuis la Collection RHEL System Roles - il installe NTP ou chrony en fonction de la version du système d'exploitation, les ocnfigure, et s'assure que l'horloge système de l'hôte Linux est synchornisée. Des paramètres optionnels peuvent être définis:
 
 ```
 vars:
@@ -101,47 +101,47 @@ vars:
       iburst: yes
 ```
 
-## Step 4 - Launch the Ansible Job
+## Etape 4 - Lancer le Travail Ansible
 
-In the Ansible Automation Controller UI navigate to **Templates**.  
+Dans l'UI du Contrôleur Ansible Automation, naviguez vers **Modèles**.
 
-Click on the **rocket** to launch the **SERVER / Hardening** job template:
+Cliquez sur la **Fusée** pour lancer le Modèle de Travail **SERVER / Hardening**:
 
 ![job template](images/job.png)
 
-This will launch a survey before starting the job.  Fill out the survey:
+Un Questionnaire va apparaître avant le démarrage du Travail. Renseignez le Questionnaire:
 
 ![survey](images/survey.png)
 
-- The **CONFIGURE FIREWALL?** question will enable the `firewall` system role.
-- The **CONFIGURE TIME?** will enable the `timesync` system role.
-- For the purpose of this exercise set the rest to **No**
+- La question **CONFIGURE FIREWALL?** va activer le rôle système`firewall`.
+- La question **CONFIGURE TIME?** va activer le rôle système `timesync`.
+- Pour cet exercice, répondez **Non** aux autres questions.
 
-Click the **NEXT** button:
+Cliquez sur le bouton **Suivant**
 
 ![next button](images/next.png)
 
-Review the **EXTRA VARIABLES** to understand what the survey did.  Click the **LAUNCH** button:
+Vérifiez les **Variables Supplémentaires** pour comprendre ce que le Questionnaire a changé. Cliquez sur le bouton **Lancer**:
 
 ![next button](images/launch.png)
 
-Watch the Job kick off!
+Observez le Travail se lancer!
 
-## Step 5 - Verify the configuration
+## Etape 5 - Vérifier la configuration
 
-From the Ansible control node, ssh to the node you configured:
+Depuis le noeud de contrôle Ansible, connectez vous en SSH au noeud que vous avez configuré:
 
 ```
 $ ssh node1
 ```
 
-For Red Hat Enterprise Linux 8 the **timesync** system role used chronyd.  Check if it is installed, enabled and running with `systemctl status` command:
+Pour Red Hat Enterprise Linux 8 le rôle système **timesync** utilise chronyd. Vérifiez qu'il est installé, activé et démarré avec la commande `systemctl status`:
 
 ```
 $ sudo systemctl status chronyd.service
 ```
 
-Here is the full output:
+Voici le résultat complet:
 ```
 [student@ansible ~]$ sudo systemctl status chronyd.service
 ● chronyd.service - NTP client/server
@@ -163,7 +163,7 @@ Apr 21 14:38:12 ip-172-16-47-87.us-east-2.compute.internal chronyd[934]: Selecte
 Apr 21 14:38:12 ip-172-16-47-87.us-east-2.compute.internal chronyd[934]: System clock TAI offset set to 37 seconds
 ```
 
-Here are some other commands that can be used to verify time is working correctly:
+Voci d'autres commandes qui peuvent être utilisées pour vérifier que le temps fonctionne correctement:
 
 ```
 # chronyc tracking  
@@ -174,7 +174,7 @@ Here are some other commands that can be used to verify time is working correctl
 # timedatectl
 ```
 
-For example:
+Par exemple:
 
 ```
 $ timedatectl

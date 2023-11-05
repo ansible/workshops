@@ -18,7 +18,7 @@
 
 # Objectif
 
-Le but de cet exercice est de comprendre et utiliser du contenu déjàe xistant sous la forme de rôles et de collections en provenance du Automation Hub et de Ansible Galaxy.
+Le but de cet exercice est de comprendre et utiliser du contenu déjà existant sous la forme de rôles et de collections en provenance du Automation Hub et de Ansible Galaxy.
 
 - Comprendre et utiliser les [Rôles Systèmes Linux](https://linux-system-roles.github.io/) et la [Collection RHEL System Roles](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles)
   - Utiliser le [rôle firewall](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/) pour configurer le pare-feu

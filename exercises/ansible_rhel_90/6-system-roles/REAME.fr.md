@@ -1,7 +1,7 @@
 # Exercice - Rôles Systèmes Linux 
 
 **Lisez ceci dans d'autres langues**: 
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md)
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md)
 <br>
 
 ## Table des matières

@@ -1,7 +1,7 @@
 # 演習 - Linux システムロール
 
 **他の言語でもお読みいただけます**: 
-<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md)
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md)
 <br>
 
 ## 目次

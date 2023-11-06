@@ -13,7 +13,7 @@
   - [Etape 1 - Examiner le Projet Ansible](#etape-1---examiner-le-projet-ansible)
   - [Etape 2 - Examiner le Playbook Ansible](#etape-2---examinee-le-playbook-ansible)
   - [Etape 3 - Examiner les Rôles Système Linux](#etape-3---examiner-les-roles-sytème-linux)
-  - [Etape 4 - Lancer le Travail Ansible](#etape-4---lancer-le-travail-ansible)
+  - [Etape 4 - Lancer le Job Ansible](#etape-4---lancer-le-job-ansible)
   - [Etape 5 - Vérifier la configuration](#etape-5---vérifier-la-configuration)
 
 # Objectif
@@ -101,15 +101,15 @@ vars:
       iburst: yes
 ```
 
-## Etape 4 - Lancer le Travail Ansible
+## Etape 4 - Lancer le Job Ansible
 
 Dans l'UI du Contrôleur Ansible Automation, naviguez vers **Modèles**.
 
-Cliquez sur la **Fusée** pour lancer le Modèle de Travail **SERVER / Hardening**:
+Cliquez sur la **Fusée** pour lancer le Modèle de Job **SERVER / Hardening**:
 
 ![job template](images/job.png)
 
-Un Questionnaire va apparaître avant le démarrage du Travail. Renseignez le Questionnaire:
+Un Questionnaire va apparaître avant le démarrage du Job. Renseignez le Questionnaire:
 
 ![survey](images/survey.png)
 
@@ -125,7 +125,7 @@ Vérifiez les **Variables Supplémentaires** pour comprendre ce que le Questionn
 
 ![next button](images/launch.png)
 
-Observez le Travail se lancer!
+Observez le Job se lancer!
 
 ## Etape 5 - Vérifier la configuration
 

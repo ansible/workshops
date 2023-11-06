@@ -101,7 +101,7 @@ Après avoir démarré le Job de synchronisation, allez sur la vue **Jobs** : il
 
 ### Créer un Modèle avec un Questionnaire
 
-Maintenant, vous créez un Modèle qui utilise un Questionnaire.
+Maintenant, vous pouvez créer un Modèle qui utilise un Questionnaire.
 
 #### Créer le Modèle
 

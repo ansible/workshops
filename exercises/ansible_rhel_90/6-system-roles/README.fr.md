@@ -189,6 +189,6 @@ System clock synchronized: yes
 ----
 **Navigation**
 <br>
-[Previous Exercise](../5-surveys)
+[Exercice précédent](..../ansible_rhel/2.4-surveys/README.fr.md)
 <br><br>
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

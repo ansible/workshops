@@ -20,13 +20,13 @@ Démontrer l'utilisation de la fonctionnalité [Questionnaire](https://docs.ansi
 
 ## Guide
 
-Vous avez installé Apache sur tous les hôtes du travail que vous venez d'exécuter. Nous allons maintenant approfondir ceci:
+Vous avez installé Apache sur tous les hôtes du Job que vous venez d'exécuter. Nous allons maintenant approfondir ceci:
 
 - Utilisez un rôle approprié doté d'un modèle Jinja2 pour déployer un fichier `index.html`.
 
 - Créez un **Modèle** avec un questionnaire pour personnaliser le contenu de  `index.html`.
 
-- Lancez le travail **Modèle**
+- Lancez le **Modèle** de Job
 
 De plus, le rôle s'assurera que la configuration d'Apache est correcte - au cas où elle se serait brisée pendant les autres exercices.
 
@@ -89,7 +89,7 @@ Le rôle déploie également une configuration statique pour Apache. Il s'agit d
    </tr>
    <tr>
      <td>Options</td>
-     <td>Selectionner Clean, Delete, Update Revision on Launch pour requêter un copie neuve du référentiel et pour le mettre à jour au lancement d'un travail.</td>
+     <td>Selectionner Clean, Delete, Update Revision on Launch pour requêter un copie neuve du référentiel et pour le mettre à jour au lancement d'un Job.</td>
    </tr>
  </table>
 
@@ -97,7 +97,7 @@ Le rôle déploie également une configuration statique pour Apache. Il s'agit d
 
 Le nouveau Projet sera synchronisé automatiquement après la création. Vous pouvez aussi le faire manuellement : Synchronisez le Projet de nouveau auprès du référentiel Git, en allant sur la vue **Projets** et en cliquant sur l'icône de flèche circulaire **Synchroniser** sur la droite du Projet.
 
-Après avoir démarré le travail de synchronisation, allez sur la vue **Travaux** : il y a maintenant un travail pour la mise à jour du Projet.
+Après avoir démarré le Job de synchronisation, allez sur la vue **Travaux** : il y a maintenant un Job pour la mise à jour du Projet.
 
 ### Créer un Modèle avec un Questionnaire
 
@@ -105,7 +105,7 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
 
 #### Créer le Modèle
 
-* Aller dans **Ressources → Modèles** et cliquer sur le bouton **Ajouter** puis choisissez **Ajouter un Modèle de travail**
+* Aller dans **Ressources → Modèles** et cliquer sur le bouton **Ajouter** puis choisissez **Ajouter un Modèle de Job**
 
 * Saisissez les informations suivantes:
 
@@ -119,7 +119,7 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
     <td>Créer index.html</td>
   </tr>
   <tr>
-    <td>Type de travail</td>
+    <td>Type de Job</td>
     <td>Run</td>
   </tr>
   <tr>
@@ -156,7 +156,7 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
 
 > **Attention**
 >
-> **Ne pas lancer le travail pour le moment!**
+> **Ne pas lancer le Job pour le moment!**
 
 #### Ajouter le Questionnaire
 
@@ -212,11 +212,11 @@ De la même manière, ajouter une deuxième **Question**
 
 ### Lancer le Modèle
 
-Maintenant, lancez le modèe de travail **Créer index.html** en sélectionnant l'onglet **Détails** et en cliquant sur le bouton **Lancer**.
+Maintenant, lancez le Modèle de Job **Créer index.html** en sélectionnant l'onglet **Détails** et en cliquant sur le bouton **Lancer**.
 
-Avant le lancement, le questionnaire va demander à renseigner **First Line** et **Second Line**. Renseignez du texte dans les champs proposés et cliquer sur **Suivant**. La fenêtre **Aperçu** montre les valeurs. Si tout est conforme, lancer le travail en cliquant sur **Lancer**.
+Avant le lancement, le questionnaire va demander à renseigner **First Line** et **Second Line**. Renseignez du texte dans les champs proposés et cliquer sur **Suivant**. La fenêtre **Aperçu** montre les valeurs. Si tout est conforme, lancez le Job en cliquant sur **Lancer**.
 
-Quand le travail est terminé, vérifiez la page d'accueil Apache. Dans la console SSH sur l'hôte de contrôle, exécutez `curl` sur `node1`:
+Quand le Job est terminé, vérifiez la page d'accueil Apache. Dans la console SSH sur l'hôte de contrôle, exécutez `curl` sur `node1`:
 
 ```bash
 $ curl http://node1

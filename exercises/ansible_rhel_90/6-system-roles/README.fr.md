@@ -27,7 +27,7 @@ Le but de cet exercice est de comprendre et utiliser du contenu déjà existant 
 
 # Guide
 
-Les Rôles Sytème Linux créent une interface utilisateur cohérente pour fournir les paramètres à un sous-système qui n'est pas dépendant d'une implémentation particulière. Par exemple, assigner un adrese IP a une interface réseau devrait être un concept générique séparé des implementations particulières telles que les scripts init pour le réseau, NetworkManager, ou bien systemd-networkd.
+Les Rôles Sytème Linux créent une interface utilisateur cohérente pour fournir les paramètres à un sous-système qui n'est pas dépendant d'une implémentation particulière. Par exemple, assigner une adresse IP a une interface réseau devrait être un concept générique séparé des implementations particulières telles que les scripts init pour le réseau, NetworkManager, ou bien systemd-networkd.
 
 Cet exercice utilise deux Rôles Sytème Linux, les rôles `timesync` et `firewall`.
 

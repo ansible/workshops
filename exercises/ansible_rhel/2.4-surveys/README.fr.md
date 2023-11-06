@@ -67,11 +67,11 @@ Le rôle déploie également une configuration statique pour Apache. Il s'agit d
      <td>Default</td>
    </tr>
    <tr>
-     <td>Environnement d'exécution par défaut</td>
+     <td>Environnement d'exécution</td>
      <td>Default execution environment</td>
    </tr>
    <tr>
-     <td>Type d'identification de source de contrôle</td>
+     <td>Type de Contrôle de la source</td>
      <td>Git</td>
    </tr>
  </table>
@@ -84,7 +84,7 @@ Le rôle déploie également une configuration statique pour Apache. Il s'agit d
      <th>Valeur</th>
    </tr>
    <tr>
-     <td>URL de la source de contrôle</td>
+     <td>URL Contrôle de la source</td>
      <td><code>https://github.com/ansible/workshop-examples.git</code></td>
    </tr>
    <tr>
@@ -93,11 +93,11 @@ Le rôle déploie également une configuration statique pour Apache. Il s'agit d
    </tr>
  </table>
 
-* Cliquer sur **ENREGISTRER**
+* Cliquer sur **Enregistrer**
 
 Le nouveau Projet sera synchronisé automatiquement après la création. Vous pouvez aussi le faire manuellement : Synchronisez le Projet de nouveau auprès du référentiel Git, en allant sur la vue **Projets** et en cliquant sur l'icône de flèche circulaire **Synchroniser** sur la droite du Projet.
 
-Après avoir démarré le Job de synchronisation, allez sur la vue **Travaux** : il y a maintenant un Job pour la mise à jour du Projet.
+Après avoir démarré le Job de synchronisation, allez sur la vue **Jobs** : il y a maintenant un Job pour la mise à jour du Projet.
 
 ### Créer un Modèle avec un Questionnaire
 
@@ -120,7 +120,7 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
   </tr>
   <tr>
     <td>Type de Job</td>
-    <td>Run</td>
+    <td>Exécuter</td>
   </tr>
   <tr>
     <td>Inventaire</td>
@@ -139,7 +139,7 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
     <td><code>rhel/apache/apache_role_install.yml</code></td>
   </tr>
   <tr>
-    <td>Information d'identification</td>
+    <td>Informations d'identification</td>
     <td>Workshop Credential</td>
   </tr>
   <tr>
@@ -174,7 +174,7 @@ Maintenant, vous créez un Modèle qui utilise un Questionnaire.
     <td>First Line</td>
   </tr>
   <tr>
-    <td>Nom de la Variable de réponse</td>
+    <td>Nom de Variable de réponse</td>
     <td>first_line</td>
   </tr>
   <tr>

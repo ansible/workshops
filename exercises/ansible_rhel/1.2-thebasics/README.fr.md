@@ -1,7 +1,7 @@
 # Exercice - Les Bases d'Ansible <!-- omit in toc -->
 
 **Lisez ceci dans d'autres langues**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table des matières <!-- omit in toc -->
 
@@ -173,6 +173,3 @@ Vous pouvez aussi sauter directement sur un module particulier en tapant simplem
 {% endif %}
 <br><br>
 
-<br>
-
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.fr.md)

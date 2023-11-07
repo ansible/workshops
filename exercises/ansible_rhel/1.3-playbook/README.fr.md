@@ -264,13 +264,13 @@ PLAY RECAP *********************************************************************
 ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
-Run the the `ansible-navigator run apache.yml` playbook for a second time, and compare the output. The output "CHANGED" now shows `0` instead of `1` and the color changed from yellow to green. This makes it easier to spot when changes have occured when running the Ansible playbook.
+Lancez le Playbook `ansible-navigator run apache.yml` une seconde fois, et comparez le résultat. Le compteur "CHANGED" montre à présent `0` au lieu de `1` et la couleur est passée de jaune à vert. Cela rend plus facile le repérage des changements lors des lancements de Playbooks Ansible.
 
-### Etape 4 - Extend your Playbook: Start & Enable Apache
+### Etape 4 - Ajout de tache: Démarrage et activation de Apache
 
-The next part of the Ansible playbook makes sure the Apache application is enabled and started on `node1`.
+La partie suivante du Playbook Ansible s'assure que l'application Apache est activée et démarrée sur `node1`.
 
-On the control host, as your student user, edit the file `~/ansible-files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
+Sur l'hôte de contrôle, en tant qu'utilisateur student, modifiez le fichier `~/ansible-files/apache.yml` pour ajouter une deuxième tâche à l'aide du module `service`. Le Playbook devrait maintenant ressembler à ceci:
 
 ```yaml
 ---
@@ -290,25 +290,22 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
         state: started
 ```
 
-What exactly did we do?
+Quels changements avons-nous faits ?
+* une deuxième tâche est créée et nommée
+* un module est spécifié (`service`)
+* Le module `service` prend le nom du service (`httpd`), renseigne son activation (`enabled`), et son état actuel (`started`)
 
-* a second task named "Apache enabled and running" is created
-* a module is specified (`service`)
-* The module `service` takes the name of the service (`httpd`), if it should be permanently set (`enabled`), and its current state (`started`)
-
-
-Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
+Ainsi, avec la seconde tâche on s'assure que le serveur Apache est bien en route sur la machine cible. Lancez votre Playbook étendu:
 
 ```bash
 [student@ansible-1 ~]$ ansible-navigator run apache.yml
 ```
 
-Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
+Notez dans le résultat, on voir que le Play avait `1` élément "CHANGED" affiché en jaune et si on presse `0` pour entrer dans la sortie du Play, on peut voir que la tâche 2, "Apache enabled and running", éait la tâche qui incorporait les derniers changements grâce à la valeur de "CHANGED" passée à True et colorée en jaune.
 
-
-* Run the playbook a second time using `ansible-navigator` to get used to the change in the output.
-
-* Use an Ansible playbook labeled service_state.yml to make sure the Apache (httpd) service is running on `node1`, e.g. with: `systemctl status httpd`.
+* Lancez le Playbook une seconde fois en utilisant `ansible-navigator` pour vous habituer aux changements dans le résultat.
+  
+* Utilisez un Playbook Ansible institulé `service_state.yml` pour vous assurer que le service Apache (httpd) est lancé sur `node1`, c'est-à-dire avec: `systemctl status httpd`.
 
 {% raw %}
 ```yaml

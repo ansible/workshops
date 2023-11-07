@@ -179,9 +179,9 @@ Pendant l'exécution du playbook, vous aurez une interface en mode texte (TUI) q
 0│Apache server installed           2        1              0           0          0          0              0              2          COMPLETE
 ```
 
-If you notice, prior to the play name `Apache server installed`, you'll see a `0`. By pressing the `0` key on your keyboard, you will be provided a new window view displaying the different tasks that ran for the playbook completion. In this example, those tasks included the "Gathering Facts" and "Install Apache". The "Gathering Facts" is a built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail. The "Install Apache" was the task created within the `apache.yml` file that installed `httpd`.
+Si vous remarquez, avant le nom du Play `Apache server installed`, vous verrez un `0`. EN pressant la touche `0` sur votre clavier, vous obtiendrez une nouvelle fenêtre qui affiche les différentes tâches qui ont tourné pour ce Playbook. Dnas cet exemple, ces tâches incluent  "Gathering Facts" et "Install Apache". La tâche "Gathering Facts" est intégrée et tourne automatiquement au début de chaque Play. Elle collecte des informations sur les noeuds gérés. Les exercices ultérieurs couvriront ce concept plus en détail. La tâche "Install Apache" est la tâche créée dans le fichier `apache.yml` qui installe `httpd`.
 
-The display should look something like this:
+Le résultat devrait ressembler à ceci:
 
 ```bash
   RESULT      HOST	NUMBER      CHANGED       TASK                                                   TASK ACTION           DURATION
@@ -189,18 +189,17 @@ The display should look something like this:
 1│OK          node1          1         True       Install Apache                        dnf                         4s
 ```
 
-Taking a closer look, you'll notice that each task is associated with a number. Task 1, "Install Apache", had a change and used the `dnf` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`.
+En regardant de plus près, vous rmarquerez que chaque tâche est associée à un numéro. La tâche 1, "Install Apache", marque un changemenet et a utilisé le module `dnf`. Dans ce cas le changement est l'installation de Aache (paquet `httpd`) sur l'hôte `node1`.
 
-By pressing `0` or `1` on your keyboard, you can see further details of the task being run. If a more traditional output view is desired, type `:st` within the text user interface.
+En pressant `0` ou `1` sur votre clavier, vous pouvez voir plus de détails sur les tâches exécutées. Si vous souhaitez un affichage plus traditionnel, tapez `:st` dans l'interface texte.
 
-Once you've completed, reviewing your Ansible playbook, you can exit out of the TUI via the Esc key on your keyboard.
+Une fois terminé, vous pouvez quitter la TUI avec la touche Echap de votre clavier.
 
-> **Tip**
+> **Astuce**
 >
-> The Esc key only takes you back to the previous screen. Once at the main overview screen an additional Esc key will take you back to the terminal window.
+> La touche Echap vous ramène simplement à l'écran précédent. Une fois sur l'écran principal, appuyer sur Echap vous ramène au terminal.
 
-
-Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
+Une fois le playbook complété, connectez vous à `node1` via SSH pour vous assurer que Apache a été installé:
 
 ```bash
 [student@ansible-1 ansible-files]$ ssh node1
@@ -208,7 +207,7 @@ Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
 
-Use the command `rpm -qi httpd` to verify httpd is installed:
+Utilisez la commande `rpm -qi httpd` pour vérifier que httpd est installé:
 
 ```bash
 [ec2-user@node1 ~]$ rpm -qi httpd
@@ -217,7 +216,7 @@ Version     : 2.4.37
 [...]
 ```
 
-Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`
+Déconnectez-vous de `node1` avec la commande `exit` pour revenir sur l'hôte de contrôle et vérifier le paquet installé avec un Playbook Ansible intitulé `package.yml`
 
 {% raw %}
 ```yaml

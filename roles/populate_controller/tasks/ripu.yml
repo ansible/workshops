@@ -11,9 +11,9 @@
     - 'redhat_cop.controller_configuration.groups'
   loop_control:
     loop_var: setup_controller
-    
+
 - name: Debug the student number via the username var
-  ansible.builtin.debug: 
+  ansible.builtin.debug:
     msg:
      - "student: {{ student_number }}"
      - "{{ groups['lab_hosts'] }}"
@@ -23,7 +23,7 @@
     student_hosts: "{{ groups['lab_hosts'] | select('search', student_number ~ '-') | list }}"
     student_control_nodes: "{{ groups['control_nodes'] | select('search', student_number ~ '-') | list }}"
 
-- name: Debug hosts for 
+- name: Debug hosts for
   ansible.builtin.debug:
     msg:
       - "{{ student_hosts }}"
@@ -61,7 +61,7 @@
     control_short_names: "{{ groups['control_nodes'] | map('extract', hostvars) | map(attribute='short_name') | list }}"
 
 - name: Print host short_names list to terminal
-  debug: 
+  debug:
     var: web_short_names
 
 - name: Add web hosts to the web group
@@ -87,3 +87,55 @@
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"
     validate_certs: false
+
+- name: Splunk credential type
+  awx.awx.credential_type:
+    name: Splunk HEC Token
+    description: Credential to send event data to a Splunk deployment
+    kind: cloud
+    inputs:
+      fields:
+        - type: string
+          id: splunk_url
+          label: Splunk URL
+          help_text: URL of the Splunk HTTP Event Collector
+        - type: string
+          id: splunk_index
+          label: Splunk Index
+          help_text: Splunk index to which events will be collected
+        - type: string
+          id: splunk_hectoken
+          label: Splunk HEC Token
+          secret: true
+          help_text: HTTP Event Collector tokens used for Splunk platform authentication
+      required:
+        - splunk_url
+        - splunk_index
+        - splunk_hectoken
+    injectors:
+      env:
+        SPLUNK_URL: !unsafe '{{ splunk_url }}'
+        SPLUNK_INDEX: !unsafe '{{ splunk_index }}'
+        SPLUNK_HECTOKEN: !unsafe '{{ splunk_hectoken }}'
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+
+- name: Splunk credential
+  awx.awx.credential:
+    name: "Splunk Credential"
+    credential_type: Splunk HEC Token
+    organization: Default
+    inputs:
+      splunk_url: "{{ ripu_splunk_url }}"
+      splunk_index: "{{ ripu_splunk_index }}"
+      splunk_hectoken: "{{ ripu_splunk_hectoken }}"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+  when:
+    - ripu_splunk_url is defined
+    - ripu_splunk_index is defined
+    - ripu_splunk_hectoken is defined

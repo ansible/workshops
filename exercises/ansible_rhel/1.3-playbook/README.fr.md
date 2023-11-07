@@ -331,9 +331,9 @@ Notez dans le résultat, on voir que le Play avait `1` élément "CHANGED" affic
 [student@ansible-1 ~]$ ansible-navigator run service_state.yml
 ```
 
-### Etape 5 - Extend your Playbook: Create an web.html
+### Etape 5 - Ajout de tache: Création de fichier html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node to `node1`.
+Vérifiez que les tâches ont été exécutées correctement et qu'Apache accepte les connexions: effectuez une requête HTTP à l'aide du module `uri` d'Ansible dans un Playbook intitulé `check_httpd.yml` depuis le noeud de contrôle vers `node1`.
 
 {% raw %}
 ```yaml
@@ -351,23 +351,23 @@ Check that the tasks were executed correctly and Apache is accepting connections
 ```
 {% endraw %}
 
-> **Warning**
+> **Avertissement**
 >
-> **Expect a lot of red lines and a 403 status\!**
+> **Attendez-vous à beaucoup de lignes rouges et un statut 403 \!**
 
 ```bash
 [student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
-There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
+Il y a beaucoup de lignes rouges et une erreur: tant qu'il n'y a pas le fichier `web.html` servi par Apache, il affichera un vilain statut ""HTTP Error 403: Forbidden"" et Ansible signalera une erreur.
 
-So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+Alors pourquoi ne pas utiliser Ansible pour déployer un simple fichier `web.html`? Sur l'hôte de contrôle ansible, en tant qu'utilisateur `student`, créez le répertoire `files` pour contenir les fichiers ressources dans `~/ ansible-files/`:
 
 ```bash
 [student@ansible-1 ansible-files]$ mkdir files
 ```
 
-Then create the file `~/ansible-files/files/web.html` on the control node:
+Créez ensuite le fichier `~/ansible-files/files/web.html` sur le nœud de contrôle:
 
 ```html
 <body>
@@ -375,9 +375,9 @@ Then create the file `~/ansible-files/files/web.html` on the control node:
 </body>
 ```
 
-In a previous example, you used Ansible’s `copy` module to write text supplied on the command line into a file. Now you’ll use the module in your playbook to copy a file.
+Vous avez déjà utilisé le module `copy` d'Ansible pour écrire le texte fourni sur la ligne de commande dans un fichier. Vous allez maintenant utiliser le module de votre Playbook pour copier un fichier.
 
-On the control node as your student user edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
+Sur le nœud de contrôle, en tant qu'utilisateur `student`, modifiez le fichier `~/ansible-files/apache.yml` et ajoutez une nouvelle tâche en utilisant le module `copy`. Il devrait maintenant ressembler à ceci:
 
 ```yaml
 ---
@@ -403,25 +403,25 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
         mode: '644'
 ```
 
-What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
+Que fait cette nouvelle tâche de copie ? La nouvelle tâche utilise le module `copy` et définit la source et la destination pour l'opération de copie en tant que paramètres.
 
-Run your extended Playbook:
+Exécutez votre Playbook étendu:
 
 ```bash
 [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-* Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
+* Regardez bien la sortie, notez les changements "CHANGED" et les tâches associées à ces changements.
 
-* Run the Ansible playbook check_httpd.yml using the "uri" module from above again to test Apache. The command should now return a friendly green "status: 200" line, amongst other information.
+* Exécutez à nouveau le Playbook `check_httpd.yml` avec le module `uri` employé ci-dessus pour tester Apache. La commande devrait maintenant renvoyer une ligne verte "status: 200" entre autres informations.
 
-### Etape 6 - Practice: Apply to Multiple Host
+### Etape 6 - Application à plusieurs hôtes
 
-While the above, shows the simplicity of applying changes to a particular host. What about if you want to set changes to many hosts? This is where you'll notice the real power of Ansible as it applies the same set of tasks reliably to many hosts.
+Bien que les manipulations précédentes montrent la simplicité d'appliquer des changements sur un hôte particulier, qu'en est-il de propager des changements à de nombreux hôtes ? C'est maintenant qu'on constate le vrai pouvoir de Ansible, alors qu'il applique les mêmes jeux de tâches de manière fiable sur de nombreux hôtes.
 
-* So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
+* Alors, qu'en est-il de changer le Playbook apache.yml pour qu'il fonctionne sur `node1` **et** `node2` **et** `node3`?
 
-As you might remember, the inventory lists all nodes as members of the group `web`:
+Comme vous vous en souvenez peut-être, l'inventaire répertorie tous les nœuds en tant que membres du groupe `web`:
 
 ```ini
 [web]
@@ -430,11 +430,11 @@ node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
 ```
 
-> **Tip**
+> **Astuce**
 >
-> The IP addresses shown here are just examples, your nodes will have different IP addresses.
+> Les adresses IP présentées ici ne sont que des exemples, vos nœuds auront des adresses IP différentes.
 
-Change the playbook `hosts` parameter to point to `web` instead of `node1`:
+Modifiez le paramètre `hosts` du Playbook pour pointer vers le groupe `web` au lieu de `node1`:
 
 ```yaml
 ---
@@ -461,21 +461,21 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 ```
 
-Now run the playbook:
+Maintenant, lancez le Playbook:
 
 ```bash
 [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.
+Enfin, vérifiez si Apache fonctionne maintenant sur tous les serveurs web (node1, node2, node3). Toute sortie doit être verte.
 
 ---
 **Navigation**
 <br>
 
 {% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
+[Exercise précédent](../2-thebasics/README.fr.md) - [Exercise suivant](../4-variables/README.fr.md)
 {% else %}
-[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+[Exercise précédent](../1.2-thebasics/README.fr.md) - [Exercise suivant](../1.4-variables/README.fr.md)
 {% endif %}
 <br><br>

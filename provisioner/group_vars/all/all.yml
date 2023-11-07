@@ -22,14 +22,11 @@ valid_workshop_types:
   - network
   - f5
   - rhel
-  - devops
   - security
   - windows
   - rhel_90
   - demo
-  - smart_mgmt
   - auto_satellite
-  - middleware
   - configascode
   - ripu
 network_type: multivendor

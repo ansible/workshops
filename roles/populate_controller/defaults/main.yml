@@ -12,3 +12,9 @@ auto_satellite_ee: "quay.io/s4v0/ee-automated-satellite-aap2:latest"
 configascode_ee: "registry.redhat.io/ansible-automation-platform-21/ee-minimal-rhel8:latest"
 ripu_ee: "registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:1.0.0-208"
 run_commands_user: "ec2-user"
+controller_validate_certs: false
+controller_hostname: "https://{{ ansible_host }}"
+controller_username: "admin"
+controller_password: "{{ admin_password }}"
+controller_request_timeout: 200
+controller_configuration_projects_async_retries: 35

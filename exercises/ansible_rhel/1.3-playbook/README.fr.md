@@ -9,7 +9,7 @@
   - [Table des matières](#table-des-matières)
   - [Objectif](#objectif)
   - [Guide](#guide)
-    - [Etape 1 - Principes de base d'un Playbook](#Etape-1---Principes-de-base-d-un-Playbook)
+    - [Etape 1 - Principes de base d'un Playbook](#Etape-1---Principes-de-base-d'un-Playbook)
     - [Etape 2 - Création d'une structure pour votre Playbook](#Etape-2---Création-d-une-structure-pour-votre-Playbook)
     - [Etape 3 - Exécution du Playbook](#Etape-3---Exécution-du-Playbook)
     - [Etape 4 - Ajout de tache: Démarrage et activation de Apache](#Etape-4---Ajout-de-tache-Démarrage-et-activation-de-Apache)
@@ -18,73 +18,69 @@
 
 ## Objectif
 
-This exercise covers using Ansible to build two Apache web servers on Red Hat Enterprise Linux. This exercise covers the following Ansible fundamentals:
+Cet exercice couvre l'utilisation d'Ansible pour créer deux serveurs Web Apache sur Red Hat Enterprise Linux. Cet exercice couvre les principes de base d'Ansible suivants:
 
-* Understanding Ansible module parameters
-* Understanding and using the following modules
-  * [dnf module](https://docs.ansible.com/ansible/latest/modules/dnf_module.html)
-  * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
-  * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
-* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible modules can be idempotent
+* Comprendre les paramètres du module Ansible
+* Comprendre et utiliser les modules suivants
+  * [module dnf](https://docs.ansible.com/ansible/latest/modules/dnf_module.html)
+  * [module service](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+  * [module copy](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
+* Comprendre l'[idempotence](https://en.wikipedia.org/wiki/Idempotence) et comment les modules Ansible peuvent être idempotents
 
 ## Guide
 
-Playbooks are files which describe the desired configurations or Etapes to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
+Les Playbooks sont des fichiers qui décrivent les configurations souhaitées ou les étapes pour les implémenter sur les hôtes gérés. Les Playbooks peuvent transformer des tâches longues et complexes d'un point de vue administratif en routines facilement reproductibles avec des résultats prévisibles et réussis.
 
-A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, like the modules in the previous chapter. The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
+Un playbook peut avoir plusieurs "plays" et un "play" peut avoir une ou plusieurs tâches. Dans une tâche, un module est appelé, comme les modules du chapitre précédent. Le but d'un play est de cartographier un groupe d'hôtes. Le but d'une tâche est d'implémenter des modules sur ces hôtes.
 
-> **Tip**
+> **Astuce**
 >
-> Here is a nice analogy: When Ansible modules are the tools in your workshop, the inventory is the materials and the Playbooks are the instructions.
+> Voici une belle analogie: lorsque les modules Ansible sont les outils de votre atelier, l'inventaire est le matériel et les Playbooks les instructions.
 
-### Etape 1 - Playbook Basics
+### Etape 1 - Principes de base d'un Playbook
 
-Playbooks are text files written in YAML format and therefore need:
+Les playbooks sont des fichiers texte écrits au format YAML et nécessitent donc:
 
-* to start with three dashes (`---`)
+  * de commencer par trois tirets (`---`)
+  * une indentation appropriée en utilisant des espaces et **surtout pas** de tabulation \!
 
-* proper indentation using spaces and **not** tabs\!
+Il existe quelques concepts importants:
 
-There are some important concepts:
+ *  **hosts**: les hôtes sur lesquels seront effectués les tâches
+ *  **tasks**: les opérations à effectuer en appelant les modules Ansible et en leur passant les options nécessaires.
+ *  **become**: élévation de privilèges dans les playbooks, identique à l'utilisation de `-b` dans la commande Ad-hoc.
 
-* **hosts**: the managed hosts to perform the tasks on
-
-* **tasks**: the operations to be performed by invoking Ansible modules and passing them the necessary options
-
-* **become**: privilege escalation in playbooks
-
-> **Warning**
+> **Avertissement**
 >
-> The ordering of the contents within a Playbook is important, because Ansible executes plays and tasks in the order they are presented.
+> L'ordre des contenus dans un Playbook est important, car Ansible exécute les play et les tâches dans l'ordre où ils sont présentés.
 
-A Playbook should be **idempotent**, so if a Playbook is run once to put the hosts in the correct state, it should be safe to run it a second time and it should make no further changes to the hosts.
+Un Playbook doit être **idempotent**, donc si un Playbook est exécuté une fois pour mettre les hôtes dans l'état correct, il devrait être sûr de l'exécuter une deuxième fois et il ne devrait plus apporter de modifications aux hôtes.
 
-> **Tip**
+> **Astuce**
 >
-> Most Ansible modules are idempotent, so it is relatively easy to ensure this is true.
+> La plupart des modules Ansible sont idempotents, il est donc relativement facile de s'assurer que cela est vrai.
 
-### Etape 2 - Creating a Directory Structure and File for your Playbook
+### Etape 2 - Création d'une structure pour votre Playbook
 
-Enough theory, it’s time to create your first Ansible playbook. In this lab you create a playbook to set up an Apache web server in three steps:
+Assez de théorie, il est temps de créer votre premier Playbook Ansible. Dans ce laboratoire, vous créez un playbook pour configurer un serveur Web Apache en trois étapes:
+  1. Installez le package httpd
+  2. Activer/démarrer le service httpd
+  3. Copiez un fichier web.html sur chaque hôte Web
 
-1. Install httpd package
-2. Enable/start httpd service
-3. Copy over an web.html file to each web host
+Ce Playbook s'assure que le paquet contenant le serveur Web Apache est installé sur `node1`.
 
-This Playbook makes sure the package containing the Apache web server is installed on `node1`.
+Il existe un guide des [bonnes pratiques](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) sur les structures de répertoires à utiliser pour les Playbooks. Nous vous encourageons fortement à lire et à comprendre ces pratiques lorsque vous développez vos compétences de maitre ninja Ansible. Cela dit, notre Playbook d'aujourd'hui est très basique et créer une structure complexe ne fera que rendre les choses confuses.
 
-There is a [best practice](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills.  That said, our playbook today is very basic and creating a complex structure will just confuse things.
+Au lieu de cela, nous allons créer une structure de répertoire très simple pour notre playbook et y ajouter seulement quelques fichiers.
 
-Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
-
-On your control host **ansible**, create a directory called `ansible-files` in your home directory and change directories into it:
+Sur votre hôte de contrôle **ansible**, créez un répertoire appelé `ansible-files` dans votre répertoire personnel, et rentrez dedans.
 
 ```bash
 [student@ansible-1 ~]$ mkdir ansible-files
 [student@ansible-1 ~]$ cd ansible-files/
 ```
 
-Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
+Ajoutez un fichier appelé `apache.yml` avec le contenu suivant. Comme expliqué dans les exercices précédents, utilisez à nouveau `vi`/`vim` ou, si vous débutez avec les éditeurs sur la ligne de commande, consultez à nouveau [introduction à l'éditeur](../0.0-support-docs/editor_intro.md).
 
 ```yaml
 ---
@@ -93,17 +89,16 @@ Add a file called `apache.yml` with the following content. As discussed in the p
   become: yes
 ```
 
-This shows one of Ansible’s strengths: The Playbook syntax is easy to read and understand. In this Playbook:
+Cela montre l'une des forces d'Ansible: la syntaxe Playbook est facile à lire et à comprendre. Dans ce Playbook:
+* Un nom est donné pour le play via `name:`.
+* L'hôte sur lequel sera exécuter le playbook est défini via `hosts:`.
+* Nous activons l'escalade de privilèges utilisateur avec `become:`.
 
-* A name is given for the play via `name:`.
-* The host to run the playbook against is defined via `hosts:`.
-* We enable user privilege escalation with `become:`.
-
-> **Tip**
+> **Astuce**
 >
-> You obviously need to use privilege escalation to install a package or run any other task that requires root permissions. This is done in the Playbook by `become: yes`.
+> Vous devez évidemment utiliser une élévation de privilèges pour installer un package ou exécuter toute autre tâche nécessitant des autorisations root. Cela se fait dans le Playbook par `become: yes`.
 
-Now that we've defined the play, let's add a task to get something done. We will add a task in which dnf will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
+Maintenant que nous avons défini le play, ajoutons une tâche pour faire quelque chose. Nous ajouterons une tâche dans laquelle dnf s'assurera que le package Apache est installé dans la dernière version. Modifiez le fichier pour qu'il ressemble à la liste suivante:
 
 ```yaml
 ---
@@ -117,69 +112,67 @@ Now that we've defined the play, let's add a task to get something done. We will
         name: httpd
 ```
 
-> **Tip**
+> **Astuce**
 >
-> Since playbooks are written in YAML, alignment of the lines and keywords is crucial. Make sure to vertically align the *t* in `task` with the *b* in `become`. Once you are more familiar with Ansible, make sure to take some time and study a bit the [YAML Syntax](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html).
+> Les playbooks étant écrits en YAML, l'alignement des lignes et des mots-clés est crucial. Assurez-vous d'aligner verticalement le *t* dans `tâche` avec le *b* dans `become`. Une fois que vous vous serez familiarisé avec Ansible, assurez-vous de prendre un peu de temps et d'étudier un peu la [Syntaxe YAML](http://docs.ansible.com/ansible/YAMLSyntax.html).
 
-In the added lines:
+Dans les lignes ajoutées:
+* Nous avons commencé la partie tâches avec le mot clé `tasks:`.
+* Une tâche est nommée et le module de la tâche est référencé. Ici, il utilise le module `dnf`.
+* Des paramètres pour le module sont ajoutés:
+  * `name:` pour identifier le nom du paquet
+  * `state:` pour définir l'état souhaité du paquet
 
-* We started the tasks part with the keyword `tasks:`.
-* A task is named and the module for the task is referenced. Here it uses the `dnf` module.
-* Parameters for the module are added:
-  * `name:` to identify the package name
-  * `state:` to define the wanted state of the package
-
-> **Tip**
+> **Astuce**
 >
-> The module parameters are individual to each module. If in doubt, look them up again with `ansible-doc`.
+> Les paramètres du module sont individuels pour chaque module. En cas de doute, recherchez-les à nouveau avec la documentation dans `ansible-navigator`.
 
-Save your playbook and exit your editor.
+Enregistrez votre playbook et quittez votre éditeur.
 
-### Etape 3 - Running the Playbook
+### Etape 3 - Exécution du Playbook
 
-With the introduction of Ansible Automation Platform 2, several new key components are being introduced as a part of the overall developer experience. Execution environments have been introduced to provide predictable environments to be used during automation runtime. All collection dependencies are contained within the execution environment to ensure that automation created in development environments runs the same as in production environments.
+Depuis Ansible Automation Platform 2, un certain nombre de nouveaux composants sont introduits dans le cadre de l'expérience développeur. Les Environnements d'Execution ont été introduits pour fournir un environnement prévisible lors de l'exécution de l'automatisation. Toutes les dépendances en terme de collections sont contenues dans l'EE pour garantir que l'automatisation créée dans l'environnement de développement est exécutée à l'identique dans les environnements de production.
 
-What do you find within an execution environment?
-
+Que trouve-t-on dans un Environnement d'Execution?
 * RHEL UBI 8
-* Ansible 2.9 or Ansible Core 2.11
+* Ansible 2.9 ou Ansible Core 2.11
 * Python 3.8
-* Any content Collections
-* Collection python or binary dependencies.
+* Des collections
+* Des dépendances Python ou binaires pour les collections
 
-Why use execution environments?
+Pourquoi utiliser des Environnements d'Execution ?
 
-They provide a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, Automation execution environments are container images that allow for easier administration of Ansible by the platform administrator.
+Ils fournissent un moyen standardisé de définir, construire et distribuer les environnements dans lesquels l'automatisation tourne. En résumé, les EE sont des images de conteneurs qui permettent une administration facilitée de Ansible par l'administrateur de la plateforme.
 
-Considering the shift towards containerized execution of automation, automation development workflow and tooling that existed before Ansible Automation Platform 2 have had to be reimagined. In short, `ansible-navigator` replaces `ansible-playbook` and other `ansible-*` command line utilities.
+En considérant le déplacement vers l'exécution conteneurisée de l'automatisation, le processus et l'outillage de développement de l'automatisation qui existait avant Ansible Automation Platform 2 ont du être réminaginés. En résumé, `ansible-navigator` remplace `ansible-playbook` et les autres commandes utilitaires en ligne de commande `ansible-*`.
 
-With this change, Ansible playbooks are executed using the `ansible-navigator` command on the control node.
+Avec ce changement, les Playbooks Ansible sont exécutés à l'aide de la commande `ansible-navigator` sur le noeud de contrôle.
 
-The prerequisites and best practices for using `ansible-navigator` have been done for you within this lab.
+Les prérequis et bonnes pratiques pour l'utilisation de `ansible-navigator` ont été traités pour vous dans ce lab.
 
-These include:
-* Installing the `ansible-navigator` package
-* Creating a default settings `/home/student/.ansible-navigator.yml` for all your projects (optional)
-* All execution environment (EE) logs are stored within `/home/student/.ansible-navigator/logs/ansible-navigator.log`
-* Playbook artifacts are saved under `/tmp/artifact.json`
+Cela inclut:
+* L'installation du package `ansible-navigator`
+* La création de paramètres par défaut dans `/home/student/.ansible-navigator.yml` pour tous vos projets (optionnel)
+* Tous les logs des EE sont stockés dans `/home/student/.ansible-navigator/logs/ansible-navigator.log`
+* Les artéfacts de Playbooks sont sauvegardés dans `/tmp/artifact.json`
 
-For more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst)
+Pour plus d'informations sur les [paramètres de Ansible navigator](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst)
 
-> **Tip**
+> **Astuce**
 >
-> The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
+> Le sparamètres de `ansible-navigator` peuvent être modifiés pour votre environnement spécifique. Les paramètres actuels utilisent un `ansible-navigator.yml` par défaut pour tous les projets, mais un `ansible-navigator.yml` spécifique peut être créé pour chaque projet, et c'est la pratique recommandée.
 
-To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
+Pour lancer votre Playbook, utilisez la commande `ansible-navigator run <playbook>` comme suit:
 
 ```bash
 [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
 ```
 
-> **Tip**
+> **Astuce**
 >
-> The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student/lab_inventory/hosts`
+> Le fichier `ansible-navigator.yml` existant fournit l'emplacement de votre fichier d'inventaire. Si ce n'était pas renseigné dans votre fichier `ansible-navigator.yml`, alors la commande pour lancer le Playboko serait: `ansible-navigator run apache.yml -i /home/student/lab_inventory/hosts`
 
-When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
+Pendant l'exécution du playbook, vous aurez une interface en mode texte (TUI) qui affiche le nom du Play, et d'autres informations sur le playbook en cours.
 
 ```bash
   PLAY NAME                        OK  CHANGED    UNREACHABLE      FAILED    SKIPPED    IGNORED    IN PROGRESS     TASK COUNT          PROGRESS

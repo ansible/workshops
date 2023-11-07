@@ -1,11 +1,6 @@
 ---
 - name: use COP controller_configuration collection
   when: controller_projects is defined
-  vars:
-    controller_validate_certs: false
-    controller_hostname: "https://{{ ansible_host }}"
-    controller_username: "admin"
-    controller_password: "{{ admin_password }}"
   include_role:
     name: '{{ setup_controller }}'
   loop:

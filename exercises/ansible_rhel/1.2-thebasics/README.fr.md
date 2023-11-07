@@ -167,12 +167,12 @@ Vous pouvez aussi sauter directement sur un module particulier en tapant simplem
 ---
 **Navigation**
 {% if page.url contains 'ansible_rhel_90' %}
-[Exercice précédent](../1-setup) - [Exercice suivant](../3-playbook)
+[Exercice précédent](../1-setup/README.fr.md) - [Exercice suivant](../3-playbook/README.fr.md)
 {% else %}
-[Exercice précédent](../1.1-setup) - [Exercice suivant](../1.3-playbook)
+[Exercice précédent](../1.1-setup/README.fr.md) - [Exercice suivant](../1.3-playbook/README.fr.md)
 {% endif %}
 <br><br>
 
 <br>
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.fr.md)

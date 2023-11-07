@@ -113,10 +113,10 @@
         - splunk_index
         - splunk_hectoken
     injectors:
-      env:
-        SPLUNK_URL: !unsafe '{{ splunk_url }}'
-        SPLUNK_INDEX: !unsafe '{{ splunk_index }}'
-        SPLUNK_HECTOKEN: !unsafe '{{ splunk_hectoken }}'
+      extra_vars:
+        splunk_url: !unsafe '{{ splunk_url }}'
+        splunk_index: !unsafe '{{ splunk_index }}'
+        splunk_hectoken: !unsafe '{{ splunk_hectoken }}'
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"

@@ -1,96 +1,90 @@
-# Atelier - Rédaction de votre premier Playbook
+# Exercice - Rédaction de votre premier Playbook
 
-**Lisez ceci dans d'autres langues**:
+**Lisez ceci dans d'autres langues:**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+## Table des matières
 
+- [Exercice - Rédaction de votre premier Playbook](#exercice---rédaction-de-votre-premier-playbook)
+  - [Table des matières](#table-des-matières)
+  - [Objectif](#objectif)
+  - [Guide](#guide)
+    - [Etape 1 - Principes de base d'un Playbook](#Etape-1---Principes-de-base-d-un-Playbook)
+    - [Etape 2 - Création d'une structure pour votre Playbook](#Etape-2---Création-d-une-structure-pour-votre-Playbook)
+    - [Etape 3 - Exécution du Playbook](#Etape-3---Exécution-du-Playbook)
+    - [Etape 4 - Ajout de tache: Démarrage et activation de Apache](#Etape-4---Ajout-de-tache-Démarrage-et-activation-de-Apache)
+    - [Etape 5 - Ajout de tache: Création de fichier html](#Etape-5---Ajout-de-tache-Création-de-fichier-html)
+    - [Etape 6 - Application à plusieurs hôtes](#Etape-6---Application-à-plusieurs-hôtes)
 
-## Table of Contents
+## Objectif
 
-- [Objective](#objective)
-- [Guide](#guide)
-  - [Étape 1 - Principes de base d'un Playbook](#Étape-1---Principes-de-base-d-un-Playbook)
-  - [Étape 2 - Création d'une structure pour votre Playbook](#Étape-2---Création-d-une-structure-pour-votre-Playbook)
-  - [Étape 3 - Exécution du Playbook](#Étape-3---Exécution-du-Playbook)
-  - [Étape 4 - Ajout de tache: Démarrage et activation de Apache](#Étape-4---Ajout-de-tache-Démarrage-et-activation-de-Apache)
-  - [Étape 5 - Ajout de tache: Création de fichier html](#Étape-5---Ajout-de-tache-Création-de-fichier-html)
-  - [Étape 6 - Application à plusieurs hôtes](#Étape-6---Application-à-plusieurs-hôtes)
+This exercise covers using Ansible to build two Apache web servers on Red Hat Enterprise Linux. This exercise covers the following Ansible fundamentals:
 
-# Objectif
+* Understanding Ansible module parameters
+* Understanding and using the following modules
+  * [dnf module](https://docs.ansible.com/ansible/latest/modules/dnf_module.html)
+  * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+  * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
+* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible modules can be idempotent
 
-Cet exercice couvre l'utilisation d'Ansible pour créer deux serveurs Web Apache sur Red Hat Enterprise Linux. Cet exercice couvre les principes de base d'Ansible suivants:
+## Guide
 
-- Comprendre les paramètres du module Ansible
-- Comprendre et utiliser les modules suivants
-   - [module yum](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
-   - [module de service](https://docs.ansible.com/ansible/latest/modules/service_module.html)
-   - [module de copie](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
-- Comprendre [Idempotence](https://en.wikipedia.org/wiki/Idempotence) et comment les modules Ansible peuvent être idempotents
+Playbooks are files which describe the desired configurations or Etapes to implement on managed hosts. Playbooks can change lengthy, complex administrative tasks into easily repeatable routines with predictable and successful outcomes.
 
-# Guide
+A playbook can have multiple plays and a play can have one or multiple tasks. In a task a *module* is called, like the modules in the previous chapter. The goal of a *play* is to map a group of hosts.  The goal of a *task* is to implement modules against those hosts.
 
-Bien que les commandes Ad-hoc Ansible soient utiles pour des opérations simples, elles ne conviennent pas aux scénarios de gestion de configuration ou d'orchestration complexes. Pour de tels cas d'utilisation, les *playbooks* sont la solution.
-
-Les playbooks sont des fichiers qui décrivent les configurations ou étapes souhaitées à implémenter sur les hôtes gérés. Les playbooks peuvent transformer des tâches administratives longues et complexes en routines facilement reproductibles avec des résultats prévisibles et réussis.
-
-Un playbook est l'endroit où vous pouvez prendre certaines de ces commandes Ad-hoc que vous venez d'exécuter et les mettre dans un ensemble répétable de *plays* et *taches*.
-
-Un playbook peut avoir plusieurs "plays" et un "play" peut avoir une ou plusieurs taches. Dans une tâche, un *module* est appelé, comme les modules du chapitre précédent. Le but d'un *play* est de cartographier un groupe d'hôtes. Le but d'une *tâche* est d'implémenter des modules sur ces hôtes.
-
-> **Astuce**
+> **Tip**
 >
-> Voici une belle analogie: lorsque les modules Ansible sont les outils de votre atelier, l'inventaire est le matériel et les Playbooks les instructions.
+> Here is a nice analogy: When Ansible modules are the tools in your workshop, the inventory is the materials and the Playbooks are the instructions.
 
-## Étape 1 - Principes de base d un Playbook
+### Etape 1 - Playbook Basics
 
-Les playbooks sont des fichiers texte écrits au format YAML et nécessitent donc:
+Playbooks are text files written in YAML format and therefore need:
 
-   - de commencer par trois tirets (`---`)
+* to start with three dashes (`---`)
 
-   - une indentation appropriée en utilisant des espaces et **surtout pas** de tabulation \!
+* proper indentation using spaces and **not** tabs\!
 
-Il existe quelques concepts importants:
+There are some important concepts:
 
-   - **hosts**: les hôtes sur lesquels seront effectués les tâches
+* **hosts**: the managed hosts to perform the tasks on
 
-   - **tasks**: les opérations à effectuer en appelant les modules Ansible et en leur passant les options nécessaires.
+* **tasks**: the operations to be performed by invoking Ansible modules and passing them the necessary options
 
-   - **become**: élévation de privilèges dans les playbooks, identique à l'utilisation de `-b` dans la commande Ad-hoc.
+* **become**: privilege escalation in playbooks
 
-> **Avertissement**
+> **Warning**
 >
-> L'ordre des contenus dans un Playbook est important, car Ansible exécute les play et les tâches dans l'ordre où ils sont présentés.
+> The ordering of the contents within a Playbook is important, because Ansible executes plays and tasks in the order they are presented.
 
-Un Playbook doit être **idempotent**, donc si un Playbook est exécuté une fois pour mettre les hôtes dans l'état correct, il devrait être sûr de l'exécuter une deuxième fois et il ne devrait plus apporter de modifications aux hôtes.
+A Playbook should be **idempotent**, so if a Playbook is run once to put the hosts in the correct state, it should be safe to run it a second time and it should make no further changes to the hosts.
 
-> **Astuce**
+> **Tip**
 >
-> La plupart des modules Ansible sont idempotents, il est donc relativement facile de s'assurer que cela est vrai.
+> Most Ansible modules are idempotent, so it is relatively easy to ensure this is true.
 
-## Étape 2 - Création d'une structure pour votre Playbook
+### Etape 2 - Creating a Directory Structure and File for your Playbook
 
-Assez de théorie, il est temps de créer votre premier Playbook Ansible. Dans ce laboratoire, vous créez un playbook pour configurer un serveur Web Apache en trois étapes:
+Enough theory, it’s time to create your first Ansible playbook. In this lab you create a playbook to set up an Apache web server in three steps:
 
-  1. Installez le package httpd
+1. Install httpd package
+2. Enable/start httpd service
+3. Copy over an web.html file to each web host
 
-  2. Activer/démarrer le service httpd
+This Playbook makes sure the package containing the Apache web server is installed on `node1`.
 
-  3. Copiez un fichier web.html sur chaque hôte Web
+There is a [best practice](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills.  That said, our playbook today is very basic and creating a complex structure will just confuse things.
 
-Ce Playbook s'assure que le paquet contenant le serveur Web Apache est installé sur `node1`.
+Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
 
-Il existe un guide des [meilleures pratiques](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) sur les structures de répertoires a utilisé pour les playbooks. Nous vous encourageons fortement à lire et à comprendre ces pratiques lorsque vous développez vos compétences de maitre ninja Ansible. Cela dit, notre playbook d'aujourd'hui est très basique et créer une structure complexe ne fera que confondre les choses.
-
-Au lieu de cela, nous allons créer une structure de répertoire très simple pour notre playbook et y ajouter seulement quelques fichiers.
-
-Sur votre hôte de contrôle **ansible**, créez un répertoire appelé `ansible-files` dans votre répertoire personnel, et rentrez dedans.
+On your control host **ansible**, create a directory called `ansible-files` in your home directory and change directories into it:
 
 ```bash
-[student<X>@ansible ~]$ mkdir ansible-files
-[student<X>@ansible ~]$ cd ansible-files/
+[student@ansible-1 ~]$ mkdir ansible-files
+[student@ansible-1 ~]$ cd ansible-files/
 ```
 
-Ajoutez un fichier appelé `apache.yml` avec le contenu suivant. Comme expliqué dans les exercices précédents, utilisez à nouveau `vi`/`vim` ou, si vous débutez avec les éditeurs sur la ligne de commande, consultez à nouveau [intro de l'éditeur](../0.0-support-docs/editor_intro.md) .
+Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
 
 ```yaml
 ---
@@ -99,19 +93,17 @@ Ajoutez un fichier appelé `apache.yml` avec le contenu suivant. Comme expliqué
   become: yes
 ```
 
-Cela montre l'une des forces d'Ansible: la syntaxe Playbook est facile à lire et à comprendre. Dans ce Playbook:
+This shows one of Ansible’s strengths: The Playbook syntax is easy to read and understand. In this Playbook:
 
-   - Un nom est donné pour le play via `name:`.
+* A name is given for the play via `name:`.
+* The host to run the playbook against is defined via `hosts:`.
+* We enable user privilege escalation with `become:`.
 
-   - L'hôte sur lequel sera exécuter le playbook est défini via `hosts:`.
-
-   - Nous activons l'escalade de privilèges utilisateur avec `become:`.
-
-> **Astuce**
+> **Tip**
 >
-> Vous devez évidemment utiliser une élévation de privilèges pour installer un package ou exécuter toute autre tâche nécessitant des autorisations root. Cela se fait dans le Playbook par "become: yes".
+> You obviously need to use privilege escalation to install a package or run any other task that requires root permissions. This is done in the Playbook by `become: yes`.
 
-Maintenant que nous avons défini le play, ajoutons une tâche pour faire quelque chose. Nous ajouterons une tâche dans laquelle yum s'assurera que le package Apache est installé dans la dernière version. Modifiez le fichier pour qu'il ressemble à la liste suivante:
+Now that we've defined the play, let's add a task to get something done. We will add a task in which dnf will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
 
 ```yaml
 ---
@@ -119,138 +111,274 @@ Maintenant que nous avons défini le play, ajoutons une tâche pour faire quelqu
   hosts: node1
   become: yes
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
 ```
-> **Astuce**
+
+> **Tip**
 >
-> Les playbooks étant écrits en YAML, l'alignement des lignes et des mots-clés est crucial. Assurez-vous d'aligner verticalement le *t* dans `tâche` avec le *b* dans `become`. Une fois que vous vous serez familiarisé avec Ansible, assurez-vous de prendre un peu de temps et d'étudier un peu la [Syntaxe YAML](http://docs.ansible.com/ansible/YAMLSyntax.html).
+> Since playbooks are written in YAML, alignment of the lines and keywords is crucial. Make sure to vertically align the *t* in `task` with the *b* in `become`. Once you are more familiar with Ansible, make sure to take some time and study a bit the [YAML Syntax](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html).
 
-Dans les lignes ajoutées:
+In the added lines:
 
-  - Nous avons commencé la partie tâches avec le mot clé `tasks:`.
+* We started the tasks part with the keyword `tasks:`.
+* A task is named and the module for the task is referenced. Here it uses the `dnf` module.
+* Parameters for the module are added:
+  * `name:` to identify the package name
+  * `state:` to define the wanted state of the package
 
-  - Une tâche est nommée et le module de la tâche est référencé. Ici, il utilise le module `yum`.
-
-  - Des paramètres pour le module sont ajoutés:
-
-    - `name:` pour identifier le nom du paquet
-    - `state:` pour définir l'état souhaité du paquet
-
-> **Astuce**
+> **Tip**
 >
-> Les paramètres du module sont individuels pour chaque module. En cas de doute, recherchez-les à nouveau avec `ansible-doc`.
+> The module parameters are individual to each module. If in doubt, look them up again with `ansible-doc`.
 
-Enregistrez votre playbook et quittez votre éditeur.
+Save your playbook and exit your editor.
 
-## Étape 3 - Exécution du Playbook
+### Etape 3 - Running the Playbook
 
-Les Playbooks Ansible sont exécutés à l'aide de la commande `ansible-playbook` sur le nœud de contrôle. Avant d'exécuter un nouveau Playbook, il est judicieux de vérifier les erreurs de syntaxe:
+With the introduction of Ansible Automation Platform 2, several new key components are being introduced as a part of the overall developer experience. Execution environments have been introduced to provide predictable environments to be used during automation runtime. All collection dependencies are contained within the execution environment to ensure that automation created in development environments runs the same as in production environments.
+
+What do you find within an execution environment?
+
+* RHEL UBI 8
+* Ansible 2.9 or Ansible Core 2.11
+* Python 3.8
+* Any content Collections
+* Collection python or binary dependencies.
+
+Why use execution environments?
+
+They provide a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, Automation execution environments are container images that allow for easier administration of Ansible by the platform administrator.
+
+Considering the shift towards containerized execution of automation, automation development workflow and tooling that existed before Ansible Automation Platform 2 have had to be reimagined. In short, `ansible-navigator` replaces `ansible-playbook` and other `ansible-*` command line utilities.
+
+With this change, Ansible playbooks are executed using the `ansible-navigator` command on the control node.
+
+The prerequisites and best practices for using `ansible-navigator` have been done for you within this lab.
+
+These include:
+* Installing the `ansible-navigator` package
+* Creating a default settings `/home/student/.ansible-navigator.yml` for all your projects (optional)
+* All execution environment (EE) logs are stored within `/home/student/.ansible-navigator/logs/ansible-navigator.log`
+* Playbook artifacts are saved under `/tmp/artifact.json`
+
+For more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst)
+
+> **Tip**
+>
+> The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
+
+To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook --syntax-check apache.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
 ```
 
-Vous devriez maintenant être prêt à exécuter votre playbook:
+> **Tip**
+>
+> The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student/lab_inventory/hosts`
 
+When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
+
+```bash
+  PLAY NAME                        OK  CHANGED    UNREACHABLE      FAILED    SKIPPED    IGNORED    IN PROGRESS     TASK COUNT          PROGRESS
+0│Apache server installed           2        1              0           0          0          0              0              2          COMPLETE
 ```
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+
+If you notice, prior to the play name `Apache server installed`, you'll see a `0`. By pressing the `0` key on your keyboard, you will be provided a new window view displaying the different tasks that ran for the playbook completion. In this example, those tasks included the "Gathering Facts" and "Install Apache". The "Gathering Facts" is a built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail. The "Install Apache" was the task created within the `apache.yml` file that installed `httpd`.
+
+The display should look something like this:
+
+```bash
+  RESULT      HOST	NUMBER      CHANGED       TASK                                                   TASK ACTION           DURATION
+0│OK          node1          0        False       Gathering Facts                                        gather_facts                1s
+1│OK          node1          1         True       Install Apache                        dnf                         4s
 ```
 
-La sortie ne doit pas signaler d'erreurs mais fournir un aperçu des tâches exécutées et un récapitulatif du pay résumant ce qui a été fait. Il y a aussi une tâche appelée "Gathering Facts" qui y est répertoriée: il s'agit d'une tâche intégrée qui s'exécute automatiquement au début de chaque jeu. Il collecte des informations sur les nœuds gérés. Des exercices plus tard couvriront cela plus en détail.
+Taking a closer look, you'll notice that each task is associated with a number. Task 1, "Install Apache", had a change and used the `dnf` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`.
 
-Connectez-vous à `node1` via SSH pour vous assurer qu'Apache a été installé:
+By pressing `0` or `1` on your keyboard, you can see further details of the task being run. If a more traditional output view is desired, type `:st` within the text user interface.
 
-```
-[student<X>@ansible ansible-files]$ ssh node1
+Once you've completed, reviewing your Ansible playbook, you can exit out of the TUI via the Esc key on your keyboard.
+
+> **Tip**
+>
+> The Esc key only takes you back to the previous screen. Once at the main overview screen an additional Esc key will take you back to the terminal window.
+
+
+Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
+
+```bash
+[student@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
 
-Utilisez la commande `rpm -qe httpd` pour vérifié que httpd est bien installé :
+Use the command `rpm -qi httpd` to verify httpd is installed:
 
-```
-[student<X>@node1 ~]$ rpm -qi httpd
+```bash
+[ec2-user@node1 ~]$ rpm -qi httpd
 Name        : httpd
-Version     : 2.4.6
+Version     : 2.4.37
 [...]
 ```
 
-Déconnectez-vous de `node1` avec la commande `exit` pour revenir sur l'hôte de contrôle et vérifiez que le package installé via une commande Ad-hoc Ansible.
+Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`
+
+{% raw %}
+```yaml
+---
+- name: Check packages
+  hosts: node1
+  become: true
+  vars:
+    package: "httpd"
+
+  tasks:
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Check whether a {{ package }}  is installed
+      ansible.builtin.debug:
+        msg: "{{ package }} {{ ansible_facts.packages[ package ][0].version }} is installed!"
+      when: "package in ansible_facts.packages"
+
+```
+{% endraw %}
+
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a 'rpm -qi httpd'
+[student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
 ```
 
-Exécutez le Playbook une deuxième fois et comparez la sortie: la sortie est passée de «changed» à «ok» et la couleur est passée du jaune au vert. De plus, le "PLAY RECAP" est différent maintenant. Cela permet de repérer facilement ce qu'Ansible a réellement fait.
+```bash
 
-## Étape 4 - Ajout de tache: Démarrage et activation de Apache
+PLAY [Check packages] **********************************************************
 
-La partie suivante du Playbook Ansible s'assure que l'application Apache est activée et démarrée sur `node1`.
+TASK [Gathering Facts] *********************************************************
+ok: [ansible]
 
-Sur l'hôte de contrôle, en tant qu'utilisateur student, modifiez le fichier `~/ansible-files/apache.yml` pour ajouter une deuxième tâche à l'aide du module `service`. Le Playbook devrait maintenant ressembler à ceci:
+TASK [Gather the package facts] ************************************************
+ok: [ansible]
+
+TASK [Check whether a httpd  is installed] *************************************
+ok: [ansible] => {
+    "msg": "httpd 2.4.37 is installed!"
+}
+
+PLAY RECAP *********************************************************************
+ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+Run the the `ansible-navigator run apache.yml` playbook for a second time, and compare the output. The output "CHANGED" now shows `0` instead of `1` and the color changed from yellow to green. This makes it easier to spot when changes have occured when running the Ansible playbook.
+
+### Etape 4 - Extend your Playbook: Start & Enable Apache
+
+The next part of the Ansible playbook makes sure the Apache application is enabled and started on `node1`.
+
+On the control host, as your student user, edit the file `~/ansible-files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
 
 ```yaml
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
 ```
 
-Encore une fois: ce que font ces lignes est facile à comprendre:
+What exactly did we do?
 
-   - une deuxième tâche est créée et nommée
+* a second task named "Apache enabled and running" is created
+* a module is specified (`service`)
+* The module `service` takes the name of the service (`httpd`), if it should be permanently set (`enabled`), and its current state (`started`)
 
-   - un module est spécifié (`service`)
 
-   - les paramètres du module sont fournis
-
-Ainsi, avec la deuxième tâche, nous nous assurons que le serveur Apache fonctionne bien sur la machine cible. Exécutez votre Playbook étendu:
+Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student@ansible-1 ~]$ ansible-navigator run apache.yml
 ```
 
-Notez maintenant la sortie: Certaines tâches sont affichées comme "ok" en vert et une est indiquée comme "modified" en jaune.
+Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
 
-   - Utilisez à nouveau une commande Ad-hoc Ansible pour vous assurer qu'Apache a été activé et démarré, par exemple avec: `systemctl status httpd`.
 
-   - Exécutez le Playbook une deuxième fois pour vous habituer au changement de sortie.
+* Run the playbook a second time using `ansible-navigator` to get used to the change in the output.
 
-## Étape 5 - Ajout de tache: Création de fichier html
+* Use an Ansible playbook labeled service_state.yml to make sure the Apache (httpd) service is running on `node1`, e.g. with: `systemctl status httpd`.
 
-Vérifiez que les tâches ont été exécutées correctement et qu'Apache accepte les connexions: effectuez une demande HTTP à l'aide du module uri d'Ansible dans une commande Ad-hoc du nœud de contrôle. Assurez-vous de remplacer le **\<IP\>** par l'IP du nœud de l'inventaire.
+{% raw %}
+```yaml
+---
+- name: Check Status
+  hosts: node1
+  become: true
+  vars:
+    package: "httpd"
 
-> **Avertissement**
+  tasks:
+    - name: Check status of {{ package }} service
+      ansible.builtin.service_facts:
+      register: service_state
+
+    - ansible.builtin.debug:
+        var: service_state.ansible_facts.services["{{ package }}.service"].state
+```
+
+```bash
+{% endraw %}
+
+[student@ansible-1 ~]$ ansible-navigator run service_state.yml
+```
+
+### Etape 5 - Extend your Playbook: Create an web.html
+
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node to `node1`.
+
+{% raw %}
+```yaml
+---
+- name: Check URL
+  hosts: control
+  vars:
+    node: "node1"
+
+  tasks:
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      ansible.builtin.uri:
+        url: "http://{{ node }}"
+
+```
+{% endraw %}
+
+> **Warning**
 >
-> **Attendez-vous à beaucoup de lignes rouges et un statut 403 \!**
+> **Expect a lot of red lines and a 403 status\!**
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible localhost -m uri -a "url=http://<IP>"
+[student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
-Il y a beaucoup de lignes rouges et une erreur: tant qu'il n'y a pas le fichier `web.html` devant être servi par Apache, il affichera un vilain état ""HTTP Error 403: Forbidden"" et Ansible signalera une erreur.
+There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-Alors pourquoi ne pas utiliser Ansible pour déployer un simple fichier `web.html`?
-Sur l'hôte de contrôle ansible, en tant qu'utilisateur `student <X>`, créez le répertoire `files` pour contenir les ressources de fichiers dans `~/ ansible-files/`:
+So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir files
+[student@ansible-1 ansible-files]$ mkdir files
 ```
 
-Créez ensuite le fichier `~/ansible-files/files/web.html` sur le nœud de contrôle:
+Then create the file `~/ansible-files/files/web.html` on the control node:
 
 ```html
 <body>
@@ -258,52 +386,53 @@ Créez ensuite le fichier `~/ansible-files/files/web.html` sur le nœud de contr
 </body>
 ```
 
-Vous avez déjà utilisé le module de copie d'Ansible pour écrire le texte fourni sur la ligne de commande dans un fichier. Vous allez maintenant utiliser le module de votre Playbook pour copier un fichier:
+In a previous example, you used Ansible’s `copy` module to write text supplied on the command line into a file. Now you’ll use the module in your playbook to copy a file.
 
-Sur le nœud de contrôle, en tant qu'utilisateur étudiant, modifiez le fichier `~/ansible-files/apache.yml` et ajoutez une nouvelle tâche en utilisant le module `copy`. Cela devrait maintenant ressembler à ceci:
-
+On the control node as your student user edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
 
 ```yaml
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
-  - name: copy web.html
-    copy:
-      src: web.html
-      dest: /var/www/html/index.html
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: '644'
 ```
 
-Vous vous habituez à la syntaxe Playbook, alors que se passe-t-il? La nouvelle tâche utilise le module `copy` et définit les options source et destination pour l'opération de copie en tant que paramètres.
+What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
 
-Exécutez votre Playbook étendu:
+Run your extended Playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-- Regardez bien la sortie
+* Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
 
-- Exécutez à nouveau la commande Ad-hoc à l'aide du module "uri" ci-dessus pour tester Apache: La commande devrait maintenant renvoyer une ligne verte "status: 200" entre autres informations.
+* Run the Ansible playbook check_httpd.yml using the "uri" module from above again to test Apache. The command should now return a friendly green "status: 200" line, amongst other information.
 
-## Étape 6 - Application à plusieurs hôtes
+### Etape 6 - Practice: Apply to Multiple Host
 
-C'était bien, mais le vrai pouvoir d'Ansible est d'appliquer le même ensemble de tâches de manière fiable à de nombreux hôtes.
+While the above, shows the simplicity of applying changes to a particular host. What about if you want to set changes to many hosts? This is where you'll notice the real power of Ansible as it applies the same set of tasks reliably to many hosts.
 
-   - Alors, qu'en est-il de changer le Playbook apache.yml pour qu'il fonctionne sur `node1` **et** `node2` **et** `node3`?
+* So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
 
-
-Comme vous vous en souvenez peut-être, l'inventaire répertorie tous les nœuds en tant que membres du groupe `web`:
+As you might remember, the inventory lists all nodes as members of the group `web`:
 
 ```ini
 [web]
@@ -312,49 +441,52 @@ node2 ansible_host=22.33.44.55
 node3 ansible_host=33.44.55.66
 ```
 
-> **Astuce**
+> **Tip**
 >
-> Les adresses IP présentées ici ne sont que des exemples, vos nœuds auront des adresses IP différentes.
+> The IP addresses shown here are just examples, your nodes will have different IP addresses.
 
-Modifiez le Playbook pour pointer vers le groupe "web":
+Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 ```yaml
 ---
 - name: Apache server installed
   hosts: web
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
-  - name: copy web.html
-    copy:
-      src: web.html
-      dest: /var/www/html/index.html
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: '644'
+
 ```
 
-Maintenant, lancez le Playbook:
+Now run the playbook:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook apache.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
-Enfin, vérifiez si Apache fonctionne maintenant sur les deux serveurs. Identifiez d'abord les adresses IP des nœuds de votre inventaire, puis utilisez-les chacune dans la commande Ad-hoc avec le module uri comme nous l'avons déjà fait avec le `node1` ci-dessus. Toute sortie doit être verte.
+Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.
 
-> **Astuce**
->
-> Une autre façon de vérifier qu'Apache fonctionne sur les deux serveurs est d'utiliser la commande `ansible node2,node3 -m uri -a "url=http://localhost/"`.
-
-
-----
+---
 **Navigation**
 <br>
-[Exercise précédent](../1.2-thebasics/README.fr.md) - [Exercise suivant](../1.4-variables/README.fr.md)
 
-[Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md)
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
+{% else %}
+[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+{% endif %}
+<br><br>

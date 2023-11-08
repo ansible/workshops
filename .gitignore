@@ -55,3 +55,4 @@ provisioner/packer/manifest.zip
 *-artifact-*.json
 provisioner/test.yml
 provisioner/colin.yml
+.vscode/settings.json

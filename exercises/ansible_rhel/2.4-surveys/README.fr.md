@@ -1,198 +1,242 @@
-# Atelier - Les questionnaires
+# Exercice - Questionnaires
 
 **Lisez ceci dans d'autres langues**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table des matières
 
 * [Objectif](#objectif)
 * [Guide](#guide)
-* [Utilisation d'un rôle externe](#utilisation-d-un-rôle-externe)
-* [Création d un questionnaire](#création-d-un-questionnaire)
-   * [Création d un modèle](#création-d-un-modèle)
-   * [Ajout d un questionnaire](#ajout-d-un-questionnaire)
-* [Test du modèle](#Test-du-modele)
-* [Qu'en est-il de certaines pratiques?](#What-about-some-practice)
+* [Le role de configuration Apache](#le-role-de-configuration-apache)
+* [Créer un Projet](#créer-un-projet)
+* [Créer un Modèle avec un Questionnaire](#créer-un-modèle-avec-un-questionnaire)
+  * [Create le Modèle](#créer-le-modèle)
+  * [Ajouter le Questionnaire](#ajouter-le-questionnaire)
+* [Lancer le Modèle](#lancer-le-modèle)
 
-# Objectif
+## Objectif
 
-Démontrez l'utilisation des [questionnaires](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#surveys) dans Ansible Tower. Les questionnaires définissent des variables supplémentaires pour le playbook, comme le fait de «Demander des variables supplémentaires», mais de manière conviviale par des questions et des réponses. Les questionnaires permettent également de valider les entrées des utilisateurs.
+Démontrer l'utilisation de la fonctionnalité [Questionnaire](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys) dans le Contrôleur Ansible Automation. Les Questionnaires ajoutent des Extra Variables aux playbooks à l'instar de la fonctionnalité de prompt, mais avec une expérience plus conviviale à l'aide questions-réponses. Les Questionnaires permettent également de valider les éléments entrés par les utilisateurs.
 
-# Guide
+## Guide
 
-Vous avez installé Apache sur tous les hôtes du travail que vous venez d'exécuter. Nous allons maintenant approfondir ceci:
+Vous avez installé Apache sur tous les hôtes du Job que vous venez d'exécuter. Nous allons maintenant approfondir ceci:
 
 - Utilisez un rôle approprié doté d'un modèle Jinja2 pour déployer un fichier `index.html`.
 
 - Créez un **Modèle** avec un questionnaire pour personnaliser le contenu de  `index.html`.
 
-- Lancez le travail **Modèle**
+- Lancez le **Modèle** de Job
 
-De plus, le rôle s'assurera également que la configuration d'Apache est correctement configurée - au cas où elle se serait brisé pendant les autres exercices.
+De plus, le rôle s'assurera que la configuration d'Apache est correcte - au cas où elle se serait brisée pendant les autres exercices.
 
 > **Astuce**
 >
-> La fonction de questionnaire ne fournit qu'une simple requête de données - elle ne prend pas en charge les principes à quatre yeux, les requêtes basées sur des données dynamiques ou des menus imbriqués.
+> La fonction de Questionnaire ne fournit qu'une simple requête de données - elle ne prend pas en charge les principes à quatre yeux, les requêtes basées sur des données dynamiques ou des menus imbriqués.
 
-## Utilisation du role de configuration Apache
+## Le role de configuration Apache
 
-Le Playbook et le rôle sont déjà disponible dans le référentiel Github **https://github.com/ansible/workshop-examples** dans le répertoire `rhel/apache`.
+Le Playbook et le rôle sont déjà disponible dans le référentiel Github [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples) dans le répertoire `rhel/apache`.
 
  Rendez-vous sur l'interface utilisateur de Github et jetez un œil au contenu: le playbook `apache_role_install.yml` fait simplement référence au rôle. Le rôle peut être trouvé dans le sous-répertoire `roles/role_apache`.
 
- - À l'intérieur du rôle, notez les deux variables dans le fichier de modèle `templates/index.html.j2` marqué par `{{…}}`.
- - Consultez également les tâches dans `tasks/main.yml` qui déploient le fichier à partir du modèle.
+* À l'intérieur du rôle, notez les deux variables dans le fichier de modèle `templates/index.html.j2` marqué par `{{…}}`.
+* Notez également les tâches dans `tasks/main.yml` qui déploient le fichier à partir du modèle.
 
-Que fait ce Playbook? Il crée un fichier (**dest**) sur les hôtes gérés à partir du modèle (**src**).
+Que fait ce Playbook? Il crée un fichier (**dest**) sur les hôtes gérés, à partir du modèle (**src**).
 
 Le rôle déploie également une configuration statique pour Apache. Il s'agit de s'assurer que toutes les modifications effectuées dans les chapitres précédents sont écrasées et que vos exemples fonctionnent correctement.
 
 Étant donné que le Playbook et le rôle se trouvent dans le même référentiel Github que `apache_install.yml`, vous n'avez pas à configurer un nouveau projet pour cet exercice.
 
-## Création d un questionnaire
+### Créer un Projet
 
-Vous créez maintenant un nouveau modèle qui inclut un questionnaire.
+* Allez dans **Ressources → Projets** et cliquez sur le bouton **Ajouter**. Complétez le formulaire:
 
-### Création d un modèle
+ <table>
+   <tr>
+     <th>Paramètre</th>
+     <th>Valeur</th>
+   </tr>
+   <tr>
+     <td>Nom</td>
+     <td>Workshop Project</td>
+   </tr>
+   <tr>
+     <td>Organisation</td>
+     <td>Default</td>
+   </tr>
+   <tr>
+     <td>Environnement d'exécution</td>
+     <td>Default execution environment</td>
+   </tr>
+   <tr>
+     <td>Type de Contrôle de la source</td>
+     <td>Git</td>
+   </tr>
+ </table>
 
-- Allez dans **Modèles**, cliquez sur le bouton! [Plus](images/green_plus.png) et choisissez **Modèle de tâche**
+ Renseignez l'URL dans la configuration du Projet: 
+ 
+ <table>
+   <tr>
+     <th>Paramètre</th>
+     <th>Valeur</th>
+   </tr>
+   <tr>
+     <td>URL Contrôle de la source</td>
+     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
+   </tr>
+   <tr>
+     <td>Options</td>
+     <td>Selectionner Clean, Delete, Update Revision on Launch pour requêter un copie neuve du référentiel et pour le mettre à jour au lancement d'un Job.</td>
+   </tr>
+ </table>
 
-- **NOM:** Créez index.html
+* Cliquer sur **Enregistrer**
 
-- Configurez le modèle pour:
+Le nouveau Projet sera synchronisé automatiquement après la création. Vous pouvez aussi le faire manuellement : Synchronisez le Projet de nouveau auprès du référentiel Git, en allant sur la vue **Projets** et en cliquant sur l'icône de flèche circulaire **Synchroniser** sur la droite du Projet.
 
-    - Utilisez le projet «Exemples d'atelier Ansible»
+Après avoir démarré le Job de synchronisation, allez sur la vue **Jobs** : il y a maintenant un Job pour la mise à jour du Projet.
 
-    - Utilisez le playbook `apache_role_install.yml`
+### Créer un Modèle avec un Questionnaire
 
-    - Pour fonctionner sur `node1`
+Maintenant, vous pouvez créer un Modèle qui utilise un Questionnaire.
 
-    - Pour fonctionner en mode privilégié
+#### Créer le Modèle
 
-Essayez par vous-même, la solution est ci-dessous.
+* Aller dans **Ressources → Modèles** et cliquer sur le bouton **Ajouter** puis choisissez **Ajouter un Modèle de Job**
 
-> **Avertissement**
->
-> **Solution ci-dessous \!**
+* Saisissez les informations suivantes:
 
 <table>
   <tr>
-    <th>Parametre</th>
+    <th>Paramètre</th>
     <th>Valeur</th>
   </tr>
   <tr>
-    <td>NOM</td>
-    <td>Create index.html</td>
+    <td>Nom</td>
+    <td>Créer index.html</td>
   </tr>
   <tr>
-    <td>TYPE DE TACHE</td>
-    <td>Run</td>
+    <td>Type de Job</td>
+    <td>Exécuter</td>
   </tr>
   <tr>
-    <td>INVENTAIRE</td>
+    <td>Inventaire</td>
     <td>Workshop Inventory</td>
   </tr>
   <tr>
-    <td>PROJET</td>
+    <td>Projet</td>
     <td>Workshop Project</td>
-  </tr>  
+  </tr>
   <tr>
-    <td>PLAYBOOK</td>
+    <td>Environnement d'Exécution</td>
+    <td>Default execution environment</td>
+  </tr>
+  <tr>
+    <td>Playbook</td>
     <td><code>rhel/apache/apache_role_install.yml</code></td>
   </tr>
   <tr>
-    <td>INFORMATION D IDENTIFICATION</td>
-    <td>Workshop Credentials</td>
+    <td>Informations d'identification</td>
+    <td>Workshop Credential</td>
   </tr>
   <tr>
-    <td>OPTIONS</td>
-    <td>Activé l'élévation des privilèges</td>
-  </tr>          
+    <td>Limite</td>
+    <td>web</td>
+  </tr>
+  <tr>
+    <td>Options</td>
+    <td>Elévation de Privilèges coché</td>
+  </tr>
 </table>
 
-- Cliquez sur **ENREGISTRER**
+* Cliquer sur **Enregistrer**
 
-> **Avertissement**
+> **Attention**
 >
-> ** Ne lancez pas encore le modèle!**
+> **Ne pas lancer le Job pour le moment!**
 
-### Ajout d un questionnaire
+#### Ajouter le Questionnaire
 
-- Dans le modèle, cliquez sur le bouton **AJOUTER UN QUESTIONNAIRE**
+* Dans le Modèle, cliquer sur l'onglet **Questionnaire** puis cliquer sur **Ajouter**.
 
-- Sous **AJOUTER UNE INVITE AU QUESTIONNAIRE** remplissez:
+* Saisissez les informations suivantes:
 
 <table>
   <tr>
-    <th>Parametre</th>
+    <th>Paramètre</th>
     <th>Valeur</th>
   </tr>
   <tr>
-    <td>INVITE</td>
+    <td>Question</td>
     <td>First Line</td>
   </tr>
   <tr>
-    <td>NOM DE VARIABLE DE REPONSE</td>
-    <td><code>first_line</code></td>
+    <td>Nom de Variable de réponse</td>
+    <td>first_line</td>
   </tr>
   <tr>
-    <td>TYPE DE REPONSE</td>
-    <td>Text</td>
-  </tr>         
+    <td>Type de réponse</td>
+    <td>Texte</td>
+  </tr>
 </table>
 
-- Cliquez sur **+AJOUTER**
+* Cliquer sur **Enregistrer**
+* Cliquer sur le bouton **Ajouter**
 
-- De la même manière, ajoutez une deuxième **Invite de questionnaire**
+De la même manière, ajouter une deuxième **Question**
 
 <table>
   <tr>
-    <th>Parametre</th>
+    <th>Paramètre</th>
     <th>Valeur</th>
   </tr>
   <tr>
-    <td>INVITE</td>
+    <td>Question</td>
     <td>Second Line</td>
   </tr>
   <tr>
-    <td>NOM DE VARIABLE DE REPONSE</td>
-    <td><code>second_line</code></td>
+    <td>Nom de la Variable de réponse</td>
+    <td>second_line</td>
   </tr>
   <tr>
-    <td>TYPE DE REPONSE</td>
-    <td>Text</td>
-  </tr>         
+    <td>Type de réponse</td>
+    <td>Texte</td>
+  </tr>
 </table>
 
-- Cliquez sur **+ AJOUTER**
+* Cliquer sur **Enregistrer**
+* Cliquer sur le bouton **Questionnaire activé** pour activer les questions
 
-- Cliquez sur **ENREGISTRER** pour l'enquête
+### Lancer le Modèle
 
-- Cliquez sur **ENREGISTRER** pour le modèle
+Maintenant, lancez le Modèle de Job **Créer index.html** en sélectionnant l'onglet **Détails** et en cliquant sur le bouton **Lancer**.
 
-## Lancer le modèle
+Avant le lancement, le questionnaire va demander à renseigner **First Line** et **Second Line**. Renseignez du texte dans les champs proposés et cliquer sur **Suivant**. La fenêtre **Aperçu** montre les valeurs. Si tout est conforme, lancez le Job en cliquant sur **Lancer**.
 
-Lancez maintenant **Créer un modèle de travail index.html**.
-
-Avant le lancement, le questionnaire demandera les valeurs des **First Line** et **Second Line**. Remplissez les champs et cliquez sur **Suivant**. La fenêtre suivante affiche les valeurs, si tout va bien, exécutez la tache en cliquant sur **Lancer**.
-
-> **Astuce**
->
-> Notez comment les deux variables sont affichées à gauche de la vue *Détails* en tant que **Variables supplémentaires**.
-
-Une fois le travail terminé, consultez la page d'accueil d'Apache. Dans la console SSH sur l'hôte de contrôle, exécutez `curl` par rapport à l'adresse IP de votre `node1`:
+Quand le Job est terminé, vérifiez la page d'accueil Apache. Dans la console SSH sur l'hôte de contrôle, exécutez `curl` sur `node1`:
 
 ```bash
-$ curl http://22.33.44.55
+$ curl http://node1
 <body>
 <h1>Apache is running fine</h1>
 <h1>This is survey field "First Line": line one</h1>
 <h1>This is survey field "Second Line": line two</h1>
 </body>
 ```
-Notez comment les deux variables ont été utilisées par le playbook pour créer le contenu du fichier `index.html`.
 
-----
-[Exercice précédent](../2.3-projects/README.fr.md) - [Exercice suivant](../2.5-rbac/README.fr.md)
+Notez les deux variables utilisées par le playbook pour créer le contenu du fichier `index.html`.
 
-[Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md)
+---
+**Navigation**
+<br>
+
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../4-variables) - [Next Exercise](../../ansible_rhel_90/6-system-roles/)
+{% else %}
+[Previous Exercise](../2.3-projects) - [Next Exercise](../2.5-rbac)
+{% endif %}
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)

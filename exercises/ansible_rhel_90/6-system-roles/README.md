@@ -1,24 +1,28 @@
 # Exercise - Linux System Roles
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md).
+**Read this in other languages**: 
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md)
+<br>
 
 ## Table Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
- * [Step 1 - Examine Ansible Project](#step-1---examine-ansible-project)
-  * [Step 2 - Examine the Ansible Playbook](#step-2---examine-the-ansible-playbook)
-  * [Step 3 - Examine the Linux System Roles](#step-3---examine-the-linux-system-roles)
-  * [Step 4 - Launch the Ansible Job](#step-4---launch-the-ansible-job)
-  * [Step 5 - Verify the configuration](#step-5---verify-the-configuration)
-* [Complete](#complete)
+- [Exercise - Linux System Roles](#exercise---linux-system-roles)
+  - [Table Contents](#table-contents)
+- [Objective](#objective)
+- [Guide](#guide)
+  - [Step 1 - Examine Ansible Project](#step-1---examine-ansible-project)
+  - [Step 2 - Examine the Ansible Playbook](#step-2---examine-the-ansible-playbook)
+  - [Step 3 - Examine the Linux System Roles](#step-3---examine-the-linux-system-roles)
+  - [Step 4 - Launch the Ansible Job](#step-4---launch-the-ansible-job)
+  - [Step 5 - Verify the configuration](#step-5---verify-the-configuration)
+- [Complete](#complete)
 
 # Objective
 
 The goal of this exercise is to understand and use pre-existing content in the forms of roles and collections from Automation Hub and Ansible Galaxy.
 
 - Understand and use [Linux System Roles](https://linux-system-roles.github.io/) and [RHEL System Roles Collection](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles)
-  - Use [firewall role](https://galaxy.ansible.com/linux-system-roles/firewall) to configure the firewall
+  - Use [firewall role](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/) to configure the firewall
   - Use the [timesync role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/timesync) to configure NTP from the RHEL System Roles Collection.
 - Use a pre-populated Ansible Survey to configure the RHEL web hosts
 
@@ -40,19 +44,21 @@ Take note of the Github repository that was pre-loaded into your Ansible Automat
 
 ## Step 2 - Examine the Ansible Playbook
 
-Open the repository linked above in your web browser. Navigate to **playbooks/security/hardening.yml**
+Open the repository linked above in your web browser. Navigate to **linux/hardening.yml**
+
+The full URL is: [https://github.com/ansible/product-demos/blob/main/linux/hardening.yml](https://github.com/ansible/product-demos/blob/main/linux/hardening.yml)
 
 Take note of these two tasks:
 
 ```
 - name: Configure Firewall
   when: harden_firewall | bool
-  include_role:
+  ansible.builtin.include_role:
     name: linux-system-roles.firewall
 
 - name: Configure Timesync
   when: harden_time | bool
-  include_role:
+  ansible.builtin.include_role:
     name: redhat.rhel_system_roles.timesync
 ```
 
@@ -74,7 +80,7 @@ There are two tasks that include a role and a role from a collection respectivel
 
 The Ansible Playbooks are simple.  They just use the pre-built Ansible Playbooks provided by Ansible Galaxy and Automation Hub.  These were pre-installed for this Ansible Workshop.
 
-- [firewall system role](https://galaxy.ansible.com/linux-system-roles/firewall)  - by default this installs firewalld, python3-firewall.  Optional parameters can be sent such as what service to open:
+- [firewall system role](https://galaxy.ansible.com/ui/standalone/roles/linux-system-roles/firewall/)  - by default this installs firewalld, python3-firewall.  Optional parameters can be sent such as what service to open:
 
 ```
 vars:

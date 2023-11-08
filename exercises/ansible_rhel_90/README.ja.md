@@ -1,7 +1,7 @@
 # Ansible ワークショップ - Ansible for Red Hat Enterprise Linux (90 分)
 
 **他の言語でもお読みいただけます**:
-<br>![uk](../../images/uk.png) [English](README.md)、![japan](../../images/japan.png)[日本語](README.ja.md)、
+<br>![uk](../../images/uk.png) [English](README.md)、![japan](../../images/japan.png)[日本語](README.ja.md)、![france](../../images/fr.png) [Français](README.fr.md)
 <br>
 
 Ansible Automation に慣れていないが、オリジナルの RHEL ワークショップの速習バージョンをご希望の場合、この 90

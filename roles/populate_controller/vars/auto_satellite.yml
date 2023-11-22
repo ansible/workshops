@@ -1,0 +1,61 @@
+controller_groups:
+  - name: node
+    inventory: "Workshop Inventory"
+    hosts:
+      - "node1.example.com"
+      - "node2.example.com"
+      - "node3.example.com"
+  - name: "{{ rhel | default('rhel8') }}"
+    inventory: "Workshop Inventory"
+    hosts:
+      - "node1.example.com"
+      - "node2.example.com"
+      - "node3.example.com"
+    variables:
+      ansible_user: ec2-user
+  - name: satellite
+    inventory: "Workshop Inventory"
+    hosts:
+      - "satellite.example.com"
+  - name: control
+    inventory: "Workshop Inventory"
+    hosts:
+      - "ansible-1.example.com"
+  # - name: centos
+  #   inventory: "Workshop Inventory"
+  #   children:
+  #     - centos6
+  #     - centos7
+  #   variables:
+  #     ansible_user: centos
+  # - name: cenos6
+  #   inventory: "Workshop Inventory"
+  #   hosts:
+  #     - "node7.example.com"
+  #     - "node8.example.com"
+  #     - "node9.example.com"
+  # - name: centos7
+  #   inventory: "Workshop Inventory"
+  #   hosts:
+  #     - "node4.example.com"
+  #     - "node5.example.com"
+  #     - "node6.example.com"
+# controller_hosts:
+#   - name: "node4.example.com"
+#     inventory: "Workshop Inventory"
+#     enabled: true
+#   - name: "node5.example.com"
+#     inventory: "Workshop Inventory"
+#     enabled: true
+#   - name: "node6.example.com"
+#     inventory: "Workshop Inventory"
+#     enabled: true
+#   - name: "node7.example.com"
+#     inventory: "Workshop Inventory"
+#     enabled: true
+#   - name: "node8.example.com"
+#     inventory: "Workshop Inventory"
+#     enabled: true
+#   - name: "node9.example.com"
+#     inventory: "Workshop Inventory"
+#     enabled: true

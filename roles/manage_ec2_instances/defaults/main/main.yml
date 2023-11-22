@@ -307,8 +307,8 @@ ec2_info:
   attendance_host:
     owners: 309956199498
     size:
-      - t3a.micro
-      - t3.micro
+      - t3a.medium
+      - t3.medium
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10

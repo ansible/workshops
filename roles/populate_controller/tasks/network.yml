@@ -4,14 +4,14 @@
   include_role:
     name: '{{ setup_controller }}'
   loop:
-    - 'redhat_cop.controller_configuration.hosts'
-    - 'redhat_cop.controller_configuration.organizations'
-    - 'redhat_cop.controller_configuration.users'  
-    - 'redhat_cop.controller_configuration.teams'
-    - 'redhat_cop.controller_configuration.projects'
-    - 'redhat_cop.controller_configuration.job_templates'
-    - 'redhat_cop.controller_configuration.roles'
-    - 'redhat_cop.controller_configuration.groups'
+    - 'infra.controller_configuration.hosts'
+    - 'infra.controller_configuration.organizations'
+    - 'infra.controller_configuration.users'  
+    - 'infra.controller_configuration.teams'
+    - 'infra.controller_configuration.projects'
+    - 'infra.controller_configuration.job_templates'
+    - 'infra.controller_configuration.roles'
+    - 'infra.controller_configuration.groups'
   loop_control:
     loop_var: setup_controller
 

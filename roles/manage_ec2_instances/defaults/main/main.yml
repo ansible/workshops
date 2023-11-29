@@ -66,8 +66,7 @@ ec2_info:
     size: t3.medium
     ami: "{{ cisco_ami | default(omit) }}"
     os: ios
-    username: ec2-user
-    image_id: ami-09d42cede7d7d1bd7    
+    username: ec2-user   
     volume:
       - device_name: /dev/xvda
         ebs:

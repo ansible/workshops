@@ -67,6 +67,7 @@ ec2_info:
     ami: "{{ cisco_ami | default(omit) }}"
     os: ios
     username: ec2-user
+    image_id: ami-09d42cede7d7d1bd7    
     volume:
       - device_name: /dev/xvda
         ebs:

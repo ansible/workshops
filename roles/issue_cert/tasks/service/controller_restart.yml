@@ -1,5 +1,15 @@
 ---
-- name: Try restarting automation controller
-  service:
-    name: automation-controller.service
+# - name: Try restarting automation controller
+#   service:
+#     name: automation-controller.service
+#     state: restarted
+
+- name: Restart automation-controller-web container
+  become: true
+  become_user: "{{ run_commands_user }}"
+  containers.podman.podman_container:
+    name: automation-controller-web
     state: restarted
+  register: install_controller
+  until: install_controller is not failed
+  retries: 5

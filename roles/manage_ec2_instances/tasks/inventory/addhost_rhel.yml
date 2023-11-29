@@ -44,6 +44,7 @@
 - name: add hosts to groups (ANSIBLE RHEL MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    private_ip: "{{ item.private_ip_address }}"
     username: "{{ student_user }}"
     student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
@@ -51,7 +52,7 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: lab_hosts,managed_nodes
+    groups: lab_hosts,managed_nodes,rhel
   with_items:
     - "{{ node1_node_facts.instances }}"
     - "{{ node2_node_facts.instances }}"
@@ -61,6 +62,7 @@
 - name: add nodes for cluster lab to groups (ANSIBLE RHEL MODE)
   add_host:
     name: "{{ item.tags.Name }}"
+    private_ip: "{{ item.private_ip_address }}"
     username: "{{ student_user }}"
     student: "{{ item.tags.Student }}"
     short_name: "{{ item.tags.short_name }}"
@@ -68,7 +70,7 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: lab_hosts,managed_nodes
+    groups: lab_hosts,managed_nodes,rhel
   with_items:
     - "{{ isonode_node_facts.instances }}"
     - "{{ remotenode_node_facts.instances }}"

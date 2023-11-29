@@ -32,8 +32,9 @@
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
+    private_ip: "{{ item.private_ip_address }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
-    groups: lab_hosts,managed_nodes
+    groups: lab_hosts,managed_nodes,centos6
   with_items:
     - "{{ node7_node_facts.instances }}"
     - "{{ node8_node_facts.instances }}"

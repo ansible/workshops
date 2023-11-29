@@ -5,20 +5,20 @@
 
 ## 目次
 
-* [目的](#objective)
-* [図](#diagram)
-* [ガイド](#guide)
-   * [ステップ 1 - VS Code を使用した接続](#step-1---connecting-via-vs-code)
-   * [ステップ 2 - ターミナルの使用](#step-2---using-the-terminal)
-   * [ステップ 3 - 実行環境の検証](#step-3---examining-execution-environments)
-   * [ステップ 4 - ansible-navigator
-     設定の検証](#step-4---examining-the-ansible-navigator-configuration)
-   * [ステップ 5 - インベントリーの検証](#step-5---examining-inventory)
-   * [ステップ 6 - インベントリーについて](#step-6---understanding-inventory)
-   * [ステップ 7 - ansible-navigator
-     を使用したインベントリーの探索](#step-7---using-ansible-navigator-to-explore-inventory)
-   * [ステップ 8 - ネットワークデバイスへの接続](#step-8---connecting-to-network-devices)
-* [完了](#complete)
+- [演習 1 - ラボ環境の探索](#演習-1---ラボ環境の探索)
+  - [目次](#目次)
+  - [目的](#目的)
+  - [図](#図)
+  - [ガイド](#ガイド)
+    - [ステップ 1 - VS Code を使用した接続](#ステップ-1---vs-code-を使用した接続)
+    - [ステップ 2 - ターミナルの使用](#ステップ-2---ターミナルの使用)
+    - [ステップ 3 - 実行環境の検証](#ステップ-3---実行環境の検証)
+    - [ステップ 4 - ansible-navigator 設定の検証](#ステップ-4---ansible-navigator-設定の検証)
+    - [ステップ 5 - インベントリーの検証](#ステップ-5---インベントリーの検証)
+    - [ステップ 6 - インベントリーについて](#ステップ-6---インベントリーについて)
+    - [ステップ 7 - ansible-navigator を使用したインベントリーの探索](#ステップ-7---ansible-navigator-を使用したインベントリーの探索)
+    - [ステップ 8 - ネットワークデバイスへの接続](#ステップ-8---ネットワークデバイスへの接続)
+  - [完了](#完了)
 
 ## 目的
 
@@ -45,9 +45,9 @@ Hatがサポートするすべてのコレクションがすでに含まれて�
 Ansible Automation Platformの新しいコンポーネントに関する情報が必要な場合は、このランディングページをブックマークしてください
 [https://red.ht/AAP-20](https://red.ht/AAP-20)
 
-> チャットでコミュニケーションしましょう
+> Join our community forum!
 >
-> 始める前に、slack にご参加ください! <a href="https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw">ansiblenetwork slack に参加するには、こちらをクリック</a>。これにより、他のネットワーク自動化エンジニアとチャットしたり、ワークショップの終了後にサポートを受けたりすることができます。リンクが古くなっている場合は、<a href="mailto:ansible-network@redhat.com">Ansible テクニカルマーケティング</a></th> にメールでご連絡ください。
+> Before you get started, please join us on <a target="_new" href="https://forum.ansible.com/">https://forum.ansible.com/</a>.  This will allow you to get Ansible help after the workshops concludes.
 
 
 ## 図

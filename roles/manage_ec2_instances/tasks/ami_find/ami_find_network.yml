@@ -7,7 +7,7 @@
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:
-          name: "Cisco-C8K-17.06.06a-42cb6e93-8d9d-490b-a73c-e3e56077ffd1"
+          name: "Cisco-C8K-17.06.02-42cb6e93-8d9d-490b-a73c-e3e56077ffd1"
           architecture: "x86_64"
       register: cisco_ami_list
 

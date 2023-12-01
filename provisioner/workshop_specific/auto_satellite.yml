@@ -268,16 +268,27 @@
         execution_environment: auto_satellite controller iac execution environment
     controller_execution_environments:
       - name: auto_satellite controller iac execution environment
-        image: quay.io/s4v0/ee-automated-smart-mgmt-aap2-dev:latest          
+        image: quay.io/s4v0/ee-automated-satellite-aap2:2.0.0        
   tasks:
-    - name: Deploy controller-infra workloads
-      include_role:
-        name: "{{ controller_infra_vars }}"
-      loop: "{{ controller_infra_workloads }}"
-      loop_control:
-        loop_var: controller_infra_vars
-      when:
-        - controller_infra_workloads | d("") | length >0
+    - name: Deploy controller-infra workloads block
+      block:
+        - name: Deploy controller-infra workloads
+          include_role:
+            name: "{{ controller_infra_vars }}"
+          loop: "{{ controller_infra_workloads }}"
+          loop_control:
+            loop_var: controller_infra_vars
+          when:
+            - controller_infra_workloads | d("") | length >0
+      rescue: 
+        - name: Deploy controller-infra workloads
+          include_role:
+            name: "{{ controller_infra_vars }}"
+          loop: "{{ controller_infra_workloads }}"
+          loop_control:
+            loop_var: controller_infra_vars
+          when:
+            - controller_infra_workloads | d("") | length >0      
 
 - name: Final workshop preparations
   hosts: control_nodes

@@ -53,6 +53,7 @@
         host: "{{ ansible_host }}"
         timeout: 400
         port: 22
+      become: false
       vars:
         ansible_connection: local
 

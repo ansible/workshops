@@ -3,5 +3,5 @@ controller_hostname: "https://{{ ansible_host }}"
 controller_username: "admin"
 controller_password: "{{ admin_password }}"
 controller_request_timeout: "200"
-controller_configuration_projects_async_retries: "35"
+controller_configuration_projects_async_retries: "90"
 controller_configuration_projects_async_delay: 2

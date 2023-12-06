@@ -63,7 +63,7 @@ ec2_info:
           volume_size: 40
           delete_on_termination: true
   cisco:
-    size: t2.medium
+    size: t3.medium
     ami: "{{ cisco_ami | default(omit) }}"
     os: ios
     username: ec2-user
@@ -73,7 +73,7 @@ ec2_info:
           volume_type: gp3
           iops: 1000
           throughput: 125
-          volume_size: 8
+          volume_size: 16      
           delete_on_termination: true
   arista:
     size: c5.xlarge
@@ -357,13 +357,13 @@ ansible_async_dir: "/tmp/.ansible_async"
 #   us-west-1: ami-0009710aa9b69790e
 #   us-west-2: ami-0b0d02e3c1d09fd4c
   
-# pre_build_hub_ami:
-#   ap-northeast-1: ami-0e10c305c74ebe2c4
-#   ap-southeast-1: ami-0b8c588fe02c19ce6
-#   eu-central-1: ami-029abcf986bb7184b
-#   eu-west-1: ami-00bef767b6ca8c984
-#   eu-west-2: ami-011c00be5f944ee31
-#   us-east-1: ami-010a11c3f9fb72abf
-#   us-east-2: ami-08241f088dd7ba4c0
-#   us-west-1: ami-0f382a9cddf149608
-#   us-west-2: ami-07bf564f45ff71e62
+pre_build_hub_ami:
+  ap-northeast-1: ami-0e10c305c74ebe2c4
+  ap-southeast-1: ami-0b8c588fe02c19ce6
+  eu-central-1: ami-029abcf986bb7184b
+  eu-west-1: ami-00bef767b6ca8c984
+  eu-west-2: ami-011c00be5f944ee31
+  us-east-1: ami-010a11c3f9fb72abf
+  us-east-2: ami-08241f088dd7ba4c0
+  us-west-1: ami-0f382a9cddf149608
+  us-west-2: ami-07bf564f45ff71e62

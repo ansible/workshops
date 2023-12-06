@@ -30,7 +30,7 @@
 
 - name: set password
   block:
-    - name: change admin password
+    - name: change admin password R3dh4t1!
       awx.awx.user:
         username: "admin"
         password: "{{ admin_password }}"
@@ -40,6 +40,8 @@
         controller_password: "R3dh4t1!"
         controller_host: "https://localhost"
         validate_certs: false
+      register: set_password
+      until: set_password is not failed
   rescue:
     - name: change admin password
       awx.awx.user:
@@ -51,3 +53,5 @@
         controller_password: "{{ admin_password }}"
         controller_host: "https://localhost"
         validate_certs: false
+      register: set_password
+      until: set_password is not failed

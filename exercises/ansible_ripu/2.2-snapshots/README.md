@@ -62,25 +62,29 @@ The following sections explain the pros and cons in detail.
 
 The Logical Volume Manager (LVM) is a set of tools included in RHEL that provide a way to create and manage virtual block devices known as logical volumes. LVM logical volumes are typically used as the block devices from which RHEL OS filesystems are mounted. The LVM tools support creating and rolling back logical volume snapshots. Automating these actions from an Ansible playbook is relatively simple.
 
-Logical volumes are contained in a storage pool known as a volume group. The storage available in a volume group comes from one or more physical volumes, that is, block devices underlying actual disks or disk partitions. Typically, the logical volumes where the RHEL OS is installed will be in a "rootvg" volume group. If best practices are followed, logical volumes for applications and app data will be isolated in a separate volume group, "appvg" for example.
+> **Note**
+>
+> The snapshot and rollback automation capability implemented for our workshop lab environment creates LVM snapshots managed using Ansible roles from the [`infra.lvm_snapshots`](https://github.com/swapdisk/infra.lvm_snapshots#readme) collection.
+
+Logical volumes are contained in a storage pool known as a volume group. The storage available in a volume group comes from one or more physical volumes, that is, block devices underlying actual disks or disk partitions. Typically, the logical volumes where the RHEL OS is installed will be in a "rootvg" volume group. If best practices are followed, applications and app data will be isolated in their own logicial volumes either in the same volume group or a separate volume group, "appvg" for example.
 
 To create logical volume snapshots, there must be free space in the volume group. That is, the total size of the logical volumes in the volume group must be less than the total size of the volume group. The `vgs` command can be used query volume group free space. For example:
 
 ```
 # vgs
-  VG     #PV #LV #SN Attr   VSize   VFree
-  rootvg   1   3   0 wz--n- 950.06g 422.06g
+  VG         #PV #LV #SN Attr   VSize  VFree
+  VolGroup00   1   7   0 wz--n- 29.53g 9.53g
 ```
 
-In the example above, the rootvg volume group total size is about 950 Gb and there is about 422 Gb of free space in the volume group. There is plenty of free space to allow for creating snapshot volumes in this volume group.
+In the example above, the `VolGroup00` volume group total size is 29.53 GiB and there is 9.53 GiB of free space in the volume group. This should be enough free space to support rolling back a RHEL upgrade.
 
 If there is not enough free space in the volume group, there are a few ways we can make space available:
 
 - Adding another physical volume to the volume group (i.e., `pvcreate` and `vgextend`). For a VM, you would first configure an additional virtual disk.
 - Temporarily remove a logical volume you don't need. For example, on bare metal servers, there is often a large /var/crash empty filesystem. Removing this filesystem from `/etc/fstab` and then using `lvremove` to remove the logical volume from which it was mounted will free up space in the volume group.
-- Reducing the size of one or more logical volumes. This is tricky because first the filesystem in the logical volume needs to be shrunk. XFS filesystems do not support shrinking. EXT filesystems do support shrinking, but not while the filesystem is mounted. This option can be difficult and should only be considered as a last resort and trusted to a very experienced Linux admin.
+- Reducing the size of one or more logical volumes. This is tricky because first the filesystem in the logical volume needs to be shrunk. XFS filesystems do not support shrinking. EXT filesystems do support shrinking, but not while the filesystem is mounted. Until recently, this way of freeing up volume group space was considered a last resort to be attempted by only the most skilled Linux admin, but it now possible to safely automate shrinking logical volumes using the [`shrink_lv`](https://github.com/swapdisk/infra.lvm_snapshots/tree/main/roles/shrink_lv#readme) role of the aforementioned `infra.lvm_snapshots` collection.
 
-After a snapshot is created, COW data will start to utilize the free space of the snapshot logical volume as blocks are written to the origin logical volume. Unless the snapshot is create with the same size as the origin, there is a chance that the snapshot could fill up and become invalid. Testing should be performed during the development of the LVM snapshot automation to determine snapshot sizings with enough cushion to prevent this. The `snapshot_autoextend_percent` and `snapshot_autoextend_threshold` settings in lvm.conf can also be used to reduce the risk of snapshots running out of space.
+After a snapshot is created, COW data will start to utilize the free space of the snapshot logical volume as blocks are written to the origin logical volume. Unless the snapshot is create with the same size as the origin, there is a chance that the snapshot could fill up and become invalid. Testing should be performed during the development of the LVM snapshot automation to determine snapshot sizings with enough cushion to prevent this. The `snapshot_autoextend_percent` and `snapshot_autoextend_threshold` settings in lvm.conf can also be used to reduce the risk of snapshots running out of space. The [`lvm_snapshots`](https://github.com/swapdisk/infra.lvm_snapshots/tree/main/roles/lvm_snapshots#readme) role of the `infra.lvm_snapshots` collection supports variables that may be used to automatically configure the autoextend settings.
 
 Unless you have the luxury of creating snapshots with the same size as their origin volumes, LVM snapshot sizing needs to be thoroughly tested and free space usage carefully monitored. However, if that challenge can be met, LVM snapshots offer a reliable snapshot solution without the headache of depending on external infrastructure such as VMware.
 
@@ -102,13 +106,9 @@ VMware snapshots work great when they can be automated. If you are considering t
 
 Amazon Elastic Block Store (Amazon EBS) provides the block storage volumes used for the virtual disks attached to AWS EC2 instances. When a snapshot is created for an EBS volume, the COW data is written to Amazon S3 object storage.
 
-> **Note**
->
-> The snapshot and rollback automation capability implemented for our workshop lab environment uses EBS snapshots.
-
 While EBS snapshots operate independently from the guest OS running on the EC2 instance, the similarity to VMware snapshots ends there. An EBS snapshot saves the data of the source EBS volume, but does not save the state or memory of the EC2 instance to which the volume is attached. Also unlike with VMware, EBS snapshots can be created for an OS volume only while leaving any separate application volumes as is.
 
-Automating EBS snapshot creation and rollback is fairly straightforward assuming your playbooks can access the required AWS APIs. The tricky bit of the automation is identifying the EC2 instance and attached EBS volume that corresponds to the target host in the Ansible inventory managed by AAP. For the snapshot automation we implemented for our workshop lab environment, we solved this by setting tags on our EC2 instances.
+Automating EBS snapshot creation and rollback is fairly straightforward assuming your playbooks can access the required AWS APIs. The tricky bit of the automation is identifying the EC2 instance and attached EBS volume that corresponds to the target host in the Ansible inventory managed by AAP, but this can be solved by setting idenifying tags on your EC2 instances.
 
 #### Break Mirror
 
@@ -128,7 +128,7 @@ Read the article [ReaR: Backup and recover your Linux server with confidence](ht
 
 ### Step 3 - Snapshot Scope
 
-The best practice for allocating the local storage of a RHEL servers is to configure volumes that separate the OS from the apps and app data. For example, the OS filesystems would be under a "rootvg" volume group while the apps and app data would be in an "appvg" volume group. This separation helps isolate the storage usage requirements of these two groups so they can be manged based on their individual requirements and are less likely to impact each other. For example, the backup profile for the OS is likely different than for the apps and app data.
+The best practice for allocating the local storage of a RHEL servers is to configure volumes that separate the OS from the apps and app data. For example, the OS filesystems would be under a "rootvg" volume group while the apps and app data would be in an "appvg" volume group or at least in their own dedicated logical volumes. This separation helps isolate the storage usage requirements of these two groups so they can be manged based on their individual requirements and are less likely to impact each other. For example, the backup profile for the OS is likely different than for the apps and app data.
 
 This practice helps to enforce a key tenet of the RHEL in-place upgrade approach: that is that the OS upgrade should leave the applications untouched with the expectation that system library forward compatibility and middleware runtime abstraction reduces the risk of the RHEL upgrade impacting app functionality.
 

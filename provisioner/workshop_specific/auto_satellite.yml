@@ -158,6 +158,17 @@
       #until: "'Success!' in satellite_update_cert.stdout"
       failed_when: '"Success!" not in satellite_update_cert.stdout'
 
+- name: update controller packages
+  hosts: control_nodes
+  become: true
+  gather_facts: true
+  tasks:
+    - name: apply latest package updates
+      yum:
+        name: '*'
+        state: latest
+        exclude: kernel*
+
 - name: configure controller for auto_satellite
   hosts: control_nodes
   gather_facts: false
@@ -272,14 +283,9 @@
   tasks:
     - name: Deploy controller-infra workloads block
       block:
-        - name: Deploy controller-infra workloads
-          include_role:
-            name: "{{ controller_infra_vars }}"
-          loop: "{{ controller_infra_workloads }}"
-          loop_control:
-            loop_var: controller_infra_vars
-          when:
-            - controller_infra_workloads | d("") | length >0
+        - name: Call dispatch role
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
       rescue: 
         - name: Deploy controller-infra workloads
           include_role:
@@ -452,3 +458,4 @@
           until: workshop_job_templates05.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 10  # 3.33 minutes 3.33*60/20
+...

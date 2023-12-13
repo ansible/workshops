@@ -167,7 +167,10 @@
       yum:
         name: '*'
         state: latest
-        exclude: kernel*
+        exclude:
+          - kernel*
+          - policycoreutils-python-utils
+          - python3-policycoreutils
 
 - name: configure controller for auto_satellite
   hosts: control_nodes

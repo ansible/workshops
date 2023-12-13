@@ -277,7 +277,10 @@
         playbook: setup_controller.yml
         inventory: Workshop Inventory
         credentials:
-          - Controller Credential
+          - Controller Credential     
+        extra_vars:
+          controller_configuration_projects_async_retries: 36
+          controller_configuration_projects_async_delay: 5
         execution_environment: auto_satellite controller iac execution environment
     controller_execution_environments:
       - name: auto_satellite controller iac execution environment

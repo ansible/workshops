@@ -1,8 +1,0 @@
----
-- hosts: student1-rtr1
-  gather_facts: false
-  vars:
-    ansible_libssh_publickey_algorithms: "ssh-rsa"
-  tasks:
-    - name: gather facts
-      cisco.ios.ios_facts:

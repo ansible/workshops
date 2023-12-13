@@ -169,8 +169,7 @@
         state: latest
         exclude:
           - kernel*
-          - policycoreutils-python-utils
-          - python3-policycoreutils
+        skip_broken: true
 
 - name: configure controller for auto_satellite
   hosts: control_nodes

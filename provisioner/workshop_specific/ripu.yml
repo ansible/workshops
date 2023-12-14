@@ -81,6 +81,9 @@
         execution_environment: Default execution environment
         credentials:
           - Controller Credential
+        extra_vars:
+          controller_configuration_projects_async_retries: 36
+          controller_configuration_projects_async_delay: 5
 
   tasks:
     # Allow projects to pull collections via collections/requirements.yml

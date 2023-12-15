@@ -18,6 +18,10 @@
     TERM: linux
   gather_facts: false
   tasks:
+    - name: include variables for workshops
+      ansible.builtin.include_vars:
+        dir: "../group_vars/"
+
     - name: configure satellite admin password
       ansible.builtin.command: "foreman-rake permissions:reset password={{ admin_password }}"
 

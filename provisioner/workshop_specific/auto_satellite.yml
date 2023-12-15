@@ -87,6 +87,40 @@
           register: issue_sat_cert
           until: issue_sat_cert is not failed
           retries: 5
+
+        - name: download LetsEncrypt R3 cert
+          ansible.builtin.get_url:
+            url: https://letsencrypt.org/certs/lets-encrypt-r3.pem
+            dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+            mode: 0644
+            checksum: sha256:177e1b8fc43b722b393f4200ff4d92e32deeffbb76fef5ee68d8f49c88cf9d32
+            group: root
+            owner: root
+
+        - name: download LetsEncrypt root X1 cert\
+          ansible.builtin.get_url:
+            url: https://letsencrypt.org/certs/isrgrootx1.pem
+            dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+            mode: 0644
+            checksum: sha256:22b557a27055b33606b6559f37703928d3e4ad79f110b407d04986e1843543d1
+            group: root
+            owner: root
+
+        - name: retrieve LetsEncrypt R3 cert
+          ansible.builtin.slurp:
+            src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/lets-encrypt-r3.pem"
+          register: intermediate_cert
+
+        - name: retrieve LetsEncrypt root X1 cert
+          ansible.builtin.slurp:
+            src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/isrgrootx1.pem"
+          register: root_cert
+
+        - name: combine R3 and root X1 certs to create LetsEncrypt CA bundle
+          ansible.builtin.template:
+            src: cert_bundle.j2
+            dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/letsencrypt-ca-bundle.pem"
+
       rescue:
         - name: error with SSL cert
           ansible.builtin.debug:
@@ -97,38 +131,6 @@
             dns_information:
               - "{{ dns_information }}"
               - "The Lets Encrypt certbot failed for the satellite node, please check https://letsencrypt.status.io/ to make sure the service is running"
-
-    - name: download LetsEncrypt R3 cert
-      ansible.builtin.get_url:
-        url: https://letsencrypt.org/certs/lets-encrypt-r3.pem
-        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
-        mode: 0644
-        checksum: sha256:177e1b8fc43b722b393f4200ff4d92e32deeffbb76fef5ee68d8f49c88cf9d32
-        group: root
-        owner: root
-    - name: download LetsEncrypt root X1 cert
-      ansible.builtin.get_url:
-        url: https://letsencrypt.org/certs/isrgrootx1.pem
-        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
-        mode: 0644
-        checksum: sha256:22b557a27055b33606b6559f37703928d3e4ad79f110b407d04986e1843543d1
-        group: root
-        owner: root
-
-    - name: retrieve LetsEncrypt R3 cert
-      ansible.builtin.slurp:
-        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/lets-encrypt-r3.pem"
-      register: intermediate_cert
-
-    - name: retrieve LetsEncrypt root X1 cert
-      ansible.builtin.slurp:
-        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/isrgrootx1.pem"
-      register: root_cert
-
-    - name: combine R3 and root X1 certs to create LetsEncrypt CA bundle
-      ansible.builtin.template:
-        src: cert_bundle.j2
-        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/letsencrypt-ca-bundle.pem"
 
     - name: start httpd
       ansible.builtin.service:
@@ -152,6 +154,7 @@
         - '"Success!" not in satellite_change_hostname.stdout'
 
     - name: update satellite with LetsEncrypt cert
+      when: issue_sat_cert is not failed
       ansible.builtin.shell: >-
         satellite-installer --scenario satellite
         --certs-server-cert "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/fullchain.pem"

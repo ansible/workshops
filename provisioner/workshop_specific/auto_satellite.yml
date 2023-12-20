@@ -158,18 +158,19 @@
       #until: "'Success!' in satellite_update_cert.stdout"
       failed_when: '"Success!" not in satellite_update_cert.stdout'
 
-- name: update controller packages
+- name: update podman package on controllers
   hosts: control_nodes
   become: true
   gather_facts: true
+  vars:
+    auto_satellite_podman_update: false
+    auto_satellite_podman_update_version: 4.6
   tasks:
-    - name: apply latest package updates
+    - name: update podman package on controllers
       yum:
-        name: '*'
-        state: latest
-        exclude:
-          - kernel*
-        skip_broken: true
+        name: "podman>={{ auto_satellite_podman_update_version }}"
+        state: present
+      when: auto_satellite_podman_update
 
 - name: configure controller for auto_satellite
   hosts: control_nodes

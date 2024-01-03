@@ -149,7 +149,7 @@
         preserve_existing_hosts: true
         preserve_existing_children: true
         variables:
-          ansible_user: centos
+          ansible_user: "{{ auto_satellite_centos_node_username }}"
         validate_certs: false
         controller_host: "https://{{ ansible_host }}"
         controller_username: "admin"

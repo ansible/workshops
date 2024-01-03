@@ -158,6 +158,20 @@
       #until: "'Success!' in satellite_update_cert.stdout"
       failed_when: '"Success!" not in satellite_update_cert.stdout'
 
+- name: update podman package on controllers
+  hosts: control_nodes
+  become: true
+  gather_facts: true
+  vars:
+    auto_satellite_podman_update: false
+    auto_satellite_podman_update_version: 4.6
+  tasks:
+    - name: update podman package on controllers
+      yum:
+        name: "podman>={{ auto_satellite_podman_update_version }}"
+        state: present
+      when: auto_satellite_podman_update
+
 - name: configure controller for auto_satellite
   hosts: control_nodes
   gather_facts: false
@@ -264,7 +278,10 @@
         playbook: setup_controller.yml
         inventory: Workshop Inventory
         credentials:
-          - Controller Credential
+          - Controller Credential     
+        extra_vars:
+          controller_configuration_projects_async_retries: 36
+          controller_configuration_projects_async_delay: 5
         execution_environment: auto_satellite controller iac execution environment
     controller_execution_environments:
       - name: auto_satellite controller iac execution environment
@@ -272,14 +289,9 @@
   tasks:
     - name: Deploy controller-infra workloads block
       block:
-        - name: Deploy controller-infra workloads
-          include_role:
-            name: "{{ controller_infra_vars }}"
-          loop: "{{ controller_infra_workloads }}"
-          loop_control:
-            loop_var: controller_infra_vars
-          when:
-            - controller_infra_workloads | d("") | length >0
+        - name: Call dispatch role
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
       rescue: 
         - name: Deploy controller-infra workloads
           include_role:
@@ -452,3 +464,4 @@
           until: workshop_job_templates05.json.status == "successful"
           delay: 20  # Every 20 seconds
           retries: 10  # 3.33 minutes 3.33*60/20
+...

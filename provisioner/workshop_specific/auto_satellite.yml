@@ -168,7 +168,7 @@
   tasks:
     - name: update podman package on controllers
       yum:
-        name: "podman>={{ auto_satellite_podman_update_version }}"
+        name: "podman-2{{':'}}{{ auto_satellite_podman_update_version }}*"
         state: present
       when: auto_satellite_podman_update
 

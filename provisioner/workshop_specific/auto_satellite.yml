@@ -1,14 +1,14 @@
 ---
-- name: configure rhel workshop for webservers
+- name: Configure rhel workshop for webservers
   hosts: lab_hosts
   become: true
   gather_facts: false
   tasks:
-    - name: configure RHEL webservers
-      include_role:
+    - name: Configure RHEL webservers
+      ansible.builtin.include_role:
         name: ../../roles/webservers
 
-- name: configure satellite
+- name: Configure satellite
   hosts: satellite
   become: true
   become_method: sudo
@@ -18,21 +18,21 @@
     TERM: linux
   gather_facts: false
   tasks:
-    - name: configure satellite admin password
+    - name: Configure satellite admin password
       ansible.builtin.command: "foreman-rake permissions:reset password={{ admin_password }}"
 
-    - name: update hammer admin password in /root/.hammer/cli.modules.d/foreman.yml
+    - name: Update hammer admin password in /root/.hammer/cli.modules.d/foreman.yml
       ansible.builtin.lineinfile:
         path: /root/.hammer/cli.modules.d/foreman.yml
         regexp: 'password'
         line: "  :password: '{{ admin_password }}'"
 
-    - name: configure satellite dns
+    - name: Configure satellite dns
       become: false
       community.aws.route53:
         state: present
         zone: "{{ workshop_dns_zone }}"
-        record: "{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+        record: "{{ student }}-sat.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}"
         type: A
         overwrite: true
         value: "{{ ansible_host }}"
@@ -42,7 +42,7 @@
         - dns_type is defined
         - dns_type == 'aws'
 
-    - name: create letsencrypt subdirectories
+    - name: Create letsencrypt subdirectories
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
@@ -53,7 +53,7 @@
         - /etc/letsencrypt
         - /var/lib/letsencrypt
 
-    - name: make sure httpd is stopped
+    - name: Make sure httpd is stopped
       ansible.builtin.service:
         name: httpd.service
         state: stopped
@@ -62,7 +62,7 @@
       retries: 5
 
     # If this fails check out status of certbot: https://letsencrypt.status.io/
-    - name: try to issue SSL certificate
+    - name: Try to issue SSL certificate
       block:
         - name: Issue SSL cert
           ansible.builtin.shell: >
@@ -76,7 +76,7 @@
                 --rsa-key-size 4096 \
                 --no-bootstrap \
                 --standalone \
-                -d {{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }} \
+                -d {{ student }}-sat.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }} \
                 --email ansible-network@redhat.com \
                 --noninteractive \
                 --agree-tos
@@ -84,49 +84,49 @@
           until: issue_sat_cert is not failed
           retries: 5
       rescue:
-        - name: error with SSL cert
+        - name: Error with SSL cert
           ansible.builtin.debug:
             msg: "Unable to retrieve SSL cert, ERROR, continuing on without cert..."
 
-        - name: append dns_information failure
+        - name: Append dns_information failure
           ansible.builtin.set_fact:
             dns_information:
               - "{{ dns_information }}"
               - "The Lets Encrypt certbot failed for the satellite node, please check https://letsencrypt.status.io/ to make sure the service is running"
 
-    - name: download LetsEncrypt R3 cert
+    - name: Download LetsEncrypt R3 cert
       ansible.builtin.get_url:
         url: https://letsencrypt.org/certs/lets-encrypt-r3.pem
-        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}"
         mode: 0644
         checksum: sha256:177e1b8fc43b722b393f4200ff4d92e32deeffbb76fef5ee68d8f49c88cf9d32
         group: root
         owner: root
-    - name: download LetsEncrypt root X1 cert
+    - name: Download LetsEncrypt root X1 cert
       ansible.builtin.get_url:
         url: https://letsencrypt.org/certs/isrgrootx1.pem
-        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}"
         mode: 0644
         checksum: sha256:22b557a27055b33606b6559f37703928d3e4ad79f110b407d04986e1843543d1
         group: root
         owner: root
 
-    - name: retrieve LetsEncrypt R3 cert
+    - name: Retrieve LetsEncrypt R3 cert
       ansible.builtin.slurp:
-        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/lets-encrypt-r3.pem"
+        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/lets-encrypt-r3.pem"
       register: intermediate_cert
 
-    - name: retrieve LetsEncrypt root X1 cert
+    - name: Retrieve LetsEncrypt root X1 cert
       ansible.builtin.slurp:
-        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/isrgrootx1.pem"
+        src: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/isrgrootx1.pem"
       register: root_cert
 
-    - name: combine R3 and root X1 certs to create LetsEncrypt CA bundle
+    - name: Combine R3 and root X1 certs to create LetsEncrypt CA bundle
       ansible.builtin.template:
         src: cert_bundle.j2
-        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/letsencrypt-ca-bundle.pem"
+        dest: "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/letsencrypt-ca-bundle.pem"
 
-    - name: start httpd
+    - name: Start httpd
       ansible.builtin.service:
         name: httpd.service
         state: started
@@ -134,11 +134,11 @@
       until: start_httpd is not failed
       retries: 5
 
-    - name: set original gold image hostname via hostnamectl
+    - name: Set original gold image hostname via hostnamectl
       ansible.builtin.command: >-
         hostnamectl set-hostname satellite.example.com
 
-    - name: change satellite hostname
+    - name: Change satellite hostname
       ansible.builtin.shell: >-
         satellite-change-hostname {{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}
         -u admin -p {{ admin_password | quote }} --skip-dns --assumeyes
@@ -147,7 +147,7 @@
         - satellite_change_hostname.rc == 1 and "hostname specified must be different" not in satellite_change_hostname.stdout
         - '"Success!" not in satellite_change_hostname.stdout'
 
-    - name: update satellite with LetsEncrypt cert
+    - name: Update satellite with LetsEncrypt cert
       ansible.builtin.shell: >-
         satellite-installer --scenario satellite
         --certs-server-cert "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/fullchain.pem"
@@ -155,10 +155,10 @@
         --certs-server-ca-cert "/etc/letsencrypt/live/{{ student }}-sat.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/letsencrypt-ca-bundle.pem"
         --certs-update-server --certs-update-server-ca
       register: satellite_update_cert
-      #until: "'Success!' in satellite_update_cert.stdout"
+      # until: "'Success!' in satellite_update_cert.stdout"
       failed_when: '"Success!" not in satellite_update_cert.stdout'
 
-- name: update podman package on controllers
+- name: Update podman package on controllers
   hosts: control_nodes
   become: true
   gather_facts: true
@@ -166,26 +166,27 @@
     auto_satellite_podman_update: false
     auto_satellite_podman_update_version: 4.6
   tasks:
-    - name: update podman package on controllers
-      yum:
-        name: "podman-2{{':'}}{{ auto_satellite_podman_update_version }}*"
+    - name: Update podman package on controllers
+      ansible.builtin.yum:
+        name: "podman-2{{ ':' }}{{ auto_satellite_podman_update_version }}*"
         state: present
       when: auto_satellite_podman_update
 
-- name: configure controller for auto_satellite
+- name: Configure controller for auto_satellite
   hosts: control_nodes
   gather_facts: false
   vars:
     auto_satellite_project_scm_url: 'https://github.com/redhat-partner-tech/automated-satellite.git'
     auto_satellite_project_scm_branch: 'aap2-23'
     controller_request_timeout: "250"
-    controller_configuration_projects_async_retries: "45"    
+    controller_configuration_projects_async_retries: "45"
     controller_infra_workloads:
       - infra.controller_configuration.credential_types
       - infra.controller_configuration.credentials
       - infra.controller_configuration.execution_environments
       - infra.controller_configuration.projects
       - infra.controller_configuration.job_templates
+      - infra.controller_configuration.project_update
     controller_hostname: "https://{{ ansible_host }}"
     controller_username: admin
     controller_password: "{{ admin_password }}"
@@ -258,10 +259,12 @@
         scm_url: "{{ auto_satellite_project_scm_url }}"
         scm_branch: "{{ auto_satellite_project_scm_branch }}"
         default_environment: auto_satellite workshop execution environment
+        wait: true
       - name: Fact Scan
         organization: Default
         scm_type: git
         scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
+        wait: true
     controller_templates:
       - name: SETUP / Satellite
         project: Automated Management
@@ -278,38 +281,31 @@
         playbook: setup_controller.yml
         inventory: Workshop Inventory
         credentials:
-          - Controller Credential     
+          - Controller Credential
         extra_vars:
           controller_configuration_projects_async_retries: 36
           controller_configuration_projects_async_delay: 5
         execution_environment: auto_satellite controller iac execution environment
     controller_execution_environments:
       - name: auto_satellite controller iac execution environment
-        image: quay.io/s4v0/ee-automated-satellite-aap2:2.0.0        
+        image: quay.io/acme_corp/auto_satellite_ee:latest
   tasks:
-    - name: Deploy controller-infra workloads block
-      block:
-        - name: Call dispatch role
-          ansible.builtin.include_role:
-            name: infra.controller_configuration.dispatch
-      rescue: 
-        - name: Deploy controller-infra workloads
-          include_role:
-            name: "{{ controller_infra_vars }}"
-          loop: "{{ controller_infra_workloads }}"
-          loop_control:
-            loop_var: controller_infra_vars
-          when:
-            - controller_infra_workloads | d("") | length >0      
+    - name: Deploy controller-infra workloads
+      ansible.builtin.include_tasks: auto_satellite_cac_subtasks.yml
+      loop: "{{ controller_infra_workloads }}"
+      loop_control:
+        loop_var: controller_infra_vars
+      when:
+        - controller_infra_workloads | d("") | length >0
 
 - name: Final workshop preparations
   hosts: control_nodes
   become: true
   gather_facts: true
 
-  tasks:
-
-    - when: provision_mode == "workshop"
+  tasks: 
+    - name: Final workshop preparations - workshop mode
+      when: provision_mode == "workshop"
       block:
         - name: Run SETUP / Satellite job template
           awx.awx.job_launch:
@@ -336,7 +332,8 @@
           delay: 20  # Every 20 seconds
           retries: 45  # 15 minutes 15*60/20
 
-    - when: provision_mode == "demo"
+    - name: Final workshop preparations - demo mode
+      when: provision_mode == "demo"
       block:
         - name: Run SETUP / Satellite job template
           awx.awx.job_launch:

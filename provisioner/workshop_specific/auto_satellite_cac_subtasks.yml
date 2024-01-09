@@ -1,0 +1,26 @@
+---
+# https://devpress.csdn.net/cicd/62ec1d2689d9027116a10320.html
+- name: Controller CaC workloads Task Group
+  block:
+  - name: Increment retry count
+    set_fact:
+      controller_cac_retry_count: "{{ 0 if controller_cac_retry_count is undefined else controller_cac_retry_count | int + 1 }}"
+  # - name: This task executes after each failed attempt
+  #   ansible.builtin.include_tasks: some_other_task_resume.yml
+  #   when: controller_cac_retry_count | int != 0
+
+  - name: Deploy controller-infra workloads
+    include_role:
+      name: "{{ controller_infra_vars }}"
+
+  rescue:
+    - fail:
+        msg: Maximum retries of grouped tasks reached
+      # initial try plus 3 retries = 4 total tries
+      when: controller_cac_retry_count | int == 3
+
+    - debug:
+        msg: "satellite_infra workloads Task Group failed, retry count: {{ controller_cac_retry_count }}"
+
+    - ansible.builtin.include_tasks: auto_satellite_cac_subtasks.yml
+...

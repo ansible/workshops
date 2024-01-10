@@ -20,7 +20,7 @@
       when: dynamic_retry_count | int == 5
 
     - ansible.builtin.debug:
-        msg: "auto_satellite CaC {{ controller_infra_vars }} Task Group failed, retry count: {{ dynamic_retry_count }}"
+        msg: "Controller CaC {{ controller_infra_vars }} Task Group failed, retry count: {{ dynamic_retry_count }}"
 
-    - ansible.builtin.include_tasks: auto_satellite_cac_subtasks_retry.yml
+    - ansible.builtin.include_tasks: generic_cac_subtasks_retry.yml
 ...

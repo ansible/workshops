@@ -185,8 +185,8 @@
       - infra.controller_configuration.credentials
       - infra.controller_configuration.execution_environments
       - infra.controller_configuration.projects
-      - infra.controller_configuration.job_templates
       - infra.controller_configuration.project_update
+      - infra.controller_configuration.job_templates
     controller_hostname: "https://{{ ansible_host }}"
     controller_username: admin
     controller_password: "{{ admin_password }}"

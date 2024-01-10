@@ -291,7 +291,7 @@
         image: quay.io/acme_corp/auto_satellite_ee:latest
   tasks:
     - name: Deploy controller-infra workloads
-      ansible.builtin.include_tasks: auto_satellite_cac_subtasks_init.yml
+      ansible.builtin.include_tasks: generic_cac_subtasks_init.yml
       loop: "{{ controller_infra_workloads }}"
       loop_control:
         loop_var: controller_infra_vars

@@ -5,8 +5,8 @@
 
 - name: "Display current loop role"
   ansible.builtin.debug:
-    msg: "Begin auto_satellite CaC loop role: {{ controller_infra_vars }}"
+    msg: "Begin Controller CaC loop role: {{ controller_infra_vars }}"
 
-- ansible.builtin.include_tasks: auto_satellite_cac_subtasks_retry.yml
+- ansible.builtin.include_tasks: generic_cac_subtasks_retry.yml
 ...
 

@@ -17,37 +17,13 @@
     controller_infra_workloads:
       - redhat_cop.controller_configuration.credential_types
       - redhat_cop.controller_configuration.projects
+      - infra.controller_configuration.project_update
       - redhat_cop.controller_configuration.job_templates
     controller_hostname: "https://{{ ansible_host }}"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_validate_certs: false
     controller_credential_types:
-      - name: Satellite_Collection
-        description: Credential for redhat.satellite collection
-        kind: cloud
-        inputs:
-          fields:
-            - type: string
-              id: username
-              label: Satellite Username
-            - type: string
-              id: password
-              label: Satellite Password
-              secret: true
-            - type: string
-              id: host
-              label: Satellite Hostname
-          required:
-            - username
-            - password
-            - host
-        injectors:
-          env:
-            FOREMAN_SERVER: !unsafe '{{ host }}'
-            FOREMAN_USER: !unsafe '{{ username}}'
-            FOREMAN_PASSWORD: !unsafe '{{ password }}'
-            FOREMAN_VALIDATE_CERTS: 'false'
       - name: GitHub_Personal_Access_Token
         description: Credential for GitHub repo operations automation
         kind: cloud
@@ -97,8 +73,7 @@
         validate_certs: false
 
     - name: Deploy controller-infra workloads
-      include_role:
-        name: "{{ controller_infra_vars }}"
+      ansible.builtin.include_tasks: generic_cac_subtasks_init.yml
       loop: "{{ controller_infra_workloads }}"
       loop_control:
         loop_var: controller_infra_vars

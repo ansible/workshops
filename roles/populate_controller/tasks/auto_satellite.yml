@@ -7,9 +7,9 @@
 
 - name: Filter hosts containing student number
   ansible.builtin.set_fact:
-    student_hosts: "{{ groups['rhel'] | select('search', student_number ~ '-') | list }}"
-    control_nodes: "{{ groups['control_nodes'] | select('search', student_number ~ '-') | list }}"
-    satellite_nodes: "{{ groups['satellite'] | select('search', student_number ~ '-') | list }}"
+    student_hosts: "{{ groups['rhel'] | select('search', 'student' ~ student_number ~ '-') | list }}"
+    control_nodes: "{{ groups['control_nodes'] | select('search', 'student' ~ student_number ~ '-') | list }}"
+    satellite_nodes: "{{ groups['satellite'] | select('search', 'student' ~ student_number ~ '-') | list }}"
 
 - name: Debug hosts for
   ansible.builtin.debug:
@@ -95,7 +95,7 @@
   block:
     - name: Filter hosts containing student number
       ansible.builtin.set_fact:
-        centos7_hosts: "{{ groups['centos7'] | select('search', student_number ~ '-') | list }}"
+        centos7_hosts: "{{ groups['centos7'] | select('search', 'student' ~ student_number ~ '-') | list }}"
 
     - name: Add centos7 hosts into controller inventory
       awx.awx.host:

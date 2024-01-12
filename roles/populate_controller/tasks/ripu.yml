@@ -20,8 +20,8 @@
 
 - name: Filter hosts containing student number
   ansible.builtin.set_fact:
-    student_hosts: "{{ groups['lab_hosts'] | select('search', student_number ~ '-') | list }}"
-    student_control_nodes: "{{ groups['control_nodes'] | select('search', student_number ~ '-') | list }}"
+    student_hosts: "{{ groups['lab_hosts'] | select('search', 'student' ~ student_number ~ '-') | list }}"
+    student_control_nodes: "{{ groups['control_nodes'] | select('search', 'student' ~ student_number ~ '-') | list }}"
 
 - name: Debug hosts for
   ansible.builtin.debug:

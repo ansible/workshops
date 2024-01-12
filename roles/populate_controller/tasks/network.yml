@@ -23,7 +23,7 @@
 
 - name: Filter hosts containing student number
   ansible.builtin.set_fact:
-    student_hosts: "{{ groups['routers'] | select('search', student_number ~ '-') | list }}"
+    student_hosts: "{{ groups['routers'] | select('search', 'student' ~ student_number ~ '-') | list }}"
 
 - name: Debug hosts for 
   ansible.builtin.debug:

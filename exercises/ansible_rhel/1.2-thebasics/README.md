@@ -25,7 +25,7 @@ experience.
 
 An inventory file is a text file that specifies the nodes that will be managed by the control machine. The nodes to be managed may include a list of hostnames or IP addresses of those nodes. The inventory file allows for nodes to be organized into groups by declaring a host group name within square brackets ([]).
 
-### Exploring the Inventory:
+### Exploring the Inventory
 
 To use the `ansible-navigator` command for host management, you need to provide
 an inventory file which defines a list of hosts to be managed from the control
@@ -187,7 +187,7 @@ documentation and examples.
 
 ![picture of ansible-navigator](images/interactive-ec2-tag.png)
 
-You can also skip directly to a particular module by simply typing `:doc
+You can skip directly to a particular module by simply typing `:doc
 namespace.collection.module-name`.  For example typing `:doc amazon.aws.ec2_tag`
 would skip directly to the final page shown above.
 

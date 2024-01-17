@@ -31,7 +31,7 @@ To use the `ansible-navigator` command for host management, you need to provide
 an inventory file which defines a list of hosts to be managed from the control
 node. In this lab, the inventory is provided by your instructor. The inventory
 file is an `ini` formatted file listing your hosts, sorted in groups,
-additionally providing some variables. An example of may look as follows:
+additionally providing some variables. An example may look as follows:
 
 ```bash
 [web]
@@ -46,7 +46,6 @@ ansible-1 ansible_host=44.55.66.77
 To view your inventory with ansible-navigator, use the command
 `ansible-navigator inventory --list -m stdout`. This command displays all nodes
 and their respective groups.
-
 
 ```bash
 [student@ansible-1 rhel_workshop]$ cd /home/student
@@ -113,8 +112,8 @@ group, while `ansible-1` is part of the `control` group.
 
 
 An inventory file can organize your hosts in groups or define variables. In our
-example, the current inventory has the groups `web` and `control`. Run Ansible
-with these host patterns and observe the output:
+example, the current inventory has the groups `web` and `control`. Run
+`ansible-navigator` with these host patterns and observe the output:
 
 Using the `ansible-navigator inventory` command, you can run commands that
 provide information only for one host or group. For example, run the following

@@ -18,24 +18,27 @@
 
 ## Objective
 
-* Understand the lab topology and how to access the environment.
-* Understand how to work the workshop exercises
-* Understand challenge labs
-
-These first few lab exercises will be exploring the command-line utilities of the Ansible Automation Platform.  This includes
-
-- [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
-- [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like `ansible`, `ansible-playbook` and `ansible-doc`.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.
-- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
-- [ansible-builder](https://github.com/ansible/ansible-builder) - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
-
-If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
+* Understand Lab Topology: Familiarize yourself with the lab environment and access methods.
+* Master Workshop Exercises: Gain proficiency in navigating and executing workshop tasks.
+* Embrace Challenge Labs: Learn to apply your knowledge in practical challenge scenarios.
 
 ## Guide
 
+This workshop's initial phase focuses on the command-line utilities of the Ansible Automation Platform, such as:
+
+
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) - a Text-based User Interface (TUI) for running and developing Ansible content.
+- [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform, including CLI tools like `ansible`, `ansible-playbook` and `ansible-doc`.
+- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Pre-built container images with Red Hat supported collections. 
+- [ansible-builder](https://github.com/ansible/ansible-builder) - automates the  process of building Execution Environments. Not a primary focus in this workshop.
+
+If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
+
+
 ### Your Lab Environment
 
-In this lab you work in a pre-configured lab environment. You will have access to the following hosts:
+You'll work in a pre-configured environment with the following hosts:
+
 
 | Role                 | Inventory name |
 | ---------------------| ---------------|
@@ -46,53 +49,43 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
 ### Step 1 - Access the Environment
 
-<table>
-<thead>
-  <tr>
-    <th>It is highly encouraged to use Visual Studio Code to complete the workshop exercises. Visual Studio Code provides:
-    <ul>
-    <li>A file browser</li>
-    <li>A text editor with syntax highlighting</li>
-    <li>A in-browser terminal</li>
-    </ul>
-    Direct SSH access is available as a backup, or if Visual Studio Code is not sufficient to the student.  There is a short YouTube video provided if you need additional clarity: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
-</th>
-</tr>
-</thead>
-</table>
+We recommend using Visual Studio Code for this workshop for its integrated file browser, syntax-highlighting editor, and in-browser terminal. Direct SSH access is also available. Check out this YouTube tutorial on accessing your workbench environment.
 
-- Connect to Visual Studio Code from the Workshop launch page (provided by your instructor).  The password is provided below the WebUI link.
+NOTE: There is a short YouTube video provided if you need additional clarity:
+[Ansible Workshops - Accessing your workbench environment](https://youtu.be/Y_Gx4ZBfcuk)
+
+
+1. Connect to Visual Studio Code via the Workshop launch page.
 
   ![launch page](images/launch_page.png)
 
-- Type in the provided password to connect.
+2. Enter the provided password to login. 
 
   ![login vs code](images/vscode_login.png)
 
-  - Open the `rhel-workshop` directory in Visual Studio Code:
 
 ### Step 2 - Using the Terminal
 
-- Open a terminal in Visual Studio Code:
+1. Open a terminal in Visual Studio Code:
 
   ![picture of new terminal](images/vscode-new-terminal.png)
 
-Navigate to the `rhel-workshop` directory on the Ansible control node terminal.
+2. Navigate to the `rhel-workshop` directory on the Ansible control node terminal.
 
 ```bash
 [student@ansible-1 ~]$ cd ~/rhel-workshop/
 [student@ansible-1 rhel-workshop]$ pwd
 /home/student/rhel-workshop
-[student@ansible-1 rhel-workshop]$
 ```
 
-* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student`
-* `cd` - Linux command to change directory
-* `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
+* `~`: shortcut for the home directory `/home/student`
+* `cd`: command to change directories
+* `pwd`: prints the current working directory's full path.
 
 ### Step 3 - Examining Execution Environments
 
-Run the `ansible-navigator` command with the `images` argument to look at execution environments configured on the control node:
+1. Run `ansible-navigator images` to view configured Execution Environments.
+2. Use the corresponding number to investigate an EE, e.g. pressing 2 to open `ee-supported-rhel8`
 
 ```bash
 $ ansible-navigator images
@@ -103,7 +96,6 @@ $ ansible-navigator images
 
 > Note: The output  you see might differ from the above output
 
-This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **2** with the above example will open the `ee-supported-rhel8` execution environment:
 
 ![ee main menu](images/navigator-ee-menu.png)
 
@@ -113,7 +105,7 @@ Selecting `2` for `Ansible version and collections` will show us all Ansible Col
 
 ### Step 4 - Examining the ansible-navigator configuration
 
-Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
+1. View the contents of `~/.ansible-navigator.yml` using Visual Studio Code or the `cat` command.
 
 ```bash
 $ cat ~/.ansible-navigator.yml
@@ -135,7 +127,7 @@ ansible-navigator:
       dest: "/etc/ansible/"
 ```
 
-Note the following parameters within the `ansible-navigator.yml` file:
+2. Note the following parameters within the `ansible-navigator.yml` file:
 
 * `inventories`: shows the location of the ansible inventory being used
 * `execution-environment`: where the default execution environment is set
@@ -144,7 +136,7 @@ For a full listing of every configurable knob checkout the [documentation](https
 
 ### Step 5 - Challenge Labs
 
-You will soon discover that many chapters in this lab guide come with a "Challenge Lab" section. These labs are meant to give you a small task to solve using what you have learned so far. The solution of the task is shown underneath a warning sign.
+Each chapter comes with a Challenge Lab. These tasks test your understanding and application of the learned concepts. Solutions are provided under a warning sign for reference.
 
 ---
 **Navigation**

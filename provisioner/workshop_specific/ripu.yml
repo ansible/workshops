@@ -124,8 +124,8 @@
           retries: 24  # 6 minutes 6*60/15
 
         - name: Run Z / SETUP / Workshop deployment workflow template
-          awx.awx.job_launch:
-            job_template: "Z / SETUP / Workshop deployment"
+          awx.awx.workflow_launch:
+            workflow_template: "Z / SETUP / Workshop deployment"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -141,8 +141,8 @@
             return_content: true
             status_code: 200
             validate_certs: false
-          register: workshop_job_template02
-          until: workshop_job_template02.json.status == "successful"
+          register: workshop_workflow_template01
+          until: workshop_workflow_template01.json.status == "successful"
           delay: 15  # Every 15 seconds
           retries: 60  # 15 minutes 15*60/15
 

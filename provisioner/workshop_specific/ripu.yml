@@ -117,7 +117,7 @@
           register: workshop_job_templates01
           until: workshop_job_templates01.json.status == "successful"
           delay: 15  # Every 15 seconds
-          retries: 16  # 4 minutes 4*60/15
+          retries: 24  # 6 minutes 6*60/15
 
         - name: Run Z / SETUP / Workshop deployment workflow template
           awx.awx.job_launch:
@@ -141,7 +141,7 @@
           register: workshop_job_template02
           until: workshop_job_template02.json.status == "successful"
           delay: 15  # Every 15 seconds
-          retries: 10  # 2.5 minutes 2.5*60/15
+          retries: 40  # 10 minutes 10*60/15
 
     - when: provision_mode == "demo"
       block:

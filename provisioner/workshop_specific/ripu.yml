@@ -15,7 +15,8 @@
     ripu_project_scm_url: 'https://github.com/redhat-partner-tech/leapp-project'
     ripu_project_scm_branch: 'main'
     controller_request_timeout: "250"
-    controller_configuration_projects_async_retries: "45"
+    controller_configuration_projects_async_retries: 60
+    controller_configuration_projects_async_delay: 5
     controller_infra_workloads:
       - infra.controller_configuration.credential_types
       - infra.controller_configuration.projects
@@ -52,15 +53,15 @@
         scm_branch: "{{ ripu_project_scm_branch }}"
         default_environment: ripu workshop execution environment
     controller_templates:
-      - name: SETUP / Controller
+      - name: Z / CaC / Controller
         project: Project Leapp
-        playbook: controller_iac.yml
+        playbook: controller_cac.yml
         inventory: Workshop Inventory
         execution_environment: Default execution environment
         credentials:
           - Controller Credential
         extra_vars:
-          controller_configuration_projects_async_retries: 36
+          controller_configuration_projects_async_retries: 60
           controller_configuration_projects_async_delay: 5
 
   tasks:
@@ -93,106 +94,17 @@
         state: latest
         exclude: kernel*
 
-    - name: Install cockpit console
-      ansible.builtin.package:
-        name: 
-          - cockpit
-          - cockpit-system
-        state: present
-
-    - name: Setup cockpit/machines.d/99-webui.json file per student
-      ansible.builtin.copy:
-        src: "{{ playbook_dir }}/../{{ ec2_name_prefix }}/{{ student }}-99-webui.json"
-        dest: "/etc/cockpit/machines.d/99-webui.json"
-
-    - name: Copy controller key to cockpit 
-      ansible.builtin.copy:
-        src: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/privkey.pem"
-        dest: "/etc/cockpit/ws-certs.d/00-signed.key"
-        remote_src: true
-
-    - name: Copy controller cert to cockpit 
-      ansible.builtin.copy:
-        src: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/cert.pem"
-        dest: "/etc/cockpit/ws-certs.d/00-signed.cert"
-        remote_src: true
-
-    - name: Enable and start cockpit console service
-      ansible.builtin.service:
-        name: cockpit.socket
-        enabled: true
-        state: started
-
-    - name: Grab ec2_instance_info for node1
-      amazon.aws.ec2_instance_info:
-        region: "{{ ec2_region }}"
-        filters:
-          instance-state-name: running
-          "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
-      delegate_to: localhost
-      become: false
-      register: node1_node_facts
-
-    - name: Grab ec2_instance_info for node2
-      amazon.aws.ec2_instance_info:
-        region: "{{ ec2_region }}"
-        filters:
-          instance-state-name: running
-          "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
-      delegate_to: localhost
-      become: false
-      register: node2_node_facts
-
-    - name: Grab ec2_instance_info for node3
-      amazon.aws.ec2_instance_info:
-        region: "{{ ec2_region }}"
-        filters:
-          instance-state-name: running
-          "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
-      delegate_to: localhost
-      become: false
-      register: node3_node_facts
-
-    - name: Grab ec2_instance_info for node4
-      amazon.aws.ec2_instance_info:
-        region: "{{ ec2_region }}"
-        filters:
-          instance-state-name: running
-          "tag:Workshop_node4": "{{ec2_name_prefix}}-node4"
-      delegate_to: localhost
-      become: false
-      register: node4_node_facts
-
-    - name: Populate ssh host keys to known_hosts
-      become: yes
-      become_user: student
-      become_method: su
-      become_exe: sudo su -
-      shell: >
-        ssh-keyscan -tecdsa-sha2-nistp256 {{ item.tags.short_name }} >> ~/.ssh/known_hosts
-      #Circle back to lineinfile...  
-      #lineinfile:
-      #  dest: /home/student/.ssh/known_hosts
-      #  create: yes
-      # state: present
-      #  line: "{{ lookup('pipe', 'ssh-keyscan -tecdsa-sha2-nistp256 ' + item.tags.short_name) }}"
-      with_items:
-        - "{{ node1_node_facts.instances }}"
-        - "{{ node2_node_facts.instances }}"
-        - "{{ node3_node_facts.instances }}"
-        - "{{ node4_node_facts.instances }}"
-
     - when: provision_mode == "workshop"
       block:
-        - name: Run SETUP / Controller job template
+        - name: Run Z / CaC / Controller job template
           awx.awx.job_launch:
-            job_template: "SETUP / Controller"
+            job_template: "Z / CaC / Controller"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: setupcontroljob
 
-        - name: "Check API until SETUP / Controller job is successful"
+        - name: "Check API until Z / CaC / Controller job is successful"
           ansible.builtin.uri:
             url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
             user: admin
@@ -207,50 +119,18 @@
           delay: 15  # Every 15 seconds
           retries: 16  # 4 minutes 4*60/15
 
-        - name: Retrieve execution environment named "ripu workshop"
-          vars:
-            awx_url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-            awx_username: admin
-            awx_password: "{{ admin_password }}"
-          set_fact:
-            ee_details: "{{ lookup('awx.awx.controller_api', 'execution_environments', host=awx_url, username=awx_username, password=awx_password, verify_ssl=False, query_params={'name': 'ripu workshop execution environment'}, return_values=True) }}"
-          register: ee_retrieve
-          until: ee_retrieve is not failed
-
-        - name: debug ee_details
-          debug:
-            var: ee_details
-
-        - name: Extract image from execution environment details
-          set_fact:
-            ee_image: "{{ ee_details.image | default('registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:1.0.0-208') }}"
-
-        - name: Print execution environment image to terminal
-          debug:
-            var: ee_image
-
-        - name: Add EE to the controller instance
-          awx.awx.execution_environment:
-            name: "ripu workshop execution environment"
-            image: "{{ ee_image }}"
-            credential: registry.redhat.io credential
-            controller_username: admin
-            controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-
-        - name: Run Update inventories via dynamic sources job template - RHEL7
+        - name: Run Z / SETUP / Workshop deployment workflow template
           awx.awx.job_launch:
-            job_template: "UTILITY / Update inventories via dynamic sources"
+            job_template: "Z / SETUP / Workshop deployment"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-            extra_vars:
-              rhel_inventory_group: rhel7
-          register: update_inventories_rhel7
+            extra_vars: ''
+          register: z_setup_workshop_deployment
 
-        - name: "Check API until Update inventories via dynamic sources RHEL7 job is successful"
+        - name: "Check API until Z / SETUP / Workshop deployment workflow is successful"
           ansible.builtin.uri:
-            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ update_inventories_rhel7.id }}/?format=json"
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ z_setup_workshop_deployment.id }}/?format=json"
             user: admin
             password: "{{ admin_password }}"
             force_basic_auth: true
@@ -262,81 +142,6 @@
           until: workshop_job_template02.json.status == "successful"
           delay: 15  # Every 15 seconds
           retries: 10  # 2.5 minutes 2.5*60/15
-
-        - name: Run Update inventories via dynamic sources job template - RHEL8
-          awx.awx.job_launch:
-            job_template: "UTILITY / Update inventories via dynamic sources"
-            controller_username: admin
-            controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-            extra_vars:
-              rhel_inventory_group: rhel8
-          register: update_inventories_rhel8
-
-        - name: "Check API until Update inventories via dynamic sources RHEL8 job is successful"
-          ansible.builtin.uri:
-            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ update_inventories_rhel8.id }}/?format=json"
-            user: admin
-            password: "{{ admin_password }}"
-            force_basic_auth: true
-            method: GET
-            return_content: true
-            status_code: 200
-            validate_certs: false
-          register: workshop_job_template03
-          until: workshop_job_template03.json.status == "successful"
-          delay: 15  # Every 15 seconds
-          retries: 10  # 2.5 minutes 2.5*60/15
-
-        - name: Run Update inventories via dynamic sources job template - ALL_rhel
-          awx.awx.job_launch:
-            job_template: "UTILITY / Update inventories via dynamic sources"
-            controller_username: admin
-            controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-            extra_vars:
-              rhel_inventory_group: ALL_rhel
-          register: update_inventories_ALL_rhel
-
-        - name: "Check API until Update inventories via dynamic sources ALL_rhel job is successful"
-          ansible.builtin.uri:
-            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ update_inventories_ALL_rhel.id }}/?format=json"
-            user: admin
-            password: "{{ admin_password }}"
-            force_basic_auth: true
-            method: GET
-            return_content: true
-            status_code: 200
-            validate_certs: false
-          register: workshop_job_template04
-          until: workshop_job_template04.json.status == "successful"
-          delay: 15  # Every 15 seconds
-          retries: 10  # 2.5 minutes 2.5*60/15
-
-        - name: Run OS / Patch OS to latest job template - RHEL7
-          awx.awx.job_launch:
-            job_template: "OS / Patch OS to latest"
-            controller_username: admin
-            controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-            extra_vars:
-              rhel_inventory_group: rhel7
-          register: osupdatejob
-
-        - name: "Check API until OS / Patch OS to latest job is successful"
-          ansible.builtin.uri:
-            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ osupdatejob.id }}/?format=json"
-            user: admin
-            password: "{{ admin_password }}"
-            force_basic_auth: true
-            method: GET
-            return_content: true
-            status_code: 200
-            validate_certs: false
-          register: workshop_job_template05
-          until: workshop_job_template05.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 45  # 15 minutes 15*60/20
 
     - when: provision_mode == "demo"
       block:

@@ -19,6 +19,7 @@
     controller_configuration_projects_async_delay: 5
     controller_infra_workloads:
       - infra.controller_configuration.credential_types
+      - infra.controller_configuration.execution_environments
       - infra.controller_configuration.projects
       - infra.controller_configuration.project_update
       - infra.controller_configuration.job_templates
@@ -63,6 +64,9 @@
         extra_vars:
           controller_configuration_projects_async_retries: 60
           controller_configuration_projects_async_delay: 5
+    controller_execution_environments:
+      - name: ripu workshop execution environment
+        image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest
 
   tasks:
     # Allow projects to pull collections via collections/requirements.yml

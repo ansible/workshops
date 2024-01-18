@@ -129,7 +129,6 @@
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-            extra_vars: ''
           register: z_setup_workshop_deployment
 
         - name: "Check API until Z / SETUP / Workshop deployment workflow is successful"

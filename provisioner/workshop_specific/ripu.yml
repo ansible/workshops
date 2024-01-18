@@ -144,7 +144,7 @@
           register: workshop_job_template02
           until: workshop_job_template02.json.status == "successful"
           delay: 15  # Every 15 seconds
-          retries: 40  # 10 minutes 10*60/15
+          retries: 60  # 15 minutes 15*60/15
 
     - when: provision_mode == "demo"
       block:

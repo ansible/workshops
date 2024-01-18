@@ -129,22 +129,8 @@
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-          register: z_setup_workshop_deployment
+            timeout: 900  
 
-        - name: "Check API until Z / SETUP / Workshop deployment workflow is successful"
-          ansible.builtin.uri:
-            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ z_setup_workshop_deployment.id }}/?format=json"
-            user: admin
-            password: "{{ admin_password }}"
-            force_basic_auth: true
-            method: GET
-            return_content: true
-            status_code: 200
-            validate_certs: false
-          register: workshop_workflow_template01
-          until: workshop_workflow_template01.json.status == "successful"
-          delay: 15  # Every 15 seconds
-          retries: 60  # 15 minutes 15*60/15
 
     - when: provision_mode == "demo"
       block:

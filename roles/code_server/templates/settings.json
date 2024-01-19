@@ -1,6 +1,5 @@
 {
     "git.ignoreLegacyWarning": true,
-    "terminal.integrated.experimentalRefreshOnResume": true,
     "window.menuBarVisibility": "visible",
     "git.enableSmartCommit": true,
     "workbench.tips.enabled": false,
@@ -9,7 +8,7 @@
     "search.smartCase": true,
     "git.confirmSync": false,
     "workbench.colorTheme": "Visual Studio Dark",
-    "ansible.ansibleLint.enabled": false,
+    "ansible.validation.lint.enabled": false,
     "ansible.ansible.useFullyQualifiedCollectionNames": true,
     "files.associations": {
         "*.yml": "ansible"

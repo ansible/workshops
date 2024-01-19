@@ -7,8 +7,7 @@
   when:
     - controllerinstall is defined
     - controllerinstall|bool
-    - pre_build|bool
-
+    
 - name: Setup Route53 update service
   include_tasks: 40_route53_update.yml
   when: tower_node_aws_api_access|default(false)|bool

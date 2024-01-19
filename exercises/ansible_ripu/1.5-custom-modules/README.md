@@ -10,7 +10,7 @@
     - [Step 1 - What are Custom Modules?](#step-1---what-are-custom-modules)
     - [Step 2 - Install a Leapp Custom Actor](#step-2---install-a-leapp-custom-actor)
     - [Step 3 - Generate a New Pre-upgrade Report](#step-3---generate-a-new-pre-upgrade-report)
-    - [Step 4 - Learn More About Developing Leapp Custom Actors](#step-4---learn-more-about-developing-leapp-custom-actors)
+    - [Step 4 - Learn More About Customizing the In-place Upgrade](#step-4---learn-more-about-customizing-the-in-place-upgrade)
   - [Conclusion](#conclusion)
 
 ## Optional Exercise
@@ -139,7 +139,9 @@ We are now ready to try running a pre-upgrade report including the checks from o
 
 - Now generate another pre-upgrade report after rebooting. Verify that this inhibitor finding has disappeared with the new report.
 
-### Step 4 - Learn More About Developing Leapp Custom Actors
+### Step 4 - Learn More About Customizing the In-place Upgrade
+
+Read the knowledge article [Customizing your Red Hat Enterprise Linux in-place upgrade](https://access.redhat.com/articles/4977891) to understand best practices for handling the upgrade of third-party packages using custom repositories for an in-place upgrade or custom actors.
 
 The gritty details of developing Leapp custom actors are beyond the scope of this workshop. Here are some resources you can check out to learn more on your own:
 

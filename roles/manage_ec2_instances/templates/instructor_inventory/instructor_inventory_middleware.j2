@@ -3,7 +3,7 @@
 ansible_port={{ ssh_port }}
 {% endif %}
 
-{% for number in range(1,student_total + 1) %}
+{% for number in range(1,student_total|int + 1) %}
 [student{{ number }}]
 {% for host in ansible_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}

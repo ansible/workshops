@@ -10,15 +10,6 @@
         name: certbot
         state: present
         disable_gpg_check: true
-    # solves error
-    # pkg_resources.DistributionNotFound: The 'requests>=2.14.2' distribution was not found and is required by acme
-    - name: Install requests python package
-      pip:
-        name: requests>=2.14.2
-
-    - name: Install requests python package
-      pip:
-        name: requests>=2.14.2
 
     - &tower-pinger-block
       block:
@@ -82,7 +73,7 @@
       copy:
         remote_src: true
         src: "/etc/letsencrypt/live/{{ dns_name }}/privkey.pem"
-        dest: /etc/tower/tower.key
+        dest: /home/{{ run_commands_user }}/aap/controller/etc/tower.key
 
     - name: Retrieve Specific SSL Cert
       slurp:
@@ -92,7 +83,7 @@
     - name: Combine Specific and intermediate Cert
       template:
         src: combined_cert.j2
-        dest: /etc/tower/tower.cert
+        dest: /home/{{ run_commands_user }}/aap/controller/etc/tower.cert
   rescue:
     - name: no SSL cert for Automation Controller
       debug:

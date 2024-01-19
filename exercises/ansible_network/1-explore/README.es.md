@@ -4,18 +4,20 @@
 
 ## Índice
 
-* [Objetivo](#objetivo)
-* [Diagrama](#diagrama)
-* [Guía](#guía)
-   * [Paso 1 - Connectar vía VS Code](#paso-1---connectar-vía-vs-code)
-   * [Paso 2 - Usando la Terminal](#paso-2---usando-la-terminal)
-   * [Paso 3 - Examinando los Entornos de Ejecución](#paso-3---examinando-los-entornos-de-ejecución)
-   * [Paso 4 - Examinando la configuración de ansible-navigator](#paso-4---examinando-la-configuración-de-ansible-navigator)
-   * [Paso 5 - Examinando el inventario](#paso-5---examinando-el-inventario)
-   * [Paso 6 - Comprendiendo el inventario](#paso-6---comprendiendo-el-inventario)
-   * [Paso 7 - Usando ansible-navigator para explorar el inventario](#paso-7---usando-ansible-navigator-para-explorar-el-inventario)
-   * [Paso 8 - Connectándose a dispositivos de red](#paso-8---connectándose-a-dispositivos-de-red)
-* [Completado](#complete)
+- [Ejercicio 1 - Explorando el entorno de laboratorio](#ejercicio-1---explorando-el-entorno-de-laboratorio)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Diagrama](#diagrama)
+  - [Guía](#guía)
+    - [Paso 1 - Connectar vía VS Code](#paso-1---connectar-vía-vs-code)
+    - [Paso 2 - Usando la Terminal](#paso-2---usando-la-terminal)
+    - [Paso 3 - Examinando los Entornos de Ejecución](#paso-3---examinando-los-entornos-de-ejecución)
+    - [Paso 4 - Examinando la configuración de ansible-navigator](#paso-4---examinando-la-configuración-de-ansible-navigator)
+    - [Paso 5 - Examinando el inventario](#paso-5---examinando-el-inventario)
+    - [Paso 6 - Comprendiendo el inventario](#paso-6---comprendiendo-el-inventario)
+    - [Paso 7 - Usando ansible-navigator para explorar el inventario](#paso-7---usando-ansible-navigator-para-explorar-el-inventario)
+    - [Paso 8 - Connectándose a dispositivos de red](#paso-8---connectándose-a-dispositivos-de-red)
+  - [Completado](#completado)
 
 ## Objetivo
 
@@ -31,10 +33,9 @@ Esto incluye:
 
 Si necesitaás más informacion sobre los nuevos componentes de Ansible Automation Platform, añáde esta página [https://red.ht/AAP-20](https://red.ht/AAP-20) a tus marcadores.
 
-> Chatea con nosotros
+> Join our community forum!
 >
-> Antes de comenzar, por favor, únete a nosotros en slack <a href="https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw">Haz click aquí para unirte al canal de slack ansiblenetwork</a>. Esto te permitirá chatear con otros ingeniero de automatización de redes y obtener ayuda una vez concluídos los talleres. Si el enlace no funcionase, por favor envíanos un email a <a href="mailto:ansible-network@redhat.com">Ansible Technical Marketing</a></th>
-
+> Before you get started, please join us on <a target="_new" href="https://forum.ansible.com/">https://forum.ansible.com/</a>.  This will allow you to get Ansible help after the workshops concludes.
 
 ## Diagrama
 

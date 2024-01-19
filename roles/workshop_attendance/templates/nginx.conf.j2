@@ -21,6 +21,7 @@ http {
     sendfile        on;
     #tcp_nopush     on;
     keepalive_timeout  65;
+    server_names_hash_bucket_size 128;
 
         #gzip  on;
 
@@ -36,8 +37,10 @@ http {
       root /usr/share/nginx/html;
       listen              443 ssl;
       server_name         {{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }};
+      {% if issue_cert is not failed %}
       ssl_certificate     /etc/letsencrypt/live/{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}/combined.cert;
       ssl_certificate_key /etc/letsencrypt/live/{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}/privkey.pem;
+      {% endif %}
       ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
       ssl_ciphers         HIGH:!aNULL:!MD5;
 

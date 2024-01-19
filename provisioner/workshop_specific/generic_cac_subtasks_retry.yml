@@ -1,0 +1,26 @@
+---
+# https://devpress.csdn.net/cicd/62ec1d2689d9027116a10320.html
+- name: Controller CaC workloads Task Group
+  block:
+    - name: Increment retry count
+      ansible.builtin.set_fact:
+        dynamic_retry_count: "{{ dynamic_retry_count | int + 1 }}"
+
+    # - name: This task executes after each failed attempt
+    #   ansible.builtin.include_tasks: some_other_task_resume.yml
+    #   when: dynamic_retry_count | int != 0
+
+    - name: Deploy controller-infra workload
+      ansible.builtin.include_role:
+        name: "{{ controller_infra_vars }}"
+
+  rescue:
+    - ansible.builtin.fail:
+        msg: Maximum retries of grouped tasks reached
+      when: dynamic_retry_count | int == 5
+
+    - ansible.builtin.debug:
+        msg: "Controller CaC {{ controller_infra_vars }} Task Group failed, retry count: {{ dynamic_retry_count }}"
+
+    - ansible.builtin.include_tasks: generic_cac_subtasks_retry.yml
+...

@@ -6,7 +6,7 @@
   - [Table of Contents](#table-of-contents)
   - [Objectives](#objectives)
   - [Guide](#guide)
-    - [Step 1 - Launch the Rollback Workflow Job Template](#step-1---launch-the-rollback-workflow-job-template)
+    - [Step 1 - Launch the Rollback Job Template](#step-1---launch-the-rollback-job-template)
     - [Step 2 - Observe the Rollback Job Output](#step-2---observe-the-rollback-job-output)
     - [Step 3 - Check the RHEL Version](#step-3---check-the-rhel-version)
   - [Conclusion](#conclusion)
@@ -26,7 +26,7 @@ We are now here in our exploration of the RHEL in-place automation workflow:
 
 After rolling back, the pet app server will be restored to as it was just before entering the upgrade phase of the workflow.
 
-### Step 1 - Launch the Rollback Workflow Job Template
+### Step 1 - Launch the Rollback Job Template
 
 In this step, we will be rolling back the RHEL in-place upgrade on one of our pet application servers.
 
@@ -34,13 +34,15 @@ In this step, we will be rolling back the RHEL in-place upgrade on one of our pe
 
   ![AAP Web UI showing the rollback job template details view](images/rollback_template.svg)
 
-- Click the "Launch" button which will bring up a the survey prompt. We only want to do a rollback of one server. To do this, choose the "ALL_rhel" option under "Select inventory group" and then enter the hostname of your chosen pet app server under the "Enter server name" prompt. For example:
+- Click the "Launch" button which will bring up the prompts for submitting the job starting with the limit and variables prompts. We only want to do a rollback of one server. To do this, enter the hostname of your chosen pet app server under the "Limit" prompt. For example:
 
-  ![AAP Web UI showing the rollback job survey prompt](images/rollback_survey.svg)
+  ![AAP Web UI showing the rollback job limit and variables prompts](images/rollback_prompts.svg)
 
   Click the "Next" button to proceed.
 
-- Next you will see the job preview prompt, for example:
+  ![AAP Web UI showing the rollback job survey prompt](images/rollback_survey.svg)
+
+- Next we see the job template survey prompt asking us to select an inventory group. We already limited the job to one server, so just choose the "ALL_rhel" option and click the "Next" button. This will bring you to the preview of the selected job options and variable settings, for example:
 
   ![AAP Web UI showing the rollback job preview prompt](images/rollback_preview.svg)
 
@@ -56,7 +58,7 @@ After launching the rollback playbook job, the AAP Web UI will navigate automati
 
   ![Rollback job "PLAY RECAP" as seen at the end of the job output](images/rollback_job_recap.svg)
 
-  Notice in the example above, rolling back was done in just under 2 minutes.
+  Notice in the example above, we see the job completed in just under 3 minutes. However, most of that time was spent in the final "Wait for the snapshot to drain" task which holds the job until the snapshot merges finish in the background. The instance was actually rolled back and service ready in just under a minute. Impressive, right?
 
 ### Step 3 - Check the RHEL Version
 

@@ -1,0 +1,5 @@
+---
+- name: Check workshop_type and automation_hub values
+  fail:
+    msg: "When workshop_type is 'configascode', automation_hub must be set to true"
+  when: workshop_type == 'configascode' and (automation_hub is not defined or not automation_hub)

@@ -35,7 +35,7 @@ The time required to complete the workshop depends on the number of participants
 
 ## Lab Diagram
 
-The lab environment provisioned for the workshop includes a number of RHEL cloud instances. One instance is dedicated to hosting AAP and is used to run playbook and workflow jobs. The jobs are executed against the remaining hosts which will be upgraded in-place to the next RHEL major version. The automation uses Amazon EBS to manage the snapshot/rollback capability.
+The lab environment provisioned for the workshop includes a number of RHEL cloud instances. One instance is dedicated to hosting AAP and is used to run playbook and workflow jobs. The jobs are executed against the remaining hosts which will be upgraded in-place to the next RHEL major version. The automation uses LVM to manage the snapshot/rollback capability.
 
 ![RHEL In-place Upgrade Automation Workshop lab diagram](images/ripu_lab_diagram.svg)
 

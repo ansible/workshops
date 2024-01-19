@@ -25,6 +25,19 @@ rtr4_type: "arista"
 rhel: "rhel8"
 # additional info needed by AWS ec2 modules
 ec2_info:
+  control_type_pre_build:
+    owners: 962147768365
+    architecture: x86_64
+    filter: 'automation_controller*'
+    # username: ec2-user
+    # size:
+    #   - m5a.xlarge
+    #   - m4.xlarge
+    # os_type: linux
+    # disk_volume_type: gp3
+    # disk_space: 40
+    # disk_iops: 3000
+    # disk_throughput: 125
   private_automation_hub:
     owners: 309956199498
     size: m4.xlarge
@@ -50,7 +63,7 @@ ec2_info:
           volume_size: 40
           delete_on_termination: true
   cisco:
-    size: t2.medium
+    size: t3.medium
     ami: "{{ cisco_ami | default(omit) }}"
     os: ios
     username: ec2-user
@@ -60,7 +73,7 @@ ec2_info:
           volume_type: gp3
           iops: 1000
           throughput: 125
-          volume_size: 8
+          volume_size: 16      
           delete_on_termination: true
   arista:
     size: c5.xlarge
@@ -294,8 +307,8 @@ ec2_info:
   attendance_host:
     owners: 309956199498
     size:
-      - t3a.micro
-      - t3.micro
+      - t3a.medium
+      - t3.medium
     os_type: linux
     disk_volume_type: gp3
     disk_space: 10
@@ -331,16 +344,18 @@ debug_teardown: false
 # Issue #1594
 ansible_async_dir: "/tmp/.ansible_async"
 
-pre_build_controller_ami:
-  ap-northeast-1: ami-06ad1ea5c12a0d0f7
-  ap-southeast-1: ami-08e2518f0780bc79b
-  eu-central-1: ami-0e57d040faf5ebda8
-  eu-west-1: ami-0d45c3f4b5d801aa5
-  eu-west-2: ami-0d9c98a8a71cfb0e7
-  us-east-1: ami-01a0a95922d7386db
-  us-east-2: ami-0ef29e3299cf26819
-  us-west-1: ami-0009710aa9b69790e
-  us-west-2: ami-0b0d02e3c1d09fd4c
+
+
+# pre_build_controller_ami:
+#   ap-northeast-1: ami-06ad1ea5c12a0d0f7
+#   ap-southeast-1: ami-08e2518f0780bc79b
+#   eu-central-1: ami-0e57d040faf5ebda8
+#   eu-west-1: ami-0d45c3f4b5d801aa5
+#   eu-west-2: ami-0d9c98a8a71cfb0e7
+#   us-east-1: ami-01a0a95922d7386db
+#   us-east-2: ami-0ef29e3299cf26819
+#   us-west-1: ami-0009710aa9b69790e
+#   us-west-2: ami-0b0d02e3c1d09fd4c
   
 pre_build_hub_ami:
   ap-northeast-1: ami-0e10c305c74ebe2c4

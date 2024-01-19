@@ -1,0 +1,9 @@
+---
+- name: Assert required keys exist for workshop_type ripu
+  assert:
+    that:
+      - provision_mode is defined
+      - rhel7 is defined
+      - rhel8 is defined
+      - tower_node_aws_api_access is defined
+    fail_msg: "One or more required keys are missing!"

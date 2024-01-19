@@ -4,11 +4,7 @@ In this section you will configure your private automation hub using the code pr
 
 ## Step 1
 
-Ensure that you have `ansible-navigator` installed on your machine.
-
-```console
-sudo dnf install ansible-navigator
-```
+This lab uses `ansible-navigator` and has been tested against v3.4.1. It should be pre-installed on your machine. 
 
 Further documentation for those who are interested to learn more see:
 
@@ -22,12 +18,13 @@ Create a file `group_vars/all/ah_repositories.yml` you will need to add `infra.a
 ---
 ah_collection_remotes:
   - name: community-infra
-    url: https://beta-galaxy.ansible.com/
+    url: https://galaxy.ansible.com/
     requirements:
       - name: infra.ee_utilities
       - name: infra.aap_utilities
       - name: containers.podman
       - name: awx.awx
+      - name: community.general
 
 ah_collection_repositories:
   - name: community-infra-repo
@@ -51,7 +48,7 @@ Further documentation for those who are interested to learn more see:
 
 {% raw %}
 
-Create a file `group_vars/all/ah_users.yml` make sure this user has `is_superuser` set to `true` and their `password` is set to `"{{ ah_token_password }}"`.
+Create a file `group_vars/all/ah_users.yml` make sure this user has their `password` set to `"{{ ah_token_password }}"`.
 
 ```yaml
 ---
@@ -62,6 +59,7 @@ ah_users:
       - "admin"
     append: true
     state: "present"
+    is_superuser: true
 ...
 
 ```
@@ -83,7 +81,7 @@ Further documentation for those who are interested to learn more see:
 
 ## Step 5
 
-Create a playbook `playbooks/hub_config.yml` add in the `repository` role name in the first task and the `user` role name in the last task.
+Create a playbook `playbooks/hub_config.yml` add in the `collection_remote` role name in the first task and the `user` role name in the last task.
 
 ```yaml
 ---
@@ -96,7 +94,7 @@ Create a playbook `playbooks/hub_config.yml` add in the `repository` role name i
   tasks:
     - name: Include collection remote role
       ansible.builtin.include_role:
-        name: infra.ah_configuration. # Insert Collection Name here
+        name: infra.ah_configuration. # Insert Role Name here
 
     - name: Include collection repository role
       ansible.builtin.include_role:
@@ -112,7 +110,7 @@ Create a playbook `playbooks/hub_config.yml` add in the `repository` role name i
 
     - name: Include user role
       ansible.builtin.include_role:
-        name: infra.ah_configuration. # Insert Collection Name here
+        name: infra.ah_configuration. # Insert Role Name here
 ...
 ```
 
@@ -120,9 +118,7 @@ Create a playbook `playbooks/hub_config.yml` add in the `repository` role name i
 
 The next step is to run the playbook, for demonstration purposes we are going to show how to get the Execution Environment(EE) that was built in the previous step and run the playbook.
 
-If you wish to skip this step run the playbook this way[^1].
-
-[^1]: `ansible-galaxy collection install infra.ah_configuration` then `ansible-playbook -i inventory.yml -l automationhub playbooks/hub_config.yml`
+If you wish to skip this step and use the CLI instead of navigator, see the alternate instructions in the next section.
 
 Login to the automation hub using the podman login command. This will ask for a user:pass. After authenticating pull the config_as_code image.
 
@@ -150,5 +146,14 @@ Use these options to run the playbook in the execution environment.
 ```console
 ansible-navigator run playbooks/hub_config.yml --eei hub-student#.rh####.example.opentlc.com/config_as_code -i inventory.yml -l automationhub --pa='--tls-verify=false' -m stdout
 ```
+
+## Step 6 (Alternate)
+If someone was wrong with your execution environment, or want to run this in the CLI instead of Navigator, use the following commands.
+
+```console
+ansible-galaxy collection install infra.ah_configuration:2.0.3
+ansible-playbook -i inventory.yml -l automationhub playbooks/hub_config.yml
+```
+
 
 [previous task](../1-ee/README.md) [next task](../3-controller/README.md)

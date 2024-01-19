@@ -7,4 +7,4 @@
   template:
     src: "cockpit_machines/cockpit_machines_{{workshop_type}}.j2"
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-99-webui.json"
-  with_sequence: count="{{ student_total }}"
+  with_sequence: count="{{ student_total|int }}"

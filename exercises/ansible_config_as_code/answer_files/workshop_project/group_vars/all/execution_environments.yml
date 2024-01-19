@@ -14,4 +14,9 @@ controller_execution_environments:
     image: "{{ ah_host }}/ee-29-rhel8"
     pull: always
     credential: cr_ah
+
+  - name: "config_as_code"
+    image: "{{ ah_host }}/config_as_code"
+    pull: always
+    credential: cr_ah
 ...

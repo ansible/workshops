@@ -7,7 +7,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node1_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_node1: "{{ ec2_name_prefix }}-node1"
     tags:
@@ -20,7 +20,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "dev_web1"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: dev_web1
@@ -56,7 +56,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node2_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_node2: "{{ ec2_name_prefix }}-node2"
     tags:
@@ -69,7 +69,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "dev_web2"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: dev_web2
@@ -105,7 +105,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node3_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_node3: "{{ ec2_name_prefix }}-node3"
     tags:
@@ -118,7 +118,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "prod_web1"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: prod_web1
@@ -154,7 +154,7 @@
     instance_type: "{{ ec2_info[rhel].size[list_count|int] }}"
     image: "{{ node4_ami.image_id }}"
     region: "{{ ec2_region }}"
-    exact_count: "{{ student_total }}"
+    exact_count: "{{ student_total|int }}"
     count_tag:
       Workshop_node4: "{{ ec2_name_prefix }}-node4"
     tags:
@@ -167,7 +167,7 @@
       owner: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
       Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
+      Students: "{{ student_total|int }}"
       short_name: "prod_web2"
       username: "{{ ec2_info[rhel].username }}"
       Devops_tag: prod_web2

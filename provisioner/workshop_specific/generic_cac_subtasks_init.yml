@@ -1,0 +1,12 @@
+---
+- name: Initialize dynamic_retry_count
+  ansible.builtin.set_fact:
+    dynamic_retry_count: 0
+
+- name: "Display current loop role"
+  ansible.builtin.debug:
+    msg: "Begin Controller CaC loop role: {{ controller_infra_vars }}"
+
+- ansible.builtin.include_tasks: generic_cac_subtasks_retry.yml
+...
+

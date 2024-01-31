@@ -3,161 +3,126 @@
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
+
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-* [Step 1 - Using Templates in Playbooks](#step-1---using-templates-in-playbooks)
-* [Step 2 - Challenge Lab](#step-2---challenge-lab)
+- [Objective](#objective)
+- [Guide](#guide)
+  - [Step 1 - Introduction to Jinja2 Templating](#step-1---introduction-to-jinja2-templating)
+  - [Step 2 - Crafting Your First Template](#step-2---crafting-your-first-template)
+  - [Step 3 - Deploying the Template with a Playbook](#step-3---deploying-the-template-with-a-playbook)
+  - [Step 4 - Executing the Playbook](#step-4---executing-the-playbook)
 
 ## Objective
 
-This exercise will cover Jinja2 templating. Ansible uses Jinja2 templating to modify files before they are distributed to managed hosts. Jinja2 is one of the most used template engines for Python (<http://jinja.pocoo.org/>).
+Exercise 1.5 introduces Jinja2 templating within Ansible, a powerful feature for generating dynamic files from templates. You'll learn how to craft templates that incorporate host-specific data, enabling the creation of tailored configuration files for each managed host.
 
 ## Guide
 
-### Step 1 - Using Templates in Playbooks
+### Step 1 - Introduction to Jinja2 Templating
 
-When a template for a file has been created, it can be deployed to the managed hosts using the `template` module, which supports the transfer of a local file from the control node to the managed hosts.
+Ansible leverages Jinja2, a widely-used templating language for Python, allowing dynamic content generation within files. This capability is particularly useful for configuring files that must differ from host to host.
 
-As an example of using templates you will change the motd file to contain host-specific data.
+### Step 2 - Crafting Your First Template
 
-First create the directory `templates` to hold template resources in `~/ansible-files/`:
+Templates end with a `.j2` extension and mix static content with dynamic placeholders enclosed in `{{ }}`.
+
+In the following example, let's create a template for the Message of the Day (MOTD) that includes dynamic host information.
+
+#### Set Up the Template Directory:
+
+Ensure a templates directory exists within your lab_inventory directory to organize your templates.
 
 ```bash
-[student@ansible-1 ansible-files]$ mkdir templates
+mkdir -p ~/lab_inventory/templates
 ```
 
-Then in the `~/ansible-files/templates/` directory create the template file `motd-facts.j2`:
+#### Develop the MOTD Template:
 
-<!-- {% raw %} -->
+Create a file named `motd.j2` in the templates directory with the following content:
 
-```html+jinja
+```jinja
 Welcome to {{ ansible_hostname }}.
-{{ ansible_distribution }} {{ ansible_distribution_version}}
-deployed on {{ ansible_architecture }} architecture.
+OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
+Architecture: {{ ansible_architecture }}
 ```
 
-<!-- {% endraw %} -->
+This template dynamically displays the hostname, OS distribution, version, and architecture of each managed host.
 
-The template file contains the basic text that will later be copied over. It also contains variables which will be replaced on the target machines individually.
+### Step 3 - Deploying the Template with a Playbook
 
-Next we need a playbook to use this template. In the `~/ansible-files/` directory create the Playbook `motd-facts.yml`:
+Utilize the `ansible.builtin.template` module in a playbook to distribute and render the template across your managed hosts.
+
+Modify the `system_setup.yml` Playbook with the following content:
 
 ```yaml
 ---
-- name: Fill motd file with host data
-  hosts: node1
+- name: Basic System Setup
+  hosts: all
   become: true
   tasks:
-    - ansible.builtin.template:
-        src: motd-facts.j2
+.
+.
+.
+    - name: Update MOTD from Jinja2 Template
+      ansible.builtin.template:
+        src: templates/motd.j2
         dest: /etc/motd
-        owner: root
-        group: root
-        mode: 0644
+
+
+  handlers:
+    - name: Reload Firewall
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
 ```
 
-You have done this a couple of times by now:
+The `ansible.builtin.template` module takes the `motd.j2` template and generates an `/etc/motd` file on each host, filling in the template's placeholders with the actual host facts.
 
-* Understand what the Playbook does.
-* Execute the Playbook `motd-facts.yml`.
-* Login to node1 via SSH and check the message of the day content.
-* Log out of node1.
+### Step 4 - Executing the Playbook
 
-You should see how Ansible replaces the variables with the facts it discovered from the system.
-
-### Step 2 - Challenge Lab
-
-Add a line to the template to list the current kernel of the managed node.
-
-* Find a fact that contains the kernel version using the commands you learned in the "Ansible Facts" chapter.
-
-> **Tip**
->
-> filter for kernel
-
-> Run the newly created playbook to find the fact name.
-
-* Change the template to use the fact you found.
-
-* Run the motd playbook again.
-
-* Check motd by logging in to node1
-
-> **Warning**
->
-> **Solution below\!**
-
-* Find the fact:
-
-```yaml
----
-- name: Capture Kernel Version
-  hosts: node1
-
-  tasks:
-
-    - name: Collect only kernel facts
-      ansible.builtin.setup:
-        filter:
-        - '*kernel'
-      register: setup
-
-    - ansible.builtin.debug:
-        var: setup
-```
-
-With the wildcard in place, the output shows:
+Run the playbook to apply your custom MOTD across all managed hosts:
 
 ```bash
-
-TASK [debug] *******************************************************************
-ok: [node1] => {
-    "setup": {
-        "ansible_facts": {
-            "ansible_kernel": "4.18.0-305.12.1.el8_4.x86_64"
-        },
-        "changed": false,
-        "failed": false
-    }
-}
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 ```
 
-With this we can conclude the variable we are looking for is labeled `ansible_kernel`.
 
-Then we can update the motd-facts.j2 template to include `ansible_kernel` as part of its message.
+```plaintext
+PLAY [Basic System Setup] ******************************************************
+.
+.
+.
 
-* Modify the template `motd-facts.j2`:
+TASK [Update MOTD from Jinja2 Template] ****************************************
+changed: [node1]
+changed: [node2]
+changed: [node3]
+changed: [ansible-1]
 
-<!-- {% raw %} -->
-
-```html+jinja
-Welcome to {{ ansible_hostname }}.
-{{ ansible_distribution }} {{ ansible_distribution_version}}
-deployed on {{ ansible_architecture }} architecture
-running kernel {{ ansible_kernel }}.
+PLAY RECAP *********************************************************************
+ansible-1                  : ok=6    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+node1                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-<!-- {% endraw %} -->
+Verify the changes by SSHing into the node, and you should see the message of the day:
 
-* Run the playbook.
-
-```bash
-[student@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
+```plaintext
+[rhel@control ~]$ ssh node1
 ```
-
-* Verify the new message via SSH login to `node1`.
-
-```bash
-[student@ansible-1 ~]$ ssh node1
+```
 Welcome to node1.
-RedHat 8.1
-deployed on x86_64 architecture
-running kernel 4.18.0-305.12.1.el8_4.x86_64.
+OS: RedHat 8.7
+Architecture: x86_64
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
+
 ```
 
----
 **Navigation**
 <br>
 [Previous Exercise](../1.5-handlers) - [Next Exercise](../1.7-role)

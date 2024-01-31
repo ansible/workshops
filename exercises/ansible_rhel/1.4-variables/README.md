@@ -5,352 +5,150 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-* [Intro to Variables](#intro-to-variables)
-* [Step 1 - Create Variable Files](#step-1---create-variable-files)
-* [Step 2 - Create index.html Files](#step-2---create-indexhtml-files)
-* [Step 3 - Create the Playbook](#step-3---create-the-playbook)
-* [Step 4 - Test the Result](#step-4---test-the-result)
-* [Step 5 - Ansible Facts](#step-5---ansible-facts)
-* [Step 6 - Challenge Lab: Facts](#step-6---challenge-lab-facts)
-* [Step 7 - Using Facts in Playbooks](#step-7---using-facts-in-playbooks)
+- [Workshop Exercise - Using Variables](##workshop-exercise---using-variables)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Understanding Variables](#step-1---understanding-variables)
+    - [Step 2 - Variable Syntax and Creation](#step-2---variable-syntax-and-creation)
+    - [Step 3 - Running the Modified Playbook](#step-3---running-the-modified-playbook)
+    - [Step 4 - Advanced Variable Usage in Checks Playbook](#step-4---advanced-variable-usage-in-checks-playbook)
+
 
 ## Objective
-
-Ansible supports variables to store values that can be used in Ansible playbooks. Variables can be defined in a variety of places and have a clear precedence. Ansible substitutes the variable with its value when a task is executed.
-
-This exercise covers variables, specifically
-
-* How to use variable delimiters `{{` and `}}`
-* What `host_vars` and `group_vars` are and when to use them
-* How to use `ansible_facts`
-* How to use the `debug` module to print variables to the console window
+Extending our playbooks from Exercise 1.3, the focus turns to the creation and usage of variables in Ansible. You'll learn the syntax for defining and using variables, an essential skill for creating dynamic and adaptable playbooks.
 
 ## Guide
+Variables in Ansible are powerful tools for making your playbooks flexible and reusable. They allow you to store and reuse values, making your playbooks more dynamic and adaptable.
 
-### Intro to Variables
+### Step 1 - Understanding Variables
+A variable in Ansible is a named representation of some data. Variables can contain simple values like strings and numbers, or more complex data like lists and dictionaries.
 
-Variables are referenced in Ansible Playbooks by placing the variable name in double curly braces:
+### Step 2 - Variable Syntax and Creation
+The creation and usage of variables involve a specific syntax:
 
-<!-- {% raw %} -->
+1. Defining Variables: Variables are defined in the `vars` section of a playbook or in separate files for larger projects.
+2. Variable Naming: Variable names should be descriptive and adhere to rules such as:
+   * Starting with a letter or underscore.
+   * Containing only letters, numbers, and underscores.
+3. Using Variables: Variables are referenced in tasks using the double curly braces in quotes `"{{ variable_name }}"`. This syntax tells Ansible to replace it with the variable's value at runtime.
 
-```yaml
-Here comes a variable {{ variable1 }}
-```
-
-<!-- {% endraw %} -->
-
-Variables and their values can be defined in various places: the inventory, additional files, on the command line, etc.
-
-The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
-
-* To define variables for a group "servers", a YAML file named `group_vars/servers.yml` with the variable definitions is created.
-* To define variables specifically for a host `node1`, the file `host_vars/node1.yml` with the variable definitions is created.
-
-> **Tip**
->
-> Host variables take precedence over group variables (more about precedence can be found in the [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
-
-### Step 1 - Create Variable Files
-
-For understanding and practice let’s do a lab. Following up on the theme "Let’s build a web server. Or two. Or even more…​", you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
-
-On the ansible control host, as the `student` user, create the directories to hold the variable definitions in `~/ansible-files/`:
-
-```bash
-[student@ansible-1 ansible-files]$ mkdir host_vars group_vars
-```
-
-Now create two files containing variable definitions. We’ll define a variable named `stage` which will point to different environments, `dev` or `prod`:
-
-* Create the file `~/ansible-files/group_vars/web.yml` with this content:
+Update the `system_setup.yml` playbook to include and use a variable:
 
 ```yaml
 ---
-stage: dev
-```
-
-* Create the file `~/ansible-files/host_vars/node2.yml` with this content:
-
-```yaml
----
-stage: prod
-```
-
-What is this about?
-
-* For all servers in the `web` group the variable `stage` with value `dev` is defined. So as default we flag them as members of the dev environment.
-* For server `node2` this is overridden and the host is flagged as a production server.
-
-### Step 2 - Create web.html Files
-
-Now create two files in `~/ansible-files/files/`:
-
-One called `prod_web.html` with the following content:
-
-```html
-<body>
-<h1>This is a production webserver, take care!</h1>
-</body>
-```
-
-And the other called `dev_web.html` with the following content:
-
-```html
-<body>
-<h1>This is a development webserver, have fun!</h1>
-</body>
-```
-
-### Step 3 - Create the Playbook
-
-Now you need a Playbook that copies the prod or dev `web.html` file - according to the "stage" variable.
-
-Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` directory.
-
-> **Tip**
->
-> Note how the variable "stage" is used in the name of the file to copy.
-
-<!-- {% raw %} -->
-
-```yaml
----
-- name: Copy web.html
-  hosts: web
+- name: Basic System Setup
+  hosts: node1
   become: true
+  vars:
+    user_name: 'Roger'
   tasks:
-  - name: copy web.html
-    ansible.builtin.copy:
-      src: "{{ stage }}_web.html"
-      dest: /var/www/html/index.html
+    - name: Update all security-related packages
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+        security: true
+ 
+    - name: Create a new user
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
 ```
 
-<!-- {% endraw %} -->
+Run this playbook with `ansible-navigator`.
 
-* Run the Playbook:
+### Step 3 - Running the Modified Playbook
+
+Execute the updated playbook:
 
 ```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 ```
 
-### Step 4 - Test the Result
-
-The Ansible Playbook copies different files as index.html to the hosts, use `curl` to test it.
-
-For node1:
-
-```bash
-[student@ansible-1 ansible-files]$ curl http://node1
-<body>
-<h1>This is a development webserver, have fun!</h1>
-</body>
 ```
-
-For node2:
-
-```bash
-[student@ansible-1 ansible-files]$ curl http://node2
-<body>
-<h1>This is a production webserver, take care!</h1>
-</body>
-```
-
-For node3:
-
-```bash
-[student@ansible-1 ansible-files]$ curl http://node3
-<body>
-<h1>This is a development webserver, have fun!</h1>
-</body>
-```
-
-> **Tip**
->
-> If by now you think: There has to be a smarter way to change content in files…​ you are absolutely right. This lab was done to introduce variables, you are about to learn about templates in one of the next chapters.
-
-### Step 5 - Ansible Facts
-
-Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remember the "Gathering Facts" task listed in the output of each `ansible-navigator` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
-
-To get an idea what facts Ansible collects by default, on your control node as your student user run the following playbook to get the setup details of `node1`:
-
-```yaml
----
-- name: Capture Setup
-  hosts: node1
-
-  tasks:
-
-    - name: Collect only facts returned by facter
-      ansible.builtin.setup:
-        gather_subset:
-        - 'all'
-      register: setup
-
-    - ansible.builtin.debug:
-        var: setup
-```
-
-```bash
-[student@ansible-1 ansible-files]$ cd ~
-[student@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
-```
-
-This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard within your playbook. Create a playbook labeled `setup_filter.yml` as shown below. In this example, we filter to get the `eth0` facts as well as memory details of `node1`.
-
-```yaml
----
-- name: Capture Setup
-  hosts: node1
-
-  tasks:
-
-    - name: Collect only specific facts
-      ansible.builtin.setup:
-        filter:
-        - 'ansible_eth0'
-        - 'ansible_*_mb'
-      register: setup
-
-    - debug:
-        var: setup
-```
-
-```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
-```
-
-### Step 6 - Challenge Lab: Facts
-
-* Try to find and print the distribution (Red Hat) of your managed hosts using a playbook.
-
-> **Tip**
->
-> Use the wildcard to find the fact within your filter, then apply a filter to only print this fact.
-
-> **Warning**
->
-> **Solution below\!**
-
-```yaml
----
-- name: Capture Setup
-  hosts: node1
-
-  tasks:
-
-    - name: Collect only specific facts
-      ansible.builtin.setup:
-        filter:
-        - '*distribution'
-      register: setup
-
-    - ansible.builtin.debug:
-        var: setup
-```
-
-With the wildcard in place, the output shows:
-
-```bash
-
-TASK [debug] *******************************************************************
-ok: [ansible] => {
-    "setup": {
-        "ansible_facts": {
-            "ansible_distribution": "RedHat"
-        },
-        "changed": false,
-        "failed": false
-    }
-}
-```
-
-With this we can conclude the variable we are looking for is labeled `ansible_distribution`.
-
-Then we can update the playbook to be explicit in its findings and change the following line:
-
-```yaml
-filter:
-- '*distribution'
-```
-
-to:
-
-```yaml
-filter:
-- 'ansible_distribution'
-```
-
-```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
-```
-
-### Step 7 - Using Facts in Playbooks
-
-Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible-files/` directory:
-
-<!-- {% raw %} -->
-
-```yaml
----
-- name: Output facts within a playbook
-  hosts: all
-  tasks:
-  - name: Prints Ansible facts
-    ansible.builtin.debug:
-      msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
-```
-
-<!-- {% endraw %} -->
-
-> **Tip**
->
-> The "debug" module is handy for e.g. debugging variables or expressions.
-
-Execute it to see how the facts are printed:
-
-```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run facts.yml
-```
-
-Within the text user interface (TUI) window, type `:st` to capture the following output:
-
-```bash
-PLAY [Output facts within a playbook] ******************************************
+PLAY [Basic System Setup] ******************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [node3]
-ok: [node2]
 ok: [node1]
-ok: [ansible-1]
 
-TASK [Prints Ansible facts] ****************************************************
-ok: [node1] =>
-  msg: The default IPv4 address of node1 is 172.16.190.143
-ok: [node2] =>
-  msg: The default IPv4 address of node2 is 172.16.30.170
-ok: [node3] =>
-  msg: The default IPv4 address of node3 is 172.16.140.196
-ok: [ansible-1] =>
-  msg: The default IPv4 address of ansible is 172.16.2.10
+TASK [Update all security-related packages] ************************************
+ok: [node1]
+
+TASK [Create a new user] *******************************************************
+changed: [node1]
 
 PLAY RECAP *********************************************************************
-ansible-1                  : ok=2    changed=0    unreachable=0    failed=0
-node1                      : ok=2    changed=0    unreachable=0    failed=0
-node2                      : ok=2    changed=0    unreachable=0    failed=0
-node3                      : ok=2    changed=0    unreachable=0    failed=0
+node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
----
-**Navigation**
-<br>
+Notice how the updated playbook shows a status of changed in the Create a new user task. The user, ‘Roger’, specified within the vars section has been created.
 
-{% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../3-playbook) - [Next Exercise](../5-surveys)
-{% else %}
-[Previous Exercise](../1.3-playbook) - [Next Exercise](../1.5-handlers)
-{% endif %}
-<br><br>
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+Verify the user creation via:
+
+```bash
+[student@ansible-1 lab_inventory]$ ssh node1 id Roger
+```
+
+### Step 4 - Advanced Variable Usage in Checks Playbook
+Enhance the `system_checks.yml` playbook to check for the ‘Roger’ user within the system using the `register` variable and `when` conditional statement.
+
+The register keyword in Ansible is used to capture the output of a task and save it as a variable. 
+
+
+Update the `system_checks.yml` playbook:
+
+```yaml
+---
+- name: System Configuration Checks
+  hosts: node1
+  become: true
+  vars:
+    user_name: 'Roger'
+  tasks:
+    - name: Check user existence
+      ansible.builtin.command:
+        cmd: "id {{ user_name }}"
+      register: user_check
+ 
+    - name: Report user status
+      ansible.builtin.debug:
+        msg: "User {{ user_name }} exists."
+      when: user_check.rc == 0
+```
+
+Playbook Details:
+
+* `register: user_check:` This captures the output of the id command into the variable user_check.
+* `when: user_check.rc == 0:` This line is a conditional statement. It checks if the return code (rc) of the previous task (stored in user_check) is 0, indicating success. The debug message will only be displayed if this condition is met.
+
+This setup provides a practical example of how variables can be used to control the flow of tasks based on the outcomes of previous steps.
+
+
+Run the checks playbook:
+
+```bash
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_checks.yml -m stdout
+```
+
+Output:
+
+```
+PLAY [System Configuration Checks] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Check user existence] ****************************************************
+changed: [node1]
+
+TASK [Report user status] ******************************************************
+ok: [node1] => {
+    "msg": "User Roger exists."
+}
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+Review the output to confirm the user existence check is correctly using the variable and conditional logic.
+

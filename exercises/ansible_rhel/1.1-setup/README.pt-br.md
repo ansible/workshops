@@ -1,84 +1,137 @@
-# Exercício 1.1 - Verifique os pré-requisitos
+# Exercício de Workshop - Verificar os Pré-requisitos
 
-**Leia em outras linguagens**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Leia isso em outros idiomas**:
+<br>![uk](../../../images/uk.png) [Inglês](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Português do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Francês](README.fr.md),![Español](../../../images/col.png) [Espanhol](README.es.md).
 
-* [Seu ambiente de Laboratório](#seu-ambiente-de-laboratório)
-* [Passo 1.1 - Acesse o ambiente](#passo-11---acesse-o-ambiente)
-* [Passo 1.2 - Trabalhando nos laboratórios](#passo-12---trabalhando-nos-laboratórios)
-* [Passo 1.3 - Troca de Labs](#passo-13---troca-de-labs)
+## Índice
 
-## Seu ambiente de Laboratório
+- [Exercício de Workshop - Verificar os Pré-requisitos](#exercício-de-workshop---verificar-os-pré-requisitos)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Guia](#guia)
+    - [Seu Ambiente de Laboratório](#seu-ambiente-de-laboratório)
+    - [Etapa 1 - Acessar o Ambiente](#etapa-1---acessar-o-ambiente)
+    - [Etapa 2 - Usando o Terminal](#etapa-2---usando-o-terminal)
+    - [Etapa 3 - Examinando Ambientes de Execução](#etapa-3---examinando-ambientes-de-execução)
+    - [Etapa 4 - Examinando a configuração do ansible-navigator](#etapa-4---examinando-a-configuração-do-ansible-navigator)
+    - [Etapa 5 - Labs de Desafio](#etapa-5---labs-de-desafio)
 
-Neste workshop, você irá trabalhar em um ambiente de laboratório pré-configurado. Você terá acesso aos seguintes hosts:
+## Objetivo
 
-| Role                 | Inventory name |
-| ---------------------| ---------------|
-| Ansible Control Host | ansible        |
-| Managed Host 1       | node1          |
-| Managed Host 2       | node2          |
-| Managed Host 2       | node3          |
+* Compreender a Topologia do Laboratório: Familiarize-se com o ambiente de laboratório e métodos de acesso.
+* Dominar os Exercícios do Workshop: Obtenha proficiência na navegação e execução das tarefas do workshop.
+* Abraçar os Labs de Desafio: Aprenda a aplicar seu conhecimento em cenários práticos de desafio.
 
-## Passo 1.1 - Acesse o ambiente
+## Guia
 
-Faça Login com seu Ansible Control Host via SSH:
+A fase inicial deste workshop se concentra nas utilidades de linha de comando da Plataforma de Automação Ansible, como:
 
-> **ATENÇÃO**
->
-> Substitua **11.22.33.44** pelo seu **IP** fornecido a você, e o **X** em student**X** pelo número do aluno fornecido a você.
 
-    ssh studentX@11.22.33.44
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) - uma Interface de Usuário Baseada em Texto (TUI) para executar e desenvolver conteúdo Ansible.
+- [ansible-core](https://docs.ansible.com/core.html) - o executável base que fornece a estrutura, linguagem e funções que sustentam a Plataforma de Automação Ansible, incluindo ferramentas CLI como `ansible`, `ansible-playbook` e `ansible-doc`.
+- [Ambientes de Execução](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Imagens de contêiner pré-construídas com coleções suportadas pela Red Hat.
+- [ansible-builder](https://github.com/ansible/ansible-builder) - automatiza o processo de construção de Ambientes de Execução. Não é um foco principal neste workshop.
 
-> **Dica**
->
-> A senha é **instructor provides this**
+Se você precisar de mais informações sobre os novos componentes da Plataforma de Automação Ansible, marque esta página inicial [https://red.ht/AAP-20](https://red.ht/AAP-20)
 
-Torne-se Root:
+### Seu Ambiente de Laboratório
 
-    [student<X>@ansible ~]$ sudo -i
+Você trabalhará em um ambiente pré-configurado com os seguintes hosts:
 
-A maioria dos pré-requisitos já foram feitos pra você:
+| Função               | Nome no Inventário |
+| ---------------------| -------------------|
+| Host de Controle Ansible | ansible-1         |
+| Host Gerenciado 1    | node1              |
+| Host Gerenciado 2    | node2              |
+| Host Gerenciado 3    | node3              |
 
-  - O Ansible já está instalado.
+### Etapa 1 - Acessar o Ambiente
 
-  - Conexão SSH e chaves estão configuradas.
+Recomendamos o uso do Visual Studio Code para este workshop por seu navegador de arquivos integrado, editor com destaque de sintaxe e terminal dentro do navegador. O acesso direto via SSH também está disponível. Confira este tutorial do YouTube sobre como acessar seu ambiente de trabalho.
 
-  - `sudo` foi configurado nos hosts para executar comandos que requerem privilégios de root.
+NOTA: Um vídeo curto do YouTube é fornecido caso você precise de clareza adicional:
+[Workshops Ansible - Acessando seu ambiente de trabalho](https://youtu.be/Y_Gx4ZBfcuk)
 
-Verificando se o Ansible foi instalado corretamente
+1. Conecte-se ao Visual Studio Code através da página de lançamento do Workshop.
 
-    [root@ansible ~]# ansible --version
-    ansible 2.7.0
-    [...]
+  ![página de lançamento](images/launch_page.png)
 
-> **Nota**
->
-> O Ansible possui uma configuração simples. Não requer banco de dados ou daemons em execução e pode ser executado facilmente em um notebook. Nos hosts gerenciados, ele não precisa de agente em execução.
+2. Insira a senha fornecida para fazer login.
 
-Saia do root novamente:
+  ![login no vs code](images/vscode_login.png)
 
-    [root@ansible ~]# exit
-    logout
+### Etapa 2 - Usando o Terminal
 
-> **Nota**
->
-> Em todos os exercícios subsequentes, você deve trabalhar como usuário student\<X\> no nó de controle, a menos que seja explicitamente informado para ser feito de maneira diferente.
+1. Abra um terminal no Visual Studio Code:
 
-## Passo 1.2 - Trabalhando nos laboratórios
+  ![imagem de um novo terminal](images/vscode-new-terminal.png)
 
-Você já deve ter percebido que este laboratório é centralizado em linha de comando…​ :-)
+2. Navegue até o diretório `rhel-workshop` no terminal do nó de controle Ansible.
 
-  - Não digite tudo manualmente, use copiar e colar no navegador quando apropriado. Mas pare para pensar e entender.
+```bash
+[student@ansible-1 ~]$ cd ~/rhel-workshop/
+[student@ansible-1 rhel-workshop]$ pwd
+/home/student/rhel-workshop
+```
 
-  - Todos os laboratórios foram preparados com o **Vim**, mas entendemos que nem todo mundo gosta dele. Sinta-se livre para usar editores alternativos. No ambiente de laboratório, fornecemos **Midnight Commander** (basta executar **mc**, as teclas de função podem ser acessadas via Esc-\<n\> ou simplesmente clicadas com o mouse) ou **Nano** (excução **nano**). Aqui está uma breve introdução do [editor](../0.0-support-docs/editor_intro.md).
+* `~`: atalho para o diretório home `/home/student`
+* `cd`: comando para mudar de diretórios
+* `pwd`: imprime o caminho completo do diretório de trabalho atual.
 
-> **Dica**
->
-> No guia do laboratório, os comandos que você deve executar são mostrados com ou sem a saída esperada, o que fizer mais sentido no contexto.
+### Etapa 3 - Examinando Ambientes de Execução
 
-## Passo 1.3 - Troca de Labs
+1. Execute `ansible-navigator images` para visualizar Ambientes de Execução configurados.
+2. Use o número correspondente para investigar um EE, por exemplo, pressionando 2 para abrir `ee-supported-rhel8`
 
-Você descobrirá em breve que muitos capítulos deste guia de laboratório vêm com uma seção "Laboratório de Desafios". Esses laboratórios possuem uma pequena tarefa a ser resolvida usando o que você aprendeu até agora. A solução da tarefa é mostrada sob um sinal de aviso.
+```bash
+$ ansible-navigator images
+```
+
+![imagens do ansible-navigator](images/navigator-images.png)
+
+> Nota: A saída que você vê pode diferir da saída acima
+
+![menu principal do ee](images/navigator-ee-menu.png)
+
+Selecionar `2` para `Versão do Ansible e coleções` nos mostrará todas as Coleções Ansible instaladas nesse EE específico, e a versão do `ansible-core`:
+
+![informações do ee](images/navigator-ee-collections.png)
+
+### Etapa 4 - Examinando a configuração do ansible-navigator
+
+1. Visualize o conteúdo do `~/.ansible-navigator.yml` usando o Visual Studio Code ou o comando `cat`.
+
+```bash
+$ cat ~/.ansible-navigator.yml
+---
+ansible-navigator:
+  ansible:
+    inventory:
+      entries:
+      - /home/student/lab_inventory/hosts
+
+  execution-environment:
+    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
+    enabled: true
+    container-engine: podman
+    pull:
+      policy: missing
+    volume-mounts:
+    - src: "/etc/ansible/"
+      dest: "/etc/ansible/"
+```
+
+2. Observe os seguintes parâmetros dentro do arquivo `ansible-navigator.yml`:
+
+* `inventories`: mostra a localização do inventário ansible sendo usado
+* `execution-environment`: onde o ambiente de execução padrão é definido
+
+Para uma lista completa de todos os ajustes configuráveis, consulte a [documentação](https://ansible.readthedocs.io/projects/navigator/settings/)
+
+### Etapa 5 - Labs de Desafio
+
+Cada capítulo vem com um Lab de Desafio. Essas tarefas testam seu entendimento e aplicação dos conceitos aprendidos. As soluções são fornecidas sob um sinal de advertência para referência.
+
 
 ----
 

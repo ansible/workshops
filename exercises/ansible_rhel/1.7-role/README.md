@@ -5,334 +5,254 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-  * [Step 1 - Understanding the Ansible Role Structure](#step-1---understanding-the-ansible-role-structure)
-  * [Step 2 - Create a Basic Role Directory Structure](#step-2---create-a-basic-role-directory-structure)
-  * [Step 3 - Create the Tasks File](#step-3---create-the-tasks-file)
-  * [Step 4 - Create the handler](#step-4---create-the-handler)
-  * [Step 5 - Create the web.html and vhost configuration file template](#step-5---create-the-webhtml-and-vhost-configuration-file-template)
-  * [Step 6 - Test the role](#step-6---test-the-role)
-* [Troubleshooting problems](#troubleshooting-problems)
+- [Objective](#objective)
+- [Guide](#guide)
+  - [Step 1 - Role Basics](#step-1---role-basics)
+  - [Step 2 - Cleaning up the Environment](#step-2---cleaning-up-the-environment)
+  - [Step 3 - Building the Apache Role](#step-3---building-the-apache-role)
+  - [Step 4 - Role Integration in a Playbook](#step-4---role-integration-in-a-playbook)
+  - [Step 4 - Role Execution and Validation](#step-4---role-execution-and-validation)
+  - [Step 5 - Verify the Apache is Running](#step-5---verify-the-apache-is-running)
 
 ## Objective
 
-While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
-
-Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more details in the [Tips and tricks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) and the [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html).
-
-This exercise will cover:
-
-* the folder structure of an Ansible Role
-* how to build an Ansible Role
-* creating an Ansible Play to use and execute a role
-* using Ansible to create a Apache VirtualHost on node2
+This exercise builds upon the previous exercises and advances your Ansible skills by guiding you through the creation of a role that configures Apache (httpd). You'll take the knowledge you learned to now integrate variables, handlers, and a template for a custom index.html. This role demonstrates how to encapsulate tasks, variables, templates, and handlers into a reusable structure for efficient automation.
 
 ## Guide
 
-### Step 1 - Understanding the Ansible Role Structure
+### Step 1 - Role Basics
 
-Roles follow a defined directory structure; a role is named by the top level directory. Some of the subdirectories contain YAML files, named `main.yml`. The files and templates subdirectories can contain objects referenced by the YAML files.
+Roles in Ansible organize related automation tasks and resources, such as variables, templates, and handlers, into a structured directory. This exercise focuses on creating an Apache configuration role, emphasizing reusability and modularity.
 
-An example project structure could look like this, the name of the role would be "apache":
+### Step 2 - Cleaning up the Environment
 
-```text
-apache/
-├── defaults
-│   └── main.yml
-├── files
-├── handlers
-│   └── main.yml
-├── meta
-│   └── main.yml
-├── README.md
-├── tasks
-│   └── main.yml
-├── templates
-├── tests
-│   ├── inventory
-│   └── test.yml
-└── vars
-    └── main.yml
-```
+Building on our previous work with Apache configuration, let's craft an Ansible playbook dedicated to tidying up our environment. This step paves the way for us to introduce a new Apache role, providing a clear view of the adjustments made. Through this process, we'll gain deeper insights into the versatility and reusability afforded by Ansible Roles.
 
-The various `main.yml` files contain content depending on their location in the directory structure shown above. For instance, `vars/main.yml` references variables, `handlers/main.yaml` describes handlers, and so on. Note that in contrast to playbooks, the `main.yml` files only contain the specific content and not additional playbook information like hosts, `become` or other keywords.
-
-> **Tip**
->
-> There are actually two directories for variables: `vars` and `default`. Default variables, `defaults/main.yml`, have the lowest precedence and usually contain default values set by the role authors and are often used when it is intended that their values will be overridden. Variables set in `vars/main.yml` are for variables not intended to be modified.
-
-Using roles in a Playbook is straight forward:
+Run the following Ansible playbook to clean the environment:
 
 ```yaml
 ---
-- name: launch roles
-  hosts: web
-  roles:
-    - role1
-    - role2
-```
-
-For each role, the tasks, handlers and variables of that role will be included in the Playbook, in that order. Any copy, script, template, or include tasks in the role can reference the relevant files, templates, or tasks *without absolute or relative path names*. Ansible will look for them in the role's files, templates, or tasks respectively, based on their
-use.
-
-### Step 2 - Create a Basic Role Directory Structure
-
-Ansible looks for roles in a subdirectory called `roles` in the project directory. This can be overridden in the Ansible configuration. Each role has its own directory. To ease creation of a new role the tool `ansible-galaxy` can be used.
-
-> **Tip**
->
-> Ansible Galaxy is your hub for finding, reusing and sharing the best Ansible content. `ansible-galaxy` helps to interact with Ansible Galaxy. For now we'll just using it as a helper to build the directory structure.
-
-Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
-
-```bash
-[student@ansible-1 ansible-files]$ mkdir roles
-[student@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
-```
-
-Have a look at the role directories and their content:
-
-```bash
-[student@ansible-1 ansible-files]$ tree roles
-```
-
-```text
-roles/
-└── apache_vhost
-    ├── defaults
-    │   └── main.yml
-    ├── files
-    ├── handlers
-    │   └── main.yml
-    ├── meta
-    │   └── main.yml
-    ├── README.md
-    ├── tasks
-    │   └── main.yml
-    ├── templates
-    ├── tests
-    │   ├── inventory
-    │   └── test.yml
-    └── vars
-        └── main.yml
-```
-
-### Step 3 - Create the Tasks File
-
-The `main.yml` file in the tasks subdirectory of the role should do the following:
-
-* Make sure httpd is installed
-* Make sure httpd is started and enabled
-* Put HTML content into the Apache document root
-* Install the template provided to configure the vhost
-
-> **WARNING**
->
-> **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete playbooks!**
-
-Edit the `roles/apache_vhost/tasks/main.yml` file:
-
-```yaml
----
-- name: install httpd
-  ansible.builtin.yum:
-    name: httpd
-    state: latest
-
-- name: start and enable httpd service
-  ansible.builtin.service:
-    name: httpd
-    state: started
-    enabled: true
-```
-
-Note that here just tasks were added. The details of a playbook are not present.
-
-The tasks added so far do:
-
-* Install the httpd package using the yum module
-* Use the service module to enable and start httpd
-
-Next we add two more tasks to ensure a vhost directory structure and copy html content:
-
-<!-- {% raw %} -->
-
-```yaml
-- name: ensure vhost directory is present
-  ansible.builtin.file:
-    path: "/var/www/vhosts/{{ ansible_hostname }}"
-    state: directory
-
-- name: deliver html content
-  ansible.builtin.copy:
-    src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
-```
-
-<!-- {% endraw %} -->
-
-Note that the vhost directory is created/ensured using the `file` module.
-
-The last task we add uses the template module to create the vhost configuration file from a j2-template:
-
-```yaml
-- name: template vhost file
-  ansible.builtin.template:
-    src: vhost.conf.j2
-    dest: /etc/httpd/conf.d/vhost.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - restart_httpd
-```
-
-Note it is using a handler to restart httpd after an configuration update.
-
-The full `tasks/main.yml` file is:
-
-<!-- {% raw %} -->
-
-```yaml
----
-- name: install httpd
-  ansible.builtin.yum:
-    name: httpd
-    state: latest
-
-- name: start and enable httpd service
-  ansible.builtin.service:
-    name: httpd
-    state: started
-    enabled: true
-
-- name: ensure vhost directory is present
-  ansible.builtin.file:
-    path: "/var/www/vhosts/{{ ansible_hostname }}"
-    state: directory
-
-- name: deliver html content
-  ansible.builtin.copy:
-    src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
-
-- name: template vhost file
-  ansible.builtin.template:
-    src: vhost.conf.j2
-    dest: /etc/httpd/conf.d/vhost.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - restart_httpd
-```
-
-<!-- {% endraw %} -->
-
-### Step 4 - Create the handler
-
-Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart httpd when notified by the template task:
-
-```yaml
----
-# handlers file for roles/apache_vhost
-- name: restart_httpd
-  ansible.builtin.service:
-    name: httpd
-    state: restarted
-```
-
-### Step 5 - Create the web.html and vhost configuration file template
-
-Create the HTML content that will be served by the webserver.
-
-* Create an web.html file in the "src" directory of the role, `files`:
-
-```bash
-#> echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
-```
-
-* Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
-
-The contents of the `vhost.conf.j2` template file are found below.
-
-<!-- {% raw %} -->
-
-```text
-# {{ ansible_managed }}
-
-<VirtualHost *:8080>
-    ServerAdmin webmaster@{{ ansible_fqdn }}
-    ServerName {{ ansible_fqdn }}
-    ErrorLog logs/{{ ansible_hostname }}-error.log
-    CustomLog logs/{{ ansible_hostname }}-common.log common
-    DocumentRoot /var/www/vhosts/{{ ansible_hostname }}/
-
-    <Directory /var/www/vhosts/{{ ansible_hostname }}/>
-  Options +Indexes +FollowSymlinks +Includes
-  Order allow,deny
-  Allow from all
-    </Directory>
-</VirtualHost>
-```
-
-<!-- {% endraw %} -->
-
-### Step 6 - Test the role
-
-You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible-files`:
-
-```yaml
----
-- name: use apache_vhost role playbook
-  hosts: node2
+- name: Cleanup Environment
+  hosts: all
   become: true
+  vars:
+    package_name: httpd
+  tasks:
+    - name: Remove Apache from web servers
+      ansible.builtin.dnf:
+        name: "{{ package_name }}"
+        state: absent
+      when: inventory_hostname in groups['web']
 
-  pre_tasks:
-    - ansible.builtin.debug:
-        msg: 'Beginning web server configuration.'
+    - name: Remove firewalld
+      ansible.builtin.dnf:
+        name: firewalld
+        state: absent
 
+    - name: Delete created users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: absent
+        remove: true  # Use 'remove: true’ to delete home directories
+      loop:
+        - alice
+        - bob
+        - carol
+        - Roger
+
+    - name: Reset MOTD to an empty message
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: ''
+```
+
+### Step 3 - Building the Apache Role
+
+We'll develop a role named `apache_server` to install, configure, and manage Apache.
+
+1. Generate Role Structure:
+
+Create the role using ansible-galaxy, specifying the roles directory for output.
+
+```bash
+[student@ansible-1 lab_inventory]$ mkdir roles
+[student@ansible-1 lab_inventory]$ ansible-galaxy init --offline roles/apache
+```
+
+2. Define Role Variables:
+
+Populate `/home/student/lab_inventory/roles/apache/vars/main.yml` with Apache-specific variables:
+
+```yaml
+---
+# vars file for roles/apache
+apache_package_name: httpd
+apache_service_name: httpd
+```
+
+3. Configure Role Tasks:
+
+Adjust `/home/student/lab_inventory/roles/apache/tasks/main.yml` to include tasks for Apache installation and service management:
+
+```yaml
+---
+# tasks file for ansible-files/roles/apache
+- name: Install Apache web server
+  ansible.builtin.package:
+    name: "{{ apache_package_name }}"
+    state: present
+
+- name: Ensure Apache is running and enabled
+  ansible.builtin.service:
+    name: "{{ apache_service_name }}"
+    state: started
+    enabled: true
+
+- name: Install firewalld
+  ansible.builtin.dnf:
+    name: firewalld
+    state: present
+
+- name: Ensure firewalld is running
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
+
+- name: Allow HTTPS traffic on web servers
+  ansible.posix.firewalld:
+    service: https
+    permanent: true
+    state: enabled
+  when: inventory_hostname in groups['web']
+  notify: Reload Firewall
+```
+
+4. Implement Handlers:
+
+In `/home/student/lab_inventory/roles/apache/handlers/main.yml`, create a handler to restart firewalld if its configuration changes:
+
+```yaml
+---
+# handlers file for ansible-files/roles/apache
+- name: Reload Firewall
+  ansible.builtin.service:
+    name: firewalld
+    state: reloaded
+```
+
+5. Create and Deploy Template:
+
+Use a Jinja2 template for a custom `index.html`. Store the template in `templates/index.html.j2`:
+
+```html
+<html>
+<head>
+<title>Welcome to {{ ansible_hostname }}</title>
+</head>
+<body>
+ <h1>Hello from {{ ansible_hostname }}</h1>
+</body>
+</html>
+```
+
+6. Update `tasks/main.yml` to deploy this `index.html` template:
+
+```yaml
+- name: Deploy custom index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+```
+
+### Step 4 - Role Integration in a Playbook
+
+Embed the `apache_server` role in a playbook named `deploy_apache.yml` within `/home/student/lab_inventory` to apply it to your 'web' group hosts (node1, node2, node3).
+
+```yaml
+- name: Setup Apache Web Servers
+  hosts: web
+  become: true
   roles:
-    - apache_vhost
-
-  post_tasks:
-    - ansible.builtin.debug:
-        msg: 'Web server has been configured.'
+    - apache
 ```
 
-Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles execute before the tasks of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.
+### Step 4 - Role Execution and Validation
 
-Now you are ready to run your playbook:
+Launch your playbook to configure Apache across the designated web servers:
 
 ```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
+ansible-navigator run deploy_apache.yml -m stdout
 ```
 
-Run a curl command against `node2` to confirm that the role worked:
+#### Output:
+
+```plaintext
+PLAY [Setup Apache Web Servers] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node2]
+ok: [node1]
+ok: [node3]
+
+TASK [apache : Install Apache web server] **************************************
+changed: [node1]
+changed: [node2]
+changed: [node3]
+
+TASK [apache : Ensure Apache is running and enabled] ***************************
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+TASK [apache : Deploy custom index.html] ***************************************
+changed: [node1]
+changed: [node2]
+changed: [node3]
+
+RUNNING HANDLER [apache : Reload Firewall] *************************************
+ok: [node2]
+ok: [node1]
+ok: [node3]
+
+PLAY RECAP *********************************************************************
+node1                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node3                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+### Step 5 - Verify the Apache is Running
+
+Once the playbook has completed, verify that `httpd` is indeed running on all the web nodes.
 
 ```bash
-[student@ansible-1 ansible-files]$ curl -s http://node2:8080
-simple vhost index
+[rhel@control ~]$ ssh node1 "systemctl status httpd"
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2024-01-29 16:49:13 UTC; 3min 46s ago
 ```
-
-Congratulations! You have successfully completed this exercise!
-
-## Troubleshooting problems
-
-Did the final curl work?  You can see what ports the web server is running by using the ss command:
 
 ```bash
-#> sudo ss -tulpn | grep httpd
+[rhel@control ~]$ ssh node2 "systemctl status httpd"
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2024-01-29 16:49:13 UTC; 3min 58s ago
 ```
 
-There should be a line like this:
+Once `httpd` has been verified it is running, check to see if the Apache webserver is serving the appropriate `index.html` file:
 
 ```bash
-tcp   LISTEN 0      511                *:8080               *:*    users:(("httpd",pid=182567,fd=4),("httpd",pid=182566,fd=4),("httpd",pid=182565,fd=4),("httpd",pid=182552,fd=4))
+[student@ansible-1 lab_inventory]$ curl http://node1
+<html>
+<head>
+<title>Welcome to node1</title>
+</head>
+<body>
+ <h1>Hello from node1</h1>
+</body>
+</html>
 ```
 
-Pay close attention to the fifth column of the above output. It should be `*:8080`. If it is `*:80` instead or if it is not working, then make sure that the `/etc/httpd/conf/httpd.conf` file has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](../1.5-handlers)
 
 ---
 **Navigation**

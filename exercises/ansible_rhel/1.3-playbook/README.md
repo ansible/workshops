@@ -33,7 +33,7 @@ First, create a text file in YAML format for your playbook. Remember:
 - Use spaces, not tabs, for indentation.
 
 Key Concepts:
-- `hosts`: Specifies the targets for your playbook.
+- `hosts`: Specifies the target servers or devices for your playbook to run against.
 - `tasks`: The actions Ansible will perform.
 - `become`: Allows privilege escalation (running tasks with elevated privileges).
 

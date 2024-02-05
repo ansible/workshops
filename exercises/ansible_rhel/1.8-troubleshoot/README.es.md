@@ -26,9 +26,9 @@ La depuración es una habilidad crítica para identificar y resolver problemas d
 
 ### Paso 2 - Utilizando el Módulo de Depuración
 
-El módulo debug es una herramienta simple pero poderosa para imprimir los valores de las variables, lo cual puede ser instrumental para entender el flujo de ejecución del playbook.
+El módulo `debug` es una herramienta simple pero poderosa para imprimir los valores de las variables, lo cual puede ser instrumental para entender el flujo de ejecución del playbook.
 
-En este ejemplo, añade tareas de depuración a tu rol de Apache en el `tasks/main.yml` para mostrar el valor de las variables o mensajes.
+En este ejemplo, añade tareas de depuración a tu rol de Apache en el archivo `tasks/main.yml` para mostrar el valor de las variables o mensajes.
 
 #### Implementar Tareas de Depuración:
 
@@ -46,7 +46,7 @@ Inserta tareas de depuración para mostrar los valores de las variables o mensaj
 
 ### Paso 3 - Manejo de Errores con Bloques
 
-Ansible permite agrupar tareas usando block y manejar errores con secciones de rescate, similar a try-catch en la programación tradicional.
+Ansible permite agrupar tareas usando `block` y manejar errores con secciones de rescate usando `rescue`, similar a try-catch en la programación tradicional.
 
 En este ejemplo, añade un bloque para manejar errores potenciales durante la configuración de Apache dentro del archivo `tasks/main.yml`.
 
@@ -73,11 +73,11 @@ Envuelve las tareas que podrían fallar potencialmente en un bloque y define una
 apache_conf_src: "files/missing_apache.conf"
 ```
 
-> NOTA: Este archivo explícitamente no existe para que podamos activar la sección de rescate de nuestro `tasks/main.yml`
+> NOTA: El archivo (`files/missing_apache.conf`) no existe intencionalmente para que podamos activar la sección de rescate de nuestro `tasks/main.yml`. No debe ser creado.
 
 ### Paso 4 - Ejecución en Modo Verbose
 
-El modo verbose de Ansible (-v, -vv, -vvv, o -vvvv) aumenta el detalle de la salida, proporcionando más información sobre la ejecución del playbook y problemas potenciales.
+El modo verbose de Ansible (`-v`, `-vv`, `-vvv`, o `-vvvv`) aumenta el detalle de la salida, proporcionando más información sobre la ejecución del playbook y problemas potenciales.
 
 #### Ejecutar el Playbook en Modo Verbose:
 

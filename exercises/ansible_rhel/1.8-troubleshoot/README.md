@@ -26,7 +26,7 @@ Debugging is a critical skill for identifying and resolving issues within your A
 
 ### Step 2 - Utilizing the Debug Module
 
-The debug module is a simple yet powerful tool for printing variable values, which can be instrumental in understanding playbook execution flow.
+The `debug` module is a simple yet powerful tool for printing variable values, which can be instrumental in understanding playbook execution flow.
 
 In this example, add debug tasks to your Apache role in the `tasks/main.yml` to output the value of variables or messages.
 
@@ -46,7 +46,7 @@ Insert debug tasks to display the values of variables or custom messages for tro
 
 ### Step 3 - Error Handling with Blocks
 
-Ansible allows grouping tasks using block and handling errors with rescue sections, similar to try-catch in traditional programming.
+Ansible allows grouping tasks using `block` and handling errors with `rescue` sections, similar to try-catch in traditional programming.
 
 In this example, add a block to handle potential errors during the Apache configuration within the `tasks/main.yml` file.
 

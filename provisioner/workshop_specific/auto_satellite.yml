@@ -305,7 +305,7 @@
         scm_url: 'https://github.com/ansible/awx-facts-playbooks.git'
         wait: true
     controller_templates:
-      - name: SETUP / Satellite
+      - name: Z / CaC / Satellite
         project: Automated Management
         playbook: setup_satellite.yml
         inventory: Workshop Inventory
@@ -315,7 +315,7 @@
         extra_vars:
           refresh_satellite_manifest: false
         ask_variables_on_launch: true
-      - name: SETUP / Controller
+      - name: Z / CaC / Controller
         project: Automated Management
         playbook: setup_controller.yml
         inventory: Workshop Inventory
@@ -346,9 +346,9 @@
     - name: Final workshop preparations - workshop mode
       when: provision_mode == "workshop"
       block:
-        - name: Run SETUP / Satellite job template
+        - name: Run Z / CaC / Satellite job template
           awx.awx.job_launch:
-            job_template: "SETUP / Satellite"
+            job_template: "Z / CaC / Satellite"
             extra_vars:
               refresh_satellite_manifest: true
             controller_username: admin
@@ -356,7 +356,7 @@
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: setupsatjob
 
-        - name: "Check API until SETUP / Satellite job is successful"
+        - name: "Check API until Z / CaC / Satellite job is successful"
           ansible.builtin.uri:
             url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
             user: admin
@@ -371,43 +371,74 @@
           delay: 20  # Every 20 seconds
           retries: 45  # 15 minutes 15*60/20
 
-    - name: Final workshop preparations - demo mode
-      when: provision_mode == "demo"
-      block:
-        - name: Run SETUP / Satellite job template
+        - name: Run Z / CaC / Controller job template
           awx.awx.job_launch:
-            job_template: "SETUP / Satellite"
-            extra_vars:
-              refresh_satellite_manifest: true
-            controller_username: admin
-            controller_password: "{{ admin_password }}"
-            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
-          register: setupsatjob
-
-        - name: "Check API until SETUP / Satellite job is successful"
-          ansible.builtin.uri:
-            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
-            user: admin
-            password: "{{ admin_password }}"
-            force_basic_auth: true
-            method: GET
-            return_content: true
-            status_code: 200
-            validate_certs: false
-          register: workshop_job_templates01
-          until: workshop_job_templates01.json.status == "successful"
-          delay: 20  # Every 20 seconds
-          retries: 45  # 15 minutes 15*60/20
-
-        - name: Run SETUP / Controller job template
-          awx.awx.job_launch:
-            job_template: "SETUP / Controller"
+            job_template: "Z / CaC / Controller"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
           register: setupcontroljob
 
-        - name: "Check API until SETUP / Controller job is successful"
+        - name: "Check API until Z / CaC / Controller job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates02
+          until: workshop_job_templates02.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 15  # 5 minutes 5*60/20
+
+        - name: Run Z / SETUP / Workshop deployment workflow template
+          awx.awx.workflow_launch:
+            workflow_template: "Z / SETUP / Workshop deployment"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            timeout: 900
+
+    - name: Final workshop preparations - demo mode
+      when: provision_mode == "demo"
+      block:
+        - name: Run Z / CaC / Satellite job template
+          awx.awx.job_launch:
+            job_template: "Z / CaC / Satellite"
+            extra_vars:
+              refresh_satellite_manifest: true
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupsatjob
+
+        - name: "Check API until Z / CaC / Satellite job is successful"
+          ansible.builtin.uri:
+            url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupsatjob.id }}/?format=json"
+            user: admin
+            password: "{{ admin_password }}"
+            force_basic_auth: true
+            method: GET
+            return_content: true
+            status_code: 200
+            validate_certs: false
+          register: workshop_job_templates01
+          until: workshop_job_templates01.json.status == "successful"
+          delay: 20  # Every 20 seconds
+          retries: 45  # 15 minutes 15*60/20
+
+        - name: Run Z / CaC / Controller job template
+          awx.awx.job_launch:
+            job_template: "Z / CaC / Controller"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+          register: setupcontroljob
+
+        - name: "Check API until Z / CaC / Controller job is successful"
           ansible.builtin.uri:
             url: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}/api/v2/jobs/{{ setupcontroljob.id }}/?format=json"
             user: admin

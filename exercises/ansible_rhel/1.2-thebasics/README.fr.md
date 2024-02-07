@@ -1,31 +1,29 @@
-# Exercice - Les Bases d'Ansible <!-- omit in toc -->
+# Exercice d'Atelier - Les Fondamentaux d'Ansible
 
-**Lisez ceci dans d'autres langues**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Lisez ceci dans d'autres langues** :
+<br>![uk](../../../images/uk.png) [Anglais](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugais du Brésil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md), ![Español](../../../images/col.png) [Espagnol](README.es.md).
 
-## Table des matières <!-- omit in toc -->
+## Table des Matières <!-- omettre dans toc -->
 
 - [Objectif](#objectif)
 - [Guide](#guide)
-  - [Étape 1 - Travailler avec votre inventaire](#Étape-1---travailler-avec-votre-inventaire)
-  - [Étape 2 - Liste des modules et obtention d'aide](#Étape-4---liste-des-modules-et-obtention-d-aide)
+  - [Les Bases du Fichier d'Inventaire](#les-bases-du-fichier-dinventaire)
+  - [Découverte de Modules](#découverte-de-modules)
+  - [Accès à la Documentation des Modules](#accès-à-la-documentation-des-modules)
 
 ## Objectif
 
-Dans cet exercice, nous allons explorer le dernier utilitaire en ligne de commande `ansible-navigator` pour apprendre comment travailler avec les fichiers d'inventaire et obtenir la liste des modules en cas de besoin. Le but est de vous familiariser avec le fcontionnement de `ansible-navigator` et la façon dont il peut être utilisé pour enrichir votre expérience Ansible.
-
-Cet exercice couvrira
-* L'utilisation de fichiers d'inventaire
-* La localisation et la compréhension d'un fichier d'inventaire au format `ini`
-* L'obtention de la liste des modules et d'aide pour les utiliser
+Dans cet exercice, nous allons explorer le dernier utilitaire de ligne de commande d'Ansible `ansible-navigator` pour apprendre à travailler avec des fichiers d'inventaire et la liste des modules lorsqu'une assistance est nécessaire. L'objectif est de vous familiariser avec le fonctionnement d'`ansible-navigator` et comment il peut être utilisé pour enrichir votre expérience avec Ansible.
 
 ## Guide
 
-### Étape 1 - Travailler avec votre inventaire
+### Les Bases du Fichier d'Inventaire
 
-Un fichier d'inventaire est un fichier texte qui spécifie les noeuds qui seront gérés par la machine de contrôle. Les noeuds à gérer peuvent inclure une liste de hostnames ou les adresses IP de ces hôtes. Le fichier d'inventaire permet d'organiser les noeuds dans des groupes en déclarant un nom de groupe d'hôtes entre des crochets ([]).
+Un fichier d'inventaire est un fichier texte qui spécifie les nœuds qui seront gérés par la machine de contrôle. Les nœuds à gérer peuvent inclure une liste de noms d'hôtes ou d'adresses IP de ces nœuds. Le fichier d'inventaire permet d'organiser les nœuds en groupes en déclarant un nom de groupe d'hôtes entre crochets ([]).
 
-Pour gérer les hôtes avec la commande `ansible-navigator`, vous devez fournir un fichier d'inventaire qui définit une liste d'hôtes à gérer depuis le noeud de contrôle. Dans ce lab, l'inventaire est déjà fourni. Le ficher d'inventaire est un fichier au format `ini` qui liste les hôtes, rangés par groupes, avec des varaiables additionnelles. Il ressemble à ceci :
+### Explorer l'Inventaire
+
+Pour utiliser la commande `ansible-navigator` pour la gestion des hôtes, vous devez fournir un fichier d'inventaire qui définit une liste d'hôtes à gérer depuis le nœud de contrôle. Dans ce laboratoire, l'inventaire est fourni par votre instructeur. Le fichier d'inventaire est un fichier formaté `ini` listant vos hôtes, triés par groupes, fournissant également certaines variables. Un exemple peut ressembler à ce qui suit :
 
 ```bash
 [web]
@@ -37,9 +35,7 @@ node3 ansible_host=<Z.Z.Z.Z>
 ansible-1 ansible_host=44.55.66.77
 ```
 
-Ansible est déjà configuré pour utiliser l'inventaire propre à votre environnement. Nous allons vous montrer dans la prochaine étape comment c'est réalisé. Pour le moment, nous allons exécuter des commandes simples pour travailler avec l'inventaire.
-
-Pour employer tous les hôtes de l'inventaire, vous fournissez un pattern à la commande `ansible-navigator`. La commande `ansible-navigator inventory` a une option `--list` qui peut être utile pour afficher tous les hôtes qui sont dans un fichier d'inventaire, en incluant les groupes auxquels ils sont associés.
+Pour voir votre inventaire avec ansible-navigator, utilisez la commande `ansible-navigator inventory --list -m stdout`. Cette commande affiche tous les nœuds et leurs groupes respectifs.
 
 ```bash
 [student@ansible-1 rhel_workshop]$ cd /home/student
@@ -83,9 +79,9 @@ Pour employer tous les hôtes de l'inventaire, vous fournissez un pattern à la 
 
 ```
 
-NOTE: `-m` est le raccourci de `--mode` qui permet de changer le mode en output standard au lieu d'utiliser l'interface en mode texte (TUI).
+NOTE : `-m` est l'abréviation de `--mode` qui permet de passer au mode de sortie standard au lieu d'utiliser l'interface utilisateur basée sur le texte (TUI).
 
-Si `--list` est trop verbeux, l'option `--graph` peut être utilisée pour fournir une version plus compacte de `--list`.
+Pour une vue moins détaillée, `ansible-navigator inventory --graph -m stdout` offre une représentation visuelle des groupements.
 
 ```bash
 [student@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
@@ -100,11 +96,11 @@ Si `--list` est trop verbeux, l'option `--graph` peut être utilisée pour fourn
 
 ```
 
-On peut bien voir que les noeuds: `node1`, `node2`, `node3` sont dans le groupe `web` group, tandis que `ansible-1` est dans le groupe `control`.
+Nous pouvons clairement voir que les nœuds : `node1`, `node2`, `node3` font partie du groupe `web`, tandis que `ansible-1` fait partie du groupe `control`.
 
-Un fichier d'inventaire peut contenir bien plus d'informations, il peut organiser les hôtes dans des groupes ou définir des variables. Dans notre exemple, l'inventaire courant a les groupes `web` et `control`. Lancez Ansible avec ces patterns d'hôtes et observez le résultat.
+Un fichier d'inventaire peut organiser vos hôtes en groupes ou définir des variables. Dans notre exemple, l'inventaire actuel a les groupes `web` et `control`. Exécutez `ansible-navigator` avec ces modèles d'hôtes et observez la sortie :
 
-En utilisant la commande `ansible-navigator inventory`, on peut aussi lancer des commandes qui fournissent des informations uniquement sur un hôte ou un groupe. Par exemple, essayez la commande suivante pour observer son résultat:
+En utilisant la commande `ansible-navigator inventory`, vous pouvez exécuter des commandes qui fournissent des informations uniquement pour un hôte ou un groupe. Par exemple, exécutez les commandes suivantes et observez leurs différentes sorties.
 
 ```bash
 [student@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
@@ -112,57 +108,62 @@ En utilisant la commande `ansible-navigator inventory`, on peut aussi lancer des
 [student@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
 ```
 
-> **Astuce**
+> **Conseil**
 >
-> L'inventaire contient plus de données. Par exemple, si vous avez des hôtes qui exposent un port SSH non standard, vous pouvez renseigner le numéro de port après le nom d'hôte à l'aide des deux-points (:). Ou encore, vous pouvez renseignez dess noms propres à Ansible et les faire pointer vers les adresse IP ou nom d'hôtes réels.
+> L'inventaire peut contenir plus de données. Par exemple, si vous avez des hôtes qui fonctionnent sur des ports SSH non standard, vous pouvez mettre le numéro de port après le nom d'hôte avec deux points. On peut également définir des noms spécifiques à Ansible et les faire pointer vers l'IP ou le nom d'hôte.
 
-### Etape 2 - Liste des modules et obtention d aide
+### Découverte de Modules
 
-Ansible Automation Platform est livré avec plusieurs Environnements d'Execution (EE) supportés. Ces EE sont fournis avec des collections supportées qui contiennent du contenu supporté, comme des modules.
+La Plateforme d'Automatisation Ansible est livrée avec plusieurs Environnements d'Exécution (EE) pris en charge. Ces EE sont livrés avec des collections prises en charge groupées contenant du contenu pris en charge, y compris des modules.
 
-> **Astuce**
+> **Conseil**
 >
-> Dans `ansible-navigator` quittez en pressant la touche `ESC`.
+> Dans `ansible-navigator`, sortez en appuyant sur le bouton `ESC`.
 
-Pour consulter les modules disponibles, entrez dans le mode interactif:
+Pour parcourir vos modules disponibles, entrez d'abord en mode interactif :
 
 ```bash
 $ ansible-navigator
 ```
 
-![picture of ansible-navigator](images/interactive-mode.png)
+![image d'ansible-navigator](images/interactive-mode.png)
 
-Commencez par consulter une collection en tapant `:collections`
+Parcourez une collection en tapant `:collections`
 
 ```bash
 :collections
 ```
 
-![picture of ansible-navigator](images/interactive-collections.png)
+![image d'ansible-navigator](images/interactive-collections.png)
 
-Pour consulter le contenu d'une collection spécifique, tapez le numéro correspondant. Par exemple, sur la capture d'écran ci-dessus, le numéro `0` correspond à la collection `amazon.aws`. Pour zoomer dans cette collection, tapez `0`.
+### Accès à la Documentation des Modules
+
+Pour explorer les modules d'une collection spécifique, entrez le numéro à côté du nom de la collection.
+
+Par exemple, dans la capture d'écran ci-dessus, le numéro `0` correspond à la collection `amazon.aws`. Pour zoomer sur la collection, tapez le numéro `0`.
 
 ```bash
 0
 ```
 
-![picture of ansible-navigator](images/interactive-aws.png)
+![image d'ansible-navigator](images/interactive-aws.png)
 
-Obtenez de l'aide pour un module spécifique et son utilisation en zoomant davantage. Par exemple, le module `ec2_tag` correspond à `24`.
+Accédez directement à la documentation détaillée de n'importe quel module en spécifiant son numéro correspondant. Par exemple, le module `ec2_tag` correspond à `24`.
 
 ```bash
 :24
 ```
 
-Naviguez vers le bas, en utilisant les flèches ou les boutons page-haut et page-bas, pour obtenir de la documentation et des exemples.
+En faisant défiler vers le bas à l'aide des touches fléchées ou de page en haut et page en bas, nous pouvons voir la documentation et les exemples.
 
-![picture of ansible-navigator](images/interactive-ec2-tag.png)
+![image d'ansible-navigator](images/interactive-ec2-tag.png)
 
-Vous pouvez aussi sauter directement sur un module particulier en tapant simplement `:doc namespace.collection.module-name`. Par exemple, taper `:doc amazon.aws.ec2_tag` vous amène directement sur la dernière page affichée ci-dessus.
+Vous pouvez accéder directement à un module particulier en tapant simplement `:doc namespace.collection.module-name`. Par exemple, taper `:doc amazon.aws.ec2_tag` vous amènerait directement à la page finale montrée ci-dessus.
 
-> **Astuce**
+> **Conseil**
 >
-> Différents EE peuvent avoir accès à différentes collections, et différentes versions de ces collections. En utilisant la documentation embarquée, vous savez qu'elle sera appropriée pour cette version particulière de cette collection.
+> Différents environnements d'exécution peuvent avoir accès à différentes collections et à différentes versions de ces collections. En utilisant la documentation intégrée, vous savez qu'elle sera précise pour cette version particulière de la collection.
+
 
 ---
 **Navigation**

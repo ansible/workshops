@@ -134,9 +134,15 @@ ansible-navigator:
 
 Para una lista completa de cada configuración configurable consulta la [documentación](https://ansible.readthedocs.io/projects/navigator/settings/)
 
+<<<<<<< HEAD
 ### Paso 5 - Desafíos del taller
 
 Cada capítulo del taller viene con un desafío. Estas tareas prueban tu comprensión y aplicación de los conceptos aprendidos. Las soluciones se proporcionan bajo un signo de advertencia para referencia.
+=======
+### Paso 5 - Labs de Desafío
+
+Cada capítulo viene con un Lab de Desafío. Estas tareas prueban tu comprensión y aplicación de los conceptos aprendidos. Las soluciones se proporcionan bajo un signo de advertencia para referencia.
+>>>>>>> daf03aad826095b4ee06f20aa28c409189bb47b9
 
 
 ----

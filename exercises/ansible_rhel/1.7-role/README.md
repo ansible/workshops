@@ -257,6 +257,6 @@ Once `httpd` has been verified it is running, check to see if the Apache webserv
 ---
 **Navigation**
 <br>
-[Previous Exercise](../1.6-templates) - [Next Exercise](../2.1-intro)
+[Previous Exercise](../1.6-templates) - [Next Exercise](../1.8-troubleshoot)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

@@ -68,7 +68,7 @@ Run the following Ansible playbook to clean the environment:
 
 ### Step 3 - Building the Apache Role
 
-We'll develop a role named `apache_server` to install, configure, and manage Apache.
+We'll develop a role named `apache` to install, configure, and manage Apache.
 
 1. Generate Role Structure:
 
@@ -167,7 +167,7 @@ Use a Jinja2 template for a custom `index.html`. Store the template in `template
 
 ### Step 4 - Role Integration in a Playbook
 
-Embed the `apache_server` role in a playbook named `deploy_apache.yml` within `/home/student/lab_inventory` to apply it to your 'web' group hosts (node1, node2, node3).
+Embed the `apache` role in a playbook named `deploy_apache.yml` within `/home/student/lab_inventory` to apply it to your 'web' group hosts (node1, node2, node3).
 
 ```yaml
 - name: Setup Apache Web Servers

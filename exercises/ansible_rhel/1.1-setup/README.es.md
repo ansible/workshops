@@ -16,19 +16,19 @@
     - [Paso 4 - Examinar la configuración de ansible-navigator](#paso-4---examinar-la-configuración-de-ansible-navigator)
     - [Paso 5 - Labs de Desafío](#paso-5---labs-de-desafío)
 
-## Objetivo
+## Objetivos
 
 * Entender la Topología del Laboratorio: Familiarízate con el entorno de laboratorio y los métodos de acceso.
 * Dominar los Ejercicios del Taller: Adquiere competencia en la navegación y ejecución de las tareas del taller.
-* Abrazar los Labs de Desafío: Aprende a aplicar tus conocimientos en escenarios prácticos de desafío.
+* Resolver los desafíos del taller: Aprende a aplicar tus conocimientos en escenarios prácticos
 
 ## Guía
 
-La fase inicial de este taller se centra en las utilidades de línea de comandos de la Plataforma de Automatización Ansible, como:
+La fase inicial de este taller se centra en las utilidades de línea de comandos de Ansible Automation Platform, como:
 
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - una Interfaz de Usuario basada en Texto (TUI) para ejecutar y desarrollar contenido de Ansible.
-- [ansible-core](https://docs.ansible.com/core.html) - el ejecutable base que proporciona el marco, lenguaje y funciones que sustentan la Plataforma de Automatización Ansible, incluyendo herramientas de línea de comandos como `ansible`, `ansible-playbook` y `ansible-doc`.
+- [ansible-core](https://docs.ansible.com/core.html) - el ejecutable base que proporciona el marco, lenguaje y funciones que sustentan Ansible Automation Platform, incluyendo herramientas de línea de comandos como `ansible`, `ansible-playbook` y `ansible-doc`.
 - [Entornos de Ejecución](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Imágenes de contenedor pre-construidas con colecciones soportadas por Red Hat.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - automatiza el proceso de construcción de Entornos de Ejecución. No es un enfoque principal en este taller.
 
@@ -134,9 +134,9 @@ ansible-navigator:
 
 Para una lista completa de cada configuración configurable consulta la [documentación](https://ansible.readthedocs.io/projects/navigator/settings/)
 
-### Paso 5 - Labs de Desafío
+### Paso 5 - Desafíos del taller
 
-Cada capítulo viene con un Lab de Desafío. Estas tareas prueban tu comprensión y aplicación de los conceptos aprendidos. Las soluciones se proporcionan bajo un signo de advertencia para referencia.
+Cada capítulo del taller viene con un desafío. Estas tareas prueban tu comprensión y aplicación de los conceptos aprendidos. Las soluciones se proporcionan bajo un signo de advertencia para referencia.
 
 
 ----

@@ -1,235 +1,250 @@
-# Exercício - Condicionais, Handlers and Loops
+# Exercício do Workshop - Condicionais, Manipuladores e Loops
 
-**Leia em outras linguagens**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Leia isto em outros idiomas**:
+<br>![uk](../../../images/uk.png) [Inglês](README.md), ![japan](../../../images/japan.png) [Japonês](README.ja.md), ![brazil](../../../images/brazil.png) [Português do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Francês](README.fr.md), ![Español](../../../images/col.png) [Espanhol](README.es.md).
 
-* [Passo 1 - Condicionais](#passo-1---condicionais)
-* [Passo 2 - Handlers](#passo-2---handlers)
-* [Passo 3 - Loops simples](#passo-3---loops-simples)
-* [Passo 4 - Loops sobre hashes](#passo-4---loops-sobre-hashes)
+# Exercícios do Workshop - Usando Condicionais, Manipuladores e Loops
 
-## Passo 1 - Condicionais
+## Índice
 
-O Ansible pode usar condicionais para executar tasks ou plays quando determinadas condições forem atendidas.
+- [Objetivo](#objetivo)
+- [Guia](#guia)
+  - [Passo 1 - Entendendo Condicionais, Manipuladores e Loops](#passo-1---entendendo-condicionais-manipuladores-e-loops)
+  - [Passo 2 - Condicionais](#passo-2---condicionais)
+  - [Passo 3 - Manipuladores](#passo-3---manipuladores)
+  - [Passo 4 - Loops](#passo-4---loops)
 
-Para implementar uma condicional, a instrução `when` deve ser usada, seguida pela condição. A condição é expressa usando um dos operadores disponíveis, como por exemplo para comparação:
+## Objetivo
 
-|      |                                                                        |
-| ---- | ---------------------------------------------------------------------- |
-| \==  | Compara se dois objetos são iguais.                                    |
-| \!=  | Compara se dois objetos não são iguais.                                |
-| \>   | Verdadeiro se um objeto for maior que o outro.                         |
-| \>=  | Verdadeiro se um objeto for maior ou igual ao outro.                   |
-| \<   | Verdadeiro se um objeto for menor que o outro.                         |
-| \< = | Verdadeiro se um objeto for menor ou igual ao outro.                   |
+Expandindo o Exercício 1.4, este exercício introduz a aplicação de condicionais, manipuladores e loops em playbooks Ansible. Você aprenderá a controlar a execução de tarefas com condicionais, gerenciar respostas de serviços com manipuladores e lidar eficientemente com tarefas repetitivas usando loops.
 
-Para mais informações, consulte a documentação: <http://jinja.pocoo.org/docs/2.10/templates/>
+## Guia
 
-Como exemplo, você gostaria de instalar um servidor FTP, apenas em hosts que estão no grupo de inventário "ftpserver".
+Condicionais, manipuladores e loops são recursos avançados no Ansible que aumentam o controle, a eficiência e a flexibilidade em seus playbooks de automação.
 
-Para fazer isso, edite primeiro o inventário para adicionar outro grupo e coloque o `node2` nele. Certifique-se de que o endereço IP do `node2` seja sempre o mesmo quando o `node2` estiver listado. Edite o inventário `~/lab_inventory/hosts`, ele deve ficar semelhante a:
+### Passo 1 - Entendendo Condicionais, Manipuladores e Loops
 
-```ini
-[web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
+- **Condicionais**: Permitem que tarefas sejam executadas com base em condições específicas.
+- **Manipuladores**: Tarefas especiais acionadas por uma diretiva `notify`, normalmente usadas para reiniciar serviços após alterações.
+- **Loops**: Usados para repetir uma tarefa várias vezes, particularmente útil quando a tarefa é semelhante, mas precisa ser aplicada a itens diferentes.
 
-[ftpserver]
-node2 ansible_host=22.33.44.55
+### Passo 2 - Condicionais
 
-[control]
-ansible ansible_host=44.55.66.77
-```
+Condicionais no Ansible controlam se uma tarefa deve ser executada com base em certas condições.
+Vamos adicionar ao playbook system_setup.yml a capacidade de instalar o Servidor HTTP Apache (`httpd`) apenas nos hosts que pertencem ao grupo `web` no nosso inventário.
 
-Depois, crie o arquivo `ftpserver.yml` no seu host de controle no diretório `~/ansible-files/`:
+> NOTA: Exemplos anteriores tinham hosts configurados como node1, mas agora está configurado para todos. Isso significa que, ao executar este playbook Ansible atualizado, você notará atualizações para os novos sistemas sendo automatizados, o usuário Roger criado em todos os novos sistemas e o pacote do servidor web Apache httpd instalado em todos os hosts dentro do grupo web.
 
 ```yaml
 ---
-- name: Instalar vsftpd no ftpserver
+- name: Configuração Básica do Sistema
   hosts: all
-  become: yes
+  become: true
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
   tasks:
-    - name: Instalar servidor FTP quando host fizer parte do grupo ftpserver
-      yum:
-        name: vsftpd
+    - name: Atualizar todos os pacotes relacionados à segurança
+      ansible.builtin.dnf:
+        name: '*'
         state: latest
-      when: inventory_hostname in groups["ftpserver"]
+        security: true
+        update_only: true
+
+    - name: Criar um novo usuário
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+
+    - name: Instalar o Apache em servidores web
+      ansible.builtin.dnf:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
 ```
 
-> **Dica**
->
-> Agora você já deve saber como executar um playbook do Ansible, por isso começaremos a ser menos detalhados neste guia. Crie o playbook e execute-o. :-)
+Neste exemplo, `inventory_hostname in groups['web']` é a declaração condicional. `inventory_hostname` refere-se ao nome do host atual em que o Ansible está trabalhando no playbook. A condição verifica se este host faz parte do grupo `web` definido no seu arquivo de inventário. Se verdadeiro, a tarefa será executada e o Apache será instalado nesse host.
 
-Execute-o e examine a saída. O resultado esperado: a task é ignorada no node1, node3 e no host ansible (seu host de controle) porque eles não estão no grupo ftpserver no seu arquivo de inventário.
+### Passo 3 - Manipuladores
 
-```bash
-TASK [Instalar servidor FTP quando host fizer parte do grupo ftpserver] *******************************************
-skipping: [ansible]
-skipping: [node1]
-skipping: [node3]
-changed: [node2]
-```
+Manipuladores são usados para tarefas que só devem ser executadas quando notificadas por outra tarefa. Tipicamente, eles são usados para reiniciar serviços após uma mudança de configuração.
 
-## Passo 2 - Handlers
-
-As vezes, quando uma task faz uma alteração no sistema, pode ser necessário executar uma task ou tasks adicionais. Por exemplo, uma alteração no arquivo de configuração de um serviço pode exigir que o serviço seja reiniciado para que a configuração alterada entre em vigor.
-
-Aqui, os handlers entram em cena. Os handlers podem ser vistos como tasks inativas que só são acionadas quando invocadas explicitamente usando a instrução "notify". Leia mais sobre eles na documentação [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change).
-
-Como exemplo, vamos escrever um Playbook que:
-
-  - Gerencia o arquivo de configuração do Apache `httpd.conf` em todos os hosts no grupo `web`.
-
-  - Reinicia o Apache quando o arquivo é alterado.
-
-Primeiro, precisamos que o arquivo Ansible seja implantado, vamos pegar node1. Lembre-se de substituir o endereço IP mostrado na lista abaixo pelo endereço IP do seu `node1` individual.
-
-```bash
-[student<X>@ansible ansible-files]$ scp 11.22.33.44:/etc/httpd/conf/httpd.conf ~/ansible-files/.
-student<X>@11.22.33.44's password:
-httpd.conf             
-```
-
-Depois, crie o playbook `httpd_conf.yml`. Verifique se você está no diretório `~/ansible-files`.
+Vamos supor que queremos garantir que o firewall esteja configurado corretamente em todos os servidores web e, em seguida, recarregar o serviço de firewall para aplicar quaisquer novas configurações. Vamos definir um manipulador que recarrega o serviço de firewall e é notificado por uma tarefa que garante que as regras de firewall desejadas estejam em vigor:
 
 ```yaml
 ---
-- name: Manage httpd.conf
-  hosts: web
-  become: yes
-  tasks:
-  - name: Copiar arquivo de configuracao do Apache
-    copy:
-      src: httpd.conf
-      dest: /etc/httpd/conf/
-    notify:
-        - restart_apache
+- name: Configuração Básica do Sistema
+  hosts: all
+  become: true
+  .
+  .
+  .
+    - name: Instalar firewalld
+      ansible.builtin.dnf:
+        name: firewalld
+        state: present
+
+    - name: Garantir que o firewalld esteja em execução
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Permitir tráfego HTTPS em servidores web
+      ansible.posix.firewalld:
+        service: https
+        permanent: true
+        state: enabled
+      when: inventory_hostname in groups['web']
+      notify: Recarregar Firewall
+
   handlers:
-    - name: restart_apache
-      service:
-        name: httpd
-        state: restarted
+    - name: Recarregar Firewall
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
 ```
 
-Então, o que há de novo aqui?
+O manipulador Recarregar Firewall é acionado apenas se a tarefa "Permitir tráfego HTTPS em servidores web" fizer alguma mudança.
 
-  - A seção "notify" chama o handler somente quando a task de cópia realmente altera o arquivo. Dessa forma, o serviço será reiniciado apenas se necessário - e não sempre que o playbook for executado.
+> NOTA: Observe como o nome do manipulador é usado na seção `notify` da tarefa de configuração "Recarregar Firewall". Isso garante que o manipulador correto seja executado, pois pode haver vários manipuladores dentro de um playbook Ansible.
 
-  - A seção "handlers" define uma task que é executada apenas na notificação.
-
-Execute o Playbook. Ainda não alteramos nada no arquivo, portanto, não deve haver linhas 'alteradas' na saída e o manipulador não deveria ter disparado.
-
-  - Agora mude a linha `Listen 80` no httpd.conf para:
-
-
-```ini
-Listen 8080
-```
-
-  - Execute o Playbook novamente. Agora a saída do Ansible deve ser muito mais interessante:
-
-      - httpd.conf deve ter sido copiado.
-
-      - O handler deve ter reiniciado o Apache.
-
-O Apache agora deve escutar na porta 8080. Fácil o suficiente para verificar:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://22.33.44.55
-curl: (7) Failed connect to 22.33.44.55:80; Connection refused
-[student1@ansible ansible-files]$ curl http://22.33.44.55:8080
-<body>
-<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
-</body>
+PLAY [Configuração Básica do Sistema] ******************************************************
+
+TASK [Coletando Fatos] *********************************************************
+ok: [node1]
+ok: [node2]
+ok: [ansible-1]
+ok: [node3]
+
+TASK [Atualizar todos os pacotes relacionados à segurança] ************************************
+ok: [node2]
+ok: [node1]
+ok: [ansible-1]
+ok: [node3]
+
+TASK [Criar um novo usuário] *******************************************************
+ok: [node1]
+ok: [node2]
+ok: [ansible-1]
+ok: [node3]
+
+TASK [Instalar o Apache em servidores web] *******************************************
+skipping: [ansible-1]
+ok: [node2]
+ok: [node1]
+ok: [node3]
+
+TASK [Instalar firewalld] *******************************************************
+changed: [ansible-1]
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+TASK [Garantir que o firewalld esteja em execução] *********************************************
+changed: [node3]
+changed: [ansible-1]
+changed: [node2]
+changed: [node1]
+
+TASK [Permitir tráfego HTTPS em servidores web] **************************************
+skipping: [ansible-1]
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+MANIPULADOR EM EXECUÇÃO [Recarregar Firewall] **********************************************
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+RECAPITULAÇÃO DO JOGO *********************************************************************
+ansible-1                  : ok=5    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+node1                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
 ```
-Sinta-se livre para alterar o arquivo httpd.conf novamente e executar o Playbook.
 
-## Passo 3 - Loops simples
+### Passo 4 - Loops
 
-Os loops nos permitem repetir a mesma task. Por exemplo, digamos que você queira criar vários usuários. Usando um loop, você pode fazer isso em uma única task. Os loops também podem iterar mais do que apenas listas básicas. Por exemplo, se você tiver uma lista de usuários com seu grupo de correspondência, o loop também poderá iterar sobre eles. Saiba mais sobre loops na documentação [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html).
+Loops no Ansible permitem que você execute uma tarefa várias vezes com diferentes valores. Este recurso é particularmente útil para tarefas como a criação de várias contas de usuário, como no exemplo dado. No playbook original system_setup.yml do Exercício 1.4, tínhamos uma tarefa para criar um único usuário:
 
-Para mostrar o recurso de loops, geramos três novos usuários no `node1`. Para isso, crie o arquivo `loop_users.yml` em `~/ansible-files` no seu nó de controle com seu usuário student. Usaremos o módulo `user` para gerar as contas de usuário.
-
-<!-- {% raw %} -->
 ```yaml
----
-- name: Garantir usuarios
-  hosts: node1
-  become: yes
-
-  tasks:
-    - name: Garantir a presenca de tres usuarios
-      user:
-        name: "{{ item }}"
-        state: present
-      loop:
-         - dev_user
-         - qa_user
-         - prod_user
+- name: Criar um novo usuário
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    state: present
+    create_home: true
 ```
-<!-- {% endraw %} -->
 
-Entenda o playbook e a saída:
-
-<!-- {% raw %} -->
-  - Os nomes não são fornecidos diretamente ao módulo do usuário. Em vez disso, existe apenas uma variável chamada `{{ item }}` para o parâmetro `name`.
-
-  - A palavra-chave `loop` lista os nomes de usuário reais. O `{{ item }}` é substituido durante a execução real do Playbook.
-
-  - Durante a execução, a task é listada apenas uma vez, mas há três alterações listadas abaixo dela.
-<!-- {% endraw %} -->
-
-## Passo 4 - Loops sobre hashes
-
-Como mencionado, os loops também podem estar sobre listas de hashes. Imagine que os usuários devam ser atribuídos a diferentes grupos adicionais:
+Agora, vamos modificar essa tarefa para criar vários usuários usando um loop:
 
 ```yaml
-- username: dev_user
-  groups: ftp
-- username: qa_user
-  groups: ftp
-- username: prod_user
-  groups: apache
+- name: Criar um novo usuário
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: present
+    create_home: true
+  loop:
+    - alice
+    - bob
+    - carol
 ```
 
-O módulo `user` possui o parâmetro opcional `groups` para listar usuários adicionais. Para referenciar itens em um hash, a palavra-chave `{{ item }}` precisa fazer referência à subchave: `{{ item.groups }}` por exemplo.
+O que mudou?
 
-Vamos reescrever o Playbook para criar os usuários com direitos adicionais:
+1. Diretiva Loop: A palavra-chave loop é usada para iterar sobre uma lista de itens. Neste caso, a lista contém os nomes dos usuários que queremos criar: alice, bob e carol.
 
-<!-- {% raw %} -->
-```yaml
----
-- name: Garantir usuarios
-  hosts: node1
-  become: yes
+2. Criação de Usuário com Loop: Em vez de criar um único usuário, a tarefa modificada agora itera sobre cada item na lista do loop. O espaço reservado `{{ item }}` é substituído dinamicamente por cada nome de usuário na lista, de modo que o módulo ansible.builtin.user cria cada usuário por vez.
 
-  tasks:
-    - name: Garantir a presenca de tres usuarios
-      user:
-        name: "{{ item.username }}"
-        state: present
-        groups: "{{ item.groups }}"
-      loop:
-        - { username: 'dev_user', groups: 'ftp' }
-        - { username: 'qa_user', groups: 'ftp' }
-        - { username: 'prod_user', groups: 'apache' }
+Quando você executa o playbook atualizado, essa tarefa é executada três vezes, uma para cada usuário especificado no loop. É uma maneira eficiente de lidar com tarefas repetitivas com dados de entrada variáveis.
 
-```
-<!-- {% endraw %} -->
-
-Verifique a saída:
-
-  - Novamente, a task é listada uma vez, mas três alterações são listadas. Cada loop com seu conteúdo é mostrado.
-
-Verifique se o usuário `prod_user` foi realmente criado no `node1`:
+Trecho da saída para a criação de um novo usuário em todos os nós.
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
-node1 | CHANGED | rc=0 >>
-uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
+[student@ansible-1 ~lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
+
+PLAY [Configuração Básica do Sistema] ******************************************************
+
+.
+.
+.
+
+TASK [Criar um novo usuário] *******************************************************
+changed: [node2] => (item=alice)
+changed: [ansible-1] => (item=alice)
+changed: [node1] => (item=alice)
+changed: [node3] => (item=alice)
+changed: [node1] => (item=bob)
+changed: [ansible-1] => (item=bob)
+changed: [node3] => (item=bob)
+changed: [node2] => (item=bob)
+changed: [node1] => (item=carol)
+changed: [node3] => (item=carol)
+changed: [ansible-1] => (item=carol)
+changed: [node2] => (item=carol)
+
+.
+.
+.
+
+RECAPITULAÇÃO DO JOGO *********************************************************************
+ansible-1 : ok=5 changed=1 unreachable=0 failed=0 skipped=2 rescued=0 ignored=0
+node1 : ok=7 changed=1 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
+node2 : ok=7 changed=1 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
+node3 : ok=7 changed=1 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 ```
 
-----
+---
+**Navegação**
+<br>
+[Exercício Anterior](../1.4-variables/README.pt-br.md) - [Próximo Exercício](../1.6-templates/READMW.pt-br.md)
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)
+[Clique aqui para retornar ao Workshop de Ansible para Red Hat Enterprise Linux](../README.md#section-1---ansible-engine-exercises)
+
+

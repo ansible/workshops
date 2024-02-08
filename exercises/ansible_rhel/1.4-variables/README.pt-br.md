@@ -1,239 +1,151 @@
-# Exercício - Usando variáveis
+# Exercício do Workshop - Usando Variáveis
 
-**Leia em outras linguagens**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Leia isto em outros idiomas**:
+<br>![uk](../../../images/uk.png) [Inglês](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Português do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Francês](README.fr.md), ![Español](../../../images/col.png) [Espanhol](README.es.md).
 
-* [Passo 1 - Criando arquivos de variáveis](#passo-1---criando-arquivos-de-variáveis)
-* [Passo 2 - Criando o arquivo index.html](#passo-2---criando-o-arquivo-indexhtml)
-* [Passo 3 - Criando o Playbook](#passo-3---criando-o-playbook)
-* [Passo 4 - Teste o Resultado](#passo-4---teste-o-resultado)
-* [Passo 5 - Ansible Facts](#passo-5---ansible-facts)
-* [Passo 6 - Laboratório de desafios: Facts](#passo-6---laboratório-de-desafios-facts)
-* [Passo 7 - Usando Facts em Playbooks](#passo-7---usando-facts-em-playbooks)
+## Índice
 
-Os exercícios anteriores mostraram os conceitos básicos do Ansible Engine. Nos próximos exercícios, ensinaremos algumas habilidades mais avançadas que adicionarão flexibilidade e poder aos seus Playbooks.
+- [Exercício do Workshop - Usando Variáveis](##workshop-exercise---using-variables)
+  - [Objetivo](#objetivo)
+  - [Guia](#guia)
+    - [Passo 1 - Entendendo Variáveis](#passo-1---entendendo-variáveis)
+    - [Passo 2 - Sintaxe e Criação de Variáveis](#passo-2---sintaxe-e-criação-de-variáveis)
+    - [Passo 3 - Executando o Playbook Modificado](#passo-3---executando-o-playbook-modificado)
+    - [Passo 4 - Uso Avançado de Variáveis no Playbook de Verificações](#passo-4---uso-avançado-de-variáveis-no-playbook-de-verificações)
 
-O Ansible existe para tornar as tarefas simples e repetíveis. Também sabemos que nem todos os sistemas são exatamente iguais e geralmente exigem algumas alterações na maneira como um Playbook do Ansible é executado.
+## Objetivo
+Estendendo nossos playbooks do Exercício 1.3, o foco se volta para a criação e uso de variáveis no Ansible. Você aprenderá a sintaxe para definir e usar variáveis, uma habilidade essencial para criar playbooks dinâmicos e adaptáveis.
 
-O Ansible suporta variáveis para armazenar valores que podem ser usados nos Playbooks. As variáveis podem ser definidas em vários lugares e têm uma clara precedência. Ansible substitui a variável pelo seu valor quando uma task é executada.
+## Guia
+Variáveis no Ansible são ferramentas poderosas para tornar seus playbooks flexíveis e reutilizáveis. Elas permitem armazenar e reutilizar valores, tornando seus playbooks mais dinâmicos e adaptáveis.
 
-As variáveis são referenciadas nos Playbooks, colocando o nome da variável entre chaves duplas:
+### Passo 1 - Entendendo Variáveis
+Uma variável no Ansible é uma representação nomeada de algum dado. Variáveis podem conter valores simples como strings e números, ou dados mais complexos como listas e dicionários.
 
-<!-- {% raw %} -->
-```yaml
-Isso é uma variável {{ variable1 }}
-```
-<!-- {% endraw %} -->
+### Passo 2 - Sintaxe e Criação de Variáveis
+A criação e uso de variáveis envolvem uma sintaxe específica:
 
-As variáveis e seus valores podem ser definidos em vários locais: no inventário, arquivos adicionais, na linha de comando etc.
+1. Definindo Variáveis: Variáveis são definidas na seção `vars` de um playbook ou em arquivos separados para projetos maiores.
+2. Nomeando Variáveis: Os nomes das variáveis devem ser descritivos e aderir a regras como:
+   * Começar com uma letra ou sublinhado.
+   * Conter apenas letras, números e sublinhados.
+3. Usando Variáveis: Variáveis são referenciadas em tarefas usando as chaves duplas em aspas `"{{ nome_da_variável }}"`. Esta sintaxe indica ao Ansible para substituí-la pelo valor da variável em tempo de execução.
 
-A prática recomendada para fornecer variáveis no inventário é defini-las em arquivos localizados em dois diretórios denominados `host_vars` e `group_vars`:
-
-  - Para definir variáveis para um grupo "servers", é criado um arquivo YAML chamado `group_vars/servers` com as definições de variáveis.
-
-  - Para definir variáveis especificamente para um host `node1`, o arquivo `host_vars/node1` com as definições de variáveis é criado.
-
-> **Dica**
->
-> Variáveis de host têm precedência sobre variáveis de grupo (mais sobre precedência pode ser encontrada em [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
-
-## Passo 1 - Criando arquivos de variáveis
-
-Para entender e praticar, vamos fazer um laboratório. Seguindo o tema "Vamos construir um servidor Web, ou dois, ou ainda mais...​", você alterará o `index.html` para mostrar o ambiente de desenvolvimento (dev/prod) em que um servidor está implantado.
-
-No host de controle ansible, como usuário `student`, crie os diretórios para conter as definições de variáveis em `~/ansible-files/` :
-
-```bash
-[student<X>@ansible ansible-files]$ mkdir host_vars group_vars
-```
-
-Agora crie dois arquivos contendo definições de variáveis. Definiremos uma variável chamada `stage` que apontará para diferentes ambientes,`dev` ou `prod`:
-
-  - Crie o arquivo `~/ansible-files/group_vars/web` com este conteúdo:
+Atualize o playbook `system_setup.yml` para incluir e usar uma variável:
 
 ```yaml
 ---
-stage: dev
-```
-
-  - Crie o arquivo `~/ansible-files/host_vars/node2` com este conteúdo:
-
-```yaml
----
-stage: prod
-```
-
-O que é isso?
-
-  - Para todos os servidores no grupo `web`, a variável `stage` com o valor `dev` é definida. Portanto, como padrão sinalizamos como membros do ambiente de desenvolvimento.
-
-  - Para o servidor `node2`, isso é substituído e o host é sinalizado como um servidor de produção.
-
-## Passo 2 - Criando o arquivo index.html
-
-Agora, crie dois aquivos em `~/ansible-files/`:
-
-Um chamado `prod_index.html` com o seguinte conteúdo:
-
-```html
-<body>
-<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
-</body>
-```
-
-E um chamado `dev_index.html` com o seguinte conteúdo:
-
-```html
-<body>
-<h1>Esse eh um servidor web de desenvolvimento, divirta-se!</h1>
-</body>
-```
-
-## Passo 3 - Criando o Playbook
-
-Agora você precisa de um Playbook que copie o arquivo prod ou dev `index.html` - de acordo com a variável "stage".
-
-Crie um novo playbook, chamado `deploy_index_html.yml` no diretório `~/ansible-files/`.
-
-> **Dica**
->
-> Observe como a variável "stage" é usada no nome do arquivo a ser copiado.
-
-<!-- {% raw %} -->
-```yaml
----
-- name: Copia index.html
-  hosts: web
-  become: yes
+- name: Configuração Básica do Sistema
+  hosts: node1
+  become: true
+  vars:
+    user_name: 'Roger'
   tasks:
-  - name: Copia index.html
-    copy:
-      src: ~/ansible-files/{{ stage }}_index.html
-      dest: /var/www/html/index.html
-```
-<!-- {% endraw %} -->
+    - name: Atualizar todos os pacotes relacionados à segurança
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+        security: true
 
-  - Execute o Playbook:
+    - name: Criar um novo usuário
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+```
+
+Execute este playbook com ansible-navigator.
+
+### Passo 3 - Executando o Playbook Modificado
+Execute o playbook atualizado:
 
 ```bash
-[student<X>@ansible ansible-files]$ ansible-playbook deploy_index_html.yml
-```
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 
-## Passo 4 - Teste o Resultado
+PLAY [Configuração Básica do Sistema] ******************************************************
 
-O Playbook deve copiar arquivos diferentes como index.html para os hosts, use `curl` para testá-lo. Verifique o inventário novamente se você esqueceu os endereços IP dos seus nós.
-
-```bash
-[student<X>@ansible ansible-files]$ grep node ~/lab_inventory/hosts
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
-[student<X>@ansible ansible-files]$ curl http://11.22.33.44
-<body>
-<h1>Esse eh um servidor web de desenvolvimento, divirta-se!</h1>
-</body>
-[student1@ansible ansible-files]$ curl http://22.33.44.55
-<body>
-<h1>Esse eh um servidor web de producao, tenha cuidado!</h1>
-</body>
-[student1@ansible ansible-files]$ curl http://33.44.55.66
-<body>
-<h1>Esse eh um servidor web de desenvolvimento, divirta-se!</h1>
-</body>
-```
-
-> **Dica**
->
-> Agora você pensa: "Tem que haver uma maneira mais inteligente de alterar o conteúdo dos arquivos..." e você está absolutamente certo. Este laboratório foi realizado para introduzir variáveis, você está prestes a aprender sobre templates em um dos próximos capítulos.
-
-## Passo 5 - Ansible Facts
-
-Facts são variáveis que são descobertas automaticamente pelo Ansible a partir de um host gerenciado. Lembra da task "Gathering Facts" listada na saída de cada execução do `ansible-playbook`? Nesse momento, os facts são reunidos para cada nó gerenciado. Os fatos também podem ser obtidos pelo módulo `setup`. Eles contêm informações úteis armazenadas em variáveis que os administradores podem reutilizar.
-
-Para ter uma ideia dos facts que o Ansible coleta por padrão, em seu nó de controle enquanto o usuário student executa:
-
-```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup
-```
-
-Isso pode ser demais, você pode usar filtros para limitar a saída a certos facts, a expressão é curinga no estilo shell:
-
-```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_eth0'
-```
-Ou que tal procurar apenas facts relacionados à memória:
-
-```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_*_mb'
-```
-
-## Passo 6 - Laboratório de desafios: Facts
-
-  - Tente encontrar e imprimir a distribuição (Red Hat) de seus hosts gerenciados. Em uma linha, por favor.
-
-> **Dica**
->
-> Use grep para procurar o fact, e aplique um filtro para imprimir apenas esse fact.
-
-> **ATENÇÃO**
->
-> **Solução abaixo\!**
-
-```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep distribution
-[student<X>@ansible ansible-files]$ ansible node1 -m setup -a 'filter=ansible_distribution' -o
-```
-
-## Passo 7 - Usando Facts em Playbooks
-
-Os facts podem ser usados em um Playbook como variáveis, usando a nomeação apropriada. Crie este Playbook como `facts.yml` no diretório `~/ansible-files/`:
-
-<!-- {% raw %} -->
-```yaml    
----
-- name: Saida de facts em um playbook
-  hosts: all
-  tasks:
-  - name: Print ansible facts
-    debug:
-      msg: O endereco IPv4 padrao de {{ ansible_fqdn }} eh {{ ansible_default_ipv4.address }}
-```
-<!-- {% endraw %} -->
-
-> **Dica**
->
-> O módulo "debug" é útil para, por exemplo variáveis ou expressões de depuração.
-
-Execute-o para ver como os facts são impressos:
-
-```bash
-[student<X>@ansible ansible-files]$ ansible-playbook facts.yml
-
-PLAY [Saida de facts em um playbook] ******************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [node3]
-ok: [node2]
+TASK [Coletando Fatos] *********************************************************
 ok: [node1]
-ok: [ansible]
 
-TASK [Print ansible facts] ****************************************************
-ok: [node1] =>
-  msg: O endereco IPv4 padrao de node1 eh 172.16.190.143
-ok: [node2] =>
-  msg: O endereco IPv4 padrao de node2 eh 172.16.30.170
-ok: [node3] =>
-  msg: O endereco IPv4 padrao de node3 eh 172.16.140.196
-ok: [ansible] =>
-  msg: O endereco IPv4 padrao de ansible eh 172.16.2.10
+TASK [Atualizar todos os pacotes relacionados à segurança] ************************************
+ok: [node1]
+
+TASK [Criar um novo usuário] *******************************************************
+changed: [node1]
 
 PLAY RECAP *********************************************************************
-ansible                    : ok=2    changed=0    unreachable=0    failed=0   
-node1                      : ok=2    changed=0    unreachable=0    failed=0   
-node2                      : ok=2    changed=0    unreachable=0    failed=0   
-node3                      : ok=2    changed=0    unreachable=0    failed=0   
+node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-----
+Observe como o playbook atualizado mostra um status de alterado na tarefa Criar um novo usuário. O usuário, 'Roger', especificado na seção vars, foi criado.
 
-[Clique aqui para retornar ao Workshop Ansible for Red Hat Enterprise Linux](../README.pt-br.md#seção-1---exercícios-do-ansible-engine)
+Verifique a criação do usuário via:
+
+```bash
+[student@ansible-1 lab_inventory]$ ssh node1 id Roger
+
+```
+
+### Passo 4 - Uso Avançado de Variáveis no Playbook de Verificações
+Aprimore o playbook `system_checks.yml` para verificar a existência do usuário 'Roger' no sistema usando a variável `register` e a declaração condicional `when`.
+
+A palavra-chave register no Ansible é usada para capturar a saída de uma tarefa e salvá-la como uma variável.
+
+Atualize o playbook `system_checks.yml`:
+
+```yaml
+---
+- name: Verificações de Configuração do Sistema
+  hosts: node1
+  become: true
+  vars:
+    user_name: 'Roger'
+  tasks:
+    - name: Verificar existência do usuário
+      ansible.builtin.command:
+        cmd: "id {{ user_name }}"
+      register: user_check
+
+    - name: Relatar status do usuário
+      ansible.builtin.debug:
+        msg: "O usuário {{ user_name }} existe."
+      when: user_check.rc == 0
+```
+
+Detalhes do Playbook:
+
+* `register: user_check:` Isso captura a saída do comando id na variável user_check.
+* `when: user_check.rc == 0:` Esta linha é uma declaração condicional. Ela verifica se o código de retorno (rc) da tarefa anterior (armazenado em user_check) é 0, indicando sucesso. A mensagem de depuração só será exibida se esta condição for atendida.
+Esta configuração fornece um exemplo prático de como as variáveis podem ser usadas para controlar o fluxo de tarefas com base nos resultados das etapas anteriores.
+
+Execute o playbook de verificações:
+
+```bash
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_checks.yml -m stdout
+
+PLAY [Verificações de Configuração do Sistema] *********************************************
+
+TASK [Coletando Fatos] *********************************************************
+ok: [node1]
+
+TASK [Verificar existência do usuário] ****************************************************
+changed: [node1]
+
+TASK [Relatar status do usuário] ******************************************************
+ok: [node1] => {
+    "msg": "O usuário Roger existe."
+}
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+Revise a saída para confirmar que a verificação da existência do usuário está usando corretamente a variável e a lógica condicional.
+
+---
+**Navegação**
+
+[Exercício Anterior](../1.3-playbook/README.pt-br.md) - [Próximo Exercício](../1.5-handlers/README.pt-br.md)
+
+[Clique aqui para retornar ao Workshop de Ansible para Red Hat Enterprise Linux](../README.md)
+

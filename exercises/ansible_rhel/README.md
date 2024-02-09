@@ -51,6 +51,7 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
 * [Exercise 1.5 - Conditionals, Handlers and Loops](1.5-handlers)
 * [Exercise 1.6 - Templates](1.6-templates)
 * [Exercise 1.7 - Roles](1.7-role)
+* [Exercise 1.8 - Debugging and Error Handling](1.8-troubleshoot)
 
 ## Section 2 - Ansible Automation Platform Exercises
 

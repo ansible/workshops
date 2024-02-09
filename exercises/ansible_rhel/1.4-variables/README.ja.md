@@ -1,356 +1,151 @@
-# ワークショップ演習 - 変数の使用
+# ワークショップの演習 - 変数の使用
 
-**他の言語でもお読みいただけます**:
-<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
+**他の言語で読む**:
+<br>![uk](../../../images/uk.png) [英語](README.md), ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [ブラジルのポルトガル語](README.pt-br.md), ![france](../../../images/fr.png) [フランス語](README.fr.md), ![Español](../../../images/col.png) [スペイン語](README.es.md).
 
 ## 目次
 
-* [目的](#目的)
-* [ガイド](#ガイド)
-* [変数の概要](#変数の概要)
-  * [ステップ 1 - 変数ファイルの作成](#ステップ-1---変数ファイルの作成)
-  * [ステップ 2 - web.html ファイルの作成](#ステップ-2---webhtml-ファイルの作成)
-  * [ステップ 3 - Playbook の作成](#ステップ-3---playbook-の作成)
-  * [ステップ 4 - 結果のテスト](#ステップ-4---結果のテスト)
-  * [ステップ 5 - Ansible ファクト](#ステップ-5---ansible-ファクト)
-  * [ステップ 6 - チャレンジラボ: ファクト](#ステップ-6---チャレンジラボ-ファクト)
-  * [ステップ 7 - Playbook でのファクトの使用](#ステップ-7---playbook-でのファクトの使用)
+- [ワークショップの演習 - 変数の使用](##ワークショップの演習---変数の使用)
+  - [目的](#目的)
+  - [ガイド](#ガイド)
+    - [ステップ 1 - 変数の理解](#ステップ-1---変数の理解)
+    - [ステップ 2 - 変数の構文と作成](#ステップ-2---変数の構文と作成)
+    - [ステップ 3 - 変更されたプレイブックの実行](#ステップ-3---変更されたプレイブックの実行)
+    - [ステップ 4 - チェックプレイブックでの高度な変数の使用](#ステップ-4---チェックプレイブックでの高度な変数の使用)
 
 ## 目的
-
-Ansibleは、Playbook で使用できる値を格納するための変数をサポートしています。変数はさまざまな場所で定義でき、明確な優先順位があります。Ansible は、タスクの実行時に変数をその値に置き換えます。
-
-この演習では、特に以下についての変数について説明します。
-
-* 変数区切り文字 `{{`や `}}` の使用方法
-* `host_vars` と `group_vars` について、また使用するとき
-* `ansible_facts` の使い方
-* `debug` モジュールを使用して、コンソールウィンドウに変数を出力する方法
+演習 1.3 からのプレイブックを拡張し、Ansible での変数の作成と使用に焦点を当てます。変数を定義し、使用するための構文を学び、動的で適応可能なプレイブックを作成するための不可欠なスキルを習得します。
 
 ## ガイド
+Ansible の変数は、プレイブックを柔軟で再利用可能にする強力なツールです。値を保存して再利用することができ、プレイブックをより動的で適応可能にします。
 
-### 変数の概要
+### ステップ 1 - 変数の理解
+Ansible での変数は、あるデータの名前付き表現です。変数には、文字列や数値のような単純な値や、リストや辞書のような複雑なデータを含めることができます。
 
-変数は、変数名を二重中括弧で囲むことにより、AnsiblePlaybooks で参照されます。
+### ステップ 2 - 変数の構文と作成
+変数の作成と使用には、特定の構文が関与します：
 
-<!-- {% raw %} -->
+1. 変数の定義：変数は、プレイブックの `vars` セクションや、大規模なプロジェクトのための別々のファイルで定義されます。
+2. 変数名の命名：変数名は説明的であるべきで、以下のようなルールに従うべきです：
+   * 文字またはアンダースコアで始まること。
+   * 文字、数字、アンダースコアのみを含むこと。
+3. 変数の使用：タスク内で変数は `"{{ variable_name }}"` というダブルカーリーブレイスを引用符で囲んで参照されます。この構文は、実行時に Ansible に変数の値で置き換えるよう指示します。
 
-```yaml
-こちらが変数です。{{ variable1 }}
-```
-
-<!-- {% endraw %} -->
-
-変数とその値は、インベントリー、追加ファイル、コマンドラインなどのさまざまな場所で定義できます。
-
-インベントリーで変数を使う場合は、`host_vars` と `group_vars` という名前の 2 つのディレクトリーにあるファイルで変数を定義することが推奨されます。
-
-* グループ「servers」の変数を定義するために、変数定義のある `group_vars/servers.yml` という YAML ファイルが作成されます。
-* ホスト `node1` 専用の変数を定義するために、変数定義のある `host_vars/node1.yml` ファイルが作成されます。
-
-> **ヒント**
->
-> ホスト変数はグループ変数よりも優先されます (優先順位の詳細については、[docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) を参照してください)。
-
-### ステップ 1 - 変数ファイルの作成
-
-理解を深め練習するためにも、ラボをみていきましょう。「Webサーバーを構築しましょう。1 つまたは 2 つ。またはそれ以上…」というテーマに続いて、`index.html` を変更し、サーバーがデプロイされている開発環境 (dev / prod)を表示します。
-
-Ansible コントロールホストでは、`student` ユーザーとして、`~/ansible-files/` に変数定義を保持するディレクトリーを作成します。
-
-```bash
-[student@ansible-1 ansible-files]$ mkdir host_vars group_vars
-```
-
-次に、変数定義を含む 2 つのファイルを作成します。異なる環境 `dev` または `prod` を参照する `stage` を定義します。
-
-* 以下の内容で `~/ansible-files/group_vars/web.yml` ファイルを作成します。
+`system_setup.yml` プレイブックを更新して、変数を含めて使用します：
 
 ```yaml
 ---
-stage: dev
-```
-
-* 以下の内容で `~/ansible-files/host_vars/node2.yml` ファイルを作成します。
-
-```yaml
----
-stage: prod
-```
-
-これはなんでしょうか。
-
-* `web` グループのサーバーすべてには、値 `dev` を持つ `stage` が定義されています。そのため、デフォルトでは、開発環境のメンバーとしてフラグを立てます。
-* サーバー `node2` については、これはオーバーライドされ、ホストは実稼働サーバーとしてフラグが立てられます。
-
-### ステップ 2 - web.html ファイルの作成
-
-次に、`~/ansible-files/files/` で 2 つのファイルを作成します。
-
-1 つは、以下の内容の `prod_web.html` と呼ばれます。
-
-```html
-<body>
-<h1>これは稼働 Web サーバーです。それでは！</h1>
-</body>
-```
-
-もう 1 つは、以下のない用の `dev_web.html` と呼ばれるファイルです。
-
-```html
-<body>
-<h1>これは開発用ウェブサーバーです。お楽しみください！</h1>
-</body>
-```
-
-### ステップ 3 - Playbook の作成
-
-次に、「stage」変数にしたがって、prod または dev `web.html` ファイルをコピーする Playbook が必要です。
-
-`~/ansible-files/` ディレクトリーに `deploy_index_html.yml` という新しい Playbook を作成します。
-
-> **ヒント**
->
-> 変数「stage」がどのように、コピーするファイルの名前で使用さているかに注意してください。
-
-<!-- {% raw %} -->
-
-```yaml
----
-- name: Copy web.html
-  hosts: web
+- name: 基本的なシステムセットアップ
+  hosts: node1
   become: true
+  vars:
+    user_name: 'Roger'
   tasks:
-  - name: copy web.html
-    copy:
-      src: "{{ stage }}_web.html"
-      dest: /var/www/html/index.html
+    - name: セキュリティ関連のパッケージをすべて更新する
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+        security: true
+
+    - name: 新しいユーザーを作成する
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
 ```
 
-<!-- {% endraw %} -->
+"`ansible-navigator`を使用してこのプレイブックを実行してください。
 
-* Playbook を実行します。
+### ステップ 3 - 修正されたプレイブックの実行
+
+更新されたプレイブックを実行します:
 
 ```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 ```
-
-### ステップ 4 - 結果のテスト
-
-Ansible Playbook は、さまざまなファイルを index.html としてホストにコピーし、`curl` を使用してテストします。
-
-node1:
-
-```bash
-[student@ansible-1 ansible-files]$ curl http://node1
-<body>
-<h1>This is a development webserver, have fun!</h1>
-</body>
-```
-
-node2:
-
-```bash
-[student@ansible-1 ansible-files]$ curl http://node2
-<body>
-<h1>This is a production webserver, take care!</h1>
-</body>
-```
-
-node3:
-
-```bash
-[student@ansible-1 ansible-files]$ curl http://node3
-<body>
-<h1>This is a development webserver, have fun!</h1>
-</body>
-```
-
-> **ヒント**
->
-> おそらくこのような考えがありませんでしょうか。ファイルの内容を変更する、もっと賢い方法があるはず...。その通りです。このラボは、変数の説明を行うためのものでした。次の章では、テンプレートについて学びます。
-
-### ステップ 5 - Ansible ファクト
-
-Ansible ファクトは、管理対象ホストから Ansible によって自動的に検出される変数です。それぞれの `ansible-navigator` 実行の出力にリストされている「ファクトの収集」タスクを覚えていますか？その時点で、管理対象ノードごとにファクトが収集されます。ファクトは、`setup` モジュールでプルできます。これらには、管理者が再利用できる変数に格納された有用な情報が含まれています。
-
-Ansible がデフォルトで収集する情報を把握するために、学習者ユーザーとしてコントロールノード上で以下の Playbook を実行し、`node1` のセットアップの詳細を確認します。
 
 ```yaml
----
-- name: Capture Setup
-  hosts: node1
+PLAY [基本システム設定] ******************************************************
 
-  tasks:
-
-    - name: Collect only facts returned by facter
-      ansible.builtin.setup:
-        gather_subset:
-        - 'all'
-      register: setup
-
-    - debug:
-        var: setup
-```
-
-```bash
-[student@ansible-1 ansible-files]$ cd ~
-[student@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
-```
-
-これはビットが大きすぎる可能性があり、フィルターを使用して出力を特定のファクトに制限することができます。式は Playbook 内でシェルスタイルのワイルドカードです。この例では、`setup_filter.yml` というラベルが付けられた Playbook を作成します。この例では、`eth0` ファクトを取得し、`node1` のメモリー詳細を取得するようにフィルターします。
-
-```yaml
----
-- name: Capture Setup
-  hosts: node1
-
-  tasks:
-
-    - name: Collect only specific facts
-      ansible.builtin.setup:
-        filter:
-        - 'ansible_eth0'
-        - 'ansible_*_mb'
-      register: setup
-
-    - debug:
-        var: setup
-```
-
-```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
-```
-
-### ステップ 6 - チャレンジラボ: ファクト
-
-* 管理対象ホストのディストリビューション (Red Hat) の検索と出力を試行します。これは Playbook で行います。
-
-> **ヒント**
->
-> フィルター内でワイルドカードを使用してファクトを検索し、フィルターを適用して、このファクトのみを出力します。
-
-> **警告**
->
-> **回答を以下に示します。**
-
-```yaml
----
-- name: Capture Setup
-  hosts: node1
-
-  tasks:
-
-    - name: Collect only specific facts
-      ansible.builtin.setup:
-        filter:
-        - '*distribution'
-      register: setup
-
-    - debug:
-        var: setup
-```
-
-ワイルドカードが導入されると、出力は以下のようになります。
-
-```bash
-
-TASK [debug] *******************************************************************
-ok: [ansible] => {
-    "setup": {
-        "ansible_facts": {
-            "ansible_distribution": "RedHat"
-        },
-        "changed": false,
-        "failed": false
-    }
-}
-```
-
-これにより、検索する変数に `ansible_distribution` というラベルが付けられます。
-
-次に、Playbook を更新して、検索で明示的な指定を行い、以下の行を変更できます。
-
-```yaml
-filter:
-- '*distribution'
-```
-
-以下のように変更します。
-
-```yaml
-filter:
-- 'ansible_distribution'
-```
-
-```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
-```
-
-### ステップ 7 - Playbook でのファクトの使用
-
-もちろん、ファクトは、正しい名前を使用して、変数のように Playbook で使用できます。このプレイブックを次のように、`~/ansible-files/` ディレクトリーに `facts.yml` として作成します。
-
-<!-- {% raw %} -->
-
-```yaml
----
-- name: Output facts within a playbook
-  hosts: all
-  tasks:
-  - name: Prints Ansible facts
-    debug:
-      msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
-```
-
-<!-- {% endraw %} -->
-
-> **ヒント**
->
-> 「debug」モジュールは、変数と式のデバッグを行うのに便利です。
-
-それを実行して、ファクトがどのように出力されるかを確認します。
-
-```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run facts.yml
-```
-
-テキストユーザーインターフェース(TUI)ウィンドウ内で、以下の出力をキャプチャーするために `:st` と入力します。
-
-```bash
-PLAY [Output facts within a playbook] ******************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [node3]
-ok: [node2]
+TASK [事実の収集] *********************************************************
 ok: [node1]
-ok: [ansible-1]
 
-TASK [Prints Ansible facts] ****************************************************
-ok: [node1] =>
-  msg: The default IPv4 address of node1 is 172.16.190.143
-ok: [node2] =>
-  msg: The default IPv4 address of node2 is 172.16.30.170
-ok: [node3] =>
-  msg: The default IPv4 address of node3 is 172.16.140.196
-ok: [ansible-1] =>
-  msg: The default IPv4 address of ansible is 172.16.2.10
+TASK [すべてのセキュリティ関連のパッケージを更新する] ************************************
+ok: [node1]
+
+TASK [新しいユーザーを作成] *******************************************************
+changed: [node1]
 
 PLAY RECAP *********************************************************************
-ansible-1                  : ok=2    changed=0    unreachable=0    failed=0
-node1                      : ok=2    changed=0    unreachable=0    failed=0
-node2                      : ok=2    changed=0    unreachable=0    failed=0
-node3                      : ok=2    changed=0    unreachable=0    failed=0
+node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+更新されたプレイブックで「新しいユーザーを作成」タスクのステータスが変更されたことに注目してください。varsセクションに指定されたユーザー「Roger」が作成されました。
+
+ユーザー作成を確認するには:
+
+ステップ 4 - チェックプレイブック内の高度な変数使用
+system_checks.ymlプレイブックを強化して、register変数とwhen条件文を使用し、システム内の「Roger」ユーザーの存在を確認します。
+
+Ansibleのregisterキーワードは、タスクの出力をキャプチャして変数に保存するために使用されます。
+
+`system_checks.yml` プレイブックを更新します:
+
+```yaml
+---
+- name: システム設定チェック
+  hosts: node1
+  become: true
+  vars:
+    user_name: 'Roger'
+  tasks:
+    - name: ユーザー存在チェック
+      ansible.builtin.command:
+        cmd: "id {{ user_name }}"
+      register: user_check
+
+    - name: ユーザー状態の報告
+      ansible.builtin.debug:
+        msg: "ユーザー {{ user_name }} は存在します。"
+      when: user_check.rc == 0
+```
+
+プレイブックの詳細:
+
+* `register: user_check:` これはidコマンドの出力を変数user_checkにキャプチャします。
+
+* `when: user_check.rc == 0:` この行は条件文です。これは、前のタスクの戻り値（user_checkに保存されています）が0であるかどうかをチェックし、成功を示します。この条件が満たされると、デバッグメッセージが表示されます。
+この設定は、前のステップの結果に基づいてタスクの流れを制御するために変数を使用する方法の実用的な例を提供します。
+
+チェックプレイブックを実行します:
+
+```bash
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_checks.yml -m stdout
+```
+
+```bash
+PLAY [システム設定チェック] *********************************************
+
+TASK [事実の収集] *********************************************************
+ok: [node1]
+
+TASK [ユーザー存在チェック] ****************************************************
+changed: [node1]
+
+TASK [ユーザー状態の報告] ******************************************************
+ok: [node1] => {
+    "msg": "ユーザー Roger は存在します。"
+}
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 ---
 **ナビゲーション**
 <br>
 
-{% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../3-playbook) - [Next Exercise](../5-surveys)
-{% else %}
-[Previous Exercise](../1.3-playbook) - [Next Exercise](../1.5-handlers)
-{% endif %}
+[前のエクササイズ](../1.3-playbook/README.ja.md) -[次のエクササイズ](../1.5-handlers/README.ja.md)
 <br><br>
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+[Ansible for Red Hat Enterprise Linux ワークショップに戻る](../README.md)
+

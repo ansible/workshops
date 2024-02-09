@@ -1,121 +1,114 @@
-# Workshop - Plantillas
+# Ejercicio de Taller - Plantillas
 
-**Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Leer esto en otros idiomas**:
+<br>![uk](../../../images/uk.png) [Inglés](README.md), ![japan](../../../images/japan.png) [Japonés](README.ja.md), ![brazil](../../../images/brazil.png) [Portugués de Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Francés](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
-## Tabla de contenidos
+## Tabla de Contenidos
 
-* [Objetivos](#Objetivos)
-* [Guía](#Guía)
-* [Paso 1 - Uso de plantillas en Playbooks](#Paso-1---Uso-de-plantillas-en-Playbooks)
-* [Paso 2 - Laboratorios de desafío](#Paso-2---Laboratorios-de-desafío)
+- [Objetivo](#objetivo)
+- [Guía](#guía)
+  - [Paso 1 - Introducción a las Plantillas Jinja2](#paso-1---introducción-a-las-plantillas-jinja2)
+  - [Paso 2 - Creando Tu Primera Plantilla](#paso-2---creando-tu-primera-plantilla)
+  - [Paso 3 - Desplegando la Plantilla con un Playbook](#paso-3---desplegando-la-plantilla-con-un-playbook)
+  - [Paso 4 - Ejecutando el Playbook](#paso-4---ejecutando-el-playbook)
 
-# Objetivos
+## Objetivo
 
-Este ejercicio cubrirá las plantillas de Jinja2. Ansible utiliza plantillas de Jinja2 para modificar archivos antes de que se distribuyan a hosts administrados. Jinja2 es uno de los motores de plantillas más utilizados para Python (<http://jinja.pocoo.org/>).
+El Ejercicio 1.5 introduce las plantillas Jinja2 dentro de Ansible, una característica poderosa para generar archivos dinámicos a partir de plantillas. Aprenderás cómo elaborar plantillas que incorporan datos específicos del host, permitiendo la creación de archivos de configuración personalizados para cada host gestionado.
 
-# Guía
+## Guía
 
-## Paso 1 - Uso de plantillas en Playbooks
+### Paso 1 - Introducción a las Plantillas Jinja2
 
-Cuando se ha creado una plantilla para un archivo, se puede implementar en los hosts administrados mediante el módulo `template`, que admite la transferencia de un archivo local desde el nodo de control a los hosts administrados.
+Ansible utiliza Jinja2, un lenguaje de plantillas ampliamente utilizado para Python, permitiendo la generación de contenido dinámico dentro de los archivos. Esta capacidad es particularmente útil para configurar archivos que deben diferir de un host a otro.
 
-Como ejemplo de uso de plantillas, cambiará el archivo motd para que contenga datos específicos del host.
+### Paso 2 - Creando Tu Primera Plantilla
 
-En primer lugar, cree el directorio `templates` que contendrá los recursos de plantilla en `~/ansible-files/`:
+Las plantillas terminan con una extensión `.j2` y mezclan contenido estático con marcadores de posición dinámicos encerrados en `{{ }}`.
 
+En el siguiente ejemplo, vamos a crear una plantilla para el Mensaje del Día (MOTD) que incluye información dinámica del host.
+
+#### Configurar el Directorio de Plantillas:
+
+Asegúrate de que exista un directorio de plantillas dentro de tu directorio lab_inventory para organizar tus plantillas.
 
 ```bash
-[student<X>@ansible ansible-files]$ mkdir templates
+mkdir -p ~/lab_inventory/templates
 ```
-A continuación, en el directorio `~/ansible-files/templates/`, cree el archivo de plantilla `motd-facts.j2`:
 
-<!-- {% raw %} -->
-```html+jinja
-Welcome to {{ ansible_hostname }}.
-{{ ansible_distribution }} {{ ansible_distribution_version}}
-deployed on {{ ansible_architecture }} architecture.
+#### Desarrollar la Plantilla MOTD:
+
+Crea un archivo llamado `motd.j2` en el directorio de plantillas con el siguiente contenido:
+
+```jinja
+Bienvenido a {{ ansible_hostname }}.
+SO: {{ ansible_distribution }} {{ ansible_distribution_version }}
+Arquitectura: {{ ansible_architecture }}
 ```
-<!-- {% endraw %} -->
 
-El archivo de plantilla contiene el texto básico que se copiará más adelante. También contiene variables que se reemplazarán en las máquinas de destino individualmente.
+Esta plantilla muestra dinámicamente el nombre del host, la distribución del SO, la versión y la arquitectura de cada host gestionado.
 
-A continuación, necesitamos un playbook para usar esta plantilla. En el directorio `~/ansible-files/`, cree el Playbook `motd-facts.yml`:
+### Paso 3 - Desplegando la Plantilla con un Playbook
+
+Utiliza el módulo `ansible.builtin.template` en un playbook para distribuir y renderizar la plantilla a través de tus hosts gestionados.
+
+Modifica el Playbook `system_setup.yml` con el siguiente contenido:
 
 ```yaml
 ---
-- name: Fill motd file with host data
-  hosts: node1
+- name: Configuración Básica del Sistema
+  hosts: all
   become: true
   tasks:
-    - template:
-        src: motd-facts.j2
+    - name: Actualizar MOTD desde Plantilla Jinja2
+      ansible.builtin.template:
+        src: templates/motd.j2
         dest: /etc/motd
-        owner: root
-        group: root
-        mode: 0644
+  handlers:
+    - name: Recargar Firewall
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
 ```
-Usted ha hecho esto un par de veces por ahora:
 
-  - Entender lo que hace el Playbook.
+El módulo `ansible.builtin.template` toma la plantilla `motd.j2` y genera un archivo `/etc/motd` en cada host, llenando los marcadores de posición de la plantilla con los hechos reales del host.
 
-  - Ejecutar el Playbook `motd-facts.yml`.
+### Paso 4 - Ejecutando el Playbook
 
-  - Inicie sesión en node1 a través de SSH y compruebe el mensaje del contenido del día.
-  - Cierre la sesión del nodo1.
+Ejecuta el playbook para aplicar tu MOTD personalizado en todos los hosts gestionados:
 
-Debería ver cómo Ansible reemplaza las variables con los facts que descubrió del sistema.
-
-## Paso 2 - Laboratorios de desafío
-
-Agregue una línea a la plantilla para listar el kernel actual del nodo administrado.
-
-  - Encuentra un fact que contenga la versión del kernel usando los comandos que aprendiste en el capítulo "Ansible Facts".
-
-
-
-> **Consejo**
->
-> Hacer un `grep -i` para el kernel
-
-  - Modificar la plantilla para utilizar el fact que encontró.
-
-  - Ejecute el Playbook de nuevo.
-
-
-> **Advertencia**
->
-> **Solución a continuación\!**
-
-
-  - Encuentra el fact:
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep -i kernel
-       "ansible_kernel": "3.10.0-693.el7.x86_64",
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
+
+PLAY [Configuración Básica del Sistema] ****************************************
+.
+.
+.
+
+TASK [Actualizar MOTD desde Plantilla Jinja2] **********************************
+changed: [node1]
+changed: [node2]
+changed: [node3]
+changed: [ansible-1]
+
+RECAP **************************************************************************
+ansible-1                  : ok=6    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+node1                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-  - Modificar la plantilla `motd-facts.j2`:
-<!-- {% raw %} -->
-```html+jinja
-Welcome to {{ ansible_hostname }}.
-{{ ansible_distribution }} {{ ansible_distribution_version}}
-deployed on {{ ansible_architecture }} architecture
-running kernel {{ ansible_kernel }}.
-```
-<!-- {% endraw %} -->
+Verifica los cambios conectándote por SSH al nodo, y deberías ver el mensaje del día:
 
-  - Ejecute el playbook.
-```
-[student1@ansible ~]$ ansible-playbook motd-facts.yml
-```
+```bash
+[rhel@control ~]$ ssh node1
 
-  - Verifique el nuevo mensaje a través del login por SSH al `node1`.
-```
-[student1@ansible ~]$ ssh node1
-Welcome to node1.
-RedHat 8.1
-deployed on x86_64 architecture
-running kernel 4.18.0-147.8.1.el8_1.x86_64.
+Bienvenido a node1.
+SO: RedHat 8.7
+Arquitectura: x86_64
+Registra este sistema en Red Hat Insights: insights-client --register
+Crea una cuenta o ve todos tus sistemas en https://red.ht/insights-dashboard
+Último acceso: Lun Ene 29 16:30:31 2024 desde 10.5.1.29
 ```
 
 ----
@@ -124,3 +117,4 @@ running kernel 4.18.0-147.8.1.el8_1.x86_64.
 [Ejercicio anterior](../1.5-handlers/README.es.md) - [Próximo Ejercicio](../1.7-role/README.es.md)
 
 [Haga clic aquí para volver al Taller Ansible for Red Hat Enterprise Linux](../README.md#section-1---ansible-engine-exercises)
+

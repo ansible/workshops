@@ -1,121 +1,119 @@
-# Atelier - Les templates
+# Exercice de l'Atelier - Modèles
 
-**Lisez ceci dans d'autres langues**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Lisez ceci dans d'autres langues** :
+<br>![uk](../../../images/uk.png) [Anglais](README.md), ![japan](../../../images/japan.png) [Japonais](README.ja.md), ![brazil](../../../images/brazil.png) [Portugais du Brésil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md), ![Español](../../../images/col.png) [Espagnol](README.es.md).
 
-## Table des matières
+## Table des Matières
 
-* [Objectif](#objectif)
-* [Guide](#guide)
-* [Étape 1 - Utilisation des templates](#Étape-1---utilisation-des-templates)
-* [Étape 2 - Défi: Les templates](#Étape-2---défi-les-templates)
+- [Objectif](#objectif)
+- [Guide](#guide)
+  - [Étape 1 - Introduction à la Templatisation Jinja2](#étape-1---introduction-à-la-templatisation-jinja2)
+  - [Étape 2 - Création de Votre Premier Modèle](#étape-2---création-de-votre-premier-modèle)
+  - [Étape 3 - Déploiement du Modèle avec un Playbook](#étape-3---déploiement-du-modèle-avec-un-playbook)
+  - [Étape 4 - Exécution du Playbook](#étape-4---exécution-du-playbook)
 
-# Objectif
+## Objectif
 
-Cet exercice couvre les templates. Ansible utilise les templates Jinja2 pour modifier les fichiers avant qu'ils ne soient distribués aux hôtes gérés. Jinja2 est l'un des moteurs de modèles les plus utilisés pour Python (<http://jinja.pocoo.org/>).
+L'Exercice 1.5 introduit la templatisation Jinja2 au sein d'Ansible, une fonctionnalité puissante pour générer des fichiers dynamiques à partir de modèles. Vous apprendrez à créer des modèles qui intègrent des données spécifiques à l'hôte, permettant la création de fichiers de configuration sur mesure pour chaque hôte géré.
 
-# Guide
+## Guide
 
-## Étape 1 - Utilisation des templates
+### Étape 1 - Introduction à la Templatisation Jinja2
 
-Lorsqu'un template de fichier a été créé, il peut être déployé sur les hôtes gérés à l'aide du module `template`, qui prend en charge le transfert d'un fichier local du nœud de contrôle vers les hôtes gérés.
+Ansible utilise Jinja2, un langage de templatisation largement utilisé pour Python, permettant la génération de contenu dynamique dans les fichiers. Cette capacité est particulièrement utile pour configurer des fichiers qui doivent différer d'un hôte à l'autre.
 
-Comme exemple d'utilisation d'un template, vous allez modifier le fichier motd pour qu'il contienne des données spécifiques à l'hôte.
+### Étape 2 - Création de Votre Premier Modèle
 
-Créez d'abord le répertoire `templates` pour contenir les ressources de template dans `~/ansible-files/`:
+Les modèles se terminent par une extension `.j2` et mélangent du contenu statique avec des espaces réservés dynamiques entourés de `{{ }}`.
+
+Dans l'exemple suivant, créons un modèle pour le Message du Jour (MOTD) qui inclut des informations dynamiques sur l'hôte.
+
+#### Configuration du Répertoire des Modèles :
+
+Assurez-vous qu'un répertoire de modèles existe dans votre répertoire lab_inventory pour organiser vos modèles.
+
 ```bash
-[student<X>@ansible ansible-files]$ mkdir templates
+mkdir -p ~/lab_inventory/templates
 ```
 
-Ensuite, dans le répertoire `~/ansible-files/templates/` créez le template `motd-facts.j2`:
+#### Développement du Modèle MOTD :
 
-<!-- {% raw %} -->
-```html+jinja
-Welcome to {{ ansible_hostname }}.
-{{ ansible_distribution }} {{ ansible_distribution_version}}
-deployed on {{ ansible_architecture }} architecture.
+Créez un fichier nommé `motd.j2` dans le répertoire des modèles avec le contenu suivant :
+
+```jinja
+Bienvenue sur {{ ansible_hostname }}.
+OS : {{ ansible_distribution }} {{ ansible_distribution_version }}
+Architecture : {{ ansible_architecture }}
 ```
-<!-- {% endraw %} -->
 
-Le template contient le texte de base qui sera ensuite recopié. Il contient également des variables qui seront remplacées individuellement sur les machines cibles.
+Ce modèle affiche dynamiquement le nom d'hôte, la distribution de l'OS, la version et l'architecture de chaque hôte géré.
 
-Ensuite, nous avons besoin d'un playbook pour utiliser ce modèle. Dans le répertoire `~/ansible-files/` créez le Playbook `motd-facts.yml`:
+### Étape 3 - Déploiement du Modèle avec un Playbook
+
+Utilisez le module `ansible.builtin.template` dans un playbook pour distribuer et rendre le modèle sur vos hôtes gérés.
+
+Modifiez le playbook `system_setup.yml` avec le contenu suivant :
+
 ```yaml
 ---
-- name: Fill motd file with host data
-  hosts: node1
+- name: Configuration Système de Base
+  hosts: all
   become: true
   tasks:
-    - template:
-        src: motd-facts.j2
+    - name: Mise à jour de MOTD à partir du modèle Jinja2
+      ansible.builtin.template:
+        src: templates/motd.j2
         dest: /etc/motd
-        owner: root
-        group: root
-        mode: 0644
+
+  handlers:
+    - name: Recharger le Pare-feu
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
 ```
 
-Vous l'avez déjà fait plusieurs fois:
+Le module `ansible.builtin.template` prend le modèle `motd.j2` et génère un fichier `/etc/motd` sur chaque hôte, en remplissant les espaces réservés du modèle avec les faits réels de l'hôte.
 
-   - Comprenez ce que fait le Playbook.
+### Étape 4 - Exécution du Playbook
 
-   - Exécutez le Playbook `motd-facts.yml`.
+Exécutez le playbook pour appliquer votre MOTD personnalisé sur tous les hôtes gérés :
 
-   - Connectez-vous à `node1` via SSH et vérifiez le contenu du message du jour.
-
-   - Déconnectez-vous de `node1`.
-
-Vous devriez voir comment Ansible remplace les variables par les faits qu'il a découverts dans le système.
-
-## Étape 2 - Défi: Les templates
-
-Ajoutez une ligne au template pour afficher le noyau utilisé du nœud géré.
-
-   - Trouvez un fait qui contient la version du noyau en utilisant les commandes que vous avez apprises dans le chapitre sur les "faits".
-
-> **Astuce**
->
-> Faites un `grep -i` pour le noyau
-
-   - Modifiez le modèle pour utiliser le fait que vous avez trouvé.
-
-   - Exécutez à nouveau le Playbook.
-
-   - Vérifiez motd en vous connectant à node1
-
-> **Avertissement**
->
-> **Solution ci-dessous \!**
-
-
-  - Trouvez le fait:
 ```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m setup|grep -i kernel
-       "ansible_kernel": "3.10.0-693.el7.x86_64",
+[student@ansible-1 lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 ```
 
-  - Modifiez le template  `motd-facts.j2`:
-<!-- {% raw %} -->
-```html+jinja
-Welcome to {{ ansible_hostname }}.
-{{ ansible_distribution }} {{ ansible_distribution_version}}
-deployed on {{ ansible_architecture }} architecture
-running kernel {{ ansible_kernel }}.
-```
-<!-- {% endraw %} -->
+```plaintext
+PLAY [Configuration Système de Base] *******************************************
+.
+.
+.
 
-  - Executez le playbook.
-```
-[student1@ansible ~]$ ansible-playbook motd-facts.yml
+TASK [Mise à jour de MOTD à partir du modèle Jinja2] ***************************
+changed: [node1]
+changed: [node2]
+changed: [node3]
+changed: [ansible-1]
+
+RECAP *************************************************************************
+ansible-1                  : ok=6    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+node1                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-  - Vérifiez le nouveau message via la connexion SSH pour `node1`.
+Vérifiez les changements en vous connectant au nœud via SSH, et vous devriez voir le message du jour:
+
+```plaintext
+[rhel@control ~]$ ssh node1
+
+Bienvenue sur node1.
+OS : RedHat 8.7
+Architecture : x86_64
+Enregistrez ce système auprès de Red Hat Insights : insights-client --register
+Créez un compte ou consultez tous vos systèmes sur https://red.ht/insights-dashboard
+Dernière connexion : Lun 29 Jan 16:30:31 2024 depuis 10.5.1.29
 ```
-[student1@ansible ~]$ ssh node1
-Welcome to node1.
-RedHat 8.1
-deployed on x86_64 architecture
-running kernel 4.18.0-147.8.1.el8_1.x86_64.
-```
+
 
 ----
 **Navigation**
@@ -123,3 +121,5 @@ running kernel 4.18.0-147.8.1.el8_1.x86_64.
 [Exercise précédent](../1.5-handlers/README.fr.md) - [Exercise suivant](../1.7-role/README.fr.md)
 
 [Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md)
+
+

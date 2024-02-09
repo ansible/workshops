@@ -1,119 +1,104 @@
-# Atelier - Vérifier les prérequis
+# Exercice de l'Atelier - Vérifier les Prérequis
 
-**Lisez ceci dans d'autres langues**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Lisez ceci dans d'autres langues** :
+<br>![uk](../../../images/uk.png) [Anglais](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugais du Brésil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md), ![Español](../../../images/col.png) [Espagnol](README.es.md).
 
-## Table des matières
+## Table des Matières
 
-- [Atelier - Vérifier les prérequis](#atelier---vérifier-les-prérequis)
-  - [Table des matières](#table-des-matières)
+- [Exercice de l'Atelier - Vérifier les Prérequis](#exercice-de-latelier---vérifier-les-prérequis)
+  - [Table des Matières](#table-des-matières)
   - [Objectif](#objectif)
   - [Guide](#guide)
-    - [Votre Environment](#votre-environnement)
-    - [Etape 1 - Accéder à l'environnement](#etape-1---accéder-à-l'environnement)
-    - [Etape 2 - Utiliser le terminal](#etape-2---utiliser-le-terminal)
-    - [Etape 3 - Examiner les Environnements d'Execution](#etape-3---examiner-les-environnements-d'execution)
-    - [Etape 4 - Examiner la configuration de ansible-navigator](#etape-4---examiner-la-configuration-de-ansible-navigator)
-    - [Etape 5 - Défis](#etape-5---défis)
+    - [Votre Environnement de Laboratoire](#votre-environnement-de-laboratoire)
+    - [Étape 1 - Accéder à l'Environnement](#étape-1---accéder-à-lenvironnement)
+    - [Étape 2 - Utiliser le Terminal](#étape-2---utiliser-le-terminal)
+    - [Étape 3 - Examiner les Environnements d'Exécution](#étape-3---examiner-les-environnements-dexécution)
+    - [Étape 4 - Examiner la configuration de ansible-navigator](#étape-4---examiner-la-configuration-de-ansible-navigator)
+    - [Étape 5 - Labs de Défi](#étape-5---labs-de-défi)
 
 ## Objectif
 
-* Comprendre la topologie du lab et comment accéder à l'environnement
-* Comprendre comment les exercices de l'atelier fonctionnent
-* Comprendre les défis
-
-Ces premiers exercices explorent les utilitaires en ligne de commande (CLI) de Ansible Automation Platform. 
-
-- [ansible-navigator](https://github.com/ansible/ansible-navigator) - un utilitaire en ligne de commande et une interface utilisateur en mode texte (TUI) pour exécuter et développer du contenu d'automatisation Ansible.
-- [ansible-core](https://docs.ansible.com/core.html) - l'exécutable de base qui fournit le framework, le langage et les fonctions qui soutiennent Ansible Automation Platform. Il comprend également les divers outils CLI comme `ansible`, `ansible-playbook` et `ansible-doc`. Ansible Core agit comme un pont entre la communauté upstream et la version gratuite de Ansible et avec la version downstream d'automatisation d'entreprise offerte par Red Hat : Ansible Automation Platform.
-- [Environnement d'Execution](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - ne seront pas couvert particulièrement dans cet atelier car la version intégrée dans Ansible des Environnement d'Execution fournit déjà toutes les collections supportées par Red Hat, ce qui inclut les collections utilisées dans cet atelier. Les Environnements d'Execution sont des images de conteneur qui peuvent être utilisées pour exécuter de l'automatisation Ansible.
-- [ansible-builder](https://github.com/ansible/ansible-builder) - ne sera pas particulièrement couvert dans cet atelier, `ansible-builder` est un utilitaire en ligne de commande pour automatiser le processuss de construction des Environnements d'Execution.
-
-S'il vous faut davatange d'informations sur les nouveaux composants de Ansible Automation Platform, ajoutez en favori cette page [https://red.ht/AAP-20](https://red.ht/AAP-20)
+* Comprendre la Topologie du Laboratoire : Familiarisez-vous avec l'environnement de laboratoire et les méthodes d'accès.
+* Maîtriser les Exercices de l'Atelier : Acquérir de la compétence dans la navigation et l'exécution des tâches de l'atelier.
+* Embrasser les Labs de Défi : Apprenez à appliquer vos connaissances dans des scénarios de défi pratiques.
 
 ## Guide
 
-### Votre Environnement
+La phase initiale de cet atelier se concentre sur les utilitaires en ligne de commande de la Plateforme d'Automatisation Ansible, tels que :
 
-Dans ce lab, vous travaillez avec un environement préconfiguré. Vous aurez accès aux hôtes suivants:
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) - une Interface Utilisateur Textuelle (TUI) pour exécuter et développer du contenu Ansible.
+- [ansible-core](https://docs.ansible.com/core.html) - l'exécutable de base qui fournit le cadre, le langage et les fonctions qui sous-tendent la Plateforme d'Automatisation Ansible, y compris les outils CLI comme `ansible`, `ansible-playbook` et `ansible-doc`.
+- [Environnements d'Exécution](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Images de conteneurs pré-construites avec des collections soutenues par Red Hat.
+- [ansible-builder](https://github.com/ansible/ansible-builder) - automatise le processus de construction des Environnements d'Exécution. Pas un focus principal dans cet atelier.
 
-| Role                 | Inventory name |
-| ---------------------| ---------------|
-| Ansible Control Host | ansible-1      |
-| Managed Host 1       | node1          |
-| Managed Host 2       | node2          |
-| Managed Host 3       | node3          |
+Si vous avez besoin de plus d'informations sur les nouveaux composants de la Plateforme d'Automatisation Ansible, mettez cette page d'accueil en signet [https://red.ht/AAP-20](https://red.ht/AAP-20)
 
-### Etape 1 - Accéder à l'environnement
+### Votre Environnement de Laboratoire
 
-<table>
-<thead>
-  <tr>
-    <th>Il est fortement recommandé d'utiliser Visual Studio Code pour faire les exercices de l'atelier. Visual Studio Code fournit:
-    <ul>
-    <li>Un navigateur de fichiers</li>
-    <li>Un éditeur de texte avec coloration syntaxique</li>
-    <li>Un terminal intégré au navigateur</li>
-    </ul>
-    L'accès SSH direct est disponible en secours, ou si un Visual Studio Code n'est pas suffisant. Cette vidéo Youtube apporte plus de clarification si nécessaire: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
-</th>
-</tr>
-</thead>
-</table>
+Vous travaillerez dans un environnement pré-configuré avec les hôtes suivants :
 
-- Connectez-vous à Visual Studio Code depuis la page de l'atelier (fournie par votre instructeur). Le mot de passe est fourni sous le lien WebUI.
+| Rôle                  | Nom d'inventaire |
+| --------------------- | ---------------- |
+| Hôte de Contrôle Ansible | ansible-1        |
+| Hôte Géré 1           | node1            |
+| Hôte Géré 2           | node2            |
+| Hôte Géré 3           | node3            |
 
-  ![launch page](images/launch_page.png)
+### Étape 1 - Accéder à l'Environnement
 
-- Entrez votre mot de passe pour vous connecter.
+Nous recommandons d'utiliser Visual Studio Code pour cet atelier pour son navigateur de fichiers intégré, son éditeur avec mise en évidence de la syntaxe et son terminal dans le navigateur. L'accès SSH direct est également disponible. Consultez ce tutoriel YouTube sur l'accès à votre environnement de travail.
 
-  ![login vs code](images/vscode_login.png)
+NOTE : Une courte vidéo YouTube est fournie si vous avez besoin de précisions supplémentaires :
+[Ateliers Ansible - Accéder à votre environnement de travail](https://youtu.be/Y_Gx4ZBfcuk)
 
-  - Ouvrez le répertoire `rhel-workshop` dans Visual Studio Code:
+1. Connectez-vous à Visual Studio Code via la page de lancement de l'atelier.
 
-### Etape 2 - Utiliser le terminal
+  ![page de lancement](images/launch_page.png)
 
-- Ouvrez un terminal dans Visual Studio Code:
+2. Entrez le mot de passe fourni pour vous connecter.
 
-  ![picture of new terminal](images/vscode-new-terminal.png)
+  ![connexion vs code](images/vscode_login.png)
 
-Naviguer vers le répertoire `rhel-workshop` sur le terminal du noeud de contrôle Ansible.
+### Étape 2 - Utiliser le Terminal
+
+1. Ouvrez un terminal dans Visual Studio Code :
+
+  ![image d'un nouveau terminal](images/vscode-new-terminal.png)
+
+2. Naviguez vers le répertoire `rhel-workshop` sur le terminal du nœud de contrôle Ansible.
 
 ```bash
 [student@ansible-1 ~]$ cd ~/rhel-workshop/
 [student@ansible-1 rhel-workshop]$ pwd
 /home/student/rhel-workshop
-[student@ansible-1 rhel-workshop]$
 ```
 
-* `~` - le tilde dans ce contexte est un raccourci pour le répertoire home, ici `/home/student`
-* `cd` - commande Linux pour changer de répertoire
-* `pwd` - commande Linux pour afficher le répertoire de travail courant. Le chemin complet du répertoire courant sera affiché.
+* `~` : raccourci pour le répertoire home `/home/student`
+* `cd` : commande pour changer de répertoires
+* `pwd` : imprime le chemin complet du répertoire de travail actuel.
 
-### Etape 3 - Examiner les Environnements d'Execution
+### Étape 3 - Examiner les Environnements d'Exécution
 
-Exécuter la commande `ansible-navigator` avec l'argument `images` pour lister les Environnements d'Execution configurés sur le noeud de contrôle Ansible:
+1. Exécutez `ansible-navigator images` pour voir les Environnements d'Exécution configurés.
+2. Utilisez le numéro correspondant pour enquêter sur un EE, par exemple, en appuyant sur 2 pour ouvrir `ee-supported-rhel8`
 
 ```bash
 $ ansible-navigator images
 ```
 
-![ansible-navigator images](images/navigator-images.png)
+![images ansible-navigator](images/navigator-images.png)
 
+> Note : La sortie que vous voyez peut différer de la sortie ci-dessus
 
-> Note: Le résultat obtenu peut différer légèrement du résultat ci-dessus.
+![menu principal ee](images/navigator-ee-menu.png)
 
-Cette commande vous donne des informations sur les Environnements d'Execution (EE) actuellement installés. Renseignez-vous sur un EE en tapant le numéro correspondant. Par exemple taper **2** dans l'exemple ci-dessus ouvre l'environnement d'exécution `ee-supported-rhel8`:
+Sélectionner `2` pour `Version d'Ansible et collections` nous montrera toutes les Collections Ansible installées sur cet EE particulier, et la version de `ansible-core` :
 
-![ee main menu](images/navigator-ee-menu.png)
+![informations ee](images/navigator-ee-collections.png)
 
-Sélectionner `2` pour `Ansible version and collections` affiche les collections Ansible installées sur cet EE, et la version de `ansible-core`:
+### Étape 4 - Examiner la configuration de ansible-navigator
 
-![ee info](images/navigator-ee-collections.png)
-
-### Etape 4 - Examiner la configuration de ansible-navigator
-
-Au choix, utilisez Visual Studio Code ou la commande `cat` pour voir le contenu du fichier `ansible-navigator.yml`. Le fichier est situé dans le répertoire home:
+1. Visualisez le contenu de `~/.ansible-navigator.yml` en utilisant Visual Studio Code ou la commande `cat`.
 
 ```bash
 $ cat ~/.ansible-navigator.yml
@@ -135,16 +120,16 @@ ansible-navigator:
       dest: "/etc/ansible/"
 ```
 
-Notez les paramètres suivants dans le fichier `ansible-navigator.yml`:
+2. Notez les paramètres suivants dans le fichier `ansible-navigator.yml` :
 
-* `inventories`: donne l'emplacement de l'inventaire Ansible utilisé
-* `execution-environment`: donne l'emplacement de l'environnement d'exécution par défaut
+* `inventories` : montre l'emplacement de l'inventaire ansible utilisé
+* `execution-environment` : où l'environnement d'exécution par défaut est défini
 
-Pour une liste complète des éléments configurables, consultez la [documentation](https://ansible.readthedocs.io/projects/navigator/settings/)
+Pour une liste complète de chaque bouton configurable, consultez la [documentation](https://ansible.readthedocs.io/projects/navigator/settings/)
 
-### Etape 5 - Défis
+### Étape 5 - Labs de Défi
 
-Certains chapitres de cet atelier comportent une section "Défi". Ces labs sont pensés pour vous donner une taĉhe à compléter en utilisant ce que vous avez appris jusque là. La solution est donnée en dessous du signe warning.
+Chaque chapitre est accompagné d'un Lab de Défi. Ces tâches testent votre compréhension et l'application des concepts appris. Les solutions sont fournies sous un signe d'avertissement pour référence.
 
 ---
 **Navigation**

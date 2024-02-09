@@ -40,3 +40,5 @@ jobs:
           job_template: "Workshop teardown Job"
           extra_vars: "ec2_name_prefix=github-action-test-sep19"
           validate_certs: false
+        env:
+          pull_request_event: ${{ github.event.pull_request.number }}

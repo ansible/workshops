@@ -1,342 +1,264 @@
-# ワークショップ演習 - ロール: Playbook を再利用可能にする
+# ワークショップ演習 - ロール: プレイブックを再利用可能にする
 
-**他の言語でもお読みいただけます**:
-<br>![uk](../../../images/uk.png) [English](README.md)、![japan](../../../images/japan.png)[日本語](README.ja.md)、![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md)、![france](../../../images/fr.png) [Française](README.fr.md)、![Español](../../../images/col.png) [Español](README.es.md)
+**他の言語で読む**:
+<br>![uk](../../../images/uk.png) [英語](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![brazil](../../../images/brazil.png) [ブラジルのポルトガル語](README.pt-br.md), ![france](../../../images/fr.png) [フランス語](README.fr.md), ![Español](../../../images/col.png) [スペイン語](README.es.md).
 
 ## 目次
 
-* [目的](#目的)
-* [ガイド](#ガイド)
-  * [ステップ 1 - Ansible ロール構造について](#ステップ-1---ansible-ロール構造について)
-  * [ステップ 2 - 基本的なロールディレクトリー構造の作成](#ステップ-2---基本的なロールディレクトリー構造の作成)
-  * [ステップ 3 - タスクファイルの作成](#ステップ-3---タスクファイルの作成)
-  * [ステップ 4 - ハンドラーの作成](#ステップ-4---ハンドラーの作成)
-  * [ステップ 5 - web.html と vhost 設定ファイルテンプレートの作成](#ステップ-5---webhtml-と-vhost-設定ファイルテンプレートの作成)
-  * [ステップ 6 - ロールのテスト](#ステップ-6---ロールのテスト)
-* [トラブルシューティング問題](#トラブルシューティング問題)
+- [目的](#目的)
+- [ガイド](#ガイド)
+  - [ステップ 1 - ロールの基本](#ステップ-1---ロールの基本)
+  - [ステップ 2 - 環境のクリーンアップ](#ステップ-2---環境のクリーンアップ)
+  - [ステップ 3 - Apacheロールの構築](#ステップ-3---Apacheロールの構築)
+  - [ステップ 4 - プレイブックでのロールの統合](#ステップ-4---プレイブックでのロールの統合)
+  - [ステップ 5 - ロールの実行と検証](#ステップ-5---ロールの実行と検証)
+  - [ステップ 6 - Apacheが稼働していることを確認](#ステップ-6---Apacheが稼働していることを確認)
 
 ## 目的
 
-このワークショップ全体で行ったように、1 つのファイルで Playbook を作成することは可能ですが、最終的には複数のファイルを再利用して、整理することをお勧めします。
-
-これを行うには、Ansible Roles を使用します。ロールを作成するときは、Playbook を複数のパーツに分け、それらのパーツをディレクトリー構造に配置します。これについては、[ヒントとコツ](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) および [Ansible 設定の例](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html) で詳しく説明されています。
-
-この演習では、以下について説明します。
-
-* Ansible Role のフォルダー構造
-* Ansible Role を構築する方法
-* ロールを使用して実行するための Ansible Play の作成
-* Ansible を使用した node2 での Apache VirtualHost の作成
+この演習は、前の演習を基にしており、Apache（httpd）を設定するロールの作成を通じて、Ansibleスキルをさらに進化させます。変数、ハンドラー、カスタムindex.htmlのテンプレートを統合した知識を活用します。このロールは、タスク、変数、テンプレート、ハンドラーを再利用可能な構造にカプセル化し、効率的な自動化を実現する方法を示します。
 
 ## ガイド
 
-### ステップ 1 - Ansible ロール構造について
+### ステップ 1 - ロールの基本
 
-ロールは、定義されたディレクトリ構造に従います。ロールは、最上位ディレクトリーによって名前が付けられます。一部のサブディレクトリーには、`main.yml` という YAML ファイルが含まれています。ファイルとテンプレートのサブディレクトリーには、YAML ファイルによって参照されるオブジェクトを含めることができます。
+Ansibleのロールは、関連する自動化タスクやリソース（変数、テンプレート、ハンドラーなど）を構造化されたディレクトリに整理します。この演習では、再利用性とモジュール性に重点を置いて、Apache設定ロールを作成することに焦点を当てます。
 
-プロジェクト構造の例は次のようになります。ロールの名前は「apache」になります。
+### ステップ 2 - 環境のクリーンアップ
 
-```text
-apache/
-├── defaults
-│   └── main.yml
-├── files
-├── handlers
-│   └── main.yml
-├── meta
-│   └── main.yml
-├── README.md
-├── tasks
-│   └── main.yml
-├── templates
-├── tests
-│   ├── inventory
-│   └── test.yml
-└── vars
-    └── main.yml
-```
+Apache設定に関する以前の作業を踏まえ、環境を整理するためのAnsibleプレイブックを作成しましょう。このステップは、新しいApacheロールを導入するための準備を整え、行われた調整のクリアなビューを提供します。このプロセスを通じて、Ansibleロールによって提供される多様性と再利用性についての理解を深めます。
 
-さまざまな `main.yml` ファイルには、上記のディレクトリー構造内の場所に応じたコンテンツが含まれています。例えば、`vars/main.yml` は変数を参照し、`handlers/main.yaml` はハンドラーなどについて説明します。Playbook とは対照的に、`main.yml` ファイルには特定のコンテンツのみが含まれ、ホスト、`become` またはその他のキーワードなどの追加の Playbook 情報は含まれません。
-
-> **ヒント**
->
-> `vars` と `default` には、実際には 2 つのディレクトリーがあります。デフォルトの変数 `defaults/main.yml` には最も低い優先度が付けられます。また、ロールの作成者によって設定されたデフォルト値が含まれます。これは、これらの値のオーバーライドが意図されているときに使用されます。`vars/main.yml` で設定されている変数は、変更しないことを想定した変数です。
-
-Playbook でのロールの使用は簡単です。
+環境をクリーンアップするために以下のAnsibleプレイブックを実行します：
 
 ```yaml
 ---
-- name: launch roles
-  hosts: web
-  roles:
-    - role1
-    - role2
-```
-
-各ロールについては、そのロールのタスク、ハンドラー、および変数が、その順序で Playbook に含まれます。ロール内のコピー、スクリプト、テンプレート、またはインクルードタスクは、*絶対パス名または相対パス名なしで*関連するファイル、テンプレート、またはタスクを参照できます。Ansible は、それらの使用に基づいて、ロールのファイル、テンプレート、またはタスクで検索します。
-
-
-### ステップ 2 - 基本的なロールディレクトリー構造の作成
-
-Ansible は、プロジェクト内の `roles` というサブディレクトリーを探します。これは、Ansible 構成でオーバーライドできます。各ロールには独自のディレクトリーがあります。新しいロールの作成を容易にするには、`ansible-galaxy` というツールを使用できます。
-
-> **ヒント**
->
-> Ansible Galaxy は、最適な Ansible コンテンツの検索、再利用、共有を行うためのハブです。`ansible-galaxy` は、Ansible Galaxy とのやりとりに便利です。今の時点では、ディレクトリー構造の構築を行うためのヘルパーとして使用します。
-
-さて、ロールを作ってみましょう。仮想ホストにサービスを提供するように Apache をインストールして構成するロールを構築します。これらのコマンドは `~/ansible-files` ディレクトリーで実行します。
-
-```bash
-[student@ansible-1 ansible-files]$ mkdir roles
-[student@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
-```
-
-ロールディレクトリーとその内容を見てください。
-
-```bash
-[student@ansible-1 ansible-files]$ tree roles
-```
-
-```text
-roles/
-└── apache_vhost
-    ├── defaults
-    │   └── main.yml
-    ├── files
-    ├── handlers
-    │   └── main.yml
-    ├── meta
-    │   └── main.yml
-    ├── README.md
-    ├── tasks
-    │   └── main.yml
-    ├── templates
-    ├── tests
-    │   ├── inventory
-    │   └── test.yml
-    └── vars
-        └── main.yml
-```
-
-### ステップ 3 - タスクファイルの作成
-
-ロールのタスクサブディレクトリーの `main.yml` は、以下を行う必要があります。
-
-* httpd がインストールされていることを確認
-* httpd が起動し、有効になっていることを確認
-* HTML コンテンツを Apache ドキュメントルートに配置
-* vhost の設定用のテンプレートのインストール
-
-> **警告**
->
-> **`main.yml` (main.yml に含まれる可能性のあるその他ファイル) は、完全な Playbook *ではなく* タスクのみを含めることができます。**
-
-`roles/apache_vhost/tasks/main.yml` ファイルを編集します。
-
-```yaml
----
-- name: install httpd
-  yum:
-    name: httpd
-    state: latest
-
-- name: start and enable httpd service
-  service:
-    name: httpd
-    state: started
-    enabled: true
-```
-
-タスクが追加されたことに注意してください。Playbook の詳細は表示されません。
-
-これまで追加されたタスクは以下を行います。
-
-* yum モジュールを使用した httpd パッケージのインストール
-* サービスモジュールを使用した httpd の有効化と起動
-
-次に、vhost ディレクトリー構造を確認し、html コンテンツをコピーするための、さらに 2 つのタスクを追加します。
-
-<!-- {% raw %} -->
-
-```yaml
-- name: ensure vhost directory is present
-  file:
-    path: "/var/www/vhosts/{{ ansible_hostname }}"
-    state: directory
-
-- name: deliver html content
-  copy:
-    src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
-```
-
-<!-- {% endraw %} -->
-
-vhost ディレクトリーは、`file` モジュールで作成/確認されることに注意してください。
-
-追加する最後のタスクはテンプレートモジュールを使用して、j2-template から vhost 構成ファイルを作成します。
-
-```yaml
-- name: template vhost file
-  template:
-    src: vhost.conf.j2
-    dest: /etc/httpd/conf.d/vhost.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - restart_httpd
-```
-
-構成の更新後にハンドラーを使用して httpd を再起動していることに注意してください。
-
-完全な `tasks/main.yml` ファイルは以下の通りです。
-
-<!-- {% raw %} -->
-
-```yaml
----
-- name: install httpd
-  yum:
-    name: httpd
-    state: latest
-
-- name: start and enable httpd service
-  service:
-    name: httpd
-    state: started
-    enabled: true
-
-- name: ensure vhost directory is present
-  file:
-    path: "/var/www/vhosts/{{ ansible_hostname }}"
-    state: directory
-
-- name: deliver html content
-  copy:
-    src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
-
-- name: template vhost file
-  template:
-    src: vhost.conf.j2
-    dest: /etc/httpd/conf.d/vhost.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - restart_httpd
-```
-
-<!-- {% endraw %} -->
-
-### ステップ 4 - ハンドラーの作成
-
-`roles/apache_vhost/handlers/main.yml` ファイルにハンドラーを作成し、テンプレートタスクで通知されたときに httpd を再起動します。
-
-```yaml
----
-# handlers file for roles/apache_vhost
-- name: restart_httpd
-  service:
-    name: httpd
-    state: restarted
-```
-
-### ステップ 5 - web.html と vhost 設定ファイルテンプレートの作成
-
-Web サーバーによってサービスされる HTML コンテンツを作成します。
-
-* ロールの「src」ディレクトリー `files` に web.html ファイルを作成します。
-
-```bash
-#> echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
-```
-
-* ロールの `templates` サブディレクトリーに `vhost.conf.j2` テンプレートを作成します。
-
-`vhost.conf.j2` テンプレートファイルの内容を以下に示します。
-
-<!-- {% raw %} -->
-
-```text
-# {{ ansible_managed }}
-
-<VirtualHost *:8080>
-    ServerAdmin webmaster@{{ ansible_fqdn }}
-    ServerName {{ ansible_fqdn }}
-    ErrorLog logs/{{ ansible_hostname }}-error.log
-    CustomLog logs/{{ ansible_hostname }}-common.log common
-    DocumentRoot /var/www/vhosts/{{ ansible_hostname }}/
-
-    <Directory /var/www/vhosts/{{ ansible_hostname }}/>
-  Options +Indexes +FollowSymlinks +Includes
-  Order allow,deny
-  Allow from all
-    </Directory>
-</VirtualHost>
-```
-
-<!-- {% endraw %} -->
-
-### ステップ 6 - ロールのテスト
-
-`node2` に対してロールをテストする準備が整いました。ただし、役割をノードに直接割り当てることはできないため、最初に役割とホストを接続する Playbook を作成します。ファイル `test_apache_role.yml` をディレクトリー `~/ansible-files` に作成します。
-
-```yaml
----
-- name: use apache_vhost role playbook
-  hosts: node2
+- name: Cleanup Environment
+  hosts: all
   become: true
+  vars:
+    package_name: httpd
+  tasks:
+    - name: Remove Apache from web servers
+      ansible.builtin.dnf:
+        name: "{{ package_name }}"
+        state: absent
+      when: inventory_hostname in groups['web']
 
-  pre_tasks:
-    - debug:
-        msg: 'Beginning web server configuration.'
+    - name: Remove firewalld
+      ansible.builtin.dnf:
+        name: firewalld
+        state: absent
 
+    - name: Delete created users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: absent
+        remove: true  # Use 'remove: true’ to delete home directories
+      loop:
+        - alice
+        - bob
+        - carol
+        - Roger
+
+    - name: Reset MOTD to an empty message
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: ''
+```
+
+### ステップ 3 - Apacheロールの構築
+
+`apache`という名前のロールを開発して、Apacheをインストール、設定、管理します。
+
+1. ロール構造を生成する：
+
+ansible-galaxyを使用してロールを作成し、出力のためにロールディレクトリを指定します。
+
+```bash
+[student@ansible-1 lab_inventory]$ mkdir roles
+[student@ansible-1 lab_inventory]$ ansible-galaxy init --offline roles/apache
+```
+
+2. ロール変数を定義する：
+
+Apacheに固有の変数で `/home/student/lab_inventory/roles/apache/vars/main.yml` を埋めます：
+
+```yaml
+---
+# vars file for roles/apache
+apache_package_name: httpd
+apache_service_name: httpd
+```
+
+3. ロールタスクを設定する：
+
+Apacheのインストールとサービス管理のタスクを含むように `/home/student/lab_inventory/roles/apache/tasks/main.yml` を調整します：
+
+```yaml
+---
+# tasks file for ansible-files/roles/apache
+- name: Install Apache web server
+  ansible.builtin.package:
+    name: "{{ apache_package_name }}"
+    state: present
+
+- name: Ensure Apache is running and enabled
+  ansible.builtin.service:
+    name: "{{ apache_service_name }}"
+    state: started
+    enabled: true
+
+- name: Install firewalld
+  ansible.builtin.dnf:
+    name: firewalld
+    state: present
+
+- name: Ensure firewalld is running
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
+
+- name: Allow HTTPS traffic on web servers
+  ansible.posix.firewalld:
+    service: https
+    permanent: true
+    state: enabled
+  when: inventory_hostname in groups['web']
+  notify: Reload Firewall
+```
+
+4. ハンドラーを実装する：
+
+設定が変更された場合にfirewalldを再起動するハンドラーを `/home/student/lab_inventory/roles/apache/handlers/main.yml` に作成します：
+
+```yaml
+---
+# handlers file for ansible-files/roles/apache
+- name: Reload Firewall
+  ansible.builtin.service:
+    name: firewalld
+    state: reloaded
+```
+
+5. テンプレートを作成して展開する：
+
+カスタムの `index.html` のためのJinja2テンプレートを使用します。テンプレートを `templates/index.html.j2` に保存します：
+
+```html
+<html>
+<head>
+<title>Welcome to {{ ansible_hostname }}</title>
+</head>
+<body>
+ <h1>Hello from {{ ansible_hostname }}</h1>
+</body>
+</html>
+```
+
+6. この `index.html` テンプレートを展開するために `tasks/main.yml` を更新します：
+
+```yaml
+- name: Deploy custom index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+```
+
+### ステップ 4 - プレイブックでのロールの統合
+
+`/home/student/lab_inventory` 内の `deploy_apache.yml` というプレイブックに `apache` ロールを埋め込んで、'web' グループホスト（node1、node2、node3）に適用します。
+
+```yaml
+- name: Setup Apache Web Servers
+  hosts: web
+  become: true
   roles:
-    - apache_vhost
-
-  post_tasks:
-    - debug:
-        msg: 'Web server has been configured.'
+    - apache
 ```
 
-`pre_tasks` および `post_tasks` キーワードに注目してください。通常、Playbook のタスクの前に、ロールのタスクが実行されます。実行の順序を制御するため、ロールが適用される前に `pre_tasks` が実行されます。`post_tasks` は、すべてのロールが完了した後に実行されます。ここでは、これを使用して、実際のロールが実行されたときに、わかりやすくなるようにします。
+### ステップ 5 - ロールの実行と検証
 
-これで、Playbook を実行する準備が整いました。
+デザインされたWebサーバーにApacheを設定するためにプレイブックを起動します：
 
 ```bash
-[student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
+ansible-navigator run deploy_apache.yml -m stdout
 ```
 
-`node2` に curl コマンドを実行して、ロールが動作したことを確認します。
+#### 出力：
+
+```plaintext
+PLAY [Setup Apache Web Servers] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node2]
+ok: [node1]
+ok: [node3]
+
+TASK [apache : Install Apache web server] **************************************
+changed: [node1]
+changed: [node2]
+changed: [node3]
+
+TASK [apache : Ensure Apache is running and enabled] ***************************
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+TASK [apache : Deploy custom index.html] ***************************************
+changed: [node1]
+changed: [node2]
+changed: [node3]
+
+RUNNING HANDLER [apache : Reload Firewall] *************************************
+ok: [node2]
+ok: [node1]
+ok: [node3]
+
+PLAY RECAP *********************************************************************
+node1                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+### ステップ 6 - Apacheが稼働していることを確認
+
+プレイブックの完了後、すべてのWebノードで `httpd` が実際に稼働していることを確認します。
 
 ```bash
-[student@ansible-1 ansible-files]$ curl -s http://node2:8080
-simple vhost index
+[rhel@control ~]$ ssh node1 "systemctl status httpd"
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2024-01-29 16:49:13 UTC; 3min 46s ago
 ```
-
-おめでとうございます。これでこの演習は終わりです。
-
-## トラブルシューティング問題
-
-最後の curl は動作しましたか？ ss コマンドを実行すると、Web サーバーが動作しているポートを確認できます。
 
 ```bash
-#> sudo ss -tulpn | grep httpd
+[rhel@control ~]$ ssh node2 "systemctl status httpd"
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2024-01-29 16:49:13 UTC; 3min 58s ago
 ```
 
-次のような行があるはずです。
+`httpd` が稼働していることを確認したら、Apache Webサーバーが適切な `index.html` ファイルを提供しているかどうかをチェックします：
 
 ```bash
-tcp   LISTEN 0      511                *:8080               *:*    users:(("httpd",pid=182567,fd=4),("httpd",pid=182566,fd=4),("httpd",pid=182565,fd=4),("httpd",pid=182552,fd=4))
+[student@ansible-1 lab_inventory]$ curl http://node1
+<html>
+<head>
+<title>Welcome to node1</title>
+</head>
+<body>
+ <h1>Hello from node1</h1>
+</body>
+</html>
 ```
 
-これが機能していない場合は、`/etc/httpd/conf/httpd.conf` に `Listen 8080` が指定されていることを確認してください。これは、[演習 1.5](../1.5-handlers) で変更しています。
 
 ---
 **ナビゲーション**
 <br>
-[前の演習](../1.6-templates) - [次の演習](../2.1-intro)
+[前の演習](../1.6-templates/README.ja.md) -[次の演習](../1.8-troubleshoot/README.ja.md)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)
+[Red Hat Enterprise Linux のための Ansible ワークショップに戻る](../README.md#section-1---ansible-engine-exercises)
+
+

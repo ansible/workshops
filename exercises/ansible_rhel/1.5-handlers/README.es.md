@@ -1,242 +1,248 @@
-# Workshop - Condicionales, controladores y bucles
+# Ejercicio del Taller - Condicionales, Manejadores y Bucles
 
-**Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Lee esto en otros idiomas**:
+<br>![uk](../../../images/uk.png) [Inglés](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Português do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Français](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
-## Table of Contents
+# Ejercicios del Taller - Usando Condicionales, Manejadores y Bucles
 
-* [Objetivos](#Objetivos)
-* [Guía](#Guía)
-* [Paso 1 - Condicionales](#Paso-1---Condicionales)
-* [Paso 2 - Controladores](#Paso-2---Controladores)
-* [Paso 3 - Bucles simples](#Paso-3---Bucles-simples)
-* [Paso 4 - Bucles sobre hashes](#Paso-4---Bucles-sobre-hashes)
+## Tabla de Contenidos
 
-# Objetivos
+- [Objetivo](#objetivo)
+- [Guía](#guía)
+  - [Paso 1 - Entendiendo Condicionales, Manejadores y Bucles](#paso-1---entendiendo-condicionales-manejadores-y-bucles)
+  - [Paso 2 - Condicionales](#paso-2---condicionales)
+  - [Paso 3 - Manejadores](#paso-3---manejadores)
+  - [Paso 4 - Bucles](#paso-4---bucles)
 
-Tres características fundamentales de Ansible son:  
-- [Condicionales](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
-- [Controladores](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
-- [Bucles](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+## Objetivo
 
-# Guía
+Expandiendo el Ejercicio 1.4, este ejercicio introduce la aplicación de condicionales, manejadores y bucles en los libros de jugadas de Ansible. Aprenderás a controlar la ejecución de tareas con condicionales, gestionar respuestas de servicios con manejadores y manejar tareas repetitivas de manera eficiente usando bucles.
 
-## Paso 1 - Condicionales
+## Guía
 
-Ansible puede usar condicionales para ejecutar tareas o plays cuando se cumplen ciertas condiciones.
+Los condicionales, manejadores y bucles son características avanzadas en Ansible que mejoran el control, la eficiencia y la flexibilidad en tus libros de jugadas de automatización.
 
-Para implementar un condicional, se debe usar la instrucción `when`, seguida de la condición para probar. La condición se expresa utilizando uno de los operadores disponibles, como por ejemplo para comparacion:
+### Paso 1 - Entendiendo Condicionales, Manejadores y Bucles
 
-|      |                                                                        |
-| ---- | ---------------------------------------------------------------------- |
-| \==  | Compara dos objetos para la igualdad.                                     |
-| \!=  | Compara dos objetos para la desigualdad.                                   |
-| \>   | cierto si el lado izquierdo es mayor que el lado derecho.        |
-| \>=  | cierto si el lado izquierdo es mayor o igual al lado derecho. |
-| \<   | cierto si el lado izquierdo es más bajo que el lado derecho.          |
-| \<=  | cierto si el lado izquierdo es inferior o igual al lado derecho.   |
+- **Condicionales**: Permiten que las tareas se ejecuten basadas en condiciones específicas.
+- **Manejadores**: Tareas especiales desencadenadas por una directiva `notify`, típicamente usadas para reiniciar servicios después de cambios.
+- **Bucles**: Se utilizan para repetir una tarea varias veces, especialmente útil cuando la tarea es similar pero necesita aplicarse a diferentes elementos.
 
-Para obtener más información, consulte la documentación: <http://jinja.pocoo.org/docs/2.10/templates/>
+### Paso 2 - Condicionales
 
-Como ejemplo, le gustaría instalar un servidor FTP, pero solo en hosts que se encuentran en el grupo de inventario "ftpserver".
+Los condicionales en Ansible controlan si una tarea debe ejecutarse basada en ciertas condiciones.
+Vamos a añadir al libro de jugadas system_setup.yml la capacidad de instalar el Servidor HTTP Apache (`httpd`) solo en hosts que pertenezcan al grupo `web` en nuestro inventario.
 
-Para ello, primero edite el inventario para agregar otro grupo y coloque `node2` en él. Aseegurese que esa dirección IP del `node2` es siempre la misma cuando lista el `node2`. Edite el inventario `~/lab_inventory/hosts` para que se parezca a la siguiente lista:
-
-```ini
-[web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
-
-[ftpserver]
-node2 ansible_host=22.33.44.55
-
-[control]
-ansible ansible_host=44.55.66.77
-```
-A continuación, cree el archivo `ftpserver.yml` en el host de control en el directorio `~/ansible-files/`:
+> NOTA: Ejemplos anteriores tenían hosts configurados como node1 pero ahora está configurado como all. Esto significa que cuando ejecutes este libro de jugadas actualizado de Ansible notarás actualizaciones para los nuevos sistemas automatizados, el usuario Roger creado en todos los nuevos sistemas y el paquete del servidor web Apache httpd instalado en todos los hosts dentro del grupo web.
 
 ```yaml
 ---
-- name: Install vsftpd on ftpservers
+- name: Configuración Básica del Sistema
   hosts: all
-  become: yes
+  become: true
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
   tasks:
-    - name: Install FTP server when host in ftpserver group
-      yum:
-        name: vsftpd
+    - name: Actualizar todos los paquetes relacionados con la seguridad
+      ansible.builtin.dnf:
+        name: '*'
         state: latest
-      when: inventory_hostname in groups["ftpserver"]
+        security: true
+        update_only: true
+
+    - name: Crear un nuevo usuario
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+
+    - name: Instalar Apache en servidores web
+      ansible.builtin.dnf:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
 ```
 
-> **Consejo**
->
-> A estas alturas ya deberías saber cómo ejecutar Ansible Playbooks, empezaremos a ser menos detallados en esta guía. Vaya a crearlo y ejecútelo. :-)
+En este ejemplo, inventory_hostname in groups['web'] es la declaración condicional. inventory_hostname se refiere al nombre del host actual en el que Ansible está trabajando en el libro de jugadas. La condición verifica si este host es parte del grupo web definido en tu archivo de inventario. Si es verdadero, la tarea se ejecutará e instalará Apache en ese host.
 
-Ejecútelo y examine la salida. El resultado esperado: la tarea se omite en node1, node3 y el host ansible (su host de control) porque no están en el grupo ftpserver del archivo de inventario.
+Paso 3 - Manejadores
+Los manejadores se utilizan para tareas que solo deben ejecutarse cuando son notificadas por otra tarea. Típicamente, se usan para reiniciar servicios después de un cambio de configuración.
 
-```bash
-TASK [Install FTP server when host in ftpserver group] *******************************************
-skipping: [ansible]
-skipping: [node1]
-skipping: [node3]
-changed: [node2]
-```
-
-# Paso 2 - Controladores
-
-A veces, cuando una tarea realiza un cambio en el sistema, es posible que sea necesario ejecutar una tarea o tareas adicionales. Por ejemplo, un cambio en el archivo de configuración de un servicio puede requerir que se reinicie el servicio para que la configuración modificada surta efecto.
-
-Aquí entran en juego los controladores de Ansible. Los controladores se pueden ver como tareas inactivas que solo se desencadenan cuando se invocan explícitamente mediante la instrucción "notify". Leer más sobre ellos en la documentación de [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change).
-
-Como ejemplo, vamos a escribir un Playbook que:
-
-  - gestiona el archivo de configuración de Apache `/etc/httpd/conf/httpd.conf` en todos los hosts del grupo `web`
-
-  - reinicia Apache cuando el archivo ha cambiado
-
-Primero necesitamos el archivo que Ansible implementará, vamos a tomar el del nodo1. Recuerde reemplazar la dirección IP que se muestra en la lista siguiente con la dirección IP de su `node1`.
-
-```
-[student<X>@ansible ansible-files]$ scp 11.22.33.44:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
-student<X>@11.22.33.44's password:
-httpd.conf             
-```
-
-A continuación, cree el Playbook `httpd_conf.yml`. Asegúrese de que se encuentra en el directorio `~/ansible-files`.
+Digamos que queremos asegurarnos de que el firewall esté configurado correctamente en todos los servidores web y luego recargar el servicio de firewall para aplicar cualquier nueva configuración. Definiremos un manejador que recargue el servicio de firewall y es notificado por una tarea que asegura que las reglas de firewall deseadas estén en su lugar:
 
 ```yaml
 ---
-- name: manage httpd.conf
-  hosts: web
-  become: yes
-  tasks:
-  - name: Copy Apache configuration file
-    copy:
-      src: httpd.conf
-      dest: /etc/httpd/conf/
-    notify:
-        - restart_apache
+- name: Configuración Básica del Sistema
+  hosts: all
+  become: true
+  .
+  .
+  .
+    - name: Instalar firewalld
+      ansible.builtin.dnf:
+        name: firewalld
+        state: present
+
+    - name: Asegurar que firewalld esté corriendo
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Permitir tráfico HTTPS en servidores web
+      ansible.posix.firewalld:
+        service: https
+        permanent: true
+        state: enabled
+      when: inventory_hostname in groups['web']
+      notify: Recargar Firewall
+
   handlers:
-    - name: restart_apache
-      service:
-        name: httpd
-        state: restarted
+    - name: Recargar Firewall
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
+
 ```
-¿Qué hay de nuevo aquí?
 
-  - La sección "notify" llama al controlador solo cuando la tarea de copia cambia realmente el archivo. De este modo, el servicio solo se reinicia si es necesario, y no cada vez que se ejecuta el playbook.
+El manejador Recargar Firewall solo se activa si la tarea "Permitir tráfico HTTPS en servidores web" realiza algún cambio.
 
-  - La sección "handlers" define una tarea que solo se ejecuta en la notificación.
-<hr>
+> NOTA: Observa cómo el nombre del manejador se utiliza dentro de la sección notify de la tarea de configuración "Recargar Firewall". Esto asegura que se ejecute el manejador adecuado ya que puede haber múltiples manejadores dentro de un libro de jugadas de Ansible.
 
-Ejecute el Playbook. Todavía no hemos cambiado nada en el archivo, por lo que no debería haber ninguna línea `changed` en la salida y, por supuesto, el controlador no debería dispararse.
+```yaml
+PLAY [Configuración Básica del Sistema] ******************************************************
 
-  - Ahora cambie la línea `Listen 80` en `~/ansible-files/files/httpd.conf` por:
+TASK [Recolectando Hechos] *********************************************************
+ok: [node1]
+ok: [node2]
+ok: [ansible-1]
+ok: [node3]
 
-```ini
-Listen 8080
+TASK [Actualizar todos los paquetes relacionados con la seguridad] ************************************
+ok: [node2]
+ok: [node1]
+ok: [ansible-1]
+ok: [node3]
+
+TASK [Crear un nuevo usuario] *******************************************************
+ok: [node1]
+ok: [node2]
+ok: [ansible-1]
+ok: [node3]
+
+TASK [Instalar Apache en servidores web] *******************************************
+skipping: [ansible-1]
+ok: [node2]
+ok: [node1]
+ok: [node3]
+
+TASK [Instalar firewalld] *******************************************************
+changed: [ansible-1]
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+TASK [Asegurar que firewalld esté corriendo] *********************************************
+changed: [node3]
+changed: [ansible-1]
+changed: [node2]
+changed: [node1]
+
+TASK [Permitir tráfico HTTPS en servidores web] **************************************
+skipping: [ansible-1]
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+MANEJADOR EN EJECUCIÓN [Recargar Firewall] **********************************************
+changed: [node2]
+changed: [node1]
+changed: [node3]
+
+RECUENTO DE JUEGO *********************************************************************
+ansible-1                  : ok=5    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+node1                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+
 ```
-  - Ejecute el Playbook de nuevo. Ahora la salida de Ansible debería ser mucho más interesante:
 
-      - httpd.conf debería haber sido copiado
+### Paso 4 - Bucles
+Los bucles en Ansible te permiten realizar una tarea múltiples veces con diferentes valores. Esta característica es particularmente útil para tareas como crear múltiples cuentas de usuario en nuestro ejemplo dado.
+En el libro de jugadas system_setup.yml original del Ejercicio 1.4, teníamos una tarea para crear un solo usuario:
 
-      - El controlador debería haber reiniciado Apache
+```yaml
+- name: Crear un nuevo usuario
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    state: present
+    create_home: true
 
+```
 
-Apache debería escuchar ahora en el puerto 8080. Lo suficientemente fácil de verificar:
+Ahora, modifiquemos esta tarea para crear múltiples usuarios usando un bucle:
+
+```yaml
+- name: Crear un nuevo usuario
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: present
+    create_home: true
+  loop:
+    - alice
+    - bob
+    - carol
+
+```
+
+¿Qué cambió?
+
+1. Directiva de Bucle: La palabra clave loop se usa para iterar sobre una lista de elementos. En este caso, la lista contiene los nombres de los usuarios que queremos crear: alice, bob y carol.
+
+2. Creación de Usuarios con Bucle: En lugar de crear un solo usuario, la tarea modificada ahora itera sobre cada elemento en la lista de bucle. El marcador de posición `{{ item }}` se reemplaza dinámicamente con cada nombre de usuario en la lista, por lo que el módulo ansible.builtin.user crea cada usuario a su vez.
+
+Cuando ejecutes el libro de jugadas actualizado, esta tarea se ejecutará tres veces, una vez para cada usuario especificado en el bucle. Es una forma eficiente de manejar tareas repetitivas con datos de entrada variables.
+
+Fragmento de la salida para crear un nuevo usuario en todos los nodos.
 
 ```bash
-[student1@ansible ansible-files]$ curl http://22.33.44.55
-curl: (7) Failed connect to 22.33.44.55:80; Connection refused
-[student1@ansible ansible-files]$ curl http://22.33.44.55:8080
-<body>
-<h1>This is a production webserver, take care!</h1>
-</body>
-```
-Sientase libre de cambiar el archivo httpd.conf de nuevo y ejecutar el playbook.
+[student@ansible-1 ~lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 
-## Paso 3 - Bucles simples
+PLAY [Configuración Básica del Sistema] ******************************************************
 
-Los bucles nos permiten repetir la misma tarea una y otra vez. Por ejemplo, supongamos que desea crear varios usuarios. Mediante el uso de un bucle de Ansible, puede hacerlo en una sola tarea. Los bucles también pueden recorrer en iteración algo más que las listas básicas. Por ejemplo, si tiene una lista de usuarios con su correspondinte grupo, el bucle también puede iterar sobre ellos. Obtenga más información sobre los bucles en el la documentación de [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html).
+.
+.
+.
 
-Para mostrar la función de bucles generaremos tres nuevos usuarios en `node1`. Para ello, cree el archivo `loop_users.yml` en `~/ansible-files` en el nodo de control como usuario student. Usaremos el módulo `user` para generar las cuentas de usuario.
+TASK [Crear un nuevo usuario] *******************************************************
+changed: [node2] => (item=alice)
+changed: [ansible-1] => (item=alice)
+changed: [node1] => (item=alice)
+changed: [node3] => (item=alice)
+changed: [node1] => (item=bob)
+changed: [ansible-1] => (item=bob)
+changed: [node3] => (item=bob)
+changed: [node2] => (item=bob)
+changed: [node1] => (item=carol)
+changed: [node3] => (item=carol)
+changed: [ansible-1] => (item=carol)
+changed: [node2] => (item=carol)
 
-<!-- {% raw %} -->
-```yaml
----
-- name: Ensure users
-  hosts: node1
-  become: yes
+.
+.
+.
 
-  tasks:
-    - name: Ensure three users are present
-      user:
-        name: "{{ item }}"
-        state: present
-      loop:
-         - dev_user
-         - qa_user
-         - prod_user
-```
-<!-- {% endraw %} -->
 
-Comprancion del playbook y la salida
-<!-- {% raw %} -->
-  - Los nombres no se proporcionan directamente al módulo de usuario. En lugar de eso, solo hay una variable que se llama `{{ item }}` para el parámetro `name`.
+RECUENTO DE JUEGO *********************************************************************
+ansible-1                  : ok=5    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+node1                      : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-  - La palabra clave `loop` enumera los nombres de usuario reales. Estos reemplazan el `{{ item }}` durante la ejecución real del playbook.
 
-  - Durante la ejecución, la tarea solo aparece una vez, pero hay tres cambios listados debajo de ella.
-<!-- {% endraw %} -->
-
-## Paso 4 - Bucles sobre hashes
-
-Como los bucles mencionados también pueden estar sobre las listas de hashes. Imagine que los usuarios deben asignarse a diferentes grupos adicionales:
-
-```yaml
-- username: dev_user
-  groups: ftp
-- username: qa_user
-  groups: ftp
-- username: prod_user
-  groups: apache
-```
-El módulo `user` tiene el parámetro opcional `groups` para enumerar usuarios adicionales. Para hacer referencia a los elementos de un hash, por ejemplo, la palabra clave `{{ item }}` debe hacer referencia a la subclave: `{{ item.groups }}` por ejemplo.
-
-Vamos a reescribir el playbook para crear los usuarios con derechos de usuario adicionales:
-
-<!-- {% raw %} -->
-```yaml
----
-- name: Ensure users
-  hosts: node1
-  become: yes
-
-  tasks:
-    - name: Ensure three users are present
-      user:
-        name: "{{ item.username }}"
-        state: present
-        groups: "{{ item.groups }}"
-      loop:
-        - { username: 'dev_user', groups: 'ftp' }
-        - { username: 'qa_user', groups: 'ftp' }
-        - { username: 'prod_user', groups: 'apache' }
-
-```
-<!-- {% endraw %} -->
-
-Compruebe la salida:
-
-  - Una vez más la tarea se enumera una vez, pero se enumeran tres cambios. Se muestra cada bucle con su contenido.
-
-Compruebe que el usuario `dev_user` se creó efectivamente en `node1`:
-
-```bash
-[student<X>@ansible ansible-files]$ ansible node1 -m command -a "id dev_user"
-node1 | CHANGED | rc=0 >>
-uid=1002(dev_user) gid=1002(dev_user) Gruppen=1002(dev_user),50(ftp)
 ```
 
 ----

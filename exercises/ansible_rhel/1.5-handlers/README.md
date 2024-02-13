@@ -35,6 +35,8 @@ Let's add to the system_setup.yml playbook the ability to install the Apache HTT
 
 > NOTE: Previous examples had hosts set to node1 but now it is set to all. This means when you run this updated Ansible playbook you will notice updates for the new systems being automated against, the user Roger created on all new systems and the Apache web server package httpd installed on all the hosts within the web group.
 
+<!-- {% raw %} -->
+
 ```yaml
 ---
 - name: Basic System Setup
@@ -63,6 +65,8 @@ Let's add to the system_setup.yml playbook the ability to install the Apache HTT
         state: present
       when: inventory_hostname in groups['web']
 ```
+
+<!-- {% raw %} -->
 
 In this example, `inventory_hostname in groups['web']` is the conditional statement. `inventory_hostname` refers to the name of the current host that Ansible is working on in the playbook. The condition checks if this host is part of the `web` group defined in your inventory file. If true, the task will execute and install Apache on that host.
 
@@ -175,7 +179,7 @@ node3                      : ok=8    changed=4    unreachable=0    failed=0    s
 Loops in Ansible allow you to perform a task multiple times with different values. This feature is particularly useful for tasks like creating multiple user accounts in our given example.
 In the original system_setup.yml playbook from Exercise 1.4, we had a task for creating a single user:
 
-
+<!-- {% raw %} -->
 ```yaml
 - name: Create a new user
   ansible.builtin.user:
@@ -184,9 +188,11 @@ In the original system_setup.yml playbook from Exercise 1.4, we had a task for c
     create_home: true
 
 ```
+<!-- {% raw %} -->
 
 Now, let's modify this task to create multiple users using a loop:
 
+<!-- {% raw %} -->
 ```yaml
 - name: Create a new user
   ansible.builtin.user:
@@ -198,12 +204,15 @@ Now, let's modify this task to create multiple users using a loop:
     - bob
     - carol
 ```
+<!-- {% raw %} -->
 
+<!-- {% raw %} -->
 What Changed?
 
 1. Loop Directive: The loop keyword is used to iterate over a list of items. In this case, the list contains the names of users we want to create: alice, bob, and carol.
 
 2. User Creation with Loop: Instead of creating a single user, the modified task now iterates over each item in the loop list. The `{{ item }}` placeholder is dynamically replaced with each username in the list, so the ansible.builtin.user module creates each user in turn.
+<!-- {% raw %} -->
 
 When you run the updated playbook, this task is executed three times, once for each user specified in the loop. It's an efficient way to handle repetitive tasks with varying input data.
 

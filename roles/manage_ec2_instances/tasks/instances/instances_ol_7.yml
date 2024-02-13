@@ -1,0 +1,12 @@
+---
+- name: Oracle Linux 7 instance size list length
+  ansible.builtin.debug:
+    msg: "Oracle Linux 7 instance size list length: {{ ec2_info[ol7].size | length }}"
+
+- name: Initialize/reset list count
+  ansible.builtin.set_fact:
+    list_count: "reset"
+
+- name: Call Oracle Linux 7 retry tasks include
+  ansible.builtin.include_tasks: ol_7/ol_7_loop.yml
+...

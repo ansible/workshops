@@ -225,6 +225,20 @@ ec2_info:
     filter: 'CentOS*7*x86_64*'
     username: centos
     python_interpreter: '/usr/bin/python'
+  ol7:
+    owners: 131827586825
+    size:
+      - t3a.medium
+      - t2.medium
+    os_type: linux
+    disk_volume_type: gp3
+    disk_space: 10
+    disk_iops: 3000
+    disk_throughput: 125
+    architecture: x86_64
+    filter: 'OL7.9-x86_64-HVM-*'
+    username: ec2-user
+    python_interpreter: '/usr/bin/python'
   f5node:
     owners: 679593333241
     size:

@@ -11,6 +11,10 @@
   include_tasks: ami_find_centos_7.yml
   when: (centos7 is defined) and (centos7 is not none)
 
+- name: find ami for oracle linux 7
+  include_tasks: ami_find_ol_7.yml
+  when: (ol7 is defined) and (ol7 is not none)
+
 - name: find ami for satellite
   ec2_ami_info:
     region: "{{ ec2_region }}"

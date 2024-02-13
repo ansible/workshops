@@ -225,7 +225,7 @@ ec2_info:
     filter: 'CentOS*7*x86_64*'
     username: centos
     python_interpreter: '/usr/bin/python'
-  ol7:
+  ol79:
     owners: 131827586825
     size:
       - t3a.medium

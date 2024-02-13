@@ -34,6 +34,8 @@ In this example, add debug tasks to your Apache role in the `tasks/main.yml` to 
 
 Insert debug tasks to display the values of variables or custom messages for troubleshooting:
 
+<!-- {% raw %} -->
+
 ```yaml
 - name: Display Variable Value
   ansible.builtin.debug:
@@ -44,6 +46,8 @@ Insert debug tasks to display the values of variables or custom messages for tro
     msg: "Apache service name is {{ apache_service_name }}"
 ```
 
+<!-- {% raw %} -->
+
 ### Step 3 - Error Handling with Blocks
 
 Ansible allows grouping tasks using `block` and handling errors with `rescue` sections, similar to try-catch in traditional programming.
@@ -53,6 +57,8 @@ In this example, add a block to handle potential errors during the Apache config
 1. Group Tasks and Handle Errors:
 
 Wrap tasks that could potentially fail in a block and define a rescue section to handle errors:
+
+<!-- {% raw %} -->
 
 ```yaml
 - name: Apache Configuration with Potential Failure Point
@@ -66,6 +72,8 @@ Wrap tasks that could potentially fail in a block and define a rescue section to
       ansible.builtin.debug:
         msg: "Missing Apache configuration file '{{ apache_conf_src }}'. Using default settings."
 ```
+
+<!-- {% raw %} -->
 
 2. Add an `apache_conf_src` variable within `vars/main.yml` of the apache role.
 

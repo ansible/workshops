@@ -62,6 +62,6 @@
 
 ## oracle linux 7 nodes for potential convert2rhel scenarios
 - name: provision aws oracle linux 7 instances
-  include_tasks: instances_os_7.yml
+  include_tasks: instances_ol_7.yml
   when: (ol7 is defined) and (ol7 is not none)
 ...

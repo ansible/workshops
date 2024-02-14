@@ -13,6 +13,7 @@
     - name: ADD SPLUNK NODE TO INVENTORY
       add_host:
         name: "{{ item.tags.Name }}"
+        student_number: "{{ item.tags.Index|int + 1 }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
@@ -43,6 +44,7 @@
     - name: ADD QRADAR NODE TO INVENTORY
       ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
+        student_number: "{{ item.tags.Index|int + 1 }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
@@ -76,6 +78,7 @@
     - name: ADD ATTACK SIMULATION NODE TO INVENTORY
       ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
+        student_number: "{{ item.tags.Index|int + 1 }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
@@ -112,6 +115,7 @@
     - name: ADD SNORT NODE TO INVENTORY
       ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
+        student_number: "{{ item.tags.Index|int + 1 }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
@@ -141,6 +145,7 @@
     - name: ADD Check Point CloudGuard Security Management TO INVENTORY
       ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
+        student_number: "{{ item.tags.Index|int + 1 }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
@@ -167,6 +172,7 @@
     - name: ADD Check Point NGFW TO INVENTORY
       ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
+        student_number: "{{ item.tags.Index|int + 1 }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         username: "{{ item.tags.Student }}"
@@ -195,6 +201,7 @@
     - name: ADD WINDOWS WORKSTATION TO INVENTORY
       ansible.builtin.add_host:
         name: "{{ item.tags.Name }}"
+        student_number: "{{ item.tags.Index|int + 1 }}"
         short_name: "{{ item.tags.short_name }}"
         ansible_host: "{{ item.public_ip_address }}"
         ansible_user: Administrator

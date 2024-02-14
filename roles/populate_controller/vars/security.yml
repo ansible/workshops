@@ -1,0 +1,58 @@
+---
+controller_groups:
+  - name: attack
+    inventory: "Workshop Inventory"
+    hosts:
+      - "attacker"
+    variables:
+      ansible_user: "ec2-user"
+  - name: siem
+    inventory: "Workshop Inventory"
+    hosts:
+      - "qradar"
+    variables:
+      ansible_user: "admin"
+      ansible_httpapi_pass: "Ansible1!"
+      ansible_connection: "httpapi"
+      ansible_httpapi_use_ssl: "yes"
+      ansible_httpapi_validate_certs: "False"
+      ansible_network_os: "ibm.qradar.qradar"
+  - name: ids
+    inventory: "Workshop Inventory"
+    hosts:
+      - "snort"
+    variables:
+      ansible_user: "ec2-user"
+  - name: firewall
+    inventory: "Workshop Inventory"
+    hosts:
+      - "checkpoint_mgmt"
+    variables:
+      ansible_user: "admin"
+      ansible_password: "admin123"
+      ansible_network_os: "checkpoint"
+      ansible_connection: "httpapi"
+      ansible_httpapi_use_ssl: "yes"
+      ansible_httpapi_validate_certs: "no"
+  - name: checkpoint
+    inventory: "Workshop Inventory"
+    hosts:
+      - "checkpoint_mgmt"
+    variables:
+      ansible_user: "admin"
+      ansible_password: "admin123"
+      ansible_network_os: "checkpoint"
+      ansible_connection: "httpapi"
+      ansible_httpapi_use_ssl: "yes"
+      ansible_httpapi_validate_certs: "no"
+  - name: windows
+    inventory: "Workshop Inventory"
+    hosts:
+      - "windows_ws" 
+    variables:
+      note: in production these passwords would be encrypted in vault
+      ansible_user: "Administrator"
+      ansible_password: "{{ windows_password }}"
+      ansible_port: "5986"
+      ansible_connection: "winrm"
+      ansible_winrm_server_cert_validation: "ignore"

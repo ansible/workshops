@@ -89,7 +89,6 @@
   register: add_group_rhel
   until: add_group_rhel is not failed
 
-
 - name: Block import centos7 servers
   when: centos7 is defined
   block:
@@ -146,6 +145,71 @@
         inventory: "Workshop Inventory"
         children:
           - centos7
+        preserve_existing_hosts: true
+        preserve_existing_children: true
+        variables:
+          ansible_user: "{{ auto_satellite_centos_node_username }}"
+        validate_certs: false
+        controller_host: "https://{{ ansible_host }}"
+        controller_username: "admin"
+        controller_password: "{{ admin_password }}"
+
+- name: Block import ol7 servers
+  when: ol7 is defined
+  block:
+    - name: Filter hosts containing student number
+      ansible.builtin.set_fact:
+        ol7_hosts: "{{ groups['ol7'] | select('search', 'student' ~ student_number ~ '-') | list }}"
+
+    - name: Add ol7 hosts into controller inventory
+      awx.awx.host:
+        name: "{{ hostvars[item].short_name }}.example.com"
+        enabled: true
+        inventory: "Workshop Inventory"
+        controller_username: admin
+        controller_password: "{{ admin_password }}"
+        controller_host: "https://{{ ansible_host }}"
+        validate_certs: false
+        variables:
+          ansible_host: "{{ hostvars[item].private_ip }}"
+      loop: "{{ ol7_hosts }}"
+
+    - name: Add ol7 group
+      awx.awx.group:
+        name: ol7
+        inventory: "Workshop Inventory"
+        hosts:
+          - node4.example.com
+          - node5.example.com
+          - node6.example.com
+        preserve_existing_hosts: true
+        preserve_existing_children: true
+        validate_certs: false
+        controller_host: "https://{{ ansible_host }}"
+        controller_username: "admin"
+        controller_password: "{{ admin_password }}"
+
+    - name: Add centos devices to node group
+      awx.awx.group:
+        name: node
+        inventory: "Workshop Inventory"
+        hosts:
+          - node4.example.com
+          - node5.example.com
+          - node6.example.com
+        preserve_existing_hosts: true
+        preserve_existing_children: true
+        validate_certs: false
+        controller_host: "https://{{ ansible_host }}"
+        controller_username: "admin"
+        controller_password: "{{ admin_password }}"
+
+    - name: Add centos group
+      awx.awx.group:
+        name: centos
+        inventory: "Workshop Inventory"
+        children:
+          - ol7
         preserve_existing_hosts: true
         preserve_existing_children: true
         variables:

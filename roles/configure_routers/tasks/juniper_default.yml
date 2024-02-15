@@ -20,3 +20,15 @@
 
 - name: turn on netconf on port 830
   junipernetworks.junos.junos_netconf:
+
+# disable web-mgmt because of CVE-2023-36845 Feb15 2024
+- name: disable web-management
+  vars:
+    ansible_connection: netconf
+  junipernetworks.junos.junos_config:
+    lines:
+      - delete groups aws-default system services web-management
+    confirm_commit: true
+
+
+

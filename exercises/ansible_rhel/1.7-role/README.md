@@ -30,7 +30,7 @@ Building on our previous work with Apache configuration, let's craft an Ansible 
 
 Run the following Ansible playbook to clean the environment:
 
-<!-- {% raw %} -->
+{% raw %}
 
 ```yaml
 ---
@@ -68,7 +68,7 @@ Run the following Ansible playbook to clean the environment:
         content: ''
 ```
 
-<!-- {% raw %} -->
+{% endraw %}
 
 ### Step 3 - Building the Apache Role
 
@@ -98,7 +98,7 @@ apache_service_name: httpd
 
 Adjust `/home/student/lab_inventory/roles/apache/tasks/main.yml` to include tasks for Apache installation and service management:
 
-<!-- {% raw %} -->
+{% raw %}
 
 ```yaml
 ---
@@ -134,12 +134,11 @@ Adjust `/home/student/lab_inventory/roles/apache/tasks/main.yml` to include task
   notify: Reload Firewall
 ```
 
-<!-- {% raw %} -->
-
 4. Implement Handlers:
 
 In `/home/student/lab_inventory/roles/apache/handlers/main.yml`, create a handler to restart firewalld if its configuration changes:
 
+{% raw %}
 ```yaml
 ---
 # handlers file for ansible-files/roles/apache
@@ -148,12 +147,13 @@ In `/home/student/lab_inventory/roles/apache/handlers/main.yml`, create a handle
     name: firewalld
     state: reloaded
 ```
+{% endraw %}
 
 5. Create and Deploy Template:
 
 Use a Jinja2 template for a custom `index.html`. Store the template in `templates/index.html.j2`:
 
-<!-- {% raw %} -->
+{% raw %}
 
 ```html
 <html>
@@ -166,7 +166,7 @@ Use a Jinja2 template for a custom `index.html`. Store the template in `template
 </html>
 ```
 
-<!-- {% raw %} -->
+{% endraw %} 
 
 6. Update `tasks/main.yml` to deploy this `index.html` template:
 

@@ -133,7 +133,7 @@ Now you create a new Template that includes a survey.
     <td>Workshop Project</td>
   </tr>
   <tr>
-    <td>Eecution Environment</td>
+    <td>Execution Environment</td>
     <td>Default execution environment</td>
   </tr>
   <tr>

@@ -1,0 +1,45 @@
+---
+- name: Find ami for satellite Task Group
+  block:
+    - name: Increment retry count
+      ansible.builtin.set_fact:
+        ami_find_subtasks_retry_count: "{{ 0 if ami_find_subtasks_retry_count is undefined else ami_find_subtasks_retry_count | int + 1 }}"
+    # - name: Resume or reset for failed tasks after each failed attempt
+    #   ansible.builtin.include_tasks: some_other_task_resume_or_reset.yml
+    #   when: ami_find_subtasks_retry_count | int != 0
+    - ansible.builtin.debug:
+        msg: "retry count: {{ ami_find_subtasks_retry_count }}"
+
+    - name: Include increasing delay for incremental retries
+      ansible.builtin.command: |
+        python3 -c 'import time;time.sleep({{ ami_find_subtasks_retry_count | int *60 }})'
+      delegate_to: localhost
+      connection: local
+
+    - name: Find ami for satellite
+      amazon.aws.ec2_ami_info:
+        region: "{{ ec2_region }}"
+        owners: "{{ ec2_info['satellite'].owners }}"
+        filters:
+          name: "{{ ec2_info['satellite'].filter }}"
+      register: sat_amis
+
+    - name: Save ami for satellite
+      ansible.builtin.set_fact:
+        sat_ami: >
+          {{ sat_amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+  rescue:
+    - name: Maximum retries of grouped tasks reached
+      ansible.builtin.fail:
+        msg: Maximum retries of grouped tasks reached.
+        # initial try plus 4 retries = 5 total tries
+      when: ami_find_subtasks_retry_count | int == 4
+
+    - name: Instrument retry count
+      ansible.builtin.debug:
+        msg: "Task fail retry count: {{ ami_find_subtasks_retry_count }}"
+
+    - name: Loop back via include on this file
+      ansible.builtin.include_tasks: ami_find_auto_satellite_loop.yml
+...

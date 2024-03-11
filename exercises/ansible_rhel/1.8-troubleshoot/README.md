@@ -34,7 +34,7 @@ In this example, add debug tasks to your Apache role in the `tasks/main.yml` to 
 
 Insert debug tasks to display the values of variables or custom messages for troubleshooting:
 
-<!-- {% raw %} -->
+{% raw %}
 
 ```yaml
 - name: Display Variable Value
@@ -46,7 +46,7 @@ Insert debug tasks to display the values of variables or custom messages for tro
     msg: "Apache service name is {{ apache_service_name }}"
 ```
 
-<!-- {% raw %} -->
+{% endraw %}
 
 ### Step 3 - Error Handling with Blocks
 
@@ -58,7 +58,7 @@ In this example, add a block to handle potential errors during the Apache config
 
 Wrap tasks that could potentially fail in a block and define a rescue section to handle errors:
 
-<!-- {% raw %} -->
+{% raw %}
 
 ```yaml
 - name: Apache Configuration with Potential Failure Point
@@ -73,7 +73,7 @@ Wrap tasks that could potentially fail in a block and define a rescue section to
         msg: "Missing Apache configuration file '{{ apache_conf_src }}'. Using default settings."
 ```
 
-<!-- {% raw %} -->
+{% endraw %}
 
 2. Add an `apache_conf_src` variable within `vars/main.yml` of the apache role.
 

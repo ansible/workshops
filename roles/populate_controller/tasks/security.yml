@@ -1,4 +1,35 @@
 ---
+- name: Filter hosts containing student number
+  ansible.builtin.set_fact:
+    student_hosts: "{{ groups['security'] | select('search', 'student' ~ student_number ~ '-') | list }}"
+
+- name: Debug hosts for 
+  ansible.builtin.debug:
+    msg: "{{ student_hosts }}"
+  
+- name: Add devices into controller inventory
+  awx.awx.host:
+    name: "{{ hostvars[item].short_name }}"
+    enabled: true
+    inventory: "Workshop Inventory"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+    variables:
+      ansible_host: "{{ hostvars[item].ansible_host }}"
+      private_ip: "{{ hostvars[item].private_ip }}"
+      private_ip2: "{{ hostvars[item].private_ip | default('') }}"
+  loop: "{{ student_hosts }}"
+
+- name: use COP controller_configuration collection
+  include_role:
+    name: '{{ setup_controller }}'
+  loop:
+    - 'infra.controller_configuration.hosts'
+    - 'infra.controller_configuration.groups'
+  loop_control:
+    loop_var: setup_controller
 
 # Teams
 - name: Create analyst team

@@ -38,6 +38,7 @@ jobs:
           controller_username: ${{ secrets.CONTROLLER_USERNAME }}
           controller_password: ${{ secrets.CONTROLLER_PASSWORD }}
           job_template: "Workshop teardown Job"
+          controller_project: "Ansible Workshops Project"
           extra_vars: "ec2_name_prefix=github-action-test-sep19"
           validate_certs: false
         env:

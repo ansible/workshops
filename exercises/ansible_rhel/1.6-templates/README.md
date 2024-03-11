@@ -25,9 +25,7 @@ Ansible leverages Jinja2, a widely-used templating language for Python, allowing
 
 ### Step 2 - Crafting Your First Template
 
-<!-- {% raw %} -->
-Templates end with a `.j2` extension and mix static content with dynamic placeholders enclosed in `{{ }}`.
-<!-- {% raw %} -->
+Templates end with a `.j2` extension and mix static content with dynamic placeholders enclosed in {% raw %} `{{ }}` {% endraw %}.
 
 In the following example, let's create a template for the Message of the Day (MOTD) that includes dynamic host information.
 
@@ -43,7 +41,7 @@ mkdir -p ~/lab_inventory/templates
 
 Create a file named `motd.j2` in the templates directory with the following content:
 
-<!-- {% raw %} -->
+{% raw %}
 
 ```jinja
 Welcome to {{ ansible_hostname }}.
@@ -51,7 +49,7 @@ OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
 Architecture: {{ ansible_architecture }}
 ```
 
-<!-- {% raw %} -->
+{% endraw %}
 
 This template dynamically displays the hostname, OS distribution, version, and architecture of each managed host.
 

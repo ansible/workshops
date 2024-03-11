@@ -23,7 +23,6 @@ Variables in Ansible are powerful tools for making your playbooks flexible and r
 ### Step 1 - Understanding Variables
 A variable in Ansible is a named representation of some data. Variables can contain simple values like strings and numbers, or more complex data like lists and dictionaries.
 
-<!-- {% raw %} -->
 ### Step 2 - Variable Syntax and Creation
 The creation and usage of variables involve a specific syntax:
 
@@ -31,13 +30,12 @@ The creation and usage of variables involve a specific syntax:
 2. Variable Naming: Variable names should be descriptive and adhere to rules such as:
    * Starting with a letter or underscore.
    * Containing only letters, numbers, and underscores.
-3. Using Variables: Variables are referenced in tasks using the double curly braces in quotes `"{{ variable_name }}"`. This syntax tells Ansible to replace it with the variable's value at runtime.
-<!-- {% raw %} -->
+3. Using Variables: Variables are referenced in tasks using the double curly braces in quotes {% raw %} `"{{ variable_name }}"` {% endraw %}. This syntax tells Ansible to replace it with the variable's value at runtime.
 
 
 Update the `system_setup.yml` playbook to include and use a variable:
 
-<!-- {% raw %} -->
+{% raw %}
 ```yaml
 ---
 - name: Basic System Setup
@@ -58,7 +56,7 @@ Update the `system_setup.yml` playbook to include and use a variable:
         state: present
         create_home: true
 ```
-<!-- {% raw %} -->
+{% endraw %}
 
 Run this playbook with `ansible-navigator`.
 
@@ -102,7 +100,7 @@ The register keyword in Ansible is used to capture the output of a task and save
 
 Update the `system_checks.yml` playbook:
 
-<!-- {% raw %} -->
+{% raw %}
 
 ```yaml
 ---
@@ -122,7 +120,7 @@ Update the `system_checks.yml` playbook:
         msg: "User {{ user_name }} exists."
       when: user_check.rc == 0
 ```
-<!-- {% raw %} -->
+{% endraw %}
 
 Playbook Details:
 

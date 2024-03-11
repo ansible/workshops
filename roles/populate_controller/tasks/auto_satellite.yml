@@ -124,7 +124,7 @@
         controller_username: "admin"
         controller_password: "{{ admin_password }}"
 
-    - name: Add centos devices to node group
+    - name: Add centos hosts to node group
       awx.awx.group:
         name: node
         inventory: "Workshop Inventory"
@@ -189,7 +189,7 @@
         controller_username: "admin"
         controller_password: "{{ admin_password }}"
 
-    - name: Add centos devices to node group
+    - name: Add oracle hosts to node group
       awx.awx.group:
         name: node
         inventory: "Workshop Inventory"
@@ -204,9 +204,9 @@
         controller_username: "admin"
         controller_password: "{{ admin_password }}"
 
-    - name: Add centos group
+    - name: Add ol group
       awx.awx.group:
-        name: centos
+        name: ol
         inventory: "Workshop Inventory"
         children:
           - ol7

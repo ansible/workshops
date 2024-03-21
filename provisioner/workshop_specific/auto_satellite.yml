@@ -392,7 +392,7 @@
           register: workshop_job_templates02
           until: workshop_job_templates02.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 15  # 5 minutes 5*60/20
+          retries: 30  # 10 minutes 10*60/20
 
         - name: Run Z / SETUP / Workshop - CentOS7 deployment workflow template
           awx.awx.workflow_launch:

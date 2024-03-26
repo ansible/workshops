@@ -87,7 +87,7 @@ ec2_info:
           volume_type: gp3
           iops: 1000
           throughput: 125
-          volume_size: 8
+          volume_size: 10
   checkpoint_mgmt:
     owners: 679593333241
     filter: 'Check Point CloudGuard IaaS BYOL*R80.40*'

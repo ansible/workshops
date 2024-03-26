@@ -73,14 +73,14 @@ ec2_info:
           volume_type: gp3
           iops: 1000
           throughput: 125
-          volume_size: 16      
+          volume_size: 16
           delete_on_termination: true
   arista:
     size: c5.xlarge
     ami: "{{ arista_ami | default(omit) }}"
     os: eos
     username: ec2-user
-    filter: "*4.27.3F*"
+    filter: "*4.29*"
     volume:
       - device_name: /dev/xvda
         ebs:
@@ -356,7 +356,7 @@ ansible_async_dir: "/tmp/.ansible_async"
 #   us-east-2: ami-0ef29e3299cf26819
 #   us-west-1: ami-0009710aa9b69790e
 #   us-west-2: ami-0b0d02e3c1d09fd4c
-  
+
 pre_build_hub_ami:
   ap-northeast-1: ami-0e10c305c74ebe2c4
   ap-southeast-1: ami-0b8c588fe02c19ce6

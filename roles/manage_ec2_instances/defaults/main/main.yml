@@ -80,7 +80,7 @@ ec2_info:
     ami: "{{ arista_ami | default(omit) }}"
     os: eos
     username: ec2-user
-    filter: "*4.29*"
+    filter: "*CloudEOS-4.29*"
     volume:
       - device_name: /dev/xvda
         ebs:

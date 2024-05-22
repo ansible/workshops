@@ -89,12 +89,14 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
       ansible.builtin.dnf:
         name: firewalld
         state: present
+      when: inventory_hostname in groups['web']
 
     - name: Ensure firewalld is running
       ansible.builtin.service:
         name: firewalld
         state: started
         enabled: true
+      when: inventory_hostname in groups['web']
 
     - name: Allow HTTPS traffic on web servers
       ansible.posix.firewalld:

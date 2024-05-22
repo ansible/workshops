@@ -146,14 +146,14 @@ ok: [node1]
 ok: [node3]
 
 TASK [Install firewalld] *******************************************************
-changed: [ansible-1]
+skipping: [ansible-1]
 changed: [node2]
 changed: [node1]
 changed: [node3]
 
 TASK [Ensure firewalld is running] *********************************************
+skipping: [ansible-1]
 changed: [node3]
-changed: [ansible-1]
 changed: [node2]
 changed: [node1]
 

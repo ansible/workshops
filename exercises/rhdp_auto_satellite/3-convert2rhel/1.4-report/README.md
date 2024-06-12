@@ -24,7 +24,7 @@
 
 In the previous exercise, we used a job template/playbook to analyze our CentOS7 app servers. Behind the scenes, the `analysis` module from the `infra.convert2rhel` Ansible collection launched a Convert2RHEL pre-conversion analysis on each of our CentOS 7 app servers and once complete, parsed the pre-conversion analysis report for any issues that would either block the conversion from initiating or potentially failing. If any problems were found, then the Ansible Automation Platform automation job would have reported a failure.
 
-- If we we're using the Convert2RHEL framework to manually conversion just a single CentOS host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session), we learned how to open an ssh session to one of our app servers. Follow those steps and after logging in, use this command to review the local Convert2RHEL pre-conversion report file:
+- If we we're using the Convert2RHEL framework to manually convert just a single CentOS host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session), we learned how to open an ssh session to one of our app servers. Follow those steps and after logging in, use this command to review the local Convert2RHEL pre-conversion report file:
 
   ```
   less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
@@ -52,7 +52,7 @@ For this workshop, we will be using the CentOS Web Console to access the Convert
 
   ![node4 running CentOS Linux 7 (Core)](images/centos7_os.png)
 
-- Additionally, if you'd like, take note/record the `Asset Tag` and `Machine ID` values. You can compare these values post coversion to prove the base hardware/virtualization instance is the same.
+- Additionally, if you'd like, take note/record the `Asset Tag` and `Machine ID` values. You can compare these values post conversion to prove the base hardware/virtualization instance is the same.
 
 - When you navigate to different hosts in the Web Console, look out for the "limited access mode" warning:
 
@@ -90,7 +90,7 @@ less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
 
 - When the pre-conversion report is generated, the Convert2RHEL framework collects system data and assesses convertability based on a large collection of checks. When any of these checks uncovers a potential risk, it is recorded as a finding in the report.
 
-- The good news is that the warning regarding the "third party" package `katello-ca-consumer-satellite` is something we can ignore, as this package is part of the registration of the CentOS system to Satellite.
+- The good news is that the warning regarding the "third party" package `katello-ca-consumer-satellite` is something we can ignore, as this package is part of the registration of the CentOS system to Satellite. And we can ignore the warnings about an outdated version of convert2rhel, as we know that we are not using the most up to date version.
 
 ### Challenge Lab: What if we were to experience warnings we are unsure of?
 
@@ -98,7 +98,7 @@ You may be wondering what if there are many warning issues listed in the report?
 
 > **Tip**
 >
-> Think back to the four key features that we introduced at the beginning of the workshop.
+> Think back to the three key features that we introduced at the beginning of the exercise.
 
 Is there a specific feature that helps with reducing risk?
 
@@ -114,7 +114,7 @@ Of course, the answer is our automated snapshot/rollback capability.
 
 - Of course, there are many best practices we can follow to reduce risk. Obviously, test for application impacts by trying conversions in your lower environments first. Any issues that can be worked out with Dev and Test servers will help you be prepared to avoid those issues in Production.
 
-- When present, the findings reported by the Convert2RHEL pre-conversion analysis report are there to make us aware of potential failure modes, but experience has shown that sometimes they are not a problem. Do not become petrified when you see those warnings on the report. Assess findings, develop automation to remediate any issues, and then run through the conversion process, reverting back to step one to loop through the process as your arsenal of remediation automation builds over time. Convert early and often!
+- When present, the findings reported by the Convert2RHEL pre-conversion analysis report are there to make us aware of potential failure modes, but experience has shown that sometimes they are not a problem. Do not become petrified when you see those warnings on the report. Assess findings, develop automation to remediate any issues, and then run through the conversion process, reverting back to step one to loop through the process as your arsenal of remediation automation builds over time. Convert early _and_ often!
 
 ## Conclusion
 

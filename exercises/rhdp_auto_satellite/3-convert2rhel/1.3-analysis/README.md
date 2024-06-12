@@ -53,7 +53,7 @@ After the analysis phase is done and the report indicates acceptable risk, a mai
 #### Commit
 
 If there are any application impacts discovered that can't be easily corrected within the scheduled maintenance window, the decision can be made to undo the conversion by rolling back the snapshot. This will revert all changes and return the host back to the previous CentOS version. However, if there are no issues found, the commit phase begins. During the commit phase, the host can be returned to normal operation while keeping the snapshot just in case any issues are uncovered later.
-> **&#9432;** This is LVM specific: However, while the snapshots are kept, regular disk writes to the rootvg volume group will continue to consume the free space allocated to the snapshots. The amount of time this takes will depend on the amount of free space initially available and the volume of write i/o activity to the rootvg volume group. Before the snapshot space is exhausted, the snapshots must be deleted and then there is no turning back.
+> **&#9432;** This is LVM specific: However, while the snapshots are kept, regular disk writes to volume groups will continue to consume the free space allocated to the snapshots. The amount of time this takes will depend on the amount of free space initially available and the volume of write i/o activity to the volume groups. Before the snapshot space is exhausted, the snapshots must be deleted and then there is no turning back.
 
 Once comfortable with the converted host, the commit playbook should be executed to delete the snapshot. The CentOS conversion to RHEL is complete.
 
@@ -67,7 +67,13 @@ One of the prerequisites for successful Convert2RHEL OS conversions is that the 
 
   > **Note**
   >
-  > While the Convert2RHEL rollback feature does work in a great many cases, Red Hat recommends that an additional means of backup external to the Convert2RHEL utility be implemented, with verification that systems can be restored if needed.
+  > While the Convert2RHEL rollback feature does work in a great many cases, Red Hat recommends that an additional means of backup external to the Convert2RHEL utility be implemented, with verification in advance of conversion operations that systems can be restored if needed.
+
+- Switching to the Satellite Web UI browser tab and navigate to Hosts > Content Hosts by hovering over "Hosts" in the left navigation menu and then clicking "Content Hosts":
+
+  ![Job templates listed on AAP Web UI](images/satellite_content_hosts.png)
+
+- We can see that the CentOS hosts have some package updates that can be applied.
 
 - Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu:
 
@@ -97,7 +103,7 @@ As we progress through the workshop, we'll refer back to this diagram to track w
 
 ![Automation approach workflow diagram with analysis step highlighted](images/conversion-workflow-hl-analysis.svg)
 
-The first step in converting our three tier app hosts will be executing the analysis playbook to generate the Convert2RHEL pre-conversion report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
+The first step in converting our three tier app hosts will be executing the analysis playbook to generate the Convert2RHEL pre-conversion analysis report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
 
 - Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu:
 

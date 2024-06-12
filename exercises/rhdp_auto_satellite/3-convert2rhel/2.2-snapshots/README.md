@@ -26,9 +26,9 @@
 
 ## Guide
 
-In the previous exercise, we launched the automation to start the CentOS conversions of our three tier application servers. The first step of the conversion workflow template is to create a snapshot for each CentOS instance being converted. If something goes wrong with a conversion, the snapshot makes it possible to quickly undo the conversion.
+In the previous exercise, we launched the automation to start the CentOS conversions of our three tier application servers. The second step of the conversion workflow template is to create a snapshot for each CentOS instance being converted. If something goes wrong with a conversion, the snapshot makes it possible to quickly undo the conversion.
 
-Automating snapshots can be one of the most difficult features of the CentOS in-place upgrade solution approach. In this exercise, we will explore some of the challenges that enterprises face and look at strategies for overcoming them.
+Automating snapshots can be one of the most difficult features of the CentOS conversion solution approach. In this exercise, we will explore some of the challenges that enterprises face and look at strategies for overcoming them.
 
 Let's start by defining exactly what we mean when we talk about snapshots.
 

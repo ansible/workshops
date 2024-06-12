@@ -83,13 +83,17 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories details expand](images/update_controller_inventory_04.png)
 
-- The **CentOS7 Development** inventory source details will be displayed. Click on the variables expansion button on the side right.
+- The **CentOS7 Development** inventory source **Details** view will be displayed. Click on the variables expansion button on the side right.
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
 - Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, when a dynamic inventory generation event is executed, if the EC2 inventory plugin comes across an instance with the "AnsibleGroup" tag, then it will create an inventory group with the name prefixed by "AnsibleGroup" then the default separator "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "AnsibleGroup" tag is currently set to "appdbs", then the inventory group "AnsibleGroup_appdbs" will be created (or confirmed if already existing) and that instance will be assigned to the group.
 
-- Click on "Done" in the Source variables exapanded view and then click on "Sync". The sync should complete in a few seconds. Now, let's verify our dynamic inventory group.
+- Click on "Done" in the Source variables exapanded view.
+
+  ![Controller inventories group](images/update_controller_inventory_sync.png)
+
+- While still on the **CentOS7 Development** Details view, click on "Sync". The sync should complete in a few seconds. Now, let's verify our dynamic inventory group.
 
   ![Controller inventories groups](images/update_controller_inventory_06.png)
 
@@ -155,7 +159,7 @@ node4.example.com proxies incoming requests on port 80 and forwards them to port
 
 `Table "06-06-2024-18-00" has been created!`
 
-If you'd like to manually test the application stack, you can run the following commands from the `ansible-1` Visual Studio Code terminal:
+If you'd like to manually test the application stack, you can run the following commands by switching your browser to Visual Studio Code terminal, then from `ansible-1` prompt:
 
 ```curl http://node4.example.com```
 

@@ -1,7 +1,7 @@
 # Automated Satellite Workshop
 
 **Read this in other languages**:
-<br>![uk](../../images/uk.png) [English](README.md), ![france](../../images/fr.png) [Français](README.fr.md).
+<br>![uk](./images/uk.png) [English](README.md), ![france](./images/fr.png) [Français](README.fr.md).
 <br>
 
 In this workshop, you will learn how to get the most from Red Hat Satellite in concert with Red Hat Ansible Automation Platform.
@@ -29,13 +29,13 @@ The exercises are self explanatory and guide the participants through the entire
 There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail.  Workshop presentation is located at [Automated Satellite Workshop](https://aap2.demoredhat.com/decks/ansible_auto_satellite.pdf).
 
 Also have a look at our Ansible Best Practices Deck:
-[Ansible Best Practices](../../decks/ansible_best_practices.pdf)
+[Ansible Best Practices](https://aap2.demoredhat.com/decks/ansible_best_practices.pdf)
 
 ## Time planning
 
 The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
 
-Having said that, the exercises themselves should take roughly 4 to 5 hours. Each lab takes roughly 30-45 minutes. The accompanying presentation itself adds ~1 hour.
+Having said that, the exercises themselves should take roughly 4 to 5 hours. Compliance, Patching and Insights exercises each take roughly 30-45 minutes. OS Conversion and RHEL In-Place-Upgrade each require about an hour to complete. The accompanying presentation itself adds 45 minutes to an hour if included in whole.
 
 ## Lab Diagram
 ![automated Satellite lab diagram](../../images/ansible_smart_mgmt_diagram.png#centreme)

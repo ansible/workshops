@@ -1,5 +1,9 @@
 # Automated Satellite Workshop: CentOS to RHEL Conversion
 
+  > **Note**
+  >
+  > This workshop is available with either CentOS 7 or Oracle Linux 7 nodes. In the case where Oracle Linux nodes are present, substitute "Oracle Linux" wherever "CentOS" is mentioned in the exercise instructions.
+
 This exercise will introduce a comprehensive approach to automate conversions of CentOS 7 to Red Hat Enterprise Linux (RHEL) 7. The solution uses Ansible Automation Platform (AAP) to execute upgrades at enterprise scale across a large estate of CentOS hosts. The exercise demonstrates how to use an example of this approach to perform conversions of CentOS7 to RHEL7. You will also learn about how this solution can be customized to meet the special requirements of your enterprise environment.
 
 There are three key features that the solution approach recommends to deliver success at scale:
@@ -27,11 +31,11 @@ As you progress through this exercise, you will learn more about the importance 
 The exercise sections are self explanatory and guide the participants through all the phases of an automated CentOS to RHEL conversion. All concepts are explained as they are introduced.
 
 There is an optional presentation deck available with additional information on the benefits of the approach demonstrated in this exercise:
-[RHEL In-place Upgrades and Conversions Automation](../../decks/ansible_ripu_conversion.pdf)
+[RHEL In-place Upgrades and Conversions Automation](../decks/ansible_ripu_conversion.pdf)
 
 ## Time Planning
 
-The time required to complete the exercise depends on the number of participants and how familiar they are with Linux and Ansible. The exercises themselves should take a minimum of ~45 minutes. The introduction in the optional presentation adds another hour. There are also some optional exercises which can be skipped, but are recommended if time allows. There are also supplemental exercises at the end of the exercise to allow for open-ended experimentation and exploring customizations that may apply to your specific environment and requirements. The lab environment provisioned could even be used for a multi-day deep dive workshop, but that is beyond the scope of this guide.
+The time required to complete the exercise depends on the number of participants and how familiar they are with Linux and Ansible. The exercises themselves should take a minimum of ~45 minutes. The introduction in the optional presentation adds 20 to 30 minutes. There are some optional exercises which can be skipped, but are recommended if time allows. Additionally, supplemental exercises at the end of the exercise provide for open-ended experimentation and exploring customizations that may apply to your specific environment and requirements. The lab environment provisioned could even be used for a multi-day deep dive workshop, but that is beyond the scope of this guide.
 
 ## Lab Diagram
 

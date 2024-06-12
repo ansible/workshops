@@ -17,7 +17,7 @@
 
 ## Guide
 
-In the previous exercises, we reviewed pre-conversion analyis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible playbook jobs to run the CentOS in-place conversions on your servers.
+In the previous exercises, we reviewed pre-conversion analyis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible playbook jobs to run the CentOS conversions on your servers.
 
 It's time to verify the results of the conversions and let our application team assess if their three tier application stack is in working order. We are here in our CentOS in-place conversion automation workflow:
 
@@ -83,13 +83,13 @@ Now let's make sure our application servers are actually converted to the next R
 
 In this exercise, we observed that the conversion playbook runs completed successfully. We then used the RHEL Web Console,the command line, as well as Satellite to verify the new RHEL versions were installed.
 
-Continue to the following exercise to verify the pet application is still functioning as expected after the CentOS conversions:
+Continue to the following exercise to verify the three tier application is still functioning as expected after the CentOS conversions:
 
 - [Exercise 2.4 - How is the Three Tier App Doing?](../2.4-check-three-tier-app/README.md)
 
 Otherwise, you may skip ahead to the next section of the workshop where we will demonstrate rolling back the CentOS conversion, starting with these exercises:
 
-- [Exercise 3.1 - (Optional) Trash the Instance](../3.1-rm-rf/README.md)
+- [Exercise 3.1 - (Optional) Trash the Instance](../3.1-error-condition/README.md)
 - [Exercise 3.2 - Run Rollback Job](../3.2-rollback/README.md)
 
 ---

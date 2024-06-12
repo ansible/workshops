@@ -17,7 +17,7 @@
 
 ## Guide
 
-We are ready to start the conversion phase of our CentOS conversion automation journey:
+We are ready to start the conversion phase of our CentOS to RHEL automation journey:
 
 ![Automation approach workflow diagram with conversion step highlighted](images/conversion-workflow-hl-conversion.svg)
 

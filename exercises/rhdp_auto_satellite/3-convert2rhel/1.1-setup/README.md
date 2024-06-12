@@ -98,7 +98,7 @@ The Satellite Web UI is where we will go to review the Lifecycle Environments, C
 
 We will use the RHEL Web Console to review the results of the Convert2RHEL pre-conversion analysis reports we generate for our three-tier app servers.
 
-- Open a new web browser tab using the link under "RHEL Web Console" on the workshop launch page. For example:
+- Open a new web browser tab using the link under "RHEL Web Console Interactive Server Admin Interface" on the workshop launch page. For example:
 
   ![Example link to RHEL Web Console](images/cockpit_link.png)
 

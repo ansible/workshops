@@ -15,21 +15,21 @@
 
 ## Objectives
 
-* Install a three tier application stack to provide example of application/workload functionality testing pre/post conversion.
+* Install a three tier application stack to provide example of application/workload functionality testing pre/post upgrade.
 
 ## Guide
 
 ### Three Tier App
 
-This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Dev", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three CentOS nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after CentOS to RHEL conversions.
+This use-case will focus on the in-place upgrade of RHEL to the next major version while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Dev", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three RHEL nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after RHEL in-place upgrades.
 
-| Role                                   | Inventory name | 
-| ---------------------------------------| ---------------|
-| Automation controller                  | ansible-1      |
-| Satellite Server                       | satellite      |
-| CentOS/OracleLinux Host 4 - HAProxy    | node4          |
-| CentOS/OracleLinux Host 5 - Tomcat     | node5          |
-| CentOS/OracleLinux Host 6 - PostgreSQL | node6          |
+| Role                     | Inventory name | 
+| -------------------------| ---------------|
+| Automation controller    | ansible-1      |
+| Satellite Server         | satellite      |
+| RHEL Host 4 - HAProxy    | node1          |
+| RHEL Host 5 - Tomcat     | node2          |
+| RHEL Host 6 - PostgreSQL | node3          |
 
 | **A Note about using Satellite vs. Ansible Automation Platform for this...**<br>  |
 | ------------- |
@@ -41,11 +41,11 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Job templates filtered list](images/set_instance_tags_01.png)
 
-- In the filter box enter **Set instance tag** and click the magnifying glass.
+- In the filter box enter **set** and click the magnifying glass.
 
   ![Access job template details](images/set_instance_tags_02.png)
 
-- Click on the job template named **EC2 / Set instance tag - AnsibleGroup** to view the job template details.
+- Click on the job template named **EC2 / RHEL / Set instance tag - AnsibleGroup** to view the job template details.
 
   ![View job template details](images/set_instance_tags_03.png)
 
@@ -59,7 +59,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
 - We can see that the **group_tag_map** dictionary is looped through, selecting a particular instace via the *resource: "{{ host_ec2_instance_id[item.key] }}"* filter and then setting the "AnsibleGroup" tag via *AnsibleGroup: "{{ item.value }}"*
 
-- Click "Done" and then click "Launch" on the **EC2 / Set instance tag - AnsibleGroup** job template screen.
+- Click "Done" and then click "Launch" on the **EC2 / RHEL / Set instance tag - AnsibleGroup** job template screen.
 
   ![View job run details](images/set_instance_tags_05.png)
 
@@ -79,11 +79,11 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories sources](images/update_controller_inventory_03.png)
 
-- The **EC2 Dynamic Inventory** inventory sources tab will be displayed. Click on the "CentOS7 Development" inventory source.
+- The **EC2 Dynamic Inventory** inventory sources tab will be displayed. Click on the "RHEL7 Development" inventory source.
 
   ![Controller inventories details expand](images/update_controller_inventory_04.png)
 
-- The **CentOS7 Development** inventory source **Details** view will be displayed. Click on the variables expansion button on the side right.
+- The **RHEL7 Development** inventory source **Details** view will be displayed. Click on the variables expansion button on the side right.
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
@@ -93,7 +93,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories group](images/update_controller_inventory_sync.png)
 
-- While still on the **CentOS7 Development** Details view, click on "Sync". The sync should complete in a few seconds. Now, let's verify our dynamic inventory group.
+- While still on the **RHEL7 Development** Details view, click on "Sync". The sync should complete in a few seconds. Now, let's verify our dynamic inventory group.
 
   ![Controller inventories groups](images/update_controller_inventory_06.png)
 

@@ -57,11 +57,11 @@ This exercise is composed of three sections each of which includes a number of s
 * [2.1 - Run OS Upgrade Jobs](2.1-upgrade/README.md)
 * [2.2 - Let's Talk About Snapshots](2.2-snapshots/README.md)
 * [2.3 - Check if the Upgrade Worked](2.3-check-upg/README.md)
-* [2.4 - (Optional) How is the Pet App Doing?](2.4-check-pet-app/README.md)
+* [2.4 - (Optional) How is the Three Tier App Doing?](2.4-check-three-tier-app/README.md)
 
 ### Section 3 - Rolling Back
 
-* [3.1 - (Optional) Trash the Instance](3.1-rm-rf/README.md)
+* [3.1 - (Optional) Trash the Instance](3.1-error-condition/README.md)
 * [3.2 - Run Rollback Job](3.2-rollback/README.md)
 * [3.3 - Check if Upgrade Undone](3.3-check-undo/README.md)
 * [3.4 - Rinse and Repeat](3.4-conclusion/README.md)

@@ -8,13 +8,7 @@
   - [Objectives](#objectives)
   - [Guide](#guide)
     - [Step 1 - Select an Application Stack Server](#step-1---select-an-application-stack-server)
-    - [Step 2 - Choose your Poison](#step-2---choose-your-poison)
-      - [Delete everything](#delete-everything)
-      - [Uninstall glibc](#uninstall-glibc)
-      - [Break the application](#break-the-application)
-      - [Wipe the boot record](#wipe-the-boot-record)
-      - [Fill up your disk](#fill-up-your-disk)
-      - [Set off a fork bomb](#set-off-a-fork-bomb)
+    - [Step 2 - Break your application](#step-2---break-your-application)
   - [Conclusion](#conclusion)
 
 ## Optional Exercise
@@ -56,34 +50,34 @@ Last login: Thu Jun  6 02:58:51 UTC 2024 on pts/0
 
 ### Step 2 - Break your application
 
-  What if the PostgreSQL package did not get removed? Our application stack relies on the database to to function. Without it, our application stack will be broken. We can simulate this by manually removing the postgresql-server package like this:
+  What if there was an issue with the PostgreSQL package conversion? Our application stack relies on the database to function. Without it, our application stack will be broken. We can simulate this by manually removing the postgresql-related packages like this:
 
   ```
-  yum -y remove postgresql
+  [root@node6 ~]# yum -y remove postgresql
   ```
 
-  Let's try testing the application via the **CONVERT2RHEL / 99 - Three Tier App smoke test** automation job. Switch to the browser instance with the AAP Web UI.
+  Once the postgresql package removal has completed, let's try testing the application via the **CONVERT2RHEL / 99 - Three Tier App smoke test** automation job. Switch to the browser instance with the AAP Web UI.
 
   ![Job templates listed on AAP Web UI 2](images/aap_templates_2.png)
 
 - Use the side pane menu on the left to select **Templates**.
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.  This should take ~15 seconds to complete.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.  This can take up to 15 seconds to complete.
 
   ![3tier-smoke-test-output](images/convert2rhel-3tier-smoke-output.png)
 
-  This is a realistic example of application impact that can be reversed by rolling back the upgrade.
+  This is a realistic example of application impact that can be reversed by rolling back the conversion.
 
 ## Conclusion
 
-Congratulations, you have trashed one of your app servers. Wasn't that fun?
+Congratulations, you have broken the application stack. Wasn't that fun?
 
-In the next exercise, you will untrash it by rolling back the upgrade.
+In the next exercise, you will correct the issue by rolling back the conversion.
 
 ---
 
 **Navigation**
 
-[Previous Exercise](../2.4-check-pet-app/README.md) - [Next Exercise](../3.2-rollback/README.md)
+[Previous Exercise](../2.4-check-three-tier-app/README.md) - [Next Exercise](../3.2-rollback/README.md)
 
 [Home](../README.md)

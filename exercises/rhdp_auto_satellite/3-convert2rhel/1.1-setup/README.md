@@ -92,7 +92,7 @@ The Satellite Web UI is where we will go to review the Lifecycle Environments, C
 
 - Enter the username `admin` and the password provided. This will bring you to your Satellite Web UI dashboard like the example below:
 
-  ![Example Satellite Web UI dashboard](images/aap_console_example.svg)
+  ![Example Satellite Web UI dashboard](images/satellite_console_example.png)
 
 ### Step 5 - Access the RHEL Web Console
 

@@ -9,8 +9,7 @@
     - [Step 1 - What You Learned](#step-1---what-you-learned)
     - [Step 2 - Activities for Extra Credit](#step-2---activities-for-extra-credit)
     - [Step 3 - Look at the Code](#step-3---look-at-the-code)
-      - [redhat-cop/infra.leapp](#redhat-copinfraleapp)
-      - [oamg/leapp-supplements](#oamgleapp-supplements)
+      - [redhat-cop/infra.convert2rhel](#redhat-copinfraconvert2rhel)
       - [redhat-partner-tech/leapp-project](#redhat-partner-techleapp-project)
       - [swapdisk/snapshot](#swapdisksnapshot)
   - [Thank You!](#thank-you)
@@ -23,19 +22,17 @@
 
 ## Guide
 
-Congratulations! You have reached the end of the RHEL In-place Upgrade Automation Workshop. You are now armed with the knowledge needed to start developing an automation solution to help your organization manage RHEL upgrades at scale.
+Congratulations! You have reached the end of the CentOS In-place Upgrade Automation Workshop. You are now armed with the knowledge needed to start developing an automation solution to help your organization manage CentOS conversions at scale.
 
 Let's review what we learned and think about what's next.
 
 ### Step 1 - What You Learned
 
-With this workshop, you gained hands-on experience while learning about a prescriptive approach to automating RHEL in-place upgrades.
+With this workshop, you gained hands-on experience while learning about a prescriptive approach to automating CentOS in-place conversions.
 
-- You upgraded only a handful of RHEL cloud instances while progressing through the workshop exercises, but with the power of an enterprise deployment of AAP, this approach can be rolled out at scale across a large fleet of RHEL hosts.
+- You converted a handful of CentOS cloud instances while progressing through the workshop exercises, but with the power of an enterprise deployment of AAP, this approach can be rolled out at scale across a large fleet of CentOS hosts.
 
-- You learned why automated snapshot/rollback is one of the most important capabilities required to successfully deliver RHEL in-place upgrade automation. Snapshots not only eliminate the risk and anxiety experienced by an app team facing a RHEL upgrade, but they also help accelerate the development of robust upgrade automation playbooks.
-
-- You also learned about the custom automation that must be developed to deal with the complex requirements of a large enterprise environment. We demonstrated a few examples of this including using Leapp custom actors for reporting special pre-upgrade checks as well as running Ansible playbooks to handle common remediations and third-party tools and agents.
+- You learned why automated snapshot/rollback is one of the most important capabilities required to successfully deliver CentOS in-place conversion automation. Snapshots not only eliminate the risk and anxiety experienced by an app team facing a CentOS conversion, but they also help accelerate the development of robust conversion automation playbooks.
 
 - But the most important lesson we learned is "You can do this!"
 
@@ -43,17 +40,13 @@ With this workshop, you gained hands-on experience while learning about a prescr
 
 Hopefully, this workshop has opened your eyes to what is possible, but we have just scratched the surface.
 
-- Is it possible to upgrade from RHEL7 to RHEL9? While the Leapp framework doesn't support a "double upgrade" directly, it is possible to take a host that was upgraded from RHEL7 to RHEL8 and then upgrade it from there to RHEL9. You can try this with one of the pet app instances in the workshop lab.
+- Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, **Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise**
 
-  There are a couple things to be aware of if you want to try it. You will first need to run the "AUTO / 04 Commit" playbook job template. This job will delete the snapshot created for your RHEL7 to RHEL8 upgrade, so be sure you are happy with everything before you do this. While rolling back to RHEL7 will then be impossible, you will be able to roll back to RHEL8 if needed after upgrading to RHEL9.
+  There are a couple things to be aware of if you want to try it. You will first need to run the "CONVERT2RHEL / 04 Commit" playbook job template. This job will delete the snapshot created for your CentOS7 to RHEL7 conversion, so be sure you are happy with everything before you do this. While rolling back to CentOS7 will no longer be possible, you will be able to roll back to RHEL7 if needed after upgrading to RHEL8.
 
-  Another consideration with going from RHEL7 to RHEL9 is the increased risk of application impacts. While RHEL system library forward binary compatibility is really solid between each RHEL major version, "N+2" compatibility is not guaranteed. Of course, the only way to know for sure is try it!
+  Another consideration with going from CentOS7 to RHEL9 is the increased risk of application impacts. While RHEL system library forward binary compatibility is solid between each RHEL major version, "N+2" compatibility is not guaranteed. Of course, the only way to know for sure is to try it!
 
-- If you skipped over any of the optional exercises, it's not too late to go back and try them now:
-  - [Exercise 1.5 - Custom Pre-upgrade Checks](../1.5-custom-modules/README.md)
-  - [Exercise 1.6 - Deploy a Pet App](../1.6-my-pet-app/README.md)
-  - [Exercise 2.4 - How is the Pet App Doing?](../2.4-check-pet-app/README.md)
-  - [Exercise 3.1 - Trash the Instance](../3.1-rm-rf/README.md)
+- If you skipped over any of the optional exercises, it is not too late to go back and try them now.
 
 - The workshop lab environment is now yours to play with. Dream up your own ideas for additional learning and experimentation. Remember you can upgrade and roll back as often as you like. Rinse and repeat!
 
@@ -61,21 +54,17 @@ Hopefully, this workshop has opened your eyes to what is possible, but we have j
 
 All of the Ansible roles and playbooks used in this workshop are maintained in upstream repositories that can be found on GitHub. Take some time to review the code and get engaged with the communities supporting these resources.
 
-#### [redhat-cop/infra.leapp](https://github.com/redhat-cop/infra.leapp)
+#### [redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel)
 
-- The `infra.leapp` collection provides the Ansible role that generates the pre-upgrade reports and another that is used to perform the RHEL upgrades. This collection uses the Leapp framework for upgrades from RHEL7 and later, but also supports upgrading from RHEL6 using the older Red Hat Upgrade Tool. The collection is published on Ansible Galaxy [here](https://galaxy.ansible.com/infra/leapp) and also available from Ansible Automation Hub validated content [here](https://console.redhat.com/ansible/automation-hub/repo/validated/infra/leapp/). If you are planning to do RHEL in-place upgrades for your organization, these roles will help you quickly roll out proof-of-concept automation and start upgrading.
+- The `infra.convert2rhel` Ansible collection provides the Ansible role that generates the pre-conversion analysis reports and another that is used to perform conversions for EL rebuild OS's. This collection serves as a framework around the Convert2RHEL utility for conversions from CentOS7, Oracle Linux 7 and more. The collection is published on Ansible Galaxy [here](https://galaxy.ansible.com/ui/repo/published/infra/convert2rhel/) and also available from Ansible Automation Hub validated content [here - Red Hat account required](https://console.redhat.com/ansible/automation-hub/repo/validated/infra/convert2rhel/). If you are planning to do EL conversions for your organization, these Ansible collections will help you quickly roll out proof-of-concept automation and start upgrading.
 
-#### [oamg/leapp-supplements](https://github.com/oamg/leapp-supplements)
+#### [redhat-partner-tech/automated-satellite](https://github.com/redhat-partner-tech/automated-satellite)
 
-- Leapp Supplements is a repository of example Leapp custom actors. The CheckRebootHygiene actor that was demonstrated in the optional [Custom Pre-upgrade Checks](../1.5-custom-modules/README.md) exercise is maintained here. There is also a Makefile and RPM spec file that can be used to build packages for installing your Leapp custom actors.
+- This is where you will find all of the AAP job templates and Ansible playbooks included in the workshop, specifically the `aap2-rhdp-dev` and `aap2-rhdp-dev` code branches. You can also explore the infrastructure/configuration as code (IaC/CaC) magic that is used to provision the workshop lab environment.
 
-#### [redhat-partner-tech/leapp-project](https://github.com/redhat-partner-tech/leapp-project)
+#### [redhat-cop/infra.lvm_snapshots](https://github.com/redhat-cop/infra.lvm_snapshots)
 
-- This is where you will find all of the AAP job templates and Ansible playbooks included in the workshop. You can also explore the infrastructure as code (IaC) magic that is used to provision the workshop lab environment.
-
-#### [swapdisk/snapshot](https://github.com/swapdisk/snapshot)
-
-- Here you will find work in progress on a new Ansible role for managing snapshot sets using LVM. If you are interested in automating LVM snapshots as explained in the [Let's Talk About Snapshots](../2.2-snapshots/README.md#lvm) exercise, connect with the authors of this project to get in on the action.
+- Here you will find the upstream project used to build the Ansible collection for managing snapshot sets using LVM. If you are interested in automating LVM snapshots as explained in the [Let's Talk About Snapshots](../2.2-snapshots/README.md#lvm) exercise, review this collection project to get in on the action.
 
 ## Thank You!
 

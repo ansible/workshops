@@ -83,7 +83,7 @@ This use-case will focus on the in-place upgrade of RHEL to the next major versi
 
   ![Controller inventories details expand](images/update_controller_inventory_04.png)
 
-- The **RHEL7 Development** inventory source **Details** view will be displayed. Click on the variables expansion button on the side right.
+- The **RHEL7 Development** inventory source **Details** view will be displayed. Click on the Source variables expansion button on the side right.
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
@@ -105,15 +105,19 @@ This use-case will focus on the in-place upgrade of RHEL to the next major versi
 
   ![Controller inventories group](images/update_controller_inventory_08.png)
 
-- Initially, the "Details" tab will display. Click on the "Hosts" tab and we will see that `node6.example.com` is present in the "AnsibleGroups_appdbs" group. Remember earlier, when we reviewed the variables section of the **EC2 / Set instance tag - AnsibleGroup** job template? The **group_tag_map** matches up:
+- Initially, the "Details" tab will display. Click on the "Hosts" tab and we will see that `node3.example.com` is present in the "AnsibleGroups_appdbs" group. Remember earlier, when we reviewed the variables section of the **EC2 / Set instance tag - AnsibleGroup** job template? The **group_tag_map** matches up:
 
 ```
   "group_tag_map": {
-    "node4.example.com": "frontends",
-    "node5.example.com": "apps",
-    "node6.example.com": "appdbs"
+    "node1.example.com": "frontends",
+    "node2.example.com": "apps",
+    "node3.example.com": "appdbs"
   }
 ```
+
+> **NOTE**
+>
+> If you worked through the previous exercise ** Convert2RHEL **, `node6.example.com` will also be present, if you decided to include the * Three-Tier App * component of the exercise. This demonstrates that multiple stacks of tiered applications, across multiple host stacks can be covered by the same automation flows.
 
 - Rather than having to navigate to **Inventories > EC2 Dynamic Inventory > Sources > _inventory_source_name_** and clicking "Sync" to initiate sync events, we have put together a job template with surveys and associated Ansible playbook that provides a more convenient method to utilize for this task. Let's review:
 
@@ -125,7 +129,7 @@ This use-case will focus on the in-place upgrade of RHEL to the next major versi
 
   ![Inventory update job survey prompt on AAP Web UI](images/update_inventory_02.png)
 
-- Next we see the job template survey prompt. A survey is a customizable set of prompts that can be configured from the Survey tab of the job template. For this job template, the survey allows for choosing which part of the inventory will be updated. For "Select inventory to update" choose "CentOS7" from the drop-down and for "Choose Environment" select "Dev" and click the "Next" button.
+- Next we see the job template survey prompt. A survey is a customizable set of prompts that can be configured from the Survey tab of the job template. For this job template, the survey allows for choosing which part of the inventory will be updated. For "Select inventory to update" choose "RHEL7" from the drop-down and for "Choose Environment" select "Dev" and click the "Next" button.
 
   ![Inventory update job launch details on AAP Web UI](images/update_inventory_03.png)
 
@@ -133,7 +137,7 @@ This use-case will focus on the in-place upgrade of RHEL to the next major versi
 
   ![Inventory update job output on AAP Web UI](images/update_inventory_04.png)
 
-- Survey the job output details...this job run only takes about 5 to 6 seconds to complete.
+- Survey the job output details...this job run only takes about 5 to 7 seconds to complete.
 
 ### Step 3 - Install Three Tier Application
 
@@ -145,29 +149,33 @@ This use-case will focus on the in-place upgrade of RHEL to the next major versi
 
 ![3tier-install](images/convert2rhel-3tier-install.png)
 
+> **NOTE**
+>
+> Remember, if you worked through the previous exercise ** Convert2RHEL **, `node4`, `node5`, and `node6` will also be present if you decided to include the * Three-Tier App * component of the exercise.
+
 ### Step 4 - Smoke Test Three Tier Application
 
 Now that our three tier application is installed, let's cover the application stack layout.
 
 | Host              |  Component | Port  |
 | ------------------|------------|-------|
-| node4.example.com | HAProxy    | 80    |
-| node5.example.com | Tomcat     | 8080  |
-| node6.example.com | PostgreSQL | 5432  |
+| node1.example.com | HAProxy    | 80    |
+| node2.example.com | Tomcat     | 8080  |
+| node3.example.com | PostgreSQL | 5432  |
 
-node4.example.com proxies incoming requests on port 80 and forwards them to port 8080 on node5.example.com, where Tomcat is running a simple java application that, upon an incoming request to the servlet, creates a table in the PostgreSQL database on node6.example.com, with the table name being constructed from the date and time of the request. For example:
+node1.example.com proxies incoming requests on port 80 and forwards them to port 8080 on node2.example.com, where Tomcat is running a simple java application that, upon an incoming request to the servlet, creates a table in the PostgreSQL database on node3.example.com, with the table name being constructed from the date and time of the request. For example:
 
 `Table "06-06-2024-18-00" has been created!`
 
 If you'd like to manually test the application stack, you can run the following commands by switching your browser to Visual Studio Code terminal, then from `ansible-1` prompt:
 
-```curl http://node4.example.com```
+```curl http://node1.example.com```
 
-Remember, node4.example.com is a proxy, so the above command displays the default page on node5.example.com
+Remember, node1.example.com is a proxy, so the above command displays the default page on node2.example.com
 
-```curl http://node4.example.com/3ta/connectordbbservlet?```
+```curl http://node1.example.com/3ta/connectordbbservlet?```
 
-The above will make a request to the Tomcat servlet, where the database table described earlier will be created on the PostgreSQL database on node6.example.com. Without writing out a complete PostgreSQL command cheat sheet, if desired, you can follow the following example command line trail (commands outlined in red rectangles) and check out the PostgreSQL system yourself:
+The above will make a request to the Tomcat servlet, where the database table described earlier will be created on the PostgreSQL database on node3.example.com. Without writing out a complete PostgreSQL command cheat sheet, if desired, you can follow the following example command line trail (commands outlined in red rectangles) and check out the PostgreSQL system yourself:
 
 ![3tier-db-check](images/convert2rhel-3tier-db-check.png)
 

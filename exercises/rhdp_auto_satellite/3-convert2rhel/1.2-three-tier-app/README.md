@@ -21,7 +21,7 @@
 
 ### Three Tier App
 
-This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Dev", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three CentOS nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after CentOS to RHEL conversions.
+This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Prod", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three CentOS nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after CentOS to RHEL conversions.
 
 | Role                                   | Inventory name | 
 | ---------------------------------------| ---------------|
@@ -41,15 +41,15 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Job templates filtered list](images/set_instance_tags_01.png)
 
-- In the filter box enter **Set instance tag** and click the magnifying glass.
+- In the filter box enter **Set instance** and click the magnifying glass.
 
   ![Access job template details](images/set_instance_tags_02.png)
 
-- Click on the job template named **EC2 / Set instance tag - AnsibleGroup** to view the job template details.
+- Click on the job template named **EC2 / Set instance tag - CentOS** to view the job template details. ( Click on `EC2 / Set instance tag - OracleLinux7` if you have Oracle Linux nodes)
 
   ![View job template details](images/set_instance_tags_03.png)
 
-- Click on the variable section expansion icon to view the entire variable definition for the job template.
+- Click on the Source variable section expansion icon to view the entire variable definition for the job template.
 
   ![Expanded job template variables](images/set_instance_tags_04.png)
 

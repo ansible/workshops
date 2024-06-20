@@ -92,7 +92,7 @@ The Satellite Web UI is where we will go to review the Lifecycle Environments, C
 
 - Enter the username `admin` and the password provided. This will bring you to your Satellite Web UI dashboard like the example below:
 
-  ![Example Satellite Web UI dashboard](images/aap_console_example.svg)
+  ![Example Satellite Web UI dashboard](images/satellite_console_example.png)
 
 ### Step 5 - Access the RHEL Web Console
 
@@ -114,7 +114,7 @@ You will soon discover that many exercises in the workshop come with a "Challeng
 
 ## Conclusion
 
-In this exercise, we learned about the lab environment we will be using to continue through the workshop exercises. We verified that we are able to use VS Code in our web browser and from there we can open terminal sessions. We verified access to the AAP Web UI which will be the "self-service portal" we use to perform the next steps of the CentOS conversion automation workflow. We also made sure we are able to access the Satellite Web UI where we can review the repositories providing the packages for the CentOS conversion automation workflow, as well as the status of the hosts theselves. Finally, we connected to the RHEL Web Console where we will soon be reviewing pre-conversion analysis reports.
+In this exercise, we learned about the lab environment we will be using to continue through the workshop exercises. We verified that we are able to use VS Code in our web browser and from there we can open terminal sessions. We verified access to the AAP Web UI which will be the "self-service portal" we use to perform the next steps of the CentOS conversion automation workflow. We also made sure we are able to access the Satellite Web UI where we can review the repositories providing the packages for the CentOS conversion automation workflow, as well as the status of the hosts themselves. Finally, we connected to the RHEL Web Console where we will soon be reviewing pre-conversion analysis reports.
 
 Use the link below to move on the the next exercise.
 

@@ -65,7 +65,7 @@ The exercise is composed of three sections each of which includes a number of ex
 
 ### Section 3 - Rolling Back
 
-* [3.1 - (Optional) Trash the Instance](3.1-rm-rf/README.md)
+* [3.1 - (Optional) Trash an Instance](3.1-error-condition/README.md)
 * [3.2 - Run Rollback Job](3.2-rollback/README.md)
 * [3.3 - Check if Conversion Undone](3.3-check-undo/README.md)
 * [3.4 - Rinse and Repeat](3.4-conclusion/README.md)

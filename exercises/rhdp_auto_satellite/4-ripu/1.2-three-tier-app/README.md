@@ -15,21 +15,21 @@
 
 ## Objectives
 
-* Install a three tier application stack to provide example of application/workload functionality testing pre/post conversion.
+* Install a three tier application stack to provide example of application/workload functionality testing pre/post upgrade.
 
 ## Guide
 
 ### Three Tier App
 
-This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Prod", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three CentOS nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after CentOS to RHEL conversions.
+This use-case will focus on the in-place upgrade of RHEL to the next major version while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Dev", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three RHEL nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after RHEL in-place upgrades.
 
-| Role                                   | Inventory name | 
-| ---------------------------------------| ---------------|
-| Automation controller                  | ansible-1      |
-| Satellite Server                       | satellite      |
-| CentOS/OracleLinux Host 4 - HAProxy    | node4          |
-| CentOS/OracleLinux Host 5 - Tomcat     | node5          |
-| CentOS/OracleLinux Host 6 - PostgreSQL | node6          |
+| Role                     | Inventory name | 
+| -------------------------| ---------------|
+| Automation controller    | ansible-1      |
+| Satellite Server         | satellite      |
+| RHEL Host 4 - HAProxy    | node1          |
+| RHEL Host 5 - Tomcat     | node2          |
+| RHEL Host 6 - PostgreSQL | node3          |
 
 | **A Note about using Satellite vs. Ansible Automation Platform for this...**<br>  |
 | ------------- |
@@ -41,15 +41,15 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Job templates filtered list](images/set_instance_tags_01.png)
 
-- In the filter box enter **Set instance** and click the magnifying glass.
+- In the filter box enter **set** and click the magnifying glass.
 
   ![Access job template details](images/set_instance_tags_02.png)
 
-- Click on the job template named **EC2 / Set instance tag - CentOS** to view the job template details. ( Click on `EC2 / Set instance tag - OracleLinux7` if you have Oracle Linux nodes)
+- Click on the job template named **EC2 / RHEL / Set instance tag - AnsibleGroup** to view the job template details.
 
   ![View job template details](images/set_instance_tags_03.png)
 
-- Click on the Source variable section expansion icon to view the entire variable definition for the job template.
+- Click on the variable section expansion icon to view the entire variable definition for the job template.
 
   ![Expanded job template variables](images/set_instance_tags_04.png)
 
@@ -59,9 +59,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
 - We can see that the **group_tag_map** dictionary is looped through, selecting a particular instace via the *resource: "{{ host_ec2_instance_id[item.key] }}"* filter and then setting the "AnsibleGroup" tag via *AnsibleGroup: "{{ item.value }}"*
 
-- Additionally, the **app_stack_name** tag is set to designate that each node is a member of the same application stack.
-
-- Click "Done" and then click "Launch" on the **EC2 / Set instance tag - CentOS** job template screen.
+- Click "Done" and then click "Launch" on the **EC2 / RHEL / Set instance tag - AnsibleGroup** job template screen.
 
   ![View job run details](images/set_instance_tags_05.png)
 
@@ -81,21 +79,21 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories sources](images/update_controller_inventory_03.png)
 
-- The **EC2 Dynamic Inventory** inventory sources tab will be displayed. Click on the "CentOS7 Development" inventory source.
+- The **EC2 Dynamic Inventory** inventory sources tab will be displayed. Click on the "RHEL7 Development" inventory source.
 
   ![Controller inventories details expand](images/update_controller_inventory_04.png)
 
-- The **CentOS7 Development** inventory source **Details** view will be displayed. Click on the variables expansion button on the side right.
+- The **RHEL7 Development** inventory source **Details** view will be displayed. Click on the Source variables expansion button on the side right.
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
-- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, when a dynamic inventory generation event is executed, if the EC2 inventory plugin comes across an instance with the "app_stack_name" and "AnsibleGroup" tags, then it will create an inventory group with the name beginning with the value assigned to the "app_stack_name" tag, an "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "app_stack_name" tag is currently set to "stack02" and the "AnsibleGroup" tag is set to "appdbs", then the inventory group "stack02_appdbs" will be created (or confirmed if already existing) and that instance will be assigned to the group.
+- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, when a dynamic inventory generation event is executed, if the EC2 inventory plugin comes across an instance with the "AnsibleGroup" tag, then it will create an inventory group with the name prefixed by "AnsibleGroup" then the default separator "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "AnsibleGroup" tag is currently set to "appdbs", then the inventory group "AnsibleGroup_appdbs" will be created (or confirmed if already existing) and that instance will be assigned to the group.
 
 - Click on "Done" in the Source variables exapanded view.
 
   ![Controller inventories group](images/update_controller_inventory_sync.png)
 
-- While still on the **CentOS7 Development** Details view, click on "Sync". The sync should complete in a few seconds. Now, let's verify our dynamic inventory group.
+- While still on the **RHEL7 Development** Details view, click on "Sync". The sync should complete in a few seconds. Now, let's verify our dynamic inventory group.
 
   ![Controller inventories groups](images/update_controller_inventory_06.png)
 
@@ -103,20 +101,23 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories group](images/update_controller_inventory_07.png)
 
-- The **Groups** defined for the **EC2 Dynamic Inventory** screen is displayed. Scroll down and click on the `stack02_appdbs` group.
+- The **Groups** defined for the **EC2 Dynamic Inventory** screen is displayed. Click on the "AnsibleGroups_appdbs" group.
 
   ![Controller inventories group](images/update_controller_inventory_08.png)
 
-- Initially, the "Details" tab will display. Click on the "Hosts" tab and we will see that `node6.example.com` is present in the "stack02_appdbs" group. Remember earlier, when we reviewed the variables section of the **EC2 / Set instance tag - CentOS** job template? The **app_stack_name** and **group_tag_map** match up:
+- Initially, the "Details" tab will display. Click on the "Hosts" tab and we will see that `node3.example.com` is present in the "AnsibleGroups_appdbs" group. Remember earlier, when we reviewed the variables section of the **EC2 / Set instance tag - AnsibleGroup** job template? The **group_tag_map** matches up:
 
 ```
   "group_tag_map": {
-    "node4.example.com": "frontends",
-    "node5.example.com": "apps",
-    "node6.example.com": "appdbs"
-  },
-  "app_stack_name": "stack02"
+    "node1.example.com": "frontends",
+    "node2.example.com": "apps",
+    "node3.example.com": "appdbs"
+  }
 ```
+
+> **NOTE**
+>
+> If you worked through the previous exercise ** Convert2RHEL **, `node6.example.com` will also be present, if you decided to include the * Three-Tier App * component of the exercise. This demonstrates that multiple stacks of tiered applications, across multiple host stacks can be covered by the same automation flows.
 
 - Rather than having to navigate to **Inventories > EC2 Dynamic Inventory > Sources > _inventory_source_name_** and clicking "Sync" to initiate sync events, we have put together a job template with surveys and associated Ansible playbook that provides a more convenient method to utilize for this task. Let's review:
 
@@ -128,7 +129,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Inventory update job survey prompt on AAP Web UI](images/update_inventory_02.png)
 
-- Next we see the job template survey prompt. A survey is a customizable set of prompts that can be configured from the Survey tab of the job template. For this job template, the survey allows for choosing which part of the inventory will be updated. For "Select inventory to update" choose "CentOS7" from the drop-down and for "Choose Environment" select "Dev" and click the "Next" button.
+- Next we see the job template survey prompt. A survey is a customizable set of prompts that can be configured from the Survey tab of the job template. For this job template, the survey allows for choosing which part of the inventory will be updated. For "Select inventory to update" choose "RHEL7" from the drop-down and for "Choose Environment" select "Dev" and click the "Next" button.
 
   ![Inventory update job launch details on AAP Web UI](images/update_inventory_03.png)
 
@@ -136,7 +137,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Inventory update job output on AAP Web UI](images/update_inventory_04.png)
 
-- Survey the job output details...this job run only takes about 5 to 6 seconds to complete.
+- Survey the job output details...this job run only takes about 5 to 7 seconds to complete.
 
 ### Step 3 - Install Three Tier Application
 
@@ -144,15 +145,13 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Job templates listed on AAP Web UI](images/aap_templates.png)
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 98 - Three Tier App deployment** to launch the job.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 98 - Three Tier App deployment** to launch the job.  This will take ~2 minutes to complete.
 
-![3tier-install-stack](images/convert2rhel-3tier-install_01.png)
+![3tier-install](images/convert2rhel-3tier-install.png)
 
-- For `Choose application stack name`, remember earlier in the inventory tags section, "app_stack_name" was set to "stack02", so we choose "stack02" from the drop down selection. Then click **Next** then on the preview screen click **Launch**.
-
-This will take ~2 minutes to complete.
-
-![3tier-install](images/convert2rhel-3tier-install_02.png)
+> **NOTE**
+>
+> Remember, if you worked through the previous exercise ** Convert2RHEL **, `node4`, `node5`, and `node6` will also be present if you decided to include the * Three-Tier App * component of the exercise.
 
 ### Step 4 - Smoke Test Three Tier Application
 
@@ -160,23 +159,23 @@ Now that our three tier application is installed, let's cover the application st
 
 | Host              |  Component | Port  |
 | ------------------|------------|-------|
-| node4.example.com | HAProxy    | 80    |
-| node5.example.com | Tomcat     | 8080  |
-| node6.example.com | PostgreSQL | 5432  |
+| node1.example.com | HAProxy    | 80    |
+| node2.example.com | Tomcat     | 8080  |
+| node3.example.com | PostgreSQL | 5432  |
 
-node4.example.com proxies incoming requests on port 80 and forwards them to port 8080 on node5.example.com, where Tomcat is running a simple java application that, upon an incoming request to the servlet, creates a table in the PostgreSQL database on node6.example.com, with the table name being constructed from the date and time of the request. For example:
+node1.example.com proxies incoming requests on port 80 and forwards them to port 8080 on node2.example.com, where Tomcat is running a simple java application that, upon an incoming request to the servlet, creates a table in the PostgreSQL database on node3.example.com, with the table name being constructed from the date and time of the request. For example:
 
 `Table "06-06-2024-18-00" has been created!`
 
 If you'd like to manually test the application stack, you can run the following commands by switching your browser to Visual Studio Code terminal, then from `ansible-1` prompt:
 
-```curl http://node4.example.com```
+```curl http://node1.example.com```
 
-Remember, node4.example.com is a proxy, so the above command displays the default page on node5.example.com
+Remember, node1.example.com is a proxy, so the above command displays the default page on node2.example.com
 
-```curl http://node4.example.com/3ta/connectordbbservlet?```
+```curl http://node1.example.com/3ta/connectordbbservlet?```
 
-The above will make a request to the Tomcat servlet, where the database table described earlier will be created on the PostgreSQL database on node6.example.com. Without writing out a complete PostgreSQL command cheat sheet, if desired, you can follow the following example command line trail (commands outlined in red rectangles) and check out the PostgreSQL system yourself:
+The above will make a request to the Tomcat servlet, where the database table described earlier will be created on the PostgreSQL database on node3.example.com. Without writing out a complete PostgreSQL command cheat sheet, if desired, you can follow the following example command line trail (commands outlined in red rectangles) and check out the PostgreSQL system yourself:
 
 ![3tier-db-check](images/convert2rhel-3tier-db-check.png)
 
@@ -186,13 +185,7 @@ The above will make a request to the Tomcat servlet, where the database table de
 
 - Use the side pane menu on the left to select **Templates**.
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.
-
-  ![3tier-smoke-test-select](images/convert2rhel-3tier-smoke-select.png)
-
-- For `Choose application stack name`, remember earlier in the inventory tags section, "app_stack_name" was set to "stack02", so we choose "stack02" from the drop down selection. Then click **Next**, then on the preview screen click **Launch**.
-
-This should take ~15 seconds to complete.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.  This should take ~15 seconds to complete.
 
   ![3tier-smoke-test-output](images/convert2rhel-3tier-smoke-output.png)
 

@@ -59,7 +59,9 @@ This use-case will focus on conversion from CentOS (though this could be another
 
 - We can see that the **group_tag_map** dictionary is looped through, selecting a particular instace via the *resource: "{{ host_ec2_instance_id[item.key] }}"* filter and then setting the "AnsibleGroup" tag via *AnsibleGroup: "{{ item.value }}"*
 
-- Click "Done" and then click "Launch" on the **EC2 / Set instance tag - AnsibleGroup** job template screen.
+- Additionally, the **app_stack_name** tag is set to designate that each node is a member of the same application stack.
+
+- Click "Done" and then click "Launch" on the **EC2 / Set instance tag - CentOS** job template screen.
 
   ![View job run details](images/set_instance_tags_05.png)
 
@@ -87,7 +89,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
-- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, when a dynamic inventory generation event is executed, if the EC2 inventory plugin comes across an instance with the "AnsibleGroup" tag, then it will create an inventory group with the name prefixed by "AnsibleGroup" then the default separator "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "AnsibleGroup" tag is currently set to "appdbs", then the inventory group "AnsibleGroup_appdbs" will be created (or confirmed if already existing) and that instance will be assigned to the group.
+- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, when a dynamic inventory generation event is executed, if the EC2 inventory plugin comes across an instance with the "app_stack_name" and "AnsibleGroup" tags, then it will create an inventory group with the name beginning with the value assigned to the "app_stack_name" tag, an "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "app_stack_name" tag is currently set to "stack02" and the "AnsibleGroup" tag is set to "appdbs", then the inventory group "stack02_appdbs" will be created (or confirmed if already existing) and that instance will be assigned to the group.
 
 - Click on "Done" in the Source variables exapanded view.
 
@@ -101,18 +103,19 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories group](images/update_controller_inventory_07.png)
 
-- The **Groups** defined for the **EC2 Dynamic Inventory** screen is displayed. Click on the "AnsibleGroups_appdbs" group.
+- The **Groups** defined for the **EC2 Dynamic Inventory** screen is displayed. Scroll down and click on the `stack02_appdbs` group.
 
   ![Controller inventories group](images/update_controller_inventory_08.png)
 
-- Initially, the "Details" tab will display. Click on the "Hosts" tab and we will see that `node6.example.com` is present in the "AnsibleGroups_appdbs" group. Remember earlier, when we reviewed the variables section of the **EC2 / Set instance tag - AnsibleGroup** job template? The **group_tag_map** matches up:
+- Initially, the "Details" tab will display. Click on the "Hosts" tab and we will see that `node6.example.com` is present in the "stack02_appdbs" group. Remember earlier, when we reviewed the variables section of the **EC2 / Set instance tag - CentOS** job template? The **app_stack_name** and **group_tag_map** match up:
 
 ```
   "group_tag_map": {
     "node4.example.com": "frontends",
     "node5.example.com": "apps",
     "node6.example.com": "appdbs"
-  }
+  },
+  "app_stack_name": "stack02"
 ```
 
 - Rather than having to navigate to **Inventories > EC2 Dynamic Inventory > Sources > _inventory_source_name_** and clicking "Sync" to initiate sync events, we have put together a job template with surveys and associated Ansible playbook that provides a more convenient method to utilize for this task. Let's review:
@@ -141,9 +144,15 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Job templates listed on AAP Web UI](images/aap_templates.png)
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 98 - Three Tier App deployment** to launch the job.  This will take ~2 minutes to complete.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 98 - Three Tier App deployment** to launch the job.
 
-![3tier-install](images/convert2rhel-3tier-install.png)
+![3tier-install-stack](images/convert2rhel-3tier-install_01.png)
+
+- For `Choose application stack name`, remember earlier in the inventory tags section, "app_stack_name" was set to "stack02", so we choose "stack02" from the drop down selection. Then click **Next** then on the preview screen click **Launch**.
+
+This will take ~2 minutes to complete.
+
+![3tier-install](images/convert2rhel-3tier-install_02.png)
 
 ### Step 4 - Smoke Test Three Tier Application
 
@@ -177,7 +186,13 @@ The above will make a request to the Tomcat servlet, where the database table de
 
 - Use the side pane menu on the left to select **Templates**.
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.  This should take ~15 seconds to complete.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.
+
+  ![3tier-smoke-test-select](images/convert2rhel-3tier-smoke-select.png)
+
+- For `Choose application stack name`, remember earlier in the inventory tags section, "app_stack_name" was set to "stack02", so we choose "stack02" from the drop down selection. Then click **Next**, then on the preview screen click **Launch**.
+
+This should take ~15 seconds to complete.
 
   ![3tier-smoke-test-output](images/convert2rhel-3tier-smoke-output.png)
 

@@ -62,11 +62,17 @@ Last login: Thu Jun  6 02:58:51 UTC 2024 on pts/0
 
 - Use the side pane menu on the left to select **Templates**.
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.  This can take up to 15 seconds to complete.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.
+
+  ![3tier-smoke-test-select](images/convert2rhel-3tier-smoke-select.png)
+
+- For `Choose application stack name`, remember earlier in the inventory tags section, "app_stack_name" was set to "stack02", so we choose "stack02" from the drop down selection. Then click **Next**, then on the preview screen click **Launch**.
+
+This should take ~15 seconds to complete.
 
   ![3tier-smoke-test-output](images/convert2rhel-3tier-smoke-output.png)
 
-  This is a realistic example of application impact that can be reversed by rolling back the conversion.
+  This simulates an example application impact that can be reversed by rolling back the conversion.
 
 ## Conclusion
 

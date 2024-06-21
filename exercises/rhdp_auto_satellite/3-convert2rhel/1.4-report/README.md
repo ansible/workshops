@@ -24,7 +24,7 @@
 
 In the previous exercise, we used a job template/playbook to analyze our CentOS7 app servers. Behind the scenes, the `analysis` module from the `infra.convert2rhel` Ansible collection launched a Convert2RHEL pre-conversion analysis on each of our CentOS 7 app servers and once complete, parsed the pre-conversion analysis report for any issues that would either block the conversion from initiating or potentially failing. If any problems were found, then the Ansible Automation Platform automation job would have reported a failure.
 
-- If we we're using the Convert2RHEL framework to manually convert just a single CentOS host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session), we learned how to open an ssh session to one of our app servers. Follow those steps and after logging in, use this command to review the local Convert2RHEL pre-conversion report file:
+- If we are using the Convert2RHEL utility to manually convert just a single CentOS host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session), we learned how to open an ssh session to one of our app servers. Follow those steps and after logging in, use this command to review the local Convert2RHEL pre-conversion report file:
 
   ```
   less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
@@ -36,7 +36,7 @@ In the previous exercise, we used a job template/playbook to analyze our CentOS7
   >
   > Use the up and down arrow keys to scroll through the file and type `q` when you are ready to quit the `less` command.
 
-- CentOS 7 includes an optional administration web console based on [Cockpit](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/managing_systems_using_the_rhel_8_web_console/index#what-is-the-RHEL-web-console_getting-started-with-the-rhel-8-web-console) that we call the CentOS Web Console. We will explore how to review the Convert2RHEL pre-conversion reports using the CentOS Web Console in the next step of this exercise.
+- CentOS 7 includes an optional administration web console based on [Cockpit](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/managing_systems_using_the_rhel_8_web_console/index#what-is-the-RHEL-web-console_getting-started-with-the-rhel-8-web-console) called the CentOS Web Console. We will explore how to review the Convert2RHEL pre-conversion reports using the CentOS Web Console in the next step of this exercise.
 
 - In addition to writing the plain text `convert2rhel-pre-conversion.txt` file, a JSON format `convert2rhel-pre-conversion.json` file is also generated. This file includes the same report results as the plain text file, but in JSON format which is perfect for being ingested by log management tools like Elastic/Kibana or Splunk. Many large enterprises will push their pre-conversion report data to one of these tools to develop their own custom dashboards that can filter reports by environment (e.g., Dev/Test/Prod), location, app ID, owning team, etc. <!-- FIXME: add Splunk example here when https://issues.redhat.com/browse/RIPU-35 gets done. -->
 
@@ -66,13 +66,13 @@ For this workshop, we will be using the CentOS Web Console to access the Convert
 
 ### Step 3 - Review Convert2RHEL Pre-conversion Report of CentOS 7 Host
 
-Now we are ready to use the Web Console to review the Convert2RHEL pre-conversion reports. Let's start by looking at one of the CentOS 7 hosts.
-
 We are now here in the automation approach workflow:
 
 ![Automation approach workflow diagram with review report step highlighted](images/conversion-workflow-hl-review.svg)
 
-- Navigate to the RHEL Web Console remote host menu and click on the hostname of one of your CentOS 7 app servers. Remember as we learned in the previous step, you can confirm the CentOS version on the system overview page.
+Now, let's use the Web Console to review the Convert2RHEL pre-conversion reports. We will start by looking at one of the CentOS 7 hosts.
+
+- Navigate to the RHEL Web Console remote host menu and click on the hostname of one of your CentOS 7 app servers (should be node4, node5, or node6). Remember as we learned in the previous step, you can confirm the CentOS version on the system overview page.
 
 - Having verified you are looking at one of the CentOS 7 app servers, use the main menu to navigate to Tools > Terminal. This will display a shell terminal on the host system. In order to review the Convert2RHEL pre-conversion report that was generated for host, copy the following command line and paste into the terminal and press `Enter` or `return`:
 
@@ -110,15 +110,15 @@ Of course, the answer is our automated snapshot/rollback capability.
 
 - If any of the findings listed in the pre-conversion analysis report ultimately leads to the conversion failing or results in application compatibility impact, we can quickly get back to where we started by rolling back the snapshot. Before rolling back, we can debug the root cause and use the experience to understand the best way to develop remediation and eliminate the risk of that failure or impact happening in the future.
 
-- There is a concept explained quite well in the famous article [Fail Fast](http://www.martinfowler.com/ieeeSoftware/failFast.pdf) published in *IEEE Software*. The article dates back to 2004, so this is hardly a new concept. Unfortunately, there is a stigma associated with failure that can lead to excessively risk-averse behavior. The most important benefit of having automated snapshots is being able to quickly revert failures. That allows us to safely adopt a fail fast and fail smart mantra.
+- There is a concept explained quite well in the famous article [Fail Fast](http://www.martinfowler.com/ieeeSoftware/failFast.pdf) published in *IEEE Software*. The article dates back to 2004, so this is hardly a new concept. Unfortunately, there is a stigma associated with failure that can lead to excessively risk-averse behavior. The most important benefit of having automated snapshots is being able to quickly revert failures. That allows us to safely adopt a "fail fast / fail smart" mantra.
 
-- Of course, there are many best practices we can follow to reduce risk. Obviously, test for application impacts by trying conversions in your lower environments first. Any issues that can be worked out with Dev and Test servers will help you be prepared to avoid those issues in Production.
+- Of course, there are many best practices we can follow to reduce risk. Obviously, start with testing for application impacts by trying conversions in your lower environments first. Any issues that can be worked out with Dev and Test servers will help you be prepared to avoid those issues in Production.
 
 - When present, the findings reported by the Convert2RHEL pre-conversion analysis report are there to make us aware of potential failure modes, but experience has shown that sometimes they are not a problem. Do not become petrified when you see those warnings on the report. Assess findings, develop automation to remediate any issues, and then run through the conversion process, reverting back to step one to loop through the process as your arsenal of remediation automation builds over time. Convert early _and_ often!
 
 ## Conclusion
 
-In this exercise, we learned about the different options for managing Convert2RHEL pre-conversion analysis reports. We used the RHEL/CentOS Web Console to look at the reports we generated in the previous exercise. In the challenge lab, we reviewed the importance of snapshots and learned to embrace failure.
+In this exercise, we learned about the different options for managing Convert2RHEL pre-conversion analysis reports. We used the CentOS Web Console to look at the reports we generated in the previous exercise. In the challenge lab, we reviewed the importance of snapshots and learned to embrace failure.
 
 ---
 

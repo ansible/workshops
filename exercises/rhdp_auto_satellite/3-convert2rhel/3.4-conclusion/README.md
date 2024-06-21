@@ -42,7 +42,7 @@ Hopefully, this workshop has opened your eyes to what is possible, but we have j
 
 - Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, **Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise**
 
-  There are a couple things to be aware of if you want to try it. You will first need to run the "CONVERT2RHEL / 04 Commit" playbook job template. This job will delete the snapshot created for your CentOS7 to RHEL7 conversion, so be sure you are happy with everything before you do this. While rolling back to CentOS7 will no longer be possible, you will be able to roll back to RHEL7 if needed after upgrading to RHEL8.
+  There are a couple things to be aware of if you want to continue through to the RHEL In Place Upgrade content. If you stepped through the conversion rollback exercise, you will have to perform the conversion again and once verified as successful, you will need to run the "CONVERT2RHEL / 04 Commit" playbook job template. This job will delete the snapshot created for your CentOS7 to RHEL7 conversion, so be sure you are happy with everything before you do this. While rolling back to CentOS7 will no longer be possible, you will be able to roll back to RHEL7 if needed after upgrading to RHEL8.
 
   Another consideration with going from CentOS7 to RHEL9 is the increased risk of application impacts. While RHEL system library forward binary compatibility is solid between each RHEL major version, "N+2" compatibility is not guaranteed. Of course, the only way to know for sure is to try it!
 
@@ -60,7 +60,7 @@ All of the Ansible roles and playbooks used in this workshop are maintained in u
 
 #### [redhat-partner-tech/automated-satellite](https://github.com/redhat-partner-tech/automated-satellite)
 
-- This is where you will find all of the AAP job templates and Ansible playbooks included in the workshop, specifically the `aap2-rhdp-dev` and `aap2-rhdp-dev` code branches. You can also explore the infrastructure/configuration as code (IaC/CaC) magic that is used to provision the workshop lab environment.
+- This is where you will find all of the AAP job templates and Ansible playbooks included in the workshop, specifically the `aap2-rhdp-prod` and `aap2-rhdp-dev` code branches. You can also explore the infrastructure/configuration as code (IaC/CaC) magic that is used to provision the workshop lab environment.
 
 #### [redhat-cop/infra.lvm_snapshots](https://github.com/redhat-cop/infra.lvm_snapshots)
 
@@ -68,7 +68,7 @@ All of the Ansible roles and playbooks used in this workshop are maintained in u
 
 ## Thank You!
 
-If you enjoyed this workshop, please take a moment to give it a 5-star rating or write a review. If you have any ideas for improvements or new features, don't hesitate to raise an issue [here](https://github.com/ansible/workshops/issues/new/choose) tagging @swapdisk and @heatmiser. All ideas and feedback are welcome!
+If you enjoyed this workshop, please take a moment to give it a rating or write a review. If you have any ideas for improvements or new features, don't hesitate to raise an issue [here](https://github.com/redhat-cop/agnosticd/issues/new/choose), reference the workshop name `Ansible Workshop - Automated Satellite Workshop` and tagging/mentioning `@heatmiser` within the issue. All ideas and feedback are welcome!
 
 ---
 

@@ -16,7 +16,7 @@
 
 ## Guide
 
-In [Exercise 1.2](../1.2-three-tier-app/README.md) we installed a sample three tier applicationlication and tested its functionality via automation. Now that we have converted our CentOS aplication servers to RHEL, let's retest to see if there has been any impact.
+In [Exercise 1.2](../1.2-three-tier-app/README.md) we installed a sample three tier application and tested application functionality via automation. Now that we have converted our CentOS aplication servers to RHEL, let's retest to see if there has been any impact.
 
 ### Step 1 - Retest our Three Tier Application
 
@@ -26,7 +26,13 @@ It's time to repeat the testing you did for [Step 4](../1.2-three-tier-app/READM
 
 - Use the side pane menu on the left to select **Templates**.
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.  This could take up to 15 seconds to complete.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.
+
+  ![3tier-smoke-test-select](images/convert2rhel-3tier-smoke-select.png)
+
+- For `Choose application stack name`, remember earlier in the inventory tags section, "app_stack_name" was set to "stack02", so we choose "stack02" from the drop down selection. Then click **Next**, then on the preview screen click **Launch**.
+
+This should take ~15 seconds to complete.
 
   ![3tier-smoke-test-output](images/convert2rhel-3tier-smoke-output.png)
 

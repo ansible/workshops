@@ -62,7 +62,7 @@ After launching the rollback workflow job, the AAP Web UI will navigate automati
 
 - The automated rollback takes only a few minutes to run. You can monitor the log output as the playbook run progresses by clicking directly on the "UTILITY / Snapshot Instance" node in the workflow visualizer.
 
-- When all of the workflow job nodes have completed, if you haven't already, click on the "UTILITY / Snapshot Instance" node in the workflow visualizer. Once the "UTILITY / Snapshot Instance" job details displays, click on the "Output" tab and scroll to the bottom of the job output. If it finished successfully, you should see "failed=0" status for each node in the job summary, like this example:
+- When all of the workflow job nodes have completed, if you haven't done so already, click on the "UTILITY / Snapshot Instance" node in the workflow visualizer. Once the "UTILITY / Snapshot Instance" job details displays, click on the "Output" tab and scroll to the bottom of the job output. If it finished successfully, you should see "failed=0" status for each node in the job summary, like this example:
 
   ![Rollback job "PLAY RECAP" as seen at the end of the job output](images/rollback_job_recap.png)
 

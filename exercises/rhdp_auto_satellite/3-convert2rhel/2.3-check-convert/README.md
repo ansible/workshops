@@ -53,7 +53,7 @@ The first thing we want to do is see if the job running the conversion playbook 
 
 ### Step 2 - Verify the Hosts are Upgraded to Next RHEL Version
 
-Now let's make sure our application servers are actually converted to the next RHEL version.
+Now let's make sure our application servers have actually converted to RHEL.
 
 - In [Exercise 1.3: Step 2](../1.3-report/README.md#step-2---navigating-the-rhel-web-console), you used the RHEL Web Console to check the installed CentOS versions on your application servers. Let's repeat those steps to see the RHEL versions reported after our conversions.
 
@@ -69,7 +69,7 @@ Now let's make sure our application servers are actually converted to the next R
 
 - Additionally, if you recorded the `Asset Tag` and `Machine ID`, note that they are the same, serving as verification that this is indeed the same system that was previously operating with CentOS 7.
 
-- You can also check the RHEL and kernel versions from the command line following the steps you used with [Exercise 1.1: Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session).
+- You can also check the RHEL and kernel versions from the command line following the steps you used with [Exercise 1.4: Step 2](../1.4-report/README.md###step-3---review-convert2rhel-pre-conversion-report-of-centos-7-host).
 
   At the shell prompt of your application servers, use the `cat /etc/redhat-release` and `uname -r` commands. Here's an example showing that application server `node4` was converted to RHEL 7:
 
@@ -83,7 +83,7 @@ Now let's make sure our application servers are actually converted to the next R
 
 In this exercise, we observed that the conversion playbook runs completed successfully. We then used the RHEL Web Console,the command line, as well as Satellite to verify the new RHEL versions were installed.
 
-Continue to the following exercise to verify the three tier application is still functioning as expected after the CentOS conversions:
+Continue to the following exercise to verify the three tier application is still functioning as expected after the CentOS to RHEL conversions:
 
 - [Exercise 2.4 - How is the Three Tier App Doing?](../2.4-check-three-tier-app/README.md)
 

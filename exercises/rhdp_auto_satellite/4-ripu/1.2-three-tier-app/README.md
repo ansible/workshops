@@ -166,7 +166,7 @@ Now that our three tier application is installed, let's cover the application st
 
 node1.example.com proxies incoming requests on port 80 and forwards them to port 8080 on node2.example.com, where Tomcat is running a simple java application that, upon an incoming request to the servlet, creates a table in the PostgreSQL database on node3.example.com, with the table name being constructed from the date and time of the request. For example:
 
-`Table "06-06-2024-18-00" has been created!`
+`Table "21-06-2024-20-52" has been created!`
 
 If you'd like to manually test the application stack, you can run the following commands by switching your browser to Visual Studio Code terminal, then from `ansible-1` prompt:
 
@@ -186,7 +186,13 @@ The above will make a request to the Tomcat servlet, where the database table de
 
 - Use the side pane menu on the left to select **Templates**.
 
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.  This should take ~15 seconds to complete.
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 99 - Three Tier App smoke test** to launch the application test job.
+
+  ![3tier-smoke-test-select](images/convert2rhel-3tier-smoke-select.png)
+
+- For `Choose application stack name`, remember earlier in the inventory tags section, "app_stack_name" was set to "stack01", so we choose "stack01" from the drop down selection. Then click **Next**, and then on the preview screen, click **Launch**.
+
+This should take ~15 seconds to complete.
 
   ![3tier-smoke-test-output](images/convert2rhel-3tier-smoke-output.png)
 

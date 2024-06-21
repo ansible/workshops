@@ -21,11 +21,11 @@ We are ready to start the conversion phase of our CentOS to RHEL automation jour
 
 ![Automation approach workflow diagram with conversion step highlighted](images/conversion-workflow-hl-conversion.svg)
 
-It is during this phase that the conversion playbooks are executed using a workflow job template. The first playbook creates a snapshot that can be used for rolling back if anything goes wrong with the conversion. After the snapshot is created, the second playbook uses the Convert2RHEL utility to perform the conversion where the host is advanced to the new RHEL major version.
+It is during this phase that the conversion playbooks are executed using a workflow job template. The first playbook clears yum cache in order to ensure that the maximum amount of space is available for the conversions process. The second playbook creates a snapshot that can be used for rolling back if anything goes wrong with the conversion. After the snapshot is created, the third playbook uses the Convert2RHEL utility to perform the conversion where the host is advanced to the new RHEL major version.
 
 ### Step 1 - Launch the Conversion Workflow Job Template
 
-We are about to start the CentOS conversion of our application servers. The hosts will not be available for login or application access during the conversion. When the conversion is finished, the hosts will reboot under the newly converted RHEL major version.
+We are about to start the CentOS conversion of our application servers. When the conversion is finished, the hosts will reboot under the newly converted RHEL major version.
 
 Conversions typically take less than an hour, although they can run for longer if there are applications that shutdown slowly or with bare metal hosts that have a long reboot cycle. The cloud instances provisioned for our workshop lab environment will convert fairly quickly as they are very lightweight compared to traditional enterprise app servers.
 

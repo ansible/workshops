@@ -13,7 +13,7 @@
     - [Step 4 - Access the Satellite Web UI](#step-4---access-the-satellite-web-ui)
     - [Step 5 - Access the RHEL Web Console](#step-5---access-the-rhel-web-console)
     - [Step 6 - RHEL In-place Upgrade Automation exercise job template deploy](#step-6---rhel-in---place-upgrade-automation-exercise-job-template-deploy)
-    - [Step 7 - Challenge Labs](#step-6---challenge-labs)
+    - [Step 7 - Challenge Labs](#step-7---challenge-labs)
   - [Conclusion](#conclusion)
 
 ## Objectives

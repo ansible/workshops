@@ -1,4 +1,4 @@
-# Workshop Exercise - Your Lab Environment
+# Automated Satellite Workshop: RHEL In-place Upgrade Automation Exercise - Your Lab Environment
 
 ## Table of Contents
 
@@ -12,7 +12,8 @@
     - [Step 3 - Access the AAP Web UI](#step-3---access-the-aap-web-ui)
     - [Step 4 - Access the Satellite Web UI](#step-4---access-the-satellite-web-ui)
     - [Step 5 - Access the RHEL Web Console](#step-5---access-the-rhel-web-console)
-    - [Step 6 - Challenge Labs](#step-6---challenge-labs)
+    - [Step 6 - RHEL In-place Upgrade Automation exercise job template deploy](#step-6---rhel-in---place-upgrade-automation-exercise-job-template-deploy)
+    - [Step 7 - Challenge Labs](#step-7---challenge-labs)
   - [Conclusion](#conclusion)
 
 ## Objectives
@@ -108,7 +109,39 @@ We will use the RHEL Web Console to review the results of the Leapp pre-upgrade 
 
 - We will revisit the RHEL Web Console when we are ready to review our pre-upgrade reports in an upcoming exercise.
 
-### Step 6 - Challenge Labs
+### Step 6 - RHEL In-place Upgrade Automation exercise job template deploy
+
+- Before we proceed into the exercise steps, we need to launch some automation to further configure our workshop environment. The **Automated Satellite Workshop** covers a wide range of topics and as such, in order to keep a smaller number of job templates to work through, the `RHEL In Place Upgrade` job templates are not populated on the AAP Controller by default.   Switch to the browser tab with the AAP Web UI and on the left menu bar, select `Resources > Templates`.
+
+  ![Enter RIPU filter on AAP Web UI](images/ripu_cac_01.png)
+
+- In the filter box, enter `RIPU` and click the magnifying glass to filter the job templates displayed.
+
+  ![Enter RIPU filter on AAP Web UI](images/ripu_cac_02.png)
+
+- Click ![launch](images/ripu_aap2_launch.png) to the right of **Z / CaC / Controller / RIPU scenario** to launch the job.
+
+  ![RIPU other prompts survey on AAP Web UI](images/ripu_cac_03.png)
+
+- At `Other prompts` verify default variables provided and click `Next`.
+
+  ![RIPU job survey on AAP Web UI](images/ripu_cac_04.png)
+
+- For the `Choose RIPU version to prepare on Controller` survey, if you are proceeding through this exercise for the first time with RHEL7 hosts, select `RHEL8`. If you have already upgraded your hosts from RHEL7 to RHEL8 and are now looking to continue by upgrading from RHEL8 to RHEL9, then select `RHEL9`. Click `Next`.
+
+  ![RIPU preview survey on AAP Web UI](images/ripu_cac_05.png)
+
+- Verify variables and settings on the job preview. click `Launch`.
+
+  ![RIPU job output on AAP Web UI](images/ripu_cac_06.png)
+
+- The **Z / CaC / Controller / RIPU scenario** job should require just under 2 minutes to complete.
+
+  ![RIPU job templates on AAP Web UI](images/ripu_cac_07.png)
+
+- Once the **Z / CaC / Controller / RIPU scenario** job has completed, on the left menu bar, select `Resources > Templates`. In the filter box, enter `leapp` and click the magnifying glass to filter the job templates displayed. The newly populated job templates for our RHEL In-place Upgrade Automation exercises are now available to use.
+
+### Step 7 - Challenge Labs
 
 You will soon discover that many exercises in the workshop come with a "Challenge Lab" step. These labs are meant to give you a small task to solve using what you have learned so far. The solution of the task is shown underneath a warning sign.
 

@@ -174,7 +174,7 @@ Can you find the upstream source repo and playbook code?
 ```
 - Since our CentOS nodes match all of these `when` tests, the tasks from `c2r_analysis_centos.yml` are going to be imported into our playbook run. In your GitHub browser tab, find `c2r_analysis_centos.yml` and click on it to review the playbook contents.
 
-- Notice that after some intial preparations are performed, the `Run RIPU preupg` task of the playbook imports the `analysis` role from the `infra.convert2rhel` Ansible collection.
+- Notice that after some intial preparations are performed, the `Generate pre-conversion analysis report` task of the playbook imports the `analysis` role from the `infra.convert2rhel` Ansible collection.
 ```
 - name: Generate pre-conversion analysis report
   ansible.builtin.import_role:

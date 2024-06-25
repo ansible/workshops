@@ -22,17 +22,17 @@
 
 ## Guide
 
-Congratulations! You have reached the end of the CentOS In-place Upgrade Automation Workshop. You are now armed with the knowledge needed to start developing an automation solution to help your organization manage CentOS conversions at scale.
+Congratulations! You have reached the end of the CentOS to RHEL Conversion Automation exercises. You are now armed with the knowledge needed to start developing an automation solution to help your organization manage CentOS conversions at scale.
 
 Let's review what we learned and think about what's next.
 
 ### Step 1 - What You Learned
 
-With this workshop, you gained hands-on experience while learning about a prescriptive approach to automating CentOS in-place conversions.
+With these exercises, you gained hands-on experience while learning about a prescriptive approach to automating CentOS to RHEL conversions.
 
 - You converted a handful of CentOS cloud instances while progressing through the workshop exercises, but with the power of an enterprise deployment of AAP, this approach can be rolled out at scale across a large fleet of CentOS hosts.
 
-- You learned why automated snapshot/rollback is one of the most important capabilities required to successfully deliver CentOS in-place conversion automation. Snapshots not only eliminate the risk and anxiety experienced by an app team facing a CentOS conversion, but they also help accelerate the development of robust conversion automation playbooks.
+- You learned why automated snapshot/rollback is one of the most important capabilities required to successfully deliver CentOS to RHEL conversion automation. Snapshots/backups not only eliminate the risk and anxiety experienced by an app team facing a CentOS conversion, but they also help accelerate the development of robust conversion automation playbooks.
 
 - But the most important lesson we learned is "You can do this!"
 

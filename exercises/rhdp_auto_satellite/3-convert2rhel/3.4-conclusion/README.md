@@ -22,17 +22,17 @@
 
 ## Guide
 
-Congratulations! You have reached the end of the CentOS In-place Upgrade Automation Workshop. You are now armed with the knowledge needed to start developing an automation solution to help your organization manage CentOS conversions at scale.
+Congratulations! You have reached the end of the CentOS to RHEL Conversion Automation exercises. You are now armed with the knowledge needed to start developing an automation solution to help your organization manage CentOS conversions at scale.
 
 Let's review what we learned and think about what's next.
 
 ### Step 1 - What You Learned
 
-With this workshop, you gained hands-on experience while learning about a prescriptive approach to automating CentOS in-place conversions.
+With these exercises, you gained hands-on experience while learning about a prescriptive approach to automating CentOS to RHEL conversions.
 
 - You converted a handful of CentOS cloud instances while progressing through the workshop exercises, but with the power of an enterprise deployment of AAP, this approach can be rolled out at scale across a large fleet of CentOS hosts.
 
-- You learned why automated snapshot/rollback is one of the most important capabilities required to successfully deliver CentOS in-place conversion automation. Snapshots not only eliminate the risk and anxiety experienced by an app team facing a CentOS conversion, but they also help accelerate the development of robust conversion automation playbooks.
+- You learned why automated snapshot/rollback is one of the most important capabilities required to successfully deliver CentOS to RHEL conversion automation. Snapshots/backups not only eliminate the risk and anxiety experienced by an app team facing a CentOS conversion, but they also help accelerate the development of robust conversion automation playbooks.
 
 - But the most important lesson we learned is "You can do this!"
 
@@ -42,7 +42,7 @@ Hopefully, this workshop has opened your eyes to what is possible, but we have j
 
 - Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, **Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise**
 
-  There are a couple things to be aware of if you want to try it. You will first need to run the "CONVERT2RHEL / 04 Commit" playbook job template. This job will delete the snapshot created for your CentOS7 to RHEL7 conversion, so be sure you are happy with everything before you do this. While rolling back to CentOS7 will no longer be possible, you will be able to roll back to RHEL7 if needed after upgrading to RHEL8.
+  There are a couple things to be aware of if you want to try it. You will need to circle back and step through the exercises in this section from the beginning, however, you will need to skip the exercise 3 sections where the snapshot rollback is performed. Once exercise sections 1 and 2 are completed, you will need to run the "CONVERT2RHEL / 04 Commit" playbook job template, set no limit, and select the `CentOS7_Dev` inventory group. This job will delete the snapshot created for your CentOS7 to RHEL7 conversion, so be sure you are happy with everything before you do this. While rolling back to CentOS7 will no longer be possible, you will be able to roll back to RHEL7 if needed after upgrading to RHEL8. Note that, at this point, you will have two application stacks to keep track of: stack01 for nodes 1-3 and stack02 for nodes 4-6, so keep that in mind while working forward through the RHEL In Place Upgrade exercises.
 
   Another consideration with going from CentOS7 to RHEL9 is the increased risk of application impacts. While RHEL system library forward binary compatibility is solid between each RHEL major version, "N+2" compatibility is not guaranteed. Of course, the only way to know for sure is to try it!
 

@@ -210,6 +210,6 @@ Use the link below to move on the the next exercise.
 
 **Navigation**
 
-[Previous Exercise](../1.1-setup/README.md) - [Next Exercise](../1.3-analysis/README.md)
+[Previous Exercise](../1.1-setup/README.md) - [Next Exercise](../1.3-preupg/README.md)
 
 [Home](../README.md)

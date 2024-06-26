@@ -69,7 +69,7 @@ Now, let's verify that all three tier app servers are upgraded to the next RHEL 
 
 - You can also check the RHEL and kernel versions from the command line following the steps you used with [Exercise 1.1: Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session).
 
-  At the shell prompt of your three tier app servers, use the `cat /etc/redhat-release` and `uname -r` commands. Here's an example showing a three tier app server that was upgraded to RHEL8:
+  At the shell prompt of your three tier app servers, use the `cat /etc/redhat-release` and `uname -r` commands. Here's an example showing that three tier app server node1 was upgraded to RHEL8:
 
   ![command output showing RHEL8 is installed](images/rhel8_commands.png)
 

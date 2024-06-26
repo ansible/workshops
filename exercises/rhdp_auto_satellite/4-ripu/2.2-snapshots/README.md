@@ -26,19 +26,19 @@
 
 ## Guide
 
-In the previous exercise, we launched the automation to start the RHEL in-place upgrades of our pet application servers. The first step of the upgrade workflow template is to create a snapshot for each RHEL instance being upgraded. If something goes wrong with an upgrade, the snapshot makes it possible to quickly undo the upgrade.
+In the previous exercise, we launched the automation to start the RHEL in-place upgrades of our three tier application servers. The first step of the upgrade workflow template is to create a snapshot for each RHEL instance being upgraded. If something goes wrong with an upgrade, the snapshot makes it possible to quickly roll back the upgrade.
 
 Automating snapshots can be one of the most difficult features of the RHEL in-place upgrade solution approach. In this exercise, we will explore some of the challenges that enterprises face and look at strategies for overcoming them.
 
-Let's start by defining exactly what we mean when we talk about snapshots.
+Before proceeding, it is necessary to establish what we are referring to when utilizing the term "snapshots".
 
-### Step 1 - What are Snapshots and What are They Not
+### Step 1 - What Snapshots _Are_ and What They _Are_ _Not_
 
-Most organizations with a mature traditional computing environment will have standards and tools implemented for doing backups. Typically, backups will be performed on a periodic schedule. More critical or more dynamic data might be backed up more frequently than mostly static data. There is often a strategy where full backups are performed only occasionally and incremental backups are used to save changed file more often.
+Most organizations with a mature traditional computing environment will have standards and tools implemented for performing backups. Typically, backups will be performed on a periodic schedule. Mission critical or highly dynamic data might be backed up more frequently than mostly static data. Often times, a strategy where full backups are performed occasionally in concert with frequent incremental backups.
 
-The reason for doing backups is to be able to recover data that has been lost for any reason. If data is corrupted because of an operations issue or software defect or accidentally deleted, backups make it easy to turn the clock back and restore the lost data.
+The reason for utilizing backups is to be able to recover data that has been lost for any reason. If data is corrupted because of an operations issue, software defect, or accidentally deleted, backups make it easy to turn the clock back and restore lost data.
 
-But when an entire server is lost, using backups to recover is more difficult because a new operating system must first be installed before anything can be restored from the backup. The data can be spread out across a full backup as well as multiple incremental backups, further increasing the time for a full server recovery. Most organizations only use their backup solution to restore individual files or directories, but they are not as prepared to recover everything on a server. Even if they are, such a recovery will take a long time.
+However, when an entire server is lost, using backups to recover is increasingly difficult, because a new operating system must first be installed before anything can be restored from the backup. The data can be spread out across a full backup as well as multiple incremental backups, further increasing the time for a full server recovery. Most organizations only use backup solutions to restore individual files or directories, with full server recoveries often an impossibility. Even if accounted for, full system recoveries require a substantial amount of time to accomplish.
 
 Snapshots are different in that they do not backup and restore individual files. Instead, backups operate at a storage device level, instantly saving the contents of an entire logical volume or virtual disk. Unlike backups, snapshots do not make a copy of the data being backed up, but rather mark a point in time after which a copy of all modified data is copied going forward. For this reason, the underlying technique used for snapshots is often referred to as "copy-on-write" or COW.
 
@@ -82,11 +82,11 @@ If there is not enough free space in the volume group, there are a few ways we c
 
 - Adding another physical volume to the volume group (i.e., `pvcreate` and `vgextend`). For a VM, you would first configure an additional virtual disk.
 - Temporarily remove a logical volume you don't need. For example, on bare metal servers, there is often a large /var/crash empty filesystem. Removing this filesystem from `/etc/fstab` and then using `lvremove` to remove the logical volume from which it was mounted will free up space in the volume group.
-- Reducing the size of one or more logical volumes. This is tricky because first the filesystem in the logical volume needs to be shrunk. XFS filesystems do not support shrinking. EXT filesystems do support shrinking, but not while the filesystem is mounted. Until recently, this way of freeing up volume group space was considered a last resort to be attempted by only the most skilled Linux admin, but it now possible to safely automate shrinking logical volumes using the [`shrink_lv`](https://github.com/swapdisk/infra.lvm_snapshots/tree/main/roles/shrink_lv#readme) role of the aforementioned `infra.lvm_snapshots` collection.
+- Reducing the size of one or more logical volumes. This is tricky, because first the filesystem in the logical volume needs to be shrunk. XFS filesystems do not support shrinking. EXT filesystems do support shrinking, but not while the filesystem is mounted. Until recently, this method of freeing up volume group space was considered a last resort to be attempted by only the most skilled Linux admin...but it is _now_ possible to safely automate shrinking logical volumes using the [`shrink_lv`](https://github.com/swapdisk/infra.lvm_snapshots/tree/main/roles/shrink_lv#readme) role of the aforementioned `infra.lvm_snapshots` collection.
 
-After a snapshot is created, COW data will start to utilize the free space of the snapshot logical volume as blocks are written to the origin logical volume. Unless the snapshot is create with the same size as the origin, there is a chance that the snapshot could fill up and become invalid. Testing should be performed during the development of the LVM snapshot automation to determine snapshot sizings with enough cushion to prevent this. The `snapshot_autoextend_percent` and `snapshot_autoextend_threshold` settings in lvm.conf can also be used to reduce the risk of snapshots running out of space. The [`lvm_snapshots`](https://github.com/swapdisk/infra.lvm_snapshots/tree/main/roles/lvm_snapshots#readme) role of the `infra.lvm_snapshots` collection supports variables that may be used to automatically configure the autoextend settings.
+After a snapshot is created, COW data will start to utilize the free space of the snapshot logical volume as blocks are written to the origin logical volume. Unless the snapshot is created with the same size as the origin, there is a chance that the snapshot could fill up and become invalid. Testing should be performed during the development of the LVM snapshot automation to determine snapshot sizings with enough cushion to prevent this. The `snapshot_autoextend_percent` and `snapshot_autoextend_threshold` settings in lvm.conf can also be used to reduce the risk of snapshots running out of space. The [`lvm_snapshots`](https://github.com/swapdisk/infra.lvm_snapshots/tree/main/roles/lvm_snapshots#readme) role of the `infra.lvm_snapshots` collection supports variables that may be used to automatically configure the autoextend settings.
 
-Unless you have the luxury of creating snapshots with the same size as their origin volumes, LVM snapshot sizing needs to be thoroughly tested and free space usage carefully monitored. However, if that challenge can be met, LVM snapshots offer a reliable snapshot solution without the headache of depending on external infrastructure such as VMware.
+Unless you have the luxury of creating snapshots with the same size as their origin volumes, LVM snapshot sizing needs to be thoroughly tested, with free space usage carefully monitored. However, if that challenge can be met, LVM snapshots offer a conveneient _and_ reliable snapshot solution without the headache of depending on external infrastructure and/or tooling.
 
 #### VMware
 
@@ -98,7 +98,7 @@ In our experience, having this access granted can be extremely challenging. The 
 
 The VMware team may resist supporting snapshots because of limited storage space. While standard VMDK files are fixed in size, COW snapshots will grow over time and require careful monitoring with data stores in VMware environments often running tight on capacity.
 
-Another justification for pushing back on supporting automated snapshots will be the VMware vendor recommendation that snapshots should never be used for more than 72 hours (see KB article [Best practices for using VMware snapshots in the vSphere environment](https://kb.vmware.com/s/article/1025279)). Unfortunately, app teams usually need more than 3 days of soak time before they are comfortable that no impact to their apps has resulted from a RHEL upgrade.
+Another justification for pushing back on supporting automated snapshots will be the VMware vendor recommendation that snapshots should never be used for more than 72 hours (see KB article [Best practices for using VMware snapshots in the vSphere environment](https://kb.vmware.com/s/article/1025279)). Unfortunately, app teams usually require more than 3 days of soak time before they are comfortable reporting that no impacts have resulted from a RHEL major version upgrade.
 
 VMware snapshots work great when they can be automated. If you are considering this option, engage early with the team that controls the VMware environment for your organization and be prepared for potential resistance.
 
@@ -108,7 +108,7 @@ Amazon Elastic Block Store (Amazon EBS) provides the block storage volumes used 
 
 While EBS snapshots operate independently from the guest OS running on the EC2 instance, the similarity to VMware snapshots ends there. An EBS snapshot saves the data of the source EBS volume, but does not save the state or memory of the EC2 instance to which the volume is attached. Also unlike with VMware, EBS snapshots can be created for an OS volume only while leaving any separate application volumes as is.
 
-Automating EBS snapshot creation and rollback is fairly straightforward assuming your playbooks can access the required AWS APIs. The tricky bit of the automation is identifying the EC2 instance and attached EBS volume that corresponds to the target host in the Ansible inventory managed by AAP, but this can be solved by setting identifying tags on your EC2 instances.
+Automating EBS snapshot creation and rollback is fairly straightforward, assuming your playbooks can access the required AWS APIs. The tricky bit of the automation is identifying the EC2 instance and attached EBS volume that corresponds to the target host in the Ansible inventory managed by AAP, however, this can be managed by setting identifying tags on your EC2 instances in combination with proper utilization of the modules provided via the `amazon.aws` Ansible collection.
 
 #### Break Mirror
 
@@ -161,7 +161,7 @@ Whatever your decision, remember that an effective snapshot/rollback capability 
 
 In this exercise, we learned about the pros and cons of a number of different methods of achieving an automated snapshot/rollback capability. We also considered the risks that can happen because of rolling back app data that isn't isolated from OS changes. With this knowledge, you are ready to make more informed decisions when designing your snapshot/rollback automation approach.
 
-In the next exercise, we'll go back to look at how the RHEL in-place upgrades are progressing on our pet application servers.
+In the next exercise, we'll go back to look at how the RHEL in-place upgrades are progressing on our three tier application servers.
 
 ---
 

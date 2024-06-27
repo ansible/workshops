@@ -38,7 +38,7 @@ With these exercises, you gained hands-on experience while learning about a pres
 
 ### Step 2 - Activities for Extra Credit
 
-Hopefully, this workshop has opened your eyes to what is possible, but we have just scratched the surface.
+Hopefully, these exercises have opened your eyes to what is possible, but we have just scratched the surface.
 
 - Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, **Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise**
 

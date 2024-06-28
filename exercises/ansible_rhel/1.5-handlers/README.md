@@ -98,9 +98,9 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
         enabled: true
       when: inventory_hostname in groups['web']
 
-    - name: Allow HTTPS traffic on web servers
+    - name: Allow HTTP traffic on web servers
       ansible.posix.firewalld:
-        service: https
+        service: http
         permanent: true
         state: enabled
       when: inventory_hostname in groups['web']
@@ -114,7 +114,7 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 
 ```
 
-The handler Restart Apache is triggered only if the task “Allow HTTPS traffic on web servers” makes any changes.
+The handler Restart Apache is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
 
 > NOTE: Notice how the name of the handler is used within the notify section of the “Reload Firewall” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
 

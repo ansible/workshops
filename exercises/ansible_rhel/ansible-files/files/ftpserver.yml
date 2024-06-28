@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
-      yum:
+      ansible.builtin.yum:
         name: vsftpd
         state: latest
       when: inventory_hostname in groups["ftpserver"]

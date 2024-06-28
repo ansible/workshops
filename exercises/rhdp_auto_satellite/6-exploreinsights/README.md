@@ -8,9 +8,7 @@ This use-case will focus on exploring some of the services available on Red Hat 
 Prerequisites
 -----------------------------------------------------------------
 
--   Exercise 0: Lab Setup
-
--   Exercise 4: Insights Setup
+-   Exercise 5: Insights Setup
 
 Exercise
 -----------------------------------------------------------------
@@ -29,13 +27,13 @@ This exercise is much less prescriptive and is designed to provide the student w
 
 -   Click on Inventory
 
-    - Note that the hosts registered during the Setup / Insights Workflow Template job run are present at the top of the list
+    - Note that the hosts registered during the `Z / SETUP / Insights` workflow template job run are present at the top of the list
 
     - Click into each host to see the details of each host on the General Information tab. A representative sample is provided using node1.example.com.
 
 ![inventory-general-information](images/5-exploreinsights-inventory-general.png)
 
-- Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host
+- Click on each of the other tabs to see the information that Insights has collected about each host.  For example click on Vulnerability.  This view will show all the vulnerabilities for that host.
 
 > **NOTE** The right most column labeled Remediation you will see Playbook listed on many of these vulnerabilities.  This indicates that an Ansible Playbook has been created to correct this issue.  In the next exercise we will demonstrate how to use AAP with this playbook to address the vulnerability.
 

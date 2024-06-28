@@ -10,8 +10,8 @@
     - [Step 2 - Activities for Extra Credit](#step-2---activities-for-extra-credit)
     - [Step 3 - Look at the Code](#step-3---look-at-the-code)
       - [redhat-cop/infra.convert2rhel](#redhat-copinfraconvert2rhel)
-      - [redhat-partner-tech/leapp-project](#redhat-partner-techleapp-project)
-      - [swapdisk/snapshot](#swapdisksnapshot)
+      - [redhat-partner-tech/automated-satellite](#redhat-partner-techautomated-satellite)
+      - [redhat-cop/infra.lvm_snapshots](#redhat-copinfralvm_snapshots)
   - [Thank You!](#thank-you)
 
 ## Objectives

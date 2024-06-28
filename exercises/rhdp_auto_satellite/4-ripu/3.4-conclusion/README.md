@@ -11,8 +11,8 @@
     - [Step 3 - Look at the Code](#step-3---look-at-the-code)
       - [redhat-cop/infra.leapp](#redhat-copinfraleapp)
       - [oamg/leapp-supplements](#oamgleapp-supplements)
-      - [redhat-partner-tech/leapp-project](#redhat-partner-techleapp-project)
-      - [swapdisk/snapshot](#swapdisksnapshot)
+      - [redhat-partner-tech/automated-satellite](#redhat-partner-techautomated-satellite)
+      - [redhat-cop/infra.lvm_snapshots](#redhat-copinfralvm_snapshots)
   - [Thank You!](#thank-you)
 
 ## Objectives

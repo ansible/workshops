@@ -18,7 +18,7 @@
 
 ## Guide
 
-In this exercise, we will demonstrate rolling back one of our three tier application servers, just as we would if the CentOS conversion had failed or if we had found the conversion caused unexpected impacts to the application.
+In this exercise, we will demonstrate rolling back our three tier application servers, just as we would if the CentOS conversion had failed or if we had found the conversion caused unexpected impacts to the application.
 
 We are now here in our exploration of the CentOS conversion workflow:
 
@@ -38,15 +38,15 @@ In this step, we will be rolling back the CentOS conversion for our entire three
 
   ![AAP Web UI showing the rollback workflow template details view](images/rollback_template.png)
 
-- Click the "Launch" button which will bring up the prompts for submitting the workflow starting with the limit and variables prompts. We want to do a rollback of the entire three tier application stack. To do this, we will not enter any values into the "Limit" prompt.
+- Click the "Launch" button which will bring up the prompts for submitting the workflow starting with the limit and prompt. We want to do a rollback of the entire three tier application stack. To do this, we will not enter any values into the "Limit" prompt.
 
-  ![AAP Web UI showing the rollback job limit and variables prompts](images/rollback_prompts.png)
+  ![AAP Web UI showing the rollback job limit prompt](images/rollback_prompts.png)
 
   Click the "Next" button to proceed.
 
   ![AAP Web UI showing the rollback job survey prompt](images/rollback_survey.png)
 
-- Next we see the job template survey prompt asking us to select an inventory group. Our systems were converted to RHEL7 and we looked in Satellite and verified that the nodes were in fact registered as RHEL7 nodes, configured to consume the RHEL7_Dev content view. So, we should choose "RHEL7_Dev" for our inventory group, yes? Actually, no. We have not committed to keeping the converted systems, our system tags that define the current OS have not been updated, so the Ansible inventory still recognizes these systems as members of the "CentOS7_Dev" inventory group. So if we have not initiated the commit automation to accept the converted systems as RHEL7_Dev nodes, we choose the "CentOS7_Dev" option and click the "Next" button.
+- Next we see the job template survey prompt asking us to select an inventory group. Our systems were converted to RHEL7 and we looked in Satellite and verified that the nodes were in fact registered as RHEL7 nodes, configured to consume the RHEL7_Dev content view. So, we should choose "RHEL7_Dev" for our inventory group, yes? Actually, no. We have not _committed_ to keeping the converted systems, our system tags that define the current OS and content view have not been updated...so the Ansible inventory still recognizes these systems as members of the "CentOS7_Dev" inventory group. So if we have not initiated the commit automation to accept the converted systems as RHEL7_Dev nodes, we choose the "CentOS7_Dev" option and click the "Next" button.
 
 - This will bring you to the preview of the selected job options and variable settings, for example:
 
@@ -62,7 +62,7 @@ After launching the rollback workflow job, the AAP Web UI will navigate automati
 
 - The automated rollback takes only a few minutes to run. You can monitor the log output as the playbook run progresses by clicking directly on the "UTILITY / Snapshot Instance" node in the workflow visualizer.
 
-- When all of the workflow job nodes have completed, if you haven't done so already, click on the "UTILITY / Snapshot Instance" node in the workflow visualizer. Once the "UTILITY / Snapshot Instance" job details displays, click on the "Output" tab and scroll to the bottom of the job output. If it finished successfully, you should see "failed=0" status for each node in the job summary, like this example:
+- When all of the workflow job nodes have completed (green check mark), if you haven't done so already, click on the "UTILITY / Snapshot Instance" node in the workflow visualizer. Once the "UTILITY / Snapshot Instance" job details displays, click on the "Output" tab and scroll to the bottom of the job output. If it finished successfully, you should see "failed=0" status for each node in the job summary, like this example:
 
   ![Rollback job "PLAY RECAP" as seen at the end of the job output](images/rollback_job_recap.png)
 

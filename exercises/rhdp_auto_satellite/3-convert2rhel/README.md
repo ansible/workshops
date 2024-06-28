@@ -1,4 +1,4 @@
-# Automated Satellite Workshop: CentOS to RHEL Conversion
+# Automated Satellite Workshop: CentOS to RHEL Conversion exercise
 
   > **Note**
   >
@@ -14,7 +14,7 @@ As you progress through this exercise, you will learn more about the importance 
 
 ## Table of Contents
 
-- [Automated Satellite Workshop: CentOS to RHEL Conversion](#automated-satellite-workshop:-centos-to-rhel-conversion)
+- [Automated Satellite Workshop: CentOS to RHEL Conversion exercise](#automated-satellite-workshop:-centos-to-rhel-conversion-exercise)
   - [Table of Contents](#table-of-contents)
   - [Presentations](#presentations)
   - [Time Planning](#time-planning)

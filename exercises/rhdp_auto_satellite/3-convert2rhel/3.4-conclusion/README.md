@@ -10,8 +10,8 @@
     - [Step 2 - Activities for Extra Credit](#step-2---activities-for-extra-credit)
     - [Step 3 - Look at the Code](#step-3---look-at-the-code)
       - [redhat-cop/infra.convert2rhel](#redhat-copinfraconvert2rhel)
-      - [redhat-partner-tech/leapp-project](#redhat-partner-techleapp-project)
-      - [swapdisk/snapshot](#swapdisksnapshot)
+      - [redhat-partner-tech/automated-satellite](#redhat-partner-techautomated-satellite)
+      - [redhat-cop/infra.lvm_snapshots](#redhat-copinfralvm_snapshots)
   - [Thank You!](#thank-you)
 
 ## Objectives
@@ -38,7 +38,7 @@ With these exercises, you gained hands-on experience while learning about a pres
 
 ### Step 2 - Activities for Extra Credit
 
-Hopefully, this workshop has opened your eyes to what is possible, but we have just scratched the surface.
+Hopefully, these exercises have opened your eyes to what is possible, but we have just scratched the surface.
 
 - Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, **Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise**
 

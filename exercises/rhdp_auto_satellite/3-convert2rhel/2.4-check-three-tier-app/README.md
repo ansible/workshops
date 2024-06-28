@@ -16,7 +16,7 @@
 
 ## Guide
 
-In [Exercise 1.2](../1.2-three-tier-app/README.md) we installed a sample three tier application and tested application functionality via automation. Now that we have converted our CentOS aplication servers to RHEL, let's retest to see if there has been any impact.
+In [Exercise 1.2](../1.2-three-tier-app/README.md) we installed a sample three tier application and tested application functionality via automation. Now that we have converted our CentOS application servers to RHEL, let's retest to see if there has been any impact.
 
 ### Step 1 - Retest our Three Tier Application
 

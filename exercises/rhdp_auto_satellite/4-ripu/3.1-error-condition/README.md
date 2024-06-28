@@ -1,20 +1,14 @@
-# Workshop Exercise - Trash the Instance
+# Workshop Exercise - Simulate upgrade failure
 
 ## Table of Contents
 
-- [Workshop Exercise - Trash the Instance](#workshop-exercise---trash-the-instance)
+- [Workshop Exercise - Simulate upgrade failure](#workshop-exercise---simulate-upgrade-failure)
   - [Table of Contents](#table-of-contents)
   - [Optional Exercise](#optional-exercise)
   - [Objectives](#objectives)
   - [Guide](#guide)
-    - [Step 1 - Select a Pet App Server](#step-1---select-a-pet-app-server)
-    - [Step 2 - Choose your Poison](#step-2---choose-your-poison)
-      - [Delete everything](#delete-everything)
-      - [Uninstall glibc](#uninstall-glibc)
-      - [Break the application](#break-the-application)
-      - [Wipe the boot record](#wipe-the-boot-record)
-      - [Fill up your disk](#fill-up-your-disk)
-      - [Set off a fork bomb](#set-off-a-fork-bomb)
+    - [Step 1 - Select a Three Tier Application Server](#step-1---select-a-three-tier-application-server)
+    - [Step 2 - Break your application](#step-2---break-your-application)
   - [Conclusion](#conclusion)
 
 ## Optional Exercise
@@ -30,53 +24,77 @@ This is an optional exercise. It is not required to successfully complete the wo
 
 ## Guide
 
-Have you ever wanted to try doing `rm -rf /*` on a RHEL host just to see what happens? Or maybe you have accidentally done an equally destructive recursive command and already know the consequences. In this exercise, we are going to intentionally mess up one of our pet app servers to demonstrate how rolling back can save the day.
+Have you ever wanted to try doing `rm -rf /*` on a RHEL host just to see what happens? Or maybe you have accidentally done an equally destructive recursive command and already know the consequences. In this exercise, we are going to intentionally break one of the servers from our three tier application stack to demonstrate how rolling back can save the day.
 
 Let's get started!
 
-### Step 1 - Select a Pet App Server
+### Step 1 - Select a Three Tier Application Server
 
-In the next exercise, we will be rolling back the RHEL upgrade on one of our servers.
+In the next exercise, we will be rolling back the RHEL upgrade on our three tier application stack.
 
-- Choose an app server. It can be one of the RHEL7 instances that is now on RHEL8, or one of the RHEL8 instances that was upgraded to RHEL9.
+- Choose one of the systems from the three tier application stack "stack01": node1, node2, or node3.
 
-- Follow the steps you used with [Exercise 1.1: Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session) to open a terminal session on the app server you have chosen to roll back.
+- Follow the steps you used with [Exercise 1.1: Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session) to open a terminal session on the app server you have chosen to break. In this example, we are going to break the tomcat application tier server, node2.
 
-- At the shell prompt, use the `sudo -i` command to switch to the root user. For example:
+- At the shell prompt, ssh to node2 and use the `sudo -i` command to switch to the root user. For example:
 
   ```
-  [ec2-user@cute-bedbug ~]$ sudo -i
-  [root@cute-bedbug ~]#
+  [student@ansible-1 ~]$ ssh node2
+  Last login: Wed Jun 26 20:23:52 2024 from 192.168.0.85
+  [ec2-user@node2 ~]$ sudo -i
+  Last login: Wed Jun 26 20:24:06 UTC 2024 on pts/0
+  [root@node2 ~]#
   ```
 
   Verify you see a root prompt like the example above.
 
 ### Step 2 - Break your application
 
-- In [Exercise 1.6: Step 5](../1.6-my-pet-app/README.md#step-5---run-another-pre-upgrade-report), we observed a pre-upgrade finding warning of a potential risk that our `temurin-17-jdk` 3rd-party JDK runtime package might be removed during the upgrade in case it had unresolvable dependencies. Of course, we know this did not happen because our pet app is still working perfectly.
+- When utilizing a 3rd-party JDK runtime package, a pre-upgrade finding warning of a potential risk may occur in some cases. The issue is that in the event that unresolvable dependencies are present, some 3rd-party JDK runtime packages might be removed during the upgrade. Of course, this did not happen in our case, as the three tier application stack utilizes OpenJDK packages provided by Red Hat and our application stack is functioning correctly.
 
-  But what if this package did get removed? Our pet app requires the JDK runtime to function. Without it, our application will be broken. We can simulate this by manually removing the package like this:
-
-  ```
-  dnf -y remove temurin-17-jdk
-  ```
-
-  Now if you `reboot` the app server, the pet app will not come back up and the following error will be seen at the end of the `~/app.log` file:
+  But what if we were using a 3rd-party JDK and the package was removed? Our three tier application stack utilizes a tomcat application and tomcat requires a JDK runtime to function. Without it, the tomcat application will be broken. We can simulate this by manually removing the package like this:
 
   ```
-  ...
-  which: no javac in (/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin)
-  Error: JAVA_HOME is not defined correctly.
-  We cannot execute
+  rpm -e --nodeps java-1.8.0-openjdk java-1.8.0-openjdk-headless
   ```
 
-  This is a realistic example of application impact that can be reversed by rolling back the upgrade.
+  Now if you `reboot` node2, the three tier application stack will no longer function correctly, as the tomcat application will not be able to start and the following error will be seen when checking the tomcat service status on node2:
+
+  ```
+  [root@node2 ~]# reboot
+  Shared connection to node2 closed.
+  [student@ansible-1 ~]$ ssh node2
+  Web console: https://node2.example.com:9090/ or https://192.168.0.216:9090/
+
+  Last login: Wed Jun 26 20:42:49 2024 from 192.168.0.85
+  [ec2-user@node2 ~]$ sudo -i
+  [root@node2 ~]# systemctl status tomcat
+  ● tomcat.service - Apache Tomcat Web Application Container
+    Loaded: loaded (/usr/lib/systemd/system/tomcat.service; enabled; vendor preset: disabled)
+    Active: failed (Result: exit-code) since Wed 2024-06-26 21:35:06 UTC; 6min ago
+    Process: 1286 ExecStart=/usr/libexec/tomcat/server start (code=exited, status=127)
+  Main PID: 1286 (code=exited, status=127)
+
+  Jun 26 21:35:06 node2.example.com server[1286]: /usr/libexec/tomcat/server: Failed to set JAVACMD
+  Jun 26 21:35:06 node2.example.com server[1286]: Java virtual machine used:
+  Jun 26 21:35:06 node2.example.com server[1286]: classpath used: /usr/share/tomcat/bin/bootstrap.jar:/usr/share/tomcat/bin/tomcat-juli.jar:
+  Jun 26 21:35:06 node2.example.com server[1286]: main class used: org.apache.catalina.startup.Bootstrap
+  Jun 26 21:35:06 node2.example.com server[1286]: flags used: -Djavax.sql.DataSource.Factory=org.apache.commons.dbcp.BasicDataSourceFactory
+  Jun 26 21:35:06 node2.example.com server[1286]: options used: -Dcatalina.base=/usr/share/tomcat -Dcatalina.home=/usr/share/tomcat -Djava.endorsed.dirs= -Dj>
+  Jun 26 21:35:06 node2.example.com server[1286]: arguments used: start
+  Jun 26 21:35:06 node2.example.com server[1286]: /usr/libexec/tomcat/functions: line 24: exec: : not found
+  Jun 26 21:35:06 node2.example.com systemd[1]: tomcat.service: Main process exited, code=exited, status=127/n/a
+  Jun 26 21:35:06 node2.example.com systemd[1]: tomcat.service: Failed with result 'exit-code'.
+  lines 1-16/16 (END)
+  ```
+
+  This is a realistic example of an application impact during upgrades that can be reversed by rolling back the upgrade.
 
 ## Conclusion
 
-Congratulations, you have trashed one of your app servers. Wasn't that fun?
+Congratulations, you have broken the application stack. Wasn't that fun?
 
-In the next exercise, you will untrash it by rolling back the upgrade.
+In the next exercise, you will correct the issue by rolling back the upgrade.
 
 ---
 

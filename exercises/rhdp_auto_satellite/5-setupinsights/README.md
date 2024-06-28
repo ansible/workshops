@@ -25,19 +25,16 @@ Overview
 **Summary**<br>
 - Insights is a hosted service on console.redhat.com.  In order to access this service you need a Red Hat Portal Account
 - Since accounts are associated with subscriptions, sharing an account widely could cause a lost of control of the account and subscription consumption
-- Therefore this exercise will require the use of a users portal account and will require 2 RHEL Subscriptions
+- Therefore this exercise will require the use of a user portal account and will require 2 RHEL Subscriptions
 
 
 Ok, let's get started...  
 
 Prerequisites
 --------------
-
-> **NOTE** These instructions assume that the Ansible Controller is setup.  This can be done in one of two ways:  1) Complete Exercies 0 - Lab Setup or 2) Run Setup / Controller.
-
 -   Information required for executing this exercise
 
-    - Manifest created in your portal account targeted to Satellite 6.12 with appropriate subscriptions including a minimum of 2 RHEL Instance-based subscriptions with Smart Management and 1 Satellite Infrastructure subscription
+    - Manifest created in your portal account targeted to Satellite 6.14 with appropriate subscriptions including a minimum of 2 RHEL Instance-based subscriptions with Smart Management and 1 Satellite Infrastructure subscription
         - Record the name ⇒ manifest_name 
 
     - Offline Token for accessing the Subscription Manager API
@@ -57,12 +54,12 @@ Exercise:
 **Login to your AAP UI's**
 > **NOTE** The following are *example* URLs. Your student lab URLs will be different.
 * Ansible Automation Platform URL<br>
-    Example: https://student1.{random}.example.opentlc.com*
+    Example: https://ansible-1.{random}.sandbox{###}.opentlc.com*
 
 **Steps:**<br>
 #### 1\. Logging into the Ansible Automation Platform (AAP)
 
--   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password_set_in_deploy_vars>*
+-   Use a web browser on your computer to access the AAP GUI via the link found in the Environment above. And use the following username and password to login: *admin / <password>*
 
 ![login screen](images/4-setupinsights-aap2-login.png)
 
@@ -72,7 +69,7 @@ Exercise:
 
 -   Use the side pane menu on the left to select **Templates**.
 
--   Scroll down to find **Setup / Insights**.
+-   Scroll down to find **Z / SETUP / Insights**.
 
 > **NOTE** This template is a workflow template as indicated by the visualizer icon and type = Workflow Job Template
 
@@ -85,15 +82,15 @@ Exercise:
 - This workflow job template executes the following job templates
 
     - Insights / Replace Satellite Manifest - Replaces the Satellite manifest in the workshop with one that attaches to your Red Hat Portal Account
-    - Server /RHEL7 - Register - Registers the hosts to Satellite
+    - SERVER / RHEL7 - Register - Registers the hosts to Satellite
     - Insights / Install and Register - Installs Insights and registers the 3 RHEL hosts to Insights.  It also runs the Insights Compliance role which installs the openscap packages on the hosts
-    - Insights - Create Insights Credential - Creates the AAP Insights Credential using your portal account information
-    - Insights - Create Insights Project - Creates an Insights Project in AAP that provides a project for remediation playbooks created in Insights to be consumed by AAP
+    - Insights / Create Insights Credential - Creates the AAP Insights Credential using your portal account information
+    - Insights / Create Insights Project - Creates an Insights Project in AAP that provides a project for remediation playbooks created in Insights to be consumed by AAP
 
 > **NOTE** Prior to executing the workflow job template you **MUST** add variables to the template.  To do that:
 
 
--   Click ![pencil](images/4-setupinsights-pencil.png) to the right of **Setup / Insights**.  This will open the edit details window as shown below:
+-   Click ![pencil](images/4-setupinsights-pencil.png) to the right of **Z / SETUP / Insights**.  This will open the edit details window as shown below:
 
 ![setup-insights](images/4-setupinsights-variables.png)
 

@@ -35,7 +35,7 @@
 
 - name: run the Automation Controller installer
   become: true
-  become_user: ec2-user
+  become_user: "{{ username }}"
   environment:
     ANSIBLE_COLLECTIONS_PATH: "{{ aap_dir }}/collections"
   shell: "{{ controller_install_command }}"

@@ -19,6 +19,23 @@ ansible_port={{ ssh_port }}
 {{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
 {% endif -%}
 {% endfor -%}
+{% if ol7 is defined -%}
+{% for vm in node4_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% for vm in node5_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% for vm in node6_node_facts.instances -%}
+{% if 'student' + item == vm.tags.Student -%}
+{{ vm.tags.short_name }}.example.com ansible_host={{ vm.private_ip_address }}
+{% endif -%}
+{% endfor -%}
+{% endif %}
 {% if centos7 is defined -%}
 {% for vm in node4_node_facts.instances -%}
 {% if 'student' + item == vm.tags.Student -%}

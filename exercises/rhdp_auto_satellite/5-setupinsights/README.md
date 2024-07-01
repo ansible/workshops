@@ -45,8 +45,8 @@ Prerequisites
         - console.redhat.com -> Settings -> Remote Host Configuration -> Activation Keys⇒ rhsm_org_id
 
     - Red Hat Account username and password
-        - username ⇒ insights_user
-        - password ⇒ insights_password
+        - username ⇒ redhat_portal_username
+        - password ⇒ redhat_portal_password
 
 
 Exercise:
@@ -99,8 +99,8 @@ Exercise:
     - manifest_name
     - offline_token
     - rhsm_org_id
-    - insights_user
-    - insights_password
+    - redhat_portal_username
+    - redhat_portal_password
 
 -   Once the variables are entered click Save
 

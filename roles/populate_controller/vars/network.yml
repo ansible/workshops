@@ -14,7 +14,7 @@ controller_hosts:
     inventory: "Workshop Inventory"
     enabled: true
     variables:
-      ansible_user: "ec2-user"    
+      ansible_user: "ec2-user"
 controller_organizations:
   - name: "Red Hat network organization"
     description: "Red Hat Network Organization"
@@ -177,17 +177,3 @@ controller_groups:
     variables:
       ansible_network_os: junos
       ansible_connection: netconf
-  - name: routers
-    inventory: "Workshop Inventory"
-    children:
-      - cisco
-      - arista
-      - juniper
-  - name: network
-    inventory: "Workshop Inventory"
-    children:
-      - routers
-    variables:
-      restore_inventory: "Workshop Inventory"
-      restore_credential: "Workshop Credential"
-      restore_project: "Workshop Project"

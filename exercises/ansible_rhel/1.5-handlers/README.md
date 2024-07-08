@@ -89,16 +89,18 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
       ansible.builtin.dnf:
         name: firewalld
         state: present
+      when: inventory_hostname in groups['web']
 
     - name: Ensure firewalld is running
       ansible.builtin.service:
         name: firewalld
         state: started
         enabled: true
+      when: inventory_hostname in groups['web']
 
-    - name: Allow HTTPS traffic on web servers
+    - name: Allow HTTP traffic on web servers
       ansible.posix.firewalld:
-        service: https
+        service: http
         permanent: true
         state: enabled
       when: inventory_hostname in groups['web']
@@ -112,7 +114,7 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 
 ```
 
-The handler Restart Apache is triggered only if the task “Allow HTTPS traffic on web servers” makes any changes.
+The handler Restart Apache is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
 
 > NOTE: Notice how the name of the handler is used within the notify section of the “Reload Firewall” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
 
@@ -144,14 +146,14 @@ ok: [node1]
 ok: [node3]
 
 TASK [Install firewalld] *******************************************************
-changed: [ansible-1]
+skipping: [ansible-1]
 changed: [node2]
 changed: [node1]
 changed: [node3]
 
 TASK [Ensure firewalld is running] *********************************************
+skipping: [ansible-1]
 changed: [node3]
-changed: [ansible-1]
 changed: [node2]
 changed: [node1]
 

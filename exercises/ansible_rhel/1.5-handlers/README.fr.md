@@ -35,6 +35,8 @@ Ajoutons à notre playbook system_setup.yml la capacité d'installer le Serveur 
 
 > REMARQUE : Les exemples précédents avaient des hôtes définis sur node1 mais maintenant il est défini sur all. Cela signifie que lorsque vous exécutez ce playbook Ansible mis à jour, vous remarquerez des mises à jour pour les nouveaux systèmes automatisés, l'utilisateur Roger créé sur tous les nouveaux systèmes et le paquet du serveur web Apache httpd installé sur tous les hôtes du groupe web.
 
+<!-- {% raw %} -->
+
 ```yaml
 ---
 - name: Configuration Système de Base
@@ -64,6 +66,8 @@ Ajoutons à notre playbook system_setup.yml la capacité d'installer le Serveur 
       when: inventory_hostname in groups['web']
 ```
 
+<!-- {% raw %} -->
+
 Dans cet exemple, `inventory_hostname in groups['web']` est la déclaration conditionnelle. `inventory_hostname` fait référence au nom de l'hôte actuel sur lequel Ansible travaille dans le playbook. La condition vérifie si cet hôte fait partie du groupe web défini dans votre fichier d'inventaire. Si c'est vrai, la tâche s'exécutera et installera Apache sur cet hôte.
 
 ### Étape 3 - Gestionnaires
@@ -72,6 +76,7 @@ Les gestionnaires sont utilisés pour les tâches qui ne doivent s'exécuter que
 
 Disons que nous voulons nous assurer que le pare-feu est correctement configuré sur tous les serveurs web, puis recharger le service pare-feu pour appliquer les nouveaux paramètres. Nous définirons un gestionnaire qui recharge le service pare-feu et est notifié par une tâche qui assure que les règles de pare-feu souhaitées sont en place :
 
+<!-- {% raw %} -->
 
 ```yaml
 ---
@@ -107,6 +112,8 @@ Disons que nous voulons nous assurer que le pare-feu est correctement configuré
         state: reloaded
 
 ```
+
+<!-- {% raw %} -->
 
 Le gestionnaire Recharger le Pare-feu est déclenché uniquement si la tâche "Autoriser le trafic HTTPS sur les serveurs web" effectue des modifications.
 
@@ -175,6 +182,8 @@ node3                      : ok=8    changed=4    unreachable=0    failed=0    s
 Les boucles dans Ansible vous permettent d'effectuer une tâche plusieurs fois avec différentes valeurs. Cette fonctionnalité est particulièrement utile pour des tâches comme la création de plusieurs comptes utilisateurs dans notre exemple donné.
 Dans le playbook system_setup.yml original de l'exercice 1.4, nous avions une tâche pour créer un seul utilisateur :
 
+<!-- {% raw %} -->
+
 ```yaml
 - name: Créer un nouvel utilisateur
   ansible.builtin.user:
@@ -183,8 +192,11 @@ Dans le playbook system_setup.yml original de l'exercice 1.4, nous avions une t�
     create_home: true
 
 ```
+<!-- {% raw %} -->
 
 Maintenant, modifions cette tâche pour créer plusieurs utilisateurs à l'aide d'une boucle :
+
+<!-- {% raw %} -->
 
 ```yaml
 - name: Créer un nouvel utilisateur
@@ -198,11 +210,16 @@ Maintenant, modifions cette tâche pour créer plusieurs utilisateurs à l'aide 
     - carol
 ```
 
+<!-- {% raw %} -->
+
+<!-- {% raw %} -->
+
 Qu'est-ce qui a changé ?
 
 1. Directive de Boucle : Le mot-clé loop est utilisé pour itérer sur une liste d'éléments. Dans ce cas, la liste contient les noms des utilisateurs que nous souhaitons créer : alice, bob et carol.
 
 2. Création d'Utilisateurs avec Boucle : Au lieu de créer un seul utilisateur, la tâche modifiée itère maintenant sur chaque élément de la liste de boucle. Le placeholder `{{ item }}` est dynamiquement remplacé par chaque nom d'utilisateur dans la liste, de sorte que le module ansible.builtin.user crée chaque utilisateur à son tour.
+<!-- {% raw %} -->
 
 Lorsque vous exécutez le playbook mis à jour, cette tâche est exécutée trois fois, une fois pour chaque utilisateur spécifié dans la boucle. C'est une manière efficace de gérer les tâches répétitives avec des données d'entrée variables.
 

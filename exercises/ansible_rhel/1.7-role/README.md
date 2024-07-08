@@ -125,9 +125,9 @@ Adjust `/home/student/lab_inventory/roles/apache/tasks/main.yml` to include task
     state: started
     enabled: true
 
-- name: Allow HTTPS traffic on web servers
+- name: Allow HTTP traffic on web servers
   ansible.posix.firewalld:
-    service: https
+    service: http
     permanent: true
     state: enabled
   when: inventory_hostname in groups['web']

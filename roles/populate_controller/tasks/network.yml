@@ -6,7 +6,7 @@
   loop:
     - 'infra.controller_configuration.hosts'
     - 'infra.controller_configuration.organizations'
-    - 'infra.controller_configuration.users'  
+    - 'infra.controller_configuration.users'
     - 'infra.controller_configuration.teams'
     - 'infra.controller_configuration.projects'
     - 'infra.controller_configuration.job_templates'
@@ -16,7 +16,7 @@
     loop_var: setup_controller
 
 - name: Debug the student number via the username var
-  ansible.builtin.debug: 
+  ansible.builtin.debug:
     msg:
      - "student: {{ student_number }}"
      - "{{ groups['routers'] }}"
@@ -25,10 +25,10 @@
   ansible.builtin.set_fact:
     student_hosts: "{{ groups['routers'] | select('search', 'student' ~ student_number ~ '-') | list }}"
 
-- name: Debug hosts for 
+- name: Debug hosts for
   ansible.builtin.debug:
     msg: "{{ student_hosts }}"
-  
+
 - name: Add devices into controller inventory
   awx.awx.host:
     name: "{{ hostvars[item].short_name }}"
@@ -58,7 +58,7 @@
 
 - name: Debug the routers
   debug:
-    msg: 
+    msg:
       - "cisco_routers_short_names: {{ cisco_routers_short_names }}"
       - "arista_routers: {{ arista_routers }}"
       - "juniper_routers: {{ juniper_routers }}"
@@ -73,7 +73,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"
-    validate_certs: false    
+    validate_certs: false
 
 - name: Add hosts to juniper
   awx.awx.group:
@@ -85,7 +85,7 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"
-    validate_certs: false    
+    validate_certs: false
 
 - name: Add hosts to arista
   awx.awx.group:
@@ -97,4 +97,36 @@
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}"
-    validate_certs: false    
+    validate_certs: false
+
+- name: Add group routers
+  awx.awx.group:
+    name: routers
+    inventory: "Workshop Inventory"
+    children:
+      - cisco
+      - arista
+      - juniper
+    preserve_existing_hosts: True
+    preserve_existing_children: True
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false
+
+- name: Add group network
+  awx.awx.group:
+    name: network
+    inventory: "Workshop Inventory"
+    children:
+      - routers
+    preserve_existing_hosts: True
+    preserve_existing_children: True
+    variables:
+      restore_inventory: "Workshop Inventory"
+      restore_credential: "Workshop Credential"
+      restore_project: "Workshop Project"
+    controller_username: admin
+    controller_password: "{{ admin_password }}"
+    controller_host: "https://{{ ansible_host }}"
+    validate_certs: false

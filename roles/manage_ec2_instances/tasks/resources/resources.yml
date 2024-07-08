@@ -139,6 +139,7 @@
   amazon.aws.ec2_key:
     name: "{{ ec2_name_prefix }}-key"
     region: "{{ ec2_region }}"
+    key_type: "ed25519"
   register: create_key
 
 - name: save private key

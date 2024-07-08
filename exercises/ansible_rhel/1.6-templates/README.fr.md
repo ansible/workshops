@@ -24,7 +24,9 @@ Ansible utilise Jinja2, un langage de templatisation largement utilisé pour Pyt
 
 ### Étape 2 - Création de Votre Premier Modèle
 
+<!-- {% raw %} -->
 Les modèles se terminent par une extension `.j2` et mélangent du contenu statique avec des espaces réservés dynamiques entourés de `{{ }}`.
+<!-- {% raw %} -->
 
 Dans l'exemple suivant, créons un modèle pour le Message du Jour (MOTD) qui inclut des informations dynamiques sur l'hôte.
 
@@ -40,11 +42,15 @@ mkdir -p ~/lab_inventory/templates
 
 Créez un fichier nommé `motd.j2` dans le répertoire des modèles avec le contenu suivant :
 
+<!-- {% raw %} -->
+
 ```jinja
 Bienvenue sur {{ ansible_hostname }}.
 OS : {{ ansible_distribution }} {{ ansible_distribution_version }}
 Architecture : {{ ansible_architecture }}
 ```
+
+<!-- {% raw %} -->
 
 Ce modèle affiche dynamiquement le nom d'hôte, la distribution de l'OS, la version et l'architecture de chaque hôte géré.
 

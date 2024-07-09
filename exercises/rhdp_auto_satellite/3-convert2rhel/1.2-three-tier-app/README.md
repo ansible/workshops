@@ -87,9 +87,13 @@ This use-case will focus on conversion from CentOS (though this could be another
 
 - The **CentOS7 Development** inventory source **Details** view will be displayed. Click on the variables expansion button on the side right.
 
+  ![Controller inventories keyed_groups](images/update_controller_inventory_inventory_filter.png)
+
+- Looking at the Source variables, first let's look at `filters` and `hostnames`. The `filters` section will allow definining which instances should be selected for inclusion within the given inventory. In this case, the tags `ContentView`, `Environment`, `Student`, and `guid` will be utilized...all instances with tags matching the current values defined for each tag, will be selected. The `hostnames` sections allows defining how names of filtered resources will be definined in the inventory. In this case, the value currently defined with tag `NodeName` will be utilized for the name within the inventory.
+
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
-- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, when a dynamic inventory generation event is executed, if the EC2 inventory plugin comes across an instance with the "app_stack_name" and "AnsibleGroup" tags, then it will create an inventory group with the name beginning with the value assigned to the "app_stack_name" tag, an "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "app_stack_name" tag is currently set to "stack02" and the "AnsibleGroup" tag is set to "appdbs", then the inventory group "stack02_appdbs" will be created (or confirmed if already existing) and that instance will be assigned to the group.
+- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, given the instances that are selected via the filters in the previous section, if any of these instances are currently tagged with "app_stack_name" and "AnsibleGroup" tags, then it will create an inventory group with the name beginning with the value assigned to the "app_stack_name" tag, an "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "app_stack_name" tag is currently set to `stack02` and the "AnsibleGroup" tag is set to `appdbs`, then the inventory group `stack02_appdbs` will be created (or confirmed if already existing) and that instance will be assigned to the `stack02_appdbs` group.
 
 - Click on "Done" in the Source variables exapanded view.
 

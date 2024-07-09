@@ -139,7 +139,7 @@
   amazon.aws.ec2_key:
     name: "{{ ec2_name_prefix }}-key"
     region: "{{ ec2_region }}"
-    key_type: "ed25519"
+    # key_type: "ed25519" need to fix for juniper
   register: create_key
 
 - name: save private key

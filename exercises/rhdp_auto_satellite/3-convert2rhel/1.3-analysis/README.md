@@ -75,6 +75,10 @@ One of the prerequisites for successful Convert2RHEL OS conversions is that the 
 
 - We can see that the CentOS hosts have some package updates that can be applied.
 
+  > **Note**
+  >
+  > The `/var/cache/yum` directory is utilized by the `yum` utility to cache RPM metadata and packages that have been accessed/installed. Over time, the space that this directory consumes can grow to significant amounts, often causing the `/var` filesystem to max out. In case you run the **OS / Patch OS to latest** job template and it errors out due to `/var` filesystem space exhaustion, run the **UTILITY / Clear yum cache** job template against the *CentOS7_Dev* inventory group to free up available space on the `/var` filesystem. As an option, consider running the **UTILITY / Clear yum cache** job template prior to the **OS / Patch OS to latest** job template as a preemptive step to ensure `/var` filesystem space exhaustion is not an issue.
+
 - Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu:
 
   ![Job templates listed on AAP Web UI](images/aap_templates_2.png)

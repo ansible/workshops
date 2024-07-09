@@ -90,7 +90,17 @@ less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
 
 - When the pre-conversion report is generated, the Convert2RHEL framework collects system data and assesses convertability based on a large collection of checks. When any of these checks uncovers a potential risk, it is recorded as a finding in the report.
 
-- The good news is that the warning regarding the "third party" package `katello-ca-consumer-satellite` is something we can ignore, as this package is part of the registration of the CentOS system to Satellite. And we can ignore the warnings about an outdated version of convert2rhel, as we know that we are not using the most up to date version.
+- The good news is that the warning regarding the "third party" package `katello-ca-consumer-satellite`:  
+`(WARNING) LIST_THIRD_PARTY_PACKAGES::THIRD_PARTY_PACKAGE_DETECTED - Third party packages detected`  
+...is something we can ignore, as this package is part of the registration of the CentOS system to Satellite.
+
+- Other potential findings that might be present:
+  - `(ERROR) REMOVE_EXCLUDED_PACKAGES::EXCLUDED_PACKAGE_REMOVAL_FAILED - Failed to remove excluded package`  
+    This finding typically means that a package and version that is present on the system to be converted can not be found during the conversion analysis and as such the built-in rollback functionality within the `convert2rhel` utility would not be able to successfully rollback a conversion attempt if something went wrong.
+  - `(OVERRIDABLE) PACKAGE_UPDATES::OUT_OF_DATE_PACKAGES - Outdated packages detected`  
+    and  
+    `(WARNING) CONVERT2RHEL_LATEST_VERSION::ALLOW_OLDER_VERSION_ENVIRONMENT_VARIABLE - Outdated convert2rhel version detected`  
+    ...both relate to not using the most up-to-date version of the `convert2rhel` utility. Remember, in order to maintain optimal stability for the lab/workshop/demo environment, we pin the version of the `convert2rhel` utility to a specific release, so we can closely manage the state of the code base to ensure optimal stability for the lab/workshop/demo environment. As time passes and new versions can be tested against the workshop environment, updates will be made, so you may or may not experience the above issues in your pre-conversions analysis results.
 
 ### Challenge Lab: What if we were to experience warnings we are unsure of?
 

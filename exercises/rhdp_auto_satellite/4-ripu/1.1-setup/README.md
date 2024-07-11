@@ -7,9 +7,9 @@
   - [Objectives](#objectives)
   - [Guide](#guide)
     - [Your Lab Environment](#your-lab-environment)
-    - [Step 1 - Access the Environment](#step-1---access-the-environment)
-    - [Step 2 - Open a Terminal Session](#step-2---open-a-terminal-session)
-    - [Step 3 - Access the AAP Web UI](#step-3---access-the-aap-web-ui)
+    - [Step 1 - Access the AAP Web UI](#step-1---access-the-aap-web-ui)
+    - [Step 2 - Access the Visual Studio Code Web UI](#step-2---access-the-visual-studio-code-web-ui)
+    - [Step 3 - Open a Terminal Session](#step-3---open-a-terminal-session)
     - [Step 4 - Access the Satellite Web UI](#step-4---access-the-satellite-web-ui)
     - [Step 5 - Access the RHEL Web Console](#step-5---access-the-rhel-web-console)
     - [Step 6 - RHEL In-place Upgrade Automation exercise job template deploy](#step-6---rhel-in---place-upgrade-automation-exercise-job-template-deploy)
@@ -39,7 +39,21 @@ The workshop is provisioned with a pre-configured lab environment. You will have
 | Managed Host 5 - CentOS/OracleLinux | node5          |
 | Managed Host 6 - CentOS/OracleLinux | node6          |
 
-### Step 1 - Access the Environment
+### Step 1 - Access the AAP Web UI
+
+The AAP Web UI is where we will go to submit and check the status of the Ansible playbook jobs we will use to automate the RHEL in-place upgrade workflow.
+
+- Let's open the AAP Web UI in a new web browser tab using the "Console" link under "Red Hat Ansible Automation Controller" on the workshop launch page. For example:
+
+  ![Example link to AAP Web UI](images/aap_link.png)
+
+- Enter the username `admin` and the password provided. This will bring you to your AAP Web UI dashboard like the example below:
+
+  ![Example AAP Web UI dashboard](images/aap_console_example.svg)
+
+- We will learn more about how to use the AAP Web UI in the next exercise.
+
+### Step 2 - Access the Visual Studio Code Web UI
 
 We will use Visual Studio Code (VS Code) as it provides a convenient and intuitive way to use a web browser to edit files and access terminal sessions. If you are a command line hero, direct SSH access is available if VS Code is not to your liking. There is a short YouTube video to explain if you need additional clarity: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
 
@@ -53,7 +67,7 @@ We will use Visual Studio Code (VS Code) as it provides a convenient and intuiti
 >
 > A welcome wizard may appear to guide you through configuring your VS Code user experience. This is optional as the default settings will work fine for this workshop. Feel free to step though the wizard to explore the VS code bells and whistles or you may just skip it.
 
-### Step 2 - Open a Terminal Session
+### Step 3 - Open a Terminal Session
 
 Terminal sessions provide access to the RHEL commands and utilities that will help us understand what's going on "behind the curtain" when the RHEL in-place upgrade automation is doing its thing.
 
@@ -68,20 +82,6 @@ Terminal sessions provide access to the RHEL commands and utilities that will he
   ![Example ssh login to RHEL host](images/ssh_login.png)
 
 - In the example above, the command `ssh node1` connects us to a new session on the node1 host. Then the commands `cat /etc/redhat-release` and `uname -r` are used to output the OS release information `Red Hat Enterprise Linux Server release 7.9 (Maipo)` and kernel version `3.10.0-1160.102.1.el7.x86_64` from that host.
-
-### Step 3 - Access the AAP Web UI
-
-The AAP Web UI is where we will go to submit and check the status of the Ansible playbook jobs we will use to automate the RHEL in-place upgrade workflow.
-
-- Let's open the AAP Web UI in a new web browser tab using the "Console" link under "Red Hat Ansible Automation Controller" on the workshop launch page. For example:
-
-  ![Example link to AAP Web UI](images/aap_link.png)
-
-- Enter the username `admin` and the password provided. This will bring you to your AAP Web UI dashboard like the example below:
-
-  ![Example AAP Web UI dashboard](images/aap_console_example.svg)
-
-- We will learn more about how to use the AAP Web UI in the next exercise.
 
 ### Step 4 - Access the Satellite Web UI
 

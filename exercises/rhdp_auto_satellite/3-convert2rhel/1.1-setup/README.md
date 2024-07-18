@@ -94,17 +94,17 @@ The Satellite Web UI is where we will go to review the Lifecycle Environments, C
 
   ![Example Satellite Web UI dashboard](images/satellite_console_example.png)
 
-### Step 5 - Access the RHEL Web Console
+### Step 5 - Access the Web Console
 
-We will use the RHEL Web Console to review the results of the Convert2RHEL pre-conversion analysis reports we generate for our three-tier app servers.
+We will use the Web Console to review the results of the Convert2RHEL pre-conversion analysis reports we generate for our three-tier app servers.
 
 - Open a new web browser tab using the link under "RHEL Web Console Interactive Server Admin Interface" on the workshop launch page. For example:
 
-  ![Example link to RHEL Web Console](images/cockpit_link.png)
+  ![Example link to Web Console](images/cockpit_link.png)
 
-- Enter the username `student` and the password provided. This will bring you to a RHEL Web Console Overview page like the example below:
+- Enter the username `student` and the password provided. This will bring you to a Web Console Overview page like the example below:
 
-  ![Example RHEL Web Console](images/cockpit_example.png)
+  ![Example Web Console](images/cockpit_example.png)
 
 - We will revisit the RHEL Web Console when we are ready to review our pre-conversion reports in an upcoming exercise.
 

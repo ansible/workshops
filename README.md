@@ -19,7 +19,6 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 | Workshop   | Public Deck | Red Hat Internal  | Exercises  | Workshop Type Var   |
 |---|---|---|---|---|
 | **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel.pdf) | [Google Source](https://docs.google.com/presentation/d/1O2Gj5r_fhjM5Pi5FizrZRInmZ37IlpeKPTP6jSZxEKs/edit?usp=sharing) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
-| **[Ansible Config as Code Workshop](./exercises/ansible_config_as_code)** <br> focused on config as code for AAP | [PDF](./decks/config_as_code.pdf) | [Google Source](https://docs.google.com/presentation/d/1F6W8p0MG878AC3Q1CsNZHfhX5VkEyGKbwDHACQtoLPI) | [Exercises](./exercises/ansible_config_as_code)   | `workshop_type: configascode` |
 | **[Ansible Network Automation Workshop](./exercises/ansible_network)** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [PDF](./decks/ansible_network.pdf) | [Google Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
 | **[Ansible Windows Automation Workshop](./exercises/ansible_windows)** <br> focused on automation of Microsoft Windows  | [PDF](./decks/ansible_windows.pdf) | [Google Source](https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
 | **[Smart Management Automation Workshop](./exercises/ansible_smart_mgmt)** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | [PDF](./decks/ansible_smart_mgmt.pdf) | [Google Source](https://docs.google.com/presentation/d/135lid9AeSioN4bJexBbv9q0fkJwDibpUQg8aeYjxzTY) | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
@@ -59,7 +58,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 ## Slack Community
 
-- [Join us on Ansible Network Slack](https://join.slack.com/t/ansiblenetwork/shared_invite/zt-3zeqmhhx-zuID9uJqbbpZ2KdVeTwvzw)
+- [Join us on the Ansible Forum](https://forum.ansible.com/)
 
 ## E-Books
 

@@ -7,9 +7,9 @@
   - [Objectives](#objectives)
   - [Guide](#guide)
     - [Your Lab Environment](#your-lab-environment)
-    - [Step 1 - Access the Environment](#step-1---access-the-environment)
-    - [Step 2 - Open a Terminal Session](#step-2---open-a-terminal-session)
-    - [Step 3 - Access the AAP Web UI](#step-3---access-the-aap-web-ui)
+    - [Step 1 - Access the AAP Web UI](#step-1---access-the-aap-web-ui)
+    - [Step 2 - Access the Visual Studio Code Web UI](#step-2---access-the-visual-studio-code-web-ui)
+    - [Step 3 - Open a Terminal Session](#step-3---open-a-terminal-session)
     - [Step 4 - Access the Satellite Web UI](#step-4---access-the-satellite-web-ui)
     - [Step 5 - Access the RHEL Web Console](#step-5---access-the-centos-web-console)
     - [Step 6 - Challenge Labs](#step-6---challenge-labs)
@@ -38,7 +38,21 @@ The workshop is provisioned with a pre-configured lab environment. You will have
 | Managed Host 5 - CentOS/OracleLinux | node5          |
 | Managed Host 6 - CentOS/OracleLinux | node6          |
 
-### Step 1 - Access the Environment
+### Step 1 - Access the AAP Web UI
+
+The AAP Web UI is where we will go to submit and check the status of the Ansible playbook jobs we will use to automate the CentOS conversion workflow.
+
+- Let's open the AAP Web UI in a new web browser tab using the "Console" link under "Red Hat Ansible Automation Controller" on the workshop launch page. For example:
+
+  ![Example link to AAP Web UI](images/aap_link.png)
+
+- Enter the username `admin` and the password provided. This will bring you to your AAP Web UI dashboard like the example below:
+
+  ![Example AAP Web UI dashboard](images/aap_console_example.svg)
+
+- We will learn more about how to use the AAP Web UI in the next exercise.
+
+### Step 2 - Access the Visual Studio Code Web UI
 
 We will use Visual Studio Code (VS Code) as it provides a convenient and intuitive way to use a web browser to edit files and access terminal sessions. If you are a command line hero, direct SSH access is available if VS Code is not to your liking. There is a short YouTube video to explain if you need additional clarity: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
 
@@ -52,7 +66,7 @@ We will use Visual Studio Code (VS Code) as it provides a convenient and intuiti
 >
 > A welcome wizard may appear to guide you through configuring your VS Code user experience. This is optional as the default settings will work fine for this workshop. Feel free to step though the wizard to explore the VS code bells and whistles or you may just skip it.
 
-### Step 2 - Open a Terminal Session
+### Step 3 - Open a Terminal Session
 
 Terminal sessions provide access to the OS commands and utilities that will help us understand what's going on "behind the curtain" when the CentOS conversion automation is doing its thing.
 
@@ -68,20 +82,6 @@ Terminal sessions provide access to the OS commands and utilities that will help
 
 - In the example above, the command `ssh node4` connects us to a new session on the node4 host. Then the commands `cat /etc/redhat-release` and `uname -r` are used to output the OS release information `CentOS Linux release 7.9.2009 (Core)` and kernel version `3.10.0-1160.102.1.el7.x86_64` from that host.
 
-### Step 3 - Access the AAP Web UI
-
-The AAP Web UI is where we will go to submit and check the status of the Ansible playbook jobs we will use to automate the CentOS conversion workflow.
-
-- Let's open the AAP Web UI in a new web browser tab using the "Console" link under "Red Hat Ansible Automation Controller" on the workshop launch page. For example:
-
-  ![Example link to AAP Web UI](images/aap_link.png)
-
-- Enter the username `admin` and the password provided. This will bring you to your AAP Web UI dashboard like the example below:
-
-  ![Example AAP Web UI dashboard](images/aap_console_example.svg)
-
-- We will learn more about how to use the AAP Web UI in the next exercise.
-
 ### Step 4 - Access the Satellite Web UI
 
 The Satellite Web UI is where we will go to review the Lifecycle Environments, Content Views and Activation Keys configured on the Satellite, as well as tracking the status of the CentOS hosts as we proceed through the conversion workflow through to when they become RHEL hosts.
@@ -94,17 +94,17 @@ The Satellite Web UI is where we will go to review the Lifecycle Environments, C
 
   ![Example Satellite Web UI dashboard](images/satellite_console_example.png)
 
-### Step 5 - Access the RHEL Web Console
+### Step 5 - Access the Web Console
 
-We will use the RHEL Web Console to review the results of the Convert2RHEL pre-conversion analysis reports we generate for our three-tier app servers.
+We will use the Web Console to review the results of the Convert2RHEL pre-conversion analysis reports we generate for our three-tier app servers.
 
 - Open a new web browser tab using the link under "RHEL Web Console Interactive Server Admin Interface" on the workshop launch page. For example:
 
-  ![Example link to RHEL Web Console](images/cockpit_link.png)
+  ![Example link to Web Console](images/cockpit_link.png)
 
-- Enter the username `student` and the password provided. This will bring you to a RHEL Web Console Overview page like the example below:
+- Enter the username `student` and the password provided. This will bring you to a Web Console Overview page like the example below:
 
-  ![Example RHEL Web Console](images/cockpit_example.png)
+  ![Example Web Console](images/cockpit_example.png)
 
 - We will revisit the RHEL Web Console when we are ready to review our pre-conversion reports in an upcoming exercise.
 

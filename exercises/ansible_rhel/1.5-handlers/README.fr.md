@@ -7,12 +7,15 @@
 
 ## Table des Matières
 
-- [Objectif](#objectif)
-- [Guide](#guide)
-  - [Étape 1 - Comprendre les Conditionnels, Gestionnaires et Boucles](#étape-1---comprendre-les-conditionnels-gestionnaires-et-boucles)
-  - [Étape 2 - Conditionnels](#étape-2---conditionnels)
-  - [Étape 3 - Gestionnaires](#étape-3---gestionnaires)
-  - [Étape 4 - Boucles](#étape-4---boucles)
+- [Exercice de l'Atelier - Conditionnels, Gestionnaires et Boucles](#exercice-de-latelier---conditionnels-gestionnaires-et-boucles)
+- [Exercices de l'Atelier - Utilisation des Conditionnels, Gestionnaires et Boucles](#exercices-de-latelier---utilisation-des-conditionnels-gestionnaires-et-boucles)
+  - [Table des Matières](#table-des-matières)
+  - [Objectif](#objectif)
+  - [Guide](#guide)
+    - [Étape 1 - Comprendre les Conditionnels, Gestionnaires et Boucles](#étape-1---comprendre-les-conditionnels-gestionnaires-et-boucles)
+    - [Étape 2 - Conditionnels](#étape-2---conditionnels)
+    - [Étape 3 - Gestionnaires](#étape-3---gestionnaires)
+    - [Étape 4 - Boucles](#étape-4---boucles)
 
 ## Objectif
 
@@ -66,7 +69,7 @@ Ajoutons à notre playbook system_setup.yml la capacité d'installer le Serveur 
       when: inventory_hostname in groups['web']
 ```
 
-<!-- {% raw %} -->
+<!-- {% endraw %} -->
 
 Dans cet exemple, `inventory_hostname in groups['web']` est la déclaration conditionnelle. `inventory_hostname` fait référence au nom de l'hôte actuel sur lequel Ansible travaille dans le playbook. La condition vérifie si cet hôte fait partie du groupe web défini dans votre fichier d'inventaire. Si c'est vrai, la tâche s'exécutera et installera Apache sur cet hôte.
 
@@ -113,7 +116,7 @@ Disons que nous voulons nous assurer que le pare-feu est correctement configuré
 
 ```
 
-<!-- {% raw %} -->
+<!-- {% endraw %} -->
 
 Le gestionnaire Recharger le Pare-feu est déclenché uniquement si la tâche "Autoriser le trafic HTTPS sur les serveurs web" effectue des modifications.
 
@@ -192,7 +195,7 @@ Dans le playbook system_setup.yml original de l'exercice 1.4, nous avions une t�
     create_home: true
 
 ```
-<!-- {% raw %} -->
+<!-- {% endraw %} -->
 
 Maintenant, modifions cette tâche pour créer plusieurs utilisateurs à l'aide d'une boucle :
 
@@ -210,16 +213,13 @@ Maintenant, modifions cette tâche pour créer plusieurs utilisateurs à l'aide 
     - carol
 ```
 
-<!-- {% raw %} -->
-
-<!-- {% raw %} -->
+<!-- {% endraw %} -->
 
 Qu'est-ce qui a changé ?
 
 1. Directive de Boucle : Le mot-clé loop est utilisé pour itérer sur une liste d'éléments. Dans ce cas, la liste contient les noms des utilisateurs que nous souhaitons créer : alice, bob et carol.
 
 2. Création d'Utilisateurs avec Boucle : Au lieu de créer un seul utilisateur, la tâche modifiée itère maintenant sur chaque élément de la liste de boucle. Le placeholder `{{ item }}` est dynamiquement remplacé par chaque nom d'utilisateur dans la liste, de sorte que le module ansible.builtin.user crée chaque utilisateur à son tour.
-<!-- {% raw %} -->
 
 Lorsque vous exécutez le playbook mis à jour, cette tâche est exécutée trois fois, une fois pour chaque utilisateur spécifié dans la boucle. C'est une manière efficace de gérer les tâches répétitives avec des données d'entrée variables.
 
@@ -268,5 +268,3 @@ node3                      : ok=7    changed=1    unreachable=0    failed=0    s
 [Exercise précédent](../1.4-variables/README.fr.md) - [Exercise suivant](../1.6-templates/README.fr.md)
 
 [Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md)
-
-

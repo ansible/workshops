@@ -1,0 +1,28 @@
+---
+- name: Multi instance size include block
+  block:
+    - name: Increment list count
+      ansible.builtin.set_fact:
+        list_count: "{{ 0 | int if list_count == 'reset' else list_count | int + 1 }}"
+    # - name: Resume or reset for failed tasks after each failed attempt
+    #   ansible.builtin.include_tasks: some_other_task_resume_or_reset.yml
+    #   when: list_count | int != 0
+    - ansible.builtin.debug:
+        msg: "list count: {{ list_count }}"
+
+    - name: Call instance provisioning tasks
+      ansible.builtin.include_tasks: ol_7_instance_provision.yml
+
+  rescue:
+    - name: All instance sizes attempted fail task via when
+      ansible.builtin.fail:
+        msg: All instance sizes attempted.
+      when: list_count | int == ( ec2_info['ol7']['size'] | length | int ) - 1
+
+    - name: Instrument list count
+      ansible.builtin.debug:
+        msg: "Task fail retry count: {{ list_count }}"
+
+    - name: Loop back via include on this file
+      ansible.builtin.include_tasks: ol_7_loop.yml
+...

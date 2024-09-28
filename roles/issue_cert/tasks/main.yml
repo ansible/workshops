@@ -4,9 +4,8 @@
     - name: controller start
       include_tasks: "service/controller_start.yml"
 
-    # directions found here https://certbot.eff.org/lets-encrypt/centosrhel8-other
     - name: install certbot if not already installed
-      dnf:
+      ansible.builtin.dnf:
         name: certbot
         state: present
         disable_gpg_check: true

@@ -5,12 +5,16 @@
 
 ## Table des Matières
 
-- [Objectif](#objectif)
-- [Guide](#guide)
-  - [Étape 1 - Introduction à la Templatisation Jinja2](#étape-1---introduction-à-la-templatisation-jinja2)
-  - [Étape 2 - Création de Votre Premier Modèle](#étape-2---création-de-votre-premier-modèle)
-  - [Étape 3 - Déploiement du Modèle avec un Playbook](#étape-3---déploiement-du-modèle-avec-un-playbook)
-  - [Étape 4 - Exécution du Playbook](#étape-4---exécution-du-playbook)
+- [Exercice de l'Atelier - Modèles](#exercice-de-latelier---modèles)
+  - [Table des Matières](#table-des-matières)
+  - [Objectif](#objectif)
+  - [Guide](#guide)
+    - [Étape 1 - Introduction à la Templatisation Jinja2](#étape-1---introduction-à-la-templatisation-jinja2)
+    - [Étape 2 - Création de Votre Premier Modèle](#étape-2---création-de-votre-premier-modèle)
+      - [Configuration du Répertoire des Modèles :](#configuration-du-répertoire-des-modèles-)
+      - [Développement du Modèle MOTD :](#développement-du-modèle-motd-)
+    - [Étape 3 - Déploiement du Modèle avec un Playbook](#étape-3---déploiement-du-modèle-avec-un-playbook)
+    - [Étape 4 - Exécution du Playbook](#étape-4---exécution-du-playbook)
 
 ## Objectif
 
@@ -26,7 +30,7 @@ Ansible utilise Jinja2, un langage de templatisation largement utilisé pour Pyt
 
 <!-- {% raw %} -->
 Les modèles se terminent par une extension `.j2` et mélangent du contenu statique avec des espaces réservés dynamiques entourés de `{{ }}`.
-<!-- {% raw %} -->
+<!-- {% endraw %} -->
 
 Dans l'exemple suivant, créons un modèle pour le Message du Jour (MOTD) qui inclut des informations dynamiques sur l'hôte.
 
@@ -50,7 +54,7 @@ OS : {{ ansible_distribution }} {{ ansible_distribution_version }}
 Architecture : {{ ansible_architecture }}
 ```
 
-<!-- {% raw %} -->
+<!-- {% endraw %} -->
 
 Ce modèle affiche dynamiquement le nom d'hôte, la distribution de l'OS, la version et l'architecture de chaque hôte géré.
 
@@ -127,5 +131,3 @@ Dernière connexion : Lun 29 Jan 16:30:31 2024 depuis 10.5.1.29
 [Exercise précédent](../1.5-handlers/README.fr.md) - [Exercise suivant](../1.7-role/README.fr.md)
 
 [Cliquez ici pour revenir à l'atelier Ansible pour Red Hat Enterprise Linux](../README.fr.md)
-
-

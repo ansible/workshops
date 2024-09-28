@@ -144,9 +144,36 @@ This use-case will focus on conversion from CentOS (though this could be another
 
 ### Step 3 - Install Three Tier Application
 
-- In the AAP Web UI, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates that can be used to run playbook jobs on target hosts:
+- In the AAP Web UI, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates that can be used to run playbook jobs on target hosts.
 
-  ![Job templates listed on AAP Web UI](images/aap_templates.png)
+  ![Job templates on AAP Web UI with EC2 filter](images/aap_templates_ec2_filter.png)
+
+- In the filter box, enter `EC2` and then click the magnifying glass. This will bring up a list of job templates specific to AWS/EC2 automation: 
+
+  ![EC2 Job templates Instance Action](images/aap_templates_ec2_instance_action.png)
+
+- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **EC2 / Instance action**:
+
+  ![EC2 Instance Action Other](images/ec2_instance_action_other.png)
+
+- For the `Launch | EC2 / Instance action - Other prompts` dialog, click **Next**.
+
+  ![EC2 Instance Action Survey](images/ec2_instance_action_survey.png)
+
+- On the `Launch | EC2 / Instance action - Survey` dialog:
+  - For `Select EC2 instance action` select "start".
+  - For `Select OS target` select "CentOS7".
+  - For `Select Environment stage` select "Dev".
+  
+  Then, click **Next**.
+
+  ![EC2 Instance Action Launch](images/ec2_instance_action_launch.png)
+
+- On the `Launch | EC2 / Instance action - Preview` dialog, review and then click **Launch**. Once the `EC2 / Instance action` job has completed, our CentOS7 instances will be started and available for installing the three tier application stack.
+
+- In the AAP Web UI, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates.
+
+  ![Job templates on AAP Web UI with EC2 filter](images/aap_templates.png)
 
 - Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **CONVERT2RHEL / 98 - Three Tier App deployment** to launch the job.
 

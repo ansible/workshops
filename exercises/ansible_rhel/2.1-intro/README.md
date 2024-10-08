@@ -100,7 +100,7 @@ Ansible Automation Platform continually evolves to include new features and enha
 
 Ansible Automation Platform is designed to provide enterprises with the flexibility, security, and power they need to automate their IT infrastructure. Whether you are an automation beginner or looking to scale automation across complex environments, AAP offers a unified and robust solution to meet those needs.
 
-For more information on Ansible Automation Platform and its latest features, explore the official [Red Hat Ansible Automation Platform website](https://www.redhat.com/en/technologies/automation/ansible).
+For more information on Ansible Automation Platform and its latest features, explore the official [Red Hat Ansible Automation Platform website](https://www.redhat.com/ansible).
 
 ---
 **Navigation**

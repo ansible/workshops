@@ -37,6 +37,9 @@ The **automation controller** is a key component of Ansible Automation Platform.
 
 ### Key Features of Automation Controller:
 - **User-Friendly Dashboard**: The controller’s dashboard offers a real-time view of recent job activity, managed hosts and hands-on quick starts to get you started as quickly as possible with Ansible Automation Platform.
+
+![Ansible Automation Platform dashboard](images/aap25-dashboard.png)
+
 - **Visual Workflow Management**: Easily create and modify automation workflows using the visualizer to visualize complex workflow streams.
 - **RESTful API**: The platform includes an extensive REST API, which makes integration with other tools and platforms seamless.
 - **Inventory and Credential Management**: Automation controller manages inventories and credentials securely, ensuring that only authorized users have access to sensitive data while simplifying configuration.

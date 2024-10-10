@@ -20,14 +20,14 @@ An Ansible automation controller **Project** is a logical collection of Ansible 
 This exercise covers:
 
 * Understanding and using an Ansible automation controller Project
-* Using Ansible playbooks kept in a Git repository.
+* Using Ansible playbooks stored in a Git repository.
 * Creating and using an Ansible Job Template
 
 ## Guide
 
 ### Setup Git Repository
 
-For this demonstration we will use playbooks stored in a Git repository:
+For this demonstration, we will use playbooks stored in a Git repository:
 
 [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
 
@@ -71,13 +71,13 @@ A playbook to install the Apache web server has already been committed to the di
 
 > **Tip**
 >
-> Note the difference to other playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
+> Note the difference from other playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
 
 To configure and use this repository as a **Source Control Management (SCM)** system in automation controller you have to create a **Project** that uses the repository
 
 ### Create the Project
 
-* Go to **Resources → Projects** click the **Add** button. Fill in the form:
+* Go to **Automation Execution → Projects** click the **Create Project** button. Fill in the form:
 
  <table>
    <tr>
@@ -93,11 +93,11 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
      <td>Default</td>
    </tr>
    <tr>
-     <td>Default Execution Environment</td>
+     <td>Execution Environment</td>
      <td>Default execution environment</td>
    </tr>
    <tr>
-     <td>Source Control Credential Type</td>
+     <td>Source Control Type</td>
      <td>Git</td>
    </tr>
  </table>
@@ -138,7 +138,7 @@ A job template is a definition and set of parameters for running an Ansible job.
 
 * **What** playbook to use?
 
-Okay, let’s just do that: Go to the **Resources -> Templates** view, click the **Add** button and choose **Add job template**.
+Okay, let’s just do that: Go to the **Automation Execution -> Templates** view,click the **Create template** button and choose **Create job template**.
 
 > **Tip**
 >
@@ -189,7 +189,7 @@ Okay, let’s just do that: Go to the **Resources -> Templates** view, click the
 
 * Click **Save**
 
-You can start the job by directly clicking the blue **Launch** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
+You can start the job by directly clicking the blue **Launch template** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
 
 Job Details
 ![job details](images/job_details.png)
@@ -226,15 +226,15 @@ You have already been through all the steps needed, so try this for yourself.
 >
 > **Solution Below**
 
-* Go to **Resources →  Inventories** → **Workshop Inventory**
+* Go to **Automation Execution → Infrastructure →  Inventories** → **Workshop Inventory**
 
-* In the **Hosts** view select `node1`, `node2`, `node3` and click **Run Command**
+* In the **Automation Execution → Infrastructure → Inventories → **Workshop Inventory**, select the **Hosts** tab and select `node1`, `node2`, `node3` and click **Run Command**
 
 Within the **Details** window, select **Module** `command`, in **Arguments** type `systemctl status httpd` and click **Next**.
 
 Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
 
-Within the **Machine Credential** window, select **Workshop Credential** and click **Launch**.
+Within the **Credential** window, select **Workshop Credential** and click **Launch**.
 
 > **Tip**
 >

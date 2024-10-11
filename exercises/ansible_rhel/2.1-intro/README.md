@@ -1,119 +1,106 @@
-# Workshop Exercise - Introduction to Ansible automation controller
+# Workshop Exercise - Introduction to Ansible Automation Platform
 
 **Read this in other languages**:
 <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
-## Table Contents
+## Table of Contents
 
-* [What's New in Ansible automation controller 4.0](#whats-new-in-ansible-automation-controller-40)
-* [Why was Ansible Tower renamed to automation controller?](#why-was-ansible-tower-renamed-to-automation-controller)
-* [Who is automation controller for?](#who-is-automation-controller-for)
-* [Objective](#objective)
-* [Guide](#guide)
-* [Why Ansible automation controller?](#why-ansible-automation-controller)
-* [Your Ansible automation controller lab environment](#your-ansible-automation-controller-lab-environment)
-* [Dashboard](#dashboard)
-* [Concepts](#concepts)
+* [What is Ansible Automation Platform (AAP)?](#what-is-ansible-automation-platform-aap)
+* [Why Use Ansible Automation Platform?](#why-use-ansible-automation-platform)
+* [Ansible Automation Controller](#ansible-automation-controller)
+* [Event-Driven Ansible](#event-driven-ansible)
+* [Automation Hub](#automation-hub)
+* [What’s New in Ansible Automation Platform?](#whats-new-in-ansible-automation-platform)
+* [Conclusion](#conclusion)
 
-## What's New in Ansible automation controller 4.0
+---
 
-Ansible Automation Platform 2 is the next evolution in automation from Red Hat’s trusted enterprise technology experts. The Ansible Automation Platform 2 release includes automation controller 4.0, the improved and renamed Ansible Tower.
+## What is Ansible Automation Platform (AAP)?
 
-Controller continues to provide a standardized way to define, operate, and delegate automation across the enterprise. It introduces new technologies and an enhanced architecture that enables automation teams to scale and deliver automation rapidly.
+Ansible Automation Platform (AAP) is a comprehensive automation solution that provides a scalable framework for automating tasks across IT environments. It integrates various components, including automation controller, Event-Driven Ansible and automation hub offering users a unified platform for managing, executing, and orchestrating automation workflows.
 
-### Why was Ansible Tower renamed to automation controller?
+AAP simplifies the complexity of IT automation by providing the tools necessary to accelerate the automation process, whether you're just getting started or scaling automation across teams and environments.
 
-As Ansible Automation Platform 2 continues to evolve, certain functionality has been decoupled (and will continue to be decoupled in future releases) from what was formerly known as Ansible Tower. It made sense to introduce the naming change that better reflects these enhancements and the overall position within the Ansible Automation Platform suite.
+## Why Use Ansible Automation Platform?
 
-### Who is automation controller for?
-All automation team members interact with or rely on automation controller, either directly or indirectly.
+1. **Scalable Automation**: Automate tasks of any complexity across on-premise, cloud, or hybrid environments. AAP enables teams to manage their automation consistently and efficiently at scale.
+   
+2. **Unified Experience**: AAP brings together automation controller, Event-Driven Ansible, and automation hub under one platform providing users with a cohesive, integrated experience for developing and managing automation.
 
-* Automation creators develop Ansible playbooks, roles, and modules.
-* Automation architects elevate automation across teams to align with IT processes and streamline adoption.
-* Automation operators ensure the automation platform and framework are operational.
+3. **Increased Productivity**: With tools for automation content creation, testing, and deployment, AAP helps users across different skill levels work more efficiently. From automation architects to operators, it empowers users to implement automation faster and with fewer errors.
 
-These roles are not necessarily dedicated to a person or team. Many organizations assign multiple roles to people or outsource specific automation tasks based on their needs.
+4. **Enhanced Security and Governance**: AAP supports role-based access control (RBAC), ensuring that only authorized users can create and execute automation. This security layer is crucial for maintaining compliance and governance across IT operations.
 
-Automation operators are typically the primary individuals who interact directly with the automation controller, based on their responsibilities.
+## Ansible Automation Controller
 
-{% include mesh.md %}
+The **automation controller** is a key component of Ansible Automation Platform. It offers a web-based interface that provides a centralized point to manage, monitor, and control automation. 
 
-## Objective
+### Key Features of Automation Controller:
+- **User-Friendly Dashboard**: The controller’s dashboard offers a real-time view of recent job activity, managed hosts and hands-on quick starts to get you started as quickly as possible with Ansible Automation Platform.
 
-The following exercise will provide an Ansible automation controller overview including going through features that are provided by the Red Hat Ansible Automation Platform.  This will cover automation controller fundamentals such as:
+![Ansible Automation Platform dashboard](images/aap25-dashboard.png)
 
-* Job Templates
-* Projects
-* Inventories
-* Credentials
-* Workflows
+- **Visual Workflow Management**: Easily create and modify automation workflows using the visualizer to visualize complex workflow streams.
+- **RESTful API**: The platform includes an extensive REST API, which makes integration with other tools and platforms seamless.
+- **Inventory and Credential Management**: Automation controller manages inventories and credentials securely, ensuring that only authorized users have access to sensitive data while simplifying configuration.
 
-## Guide
+### Core Concepts:
+- **Projects**: Logical collections of Ansible assets such as collections, roles and playbooks stored in a version control system.
+- **Inventories**: Collections of hosts against which automation tasks are run. Inventories can be manually defined or dynamically synchronized.
+- **Credentials**: Securely stored credentials for authentication when executing jobs against systems or integrating with third-party tools.
+- **Job Templates**: Defined sets of parameters that allow for the consistent execution of automation jobs from an Ansible playbook.
 
-### Why Ansible automation controller?
+## Event-Driven Ansible
 
-Automation controller is a web-based UI that provides an enterprise solution for IT automation. It
+**Event-Driven Ansible** is designed to bring intelligent automation into IT operations by responding to real-time events. By connecting to various event sources, Event-Driven Ansible can trigger automation workflows based on specific conditions, improving the efficiency of IT operations and ensuring faster response times.
 
-* has a user-friendly dashboard.
-* complements Ansible, adding automation, visual management, and monitoring capabilities.
-* provides user access control to administrators.
-* provides distinct _view_ and _edit_ perspectives for automation controller objects and components.
-* graphically manages or synchronizes inventories with a wide variety of sources.
-* has a RESTful API.
-* And much more...
+### Key Features of Event-Driven Ansible:
+- **Event-Driven Automation**: Automatically triggers Ansible Rulebooks based on real-time events.
+- **Rulebooks**: Use Ansible Rulebooks to define conditional "if-this-then-that" logic, specifying the actions to take when certain events occur.
+- **Integration with External Tools**: Event-Driven Ansible can be integrated with external monitoring and event sources like Prometheus, OpenShift, and cloud services to respond to system alerts or other events.
+- **Customizable Event Sources**: Event-Driven Ansible supports a wide range of event sources and allows organizations to define custom event plugins.
 
-### Your Ansible automation controller lab environment
+### Core Concepts:
+- **Event Sources**: The origin of the events that trigger automation, such as alerts, system logs, or user inputs.
+- **Ansible Rulebooks**: Define conditions and actions to determine when and how to respond to specific events.
+- **Actions**: Predefined responses, such as running playbooks or workflows that are executed when event conditions are met.
 
-In this lab you work in a pre-configured lab environment. You will have access to the following hosts:
+## Automation Hub
 
-| Role                                          | Inventory name |
-| --------------------------------------------- | ---------------|
-| Ansible control host & automation controller  | ansible-1      |
-| Managed Host 1                                | node1          |
-| Managed Host 2                                | node2          |
-| Managed Host 2                                | node3          |
+**Automation Hub** serves as the central repository for managing and
+distributing Ansible content. It provides access to certified, validated and community-contributed Ansible collections allowing organizations to leverage automation solutions and share automation content across teams.
 
-The Ansible automation controller provided in this lab is individually setup for you. Make sure to access the right machine whenever you work with it. Automation controller has already been installed and licensed for you, the web UI will be reachable over HTTP/HTTPS.
+### Key Features of Automation Hub:
+- **Content Management**: automation hub allows users to access and manage certified, validated and community-contributed content collections, including playbooks, roles, and modules, in one central location.
+- **Certified Content**: Provides access to certified Ansible content supported by Red Hat, ensuring that organizations use secure, tested automation.
+- **Validated Content**: Provides a set of collections containing pre-built YAML content (such as playbooks or roles) to address the most common automation use cases.
+- **Private Automation Hub**: Organizations can create their own private automation hub to store and distribute custom automation content internally, offering control and security over automation assets.
+- **Collection Repository Management**: Allows fine-grained control over who can access specific content, ensuring that only the right teams have access to the right resources.
 
-### Dashboard
+### Core Concepts:
+- **Collections**: Bundles of Ansible content (playbooks, roles, modules) that can be shared and reused across automation projects.
+- **Certified Content**: Verified, secure content from Red Hat and partners, ensuring trust and reliability in automation implementations.
+- **Private Automation Hub**: A self-hosted version of automation hub, where organizations can curate, store, and manage their own collections of automation content.
 
-Let's have a first look at the automation controller: Point your browser to the URL you were given, similar to `https://student<X>.<workshopname>.demoredhat.com` (replace `<X>` with your student number and `workshopname` with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+## What’s New in Ansible Automation Platform?
 
-The web UI of automation controller greets you with a dashboard with a graph showing:
+Ansible Automation Platform continually evolves to include new features and enhancements. Some of the latest advancements include:
 
-* recent job activity
-* the number of managed hosts
-* quick pointers to lists of hosts with problems.
+1. **Unified User Interface**: A streamlined experience that integrates automation controller, Event-Driven Ansible, and automation hub, allowing users to access all tools through a single interface.
+   
+2. **Containerized Platform Installation**: AAP now supports containerized installation, making deployment easier for environments that require minimal overhead while maintaining the platform's full functionality.
 
-The dashboard also displays real time data about the execution of tasks completed in playbooks.
+3. **Enhanced Ansible Development Tools**: AAP includes a suite of tools that help developers and operators efficiently create, test, and deploy playbooks, improving productivity and standardization across the organization.
 
-![Ansible automation controller dashboard](images/controller_dashboard.jpg)
+4. **AI-Assisted Automation**: With the integration of Red Hat Ansible Lightspeed, the platform offers generative AI capabilities to help users build automation playbooks more intuitively, even without deep coding expertise.
 
-### Concepts
+5. **Ansible Quick Starts**: Interactive, step-by-step guides within the UI help users quickly learn how to navigate and execute key functions within AAP.
 
-Before we dive further into using Ansible automation controller, you should get familiar with some concepts and naming conventions.
+## Conclusion
 
-#### Projects
+Ansible Automation Platform is designed to provide enterprises with the flexibility, security, and power they need to automate their IT infrastructure. Whether you are an automation beginner or looking to scale automation across complex environments, AAP offers a unified and robust solution to meet those needs.
 
-Projects are logical collections of Ansible playbooks in Ansible automation controller. These playbooks either reside on the Ansible automation controller instance, or in a source code version control system supported by automation controller.
-
-#### Inventories
-
-An Inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. Inventories are divided into groups and these groups contain the actual hosts. Groups may be populated manually, by entering host names into automation controller, from one of Ansible Automation controller’s supported cloud providers or through dynamic inventory scripts.
-
-#### Credentials
-
-Credentials are utilized by automation controller for authentication when launching Jobs against machines, synchronizing with inventory sources, and importing project content from a version control system. Credential configuration can be found in the Settings.
-
-automation controller credentials are imported and stored encrypted in automation controller, and are not retrievable in plain text on the command line by any user. You can grant users and teams the ability to use these credentials, without actually exposing the credential to the user.
-
-#### Templates
-
-A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. Job templates also encourage the reuse of Ansible playbook content and collaboration between teams. To execute a job, automation Controller requires that you first create a job template.
-
-#### Jobs
-
-A job is basically an instance of automation controller launching an Ansible playbook against an inventory of hosts.
+For more information on Ansible Automation Platform and its latest features, explore the official [Red Hat Ansible Automation Platform website](https://www.redhat.com/ansible).
 
 ---
 **Navigation**

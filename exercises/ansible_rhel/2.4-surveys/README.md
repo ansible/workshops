@@ -108,10 +108,9 @@ Now, launch the **Create index.html** job template by clicking the **Launch temp
 
 Before the job starts, the survey will prompt for **First Line** and **Second Line**. Enter your text and click **Next**. The **Preview** window shows the values—if all looks good, click **Finish** to start the job.
 
-![Survey Review](images/survey_review.png)
-
 ![Survey Launch](images/survey_launch.png)
 
+![Survey Review](images/survey_review.png)
 
 Once the job completes, verify the Apache homepage by running the following `curl` command in the SSH console on the control host:
 

@@ -67,7 +67,7 @@ Teams are subdivisions of an organization that include users, projects, credenti
 
 1. Select the `Web Content` team.
 2. Go to the **Users** tab and click **Add users**.
-3. In the **Add users** window, choose *wweb**, then click **Add users**.
+3. In the **Add users** window, choose **wweb**, then click **Add users**.
 
 ![add user](images/add_user.png)
 

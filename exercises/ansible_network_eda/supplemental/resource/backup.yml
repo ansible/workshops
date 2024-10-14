@@ -1,0 +1,12 @@
+---
+- name: backup config
+  hosts: arista
+  gather_facts: false
+
+  tasks:
+
+  - name: retrieve backup
+    arista.eos.config:
+      backup: true
+      backup_options:
+        filename: "{{ inventory_hostname }}.txt"

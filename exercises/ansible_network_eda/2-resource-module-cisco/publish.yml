@@ -1,0 +1,23 @@
+---
+- name: Perform Retrieve Operation
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+
+    - name: Retrieve a repository from a distant location and make it available locally
+      ansible.scm.git_retrieve:
+        origin:
+          url: https://github.com/<your GH username>/aap_workshop
+      register: repository
+
+    - name: Copy snmp_config to files in repository
+      ansible.builtin.copy:
+        src: "aap_workshop/"
+        dest: "{{ repository['path'] }}/"
+        mode: "0644"
+
+    - name: Publish the changes
+      ansible.scm.git_publish:
+        path: "{{ repository['path'] }}"
+        token: <your GH PAT>

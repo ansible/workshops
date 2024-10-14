@@ -1,0 +1,14 @@
+---
+- name: RESTORE CONFIGURATION
+  hosts: cisco
+  connection: network_cli
+  gather_facts: false
+
+  tasks:
+    - name: COPY RUNNING CONFIG TO ROUTER
+      command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
+
+    - name: CONFIG REPLACE
+      ios_command:
+        commands:
+          - config replace flash:{{inventory_hostname}}.config force

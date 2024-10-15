@@ -112,7 +112,6 @@ A project is how Ansible Playbooks are imported into Automation controller.  You
     Note that Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit
 )
 
-
 ### Step 4: Examine the Automation controller Workshop Credential
 
 Credentials are utilized by Automation controller for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.

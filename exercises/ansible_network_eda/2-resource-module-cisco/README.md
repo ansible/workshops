@@ -246,10 +246,17 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
 
 ### Step 6 - Using the gathered parameter
 
-* Create a directory named `aap_workshop` and another directory named `source-of-truth` inside it.
+* Create the following directory structure under the `network-workshop` directory.
+
+  ```bash
+  [student@ansible-1 network-workshop]$ tree aap_workshop/
+  aap_workshop/
+  └── source-of-truth
+      └── snmp
+  ```
   
   ```bash
-  mkdir -p aap_workshop/source-of-truth
+  mkdir -p aap_workshop/source-of-truth/snmp
   ```
 
 * Create a new playbook named `gathered.yml`
@@ -272,7 +279,7 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
       - name: Copy snmp_config to file
         ansible.builtin.copy:
           content: "{{ snmp_config['gathered'] | to_nice_yaml }}"
-          dest: "{{ playbook_dir }}/aap_workshop/source-of-truth/{{ inventory_hostname }}_snmp.yml"
+          dest: "{{ playbook_dir }}/aap_workshop/source-of-truth/snmp/{{ inventory_hostname }}.yml"
           mode: "644"
   ```
   <!-- {% endraw %} -->
@@ -283,7 +290,7 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
 
 *  The `| to_nice_yaml` is a [filter](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), that will transform the JSON output (default) to YAML.
 
-* The `playbook_dir` and `inventory_hostname` are special variables also referred to as [magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html).  The `playbook_dir` simply means the directory we executed the playbook from, and the `inventory_hostname` is the name of the device in our inventory.  This means the file will be saved as `~/network-workshop/rtr1_snmp.yml` for the cisco device(s).
+* The `playbook_dir` and `inventory_hostname` are special variables also referred to as [magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html).  The `playbook_dir` simply means the directory we executed the playbook from, and the `inventory_hostname` is the name of the device in our inventory. This means the file will be saved as `~/network-workshop/aap_workshop/source-of-truth/snmp/rtr1.yml` for the cisco device(s).
 
 ### Step 7 - Execute the gathered playbook
 
@@ -397,7 +404,8 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
   This collection was specifically designed to manage Git repositories via Ansible.
 
 * In the first task, we `retrieve` the newly created remote repository (which at this point would be empty) by using the
-  `git_retrieve` plugin which "clones" the remote repo into a local temporary directory.
+  `git_retrieve` plugin which "clones" the remote repo into a local temporary directory. Since we created a public repository,
+  a `token` is not required to fetch it.
 
 * Next, the contents of the `aap_workshop` repository, i.e., the files created in Step 7 are copied into this temporary "clone".
 
@@ -414,6 +422,7 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
 * Resource modules are Idempotent, and can be configured to check device state.
 * Resource Modules are bi-directional, meaning that they can gather facts for that specific resource, as well as apply configuration.  Even if you are not using resource modules to configure network devices, there is a lot of value for checking resource states.  
 * The bi-directional behavior also allows brown-field networks (existing networks) to quickly turn their running-configuration into structured data.  This allows network engineers to get automation up running more quickly and get quick automation victories.
+* This structured data can be persisted to a remote SCM using the `ansible.scm` collection.
 
 ## Solution
 
@@ -428,6 +437,5 @@ The finished Ansible Playbook is provided here for an answer key:
 You have completed this lab exercise.
 
 ---
-
 
 [Click here to return to the Ansible Network Automation Workshop](../../README.md)

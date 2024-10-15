@@ -1,12 +1,12 @@
-# Exercise 5: Explore Automation controller
+# Exercise 4: Explore Ansible Automation Platform 2.5
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+With Ansible Automation Platform, you can create, manage, and scale automation for your organization across users, teams, and regions. The release of Ansible Automation Platform 2.5 introduces an updated, unified user interface (UI) that allows you to interact with and manage each part of the platform.
 
 ## Table of Contents
 
 * [Objective](#objective)
 * [Guide](#guide)
-   * [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
+   * [Step 1: Login to Ansible Automation Platform UI](#step-1-login-to-ansible-automation-platform)
    * [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
    * [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
    * [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
@@ -25,67 +25,56 @@ Explore and understand the lab environment.  This exercise will cover
 
 ## Guide
 
-### Step 1: Login to Automation controller
+### Step 1: Login to Ansible Automation Platform
 
 1.  Return to the workshop launch page provided by your instructor.
 
-2.  Click on the link to the Automation controller webUI.  You should see a login screen similar to the follow:
+2.  Click on the link to the AAP UI.  You should see a login screen similar to the follow:
 
    Screenshot of Automation controller login window.
-![automation controller login window](images/automation_controller_login.png)
+![aap ui login window](images/aap-ui.png)
 
    * The username will be `admin`
    * password provided on launch page
 
+3. After logging in the Dashboard will be the default view as shown below.
 
-3. After logging in the Job Dashboard will be the default view as shown below.
-
-   ![automation controller dashboard](images/automation_controller_dashboard.png)
+   ![aap dashboard](TO-DO: Grab screenshot from net new 2.5 deployment)
 
 4. Click on the **?** button on the top right of the user interface and click **About**
 
-   ![about button link](images/automation_controller_about.png)
+   ![about button link](TO-DO: Grab screenshot from net new 2.5 deployment)
 
 5. A window will pop up similar to the following:
 
-   ![version info window](images/automation_controller_about_info.png)
+   ![version info window](TO-DO: Grab screenshot from net new 2.5 deployment)
 
+### Step 2: Explore the unified platform UI
 
-### Step 2: Examine the Automation controller Inventory
+AAP 2.5 comes with an unified UI that provides a consistent and centralized WebUI, API, authentication, authorization and role based access controls (RBAC), along with automation analytics that helps let's users utilize reporting at scale.
 
-An inventory is required for Automation controller to be able to run jobs.  An inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. In addition, Automation controller can make use of an existing configuration management data base (cmdb) such as ServiceNow or Infoblox DDI.
+Take a look at the left sidebar in the dashboard.
 
-> Note:
->
-> More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html)
+![aap left sidebar](TO-DO: Grab screenshot from net new 2.5 deployment)
 
-1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.
+1. **Automation Controller**
 
-    ![Inventories Button](images/automation_controller_inventories.png)
+The centerpiece of Ansible Automation Platform is its automation execution command and control center, where you can deploy, define, operate, scale and delegate automation across your enterprise. With this functionality, you can perform a variety of tasks from a single location, such as running playbooks from a simple, straightforward web UI, monitoring dashboard activity, and centralized logging to manage and track job execution.
 
-2. Under Inventories click on the `Workshop Inventory`.
+![automation controller](images/automation-controller.png)
 
-    ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
+2. **Automation Hub**
 
-3. Under the `Workshop Inventory` click the **Hosts** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  
+Automation hub is the central location for your Ansible Automation Platform content. In automation hub you can also find content collections that you can download and integrate into your automation environment. You can also create and upload your own content to distribute to your users.
 
-   ![automation controller workshop inventory hosts](images/workshop_inventory_hosts.png)
+![automation hub](images/automation-hub.png)
 
-4. Click on one of the devices.
+3. **Event-Driven Ansible**
 
-   ![workshop inventory hosts rtr1](images/workshop_inventory_hosts_rtr1.png)
+Red Hat AAP includes Event-Driven Ansible, an automation engine that listens to your system’s event stream and reacts to events that you have specified with targeted automation tasks. In this way, Event-Driven Ansible manages routine automation tasks and responses, freeing you up to work on more complex tasks.
 
-     Take note of the **VARIABLES** field.  The `host_vars` are set here including the `ansible_host` variable.
+4. **Automation Analytics**
 
-5. Click on **GROUPS**.  There will be multiple groups here including `routers` and `cisco`.  Click on one of the groups.
-
-   ![workshop inventory groups](images/workshop_inventory_groups.png)
-
-6. Click on one of the groups.
-
-   ![workshop inventory group vars](images/workshop_inventory_group_vars.png)
-
-     Take note of the **VARIABLES** field. The `group_vars` are set here including the `ansible_connection` and `ansible_network_os` variable.
 
 ### Step 3: Examine the Automation controller Workshop Project
 

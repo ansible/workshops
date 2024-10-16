@@ -19,9 +19,11 @@ Explore and understand the lab environment.  This exercise will cover
 
 * Determining the Ansible Automation Platform version running on the control node
 * Locating and understanding:
-  * Automation controller **Inventory**
-  * Automation controller **Credentials**
-  * Automation controller **Projects**
+  * Automation Execution
+  * Automation Decisions
+  * Automation Content
+  * Automation Analytics
+  * Access Management
 
 ## Guide
 
@@ -32,22 +34,19 @@ Explore and understand the lab environment.  This exercise will cover
 2.  Click on the link to the AAP UI.  You should see a login screen similar to the follow:
 
    Screenshot of Automation controller login window.
-![aap ui login window](images/aap-ui.png)
+   ![aap ui login window](images/aap-ui.png)
 
    * The username will be `admin`
    * password provided on launch page
 
 3. After logging in the Dashboard will be the default view as shown below.
 
-   ![aap dashboard](TO-DO: Grab screenshot from net new 2.5 deployment)
+   ![aap dashboard](images/aap-dashboard.png)
 
-4. Click on the **?** button on the top right of the user interface and click **About**
+4. Click on the **?** button on the top right of the user interface and click **About**.
+   A window will pop up similar to the following:
 
-   ![about button link](TO-DO: Grab screenshot from net new 2.5 deployment)
-
-5. A window will pop up similar to the following:
-
-   ![version info window](TO-DO: Grab screenshot from net new 2.5 deployment)
+   ![version info window](images/aap-version.png)
 
 ### Step 2: Explore the unified platform UI
 
@@ -55,7 +54,7 @@ AAP 2.5 comes with an unified UI that provides a consistent and centralized WebU
 
 Take a look at the left sidebar in the dashboard.
 
-![aap left sidebar](TO-DO: Grab screenshot from net new 2.5 deployment)
+![aap left sidebar](images/aap-dashboard-sidebar.png)
 
 1. **Automation Controller**
 
@@ -63,83 +62,46 @@ The centerpiece of Ansible Automation Platform is its automation execution comma
 
 ![automation controller](images/automation-controller.png)
 
-2. **Automation Hub**
+2. **Event-Driven Ansible**
+
+AAP includes Event-Driven Ansible, an automation engine that listens to your system’s event stream and reacts to events that you have specified with targeted automation tasks. In this way, Event-Driven Ansible manages routine automation tasks and responses, freeing you up to work on more complex tasks.
+
+![event driven ansible](images/event-driven-ansible.png)
+
+3. **Automation Hub**
 
 Automation hub is the central location for your Ansible Automation Platform content. In automation hub you can also find content collections that you can download and integrate into your automation environment. You can also create and upload your own content to distribute to your users.
 
 ![automation hub](images/automation-hub.png)
 
-3. **Event-Driven Ansible**
-
-Red Hat AAP includes Event-Driven Ansible, an automation engine that listens to your system’s event stream and reacts to events that you have specified with targeted automation tasks. In this way, Event-Driven Ansible manages routine automation tasks and responses, freeing you up to work on more complex tasks.
-
 4. **Automation Analytics**
 
+Automation Analytics provides key data on Job Template usage, Ansible Module usage, organizational comparisons across your enterprise, and much more. With automation analytics, you can measure the business impact of Ansible Automation Platform, such as your return on investment (ROI). You can see what you’re monitoring—and how it’s performing—so you can make informed, data-driven decisions and scale faster.
 
-### Step 3: Examine the Automation controller Workshop Project
+![automation analytics](images/automation-analytics.png)
 
-A project is how Ansible Playbooks are imported into Automation controller.  You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Automation controller, including Git and Subversion.
+5. **Access Management**
 
-> Note:
->
-> For more information on Projects in Automation controller, please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
+This section allows platform administrators to manage users, roles, team, organizations and various authentication methods.
 
-1. Click on the **Projects** button under **RESOURCES** on the left menu bar.
+![access management](images/access-management.png)
 
-   ![Workshop Project Link](images/automation_controller_projects.png)
+6. **Ansible Lightspeed**
 
-2. Under **PROJECTS** there will be a `Workshop Project`.  
+Ansible Lightspeed with watsonx Code Assistant is a generative AI service designed by and for Ansible platform engineers and developers. It accepts natural-language prompts entered by a user and then interacts with IBM watsonx foundation models to produce code recommendations built on Ansible best practices. Ansible Lightspeed can help you convert subject matter expertise into trusted, reliable Ansible code that scales across teams and domains.
 
-    ![Workshop Project Link](images/workshop_project.png)
-
-    Note that `GIT` is listed for this project.  This means this project is using Git for SCM.
-
-3. Click on the `Workshop Project`.
-
-  ![Workshop Project Detail](images/workshop_project_detail.png)
-
-    Note that Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit
-)
-
-### Step 4: Examine the Automation controller Workshop Credential
-
-Credentials are utilized by Automation controller for authentication when launching **Jobs** against machines, synchronizing with inventory sources, and importing project content from a version control system.  For the workshop we need a credential to authenticate to the network devices.
-
-> Note:
->
-> For more information on Credentials in Automation controller please [refer to the documentation](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
-
-1. Click on the **Credentials** button under **Resources** on the left menu bar.
-
-    ![credentials link](images/automation_controller_credentials.png)
-
-2. Under **Credentials** there will be multiple pre-configured credentials, including `Workshop Credential`, `Controller Credential` and the `registry.redhat.io credential`.  Click on the `Workshop Credential`.
-
-    ![Workshop Credential Link](images/workshop_credential.png)
-
-3. Under the `Workshop Credential` examine the following:
-
-* The **CREDENTIAL TYPE** is a **Machine** credential.
-* The **USERNAME** is set to `ec2-user`.
-* The **PASSWORD** is blank.
-* The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
-  
-{% include mesh.md %}
+![ansible lightspeed](images/ansible-lightspeed.png)
 
 ## Takeaways
 
-* Automation controller needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.
-* Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Automation controller.
-* Automation controller can sync to existing SCM (source control management) including Github.
-* Automation controller can store and encrypt credentials including SSH private keys and plain-text passwords.  Automation controller can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
+* In this exercise, we walked through the Ansible Automation Platform UI and explored the services available.
+* For this remaining part of this workshop, our focus will be on Automation Controller and Event-Driven Ansible.
 
 ## Complete
 
-You have completed lab exercise 5
-
-You have now examined all three components required to get started with Automation controller.  A credential, an inventory and a project.  In the next exercise we will create a job template.
+You have completed lab exercise 4
 
 ---
-[Previous Exercise](../4-resource-module/README.md) | [Next Exercise](../6-controller-job-template/README.md)
+[Previous Exercise](../3-ansible-lightspeed/README.md) | [Next Exercise](../5-controller-job-template/README.md)
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

@@ -168,9 +168,9 @@ Within **Automation Execution** -> **Templates** -> **Create template** -> **Cre
   </tr>
 </table>
 
-Click **Create job template**, and then repeat the process for the **Node.js Deploy** template, changing the project to **Webdev Git Repo** and the playbook to `rhel/webdev/install_node_app.yml`.
-
 ![create_template_webops](images/create_template_webops.png)
+
+Click **Create job template**, and then repeat the process for the **Node.js Deploy** template, changing the project to **Webdev Git Repo** and the playbook to `rhel/webdev/install_node_app.yml`.
 
 ---
 

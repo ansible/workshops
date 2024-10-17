@@ -197,7 +197,7 @@ Click the **Add Step** button and assign the **Web App Deploy** job template to 
 
 ![app_deploy](images/visualizer_add_step_app_deploy.png)
 
-![add_link](images/visualizer_add_step_link.png)
+![add_link](images/visualizer_add_step_add_link.png)
 
 ![add_nodejs](images/visualizer_add_step_nodejs.png)
 

@@ -78,7 +78,7 @@ Credentials are utilized by Automation controller for authentication when launch
 * The **PASSWORD** is blank.
 * The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
 
-### Step 3: Examine the Automation Controller Workshop Project
+### Step 3: Creating a new Automation Controller Project
 
 A project is how Ansible Playbooks are imported into Automation controller. You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Automation controller server, or by placing your playbooks into a source code management (SCM) system supported by Automation controller, including Git and Subversion.
 
@@ -86,17 +86,30 @@ A project is how Ansible Playbooks are imported into Automation controller. You 
 >
 > For more information on Projects in Automation controller, please [refer to the documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/getting_started_with_ansible_automation_platform/assembly-gs-auto-op#proc-gs-auto-op-projects)
 
-1. Click on the **Projects** button under the **Automation Execution** drop-down menu in the left sidebar.
+**1.** Click on the **Projects** button under the **Automation Execution** drop-down menu in the left sidebar.
 
 ![projects](images/projects.png)
 
-2. Under **Projects** there will be a `Workshop Project`.
+**2.** Click on the **Create project** button.
 
-![workshop project](images/workshop_project.png)
+![create project](images/create_project.png)
 
-Note that Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit)
+**3.** Fill out the project parameters as follows and click on **Create Project**.
 
-### Step 4: Examine the Network Time Job Template
+  | Parameter | Value |
+  |---|---|
+  | Name  | Workshop BGP Project  |
+  | Organization |  Red Hat Network Organization |
+  |  Source control type |  Git |
+  |  Source control URL |  https://github.com/your-github-username/aap_workshop |
+
+  ![new project](images/new_project.png)
+
+**4.** Once done, you should have a new project named `Workshop BGP Project` added under **Projects**.
+
+![workshop bgp project](images/workshop_bgp_project.png)
+
+### Step 4: Creating an Automation Controller Job Template
 
 A **Job Template** is a definition and set of parameters for running a playbook in AAP. A **Job Template** requires:
 
@@ -104,10 +117,57 @@ A **Job Template** is a definition and set of parameters for running a playbook 
 * A **Credential** to login to devices.
 * A **Project** which contains Ansible Playbooks.
 
-1. Click on the **Templates** button under the **Automation Execution** drop-down menu in the left sidebar.
+**1.** Click on the **Templates** button under the **Automation Execution** drop-down menu in the left sidebar.
 
 ![templates](images/templates.png)
 
+**2.** Click on **Create Template** button and choose **Create job template**.
+
+![new job template](images/new_job_template.png)
+
+**3.** Fill out the **Job Template** parameters as follows and click on **Create job template** button.
+
+  | Parameter | Value |
+  |---|---|
+  | Name  | Configure BGP  |
+  |  Job Type |  Run |
+  |  Inventory |  Workshop Inventory |
+  |  Project |  Workshop BGP Project |
+  |  Execution Environment | network workshop execution environment |
+  |  Playbook | configure_bgp.yml |
+  |  Credential |  Workshop Credential |
+
+![create job template](images/create_job_template.png)
+
+**4.** At this point, you should have a new `Configure BGP` job template created and ready to launch.
+
+### Step 5: Launching the new Job Template
+
+**1.** Navigate back to the `Templates` window, where all Job Templates are listed.
+
+**2.** Launch the `Configure BGP` Job Template by clicking the Rocket button.
+
+![launch](images/launch_job_template.png)
+
+**3.** After executing the Job Template it will automatically open the [Standard Out pane](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html#standard-out)
+
+![job standard out](images/job_standard_out.png)
+
+   * Examine the **Standard Out pane**
+
+      The Standard Out pane will display the output from the Ansible Playbook.  Every task output will match exactly what would be seen on the command line.
+
+   * Click on a task in the **Standard Out pane** to open up structured output from that particular task.
+
+      > Click on any line where there is a **changed** or **ok**
+
+      ![task details window](images/job_details.png)
+
+   * Click on the **Data**  tab to open the **Data pane** which has more information on the task run
+
+      ![data pane](images/data_pane.png)
+
+**4.** Since we previously configured BGP on both the routers using the same playbook with ansible-navigator, this job template run is `idempotent` and results in no changes pushed, which is expected.
 
 ## Takeaways
 
@@ -115,18 +175,19 @@ A **Job Template** is a definition and set of parameters for running a playbook 
 * Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Automation controller.
 * Automation controller can sync to existing SCM (source control management) including Github.
 * Automation controller can store and encrypt credentials including SSH private keys and plain-text passwords. Automation controller can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp.
-* Creating a Job Template for backing up network configurations.
-* Launching a Job Template from the Automation controller UI.
-* Verifying the backups are correctly stored.
+* Creating a new Project for our BGP task.
+* Creating a Job Template for configuring BGP on `rtr1` and `rtr2`.
+* Launching a Job Template from the Automation Execution UI.
 
 ## Complete
 
 You have completed lab exercise 5
 
-You have now examined all three components required to get started with Automation controller.  A credential, an inventory and a project.
+You have now explore all four components required to get started with Automation controller.  A credential, an inventory, a project
+and a job template.
 
 ---
-[Previous Exercise](../4-explore-aap-2.5/README.md) | [Next Exercise](../6-configure-routing/README.md)
+[Previous Exercise](../5-explore-aap-2.5/README.md)
 
 
 [Click here to return to the Ansible Network Automation Workshop](../README.md)

@@ -321,7 +321,7 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
 
 * Open the newly created files that `gathered` the SNMP configuration from the Cisco network device(s).
 
-* The files were stored under the device name, for example for rtr1: `~/network-workshop/rtr1_snmp.yml.
+* The files were stored under the device name, for example for rtr1: `~/network-workshop/aap_workshop/source-of-truth/snmp/rtr1.yml`.
 
 ```bash
   $ cat rtr1_snmp.yml
@@ -365,13 +365,15 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
   ![Apply R/W Contents Permission](images/step9_pat_perm.png)
 
 * The new fine-grained PAT should be created and should be visible to you.
-  Make sure to copy the token now as you will not be able to see this again.
+  **Make sure to copy the token now as you will not be able to see this again.**
 
   ![Fine-grained PAT](images/step9_pat.png)
 
-* Create a new playbook named `publish.yml`
-
-<!-- {% raw %} -->
+* Create a new playbook named `publish.yml` with the following content.
+  
+  ```bash
+  touch ~/network_workshop/publish.yml
+  ```
 
   ```yaml
   ---
@@ -398,7 +400,6 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
           path: "{{ repository['path'] }}"
           token: <paste the Github PAT you created>
   ```
-  <!-- {% endraw %} -->
 
 * In this playbook, we are using plugins from the [ansible.scm](https://github.com/ansible-collections/ansible.scm) collection.
   This collection was specifically designed to manage Git repositories via Ansible.
@@ -407,7 +408,7 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
   `git_retrieve` plugin which "clones" the remote repo into a local temporary directory. Since we created a public repository,
   a `token` is not required to fetch it.
 
-* Next, the contents of the `aap_workshop` repository, i.e., the files created in Step 7 are copied into this temporary "clone".
+* Next, the contents of the `aap_workshop` repository, i.e., the files created in **Step 7** are copied into this temporary "clone".
 
 * Finally, the changes are `published` to the remote repository using the `git_publish` plugin. By default, this task creates a
   new branch in the remote repository that includes the timestamp of when this commit was made.
@@ -415,6 +416,24 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
 * Once this playbook has successfully run, go to the Github repository and examine the files in it.
 
 ![Populated GH Repo](images/step9_gh_repo.png)
+
+### Step 10 - Rename repository branch to `main`
+
+* As a final step in this exercise, we need to rename the default branch in the `aap_workshop` repository to `main`.
+
+* Go to the Github repository and click on **1 Branch**.
+  
+  ![branch](images/branch.png)
+
+* Click on the **Rename Branch** option in the three-dotted menu **...**.
+
+  ![rename option](images/rename_option.png)
+
+* Set the `to` field to `main` and click on **Rename branch**.
+
+  ![rename](images/rename.png)
+
+* Go back to the repository landing page and verify that the branch has been renamed to `main`.
 
 ## Takeaways
 
@@ -428,9 +447,9 @@ As you can see, the resource module configured the Cisco IOS-XE network device w
 
 The finished Ansible Playbook is provided here for an answer key:
 
--  [resource.yml](resource.yml)
--  [gathered.yml](gathered.yml)
--  [publish.yml](publish.yml)
+-  [resource.yml](./resource.yml)
+-  [gathered.yml](./gathered.yml)
+-  [publish.yml](./publish.yml)
 
 ## Complete
 

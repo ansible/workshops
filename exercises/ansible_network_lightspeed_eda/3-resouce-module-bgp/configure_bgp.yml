@@ -1,0 +1,17 @@
+---
+- hosts: rtr1, rtr2
+  gather_facts: false
+  tasks:
+    - name: "Load source-of-truth for {{ inventory_hostname }}"
+      ansible.builtin.include_vars:
+        file: ./source-of-truth/bgp/{{ inventory_hostname }}.yml
+
+    - name: "Configure BGP Global Configuration on {{ inventory_hostname }}"
+      cisco.ios.ios_bgp_global:
+        config: "{{ bgp_global }}"
+        state: overridden
+
+    - name: "Configure BGP Address Family Configuration on {{ inventory_hostname }}"
+      cisco.ios.ios_bgp_address_family:
+        config: "{{ bgp_address_family }}"
+        state: overridden

@@ -1,5 +1,5 @@
 ---
-- name: Perform Retrieve Operation
+- name: Publish to SCM repository
   hosts: localhost
   gather_facts: true
 

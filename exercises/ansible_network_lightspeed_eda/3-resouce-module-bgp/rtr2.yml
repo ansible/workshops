@@ -1,0 +1,24 @@
+bgp_address_family:
+    address_family:
+    -   afi: ipv4
+        neighbors:
+        -   activate: true
+            neighbor_address: 10.200.200.1
+        networks:
+        -   address: 10.101.101.0
+            mask: 255.255.255.0
+        -   address: 10.200.200.0
+            mask: 255.255.255.0
+        redistribute:
+        -   ospf:
+                process_id: 1
+    as_number: '65001'
+bgp_global:
+    as_number: '65001'
+    bgp:
+        log_neighbor_changes: true
+        router_id:
+            address: 192.168.2.2
+    neighbors:
+    -   neighbor_address: 10.200.200.1
+        remote_as: '65000'

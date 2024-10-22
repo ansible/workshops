@@ -22,13 +22,14 @@
 
 This is the final challenge where we try to put most of what you have learned together.
 
+
 ## Guide
 
 ### Let’s set the stage
 
-Your operations team and your application development team likes what they see in Ansible automation controller. To really use it in their environment they put together these requirements:
+Your operations and application development teams likes what they see in Ansible automation controller. To really use it in their environment, they put together these requirements:
 
-* All webservers (`node1`, `node2` and `node3`) should go in one group
+* All webservers (`node1`, `node2` and `node3`) should go in one group.
 
 * As the webservers can be used for development purposes or in production, there has to be a way to flag them accordingly as "stage dev" or "stage prod".
 
@@ -90,38 +91,34 @@ Compared to the previous Apache installation role there is a major difference: t
 
 ### Prepare Inventory
 
-There is of course more then one way to accomplish this, but for the purposes of this lab, we will use Ansible automation controller.
+Navigate to **Automation Execution -> Infrastructure -> Inventories**. Select 'Workshop Inventory' and complete the following:
 
-Within **Resources** -> **Inventories** and select 'Workshop Inventory'.
+1. Go to the Groups tab, click **Create group**, and create a new group labeled Webserver. Click **Create group**..
+2. In the Webserver group, click **Edit group** and define the following variable:
 
-Within the **Groups** tab, click the **Add** button and create a new inventory group labeled `Webserver` and click **Save**.
-
-Within the **Details** tab of the `Webserver` group, click on **Edit**. Within the **Variables** textbox define a variable labeled `stage` with the value `dev` and click **Save**.
+Within the **Variables** textbox define a variable labeled `stage` with the value `dev` and click **Save group**.
 
 ```yaml
----
 stage: dev
 ```
 
-Within the **Details** tab of the `Webserver` group, click the **Hosts** tab, click the **Add** button and **Add existing host**. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
+Within the **Details** tab of the `Webserver` group, click the **Hosts** tab, click the **Add existing host**. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
 
-Within **Resources** -> **Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
+Within **Automation Execution -> Infrastructure -> Inventories**, select the
+`Workshop` Inventory. Click on the **Hosts** tab and click on `node2`.  Click on **Edit host** and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
 
 
-Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save**.
+Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save host**.
 
 ```yaml
 ---
 ansible_host: <IP_of_node2>
 stage: prod
 ```
-> **Tip**
->
-> Make sure to keep the three dashes that mark the YAML start and the `ansible_host` line in place\!
 
 ### Create the Template
 
-Within **Resources** -> **Templates**, select the **Add** button and **Add job template** as follows:
+Within **Automation Execution -> Templates**, select the **Create template -> Create job template** button and fill as follows:
 
   <table>
     <tr>
@@ -166,9 +163,9 @@ Within **Resources** -> **Templates**, select the **Add** button and **Add job t
     </tr>
   </table>
 
-Click **Save**.
+Click **Create job template**.
 
-Run the template by clicking the **Launch** button.
+Run the template by clicking the **Launch template** button.
 
 
 ### Check the Results
@@ -221,7 +218,7 @@ ok: [node3] => {
 ### Add Survey
 
 * Add a Survey to the template to allow changing the variables `dev_content` and `prod_content`.
-** In the Template, click the **Survey** tab and click the **Add** button.
+** In the Template, click the **Survey** tab and click the **Create survey question** button.
 ** Fill out the following information:
 
 <table>
@@ -243,8 +240,7 @@ ok: [node3] => {
   </tr>
 </table>
 
-* Click **Save**
-* Click the **Add** button
+* Click **Create survey question**
 
 In the same fashion add a second **Survey Question**
 
@@ -267,19 +263,17 @@ In the same fashion add a second **Survey Question**
   </tr>
 </table>
 
-* Click **Save**
-* Click the toggle to turn the Survey questions to **On**
-
-* Click **Preview** for the Survey
+* Click **Create survey question**
+* Click the toggle **Survey disabled** to enable the Survey questions.
 
 * Add permissions to the team `Web Content` so the template **Create Web Content** can be executed by `wweb`.
-* Within the **Resources** -> **Templates**, click **Create Web Content** and add **Access** to the user `wweb` the ability to execute the template.
-  * **Select a Resource Type** -> click **Users**, click **Next**.
-  * **Select Items from List** -> select the checkbox `wweb`, click **Next**.
-  * **Select Roles to Apply** -> select the checkbox **Execute** and click **Save**.
+* Within the **Automation Execution** -> **Templates**, click **Create Web Content** select the  **User Access** tab and **Add roles**  to add the user `wweb` the ability to execute the template.
+  * **Select user(s)** -> select the checkbox `wweb`, click **Next**.
+  * **Select roles to apply** -> select the checkbox **JobTemplate Execute** and click **Next**.
+  * **Review** -> click **Finish**.
 * Run the survey as user `wweb`
   * Logout of the user `admin` of your Ansible automation controller.
-  * Login as `wweb` and go to **Resources** -> **Templates** and run the **Create Web Content** template.
+  * Login as `wweb` and go to **Automation execution** -> **Templates** and run the **Create Web Content** template.
 
 Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 

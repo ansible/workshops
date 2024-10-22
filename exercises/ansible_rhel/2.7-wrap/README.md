@@ -93,7 +93,7 @@ Compared to the previous Apache installation role there is a major difference: t
 
 Navigate to **Automation Execution -> Infrastructure -> Inventories**. Select 'Workshop Inventory' and complete the following:
 
-1. Go to the Groups tab, click **Create group**, and create a new group labeled Webserver. Click **Create group**..
+1. Go to the Groups tab, click **Create group**, and create a new group labeled Webserver. Click **Create group**.
 2. In the Webserver group, click **Edit group** and define the following variable:
 
 Within the **Variables** textbox define a variable labeled `stage` with the value `dev` and click **Save group**.
@@ -111,8 +111,6 @@ Within **Automation Execution -> Infrastructure -> Inventories**, select the
 Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save host**.
 
 ```yaml
----
-ansible_host: <IP_of_node2>
 stage: prod
 ```
 
@@ -142,20 +140,20 @@ Within **Automation Execution -> Templates**, select the **Create template -> Cr
       <td>Workshop Project</td>
     </tr>
     <tr>
-      <td>Execution Environment</td>
-      <td>Default execution environment</td>
-    </tr>
-    <tr>
       <td>Playbook</td>
       <td>rhel/apache/webcontent.yml</td>
     </tr>
     <tr>
+      <td>Execution Environment</td>
+      <td>Default execution environment</td>
+    </tr>
+    <tr>
       <td>Credentials</td>
-      <td>Workshop Credential</td>
+      <td>Workshop Credential | Machine</td>
     </tr>
     <tr>
       <td>Variables</td>
-      <td>dev_content: "default dev content", prod_content: "default prod content"</td>
+      <td>dev_content: "default dev content"<br>prod_content: "default prod content"</td>
     </tr>
     <tr>
       <td>Options</td>
@@ -217,9 +215,11 @@ ok: [node3] => {
 
 ### Add Survey
 
-* Add a Survey to the template to allow changing the variables `dev_content` and `prod_content`.
-** In the Template, click the **Survey** tab and click the **Create survey question** button.
-** Fill out the following information:
+Add a Survey to the template to allow changing the variables `dev_content` and `prod_content`.
+
+In the Template, click the **Survey** tab and click the **Create survey question** button.
+
+Fill out the following information:
 
 <table>
   <tr>

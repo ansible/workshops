@@ -100,15 +100,16 @@ Use `ansible-galaxy` to initialize the collection structure:
 This creates the following structure:
 
 ```bash
-webops/apache/
 ├── README.md
+├── docs
+├── galaxy.yml
+├── meta
+│   └── runtime.yml
+├── plugins
+│   └── README.md
 ├── roles/
-│   └── apache/
-│       ├── tasks/
-│       ├── templates/
-│       ├── vars/
-│       └── handlers/
-└── playbooks/
+├── playbooks/
+└── tests/
 ```
 
 2. Define Role Variables:

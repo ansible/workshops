@@ -129,6 +129,6 @@ Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
 
 **Navigation**
 <br>
-[Previous Exercise](../1.5-handlers) - [Next Exercise](../1.7-role)
+[Previous Exercise](../1.5-handlers) - [Next Exercise](../1.7-collection)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-1---ansible-engine-exercises)

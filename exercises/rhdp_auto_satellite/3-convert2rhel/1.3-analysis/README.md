@@ -107,7 +107,7 @@ As we progress through the workshop, we'll refer back to this diagram to track w
 
 ![Automation approach workflow diagram with analysis step highlighted](images/conversion-workflow-hl-analysis.svg)
 
-The first step in converting our three tier app hosts will be executing the analysis playbook to generate the Convert2RHEL pre-conversion analysis report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
+The first step in converting our three tier app hosts will be executing the analysis workflow to generate the Convert2RHEL pre-conversion analysis report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
 
 - Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu:
 
@@ -204,7 +204,7 @@ When you are ready to develop your own custom playbooks to run conversions for y
 
 ## Conclusion
 
-In this exercise, we learned about the end-to-end workflow used by our automation approach for doing RHEL-like OS conversions. We used a workflow template in AAP to submit a workflow job that cleared node ytum cache, performed an LVM snapshop of each node, and then ran the Convert2RHEL pre-conversion analysis on our three tier application servers. In the challenge lab, we explored the analysis playbook that we ran and how it includes a role from an Ansible collection.
+In this exercise, we learned about the end-to-end workflow used by our automation approach for doing RHEL-like OS conversions. We used a workflow template in AAP to submit a workflow job that cleared node yum cache, performed an LVM snapshop of each node, and then ran the Convert2RHEL pre-conversion analysis on our three tier application servers. In the challenge lab, we explored the analysis playbook that we ran and how it includes a role from an Ansible collection.
 
 In the next exercise, we will review the analysis reports we just generated.
 

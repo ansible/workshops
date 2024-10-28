@@ -29,7 +29,31 @@ We are about to start the CentOS conversion of our application servers. When the
 
 Conversions typically take less than an hour, although they can run for longer if there are applications that shutdown slowly or with bare metal hosts that have a long reboot cycle. The cloud instances provisioned for our workshop lab environment will convert fairly quickly as they are very lightweight compared to traditional enterprise app servers.
 
-- Return to the AAP Web UI tab in your web browser. Navigate to Resources > Templates and then open the "CONVERT2RHEL / 02 Convert" job template. Here is what it looks like:
+One think that's needs to be taken care of first is to remove the snapshots that were taken prior to the analysis, as we will want to take fresh snapshots priore to launching the conversion workflow.
+
+- Return to the AAP Web UI tab in your web browser. Navigate to Resources > Templates and then open the "UTILITY / Snapshot Instance" job template. Here is what it looks like:
+
+  ![AAP Web UI showing the snapshot job template details view](images/snapshot_template.png)
+
+- Click the "Launch" button which will bring up the prompts for submitting the job starting with the variables prompt:
+
+  ![Snapshot job variables prompt on AAP Web UI](images/snapshot_vars_prompt.png)
+
+- We are going to remove snapshots from all of our CentOS application hosts using a single job, so we can leave the `Limit` field empty. We don't need to change any of the variables settings, so click the "Next" button to move on.
+
+  ![Snapshot job survey prompt on AAP Web UI](images/snapshot_survey_prompt.png)
+
+- Next we see the job template survey prompt asking us to `Select inventory group`. Choose the `CentOS7_Dev` inventory group. For the `Snapshot action` option, we want to remove the existing snapshots from the analysis phase, so choose `remove` and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
+
+  ![Snapshot job preview on AAP Web UI](images/snapshot_preview.png)
+
+- If you are satisfied with the job preview, use the "Launch" button to start the job.
+
+  ![snapshot job output on AAP Web UI](images/snapshot_job_output.png)
+
+- Verify that the snapshot removal job run was successful.
+
+- Continuing in the AAP Web UI, navigate to Resources > Templates and then open the "CONVERT2RHEL / 02 Convert" workflow template. Here is what it looks like:
 
   ![AAP Web UI showing the conversion job template details view](images/convert_template.png)
 
@@ -41,7 +65,7 @@ Conversions typically take less than an hour, although they can run for longer i
 
   ![Conversion job survey prompt on AAP Web UI](images/convert_survey_prompt.png)
 
-- Next we see the job template survey prompt asking us to `Select EL Group to convert`. Choose the `CentOS7_Dev` inventory group. For the `Select target RHEL Lifecycle Environment to convert to` option, we want to utilize the comparable `RHEL7_Dev` Content View for our RPM package sources during the conversion, so choose `RHEL7_Dev` and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
+- Next we see the job template survey prompt asking us to `Select EL Group to convert`. Choose the `CentOS7_Dev` inventory group and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
 
   ![Conversion job preview on AAP Web UI](images/convert_preview.png)
 

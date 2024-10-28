@@ -17,7 +17,7 @@
 
 ## Guide
 
-In the previous exercises, we reviewed pre-conversion analyis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible playbook jobs to run the CentOS conversions on your servers.
+In the previous exercises, we reviewed pre-conversion analyis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible workflow that initiated jobs with corresponding playbooks to run the CentOS conversions on your servers.
 
 It's time to verify the results of the conversions and let our application team assess if their three tier application stack is in working order. We are here in our CentOS in-place conversion automation workflow:
 

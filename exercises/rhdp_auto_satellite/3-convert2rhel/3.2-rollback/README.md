@@ -46,7 +46,7 @@ In this step, we will be rolling back the CentOS conversion for our entire three
 
   ![AAP Web UI showing the rollback job survey prompt](images/rollback_survey.png)
 
-- Next we see the job template survey prompt asking us to select an inventory group. Our systems were converted to RHEL7 and we looked in Satellite and verified that the nodes were in fact registered as RHEL7 nodes, configured to consume the RHEL7_Dev content view. So, we should choose "RHEL7_Dev" for our inventory group, yes? Actually, no. We have not _committed_ to keeping the converted systems, our system tags that define the current OS and content view have not been updated...so the Ansible inventory still recognizes these systems as members of the "CentOS7_Dev" inventory group. So if we have not initiated the commit automation to accept the converted systems as RHEL7_Dev nodes, we choose the "CentOS7_Dev" option and click the "Next" button.
+- Next we see the job template survey prompt asking us to select an inventory group. Our systems were converted to RHEL7 and we looked in Satellite and verified that the nodes were in fact registered as RHEL7 nodes. So, we should choose "RHEL7_Dev" for our inventory group, yes? Actually, no. We have not _committed_ to keeping the converted systems, our system tags that define the current OS and content view have not been updated...so the Ansible inventory still recognizes these systems as members of the "CentOS7_Dev" inventory group. So if we have not initiated the commit automation to accept the converted systems as RHEL7_Dev nodes, we choose the "CentOS7_Dev" option and click the "Next" button.
 
 - This will bring you to the preview of the selected job options and variable settings, for example:
 

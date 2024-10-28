@@ -42,7 +42,11 @@ Hopefully, these exercises have opened your eyes to what is possible, but we hav
 
 - Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, **Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise**
 
-  There are a couple things to be aware of if you want to continue through to the RHEL In Place Upgrade content. If you stepped through the conversion rollback exercise, you will have to perform the conversion again and once verified as successful, you will need to run the "CONVERT2RHEL / 04 Commit" playbook job template. This job will delete the snapshot created for your CentOS7 to RHEL7 conversion, so be sure you are happy with everything before you do this. While rolling back to CentOS7 will no longer be possible, you will be able to roll back to RHEL7 if needed after upgrading to RHEL8.
+  There are a couple things to be aware of if you want to continue through to the RHEL In Place Upgrade content. If you stepped through the conversion rollback exercise, you will have to perform the conversion again and then verify the conversion as successful. You will then need to run the `SATELLITE / Change content source for content host` and select `CentOS7_Dev` for the inventory group and `RHEL7_Dev` for the target lifecycle environment.
+  
+    ![Satellite Change content source for content host](images/content_host_change_source_survey.png)
+
+  Proceed through the survey and preview to launch the automation job. Once the content host's content source are updated, you will need to run the `CONVERT2RHEL / 04 Commit` playbook job template. This job will delete the snapshot created for your CentOS7 to RHEL7 conversion, so be sure you are happy with everything before you do this. While rolling back to CentOS7 will no longer be possible, you will be able to roll back to RHEL7 if needed after upgrading to RHEL8.
 
   Another consideration with going from CentOS7 to RHEL9 is the increased risk of application impacts. While RHEL system library forward binary compatibility is solid between each RHEL major version, "N+2" compatibility is not guaranteed. Of course, the only way to know for sure is to try it!
 

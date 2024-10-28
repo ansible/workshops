@@ -43,11 +43,11 @@ The first thing we want to do is see if the job running the conversion playbook 
 
   > **Note**
   >
-  > If you see "Running" with spinning arrows, the playbook is still running. Wait for the playbook run to finish before moving on with this exercise.
+  > If you see "Running" with spinning arrows, the playbook/automation job is still running. Wait for the job run to finish before moving on with this exercise.
 
-  Scroll down to the end of the log output to see the "PLAY RECAP" indicating the success or failure status for the playbook run executed on each host. Here is what you should expect to see:
+  Scroll down to the end of the log output to see the "PLAY RECAP" indicating the success or failure status for the job run executed on each host. Here is what you should expect to see:
 
-  ![AAP Web UI showing successful conversion playbook run play recap](images/conversion_play_recap.png)
+  ![AAP Web UI showing successful conversion job run play recap](images/conversion_play_recap.png)
 
   If there are no failed runs, the CentOS in-place conversion is complete on all of our application servers.
 

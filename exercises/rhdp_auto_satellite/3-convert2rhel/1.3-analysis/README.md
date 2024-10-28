@@ -12,9 +12,10 @@
       - [Commit](#commit)
       - [Let's Get Started](#lets-get-started)
     - [Step 2 - Patch OS to latest package versions](#step-2---patch-os-to-latest-package-versions)
-    - [Step 3 - Use AAP to Launch an Analysis Playbook Job](#step-3---use-aap-to-launch-an-analysis-playbook-job)
-    - [Step 4 - Review the Playbook Job Output](#step-3---review-the-playbook-job-output)
-    - [Step 5 - Challenge Lab: Analysis Playbook](#step-4---challenge-lab-analysis-playbook)
+    - [Step 3 - Change Content Source for Content Host](#step-3---change-content-source-for-content-host)
+    - [Step 4 - Use AAP to Launch an Analysis Playbook Job](#step-4---use-aap-to-launch-an-analysis-playbook-job)
+    - [Step 5 - Review the Playbook Job Output](#step-5---review-the-playbook-job-output)
+    - [Step 6 - Challenge Lab: Analysis Playbook](#step-6---challenge-lab-analysis-playbook)
   - [Conclusion](#conclusion)
 
 ## Objectives
@@ -101,11 +102,63 @@ One of the prerequisites for successful Convert2RHEL OS conversions is that the 
 
 - With a successful job completion, we are ready to proceed with the pre-conversion OS analysis.
 
-### Step 3 - Use AAP to Launch an Analysis Playbook Job
+### Step 3 - Change Content Source for Content Host
+
+Before we start the pre-conversion OS analysis, we need to change the Satellite content source for our CentOS content hosts. With the release of Convert2RHEL 2.x, providing content registration details as part of the variables supplied are no longer utilized. Instead, the system to be converted should be registered to a content view that provides access to package repositories for both the current version of installed operating system, as well as access to package repositories for the target version of RHEL that is being converted to. In addition, access to the Convert2RHEL related package repositories should be included.
+
+If you would like to review the content view configuration that we will be utilizing as part of the conversion process, switch to the browser tab where you are logged in to Satellite.
+
+- Once the Satellite web UI is accessible, click on Content > Lifecycle > Content Views.
+
+  ![Satellite Content Views](images/satellite_content_views.png)
+
+  > **Note**
+  >
+  > A composite content view in Satellite is a content view that is composed of other composite views, typically multiples of content views.
+
+- On the "CentOS7_to_RHEL7" content view page, click on the "Content views" tab.
+
+  ![CentOS7_to_RHEL7 Content View](images/composite_content_view_for_convert2rhel.png)
+
+- Notice that the CentOS7 and RHEL7 content views have been added to the CentOS7_to_RHEL7 composite content view. Click on either of the CentOS7 or RHEL7 content views and then the "Repositories" tab in each view.
+
+  ![CentOS7 Content View Repositories](images/composite_content_view_centos_repos.png)
+
+  ![RHEL7 Content View Repositories](images/composite_content_view_rhel_repos.png)
+
+Currently, our CentOS7 nodes are configured to utilize the "CentOS7" content view. We will now change our CentOS7 nodes to instead consume the CentOS7_to_RHEL7 composite content view during the conversion process.
+
+- Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation panel and click on "SATELLITE / Change content source for content host".
+
+  ![Satellite Change content source for content host](images/content_host_template.png)
+
+- On the details page, review the job template settings and variables section, then click on "Launch".
+
+  ![Satellite Change content source for content host](images/content_host_template_launch.png)
+
+- On the survey dialog, for `Select inventory group`, select `CentOS7_Dev` from the drop down. Leave the specific content hosts limit field blank. for `Select target lifecycle environment for the content host`, select `CentOS7_to_RHEL7`, then click "Next".
+
+  ![Satellite Change content source for content host survey](images/content_host_template_survey.png)
+
+- On the preview dialog, review the various settings and if desired, review the Prompted Values/Variable section. When ready to proceed, click "Launch".
+
+  ![Satellite Change content source for content host preview](images/content_host_template_launch_final.png)
+
+- Verify that the Change content source for content host job completes successfully.
+
+  ![Satellite Change content source for content host job output](images/content_host_job_output.png)
+
+If you would like to verify the content host configuration has changed, switch to the browser tab where you are logged in to Satellite.
+
+- Once the Satellite web UI is accessible, click on Hosts > Content Hosts. When the *Content Hosts* page is displayed, we should see that the CentOS7 content hosts are now configured to pull package content from the "CentOS7_to_RHEL7" content view and "CentOS7_to_RHEL7_Dev" lifecycle environment.
+
+  ![Satellite Content Hosts](images/satellite_content_hosts2.png)
+
+### Step 4 - Use AAP to Launch an Analysis Playbook Job
 
 As we progress through the workshop, we'll refer back to this diagram to track where we are in our automation approach workflow. We are starting now in the highlighted block below:
 
-![Automation approach workflow diagram with analysis step highlighted](images/conversion-workflow-hl-analysis.svg)
+  ![Automation approach workflow diagram with analysis step highlighted](images/conversion-workflow-hl-analysis.svg)
 
 The first step in converting our three tier app hosts will be executing the analysis workflow to generate the Convert2RHEL pre-conversion analysis report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
 
@@ -129,13 +182,13 @@ The first step in converting our three tier app hosts will be executing the anal
 
   ![Analysis job survey prompt on AAP Web UI](images/analysis_survey_prompt.png)
 
-- For this workflow job template, the survey allows for choosing a group of hosts on which the workflow will execute against. For "Select EL Group to analyze" choose "CentOS_Dev" from the drop-down and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
+- For this workflow job template, the survey allows for choosing a group of hosts on which the workflow will execute against. For `Select EL Group to analyze` choose `CentOS_Dev` from the drop-down and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
 
   ![Analysis job preview on AAP Web UI](images/analysis_preview.png)
 
 - If you are satisfied with the job preview, use the "Launch" button to start the workflow job.
 
-### Step 4 - Review the Workflow Job Output
+### Step 5 - Review the Workflow Job Output
 
 After launching the analysis workflow job, the AAP Web UI will navigate automatically to the workflow output page for the workflow you just started.
 
@@ -153,7 +206,7 @@ After launching the analysis workflow job, the AAP Web UI will navigate automati
 
 - If any errors are experienced, the `CONVERT2RHEL / 03 Rollback` job template can be used to revert nodes back to the pre-conversion analysis state and steps can be taken to remediate any issues/errors, followed by a new pre-conversion analysis workflow template run. Repeat this process until the pre-conversion analysis returns SUCCESS.
 
-### Step 4 - Challenge Lab: Analysis Playbook
+### Step 6 - Challenge Lab: Analysis Playbook
 
 Let's take a closer look at the playbook we just ran.
 

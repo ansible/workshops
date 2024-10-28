@@ -76,11 +76,11 @@ Repeat the steps you followed with [Exercise 2.3: Step 2](../2.3-check-upg/READM
 
   ![command output showing the host is back to CentOS7 installed](images/commands_after_rollback.png)
 
-- Additionally, we can check Satellite to verify node status. Switching to the Satellite UI in your brwoser, hover over "Hosts" in the left hand menu and then click on "Content Hosts":
+- Additionally, we can check Satellite to verify node status. Switching to the Satellite UI in your browser, hover over "Hosts" in the left hand menu and then click on "Content Hosts":
 
   ![Satellite Content Hosts showing CentOS7](images/rollback_satellite_content_hosts.png)
 
-We can see that the three tier application stack nodes are all reverted to CentOS7 and set to utilize the CentOS7_Dev content view
+We can see that the three tier application stack nodes are all reverted to CentOS7.
 
 ## Conclusion
 

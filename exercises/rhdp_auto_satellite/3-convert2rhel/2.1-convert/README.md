@@ -12,7 +12,7 @@
 
 ## Objectives
 
-* Use a workflow job template to create snapshots and start the coverversions
+* Use a workflow job template to create snapshots and start the conversions
 * Learn about how the Convert2RHEL framework goes about converting CentOS to RHEL
 
 ## Guide

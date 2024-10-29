@@ -116,19 +116,19 @@ If you would like to review the content view configuration that we will be utili
   >
   > A composite content view in Satellite is a content view that is composed of other composite views, typically multiples of content views.
 
-- On the "CentOS7_to_RHEL7" content view page, click on the "Content views" tab.
+- On the `CentOS7_to_RHEL7` content view page, click on the `Content views` tab.
 
   ![CentOS7_to_RHEL7 Content View](images/composite_content_view_for_convert2rhel.png)
 
-- Notice that the CentOS7 and RHEL7 content views have been added to the CentOS7_to_RHEL7 composite content view. Click on either of the CentOS7 or RHEL7 content views and then the "Repositories" tab in each view.
+- Notice that the CentOS7 and RHEL7 content views have been added to the CentOS7_to_RHEL7 composite content view. Click on either of the CentOS7 or RHEL7 content views and then the `Repositories` tab in each view.
 
   ![CentOS7 Content View Repositories](images/composite_content_view_centos_repos.png)
 
   ![RHEL7 Content View Repositories](images/composite_content_view_rhel_repos.png)
 
-Currently, our CentOS7 nodes are configured to utilize the "CentOS7" content view. We will now change our CentOS7 nodes to instead consume the CentOS7_to_RHEL7 composite content view during the conversion process.
+Currently, our CentOS7 nodes are configured to utilize the `CentOS7` content view, with associated `CentOS7_Dev` lifecycle environment. We will now change our CentOS7 nodes to instead consume the `CentOS7_to_RHEL7` composite content view via the associated `CentOS7_to_RHEL7_Dev` lifecycle environment during the conversion process.
 
-- Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation panel and click on "SATELLITE / Change content source for content host".
+- Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation panel and click on `SATELLITE / Change content source for content host`.
 
   ![Satellite Change content source for content host](images/content_host_template.png)
 
@@ -136,7 +136,7 @@ Currently, our CentOS7 nodes are configured to utilize the "CentOS7" content vie
 
   ![Satellite Change content source for content host](images/content_host_template_launch.png)
 
-- On the survey dialog, for `Select inventory group`, select `CentOS7_Dev` from the drop down. Leave the specific content hosts limit field blank. for `Select target lifecycle environment for the content host`, select `CentOS7_to_RHEL7`, then click "Next".
+- On the survey dialog, for `Select inventory group`, select `CentOS7_Dev` from the drop down. Leave the specific content hosts limit field blank. for `Select target lifecycle environment for the content host`, select `CentOS7_to_RHEL7_Dev`, then click "Next".
 
   ![Satellite Change content source for content host survey](images/content_host_template_survey.png)
 
@@ -200,7 +200,7 @@ After launching the analysis workflow job, the AAP Web UI will navigate automati
 
   ![Analysis job "PLAY RECAP" as seen at the end of the job output](images/analysis_job_recap.png)
 
-- Additionally, you can verify the status of each node by scrolling through the job output and checking for a message specific to each node indicating that the pre-conversion analysis was successful. If any issues were found, a quick synopsis message will be printed instead, as well as provising a path to the pre-conversion log file for further manual investigations.
+- Additionally, you can verify the status of each node by scrolling through the job output and checking for a message specific to each node indicating that the pre-conversion analysis was successful. If any issues were found, a quick synopsis message will be printed instead, as well as providing a path to the pre-conversion log file for further, manual investigations.
 
   ![Analysis job node4 status message in job output](images/analysis_job_output.png)
 

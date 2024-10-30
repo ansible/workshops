@@ -17,7 +17,7 @@
 
 ## Guide
 
-In the previous exercises, we reviewed pre-conversion analyis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible playbook jobs to run the CentOS conversions on your servers.
+In the previous exercises, we reviewed pre-conversion analyis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible workflow that initiated jobs with corresponding playbooks to run the CentOS conversions on your servers.
 
 It's time to verify the results of the conversions and let our application team assess if their three tier application stack is in working order. We are here in our CentOS in-place conversion automation workflow:
 
@@ -43,11 +43,11 @@ The first thing we want to do is see if the job running the conversion playbook 
 
   > **Note**
   >
-  > If you see "Running" with spinning arrows, the playbook is still running. Wait for the playbook run to finish before moving on with this exercise.
+  > If you see "Running" with spinning arrows, the playbook/automation job is still running. Wait for the job run to finish before moving on with this exercise.
 
-  Scroll down to the end of the log output to see the "PLAY RECAP" indicating the success or failure status for the playbook run executed on each host. Here is what you should expect to see:
+  Scroll down to the end of the log output to see the "PLAY RECAP" indicating the success or failure status for the job run executed on each host. Here is what you should expect to see:
 
-  ![AAP Web UI showing successful conversion playbook run play recap](images/conversion_play_recap.png)
+  ![AAP Web UI showing successful conversion job run play recap](images/conversion_play_recap.png)
 
   If there are no failed runs, the CentOS in-place conversion is complete on all of our application servers.
 

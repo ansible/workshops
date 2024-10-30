@@ -103,7 +103,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories groups](images/update_controller_inventory_06.png)
 
-- In the menu bar on the left, select "Inventories" --> "EC2 Dynamic Inventories". Once the **EC2 Dynamic Inventory** details screen is displayed, click on the "Groups" tab.
+- In the menu bar on the left, select "Inventories" --> "EC2 Dynamic Inventory". Once the **EC2 Dynamic Inventory** details screen is displayed, click on the "Groups" tab.
 
   ![Controller inventories group](images/update_controller_inventory_07.png)
 

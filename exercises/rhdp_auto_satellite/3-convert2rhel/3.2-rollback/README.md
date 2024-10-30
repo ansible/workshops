@@ -46,7 +46,7 @@ In this step, we will be rolling back the CentOS conversion for our entire three
 
   ![AAP Web UI showing the rollback job survey prompt](images/rollback_survey.png)
 
-- Next we see the job template survey prompt asking us to select an inventory group. Our systems were converted to RHEL7 and we looked in Satellite and verified that the nodes were in fact registered as RHEL7 nodes, configured to consume the RHEL7_Dev content view. So, we should choose "RHEL7_Dev" for our inventory group, yes? Actually, no. We have not _committed_ to keeping the converted systems, our system tags that define the current OS and content view have not been updated...so the Ansible inventory still recognizes these systems as members of the "CentOS7_Dev" inventory group. So if we have not initiated the commit automation to accept the converted systems as RHEL7_Dev nodes, we choose the "CentOS7_Dev" option and click the "Next" button.
+- Next we see the job template survey prompt asking us to select an inventory group. Our systems were converted to RHEL7 and we looked in Satellite and verified that the nodes were in fact registered as RHEL7 nodes. So, we should choose "RHEL7_Dev" for our inventory group, yes? Actually, no. We have not _committed_ to keeping the converted systems, our system tags that define the current OS and content view have not been updated...so the Ansible inventory still recognizes these systems as members of the "CentOS7_Dev" inventory group. So if we have not initiated the commit automation to accept the converted systems as RHEL7_Dev nodes, we choose the "CentOS7_Dev" option and click the "Next" button.
 
 - This will bring you to the preview of the selected job options and variable settings, for example:
 
@@ -76,11 +76,11 @@ Repeat the steps you followed with [Exercise 2.3: Step 2](../2.3-check-upg/READM
 
   ![command output showing the host is back to CentOS7 installed](images/commands_after_rollback.png)
 
-- Additionally, we can check Satellite to verify node status. Switching to the Satellite UI in your brwoser, hover over "Hosts" in the left hand menu and then click on "Content Hosts":
+- Additionally, we can check Satellite to verify node status. Switching to the Satellite UI in your browser, hover over "Hosts" in the left hand menu and then click on "Content Hosts":
 
   ![Satellite Content Hosts showing CentOS7](images/rollback_satellite_content_hosts.png)
 
-We can see that the three tier application stack nodes are all reverted to CentOS7 and set to utilize the CentOS7_Dev content view
+We can see that the three tier application stack nodes are all reverted to CentOS7.
 
 ## Conclusion
 

@@ -150,7 +150,7 @@ Currently, our CentOS7 nodes are configured to utilize the `CentOS7` content vie
 
 If you would like to verify the content host configuration has changed, switch to the browser tab where you are logged in to Satellite.
 
-- Once the Satellite web UI is accessible, click on Hosts > Content Hosts. When the *Content Hosts* page is displayed, we should see that the CentOS7 content hosts are now configured to pull package content from the "CentOS7_to_RHEL7" content view and "CentOS7_to_RHEL7_Dev" lifecycle environment.
+- Once the Satellite web UI is accessible, click on Hosts > Content Hosts. When the *Content Hosts* page is displayed, we should see that the CentOS7 content hosts are now configured to pull package content from the `CentOS7_to_RHEL7` content view and `CentOS7_to_RHEL7_Dev` lifecycle environment.
 
   ![Satellite Content Hosts](images/satellite_content_hosts2.png)
 
@@ -249,7 +249,9 @@ Can you find the upstream source repo and playbook code?
   ansible.builtin.import_role:
     name: infra.convert2rhel.analysis
 ```
-By checking the `collections/requirements.yml` file in the `redhat-partner-tech/automated-satellite` git repo, we can discover that this role comes from another git repo at [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel). It is the `analysis` role under this second git repo that provides all the automation tasks that ultimately runs the Convert2RHEL analysis scan and generates the report. *NOTE* We are utilizing a fork of the upstream infra.convert2rhel Ansible collection [https://github.com/redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel). Because the upstream collections is a fast moving project, we utilize a fork where we can closely manage the state of the code base to ensure optimal stability for the lab/workshop/demo environment.
+By checking the `collections/requirements.yml` file in the `redhat-partner-tech/automated-satellite` git repo, we can discover that this role comes from another git repo at [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel). It is the `analysis` role under this second git repo that provides all the automation tasks that ultimately runs the Convert2RHEL analysis scan and generates the report.
+
+ *NOTE* We are utilizing a fork of the upstream infra.convert2rhel Ansible collection [https://github.com/redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel). Because the upstream collections is a fast moving project, we utilize a fork where we can closely manage the state of the code base to ensure optimal stability for the lab/workshop/demo environment.
 
 - In a new browser tab/instance, open the [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel) URL. Drill down to the `roles/analysis` directory in this git repo to review the README and yaml source files.
 

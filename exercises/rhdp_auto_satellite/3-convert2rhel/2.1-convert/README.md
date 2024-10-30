@@ -51,7 +51,7 @@ One think that's needs to be taken care of first is to remove the snapshots that
 
   ![snapshot job output on AAP Web UI](images/snapshot_job_output.png)
 
-- Verify that the snapshot removal job run was successful.
+- Verify that the snapshot removal job run was successful by reviewing the job output.
 
 - Continuing in the AAP Web UI, navigate to Resources > Templates and then open the "CONVERT2RHEL / 02 Convert" workflow template. Here is what it looks like:
 

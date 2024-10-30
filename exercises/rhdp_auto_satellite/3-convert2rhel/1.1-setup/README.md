@@ -50,7 +50,7 @@ The AAP Web UI is where we will go to submit and check the status of the Ansible
 
   ![Example AAP Web UI dashboard](images/aap_console_example.svg)
 
-- Let's use the AAP Web UI to make sure our CentOS nodes are up and running. In the AAP Web UI browser tab, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. Browse the list of job templates and click on the template `EC2 / Instance action`:
+- Let's use the AAP Web UI to make a couple of preparations for the exercise. First, let's ensure our CentOS nodes are up and running. In the AAP Web UI browser tab, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. Browse the list of job templates and click on the template `EC2 / Instance action`:
 
   ![Job templates filtered list](images/instance_action_01.png)
 
@@ -73,6 +73,28 @@ The AAP Web UI is where we will go to submit and check the status of the Ansible
 - Verify that the job run is successful via the job output:
 
   ![Job templates filtered list](images/instance_action_job_output_01.png)
+
+Additionally, we need to run some automation to make some final adjustments to the environment for the CentOS to RHEL conversion.
+
+- In the AAP Web UI browser tab, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. Browse the list of job templates and click on the ![launch](images/convert2rhel-aap2-launch.png) icon to the right of `Z / CaC / Controller / C2R - RIPU scenario`:
+
+  ![Job templates filtered list](images/controller_cac_centos7_c2r.png)
+
+- Review the job variables prompt and then click `Next`:
+
+  ![Job templates filtered list](images/controller_cac_centos7_c2r_vars.png)
+
+- On the survey dialog, for `Choose C2R/RIPU version to prepare on Controller` choose `CentOS7_C2R` from the drop down menu. then click `Next`:
+
+  ![Job templates filtered list](images/controller_cac_centos7_c2r_survey.png)
+
+- Review the preview job dialog then click `Launch`:
+
+  ![Job templates filtered list](images/controller_cac_centos7_c2r_preview.png)
+
+- Verify that the job run is successful via the job output:
+
+  ![Job templates filtered list](images/controller_cac_centos7_c2r_output.png)
 
 ### Step 2 - Access the Visual Studio Code Web UI
 

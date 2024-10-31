@@ -1,0 +1,14 @@
+---
+- name: Ensure boto3 version is >= 1.28.0
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+
+  - name: do facts
+    ansible.builtin.setup:
+    register: my_facts
+
+  - debug:
+      var: my_facts
+

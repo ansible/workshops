@@ -41,13 +41,13 @@
 
     - name: does route53 zone exist
       check_mode: true
-      community.aws.route53_zone:
+      amazon.aws.route53_zone:
         zone: "{{ workshop_dns_zone }}"
         state: present
       register: test
 
     - name: make sure workshop_dns_zone is owned by your account
-      assert:
+      ansible.builtin.assert:
         that:
           - test.zone_id is not none
         msg:
@@ -61,7 +61,7 @@
   until: az_names is not failed
 
 - name: Remove any AZs in the aws_az_deny_list when defined
-  set_fact:
+  ansible.builtin.set_fact:
     availability_zones: >-
       {{ az_names.availability_zones | json_query(__filter_query) }}
   vars:
@@ -69,7 +69,7 @@
       [?!contains(`{{ (aws_az_deny_list | default([])) | to_json }}`, zone_name)]
 
 - name: Output AWS Availability Zones (AZs)
-  debug:
+  ansible.builtin.debug:
     var: availability_zones
     verbosity: 2
 
@@ -83,13 +83,13 @@
   register: whoami
 
 - name: print whoami
-  debug:
+  ansible.builtin.debug:
     var: whoami
 
 - name: save username of AWS user
-  set_fact:
+  ansible.builtin.set_fact:
     aws_user: '{{ whoami.arn.split("/")[-1] }}'
 
 - name: save account id of AWS user
-  set_fact:
+  ansible.builtin.set_fact:
     aws_account: '{{ whoami.account }}'

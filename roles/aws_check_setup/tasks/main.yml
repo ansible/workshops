@@ -1,13 +1,34 @@
 ---
-- name: grab boto version
-  command: "{{ansible_python['executable']}} -c 'import boto3; print(boto3.__version__)'"
-  register: py_cmd
+# - name: grab boto version
+#   command: "{{ansible_python['executable']}} -c 'import boto3; print(boto3.__version__)'"
+#   register: py_cmd
 
-- name: make sure we are running correct boto version
+# - name: make sure we are running correct boto version
+#   assert:
+#     that:
+#       - py_cmd.stdout is version('1.7', operator='ge')
+#     msg: "boto3 >= 1.7 is required."
+
+- name: Check boto3 package version
+  check_mode: true
+  ansible.builtin.pip:
+    name: boto3>=1.28.0
+    state: present
+  register: boto3_info
+
+- name: Print out boto3_info
+  ansible.builtin.debug:
+    var: boto3_info
+
+- name: Print out boto3_info
+  ansible.builtin.debug:
+    var: boto3_info.changed
+
+- name: Assert boto3 version is >= 1.28.0
   assert:
     that:
-      - py_cmd.stdout is version('1.7', operator='ge')
-    msg: "boto3 >= 1.7 is required."
+      - not boto3_info.changed
+
 
 - name: check route53 information
   when: dns_type == "aws"

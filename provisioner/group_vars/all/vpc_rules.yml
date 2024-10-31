@@ -70,6 +70,16 @@ workshops:
         from_port: 27199
         cidr_ip: 0.0.0.0/0
         rule_desc: receptor
+      - proto: tcp
+        to_port: 8123
+        from_port: 8123
+        cidr_ip: 0.0.0.0/0
+        rule_desc: receptor
+      - proto: tcp
+        to_port: 8501
+        from_port: 8501
+        cidr_ip: 0.0.0.0/0
+        rule_desc: receptor
   f5:
     ports:
       - proto: tcp

@@ -1,3 +1,16 @@
+packer {
+  required_plugins {
+    ansible = {
+      version = ">= 1.1.1"
+      source  = "github.com/hashicorp/ansible"
+    }
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "ansible_vars_file" {
     type    = string
     default = null
@@ -20,8 +33,9 @@ data "amazon-ami" "automation_controller" {
 }
 
 source "amazon-ebs" "automation_controller_source" {
-  ami_name             = "automation_controller {{timestamp}}"
-  instance_type        = "m4.xlarge"
+  ami_name             = "automation_controller {{ timestamp }}"
+  // instance_type        = "m4.xlarge"
+  instance_type        = "m5.2xlarge"
   region               = "us-east-1"
   associate_public_ip_address = "true"
   source_ami           = data.amazon-ami.automation_controller.id
@@ -32,14 +46,14 @@ source "amazon-ebs" "automation_controller_source" {
   ami_regions = ["us-east-1"]
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = "40"
+    volume_size = "60"
     volume_type = "gp3"
     delete_on_termination = "true"
     iops = "3000"
     throughput = "125"
   }
   run_tags = {
-    "Name" = "packer-build"
+    "Name" = "packer - {{ timestamp }}"
     "owner" = "seanc"
   }
 }

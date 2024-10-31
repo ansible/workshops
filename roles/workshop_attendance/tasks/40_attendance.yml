@@ -1,13 +1,13 @@
 ---
 - name: Enable TCP port 9000 for php-fpm
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/php-fpm.d/www.conf
     regexp: '^listen ='
     line: 'listen = 127.0.0.1:9000'
   notify: restart php-fpm
 
 - name: Start Services
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: started
     enabled: true
@@ -17,25 +17,25 @@
   notify: restart nginx
 
 - name: Set permissions on the PHP Session directory
-  file:
+  ansible.builtin.file:
     path: /var/lib/php/session/
     owner: nginx
     group: nginx
-    mode: 0777
+    mode: '0777'
     state: directory
 
 - name: Create users directory on server
-  file:
+  ansible.builtin.file:
     path: /usr/share/nginx/html/
     state: directory
 
 - name: Copy users file to server
-  template:
+  ansible.builtin.template:
     src: templates/index.php.j2
     dest: /usr/share/nginx/html/index.php
 
 - name: Copy files over to attendance node
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/usr/share/nginx/html/{{ item }}"
   loop:
@@ -45,26 +45,59 @@
     - favicon.ico
 
 - name: Copy list file to server
-  template:
+  ansible.builtin.template:
     src: templates/list.php.j2
     dest: /usr/share/nginx/html/list.php
 
 - name: Install PyMySQL
-  pip:
+  ansible.builtin.pip:
     name: PyMySQL
 
-- name: make sure any previous runs 'workshop' database is reset
+# Sean Oct11-2024 this weirdness may be becuase on RHEL9 mariadb is now moved to /var/lib/mysql/mysql.sock
+- name: Set a password for MySQL
+  block:
+    - name: Set MySQL root password
+      community.mysql.mysql_user:
+        name: root
+        host_all: true
+        password: "{{ admin_password }}"
+        state: present
+        login_unix_socket: /var/lib/mysql/mysql.sock
+  rescue:
+    - name: Try an alternate and if this doesn't work assume password has been set already to admin_password
+      block:
+        - name: Alter MySQL root user password using a variable
+          ansible.builtin.shell: |
+            sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('{{ admin_password }}');"
+          args:
+            executable: /bin/bash
+      rescue:
+        - name: Set MySQL root password
+          community.mysql.mysql_user:
+            name: root
+            host_all: true
+            password: "{{ admin_password }}"
+            state: present
+            login_unix_socket: /var/lib/mysql/mysql.sock
+            login_user: root
+            login_password: "{{ admin_password }}"
+
+- name: Make sure any previous runs 'workshop' database is reset
   community.mysql.mysql_db:
     name: workshop
     state: absent
+    login_user: root
+    login_password: "{{ admin_password }}"
 
 - name: Create a new database with name 'workshop'
   community.mysql.mysql_db:
     name: workshop
     state: present
+    login_user: root
+    login_password: "{{ admin_password }}"
 
 - name: Copy SQL template to server
-  template:
+  ansible.builtin.template:
     src: templates/workshop.sql.j2
     dest: /tmp/workshop.sql
   register: workshopsql
@@ -74,3 +107,5 @@
     state: import
     name: workshop
     target: /tmp/workshop.sql
+    login_user: root
+    login_password: "{{ admin_password }}"

@@ -1,15 +1,21 @@
 ---
 - name: Print out pre_build var and dns_type
   ansible.builtin.debug:
-    msg: 
+    msg:
       - pre_build: "{{ pre_build | default('none set') }}"
       - dns_type: "{{ dns_type | default('none set') }}"
 
-- name: Setup SSL for the code-server container  
-  include_tasks: "dns.yml"
+- name: Setup SSL for the code-server container
+  ansible.builtin.include_tasks: "dns.yml"
   when:
     - dns_type is defined
     - dns_type != "none"
 
-- name: setup vscode for web browser access
-  include_tasks: "codeserver.yml"
+- name: Setup vscode for web browser access
+  ansible.builtin.include_tasks: "codeserver.yml"
+
+- name: Restart code-server
+  ansible.builtin.systemd:
+    name: "code-server@{{ username }}"
+    enabled: true
+    state: restarted

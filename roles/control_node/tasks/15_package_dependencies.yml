@@ -1,12 +1,12 @@
 ---
 - name: Install EPEL
-  dnf:
+  ansible.builtin.dnf:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
     state: present
     disable_gpg_check: true
 
 - name: Install base packages
-  dnf:
+  ansible.builtin.dnf:
     name:
       - vim
       - git
@@ -29,7 +29,7 @@
   delay: 5
 
 # Certbot dependancy / acme, needs later version of requests library than task above^^
-- name: install awxkit and requests >2.14
+- name: Install awxkit and requests >2.14
   become: true
   ansible.builtin.pip:
     name:
@@ -40,8 +40,8 @@
       - ansible-lint
     state: latest
 
-- name: install community collection
-  shell: "ansible-galaxy collection install {{ item }} --force-with-deps "
+- name: Install community collection
+  ansible.builtin.shell: "ansible-galaxy collection install {{ item }} --force-with-deps "
   register: controlnode
   loop:
     - community.general

@@ -1,0 +1,11 @@
+---
+- name: Initial check setup
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+
+  tasks:
+        - name: Run AWS check setup if using AWS
+          ansible.builtin.include_role:
+            name: ../roles/aws_check_setup

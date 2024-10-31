@@ -46,11 +46,11 @@
     - name: save ami for ansible control node
       set_fact:
         ansible_control_node_ami: >
-          {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}  
+          {{ amis.images | selectattr('name', 'defined') | sort(attribute='name') | last }}
 
     - name: check if we have access to pre_build AMI images
       include_tasks: check_prebuild.yml
-  
+
 - name: enforce major and minor version are at least RHEL 8.4
   assert:
     that:
@@ -77,9 +77,9 @@
   loop_control:
     loop_var: sequence
 
-## create instance that will host login page
-- name: configure attendance host
-  include_tasks: 'attendance.yml'
+## Create instance that will host login page
+- name: Create attendance host
+  ansible.builtin.include_tasks: 'attendance.yml'
   when: attendance|bool
 
 ## create private automation hub

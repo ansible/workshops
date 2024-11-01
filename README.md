@@ -6,12 +6,21 @@
 The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.
 
 <div id="website_explanation">
-<h1>>Website</h1>
+<h1>Website</h1>
 
-- <a href="http://aap2.demoredhat.com">http://aap2.demoredhat.com</a> - Check out the optional website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).  If you are already on the website please ignore this section.
+- <a href="http://aap2.demoredhat.com">http://aap2.demoredhat.com</a> - Please use the website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).
 </div>
 
-<h1>90 minute workshops</h1>
+<div class="table-of-contents">
+  <h2>Workshop Catalog</h2>
+  <ul>
+    <li><a href="#90_minute_sectin">90 Minute Workshops</a></li>
+    <li><a href="#4_hour_section">4 Hour Workshops</a></li>
+    <li><a href="#6_hour_section">6 Hour Workshops</a></li>
+  </ul>
+</div>
+
+<h1 id="90_minute_sectin">90 minute workshops</h1>
 <section class="page-contain">
   <a target="_new" href="./exercises/ansible_rhel_90" class="data-card">
     <h3>RHEL 90</h3>
@@ -104,7 +113,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 </section>
 
 
-<h1>4 hour workshops</h1>
+<h1 id="4_hour_section">4 hour workshops</h1>
 <section class="page-contain">
   <a target="_new" href="./exercises/instruqt/eda-4" class="data-card">
     <h3>EDA</h3>
@@ -141,7 +150,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
 </section>
 
-<h1>6 hour workshops</h1>
+<h1 id="6_hour_section">6 hour workshops</h1>
 <section class="page-contain">
   <a target="_new" href="./exercises/eda-4" class="data-card">
     <h3>RHEL</h3>

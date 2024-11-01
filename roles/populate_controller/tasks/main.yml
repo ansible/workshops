@@ -1,13 +1,13 @@
 ---
-- name: load automation controller vars for specific workshop type
-  include_vars: "{{ item }}"
+- name: Load automation controller vars for specific workshop type
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
-    - "{{role_path}}/vars/{{ workshop_type }}.yml"
-    - "{{role_path}}/vars/unsupported_workshop.yml"
+    - "{{ role_path }}/vars/{{ workshop_type }}.yml"
+    - "{{ role_path }}/vars/unsupported_workshop.yml"
 
-- name: ensure controller is online and working
-  uri:
-    url: https://localhost/api/v2/ping/
+- name: Ensure controller is online and working
+  ansible.builtin.uri:
+    url: "https://localhost:{{ aap_port | default('443') }}/api/controller/v2/ping/"
     method: GET
     user: admin
     password: "{{ admin_password }}"
@@ -20,36 +20,36 @@
 
 # Disable collections requirements.yml and rely on only EEs
 - name: Turn off AWX_COLLECTIONS_ENABLED on controller
-  awx.awx.settings:
+  ansible.controller.settings:
     name: AWX_COLLECTIONS_ENABLED
     value: false
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
-    
+
 #### CREDENTIAL
-- name: add SSH credential into Automation controller
-  awx.awx.credential:
+- name: Add SSH credential into Automation controller
+  ansible.controller.credential:
     name: "Workshop Credential"
     credential_type: Machine
     organization: "Default"
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
     inputs:
       username: ec2-user
       ssh_key_data: "{{ lookup('file', output_dir + '/' + ec2_name_prefix + '-private.pem') }}"
 
-- name: add controller credential into automation controller
-  awx.awx.credential:
+- name: Add controller credential into automation controller
+  ansible.controller.credential:
     name: "Controller Credential"
     credential_type: Red Hat Ansible Automation Platform
     organization: Default
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
     inputs:
       host: "{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
@@ -58,61 +58,45 @@
 #### END OF CREDENTIAL
 
 #### Inventory
-- name: create workshop inventory
-  awx.awx.inventory:
+- name: Create workshop inventory
+  ansible.controller.inventory:
     name: "Workshop Inventory"
     organization: "Default"
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
   register: workshop_inventory
   until: workshop_inventory is success
   delay: 3
   retries: 5
 
-# - name: copy inventory to awx user
-#   copy:
-#     src: "/home/{{ username }}/lab_inventory/hosts"
-#     remote_src: true
-#     dest: "/home/{{ run_commands_user }}"
-#     owner: "{{ run_commands_user }}"
-#     group: "{{ run_commands_user }}"
-
-# - name: import inventory
-#   become_user: "{{ run_commands_user }}"
-#   shell: 'awx-manage inventory_import --source=/home/{{ run_commands_user }}/hosts --inventory-name="Workshop Inventory"'
-#   register: import_inventory
-#   until: import_inventory is not failed
-#   retries: 5
-# #### end of inventory
-
 ### USER
-- name: add student user
-  awx.awx.user:
+- name: Add student user
+  ansible.platform.user:
     username: "{{ student }}"
     password: "{{ admin_password }}"
     email: fake@fake.com
     state: present
     superuser: true
-    controller_username: admin
-    controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    gateway_username: admin
+    gateway_password: "{{ admin_password }}"
+    gateway_hostname: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
 
 # Workshop specific execution environments
 - name: Add specific workshop execution environment
-  awx.awx.execution_environment:
+  ansible.controller.execution_environment:
     name: "{{ workshop_type }} workshop execution environment"
     image: "{{ lookup('vars', workshop_type + '_ee') }}"
     pull: missing
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
 
-- name: setup workshop specific controller information
-  include_tasks: "{{item}}"
+- name: Setup workshop specific controller information
+  ansible.builtin.include_tasks: "{{ item }}"
   with_first_found:
     - "{{ role_path }}/tasks/{{ workshop_type }}.yml"
     - "{{ role_path }}/tasks/unsupported_workshop.yml"

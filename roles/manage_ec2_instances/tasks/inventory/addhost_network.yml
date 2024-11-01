@@ -40,6 +40,7 @@
     username: "{{ item.tags.Student }}"
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
+    # https://github.com/ansible-collections/ansible.netcommon/pull/597
     ansible_libssh_publickey_algorithms: "ssh-rsa"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ ec2_name_prefix|lower }}/{{ ec2_name_prefix|lower }}-private.pem"
     private_ip: "{{ item.private_ip_address }}"

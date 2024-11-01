@@ -1,10 +1,10 @@
 ---
-- name: retrieve zone id
+- name: Retrieve zone id
   community.aws.route53_zone:
     zone: "{{ workshop_dns_zone }}"
   register: AWSINFO
 
-- name: retrieve route53 info
+- name: Retrieve route53 info
   community.aws.route53_info:
     type: A
     query: record_sets
@@ -12,7 +12,7 @@
     start_record_name: "student1.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
   register: record_sets
 
-- name: delete DNS entries for each student
+- name: Delete DNS entries for each student
   become: false
   community.aws.route53:
     state: "{{ s3_state }}"
@@ -25,7 +25,7 @@
     records: '{{ record_sets.ResourceRecordSets | selectattr("Name", "match", "student" + item|string + "." + ec2_name_prefix|lower + "." + workshop_dns_zone) | map(attribute="ResourceRecords") | list }}'
   when: records | length > 0
 
-- name: retrieve route53 information satellite
+- name: Retrieve route53 information satellite
   community.aws.route53_info:
     type: A
     query: record_sets
@@ -33,7 +33,7 @@
     start_record_name: "student1-sat.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
   register: record_sets_sat
 
-- name: delete dns entries for Satellite for each student
+- name: Delete dns entries for Satellite for each student
   become: false
   community.aws.route53:
     state: "{{ s3_state }}"
@@ -54,7 +54,7 @@
     start_record_name: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone}}"
   register: record_sets_zone_root
 
-- name: delete dns entry for zone subdomain root
+- name: Delete dns entry for zone subdomain root
   become: false
   community.aws.route53:
     state: "{{ s3_state }}"

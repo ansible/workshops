@@ -1,6 +1,6 @@
 ---
-- name: check if aap.tar.gz exists
-  debug:
+- name: Check if aap.tar.gz exists
+  ansible.builtin.debug:
     msg: "{{ playbook_dir }}/aap.tar.gz"
 
 - name: Check if aap.tar.gz exists with stat module
@@ -9,57 +9,61 @@
     checksum_algorithm: sha256
   register: stat_var
 
-- name: Print out stat_var 
+# - name: Check if aap.tar.gz exists with stat module for symbolic link
+#   ansible.builtin.stat:
+#     path: "{{ stat_var.stat.lnk_source }}"
+#     checksum_algorithm: sha256
+#   register: stat_var
+#   when: stat_var.stat.checksum is undefined
+
+- name: Print out stat_var
   ansible.builtin.debug:
     msg: "stat_var: {{ stat_var }}"
 
-- name: Check if aap.tar.gz exists with stat module for symbolic link
-  ansible.builtin.stat:
-    path: "{{ stat_var.stat.lnk_source }}"
-    checksum_algorithm: sha256
-  register: stat_var
-  when: stat_var.stat.checksum is undefined
+- name: Print out stat_var.stat.checksum
+  ansible.builtin.debug:
+    msg:
+      - "stat_var: {{ stat_var.stat.checksum }}"
+      - "provided_sha_value: {{ provided_sha_value }}"
 
-- name: attempt to download specified AAP from specified URL if we don't already have it
-  when:
-    - aap_download_url is defined
-    - stat_var.stat.checksum | default("") != provided_sha_value
+- name: Check if we have a match
   block:
-    - name: download aap.tar.gz from specified URL
-      include_tasks: 09_download_url.yml
+    - name: Assert we have a match for local tar.gz file
+      ansible.builtin.assert:
+        that:
+          - provided_sha_value == stat_var.stat.checksum
 
-- name: attempt to download specified AAP if we don't already have it
-  when:
-    - aap_download_url is not defined
-    - stat_var.stat.checksum | default("") != provided_sha_value
-  block:
-    - name: download aap.tar.gz from access.redhat.com
-      include_tasks: 10_download.yml
+    - name: Assert we have a match for local tar.gz file
+      ansible.builtin.debug:
+        msg: "success, provided_sha_value == stat_var.stat.checksum"
 
   rescue:
-    - name: aap_download role has entered rescue stanza
-      debug:
-        msg: "download from access.redhat.com has failed, attempting to see if there is a cached aap.tar.gz file"
+    - name: No match on local file
+      ansible.builtin.debug:
+        msg: "No match for aap.tar.gz, going to try downloading"
 
-    - name: fail if file aap.tar.gz not found
-      fail:
-        msg: "There was no app.tar.gz file found to install AAP"
-      when: not stat_var.stat.exists
+    - name: Download aap.tar.gz from specified URL
+      when: aap_download_url is defined
+      ansible.builtin.include_tasks: 09_download_url.yml
 
-- name: check if aap.tar.gz again (post download)
-  stat:
-    path: "{{ playbook_dir }}/aap.tar.gz"
-    checksum_algorithm: sha256
-  register: stat_var
+    - name: Download aap.tar.gz from access.redhat.com
+      ansible.builtin.include_tasks: 10_download.yml
+      when: aap_download_url is not defined
 
-- name: Check if aap.tar.gz exists with stat module for symbolic link
-  ansible.builtin.stat:
-    path: "{{ stat_var.stat.lnk_source }}"
-    checksum_algorithm: sha256
-  register: stat_var
-  when: stat_var.stat.checksum is undefined
-  
-- name: Verify sha256sum of aap.tar.gz
-  fail:
-    msg: "Failure, sha256sum does not match"
-  when: stat_var.stat.checksum != provided_sha_value
+    - name: Check if aap.tar.gz again (post download)
+      ansible.builtin.stat:
+        path: "{{ playbook_dir }}/aap.tar.gz"
+        checksum_algorithm: sha256
+      register: stat_var
+
+  # - name: Check if aap.tar.gz exists with stat module for symbolic link
+  #   ansible.builtin.stat:
+  #     path: "{{ stat_var.stat.lnk_source }}"
+  #     checksum_algorithm: sha256
+  #   register: stat_var
+  #   when: stat_var.stat.checksum is undefined
+
+    - name: Verify sha256sum of aap.tar.gz
+      ansible.builtin.fail:
+        msg: "Failure, sha256sum does not match"
+      when: provided_sha_value != stat_var.stat.checksum

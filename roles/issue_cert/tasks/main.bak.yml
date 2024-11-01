@@ -1,0 +1,98 @@
+---
+- name: SSL cert block
+  block:
+    - name: AAP start
+      ansible.builtin.include_tasks: "service/controller_start.yml"
+
+    - name: Install certbot if not already installed
+      ansible.builtin.dnf:
+        name: certbot
+        state: present
+        disable_gpg_check: true
+
+    - &tower-pinger-block
+      block:
+        - name: Check AAP status
+          shell: "curl --user 'admin:{{ admin_password }}' -vkL -XGET https://localhost/api/v2/ping/"
+          register: check2
+
+        - name: Display /api/v2/ping results (stdout)
+          ansible.builtin.debug:
+            msg: '{{ check2.stdout }}'
+
+        - name: Display /api/v2/ping results (stderr)
+          ansible.builtin.debug:
+            msg: '{{ check2.stderr }}'
+
+    - name: Change AAP base URL
+      block:
+        - &tower-baseurl-task
+          ansible.controller.settings:
+            name: TOWER_URL_BASE
+            value: "https://{{ dns_name }}"
+            tower_verify_ssl: false
+            tower_host: https://localhost/
+            tower_username: admin
+            tower_password: "{{ admin_password }}"
+          register: change_base_url
+          until: change_base_url is not failed
+          # controller may not be fully up yet, wait for it gratuitously
+          retries: 12
+          delay: 5
+      rescue:
+        - name: AAP restart
+          include_tasks: "service/controller_restart.yml"
+
+        - *tower-pinger-block
+
+        - <<: *tower-baseurl-task
+          name: Run failed task again
+
+    - name: AAP stop
+      ansible.builtin.include_tasks: "service/controller_stop.yml"
+
+    # If this fails check out status of certbot: https://letsencrypt.status.io/
+    - name: Try to issue SSL certificate
+      block:
+        - name: Issue SSL cert
+          ansible.builtin.shell: certbot certonly --no-bootstrap --standalone -d {{ dns_name }} --email ansible-network@redhat.com --noninteractive --agree-tos
+          register: issue_cert
+          until: issue_cert is not failed
+          retries: 5
+      rescue:
+        - name: Error with SSL cert
+          ansible.builtin.debug:
+            msg: "Unable to retrieve SSL cert, ERROR, continuing on without cert..."
+
+        - name: Append dns_information failure
+          ansible.builtin.set_fact:
+            dns_information:
+              - "{{ dns_information }}"
+              - "The Lets Encrypt certbot failed for the controller node, please check https://letsencrypt.status.io/ to make sure the service is running"
+
+    - name: Move SSL Key
+      ansible.builtin.copy:
+        remote_src: true
+        src: "/etc/letsencrypt/live/{{ dns_name }}/privkey.pem"
+        dest: /home/{{ run_commands_user }}/aap/gateway/etc/gateway.key
+        owner: ec2-user
+        group: ec2-user
+        mode: '0400'
+
+    - name: Move full chain cert
+      ansible.builtin.copy:
+        remote_src: true
+        src: "/etc/letsencrypt/live/{{ dns_name }}/fullchain.pem"
+        dest: /home/{{ run_commands_user }}/aap/gateway/etc/gateway.cert
+        owner: ec2-user
+        group: ec2-user
+        mode: '0640'
+
+  rescue:
+    - name: No SSL cert for Automation Controller
+      ansible.builtin.debug:
+        msg: "SSL cert problem - no cert applied"
+  always:
+    # Turn on Ansible Controller if successful
+    - name: Controller restart
+      ansible.builtin.include_tasks: "service/controller_start.yml"

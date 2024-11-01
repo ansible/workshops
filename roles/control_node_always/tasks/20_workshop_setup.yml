@@ -1,37 +1,39 @@
 ---
-- name: template out motd
-  template:
+- name: Template out motd
+  ansible.builtin.template:
     src: motd.j2
     dest: /etc/motd
+    mode: '0644'
 
-- name: template ansible-navigator.yml into home directory
-  template:
+- name: Template ansible-navigator.yml into home directory
+  ansible.builtin.template:
     src: ansible-navigator.yml.j2
     dest: "/home/{{ username }}/.ansible-navigator.yml"
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: '0644'
 
 - name: Create .ssh directory if it does not exist
-  file:
+  ansible.builtin.file:
     path: "/home/{{ username }}/.ssh"
     state: directory
     mode: '700'
 
 - name: Put ssh-key in proper spot for student
-  copy:
+  ansible.builtin.copy:
     src: "{{ output_dir }}/{{ ec2_name_prefix }}-private.pem"
     dest: "/home/{{ username }}/.ssh/id_rsa"
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0400
+    mode: '0400'
 
-- name: clean out /tmp/workshops
-  file:
+- name: Clean out /tmp/workshops
+  ansible.builtin.file:
     path: /tmp/workshops
     state: absent
 
 - name: Clone workshops repo
-  git:
+  ansible.builtin.git:
     accept_hostkey: true
     clone: true
     dest: /tmp/workshops
@@ -41,43 +43,51 @@
     force: true
 
 - name: Move relevant exercises to correct location
-  copy:
+  ansible.builtin.copy:
     src: '{{ "/tmp/workshops/" + exercise_src_location | default("exercises/ansible_" + workshop_type) + "/" }}'
     dest: '{{ "/home/" + username + "/" + exercise_dest_location | default(workshop_type + "-workshop") }}'
     remote_src: true
     owner: "{{ username }}"
     group: "{{ username }}"
     local_follow: true
+    mode: '0644'
   ignore_errors: true  # Required for testing local development
 
 - name: Create lab inventory directory
-  file:
+  ansible.builtin.file:
     state: directory
     path: /home/{{ username }}/lab_inventory
+    mode: '0744'
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
 - name: Put student inventory in proper spot
-  copy:
+  ansible.builtin.copy:
     src: "{{ output_dir }}/{{ student }}-instances.txt"
     dest: /home/{{ username }}/lab_inventory/hosts
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: '0644'
   when: username in inventory_hostname
 
 - name: Copy instructor inventory to student1
-  copy:
+  ansible.builtin.copy:
     src: "{{ output_dir }}/instructor_inventory.txt"
     dest: /tmp/instructor-inventory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: '0644'
   when: '"student1-ansible-1" in inventory_hostname'
 
 - name: Install ansible.cfg in home directory
-  template:
+  ansible.builtin.template:
     src: ansible.cfg.j2
     dest: "/etc/ansible/ansible.cfg"
+    mode: '0644'
 
 # Pull specific EE for each workshop based on workshop name
-- name: Pull execution environment for {{ workshop_type }} workshop
+- name: Pull execution environment for {{ workshop_type }}
+  become: true
   become_user: "{{ username }}"
   containers.podman.podman_image:
     name: "{{ lookup('vars', workshop_type + '_ee') }}"

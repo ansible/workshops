@@ -1,9 +1,9 @@
 ---
-- name: set ami for attendance host
-  import_tasks: 'ami_find/ami_find_attendance.yml'
+- name: Set ami for attendance host
+  ansible.builtin.import_tasks: 'ami_find/ami_find_attendance.yml'
 
-- name: create attendance host
-  import_tasks: 'instances/instances_attendance.yml'
+- name: Create attendance host
+  ansible.builtin.import_tasks: 'instances/instances_attendance.yml'
 
-- name: configure attendance inventory
-  import_tasks: 'inventory/addhost_attendance.yml'
+- name: Configure attendance inventory
+  ansible.builtin.import_tasks: 'inventory/addhost_attendance.yml'

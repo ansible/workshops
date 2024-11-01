@@ -1,13 +1,13 @@
 ---
 - name: make sure .ssh is created
-  file:
+  ansible.builtin.file:
     path: "/home/{{ username }}/.ssh/"
     owner: "{{ username }}"
     group: "{{ username }}"
     state: directory
 
 - name: Apply patch for runner fix PR759
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /usr/lib/python3.8/site-packages/ansible_runner/config/_base.py
     regexp: ".*--userns=keep-id.*"
     state: absent
@@ -17,7 +17,7 @@
 # are running for each bash session
 ##
 - name: add custom bashrc for student
-  template:
+  ansible.builtin.template:
     src: bashrc.j2
     dest: /home/{{ username }}/.bashrc
     owner: "{{ username }}"
@@ -35,8 +35,8 @@
   until: login_registry is not failed
   retries: 5
 
-- name: copy over ssh config file for student
-  template:
+- name: Copy over ssh config file for student
+  ansible.builtin.template:
     src: sshconfig.j2
     dest: /home/{{ username }}/.ssh/config
     owner: "{{ username }}"

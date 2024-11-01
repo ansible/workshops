@@ -28,7 +28,7 @@ ec2_info:
   control_type_pre_build:
     owners: 962147768365
     architecture: x86_64
-    filter: 'automation_controller*'
+    filter: '*1729191324*'
     # username: ec2-user
     # size:
     #   - m5a.xlarge
@@ -126,7 +126,7 @@ ec2_info:
       - m4.xlarge
     os_type: linux
     disk_volume_type: gp3
-    disk_space: 40
+    disk_space: 60
     disk_iops: 3000
     disk_throughput: 125
     architecture: x86_64
@@ -315,7 +315,8 @@ ec2_info:
     disk_iops: 3000
     disk_throughput: 125
     architecture: x86_64
-    filter: 'RHEL-8*HVM-*Hourly*'
+    # filter: 'RHEL-8*HVM-*Hourly*'
+    filter: 'RHEL-9*HVM-*Hourly*'
     username: ec2-user
   satellite:
     owners: 551178754270

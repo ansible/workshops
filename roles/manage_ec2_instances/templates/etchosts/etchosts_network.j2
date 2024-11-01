@@ -23,6 +23,6 @@
 {% endfor %}
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.private_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }}
+{{ vm.private_ip_address }} {{vm.tags.Student}}.{{ec2_name_prefix|lower}}.{{workshop_dns_zone}} {{ vm.tags.short_name }} {{ vm.tags.short_name }}.local
 {% endif %}
 {% endfor %}

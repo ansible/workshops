@@ -1,7 +1,7 @@
 ---
 - name: Ensure cert directory exists
   ansible.builtin.file:
-    path: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}"
+    path: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
@@ -11,18 +11,20 @@
   become: true
   become_user: root
   ansible.builtin.copy:
-    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
-    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/cert.pem"
+    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/fullchain.pem"
+    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/cert.pem"
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: '0644'
     remote_src: true
 
 - name: Copy privkey.pem to student
   become: true
   become_user: root
   ansible.builtin.copy:
-    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
-    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}/privkey.pem"
+    src: "/etc/letsencrypt/live/{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/privkey.pem"
+    dest: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}/privkey.pem"
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: '0600'
     remote_src: true

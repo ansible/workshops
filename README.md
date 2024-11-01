@@ -212,7 +212,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 <h1 id="product_demos_section">Product-Demos</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/product_demos/README" class="data-card">
+  <a target="_new" href="./exercises/product_demos/" class="data-card">
     <h3>Product Demos</h3>
     <h4>Ansible Product Demos</h4>
     <p>Sandbox for demoing, development, and experimentation</p>

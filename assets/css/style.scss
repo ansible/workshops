@@ -287,3 +287,144 @@ a h3 {
 a h3:hover {
     color: #5F0000;
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+.page-contain {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping if necessary */
+  align-items: stretch; /* Stretch items to the same height */
+  justify-content: center;
+  padding: 2em;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.data-card {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Ensure cards take equal height */
+  flex-basis: 20.75em; /* Base size of each card */
+  max-width: 20.75em;
+  max-height: 27.0em;
+  overflow: hidden;
+  border-radius: .5em;
+  text-decoration: none !important; /* Remove underline from links */
+  background: white;
+  margin: 1em;
+  padding: 2.75em 2.5em;
+  box-shadow: 0 1.5em 2.5em -.5em rgba(0, 0, 0, .1);
+  transition: transform .45s ease, background .45s ease;
+}
+
+.data-card h3, .data-card h4, .data-card p, .data-card .link-text {
+  text-decoration: none; /* Ensure no underline on child elements */
+}
+
+.data-card h3 {
+  color: #2E3C40;
+  font-size: 2.2em;
+  font-weight: 600;
+  line-height: 1;
+  padding-bottom: .5em;
+  margin: 0 0 0.142857143em;
+  border-bottom: 2px solid #ee0000;
+  transition: color .45s ease, border .45s ease;
+}
+
+.data-card h4 {
+  color: #627084;
+  font-size: 1.125em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  margin: 0 0 1.777777778em;
+  transition: color .45s ease;
+}
+
+.data-card p {
+  opacity: 0;
+  color: #FFFFFF;
+  font-weight: 600;
+  line-height: 1.8;
+  margin: 0 0 1.25em;
+  transform: translateY(-1em);
+  transition: opacity .45s ease, transform .5s ease;
+}
+
+.data-card .link-text {
+  display: block;
+  color: #ee0000;
+  font-size: 1.125em;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: auto 0 0;
+  transition: color .45s ease;
+}
+
+.data-card .link-text svg {
+  margin-left: .5em;
+  transition: transform .6s ease;
+}
+
+.data-card .link-text svg path {
+  transition: fill .45s ease;
+}
+
+.data-card:hover {
+  background: #ee0000;
+  transform: scale(1.02);
+}
+
+.data-card:hover h3 {
+  color: #FFFFFF;
+  border-bottom-color: #5f0000;
+}
+
+.data-card:hover h4 {
+  color: #FFFFFF;
+}
+
+.data-card:hover p {
+  opacity: 1;
+  transform: none;
+}
+
+.data-card:hover .link-text {
+  color: #FFFFFF;
+}
+
+.data-card:hover .link-text svg {
+  animation: point 1.25s infinite alternate;
+}
+
+.data-card:hover .link-text svg path {
+  fill: #FFFFFF;
+}
+
+@keyframes point {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(.125em);
+  }
+}
+
+
+.cisco-image-container {
+  width: 800px; /* Set the width of the container */
+  height: 300px; /* Set the height of the container */
+  background-image: url("{{ site.baseurl }}/assets/images/cisco_workshops.png"); /* Image on hover */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the image */
+  transition: background-image 0.3s ease; /* Smooth transition */
+}
+
+.cisco-image-container:hover {
+  background-image: url("{{ site.baseurl }}/assets/images/cisco_workshops_tony.png"); /* Image on hover */
+}

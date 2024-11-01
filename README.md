@@ -1,4 +1,4 @@
-# Red Hat Ansible Automation Platform Workshops
+# Ansible Automation Technical Workshops
 
 **Read this in other languages**:
 <br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md)
@@ -9,31 +9,21 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 - [http://aap2.demoredhat.com](http://aap2.demoredhat.com) - Check out the optional website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).  If you are already on the website please ignore this section.
 
-## Instructor-led Workshops
 
-6 hour workshops:
->**Note**
->
->Google Source will only work for Red Hat employees.  PDFs are provided for public consumption.
-
-| Workshop   | Public Deck | Red Hat Internal  | Exercises  | Workshop Type Var   |
-|---|---|---|---|---|
-| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel.pdf) | [Google Source](https://docs.google.com/presentation/d/1O2Gj5r_fhjM5Pi5FizrZRInmZ37IlpeKPTP6jSZxEKs/edit?usp=sharing) | [Exercises](./exercises/ansible_rhel)  | `workshop_type: rhel`  |
-| **[Ansible Network Automation Workshop](./exercises/ansible_network)** <br> focused on router and switch platforms like Arista, Cisco, Juniper   | [PDF](./decks/ansible_network.pdf) | [Google Source](https://docs.google.com/presentation/d/1PIT-kGAGMVEEK8PsuZCoyzFC5CIzLBwdnftnUsdUNWQ/edit?usp=sharing) | [Exercises](./exercises/ansible_network)  | `workshop_type: network`  |
-| **[Ansible Windows Automation Workshop](./exercises/ansible_windows)** <br> focused on automation of Microsoft Windows  | [PDF](./decks/ansible_windows.pdf) | [Google Source](https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE) | [Exercises](./exercises/ansible_windows)   | `workshop_type: windows` |
-| **[Smart Management Automation Workshop](./exercises/ansible_smart_mgmt)** <br> focused on automation of  security and lifecycle management with Red Hat Satellite Server | [PDF](./decks/ansible_smart_mgmt.pdf) | [Google Source](https://docs.google.com/presentation/d/135lid9AeSioN4bJexBbv9q0fkJwDibpUQg8aeYjxzTY) | [Exercises](./exercises/ansible_smart_mgmt) | `workshop_type: smart_mgmt`
-| **[RHEL In-place Upgrade Automation Workshop](./exercises/ansible_ripu)** <br> focused on automation of RHEL in-place upgrades at enterprise scale | [PDF](./decks/ansible_ripu.pdf) | [Google Source](https://docs.google.com/presentation/d/1U6i006Th7MQNuL1_0a0KhOSY4GfF1wFsINusDvJvXvo) | [Exercises](./exercises/ansible_ripu) | `workshop_type: ripu`
-
-90 minute abbreviated versions:
-
-| Workshop   | Public Deck  | Red Hat Internal | Exercises  | Workshop Type Var   |
-|---|---|---|---|---|
-| **[Ansible Red Hat Enterprise Linux Workshop](./exercises/ansible_rhel_90)** <br> focused on automating Linux platforms like Red Hat Enterprise Linux  | [PDF](./decks/ansible_rhel_90.pdf) | [Google Source](https://docs.google.com/presentation/d/1PY1uMh76ChJ0l4v4EANkzwWGXOIT4ktzyu2QOE2MKIk) | [Exercises](./exercises/ansible_rhel_90)  | `workshop_type: rhel_90`  |
-
-## Self Paced Exercises
-
-- [Ansible Automation Platform Self-Paced Labs
-](https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218) - These interactive learning scenarios provide you with a pre-configured Ansible Automation Platform environment to experiment, learn, and see how the platform can help you solve real-world problems. The environment runs entirely in your browser, enabling you to learn more about our technology at your pace and time.
+<h1>90 minute workshops</h1>
+<section class="page-contain">
+  <a target="_new" href="./exercises/ansible_rhel_90" class="data-card">
+    <h3>RHEL 90</h3>
+    <h4>Ansible Red Hat Enterprise Linux Workshop</h4>
+    <p>Focused on automating Linux platforms like Red Hat Enterprise Linux</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+  </a>
+</section>
 
 ## Product Demos
 

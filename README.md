@@ -5,9 +5,11 @@
 
 The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.
 
-## Website
+<div id="website_explanation">
+<h1>>Website</h1>
 
-- [http://aap2.demoredhat.com](http://aap2.demoredhat.com) - Check out the optional website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).  If you are already on the website please ignore this section.
+- <a href="http://aap2.demoredhat.com">http://aap2.demoredhat.com</a> - Check out the optional website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).  If you are already on the website please ignore this section.
+</div>
 
 <h1>90 minute workshops</h1>
 <section class="page-contain">
@@ -24,9 +26,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
   <a target="_new" href="./exercises/instruqt/eda" class="data-card">
     <h3>EDA</h3>
-    <h4>Event-Driven Ansible Technical Workshop
-</h4>
-    <p>covering fundamentals such as sources, rules, and actions</p>
+    <h4>Event-Driven Ansible Technical Workshop</h4>
+    <p>Covers EDA fundamentals such as sources, rules, and actions</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,9 +108,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <section class="page-contain">
   <a target="_new" href="./exercises/instruqt/eda-4" class="data-card">
     <h3>EDA</h3>
-    <h4>Event-Driven Ansible Technical Workshop
-</h4>
-    <p>covering fundamentals such as sources, rules, and actions</p>
+    <h4>Event-Driven Ansible Technical Workshop</h4>
+    <p>Covers EDA fundamentals such as sources, rules, and actions</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -350,7 +350,7 @@ a h3:hover {
   opacity: 0;
   color: #FFFFFF;
   font-weight: 600;
-  line-height: 1.8;
+  line-height: 1.5;
   margin: 0 0 1.25em;
   transform: translateY(-1em);
   transition: opacity .45s ease, transform .5s ease;
@@ -427,4 +427,8 @@ a h3:hover {
 
 .cisco-image-container:hover {
   background-image: url("{{ site.baseurl }}/assets/images/cisco_workshops_tony.png"); /* Image on hover */
+}
+
+#website_explanation {
+  display: none;
 }

@@ -5,7 +5,7 @@
 
 - name: check to see if SSL cert already applied
   uri:
-    url: "https://{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}:{{ aap_port | default('443') }}/api/v2/ping/"
+    url: "https://{{ student }}.{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}:{{ public_port | default('443') }}/api/v2/ping/"
     method: GET
     user: admin
     password: "{{ admin_password }}"
@@ -30,3 +30,13 @@
         dns_name: "{{ student }}.{{ ec2_name_prefix | lower }}.{{ workshop_dns_zone }}"
       ansible.builtin.include_role:
         name: "{{ playbook_dir |dirname }}/roles/issue_cert"
+
+    - name: Wait for Automation Controller to be up
+      ansible.builtin.uri:
+        url: https://localhost:{{ public_port | default('443') }}/api/controller/v2/ping/
+        method: GET
+        user: admin
+        password: "{{ admin_password }}"
+        validate_certs: false
+      register: check_controller
+      until: check_controller.json is defined and check_controller.json.instances[0].capacity > 0 and check_controller.json.instance_groups[0].capacity > 0

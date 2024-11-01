@@ -60,7 +60,7 @@
 
 - name: Wait for Automation Controller to be up
   ansible.builtin.uri:
-    url: https://localhost:{{ aap_port | default('443') }}/api/controller/v2/ping/
+    url: https://localhost:{{ aap_port | default('8501') }}/api/controller/v2/ping/
     method: GET
     user: admin
     password: "{{ admin_password }}"
@@ -82,7 +82,7 @@
         superuser: true
         gateway_username: admin
         gateway_password: "R3dh4t1!"
-        gateway_hostname: "https://localhost:{{ aap_port | default('443') }}"
+        gateway_hostname: "https://localhost:{{ aap_port | default('8501') }}"
         validate_certs: false
       register: set_password
       until: set_password is not failed
@@ -95,7 +95,7 @@
         superuser: true
         gateway_username: admin
         gateway_password: "{{ admin_password }}"
-        gateway_hostname: "https://localhost:{{ aap_port | default('443') }}"
+        gateway_hostname: "https://localhost:{{ aap_port | default('8501') }}"
         validate_certs: false
       register: set_password
       until: set_password is not failed

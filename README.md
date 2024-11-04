@@ -232,14 +232,6 @@ In addition to the workshops there are 15 minute to 60 minute individual learnin
 - [Ansible Automation Platform Self-Paced Labs
 ](https://red.ht/ansible-labs) - These interactive learning scenarios provide you with a pre-configured Ansible Automation Platform environment to experiment, learn, and see how the platform can help you solve real-world problems. The environment runs entirely in your browser, enabling you to learn more about our technology at your pace and time.
 
-## Workshop Documentation
-
-- [Workshop attendance website](docs/attendance/attendance.md)
-- [How to contribute](docs/contribute.md)
-- [How to use the AWS Lab Provisioner](provisioner/README.md)
-- [FAQ](docs/faq.md)
-- [Release Process](docs/release.md)
-
 ## Video Content
 
 - [Ansible YouTube](https://youtube.com/ansibleautomation)
@@ -262,15 +254,13 @@ In addition to the workshops there are 15 minute to 60 minute individual learnin
 
 - [Join us on the Ansible Forum](https://forum.ansible.com/)
 
-## E-Books
+## Workshop Documentation
 
-- [Red Hat Ansible Automation Platform: A beginner’s guide](https://www.redhat.com/en/engage/redhat-ansible-automation-20220412)
-- [The Automated Enterprise](https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000002DXg8AAG)
-
-### E-Books for Ansible Network Automation
-
-  - [Part 1: Network automation for everyone](https://www.ansible.com/resources/ebooks/network-automation-for-everyone?hsLang=en-us)
-  - [Part 2: Automate Your Network with Red Hat](https://www.redhat.com/en/engage/network-automation-ebook-s-202104291219)
+- [Workshop attendance website](docs/attendance/attendance.md)
+- [How to contribute](docs/contribute.md)
+- [How to use the AWS Lab Provisioner](provisioner/README.md)
+- [FAQ](docs/faq.md)
+- [Release Process](docs/release.md)
 
 ---
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/rh-ansible-automation-platform.png)

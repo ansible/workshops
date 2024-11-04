@@ -7,11 +7,6 @@
     state: latest
     disable_gpg_check: true
 
-# - name: Allow NGINX to connect to the network
-#   ansible.builtin.command:
-#     cmd: setsebool -P httpd_can_network_connect 1
-#   become: true
-
 - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
   redhat.rhel_system_roles.seboolean:
     name: httpd_can_network_connect

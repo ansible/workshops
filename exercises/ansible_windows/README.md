@@ -12,6 +12,7 @@ This workshop guides you through configuring Ansible automation controller to co
 
 The presenter deck is available here:
 [Ansible Windows Automation](../../decks/ansible_windows.pdf)
+[Google Slides](https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing) - For RH employees only
 
 ## Time planning
 

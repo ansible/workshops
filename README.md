@@ -241,7 +241,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
   <a target="_new" href="https://app.arcade.software/share/Xe9tI8rUVc2JrEI5LprL" class="data-card">
     <h3>AAP on Azure</h3>
-    <h4>Ansible Automation Platform on Microsoft Azure - Getting Started</h4>
+    <h4>Red Hat Ansible Automation Platform on Microsoft Azure - Getting Started</h4>
     <p>How to get started with Ansible Automation Platform on Microsoft Azure, the Managed Application</p>
     <span class="link-text">
       Lab Page

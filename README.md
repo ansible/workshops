@@ -18,7 +18,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <li><a href="#4_hour_section">4 Hour Workshops</a></li>
     <li><a href="#6_hour_section">6 Hour Workshops</a></li>
     <li><a href="#product_demos_section">Product Demos</a></li>
-    <li><a href="#arcade_section">Ansible Arcades</a></li>
+    <li><a href="#arcade_section">Click-through demo</a></li>
   </ul>
 </div>
 
@@ -226,7 +226,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
 </section>
 
-<h1 id="arcade_section">Ansible Arcades</h1>
+<h1 id="arcade_section">Click-through demos</h1>
 <section class="page-contain">
   <a target="_new" href="https://app.arcade.software/share/Xe9tI8rUVc2JrEI5LprL" class="data-card">
     <h3>AAP on AWS</h3>

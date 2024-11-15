@@ -19,7 +19,7 @@ In automation controller, inventories define and organize the hosts your playboo
 ### 2. Exploring the _Workshop Inventory_
 The _Workshop Inventory_ is preloaded in your lab environment, representing a static inventory configuration.
 
-- **Accessing the Inventory:** Navigate to **Automation Execution → Infrastructure → Credentials** in the web UI, and select _Workshop Inventory_.
+- **Accessing the Inventory:** Navigate to **Automation Execution → Infrastructure → Inventories** in the web UI, and select _Workshop Inventory_.
 - **Viewing Hosts:** Navigate to **Automation Execution → Infrastructure → Hosts** to see the predefined hosts, similar to those in a traditional Ansible inventory file.
 - 
 
@@ -33,8 +33,8 @@ web2 ansible_host=33.44.55.66
 ### 3. Understanding Machine Credentials
 Machine credentials are essential for establishing secure SSH connections to managed hosts.
 
-- **Accessing Credentials:** Navigate to **Automation Execution → Infrastructure → Credentials** and select _Workshop Credential_.
-- **Credential Details:** The 'Workshop Credential' is configured with:
+- **Accessing Credentials:** Navigate to **Automation Execution → Infrastructure→ Credentials** and select _Workshop Credentials_.
+- **Credential Details:** The 'Workshop Credentials' is configured with:
   - **Credential Type:** Machine (for SSH).
   - **Username:** A predefined user, such as `ec2-user`.
   - **SSH Private Key:** Encrypted, providing secure access to hosts.

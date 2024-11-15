@@ -118,7 +118,7 @@ Review the output to ensure the user creation was successful.
 ---
 **Navigation**
 {% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
+[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
 {% else %}
 [Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
 {% endif %}

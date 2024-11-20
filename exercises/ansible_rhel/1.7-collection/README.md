@@ -94,25 +94,35 @@ Before we build the collection, let's clean up any previous Apache installations
 Use `ansible-galaxy` to initialize the collection structure:
 
 ```bash
-[student@ansible-1 lab_inventory]$ ansible-galaxy collection init webops.apache
+[student@ansible-1 lab_inventory]$ ansible-galaxy collection init webops.apache --init-path ./collections/ansible_collections
 ```
 
 This creates the following structure:
 
 ```bash
-├── README.md
-├── docs
-├── galaxy.yml
-├── meta
-│   └── runtime.yml
-├── plugins
-│   └── README.md
-├── roles/
-├── playbooks/
-└── tests/
+.
+└── collections
+    └── ansible_collections
+        └── webops
+            └── apache
+                ├── docs
+                ├── galaxy.yml
+                ├── meta
+                │   └── runtime.yml
+                ├── plugins
+                │   └── README.md
+                ├── README.md
+                └── roles
 ```
 
-2. Define Role Variables:
+2. Create the `apache` role within your `webops.apache` collection:
+
+```bash
+[student@ansible-1 lab_inventory]$ cd collections/ansible_collections/webops/apache/roles
+[student@ansible-1 roles]$ ansible-galaxy role init apache
+```
+
+3. Define Role Variables:
 
 Add Apache-specific variables in roles/apache/vars/main.yml:
 
@@ -122,7 +132,7 @@ apache_package_name: httpd
 apache_service_name: httpd
 ```
 
-3. Create Role Tasks:
+4. Create Role Tasks:
 
 Add the following tasks to roles/apache/tasks/main.yml to install and configure Apache:
 
@@ -156,7 +166,7 @@ Add the following tasks to roles/apache/tasks/main.yml to install and configure 
 ```
 {% endraw %}
 
-4. Add Handlers:
+5. Add Handlers:
 
 Create a handler to reload the firewall in roles/apache/handlers/main.yml:
 
@@ -171,7 +181,7 @@ Create a handler to reload the firewall in roles/apache/handlers/main.yml:
 ```
 {% endraw %}
 
-5. Create a Custom Webpage Template:
+6. Create a Custom Webpage Template:
 
 Add a Jinja2 template for the web page in roles/apache/templates/index.html.j2:
 
@@ -190,7 +200,7 @@ Add a Jinja2 template for the web page in roles/apache/templates/index.html.j2:
 
 {% endraw %}
 
-6. Deploy the Template:
+7. Deploy the Template:
 
 Add the template deployment task to roles/apache/tasks/main.yml:
 
@@ -203,7 +213,7 @@ Add the template deployment task to roles/apache/tasks/main.yml:
 
 ## Step 4 - Using the Collection in a Playbook
 
-Create a playbook named `deploy_apache.yml` inside the `playbooks/`` directory to apply the collection to the `web` group:
+Create a playbook named `deploy_apache.yml` within `~/lab_inventory` directory to apply the collection to the `web` group:
 
 ```yaml
 ---
@@ -212,15 +222,24 @@ Create a playbook named `deploy_apache.yml` inside the `playbooks/`` directory t
   become: true
   collections:
     - webops.apache
-    - ansible.posix
-
-  tasks:
-    - name: Apply Apache role from the collection
-      ansible.builtin.include_role:
-        name: apache
+  roles:
+    - apache
 ```
 
-## Step 5 - Collection Execution and Validation
+## Step 5 Create a `requirements.yml` file and run it
+
+The Ansible playbook requires the `ansible.posix` collection. Create and add this requirement to your `requirements.yml` file that shall reside under `~/lab_inventory`
+
+```bash
+collections:
+  - name: ansible-posix
+```
+
+```bash
+ansible-galaxy collection install -r requirements.yml
+```
+
+## Step 6 - Collection Execution and Validation
 
 Run the playbook using `ansible-navigator`:
 

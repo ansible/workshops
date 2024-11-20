@@ -106,10 +106,10 @@ changed: [node3]
 changed: [ansible-1]
 
 PLAY RECAP *********************************************************************
-ansible-1                  : ok=6    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
-node1                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-node2                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-node3                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+ansible-1                  : ok=4    changed=1    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+node1                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node2                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node3                      : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
 Verify the changes by SSHing into the node, and you should see the message of the day:

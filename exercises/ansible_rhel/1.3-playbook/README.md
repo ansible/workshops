@@ -18,7 +18,7 @@
 
 In this exercise, you'll use Ansible to conduct basic system setup tasks on a
 Red Hat Enterprise Linux server. You will become familiar with fundamental
-Ansible modules like `dnf` and `user`, and learn how to create and run
+Ansible modules like `package` and `user`, and learn how to create and run
 playbooks.
 
 ## Guide
@@ -59,7 +59,7 @@ The basic structure looks as follows:
   become: true
   tasks:
     - name: Update all security-related packages
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: '*'
         state: latest
         security: true
@@ -73,7 +73,7 @@ The basic structure looks as follows:
 
 > NOTE: Updating the packages may take a few minutes prior to the Ansible playbook completing.
 
-* About the `dnf` module: This module is used for package management with DNF (Dandified YUM) on RHEL and other Fedora-based systems.
+* About the `package` module: This modules manages packages on a target without specifying a package manager module
 
 * About the `user` module: This module is used to manage user accounts.
 
@@ -86,6 +86,24 @@ Execute your playbook using the `ansible-navigator` command:
 ```
 
 Review the output to ensure each task is completed successfully.
+
+```bash
+
+PLAY [Basic System Setup] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Update all security-related packages] ************************************
+changed: [node1]
+
+TASK [Create a new user] *******************************************************
+changed: [node1]
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
 
 ### Step 4 - Checking the Playbook
 Now, let’s create a second playbook for post-configuration checks, named `system_checks.yml`:
@@ -114,6 +132,25 @@ Run the checks playbook:
 ```
 
 Review the output to ensure the user creation was successful.
+
+```bash
+
+PLAY [System Configuration Checks] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Check user existence] ****************************************************
+changed: [node1]
+
+TASK [Report user status] ******************************************************
+ok: [node1] => {
+    "msg": "User 'myuser' exists."
+}
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```
 
 ---
 **Navigation**

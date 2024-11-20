@@ -228,7 +228,7 @@ Create a playbook named `deploy_apache.yml` within `~/lab_inventory` directory t
 
 ## Step 5 Create a `requirements.yml` file and run it
 
-The Ansible playbook requires the `ansible.posix` collection. Add this requirement to your `requirements.yml` file that resides under `~/lab_inventory`
+The Ansible playbook requires the `ansible.posix` collection. Create and add this requirement to your `requirements.yml` file that shall reside under `~/lab_inventory`
 
 ```bash
 collections:

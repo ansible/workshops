@@ -30,7 +30,7 @@ Each **collection** can include the following components:
 Small programs that perform specific automation tasks on **local machines, APIs, or remote hosts**. Modules are usually written in **Python** and include metadata defining **how, when, and by whom** the task can be executed. Modules can be used across various use cases like **cloud management, networking, and configuration management**.  
 
 **Example modules:**  
-- **dnf**: Installs or removes packages with the dnf package manager.  
+- **package**: Installs or removes packages with the systems package manager.  
 - **service**: Manages system services (start, stop, restart).  
 - **command**: Executes commands on a target system.  
 
@@ -58,13 +58,13 @@ Before we build the collection, let's clean up any previous Apache installations
     package_name: httpd
   tasks:
     - name: Remove Apache from web servers
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: "{{ package_name }}"
         state: absent
       when: inventory_hostname in groups['web']
 
     - name: Remove firewalld
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: firewalld
         state: absent
 
@@ -86,6 +86,12 @@ Before we build the collection, let's clean up any previous Apache installations
 ```
 
 {% endraw %}
+
+Now run the playbook to clean the environment
+
+```bash
+ansible-navigator run cleanup.yml -m stdout
+```
 
 ## Step 3 - Building an Apache Collection
 
@@ -152,7 +158,7 @@ Add the following tasks to roles/apache/tasks/main.yml to install and configure 
     enabled: true
 
 - name: Install firewalld
-  ansible.builtin.dnf:
+  ansible.builtin.package:
     name: firewalld
     state: present
 
@@ -232,7 +238,7 @@ The Ansible playbook requires the `ansible.posix` collection. Create and add thi
 
 ```bash
 collections:
-  - name: ansible-posix
+  - name: ansible.posix
 ```
 
 ```bash
@@ -244,30 +250,45 @@ ansible-galaxy collection install -r requirements.yml
 Run the playbook using `ansible-navigator`:
 
 ```bash
-ansible-navigator run playbooks/deploy_apache.yml -m stdout
+ansible-navigator run deploy_apache.yml -m stdout
 ```
 ```text
-PLAY [Deploy Apache using Collection] *****************************************
+PLAY [Deploy Apache using Collection] ******************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [node3]
 ok: [node1]
 ok: [node2]
-ok: [node3]
 
-TASK [Apply Apache role from the collection] ***********************************
+TASK [webops.apache.apache : Install Apache web server] ************************
+changed: [node3]
 changed: [node1]
 changed: [node2]
-changed: [node3]
 
-RUNNING HANDLER [apache : Reload Firewall] *************************************
+TASK [webops.apache.apache : Ensure Apache is running and enabled] *************
+changed: [node3]
+changed: [node1]
+changed: [node2]
+
+TASK [webops.apache.apache : Install firewalld] ********************************
+changed: [node3]
+changed: [node1]
+changed: [node2]
+
+TASK [webops.apache.apache : Allow HTTP traffic on web servers] ****************
+ok: [node3]
 ok: [node1]
 ok: [node2]
+
+TASK [webops.apache.apache : Deploy custom index.html] *************************
 ok: [node3]
+ok: [node2]
+ok: [node1]
 
 PLAY RECAP *********************************************************************
-node1                      : ok=3    changed=2    unreachable=0    failed=0
-node2                      : ok=3    changed=2    unreachable=0    failed=0
-node3                      : ok=3    changed=2    unreachable=0    failed=0
+node1                      : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node2                      : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node3                      : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
 ## Step 6 - Verify Apache is Running

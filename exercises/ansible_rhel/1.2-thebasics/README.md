@@ -54,15 +54,36 @@ and their respective groups.
     "_meta": {
         "hostvars": {
             "ansible-1": {
-                "ansible_host": "3.236.186.92"            },
+                "ansible_become": "true",
+                "ansible_host": "ansible-1.example.com",
+                "ansible_ssh_common_args": "-o StrictHostKeyChecking=no",
+                "ansible_ssh_private_key_file": "~/.ssh/8qnxkkey.pem",
+                "ansible_user": "ec2-user",
+                "timeout": 60
+            },
             "node1": {
-                "ansible_host": "3.239.234.187"
+                "ansible_become": "true",
+                "ansible_host": "node1.example.com",
+                "ansible_ssh_common_args": "-o StrictHostKeyChecking=no",
+                "ansible_ssh_private_key_file": "~/.ssh/8qnxkkey.pem",
+                "ansible_user": "ec2-user",
+                "timeout": 60
             },
             "node2": {
-                "ansible_host": "75.101.228.151"
+                "ansible_become": "true",
+                "ansible_host": "node2.example.com",
+                "ansible_ssh_common_args": "-o StrictHostKeyChecking=no",
+                "ansible_ssh_private_key_file": "~/.ssh/8qnxkkey.pem",
+                "ansible_user": "ec2-user",
+                "timeout": 60
             },
             "node3": {
-                "ansible_host": "100.27.38.142"
+                "ansible_become": "true",
+                "ansible_host": "node3.example.com",
+                "ansible_ssh_common_args": "-o StrictHostKeyChecking=no",
+                "ansible_ssh_private_key_file": "~/.ssh/8qnxkkey.pem",
+                "ansible_user": "ec2-user",
+                "timeout": 60
             }
         }
     },
@@ -86,7 +107,6 @@ and their respective groups.
         ]
     }
 }
-
 ```
 
 NOTE: `-m` is short for `--mode` which allows for the mode to be switched to standard output instead of using the text-based user interface (TUI).

@@ -122,7 +122,7 @@ This creates the following structure:
 [student@ansible-1 roles]$ ansible-galaxy role init apache
 ```
 
-2. Define Role Variables:
+3. Define Role Variables:
 
 Add Apache-specific variables in roles/apache/vars/main.yml:
 
@@ -132,7 +132,7 @@ apache_package_name: httpd
 apache_service_name: httpd
 ```
 
-3. Create Role Tasks:
+4. Create Role Tasks:
 
 Add the following tasks to roles/apache/tasks/main.yml to install and configure Apache:
 
@@ -166,7 +166,7 @@ Add the following tasks to roles/apache/tasks/main.yml to install and configure 
 ```
 {% endraw %}
 
-4. Add Handlers:
+5. Add Handlers:
 
 Create a handler to reload the firewall in roles/apache/handlers/main.yml:
 
@@ -181,7 +181,7 @@ Create a handler to reload the firewall in roles/apache/handlers/main.yml:
 ```
 {% endraw %}
 
-5. Create a Custom Webpage Template:
+6. Create a Custom Webpage Template:
 
 Add a Jinja2 template for the web page in roles/apache/templates/index.html.j2:
 
@@ -200,7 +200,7 @@ Add a Jinja2 template for the web page in roles/apache/templates/index.html.j2:
 
 {% endraw %}
 
-6. Deploy the Template:
+7. Deploy the Template:
 
 Add the template deployment task to roles/apache/tasks/main.yml:
 
@@ -226,13 +226,17 @@ Create a playbook named `deploy_apache.yml` within `~/lab_inventory` directory t
     - apache
 ```
 
-## Step 5 Create a `requirements.yml` file
+## Step 5 Create a `requirements.yml` file and run it
 
 The Ansible playbook requires the `ansible.posix` collection. Add this requirement to your `requirements.yml` file that resides under `~/lab_inventory`
 
 ```bash
 collections:
   - name: ansible-posix
+```
+
+```bash
+ansible-galaxy collection install -r requirements.yml
 ```
 
 ## Step 6 - Collection Execution and Validation

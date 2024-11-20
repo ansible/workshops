@@ -94,22 +94,32 @@ Before we build the collection, let's clean up any previous Apache installations
 Use `ansible-galaxy` to initialize the collection structure:
 
 ```bash
-[student@ansible-1 lab_inventory]$ ansible-galaxy collection init webops.apache
+[student@ansible-1 lab_inventory]$ ansible-galaxy collection init webops.apache --init-path ./collections/ansible_collections
 ```
 
 This creates the following structure:
 
 ```bash
-├── README.md
-├── docs
-├── galaxy.yml
-├── meta
-│   └── runtime.yml
-├── plugins
-│   └── README.md
-├── roles/
-├── playbooks/
-└── tests/
+.
+└── collections
+    └── ansible_collections
+        └── webops
+            └── apache
+                ├── docs
+                ├── galaxy.yml
+                ├── meta
+                │   └── runtime.yml
+                ├── plugins
+                │   └── README.md
+                ├── README.md
+                └── roles
+```
+
+2. Create the `apache` role within your `webops.apache` collection:
+
+```bash
+[student@ansible-1 lab_inventory]$ cd collections/ansible_collections/webops/apache/roles
+[student@ansible-1 roles]$ ansible-galaxy role init apache
 ```
 
 2. Define Role Variables:
@@ -203,7 +213,7 @@ Add the template deployment task to roles/apache/tasks/main.yml:
 
 ## Step 4 - Using the Collection in a Playbook
 
-Create a playbook named `deploy_apache.yml` inside the `playbooks/`` directory to apply the collection to the `web` group:
+Create a playbook named `deploy_apache.yml` within `~/lab_inventory` directory to apply the collection to the `web` group:
 
 ```yaml
 ---
@@ -212,15 +222,20 @@ Create a playbook named `deploy_apache.yml` inside the `playbooks/`` directory t
   become: true
   collections:
     - webops.apache
-    - ansible.posix
-
-  tasks:
-    - name: Apply Apache role from the collection
-      ansible.builtin.include_role:
-        name: apache
+  roles:
+    - apache
 ```
 
-## Step 5 - Collection Execution and Validation
+## Step 5 Create a `requirements.yml` file
+
+The Ansible playbook requires the `ansible.posix` collection. Add this requirement to your `requirements.yml` file that resides under `~/lab_inventory`
+
+```bash
+collections:
+  - name: ansible-posix
+```
+
+## Step 6 - Collection Execution and Validation
 
 Run the playbook using `ansible-navigator`:
 

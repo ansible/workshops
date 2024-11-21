@@ -45,7 +45,6 @@ Let's create a user:
    | Last Name       | Web             |
    | Email           | wweb@example.com |
    | Organization    | Default         |
-   | User Type       | Normal User     |
 
 4. Click **Create user**.
 
@@ -95,13 +94,23 @@ Now, log out and log in again as the `wweb` user.
 
 1. Navigate to **Templates**. You should only see the `Create index.html` template listed.
 2. Run the job by clicking the rocket icon. Enter the required values for the survey questions and launch the job.
-3. After completion, check the **Jobs** view for the expected changes.
 
-To verify the result, use `curl` on the control host to check the webserver content on `node1`:
+Once the job completes, verify the result by relogging back in as an admin user to the Ansible Automation Platform dashboard.
 
-```bash
-#> curl http://node1
-```
+Go to Automation Execution → Infrastructure → Inventories → Workshop Inventory
+
+In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory, select the Hosts tab and select node1 and click Run Command
+
+Within the Details window, select Module command, in Arguments type `curl http://node1` and click Next.
+
+Within the Execution Environment window, select Default execution environment and click Next.
+
+Within the Credential window, select Workshop Credentials and click Next.
+
+Review your inputs and click Finish.
+
+Verify that the output result is as expected. 
+
 
 Just recall what you have just done: You enabled a restricted user to run an Ansible playbook
 

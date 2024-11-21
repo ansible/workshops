@@ -107,6 +107,8 @@ Within the **Details** tab of the `Webserver` group, click the **Hosts** tab, cl
 Within **Automation Execution -> Infrastructure -> Inventories**, select the
 `Workshop` Inventory. Click on the **Hosts** tab and click on `node2`.  Click on **Edit host** and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
 
+![edit host](images/edit_host.png)
+
 
 Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save host**.
 
@@ -163,6 +165,8 @@ Within **Automation Execution -> Templates**, select the **Create template -> Cr
 
 Click **Create job template**.
 
+![web_content_job_template](images/web_content_job_template.png)
+
 Run the template by clicking the **Launch template** button.
 
 
@@ -183,12 +187,12 @@ This time we use the power of Ansible to check the results: execute uri to get t
 
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
-      uri:
+      ansible.builtin.uri:
         url: "http://{{ ansible_host }}"
         return_content: yes
       register: content
 
-    - debug:
+    - ansible.builtin.debug:
        var: content.content
 ```
 

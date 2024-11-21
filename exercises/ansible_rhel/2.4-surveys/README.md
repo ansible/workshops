@@ -62,13 +62,13 @@ Now, let's create a new Template that includes a survey.
 | Job Type                    | Run                             |
 | Inventory                   | Workshop Inventory              |
 | Project                     | Workshop Project                |
-| Execution Environment        | Default execution environment   |
 | Playbook                    | `rhel/apache/apache_role_install.yml` |
+| Execution Environment        | Default execution environment   |
 | Credentials                 | Workshop Credential             |
 | Limit                       | web                             |
 | Options                     | Privilege Escalation            |
 
-3. Click **Save**.
+3. Click **Create job template**.
 
 ![template details](images/template_details.png)
 
@@ -88,7 +88,7 @@ Now, let's create a new Template that includes a survey.
 
 ![Survey Q1](images/survey_q1.png)
 
-3. Click **Save**.
+3. Click **Create survey question**.
 4. Click **Create survey question** to create a second survey question:
 
 | Parameter                  | Value           |
@@ -99,7 +99,7 @@ Now, let's create a new Template that includes a survey.
 
 ![Survey Q2](images/survey_q2.png)
 
-5. Click **Save**.
+5. Click **Create survey question**.
 6. Enable the survey by toggling the **Survey disabled** button to the on positon.
 
 ### Launch the Template
@@ -114,14 +114,22 @@ Before the job starts, the survey will prompt for **First Line** and **Second Li
 
 Once the job completes, verify the Apache homepage by running the following `curl` command in the SSH console on the control host:
 
-```bash
-$ curl http://node1
-<body>
-<h1>Apache is running fine</h1>
-<h1>This is survey field "First Line": line one</h1>
-<h1>This is survey field "Second Line": line two</h1>
-</body>
-```
+Go to Automation Execution → Infrastructure → Inventories → Workshop Inventory
+
+In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory, select the Hosts tab and select node1 and click Run Command
+
+Within the Details window, select Module command, in Arguments type `curl http://node1` and click Next.
+
+Within the Execution Environment window, select Default execution environment and click Next.
+
+Within the Credential window, select Workshop Credentials and click Next.
+
+Review your inputs and click Finish.
+
+Verify that the output result is as expected.
+
+
+![Run Command](images/run_command.png)
 
 ---
 **Navigation**

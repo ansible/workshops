@@ -166,6 +166,14 @@ Within **Automation Execution** -> **Templates** -> **Create template** -> **Cre
     <td>Execution Environment</td>
     <td>Default execution environment</td>
   </tr>
+  <tr>
+    <td>Credentials</td>
+    <td>Workshop Credentials</td>
+  </tr>
+  <tr>
+    <td>Options</td>
+    <td>tasks need to run as root so check **Privilege Escalation**</td>
+  </tr>
 </table>
 
 ![create_template_webops](images/create_template_webops.png)
@@ -214,14 +222,21 @@ Within the **Deploy Webapp Server** template, click **Launch template**.
 
 ![launch_template](images/launch_template.png)
 
-Once the workflow completes, verify the results by checking the job details. Run the following command on the control host to confirm the deployment:
+Once the workflow completes, verify the result.
 
-```bash
-curl http://nodeX/nodejs
-Hello World
-```
+Go to Automation Execution → Infrastructure → Inventories → Workshop Inventory
 
-NOTE: `X` should be replaced with the appropriate number of the node you are checking.
+In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory, select the Hosts tab and select node1 and click Run Command
+
+Within the Details window, select Module command, in Arguments type `curl http://node1/nodejs` and click Next.
+
+Within the Execution Environment window, select Default execution environment and click Next.
+
+Within the Credential window, select Workshop Credentials and click Next.
+
+Review your inputs and click Finish.
+
+Verify that the output result shows `Hello World`
 
 
 ---

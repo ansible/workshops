@@ -21,14 +21,9 @@ The _Workshop Inventory_ is preloaded in your lab environment, representing a st
 
 - **Accessing the Inventory:** Navigate to **Automation Execution → Infrastructure → Inventories** in the web UI, and select _Workshop Inventory_.
 - **Viewing Hosts:** Navigate to **Automation Execution → Infrastructure → Hosts** to see the predefined hosts, similar to those in a traditional Ansible inventory file.
-- 
 
-```yaml
-[web_servers]
-web1 ansible_host=22.33.44.55
-web2 ansible_host=33.44.55.66
-...
-```
+![Hosts](images/hosts.png)
+
 
 ### 3. Understanding Machine Credentials
 Machine credentials are essential for establishing secure SSH connections to managed hosts.

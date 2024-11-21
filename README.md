@@ -154,7 +154,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 <h1 id="6_hour_section">6 hour workshops</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/eda-4" class="data-card">
+  <a target="_new" href="./exercises/ansible_rhel" class="data-card">
     <h3>RHEL</h3>
     <h4>Ansible Red Hat Enterprise Linux Workshop</h4>
     <p>Focused on automating Linux platforms like Red Hat Enterprise Linux</p>

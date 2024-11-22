@@ -7,7 +7,7 @@
 **This is documentation for Ansible Automation Platform 2**
 
 
-If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
+If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basic foundamentals and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
 
 After finishing this lab you are ready to start using Ansible for your automation requirements.
 
@@ -56,19 +56,13 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
 
 ## Section 2 - Ansible Automation Platform Exercises
 
-* [Exercise 2.1 - Introduction to Ansible automation controller](2.1-intro)
-* [Exercise 2.2 - Inventories and Credentials in Ansible Automation Controller](2.2-cred)
+* [Exercise 2.1 - Introduction to Ansible Automation Platform](2.1-intro)
+* [Exercise 2.2 - Managing Inventories and Credentials in Ansible Automation Controller](2.2-cred)
 * [Exercise 2.3 - Projects & job templates](2.3-projects)
 * [Exercise 2.4 - Surveys](2.4-surveys)
-* [Exercise 2.5 - Role based access control](2.5-rbac)
+* [Exercise 2.5 - Role-based Access Control (RBAC)](2.5-rbac)
 * [Exercise 2.6 - Workflows](2.6-workflows)
 * [Exercise 2.7 - Wrap up](2.7-wrap)
-
-## Supplemental Exercises
-
-There is also a series of exercises that go above and beyond our normal workshop content.  Please check out our supplemental exercises if you want more content to learn from.
-
-* [Supplemental Exercises](supplemental)
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

@@ -28,6 +28,7 @@ The exercises are self explanatory and guide the participants through the entire
 
 There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
 [Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
+[Google source - Red Hat only](https://docs.google.com/presentation/d/13PxRxjXem76R7ypY1eyuBlCt0iD_epPtohTMcYsZXMw/edit?usp=sharing)
 
 Also have a look at our Ansible Best Practices Deck:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)
@@ -50,7 +51,7 @@ Having said that, the exercises themselves should take roughly 4-5 hours. The fi
 * [Exercise 1.4 - Using Variables](1.4-variables)
 * [Exercise 1.5 - Conditionals, Handlers and Loops](1.5-handlers)
 * [Exercise 1.6 - Templates](1.6-templates)
-* [Exercise 1.7 - Roles](1.7-role)
+* [Exercise 1.7 - Collections](1.7-collection)
 * [Exercise 1.8 - Debugging and Error Handling](1.8-troubleshoot)
 
 ## Section 2 - Ansible Automation Platform Exercises

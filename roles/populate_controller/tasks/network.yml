@@ -1,25 +1,25 @@
 ---
-- name: use COP controller_configuration collection
+- name: Use COP controller_configuration collection
   when: controller_projects is defined
-  include_role:
+  ansible.builtin.include_role:
     name: '{{ setup_controller }}'
   loop:
-    - 'infra.controller_configuration.hosts'
-    - 'infra.controller_configuration.organizations'
-    - 'infra.controller_configuration.users'
-    - 'infra.controller_configuration.teams'
-    - 'infra.controller_configuration.projects'
-    - 'infra.controller_configuration.job_templates'
-    - 'infra.controller_configuration.roles'
-    - 'infra.controller_configuration.groups'
+    - 'infra.aap_configuration.controller_hosts'
+    - 'infra.aap_configuration.gateway_organizations'
+    - 'infra.aap_configuration.gateway_users'
+    - 'infra.aap_configuration.gateway_teams'
+    - 'infra.aap_configuration.controller_projects'
+    - 'infra.aap_configuration.controller_job_templates'
+    - 'infra.aap_configuration.controller_roles'
+    - 'infra.aap_configuration.controller_host_groups'
   loop_control:
     loop_var: setup_controller
 
 - name: Debug the student number via the username var
   ansible.builtin.debug:
     msg:
-     - "student: {{ student_number }}"
-     - "{{ groups['routers'] }}"
+      - "student: {{ student_number }}"
+      - "{{ groups['routers'] }}"
 
 - name: Filter hosts containing student number
   ansible.builtin.set_fact:
@@ -30,13 +30,13 @@
     msg: "{{ student_hosts }}"
 
 - name: Add devices into controller inventory
-  awx.awx.host:
+  ansible.controller.host:
     name: "{{ hostvars[item].short_name }}"
     enabled: true
     inventory: "Workshop Inventory"
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
     variables:
       ansible_host: "{{ hostvars[item].ansible_host }}"
@@ -57,76 +57,76 @@
 #   when: hostvars[item]['ansible_network_os'] == 'ios'
 
 - name: Debug the routers
-  debug:
+  ansible.builtin.debug:
     msg:
       - "cisco_routers_short_names: {{ cisco_routers_short_names }}"
       - "arista_routers: {{ arista_routers }}"
       - "juniper_routers: {{ juniper_routers }}"
 
 - name: Add hosts to group cisco
-  awx.awx.group:
+  ansible.controller.group:
     name: cisco
     inventory: "Workshop Inventory"
     hosts: "{{ cisco_routers_short_names }}"
-    preserve_existing_hosts: True
-    preserve_existing_children: True
+    preserve_existing_hosts: true
+    preserve_existing_children: true
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
 
 - name: Add hosts to juniper
-  awx.awx.group:
+  ansible.controller.group:
     name: juniper
     inventory: "Workshop Inventory"
     hosts: "{{ juniper_routers }}"
-    preserve_existing_hosts: True
-    preserve_existing_children: True
+    preserve_existing_hosts: true
+    preserve_existing_children: true
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
 
 - name: Add hosts to arista
-  awx.awx.group:
+  ansible.controller.group:
     name: arista
     inventory: "Workshop Inventory"
     hosts: "{{ arista_routers }}"
-    preserve_existing_hosts: True
-    preserve_existing_children: True
+    preserve_existing_hosts: true
+    preserve_existing_children: true
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
 
 - name: Add group routers
-  awx.awx.group:
+  ansible.controller.group:
     name: routers
     inventory: "Workshop Inventory"
     children:
       - cisco
       - arista
       - juniper
-    preserve_existing_hosts: True
-    preserve_existing_children: True
+    preserve_existing_hosts: true
+    preserve_existing_children: true
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false
 
 - name: Add group network
-  awx.awx.group:
+  ansible.controller.group:
     name: network
     inventory: "Workshop Inventory"
     children:
       - routers
-    preserve_existing_hosts: True
-    preserve_existing_children: True
+    preserve_existing_hosts: true
+    preserve_existing_children: true
     variables:
       restore_inventory: "Workshop Inventory"
       restore_credential: "Workshop Credential"
       restore_project: "Workshop Project"
     controller_username: admin
     controller_password: "{{ admin_password }}"
-    controller_host: "https://{{ ansible_host }}"
+    controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"
     validate_certs: false

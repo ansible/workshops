@@ -1,22 +1,45 @@
+[automationgateway]
+{{ short_name }}.local ansible_connection=local
+
 [automationcontroller]
-{{ short_name }} ansible_connection=local
+{{ short_name }}.local ansible_connection=local
 
 [automationhub]
+{{ short_name }}.local ansible_connection=local
+
+[automationeda]
+{{ short_name }}.local ansible_connection=local
 
 [database]
+{{ short_name }}.local ansible_connection=local
 
-[servicescatalog_workers]
-
-[database]
-{{ short_name }} ansible_connection=local
 
 [all:vars]
-controller_admin_password='{{ admin_password }}'
-controller_pg_host={{ short_name }}
-controller_pg_password='{{admin_password}}'
-
 postgresql_admin_username=postgres
 postgresql_admin_password='{{ admin_password }}'
+
+registry_username='{{ redhat_username }}'
+registry_password='{{ redhat_password }}'
+registry_url='registry.redhat.io'
+
+redis_mode=standalone
+
+envoy_https_port={{ aap_port | default('443') | int }}
+gateway_admin_password='{{ admin_password }}'
+gateway_pg_host='{{ short_name }}.local'
+gateway_pg_password='{{ admin_password }}'
+
+controller_admin_password='{{ admin_password }}'
+controller_pg_host='{{ short_name }}.local'
+controller_pg_password='{{ admin_password }}'
+
+hub_admin_password='{{ admin_password }}'
+hub_pg_host='{{ short_name }}.local'
+hub_pg_password='{{ admin_password }}'
+
+eda_admin_password='{{ admin_password }}'
+eda_pg_host='{{ short_name }}.local'
+eda_pg_password='{{ admin_password }}'
 
 controller_postinstall=true
 controller_license_file="{{ aap_dir }}/manifest.zip"
@@ -24,7 +47,5 @@ controller_postinstall_dir="{{ aap_dir }}/config"
 
 gpgcheck='{{ gpgcheck | default(1)}}'
 
-registry_username='{{ redhat_username }}'
-registry_password='{{ redhat_password }}'
 bundle_install=true
 bundle_dir='{{ aap_dir }}/bundle'

@@ -1,6 +1,6 @@
 ---
-- name: print out connection vars to hosts
-  debug:
+- name: Print out connection vars to hosts
+  ansible.builtin.debug:
     msg:
       - "ansible_host {{ ansible_host }}"
       - "ansible_user {{ ansible_user }}"
@@ -8,7 +8,7 @@
       - "groups {{ groups }}"
 
 - name: Wait 400 seconds (using wait_for_connection)
-  wait_for_connection:
+  ansible.builtin.wait_for_connection:
     delay: 0
     timeout: 400
 

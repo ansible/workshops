@@ -47,7 +47,7 @@ Let's add to the system_setup.yml playbook the ability to install the Apache HTT
     package_name: httpd
   tasks:
     - name: Update all security-related packages
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: '*'
         state: latest
         security: true
@@ -60,7 +60,7 @@ Let's add to the system_setup.yml playbook the ability to install the Apache HTT
         create_home: true
 
     - name: Install Apache on web servers
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: "{{ package_name }}"
         state: present
       when: inventory_hostname in groups['web']
@@ -74,7 +74,7 @@ In this example, `inventory_hostname in groups['web']` is the conditional statem
 
 Handlers are used for tasks that should only run when notified by another task. Typically, they are used to restart services after a configuration change.
 
-Let's say we want to ensure the firewall is configured correctly on all web servers and then reload the firewall service to apply any new settings. We'll define a handler that reloads the firewall service and is notified by a task that ensures the desired firewall rules are in place:
+Let's say we want to ensure the firewall is configured correctly on all web servers and then reload the firewall service to apply any new settings. We'll define a handler that reloads the firewall service and is notified by a task ^that ensures the desired firewall rules are in place. Add the following tasks to the existing playbook to install firewalld and enable firewalld and reload the service with the help of handlers.
 
 
 ```yaml
@@ -86,7 +86,7 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
   .
   .
     - name: Install firewalld
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: firewalld
         state: present
       when: inventory_hostname in groups['web']
@@ -122,58 +122,34 @@ The handler Restart Apache is triggered only if the task “Allow HTTP traffic o
 PLAY [Basic System Setup] ******************************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [node3]
 ok: [node1]
 ok: [node2]
 ok: [ansible-1]
-ok: [node3]
 
 TASK [Update all security-related packages] ************************************
-ok: [node2]
 ok: [node1]
-ok: [ansible-1]
-ok: [node3]
+changed: [ansible-1]
+changed: [node3]
+changed: [node2]
 
 TASK [Create a new user] *******************************************************
+changed: [node3]
 ok: [node1]
-ok: [node2]
-ok: [ansible-1]
-ok: [node3]
+changed: [node2]
+changed: [ansible-1]
 
 TASK [Install Apache on web servers] *******************************************
 skipping: [ansible-1]
-ok: [node2]
-ok: [node1]
 ok: [node3]
-
-TASK [Install firewalld] *******************************************************
-skipping: [ansible-1]
-changed: [node2]
-changed: [node1]
-changed: [node3]
-
-TASK [Ensure firewalld is running] *********************************************
-skipping: [ansible-1]
-changed: [node3]
-changed: [node2]
-changed: [node1]
-
-TASK [Allow HTTPS traffic on web servers] **************************************
-skipping: [ansible-1]
-changed: [node2]
-changed: [node1]
-changed: [node3]
-
-RUNNING HANDLER [Reload Firewall] **********************************************
-changed: [node2]
-changed: [node1]
-changed: [node3]
+ok: [node1]
+ok: [node2]
 
 PLAY RECAP *********************************************************************
-ansible-1                  : ok=5    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
-node1                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-node2                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-node3                      : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
+ansible-1                  : ok=3    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+node1                      : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node2                      : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node3                      : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
 ### Step 4 - Loops
@@ -229,18 +205,18 @@ PLAY [Basic System Setup] ******************************************************
 .
 
 TASK [Create a new user] *******************************************************
+changed: [node3] => (item=alice)
+changed: [node1] => (item=alice)
 changed: [node2] => (item=alice)
 changed: [ansible-1] => (item=alice)
-changed: [node1] => (item=alice)
-changed: [node3] => (item=alice)
-changed: [node1] => (item=bob)
-changed: [ansible-1] => (item=bob)
 changed: [node3] => (item=bob)
+changed: [node1] => (item=bob)
 changed: [node2] => (item=bob)
-changed: [node1] => (item=carol)
 changed: [node3] => (item=carol)
-changed: [ansible-1] => (item=carol)
+changed: [ansible-1] => (item=bob)
+changed: [node1] => (item=carol)
 changed: [node2] => (item=carol)
+changed: [ansible-1] => (item=carol)
 
 .
 .
@@ -248,11 +224,10 @@ changed: [node2] => (item=carol)
 
 
 PLAY RECAP *********************************************************************
-ansible-1                  : ok=5    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
-node1                      : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-node2                      : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-node3                      : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
+ansible-1                  : ok=3    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+node1                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node2                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node3                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 
 ```
 ---

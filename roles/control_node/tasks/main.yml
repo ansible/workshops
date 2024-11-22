@@ -31,5 +31,3 @@
 
 - name: common workshop setup for control node
   include_tasks: 20_all_workshop.yml
-
-

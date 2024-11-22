@@ -4,12 +4,42 @@
 #     name: automation-controller.service
 #     state: restarted
 
-- name: Restart automation-controller-web container
-  become: true
+# - name: Restart automation-controller-web container
+#   become: true
+#   become_user: "{{ run_commands_user }}"
+#   containers.podman.podman_container:
+#     name: automation-controller-web
+#     state: restarted
+#   register: install_controller
+#   until: install_controller is not failed
+#   retries: 5
+
+- name: Make sure automation-controller-web.service is restarted
   become_user: "{{ run_commands_user }}"
-  containers.podman.podman_container:
-    name: automation-controller-web
+  ansible.builtin.service:
+    name: automation-controller-web.service
     state: restarted
+    scope: user
   register: install_controller
   until: install_controller is not failed
+  retries: 5
+
+- name: Make sure automation-gateway.service is restarted
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-gateway.service
+    state: restarted
+    scope: user
+  register: install_gateway
+  until: install_gateway is not failed
+  retries: 5
+
+- name: Make sure automation-gateway-proxy.service is restarted
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-gateway-proxy.service
+    state: restarted
+    scope: user
+  register: install_gateway_proxy
+  until: install_gateway_proxy is not failed
   retries: 5

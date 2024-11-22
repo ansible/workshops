@@ -20,14 +20,14 @@ An Ansible automation controller **Project** is a logical collection of Ansible 
 This exercise covers:
 
 * Understanding and using an Ansible automation controller Project
-* Using Ansible playbooks kept in a Git repository.
+* Using Ansible playbooks stored in a Git repository.
 * Creating and using an Ansible Job Template
 
 ## Guide
 
 ### Setup Git Repository
 
-For this demonstration we will use playbooks stored in a Git repository:
+For this demonstration, we will use playbooks stored in a Git repository:
 
 [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
 
@@ -71,13 +71,13 @@ A playbook to install the Apache web server has already been committed to the di
 
 > **Tip**
 >
-> Note the difference to other playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
+> Note the difference from other playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `web`.
 
 To configure and use this repository as a **Source Control Management (SCM)** system in automation controller you have to create a **Project** that uses the repository
 
 ### Create the Project
 
-* Go to **Resources → Projects** click the **Add** button. Fill in the form:
+* Go to **Automation Execution → Projects** click the **Create Project** button. Fill in the form:
 
  <table>
    <tr>
@@ -93,11 +93,11 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
      <td>Default</td>
    </tr>
    <tr>
-     <td>Default Execution Environment</td>
+     <td>Execution Environment</td>
      <td>Default execution environment</td>
    </tr>
    <tr>
-     <td>Source Control Credential Type</td>
+     <td>Source Control Type</td>
      <td>Git</td>
    </tr>
  </table>
@@ -119,16 +119,19 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
    </tr>
  </table>
 
-* Click **SAVE**
+* Click **Create project**
 
 
-The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Sync Project** icon to the right of the Project.
+The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again by selecting the 'Sync project' blue button.
 
-After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
+![Project Sync](images/project_sync.png)
+
+
+After starting the sync job, go to the **Jobs** view, and you'll find the job doing the project update.
 
 ### Create a Job Template and Run a Job
 
-A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. So before running an Ansible **Job** from automation controller you must create a **Job Template** that pulls together:
+A job template allows you to run an automation job. In order to run any type of automation, a job template must be created. A job template consists of knowning the following information:
 
 * **Inventory**: On what hosts should the job run?
 
@@ -136,13 +139,13 @@ A job template is a definition and set of parameters for running an Ansible job.
 
 * **Project**: Where is the playbook?
 
-* **What** playbook to use?
+* **Playbook**: What playbook to use?
 
-Okay, let’s just do that: Go to the **Resources -> Templates** view, click the **Add** button and choose **Add job template**.
+To create a Job Template, go to the **Automation Execution -> Templates** view,click the **Create template** button and choose **Create job template**.
 
 > **Tip**
 >
-> Remember that you can often click on magnfying glasses to get an overview of options to pick to fill in fields.
+> Remember that you can often click on the question mark with a circle to get more details about the field.
 
  <table>
    <tr>
@@ -166,12 +169,12 @@ Okay, let’s just do that: Go to the **Resources -> Templates** view, click the
      <td>Workshop Project</td>
    </tr>
    <tr>
-     <td>Execution Environment</td>
-     <td>Default execution environment</td>
-   </tr>
-   <tr>
      <td>Playbook</td>
      <td><code>rhel/apache/apache_install.yml</code></td>
+   </tr>
+   <tr>
+     <td>Execution Environment</td>
+     <td>Default execution environment</td>
    </tr>
    <tr>
      <td>Credentials</td>
@@ -187,12 +190,12 @@ Okay, let’s just do that: Go to the **Resources -> Templates** view, click the
    </tr>
  </table>
 
-* Click **Save**
+* Click **Create job template**
 
-You can start the job by directly clicking the blue **Launch** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
+You can start the job by directly clicking the blue **Launch template** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time.
 
-Job Details
-![job details](images/job_details.png)
+Template Details
+![template details](images/template_detail.png)
 
 Job Run
 ![job_run](images/job_run.png)
@@ -226,15 +229,19 @@ You have already been through all the steps needed, so try this for yourself.
 >
 > **Solution Below**
 
-* Go to **Resources →  Inventories** → **Workshop Inventory**
+* Go to **Automation Execution → Infrastructure →  Inventories** → **Workshop Inventory**
 
-* In the **Hosts** view select `node1`, `node2`, `node3` and click **Run Command**
+* In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory**, select the **Hosts** tab and select `node1`, `node2`, `node3` and click **Run Command**
 
 Within the **Details** window, select **Module** `command`, in **Arguments** type `systemctl status httpd` and click **Next**.
 
 Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
 
-Within the **Machine Credential** window, select **Workshop Credential** and click **Launch**.
+Within the **Credential** window, select **Workshop Credentials** and click **Next**.
+
+Review your inputs and click **Finish**.
+
+Verify that the output result is as expected.
 
 > **Tip**
 >

@@ -22,7 +22,7 @@
 
 ### Step 1 - Managing Convert2RHEL Pre-conversion Results
 
-In the previous exercise, we used a job template/playbook to analyze our CentOS7 app servers. Behind the scenes, the `analysis` module from the `infra.convert2rhel` Ansible collection launched a Convert2RHEL pre-conversion analysis on each of our CentOS 7 app servers and once complete, parsed the pre-conversion analysis report for any issues that would either block the conversion from initiating or potentially failing. If any problems were found, then the Ansible Automation Platform automation job would have reported a failure.
+In the previous exercise, we used a workflow template with associated job templates and playbooks to analyze our CentOS7 app servers. Behind the scenes, the `analysis` module from the `infra.convert2rhel` Ansible collection launched a Convert2RHEL pre-conversion analysis on each of our CentOS 7 app servers and once complete, parsed the pre-conversion analysis report for any issues that would either block the conversion from initiating or potentially failing. If any problems were found, then the Ansible Automation Platform automation job would have reported a failure.
 
 - If we are using the Convert2RHEL utility to manually convert just a single CentOS host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session), we learned how to open an ssh session to one of our app servers. Follow those steps and after logging in, use this command to review the local Convert2RHEL pre-conversion report file:
 
@@ -104,7 +104,7 @@ less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
 
 ### Challenge Lab: What if we were to experience warnings we are unsure of?
 
-You may be wondering what if there are many warning issues listed in the report? Why would we be going forward with attempting a conversion without first resolving all the findings on the report? It's a fair question.
+You may be wondering: what if there are many warning issues listed in the report? Why would we be going forward with attempting a conversion without first resolving all the findings on the report? It's a fair question.
 
 > **Tip**
 >

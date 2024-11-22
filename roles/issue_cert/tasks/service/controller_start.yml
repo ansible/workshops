@@ -1,18 +1,50 @@
 ---
+- name: Make sure automation-controller-web.service is online
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-controller-web.service
+    state: started
+    scope: user
+  register: install_controller
+  until: install_controller is not failed
+  retries: 5
+
+- name: Make sure automation-gateway.service is online
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-gateway.service
+    state: started
+    scope: user
+  register: install_gateway
+  until: install_gateway is not failed
+  retries: 5
+
+- name: Make sure automation-gateway-proxy.service is online
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-gateway-proxy.service
+    state: started
+    scope: user
+  register: install_gateway_proxy
+  until: install_gateway_proxy is not failed
+  retries: 5
+
 # - name: Make sure Automation Controller is online before changing base URL
-#   service:
-#     name: automation-controller.service
+#   become: true
+#   become_user: "{{ run_commands_user }}"
+#   containers.podman.podman_container:
+#     name: automation-controller-web
 #     state: started
 #   register: install_controller
 #   until: install_controller is not failed
 #   retries: 5
 
-- name: Make sure Automation Controller is online before changing base URL
-  become: true
-  become_user: "{{ run_commands_user }}"
-  containers.podman.podman_container:
-    name: automation-controller-web
-    state: started
-  register: install_controller
-  until: install_controller is not failed
-  retries: 5
+# - name: Automation-gateway-proxy
+#   become: true
+#   become_user: "{{ run_commands_user }}"
+#   containers.podman.podman_container:
+#     name: automation-gateway-proxy
+#     state: started
+#   register: automation_gateway_proxy
+#   until: automation_gateway_proxy is not failed
+#   retries: 5

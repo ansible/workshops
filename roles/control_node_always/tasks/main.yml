@@ -1,13 +1,13 @@
 ---
-- name: common workshop setup for control node
-  include_tasks: 20_workshop_setup.yml
+- name: Common workshop setup for control node
+  ansible.builtin.include_tasks: 20_workshop_setup.yml
 
-- name: make sure password is set on Automation controller
-  include_tasks: "35_controller_pre_build.yml"
+- name: Make sure password is set on Automation controller
+  ansible.builtin.include_tasks: "35_controller_pre_build.yml"
   when:
     - controllerinstall is defined
     - controllerinstall|bool
-    
+
 - name: Setup Route53 update service
-  include_tasks: 40_route53_update.yml
-  when: tower_node_aws_api_access|default(false)|bool
+  ansible.builtin.include_tasks: 40_route53_update.yml
+  when: tower_node_aws_api_access | default(false)  | bool

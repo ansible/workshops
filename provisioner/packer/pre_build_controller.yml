@@ -1,13 +1,13 @@
 ---
-- name: Initial check setup
-  hosts: localhost
-  connection: local
-  become: false
-  gather_facts: true
-  tasks:
-    - name: Download AAP
-      ansible.builtin.include_role:
-        name: ../../roles/aap_download
+# - name: Initial check setup
+#   hosts: localhost
+#   connection: local
+#   become: false
+#   gather_facts: true
+#   tasks:
+#     - name: Download AAP
+#       ansible.builtin.include_role:
+#         name: ../../roles/aap_download
 
 - name: Configures automation controller node
   hosts: all
@@ -20,33 +20,54 @@
     student: "{{ username }}"
     short_name: "ansible-1"
   tasks:
+    - name: List ansible.controller collection
+      delegate_to: localhost
+      become: false
+      ansible.builtin.shell:
+        cmd: "ansible-galaxy collection list | grep ansible.controller"
+      register: collections_list
+
+    - name: Display the collection version information
+      ansible.builtin.debug:
+        msg: "{{ collections_list.stdout }}"
+
     - name: Set hostname
       ansible.builtin.hostname:
-        name: "{{ short_name|default('ansible-1') }}"
+        name: "{{ short_name | default('ansible-1') }}"
+
     - name: Setup /etc/hosts file per student
       ansible.builtin.template:
         src: "{{ playbook_dir }}/templates/etchosts.j2"
         dest: "/etc/hosts"
+
     - name: Print out ansible_host var
       ansible.builtin.include_vars:
-        file: "../group_vars/all/all.yml" 
+        file: "../group_vars/all/all.yml"
+
     - name: Print out ansible_host var
       ansible.builtin.debug:
         var: hostvars.controller
+
     - name: Print ipv4 address
       ansible.builtin.debug:
         var: ansible_default_ipv4.address
+
     - name: Include user accounts
       ansible.builtin.include_role:
         name: ../../roles/user_accounts
+
     - name: Include common role
       ansible.builtin.include_role:
         name: ../../roles/common
+
     - name: Establish connetivity to managed nodes
       ansible.builtin.include_role:
         name: ../../roles/connectivity_test
+
     - name: Configure control node
       ansible.builtin.include_role:
         name: ../../roles/control_node
-    - include_role:
+
+    - name: Install code-server
+      ansible.builtin.include_role:
         name: ../../roles/code_server_native

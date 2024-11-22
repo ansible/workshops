@@ -1,10 +1,10 @@
-# Workshop Exercise: Inventories and Credentials in Ansible Automation Controller
+# Workshop Exercise: Managing Inventories and Credentials in Ansible Automation Controller
 
-**Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),![japan](../../../images/japan.png)[日本語](README.ja.md),![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
+**Available in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Objective
-This workshop is designed to provide a practical understanding of how to manage inventories and credentials within the Ansible Automation Controller. You'll learn how to navigate a preloaded inventory, understand its structure, and explore the setup and use of machine credentials for accessing managed hosts.
+This workshop provides practical experience with managing inventories and credentials in  automation controller. You’ll learn how to navigate a preloaded inventory, understand its structure, and set up machine credentials for accessing managed hosts.
 
 ## Table of Contents
 1. [Introduction to Inventories](#1-introduction-to-inventories)
@@ -14,50 +14,40 @@ This workshop is designed to provide a practical understanding of how to manage 
 5. [Conclusion](#5-conclusion)
 
 ### 1. Introduction to Inventories
-Inventories in the Ansible Automation Controller are crucial for defining and organizing the hosts your playbooks will run against. They can be static, with a fixed list of hosts, or dynamic, pulling host lists from external sources.
+In automation controller, inventories define and organize the hosts your playbooks will target. They can be static (a fixed list of hosts) or dynamic (sourced from external systems).
 
-### 2. Exploring the 'Workshop Inventory'
-The 'Workshop Inventory' is preloaded into your lab environment, representing a typical static inventory:
+### 2. Exploring the _Workshop Inventory_
+The _Workshop Inventory_ is preloaded in your lab environment, representing a static inventory configuration.
 
-- **Accessing the Inventory:** Navigate to `Resources → Inventories` in the web UI, and select 'Workshop Inventory'.
-- **Viewing Hosts:** Click the 'Hosts' button to reveal the preloaded host configurations, similar to what you might find in a traditional Ansible inventory file, such as:
+- **Accessing the Inventory:** Navigate to **Automation Execution → Infrastructure → Inventories** in the web UI, and select _Workshop Inventory_.
+- **Viewing Hosts:** Navigate to **Automation Execution → Infrastructure → Hosts** to see the predefined hosts, similar to those in a traditional Ansible inventory file.
 
-
-
-```yaml
-[web_servers]
-web1 ansible_host=22.33.44.55
-web2 ansible_host=33.44.55.66
-...
-```
+![Hosts](images/hosts.png)
 
 
 ### 3. Understanding Machine Credentials
-Machine credentials are essential for establishing SSH connections to your managed hosts:
+Machine credentials are essential for establishing secure SSH connections to managed hosts.
 
-- **Accessing Credentials:** From the main menu, choose `Resources → Credentials` and select 'Workshop Credential'.
-- **Credential Details:** The 'Workshop Credential' is pre-set with parameters like:
-- **Credential Type:** Machine, for SSH access.
-- **Username:** A predefined user, e.g., `ec2-user`.
-- **SSH Private Key:** Encrypted, providing secure access to your hosts.
+- **Accessing Credentials:** Navigate to **Automation Execution → Infrastructure→ Credentials** and select _Workshop Credentials_.
+- **Credential Details:** The 'Workshop Credentials' is configured with:
+  - **Credential Type:** Machine (for SSH).
+  - **Username:** A predefined user, such as `ec2-user`.
+  - **SSH Private Key:** Encrypted, providing secure access to hosts.
 
 ### 4. Additional Credential Types
-The Ansible Automation Controller supports various credential types for different automation scenarios:
+Automation controller supports over 30 different credential types for various automation tasks. Here are a few common ones:
 
 - **Network Credentials:** For managing network devices.
-- *Source Control Credentials:** For source control management access.
-- **Amazon Web Services Credentials:** For integration with Amazon AWS.
+- **Source Control Credentials:** For accessing source control systems.
+- **Amazon Web Services (AWS) Credentials:** For integrating with AWS services.
 
-Each type is tailored to specific requirements, enhancing your automation's flexibility and security.
+These credential types enhance the flexibility and security of your automation efforts.
 
 ### 5. Conclusion
-This workshop introduces the foundational concepts of inventories and credentials within the Ansible Automation Controller. Understanding these components is crucial for efficiently managing your automation tasks and securing access to your infrastructure.
+This workshop introduces the essential concepts of inventories and credentials within Ansible Automation Controller. Mastering these components is critical for effectively managing your automation environments and ensuring secure access to your infrastructure.
 
 ---
 **Navigation**
-<br>
-[Previous Exercise](../2.1-intro) - [Next Exercise](../2.3-projects)
-
+<br>[Previous Exercise](../2.1-intro) | [Next Exercise](../2.3-projects)  
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
-
 

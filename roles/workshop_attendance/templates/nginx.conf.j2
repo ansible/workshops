@@ -47,6 +47,7 @@ http {
     location ~ [^/]\.php(/|$) {
         include       /etc/nginx/mime.types;
         fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         if (!-f $document_root$fastcgi_script_name) {
             return 404;
         }
@@ -58,7 +59,7 @@ http {
         fastcgi_index index.php;
 
         # include the fastcgi_param setting
-        include fastcgi.conf;
+        include /etc/nginx/fastcgi_params;
     }
   }
 }

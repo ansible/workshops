@@ -45,7 +45,7 @@ Update the `system_setup.yml` playbook to include and use a variable:
     user_name: 'Roger'
   tasks:
     - name: Update all security-related packages
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: '*'
         state: latest
         security: true
@@ -157,6 +157,7 @@ node1                      : ok=3    changed=1    unreachable=0    failed=0    s
 ```
 
 Review the output to confirm the user existence check is correctly using the variable and conditional logic.
+
 ---
 **Navigation**
 <br>

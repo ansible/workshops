@@ -1,57 +1,101 @@
 ---
-- name: debug run_commands_user
-  debug:
+- name: Debug run_commands_user
+  ansible.builtin.debug:
     msg: "run_commands_user: {{ run_commands_user }}"
 
-- name: check normal user
-  debug: 
+- name: Check normal user
+  ansible.builtin.debug:
     msg: "{{ ansible_user_id }}"
 
-- name: run whoami command
+- name: Run whoami command
   become: true
   become_user: "{{ run_commands_user }}"
-  command: 
+  ansible.builtin.command:
     cmd: "whoami"
   register: whoami
 
-- name: debug the whoami user
-  debug: 
+- name: Debug the whoami user
+  ansible.builtin.debug:
     msg: "{{ whoami }}"
 
-- name: Make sure Automation Controller is online before changing base URL
-  become: true
+- name: Make sure automation-controller-web.service is online
   become_user: "{{ run_commands_user }}"
-  containers.podman.podman_container:
-    name: automation-controller-web
+  ansible.builtin.service:
+    name: automation-controller-web.service
     state: started
-  register: controller_online
-  until: controller_online is not failed
+    scope: user
+  register: install_controller
+  until: install_controller is not failed
   retries: 5
 
-- name: set password
+- name: Make sure automation-gateway.service is online
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-gateway.service
+    state: started
+    scope: user
+  register: install_gateway
+  until: install_gateway is not failed
+  retries: 5
+
+- name: Make sure automation-gateway-proxy.service is online
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-gateway-proxy.service
+    state: started
+    scope: user
+  register: install_gateway_proxy
+  until: install_gateway_proxy is not failed
+  retries: 5
+
+- name: Make sure automation-gateway-proxy.service is online
+  become_user: "{{ run_commands_user }}"
+  ansible.builtin.service:
+    name: automation-controller-task.service
+    state: started
+    scope: user
+  register: install_gateway_proxy
+  until: install_gateway_proxy is not failed
+  retries: 5
+
+- name: Wait for Automation Controller to be up
+  ansible.builtin.uri:
+    url: https://localhost:{{ aap_port | default('8501') }}/api/controller/v2/ping/
+    method: GET
+    user: admin
+    password: "{{ admin_password }}"
+    validate_certs: false
+  register: check_controller
+  until: check_controller.json is defined and check_controller.json.instances[0].capacity > 0 and check_controller.json.instance_groups[0].capacity > 0
+
+- name: Display /api/v2/ping results
+  ansible.builtin.debug:
+    msg: '{{ check_controller.json }}'
+
+- name: Set password
   block:
-    - name: change admin password R3dh4t1!
-      awx.awx.user:
+    - name: Change admin password R3dh4t1!
+      ansible.platform.user:
         username: "admin"
         password: "{{ admin_password }}"
         state: present
         superuser: true
-        controller_username: admin
-        controller_password: "R3dh4t1!"
-        controller_host: "https://localhost"
+        gateway_username: admin
+        gateway_password: "R3dh4t1!"
+        gateway_hostname: "https://localhost:{{ aap_port | default('8501') }}"
         validate_certs: false
       register: set_password
       until: set_password is not failed
   rescue:
-    - name: change admin password
-      awx.awx.user:
+    - name: Change admin password
+      ansible.platform.user:
         username: "admin"
         password: "{{ admin_password }}"
         state: present
         superuser: true
-        controller_username: admin
-        controller_password: "{{ admin_password }}"
-        controller_host: "https://localhost"
+        gateway_username: admin
+        gateway_password: "{{ admin_password }}"
+        gateway_hostname: "https://localhost:{{ aap_port | default('8501') }}"
         validate_certs: false
       register: set_password
       until: set_password is not failed

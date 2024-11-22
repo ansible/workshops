@@ -4,35 +4,32 @@
     path: "/home/{{ username }}/.config/code-server"
     state: directory
     mode: '0755'
-  when: not pre_build|bool
 
 - name: Ensure code-server config.yaml configuration is set | DNS off
   ansible.builtin.copy:
     content: |
-      bind-addr: 0.0.0.0:8080
+      bind-addr: 0.0.0.0:{{ code_server_port | default('8123') }}
       password: "{{ admin_password }}"
     dest: "/home/{{ username }}/.config/code-server/config.yaml"
     mode: '0644'
-  notify:
-  - Restart code-server
   when:
     - dns_type is defined
-    - dns_type == "none"  
+    - dns_type == "none"
+  register: code_server_config
+  until: code_server_config is not failed
 
 - name: Ensure code-server config.yaml configuration is set | DNS on
   when:
     - dns_type is defined
-    - dns_type == "aws"  
+    - dns_type == "aws"
   ansible.builtin.copy:
     content: |
-      bind-addr: 0.0.0.0:8080
-      cert: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/cert.pem"
-      cert-key: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix|lower|default('unknown') }}.{{ workshop_dns_zone|default('example.com') }}/privkey.pem"
+      bind-addr: 0.0.0.0:{{ code_server_port | default('8123') }}
+      cert: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix | lower | default('unknown') }}.{{ workshop_dns_zone | default('example.com') }}/cert.pem"
+      cert-key: "/home/{{ username }}/{{ student }}.{{ ec2_name_prefix | lower | default('unknown') }}.{{ workshop_dns_zone | default('example.com') }}/privkey.pem"
       password: "{{ admin_password }}"
     dest: "/home/{{ username }}/.config/code-server/config.yaml"
     mode: '0644'
-  notify:
-  - Restart code-server
 
 - name: Download code-server RPM
   ansible.builtin.get_url:
@@ -51,11 +48,11 @@
 - name: Enable and start code-server for student
   ansible.builtin.systemd:
     name: "code-server@{{ username }}"
-    enabled: yes
+    enabled: true
     state: started
 
 # source: https://vscode.readthedocs.io/en/latest/getstarted/settings/
-- name: ensure custom facts directory exists
+- name: Ensure custom facts directory exists
   ansible.builtin.file:
     path: "/home/{{ username }}/.local/share/code-server/User/"
     recurse: true
@@ -68,6 +65,7 @@
     src: settings.json
     dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
     owner: "{{ username }}"
+    group: "{{ username }}"
   when: not pre_build|bool
 
 - name: Create a directory if it does not exist
@@ -93,7 +91,7 @@
   retries: 5
   when: not pre_build|bool
 
-- name: install ansible and markdown extensions
+- name: Install ansible and markdown extensions
   become_user: "{{ username }}"
   ansible.builtin.command: "/bin/code-server --install-extension /home/{{ username }}/.local/share/code-server/extensions/{{ item }}"
   loop:
@@ -105,4 +103,3 @@
   until: install_extension is not failed
   retries: 5
   when: not pre_build|bool
-

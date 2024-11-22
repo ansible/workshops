@@ -1,38 +1,42 @@
 ---
 - name: Teardown attendance
-  include_tasks: teardown.yml
+  ansible.builtin.include_tasks: teardown.yml
   when: teardown|bool
 
 - name: setup attendance instance
+  when: not teardown
   block:
-    - name: setup DNS specific information
-      include_tasks: "{{ item }}"
+    - name: Setup DNS specific information
+      ansible.builtin.include_tasks: "{{ item }}"
       with_first_found:
         - "{{role_path}}/tasks/{{ dns_type }}.yml"
         - "{{role_path}}/tasks/none.yml"
 
-    - name: install package dependencies for attendance instance
-      include_tasks: 10_package_dependencies.yml
+    - name: Install package dependencies for attendance instance
+      ansible.builtin.include_tasks: 10_package_dependencies.yml
 
-    - name: attempt to get SSL certificates
+    - name: Attempt to get SSL certificates
       block:
-        - name: retrieve SSL cert with certbot
-          include_tasks: 20_certbot.yml
+        - name: Retrieve SSL cert with certbot
+          ansible.builtin.include_tasks: 20_certbot.yml
       rescue:
-        - name: append dns_information failure
-          set_fact:
+        - name: Append dns_information failure
+          ansible.builtin.set_fact:
             dns_information:
               - "{{ dns_information }}"
               - "The Lets Encrypt certbot failed for the attendance node, please check https://letsencrypt.status.io/ to make sure the service is running"
 
-        - name: error with SSL cert
-          debug:
+        - name: Error with SSL cert
+          ansible.builtin.debug:
             msg: "Unable to retrieve SSL cert, ERROR, continuing on without cert..."
 
 
-    - name: install and configure nginx on attendance node
-      include_tasks: 30_nginx.yml
+    - name: Install and configure nginx on attendance node
+      ansible.builtin.include_tasks: 30_nginx.yml
 
     - name: Configure attendance host
-      import_tasks: 40_attendance.yml
-  when: not teardown
+      ansible.builtin.import_tasks: 40_attendance.yml
+
+- name: Configure attendance host
+  ansible.builtin.import_tasks: 40_attendance.yml
+  when: not teardown|bool

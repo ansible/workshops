@@ -45,7 +45,8 @@
   gather_facts: false
 
   tasks:
-    - ansible.builtin.include_role:
+    - name: Check connectivity to all AWS instances
+      ansible.builtin.include_role:
         name: ../roles/connectivity_test
 
 - name: Configure host names on managed nodes

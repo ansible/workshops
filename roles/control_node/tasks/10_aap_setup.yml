@@ -22,14 +22,6 @@
     remote_src: true
     extra_opts: ['--strip-components=1', '--show-stored-names']
 
-# - name: Set AAP local repository on controller node
-#   ansible.builtin.yum_repository:
-#     name: aap_installer
-#     description: aap_installer
-#     baseurl: "file:///{{ aap_dir }}/bundle/packages/el8/repos/"
-#     gpgcheck: false
-#   become: true
-
 - name: Install vimrc in home directory
   ansible.builtin.template:
     src: vimrc.j2
@@ -38,7 +30,7 @@
     group: "{{ username }}"
 
 - name: Install ansible-core
-  dnf:
+  ansible.builtin.dnf:
     name:
       - ansible-core
     state: present

@@ -1,235 +1,135 @@
 # Exercise - Surveys
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
+<br>![UK](../../../images/uk.png) [English](README.md), ![Japan](../../../images/japan.png) [日本語](README.ja.md), ![Brazil](../../../images/brazil.png) [Portuguese do Brasil](README.pt-br.md), ![France](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md)
 
-## Table Contents
+## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-* [The Apache-configuration Role](#the-apache-configuration-role)
-* [Create the Project](#create-the-project)
-* [Create a Template with a Survey](#create-a-template-with-a-survey)
-  * [Create Template](#create-template)
-  * [Add the Survey](#add-the-survey)
-* [Launch the Template](#launch-the-template)
-* [What About Some Practice?](#what-about-some-practice)
+- [Objective](#objective)
+- [Guide](#guide)
+- [The Apache-Configuration Role](#the-apache-configuration-role)
+- [Create the Project](#create-the-project)
+- [Create a Template with a Survey](#create-a-template-with-a-survey)
+  - [Create Template](#create-template)
+  - [Add the Survey](#add-the-survey)
+- [Launch the Template](#launch-the-template)
+- [What About Some Practice?](#what-about-some-practice)
 
 ## Objective
 
-Demonstrate the use of Ansible Automation controller [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
+Demonstrate the use of the Ansible Automation Controller [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys). Surveys allow for setting extra variables for the playbook, similar to ‘Prompt for Extra Variables,’ but in a user-friendly Q&A format. They also allow for validation of user input.
 
 ## Guide
 
-You have installed Apache on all hosts in the job you just ran. Now we’re going to extend on this:
+You've installed Apache on all hosts in the job you just ran. Now, let's build on this:
 
-* Use a proper role that has a Jinja2 template to deploy an `index.html` file.
+- Use a proper role that includes a Jinja2 template to deploy an `index.html` file.
+- Create a job **Template** with a survey to collect values for the `index.html` template.
+- Launch the job **Template**.
 
-* Create a job **Template** with a survey to collect the values for the `index.html` template.
+Additionally, the role will ensure that the Apache configuration is set up correctly for this exercise.
 
-* Launch the job **Template**
+> **Tip**  
+> The survey feature provides a simple query for data but does not support dynamic data queries, nested menus, or four-eye principles.
 
-Additionally, the role will make sure that the Apache configuration is properly set up for this exercise.
+### The Apache-Configuration Role
 
-> **Tip**
->
-> The survey feature only provides a simple query for data - it does not support four-eye principles, queries based on dynamic data or nested menus.
+The playbook and role with the Jinja2 template are located in the GitHub repository [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples) in the `rhel/apache` directory.
 
-### The Apache-configuration Role
+- Have a look at the playbook `apache_role_install.yml`, which references the role.
+- The role is located in the `roles/role_apache` subdirectory.
+- Inside the role, note the two variables in the `templates/index.html.j2` template file marked by `{{…​}}`.
+- The `tasks/main.yml` file deploys the template.
 
-The playbook and the role with the Jinja2 template already exist in the Github repository [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples) in the directory `rhel/apache`.
+The playbook creates a file (**dest**) on the managed hosts from the template (**src**).
 
- Head over to the Github UI and have a look at the content: the playbook `apache_role_install.yml` merely references the role. The role can be found in the `roles/role_apache` subdirectory.
+Because the playbook and role are located in the same GitHub repo as the `apache_install.yml` playbook, you don't need to configure a new project for this exercise.
 
-* Inside the role, note the two variables in the `templates/index.html.j2` template file marked by `{{…​}}`\.
-* Notice the tasks in `tasks/main.yml` that deploy the file from the template.
-
-What is this playbook doing? It creates a file (**dest**) on the managed hosts from the template (**src**).
-
-The role deploys a static configuration for Apache. This is to make sure that all changes done in the previous chapters are overwritten and your examples work properly.
-
-Because the playbook and role is located in the same Github repo as the `apache_install.yml` playbook you don't have to configure a new project for this exercise.
-
-### Create the Project
-
-* Go to **Resources → Projects** click the **Add** button. Fill in the form:
-
- <table>
-   <tr>
-     <th>Parameter</th>
-     <th>Value</th>
-   </tr>
-   <tr>
-     <td>Name</td>
-     <td>Workshop Project</td>
-   </tr>
-   <tr>
-     <td>Organization</td>
-     <td>Default</td>
-   </tr>
-   <tr>
-     <td>Default Execution Environment</td>
-     <td>Default execution environment</td>
-   </tr>
-   <tr>
-     <td>Source Control Credential Type</td>
-     <td>Git</td>
-   </tr>
- </table>
-
- Enter the URL into the Project configuration:
-
- <table>
-   <tr>
-     <th>Parameter</th>
-     <th>Value</th>
-   </tr>
-   <tr>
-     <td>Source Control URL</td>
-     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
-   </tr>
-   <tr>
-     <td>Options</td>
-     <td>Select Clean, Delete, Update Revision on Launch to request a fresh copy of the repository and to update the repository when launching a job.</td>
-   </tr>
- </table>
-
-* Click **SAVE**
-
-
-The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Sync Project** icon to the right of the Project.
-
-After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
 
 ### Create a Template with a Survey
 
-Now you create a new Template that includes a survey.
+Now, let's create a new Template that includes a survey.
 
 #### Create Template
 
-* Go to **Resources → Templates**, click the **Add** button and choose **Add job template**
+1. Go to **Automation Execution → Templates**, click the **Create template** button, and choose **Create job template**.
 
-* Fill out the following information:
+2. Fill out the following details:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>Create index.html</td>
-  </tr>
-  <tr>
-    <td>Job Type</td>
-    <td>Run</td>
-  </tr>
-  <tr>
-    <td>Inventory</td>
-    <td>Workshop Inventory</td>
-  </tr>
-  <tr>
-    <td>Project</td>
-    <td>Workshop Project</td>
-  </tr>
-  <tr>
-    <td>Execution Environment</td>
-    <td>Default execution environment</td>
-  </tr>
-  <tr>
-    <td>Playbook</td>
-    <td><code>rhel/apache/apache_role_install.yml</code></td>
-  </tr>
-  <tr>
-    <td>Credentials</td>
-    <td>Workshop Credential</td>
-  </tr>
-  <tr>
-    <td>Limit</td>
-    <td>web</td>
-  </tr>
-  <tr>
-    <td>Options</td>
-    <td>Privilege Escalation</td>
-  </tr>
-</table>
+| Parameter                  | Value                           |
+|-----------------------------|---------------------------------|
+| Name                        | Create index.html               |
+| Job Type                    | Run                             |
+| Inventory                   | Workshop Inventory              |
+| Project                     | Workshop Project                |
+| Playbook                    | `rhel/apache/apache_role_install.yml` |
+| Execution Environment        | Default execution environment   |
+| Credentials                 | Workshop Credential             |
+| Limit                       | web                             |
+| Options                     | Privilege Escalation            |
 
-* Click **Save**
+3. Click **Create job template**.
 
-> **Warning**
->
+![template details](images/template_details.png)
+
+> **Warning**  
 > **Do not run the template yet!**
 
 #### Add the Survey
 
-* In the Template, click the **Survey** tab and click the **Add** button.
+1. In the Template, click the **Survey** tab, then click **Create survey question**.
+2. Fill out the following for the first survey question:
 
-* Fill out the following information:
+| Parameter                  | Value           |
+|-----------------------------|-----------------|
+| Question                    | First Line      |
+| Answer Variable Name        | first_line      |
+| Answer Type                 | Text            |
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Question</td>
-    <td>First Line</td>
-  </tr>
-  <tr>
-    <td>Answer Variable Name</td>
-    <td>first_line</td>
-  </tr>
-  <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
-  </tr>
-</table>
+![Survey Q1](images/survey_q1.png)
 
-* Click **Save**
-* Click the **Add** button
+3. Click **Create survey question**.
+4. Click **Create survey question** to create a second survey question:
 
-In the same fashion add a second **Survey Question**
+| Parameter                  | Value           |
+|-----------------------------|-----------------|
+| Question                    | Second Line     |
+| Answer Variable Name        | second_line     |
+| Answer Type                 | Text            |
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Question</td>
-    <td>Second Line</td>
-  </tr>
-  <tr>
-    <td>Answer Variable Name</td>
-    <td>second_line</td>
-  </tr>
-  <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
-  </tr>
-</table>
+![Survey Q2](images/survey_q2.png)
 
-* Click **Save**
-* Click the **Survey Enabled** toggle button to turn on the Survey questions
+5. Click **Create survey question**.
+6. Enable the survey by toggling the **Survey disabled** button to the on positon.
 
 ### Launch the Template
 
-Now launch **Create index.html** job template by selecting the **Details** tab and clicking the **Launch** button.
+Now, launch the **Create index.html** job template by clicking the **Launch template** button.
 
-Before the actual launch the survey will ask for **First Line** and **Second Line**. Fill in some text and click **Next**. The **Preview** window shows the values, if all is good run the Job by clicking **Launch**.
+Before the job starts, the survey will prompt for **First Line** and **Second Line**. Enter your text and click **Next**. The **Preview** window shows the values—if all looks good, click **Finish** to start the job.
 
-After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against `node1`:
+![Survey Launch](images/survey_launch.png)
 
-```bash
-$ curl http://node1
-<body>
-<h1>Apache is running fine</h1>
-<h1>This is survey field "First Line": line one</h1>
-<h1>This is survey field "Second Line": line two</h1>
-</body>
-```
+![Survey Review](images/survey_review.png)
 
-Note how the two variables where used by the playbook to create the content of the `index.html` file.
+Once the job completes, verify the Apache homepage by running the following `curl` command in the SSH console on the control host:
+
+Go to Automation Execution → Infrastructure → Inventories → Workshop Inventory
+
+In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory, select the Hosts tab and select node1 and click Run Command
+
+Within the Details window, select Module command, in Arguments type `curl http://node1` and click Next.
+
+Within the Execution Environment window, select Default execution environment and click Next.
+
+Within the Credential window, select Workshop Credentials and click Next.
+
+Review your inputs and click Finish.
+
+Verify that the output result is as expected.
+
+
+![Run Command](images/run_command.png)
 
 ---
 **Navigation**
@@ -240,5 +140,4 @@ Note how the two variables where used by the playbook to create the content of t
 {% else %}
 [Previous Exercise](../2.3-projects) - [Next Exercise](../2.5-rbac)
 {% endif %}
-<br><br>
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+

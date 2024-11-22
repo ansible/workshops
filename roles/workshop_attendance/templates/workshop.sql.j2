@@ -22,11 +22,11 @@ CREATE TABLE IF NOT EXISTS `users` (
       {% if hostvars[host].student is defined and "student" + number | string == hostvars[host].student %}
       INSERT INTO `users` (`id`, `ip`, `vscode`, `vscode_display`, `gitlab`, `hub`, `controller`, `username`, `password`) VALUES ({{ number }},'{{ hostvars[host].ansible_host }}',
       {% if workshop_type == "windows" %}
-        'https://student{{ number }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8080/?folder=vscode-remote%3A%2F%2Fstudent{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}%2Fhome%2Fstudent%2Fwindows-workshop%2Fworkshop_project',
+        'https://student{{ number }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:{{ code_server_port }}/?folder=vscode-remote%3A%2F%2Fstudent{{ number }}-code.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}%2Fhome%2Fstudent%2Fwindows-workshop%2Fworkshop_project',
       {% else %}
-        'https://student{{ number }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8080',
+        'https://student{{ number }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:{{ code_server_port }}',
       {% endif %}
-        'https://student{{ number }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:8080',
+        'https://student{{ number }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}:{{ code_server_port }}',
       {% if workshop_type == "windows" or workshop_type == "configascode" %}
         'https://gitlab.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}',
       {% else %}

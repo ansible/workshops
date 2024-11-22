@@ -1,0 +1,54 @@
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    # Redirect HTTP to HTTPS
+    server {
+        listen 80;
+        server_name {{ dns_name }};
+
+        location / {
+            return 301 https://$host$request_uri;
+        }
+    }
+
+    # HTTPS server block
+    server {
+        listen 443 ssl;
+        server_name {{ dns_name }};
+
+        # Path to your SSL certificate and key
+        ssl_certificate /etc/nginx/ssl/aap.crt;
+        ssl_certificate_key /etc/nginx/ssl/aap.key;
+
+        # SSL settings
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_prefer_server_ciphers on;
+
+        location / {
+            proxy_http_version 1.1;  # Force HTTP/1.1 for upstream connections https://github.com/envoyproxy/envoy/issues/2506
+            proxy_pass https://127.0.0.1:8501;
+            proxy_ssl_verify off;  # Disables SSL verification for self-signed backend
+            proxy_ssl_protocols TLSv1.2 TLSv1.3;
+
+            # Additional proxy settings
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Connection "";  # For HTTP/1.1 compatibility
+
+        }
+    }
+}

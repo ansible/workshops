@@ -12,9 +12,10 @@
       - [Commit](#commit)
       - [Let's Get Started](#lets-get-started)
     - [Step 2 - Patch OS to latest package versions](#step-2---patch-os-to-latest-package-versions)
-    - [Step 3 - Use AAP to Launch an Analysis Playbook Job](#step-3---use-aap-to-launch-an-analysis-playbook-job)
-    - [Step 4 - Review the Playbook Job Output](#step-3---review-the-playbook-job-output)
-    - [Step 5 - Challenge Lab: Analysis Playbook](#step-4---challenge-lab-analysis-playbook)
+    - [Step 3 - Change Content Source for Content Host](#step-3---change-content-source-for-content-host)
+    - [Step 4 - Use AAP to Launch an Analysis Playbook Job](#step-4---use-aap-to-launch-an-analysis-playbook-job)
+    - [Step 5 - Review the Playbook Job Output](#step-5---review-the-playbook-job-output)
+    - [Step 6 - Challenge Lab: Analysis Playbook](#step-6---challenge-lab-analysis-playbook)
   - [Conclusion](#conclusion)
 
 ## Objectives
@@ -101,57 +102,117 @@ One of the prerequisites for successful Convert2RHEL OS conversions is that the 
 
 - With a successful job completion, we are ready to proceed with the pre-conversion OS analysis.
 
-### Step 3 - Use AAP to Launch an Analysis Playbook Job
+### Step 3 - Change Content Source for Content Host
+
+Before we start the pre-conversion OS analysis, we need to change the Satellite content source for our CentOS content hosts. With the release of Convert2RHEL 2.x, providing content registration details as part of the variables supplied are no longer utilized. Instead, the system to be converted should be registered to a content view that provides access to package repositories for both the current version of installed operating system, as well as access to package repositories for the target version of RHEL that is being converted to. In addition, access to the Convert2RHEL related package repositories should be included.
+
+If you would like to review the content view configuration that we will be utilizing as part of the conversion process, switch to the browser tab where you are logged in to Satellite.
+
+- Once the Satellite web UI is accessible, click on Content > Lifecycle > Content Views.
+
+  ![Satellite Content Views](images/satellite_content_views.png)
+
+  > **Note**
+  >
+  > A composite content view in Satellite is a content view that is composed of other composite views, typically multiples of content views.
+
+- On the `CentOS7_to_RHEL7` content view page, click on the `Content views` tab.
+
+  ![CentOS7_to_RHEL7 Content View](images/composite_content_view_for_convert2rhel.png)
+
+- Notice that the CentOS7 and RHEL7 content views have been added to the CentOS7_to_RHEL7 composite content view. Click on either of the CentOS7 or RHEL7 content views and then the `Repositories` tab in each view.
+
+  ![CentOS7 Content View Repositories](images/composite_content_view_centos_repos.png)
+
+  ![RHEL7 Content View Repositories](images/composite_content_view_rhel_repos.png)
+
+Currently, our CentOS7 nodes are configured to utilize the `CentOS7` content view, with associated `CentOS7_Dev` lifecycle environment. We will now change our CentOS7 nodes to instead consume the `CentOS7_to_RHEL7` composite content view via the associated `CentOS7_to_RHEL7_Dev` lifecycle environment during the conversion process.
+
+- Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation panel and click on `SATELLITE / Change content source for content host`.
+
+  ![Satellite Change content source for content host](images/content_host_template.png)
+
+- On the details page, review the job template settings and variables section, then click on "Launch".
+
+  ![Satellite Change content source for content host](images/content_host_template_launch.png)
+
+- On the survey dialog, for `Select inventory group`, select `CentOS7_Dev` from the drop down. Leave the specific content hosts limit field blank. for `Select target lifecycle environment for the content host`, select `CentOS7_to_RHEL7_Dev`, then click "Next".
+
+  ![Satellite Change content source for content host survey](images/content_host_template_survey.png)
+
+- On the preview dialog, review the various settings and if desired, review the Prompted Values/Variable section. When ready to proceed, click "Launch".
+
+  ![Satellite Change content source for content host preview](images/content_host_template_launch_final.png)
+
+- Verify that the Change content source for content host job completes successfully.
+
+  ![Satellite Change content source for content host job output](images/content_host_job_output.png)
+
+If you would like to verify the content host configuration has changed, switch to the browser tab where you are logged in to Satellite.
+
+- Once the Satellite web UI is accessible, click on Hosts > Content Hosts. When the *Content Hosts* page is displayed, we should see that the CentOS7 content hosts are now configured to pull package content from the `CentOS7_to_RHEL7` content view and `CentOS7_to_RHEL7_Dev` lifecycle environment.
+
+  ![Satellite Content Hosts](images/satellite_content_hosts2.png)
+
+### Step 4 - Use AAP to Launch an Analysis Playbook Job
 
 As we progress through the workshop, we'll refer back to this diagram to track where we are in our automation approach workflow. We are starting now in the highlighted block below:
 
-![Automation approach workflow diagram with analysis step highlighted](images/conversion-workflow-hl-analysis.svg)
+  ![Automation approach workflow diagram with analysis step highlighted](images/conversion-workflow-hl-analysis.svg)
 
-The first step in converting our three tier app hosts will be executing the analysis playbook to generate the Convert2RHEL pre-conversion analysis report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
+The first step in converting our three tier app hosts will be executing the analysis workflow to generate the Convert2RHEL pre-conversion analysis report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
 
 - Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu:
 
   ![Job templates listed on AAP Web UI](images/aap_templates.png)
 
-- Click on the "CONVERT2RHEL / 01 Analysis" job template. This will display the Details tab of the job template:
+- Click on the "CONVERT2RHEL / 01 Analysis" workflow job template. This will display the Details tab of the workflow job template:
 
-  !["CONVERT2RHEL / 01 Analysis" job templates seen on AAP Web UI](images/analysis_template.png)
+  !["CONVERT2RHEL / 01 Analysis" workflow job template seen on AAP Web UI](images/analysis_template.png)
 
-- From here, we could use the "Edit" button if we wanted to make any changes to the job template. This job template is already configured, so we are ready to use it to submit a playbook job. To do this, use the "Launch" button which will bring up a series of prompts.
+- From here, we could use the "Edit" button if we wanted to make any changes to the workflow job template. This workflow job template is already configured, so we are ready to use it to submit a workflow job. To do this, use the "Launch" button which will bring up a series of prompts.
 
   > **Note**
   >
-  > The prompts that each job template presents can be configured using the "Prompt on launch" checkboxes seen when editing a job template.
+  > The prompts that each job or workflow template presents to users can be configured using the "Prompt on launch" checkboxes seen when editing a job or workflow template.
 
   ![Analysis job variables prompt on AAP Web UI](images/analysis_limit_prompt.png)
 
-- The first prompt as seen above allows for limiting the scope of the automation across a grouping of hosts by defining specific hosts within the inventory group. We don't need to do this at this time, so just click the "Next" button to move on.
+- The first prompt as seen above allows for limiting the scope of the automation across a grouping of hosts by defining specific hosts within the inventory group, as well as reviewing variables that are being passed to the workflow. No adjustments are necessary at this time, so click the "Next" button to move on.
 
   ![Analysis job survey prompt on AAP Web UI](images/analysis_survey_prompt.png)
 
-- For this job template, the survey allows for choosing a group of hosts on which the job will execute the playbook, as well as the target RHEL package lifecycle environment from Satellite to be utilized during the conversion analysis. For "Select EL Group to analyze" choose "CentOS_Dev" from the drop-down and for "Select RHEL Lifecycle Environment to use for analysis" select "RHEL7_Dev" and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
+- For this workflow job template, the survey allows for choosing a group of hosts on which the workflow will execute against. For `Select EL Group to analyze` choose `CentOS_Dev` from the drop-down and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
 
   ![Analysis job preview on AAP Web UI](images/analysis_preview.png)
 
-- If you are satisfied with the job preview, use the "Launch" button to start the playbook job.
+- If you are satisfied with the job preview, use the "Launch" button to start the workflow job.
 
-### Step 4 - Review the Playbook Job Output
+### Step 5 - Review the Workflow Job Output
 
-After launching the analysis playbook job, the AAP Web UI will navigate automatically to the job output page for the job you just started.
+After launching the analysis workflow job, the AAP Web UI will navigate automatically to the workflow output page for the workflow you just started.
 
-- While the playbook job is running, you can monitor its progress by clicking the "Follow" button. When you are in follow mode, the output will scroll automatically as task results are streamed to the bottom of job output shown in the AAP Web UI.
+  ![Analysis workflow job on AAP Web UI](images/analysis_workflow_job.png)
 
-- The analysis playbook will run the Convert2RHEL pre-conversion system analysis. This will take about nine to ten minutes to complete. When it is done, you can find a "PLAY RECAP" at the end of the job output showing the success or failure status for the playbook runs executed on each host. A status of "failed=0" indicates a successful playbook run. Scroll to the bottom of the job output and you should see that your job summary looks like this example:
+- While the workflow job is running, you can monitor progress by clicking on an individual workflow job node and then click on the "Output" tab within the individual job run. The job output will scroll automatically as task results are streamed to the bottom of job output shown in the AAP Web UI.
+
+- The analysis workflow will run the Convert2RHEL pre-conversion system analysis. Click on the `OS / Pre-conversion Analysis` job node and then click on the "Output" tab to follow the job outout log. This will take about nine to ten minutes to complete. When it is done, you can find a "PLAY RECAP" at the end of the job output showing the success or failure status for the playbook runs executed on each host. A status of "failed=0" indicates a successful playbook run. Scroll to the bottom of the job output and you should see that your job summary looks like this example:
 
   ![Analysis job "PLAY RECAP" as seen at the end of the job output](images/analysis_job_recap.png)
 
-### Step 4 - Challenge Lab: Analysis Playbook
+- Additionally, you can verify the status of each node by scrolling through the job output and checking for a message specific to each node indicating that the pre-conversion analysis was successful. If any issues were found, a quick synopsis message will be printed instead, as well as providing a path to the pre-conversion log file for further, manual investigations.
+
+  ![Analysis job node4 status message in job output](images/analysis_job_output.png)
+
+- If any errors are experienced, the `CONVERT2RHEL / 03 Rollback` job template can be used to revert nodes back to the pre-conversion analysis state and steps can be taken to remediate any issues/errors, followed by a new pre-conversion analysis workflow template run. Repeat this process until the pre-conversion analysis returns SUCCESS.
+
+### Step 6 - Challenge Lab: Analysis Playbook
 
 Let's take a closer look at the playbook we just ran.
 
 > **Tip**
 >
-> Try looking at the configuration details of the "Automated Management" project and the "CONVERT2RHEL / 01 Analysis" job template.
+> Try looking at the configuration details of the "Automated Management" project and the "CONVERT2RHEL / 01 Analysis" workflow template.
 
 Can you find the upstream source repo and playbook code?
 
@@ -165,7 +226,11 @@ Can you find the upstream source repo and playbook code?
 
 - With the new tab opened and the `redhat-partner-tech/automated-satellite` repo displayed, on the left side of the browser, click the drop down for the branch selection where `main` is displayed. Click the `aap2-rhdp-prod` branch to select this branch for viewing.
 
-- Go back to the AAP Web UI and now navigate to Resources > Templates > CONVERT2RHEL / 01 Analysis. Under the Details tab, you will see the "Playbook" setting with the name of the playbook this job template runs when it is used to submit a job. The playbook name is `c2r_analysis.yml`. In your GitHub browser tab, you can find `c2r_analysis.yml` listed in the files of the git repo. Click on it to see the playbook contents.
+- Go back to the AAP Web UI and now navigate to Resources > Templates > CONVERT2RHEL / 01 Analysis. Under the Details tab, you will see that this is a workflow template. In order to view the individual jobs within the workflow, click on the tab named "Visualizer". Once, the workflow visualization is displayed, hover the mouse pointer over the node named "OS / Pre-conversion Analysis". We can see that the node name in this workflow is the same as the resource used, in this case, the name of the job template "OS / Pre-conversion Analysis".
+
+  ![CONVERT2RHEL / 01 Analysis workflow visualizer](images/analysis_workflow_visualizer.png)
+
+- Staying in the the AAP Web UI, navigate to Resources > Templates > OS / Pre-conversion Analysis. Under the Details tab, you will see that this is a job template, with the "Playbook" setting with the name of the playbook this job template runs when it is used to submit a job. The playbook name is `c2r_analysis.yml`. In your browser, switch back GitHub browser tab where we navigated to the project source. There you can find `c2r_analysis.yml` listed in the files of the git repo. Click on it to see the playbook contents.
 
 - Notice that the `Analyze CentOS 7.9 systems` tasks is comprised of the following:
 ```
@@ -184,7 +249,9 @@ Can you find the upstream source repo and playbook code?
   ansible.builtin.import_role:
     name: infra.convert2rhel.analysis
 ```
-By checking the `collections/requirements.yml` file in the `redhat-partner-tech/automated-satellite` git repo, we can discover that this role comes from another git repo at [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel). It is the `analysis` role under this second git repo that provides all the automation tasks that ultimately runs the Convert2RHEL analysis scan and generates the report. *NOTE* We are utilizing a fork of the upstream infra.convert2rhel Ansible collection [https://github.com/redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel). Because the upstream collections is a fast moving project, we utilize a fork where we can closely manage the state of the code base to ensure optimal stability for the lab/workshop/demo environment.
+By checking the `collections/requirements.yml` file in the `redhat-partner-tech/automated-satellite` git repo, we can discover that this role comes from another git repo at [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel). It is the `analysis` role under this second git repo that provides all the automation tasks that ultimately runs the Convert2RHEL analysis scan and generates the report.
+
+ *NOTE* We are utilizing a fork of the upstream infra.convert2rhel Ansible collection [https://github.com/redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel). Because the upstream collections is a fast moving project, we utilize a fork where we can closely manage the state of the code base to ensure optimal stability for the lab/workshop/demo environment.
 
 - In a new browser tab/instance, open the [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel) URL. Drill down to the `roles/analysis` directory in this git repo to review the README and yaml source files.
 
@@ -192,7 +259,7 @@ When you are ready to develop your own custom playbooks to run conversions for y
 
 ## Conclusion
 
-In this exercise, we learned about the end-to-end workflow used by our automation approach for doing RHEL-like OS conversions. We used a job template in AAP to submit a playbook job that ran the Convert2RHEL pre-conversion analysis on our three tier application servers. In the challenge lab, we explored the playbook that we ran and how it includes a role from an Ansible collection.
+In this exercise, we learned about the end-to-end workflow used by our automation approach for doing RHEL-like OS conversions. We used a workflow template in AAP to submit a workflow job that cleared node yum cache, performed an LVM snapshop of each node, and then ran the Convert2RHEL pre-conversion analysis on our three tier application servers. In the challenge lab, we explored the analysis playbook that we ran and how it includes a role from an Ansible collection.
 
 In the next exercise, we will review the analysis reports we just generated.
 

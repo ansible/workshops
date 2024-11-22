@@ -28,6 +28,7 @@ The exercises are self explanatory and guide the participants through the entire
 
 There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
 [Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
+[Google source - Red Hat only](https://docs.google.com/presentation/d/13PxRxjXem76R7ypY1eyuBlCt0iD_epPtohTMcYsZXMw/edit?usp=sharing)
 
 Also have a look at our Ansible Best Practices Deck:
 [Ansible Best Practices](../../decks/ansible_best_practices.pdf)

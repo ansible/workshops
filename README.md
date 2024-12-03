@@ -239,7 +239,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 </svg>
     </span>
   </a>
-  <a target="_new" href="https://app.arcade.software/share/Xe9tI8rUVc2JrEI5LprL" class="data-card">
+  <a target="_new" href="https://app.arcade.software/share/liRbTzSPhtuQZwTI3JSV" class="data-card">
     <h3>AAP on Azure</h3>
     <h4>Red Hat Ansible Automation Platform on Microsoft Azure - Managed Application - Getting Started</h4>
     <p>How to get started with Ansible Automation Platform on Microsoft Azure, the Managed Application</p>
@@ -250,7 +250,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 </svg>
     </span>
   </a>
- <a target="_new" href="https://app.arcade.software/share/Xe9tI8rUVc2JrEI5LprL" class="data-card">
+ <a target="_new" href="https://app.arcade.software/share/ZiJZMunDn0fg4YUHy2Br" class="data-card">
     <h3>Lightspeed Trial</h3>
     <h4>Ansible Lightspeed 90-day trial demo.</h4>
     <p>Walkthrough on how to setup Ansible Lightspeed's 90-day trial.</p>

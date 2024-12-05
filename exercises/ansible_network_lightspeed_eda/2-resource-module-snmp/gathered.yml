@@ -1,0 +1,17 @@
+---
+- name: Retrieve SNMP config
+  hosts: cisco
+  gather_facts: false
+
+  tasks:
+
+    - name: Use SNMP resource module
+      cisco.ios.ios_snmp_server:
+        state: gathered
+      register: snmp_config
+
+    - name: Copy snmp_config to file
+      ansible.builtin.copy:
+        content: "{{ snmp_config | to_nice_yaml }}"
+        dest: "{{ playbook_dir }}/{{ inventory_hostname }}_snmp.yml"
+        mode: "644"

@@ -23,6 +23,8 @@ rtr2_type: "arista"
 rtr3_type: "juniper"
 rtr4_type: "arista"
 rhel: "rhel8"
+arista_eos_version: "4.32"
+
 # additional info needed by AWS ec2 modules
 ec2_info:
   control_type_pre_build:
@@ -80,7 +82,7 @@ ec2_info:
     ami: "{{ arista_ami | default(omit) }}"
     os: eos
     username: ec2-user
-    filter: "*CloudEOS-4.29*"
+    filter: "*CloudEOS-{{ arista_eos_version | default('4.32') }}*"
     volume:
       - device_name: /dev/xvda
         ebs:

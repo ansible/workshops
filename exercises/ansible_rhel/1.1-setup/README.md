@@ -117,7 +117,7 @@ ansible-navigator:
       - /home/student/lab_inventory/hosts
 
   execution-environment:
-    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
+    image: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8 
     enabled: true
     container-engine: podman
     pull:

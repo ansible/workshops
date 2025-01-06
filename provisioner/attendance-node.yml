@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - include_vars: ../roles/manage_ec2_instances/defaults/main/main.yml
+    - include_tasks: ../roles/manage_ec2_instances/tasks/ami_find/ami_find_attendance.yml
+
+    - name: print out the ami
+      debug:
+        var: attendance_host_ami

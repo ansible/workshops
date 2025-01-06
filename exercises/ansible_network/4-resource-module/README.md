@@ -31,18 +31,18 @@ Ansible network resource modules simplify and standardize how you manage differe
 
 Network resource modules provide a consistent experience across different network devices.  This means you will get an identical experience across multiple vendors.  For example the **VLANs** module will work identically for the following modules:
 
-* `arista.eos.vlans`
-* `cisco.ios.vlans`
-* `cisco.nxos.vlans`
-* `cisco.iosxr.vlans`
-* `junipernetworks.junos.vlans`
+* `arista.eos.eos_vlans`
+* `cisco.ios.ios_vlans`
+* `cisco.nxos.nxos_vlans`
+* `cisco.iosxr.iosxr_vlans`
+* `junipernetworks.junos.junos_vlans`
 
 Configuring [VLANs](https://en.wikipedia.org/wiki/Virtual_LAN) on network devices is an extremely common task, and mis-configurations can cause headaches and outages.  VLAN configurations also tend to be identical across multiple network switches resulting in a perfect use case for automation.
 
 This exercise will cover:
 
 * Configuring VLANs on Arista EOS
-* Building an Ansible Playbook using the [arista.eos.vlans module](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html).
+* Building an Ansible Playbook using the [arista.eos.eos_vlans module](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html).
 * Understanding the `state: merged`
 * Understanding the `state: gathered`
 
@@ -66,7 +66,7 @@ This exercise will cover:
   rtr2#show vlan
   VLAN  Name                             Status    Ports
   ----- -------------------------------- --------- -------------------------------
-  1     default                          active   
+  1     default                          active
   ```
 
 * Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
@@ -181,11 +181,11 @@ As you can see in the output above there is no VLAN configuration outside of the
   changed: [rtr2]
 
   PLAY RECAP *********************************************************************
-  rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-  rtr4                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+  rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  rtr4                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
-* Re-running the playbook will demonstrate the concept of [idempotency](https://en.wikipedia.org/wiki/Idempotence)
+* Re-running the playbook will demonstrate the concept of <a target="_blank" href="https://en.wikipedia.org/wiki/Idempotence">idempotency</a>
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
@@ -197,7 +197,7 @@ As you can see in the output above there is no VLAN configuration outside of the
   ok: [rtr4]
 
   PLAY RECAP *********************************************************************
-  rtr2                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+  rtr2                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   rtr4                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
@@ -221,11 +221,11 @@ As you can see in the output above there is no VLAN configuration outside of the
   rtr2#show vlan
   VLAN  Name                             Status    Ports
   ----- -------------------------------- --------- -------------------------------
-  1     default                          active   
-  20    desktops                         active   
-  30    servers                          active   
-  40    printers                         active   
-  50    DMZ                              active  
+  1     default                          active
+  20    desktops                         active
+  30    servers                          active
+  40    printers                         active
+  50    DMZ                              active
   ```
 
 * Use the `show run | s vlan` to examine the VLAN running-confgiuration on the Arista device:
@@ -275,7 +275,7 @@ As you can see, the resource module configured the Arista EOS network device wit
 
 * The first task is identical except the `state: merged` has been switched to `gathered`, the `config` is no longer needed since we are reading in the configuration (verus applying it to the network device), and we are using the `register` to save the output from the module into a variable named `vlan_config`
 
-* The second task is copying the `vlan_config` variable to a flat-file.  The double currly brackets denotes that this is a variable.  
+* The second task is copying the `vlan_config` variable to a flat-file.  The double currly brackets denotes that this is a variable.
 
 *  The `| to_nice_yaml` is a [filter](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), that will transform the JSON output (default) to YAML.
 
@@ -305,8 +305,8 @@ As you can see, the resource module configured the Arista EOS network device wit
   changed: [rtr4]
 
   PLAY RECAP *********************************************************************
-  rtr2                       : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-  rtr4                       : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+  rtr2                       : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  rtr4                       : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
 ### Step 8 - Examine the files
@@ -322,9 +322,9 @@ As you can see, the resource module configured the Arista EOS network device wit
 ## Takeaways
 
 * Resource modules have a simple data structure that can be transformed to the network device syntax.  In this case the VLAN dictionary is transformed into the Arista EOS network device syntax.
-* Resource modules are Idempotent, and can be configured to check device state.
-* Resource Modules are bi-directional, meaning that they can gather facts for that specific resource, as well as apply configuration.  Even if you are not using resource modules to configure network devices, there is a lot of value for checking resource states.  
-* The bi-directional behavior also allows brown-field networks (existing networks) to quickly turn their running-configuration into structured data.  This allows network engineers to get automation up running more quickly and get quick automation victories.
+* Resource modules are **Idempotent**, and can be configured to check device state.
+* Resource Modules are bi-directional, meaning that they can gather facts for that specific resource, as well as apply configuration.  Even if you are not using resource modules to configure network devices, there is a lot of value for checking resource states.
+* The bi-directional behavior also allows **brown-field networks** (existing networks) to quickly turn their running-configuration into structured data.  This allows network engineers to get automation up running more quickly and get quick automation victories.
 
 ## Solution
 

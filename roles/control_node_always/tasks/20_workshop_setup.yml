@@ -50,8 +50,16 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     local_follow: true
-    mode: '0644'
+    mode: '0755'
   ignore_errors: true  # Required for testing local development
+
+- name: Ensure correct ownership and permissions
+  ansible.builtin.file:
+    path: '{{ "/home/" + username + "/" + exercise_dest_location | default(workshop_type + "-workshop") }}'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: true
+    mode: '0755'
 
 - name: Create lab inventory directory
   ansible.builtin.file:

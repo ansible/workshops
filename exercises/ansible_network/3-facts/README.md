@@ -63,11 +63,11 @@ The documentation for the `debug` module is now displayed in you interactive ter
 
 When referring to a non-built in module, there is three important fields:
 
-```
+```bash
 namespace.collection.module
 ```
 For example:
-```
+```bash
 cisco.ios.facts
 ```
 

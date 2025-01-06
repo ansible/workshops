@@ -148,7 +148,7 @@ Credentials are utilized by Automation controller for authentication when launch
   </li>
   <li>
     Although this workshop already set up the inventory, importing an existing Ansible Automation inventory is easy.
-    Check out <a target="_new" href="https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower">this blog post</a>
+    Check out <a target="_blank" href="https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower">this blog post</a>
     for more ways to easily get an existing inventory into Ansible Automation Platform.
   </li>
   <li>

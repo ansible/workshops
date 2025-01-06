@@ -147,11 +147,6 @@ Credentials are utilized by Automation controller for authentication when launch
     This inventory is identical to what users would use with the command line only Ansible project.
   </li>
   <li>
-    Although this workshop already set up the inventory, importing an existing Ansible Automation inventory is easy.
-    Check out <a target="_blank" href="https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower">this blog post</a>
-    for more ways to easily get an existing inventory into Ansible Automation Platform.
-  </li>
-  <li>
     <strong>Ansible Automation Platform</strong> can sync to existing SCM (source control management) including GitHub.
   </li>
   <li>

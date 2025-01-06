@@ -4,14 +4,16 @@
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-   * [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
-   * [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
-   * [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
-   * [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
-* [Takeaways](#takeaways)
-* [Complete](#complete)
+- [Exercise 5: Explore Automation controller](#exercise-5-explore-automation-controller)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1: Login to Automation controller](#step-1-login-to-automation-controller)
+    - [Step 2: Examine the Automation controller Inventory](#step-2-examine-the-automation-controller-inventory)
+    - [Step 3: Examine the Automation controller Workshop Project](#step-3-examine-the-automation-controller-workshop-project)
+    - [Step 4: Examine the Automation controller Workshop Credential](#step-4-examine-the-automation-controller-workshop-credential)
+  - [Takeaways](#takeaways)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -57,9 +59,9 @@ An inventory is required for Automation controller to be able to run jobs.  An i
 
 > Note:
 >
-> More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/inventories.html)
+> More info on Inventories in respect to Automation controller can be found in the [documentation here](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/automation_controller_user_guide/controller-inventories)
 
-1. Click on the **Inventories** button under **RESOURCES** on the left menu bar.
+1. Click on **Infrastructure** link under **Automation Execution** on the left menu bar, then click the **Inventories** link.
 
     ![Inventories Button](images/automation_controller_inventories.png)
 
@@ -67,7 +69,7 @@ An inventory is required for Automation controller to be able to run jobs.  An i
 
     ![Workshop Inventory Link](images/automation_controller_workshop_inventory.png)
 
-3. Under the `Workshop Inventory` click the **Hosts** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.  
+3. Under the `Workshop Inventory` click the **Hosts** button at the top.  There will be four hosts here, rtr1 through rtr4 as well as the ansible control node.
 
    ![automation controller workshop inventory hosts](images/workshop_inventory_hosts.png)
 
@@ -93,13 +95,13 @@ A project is how Ansible Playbooks are imported into Automation controller.  You
 
 > Note:
 >
-> For more information on Projects in Automation controller, please [refer to the documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html)
+> For more information on Projects in Automation controller, please [refer to the documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/controller-projects)
 
-1. Click on the **Projects** button under **RESOURCES** on the left menu bar.
+1. Click on the **Projects** link under **Automation Execution** on the left menu bar.
 
    ![Workshop Project Link](images/automation_controller_projects.png)
 
-2. Under **PROJECTS** there will be a `Workshop Project`.  
+2. Under **PROJECTS** there will be a `Workshop Project`.
 
     ![Workshop Project Link](images/workshop_project.png)
 
@@ -109,9 +111,9 @@ A project is how Ansible Playbooks are imported into Automation controller.  You
 
   ![Workshop Project Detail](images/workshop_project_detail.png)
 
-    Note that Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkit
-)
-
+  > Note:
+  >
+  > Source Control URL is set to [https://github.com/network-automation/toolkit](https://github.com/network-automation/toolkitcredentials.html).
 
 ### Step 4: Examine the Automation controller Workshop Credential
 
@@ -119,9 +121,9 @@ Credentials are utilized by Automation controller for authentication when launch
 
 > Note:
 >
-> For more information on Credentials in Automation controller please [refer to the documentation](https://docs.ansible.com/automation-controller/4.0.0/html/userguide/credentials.html).
+> For more information on Credentials in Automation controller please [refer to the documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/automation_controller_user_guide/controller-credentials).
 
-1. Click on the **Credentials** button under **Resources** on the left menu bar.
+1. Click on the **Infrastructure** link under **Automation Execution** on the left menu bar, then click on the **Credentials** link
 
     ![credentials link](images/automation_controller_credentials.png)
 
@@ -131,19 +133,33 @@ Credentials are utilized by Automation controller for authentication when launch
 
 3. Under the `Workshop Credential` examine the following:
 
-* The **CREDENTIAL TYPE** is a **Machine** credential.
-* The **USERNAME** is set to `ec2-user`.
-* The **PASSWORD** is blank.
-* The **SSH PRIVATE KEY** is already configured, and is **ENCRYPTED**.
-  
+* The **Credential type** is a **Machine** credential.
+* The **Username** is set to `ec2-user`.
+* The **SSH Private Key** is already configured, and is **Encrypted**.
+
 {% include mesh.md %}
 
 ## Takeaways
 
-* Automation controller needs an inventory to execute Ansible Playbooks again.  This inventory is identical to what users would use with the command line only Ansible project.
-* Although this workshop already setup the inventory, importing an existing Ansible Automation inventory is easy.  Check out [this blog post](https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower) for more ways to easily get an existing inventory into Automation controller.
-* Automation controller can sync to existing SCM (source control management) including Github.
-* Automation controller can store and encrypt credentials including SSH private keys and plain-text passwords.  Automation controller can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp
+<ul>
+  <li>
+    <strong>Ansible Automation Platform</strong> needs an <strong>inventory</strong> to execute Ansible Playbooks against.
+    This inventory is identical to what users would use with the command line only Ansible project.
+  </li>
+  <li>
+    Although this workshop already set up the inventory, importing an existing Ansible Automation inventory is easy.
+    Check out <a target="_new" href="https://www.ansible.com/blog/three-quick-ways-to-move-your-ansible-inventory-into-red-hat-ansible-tower">this blog post</a>
+    for more ways to easily get an existing inventory into Ansible Automation Platform.
+  </li>
+  <li>
+    <strong>Ansible Automation Platform</strong> can sync to existing SCM (source control management) including GitHub.
+  </li>
+  <li>
+    <strong>Ansible Automation Platform</strong> can store and encrypt credentials including SSH private keys and plain-text passwords.
+    <strong>Ansible Automation Platform</strong> can also sync to existing credential storage systems such as CyberArk and Vault by HashiCorp.
+  </li>
+</ul>
+
 
 ## Complete
 

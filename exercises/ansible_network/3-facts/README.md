@@ -86,7 +86,7 @@ We will be using the facts module in our playbook.
 
 ### Step 2 - Creating the play
 
-Ansible Playbooks are [**YAML** files](https://yaml.org/). YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
+Ansible Playbooks are <a target="_blank" href="https://yaml.org/">**YAML** files</a>. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
 
 Create a new file in Visual Studio code:
 ![vscode new file](images/vscode_new_file.png)

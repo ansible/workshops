@@ -73,7 +73,7 @@ To run an Ansible Playbook in Automation controller we need to create a **Job Te
 
     ![rocket button](images/controller_rocket.png)
 
-    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Automation controller jobs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/automation_controller_user_guide/controller-jobs) can be found in the documentation.
+    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about <a target="_blank" href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/automation_controller_user_guide/controller-jobs">Automation controller jobs</a> can be found in the documentation.
 
 ### Step 3: Examine the Job
 

@@ -1,21 +1,24 @@
-# Exercise 6: Creating an Automation controller Job Template
+# Exercise 6: Creating an Ansible Automation Platform Job Template
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
 
 ## Table of Contents
 
-* [Objective](#objective)
-* [Guide](#guide)
-  * [Step 1: Create a Job Template](#step-1-create-a-job-template)
-  * [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
-  * [Step 3: Examine the Job Details View](#step-3-examine-the-job-details-view)
-  * [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
-  * [Step 5: Verify the backups were created](#step-5-verify-the-backups-were-created)
-* [Takeaways](#takeaways)
+- [Exercise 6: Creating an Ansible Automation Platform Job Template](#exercise-6-creating-an-ansible-automation-platform-job-template)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1: Create a Job Template](#step-1-create-a-job-template)
+    - [Step 2: Launch the Job Template](#step-2-launch-the-job-template)
+    - [Step 3: Examine the Job](#step-3-examine-the-job)
+    - [Step 4: Examine the Jobs window](#step-4-examine-the-jobs-window)
+    - [Step 5: Verify the backups were created](#step-5-verify-the-backups-were-created)
+  - [Takeaways](#takeaways)
+  - [Complete](#complete)
 
 ## Objective
 
-Demonstrate a network backup configuration job template with Automation controller.  This job template will save the running configuration from all four routers and store them under /backup on the control node with a timestamp.
+Demonstrate a network backup configuration job template with Ansible Automation Platform.  This job template will save the running configuration from all four routers and store them under /backup on the control node with a timestamp.
 
 To run an Ansible Playbook in Automation controller we need to create a **Job Template**.  A **Job Template** requires:
 
@@ -27,7 +30,7 @@ To run an Ansible Playbook in Automation controller we need to create a **Job Te
 
 ### Step 1: Create a Job Template
 
-* Open the web UI and click on the `Templates` link on the left menu.
+* Open the web UI and click on the `Templates` link on the left menu under the Automation Execution section.
 
    ![templates link](images/controller_templates.png)
 
@@ -37,7 +40,7 @@ To run an Ansible Playbook in Automation controller we need to create a **Job Te
 
 > Note:
 >
-> Make sure to select `job template` and not `workflow template`)
+> Make sure to select `job template` and not `workflow template`
 
 * Fill out the job template parameters as follows:
 
@@ -56,25 +59,21 @@ To run an Ansible Playbook in Automation controller we need to create a **Job Te
 
 * Add a second credential to the Job Template.
 
-   The **Controller Credential** also must be added to this particular Job Template.  This is so Automation controller can update the pool of backups the **Network-Restore** Job Template will use. Automation controller can be programmatically updated with Job Templates to add or update configurations dynamically.  Select the 2nd credential by using the drop down box to select the **Red Hat Ansible Automation Platform** credential type:
+   The **Controller Credential** also must be added to this particular Job Template.  This is so Automation controller can update the pool of backups the **Network-Restore** Job Template will use. Automation controller can be programmatically updated with Job Templates to add or update configurations dynamically.  Select the 2nd credential:
 
   ![switch credential type](images/controller_cred.png)
 
-  When you have both credential successfully added to the Job Template it will look like the following picture:
-
-  ![controller credential](images/controller_cred_multiple.png)
-
-* Scroll down and click the blue `Save` button.
+* Scroll down and click the blue `Save job template` button.
 
 ### Step 2: Launch the Job Template
 
-1. Navigate back to the `Templates` window, where all Job Templates are listed.
+1. Navigate back to the `Templates` window under Automation Execution section, where all Job Templates are listed.
 
 2. Launch the `Backup network configurations` Job Template by clicking the Rocket button.
 
     ![rocket button](images/controller_rocket.png)
 
-    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Automation controller jobs](https://docs.ansible.com/automation-controller/latest/html/userguide/jobs.html) can be found in the documentation.
+    When the rocket button is clicked this will launch the job.  The job will open in a new window called the **Job Details View**.  More info about [Automation controller jobs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/automation_controller_user_guide/controller-jobs) can be found in the documentation.
 
 ### Step 3: Examine the Job
 

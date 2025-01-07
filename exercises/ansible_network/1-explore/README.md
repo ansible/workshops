@@ -125,7 +125,7 @@ Selecting `2` for `Ansible version and collections` will show us all Ansible Col
 Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
 
 ```bash
-$ cat .ansible-navigator.yml
+$ cat ~/.ansible-navigator.yml
 ---
 ansible-navigator:
   ansible:

@@ -58,7 +58,7 @@ source "amazon-ebs" "automation_controller_source" {
     volume_size           = 60
     volume_type           = "gp3"
     delete_on_termination = true
-    encrypted             = true
+    encrypted             = false
   }
 
   run_tags = {

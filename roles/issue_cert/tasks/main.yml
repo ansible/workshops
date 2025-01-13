@@ -17,7 +17,7 @@
 - name: Try to issue SSL certificate
   block:
     - name: Issue SSL cert
-      ansible.builtin.shell: certbot certonly --no-bootstrap --standalone -d {{ dns_name }} --email ansible-network@redhat.com --noninteractive --agree-tos
+      ansible.builtin.shell: certbot certonly --standalone -d {{ dns_name }} --email ansible-network@redhat.com --noninteractive --agree-tos
       register: issue_cert
       until: issue_cert is not failed
       retries: 5

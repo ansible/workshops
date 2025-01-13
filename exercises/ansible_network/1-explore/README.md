@@ -125,7 +125,7 @@ Selecting `2` for `Ansible version and collections` will show us all Ansible Col
 Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
 
 ```bash
-$ cat .ansible-navigator.yml 
+$ cat ~/.ansible-navigator.yml
 ---
 ansible-navigator:
   ansible:
@@ -272,11 +272,14 @@ For example:
 ```
 $ ssh rtr1
 Warning: Permanently added 'rtr1,35.175.115.246' (RSA) to the list of known hosts.
+```
 
+and use the show version to look at the Cisco IOS version:
 
-
+```
 rtr1#show ver
-Cisco IOS XE Software, Version 16.09.02
+Cisco IOS XE Software, Version 17.14.01a
+Cisco IOS Software [IOSXE], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.14.1a, RELEASE SOFTWARE (fc1)
 ```
 
 >**Note**
@@ -285,7 +288,7 @@ Cisco IOS XE Software, Version 16.09.02
 
 ## Complete
 
-You have completed lab exercise 1!  
+You have completed lab exercise 1!
 
 You now understand:
 

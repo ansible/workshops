@@ -432,3 +432,17 @@ a h3:hover {
 #website_explanation {
   display: none;
 }
+
+code {
+  background-color: #000000;
+  padding: 3px;
+  color: #ffffff;
+}
+
+code.language-yaml {
+  padding: 0;
+}
+
+code.language-bash {
+  padding: 0;
+}

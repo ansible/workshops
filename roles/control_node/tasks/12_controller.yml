@@ -42,7 +42,7 @@
   args:
     chdir: "{{ aap_dir }}"
   # timeout: 2400
-  async: 1600
+  async: 3000
   poll: 15
 
 

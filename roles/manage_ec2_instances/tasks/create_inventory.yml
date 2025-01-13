@@ -8,7 +8,7 @@
   register: ansible_node_facts
 
 - name: add ansible node to control_nodes group
-  add_host:
+  ansible.builtin.add_host:
     name: "{{ item.tags.Name }}"
     username: "{{ student_user }}"
     student: "{{ item.tags.Student }}"
@@ -25,22 +25,22 @@
   with_items: "{{ ansible_node_facts.instances }}"
 
 - name: setup inventory
-  include_tasks: "inventory/addhost_{{workshop_type}}.yml"
+  ansible.builtin.include_tasks: "inventory/addhost_{{workshop_type}}.yml"
 
 ################### Write inventories ##################
 - name: Generate student inventories
-  template:
+  ansible.builtin.template:
     src: "student_inventory/instances_{{workshop_type}}.j2"
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-instances.txt"
   with_sequence: count="{{ student_total|int }}"
 
 - name: Generate student etchosts
-  template:
+  ansible.builtin.template:
     src: "etchosts/etchosts_{{workshop_type}}.j2"
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/student{{item}}-etchosts.txt"
   with_sequence: count="{{ student_total|int }}"
 
 - name: Generate instructor inventory
-  template:
+  ansible.builtin.template:
     src: "instructor_inventory/instructor_inventory_{{workshop_type}}.j2"
     dest: "{{ playbook_dir }}/{{ec2_name_prefix}}/instructor_inventory.txt"

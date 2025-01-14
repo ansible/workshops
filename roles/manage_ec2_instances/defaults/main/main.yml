@@ -30,7 +30,7 @@ ec2_info:
   control_type_pre_build:
     owners: 962147768365
     architecture: x86_64
-    filter: '*automation_controller_nov1_2024*'
+    filter: '*automation_controller_jan13_2024*'
     # username: ec2-user
     # size:
     #   - m5a.xlarge

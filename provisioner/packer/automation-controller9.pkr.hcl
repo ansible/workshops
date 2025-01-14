@@ -68,7 +68,7 @@ source "amazon-ebs" "automation_controller_source" {
 
   aws_polling {
     delay_seconds = 40
-    # max_attempts  = 5
+    max_attempts  = 300
   }
 
 }

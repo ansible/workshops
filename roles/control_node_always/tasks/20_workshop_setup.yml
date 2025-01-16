@@ -93,12 +93,23 @@
     dest: "/etc/ansible/ansible.cfg"
     mode: '0644'
 
+# # Pull specific EE for each workshop based on workshop name
+# - name: Pull execution environment for {{ workshop_type }}
+#   become: true
+#   become_user: "{{ username }}"
+#   containers.podman.podman_image:
+#     name: "{{ lookup('vars', workshop_type + '_ee') }}"
+#   register: podman_pull
+#   until: podman_pull is not failed
+#   retries: 5
+
 # Pull specific EE for each workshop based on workshop name
-- name: Pull execution environment for {{ workshop_type }}
-  become: true
-  become_user: "{{ username }}"
+- name: Pull the first available execution environment for {{ workshop_type }}
   containers.podman.podman_image:
-    name: "{{ lookup('vars', workshop_type + '_ee') }}"
+    name: "{{ item }}"
+  with_first_found:
+    - "{{ lookup('vars', workshop_type + '_ee') }}"
+    - "{{ lookup('vars', workshop_type + '_ee_backup') }}"
   register: podman_pull
   until: podman_pull is not failed
   retries: 5

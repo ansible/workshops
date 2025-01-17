@@ -28,7 +28,7 @@ Demonstrate the use of Automation controller [survey feature](https://docs.ansib
 
    ![templates link](images/controller_templates.png)
 
-2. Click on the blue `Add` button and select **Add job template** to create a new job template (make sure to select `Job Template` and not `Workflow Template`)
+2. Click on the blue `Create template` button and select **Create job template** to create a new job template (make sure to select `Job Template` and not `Workflow Template`)
 
    | Parameter | Value |
    |---|---|
@@ -40,7 +40,7 @@ Demonstrate the use of Automation controller [survey feature](https://docs.ansib
    |  Playbook |  `playbooks/network_banner.yml` |
    |  Credential |  Workshop Credential |
 
-3. Scroll down and click the blue `Save` button.
+3. Scroll down and click the blue `Create job template` button.
 
 ### Step 2: Examine the playbook
 
@@ -114,7 +114,7 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    ![add survey button](images/controller_job_survey.png)
 
-2. Click the blue **Add** button
+2. Click the blue **Create survey question** button
 
    ![add survey button](images/controller_add_survey.png)
 
@@ -134,7 +134,7 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
 4. Click `Save`
 
-5. Click the blue `Add` button back in the **Survey** tab to create another question
+5. Click the blue `Create survey question` button back in the **Survey** tab to create another question
 
    ![add survey button](images/controller_add_survey.png)
 

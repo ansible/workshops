@@ -4,20 +4,20 @@
 
 ## Table of Contents
 
-  * [Objective](#objective)
-  * [Guide](#guide)
-    * [Step 1: Opening up Organizations](#step-1-opening-up-organizations)
-    * [Step 2: Open the network organization](#step-2-open-the-network-organization)
-    * [Step 3: Examine Teams](#step-3-examine-teams)
-    * [Step 4: Examine the Netops Team](#step-4-examine-the-netops-team)
-    * [Step 5: Login as network-admin](#step-5-login-as-network-admin)
-    * [Step 6: Understand Team Roles](#step-6-understand-team-roles)
-    * [Step 7: Job Template Permissions](#step-7-job-template-permissions)
-    * [Step 8: Login as network-operator](#step-8-login-as-network-operator)
-    * [Step 9: Launching a Job Template](#step-9-launching-a-job-template)
-    * [Bonus Step](#bonus-step)
-  * [Takeaways](#takeaways)
-  * [Complete](#complete)
+- [Exercise 8: Understanding RBAC in Automation controller](#exercise-8-understanding-rbac-in-automation-controller)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1: Opening up Organizations](#step-1-opening-up-organizations)
+    - [Step 2: Open the network organization](#step-2-open-the-network-organization)
+    - [Step 3: Add network-admin as an administrator](#step-3-add-network-admin-as-an-administrator)
+    - [Step 4: Login as network-admin](#step-4-login-as-network-admin)
+    - [Step 5: Give job template access to the network-operator user](#step-5-give-job-template-access-to-the-network-operator-user)
+    - [Step 6: Login as network-operator](#step-6-login-as-network-operator)
+    - [Step 9: Launching a Job Template](#step-9-launching-a-job-template)
+    - [Bonus Step](#bonus-step)
+  - [Takeaways](#takeaways)
+  - [Complete](#complete)
 
 ## Objective
 
@@ -47,7 +47,7 @@ Lets review some Automation controller terminology:
 
 * Under the **Access** section, click on **Organizations**
 
-  As the *admin* user, you will be able to view all organizations configured for Automation controller:
+  As the `admin` user, you will be able to view all organizations configured for Automation controller:
 
   <table>
   <thead>
@@ -60,9 +60,9 @@ Lets review some Automation controller terminology:
 * Examine the organizations
 
   There are 2 organizations (other than Default):
-
   * **Red Hat compute organization**
   * **Red Hat network organization**
+
 
    ![organizations image](images/step1-organizations.png)
 
@@ -83,63 +83,38 @@ Lets review some Automation controller terminology:
 
    ![network organization image](images/step2-network_org.png)
 
-2. Click on the **Access** tab to see users associated with this organization.
+### Step 3: Add network-admin as an administrator
 
-   <table>
-   <thead>
-    <tr>
-      <th>Observe that both the <b>network-admin</b> and <b>network-operator</b> users are associated with this organization.</th>
-    </tr>
-   </thead>
-   </table>
+1. Click on the **Administrators** tab
 
-### Step 3: Examine Teams
+   ![administrator tab](images/admin_tab.png)
 
-1. Click on **Teams** in the sidebar
+2. Click on the blue **Add administrators** button:
 
-   ![image identifying teams](images/step3_teams.png)
+   ![add admin button](images/admin_button.png)
 
-2. Examine the teams.  The Automation controller admin  will be able to see all available teams.  There are four teams:
+3. Select the **network-admin** user and then click the blue **Add administrators** button
 
-   * Compute T1
-   * Compute T2
-   * Netadmin
-   * Netops
+   ![add admin window](images/select_admin_button.png)
 
-   ![teams window image](images/step3_teams_view.png)
+### Step 4: Login as network-admin
 
-### Step 4: Examine the Netops Team
-
-* Click on the **Netops** Team and then click on the **Access** tab. Take note  to two particular users:
-
-  * network-admin
-  * network-operator
-
-  ![image showing users](images/step_4.png)
-
-* Observe the following two points:
-
-  * The **network-admin** user has administrative privileges for the **Red Hat network organization**
-  * The **network-operator** is simply a member of the Netops team. We will dive into each of these users to understand the roles
-
-### Step 5: Login as network-admin
-
-* Log out from the admin user by clicking the admin button in the top right corner of the Automation controller UI:
+1. Log out from the admin user by clicking the admin button in the top right corner of the Automation controller UI:
 
    ![logout image](images/step5_logout.png)
 
-* Login to the system with the **network-admin** user.
+2. Login to the system with the **network-admin** user.
 
   | Parameter | Value |
   |---|---|
   | username  | network-admin  |
   |  password|  provided by instructor |
 
-* Confirm that you are logged in as the **network-admin** user.
+3. Confirm that you are logged in as the **network-admin** user.
 
   ![picture of network admin](images/step5_network-admin.png)
 
-* Click on the **Organizations** link on the sidebar.
+4. Click on the **Organizations** link on the sidebar.
 
   You will notice that you only have visibility to the organization you are an admin of, the **Red Hat network organization**.
 
@@ -148,55 +123,46 @@ Lets review some Automation controller terminology:
   * Red Hat compute organization
   * Default
 
-* Bonus step: Try this as the network-operator user (same password as network-admin).
-
-   * What is the difference between network-operator and network-admin?
-   * As the network operator are you able to view other users?
-   * Are you able to add a new user or edit user credentials?
-
-### Step 6: Understand Team Roles
-
-1. To understand how different roles and therefore RBACs may be applied, log out and log back in as the **admin** user.
-
-2. Navigate to **Inventories** and click on the  **Workshop Inventory**
-
-3. Click on the **Access** button
-
-   ![workshop inventory window](images/step6_inventory.png)
-
-4. Examine the permissions assigned to each user
-
-   ![permissions window](images/step6_inventory_access.png)
-
-   <table>
-   <thead>
-     <tr>
-       <th>Note: <b>ROLES</b> assigned for the <b>network-admin</b> and <b>network-operator</b> users. By assigning the <b>Use</b> Role, the <b>network-operator</b> user has been granted permission to use this particular inventory.</th>
-     </tr>
-   </thead>
-   </table>
+> Bonus step: Try this as the network-operator user (same password as network-admin).
+>
+> What is the difference between network-operator and network-admin?
+> As the network operator are you able to view other users?
+> Are you able to add a new user or edit user credentials?
 
 
+### Step 5: Give job template access to the network-operator user
 
-### Step 7: Job Template Permissions
+As the `network-admin` we can now setup access for the `network-operator` user.
 
-1. Click on the **Templates** button in the left menu
+1. Click on Templates on the left menu
 
-2. Click on the **Network-Commands** Job Template
+   ![job templates](images/job_templates.png)
 
-3. Click on the **Access** button at the top
+2. Click on the `Network-Banner` job template.
 
-   ![permissions window](images/step7_job_template_access.png)
+   ![network banner](images/network-banner.png)
 
-   <table>
-   <thead>
-     <tr>
-       <th>Note: the same users have different roles for the job template. This highlights the granularity operators can introduce with Automation controller in controlling "Who gets access to what". In this example, the network-admin can update (<b>Admin</b>) the <b>Network-Commands</b> job template, whereas the network-operator can only <b>Execute</b> it.</th>
-     </tr>
-   </thead>
-   </table>
+3. Click on the `User Access` tab
 
-### Step 8: Login as network-operator
+   ![user access](images/user_access.png)
+
+4. Click on the blue `Add roles` button
+
+   ![add roles button](images/add_roles.png)
+
+5. Click `network-operator` then click the blue `Next` button at the bottom
+
+   ![add user window](images/add_user_window.png)
+
+6. Click on  `JobTemplate Execute` then click on the blue `Next button at the bottom
+
+   ![add role user](images/add_role_user.png)
+
+7. Review to make sure you set it up correctly, and click the blue `Finish` button at the bottom.
+
+   ![finish window](images/finish.png)
+
+### Step 6: Login as network-operator
 
 Finally, to see the RBAC in action!
 

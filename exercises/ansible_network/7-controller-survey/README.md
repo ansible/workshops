@@ -132,7 +132,7 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    ![workshop survey](images/controller_survey_q_one.png)
 
-4. Click `Save`
+4. Click `Save survey question`
 
 5. Click the blue `Create survey question` button back in the **Survey** tab to create another question
 
@@ -154,7 +154,7 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    ![workshop survey](images/controller_survey_q_two.png)
 
-7. Click `Save`
+7. Click `Save survey question`
 
 8. Ensure the toggle switch is set to `Survey Enabled`
 
@@ -178,7 +178,7 @@ In this step you will create a *"survey"* of user input form to collect input fr
 
    ![survey screen](images/controller_survey.png)
 
-5. Click the blue **Launch** button to kick off the job.
+5. Click the blue **Launch template** button to kick off the job.
 
    ![launch button](images/controller_launch.png)
 

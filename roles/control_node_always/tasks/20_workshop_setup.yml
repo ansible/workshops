@@ -78,7 +78,7 @@
     mode: '0644'
   when: username in inventory_hostname
 
-- name: Copy instructor inventory to student1
+- name: Copy instructor inventory to student
   ansible.builtin.copy:
     src: "{{ output_dir }}/instructor_inventory.txt"
     dest: /tmp/instructor-inventory
@@ -102,11 +102,25 @@
 #   register: podman_pull
 #   until: podman_pull is not failed
 #   retries: 5
+- name: Clean up libpod directories (if needed)
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /tmp/storage-run-1001/libpod/tmp
+    - /tmp/storage-run-1001/containers
+
+- name: Enable lingering for user 1001
+  become: true
+  command: "loginctl enable-linger 1001 {{ username }}"
 
 - name: Attempt to pull the primary or backup execution environment
   block:
     # Try pulling the primary execution environment
     - name: Pull primary execution environment
+      become: true
+      become_user: "{{ username }}"
       containers.podman.podman_image:
         name: "{{ lookup('vars', workshop_type + '_ee') }}"
       register: primary_podman_pull
@@ -116,8 +130,28 @@
   rescue:
     # Pull the backup execution environment if primary fails
     - name: Pull backup execution environment
+      become: true
+      become_user: "{{ username }}"
       containers.podman.podman_image:
         name: "{{ lookup('vars', workshop_type + '_ee_backup') }}"
       register: backup_podman_pull
       retries: 5
       until: backup_podman_pull is not failed
+
+    - containers.podman.podman_tag:
+        image: "{{ lookup('vars', workshop_type + '_ee_backup') }}"
+        target_names:
+          - "{{ lookup('vars', workshop_type + '_ee') }}"
+
+- name: Enable lingering for user 1001
+  become: true
+  command: "loginctl enable-linger 1001 {{ username }}"
+
+- name: Clean up libpod directories (if needed)
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /tmp/storage-run-1001/libpod/tmp
+    - /tmp/storage-run-1001/containers

@@ -63,11 +63,11 @@ The documentation for the `debug` module is now displayed in you interactive ter
 
 When referring to a non-built in module, there is three important fields:
 
-```
+```bash
 namespace.collection.module
 ```
 For example:
-```
+```bash
 cisco.ios.facts
 ```
 
@@ -86,7 +86,7 @@ We will be using the facts module in our playbook.
 
 ### Step 2 - Creating the play
 
-Ansible Playbooks are [**YAML** files](https://yaml.org/). YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
+Ansible Playbooks are <a target="_blank" href="https://yaml.org/">**YAML** files</a>. YAML is a structured encoding format that is also extremely human readable (unlike it's subset - the JSON format)
 
 Create a new file in Visual Studio code:
 ![vscode new file](images/vscode_new_file.png)

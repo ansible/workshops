@@ -14,7 +14,7 @@
     - [Step 4: Login as network-admin](#step-4-login-as-network-admin)
     - [Step 5: Give job template access to the network-operator user](#step-5-give-job-template-access-to-the-network-operator-user)
     - [Step 6: Login as network-operator](#step-6-login-as-network-operator)
-    - [Step 9: Launching a Job Template](#step-9-launching-a-job-template)
+    - [Step 7: Launching a Job Template](#step-7-launching-a-job-template)
     - [Bonus Step](#bonus-step)
   - [Takeaways](#takeaways)
   - [Complete](#complete)
@@ -45,7 +45,7 @@ Lets review some Automation controller terminology:
 
   ![admin user](images/step_1.png)
 
-* Under the **Access** section, click on **Organizations**
+* Under the **Access Management** section, click on **Organizations**
 
   As the `admin` user, you will be able to view all organizations configured for Automation controller:
 
@@ -60,19 +60,16 @@ Lets review some Automation controller terminology:
 * Examine the organizations
 
   There are 2 organizations (other than Default):
-  * **Red Hat compute organization**
-  * **Red Hat network organization**
+   1.  **Red Hat compute organization**
+   2.  **Red Hat network organization**
 
 
    ![organizations image](images/step1-organizations.png)
 
-   <table>
-   <thead>
-     <tr>
-       <th>Observe that this page gives you a summary of all the teams, users, inventories, projects and job templates associated with it. If a Organization level admin is configure you will see that as well.</th>
-     </tr>
-   </thead>
-   </table>
+> Note:
+>
+> This page gives you a summary of all the teams, users, inventories, projects and job templates associated with it.
+> If a Organization level admin is configure you will see that as well.
 
 
 ### Step 2: Open the network organization
@@ -105,28 +102,29 @@ Lets review some Automation controller terminology:
 
 2. Login to the system with the **network-admin** user.
 
-  | Parameter | Value |
-  |---|---|
-  | username  | network-admin  |
-  |  password|  provided by instructor |
+   | Parameter | Value |
+   |---|---|
+   | username  | network-admin  |
+   |  password|  provided by instructor |
 
 3. Confirm that you are logged in as the **network-admin** user.
 
-  ![picture of network admin](images/step5_network-admin.png)
+   ![picture of network admin](images/step5_network-admin.png)
 
-4. Click on the **Organizations** link on the sidebar.
+4. Click on the **Organizations** link on the sidebar under the `Access Management` section.
 
   You will notice that you only have visibility to the organization you are an admin of, the **Red Hat network organization**.
 
   The following two Organizations are not seen anymore:
 
-  * Red Hat compute organization
-  * Default
+  * `Red Hat compute organization`
+  * `Default`
 
-> Bonus step: Try this as the network-operator user (same password as network-admin).
+> Bonus step:
 >
-> What is the difference between network-operator and network-admin?
-> As the network operator are you able to view other users?
+> Try this as the network-operator user (same password as network-admin).
+> What is the difference between `network-operator` and `network-admin`?
+> As the `network-operator` are you able to view other users?
 > Are you able to add a new user or edit user credentials?
 
 
@@ -138,9 +136,9 @@ As the `network-admin` we can now setup access for the `network-operator` user.
 
    ![job templates](images/job_templates.png)
 
-2. Click on the `Network-Banner` job template.
+2. Click on the `Network-Commands` job template.
 
-   ![network banner](images/network-banner.png)
+   ![network banner](images/network-commands.png)
 
 3. Click on the `User Access` tab
 
@@ -162,6 +160,10 @@ As the `network-admin` we can now setup access for the `network-operator` user.
 
    ![finish window](images/finish.png)
 
+8. Click the `Close` button after the role is applied
+
+   ![close window](images/close_window.png)
+
 ### Step 6: Login as network-operator
 
 Finally, to see the RBAC in action!
@@ -173,19 +175,15 @@ Finally, to see the RBAC in action!
    | username  | `network-operator`  |
    |  password|  provided by instructor |
 
-2. Navigate to **Templates** and click on the **Network-Commands** Job Template.
+2. Navigate to **Templates** under the Automation Execution section, and click on the **Network-Commands** Job Template.
 
    ![network commands job template](images/step8_operator.png)
 
-   <table>
-   <thead>
-     <tr>
-       <th>Note that, as the <b>network-operator</b> user, you will have no ability to change any of the fields.  The <b>Edit</b> button is no longer available.</th>
-     </tr>
-   </thead>
-   </table>
+> Note:
+>
+> >Note that, as the `network-operator` user, you will have no ability to change any of the fields.  The **Edit** button is no longer available
 
-### Step 9: Launching a Job Template
+### Step 7: Launching a Job Template
 
 1. Launch the **Network-Commands** template by clicking on the **Launch** button:
 
@@ -201,9 +199,18 @@ If time permits, log back in as the network-admin and add another show command y
 
 ## Takeaways
 
-* Using Automation controller's powerful RBAC feature, you can see it is easy to restrict access to operators to run prescribed commands on production systems without requiring them to have access to the systems themselves.
-* Automation controller can support multiple Organizations, multiple Teams and users.  Users can even belong to multiple Teams and Organizations if needed.  Something not covered in this exercise is that we do not need to manage users in Automation controller, we can use [enterprise authentication](https://docs.ansible.com/automation-controller/latest/html/administration/ent_auth.html) including Active Directory, LDAP, RADIUS, SAML and TACACS+.
-* If there needs to be an exception (a user needs access but not his entire team) this is also possible.  The granularity of RBAC can be down to the credential, inventory or Job Template for an individual user.
+<ul>
+  <li>
+    Using Ansible Automation Platform's powerful <strong>RBAC</strong> feature, you can see it is easy to restrict access to operators to run prescribed commands on production systems without requiring them to have access to the systems themselves.
+  </li>
+  <li>
+    Ansible Automation Platform can support multiple <code>Organizations</code>, multiple <code>Teams</code>, and <code>Users</code>. Something not covered in this exercise is that we do not need to manage users in Ansible Automation Platform; we can use <a target="_blank" href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html-single/access_management_and_authentication/index#gw-config-authentication-type" target="_blank">enterprise authentication</a> including Active Directory, LDAP, RADIUS, SAML, and TACACS+.
+  </li>
+  <li>
+    If there needs to be an exception (a user needs access but not their entire team), this is also possible. The granularity of RBAC can be down to the credential, inventory, or Job Template for an individual user.
+  </li>
+</ul>
+
 
 ## Complete
 

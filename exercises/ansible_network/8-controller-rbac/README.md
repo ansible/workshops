@@ -13,8 +13,9 @@
     - [Step 3: Add network-admin as an administrator](#step-3-add-network-admin-as-an-administrator)
     - [Step 4: Login as network-admin](#step-4-login-as-network-admin)
     - [Step 5: Give job template access to the network-operator user](#step-5-give-job-template-access-to-the-network-operator-user)
-    - [Step 6: Login as network-operator](#step-6-login-as-network-operator)
-    - [Step 7: Launching a Job Template](#step-7-launching-a-job-template)
+    - [Step 6: Verify the Network-Commands job template](#step-6-verify-the-network-commands-job-template)
+    - [Step 7: Login as network-operator](#step-7-login-as-network-operator)
+    - [Step 8: Launching a Job Template](#step-8-launching-a-job-template)
     - [Bonus Step](#bonus-step)
   - [Takeaways](#takeaways)
   - [Complete](#complete)
@@ -138,7 +139,7 @@ As the `network-admin` we can now setup access for the `network-operator` user.
 
 2. Click on the `Network-Commands` job template.
 
-   ![network banner](images/network-commands.png)
+   ![network banner](images/network_commands.png)
 
 3. Click on the `User Access` tab
 
@@ -164,7 +165,23 @@ As the `network-admin` we can now setup access for the `network-operator` user.
 
    ![close window](images/close_window.png)
 
-### Step 6: Login as network-operator
+### Step 6: Verify the Network-Commands job template
+
+1. Navigate back to the `Network-Commands` Job Template
+
+   ![network commands job template](images/network-commands-job-template.png)
+
+2. Verify the Survey is enabled
+
+  ![verify survey](images/survey-enabled.png)
+
+3. Verify the Survey questions
+
+   ![verify survey questions](images/verify-survey.png)
+
+4. Click on the blue `Save survey question`
+
+### Step 7: Login as network-operator
 
 Finally, to see the RBAC in action!
 
@@ -181,9 +198,9 @@ Finally, to see the RBAC in action!
 
 > Note:
 >
-> >Note that, as the `network-operator` user, you will have no ability to change any of the fields.  The **Edit** button is no longer available
+> The `network-operator` user, you will have no ability to change any of the fields.  The **Edit** button is no longer available
 
-### Step 7: Launching a Job Template
+### Step 8: Launching a Job Template
 
 1. Launch the **Network-Commands** template by clicking on the **Launch** button:
 

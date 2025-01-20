@@ -208,6 +208,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
    </table>
 
    Your forum should  look similar to the following image:
+
     ![restore image](images/fill_out_restore.png)
 
 3. Click the blue **Next** button for the Survey step, then choose a rollback date (Note: there may only be one choice if you only ran the backup one time)
@@ -215,6 +216,7 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 4. Click the blue **Next** button again, then review and click the **Finish** button.
 
    Your workflow should now look similar to the following image:
+
     ![configure restore node](images/step5_final.png)
 
 ### Step 6: Create a converged link

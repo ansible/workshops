@@ -92,6 +92,10 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
    <table>
    <tr>
+   <th>Parameter</th>
+   <th>Value</th>
+   </tr>
+   <tr>
    <td>Node Type</td>
    <td>Job Template</td>
    </tr>
@@ -115,17 +119,17 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
    ![add second node](images/step3_add_node.png)
 
-    > Note:
-    >
-    > Workflows can be configured to run automation jobs when the previous node succeeds, fails, or have it always run no matter what the previous job did.  This allows workflows to fix issues or revert the state of a device.
+> Note:
+>
+> Workflows can be configured to run automation jobs when the previous node succeeds, fails, or have it always run no matter what the previous job did.  This allows workflows to fix issues or revert the state of a device.
 
-3. Click the blue **Next** button and fill out the survey field
+1. Click the blue **Next** button and fill out the survey field
 
    ![add network banner job template](images/step3_add_network_banner.png)
 
-4. Click the blue **Next** button again, review, and then click the blue **Finish** button.
+2. Click the blue **Next** button again, review, and then click the blue **Finish** button.
 
-5. A green line should exist between `Backup network configurations` and `Network-Banner`
+3. A green line should exist between `Backup network configurations` and `Network-Banner`
 
    ![banner node](images/step3_final.png)
 
@@ -136,6 +140,10 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 2. Fill out the following values:
 
    <table>
+   <tr>
+   <th>Parameter</th>
+   <th>Value</th>
+   </tr>
    <tr>
    <td>Node Type</td>
    <td>Job Template</td>
@@ -200,11 +208,11 @@ For this exercise we will create a time-stamped backup, if the backup job succes
    </table>
 
    Your forum should  look similar to the following image:
-   ![restore image](images/fill_out_restore.png)
+    ![restore image](images/fill_out_restore.png)
 
 3. Click the blue **Next** button for the Survey step, then choose a rollback date (Note: there may only be one choice if you only ran the backup one time)
 
-4. Click the blue **Next** button again, then review and click **Finish**
+4. Click the blue **Next** button again, then review and click the **Finish** button.
 
    Your workflow should now look similar to the following image:
     ![configure restore node](images/step5_final.png)

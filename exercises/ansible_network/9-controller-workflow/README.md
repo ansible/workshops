@@ -186,6 +186,10 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
    <table>
    <tr>
+   <th>Parameter</th>
+   <th>Value</th>
+   </tr>
+   <tr>
    <td>Node Type</td>
    <td>Job Template</td>
    </tr>

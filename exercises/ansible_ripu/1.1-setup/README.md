@@ -90,11 +90,7 @@ We will use the RHEL Web Console to review the results of the Leapp pre-upgrade 
 
   ![Example link to RHEL Web Console](images/cockpit_link.png)
 
-- Enter the username `student` and the password provided. This will bring you to a RHEL Web Console Overview page like the example below.
-
-> **Note**
->
-> If you face problems when logging in to the RHEL Web Console using Firefox, try anonymous browsing, or use a different browser.
+- Enter the username `student` and the password provided. This will bring you to a RHEL Web Console Overview page like the example below:
 
   ![Example RHEL Web Console](images/cockpit_example.svg)
 

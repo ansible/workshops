@@ -5,21 +5,21 @@ Automated Satellite Workshop: Configuring and performing an OpenSCAP Scan
 <br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-In this exercise, we will learn how to configure and perform an OpenSCAP scan using playbooks in Ansible Automation Platform 2 with Satellite.
+In this exercise, we will learn how to configure and perform an OpenSCAP scan using playbooks in Ansible Automation Platform with Satellite.
 
-When running multiple Red Hat Enterprise Linux systems, it's important to keep all of these systems compliant with a meaningful security policy and perform security scans often.
+When running multiple Red Hat Enterprise Linux systems, it's important to keep all of these systems compliant with a meaningful security policy and performing security scans often.
 OpenSCAP is an open source project that defines the language used to express compliance checklists in human and machine readable form (XML). 
 Government agencies, corporations, and e-commerce organizations, for example, provide their compliance checklists using OpenSCAP.
 The OpenSCAP project also develops tools for automated compliance checking.
-Red Hat Satellite is configured with openscap integration enabled by default. 
-This installs openscap ansible modules, roles, and related tools. Satellite is also loaded with the SCAP security guide (SSG)(scap-seruity-guide.noarch). 
-The SSG contains the checklist files for multiple standards, for multiple operating systems and releases. 
-These checklists allow for scanning systems to evaluate benchmarks for like CIS, PCI, HIPPA, Justice and DISA-STIG compliance. 
+Red Hat Satellite is configured with OpenSCAP integration enabled by default. 
+This installs OpenSCAP ansible modules, roles, and related tools. Satellite is also loaded with the SCAP security guide (SSG)(scap-seruity-guide.noarch). 
+The SSG contains the checklist files for multiple standards, multiple operating systems and releases. 
+These checklists allow for scanning systems to evaluate benchmarks such as CIS, PCI, HIPPA, Justice and DISA-STIG compliance. 
 
 The SCAP packages are available with every install of RHEL. 
-You can also install the RPM package for the SCAP workbench (e.g. scap-workbench.x86_64) which provides the ability to load and examine the checklists in a user friendly GUI. 
+You can also install the RPM package for the SCAP workbench (e.g. scap-workbench.x86_64) which provides the ability to load and examine the checklists in a user-friendly GUI. 
 You can create a tailoring file for any of the included profiles that allows you to turn on or turn off specific checks to meet the your organization's unique requirements. You can launch and test scans based on your profiles using the tool. 
-Your tailoring files and the profile can be loaded into Satellite and assigned to groups of systems customize scanning and reporting. Satellite produces reports to meet audit specifications.
+Your tailoring files and the profile can be loaded into Satellite and assigned to groups of systems for custom scanning and reporting. Satellite produces reports to meet audit specifications.
 
 This exercise will focus on standard profiles for PCI and DISA STIG for RHEL systems. Tailoring and other operating systems will be out of scope.
 
@@ -55,7 +55,9 @@ Exercise
 
 Now we will start configuring a compliance policy that we can use to scan our RHEL nodes.
 
--   In Satellite hover over 'Hosts' from the menu pane on the left side, and then click on 'Policies'
+-   In the Satellite UI, click on the 'Hosts' dropdown menu pane on the left, then click on the 'Compliance' dropdown, followed by clicking on 'Policies'
+
+![satellite_policy](images/1-compliance-aap2-Satellite_Policies.png)
 
 -   Click on the "New Policy" button, and fill out the details as in step 3 below.
 
@@ -271,4 +273,4 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 #### 9\. End of Exercise
 
 -   You have finished Exercise 1.
--   Continue to [Exercise 2: Patch Management / OS](../2-patching/README.md), OR [Return to the main workshop page](../README.md)
+-   Continue to [Exercise 2: Patch Management / OS](../2-patching/README.md), or [Return to the main workshop page](../README.md)
